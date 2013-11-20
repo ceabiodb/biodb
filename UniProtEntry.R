@@ -1,6 +1,6 @@
 library(XML)
 
-UniProtEntry <- setRefClass("UniProEntry", fields = list(xml = "XMLInternalDocument", ns = "character"))
+UniProtEntry <- setRefClass("UniProtEntry", fields = list(xml = "XMLInternalDocument", ns = "character"))
 
 ###############
 # CONSTRUCTOR #

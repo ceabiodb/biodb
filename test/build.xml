@@ -1,7 +1,15 @@
 <project name="fr.cea.r-biodb.test" default="all">
 
 	<!-- ALL -->
-	<target name="all">
+	<target name="all" depends="uniprot,ncbi"/>
+
+	<!-- NCBI -->
+	<target name="ncbi">
+		<exec executable="./test-ncbi.R" failonerror="true"/>
+	</target>
+
+	<!-- UNIPROT -->
+	<target name="uniprot">
 		<exec executable="./test-uniprot.R" failonerror="true"/>
 	</target>
 
