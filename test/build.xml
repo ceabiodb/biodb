@@ -1,0 +1,11 @@
+<project name="fr.cea.r-biodb.test" default="all">
+
+	<!-- ALL -->
+	<target name="all">
+		<exec executable="./test-uniprot.R" failonerror="true"/>
+	</target>
+
+	<!-- CLEAN -->
+	<target name="clean"/>
+
+</project>

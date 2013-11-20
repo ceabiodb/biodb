@@ -1,0 +1,16 @@
+<project name="fr.cea.r-biodb" default="all">
+
+	<!-- ALL -->
+	<target name="all"/>
+
+	<!-- TEST -->
+	<target name="test">
+		<ant dir="test" inheritAll="false"/>
+	</target>
+
+	<!-- CLEAN -->
+	<target name="clean">
+		<ant dir="test" target="clean" inheritAll="false"/>
+	</target>
+
+</project>
