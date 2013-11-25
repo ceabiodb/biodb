@@ -7,8 +7,14 @@ conn <- NcbiConn$new(useragent = "fr.cea.test-ncbi ; pierrick.rogermele@cea.fr")
 
 # Get real entry
 entry <- conn$getGeneEntry(9606)
+checkTrue( ! is.null(entry))
 checkEquals(entry$getId(), 9606)
 
 # Try to get an non-existing entry
 entry <- conn$getGeneEntry(2139485387547754)
 checkTrue(is.null(entry))
+
+# Get another entry
+entry <- conn$getGeneEntry(7273)
+checkTrue( ! is.null(entry))
+checkEquals(entry$getId(), 7273)
