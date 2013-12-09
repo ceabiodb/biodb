@@ -5,16 +5,18 @@ source('../NcbiConn.R', chdir = TRUE)
 # Open connexion
 conn <- NcbiConn$new(useragent = "fr.cea.test-ncbi ; pierrick.rogermele@cea.fr")
 
-# Get real entry
-entry <- conn$getGeneEntry(9606)
+# Get a real entry
+id <- 9606
+entry <- conn$getGeneEntry(id)
 checkTrue( ! is.null(entry))
-checkEquals(entry$getId(), 9606)
+checkEquals(entry$getId(), id)
 
 # Try to get an non-existing entry
 entry <- conn$getGeneEntry(2139485387547754)
 checkTrue(is.null(entry))
 
 # Get another entry
-entry <- conn$getGeneEntry(7273)
+id <- 7273
+entry <- conn$getGeneEntry(id)
 checkTrue( ! is.null(entry))
-checkEquals(entry$getId(), 7273)
+checkEquals(entry$getId(), id)
