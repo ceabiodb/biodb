@@ -16,7 +16,15 @@ entry <- conn$getGeneEntry(2139485387547754)
 checkTrue(is.null(entry))
 
 # Get another entry
-id <- 7273
+#id <- 7273
+#entry <- conn$getGeneEntry(id)
+#checkTrue( ! is.null(entry))
+#checkEquals(entry$getId(), id)
+
+# Get another entry
+id <- 3627
 entry <- conn$getGeneEntry(id)
 checkTrue( ! is.null(entry))
 checkEquals(entry$getId(), id)
+checkEquals(entry$getSymbol(), 'CXCL10')
+entry$save('3627.xml')

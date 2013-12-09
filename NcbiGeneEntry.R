@@ -33,3 +33,23 @@ NcbiGeneEntry$methods(
 		return(length(getNodeSet(xml, "//Error")) != 0)
 	}
 )
+
+########
+# SAVE #
+########
+
+NcbiGeneEntry$methods(
+	save = function(file) {
+		saveXML(xml, file)
+	}
+)
+
+##########
+# SYMBOL #
+##########
+
+NcbiGeneEntry$methods(
+	getSymbol = function() {
+		return(xpathSApply(xml, "//Gene-ref_locus", xmlValue))
+	}
+)
