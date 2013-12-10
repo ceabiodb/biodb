@@ -1,8 +1,16 @@
 library(RCurl)
 source('NcbiGeneEntry.R')
 
+#####################
+# CLASS DECLARATION #
+#####################
+
 NcbiConn <- setRefClass("NcbiConn",
 						fields = list(useragent = "character"))
+
+##################
+# GET GENE ENTRY #
+##################
 
 NcbiConn$methods(
 	getGeneEntry = function(id) {

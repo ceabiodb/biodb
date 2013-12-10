@@ -1,18 +1,11 @@
 library(XML)
+source('XmlEntry.R', chdir = TRUE)
 
-NcbiGeneEntry <- setRefClass("NcbiGeneEntry", fields = list(xml = "XMLInternalDocument"))
+#####################
+# CLASS DECLARATION #
+#####################
 
-###############
-# CONSTRUCTOR #
-###############
-
-NcbiGeneEntry$methods(
-	initialize = function(xmlstr, ...) {
-		# The XML is passed as string, and parsed now. 'asText' means that first argument is a string containing the XML.
-		xml <<- xmlInternalTreeParse(xmlstr, asText = TRUE)
-		callSuper(...) # calls super-class initializer with remaining parameters
-	}
-)
+NcbiGeneEntry <- setRefClass("NcbiGeneEntry", contains = "XmlEntry")
 
 ######
 # ID #
@@ -20,7 +13,7 @@ NcbiGeneEntry$methods(
 
 NcbiGeneEntry$methods(
 	getId = function() {
-		return(as.numeric(xpathSApply(xml, "//Gene-track_geneid", xmlValue)))
+		return(as.numeric(.self$getXmlTagContent("//Gene-track_geneid")))
 	}
 )
 
@@ -34,22 +27,12 @@ NcbiGeneEntry$methods(
 	}
 )
 
-########
-# SAVE #
-########
-
-NcbiGeneEntry$methods(
-	save = function(file) {
-		saveXML(xml, file)
-	}
-)
-
 ##########
 # SYMBOL #
 ##########
 
 NcbiGeneEntry$methods(
 	getSymbol = function() {
-		return(xpathSApply(xml, "//Gene-ref_locus", xmlValue))
+		return(.self$getXmlTagContent("//Gene-ref_locus"))
 	}
 )

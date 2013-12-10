@@ -1,17 +1,15 @@
 library(XML)
+source('XmlEntry.R', chdir = TRUE)
 
-UniProtEntry <- setRefClass("UniProtEntry", fields = list(xml = "XMLInternalDocument", ns = "character"))
+UniProtEntry <- setRefClass("UniProtEntry", contains = "XmlEntry")
 
 ###############
 # CONSTRUCTOR #
 ###############
 
 UniProtEntry$methods(
-	initialize = function(xmlstr, ...) {
-		# The XML is passed as string, and parsed now. 'asText' means that first argument is a string containing the XML.
-		xml <<- xmlInternalTreeParse(xmlstr, asText = TRUE)
-		ns <<- c(uniprot = "http://uniprot.org/uniprot") # The namespace of the XML (will be used by XPath)
-		callSuper(...) # calls super-class initializer with remaining parameters
+	initialize = function(...) {
+		callSuper(namespaces = c(uniprot = "http://uniprot.org/uniprot"), ...)
 	}
 )
 
@@ -21,7 +19,7 @@ UniProtEntry$methods(
 
 UniProtEntry$methods(
 	getAccession = function() {
-		return(xpathSApply(xml, "//uniprot:accession", xmlValue, namespaces = ns))
+		return(.self$getXmlTagContent("//uniprot:accession"))
 	}
 )
 
@@ -31,7 +29,7 @@ UniProtEntry$methods(
 
 UniProtEntry$methods(
 	getName = function() {
-		return(xpathSApply(xml, "/uniprot:uniprot/uniprot:entry/uniprot:name", xmlValue, namespaces = ns))
+		return(.self$getXmlTagContent("/uniprot:uniprot/uniprot:entry/uniprot:name"))
 	}
 )
 
@@ -41,7 +39,7 @@ UniProtEntry$methods(
 
 UniProtEntry$methods(
 	getLength = function() {
-		return(xpathSApply(xml, "//uniprot:sequence", xmlGetAttr, 'length', namespaces = ns))
+		return(.self$getXmlTagAttribute("//uniprot:sequence", 'length'))
 	}
 )
 
@@ -51,6 +49,6 @@ UniProtEntry$methods(
 
 UniProtEntry$methods(
 	getMass = function() {
-		return(xpathSApply(xml, "//uniprot:sequence", xmlGetAttr, 'mass', namespaces = ns))
+		return(.self$getXmlTagAttribute("//uniprot:sequence", 'mass'))
 	}
 )
