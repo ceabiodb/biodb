@@ -36,3 +36,23 @@ NcbiGeneEntry$methods(
 		return(.self$getXmlTagContent("//Gene-ref_locus"))
 	}
 )
+
+############
+# LOCATION #
+############
+
+NcbiGeneEntry$methods(
+	getLocation = function() {
+		return(.self$getXmlTagContent("//Gene-ref_maploc"))
+	}
+)
+
+######################
+# OFFICIAL FULL NAME #
+######################
+
+NcbiGeneEntry$methods(
+	getOfficialFullName = function() {
+		return(.self$getXmlTagContent("//Gene-ref_desc"))
+	}
+)
