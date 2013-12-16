@@ -56,3 +56,13 @@ NcbiGeneEntry$methods(
 		return(.self$getXmlTagContent("//Gene-ref_desc"))
 	}
 )
+
+############
+# SYNONYMS #
+############
+
+NcbiGeneEntry$methods(
+	getSynonyms = function() {
+		return(.self$getXmlTagContent("//Gene-ref_syn_E"))
+	}
+)

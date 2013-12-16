@@ -11,12 +11,24 @@ full_test <- FALSE
 entries <- list('9606' = list(),
                 '2139485387547754' = list(false = TRUE),
                 '7273' = list(big = TRUE),
-                '3627' = list(symbol = 'CXCL10', fullname = 'chemokine (C-X-C motif) ligand 10', synonymes = c('C7', 'IFI10', 'INP10', 'IP-10', 'crg-2', 'mob-1', 'SCYB10', 'gIP-10', location = '4q21')),
-                '2833' = list(symbol = 'CXCR3', fullname = 'chemokine (C-X-C motif) receptor 3', synonymes = c('GPR9', 'MigR', 'CD182', 'CD183', 'Mig-R', 'CKR-L2', 'CMKAR3', 'IP10-R')),
-                '50943' = list(symbol = 'FOXP3', fullname = 'forkhead box P3', synonymes = c('JM2', 'AIID', 'IPEX', 'PIDX', 'XPID', 'DIETER')),
-                '5551' = list(symbol = 'PRF1', fullname = 'perforin 1 (pore forming protein)', synonymes = c('P1', 'PFP', 'FLH2', 'PFN1', 'HPLH2')),
-                '3002' = list(symbol = 'GZMB', fullname = 'granzyme B (granzyme 2, cytotoxic T-lymphocyte-associated serine esterase 1)', synonymes = c('HLP', 'CCPI', 'CGL1', 'CSPB', 'SECT', 'CGL-1', 'CSP-B', 'CTLA1', 'CTSGL1')),
-                '916' = list(symbol = 'CD3E', fullname = 'CD3e molecule, epsilon (CD3-TCR complex)', synonymes = c('T3E', 'TCRE'))
+                '3627' = list(symbol = 'CXCL10', fullname = 'chemokine (C-X-C motif) ligand 10',
+							  synonyms = c('IFI10', 'C7', 'INP10', 'IP-10', 'crg-2', 'mob-1', 'SCYB10', 'gIP-10'),
+							  location = '4q21'),
+                '2833' = list(symbol = 'CXCR3',
+							  fullname = 'chemokine (C-X-C motif) receptor 3',
+							  synonyms = c('GPR9', 'MigR', 'CD182', 'CD183', 'Mig-R', 'CKR-L2', 'CMKAR3', 'IP10-R')),
+                '50943' = list(symbol = 'FOXP3',
+							   fullname = 'forkhead box P3',
+							   synonyms = c('JM2', 'AIID', 'IPEX', 'PIDX', 'XPID', 'DIETER')),
+                '5551' = list(symbol = 'PRF1',
+							  fullname = 'perforin 1 (pore forming protein)',
+							  synonyms = c('P1', 'PFP', 'FLH2', 'PFN1', 'HPLH2')),
+                '3002' = list(symbol = 'GZMB',
+							  fullname = 'granzyme B (granzyme 2, cytotoxic T-lymphocyte-associated serine esterase 1)',
+							  synonyms = c('HLP', 'CCPI', 'CGL1', 'CSPB', 'SECT', 'CGL-1', 'CSP-B', 'CTLA1', 'CTSGL1')),
+                '916' = list(symbol = 'CD3E',
+							 fullname = 'CD3e molecule, epsilon (CD3-TCR complex)',
+							 synonyms = c('T3E', 'TCRE'))
                 )
 
 # Open connexion
@@ -56,6 +68,10 @@ for (id in names(entries)) {
 		# Check location
 		if (hHasKey(entries[[id]], 'location'))
 			checkEquals(entry$getLocation(), entries[[id]][['location']])
+
+		# Check synonyms
+		if (hHasKey(entries[[id]], 'synonyms'))
+			checkEquals(sort(entry$getSynonyms()), sort(entries[[id]][['synonyms']]))
 
 		# save
 		entry$save(paste('test-ncbi-', id, '.xml', sep=''))
