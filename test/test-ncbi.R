@@ -1,6 +1,7 @@
 #!/usr/bin/env R --slave -f
 library(RUnit)
 source('../NcbiConn.R', chdir = TRUE)
+source('hash-helpers.R', chdir = TRUE)
 
 full_test <- FALSE
 # TODO add a flag for running long tests
@@ -17,16 +18,6 @@ entries <- list('9606' = list(),
                 '3002' = list(symbol = 'GZMB', fullname = 'granzyme B (granzyme 2, cytotoxic T-lymphocyte-associated serine esterase 1)', synonymes = c('HLP', 'CCPI', 'CGL1', 'CSPB', 'SECT', 'CGL-1', 'CSP-B', 'CTLA1', 'CTSGL1')),
                 '916' = list(symbol = 'CD3E', fullname = 'CD3e molecule, epsilon (CD3-TCR complex)', synonymes = c('T3E', 'TCRE'))
                 )
-
-# Function for testing if a key exists inside a list/hashmap
-hHasKey <- function(h, k) {
-	return(length(which(names(h) == k)) > 0)
-}
-
-# Function for getting a boolean value from a list/hashmap
-hGetBool <- function(h, k) {
-	if (hHasKey(h, k)) return(h[[k]]) else return(FALSE)
-}
 
 # Open connexion
 conn <- NcbiConn$new(useragent = "fr.cea.test-ncbi ; pierrick.rogermele@cea.fr")
@@ -67,6 +58,6 @@ for (id in names(entries)) {
 			checkEquals(entry$getLocation(), entries[[id]][['location']])
 
 		# save
-		entry$save(paste(id, 'xml', sep='.'))
+		entry$save(paste('test-ncbi-', id, '.xml', sep=''))
 	}
 }
