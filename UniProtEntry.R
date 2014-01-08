@@ -18,8 +18,19 @@ UniProtEntry$methods(
 #############
 
 UniProtEntry$methods(
-	getAccession = function() {
-		return(.self$getXmlTagContent("//uniprot:accession"))
+	getAccessionIds = function() {
+		return(list(.self$getXmlTagContent("//uniprot:accession")))
+	}
+)
+
+######
+# ID #
+######
+
+UniProtEntry$methods(
+	getId = function() {
+	print(.self$getAccessionIds()[[1]])
+		return(.self$getAccessionIds()[[1]])
 	}
 )
 

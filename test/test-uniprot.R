@@ -7,7 +7,15 @@ full_test <- FALSE
 
 entries <- list(
 				'Q75MT5' = list(),
-                'AAAAAA' = list(false = TRUE)
+                'AAAAAA' = list(false = TRUE),
+				'Q31611' = list(name='B2 microglobulin', gene_symbol='HLA-G2.2'),
+				'P07911' = list(name='Uromodulin', gene_symbol='UMOD'),
+				'P08123' = list(name='Collagen alpha-2(I) chain', gene_symbol='COL1A2'),
+				'P02461' = list(name='Collagen alpha-1(III) chain', gene_symbol='COL3A1'),
+				'P02462' = list(name='Collagen alpha-1(IV) chain', gene_symbol='COL4A1'),
+				'P09237' = list(name='Matrilysin', gene_symbol='MMP7'),
+				'P60022' = list(name='B-defensin 1', gene_symbol='DEFB1'),
+				'P01011' = list(name='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3')
                )
 
 # Open connexion
@@ -33,8 +41,10 @@ for (id in names(entries)) {
 	else {
 		checkTrue( ! is.null(entry))
 
+		entry$save(paste('test-uniprot-', id, '.xml', sep=''))
+		print(entry$getAccessionIds())
 		# Check that returned id is the same
-		checkEquals(entry$getAccession(), id)
+		checkEquals(entry$getId(), id)
 
 		# Check name
 		checkTrue(entry$getName() != '')
