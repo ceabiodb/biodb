@@ -8,14 +8,14 @@ full_test <- FALSE
 entries <- list(
 				'Q75MT5' = list(),
                 'AAAAAA' = list(false = TRUE),
-				'Q31611' = list(name='B2 microglobulin', gene_symbol='HLA-G2.2'),
-				'P07911' = list(name='Uromodulin', gene_symbol='UMOD'),
-				'P08123' = list(name='Collagen alpha-2(I) chain', gene_symbol='COL1A2'),
-				'P02461' = list(name='Collagen alpha-1(III) chain', gene_symbol='COL3A1'),
-				'P02462' = list(name='Collagen alpha-1(IV) chain', gene_symbol='COL4A1'),
-				'P09237' = list(name='Matrilysin', gene_symbol='MMP7'),
-				'P60022' = list(name='B-defensin 1', gene_symbol='DEFB1'),
-				'P01011' = list(name='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3')
+				'Q31611' = list(fullname='B2 microglobulin', gene_symbol='HLA-G2.2'),
+				'P07911' = list(fullname='Uromodulin', gene_symbol='UMOD'),
+				'P08123' = list(fullname='Collagen alpha-2(I) chain', gene_symbol='COL1A2'),
+				'P02461' = list(fullname='Collagen alpha-1(III) chain', gene_symbol='COL3A1'),
+				'P02462' = list(fullname='Collagen alpha-1(IV) chain', gene_symbol='COL4A1'),
+				'P09237' = list(fullname='Matrilysin', gene_symbol='MMP7'),
+				'P60022' = list(fullname='Beta-defensin 1', gene_symbol='DEFB1'),
+				'P01011' = list(fullname='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3')
                )
 
 # Open connexion
@@ -42,12 +42,20 @@ for (id in names(entries)) {
 		checkTrue( ! is.null(entry))
 
 		entry$save(paste('test-uniprot-', id, '.xml', sep=''))
-		print(entry$getAccessionIds())
+
 		# Check that returned id is the same
 		checkEquals(entry$getId(), id)
 
 		# Check name
 		checkTrue(entry$getName() != '')
+
+		# Check fullname
+		if (hHasKey(entries[[id]], 'fullname'))
+			checkEquals(entry$getFullName(), entries[[id]][['fullname']])
+
+		# Check gene symbol
+		if (hHasKey(entries[[id]], 'gene_symbol'))
+			checkEquals(entry$getGeneSymbol(), entries[[id]][['gene_symbol']])
 
 		# Check length
 		checkTrue(entry$getLength() > 0)

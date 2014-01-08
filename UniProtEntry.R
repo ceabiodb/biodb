@@ -19,7 +19,7 @@ UniProtEntry$methods(
 
 UniProtEntry$methods(
 	getAccessionIds = function() {
-		return(list(.self$getXmlTagContent("//uniprot:accession")))
+		return(.self$getXmlTagContent("//uniprot:accession"))
 	}
 )
 
@@ -29,8 +29,8 @@ UniProtEntry$methods(
 
 UniProtEntry$methods(
 	getId = function() {
-	print(.self$getAccessionIds()[[1]])
-		return(.self$getAccessionIds()[[1]])
+		ids <- .self$getAccessionIds()
+		return(if (length(ids) > 1) ids[1] else ids)
 	}
 )
 
@@ -44,13 +44,35 @@ UniProtEntry$methods(
 	}
 )
 
+############
+# FULLNAME #
+############
+
+UniProtEntry$methods(
+	getFullName = function() {
+		names <- .self$getXmlTagContent("//uniprot:protein//uniprot:fullName")
+		return(if (length(names) > 1) names[1] else names)
+	}
+)
+
+###############
+# GENE SYMBOL #
+###############
+
+UniProtEntry$methods(
+	getGeneSymbol = function() {
+		names <- .self$getXmlTagContent("//uniprot:gene/uniprot:name")
+		return(if (length(names) > 1) names[1] else names)
+	}
+)
+
 ##########
 # LENGTH #
 ##########
 
 UniProtEntry$methods(
 	getLength = function() {
-		return(.self$getXmlTagAttribute("//uniprot:sequence", 'length'))
+		return(.self$getXmlTagAttribute("//uniprot:entry/uniprot:sequence", 'length'))
 	}
 )
 
@@ -60,6 +82,6 @@ UniProtEntry$methods(
 
 UniProtEntry$methods(
 	getMass = function() {
-		return(.self$getXmlTagAttribute("//uniprot:sequence", 'mass'))
+		return(.self$getXmlTagAttribute("//uniprot:entry/uniprot:sequence", 'mass'))
 	}
 )
