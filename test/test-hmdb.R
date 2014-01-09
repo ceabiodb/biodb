@@ -38,6 +38,15 @@ for (id in names(entries)) {
 		# Check that returned id is the same
 		checkEquals(entry$getId(), id)
 
+		# Check name
+		checkTrue(entry$getName() != '')
+
+		# Check formula
+		checkTrue(entry$getFormula() != '')
+
+		# Check super class
+		checkTrue(entry$getSuperClass() != '')
+
 		# save
 		entry$save(paste('test-hmdb-', id, '.xml', sep=''))
 	}

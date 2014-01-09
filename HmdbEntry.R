@@ -26,3 +26,33 @@ HmdbEntry$methods(
 		return(.self$getXmlTagContent("/metabolite/accession"))
 	}
 )
+
+########
+# NAME #
+########
+
+HmdbEntry$methods(
+	getName = function() {
+		return(.self$getXmlTagContent("/metabolite/name"))
+	}
+)
+
+####################
+# CHEMICAL FORMULA #
+####################
+
+HmdbEntry$methods(
+	getFormula = function() {
+		return(.self$getXmlTagContent("/metabolite/chemical_formula"))
+	}
+)
+
+###############
+# SUPER CLASS #
+###############
+
+HmdbEntry$methods(
+	getSuperClass = function() {
+		return(.self$getXmlTagContent("//super_class"))
+	}
+)
