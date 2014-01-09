@@ -47,6 +47,12 @@ for (id in names(entries)) {
 		# Check super class
 		checkTrue(entry$getSuperClass() != '')
 
+		# Check average mass
+		checkTrue(entry$getAverageMass() > 0)
+
+		# Check monoisotopic mass
+		checkTrue(entry$getMonoisotopicMass() > 0)
+
 		# save
 		entry$save(paste('test-hmdb-', id, '.xml', sep=''))
 	}

@@ -56,3 +56,23 @@ HmdbEntry$methods(
 		return(.self$getXmlTagContent("//super_class"))
 	}
 )
+
+################
+# AVERAGE MASS #
+################
+
+HmdbEntry$methods(
+	getAverageMass = function() {
+		return(as.numeric(.self$getXmlTagContent("//average_molecular_weight")))
+	}
+)
+
+#####################
+# MONOISOTOPIC MASS #
+#####################
+
+HmdbEntry$methods(
+	getMonoisotopicMass = function() {
+		return(as.numeric(.self$getXmlTagContent("//monisotopic_moleculate_weight")))
+	}
+)
