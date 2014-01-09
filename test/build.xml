@@ -1,7 +1,7 @@
 <project name="fr.cea.r-biodb.test" default="all">
 
 	<!-- ALL -->
-	<target name="all" depends="uniprot,ncbi"/>
+	<target name="all" depends="hmdb,uniprot,ncbi"/>
 
 	<!-- NCBI -->
 	<target name="ncbi">
@@ -11,6 +11,11 @@
 	<!-- UNIPROT -->
 	<target name="uniprot">
 		<exec executable="./test-uniprot.R" failonerror="true"/>
+	</target>
+
+	<!-- HMDB -->
+	<target name="hmdb">
+		<exec executable="./test-hmdb.R" failonerror="true"/>
 	</target>
 
 	<!-- CLEAN -->
