@@ -1,5 +1,0 @@
-1) Download zip file :
-wget ftp://ftp.sanger.ac.uk/pub/mirbase/targets/v5/arch.v5.gff.homo_sapiens.zip
-2) Expand it.
-3) look into it for the miRBase ID, and get the URL for Ensembl database, as well as the start and end.
-4) Use Ensembl database for getting sequence.
