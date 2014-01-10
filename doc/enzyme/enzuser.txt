@@ -1,0 +1,393 @@
+
+                  THE ENZYME NOMENCLATURE DATABASE USER MANUAL
+                             Release of 11-Dec-2013
+
+   Ioannis Xenarios and Kristian Axelsen
+   SIB Swiss Institute of Bioinformatics
+   Centre Medical Universitaire (CMU)
+   1, rue Michel Servet
+   1211 Geneva 4
+   Switzerland
+
+   Electronic mail address: enzyme@expasy.org
+
+
+   ENZYME is available at: http://enzyme.expasy.org/
+
+   -----------------------------------------------------------------------
+   Copyrighted by the SIB Swiss Institute of Bioinformatics.
+   There are no restrictions on its use by any institutions as long as
+   its content is in no way modified.
+   -----------------------------------------------------------------------
+
+   If you want to refer to ENZYME in a publication you can do so by citing:
+
+      Bairoch A.
+      The ENZYME database in 2000.
+      Nucleic Acids Res. 28:304-305(2000).
+
+    -----------------------------------------------------------------------
+
+
+                              TABLE OF CONTENTS
+
+   1) Introduction
+          1.1 Definition of the scope of the database
+          1.2 Sources of the data
+
+   2) Conventions used in the database
+          2.1 Structure of an entry
+          2.2 Two sample entries
+
+   3) The different line types
+          3.1  The ID line
+          3.2  The DE line
+          3.3  The AN line
+          3.4  The CA line
+          3.5  The CF line
+          3.6  The CC line
+          3.7  The DI line
+          3.8  The PR line
+          3.9  The DR line
+          3.10 The // line
+
+   Appendix 1: Report form of the NC-IUBMB
+
+
+    -----------------------------------------------------------------------
+
+
+                               1) INTRODUCTION
+
+
+   1.1) Definition of the scope of the database
+
+   The 'ENZYME'  database  contains  the  following data  for each  type of
+   characterized enzyme for which an EC number has been provided:
+
+   -  EC number
+   -  Recommended name
+   -  Alternative names (if any)
+   -  Catalytic activity
+   -  Cofactors (if any)
+   -  Pointers to  the Swiss-Prot  entrie(s) that  correspond to the enzyme
+      (if any)
+
+   We believe  that the  ENZYME  database  can be useful to anybody working
+   with enzymes  and that  it can be of help in the development of computer
+   programs involved with the manipulation of metabolic pathways.
+
+
+   1.2) Sources of the data
+
+   The main  source for  the  data  in  the  ENZYME   database  comes  from
+   recommendations of the Nomenclature Committee of the International Union
+   of Biochemistry  and Molecular  Biology (IUBMB) [1]. A minor part of the
+   data has been extracted from the literature.
+
+   [1]  Enzyme Nomenclature, NC-IUBMB, Academic Press, New-York, (1992).
+        See: http://www.chem.qmul.ac.uk/iubmb/enzyme/
+
+   We do not assign EC numbers for newly characterized enzymes, this is the
+   responsibility of  the Nomenclature  Committee of  IUBMB (NC-IUBMB).  To
+   contact the committee one consult the list of members found at:
+   http://www.chem.qmul.ac.uk/iupac/jcbn/membr.html
+
+   If you would like to report a new enzyme activity to the NC-IUBMB you
+   can use the form found at: http://enzyme-database.org/newform.php.
+   We follow the updates and additions to the nomenclature so that they
+   can be integrated into the database in a timely manner. 
+
+   The database  is  complete  and  up to date. It is regularily updated to
+   reflect  updates  and  additions to the nomenclature. We also update the
+   Swiss-Prot and PROSITE pointers,  correct  eventual errors, and complete
+   the information concerning synonyms and cofactors using the literature.
+
+   We welcome and encourage any type of feedback.
+
+
+
+                     2) CONVENTIONS USED IN THE DATABASE
+
+
+   2.1) Structure of an entry
+
+   The entries  in the database data file (ENZYME.DAT) are structured so as
+   to be  usable by  human readers  as well  as by  computer programs. Each
+   entry in  the database  is composed  of lines. Different types of lines,
+   each with  its own  format, are used to record the various types of data
+   which make  up the  entry. The  general  structure  of  a  line  is  the
+   following:
+
+
+   Characters    Content
+   ---------     ----------------------------------------------------------
+   1 to 2        Two-character line code. Indicates the type of information
+                 contained in the line.
+   3 to 5        Blank
+   6 up to 78    Data
+
+
+   The currently  used line  types, along with their respective line codes,
+   are listed below:
+
+   ID  Identification                         (Begins each entry; 1 per entry)
+   DE  Description (official name)            (>=1 per entry)
+   AN  Alternate name(s)                      (>=0 per entry)
+   CA  Catalytic activity                     (>=1 per entry)
+   CF  Cofactor(s)                            (>=0 per entry)
+   CC  Comments                               (>=0 per entry)
+   PR  Cross-references to PROSITE            (>=0 per entry)
+   DR  Cross-references to Swiss-Prot         (>=0 per entry)
+   //  Termination line                       (Ends each entry; 1 per entry)
+
+   Line types no longer used:
+   DI  Disease(s) associated with the enzyme
+
+   Some entries  do not  contain all of the line types, and some line types
+   occur many  times in  a single  entry. Each  entry must  begin  with  an
+   identification line (ID) and end with a terminator line (//).
+
+   A detailed description of each line type is given in the next section of
+   this document.
+
+
+
+   2.2) Two sample entries
+
+   ID   1.14.17.3
+   DE   Peptidylglycine monooxygenase.
+   AN   PAM.
+   AN   Peptidyl alpha-amidating enzyme.
+   AN   Peptidylglycine 2-hydroxylase.
+   AN   Peptidylglycine alpha-amidating monooxygenase.
+   CA   Peptidylglycine + ascorbate + O(2) = peptidyl(2-hydroxyglycine) +
+   CA   dehydroascorbate + H(2)O.
+   CF   Copper.
+   CC   -!- Peptidylglycines with a neutral amino acid residue in the penultimate
+   CC       position are the best substrates for the enzyme.
+   CC   -!- The product is unstable and dismutates to glyoxylate and the
+   CC       corresponding desglycine peptide amide, a reaction catalyzed by
+   CC       EC 4.3.2.5.
+   CC   -!- Involved in the final step of biosynthesis of alpha-melanotropin and
+   CC       related biologically active peptides.
+   PR   PROSITE; PDOC00080;
+   DR   P08478, AMD1_XENLA ;  P12890, AMD2_XENLA ;  P83388, AMDL_CAEEL ;
+   DR   P10731, AMD_BOVIN  ;  P19021, AMD_HUMAN  ;  P97467, AMD_MOUSE  ;
+   DR   P14925, AMD_RAT    ;  Q95XM2, PHM_CAEEL  ;  O01404, PHM_DROME  ;
+   //
+
+   ID   2.3.1.43
+   DE   Phosphatidylcholine--sterol O-acyltransferase.
+   AN   LCAT.
+   AN   Lecithin--cholesterol acyltransferase.
+   AN   Phospholipid--cholesterol acyltransferase.
+   CA   Phosphatidylcholine + a sterol = 1-acylglycerophosphocholine +
+   CA   a sterol ester.
+   CC   -!- Palmitoyl, oleoyl, and linoleoyl can be transferred; a number of
+   CC       sterols, including cholesterol, can act as acceptors.
+   CC   -!- The bacterial enzyme also catalyzes the reactions of EC 3.1.1.4 and
+   CC       EC 3.1.1.5.
+   PR   PROSITE; PDOC00110;
+   DR   P10480, GCAT_AERHY ;  P53760, LCAT_CHICK ;  O35573, LCAT_ELIQU ;
+   DR   P04180, LCAT_HUMAN ;  O35724, LCAT_MICMN ;  P16301, LCAT_MOUSE ;
+   DR   O35502, LCAT_MYOGA ;  Q08758, LCAT_PAPAN ;  P30930, LCAT_PIG   ;
+   DR   P53761, LCAT_RABIT ;  P18424, LCAT_RAT   ;  O35840, LCAT_TATKG ;
+   //
+
+
+
+                         3) THE DIFFERENT LINE TYPES
+
+   This section describes in detail the format of each type of line used in
+   the database.
+
+
+   3.1) The ID line
+
+    The ID  (IDentification) line  is always the first line of an entry. The
+    format of the ID line is:
+
+    ID   EC_number
+    Examples:
+
+    ID   1.1.1.1
+    ID   6.3.2.1
+    ID   3.5.1.n3
+
+       Notes
+
+    -  EC numbers  that include  an 'n' as part of the fourth (serial) digit
+       are preliminary EC numbers.
+    -  Entries  with preliminary  EC numbers  are placed  at the  end of the
+       sub-sub-class to which they belong.
+    -  Preliminary  EC numbers  are  not  included  in  the  official  IUBMB
+       nomenclature,  but   are  created   and  used   only  in  ENZYME  and
+       UniProtKB/Swiss-Prot.
+
+
+   3.2) The DE line
+
+   The DE  (DEscription) line(s) contain the NC-IUB recommended name for an
+   enzyme. The format of the DE line is:
+
+   DE   Description.
+
+   Examples:
+
+   DE   Alcohol dehydrogenase.
+
+   DE   UDP-N-acetylmuramoylalanyl-D-glutamyl-2,6-diaminopimelate--D-
+   DE   alanyl-D-alanyl ligase.
+
+   Important note:  enzymes are  sometimes deleted from the EC list, others
+   are renumbered;  however the  NC-IUBMB does not allocate the old numbers
+   to new  enzymes. Obsolete  EC numbers are indicated in this database  by
+   the following DE line syntaxes. For deleted enzymes:
+
+   DE   Deleted entry.
+
+   and for renumbered enzymes:
+
+   DE   Transferred entry: x.x.x.x.
+
+   where x.x.x.x  is the  new, valid,  EC number; as shown in the following
+   example:
+
+   DE   Transferred entry: 1.7.99.5.
+
+
+   3.3) The AN line
+
+   The AN  (Alternate Name)  line(s) are  used to  indicate  the  different
+   name(s), other  than the NC-IUBMB recommended name, that are used in the
+   literature to describe an enzyme. The format of the AN line is:
+
+   AN   Alternate_Name.
+
+   As an  example we  list here  both the DE and AN lines for the enzyme EC
+   2.7.7.31:
+
+   DE   DNA nucleotidylexotransferase.
+   AN   Terminal addition enzyme.
+   AN   Terminal deoxynucleotidyltransferase.
+   AN   Terminal deoxyribonucleotidyltransferase.
+   AN   Terminal transferase.
+
+
+   3.4) The CA line
+
+   The CA (Catalytic Activity) line(s) are used to indicate the reaction(s)
+   catalyzed by an enzyme. The format of the CA line is:
+
+   CA   Reaction.
+
+   Where the reaction is indicated following the recommendations of the NC-
+   IUBMB. The  majority of  the reactions  are described  using a  standard
+   chemical reaction format:
+
+   CA   Substrate_11 + Substrate_12 [+ Substrate_1N...] = Substrate_21 +
+   CA   Substrate_22 [+ Substrate_2N].
+
+   As shown in the following examples:
+
+   CA   L-malate + NAD(+) = oxaloacetate + NADH.
+
+   CA   2 ATP + NH(3) + CO(2) + H(2)O = 2 ADP + phosphate + carbamoyl
+   CA   phosphate.
+
+   In some  cases free text is used to describe a reaction. As shown in the
+   following examples:
+
+   CA   Cyclizes part of a 1,4-alpha-D-glucan chain by formation of a
+   CA   1,4-alpha-D-glucosidic bond.
+
+   CA   Cleavage of Leu-|-Xaa bond in angiotensinogen to generate
+   CA   angiotensin I.
+
+
+        Notes
+
+   -  Subscript and superscript are indicated between brackets: for example
+      NAD+ and NADP+ are indicated as NAD(+) and NADP(+), H2O as H(2)O, CO2
+      as CO(2), etc.
+   -  Greek letters are spelled out (i.e. alpha, beta, etc.).
+
+
+   3.5) The CF line
+
+   The CF  (CoFactor) line(s)  are used  to indicate  which cofactor(s) are
+   required by an enzyme. The format of the CF line is:
+
+   CF   Cofactor_1; Cofactor_2 or Cofactor_3[; Cofactor_N...].
+
+   Examples:
+
+   CF   Pyridoxal-phosphate.
+   CF   Iron-sulfur; Molybdenum or vanadium.
+   CF   Ascorbate; Iron.
+
+
+   3.6) The CC line
+
+   The CC  lines are  free text  comments on  the entry, and may be used to
+   convey any useful information.
+
+   Examples:
+
+   CC   -!- The product spontaneously isomerizes to L-ascorbate.
+
+   CC   -!- Some members of this group oxidize only primary alcohols;
+   CC       others act also on secondary alcohols.
+
+
+   3.7) The DI line
+
+   The DI (DIsease) line(s) are no longer used. Information about specific 
+   diseases can be found in the relevant UniProtKB/Swiss-Prot entries.
+							      
+
+   3.8) The PR line
+
+   The PR  (Prosite Reference)  line(s) are used as pointers to the PROSITE
+   document entries that mentions the enzyme being described. The format of
+   the PR line is:
+
+   PR   PROSITE; PSITE_Doc_ACNb
+
+   where 'PSITE_Doc_ACNb' is a PROSITE document entry accession number.
+
+   Example:
+
+   PR   PROSITE; PDOC00065;
+
+
+   3.9) The DR line
+
+   The  DR  (Database Reference)  line(s)  are  used  as  pointers  to  the
+   UniProtKB/Swiss-Prot  entries  that  corresponds  to  the  enzyme  being
+   described. The format of the DR line is:
+
+   DR   AC_Nb, Entry_name;  AC_Nb, Entry_name;  AC_Nb, Entry_name;
+
+   where:
+
+   -  'AC_Nb' is  the Swiss-Prot  primary accession  number of the entry to
+      which reference is being made.
+   -  'Entry_name' is the Swiss-Prot entry name.
+
+   Example:
+
+   DR   P35497, DHSO1_YEAST;  Q07786, DHSO2_YEAST;  Q9Z9U1, DHSO_BACHD ;
+   DR   Q06004, DHSO_BACSU ;  Q02912, DHSO_BOMMO ;  Q00796, DHSO_HUMAN ;
+
+
+   3.10) The termination line
+
+   The // (terminator) line contains no data or comments. It designates the
+   end of an entry.
+
+------------------------------------------------------------------------
+This sheet is not copyright.
+Photocopies can be used for additional contributions.
+--End of document--
