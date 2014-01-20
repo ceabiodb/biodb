@@ -3,6 +3,9 @@
 	<!-- ALL -->
 	<target name="all"/>
 
+	<!-- DOC -->
+	<target name="doc"/>
+
 	<!-- TEST -->
 	<target name="test">
 		<ant dir="test" inheritAll="false"/>
