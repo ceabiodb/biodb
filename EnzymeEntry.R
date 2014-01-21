@@ -6,6 +6,18 @@ library("stringr")
 
 EnzymeEntry <- setRefClass("EnzymeEntry", fields = list(id = "character", desc = "character"))
 
+###############
+# CONSTRUCTOR #
+###############
+
+EnzymeEntry$methods(
+	initialize = function(id = "", desc = "", ...) {
+		id <<- id
+		desc <<- desc
+		callSuper(...) # calls super-class initializer with remaining parameters
+	}
+)
+
 ######
 # ID #
 ######
@@ -23,18 +35,6 @@ EnzymeEntry$methods(
 EnzymeEntry$methods(
 	getDescription = function() {
 		return(.self$desc)
-	}
-)
-
-###############
-# CONSTRUCTOR #
-###############
-
-EnzymeEntry$methods(
-	initialize = function(id = "", desc = "", ...) {
-		id <<- id
-		desc <<- desc
-		callSuper(...) # calls super-class initializer with remaining parameters
 	}
 )
 

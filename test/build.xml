@@ -4,8 +4,16 @@
 	<target name="all" depends="enzyme,hmdb,uniprot,ncbi"/>
 
 	<!-- NCBI -->
-	<target name="ncbi">
-		<exec executable="./test-ncbi.R" failonerror="true"/>
+	<target name="ncbi" depends="gene,ccds"/>
+
+	<!-- NCBI GENE -->
+	<target name="gene">
+		<exec executable="./test-ncbi-gene.R" failonerror="true"/>
+	</target>
+
+	<!-- NCBI CCDS -->
+	<target name="ccds">
+		<exec executable="./test-ncbi-ccds.R" failonerror="true"/>
 	</target>
 
 	<!-- UNIPROT -->
@@ -27,6 +35,7 @@
 	<target name="clean">
 		<delete>
 			<fileset dir="."><include name="test-*.xml"/></fileset>
+			<fileset dir="."><include name="test-*.html"/></fileset>
 		</delete>
 	</target>
 
