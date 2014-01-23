@@ -4,7 +4,7 @@
 	<target name="all" depends="enzyme,hmdb,uniprot,ncbi"/>
 
 	<!-- NCBI -->
-	<target name="ncbi" depends="gene,ccds"/>
+	<target name="ncbi" depends="ccds,gene"/>
 
 	<!-- NCBI GENE -->
 	<target name="gene">
