@@ -1,5 +1,5 @@
 library(XML)
-source('XmlEntry.R', chdir = TRUE)
+source('XmlEntry.R')
 source('__NcbiConnDecl.R')
 source('__NcbiConnCcds.R')
 
