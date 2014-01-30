@@ -1,13 +1,20 @@
-library(RCurl)
+source('BioDbConn.R')
 source('UniProtEntry.R')
 
-UniProtConn <- setRefClass("UniProtConn",
-						   fields = list(useragent = "character"))
+#####################
+# CLASS DECLARATION #
+#####################
+
+UniProtConn <- setRefClass("UniProtConn", contains = "BioDbConn")
+
+#############
+# GET ENTRY #
+#############
 
 UniProtConn$methods(
 	getEntry = function(id) {
 		url <- paste('http://www.uniprot.org/uniprot/', id, '.xml', sep='')
-		xml <- getURL(url, useragent = useragent)
+		xml <- .self$getUrl(url)
 
 		# If the entity doesn't exist (i.e.: no <id>.xml page), then it returns an HTML page
 		if (grepl("^<!DOCTYPE html PUBLIC", xml, perl=TRUE))

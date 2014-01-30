@@ -1,12 +1,11 @@
-library(RCurl)
+source('BioDbConn.R')
 source('EnzymeEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-EnzymeConn <- setRefClass("EnzymeConn",
-						fields = list(useragent = "character"))
+EnzymeConn <- setRefClass("EnzymeConn", contains = "BioDbConn")
 
 #############
 # GET ENTRY #
@@ -15,7 +14,7 @@ EnzymeConn <- setRefClass("EnzymeConn",
 EnzymeConn$methods(
 	getEntry = function(id) {
 		url <- paste('http://enzyme.expasy.org/EC/', id, '.txt', sep='')
-		txt <- getURL(url, useragent = useragent)
+		txt <- .self$getUrl(url)
 		entry <- createEnzymeEntryFromText(txt)
 		return(entry)
 	}
