@@ -15,6 +15,9 @@ NcbiConn$methods(
 		# Check if an error occured
 		if (entry$hasError()) return(NULL)
 
+		# Test if the server is unavailable
+		# TODO
+
 		# Check ID
 		return(if (entry$getId() == id) entry else NULL)
 	}
