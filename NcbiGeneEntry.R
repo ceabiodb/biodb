@@ -69,6 +69,16 @@ NcbiGeneEntry$methods(
 	}
 )
 
+###########
+# KEGG ID #
+###########
+
+NcbiGeneEntry$methods(
+	getKeggId = function() {
+		return(.self$getXmlTagContent("//Dbtag_db[text()='KEGG']/..//Object-id_str"))
+	}
+)
+
 ############
 # SEQUENCE #
 ############

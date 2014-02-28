@@ -4,16 +4,20 @@ source('../NcbiConn.R', chdir = TRUE)
 source('hash-helpers.R', chdir = TRUE)
 
 full_test <- FALSE
+seq_test <- FALSE
 # TODO add a flag for running long tests
 #args <- commandArgs(trailingOnly = TRUE)
 #full_test = args[1]
+#seq_test = args[2]
+if (full_test) seq_test <- TRUE
 
-entries <- list('9606' = list(),
+entries <- list('9606' = list( keggid = NULL ),
                 '2139485387547754' = list(false = TRUE),
                 '7273' = list(big = TRUE),
                 '3627' = list(symbol = 'CXCL10', fullname = 'chemokine (C-X-C motif) ligand 10',
 							  synonyms = c('IFI10', 'C7', 'INP10', 'IP-10', 'crg-2', 'mob-1', 'SCYB10', 'gIP-10'),
 							  location = '4q21',
+							  keggid = 'hsa:3627',
 							  sequence = 'ATGAATCAAACTGCCATTCTGATTTGCTGCCTTATCTTTCTGACTCTAAGTGGCATTCAAGGAGTACCTCTCTCTAGAACTGTACGCTGTACCTGCATCAGCATTAGTAATCAACCTGTTAATCCAAGGTCTTTAGAAAAACTTGAAATTATTCCTGCAAGCCAATTTTGTCCACGTGTTGAGATCATTGCTACAATGAAAAAGAAGGGTGAGAAGAGATGTCTGAATCCAGAATCGAAGGCCATCAAGAATTTACTGAAAGCAGTTAGCAAGGAAAGGTCTAAAAGATCTCCTTAA'),
                 '2833' = list(symbol = 'CXCR3',
 							  fullname = 'chemokine (C-X-C motif) receptor 3',
@@ -29,7 +33,7 @@ entries <- list('9606' = list(),
 							  synonyms = c('HLP', 'CCPI', 'CGL1', 'CSPB', 'SECT', 'CGL-1', 'CSP-B', 'CTLA1', 'CTSGL1')),
                 '916' = list(symbol = 'CD3E',
 							 fullname = 'CD3e molecule, epsilon (CD3-TCR complex)',
-							 synonyms = c('T3E', 'TCRE'))
+							 synonyms = c('T3E', 'TCRE', 'IMD18'))
                 )
 
 # Open connexion
@@ -39,7 +43,7 @@ conn <- NcbiConn$new(useragent = "fr.cea.test-ncbi-gene ; pierrick.rogermele@cea
 for (id in names(entries)) {
 
 	# Skip big entry (take too much time)
-	if (hGetBool(entries[[id]], 'big') && ! full_test)
+	if ( ! full_test && hGetBool(entries[[id]], 'big'))
 		next
 
 	print(paste('Testing NCBI entry', id, '...'))
@@ -55,6 +59,9 @@ for (id in names(entries)) {
 	else {
 		checkTrue( ! is.null(entry))
 
+		# save
+		entry$save(paste('test-ncbi-gene-', id, '.xml', sep=''))
+
 		# Check that returned id is the same
 		checkEquals(entry$getId(), as.numeric(id))
 		
@@ -69,16 +76,17 @@ for (id in names(entries)) {
 		# Check location
 		if (hHasKey(entries[[id]], 'location'))
 			checkEquals(entry$getLocation(), entries[[id]][['location']])
+		
+		# Check Kegg ID
+		if (hHasKey(entries[[id]], 'keggid'))
+			checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
 
 		# Check synonyms
 		if (hHasKey(entries[[id]], 'synonyms'))
 			checkEquals(sort(entry$getSynonyms()), sort(entries[[id]][['synonyms']]))
 
 		# Check sequence
-		if (hHasKey(entries[[id]], 'sequence'))
+		if (seq_test && hHasKey(entries[[id]], 'sequence'))
 			checkEquals(entry$getSequence(), entries[[id]][['sequence']])
-
-		# save
-		entry$save(paste('test-ncbi-gene-', id, '.xml', sep=''))
 	}
 }
