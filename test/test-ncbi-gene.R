@@ -1,17 +1,14 @@
-#!/usr/bin/env R --slave -f
+#!/usr/bin/env Rscript
 library(RUnit)
+library(getopt)
 source('../NcbiConn.R', chdir = TRUE)
 source('hash-helpers.R', chdir = TRUE)
 
-full_test <- FALSE
-seq_test <- FALSE
-# TODO add a flag for running long tests
-#args <- commandArgs(trailingOnly = TRUE)
-#full_test = args[1]
-#seq_test = args[2]
-if (full_test) seq_test <- TRUE
+####################
+# GLOBAL CONSTANTS #
+####################
 
-entries <- list('9606' = list( keggid = NULL ),
+ENTRIES <- list('9606' = list( keggid = NULL ),
                 '2139485387547754' = list(false = TRUE),
                 '7273' = list(big = TRUE),
                 '3627' = list(symbol = 'CXCL10', fullname = 'chemokine (C-X-C motif) ligand 10',
@@ -36,57 +33,97 @@ entries <- list('9606' = list( keggid = NULL ),
 							 synonyms = c('T3E', 'TCRE', 'IMD18'))
                 )
 
-# Open connexion
-conn <- NcbiConn$new(useragent = "fr.cea.test-ncbi-gene ; pierrick.rogermele@cea.fr")
+#############
+# READ ARGS #
+#############
 
-# Loop on all entries
-for (id in names(entries)) {
+read_args <- function() {
+  
+  # program name
+  prog <- sub('^.*/([^/]+)$', '\\1', commandArgs()[4], perl = TRUE)
+  
+  # options
+  spec = matrix(c(
+    'full',         'f', 0, 'logical',      'Full test. Disabled by default.',
+    'help',         'h', 0, 'logical',      'Print this help.',
+    'seq',          's', 0, 'logical',      'Sequence test (test retrieving biological sequences). Disabled by default.'
+  ), byrow = TRUE, ncol = 5)
+   
+  opt <- getopt(spec)
+  opt$full = if (is.null(opt$full)) FALSE else TRUE
+  opt$seq = if (is.null(opt$seq)) opt$full else TRUE
 
-	# Skip big entry (take too much time)
-	if ( ! full_test && hGetBool(entries[[id]], 'big'))
-		next
+  # help
+  if ( ! is.null(opt$help)) {
+    cat(getopt(spec, usage = TRUE, command = prog))
+    q(status = 1)
+  }
 
-	print(paste('Testing NCBI entry', id, '...'))
+  return(opt)
+}
 
-	# Get Entry from database
-	entry <- conn$getGeneEntry(as.numeric(id))
+################
+# TEST ENTRIES #
+################
 
-	# This is a false entry => test that it's null
-	if (hGetBool(entries[[id]], 'false'))
-		checkTrue(is.null(entry))
+test_entries <- function(conn, entries, full_test = FALSE, seq_test = FALSE) {
 
-	# This is a real entry => test that it isn't null
-	else {
-		checkTrue( ! is.null(entry))
+	# Loop on all entries
+	for (id in names(entries)) {
 
-		# save
-		entry$save(paste('test-ncbi-gene-', id, '.xml', sep=''))
+		# Skip big entry (take too much time)
+		if ( ! full_test && hGetBool(entries[[id]], 'big'))
+			next
 
-		# Check that returned id is the same
-		checkEquals(entry$getId(), as.numeric(id))
-		
-		# Check symbol
-		if (hHasKey(entries[[id]], 'symbol'))
-			checkEquals(entry$getSymbol(), entries[[id]][['symbol']])
-		
-		# Check full name
-		if (hHasKey(entries[[id]], 'fullname'))
-			checkEquals(entry$getOfficialFullName(), entries[[id]][['fullname']])
-		
-		# Check location
-		if (hHasKey(entries[[id]], 'location'))
-			checkEquals(entry$getLocation(), entries[[id]][['location']])
-		
-		# Check Kegg ID
-		if (hHasKey(entries[[id]], 'keggid'))
-			checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+		print(paste('Testing NCBI entry', id, '...'))
 
-		# Check synonyms
-		if (hHasKey(entries[[id]], 'synonyms'))
-			checkEquals(sort(entry$getSynonyms()), sort(entries[[id]][['synonyms']]))
+		# Get Entry from database
+		entry <- conn$getGeneEntry(as.numeric(id))
 
-		# Check sequence
-		if (seq_test && hHasKey(entries[[id]], 'sequence'))
-			checkEquals(entry$getSequence(), entries[[id]][['sequence']])
+		# This is a false entry => test that it's null
+		if (hGetBool(entries[[id]], 'false'))
+			checkTrue(is.null(entry))
+
+		# This is a real entry => test that it isn't null
+		else {
+			checkTrue( ! is.null(entry))
+
+			# save
+			entry$save(paste('test-ncbi-gene-', id, '.xml', sep=''))
+
+			# Check that returned id is the same
+			checkEquals(entry$getId(), as.numeric(id))
+			
+			# Check symbol
+			if (hHasKey(entries[[id]], 'symbol'))
+				checkEquals(entry$getSymbol(), entries[[id]][['symbol']])
+			
+			# Check full name
+			if (hHasKey(entries[[id]], 'fullname'))
+				checkEquals(entry$getOfficialFullName(), entries[[id]][['fullname']])
+			
+			# Check location
+			if (hHasKey(entries[[id]], 'location'))
+				checkEquals(entry$getLocation(), entries[[id]][['location']])
+			
+			# Check Kegg ID
+			if (hHasKey(entries[[id]], 'keggid'))
+				checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+
+			# Check synonyms
+			if (hHasKey(entries[[id]], 'synonyms'))
+				checkEquals(sort(entry$getSynonyms()), sort(entries[[id]][['synonyms']]))
+
+			# Check sequence
+			if (seq_test && hHasKey(entries[[id]], 'sequence'))
+				checkEquals(entry$getSequence(), entries[[id]][['sequence']])
+		}
 	}
 }
+
+########
+# MAIN #
+########
+opt<-read_args()
+conn <- NcbiConn$new(useragent = "fr.cea.test-ncbi-gene ; pierrick.rogermele@cea.fr")
+test_entries(conn, ENTRIES, full_test = opt$full, seq_test = opt$seq)
