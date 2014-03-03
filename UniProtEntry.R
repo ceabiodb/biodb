@@ -85,3 +85,14 @@ UniProtEntry$methods(
 		return(.self$getXmlTagAttribute("//uniprot:entry/uniprot:sequence", 'mass'))
 	}
 )
+
+###########
+# KEGG ID #
+###########
+
+# <dbReference type="KEGG" id="hsa:12"/>
+UniProtEntry$methods(
+	getKeggId = function() {
+		return(.self$getXmlTagAttribute("//uniprot:dbReference[@type='KEGG']", 'id'))
+	}
+)

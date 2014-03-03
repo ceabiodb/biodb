@@ -35,6 +35,9 @@ for (id in names(entries)) {
 	else {
 		checkTrue( ! is.null(entry))
 
+		# save
+		entry$save(paste('test-hmdb-', id, '.xml', sep=''))
+
 		# Check that returned id is the same
 		checkEquals(entry$getId(), id)
 		
@@ -56,8 +59,5 @@ for (id in names(entries)) {
 
 		# Check monoisotopic mass
 		checkTrue(entry$getMonoisotopicMass() > 0)
-
-		# save
-		entry$save(paste('test-hmdb-', id, '.xml', sep=''))
 	}
 }

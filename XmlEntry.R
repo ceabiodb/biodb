@@ -1,10 +1,11 @@
 library(XML)
+source('Entry.R', chdir = TRUE)
 
 ###########################
 # XmlEntry ABSTRACT CLASS #
 ###########################
 
-XmlEntry <- setRefClass("XmlEntry", fields = list(xml = "XMLInternalDocument", ns = "character", use_ns = "logical"))
+XmlEntry <- setRefClass("XmlEntry", contains = "Entry", fields = list(xml = "XMLInternalDocument", ns = "character", use_ns = "logical"))
 
 ###############
 # CONSTRUCTOR #

@@ -15,7 +15,7 @@ entries <- list(
 				'P02462' = list(fullname='Collagen alpha-1(IV) chain', gene_symbol='COL4A1'),
 				'P09237' = list(fullname='Matrilysin', gene_symbol='MMP7'),
 				'P60022' = list(fullname='Beta-defensin 1', gene_symbol='DEFB1'),
-				'P01011' = list(fullname='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3')
+				'P01011' = list(fullname='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3', keggid="hsa:12")
                )
 
 # Open connexion
@@ -45,6 +45,10 @@ for (id in names(entries)) {
 
 		# Check that returned id is the same
 		checkEquals(entry$getId(), id)
+		
+		# Check Kegg ID
+		if (hHasKey(entries[[id]], 'keggid'))
+			checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
 
 		# Check name
 		checkTrue(entry$getName() != '')
