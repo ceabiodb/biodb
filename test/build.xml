@@ -35,6 +35,7 @@
 	<target name="clean">
 		<delete>
 			<fileset dir="."><include name="test-*.xml"/></fileset>
+			<fileset dir="."><include name="test-*.txt"/></fileset>
 			<fileset dir="."><include name="test-*.html"/></fileset>
 		</delete>
 	</target>

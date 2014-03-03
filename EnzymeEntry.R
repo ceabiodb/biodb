@@ -1,17 +1,18 @@
 library("stringr")
+source('Entry.R', chdir = TRUE)
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-EnzymeEntry <- setRefClass("EnzymeEntry", fields = list(id = "character", desc = "character"))
+EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'Entry', fields = list(id = "character", desc = "character", .orig_text_file = "character" ))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
 EnzymeEntry$methods(
-	initialize = function(id = "", desc = "", ...) {
+	initialize = function(id = "", desc = "", .orig_text_file = "", ...) {
 		id <<- id
 		desc <<- desc
 		callSuper(...) # calls super-class initializer with remaining parameters
@@ -38,6 +39,29 @@ EnzymeEntry$methods(
 	}
 )
 
+######################
+# ORIGINAL TEXT FILE #
+######################
+
+EnzymeEntry$methods(
+	.setOrigTextFile = function(text) {
+		.orig_text_file <<- text
+	}
+)
+
+########
+# SAVE #
+########
+
+EnzymeEntry$methods(
+	save = function(filename) {
+		fileConn<-file(filename)
+		writeLines(.self$.orig_text_file, fileConn)
+		close(fileConn)
+	}
+)
+
+
 ###########
 # FACTORY #
 ###########
@@ -59,5 +83,7 @@ createEnzymeEntryFromText <- function(text) {
 			desc <- g[1,2]
 	}
 	if (is.na(id)) return(NULL)
-	return(EnzymeEntry$new(id = id, desc = desc))
+	entry <- EnzymeEntry$new(id = id, desc = desc)
+	entry$.setOrigTextFile(text)
+	return(entry)
 }

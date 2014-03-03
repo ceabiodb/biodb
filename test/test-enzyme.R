@@ -35,13 +35,13 @@ for (id in names(entries)) {
 	else {
 		checkTrue( ! is.null(entry))
 
+		# save
+		entry$save(paste('test-enzyme-', id, '.txt', sep=''))
+
 		# Check that returned id is the same
 		checkEquals(entry$getId(), id)
 
 		# Check that a description exists
 		checkTrue(entry$getDescription() != "")
-
-		# save
-#entry$save(paste('test-enzyme-', id, '.txt', sep=''))
 	}
 }
