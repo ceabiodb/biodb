@@ -125,5 +125,5 @@ test_entries <- function(conn, entries, full_test = FALSE, seq_test = FALSE) {
 # MAIN #
 ########
 opt<-read_args()
-conn <- NcbiConn$new(useragent = "fr.cea.test-ncbi-gene ; pierrick.rogermele@cea.fr")
+conn <- NcbiConn$new(useragent = "fr.cea.r-biodb.test-ncbi-gene ; pierrick.rogermele@cea.fr")
 test_entries(conn, ENTRIES, full_test = opt$full, seq_test = opt$seq)

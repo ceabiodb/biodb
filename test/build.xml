@@ -1,7 +1,7 @@
 <project name="fr.cea.r-biodb.test" default="all">
 
 	<!-- ALL -->
-	<target name="all" depends="enzyme,hmdb,uniprot,ncbi"/>
+	<target name="all" depends="enzyme,hmdb,uniprot,ncbi,kegg"/>
 
 	<!-- NCBI -->
 	<target name="ncbi" depends="ccds,gene"/>
@@ -24,6 +24,11 @@
 	<!-- HMDB -->
 	<target name="hmdb">
 		<exec executable="./test-hmdb.R" failonerror="true"/>
+	</target>
+
+	<!-- ENZYME -->
+	<target name="kegg">
+		<exec executable="./test-kegg.R" failonerror="true"/>
 	</target>
 
 	<!-- ENZYME -->

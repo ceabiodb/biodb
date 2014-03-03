@@ -1,15 +1,15 @@
 #!/usr/bin/env Rscript
 library(RUnit)
 library(getopt)
-source('../EnzymeConn.R', chdir = TRUE)
+source('../KeggConn.R', chdir = TRUE)
 source('hash-helpers.R', chdir = TRUE)
 
 ####################
 # GLOBAL CONSTANTS #
 ####################
 
-ENTRIES <- list('1.1.1.1' = list(),
-                'BLABLABLA' = list(false = TRUE)
+ENTRIES <- list('hsa:3627' = list(),
+                'BLABLABLA' = list( false = TRUE )
                 )
 
 #############
@@ -52,7 +52,7 @@ test_entries <- function(conn, entries, full_test = FALSE) {
 		if (hGetBool(entries[[id]], 'big') && ! full_test)
 			next
 
-		print(paste('Testing ENZYME entry', id, '...'))
+		print(paste('Testing KEGG entry', id, '...'))
 
 		# Get Entry from database
 		entry <- conn$getEntry(id)
@@ -66,13 +66,10 @@ test_entries <- function(conn, entries, full_test = FALSE) {
 			checkTrue( ! is.null(entry))
 
 			# save
-			entry$save(paste('test-enzyme-', id, '.txt', sep=''))
+			entry$save(paste('test-kegg-', id, '.txt', sep=''))
 
 			# Check that returned id is the same
 			checkEquals(entry$getId(), id)
-
-			# Check that a description exists
-			checkTrue(entry$getDescription() != "")
 		}
 	}
 }
@@ -81,5 +78,6 @@ test_entries <- function(conn, entries, full_test = FALSE) {
 # MAIN #
 ########
 opt<-read_args()
-conn <- EnzymeConn$new(useragent = "fr.cea.r-biodb.test-enzyme ; pierrick.rogermele@cea.fr")
+conn <- KeggConn$new(useragent = "fr.cea.r-biodb.test-kegg ; pierrick.rogermele@cea.fr")
 test_entries(conn, ENTRIES, full_test = opt$full)
+

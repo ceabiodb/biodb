@@ -1,5 +1,5 @@
 library(XML)
-source('Entry.R', chdir = TRUE)
+source('Entry.R')
 
 ###########################
 # XmlEntry ABSTRACT CLASS #
