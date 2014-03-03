@@ -27,6 +27,16 @@ HmdbEntry$methods(
 	}
 )
 
+###########
+# KEGG ID #
+###########
+
+HmdbEntry$methods(
+	getKeggId = function() {
+		return(.self$getXmlTagContent("//kegg_id"))
+	}
+)
+
 ########
 # NAME #
 ########

@@ -8,7 +8,7 @@ full_test <- FALSE
 #args <- commandArgs(trailingOnly = TRUE)
 #full_test = args[1]
 
-entries <- list('HMDB00001' = list(),
+entries <- list('HMDB00001' = list( keggid = 'C01152' ),
                 'TOTO' = list(false = TRUE)
                 )
 
@@ -37,6 +37,10 @@ for (id in names(entries)) {
 
 		# Check that returned id is the same
 		checkEquals(entry$getId(), id)
+		
+		# Check Kegg ID
+		if (hHasKey(entries[[id]], 'keggid'))
+			checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
 
 		# Check name
 		checkTrue(entry$getName() != '')
