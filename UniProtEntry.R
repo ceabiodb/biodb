@@ -93,6 +93,21 @@ UniProtEntry$methods(
 # <dbReference type="KEGG" id="hsa:12"/>
 UniProtEntry$methods(
 	getKeggId = function() {
-		return(.self$getXmlTagAttribute("//uniprot:dbReference[@type='KEGG']", 'id'))
+		id <- .self$getXmlTagAttribute("//uniprot:dbReference[@type='KEGG']", 'id')
+		if (length(id) == 0) id <- NA_character_
+		return(id)
+	}
+)
+
+#############
+# ENZIME ID #
+#############
+
+# <dbReference type="EC" id="2.3.1.43"/>
+UniProtEntry$methods(
+	getEnzymeId = function() {
+		id <- .self$getXmlTagAttribute("//uniprot:dbReference[@type='EC']", 'id')
+		if (length(id) == 0) id <- NA_character_
+		return(id)
 	}
 )

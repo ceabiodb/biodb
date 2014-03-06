@@ -7,6 +7,7 @@ full_test <- FALSE
 
 entries <- list(
 				'Q75MT5' = list(),
+				'P10480' = list( enzymeid = '2.3.1.43' ),
                 'AAAAAA' = list(false = TRUE),
 				'Q31611' = list(fullname='B2 microglobulin', gene_symbol='HLA-G2.2'),
 				'P07911' = list(fullname='Uromodulin', gene_symbol='UMOD'),
@@ -15,7 +16,7 @@ entries <- list(
 				'P02462' = list(fullname='Collagen alpha-1(IV) chain', gene_symbol='COL4A1'),
 				'P09237' = list(fullname='Matrilysin', gene_symbol='MMP7'),
 				'P60022' = list(fullname='Beta-defensin 1', gene_symbol='DEFB1'),
-				'P01011' = list(fullname='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3', keggid="hsa:12")
+				'P01011' = list(fullname='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3', keggid="hsa:12", enzymeid = NA_character_)
                )
 
 # Open connexion
@@ -49,6 +50,10 @@ for (id in names(entries)) {
 		# Check Kegg ID
 		if (hHasKey(entries[[id]], 'keggid'))
 			checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+		
+		# Check Enzyme ID
+		if (hHasKey(entries[[id]], 'enzymeid'))
+			checkEquals(entry$getEnzymeId(), entries[[id]][['enzymeid']])
 
 		# Check name
 		checkTrue(entry$getName() != '')
