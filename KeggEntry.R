@@ -61,14 +61,21 @@ KeggEntry$methods(
 
 createKeggEntryFromText <- function(text) {
 	lines <- strsplit(text, "\n")
-	id <- NA
-	organism <- NA
+	id <- NA_character_
+	organism <- NA_character_
 	for (s in lines[[1]]) {
 
-		# ID
-		g <- str_match(s, "^ENTRY\\s+(\\S+)")
+		# ENZYME ID
+		g <- str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
 		if ( ! is.na(g[1,1]))
-			id <- g[1,2]
+			id <- paste('ec', g[1,2], sep = ':')
+
+		# OTHER ID
+		else {
+			g <- str_match(s, "^ENTRY\\s+(\\S+)")
+			if ( ! is.na(g[1,1]))
+				id <- g[1,2]
+		}
 
 		# ORGANISM
 		g <- str_match(s, "^ORGANISM\\s+(\\S+)")

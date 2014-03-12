@@ -8,7 +8,9 @@ source('hash-helpers.R', chdir = TRUE)
 # GLOBAL CONSTANTS #
 ####################
 
-ENTRIES <- list('hsa:3627' = list(),
+ENTRIES <- list(
+                'hsa:3627' = list(),
+                'ec:1.1.1.54' = list(),
                 'BLABLABLA' = list( false = TRUE )
                 )
 
