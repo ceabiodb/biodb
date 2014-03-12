@@ -8,7 +8,9 @@ source('hash-helpers.R', chdir = TRUE)
 # GLOBAL CONSTANTS #
 ####################
 
-ENTRIES <- list('1.1.1.1' = list(),
+ENTRIES <- list(
+                '1.1.1.1' = list( keggid = 'ec:1.1.1.1' ),
+                '1.1.1.54' = list( keggid = 'ec:1.1.1.54' ),
                 'BLABLABLA' = list(false = TRUE)
                 )
 
@@ -73,6 +75,10 @@ test_entries <- function(conn, entries, full_test = FALSE) {
 
 			# Check that a description exists
 			checkTrue(entry$getDescription() != "")
+			
+			# Check Kegg ID
+			if (hHasKey(entries[[id]], 'keggid'))
+				checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
 		}
 	}
 }

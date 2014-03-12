@@ -61,6 +61,15 @@ EnzymeEntry$methods(
 	}
 )
 
+###########
+# KEGG ID #
+###########
+
+EnzymeEntry$methods(
+	getKeggId = function() {
+		return(paste('ec', .self$getId(), sep=":"))
+	}
+)
 
 ###########
 # FACTORY #
