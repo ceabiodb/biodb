@@ -10,6 +10,7 @@ source('hash-helpers.R', chdir = TRUE)
 
 ENTRIES <- list('9606' = list( keggid = NULL ),
                 '2139485387547754' = list(false = TRUE),
+                '0' = list(false = TRUE),
                 '7273' = list(big = TRUE),
                 '3627' = list(symbol = 'CXCL10', fullname = 'chemokine (C-X-C motif) ligand 10',
 							  synonyms = c('IFI10', 'C7', 'INP10', 'IP-10', 'crg-2', 'mob-1', 'SCYB10', 'gIP-10'),

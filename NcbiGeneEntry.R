@@ -25,7 +25,7 @@ NcbiGeneEntry$methods(
 
 NcbiGeneEntry$methods(
 	hasError = function() {
-		return(length(getNodeSet(xml, "//Error")) != 0)
+		return(length(getNodeSet(xml, "//Error")) != 0 || length(getNodeSet(xml, "//ERROR")) != 0)
 	}
 )
 
