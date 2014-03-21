@@ -1,3 +1,4 @@
+library(bitops)
 library(RCurl)
 
 #####################
