@@ -86,6 +86,18 @@ UniProtEntry$methods(
 	}
 )
 
+############
+# SEQUENCE #
+############
+
+UniProtEntry$methods(
+	getSequence = function() {
+		seq <- .self$getXmlTagContent("//uniprot:entry/uniprot:sequence")
+		seq <- gsub("\\n", "", seq)
+		return(seq)
+	}
+)
+
 ###########
 # KEGG ID #
 ###########

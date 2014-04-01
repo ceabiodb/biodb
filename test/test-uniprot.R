@@ -15,7 +15,7 @@ entries <- list(
 				'P02461' = list(fullname='Collagen alpha-1(III) chain', gene_symbol='COL3A1'),
 				'P02462' = list(fullname='Collagen alpha-1(IV) chain', gene_symbol='COL4A1'),
 				'P09237' = list(fullname='Matrilysin', gene_symbol='MMP7'),
-				'P60022' = list(fullname='Beta-defensin 1', gene_symbol='DEFB1'),
+				'P60022' = list(fullname='Beta-defensin 1', gene_symbol='DEFB1', seq='MRTSYLLLFTLCLLLSEMASGGNFLTGLGHRSDHYNCVSSGGQCLYSACPIFTKIQGTCYRGKAKCCK'),
 				'P01011' = list(fullname='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3', keggid="hsa:12", enzymeid = NA_character_)
                )
 
@@ -71,6 +71,10 @@ for (id in names(entries)) {
 
 		# Check mass
 		checkTrue(entry$getMass() > 0)
+
+		# Check sequence
+		if (hHasKey(entries[[id]], 'seq'))
+			checkEquals(entries[[id]][['seq']], entry$getSequence())
 
 		# save
 		entry$save(paste('test-uniprot-', id, '.xml', sep=''))
