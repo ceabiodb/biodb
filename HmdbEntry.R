@@ -86,3 +86,14 @@ HmdbEntry$methods(
 		return(as.numeric(.self$getXmlTagContent("//monisotopic_moleculate_weight")))
 	}
 )
+
+################
+# LIPIDMAPS ID #
+################
+
+HmdbEntry$methods(
+	getLipidMapsId = function() {
+		# TODO Don't know how to get LMID from HMDB.
+		return(NA_character_)
+	}
+)
