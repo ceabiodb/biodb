@@ -11,7 +11,8 @@ source('hash-helpers.R', chdir = TRUE)
 ENTRIES <- list(
                 'hsa:3627' = list(),
                 'ec:1.1.1.54' = list(),
-                'BLABLABLA' = list( false = TRUE )
+                'BLABLABLA' = list( false = TRUE ),
+                'cpd:C00751' = list()
                 )
 
 #############
