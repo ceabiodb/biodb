@@ -1,31 +1,19 @@
-library("stringr")
-source('Entry.R', chdir = TRUE)
+source('TxtEntry.R', chdir = TRUE)
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-KeggEntry <- setRefClass("KeggEntry", contains = 'Entry', fields = list(id = "character", lipidmaps_id = "character", .orig_text_file = "character" ))
+KeggEntry <- setRefClass("KeggEntry", contains = 'TxtEntry', fields = list(lipidmaps_id = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
 KeggEntry$methods(
-	initialize = function(id = NA_character_, lipidmaps_id = NA_character_, .orig_text_file = "", ...) {
-		id <<- id
+	initialize = function(lipidmaps_id = NA_character_, ...) {
 		lipidmaps_id <<- lipidmaps_id
 		callSuper(...) # calls super-class initializer with remaining parameters
-	}
-)
-
-######
-# ID #
-######
-
-KeggEntry$methods(
-	getId = function() {
-		return(.self$id)
 	}
 )
 
@@ -103,8 +91,7 @@ createKeggEntryFromText <- function(text) {
 			lipidmapsid <- g[1,2]
 	}
 	if (is.na(id)) return(NULL)
-	entry <- KeggEntry$new(id = id, lipidmaps_id = lipidmapsid)
-	entry$.setOrigTextFile(text)
+	entry <- KeggEntry$new(id = id, lipidmaps_id = lipidmapsid, .orig_text_file = text)
 	return(entry)
 }
 

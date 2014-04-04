@@ -35,10 +35,10 @@ for (id in names(entries)) {
 	else {
 		checkTrue( ! is.null(entry))
 
+		# save
+		entry$save(paste('test-lipidmaps-', id, '.txt', sep=''))
+
 		# Check that returned id is the same
 		checkEquals(entry$getId(), id)
-
-		# save
-#entry$save(paste('test-lipidmaps-', id, '.txt', sep=''))
 	}
 }

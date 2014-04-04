@@ -4,6 +4,16 @@
 
 Entry <- setRefClass("Entry")
 
+######
+# ID #
+######
+
+Entry$methods(
+	getId = function() {
+		return(NA_character_)
+	}
+)
+
 ########
 # SAVE #
 ########
@@ -20,6 +30,6 @@ Entry$methods(
 
 Entry$methods(
 	getKeggId = function() {
-		return(NULL)
+		return(NA_character_)
 	}
 )
