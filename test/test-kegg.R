@@ -2,7 +2,7 @@
 library(RUnit)
 library(getopt)
 source('../KeggConn.R', chdir = TRUE)
-source('hash-helpers.R', chdir = TRUE)
+source('../../r-lib/hshhlp.R', chdir = TRUE)
 
 ####################
 # GLOBAL CONSTANTS #
@@ -58,7 +58,7 @@ test_entries <- function(conn, entries, full_test = FALSE) {
 		print(paste('Testing KEGG entry', id, '...'))
 
 		# Get Entry from database
-		entry <- conn$getEntry(id)
+		entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-kegg-', id, '.txt')))
 
 		# This is a false entry => test that it's null
 		if (hGetBool(entries[[id]], 'false'))
@@ -67,9 +67,6 @@ test_entries <- function(conn, entries, full_test = FALSE) {
 		# This is a real entry => test that it isn't null
 		else {
 			checkTrue( ! is.null(entry))
-
-			# save
-			entry$save(paste('test-kegg-', id, '.txt', sep=''))
 
 			# Check that returned id is the same
 			checkEquals(entry$getId(), id)

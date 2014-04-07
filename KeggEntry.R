@@ -1,10 +1,11 @@
-source('TxtEntry.R', chdir = TRUE)
+library(stringr)
+source('BioDbEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-KeggEntry <- setRefClass("KeggEntry", contains = 'TxtEntry', fields = list(lipidmaps_id = "character"))
+KeggEntry <- setRefClass("KeggEntry", contains = 'BioDbEntry', fields = list(lipidmaps_id = "character"))
 
 ###############
 # CONSTRUCTOR #
@@ -26,29 +27,6 @@ KeggEntry$methods(
 		return(.self$lipidmaps_id)
 	}
 )
-
-######################
-# ORIGINAL TEXT FILE #
-######################
-
-KeggEntry$methods(
-	.setOrigTextFile = function(text) {
-		.orig_text_file <<- text
-	}
-)
-
-########
-# SAVE #
-########
-
-KeggEntry$methods(
-	save = function(filename) {
-		fileConn<-file(filename)
-		writeLines(.self$.orig_text_file, fileConn)
-		close(fileConn)
-	}
-)
-
 
 ###########
 # FACTORY #
@@ -90,8 +68,7 @@ createKeggEntryFromText <- function(text) {
 		if ( ! is.na(g[1,1]))
 			lipidmapsid <- g[1,2]
 	}
-	if (is.na(id)) return(NULL)
-	entry <- KeggEntry$new(id = id, lipidmaps_id = lipidmapsid, .orig_text_file = text)
-	return(entry)
+
+	return(if (is.na(id)) NULL else KeggEntry$new(id = id, kegg_id = id, lipidmaps_id = lipidmapsid))
 }
 
