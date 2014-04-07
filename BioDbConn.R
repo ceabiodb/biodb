@@ -1,4 +1,4 @@
-source('__UrlRequestScheduler.R')
+source('../r-lib/UrlRequestScheduler.R', chdir = TRUE)
 
 #####################
 # CLASS DECLARATION #

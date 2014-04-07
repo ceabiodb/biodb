@@ -1,39 +1,20 @@
 library(XML)
-source('XmlEntry.R', chdir = TRUE)
+source('BioDbEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-NcbiCcdsEntry <- setRefClass("NcbiCcdsEntry", contains = "XmlEntry")
+NcbiCcdsEntry <- setRefClass("NcbiCcdsEntry", contains = "BioDbEntry", fields = list(nucleotides = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
 NcbiCcdsEntry$methods(
-	initialize = function(...) {
-		callSuper(html = TRUE, ...)
-	}
-)
-
-######
-# ID #
-######
-
-NcbiCcdsEntry$methods(
-	getId = function() {
-		return(.self$getXmlTagAttribute("//input[@id='DATA']", "value"))
-	}
-)
-
-#############
-# HAS ERROR #
-#############
-
-NcbiCcdsEntry$methods(
-	hasError = function() {
-		return(length(getNodeSet(xml, "//*[starts-with(.,'No results found for CCDS ID ')]")) != 0)
+	initialize = function(nucleotides = NA_character_, ...) {
+		nucleotides <<- nucleotides
+		callSuper(...)
 	}
 )
 
@@ -43,7 +24,26 @@ NcbiCcdsEntry$methods(
 
 NcbiCcdsEntry$methods(
 	getNucleotideSequence = function() {
-		nucleotides <- .self$getXmlTagContent("//b[starts-with(.,'Nucleotide Sequence')]/../tt")
 		return(nucleotides)
 	}
 )
+
+###########
+# FACTORY #
+###########
+
+createNcbiCcdsEntryFromHtml <- function(htmlstr) {
+
+	# Parse HTML
+	xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
+
+	# An error occured
+	if (length(getNodeSet(xml, "//*[starts-with(.,'No results found for CCDS ID ')]")) != 0)
+		return(NULL)
+
+	# Get data
+	id          <- xpathSApply(xml, "//input[@id='DATA']", xmlGetAttr, "value")
+	nucleotides <- xpathSApply(xml, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", xmlValue)
+
+	return(if (is.na(id)) NULL else NcbiCcdsEntry$new(id = id, nucleotides = nucleotides))
+}
