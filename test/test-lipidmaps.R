@@ -1,7 +1,7 @@
 #!/usr/bin/env R --slave -f
 library(RUnit)
 source('../LipidmapsConn.R', chdir = TRUE)
-source('hash-helpers.R', chdir = TRUE)
+source('../../r-lib/hshhlp.R', chdir = TRUE)
 
 full_test <- FALSE
 # TODO add a flag for running long tests
@@ -25,7 +25,7 @@ for (id in names(entries)) {
 	print(paste('Testing LIPIDMAPS entry', id, '...'))
 
 	# Get Entry from database
-	entry <- conn$getEntry(id)
+	entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-lipidmaps-', id, '.txt')))
 
 	# This is a false entry => test that it's null
 	if (hGetBool(entries[[id]], 'false'))
@@ -35,10 +35,7 @@ for (id in names(entries)) {
 	else {
 		checkTrue( ! is.null(entry))
 
-		# save
-		entry$save(paste('test-lipidmaps-', id, '.txt', sep=''))
-
 		# Check that returned id is the same
-		checkEquals(entry$getId(), id)
+		checkEquals(id, entry$getId())
 	}
 }

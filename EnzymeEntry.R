@@ -1,10 +1,11 @@
-source('TxtEntry.R', chdir = TRUE)
+library(stringr)
+source('BioDbEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'TxtEntry', fields = list(desc = "character"))
+EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'BioDbEntry', fields = list(desc = "character"))
 
 ###############
 # CONSTRUCTOR #
@@ -28,16 +29,6 @@ EnzymeEntry$methods(
 )
 
 ###########
-# KEGG ID #
-###########
-
-EnzymeEntry$methods(
-	getKeggId = function() {
-		return(paste('ec', .self$getId(), sep=":"))
-	}
-)
-
-###########
 # FACTORY #
 ###########
 
@@ -57,7 +48,6 @@ createEnzymeEntryFromText <- function(text) {
 		if ( ! is.na(g[1,1]))
 			desc <- g[1,2]
 	}
-	if (is.na(id)) return(NULL)
-	entry <- EnzymeEntry$new(id = id, desc = desc, .orig_text_file = text)
-	return(entry)
+
+	return(if (is.na(id)) NULL else EnzymeEntry$new(id = id, kegg_id = paste('ec', id, sep=":"), desc = desc))
 }

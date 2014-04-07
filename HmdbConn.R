@@ -7,17 +7,29 @@ source('HmdbEntry.R')
 
 HmdbConn <- setRefClass("HmdbConn", contains = "BioDbConn")
 
-########################
-# GET METABOLITE ENTRY #
-########################
+###############################
+# DOWNLOAD ENTRY FILE CONTENT #
+###############################
 
+# Download an entry description as a file content, from the public database.
+# id        The ID of the entry for which to download file content.
+# RETURN    The file content describing the entry.
 HmdbConn$methods(
-	getEntry = function(id) {
-		url <- paste('http://www.hmdb.ca/metabolites/', id, '.xml', sep='')
-		xml <- .self$getUrl(url)
-		entry <- HmdbEntry$new(xmlstr = xml)
-		# Check if an error occured
-		if (entry$hasError()) return(NULL)
+	.doDownloadEntryFileContent = function(id) {
+		url <- paste0('http://www.hmdb.ca/metabolites/', id, '.xml')
+		xml <- .self$.getUrl(url)
+		return(xml)
+})
+
+################
+# CREATE ENTRY #
+################
+
+# Creates an Entry instance from file content.
+# file_content  A file content, downloaded from the public database.
+# RETURN        An Entry instance.
+HmdbConn$methods(
+	createEntry = function(file_content) {
+		entry <- createHmdbEntryFromXml(file_content)
 		return(entry)
-	}
-)
+})
