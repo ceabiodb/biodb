@@ -1,14 +1,15 @@
 #!/usr/bin/env Rscript
 library(RUnit)
 library(getopt)
-source('../NcbiConn.R', chdir = TRUE)
-source('hash-helpers.R', chdir = TRUE)
+source('../NcbiGeneConn.R', chdir = TRUE)
+source('../NcbiCcdsConn.R', chdir = TRUE)
+source('../../r-lib/hshhlp.R', chdir = TRUE)
 
 ####################
 # GLOBAL CONSTANTS #
 ####################
 
-ENTRIES <- list('9606' = list( keggid = NULL ),
+ENTRIES <- list('9606' = list( keggid = NA_character_ ),
                 '2139485387547754' = list(false = TRUE),
                 '0' = list(false = TRUE),
                 '-1' = list(false = TRUE),
@@ -17,6 +18,7 @@ ENTRIES <- list('9606' = list( keggid = NULL ),
 							  synonyms = c('IFI10', 'C7', 'INP10', 'IP-10', 'crg-2', 'mob-1', 'SCYB10', 'gIP-10'),
 							  location = '4q21',
 							  keggid = 'hsa:3627',
+							  ccds_id = 'CCDS43240.1',
 							  sequence = 'ATGAATCAAACTGCCATTCTGATTTGCTGCCTTATCTTTCTGACTCTAAGTGGCATTCAAGGAGTACCTCTCTCTAGAACTGTACGCTGTACCTGCATCAGCATTAGTAATCAACCTGTTAATCCAAGGTCTTTAGAAAAACTTGAAATTATTCCTGCAAGCCAATTTTGTCCACGTGTTGAGATCATTGCTACAATGAAAAAGAAGGGTGAGAAGAGATGTCTGAATCCAGAATCGAAGGCCATCAAGAATTTACTGAAAGCAGTTAGCAAGGAAAGGTCTAAAAGATCTCCTTAA'),
                 '2833' = list(symbol = 'CXCR3',
 							  fullname = 'chemokine (C-X-C motif) receptor 3',
@@ -68,7 +70,10 @@ read_args <- function() {
 # TEST ENTRIES #
 ################
 
-test_entries <- function(conn, entries, full_test = FALSE, seq_test = FALSE) {
+test_entries <- function(entries, user_agent, full_test = FALSE, seq_test = FALSE) {
+
+	conn <- NcbiGeneConn$new(useragent = user_agent)
+	ccds_conn <- NULL
 
 	# Loop on all entries
 	for (id in names(entries)) {
@@ -80,7 +85,7 @@ test_entries <- function(conn, entries, full_test = FALSE, seq_test = FALSE) {
 		print(paste('Testing NCBI entry', id, '...'))
 
 		# Get Entry from database
-		entry <- conn$getGeneEntry(as.numeric(id))
+		entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-ncbi-gene-', id, '.xml')))
 
 		# This is a false entry => test that it's null
 		if (hGetBool(entries[[id]], 'false'))
@@ -90,11 +95,8 @@ test_entries <- function(conn, entries, full_test = FALSE, seq_test = FALSE) {
 		else {
 			checkTrue( ! is.null(entry))
 
-			# save
-			entry$save(paste('test-ncbi-gene-', id, '.xml', sep=''))
-
 			# Check that returned id is the same
-			checkEquals(entry$getId(), as.numeric(id))
+			checkEquals(entry$getId(), id)
 			
 			# Check symbol
 			if (hHasKey(entries[[id]], 'symbol'))
@@ -116,9 +118,17 @@ test_entries <- function(conn, entries, full_test = FALSE, seq_test = FALSE) {
 			if (hHasKey(entries[[id]], 'synonyms'))
 				checkEquals(sort(entry$getSynonyms()), sort(entries[[id]][['synonyms']]))
 
-			# Check sequence
-			if (seq_test && hHasKey(entries[[id]], 'sequence'))
-				checkEquals(entry$getSequence(), entries[[id]][['sequence']])
+			# Check CCDS ID
+			if (hHasKey(entries[[id]], 'ccds_id')) {
+				checkEquals(sort(entry$getCcdsId()), sort(entries[[id]][['ccds_id']]))
+
+				# Check sequence
+				if (seq_test && hHasKey(entries[[id]], 'sequence')) {
+					if (is.null(ccds_conn))
+						ccds_conn <- NcbiCcdsConn$new(useragent = user_agent)
+					checkEquals(ccds_conn$getEntry(entry$getCcdsId())$getNucleotideSequence(), entries[[id]][['sequence']])
+				}
+			}
 		}
 	}
 }
@@ -127,5 +137,4 @@ test_entries <- function(conn, entries, full_test = FALSE, seq_test = FALSE) {
 # MAIN #
 ########
 opt<-read_args()
-conn <- NcbiConn$new(useragent = "fr.cea.r-biodb.test-ncbi-gene ; pierrick.rogermele@cea.fr")
-test_entries(conn, ENTRIES, full_test = opt$full, seq_test = opt$seq)
+test_entries(entries = ENTRIES, user_agent = "fr.cea.r-biodb.test-ncbi-gene ; pierrick.rogermele@cea.fr", full_test = opt$full, seq_test = opt$seq)

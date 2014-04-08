@@ -1,21 +1,39 @@
-source('BioDbConn.R')
+source('NcbiConn.R')
 source('NcbiGeneEntry.R')
 
-##################
-# GET GENE ENTRY #
-##################
+#####################
+# CLASS DECLARATION #
+#####################
 
-NcbiConn$methods(
-	getGeneEntry = function(id) {
-		url <- paste('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', id, '&rettype=xml&retmode=text', sep='')
-		xml <- .self$getUrl(url)
-		entry <- NcbiGeneEntry$new(xmlstr = xml, conn = .self)
+NcbiGeneConn <- setRefClass("NcbiGeneConn", contains = "NcbiConn")
 
-		# Check if an error occurred
-		if (entry$hasError()) return(NULL)
+###############################
+# DOWNLOAD ENTRY FILE CONTENT #
+###############################
 
-		# Check ID, because if no gene is found with the specified ID, it returns the first gene encountered.
-		return(if (entry$getId() == id) entry else NULL)
-	}
-)
+# Download an entry description as a file content, from the public database.
+# id        The ID of the entry for which to download file content.
+# RETURN    The file content describing the entry.
+NcbiGeneConn$methods(
+	.doDownloadEntryFileContent = function(id) {
 
+		if (as.numeric(id) < 0)
+			return(NA_character_)
+
+		url <- paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', id, '&rettype=xml&retmode=text')
+		xml <- .self$.getUrl(url)
+		return(xml)
+})
+
+################
+# CREATE ENTRY #
+################
+
+# Creates an Entry instance from file content.
+# file_content  A file content, downloaded from the public database.
+# RETURN        An Entry instance.
+NcbiGeneConn$methods(
+	createEntry = function(file_content) {
+		entry <- createNcbiGeneEntryFromXml(file_content)
+		return(entry)
+})

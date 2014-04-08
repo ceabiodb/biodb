@@ -24,7 +24,7 @@ NcbiCcdsEntry$methods(
 
 NcbiCcdsEntry$methods(
 	getNucleotideSequence = function() {
-		return(nucleotides)
+		return(.self$nucleotides)
 	}
 )
 
