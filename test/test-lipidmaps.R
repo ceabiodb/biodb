@@ -8,7 +8,7 @@ full_test <- FALSE
 #args <- commandArgs(trailingOnly = TRUE)
 #full_test = args[1]
 
-entries <- list('LMFA08040013' = list(),
+entries <- list('LMFA08040013' = list(formula = 'C18H37NO2', mass = 299.28, synonyms = c('Palmitoyl ethanolamide', 'palmitoylethanolamide', 'Anandamide (16:0)', 'N-palmitoyl ethanolamine'), kegg_id = NA_character_, hmdb_id = 'HMDB02100'),
                 'TAGADA' = list(false = TRUE)
                 )
 
@@ -37,5 +37,25 @@ for (id in names(entries)) {
 
 		# Check that returned id is the same
 		checkEquals(id, entry$getId())
+
+		# Check synonyms
+		if (hHasKey(entries[[id]], 'synonyms'))
+			checkEquals(sort(entries[[id]][['synonyms']]), sort(entry$getSynonyms()))
+			
+		# Check Kegg ID
+		if (hHasKey(entries[[id]], 'kegg_id'))
+			checkEquals(entries[[id]][['kegg_id']], entry$getKeggId())
+			
+		# Check HMDB ID
+		if (hHasKey(entries[[id]], 'hmdb_id'))
+			checkEquals(entries[[id]][['hmdb_id']], entry$getHmdbId())
+			
+		# Check Mass
+		if (hHasKey(entries[[id]], 'mass'))
+			checkEquals(entries[[id]][['mass']],entry$getMass())
+			
+		# Check Formula
+		if (hHasKey(entries[[id]], 'formula'))
+			checkEquals(entries[[id]][['formula']], entry$getFormula())
 	}
 }
