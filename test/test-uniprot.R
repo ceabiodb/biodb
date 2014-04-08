@@ -1,7 +1,7 @@
 #!/usr/bin/env R --slave -f
 library(RUnit)
 source('../UniProtConn.R', chdir = TRUE)
-source('hash-helpers.R', chdir = TRUE)
+source('../../r-lib/hshhlp.R', chdir = TRUE)
 
 full_test <- FALSE
 
@@ -32,7 +32,7 @@ for (id in names(entries)) {
 	print(paste('Testing UniProt entry', id, '...'))
 
 	# Get Entry from database
-	entry <- conn$getEntry(id)
+	entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-uniprot-', id, '.xml')))
 
 	# This is a false entry => test that it's null
 	if (hGetBool(entries[[id]], 'false'))
@@ -41,8 +41,6 @@ for (id in names(entries)) {
 	# This is a real entry => test that it isn't null
 	else {
 		checkTrue( ! is.null(entry))
-
-		entry$save(paste('test-uniprot-', id, '.xml', sep=''))
 
 		# Check that returned id is the same
 		checkEquals(entry$getId(), id)
@@ -75,8 +73,5 @@ for (id in names(entries)) {
 		# Check sequence
 		if (hHasKey(entries[[id]], 'seq'))
 			checkEquals(entries[[id]][['seq']], entry$getSequence())
-
-		# save
-		entry$save(paste('test-uniprot-', id, '.xml', sep=''))
 	}
 }

@@ -7,19 +7,29 @@ source('UniProtEntry.R')
 
 UniProtConn <- setRefClass("UniProtConn", contains = "BioDbConn")
 
-#############
-# GET ENTRY #
-#############
+###############################
+# DOWNLOAD ENTRY FILE CONTENT #
+###############################
 
+# Download an entry description as a file content, from the public database.
+# id        The ID of the entry for which to download file content.
+# RETURN    The file content describing the entry.
 UniProtConn$methods(
-	getEntry = function(id) {
-		url <- paste('http://www.uniprot.org/uniprot/', id, '.xml', sep='')
-		xml <- .self$getUrl(url)
+	.doDownloadEntryFileContent = function(id) {
+		url <- paste0('http://www.uniprot.org/uniprot/', id, '.xml')
+		xml <- .self$.getUrl(url)
+		return(xml)
+})
 
-		# If the entity doesn't exist (i.e.: no <id>.xml page), then it returns an HTML page
-		if (grepl("^<!DOCTYPE html PUBLIC", xml, perl=TRUE))
-			return(NULL)
+################
+# CREATE ENTRY #
+################
 
-		return(UniProtEntry$new(xmlstr = xml))
-	}
-)
+# Creates an Entry instance from file content.
+# file_content  A file content, downloaded from the public database.
+# RETURN        An Entry instance.
+UniProtConn$methods(
+	createEntry = function(file_content) {
+		entry <- createUniProtEntryFromXml(file_content)
+		return(entry)
+})

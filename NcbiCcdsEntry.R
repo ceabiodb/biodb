@@ -13,7 +13,7 @@ NcbiCcdsEntry <- setRefClass("NcbiCcdsEntry", contains = "BioDbEntry", fields = 
 
 NcbiCcdsEntry$methods(
 	initialize = function(nucleotides = NA_character_, ...) {
-		nucleotides <<- nucleotides
+		nucleotides <<- if ( ! is.null(nucleotides)) nucleotides else NA_character_
 		callSuper(...)
 	}
 )

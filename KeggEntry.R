@@ -13,7 +13,7 @@ KeggEntry <- setRefClass("KeggEntry", contains = 'BioDbEntry', fields = list(lip
 
 KeggEntry$methods(
 	initialize = function(lipidmaps_id = NA_character_, ...) {
-		lipidmaps_id <<- lipidmaps_id
+		lipidmaps_id <<- if ( ! is.null(lipidmaps_id)) lipidmaps_id else NA_character_
 		callSuper(...) # calls super-class initializer with remaining parameters
 	}
 )

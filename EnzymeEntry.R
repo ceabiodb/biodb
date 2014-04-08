@@ -13,7 +13,7 @@ EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'BioDbEntry', fields = list
 
 EnzymeEntry$methods(
 	initialize = function(desc = NA_character_, ...) {
-		desc <<- desc
+		desc <<- if ( ! is.null(desc)) desc else NA_character_
 		callSuper(...) # calls super-class initializer with remaining parameters
 	}
 )
