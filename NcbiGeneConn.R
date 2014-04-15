@@ -17,11 +17,10 @@ NcbiGeneConn <- setRefClass("NcbiGeneConn", contains = "NcbiConn")
 NcbiGeneConn$methods(
 	.doDownloadEntryFileContent = function(id) {
 
-		if (as.numeric(id) < 0)
+		if (as.numeric(id) <= 0)
 			return(NA_character_)
 
-		url <- paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', id, '&rettype=xml&retmode=text')
-		xml <- .self$.getUrl(url)
+		xml <- .self$.getUrl('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi', params = c(db = 'gene', id = as.character(id), rettype = 'xml', retmode = 'text'))
 		return(xml)
 })
 

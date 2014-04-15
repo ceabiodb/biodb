@@ -26,8 +26,7 @@ LipidmapsConn$methods( initialize = function(...) {
 # RETURN    The file content describing the entry.
 LipidmapsConn$methods(
 	.doDownloadEntryFileContent = function(id) {
-		url <- paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', id, '&OutputType=CSV&OutputQuote=No')
-		csv <- .self$.getUrl(url)
+		csv <- .self$.getUrl('http://www.lipidmaps.org/data/LMSDRecord.php', params = c(Mode = 'File', LMID = id, OutputType = 'CSV', OutputQuote = 'No'))
 		return(csv)
 })
 

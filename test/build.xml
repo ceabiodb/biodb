@@ -1,7 +1,7 @@
 <project name="fr.cea.r-biodb.test" default="all">
 
 	<!-- ALL -->
-	<target name="all" depends="enzyme,hmdb,uniprot,ncbi,kegg"/>
+	<target name="all" depends="enzyme,hmdb,uniprot,ncbi,kegg,lipidmaps"/>
 
 	<!-- NCBI -->
 	<target name="ncbi" depends="ccds,gene"/>
@@ -14,6 +14,11 @@
 	<!-- NCBI CCDS -->
 	<target name="ccds">
 		<exec executable="./test-ncbi-ccds.R" failonerror="true"/>
+	</target>
+
+	<!-- LIPIDMAPS -->
+	<target name="lipidmaps">
+		<exec executable="./test-lipidmaps.R" failonerror="true"/>
 	</target>
 
 	<!-- UNIPROT -->

@@ -17,8 +17,7 @@ NcbiCcdsConn <- setRefClass("NcbiCcdsConn", contains = "NcbiConn")
 NcbiCcdsConn$methods(
 	.doDownloadEntryFileContent = function(id) {
 		# There exists no CCDS connexion through the e-utilities, so we must connect the web server and get an HTML page.
-		url <- paste0('http://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', id)
-		xml <- .self$.getUrl(url)
+		xml <- .self$.getUrl('http://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi', params = c(REQUEST = 'CCDS', GO = 'MainBrowse', DATA = id))
 		return(xml)
 })
 
