@@ -1,3 +1,6 @@
+They block IP when querying from an application.
+
+
 QUERY ON MASS
 =============
 Replace POST with GET inside search page in order to get the line of parameters:
