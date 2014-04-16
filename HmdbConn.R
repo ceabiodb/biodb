@@ -29,7 +29,7 @@ HmdbConn$methods(
 # file_content  A file content, downloaded from the public database.
 # RETURN        An Entry instance.
 HmdbConn$methods(
-	createEntry = function(file_content) {
+	.doCreateEntry = function(file_content) {
 		entry <- createHmdbEntryFromXml(file_content)
 		return(entry)
 })

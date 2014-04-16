@@ -1,7 +1,12 @@
 <project name="fr.cea.r-biodb.test" default="all">
 
 	<!-- ALL -->
-	<target name="all" depends="enzyme,hmdb,uniprot,ncbi,kegg,lipidmaps"/>
+	<target name="all" depends="enzyme,hmdb,uniprot,ncbi,kegg,lipidmaps,mirbase"/>
+
+	<!-- MIRBASE -->
+	<target name="mirbase">
+		<exec executable="./test-mirbase.R" failonerror="true"/>
+	</target>
 
 	<!-- NCBI -->
 	<target name="ncbi" depends="ccds,gene"/>

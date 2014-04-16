@@ -38,7 +38,7 @@ LipidmapsConn$methods(
 # file_content  A file content, downloaded from the public database.
 # RETURN        An Entry instance.
 LipidmapsConn$methods(
-	createEntry = function(file_content) {
+	.doCreateEntry = function(file_content) {
 		entry <- createLipidmapsEntryFromCsv(file_content)
 		return(entry)
 })

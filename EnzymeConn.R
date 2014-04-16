@@ -29,7 +29,7 @@ EnzymeConn$methods(
 # file_content  A file content, downloaded from the public database.
 # RETURN        An Entry instance.
 EnzymeConn$methods(
-	createEntry = function(file_content) {
+	.doCreateEntry = function(file_content) {
 		entry <- createEnzymeEntryFromText(file_content)
 		return(entry)
 })

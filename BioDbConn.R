@@ -38,7 +38,8 @@ BioDbConn$methods( .getUrl = function(url, params = NULL, method = 'GET') {
 # RETURN    An Entry instance.
 BioDbConn$methods(
 	getEntry = function(id) {
-		return(.self$createEntry(.self$downloadEntryFileContent(id)))
+		content <- .self$downloadEntryFileContent(id)
+		return(.self$createEntry(content))
 })
 
 ###############################
@@ -65,6 +66,7 @@ BioDbConn$methods(
 })
 
 # Download an entry description as a file content, from the public database.
+# This method has to be overwritten by sub-classes.
 # id        The ID of the entry for which to download file content.
 # RETURN    The file content describing the entry.
 BioDbConn$methods(
@@ -77,9 +79,24 @@ BioDbConn$methods(
 ################
 
 # Creates an Entry instance from file content.
-# file_content  A file content, downloaded from the public database.
+# content       A file content, downloaded from the public database.
 # RETURN        An Entry instance.
 BioDbConn$methods(
-	createEntry = function(file_content) {
+	createEntry = function(content) {
+
+		# Create entry
+		entry <- NULL
+		if ( ! is.null(content) && ! is.na(content) && nchar(content) > 0)
+			entry <- .self$.doCreateEntry(content)
+
+		return(entry)
+})
+
+# Creates an Entry instance from file content.
+# This method has to be overwritten by sub-classes.
+# content       A file content, downloaded from the public database.
+# RETURN    The file content describing the entry.
+BioDbConn$methods(
+	.doCreateEntry = function(content) {
 		return(NULL)
 })

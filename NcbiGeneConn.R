@@ -32,7 +32,7 @@ NcbiGeneConn$methods(
 # file_content  A file content, downloaded from the public database.
 # RETURN        An Entry instance.
 NcbiGeneConn$methods(
-	createEntry = function(file_content) {
+	.doCreateEntry = function(file_content) {
 		entry <- createNcbiGeneEntryFromXml(file_content)
 		return(entry)
 })

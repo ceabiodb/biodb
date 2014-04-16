@@ -29,7 +29,7 @@ UniProtConn$methods(
 # file_content  A file content, downloaded from the public database.
 # RETURN        An Entry instance.
 UniProtConn$methods(
-	createEntry = function(file_content) {
+	.doCreateEntry = function(file_content) {
 		entry <- createUniProtEntryFromXml(file_content)
 		return(entry)
 })
