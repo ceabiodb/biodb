@@ -14,6 +14,7 @@ ENTRIES <- list('9606' = list( keggid = NA_character_ ),
                 '0' = list(false = TRUE),
                 '-1' = list(false = TRUE),
                 '7273' = list(big = TRUE),
+                '4316' = list(symbol = 'MMP7', uniprotid = 'P09237'),
                 '3627' = list(symbol = 'CXCL10', fullname = 'chemokine (C-X-C motif) ligand 10',
 							  synonyms = c('IFI10', 'C7', 'INP10', 'IP-10', 'crg-2', 'mob-1', 'SCYB10', 'gIP-10'),
 							  location = '4q21',
@@ -113,6 +114,10 @@ test_entries <- function(entries, user_agent, full_test = FALSE, seq_test = FALS
 			# Check Kegg ID
 			if (hHasKey(entries[[id]], 'keggid'))
 				checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+			
+			# Check UniProtKB/Swiss-Prot ID
+			if (hHasKey(entries[[id]], 'uniprotid'))
+				checkEquals(entry$getUniProtId(), entries[[id]][['uniprotid']])
 
 			# Check synonyms
 			if (hHasKey(entries[[id]], 'synonyms'))

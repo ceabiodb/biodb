@@ -5,15 +5,16 @@ source('BioDbEntry.R')
 # CLASS DECLARATION #
 #####################
 
-UniProtEntry <- setRefClass("UniProtEntry", contains = "BioDbEntry", fields = list(enzyme_id = "character", sequence = "character", mass = "numeric", length = "numeric", gene_symbol = "character", fullname = "character", name = "character"))
+UniProtEntry <- setRefClass("UniProtEntry", contains = "BioDbEntry", fields = list(enzyme_id = "character", sequence = "character", mass = "numeric", length = "numeric", gene_symbol = "character", fullname = "character", name = "character", gene_id = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
 UniProtEntry$methods(
-	initialize = function(enzyme_id = NA_character_, sequence = NA_character_, mass = NA_real_, length = NA_integer_, gene_symbol = NA_character_, fullname = NA_character_, name = NA_character_, ...) {
+	initialize = function(gene_id = NA_character_, enzyme_id = NA_character_, sequence = NA_character_, mass = NA_real_, length = NA_integer_, gene_symbol = NA_character_, fullname = NA_character_, name = NA_character_, ...) {
 		enzyme_id <<- if ( ! is.null(enzyme_id)) enzyme_id else NA_character_
+		gene_id <<- if ( ! is.null(gene_id)) gene_id else NA_character_
 		sequence <<- if ( ! is.null(sequence)) sequence else NA_character_
 		mass <<- if ( ! is.null(mass)) mass else NA_real_
 		length <<- if ( ! is.null(length)) length else NA_integer_
@@ -85,6 +86,17 @@ UniProtEntry$methods(
 	}
 )
 
+################
+# NCBI GENE ID #
+################
+
+# <dbReference type="GeneID" id="12"/>
+UniProtEntry$methods(
+	getNcbiGeneId = function() {
+		return(.self$gene_id)
+	}
+)
+
 #############
 # ENZIME ID #
 #############
@@ -116,6 +128,7 @@ createUniProtEntryFromXml <- function(xmlstr) {
 	accession_ids <- unlist(xpathSApply(xml, "//uniprot:accession", xmlValue, namespaces = ns))
 	id <- if ( ! is.null(accession_ids) && length(accession_ids) > 1) accession_ids[1] else accession_ids
 	kegg_id <- unlist(xpathSApply(xml, "//uniprot:dbReference[@type='KEGG']", xmlGetAttr, 'id', namespaces = ns))
+	gene_id <- unlist(xpathSApply(xml, "//uniprot:dbReference[@type='GeneID']", xmlGetAttr, 'id', namespaces = ns))
 	enzyme_id <- unlist(xpathSApply(xml, "//uniprot:dbReference[@type='EC']", xmlGetAttr, 'id', namespaces = ns))
 	seq <- unlist(xpathSApply(xml, "//uniprot:entry/uniprot:sequence", xmlValue, namespaces = ns))
 	if ( ! is.null(seq) && ! is.na(seq)) seq <- gsub("\\n", "", seq)
@@ -127,5 +140,5 @@ createUniProtEntryFromXml <- function(xmlstr) {
 	fullname <- if ( ! is.null(fullnames) && length(fullnames) > 1) fullnames[1] else fullnames
 	name <- unlist(xpathSApply(xml, "/uniprot:uniprot/uniprot:entry/uniprot:name", xmlValue, namespaces = ns))
 
-	return(if (is.null(id) || is.na(id)) NULL else UniProtEntry$new(id = id, kegg_id = kegg_id, enzyme_id = enzyme_id, sequence = seq, mass = mass, length = length, gene_symbol = gene_symbol, fullname = fullname, name = name))
+	return(if (is.null(id) || is.na(id)) NULL else UniProtEntry$new(id = id, kegg_id = kegg_id, enzyme_id = enzyme_id, sequence = seq, mass = mass, length = length, gene_symbol = gene_symbol, fullname = fullname, name = name, gene_id = gene_id))
 }

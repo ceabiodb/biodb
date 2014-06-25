@@ -16,7 +16,7 @@ entries <- list(
 				'P02462' = list(fullname='Collagen alpha-1(IV) chain', gene_symbol='COL4A1'),
 				'P09237' = list(fullname='Matrilysin', gene_symbol='MMP7'),
 				'P60022' = list(fullname='Beta-defensin 1', gene_symbol='DEFB1', seq='MRTSYLLLFTLCLLLSEMASGGNFLTGLGHRSDHYNCVSSGGQCLYSACPIFTKIQGTCYRGKAKCCK'),
-				'P01011' = list(fullname='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3', keggid="hsa:12", enzymeid = NA_character_)
+				'P01011' = list(fullname='Alpha-1-antichymotrypsin', gene_symbol='SERPINA3', keggid="hsa:12", enzymeid = NA_character_, geneid = '12')
                )
 
 # Open connexion
@@ -48,6 +48,10 @@ for (id in names(entries)) {
 		# Check Kegg ID
 		if (hHasKey(entries[[id]], 'keggid'))
 			checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+		
+		# Check NCBI Gene ID
+		if (hHasKey(entries[[id]], 'geneid'))
+			checkEquals(entry$getNcbiGeneId(), entries[[id]][['geneid']])
 		
 		# Check Enzyme ID
 		if (hHasKey(entries[[id]], 'enzymeid'))

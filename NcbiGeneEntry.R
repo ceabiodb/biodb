@@ -5,21 +5,32 @@ source('BioDbEntry.R')
 # CLASS DECLARATION #
 #####################
 
-NcbiGeneEntry <- setRefClass("NcbiGeneEntry", contains = "BioDbEntry", fields = list(symbol = "character", location = "character", fullname = "character", synonyms = "character", ccds_id = "character"))
+NcbiGeneEntry <- setRefClass("NcbiGeneEntry", contains = "BioDbEntry", fields = list(symbol = "character", location = "character", fullname = "character", synonyms = "character", ccds_id = "character", uniprot_id = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
 NcbiGeneEntry$methods(
-	initialize = function(ccds_id = NA_character_, symbol = NA_character_, location = NA_character_, fullname = NA_character_, synonyms = NA_character_, ...) {
+	initialize = function(ccds_id = NA_character_, uniprot_id = NA_character_, symbol = NA_character_, location = NA_character_, fullname = NA_character_, synonyms = NA_character_, ...) {
 		ccds_id <<- if ( ! is.null(ccds_id)) ccds_id else NA_character_
+		uniprot_id <<- if ( ! is.null(uniprot_id)) uniprot_id else NA_character_
 		symbol <<- if ( ! is.null(symbol)) symbol else NA_character_
 		location <<- if ( ! is.null(location)) location else NA_character_
 		fullname <<- if ( ! is.null(fullname)) fullname else NA_character_
 		synonyms <<- if ( ! is.null(synonyms)) synonyms else NA_character_
 		callSuper(...)
 })
+
+###########################
+# UNIPROTKB/SWISS-PROT ID #
+###########################
+
+NcbiGeneEntry$methods(
+	getUniProtId = function() {
+		return(.self$uniprot_id)
+	}
+)
 
 ###########
 # CCDS ID #
@@ -90,13 +101,14 @@ createNcbiGeneEntryFromXml <- function(xmlstr) {
 	# Get data
 	id          <- unlist(xpathSApply(xml, "//Gene-track_geneid", xmlValue))
 	kegg_id     <- unlist(xpathSApply(xml, "//Dbtag_db[text()='KEGG']/..//Object-id_str", xmlValue))
+	uniprot_id  <- unlist(xpathSApply(xml, "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str", xmlValue))
 	synonyms    <- unlist(xpathSApply(xml, "//Gene-ref_syn_E", xmlValue))
 	fullname    <- unlist(xpathSApply(xml, "//Gene-ref_desc", xmlValue))
 	symbol      <- unlist(xpathSApply(xml, "//Gene-ref_locus", xmlValue))
 	location    <- unlist(xpathSApply(xml, "//Gene-ref_maploc", xmlValue))
 	ccds_id     <- .find_ccds_id(xml)
 
-	return(if (is.null(id) || is.na(id)) NULL else NcbiGeneEntry$new(id = id, kegg_id = kegg_id, synonyms = synonyms, fullname = fullname, symbol = symbol, location = location, ccds_id = ccds_id))
+	return(if (is.null(id) || is.na(id)) NULL else NcbiGeneEntry$new(id = id, kegg_id = kegg_id, synonyms = synonyms, fullname = fullname, symbol = symbol, location = location, ccds_id = ccds_id, uniprot_id = uniprot_id))
 }
 
 #############
