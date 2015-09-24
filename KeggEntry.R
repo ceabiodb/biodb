@@ -1,4 +1,3 @@
-library(stringr)
 source('BioDbEntry.R')
 
 #####################
@@ -33,6 +32,9 @@ KeggEntry$methods(
 ###########
 
 createKeggEntryFromText <- function(text) {
+
+	library(stringr)
+
 	lines <- strsplit(text, "\n")
 	id <- NA_character_
 	organism <- NA_character_

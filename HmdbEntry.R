@@ -1,4 +1,3 @@
-library(XML)
 source('BioDbEntry.R')
 
 #####################
@@ -76,6 +75,8 @@ HmdbEntry$methods(
 ###########
 
 createHmdbEntryFromXml <- function(xmlstr) {
+
+	library(XML)
 
 	# Parse XML
 	xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
