@@ -36,10 +36,9 @@ BioDbConn$methods( .getUrl = function(url, params = NULL, method = 'GET') {
 # Get an entry from the public database.
 # id        The ID of the entry to get.
 # RETURN    An Entry instance.
-BioDbConn$methods(
-	getEntry = function(id) {
-		content <- .self$downloadEntryFileContent(id)
-		return(.self$createEntry(content))
+BioDbConn$methods( getEntry = function(id) {
+	content <- .self$downloadEntryFileContent(id)
+	return(.self$createEntry(content))
 })
 
 ###############################
@@ -50,19 +49,18 @@ BioDbConn$methods(
 # id        The ID of the entry for which to download file content.
 # save_as   If set saves the content into the specified file.
 # RETURN    The file content describing the entry.
-BioDbConn$methods(
-	downloadEntryFileContent = function(id, save_as = NA_character_) {
+BioDbConn$methods( downloadEntryFileContent = function(id, save_as = NA_character_) {
 
-		# Download content
-		content <- .self$.doDownloadEntryFileContent(id)
-		if ( ! is.null(content) && ! is.null(save_as) && ! is.na(save_as)) {
-			fileConn<-file(save_as)
-			writeLines(content, fileConn)
-			close(fileConn)
-		}
+	# Download content
+	content <- .self$.doDownloadEntryFileContent(id)
+	if ( ! is.null(content) && ! is.null(save_as) && ! is.na(save_as)) {
+		fileConn<-file(save_as)
+		writeLines(content, fileConn)
+		close(fileConn)
+	}
 
-		# Return content
-		return(content)
+	# Return content
+	return(content)
 })
 
 # Download an entry description as a file content, from the public database.

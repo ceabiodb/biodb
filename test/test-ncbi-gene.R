@@ -18,7 +18,6 @@ ENTRIES <- list('9606' = list( keggid = NA_character_ ),
                 '3627' = list(symbol = 'CXCL10', fullname = 'chemokine (C-X-C motif) ligand 10',
 							  synonyms = c('IFI10', 'C7', 'INP10', 'IP-10', 'crg-2', 'mob-1', 'SCYB10', 'gIP-10'),
 							  location = '4q21',
-							  keggid = 'hsa:3627',
 							  ccds_id = 'CCDS43240.1',
 							  sequence = 'ATGAATCAAACTGCCATTCTGATTTGCTGCCTTATCTTTCTGACTCTAAGTGGCATTCAAGGAGTACCTCTCTCTAGAACTGTACGCTGTACCTGCATCAGCATTAGTAATCAACCTGTTAATCCAAGGTCTTTAGAAAAACTTGAAATTATTCCTGCAAGCCAATTTTGTCCACGTGTTGAGATCATTGCTACAATGAAAAAGAAGGGTGAGAAGAGATGTCTGAATCCAGAATCGAAGGCCATCAAGAATTTACTGAAAGCAGTTAGCAAGGAAAGGTCTAAAAGATCTCCTTAA'),
                 '2833' = list(symbol = 'CXCR3',
@@ -141,5 +140,8 @@ test_entries <- function(entries, user_agent, full_test = FALSE, seq_test = FALS
 ########
 # MAIN #
 ########
+
+options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
+
 opt<-read_args()
 test_entries(entries = ENTRIES, user_agent = "fr.cea.r-biodb.test-ncbi-gene ; pierrick.rogermele@cea.fr", full_test = opt$full, seq_test = opt$seq)

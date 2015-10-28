@@ -3,6 +3,8 @@ library(RUnit)
 source('../MirbaseConn.R', chdir = TRUE)
 source('../../r-lib/hshhlp.R', chdir = TRUE)
 
+options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
+
 entries <- list('hsa-miR-142-3p'    = list(accession = 'MIMAT0000434',  sequence = 'UGUAGUGUUUCCUACUUUAUGGA'),
                 'hsa-miR-142-5p'    = list(accession = 'MIMAT0000433',  sequence = 'CAUAAAGUAGAAAGCACUACU'),
 #                'hsa-miR-155'       = list(accession = 'MI0000681',     sequence = 'UUAAUGCUAAUCGUGAUAGGGG'),                                          

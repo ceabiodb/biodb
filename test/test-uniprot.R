@@ -3,6 +3,8 @@ library(RUnit)
 source('../UniProtConn.R', chdir = TRUE)
 source('../../r-lib/hshhlp.R', chdir = TRUE)
 
+options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
+
 full_test <- FALSE
 
 entries <- list(

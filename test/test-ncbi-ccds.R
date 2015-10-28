@@ -3,6 +3,12 @@ library(RUnit)
 source('../NcbiCcdsConn.R', chdir = TRUE)
 source('../../r-lib/hshhlp.R', chdir = TRUE)
 
+########
+# MAIN #
+########
+
+options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
+
 full_test <- FALSE
 # TODO add a flag for running long tests
 #args <- commandArgs(trailingOnly = TRUE)

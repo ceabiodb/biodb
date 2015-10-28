@@ -77,6 +77,9 @@ test_entries <- function(conn, entries, full_test = FALSE) {
 ########
 # MAIN #
 ########
+
+options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
+
 opt<-read_args()
 conn <- KeggConn$new(useragent = "fr.cea.r-biodb.test-kegg ; pierrick.rogermele@cea.fr")
 test_entries(conn, ENTRIES, full_test = opt$full)

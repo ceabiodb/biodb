@@ -30,10 +30,9 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	# Creates an Entry instance from file content.
 	# file_content  A file content, downloaded from the public database.
 	# RETURN        An Entry instance.
-	KeggConn$methods(
-		.doCreateEntry = function(file_content) {
-			entry <- createKeggEntryFromText(file_content)
-			return(entry)
+	KeggConn$methods( .doCreateEntry = function(file_content) {
+		entry <- createKeggEntryFromText(file_content)
+		return(entry)
 	})
 	
 	######################
@@ -41,9 +40,6 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	######################
 	
 	get.kegg.entry.url <- function(id, txt = FALSE) {
-	
-		# Remove prefix
-		id <- sub('^cpd:', '', id)
 
 		if (txt)
 			url <- paste0('http://rest.kegg.jp/get/', id)
