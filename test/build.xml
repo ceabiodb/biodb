@@ -31,6 +31,11 @@
 		<exec executable="./test-uniprot.R" failonerror="true"/>
 	</target>
 
+	<!-- CHEBI -->
+	<target name="chebi">
+		<exec executable="./test-chebi.R" failonerror="true"/>
+	</target>
+
 	<!-- HMDB -->
 	<target name="hmdb">
 		<exec executable="./test-hmdb.R" failonerror="true"/>
