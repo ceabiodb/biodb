@@ -1,0 +1,70 @@
+#!/usr/bin/env Rscript
+# vi: ft=R
+library(RUnit)
+library(getopt)
+args <- commandArgs(trailingOnly = FALSE)
+script.path <- sub("--file=", "", args[grep("--file=", args)])
+
+#############
+# CONSTANTS #
+#############
+
+USER.AGENT <- "r-biodb ; pierrick.roger@gmail.com"
+
+#############
+# READ ARGS #
+#############
+
+read.args <- function() {
+  
+  # program name
+  prog <- sub('^.*/([^/]+)$', '\\1', commandArgs()[4], perl = TRUE)
+  
+  # options
+  spec = matrix(c(
+    'all',          'a', 0, 'logical',      'Run all tests (online, long, etc.). Disabled by default.',
+    'help',         'h', 0, 'logical',      'Print this help.',
+    'name',         'n', 1, 'character',    'Run only test of the specified name. Unset by default.',
+    'quick',        'q', 0, 'logical',      'Do not run long tests. Disabled by default.',
+    'offline',      'o', 0, 'logical',      'Run offline tests only. Disabled by default.'
+  ), byrow = TRUE, ncol = 5)
+   
+  opt <- getopt(spec)
+
+  # help
+  if ( ! is.null(opt$help)) {
+    cat(getopt(spec, usage = TRUE, command = prog))
+    q(status = 0)
+  }
+
+  return(opt)
+}
+
+########
+# MAIN #
+########
+
+# Call tests matching name: in script name or function name:
+#  test.chebi.offline
+#  test.chebi.online
+#  test.chebi.full or test.chebi.long
+
+options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
+
+opt <- read.args()
+
+# Define set of functions
+test.fcts = '^test\\..+'
+if (is.null(opt$quick) && is.null(opt$all))
+	test.fcts = c(test.fcts, '^long\\.test\\..+')
+if (is.null(opt$offline) && is.null(opt$all))
+	test.fcts = c(test.fcts, '^online\\.test\\..+')
+if (is.null(opt$quick) && is.null(opt$offline) && is.null(opt$all))
+	test.fcts = c(test.fcts, '^long\\.online\\.test\\..+')
+if ( ! is.null(opt$name))
+	test.fcts = paste0('^', opt$name, '$')
+
+for (fct in test.fcts) {
+	test.suite <- defineTestSuite('biodb', dirname(script.path), testFileRegexp = '^test-chebi\\.R$', testFuncRegexp = fct)
+	runTestSuite(test.suite)
+}
