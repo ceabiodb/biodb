@@ -1,7 +1,7 @@
 if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 
 	source('BioDbConn.R')
-#	source('ChebiEntry.R')
+	source('ChebiEntry.R')
 	
 	#####################
 	# CLASS DECLARATION #
@@ -30,7 +30,7 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 	# file_content  A file content, downloaded from the public database.
 	# RETURN        An Entry instance.
 	ChebiConn$methods( .doCreateEntry = function(file_content) {
-#entry <- createChebiEntryFromXml(file_content)
+		entry <- createChebiEntryFromHtml(file_content)
 		return(entry)
 	})
 
