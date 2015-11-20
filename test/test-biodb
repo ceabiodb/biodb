@@ -9,7 +9,7 @@ script.path <- sub("--file=", "", args[grep("--file=", args)])
 # CONSTANTS #
 #############
 
-USER.AGENT <- "r-biodb ; pierrick.roger@gmail.com"
+USER.AGENT <- "r-biodb.test ; pierrick.roger@gmail.com"
 
 #############
 # READ ARGS #
