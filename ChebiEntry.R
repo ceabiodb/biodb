@@ -5,17 +5,15 @@ source('BioDbEntry.R')
 # CLASS DECLARATION #
 #####################
 
-ChebiEntry <- setRefClass("ChebiEntry", contains = "BioDbEntry", fields = list(.id = "character"))
+ChebiEntry <- setRefClass("ChebiEntry", contains = "BioDbEntry")
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-ChebiEntry$methods( initialize = function(id = NA_character_, ...) {
+ChebiEntry$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, ...) {
 
-		.id <<- id
-
-		callSuper(...)
+		callSuper(id = id, inchi = inchi, inchikey = inchikey, ...)
 })
 
 ###########
@@ -31,10 +29,21 @@ createChebiEntryFromHtml <- function(htmlstr) {
 
 	# Get ID
 	id <- xpathSApply(xml, "//b[starts-with(., 'CHEBI:')]", xmlValue)
-	id <- sub('^CHEBI:([0-9]+)$', '\\1', id, perl = TRUE)
+	if (length(id) > 0)
+		id <- sub('^CHEBI:([0-9]+)$', '\\1', id, perl = TRUE)
+	else
+		id <- NA_character_
 
-	# Create entry
-	entry <- if ( ! is.na(id)) ChebiEntry$new(id = id)
+	if ( ! is.na(id)) {	
+		# Get InChI
+		inchi <- xpathSApply(xml, "//td[starts-with(., 'InChI=')]", xmlValue)
+
+		# Get InChI KEY
+		inchikey <- xpathSApply(xml, "//td[text()='InChIKey']/../td[2]", xmlValue)
+
+		# Create entry
+		entry <- ChebiEntry$new(id = id, inchi = inchi, inchikey = inchikey)
+	}
 
 	return(entry)
 }
