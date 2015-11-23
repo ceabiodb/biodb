@@ -5,18 +5,27 @@ source('BiodbEntry.R')
 # CLASS DECLARATION #
 #####################
 
-PubchemEntry <- setRefClass("PubchemEntry", contains = "BiodbEntry", fields = list(.inchi = "character", .inchikey = "character"))
+PubchemEntry <- setRefClass("PubchemEntry", contains = "BiodbEntry", fields = list(.inchi = "character", .inchikey = "character", .name = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-PubchemEntry$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, ...) {
+PubchemEntry$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, name = NA_character_, ...) {
 
 	.inchi <<- if ( ! is.null(inchi)) inchi else NA_character_
 	.inchikey <<- if ( ! is.null(inchikey)) inchikey else NA_character_
+	.name <<- if ( ! is.null(name)) name else NA_character_
 
 	callSuper(id = id, ...)
+})
+
+########
+# NAME #
+########
+
+PubchemEntry$methods( getName = function() {
+	return(.self$.name)
 })
 
 #########
@@ -57,6 +66,10 @@ createPubchemEntryFromXml <- function(xmlstr) {
 		id <- xpathSApply(xml, "//pubchem:RecordType[text()='CID']/../pubchem:RecordNumber", xmlValue, namespaces = ns)
 
 		if ( ! is.na(id)) {	
+
+			# Get name
+			name <- xpathSApply(xml, "//pubchem:Name[text()='IUPAC Name']/../pubchem:StringValue", xmlValue, namespaces = ns)
+
 			# Get InChI
 			inchi <- xpathSApply(xml, "//pubchem:Name[text()='InChI']/../pubchem:StringValue", xmlValue, namespaces = ns)
 
@@ -64,7 +77,7 @@ createPubchemEntryFromXml <- function(xmlstr) {
 			inchikey <- xpathSApply(xml, "//pubchem:Name[text()='InChI Key']/../pubchem:StringValue", xmlValue, namespaces = ns)
 
 			# Create entry
-			entry <- PubchemEntry$new(id = id, inchi = inchi, inchikey = inchikey)
+			entry <- PubchemEntry$new(id = id, inchi = inchi, inchikey = inchikey, name = name)
 		}
 	}
 

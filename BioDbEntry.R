@@ -32,6 +32,14 @@ BiodbEntry$methods(	setFactory = function(factory) {
 	.factory <<- factory
 })
 
+########
+# NAME #
+########
+
+BiodbEntry$methods( getName = function() {
+	stop("Method getName() is not implemented in concrete class.")
+})
+
 ############
 # CHEBI ID #
 ############

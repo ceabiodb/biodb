@@ -4,16 +4,17 @@ source('BiodbEntry.R')
 # CLASS DECLARATION #
 #####################
 
-KeggEntry <- setRefClass("KeggEntry", contains = 'BiodbEntry', fields = list(.lipidmapsid = "character", .chebiid = "character"))
+KeggEntry <- setRefClass("KeggEntry", contains = 'BiodbEntry', fields = list(.lipidmapsid = "character", .chebiid = "character", .name = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-KeggEntry$methods( initialize = function(lipidmapsid = NA_character_, chebiid = NA_character_, ...) {
+KeggEntry$methods( initialize = function(lipidmapsid = NA_character_, chebiid = NA_character_, name = NA_character_, ...) {
 
 		.lipidmapsid <<- if ( ! is.null(lipidmapsid)) lipidmapsid else NA_character_
 		.chebiid <<- if ( ! is.null(chebiid)) chebiid else NA_character_
+		.name <<- if ( ! is.null(name)) name else NA_character_
 
 		callSuper(...) # calls super-class initializer with remaining parameters
 	}
@@ -25,6 +26,14 @@ KeggEntry$methods( initialize = function(lipidmapsid = NA_character_, chebiid = 
 
 KeggEntry$methods(	getKeggId = function() {
 	return(.self$getId())
+})
+
+########
+# NAME #
+########
+
+KeggEntry$methods( getName = function() {
+	return(.self$.name)
 })
 
 ############
@@ -90,6 +99,7 @@ createKeggEntryFromText <- function(text) {
 	organism <- NA_character_
 	lipidmapsid <- NA_character_
 	chebiid <- NA_character_
+	name <- NA_character_
 	for (s in lines[[1]]) {
 
 		# ENZYME ID
@@ -116,6 +126,11 @@ createKeggEntryFromText <- function(text) {
 		if ( ! is.na(g[1,1]))
 			id <- paste(g[1,2], id, sep = ':')
 
+		# NAME
+		g <- str_match(s, "^NAME\\s+([^,;\\s]+)")
+		if ( ! is.na(g[1,1]))
+			name <- g[1,2]
+
 		# CHEBI
 		g <- str_match(s, "^\\s+ChEBI:\\s+(\\S+)")
 		if ( ! is.na(g[1,1]))
@@ -127,6 +142,7 @@ createKeggEntryFromText <- function(text) {
 			lipidmapsid <- g[1,2]
 	}
 
-	return(if (is.na(id)) NULL else KeggEntry$new(id = id, lipidmapsid = lipidmapsid, chebiid = chebiid))
+	print(name)
+	return(if (is.na(id)) NULL else KeggEntry$new(id = id, lipidmapsid = lipidmapsid, chebiid = chebiid, name = name))
 }
 

@@ -81,7 +81,8 @@ online.test <- function(entries) {
 			       false = checkTrue(is.null(entry)),
 			       chebiid = checkEquals(entry$getChebiId(), e$chebiid),
 			       inchi = checkEquals(entry$getInchi(), e$inchi),
-			       inchikey = checkEquals(entry$getInchiKey(), e$inchikey)
+			       inchikey = checkEquals(entry$getInchiKey(), e$inchikey),
+			       name = checkEquals(entry$getName(), e$name)
 			      )
 	}
 }
