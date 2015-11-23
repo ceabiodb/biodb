@@ -1,11 +1,11 @@
-source('BioDbConn.R')
+source('BiodbConn.R')
 source('EnzymeEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-EnzymeConn <- setRefClass("EnzymeConn", contains = "BioDbConn")
+EnzymeConn <- setRefClass("EnzymeConn", contains = "BiodbConn")
 
 ###############################
 # DOWNLOAD ENTRY FILE CONTENT #

@@ -1,11 +1,11 @@
-source('BioDbConn.R')
+source('BiodbConn.R')
 source('LipidmapsEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-LipidmapsConn <- setRefClass("LipidmapsConn", contains = "BioDbConn")
+LipidmapsConn <- setRefClass("LipidmapsConn", contains = "BiodbConn")
 
 ###############
 # CONSTRUCTOR #

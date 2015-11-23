@@ -1,10 +1,10 @@
-source('BioDbEntry.R')
+source('BiodbEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-KeggEntry <- setRefClass("KeggEntry", contains = 'BioDbEntry', fields = list(.lipidmapsid = "character", .chebiid = "character"))
+KeggEntry <- setRefClass("KeggEntry", contains = 'BiodbEntry', fields = list(.lipidmapsid = "character", .chebiid = "character"))
 
 ###############
 # CONSTRUCTOR #

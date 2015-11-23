@@ -1,4 +1,4 @@
-source('BioDbEntry.R')
+source('BiodbEntry.R')
 source('../r-lib/hshhlp.R', chdir = TRUE)
 source('../r-lib/strhlp.R', chdir = TRUE)
 
@@ -6,7 +6,7 @@ source('../r-lib/strhlp.R', chdir = TRUE)
 # CLASS DECLARATION #
 #####################
 
-LipidmapsEntry <- setRefClass("LipidmapsEntry", contains = 'BioDbEntry', fields = list(hmdb_id = 'character', synonyms = 'character', formula = 'character', mass = 'numeric'))
+LipidmapsEntry <- setRefClass("LipidmapsEntry", contains = 'BiodbEntry', fields = list(hmdb_id = 'character', synonyms = 'character', formula = 'character', mass = 'numeric'))
 
 ###############
 # CONSTRUCTOR #

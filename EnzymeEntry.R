@@ -1,11 +1,11 @@
 library(stringr)
-source('BioDbEntry.R')
+source('BiodbEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'BioDbEntry', fields = list(desc = "character"))
+EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'BiodbEntry', fields = list(desc = "character"))
 
 ###############
 # CONSTRUCTOR #

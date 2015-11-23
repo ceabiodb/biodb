@@ -1,11 +1,11 @@
 library(XML)
-source('BioDbEntry.R')
+source('BiodbEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-ChebiEntry <- setRefClass("ChebiEntry", contains = "BioDbEntry", fields = list(.inchi = "character", .inchikey = "character"))
+ChebiEntry <- setRefClass("ChebiEntry", contains = "BiodbEntry", fields = list(.inchi = "character", .inchikey = "character"))
 
 ###############
 # CONSTRUCTOR #

@@ -1,12 +1,12 @@
 library(XML)
-source('BioDbConn.R')
+source('BiodbConn.R')
 source('MirbaseEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-MirbaseConn <- setRefClass("MirbaseConn", contains = "BioDbConn")
+MirbaseConn <- setRefClass("MirbaseConn", contains = "BiodbConn")
 
 ###############################
 # DOWNLOAD ENTRY FILE CONTENT #

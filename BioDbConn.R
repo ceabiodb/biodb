@@ -1,4 +1,4 @@
-if ( ! exists('BioDbConn')) { # Do not load again if already loaded
+if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 
 	source('../r-lib/UrlRequestScheduler.R', chdir = TRUE)
 	
@@ -14,13 +14,13 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	BioDbConn <- setRefClass("BioDbConn", fields = list(.scheduler="UrlRequestScheduler"))
+	BiodbConn <- setRefClass("BiodbConn", fields = list(.scheduler="UrlRequestScheduler"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	BioDbConn$methods( initialize = function(useragent = NA_character_, scheduler = UrlRequestScheduler$new(n = 3), ...) {
+	BiodbConn$methods( initialize = function(useragent = NA_character_, scheduler = UrlRequestScheduler$new(n = 3), ...) {
 		.scheduler <<- scheduler
 		if ( ! is.null(useragent) && ! is.na(useragent) && ! nchar(useragent) == 0)
 			.self$.scheduler$setUserAgent(useragent)
@@ -35,7 +35,7 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# Get an url content, using scheduler.
 	# url       The URL to download.
 	# RETURN    The downloaded content.
-	BioDbConn$methods( .getUrl = function(url, params = NULL, method = 'GET') {
+	BiodbConn$methods( .getUrl = function(url, params = NULL, method = 'GET') {
 		return(.self$.scheduler$getUrl(url, params = params, method = method))
 	})
 	
@@ -46,7 +46,7 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# Get an entry from the public database.
 	# id        The ID of the entry to get.
 	# RETURN    An Entry instance.
-	BioDbConn$methods( getEntry = function(id) {
+	BiodbConn$methods( getEntry = function(id) {
 		content <- .self$downloadEntryFileContent(id)
 		return(.self$createEntry(content))
 	})
@@ -55,7 +55,7 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# GET TYPE OF DOWNLOADABLE ENTRY FILE #
 	#######################################
 	
-	BioDbConn$methods( getTypeOfDownloadableEntryFile = function() {
+	BiodbConn$methods( getTypeOfDownloadableEntryFile = function() {
 		stop("Method getTypeOfDownloadableEntryFile() is not implemented in concrete class.")
 	})
 	
@@ -67,7 +67,7 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# id        The ID of the entry for which to download file content.
 	# save_as   If set saves the content into the specified file.
 	# RETURN    The file content describing the entry.
-	BioDbConn$methods( downloadEntryFileContent = function(id, save_as = NA_character_) {
+	BiodbConn$methods( downloadEntryFileContent = function(id, save_as = NA_character_) {
 	
 		# Download content
 		content <- .self$.doDownloadEntryFileContent(id)
@@ -85,7 +85,7 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# This method has to be overwritten by sub-classes.
 	# id        The ID of the entry for which to download file content.
 	# RETURN    The file content describing the entry.
-	BioDbConn$methods(.doDownloadEntryFileContent = function(id) {
+	BiodbConn$methods(.doDownloadEntryFileContent = function(id) {
 		stop("Method .doDownloadEntryFileContent() is not implemented in concrete class.")
 	})
 	
@@ -96,7 +96,7 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# Creates an Entry instance from file content.
 	# content       A file content, downloaded from the public database.
 	# RETURN        An Entry instance.
-	BioDbConn$methods(
+	BiodbConn$methods(
 		createEntry = function(content) {
 	
 			# Create entry
@@ -111,7 +111,7 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# This method has to be overwritten by sub-classes.
 	# content       A file content, downloaded from the public database.
 	# RETURN    The file content describing the entry.
-	BioDbConn$methods(
+	BiodbConn$methods(
 		.doCreateEntry = function(content) {
 			return(NULL)
 	})

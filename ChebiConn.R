@@ -1,13 +1,13 @@
 if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 
-	source('BioDbConn.R')
+	source('BiodbConn.R')
 	source('ChebiEntry.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	ChebiConn <- setRefClass("ChebiConn", contains = "BioDbConn")
+	ChebiConn <- setRefClass("ChebiConn", contains = "BiodbConn")
 
 	#######################################
 	# GET TYPE OF DOWNLOADABLE ENTRY FILE #

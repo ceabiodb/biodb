@@ -1,11 +1,11 @@
-source('BioDbConn.R')
+source('BiodbConn.R')
 source('UniProtEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-UniProtConn <- setRefClass("UniProtConn", contains = "BioDbConn")
+UniProtConn <- setRefClass("UniProtConn", contains = "BiodbConn")
 
 ###############################
 # DOWNLOAD ENTRY FILE CONTENT #

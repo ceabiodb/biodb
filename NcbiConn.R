@@ -1,10 +1,10 @@
-source('BioDbConn.R')
+source('BiodbConn.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-NcbiConn <- setRefClass("NcbiConn", contains = "BioDbConn")
+NcbiConn <- setRefClass("NcbiConn", contains = "BiodbConn")
 
 ###############
 # CONSTRUCTOR #

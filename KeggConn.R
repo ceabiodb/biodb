@@ -1,13 +1,13 @@
 if ( ! exists('KeggConn')) { # Do not load again if already loaded
 
-	source('BioDbConn.R')
+	source('BiodbConn.R')
 	source('KeggEntry.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	KeggConn <- setRefClass("KeggConn", contains = "BioDbConn")
+	KeggConn <- setRefClass("KeggConn", contains = "BiodbConn")
 
 	#######################################
 	# GET TYPE OF DOWNLOADABLE ENTRY FILE #

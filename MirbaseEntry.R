@@ -1,11 +1,11 @@
 library(XML)
-source('BioDbEntry.R')
+source('BiodbEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-MirbaseEntry <- setRefClass("MirbaseEntry", contains = "BioDbEntry", fields = list(accession_number = "character", sequence = "character"))
+MirbaseEntry <- setRefClass("MirbaseEntry", contains = "BiodbEntry", fields = list(accession_number = "character", sequence = "character"))
 
 ###############
 # CONSTRUCTOR #

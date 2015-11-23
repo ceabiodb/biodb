@@ -2,13 +2,13 @@
 # Entry ABSTRACT CLASS #
 ########################
 
-BioDbEntry <- setRefClass("BioDbEntry", fields = list(.id = "character"))
+BiodbEntry <- setRefClass("BiodbEntry", fields = list(.id = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-BioDbEntry$methods( initialize = function(id = NA_character_, ...) {
+BiodbEntry$methods( initialize = function(id = NA_character_, ...) {
 
 	.id <<- if ( ! is.null(id)) id else NA_character_
 	callSuper(...) # calls super-class initializer with remaining parameters
@@ -18,7 +18,7 @@ BioDbEntry$methods( initialize = function(id = NA_character_, ...) {
 # ID #
 ######
 
-BioDbEntry$methods(	getId = function() {
+BiodbEntry$methods(	getId = function() {
 	return(.self$.id)
 })
 
@@ -26,7 +26,7 @@ BioDbEntry$methods(	getId = function() {
 # CHEBI ID #
 ############
 
-BioDbEntry$methods( getChebiId = function() {
+BiodbEntry$methods( getChebiId = function() {
 	stop("Method getChebiId() is not implemented in concrete class.")
 })
 
@@ -34,7 +34,7 @@ BioDbEntry$methods( getChebiId = function() {
 # KEGG ID #
 ###########
 
-BioDbEntry$methods( getKeggId = function() {
+BiodbEntry$methods( getKeggId = function() {
 	stop("Method getKeggId() is not implemented in concrete class.")
 })
 
@@ -42,7 +42,7 @@ BioDbEntry$methods( getKeggId = function() {
 # LIPIDMAPS ID #
 ################
 
-BioDbEntry$methods( getLipidmapsId = function() {
+BiodbEntry$methods( getLipidmapsId = function() {
 	stop("Method getLipidmapsId() is not implemented in concrete class.")
 })
 
@@ -50,7 +50,7 @@ BioDbEntry$methods( getLipidmapsId = function() {
 # INCHI #
 #########
 
-BioDbEntry$methods( getInchi = function() {
+BiodbEntry$methods( getInchi = function() {
 	stop("Method getInchi() is not implemented in concrete class.")
 })
 
@@ -58,6 +58,6 @@ BioDbEntry$methods( getInchi = function() {
 # INCHI KEY #
 #############
 
-BioDbEntry$methods(	getInchiKey = function() {
+BiodbEntry$methods(	getInchiKey = function() {
 	stop("Method getInchi() is not implemented in concrete class.")
 })

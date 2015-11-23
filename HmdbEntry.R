@@ -1,10 +1,10 @@
-source('BioDbEntry.R')
+source('BiodbEntry.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-HmdbEntry <- setRefClass("HmdbEntry", contains = "BioDbEntry", fields = list(name = "character", formula = "character", super_class = "character", average_mass = "numeric", monoisotopic_mass = "numeric"))
+HmdbEntry <- setRefClass("HmdbEntry", contains = "BiodbEntry", fields = list(name = "character", formula = "character", super_class = "character", average_mass = "numeric", monoisotopic_mass = "numeric"))
 
 ###############
 # CONSTRUCTOR #
