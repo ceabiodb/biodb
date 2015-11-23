@@ -13,7 +13,26 @@ ChebiEntry <- setRefClass("ChebiEntry", contains = "BioDbEntry")
 
 ChebiEntry$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, ...) {
 
-		callSuper(id = id, inchi = inchi, inchikey = inchikey, ...)
+	.inchi <<- if ( ! is.null(inchi)) inchi else NA_character_
+	.inchikey <<- if ( ! is.null(inchikey)) inchikey else NA_character_
+
+	callSuper(id = id, ...)
+})
+
+#########
+# INCHI #
+#########
+
+ChebiEntry$methods(	getInchi = function() {
+	return(.self$.inchi)
+})
+
+#############
+# INCHI KEY #
+#############
+
+ChebiEntry$methods(	getInchiKey = function() {
+	return(.self$.inchikey)
 })
 
 ###########

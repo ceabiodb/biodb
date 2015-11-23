@@ -8,11 +8,9 @@ BioDbEntry <- setRefClass("BioDbEntry", fields = list(.id = "character", .keggid
 # CONSTRUCTOR #
 ###############
 
-BioDbEntry$methods( initialize = function(id = NA_character_, keggid = NA_character_, inchi = NA_character_, inchikey = NA_character_, ...) {
+BioDbEntry$methods( initialize = function(id = NA_character_, ...) {
+
 	.id <<- if ( ! is.null(id)) id else NA_character_
-	.keggid <<- if ( ! is.null(keggid)) keggid else NA_character_
-	.inchi <<- if ( ! is.null(inchi)) inchi else NA_character_
-	.inchikey <<- if ( ! is.null(inchikey)) inchikey else NA_character_
 	callSuper(...) # calls super-class initializer with remaining parameters
 })
 
@@ -28,8 +26,16 @@ BioDbEntry$methods(	getId = function() {
 # KEGG ID #
 ###########
 
-BioDbEntry$methods(	getKeggId = function() {
-	return(.self$.keggid)
+BioDbEntry$methods( getKeggId = function() {
+	stop("Method getKeggId() is not implemented in concrete class.")
+})
+
+################
+# LIPIDMAPS ID #
+################
+
+BioDbEntry$methods( getLipidmapsId = function() {
+	stop("Method getLipidmapsId() is not implemented in concrete class.")
 })
 
 #########
@@ -37,7 +43,7 @@ BioDbEntry$methods(	getKeggId = function() {
 #########
 
 BioDbEntry$methods(	getInchi = function() {
-	return(.self$.inchi)
+	stop("Method getInchi() is not implemented in concrete class.")
 })
 
 #############
@@ -45,5 +51,5 @@ BioDbEntry$methods(	getInchi = function() {
 #############
 
 BioDbEntry$methods(	getInchiKey = function() {
-	return(.self$.inchikey)
+	stop("Method getInchi() is not implemented in concrete class.")
 })

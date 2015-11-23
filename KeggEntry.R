@@ -4,26 +4,34 @@ source('BioDbEntry.R')
 # CLASS DECLARATION #
 #####################
 
-KeggEntry <- setRefClass("KeggEntry", contains = 'BioDbEntry', fields = list(lipidmaps_id = "character"))
+KeggEntry <- setRefClass("KeggEntry", contains = 'BioDbEntry', fields = list(.lipidmapsid = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-KeggEntry$methods(
-	initialize = function(lipidmaps_id = NA_character_, ...) {
-		lipidmaps_id <<- if ( ! is.null(lipidmaps_id)) lipidmaps_id else NA_character_
+KeggEntry$methods( initialize = function(lipidmapsid = NA_character_, ...) {
+
+		.lipidmapsid <<- if ( ! is.null(lipidmapsid)) lipidmapsid else NA_character_
+
 		callSuper(...) # calls super-class initializer with remaining parameters
 	}
 )
+
+###########
+# KEGG ID #
+###########
+
+KeggEntry$methods(	getKeggId = function() {
+	return(.self$getId())
+})
 
 ################
 # LIPIDMAPS ID #
 ################
 
-KeggEntry$methods(
-	getLipidmapsId = function() {
-		return(.self$lipidmaps_id)
+KeggEntry$methods( getLipidmapsId = function() {
+		return(.self$.lipidmapsid)
 	}
 )
 
@@ -71,6 +79,6 @@ createKeggEntryFromText <- function(text) {
 			lipidmapsid <- g[1,2]
 	}
 
-	return(if (is.na(id)) NULL else KeggEntry$new(id = id, keggid = id, lipidmaps_id = lipidmapsid))
+	return(if (is.na(id)) NULL else KeggEntry$new(id = id, lipidmapsid = lipidmapsid))
 }
 
