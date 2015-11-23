@@ -8,6 +8,14 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	#####################
 	
 	KeggConn <- setRefClass("KeggConn", contains = "BioDbConn")
+
+	#######################################
+	# GET TYPE OF DOWNLOADABLE ENTRY FILE #
+	#######################################
+
+	KeggConn$methods( getTypeOfDownloadableEntryFile = function() {
+		return(RBIODB.TXT)
+	})
 	
 	###############################
 	# DOWNLOAD ENTRY FILE CONTENT #
@@ -16,8 +24,7 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	# Download an entry description as a file content, from the public database.
 	# id        The ID of the entry for which to download file content.
 	# RETURN    The file content describing the entry.
-	KeggConn$methods(
-		.doDownloadEntryFileContent = function(id) {
+	KeggConn$methods(.doDownloadEntryFileContent = function(id) {
 			url <- get.kegg.entry.url(id, txt = TRUE)
 			txt <- .self$.getUrl(url)
 			return(txt)

@@ -54,9 +54,7 @@
 	<!-- CLEAN -->
 	<target name="clean">
 		<delete>
-			<fileset dir="."><include name="test-*.xml"/></fileset>
-			<fileset dir="."><include name="test-*.txt"/></fileset>
-			<fileset dir="."><include name="test-*.html"/></fileset>
+			<fileset dir="."><include name="*-entry-*.*"/></fileset>
 		</delete>
 	</target>
 

@@ -1,3 +1,4 @@
 test-*.xml
 test-*.html
 *.txt
+*-entry-*.*

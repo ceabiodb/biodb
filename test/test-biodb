@@ -40,6 +40,51 @@ read.args <- function() {
   return(opt)
 }
 
+###############
+# ONLINE TEST #
+###############
+
+online.test <- function(entries) {
+
+	# Loop on all entries
+	for (e in entries) {
+
+		# Get ID
+		if ( ! 'id' %in% names(e))
+			stop('One entry element does not contain an "id" field.')
+
+		# Create connection instance
+		if ( ! 'type' %in% names(e))
+			stop(paste0('Entry element "', e$id, '" does not contain an "type" field.'))
+		conn = switch(e$type,
+		              chebi = ChebiConn$new(useragent = USER.AGENT),
+		              kegg  = KeggConn$new(useragent = USER.AGENT),
+		              NULL)
+		if (is.null(conn))
+			stop(paste0('Unknown database type "', e$type, '" for entry "', e$id, '".'))
+
+		# File extention
+		ext <- switch(conn$getTypeOfDownloadableEntryFile(),
+		              html = '.html',
+		              text = '.txt',
+		              xml = '.xml',
+		              NULL)
+		if (is.null(ext))
+			stop(paste0('Unknown file type "', conn$getTypeOfDownloadableEntryFile(), '" for entry "', e$id, '".'))
+
+		# Get Entry from database
+		entry <- conn$createEntry(conn$downloadEntryFileContent(e$id, save_as = paste0(e$type, '-entry-', e$id, ext)))
+
+		for (f in names(e))
+			switch(f,
+			       id = if ( ! 'false' %in% names(e)) checkTrue( ! is.null(entry)) && checkEquals(entry$getId(), e$id),
+			       false = checkTrue(is.null(entry)),
+			       inchi = checkEquals(entry$getInchi(), e$inchi),
+			       inchikey = checkEquals(entry$getInchiKey(), e$inchikey)
+			      )
+	}
+}
+
 ########
 # MAIN #
 ########

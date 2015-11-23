@@ -8,6 +8,14 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 	#####################
 	
 	ChebiConn <- setRefClass("ChebiConn", contains = "BioDbConn")
+
+	#######################################
+	# GET TYPE OF DOWNLOADABLE ENTRY FILE #
+	#######################################
+
+	ChebiConn$methods( getTypeOfDownloadableEntryFile = function() {
+		return(RBIODB.HTML)
+	})
 	
 	###############################
 	# DOWNLOAD ENTRY FILE CONTENT #
