@@ -46,9 +46,9 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# Get an entry from the public database.
 	# id        The ID of the entry to get.
 	# RETURN    An Entry instance.
-	BiodbConn$methods( getEntry = function(id) {
+	BiodbConn$methods( getEntry = function(id, factory = NULL) {
 		content <- .self$downloadEntryFileContent(id)
-		return(.self$createEntry(content))
+		return(.self$createEntry(content, factory = factory))
 	})
 	
 	#######################################
@@ -96,15 +96,17 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# Creates an Entry instance from file content.
 	# content       A file content, downloaded from the public database.
 	# RETURN        An Entry instance.
-	BiodbConn$methods(
-		createEntry = function(content) {
-	
-			# Create entry
-			entry <- NULL
-			if ( ! is.null(content) && ! is.na(content) && nchar(content) > 0)
-				entry <- .self$.doCreateEntry(content)
-	
-			return(entry)
+	BiodbConn$methods( createEntry = function(content, factory = NULL) {
+
+		# Create entry
+		entry <- NULL
+		if ( ! is.null(content) && ! is.na(content) && nchar(content) > 0) {
+			entry <- .self$.doCreateEntry(content)
+			if ( ! is.null(entry))
+				entry$setFactory(factory)
+		}
+
+		return(entry)
 	})
 	
 	# Creates an Entry instance from file content.

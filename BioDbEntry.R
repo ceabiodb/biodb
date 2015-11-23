@@ -2,7 +2,7 @@
 # Entry ABSTRACT CLASS #
 ########################
 
-BiodbEntry <- setRefClass("BiodbEntry", fields = list(.id = "character"))
+BiodbEntry <- setRefClass("BiodbEntry", fields = list(.id = "character", .factory = "ANY"))
 
 ###############
 # CONSTRUCTOR #
@@ -11,6 +11,8 @@ BiodbEntry <- setRefClass("BiodbEntry", fields = list(.id = "character"))
 BiodbEntry$methods( initialize = function(id = NA_character_, ...) {
 
 	.id <<- if ( ! is.null(id)) id else NA_character_
+	.factory <<- NULL
+
 	callSuper(...) # calls super-class initializer with remaining parameters
 })
 
@@ -20,6 +22,14 @@ BiodbEntry$methods( initialize = function(id = NA_character_, ...) {
 
 BiodbEntry$methods(	getId = function() {
 	return(.self$.id)
+})
+
+###########
+# FACTORY #
+###########
+
+BiodbEntry$methods(	setFactory = function(factory) {
+	.factory <<- factory
 })
 
 ############

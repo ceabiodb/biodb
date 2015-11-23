@@ -4,6 +4,7 @@ library(RUnit)
 library(getopt)
 args <- commandArgs(trailingOnly = FALSE)
 script.path <- sub("--file=", "", args[grep("--file=", args)])
+source(file.path(dirname(script.path), '..', 'BiodbFactory.R'), chdir = TRUE)
 
 #############
 # CONSTANTS #
@@ -46,6 +47,8 @@ read.args <- function() {
 
 online.test <- function(entries) {
 
+	factory <- BiodbFactory$new(useragent = USER.AGENT)
+
 	# Loop on all entries
 	for (e in entries) {
 
@@ -56,15 +59,9 @@ online.test <- function(entries) {
 		# Create connection instance
 		if ( ! 'type' %in% names(e))
 			stop(paste0('Entry element "', e$id, '" does not contain an "type" field.'))
-		conn = switch(e$type,
-		              chebi = ChebiConn$new(useragent = USER.AGENT),
-		              kegg  = KeggConn$new(useragent = USER.AGENT),
-		              NULL)
-		if (is.null(conn))
-			stop(paste0('Unknown database type "', e$type, '" for entry "', e$id, '".'))
 
 		# File extention
-		ext <- switch(conn$getTypeOfDownloadableEntryFile(),
+		ext <- switch(factory$getConn(e$type)$getTypeOfDownloadableEntryFile(),
 		              html = '.html',
 		              text = '.txt',
 		              xml = '.xml',
@@ -73,8 +70,11 @@ online.test <- function(entries) {
 			stop(paste0('Unknown file type "', conn$getTypeOfDownloadableEntryFile(), '" for entry "', e$id, '".'))
 
 		# Get Entry from database
-		entry <- conn$createEntry(conn$downloadEntryFileContent(e$id, save_as = paste0(e$type, '-entry-', e$id, ext)))
+		file <- paste0(e$type, '-entry-', e$id, ext)
+		content <- factory$getConn(e$type)$downloadEntryFileContent(e$id, save_as = file)
+		entry <- factory$createEntryFromContent(class = e$type, content)
 
+		# Check fields
 		for (f in names(e))
 			switch(f,
 			       id = if ( ! 'false' %in% names(e)) checkTrue( ! is.null(entry)) && checkEquals(entry$getId(), e$id),
