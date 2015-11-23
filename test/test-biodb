@@ -79,6 +79,7 @@ online.test <- function(entries) {
 			switch(f,
 			       id = if ( ! 'false' %in% names(e)) checkTrue( ! is.null(entry)) && checkEquals(entry$getId(), e$id),
 			       false = checkTrue(is.null(entry)),
+			       chebiid = checkEquals(entry$getChebiId(), e$chebiid),
 			       inchi = checkEquals(entry$getInchi(), e$inchi),
 			       inchikey = checkEquals(entry$getInchiKey(), e$inchikey)
 			      )

@@ -5,7 +5,7 @@ source('BioDbEntry.R')
 # CLASS DECLARATION #
 #####################
 
-ChebiEntry <- setRefClass("ChebiEntry", contains = "BioDbEntry")
+ChebiEntry <- setRefClass("ChebiEntry", contains = "BioDbEntry", fields = list(.inchi = "character", .inchikey = "character"))
 
 ###############
 # CONSTRUCTOR #

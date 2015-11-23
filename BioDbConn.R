@@ -14,16 +14,16 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	BioDbConn <- setRefClass("BioDbConn", fields = list(scheduler="UrlRequestScheduler"))
+	BioDbConn <- setRefClass("BioDbConn", fields = list(.scheduler="UrlRequestScheduler"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
 	BioDbConn$methods( initialize = function(useragent = NA_character_, scheduler = UrlRequestScheduler$new(n = 3), ...) {
-		scheduler <<- scheduler
+		.scheduler <<- scheduler
 		if ( ! is.null(useragent) && ! is.na(useragent) && ! nchar(useragent) == 0)
-			.self$scheduler$setUserAgent(useragent)
+			.self$.scheduler$setUserAgent(useragent)
 	
 		callSuper(...) # calls super-class initializer with remaining parameters
 	})
@@ -36,7 +36,7 @@ if ( ! exists('BioDbConn')) { # Do not load again if already loaded
 	# url       The URL to download.
 	# RETURN    The downloaded content.
 	BioDbConn$methods( .getUrl = function(url, params = NULL, method = 'GET') {
-		return(.self$scheduler$getUrl(url, params = params, method = method))
+		return(.self$.scheduler$getUrl(url, params = params, method = method))
 	})
 	
 	#############

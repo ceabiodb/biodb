@@ -2,7 +2,7 @@
 # Entry ABSTRACT CLASS #
 ########################
 
-BioDbEntry <- setRefClass("BioDbEntry", fields = list(.id = "character", .keggid = "character", .inchi = "character", .inchikey = "character"))
+BioDbEntry <- setRefClass("BioDbEntry", fields = list(.id = "character"))
 
 ###############
 # CONSTRUCTOR #
@@ -20,6 +20,14 @@ BioDbEntry$methods( initialize = function(id = NA_character_, ...) {
 
 BioDbEntry$methods(	getId = function() {
 	return(.self$.id)
+})
+
+############
+# CHEBI ID #
+############
+
+BioDbEntry$methods( getChebiId = function() {
+	stop("Method getChebiId() is not implemented in concrete class.")
 })
 
 ###########
@@ -42,7 +50,7 @@ BioDbEntry$methods( getLipidmapsId = function() {
 # INCHI #
 #########
 
-BioDbEntry$methods(	getInchi = function() {
+BioDbEntry$methods( getInchi = function() {
 	stop("Method getInchi() is not implemented in concrete class.")
 })
 
