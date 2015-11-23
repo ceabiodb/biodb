@@ -1,5 +1,3 @@
-source('../KeggConn.R', chdir = TRUE)
-
 #############
 # CONSTANTS #
 #############

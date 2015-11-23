@@ -1,6 +1,8 @@
 if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	
 	source('ChebiConn.R')
+	source('KeggConn.R')
+	source('PubchemConn.R')
 
 	#############
 	# CONSTANTS #
@@ -8,6 +10,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 	RBIODB.CHEBI <- 'chebi'
 	RBIODB.KEGG  <- 'kegg'
+	RBIODB.PUBCHEM  <- 'pubchem'
 	
 	#####################
 	# CLASS DECLARATION #
@@ -37,6 +40,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 			 conn <- switch(class,
 		                	chebi = ChebiConn$new(useragent = .self$.useragent),
 		                	kegg  = KeggConn$new(useragent = .self$.useragent),
+		                	pubchem  = PubchemConn$new(useragent = .self$.useragent),
 		      	          	NULL)
 
 			if (is.null(conn))

@@ -1,5 +1,3 @@
-source(file.path(dirname(script.path), '..', 'ChebiConn.R'), chdir = TRUE)
-
 #############
 # CONSTANTS #
 #############
