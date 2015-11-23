@@ -4,83 +4,45 @@ library(getopt)
 source('../KeggConn.R', chdir = TRUE)
 source('../../r-lib/hshhlp.R', chdir = TRUE)
 
-####################
-# GLOBAL CONSTANTS #
-####################
+#############
+# CONSTANTS #
+#############
 
 ENTRIES <- list(
-                'hsa:3627' = list(),
-                'ec:1.1.1.54' = list(),
-                'BLABLABLA' = list( false = TRUE ),
-                'cpd:C00751' = list()
+                list(id = 'hsa:3627'),
+                list(id = 'ec:1.1.1.54'),
+                list(id = 'BLABLABLA', false = TRUE),
+                list(id = 'cpd:C00751')
                 )
 
-#############
-# READ ARGS #
-#############
+####################
+# ONLINE TEST KEGG #
+####################
 
-read_args <- function() {
-  
-  # program name
-  prog <- sub('^.*/([^/]+)$', '\\1', commandArgs()[4], perl = TRUE)
-  
-  # options
-  spec = matrix(c(
-    'full',         'f', 0, 'logical',      'Full test. Disabled by default.',
-    'help',         'h', 0, 'logical',      'Print this help.'
-  ), byrow = TRUE, ncol = 5)
-   
-  opt <- getopt(spec)
-  opt$full = if (is.null(opt$full)) FALSE else TRUE
+online.test.kegg <- function() {
 
-  # help
-  if ( ! is.null(opt$help)) {
-    cat(getopt(spec, usage = TRUE, command = prog))
-    q(status = 1)
-  }
+	# Open connexion
+	conn <- KeggConn$new(useragent = USER.AGENT)
 
-  return(opt)
-}
+	# Loop on all entries
+	for (e in ENTRIES) {
 
-################
-# TEST ENTRIES #
-################
-
-test_entries <- function(conn, entries, full_test = FALSE) {
-
-# Loop on all entries
-	for (id in names(entries)) {
-
-		# Skip big entry (take too much time)
-		if (hGetBool(entries[[id]], 'big') && ! full_test)
-			next
+		# Get ID
+		if ( ! 'id' %in% names(e))
+			stop('One element of ENTRIES does not contain an "id" field.')
+		id <- e[['id']]
 
 		print(paste('Testing KEGG entry', id, '...'))
 
 		# Get Entry from database
 		entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-kegg-', id, '.txt')))
 
-		# This is a false entry => test that it's null
-		if (hGetBool(entries[[id]], 'false'))
-			checkTrue(is.null(entry))
-
-		# This is a real entry => test that it isn't null
-		else {
-			checkTrue( ! is.null(entry))
-
-			# Check that returned id is the same
-			checkEquals(entry$getId(), id)
-		}
+		for (f in names(e))
+			switch(f,
+			       id = if ( ! 'false' %in% names(e)) checkTrue( ! is.null(entry)) && checkEquals(entry$getId(), id),
+			       false = checkTrue(is.null(entry)),
+			       inchi = checkEquals(entry$getInchi(), e[['inchi']]),
+			       inchikey = checkEquals(entry$getInchiKey(), e[['inchikey']])
+			      )
 	}
 }
-
-########
-# MAIN #
-########
-
-options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
-
-opt<-read_args()
-conn <- KeggConn$new(useragent = "fr.cea.r-biodb.test-kegg ; pierrick.rogermele@cea.fr")
-test_entries(conn, ENTRIES, full_test = opt$full)
-

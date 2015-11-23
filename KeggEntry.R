@@ -71,6 +71,6 @@ createKeggEntryFromText <- function(text) {
 			lipidmapsid <- g[1,2]
 	}
 
-	return(if (is.na(id)) NULL else KeggEntry$new(id = id, kegg_id = id, lipidmaps_id = lipidmapsid))
+	return(if (is.na(id)) NULL else KeggEntry$new(id = id, keggid = id, lipidmaps_id = lipidmapsid))
 }
 

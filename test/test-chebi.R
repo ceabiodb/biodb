@@ -34,7 +34,7 @@ online.test.chebi <- function() {
 
 		for (f in names(e))
 			switch(f,
-			       id = if (! 'false' %in% names(e)) checkEquals(entry$getId(), id),
+			       id = if ( ! 'false' %in% names(e)) checkTrue( ! is.null(entry)) && checkEquals(entry$getId(), id),
 			       false = checkTrue(is.null(entry)),
 			       inchi = checkEquals(entry$getInchi(), e[['inchi']]),
 			       inchikey = checkEquals(entry$getInchiKey(), e[['inchikey']])

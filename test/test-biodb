@@ -65,6 +65,6 @@ if ( ! is.null(opt$name))
 	test.fcts = paste0('^', opt$name, '$')
 
 for (fct in test.fcts) {
-	test.suite <- defineTestSuite('biodb', dirname(script.path), testFileRegexp = '^test-chebi\\.R$', testFuncRegexp = fct)
+	test.suite <- defineTestSuite('biodb', dirname(script.path), testFileRegexp = '^test-(chebi|kegg)\\.R$', testFuncRegexp = fct)
 	runTestSuite(test.suite)
 }
