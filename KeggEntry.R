@@ -35,6 +35,23 @@ KeggEntry$methods( getChebiId = function() {
 	return(.self$.chebiid)
 })
 
+############
+# INCHIKEY #
+############
+
+KeggEntry$methods( getInchiKey = function() {
+
+	inchi <- NA_character_
+
+	if ( ! is.null(.self$.factory)) {
+		chebi.entry <- .self$.factory$createEntryFromDb(RBIODB.CHEBI, .self$getChebiId())
+		if ( ! is.null(chebi.entry))
+			inchi <- chebi.entry$getInchiKey()
+	}
+
+	return(inchi)
+})
+
 #########
 # INCHI #
 #########
