@@ -52,5 +52,16 @@ if ( ! exists('get.pubchem.entry.url')) { # Do not load again if already loaded
 	
 		return(url)
 	}
+
+	#########################
+	# GET PUBCHEM IMAGE URL #
+	#########################
+	
+	get.pubchem.image.url <- function(id) {
+	
+		url <- paste0('http://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=', id, '&t=l')
+
+		return(url)
+	}
 	
 } # end of load safe guard
