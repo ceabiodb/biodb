@@ -68,7 +68,10 @@ createPubchemEntryFromXml <- function(xmlstr) {
 		if ( ! is.na(id)) {	
 
 			# Get name
-			name <- xpathSApply(xml, "//pubchem:Name[text()='IUPAC Name']/../pubchem:StringValue", xmlValue, namespaces = ns)
+			name <- NA_character_
+			tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='IUPAC Name']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
+			if (is.na(name))
+				tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='Record Title']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
 
 			# Get InChI
 			inchi <- xpathSApply(xml, "//pubchem:Name[text()='InChI']/../pubchem:StringValue", xmlValue, namespaces = ns)
