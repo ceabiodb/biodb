@@ -1,6 +1,6 @@
 if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 
-	source('../r-lib/UrlRequestScheduler.R', chdir = TRUE)
+	source(file.path('..', 'r-lib', 'UrlRequestScheduler.R'), chdir = TRUE)
 	
 	#############
 	# CONSTANTS #
