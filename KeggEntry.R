@@ -144,7 +144,6 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 				lipidmapsid <- g[1,2]
 		}
 	
-		print(name)
 		return(if (is.na(id)) NULL else KeggEntry$new(id = id, lipidmapsid = lipidmapsid, chebiid = chebiid, name = name))
 	}
 }	

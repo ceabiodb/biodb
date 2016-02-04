@@ -59,9 +59,10 @@ online.test <- function(entries) {
 		# Create connection instance
 		if ( ! 'type' %in% names(e))
 			stop(paste0('Entry element "', e$id, '" does not contain an "type" field.'))
+		conn <- factory$getConn(e$type)
 
 		# File extention
-		ext <- switch(factory$getConn(e$type)$getTypeOfDownloadableEntryFile(),
+		ext <- switch(conn$getTypeOfDownloadableEntryFile(),
 		              html = '.html',
 		              text = '.txt',
 		              xml = '.xml',
@@ -71,7 +72,7 @@ online.test <- function(entries) {
 
 		# Get Entry from database
 		file <- paste0(e$type, '-entry-', e$id, ext)
-		content <- factory$getConn(e$type)$downloadEntryFileContent(e$id, save_as = file)
+		content <- conn$downloadEntryFileContent(e$id, save_as = file)
 		entry <- factory$createEntryFromContent(class = e$type, content)
 
 		# Check fields
@@ -80,6 +81,8 @@ online.test <- function(entries) {
 			       id = if ( ! 'false' %in% names(e)) checkTrue( ! is.null(entry)) && checkEquals(entry$getId(), e$id),
 			       false = checkTrue(is.null(entry)),
 			       chebiid = checkEquals(entry$getChebiId(), e$chebiid),
+			       keggid = checkEquals(entry$getKeggId(), e$keggid),
+			       pubchemid = checkEquals(entry$getPubchemId(), e$pubchemid),
 			       inchi = checkEquals(entry$getInchi(), e$inchi),
 			       inchikey = checkEquals(entry$getInchiKey(), e$inchikey),
 			       name = checkEquals(entry$getName(), e$name)
@@ -112,6 +115,7 @@ if ( ! is.null(opt$name))
 	test.fcts = paste0('^', opt$name, '$')
 
 for (fct in test.fcts) {
-	test.suite <- defineTestSuite('biodb', dirname(script.path), testFileRegexp = '^test-(pubchem|chebi|kegg)\\.R$', testFuncRegexp = fct)
-	runTestSuite(test.suite)
+	test.suite <- defineTestSuite('biodb', dirname(script.path), testFileRegexp = '^test-(pubchem|chebi|kegg|massbank)\\.R$', testFuncRegexp = fct)
+	test.result <- runTestSuite(test.suite)
+	printTextProtocol(test.result)
 }

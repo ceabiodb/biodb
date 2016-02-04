@@ -58,6 +58,14 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		stop("Method getKeggId() is not implemented in concrete class.")
 	})
 	
+	##############
+	# PUBCHEM ID #
+	##############
+	
+	BiodbEntry$methods( getPubchemId = function() {
+		stop("Method getPubchemId() is not implemented in concrete class.")
+	})
+	
 	################
 	# LIPIDMAPS ID #
 	################
