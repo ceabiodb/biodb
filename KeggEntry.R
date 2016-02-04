@@ -1,148 +1,150 @@
-source('BiodbEntry.R')
+if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
-
-KeggEntry <- setRefClass("KeggEntry", contains = 'BiodbEntry', fields = list(.lipidmapsid = "character", .chebiid = "character", .name = "character"))
-
-###############
-# CONSTRUCTOR #
-###############
-
-KeggEntry$methods( initialize = function(lipidmapsid = NA_character_, chebiid = NA_character_, name = NA_character_, ...) {
-
-		.lipidmapsid <<- if ( ! is.null(lipidmapsid)) lipidmapsid else NA_character_
-		.chebiid <<- if ( ! is.null(chebiid)) chebiid else NA_character_
-		.name <<- if ( ! is.null(name)) name else NA_character_
-
-		callSuper(...) # calls super-class initializer with remaining parameters
-	}
-)
-
-###########
-# KEGG ID #
-###########
-
-KeggEntry$methods(	getKeggId = function() {
-	return(.self$getId())
-})
-
-########
-# NAME #
-########
-
-KeggEntry$methods( getName = function() {
-	return(.self$.name)
-})
-
-############
-# CHEBI ID #
-############
-
-KeggEntry$methods( getChebiId = function() {
-	return(.self$.chebiid)
-})
-
-############
-# INCHIKEY #
-############
-
-KeggEntry$methods( getInchiKey = function() {
-
-	inchi <- NA_character_
-
-	if ( ! is.null(.self$.factory)) {
-		chebi.entry <- .self$.factory$createEntryFromDb(RBIODB.CHEBI, .self$getChebiId())
-		if ( ! is.null(chebi.entry))
-			inchi <- chebi.entry$getInchiKey()
-	}
-
-	return(inchi)
-})
-
-#########
-# INCHI #
-#########
-
-KeggEntry$methods( getInchi = function() {
-
-	inchi <- NA_character_
-
-	if ( ! is.null(.self$.factory)) {
-		chebi.entry <- .self$.factory$createEntryFromDb(RBIODB.CHEBI, .self$getChebiId())
-		if ( ! is.null(chebi.entry))
-			inchi <- chebi.entry$getInchi()
-	}
-
-	return(inchi)
-})
-
-################
-# LIPIDMAPS ID #
-################
-
-KeggEntry$methods( getLipidmapsId = function() {
-	return(.self$.lipidmapsid)
-})
-
-###########
-# FACTORY #
-###########
-
-createKeggEntryFromText <- function(text) {
-
-	library(stringr)
-
-	lines <- strsplit(text, "\n")
-	id <- NA_character_
-	organism <- NA_character_
-	lipidmapsid <- NA_character_
-	chebiid <- NA_character_
-	name <- NA_character_
-	for (s in lines[[1]]) {
-
-		# ENZYME ID
-		g <- str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
-		if ( ! is.na(g[1,1]))
-			id <- paste('ec', g[1,2], sep = ':')
-
-		# COMPOUND ID
-		else {
-			g <- str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
-			if ( ! is.na(g[1,1]))
-				id <- paste('cpd', g[1,2], sep = ':')
-
-			# OTHER ID
-			else {
-				g <- str_match(s, "^ENTRY\\s+(\\S+)")
-				if ( ! is.na(g[1,1]))
-					id <- g[1,2]
-			}
+	source('BiodbEntry.R')
+	
+	#####################
+	# CLASS DECLARATION #
+	#####################
+	
+	KeggEntry <- setRefClass("KeggEntry", contains = 'BiodbEntry', fields = list(.lipidmapsid = "character", .chebiid = "character", .name = "character"))
+	
+	###############
+	# CONSTRUCTOR #
+	###############
+	
+	KeggEntry$methods( initialize = function(lipidmapsid = NA_character_, chebiid = NA_character_, name = NA_character_, ...) {
+	
+			.lipidmapsid <<- if ( ! is.null(lipidmapsid)) lipidmapsid else NA_character_
+			.chebiid <<- if ( ! is.null(chebiid)) chebiid else NA_character_
+			.name <<- if ( ! is.null(name)) name else NA_character_
+	
+			callSuper(...) # calls super-class initializer with remaining parameters
 		}
-
-		# ORGANISM
-		g <- str_match(s, "^ORGANISM\\s+(\\S+)")
-		if ( ! is.na(g[1,1]))
-			id <- paste(g[1,2], id, sep = ':')
-
-		# NAME
-		g <- str_match(s, "^NAME\\s+([^,;\\s]+)")
-		if ( ! is.na(g[1,1]))
-			name <- g[1,2]
-
-		# CHEBI
-		g <- str_match(s, "^\\s+ChEBI:\\s+(\\S+)")
-		if ( ! is.na(g[1,1]))
-			chebiid <- g[1,2]
-
-		# LIPIDMAPS
-		g <- str_match(s, "^\\s+LIPIDMAPS:\\s+(\\S+)")
-		if ( ! is.na(g[1,1]))
-			lipidmapsid <- g[1,2]
+	)
+	
+	###########
+	# KEGG ID #
+	###########
+	
+	KeggEntry$methods(	getKeggId = function() {
+		return(.self$getId())
+	})
+	
+	########
+	# NAME #
+	########
+	
+	KeggEntry$methods( getName = function() {
+		return(.self$.name)
+	})
+	
+	############
+	# CHEBI ID #
+	############
+	
+	KeggEntry$methods( getChebiId = function() {
+		return(.self$.chebiid)
+	})
+	
+	############
+	# INCHIKEY #
+	############
+	
+	KeggEntry$methods( getInchiKey = function() {
+	
+		inchi <- NA_character_
+	
+		if ( ! is.null(.self$.factory)) {
+			chebi.entry <- .self$.factory$createEntryFromDb(RBIODB.CHEBI, .self$getChebiId())
+			if ( ! is.null(chebi.entry))
+				inchi <- chebi.entry$getInchiKey()
+		}
+	
+		return(inchi)
+	})
+	
+	#########
+	# INCHI #
+	#########
+	
+	KeggEntry$methods( getInchi = function() {
+	
+		inchi <- NA_character_
+	
+		if ( ! is.null(.self$.factory)) {
+			chebi.entry <- .self$.factory$createEntryFromDb(RBIODB.CHEBI, .self$getChebiId())
+			if ( ! is.null(chebi.entry))
+				inchi <- chebi.entry$getInchi()
+		}
+	
+		return(inchi)
+	})
+	
+	################
+	# LIPIDMAPS ID #
+	################
+	
+	KeggEntry$methods( getLipidmapsId = function() {
+		return(.self$.lipidmapsid)
+	})
+	
+	###########
+	# FACTORY #
+	###########
+	
+	createKeggEntryFromText <- function(text) {
+	
+		library(stringr)
+	
+		lines <- strsplit(text, "\n")
+		id <- NA_character_
+		organism <- NA_character_
+		lipidmapsid <- NA_character_
+		chebiid <- NA_character_
+		name <- NA_character_
+		for (s in lines[[1]]) {
+	
+			# ENZYME ID
+			g <- str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
+			if ( ! is.na(g[1,1]))
+				id <- paste('ec', g[1,2], sep = ':')
+	
+			# COMPOUND ID
+			else {
+				g <- str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
+				if ( ! is.na(g[1,1]))
+					id <- paste('cpd', g[1,2], sep = ':')
+	
+				# OTHER ID
+				else {
+					g <- str_match(s, "^ENTRY\\s+(\\S+)")
+					if ( ! is.na(g[1,1]))
+						id <- g[1,2]
+				}
+			}
+	
+			# ORGANISM
+			g <- str_match(s, "^ORGANISM\\s+(\\S+)")
+			if ( ! is.na(g[1,1]))
+				id <- paste(g[1,2], id, sep = ':')
+	
+			# NAME
+			g <- str_match(s, "^NAME\\s+([^,;\\s]+)")
+			if ( ! is.na(g[1,1]))
+				name <- g[1,2]
+	
+			# CHEBI
+			g <- str_match(s, "^\\s+ChEBI:\\s+(\\S+)")
+			if ( ! is.na(g[1,1]))
+				chebiid <- g[1,2]
+	
+			# LIPIDMAPS
+			g <- str_match(s, "^\\s+LIPIDMAPS:\\s+(\\S+)")
+			if ( ! is.na(g[1,1]))
+				lipidmapsid <- g[1,2]
+		}
+	
+		print(name)
+		return(if (is.na(id)) NULL else KeggEntry$new(id = id, lipidmapsid = lipidmapsid, chebiid = chebiid, name = name))
 	}
-
-	print(name)
-	return(if (is.na(id)) NULL else KeggEntry$new(id = id, lipidmapsid = lipidmapsid, chebiid = chebiid, name = name))
-}
-
+}	
