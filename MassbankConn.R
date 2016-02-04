@@ -21,7 +21,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# DOWNLOAD COMPOUND FILE CONTENT #
 	###############################
 	
-	# Download an compound description as a file content, from the public database.
+	# Download a compound description as a file content, from the public database.
 	# id        The ID of the compound for which to download file content.
 	# RETURN    The file content describing the compound.
 	MassbankConn$methods( .doDownloadCompoundFileContent = function(id) {
@@ -30,28 +30,27 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 		return(html)
 	})
 	
-	################
+	###################
 	# CREATE COMPOUND #
-	################
+	###################
 	
-	# Creates an Compound instance from file content.
+	# Creates a Compound instance from file content.
 	# file_content  A file content, downloaded from the public database.
-	# RETURN        An Compound instance.
+	# RETURN        A compound instance.
 	MassbankConn$methods( .doCreateCompound = function(file_content) {
 		compound <- createMassbankCompoundFromTxt(file_content)
 		return(compound)
 	})
 
-	##########################
-	# GET MASSBANK COMPOUND URL #
-	##########################
+	#############################
+	# GET MASSBANK SPECTRUM URL #
+	#############################
 	
-	get.massbank.compound.url <- function(id) {
+	get.massbank.spectrum.url <- function(id) {
 	
 		url <- paste0('http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo?ids=', id)
 	
 		return(url)
 	}
 
-} # end of load safe guard
-
+}

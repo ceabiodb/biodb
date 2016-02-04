@@ -31,39 +31,51 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	###########
 	# GET URL #
 	###########
-	
+
 	# Get an url content, using scheduler.
 	# url       The URL to download.
 	# RETURN    The downloaded content.
 	BiodbConn$methods( .getUrl = function(url, params = NULL, method = 'GET') {
 		return(.self$.scheduler$getUrl(url, params = params, method = method))
 	})
-	
-	#############
+
+	################
 	# GET COMPOUND #
-	#############
+	################
 	
-	# Get an compound from the public database.
+	# Get a compound from the public database.
 	# id        The ID of the compound to get.
-	# RETURN    An Compound instance.
+	# RETURN    A compound instance.
 	BiodbConn$methods( getCompound = function(id, factory = NULL) {
 		content <- .self$downloadCompoundFileContent(id)
 		return(.self$createCompound(content, factory = factory))
 	})
+
+	################
+	# GET SPECTRUM #
+	################
 	
-	#######################################
+	# Get a spectrum from the public database.
+	# id        The ID of the spectrum to get.
+	# RETURN    A spectrum instance.
+	BiodbConn$methods( getSpectrum = function(id, factory = NULL) {
+		content <- .self$downloadSpectrumFileContent(id)
+		return(.self$createSpectrum(content, factory = factory))
+	})
+
+	##########################################
 	# GET TYPE OF DOWNLOADABLE COMPOUND FILE #
-	#######################################
+	##########################################
 	
 	BiodbConn$methods( getTypeOfDownloadableCompoundFile = function() {
 		stop("Method getTypeOfDownloadableCompoundFile() is not implemented in concrete class.")
 	})
 	
-	###############################
+	##################################
 	# DOWNLOAD COMPOUND FILE CONTENT #
-	###############################
+	##################################
 	
-	# Download an compound description as a file content, from the public database.
+	# Download a compound description as a file content, from the public database.
 	# id        The ID of the compound for which to download file content.
 	# save_as   If set saves the content into the specified file.
 	# RETURN    The file content describing the compound.
@@ -81,7 +93,7 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 		return(content)
 	})
 	
-	# Download an compound description as a file content, from the public database.
+	# Download a compound description as a file content, from the public database.
 	# This method has to be overwritten by sub-classes.
 	# id        The ID of the compound for which to download file content.
 	# RETURN    The file content describing the compound.
@@ -89,13 +101,13 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 		stop("Method .doDownloadCompoundFileContent() is not implemented in concrete class.")
 	})
 	
-	################
+	###################
 	# CREATE COMPOUND #
-	################
+	###################
 	
-	# Creates an Compound instance from file content.
+	# Creates a Compound instance from file content.
 	# content       A file content, downloaded from the public database.
-	# RETURN        An Compound instance.
+	# RETURN        A compound instance.
 	BiodbConn$methods( createCompound = function(content, factory = NULL) {
 
 		# Create compound
@@ -109,10 +121,10 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 		return(compound)
 	})
 	
-	# Creates an Compound instance from file content.
+	# Creates a Compound instance from file content.
 	# This method has to be overwritten by sub-classes.
-	# content       A file content, downloaded from the public database.
-	# RETURN    The file content describing the compound.
+	# content   A file content, downloaded from the public database.
+	# RETURN    A compound instance.
 	BiodbConn$methods(
 		.doCreateCompound = function(content) {
 			return(NULL)

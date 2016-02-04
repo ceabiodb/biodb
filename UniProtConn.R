@@ -11,7 +11,7 @@ UniProtConn <- setRefClass("UniProtConn", contains = "BiodbConn")
 # DOWNLOAD COMPOUND FILE CONTENT #
 ##################################
 
-# Download an compound description as a file content, from the public database.
+# Download a compound description as a file content, from the public database.
 # id        The ID of the compound for which to download file content.
 # RETURN    The file content describing the compound.
 UniProtConn$methods(
@@ -25,9 +25,9 @@ UniProtConn$methods(
 # CREATE COMPOUND #
 ###################
 
-# Creates an Compound instance from file content.
+# Creates a Compound instance from file content.
 # file_content  A file content, downloaded from the public database.
-# RETURN        An Compound instance.
+# RETURN        A compound instance.
 UniProtConn$methods(
 	.doCreateCompound = function(file_content) {
 		compound <- createUniProtCompoundFromXml(file_content)
