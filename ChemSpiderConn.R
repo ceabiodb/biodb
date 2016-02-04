@@ -1,10 +1,10 @@
 if ( ! exists('get.chemspider.image.url')) { # Do not load again if already loaded
 
 	############################
-	# GET CHEMSPIDER ENTRY URL #
+	# GET CHEMSPIDER COMPOUND URL #
 	############################
 	
-	get.chemspider.entry.url <- function(id, type = RBIODB.HTML) {
+	get.chemspider.compound.url <- function(id, type = RBIODB.HTML) {
 	
 		url <- paste0('http://www.chemspider.com/Chemical-Structure.', id, '.html')
 

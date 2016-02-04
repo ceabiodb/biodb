@@ -1,7 +1,7 @@
 if ( ! exists('KeggConn')) { # Do not load again if already loaded
 
 	source('BiodbConn.R')
-	source('KeggEntry.R')
+	source('KeggCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
@@ -10,43 +10,43 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	KeggConn <- setRefClass("KeggConn", contains = "BiodbConn")
 
 	#######################################
-	# GET TYPE OF DOWNLOADABLE ENTRY FILE #
+	# GET TYPE OF DOWNLOADABLE COMPOUND FILE #
 	#######################################
 
-	KeggConn$methods( getTypeOfDownloadableEntryFile = function() {
+	KeggConn$methods( getTypeOfDownloadableCompoundFile = function() {
 		return(RBIODB.TXT)
 	})
 	
 	###############################
-	# DOWNLOAD ENTRY FILE CONTENT #
+	# DOWNLOAD COMPOUND FILE CONTENT #
 	###############################
 	
-	# Download an entry description as a file content, from the public database.
-	# id        The ID of the entry for which to download file content.
-	# RETURN    The file content describing the entry.
-	KeggConn$methods(.doDownloadEntryFileContent = function(id) {
-			url <- get.kegg.entry.url(id, txt = TRUE)
+	# Download an compound description as a file content, from the public database.
+	# id        The ID of the compound for which to download file content.
+	# RETURN    The file content describing the compound.
+	KeggConn$methods(.doDownloadCompoundFileContent = function(id) {
+			url <- get.kegg.compound.url(id, txt = TRUE)
 			txt <- .self$.getUrl(url)
 			return(txt)
 	})
 	
 	################
-	# CREATE ENTRY #
+	# CREATE COMPOUND #
 	################
 	
-	# Creates an Entry instance from file content.
+	# Creates an Compound instance from file content.
 	# file_content  A file content, downloaded from the public database.
-	# RETURN        An Entry instance.
-	KeggConn$methods( .doCreateEntry = function(file_content) {
-		entry <- createKeggEntryFromText(file_content)
-		return(entry)
+	# RETURN        An Compound instance.
+	KeggConn$methods( .doCreateCompound = function(file_content) {
+		compound <- createKeggCompoundFromText(file_content)
+		return(compound)
 	})
 	
 	######################
-	# GET KEGG ENTRY URL #
+	# GET KEGG COMPOUND URL #
 	######################
 	
-	get.kegg.entry.url <- function(id, txt = FALSE) {
+	get.kegg.compound.url <- function(id, txt = FALSE) {
 
 		if (txt)
 			url <- paste0('http://rest.kegg.jp/get/', id)

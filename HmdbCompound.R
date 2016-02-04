@@ -1,16 +1,16 @@
-source('BiodbEntry.R')
+source('BiodbCompound.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-HmdbEntry <- setRefClass("HmdbEntry", contains = "BiodbEntry", fields = list(name = "character", formula = "character", super_class = "character", average_mass = "numeric", monoisotopic_mass = "numeric"))
+HmdbCompound <- setRefClass("HmdbCompound", contains = "BiodbCompound", fields = list(name = "character", formula = "character", super_class = "character", average_mass = "numeric", monoisotopic_mass = "numeric"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-HmdbEntry$methods(
+HmdbCompound$methods(
 	initialize = function(name = NA_character_, formula = NA_character_, super_class = NA_character_, average_mass = NA_real_, monoisotopic_mass = NA_real_, ...) {
 		name <<- if ( ! is.null(name)) name else NA_character_
 		formula <<- if ( ! is.null(formula)) formula else NA_character_
@@ -24,7 +24,7 @@ HmdbEntry$methods(
 # NAME #
 ########
 
-HmdbEntry$methods(
+HmdbCompound$methods(
 	getName = function() {
 		return(.self$name)
 	}
@@ -34,7 +34,7 @@ HmdbEntry$methods(
 # CHEMICAL FORMULA #
 ####################
 
-HmdbEntry$methods(
+HmdbCompound$methods(
 	getFormula = function() {
 		return(.self$formula)
 	}
@@ -44,7 +44,7 @@ HmdbEntry$methods(
 # SUPER CLASS #
 ###############
 
-HmdbEntry$methods(
+HmdbCompound$methods(
 	getSuperClass = function() {
 		return(.self$super_class)
 	}
@@ -54,7 +54,7 @@ HmdbEntry$methods(
 # AVERAGE MASS #
 ################
 
-HmdbEntry$methods(
+HmdbCompound$methods(
 	getAverageMass = function() {
 		return(.self$average_mass)
 	}
@@ -64,7 +64,7 @@ HmdbEntry$methods(
 # MONOISOTOPIC MASS #
 #####################
 
-HmdbEntry$methods(
+HmdbCompound$methods(
 	getMonoisotopicMass = function() {
 		return(.self$monoisotopic_mass)
 	}
@@ -74,7 +74,7 @@ HmdbEntry$methods(
 # FACTORY #
 ###########
 
-createHmdbEntryFromXml <- function(xmlstr) {
+createHmdbCompoundFromXml <- function(xmlstr) {
 
 	library(XML)
 
@@ -94,5 +94,5 @@ createHmdbEntryFromXml <- function(xmlstr) {
 	average_mass    <- as.numeric(xpathSApply(xml, "//average_molecular_weight", xmlValue))
 	monoisotopic_mass   <- as.numeric(xpathSApply(xml, "//monisotopic_moleculate_weight", xmlValue))
 
-	return(if (is.na(id)) NULL else HmdbEntry$new(id = id, kegg_id = kegg_id, name = name, formula = formula, super_class = super_class, average_mass = average_mass, monoisotopic_mass = monoisotopic_mass))
+	return(if (is.na(id)) NULL else HmdbCompound$new(id = id, kegg_id = kegg_id, name = name, formula = formula, super_class = super_class, average_mass = average_mass, monoisotopic_mass = monoisotopic_mass))
 }

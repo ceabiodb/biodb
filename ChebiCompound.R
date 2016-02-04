@@ -1,19 +1,19 @@
-if ( ! exists('ChebiEntry')) { # Do not load again if already loaded
+if ( ! exists('ChebiCompound')) { # Do not load again if already loaded
 
 	library(XML)
-	source('BiodbEntry.R')
+	source('BiodbCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	ChebiEntry <- setRefClass("ChebiEntry", contains = "BiodbEntry", fields = list(.inchi = "character", .inchikey = "character"))
+	ChebiCompound <- setRefClass("ChebiCompound", contains = "BiodbCompound", fields = list(.inchi = "character", .inchikey = "character"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	ChebiEntry$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, ...) {
+	ChebiCompound$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, ...) {
 	
 		.inchi <<- if ( ! is.null(inchi)) inchi else NA_character_
 		.inchikey <<- if ( ! is.null(inchikey)) inchikey else NA_character_
@@ -25,7 +25,7 @@ if ( ! exists('ChebiEntry')) { # Do not load again if already loaded
 	# INCHI #
 	#########
 	
-	ChebiEntry$methods(	getInchi = function() {
+	ChebiCompound$methods(	getInchi = function() {
 		return(.self$.inchi)
 	})
 	
@@ -33,7 +33,7 @@ if ( ! exists('ChebiEntry')) { # Do not load again if already loaded
 	# INCHI KEY #
 	#############
 	
-	ChebiEntry$methods(	getInchiKey = function() {
+	ChebiCompound$methods(	getInchiKey = function() {
 		return(.self$.inchikey)
 	})
 	
@@ -41,9 +41,9 @@ if ( ! exists('ChebiEntry')) { # Do not load again if already loaded
 	# FACTORY #
 	###########
 	
-	createChebiEntryFromHtml <- function(htmlstr) {
+	createChebiCompoundFromHtml <- function(htmlstr) {
 	
-		entry <- NULL
+		compound <- NULL
 	
 		# Parse HTML
 		xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
@@ -62,10 +62,10 @@ if ( ! exists('ChebiEntry')) { # Do not load again if already loaded
 			# Get InChI KEY
 			inchikey <- xpathSApply(xml, "//td[text()='InChIKey']/../td[2]", xmlValue)
 	
-			# Create entry
-			entry <- ChebiEntry$new(id = id, inchi = inchi, inchikey = inchikey)
+			# Create compound
+			compound <- ChebiCompound$new(id = id, inchi = inchi, inchikey = inchikey)
 		}
 	
-		return(entry)
+		return(compound)
 	}
 }

@@ -1,5 +1,5 @@
 source('BiodbConn.R')
-source('LipidmapsEntry.R')
+source('LipidmapsCompound.R')
 
 #####################
 # CLASS DECLARATION #
@@ -18,27 +18,27 @@ LipidmapsConn$methods( initialize = function(...) {
 })
 
 ###############################
-# DOWNLOAD ENTRY FILE CONTENT #
+# DOWNLOAD COMPOUND FILE CONTENT #
 ###############################
 
-# Download an entry description as a file content, from the public database.
-# id        The ID of the entry for which to download file content.
-# RETURN    The file content describing the entry.
+# Download an compound description as a file content, from the public database.
+# id        The ID of the compound for which to download file content.
+# RETURN    The file content describing the compound.
 LipidmapsConn$methods(
-	.doDownloadEntryFileContent = function(id) {
+	.doDownloadCompoundFileContent = function(id) {
 		csv <- .self$.getUrl('http://www.lipidmaps.org/data/LMSDRecord.php', params = c(Mode = 'File', LMID = id, OutputType = 'CSV', OutputQuote = 'No'))
 		return(csv)
 })
 
 ################
-# CREATE ENTRY #
+# CREATE COMPOUND #
 ################
 
-# Creates an Entry instance from file content.
+# Creates an Compound instance from file content.
 # file_content  A file content, downloaded from the public database.
-# RETURN        An Entry instance.
+# RETURN        An Compound instance.
 LipidmapsConn$methods(
-	.doCreateEntry = function(file_content) {
-		entry <- createLipidmapsEntryFromCsv(file_content)
-		return(entry)
+	.doCreateCompound = function(file_content) {
+		compound <- createLipidmapsCompoundFromCsv(file_content)
+		return(compound)
 })

@@ -1,7 +1,7 @@
-if ( ! exists('get.pubchem.entry.url')) { # Do not load again if already loaded
+if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already loaded
 
 	source('BiodbConn.R')
-	source('PubchemEntry.R')
+	source('PubchemCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
@@ -10,37 +10,37 @@ if ( ! exists('get.pubchem.entry.url')) { # Do not load again if already loaded
 	PubchemConn <- setRefClass("PubchemConn", contains = "BiodbConn")
 
 	#######################################
-	# GET TYPE OF DOWNLOADABLE ENTRY FILE #
+	# GET TYPE OF DOWNLOADABLE COMPOUND FILE #
 	#######################################
 
-	PubchemConn$methods( getTypeOfDownloadableEntryFile = function() {
+	PubchemConn$methods( getTypeOfDownloadableCompoundFile = function() {
 		return(RBIODB.XML)
 	})
 	
 	###############################
-	# DOWNLOAD ENTRY FILE CONTENT #
+	# DOWNLOAD COMPOUND FILE CONTENT #
 	###############################
 
-	PubchemConn$methods( .doDownloadEntryFileContent = function(id) {
-		url <- get.pubchem.entry.url(id, type = RBIODB.XML)
+	PubchemConn$methods( .doDownloadCompoundFileContent = function(id) {
+		url <- get.pubchem.compound.url(id, type = RBIODB.XML)
 		html <- .self$.getUrl(url)
 		return(html)
 	})
 	
 	################
-	# CREATE ENTRY #
+	# CREATE COMPOUND #
 	################
 
-	PubchemConn$methods( .doCreateEntry = function(file_content) {
-		entry <- createPubchemEntryFromXml(file_content)
-		return(entry)
+	PubchemConn$methods( .doCreateCompound = function(file_content) {
+		compound <- createPubchemCompoundFromXml(file_content)
+		return(compound)
 	})
 
 	#########################
-	# GET PUBCHEM ENTRY URL #
+	# GET PUBCHEM COMPOUND URL #
 	#########################
 	
-	get.pubchem.entry.url <- function(id, type = RBIODB.HTML) {
+	get.pubchem.compound.url <- function(id, type = RBIODB.HTML) {
 	
 		id <- gsub(' ', '', id, perl = TRUE)
 		id <- gsub('^CID', '', id, perl = TRUE)

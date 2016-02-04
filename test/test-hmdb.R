@@ -10,53 +10,53 @@ full_test <- FALSE
 #args <- commandArgs(trailingOnly = TRUE)
 #full_test = args[1]
 
-entries <- list('HMDB00001' = list( keggid = 'C01152' ),
+compounds <- list('HMDB00001' = list( keggid = 'C01152' ),
                 'TOTO' = list(false = TRUE)
                 )
 
 # Open connexion
 conn <- HmdbConn$new(useragent = "fr.cea.test-hmdb ; pierrick.rogermele@cea.fr")
 
-# Loop on all entries
-for (id in names(entries)) {
+# Loop on all compounds
+for (id in names(compounds)) {
 
-	# Skip big entry (take too much time)
-	if (hGetBool(entries[[id]], 'big') && ! full_test)
+	# Skip big compound (take too much time)
+	if (hGetBool(compounds[[id]], 'big') && ! full_test)
 		next
 
-	print(paste('Testing HMDB entry', id, '...'))
+	print(paste('Testing HMDB compound', id, '...'))
 
-	# Get Entry from database
-	entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-hmdb-', id, '.xml')))
+	# Get Compound from database
+	compound <- conn$createCompound(conn$downloadCompoundFileContent(id, save_as = paste0('test-hmdb-', id, '.xml')))
 
-	# This is a false entry => test that it's null
-	if (hGetBool(entries[[id]], 'false'))
-		checkTrue(is.null(entry))
+	# This is a false compound => test that it's null
+	if (hGetBool(compounds[[id]], 'false'))
+		checkTrue(is.null(compound))
 
-	# This is a real entry => test that it isn't null
+	# This is a real compound => test that it isn't null
 	else {
-		checkTrue( ! is.null(entry))
+		checkTrue( ! is.null(compound))
 
 		# Check that returned id is the same
-		checkEquals(entry$getId(), id)
+		checkEquals(compound$getId(), id)
 		
 		# Check Kegg ID
-		if (hHasKey(entries[[id]], 'keggid'))
-			checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+		if (hHasKey(compounds[[id]], 'keggid'))
+			checkEquals(compound$getKeggId(), compounds[[id]][['keggid']])
 
 		# Check name
-		checkTrue(entry$getName() != '')
+		checkTrue(compound$getName() != '')
 
 		# Check formula
-		checkTrue(entry$getFormula() != '')
+		checkTrue(compound$getFormula() != '')
 
 		# Check super class
-		checkTrue(entry$getSuperClass() != '')
+		checkTrue(compound$getSuperClass() != '')
 
 		# Check average mass
-		checkTrue(entry$getAverageMass() > 0)
+		checkTrue(compound$getAverageMass() > 0)
 
 		# Check monoisotopic mass
-		checkTrue(entry$getMonoisotopicMass() > 0)
+		checkTrue(compound$getMonoisotopicMass() > 0)
 	}
 }

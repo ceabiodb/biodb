@@ -70,67 +70,67 @@ read_args <- function() {
 # TEST ENTRIES #
 ################
 
-test_entries <- function(entries, user_agent, full_test = FALSE, seq_test = FALSE) {
+test_compounds <- function(compounds, user_agent, full_test = FALSE, seq_test = FALSE) {
 
 	conn <- NcbiGeneConn$new(useragent = user_agent)
 	ccds_conn <- NULL
 
-	# Loop on all entries
-	for (id in names(entries)) {
+	# Loop on all compounds
+	for (id in names(compounds)) {
 
-		# Skip big entry (take too much time)
-		if ( ! full_test && hGetBool(entries[[id]], 'big'))
+		# Skip big compound (take too much time)
+		if ( ! full_test && hGetBool(compounds[[id]], 'big'))
 			next
 
-		print(paste('Testing NCBI entry', id, '...'))
+		print(paste('Testing NCBI compound', id, '...'))
 
-		# Get Entry from database
-		entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-ncbi-gene-', id, '.xml')))
+		# Get Compound from database
+		compound <- conn$createCompound(conn$downloadCompoundFileContent(id, save_as = paste0('test-ncbi-gene-', id, '.xml')))
 
-		# This is a false entry => test that it's null
-		if (hGetBool(entries[[id]], 'false'))
-			checkTrue(is.null(entry))
+		# This is a false compound => test that it's null
+		if (hGetBool(compounds[[id]], 'false'))
+			checkTrue(is.null(compound))
 
-		# This is a real entry => test that it isn't null
+		# This is a real compound => test that it isn't null
 		else {
-			checkTrue( ! is.null(entry))
+			checkTrue( ! is.null(compound))
 
 			# Check that returned id is the same
-			checkEquals(entry$getId(), id)
+			checkEquals(compound$getId(), id)
 			
 			# Check symbol
-			if (hHasKey(entries[[id]], 'symbol'))
-				checkEquals(entry$getSymbol(), entries[[id]][['symbol']])
+			if (hHasKey(compounds[[id]], 'symbol'))
+				checkEquals(compound$getSymbol(), compounds[[id]][['symbol']])
 			
 			# Check full name
-			if (hHasKey(entries[[id]], 'fullname'))
-				checkEquals(entry$getOfficialFullName(), entries[[id]][['fullname']])
+			if (hHasKey(compounds[[id]], 'fullname'))
+				checkEquals(compound$getOfficialFullName(), compounds[[id]][['fullname']])
 			
 			# Check location
-			if (hHasKey(entries[[id]], 'location'))
-				checkEquals(entry$getLocation(), entries[[id]][['location']])
+			if (hHasKey(compounds[[id]], 'location'))
+				checkEquals(compound$getLocation(), compounds[[id]][['location']])
 			
 			# Check Kegg ID
-			if (hHasKey(entries[[id]], 'keggid'))
-				checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+			if (hHasKey(compounds[[id]], 'keggid'))
+				checkEquals(compound$getKeggId(), compounds[[id]][['keggid']])
 			
 			# Check UniProtKB/Swiss-Prot ID
-			if (hHasKey(entries[[id]], 'uniprotid'))
-				checkEquals(entry$getUniProtId(), entries[[id]][['uniprotid']])
+			if (hHasKey(compounds[[id]], 'uniprotid'))
+				checkEquals(compound$getUniProtId(), compounds[[id]][['uniprotid']])
 
 			# Check synonyms
-			if (hHasKey(entries[[id]], 'synonyms'))
-				checkEquals(sort(entry$getSynonyms()), sort(entries[[id]][['synonyms']]))
+			if (hHasKey(compounds[[id]], 'synonyms'))
+				checkEquals(sort(compound$getSynonyms()), sort(compounds[[id]][['synonyms']]))
 
 			# Check CCDS ID
-			if (hHasKey(entries[[id]], 'ccds_id')) {
-				checkEquals(sort(entry$getCcdsId()), sort(entries[[id]][['ccds_id']]))
+			if (hHasKey(compounds[[id]], 'ccds_id')) {
+				checkEquals(sort(compound$getCcdsId()), sort(compounds[[id]][['ccds_id']]))
 
 				# Check sequence
-				if (seq_test && hHasKey(entries[[id]], 'sequence')) {
+				if (seq_test && hHasKey(compounds[[id]], 'sequence')) {
 					if (is.null(ccds_conn))
 						ccds_conn <- NcbiCcdsConn$new(useragent = user_agent)
-					checkEquals(ccds_conn$getEntry(entry$getCcdsId())$getNucleotideSequence(), entries[[id]][['sequence']])
+					checkEquals(ccds_conn$getCompound(compound$getCcdsId())$getNucleotideSequence(), compounds[[id]][['sequence']])
 				}
 			}
 		}
@@ -144,4 +144,4 @@ test_entries <- function(entries, user_agent, full_test = FALSE, seq_test = FALS
 options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
 
 opt<-read_args()
-test_entries(entries = ENTRIES, user_agent = "fr.cea.r-biodb.test-ncbi-gene ; pierrick.rogermele@cea.fr", full_test = opt$full, seq_test = opt$seq)
+test_compounds(compounds = ENTRIES, user_agent = "fr.cea.r-biodb.test-ncbi-gene ; pierrick.rogermele@cea.fr", full_test = opt$full, seq_test = opt$seq)

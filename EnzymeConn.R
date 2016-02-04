@@ -1,5 +1,5 @@
 source('BiodbConn.R')
-source('EnzymeEntry.R')
+source('EnzymeCompound.R')
 
 #####################
 # CLASS DECLARATION #
@@ -8,28 +8,28 @@ source('EnzymeEntry.R')
 EnzymeConn <- setRefClass("EnzymeConn", contains = "BiodbConn")
 
 ###############################
-# DOWNLOAD ENTRY FILE CONTENT #
+# DOWNLOAD COMPOUND FILE CONTENT #
 ###############################
 
-# Download an entry description as a file content, from the public database.
-# id        The ID of the entry for which to download file content.
-# RETURN    The file content describing the entry.
+# Download an compound description as a file content, from the public database.
+# id        The ID of the compound for which to download file content.
+# RETURN    The file content describing the compound.
 EnzymeConn$methods(
-	.doDownloadEntryFileContent = function(id) {
+	.doDownloadCompoundFileContent = function(id) {
 		url <- paste0('http://enzyme.expasy.org/EC/', id, '.txt')
 		txt <- .self$.getUrl(url)
 		return(txt)
 })
 
 ################
-# CREATE ENTRY #
+# CREATE COMPOUND #
 ################
 
-# Creates an Entry instance from file content.
+# Creates an Compound instance from file content.
 # file_content  A file content, downloaded from the public database.
-# RETURN        An Entry instance.
+# RETURN        An Compound instance.
 EnzymeConn$methods(
-	.doCreateEntry = function(file_content) {
-		entry <- createEnzymeEntryFromText(file_content)
-		return(entry)
+	.doCreateCompound = function(file_content) {
+		compound <- createEnzymeCompoundFromText(file_content)
+		return(compound)
 })

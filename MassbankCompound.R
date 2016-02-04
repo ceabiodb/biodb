@@ -1,18 +1,18 @@
-if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
+if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 
-	source('BiodbEntry.R')
+	source('BiodbCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	MassbankEntry <- setRefClass("MassbankEntry", contains = "BiodbEntry", fields = list(.inchi = "character", .name = "character", .chebiid = "character", .keggid = "character", .pubchemid = "character"))
+	MassbankCompound <- setRefClass("MassbankCompound", contains = "BiodbCompound", fields = list(.inchi = "character", .name = "character", .chebiid = "character", .keggid = "character", .pubchemid = "character"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	MassbankEntry$methods( initialize = function(id = NA_character_, inchi = NA_character_, name = NA_character_, chebiid = NA_character_, pubchemid = NA_character_, keggid = NA_character_, ...) {
+	MassbankCompound$methods( initialize = function(id = NA_character_, inchi = NA_character_, name = NA_character_, chebiid = NA_character_, pubchemid = NA_character_, keggid = NA_character_, ...) {
 	
 		.inchi <<- if ( ! is.null(inchi)) inchi else NA_character_
 		.name <<- if ( ! is.null(name)) name else NA_character_
@@ -27,7 +27,7 @@ if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 	# INCHI #
 	#########
 	
-	MassbankEntry$methods(	getInchi = function() {
+	MassbankCompound$methods(	getInchi = function() {
 		return(.self$.inchi)
 	})
 	
@@ -35,7 +35,7 @@ if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 	# NAME #
 	########
 	
-	MassbankEntry$methods( getName = function() {
+	MassbankCompound$methods( getName = function() {
 		return(.self$.name)
 	})
 	
@@ -43,7 +43,7 @@ if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 	# CHEBI ID #
 	############
 	
-	MassbankEntry$methods( getChebiId = function() {
+	MassbankCompound$methods( getChebiId = function() {
 		return(.self$.chebiid)
 	})
 	
@@ -51,7 +51,7 @@ if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 	# KEGG ID #
 	###########
 	
-	MassbankEntry$methods( getKeggId = function() {
+	MassbankCompound$methods( getKeggId = function() {
 		return(.self$.keggid)
 	})
 	
@@ -59,15 +59,23 @@ if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 	# PUBCHEM ID #
 	##############
 	
-	MassbankEntry$methods( getPubchemId = function() {
+	MassbankCompound$methods( getPubchemId = function() {
 		return(.self$.pubchemid)
+	})
+
+	###############
+	# GET SPECTRA #
+	###############
+
+	MassbankCompound$methods( getSpectra = function() {
+		stop("Method getSpectra() is not impemented in concrete class.")
 	})
 
 	###########
 	# FACTORY #
 	###########
 	
-	createMassbankEntryFromTxt <- function(text) {
+	createMassbankCompoundFromTxt <- function(text) {
 
 		library(stringr)
 	
@@ -115,9 +123,9 @@ if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 				inchi <- g[1,2]
 		}
 
-		# Create entry
-		entry <- if (is.na(id)) NULL else MassbankEntry$new(id = id, inchi = inchi, name = name, chebiid = chebiid, keggid = keggid, pubchemid = pubchemid)
+		# Create compound
+		compound <- if (is.na(id)) NULL else MassbankCompound$new(id = id, inchi = inchi, name = name, chebiid = chebiid, keggid = keggid, pubchemid = pubchemid)
 	
-		return(entry)
+		return(compound)
 	}
 }

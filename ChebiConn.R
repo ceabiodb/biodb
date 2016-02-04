@@ -1,7 +1,7 @@
 if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 
 	source('BiodbConn.R')
-	source('ChebiEntry.R')
+	source('ChebiCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
@@ -10,43 +10,43 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 	ChebiConn <- setRefClass("ChebiConn", contains = "BiodbConn")
 
 	#######################################
-	# GET TYPE OF DOWNLOADABLE ENTRY FILE #
+	# GET TYPE OF DOWNLOADABLE COMPOUND FILE #
 	#######################################
 
-	ChebiConn$methods( getTypeOfDownloadableEntryFile = function() {
+	ChebiConn$methods( getTypeOfDownloadableCompoundFile = function() {
 		return(RBIODB.HTML)
 	})
 	
 	###############################
-	# DOWNLOAD ENTRY FILE CONTENT #
+	# DOWNLOAD COMPOUND FILE CONTENT #
 	###############################
 	
-	# Download an entry description as a file content, from the public database.
-	# id        The ID of the entry for which to download file content.
-	# RETURN    The file content describing the entry.
-	ChebiConn$methods( .doDownloadEntryFileContent = function(id) {
-		url <- get.chebi.entry.url(id)
+	# Download an compound description as a file content, from the public database.
+	# id        The ID of the compound for which to download file content.
+	# RETURN    The file content describing the compound.
+	ChebiConn$methods( .doDownloadCompoundFileContent = function(id) {
+		url <- get.chebi.compound.url(id)
 		html <- .self$.getUrl(url)
 		return(html)
 	})
 	
 	################
-	# CREATE ENTRY #
+	# CREATE COMPOUND #
 	################
 	
-	# Creates an Entry instance from file content.
+	# Creates an Compound instance from file content.
 	# file_content  A file content, downloaded from the public database.
-	# RETURN        An Entry instance.
-	ChebiConn$methods( .doCreateEntry = function(file_content) {
-		entry <- createChebiEntryFromHtml(file_content)
-		return(entry)
+	# RETURN        An Compound instance.
+	ChebiConn$methods( .doCreateCompound = function(file_content) {
+		compound <- createChebiCompoundFromHtml(file_content)
+		return(compound)
 	})
 
 	#######################
-	# GET CHEBI ENTRY URL #
+	# GET CHEBI COMPOUND URL #
 	#######################
 	
-	get.chebi.entry.url <- function(id) {
+	get.chebi.compound.url <- function(id) {
 	
 		url <- paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', id)
 	

@@ -1,17 +1,17 @@
 library(XML)
-source('BiodbEntry.R')
+source('BiodbCompound.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-PubchemEntry <- setRefClass("PubchemEntry", contains = "BiodbEntry", fields = list(.inchi = "character", .inchikey = "character", .name = "character"))
+PubchemCompound <- setRefClass("PubchemCompound", contains = "BiodbCompound", fields = list(.inchi = "character", .inchikey = "character", .name = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-PubchemEntry$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, name = NA_character_, ...) {
+PubchemCompound$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, name = NA_character_, ...) {
 
 	.inchi <<- if ( ! is.null(inchi)) inchi else NA_character_
 	.inchikey <<- if ( ! is.null(inchikey)) inchikey else NA_character_
@@ -24,7 +24,7 @@ PubchemEntry$methods( initialize = function(id = NA_character_, inchi = NA_chara
 # NAME #
 ########
 
-PubchemEntry$methods( getName = function() {
+PubchemCompound$methods( getName = function() {
 	return(.self$.name)
 })
 
@@ -32,7 +32,7 @@ PubchemEntry$methods( getName = function() {
 # INCHI #
 #########
 
-PubchemEntry$methods(	getInchi = function() {
+PubchemCompound$methods(	getInchi = function() {
 	return(.self$.inchi)
 })
 
@@ -40,7 +40,7 @@ PubchemEntry$methods(	getInchi = function() {
 # INCHI KEY #
 #############
 
-PubchemEntry$methods(	getInchiKey = function() {
+PubchemCompound$methods(	getInchiKey = function() {
 	return(.self$.inchikey)
 })
 
@@ -48,9 +48,9 @@ PubchemEntry$methods(	getInchiKey = function() {
 # FACTORY #
 ###########
 
-createPubchemEntryFromXml <- function(xmlstr) {
+createPubchemCompoundFromXml <- function(xmlstr) {
 
-	entry <- NULL
+	compound <- NULL
 
 	# Set XML namespace
 	ns <- c(pubchem = "http://pubchem.ncbi.nlm.nih.gov/pug_view")
@@ -79,10 +79,10 @@ createPubchemEntryFromXml <- function(xmlstr) {
 			# Get InChI KEY
 			inchikey <- xpathSApply(xml, "//pubchem:Name[text()='InChI Key']/../pubchem:StringValue", xmlValue, namespaces = ns)
 
-			# Create entry
-			entry <- PubchemEntry$new(id = id, inchi = inchi, inchikey = inchikey, name = name)
+			# Create compound
+			compound <- PubchemCompound$new(id = id, inchi = inchi, inchikey = inchikey, name = name)
 		}
 	}
 
-	return(entry)
+	return(compound)
 }

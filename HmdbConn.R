@@ -1,7 +1,7 @@
 if ( ! exists('HmdbConn')) { # Do not load again if already loaded
 
 	source('BiodbConn.R')
-	source('HmdbEntry.R')
+	source('HmdbCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
@@ -10,37 +10,37 @@ if ( ! exists('HmdbConn')) { # Do not load again if already loaded
 	HmdbConn <- setRefClass("HmdbConn", contains = "BiodbConn")
 	
 	###############################
-	# DOWNLOAD ENTRY FILE CONTENT #
+	# DOWNLOAD COMPOUND FILE CONTENT #
 	###############################
 	
-	# Download an entry description as a file content, from the public database.
-	# id        The ID of the entry for which to download file content.
-	# RETURN    The file content describing the entry.
+	# Download an compound description as a file content, from the public database.
+	# id        The ID of the compound for which to download file content.
+	# RETURN    The file content describing the compound.
 	HmdbConn$methods(
-		.doDownloadEntryFileContent = function(id) {
-			url <- get.hmdb.entry.url(id, xml = TRUE)
+		.doDownloadCompoundFileContent = function(id) {
+			url <- get.hmdb.compound.url(id, xml = TRUE)
 			xml <- .self$.getUrl(url)
 			return(xml)
 	})
 	
 	################
-	# CREATE ENTRY #
+	# CREATE COMPOUND #
 	################
 	
-	# Creates an Entry instance from file content.
+	# Creates an Compound instance from file content.
 	# file_content  A file content, downloaded from the public database.
-	# RETURN        An Entry instance.
+	# RETURN        An Compound instance.
 	HmdbConn$methods(
-		.doCreateEntry = function(file_content) {
-			entry <- createHmdbEntryFromXml(file_content)
-			return(entry)
+		.doCreateCompound = function(file_content) {
+			compound <- createHmdbCompoundFromXml(file_content)
+			return(compound)
 	})
 	
 	######################
-	# GET HMDB ENTRY URL #
+	# GET HMDB COMPOUND URL #
 	######################
 	
-	get.hmdb.entry.url <- function(id, xml = FALSE) {
+	get.hmdb.compound.url <- function(id, xml = FALSE) {
 	
 		url <- paste0('http://www.hmdb.ca/metabolites/', id)
 	

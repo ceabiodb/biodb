@@ -13,7 +13,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	RBIODB.KEGG  <- 'kegg'
 	RBIODB.PUBCHEM  <- 'pubchem'
 	RBIODB.MASSBANK  <- 'massbank'
-	
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -55,27 +55,27 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		return (.self$.conn[[class]])
 	})
 
-	########################
-	# CREATE ENTRY FROM DB #
-	########################
+	###########################
+	# CREATE COMPOUND FROM DB #
+	###########################
 
-	BiodbFactory$methods( createEntryFromDb = function(class, id) {
+	BiodbFactory$methods( createCompoundFromDb = function(class, id) {
 
 		conn <- .self$getConn(class)
-		entry <- conn$getEntry(id = id, factory = .self)
+		compound <- conn$getCompound(id = id, factory = .self)
 
-		return(entry)
+		return(compound)
 	})
 
-	#############################
-	# CREATE ENTRY FROM CONTENT #
-	#############################
+	################################
+	# CREATE COMPOUND FROM CONTENT #
+	################################
 
-	BiodbFactory$methods( createEntryFromContent = function(class, content) {
+	BiodbFactory$methods( createCompoundFromContent = function(class, content) {
 
 		conn <- .self$getConn(class)
-		entry <- conn$createEntry(content = content, factory = .self)
+		compound <- conn$createCompound(content = content, factory = .self)
 
-		return(entry)
+		return(compound)
 	})
 }

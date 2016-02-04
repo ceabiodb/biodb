@@ -7,7 +7,7 @@ options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
 
 full_test <- FALSE
 
-entries <- list(
+compounds <- list(
 				'Q75MT5' = list(),
 				'P10480' = list( enzymeid = '2.3.1.43' ),
                 'AAAAAA' = list(false = TRUE),
@@ -24,60 +24,60 @@ entries <- list(
 # Open connexion
 conn <- UniProtConn$new(useragent = "fr.cea.test-uniprot ; pierrick.rogermele@cea.fr")
 
-# Loop on all entries
-for (id in names(entries)) {
+# Loop on all compounds
+for (id in names(compounds)) {
 
-	# Skip big entry (take too much time)
-	if (hGetBool(entries[[id]], 'big') && ! full_test)
+	# Skip big compound (take too much time)
+	if (hGetBool(compounds[[id]], 'big') && ! full_test)
 		next
 
-	print(paste('Testing UniProt entry', id, '...'))
+	print(paste('Testing UniProt compound', id, '...'))
 
-	# Get Entry from database
-	entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-uniprot-', id, '.xml')))
+	# Get Compound from database
+	compound <- conn$createCompound(conn$downloadCompoundFileContent(id, save_as = paste0('test-uniprot-', id, '.xml')))
 
-	# This is a false entry => test that it's null
-	if (hGetBool(entries[[id]], 'false'))
-		checkTrue(is.null(entry))
+	# This is a false compound => test that it's null
+	if (hGetBool(compounds[[id]], 'false'))
+		checkTrue(is.null(compound))
 
-	# This is a real entry => test that it isn't null
+	# This is a real compound => test that it isn't null
 	else {
-		checkTrue( ! is.null(entry))
+		checkTrue( ! is.null(compound))
 
 		# Check that returned id is the same
-		checkEquals(entry$getId(), id)
+		checkEquals(compound$getId(), id)
 		
 		# Check Kegg ID
-		if (hHasKey(entries[[id]], 'keggid'))
-			checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+		if (hHasKey(compounds[[id]], 'keggid'))
+			checkEquals(compound$getKeggId(), compounds[[id]][['keggid']])
 		
 		# Check NCBI Gene ID
-		if (hHasKey(entries[[id]], 'geneid'))
-			checkEquals(entry$getNcbiGeneId(), entries[[id]][['geneid']])
+		if (hHasKey(compounds[[id]], 'geneid'))
+			checkEquals(compound$getNcbiGeneId(), compounds[[id]][['geneid']])
 		
 		# Check Enzyme ID
-		if (hHasKey(entries[[id]], 'enzymeid'))
-			checkEquals(entry$getEnzymeId(), entries[[id]][['enzymeid']])
+		if (hHasKey(compounds[[id]], 'enzymeid'))
+			checkEquals(compound$getEnzymeId(), compounds[[id]][['enzymeid']])
 
 		# Check name
-		checkTrue(entry$getName() != '')
+		checkTrue(compound$getName() != '')
 
 		# Check fullname
-		if (hHasKey(entries[[id]], 'fullname'))
-			checkEquals(entry$getFullName(), entries[[id]][['fullname']])
+		if (hHasKey(compounds[[id]], 'fullname'))
+			checkEquals(compound$getFullName(), compounds[[id]][['fullname']])
 
 		# Check gene symbol
-		if (hHasKey(entries[[id]], 'gene_symbol'))
-			checkEquals(entry$getGeneSymbol(), entries[[id]][['gene_symbol']])
+		if (hHasKey(compounds[[id]], 'gene_symbol'))
+			checkEquals(compound$getGeneSymbol(), compounds[[id]][['gene_symbol']])
 
 		# Check length
-		checkTrue(entry$getLength() > 0)
+		checkTrue(compound$getLength() > 0)
 
 		# Check mass
-		checkTrue(entry$getMass() > 0)
+		checkTrue(compound$getMass() > 0)
 
 		# Check sequence
-		if (hHasKey(entries[[id]], 'seq'))
-			checkEquals(entries[[id]][['seq']], entry$getSequence())
+		if (hHasKey(compounds[[id]], 'seq'))
+			checkEquals(compounds[[id]][['seq']], compound$getSequence())
 	}
 }

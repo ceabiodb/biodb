@@ -5,7 +5,7 @@ source('../../r-lib/hshhlp.R', chdir = TRUE)
 
 options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
 
-entries <- list('hsa-miR-142-3p'    = list(accession = 'MIMAT0000434',  sequence = 'UGUAGUGUUUCCUACUUUAUGGA'),
+compounds <- list('hsa-miR-142-3p'    = list(accession = 'MIMAT0000434',  sequence = 'UGUAGUGUUUCCUACUUUAUGGA'),
                 'hsa-miR-142-5p'    = list(accession = 'MIMAT0000433',  sequence = 'CAUAAAGUAGAAAGCACUACU'),
 #                'hsa-miR-155'       = list(accession = 'MI0000681',     sequence = 'UUAAUGCUAAUCGUGAUAGGGG'),                                          
 #                'hsa-miR-223'       = list(accession = '', sequence = 'UGUCAGUUUGUCAAAUACCCC'),                                           
@@ -28,35 +28,35 @@ entries <- list('hsa-miR-142-3p'    = list(accession = 'MIMAT0000434',  sequence
 # Open connexion
 conn <- MirbaseConn$new(useragent = "fr.cea.test-mirbase ; pierrick.rogermele@cea.fr")
 
-# Loop on all entries
-for (id in names(entries)) {
+# Loop on all compounds
+for (id in names(compounds)) {
 
-	# Skip big entry (take too much time)
-	if (hGetBool(entries[[id]], 'big') && ! full_test)
+	# Skip big compound (take too much time)
+	if (hGetBool(compounds[[id]], 'big') && ! full_test)
 		next
 
-	print(paste('Testing MIRBASE entry', id, '...'))
+	print(paste('Testing MIRBASE compound', id, '...'))
 
-	# Get Entry from database
-	entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-mirbase-', id, '.html')))
+	# Get Compound from database
+	compound <- conn$createCompound(conn$downloadCompoundFileContent(id, save_as = paste0('test-mirbase-', id, '.html')))
 
-	# This is a false entry => test that it's null
-	if (hGetBool(entries[[id]], 'false'))
-		checkTrue(is.null(entry))
+	# This is a false compound => test that it's null
+	if (hGetBool(compounds[[id]], 'false'))
+		checkTrue(is.null(compound))
 
-	# This is a real entry => test that it isn't null
+	# This is a real compound => test that it isn't null
 	else {
-		checkTrue( ! is.null(entry))
+		checkTrue( ! is.null(compound))
 
 		# Check that returned id is the same
-		checkEquals(id, entry$getId())
+		checkEquals(id, compound$getId())
 			
 		# Check accession number
-		if (hHasKey(entries[[id]], 'accession'))
-			checkEquals(entries[[id]][['accession']], entry$getAccessionNumber())
+		if (hHasKey(compounds[[id]], 'accession'))
+			checkEquals(compounds[[id]][['accession']], compound$getAccessionNumber())
 			
 		# Check sequence 
-		if (hHasKey(entries[[id]], 'sequence'))
-			checkEquals(toupper(entries[[id]][['sequence']]), toupper(entry$getSequence()))
+		if (hHasKey(compounds[[id]], 'sequence'))
+			checkEquals(toupper(compounds[[id]][['sequence']]), toupper(compound$getSequence()))
 	}
 }

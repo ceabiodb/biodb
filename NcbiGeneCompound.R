@@ -1,17 +1,17 @@
 library(XML)
-source('BiodbEntry.R')
+source('BiodbCompound.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-NcbiGeneEntry <- setRefClass("NcbiGeneEntry", contains = "BiodbEntry", fields = list(symbol = "character", location = "character", fullname = "character", synonyms = "character", ccds_id = "character", uniprot_id = "character"))
+NcbiGeneCompound <- setRefClass("NcbiGeneCompound", contains = "BiodbCompound", fields = list(symbol = "character", location = "character", fullname = "character", synonyms = "character", ccds_id = "character", uniprot_id = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-NcbiGeneEntry$methods(
+NcbiGeneCompound$methods(
 	initialize = function(ccds_id = NA_character_, uniprot_id = NA_character_, symbol = NA_character_, location = NA_character_, fullname = NA_character_, synonyms = NA_character_, ...) {
 		ccds_id <<- if ( ! is.null(ccds_id)) ccds_id else NA_character_
 		uniprot_id <<- if ( ! is.null(uniprot_id)) uniprot_id else NA_character_
@@ -26,7 +26,7 @@ NcbiGeneEntry$methods(
 # UNIPROTKB/SWISS-PROT ID #
 ###########################
 
-NcbiGeneEntry$methods(
+NcbiGeneCompound$methods(
 	getUniProtId = function() {
 		return(.self$uniprot_id)
 	}
@@ -36,7 +36,7 @@ NcbiGeneEntry$methods(
 # CCDS ID #
 ###########
 
-NcbiGeneEntry$methods(
+NcbiGeneCompound$methods(
 	getCcdsId = function() {
 		return(.self$ccds_id)
 	}
@@ -46,7 +46,7 @@ NcbiGeneEntry$methods(
 # SYMBOL #
 ##########
 
-NcbiGeneEntry$methods(
+NcbiGeneCompound$methods(
 	getSymbol = function() {
 		return(.self$symbol)
 	}
@@ -56,7 +56,7 @@ NcbiGeneEntry$methods(
 # LOCATION #
 ############
 
-NcbiGeneEntry$methods(
+NcbiGeneCompound$methods(
 	getLocation = function() {
 		return(.self$location)
 	}
@@ -66,7 +66,7 @@ NcbiGeneEntry$methods(
 # OFFICIAL FULL NAME #
 ######################
 
-NcbiGeneEntry$methods(
+NcbiGeneCompound$methods(
 	getOfficialFullName = function() {
 		return(.self$fullname)
 	}
@@ -76,7 +76,7 @@ NcbiGeneEntry$methods(
 # SYNONYMS #
 ############
 
-NcbiGeneEntry$methods(
+NcbiGeneCompound$methods(
 	getSynonyms = function() {
 		return(.self$synonyms)
 	}
@@ -86,7 +86,7 @@ NcbiGeneEntry$methods(
 # FACTORY #
 ###########
 
-createNcbiGeneEntryFromXml <- function(xmlstr) {
+createNcbiGeneCompoundFromXml <- function(xmlstr) {
 
 	if (is.null(xmlstr) || is.na(xmlstr) || nchar(xmlstr) == 0)
 		return(NULL)
@@ -108,7 +108,7 @@ createNcbiGeneEntryFromXml <- function(xmlstr) {
 	location    <- unlist(xpathSApply(xml, "//Gene-ref_maploc", xmlValue))
 	ccds_id     <- .find_ccds_id(xml)
 
-	return(if (is.null(id) || is.na(id)) NULL else NcbiGeneEntry$new(id = id, kegg_id = kegg_id, synonyms = synonyms, fullname = fullname, symbol = symbol, location = location, ccds_id = ccds_id, uniprot_id = uniprot_id))
+	return(if (is.null(id) || is.na(id)) NULL else NcbiGeneCompound$new(id = id, kegg_id = kegg_id, synonyms = synonyms, fullname = fullname, symbol = symbol, location = location, ccds_id = ccds_id, uniprot_id = uniprot_id))
 }
 
 #############

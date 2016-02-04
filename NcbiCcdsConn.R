@@ -1,5 +1,5 @@
 source('NcbiConn.R')
-source('NcbiCcdsEntry.R')
+source('NcbiCcdsCompound.R')
 
 #####################
 # CLASS DECLARATION #
@@ -8,28 +8,28 @@ source('NcbiCcdsEntry.R')
 NcbiCcdsConn <- setRefClass("NcbiCcdsConn", contains = "NcbiConn")
 
 ###############################
-# DOWNLOAD ENTRY FILE CONTENT #
+# DOWNLOAD COMPOUND FILE CONTENT #
 ###############################
 
-# Download an entry description as a file content, from the public database.
-# id        The ID of the entry for which to download file content.
-# RETURN    The file content describing the entry.
+# Download an compound description as a file content, from the public database.
+# id        The ID of the compound for which to download file content.
+# RETURN    The file content describing the compound.
 NcbiCcdsConn$methods(
-	.doDownloadEntryFileContent = function(id) {
+	.doDownloadCompoundFileContent = function(id) {
 		# There exists no CCDS connexion through the e-utilities, so we must connect the web server and get an HTML page.
 		xml <- .self$.getUrl('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi', params = c(REQUEST = 'CCDS', GO = 'MainBrowse', DATA = id))
 		return(xml)
 })
 
 ################
-# CREATE ENTRY #
+# CREATE COMPOUND #
 ################
 
-# Creates an Entry instance from file content.
+# Creates an Compound instance from file content.
 # file_content  A file content, downloaded from the public database.
-# RETURN        An Entry instance.
+# RETURN        An Compound instance.
 NcbiCcdsConn$methods(
-	.doCreateEntry = function(file_content) {
-		entry <- createNcbiCcdsEntryFromHtml(file_content)
-		return(entry)
+	.doCreateCompound = function(file_content) {
+		compound <- createNcbiCcdsCompoundFromHtml(file_content)
+		return(compound)
 })

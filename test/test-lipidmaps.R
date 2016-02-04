@@ -10,54 +10,54 @@ full_test <- FALSE
 #args <- commandArgs(trailingOnly = TRUE)
 #full_test = args[1]
 
-entries <- list('LMFA08040013' = list(formula = 'C18H37NO2', mass = 299.28, synonyms = c('Palmitoyl ethanolamide', 'palmitoylethanolamide', 'Anandamide (16:0)', 'N-palmitoyl ethanolamine'), kegg_id = NA_character_, hmdb_id = 'HMDB02100'),
+compounds <- list('LMFA08040013' = list(formula = 'C18H37NO2', mass = 299.28, synonyms = c('Palmitoyl ethanolamide', 'palmitoylethanolamide', 'Anandamide (16:0)', 'N-palmitoyl ethanolamine'), kegg_id = NA_character_, hmdb_id = 'HMDB02100'),
                 'TAGADA' = list(false = TRUE)
                 )
 
 # Open connexion
 conn <- LipidmapsConn$new(useragent = "fr.cea.test-lipidmaps ; pierrick.rogermele@cea.fr")
 
-# Loop on all entries
-for (id in names(entries)) {
+# Loop on all compounds
+for (id in names(compounds)) {
 
-	# Skip big entry (take too much time)
-	if (hGetBool(entries[[id]], 'big') && ! full_test)
+	# Skip big compound (take too much time)
+	if (hGetBool(compounds[[id]], 'big') && ! full_test)
 		next
 
-	print(paste('Testing LIPIDMAPS entry', id, '...'))
+	print(paste('Testing LIPIDMAPS compound', id, '...'))
 
-	# Get Entry from database
-	entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-lipidmaps-', id, '.txt')))
+	# Get Compound from database
+	compound <- conn$createCompound(conn$downloadCompoundFileContent(id, save_as = paste0('test-lipidmaps-', id, '.txt')))
 
-	# This is a false entry => test that it's null
-	if (hGetBool(entries[[id]], 'false'))
-		checkTrue(is.null(entry))
+	# This is a false compound => test that it's null
+	if (hGetBool(compounds[[id]], 'false'))
+		checkTrue(is.null(compound))
 
-	# This is a real entry => test that it isn't null
+	# This is a real compound => test that it isn't null
 	else {
-		checkTrue( ! is.null(entry))
+		checkTrue( ! is.null(compound))
 
 		# Check that returned id is the same
-		checkEquals(id, entry$getId())
+		checkEquals(id, compound$getId())
 
 		# Check synonyms
-		if (hHasKey(entries[[id]], 'synonyms'))
-			checkEquals(sort(entries[[id]][['synonyms']]), sort(entry$getSynonyms()))
+		if (hHasKey(compounds[[id]], 'synonyms'))
+			checkEquals(sort(compounds[[id]][['synonyms']]), sort(compound$getSynonyms()))
 			
 		# Check Kegg ID
-		if (hHasKey(entries[[id]], 'kegg_id'))
-			checkEquals(entries[[id]][['kegg_id']], entry$getKeggId())
+		if (hHasKey(compounds[[id]], 'kegg_id'))
+			checkEquals(compounds[[id]][['kegg_id']], compound$getKeggId())
 			
 		# Check HMDB ID
-		if (hHasKey(entries[[id]], 'hmdb_id'))
-			checkEquals(entries[[id]][['hmdb_id']], entry$getHmdbId())
+		if (hHasKey(compounds[[id]], 'hmdb_id'))
+			checkEquals(compounds[[id]][['hmdb_id']], compound$getHmdbId())
 			
 		# Check Mass
-		if (hHasKey(entries[[id]], 'mass'))
-			checkEquals(entries[[id]][['mass']],entry$getMass())
+		if (hHasKey(compounds[[id]], 'mass'))
+			checkEquals(compounds[[id]][['mass']],compound$getMass())
 			
 		# Check Formula
-		if (hHasKey(entries[[id]], 'formula'))
-			checkEquals(entries[[id]][['formula']], entry$getFormula())
+		if (hHasKey(compounds[[id]], 'formula'))
+			checkEquals(compounds[[id]][['formula']], compound$getFormula())
 	}
 }

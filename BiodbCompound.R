@@ -1,16 +1,16 @@
-if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
+if ( ! exists('BiodbCompound')) { # Do not load again if already loaded
 
 	########################
-	# Entry ABSTRACT CLASS #
+	# Compound ABSTRACT CLASS #
 	########################
 	
-	BiodbEntry <- setRefClass("BiodbEntry", fields = list(.id = "character", .factory = "ANY"))
+	BiodbCompound <- setRefClass("BiodbCompound", fields = list(.id = "character", .factory = "ANY"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	BiodbEntry$methods( initialize = function(id = NA_character_, ...) {
+	BiodbCompound$methods( initialize = function(id = NA_character_, ...) {
 	
 		.id <<- if ( ! is.null(id)) id else NA_character_
 		.factory <<- NULL
@@ -22,7 +22,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# ID #
 	######
 	
-	BiodbEntry$methods(	getId = function() {
+	BiodbCompound$methods(	getId = function() {
 		return(.self$.id)
 	})
 	
@@ -30,7 +30,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# FACTORY #
 	###########
 	
-	BiodbEntry$methods(	setFactory = function(factory) {
+	BiodbCompound$methods(	setFactory = function(factory) {
 		.factory <<- factory
 	})
 	
@@ -38,7 +38,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# NAME #
 	########
 	
-	BiodbEntry$methods( getName = function() {
+	BiodbCompound$methods( getName = function() {
 		stop("Method getName() is not implemented in concrete class.")
 	})
 	
@@ -46,7 +46,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# CHEBI ID #
 	############
 	
-	BiodbEntry$methods( getChebiId = function() {
+	BiodbCompound$methods( getChebiId = function() {
 		stop("Method getChebiId() is not implemented in concrete class.")
 	})
 	
@@ -54,7 +54,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# KEGG ID #
 	###########
 	
-	BiodbEntry$methods( getKeggId = function() {
+	BiodbCompound$methods( getKeggId = function() {
 		stop("Method getKeggId() is not implemented in concrete class.")
 	})
 	
@@ -62,7 +62,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# PUBCHEM ID #
 	##############
 	
-	BiodbEntry$methods( getPubchemId = function() {
+	BiodbCompound$methods( getPubchemId = function() {
 		stop("Method getPubchemId() is not implemented in concrete class.")
 	})
 	
@@ -70,7 +70,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# LIPIDMAPS ID #
 	################
 	
-	BiodbEntry$methods( getLipidmapsId = function() {
+	BiodbCompound$methods( getLipidmapsId = function() {
 		stop("Method getLipidmapsId() is not implemented in concrete class.")
 	})
 	
@@ -78,7 +78,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# INCHI #
 	#########
 	
-	BiodbEntry$methods( getInchi = function() {
+	BiodbCompound$methods( getInchi = function() {
 		stop("Method getInchi() is not implemented in concrete class.")
 	})
 	
@@ -86,7 +86,15 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# INCHI KEY #
 	#############
 	
-	BiodbEntry$methods(	getInchiKey = function() {
+	BiodbCompound$methods(	getInchiKey = function() {
 		stop("Method getInchi() is not implemented in concrete class.")
+	})
+
+	###############
+	# GET SPECTRA #
+	###############
+
+	BiodbCompound$methods( getSpectra = function() {
+		stop("Method getSpectra() is not impemented in concrete class.")
 	})
 }

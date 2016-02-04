@@ -1,18 +1,18 @@
-if ( ! exists('KeggEntry')) { # Do not load again if already loaded
+if ( ! exists('KeggCompound')) { # Do not load again if already loaded
 
-	source('BiodbEntry.R')
+	source('BiodbCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	KeggEntry <- setRefClass("KeggEntry", contains = 'BiodbEntry', fields = list(.lipidmapsid = "character", .chebiid = "character", .name = "character"))
+	KeggCompound <- setRefClass("KeggCompound", contains = 'BiodbCompound', fields = list(.lipidmapsid = "character", .chebiid = "character", .name = "character"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	KeggEntry$methods( initialize = function(lipidmapsid = NA_character_, chebiid = NA_character_, name = NA_character_, ...) {
+	KeggCompound$methods( initialize = function(lipidmapsid = NA_character_, chebiid = NA_character_, name = NA_character_, ...) {
 	
 			.lipidmapsid <<- if ( ! is.null(lipidmapsid)) lipidmapsid else NA_character_
 			.chebiid <<- if ( ! is.null(chebiid)) chebiid else NA_character_
@@ -26,7 +26,7 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 	# KEGG ID #
 	###########
 	
-	KeggEntry$methods(	getKeggId = function() {
+	KeggCompound$methods(	getKeggId = function() {
 		return(.self$getId())
 	})
 	
@@ -34,7 +34,7 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 	# NAME #
 	########
 	
-	KeggEntry$methods( getName = function() {
+	KeggCompound$methods( getName = function() {
 		return(.self$.name)
 	})
 	
@@ -42,7 +42,7 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 	# CHEBI ID #
 	############
 	
-	KeggEntry$methods( getChebiId = function() {
+	KeggCompound$methods( getChebiId = function() {
 		return(.self$.chebiid)
 	})
 	
@@ -50,14 +50,14 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 	# INCHIKEY #
 	############
 	
-	KeggEntry$methods( getInchiKey = function() {
+	KeggCompound$methods( getInchiKey = function() {
 	
 		inchi <- NA_character_
 	
 		if ( ! is.null(.self$.factory)) {
-			chebi.entry <- .self$.factory$createEntryFromDb(RBIODB.CHEBI, .self$getChebiId())
-			if ( ! is.null(chebi.entry))
-				inchi <- chebi.entry$getInchiKey()
+			chebi.compound <- .self$.factory$createCompoundFromDb(RBIODB.CHEBI, .self$getChebiId())
+			if ( ! is.null(chebi.compound))
+				inchi <- chebi.compound$getInchiKey()
 		}
 	
 		return(inchi)
@@ -67,14 +67,14 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 	# INCHI #
 	#########
 	
-	KeggEntry$methods( getInchi = function() {
+	KeggCompound$methods( getInchi = function() {
 	
 		inchi <- NA_character_
 	
 		if ( ! is.null(.self$.factory)) {
-			chebi.entry <- .self$.factory$createEntryFromDb(RBIODB.CHEBI, .self$getChebiId())
-			if ( ! is.null(chebi.entry))
-				inchi <- chebi.entry$getInchi()
+			chebi.compound <- .self$.factory$createCompoundFromDb(RBIODB.CHEBI, .self$getChebiId())
+			if ( ! is.null(chebi.compound))
+				inchi <- chebi.compound$getInchi()
 		}
 	
 		return(inchi)
@@ -84,7 +84,7 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 	# LIPIDMAPS ID #
 	################
 	
-	KeggEntry$methods( getLipidmapsId = function() {
+	KeggCompound$methods( getLipidmapsId = function() {
 		return(.self$.lipidmapsid)
 	})
 	
@@ -92,7 +92,7 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 	# FACTORY #
 	###########
 	
-	createKeggEntryFromText <- function(text) {
+	createKeggCompoundFromText <- function(text) {
 	
 		library(stringr)
 	
@@ -109,7 +109,7 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 			if ( ! is.na(g[1,1]))
 				id <- paste('ec', g[1,2], sep = ':')
 	
-			# COMPOUND ID
+			# ENTRY ID
 			else {
 				g <- str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
 				if ( ! is.na(g[1,1]))
@@ -144,6 +144,6 @@ if ( ! exists('KeggEntry')) { # Do not load again if already loaded
 				lipidmapsid <- g[1,2]
 		}
 	
-		return(if (is.na(id)) NULL else KeggEntry$new(id = id, lipidmapsid = lipidmapsid, chebiid = chebiid, name = name))
+		return(if (is.na(id)) NULL else KeggCompound$new(id = id, lipidmapsid = lipidmapsid, chebiid = chebiid, name = name))
 	}
 }	

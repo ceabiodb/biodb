@@ -45,37 +45,37 @@ read_args <- function() {
 # TEST ENTRIES #
 ################
 
-test_entries <- function(conn, entries, full_test = FALSE) {
+test_compounds <- function(conn, compounds, full_test = FALSE) {
 
-# Loop on all entries
-	for (id in names(entries)) {
+# Loop on all compounds
+	for (id in names(compounds)) {
 
-		# Skip big entry (take too much time)
-		if (hGetBool(entries[[id]], 'big') && ! full_test)
+		# Skip big compound (take too much time)
+		if (hGetBool(compounds[[id]], 'big') && ! full_test)
 			next
 
-		print(paste('Testing ENZYME entry', id, '...'))
+		print(paste('Testing ENZYME compound', id, '...'))
 
-		# Get Entry from database
-		entry <- conn$createEntry(conn$downloadEntryFileContent(id, save_as = paste0('test-enzyme-', id, '.txt')))
+		# Get Compound from database
+		compound <- conn$createCompound(conn$downloadCompoundFileContent(id, save_as = paste0('test-enzyme-', id, '.txt')))
 
-		# This is a false entry => test that it's null
-		if (hGetBool(entries[[id]], 'false'))
-			checkTrue(is.null(entry))
+		# This is a false compound => test that it's null
+		if (hGetBool(compounds[[id]], 'false'))
+			checkTrue(is.null(compound))
 
-		# This is a real entry => test that it isn't null
+		# This is a real compound => test that it isn't null
 		else {
-			checkTrue( ! is.null(entry))
+			checkTrue( ! is.null(compound))
 
 			# Check that returned id is the same
-			checkEquals(entry$getId(), id)
+			checkEquals(compound$getId(), id)
 
 			# Check that a description exists
-			checkTrue(entry$getDescription() != "")
+			checkTrue(compound$getDescription() != "")
 			
 			# Check Kegg ID
-			if (hHasKey(entries[[id]], 'keggid'))
-				checkEquals(entry$getKeggId(), entries[[id]][['keggid']])
+			if (hHasKey(compounds[[id]], 'keggid'))
+				checkEquals(compound$getKeggId(), compounds[[id]][['keggid']])
 		}
 	}
 }
@@ -88,4 +88,4 @@ options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
 
 opt<-read_args()
 conn <- EnzymeConn$new(useragent = "fr.cea.r-biodb.test-enzyme ; pierrick.rogermele@cea.fr")
-test_entries(conn, ENTRIES, full_test = opt$full)
+test_compounds(conn, ENTRIES, full_test = opt$full)

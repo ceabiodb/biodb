@@ -1,17 +1,17 @@
 library(XML)
-source('BiodbEntry.R')
+source('BiodbCompound.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-NcbiCcdsEntry <- setRefClass("NcbiCcdsEntry", contains = "BiodbEntry", fields = list(nucleotides = "character"))
+NcbiCcdsCompound <- setRefClass("NcbiCcdsCompound", contains = "BiodbCompound", fields = list(nucleotides = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-NcbiCcdsEntry$methods(
+NcbiCcdsCompound$methods(
 	initialize = function(nucleotides = NA_character_, ...) {
 		nucleotides <<- if ( ! is.null(nucleotides)) nucleotides else NA_character_
 		callSuper(...)
@@ -22,7 +22,7 @@ NcbiCcdsEntry$methods(
 # NUCLEOTIDE SEQUENCE #
 #######################
 
-NcbiCcdsEntry$methods(
+NcbiCcdsCompound$methods(
 	getNucleotideSequence = function() {
 		return(.self$nucleotides)
 	}
@@ -32,7 +32,7 @@ NcbiCcdsEntry$methods(
 # FACTORY #
 ###########
 
-createNcbiCcdsEntryFromHtml <- function(htmlstr) {
+createNcbiCcdsCompoundFromHtml <- function(htmlstr) {
 
 	# Parse HTML
 	xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
@@ -45,5 +45,5 @@ createNcbiCcdsEntryFromHtml <- function(htmlstr) {
 	id          <- xpathSApply(xml, "//input[@id='DATA']", xmlGetAttr, "value")
 	nucleotides <- xpathSApply(xml, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", xmlValue)
 
-	return(if (is.na(id)) NULL else NcbiCcdsEntry$new(id = id, nucleotides = nucleotides))
+	return(if (is.na(id)) NULL else NcbiCcdsCompound$new(id = id, nucleotides = nucleotides))
 }

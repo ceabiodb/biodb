@@ -1,4 +1,4 @@
-source('BiodbEntry.R')
+source('BiodbCompound.R')
 source('../r-lib/hshhlp.R', chdir = TRUE)
 source('../r-lib/strhlp.R', chdir = TRUE)
 
@@ -6,13 +6,13 @@ source('../r-lib/strhlp.R', chdir = TRUE)
 # CLASS DECLARATION #
 #####################
 
-LipidmapsEntry <- setRefClass("LipidmapsEntry", contains = 'BiodbEntry', fields = list(hmdb_id = 'character', synonyms = 'character', formula = 'character', mass = 'numeric'))
+LipidmapsCompound <- setRefClass("LipidmapsCompound", contains = 'BiodbCompound', fields = list(hmdb_id = 'character', synonyms = 'character', formula = 'character', mass = 'numeric'))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-LipidmapsEntry$methods(
+LipidmapsCompound$methods(
 	initialize = function(hmdb_id = NA_character_, synonyms = NA_character_, formula = NA_character_, mass = NA_real_, ...) {
 		hmdb_id <<- if ( ! is.null(hmdb_id)) hmdb_id else NA_character_
 		synonyms <<- if ( ! is.null(synonyms)) synonyms else NA_character_
@@ -26,7 +26,7 @@ LipidmapsEntry$methods(
 # HMDB ID #
 ###########
 
-LipidmapsEntry$methods(
+LipidmapsCompound$methods(
 	getHmdbId = function() {
 		return(.self$hmdb_id)
 	}
@@ -36,7 +36,7 @@ LipidmapsEntry$methods(
 # SYNONYMS #
 ############
 
-LipidmapsEntry$methods(
+LipidmapsCompound$methods(
 	getSynonyms = function() {
 		return(.self$synonyms)
 	}
@@ -46,7 +46,7 @@ LipidmapsEntry$methods(
 # FORMULA #
 ###########
 
-LipidmapsEntry$methods(
+LipidmapsCompound$methods(
 	getFormula = function() {
 		return(.self$formula)
 	}
@@ -56,7 +56,7 @@ LipidmapsEntry$methods(
 # MASS #
 ########
 
-LipidmapsEntry$methods(
+LipidmapsCompound$methods(
 	getMass = function() {
 		return(.self$mass)
 	}
@@ -66,7 +66,7 @@ LipidmapsEntry$methods(
 # FACTORY #
 ###########
 
-createLipidmapsEntryFromCsv <- function(text) {
+createLipidmapsCompoundFromCsv <- function(text) {
 
 	# Split test in lines
 	lines <- strsplit(text, "\n")
@@ -89,5 +89,5 @@ createLipidmapsEntryFromCsv <- function(text) {
 	formula <- if (hHasKey(values, 'FORMULA') && values[['FORMULA']] != '-') values[['FORMULA']] else NA_character_
 	synonyms <- if (hHasKey(values, 'SYNONYMS') && values[['SYNONYMS']] != '-') split(values[['SYNONYMS']], sep = ';', unlist = TRUE) else NA_character_
 
-	return(if (is.na(id)) NULL else LipidmapsEntry$new(id = id, kegg_id = kegg_id, hmdb_id = hmdb_id, mass = mass, formula = formula, synonyms = synonyms))
+	return(if (is.na(id)) NULL else LipidmapsCompound$new(id = id, kegg_id = kegg_id, hmdb_id = hmdb_id, mass = mass, formula = formula, synonyms = synonyms))
 }

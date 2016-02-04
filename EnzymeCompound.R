@@ -1,17 +1,17 @@
 library(stringr)
-source('BiodbEntry.R')
+source('BiodbCompound.R')
 
 #####################
 # CLASS DECLARATION #
 #####################
 
-EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'BiodbEntry', fields = list(desc = "character"))
+EnzymeCompound <- setRefClass("EnzymeCompound", contains = 'BiodbCompound', fields = list(desc = "character"))
 
 ###############
 # CONSTRUCTOR #
 ###############
 
-EnzymeEntry$methods(
+EnzymeCompound$methods(
 	initialize = function(desc = NA_character_, ...) {
 		desc <<- if ( ! is.null(desc)) desc else NA_character_
 		callSuper(...) # calls super-class initializer with remaining parameters
@@ -22,7 +22,7 @@ EnzymeEntry$methods(
 # DESCRIPTION #
 ###############
 
-EnzymeEntry$methods(
+EnzymeCompound$methods(
 	getDescription = function() {
 		return(.self$desc)
 	}
@@ -32,7 +32,7 @@ EnzymeEntry$methods(
 # FACTORY #
 ###########
 
-createEnzymeEntryFromText <- function(text) {
+createEnzymeCompoundFromText <- function(text) {
 	lines <- strsplit(text, "\n")
 	id <- NA_character_
 	desc <- NA_character_
@@ -49,5 +49,5 @@ createEnzymeEntryFromText <- function(text) {
 			desc <- g[1,2]
 	}
 
-	return(if (is.na(id)) NULL else EnzymeEntry$new(id = id, kegg_id = paste('ec', id, sep=":"), desc = desc))
+	return(if (is.na(id)) NULL else EnzymeCompound$new(id = id, kegg_id = paste('ec', id, sep=":"), desc = desc))
 }
