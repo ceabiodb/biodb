@@ -26,10 +26,19 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	
 	BiodbFactory$methods( initialize = function(useragent = NA_character_, ...) {
 	
-		.useragent <<- if ( ! is.null(useragent)) useragent else NA_character_
+		( ! is.null(useragent) && ! is.na(useragent)) || stop("You must provide a user agent string (e.g.: \"myapp ; my.email@address\").")
+		.useragent <<- useragent
 		.conn <<- list()
 
 		callSuper(...) # calls super-class initializer with remaining parameters
+	})
+
+	##################
+	# GET USER AGENT #
+	##################
+
+	BiodbFactory$methods( getUserAgent = function() {
+		return(.self$.useragent)
 	})
 
 	############
@@ -39,13 +48,16 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	BiodbFactory$methods( getConn = function(class) {
 
 		if ( ! class %in% names(.self$.conn)) {
-			 conn <- switch(class,
-		                	chebi = ChebiConn$new(useragent = .self$.useragent),
-		                	kegg  = KeggConn$new(useragent = .self$.useragent),
-		                	pubchem  = PubchemConn$new(useragent = .self$.useragent),
-		                	massbank  = MassbankConn$new(useragent = .self$.useragent),
+
+			# Create connection instance
+			conn <- switch(class,
+		                	chebi = ChebiConn$new(factory = .self),
+		                	kegg  = KeggConn$new(factory = .self),
+		                	pubchem  = PubchemConn$new(factory = .self),
+		                	massbank  = MassbankConn$new(factory = .self),
 		      	          	NULL)
 
+			# Unknown class
 			if (is.null(conn))
 				stop(paste0("Unknown r-biodb class \"", class,"\"."))
 
@@ -62,7 +74,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	BiodbFactory$methods( createCompoundFromDb = function(class, id) {
 
 		conn <- .self$getConn(class)
-		compound <- conn$getCompound(id = id, factory = .self)
+		compound <- conn$getCompound(id = id)
 
 		return(compound)
 	})
@@ -74,7 +86,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	BiodbFactory$methods( createCompoundFromContent = function(class, content) {
 
 		conn <- .self$getConn(class)
-		compound <- conn$createCompound(content = content, factory = .self)
+		compound <- conn$createCompound(content = content)
 
 		return(compound)
 	})

@@ -6,49 +6,81 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# CONSTANTS #
 	#############
 	
+	# Entry types
+	RBIODB.COMPOUND <- 'compound'
+	RBIODB.SPECTRUM <- 'spectrum'
+	
+	# Entry content types
 	RBIODB.HTML <- 'html'
 	RBIODB.TXT  <- 'text'
 	RBIODB.XML  <- 'xml'
-	
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	BiodbConn <- setRefClass("BiodbConn", fields = list(.scheduler="UrlRequestScheduler"))
-	
+	BiodbConn <- setRefClass("BiodbConn", fields = list(.factory = "BiodbFactory", .scheduler = "UrlRequestScheduler"))
+
 	###############
 	# CONSTRUCTOR #
 	###############
-	
-	BiodbConn$methods( initialize = function(useragent = NA_character_, scheduler = UrlRequestScheduler$new(n = 3), ...) {
+
+	BiodbConn$methods( initialize = function(factory = NULL, scheduler = NULL, ...) {
+
+		# Set factory
+		! is.null(factory) || stop("You must provide a factory class. You should use the Factory class to create an instance of a connection class.")
+		inherits(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
+		.factory <<- factory
+
+		# Set scheduler
+		if (is.null(scheduler))
+			scheduler UrlRequestScheduler$new(n = 3)
+		inherits(scheduler, "UrlRequestScheduler") || stop("The scheduler instance must inherit from UrlRequestScheduler class.")
+		scheduler$setUserAgent(factory$getUserAgent()) # set agent
 		.scheduler <<- scheduler
-		if ( ! is.null(useragent) && ! is.na(useragent) && ! nchar(useragent) == 0)
-			.self$.scheduler$setUserAgent(useragent)
 	
 		callSuper(...) # calls super-class initializer with remaining parameters
 	})
 	
-	###########
-	# GET URL #
-	###########
+#	###########
+#	# GET URL #
+#	###########
+#
+#	# Get an url content, using scheduler.
+#	# url       The URL to download.
+#	# RETURN    The downloaded content.
+#	BiodbConn$methods( .getUrl = function(url, params = NULL, method = RLIB.GET) {
+#		return(.self$.scheduler$getUrl(url, params = params, method = method))
+#	})
 
-	# Get an url content, using scheduler.
-	# url       The URL to download.
-	# RETURN    The downloaded content.
-	BiodbConn$methods( .getUrl = function(url, params = NULL, method = 'GET') {
-		return(.self$.scheduler$getUrl(url, params = params, method = method))
+	BiodbConn$methods( handlesEntryType = function(type) {
+		return(type %in% names(.self$.entry.types))
 	})
 
-	################
-	# GET COMPOUND #
-	################
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
+
+	BiodbConn$methods( getEntryContentType = function(type) {
+
+		if (type %in% names(.self$.entry.types))
+			return(.self$.entry.types[[type]]$content.type)
+
+		return(NULL)
+	})
+
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
 	
-	# Get a compound from the public database.
-	# id        The ID of the compound to get.
-	# RETURN    A compound instance.
-	BiodbConn$methods( getCompound = function(id, factory = NULL) {
-		content <- .self$downloadCompoundFileContent(id)
-		return(.self$createCompound(content, factory = factory))
+	# Download entry content from the public database.
+	# type      The entry type.
+	# id        The ID of the enttry to get.
+	# RETURN    An entry content downloaded from database.
+	BiodbConn$methods( getEntryContent = function(type, id) {
+		stop("Method getCompound() is not implemented in concrete class.")
+#		content <- .self$downloadCompoundFileContent(id)
+#		return(.self$createCompound(content, factory = factory))
 	})
 
 	################
@@ -57,17 +89,18 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	
 	# Get a spectrum from the public database.
 	# id        The ID of the spectrum to get.
-	# RETURN    A spectrum instance.
-	BiodbConn$methods( getSpectrum = function(id, factory = NULL) {
-		content <- .self$downloadSpectrumFileContent(id)
-		return(.self$createSpectrum(content, factory = factory))
+	# RETURN    A spectrum file. 
+	BiodbConn$methods( getSpectrumFile = function(id) {
+		stop("Method getSpectrum() is not implemented in concrete class.")
+#		content <- .self$downloadSpectrumFileContent(id)
+#		return(.self$createSpectrum(content, factory = factory))
 	})
 
 	##########################################
 	# GET TYPE OF DOWNLOADABLE COMPOUND FILE #
 	##########################################
 	
-	BiodbConn$methods( getTypeOfDownloadableCompoundFile = function() {
+	BiodbConn$methods( getCompoundFileType = function() {
 		stop("Method getTypeOfDownloadableCompoundFile() is not implemented in concrete class.")
 	})
 	
@@ -108,7 +141,7 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# Creates a Compound instance from file content.
 	# content       A file content, downloaded from the public database.
 	# RETURN        A compound instance.
-	BiodbConn$methods( createCompound = function(content, factory = NULL) {
+	BiodbConn$methods( createCompound = function(content) {
 
 		# Create compound
 		compound <- NULL
