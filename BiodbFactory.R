@@ -51,10 +51,10 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 			# Create connection instance
 			conn <- switch(class,
-		                	chebi = ChebiConn$new(factory = .self),
-		                	kegg  = KeggConn$new(factory = .self),
-		                	pubchem  = PubchemConn$new(factory = .self),
-		                	massbank  = MassbankConn$new(factory = .self),
+		                	chebi = ChebiConn$new(useragent = .self$.useragent),
+		                	kegg  = KeggConn$new(useragent = .self$.useragent),
+		                	pubchem  = PubchemConn$new(useragent = .self$.useragent),
+		                	massbank  = MassbankConn$new(useragent = .self$.useragent),
 		      	          	NULL)
 
 			# Unknown class
@@ -67,16 +67,19 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		return (.self$.conn[[class]])
 	})
 
-	###########################
-	# CREATE COMPOUND FROM DB #
-	###########################
+	################
+	# CREATE ENTRY #
+	################
 
-	BiodbFactory$methods( createCompoundFromDb = function(class, id) {
+	BiodbFactory$methods( createEntry = function(class, type, id = NULL, content = NULL) {
+
+		is.null(id) && is.null(content) && stop("One of id or content must be set.")
+		! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
 
 		conn <- .self$getConn(class)
-		compound <- conn$getCompound(id = id)
+		entry <- if (is.null(id)) conn$createEntry(type = type, content = content) else conn$getEntry(type = type, id = id)
 
-		return(compound)
+		return(entry)
 	})
 
 	################################
