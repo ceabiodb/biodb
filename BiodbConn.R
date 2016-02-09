@@ -12,7 +12,7 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	
 	# Entry content types
 	RBIODB.HTML <- 'html'
-	RBIODB.TXT  <- 'text'
+	RBIODB.TXT  <- 'txt'
 	RBIODB.XML  <- 'xml'
 
 	#####################
@@ -32,7 +32,7 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 
 		# Set scheduler
 		if (is.null(scheduler))
-			scheduler UrlRequestScheduler$new(n = 3)
+			scheduler <- UrlRequestScheduler$new(n = 3)
 		inherits(scheduler, "UrlRequestScheduler") || stop("The scheduler instance must inherit from UrlRequestScheduler class.")
 		scheduler$setUserAgent(useragent) # set agent
 		.scheduler <<- scheduler
@@ -56,7 +56,7 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	######################
 
 	BiodbConn$methods( handlesEntryType = function(type) {
-		return(type %in% names(.self$.entry.types))
+		return( ! is.null(.self$getEntryContentType(type)))
 	})
 
 	##########################
@@ -64,11 +64,7 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	##########################
 
 	BiodbConn$methods( getEntryContentType = function(type) {
-
-		if (type %in% names(.self$.entry.types))
-			return(.self$.entry.types[[type]]$content.type)
-
-		return(NULL)
+		stop("Method getEntryContentType() is not implemented in concrete class.")
 	})
 
 	#############
@@ -130,16 +126,17 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# content       A file content, downloaded from the public database.
 	# RETURN        A compound instance.
 	BiodbConn$methods( createEntry = function(type, content) {
+		stop("Method createEntry() is not implemented in concrete class.")
 
-		# Create compound
-		compound <- NULL
-		if ( ! is.null(content) && ! is.na(content) && nchar(content) > 0) {
-			compound <- .self$.doCreateCompound(content)
-#			if ( ! is.null(compound))
-#				compound$setFactory(factory)
-		}
-
-		return(compound)
+#		# Create compound
+#		compound <- NULL
+#		if ( ! is.null(content) && ! is.na(content) && nchar(content) > 0) {
+#			compound <- .self$.doCreateCompound(content)
+##			if ( ! is.null(compound))
+##				compound$setFactory(factory)
+#		}
+#
+#		return(compound)
 	})
 	
 #	# Creates a Compound instance from file content.

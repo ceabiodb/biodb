@@ -1,8 +1,8 @@
 if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	
-	source('ChebiConn.R')
-	source('KeggConn.R')
-	source('PubchemConn.R')
+#	source('ChebiConn.R')
+#	source('KeggConn.R')
+#	source('PubchemConn.R')
 	source('MassbankConn.R')
 
 	#############
@@ -82,15 +82,15 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		return(entry)
 	})
 
-	################################
-	# CREATE COMPOUND FROM CONTENT #
-	################################
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
 
-	BiodbFactory$methods( createCompoundFromContent = function(class, content) {
+	BiodbFactory$methods( getEntryContent = function(class, type, id) {
 
 		conn <- .self$getConn(class)
-		compound <- conn$createCompound(content = content)
+		content <- conn$getEntryContent(type, id)
 
-		return(compound)
+		return(content)
 	})
 }

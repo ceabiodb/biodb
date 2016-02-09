@@ -1,56 +1,56 @@
 if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
 	source('BiodbConn.R')
-	source('MassbankCompound.R')
-	
+	source('MassbankSpectrum.R')
+
+	#############
+	# CONSTANTS #
+	#############
+
+	RBIODB.MASSBANK.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
 	MassbankConn <- setRefClass("MassbankConn", contains = "BiodbConn")
 
-	#######################################
-	# GET TYPE OF DOWNLOADABLE COMPOUND FILE #
-	#######################################
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
 
-	MassbankConn$methods( getTypeOfDownloadableCompoundFile = function() {
-		return(RBIODB.TXT)
-	})
-	
-	###############################
-	# DOWNLOAD COMPOUND FILE CONTENT #
-	###############################
-	
-	# Download a compound description as a file content, from the public database.
-	# id        The ID of the compound for which to download file content.
-	# RETURN    The file content describing the compound.
-	MassbankConn$methods( .doDownloadCompoundFileContent = function(id) {
-		url <- get.massbank.compound.url(id)
-		html <- .self$.getUrl(url)
-		return(html)
-	})
-	
-	###################
-	# CREATE COMPOUND #
-	###################
-	
-	# Creates a Compound instance from file content.
-	# file_content  A file content, downloaded from the public database.
-	# RETURN        A compound instance.
-	MassbankConn$methods( .doCreateCompound = function(file_content) {
-		compound <- createMassbankCompoundFromTxt(file_content)
-		return(compound)
+	MassbankConn$methods( getEntryContentType = function(type) {
+		return(if (type == RBIODB.SPECTRUM) RBIODB.TXT else NULL) 
 	})
 
-	#############################
-	# GET MASSBANK SPECTRUM URL #
-	#############################
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
 	
-	get.massbank.spectrum.url <- function(id) {
-	
-		url <- paste0('http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo?ids=', id)
-	
-		return(url)
-	}
+	MassbankConn$methods( getEntryContent = function(type, id) {
 
+		if (type == RBIODB.COMPOUND)
+			return(NULL)
+
+		xmlstr <- .self$.scheduler$getUrl(RBIODB.MASSBANK.WS.URL, params = c(ids = paste(id, collapse = ',')))
+
+		# Parse XML and get text
+		library(XML)
+		xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+		ns <- c(ax21 = "http://api.massbank/xsd")
+		content <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
+
+		return(content)
+	})
+	
+	################
+	# CREATE ENTRY #
+	################
+	
+	# Creates a Spectrum instance from file content.
+	# content       A file content, downloaded from the public database.
+	# RETURN        A spectrum instance.
+	MassbankConn$methods( createEntry = function(type, content) {
+		return(if (type == RBIODB.SPECTRUM) createMassbankSpectrumFromTxt(content) else NULL)
+	})
 }
