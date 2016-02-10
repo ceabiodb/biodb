@@ -43,10 +43,6 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	#############
 	
 	BiodbEntry$methods(	getField = function(field) {
-						print('FIELD')
-						print(field)
-						print(names(.self$.fields))
-						print(.self$.fields[[field]])
 		return(if (field %in% names(.self$.fields)) .self$.fields[[field]] else NA)
 	})
 	

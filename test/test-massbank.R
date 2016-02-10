@@ -2,7 +2,7 @@
 # CONSTANTS #
 #############
 
-MASSBANK.ENTRIES <- data.frame( accession = c('KOX00001', 'EA256108', 'TOTO'), false = c(FALSE,FALSE,TRUE))
+MASSBANK.ENTRIES <- data.frame( accession = c('KOX00001', 'EA256108', 'TOTO'), false = c(FALSE,FALSE,TRUE), stringsAsFactors = FALSE)
 #	list(db = RBIODB.MASSBANK, type = RBIOD.SPECTRUM, id = 
 #	list(db = RBIODB.MASSBANK, type = RBIOD.SPECTRUM, id = ),
 #	list(db = RBIODB.MASSBANK, type = RBIOD.SPECTRUM, id = , false = TRUE)

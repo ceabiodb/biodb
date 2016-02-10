@@ -61,12 +61,20 @@ online.test <- function(db, entry.type, entries.desc) {
 	# Create entries
 	entries <- factory$createEntry(db, entry.type, content = contents)
 
-	# Test fields
-	for (f in colnames(entries.desc))
+	# Test false entries
+	if ('false' %in% colnames(entries.desc))
+		checkEquals(entries.desc[['false']], vapply(entries, function(e) is.null(e), FUN.VALUE = T))
+
+	# Get true entries
+	true.entries.desc <- entries.desc[ ! entries.desc[['false']], ]
+	true.entries <- entries[ ! entries.desc[['false']]]
+
+	# Test fields of true entries
+	for (f in colnames(true.entries.desc))
 		switch(f,
-		       false = checkEquals(entries.desc[[f]], vapply(entries, function(e) is.null(e), FUN.VALUE = T)),
-		       checkEquals(entries.desc[[f]], vapply(entries, function(e) { print(e) ; if (is.null(e)) NA else e$getField(f)}, FUN.VALUE = entries.desc[1, f]))
-		      )
+		       	false = checkEquals(true.entries.desc[[f]], vapply(true.entries, function(e) is.null(e), FUN.VALUE = T)),
+				checkEquals(true.entries.desc[[f]], vapply(true.entries, function(e) e$getField(f), FUN.VALUE = true.entries.desc[1, f]))
+			  )
 }
 
 ########
