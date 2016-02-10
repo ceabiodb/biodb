@@ -26,9 +26,9 @@ if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 			# ID
 			g <- str_match(s, "ACCESSION: (.+)$")
 			if ( ! is.na(g[1,1]))
-				compound$setField(RBIODB.ACCESSION, g[1,2])
+				spectrum$setField(RBIODB.ACCESSION, g[1,2])
 		}
 
-		return(if (is.null(compound$getField(RBIODB.ACCESSION))) NULL else compound)
+		return(if (is.null(spectrum$getField(RBIODB.ACCESSION))) NULL else spectrum)
 	}
 }

@@ -45,60 +45,28 @@ read.args <- function() {
 # ONLINE TEST #
 ###############
 
-online.test <- function(db, entry.type, entries) {
+online.test <- function(db, entry.type, entries.desc) {
 
+	# Create factory
 	factory <- BiodbFactory$new(useragent = USER.AGENT)
 
-	contents <- factory$getEntryContent(db, entry.type, entries[['id']])
+	# Download contents
+	contents <- factory$getEntryContent(db, entry.type, entries.desc[[RBIODB.ACCESSION]])
 	
+	# Save contents into files
 	ext <- factory$getConn(db)$getEntryContentType(entry.type)
-	filenames <- vapply(entries[['id']], function(x) paste0(db, '-', entry.type, '-', x, '.', ext), FUN.VALUE = '')
+	filenames <- vapply(entries.desc[[RBIODB.ACCESSION]], function(x) paste0(db, '-', entry.type, '-', x, '.', ext), FUN.VALUE = '')
+	mapply(writeLines, contents, filenames)
 
-	for (i in seq(length(contents))) {
-		fileConn<-file(filenames[[i]])
-		writeLines(contents[[i]], fileConn)
-		close(fileConn)
-	}
+	# Create entries
+	entries <- factory$createEntry(db, entry.type, content = contents)
 
-	# Loop on all compounds
-#	for (comp in compounds) {
-#
-#		# Get ID
-#		if ( ! 'id' %in% names(comp))
-#			stop('One compound element does not contain an "id" field.')
-#
-#		# Create connection instance
-#		if ( ! 'type' %in% names(comp))
-#			stop(paste0('Compound element "', comp$id, '" does not contain an "type" field.'))
-#		conn <- factory$getConn(comp$type)
-#
-#		# File extention
-#		ext <- switch(conn$getTypeOfDownloadableCompoundFile(),
-#		              html = '.html',
-#		              text = '.txt',
-#		              xml = '.xml',
-#		              NULL)
-#		if (is.null(ext))
-#			stop(paste0('Unknown file type "', conn$getTypeOfDownloadableCompoundFile(), '" for compound "', comp$id, '".'))
-#
-#		# Get Compound from database
-#		file <- paste0(comp$type, '-compound-', comp$id, ext)
-#		content <- conn$downloadCompoundFileContent(comp$id, save_as = file)
-#		compound <- factory$createCompoundFromContent(class = comp$type, content)
-#
-#		# Check fields
-#		for (f in names(comp))
-#			switch(f,
-#			       id = if ( ! 'false' %in% names(comp)) checkTrue( ! is.null(compound)) && checkEquals(compound$getId(), comp$id),
-#			       false = checkTrue(is.null(compound)),
-#			       chebiid = checkEquals(compound$getChebiId(), comp$chebiid),
-#			       keggid = checkEquals(compound$getKeggId(), comp$keggid),
-#			       pubchemid = checkEquals(compound$getPubchemId(), comp$pubchemid),
-#			       inchi = checkEquals(compound$getInchi(), comp$inchi),
-#			       inchikey = checkEquals(compound$getInchiKey(), comp$inchikey),
-#			       name = checkEquals(compound$getName(), comp$name)
-#			      )
-#	}
+	# Test fields
+	for (f in colnames(entries.desc))
+		switch(f,
+		       false = checkEquals(entries.desc[[f]], vapply(entries, function(e) is.null(e), FUN.VALUE = T)),
+		       checkEquals(entries.desc[[f]], vapply(entries, function(e) { print(e) ; if (is.null(e)) NA else e$getField(f)}, FUN.VALUE = entries.desc[1, f]))
+		      )
 }
 
 ########

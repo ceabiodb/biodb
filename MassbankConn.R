@@ -32,13 +32,18 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 		if (type == RBIODB.COMPOUND)
 			return(NULL)
 
+		# Initialize return values
+		content <- rep(NA_character_, length(id))
+
+		# Request
 		xmlstr <- .self$.scheduler$getUrl(RBIODB.MASSBANK.WS.URL, params = c(ids = paste(id, collapse = ',')))
 
 		# Parse XML and get text
 		library(XML)
 		xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
 		ns <- c(ax21 = "http://api.massbank/xsd")
-		content <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
+		returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
+		content[match(returned.ids, id)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
 
 		return(content)
 	})
