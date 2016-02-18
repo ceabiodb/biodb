@@ -50,31 +50,44 @@ online.test <- function(db, entry.type, entries.desc) {
 	# Create factory
 	factory <- BiodbFactory$new(useragent = USER.AGENT)
 
+	# Get file extension
+	ext <- factory$getConn(db)$getEntryContentType(entry.type)
+
+	# Test a wrong accession number
+	print('TEST WRONG')
+	wrong.accession <- 'WRONG'
+	wrong.content <- factory$getEntryContent(db, entry.type, wrong.accession)
+	writeLines(wrong.content, paste0(db, '-', entry.type, '-wrong_accession.', ext))
+	print('TEST WRONG - create entry')
+	wrong.entry <- factory$createEntry(db, entry.type, content = wrong.content)
+	checkTrue(is.null(wrong.entry))
+
+	# TODO Use database .txt file to test entries (spectra or compounds).
+	# TODO Use handlesEntryType() method to know when a database is a spectra or a compound database (or both).
+
 	# Download contents
+	print('TEST RIGHTS')
 	contents <- factory$getEntryContent(db, entry.type, entries.desc[[RBIODB.ACCESSION]])
 	
 	# Save contents into files
-	ext <- factory$getConn(db)$getEntryContentType(entry.type)
+	print('SAVE INTO FILES')
 	filenames <- vapply(entries.desc[[RBIODB.ACCESSION]], function(x) paste0(db, '-', entry.type, '-', x, '.', ext), FUN.VALUE = '')
 	mapply(writeLines, contents, filenames)
 
 	# Create entries
+	print('CREATE ENTRIES')
 	entries <- factory$createEntry(db, entry.type, content = contents)
+	print('LENGTH.ENTRIES=')
+	print(length(entries))
 
-	# Test false entries
-	if ('false' %in% colnames(entries.desc))
-		checkEquals(entries.desc[['false']], vapply(entries, function(e) is.null(e), FUN.VALUE = T))
-
-	# Get true entries
-	true.entries.desc <- entries.desc[ ! entries.desc[['false']], ]
-	true.entries <- entries[ ! entries.desc[['false']]]
-
-	# Test fields of true entries
-	for (f in colnames(true.entries.desc))
+	# Test fields of entries
+	for (f in colnames(entries.desc)) {
+		print('F=')
+			print(f)
 		switch(f,
-		       	false = checkEquals(true.entries.desc[[f]], vapply(true.entries, function(e) is.null(e), FUN.VALUE = T)),
-				checkEquals(true.entries.desc[[f]], vapply(true.entries, function(e) e$getField(f), FUN.VALUE = true.entries.desc[1, f]))
+				checkEquals(entries.desc[[f]], vapply(entries, function(e) e$getField(f), FUN.VALUE = entries.desc[1, f]))
 			  )
+	}
 }
 
 ########

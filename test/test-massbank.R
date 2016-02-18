@@ -2,7 +2,8 @@
 # CONSTANTS #
 #############
 
-MASSBANK.ENTRIES <- data.frame( accession = c('KOX00001', 'EA256108', 'TOTO'), false = c(FALSE,FALSE,TRUE), stringsAsFactors = FALSE)
+#MASSBANK.ENTRIES <- data.frame( accession = c('KOX00001', 'EA256108', 'TOTO'), false = c(FALSE,FALSE,TRUE), msdev = c('Qstar, Applied Biosystems', '', NA_character_), stringsAsFactors = FALSE)
+MASSBANK.ENTRIES <- read.table('spectra-massbank.txt', stringsAsFactors = FALSE, header = TRUE)
 #	list(db = RBIODB.MASSBANK, type = RBIOD.SPECTRUM, id = 
 #	list(db = RBIODB.MASSBANK, type = RBIOD.SPECTRUM, id = ),
 #	list(db = RBIODB.MASSBANK, type = RBIOD.SPECTRUM, id = , false = TRUE)

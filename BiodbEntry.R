@@ -11,9 +11,20 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	RBIODB.KEGG.ID      <- 'keggid'
 	RBIODB.PUBCHEM.ID   <- 'pubchemid'
 	RBIODB.INCHI        <- 'inchi'
+	RBIODB.MSDEV        <- 'msdev'
+	RBIODB.MSDEVTYPE    <- 'msdevtype'
+	RBIODB.MSTYPE       <- 'mstype'
+	RBIODB.MSMODE       <- 'msmode'
+	RBIODB.MSPRECMZ     <- 'msprecmz'       # numeric
+	RBIODB.MSPRECANNOT  <- 'msprecannot'
+
+	RBIODB.MSMODE.NEG <- 'neg'
+	RBIODB.MSMODE.POS <- 'pos'
+
+	RBIODB.NUMERIC.FIELDS <- c(RBIODB.MSPRECMZ)
 
 	########################
-	# Compound ABSTRACT CLASS #
+	# ENTRY ABSTRACT CLASS #
 	########################
 	
 	BiodbEntry <- setRefClass("BiodbEntry", fields = list(.fields ='list', .factory = "ANY"))
@@ -35,6 +46,12 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	#############
 	
 	BiodbEntry$methods(	setField = function(field, value) {
+
+		if (field %in% RBIODB.NUMERIC.FIELDS)
+			value <- as.numeric(value)
+		else
+			value <- as.character(value)
+
 		.self$.fields[[field]] <- value
 	})
 	
