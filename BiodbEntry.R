@@ -5,6 +5,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	#############
 
 	# Fields
+	RBIODB.COMPOUND     <- 'compound'
 	RBIODB.ACCESSION    <- 'accession'
 	RBIODB.NAME         <- 'name'
 	RBIODB.CHEBI.ID     <- 'chebiid'
@@ -21,7 +22,22 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	RBIODB.MSMODE.NEG <- 'neg'
 	RBIODB.MSMODE.POS <- 'pos'
 
-	RBIODB.NUMERIC.FIELDS <- c(RBIODB.MSPRECMZ)
+	RBIODB.FIELDS <- data.frame(matrix(c(
+		RBIODB.COMPOUND,    'BiodEntry',
+		RBIODB.ACCESSION,   'character',
+		RBIODB.NAME,        'character',
+		RBIODB.CHEBI.ID,    'character',
+		RBIODB.KEGG.ID,     'character',
+		RBIODB.PUBCHEM.ID,  'character',
+		RBIODB.INCHI,       'character',
+		RBIODB.MSDEV,       'character',
+		RBIODB.MSDEVTYPE,   'character',
+		RBIODB.MSTYPE,      'character',
+		RBIODB.MSMODE,      'character',
+		RBIODB.MSPRECMZ,    'double',
+		RBIODB.MSPRECANNOT, 'character'
+		), byrow = TRUE, ncol = 2), stringsAsFactors = FALSE)
+	colnames(RBIODB.FIELDS) <- c('name', 'class')
 
 	########################
 	# ENTRY ABSTRACT CLASS #
@@ -47,10 +63,14 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	
 	BiodbEntry$methods(	setField = function(field, value) {
 
-		if (field %in% RBIODB.NUMERIC.FIELDS)
-			value <- as.numeric(value)
-		else
-			value <- as.character(value)
+		if ( ! field %in% RBIODB.FIELDS[['name']])
+			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+
+		field.class <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'class']
+		value <- switch(field.class,
+		       'double' = as.double(value),
+		       'character' = as.character(value),
+		       value)
 
 		.self$.fields[[field]] <- value
 	})
@@ -60,6 +80,10 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	#############
 	
 	BiodbEntry$methods(	getField = function(field) {
+
+		if ( ! field %in% RBIODB.FIELDS[['name']])
+			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+
 		return(if (field %in% names(.self$.fields)) .self$.fields[[field]] else NA)
 	})
 	
@@ -68,6 +92,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	###########
 	
 	BiodbEntry$methods(	setFactory = function(factory) {
+
 		is.null(factory) || inherits(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
 		.factory <<- factory
 	})

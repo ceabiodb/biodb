@@ -1,10 +1,10 @@
 if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
-	
-	#####################
-	# CLASS DECLARATION #
-	#####################
+
+	###########################
+	# MASSBANK SPECTRUM CLASS #
+	###########################
 	
 	MassbankSpectrum <- setRefClass("MassbankSpectrum", contains = "BiodbEntry")
 
@@ -62,6 +62,9 @@ if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 
 		# Replace elements with no accession id by NULL
 		spectra <- lapply(spectra, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+
+		# Set associated compounds
+		# TODO
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
