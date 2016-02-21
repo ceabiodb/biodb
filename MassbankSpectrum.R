@@ -1,6 +1,7 @@
 if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
+	source('MassbankCompound.R')
 
 	###########################
 	# MASSBANK SPECTRUM CLASS #
@@ -64,7 +65,10 @@ if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 		spectra <- lapply(spectra, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
 
 		# Set associated compounds
-		# TODO
+		compounds <- createMassbankCompoundFromTxt(contents)
+		for (i in seq(spectra))
+			if ( ! is.null(spectra[[i]]))
+				spectra[[i]]$setField(RBIODB.COMPOUND, compounds[[i]])
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
