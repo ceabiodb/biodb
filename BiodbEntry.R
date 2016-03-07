@@ -9,9 +9,11 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	RBIODB.ACCESSION    <- 'accession'
 	RBIODB.NAME         <- 'name'
 	RBIODB.CHEBI.ID     <- 'chebiid'
+	RBIODB.LIPIDMAPS.ID <- 'lipidmapsid'
 	RBIODB.KEGG.ID      <- 'keggid'
 	RBIODB.PUBCHEM.ID   <- 'pubchemid'
 	RBIODB.INCHI        <- 'inchi'
+	RBIODB.INCHIKEY     <- 'inchikey'
 	RBIODB.MSDEV        <- 'msdev'
 	RBIODB.MSDEVTYPE    <- 'msdevtype'
 	RBIODB.MSTYPE       <- 'mstype'
@@ -23,19 +25,22 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	RBIODB.MSMODE.POS <- 'pos'
 
 	RBIODB.FIELDS <- data.frame(matrix(c(
-		RBIODB.COMPOUND,    'BiodEntry',
-		RBIODB.ACCESSION,   'character',
-		RBIODB.NAME,        'character',
-		RBIODB.CHEBI.ID,    'character',
-		RBIODB.KEGG.ID,     'character',
-		RBIODB.PUBCHEM.ID,  'character',
-		RBIODB.INCHI,       'character',
-		RBIODB.MSDEV,       'character',
-		RBIODB.MSDEVTYPE,   'character',
-		RBIODB.MSTYPE,      'character',
-		RBIODB.MSMODE,      'character',
-		RBIODB.MSPRECMZ,    'double',
-		RBIODB.MSPRECANNOT, 'character'
+		# FIELD NAME            CLASS
+		RBIODB.COMPOUND,        'BiodEntry',
+		RBIODB.ACCESSION,       'character',
+		RBIODB.NAME,            'character',
+		RBIODB.CHEBI.ID,        'character',
+		RBIODB.LIPIDMAPS.ID,    'character',
+		RBIODB.KEGG.ID,         'character',
+		RBIODB.PUBCHEM.ID,      'character',
+		RBIODB.INCHI,           'character',
+		RBIODB.INCHIKEY,        'character',
+		RBIODB.MSDEV,           'character',
+		RBIODB.MSDEVTYPE,       'character',
+		RBIODB.MSTYPE,          'character',
+		RBIODB.MSMODE,          'character',
+		RBIODB.MSPRECMZ,        'double',
+		RBIODB.MSPRECANNOT,     'character'
 		), byrow = TRUE, ncol = 2), stringsAsFactors = FALSE)
 	colnames(RBIODB.FIELDS) <- c('name', 'class')
 
@@ -79,14 +84,42 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# GET FIELD #
 	#############
 	
+	BiodbEntry$methods(	getFieldClass = function(field) {
+
+		if ( ! field %in% RBIODB.FIELDS[['name']])
+			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+
+		field.class <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'class']
+
+		return(field.class)
+	})
+	
+	#############
+	# GET FIELD #
+	#############
+	
 	BiodbEntry$methods(	getField = function(field) {
 
 		if ( ! field %in% RBIODB.FIELDS[['name']])
 			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
-		return(if (field %in% names(.self$.fields)) .self$.fields[[field]] else NA)
+		if (field %in% names(.self$.fields))
+			return(.self$.fields[[field]])
+		else if (.self$.compute.field(field))
+			return(.self$.fields[[field]])
+
+		return(as.vector(NA, mode = .self$getFieldClass(field)))
 	})
 	
+	#################
+	# COMPUTE FIELD #
+	##################
+	
+	BiodbEntry$methods(	.compute.field = function(field) {
+		return(FALSE)
+	})
+	
+
 	###########
 	# FACTORY #
 	###########

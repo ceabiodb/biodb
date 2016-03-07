@@ -1,149 +1,111 @@
 if ( ! exists('KeggCompound')) { # Do not load again if already loaded
 
-	source('BiodbCompound.R')
+	source('BiodbEntry.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	KeggCompound <- setRefClass("KeggCompound", contains = 'BiodbCompound', fields = list(.lipidmapsid = "character", .chebiid = "character", .name = "character"))
+	KeggCompound <- setRefClass("KeggCompound", contains = 'BiodbEntry')
+
+	#################
+	# COMPUTE FIELD #
+	#################
 	
-	###############
-	# CONSTRUCTOR #
-	###############
-	
-	KeggCompound$methods( initialize = function(lipidmapsid = NA_character_, chebiid = NA_character_, name = NA_character_, ...) {
-	
-			.lipidmapsid <<- if ( ! is.null(lipidmapsid)) lipidmapsid else NA_character_
-			.chebiid <<- if ( ! is.null(chebiid)) chebiid else NA_character_
-			.name <<- if ( ! is.null(name)) name else NA_character_
-	
-			callSuper(...) # calls super-class initializer with remaining parameters
-		}
-	)
-	
-	###########
-	# KEGG ID #
-	###########
-	
-	KeggCompound$methods(	getKeggId = function() {
-		return(.self$getId())
-	})
-	
-	########
-	# NAME #
-	########
-	
-	KeggCompound$methods( getName = function() {
-		return(.self$.name)
-	})
-	
-	############
-	# CHEBI ID #
-	############
-	
-	KeggCompound$methods( getChebiId = function() {
-		return(.self$.chebiid)
-	})
-	
-	############
-	# INCHIKEY #
-	############
-	
-	KeggCompound$methods( getInchiKey = function() {
-	
-		inchi <- NA_character_
-	
-		if ( ! is.null(.self$.factory)) {
-			chebi.compound <- .self$.factory$createCompoundFromDb(RBIODB.CHEBI, .self$getChebiId())
-			if ( ! is.null(chebi.compound))
-				inchi <- chebi.compound$getInchiKey()
+	KeggCompound$methods( .compute.field = function(field) {
+
+		# TODO can we make this algorithm automatic ==> put it inside BiodbEntry, so that when a field is not found we can look for it inside related compounds obtained through known IDs (CHEBI.ID, LIPIDMAPS.ID, ...). ==> define which ID/FIELD must be used for each field that is suspetible to be found like this. Make the search an option, because it can be time consuming.
+		if (field %in% c(RBIODB.INCHI, RBIODB.INCHIKEY)) {
+			if ( ! is.null(.self$.factory)) {
+				chebiid <- .self$getField(RBIODB.CHEBI.ID)
+				if ( ! is.na(chebiid)) {
+					chebi.compound <- .self$.factory$createCompoundFromDb(RBIODB.CHEBI, chebiid)
+					if ( ! is.null(chebi.compound)) {
+						.self$setField(field, chebi.compound$getField(field))
+						return(TRUE)
+					}
+				}
+			}
 		}
 	
-		return(inchi)
-	})
-	
-	#########
-	# INCHI #
-	#########
-	
-	KeggCompound$methods( getInchi = function() {
-	
-		inchi <- NA_character_
-	
-		if ( ! is.null(.self$.factory)) {
-			chebi.compound <- .self$.factory$createCompoundFromDb(RBIODB.CHEBI, .self$getChebiId())
-			if ( ! is.null(chebi.compound))
-				inchi <- chebi.compound$getInchi()
-		}
-	
-		return(inchi)
-	})
-	
-	################
-	# LIPIDMAPS ID #
-	################
-	
-	KeggCompound$methods( getLipidmapsId = function() {
-		return(.self$.lipidmapsid)
+		return(FALSE)
 	})
 	
 	###########
 	# FACTORY #
 	###########
 	
-	createKeggCompoundFromText <- function(text) {
+	createKeggCompoundFromTxt <- function(contents, drop = TRUE) {
 	
 		library(stringr)
+
+		compounds <- list()
 	
-		lines <- strsplit(text, "\n")
-		id <- NA_character_
-		organism <- NA_character_
-		lipidmapsid <- NA_character_
-		chebiid <- NA_character_
-		name <- NA_character_
-		for (s in lines[[1]]) {
+		# Define fields regex
+		regex <- character()
+		regex[[RBIODB.NAME]] <- "^NAME\\s+([^,;]+)"
+		regex[[RBIODB.CHEBI.ID]] <- "^\\s+ChEBI:\\s+(\\S+)"
+		regex[[RBIODB.LIPIDMAPS.ID]] <- "^\\s+LIPIDMAPS:\\s+(\\S+)"
+
+		for (text in contents) {
+
+			# Create instance
+			compound <- KeggCompound$new()
+
+			lines <- strsplit(text, "\n")
+			for (s in lines[[1]]) {
+
+				# Test generic regex
+				parsed <- FALSE
+				for (field in names(regex)) {
+					g <- str_match(s, regex[[field]])
+					if ( ! is.na(g[1,1])) {
+						compound$setField(field, g[1,2])
+						parsed <- TRUE
+						break
+					}
+				}
+				if (parsed)
+					next
 	
-			# ENZYME ID
-			g <- str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
-			if ( ! is.na(g[1,1]))
-				id <- paste('ec', g[1,2], sep = ':')
-	
-			# ENTRY ID
-			else {
-				g <- str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
-				if ( ! is.na(g[1,1]))
-					id <- paste('cpd', g[1,2], sep = ':')
-	
-				# OTHER ID
-				else {
-					g <- str_match(s, "^ENTRY\\s+(\\S+)")
+				# ACCESSION
+				{
+					# ENZYME ID
+					g <- str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
 					if ( ! is.na(g[1,1]))
-						id <- g[1,2]
+						compound$setField(RBIODB.ACCESSION, paste('ec', g[1,2], sep = ':'))
+
+					# ENTRY ID
+					else {
+						g <- str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
+						if ( ! is.na(g[1,1]))
+							compound$setField(RBIODB.ACCESSION, paste('cpd', g[1,2], sep = ':'))
+
+						# OTHER ID
+						else {
+							g <- str_match(s, "^ENTRY\\s+(\\S+)")
+							if ( ! is.na(g[1,1]))
+								compound$setField(RBIODB.ACCESSION, g[1,2])
+						}
+					}
+	
+					# ORGANISM
+					g <- str_match(s, "^ORGANISM\\s+(\\S+)")
+					if ( ! is.na(g[1,1]))
+						compound$setField(RBIODB.ACCESSION, paste(g[1,2], compound$getField(RBIODB.ACCESSION), sep = ':'))
 				}
 			}
-	
-			# ORGANISM
-			g <- str_match(s, "^ORGANISM\\s+(\\S+)")
-			if ( ! is.na(g[1,1]))
-				id <- paste(g[1,2], id, sep = ':')
-	
-			# NAME
-			g <- str_match(s, "^NAME\\s+([^,;\\s]+)")
-			if ( ! is.na(g[1,1]))
-				name <- g[1,2]
-	
-			# CHEBI
-			g <- str_match(s, "^\\s+ChEBI:\\s+(\\S+)")
-			if ( ! is.na(g[1,1]))
-				chebiid <- g[1,2]
-	
-			# LIPIDMAPS
-			g <- str_match(s, "^\\s+LIPIDMAPS:\\s+(\\S+)")
-			if ( ! is.na(g[1,1]))
-				lipidmapsid <- g[1,2]
+
+			compounds <- c(compounds, compound)
 		}
+
+		# Replace elements with no accession id by NULL
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+
+		# If the input was a single element, then output a single object
+		if (drop && length(contents) == 1)
+			compounds <- compounds[[1]]
 	
-		return(if (is.na(id)) NULL else KeggCompound$new(id = id, lipidmapsid = lipidmapsid, chebiid = chebiid, name = name))
+		return(compounds)
 	}
 }	

@@ -29,27 +29,29 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	
 	MassbankConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.COMPOUND)
-			return(NULL)
+		if (type == RBIODB.SPECTRUM) {
 
-		# Initialize return values
-		content <- rep(NA_character_, length(id))
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
 
-		# Request
-		xmlstr <- .self$.scheduler$getUrl(RBIODB.MASSBANK.WS.URL, params = c(ids = paste(id, collapse = ',')))
+			# Request
+			xmlstr <- .self$.scheduler$getUrl(RBIODB.MASSBANK.WS.URL, params = c(ids = paste(id, collapse = ',')))
 
-		# Parse XML and get text
-		if (is.na(xmlstr)) {
-			content <- NA_character_
-		} else {
-			library(XML)
-			xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
-			ns <- c(ax21 = "http://api.massbank/xsd")
-			returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
-			content[match(returned.ids, id)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
+			# Parse XML and get text
+			if (is.na(xmlstr)) {
+				content <- NA_character_
+			} else {
+				library(XML)
+				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+				ns <- c(ax21 = "http://api.massbank/xsd")
+				returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
+				content[match(returned.ids, id)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
+			}
+
+			return(content)
 		}
 
-		return(content)
+		return(NULL)
 	})
 	
 	################

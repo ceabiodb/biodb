@@ -1,0 +1,4 @@
+accession       name                            chebiid     inchikey                        inchi
+'cpd:C00751'    'Squalene'                      '15440'     'YYGNTYWPHWGJRM-AAJYLUCBSA-N'   'InChI=1S/C30H50/c1-25(2)15-11-19-29(7)23-13-21-27(5)17-9-10-18-28(6)22-14-24-30(8)20-12-16-26(3)4/h15-18,23-24H,9-14,19-22H2,1-8H3/b27-17+,28-18+,29-23+,30-24+'
+'hsa:3627'      'CXCL10'                        NA          NA                              NA
+'ec:1.1.1.54'   'allyl-alcohol dehydrogenase'   NA          NA                              NA

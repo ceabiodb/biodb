@@ -9,42 +9,45 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	
 	KeggConn <- setRefClass("KeggConn", contains = "BiodbConn")
 
-	#######################################
-	# GET TYPE OF DOWNLOADABLE COMPOUND FILE #
-	#######################################
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
 
-	KeggConn$methods( getTypeOfDownloadableCompoundFile = function() {
+	KeggConn$methods( getEntryContentType = function(type) {
 		return(RBIODB.TXT)
 	})
+
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
 	
-	###############################
-	# DOWNLOAD COMPOUND FILE CONTENT #
-	###############################
-	
-	# Download a compound description as a file content, from the public database.
-	# id        The ID of the compound for which to download file content.
-	# RETURN    The file content describing the compound.
-	KeggConn$methods(.doDownloadCompoundFileContent = function(id) {
-			url <- get.kegg.compound.url(id, txt = TRUE)
-			txt <- .self$.getUrl(url)
-			return(txt)
+	KeggConn$methods( getEntryContent = function(type, id) {
+
+		if (type == RBIODB.COMPOUND) {
+
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
+
+			# Request
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.kegg.compound.url(x, txt = TRUE)), FUN.VALUE = '')
+
+			return(content)
+		}
+
+		return(NULL)
 	})
 	
 	################
-	# CREATE COMPOUND #
+	# CREATE ENTRY #
 	################
 	
-	# Creates a Compound instance from file content.
-	# file_content  A file content, downloaded from the public database.
-	# RETURN        A compound instance.
-	KeggConn$methods( .doCreateCompound = function(file_content) {
-		compound <- createKeggCompoundFromText(file_content)
-		return(compound)
+	KeggConn$methods( createEntry = function(type, content) {
+		return(if (type == RBIODB.COMPOUND) createKeggCompoundFromTxt(content) else NULL)
 	})
 	
-	######################
+	#########################
 	# GET KEGG COMPOUND URL #
-	######################
+	#########################
 	
 	get.kegg.compound.url <- function(id, txt = FALSE) {
 

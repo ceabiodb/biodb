@@ -25,8 +25,9 @@ read.args <- function() {
   spec = matrix(c(
     'help',         'h', 0, 'logical',      'Print this help.',
     'name',         'n', 1, 'character',    'Run only test of the specified name. Unset by default.',
-    'quick',        'q', 0, 'logical',      'Do not run long tests. Disabled by default.',
-    'offline',      'o', 0, 'logical',      'Run offline tests only. Disabled by default.'
+    'quick',        'q', 0, 'logical',      'Turn off long tests. Disabled by default.',
+    'offline',      'f', 0, 'logical',      'Turn off online tests. Disabled by default.',
+    'online',       'o', 0, 'logical',      'Turn off offline tests. Disabled by default.'
   ), byrow = TRUE, ncol = 5)
    
   opt <- getopt(spec)
@@ -97,10 +98,13 @@ test.entries <- function(db, entry.type, online = TRUE) {
 	entries <- factory$createEntry(db, entry.type, content = contents)
 
 	# Test fields of entries
-	for (f in colnames(entries.desc))
+	for (f in colnames(entries.desc)) {
+		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
+		e.values <- vapply(entries, function(e) e$getField(f), FUN.VALUE = vector(mode = entries[[1]]$getFieldClass(f), length = 1))
 		switch(f,
-				checkEquals(entries.desc[[f]], vapply(entries, function(e) e$getField(f), FUN.VALUE = entries.desc[1, f]))
+				checkEquals(entries.desc[[f]], e.values, paste0("Error with field \"", f, "\"."))
 			  )
+	}
 }
 
 #########################
@@ -127,12 +131,14 @@ opt <- read.args()
 if ( ! is.null(opt$name)) {
 	test.fcts <- paste0('^', opt$name, '$')
 } else {
-	prefix <- c('offline')
+	prefix <- NULL
+	if (is.null(opt$online))
+		prefix <- c(prefix, 'offline')
 	if (is.null(opt$offline))
 		prefix <- c(prefix, 'online')
 	test.fcts <- paste0('^(', paste(prefix, collapse = '|'), ')\\.test\\..+')
 }
 
-test.suite <- defineTestSuite('biodb', dirname(script.path), testFileRegexp = '^test-(massbank)\\.R$', testFuncRegexp = test.fcts)
+test.suite <- defineTestSuite('biodb', dirname(script.path), testFileRegexp = '^test-databases\\.R$', testFuncRegexp = test.fcts)
 test.result <- runTestSuite(test.suite)
 printTextProtocol(test.result)
