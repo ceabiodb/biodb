@@ -1,0 +1,3 @@
+accession   msdev                               msdevtype           mstype  msmode  msprecmz    msprecannot
+'KOX00001'  'Qstar, Applied Biosystems'         LC-ESI-QTOF         MS2     neg     102         [M-H]-
+'EA256108'  'LTQ Orbitrap XL Thermo Scientific' LC-ESI-ITFT         MS2     pos     172.1332    [M+H]+
