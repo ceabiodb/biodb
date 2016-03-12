@@ -95,12 +95,18 @@ test.entries <- function(db, entry.type, online = TRUE) {
 	contents <- get.entry.content(factory, db, entry.type, entries.desc[[RBIODB.ACCESSION]], online = online)
 
 	# Create entries
-	entries <- factory$createEntry(db, entry.type, content = contents)
+	entries <- factory$createEntry(db, entry.type, content = contents, drop = FALSE)
 
 	# Test fields of entries
+#	print(entries)
 	for (f in colnames(entries.desc)) {
+#		print('FIELD')
+#		print(f)
+#		print(entries[[1]])
 		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
+#		print(entries.desc[[f]])
 		e.values <- vapply(entries, function(e) e$getField(f), FUN.VALUE = vector(mode = entries[[1]]$getFieldClass(f), length = 1))
+#		print(e.values)
 		switch(f,
 				checkEquals(entries.desc[[f]], e.values, paste0("Error with field \"", f, "\"."))
 			  )

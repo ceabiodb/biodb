@@ -61,7 +61,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# Creates a Spectrum instance from file content.
 	# content       A file content, downloaded from the public database.
 	# RETURN        A spectrum instance.
-	MassbankConn$methods( createEntry = function(type, content) {
-		return(if (type == RBIODB.SPECTRUM) createMassbankSpectrumFromTxt(content) else NULL)
+	MassbankConn$methods( createEntry = function(type, content, drop = TRUE) {
+		return(if (type == RBIODB.SPECTRUM) createMassbankSpectrumFromTxt(content, drop = drop) else NULL)
 	})
 }

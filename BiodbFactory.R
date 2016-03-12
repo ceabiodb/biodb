@@ -1,19 +1,10 @@
 if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	
 	library(methods)
-#	source('ChebiConn.R')
+	source('ChebiConn.R')
 	source('KeggConn.R')
 #	source('PubchemConn.R')
 	source('MassbankConn.R')
-
-	#############
-	# CONSTANTS #
-	#############
-
-	RBIODB.CHEBI <- 'chebi'
-	RBIODB.KEGG  <- 'kegg'
-	RBIODB.PUBCHEM  <- 'pubchem'
-	RBIODB.MASSBANK  <- 'massbank'
 
 	#####################
 	# CLASS DECLARATION #
@@ -72,13 +63,13 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CREATE ENTRY #
 	################
 
-	BiodbFactory$methods( createEntry = function(class, type, id = NULL, content = NULL) {
+	BiodbFactory$methods( createEntry = function(class, type, id = NULL, content = NULL, drop = TRUE) {
 
 		is.null(id) && is.null(content) && stop("One of id or content must be set.")
 		! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
 
 		conn <- .self$getConn(class)
-		entry <- if (is.null(id)) conn$createEntry(type = type, content = content) else conn$getEntry(type = type, id = id)
+		entry <- if (is.null(id)) conn$createEntry(type = type, content = content, drop = drop) else conn$getEntry(type = type, id = id, drop = drop)
 
 		return(entry)
 	})

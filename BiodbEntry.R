@@ -1,48 +1,6 @@
 if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 
-	#############
-	# CONSTANTS #
-	#############
-
-	# Fields
-	RBIODB.COMPOUND     <- 'compound'
-	RBIODB.ACCESSION    <- 'accession'
-	RBIODB.NAME         <- 'name'
-	RBIODB.CHEBI.ID     <- 'chebiid'
-	RBIODB.LIPIDMAPS.ID <- 'lipidmapsid'
-	RBIODB.KEGG.ID      <- 'keggid'
-	RBIODB.PUBCHEM.ID   <- 'pubchemid'
-	RBIODB.INCHI        <- 'inchi'
-	RBIODB.INCHIKEY     <- 'inchikey'
-	RBIODB.MSDEV        <- 'msdev'
-	RBIODB.MSDEVTYPE    <- 'msdevtype'
-	RBIODB.MSTYPE       <- 'mstype'
-	RBIODB.MSMODE       <- 'msmode'
-	RBIODB.MSPRECMZ     <- 'msprecmz'       # numeric
-	RBIODB.MSPRECANNOT  <- 'msprecannot'
-
-	RBIODB.MSMODE.NEG <- 'neg'
-	RBIODB.MSMODE.POS <- 'pos'
-
-	RBIODB.FIELDS <- data.frame(matrix(c(
-		# FIELD NAME            CLASS
-		RBIODB.COMPOUND,        'BiodEntry',
-		RBIODB.ACCESSION,       'character',
-		RBIODB.NAME,            'character',
-		RBIODB.CHEBI.ID,        'character',
-		RBIODB.LIPIDMAPS.ID,    'character',
-		RBIODB.KEGG.ID,         'character',
-		RBIODB.PUBCHEM.ID,      'character',
-		RBIODB.INCHI,           'character',
-		RBIODB.INCHIKEY,        'character',
-		RBIODB.MSDEV,           'character',
-		RBIODB.MSDEVTYPE,       'character',
-		RBIODB.MSTYPE,          'character',
-		RBIODB.MSMODE,          'character',
-		RBIODB.MSPRECMZ,        'double',
-		RBIODB.MSPRECANNOT,     'character'
-		), byrow = TRUE, ncol = 2), stringsAsFactors = FALSE)
-	colnames(RBIODB.FIELDS) <- c('name', 'class')
+	source('common.R')
 
 	########################
 	# ENTRY ABSTRACT CLASS #
@@ -118,7 +76,29 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	BiodbEntry$methods(	.compute.field = function(field) {
 		return(FALSE)
 	})
-	
+
+#	#################
+#	# COMPUTE FIELD #
+#	#################
+#	
+#	KeggCompound$methods( .compute.field = function(field) {
+#
+#		# TODO can we make this algorithm automatic ==> put it inside BiodbEntry, so that when a field is not found we can look for it inside related compounds obtained through known IDs (CHEBI.ID, LIPIDMAPS.ID, ...). ==> define which ID/FIELD must be used for each field that is suspetible to be found like this. Make the search an option, because it can be time consuming.
+#		if (field %in% c(RBIODB.INCHI, RBIODB.INCHIKEY)) {
+#			if ( ! is.null(.self$.factory)) {
+#				chebiid <- .self$getField(RBIODB.CHEBI.ID)
+#				if ( ! is.na(chebiid)) {
+#					chebi.compound <- .self$.factory$createCompoundFromDb(RBIODB.CHEBI, chebiid)
+#					if ( ! is.null(chebi.compound)) {
+#						.self$setField(field, chebi.compound$getField(field))
+#						return(TRUE)
+#					}
+#				}
+#			}
+#		}
+#	
+#		return(FALSE)
+#	})
 
 	###########
 	# FACTORY #

@@ -1,19 +1,7 @@
 if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 
 	source(file.path('..', 'r-lib', 'UrlRequestScheduler.R'), chdir = TRUE)
-
-	#############
-	# CONSTANTS #
-	#############
-	
-	# Entry types
-	RBIODB.COMPOUND <- 'compound'
-	RBIODB.SPECTRUM <- 'spectrum'
-	
-	# Entry content types
-	RBIODB.HTML <- 'html'
-	RBIODB.TXT  <- 'txt'
-	RBIODB.XML  <- 'xml'
+	source('common.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -71,9 +59,9 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# GET ENTRY #
 	#############
 
-	BiodbConn$methods( getEntry = function(type, id) {
+	BiodbConn$methods( getEntry = function(type, id, drop = TRUE) {
 		content <- .self$getEntryContent(type, id)
-		return(.self$createEntry(type, content))
+		return(.self$createEntry(type, content, drop = drop))
 	})
 
 	#####################
@@ -125,7 +113,7 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# Creates a Compound instance from file content.
 	# content       A file content, downloaded from the public database.
 	# RETURN        A compound instance.
-	BiodbConn$methods( createEntry = function(type, content) {
+	BiodbConn$methods( createEntry = function(type, content, drop = TRUE) {
 		stop("Method createEntry() is not implemented in concrete class.")
 
 #		# Create compound
