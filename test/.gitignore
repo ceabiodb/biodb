@@ -3,4 +3,4 @@ test-*.html
 *.txt
 *-entry-*.*
 *-compound-*.*
-!res/*.txt
+!res/*
