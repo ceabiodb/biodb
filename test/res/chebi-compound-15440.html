@@ -1,0 +1,1725 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="//www.w3.org/1999/xhtml" class="fontface" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="description"
+          content="Chemical Entities of Biological Interest (ChEBI) is a freely available dictionary of molecular entities focused on 'small' chemical compounds."/>
+    <meta name="author" content="EBI Web Team"/>
+    <meta name="keywords"
+          content="chemical compounds, chemical compound, compound, ontology, biology, UniProt, ascii name, names, nomenclature, chemical, formula, IUPAC, IUPAC name, synonyms, chemical ontology, periodic table"/>
+    <meta name="robots" content="index, nofollow" />
+    <meta http-equiv="Content-Language" content="en"/>
+    <meta http-equiv="Window-target" content="_top"/>
+    <meta name="no-email-collection" content="//www.unspam.com/noemailcollection/"/>
+    <meta name="language" content="en"/>
+    <meta name="revisit-after" content="14 days"/>
+    <title>
+
+
+
+
+     
+
+   
+   
+
+
+
+     squalene (CHEBI:15440)
+</title>
+    <link rel="search" type="application/opensearchdescription+xml" title="ChEBI" href="/chebi/plugins/openSearch/openSearch.xml;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD">
+    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css" type="text/css">
+    <link rel="stylesheet" href="/chebi/layouts/styles/chebiColorScheme.css;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD" type="text/css"/>
+
+    <link rel="SHORTCUT ICON" href="/chebi/images/ChEBI_logo_16.ico;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD"/>
+
+    <script type="text/javascript" src="/chebi/javascripts/chebi.js;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD"></script>
+    <script type="text/javascript" src="/chebi/marvin/js/lib/jquery-1.9.1.min.js;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD"></script>
+    <script src="//www.ebi.ac.uk/web_guidelines/js/ebi-global-search-run.js"></script>
+    <script src="//www.ebi.ac.uk/web_guidelines/js/ebi-global-search.js"></script>
+
+    <script type="text/javascript">
+        function showSubMenu(menu) {
+            // First reset - hide all menus..
+            document.getElementById("browse").style.display = "none";
+            document.getElementById("documentation").style.display = "none";
+            document.getElementById("tool").style.display = "none";
+
+            //Then display only the menu you want...
+            $(menu).get(0).style.display = "inline";
+            $(menu).get(0).style.paddingTop = "0px";
+            $(menu).get(0).style.marginTop = "0px";
+        }
+    </script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-64963565-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+</head>
+
+
+<body>
+<div id="wrapper" class="container_24">
+    <header>
+        
+        <div id="global-masthead" class="masthead grid_24">
+            <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img
+                    src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png"
+                    alt="EMBL European Bioinformatics Institute"></a>
+            <nav>
+                <ul id="global-nav">                    <!-- set active class as appropriate -->
+                    <li id="services" class=" first active"><a href="//www.ebi.ac.uk/services" title="Services">Services</a>
+                    </li>
+                    <li id="research" class=""><a href="//www.ebi.ac.uk/research" title="Research">Research</a>
+                    </li>
+                    <li id="training" class=""><a href="//www.ebi.ac.uk/training" title="Training">Training</a>
+                    </li>
+                    <li id="industry" class=""><a href="//www.ebi.ac.uk/industry" title="Industry">Industry</a>
+                    </li>
+                    <li id="about" class=" last"><a href="//www.ebi.ac.uk/about" title="About us">About us</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+
+        
+        <div id="local-masthead" class="headerBG masthead grid_24 nomenu">
+
+            <!-- local-title -->
+            <div class="grid_12 alpha logo-title" id="local-title">
+                <a href="init.do" title="Back to ChEBI homepage">
+                    <img src="images/ChEBI_logo.png" alt="ChEBI logo" width="64" height="64"></a>
+                 <span>
+                     <h1><a id="logotitle" href="init.do" title="Back to ChEBI homepage">ChEBI</a></h1>
+                 </span>
+            </div>
+            <!-- /local-title -->
+
+
+            
+
+
+            <!-- local-search -->
+            <div class="grid_12 omega">
+                <form id="local-search"
+                      name="searchFreeText"
+                      action="/chebi/advancedSearchFT.do"
+                      method="post">
+
+                    <fieldset>
+
+                        <div class="left">
+                            <label>
+                                <input type="text" name="searchString" id="local-searchbox">
+                            </label>
+                            <span class="examples">
+                                Examples:
+                                <a href="advancedSearchFT.do?searchString=iron*">iron*</a>,
+                                <a href="advancedSearchFT.do?searchString='InChI=1S/H2O/h1H2'">InChI=1S/H2O/h1H2</a>,
+                                <a href="advancedSearchFT.do?searchString=water">water</a>
+                                <div style="display: inline; float: right; padding-right: 10px">
+                                    <input type="checkbox" name="stars" value="3" id="local-starsbox"/>
+                                    <div id="local-stars" style="display: inline;">
+                                        <img src="images/goldenstar.gif" style="width: 14px;" /><img src="images/goldenstar.gif" style="width: 14px;" /><img src="images/goldenstar.gif" style="width: 14px;" />
+                                    </div>
+                                </div>
+                                <script>
+                                    $('#local-stars').click(function () {
+                                        $("#local-starsbox").prop("checked", !$("#local-starsbox").prop("checked"));
+                                    });
+                                </script>
+                            </span>
+                        </div>
+
+                        <div class="right">
+                            <input type="submit" name="submit" value="Search" class="submit">
+                            <!-- If your search is more complex than just a keyword search, you can link to an Advanced Search, with whatever features you want available -->
+                            <span class="adv"><a href="advancedSearchForward.do" id="adv-search" title="Advanced">Advanced</a></span>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+            </div>
+            <!-- /local-search -->
+
+
+            <!-- local-nav -->
+            <nav>
+                <ul class="grid_24" id="local-nav">
+                    
+                    <li class="first"><a href="init.do">Home</a></li>
+                    <li class=""><a href="advancedSearchForward.do">Advanced Search</a></li>
+                    <li class=""><a href="#" onclick="showSubMenu(browse)">Browse</a></li>
+                    <li class=""><a href="#" onclick="showSubMenu(documentation)">Documentation</a></li>
+                    <li class=""><a href="downloadsForward.do">Download</a></li>
+                    <li class=""><a href="#" onclick="showSubMenu(tool)">Tools</a></li>
+                    <li class="last"><a href="aboutChebiForward.do">About ChEBI</a></li>
+
+                    
+                    <li class="functional last"><a href="/chebi/submission" class="icon icon-functional" data-icon="n" target="_blank" title="Click here to add a new entry to ChEBI">Submit</a></li>
+                    <li class="functional"><a href="userSettingsForward.do" class="icon icon-functional" data-icon="s">Preferences</a></li>
+                    <li class="functional"><a href="emailChebiForward.do" class="icon icon-generic" data-icon="E">Contact us</a></li>
+
+                    
+                    <ul id="browse" style="display: none;">
+                        <li><a href="dina.do">DiNA</a></li>
+                        <li><a href="statisticsForward.do">Statistics</a></li>
+                        <li><a href="entityMonthForward.do">Entity of the Month</a></li>
+                        <li><a href="periodicTableMolecularEntitiesForward.do">Periodic Table</a></li>
+                        <li class="last"><a href="/ontology-lookup/browse.do?ontName=CHEBI" class='icon icon-generic' data-icon='x' target="_blank">Ontology</a></li>
+                    </ul>
+                    <ul id="documentation" style="display: none;">
+                        <li><a href="tutorialForward.do">Tutorial</a></li>
+                        <li><a href="userManualForward.do">User Manual</a></li>
+                        <li><a href="annotationManualForward.do">Annotation Manual</a></li>
+                        <li><a href="developerManualForward.do">Developer Manual</a></li>
+                        <li class="last"><a  href="faqForward.do">FAQ's</a></li>
+                    </ul>
+                    <ul id="tool" style="display: none;">
+                        <li><a href="/chebi/tools/binche/">BiNChE</a></li>
+                        <li><a href="/chebi/tools/ontoquery/">OntoQuery</a></li>
+                        <li><a href="jchempaint.do">JChemPaint</a></li>
+                        <li><a href="libchebi.do">libChEBI</a></li>
+                        <li class="last"><a href="webServices.do">Web Services</a></li>
+                    </ul>
+                </ul>
+            </nav>
+            <!-- /local-nav -->
+
+        </div>
+        
+
+    </header>
+
+
+<script type="text/javascript">
+   function redirectToPathway(){
+        var url = document.getElementById ("pathwayTab").baseURI;
+        if (window.location.protocol != "http:"){
+            url = url.replace("https","http");
+        }
+       url = url.replace("searchId","pathway");
+       url = url.replace("chebiOntology", "pathway");
+       url = url.replace("displayAutoXrefs", "pathway");
+       url = url.replace("reaction", "pathway");
+       window.location= url;
+    };
+</script>
+
+<div id="content" role="main" class="grid_24 clearfix">
+
+    <div id = "breadcrumbs">
+        <p> <a href="init.do">ChEBI</a> > Main </p>
+    </div>
+    
+
+    <h4 class="entry-title">CHEBI:15440 - squalene</h4>
+
+    <table style="width:99%; border-collapse: separate">
+        <tr>
+            <td id="mainTab" class="tabStyle" onclick="window.location='searchId.do?chebiId=CHEBI:15440';" title="Click on the tab to display the main entry page for this entity.">Main</td>
+            <td class="tabStyleBlank"></td>
+            <td id="ontologyTab" class="tabStyle" onclick="window.location='chebiOntology.do?chebiId=CHEBI:15440';" title="Click on the tab to display the Ontological graph  for this entity.">ChEBI Ontology</td>
+            <td class="tabStyleBlank"></td>
+            <td id="crossRefTab" class="tabStyle" onclick="window.location='displayAutoXrefs.do?chebiId=CHEBI:15440';"  title="Click on the tab to display the Automatically Generated Cross-References for this entity.">Automatic Xrefs</td>
+            <td class="tabStyleBlank"></td>
+            <td id="reactionTab" class="tabStyle" onclick="window.location='reaction.do?chebiId=CHEBI:15440';"  title="Click on the tab to display the reactions for this entity.">Reactions</td>
+            <td class="tabStyleBlank"></td>
+            <td id="pathwayTab" class="tabStyle" onclick="redirectToPathway()"  title="Click on the tab to display the Pathways for this entity.">Pathways</td>
+            <td class="tabStyleBlank" style="width: 50%;"></td>
+        </tr>
+    </table>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    $('#mainTab').addClass('tabStyleView');
+    $('#ontologyTab').removeClass('tabStyleView');
+
+    var crossRefTab = 1;
+    if (crossRefTab > 0) {
+        $('#crossRefTab').removeClass('tabStyleView');
+    } else {
+        disableTab('crossRefTab', 'cross reference');
+    }
+
+    var rxnCounter = 13;
+    if (rxnCounter > 0) {
+        $('#reactionTab').removeClass('tabStyleView');
+    } else {
+        disableTab('reactionTab', 'reactions');
+    }
+
+    var pathwayCounter = 2;
+    if (pathwayCounter > 0) {
+        $('#pathwayTab').removeClass('tabStyleView');
+    } else {
+        disableTab('pathwayTab', 'pathways');
+    }
+</script>
+
+
+
+    <table width="100%" style="padding-top:0px;">
+
+
+
+<tr><td style="padding-top: 0px;">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type='text/javascript' src="dwr/interface/VendorDWR.js"></script>
+<script type='text/javascript' src="dwr/engine.js"></script>
+<script type='text/javascript' src="dwr/util.js"></script>
+<script type='text/javascript' src="javascripts/vendor.js"></script>
+
+<style>
+    .gridLayoutCellStructure {
+        min-width: 100px;
+        width:200px;
+        height:100px;
+    }
+    .gridLayoutCellStructure:hover .bigImg {
+        display:inline-block;
+        height:400px;
+        width:400px;
+        position:absolute;
+        border:1px solid black;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table class="small-boxed-section">
+    <tr><td>
+        <table style="width:100%; margin: 0">
+            <tr>
+                
+                    
+                    
+                    
+
+                    <td class="gridLayoutCellStructure">
+
+                        
+                        
+                            
+                            <img src="displayImage.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?defaultImage=true&imageIndex=0&chebiId=15440&dimensions=400" height="400" width="400" style="border:1px solid black" class="imageStructure bigImg">
+                            
+                            <img src="displayImage.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?defaultImage=true&imageIndex=0&chebiId=15440" class="imageStructure">
+                        
+                        
+                    
+
+                    </td>
+
+                    
+                
+
+                <td style="padding: 0">
+                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#ChEBI ID', 800, 600)" titleKey="compoundResult.link.title.help" class="no-underline">
+                        <img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" style="float: right;"/>
+                    </a>
+                    <table width="100%" style="vertical-align:top; margin-top:5px; ">
+
+                        <tr>
+                            <td class="chebiDataHeader" style="width: 180px;">
+                                ChEBI Name
+                            </td>
+                            <td><b>squalene</b></td>
+                        </tr>
+                        <tr><td class="gap"></td></tr>
+                        <tr>
+                            <td class="chebiDataHeader" style="width: 180px;">
+                                ChEBI ID
+                            </td>
+                            <td><b>CHEBI:15440</b></td>
+                        </tr>
+                        
+                        
+                            <tr><td class="gap"></td></tr>
+                            <tr>
+                                <td class="chebiDataHeader" style="width: 180px;">
+                                    Definition
+                                </td>
+                                <td>A triterpene consisting of 2,6,10,15,19,23-hexamethyltetracosane having six double bonds at the 2-, 6-, 10-, 14-, 18- and 22-positions with (<i>all-E</i>)-configuration.</td>
+                            </tr>
+                        
+                        
+                            <tr><td class="gap"></td></tr>
+                            <tr>
+                                <td class="chebiDataHeader" style="width: 180px;">
+                                    Stars
+                                </td>
+                                <td>
+                                    <img src="images/goldenstar.gif"/><img src="images/goldenstar.gif"/><img src="images/goldenstar.gif"/>
+                                    <span class="starsLabel">This entity has been manually annotated by the ChEBI Team.</span>
+                                </td>
+                            </tr>
+                        
+                        
+                        
+                            <tr><td class="gap"></td></tr>
+                            <tr>
+                                <td class="chebiDataHeader" style="width: 180px;">
+                                    Secondary ChEBI IDs
+                                </td>
+                                <td>
+                                    CHEBI:10843, CHEBI:9245, CHEBI:10795, CHEBI:15104, CHEBI:26746
+                                </td>
+                            </tr>
+                        
+                        
+                        
+                            <tr><td class="gap"></td></tr>
+                            <tr>
+                                <td class="chebiDataHeader" style="width: 180px;">
+                                    Supplier Information
+                                    <img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/basket.png" class="helpinfo" style="float: right; opacity: 0.5"/>
+                                </td>
+                                <td  id="vendorId">
+                                    <script type ="text/javascript" >
+                                        loadVendorInfo('YYGNTYWPHWGJRM-AAJYLUCBSA-N');
+                                    </script>
+                                </td>
+                            </tr>
+                        
+                        
+                        
+                            <tr>
+                                <td align="left" colspan="2">
+                                    
+                                    
+                                    
+                                    <img src="/chebi/images/save_file.gif;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD" height="18" width="18" border="0" title="Save Molfile to disk" alt="Save molfile"> <a href="saveStructure.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?defaultImage=true&chebiId=15440&imageId=0" style="vertical-align: top" title="Save Molfile to disk">Download Molfile</a>
+                                </td>
+                            </tr>
+                        
+                    </table>
+                </td>
+            </tr>
+            
+                <tr>
+                    <td colspan=2 valign="left" >
+                        <ul style="padding-left: 20px; margin: 0px; margin-bottom: 5px; align:left">
+                            <form name="goToAdvancedSearch" action="advancedSearchForward.do" method="post">
+                                <input type="hidden" name="structure" value="ChEBI\
+  Marvin  06291110412D          \
+\
+ 30 29  0  0  0  0            999 V2000\
+    5.8184   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+    6.5210   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+    7.2236   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+    7.9262   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+    8.6288   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+    9.3314   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   10.0340   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   10.7366   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   11.4392   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   12.1418   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   12.8444   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   13.6011   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   14.3037   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   15.0063   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   15.7089   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   16.4115   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   17.1141   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   17.8167   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   18.5193   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   19.2219   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   19.9245   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   20.6271   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   21.3297   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   22.0324   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+    6.5210   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+    9.3314   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   12.1418   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   15.7089   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   18.5193   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+   21.3297   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\
+  2  1  1  0  0  0  0\
+  3  2  2  0  0  0  0\
+ 25  2  1  0  0  0  0\
+  4  3  1  0  0  0  0\
+  5  4  1  0  0  0  0\
+  6  5  1  0  0  0  0\
+  7  6  2  0  0  0  0\
+ 26  6  1  0  0  0  0\
+  8  7  1  0  0  0  0\
+  9  8  1  0  0  0  0\
+ 10  9  1  0  0  0  0\
+ 11 10  2  0  0  0  0\
+ 27 10  1  0  0  0  0\
+ 12 11  1  0  0  0  0\
+ 13 12  1  0  0  0  0\
+ 14 13  1  0  0  0  0\
+ 15 14  2  0  0  0  0\
+ 16 15  1  0  0  0  0\
+ 28 15  1  0  0  0  0\
+ 17 16  1  0  0  0  0\
+ 18 17  1  0  0  0  0\
+ 19 18  2  0  0  0  0\
+ 20 19  1  0  0  0  0\
+ 29 19  1  0  0  0  0\
+ 21 20  1  0  0  0  0\
+ 22 21  1  0  0  0  0\
+ 23 22  2  0  0  0  0\
+ 24 23  1  0  0  0  0\
+ 30 23  1  0  0  0  0\
+M  END\
+"/>
+                                <li><a href="advancedSearchFT.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=15440&structureSearchMethod=substructure" >Find compounds which contain this structure</a></li>
+                                <li><a href="advancedSearchFT.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=15440&structureSearchMethod=similarity">Find compounds which resemble this structure</a></li>
+                                <li><a href='javascript:$(goToAdvancedSearch).submit()'>Take structure to the Advanced Search</a></li>
+                            </form>
+                        </ul>
+                        
+                            <a id="structureImageGallery_more" href="javascript:fold('structureImageGallery', 'structureImageGallery_more', 'more structures >>','<< hide structures');" title="Expand to see more structures.">more structures &gt;&gt;</a>
+                        
+                        
+                    </td>
+                </tr>
+            
+        </table>
+
+    </td></tr>
+
+    
+    
+
+        
+        <script type="text/javascript" src="javascripts/JSmol.min.js"></script>
+
+        <script type="text/javascript">
+
+            var use = "HTML5";
+
+            jmol_isReady = function(applet) {
+                document.title = (applet._id + " is ready")
+                Jmol._getElement(applet, "appletdiv").style.border = "none";
+            }
+
+            var Info = {
+                width : 200,
+                height : 200,
+                color : "#000",
+                serverURL : "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
+                use : "HTML5",
+                readyFunction : null,
+                disableInitialConsole: true,
+                disableJ2SLoadMonitor: true,
+                bondWidth: 4,
+                zoomScaling: 1.5,
+                pinchScaling: 2.0,
+                mouseDragFactor: 0.5,
+                touchDragFactor: 0.15,
+                multipleBondSpacing: 4,
+                spinRateX: 0.2,
+                spinRateY: 0.5,
+                spinFPS: 20,
+                spin:true,
+                debug: false
+            }
+            var lastPrompt=0;
+
+            function enlargeJsmol(id){
+                var style= document.getElementById('jmolApplet'+id+'_appletinfotablediv').style;
+                if(style.width == '200px'){
+                    style.height = '400px';
+                    style.width = '400px';
+                    document.getElementById('expand'+id).innerHTML ="reduce";
+                } else {
+                    style.height = '200px';
+                    style.width = '200px';
+                    document.getElementById('expand'+id).innerHTML ="expand";
+                }
+            }
+
+        </script>
+
+        <tr><td>
+
+            <div id="structureImageGallery" style="display: none;">
+
+                
+                
+
+
+                    <div style="padding: 5px; margin: 5px; display: inline-block; min-width:200px; max-width:410px;" >
+
+                        
+                            
+                            <img src="displayImage.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?defaultImage=false&imageIndex=1&chebiId=15440&imageId=2780479" align="left" style="border: 1px solid #0E4976; border-radius: 10px;" class="imageStructure">
+                        
+
+                        
+
+                        
+                        <div>
+                            <img src="/chebi/images/save_file.gif;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD" height="18" width="18" border="0" title="Save Molfile to disk" alt="Save molfile">
+                            <a href="saveStructure.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?defaultImage=false&chebiId=15440&imageIndex=1&imageId=2780479" title="Save Molfile to disk">Molfile</a>
+                            
+                        </div>
+                        
+                    </div>
+
+                
+
+            </div>
+
+        </td></tr>
+    
+</table>
+
+
+
+
+    <script type='text/javascript' src='/chebi/dwr/interface/WikipediaDWR.js;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD'></script>
+    <script type='text/javascript' src='/chebi/javascripts/wikipedia.js;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD'></script>
+    <div style="padding:5px"></div>
+    
+    
+        
+    
+        
+    
+        
+    
+
+
+
+
+
+
+    <table class="small-boxed-section"><tr><td>
+
+        <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Formula', 800, 600);" class="no-underline" title="Please click here to get further information on Formulae"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" style="position: absolute; right: 25px;"/></a>
+
+        
+            
+            <table class="chebiTableContent" style="margin: 3px;">
+                    
+                <td class="chebiDataHeader" style="width: 110px; height: 15px;">
+                    Formula
+                        
+                        
+                        
+                </td>
+                    
+                    
+                    
+                    
+                    
+                    
+                <td>
+                    
+                        C30H50<br/>
+                        
+                        
+                        
+                        
+                        
+                    
+                </td>
+            </table>
+        
+
+        
+            <table class="chebiTableContent" style="margin: 3px;">
+                <tr>
+                    <td class="chebiDataHeader" style="width: 110px; height: 15px;">
+                        Net Charge
+                            
+                            
+                            
+                    </td>
+                    <td>
+                        0
+                    </td>
+                </tr>
+            </table>
+        
+
+        
+            <table class="chebiTableContent" style="margin: 3px;">
+                <tr>
+                    <td class="chebiDataHeader" style="width: 110px; height: 15px;">
+                        Average Mass
+                        
+                        
+                        
+                            
+                            
+                            
+                    </td>
+                    <td>
+                        410.71800
+                    </td>
+                </tr>
+            </table>
+        
+
+        
+            
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <table class="chebiTableContent" style="margin: 3px;">
+        <tr>
+            <td class="chebiDataHeader" style="width: 110px; height: 15px;">InChI</td>
+            <td>InChI=1S/C30H50/c1-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>25(2)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>15-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>11-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>19-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>29(7)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>23-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>13-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>21-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>27(5)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>17-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>9-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>10-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>18-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>28(6)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>22-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>14-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>24-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>30(8)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>20-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>12-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>16-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>26(3)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>4/h15-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>18,23-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>24H,9-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>14,19-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>22H2,1-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>8H3/b27-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>17+,28-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>18+,29-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>23+,30-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>24+</td>
+        </tr>
+    </table>
+
+
+    <table class="chebiTableContent" style="margin: 3px;">
+        <tr>
+            <td class="chebiDataHeader" style="width: 110px; height: 15px;">InChIKey</td>
+            <td>YYGNTYWPHWGJRM-AAJYLUCBSA-N</td>
+        </tr>
+    </table>
+
+
+    <table class="chebiTableContent" style="margin: 3px;">
+        <tr>
+            <td class="chebiDataHeader" style="width: 110px; height: 15px;">SMILES</td>
+            <td>CC(C)=CCC\C(C)=C\CC\C(C)=C\CC\C=C(/C)CC\C=C(/C)CCC=C(C)C</td>
+        </tr>
+    </table>
+
+
+    </td></tr></table>
+
+    <div style="padding:5px"></div>
+
+
+
+
+
+    <table class="chebiTableContent">
+        <tr>
+            <td class="chebiDataHeader" width="30%" align="left">
+                Metabolite of Species
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Metabolite', 800, 600);" class="no-underline" title="Please click here to get further information on Metabolite of species"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+            </td>
+            <td class="chebiDataHeader" width="70%" align="left">Details</td>
+        </tr>
+
+        
+        
+            <tr>
+                <td class="chebiDataContent">
+                    <i>Rubia yunnanensis</i>
+
+                    
+                        <a href="http://www.ipni.org/ipni/plantnamesearchpage.do" target="_blank">(IPNI:765385-1)</a>
+                    
+                </td>
+
+                <td class="chebiDataContent">
+                    
+                        Found in
+                        root
+                        
+                            <a href="http://www.brenda-enzymes.org/ontology.php?ontology_id=3" target="_blank">(BTO:0001188)</a>.
+                        
+                    
+
+                    
+                        Methanolic extract of air dried powdered roots.
+                    
+
+                    
+                    
+                        See:
+                        
+                            
+                            
+                                <a href="//europepmc.org/abstract/MED/21973054" target="_blank">PubMed</a>
+                            
+                            
+                            
+                            
+                            
+                        
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent">
+                    <i>Mus musculus</i>
+
+                    
+                        <a href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi" target="_blank">(NCBI:10090)</a>
+                    
+                </td>
+
+                <td class="chebiDataContent">
+                    
+
+                    
+                        Source: BioModels - MODEL1507180067
+                    
+
+                    
+                    
+                        See:
+                        
+                            
+                            
+                                <a href="//europepmc.org/abstract/MED/19425150" target="_blank">PubMed</a>
+                            
+                            
+                            
+                            
+                            
+                        
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent">
+                    <i>Centella asiatica</i>
+
+                    
+                        <a href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi" target="_blank">(NCBI:48106)</a>
+                    
+                </td>
+
+                <td class="chebiDataContent">
+                    
+
+                    
+
+                    
+                    
+                        See:
+                        
+                            
+                            
+                            
+                            
+                                <a href="/metabolights/MTBLS175" target="_blank">MetaboLights Study</a>
+                            
+                            
+                            
+                        
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent">
+                    <i>Saccharomyces cerevisiae</i>
+
+                    
+                        <a href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi" target="_blank">(NCBI:4932)</a>
+                    
+                </td>
+
+                <td class="chebiDataContent">
+                    
+
+                    
+                        Source: yeast.sf.net
+                    
+
+                    
+                    
+                        See:
+                        
+                            
+                            
+                                <a href="//europepmc.org/abstract/MED/24678285" target="_blank">PubMed</a>
+                            
+                            
+                            
+                            
+                            
+                        
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent">
+                    <i>Homo sapiens</i>
+
+                    
+                        <a href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi" target="_blank">(NCBI:9606)</a>
+                    
+                </td>
+
+                <td class="chebiDataContent">
+                    
+
+                    
+
+                    
+                    
+                        See:
+                        
+                            
+                                <a href="//dx.doi.org/10.1038/nbt.2488" target="_blank">DOI</a>
+                            
+                            
+                            
+                            
+                            
+                            
+                        
+                    
+                </td>
+            </tr>
+        
+    </table>
+    <div style="padding:5px"></div>
+
+
+<!-- ============================================== -->
+
+<!-- ROLES CLASSIFICATION -->
+
+    
+        
+            
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <table class="chebiTableContent">
+    <tr  width="100%" height="15px">
+        <td class="chebiDataHeader" colspan="2">
+            Roles Classification
+            <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Roles Classification', 800, 600);" class="no-underline" title="Please click here to get further information on Roles Classification"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo"/></a>
+        </td>
+    </tr>
+    
+    
+    
+        <tr>
+            <td  class= "roleHeader">
+                <a href="chebiOntology.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI:24432" target="_blank">Biological Role</a>(s):</td>
+            <td >
+                
+
+                    
+
+                    <a href="/chebi/chebiOntology.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=75772">Saccharomyces cerevisiae metabolite</a>
+                    
+                        <div class="roleDefinition">Any  fungal metabolite produced during a metabolic reaction in Baker's yeast (<ital>Saccharomyces cerevisiae </ital>).</div>
+                    
+
+                    
+
+
+                    
+
+                    
+                        
+
+                                
+                    
+
+                
+
+                    
+
+                    <a href="/chebi/chebiOntology.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=77746">human metabolite</a>
+                    
+                        <div class="roleDefinition">Any mammalian metabolite  produced during a metabolic reaction in humans (<ital>Homo sapiens</ital>).</div>
+                    
+
+                    
+
+
+                    
+
+                    
+                        
+
+                                
+                    
+
+                
+
+                    
+
+                    <a href="/chebi/chebiOntology.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=75771">mouse metabolite</a>
+                    
+                        <div class="roleDefinition">Any mammalian metabolite produced during a metabolic reaction in a mouse (<ital>Mus musculus</ital>).</div>
+                    
+
+                    
+
+
+                    
+
+                    
+                        
+
+                                
+                    
+
+                
+
+                    
+
+                    <a href="/chebi/chebiOntology.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=76924">plant metabolite</a>
+                    
+                        <div class="roleDefinition">Any eukaryotic metabolite produced during a metabolic reaction in plants, the kingdom that include flowering plants, conifers and other gymnosperms.</div>
+                    
+
+                    
+
+
+                    
+
+                    
+                        
+
+                                
+                    
+
+                
+            </td>
+        </tr>
+        <tr><td style ="border-bottom :1px solid #999999;" colspan="2"></td></tr>
+    
+    
+    </table>
+
+
+        
+            <a href="chebiOntology.do?chebiId=CHEBI:15440" style="margin-left: 13px;">View more via ChEBI Ontology</a>
+        
+    
+    
+
+
+<!-- ONTOLOGY ROLLBACK START -->
+<table width="100%">
+    <tr>
+        <a name="termLineage" class="anchoredHighInfo">
+            
+            
+                <td class="chebiDataHeader" align="left" colspan="2" width="200">
+                    ChEBI Ontology
+                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#ChEBI Ontology', 800, 600);" class="no-underline" title="Please click here to get further information on the ChEBI Ontology"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+                </td>
+            
+        </a>
+    </tr>
+    
+
+        
+            <tr>
+                <td width="110px">
+                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Parents and Children View', 800, 600);" class="anchoredHigh" title="Please click here to get further information on Parents and Children View">Outgoing</a>
+
+                </td>
+                <td >
+                    
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)
+                        <font style="font-weight:bold;">
+                            has role
+                        </font>
+                        <i>Saccharomyces cerevisiae</i> metabolite
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A75772">CHEBI:75772</a>)
+                        
+                        <br/>
+                    
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)
+                        <font style="font-weight:bold;">
+                            has role
+                        </font>
+                        human metabolite
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A77746">CHEBI:77746</a>)
+                        
+                        <br/>
+                    
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)
+                        <font style="font-weight:bold;">
+                            has role
+                        </font>
+                        mouse metabolite
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A75771">CHEBI:75771</a>)
+                        
+                        <br/>
+                    
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)
+                        <font style="font-weight:bold;">
+                            has role
+                        </font>
+                        plant metabolite
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A76924">CHEBI:76924</a>)
+                        
+                        <br/>
+                    
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)
+                        <font style="font-weight:bold;">
+                            is a
+                        </font>
+                        triterpene
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A35191">CHEBI:35191</a>)
+                        
+                        <br/>
+                    
+                </td>
+            </tr>
+            <tr><td style ="border-bottom :1px solid #999999;" colspan="2"></td></tr>
+        
+        
+        
+            <tr>
+                <td width="110px">
+                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Parents and Children View', 800, 600);" class="anchoredHigh" title="Please click here to get further information on Parents and Children View">Incoming</a>
+                </td>
+                <td >
+                    
+                        3,22-dimethyl-1,2,23,24-tetradehydro-2,3,22,23-tetrahydrosqualene
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A70861">CHEBI:70861</a>)
+                        
+                        <font style="font-weight:bold;">
+                            has functional parent
+                        </font>
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)<br/>
+                    
+                        3-methyl-1,2-didehydro-2,3-dihydrosqualene
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A70860">CHEBI:70860</a>)
+                        
+                        <font style="font-weight:bold;">
+                            has functional parent
+                        </font>
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)<br/>
+                    
+                        (<i>R</i>)-12-hydroxysqualene
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A88123">CHEBI:88123</a>)
+                        
+                        <font style="font-weight:bold;">
+                            has parent hydride
+                        </font>
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)<br/>
+                    
+                        (<i>S</i>)-2,3-epoxysqualene
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15441">CHEBI:15441</a>)
+                        
+                        <font style="font-weight:bold;">
+                            has parent hydride
+                        </font>
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)<br/>
+                    
+                        2,3-epoxysqualene
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A78662">CHEBI:78662</a>)
+                        
+                        <font style="font-weight:bold;">
+                            has parent hydride
+                        </font>
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)<br/>
+                    
+                        squalene triterpenoid
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A26747">CHEBI:26747</a>)
+                        
+                        <font style="font-weight:bold;">
+                            has parent hydride
+                        </font>
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)<br/>
+                    
+                        tetrahydroxysqualene
+                        
+                        
+                            (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A66216">CHEBI:66216</a>)
+                        
+                        <font style="font-weight:bold;">
+                            has parent hydride
+                        </font>
+                        squalene
+                        (<a href="/chebi/searchId.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?chebiId=CHEBI%3A15440">CHEBI:15440</a>)<br/>
+                    
+                </td>
+            </tr>
+        
+
+    
+</table>
+<div style="padding:5px"></div>
+<!-- ONTOLOGY ROLLBACK END -->
+
+
+
+    <table class="chebiTableContent" >
+        <tr>
+            <td class="chebiDataHeader" width="100%" align="left">
+                IUPAC Name
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#IUPAC name', 800, 600);" class="no-underline" title="Please click here to get further information on IUPAC Names"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+            </td>
+        </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    (6<i>E</i>,10<i>E</i>,14<i>E</i>,18<i>E</i>)-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>2,6,10,15,19,23-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>hexamethyltetracosa-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>2,6,10,14,18,22-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>hexaene
+                    
+                    
+                    
+                </td>
+            </tr>
+        
+    </table>
+    <div style="padding:5px"></div>
+
+
+
+    <!--<tr><td>-->
+    <table class="chebiTableContent" >
+        <tr>
+            <td class="chebiDataHeader" width="80%" align="left">
+                Synonyms
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Synonyms', 800, 600);" class="no-underline" title="Please click here to get further information on synonyms"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+            </td>
+            <td class="chebiDataHeader" width="20%" align="left">
+                Sources
+            </td>
+        </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    (all-E)-2,6,10,15,19,23-hexamethyl-2,6,10,14,18,22-tetracosahexaene
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent" >
+                    
+                    
+                        NIST Chemistry WebBook
+                        
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    Spinacene
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent" >
+                    
+                    
+                        KEGG COMPOUND
+                        
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    Squalene
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent" >
+                    
+                    
+                        KEGG COMPOUND
+                        
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    squalene
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent" >
+                    
+                        <a href="http://www.uniprot.org/uniprot/?query=&quot;squalene&quot;&amp;sort=score" target="_blank">
+                            UniProt
+                            
+                        </a>
+                    
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    Supraene
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent" >
+                    
+                    
+                        KEGG COMPOUND
+                        
+                    
+                </td>
+            </tr>
+        
+    </table>
+    <div style="padding:5px"></div>
+
+
+
+    <table class="chebiTableContent">
+        <tr>
+            <td class="chebiDataHeader" width="80%" align="left">
+                Database Links
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Database links', 800, 600);" class="no-underline" title="Please click here to get further information on Database Links"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+            </td>
+            <td class="chebiDataHeader" width="20%" align="left">
+                Databases
+            </td>
+        </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    
+                        <a href="http://kanaya.naist.jp/knapsack_jsp/information.jsp?sname=C_ID&amp;word=C00003755" target="_blank">C00003755</a>
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent" >
+                    KNApSAcK
+                    <!--   -->
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    
+                        <a href="http://www.genome.ad.jp/dbget-bin/www_bget?cpd:C00751" target="_blank">C00751</a>
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent" >
+                    KEGG COMPOUND
+                    <!--   -->
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    
+                        <a href="http://www.lipidmaps.org/data/LMSDRecord.php?&amp;LMID=LMPR0106010002" target="_blank">LMPR0106010002</a>
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent" >
+                    LIPID MAPS
+                    <!--   -->
+                </td>
+            </tr>
+        
+        <tr>
+            <td><a target="_blank" href="displayAutoXrefs.do?chebiId=CHEBI:15440">View more database links</a></td>
+        </tr>
+    </table>
+    <div style="padding:5px"></div>
+
+
+    <table class="chebiTableContent" >
+
+        <tr>
+            <td class="chebiDataHeader" width="30%" align="left">
+                Registry Numbers
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Registry Number', 800, 600);" class="no-underline" title="Please click here to get further information on Registry Numbers"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+            </td>
+            <td class="chebiDataHeader" width="40%" align="left">
+                Types
+            </td>
+            <td class="chebiDataHeader" width="30%" align="left">
+                Sources
+            </td>
+        </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    
+                    
+                        111-02-4
+                    
+                    
+                </td>
+                <td class="chebiDataContent">
+                    CAS Registry Number
+                </td>
+                <td class="chebiDataContent" >
+                    KEGG COMPOUND
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    
+                        <a href="http://chem.sis.nlm.nih.gov/chemidplus/direct.jsp?regno=111-02-4" target="_blank">111-02-4</a>
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent">
+                    CAS Registry Number
+                </td>
+                <td class="chebiDataContent" >
+                    ChemIDplus
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    
+                        <a href="http://webbook.nist.gov/cgi/cbook.cgi?ID=111-02-4" target="_blank">111-02-4</a>
+                    
+                    
+                    
+                </td>
+                <td class="chebiDataContent">
+                    CAS Registry Number
+                </td>
+                <td class="chebiDataContent" >
+                    NIST Chemistry WebBook
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="chebiDataContent" >
+                    
+                    
+                        1728920
+                    
+                    
+                </td>
+                <td class="chebiDataContent">
+                    Beilstein Registry Number
+                </td>
+                <td class="chebiDataContent" >
+                    Beilstein
+                </td>
+            </tr>
+        
+    </table>
+    <div style="padding:5px"></div>
+
+
+
+
+
+    <script type='text/javascript' src='/chebi/dwr/interface/CitationDWR.js;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD'></script>
+    <!-- duplicated
+    <script type='text/javascript' src='/chebi/dwr/engine.js;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD'></script>
+    <script type='text/javascript' src='/chebi/dwr/util.js;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD'></script>
+    -->
+    <script type='text/javascript' src='/chebi/javascripts/citations.js;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD'></script>
+
+    <table class="chebiTableContent">
+        <tr id="citationHeader">
+            <td class="chebiDataHeader" width="30%" align="left">
+                Citations
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Citation', 800, 600);" class="no-underline" title="Please click here to get further information on Citations"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+                    
+                    
+                    
+                <img src="/chebi/images/wait_red_indicator.gif;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD" height="16px" width="16px" id="citationWait" alt="Waiting for Citations">
+            </td>
+            <td class="chebiDataHeader" width="40%" align="left">
+                Types
+            </td>
+            <td class="chebiDataHeader" width="30%" align="left">
+                Sources
+            </td>
+        </tr>
+        <tbody id="citations">
+        
+            <tr>
+                <td class="chebiDataContent">
+                    
+                    
+                        16341241
+                    
+                </td>
+                <td class="chebiDataContent">
+                    PubMed citation
+                </td>
+                <td class="chebiDataContent">
+                    CiteXplore
+                </td>
+            </tr>
+
+            <script>dbCitations.push(new dbCitation("16341241","PubMed citation","CiteXplore"));</script>
+        
+            <tr>
+                <td class="chebiDataContent">
+                    
+                    
+                        24362891
+                    
+                </td>
+                <td class="chebiDataContent">
+                    PubMed citation
+                </td>
+                <td class="chebiDataContent">
+                    CiteXplore
+                </td>
+            </tr>
+
+            <script>dbCitations.push(new dbCitation("24362891","PubMed citation","CiteXplore"));</script>
+        
+        </tbody>
+    </table>
+
+
+
+    <script>testCitationConnection();</script>
+
+
+
+    <div style="padding:5px"></div>
+    <table class="chebiTableContent">
+        <tr>
+            <td class="chebiDataHeader">
+                Last Modified
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Last Modified', 800, 600)" titleKey="structure.link.title.lastmodified" class="no-underline">
+                    <img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" />
+                </a>
+                    
+            </td>
+        </tr>
+        <tr>
+            <td>27 January 2016</td>
+        </tr>
+    </table>
+
+
+
+
+
+    <tr><td>
+        <table width="100%" >
+            <tr>
+                <td class="chebiDataHeader" align="left" width="100%" colspan="2">
+                    General Comment
+                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD?printerFriendlyView=true#Comment', 800, 600)" titleKey="compoundResult.link.title.comments" class="no-underline">
+                        <img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" />
+                    </a>
+                </td>
+            </tr>
+            
+                <tr>
+                    <td class="chebiDataContent" width="30%">
+                        <img src="/chebi/images/book_open.gif;jsessionid=146469AEC1AC8BD0B7AD875BF07E44DD" height="15" width="17" border="0"> 2011-04-06
+                    </td>
+                    <td class="chebiDataContent" width="70%">
+                        Squalene is the biochemical precursor to the whole family of steroids. Oxidation (via squalene monooxygenase) of one of the terminal double bonds of squalene yields 2,3-squalene oxide, which undergoes enzyme-catalyzed cyclization to afford lanosterol, which is then elaborated into cholesterol and other steroids (Wikipedia).
+                    </td>
+                </tr>
+            
+        </table>
+    </td></tr>
+    <tr><td>&nbsp;</td></tr>
+
+
+<tr><td>
+
+    <br>
+
+
+    
+
+</div>
+
+
+
+
+
+
+<div id="global-footer" class="grid_24 container_24">
+    <nav id="global-nav-expanded">
+        <div class="grid_4 alpha"><h3 class="embl-ebi"><a href="//www.ebi.ac.uk/" title="EMBL-EBI">EMBL-EBI</a></h3>
+        </div>
+        <div class="grid_4"><h3 class="services"><a href="//www.ebi.ac.uk/services">Services</a></h3></div>
+        <div class="grid_4"><h3 class="research"><a href="//www.ebi.ac.uk/research">Research</a></h3></div>
+        <div class="grid_4"><h3 class="training"><a href="//www.ebi.ac.uk/training">Training</a></h3></div>
+        <div class="grid_4"><h3 class="industry"><a href="//www.ebi.ac.uk/industry">Industry</a></h3></div>
+        <div class="grid_4 omega"><h3 class="about"><a href="//www.ebi.ac.uk/about">About us</a></h3></div>
+    </nav>
+    <section id="ebi-footer-meta"><p class="address">EMBL-EBI, Wellcome Trust Genome Campus, Hinxton, Cambridgeshire,
+        CB10 1SD, UK &nbsp; &nbsp; +44 (0)1223 49 44 44</p>
+
+        <p class="legal">Copyright &copy; EMBL-EBI 2014 | EBI is an Outstation of the <a href="http://www.embl.org">European
+            Molecular Biology Laboratory</a> | <a href="/about/privacy">Privacy</a> | <a
+                href="/about/cookies">Cookies</a> | <a href="/about/terms-of-use">Terms of use</a></p></section>
+</div>
+<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
+<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
+
+</div>
+</body>
+<!-- InstanceEnd -->
+</html>
+
+
+
+
+
