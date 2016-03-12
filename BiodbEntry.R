@@ -74,6 +74,20 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	##################
 	
 	BiodbEntry$methods(	.compute.field = function(field) {
+
+		if ( ! is.null(.self$.factory) && field %in% names(RBIODB.FIELD.COMPUTING)) {
+			for (db in RBIODB.FIELD.COMPUTING[[field]]) {
+				db.id <- .self$getField(paste0(db, 'id'))
+				if ( ! is.na(db.id)) {
+					db.compound <- .self$.factory$createEntry(db, type = RBIODB.COMPOUND, id = db.id)
+					if ( ! is.null(db.compound)) {
+						.self$setField(field, db.compound$getField(field))
+						return(TRUE)
+					}
+				}
+			}
+		}
+
 		return(FALSE)
 	})
 
@@ -84,19 +98,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 #	KeggCompound$methods( .compute.field = function(field) {
 #
 #		# TODO can we make this algorithm automatic ==> put it inside BiodbEntry, so that when a field is not found we can look for it inside related compounds obtained through known IDs (CHEBI.ID, LIPIDMAPS.ID, ...). ==> define which ID/FIELD must be used for each field that is suspetible to be found like this. Make the search an option, because it can be time consuming.
-#		if (field %in% c(RBIODB.INCHI, RBIODB.INCHIKEY)) {
-#			if ( ! is.null(.self$.factory)) {
-#				chebiid <- .self$getField(RBIODB.CHEBI.ID)
-#				if ( ! is.na(chebiid)) {
-#					chebi.compound <- .self$.factory$createCompoundFromDb(RBIODB.CHEBI, chebiid)
-#					if ( ! is.null(chebi.compound)) {
-#						.self$setField(field, chebi.compound$getField(field))
-#						return(TRUE)
-#					}
-#				}
-#			}
-#		}
-#	
+	
 #		return(FALSE)
 #	})
 

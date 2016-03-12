@@ -60,9 +60,8 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	colnames(RBIODB.FIELDS) <- c('name', 'class')
 
 	# How to compute a missing field ?
-	RBIODB.FIELD.COMPUTING <- list(
-		RBIODB.INCHIKEY = c(RBIODB.CHEBI),
-		RBIODB.INCHI    = c(RBIODB.CHEBI)
-		)
+	RBIODB.FIELD.COMPUTING <- list()
+	RBIODB.FIELD.COMPUTING[[RBIODB.INCHI]] <- c(RBIODB.CHEBI)
+	RBIODB.FIELD.COMPUTING[[RBIODB.INCHIKEY]] <- c(RBIODB.CHEBI)
 
 }

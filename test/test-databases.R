@@ -10,18 +10,18 @@ online.test.chebi <- function() {
 	test.entries(RBIODB.CHEBI, RBIODB.COMPOUND, online = TRUE)
 }
 
-# ########
-# # KEGG #
-# ########
-# 
-# offline.test.kegg <- function() {
-# 	test.entries(RBIODB.KEGG, RBIODB.COMPOUND, online = FALSE)
-# }
-# 
-# online.test.kegg <- function() {
-# 	test.entries(RBIODB.KEGG, RBIODB.COMPOUND, online = TRUE)
-# }
-# 
+########
+# KEGG #
+########
+
+offline.test.kegg <- function() {
+	test.entries(RBIODB.KEGG, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.kegg <- function() {
+	test.entries(RBIODB.KEGG, RBIODB.COMPOUND, online = TRUE)
+}
+
 # ############
 # # MASSBANK #
 # ############

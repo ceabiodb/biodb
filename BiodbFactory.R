@@ -71,6 +71,10 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		conn <- .self$getConn(class)
 		entry <- if (is.null(id)) conn$createEntry(type = type, content = content, drop = drop) else conn$getEntry(type = type, id = id, drop = drop)
 
+		# Set factory
+		for (e in c(entry))
+			e$setFactory(.self)
+
 		return(entry)
 	})
 
