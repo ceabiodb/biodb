@@ -1,0 +1,66 @@
+ENTRY       3627              CDS       T01001
+NAME        CXCL10, C7, IFI10, INP10, IP-10, SCYB10, crg-2, gIP-10, mob-1
+DEFINITION  (RefSeq) chemokine (C-X-C motif) ligand 10
+ORTHOLOGY   K12671  C-X-C motif chemokine 10
+ORGANISM    hsa  Homo sapiens (human)
+PATHWAY     hsa04060  Cytokine-cytokine receptor interaction
+            hsa04062  Chemokine signaling pathway
+            hsa04620  Toll-like receptor signaling pathway
+            hsa04622  RIG-I-like receptor signaling pathway
+            hsa04623  Cytosolic DNA-sensing pathway
+            hsa04668  TNF signaling pathway
+            hsa05164  Influenza A
+DISEASE     H01360  Allergic rhinitis
+DRUG_TARGET Other: D10404
+BRITE       KEGG Orthology (KO) [BR:hsa00001]
+             Environmental Information Processing
+              Signal transduction
+               04668 TNF signaling pathway
+                3627 (CXCL10)
+              Signaling molecules and interaction
+               04060 Cytokine-cytokine receptor interaction
+                3627 (CXCL10)
+             Organismal Systems
+              Immune system
+               04620 Toll-like receptor signaling pathway
+                3627 (CXCL10)
+               04622 RIG-I-like receptor signaling pathway
+                3627 (CXCL10)
+               04623 Cytosolic DNA-sensing pathway
+                3627 (CXCL10)
+               04062 Chemokine signaling pathway
+                3627 (CXCL10)
+             Human Diseases
+              Infectious diseases
+               05164 Influenza A
+                3627 (CXCL10)
+            Cytokines [BR:hsa04052]
+             Chemokines
+              CXC chemokine family
+               3627 (CXCL10)
+            Glycosaminoglycan binding proteins [BR:hsa00536]
+             Heparan sulfate/Haparin
+              Chemokines	(General comment) Chemokine presentation, transcellular transport, signal transduction
+               3627 (CXCL10)
+POSITION    4q21
+MOTIF       Pfam: IL8
+DBLINKS     NCBI-ProteinID: NP_001556
+            NCBI-GeneID: 3627
+            OMIM: 147310
+            HGNC: 10637
+            HPRD: 00930
+            Ensembl: ENSG00000169245
+            Vega: OTTHUMG00000160887
+            UniProt: P02778 A0A024RDA4
+STRUCTURE   PDB: 1O7Z 1O7Y 1O80
+AASEQ       98
+            MNQTAILICCLIFLTLSGIQGVPLSRTVRCTCISISNQPVNPRSLEKLEIIPASQFCPRV
+            EIIATMKKKGEKRCLNPESKAIKNLLKAVSKERSKRSP
+NTSEQ       297
+            atgaatcaaactgccattctgatttgctgccttatctttctgactctaagtggcattcaa
+            ggagtacctctctctagaactgtacgctgtacctgcatcagcattagtaatcaacctgtt
+            aatccaaggtctttagaaaaacttgaaattattcctgcaagccaattttgtccacgtgtt
+            gagatcattgctacaatgaaaaagaagggtgagaagagatgtctgaatccagaatcgaag
+            gccatcaagaatttactgaaagcagttagcaaggaaaggtctaaaagatctccttaa
+///
+

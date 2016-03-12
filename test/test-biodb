@@ -41,36 +41,45 @@ read.args <- function() {
   return(opt)
 }
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+######################
+# BIODB TEST FACTORY #
+######################
 
-get.entry.content <- function(factory, db, entry.type, accession, online) {
+BiodbTestFactory <- setRefClass("BiodbTestFactory", contains = "BiodbFactory", fields = list(.online = 'logical'))
+
+BiodbTestFactory$methods( initialize = function(online, ...) {
+	.online <<- online
+	callSuper(...)
+})
+
+BiodbTestFactory$methods( getEntryContent = function(class, type, id) {
 
 	# Get file extension
-	ext <- factory$getConn(db)$getEntryContentType(entry.type)
+	ext <- .self$getConn(class)$getEntryContentType(type)
 
 	# Set content filenames
-	content.filenames <- vapply(accession, function(x) paste0(db, '-', entry.type, '-', x, '.', ext), FUN.VALUE = '')
+	content.filenames <- vapply(id, function(x) paste0(class, '-', type, '-', x, '.', ext), FUN.VALUE = '')
 
-	if (online) {
+	if (.self$.online) {
 
 		# Get contents from database
-		contents <- factory$getEntryContent(db, entry.type, accession)
+		conn <- .self$getConn(class)
+		content <- conn$getEntryContent(type, id)
 
 		# Write contents into files
 		content.file.path <- vapply(content.filenames, function(x) file.path(dirname(script.path), x), FUN.VALUE = '')
-		mapply(writeLines, contents, content.file.path)
+		mapply(writeLines, content, content.file.path)
 	}
 	else {
 
 		# Read contents from files
 		content.file.path <- vapply(content.filenames, function(x) file.path(dirname(script.path), 'res', x), FUN.VALUE = '')
-		contents <- vapply(content.file.path, function(x) paste(readLines(x), collapse = "\n"), FUN.VALUE = '')
+		content <- vapply(content.file.path, function(x) paste(readLines(x), collapse = "\n"), FUN.VALUE = '')
 	}
 
-	return(contents)
-}
+	return(content)
+})
+
 
 ################
 # TEST ENTRIES #
@@ -79,51 +88,28 @@ get.entry.content <- function(factory, db, entry.type, accession, online) {
 test.entries <- function(db, entry.type, online = TRUE) {
 
 	# Create factory
-	factory <- BiodbFactory$new(useragent = USER.AGENT)
+	factory <- BiodbTestFactory$new(online = online, useragent = USER.AGENT)
 
 	# Test a wrong accession number
-	wrong.content <- get.entry.content(factory, db, entry.type, 'WRONG', online = online)
-	wrong.entry <- factory$createEntry(db, entry.type, content = wrong.content)
+	wrong.entry <- factory$createEntry(db, entry.type, id = 'WRONG')
 	checkTrue(is.null(wrong.entry))
-
-	# TODO Use database .txt file to test entries (spectra or compounds).
-	# TODO Use handlesEntryType() method to know when a database is a spectra or a compound database (or both).
 
 	# Download contents
 	entries.file <- file.path(dirname(script.path), 'res', paste0(if (entry.type == RBIODB.SPECTRUM) 'spectra' else 'compounds', '-', db, '.txt'))
 	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
-	contents <- get.entry.content(factory, db, entry.type, entries.desc[[RBIODB.ACCESSION]], online = online)
 
 	# Create entries
-	entries <- factory$createEntry(db, entry.type, content = contents, drop = FALSE)
+	entries <- factory$createEntry(db, entry.type, id = entries.desc[[RBIODB.ACCESSION]], drop = FALSE)
 
 	# Test fields of entries
-#	print(entries)
 	for (f in colnames(entries.desc)) {
-#		print('FIELD')
-#		print(f)
-#		print(entries[[1]])
 		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
-#		print(entries.desc[[f]])
 		e.values <- vapply(entries, function(e) e$getField(f), FUN.VALUE = vector(mode = entries[[1]]$getFieldClass(f), length = 1))
-#		print(e.values)
 		switch(f,
 				checkEquals(entries.desc[[f]], e.values, paste0("Error with field \"", f, "\"."))
 			  )
 	}
 }
-
-#########################
-# MASS BANK ENTRY TESTS #
-#########################
-
-#online.test.massbank <- function() {
-#	test.entries(RBIODB.MASSBANK, RBIODB.SPECTRUM)
-#}
-#
-#offline.test.massbank <- function() {
-#	test.entries(RBIODB.MASSBANK, RBIODB.SPECTRUM, online = FALSE)
-#}
 
 ########
 # MAIN #

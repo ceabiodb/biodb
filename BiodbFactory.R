@@ -68,8 +68,12 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		is.null(id) && is.null(content) && stop("One of id or content must be set.")
 		! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
 
+		# Get content
+		if ( ! is.null(id))
+			content <- .self$getEntryContent(class, type, id)
+
 		conn <- .self$getConn(class)
-		entry <- if (is.null(id)) conn$createEntry(type = type, content = content, drop = drop) else conn$getEntry(type = type, id = id, drop = drop)
+		entry <- conn$createEntry(type = type, content = content, drop = drop)
 
 		# Set factory
 		for (e in c(entry))
