@@ -7,7 +7,8 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# CONSTANTS #
 	#############
 
-	RBIODB.MASSBANK.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
+	# TODO Let the choice to use either jp or eu
+	RBIODB.MASSBANK.WS.URL  <- "http://www.massbank.eu/api/services/MassBankAPI/getRecordInfo"
 
 	#####################
 	# CLASS DECLARATION #
