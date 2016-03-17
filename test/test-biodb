@@ -27,16 +27,21 @@ read.args <- function() {
     'name',         'n', 1, 'character',    'Run only test of the specified name. Unset by default.',
     'quick',        'q', 0, 'logical',      'Turn off long tests. Disabled by default.',
     'offline',      'f', 0, 'logical',      'Turn off online tests. Disabled by default.',
-    'online',       'o', 0, 'logical',      'Turn off offline tests. Disabled by default.'
+    'online',       'o', 0, 'logical',      'Turn off offline tests. Disabled by default.',
+    'databases',    'd', 1, 'character',    'Set a restricted list of databases to test. The list must be specified as a comma separated list, no spaces. If unset, test all databases.'
   ), byrow = TRUE, ncol = 5)
    
   opt <- getopt(spec)
 
-  # help
+  # Help
   if ( ! is.null(opt$help)) {
     cat(getopt(spec, usage = TRUE, command = prog))
     q(status = 0)
   }
+
+  # Process lists
+  if ( ! is.null(opt$databases))
+	  opt$databases <- strsplit(opt$databases, ",")[[1]]
 
   return(opt)
 }
@@ -123,12 +128,23 @@ opt <- read.args()
 if ( ! is.null(opt$name)) {
 	test.fcts <- paste0('^', opt$name, '$')
 } else {
+
+	# Set prefix
 	prefix <- NULL
 	if (is.null(opt$online))
 		prefix <- c(prefix, 'offline')
 	if (is.null(opt$offline))
 		prefix <- c(prefix, 'online')
-	test.fcts <- paste0('^(', paste(prefix, collapse = '|'), ')\\.test\\..+')
+	if ( ! is.null(prefix))
+		prefix <- paste0('(', paste(prefix, collapse = '|'), ')\\.')
+
+	# Set databases to test
+	dbs <- '\\..+' # all databases by default
+	if ( ! is.null(opt$databases))
+		dbs <- paste0('\\.(', paste(opt$databases, collapse = '|'), ')')
+
+	# Set test functions
+	test.fcts <- paste0('^', prefix, 'test', dbs)
 }
 
 test.suite <- defineTestSuite('biodb', dirname(script.path), testFileRegexp = '^test-databases\\.R$', testFuncRegexp = test.fcts)
