@@ -1,10 +1,55 @@
-if ( ! exists('get.chemspider.image.url')) { # Do not load again if already loaded
+if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 
-	############################
-	# GET CHEMSPIDER COMPOUND URL #
-	############################
+	source('BiodbConn.R')
+	source('ChemspiderCompound.R')
 	
-	get.chemspider.compound.url <- function(id, type = RBIODB.HTML) {
+	#####################
+	# CLASS DECLARATION #
+	#####################
+	
+	ChemspiderConn <- setRefClass("ChemspiderConn", contains = "BiodbConn")
+
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
+
+	ChemspiderConn$methods( getEntryContentType = function(type) {
+		return(RBIODB.HTML)
+	})
+
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
+	
+	ChemspiderConn$methods( getEntryContent = function(type, id) {
+
+		if (type == RBIODB.COMPOUND) {
+
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
+
+			# Request
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.chemspider.compound.url(x)), FUN.VALUE = '')
+
+			return(content)
+		}
+
+		return(NULL)
+	})
+	
+	################
+	# CREATE ENTRY #
+	################
+	
+	ChemspiderConn$methods( createEntry = function(type, content, drop = TRUE) {
+		return(if (type == RBIODB.COMPOUND) createChemspiderCompoundFromHtml(content, drop = drop) else NULL)
+	})
+
+	###############################
+	# GET CHEMSPIDER COMPOUND URL #
+	###############################
+	
+	get.chemspider.compound.url <- function(id) {
 	
 		url <- paste0('http://www.chemspider.com/Chemical-Structure.', id, '.html')
 

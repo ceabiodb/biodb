@@ -1,6 +1,18 @@
-###########
+##############
+# CHEMSPIDER #
+##############
+
+offline.test.chemspider <- function() {
+	test.entries(RBIODB.CHEMSPIDER, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.chemspider <- function() {
+	test.entries(RBIODB.CHEMSPIDER, RBIODB.COMPOUND, online = TRUE)
+}
+
+########
 # HMDB #
-###########
+########
 
 offline.test.hmdb <- function() {
 	test.entries(RBIODB.HMDB, RBIODB.COMPOUND, online = FALSE)

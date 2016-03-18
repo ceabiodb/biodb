@@ -5,6 +5,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('KeggConn.R')
 	source('PubchemConn.R')
 	source('HmdbConn.R')
+	source('ChemspiderConn.R')
 	source('MassbankConn.R')
 
 	#####################
@@ -48,6 +49,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                	kegg  = KeggConn$new(useragent = .self$.useragent),
 		                	pubchem  = PubchemConn$new(useragent = .self$.useragent),
 		                	hmdb  = HmdbConn$new(useragent = .self$.useragent),
+		                	chemspider  = ChemspiderConn$new(useragent = .self$.useragent),
 		                	massbank  = MassbankConn$new(useragent = .self$.useragent),
 		      	          	NULL)
 

@@ -14,11 +14,12 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.XML  <- 'xml'
 
 	# Class names
-	RBIODB.CHEBI <- 'chebi'
-	RBIODB.KEGG  <- 'kegg'
-	RBIODB.PUBCHEM  <- 'pubchem'
-	RBIODB.HMDB      <- 'hmdb'
-	RBIODB.MASSBANK  <- 'massbank'
+	RBIODB.CHEBI        <- 'chebi'
+	RBIODB.KEGG         <- 'kegg'
+	RBIODB.PUBCHEM      <- 'pubchem'
+	RBIODB.HMDB         <- 'hmdb'
+	RBIODB.CHEMSPIDER   <- 'chemspider'
+	RBIODB.MASSBANK     <- 'massbank'
 
 	# Fields
 	RBIODB.COMPOUND     <- 'compound'

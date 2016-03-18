@@ -1,4 +1,4 @@
-if ( ! exists('ChebiCompound')) { # Do not load again if already loaded
+if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
 	
@@ -6,13 +6,13 @@ if ( ! exists('ChebiCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	ChebiCompound <- setRefClass("ChebiCompound", contains = "BiodbEntry")
+	ChemspiderCompound <- setRefClass("ChemspiderCompound", contains = "BiodbEntry")
 	
 	###########
 	# FACTORY #
 	###########
 	
-	createChebiCompoundFromHtml <- function(contents, drop = TRUE) {
+	createChemspiderCompoundFromHtml <- function(contents, drop = TRUE) {
 
 		library(XML)
 
@@ -20,14 +20,11 @@ if ( ! exists('ChebiCompound')) { # Do not load again if already loaded
 
 		# Define xpath expressions
 		xpath.expr <- character()
-#		xpath.expr[[RBIODB.ACCESSION]] <- "//b[starts-with(., 'CHEBI:')]"
-		xpath.expr[[RBIODB.INCHI]] <- "//td[starts-with(., 'InChI=')]"
-		xpath.expr[[RBIODB.INCHIKEY]] <- "//td[text()='InChIKey']/../td[2]"
 
 		for (html in contents) {
 
 			# Create instance
-			compound <- ChebiCompound$new()
+			compound <- ChemspiderCompound$new()
 		
 			# Parse HTML
 			xml <-  htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
@@ -40,9 +37,9 @@ if ( ! exists('ChebiCompound')) { # Do not load again if already loaded
 			}
 		
 			# Get accession
-			accession <- xpathSApply(xml, "//b[starts-with(., 'CHEBI:')]", xmlValue)
+			accession <- xpathSApply(xml, "//li[starts-with(., 'ChemSpider ID')]", xmlValue)
 			if (length(accession) > 0) {
-				accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
+				accession <- sub('^ChemSpider ID([0-9]+)$', '\\1', accession, perl = TRUE)
 				compound$setField(RBIODB.ACCESSION, accession)
 			}
 
@@ -59,3 +56,4 @@ if ( ! exists('ChebiCompound')) { # Do not load again if already loaded
 		return(compounds)
 	}
 }
+
