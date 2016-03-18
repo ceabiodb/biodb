@@ -17,6 +17,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.CHEBI <- 'chebi'
 	RBIODB.KEGG  <- 'kegg'
 	RBIODB.PUBCHEM  <- 'pubchem'
+	RBIODB.HMDB      <- 'hmdb'
 	RBIODB.MASSBANK  <- 'massbank'
 
 	# Fields
@@ -35,6 +36,10 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.MSMODE       <- 'msmode'
 	RBIODB.MSPRECMZ     <- 'msprecmz'       # numeric
 	RBIODB.MSPRECANNOT  <- 'msprecannot'
+	RBIODB.FORMULA      <- 'formula'
+	RBIODB.SUPER.CLASS  <- 'superclass'
+	RBIODB.AVERAGE.MASS <- 'averagemass'
+	RBIODB.MONOISOTOPIC.MASS <- 'monoisotopicmass'
 
 	RBIODB.MSMODE.NEG <- 'neg'
 	RBIODB.MSMODE.POS <- 'pos'
@@ -55,7 +60,11 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		RBIODB.MSTYPE,          'character',
 		RBIODB.MSMODE,          'character',
 		RBIODB.MSPRECMZ,        'double',
-		RBIODB.MSPRECANNOT,     'character'
+		RBIODB.MSPRECANNOT,     'character',
+		RBIODB.FORMULA,         'character',
+		RBIODB.SUPER.CLASS,     'character',
+		RBIODB.AVERAGE.MASS,    'double',
+		RBIODB.MONOISOTOPIC.MASS,   'double'
 		), byrow = TRUE, ncol = 2), stringsAsFactors = FALSE)
 	colnames(RBIODB.FIELDS) <- c('name', 'class')
 

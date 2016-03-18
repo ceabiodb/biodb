@@ -1,6 +1,5 @@
 if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 
-	library(XML)
 	source('BiodbEntry.R')
 
 	#####################
@@ -14,6 +13,8 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 	###########
 
 	createPubchemCompoundFromXml <- function(contents, drop = TRUE) {
+
+		library(XML)
 
 		compounds <- list()
 

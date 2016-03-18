@@ -1,4 +1,16 @@
 ###########
+# HMDB #
+###########
+
+offline.test.hmdb <- function() {
+	test.entries(RBIODB.HMDB, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.hmdb <- function() {
+	test.entries(RBIODB.HMDB, RBIODB.COMPOUND, online = TRUE)
+}
+
+###########
 # PUBCHEM #
 ###########
 
