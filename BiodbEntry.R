@@ -91,17 +91,6 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		return(FALSE)
 	})
 
-#	#################
-#	# COMPUTE FIELD #
-#	#################
-#	
-#	KeggCompound$methods( .compute.field = function(field) {
-#
-#		# TODO can we make this algorithm automatic ==> put it inside BiodbEntry, so that when a field is not found we can look for it inside related compounds obtained through known IDs (CHEBI.ID, LIPIDMAPS.ID, ...). ==> define which ID/FIELD must be used for each field that is suspetible to be found like this. Make the search an option, because it can be time consuming.
-	
-#		return(FALSE)
-#	})
-
 	###########
 	# FACTORY #
 	###########

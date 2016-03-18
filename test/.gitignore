@@ -4,3 +4,5 @@ test-*.html
 *-entry-*.*
 *-compound-*.*
 !res/*
+res/.swp
+res/.*.swp

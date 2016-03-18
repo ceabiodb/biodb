@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Record
+    xmlns="http://pubchem.ncbi.nlm.nih.gov/pug_view"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+    xs:schemaLocation="http://pubchem.ncbi.nlm.nih.gov/pug_view http://pubchem.ncbi.nlm.nih.gov/pug_view/pug_view.xsd"
+>
+  <RecordType>CID</RecordType>
+  <RecordNumber>2</RecordNumber>
+  <Section>
+    <TOCHeading>2D Structure</TOCHeading>
+    <Description>A two-dimensional representation of the compound.</Description>
+    <Information>
+      <ReferenceNumber>4</ReferenceNumber>
+      <Name>2D Structure</Name>
+      <BoolValue>true</BoolValue>
+    </Information>
+  </Section>
+  <Section>
+    <TOCHeading>3D Conformer</TOCHeading>
+    <Description>A three-dimensional representation of the compound.  The 3-D structure is not experimentally determined, but computed by PubChem.  More detailed information on this conformer model is described in the &lt;a href=&quot;http://www.jcheminf.com/series/pubchem3d&quot;&gt;PubChem3D themetic series &lt;/a&gt; published in the Journal of Cheminformatics.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#3DConformer&quot;&gt;Read more...&lt;/a&gt;</Description>
+    <Information>
+      <ReferenceNumber>4</ReferenceNumber>
+      <Name>3D Conformer</Name>
+      <Description>ST079275</Description>
+      <NumValue>2</NumValue>
+    </Information>
+  </Section>
+  <Section>
+    <TOCHeading>Names and Identifiers</TOCHeading>
+    <Description>Information describing the identity of this PubChem Compound record, including record identifiers, synonyms (i.e., chemical names), descriptors, etc.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Identification&quot;&gt;Read more...&lt;/a&gt;</Description>
+    <Section>
+      <TOCHeading>Record Title</TOCHeading>
+      <Description>Text used as the title for this PubChem record</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Record Title</Name>
+        <StringValue>ST079275</StringValue>
+      </Information>
+    </Section>
+    <Section>
+      <TOCHeading>Computed Descriptors</TOCHeading>
+      <Description>Computer algorithm generated (computed) descriptors that use as input the chemical structure information from this record</Description>
+      <Section>
+        <TOCHeading>IUPAC Name</TOCHeading>
+        <Description>Computed chemical name from the chemical structure that uses International Union of Pure and Applied Chemistry (IUPAC) nomenclature standards.  &lt;a href=&quot;http://old.iupac.org/publications/books/seriestitles/nomenclature.html&quot;&gt;Read more..&lt;/a&gt; </Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>IUPAC Name</Name>
+          <StringValue>(2-acetyloxy-3-carboxypropyl)-trimethylazanium</StringValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>InChI</TOCHeading>
+        <Description>Computed International Chemical Identifier (InChI) from the chemical structure using the International Union of Pure and Applied Chemistry (IUPAC) standard. &lt;a href=&quot;http://www.iupac.org/home/publications/e-resources/inchi.html&quot;&gt;Read more..&lt;/a&gt;</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>InChI</Name>
+          <StringValue>InChI=1S/C9H17NO4/c1-7(11)14-8(5-9(12)13)6-10(2,3)4/h8H,5-6H2,1-4H3/p+1</StringValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>InChI Key</TOCHeading>
+        <Description>Computed International Chemical Identifier hash (InChIKey) from the chemical structure using the International Union of Pure and Applied Chemistry (IUPAC) standard. &lt;a href=&quot;http://www.iupac.org/home/publications/e-resources/inchi.html&quot;&gt;Read more..&lt;/a&gt;</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>InChI Key</Name>
+          <StringValue>RDHQFKQIGNGIED-UHFFFAOYSA-O</StringValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Canonical SMILES</TOCHeading>
+        <Description>Computed Simplified Molecular-Input Line-Entry System (SMILES) from the chemical structure devoid of isotopic and stereochemical information.  &lt;a href=&quot;http://www.daylight.com/dayhtml/doc/theory/theory.smiles.html&quot;&gt;Read more..&lt;/a&gt;</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Canonical SMILES</Name>
+          <StringValue>CC(=O)OC(CC(=O)O)C[N+](C)(C)C</StringValue>
+        </Information>
+      </Section>
+    </Section>
+    <Section>
+      <TOCHeading>Other Identifiers</TOCHeading>
+      <Description>Important identifiers assigned to this chemical substance by authoritative organizations</Description>
+      <Section>
+        <TOCHeading>Wikipedia</TOCHeading>
+        <Description>Links to Wikipedia for this record.</Description>
+        <HintGroupSubsectionsByReference>true</HintGroupSubsectionsByReference>
+        <Information>
+          <ReferenceNumber>2</ReferenceNumber>
+          <Name>Title</Name>
+          <URL>https://en.wikipedia.org/wiki/Acetylcarnitine</URL>
+          <StringValue>Acetylcarnitine</StringValue>
+        </Information>
+        <Information>
+          <ReferenceNumber>2</ReferenceNumber>
+          <Name>Description</Name>
+          <StringValue>pharmaceutical drug</StringValue>
+        </Information>
+      </Section>
+    </Section>
+    <Section>
+      <TOCHeading>Synonyms</TOCHeading>
+      <Description>Alternative names for this PubChem Compound record.  A compound can have many different names.  For example, acetone (CH3C(=O)CH3) is also known as propanone, propan-2-one, or dimethyl ketone.  The brand name of a product is commonly used to indicate the primary chemical ingredient(s) in the product (e.g., Tylenol, a common pain killer, is often used for acetaminophen, its active ingredient).  Another example of common synonyms is record identifiers used in different data collections, such as Chemical Abstract Service (CAS) registry numbers, FDA UNII (Unique Ingredient Identifiers), and many others.  All these various names and identifiers that designate this compound are organized under the Synonyms section.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#DataProcessingSynonyms&quot;&gt;Read more...&lt;/a&gt;</Description>
+      <Section>
+        <TOCHeading>Depositor-Supplied Synonyms</TOCHeading>
+        <Description>Chemical names and identifiers provided by individual data contributors and associated to PubChem Substance records. Synonyms of Substances corresponding to a PubChem Compound record are combined.  [&lt;a href=&quot;http://pubchemblog.ncbi.nlm.nih.gov/2014/06/19/what-is-the-difference-between-a-substance-and-a-compound-in-pubchem/&quot;&gt;Read this blog&lt;/a&gt; on the difference between Compound and Substance records in PubChem.]  Some contributed names may be considered erroneous and suppressed.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#SynonymsFiltered&quot;&gt;Read more...&lt;/a&gt;</Description>
+        <HintEmbeddedHTML>false</HintEmbeddedHTML>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Depositor-Supplied Synonyms</Name>
+          <StringValueList>ST079275</StringValueList>
+          <StringValueList>RDHQFKQIGNGIED-UHFFFAOYSA-N</StringValueList>
+          <StringValueList>(2-acetyloxy-4-hydroxy-4-oxobutyl)-trimethylazanium</StringValueList>
+          <StringValueList>ACMC-20ls4e</StringValueList>
+          <StringValueList>(2s)-2-(acetyloxy)-3-carboxy-n,n,n-trimethylpropan-1-aminium</StringValueList>
+          <StringValueList>SCHEMBL3259109</StringValueList>
+          <StringValueList>CHEMBL1625375</StringValueList>
+          <StringValueList>MolPort-009-753-366</StringValueList>
+          <StringValueList>89946-58-7</StringValueList>
+          <StringValueList>AC1L1897</StringValueList>
+          <StringValueList>AKOS024284761</StringValueList>
+          <StringValueList>MCULE-4252227019</StringValueList>
+          <StringValueList>AN-16201</StringValueList>
+          <StringValueList>3-Acetoxy-4-(trimethylaminio)butanoic acid</StringValueList>
+          <StringValueList>LS-187296</StringValueList>
+          <StringValueList>(2-acetoxy-3-carboxy-propyl)-trimethyl-ammonium</StringValueList>
+          <StringValueList>(3R)-3-acetyloxy-4-(trimethylamino)butanoic acid</StringValueList>
+          <StringValueList>2-(acetyloxy)-3-carboxy-N,N,N-trimethylpropan-1-aminium</StringValueList>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Removed Synonyms</TOCHeading>
+        <Description>Potentially erroneous chemical names and identifiers provided by PubChem Substance records for the same chemical structure that were removed by name/structure consistency filtering.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#SynonymsUnfiltered&quot;&gt;Read more...&lt;/a&gt;</Description>
+        <HintEmbeddedHTML>false</HintEmbeddedHTML>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Removed Synonyms</Name>
+          <StringValueList>acetylcarnitine</StringValueList>
+          <StringValueList>Acetyl-DL-carnitine</StringValueList>
+          <StringValueList>CID2</StringValueList>
+          <StringValueList>C02571</StringValueList>
+          <StringValueList>1-Propanaminium, 2-(acetyloxy)-3-carboxy-N,N,N-trimethyl-, (2R)-</StringValueList>
+          <StringValueList>1-Propanaminium, 2-(acetyloxy)-3-carboxy-N,N,N-trimethyl-, inner salt</StringValueList>
+          <StringValueList>14992-62-2</StringValueList>
+        </Information>
+      </Section>
+    </Section>
+    <Section>
+      <TOCHeading>Create Date</TOCHeading>
+      <Description>Date the compound record was initially added to PubChem</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Create Date</Name>
+        <DateValue>2005-06-23</DateValue>
+      </Information>
+    </Section>
+    <Section>
+      <TOCHeading>Modify Date</TOCHeading>
+      <Description>Date this record was last updated in PubChem</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Modify Date</Name>
+        <DateValue>2016-03-15</DateValue>
+      </Information>
+    </Section>
+  </Section>
+  <Section>
+    <TOCHeading>Chemical and Physical Properties</TOCHeading>
+    <Description>Chemical and physical properties such as melting point, molecular weight, etc.</Description>
+    <Section>
+      <TOCHeading>Computed Properties</TOCHeading>
+      <Description>Properties computed automatically from the given chemical structure</Description>
+      <Section>
+        <TOCHeading>Molecular Weight</TOCHeading>
+        <Description>Molecular weight or molecular mass refers to the mass of a molecule. It is calculated as the sum of the mass of each constituent atom multiplied by the number of atoms of that element in the molecular formula.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Molecular Weight</Name>
+          <NumValue>204.24352</NumValue>
+          <ValueUnit>g/mol</ValueUnit>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Molecular Formula</TOCHeading>
+        <Description>A chemical formula is a way of expressing information about the proportions of atoms that constitute a particular chemical compound, using a single line of chemical element symbols, numbers. PubChem is using the Hill system that write the chemical formulas in a way that the number of carbon atoms in a molecule is indicated first, the number of hydrogen atoms next, and then the number of all other chemical elements subsequently, in alphabetical order. When the formula contains no carbon, all the elements, including hydrogen, are listed alphabetically. </Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Molecular Formula</Name>
+          <StringValue>C9H18NO4+</StringValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>XLogP3</TOCHeading>
+        <Description>Computed Octanol/Water Partition Coefficient</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>XLogP3-AA</Name>
+          <NumValue>-0.3</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Hydrogen Bond Donor Count</TOCHeading>
+        <Description>Hydrogen Bond Donor count</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Hydrogen Bond Donor Count</Name>
+          <NumValue>1</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Hydrogen Bond Acceptor Count</TOCHeading>
+        <Description>Hydrogen Bond Acceptor count</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Hydrogen Bond Acceptor Count</Name>
+          <NumValue>4</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Rotatable Bond Count</TOCHeading>
+        <Description>Rotatable bond is defined as any single non-ring bond, bounded to nonterminal heavy (i.e., non-hydrogen) atom.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Rotatable Bond Count</Name>
+          <NumValue>6</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Exact Mass</TOCHeading>
+        <Description>The exact mass of an isotopic species is obtained by summing the masses of the individual isotopes of the molecule.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Exact Mass</Name>
+          <NumValue>204.123583</NumValue>
+          <ValueUnit>g/mol</ValueUnit>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Monoisotopic Mass</TOCHeading>
+        <Description>The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Monoisotopic Mass</Name>
+          <NumValue>204.123583</NumValue>
+          <ValueUnit>g/mol</ValueUnit>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Topological Polar Surface Area</TOCHeading>
+        <Description>The topological polar surface area (TPSA) of a molecule is defined as the surface sum over all polar atoms in a molecule. </Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Topological Polar Surface Area</Name>
+          <NumValue>63.6</NumValue>
+          <ValueUnit>A^2</ValueUnit>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Heavy Atom Count</TOCHeading>
+        <Description>A heavy atom is defined as any atom except hydrogen in a chemical structure.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Heavy Atom Count</Name>
+          <NumValue>14</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Formal Charge</TOCHeading>
+        <Description>Formal charge is the difference between the number of valence electrons of each atom and the number of electrons the atom is associated with. Formal charge assumes any shared electrons are equally shared between the two bonded atoms.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Formal Charge</Name>
+          <NumValue>1</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Complexity</TOCHeading>
+        <Description>The complexity rating of a compound is a rough estimate of how complicated a structure is, seen from both the point of view of the elements contained and the displayed structural features including symmetry. This complexity rating is computed using the Bertz/Hendrickson/Ihlenfeldt formula.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/help.html#Glossary&quot;&gt;Read more...&lt;/a&gt;</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Complexity</Name>
+          <NumValue>219</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Isotope Atom Count</TOCHeading>
+        <Description>Isotopte Atom Count is the number of isotopes that are not most abundant for the corresponding chemical elements.  Isotopes are variants of a chemical element which differ in neutron number.  For example, among three isotopes of carbon (i.e., C-12, C-13, and C-14), the isotope atom count considers the C-13 and C-14 atoms, because C-12 is the most abundant isotope of carbon.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Isotope Atom Count</Name>
+          <NumValue>0</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Defined Atom Stereocenter Count</TOCHeading>
+        <Description>An atom stereocenter, also known as a chiral center, is an atom that is attached to four different types of atoms (or groups of atoms) in the tetrahedral arrangement. It can have either (R)- or (S)- configurations.  Some compounds, such as racemic mixtures, have an undefined atom stereocenter, whose (R/S)-configuration is not specifically defined.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Defined Atom Stereocenter Count</Name>
+          <NumValue>0</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Undefined Atom Stereocenter Count</TOCHeading>
+        <Description>An atom stereocenter, also known as a chiral center, is an atom that is attached to four different types of atoms (or groups of atoms) in the tetrahedral arrangement. It can have either (R)- or (S)- configurations.  Some compounds, such as racemic mixtures, have an undefined atom stereocenter, whose (R/S)-configuration is not specifically defined.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Undefined Atom Stereocenter Count</Name>
+          <NumValue>1</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Defined Bond Stereocenter Count</TOCHeading>
+        <Description>A bond stereocenter is a non-rotatable bond around which two atoms can have different arrangement (as in cis- and trans-forms of butene around its double bond).  Some compounds have an undefined bond stereocenter, whose stereochemistry is not specifically defined.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Defined Bond Stereocenter Count</Name>
+          <NumValue>0</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Undefined Bond Stereocenter Count</TOCHeading>
+        <Description>A bond stereocenter is a non-rotatable bond around which two atoms can have different arrangement (as in cis- and trans-forms of butene around its double bond).  Some compounds have an undefined bond stereocenter, whose stereochemistry is not specifically defined.</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Undefined Bond Stereocenter Count</Name>
+          <NumValue>0</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Covalently-Bonded Unit Count</TOCHeading>
+        <Description>Covalently-Bonded Unit Count </Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Covalently-Bonded Unit Count</Name>
+          <NumValue>1</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>CACTVS Substructure Key Fingerprint</TOCHeading>
+        <Description>CACTVS Substructure Key Fingerprint</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>CACTVS Substructure Key Fingerprint</Name>
+          <BinaryValue>
+AAADceByOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgAACAAACBThgAYCCAMABgAI
+AACQCAAAAAAAAAAAAAEIAAACABQAgAAHQAAFIAAQAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+</BinaryValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Compound Is Canonicalized</TOCHeading>
+        <Description>Compound is canonicalized</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Compound Is Canonicalized</Name>
+          <BoolValue>true</BoolValue>
+        </Information>
+      </Section>
+    </Section>
+    <Section>
+      <TOCHeading>Spectral Properties</TOCHeading>
+      <Description>Property data related to spectroscopy</Description>
+      <Section>
+        <TOCHeading>MS-MS</TOCHeading>
+        <Description>Data from MS-MS experiments.</Description>
+        <HintGroupSubsectionsByReference>true</HintGroupSubsectionsByReference>
+        <Section>
+          <TOCHeading>MS-MS Fields</TOCHeading>
+          <Description>Individual data values from MS-MS experiments.</Description>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>NIST Number</Name>
+            <NumValueList>1006044</NumValueList>
+            <NumValueList>1006650</NumValueList>
+            <NumValueList>1054068</NumValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>Instrument Type</Name>
+            <StringValueList>IT/ion trap</StringValueList>
+            <StringValueList>IT/ion trap</StringValueList>
+            <StringValueList>IT/ion trap</StringValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>Collision Energy</Name>
+            <NumValueList>0</NumValueList>
+            <NumValueList>0</NumValueList>
+            <NumValueList>0</NumValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>Spectrum Type</Name>
+            <StringValueList>MS2</StringValueList>
+            <StringValueList>MS2</StringValueList>
+            <StringValueList>MS2</StringValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>Precursor Type</Name>
+            <StringValueList>[M+H]+</StringValueList>
+            <StringValueList>[M+H]+</StringValueList>
+            <StringValueList>[M+H]+</StringValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>Precursor m/z</Name>
+            <NumValueList>204.123</NumValueList>
+            <NumValueList>204.123</NumValueList>
+            <NumValueList>204.123</NumValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>Total Peaks</Name>
+            <NumValueList>3</NumValueList>
+            <NumValueList>9</NumValueList>
+            <NumValueList>14</NumValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>m/z Top Peak</Name>
+            <NumValueList>85</NumValueList>
+            <NumValueList>85</NumValueList>
+            <NumValueList>84.9</NumValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>m/z 2nd Highest</Name>
+            <NumValueList>145</NumValueList>
+            <NumValueList>145</NumValueList>
+            <NumValueList>145</NumValueList>
+          </Information>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>m/z 3rd Highest</Name>
+            <NumValueList>60</NumValueList>
+            <NumValueList>144</NumValueList>
+            <NumValueList>60</NumValueList>
+          </Information>
+        </Section>
+        <Section>
+          <TOCHeading>MS-MS Images</TOCHeading>
+          <Description>Spectral or other evidenciary images from MS-MS experiments.</Description>
+          <Information>
+            <ReferenceNumber>1</ReferenceNumber>
+            <Name>Thumbnail</Name>
+            <ExternalDataURLList>https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/key/575619_1</ExternalDataURLList>
+            <ExternalDataURLList>https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/key/575619_2</ExternalDataURLList>
+            <ExternalDataURLList>https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/key/575619_3</ExternalDataURLList>
+            <ExternalDataMimeType>image/png</ExternalDataMimeType>
+          </Information>
+        </Section>
+      </Section>
+    </Section>
+  </Section>
+  <Section>
+    <TOCHeading>Related Records</TOCHeading>
+    <Description>Related compounds/substances information based on the similar structure, annotations, etc.</Description>
+    <Information>
+      <ReferenceNumber>6</ReferenceNumber>
+      <Name>LinkOut</Name>
+      <BoolValue>true</BoolValue>
+    </Information>
+    <Section>
+      <TOCHeading>Related Compounds with Annotation</TOCHeading>
+      <Description>The subset of compounds that are related to the one currently displayed AND that have biomedical annotations. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#RelatedRecords&quot;&gt;Read more..&lt;/a&gt;</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Related Compounds with Annotation</Name>
+        <BoolValue>true</BoolValue>
+      </Information>
+    </Section>
+    <Section>
+      <TOCHeading>Related Compounds</TOCHeading>
+      <Description>Compound records closely associated to this record. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#RelatedRecords&quot;&gt;Read more..&lt;/a&gt;</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Same Connectivity Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_sameconnectivity_pulldown&amp;from_uid=2</URL>
+        <NumValue>48</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Same Stereo Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_samestereochem_pulldown&amp;from_uid=2</URL>
+        <NumValue>8</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Same Isotope Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_sameisotopic_pulldown&amp;from_uid=2</URL>
+        <NumValue>3</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Same Parent, Connectivity Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_parent_connectivity_pulldown&amp;from_uid=2</URL>
+        <NumValue>121</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Same Parent, Stereo Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_parent_stereo_pulldown&amp;from_uid=2</URL>
+        <NumValue>24</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Same Parent, Isotope Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_parent_isotopes_pulldown&amp;from_uid=2</URL>
+        <NumValue>43</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Same Parent, Exact Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_parent_pulldown&amp;from_uid=2</URL>
+        <NumValue>13</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Mixtures, Components, and Neutralized Forms Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_mixture&amp;from_uid=2</URL>
+        <NumValue>47</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Similar Compounds Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound&amp;from_uid=2</URL>
+        <NumValue>580</NumValue>
+      </Information>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Similar Conformers Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_3d&amp;from_uid=2</URL>
+        <NumValue>340</NumValue>
+      </Information>
+    </Section>
+    <Section>
+      <TOCHeading>Substances</TOCHeading>
+      <Description>Substance records linked to this compound.</Description>
+      <Section>
+        <TOCHeading>Related Substances</TOCHeading>
+        <Description>Substances identical or nearly identical to this record.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#RelatedRecords&quot;&gt;Read more..&lt;/a&gt;</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>All Count</Name>
+          <URL>http://www.ncbi.nlm.nih.gov/pcsubstance/?term=2[CompoundID]</URL>
+          <NumValue>152</NumValue>
+        </Information>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Same Count</Name>
+          <URL>http://www.ncbi.nlm.nih.gov/pcsubstance/?term=2[StandardizedCID]</URL>
+          <NumValue>28</NumValue>
+        </Information>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Mixture Count</Name>
+          <URL>http://www.ncbi.nlm.nih.gov/pcsubstance/?term=2[ComponentCID]</URL>
+          <NumValue>124</NumValue>
+        </Information>
+      </Section>
+      <Section>
+        <TOCHeading>Substances by Category</TOCHeading>
+        <Description>Substance category according to the depositors. Substance Categorization Classification - The subheaders in this section of a PubChem Compound record reflect the various categories of depositors that have submitted corresponding PubChem Substance records. This allows you to quickly find the corresponding PubChem Substance records that are likely to contain a given type of information, such as Chemical Reactions. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Classification&quot;&gt;Read more..&lt;/a&gt;</Description>
+        <Information>
+          <ReferenceNumber>4</ReferenceNumber>
+          <Name>Substances by Category</Name>
+          <StringValueList>Chemical Vendors</StringValueList>
+          <StringValueList>Curation Efforts</StringValueList>
+          <StringValueList>Governmental Organizations</StringValueList>
+          <StringValueList>Research and Development</StringValueList>
+          <StringValueList>Subscription Services</StringValueList>
+        </Information>
+      </Section>
+    </Section>
+    <Section>
+      <TOCHeading>Entrez Crosslinks</TOCHeading>
+      <Description>Cross-references to associated records in other Entrez databases such as PubMed, Gene, Protein, etc.</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>PubMed Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/sites/entrez?LinkName=pccompound_pubmed&amp;db=pccompound&amp;cmd=Link&amp;from_uid=2</URL>
+        <NumValue>344</NumValue>
+      </Information>
+    </Section>
+  </Section>
+  <Section>
+    <TOCHeading>Chemical Vendors</TOCHeading>
+    <Description>A list of chemical vendors that sell this compound.  Each vendor may have multiple products containing the same chemical, but different in various aspects, such as amount and purity.  For each product, the external identifier used to locate the product on the vendor&apos;s website is provided under the Purcharsable Chemical column, and clicking this identifier directs you to the vendor&apos;s website.  The information on the product provided by the vendor to PubChem can be accessed at the Summary page of the corresponding PubChem Substance ID (SID).  Note that the order of chemical vendors on the list is randomized, and that PubChem do not endorse any of the vendors.</Description>
+    <Information>
+      <ReferenceNumber>4</ReferenceNumber>
+      <Name>Chemical Vendors</Name>
+      <BoolValue>true</BoolValue>
+    </Information>
+  </Section>
+  <Section>
+    <TOCHeading>Pharmacology and Biochemistry</TOCHeading>
+    <Description>Pharmacology and biochemistry information related to this record</Description>
+    <Section>
+      <TOCHeading>ATC Code</TOCHeading>
+      <Description>The Anatomical Therapeutic Chemical (ATC) Classification System is used for the classification of drugs. This pharmaceutical coding system divides drugs into different groups according to the organ or system on which they act and/or their therapeutic and chemical characteristics. Each bottom-level ATC code stands for a pharmaceutically used substance, or a combination of substances, in a single indication (or use). This means that one drug can have more than one code: acetylsalicylic acid (aspirin), for example, has A01AD05 as a drug for local oral treatment, B01AC06 as a platelet inhibitor, and N02BA01 as an analgesic and antipyretic. On the other hand, several different brands share the same code if they have the same active substance and indications. &lt;a href=&quot;http://www.whocc.no/atc/&quot;&gt;Read more..&lt;/a&gt;</Description>
+      <Information>
+        <ReferenceNumber>3</ReferenceNumber>
+        <Name>ATC Code</Name>
+        <URL>http://www.whocc.no/atc_ddd_index/?code=N06BX12&amp;showdescription=yes</URL>
+        <StringValue>N06BX12 - &lt;a class=&quot;pubchem-internal-link CID-1&quot; href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/Acetylcarnitine&quot;&gt;Acetylcarnitine&lt;/a&gt; &lt; N06BX - Other psychostimulants and nootropics &lt; N06B - Psychostimulants, agents used for adhd and nootropics &lt; N06 - Psychoanaleptics &lt; N - Nervous system</StringValue>
+      </Information>
+    </Section>
+  </Section>
+  <Section>
+    <TOCHeading>Literature</TOCHeading>
+    <Description>Literature citation references mainly refers to regular publications such as journal articles, etc. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Literature&quot;&gt;Scrollable table that lists all PubMed Citations associated with the chemical structure. Read more..&lt;/a&gt;</Description>
+    <Section>
+      <TOCHeading>Depositor Provided PubMed Citations</TOCHeading>
+      <Description>This section displays a concatenated list of all PubMed records that have been cited by the depositors of all PubChem Substance records that contain the same chemical structure as the compound.</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Depositor Provided PubMed Citation Count</Name>
+        <URL>http://www.ncbi.nlm.nih.gov/sites/entrez?LinkName=pccompound_pubmed&amp;db=pccompound&amp;cmd=Link&amp;from_uid=2</URL>
+        <NumValue>344</NumValue>
+      </Information>
+    </Section>
+  </Section>
+  <Section>
+    <TOCHeading>Patents</TOCHeading>
+    <Description>A PubChem summary page displays Patent information when available for the given molecule. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Patents&quot;&gt;Read more..&lt;/a&gt;</Description>
+    <Section>
+      <TOCHeading>Depositor-Supplied Patent Identifiers</TOCHeading>
+      <Description>Patent identifiers and more information provided by depositors in form of a widget.</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>Depositor-Supplied Patent Identifiers</Name>
+        <BoolValue>true</BoolValue>
+      </Information>
+    </Section>
+  </Section>
+  <Section>
+    <TOCHeading>Biological Test Results</TOCHeading>
+    <Description>A PubChem substance or compound summary page displays biological test results from the PubChem BioAssay database, if/as available, for the chemical structure currently displayed. (Note that you can embed biological test results displays within your own web pages, for a PubChem Compound or Substance of interest, by using theBioActivity Widget.) &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#BiologicalTestResults&quot;&gt;Read more..&lt;/a&gt;</Description>
+    <Section>
+      <TOCHeading>BioAssay Results</TOCHeading>
+      <Description>BioActivity information showed in tabular widget.</Description>
+      <Information>
+        <ReferenceNumber>4</ReferenceNumber>
+        <Name>BioAssay Results</Name>
+        <BoolValue>true</BoolValue>
+      </Information>
+    </Section>
+  </Section>
+  <Section>
+    <TOCHeading>Classification</TOCHeading>
+    <Description>Chemical classification systems from MeSH, ChEBI, Kegg, etc. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Classification&quot;&gt;Read more..&lt;/a&gt;</Description>
+    <Section>
+      <TOCHeading>Ontologies</TOCHeading>
+      <Description>Ontologies</Description>
+      <Section>
+        <TOCHeading>WIPO IPC</TOCHeading>
+        <Description>WIPO IPC tree</Description>
+        <Information>
+          <ReferenceNumber>5</ReferenceNumber>
+          <Name>HID</Name>
+          <URL>https://pubchem.ncbi.nlm.nih.gov/classification/#hid=58</URL>
+          <NumValue>58</NumValue>
+        </Information>
+      </Section>
+    </Section>
+  </Section>
+  <Reference>
+    <ReferenceNumber>1</ReferenceNumber>
+    <SourceName>NIST</SourceName>
+    <SourceID>MS-MS for RDHQFKQIGNGIED-UHFFFAOYSA-N</SourceID>
+    <Name>Acetyl-DL-carnitine</Name>
+    <URL>http://www.nist.gov/srd/nist1a.cfm</URL>
+  </Reference>
+  <Reference>
+    <ReferenceNumber>2</ReferenceNumber>
+    <SourceName>Wikipedia</SourceName>
+    <SourceID>Q311992</SourceID>
+    <Name>Acetylcarnitine</Name>
+    <Description>Link to the compound information in Wikipedia.</Description>
+    <URL>https://en.wikipedia.org/wiki/Acetylcarnitine</URL>
+  </Reference>
+  <Reference>
+    <ReferenceNumber>3</ReferenceNumber>
+    <SourceName>WHO ATC</SourceName>
+    <SourceID>1119</SourceID>
+    <URL>http://www.whocc.no/atc/</URL>
+  </Reference>
+  <Reference>
+    <ReferenceNumber>4</ReferenceNumber>
+    <SourceName>PubChem</SourceName>
+    <SourceID>PubChem</SourceID>
+    <Description>Data deposited in or computed by PubChem</Description>
+    <URL>https://pubchem.ncbi.nlm.nih.gov</URL>
+  </Reference>
+  <Reference>
+    <ReferenceNumber>5</ReferenceNumber>
+    <SourceName>WIPO</SourceName>
+    <SourceID>IPC</SourceID>
+    <Name>International Patent Classification 2014</Name>
+    <Description>The World Intellectual Property Organization (WIPO) International Patent Classification (IPC), established by the Strasbourg Agreement 1971, provides for a hierarchical system of language independent symbols for the classification of patents and utility models according to the different areas of technology to which they pertain.</Description>
+    <URL>http://www.wipo.int/classifications/ipc/</URL>
+  </Reference>
+  <Reference>
+    <ReferenceNumber>6</ReferenceNumber>
+    <SourceName>NCBI</SourceName>
+    <SourceID>LinkOut</SourceID>
+    <Description>LinkOut is a service that allows one to link directly from NCBI databases to a wide range of information and services beyond NCBI systems.</Description>
+    <URL>http://www.ncbi.nlm.nih.gov/projects/linkout</URL>
+  </Reference>
+</Record>
+

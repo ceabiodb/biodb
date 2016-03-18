@@ -1,3 +1,15 @@
+###########
+# PUBCHEM #
+###########
+
+offline.test.pubchem <- function() {
+	test.entries(RBIODB.PUBCHEM, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.pubchem <- function() {
+	test.entries(RBIODB.PUBCHEM, RBIODB.COMPOUND, online = TRUE)
+}
+
 #########
 # CHEBI #
 #########

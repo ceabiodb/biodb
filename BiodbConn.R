@@ -28,17 +28,6 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 		callSuper(...) # calls super-class initializer with remaining parameters
 	})
 	
-#	###########
-#	# GET URL #
-#	###########
-#
-#	# Get an url content, using scheduler.
-#	# url       The URL to download.
-#	# RETURN    The downloaded content.
-#	BiodbConn$methods( .getUrl = function(url, params = NULL, method = RLIB.GET) {
-#		return(.self$.scheduler$getUrl(url, params = params, method = method))
-#	})
-
 	######################
 	# HANDLES ENTRY TYPE #
 	######################
@@ -76,36 +65,6 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 		stop("Method getCompound() is not implemented in concrete class.")
 	})
 	
-#	##################################
-#	# DOWNLOAD COMPOUND FILE CONTENT #
-#	##################################
-#	
-#	# Download a compound description as a file content, from the public database.
-#	# id        The ID of the compound for which to download file content.
-#	# save_as   If set saves the content into the specified file.
-#	# RETURN    The file content describing the compound.
-#	BiodbConn$methods( downloadCompoundFileContent = function(id, save_as = NA_character_) {
-#	
-#		# Download content
-#		content <- .self$.doDownloadCompoundFileContent(id)
-#		if ( ! is.null(content) && ! is.null(save_as) && ! is.na(save_as)) {
-#			fileConn<-file(save_as)
-#			writeLines(content, fileConn)
-#			close(fileConn)
-#		}
-#	
-#		# Return content
-#		return(content)
-#	})
-	
-#	# Download a compound description as a file content, from the public database.
-#	# This method has to be overwritten by sub-classes.
-#	# id        The ID of the compound for which to download file content.
-#	# RETURN    The file content describing the compound.
-#	BiodbConn$methods(.doDownloadCompoundFileContent = function(id) {
-#		stop("Method .doDownloadCompoundFileContent() is not implemented in concrete class.")
-#	})
-	
 	#############################
 	# CREATE ENTRY FROM CONTENT #
 	#############################
@@ -115,24 +74,5 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# RETURN        A compound instance.
 	BiodbConn$methods( createEntry = function(type, content, drop = TRUE) {
 		stop("Method createEntry() is not implemented in concrete class.")
-
-#		# Create compound
-#		compound <- NULL
-#		if ( ! is.null(content) && ! is.na(content) && nchar(content) > 0) {
-#			compound <- .self$.doCreateCompound(content)
-##			if ( ! is.null(compound))
-##				compound$setFactory(factory)
-#		}
-#
-#		return(compound)
 	})
-	
-#	# Creates a Compound instance from file content.
-#	# This method has to be overwritten by sub-classes.
-#	# content   A file content, downloaded from the public database.
-#	# RETURN    A compound instance.
-#	BiodbConn$methods(
-#		.doCreateCompound = function(content) {
-#			return(NULL)
-#	})
 }

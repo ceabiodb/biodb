@@ -3,7 +3,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	library(methods)
 	source('ChebiConn.R')
 	source('KeggConn.R')
-#	source('PubchemConn.R')
+	source('PubchemConn.R')
 	source('MassbankConn.R')
 
 	#####################

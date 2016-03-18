@@ -1,88 +1,70 @@
-library(XML)
-source('BiodbCompound.R')
+if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	library(XML)
+	source('BiodbEntry.R')
 
-PubchemCompound <- setRefClass("PubchemCompound", contains = "BiodbCompound", fields = list(.inchi = "character", .inchikey = "character", .name = "character"))
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############
-# CONSTRUCTOR #
-###############
+	PubchemCompound <- setRefClass("PubchemCompound", contains = "BiodbEntry")
 
-PubchemCompound$methods( initialize = function(id = NA_character_, inchi = NA_character_, inchikey = NA_character_, name = NA_character_, ...) {
+	###########
+	# FACTORY #
+	###########
 
-	.inchi <<- if ( ! is.null(inchi)) inchi else NA_character_
-	.inchikey <<- if ( ! is.null(inchikey)) inchikey else NA_character_
-	.name <<- if ( ! is.null(name)) name else NA_character_
+	createPubchemCompoundFromXml <- function(contents, drop = TRUE) {
 
-	callSuper(id = id, ...)
-})
+		compounds <- list()
 
-########
-# NAME #
-########
+		# Set XML namespace
+		ns <- c(pubchem = "http://pubchem.ncbi.nlm.nih.gov/pug_view")
 
-PubchemCompound$methods( getName = function() {
-	return(.self$.name)
-})
+		# Define xpath expressions
+		xpath.expr <- character()
+		xpath.expr[[RBIODB.ACCESSION]] <- "//pubchem:RecordType[text()='CID']/../pubchem:RecordNumber"
+		xpath.expr[[RBIODB.INCHI]] <- "//pubchem:Name[text()='InChI']/../pubchem:StringValue"
+		xpath.expr[[RBIODB.INCHIKEY]] <- "//pubchem:Name[text()='InChI Key']/../pubchem:StringValue"
 
-#########
-# INCHI #
-#########
+		for (content in contents) {
 
-PubchemCompound$methods(	getInchi = function() {
-	return(.self$.inchi)
-})
+			# Create instance
+			compound <- PubchemCompound$new()
 
-#############
-# INCHI KEY #
-#############
+			# Parse XML
+			xml <-  xmlInternalTreeParse(content, asText = TRUE)
 
-PubchemCompound$methods(	getInchiKey = function() {
-	return(.self$.inchikey)
-})
+			# Unknown compound
+			fault <- xpathSApply(xml, "/pubchem:Fault", xmlValue, namespaces = ns)
+			if (length(fault) == 0) {
 
-###########
-# FACTORY #
-###########
+				# Test generic xpath expressions
+				for (field in names(xpath.expr)) {
+					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue, namespaces = ns)
+					if (length(v) > 0)
+						compound$setField(field, v)
+				}
 
-createPubchemCompoundFromXml <- function(xmlstr) {
+				# Get name
+				name <- NA_character_
+				tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='IUPAC Name']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
+				if (is.na(name))
+					tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='Record Title']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
+				if ( ! is.na(name))
+					compound$setField(RBIODB.NAME, name)
 
-	compound <- NULL
+			}
 
-	# Set XML namespace
-	ns <- c(pubchem = "http://pubchem.ncbi.nlm.nih.gov/pug_view")
-
-	# Parse XML
-	xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
-
-	# Unknown compound
-	fault <- xpathSApply(xml, "/pubchem:Fault", xmlValue, namespaces = ns)
-	if (length(fault) == 0) {
-
-		# Get ID
-		id <- xpathSApply(xml, "//pubchem:RecordType[text()='CID']/../pubchem:RecordNumber", xmlValue, namespaces = ns)
-
-		if ( ! is.na(id)) {	
-
-			# Get name
-			name <- NA_character_
-			tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='IUPAC Name']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
-			if (is.na(name))
-				tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='Record Title']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
-
-			# Get InChI
-			inchi <- xpathSApply(xml, "//pubchem:Name[text()='InChI']/../pubchem:StringValue", xmlValue, namespaces = ns)
-
-			# Get InChI KEY
-			inchikey <- xpathSApply(xml, "//pubchem:Name[text()='InChI Key']/../pubchem:StringValue", xmlValue, namespaces = ns)
-
-			# Create compound
-			compound <- PubchemCompound$new(id = id, inchi = inchi, inchikey = inchikey, name = name)
+			compounds <- c(compounds, compound)
 		}
-	}
 
-	return(compound)
+		# Replace elements with no accession id by NULL
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+
+		# If the input was a single element, then output a single object
+		if (drop && length(contents) == 1)
+			compounds <- compounds[[1]]
+	
+		return(compounds)
+	}
 }
