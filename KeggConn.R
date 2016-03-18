@@ -36,7 +36,7 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 
 		return(NULL)
 	})
-	
+
 	################
 	# CREATE ENTRY #
 	################
@@ -49,9 +49,9 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	# GET KEGG COMPOUND URL #
 	#########################
 	
-	get.kegg.compound.url <- function(id, txt = FALSE) {
+	get.kegg.compound.url <- function(id, type = RBIODB.TXT) {
 
-		if (txt)
+		if (type == RBIODB.TXT)
 			url <- paste0('http://rest.kegg.jp/get/', id)
 		else
 			url <- paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', id)

@@ -6,6 +6,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('PubchemConn.R')
 	source('HmdbConn.R')
 	source('ChemspiderConn.R')
+	source('EnzymeConn.R')
 	source('MassbankConn.R')
 
 	#####################
@@ -45,12 +46,13 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 			# Create connection instance
 			conn <- switch(class,
-		                	chebi = ChebiConn$new(useragent = .self$.useragent),
-		                	kegg  = KeggConn$new(useragent = .self$.useragent),
-		                	pubchem  = PubchemConn$new(useragent = .self$.useragent),
-		                	hmdb  = HmdbConn$new(useragent = .self$.useragent),
+		                	chebi       = ChebiConn$new(useragent = .self$.useragent),
+		                	kegg        = KeggConn$new(useragent = .self$.useragent),
+		                	pubchem     = PubchemConn$new(useragent = .self$.useragent),
+		                	hmdb        = HmdbConn$new(useragent = .self$.useragent),
 		                	chemspider  = ChemspiderConn$new(useragent = .self$.useragent),
-		                	massbank  = MassbankConn$new(useragent = .self$.useragent),
+		                	enzyme      = EnzymeConn$new(useragent = .self$.useragent),
+		                	massbank    = MassbankConn$new(useragent = .self$.useragent),
 		      	          	NULL)
 
 			# Unknown class

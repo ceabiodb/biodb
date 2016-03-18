@@ -1,3 +1,15 @@
+##########
+# ENZYME #
+##########
+
+offline.test.enzyme <- function() {
+	test.entries(RBIODB.ENZYME, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.enzyme <- function() {
+	test.entries(RBIODB.ENZYME, RBIODB.COMPOUND, online = TRUE)
+}
+
 ##############
 # CHEMSPIDER #
 ##############

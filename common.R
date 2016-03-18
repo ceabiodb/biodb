@@ -19,11 +19,13 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.PUBCHEM      <- 'pubchem'
 	RBIODB.HMDB         <- 'hmdb'
 	RBIODB.CHEMSPIDER   <- 'chemspider'
+	RBIODB.ENZYME       <- 'enzyme'
 	RBIODB.MASSBANK     <- 'massbank'
 
 	# Fields
 	RBIODB.COMPOUND     <- 'compound'
 	RBIODB.ACCESSION    <- 'accession'
+	RBIODB.DESCRIPTION  <- 'description'
 	RBIODB.NAME         <- 'name'
 	RBIODB.CHEBI.ID     <- 'chebiid'
 	RBIODB.LIPIDMAPS.ID <- 'lipidmapsid'
@@ -49,6 +51,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		# FIELD NAME            CLASS
 		RBIODB.COMPOUND,        'BiodEntry',
 		RBIODB.ACCESSION,       'character',
+		RBIODB.DESCRIPTION,     'character',
 		RBIODB.NAME,            'character',
 		RBIODB.CHEBI.ID,        'character',
 		RBIODB.LIPIDMAPS.ID,    'character',

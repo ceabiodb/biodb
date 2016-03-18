@@ -1,35 +1,58 @@
-source('BiodbConn.R')
-source('EnzymeCompound.R')
+if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbConn.R')
+	source('EnzymeCompound.R')
 
-EnzymeConn <- setRefClass("EnzymeConn", contains = "BiodbConn")
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############################
-# DOWNLOAD COMPOUND FILE CONTENT #
-###############################
+	EnzymeConn <- setRefClass("EnzymeConn", contains = "BiodbConn")
 
-# Download a compound description as a file content, from the public database.
-# id        The ID of the compound for which to download file content.
-# RETURN    The file content describing the compound.
-EnzymeConn$methods(
-	.doDownloadCompoundFileContent = function(id) {
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
+
+	EnzymeConn$methods( getEntryContentType = function(type) {
+		return(RBIODB.TXT)
+	})
+
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
+	
+	EnzymeConn$methods( getEntryContent = function(type, id) {
+
+		if (type == RBIODB.COMPOUND) {
+
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
+
+			# Request
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.enzyme.compound.url(x)), FUN.VALUE = '')
+
+			return(content)
+		}
+
+		return(NULL)
+	})
+
+	################
+	# CREATE ENTRY #
+	################
+	
+	EnzymeConn$methods( createEntry = function(type, content, drop = TRUE) {
+		return(if (type == RBIODB.COMPOUND) createEnzymeCompoundFromTxt(content, drop = drop) else NULL)
+	})
+	
+	###########################
+	# GET ENZYME COMPOUND URL #
+	###########################
+	
+	get.enzyme.compound.url <- function(id) {
+
 		url <- paste0('http://enzyme.expasy.org/EC/', id, '.txt')
-		txt <- .self$.getUrl(url)
-		return(txt)
-})
-
-################
-# CREATE COMPOUND #
-################
-
-# Creates a Compound instance from file content.
-# file_content  A file content, downloaded from the public database.
-# RETURN        A compound instance.
-EnzymeConn$methods(
-	.doCreateCompound = function(file_content) {
-		compound <- createEnzymeCompoundFromText(file_content)
-		return(compound)
-})
+	
+		return(url)
+	}
+}
