@@ -8,7 +8,8 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	#############
 
 	# TODO Let the choice to use either jp or eu
-	RBIODB.MASSBANK.WS.URL  <- "http://www.massbank.eu/api/services/MassBankAPI/getRecordInfo"
+	RBIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
+	RBIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/getRecordInfo"
 
 	#####################
 	# CLASS DECLARATION #
@@ -36,12 +37,10 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			xmlstr <- .self$.scheduler$getUrl(RBIODB.MASSBANK.WS.URL, params = c(ids = paste(id, collapse = ',')))
+			xmlstr <- .self$.scheduler$getUrl(RBIODB.MASSBANK.EU.WS.URL, params = c(ids = paste(id, collapse = ',')))
 
 			# Parse XML and get text
-			if (is.na(xmlstr)) {
-				content <- NA_character_
-			} else {
+			if ( ! is.na(xmlstr)) {
 				library(XML)
 				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
 				ns <- c(ax21 = "http://api.massbank/xsd")

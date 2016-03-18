@@ -91,7 +91,6 @@ BiodbTestFactory$methods( getEntryContent = function(class, type, id) {
 ################
 
 test.entries <- function(db, entry.type, online = TRUE) {
-
 	# Create factory
 	factory <- BiodbTestFactory$new(online = online, useragent = USER.AGENT)
 
