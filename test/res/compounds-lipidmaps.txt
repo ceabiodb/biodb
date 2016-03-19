@@ -1,0 +1,2 @@
+accession       formula     mass    keggid  hmdbid
+LMFA08040013    C18H37NO2   299.28  NA      HMDB02100

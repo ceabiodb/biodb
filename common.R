@@ -20,6 +20,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.HMDB         <- 'hmdb'
 	RBIODB.CHEMSPIDER   <- 'chemspider'
 	RBIODB.ENZYME       <- 'enzyme'
+	RBIODB.LIPIDMAPS    <- 'lipidmaps'
 	RBIODB.MASSBANK     <- 'massbank'
 
 	# Fields

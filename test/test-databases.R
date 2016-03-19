@@ -1,4 +1,16 @@
 ##########
+# LIPIDMAPS #
+##########
+
+offline.test.lipidmaps <- function() {
+	test.entries(RBIODB.LIPIDMAPS, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.lipidmaps <- function() {
+	test.entries(RBIODB.LIPIDMAPS, RBIODB.COMPOUND, online = TRUE)
+}
+
+##########
 # ENZYME #
 ##########
 

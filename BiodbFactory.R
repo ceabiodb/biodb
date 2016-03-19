@@ -7,6 +7,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('HmdbConn.R')
 	source('ChemspiderConn.R')
 	source('EnzymeConn.R')
+	source('LipidmapsConn.R')
 	source('MassbankConn.R')
 
 	#####################
@@ -52,6 +53,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                	hmdb        = HmdbConn$new(useragent = .self$.useragent),
 		                	chemspider  = ChemspiderConn$new(useragent = .self$.useragent),
 		                	enzyme      = EnzymeConn$new(useragent = .self$.useragent),
+		                	lipidmaps   = LipidmapsConn$new(useragent = .self$.useragent),
 		                	massbank    = MassbankConn$new(useragent = .self$.useragent),
 		      	          	NULL)
 

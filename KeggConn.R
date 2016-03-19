@@ -20,7 +20,7 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	#####################
 	# GET ENTRY CONTENT #
 	#####################
-	
+
 	KeggConn$methods( getEntryContent = function(type, id) {
 
 		if (type == RBIODB.COMPOUND) {
@@ -40,11 +40,11 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	################
 	# CREATE ENTRY #
 	################
-	
+
 	KeggConn$methods( createEntry = function(type, content, drop = TRUE) {
 		return(if (type == RBIODB.COMPOUND) createKeggCompoundFromTxt(content, drop = drop) else NULL)
 	})
-	
+
 	#########################
 	# GET KEGG COMPOUND URL #
 	#########################

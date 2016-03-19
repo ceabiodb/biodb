@@ -1,44 +1,68 @@
-source('BiodbConn.R')
-source('LipidmapsCompound.R')
+if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbConn.R')
+	source('LipidmapsCompound.R')
 
-LipidmapsConn <- setRefClass("LipidmapsConn", contains = "BiodbConn")
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############
-# CONSTRUCTOR #
-###############
+	LipidmapsConn <- setRefClass("LipidmapsConn", contains = "BiodbConn")
 
-LipidmapsConn$methods( initialize = function(...) {
-	# From http://www.lipidmaps.org/data/structure/programmaticaccess.html:
-	# If you write a script to automate calls to LMSD, please be kind and do not hit our server more often than once per 20 seconds. We may have to kill scripts that hit our server more frequently.
-	callSuper(scheduler = UrlRequestScheduler$new(t = 20), ...)
-})
+	###############
+	# CONSTRUCTOR #
+	###############
 
-###############################
-# DOWNLOAD COMPOUND FILE CONTENT #
-###############################
+	LipidmapsConn$methods( initialize = function(...) {
+		# From http://www.lipidmaps.org/data/structure/programmaticaccess.html:
+		# If you write a script to automate calls to LMSD, please be kind and do not hit our server more often than once per 20 seconds. We may have to kill scripts that hit our server more frequently.
+		callSuper(scheduler = UrlRequestScheduler$new(t = 20), ...)
+	})
 
-# Download a compound description as a file content, from the public database.
-# id        The ID of the compound for which to download file content.
-# RETURN    The file content describing the compound.
-LipidmapsConn$methods(
-	.doDownloadCompoundFileContent = function(id) {
-		csv <- .self$.getUrl('http://www.lipidmaps.org/data/LMSDRecord.php', params = c(Mode = 'File', LMID = id, OutputType = 'CSV', OutputQuote = 'No'))
-		return(csv)
-})
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
 
-################
-# CREATE COMPOUND #
-################
+	LipidmapsConn$methods( getEntryContentType = function(type) {
+		return(RBIODB.CSV)
+	})
 
-# Creates a Compound instance from file content.
-# file_content  A file content, downloaded from the public database.
-# RETURN        A compound instance.
-LipidmapsConn$methods(
-	.doCreateCompound = function(file_content) {
-		compound <- createLipidmapsCompoundFromCsv(file_content)
-		return(compound)
-})
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
+
+	LipidmapsConn$methods( getEntryContent = function(type, id) {
+
+		if (type == RBIODB.COMPOUND) {
+
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
+
+			# Request
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.lipidmaps.compound.url(x)), FUN.VALUE = '')
+
+			return(content)
+		}
+
+		return(NULL)
+	})
+
+	################
+	# CREATE ENTRY #
+	################
+
+	LipidmapsConn$methods( createEntry = function(type, content, drop = TRUE) {
+		return(if (type == RBIODB.COMPOUND) createLipidmapsCompoundFromCsv(content, drop = drop) else NULL)
+	})
+
+	##############################
+	# GET LIPIDMAPS COMPOUND URL #
+	##############################
+
+	get.lipidmaps.compound.url <- function(id) {
+
+		url <- paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', id, '&OutputType=CSV&OutputQuote=No')
+	
+		return(url)
+	}
+}
