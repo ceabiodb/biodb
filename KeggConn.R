@@ -29,7 +29,7 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.kegg.compound.url(x, type = RBIODB.TXT)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.KEGG, x, content.type = RBIODB.TXT)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -44,19 +44,5 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	KeggConn$methods( createEntry = function(type, content, drop = TRUE) {
 		return(if (type == RBIODB.COMPOUND) createKeggCompoundFromTxt(content, drop = drop) else NULL)
 	})
-
-	#########################
-	# GET KEGG COMPOUND URL #
-	#########################
-	
-	get.kegg.compound.url <- function(id, type = RBIODB.HTML) {
-
-		if (type == RBIODB.TXT)
-			url <- paste0('http://rest.kegg.jp/get/', id)
-		else
-			url <- paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', id)
-	
-		return(url)
-	}
 
 } # end of load safe guard

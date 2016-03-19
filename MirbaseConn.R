@@ -29,7 +29,7 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.mirbase.compound.url(x)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.MIRBASE, x, content.type = RBIODB.HTML)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -44,17 +44,6 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 	MirbaseConn$methods( createEntry = function(type, content, drop = TRUE) {
 		return(if (type == RBIODB.COMPOUND) createMirbaseCompoundFromHtml(content, drop = drop) else NULL)
 	})
-	
-	############################
-	# GET MIRBASE COMPOUND URL #
-	############################
-	
-	get.mirbase.compound.url <- function(accession) {
-
-		url <- paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession)
-	
-		return(url)
-	}
 
 	###################
 	# FIND ACCESSIONS #

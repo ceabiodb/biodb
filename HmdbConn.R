@@ -29,7 +29,7 @@ if ( ! exists('HmdbConn')) { # Do not load again if already loaded
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.hmdb.compound.url(x, type = RBIODB.XML)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.HMDB, x, content.type = RBIODB.XML)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -44,19 +44,5 @@ if ( ! exists('HmdbConn')) { # Do not load again if already loaded
 	HmdbConn$methods( createEntry = function(type, content, drop = TRUE) {
 		return(if (type == RBIODB.COMPOUND) createHmdbCompoundFromXml(content, drop = drop) else NULL)
 	})
-	
-	#########################
-	# GET HMDB COMPOUND URL #
-	#########################
-	
-	get.hmdb.compound.url <- function(id, type = RBIODB.HTML) {
-	
-		url <- paste0('http://www.hmdb.ca/metabolites/', id)
-	
-		if (type == RBIODB.XML)
-			url <- paste0(url, '.xml')
-	
-		return(url)
-	}
 	
 } # end of load safe guard

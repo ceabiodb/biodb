@@ -3,14 +3,6 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	source('BiodbConn.R')
 	source('MassbankSpectrum.R')
 
-	#############
-	# CONSTANTS #
-	#############
-
-	# TODO Let the choice to use either jp or eu
-	RBIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
-	RBIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/getRecordInfo"
-
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -37,7 +29,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			xmlstr <- .self$.scheduler$getUrl(RBIODB.MASSBANK.EU.WS.URL, params = c(ids = paste(id, collapse = ',')))
+			xmlstr <- .self$.scheduler$getUrl(get.entry.url(RBIODB.MASSBANK, id, RBIODB.TXT))
 
 			# Parse XML and get text
 			if ( ! is.na(xmlstr)) {

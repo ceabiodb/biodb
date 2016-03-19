@@ -29,7 +29,7 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.chemspider.compound.url(x)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.CHEMSPIDER, x)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -44,17 +44,6 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 	ChemspiderConn$methods( createEntry = function(type, content, drop = TRUE) {
 		return(if (type == RBIODB.COMPOUND) createChemspiderCompoundFromHtml(content, drop = drop) else NULL)
 	})
-
-	###############################
-	# GET CHEMSPIDER COMPOUND URL #
-	###############################
-	
-	get.chemspider.compound.url <- function(id) {
-	
-		url <- paste0('http://www.chemspider.com/Chemical-Structure.', id, '.html')
-
-		return(url)
-	}
 
 	############################
 	# GET CHEMSPIDER IMAGE URL #

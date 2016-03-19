@@ -13,6 +13,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.TXT  <- 'txt'
 	RBIODB.XML  <- 'xml'
 	RBIODB.CSV  <- 'csv'
+	RBIODB.ANY  <- 'any'
 
 	# Class names
 	RBIODB.CHEBI        <- 'chebi'
@@ -86,4 +87,44 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.FIELD.COMPUTING[[RBIODB.INCHI]] <- c(RBIODB.CHEBI)
 	RBIODB.FIELD.COMPUTING[[RBIODB.INCHIKEY]] <- c(RBIODB.CHEBI)
 
+	#################
+	# GET ENTRY URL #
+	#################
+
+	# TODO Let the choice to use either jp or eu
+	RBIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
+	RBIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/getRecordInfo"
+
+	get.entry.url <- function(class, accession, content.type = RBIODB.ANY) {
+
+		url <- switch(class,
+			chebi       = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
+			chemspider  = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('http://www.chemspider.com/Chemical-Structure.', accession, '.html') else NULL,
+			enzyme      = if (content.type %in% c(RBIODB.ANY, RBIODB.TXT)) paste0('http://enzyme.expasy.org/EC/', accession, '.txt') else NULL,
+			hmdb        = switch(content.type,
+			                     xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
+			                     html = paste0('http://www.hmdb.ca/metabolites/', accession),
+			                     any = paste0('http://www.hmdb.ca/metabolites/', accession),
+			                     NULL),
+			kegg        = switch(content.type,
+			                     txt = paste0('http://rest.kegg.jp/get/', accession),
+			                     html = paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', accession),
+			                     any  = paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', accession),
+			                     NULL),
+			lipidmaps   = if (content.type %in% c(RBIODB.ANY, RBIODB.CSV)) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
+			massbank    = if (content.type %in% c(RBIODB.ANY, RBIODB.TXT)) paste0(RBIODB.MASSBANK.EU.WS.URL, '?ids=', paste(accession, collapse = ',')) else NULL,
+			mirbase     = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
+			pubchem     = {
+							accession <- gsub(' ', '', accession, perl = TRUE)
+							accession <- gsub('^CID', '', accession, perl = TRUE)
+							switch(content.type,
+			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/', accession, '/XML/?response_type=save&response_basename=CID_', accession),
+			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),
+			                     NULL)
+		    			  },
+			NULL
+			)
+
+		return(url)
+	}
 }

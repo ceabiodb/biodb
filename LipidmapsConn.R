@@ -39,7 +39,7 @@ if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.lipidmaps.compound.url(x)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.LIPIDMAPS, x, content.type = RBIODB.CSV)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -54,15 +54,4 @@ if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 	LipidmapsConn$methods( createEntry = function(type, content, drop = TRUE) {
 		return(if (type == RBIODB.COMPOUND) createLipidmapsCompoundFromCsv(content, drop = drop) else NULL)
 	})
-
-	##############################
-	# GET LIPIDMAPS COMPOUND URL #
-	##############################
-
-	get.lipidmaps.compound.url <- function(id) {
-
-		url <- paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', id, '&OutputType=CSV&OutputQuote=No')
-	
-		return(url)
-	}
 }

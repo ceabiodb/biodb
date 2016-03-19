@@ -29,7 +29,7 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.chebi.compound.url(x)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.CHEBI, x)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -44,16 +44,5 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 	ChebiConn$methods( createEntry = function(type, content, drop = TRUE) {
 		return(if (type == RBIODB.COMPOUND) createChebiCompoundFromHtml(content, drop = drop) else NULL)
 	})
-
-	##########################
-	# GET CHEBI COMPOUND URL #
-	##########################
-	
-	get.chebi.compound.url <- function(id) {
-	
-		url <- paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', id)
-	
-		return(url)
-	}
 
 } # end of load safe guard
