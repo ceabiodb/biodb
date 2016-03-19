@@ -1,64 +1,77 @@
-library(XML)
-source('BiodbConn.R')
-source('MirbaseCompound.R')
+if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbConn.R')
+	source('MirbaseCompound.R')
 
-MirbaseConn <- setRefClass("MirbaseConn", contains = "BiodbConn")
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############################
-# DOWNLOAD COMPOUND FILE CONTENT #
-###############################
+	MirbaseConn <- setRefClass("MirbaseConn", contains = "BiodbConn")
 
-# Download a compound description as a file content, from the public database.
-# id        The ID of the compound for which to download file content.
-# RETURN    The file content describing the compound.
-MirbaseConn$methods(
-	.doDownloadCompoundFileContent = function(id) {
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
 
-		# Get accession number
-		acc <- .self$.getAccessionNumberFromId(id)
+	MirbaseConn$methods( getEntryContentType = function(type) {
+		return(RBIODB.HTML)
+	})
 
-# TODO Swap ACC and ID. Accession number if the Mirbase ID and ID is the name.
-		# Get page
-		xml <- NA_character_
-		if ( ! is.null(acc) && ! is.na(acc))
-			xml <- .self$.getUrl('http://www.mirbase.org/cgi-bin/mature.pl', params = c(mature_acc = acc))
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
+	
+	MirbaseConn$methods( getEntryContent = function(type, id) {
 
-		return(xml)
-})
+		if (type == RBIODB.COMPOUND) {
 
-################
-# CREATE COMPOUND #
-################
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
 
-# Creates a Compound instance from file content.
-# file_content  A file content, downloaded from the public database.
-# RETURN        A compound instance.
-MirbaseConn$methods(
-	.doCreateCompound = function(file_content) {
-		compound <- createMirbaseCompoundFromHtml(file_content)
-		return(compound)
-})
+			# Request
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.mirbase.compound.url(x)), FUN.VALUE = '')
 
-################################
-# GET ACCESSION NUMBER FROM ID #
-################################
+			return(content)
+		}
 
-MirbaseConn$methods(
-	.getAccessionNumberFromId = function(id) {
+		return(NULL)
+	})
 
-# TODO Keep this method for searching from name, but returns a list of compounds.
-		# Get HTML
-		htmlstr <- .self$.getUrl('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = id, submit = 'Search'))
+	################
+	# CREATE ENTRY #
+	################
+	
+	MirbaseConn$methods( createEntry = function(type, content, drop = TRUE) {
+		return(if (type == RBIODB.COMPOUND) createMirbaseCompoundFromHtml(content, drop = drop) else NULL)
+	})
+	
+	############################
+	# GET MIRBASE COMPOUND URL #
+	############################
+	
+	get.mirbase.compound.url <- function(accession) {
 
-		# Parse HTML
-		xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
+		url <- paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession)
+	
+		return(url)
+	}
 
-		# Get accession number
-		acc <- unlist(xpathSApply(xml, "//a[starts-with(.,'MIMAT')]", xmlValue))
+	###################
+	# FIND ACCESSIONS #
+	###################
 
-		return(acc)
-})
+	MirbaseConn$methods(
+		findAccessions = function(name) {
+
+			# Get HTML
+			htmlstr <- .self$.scheduler$getUrl('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = name, submit = 'Search'))
+
+			# Parse HTML
+			xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
+
+			# Get accession number
+			acc <- unlist(xpathSApply(xml, "//a[starts-with(.,'MIMAT')]", xmlValue))
+
+			return(acc)
+	})
+}

@@ -1,6 +1,18 @@
-##########
+###########
+# MIRBASE #
+###########
+
+offline.test.mirbase <- function() {
+	test.entries(RBIODB.MIRBASE, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.mirbase <- function() {
+	test.entries(RBIODB.MIRBASE, RBIODB.COMPOUND, online = TRUE)
+}
+
+#############
 # LIPIDMAPS #
-##########
+#############
 
 offline.test.lipidmaps <- function() {
 	test.entries(RBIODB.LIPIDMAPS, RBIODB.COMPOUND, online = FALSE)

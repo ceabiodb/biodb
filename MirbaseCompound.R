@@ -1,57 +1,54 @@
-library(XML)
-source('BiodbCompound.R')
+if ( ! exists('MirbaseCompound')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbEntry.R')
 
-MirbaseCompound <- setRefClass("MirbaseCompound", contains = "BiodbCompound", fields = list(accession_number = "character", sequence = "character"))
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############
-# CONSTRUCTOR #
-###############
+	MirbaseCompound <- setRefClass("MirbaseCompound", contains = "BiodbEntry")
 
-MirbaseCompound$methods(
-	initialize = function(accession_number = NA_character_, sequence = NA_character_, ...) {
-		accession_number <<- if ( ! is.null(accession_number)) accession_number else NA_character_
-		sequence <<- if ( ! is.null(sequence)) sequence else NA_character_
-		callSuper(...)
+	###########
+	# FACTORY #
+	###########
+
+	createMirbaseCompoundFromHtml <- function(contents, drop = TRUE) {
+
+		library(XML)
+
+		compounds <- list()
+	
+		# Define fields regex
+		xpath.expr <- character()
+		xpath.expr[[RBIODB.ACCESSION]]  <- "//td[text()='Accession number']/../td[2]"
+		xpath.expr[[RBIODB.NAME]]       <- "//td[text()='ID']/../td[2]"
+		xpath.expr[[RBIODB.SEQUENCE]]   <- "//td[text()='Sequence']/..//pre"
+
+		for (html in contents) {
+
+			# Create instance
+			compound <- ChebiCompound$new()
+		
+			# Parse HTML
+			xml <-  htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
+
+			# Test generic xpath expressions
+			for (field in names(xpath.expr)) {
+				v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
+				if (length(v) > 0)
+					compound$setField(field, v)
+			}
+
+			compounds <- c(compounds, compound)
+		}
+
+		# Replace elements with no accession id by NULL
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+
+		# If the input was a single element, then output a single object
+		if (drop && length(contents) == 1)
+			compounds <- compounds[[1]]
+	
+		return(compounds)
 	}
-)
-
-####################
-# ACCESSION NUMBER #
-####################
-
-MirbaseCompound$methods(
-	getAccessionNumber = function() {
-		return(.self$accession_number)
-	}
-)
-
-############
-# SEQUENCE #
-############
-
-MirbaseCompound$methods(
-	getSequence = function() {
-		return(.self$sequence)
-	}
-)
-
-###########
-# FACTORY #
-###########
-
-createMirbaseCompoundFromHtml <- function(htmlstr) {
-
-	# Parse HTML
-	xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
-
-	# Get data
-	acc <- xpathSApply(xml, "//td[text()='Accession number']/../td[2]", xmlValue)
-	id <- xpathSApply(xml, "//td[text()='ID']/../td[2]", xmlValue)
-	seq <- xpathSApply(xml, "//td[text()='Sequence']/..//pre", xmlValue)
-
-	return(if (is.na(id) || is.na(acc)) NULL else MirbaseCompound$new(id = id, accession_number = acc, sequence = seq))
 }

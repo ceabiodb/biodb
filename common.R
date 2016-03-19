@@ -22,6 +22,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.CHEMSPIDER   <- 'chemspider'
 	RBIODB.ENZYME       <- 'enzyme'
 	RBIODB.LIPIDMAPS    <- 'lipidmaps'
+	RBIODB.MIRBASE      <- 'mirbase'
 	RBIODB.MASSBANK     <- 'massbank'
 
 	# Fields
@@ -47,6 +48,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.MASS         <- 'mass'
 	RBIODB.AVERAGE.MASS <- 'averagemass'
 	RBIODB.MONOISOTOPIC.MASS <- 'monoisotopicmass'
+	RBIODB.SEQUENCE     <- 'sequence'
 
 	RBIODB.MSMODE.NEG <- 'neg'
 	RBIODB.MSMODE.POS <- 'pos'
@@ -74,7 +76,8 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		RBIODB.SUPER.CLASS,     'character',
 		RBIODB.MASS,            'double',
 		RBIODB.AVERAGE.MASS,    'double',
-		RBIODB.MONOISOTOPIC.MASS,   'double'
+		RBIODB.MONOISOTOPIC.MASS,   'double',
+		RBIODB.SEQUENCE,        'character'
 		), byrow = TRUE, ncol = 2), stringsAsFactors = FALSE)
 	colnames(RBIODB.FIELDS) <- c('name', 'class')
 
