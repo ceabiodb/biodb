@@ -12,6 +12,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.HTML <- 'html'
 	RBIODB.TXT  <- 'txt'
 	RBIODB.XML  <- 'xml'
+	RBIODB.CSV  <- 'csv'
 
 	# Class names
 	RBIODB.CHEBI        <- 'chebi'
@@ -31,6 +32,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.CHEBI.ID     <- 'chebiid'
 	RBIODB.LIPIDMAPS.ID <- 'lipidmapsid'
 	RBIODB.KEGG.ID      <- 'keggid'
+	RBIODB.HMDB.ID      <- 'hmdbid'
 	RBIODB.PUBCHEM.ID   <- 'pubchemid'
 	RBIODB.INCHI        <- 'inchi'
 	RBIODB.INCHIKEY     <- 'inchikey'
@@ -42,6 +44,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.MSPRECANNOT  <- 'msprecannot'
 	RBIODB.FORMULA      <- 'formula'
 	RBIODB.SUPER.CLASS  <- 'superclass'
+	RBIODB.MASS         <- 'mass'
 	RBIODB.AVERAGE.MASS <- 'averagemass'
 	RBIODB.MONOISOTOPIC.MASS <- 'monoisotopicmass'
 
@@ -57,6 +60,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		RBIODB.CHEBI.ID,        'character',
 		RBIODB.LIPIDMAPS.ID,    'character',
 		RBIODB.KEGG.ID,         'character',
+		RBIODB.HMDB.ID,         'character',
 		RBIODB.PUBCHEM.ID,      'character',
 		RBIODB.INCHI,           'character',
 		RBIODB.INCHIKEY,        'character',
@@ -68,6 +72,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		RBIODB.MSPRECANNOT,     'character',
 		RBIODB.FORMULA,         'character',
 		RBIODB.SUPER.CLASS,     'character',
+		RBIODB.MASS,            'double',
 		RBIODB.AVERAGE.MASS,    'double',
 		RBIODB.MONOISOTOPIC.MASS,   'double'
 		), byrow = TRUE, ncol = 2), stringsAsFactors = FALSE)

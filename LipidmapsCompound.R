@@ -15,31 +15,56 @@ if ( ! exists('LipidmapsCompound')) { # Do not load again if already loaded
 
 	createLipidmapsCompoundFromCsv <- function(contents, drop = TRUE) {
 
-		# Split text in lines
-		lines <- strsplit(text, "\n")[[1]]
+		compounds <- list()
 
-		# keys on first line
-		# values on second line
+		# Mapping column names
+		col2field <- list()
+		col2field[[RBIODB.NAME]] <- 'COMMON_NAME'
+		col2field[[RBIODB.ACCESSION]] <- 'LM_ID'
+		col2field[[RBIODB.KEGG.ID]] <- 'KEGG_ID'
+		col2field[[RBIODB.HMDB.ID]] <- 'HMDBID'
+		col2field[[RBIODB.MASS]] <- 'MASS'
+		col2field[[RBIODB.FORMULA]] <- 'FORMULA'
+		
+		for (text in contents) {
 
-		value_line <- lines[[1]][[2]]
+			# Create instance
+			compound <- LipidmapsCompound$new()
 
-		# An error occured
-		if (grepl("No record found", value_line))
-			return(NULL)
+			# Split text in lines
+			lines <- split.str(text, sep = "\n", unlist = TRUE)
 
-		# Get keys (on first line) and values (on second line)
-		keys <- unlist(strsplit(lines[[1]][[1]], ','))
-		values <- unlist(strsplit(value_line, ','))
-		values <- hCreate(keys, values)
+			# An error occured
+			if ( ! grepl("No record found", lines[[2]])) {
 
-		# Extract data
-		id <- if (hHasKey(values, 'LM_ID') && values[['LM_ID']] != '-') values[['LM_ID']] else NA_character_
-		kegg_id <- if (hHasKey(values, 'KEGG_ID') && values[['KEGG_ID']] != '-') values[['KEGG_ID']] else NA_character_
-		hmdb_id <- if (hHasKey(values, 'HMDBID') && values[['HMDBID']] != '-') values[['HMDBID']] else NA_character_
-		mass <- if (hHasKey(values, 'MASS') && values[['MASS']] != '-') as.numeric(values[['MASS']]) else NA_real_
-		formula <- if (hHasKey(values, 'FORMULA') && values[['FORMULA']] != '-') values[['FORMULA']] else NA_character_
-		synonyms <- if (hHasKey(values, 'SYNONYMS') && values[['SYNONYMS']] != '-') split(values[['SYNONYMS']], sep = ';', unlist = TRUE) else NA_character_
+				# Keys on first line
+				keys <- split.str(lines[[1]], unlist = TRUE)
 
-		return(if (is.na(id)) NULL else LipidmapsCompound$new(id = id, kegg_id = kegg_id, hmdb_id = hmdb_id, mass = mass, formula = formula, synonyms = synonyms))
+				# Values on second line
+				values <- split.str(lines[[2]], unlist = TRUE)
+				names(values) <- keys[seq(values)]
+
+				# Get field values
+				for (field in names(col2field))
+					if (values[[col2field[[field]]]] != '-')
+						compound$setField(field, values[[col2field[[field]]]])
+
+				# Set names
+				if (values[['SYNONYMS']] != '-') {
+					# TODO
+				}
+			}
+
+			compounds <- c(compounds, compound)
+		}
+
+		# Replace elements with no accession id by NULL
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+
+		# If the input was a single element, then output a single object
+		if (drop && length(contents) == 1)
+			compounds <- compounds[[1]]
+	
+		return(compounds)
 	}
 }
