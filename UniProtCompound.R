@@ -49,7 +49,6 @@ if ( ! exists('UniprotCompound')) { # Do not load again if already loaded
 				# Test value xpath
 				for (field in names(xpath.values)) {
 					v <- xpathSApply(xml, xpath.values[[field]], xmlValue, namespaces = ns)
-					print(v)
 					if (length(v) > 0)
 						compound$setField(field, v)
 				}

@@ -110,9 +110,6 @@ test.entries <- function(db, entry.type, online = TRUE) {
 	for (f in colnames(entries.desc)) {
 		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
 		card <- entries[[1]]$getFieldCardinality(f)
-		print(f)
-		print(entries.desc[[f]])
-		print(lapply(entries, function(e) e$getField(f)))
 		e.values <- vapply(entries, function(e) if (card == RBIODB.CARD.ONE || is.na(e$getField(f))) e$getField(f) else paste(e$getField(f), collapse = ';'), FUN.VALUE = vector(mode = entries[[1]]$getFieldClass(f), length = 1))
 		checkEquals(entries.desc[[f]], e.values, paste0("Error with field \"", f, "\":\nReference: ", paste(entries.desc[[f]], collapse = ", "), "\nValues: ", paste(e.values, collapse = ", ")))
 	}
