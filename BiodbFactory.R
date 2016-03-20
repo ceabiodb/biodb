@@ -11,6 +11,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('MirbaseConn.R')
 	source('NcbigeneConn.R')
 	source('NcbiccdsConn.R')
+	source('UniprotConn.R')
 	source('MassbankConn.R')
 
 	#####################
@@ -60,6 +61,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                	mirbase     = MirbaseConn$new(useragent = .self$.useragent),
 		                	ncbigene    = NcbigeneConn$new(useragent = .self$.useragent),
 		                	ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent),
+		                	uniprot     = UniprotConn$new(useragent = .self$.useragent),
 		                	massbank    = MassbankConn$new(useragent = .self$.useragent),
 		      	          	NULL)
 

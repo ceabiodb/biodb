@@ -1,3 +1,15 @@
+###########
+# UNIPROT #
+###########
+
+offline.test.uniprot <- function() {
+	test.entries(RBIODB.UNIPROT, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.uniprot <- function() {
+	test.entries(RBIODB.UNIPROT, RBIODB.COMPOUND, online = TRUE)
+}
+
 ############
 # NCBICCDS #
 ############

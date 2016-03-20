@@ -1,35 +1,47 @@
-source('BiodbConn.R')
-source('UniProtCompound.R')
+if ( ! exists('UniprotConn')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbConn.R')
+	source('UniprotCompound.R')
 
-UniProtConn <- setRefClass("UniProtConn", contains = "BiodbConn")
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-##################################
-# DOWNLOAD COMPOUND FILE CONTENT #
-##################################
+	UniprotConn <- setRefClass("UniprotConn", contains = "BiodbConn")
 
-# Download a compound description as a file content, from the public database.
-# id        The ID of the compound for which to download file content.
-# RETURN    The file content describing the compound.
-UniProtConn$methods(
-	.doDownloadCompoundFileContent = function(id) {
-		url <- paste0('http://www.uniprot.org/uniprot/', id, '.xml')
-		xml <- .self$.getUrl(url)
-		return(xml)
-})
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
 
-###################
-# CREATE COMPOUND #
-###################
+	UniprotConn$methods( getEntryContentType = function(type) {
+		return(RBIODB.XML)
+	})
 
-# Creates a Compound instance from file content.
-# file_content  A file content, downloaded from the public database.
-# RETURN        A compound instance.
-UniProtConn$methods(
-	.doCreateCompound = function(file_content) {
-		compound <- createUniProtCompoundFromXml(file_content)
-		return(compound)
-})
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
+	
+	UniprotConn$methods( getEntryContent = function(type, id) {
+
+		if (type == RBIODB.COMPOUND) {
+
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
+
+			# Request
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.UNIPROT, x, content.type = RBIODB.XML)), FUN.VALUE = '')
+
+			return(content)
+		}
+
+		return(NULL)
+	})
+	
+	################
+	# CREATE ENTRY #
+	################
+	
+	UniprotConn$methods( createEntry = function(type, content, drop = TRUE) {
+		return(if (type == RBIODB.COMPOUND) createUniprotCompoundFromXml(content, drop = drop) else NULL)
+	})
+}

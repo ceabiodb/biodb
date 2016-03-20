@@ -26,6 +26,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.MIRBASE      <- 'mirbase'
 	RBIODB.NCBIGENE     <- 'ncbigene'
 	RBIODB.NCBICCDS     <- 'ncbiccds'
+	RBIODB.UNIPROT      <- 'uniprot'
 	RBIODB.MASSBANK     <- 'massbank'
 
 	# Fields
@@ -34,13 +35,17 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.DESCRIPTION  <- 'description'
 	RBIODB.PROTEIN.DESCRIPTION  <- 'protdesc'
 	RBIODB.NAME         <- 'name'
+	RBIODB.FULLNAMES    <- 'fullnames'
 	RBIODB.SYNONYMS     <- 'synonyms'
 	RBIODB.SYMBOL       <- 'symbol'
+	RBIODB.GENE.SYMBOLS <- 'genesymbols'
 	RBIODB.CHEBI.ID     <- 'chebiid'
 	RBIODB.LIPIDMAPS.ID <- 'lipidmapsid'
 	RBIODB.KEGG.ID      <- 'keggid'
 	RBIODB.HMDB.ID      <- 'hmdbid'
+	RBIODB.ENZYME.ID    <- 'enzymeid'
 	RBIODB.NCBI.CCDS.ID <- 'ncbiccdsid'
+	RBIODB.NCBI.GENE.ID <- 'ncbigeneid'
 	RBIODB.PUBCHEM.ID   <- 'pubchemid'
 	RBIODB.UNIPROT.ID   <- 'uniprotid'
 	RBIODB.INCHI        <- 'inchi'
@@ -58,6 +63,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.MONOISOTOPIC.MASS <- 'monoisotopicmass'
 	RBIODB.SEQUENCE     <- 'sequence'
 	RBIODB.LOCATION     <- 'location'
+	RBIODB.LENGTH       <- 'length'
 
 	RBIODB.MSMODE.NEG <- 'neg'
 	RBIODB.MSMODE.POS <- 'pos'
@@ -71,16 +77,20 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		RBIODB.ACCESSION,           'character',    RBIODB.CARD.ONE,
 		RBIODB.DESCRIPTION,         'character',    RBIODB.CARD.ONE,
 		RBIODB.NAME,                'character',    RBIODB.CARD.ONE,
+		RBIODB.FULLNAMES,           'character',    RBIODB.CARD.MANY,
 		RBIODB.SYNONYMS,            'character',    RBIODB.CARD.MANY,
 		RBIODB.PROTEIN.DESCRIPTION, 'character',    RBIODB.CARD.ONE,
 		RBIODB.SYMBOL,              'character',    RBIODB.CARD.ONE,
+		RBIODB.GENE.SYMBOLS,        'character',    RBIODB.CARD.MANY,
 		RBIODB.CHEBI.ID,            'character',    RBIODB.CARD.ONE,
 		RBIODB.LIPIDMAPS.ID,        'character',    RBIODB.CARD.ONE,
 		RBIODB.KEGG.ID,             'character',    RBIODB.CARD.ONE,
 		RBIODB.HMDB.ID,             'character',    RBIODB.CARD.ONE,
+		RBIODB.ENZYME.ID,           'character',    RBIODB.CARD.ONE,
 		RBIODB.PUBCHEM.ID,          'character',    RBIODB.CARD.ONE,
 		RBIODB.UNIPROT.ID,          'character',    RBIODB.CARD.ONE,
 		RBIODB.NCBI.CCDS.ID,        'character',    RBIODB.CARD.ONE,
+		RBIODB.NCBI.GENE.ID,        'character',    RBIODB.CARD.ONE,
 		RBIODB.INCHI,               'character',    RBIODB.CARD.ONE,
 		RBIODB.INCHIKEY,            'character',    RBIODB.CARD.ONE,
 		RBIODB.MSDEV,               'character',    RBIODB.CARD.ONE,
@@ -95,6 +105,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		RBIODB.AVERAGE.MASS,        'double',       RBIODB.CARD.ONE,
 		RBIODB.MONOISOTOPIC.MASS,   'double',       RBIODB.CARD.ONE,
 		RBIODB.SEQUENCE,            'character',    RBIODB.CARD.ONE,
+		RBIODB.LENGTH,              'integer',      RBIODB.CARD.ONE,
 		RBIODB.LOCATION,            'character',    RBIODB.CARD.ONE
 		), byrow = TRUE, ncol = 3), stringsAsFactors = FALSE)
 	colnames(RBIODB.FIELDS) <- c('name', 'class', 'cardinality')
@@ -142,6 +153,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		    			  },
 			ncbigene    = if (content.type %in% c(RBIODB.ANY, RBIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
 			ncbiccds    = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
+			uniprot     = if (content.type %in% c(RBIODB.ANY, RBIODB.XML)) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
 			NULL
 			)
 

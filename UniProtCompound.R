@@ -1,144 +1,82 @@
-library(XML)
-source('BiodbCompound.R')
+if ( ! exists('UniprotCompound')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbEntry.R')
 
-UniProtCompound <- setRefClass("UniProtCompound", contains = "BiodbCompound", fields = list(enzyme_id = "character", sequence = "character", mass = "numeric", length = "numeric", gene_symbol = "character", fullname = "character", name = "character", gene_id = "character"))
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############
-# CONSTRUCTOR #
-###############
+	UniprotCompound <- setRefClass("UniprotCompound", contains = "BiodbEntry")
 
-UniProtCompound$methods(
-	initialize = function(gene_id = NA_character_, enzyme_id = NA_character_, sequence = NA_character_, mass = NA_real_, length = NA_integer_, gene_symbol = NA_character_, fullname = NA_character_, name = NA_character_, ...) {
-		enzyme_id <<- if ( ! is.null(enzyme_id)) enzyme_id else NA_character_
-		gene_id <<- if ( ! is.null(gene_id)) gene_id else NA_character_
-		sequence <<- if ( ! is.null(sequence)) sequence else NA_character_
-		mass <<- if ( ! is.null(mass)) mass else NA_real_
-		length <<- if ( ! is.null(length)) length else NA_integer_
-		gene_symbol <<- if ( ! is.null(gene_symbol)) gene_symbol else NA_character_
-		fullname <<- if ( ! is.null(fullname)) fullname else NA_character_
-		name <<- if ( ! is.null(name)) name else NA_character_
+	###########
+	# FACTORY #
+	###########
 
-		callSuper(...)
+	createUniprotCompoundFromXml <- function(contents, drop = FALSE) {
+
+		library(XML)
+
+		# Set XML namespace
+		ns <- c(uniprot = "http://uniprot.org/uniprot")
+
+		compounds <- list()
+
+		# Define xpath expressions
+		xpath.values <- character()
+		xpath.values[[RBIODB.NAME]] <- "/uniprot:uniprot/uniprot:compound/uniprot:name"
+		xpath.values[[RBIODB.GENE.SYMBOLS]] <- "//uniprot:gene/uniprot:name"
+		xpath.values[[RBIODB.FULLNAMES]] <- "//uniprot:protein//uniprot:fullName"
+		xpath.values[[RBIODB.SEQUENCE]] <- "//uniprot:entry/uniprot:sequence"
+		xpath.values[[RBIODB.ACCESSION]] <- "//uniprot:accession[1]"
+		xpath.attr <- list()
+		xpath.attr[[RBIODB.KEGG.ID]] <- list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id')
+		xpath.attr[[RBIODB.NCBI.GENE.ID]] <- list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id')
+		xpath.attr[[RBIODB.ENZYME.ID]] <- list(path = "//uniprot:dbReference[@type='EC']", attr = 'id')
+		xpath.attr[[RBIODB.MASS]] <- list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass')
+		xpath.attr[[RBIODB.LENGTH]] <- list(path = "//uniprot:entry/uniprot:sequence", attr = 'length')
+
+		for (content in contents) {
+
+			# Create instance
+			compound <- HmdbCompound$new()
+
+			# If the entity doesn't exist (i.e.: no <id>.xml page), then it returns an HTML page
+			if ( ! grepl("^<!DOCTYPE html ", content, perl = TRUE)) {
+
+				# Parse XML
+				xml <-  xmlInternalTreeParse(content, asText = TRUE)
+
+				# Test value xpath
+				for (field in names(xpath.values)) {
+					v <- xpathSApply(xml, xpath.values[[field]], xmlValue, namespaces = ns)
+					print(v)
+					if (length(v) > 0)
+						compound$setField(field, v)
+				}
+
+				# Test attribute  xpath
+				for (field in names(xpath.attr)) {
+					v <- xpathSApply(xml, xpath.attr[[field]]$path, xmlGetAttr, xpath.attr[[field]]$attr, namespaces = ns)
+					if (length(v) > 0)
+						compound$setField(field, v)
+				}
+
+				# Remove new lines from sequence string
+				seq <- compound$getField(RBIODB.SEQUENCE)
+				if ( ! is.na(seq))
+					compound$setField(RBIODB.SEQUENCE, gsub("\\n", "", seq))
+			}
+
+			compounds <- c(compounds, compound)
+		}
+
+		# Replace elements with no accession id by NULL
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+
+		# If the input was a single element, then output a single object
+		if (drop && length(contents) == 1)
+			compounds <- compounds[[1]]
+	
+		return(compounds)
 	}
-)
-
-########
-# NAME #
-########
-
-UniProtCompound$methods(
-	getName = function() {
-		return(.self$name)
-	}
-)
-
-############
-# FULLNAME #
-############
-
-UniProtCompound$methods(
-	getFullName = function() {
-		return(.self$fullname)
-	}
-)
-
-###############
-# GENE SYMBOL #
-###############
-
-UniProtCompound$methods(
-	getGeneSymbol = function() {
-		return(.self$gene_symbol)
-	}
-)
-
-##########
-# LENGTH #
-##########
-
-UniProtCompound$methods(
-	getLength = function() {
-		return(.self$length)
-	}
-)
-
-########
-# MASS #
-########
-
-UniProtCompound$methods(
-	getMass = function() {
-		return(.self$mass)
-	}
-)
-
-############
-# SEQUENCE #
-############
-
-UniProtCompound$methods(
-	getSequence = function() {
-		return(.self$sequence)
-	}
-)
-
-################
-# NCBI GENE ID #
-################
-
-# <dbReference type="GeneID" id="12"/>
-UniProtCompound$methods(
-	getNcbiGeneId = function() {
-		return(.self$gene_id)
-	}
-)
-
-#############
-# ENZIME ID #
-#############
-
-# <dbReference type="EC" id="2.3.1.43"/>
-UniProtCompound$methods(
-	getEnzymeId = function() {
-		return(.self$enzyme_id)
-	}
-)
-
-###########
-# FACTORY #
-###########
-
-createUniProtCompoundFromXml <- function(xmlstr) {
-
-	# If the entity doesn't exist (i.e.: no <id>.xml page), then it returns an HTML page
-	if (grepl("^<!DOCTYPE html PUBLIC", xmlstr, perl=TRUE))
-		return(NULL)
-
-	# Set XML namespace
-	ns <- c(uniprot = "http://uniprot.org/uniprot")
-
-	# Parse XML
-	xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
-
-	# Get data
-	accession_ids <- unlist(xpathSApply(xml, "//uniprot:accession", xmlValue, namespaces = ns))
-	id <- if ( ! is.null(accession_ids) && length(accession_ids) > 1) accession_ids[1] else accession_ids
-	kegg_id <- unlist(xpathSApply(xml, "//uniprot:dbReference[@type='KEGG']", xmlGetAttr, 'id', namespaces = ns))
-	gene_id <- unlist(xpathSApply(xml, "//uniprot:dbReference[@type='GeneID']", xmlGetAttr, 'id', namespaces = ns))
-	enzyme_id <- unlist(xpathSApply(xml, "//uniprot:dbReference[@type='EC']", xmlGetAttr, 'id', namespaces = ns))
-	seq <- unlist(xpathSApply(xml, "//uniprot:compound/uniprot:sequence", xmlValue, namespaces = ns))
-	if ( ! is.null(seq) && ! is.na(seq)) seq <- gsub("\\n", "", seq)
-	mass <- as.numeric(unlist(xpathSApply(xml, "//uniprot:compound/uniprot:sequence", xmlGetAttr, 'mass', namespaces = ns)))
-	length <- as.numeric(unlist(xpathSApply(xml, "//uniprot:compound/uniprot:sequence", xmlGetAttr, 'length', namespaces = ns)))
-	gene_symbols <- unlist(xpathSApply(xml, "//uniprot:gene/uniprot:name", xmlValue, namespaces = ns))
-	gene_symbol <- if ( ! is.null(gene_symbols) && length(gene_symbols) > 1) gene_symbols[1] else gene_symbols
-	fullnames <- unlist(xpathSApply(xml, "//uniprot:protein//uniprot:fullName", xmlValue, namespaces = ns))
-	fullname <- if ( ! is.null(fullnames) && length(fullnames) > 1) fullnames[1] else fullnames
-	name <- unlist(xpathSApply(xml, "/uniprot:uniprot/uniprot:compound/uniprot:name", xmlValue, namespaces = ns))
-
-	return(if (is.null(id) || is.na(id)) NULL else UniProtCompound$new(id = id, kegg_id = kegg_id, enzyme_id = enzyme_id, sequence = seq, mass = mass, length = length, gene_symbol = gene_symbol, fullname = fullname, name = name, gene_id = gene_id))
 }
