@@ -101,8 +101,9 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 
 	# How to compute a missing field ?
 	RBIODB.FIELD.COMPUTING <- list()
-	RBIODB.FIELD.COMPUTING[[RBIODB.INCHI]] <- c(RBIODB.CHEBI)
-	RBIODB.FIELD.COMPUTING[[RBIODB.INCHIKEY]] <- c(RBIODB.CHEBI)
+	RBIODB.FIELD.COMPUTING[[RBIODB.INCHI]]      <- c(RBIODB.CHEBI)
+	RBIODB.FIELD.COMPUTING[[RBIODB.INCHIKEY]]   <- c(RBIODB.CHEBI)
+	RBIODB.FIELD.COMPUTING[[RBIODB.SEQUENCE]]   <- c(RBIODB.NCBICCDS)
 
 	#################
 	# GET ENTRY URL #
@@ -140,6 +141,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 			                     NULL)
 		    			  },
 			ncbigene    = if (content.type %in% c(RBIODB.ANY, RBIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
+			ncbiccds    = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
 			NULL
 			)
 

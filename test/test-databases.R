@@ -1,6 +1,18 @@
-###########
+############
+# NCBICCDS #
+############
+
+offline.test.ncbiccds <- function() {
+	test.entries(RBIODB.NCBICCDS, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.ncbiccds <- function() {
+	test.entries(RBIODB.NCBICCDS, RBIODB.COMPOUND, online = TRUE)
+}
+
+############
 # NCBIGENE #
-###########
+############
 
 offline.test.ncbigene <- function() {
 	test.entries(RBIODB.NCBIGENE, RBIODB.COMPOUND, online = FALSE)

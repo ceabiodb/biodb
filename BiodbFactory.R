@@ -10,6 +10,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('LipidmapsConn.R')
 	source('MirbaseConn.R')
 	source('NcbigeneConn.R')
+	source('NcbiccdsConn.R')
 	source('MassbankConn.R')
 
 	#####################
@@ -58,6 +59,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                	lipidmaps   = LipidmapsConn$new(useragent = .self$.useragent),
 		                	mirbase     = MirbaseConn$new(useragent = .self$.useragent),
 		                	ncbigene    = NcbigeneConn$new(useragent = .self$.useragent),
+		                	ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent),
 		                	massbank    = MassbankConn$new(useragent = .self$.useragent),
 		      	          	NULL)
 

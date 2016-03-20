@@ -1,49 +1,46 @@
-library(XML)
-source('BiodbCompound.R')
+if ( ! exists('NcbiccdsCompound')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbEntry.R')
 
-NcbiCcdsCompound <- setRefClass("NcbiCcdsCompound", contains = "BiodbCompound", fields = list(nucleotides = "character"))
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############
-# CONSTRUCTOR #
-###############
+	NcbiccdsCompound <- setRefClass("NcbiccdsCompound", contains = "BiodbEntry")
 
-NcbiCcdsCompound$methods(
-	initialize = function(nucleotides = NA_character_, ...) {
-		nucleotides <<- if ( ! is.null(nucleotides)) nucleotides else NA_character_
-		callSuper(...)
+	###########
+	# FACTORY #
+	###########
+
+	createNcbiccdsCompoundFromHtml <- function(contents, drop = TRUE) {
+
+		library(XML)
+
+		compounds <- list()
+
+		for (html in contents) {
+
+			# Create instance
+			compound <- NcbiccdsCompound$new()
+		
+			# Parse HTML
+			xml <-  htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
+
+			if (length(getNodeSet(xml, "//*[starts-with(.,'No results found for CCDS ID ')]")) == 0) {
+				compound$setField(RBIODB.ACCESSION, xpathSApply(xml, "//input[@id='DATA']", xmlGetAttr, "value"))
+				compound$setField(RBIODB.SEQUENCE, xpathSApply(xml, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", xmlValue))
+			}
+
+			compounds <- c(compounds, compound)
+		}
+
+		# Replace elements with no accession id by NULL
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+
+		# If the input was a single element, then output a single object
+		if (drop && length(contents) == 1)
+			compounds <- compounds[[1]]
+	
+		return(compounds)
 	}
-)
-
-#######################
-# NUCLEOTIDE SEQUENCE #
-#######################
-
-NcbiCcdsCompound$methods(
-	getNucleotideSequence = function() {
-		return(.self$nucleotides)
-	}
-)
-
-###########
-# FACTORY #
-###########
-
-createNcbiCcdsCompoundFromHtml <- function(htmlstr) {
-
-	# Parse HTML
-	xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
-
-	# An error occured
-	if (length(getNodeSet(xml, "//*[starts-with(.,'No results found for CCDS ID ')]")) != 0)
-		return(NULL)
-
-	# Get data
-	id          <- xpathSApply(xml, "//input[@id='DATA']", xmlGetAttr, "value")
-	nucleotides <- xpathSApply(xml, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", xmlValue)
-
-	return(if (is.na(id)) NULL else NcbiCcdsCompound$new(id = id, nucleotides = nucleotides))
 }

@@ -1,35 +1,56 @@
-source('NcbiConn.R')
-source('NcbiCcdsCompound.R')
+if ( ! exists('NcbiccdsConn')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbConn.R')
+	source('NcbiccdsCompound.R')
 
-NcbiCcdsConn <- setRefClass("NcbiCcdsConn", contains = "NcbiConn")
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############################
-# DOWNLOAD COMPOUND FILE CONTENT #
-###############################
+	NcbiccdsConn <- setRefClass("NcbiccdsConn", contains = "BiodbConn")
 
-# Download a compound description as a file content, from the public database.
-# id        The ID of the compound for which to download file content.
-# RETURN    The file content describing the compound.
-NcbiCcdsConn$methods(
-	.doDownloadCompoundFileContent = function(id) {
-		# There exists no CCDS connexion through the e-utilities, so we must connect the web server and get an HTML page.
-		xml <- .self$.getUrl('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi', params = c(REQUEST = 'CCDS', GO = 'MainBrowse', DATA = id))
-		return(xml)
-})
+	###############
+	# CONSTRUCTOR #
+	###############
 
-################
-# CREATE COMPOUND #
-################
+	NcbiccdsConn$methods( initialize = function(...) {
+		# From NCBI E-Utility manual: "In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays".
+		callSuper(scheduler = UrlRequestScheduler$new(n = 3), ...)
+	})
 
-# Creates a Compound instance from file content.
-# file_content  A file content, downloaded from the public database.
-# RETURN        A compound instance.
-NcbiCcdsConn$methods(
-	.doCreateCompound = function(file_content) {
-		compound <- createNcbiCcdsCompoundFromHtml(file_content)
-		return(compound)
-})
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
+
+	NcbiccdsConn$methods( getEntryContentType = function(type) {
+		return(RBIODB.HTML)
+	})
+
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
+	
+	NcbiccdsConn$methods( getEntryContent = function(type, id) {
+
+		if (type == RBIODB.COMPOUND) {
+
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
+
+			# Request
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.NCBICCDS, x)), FUN.VALUE = '')
+
+			return(content)
+		}
+
+		return(NULL)
+	})
+	
+	################
+	# CREATE ENTRY #
+	################
+	
+	NcbiccdsConn$methods( createEntry = function(type, content, drop = TRUE) {
+		return(if (type == RBIODB.COMPOUND) createNcbiccdsCompoundFromHtml(content, drop = drop) else NULL)
+	})
+}
