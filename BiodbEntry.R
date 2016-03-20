@@ -29,6 +29,9 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		if ( ! field %in% RBIODB.FIELDS[['name']])
 			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
+		if (.self$getFieldCardinality(field) == RBIODB.CARD.ONE && length(value) > 1)
+			stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
+
 		field.class <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'class']
 		value <- switch(field.class,
 		       'double' = as.double(value),
@@ -37,10 +40,10 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 
 		.self$.fields[[field]] <- value
 	})
-	
-	#############
-	# GET FIELD #
-	#############
+
+	###################
+	# GET FIELD CLASS #
+	###################
 	
 	BiodbEntry$methods(	getFieldClass = function(field) {
 
@@ -50,6 +53,20 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		field.class <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'class']
 
 		return(field.class)
+	})
+
+	#########################
+	# GET FIELD CARDINALITY #
+	#########################
+	
+	BiodbEntry$methods(	getFieldCardinality = function(field) {
+
+		if ( ! field %in% RBIODB.FIELDS[['name']])
+			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+
+		field.card <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'cardinality']
+
+		return(field.card)
 	})
 	
 	#############

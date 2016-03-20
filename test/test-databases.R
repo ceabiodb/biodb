@@ -1,4 +1,16 @@
 ###########
+# NCBIGENE #
+###########
+
+offline.test.ncbigene <- function() {
+	test.entries(RBIODB.NCBIGENE, RBIODB.COMPOUND, online = FALSE)
+}
+
+online.test.ncbigene <- function() {
+	test.entries(RBIODB.NCBIGENE, RBIODB.COMPOUND, online = TRUE)
+}
+
+###########
 # MIRBASE #
 ###########
 

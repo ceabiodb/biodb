@@ -1,38 +1,56 @@
-source('NcbiConn.R')
-source('NcbiGeneCompound.R')
+if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbConn.R')
+	source('NcbigeneCompound.R')
 
-NcbiGeneConn <- setRefClass("NcbiGeneConn", contains = "NcbiConn")
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############################
-# DOWNLOAD COMPOUND FILE CONTENT #
-###############################
+	NcbigeneConn <- setRefClass("NcbigeneConn", contains = "BiodbConn")
 
-# Download a compound description as a file content, from the public database.
-# id        The ID of the compound for which to download file content.
-# RETURN    The file content describing the compound.
-NcbiGeneConn$methods(
-	.doDownloadCompoundFileContent = function(id) {
+	###############
+	# CONSTRUCTOR #
+	###############
 
-		if (as.numeric(id) <= 0)
-			return(NA_character_)
+	NcbigeneConn$methods( initialize = function(...) {
+		# From NCBI E-Utility manual: "In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays".
+		callSuper(scheduler = UrlRequestScheduler$new(n = 3), ...)
+	})
 
-		xml <- .self$.getUrl('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi', params = c(db = 'gene', id = as.character(id), rettype = 'xml', retmode = 'text'))
-		return(xml)
-})
+	##########################
+	# GET ENTRY CONTENT TYPE #
+	##########################
 
-################
-# CREATE COMPOUND #
-################
+	NcbigeneConn$methods( getEntryContentType = function(type) {
+		return(RBIODB.XML)
+	})
 
-# Creates a Compound instance from file content.
-# file_content  A file content, downloaded from the public database.
-# RETURN        A compound instance.
-NcbiGeneConn$methods(
-	.doCreateCompound = function(file_content) {
-		compound <- createNcbiGeneCompoundFromXml(file_content)
-		return(compound)
-})
+	#####################
+	# GET ENTRY CONTENT #
+	#####################
+	
+	NcbigeneConn$methods( getEntryContent = function(type, id) {
+
+		if (type == RBIODB.COMPOUND) {
+
+			# Initialize return values
+			content <- rep(NA_character_, length(id))
+
+			# Request
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.NCBIGENE, x)), FUN.VALUE = '')
+
+			return(content)
+		}
+
+		return(NULL)
+	})
+	
+	################
+	# CREATE ENTRY #
+	################
+	
+	NcbigeneConn$methods( createEntry = function(type, content, drop = TRUE) {
+		return(if (type == RBIODB.COMPOUND) createNcbigeneCompoundFromXml(content, drop = drop) else NULL)
+	})
+}

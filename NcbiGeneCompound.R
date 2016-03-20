@@ -1,153 +1,118 @@
-library(XML)
-source('BiodbCompound.R')
+if ( ! exists('NcbigeneCompound')) { # Do not load again if already loaded
 
-#####################
-# CLASS DECLARATION #
-#####################
+	source('BiodbEntry.R')
+	source(file.path('..', 'r-lib', 'strhlp.R'), chdir = TRUE)
 
-NcbiGeneCompound <- setRefClass("NcbiGeneCompound", contains = "BiodbCompound", fields = list(symbol = "character", location = "character", fullname = "character", synonyms = "character", ccds_id = "character", uniprot_id = "character"))
+	#####################
+	# CLASS DECLARATION #
+	#####################
 
-###############
-# CONSTRUCTOR #
-###############
+	NcbigeneCompound <- setRefClass("NcbigeneCompound", contains = "BiodbEntry")
 
-NcbiGeneCompound$methods(
-	initialize = function(ccds_id = NA_character_, uniprot_id = NA_character_, symbol = NA_character_, location = NA_character_, fullname = NA_character_, synonyms = NA_character_, ...) {
-		ccds_id <<- if ( ! is.null(ccds_id)) ccds_id else NA_character_
-		uniprot_id <<- if ( ! is.null(uniprot_id)) uniprot_id else NA_character_
-		symbol <<- if ( ! is.null(symbol)) symbol else NA_character_
-		location <<- if ( ! is.null(location)) location else NA_character_
-		fullname <<- if ( ! is.null(fullname)) fullname else NA_character_
-		synonyms <<- if ( ! is.null(synonyms)) synonyms else NA_character_
-		callSuper(...)
-})
+	###########
+	# FACTORY #
+	###########
 
-###########################
-# UNIPROTKB/SWISS-PROT ID #
-###########################
+	createNcbigeneCompoundFromXml <- function(contents, drop = TRUE) {
 
-NcbiGeneCompound$methods(
-	getUniProtId = function() {
-		return(.self$uniprot_id)
-	}
-)
+		library(XML)
 
-###########
-# CCDS ID #
-###########
+		compounds <- list()
 
-NcbiGeneCompound$methods(
-	getCcdsId = function() {
-		return(.self$ccds_id)
-	}
-)
+		# Define xpath expressions
+		xpath.expr <- character()
+		xpath.expr[[RBIODB.ACCESSION]] <- "//Gene-track_geneid"
+		xpath.expr[[RBIODB.KEGG.ID]] <- "/Dbtag_db[text()='KEGG']/..//Object-id_str"
+		xpath.expr[[RBIODB.UNIPROT.ID]] <- "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str"
+		xpath.expr[[RBIODB.LOCATION]] <- "//Gene-ref_maploc"
+		xpath.expr[[RBIODB.PROTEIN.DESCRIPTION]] <- "//Gene-ref_desc"
+		xpath.expr[[RBIODB.SYMBOL]] <- "//Gene-ref_locus"
+		xpath.expr[[RBIODB.SYNONYMS]] <- "//Gene-ref_syn_E"
 
-##########
-# SYMBOL #
-##########
+		for (content in contents) {
 
-NcbiGeneCompound$methods(
-	getSymbol = function() {
-		return(.self$symbol)
-	}
-)
+			# Create instance
+			compound <- NcbigeneCompound$new()
+		
+			# Parse HTML
+			xml <-  xmlInternalTreeParse(content, asText = TRUE)
 
-############
-# LOCATION #
-############
+			# An error occured
+			if (length(getNodeSet(xml, "//Error")) == 0 && length(getNodeSet(xml, "//ERROR")) == 0) {
 
-NcbiGeneCompound$methods(
-	getLocation = function() {
-		return(.self$location)
-	}
-)
+				# Test generic xpath expressions
+				for (field in names(xpath.expr)) {
+					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
+					if (length(v) > 0) {
 
-######################
-# OFFICIAL FULL NAME #
-######################
+						# Eliminate duplicates
+						v <- v[ ! duplicated(v)]
 
-NcbiGeneCompound$methods(
-	getOfficialFullName = function() {
-		return(.self$fullname)
-	}
-)
-
-############
-# SYNONYMS #
-############
-
-NcbiGeneCompound$methods(
-	getSynonyms = function() {
-		return(.self$synonyms)
-	}
-)
-
-###########
-# FACTORY #
-###########
-
-createNcbiGeneCompoundFromXml <- function(xmlstr) {
-
-	if (is.null(xmlstr) || is.na(xmlstr) || nchar(xmlstr) == 0)
-		return(NULL)
-
-	# Parse XML
-	xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
-
-	# An error occured
-	if (length(getNodeSet(xml, "//Error")) != 0 || length(getNodeSet(xml, "//ERROR")) != 0)
-		return(NULL)
-
-	# Get data
-	id          <- unlist(xpathSApply(xml, "//Gene-track_geneid", xmlValue))
-	kegg_id     <- unlist(xpathSApply(xml, "//Dbtag_db[text()='KEGG']/..//Object-id_str", xmlValue))
-	uniprot_id  <- unlist(xpathSApply(xml, "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str", xmlValue))
-	synonyms    <- unlist(xpathSApply(xml, "//Gene-ref_syn_E", xmlValue))
-	fullname    <- unlist(xpathSApply(xml, "//Gene-ref_desc", xmlValue))
-	symbol      <- unlist(xpathSApply(xml, "//Gene-ref_locus", xmlValue))
-	location    <- unlist(xpathSApply(xml, "//Gene-ref_maploc", xmlValue))
-	ccds_id     <- .find_ccds_id(xml)
-
-	return(if (is.null(id) || is.na(id)) NULL else NcbiGeneCompound$new(id = id, kegg_id = kegg_id, synonyms = synonyms, fullname = fullname, symbol = symbol, location = location, ccds_id = ccds_id, uniprot_id = uniprot_id))
-}
-
-#############
-# FIND CCDS #
-#############
-
-.find_ccds_id <- function(xml) {
-
-	# 1) Get all CCDS tags.
-	ccds_elements <- getNodeSet(xml, "//Dbtag_db[text()='CCDS']/..//Object-id_str")
-
-	# 2) If all CCDS are the same, go to point 4.
-	ccds <- NA_character_
-	for (e in ccds_elements) {
-		current_ccds <- xmlValue(e)
-		if (is.na(ccds))
-			ccds <- current_ccds
-		else {
-			if (current_ccds != ccds) {
-				ccds <- NA_character_
-				break
+						# Set field
+						compound$setField(field, v)
+					}
+				}
+			
+				# CCDS ID
+				ccdsid <- .find.ccds.id(xml)
+				if ( ! is.na(ccdsid))
+					compound$setField(RBIODB.NCBI.CCDS.ID, ccdsid)
 			}
+
+			compounds <- c(compounds, compound)
 		}
+
+		# Replace elements with no accession id by NULL
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+
+		# If the input was a single element, then output a single object
+		if (drop && length(contents) == 1)
+			compounds <- compounds[[1]]
+	
+		return(compounds)
+
+		# Get data
+
 	}
 
-	# 3) There are several CCDS values, we need to find the best one (i.e.: the most current one).
-	if (is.na(ccds)) {
-		# For each CCDS, look for the parent Gene-commentary tag. Then look for the text content of the Gene-commentary_label which is situed under. Ignore CCDS that have no Gene-commentary_label associated. Choose the CCDS that has the smallest Gene-commentary_label in alphabetical order.
-		version <- NA_character_
+	################
+	# FIND CCDS ID #
+	################
+
+	.find.ccds.id <- function(xml) {
+
+		# 1) Get all CCDS tags.
+		ccds_elements <- getNodeSet(xml, "//Dbtag_db[text()='CCDS']/..//Object-id_str")
+
+		# 2) If all CCDS are the same, go to point 4.
+		ccds <- NA_character_
 		for (e in ccds_elements) {
-			versions <- xpathSApply(e, "ancestor::Gene-commentary/Gene-commentary_label", xmlValue)
-			if (length(versions) < 1) next
-			current_version <- versions[[length(versions)]]
-			if (is.na(version) || current_version < version) {
-				version <- current_version
-				ccds <- xmlValue(e)
+			current_ccds <- xmlValue(e)
+			if (is.na(ccds))
+				ccds <- current_ccds
+			else {
+				if (current_ccds != ccds) {
+					ccds <- NA_character_
+					break
+				}
 			}
 		}
-	}
 
-	return(ccds)
+		# 3) There are several CCDS values, we need to find the best one (i.e.: the most current one).
+		if (is.na(ccds)) {
+			# For each CCDS, look for the parent Gene-commentary tag. Then look for the text content of the Gene-commentary_label which is situed under. Ignore CCDS that have no Gene-commentary_label associated. Choose the CCDS that has the smallest Gene-commentary_label in alphabetical order.
+			version <- NA_character_
+			for (e in ccds_elements) {
+				versions <- xpathSApply(e, "ancestor::Gene-commentary/Gene-commentary_label", xmlValue)
+				if (length(versions) < 1) next
+				current_version <- versions[[length(versions)]]
+				if (is.na(version) || current_version < version) {
+					version <- current_version
+					ccds <- xmlValue(e)
+				}
+			}
+		}
+
+		return(ccds)
+	}
 }

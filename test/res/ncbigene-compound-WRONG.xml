@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE eEfetchResult PUBLIC "-//NLM//DTD efetch 20131226//EN" "http://eutils.ncbi.nlm.nih.gov/eutils/dtd/20131226/efetch.dtd">
+<eFetchResult>
+	<ERROR>ID list is empty! Possibly it has no correct IDs.</ERROR>
+</eFetchResult>
+

@@ -24,18 +24,25 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.ENZYME       <- 'enzyme'
 	RBIODB.LIPIDMAPS    <- 'lipidmaps'
 	RBIODB.MIRBASE      <- 'mirbase'
+	RBIODB.NCBIGENE     <- 'ncbigene'
+	RBIODB.NCBICCDS     <- 'ncbiccds'
 	RBIODB.MASSBANK     <- 'massbank'
 
 	# Fields
 	RBIODB.COMPOUND     <- 'compound'
 	RBIODB.ACCESSION    <- 'accession'
 	RBIODB.DESCRIPTION  <- 'description'
+	RBIODB.PROTEIN.DESCRIPTION  <- 'protdesc'
 	RBIODB.NAME         <- 'name'
+	RBIODB.SYNONYMS     <- 'synonyms'
+	RBIODB.SYMBOL       <- 'symbol'
 	RBIODB.CHEBI.ID     <- 'chebiid'
 	RBIODB.LIPIDMAPS.ID <- 'lipidmapsid'
 	RBIODB.KEGG.ID      <- 'keggid'
 	RBIODB.HMDB.ID      <- 'hmdbid'
+	RBIODB.NCBI.CCDS.ID <- 'ncbiccdsid'
 	RBIODB.PUBCHEM.ID   <- 'pubchemid'
+	RBIODB.UNIPROT.ID   <- 'uniprotid'
 	RBIODB.INCHI        <- 'inchi'
 	RBIODB.INCHIKEY     <- 'inchikey'
 	RBIODB.MSDEV        <- 'msdev'
@@ -50,37 +57,47 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.AVERAGE.MASS <- 'averagemass'
 	RBIODB.MONOISOTOPIC.MASS <- 'monoisotopicmass'
 	RBIODB.SEQUENCE     <- 'sequence'
+	RBIODB.LOCATION     <- 'location'
 
 	RBIODB.MSMODE.NEG <- 'neg'
 	RBIODB.MSMODE.POS <- 'pos'
 
+	RBIODB.CARD.ONE <- '1'
+	RBIODB.CARD.MANY <- '*'
+
 	RBIODB.FIELDS <- data.frame(matrix(c(
-		# FIELD NAME            CLASS
-		RBIODB.COMPOUND,        'BiodEntry',
-		RBIODB.ACCESSION,       'character',
-		RBIODB.DESCRIPTION,     'character',
-		RBIODB.NAME,            'character',
-		RBIODB.CHEBI.ID,        'character',
-		RBIODB.LIPIDMAPS.ID,    'character',
-		RBIODB.KEGG.ID,         'character',
-		RBIODB.HMDB.ID,         'character',
-		RBIODB.PUBCHEM.ID,      'character',
-		RBIODB.INCHI,           'character',
-		RBIODB.INCHIKEY,        'character',
-		RBIODB.MSDEV,           'character',
-		RBIODB.MSDEVTYPE,       'character',
-		RBIODB.MSTYPE,          'character',
-		RBIODB.MSMODE,          'character',
-		RBIODB.MSPRECMZ,        'double',
-		RBIODB.MSPRECANNOT,     'character',
-		RBIODB.FORMULA,         'character',
-		RBIODB.SUPER.CLASS,     'character',
-		RBIODB.MASS,            'double',
-		RBIODB.AVERAGE.MASS,    'double',
-		RBIODB.MONOISOTOPIC.MASS,   'double',
-		RBIODB.SEQUENCE,        'character'
-		), byrow = TRUE, ncol = 2), stringsAsFactors = FALSE)
-	colnames(RBIODB.FIELDS) <- c('name', 'class')
+		# FIELD NAME                CLASS           CARDINALITY
+		RBIODB.COMPOUND,            'BiodEntry',    RBIODB.CARD.ONE,
+		RBIODB.ACCESSION,           'character',    RBIODB.CARD.ONE,
+		RBIODB.DESCRIPTION,         'character',    RBIODB.CARD.ONE,
+		RBIODB.NAME,                'character',    RBIODB.CARD.ONE,
+		RBIODB.SYNONYMS,            'character',    RBIODB.CARD.MANY,
+		RBIODB.PROTEIN.DESCRIPTION, 'character',    RBIODB.CARD.ONE,
+		RBIODB.SYMBOL,              'character',    RBIODB.CARD.ONE,
+		RBIODB.CHEBI.ID,            'character',    RBIODB.CARD.ONE,
+		RBIODB.LIPIDMAPS.ID,        'character',    RBIODB.CARD.ONE,
+		RBIODB.KEGG.ID,             'character',    RBIODB.CARD.ONE,
+		RBIODB.HMDB.ID,             'character',    RBIODB.CARD.ONE,
+		RBIODB.PUBCHEM.ID,          'character',    RBIODB.CARD.ONE,
+		RBIODB.UNIPROT.ID,          'character',    RBIODB.CARD.ONE,
+		RBIODB.NCBI.CCDS.ID,        'character',    RBIODB.CARD.ONE,
+		RBIODB.INCHI,               'character',    RBIODB.CARD.ONE,
+		RBIODB.INCHIKEY,            'character',    RBIODB.CARD.ONE,
+		RBIODB.MSDEV,               'character',    RBIODB.CARD.ONE,
+		RBIODB.MSDEVTYPE,           'character',    RBIODB.CARD.ONE,
+		RBIODB.MSTYPE,              'character',    RBIODB.CARD.ONE,
+		RBIODB.MSMODE,              'character',    RBIODB.CARD.ONE,
+		RBIODB.MSPRECMZ,            'double',       RBIODB.CARD.ONE,
+		RBIODB.MSPRECANNOT,         'character',    RBIODB.CARD.ONE,
+		RBIODB.FORMULA,             'character',    RBIODB.CARD.ONE,
+		RBIODB.SUPER.CLASS,         'character',    RBIODB.CARD.ONE,
+		RBIODB.MASS,                'double',       RBIODB.CARD.ONE,
+		RBIODB.AVERAGE.MASS,        'double',       RBIODB.CARD.ONE,
+		RBIODB.MONOISOTOPIC.MASS,   'double',       RBIODB.CARD.ONE,
+		RBIODB.SEQUENCE,            'character',    RBIODB.CARD.ONE,
+		RBIODB.LOCATION,            'character',    RBIODB.CARD.ONE
+		), byrow = TRUE, ncol = 3), stringsAsFactors = FALSE)
+	colnames(RBIODB.FIELDS) <- c('name', 'class', 'cardinality')
 
 	# How to compute a missing field ?
 	RBIODB.FIELD.COMPUTING <- list()
@@ -122,6 +139,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),
 			                     NULL)
 		    			  },
+			ncbigene    = if (content.type %in% c(RBIODB.ANY, RBIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
 			NULL
 			)
 
