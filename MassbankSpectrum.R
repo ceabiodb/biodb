@@ -87,25 +87,27 @@ if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 	###################
 
 	.parse.peak.line <- function(spectrum, line) {
+
+		peaks <- RBIODB.PEAK.DF.EXAMPLE
 		
 		# Annotation
-		g <- str_match(s, "^\\s+([0-9][0-9.]*) ([A-Z0-9+-]+) ([0-9]+) ([0-9][0-9.]*) ([0-9][0-9.]*)$")
-		if ( ! is.na(g[1,1])) {
-			mz <- as.double(g[1,2])
-			formula <- g[1,3]
-			formula.count <- as.integer(g[1,4])
-			mass <- as.double(g[1,5])
-			error.ppm <- as.double(g[1,6])
-
-			return(TRUE)
-		}
+		g <- str_match(line, "^\\s+([0-9][0-9.]*) ([A-Z0-9+-]+) ([0-9]+) ([0-9][0-9.]*) ([0-9][0-9.]*)$")
+		if ( ! is.na(g[1,1]))
+			peaks[1, c(RBIODB.PEAK.MZ, RBIODB.PEAK.FORMULA, RBIODB.PEAK.FORMULA.COUNT, RBIODB.PEAK.MASS, RBIODB.PEAK.ERROR.PPM)] <- list(as.double(g[1,2]), g[1,3], as.integer(g[1,4]), as.double(g[1,5]), as.double(g[1,6]))
 
 		# Peak
-		g <- str_match(s, "^\\s+([0-9][0-9.]*) ([0-9][0-9.]*) ([0-9]+)$")
-		if ( ! is.na(g[1,1])) {
-			mz <- as.double(g[1,2])
-			int <- as.double(g[1,3])
-			rel.int <- as.integer(g[1,4])
+		g <- str_match(line, "^\\s+([0-9][0-9.]*) ([0-9][0-9.]*) ([0-9]+)$")
+		if ( ! is.na(g[1,1]))
+			peaks[1, c(RBIODB.PEAK.MZ, RBIODB.PEAK.INTENSITY, RBIODB.PEAK.RELATIVE.INTENSITY)] <- list(as.double(g[1,2]), as.double(g[1,3]), as.integer(g[1,4]))
+
+		if (nrow(peaks) > 0) {
+
+			# Get curent peaks and merge with new peaks
+			current.peaks <- spectrum$getField(RBIODB.PEAKS)
+			if ( ! is.null(current.peaks))
+				peaks <- rbind(current.peaks, peaks)
+
+			spectrum$setField(RBIODB.PEAKS, peaks)
 
 			return(TRUE)
 		}
