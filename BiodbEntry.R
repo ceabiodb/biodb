@@ -26,17 +26,22 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	
 	BiodbEntry$methods(	setField = function(field, value) {
 
+		                   # TODO remove, will be called anyway inside getFieldClass() or other
 		if ( ! field %in% RBIODB.FIELDS[['name']])
 			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
+		# Check cardinality
 		if (.self$getFieldCardinality(field) == RBIODB.CARD.ONE && length(value) > 1)
 			stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
 
+		# Check value class
+		# TODO use getFieldClass() method
 		field.class <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'class']
 		value <- switch(field.class,
 		       'double' = as.double(value),
 		       'character' = as.character(value),
 		       value)
+		# TODO check value class
 
 		.self$.fields[[field]] <- value
 	})

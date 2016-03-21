@@ -64,6 +64,7 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.SEQUENCE     <- 'sequence'
 	RBIODB.LOCATION     <- 'location'
 	RBIODB.LENGTH       <- 'length'
+	RBIODB.NB.PEAKS     <- 'nbpeaks'
 
 	RBIODB.MSMODE.NEG <- 'neg'
 	RBIODB.MSMODE.POS <- 'pos'
@@ -106,7 +107,8 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		RBIODB.MONOISOTOPIC.MASS,   'double',       RBIODB.CARD.ONE,
 		RBIODB.SEQUENCE,            'character',    RBIODB.CARD.ONE,
 		RBIODB.LENGTH,              'integer',      RBIODB.CARD.ONE,
-		RBIODB.LOCATION,            'character',    RBIODB.CARD.ONE
+		RBIODB.LOCATION,            'character',    RBIODB.CARD.ONE,
+		RBIODB.NB.PEAKS,            'integer',      RBIODB.CARD.ONE
 		), byrow = TRUE, ncol = 3), stringsAsFactors = FALSE)
 	colnames(RBIODB.FIELDS) <- c('name', 'class', 'cardinality')
 
