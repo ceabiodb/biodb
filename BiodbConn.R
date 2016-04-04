@@ -1,7 +1,7 @@
 if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 
 	source(file.path('..', 'r-lib', 'UrlRequestScheduler.R'), chdir = TRUE)
-	source('common.R')
+	source('biodb-common.R')
 
 	#####################
 	# CLASS DECLARATION #

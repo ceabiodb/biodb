@@ -1,6 +1,6 @@
 if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 
-	source('common.R')
+	source('biodb-common.R')
 
 	########################
 	# ENTRY ABSTRACT CLASS #
