@@ -18,17 +18,18 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list"))
+	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list", .cache.dir = "character"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	BiodbFactory$methods( initialize = function(useragent = NA_character_, ...) {
+	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, ...) {
 	
 		( ! is.null(useragent) && ! is.na(useragent)) || stop("You must provide a user agent string (e.g.: \"myapp ; my.email@address\").")
 		.useragent <<- useragent
 		.conn <<- list()
+		.cache.dir <<- cache.dir
 
 		callSuper(...) # calls super-class initializer with remaining parameters
 	})
@@ -98,14 +99,84 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		return(entry)
 	})
 
+	########################
+	# GET CACHE FILE PATHS #
+	########################
+
+	BiodbFactory$methods( .get.cache.file.paths = function(class, type, id) {
+
+		# Get extension
+		ext <- .self$getConn(class)$getEntryContentType(type)
+
+		# Set filenames
+		filenames <- vapply(id, function(x) paste0(class, '-', type, '-', x, '.', ext), FUN.VALUE = '')
+
+		# set file paths
+		file.paths <- vapply(filenames, function(x) file.path(.self$.cache.dir, x), FUN.VALUE = '')
+	
+		# Create cache dir if needed
+		if ( ! is.na(.self$.cache.dir) && ! file.exists(.self$.cache.dir))
+			dir.create(.self$.cache.dir)
+
+		return(file.paths)
+	})
+
+	###########################
+	# LOAD CONTENT FROM CACHE #
+	###########################
+
+	BiodbFactory$methods( .load.content.from.cache = function(class, type, id) {
+
+		content <- NULL
+
+		# Read contents from files
+		file.paths <- .self$.get.cache.file.paths(class, type, id)
+		content <- lapply(file.paths, function(x) { if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL })
+
+		return(content)
+	})
+
+	#########################
+	# SAVE CONTENT TO CACHE #
+	#########################
+
+	BiodbFactory$methods( .save.content.to.cache = function(class, type, id, content) {
+
+		# Write contents into files
+		file.paths <- .self$.get.cache.file.paths(class, type, id)
+		mapply(function(c, f) { if ( ! is.null(c)) writeLines(c, f) }, content, file.paths)
+	})
+
 	#####################
 	# GET ENTRY CONTENT #
 	#####################
 
 	BiodbFactory$methods( getEntryContent = function(class, type, id) {
 
-		conn <- .self$getConn(class)
-		content <- conn$getEntryContent(type, id)
+		content <- NULL
+		# Load from cache
+		if ( ! is.na(.self$.cache.dir))
+			content <- .self$.load.content.from.cache(class, type, id)	
+
+		# Get contents
+		missing.content.indexes <- vapply(content, is.null, FUN.VALUE = TRUE)
+		missing.ids <- if (is.null(content)) id else id[missing.content.indexes]
+		if (length(missing.ids) > 0) {
+
+			# Use connector to get missing contents
+			conn <- .self$getConn(class)
+			missing.contents <- conn$getEntryContent(type, missing.ids)
+
+			# Save to cache
+			if ( ! is.null(missing.contents) && ! is.na(.self$.cache.dir))
+				.self$.save.content.to.cache(class, type, missing.ids, missing.contents)
+
+			# Merge content and missing.contents
+			if (is.null(content))
+				content <- missing.contents
+			else
+				content[missing.content.indexes] <- missing.contents
+		}
 
 		return(content)
 	})
