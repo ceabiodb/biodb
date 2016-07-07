@@ -64,13 +64,19 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.SEQUENCE     <- 'sequence'
 	RBIODB.LOCATION     <- 'location'
 	RBIODB.LENGTH       <- 'length'
+	RBIODB.NB.PEAKS     <- 'nbpeaks'
+	RBIODB.NB.PEAKS     <- 'nbpeaks'
+	RBIODB.PEAKS        <- 'peaks'
 
+	# Mode values
 	RBIODB.MSMODE.NEG <- 'neg'
 	RBIODB.MSMODE.POS <- 'pos'
 
+	# Cardinalities
 	RBIODB.CARD.ONE <- '1'
 	RBIODB.CARD.MANY <- '*'
 
+	# Field attributes
 	RBIODB.FIELDS <- data.frame(matrix(c(
 		# FIELD NAME                CLASS           CARDINALITY
 		RBIODB.COMPOUND,            'BiodEntry',    RBIODB.CARD.ONE,
@@ -106,7 +112,9 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 		RBIODB.MONOISOTOPIC.MASS,   'double',       RBIODB.CARD.ONE,
 		RBIODB.SEQUENCE,            'character',    RBIODB.CARD.ONE,
 		RBIODB.LENGTH,              'integer',      RBIODB.CARD.ONE,
-		RBIODB.LOCATION,            'character',    RBIODB.CARD.ONE
+		RBIODB.LOCATION,            'character',    RBIODB.CARD.ONE,
+		RBIODB.NB.PEAKS,            'integer',      RBIODB.CARD.ONE,
+		RBIODB.PEAKS,               'data.frame',   RBIODB.CARD.ONE
 		), byrow = TRUE, ncol = 3), stringsAsFactors = FALSE)
 	colnames(RBIODB.FIELDS) <- c('name', 'class', 'cardinality')
 
@@ -115,6 +123,17 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.FIELD.COMPUTING[[RBIODB.INCHI]]      <- c(RBIODB.CHEBI)
 	RBIODB.FIELD.COMPUTING[[RBIODB.INCHIKEY]]   <- c(RBIODB.CHEBI)
 	RBIODB.FIELD.COMPUTING[[RBIODB.SEQUENCE]]   <- c(RBIODB.NCBICCDS)
+
+	# Peaks data frame columns
+	RBIODB.PEAK.MZ <- 'mz'
+	RBIODB.PEAK.FORMULA <- 'formula'
+	RBIODB.PEAK.FORMULA.COUNT <- 'formula.count'
+	RBIODB.PEAK.MASS <- 'mass'
+	RBIODB.PEAK.ERROR.PPM <- 'error.ppm'
+	RBIODB.PEAK.INTENSITY <- 'intensity'
+	RBIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
+	RBIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
+	colnames(RBIODB.PEAK.DF.EXAMPLE) <- c(RBIODB.PEAK.MZ, RBIODB.PEAK.INTENSITY, RBIODB.PEAK.RELATIVE.INTENSITY, RBIODB.PEAK.FORMULA, RBIODB.PEAK.FORMULA.COUNT, RBIODB.PEAK.MASS, RBIODB.PEAK.ERROR.PPM)
 
 	#################
 	# GET ENTRY URL #

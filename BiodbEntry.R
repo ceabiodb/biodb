@@ -26,17 +26,20 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	
 	BiodbEntry$methods(	setField = function(field, value) {
 
-		if ( ! field %in% RBIODB.FIELDS[['name']])
-			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+		class = .self$getFieldClass(field)
 
-		if (.self$getFieldCardinality(field) == RBIODB.CARD.ONE && length(value) > 1)
+		# Check cardinality
+		if (class != 'data.frame' && .self$getFieldCardinality(field) == RBIODB.CARD.ONE && length(value) > 1)
 			stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
 
-		field.class <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'class']
-		value <- switch(field.class,
-		       'double' = as.double(value),
+		# Check value class
+		value <- switch(class,
 		       'character' = as.character(value),
+		       'double' = as.double(value),
+		       'integer' = as.integer(value),
+		       'logical' = as.logical(value),
 		       value)
+		# TODO check value class
 
 		.self$.fields[[field]] <- value
 	})
@@ -83,7 +86,9 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		else if (.self$.compute.field(field))
 			return(.self$.fields[[field]])
 
-		return(as.vector(NA, mode = .self$getFieldClass(field)))
+		# Return NULL or NA
+		class = .self$getFieldClass(field)
+		return(if (class %in% c('character', 'integer', 'double', 'logical')) as.vector(NA, mode = class) else NULL)
 	})
 	
 	#################
