@@ -59,7 +59,7 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	
 	# Download entry content from the public database.
 	# type      The entry type.
-	# id        The ID of the enttry to get.
+	# id        The ID of the entry to get.
 	# RETURN    An entry content downloaded from database.
 	BiodbConn$methods( getEntryContent = function(type, id) {
 		stop("Method getCompound() is not implemented in concrete class.")
@@ -74,5 +74,23 @@ if ( ! exists('BiodbConn')) { # Do not load again if already loaded
 	# RETURN        A compound instance.
 	BiodbConn$methods( createEntry = function(type, content, drop = TRUE) {
 		stop("Method createEntry() is not implemented in concrete class.")
+	})
+
+	#################
+	# GET ENTRY IDS #
+	#################
+	
+	# Get a list of IDs of all entries contained in this database.
+	BiodbConn$methods( getEntryIds = function(type) {
+		stop("Method getEntryIds() is not implemented in concrete class.")
+	})
+
+	##################
+	# GET NB ENTRIES #
+	##################
+	
+	# Get the number of  entries contained in this database.
+	BiodbConn$methods( getNbEntries = function(type) {
+		stop("Method getNbEntries() is not implemented in concrete class.")
 	})
 }
