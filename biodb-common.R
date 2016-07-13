@@ -1,14 +1,16 @@
 if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 
-	#############
-	# CONSTANTS #
-	#############
-	
-	# Entry types
+	###############
+	# ENTRY TYPES #
+	###############
+
 	BIODB.COMPOUND <- 'compound'
 	BIODB.SPECTRUM <- 'spectrum'
 	
-	# Entry content types
+	#######################
+	# ENTRY CONTENT TYPES #
+	#######################
+
 	BIODB.HTML <- 'html'
 	BIODB.TXT  <- 'txt'
 	BIODB.XML  <- 'xml'
@@ -16,7 +18,10 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.DATAFRAME  <- 'dataframe'
 	BIODB.ANY  <- 'any' # Value used when we do not care about the type.
 
-	# Class names
+	#############
+	# DATABASES #
+	#############
+
 	BIODB.CHEBI        <- 'chebi'
 	BIODB.KEGG         <- 'kegg'
 	BIODB.PUBCHEM      <- 'pubchem'
@@ -31,8 +36,10 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.MASSBANK     <- 'massbank'
 	BIODB.FILEDB       <- 'filedb'
 
-	# Fields
-	BIODB.COMPOUND     <- 'compound'
+	##########
+	# FIELDS #
+	##########
+
 	BIODB.ACCESSION    <- 'accession'
 	BIODB.DESCRIPTION  <- 'description'
 	BIODB.PROTEIN.DESCRIPTION  <- 'protdesc'
@@ -74,11 +81,17 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.MSMODE.NEG <- 'neg'
 	BIODB.MSMODE.POS <- 'pos'
 
-	# Cardinalities
+	#################
+	# CARDINALITIES #
+	#################
+
 	BIODB.CARD.ONE <- '1'
 	BIODB.CARD.MANY <- '*'
 
-	# Field attributes
+	####################
+	# FIELD ATTRIBUTES #
+	####################
+
 	BIODB.FIELDS <- data.frame(matrix(c(
 		# FIELD NAME                CLASS           CARDINALITY
 		BIODB.COMPOUND,            'BiodEntry',    BIODB.CARD.ONE,
@@ -120,13 +133,20 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		), byrow = TRUE, ncol = 3), stringsAsFactors = FALSE)
 	colnames(BIODB.FIELDS) <- c('name', 'class', 'cardinality')
 
-	# How to compute a missing field ?
+	#####################
+	# COMPUTABLE FIELDS #
+	#####################
+
 	BIODB.FIELD.COMPUTING <- list()
 	BIODB.FIELD.COMPUTING[[BIODB.INCHI]]      <- c(BIODB.CHEBI)
 	BIODB.FIELD.COMPUTING[[BIODB.INCHIKEY]]   <- c(BIODB.CHEBI)
 	BIODB.FIELD.COMPUTING[[BIODB.SEQUENCE]]   <- c(BIODB.NCBICCDS)
 
-	# Peaks data frame columns
+	####################
+	# PEAKS DATA FRAME #
+	####################
+
+	# Columns
 	BIODB.PEAK.MZ <- 'mz'
 	BIODB.PEAK.FORMULA <- 'formula'
 	BIODB.PEAK.FORMULA.COUNT <- 'formula.count'
@@ -134,6 +154,8 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.PEAK.ERROR.PPM <- 'error.ppm'
 	BIODB.PEAK.INTENSITY <- 'intensity'
 	BIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
+
+	# Example
 	BIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
 	colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM)
 
