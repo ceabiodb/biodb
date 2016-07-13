@@ -1,13 +1,13 @@
 if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('NcbigeneCompound.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 
-	NcbigeneConn <- setRefClass("NcbigeneConn", contains = "BiodbConn")
+	NcbigeneConn <- setRefClass("NcbigeneConn", contains = "RemotedbConn")
 
 	###############
 	# CONSTRUCTOR #

@@ -13,6 +13,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('NcbiccdsConn.R')
 	source('UniprotConn.R')
 	source('MassbankConn.R')
+	source('FiledbConn.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -26,7 +27,6 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	
 	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, ...) {
 	
-		( ! is.null(useragent) && ! is.na(useragent)) || stop("You must provide a user agent string (e.g.: \"myapp ; my.email@address\").")
 		.useragent <<- useragent
 		.conn <<- list()
 		.cache.dir <<- cache.dir
@@ -42,11 +42,19 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		return(.self$.useragent)
 	})
 
+	##################
+	# SET USER AGENT #
+	##################
+
+	BiodbFactory$methods( setUserAgent = function(useragent) {
+		.useragent <<- useragent
+	})
+
 	############
 	# GET CONN #
 	############
 
-	BiodbFactory$methods( getConn = function(class) {
+	BiodbFactory$methods( getConn = function(class, url = NA_character_) {
 
 		if ( ! class %in% names(.self$.conn)) {
 
@@ -64,6 +72,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                	ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent),
 		                	uniprot     = UniprotConn$new(useragent = .self$.useragent),
 		                	massbank    = MassbankConn$new(useragent = .self$.useragent),
+							filedb      = FiledbConn$new(file = url),
 		      	          	NULL)
 
 			# Unknown class

@@ -1,13 +1,13 @@
 if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('MassbankSpectrum.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	MassbankConn <- setRefClass("MassbankConn", contains = "BiodbConn")
+	MassbankConn <- setRefClass("MassbankConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #

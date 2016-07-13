@@ -1,13 +1,13 @@
 if ( ! exists('UniprotConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('UniprotCompound.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 
-	UniprotConn <- setRefClass("UniprotConn", contains = "BiodbConn")
+	UniprotConn <- setRefClass("UniprotConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #

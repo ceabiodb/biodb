@@ -1,13 +1,13 @@
 if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('LipidmapsCompound.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 
-	LipidmapsConn <- setRefClass("LipidmapsConn", contains = "BiodbConn")
+	LipidmapsConn <- setRefClass("LipidmapsConn", contains = "RemotedbConn")
 
 	###############
 	# CONSTRUCTOR #

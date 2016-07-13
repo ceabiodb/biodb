@@ -1,13 +1,13 @@
 if ( ! exists('KeggConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('KeggCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	KeggConn <- setRefClass("KeggConn", contains = "BiodbConn")
+	KeggConn <- setRefClass("KeggConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #

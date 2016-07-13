@@ -1,13 +1,13 @@
 if ( ! exists('HmdbConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('HmdbCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	HmdbConn <- setRefClass("HmdbConn", contains = "BiodbConn")
+	HmdbConn <- setRefClass("HmdbConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #

@@ -1,13 +1,13 @@
 if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('ChemspiderCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	ChemspiderConn <- setRefClass("ChemspiderConn", contains = "BiodbConn")
+	ChemspiderConn <- setRefClass("ChemspiderConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #

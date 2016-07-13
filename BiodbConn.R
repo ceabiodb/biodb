@@ -1,32 +1,12 @@
-if ( ! exists('BiodbConn')) { # Do not load again if already loaded
+if ( ! exists('BiodbConn')) {
 
-	source(file.path('..', 'r-lib', 'UrlRequestScheduler.R'), chdir = TRUE)
 	source('biodb-common.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	BiodbConn <- setRefClass("BiodbConn", fields = list(.scheduler = "UrlRequestScheduler"))
-
-	###############
-	# CONSTRUCTOR #
-	###############
-
-	BiodbConn$methods( initialize = function(useragent = NA_character_, scheduler = NULL, ...) {
-
-		# Check useragent
-		! is.null(useragent) && ! is.na(useragent) || stop("You must specify a valid useragent.")
-
-		# Set scheduler
-		if (is.null(scheduler))
-			scheduler <- UrlRequestScheduler$new(n = 3)
-		inherits(scheduler, "UrlRequestScheduler") || stop("The scheduler instance must inherit from UrlRequestScheduler class.")
-		scheduler$setUserAgent(useragent) # set agent
-		.scheduler <<- scheduler
-	
-		callSuper(...) # calls super-class initializer with remaining parameters
-	})
+	BiodbConn <- setRefClass("BiodbConn")
 	
 	######################
 	# HANDLES ENTRY TYPE #

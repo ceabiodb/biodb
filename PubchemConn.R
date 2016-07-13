@@ -1,13 +1,13 @@
 if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('PubchemCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	PubchemConn <- setRefClass("PubchemConn", contains = "BiodbConn")
+	PubchemConn <- setRefClass("PubchemConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #

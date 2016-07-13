@@ -1,13 +1,13 @@
 if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('EnzymeCompound.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 
-	EnzymeConn <- setRefClass("EnzymeConn", contains = "BiodbConn")
+	EnzymeConn <- setRefClass("EnzymeConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #

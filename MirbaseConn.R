@@ -1,13 +1,13 @@
 if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('MirbaseCompound.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 
-	MirbaseConn <- setRefClass("MirbaseConn", contains = "BiodbConn")
+	MirbaseConn <- setRefClass("MirbaseConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #
