@@ -23,17 +23,17 @@ if ( ! exists('UniprotCompound')) { # Do not load again if already loaded
 
 		# Define xpath expressions
 		xpath.values <- character()
-		xpath.values[[RBIODB.NAME]] <- "/uniprot:uniprot/uniprot:compound/uniprot:name"
-		xpath.values[[RBIODB.GENE.SYMBOLS]] <- "//uniprot:gene/uniprot:name"
-		xpath.values[[RBIODB.FULLNAMES]] <- "//uniprot:protein//uniprot:fullName"
-		xpath.values[[RBIODB.SEQUENCE]] <- "//uniprot:entry/uniprot:sequence"
-		xpath.values[[RBIODB.ACCESSION]] <- "//uniprot:accession[1]"
+		xpath.values[[BIODB.NAME]] <- "/uniprot:uniprot/uniprot:compound/uniprot:name"
+		xpath.values[[BIODB.GENE.SYMBOLS]] <- "//uniprot:gene/uniprot:name"
+		xpath.values[[BIODB.FULLNAMES]] <- "//uniprot:protein//uniprot:fullName"
+		xpath.values[[BIODB.SEQUENCE]] <- "//uniprot:entry/uniprot:sequence"
+		xpath.values[[BIODB.ACCESSION]] <- "//uniprot:accession[1]"
 		xpath.attr <- list()
-		xpath.attr[[RBIODB.KEGG.ID]] <- list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id')
-		xpath.attr[[RBIODB.NCBI.GENE.ID]] <- list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id')
-		xpath.attr[[RBIODB.ENZYME.ID]] <- list(path = "//uniprot:dbReference[@type='EC']", attr = 'id')
-		xpath.attr[[RBIODB.MASS]] <- list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass')
-		xpath.attr[[RBIODB.LENGTH]] <- list(path = "//uniprot:entry/uniprot:sequence", attr = 'length')
+		xpath.attr[[BIODB.KEGG.ID]] <- list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id')
+		xpath.attr[[BIODB.NCBI.GENE.ID]] <- list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id')
+		xpath.attr[[BIODB.ENZYME.ID]] <- list(path = "//uniprot:dbReference[@type='EC']", attr = 'id')
+		xpath.attr[[BIODB.MASS]] <- list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass')
+		xpath.attr[[BIODB.LENGTH]] <- list(path = "//uniprot:entry/uniprot:sequence", attr = 'length')
 
 		for (content in contents) {
 
@@ -61,16 +61,16 @@ if ( ! exists('UniprotCompound')) { # Do not load again if already loaded
 				}
 
 				# Remove new lines from sequence string
-				seq <- compound$getField(RBIODB.SEQUENCE)
+				seq <- compound$getField(BIODB.SEQUENCE)
 				if ( ! is.na(seq))
-					compound$setField(RBIODB.SEQUENCE, gsub("\\n", "", seq))
+					compound$setField(BIODB.SEQUENCE, gsub("\\n", "", seq))
 			}
 
 			compounds <- c(compounds, compound)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)

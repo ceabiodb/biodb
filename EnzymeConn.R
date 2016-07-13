@@ -14,7 +14,7 @@ if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 	##########################
 
 	EnzymeConn$methods( getEntryContentType = function(type) {
-		return(RBIODB.TXT)
+		return(BIODB.TXT)
 	})
 
 	#####################
@@ -23,13 +23,13 @@ if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 	
 	EnzymeConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.COMPOUND) {
+		if (type == BIODB.COMPOUND) {
 
 			# Initialize return values
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.ENZYME, accession = x, content.type = RBIODB.TXT)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.ENZYME, accession = x, content.type = BIODB.TXT)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -42,6 +42,6 @@ if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 	################
 	
 	EnzymeConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == RBIODB.COMPOUND) createEnzymeCompoundFromTxt(content, drop = drop) else NULL)
+		return(if (type == BIODB.COMPOUND) createEnzymeCompoundFromTxt(content, drop = drop) else NULL)
 	})
 }

@@ -14,7 +14,7 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 	##########################
 
 	ChebiConn$methods( getEntryContentType = function(type) {
-		return(RBIODB.HTML)
+		return(BIODB.HTML)
 	})
 
 	#####################
@@ -23,13 +23,13 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 	
 	ChebiConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.COMPOUND) {
+		if (type == BIODB.COMPOUND) {
 
 			# Initialize return values
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.CHEBI, x)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.CHEBI, x)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -42,7 +42,7 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 	################
 	
 	ChebiConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == RBIODB.COMPOUND) createChebiCompoundFromHtml(content, drop = drop) else NULL)
+		return(if (type == BIODB.COMPOUND) createChebiCompoundFromHtml(content, drop = drop) else NULL)
 	})
 
 } # end of load safe guard

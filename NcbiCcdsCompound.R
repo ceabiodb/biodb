@@ -27,15 +27,15 @@ if ( ! exists('NcbiccdsCompound')) { # Do not load again if already loaded
 			xml <-  htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
 
 			if (length(getNodeSet(xml, "//*[starts-with(.,'No results found for CCDS ID ')]")) == 0) {
-				compound$setField(RBIODB.ACCESSION, xpathSApply(xml, "//input[@id='DATA']", xmlGetAttr, "value"))
-				compound$setField(RBIODB.SEQUENCE, xpathSApply(xml, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", xmlValue))
+				compound$setField(BIODB.ACCESSION, xpathSApply(xml, "//input[@id='DATA']", xmlGetAttr, "value"))
+				compound$setField(BIODB.SEQUENCE, xpathSApply(xml, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", xmlValue))
 			}
 
 			compounds <- c(compounds, compound)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)

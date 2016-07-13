@@ -23,7 +23,7 @@ if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 	##########################
 
 	NcbigeneConn$methods( getEntryContentType = function(type) {
-		return(RBIODB.XML)
+		return(BIODB.XML)
 	})
 
 	#####################
@@ -32,13 +32,13 @@ if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 	
 	NcbigeneConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.COMPOUND) {
+		if (type == BIODB.COMPOUND) {
 
 			# Initialize return values
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.NCBIGENE, x)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.NCBIGENE, x)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -51,6 +51,6 @@ if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 	################
 	
 	NcbigeneConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == RBIODB.COMPOUND) createNcbigeneCompoundFromXml(content, drop = drop) else NULL)
+		return(if (type == BIODB.COMPOUND) createNcbigeneCompoundFromXml(content, drop = drop) else NULL)
 	})
 }

@@ -14,7 +14,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	##########################
 
 	MassbankConn$methods( getEntryContentType = function(type) {
-		return(if (type == RBIODB.SPECTRUM) RBIODB.TXT else NULL) 
+		return(if (type == BIODB.SPECTRUM) BIODB.TXT else NULL) 
 	})
 
 	#####################
@@ -23,13 +23,13 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	
 	MassbankConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.SPECTRUM) {
+		if (type == BIODB.SPECTRUM) {
 
 			# Initialize return values
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			xmlstr <- .self$.scheduler$getUrl(get.entry.url(RBIODB.MASSBANK, id, RBIODB.TXT))
+			xmlstr <- .self$.scheduler$getUrl(get.entry.url(BIODB.MASSBANK, id, BIODB.TXT))
 
 			# Parse XML and get text
 			if ( ! is.na(xmlstr)) {
@@ -54,6 +54,6 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# content       A file content, downloaded from the public database.
 	# RETURN        A spectrum instance.
 	MassbankConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == RBIODB.SPECTRUM) createMassbankSpectrumFromTxt(content, drop = drop) else NULL)
+		return(if (type == BIODB.SPECTRUM) createMassbankSpectrumFromTxt(content, drop = drop) else NULL)
 	})
 }

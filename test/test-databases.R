@@ -3,11 +3,11 @@
 ###########
 
 offline.test.uniprot <- function() {
-	test.entries(RBIODB.UNIPROT, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.UNIPROT, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.uniprot <- function() {
-	test.entries(RBIODB.UNIPROT, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.UNIPROT, BIODB.COMPOUND, online = TRUE)
 }
 
 ############
@@ -15,11 +15,11 @@ online.test.uniprot <- function() {
 ############
 
 offline.test.ncbiccds <- function() {
-	test.entries(RBIODB.NCBICCDS, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.NCBICCDS, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.ncbiccds <- function() {
-	test.entries(RBIODB.NCBICCDS, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.NCBICCDS, BIODB.COMPOUND, online = TRUE)
 }
 
 ############
@@ -27,11 +27,11 @@ online.test.ncbiccds <- function() {
 ############
 
 offline.test.ncbigene <- function() {
-	test.entries(RBIODB.NCBIGENE, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.NCBIGENE, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.ncbigene <- function() {
-	test.entries(RBIODB.NCBIGENE, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.NCBIGENE, BIODB.COMPOUND, online = TRUE)
 }
 
 ###########
@@ -39,11 +39,11 @@ online.test.ncbigene <- function() {
 ###########
 
 offline.test.mirbase <- function() {
-	test.entries(RBIODB.MIRBASE, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.MIRBASE, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.mirbase <- function() {
-	test.entries(RBIODB.MIRBASE, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.MIRBASE, BIODB.COMPOUND, online = TRUE)
 }
 
 #############
@@ -51,11 +51,11 @@ online.test.mirbase <- function() {
 #############
 
 offline.test.lipidmaps <- function() {
-	test.entries(RBIODB.LIPIDMAPS, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.LIPIDMAPS, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.lipidmaps <- function() {
-	test.entries(RBIODB.LIPIDMAPS, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.LIPIDMAPS, BIODB.COMPOUND, online = TRUE)
 }
 
 ##########
@@ -63,11 +63,11 @@ online.test.lipidmaps <- function() {
 ##########
 
 offline.test.enzyme <- function() {
-	test.entries(RBIODB.ENZYME, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.ENZYME, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.enzyme <- function() {
-	test.entries(RBIODB.ENZYME, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.ENZYME, BIODB.COMPOUND, online = TRUE)
 }
 
 ##############
@@ -75,11 +75,11 @@ online.test.enzyme <- function() {
 ##############
 
 offline.test.chemspider <- function() {
-	test.entries(RBIODB.CHEMSPIDER, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.CHEMSPIDER, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.chemspider <- function() {
-	test.entries(RBIODB.CHEMSPIDER, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.CHEMSPIDER, BIODB.COMPOUND, online = TRUE)
 }
 
 ########
@@ -87,11 +87,11 @@ online.test.chemspider <- function() {
 ########
 
 offline.test.hmdb <- function() {
-	test.entries(RBIODB.HMDB, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.HMDB, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.hmdb <- function() {
-	test.entries(RBIODB.HMDB, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.HMDB, BIODB.COMPOUND, online = TRUE)
 }
 
 ###########
@@ -99,11 +99,11 @@ online.test.hmdb <- function() {
 ###########
 
 offline.test.pubchem <- function() {
-	test.entries(RBIODB.PUBCHEM, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.PUBCHEM, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.pubchem <- function() {
-	test.entries(RBIODB.PUBCHEM, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.PUBCHEM, BIODB.COMPOUND, online = TRUE)
 }
 
 #########
@@ -111,11 +111,11 @@ online.test.pubchem <- function() {
 #########
 
 offline.test.chebi <- function() {
-	test.entries(RBIODB.CHEBI, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.CHEBI, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.chebi <- function() {
-	test.entries(RBIODB.CHEBI, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.CHEBI, BIODB.COMPOUND, online = TRUE)
 }
 
 ########
@@ -123,11 +123,11 @@ online.test.chebi <- function() {
 ########
 
 offline.test.kegg <- function() {
-	test.entries(RBIODB.KEGG, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.KEGG, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.kegg <- function() {
-	test.entries(RBIODB.KEGG, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.KEGG, BIODB.COMPOUND, online = TRUE)
 }
 
 ############
@@ -135,9 +135,9 @@ online.test.kegg <- function() {
 ############
 
 offline.test.massbank <- function() {
-	test.entries(RBIODB.MASSBANK, RBIODB.SPECTRUM, online = FALSE)
+	test.entries(BIODB.MASSBANK, BIODB.SPECTRUM, online = FALSE)
 }
 
 online.test.massbank <- function() {
-	test.entries(RBIODB.MASSBANK, RBIODB.SPECTRUM, online = TRUE)
+	test.entries(BIODB.MASSBANK, BIODB.SPECTRUM, online = TRUE)
 }

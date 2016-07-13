@@ -20,13 +20,13 @@ if ( ! exists('HmdbCompound')) { # Do not load again if already loaded
 
 		# Define xpath expressions
 		xpath.expr <- character()
-		xpath.expr[[RBIODB.ACCESSION]]          <- "/metabolite/accession"
-		xpath.expr[[RBIODB.KEGG.ID]]            <- "//kegg_id"
-		xpath.expr[[RBIODB.NAME]]               <- "/metabolite/name"
-		xpath.expr[[RBIODB.FORMULA]]            <- "/metabolite/chemical_formula"
-		xpath.expr[[RBIODB.SUPER.CLASS]]        <- "//super_class"
-		xpath.expr[[RBIODB.AVERAGE.MASS]]       <- "//average_molecular_weight"
-		xpath.expr[[RBIODB.MONOISOTOPIC.MASS]]  <- "//monisotopic_moleculate_weight"
+		xpath.expr[[BIODB.ACCESSION]]          <- "/metabolite/accession"
+		xpath.expr[[BIODB.KEGG.ID]]            <- "//kegg_id"
+		xpath.expr[[BIODB.NAME]]               <- "/metabolite/name"
+		xpath.expr[[BIODB.FORMULA]]            <- "/metabolite/chemical_formula"
+		xpath.expr[[BIODB.SUPER.CLASS]]        <- "//super_class"
+		xpath.expr[[BIODB.AVERAGE.MASS]]       <- "//average_molecular_weight"
+		xpath.expr[[BIODB.MONOISOTOPIC.MASS]]  <- "//monisotopic_moleculate_weight"
 
 		for (content in contents) {
 
@@ -52,7 +52,7 @@ if ( ! exists('HmdbCompound')) { # Do not load again if already loaded
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)

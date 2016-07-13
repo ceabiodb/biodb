@@ -48,7 +48,7 @@ if ( ! exists('FiledbConn')) {
 	##########################
 
 	FiledbConn$methods( getEntryContentType = function(type) {
-		return(RBIODB.DATAFRAME)
+		return(BIODB.DATAFRAME)
 	})
 
 	###########

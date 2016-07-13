@@ -1,147 +1,147 @@
-if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
+if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 
 	#############
 	# CONSTANTS #
 	#############
 	
 	# Entry types
-	RBIODB.COMPOUND <- 'compound'
-	RBIODB.SPECTRUM <- 'spectrum'
+	BIODB.COMPOUND <- 'compound'
+	BIODB.SPECTRUM <- 'spectrum'
 	
 	# Entry content types
-	RBIODB.HTML <- 'html'
-	RBIODB.TXT  <- 'txt'
-	RBIODB.XML  <- 'xml'
-	RBIODB.CSV  <- 'csv'
-	RBIODB.DATAFRAME  <- 'dataframe'
-	RBIODB.ANY  <- 'any' # Value used when we do not care about the type.
+	BIODB.HTML <- 'html'
+	BIODB.TXT  <- 'txt'
+	BIODB.XML  <- 'xml'
+	BIODB.CSV  <- 'csv'
+	BIODB.DATAFRAME  <- 'dataframe'
+	BIODB.ANY  <- 'any' # Value used when we do not care about the type.
 
 	# Class names
-	RBIODB.CHEBI        <- 'chebi'
-	RBIODB.KEGG         <- 'kegg'
-	RBIODB.PUBCHEM      <- 'pubchem'
-	RBIODB.HMDB         <- 'hmdb'
-	RBIODB.CHEMSPIDER   <- 'chemspider'
-	RBIODB.ENZYME       <- 'enzyme'
-	RBIODB.LIPIDMAPS    <- 'lipidmaps'
-	RBIODB.MIRBASE      <- 'mirbase'
-	RBIODB.NCBIGENE     <- 'ncbigene'
-	RBIODB.NCBICCDS     <- 'ncbiccds'
-	RBIODB.UNIPROT      <- 'uniprot'
-	RBIODB.MASSBANK     <- 'massbank'
+	BIODB.CHEBI        <- 'chebi'
+	BIODB.KEGG         <- 'kegg'
+	BIODB.PUBCHEM      <- 'pubchem'
+	BIODB.HMDB         <- 'hmdb'
+	BIODB.CHEMSPIDER   <- 'chemspider'
+	BIODB.ENZYME       <- 'enzyme'
+	BIODB.LIPIDMAPS    <- 'lipidmaps'
+	BIODB.MIRBASE      <- 'mirbase'
+	BIODB.NCBIGENE     <- 'ncbigene'
+	BIODB.NCBICCDS     <- 'ncbiccds'
+	BIODB.UNIPROT      <- 'uniprot'
+	BIODB.MASSBANK     <- 'massbank'
 
 	# Fields
-	RBIODB.COMPOUND     <- 'compound'
-	RBIODB.ACCESSION    <- 'accession'
-	RBIODB.DESCRIPTION  <- 'description'
-	RBIODB.PROTEIN.DESCRIPTION  <- 'protdesc'
-	RBIODB.NAME         <- 'name'
-	RBIODB.FULLNAMES    <- 'fullnames'
-	RBIODB.SYNONYMS     <- 'synonyms'
-	RBIODB.SYMBOL       <- 'symbol'
-	RBIODB.GENE.SYMBOLS <- 'genesymbols'
-	RBIODB.CHEBI.ID     <- 'chebiid'
-	RBIODB.LIPIDMAPS.ID <- 'lipidmapsid'
-	RBIODB.KEGG.ID      <- 'keggid'
-	RBIODB.HMDB.ID      <- 'hmdbid'
-	RBIODB.ENZYME.ID    <- 'enzymeid'
-	RBIODB.NCBI.CCDS.ID <- 'ncbiccdsid'
-	RBIODB.NCBI.GENE.ID <- 'ncbigeneid'
-	RBIODB.PUBCHEM.ID   <- 'pubchemid'
-	RBIODB.UNIPROT.ID   <- 'uniprotid'
-	RBIODB.INCHI        <- 'inchi'
-	RBIODB.INCHIKEY     <- 'inchikey'
-	RBIODB.MSDEV        <- 'msdev'
-	RBIODB.MSDEVTYPE    <- 'msdevtype'
-	RBIODB.MSTYPE       <- 'mstype'
-	RBIODB.MSMODE       <- 'msmode'
-	RBIODB.MSPRECMZ     <- 'msprecmz'       # numeric
-	RBIODB.MSPRECANNOT  <- 'msprecannot'
-	RBIODB.FORMULA      <- 'formula'
-	RBIODB.SUPER.CLASS  <- 'superclass'
-	RBIODB.MASS         <- 'mass'
-	RBIODB.AVERAGE.MASS <- 'averagemass'
-	RBIODB.MONOISOTOPIC.MASS <- 'monoisotopicmass'
-	RBIODB.SEQUENCE     <- 'sequence'
-	RBIODB.LOCATION     <- 'location'
-	RBIODB.LENGTH       <- 'length'
-	RBIODB.NB.PEAKS     <- 'nbpeaks'
-	RBIODB.NB.PEAKS     <- 'nbpeaks'
-	RBIODB.PEAKS        <- 'peaks'
+	BIODB.COMPOUND     <- 'compound'
+	BIODB.ACCESSION    <- 'accession'
+	BIODB.DESCRIPTION  <- 'description'
+	BIODB.PROTEIN.DESCRIPTION  <- 'protdesc'
+	BIODB.NAME         <- 'name'
+	BIODB.FULLNAMES    <- 'fullnames'
+	BIODB.SYNONYMS     <- 'synonyms'
+	BIODB.SYMBOL       <- 'symbol'
+	BIODB.GENE.SYMBOLS <- 'genesymbols'
+	BIODB.CHEBI.ID     <- 'chebiid'
+	BIODB.LIPIDMAPS.ID <- 'lipidmapsid'
+	BIODB.KEGG.ID      <- 'keggid'
+	BIODB.HMDB.ID      <- 'hmdbid'
+	BIODB.ENZYME.ID    <- 'enzymeid'
+	BIODB.NCBI.CCDS.ID <- 'ncbiccdsid'
+	BIODB.NCBI.GENE.ID <- 'ncbigeneid'
+	BIODB.PUBCHEM.ID   <- 'pubchemid'
+	BIODB.UNIPROT.ID   <- 'uniprotid'
+	BIODB.INCHI        <- 'inchi'
+	BIODB.INCHIKEY     <- 'inchikey'
+	BIODB.MSDEV        <- 'msdev'
+	BIODB.MSDEVTYPE    <- 'msdevtype'
+	BIODB.MSTYPE       <- 'mstype'
+	BIODB.MSMODE       <- 'msmode'
+	BIODB.MSPRECMZ     <- 'msprecmz'       # numeric
+	BIODB.MSPRECANNOT  <- 'msprecannot'
+	BIODB.FORMULA      <- 'formula'
+	BIODB.SUPER.CLASS  <- 'superclass'
+	BIODB.MASS         <- 'mass'
+	BIODB.AVERAGE.MASS <- 'averagemass'
+	BIODB.MONOISOTOPIC.MASS <- 'monoisotopicmass'
+	BIODB.SEQUENCE     <- 'sequence'
+	BIODB.LOCATION     <- 'location'
+	BIODB.LENGTH       <- 'length'
+	BIODB.NB.PEAKS     <- 'nbpeaks'
+	BIODB.NB.PEAKS     <- 'nbpeaks'
+	BIODB.PEAKS        <- 'peaks'
 
 	# Mode values
-	RBIODB.MSMODE.NEG <- 'neg'
-	RBIODB.MSMODE.POS <- 'pos'
+	BIODB.MSMODE.NEG <- 'neg'
+	BIODB.MSMODE.POS <- 'pos'
 
 	# Cardinalities
-	RBIODB.CARD.ONE <- '1'
-	RBIODB.CARD.MANY <- '*'
+	BIODB.CARD.ONE <- '1'
+	BIODB.CARD.MANY <- '*'
 
 	# Field attributes
-	RBIODB.FIELDS <- data.frame(matrix(c(
+	BIODB.FIELDS <- data.frame(matrix(c(
 		# FIELD NAME                CLASS           CARDINALITY
-		RBIODB.COMPOUND,            'BiodEntry',    RBIODB.CARD.ONE,
-		RBIODB.ACCESSION,           'character',    RBIODB.CARD.ONE,
-		RBIODB.DESCRIPTION,         'character',    RBIODB.CARD.ONE,
-		RBIODB.NAME,                'character',    RBIODB.CARD.ONE,
-		RBIODB.FULLNAMES,           'character',    RBIODB.CARD.MANY,
-		RBIODB.SYNONYMS,            'character',    RBIODB.CARD.MANY,
-		RBIODB.PROTEIN.DESCRIPTION, 'character',    RBIODB.CARD.ONE,
-		RBIODB.SYMBOL,              'character',    RBIODB.CARD.ONE,
-		RBIODB.GENE.SYMBOLS,        'character',    RBIODB.CARD.MANY,
-		RBIODB.CHEBI.ID,            'character',    RBIODB.CARD.ONE,
-		RBIODB.LIPIDMAPS.ID,        'character',    RBIODB.CARD.ONE,
-		RBIODB.KEGG.ID,             'character',    RBIODB.CARD.ONE,
-		RBIODB.HMDB.ID,             'character',    RBIODB.CARD.ONE,
-		RBIODB.ENZYME.ID,           'character',    RBIODB.CARD.ONE,
-		RBIODB.PUBCHEM.ID,          'character',    RBIODB.CARD.ONE,
-		RBIODB.UNIPROT.ID,          'character',    RBIODB.CARD.ONE,
-		RBIODB.NCBI.CCDS.ID,        'character',    RBIODB.CARD.ONE,
-		RBIODB.NCBI.GENE.ID,        'character',    RBIODB.CARD.ONE,
-		RBIODB.INCHI,               'character',    RBIODB.CARD.ONE,
-		RBIODB.INCHIKEY,            'character',    RBIODB.CARD.ONE,
-		RBIODB.MSDEV,               'character',    RBIODB.CARD.ONE,
-		RBIODB.MSDEVTYPE,           'character',    RBIODB.CARD.ONE,
-		RBIODB.MSTYPE,              'character',    RBIODB.CARD.ONE,
-		RBIODB.MSMODE,              'character',    RBIODB.CARD.ONE,
-		RBIODB.MSPRECMZ,            'double',       RBIODB.CARD.ONE,
-		RBIODB.MSPRECANNOT,         'character',    RBIODB.CARD.ONE,
-		RBIODB.FORMULA,             'character',    RBIODB.CARD.ONE,
-		RBIODB.SUPER.CLASS,         'character',    RBIODB.CARD.ONE,
-		RBIODB.MASS,                'double',       RBIODB.CARD.ONE,
-		RBIODB.AVERAGE.MASS,        'double',       RBIODB.CARD.ONE,
-		RBIODB.MONOISOTOPIC.MASS,   'double',       RBIODB.CARD.ONE,
-		RBIODB.SEQUENCE,            'character',    RBIODB.CARD.ONE,
-		RBIODB.LENGTH,              'integer',      RBIODB.CARD.ONE,
-		RBIODB.LOCATION,            'character',    RBIODB.CARD.ONE,
-		RBIODB.NB.PEAKS,            'integer',      RBIODB.CARD.ONE,
-		RBIODB.PEAKS,               'data.frame',   RBIODB.CARD.ONE
+		BIODB.COMPOUND,            'BiodEntry',    BIODB.CARD.ONE,
+		BIODB.ACCESSION,           'character',    BIODB.CARD.ONE,
+		BIODB.DESCRIPTION,         'character',    BIODB.CARD.ONE,
+		BIODB.NAME,                'character',    BIODB.CARD.ONE,
+		BIODB.FULLNAMES,           'character',    BIODB.CARD.MANY,
+		BIODB.SYNONYMS,            'character',    BIODB.CARD.MANY,
+		BIODB.PROTEIN.DESCRIPTION, 'character',    BIODB.CARD.ONE,
+		BIODB.SYMBOL,              'character',    BIODB.CARD.ONE,
+		BIODB.GENE.SYMBOLS,        'character',    BIODB.CARD.MANY,
+		BIODB.CHEBI.ID,            'character',    BIODB.CARD.ONE,
+		BIODB.LIPIDMAPS.ID,        'character',    BIODB.CARD.ONE,
+		BIODB.KEGG.ID,             'character',    BIODB.CARD.ONE,
+		BIODB.HMDB.ID,             'character',    BIODB.CARD.ONE,
+		BIODB.ENZYME.ID,           'character',    BIODB.CARD.ONE,
+		BIODB.PUBCHEM.ID,          'character',    BIODB.CARD.ONE,
+		BIODB.UNIPROT.ID,          'character',    BIODB.CARD.ONE,
+		BIODB.NCBI.CCDS.ID,        'character',    BIODB.CARD.ONE,
+		BIODB.NCBI.GENE.ID,        'character',    BIODB.CARD.ONE,
+		BIODB.INCHI,               'character',    BIODB.CARD.ONE,
+		BIODB.INCHIKEY,            'character',    BIODB.CARD.ONE,
+		BIODB.MSDEV,               'character',    BIODB.CARD.ONE,
+		BIODB.MSDEVTYPE,           'character',    BIODB.CARD.ONE,
+		BIODB.MSTYPE,              'character',    BIODB.CARD.ONE,
+		BIODB.MSMODE,              'character',    BIODB.CARD.ONE,
+		BIODB.MSPRECMZ,            'double',       BIODB.CARD.ONE,
+		BIODB.MSPRECANNOT,         'character',    BIODB.CARD.ONE,
+		BIODB.FORMULA,             'character',    BIODB.CARD.ONE,
+		BIODB.SUPER.CLASS,         'character',    BIODB.CARD.ONE,
+		BIODB.MASS,                'double',       BIODB.CARD.ONE,
+		BIODB.AVERAGE.MASS,        'double',       BIODB.CARD.ONE,
+		BIODB.MONOISOTOPIC.MASS,   'double',       BIODB.CARD.ONE,
+		BIODB.SEQUENCE,            'character',    BIODB.CARD.ONE,
+		BIODB.LENGTH,              'integer',      BIODB.CARD.ONE,
+		BIODB.LOCATION,            'character',    BIODB.CARD.ONE,
+		BIODB.NB.PEAKS,            'integer',      BIODB.CARD.ONE,
+		BIODB.PEAKS,               'data.frame',   BIODB.CARD.ONE
 		), byrow = TRUE, ncol = 3), stringsAsFactors = FALSE)
-	colnames(RBIODB.FIELDS) <- c('name', 'class', 'cardinality')
+	colnames(BIODB.FIELDS) <- c('name', 'class', 'cardinality')
 
 	# How to compute a missing field ?
-	RBIODB.FIELD.COMPUTING <- list()
-	RBIODB.FIELD.COMPUTING[[RBIODB.INCHI]]      <- c(RBIODB.CHEBI)
-	RBIODB.FIELD.COMPUTING[[RBIODB.INCHIKEY]]   <- c(RBIODB.CHEBI)
-	RBIODB.FIELD.COMPUTING[[RBIODB.SEQUENCE]]   <- c(RBIODB.NCBICCDS)
+	BIODB.FIELD.COMPUTING <- list()
+	BIODB.FIELD.COMPUTING[[BIODB.INCHI]]      <- c(BIODB.CHEBI)
+	BIODB.FIELD.COMPUTING[[BIODB.INCHIKEY]]   <- c(BIODB.CHEBI)
+	BIODB.FIELD.COMPUTING[[BIODB.SEQUENCE]]   <- c(BIODB.NCBICCDS)
 
 	# Peaks data frame columns
-	RBIODB.PEAK.MZ <- 'mz'
-	RBIODB.PEAK.FORMULA <- 'formula'
-	RBIODB.PEAK.FORMULA.COUNT <- 'formula.count'
-	RBIODB.PEAK.MASS <- 'mass'
-	RBIODB.PEAK.ERROR.PPM <- 'error.ppm'
-	RBIODB.PEAK.INTENSITY <- 'intensity'
-	RBIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
-	RBIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
-	colnames(RBIODB.PEAK.DF.EXAMPLE) <- c(RBIODB.PEAK.MZ, RBIODB.PEAK.INTENSITY, RBIODB.PEAK.RELATIVE.INTENSITY, RBIODB.PEAK.FORMULA, RBIODB.PEAK.FORMULA.COUNT, RBIODB.PEAK.MASS, RBIODB.PEAK.ERROR.PPM)
+	BIODB.PEAK.MZ <- 'mz'
+	BIODB.PEAK.FORMULA <- 'formula'
+	BIODB.PEAK.FORMULA.COUNT <- 'formula.count'
+	BIODB.PEAK.MASS <- 'mass'
+	BIODB.PEAK.ERROR.PPM <- 'error.ppm'
+	BIODB.PEAK.INTENSITY <- 'intensity'
+	BIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
+	BIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
+	colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM)
 
 	#####################
 	# DEFAULT DB FIELDS #
 	#####################
 
 	BIODB.DFT.DB.FIELDS <- list()
-	for (f in RBIODB.FIELDS[RBIODB.FIELDS[class] %in% c('character', 'integer', 'double'), 'name'])
+	for (f in BIODB.FIELDS[BIODB.FIELDS['class'] %in% c('character', 'integer', 'double'), 'name'])
 		BIODB.DFT.DB.FIELDS[[f]] <- f
 
 	#################
@@ -149,15 +149,15 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	#################
 
 	# TODO Let the choice to use either jp or eu
-	RBIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
-	RBIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/getRecordInfo"
+	BIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
+	BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/getRecordInfo"
 
-	get.entry.url <- function(class, accession, content.type = RBIODB.ANY) {
+	get.entry.url <- function(class, accession, content.type = BIODB.ANY) {
 
 		url <- switch(class,
-			chebi       = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
-			chemspider  = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('http://www.chemspider.com/Chemical-Structure.', accession, '.html') else NULL,
-			enzyme      = if (content.type %in% c(RBIODB.ANY, RBIODB.TXT)) paste0('http://enzyme.expasy.org/EC/', accession, '.txt') else NULL,
+			chebi       = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
+			chemspider  = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('http://www.chemspider.com/Chemical-Structure.', accession, '.html') else NULL,
+			enzyme      = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0('http://enzyme.expasy.org/EC/', accession, '.txt') else NULL,
 			hmdb        = switch(content.type,
 			                     xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
 			                     html = paste0('http://www.hmdb.ca/metabolites/', accession),
@@ -168,9 +168,9 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 			                     html = paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', accession),
 			                     any  = paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', accession),
 			                     NULL),
-			lipidmaps   = if (content.type %in% c(RBIODB.ANY, RBIODB.CSV)) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
-			massbank    = if (content.type %in% c(RBIODB.ANY, RBIODB.TXT)) paste0(RBIODB.MASSBANK.EU.WS.URL, '?ids=', paste(accession, collapse = ',')) else NULL,
-			mirbase     = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
+			lipidmaps   = if (content.type %in% c(BIODB.ANY, BIODB.CSV)) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
+			massbank    = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0(BIODB.MASSBANK.EU.WS.URL, '?ids=', paste(accession, collapse = ',')) else NULL,
+			mirbase     = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
 			pubchem     = {
 							accession <- gsub(' ', '', accession, perl = TRUE)
 							accession <- gsub('^CID', '', accession, perl = TRUE)
@@ -179,9 +179,9 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),
 			                     NULL)
 		    			  },
-			ncbigene    = if (content.type %in% c(RBIODB.ANY, RBIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
-			ncbiccds    = if (content.type %in% c(RBIODB.ANY, RBIODB.HTML)) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
-			uniprot     = if (content.type %in% c(RBIODB.ANY, RBIODB.XML)) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
+			ncbigene    = if (content.type %in% c(BIODB.ANY, BIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
+			ncbiccds    = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
+			uniprot     = if (content.type %in% c(BIODB.ANY, BIODB.XML)) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
 			NULL
 			)
 

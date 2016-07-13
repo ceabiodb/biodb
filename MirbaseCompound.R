@@ -20,9 +20,9 @@ if ( ! exists('MirbaseCompound')) { # Do not load again if already loaded
 	
 		# Define fields regex
 		xpath.expr <- character()
-		xpath.expr[[RBIODB.ACCESSION]]  <- "//td[text()='Accession number']/../td[2]"
-		xpath.expr[[RBIODB.NAME]]       <- "//td[text()='ID']/../td[2]"
-		xpath.expr[[RBIODB.SEQUENCE]]   <- "//td[text()='Sequence']/..//pre"
+		xpath.expr[[BIODB.ACCESSION]]  <- "//td[text()='Accession number']/../td[2]"
+		xpath.expr[[BIODB.NAME]]       <- "//td[text()='ID']/../td[2]"
+		xpath.expr[[BIODB.SEQUENCE]]   <- "//td[text()='Sequence']/..//pre"
 
 		for (html in contents) {
 
@@ -43,7 +43,7 @@ if ( ! exists('MirbaseCompound')) { # Do not load again if already loaded
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
