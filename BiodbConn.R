@@ -7,7 +7,7 @@ if ( ! exists('BiodbConn')) {
 	#####################
 	
 	BiodbConn <- setRefClass("BiodbConn")
-	
+
 	######################
 	# HANDLES ENTRY TYPE #
 	######################

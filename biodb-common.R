@@ -13,7 +13,8 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.TXT  <- 'txt'
 	RBIODB.XML  <- 'xml'
 	RBIODB.CSV  <- 'csv'
-	RBIODB.ANY  <- 'any'
+	RBIODB.DATAFRAME  <- 'dataframe'
+	RBIODB.ANY  <- 'any' # Value used when we do not care about the type.
 
 	# Class names
 	RBIODB.CHEBI        <- 'chebi'
@@ -134,6 +135,14 @@ if ( ! exists('RBIODB.COMPOUND')) { # Do not load again if already loaded
 	RBIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
 	RBIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
 	colnames(RBIODB.PEAK.DF.EXAMPLE) <- c(RBIODB.PEAK.MZ, RBIODB.PEAK.INTENSITY, RBIODB.PEAK.RELATIVE.INTENSITY, RBIODB.PEAK.FORMULA, RBIODB.PEAK.FORMULA.COUNT, RBIODB.PEAK.MASS, RBIODB.PEAK.ERROR.PPM)
+
+	#####################
+	# DEFAULT DB FIELDS #
+	#####################
+
+	BIODB.DFT.DB.FIELDS <- list()
+	for (f in RBIODB.FIELDS[RBIODB.FIELDS[class] %in% c('character', 'integer', 'double'), 'name'])
+		BIODB.DFT.DB.FIELDS[[f]] <- f
 
 	#################
 	# GET ENTRY URL #
