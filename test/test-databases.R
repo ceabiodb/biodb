@@ -1,3 +1,24 @@
+#########################
+# DEFINE TEST FUNCTIONS #
+#########################
+
+# XXX Does not work. RUnit does not see the functions defined through assign() calls.
+# for (online in c(TRUE, FALSE))
+# 	for (db in c(BIODB.UNIPROT))
+# 		for (entry.type in c(BIODB.COMPOUND, BIODB.SPECTRUM))
+# 			if (BiodbFactory$new(useragent = USER.AGENT)$getConn(db)$handlesEntryType(entry.type)) {
+# 				test.fct <- parse(text = paste0("function() { test.entries(", db, ", ", entry.type, ", online = ", online, ") }"))
+# 				assign(paste(if (online) 'online' else 'offline', 'test', db, sep = '.'), test.fct)
+# 			}
+
+##########
+# FILEDB #
+##########
+
+offline.test.filedb <- function() {
+	test.db(BIODB.FILEDB, online = FALSE)
+}
+
 ###########
 # UNIPROT #
 ###########

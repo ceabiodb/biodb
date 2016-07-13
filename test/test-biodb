@@ -46,45 +46,16 @@ read.args <- function() {
   return(opt)
 }
 
-######################
-# BIODB TEST FACTORY #
-######################
+###########
+# TEST DB #
+###########
 
-BiodbTestFactory <- setRefClass("BiodbTestFactory", contains = "BiodbFactory", fields = list(.online = 'logical'))
+test.db <- function(db, online = TRUE) {
 
-BiodbTestFactory$methods( initialize = function(online, ...) {
-	.online <<- online
-	callSuper(...)
-})
+	# Create factory
+	factory <- BiodbFactory$new(useragent = USER.AGENT)
 
-BiodbTestFactory$methods( getEntryContent = function(class, type, id) {
-
-	# Get file extension
-	ext <- .self$getConn(class)$getEntryContentType(type)
-
-	# Set content filenames
-	content.filenames <- vapply(id, function(x) paste0(class, '-', type, '-', x, '.', ext), FUN.VALUE = '')
-
-	if (.self$.online) {
-
-		# Get contents from database
-		conn <- .self$getConn(class)
-		content <- conn$getEntryContent(type, id)
-
-		# Write contents into files
-		content.file.path <- vapply(content.filenames, function(x) file.path(dirname(script.path), x), FUN.VALUE = '')
-		mapply(writeLines, content, content.file.path)
-	}
-	else {
-
-		# Read contents from files
-		content.file.path <- vapply(content.filenames, function(x) file.path(dirname(script.path), 'res', x), FUN.VALUE = '')
-		content <- vapply(content.file.path, function(x) paste(readLines(x), collapse = "\n"), FUN.VALUE = '')
-	}
-
-	return(content)
-})
-
+}
 
 ################
 # TEST ENTRIES #
@@ -93,7 +64,7 @@ BiodbTestFactory$methods( getEntryContent = function(class, type, id) {
 test.entries <- function(db, entry.type, online = TRUE) {
 
 	# Create factory
-	factory <- BiodbTestFactory$new(online = online, useragent = USER.AGENT)
+	factory <- BiodbFactory$new(useragent = USER.AGENT, cache.dir = if (online) NA_character_ else file.path(dirname(script.path), 'res'))
 
 	# Test a wrong accession number
 	wrong.entry <- factory$createEntry(db, entry.type, id = 'WRONG')

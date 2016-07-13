@@ -8,7 +8,7 @@
 	<!-- OFFLINE -->
 	<target name="offline">
 		<exec executable="./test-biodb" failonerror="true">
-			<arg value="-o"/>
+			<arg value="--offline"/>
 		</exec>
 	</target>
 
