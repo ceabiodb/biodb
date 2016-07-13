@@ -29,6 +29,7 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.NCBICCDS     <- 'ncbiccds'
 	BIODB.UNIPROT      <- 'uniprot'
 	BIODB.MASSBANK     <- 'massbank'
+	BIODB.FILEDB       <- 'filedb'
 
 	# Fields
 	BIODB.COMPOUND     <- 'compound'

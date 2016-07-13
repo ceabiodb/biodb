@@ -20,7 +20,7 @@ if ( ! exists('ChebiConn')) { # Do not load again if already loaded
 	#####################
 	# GET ENTRY CONTENT #
 	#####################
-	
+
 	ChebiConn$methods( getEntryContent = function(type, id) {
 
 		if (type == BIODB.COMPOUND) {
