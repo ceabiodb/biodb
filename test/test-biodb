@@ -50,11 +50,14 @@ read.args <- function() {
 # TEST DB #
 ###########
 
-test.db <- function(db, online = TRUE) {
+test.db <- function(db) {
 
-	# Create factory
-	factory <- BiodbFactory$new(useragent = USER.AGENT)
+	for (entry.type in c(BIODB.COMPOUND, BIODB.SPECTRUM)) {
 
+		# Test getNbEntries()
+		n <- db$getNbEntries(entry.type)
+		checkTrue(is.na(n) || n >= 0)
+	}
 }
 
 ################

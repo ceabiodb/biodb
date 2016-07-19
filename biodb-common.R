@@ -74,8 +74,13 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.LOCATION     <- 'location'
 	BIODB.LENGTH       <- 'length'
 	BIODB.NB.PEAKS     <- 'nbpeaks'
-	BIODB.NB.PEAKS     <- 'nbpeaks'
 	BIODB.PEAKS        <- 'peaks'
+	BIODB.COMPOUND.ID   <- 'compoundid'
+	BIODB.PEAK.MZ       <- 'peakmz'
+	BIODB.PEAK.COMP     <- 'peakcomp' # Peak composition
+	BIODB.PEAK.ATTR     <- 'peakattr' # Peak attribution
+	BIODB.CHROM.COL     <- 'chromcol' # Chromatographic column
+	BIODB.CHROM.COL.RT  <- 'chromcolrt' # Retention time measured on chromatographic column
 
 	# Mode values
 	BIODB.MSMODE.NEG <- 'neg'
@@ -88,9 +93,9 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.CARD.ONE <- '1'
 	BIODB.CARD.MANY <- '*'
 
-	####################
-	# FIELD ATTRIBUTES #
-	####################
+	##########################
+	# ENTRY FIELD ATTRIBUTES #
+	##########################
 
 	BIODB.FIELDS <- data.frame(matrix(c(
 		# FIELD NAME                CLASS           CARDINALITY
@@ -158,14 +163,6 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	# Example
 	BIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
 	colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM)
-
-	#####################
-	# DEFAULT DB FIELDS #
-	#####################
-
-	BIODB.DFT.DB.FIELDS <- list()
-	for (f in BIODB.FIELDS[BIODB.FIELDS['class'] %in% c('character', 'integer', 'double'), 'name'])
-		BIODB.DFT.DB.FIELDS[[f]] <- f
 
 	#################
 	# GET ENTRY URL #

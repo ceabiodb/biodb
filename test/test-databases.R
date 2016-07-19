@@ -16,7 +16,31 @@
 ##########
 
 offline.test.filedb <- function() {
-	test.db(BIODB.FILEDB, online = FALSE)
+
+	# Create factory
+	factory <- BiodbFactory$new()
+
+	# Create database
+	db <- factory$getConn(BIODB.FILEDB, url = file.path(dirname(script.path), 'res', 'filedb.tsv'))
+	fields <- list()
+	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
+	db$setField(BIODB.COMPOUND.ID, 'molid')
+	db$setField(BIODB.MSMODE, 'mode')
+	db$setField(BIODB.PEAK.MZ, 'mztheo')
+	db$setField(BIODB.PEAK.COMP, 'comp')
+	db$setField(BIODB.PEAK.ATTR, 'attr')
+	db$setField(BIODB.CHROM.COL, 'col')
+	db$setField(BIODB.CHROM.COL.RT, 'colrt')
+	db$setField(BIODB.FORMULA, 'molcomp')
+	db$setField(BIODB.MASS, 'molmass')
+	db$setField(BIODB.FULLNAMES, 'molnames')
+
+	# Run general tests
+	test.db(db)
+
+	# Test nb entries
+	checkTrue(db$getNbEntries(BIODB.SPECTRUM) > 1)
+	checkTrue(db$getNbEntries(BIODB.COMPOUND) > 1)
 }
 
 ###########
