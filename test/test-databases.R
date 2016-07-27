@@ -42,15 +42,25 @@ offline.test.filedb <- function() {
 	# Run general tests
 	test.db(db)
 
-	# Test entry ids
-	checkEquals(db$getEntryIds(BIODB.COMPOUND), sort(as.character(df[! duplicated(df['molid']), 'molid'])))
+	# Generic tests
 
-	# Test nb entries
-	checkTrue(db$getNbEntries(BIODB.SPECTRUM) > 1)
-	checkTrue(db$getNbEntries(BIODB.COMPOUND) == sum(as.integer(! duplicated(df['molid']))))
+		# Test entries
+		checkTrue(db$getNbEntries(BIODB.SPECTRUM) > 1)
+		checkTrue(db$getNbEntries(BIODB.COMPOUND) > 1)
 
-	# Test chrom cols
-	checkTrue(nrow(db$getChromCol()) > 1)
+		# Test chrom cols
+		compound.id <- db$getEntryIds(BIODB.COMPOUND)[[1]]
+		checkTrue(nrow(db$getChromCol()) > 1)
+		checkTrue(nrow(db$getChromCol(compound.id)) > 1)
+		checkTrue(nrow(db$getChromCol(compound.id)) < nrow(db$getChromCol()))
+		checkTrue(all(db$getChromCol(compound.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
+
+	# Specific tests for filedb
+		# Test entry ids
+		checkEquals(db$getEntryIds(BIODB.COMPOUND), sort(as.character(df[! duplicated(df['molid']), 'molid'])))
+
+		# Test nb entries
+		checkTrue(db$getNbEntries(BIODB.COMPOUND) == sum(as.integer(! duplicated(df['molid']))))
 }
 
 ###########
