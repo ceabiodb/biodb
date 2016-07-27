@@ -7,6 +7,8 @@ if ( ! exists('FiledbConn')) {
 	# Each line is a MS peak measure, .
 	# The file contains molecule and spectrum information. Each spectrum has an accession id.
 
+	# TODO Rename this class MassFileDb ?
+
 	#############
 	# CONSTANTS #
 	#############
@@ -132,7 +134,14 @@ if ( ! exists('FiledbConn')) {
 			# Init db
 			.self$.init.db()
 
+			# Get subset
 			x <- .self$.db[, unlist(.self$.fields[cols]), drop = drop]
+
+			# Rename columns
+			if (is.data.frame(x))
+				colnames(x) <- cols
+
+			# Rearrange
 			if (drop && is.vector(x)) {
 				if (uniq)
 					x <- x[ ! duplicated(x)]
@@ -165,6 +174,33 @@ if ( ! exists('FiledbConn')) {
 	
 	FiledbConn$methods( getNbEntries = function(type) {
 		return(length(.self$getEntryIds(type)))
+	})
+
+	###############################
+	# GET CHROMATOGRAPHIC COLUMNS #
+	###############################
+	
+	# Get a list of chromatographic columns contained in this database.
+	FiledbConn$methods( getChromCol = function(compound.ids = NULL) {
+
+		# Extract needed columns
+		db <- .self$.extract.cols(c(BIODB.COMPOUND.ID, BIODB.CHROM.COL))
+
+		# Filter on molecule IDs
+		if ( ! is.null(compound.ids))
+			db <- db[db[[BIODB.COMPOUND.ID]] %in% compound.ids, ]
+
+		# Get column names
+		cols <- db[[BIODB.CHROM.COL]]
+
+		# Remove duplicates
+		cols <- cols[ ! duplicated(cols)]
+
+		# Make data frame
+		chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
+		colnames(chrom.cols) <- c(BIODB.ID, BIODB.TITLE)
+
+		return(chrom.cols)
 	})
 
 }

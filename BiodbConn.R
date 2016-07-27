@@ -69,8 +69,19 @@ if ( ! exists('BiodbConn')) {
 	# GET NB ENTRIES #
 	##################
 	
-	# Get the number of  entries contained in this database.
+	# Get the number of entries contained in this database.
 	BiodbConn$methods( getNbEntries = function(type) {
 		stop("Method getNbEntries() is not implemented in concrete class.")
+	})
+
+	###############################
+	# GET CHROMATOGRAPHIC COLUMNS #
+	###############################
+	
+	# Get a list of chromatographic columns contained in this database.
+	# compound.ids  A list of compound IDs used to filter results.
+	# The returned value is a data.frame with two columns : one for the ID (BIODB.ID) and another one for the title (BIODB.TITLE).
+	BiodbConn$methods( getChromCol = function(compound.ids = NULL) {
+		stop("Method getChromCol() is not implemented in concrete class.")
 	})
 }

@@ -81,6 +81,8 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.PEAK.ATTR     <- 'peakattr' # Peak attribution
 	BIODB.CHROM.COL     <- 'chromcol' # Chromatographic column
 	BIODB.CHROM.COL.RT  <- 'chromcolrt' # Retention time measured on chromatographic column
+	BIODB.ID <- 'id'
+	BIODB.TITLE <- 'title'
 
 	# Mode values
 	BIODB.MSMODE.NEG <- 'neg'

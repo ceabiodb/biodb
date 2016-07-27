@@ -48,6 +48,9 @@ offline.test.filedb <- function() {
 	# Test nb entries
 	checkTrue(db$getNbEntries(BIODB.SPECTRUM) > 1)
 	checkTrue(db$getNbEntries(BIODB.COMPOUND) == sum(as.integer(! duplicated(df['molid']))))
+
+	# Test chrom cols
+	checkTrue(nrow(db$getChromCol()) > 1)
 }
 
 ###########
