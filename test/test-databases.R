@@ -38,6 +38,9 @@ offline.test.filedb <- function() {
 	# Run general tests
 	test.db(db)
 
+	# Test entry ids
+	checkTrue(db$getEntryIds(BIODB.COMPOUND) == sum(as.integer(! duplicated(compounds))))
+
 	# Test nb entries
 	checkTrue(db$getNbEntries(BIODB.SPECTRUM) > 1)
 	checkTrue(db$getNbEntries(BIODB.COMPOUND) > 1)
