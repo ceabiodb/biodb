@@ -119,24 +119,40 @@ if ( ! exists('FiledbConn')) {
 		}
 	})
 
+	################
+	# EXTRACT COLS #
+	################
+	
+	FiledbConn$methods( .extract.cols = function(cols, drop = FALSE) {
+	
+		x <- NULL
+
+		if ( ! is.null(cols) && ! is.na(cols)) {
+
+			# Init db
+			.self$.init.db()
+
+			x <- .self$.db[, unlist(.self$.fields[cols]), drop = drop]
+		}
+
+		return(x)
+	})
+
 	#################
 	# GET ENTRY IDS #
 	#################
 	
 	FiledbConn$methods( getEntryIds = function(type) {
-	
-		# Init db
-		.self$.init.db()
 
-		if (type == BIODB.SPECTRUM) {
-			# Get IDs
-			ids <- as.character(.self$.fields[[BIODB.ACCESSION]])
+		ids <- NA_character_
+
+		if (type %in% c(BIODB.SPECTRUM, BIODB.COMPOUND)) {
+			ids <- as.character(.self$.extract.cols(if (type == BIODB.SPECTRUM) BIODB.ACCESSION else BIODB.COMPOUND.ID, drop = TRUE))
 			ids <- ids[ ! duplicated(ids)]
 			ids <- sort(ids)
-			return(ids)
 		}
 
-		return(NA_character_)
+		return(ids)
 	})
 
 	##################
