@@ -123,7 +123,7 @@ if ( ! exists('FiledbConn')) {
 	# EXTRACT COLS #
 	################
 	
-	FiledbConn$methods( .extract.cols = function(cols, drop = FALSE) {
+	FiledbConn$methods( .extract.cols = function(cols, drop = FALSE, uniq = FALSE, sort = FALSE) {
 	
 		x <- NULL
 
@@ -133,6 +133,13 @@ if ( ! exists('FiledbConn')) {
 			.self$.init.db()
 
 			x <- .self$.db[, unlist(.self$.fields[cols]), drop = drop]
+			if (drop && is.vector(x)) {
+				if (uniq)
+					x <- x[ ! duplicated(x)]
+				if (sort)
+					x <- sort(x)
+
+			}
 		}
 
 		return(x)
@@ -146,11 +153,8 @@ if ( ! exists('FiledbConn')) {
 
 		ids <- NA_character_
 
-		if (type %in% c(BIODB.SPECTRUM, BIODB.COMPOUND)) {
-			ids <- as.character(.self$.extract.cols(if (type == BIODB.SPECTRUM) BIODB.ACCESSION else BIODB.COMPOUND.ID, drop = TRUE))
-			ids <- ids[ ! duplicated(ids)]
-			ids <- sort(ids)
-		}
+		if (type %in% c(BIODB.SPECTRUM, BIODB.COMPOUND))
+			ids <- as.character(.self$.extract.cols(if (type == BIODB.SPECTRUM) BIODB.ACCESSION else BIODB.COMPOUND.ID, drop = TRUE, uniq = TRUE, sort = TRUE))
 
 		return(ids)
 	})
