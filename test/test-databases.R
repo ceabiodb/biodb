@@ -17,11 +17,15 @@
 
 offline.test.filedb <- function() {
 
+	# Open file
+	file <- file.path(dirname(script.path), 'res', 'filedb.tsv')
+	df <- read.table(file, sep = "\t", header = TRUE)
+
 	# Create factory
 	factory <- BiodbFactory$new()
 
 	# Create database
-	db <- factory$getConn(BIODB.FILEDB, url = file.path(dirname(script.path), 'res', 'filedb.tsv'))
+	db <- factory$getConn(BIODB.FILEDB, url = file)
 	fields <- list()
 	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	db$setField(BIODB.COMPOUND.ID, 'molid')
@@ -39,11 +43,11 @@ offline.test.filedb <- function() {
 	test.db(db)
 
 	# Test entry ids
-	checkTrue(db$getEntryIds(BIODB.COMPOUND) == sum(as.integer(! duplicated(compounds))))
+	checkEquals(db$getEntryIds(BIODB.COMPOUND), sort(as.character(df[! duplicated(df['molid']), 'molid'])))
 
 	# Test nb entries
 	checkTrue(db$getNbEntries(BIODB.SPECTRUM) > 1)
-	checkTrue(db$getNbEntries(BIODB.COMPOUND) > 1)
+	checkTrue(db$getNbEntries(BIODB.COMPOUND) == sum(as.integer(! duplicated(df['molid']))))
 }
 
 ###########
