@@ -7,7 +7,9 @@ if ( ! exists('FiledbConn')) {
 	# Each line is a MS peak measure, .
 	# The file contains molecule and spectrum information. Each spectrum has an accession id.
 
-	# TODO Rename this class MassFileDb ?
+	# TODO Rename this class MassFiledbConn ?
+	# TODO Create an intermediate abstract class MassdbConn, and move specific functions into it : getChromCol, getNbPeaks, ...
+	#               --> Ok, but what to do with PeakForest which contains NMR and MS data ?
 
 	#############
 	# CONSTANTS #
