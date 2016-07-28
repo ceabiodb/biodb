@@ -1,4 +1,4 @@
-if ( ! exists('FiledbConn')) {
+if ( ! exists('MassFiledbConn')) {
 
 	source('BiodbConn.R')
 	
@@ -7,7 +7,6 @@ if ( ! exists('FiledbConn')) {
 	# Each line is a MS peak measure, .
 	# The file contains molecule and spectrum information. Each spectrum has an accession id.
 
-	# TODO Rename this class MassFiledbConn ?
 	# TODO Create an intermediate abstract class MassdbConn, and move specific functions into it : getChromCol, getNbPeaks, ...
 	#               --> Ok, but what to do with PeakForest which contains NMR and MS data ?
 
@@ -24,13 +23,13 @@ if ( ! exists('FiledbConn')) {
 	# CLASS DECLARATION #
 	#####################
 	
-	FiledbConn <- setRefClass("FiledbConn", contains = "BiodbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .fields = "list"))
+	MassFiledbConn <- setRefClass("MassFiledbConn", contains = "BiodbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .fields = "list"))
 
 	###############
 	# CONSTRUCTOR #
 	###############
 
-	FiledbConn$methods( initialize = function(file = NA_character_, file.sep = "\t", file.quote = "\"", ...) {
+	MassFiledbConn$methods( initialize = function(file = NA_character_, file.sep = "\t", file.quote = "\"", ...) {
 
 		# Check file
 		(! is.null(file) && ! is.na(file)) || stop("You must specify a file database to load.")
@@ -51,7 +50,7 @@ if ( ! exists('FiledbConn')) {
 	# Is valid field tag #
 	######################
 
-	FiledbConn$methods( isValidFieldTag = function(tag) {
+	MassFiledbConn$methods( isValidFieldTag = function(tag) {
 		return (tag %in% names(.self$.fields))
 	})
 
@@ -59,7 +58,7 @@ if ( ! exists('FiledbConn')) {
 	# Set field #
 	#############
 
-	FiledbConn$methods( setField = function(tag, colname) {
+	MassFiledbConn$methods( setField = function(tag, colname) {
 
 		( ! is.null(tag) && ! is.na(tag)) || stop("No tag specified.")
 		( ! is.null(colname) && ! is.na(colname)) || stop("No column name specified.")
@@ -87,7 +86,7 @@ if ( ! exists('FiledbConn')) {
 	# SET FIELD MULTIPLE VALUE SEPARATOR #
 	######################################
 
-	FiledbConn$methods( setFieldMultValSep = function(sep) {
+	MassFiledbConn$methods( setFieldMultValSep = function(sep) {
 		.field.multval.sep <<- sep
 	})
 
@@ -95,7 +94,7 @@ if ( ! exists('FiledbConn')) {
 	# SET MS MODES #
 	################
 
-	FiledbConn$methods( setMsModes = function(modes) {
+	MassFiledbConn$methods( setMsModes = function(modes) {
 		                   # TODO
 	})
 
@@ -103,7 +102,7 @@ if ( ! exists('FiledbConn')) {
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	FiledbConn$methods( getEntryContentType = function(type) {
+	MassFiledbConn$methods( getEntryContentType = function(type) {
 		return(BIODB.DATAFRAME)
 	})
 
@@ -111,7 +110,7 @@ if ( ! exists('FiledbConn')) {
 	# INIT DB #
 	###########
 
-	FiledbConn$methods( .init.db = function() {
+	MassFiledbConn$methods( .init.db = function() {
 
 		if (is.null(.self$.db)) {
 
@@ -127,7 +126,7 @@ if ( ! exists('FiledbConn')) {
 	# EXTRACT COLS #
 	################
 	
-	FiledbConn$methods( .extract.cols = function(cols, drop = FALSE, uniq = FALSE, sort = FALSE) {
+	MassFiledbConn$methods( .extract.cols = function(cols, drop = FALSE, uniq = FALSE, sort = FALSE) {
 	
 		x <- NULL
 
@@ -160,7 +159,7 @@ if ( ! exists('FiledbConn')) {
 	# GET ENTRY IDS #
 	#################
 	
-	FiledbConn$methods( getEntryIds = function(type) {
+	MassFiledbConn$methods( getEntryIds = function(type) {
 
 		ids <- NA_character_
 
@@ -174,7 +173,7 @@ if ( ! exists('FiledbConn')) {
 	# GET NB ENTRIES #
 	##################
 	
-	FiledbConn$methods( getNbEntries = function(type) {
+	MassFiledbConn$methods( getNbEntries = function(type) {
 		return(length(.self$getEntryIds(type)))
 	})
 
@@ -183,7 +182,7 @@ if ( ! exists('FiledbConn')) {
 	###############################
 	
 	# Get a list of chromatographic columns contained in this database.
-	FiledbConn$methods( getChromCol = function(compound.ids = NULL) {
+	MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
 
 		# Extract needed columns
 		db <- .self$.extract.cols(c(BIODB.COMPOUND.ID, BIODB.CHROM.COL))

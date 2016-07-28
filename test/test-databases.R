@@ -11,21 +11,21 @@
 # 				assign(paste(if (online) 'online' else 'offline', 'test', db, sep = '.'), test.fct)
 # 			}
 
-##########
-# FILEDB #
-##########
+##############
+# MASSFILEDB #
+##############
 
-offline.test.filedb <- function() {
+offline.test.massfiledb <- function() {
 
 	# Open file
-	file <- file.path(dirname(script.path), 'res', 'filedb.tsv')
+	file <- file.path(dirname(script.path), 'res', 'massfiledb.tsv')
 	df <- read.table(file, sep = "\t", header = TRUE)
 
 	# Create factory
 	factory <- BiodbFactory$new()
 
 	# Create database
-	db <- factory$getConn(BIODB.FILEDB, url = file)
+	db <- factory$getConn(BIODB.MASSFILEDB, url = file)
 	fields <- list()
 	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	db$setField(BIODB.COMPOUND.ID, 'molid')

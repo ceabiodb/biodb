@@ -13,7 +13,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('NcbiccdsConn.R')
 	source('UniprotConn.R')
 	source('MassbankConn.R')
-	source('FiledbConn.R')
+	source('MassFiledbConn.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -72,7 +72,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                	ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent),
 		                	uniprot     = UniprotConn$new(useragent = .self$.useragent),
 		                	massbank    = MassbankConn$new(useragent = .self$.useragent),
-							filedb      = FiledbConn$new(file = url),
+							massfiledb  = MassFiledbConn$new(file = url),
 		      	          	NULL)
 
 			# Unknown class
