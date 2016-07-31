@@ -18,5 +18,14 @@ if ( ! exists('MassdbConn')) {
 	MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
 		stop("Method getChromCol() is not implemented in concrete class.")
 	})
+	
+	#################
+	# GET MZ VALUES #
+	#################
+	
+	# Returns a numeric vector of all masses stored inside the database.
+	MassdbConn$methods( getMzValues = function(mode = NULL) {
+		stop("Method getMzValues() not implemented in concrete class.")
+	})
 
 }

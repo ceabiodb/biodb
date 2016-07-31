@@ -23,7 +23,7 @@ if ( ! exists('MassFiledbConn')) {
 	# CLASS DECLARATION #
 	#####################
 	
-	MassFiledbConn <- setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .fields = "list"))
+	MassFiledbConn <- setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .fields = "list", .ms.modes = "character"))
 
 	###############
 	# CONSTRUCTOR #
@@ -42,6 +42,8 @@ if ( ! exists('MassFiledbConn')) {
 		.file.quote <<- file.quote
 		.fields <<- .BIODB.DFT.DB.FIELDS
 		.field.multval.sep <<- ';'
+		.ms.modes <<- c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)
+		names(.self$.ms.modes) <- .self$.ms.modes
 
 		callSuper(...)
 	})
@@ -94,8 +96,8 @@ if ( ! exists('MassFiledbConn')) {
 	# SET MS MODES #
 	################
 
-	MassFiledbConn$methods( setMsModes = function(modes) {
-		                   # TODO
+	MassFiledbConn$methods( setMsMode = function(mode, value) {
+		.self$.ms.modes[[mode]] <- value
 	})
 
 	##########################
@@ -126,7 +128,7 @@ if ( ! exists('MassFiledbConn')) {
 	# EXTRACT COLS #
 	################
 	
-	MassFiledbConn$methods( .extract.cols = function(cols, drop = FALSE, uniq = FALSE, sort = FALSE) {
+	MassFiledbConn$methods( .extract.cols = function(cols, mode = NULL, drop = FALSE, uniq = FALSE, sort = FALSE) {
 	
 		x <- NULL
 
@@ -135,8 +137,22 @@ if ( ! exists('MassFiledbConn')) {
 			# Init db
 			.self$.init.db()
 
+			# TODO check existence of cols/fields
+
+			# Get db, eventually filtering it.
+			if (is.null(mode))
+				db <- .self$.db
+			else {
+				# Check mode value
+				mode %in% names(.self$.ms.modes) || stop(paste0("Unknown mode value '", mode, "'."))
+				# TODO Check existence of mode field
+
+				# Filter on mode
+				db <- .self$.db[.self$.db[[unlist(.self$.fields[BIODB.MSMODE])]] %in% .self$.ms.modes[[mode]], ]
+			}
+
 			# Get subset
-			x <- .self$.db[, unlist(.self$.fields[cols]), drop = drop]
+			x <- db[, unlist(.self$.fields[cols]), drop = drop]
 
 			# Rename columns
 			if (is.data.frame(x))
@@ -181,7 +197,7 @@ if ( ! exists('MassFiledbConn')) {
 	# GET CHROMATOGRAPHIC COLUMNS #
 	###############################
 	
-	# Get a list of chromatographic columns contained in this database.
+	# Inherited from MassdbConn.
 	MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
 
 		# Extract needed columns
@@ -202,6 +218,19 @@ if ( ! exists('MassFiledbConn')) {
 		colnames(chrom.cols) <- c(BIODB.ID, BIODB.TITLE)
 
 		return(chrom.cols)
+	})
+	
+	#################
+	# GET MZ VALUES #
+	#################
+	
+	# Inherited from MassdbConn.
+	MassFiledbConn$methods( getMzValues = function(mode = NULL) {
+
+		# Get mz values
+		mz <- .self$.extract.cols(BIODB.PEAK.MZ, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE)
+
+		return(mz)
 	})
 
 }

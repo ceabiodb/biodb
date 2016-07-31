@@ -38,6 +38,8 @@ offline.test.massfiledb <- function() {
 	db$setField(BIODB.FORMULA, 'molcomp')
 	db$setField(BIODB.MASS, 'molmass')
 	db$setField(BIODB.FULLNAMES, 'molnames')
+	db$setMsMode(BIODB.MSMODE.NEG, 'NEG')
+	db$setMsMode(BIODB.MSMODE.POS, 'POS')
 
 	# Run general tests
 	test.db(db)
@@ -54,6 +56,13 @@ offline.test.massfiledb <- function() {
 		checkTrue(nrow(db$getChromCol(compound.id)) > 1)
 		checkTrue(nrow(db$getChromCol(compound.id)) < nrow(db$getChromCol()))
 		checkTrue(all(db$getChromCol(compound.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
+
+		# Test mz values
+		checkTrue(is.vector(db$getMzValues()))
+		checkTrue(length(db$getMzValues()) > 1)
+		checkException(db$getMzValues('wrong.mode.value'), silent = TRUE)
+		checkTrue(length(db$getMzValues(BIODB.MSMODE.NEG)) > 1)
+		checkTrue(length(db$getMzValues(BIODB.MSMODE.POS)) > 1)
 
 	# Specific tests for filedb
 		# Test entry ids
