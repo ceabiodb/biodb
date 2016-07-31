@@ -1,6 +1,6 @@
 if ( ! exists('MassFiledbConn')) {
 
-	source('BiodbConn.R')
+	source('MassdbConn.R')
 	
 	# LCMS File db.
 	# In this type of database, a single file is provided in CSV format. Default separator is tabulation.
@@ -8,7 +8,7 @@ if ( ! exists('MassFiledbConn')) {
 	# The file contains molecule and spectrum information. Each spectrum has an accession id.
 
 	# TODO Create an intermediate abstract class MassdbConn, and move specific functions into it : getChromCol, getNbPeaks, ...
-	#               --> Ok, but what to do with PeakForest which contains NMR and MS data ?
+	#               --> Ok, but what to do with PeakForest which contains NMR and MS data ? See setRefClass help: a vector can be given to 'contains' field. What about a diamond shape? Last wins ?
 
 	#############
 	# CONSTANTS #
@@ -23,7 +23,7 @@ if ( ! exists('MassFiledbConn')) {
 	# CLASS DECLARATION #
 	#####################
 	
-	MassFiledbConn <- setRefClass("MassFiledbConn", contains = "BiodbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .fields = "list"))
+	MassFiledbConn <- setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .fields = "list"))
 
 	###############
 	# CONSTRUCTOR #
