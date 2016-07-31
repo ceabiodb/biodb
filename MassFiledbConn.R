@@ -10,6 +10,8 @@ if ( ! exists('MassFiledbConn')) {
 	# TODO Create an intermediate abstract class MassdbConn, and move specific functions into it : getChromCol, getNbPeaks, ...
 	#               --> Ok, but what to do with PeakForest which contains NMR and MS data ? See setRefClass help: a vector can be given to 'contains' field. What about a diamond shape? Last wins ?
 
+	# TODO Rename setField into setFieldName + addNewField, and setMsMode into setMsModeValue
+
 	#############
 	# CONSTANTS #
 	#############
@@ -125,6 +127,26 @@ if ( ! exists('MassFiledbConn')) {
 	})
 
 	################
+	# CHECK FIELDS #
+	################
+
+	MassFiledbConn$methods( .check.fields = function(fields) {
+
+		# Check if fields are known
+		unknown.fields <- names(.self$.fields)[ ! fields %in% names(.self$.fields)]
+		if (length(unknown.fields) > 0)
+			stop(paste0("Field(s) ", paste(fields, collapse = ", "), " is/are unknown."))
+
+		# Init db
+		.self$.init.db()
+
+		# Check if fields are defined in file database
+		undefined.fields <- colnames(.self$.init.db)[ ! unlist(.self$.fields[fields]) %in% colnames(.self$.init.db)]
+		if (length(undefined.fields) > 0)
+			stop(paste0("Column(s) ", paste(unlist(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database."))
+	})
+
+	################
 	# EXTRACT COLS #
 	################
 	
@@ -145,7 +167,7 @@ if ( ! exists('MassFiledbConn')) {
 			else {
 				# Check mode value
 				mode %in% names(.self$.ms.modes) || stop(paste0("Unknown mode value '", mode, "'."))
-				# TODO Check existence of mode field
+				.self$.check.fields(BIODB.MSMODE)
 
 				# Filter on mode
 				db <- .self$.db[.self$.db[[unlist(.self$.fields[BIODB.MSMODE])]] %in% .self$.ms.modes[[mode]], ]
