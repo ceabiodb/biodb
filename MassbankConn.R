@@ -1,13 +1,14 @@
 if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
 	source('RemotedbConn.R')
+	source('MassdbConn.R')
 	source('MassbankSpectrum.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	MassbankConn <- setRefClass("MassbankConn", contains = "RemotedbConn")
+	MassbankConn <- setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"))
 
 	##########################
 	# GET ENTRY CONTENT TYPE #
@@ -55,5 +56,12 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# RETURN        A spectrum instance.
 	MassbankConn$methods( createEntry = function(type, content, drop = TRUE) {
 		return(if (type == BIODB.SPECTRUM) createMassbankSpectrumFromTxt(content, drop = drop) else NULL)
+	})
+
+	#################
+	# GET MZ VALUES #
+	#################
+	
+	MassbankConn$methods( getMzValues = function(mode = NULL) {
 	})
 }

@@ -18,7 +18,7 @@ if ( ! exists('MassdbConn')) {
 	MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
 		stop("Method getChromCol() is not implemented in concrete class.")
 	})
-	
+
 	#################
 	# GET MZ VALUES #
 	#################
