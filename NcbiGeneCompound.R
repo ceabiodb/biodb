@@ -21,13 +21,13 @@ if ( ! exists('NcbigeneCompound')) { # Do not load again if already loaded
 
 		# Define xpath expressions
 		xpath.expr <- character()
-		xpath.expr[[RBIODB.ACCESSION]] <- "//Gene-track_geneid"
-		xpath.expr[[RBIODB.KEGG.ID]] <- "/Dbtag_db[text()='KEGG']/..//Object-id_str"
-		xpath.expr[[RBIODB.UNIPROT.ID]] <- "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str"
-		xpath.expr[[RBIODB.LOCATION]] <- "//Gene-ref_maploc"
-		xpath.expr[[RBIODB.PROTEIN.DESCRIPTION]] <- "//Gene-ref_desc"
-		xpath.expr[[RBIODB.SYMBOL]] <- "//Gene-ref_locus"
-		xpath.expr[[RBIODB.SYNONYMS]] <- "//Gene-ref_syn_E"
+		xpath.expr[[BIODB.ACCESSION]] <- "//Gene-track_geneid"
+		xpath.expr[[BIODB.KEGG.ID]] <- "/Dbtag_db[text()='KEGG']/..//Object-id_str"
+		xpath.expr[[BIODB.UNIPROT.ID]] <- "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str"
+		xpath.expr[[BIODB.LOCATION]] <- "//Gene-ref_maploc"
+		xpath.expr[[BIODB.PROTEIN.DESCRIPTION]] <- "//Gene-ref_desc"
+		xpath.expr[[BIODB.SYMBOL]] <- "//Gene-ref_locus"
+		xpath.expr[[BIODB.SYNONYMS]] <- "//Gene-ref_syn_E"
 
 		for (content in contents) {
 
@@ -56,14 +56,14 @@ if ( ! exists('NcbigeneCompound')) { # Do not load again if already loaded
 				# CCDS ID
 				ccdsid <- .find.ccds.id(xml)
 				if ( ! is.na(ccdsid))
-					compound$setField(RBIODB.NCBI.CCDS.ID, ccdsid)
+					compound$setField(BIODB.NCBI.CCDS.ID, ccdsid)
 			}
 
 			compounds <- c(compounds, compound)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)

@@ -1,13 +1,87 @@
+#########################
+# DEFINE TEST FUNCTIONS #
+#########################
+
+# XXX Does not work. RUnit does not see the functions defined through assign() calls.
+# for (online in c(TRUE, FALSE))
+# 	for (db in c(BIODB.UNIPROT))
+# 		for (entry.type in c(BIODB.COMPOUND, BIODB.SPECTRUM))
+# 			if (BiodbFactory$new(useragent = USER.AGENT)$getConn(db)$handlesEntryType(entry.type)) {
+# 				test.fct <- parse(text = paste0("function() { test.entries(", db, ", ", entry.type, ", online = ", online, ") }"))
+# 				assign(paste(if (online) 'online' else 'offline', 'test', db, sep = '.'), test.fct)
+# 			}
+
+##############
+# MASSFILEDB #
+##############
+
+offline.test.massfiledb <- function() {
+
+	# Open file
+	file <- file.path(dirname(script.path), 'res', 'massfiledb.tsv')
+	df <- read.table(file, sep = "\t", header = TRUE)
+
+	# Create factory
+	factory <- BiodbFactory$new()
+
+	# Create database
+	db <- factory$getConn(BIODB.MASSFILEDB, url = file)
+	fields <- list()
+	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
+	db$setField(BIODB.COMPOUND.ID, 'molid')
+	db$setField(BIODB.MSMODE, 'mode')
+	db$setField(BIODB.PEAK.MZ, 'mztheo')
+	db$setField(BIODB.PEAK.COMP, 'comp')
+	db$setField(BIODB.PEAK.ATTR, 'attr')
+	db$setField(BIODB.CHROM.COL, 'col')
+	db$setField(BIODB.CHROM.COL.RT, 'colrt')
+	db$setField(BIODB.FORMULA, 'molcomp')
+	db$setField(BIODB.MASS, 'molmass')
+	db$setField(BIODB.FULLNAMES, 'molnames')
+	db$setMsMode(BIODB.MSMODE.NEG, 'NEG')
+	db$setMsMode(BIODB.MSMODE.POS, 'POS')
+
+	# Run general tests
+	test.db(db)
+
+	# Generic tests
+
+		# Test entries
+		checkTrue(db$getNbEntries(BIODB.SPECTRUM) > 1)
+		checkTrue(db$getNbEntries(BIODB.COMPOUND) > 1)
+
+		# Test chrom cols
+		compound.id <- db$getEntryIds(BIODB.COMPOUND)[[1]]
+		checkTrue(nrow(db$getChromCol()) > 1)
+		checkTrue(nrow(db$getChromCol(compound.id)) > 1)
+		checkTrue(nrow(db$getChromCol(compound.id)) < nrow(db$getChromCol()))
+		checkTrue(all(db$getChromCol(compound.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
+
+		# Test mz values
+		checkTrue(is.vector(db$getMzValues()))
+		checkTrue(length(db$getMzValues()) > 1)
+		checkException(db$getMzValues('wrong.mode.value'), silent = TRUE)
+		checkTrue(length(db$getMzValues(BIODB.MSMODE.NEG)) > 1)
+		checkTrue(length(db$getMzValues(BIODB.MSMODE.POS)) > 1)
+
+	# Specific tests for filedb
+		# Test entry ids
+		checkEquals(db$getEntryIds(BIODB.COMPOUND), sort(as.character(df[! duplicated(df['molid']), 'molid'])))
+
+		# Test nb entries
+		checkTrue(db$getNbEntries(BIODB.COMPOUND) == sum(as.integer(! duplicated(df['molid']))))
+}
+
 ###########
 # UNIPROT #
 ###########
 
 offline.test.uniprot <- function() {
-	test.entries(RBIODB.UNIPROT, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.UNIPROT, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.uniprot <- function() {
-	test.entries(RBIODB.UNIPROT, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.UNIPROT, BIODB.COMPOUND, online = TRUE)
 }
 
 ############
@@ -15,11 +89,11 @@ online.test.uniprot <- function() {
 ############
 
 offline.test.ncbiccds <- function() {
-	test.entries(RBIODB.NCBICCDS, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.NCBICCDS, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.ncbiccds <- function() {
-	test.entries(RBIODB.NCBICCDS, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.NCBICCDS, BIODB.COMPOUND, online = TRUE)
 }
 
 ############
@@ -27,11 +101,11 @@ online.test.ncbiccds <- function() {
 ############
 
 offline.test.ncbigene <- function() {
-	test.entries(RBIODB.NCBIGENE, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.NCBIGENE, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.ncbigene <- function() {
-	test.entries(RBIODB.NCBIGENE, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.NCBIGENE, BIODB.COMPOUND, online = TRUE)
 }
 
 ###########
@@ -39,11 +113,11 @@ online.test.ncbigene <- function() {
 ###########
 
 offline.test.mirbase <- function() {
-	test.entries(RBIODB.MIRBASE, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.MIRBASE, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.mirbase <- function() {
-	test.entries(RBIODB.MIRBASE, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.MIRBASE, BIODB.COMPOUND, online = TRUE)
 }
 
 #############
@@ -51,11 +125,11 @@ online.test.mirbase <- function() {
 #############
 
 offline.test.lipidmaps <- function() {
-	test.entries(RBIODB.LIPIDMAPS, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.LIPIDMAPS, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.lipidmaps <- function() {
-	test.entries(RBIODB.LIPIDMAPS, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.LIPIDMAPS, BIODB.COMPOUND, online = TRUE)
 }
 
 ##########
@@ -63,11 +137,11 @@ online.test.lipidmaps <- function() {
 ##########
 
 offline.test.enzyme <- function() {
-	test.entries(RBIODB.ENZYME, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.ENZYME, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.enzyme <- function() {
-	test.entries(RBIODB.ENZYME, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.ENZYME, BIODB.COMPOUND, online = TRUE)
 }
 
 ##############
@@ -75,11 +149,11 @@ online.test.enzyme <- function() {
 ##############
 
 offline.test.chemspider <- function() {
-	test.entries(RBIODB.CHEMSPIDER, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.CHEMSPIDER, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.chemspider <- function() {
-	test.entries(RBIODB.CHEMSPIDER, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.CHEMSPIDER, BIODB.COMPOUND, online = TRUE)
 }
 
 ########
@@ -87,11 +161,11 @@ online.test.chemspider <- function() {
 ########
 
 offline.test.hmdb <- function() {
-	test.entries(RBIODB.HMDB, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.HMDB, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.hmdb <- function() {
-	test.entries(RBIODB.HMDB, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.HMDB, BIODB.COMPOUND, online = TRUE)
 }
 
 ###########
@@ -99,11 +173,11 @@ online.test.hmdb <- function() {
 ###########
 
 offline.test.pubchem <- function() {
-	test.entries(RBIODB.PUBCHEM, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.PUBCHEM, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.pubchem <- function() {
-	test.entries(RBIODB.PUBCHEM, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.PUBCHEM, BIODB.COMPOUND, online = TRUE)
 }
 
 #########
@@ -111,11 +185,11 @@ online.test.pubchem <- function() {
 #########
 
 offline.test.chebi <- function() {
-	test.entries(RBIODB.CHEBI, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.CHEBI, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.chebi <- function() {
-	test.entries(RBIODB.CHEBI, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.CHEBI, BIODB.COMPOUND, online = TRUE)
 }
 
 ########
@@ -123,11 +197,11 @@ online.test.chebi <- function() {
 ########
 
 offline.test.kegg <- function() {
-	test.entries(RBIODB.KEGG, RBIODB.COMPOUND, online = FALSE)
+	test.entries(BIODB.KEGG, BIODB.COMPOUND, online = FALSE)
 }
 
 online.test.kegg <- function() {
-	test.entries(RBIODB.KEGG, RBIODB.COMPOUND, online = TRUE)
+	test.entries(BIODB.KEGG, BIODB.COMPOUND, online = TRUE)
 }
 
 ############
@@ -135,9 +209,9 @@ online.test.kegg <- function() {
 ############
 
 offline.test.massbank <- function() {
-	test.entries(RBIODB.MASSBANK, RBIODB.SPECTRUM, online = FALSE)
+	test.entries(BIODB.MASSBANK, BIODB.SPECTRUM, online = FALSE)
 }
 
 online.test.massbank <- function() {
-	test.entries(RBIODB.MASSBANK, RBIODB.SPECTRUM, online = TRUE)
+	test.entries(BIODB.MASSBANK, BIODB.SPECTRUM, online = TRUE)
 }

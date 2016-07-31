@@ -1,13 +1,13 @@
 if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('LipidmapsCompound.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 
-	LipidmapsConn <- setRefClass("LipidmapsConn", contains = "BiodbConn")
+	LipidmapsConn <- setRefClass("LipidmapsConn", contains = "RemotedbConn")
 
 	###############
 	# CONSTRUCTOR #
@@ -24,7 +24,7 @@ if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 	##########################
 
 	LipidmapsConn$methods( getEntryContentType = function(type) {
-		return(RBIODB.CSV)
+		return(BIODB.CSV)
 	})
 
 	#####################
@@ -33,13 +33,13 @@ if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 
 	LipidmapsConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.COMPOUND) {
+		if (type == BIODB.COMPOUND) {
 
 			# Initialize return values
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.LIPIDMAPS, x, content.type = RBIODB.CSV)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.LIPIDMAPS, x, content.type = BIODB.CSV)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -52,6 +52,6 @@ if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 	################
 
 	LipidmapsConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == RBIODB.COMPOUND) createLipidmapsCompoundFromCsv(content, drop = drop) else NULL)
+		return(if (type == BIODB.COMPOUND) createLipidmapsCompoundFromCsv(content, drop = drop) else NULL)
 	})
 }

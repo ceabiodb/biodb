@@ -28,38 +28,38 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 			for (s in lines[[1]]) {
 
 				# NAME
-				if (is.na(compound$getField(RBIODB.NAME))) {
+				if (is.na(compound$getField(BIODB.NAME))) {
 					g <- str_match(s, "^CH\\$NAME:\\s+(.+)$")
 					if ( ! is.na(g[1,1]))
-						compound$setField(RBIODB.NAME, g[1,2])
+						compound$setField(BIODB.NAME, g[1,2])
 				}
 		
 				# CHEBI ID
 				g <- str_match(s, "^CH\\$LINK: CHEBI\\s+(.+)$")
 				if ( ! is.na(g[1,1]))
-					compound$setField(RBIODB.CHEBI.ID, g[1,2])
+					compound$setField(BIODB.CHEBI.ID, g[1,2])
 		
 				# KEGG ID
 				g <- str_match(s, "^CH\\$LINK: KEGG\\s+(.+)$")
 				if ( ! is.na(g[1,1]))
-					compound$setField(RBIODB.KEGG.ID, g[1,2])
+					compound$setField(BIODB.KEGG.ID, g[1,2])
 		
 				# PUBCHEM ID
 				g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+(.+)$")
 				if ( ! is.na(g[1,1]))
-					compound$setField(RBIODB.PUBCHEM.ID, g[1,2])
+					compound$setField(BIODB.PUBCHEM.ID, g[1,2])
 		
 				# INCHI
 				g <- str_match(s, "^CH\\$IUPAC:\\s+(.+)$")
 				if ( ! is.na(g[1,1]))
-					compound$setField(RBIODB.INCHI, g[1,2])
+					compound$setField(BIODB.INCHI, g[1,2])
 			}
 
 			compounds <- c(compounds, compound)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.NAME))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.NAME))) NULL else x)
 
 		return(compounds)
 	}

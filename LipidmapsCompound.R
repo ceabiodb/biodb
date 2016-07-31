@@ -19,12 +19,12 @@ if ( ! exists('LipidmapsCompound')) { # Do not load again if already loaded
 
 		# Mapping column names
 		col2field <- list()
-		col2field[[RBIODB.NAME]] <- 'COMMON_NAME'
-		col2field[[RBIODB.ACCESSION]] <- 'LM_ID'
-		col2field[[RBIODB.KEGG.ID]] <- 'KEGG_ID'
-		col2field[[RBIODB.HMDB.ID]] <- 'HMDBID'
-		col2field[[RBIODB.MASS]] <- 'MASS'
-		col2field[[RBIODB.FORMULA]] <- 'FORMULA'
+		col2field[[BIODB.NAME]] <- 'COMMON_NAME'
+		col2field[[BIODB.ACCESSION]] <- 'LM_ID'
+		col2field[[BIODB.KEGG.ID]] <- 'KEGG_ID'
+		col2field[[BIODB.HMDB.ID]] <- 'HMDBID'
+		col2field[[BIODB.MASS]] <- 'MASS'
+		col2field[[BIODB.FORMULA]] <- 'FORMULA'
 		
 		for (text in contents) {
 
@@ -59,7 +59,7 @@ if ( ! exists('LipidmapsCompound')) { # Do not load again if already loaded
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)

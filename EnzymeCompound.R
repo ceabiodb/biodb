@@ -20,8 +20,8 @@ if ( ! exists('EnzymeCompound')) { # Do not load again if already loaded
 	
 		# Define fields regex
 		regex <- character()
-		regex[[RBIODB.ACCESSION]] <- "^ID\\s+([0-9.]+)$"
-		regex[[RBIODB.DESCRIPTION]] <- "^DE\\s+(.+)$"
+		regex[[BIODB.ACCESSION]] <- "^ID\\s+([0-9.]+)$"
+		regex[[BIODB.DESCRIPTION]] <- "^DE\\s+(.+)$"
 
 		for (text in contents) {
 
@@ -49,7 +49,7 @@ if ( ! exists('EnzymeCompound')) { # Do not load again if already loaded
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)

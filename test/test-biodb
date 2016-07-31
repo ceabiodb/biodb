@@ -46,45 +46,19 @@ read.args <- function() {
   return(opt)
 }
 
-######################
-# BIODB TEST FACTORY #
-######################
+###########
+# TEST DB #
+###########
 
-BiodbTestFactory <- setRefClass("BiodbTestFactory", contains = "BiodbFactory", fields = list(.online = 'logical'))
+test.db <- function(db) {
 
-BiodbTestFactory$methods( initialize = function(online, ...) {
-	.online <<- online
-	callSuper(...)
-})
+	for (entry.type in c(BIODB.COMPOUND, BIODB.SPECTRUM)) {
 
-BiodbTestFactory$methods( getEntryContent = function(class, type, id) {
-
-	# Get file extension
-	ext <- .self$getConn(class)$getEntryContentType(type)
-
-	# Set content filenames
-	content.filenames <- vapply(id, function(x) paste0(class, '-', type, '-', x, '.', ext), FUN.VALUE = '')
-
-	if (.self$.online) {
-
-		# Get contents from database
-		conn <- .self$getConn(class)
-		content <- conn$getEntryContent(type, id)
-
-		# Write contents into files
-		content.file.path <- vapply(content.filenames, function(x) file.path(dirname(script.path), x), FUN.VALUE = '')
-		mapply(writeLines, content, content.file.path)
+		# Test getNbEntries()
+		n <- db$getNbEntries(entry.type)
+		checkTrue(is.na(n) || n >= 0)
 	}
-	else {
-
-		# Read contents from files
-		content.file.path <- vapply(content.filenames, function(x) file.path(dirname(script.path), 'res', x), FUN.VALUE = '')
-		content <- vapply(content.file.path, function(x) paste(readLines(x), collapse = "\n"), FUN.VALUE = '')
-	}
-
-	return(content)
-})
-
+}
 
 ################
 # TEST ENTRIES #
@@ -93,24 +67,24 @@ BiodbTestFactory$methods( getEntryContent = function(class, type, id) {
 test.entries <- function(db, entry.type, online = TRUE) {
 
 	# Create factory
-	factory <- BiodbTestFactory$new(online = online, useragent = USER.AGENT)
+	factory <- BiodbFactory$new(useragent = USER.AGENT, cache.dir = if (online) NA_character_ else file.path(dirname(script.path), 'res'))
 
 	# Test a wrong accession number
 	wrong.entry <- factory$createEntry(db, entry.type, id = 'WRONG')
 	checkTrue(is.null(wrong.entry))
 
 	# Download contents
-	entries.file <- file.path(dirname(script.path), 'res', paste0(if (entry.type == RBIODB.SPECTRUM) 'spectra' else 'compounds', '-', db, '.txt'))
+	entries.file <- file.path(dirname(script.path), 'res', paste0(if (entry.type == BIODB.SPECTRUM) 'spectra' else 'compounds', '-', db, '.txt'))
 	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
 
 	# Create entries
-	entries <- factory$createEntry(db, entry.type, id = entries.desc[[RBIODB.ACCESSION]], drop = FALSE)
+	entries <- factory$createEntry(db, entry.type, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
 
 	# Test fields of entries
 	for (f in colnames(entries.desc)) {
 		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
 		card <- entries[[1]]$getFieldCardinality(f)
-		e.values <- vapply(entries, function(e) if (card == RBIODB.CARD.ONE || is.na(e$getField(f))) e$getField(f) else paste(e$getField(f), collapse = ';'), FUN.VALUE = vector(mode = entries[[1]]$getFieldClass(f), length = 1))
+		e.values <- vapply(entries, function(e) if (card == BIODB.CARD.ONE || is.na(e$getField(f))) e$getField(f) else paste(e$getField(f), collapse = ';'), FUN.VALUE = vector(mode = entries[[1]]$getFieldClass(f), length = 1))
 		checkEquals(entries.desc[[f]], e.values, paste0("Error with field \"", f, "\":\nReference: ", paste(entries.desc[[f]], collapse = ", "), "\nValues: ", paste(e.values, collapse = ", ")))
 	}
 }

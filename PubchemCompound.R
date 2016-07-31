@@ -23,9 +23,9 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 
 		# Define xpath expressions
 		xpath.expr <- character()
-		xpath.expr[[RBIODB.ACCESSION]] <- "//pubchem:RecordType[text()='CID']/../pubchem:RecordNumber"
-		xpath.expr[[RBIODB.INCHI]] <- "//pubchem:Name[text()='InChI']/../pubchem:StringValue"
-		xpath.expr[[RBIODB.INCHIKEY]] <- "//pubchem:Name[text()='InChI Key']/../pubchem:StringValue"
+		xpath.expr[[BIODB.ACCESSION]] <- "//pubchem:RecordType[text()='CID']/../pubchem:RecordNumber"
+		xpath.expr[[BIODB.INCHI]] <- "//pubchem:Name[text()='InChI']/../pubchem:StringValue"
+		xpath.expr[[BIODB.INCHIKEY]] <- "//pubchem:Name[text()='InChI Key']/../pubchem:StringValue"
 
 		for (content in contents) {
 
@@ -52,7 +52,7 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 				if (is.na(name))
 					tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='Record Title']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
 				if ( ! is.na(name))
-					compound$setField(RBIODB.NAME, name)
+					compound$setField(BIODB.NAME, name)
 
 			}
 
@@ -60,7 +60,7 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(RBIODB.ACCESSION))) NULL else x)
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)

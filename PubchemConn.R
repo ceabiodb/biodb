@@ -1,20 +1,20 @@
 if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('PubchemCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	PubchemConn <- setRefClass("PubchemConn", contains = "BiodbConn")
+	PubchemConn <- setRefClass("PubchemConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
 	PubchemConn$methods( getEntryContentType = function(type) {
-		return(RBIODB.XML)
+		return(BIODB.XML)
 	})
 
 	#####################
@@ -23,13 +23,13 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 	
 	PubchemConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.COMPOUND) {
+		if (type == BIODB.COMPOUND) {
 
 			# Initialize return values
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.PUBCHEM, x, content.type = RBIODB.XML)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.PUBCHEM, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -42,7 +42,7 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 	################
 	
 	PubchemConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == RBIODB.COMPOUND) createPubchemCompoundFromXml(content, drop = drop) else NULL)
+		return(if (type == BIODB.COMPOUND) createPubchemCompoundFromXml(content, drop = drop) else NULL)
 	})
 
 	#########################

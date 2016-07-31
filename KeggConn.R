@@ -1,20 +1,20 @@
 if ( ! exists('KeggConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('KeggCompound.R')
 	
 	#####################
 	# CLASS DECLARATION #
 	#####################
 	
-	KeggConn <- setRefClass("KeggConn", contains = "BiodbConn")
+	KeggConn <- setRefClass("KeggConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
 	KeggConn$methods( getEntryContentType = function(type) {
-		return(RBIODB.TXT)
+		return(BIODB.TXT)
 	})
 
 	#####################
@@ -23,13 +23,13 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 
 	KeggConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.COMPOUND) {
+		if (type == BIODB.COMPOUND) {
 
 			# Initialize return values
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.KEGG, x, content.type = RBIODB.TXT)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.KEGG, x, content.type = BIODB.TXT)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -42,7 +42,7 @@ if ( ! exists('KeggConn')) { # Do not load again if already loaded
 	################
 
 	KeggConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == RBIODB.COMPOUND) createKeggCompoundFromTxt(content, drop = drop) else NULL)
+		return(if (type == BIODB.COMPOUND) createKeggCompoundFromTxt(content, drop = drop) else NULL)
 	})
 
 } # end of load safe guard

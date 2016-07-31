@@ -1,0 +1,30 @@
+if ( ! exists('RemotedbConn')) {
+
+	source('BiodbConn.R')
+	source(file.path('..', 'r-lib', 'UrlRequestScheduler.R'), chdir = TRUE)
+
+	#####################
+	# CLASS DECLARATION #
+	#####################
+	
+	RemotedbConn <- setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler"))
+
+	###############
+	# CONSTRUCTOR #
+	###############
+
+	RemotedbConn$methods( initialize = function(useragent = NA_character_, scheduler = NULL, ...) {
+
+		# Check useragent
+		( ! is.null(useragent) && ! is.na(useragent)) || stop("You must specify a valid useragent string (e.g.: \"myapp ; my.email@address\").")
+
+		# Set scheduler
+		if (is.null(scheduler))
+			scheduler <- UrlRequestScheduler$new(n = 3)
+		inherits(scheduler, "UrlRequestScheduler") || stop("The scheduler instance must inherit from UrlRequestScheduler class.")
+		scheduler$setUserAgent(useragent) # set agent
+		.scheduler <<- scheduler
+	
+		callSuper(...) # calls super-class initializer with remaining parameters
+	})
+}

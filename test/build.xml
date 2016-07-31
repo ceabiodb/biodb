@@ -1,60 +1,21 @@
-<project name="fr.cea.r-biodb.test" default="all">
+<project name="fr.cea.rbiodb.test" default="all">
 
 	<!-- ALL -->
-	<target name="all" depends="enzyme,hmdb,uniprot,ncbi,kegg,lipidmaps,mirbase"/>
-
-	<!-- MIRBASE -->
-	<target name="mirbase">
-		<exec executable="./test-mirbase.R" failonerror="true"/>
+	<target name="all">
+		<exec executable="./test-biodb" failonerror="true"/>
 	</target>
 
-	<!-- NCBI -->
-	<target name="ncbi" depends="ccds,gene"/>
-
-	<!-- NCBI GENE -->
-	<target name="gene">
-		<exec executable="./test-ncbi-gene.R" failonerror="true"/>
-	</target>
-
-	<!-- NCBI CCDS -->
-	<target name="ccds">
-		<exec executable="./test-ncbi-ccds.R" failonerror="true"/>
-	</target>
-
-	<!-- LIPIDMAPS -->
-	<target name="lipidmaps">
-		<exec executable="./test-lipidmaps.R" failonerror="true"/>
-	</target>
-
-	<!-- UNIPROT -->
-	<target name="uniprot">
-		<exec executable="./test-uniprot.R" failonerror="true"/>
-	</target>
-
-	<!-- CHEBI -->
-	<target name="chebi">
-		<exec executable="./test-chebi.R" failonerror="true"/>
-	</target>
-
-	<!-- HMDB -->
-	<target name="hmdb">
-		<exec executable="./test-hmdb.R" failonerror="true"/>
-	</target>
-
-	<!-- ENZYME -->
-	<target name="kegg">
-		<exec executable="./test-kegg.R" failonerror="true"/>
-	</target>
-
-	<!-- ENZYME -->
-	<target name="enzyme">
-		<exec executable="./test-enzyme.R" failonerror="true"/>
+	<!-- OFFLINE -->
+	<target name="offline">
+		<exec executable="./test-biodb" failonerror="true">
+			<arg value="--offline"/>
+		</exec>
 	</target>
 
 	<!-- CLEAN -->
 	<target name="clean">
 		<delete>
-			<fileset dir="."><include name="*-entry-*.*"/></fileset>
+			<fileset dir="."><include name="*-compound-*.*"/></fileset>
 		</delete>
 	</target>
 

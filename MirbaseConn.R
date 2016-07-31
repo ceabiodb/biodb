@@ -1,20 +1,20 @@
 if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 
-	source('BiodbConn.R')
+	source('RemotedbConn.R')
 	source('MirbaseCompound.R')
 
 	#####################
 	# CLASS DECLARATION #
 	#####################
 
-	MirbaseConn <- setRefClass("MirbaseConn", contains = "BiodbConn")
+	MirbaseConn <- setRefClass("MirbaseConn", contains = "RemotedbConn")
 
 	##########################
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
 	MirbaseConn$methods( getEntryContentType = function(type) {
-		return(RBIODB.HTML)
+		return(BIODB.HTML)
 	})
 
 	#####################
@@ -23,13 +23,13 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 	
 	MirbaseConn$methods( getEntryContent = function(type, id) {
 
-		if (type == RBIODB.COMPOUND) {
+		if (type == BIODB.COMPOUND) {
 
 			# Initialize return values
 			content <- rep(NA_character_, length(id))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(RBIODB.MIRBASE, x, content.type = RBIODB.HTML)), FUN.VALUE = '')
+			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.MIRBASE, x, content.type = BIODB.HTML)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -42,7 +42,7 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 	################
 	
 	MirbaseConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == RBIODB.COMPOUND) createMirbaseCompoundFromHtml(content, drop = drop) else NULL)
+		return(if (type == BIODB.COMPOUND) createMirbaseCompoundFromHtml(content, drop = drop) else NULL)
 	})
 
 	###################

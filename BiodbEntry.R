@@ -29,7 +29,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		class = .self$getFieldClass(field)
 
 		# Check cardinality
-		if (class != 'data.frame' && .self$getFieldCardinality(field) == RBIODB.CARD.ONE && length(value) > 1)
+		if (class != 'data.frame' && .self$getFieldCardinality(field) == BIODB.CARD.ONE && length(value) > 1)
 			stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
 
 		# Check value class
@@ -50,10 +50,10 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	
 	BiodbEntry$methods(	getFieldClass = function(field) {
 
-		if ( ! field %in% RBIODB.FIELDS[['name']])
+		if ( ! field %in% BIODB.FIELDS[['name']])
 			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
-		field.class <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'class']
+		field.class <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'class']
 
 		return(field.class)
 	})
@@ -64,10 +64,10 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	
 	BiodbEntry$methods(	getFieldCardinality = function(field) {
 
-		if ( ! field %in% RBIODB.FIELDS[['name']])
+		if ( ! field %in% BIODB.FIELDS[['name']])
 			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
-		field.card <- RBIODB.FIELDS[which(field == RBIODB.FIELDS[['name']]), 'cardinality']
+		field.card <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'cardinality']
 
 		return(field.card)
 	})
@@ -78,7 +78,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	
 	BiodbEntry$methods(	getField = function(field) {
 
-		if ( ! field %in% RBIODB.FIELDS[['name']])
+		if ( ! field %in% BIODB.FIELDS[['name']])
 			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
 		if (field %in% names(.self$.fields))
@@ -97,11 +97,11 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	
 	BiodbEntry$methods(	.compute.field = function(field) {
 
-		if ( ! is.null(.self$.factory) && field %in% names(RBIODB.FIELD.COMPUTING)) {
-			for (db in RBIODB.FIELD.COMPUTING[[field]]) {
+		if ( ! is.null(.self$.factory) && field %in% names(BIODB.FIELD.COMPUTING)) {
+			for (db in BIODB.FIELD.COMPUTING[[field]]) {
 				db.id <- .self$getField(paste0(db, 'id'))
 				if ( ! is.na(db.id)) {
-					db.compound <- .self$.factory$createEntry(db, type = RBIODB.COMPOUND, id = db.id)
+					db.compound <- .self$.factory$createEntry(db, type = BIODB.COMPOUND, id = db.id)
 					if ( ! is.null(db.compound)) {
 						.self$setField(field, db.compound$getField(field))
 						return(TRUE)
