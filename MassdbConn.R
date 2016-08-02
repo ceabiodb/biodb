@@ -24,7 +24,7 @@ if ( ! exists('MassdbConn')) {
 	#################
 	
 	# Returns a numeric vector of all masses stored inside the database.
-	MassdbConn$methods( getMzValues = function(mode = NULL) {
+	MassdbConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 		stop("Method getMzValues() not implemented in concrete class.")
 	})
 

@@ -62,6 +62,6 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# GET MZ VALUES #
 	#################
 	
-	MassbankConn$methods( getMzValues = function(mode = NULL) {
+	MassbankConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 	})
 }
