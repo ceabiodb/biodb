@@ -20,10 +20,14 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		callSuper(...) # calls super-class initializer with remaining parameters
 	})
 	
-	#############
-	# SET FIELD #
-	#############
+	###################
+	# SET FIELD VALUE #
+	###################
 	
+	BiodbEntry$methods(	setFieldValue = function(field, value) {
+		.self$setField(field, value)
+	})
+
 	BiodbEntry$methods(	setField = function(field, value) {
 
 		class = .self$getFieldClass(field)
@@ -45,9 +49,17 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	})
 
 	###################
+	# GET FIELD NAMES #
+	###################
+
+	BiodbEntry$methods(	getFieldNames = function(field) {
+		return(names(.self$.fields))
+	})
+
+	###################
 	# GET FIELD CLASS #
 	###################
-	
+
 	BiodbEntry$methods(	getFieldClass = function(field) {
 
 		if ( ! field %in% BIODB.FIELDS[['name']])
@@ -72,10 +84,14 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		return(field.card)
 	})
 	
-	#############
-	# GET FIELD #
-	#############
+	###################
+	# GET FIELD VALUE #
+	###################
 	
+	BiodbEntry$methods(	getFieldValue = function(field) {
+		return(.self$getField(field))
+	})
+
 	BiodbEntry$methods(	getField = function(field) {
 
 		if ( ! field %in% BIODB.FIELDS[['name']])
@@ -111,6 +127,24 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		}
 
 		return(FALSE)
+	})
+	
+	############################
+	# GET FIELDS AS DATA FRAME #
+	############################
+	
+	BiodbEntry$methods(	getFieldsAsDataFrame = function(field) {
+
+		df <- data.frame()
+
+		# Loop on all fields
+		for (f in names(.self$.fields))
+
+			# If field class is a basic type
+			if (.self$getFieldClass(f) %in% c('character', 'logical', 'integer', 'double'))
+				df[1, f] <- .self$getFieldValue(f)
+
+		return(df)
 	})
 
 	###########

@@ -7,9 +7,6 @@ if ( ! exists('MassFiledbConn')) {
 	# Each line is a MS peak measure, .
 	# The file contains molecule and spectrum information. Each spectrum has an accession id.
 
-	# TODO Create an intermediate abstract class MassdbConn, and move specific functions into it : getChromCol, getNbPeaks, ...
-	#               --> Ok, but what to do with PeakForest which contains NMR and MS data ? See setRefClass help: a vector can be given to 'contains' field. What about a diamond shape? Last wins ?
-
 	# TODO Rename setField into setFieldName + addNewField, and setMsMode into setMsModeValue
 
 	#############
@@ -150,7 +147,7 @@ if ( ! exists('MassFiledbConn')) {
 	# EXTRACT COLS #
 	################
 	
-	MassFiledbConn$methods( .extract.cols = function(cols, mode = NULL, drop = FALSE, uniq = FALSE, sort = FALSE) {
+	MassFiledbConn$methods( .extract.cols = function(cols, mode = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_) {
 	
 		x <- NULL
 
@@ -186,8 +183,11 @@ if ( ! exists('MassFiledbConn')) {
 					x <- x[ ! duplicated(x)]
 				if (sort)
 					x <- sort(x)
-
 			}
+
+			# Cut
+			if ( ! is.na(max.rows))
+				x <- if (is.vector(x)) x[1:max.rows] else x[1:max.rows, ]
 		}
 
 		return(x)
@@ -247,10 +247,10 @@ if ( ! exists('MassFiledbConn')) {
 	#################
 	
 	# Inherited from MassdbConn.
-	MassFiledbConn$methods( getMzValues = function(mode = NULL) {
+	MassFiledbConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 
 		# Get mz values
-		mz <- .self$.extract.cols(BIODB.PEAK.MZ, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE)
+		mz <- .self$.extract.cols(BIODB.PEAK.MZ, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results)
 
 		return(mz)
 	})
