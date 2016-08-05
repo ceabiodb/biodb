@@ -174,7 +174,11 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
 	BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/getRecordInfo"
 
-	get.entry.url <- function(class, accession, content.type = BIODB.ANY) {
+	.do.get.entry.url <- function(class, accession, content.type = BIODB.ANY) {
+
+		# TODO Only Massbank can handle multiple accession ids
+		if (class != 'massbank' && length(accession) > 1)
+			stop(paste0("Cannot build a URL for getting multiple entries for class ", class, "."))
 
 		url <- switch(class,
 			chebi       = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
@@ -208,5 +212,30 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 			)
 
 		return(url)
+	}
+
+	get.entry.url <- function(class, accession, content.type = BIODB.ANY, max.length = 0) {
+
+		if (length(accession) == 0)
+			return(NULL)
+
+		full.url <- .do.get.entry.url(class, accession, content.type = content.type)
+		if (max.length == 0 || nchar(full.url) <= max.length)
+			return(if (max.length == 0) full.url else list(url = full.url, n = length(accession)))
+
+		# Find max size URL
+		a <- 1
+		b <- length(accession)
+		while (a < b) {
+			m <- as.integer((a + b) / 2)
+			url <- .do.get.entry.url(class, accession[1:m], content.type = content.type)
+			if (nchar(url) <= max.length && m != a)
+				a <- m
+			else
+				b <- m
+		}
+		url <- .do.get.entry.url(class, accession[1:a], content.type = content.type)
+			
+		return(list( url = url, n = a))
 	}
 }
