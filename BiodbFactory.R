@@ -20,19 +20,29 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list", .cache.dir = "character"))
+	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list", .cache.dir = "character", .debug = "logical"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, ...) {
+	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, debug = FALSE, ...) {
 	
 		.useragent <<- useragent
 		.conn <<- list()
 		.cache.dir <<- cache.dir
+		.debug <<- debug
 
 		callSuper(...) # calls super-class initializer with remaining parameters
+	})
+
+	#######################
+	# PRINT DEBUG MESSAGE #
+	#######################
+
+	BiodbFactory$methods( .print.debug.msg = function(msg) {
+		if (.self$.debug)
+			.print.msg(msg = msg, class = class(.self))
 	})
 
 	##################
@@ -72,7 +82,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                	ncbigene    = NcbigeneConn$new(useragent = .self$.useragent),
 		                	ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent),
 		                	uniprot     = UniprotConn$new(useragent = .self$.useragent),
-		                	massbank    = MassbankConn$new(useragent = .self$.useragent),
+		                	massbank    = MassbankConn$new(useragent = .self$.useragent, debug = .self$.debug),
 							massfiledb  = MassFiledbConn$new(file = url),
 		      	          	NULL)
 
@@ -94,6 +104,9 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 		is.null(id) && is.null(content) && stop("One of id or content must be set.")
 		! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
+
+		# Debug
+		.self$.print.debug.msg(paste0("Creating entry with ", if (is.null(id)) "content" else paste("id", id), "..."))
 
 		# Get content
 		if ( ! is.null(id))
@@ -163,14 +176,25 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 	BiodbFactory$methods( getEntryContent = function(class, type, id) {
 
+		# Debug
+		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(id)," id(s)..."))
+
 		content <- NULL
 		# Load from cache
 		if ( ! is.na(.self$.cache.dir))
 			content <- .self$.load.content.from.cache(class, type, id)	
 
-		# Get contents
+		# Get list of missing contents
 		missing.content.indexes <- vapply(content, is.null, FUN.VALUE = TRUE)
 		missing.ids <- if (is.null(content)) id else id[missing.content.indexes]
+
+		# Debug
+		if ( ! is.na(.self$.cache.dir)) {
+			.self$.print.debug.msg(paste0(length(id) - length(missing.ids), " entry content(s) loaded from cache."))
+			.self$.print.debug.msg(paste0(length(missing.ids), " entry content(s) need to be fetched."))
+		}
+
+		# Get contents
 		if (length(missing.ids) > 0) {
 
 			# Use connector to get missing contents

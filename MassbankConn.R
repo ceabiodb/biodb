@@ -24,6 +24,9 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	
 	MassbankConn$methods( getEntryContent = function(type, ids) {
 
+		# Debug
+		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(ids)," id(s)..."))
+
 		if (type == BIODB.SPECTRUM) {
 
 			URL.MAX.LENGTH <- 2083
@@ -35,10 +38,19 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 			n <- 0
 			while (n < length(ids)) {
 
-				# Request
+				# Get list of accession ids to retrieve
 				accessions <- ids[(n + 1):length(ids)]
+
+				# Create URL request
 				x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH)
+
+				# Debug
+				.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
+
+				# Send request
 				xmlstr <- .self$.scheduler$getUrl(x$url)
+
+				# Increase number of entries retrieved
 				n <- n + x$n
 
 				# Parse XML and get text
@@ -49,6 +61,9 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 					returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
 					content[match(returned.ids, ids)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
 				}
+
+				# Debug
+				.self$.print.debug.msg(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 			}
 
 			return(content)

@@ -6,7 +6,24 @@ if ( ! exists('BiodbConn')) {
 	# CLASS DECLARATION #
 	#####################
 	
-	BiodbConn <- setRefClass("BiodbConn")
+	BiodbConn <- setRefClass("BiodbConn", fields = list( .debug = "logical" ))
+
+	###############
+	# CONSTRUCTOR #
+	###############
+
+	BiodbConn$methods( initialize = function(debug = FALSE, ...) {
+		.debug <<- debug
+	})
+
+	#######################
+	# PRINT DEBUG MESSAGE #
+	#######################
+
+	BiodbConn$methods( .print.debug.msg = function(msg) {
+		if (.self$.debug)
+			.print.msg(msg = msg, class = class(.self))
+	})
 
 	######################
 	# HANDLES ENTRY TYPE #

@@ -238,4 +238,16 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 			
 		return(list( url = url, n = a))
 	}
+
+	#################
+	# PRINT MESSAGE #
+	#################
+
+	BIODB.DEBUG <- 1
+	BIODB.LEVEL.NAMES <- c('DEBUG')
+
+	.print.msg <- function(msg, level = BIODB.DEBUG, class = NA_character_) {
+		cat(paste0(BIODB.LEVEL.NAMES[[level]], if (is.na(class)) '' else paste0(", ", class), ": ", msg, "\n"), file = stderr())
+	}
+
 }
