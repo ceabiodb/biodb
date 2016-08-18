@@ -174,7 +174,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 
-	BiodbFactory$methods( getEntryContent = function(class, type, id) {
+	BiodbFactory$methods( getEntryContent = function(class, type, id, chunk.size = NA_integer_) {
 
 		# Debug
 		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(id)," id(s)..."))
@@ -199,11 +199,27 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 			# Use connector to get missing contents
 			conn <- .self$getConn(class)
-			missing.contents <- conn$getEntryContent(type, missing.ids)
 
-			# Save to cache
-			if ( ! is.null(missing.contents) && ! is.na(.self$.cache.dir))
-				.self$.save.content.to.cache(class, type, missing.ids, missing.contents)
+			# Divide list of missing ids in chunks (in order to save in cache regularly)
+			chunks.of.missing.ids = if (is.na(chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / chunk.size))
+
+			# Loop on chunks
+			missing.contents <- NULL
+			for (ch.missing.ids in chunks.of.missing.ids) {
+
+				ch.missing.contents <- conn$getEntryContent(type, ch.missing.ids)
+
+				# Save to cache
+				if ( ! is.null(ch.missing.contents) && ! is.na(.self$.cache.dir))
+					.self$.save.content.to.cache(class, type, ch.missing.ids, ch.missing.contents)
+
+				# Append
+				missing.contents <- c(missing.contents, ch.missing.contents)
+
+				# Debug
+				if ( ! is.na(.self$.cache.dir))
+					.self$.print.debug.msg(paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+			}
 
 			# Merge content and missing.contents
 			if (is.null(content))
