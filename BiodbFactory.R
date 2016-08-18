@@ -106,7 +106,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
 
 		# Debug
-		.self$.print.debug.msg(paste0("Creating entry with ", if (is.null(id)) "content" else paste("id", id), "..."))
+		.self$.print.debug.msg(paste0("Creating entry from ", if (is.null(id)) "content" else paste("id", id), "..."))
 
 		# Get content
 		if ( ! is.null(id))
