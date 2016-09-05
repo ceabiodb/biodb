@@ -15,7 +15,7 @@ if ( ! exists('MassFiledbConn')) {
 
 	# Default database fields
 	.BIODB.DFT.DB.FIELDS <- list()
-	for (f in c(BIODB.ACCESSION, BIODB.NAME, BIODB.FULLNAMES, BIODB.COMPOUND.ID, BIODB.MSMODE, BIODB.PEAK.MZ, BIODB.PEAK.COMP, BIODB.PEAK.ATTR, BIODB.CHROM.COL, BIODB.CHROM.COL.RT, BIODB.FORMULA, BIODB.MASS))
+	for (f in c(BIODB.ACCESSION, BIODB.NAME, BIODB.FULLNAMES, BIODB.COMPOUND.ID, BIODB.MSMODE, BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.COMP, BIODB.PEAK.ATTR, BIODB.CHROM.COL, BIODB.CHROM.COL.RT, BIODB.FORMULA, BIODB.MASS))
 		.BIODB.DFT.DB.FIELDS[[f]] <- f
 
 	#####################
@@ -182,21 +182,11 @@ if ( ! exists('MassFiledbConn')) {
 		if ( ! is.null(cols) && ! is.na(cols))
 			.self$.check.fields(cols)
 
-		print('********** extract.cols 002.9')
-		print(cols)
-		print(unlist(.self$.fields[cols]))
-		print(colnames(db))
 		# Get subset
 		if (is.null(cols) || is.na(cols))
 			x <- db
 		else
 			x <- db[, unlist(.self$.fields[cols]), drop = drop]
-		print('********** extract.cols 003')
-
-#		# Rename columns
-#		# TODO
-#		if (is.data.frame(x))
-#			colnames(x) <- cols
 
 		# Rearrange
 		if (drop && is.vector(x)) {
@@ -283,7 +273,7 @@ if ( ! exists('MassFiledbConn')) {
 	MassFiledbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
 
 		# Get peaks
-		peaks <- .self$.select(cols = BIODB.PEAK.MZ, mode = mode, compound.ids = compound.ids)
+		peaks <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, compound.ids = compound.ids)
 
 		return(length(peaks))
 	})
