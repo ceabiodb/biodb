@@ -133,7 +133,7 @@ if ( ! exists('MassFiledbConn')) {
 
 	MassFiledbConn$methods( .check.fields = function(fields) {
 
-		if (is.na(fields))
+		if (length(fields) ==0 || (length(fields) == 1 && is.na(fields)))
 			return
 
 		# Check if fields are known
