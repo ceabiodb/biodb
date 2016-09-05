@@ -22,7 +22,7 @@ if ( ! exists('MassFiledbConn')) {
 	# CLASS DECLARATION #
 	#####################
 	
-	MassFiledbConn <- setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .fields = "list", .ms.modes = "character"))
+	MassFiledbConn <- setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "list", .ms.modes = "character"))
 
 	###############
 	# CONSTRUCTOR #
@@ -36,6 +36,7 @@ if ( ! exists('MassFiledbConn')) {
 
 		# Set fields
 		.db <<- NULL
+		.db.orig.colnames <<- NA_character_
 		.file <<- file
 		.file.sep <<- file.sep
 		.file.quote <<- file.quote
@@ -53,6 +54,22 @@ if ( ! exists('MassFiledbConn')) {
 
 	MassFiledbConn$methods( isValidFieldTag = function(tag) {
 		return (tag %in% names(.self$.fields))
+	})
+
+	###########
+	# INIT DB #
+	###########
+
+	MassFiledbConn$methods( .init.db = function() {
+
+		if (is.null(.self$.db)) {
+
+			# Load database
+			.db <<- read.table(.self$.file, sep = .self$.file.sep, .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
+
+			# Save column names
+			.db.orig.colnames <<- colnames(.self$.db)
+		}
 	})
 
 	#############
@@ -81,6 +98,9 @@ if ( ! exists('MassFiledbConn')) {
 			.self$.db[[new.col]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
 			.fields[[tag]] <<- new.col
 		}
+
+		# Update data frame column names
+		colnames(.self$.db) <- vapply(.self$.db.orig.colnames, function(c) if (c %in% .self$.fields) names(.self$.fields)[.self$.fields %in% c] else c, FUN.VALUE = '')
 	})
 
 	######################################
@@ -107,27 +127,14 @@ if ( ! exists('MassFiledbConn')) {
 		return(BIODB.DATAFRAME)
 	})
 
-	###########
-	# INIT DB #
-	###########
-
-	MassFiledbConn$methods( .init.db = function() {
-
-		if (is.null(.self$.db)) {
-
-			# Load database
-			.db <<- read.table(.self$.file, sep = .self$.file.sep, .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
-
-			# Rename columns
-			colnames(.self$.db) <- vapply(colnames(.self$.db), function(c) if (c %in% .self$.fields) names(.self$.fields)[.self$.fields %in% c] else c, FUN.VALUE = '')
-		}
-	})
-
 	################
 	# CHECK FIELDS #
 	################
 
 	MassFiledbConn$methods( .check.fields = function(fields) {
+
+		if (is.na(fields))
+			return
 
 		# Check if fields are known
 		unknown.fields <- names(.self$.fields)[ ! fields %in% names(.self$.fields)]
@@ -138,57 +145,70 @@ if ( ! exists('MassFiledbConn')) {
 		.self$.init.db()
 
 		# Check if fields are defined in file database
-		undefined.fields <- colnames(.self$.init.db)[ ! unlist(.self$.fields[fields]) %in% colnames(.self$.init.db)]
+		undefined.fields <- colnames(.self$.db)[ ! fields %in% colnames(.self$.db)]
 		if (length(undefined.fields) > 0)
-			stop(paste0("Column(s) ", paste(unlist(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database."))
+			stop(paste0("Column(s) ", paste(fields), collapse = ", "), " is/are undefined in file database.")
 	})
 
-	################
-	# EXTRACT COLS #
-	################
+	##########
+	# SELECT #
+	##########
 	
-	MassFiledbConn$methods( .extract.cols = function(cols, mode = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_) {
+	# Select data from database
+	MassFiledbConn$methods( .select = function(cols = NULL, mode = NULL, compound.ids = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_) {
 	
 		x <- NULL
 
-		if ( ! is.null(cols) && ! is.na(cols)) {
+		# Init db
+		.self$.init.db()
 
-			# Init db
-			.self$.init.db()
+		# Get db
+		db <- .self$.db
 
-			# TODO check existence of cols/fields
+		# Filter db on mode
+		if ( ! is.null(mode) && ! is.na(mode)) {
 
-			# Get db, eventually filtering it.
-			if (is.null(mode))
-				db <- .self$.db
-			else {
-				# Check mode value
-				mode %in% names(.self$.ms.modes) || stop(paste0("Unknown mode value '", mode, "'."))
-				.self$.check.fields(BIODB.MSMODE)
+			# Check mode value
+			mode %in% names(.self$.ms.modes) || stop(paste0("Unknown mode value '", mode, "'."))
+			.self$.check.fields(BIODB.MSMODE)
 
-				# Filter on mode
-				db <- .self$.db[.self$.db[[unlist(.self$.fields[BIODB.MSMODE])]] %in% .self$.ms.modes[[mode]], ]
-			}
-
-			# Get subset
-			x <- db[, unlist(.self$.fields[cols]), drop = drop]
-
-			# Rename columns
-			if (is.data.frame(x))
-				colnames(x) <- cols
-
-			# Rearrange
-			if (drop && is.vector(x)) {
-				if (uniq)
-					x <- x[ ! duplicated(x)]
-				if (sort)
-					x <- sort(x)
-			}
-
-			# Cut
-			if ( ! is.na(max.rows))
-				x <- if (is.vector(x)) x[1:max.rows] else x[1:max.rows, ]
+			# Filter on mode
+			db <- db[db[[unlist(.self$.fields[BIODB.MSMODE])]] %in% .self$.ms.modes[[mode]], ]
 		}
+
+		# Filter db on compound ids
+		# TODO
+
+		if ( ! is.null(cols) && ! is.na(cols))
+			.self$.check.fields(cols)
+
+		print('********** extract.cols 002.9')
+		print(cols)
+		print(unlist(.self$.fields[cols]))
+		print(colnames(db))
+		# Get subset
+		if (is.null(cols) || is.na(cols))
+			x <- db
+		else
+			x <- db[, unlist(.self$.fields[cols]), drop = drop]
+		print('********** extract.cols 003')
+
+#		# Rename columns
+#		# TODO
+#		if (is.data.frame(x))
+#			colnames(x) <- cols
+
+		# Rearrange
+		if (drop && is.vector(x)) {
+			if (uniq)
+				x <- x[ ! duplicated(x)]
+			if (sort)
+				x <- sort(x)
+		}
+
+		# Cut
+		if ( ! is.na(max.rows))
+			x <- if (is.vector(x)) x[1:max.rows] else x[1:max.rows, ]
 
 		return(x)
 	})
@@ -202,7 +222,7 @@ if ( ! exists('MassFiledbConn')) {
 		ids <- NA_character_
 
 		if (type %in% c(BIODB.SPECTRUM, BIODB.COMPOUND))
-			ids <- as.character(.self$.extract.cols(if (type == BIODB.SPECTRUM) BIODB.ACCESSION else BIODB.COMPOUND.ID, drop = TRUE, uniq = TRUE, sort = TRUE))
+			ids <- as.character(.self$.select(cols = if (type == BIODB.SPECTRUM) BIODB.ACCESSION else BIODB.COMPOUND.ID, drop = TRUE, uniq = TRUE, sort = TRUE))
 
 		return(ids)
 	})
@@ -223,7 +243,7 @@ if ( ! exists('MassFiledbConn')) {
 	MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
 
 		# Extract needed columns
-		db <- .self$.extract.cols(c(BIODB.COMPOUND.ID, BIODB.CHROM.COL))
+		db <- .self$.select(cols = c(BIODB.COMPOUND.ID, BIODB.CHROM.COL))
 
 		# Filter on molecule IDs
 		if ( ! is.null(compound.ids))
@@ -250,9 +270,22 @@ if ( ! exists('MassFiledbConn')) {
 	MassFiledbConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 
 		# Get mz values
-		mz <- .self$.extract.cols(BIODB.PEAK.MZ, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results)
+		mz <- .self$.select(cols = BIODB.PEAK.MZ, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results)
 
 		return(mz)
+	})
+
+	################
+	# GET NB PEAKS #
+	################
+	
+	# Inherited from MassdbConn.
+	MassFiledbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
+
+		# Get peaks
+		peaks <- .self$.select(cols = BIODB.PEAK.MZ, mode = mode, compound.ids = compound.ids)
+
+		return(length(peaks))
 	})
 
 }

@@ -76,9 +76,8 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.NB.PEAKS     <- 'nbpeaks'
 	BIODB.PEAKS        <- 'peaks'
 	BIODB.COMPOUND.ID   <- 'compoundid'
-	BIODB.PEAK.MZ       <- 'peakmz'
-	BIODB.PEAK.COMP     <- 'peakcomp' # Peak composition
-	BIODB.PEAK.ATTR     <- 'peakattr' # Peak attribution
+	BIODB.COMPOUND.MASS   <- 'compoundmass'
+	BIODB.COMPOUND.COMP   <- 'compoundcomp'
 	BIODB.CHROM.COL     <- 'chromcol' # Chromatographic column
 	BIODB.CHROM.COL.RT  <- 'chromcolrt' # Retention time measured on chromatographic column
 	BIODB.ID <- 'id'
@@ -155,9 +154,15 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 
 	# Columns
 	BIODB.PEAK.MZ <- 'mz'
+	BIODB.PEAK.RT <- 'rt'
+	BIODB.PEAK.MZEXP <- 'mzexp'
+	BIODB.PEAK.MZTHEO <- 'mztheo'
 	BIODB.PEAK.FORMULA <- 'formula'
 	BIODB.PEAK.FORMULA.COUNT <- 'formula.count'
+	BIODB.PEAK.COMP     <- 'peakcomp' # Peak composition
+	BIODB.PEAK.ATTR     <- 'peakattr' # Peak attribution
 	BIODB.PEAK.MASS <- 'mass'
+	BIODB.PEAK.ATTR <- 'attr'
 	BIODB.PEAK.ERROR.PPM <- 'error.ppm'
 	BIODB.PEAK.INTENSITY <- 'intensity'
 	BIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'

@@ -28,4 +28,13 @@ if ( ! exists('MassdbConn')) {
 		stop("Method getMzValues() not implemented in concrete class.")
 	})
 
+	################
+	# GET NB PEAKS #
+	################
+	
+	# Returns the number of peaks contained in the database
+	MassdbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
+		stop("Method getMzValues() not implemented in concrete class.")
+	})
+
 }
