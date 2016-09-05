@@ -37,4 +37,14 @@ if ( ! exists('MassdbConn')) {
 		stop("Method getMzValues() not implemented in concrete class.")
 	})
 
+	#########################
+	# FIND COMPOUND BY NAME #
+	#########################
+
+	# Find a molecule by name
+	# name   A vector of molecule names to search for.
+	# Return an integer vector of the same size as the name input vector, containing the found molecule IDs, in the same order.
+	MassdbConn$methods( findCompoundByName = function(name) {
+		stop("Method getMzValues() not implemented in concrete class.")
+	})
 }
