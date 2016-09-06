@@ -176,10 +176,10 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	#################
 
 	# TODO Let the choice to use either jp or eu
-	BIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/getRecordInfo"
-	BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/getRecordInfo"
+	BIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/"
+	BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/"
 
-	.do.get.entry.url <- function(class, accession, content.type = BIODB.ANY) {
+	.do.get.entry.url <- function(class, accession, content.type = BIODB.ANY, base.url = NA_character_) {
 
 		# TODO Only Massbank can handle multiple accession ids
 		if (class != 'massbank' && length(accession) > 1)
@@ -200,7 +200,7 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 			                     any  = paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', accession),
 			                     NULL),
 			lipidmaps   = if (content.type %in% c(BIODB.ANY, BIODB.CSV)) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
-			massbank    = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0(BIODB.MASSBANK.EU.WS.URL, '?ids=', paste(accession, collapse = ',')) else NULL,
+			massbank    = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
 			mirbase     = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
 			pubchem     = {
 							accession <- gsub(' ', '', accession, perl = TRUE)
@@ -219,12 +219,12 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		return(url)
 	}
 
-	get.entry.url <- function(class, accession, content.type = BIODB.ANY, max.length = 0) {
+	get.entry.url <- function(class, accession, content.type = BIODB.ANY, max.length = 0, base.url = NA_character_) {
 
 		if (length(accession) == 0)
 			return(NULL)
 
-		full.url <- .do.get.entry.url(class, accession, content.type = content.type)
+		full.url <- .do.get.entry.url(class, accession, content.type = content.type, base.url = base.url)
 		if (max.length == 0 || nchar(full.url) <= max.length)
 			return(if (max.length == 0) full.url else list(url = full.url, n = length(accession)))
 

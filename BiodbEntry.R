@@ -152,7 +152,6 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	###########
 	
 	BiodbEntry$methods(	setFactory = function(factory) {
-
 		is.null(factory) || inherits(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
 		.factory <<- factory
 	})

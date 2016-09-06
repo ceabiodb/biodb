@@ -111,7 +111,6 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		# Get content
 		if ( ! is.null(id))
 			content <- .self$getEntryContent(class, type, id)
-
 		conn <- .self$getConn(class)
 		entry <- conn$createEntry(type = type, content = content, drop = drop)
 

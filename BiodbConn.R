@@ -78,7 +78,7 @@ if ( ! exists('BiodbConn')) {
 	#################
 	
 	# Get a list of IDs of all entries contained in this database.
-	BiodbConn$methods( getEntryIds = function(type) {
+	BiodbConn$methods( getEntryIds = function(type, max.results = NA_integer_) {
 		stop("Method getEntryIds() is not implemented in concrete class.")
 	})
 

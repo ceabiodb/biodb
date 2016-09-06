@@ -8,7 +8,16 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	MassbankConn <- setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"))
+	MassbankConn <- setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"), fields = list( .base.url = "character" ))
+
+	###############
+	# CONSTRUCTOR #
+	###############
+
+	MassbankConn$methods( initialize = function(base.url = BIODB.MASSBANK.EU.WS.URL, ...) {
+		.base.url <<- base.url
+		callSuper(...)
+	})
 
 	##########################
 	# GET ENTRY CONTENT TYPE #
@@ -42,7 +51,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 				accessions <- ids[(n + 1):length(ids)]
 
 				# Create URL request
-				x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH)
+				x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$.base.url)
 
 				# Debug
 				.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
@@ -86,7 +95,44 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	#################
 	# GET MZ VALUES #
 	#################
-	
+
 	MassbankConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
+	})
+
+	#################
+	# GET ENTRY IDS #
+	#################
+	
+	MassbankConn$methods( getEntryIds = function(type, max.results = NA_integer_) {
+
+		if (type == BIODB.SPECTRUM) {
+
+			# Set URL
+			url <- paste0(.self$.base.url, 'searchPeak?mzs=1000&relativeIntensity=100&tolerance=1000&instrumentTypes=all&ionMode=Both')
+			if ( ! is.na(max.results))
+				url <- paste0(url, '&maxNumResults=', max.results)
+
+			# Send request
+			xmlstr <- .self$.scheduler$getUrl(url)
+
+			# Parse XML and get text
+			if ( ! is.na(xmlstr)) {
+				library(XML)
+				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+				ns <- c(ax21 = "http://api.massbank/xsd")
+				returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
+				return(returned.ids)
+			}
+		}
+
+		return(character())
+	})
+
+	##################
+	# GET NB ENTRIES #
+	##################
+	
+	MassbankConn$methods( getNbEntries = function(type) {
+		return(length(.self$getEntryIds(type)))
 	})
 }
