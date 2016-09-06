@@ -162,7 +162,7 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.PEAK.COMP     <- 'peakcomp' # Peak composition
 	BIODB.PEAK.ATTR     <- 'peakattr' # Peak attribution
 	BIODB.PEAK.MASS <- 'mass'
-	BIODB.PEAK.ATTR <- 'attr'
+#	BIODB.PEAK.ATTR <- 'attr'
 	BIODB.PEAK.ERROR.PPM <- 'error.ppm'
 	BIODB.PEAK.INTENSITY <- 'intensity'
 	BIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
