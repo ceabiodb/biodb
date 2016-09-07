@@ -16,6 +16,19 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 
 		library(stringr)
 
+		# Fields
+		fields <- list()
+		fields[[BIODB.CHEBI.ID]] <- "^CH\\$LINK: CHEBI\\s+(.+)$"
+		fields[[BIODB.KEGG.ID]] <- "^CH\\$LINK: KEGG\\s+(.+)$"
+		fields[[BIODB.PUBCHEM.ID]] <- "^CH\\$LINK: PUBCHEM\\s+(.+)$"
+		fields[[BIODB.INCHI]] <- "^CH\\$IUPAC:\\s+(.+)$"
+		fields[[BIODB.INCHIKEY]] <- "^CH\\$LINK: INCHIKEY\\s+(.+)$"
+		fields[[BIODB.CHEMSPIDER.ID]] <- "^CH\\$LINK: CHEMSPIDER\\s+(.+)$"
+		fields[[BIODB.CAS.ID]] <- "^CH\\$LINK: CAS\\s+(.+)$"
+		fields[[BIODB.FORMULA]] <- "^CH\\$FORMULA:\\s+(.+)$"
+		fields[[BIODB.SMILES]] <- "^CH\\$SMILES:\\s+(.+)$"
+		fields[[BIODB.MASS]] <- "^CH\\$EXACT_MASS:\\s+(.+)$"
+
 		compounds <- list()
 
 		for (text in contents) {
@@ -34,25 +47,12 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 						compound$setField(BIODB.NAME, g[1,2])
 				}
 		
-				# CHEBI ID
-				g <- str_match(s, "^CH\\$LINK: CHEBI\\s+(.+)$")
-				if ( ! is.na(g[1,1]))
-					compound$setField(BIODB.CHEBI.ID, g[1,2])
-		
-				# KEGG ID
-				g <- str_match(s, "^CH\\$LINK: KEGG\\s+(.+)$")
-				if ( ! is.na(g[1,1]))
-					compound$setField(BIODB.KEGG.ID, g[1,2])
-		
-				# PUBCHEM ID
-				g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+(.+)$")
-				if ( ! is.na(g[1,1]))
-					compound$setField(BIODB.PUBCHEM.ID, g[1,2])
-		
-				# INCHI
-				g <- str_match(s, "^CH\\$IUPAC:\\s+(.+)$")
-				if ( ! is.na(g[1,1]))
-					compound$setField(BIODB.INCHI, g[1,2])
+				# Other fields
+				for (f in fields) {
+					g <- str_match(s, fields[[f]])
+					if ( ! is.na(g[1,1]))
+						compound$setField(f, g[1,2])
+				}
 			}
 
 			compounds <- c(compounds, compound)
