@@ -109,8 +109,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
 			# Set URL
 			url <- paste0(.self$.base.url, 'searchPeak?mzs=1000&relativeIntensity=100&tolerance=1000&instrumentTypes=all&ionMode=Both')
-			if ( ! is.na(max.results))
-				url <- paste0(url, '&maxNumResults=', max.results)
+			url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
 
 			# Send request
 			xmlstr <- .self$.scheduler$getUrl(url)
