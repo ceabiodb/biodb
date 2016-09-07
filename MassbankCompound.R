@@ -48,7 +48,7 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 				}
 		
 				# Other fields
-				for (f in fields) {
+				for (f in names(fields)) {
 					g <- str_match(s, fields[[f]])
 					if ( ! is.na(g[1,1]))
 						compound$setField(f, g[1,2])

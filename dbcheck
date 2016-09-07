@@ -1,0 +1,19 @@
+#!/usr/bin/env Rscript
+# vi: ft=R
+args <- commandArgs(trailingOnly = F)
+script.path <- sub("--file=","",args[grep("--file=",args)])
+source(file.path(dirname(script.path), 'BiodbFactory.R'), chdir = TRUE)
+
+########
+# MAIN #
+########
+
+# Create factory
+factory <- BiodbFactory$new(useragent = "dbcheck ; pierrick.roger@gmail.com", cache.dir = file.path(dirname(script.path), 'cache'), debug = TRUE)
+
+# Get massbank instance
+massbank <- factory$getConn(BIODB.MASSBANK)
+
+# Get massbank entries
+massbank.entry.ids <- massbank$getEntryIds(BIODB.SPECTRUM, max.results = 1000)
+massbank.entries <- factory$createEntry(BIODB.MASSBANK, BIODB.SPECTRUM, id = massbank.entry.ids)

@@ -72,8 +72,9 @@ if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 		# Set associated compounds
 		compounds <- createMassbankCompoundFromTxt(contents)
 		for (i in seq(spectra))
-			if ( ! is.null(spectra[[i]]))
+			if ( ! is.null(spectra[[i]])) {
 				spectra[[i]]$setField(BIODB.COMPOUND, compounds[[i]])
+			}
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
