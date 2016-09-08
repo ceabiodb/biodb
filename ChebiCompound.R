@@ -24,26 +24,29 @@ if ( ! exists('ChebiCompound')) { # Do not load again if already loaded
 		xpath.expr[[BIODB.INCHI]] <- "//td[starts-with(., 'InChI=')]"
 		xpath.expr[[BIODB.INCHIKEY]] <- "//td[text()='InChIKey']/../td[2]"
 
-		for (html in contents) {
+		for (content in contents) {
 
 			# Create instance
 			compound <- ChebiCompound$new()
-		
-			# Parse HTML
-			xml <-  htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
 
-			# Test generic xpath expressions
-			for (field in names(xpath.expr)) {
-				v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
-				if (length(v) > 0)
-					compound$setField(field, v)
-			}
-		
-			# Get accession
-			accession <- xpathSApply(xml, "//b[starts-with(., 'CHEBI:')]", xmlValue)
-			if (length(accession) > 0) {
-				accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
-				compound$setField(BIODB.ACCESSION, accession)
+			if ( ! is.null(content) && ! is.na(content)) {
+			
+				# Parse HTML
+				xml <-  htmlTreeParse(content, asText = TRUE, useInternalNodes = TRUE)
+
+				# Test generic xpath expressions
+				for (field in names(xpath.expr)) {
+					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
+					if (length(v) > 0)
+						compound$setField(field, v)
+				}
+			
+				# Get accession
+				accession <- xpathSApply(xml, "//b[starts-with(., 'CHEBI:')]", xmlValue)
+				if (length(accession) > 0) {
+					accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
+					compound$setField(BIODB.ACCESSION, accession)
+				}
 			}
 
 			compounds <- c(compounds, compound)

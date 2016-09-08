@@ -21,26 +21,29 @@ if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
 		# Define xpath expressions
 		xpath.expr <- character()
 
-		for (html in contents) {
+		for (content in contents) {
 
 			# Create instance
 			compound <- ChemspiderCompound$new()
-		
-			# Parse HTML
-			xml <-  htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
 
-			# Test generic xpath expressions
-			for (field in names(xpath.expr)) {
-				v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
-				if (length(v) > 0)
-					compound$setField(field, v)
-			}
-		
-			# Get accession
-			accession <- xpathSApply(xml, "//li[starts-with(., 'ChemSpider ID')]", xmlValue)
-			if (length(accession) > 0) {
-				accession <- sub('^ChemSpider ID([0-9]+)$', '\\1', accession, perl = TRUE)
-				compound$setField(BIODB.ACCESSION, accession)
+			if ( ! is.null(content) && ! is.na(content)) {
+			
+				# Parse HTML
+				xml <-  htmlTreeParse(content, asText = TRUE, useInternalNodes = TRUE)
+
+				# Test generic xpath expressions
+				for (field in names(xpath.expr)) {
+					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
+					if (length(v) > 0)
+						compound$setField(field, v)
+				}
+			
+				# Get accession
+				accession <- xpathSApply(xml, "//li[starts-with(., 'ChemSpider ID')]", xmlValue)
+				if (length(accession) > 0) {
+					accession <- sub('^ChemSpider ID([0-9]+)$', '\\1', accession, perl = TRUE)
+					compound$setField(BIODB.ACCESSION, accession)
+				}
 			}
 
 			compounds <- c(compounds, compound)

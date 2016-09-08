@@ -30,7 +30,7 @@ massbank.entries <- factory$createEntry(BIODB.MASSBANK, BIODB.SPECTRUM, id = mas
 massbank.compounds <- lapply(massbank.entries, function(x) x$getField(BIODB.COMPOUND))
 
 # Loop on all databases
-for (odb in c(BIODB.PUBCHEM, BIODB.CHEBI, BIODB.KEGG)) {
+for (odb in c(BIODB.PUBCHEM, BIODB.CHEBI, BIODB.KEGG, BIODB.CHEMSPIDER)) {
 	id.field <- biodb.get.database.id.field(odb)
 	odb.compound.ids <- vapply(massbank.compounds, function(x) x$getFieldValue(id.field, compute = FALSE), FUN.VALUE = '')
 	odb.compounds <- factory$createEntry(odb, BIODB.COMPOUND, id = odb.compound.ids)
