@@ -228,12 +228,17 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 			massbank    = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
 			mirbase     = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
 			pubchem     = {
-							accession <- gsub(' ', '', accession, perl = TRUE)
-							accession <- gsub('^CID', '', accession, perl = TRUE)
-							switch(content.type,
-			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/', accession, '/XML/?response_type=save&response_basename=CID_', accession),
-			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),
-			                     NULL)
+							g <- str_match(accession, '^((S|C)ID):(.*)$')
+							if ( ! is.na(g[1,1])) {
+								type <- if (g[1,2] == 'SID') 'substance' else 'compound'
+								accession <- g[1,4]
+								switch(content.type,
+			                     	 xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/', type, '/', accession, '/XML'),
+			                     	 html = paste0('http://pubchem.ncbi.nlm.nih.gov/', type, '/', accession),
+			                     	 NULL)
+							}
+							else
+								NULL
 		    			  },
 			ncbigene    = if (content.type %in% c(BIODB.ANY, BIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
 			ncbiccds    = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),

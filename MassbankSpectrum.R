@@ -31,12 +31,10 @@ if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 
 		for (text in contents) {
 
-			spectrum <- NULL
+			# Create instance
+			spectrum <- MassbankSpectrum$new()
 
 			if ( ! is.null(text) && ! is.na(text)) {
-
-				# Create instance
-				spectrum <- MassbankSpectrum$new()
 
 				# Read text
 				lines <- strsplit(text, "\n")

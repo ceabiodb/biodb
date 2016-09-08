@@ -2,6 +2,12 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 
 	source('biodb-common.R')
 
+	#############
+	# CONSTANTS #
+	#############
+
+	BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
+
 	########################
 	# ENTRY ABSTRACT CLASS #
 	########################
@@ -52,6 +58,14 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		return(names(.self$.fields))
 	})
 
+	#############
+	# HAS FIELD #
+	#############
+
+	BiodbEntry$methods(	hasField = function(field) {
+		return(field %in% names(.self$.fields))
+	})
+
 	###################
 	# GET FIELD CLASS #
 	###################
@@ -64,6 +78,14 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		field.class <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'class']
 
 		return(field.class)
+	})
+
+	#########################
+	# FIELD HAS BASIC CLASS #
+	#########################
+
+	BiodbEntry$methods(	fieldHasBasicClass = function(field) {
+		return(.self$getFieldClass(field) %in% BIODB.BASIC.CLASSES)
 	})
 
 	#########################
@@ -96,7 +118,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 
 		# Return NULL or NA
 		class = .self$getFieldClass(field)
-		return(if (class %in% c('character', 'integer', 'double', 'logical')) as.vector(NA, mode = class) else NULL)
+		return(if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL)
 	})
 	
 	#################

@@ -4,6 +4,14 @@ args <- commandArgs(trailingOnly = F)
 script.path <- sub("--file=","",args[grep("--file=",args)])
 source(file.path(dirname(script.path), 'BiodbFactory.R'), chdir = TRUE)
 
+######################
+#  SIGNAL INACCURACY #
+######################
+
+signal.inaccuracy <- function(msg) {
+	cat('INACCURACY: ', msg, "\n")
+}
+
 ########
 # MAIN #
 ########
@@ -15,17 +23,38 @@ factory <- BiodbFactory$new(useragent = "dbcheck ; pierrick.roger@gmail.com", ca
 massbank <- factory$getConn(BIODB.MASSBANK)
 
 # Get massbank entries
-massbank.entry.ids <- massbank$getEntryIds(BIODB.SPECTRUM, max.results = 3)
+massbank.entry.ids <- massbank$getEntryIds(BIODB.SPECTRUM, max.results = 100)
 massbank.entries <- factory$createEntry(BIODB.MASSBANK, BIODB.SPECTRUM, id = massbank.entry.ids)
 
 # Get compounds
 massbank.compounds <- lapply(massbank.entries, function(x) x$getField(BIODB.COMPOUND))
 
 # Loop on all databases
-for (odb in c(BIODB.CHEBI)) {
+for (odb in c(BIODB.PUBCHEM, BIODB.CHEBI, BIODB.KEGG)) {
 	id.field <- biodb.get.database.id.field(odb)
 	odb.compound.ids <- vapply(massbank.compounds, function(x) x$getFieldValue(id.field, compute = FALSE), FUN.VALUE = '')
 	odb.compounds <- factory$createEntry(odb, BIODB.COMPOUND, id = odb.compound.ids)
 
+	# Loop on all compounds
+	for (i in seq(massbank.compounds)) {
+		mbc <- massbank.compounds[[i]]
+		odbc <- odb.compounds[[i]]
+		if ( ! is.na(odb.compound.ids[[i]])) {
+			if (is.null(odbc))
+				signal.inaccuracy(paste0("massbank entry ", massbank.entry.ids[[i]], " makes reference to a ", odb, " entry ", odb.compound.ids[[i]], " that cannot be found in the ", odb, " database."))
+			else {
+				for (f in mbc$getFieldNames())
 
+					# Handling names is a bit complex, so we skip it for now
+					if ( ! f %in% c(BIODB.NAME, BIODB.FULLNAMES)) {
+						if (odbc$hasField(f) && odbc$fieldHasBasicClass(f)) {
+							if (mbc$getFieldClass(f) != odbc$getFieldClass(f))
+								signal.inaccuracy(paste0("class of field ", f ," is different in Massbank entry ", massbank.entry.ids[[i]], " (", mbc$getFieldClass(f), ") and ", odb, " entry ", odb.compound.ids[[i]], " (", odbc$getFieldClass(f), ")."))
+							if (mbc$getFieldValue(f) != odbc$getFieldValue(f))
+								signal.inaccuracy(paste0("value of field ", f ," is different in Massbank entry ", massbank.entry.ids[[i]], " (", mbc$getFieldValue(f), ") and ", odb, " entry ", odb.compound.ids[[i]], " (", odbc$getFieldValue(f), ")."))
+						}
+					}
+			}
+		}
+	}
 }

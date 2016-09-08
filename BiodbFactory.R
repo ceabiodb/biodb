@@ -71,17 +71,17 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 			# Create connection instance
 			conn <- switch(class,
-		                	chebi       = ChebiConn$new(useragent = .self$.useragent),
-		                	kegg        = KeggConn$new(useragent = .self$.useragent),
-		                	pubchem     = PubchemConn$new(useragent = .self$.useragent),
-		                	hmdb        = HmdbConn$new(useragent = .self$.useragent),
-		                	chemspider  = ChemspiderConn$new(useragent = .self$.useragent),
-		                	enzyme      = EnzymeConn$new(useragent = .self$.useragent),
-		                	lipidmaps   = LipidmapsConn$new(useragent = .self$.useragent),
-		                	mirbase     = MirbaseConn$new(useragent = .self$.useragent),
-		                	ncbigene    = NcbigeneConn$new(useragent = .self$.useragent),
-		                	ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent),
-		                	uniprot     = UniprotConn$new(useragent = .self$.useragent),
+		                	chebi       = ChebiConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	kegg        = KeggConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	pubchem     = PubchemConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	hmdb        = HmdbConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	chemspider  = ChemspiderConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	enzyme      = EnzymeConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	lipidmaps   = LipidmapsConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	mirbase     = MirbaseConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	ncbigene    = NcbigeneConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	uniprot     = UniprotConn$new(useragent = .self$.useragent, debug = .self$.debug),
 		                	massbank    = MassbankConn$new(useragent = .self$.useragent, debug = .self$.debug),
 							massfiledb  = MassFiledbConn$new(file = url),
 		      	          	NULL)
@@ -106,7 +106,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
 
 		# Debug
-		.self$.print.debug.msg(paste0("Creating entry from ", if (is.null(id)) "content" else paste("id", id), "..."))
+		.self$.print.debug.msg(paste0("Creating ", if (is.null(id)) length(content) else length(id), " entries from ", if (is.null(id)) "contents" else paste("ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", ")), "..."))
 
 		# Get content
 		if ( ! is.null(id))

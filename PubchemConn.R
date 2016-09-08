@@ -7,7 +7,7 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 	# CLASS DECLARATION #
 	#####################
 	
-	PubchemConn <- setRefClass("PubchemConn", contains = "RemotedbConn")
+	PubchemConn <- setRefClass("PubchemConn", contains = "RemotedbConn", fields = list( .db = "character" ))
 
 	##########################
 	# GET ENTRY CONTENT TYPE #
@@ -21,15 +21,18 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 	# GET ENTRY CONTENT #
 	#####################
 	
-	PubchemConn$methods( getEntryContent = function(type, id) {
+	PubchemConn$methods( getEntryContent = function(type, ids) {
+
+		# Debug
+		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(ids)," id(s)..."))
 
 		if (type == BIODB.COMPOUND) {
 
 			# Initialize return values
-			content <- rep(NA_character_, length(id))
+			content <- rep(NA_character_, length(ids))
 
 			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.PUBCHEM, x, content.type = BIODB.XML)), FUN.VALUE = '')
+			content <- vapply(ids, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.PUBCHEM, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
 			return(content)
 		}
@@ -49,9 +52,9 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 	# GET PUBCHEM IMAGE URL #
 	#########################
 	
-	get.pubchem.image.url <- function(id) {
+	get.pubchem.image.url <- function(id, db = BIODB.PUBCHEMCOMP) {
 	
-		url <- paste0('http://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=', id, '&t=l')
+		url <- paste0('http://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?', (if (db == BIODB.PUBCHEMCOMP) 'cid' else 'sid'), '=', id, '&t=l')
 
 		return(url)
 	}

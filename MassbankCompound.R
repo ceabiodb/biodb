@@ -20,7 +20,6 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 		fields <- list()
 		fields[[BIODB.CHEBI.ID]] <- "^CH\\$LINK: CHEBI\\s+(.+)$"
 		fields[[BIODB.KEGG.ID]] <- "^CH\\$LINK: KEGG\\s+(.+)$"
-		fields[[BIODB.PUBCHEM.ID]] <- "^CH\\$LINK: PUBCHEM\\s+(.+)$"
 		fields[[BIODB.INCHI]] <- "^CH\\$IUPAC:\\s+(.+)$"
 		fields[[BIODB.INCHIKEY]] <- "^CH\\$LINK: INCHIKEY\\s+(.+)$"
 		fields[[BIODB.CHEMSPIDER.ID]] <- "^CH\\$LINK: CHEMSPIDER\\s+(.+)$"
@@ -40,13 +39,18 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 			lines <- strsplit(text, "\n")
 			for (s in lines[[1]]) {
 
-				# NAME
+				# Name
 				if (is.na(compound$getField(BIODB.NAME))) {
 					g <- str_match(s, "^CH\\$NAME:\\s+(.+)$")
 					if ( ! is.na(g[1,1]))
 						compound$setField(BIODB.NAME, g[1,2])
 				}
 		
+				# PubChem
+				g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+(SID:)?(.+)$")
+				if ( ! is.na(g[1,1]))
+					compound$setField(BIODB.PUBCHEM.ID, paste0('SID:', g[1,3]))
+
 				# Other fields
 				for (f in names(fields)) {
 					g <- str_match(s, fields[[f]])

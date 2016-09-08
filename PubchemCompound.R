@@ -23,7 +23,6 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 
 		# Define xpath expressions
 		xpath.expr <- character()
-		xpath.expr[[BIODB.ACCESSION]] <- "//pubchem:RecordType[text()='CID']/../pubchem:RecordNumber"
 		xpath.expr[[BIODB.INCHI]] <- "//pubchem:Name[text()='InChI']/../pubchem:StringValue"
 		xpath.expr[[BIODB.INCHIKEY]] <- "//pubchem:Name[text()='InChI Key']/../pubchem:StringValue"
 
@@ -32,28 +31,36 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 			# Create instance
 			compound <- PubchemCompound$new()
 
-			# Parse XML
-			xml <-  xmlInternalTreeParse(content, asText = TRUE)
+			if ( ! is.null(content) && ! is.na(content)) {
 
-			# Unknown compound
-			fault <- xpathSApply(xml, "/pubchem:Fault", xmlValue, namespaces = ns)
-			if (length(fault) == 0) {
+				# Parse XML
+				xml <-  xmlInternalTreeParse(content, asText = TRUE)
 
-				# Test generic xpath expressions
-				for (field in names(xpath.expr)) {
-					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue, namespaces = ns)
-					if (length(v) > 0)
-						compound$setField(field, v)
+				# Unknown compound
+				fault <- xpathSApply(xml, "/pubchem:Fault", xmlValue, namespaces = ns)
+				if (length(fault) == 0) {
+
+					# Test generic xpath expressions
+					for (field in names(xpath.expr)) {
+						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue, namespaces = ns)
+						if (length(v) > 0)
+							compound$setField(field, v)
+					}
+
+					# Get accesssion
+					type <- xpathSApply(xml, "//pubchem:RecordType", xmlValue, namespaces = ns)
+					id <- xpathSApply(xml, "//pubchem:RecordNumber", xmlValue, namespaces = ns)
+					compound$setField(BIODB.ACCESSION, paste(type, id, sep = ':'))
+
+					# Get name
+					name <- NA_character_
+					tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='IUPAC Name']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
+					if (is.na(name))
+						tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='Record Title']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
+					if ( ! is.na(name))
+						compound$setField(BIODB.NAME, name)
+
 				}
-
-				# Get name
-				name <- NA_character_
-				tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='IUPAC Name']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
-				if (is.na(name))
-					tryCatch( { name <- xpathSApply(xml, "//pubchem:Name[text()='Record Title']/../pubchem:StringValue", xmlValue, namespaces = ns) }, warning = function(w) {})
-				if ( ! is.na(name))
-					compound$setField(BIODB.NAME, name)
-
 			}
 
 			compounds <- c(compounds, compound)

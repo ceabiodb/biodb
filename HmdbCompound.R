@@ -33,19 +33,22 @@ if ( ! exists('HmdbCompound')) { # Do not load again if already loaded
 			# Create instance
 			compound <- HmdbCompound$new()
 
-			# Parse XML
-			xml <-  xmlInternalTreeParse(content, asText = TRUE)
+			if ( ! is.null(content) && ! is.na(content)) {
 
-			# An error occured
-			if (length(getNodeSet(xml, "//error")) == 0) {
+				# Parse XML
+				xml <-  xmlInternalTreeParse(content, asText = TRUE)
 
-				# Test generic xpath expressions
-				for (field in names(xpath.expr)) {
-					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
-					if (length(v) > 0)
-						compound$setField(field, v)
+				# An error occured
+				if (length(getNodeSet(xml, "//error")) == 0) {
+
+					# Test generic xpath expressions
+					for (field in names(xpath.expr)) {
+						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
+						if (length(v) > 0)
+							compound$setField(field, v)
+					}
+
 				}
-
 			}
 
 			compounds <- c(compounds, compound)
