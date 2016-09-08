@@ -20,18 +20,19 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list", .cache.dir = "character", .debug = "logical"))
+	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list", .cache.dir = "character", .debug = "logical", .chunk.size = "integer"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, debug = FALSE, ...) {
+	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, debug = FALSE, chunk.size = NA_integer_, ...) {
 	
 		.useragent <<- useragent
 		.conn <<- list()
 		.cache.dir <<- cache.dir
 		.debug <<- debug
+		.chunk.size <<- as.integer(chunk.size)
 
 		callSuper(...) # calls super-class initializer with remaining parameters
 	})
@@ -176,7 +177,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 
-	BiodbFactory$methods( getEntryContent = function(class, type, id, chunk.size = NA_integer_) {
+	BiodbFactory$methods( getEntryContent = function(class, type, id) {
 
 		# Debug
 		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(id)," id(s)..."))
@@ -203,7 +204,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 			conn <- .self$getConn(class)
 
 			# Divide list of missing ids in chunks (in order to save in cache regularly)
-			chunks.of.missing.ids = if (is.na(chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / chunk.size))
+			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
 
 			# Loop on chunks
 			missing.contents <- NULL

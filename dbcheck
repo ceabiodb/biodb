@@ -17,7 +17,7 @@ signal.inaccuracy <- function(msg) {
 ########
 
 # Create factory
-factory <- BiodbFactory$new(useragent = "dbcheck ; pierrick.roger@gmail.com", cache.dir = file.path(dirname(script.path), 'cache'), debug = TRUE)
+factory <- BiodbFactory$new(useragent = "dbcheck ; pierrick.roger@gmail.com", cache.dir = file.path(dirname(script.path), 'cache'), debug = TRUE, chunk.size = 100)
 
 # Get massbank instance
 massbank <- factory$getConn(BIODB.MASSBANK)
