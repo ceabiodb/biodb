@@ -27,6 +27,8 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 		fields[[BIODB.FORMULA]] <- "^CH\\$FORMULA:\\s+(.+)$"
 		fields[[BIODB.SMILES]] <- "^CH\\$SMILES:\\s+(.+)$"
 		fields[[BIODB.MASS]] <- "^CH\\$EXACT_MASS:\\s+(.+)$"
+		fields[[BIODB.PUBCHEMCOMP.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*CID:([0-9]+)"
+		fields[[BIODB.PUBCHEMSUB.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)"
 
 		compounds <- list()
 
@@ -47,22 +49,9 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 				}
 		
 				# PubChem
-				cid <- NULL
-				sid <- NULL
-				g <- str_match(s, "^CH\\$LINK: PUBCHEM(\\s+(CID:)([0-9]*))?(\\s+(SID:)([0-9]*))?$")
-				if ( ! is.na(g[1,1])) {
-					cid <- g[1,4]
-					sid <- g[1,7]
-				}
-				else {
-					g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+(.+)$")
-					if ( ! is.na(g[1,1]))
-						sid <- g[1,2]
-				}
-				if ( ! is.null(sid) && ! is.na(sid) && sid != '')
-					compound$setField(BIODB.PUBCHEMSUB.ID, sid)
-				if ( ! is.null(cid) && ! is.na(cid) && cid != '')
-					compound$setField(BIODB.PUBCHEMCOMP.ID, cid)
+				g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+([0-9]+)$")
+				if ( ! is.na(g[1,1]))
+					compound$setField(BIODB.PUBCHEMSUB.ID, g[1,2])
 
 				# Other fields
 				for (f in names(fields)) {
