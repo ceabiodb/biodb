@@ -48,9 +48,9 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 					}
 
 					# Get accesssion
-					type <- xpathSApply(xml, "//pubchem:RecordType", xmlValue, namespaces = ns)
+					type <- xpathSApply(xml, "//pubchem:RecordType", xmlValue, namespaces = ns) # Type is either CID (compound) or SIB (substance)
 					id <- xpathSApply(xml, "//pubchem:RecordNumber", xmlValue, namespaces = ns)
-					compound$setField(BIODB.ACCESSION, paste(type, id, sep = ':'))
+					compound$setField(BIODB.ACCESSION, paste(id))
 
 					# Get name
 					name <- NA_character_

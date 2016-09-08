@@ -9,6 +9,15 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 	
 	PubchemConn <- setRefClass("PubchemConn", contains = "RemotedbConn", fields = list( .db = "character" ))
 
+	###############
+	# CONSTRUCTOR #
+	###############
+
+	PubchemConn$methods( initialize = function(db = BIODB.PUBCHEMCOMP, ...) {
+		.db <<- db
+		callSuper(...)
+	})
+
 	##########################
 	# GET ENTRY CONTENT TYPE #
 	##########################
@@ -32,7 +41,7 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 			content <- rep(NA_character_, length(ids))
 
 			# Request
-			content <- vapply(ids, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.PUBCHEM, x, content.type = BIODB.XML)), FUN.VALUE = '')
+			content <- vapply(ids, function(x) .self$.scheduler$getUrl(get.entry.url(.self$.db, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
 			return(content)
 		}

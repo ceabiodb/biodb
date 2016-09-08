@@ -24,7 +24,8 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 
 	BIODB.CHEBI        <- 'chebi'
 	BIODB.KEGG         <- 'kegg'
-	BIODB.PUBCHEM      <- 'pubchem'
+	BIODB.PUBCHEMCOMP  <- 'pubchemcomp' # Compound database
+	BIODB.PUBCHEMSUB   <- 'pubchemsub'  # Substance database
 	BIODB.HMDB         <- 'hmdb'
 	BIODB.CHEMSPIDER   <- 'chemspider'
 	BIODB.ENZYME       <- 'enzyme'
@@ -36,7 +37,7 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.MASSBANK     <- 'massbank'
 	BIODB.MASSFILEDB   <- 'massfiledb'
 
-	BIODB.ONLINE.DATABASES <- c(BIODB.CHEBI, BIODB.KEGG, BIODB.PUBCHEM, BIODB.HMDB, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK)
+	BIODB.ONLINE.DATABASES <- c(BIODB.CHEBI, BIODB.KEGG, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDB, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK)
 
 	##########
 	# FIELDS #
@@ -57,7 +58,8 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.ENZYME.ID    <- 'enzymeid'
 	BIODB.NCBI.CCDS.ID <- 'ncbiccdsid'
 	BIODB.NCBI.GENE.ID <- 'ncbigeneid'
-	BIODB.PUBCHEM.ID   <- 'pubchemid'
+	BIODB.PUBCHEMCOMP.ID   <- 'pubchemcompid'
+	BIODB.PUBCHEMSUB.ID   <- 'pubchemsubid'
 	BIODB.CHEMSPIDER.ID   <- 'chemspiderid'
 	BIODB.UNIPROT.ID   <- 'uniprotid'
 	BIODB.CAS.ID        <- 'casid'
@@ -119,7 +121,8 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		BIODB.KEGG.ID,              'character',    BIODB.CARD.ONE,
 		BIODB.HMDB.ID,              'character',    BIODB.CARD.ONE,
 		BIODB.ENZYME.ID,            'character',    BIODB.CARD.ONE,
-		BIODB.PUBCHEM.ID,           'character',    BIODB.CARD.ONE,
+		BIODB.PUBCHEMCOMP.ID,       'character',    BIODB.CARD.ONE,
+		BIODB.PUBCHEMSUB.ID,        'character',    BIODB.CARD.ONE,
 		BIODB.UNIPROT.ID,           'character',    BIODB.CARD.ONE,
 		BIODB.NCBI.CCDS.ID,         'character',    BIODB.CARD.ONE,
 		BIODB.NCBI.GENE.ID,         'character',    BIODB.CARD.ONE,
@@ -227,18 +230,17 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 			lipidmaps   = if (content.type %in% c(BIODB.ANY, BIODB.CSV)) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
 			massbank    = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
 			mirbase     = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
-			pubchem     = {
-							g <- str_match(accession, '^((S|C)ID):(.*)$')
-							if ( ! is.na(g[1,1])) {
-								type <- if (g[1,2] == 'SID') 'substance' else 'compound'
-								accession <- g[1,4]
-								switch(content.type,
-			                     	 xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/', type, '/', accession, '/XML'),
-			                     	 html = paste0('http://pubchem.ncbi.nlm.nih.gov/', type, '/', accession),
-			                     	 NULL)
-							}
-							else
-								NULL
+			pubchemcomp = {
+							switch(content.type,
+			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/', accession, '/XML'),
+			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),
+			                     NULL)
+		    			  },
+			pubchemsub  = {
+							switch(content.type,
+			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/substance/', accession, '/XML'),
+			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/substance/', accession),
+			                     NULL)
 		    			  },
 			ncbigene    = if (content.type %in% c(BIODB.ANY, BIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
 			ncbiccds    = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),

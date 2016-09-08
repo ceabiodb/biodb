@@ -47,9 +47,22 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 				}
 		
 				# PubChem
-				g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+(SID:)?(.+)$")
-				if ( ! is.na(g[1,1]))
-					compound$setField(BIODB.PUBCHEM.ID, paste0('SID:', g[1,3]))
+				cid <- NULL
+				sid <- NULL
+				g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+((CID:)([0-9]*))?((SID:)([0-9]*))?$")
+				if ( ! is.na(g[1,1])) {
+					cid <- g[1,4]
+					sid <- g[1,7]
+				}
+				else {
+					g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+(.+)$")
+					if ( ! is.na(g[1,1]))
+						sid <- g[1,2]
+				}
+				if ( ! is.null(sid) && ! is.na(sid) && sid != '')
+					compound$setField(BIODB.PUBCHEMSUB.ID, sid)
+				if ( ! is.null(cid) && ! is.na(cid) && cid != '')
+					compound$setField(BIODB.PUBCHEMCOMP.ID, cid)
 
 				# Other fields
 				for (f in names(fields)) {

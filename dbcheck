@@ -23,14 +23,14 @@ factory <- BiodbFactory$new(useragent = "dbcheck ; pierrick.roger@gmail.com", ca
 massbank <- factory$getConn(BIODB.MASSBANK)
 
 # Get massbank entries
-massbank.entry.ids <- massbank$getEntryIds(BIODB.SPECTRUM, max.results = 100)
+massbank.entry.ids <- massbank$getEntryIds(BIODB.SPECTRUM, max.results = 1000)
 massbank.entries <- factory$createEntry(BIODB.MASSBANK, BIODB.SPECTRUM, id = massbank.entry.ids)
 
 # Get compounds
 massbank.compounds <- lapply(massbank.entries, function(x) x$getField(BIODB.COMPOUND))
 
 # Loop on all databases
-for (odb in c(BIODB.PUBCHEM, BIODB.CHEBI, BIODB.KEGG, BIODB.CHEMSPIDER)) {
+for (odb in c(BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.CHEBI, BIODB.KEGG, BIODB.CHEMSPIDER)) {
 	id.field <- biodb.get.database.id.field(odb)
 	odb.compound.ids <- vapply(massbank.compounds, function(x) x$getFieldValue(id.field, compute = FALSE), FUN.VALUE = '')
 	odb.compounds <- factory$createEntry(odb, BIODB.COMPOUND, id = odb.compound.ids)
@@ -58,3 +58,6 @@ for (odb in c(BIODB.PUBCHEM, BIODB.CHEBI, BIODB.KEGG, BIODB.CHEMSPIDER)) {
 		}
 	}
 }
+
+# Interesting inaccuracy found:
+# INACCURACY:  value of field inchi is different in Massbank entry PR100288 (InChI=1S/C12H14N2O2/c13-9(7-12(15)16)6-10-5-8-3-1-2-4-11(8)14-10/h1-5,9,14H,6-7,13H2,(H,15,16)/t9-/m0/s1) and pubchemcomp entry 2761550 (InChI=1S/C12H14N2O2/c13-9(6-12(15)16)5-8-7-14-11-4-2-1-3-10(8)11/h1-4,7,9,14H,5-6,13H2,(H,15,16)/t9-/m0/s1).      --> molecules are different. The double bound of the 5C cycle is not placed the same way.
