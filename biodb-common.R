@@ -36,6 +36,8 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.MASSBANK     <- 'massbank'
 	BIODB.MASSFILEDB   <- 'massfiledb'
 
+	BIODB.ONLINE.DATABASES <- c(BIODB.CHEBI, BIODB.KEGG, BIODB.PUBCHEM, BIODB.HMDB, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK)
+
 	##########
 	# FIELDS #
 	##########
@@ -144,6 +146,23 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		BIODB.CAS.ID,               'character',    BIODB.CARD.ONE
 		), byrow = TRUE, ncol = 3), stringsAsFactors = FALSE)
 	colnames(BIODB.FIELDS) <- c('name', 'class', 'cardinality')
+
+	#########################
+	# GET DATABASE ID FIELD #
+	#########################
+
+	biodb.get.database.id.field <- function(database) {
+
+		id.field <- NA_character_
+
+		if (database %in% BIODB.ONLINE.DATABASES) {
+			id.field <- paste0(database, 'id')
+			if ( ! id.field %in% BIODB.FIELDS[['name']])
+				stop(paste0('No ID field defined for database ', database, '.'))
+		}
+
+		return(id.field)
+	}
 
 	#####################
 	# COMPUTABLE FIELDS #

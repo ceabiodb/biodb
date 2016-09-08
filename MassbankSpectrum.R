@@ -31,36 +31,41 @@ if ( ! exists('MassbankSpectrum')) { # Do not load again if already loaded
 
 		for (text in contents) {
 
-			# Create instance
-			spectrum <- MassbankSpectrum$new()
+			spectrum <- NULL
 
-			# Read text
-			lines <- strsplit(text, "\n")
-			for (s in lines[[1]]) {
+			if ( ! is.null(text) && ! is.na(text)) {
 
-				# Test generic regex
-				parsed <- FALSE
-				for (field in names(regex)) {
-					g <- str_match(s, regex[[field]])
-					if ( ! is.na(g[1,1])) {
-						spectrum$setField(field, g[1,2])
-						parsed <- TRUE
-						break
+				# Create instance
+				spectrum <- MassbankSpectrum$new()
+
+				# Read text
+				lines <- strsplit(text, "\n")
+				for (s in lines[[1]]) {
+
+					# Test generic regex
+					parsed <- FALSE
+					for (field in names(regex)) {
+						g <- str_match(s, regex[[field]])
+						if ( ! is.na(g[1,1])) {
+							spectrum$setField(field, g[1,2])
+							parsed <- TRUE
+							break
+						}
 					}
-				}
-				if (parsed)
-					next
+					if (parsed)
+						next
 
-				# MS MODE
-				g <- str_match(s, "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
-				if ( ! is.na(g[1,1])) {
-					spectrum$setField(BIODB.MSMODE, if (g[1,2] == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
-					next
-				}
+					# MS MODE
+					g <- str_match(s, "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
+					if ( ! is.na(g[1,1])) {
+						spectrum$setField(BIODB.MSMODE, if (g[1,2] == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
+						next
+					}
 
-				# PEAKS
-				if (.parse.peak.line(spectrum, s))
-					next
+					# PEAKS
+					if (.parse.peak.line(spectrum, s))
+						next
+				}
 			}
 
 			spectra <- c(spectra, spectrum)

@@ -23,12 +23,8 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	###################
 	# SET FIELD VALUE #
 	###################
-	
-	BiodbEntry$methods(	setFieldValue = function(field, value) {
-		.self$setField(field, value)
-	})
 
-	BiodbEntry$methods(	setField = function(field, value) {
+	BiodbEntry$methods(	setFieldValue = function(field, value) {
 
 		class = .self$getFieldClass(field)
 
@@ -88,18 +84,14 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	# GET FIELD VALUE #
 	###################
 	
-	BiodbEntry$methods(	getFieldValue = function(field) {
-		return(.self$getField(field))
-	})
-
-	BiodbEntry$methods(	getField = function(field) {
+	BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE) {
 
 		if ( ! field %in% BIODB.FIELDS[['name']])
 			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
 		if (field %in% names(.self$.fields))
 			return(.self$.fields[[field]])
-		else if (.self$.compute.field(field))
+		else if (compute && .self$.compute.field(field))
 			return(.self$.fields[[field]])
 
 		# Return NULL or NA
@@ -154,5 +146,17 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	BiodbEntry$methods(	setFactory = function(factory) {
 		is.null(factory) || inherits(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
 		.factory <<- factory
+	})
+
+	##############
+	# DEPRECATED #
+	##############
+
+	BiodbEntry$methods(	getField = function(field) {
+		return(.self$getFieldValue(field))
+	})
+	
+	BiodbEntry$methods(	setField = function(field, value) {
+		.self$setFieldValue(field, value)
 	})
 }

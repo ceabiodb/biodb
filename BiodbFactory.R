@@ -115,8 +115,10 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		entry <- conn$createEntry(type = type, content = content, drop = drop)
 
 		# Set factory
+		.self$.print.debug.msg(paste0("Setting factory reference into entries..."))
 		for (e in c(entry))
-			e$setFactory(.self)
+			if ( ! is.null(e))
+				e$setFactory(.self)
 
 		return(entry)
 	})
@@ -131,10 +133,10 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		ext <- .self$getConn(class)$getEntryContentType(type)
 
 		# Set filenames
-		filenames <- vapply(id, function(x) paste0(class, '-', type, '-', x, '.', ext), FUN.VALUE = '')
+		filenames <- vapply(id, function(x) { if (is.na(x)) NA_character_ else paste0(class, '-', type, '-', x, '.', ext) }, FUN.VALUE = '')
 
 		# set file paths
-		file.paths <- vapply(filenames, function(x) file.path(.self$.cache.dir, x), FUN.VALUE = '')
+		file.paths <- vapply(filenames, function(x) { if (is.na(x)) NA_character_ else file.path(.self$.cache.dir, x) }, FUN.VALUE = '')
 	
 		# Create cache dir if needed
 		if ( ! is.na(.self$.cache.dir) && ! file.exists(.self$.cache.dir))
@@ -153,7 +155,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 		# Read contents from files
 		file.paths <- .self$.get.cache.file.paths(class, type, id)
-		content <- lapply(file.paths, function(x) { if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL })
+		content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL )} )
 
 		return(content)
 	})
