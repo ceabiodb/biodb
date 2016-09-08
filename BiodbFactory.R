@@ -192,8 +192,10 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		missing.ids <- if (is.null(content)) id else id[missing.content.indexes]
 
 		# Debug
+		if (any(is.na(id)))
+			.self$.print.debug.msg(paste0(sum(is.na(id)), " entry ids are NA."))
 		if ( ! is.na(.self$.cache.dir)) {
-			.self$.print.debug.msg(paste0(length(id) - length(missing.ids), " entry content(s) loaded from cache."))
+			.self$.print.debug.msg(paste0(sum( ! is.na(id)) - length(missing.ids) - sum(is.na(id)), " entry content(s) loaded from cache."))
 			.self$.print.debug.msg(paste0(length(missing.ids), " entry content(s) need to be fetched."))
 		}
 
