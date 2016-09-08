@@ -49,7 +49,7 @@ if ( ! exists('MassbankCompound')) { # Do not load again if already loaded
 				# PubChem
 				cid <- NULL
 				sid <- NULL
-				g <- str_match(s, "^CH\\$LINK: PUBCHEM\\s+((CID:)([0-9]*))?((SID:)([0-9]*))?$")
+				g <- str_match(s, "^CH\\$LINK: PUBCHEM(\\s+(CID:)([0-9]*))?(\\s+(SID:)([0-9]*))?$")
 				if ( ! is.na(g[1,1])) {
 					cid <- g[1,4]
 					sid <- g[1,7]
