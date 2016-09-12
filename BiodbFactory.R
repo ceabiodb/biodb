@@ -20,19 +20,20 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list", .cache.dir = "character", .debug = "logical", .chunk.size = "integer"))
+	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list", .cache.dir = "character", .debug = "logical", .chunk.size = "integer", .use.env.var = "logical"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, debug = FALSE, chunk.size = NA_integer_, ...) {
+	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, debug = FALSE, chunk.size = NA_integer_, use.env.var = FALSE, ...) {
 	
 		.useragent <<- useragent
 		.conn <<- list()
 		.cache.dir <<- cache.dir
 		.debug <<- debug
 		.chunk.size <<- as.integer(chunk.size)
+		.use.env.var <<- use.env.var
 
 		callSuper(...) # calls super-class initializer with remaining parameters
 	})
@@ -70,6 +71,21 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 		if (class %in% names(.self$.conn))
 			stop(paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
+
+		# Use environment variables
+		if (.self$.use.env.var) {
+			env <- Sys.getenv()
+
+			# Get URL
+			url.env.var <- paste('BIODB', toupper(db), 'URL', sep = '_')
+			if (url.env.var %in% names(env))
+			url <- env[[url.env.var]]
+
+			# Get token
+			token.env.var <- paste('BIODB', toupper(db), 'TOKEN', sep = '_')
+			if (token.env.var %in% names(env))
+			token <- env[[token.env.var]]
+		}
 
 		# Create connection instance
 		conn <- switch(class,
