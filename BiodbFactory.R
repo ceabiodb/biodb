@@ -85,7 +85,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                ncbigene    = NcbigeneConn$new(useragent = .self$.useragent, debug = .self$.debug),
 		                ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent, debug = .self$.debug),
 		                uniprot     = UniprotConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                massbank    = MassbankConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                massbank    = MassbankConn$new(useragent = .self$.useragent, url = url, debug = .self$.debug),
 						massfiledb  = MassFiledbConn$new(file = url, debug = .self$.debug),
 		      	        NULL)
 

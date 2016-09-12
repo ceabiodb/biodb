@@ -8,14 +8,17 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	MassbankConn <- setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"), fields = list( .base.url = "character" ))
+	MassbankConn <- setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"), fields = list( .url = "character" ))
 
 	###############
 	# CONSTRUCTOR #
 	###############
 
-	MassbankConn$methods( initialize = function(base.url = BIODB.MASSBANK.EU.WS.URL, ...) {
-		.base.url <<- base.url
+	MassbankConn$methods( initialize = function(url = NA_character_, ...) {
+
+		# Set URL
+		.url <<- if (is.null(url) || is.na(url)) BIODB.MASSBANK.EU.WS.URL else url
+
 		callSuper(...)
 	})
 
@@ -51,7 +54,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 				accessions <- ids[(n + 1):length(ids)]
 
 				# Create URL request
-				x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$.base.url)
+				x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$.url)
 
 				# Debug
 				.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
@@ -108,7 +111,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 		if (type == BIODB.SPECTRUM) {
 
 			# Set URL
-			url <- paste0(.self$.base.url, 'searchPeak?mzs=1000&relativeIntensity=100&tolerance=1000&instrumentTypes=all&ionMode=Both')
+			url <- paste0(.self$.url, 'searchPeak?mzs=1000&relativeIntensity=100&tolerance=1000&instrumentTypes=all&ionMode=Both')
 			url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
 
 			# Send request
