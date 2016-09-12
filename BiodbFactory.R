@@ -66,7 +66,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# GET CONN #
 	############
 
-	BiodbFactory$methods( getConn = function(class, url = NA_character_) {
+	BiodbFactory$methods( getConn = function(class, url = NA_character_, token = NA_character_) {
 
 		if ( ! class %in% names(.self$.conn)) {
 
@@ -77,7 +77,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                	pubchemcomp = PubchemConn$new(useragent = .self$.useragent, db = BIODB.PUBCHEMCOMP, debug = .self$.debug),
 		                	pubchemsub  = PubchemConn$new(useragent = .self$.useragent, db = BIODB.PUBCHEMSUB, debug = .self$.debug),
 		                	hmdb        = HmdbConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	chemspider  = ChemspiderConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                	chemspider  = ChemspiderConn$new(useragent = .self$.useragent, debug = .self$.debug, token = token),
 		                	enzyme      = EnzymeConn$new(useragent = .self$.useragent, debug = .self$.debug),
 		                	lipidmaps   = LipidmapsConn$new(useragent = .self$.useragent, debug = .self$.debug),
 		                	mirbase     = MirbaseConn$new(useragent = .self$.useragent, debug = .self$.debug),

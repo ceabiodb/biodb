@@ -7,16 +7,19 @@ if ( ! exists('RemotedbConn')) {
 	# CLASS DECLARATION #
 	#####################
 	
-	RemotedbConn <- setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler"))
+	RemotedbConn <- setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler", .token = "character"))
 
 	###############
 	# CONSTRUCTOR #
 	###############
 
-	RemotedbConn$methods( initialize = function(useragent = NA_character_, scheduler = NULL, ...) {
+	RemotedbConn$methods( initialize = function(useragent = NA_character_, scheduler = NULL, token = NA_character_, ...) {
 
 		# Check useragent
 		( ! is.null(useragent) && ! is.na(useragent)) || stop("You must specify a valid useragent string (e.g.: \"myapp ; my.email@address\").")
+
+		# Set token
+		.token <<- token
 
 		# Set scheduler
 		if (is.null(scheduler))
