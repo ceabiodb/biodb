@@ -62,38 +62,51 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		.useragent <<- useragent
 	})
 
+	###############
+	# CREATE CONN #
+	###############
+
+	BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
+
+		if (class %in% names(.self$.conn))
+			stop(paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
+
+		# Create connection instance
+		conn <- switch(class,
+		                chebi       = ChebiConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                kegg        = KeggConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                pubchemcomp = PubchemConn$new(useragent = .self$.useragent, db = BIODB.PUBCHEMCOMP, debug = .self$.debug),
+		                pubchemsub  = PubchemConn$new(useragent = .self$.useragent, db = BIODB.PUBCHEMSUB, debug = .self$.debug),
+		                hmdb        = HmdbConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                chemspider  = ChemspiderConn$new(useragent = .self$.useragent, debug = .self$.debug, token = token),
+		                enzyme      = EnzymeConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                lipidmaps   = LipidmapsConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                mirbase     = MirbaseConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                ncbigene    = NcbigeneConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                uniprot     = UniprotConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		                massbank    = MassbankConn$new(useragent = .self$.useragent, debug = .self$.debug),
+						massfiledb  = MassFiledbConn$new(file = url, debug = .self$.debug),
+		      	        NULL)
+
+		# Unknown class
+		if (is.null(conn))
+			stop(paste0("Unknown r-biodb class \"", class,"\"."))
+
+		# Register new class
+		.self$.conn[[class]] <- conn
+
+		return (.self$.conn[[class]])
+	})
+
 	############
 	# GET CONN #
 	############
 
-	BiodbFactory$methods( getConn = function(class, url = NA_character_, token = NA_character_) {
+	BiodbFactory$methods( getConn = function(class) {
 
-		if ( ! class %in% names(.self$.conn)) {
-
-			# Create connection instance
-			conn <- switch(class,
-		                	chebi       = ChebiConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	kegg        = KeggConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	pubchemcomp = PubchemConn$new(useragent = .self$.useragent, db = BIODB.PUBCHEMCOMP, debug = .self$.debug),
-		                	pubchemsub  = PubchemConn$new(useragent = .self$.useragent, db = BIODB.PUBCHEMSUB, debug = .self$.debug),
-		                	hmdb        = HmdbConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	chemspider  = ChemspiderConn$new(useragent = .self$.useragent, debug = .self$.debug, token = token),
-		                	enzyme      = EnzymeConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	lipidmaps   = LipidmapsConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	mirbase     = MirbaseConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	ncbigene    = NcbigeneConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	uniprot     = UniprotConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		                	massbank    = MassbankConn$new(useragent = .self$.useragent, debug = .self$.debug),
-							massfiledb  = MassFiledbConn$new(file = url),
-		      	          	NULL)
-
-			# Unknown class
-			if (is.null(conn))
-				stop(paste0("Unknown r-biodb class \"", class,"\"."))
-
-			.self$.conn[[class]] <- conn
-		}
+		if ( ! class %in% names(.self$.conn))
+			.self$createConn(class)
 
 		return (.self$.conn[[class]])
 	})
