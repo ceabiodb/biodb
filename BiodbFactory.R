@@ -74,17 +74,8 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 		# Use environment variables
 		if (.self$.use.env.var) {
-			env <- Sys.getenv()
-
-			# Get URL
-			url.env.var <- paste('BIODB', toupper(db), 'URL', sep = '_')
-			if (url.env.var %in% names(env))
-			url <- env[[url.env.var]]
-
-			# Get token
-			token.env.var <- paste('BIODB', toupper(db), 'TOKEN', sep = '_')
-			if (token.env.var %in% names(env))
-			token <- env[[token.env.var]]
+			url <- .get.biodb.env.var(c(db, 'URL'))
+			token <- .get.biodb.env.var(c(db, 'TOKEN'))
 		}
 
 		# Create connection instance

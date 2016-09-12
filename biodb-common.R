@@ -287,4 +287,22 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		cat(paste0(BIODB.LEVEL.NAMES[[level]], if (is.na(class)) '' else paste0(", ", class), ": ", msg, "\n"), file = stderr())
 	}
 
+	#####################
+	# GET BIODB ENV VAR #
+	#####################
+
+	.get.biodb.env.var <- function(v) {
+
+		# Get all env vars
+		env <- Sys.getenv()
+
+		# Make env var name
+		env.var <- paste(c('BIODB', toupper(v)), collapse = '_')
+
+		# Look if this env var exists
+		if (env.var %in% names(env))
+			return(env[[env.var]])
+
+		return(NA_character_)
+	}
 }
