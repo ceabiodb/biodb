@@ -14,7 +14,7 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 	##########################
 
 	ChemspiderConn$methods( getEntryContentType = function(type) {
-		return(BIODB.HTML)
+		return(BIODB.XML)
 	})
 
 	#####################
@@ -31,18 +31,20 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 			# Request
 			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.CHEMSPIDER, x)), FUN.VALUE = '')
 
+			# Split content
+
 			return(content)
 		}
 
 		return(NULL)
 	})
-	
+
 	################
 	# CREATE ENTRY #
 	################
 	
 	ChemspiderConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createChemspiderCompoundFromHtml(content, drop = drop) else NULL)
+		return(if (type == BIODB.COMPOUND) createChemspiderCompoundFromXml(content, drop = drop) else NULL)
 	})
 
 	############################
