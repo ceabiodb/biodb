@@ -30,6 +30,9 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 
 			URL.MAX.LENGTH <- 2083
 
+			# Initialize return values
+			content <- rep(NA_character_, length(ids))
+
 			# Loop on all
 			n <- 0
 			while (n < length(ids)) {
@@ -44,12 +47,7 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 				.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
 
 				# Send request
-				print('******************** ChemspiderConn$getEntryContent')
-				print(.self$.token)
-				print(x$url)
 				xmlstr <- .self$.scheduler$getUrl(x$url)
-				print('************************************************************')
-				print(xmlstr)
 
 				# Increase number of entries retrieved
 				n <- n + x$n
@@ -58,8 +56,30 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 				if ( ! is.na(xmlstr)) {
 					library(XML)
 					xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
-					returned.ids <- xpathSApply(xml, "//ExtendedCompoundInfo/CSID", xmlValue)
-					content[match(returned.ids, ids)] <- xpathSApply(xml, "//ExtendedCompoundInfo")
+					print(xmlNamespace(xmlRoot(xml)))
+					ns <- c(csns = "http://www.chemspider.com/")
+					print(xmlNamespace(xmlRoot(xml)))
+					print('********************  100')
+					print(xmlNamespaceDefinitions(xmlRoot(xml), recursive = TRUE))
+					print('********************  200')
+					print(getDefaultNamespace(xml))
+					removeXMLNamespaces(xmlRoot(xml), all = TRUE)
+					print('********************  300')
+					#print(xpathSApply(xml, "/csns:ArrayOfExtendedCompoundInfo", xmlValue, namespaces = ns))
+					print('********************  400')
+					print(xpathSApply(xml, "//CSID", xmlValue))
+					print('********************  500')
+					print(xpathSApply(xml, "//CSID", xmlValue, namespaces = ns))
+					print('********************  600')
+					print(xpathSApply(xml, "//csns:CSID", xmlValue, namespaces = ns))
+					print('********************  700')
+					returned.ids <- xpathSApply(xml, "//ExtendedCompoundInfo/CSID", xmlValue, namespaces = ns)
+					print('********************  800')
+					print(returned.ids)
+					print('********************  900')
+					print(vapply(getNodeSet(xml, "//ExtendedCompoundInfo"), saveXML, FUN.VALUE = ''))
+					stop('blabla')
+					content[match(returned.ids, ids)] <- vapply(getNodeSet(xml, "//ExtendedCompoundInfo"), saveXML, FUN.VALUE = '')
 				}
 
 				# Debug

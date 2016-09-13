@@ -74,8 +74,8 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 		# Use environment variables
 		if (.self$.use.env.var) {
-			url <- .get.biodb.env.var(c(class, 'URL'))
-			token <- .get.biodb.env.var(c(class, 'TOKEN'))
+			url <- .biodb.get.env.var(c(class, 'URL'))
+			token <- .biodb.get.env.var(c(class, 'TOKEN'))
 		}
 
 		# Create connection instance
@@ -254,7 +254,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 			}
 
 			# Merge content and missing.contents
-			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.inds %in% id], FUN.VALUE = '')
+			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.ids %in% id], FUN.VALUE = '')
 		}
 
 		return(content)

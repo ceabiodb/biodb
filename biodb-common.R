@@ -216,7 +216,7 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		url <- switch(class,
 			chebi       = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
 			chemspider  = {
-							token.param <- if (is.na(token)) '' else paste0('&token', token)
+							token.param <- if (is.na(token)) '' else paste('&token', token, sep = '=')
 							switch(if (content.type == BIODB.ANY) BIODB.XML else content.type,
 			                       html = paste0('http://www.chemspider.com/Chemical-Structure.', accession, '.html'),
 							       xml = paste0('http://www.chemspider.com/MassSpecAPI.asmx/GetExtendedCompoundInfoArray?', paste(paste0('CSIDs=', accession), collapse = '&'), token.param),
@@ -290,10 +290,10 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	}
 
 	#####################
-	# GET BIODB ENV VAR #
+	# BIODB GET ENV VAR #
 	#####################
 
-	.get.biodb.env.var <- function(v) {
+	.biodb.get.env.var <- function(v) {
 
 		# Get all env vars
 		env <- Sys.getenv()
