@@ -74,8 +74,8 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 		# Use environment variables
 		if (.self$.use.env.var) {
-			url <- .get.biodb.env.var(c(db, 'URL'))
-			token <- .get.biodb.env.var(c(db, 'TOKEN'))
+			url <- .get.biodb.env.var(c(class, 'URL'))
+			token <- .get.biodb.env.var(c(class, 'TOKEN'))
 		}
 
 		# Create connection instance
@@ -202,20 +202,27 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		# Debug
 		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(id)," id(s)..."))
 
-		content <- NULL
-		# Load from cache
-		if ( ! is.na(.self$.cache.dir))
+		# Initialize content
+		if ( ! is.na(.self$.cache.dir)) {
 			content <- .self$.load.content.from.cache(class, type, id)	
+			missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
+		}
+		else {
+			content <- lapply(id, as.null)
+			missing.ids <- id
+		}
 
-		# Get list of missing contents
-		missing.content.indexes <- vapply(content, is.null, FUN.VALUE = TRUE)
-		missing.ids <- if (is.null(content)) id else id[missing.content.indexes]
+		# Remove duplicates
+		n.duplicates <- sum(duplicated(missing.ids))
+		missing.ids <- missing.ids[ ! duplicated(missing.ids)]
 
 		# Debug
 		if (any(is.na(id)))
 			.self$.print.debug.msg(paste0(sum(is.na(id)), " entry ids are NA."))
 		if ( ! is.na(.self$.cache.dir)) {
 			.self$.print.debug.msg(paste0(sum( ! is.na(id)) - length(missing.ids), " entry content(s) loaded from cache."))
+			if (n.duplicates > 0)
+				.self$.print.debug.msg(paste0(n.duplicates, " entry ids, whose content needs to be fetched, are duplicates."))
 			.self$.print.debug.msg(paste0(length(missing.ids), " entry content(s) need to be fetched."))
 		}
 
@@ -247,10 +254,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 			}
 
 			# Merge content and missing.contents
-			if (is.null(content))
-				content <- missing.contents
-			else
-				content[missing.content.indexes] <- missing.contents
+			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.inds %in% id], FUN.VALUE = '')
 		}
 
 		return(content)
