@@ -254,7 +254,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 			}
 
 			# Merge content and missing.contents
-			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.ids %in% id], FUN.VALUE = '')
+			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.ids %in% x], FUN.VALUE = '')
 		}
 
 		return(content)
