@@ -8,10 +8,25 @@ if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
 	
 	ChemspiderCompound <- setRefClass("ChemspiderCompound", contains = "BiodbEntry")
 	
-	###########
-	# FACTORY #
-	###########
+	############################
+	# CREATE COMPOUND FROM XML #
+	############################
 	
+	createChemspiderCompoundFromXml <- function(contents, drop = TRUE) {
+
+		library(XML)
+
+		compounds <- list()
+
+		print(contents)
+
+		return(compounds)
+	}
+
+	#############################
+	# CREATE COMPOUND FROM HTML #
+	#############################
+
 	createChemspiderCompoundFromHtml <- function(contents, drop = TRUE) {
 
 		library(XML)

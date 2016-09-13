@@ -209,14 +209,14 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 
 	.do.get.entry.url <- function(class, accession, content.type = BIODB.ANY, base.url = NA_character_, token = NA_character_) {
 
-		# TODO Only Massbank can handle multiple accession ids
-		if (class != 'massbank' && length(accession) > 1)
+		# Only certain databases can handle multiple accession ids
+		if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER) && length(accession) > 1)
 			stop(paste0("Cannot build a URL for getting multiple entries for class ", class, "."))
 
 		url <- switch(class,
 			chebi       = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
 			chemspider  = {
-							token.param <- if (is.na(token)) '' else paste0('&token', token),
+							token.param <- if (is.na(token)) '' else paste0('&token', token)
 							switch(if (content.type == BIODB.ANY) BIODB.XML else content.type,
 			                       html = paste0('http://www.chemspider.com/Chemical-Structure.', accession, '.html'),
 							       xml = paste0('http://www.chemspider.com/MassSpecAPI.asmx/GetExtendedCompoundInfoArray?', paste(paste0('CSIDs=', accession), collapse = '&'), token.param),
@@ -253,12 +253,12 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		return(url)
 	}
 
-	get.entry.url <- function(class, accession, content.type = BIODB.ANY, max.length = 0, base.url = NA_character_) {
+	get.entry.url <- function(class, accession, content.type = BIODB.ANY, max.length = 0, base.url = NA_character_, token = NA_character_) {
 
 		if (length(accession) == 0)
 			return(NULL)
 
-		full.url <- .do.get.entry.url(class, accession, content.type = content.type, base.url = base.url)
+		full.url <- .do.get.entry.url(class, accession, content.type = content.type, base.url = base.url, token = token)
 		if (max.length == 0 || nchar(full.url) <= max.length)
 			return(if (max.length == 0) full.url else list(url = full.url, n = length(accession)))
 
@@ -267,13 +267,13 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		b <- length(accession)
 		while (a < b) {
 			m <- as.integer((a + b) / 2)
-			url <- .do.get.entry.url(class, accession[1:m], content.type = content.type)
+			url <- .do.get.entry.url(class, accession[1:m], content.type = content.type, base.url = base.url, token = token)
 			if (nchar(url) <= max.length && m != a)
 				a <- m
 			else
 				b <- m
 		}
-		url <- .do.get.entry.url(class, accession[1:a], content.type = content.type)
+		url <- .do.get.entry.url(class, accession[1:a], content.type = content.type, base.url = base.url, token = token)
 			
 		return(list( url = url, n = a))
 	}
