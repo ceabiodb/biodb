@@ -213,6 +213,7 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 		if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER) && length(accession) > 1)
 			stop(paste0("Cannot build a URL for getting multiple entries for class ", class, "."))
 
+		# Get URL
 		url <- switch(class,
 			chebi       = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
 			chemspider  = {
@@ -237,11 +238,11 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 			massbank    = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
 			mirbase     = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
 			pubchemcomp = switch(content.type,
-			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/', accession, '/XML'),
+			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/', paste(accession, collapse = ','), '/XML'),
 			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),
 			                     NULL),
 			pubchemsub  = switch(content.type,
-			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/substance/', accession, '/XML'),
+			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sid/', paste(accession, collapse = ','), '/XML'),
 			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/substance/', accession),
 			                     NULL),
 			ncbigene    = if (content.type %in% c(BIODB.ANY, BIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
