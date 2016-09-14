@@ -37,11 +37,51 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 
 		if (type == BIODB.COMPOUND) {
 
+			URL.MAX.LENGTH <- 2083
+
 			# Initialize return values
 			content <- rep(NA_character_, length(ids))
 
-			# Request
-			content <- vapply(ids, function(x) .self$.scheduler$getUrl(get.entry.url(.self$.db, x, content.type = BIODB.XML)), FUN.VALUE = '')
+			# Loop on all
+			n <- 0
+			while (n < length(ids)) {
+
+				# Get list of accession ids to retrieve
+				accessions <- ids[(n + 1):length(ids)]
+
+				# Create URL request
+				x <- get.entry.url(class = .self$.db, accession = accessions, content.type = BIODB.XML, max.length = URL.MAX.LENGTH)
+
+				# Debug
+				.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
+
+				# Send request
+				xmlstr <- .self$.scheduler$getUrl(x$url)
+
+				# Increase number of entries retrieved
+				n <- n + x$n
+
+				# TODO When one of the id is wrong, no content is returned. Only a single error is returned, with the first faulty ID:
+		#		<Fault xmlns="http://pubchem.ncbi.nlm.nih.gov/pug_rest" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:schemaLocation="http://pubchem.ncbi.nlm.nih.gov/pug_rest https://pubchem.ncbi.nlm.nih.gov/pug_rest/pug_rest.xsd">
+		#		<Code>PUGREST.NotFound</Code>
+		#		<Message>Record not found</Message>
+		#		<Details>No record data for CID 1246452553</Details>
+		#		</Fault>
+
+				# Parse XML and get included XML
+				if ( ! is.na(xmlstr)) {
+					library(XML)
+					xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+					ns <- c(pcns = "http://www.ncbi.nlm.nih.gov")
+					print(xml)
+					returned.ids <- xpathSApply(xml, "//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) 'PC-CompoundType_id_cid' else 'PC-ID_id', xmlValue, namespaces = ns)
+					print(returned.ids)
+					content[match(returned.ids, ids)] <- vapply(getNodeSet(xml, "//pcns:",  if (.self$.db == BIODB.PUBCHEMCOMP) "PC-Compound" else 'PC-Substance', namespaces = ns), saveXML, FUN.VALUE = '')
+				}
+
+				# Debug
+				.self$.print.debug.msg(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
+			}
 
 			return(content)
 		}
@@ -54,7 +94,11 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 	################
 	
 	PubchemConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createPubchemCompoundFromXml(content, drop = drop) else NULL)
+
+		if (type != BIODB.COMPOUND)
+			return(NULL)
+
+		return(if (.self$.db == BIODB.PUBCHEMCOMP) createPubchemCompoundFromXml(content, drop = drop) else createPubchemSubstanceFromXml(content, drop = drop))
 	})
 
 	#########################

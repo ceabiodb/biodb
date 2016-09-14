@@ -209,7 +209,7 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	.do.get.entry.url <- function(class, accession, content.type = BIODB.HTML, base.url = NA_character_, token = NA_character_) {
 
 		# Only certain databases can handle multiple accession ids
-		if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER) && length(accession) > 1)
+		if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB) && length(accession) > 1)
 			stop(paste0("Cannot build a URL for getting multiple entries for class ", class, "."))
 
 		# Get URL
