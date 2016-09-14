@@ -16,7 +16,6 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.XML  <- 'xml'
 	BIODB.CSV  <- 'csv'
 	BIODB.DATAFRAME  <- 'dataframe'
-	BIODB.ANY  <- 'any' # Value used when we do not care about the type.
 
 	#############
 	# DATABASES #
@@ -207,7 +206,7 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 	BIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/"
 	BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/"
 
-	.do.get.entry.url <- function(class, accession, content.type = BIODB.ANY, base.url = NA_character_, token = NA_character_) {
+	.do.get.entry.url <- function(class, accession, content.type = BIODB.HTML, base.url = NA_character_, token = NA_character_) {
 
 		# Only certain databases can handle multiple accession ids
 		if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER) && length(accession) > 1)
@@ -215,28 +214,26 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 
 		# Get URL
 		url <- switch(class,
-			chebi       = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
+			chebi       = if (content.type == BIODB.HTML) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
 			chemspider  = {
 							token.param <- if (is.na(token)) '' else paste('&token', token, sep = '=')
-							switch(if (content.type == BIODB.ANY) BIODB.XML else content.type,
+							switch(content.type,
 			                       html = paste0('http://www.chemspider.com/Chemical-Structure.', accession, '.html'),
 							       xml = paste0('http://www.chemspider.com/MassSpecAPI.asmx/GetExtendedCompoundInfoArray?', paste(paste0('CSIDs=', accession), collapse = '&'), token.param),
 		                           NULL)
 			},
-			enzyme      = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0('http://enzyme.expasy.org/EC/', accession, '.txt') else NULL,
+			enzyme      = if (content.type == BIODB.TXT) paste0('http://enzyme.expasy.org/EC/', accession, '.txt') else NULL,
 			hmdb        = switch(content.type,
 			                     xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
 			                     html = paste0('http://www.hmdb.ca/metabolites/', accession),
-			                     any = paste0('http://www.hmdb.ca/metabolites/', accession),
 			                     NULL),
 			kegg        = switch(content.type,
 			                     txt = paste0('http://rest.kegg.jp/get/', accession),
 			                     html = paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', accession),
-			                     any  = paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', accession),
 			                     NULL),
-			lipidmaps   = if (content.type %in% c(BIODB.ANY, BIODB.CSV)) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
-			massbank    = if (content.type %in% c(BIODB.ANY, BIODB.TXT)) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
-			mirbase     = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
+			lipidmaps   = if (content.type == BIODB.CSV) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
+			massbank    = if (content.type == BIODB.TXT) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
+			mirbase     = if (content.type == BIODB.HTML) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
 			pubchemcomp = switch(content.type,
 			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/', paste(accession, collapse = ','), '/XML'),
 			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),
@@ -245,16 +242,16 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 			                     xml = paste0('http://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sid/', paste(accession, collapse = ','), '/XML'),
 			                     html = paste0('http://pubchem.ncbi.nlm.nih.gov/substance/', accession),
 			                     NULL),
-			ncbigene    = if (content.type %in% c(BIODB.ANY, BIODB.XML)) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
-			ncbiccds    = if (content.type %in% c(BIODB.ANY, BIODB.HTML)) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
-			uniprot     = if (content.type %in% c(BIODB.ANY, BIODB.XML)) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
+			ncbigene    = if (content.type == BIODB.XML) paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
+			ncbiccds    = if (content.type == BIODB.HTML) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
+			uniprot     = if (content.type == BIODB.XML) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
 			NULL
 			)
 
 		return(url)
 	}
 
-	get.entry.url <- function(class, accession, content.type = BIODB.ANY, max.length = 0, base.url = NA_character_, token = NA_character_) {
+	get.entry.url <- function(class, accession, content.type = BIODB.HTML, max.length = 0, base.url = NA_character_, token = NA_character_) {
 
 		if (length(accession) == 0)
 			return(NULL)
