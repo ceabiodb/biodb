@@ -7,6 +7,7 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 	#####################
 
 	PubchemCompound <- setRefClass("PubchemCompound", contains = "BiodbEntry")
+	PubchemSubstance <- setRefClass("PubchemSubstance", contains = "BiodbEntry")
 
 	#####################
 	# SUBSTANCE FACTORY #
@@ -17,6 +18,46 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 		library(XML)
 
 		compounds <- list()
+
+		# Define xpath expressions
+		xpath.expr <- character()
+		xpath.expr[[BIODB.ACCESSION]] <- "//PC-ID_id"
+		#xpath.expr[[BIODB.PUBCHEMCOMP.ID]] <- "//PC-CompoundType_id_cid" --> Apparently that can be more than one CID for a substance.
+
+		for (content in contents) {
+
+			# Create instance
+			compound <- PubchemCompound$new()
+
+			if ( ! is.null(content) && ! is.na(content)) {
+
+				# Parse XML
+				xml <-  xmlInternalTreeParse(content, asText = TRUE)
+
+				# Unknown compound
+				fault <- xpathSApply(xml, "/Fault", xmlValue)
+				if (length(fault) == 0) {
+
+					# Test generic xpath expressions
+					for (field in names(xpath.expr)) {
+						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
+						if (length(v) > 0)
+							compound$setField(field, v)
+					}
+				}
+			}
+
+			compounds <- c(compounds, compound)
+		}
+
+		# Replace elements with no accession id by NULL
+		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+
+		# If the input was a single element, then output a single object
+		if (drop && length(contents) == 1)
+			compounds <- compounds[[1]]
+	
+		return(compounds)
 	}
 
 	####################
@@ -49,12 +90,12 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 				xml <-  xmlInternalTreeParse(content, asText = TRUE)
 
 				# Unknown compound
-				fault <- xpathSApply(xml, "/Fault", xmlValue, namespaces = ns)
+				fault <- xpathSApply(xml, "/Fault", xmlValue)
 				if (length(fault) == 0) {
 
 					# Test generic xpath expressions
 					for (field in names(xpath.expr)) {
-						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue, namespaces = ns)
+						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
 						if (length(v) > 0)
 							compound$setField(field, v)
 					}

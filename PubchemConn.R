@@ -73,10 +73,8 @@ if ( ! exists('get.pubchem.compound.url')) { # Do not load again if already load
 					library(XML)
 					xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
 					ns <- c(pcns = "http://www.ncbi.nlm.nih.gov")
-					print(xml)
-					returned.ids <- xpathSApply(xml, "//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) 'PC-CompoundType_id_cid' else 'PC-ID_id', xmlValue, namespaces = ns)
-					print(returned.ids)
-					content[match(returned.ids, ids)] <- vapply(getNodeSet(xml, "//pcns:",  if (.self$.db == BIODB.PUBCHEMCOMP) "PC-Compound" else 'PC-Substance', namespaces = ns), saveXML, FUN.VALUE = '')
+					returned.ids <- xpathSApply(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) 'PC-CompoundType_id_cid' else 'PC-ID_id'), xmlValue, namespaces = ns)
+					content[match(returned.ids, ids)] <- vapply(getNodeSet(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) "PC-Compound" else 'PC-Substance'), namespaces = ns), saveXML, FUN.VALUE = '')
 				}
 
 				# Debug
