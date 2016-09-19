@@ -2,7 +2,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
 	source('RemotedbConn.R')
 	source('MassdbConn.R')
-	source('MassbankSpectrum.R')
+	source('MassbankEntry.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -26,62 +26,57 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	MassbankConn$methods( getEntryContentType = function(type) {
-		return(if (type == BIODB.SPECTRUM) BIODB.TXT else NULL) 
+	MassbankConn$methods( getEntryContentType = function() {
+		return(BIODB.TXT) 
 	})
 
 	#####################
 	# GET ENTRY CONTENT #
 	#####################
 	
-	MassbankConn$methods( getEntryContent = function(type, ids) {
+	MassbankConn$methods( getEntryContent = function(ids) {
 
 		# Debug
 		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(ids)," id(s)..."))
 
-		if (type == BIODB.SPECTRUM) {
+		URL.MAX.LENGTH <- 2083
 
-			URL.MAX.LENGTH <- 2083
+		# Initialize return values
+		content <- rep(NA_character_, length(ids))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(ids))
+		# Loop on all
+		n <- 0
+		while (n < length(ids)) {
 
-			# Loop on all
-			n <- 0
-			while (n < length(ids)) {
+			# Get list of accession ids to retrieve
+			accessions <- ids[(n + 1):length(ids)]
 
-				# Get list of accession ids to retrieve
-				accessions <- ids[(n + 1):length(ids)]
+			# Create URL request
+			x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$.url)
 
-				# Create URL request
-				x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$.url)
+			# Debug
+			.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
 
-				# Debug
-				.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
+			# Send request
+			xmlstr <- .self$.scheduler$getUrl(x$url)
 
-				# Send request
-				xmlstr <- .self$.scheduler$getUrl(x$url)
+			# Increase number of entries retrieved
+			n <- n + x$n
 
-				# Increase number of entries retrieved
-				n <- n + x$n
-
-				# Parse XML and get text
-				if ( ! is.na(xmlstr)) {
-					library(XML)
-					xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
-					ns <- c(ax21 = "http://api.massbank/xsd")
-					returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
-					content[match(returned.ids, ids)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
-				}
-
-				# Debug
-				.self$.print.debug.msg(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
+			# Parse XML and get text
+			if ( ! is.na(xmlstr)) {
+				library(XML)
+				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+				ns <- c(ax21 = "http://api.massbank/xsd")
+				returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
+				content[match(returned.ids, ids)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
 			}
 
-			return(content)
+			# Debug
+			.self$.print.debug.msg(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 		}
 
-		return(NULL)
+		return(content)
 	})
 	
 	################
@@ -91,8 +86,8 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# Creates a Spectrum instance from file content.
 	# content       A file content, downloaded from the public database.
 	# RETURN        A spectrum instance.
-	MassbankConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.SPECTRUM) createMassbankSpectrumFromTxt(content, drop = drop) else NULL)
+	MassbankConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createMassbankEntryFromTxt(content, drop = drop))
 	})
 
 	#################
@@ -106,35 +101,30 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 	# GET ENTRY IDS #
 	#################
 	
-	MassbankConn$methods( getEntryIds = function(type, max.results = NA_integer_) {
+	MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
-		if (type == BIODB.SPECTRUM) {
+		# Set URL
+		url <- paste0(.self$.url, 'searchPeak?mzs=1000&relativeIntensity=100&tolerance=1000&instrumentTypes=all&ionMode=Both')
+		url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
 
-			# Set URL
-			url <- paste0(.self$.url, 'searchPeak?mzs=1000&relativeIntensity=100&tolerance=1000&instrumentTypes=all&ionMode=Both')
-			url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
+		# Send request
+		xmlstr <- .self$.scheduler$getUrl(url)
 
-			# Send request
-			xmlstr <- .self$.scheduler$getUrl(url)
-
-			# Parse XML and get text
-			if ( ! is.na(xmlstr)) {
-				library(XML)
-				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
-				ns <- c(ax21 = "http://api.massbank/xsd")
-				returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
-				return(returned.ids)
-			}
+		# Parse XML and get text
+		if ( ! is.na(xmlstr)) {
+			library(XML)
+			xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+			ns <- c(ax21 = "http://api.massbank/xsd")
+			returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
+			return(returned.ids)
 		}
-
-		return(character())
 	})
 
 	##################
 	# GET NB ENTRIES #
 	##################
 	
-	MassbankConn$methods( getNbEntries = function(type) {
-		return(length(.self$getEntryIds(type)))
+	MassbankConn$methods( getNbEntries = function() {
+		return(length(.self$getEntryIds()))
 	})
 }

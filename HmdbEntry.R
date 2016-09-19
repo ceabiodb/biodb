@@ -1,4 +1,4 @@
-if ( ! exists('HmdbCompound')) { # Do not load again if already loaded
+if ( ! exists('HmdbEntry')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
 
@@ -6,17 +6,17 @@ if ( ! exists('HmdbCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 
-	HmdbCompound <- setRefClass("HmdbCompound", contains = "BiodbEntry")
+	HmdbEntry <- setRefClass("HmdbEntry", contains = "BiodbEntry")
 
 	###########
 	# FACTORY #
 	###########
 
-	createHmdbCompoundFromXml <- function(contents, drop = FALSE) {
+	createHmdbEntryFromXml <- function(contents, drop = FALSE) {
 
 		library(XML)
 
-		compounds <- list()
+		entries <- list()
 
 		# Define xpath expressions
 		xpath.expr <- character()
@@ -31,7 +31,7 @@ if ( ! exists('HmdbCompound')) { # Do not load again if already loaded
 		for (content in contents) {
 
 			# Create instance
-			compound <- HmdbCompound$new()
+			entry <- HmdbEntry$new()
 
 			if ( ! is.null(content) && ! is.na(content)) {
 
@@ -45,22 +45,22 @@ if ( ! exists('HmdbCompound')) { # Do not load again if already loaded
 					for (field in names(xpath.expr)) {
 						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
 						if (length(v) > 0)
-							compound$setField(field, v)
+							entry$setField(field, v)
 					}
 
 				}
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
+		return(entries)
 	}
 }

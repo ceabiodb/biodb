@@ -1,4 +1,4 @@
-if ( ! exists('NcbigeneCompound')) { # Do not load again if already loaded
+if ( ! exists('NcbigeneEntry')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
 	source(file.path('..', 'r-lib', 'strhlp.R'), chdir = TRUE)
@@ -7,17 +7,17 @@ if ( ! exists('NcbigeneCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 
-	NcbigeneCompound <- setRefClass("NcbigeneCompound", contains = "BiodbEntry")
+	NcbigeneEntry <- setRefClass("NcbigeneEntry", contains = "BiodbEntry")
 
 	###########
 	# FACTORY #
 	###########
 
-	createNcbigeneCompoundFromXml <- function(contents, drop = TRUE) {
+	createNcbigeneEntryFromXml <- function(contents, drop = TRUE) {
 
 		library(XML)
 
-		compounds <- list()
+		entries <- list()
 
 		# Define xpath expressions
 		xpath.expr <- character()
@@ -32,7 +32,7 @@ if ( ! exists('NcbigeneCompound')) { # Do not load again if already loaded
 		for (content in contents) {
 
 			# Create instance
-			compound <- NcbigeneCompound$new()
+			entry <- NcbigeneEntry$new()
 		
 			# Parse HTML
 			xml <-  xmlInternalTreeParse(content, asText = TRUE)
@@ -49,27 +49,27 @@ if ( ! exists('NcbigeneCompound')) { # Do not load again if already loaded
 						v <- v[ ! duplicated(v)]
 
 						# Set field
-						compound$setField(field, v)
+						entry$setField(field, v)
 					}
 				}
 			
 				# CCDS ID
 				ccdsid <- .find.ccds.id(xml)
 				if ( ! is.na(ccdsid))
-					compound$setField(BIODB.NCBI.CCDS.ID, ccdsid)
+					entry$setField(BIODB.NCBI.CCDS.ID, ccdsid)
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
+		return(entries)
 
 		# Get data
 

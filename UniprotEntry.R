@@ -1,4 +1,4 @@
-if ( ! exists('UniprotCompound')) { # Do not load again if already loaded
+if ( ! exists('UniprotEntry')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
 
@@ -6,24 +6,24 @@ if ( ! exists('UniprotCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 
-	UniprotCompound <- setRefClass("UniprotCompound", contains = "BiodbEntry")
+	UniprotEntry <- setRefClass("UniprotEntry", contains = "BiodbEntry")
 
 	###########
 	# FACTORY #
 	###########
 
-	createUniprotCompoundFromXml <- function(contents, drop = FALSE) {
+	createUniprotEntryFromXml <- function(contents, drop = FALSE) {
 
 		library(XML)
 
 		# Set XML namespace
 		ns <- c(uniprot = "http://uniprot.org/uniprot")
 
-		compounds <- list()
+		entries <- list()
 
 		# Define xpath expressions
 		xpath.values <- character()
-		xpath.values[[BIODB.NAME]] <- "/uniprot:uniprot/uniprot:compound/uniprot:name"
+		xpath.values[[BIODB.NAME]] <- "/uniprot:uniprot/uniprot:entry/uniprot:name"
 		xpath.values[[BIODB.GENE.SYMBOLS]] <- "//uniprot:gene/uniprot:name"
 		xpath.values[[BIODB.FULLNAMES]] <- "//uniprot:protein//uniprot:fullName"
 		xpath.values[[BIODB.SEQUENCE]] <- "//uniprot:entry/uniprot:sequence"
@@ -38,7 +38,7 @@ if ( ! exists('UniprotCompound')) { # Do not load again if already loaded
 		for (content in contents) {
 
 			# Create instance
-			compound <- HmdbCompound$new()
+			entry <- HmdbCompound$new()
 
 			# If the entity doesn't exist (i.e.: no <id>.xml page), then it returns an HTML page
 			if ( ! grepl("^<!DOCTYPE html ", content, perl = TRUE)) {
@@ -50,32 +50,32 @@ if ( ! exists('UniprotCompound')) { # Do not load again if already loaded
 				for (field in names(xpath.values)) {
 					v <- xpathSApply(xml, xpath.values[[field]], xmlValue, namespaces = ns)
 					if (length(v) > 0)
-						compound$setField(field, v)
+						entry$setField(field, v)
 				}
 
 				# Test attribute  xpath
 				for (field in names(xpath.attr)) {
 					v <- xpathSApply(xml, xpath.attr[[field]]$path, xmlGetAttr, xpath.attr[[field]]$attr, namespaces = ns)
 					if (length(v) > 0)
-						compound$setField(field, v)
+						entry$setField(field, v)
 				}
 
 				# Remove new lines from sequence string
-				seq <- compound$getField(BIODB.SEQUENCE)
+				seq <- entry$getField(BIODB.SEQUENCE)
 				if ( ! is.na(seq))
-					compound$setField(BIODB.SEQUENCE, gsub("\\n", "", seq))
+					entry$setField(BIODB.SEQUENCE, gsub("\\n", "", seq))
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
+		return(entries)
 	}
 }

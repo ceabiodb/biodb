@@ -1,7 +1,7 @@
 if ( ! exists('NcbiccdsConn')) { # Do not load again if already loaded
 
 	source('RemotedbConn.R')
-	source('NcbiccdsCompound.R')
+	source('NcbiccdsEntry.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -22,7 +22,7 @@ if ( ! exists('NcbiccdsConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	NcbiccdsConn$methods( getEntryContentType = function(type) {
+	NcbiccdsConn$methods( getEntryContentType = function() {
 		return(BIODB.HTML)
 	})
 
@@ -30,27 +30,22 @@ if ( ! exists('NcbiccdsConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	NcbiccdsConn$methods( getEntryContent = function(type, id) {
+	NcbiccdsConn$methods( getEntryContent = function(id) {
 
-		if (type == BIODB.COMPOUND) {
+		# Initialize return values
+		content <- rep(NA_character_, length(id))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(id))
+		# Request
+		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.NCBICCDS, x)), FUN.VALUE = '')
 
-			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.NCBICCDS, x)), FUN.VALUE = '')
-
-			return(content)
-		}
-
-		return(NULL)
+		return(content)
 	})
 	
 	################
 	# CREATE ENTRY #
 	################
 	
-	NcbiccdsConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createNcbiccdsCompoundFromHtml(content, drop = drop) else NULL)
+	NcbiccdsConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createNcbiccdsEntryFromHtml(content, drop = drop))
 	})
 }

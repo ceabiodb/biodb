@@ -1,7 +1,7 @@
 if ( ! exists('UniprotConn')) { # Do not load again if already loaded
 
 	source('RemotedbConn.R')
-	source('UniprotCompound.R')
+	source('UniprotEntry.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -13,7 +13,7 @@ if ( ! exists('UniprotConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	UniprotConn$methods( getEntryContentType = function(type) {
+	UniprotConn$methods( getEntryContentType = function() {
 		return(BIODB.XML)
 	})
 
@@ -21,27 +21,22 @@ if ( ! exists('UniprotConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	UniprotConn$methods( getEntryContent = function(type, id) {
+	UniprotConn$methods( getEntryContent = function() {
 
-		if (type == BIODB.COMPOUND) {
+		# Initialize return values
+		content <- rep(NA_character_, length(id))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(id))
+		# Request
+		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.UNIPROT, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
-			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.UNIPROT, x, content.type = BIODB.XML)), FUN.VALUE = '')
-
-			return(content)
-		}
-
-		return(NULL)
+		return(content)
 	})
 	
 	################
 	# CREATE ENTRY #
 	################
 	
-	UniprotConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createUniprotCompoundFromXml(content, drop = drop) else NULL)
+	UniprotConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createUniprotEntryFromXml(content, drop = drop))
 	})
 }

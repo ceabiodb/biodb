@@ -1,4 +1,4 @@
-if ( ! exists('EnzymeCompound')) { # Do not load again if already loaded
+if ( ! exists('EnzymeEntry')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
 
@@ -6,17 +6,17 @@ if ( ! exists('EnzymeCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 
-	EnzymeCompound <- setRefClass("EnzymeCompound", contains = 'BiodbEntry')
+	EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'BiodbEntry')
 
 	###########
 	# FACTORY #
 	###########
 
-	createEnzymeCompoundFromTxt <- function(contents, drop = TRUE) {
+	createEnzymeEntryFromTxt <- function(contents, drop = TRUE) {
 
 		library(stringr)
 
-		compounds <- list()
+		entries <- list()
 	
 		# Define fields regex
 		regex <- character()
@@ -26,7 +26,7 @@ if ( ! exists('EnzymeCompound')) { # Do not load again if already loaded
 		for (text in contents) {
 
 			# Create instance
-			compound <- EnzymeCompound$new()
+			entry <- EnzymeEntry$new()
 
 			lines <- strsplit(text, "\n")
 			for (s in lines[[1]]) {
@@ -36,7 +36,7 @@ if ( ! exists('EnzymeCompound')) { # Do not load again if already loaded
 				for (field in names(regex)) {
 					g <- str_match(s, regex[[field]])
 					if ( ! is.na(g[1,1])) {
-						compound$setField(field, g[1,2])
+						entry$setField(field, g[1,2])
 						parsed <- TRUE
 						break
 					}
@@ -45,17 +45,16 @@ if ( ! exists('EnzymeCompound')) { # Do not load again if already loaded
 					next
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
-
+		return(entries)
 	}
 }

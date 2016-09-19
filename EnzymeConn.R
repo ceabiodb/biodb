@@ -1,7 +1,7 @@
 if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 
 	source('RemotedbConn.R')
-	source('EnzymeCompound.R')
+	source('EnzymeEntry.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -13,7 +13,7 @@ if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	EnzymeConn$methods( getEntryContentType = function(type) {
+	EnzymeConn$methods( getEntryContentType = function() {
 		return(BIODB.TXT)
 	})
 
@@ -21,27 +21,22 @@ if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	EnzymeConn$methods( getEntryContent = function(type, id) {
+	EnzymeConn$methods( getEntryContent = function(id) {
 
-		if (type == BIODB.COMPOUND) {
+		# Initialize return values
+		content <- rep(NA_character_, length(id))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(id))
+		# Request
+		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.ENZYME, accession = x, content.type = BIODB.TXT)), FUN.VALUE = '')
 
-			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.ENZYME, accession = x, content.type = BIODB.TXT)), FUN.VALUE = '')
-
-			return(content)
-		}
-
-		return(NULL)
+		return(content)
 	})
 
 	################
 	# CREATE ENTRY #
 	################
 	
-	EnzymeConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createEnzymeCompoundFromTxt(content, drop = drop) else NULL)
+	EnzymeConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createEnzymeEntryFromTxt(content, drop = drop))
 	})
 }

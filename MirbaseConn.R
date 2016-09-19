@@ -1,7 +1,7 @@
 if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 
 	source('RemotedbConn.R')
-	source('MirbaseCompound.R')
+	source('MirbaseEntry.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -13,7 +13,7 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	MirbaseConn$methods( getEntryContentType = function(type) {
+	MirbaseConn$methods( getEntryContentType = function() {
 		return(BIODB.HTML)
 	})
 
@@ -21,46 +21,40 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	MirbaseConn$methods( getEntryContent = function(type, id) {
+	MirbaseConn$methods( getEntryContent = function() {
 
-		if (type == BIODB.COMPOUND) {
+		# Initialize return values
+		content <- rep(NA_character_, length(id))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(id))
+		# Request
+		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.MIRBASE, x, content.type = BIODB.HTML)), FUN.VALUE = '')
 
-			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.MIRBASE, x, content.type = BIODB.HTML)), FUN.VALUE = '')
-
-			return(content)
-		}
-
-		return(NULL)
+		return(content)
 	})
 
 	################
 	# CREATE ENTRY #
 	################
 	
-	MirbaseConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createMirbaseCompoundFromHtml(content, drop = drop) else NULL)
+	MirbaseConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createMirbaseEntryFromHtml(content, drop = drop))
 	})
 
 	###################
 	# FIND ACCESSIONS #
 	###################
 
-	MirbaseConn$methods(
-		findAccessions = function(name) {
+	MirbaseConn$methods( findAccessions = function(name) {
 
-			# Get HTML
-			htmlstr <- .self$.scheduler$getUrl('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = name, submit = 'Search'))
+		# Get HTML
+		htmlstr <- .self$.scheduler$getUrl('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = name, submit = 'Search'))
 
-			# Parse HTML
-			xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
+		# Parse HTML
+		xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
 
-			# Get accession number
-			acc <- unlist(xpathSApply(xml, "//a[starts-with(.,'MIMAT')]", xmlValue))
+		# Get accession number
+		acc <- unlist(xpathSApply(xml, "//a[starts-with(.,'MIMAT')]", xmlValue))
 
-			return(acc)
+		return(acc)
 	})
 }

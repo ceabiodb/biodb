@@ -1,4 +1,4 @@
-if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
+if ( ! exists('PubchemEntry')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
 
@@ -6,7 +6,7 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 
-	PubchemCompound <- setRefClass("PubchemCompound", contains = "BiodbEntry")
+	PubchemEntry <- setRefClass("PubchemEntry", contains = "BiodbEntry")
 	PubchemSubstance <- setRefClass("PubchemSubstance", contains = "BiodbEntry")
 
 	#####################
@@ -17,7 +17,7 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 
 		library(XML)
 
-		compounds <- list()
+		entries <- list()
 
 		# Define xpath expressions
 		xpath.expr <- character()
@@ -27,14 +27,14 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 		for (content in contents) {
 
 			# Create instance
-			compound <- PubchemCompound$new()
+			entry <- PubchemEntry$new()
 
 			if ( ! is.null(content) && ! is.na(content)) {
 
 				# Parse XML
 				xml <-  xmlInternalTreeParse(content, asText = TRUE)
 
-				# Unknown compound
+				# Unknown entry
 				fault <- xpathSApply(xml, "/Fault", xmlValue)
 				if (length(fault) == 0) {
 
@@ -42,33 +42,33 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 					for (field in names(xpath.expr)) {
 						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
 						if (length(v) > 0)
-							compound$setField(field, v)
+							entry$setField(field, v)
 					}
 				}
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
+		return(entries)
 	}
 
 	####################
 	# COMPOUND FACTORY #
 	####################
 
-	createPubchemCompoundFromXml <- function(contents, drop = TRUE) {
+	createPubchemEntryFromXml <- function(contents, drop = TRUE) {
 
 		library(XML)
 
-		compounds <- list()
+		entries <- list()
 
 		# Define xpath expressions
 		xpath.expr <- character()
@@ -82,14 +82,14 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 		for (content in contents) {
 
 			# Create instance
-			compound <- PubchemCompound$new()
+			entry <- PubchemEntry$new()
 
 			if ( ! is.null(content) && ! is.na(content)) {
 
 				# Parse XML
 				xml <-  xmlInternalTreeParse(content, asText = TRUE)
 
-				# Unknown compound
+				# Unknown entry
 				fault <- xpathSApply(xml, "/Fault", xmlValue)
 				if (length(fault) == 0) {
 
@@ -97,21 +97,21 @@ if ( ! exists('PubchemCompound')) { # Do not load again if already loaded
 					for (field in names(xpath.expr)) {
 						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
 						if (length(v) > 0)
-							compound$setField(field, v)
+							entry$setField(field, v)
 					}
 				}
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
+		return(entries)
 	}
 }

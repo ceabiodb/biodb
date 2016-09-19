@@ -1,7 +1,7 @@
-if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
+if ( ! exists('ChemspiderConn')) {
 
 	source('RemotedbConn.R')
-	source('ChemspiderCompound.R')
+	source('ChemspiderEntry.R')
 	
 	#####################
 	# CLASS DECLARATION #
@@ -13,7 +13,7 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	ChemspiderConn$methods( getEntryContentType = function(type) {
+	ChemspiderConn$methods( getEntryContentType = function() {
 		return(BIODB.XML)
 	})
 
@@ -21,62 +21,57 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	ChemspiderConn$methods( getEntryContent = function(type, ids) {
+	ChemspiderConn$methods( getEntryContent = function(ids) {
 
 		# Debug
 		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(ids)," id(s)..."))
 
-		if (type == BIODB.COMPOUND) {
+		URL.MAX.LENGTH <- 2083
 
-			URL.MAX.LENGTH <- 2083
+		# Initialize return values
+		content <- rep(NA_character_, length(ids))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(ids))
+		# Loop on all
+		n <- 0
+		while (n < length(ids)) {
 
-			# Loop on all
-			n <- 0
-			while (n < length(ids)) {
+			# Get list of accession ids to retrieve
+			accessions <- ids[(n + 1):length(ids)]
 
-				# Get list of accession ids to retrieve
-				accessions <- ids[(n + 1):length(ids)]
+			# Create URL request
+			x <- get.entry.url(class = BIODB.CHEMSPIDER, accession = accessions, content.type = BIODB.XML, max.length = URL.MAX.LENGTH, base.url = .self$.url, token = .self$.token)
 
-				# Create URL request
-				x <- get.entry.url(class = BIODB.CHEMSPIDER, accession = accessions, content.type = BIODB.XML, max.length = URL.MAX.LENGTH, base.url = .self$.url, token = .self$.token)
+			# Debug
+			.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
 
-				# Debug
-				.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
+			# Send request
+			xmlstr <- .self$.scheduler$getUrl(x$url)
 
-				# Send request
-				xmlstr <- .self$.scheduler$getUrl(x$url)
+			# Increase number of entries retrieved
+			n <- n + x$n
 
-				# Increase number of entries retrieved
-				n <- n + x$n
-
-				# Parse XML and get included XML
-				if ( ! is.na(xmlstr)) {
-					library(XML)
-					xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
-					ns <- c(csns = "http://www.chemspider.com/")
-					returned.ids <- xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", xmlValue, namespaces = ns)
-					content[match(returned.ids, ids)] <- vapply(getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), saveXML, FUN.VALUE = '')
-				}
-
-				# Debug
-				.self$.print.debug.msg(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
+			# Parse XML and get included XML
+			if ( ! is.na(xmlstr)) {
+				library(XML)
+				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+				ns <- c(csns = "http://www.chemspider.com/")
+				returned.ids <- xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", xmlValue, namespaces = ns)
+				content[match(returned.ids, ids)] <- vapply(getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), saveXML, FUN.VALUE = '')
 			}
 
-			return(content)
+			# Debug
+			.self$.print.debug.msg(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 		}
 
-		return(NULL)
+		return(content)
 	})
 
 	################
 	# CREATE ENTRY #
 	################
 	
-	ChemspiderConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createChemspiderCompoundFromXml(content, drop = drop) else NULL)
+	ChemspiderConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createChemspiderEntryFromXml(content, drop = drop))
 	})
 
 	############################
@@ -90,5 +85,4 @@ if ( ! exists('ChemspiderConn')) { # Do not load again if already loaded
 		return(url)
 	}
 	
-} # end of load safe guard
-
+}

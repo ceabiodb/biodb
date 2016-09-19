@@ -1,7 +1,7 @@
-if ( ! exists('HmdbConn')) { # Do not load again if already loaded
+if ( ! exists('HmdbConn')) {
 
 	source('RemotedbConn.R')
-	source('HmdbCompound.R')
+	source('HmdbEntry.R')
 	
 	#####################
 	# CLASS DECLARATION #
@@ -13,7 +13,7 @@ if ( ! exists('HmdbConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	HmdbConn$methods( getEntryContentType = function(type) {
+	HmdbConn$methods( getEntryContentType = function() {
 		return(BIODB.XML)
 	})
 
@@ -21,28 +21,23 @@ if ( ! exists('HmdbConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	HmdbConn$methods( getEntryContent = function(type, id) {
+	HmdbConn$methods( getEntryContent = function(id) {
 
-		if (type == BIODB.COMPOUND) {
+		# Initialize return values
+		content <- rep(NA_character_, length(id))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(id))
+		# Request
+		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.HMDB, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
-			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.HMDB, x, content.type = BIODB.XML)), FUN.VALUE = '')
-
-			return(content)
-		}
-
-		return(NULL)
+		return(content)
 	})
 	
 	################
 	# CREATE ENTRY #
 	################
 	
-	HmdbConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createHmdbCompoundFromXml(content, drop = drop) else NULL)
+	HmdbConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createHmdbEntryFromXml(content, drop = drop))
 	})
 	
-} # end of load safe guard
+}

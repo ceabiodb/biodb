@@ -1,4 +1,4 @@
-if ( ! exists('MirbaseCompound')) { # Do not load again if already loaded
+if ( ! exists('MirbaseEntry')) {
 
 	source('BiodbEntry.R')
 
@@ -6,17 +6,17 @@ if ( ! exists('MirbaseCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 
-	MirbaseCompound <- setRefClass("MirbaseCompound", contains = "BiodbEntry")
+	MirbaseEntry <- setRefClass("MirbaseEntry", contains = "BiodbEntry")
 
 	###########
 	# FACTORY #
 	###########
 
-	createMirbaseCompoundFromHtml <- function(contents, drop = TRUE) {
+	createMirbaseEntryFromHtml <- function(contents, drop = TRUE) {
 
 		library(XML)
 
-		compounds <- list()
+		entries <- list()
 	
 		# Define fields regex
 		xpath.expr <- character()
@@ -27,7 +27,7 @@ if ( ! exists('MirbaseCompound')) { # Do not load again if already loaded
 		for (html in contents) {
 
 			# Create instance
-			compound <- ChebiCompound$new()
+			entry <- ChebiCompound$new()
 		
 			# Parse HTML
 			xml <-  htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
@@ -36,19 +36,19 @@ if ( ! exists('MirbaseCompound')) { # Do not load again if already loaded
 			for (field in names(xpath.expr)) {
 				v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
 				if (length(v) > 0)
-					compound$setField(field, v)
+					entry$setField(field, v)
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
+		return(entries)
 	}
 }

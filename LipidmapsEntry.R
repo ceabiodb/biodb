@@ -1,4 +1,4 @@
-if ( ! exists('LipidmapsCompound')) { # Do not load again if already loaded
+if ( ! exists('LipidmapsEntry')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
 	source('../r-lib/strhlp.R', chdir = TRUE)
@@ -7,15 +7,15 @@ if ( ! exists('LipidmapsCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 
-	LipidmapsCompound <- setRefClass("LipidmapsCompound", contains = 'BiodbEntry')
+	LipidmapsEntry <- setRefClass("LipidmapsEntry", contains = 'BiodbEntry')
 
 	###########
 	# FACTORY #
 	###########
 
-	createLipidmapsCompoundFromCsv <- function(contents, drop = TRUE) {
+	createLipidmapsEntryFromCsv <- function(contents, drop = TRUE) {
 
-		compounds <- list()
+		entries <- list()
 
 		# Mapping column names
 		col2field <- list()
@@ -29,7 +29,7 @@ if ( ! exists('LipidmapsCompound')) { # Do not load again if already loaded
 		for (text in contents) {
 
 			# Create instance
-			compound <- LipidmapsCompound$new()
+			entry <- LipidmapsEntry$new()
 
 			# Split text in lines
 			lines <- split.str(text, sep = "\n", unlist = TRUE)
@@ -47,7 +47,7 @@ if ( ! exists('LipidmapsCompound')) { # Do not load again if already loaded
 				# Get field values
 				for (field in names(col2field))
 					if (values[[col2field[[field]]]] != '-')
-						compound$setField(field, values[[col2field[[field]]]])
+						entry$setField(field, values[[col2field[[field]]]])
 
 				# Set names
 				if (values[['SYNONYMS']] != '-') {
@@ -55,16 +55,16 @@ if ( ! exists('LipidmapsCompound')) { # Do not load again if already loaded
 				}
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
+		return(entries)
 	}
 }

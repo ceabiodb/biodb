@@ -1,7 +1,7 @@
 if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 
 	source('RemotedbConn.R')
-	source('NcbigeneCompound.R')
+	source('NcbigeneEntry.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -22,7 +22,7 @@ if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	NcbigeneConn$methods( getEntryContentType = function(type) {
+	NcbigeneConn$methods( getEntryContentType = function() {
 		return(BIODB.XML)
 	})
 
@@ -30,27 +30,22 @@ if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	NcbigeneConn$methods( getEntryContent = function(type, id) {
+	NcbigeneConn$methods( getEntryContent = function(id) {
 
-		if (type == BIODB.COMPOUND) {
+		# Initialize return values
+		content <- rep(NA_character_, length(id))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(id))
+		# Request
+		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.NCBIGENE, x)), FUN.VALUE = '')
 
-			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.NCBIGENE, x)), FUN.VALUE = '')
-
-			return(content)
-		}
-
-		return(NULL)
+		return(content)
 	})
 	
 	################
 	# CREATE ENTRY #
 	################
 	
-	NcbigeneConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createNcbigeneCompoundFromXml(content, drop = drop) else NULL)
+	NcbigeneConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createNcbigeneEntryFromXml(content, drop = drop))
 	})
 }

@@ -1,4 +1,4 @@
-if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
+if ( ! exists('ChemspiderEntry')) {
 
 	source('BiodbEntry.R')
 	
@@ -6,17 +6,17 @@ if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	ChemspiderCompound <- setRefClass("ChemspiderCompound", contains = "BiodbEntry")
+	ChemspiderEntry <- setRefClass("ChemspiderEntry", contains = "BiodbEntry")
 	
 	############################
 	# CREATE COMPOUND FROM XML #
 	############################
 	
-	createChemspiderCompoundFromXml <- function(contents, drop = TRUE) {
+	createChemspiderEntryFromXml <- function(contents, drop = TRUE) {
 
 		library(XML)
 
-		compounds <- list()
+		entries <- list()
 
 		# Define xpath expressions
 		xpath.expr <- character()
@@ -31,7 +31,7 @@ if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
 		for (content in contents) {
 
 			# Create instance
-			compound <- ChemspiderCompound$new()
+			entry <- ChemspiderEntry$new()
 
 			if ( ! is.null(content) && ! is.na(content) && content != 'NA') {
 			
@@ -42,32 +42,32 @@ if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
 				for (field in names(xpath.expr)) {
 					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
 					if (length(v) > 0)
-						compound$setField(field, v)
+						entry$setField(field, v)
 				}
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 
-		return(compounds)
+		return(entries)
 	}
 
 	#############################
 	# CREATE COMPOUND FROM HTML #
 	#############################
 
-	createChemspiderCompoundFromHtml <- function(contents, drop = TRUE) {
+	createChemspiderEntryFromHtml <- function(contents, drop = TRUE) {
 
 		library(XML)
 
-		compounds <- list()
+		entries <- list()
 
 		# Define xpath expressions
 		xpath.expr <- character()
@@ -75,7 +75,7 @@ if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
 		for (content in contents) {
 
 			# Create instance
-			compound <- ChemspiderCompound$new()
+			entry <- ChemspiderEntry$new()
 
 			if ( ! is.null(content) && ! is.na(content)) {
 			
@@ -86,28 +86,27 @@ if ( ! exists('ChemspiderCompound')) { # Do not load again if already loaded
 				for (field in names(xpath.expr)) {
 					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
 					if (length(v) > 0)
-						compound$setField(field, v)
+						entry$setField(field, v)
 				}
 			
 				# Get accession
 				accession <- xpathSApply(xml, "//li[starts-with(., 'ChemSpider ID')]", xmlValue)
 				if (length(accession) > 0) {
 					accession <- sub('^ChemSpider ID([0-9]+)$', '\\1', accession, perl = TRUE)
-					compound$setField(BIODB.ACCESSION, accession)
+					entry$setField(BIODB.ACCESSION, accession)
 				}
 			}
 
-			compounds <- c(compounds, compound)
+			entries <- c(entries, entry)
 		}
 
 		# Replace elements with no accession id by NULL
-		compounds <- lapply(compounds, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 		# If the input was a single element, then output a single object
 		if (drop && length(contents) == 1)
-			compounds <- compounds[[1]]
+			entries <- entries[[1]]
 	
-		return(compounds)
+		return(entries)
 	}
 }
-

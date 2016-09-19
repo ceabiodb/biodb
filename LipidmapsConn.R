@@ -1,7 +1,7 @@
 if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 
 	source('RemotedbConn.R')
-	source('LipidmapsCompound.R')
+	source('LipidmapsEntry.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -23,7 +23,7 @@ if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT TYPE #
 	##########################
 
-	LipidmapsConn$methods( getEntryContentType = function(type) {
+	LipidmapsConn$methods( getEntryContentType = function() {
 		return(BIODB.CSV)
 	})
 
@@ -31,27 +31,22 @@ if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 
-	LipidmapsConn$methods( getEntryContent = function(type, id) {
+	LipidmapsConn$methods( getEntryContent = function(id) {
 
-		if (type == BIODB.COMPOUND) {
+		# Initialize return values
+		content <- rep(NA_character_, length(id))
 
-			# Initialize return values
-			content <- rep(NA_character_, length(id))
+		# Request
+		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.LIPIDMAPS, x, content.type = BIODB.CSV)), FUN.VALUE = '')
 
-			# Request
-			content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.LIPIDMAPS, x, content.type = BIODB.CSV)), FUN.VALUE = '')
-
-			return(content)
-		}
-
-		return(NULL)
+		return(content)
 	})
 
 	################
 	# CREATE ENTRY #
 	################
 
-	LipidmapsConn$methods( createEntry = function(type, content, drop = TRUE) {
-		return(if (type == BIODB.COMPOUND) createLipidmapsCompoundFromCsv(content, drop = drop) else NULL)
+	LipidmapsConn$methods( createEntry = function(content, drop = TRUE) {
+		return(createLipidmapsEntryFromCsv(content, drop = drop))
 	})
 }

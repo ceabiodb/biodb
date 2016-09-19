@@ -122,7 +122,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CREATE ENTRY #
 	################
 
-	BiodbFactory$methods( createEntry = function(class, type, id = NULL, content = NULL, drop = TRUE) {
+	BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, drop = TRUE) {
 
 		is.null(id) && is.null(content) && stop("One of id or content must be set.")
 		! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
@@ -132,9 +132,9 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 
 		# Get content
 		if ( ! is.null(id))
-			content <- .self$getEntryContent(class, type, id)
+			content <- .self$getEntryContent(class, id)
 		conn <- .self$getConn(class)
-		entry <- conn$createEntry(type = type, content = content, drop = drop)
+		entry <- conn$createEntry(content = content, drop = drop)
 
 		# Set factory
 		.self$.print.debug.msg(paste0("Setting factory reference into entries..."))
@@ -149,13 +149,13 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# GET CACHE FILE PATHS #
 	########################
 
-	BiodbFactory$methods( .get.cache.file.paths = function(class, type, id) {
+	BiodbFactory$methods( .get.cache.file.paths = function(class, id) {
 
 		# Get extension
-		ext <- .self$getConn(class)$getEntryContentType(type)
+		ext <- .self$getConn(class)$getEntryContentType()
 
 		# Set filenames
-		filenames <- vapply(id, function(x) { if (is.na(x)) NA_character_ else paste0(class, '-', type, '-', x, '.', ext) }, FUN.VALUE = '')
+		filenames <- vapply(id, function(x) { if (is.na(x)) NA_character_ else paste0(class, '-', x, '.', ext) }, FUN.VALUE = '')
 
 		# set file paths
 		file.paths <- vapply(filenames, function(x) { if (is.na(x)) NA_character_ else file.path(.self$.cache.dir, x) }, FUN.VALUE = '')
@@ -171,12 +171,12 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# LOAD CONTENT FROM CACHE #
 	###########################
 
-	BiodbFactory$methods( .load.content.from.cache = function(class, type, id) {
+	BiodbFactory$methods( .load.content.from.cache = function(class, id) {
 
 		content <- NULL
 
 		# Read contents from files
-		file.paths <- .self$.get.cache.file.paths(class, type, id)
+		file.paths <- .self$.get.cache.file.paths(class, id)
 		content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL )} )
 
 		return(content)
@@ -186,10 +186,10 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# SAVE CONTENT TO CACHE #
 	#########################
 
-	BiodbFactory$methods( .save.content.to.cache = function(class, type, id, content) {
+	BiodbFactory$methods( .save.content.to.cache = function(class, id, content) {
 
 		# Write contents into files
-		file.paths <- .self$.get.cache.file.paths(class, type, id)
+		file.paths <- .self$.get.cache.file.paths(class, id)
 		mapply(function(c, f) { if ( ! is.null(c)) writeLines(c, f) }, content, file.paths)
 	})
 
@@ -197,14 +197,14 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 
-	BiodbFactory$methods( getEntryContent = function(class, type, id) {
+	BiodbFactory$methods( getEntryContent = function(class, id) {
 
 		# Debug
 		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(id)," id(s)..."))
 
 		# Initialize content
 		if ( ! is.na(.self$.cache.dir)) {
-			content <- .self$.load.content.from.cache(class, type, id)	
+			content <- .self$.load.content.from.cache(class, id)	
 			missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 		}
 		else {
@@ -239,11 +239,11 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 			missing.contents <- NULL
 			for (ch.missing.ids in chunks.of.missing.ids) {
 
-				ch.missing.contents <- conn$getEntryContent(type, ch.missing.ids)
+				ch.missing.contents <- conn$getEntryContent(ch.missing.ids)
 
 				# Save to cache
 				if ( ! is.null(ch.missing.contents) && ! is.na(.self$.cache.dir))
-					.self$.save.content.to.cache(class, type, ch.missing.ids, ch.missing.contents)
+					.self$.save.content.to.cache(class, ch.missing.ids, ch.missing.contents)
 
 				# Append
 				missing.contents <- c(missing.contents, ch.missing.contents)
