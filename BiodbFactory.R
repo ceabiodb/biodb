@@ -20,17 +20,24 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character", .conn = "list", .cache.dir = "character", .debug = "logical", .chunk.size = "integer", .use.env.var = "logical"))
+	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character",
+															  .conn = "list",
+															  .cache.dir = "character",
+															  .cache.mode = "character",
+															  .debug = "logical",
+															  .chunk.size = "integer",
+															  .use.env.var = "logical"))
 	
 	###############
 	# CONSTRUCTOR #
 	###############
 	
-	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, debug = FALSE, chunk.size = NA_integer_, use.env.var = FALSE, ...) {
+	BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, cache.mode = BIODB.CACHE.READ.WRITE, debug = FALSE, chunk.size = NA_integer_, use.env.var = FALSE, ...) {
 	
 		.useragent <<- useragent
 		.conn <<- list()
 		.cache.dir <<- cache.dir
+		.cache.mode <<- cache.mode
 		.debug <<- debug
 		.chunk.size <<- as.integer(chunk.size)
 		.use.env.var <<- use.env.var
@@ -182,6 +189,22 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		return(content)
 	})
 
+	############################
+	# IS CACHE READING ENABLED #
+	############################
+
+	BiodbFactory$methods( .is.cache.reading.enabled = function() {
+		return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE))
+	})
+
+	############################
+	# IS CACHE WRITING ENABLED #
+	############################
+
+	BiodbFactory$methods( .is.cache.writing.enabled = function() {
+		return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.WRITE.ONLY, BIODB.CACHE.READ.WRITE))
+	})
+
 	#########################
 	# SAVE CONTENT TO CACHE #
 	#########################
@@ -203,7 +226,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		.self$.print.debug.msg(paste0("Get entry content(s) for ", length(id)," id(s)..."))
 
 		# Initialize content
-		if ( ! is.na(.self$.cache.dir)) {
+		if (.self$.is.cache.reading.enabled()) {
 			content <- .self$.load.content.from.cache(class, id)	
 			missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 		}
@@ -219,7 +242,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		# Debug
 		if (any(is.na(id)))
 			.self$.print.debug.msg(paste0(sum(is.na(id)), " entry ids are NA."))
-		if ( ! is.na(.self$.cache.dir)) {
+		if (.self$.is.cache.reading.enabled()) {
 			.self$.print.debug.msg(paste0(sum( ! is.na(id)) - length(missing.ids), " entry content(s) loaded from cache."))
 			if (n.duplicates > 0)
 				.self$.print.debug.msg(paste0(n.duplicates, " entry ids, whose content needs to be fetched, are duplicates."))
@@ -242,14 +265,14 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 				ch.missing.contents <- conn$getEntryContent(ch.missing.ids)
 
 				# Save to cache
-				if ( ! is.null(ch.missing.contents) && ! is.na(.self$.cache.dir))
+				if ( ! is.null(ch.missing.contents) && .self$.is.cache.writing.enabled())
 					.self$.save.content.to.cache(class, ch.missing.ids, ch.missing.contents)
 
 				# Append
 				missing.contents <- c(missing.contents, ch.missing.contents)
 
 				# Debug
-				if ( ! is.na(.self$.cache.dir))
+				if (.self$.is.cache.reading.enabled())
 					.self$.print.debug.msg(paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
 			}
 

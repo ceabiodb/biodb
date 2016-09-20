@@ -1,12 +1,13 @@
-if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
+if ( ! exists('BIODB.XML')) {
 
 	###############
-	# ENTRY TYPES #
+	# CACHE MODES #
 	###############
 
-	BIODB.COMPOUND <- 'compound'
-	BIODB.SPECTRUM <- 'spectrum'
-	
+	BIODB.CACHE.READ.ONLY  <- 'read-only'
+	BIODB.CACHE.READ.WRITE <- 'read-write'
+	BIODB.CACHE.WRITE.ONLY <- 'write-only'
+
 	#######################
 	# ENTRY CONTENT TYPES #
 	#######################
@@ -106,7 +107,6 @@ if ( ! exists('BIODB.COMPOUND')) { # Do not load again if already loaded
 
 	BIODB.FIELDS <- data.frame(matrix(c(
 		# FIELD NAME                CLASS           CARDINALITY
-		BIODB.COMPOUND,             'BiodEntry',    BIODB.CARD.ONE,
 		BIODB.ACCESSION,            'character',    BIODB.CARD.ONE,
 		BIODB.DESCRIPTION,          'character',    BIODB.CARD.ONE,
 		BIODB.NAME,                 'character',    BIODB.CARD.ONE,
