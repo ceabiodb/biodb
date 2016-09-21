@@ -31,4 +31,13 @@ if ( ! exists('RemotedbConn')) {
 		callSuper(...) # calls super-class initializer with remaining parameters
 	})
 
+	###########
+	# GET URL #
+	###########
+
+	RemotedbConn$methods( .get.url = function(url) {
+		.self$.print.debug.msg(paste0("Sending URL request '", url, "'..."))
+		return(.self$.scheduler$getUrl(url))
+	})
+
 }

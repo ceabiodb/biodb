@@ -33,10 +33,11 @@ if ( ! exists('ChemspiderConn')) {
 
 		# Loop on all
 		n <- 0
+		inc <- NA_integer_
 		while (n < length(ids)) {
 
 			# Get list of accession ids to retrieve
-			accessions <- ids[(n + 1):length(ids)]
+			accessions <- ids[(n + 1):(if (is.na(inc)) length(ids) else (min(n + inc, length(ids))))]
 
 			# Create URL request
 			x <- get.entry.url(class = BIODB.CHEMSPIDER, accession = accessions, content.type = BIODB.XML, max.length = URL.MAX.LENGTH, base.url = .self$.url, token = .self$.token)
@@ -45,7 +46,18 @@ if ( ! exists('ChemspiderConn')) {
 			.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
 
 			# Send request
-			xmlstr <- .self$.scheduler$getUrl(x$url)
+			xmlstr <- .self$.get.url(x$url)
+
+			# Error : "Cannot convert WRONG to System.Int32.\r\nParameter name: type ---> Input string was not in a correct format.\r\n"
+			if (grepl('^Cannot convert .* to System\\.Int32\\.', xmlstr)) {
+				# One of the ids is incorrect
+				if (is.na(inc)) {
+					inc <- 1
+					next
+				}
+				else
+					xmlstr <- NA_character_
+			}
 
 			# Increase number of entries retrieved
 			n <- n + x$n

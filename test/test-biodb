@@ -71,7 +71,10 @@ test.entries <- function(db, online = TRUE) {
 	# Create factory
 	factory <- BiodbFactory$new(useragent = USER.AGENT,
 								cache.dir = file.path(dirname(script.path), if (online) 'cache' else file.path('res', 'offline-files')),
-								cache.mode = if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY)
+								cache.mode = if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY,
+								debug = TRUE,
+								use.env.var = TRUE
+								)
 
 	# Test a wrong accession number
 	wrong.entry <- factory$createEntry(db, id = 'WRONG')
