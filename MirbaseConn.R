@@ -27,7 +27,7 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 		content <- rep(NA_character_, length(id))
 
 		# Request
-		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.MIRBASE, x, content.type = BIODB.HTML)), FUN.VALUE = '')
+		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.MIRBASE, x, content.type = BIODB.HTML)), FUN.VALUE = '')
 
 		return(content)
 	})
@@ -47,7 +47,7 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 	MirbaseConn$methods( findAccessions = function(name) {
 
 		# Get HTML
-		htmlstr <- .self$.scheduler$getUrl('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = name, submit = 'Search'))
+		htmlstr <- .self$.get.url('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = name, submit = 'Search'))
 
 		# Parse HTML
 		xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)

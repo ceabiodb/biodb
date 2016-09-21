@@ -58,7 +58,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 			.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
 
 			# Send request
-			xmlstr <- .self$.scheduler$getUrl(x$url)
+			xmlstr <- .self$.get.url(x$url)
 
 			# Increase number of entries retrieved
 			n <- n + x$n
@@ -108,7 +108,7 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 		url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
 
 		# Send request
-		xmlstr <- .self$.scheduler$getUrl(url)
+		xmlstr <- .self$.get.url(url)
 
 		# Parse XML and get text
 		if ( ! is.na(xmlstr)) {

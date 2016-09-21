@@ -36,7 +36,7 @@ if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 		content <- rep(NA_character_, length(id))
 
 		# Request
-		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.NCBIGENE, x)), FUN.VALUE = '')
+		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBIGENE, x)), FUN.VALUE = '')
 
 		return(content)
 	})

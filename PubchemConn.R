@@ -54,7 +54,7 @@ if ( ! exists('get.pubchem.compound.url')) {
 			.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
 
 			# Send request
-			xmlstr <- .self$.scheduler$getUrl(x$url)
+			xmlstr <- .self$.get.url(x$url)
 
 			# Increase number of entries retrieved
 			n <- n + x$n

@@ -27,7 +27,7 @@ if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 		content <- rep(NA_character_, length(id))
 
 		# Request
-		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.ENZYME, accession = x, content.type = BIODB.TXT)), FUN.VALUE = '')
+		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.ENZYME, accession = x, content.type = BIODB.TXT)), FUN.VALUE = '')
 
 		return(content)
 	})

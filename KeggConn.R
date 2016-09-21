@@ -27,7 +27,7 @@ if ( ! exists('KeggConn')) {
 		content <- rep(NA_character_, length(id))
 
 		# Request
-		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.KEGG, x, content.type = BIODB.TXT)), FUN.VALUE = '')
+		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.KEGG, x, content.type = BIODB.TXT)), FUN.VALUE = '')
 
 		return(content)
 	})

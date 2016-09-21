@@ -27,7 +27,7 @@ if ( ! exists('HmdbConn')) {
 		content <- rep(NA_character_, length(id))
 
 		# Request
-		content <- vapply(id, function(x) .self$.scheduler$getUrl(get.entry.url(BIODB.HMDB, x, content.type = BIODB.XML)), FUN.VALUE = '')
+		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.HMDB, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
 		return(content)
 	})
