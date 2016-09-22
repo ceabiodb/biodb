@@ -27,7 +27,7 @@ if ( ! exists('MirbaseEntry')) {
 		for (html in contents) {
 
 			# Create instance
-			entry <- ChebiCompound$new()
+			entry <- MirbaseEntry$new()
 		
 			# Parse HTML
 			xml <-  htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)

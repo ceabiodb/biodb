@@ -21,13 +21,13 @@ if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	MirbaseConn$methods( getEntryContent = function() {
+	MirbaseConn$methods( getEntryContent = function(ids) {
 
 		# Initialize return values
-		content <- rep(NA_character_, length(id))
+		content <- rep(NA_character_, length(ids))
 
 		# Request
-		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.MIRBASE, x, content.type = BIODB.HTML)), FUN.VALUE = '')
+		content <- vapply(ids, function(x) .self$.get.url(get.entry.url(BIODB.MIRBASE, x, content.type = BIODB.HTML)), FUN.VALUE = '')
 
 		return(content)
 	})
