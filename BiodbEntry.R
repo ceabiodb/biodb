@@ -131,9 +131,9 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 			for (db in BIODB.FIELD.COMPUTING[[field]]) {
 				db.id <- .self$getField(paste0(db, 'id'))
 				if ( ! is.na(db.id)) {
-					db.compound <- .self$.factory$createEntry(db, type = BIODB.COMPOUND, id = db.id)
-					if ( ! is.null(db.compound)) {
-						.self$setField(field, db.compound$getField(field))
+					db.entry <- .self$.factory$createEntry(db, id = db.id)
+					if ( ! is.null(db.entry)) {
+						.self$setField(field, db.entry$getField(field))
 						return(TRUE)
 					}
 				}
