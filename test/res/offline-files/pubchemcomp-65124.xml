@@ -1,1019 +1,615 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Record
-    xmlns="http://pubchem.ncbi.nlm.nih.gov/pug_view"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
-    xs:schemaLocation="http://pubchem.ncbi.nlm.nih.gov/pug_view http://pubchem.ncbi.nlm.nih.gov/pug_view/pug_view.xsd"
->
-  <RecordType>CID</RecordType>
-  <RecordNumber>65124</RecordNumber>
-  <Section>
-    <TOCHeading>2D Structure</TOCHeading>
-    <Description>A two-dimensional representation of the compound.</Description>
-    <Information>
-      <ReferenceNumber>6</ReferenceNumber>
-      <Name>2D Structure</Name>
-      <BoolValue>true</BoolValue>
-    </Information>
-  </Section>
-  <Section>
-    <TOCHeading>3D Conformer</TOCHeading>
-    <Description>A three-dimensional representation of the compound.  The 3-D structure is not experimentally determined, but computed by PubChem.  More detailed information on this conformer model is described in the &lt;a href=&quot;http://www.jcheminf.com/series/pubchem3d&quot;&gt;PubChem3D themetic series &lt;/a&gt; published in the Journal of Cheminformatics.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#3DConformer&quot;&gt;Read more...&lt;/a&gt;</Description>
-    <Information>
-      <ReferenceNumber>6</ReferenceNumber>
-      <Name>3D Conformer</Name>
-      <Description>3-Nitro-L-tyrosine</Description>
-      <NumValue>65124</NumValue>
-    </Information>
-  </Section>
-  <Section>
-    <TOCHeading>Biologic Description</TOCHeading>
-    <Description>This record described as a biologic.</Description>
-    <Section>
-      <TOCHeading>Biologic Depiction</TOCHeading>
-      <Description>An image of this record as a biologic.</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>SVG Image</Name>
-        <URL>/rest/pug_view/image/biologic/26239/SVG</URL>
-        <BoolValue>true</BoolValue>
-      </Information>
-    </Section>
-    <Section>
-      <TOCHeading>Biologic Line Notation</TOCHeading>
-      <Description>A condensed line notation for this record, in one of a number of biologic formats.</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>IUPAC Condensed</Name>
-        <StringValue>H-Tyr(3-NO2)-OH</StringValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>LINUCS</Name>
-        <StringValue>[][L-Tyr(3-NO2)-OH]{}</StringValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Sequence</Name>
-        <StringValue>X</StringValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>HELM</Name>
-        <StringValue>PEPTIDE1{[N[C@H](C(=O)O)Cc1ccc(O)c(c1)[N+](=O)O]}$$$$</StringValue>
-      </Information>
-    </Section>
-  </Section>
-  <Section>
-    <TOCHeading>Names and Identifiers</TOCHeading>
-    <Description>Information describing the identity of this PubChem Compound record, including record identifiers, synonyms (i.e., chemical names), descriptors, etc.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Identification&quot;&gt;Read more...&lt;/a&gt;</Description>
-    <Section>
-      <TOCHeading>Record Title</TOCHeading>
-      <Description>Text used as the title for this PubChem record</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Record Title</Name>
-        <StringValue>3-Nitro-L-tyrosine</StringValue>
-      </Information>
-    </Section>
-    <Section>
-      <TOCHeading>Computed Descriptors</TOCHeading>
-      <Description>Computer algorithm generated (computed) descriptors that use as input the chemical structure information from this record</Description>
-      <Section>
-        <TOCHeading>InChI</TOCHeading>
-        <Description>Computed International Chemical Identifier (InChI) from the chemical structure using the International Union of Pure and Applied Chemistry (IUPAC) standard. &lt;a href=&quot;http://www.iupac.org/home/publications/e-resources/inchi.html&quot;&gt;Read more..&lt;/a&gt;</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>InChI</Name>
-          <StringValue>InChI=1S/C9H10N2O5/c10-6(9(13)14)3-5-1-2-8(12)7(4-5)11(15)16/h1-2,4,6,12H,3,10H2,(H,13,14)/t6-/m0/s1</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>InChI Key</TOCHeading>
-        <Description>Computed International Chemical Identifier hash (InChIKey) from the chemical structure using the International Union of Pure and Applied Chemistry (IUPAC) standard. &lt;a href=&quot;http://www.iupac.org/home/publications/e-resources/inchi.html&quot;&gt;Read more..&lt;/a&gt;</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>InChI Key</Name>
-          <StringValue>FBTSQILOGYXGMD-LURJTMIESA-N</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Canonical SMILES</TOCHeading>
-        <Description>Computed Simplified Molecular-Input Line-Entry System (SMILES) from the chemical structure devoid of isotopic and stereochemical information.  &lt;a href=&quot;http://www.daylight.com/dayhtml/doc/theory/theory.smiles.html&quot;&gt;Read more..&lt;/a&gt;</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Canonical SMILES</Name>
-          <StringValue>C1=CC(=C(C=C1CC(C(=O)O)N)[N+](=O)[O-])O</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Isomeric SMILES</TOCHeading>
-        <Description>Computed Simplified Molecular-Input Line-Entry System (SMILES) from the chemical structure containing isotopic and stereochemical information.  SMILES written with isotopic and chiral specifications are collectively known as &quot;isomeric SMILES&quot;.  &lt;a href=&quot;http://www.daylight.com/dayhtml/doc/theory/theory.smiles.html&quot;&gt;Read more..&lt;/a&gt;</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Isomeric SMILES</Name>
-          <StringValue>C1=CC(=C(C=C1C[C@@H](C(=O)O)N)[N+](=O)[O-])O</StringValue>
-        </Information>
-      </Section>
-    </Section>
-    <Section>
-      <TOCHeading>Other Identifiers</TOCHeading>
-      <Description>Important identifiers assigned to this chemical substance by authoritative organizations</Description>
-      <Section>
-        <TOCHeading>EC Number</TOCHeading>
-        <Description>A seven-digit regulatory identifier currently assigned by the European Chemicals Agency (ECHA) known as a European Community (EC) number.  It is sometimes referred to as an EINECS, ELINCS, or NLP number, which are subsets of an EC number. &lt;a href=&quot;http://en.wikipedia.org/wiki/European_Community_number&quot;&gt;Read more..&lt;/a&gt;  </Description>
-        <Information>
-          <ReferenceNumber>4</ReferenceNumber>
-          <Name>EC Number</Name>
-          <StringValue>210-688-6</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Wikipedia</TOCHeading>
-        <Description>Links to Wikipedia for this record.</Description>
-        <HintGroupSubsectionsByReference>true</HintGroupSubsectionsByReference>
-        <Information>
-          <ReferenceNumber>3</ReferenceNumber>
-          <Name>Title</Name>
-          <URL>https://en.wikipedia.org/wiki/Nitrotyrosine</URL>
-          <StringValue>Nitrotyrosine</StringValue>
-        </Information>
-        <Information>
-          <ReferenceNumber>3</ReferenceNumber>
-          <Name>Description</Name>
-          <StringValue>chemical compound</StringValue>
-        </Information>
-      </Section>
-    </Section>
-    <Section>
-      <TOCHeading>Synonyms</TOCHeading>
-      <Description>Alternative names for this PubChem Compound record.  A compound can have many different names.  For example, acetone (CH3C(=O)CH3) is also known as propanone, propan-2-one, or dimethyl ketone.  The brand name of a product is commonly used to indicate the primary chemical ingredient(s) in the product (e.g., Tylenol, a common pain killer, is often used for acetaminophen, its active ingredient).  Another example of common synonyms is record identifiers used in different data collections, such as Chemical Abstract Service (CAS) registry numbers, FDA UNII (Unique Ingredient Identifiers), and many others.  All these various names and identifiers that designate this compound are organized under the Synonyms section.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#DataProcessingSynonyms&quot;&gt;Read more...&lt;/a&gt;</Description>
-      <Section>
-        <TOCHeading>MeSH Synonyms</TOCHeading>
-        <Description>Medical Subject Heading (MeSH) names or identifiers matching this PubChem Compound record.  The matching between the MeSH and compound records is performed by name matching (i.e., identical common names). &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#DataProcessingMeSH&quot;&gt;Read more...&lt;/a&gt;</Description>
-        <Information>
-          <ReferenceNumber>7</ReferenceNumber>
-          <Name>MeSH Synonyms</Name>
-          <URL>http://www.ncbi.nlm.nih.gov/mesh/67002744</URL>
-          <StringValueList>3-mononitrotyrosine</StringValueList>
-          <StringValueList>3-nitro-L-tyrosine</StringValueList>
-          <StringValueList>3-nitrotyrosine</StringValueList>
-          <StringValueList>3-nitrotyrosine, (DL)-isomer</StringValueList>
-          <StringValueList>3-nitrotyrosine, (L)-isomer</StringValueList>
-          <StringValueList>nitrotyrosine</StringValueList>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Depositor-Supplied Synonyms</TOCHeading>
-        <Description>Chemical names and identifiers provided by individual data contributors and associated to PubChem Substance records. Synonyms of Substances corresponding to a PubChem Compound record are combined.  [&lt;a href=&quot;http://pubchemblog.ncbi.nlm.nih.gov/2014/06/19/what-is-the-difference-between-a-substance-and-a-compound-in-pubchem/&quot;&gt;Read this blog&lt;/a&gt; on the difference between Compound and Substance records in PubChem.]  Some contributed names may be considered erroneous and suppressed.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#SynonymsFiltered&quot;&gt;Read more...&lt;/a&gt;</Description>
-        <HintEmbeddedHTML>false</HintEmbeddedHTML>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Depositor-Supplied Synonyms</Name>
-          <StringValueList>3-Nitro-L-tyrosine</StringValueList>
-          <StringValueList>621-44-3</StringValueList>
-          <StringValueList>3-Nitrotyrosine</StringValueList>
-          <StringValueList>L-3-Nitrotyrosine</StringValueList>
-          <StringValueList>Tyrosine, 3-nitro-</StringValueList>
-          <StringValueList>L-Tyrosine, 3-nitro-</StringValueList>
-          <StringValueList>m-Nitrotyrosine</StringValueList>
-          <StringValueList>5-Nitrotyrosine</StringValueList>
-          <StringValueList>(S)-2-Amino-3-(4-hydroxy-3-nitrophenyl)propanoic acid</StringValueList>
-          <StringValueList>3-Mononitrotyrosine</StringValueList>
-          <StringValueList>Meta-Nitro-Tyrosine</StringValueList>
-          <StringValueList>H-Tyr(3-NO2)-OH</StringValueList>
-          <StringValueList>(2S)-2-amino-3-(4-hydroxy-3-nitrophenyl)propanoic acid</StringValueList>
-          <StringValueList>UNII-7COY1HA6HK</StringValueList>
-          <StringValueList>Tyrosine, 3-nitro-, L-</StringValueList>
-          <StringValueList>Nitrotyrosine</StringValueList>
-          <StringValueList>CCRIS 3566</StringValueList>
-          <StringValueList>CHEBI:44454</StringValueList>
-          <StringValueList>FBTSQILOGYXGMD-LURJTMIESA-N</StringValueList>
-          <StringValueList>EINECS 210-688-6</StringValueList>
-          <StringValueList>NSC 37413</StringValueList>
-          <StringValueList>AI3-63160</StringValueList>
-          <StringValueList>ST50307163</StringValueList>
-          <StringValueList>NIY</StringValueList>
-          <StringValueList>PubChem11983</StringValueList>
-          <StringValueList>AC1Q5AOX</StringValueList>
-          <StringValueList>7COY1HA6HK</StringValueList>
-          <StringValueList>Epitope ID:140785</StringValueList>
-          <StringValueList>AC1L22NA</StringValueList>
-          <StringValueList>SCHEMBL38175</StringValueList>
-          <StringValueList>N7389_SIGMA</StringValueList>
-          <StringValueList>3-Nitro-L-tyrosine crystalline</StringValueList>
-          <StringValueList>74090_FLUKA</StringValueList>
-          <StringValueList>CTK1C5038</StringValueList>
-          <StringValueList>HMDB01904</StringValueList>
-          <StringValueList>MolPort-003-938-825</StringValueList>
-          <StringValueList>HMS3649O18</StringValueList>
-          <StringValueList>Tyrosine, 3-nitro-, L- (8CI)</StringValueList>
-          <StringValueList>ANW-34078</StringValueList>
-          <StringValueList>CN-153</StringValueList>
-          <StringValueList>MFCD00007123</StringValueList>
-          <StringValueList>ZINC34800261</StringValueList>
-          <StringValueList>AM83588</StringValueList>
-          <StringValueList>DB03867</StringValueList>
-          <StringValueList>RTR-033379</StringValueList>
-          <StringValueList>AJ-90243</StringValueList>
-          <StringValueList>AK-44033</StringValueList>
-          <StringValueList>AM009302</StringValueList>
-          <StringValueList>AN-46708</StringValueList>
-          <StringValueList>KB-32994</StringValueList>
-          <StringValueList>SC-09982</StringValueList>
-          <StringValueList>AB0010764</StringValueList>
-          <StringValueList>DB-054076</StringValueList>
-          <StringValueList>LS-184761</StringValueList>
-          <StringValueList>LS-188180</StringValueList>
-          <StringValueList>TR-033379</StringValueList>
-          <StringValueList>FT-0616251</StringValueList>
-          <StringValueList>N0905</StringValueList>
-          <StringValueList>ST24020815</StringValueList>
-          <StringValueList>M-1891</StringValueList>
-          <StringValueList>N-8200</StringValueList>
-          <StringValueList>N-8201</StringValueList>
-          <StringValueList>J-300290</StringValueList>
-          <StringValueList>J-300437</StringValueList>
-          <StringValueList>(2S)-2-amino-3-(4-hydroxy-3-nitro-phenyl)propanoic acid</StringValueList>
-          <StringValueList>CFEB46F1-5358-4772-99C8-987C38E5326D</StringValueList>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Removed Synonyms</TOCHeading>
-        <Description>Potentially erroneous chemical names and identifiers provided by PubChem Substance records for the same chemical structure that were removed by name/structure consistency filtering.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#SynonymsUnfiltered&quot;&gt;Read more...&lt;/a&gt;</Description>
-        <HintEmbeddedHTML>false</HintEmbeddedHTML>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Removed Synonyms</Name>
-          <StringValueList>3-Nitro-Tyrosine</StringValueList>
-          <StringValueList>-2-amino-3- propanoicacid</StringValueList>
-          <StringValueList>C9H10N2O5</StringValueList>
-          <StringValueList>CID65124</StringValueList>
-          <StringValueList>3604-79-3</StringValueList>
-        </Information>
-      </Section>
-    </Section>
-    <Section>
-      <TOCHeading>Create Date</TOCHeading>
-      <Description>Date the compound record was initially added to PubChem</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Create Date</Name>
-        <DateValue>2004-09-16</DateValue>
-      </Information>
-    </Section>
-    <Section>
-      <TOCHeading>Modify Date</TOCHeading>
-      <Description>Date this record was last updated in PubChem</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Modify Date</Name>
-        <DateValue>2016-03-15</DateValue>
-      </Information>
-    </Section>
-  </Section>
-  <Section>
-    <TOCHeading>Chemical and Physical Properties</TOCHeading>
-    <Description>Chemical and physical properties such as melting point, molecular weight, etc.</Description>
-    <Section>
-      <TOCHeading>Computed Properties</TOCHeading>
-      <Description>Properties computed automatically from the given chemical structure</Description>
-      <Section>
-        <TOCHeading>Molecular Weight</TOCHeading>
-        <Description>Molecular weight or molecular mass refers to the mass of a molecule. It is calculated as the sum of the mass of each constituent atom multiplied by the number of atoms of that element in the molecular formula.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Molecular Weight</Name>
-          <NumValue>226.1861</NumValue>
-          <ValueUnit>g/mol</ValueUnit>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Molecular Formula</TOCHeading>
-        <Description>A chemical formula is a way of expressing information about the proportions of atoms that constitute a particular chemical compound, using a single line of chemical element symbols, numbers. PubChem is using the Hill system that write the chemical formulas in a way that the number of carbon atoms in a molecule is indicated first, the number of hydrogen atoms next, and then the number of all other chemical elements subsequently, in alphabetical order. When the formula contains no carbon, all the elements, including hydrogen, are listed alphabetically. </Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Molecular Formula</Name>
-          <StringValue>C9H10N2O5</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>XLogP3</TOCHeading>
-        <Description>Computed Octanol/Water Partition Coefficient</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>XLogP3</Name>
-          <NumValue>-2</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Hydrogen Bond Donor Count</TOCHeading>
-        <Description>Hydrogen Bond Donor count</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Hydrogen Bond Donor Count</Name>
-          <NumValue>3</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Hydrogen Bond Acceptor Count</TOCHeading>
-        <Description>Hydrogen Bond Acceptor count</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Hydrogen Bond Acceptor Count</Name>
-          <NumValue>6</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Rotatable Bond Count</TOCHeading>
-        <Description>Rotatable bond is defined as any single non-ring bond, bounded to nonterminal heavy (i.e., non-hydrogen) atom.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Rotatable Bond Count</Name>
-          <NumValue>3</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Exact Mass</TOCHeading>
-        <Description>The exact mass of an isotopic species is obtained by summing the masses of the individual isotopes of the molecule.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Exact Mass</Name>
-          <NumValue>226.058971</NumValue>
-          <ValueUnit>g/mol</ValueUnit>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Monoisotopic Mass</TOCHeading>
-        <Description>The monoisotopic mass is the sum of the masses of the atoms in a molecule using the unbound, ground-state, rest mass of the principal (most abundant) isotope for each element instead of the isotopic average mass.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Monoisotopic Mass</Name>
-          <NumValue>226.058971</NumValue>
-          <ValueUnit>g/mol</ValueUnit>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Topological Polar Surface Area</TOCHeading>
-        <Description>The topological polar surface area (TPSA) of a molecule is defined as the surface sum over all polar atoms in a molecule. </Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Topological Polar Surface Area</Name>
-          <NumValue>129</NumValue>
-          <ValueUnit>A^2</ValueUnit>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Heavy Atom Count</TOCHeading>
-        <Description>A heavy atom is defined as any atom except hydrogen in a chemical structure.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Heavy Atom Count</Name>
-          <NumValue>16</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Formal Charge</TOCHeading>
-        <Description>Formal charge is the difference between the number of valence electrons of each atom and the number of electrons the atom is associated with. Formal charge assumes any shared electrons are equally shared between the two bonded atoms.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Formal Charge</Name>
-          <NumValue>0</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Complexity</TOCHeading>
-        <Description>The complexity rating of a compound is a rough estimate of how complicated a structure is, seen from both the point of view of the elements contained and the displayed structural features including symmetry. This complexity rating is computed using the Bertz/Hendrickson/Ihlenfeldt formula.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/help.html#Glossary&quot;&gt;Read more...&lt;/a&gt;</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Complexity</Name>
-          <NumValue>278</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Isotope Atom Count</TOCHeading>
-        <Description>Isotopte Atom Count is the number of isotopes that are not most abundant for the corresponding chemical elements.  Isotopes are variants of a chemical element which differ in neutron number.  For example, among three isotopes of carbon (i.e., C-12, C-13, and C-14), the isotope atom count considers the C-13 and C-14 atoms, because C-12 is the most abundant isotope of carbon.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Isotope Atom Count</Name>
-          <NumValue>0</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Defined Atom Stereocenter Count</TOCHeading>
-        <Description>An atom stereocenter, also known as a chiral center, is an atom that is attached to four different types of atoms (or groups of atoms) in the tetrahedral arrangement. It can have either (R)- or (S)- configurations.  Some compounds, such as racemic mixtures, have an undefined atom stereocenter, whose (R/S)-configuration is not specifically defined.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Defined Atom Stereocenter Count</Name>
-          <NumValue>1</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Undefined Atom Stereocenter Count</TOCHeading>
-        <Description>An atom stereocenter, also known as a chiral center, is an atom that is attached to four different types of atoms (or groups of atoms) in the tetrahedral arrangement. It can have either (R)- or (S)- configurations.  Some compounds, such as racemic mixtures, have an undefined atom stereocenter, whose (R/S)-configuration is not specifically defined.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Undefined Atom Stereocenter Count</Name>
-          <NumValue>0</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Defined Bond Stereocenter Count</TOCHeading>
-        <Description>A bond stereocenter is a non-rotatable bond around which two atoms can have different arrangement (as in cis- and trans-forms of butene around its double bond).  Some compounds have an undefined bond stereocenter, whose stereochemistry is not specifically defined.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Defined Bond Stereocenter Count</Name>
-          <NumValue>0</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Undefined Bond Stereocenter Count</TOCHeading>
-        <Description>A bond stereocenter is a non-rotatable bond around which two atoms can have different arrangement (as in cis- and trans-forms of butene around its double bond).  Some compounds have an undefined bond stereocenter, whose stereochemistry is not specifically defined.</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Undefined Bond Stereocenter Count</Name>
-          <NumValue>0</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Covalently-Bonded Unit Count</TOCHeading>
-        <Description>Covalently-Bonded Unit Count </Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Covalently-Bonded Unit Count</Name>
-          <NumValue>1</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>CACTVS Substructure Key Fingerprint</TOCHeading>
-        <Description>CACTVS Substructure Key Fingerprint</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>CACTVS Substructure Key Fingerprint</Name>
-          <BinaryValue>
-AAADccBzOAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAABAAAAHgAUCAAADCzBmAQwzoBQQgCJ
-AiTSSwCCAAAgIgAoiIGHbIoKJjKSkZOAcABk0FEI2AeYyKCOIAAAQAAAEABAAACAAAAgAAAAAAAA
-</BinaryValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Compound Is Canonicalized</TOCHeading>
-        <Description>Compound is canonicalized</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Compound Is Canonicalized</Name>
-          <BoolValue>false</BoolValue>
-        </Information>
-      </Section>
-    </Section>
-    <Section>
-      <TOCHeading>Spectral Properties</TOCHeading>
-      <Description>Property data related to spectroscopy</Description>
-      <Section>
-        <TOCHeading>GC-MS</TOCHeading>
-        <Description>Data from GC-MS experiments.</Description>
-        <HintGroupSubsectionsByReference>true</HintGroupSubsectionsByReference>
-        <Section>
-          <TOCHeading>GC-MS Fields</TOCHeading>
-          <Description>Individual data values from GC-MS experiments.</Description>
-          <Information>
-            <ReferenceNumber>5</ReferenceNumber>
-            <Name>NIST Number</Name>
-            <NumValueList>235487</NumValueList>
-            <NumValueList>52707</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>5</ReferenceNumber>
-            <Name>Library</Name>
-            <StringValueList>Main library</StringValueList>
-            <StringValueList>Replicate library</StringValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>5</ReferenceNumber>
-            <Name>Total Peaks</Name>
-            <NumValueList>144</NumValueList>
-            <NumValueList>103</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>5</ReferenceNumber>
-            <Name>m/z Top Peak</Name>
-            <NumValueList>135</NumValueList>
-            <NumValueList>135</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>5</ReferenceNumber>
-            <Name>m/z 2nd Highest</Name>
-            <NumValueList>74</NumValueList>
-            <NumValueList>74</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>5</ReferenceNumber>
-            <Name>m/z 3rd Highest</Name>
-            <NumValueList>105</NumValueList>
-            <NumValueList>105</NumValueList>
-          </Information>
-        </Section>
-        <Section>
-          <TOCHeading>GC-MS Images</TOCHeading>
-          <Description>Spectral or other evidenciary images from GC-MS experiments.</Description>
-          <Information>
-            <ReferenceNumber>5</ReferenceNumber>
-            <Name>Thumbnail</Name>
-            <ExternalDataURLList>https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/key/695115_1</ExternalDataURLList>
-            <ExternalDataURLList>https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/key/695115_2</ExternalDataURLList>
-            <ExternalDataMimeType>image/png</ExternalDataMimeType>
-          </Information>
-        </Section>
-      </Section>
-      <Section>
-        <TOCHeading>MS-MS</TOCHeading>
-        <Description>Data from MS-MS experiments.</Description>
-        <HintGroupSubsectionsByReference>true</HintGroupSubsectionsByReference>
-        <Section>
-          <TOCHeading>MS-MS Fields</TOCHeading>
-          <Description>Individual data values from MS-MS experiments.</Description>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>NIST Number</Name>
-            <NumValueList>1007130</NumValueList>
-            <NumValueList>1117769</NumValueList>
-            <NumValueList>1117771</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>Instrument Type</Name>
-            <StringValueList>IT/ion trap</StringValueList>
-            <StringValueList>IT/ion trap</StringValueList>
-            <StringValueList>IT/ion trap</StringValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>Collision Energy</Name>
-            <NumValueList>0</NumValueList>
-            <NumValueList>0</NumValueList>
-            <NumValueList>0</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>Spectrum Type</Name>
-            <StringValueList>MS2</StringValueList>
-            <StringValueList>MS2</StringValueList>
-            <StringValueList>MS2</StringValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>Precursor Type</Name>
-            <StringValueList>[M+H]+</StringValueList>
-            <StringValueList>[M-H]-</StringValueList>
-            <StringValueList>[M+H]+</StringValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>Precursor m/z</Name>
-            <NumValueList>227.0662</NumValueList>
-            <NumValueList>225.0517</NumValueList>
-            <NumValueList>227.0662</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>Total Peaks</Name>
-            <NumValueList>6</NumValueList>
-            <NumValueList>16</NumValueList>
-            <NumValueList>4</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>m/z Top Peak</Name>
-            <NumValueList>181</NumValueList>
-            <NumValueList>163.1</NumValueList>
-            <NumValueList>181.1</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>m/z 2nd Highest</Name>
-            <NumValueList>164</NumValueList>
-            <NumValueList>181.1</NumValueList>
-            <NumValueList>210</NumValueList>
-          </Information>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>m/z 3rd Highest</Name>
-            <NumValueList>168</NumValueList>
-            <NumValueList>135.1</NumValueList>
-            <NumValueList>191.9</NumValueList>
-          </Information>
-        </Section>
-        <Section>
-          <TOCHeading>MS-MS Images</TOCHeading>
-          <Description>Spectral or other evidenciary images from MS-MS experiments.</Description>
-          <Information>
-            <ReferenceNumber>1</ReferenceNumber>
-            <Name>Thumbnail</Name>
-            <ExternalDataURLList>https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/key/576149_1</ExternalDataURLList>
-            <ExternalDataURLList>https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/key/576149_2</ExternalDataURLList>
-            <ExternalDataURLList>https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/key/576149_3</ExternalDataURLList>
-            <ExternalDataMimeType>image/png</ExternalDataMimeType>
-          </Information>
-        </Section>
-      </Section>
-    </Section>
-  </Section>
-  <Section>
-    <TOCHeading>Related Records</TOCHeading>
-    <Description>Related compounds/substances information based on the similar structure, annotations, etc.</Description>
-    <Information>
-      <ReferenceNumber>11</ReferenceNumber>
-      <Name>LinkOut</Name>
-      <BoolValue>true</BoolValue>
-    </Information>
-    <Section>
-      <TOCHeading>Related Compounds with Annotation</TOCHeading>
-      <Description>The subset of compounds that are related to the one currently displayed AND that have biomedical annotations. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#RelatedRecords&quot;&gt;Read more..&lt;/a&gt;</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Related Compounds with Annotation</Name>
-        <BoolValue>true</BoolValue>
-      </Information>
-    </Section>
-    <Section>
-      <TOCHeading>Related Compounds</TOCHeading>
-      <Description>Compound records closely associated to this record. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#RelatedRecords&quot;&gt;Read more..&lt;/a&gt;</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Same Connectivity Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_sameconnectivity_pulldown&amp;from_uid=65124</URL>
-        <NumValue>5</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Same Stereo Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_samestereochem_pulldown&amp;from_uid=65124</URL>
-        <NumValue>3</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Same Isotope Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_sameisotopic_pulldown&amp;from_uid=65124</URL>
-        <NumValue>3</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Same Parent, Connectivity Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_parent_connectivity_pulldown&amp;from_uid=65124</URL>
-        <NumValue>14</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Same Parent, Stereo Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_parent_stereo_pulldown&amp;from_uid=65124</URL>
-        <NumValue>5</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Same Parent, Isotope Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_parent_isotopes_pulldown&amp;from_uid=65124</URL>
-        <NumValue>12</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Same Parent, Exact Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_parent_pulldown&amp;from_uid=65124</URL>
-        <NumValue>3</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Mixtures, Components, and Neutralized Forms Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_mixture&amp;from_uid=65124</URL>
-        <NumValue>7</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Similar Compounds Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound&amp;from_uid=65124</URL>
-        <NumValue>261</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Similar Conformers Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/pccompound?cmd=Link&amp;LinkName=pccompound_pccompound_3d&amp;from_uid=65124</URL>
-        <NumValue>996</NumValue>
-      </Information>
-    </Section>
-    <Section>
-      <TOCHeading>Substances</TOCHeading>
-      <Description>Substance records linked to this compound.</Description>
-      <Section>
-        <TOCHeading>Related Substances</TOCHeading>
-        <Description>Substances identical or nearly identical to this record.  &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#RelatedRecords&quot;&gt;Read more..&lt;/a&gt;</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>All Count</Name>
-          <URL>http://www.ncbi.nlm.nih.gov/pcsubstance/?term=65124[CompoundID]</URL>
-          <NumValue>92</NumValue>
-        </Information>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Same Count</Name>
-          <URL>http://www.ncbi.nlm.nih.gov/pcsubstance/?term=65124[StandardizedCID]</URL>
-          <NumValue>79</NumValue>
-        </Information>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Mixture Count</Name>
-          <URL>http://www.ncbi.nlm.nih.gov/pcsubstance/?term=65124[ComponentCID]</URL>
-          <NumValue>13</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Substances by Category</TOCHeading>
-        <Description>Substance category according to the depositors. Substance Categorization Classification - The subheaders in this section of a PubChem Compound record reflect the various categories of depositors that have submitted corresponding PubChem Substance records. This allows you to quickly find the corresponding PubChem Substance records that are likely to contain a given type of information, such as Chemical Reactions. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Classification&quot;&gt;Read more..&lt;/a&gt;</Description>
-        <Information>
-          <ReferenceNumber>6</ReferenceNumber>
-          <Name>Substances by Category</Name>
-          <StringValueList>Chemical Vendors</StringValueList>
-          <StringValueList>Curation Efforts</StringValueList>
-          <StringValueList>Governmental Organizations</StringValueList>
-          <StringValueList>Journal Publishers</StringValueList>
-          <StringValueList>Legacy Depositors</StringValueList>
-          <StringValueList>NIH Initiatives</StringValueList>
-          <StringValueList>Research and Development</StringValueList>
-          <StringValueList>Subscription Services</StringValueList>
-        </Information>
-      </Section>
-    </Section>
-    <Section>
-      <TOCHeading>Entrez Crosslinks</TOCHeading>
-      <Description>Cross-references to associated records in other Entrez databases such as PubMed, Gene, Protein, etc.</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>PubMed Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/sites/entrez?LinkName=pccompound_pubmed&amp;db=pccompound&amp;cmd=Link&amp;from_uid=65124</URL>
-        <NumValue>3412</NumValue>
-      </Information>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Protein Structures Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/sites/entrez?LinkName=pccompound_structure&amp;db=pccompound&amp;cmd=Link&amp;from_uid=65124</URL>
-        <NumValue>2</NumValue>
-      </Information>
-    </Section>
-  </Section>
-  <Section>
-    <TOCHeading>Chemical Vendors</TOCHeading>
-    <Description>A list of chemical vendors that sell this compound.  Each vendor may have multiple products containing the same chemical, but different in various aspects, such as amount and purity.  For each product, the external identifier used to locate the product on the vendor&apos;s website is provided under the Purcharsable Chemical column, and clicking this identifier directs you to the vendor&apos;s website.  The information on the product provided by the vendor to PubChem can be accessed at the Summary page of the corresponding PubChem Substance ID (SID).  Note that the order of chemical vendors on the list is randomized, and that PubChem do not endorse any of the vendors.</Description>
-    <Information>
-      <ReferenceNumber>6</ReferenceNumber>
-      <Name>Chemical Vendors</Name>
-      <BoolValue>true</BoolValue>
-    </Information>
-  </Section>
-  <Section>
-    <TOCHeading>Literature</TOCHeading>
-    <Description>Literature citation references mainly refers to regular publications such as journal articles, etc. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Literature&quot;&gt;Scrollable table that lists all PubMed Citations associated with the chemical structure. Read more..&lt;/a&gt;</Description>
-    <Section>
-      <TOCHeading>Depositor Provided PubMed Citations</TOCHeading>
-      <Description>This section displays a concatenated list of all PubMed records that have been cited by the depositors of all PubChem Substance records that contain the same chemical structure as the compound.</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Depositor Provided PubMed Citation Count</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/sites/entrez?LinkName=pccompound_pubmed&amp;db=pccompound&amp;cmd=Link&amp;from_uid=65124</URL>
-        <NumValue>3412</NumValue>
-      </Information>
-    </Section>
-    <Section>
-      <TOCHeading>NLM Curated PubMed Citations</TOCHeading>
-      <Description>The &quot;NLM Curated PubMed Citations&quot; section links to all PubMed records that are tagged with the same MeSH term that has been associated with a particular compound.</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>NLM Curated PubMed Citations</Name>
-        <URL>http://www.ncbi.nlm.nih.gov/sites/entrez?LinkName=pccompound_pubmed_mesh&amp;db=pccompound&amp;cmd=Link&amp;from_uid=65124</URL>
-        <BoolValue>true</BoolValue>
-      </Information>
-    </Section>
-  </Section>
-  <Section>
-    <TOCHeading>Patents</TOCHeading>
-    <Description>A PubChem summary page displays Patent information when available for the given molecule. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Patents&quot;&gt;Read more..&lt;/a&gt;</Description>
-    <Section>
-      <TOCHeading>Depositor-Supplied Patent Identifiers</TOCHeading>
-      <Description>Patent identifiers and more information provided by depositors in form of a widget.</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Depositor-Supplied Patent Identifiers</Name>
-        <BoolValue>true</BoolValue>
-      </Information>
-    </Section>
-  </Section>
-  <Section>
-    <TOCHeading>Biomolecular Interactions and Pathways</TOCHeading>
-    <Description>A PubChem summary page displays biomolecular interactions and pathways information when available for the given record.</Description>
-    <Section>
-      <TOCHeading>Protein Bound 3-D Structures</TOCHeading>
-      <Description>Protein Bound 3-D Structures (from Structure) - links to experimentally resolved 3D structures that contain biomolecules bound to the small molecule.</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Protein Bound 3-D Structures</Name>
-        <NumValueList>135414</NumValueList>
-        <NumValueList>118454</NumValueList>
-      </Information>
-    </Section>
-    <Section>
-      <TOCHeading>Biosystems and Pathways</TOCHeading>
-      <Description>Biosystems and Pathways (from BioSystems) - biological systems, such as pathways, that include the small molecule as a component.</Description>
-      <Information>
-        <ReferenceNumber>6</ReferenceNumber>
-        <Name>Biosystems and Pathways</Name>
-        <BoolValue>true</BoolValue>
-      </Information>
-    </Section>
-    <Section>
-      <TOCHeading>DrugBank Interactions</TOCHeading>
-      <HintGroupSubsectionsByReference>true</HintGroupSubsectionsByReference>
-      <Section>
-        <TOCHeading>Target</TOCHeading>
-        <Description>A protein, macromolecule, nucleic acid, or small molecule to which a given drug binds, resulting in an alteration of the normal function of the bound molecule and a desirable therapeutic effect. Drug targets are most commonly proteins such as enzymes, ion channels, and receptors.</Description>
-        <Information>
-          <ReferenceNumber>2</ReferenceNumber>
-          <Name>Target</Name>
-          <URL>http://www.drugbank.ca/biodb/bio_entities/BE0000648</URL>
-          <StringValue>&lt;a class=&quot;pubchem-internal-link CID-124886&quot; href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/Glutathione&quot;&gt;Glutathione&lt;/a&gt; reductase, mitochondrial</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>General Function</TOCHeading>
-        <Description>Short 3-4 word summary of the primary functions</Description>
-        <Information>
-          <ReferenceNumber>2</ReferenceNumber>
-          <Name>General Function</Name>
-          <StringValue>Nadp binding</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Specific Function</TOCHeading>
-        <Description>Detailed 30-40 word summary of the specific functions</Description>
-        <Information>
-          <ReferenceNumber>2</ReferenceNumber>
-          <Name>Specific Function</Name>
-          <StringValue>Maintains high levels of reduced glutathione in the cytosol.</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Gene Name</TOCHeading>
-        <Description>Gene Name</Description>
-        <Information>
-          <ReferenceNumber>2</ReferenceNumber>
-          <Name>Gene Name</Name>
-          <StringValue>GSR</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>GenBank Gene</TOCHeading>
-        <Description>GenBank Gene</Description>
-        <Information>
-          <ReferenceNumber>2</ReferenceNumber>
-          <Name>GenBank Gene</Name>
-          <URL>http://www.ncbi.nlm.nih.gov/gene/?term=X15722</URL>
-          <StringValue>X15722</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>GenBank Protein</TOCHeading>
-        <Description>GenBank Protein</Description>
-        <Information>
-          <ReferenceNumber>2</ReferenceNumber>
-          <Name>GenBank Protein</Name>
-          <URL>http://www.ncbi.nlm.nih.gov/protein/31825</URL>
-          <StringValue>31825</StringValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>Interaction References</TOCHeading>
-        <Description>Interaction References</Description>
-        <Information>
-          <ReferenceNumber>2</ReferenceNumber>
-          <Name>References</Name>
-          <StringValueList>Overington JP, Al-Lazikani B, Hopkins AL: How many drug targets are there? Nat Rev Drug Discov. 2006 Dec;5(12):993-6. &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pubmed/17139284&quot;&gt;Pubmed&lt;/a&gt;</StringValueList>
-          <StringValueList>Imming P, Sinning C, Meyer A: Drugs, their targets and the nature and number of drug targets. Nat Rev Drug Discov. 2006 Oct;5(10):821-34. &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pubmed/17016423&quot;&gt;Pubmed&lt;/a&gt;</StringValueList>
-        </Information>
-      </Section>
-    </Section>
-  </Section>
-  <Section>
-    <TOCHeading>Classification</TOCHeading>
-    <Description>Chemical classification systems from MeSH, ChEBI, Kegg, etc. &lt;a href=&quot;//pubchem.ncbi.nlm.nih.gov/docs/subcmpd_summary_page_help.html#Classification&quot;&gt;Read more..&lt;/a&gt;</Description>
-    <Section>
-      <TOCHeading>Ontologies</TOCHeading>
-      <Description>Ontologies</Description>
-      <Section>
-        <TOCHeading>MeSH Tree</TOCHeading>
-        <Description>MeSH tree</Description>
-        <Information>
-          <ReferenceNumber>8</ReferenceNumber>
-          <Name>HID</Name>
-          <URL>https://pubchem.ncbi.nlm.nih.gov/classification/#hid=1</URL>
-          <NumValue>1</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>ChEBI Ontology</TOCHeading>
-        <Description>ChEBI Ontology tree</Description>
-        <Information>
-          <ReferenceNumber>9</ReferenceNumber>
-          <Name>HID</Name>
-          <URL>https://pubchem.ncbi.nlm.nih.gov/classification/#hid=2</URL>
-          <NumValue>2</NumValue>
-        </Information>
-      </Section>
-      <Section>
-        <TOCHeading>WIPO IPC</TOCHeading>
-        <Description>WIPO IPC tree</Description>
-        <Information>
-          <ReferenceNumber>10</ReferenceNumber>
-          <Name>HID</Name>
-          <URL>https://pubchem.ncbi.nlm.nih.gov/classification/#hid=58</URL>
-          <NumValue>58</NumValue>
-        </Information>
-      </Section>
-    </Section>
-  </Section>
-  <Reference>
-    <ReferenceNumber>1</ReferenceNumber>
-    <SourceName>NIST</SourceName>
-    <SourceID>MS-MS for FBTSQILOGYXGMD-LURJTMIESA-N</SourceID>
-    <Name>Nitrotyrosine</Name>
-    <URL>http://www.nist.gov/srd/nist1a.cfm</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>2</ReferenceNumber>
-    <SourceName>DrugBank</SourceName>
-    <SourceID>DB03867 interaction #1</SourceID>
-    <URL>http://www.drugbank.ca/drugs/DB03867#targets</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>3</ReferenceNumber>
-    <SourceName>Wikipedia</SourceName>
-    <SourceID>Q412383</SourceID>
-    <Name>Nitrotyrosine</Name>
-    <Description>Link to the compound information in Wikipedia.</Description>
-    <URL>https://en.wikipedia.org/wiki/Nitrotyrosine</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>4</ReferenceNumber>
-    <SourceName>ECHA</SourceName>
-    <SourceID>210-688-6</SourceID>
-    <Name>3-nitro-L-tyrosine</Name>
-    <URL>http://echa.europa.eu/</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>5</ReferenceNumber>
-    <SourceName>NIST</SourceName>
-    <SourceID>GC-MS for FBTSQILOGYXGMD-LURJTMIESA-N</SourceID>
-    <Name>L-Tyrosine, 3-nitro-</Name>
-    <URL>http://www.nist.gov/srd/nist1a.cfm</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>6</ReferenceNumber>
-    <SourceName>PubChem</SourceName>
-    <SourceID>PubChem</SourceID>
-    <Description>Data deposited in or computed by PubChem</Description>
-    <URL>https://pubchem.ncbi.nlm.nih.gov</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>7</ReferenceNumber>
-    <SourceName>MeSH</SourceName>
-    <SourceID>67002744</SourceID>
-    <Name>3-nitrotyrosine</Name>
-    <URL>http://www.ncbi.nlm.nih.gov/mesh/67002744</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>8</ReferenceNumber>
-    <SourceName>MeSH</SourceName>
-    <SourceID>DescTree</SourceID>
-    <Name>MeSH Tree</Name>
-    <Description>MeSH (Medical Subject Headings) is the NLM controlled vocabulary thesaurus used for indexing articles for PubMed.</Description>
-    <URL>http://www.nlm.nih.gov/mesh/meshhome.html</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>9</ReferenceNumber>
-    <SourceName>ChEBI</SourceName>
-    <SourceID>OBO</SourceID>
-    <Name>ChEBI Ontology</Name>
-    <Description>The ChEBI Ontology is a structured classification of the entities contained within ChEBI.</Description>
-    <URL>http://www.ebi.ac.uk/chebi/userManualForward.do#ChEBI%20Ontology</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>10</ReferenceNumber>
-    <SourceName>WIPO</SourceName>
-    <SourceID>IPC</SourceID>
-    <Name>International Patent Classification 2014</Name>
-    <Description>The World Intellectual Property Organization (WIPO) International Patent Classification (IPC), established by the Strasbourg Agreement 1971, provides for a hierarchical system of language independent symbols for the classification of patents and utility models according to the different areas of technology to which they pertain.</Description>
-    <URL>http://www.wipo.int/classifications/ipc/</URL>
-  </Reference>
-  <Reference>
-    <ReferenceNumber>11</ReferenceNumber>
-    <SourceName>NCBI</SourceName>
-    <SourceID>LinkOut</SourceID>
-    <Description>LinkOut is a service that allows one to link directly from NCBI databases to a wide range of information and services beyond NCBI systems.</Description>
-    <URL>http://www.ncbi.nlm.nih.gov/projects/linkout</URL>
-  </Reference>
-</Record>
-
+<PC-Compound>
+  <PC-Compound_id>
+    <PC-CompoundType>
+      <PC-CompoundType_id>
+        <PC-CompoundType_id_cid>65124</PC-CompoundType_id_cid>
+      </PC-CompoundType_id>
+    </PC-CompoundType>
+  </PC-Compound_id>
+  <PC-Compound_atoms>
+    <PC-Atoms>
+      <PC-Atoms_aid>
+        <PC-Atoms_aid_E>1</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>2</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>3</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>4</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>5</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>6</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>7</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>8</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>9</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>10</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>11</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>12</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>13</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>14</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>15</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>16</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>17</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>18</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>19</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>20</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>21</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>22</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>23</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>24</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>25</PC-Atoms_aid_E>
+        <PC-Atoms_aid_E>26</PC-Atoms_aid_E>
+      </PC-Atoms_aid>
+      <PC-Atoms_element>
+        <PC-Element value="o">8</PC-Element>
+        <PC-Element value="o">8</PC-Element>
+        <PC-Element value="o">8</PC-Element>
+        <PC-Element value="o">8</PC-Element>
+        <PC-Element value="o">8</PC-Element>
+        <PC-Element value="n">7</PC-Element>
+        <PC-Element value="n">7</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="c">6</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+        <PC-Element value="h">1</PC-Element>
+      </PC-Atoms_element>
+      <PC-Atoms_charge>
+        <PC-AtomInt>
+          <PC-AtomInt_aid>4</PC-AtomInt_aid>
+          <PC-AtomInt_value>-1</PC-AtomInt_value>
+        </PC-AtomInt>
+        <PC-AtomInt>
+          <PC-AtomInt_aid>7</PC-AtomInt_aid>
+          <PC-AtomInt_value>1</PC-AtomInt_value>
+        </PC-AtomInt>
+      </PC-Atoms_charge>
+    </PC-Atoms>
+  </PC-Compound_atoms>
+  <PC-Compound_bonds>
+    <PC-Bonds>
+      <PC-Bonds_aid1>
+        <PC-Bonds_aid1_E>1</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>1</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>2</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>2</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>3</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>4</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>5</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>6</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>6</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>6</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>7</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>8</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>8</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>8</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>8</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>9</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>9</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>10</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>10</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>11</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>11</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>12</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>12</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>13</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>14</PC-Bonds_aid1_E>
+        <PC-Bonds_aid1_E>14</PC-Bonds_aid1_E>
+      </PC-Bonds_aid1>
+      <PC-Bonds_aid2>
+        <PC-Bonds_aid2_E>15</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>25</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>16</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>26</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>16</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>7</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>7</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>9</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>23</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>24</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>13</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>9</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>10</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>17</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>18</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>16</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>19</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>11</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>12</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>13</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>20</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>14</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>21</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>15</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>15</PC-Bonds_aid2_E>
+        <PC-Bonds_aid2_E>22</PC-Bonds_aid2_E>
+      </PC-Bonds_aid2>
+      <PC-Bonds_order>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="double">2</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="double">2</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="double">2</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="double">2</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="double">2</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+        <PC-BondType value="single">1</PC-BondType>
+      </PC-Bonds_order>
+    </PC-Bonds>
+  </PC-Compound_bonds>
+  <PC-Compound_stereo>
+    <PC-StereoCenter>
+      <PC-StereoCenter_tetrahedral>
+        <PC-StereoTetrahedral>
+          <PC-StereoTetrahedral_center>9</PC-StereoTetrahedral_center>
+          <PC-StereoTetrahedral_above>6</PC-StereoTetrahedral_above>
+          <PC-StereoTetrahedral_top>8</PC-StereoTetrahedral_top>
+          <PC-StereoTetrahedral_bottom>16</PC-StereoTetrahedral_bottom>
+          <PC-StereoTetrahedral_below>19</PC-StereoTetrahedral_below>
+          <PC-StereoTetrahedral_parity value="clockwise">1</PC-StereoTetrahedral_parity>
+          <PC-StereoTetrahedral_type value="tetrahedral">1</PC-StereoTetrahedral_type>
+        </PC-StereoTetrahedral>
+      </PC-StereoCenter_tetrahedral>
+    </PC-StereoCenter>
+  </PC-Compound_stereo>
+  <PC-Compound_coords>
+    <PC-Coordinates>
+      <PC-Coordinates_type>
+        <PC-CoordinateType value="twod">1</PC-CoordinateType>
+        <PC-CoordinateType value="computed">5</PC-CoordinateType>
+        <PC-CoordinateType value="units-unknown">255</PC-CoordinateType>
+      </PC-Coordinates_type>
+      <PC-Coordinates_aid>
+        <PC-Coordinates_aid_E>1</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>2</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>3</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>4</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>5</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>6</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>7</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>8</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>9</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>10</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>11</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>12</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>13</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>14</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>15</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>16</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>17</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>18</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>19</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>20</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>21</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>22</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>23</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>24</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>25</PC-Coordinates_aid_E>
+        <PC-Coordinates_aid_E>26</PC-Coordinates_aid_E>
+      </PC-Coordinates_aid>
+      <PC-Coordinates_conformers>
+        <PC-Conformer>
+          <PC-Conformer_x>
+            <PC-Conformer_x_E>2.5369</PC-Conformer_x_E>
+            <PC-Conformer_x_E>6.8671</PC-Conformer_x_E>
+            <PC-Conformer_x_E>7.7331</PC-Conformer_x_E>
+            <PC-Conformer_x_E>5.135</PC-Conformer_x_E>
+            <PC-Conformer_x_E>3.403</PC-Conformer_x_E>
+            <PC-Conformer_x_E>5.135</PC-Conformer_x_E>
+            <PC-Conformer_x_E>4.269</PC-Conformer_x_E>
+            <PC-Conformer_x_E>6.001</PC-Conformer_x_E>
+            <PC-Conformer_x_E>6.001</PC-Conformer_x_E>
+            <PC-Conformer_x_E>5.135</PC-Conformer_x_E>
+            <PC-Conformer_x_E>5.135</PC-Conformer_x_E>
+            <PC-Conformer_x_E>4.269</PC-Conformer_x_E>
+            <PC-Conformer_x_E>4.269</PC-Conformer_x_E>
+            <PC-Conformer_x_E>3.403</PC-Conformer_x_E>
+            <PC-Conformer_x_E>3.403</PC-Conformer_x_E>
+            <PC-Conformer_x_E>6.8671</PC-Conformer_x_E>
+            <PC-Conformer_x_E>6.6116</PC-Conformer_x_E>
+            <PC-Conformer_x_E>6.2131</PC-Conformer_x_E>
+            <PC-Conformer_x_E>5.4641</PC-Conformer_x_E>
+            <PC-Conformer_x_E>5.672</PC-Conformer_x_E>
+            <PC-Conformer_x_E>4.269</PC-Conformer_x_E>
+            <PC-Conformer_x_E>2.866</PC-Conformer_x_E>
+            <PC-Conformer_x_E>5.135</PC-Conformer_x_E>
+            <PC-Conformer_x_E>4.5981</PC-Conformer_x_E>
+            <PC-Conformer_x_E>2</PC-Conformer_x_E>
+            <PC-Conformer_x_E>7.404</PC-Conformer_x_E>
+          </PC-Conformer_x>
+          <PC-Conformer_y>
+            <PC-Conformer_y_E>1.655</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-2.845</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-1.345</PC-Conformer_y_E>
+            <PC-Conformer_y_E>3.155</PC-Conformer_y_E>
+            <PC-Conformer_y_E>3.155</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-1.845</PC-Conformer_y_E>
+            <PC-Conformer_y_E>2.655</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-0.345</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-1.345</PC-Conformer_y_E>
+            <PC-Conformer_y_E>0.155</PC-Conformer_y_E>
+            <PC-Conformer_y_E>1.155</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-0.345</PC-Conformer_y_E>
+            <PC-Conformer_y_E>1.655</PC-Conformer_y_E>
+            <PC-Conformer_y_E>0.155</PC-Conformer_y_E>
+            <PC-Conformer_y_E>1.155</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-1.845</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-0.4527</PC-Conformer_y_E>
+            <PC-Conformer_y_E>0.2376</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-1.035</PC-Conformer_y_E>
+            <PC-Conformer_y_E>1.465</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-0.965</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-0.155</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-2.465</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-1.535</PC-Conformer_y_E>
+            <PC-Conformer_y_E>1.345</PC-Conformer_y_E>
+            <PC-Conformer_y_E>-3.155</PC-Conformer_y_E>
+          </PC-Conformer_y>
+          <PC-Conformer_style>
+            <PC-DrawAnnotations>
+              <PC-DrawAnnotations_annotation>
+                <PC-BondAnnotation value="wedge-up">5</PC-BondAnnotation>
+                <PC-BondAnnotation value="aromatic">8</PC-BondAnnotation>
+                <PC-BondAnnotation value="aromatic">8</PC-BondAnnotation>
+                <PC-BondAnnotation value="aromatic">8</PC-BondAnnotation>
+                <PC-BondAnnotation value="aromatic">8</PC-BondAnnotation>
+                <PC-BondAnnotation value="aromatic">8</PC-BondAnnotation>
+                <PC-BondAnnotation value="aromatic">8</PC-BondAnnotation>
+              </PC-DrawAnnotations_annotation>
+              <PC-DrawAnnotations_aid1>
+                <PC-DrawAnnotations_aid1_E>9</PC-DrawAnnotations_aid1_E>
+                <PC-DrawAnnotations_aid1_E>10</PC-DrawAnnotations_aid1_E>
+                <PC-DrawAnnotations_aid1_E>10</PC-DrawAnnotations_aid1_E>
+                <PC-DrawAnnotations_aid1_E>11</PC-DrawAnnotations_aid1_E>
+                <PC-DrawAnnotations_aid1_E>12</PC-DrawAnnotations_aid1_E>
+                <PC-DrawAnnotations_aid1_E>13</PC-DrawAnnotations_aid1_E>
+                <PC-DrawAnnotations_aid1_E>14</PC-DrawAnnotations_aid1_E>
+              </PC-DrawAnnotations_aid1>
+              <PC-DrawAnnotations_aid2>
+                <PC-DrawAnnotations_aid2_E>6</PC-DrawAnnotations_aid2_E>
+                <PC-DrawAnnotations_aid2_E>11</PC-DrawAnnotations_aid2_E>
+                <PC-DrawAnnotations_aid2_E>12</PC-DrawAnnotations_aid2_E>
+                <PC-DrawAnnotations_aid2_E>13</PC-DrawAnnotations_aid2_E>
+                <PC-DrawAnnotations_aid2_E>14</PC-DrawAnnotations_aid2_E>
+                <PC-DrawAnnotations_aid2_E>15</PC-DrawAnnotations_aid2_E>
+                <PC-DrawAnnotations_aid2_E>15</PC-DrawAnnotations_aid2_E>
+              </PC-DrawAnnotations_aid2>
+            </PC-DrawAnnotations>
+          </PC-Conformer_style>
+        </PC-Conformer>
+      </PC-Coordinates_conformers>
+    </PC-Coordinates>
+  </PC-Compound_coords>
+  <PC-Compound_charge>0</PC-Compound_charge>
+  <PC-Compound_props>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Compound</PC-Urn_label>
+          <PC-Urn_name>Canonicalized</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="uint">5</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_ival>0</PC-InfoData_value_ival>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Compound Complexity</PC-Urn_label>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="double">7</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_implementation>E_COMPLEXITY</PC-Urn_implementation>
+          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_software>Cactvs</PC-Urn_software>
+          <PC-Urn_source>xemistry.com</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_fval>278</PC-InfoData_value_fval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Count</PC-Urn_label>
+          <PC-Urn_name>Hydrogen Bond Acceptor</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="uint">5</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_implementation>E_NHACCEPTORS</PC-Urn_implementation>
+          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_software>Cactvs</PC-Urn_software>
+          <PC-Urn_source>xemistry.com</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_ival>6</PC-InfoData_value_ival>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Count</PC-Urn_label>
+          <PC-Urn_name>Hydrogen Bond Donor</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="uint">5</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_implementation>E_NHDONORS</PC-Urn_implementation>
+          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_software>Cactvs</PC-Urn_software>
+          <PC-Urn_source>xemistry.com</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_ival>3</PC-InfoData_value_ival>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Count</PC-Urn_label>
+          <PC-Urn_name>Rotatable Bond</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="uint">5</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_implementation>E_NROTBONDS</PC-Urn_implementation>
+          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_software>Cactvs</PC-Urn_software>
+          <PC-Urn_source>xemistry.com</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_ival>3</PC-InfoData_value_ival>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Fingerprint</PC-Urn_label>
+          <PC-Urn_name>SubStructure Keys</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="fingerprint">16</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_parameters>extended 2</PC-Urn_parameters>
+          <PC-Urn_implementation>E_SCREEN</PC-Urn_implementation>
+          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_software>Cactvs</PC-Urn_software>
+          <PC-Urn_source>xemistry.com</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_binary>00000371C0733800000000000000000000000000000000000000300000000000000000010000001E00140800000C2CC1980430CE80504200890224D24B00820000202200288881876C8A0A263292919380700064D05108D80798C8A08E20000040000010004000008000002000000000000000</PC-InfoData_value_binary>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>InChI</PC-Urn_label>
+          <PC-Urn_name>Standard</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="string">1</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>1.0.4</PC-Urn_version>
+          <PC-Urn_software>InChI</PC-Urn_software>
+          <PC-Urn_source>iupac.org</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_sval>InChI=1S/C9H10N2O5/c10-6(9(13)14)3-5-1-2-8(12)7(4-5)11(15)16/h1-2,4,6,12H,3,10H2,(H,13,14)/t6-/m0/s1</PC-InfoData_value_sval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>InChIKey</PC-Urn_label>
+          <PC-Urn_name>Standard</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="string">1</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>1.0.4</PC-Urn_version>
+          <PC-Urn_software>InChI</PC-Urn_software>
+          <PC-Urn_source>iupac.org</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_sval>FBTSQILOGYXGMD-LURJTMIESA-N</PC-InfoData_value_sval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Log P</PC-Urn_label>
+          <PC-Urn_name>XLogP3</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="double">7</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>3.0</PC-Urn_version>
+          <PC-Urn_source>sioc-ccbg.ac.cn</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_fval>-2</PC-InfoData_value_fval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Mass</PC-Urn_label>
+          <PC-Urn_name>Exact</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="double">7</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>2.1</PC-Urn_version>
+          <PC-Urn_software>PubChem</PC-Urn_software>
+          <PC-Urn_source>ncbi.nlm.nih.gov</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_fval>226.058971</PC-InfoData_value_fval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Molecular Formula</PC-Urn_label>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="string">1</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>2.1</PC-Urn_version>
+          <PC-Urn_software>PubChem</PC-Urn_software>
+          <PC-Urn_source>ncbi.nlm.nih.gov</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_sval>C9H10N2O5</PC-InfoData_value_sval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Molecular Weight</PC-Urn_label>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="double">7</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>2.1</PC-Urn_version>
+          <PC-Urn_software>PubChem</PC-Urn_software>
+          <PC-Urn_source>ncbi.nlm.nih.gov</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_fval>226.1861</PC-InfoData_value_fval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>SMILES</PC-Urn_label>
+          <PC-Urn_name>Canonical</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="string">1</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>1.9.0</PC-Urn_version>
+          <PC-Urn_software>OEChem</PC-Urn_software>
+          <PC-Urn_source>openeye.com</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_sval>C1=CC(=C(C=C1CC(C(=O)O)N)[N+](=O)[O-])O</PC-InfoData_value_sval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>SMILES</PC-Urn_label>
+          <PC-Urn_name>Isomeric</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="string">1</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>1.9.0</PC-Urn_version>
+          <PC-Urn_software>OEChem</PC-Urn_software>
+          <PC-Urn_source>openeye.com</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_sval>C1=CC(=C(C=C1C[C@@H](C(=O)O)N)[N+](=O)[O-])O</PC-InfoData_value_sval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Topological</PC-Urn_label>
+          <PC-Urn_name>Polar Surface Area</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="double">7</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_implementation>E_TPSA</PC-Urn_implementation>
+          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_software>Cactvs</PC-Urn_software>
+          <PC-Urn_source>xemistry.com</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_fval>129</PC-InfoData_value_fval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+    <PC-InfoData>
+      <PC-InfoData_urn>
+        <PC-Urn>
+          <PC-Urn_label>Weight</PC-Urn_label>
+          <PC-Urn_name>MonoIsotopic</PC-Urn_name>
+          <PC-Urn_datatype>
+            <PC-UrnDataType value="double">7</PC-UrnDataType>
+          </PC-Urn_datatype>
+          <PC-Urn_version>2.1</PC-Urn_version>
+          <PC-Urn_software>PubChem</PC-Urn_software>
+          <PC-Urn_source>ncbi.nlm.nih.gov</PC-Urn_source>
+          <PC-Urn_release>2012.11.26</PC-Urn_release>
+        </PC-Urn>
+      </PC-InfoData_urn>
+      <PC-InfoData_value>
+        <PC-InfoData_value_fval>226.058971</PC-InfoData_value_fval>
+      </PC-InfoData_value>
+    </PC-InfoData>
+  </PC-Compound_props>
+  <PC-Compound_count>
+    <PC-Count>
+      <PC-Count_heavy-atom>16</PC-Count_heavy-atom>
+      <PC-Count_atom-chiral>1</PC-Count_atom-chiral>
+      <PC-Count_atom-chiral-def>1</PC-Count_atom-chiral-def>
+      <PC-Count_atom-chiral-undef>0</PC-Count_atom-chiral-undef>
+      <PC-Count_bond-chiral>0</PC-Count_bond-chiral>
+      <PC-Count_bond-chiral-def>0</PC-Count_bond-chiral-def>
+      <PC-Count_bond-chiral-undef>0</PC-Count_bond-chiral-undef>
+      <PC-Count_isotope-atom>0</PC-Count_isotope-atom>
+      <PC-Count_covalent-unit>1</PC-Count_covalent-unit>
+      <PC-Count_tautomers>5</PC-Count_tautomers>
+    </PC-Count>
+  </PC-Compound_count>
+</PC-Compound>

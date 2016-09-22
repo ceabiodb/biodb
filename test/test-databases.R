@@ -167,16 +167,16 @@ online.test.hmdb <- function() {
 	test.entries(BIODB.HMDB, online = TRUE)
 }
 
-###########
-# PUBCHEM #
-###########
+####################
+# PUBCHEM COMPOUND #
+####################
 
-offline.test.pubchem <- function() {
-	test.entries(BIODB.PUBCHEM, online = FALSE)
+offline.test.pubchemcomp <- function() {
+	test.entries(BIODB.PUBCHEMCOMP, online = FALSE)
 }
 
-online.test.pubchem <- function() {
-	test.entries(BIODB.PUBCHEM, online = TRUE)
+online.test.pubchemcomp <- function() {
+	test.entries(BIODB.PUBCHEMCOMP, online = TRUE)
 }
 
 #########

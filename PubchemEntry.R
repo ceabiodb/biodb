@@ -73,11 +73,11 @@ if ( ! exists('PubchemEntry')) { # Do not load again if already loaded
 		# Define xpath expressions
 		xpath.expr <- character()
 		xpath.expr[[BIODB.ACCESSION]] <- "//PC-CompoundType_id_cid"
-		xpath.expr[[BIODB.INCHI]] <- "//PC-Urn_label[text()='InChI']/../..//PC-InfoData_value_sval"
-		xpath.expr[[BIODB.INCHIKEY]] <- "//PC-Urn_label[text()='InChIKey']/../..//PC-InfoData_value_sval"
-		xpath.expr[[BIODB.FORMULA]] <- "//PC-Urn_label[text()='Molecular Formula']/../..//PC-InfoData_value_sval"
-		xpath.expr[[BIODB.MASS]] <- "//PC-Urn_label[text()='Mass']/../..//PC-InfoData_value_fval"
-		xpath.expr[[BIODB.NAME]] <- "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Systematic']/../..//PC-InfoData_value_sval"
+		xpath.expr[[BIODB.INCHI]] <- "//PC-Urn_label[text()='InChI']/../../..//PC-InfoData_value_sval"
+		xpath.expr[[BIODB.INCHIKEY]] <- "//PC-Urn_label[text()='InChIKey']/../../..//PC-InfoData_value_sval"
+		xpath.expr[[BIODB.FORMULA]] <- "//PC-Urn_label[text()='Molecular Formula']/../../..//PC-InfoData_value_sval"
+		xpath.expr[[BIODB.MASS]] <- "//PC-Urn_label[text()='Mass']/../../..//PC-InfoData_value_fval"
+		xpath.expr[[BIODB.COMP.IUPAC.NAME.SYST]] <- "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Systematic']/../../..//PC-InfoData_value_sval"
 
 		for (content in contents) {
 

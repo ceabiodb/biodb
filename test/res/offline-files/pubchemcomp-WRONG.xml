@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Fault
-    xmlns="http://pubchem.ncbi.nlm.nih.gov/pug_view"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
-    xs:schemaLocation="http://pubchem.ncbi.nlm.nih.gov/pug_view http://pubchem.ncbi.nlm.nih.gov/pug_view/pug_view.xsd"
->
-  <Code>PUGVIEW.BadRequest</Code>
-  <Message>Invalid record number</Message>
-</Fault>
-
+NA
