@@ -36,7 +36,7 @@ if ( ! exists('NcbiccdsConn')) { # Do not load again if already loaded
 		content <- rep(NA_character_, length(id))
 
 		# Request
-		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBICCDS, x)), FUN.VALUE = '')
+		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBICCDS, x, content.type = BIODB.HTML)), FUN.VALUE = '')
 
 		return(content)
 	})
