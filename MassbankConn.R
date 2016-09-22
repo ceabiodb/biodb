@@ -69,7 +69,8 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
 				ns <- c(ax21 = "http://api.massbank/xsd")
 				returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
-				content[match(returned.ids, ids)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
+				if (length(returned.ids) > 0)
+					content[match(returned.ids, ids)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
 			}
 
 			# Debug
