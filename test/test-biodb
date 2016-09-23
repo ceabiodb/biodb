@@ -28,7 +28,8 @@ read.args <- function() {
     'quick',        'q', 0, 'logical',      'Turn off long tests. Disabled by default.',
     'offline',      'f', 0, 'logical',      'Turn off online tests. Disabled by default.',
     'online',       'o', 0, 'logical',      'Turn off offline tests. Disabled by default.',
-    'databases',    'd', 1, 'character',    'Set a restricted list of databases to test. The list must be specified as a comma separated list, no spaces. If unset, test all databases.'
+    'databases',    'd', 1, 'character',    'Set a restricted list of databases to test. The list must be specified as a comma separated list, no spaces. If unset, test all databases.',
+    'debug',        'g', 0, 'logical',      'Turn on debug messages. Disabled by default.'
   ), byrow = TRUE, ncol = 5)
    
   opt <- getopt(spec)
@@ -72,7 +73,7 @@ test.entries <- function(db, online = TRUE) {
 	factory <- BiodbFactory$new(useragent = USER.AGENT,
 								cache.dir = file.path(dirname(script.path), if (online) 'cache' else file.path('res', 'offline-files')),
 								cache.mode = if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY,
-								debug = TRUE,
+								debug = ! is.null(opt[['debug']]),
 								use.env.var = TRUE
 								)
 
