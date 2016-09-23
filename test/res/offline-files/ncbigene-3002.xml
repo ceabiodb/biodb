@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
@@ -22,11 +22,8 @@
           <Date_std>
             <Date-std>
               <Date-std_year>2016</Date-std_year>
-              <Date-std_month>3</Date-std_month>
-              <Date-std_day>17</Date-std_day>
-              <Date-std_hour>16</Date-std_hour>
-              <Date-std_minute>41</Date-std_minute>
-              <Date-std_second>1</Date-std_second>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>21</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -53,6 +50,7 @@
             </Dbtag>
           </Org-ref_db>
           <Org-ref_syn>
+            <Org-ref_syn_E>humans</Org-ref_syn_E>
             <Org-ref_syn_E>man</Org-ref_syn_E>
           </Org-ref_syn>
           <Org-ref_orgname>
@@ -129,6 +127,7 @@
         </Dbtag>
       </Gene-ref_db>
       <Gene-ref_syn>
+        <Gene-ref_syn_E>C11</Gene-ref_syn_E>
         <Gene-ref_syn_E>HLP</Gene-ref_syn_E>
         <Gene-ref_syn_E>CCPI</Gene-ref_syn_E>
         <Gene-ref_syn_E>CGL1</Gene-ref_syn_E>
@@ -144,23 +143,18 @@
   <Entrezgene_prot>
     <Prot-ref>
       <Prot-ref_name>
-        <Prot-ref_name_E>C11</Prot-ref_name_E>
-        <Prot-ref_name_E>CTLA-1</Prot-ref_name_E>
         <Prot-ref_name_E>T-cell serine protease 1-3E</Prot-ref_name_E>
         <Prot-ref_name_E>cathepsin G-like 1</Prot-ref_name_E>
         <Prot-ref_name_E>cytotoxic T-lymphocyte proteinase 2</Prot-ref_name_E>
-        <Prot-ref_name_E>cytotoxic T-lymphocyte-associated serine esterase 1</Prot-ref_name_E>
         <Prot-ref_name_E>cytotoxic serine protease B</Prot-ref_name_E>
         <Prot-ref_name_E>fragmentin 2</Prot-ref_name_E>
-        <Prot-ref_name_E>fragmentin-2</Prot-ref_name_E>
-        <Prot-ref_name_E>granzyme 2</Prot-ref_name_E>
         <Prot-ref_name_E>granzyme B (granzyme 2, cytotoxic T-lymphocyte-associated serine esterase 1)</Prot-ref_name_E>
         <Prot-ref_name_E>human lymphocyte protein</Prot-ref_name_E>
       </Prot-ref_name>
       <Prot-ref_desc>granzyme B</Prot-ref_desc>
     </Prot-ref>
   </Entrezgene_prot>
-  <Entrezgene_summary>Cytolytic T lymphocytes (CTL) and natural killer (NK) cells share the remarkable ability to recognize, bind, and lyse specific target cells. They are thought to protect their host by lysing cells bearing on their surface &apos;nonself&apos; antigens, usually peptides or proteins resulting from infection by intracellular pathogens. The protein encoded by this gene is crucial for the rapid induction of target cell apoptosis by CTL in cell-mediated immune response. [provided by RefSeq, Jul 2008]</Entrezgene_summary>
+  <Entrezgene_summary>This gene encodes a member of the granzyme subfamily of proteins, part of the peptidase S1 family of serine proteases. The encoded preproprotein is secreted by natural killer (NK) cells and cytotoxic T lymphocytes (CTLs) and proteolytically processed to generate the active protease, which induces target cell apoptosis. This protein also processes cytokines and degrades extracellular matrix proteins, and these roles are implicated in chronic inflammation and wound healing. Expression of this gene may be elevated in human patients with cardiac fibrosis. [provided by RefSeq, Sep 2016]</Entrezgene_summary>
   <Entrezgene_location>
     <Maps>
       <Maps_display-str>14q11.2</Maps_display-str>
@@ -179,15 +173,15 @@
   <Entrezgene_locus>
     <Gene-commentary>
       <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-      <Gene-commentary_heading>Reference GRCh38.p2 Primary Assembly</Gene-commentary_heading>
-      <Gene-commentary_label>Chromosome 14 Reference GRCh38.p2 Primary Assembly</Gene-commentary_label>
+      <Gene-commentary_heading>Reference GRCh38.p7 Primary Assembly</Gene-commentary_heading>
+      <Gene-commentary_label>Chromosome 14 Reference GRCh38.p7 Primary Assembly</Gene-commentary_label>
       <Gene-commentary_accession>NC_000014</Gene-commentary_accession>
       <Gene-commentary_version>9</Gene-commentary_version>
       <Gene-commentary_seqs>
         <Seq-loc>
           <Seq-loc_int>
             <Seq-interval>
-              <Seq-interval_from>24630947</Seq-interval_from>
+              <Seq-interval_from>24630953</Seq-interval_from>
               <Seq-interval_to>24634225</Seq-interval_to>
               <Seq-interval_strand>
                 <Na-strand value="minus"/>
@@ -202,216 +196,6 @@
         </Seq-loc>
       </Gene-commentary_seqs>
       <Gene-commentary_products>
-        <Gene-commentary>
-          <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
-          <Gene-commentary_heading>Reference</Gene-commentary_heading>
-          <Gene-commentary_label>transcript variant X1</Gene-commentary_label>
-          <Gene-commentary_accession>XM_011536685</Gene-commentary_accession>
-          <Gene-commentary_version>1</Gene-commentary_version>
-          <Gene-commentary_genomic-coords>
-            <Seq-loc>
-              <Seq-loc_mix>
-                <Seq-loc-mix>
-                  <Seq-loc>
-                    <Seq-loc_int>
-                      <Seq-interval>
-                        <Seq-interval_from>24634105</Seq-interval_from>
-                        <Seq-interval_to>24634198</Seq-interval_to>
-                        <Seq-interval_strand>
-                          <Na-strand value="minus"/>
-                        </Seq-interval_strand>
-                        <Seq-interval_id>
-                          <Seq-id>
-                            <Seq-id_gi>568815584</Seq-id_gi>
-                          </Seq-id>
-                        </Seq-interval_id>
-                      </Seq-interval>
-                    </Seq-loc_int>
-                  </Seq-loc>
-                  <Seq-loc>
-                    <Seq-loc_int>
-                      <Seq-interval>
-                        <Seq-interval_from>24632914</Seq-interval_from>
-                        <Seq-interval_to>24633074</Seq-interval_to>
-                        <Seq-interval_strand>
-                          <Na-strand value="minus"/>
-                        </Seq-interval_strand>
-                        <Seq-interval_id>
-                          <Seq-id>
-                            <Seq-id_gi>568815584</Seq-id_gi>
-                          </Seq-id>
-                        </Seq-interval_id>
-                      </Seq-interval>
-                    </Seq-loc_int>
-                  </Seq-loc>
-                  <Seq-loc>
-                    <Seq-loc_int>
-                      <Seq-interval>
-                        <Seq-interval_from>24632323</Seq-interval_from>
-                        <Seq-interval_to>24632458</Seq-interval_to>
-                        <Seq-interval_strand>
-                          <Na-strand value="minus"/>
-                        </Seq-interval_strand>
-                        <Seq-interval_id>
-                          <Seq-id>
-                            <Seq-id_gi>568815584</Seq-id_gi>
-                          </Seq-id>
-                        </Seq-interval_id>
-                      </Seq-interval>
-                    </Seq-loc_int>
-                  </Seq-loc>
-                  <Seq-loc>
-                    <Seq-loc_int>
-                      <Seq-interval>
-                        <Seq-interval_from>24631857</Seq-interval_from>
-                        <Seq-interval_to>24632117</Seq-interval_to>
-                        <Seq-interval_strand>
-                          <Na-strand value="minus"/>
-                        </Seq-interval_strand>
-                        <Seq-interval_id>
-                          <Seq-id>
-                            <Seq-id_gi>568815584</Seq-id_gi>
-                          </Seq-id>
-                        </Seq-interval_id>
-                      </Seq-interval>
-                    </Seq-loc_int>
-                  </Seq-loc>
-                  <Seq-loc>
-                    <Seq-loc_int>
-                      <Seq-interval>
-                        <Seq-interval_from>24630947</Seq-interval_from>
-                        <Seq-interval_to>24631213</Seq-interval_to>
-                        <Seq-interval_strand>
-                          <Na-strand value="minus"/>
-                        </Seq-interval_strand>
-                        <Seq-interval_id>
-                          <Seq-id>
-                            <Seq-id_gi>568815584</Seq-id_gi>
-                          </Seq-id>
-                        </Seq-interval_id>
-                      </Seq-interval>
-                    </Seq-loc_int>
-                  </Seq-loc>
-                </Seq-loc-mix>
-              </Seq-loc_mix>
-            </Seq-loc>
-          </Gene-commentary_genomic-coords>
-          <Gene-commentary_seqs>
-            <Seq-loc>
-              <Seq-loc_whole>
-                <Seq-id>
-                  <Seq-id_gi>767980374</Seq-id_gi>
-                </Seq-id>
-              </Seq-loc_whole>
-            </Seq-loc>
-          </Gene-commentary_seqs>
-          <Gene-commentary_products>
-            <Gene-commentary>
-              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
-              <Gene-commentary_heading>Reference</Gene-commentary_heading>
-              <Gene-commentary_label>isoform X1</Gene-commentary_label>
-              <Gene-commentary_accession>XP_011534987</Gene-commentary_accession>
-              <Gene-commentary_version>1</Gene-commentary_version>
-              <Gene-commentary_genomic-coords>
-                <Seq-loc>
-                  <Seq-loc_mix>
-                    <Seq-loc-mix>
-                      <Seq-loc>
-                        <Seq-loc_int>
-                          <Seq-interval>
-                            <Seq-interval_from>24634105</Seq-interval_from>
-                            <Seq-interval_to>24634110</Seq-interval_to>
-                            <Seq-interval_strand>
-                              <Na-strand value="minus"/>
-                            </Seq-interval_strand>
-                            <Seq-interval_id>
-                              <Seq-id>
-                                <Seq-id_gi>568815584</Seq-id_gi>
-                              </Seq-id>
-                            </Seq-interval_id>
-                          </Seq-interval>
-                        </Seq-loc_int>
-                      </Seq-loc>
-                      <Seq-loc>
-                        <Seq-loc_int>
-                          <Seq-interval>
-                            <Seq-interval_from>24632914</Seq-interval_from>
-                            <Seq-interval_to>24633074</Seq-interval_to>
-                            <Seq-interval_strand>
-                              <Na-strand value="minus"/>
-                            </Seq-interval_strand>
-                            <Seq-interval_id>
-                              <Seq-id>
-                                <Seq-id_gi>568815584</Seq-id_gi>
-                              </Seq-id>
-                            </Seq-interval_id>
-                          </Seq-interval>
-                        </Seq-loc_int>
-                      </Seq-loc>
-                      <Seq-loc>
-                        <Seq-loc_int>
-                          <Seq-interval>
-                            <Seq-interval_from>24632323</Seq-interval_from>
-                            <Seq-interval_to>24632458</Seq-interval_to>
-                            <Seq-interval_strand>
-                              <Na-strand value="minus"/>
-                            </Seq-interval_strand>
-                            <Seq-interval_id>
-                              <Seq-id>
-                                <Seq-id_gi>568815584</Seq-id_gi>
-                              </Seq-id>
-                            </Seq-interval_id>
-                          </Seq-interval>
-                        </Seq-loc_int>
-                      </Seq-loc>
-                      <Seq-loc>
-                        <Seq-loc_int>
-                          <Seq-interval>
-                            <Seq-interval_from>24631857</Seq-interval_from>
-                            <Seq-interval_to>24632117</Seq-interval_to>
-                            <Seq-interval_strand>
-                              <Na-strand value="minus"/>
-                            </Seq-interval_strand>
-                            <Seq-interval_id>
-                              <Seq-id>
-                                <Seq-id_gi>568815584</Seq-id_gi>
-                              </Seq-id>
-                            </Seq-interval_id>
-                          </Seq-interval>
-                        </Seq-loc_int>
-                      </Seq-loc>
-                      <Seq-loc>
-                        <Seq-loc_int>
-                          <Seq-interval>
-                            <Seq-interval_from>24631070</Seq-interval_from>
-                            <Seq-interval_to>24631213</Seq-interval_to>
-                            <Seq-interval_strand>
-                              <Na-strand value="minus"/>
-                            </Seq-interval_strand>
-                            <Seq-interval_id>
-                              <Seq-id>
-                                <Seq-id_gi>568815584</Seq-id_gi>
-                              </Seq-id>
-                            </Seq-interval_id>
-                          </Seq-interval>
-                        </Seq-loc_int>
-                      </Seq-loc>
-                    </Seq-loc-mix>
-                  </Seq-loc_mix>
-                </Seq-loc>
-              </Gene-commentary_genomic-coords>
-              <Gene-commentary_seqs>
-                <Seq-loc>
-                  <Seq-loc_whole>
-                    <Seq-id>
-                      <Seq-id_gi>767980375</Seq-id_gi>
-                    </Seq-id>
-                  </Seq-loc_whole>
-                </Seq-loc>
-              </Gene-commentary_seqs>
-            </Gene-commentary>
-          </Gene-commentary_products>
-        </Gene-commentary>
         <Gene-commentary>
           <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
           <Gene-commentary_heading>Reference</Gene-commentary_heading>
@@ -649,6 +433,216 @@
             </Gene-commentary>
           </Gene-commentary_products>
         </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
+          <Gene-commentary_heading>Reference</Gene-commentary_heading>
+          <Gene-commentary_label>transcript variant X1</Gene-commentary_label>
+          <Gene-commentary_accession>XM_011536685</Gene-commentary_accession>
+          <Gene-commentary_version>2</Gene-commentary_version>
+          <Gene-commentary_genomic-coords>
+            <Seq-loc>
+              <Seq-loc_mix>
+                <Seq-loc-mix>
+                  <Seq-loc>
+                    <Seq-loc_int>
+                      <Seq-interval>
+                        <Seq-interval_from>24634105</Seq-interval_from>
+                        <Seq-interval_to>24634196</Seq-interval_to>
+                        <Seq-interval_strand>
+                          <Na-strand value="minus"/>
+                        </Seq-interval_strand>
+                        <Seq-interval_id>
+                          <Seq-id>
+                            <Seq-id_gi>568815584</Seq-id_gi>
+                          </Seq-id>
+                        </Seq-interval_id>
+                      </Seq-interval>
+                    </Seq-loc_int>
+                  </Seq-loc>
+                  <Seq-loc>
+                    <Seq-loc_int>
+                      <Seq-interval>
+                        <Seq-interval_from>24632914</Seq-interval_from>
+                        <Seq-interval_to>24633074</Seq-interval_to>
+                        <Seq-interval_strand>
+                          <Na-strand value="minus"/>
+                        </Seq-interval_strand>
+                        <Seq-interval_id>
+                          <Seq-id>
+                            <Seq-id_gi>568815584</Seq-id_gi>
+                          </Seq-id>
+                        </Seq-interval_id>
+                      </Seq-interval>
+                    </Seq-loc_int>
+                  </Seq-loc>
+                  <Seq-loc>
+                    <Seq-loc_int>
+                      <Seq-interval>
+                        <Seq-interval_from>24632323</Seq-interval_from>
+                        <Seq-interval_to>24632458</Seq-interval_to>
+                        <Seq-interval_strand>
+                          <Na-strand value="minus"/>
+                        </Seq-interval_strand>
+                        <Seq-interval_id>
+                          <Seq-id>
+                            <Seq-id_gi>568815584</Seq-id_gi>
+                          </Seq-id>
+                        </Seq-interval_id>
+                      </Seq-interval>
+                    </Seq-loc_int>
+                  </Seq-loc>
+                  <Seq-loc>
+                    <Seq-loc_int>
+                      <Seq-interval>
+                        <Seq-interval_from>24631857</Seq-interval_from>
+                        <Seq-interval_to>24632117</Seq-interval_to>
+                        <Seq-interval_strand>
+                          <Na-strand value="minus"/>
+                        </Seq-interval_strand>
+                        <Seq-interval_id>
+                          <Seq-id>
+                            <Seq-id_gi>568815584</Seq-id_gi>
+                          </Seq-id>
+                        </Seq-interval_id>
+                      </Seq-interval>
+                    </Seq-loc_int>
+                  </Seq-loc>
+                  <Seq-loc>
+                    <Seq-loc_int>
+                      <Seq-interval>
+                        <Seq-interval_from>24630953</Seq-interval_from>
+                        <Seq-interval_to>24631213</Seq-interval_to>
+                        <Seq-interval_strand>
+                          <Na-strand value="minus"/>
+                        </Seq-interval_strand>
+                        <Seq-interval_id>
+                          <Seq-id>
+                            <Seq-id_gi>568815584</Seq-id_gi>
+                          </Seq-id>
+                        </Seq-interval_id>
+                      </Seq-interval>
+                    </Seq-loc_int>
+                  </Seq-loc>
+                </Seq-loc-mix>
+              </Seq-loc_mix>
+            </Seq-loc>
+          </Gene-commentary_genomic-coords>
+          <Gene-commentary_seqs>
+            <Seq-loc>
+              <Seq-loc_whole>
+                <Seq-id>
+                  <Seq-id_gi>1034586917</Seq-id_gi>
+                </Seq-id>
+              </Seq-loc_whole>
+            </Seq-loc>
+          </Gene-commentary_seqs>
+          <Gene-commentary_products>
+            <Gene-commentary>
+              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+              <Gene-commentary_heading>Reference</Gene-commentary_heading>
+              <Gene-commentary_label>isoform X1</Gene-commentary_label>
+              <Gene-commentary_accession>XP_011534987</Gene-commentary_accession>
+              <Gene-commentary_version>1</Gene-commentary_version>
+              <Gene-commentary_genomic-coords>
+                <Seq-loc>
+                  <Seq-loc_mix>
+                    <Seq-loc-mix>
+                      <Seq-loc>
+                        <Seq-loc_int>
+                          <Seq-interval>
+                            <Seq-interval_from>24634105</Seq-interval_from>
+                            <Seq-interval_to>24634110</Seq-interval_to>
+                            <Seq-interval_strand>
+                              <Na-strand value="minus"/>
+                            </Seq-interval_strand>
+                            <Seq-interval_id>
+                              <Seq-id>
+                                <Seq-id_gi>568815584</Seq-id_gi>
+                              </Seq-id>
+                            </Seq-interval_id>
+                          </Seq-interval>
+                        </Seq-loc_int>
+                      </Seq-loc>
+                      <Seq-loc>
+                        <Seq-loc_int>
+                          <Seq-interval>
+                            <Seq-interval_from>24632914</Seq-interval_from>
+                            <Seq-interval_to>24633074</Seq-interval_to>
+                            <Seq-interval_strand>
+                              <Na-strand value="minus"/>
+                            </Seq-interval_strand>
+                            <Seq-interval_id>
+                              <Seq-id>
+                                <Seq-id_gi>568815584</Seq-id_gi>
+                              </Seq-id>
+                            </Seq-interval_id>
+                          </Seq-interval>
+                        </Seq-loc_int>
+                      </Seq-loc>
+                      <Seq-loc>
+                        <Seq-loc_int>
+                          <Seq-interval>
+                            <Seq-interval_from>24632323</Seq-interval_from>
+                            <Seq-interval_to>24632458</Seq-interval_to>
+                            <Seq-interval_strand>
+                              <Na-strand value="minus"/>
+                            </Seq-interval_strand>
+                            <Seq-interval_id>
+                              <Seq-id>
+                                <Seq-id_gi>568815584</Seq-id_gi>
+                              </Seq-id>
+                            </Seq-interval_id>
+                          </Seq-interval>
+                        </Seq-loc_int>
+                      </Seq-loc>
+                      <Seq-loc>
+                        <Seq-loc_int>
+                          <Seq-interval>
+                            <Seq-interval_from>24631857</Seq-interval_from>
+                            <Seq-interval_to>24632117</Seq-interval_to>
+                            <Seq-interval_strand>
+                              <Na-strand value="minus"/>
+                            </Seq-interval_strand>
+                            <Seq-interval_id>
+                              <Seq-id>
+                                <Seq-id_gi>568815584</Seq-id_gi>
+                              </Seq-id>
+                            </Seq-interval_id>
+                          </Seq-interval>
+                        </Seq-loc_int>
+                      </Seq-loc>
+                      <Seq-loc>
+                        <Seq-loc_int>
+                          <Seq-interval>
+                            <Seq-interval_from>24631070</Seq-interval_from>
+                            <Seq-interval_to>24631213</Seq-interval_to>
+                            <Seq-interval_strand>
+                              <Na-strand value="minus"/>
+                            </Seq-interval_strand>
+                            <Seq-interval_id>
+                              <Seq-id>
+                                <Seq-id_gi>568815584</Seq-id_gi>
+                              </Seq-id>
+                            </Seq-interval_id>
+                          </Seq-interval>
+                        </Seq-loc_int>
+                      </Seq-loc>
+                    </Seq-loc-mix>
+                  </Seq-loc_mix>
+                </Seq-loc>
+              </Gene-commentary_genomic-coords>
+              <Gene-commentary_seqs>
+                <Seq-loc>
+                  <Seq-loc_whole>
+                    <Seq-id>
+                      <Seq-id_gi>767980375</Seq-id_gi>
+                    </Seq-id>
+                  </Seq-loc_whole>
+                </Seq-loc>
+              </Gene-commentary_seqs>
+            </Gene-commentary>
+          </Gene-commentary_products>
+        </Gene-commentary>
       </Gene-commentary_products>
     </Gene-commentary>
     <Gene-commentary>
@@ -678,6 +672,7 @@
         <Gene-commentary>
           <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
           <Gene-commentary_heading>Reference</Gene-commentary_heading>
+          <Gene-commentary_label>transcript variant 1</Gene-commentary_label>
           <Gene-commentary_accession>NM_004131</Gene-commentary_accession>
           <Gene-commentary_version>4</Gene-commentary_version>
           <Gene-commentary_genomic-coords>
@@ -781,7 +776,7 @@
             <Gene-commentary>
               <Gene-commentary_type value="peptide">8</Gene-commentary_type>
               <Gene-commentary_heading>Reference</Gene-commentary_heading>
-              <Gene-commentary_label>precursor</Gene-commentary_label>
+              <Gene-commentary_label>isoform 1 preproprotein</Gene-commentary_label>
               <Gene-commentary_accession>NP_004122</Gene-commentary_accession>
               <Gene-commentary_version>2</Gene-commentary_version>
               <Gene-commentary_source>
@@ -1323,25 +1318,6 @@
           <Gene-commentary_comment>
             <Gene-commentary>
               <Gene-commentary_type value="comment">254</Gene-commentary_type>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>GO</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>7219</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>Notch signaling pathway</Other-source_anchor>
-                  <Other-source_post-text>evidence: TAS</Other-source_post-text>
-                </Other-source>
-              </Gene-commentary_source>
-            </Gene-commentary>
-            <Gene-commentary>
-              <Gene-commentary_type value="comment">254</Gene-commentary_type>
               <Gene-commentary_refs>
                 <Pub>
                   <Pub_pmid>
@@ -1382,25 +1358,6 @@
                   </Other-source_src>
                   <Other-source_anchor>cytolysis</Other-source_anchor>
                   <Other-source_post-text>evidence: IEA</Other-source_post-text>
-                </Other-source>
-              </Gene-commentary_source>
-            </Gene-commentary>
-            <Gene-commentary>
-              <Gene-commentary_type value="comment">254</Gene-commentary_type>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>GO</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>97193</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>intrinsic apoptotic signaling pathway</Other-source_anchor>
-                  <Other-source_post-text>evidence: TAS</Other-source_post-text>
                 </Other-source>
               </Gene-commentary_source>
             </Gene-commentary>
@@ -1458,25 +1415,6 @@
                       <Dbtag_db>GO</Dbtag_db>
                       <Dbtag_tag>
                         <Object-id>
-                          <Object-id_id>12501</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>programmed cell death</Other-source_anchor>
-                  <Other-source_post-text>evidence: TAS</Other-source_post-text>
-                </Other-source>
-              </Gene-commentary_source>
-            </Gene-commentary>
-            <Gene-commentary>
-              <Gene-commentary_type value="comment">254</Gene-commentary_type>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>GO</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
                           <Object-id_id>16485</Object-id_id>
                         </Object-id>
                       </Dbtag_tag>
@@ -1493,25 +1431,6 @@
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
           <Gene-commentary_label>Component</Gene-commentary_label>
           <Gene-commentary_comment>
-            <Gene-commentary>
-              <Gene-commentary_type value="comment">254</Gene-commentary_type>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>GO</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>5737</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>cytoplasm</Other-source_anchor>
-                  <Other-source_post-text>evidence: IBA</Other-source_post-text>
-                </Other-source>
-              </Gene-commentary_source>
-            </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="comment">254</Gene-commentary_type>
               <Gene-commentary_source>
@@ -1636,7 +1555,7 @@
                     </Dbtag>
                   </Other-source_src>
                   <Other-source_anchor>mitochondrion</Other-source_anchor>
-                  <Other-source_post-text>evidence: TAS</Other-source_post-text>
+                  <Other-source_post-text>evidence: IEA</Other-source_post-text>
                 </Other-source>
               </Gene-commentary_source>
             </Gene-commentary>
@@ -1713,6 +1632,38 @@
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="gene-group">23</Gene-commentary_type>
+          <Gene-commentary_label>Additional</Gene-commentary_label>
+          <Gene-commentary_source>
+            <Other-source>
+              <Other-source_src>
+                <Dbtag>
+                  <Dbtag_db>GeneID</Dbtag_db>
+                  <Dbtag_tag>
+                    <Object-id>
+                      <Object-id_id>14939</Object-id_id>
+                    </Object-id>
+                  </Dbtag_tag>
+                </Dbtag>
+              </Other-source_src>
+              <Other-source_pre-text>GZMB</Other-source_pre-text>
+              <Other-source_anchor>mouse</Other-source_anchor>
+            </Other-source>
+            <Other-source>
+              <Other-source_src>
+                <Dbtag>
+                  <Dbtag_db>taxon</Dbtag_db>
+                  <Dbtag_tag>
+                    <Object-id>
+                      <Object-id_id>10090</Object-id_id>
+                    </Object-id>
+                  </Dbtag_tag>
+                </Dbtag>
+              </Other-source_src>
+            </Other-source>
+          </Gene-commentary_source>
+        </Gene-commentary>
       </Gene-commentary_comment>
     </Gene-commentary>
     <Gene-commentary>
@@ -1720,7 +1671,42 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>27117663</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26927382</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26752517</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26670609</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26633185</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26610869</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26410968</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26314831</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1730,7 +1716,22 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26156785</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>25780036</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25745046</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25725937</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1741,6 +1742,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>25667415</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25643139</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1931,6 +1937,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>23172556</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>23099058</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -2926,7 +2937,7 @@
               <Gene-commentary_source>
                 <Other-source>
                   <Other-source_anchor>NHGRI GWA Catalog</Other-source_anchor>
-                  <Other-source_url>http://www.genome.gov/gwastudies/index.cfm?pmid=20410501#result_table</Other-source_url>
+                  <Other-source_url>https://www.genome.gov/gwastudies/index.cfm?pmid=20410501#result_table</Other-source_url>
                 </Other-source>
               </Gene-commentary_source>
             </Gene-commentary>
@@ -2945,8 +2956,8 @@
             <Gene-commentary>
               <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
               <Gene-commentary_heading>mRNA Sequence</Gene-commentary_heading>
-              <Gene-commentary_accession>NM_004131</Gene-commentary_accession>
-              <Gene-commentary_version>4</Gene-commentary_version>
+              <Gene-commentary_accession>NM_001346011</Gene-commentary_accession>
+              <Gene-commentary_version>1</Gene-commentary_version>
               <Gene-commentary_source>
                 <Other-source>
                   <Other-source_src>
@@ -2954,7 +2965,106 @@
                       <Dbtag_db>Nucleotide</Dbtag_db>
                       <Dbtag_tag>
                         <Object-id>
-                          <Object-id_id>221625527</Object-id_id>
+                          <Object-id_id>1068937232</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>NM_001346011</Other-source_anchor>
+                </Other-source>
+              </Gene-commentary_source>
+              <Gene-commentary_seqs>
+                <Seq-loc>
+                  <Seq-loc_whole>
+                    <Seq-id>
+                      <Seq-id_gi>1068937232</Seq-id_gi>
+                    </Seq-id>
+                  </Seq-loc_whole>
+                </Seq-loc>
+              </Gene-commentary_seqs>
+              <Gene-commentary_products>
+                <Gene-commentary>
+                  <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+                  <Gene-commentary_heading>Product</Gene-commentary_heading>
+                  <Gene-commentary_accession>NP_001332940</Gene-commentary_accession>
+                  <Gene-commentary_version>1</Gene-commentary_version>
+                  <Gene-commentary_source>
+                    <Other-source>
+                      <Other-source_src>
+                        <Dbtag>
+                          <Dbtag_db>Protein</Dbtag_db>
+                          <Dbtag_tag>
+                            <Object-id>
+                              <Object-id_id>1068937233</Object-id_id>
+                            </Object-id>
+                          </Dbtag_tag>
+                        </Dbtag>
+                      </Other-source_src>
+                      <Other-source_anchor>NP_001332940</Other-source_anchor>
+                      <Other-source_post-text>granzyme B isoform 2</Other-source_post-text>
+                    </Other-source>
+                  </Gene-commentary_source>
+                  <Gene-commentary_seqs>
+                    <Seq-loc>
+                      <Seq-loc_whole>
+                        <Seq-id>
+                          <Seq-id_gi>1068937233</Seq-id_gi>
+                        </Seq-id>
+                      </Seq-loc_whole>
+                    </Seq-loc>
+                  </Gene-commentary_seqs>
+                </Gene-commentary>
+              </Gene-commentary_products>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="comment">254</Gene-commentary_type>
+                  <Gene-commentary_label>RefSeq Status</Gene-commentary_label>
+                  <Gene-commentary_text>REVIEWED</Gene-commentary_text>
+                </Gene-commentary>
+                <Gene-commentary>
+                  <Gene-commentary_type value="comment">254</Gene-commentary_type>
+                  <Gene-commentary_heading>Transcriptional Variant</Gene-commentary_heading>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="comment">254</Gene-commentary_type>
+                      <Gene-commentary_text>Transcript Variant: This variant (2) differs in the 5&apos; UTR, uses an alternate translation start site, and uses an alternate splice site in the 5&apos; coding region compared to variant 1. The encoded isoform (2) has a shorter and distinct N-terminus and lacks a predicted signal peptide compared to isoform 1.</Gene-commentary_text>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+                <Gene-commentary>
+                  <Gene-commentary_type value="other">255</Gene-commentary_type>
+                  <Gene-commentary_heading>Source Sequence</Gene-commentary_heading>
+                  <Gene-commentary_source>
+                    <Other-source>
+                      <Other-source_src>
+                        <Dbtag>
+                          <Dbtag_db>Nucleotide</Dbtag_db>
+                          <Dbtag_tag>
+                            <Object-id>
+                              <Object-id_str>AY232654,BX283601,CB528665,HY088535</Object-id_str>
+                            </Object-id>
+                          </Dbtag_tag>
+                        </Dbtag>
+                      </Other-source_src>
+                      <Other-source_anchor>AY232654,BX283601,CB528665,HY088535</Other-source_anchor>
+                    </Other-source>
+                  </Gene-commentary_source>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
+              <Gene-commentary_heading>mRNA Sequence</Gene-commentary_heading>
+              <Gene-commentary_accession>NM_004131</Gene-commentary_accession>
+              <Gene-commentary_version>5</Gene-commentary_version>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>Nucleotide</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>1068937283</Object-id_id>
                         </Object-id>
                       </Dbtag_tag>
                     </Dbtag>
@@ -2966,7 +3076,7 @@
                 <Seq-loc>
                   <Seq-loc_whole>
                     <Seq-id>
-                      <Seq-id_gi>221625527</Seq-id_gi>
+                      <Seq-id_gi>1068937283</Seq-id_gi>
                     </Seq-id>
                   </Seq-loc_whole>
                 </Seq-loc>
@@ -2990,7 +3100,7 @@
                         </Dbtag>
                       </Other-source_src>
                       <Other-source_anchor>NP_004122</Other-source_anchor>
-                      <Other-source_post-text>granzyme B precursor</Other-source_post-text>
+                      <Other-source_post-text>granzyme B isoform 1 preproprotein</Other-source_post-text>
                     </Other-source>
                   </Gene-commentary_source>
                   <Gene-commentary_seqs>
@@ -3166,6 +3276,16 @@
                   <Gene-commentary_text>REVIEWED</Gene-commentary_text>
                 </Gene-commentary>
                 <Gene-commentary>
+                  <Gene-commentary_type value="comment">254</Gene-commentary_type>
+                  <Gene-commentary_heading>Transcriptional Variant</Gene-commentary_heading>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="comment">254</Gene-commentary_type>
+                      <Gene-commentary_text>Transcript Variant: This variant (1) encodes the longer isoform (1).</Gene-commentary_text>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+                <Gene-commentary>
                   <Gene-commentary_type value="other">255</Gene-commentary_type>
                   <Gene-commentary_heading>Source Sequence</Gene-commentary_heading>
                   <Gene-commentary_source>
@@ -3175,12 +3295,12 @@
                           <Dbtag_db>Nucleotide</Dbtag_db>
                           <Dbtag_tag>
                             <Object-id>
-                              <Object-id_str>AY372494,BX283601,CB528665</Object-id_str>
+                              <Object-id_str>AY372494,BX283601,CB528665,HY088535</Object-id_str>
                             </Object-id>
                           </Dbtag_tag>
                         </Dbtag>
                       </Other-source_src>
-                      <Other-source_anchor>AY372494,BX283601,CB528665</Other-source_anchor>
+                      <Other-source_anchor>AY372494,BX283601,CB528665,HY088535</Other-source_anchor>
                     </Other-source>
                   </Gene-commentary_source>
                 </Gene-commentary>
@@ -3217,6 +3337,72 @@
                           </Dbtag_tag>
                         </Dbtag>
                       </Other-source_src>
+                    </Other-source>
+                  </Gene-commentary_source>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="miscRNA">14</Gene-commentary_type>
+              <Gene-commentary_heading>RNA Sequence</Gene-commentary_heading>
+              <Gene-commentary_accession>NR_144343</Gene-commentary_accession>
+              <Gene-commentary_version>1</Gene-commentary_version>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>Nucleotide</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>1068937303</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>NR_144343</Other-source_anchor>
+                </Other-source>
+              </Gene-commentary_source>
+              <Gene-commentary_seqs>
+                <Seq-loc>
+                  <Seq-loc_whole>
+                    <Seq-id>
+                      <Seq-id_gi>1068937303</Seq-id_gi>
+                    </Seq-id>
+                  </Seq-loc_whole>
+                </Seq-loc>
+              </Gene-commentary_seqs>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="comment">254</Gene-commentary_type>
+                  <Gene-commentary_label>RefSeq Status</Gene-commentary_label>
+                  <Gene-commentary_text>REVIEWED</Gene-commentary_text>
+                </Gene-commentary>
+                <Gene-commentary>
+                  <Gene-commentary_type value="comment">254</Gene-commentary_type>
+                  <Gene-commentary_heading>Transcriptional Variant</Gene-commentary_heading>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="comment">254</Gene-commentary_type>
+                      <Gene-commentary_text>Transcript Variant: This variant (3) lacks an alternate internal exon compared to variant 1. This variant is represented as non-coding because the use of the 5&apos;-most expected translational start codon renders the transcript a candidate for nonsense-mediated mRNA decay (NMD).</Gene-commentary_text>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+                <Gene-commentary>
+                  <Gene-commentary_type value="other">255</Gene-commentary_type>
+                  <Gene-commentary_heading>Source Sequence</Gene-commentary_heading>
+                  <Gene-commentary_source>
+                    <Other-source>
+                      <Other-source_src>
+                        <Dbtag>
+                          <Dbtag_db>Nucleotide</Dbtag_db>
+                          <Dbtag_tag>
+                            <Object-id>
+                              <Object-id_str>AY232655,CB528665,HY088535</Object-id_str>
+                            </Object-id>
+                          </Dbtag_tag>
+                        </Dbtag>
+                      </Other-source_src>
+                      <Other-source_anchor>AY232655,CB528665,HY088535</Other-source_anchor>
                     </Other-source>
                   </Gene-commentary_source>
                 </Gene-commentary>
@@ -3267,11 +3453,11 @@
         </Gene-commentary>
         <Gene-commentary>
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
-          <Gene-commentary_heading>RefSeqs of Annotated Genomes: Homo sapiens Annotation Release 107</Gene-commentary_heading>
+          <Gene-commentary_heading>RefSeqs of Annotated Genomes: Homo sapiens Annotation Release 108</Gene-commentary_heading>
           <Gene-commentary_products>
             <Gene-commentary>
               <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-              <Gene-commentary_heading>Reference GRCh38.p2 Primary Assembly</Gene-commentary_heading>
+              <Gene-commentary_heading>Reference GRCh38.p7 Primary Assembly</Gene-commentary_heading>
               <Gene-commentary_accession>NC_000014</Gene-commentary_accession>
               <Gene-commentary_version>9</Gene-commentary_version>
               <Gene-commentary_source>
@@ -3292,7 +3478,7 @@
                 <Seq-loc>
                   <Seq-loc_int>
                     <Seq-interval>
-                      <Seq-interval_from>24630947</Seq-interval_from>
+                      <Seq-interval_from>24630953</Seq-interval_from>
                       <Seq-interval_to>24634225</Seq-interval_to>
                       <Seq-interval_strand>
                         <Na-strand value="minus"/>
@@ -3310,7 +3496,7 @@
                 <Gene-commentary>
                   <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
                   <Gene-commentary_accession>XM_011536685</Gene-commentary_accession>
-                  <Gene-commentary_version>1</Gene-commentary_version>
+                  <Gene-commentary_version>2</Gene-commentary_version>
                   <Gene-commentary_source>
                     <Other-source>
                       <Other-source_src>
@@ -3318,7 +3504,7 @@
                           <Dbtag_db>Nucleotide</Dbtag_db>
                           <Dbtag_tag>
                             <Object-id>
-                              <Object-id_id>767980374</Object-id_id>
+                              <Object-id_id>1034586917</Object-id_id>
                             </Object-id>
                           </Dbtag_tag>
                         </Dbtag>
@@ -3329,7 +3515,7 @@
                     <Seq-loc>
                       <Seq-loc_whole>
                         <Seq-id>
-                          <Seq-id_gi>767980374</Seq-id_gi>
+                          <Seq-id_gi>1034586917</Seq-id_gi>
                         </Seq-id>
                       </Seq-loc_whole>
                     </Seq-loc>
@@ -3565,6 +3751,7 @@
                   </Seq-loc_int>
                 </Seq-loc>
               </Gene-commentary_seqs>
+              <Gene-commentary_products></Gene-commentary_products>
             </Gene-commentary>
           </Gene-commentary_products>
         </Gene-commentary>
@@ -4362,6 +4549,42 @@
         <Gene-commentary>
           <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
           <Gene-commentary_heading>mRNA</Gene-commentary_heading>
+          <Gene-commentary_accession>HY088535</Gene-commentary_accession>
+          <Gene-commentary_version>1</Gene-commentary_version>
+          <Gene-commentary_source>
+            <Other-source>
+              <Other-source_src>
+                <Dbtag>
+                  <Dbtag_db>Nucleotide</Dbtag_db>
+                  <Dbtag_tag>
+                    <Object-id>
+                      <Object-id_id>389022000</Object-id_id>
+                    </Object-id>
+                  </Dbtag_tag>
+                </Dbtag>
+              </Other-source_src>
+              <Other-source_anchor>HY088535.1</Other-source_anchor>
+            </Other-source>
+          </Gene-commentary_source>
+          <Gene-commentary_seqs>
+            <Seq-loc>
+              <Seq-loc_whole>
+                <Seq-id>
+                  <Seq-id_gi>389022000</Seq-id_gi>
+                </Seq-id>
+              </Seq-loc_whole>
+            </Seq-loc>
+          </Gene-commentary_seqs>
+          <Gene-commentary_products>
+            <Gene-commentary>
+              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+              <Gene-commentary_text>None</Gene-commentary_text>
+            </Gene-commentary>
+          </Gene-commentary_products>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
+          <Gene-commentary_heading>mRNA</Gene-commentary_heading>
           <Gene-commentary_accession>J03189</Gene-commentary_accession>
           <Gene-commentary_version>1</Gene-commentary_version>
           <Gene-commentary_source>
@@ -4689,7 +4912,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>AceView</Other-source_anchor>
-              <Other-source_url>http://www.ncbi.nlm.nih.gov/IEB/Research/Acembly/av.cgi?c=geneid&amp;org=9606&amp;l=3002</Other-source_url>
+              <Other-source_url>https://www.ncbi.nlm.nih.gov/IEB/Research/Acembly/av.cgi?c=geneid&amp;org=9606&amp;l=3002</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -4709,7 +4932,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>UCSC</Other-source_anchor>
-              <Other-source_url>http://genome.ucsc.edu/cgi-bin/hgTracks?org=human&amp;position=NM_004131</Other-source_url>
+              <Other-source_url>http://genome.ucsc.edu/cgi-bin/hgTracks?org=human&amp;position=NM_001346011</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -4773,11 +4996,440 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>Hs.1051</Other-source_anchor>
-              <Other-source_url>http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&amp;CID=1051</Other-source_url>
+              <Other-source_url>https://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&amp;CID=1051</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>FASL, granzyme B, and cytochrome c blood expression reflects breast cancer progression and response to therapy. (Review)</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27117663</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>20</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>20</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>12</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Data show that NK cell lines could secreted rapidly inactive Mr 35 000 granzyme B (GZB)outside secretory lysosomes (SLs).</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26927382</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>45</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Data suggest that reactive oxygen species (ROS) generated within cytotoxic lymphocytes by receptor stimulation are required for lysosomal permeabilization and release of GzmB (granzyme B) into the cytosol and for inactivation of serpin B9.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26670609</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Delivered into parasite infected cells by granulysin and perforin, granzymes generate superoxide and inactivate oxidative defense enzymes to kill the parasite.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26752517</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>2</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>2</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>52</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Results reveal enhanced intra- and extracellular expression of gzmA and B in patients with pulmonary TB, suggesting that gzms are part of the host response to tuberculosis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26156785</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>10</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>these results suggest a perforin-independent, extracellular role for GzmB in the pathogenesis of cardiac fibrosis</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26610869</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>14</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>3</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>14</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>58</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Among SLAMF4+ cells, the T cell fraction positive for perforin and granzyme B was higher in those obtained from healthy donors, while the percentage of T cells that were single-positive for granzyme B was higher in cells obtained from patients with SLE.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26314831</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>7</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>7</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>10</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Costimulation blockade by abatacept can decrease the serum levels of GZMB in rheumatoid arthritis patients responding to the treatment.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26633185</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>49</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>elevated in the inflammatory lesions of placentas with villitis of unknown etiology</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25725937</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>44</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Combined evaluation of granzyme B and perforin may have a role in noninvasive diagnosis of acute rejection after kidney transplantation.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25643139</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>7</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>GzmA and GzmB expressing cells in the airways and lung parenchyma was higher in subjects who died from asthma</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25745046</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>9</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>9</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>11</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -11816,11 +12468,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -11906,11 +12558,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12001,11 +12653,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12091,11 +12743,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>35</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12201,10 +12853,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12304,10 +12956,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12407,10 +13059,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12510,10 +13162,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12613,10 +13265,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12716,10 +13368,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>21</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12819,10 +13471,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>52</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12922,10 +13574,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>52</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13025,10 +13677,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>52</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13128,10 +13780,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>56</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13231,10 +13883,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>56</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13334,10 +13986,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>56</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13442,10 +14094,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>56</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13545,10 +14197,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>56</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13648,10 +14300,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>52</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13751,10 +14403,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>52</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13854,10 +14506,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -13957,10 +14609,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14060,10 +14712,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14163,10 +14815,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14266,10 +14918,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14369,10 +15021,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14472,10 +15124,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14575,10 +15227,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14678,10 +15330,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>22</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14781,10 +15433,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>52</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14884,10 +15536,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14987,10 +15639,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>52</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17195,10 +17847,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>52</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17298,10 +17950,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>57</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17561,13 +18213,102 @@
       <Gene-commentary_comment>
         <Gene-commentary>
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
+          <Gene-commentary_heading>Homo sapiens Annotation Release 108</Gene-commentary_heading>
+          <Gene-commentary_comment>
+            <Gene-commentary>
+              <Gene-commentary_type value="assembly">24</Gene-commentary_type>
+              <Gene-commentary_heading>GRCh38.p7</Gene-commentary_heading>
+              <Gene-commentary_label>Reference</Gene-commentary_label>
+              <Gene-commentary_text>current</Gene-commentary_text>
+              <Gene-commentary_accession>GCF_000001405</Gene-commentary_accession>
+              <Gene-commentary_version>33</Gene-commentary_version>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="assembly-unit">25</Gene-commentary_type>
+                  <Gene-commentary_heading>Primary Assembly</Gene-commentary_heading>
+                  <Gene-commentary_accession>GCF_000001305</Gene-commentary_accession>
+                  <Gene-commentary_version>14</Gene-commentary_version>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+                      <Gene-commentary_label>Chromosome 14</Gene-commentary_label>
+                      <Gene-commentary_accession>NC_000014</Gene-commentary_accession>
+                      <Gene-commentary_version>9</Gene-commentary_version>
+                      <Gene-commentary_seqs>
+                        <Seq-loc>
+                          <Seq-loc_int>
+                            <Seq-interval>
+                              <Seq-interval_from>24630953</Seq-interval_from>
+                              <Seq-interval_to>24634225</Seq-interval_to>
+                              <Seq-interval_strand>
+                                <Na-strand value="minus"/>
+                              </Seq-interval_strand>
+                              <Seq-interval_id>
+                                <Seq-id>
+                                  <Seq-id_gi>568815584</Seq-id_gi>
+                                </Seq-id>
+                              </Seq-interval_id>
+                            </Seq-interval>
+                          </Seq-loc_int>
+                        </Seq-loc>
+                      </Gene-commentary_seqs>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="assembly">24</Gene-commentary_type>
+              <Gene-commentary_heading>CHM1_1.1</Gene-commentary_heading>
+              <Gene-commentary_label>Alternate</Gene-commentary_label>
+              <Gene-commentary_text>current</Gene-commentary_text>
+              <Gene-commentary_accession>GCF_000306695</Gene-commentary_accession>
+              <Gene-commentary_version>2</Gene-commentary_version>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="assembly-unit">25</Gene-commentary_type>
+                  <Gene-commentary_heading>Primary Assembly</Gene-commentary_heading>
+                  <Gene-commentary_accession>GCF_000306705</Gene-commentary_accession>
+                  <Gene-commentary_version>2</Gene-commentary_version>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+                      <Gene-commentary_label>Chromosome 14</Gene-commentary_label>
+                      <Gene-commentary_accession>NC_018925</Gene-commentary_accession>
+                      <Gene-commentary_version>2</Gene-commentary_version>
+                      <Gene-commentary_seqs>
+                        <Seq-loc>
+                          <Seq-loc_int>
+                            <Seq-interval>
+                              <Seq-interval_from>25099052</Seq-interval_from>
+                              <Seq-interval_to>25102324</Seq-interval_to>
+                              <Seq-interval_strand>
+                                <Na-strand value="minus"/>
+                              </Seq-interval_strand>
+                              <Seq-interval_id>
+                                <Seq-id>
+                                  <Seq-id_gi>528476581</Seq-id_gi>
+                                </Seq-id>
+                              </Seq-interval_id>
+                            </Seq-interval>
+                          </Seq-loc_int>
+                        </Seq-loc>
+                      </Gene-commentary_seqs>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+          </Gene-commentary_comment>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="comment">254</Gene-commentary_type>
           <Gene-commentary_heading>Homo sapiens Annotation Release 107</Gene-commentary_heading>
           <Gene-commentary_comment>
             <Gene-commentary>
               <Gene-commentary_type value="assembly">24</Gene-commentary_type>
               <Gene-commentary_heading>GRCh38.p2</Gene-commentary_heading>
               <Gene-commentary_label>Reference</Gene-commentary_label>
-              <Gene-commentary_text>current</Gene-commentary_text>
               <Gene-commentary_accession>GCF_000001405</Gene-commentary_accession>
               <Gene-commentary_version>28</Gene-commentary_version>
               <Gene-commentary_comment>
@@ -17609,7 +18350,6 @@
               <Gene-commentary_type value="assembly">24</Gene-commentary_type>
               <Gene-commentary_heading>CHM1_1.1</Gene-commentary_heading>
               <Gene-commentary_label>Alternate</Gene-commentary_label>
-              <Gene-commentary_text>current</Gene-commentary_text>
               <Gene-commentary_accession>GCF_000306695</Gene-commentary_accession>
               <Gene-commentary_version>2</Gene-commentary_version>
               <Gene-commentary_comment>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
@@ -39,9 +39,9 @@
         <Date>
           <Date_std>
             <Date-std>
-              <Date-std_year>2014</Date-std_year>
-              <Date-std_month>12</Date-std_month>
-              <Date-std_day>7</Date-std_day>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -82,6 +82,7 @@
             </Dbtag>
           </Org-ref_db>
           <Org-ref_syn>
+            <Org-ref_syn_E>humans</Org-ref_syn_E>
             <Org-ref_syn_E>man</Org-ref_syn_E>
           </Org-ref_syn>
           <Org-ref_orgname>

@@ -2,7 +2,7 @@
 <metabolite>
   <version>3.6</version>
   <creation_date>2005-11-16 15:48:42 UTC</creation_date>
-  <update_date>2016-02-13 02:06:54 UTC</update_date>
+  <update_date>2016-06-10 21:21:45 UTC</update_date>
   <accession>HMDB00001</accession>
   <secondary_accessions>
     <accession>HMDB04935</accession>
@@ -381,6 +381,20 @@
     </concentration>
     <concentration>
       <biofluid>Urine</biofluid>
+      <concentration_value>10-17 </concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Female</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <references>
+        <reference>
+          <reference_text>Husek P, Svagera Z, Hanzlikova D, Rimnacova L, Zahradnickova H, Opekarova I, Simek P: Profiling of urinary amino-carboxylic metabolites by in-situ heptafluorobutyl chloroformate mediated sample preparation and gas chromatography-mass spectrometry. J Chromatogr A. 2016 Apr 22;1443:211-32. doi: 10.1016/j.chroma.2016.03.019. Epub 2016 Mar 10.</reference_text>
+          <pubmed_id>27012787</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
       <concentration_value/>
       <concentration_units/>
       <subject_age/>
@@ -433,6 +447,20 @@
         <reference>
           <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
           <pubmed_id>11052553</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value>11-16 </concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Male</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <references>
+        <reference>
+          <reference_text>Husek P, Svagera Z, Hanzlikova D, Rimnacova L, Zahradnickova H, Opekarova I, Simek P: Profiling of urinary amino-carboxylic metabolites by in-situ heptafluorobutyl chloroformate mediated sample preparation and gas chromatography-mass spectrometry. J Chromatogr A. 2016 Apr 22;1443:211-32. doi: 10.1016/j.chroma.2016.03.019. Epub 2016 Mar 10.</reference_text>
+          <pubmed_id>27012787</pubmed_id>
         </reference>
       </references>
     </concentration>
@@ -745,56 +773,60 @@
       <omim_id>104300</omim_id>
       <references>
         <reference>
-          <reference_text>Fonteh AN, Harrington RJ, Tsai A, Liao P, Harrington MG: Free amino acid and dipeptide changes in the body fluids from Alzheimer's disease subjects. Amino Acids. 2007 Feb;32(2):213-24. Epub 2006 Oct 10.</reference_text>
-          <pubmed_id>17031479</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Selley ML, Close DR, Stern SE: The effect of increased concentrations of homocysteine on the concentration of (E)-4-hydroxy-2-nonenal in the plasma and cerebrospinal fluid of patients with Alzheimer's disease. Neurobiol Aging. 2002 May-Jun;23(3):383-8.</reference_text>
-          <pubmed_id>11959400</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Shetty HU, Holloway HW, Schapiro MB: Cerebrospinal fluid and plasma distribution of myo-inositol and other polyols in Alzheimer disease. Clin Chem. 1996 Feb;42(2):298-302.</reference_text>
-          <pubmed_id>8595727</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Jia JP, Jia JM, Zhou WD, Xu M, Chu CB, Yan X, Sun YX: Differential acetylcholine and choline concentrations in the cerebrospinal fluid of patients with Alzheimer's disease and vascular dementia. Chin Med J (Engl). 2004 Aug;117(8):1161-4.</reference_text>
-          <pubmed_id>15361288</pubmed_id>
-        </reference>
-        <reference>
           <reference_text>Redjems-Bennani N, Jeandel C, Lefebvre E, Blain H, Vidailhet M, Gueant JL: Abnormal substrate levels that depend upon mitochondrial function in cerebrospinal fluid from Alzheimer patients. Gerontology. 1998;44(5):300-4.</reference_text>
           <pubmed_id>9693263</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Walter A, Korth U, Hilgert M, Hartmann J, Weichel O, Hilgert M, Fassbender K, Schmitt A, Klein J: Glycerophosphocholine is elevated in cerebrospinal fluid of Alzheimer patients. Neurobiol Aging. 2004 Nov-Dec;25(10):1299-303.</reference_text>
-          <pubmed_id>15465626</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Leoni V, Masterman T, Mousavi FS, Wretlind B, Wahlund LO, Diczfalusy U, Hillert J, Bjorkhem I: Diagnostic use of cerebral and extracerebral oxysterols.  Clin Chem Lab Med. 2004 Feb;42(2):186-91.</reference_text>
-          <pubmed_id>15061359</pubmed_id>
         </reference>
         <reference>
           <reference_text>Raskind MA, Peskind ER, Holmes C, Goldstein DS: Patterns of cerebrospinal fluid catechols support increased central noradrenergic responsiveness in aging and Alzheimer's disease. Biol Psychiatry. 1999 Sep 15;46(6):756-65.</reference_text>
           <pubmed_id>10494443</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Lovell MA, Markesbery WR: Ratio of 8-hydroxyguanine in intact DNA to free 8-hydroxyguanine is increased in Alzheimer disease ventricular cerebrospinal fluid. Arch Neurol. 2001 Mar;58(3):392-6.</reference_text>
-          <pubmed_id>11255442</pubmed_id>
+          <reference_text>Walter A, Korth U, Hilgert M, Hartmann J, Weichel O, Hilgert M, Fassbender K, Schmitt A, Klein J: Glycerophosphocholine is elevated in cerebrospinal fluid of Alzheimer patients. Neurobiol Aging. 2004 Nov-Dec;25(10):1299-303.</reference_text>
+          <pubmed_id>15465626</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Bar KJ, Franke S, Wenda B, Muller S, Kientsch-Engel R, Stein G, Sauer H: Pentosidine and N(epsilon)-(carboxymethyl)-lysine in Alzheimer's disease and vascular dementia. Neurobiol Aging. 2003 Mar-Apr;24(2):333-8.</reference_text>
-          <pubmed_id>12498967</pubmed_id>
+          <reference_text>Selley ML, Close DR, Stern SE: The effect of increased concentrations of homocysteine on the concentration of (E)-4-hydroxy-2-nonenal in the plasma and cerebrospinal fluid of patients with Alzheimer's disease. Neurobiol Aging. 2002 May-Jun;23(3):383-8.</reference_text>
+          <pubmed_id>11959400</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Molina JA, Jimenez-Jimenez FJ, Hernanz A, Fernandez-Vivancos E, Medina S, de Bustos F, Gomez-Escalonilla C, Sayed Y: Cerebrospinal fluid levels of thiamine in patients with Alzheimer's disease. J Neural Transm. 2002 Jul;109(7-8):1035-44.</reference_text>
+          <pubmed_id>12111441</pubmed_id>
         </reference>
         <reference>
           <reference_text>Serot JM, Barbe F, Arning E, Bottiglieri T, Franck P, Montagne P, Nicolas JP: Homocysteine and methylmalonic acid concentrations in cerebrospinal fluid: relation with age and Alzheimer's disease. J Neurol Neurosurg Psychiatry. 2005 Nov;76(11):1585-7.</reference_text>
           <pubmed_id>16227558</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Molina JA, Jimenez-Jimenez FJ, Aguilar MV, Meseguer I, Mateos-Vega CJ, Gonzalez-Munoz MJ, de Bustos F, Porta J, Orti-Pareja M, Zurdo M, Barrios E, Martinez-Para MC: Cerebrospinal fluid levels of transition metals in patients with Alzheimer's disease. J Neural Transm. 1998;105(4-5):479-88.</reference_text>
-          <pubmed_id>9720975</pubmed_id>
+          <reference_text>Leoni V, Masterman T, Mousavi FS, Wretlind B, Wahlund LO, Diczfalusy U, Hillert J, Bjorkhem I: Diagnostic use of cerebral and extracerebral oxysterols.  Clin Chem Lab Med. 2004 Feb;42(2):186-91.</reference_text>
+          <pubmed_id>15061359</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Molina JA, Jimenez-Jimenez FJ, Hernanz A, Fernandez-Vivancos E, Medina S, de Bustos F, Gomez-Escalonilla C, Sayed Y: Cerebrospinal fluid levels of thiamine in patients with Alzheimer's disease. J Neural Transm. 2002 Jul;109(7-8):1035-44.</reference_text>
-          <pubmed_id>12111441</pubmed_id>
+          <reference_text>Lovell MA, Markesbery WR: Ratio of 8-hydroxyguanine in intact DNA to free 8-hydroxyguanine is increased in Alzheimer disease ventricular cerebrospinal fluid. Arch Neurol. 2001 Mar;58(3):392-6.</reference_text>
+          <pubmed_id>11255442</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Shetty HU, Holloway HW, Schapiro MB: Cerebrospinal fluid and plasma distribution of myo-inositol and other polyols in Alzheimer disease. Clin Chem. 1996 Feb;42(2):298-302.</reference_text>
+          <pubmed_id>8595727</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Bar KJ, Franke S, Wenda B, Muller S, Kientsch-Engel R, Stein G, Sauer H: Pentosidine and N(epsilon)-(carboxymethyl)-lysine in Alzheimer's disease and vascular dementia. Neurobiol Aging. 2003 Mar-Apr;24(2):333-8.</reference_text>
+          <pubmed_id>12498967</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Fonteh AN, Harrington RJ, Tsai A, Liao P, Harrington MG: Free amino acid and dipeptide changes in the body fluids from Alzheimer's disease subjects. Amino Acids. 2007 Feb;32(2):213-24. Epub 2006 Oct 10.</reference_text>
+          <pubmed_id>17031479</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Jia JP, Jia JM, Zhou WD, Xu M, Chu CB, Yan X, Sun YX: Differential acetylcholine and choline concentrations in the cerebrospinal fluid of patients with Alzheimer's disease and vascular dementia. Chin Med J (Engl). 2004 Aug;117(8):1161-4.</reference_text>
+          <pubmed_id>15361288</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Abe T, Tohgi H, Isobe C, Murata T, Sato C: Remarkable increase in the concentration of 8-hydroxyguanosine in cerebrospinal fluid from patients with Alzheimer's disease. J Neurosci Res. 2002 Nov 1;70(3):447-50.</reference_text>
+          <pubmed_id>12391605</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Molina JA, Jimenez-Jimenez FJ, Aguilar MV, Meseguer I, Mateos-Vega CJ, Gonzalez-Munoz MJ, de Bustos F, Porta J, Orti-Pareja M, Zurdo M, Barrios E, Martinez-Para MC: Cerebrospinal fluid levels of transition metals in patients with Alzheimer's disease. J Neural Transm. 1998;105(4-5):479-88.</reference_text>
+          <pubmed_id>9720975</pubmed_id>
         </reference>
         <reference>
           <reference_text>Bocca B, Forte G, Petrucci F, Pino A, Marchione F, Bomboi G, Senofonte O, Giubilei F, Alimonti A: Monitoring of chemical elements and oxidative damage in patients affected by Alzheimer's disease. Ann Ist Super Sanita. 2005;41(2):197-203.</reference_text>
@@ -803,10 +835,6 @@
         <reference>
           <reference_text>Kristensen MO, Gulmann NC, Christensen JE, Ostergaard K, Rasmussen K: Serum cobalamin and methylmalonic acid in Alzheimer dementia.  Acta Neurol Scand. 1993 Jun;87(6):475-81.</reference_text>
           <pubmed_id>8356878</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Abe T, Tohgi H, Isobe C, Murata T, Sato C: Remarkable increase in the concentration of 8-hydroxyguanosine in cerebrospinal fluid from patients with Alzheimer's disease. J Neurosci Res. 2002 Nov 1;70(3):447-50.</reference_text>
-          <pubmed_id>12391605</pubmed_id>
         </reference>
       </references>
     </disease>
@@ -819,28 +847,12 @@
           <pubmed_id>15899597</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Costa A, Iguala I, Bedini J, Quinto L, Conget I: Uric acid concentration in subjects at risk of type 2 diabetes mellitus: relationship to components of the metabolic syndrome. Metabolism. 2002 Mar;51(3):372-5.</reference_text>
-          <pubmed_id>11887176</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Dungan KM, Buse JB, Largay J, Kelly MM, Button EA, Kato S, Wittlin S: 1,5-anhydroglucitol and postprandial hyperglycemia as measured by continuous glucose monitoring system in moderately controlled patients with diabetes. Diabetes Care. 2006 Jun;29(6):1214-9.</reference_text>
-          <pubmed_id>16731998</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Sheikh-Ali M, Karon BS, Basu A, Kudva YC, Muller LA, Xu J, Schwenk WF, Miles JM: Can serum beta-hydroxybutyrate be used to diagnose diabetic ketoacidosis?  Diabetes Care. 2008 Apr;31(4):643-7. Epub 2008 Jan 9.</reference_text>
-          <pubmed_id>18184896</pubmed_id>
-        </reference>
-        <reference>
           <reference_text>Tasker RC, Lutman D, Peters MJ: Hyperventilation in severe diabetic ketoacidosis.  Pediatr Crit Care Med. 2005 Jul;6(4):405-11.</reference_text>
           <pubmed_id>15982426</pubmed_id>
         </reference>
         <reference>
           <reference_text>Bales JR, Higham DP, Howe I, Nicholson JK, Sadler PJ: Use of high-resolution proton nuclear magnetic resonance spectroscopy for rapid multi-component analysis of urine. Clin Chem. 1984 Mar;30(3):426-32.</reference_text>
           <pubmed_id>6321058</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Wahl HG, Hoffmann A, Luft D, Liebich HM: Analysis of volatile organic compounds in human urine by headspace gas chromatography-mass spectrometry with a multipurpose sampler. J Chromatogr A. 1999 Jun 25;847(1-2):117-25.</reference_text>
-          <pubmed_id>10431355</pubmed_id>
         </reference>
         <reference>
           <reference_text>Hoppel CL, Genuth SM: Urinary excretion of acetylcarnitine during human diabetic and fasting ketosis. Am J Physiol. 1982 Aug;243(2):E168-72.</reference_text>
@@ -851,36 +863,68 @@
           <pubmed_id>7758205</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Stickle D, Turk J: A kinetic mass balance model for 1,5-anhydroglucitol: applications to monitoring of glycemic control. Am J Physiol. 1997 Oct;273(4 Pt 1):E821-30.</reference_text>
-          <pubmed_id>9357814</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>del Carmen Crespillo M, Olveira G, de Adana MS, Rojo-Martinez G, Garcia-Aleman J, Olvera P, Soriguer F, Munoz A: Metabolic effects of an enteral nutrition formula for diabetes: comparison with standard formulas in patients with type 1 diabetes. Clin Nutr. 2003 Oct;22(5):483-7.</reference_text>
-          <pubmed_id>14512036</pubmed_id>
-        </reference>
-        <reference>
           <reference_text>Blomqvist G, Alvarsson M, Grill V, Von Heijne G, Ingvar M, Thorell JO, Stone-Elander S, Widen L, Ekberg K: Effect of acute hyperketonemia on the cerebral uptake of ketone bodies in nondiabetic subjects and IDDM patients. Am J Physiol Endocrinol Metab. 2002 Jul;283(1):E20-8.</reference_text>
           <pubmed_id>12067838</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Stupar J, Vrtovec M, Dolinsek F: Longitudinal hair chromium profiles of elderly subjects with normal glucose tolerance and type 2 diabetes mellitus. Metabolism. 2007 Jan;56(1):94-104.</reference_text>
-          <pubmed_id>17161231</pubmed_id>
+          <reference_text>Greco AV, Mingrone G, Capristo E, Benedetti G, De Gaetano A, Gasbarrini G: The metabolic effect of dodecanedioic acid infusion in non-insulin-dependent diabetic patients. Nutrition. 1998 Apr;14(4):351-7.</reference_text>
+          <pubmed_id>9591306</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Shin CS, Moon BS, Park KS, Kim SY, Park SJ, Chung MH, Lee HK: Serum 8-hydroxy-guanine levels are increased in diabetic patients.  Diabetes Care. 2001 Apr;24(4):733-7.</reference_text>
-          <pubmed_id>11315839</pubmed_id>
+          <reference_text>McLellan AC, Phillips SA, Thornalley PJ: Fluorimetric assay of D-lactate.  Anal Biochem. 1992 Oct;206(1):12-6.</reference_text>
+          <pubmed_id>1456422</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Wahl HG, Hoffmann A, Luft D, Liebich HM: Analysis of volatile organic compounds in human urine by headspace gas chromatography-mass spectrometry with a multipurpose sampler. J Chromatogr A. 1999 Jun 25;847(1-2):117-25.</reference_text>
+          <pubmed_id>10431355</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Dungan KM, Buse JB, Largay J, Kelly MM, Button EA, Kato S, Wittlin S: 1,5-anhydroglucitol and postprandial hyperglycemia as measured by continuous glucose monitoring system in moderately controlled patients with diabetes. Diabetes Care. 2006 Jun;29(6):1214-9.</reference_text>
+          <pubmed_id>16731998</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Costa A, Iguala I, Bedini J, Quinto L, Conget I: Uric acid concentration in subjects at risk of type 2 diabetes mellitus: relationship to components of the metabolic syndrome. Metabolism. 2002 Mar;51(3):372-5.</reference_text>
+          <pubmed_id>11887176</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Avogaro A, Bier DM: Contribution of 3-hydroxyisobutyrate to the measurement of 3-hydroxybutyrate in human plasma: comparison of enzymatic and gas-liquid chromatography-mass spectrometry assays in normal and in diabetic subjects. J Lipid Res. 1989 Nov;30(11):1811-7.</reference_text>
+          <pubmed_id>2614280</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Sheikh-Ali M, Karon BS, Basu A, Kudva YC, Muller LA, Xu J, Schwenk WF, Miles JM: Can serum beta-hydroxybutyrate be used to diagnose diabetic ketoacidosis?  Diabetes Care. 2008 Apr;31(4):643-7. Epub 2008 Jan 9.</reference_text>
+          <pubmed_id>18184896</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Kawasaki T, Akanuma H, Yamanouchi T: Increased fructose concentrations in blood and urine in patients with diabetes. Diabetes Care. 2002 Feb;25(2):353-7.</reference_text>
+          <pubmed_id>11815509</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Stickle D, Turk J: A kinetic mass balance model for 1,5-anhydroglucitol: applications to monitoring of glycemic control. Am J Physiol. 1997 Oct;273(4 Pt 1):E821-30.</reference_text>
+          <pubmed_id>9357814</pubmed_id>
         </reference>
         <reference>
           <reference_text>Nguyen TM, Rodriguez LM, Mason KJ, Heptulla RA: Serum 1,5-anhydroglucitol (Glycomark) levels in children with and without type 1 diabetes mellitus. Pediatr Diabetes. 2007 Aug;8(4):214-9.</reference_text>
           <pubmed_id>17659063</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Guevara-Aguirre J, Guevara-Aguirre M, Saavedra J, Bernstein G, Rosenbloom AL: Comparison of oral insulin spray and subcutaneous regular insulin at mealtime in type 1 diabetes. Diabetes Technol Ther. 2007 Aug;9(4):372-6.</reference_text>
-          <pubmed_id>17705693</pubmed_id>
+          <reference_text>del Carmen Crespillo M, Olveira G, de Adana MS, Rojo-Martinez G, Garcia-Aleman J, Olvera P, Soriguer F, Munoz A: Metabolic effects of an enteral nutrition formula for diabetes: comparison with standard formulas in patients with type 1 diabetes. Clin Nutr. 2003 Oct;22(5):483-7.</reference_text>
+          <pubmed_id>14512036</pubmed_id>
         </reference>
         <reference>
-          <reference_text>McLellan AC, Phillips SA, Thornalley PJ: Fluorimetric assay of D-lactate.  Anal Biochem. 1992 Oct;206(1):12-6.</reference_text>
-          <pubmed_id>1456422</pubmed_id>
+          <reference_text>Stupar J, Vrtovec M, Dolinsek F: Longitudinal hair chromium profiles of elderly subjects with normal glucose tolerance and type 2 diabetes mellitus. Metabolism. 2007 Jan;56(1):94-104.</reference_text>
+          <pubmed_id>17161231</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Liebich HM, Buelow HJ, Kallmayer R: Quantification of endogenous aliphatic alcohols in serum and urine.  J Chromatogr. 1982 Apr 30;239:343-9.</reference_text>
+          <pubmed_id>7096503</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Shin CS, Moon BS, Park KS, Kim SY, Park SJ, Chung MH, Lee HK: Serum 8-hydroxy-guanine levels are increased in diabetic patients.  Diabetes Care. 2001 Apr;24(4):733-7.</reference_text>
+          <pubmed_id>11315839</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Guevara-Aguirre J, Guevara-Aguirre M, Saavedra J, Bernstein G, Rosenbloom AL: Comparison of oral insulin spray and subcutaneous regular insulin at mealtime in type 1 diabetes. Diabetes Technol Ther. 2007 Aug;9(4):372-6.</reference_text>
+          <pubmed_id>17705693</pubmed_id>
         </reference>
         <reference>
           <reference_text>Giussi GA, Ballejo G, Benedetti WL: Estriol serum levels, neonatal vitality and stromal villous edema in diabetic pregnancies. Acta Diabetol Lat. 1979 Apr-Jun;16(2):105-10.</reference_text>
@@ -891,28 +935,12 @@
           <pubmed_id>8234346</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Greco AV, Mingrone G, Capristo E, Benedetti G, De Gaetano A, Gasbarrini G: The metabolic effect of dodecanedioic acid infusion in non-insulin-dependent diabetic patients. Nutrition. 1998 Apr;14(4):351-7.</reference_text>
-          <pubmed_id>9591306</pubmed_id>
-        </reference>
-        <reference>
           <reference_text>Mine S, Okada Y, Kawahara C, Tabata T, Tanaka Y: Serum hyaluronan concentration as a marker of angiopathy in patients with diabetes mellitus. Endocr J. 2006 Dec;53(6):761-6. Epub 2006 Sep 12.</reference_text>
           <pubmed_id>16966827</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Liebich HM, Buelow HJ, Kallmayer R: Quantification of endogenous aliphatic alcohols in serum and urine.  J Chromatogr. 1982 Apr 30;239:343-9.</reference_text>
-          <pubmed_id>7096503</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Avogaro A, Bier DM: Contribution of 3-hydroxyisobutyrate to the measurement of 3-hydroxybutyrate in human plasma: comparison of enzymatic and gas-liquid chromatography-mass spectrometry assays in normal and in diabetic subjects. J Lipid Res. 1989 Nov;30(11):1811-7.</reference_text>
-          <pubmed_id>2614280</pubmed_id>
-        </reference>
-        <reference>
           <reference_text>Khuhawar MY, Zardari LA, Laghari AJ: Capillary gas chromatographic determination of methylglyoxal from serum of diabetic patients by precolumn derivatization with 1,2-diamonopropane. J Chromatogr B Analyt Technol Biomed Life Sci. 2008 Sep 15;873(1):15-9.       Epub 2008 May 17.</reference_text>
           <pubmed_id>18760976</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Kawasaki T, Akanuma H, Yamanouchi T: Increased fructose concentrations in blood and urine in patients with diabetes. Diabetes Care. 2002 Feb;25(2):353-7.</reference_text>
-          <pubmed_id>11815509</pubmed_id>
         </reference>
         <reference>
           <reference_text>World Health Organisation Department of Noncommunicable Disease Surveillance (1999). "Definition, Diagnosis and Classification of Diabetes Mellitus and its Complications"</reference_text>
@@ -925,12 +953,24 @@
       <omim_id/>
       <references>
         <reference>
+          <reference_text>Galley HF, Le Cras AE, Yassen K, Grant IS, Webster NR: Circulating tetrahydrobiopterin concentrations in patients with septic shock. Br J Anaesth. 2001 Apr;86(4):578-80.</reference_text>
+          <pubmed_id>11573638</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Yokoyama K, Tajima M, Yoshida H, Nakayama M, Tokutome G, Sakagami H, Hosoya T: Plasma pteridine concentrations in patients with chronic renal failure.  Nephrol Dial Transplant. 2002 Jun;17(6):1032-6.</reference_text>
+          <pubmed_id>12032193</pubmed_id>
+        </reference>
+        <reference>
           <reference_text>McGregor DO, Dellow WJ, Lever M, George PM, Robson RA, Chambers ST: Dimethylglycine accumulates in uremia and predicts elevated plasma homocysteine concentrations. Kidney Int. 2001 Jun;59(6):2267-72.</reference_text>
           <pubmed_id>11380830</pubmed_id>
         </reference>
         <reference>
           <reference_text>Ehrenpreis ED, Salvino M, Craig RM: Improving the serum D-xylose test for the identification of patients with small intestinal malabsorption. J Clin Gastroenterol. 2001 Jul;33(1):36-40.</reference_text>
           <pubmed_id>11418788</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Niwa T, Takeda N, Yoshizumi H: RNA metabolism in uremic patients: accumulation of modified ribonucleosides in uremic serum. Technical note. Kidney Int. 1998 Jun;53(6):1801-6.</reference_text>
+          <pubmed_id>9607216</pubmed_id>
         </reference>
         <reference>
           <reference_text>Jankowski J, van der Giet M, Jankowski V, Schmidt S, Hemeier M, Mahn B, Giebing G, Tolle M, Luftmann H, Schluter H, Zidek W, Tepel M: Increased plasma phenylacetic acid in patients with end-stage renal failure inhibits iNOS expression. J Clin Invest. 2003 Jul;112(2):256-64.</reference_text>
@@ -941,8 +981,16 @@
           <pubmed_id>2013627</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Niwa T, Takeda N, Yoshizumi H: RNA metabolism in uremic patients: accumulation of modified ribonucleosides in uremic serum. Technical note. Kidney Int. 1998 Jun;53(6):1801-6.</reference_text>
-          <pubmed_id>9607216</pubmed_id>
+          <reference_text>Fleck C, Schweitzer F, Karge E, Busch M, Stein G: Serum concentrations of asymmetric (ADMA) and symmetric (SDMA) dimethylarginine in patients with chronic kidney diseases. Clin Chim Acta. 2003 Oct;336(1-2):1-12.</reference_text>
+          <pubmed_id>14500028</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Bain MA, Faull R, Fornasini G, Milne RW, Evans AM: Accumulation of trimethylamine and trimethylamine-N-oxide in end-stage renal disease patients undergoing haemodialysis. Nephrol Dial Transplant. 2006 May;21(5):1300-4. Epub 2006 Jan 9.</reference_text>
+          <pubmed_id>16401621</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Teerlink T, Hennekes MW, Mulder C, Brulez HF: Determination of dimethylamine in biological samples by high-performance liquid chromatography. J Chromatogr B Biomed Sci Appl. 1997 Apr 11;691(2):269-76.</reference_text>
+          <pubmed_id>9174262</pubmed_id>
         </reference>
         <reference>
           <reference_text>Takagi T, Chung TG, Saito A: Determination of polyamines in hydrolysates of uremic plasma by high-performance cation-exchange column chromatography. J Chromatogr. 1983 Feb 11;272(2):279-85.</reference_text>
@@ -953,20 +1001,12 @@
           <pubmed_id>10649708</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Fleck C, Schweitzer F, Karge E, Busch M, Stein G: Serum concentrations of asymmetric (ADMA) and symmetric (SDMA) dimethylarginine in patients with chronic kidney diseases. Clin Chim Acta. 2003 Oct;336(1-2):1-12.</reference_text>
-          <pubmed_id>14500028</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Raj DS, Ouwendyk M, Francoeur R, Pierratos A: Plasma amino acid profile on nocturnal hemodialysis.  Blood Purif. 2000;18(2):97-102.</reference_text>
-          <pubmed_id>10838467</pubmed_id>
-        </reference>
-        <reference>
           <reference_text>Liebich HM, Woll J: Volatile substances in blood serum: profile analysis and quantitative determination. J Chromatogr. 1977 Nov 11;142:505-16.</reference_text>
           <pubmed_id>914932</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Galley HF, Le Cras AE, Yassen K, Grant IS, Webster NR: Circulating tetrahydrobiopterin concentrations in patients with septic shock. Br J Anaesth. 2001 Apr;86(4):578-80.</reference_text>
-          <pubmed_id>11573638</pubmed_id>
+          <reference_text>Raj DS, Ouwendyk M, Francoeur R, Pierratos A: Plasma amino acid profile on nocturnal hemodialysis.  Blood Purif. 2000;18(2):97-102.</reference_text>
+          <pubmed_id>10838467</pubmed_id>
         </reference>
         <reference>
           <reference_text>Paniagua R, Claure R, Amato D, Flores E, Perez A, Exaire E: Effects of oral administration of zinc and diiodohydroxyquinolein on plasma zinc levels of uremic patients. Nephron. 1995;69(2):147-50.</reference_text>
@@ -989,18 +1029,6 @@
           <pubmed_id>17073580</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Bain MA, Faull R, Fornasini G, Milne RW, Evans AM: Accumulation of trimethylamine and trimethylamine-N-oxide in end-stage renal disease patients undergoing haemodialysis. Nephrol Dial Transplant. 2006 May;21(5):1300-4. Epub 2006 Jan 9.</reference_text>
-          <pubmed_id>16401621</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Teerlink T, Hennekes MW, Mulder C, Brulez HF: Determination of dimethylamine in biological samples by high-performance liquid chromatography. J Chromatogr B Biomed Sci Appl. 1997 Apr 11;691(2):269-76.</reference_text>
-          <pubmed_id>9174262</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Yokoyama K, Tajima M, Yoshida H, Nakayama M, Tokutome G, Sakagami H, Hosoya T: Plasma pteridine concentrations in patients with chronic renal failure.  Nephrol Dial Transplant. 2002 Jun;17(6):1032-6.</reference_text>
-          <pubmed_id>12032193</pubmed_id>
-        </reference>
-        <reference>
           <reference_text>Nieren- und Hochdruckkrankheiten (1978), 7(2), 62-74 (translated from German Kidney and Hypertension). </reference_text>
           <pubmed_id/>
         </reference>
@@ -1015,16 +1043,16 @@
           <pubmed_id>15899597</pubmed_id>
         </reference>
         <reference>
+          <reference_text>Serlie MJ, Meijer AJ, Groener JE, Duran M, Endert E, Fliers E, Aerts JM, Sauerwein HP: Short-term manipulation of plasma free fatty acids does not change skeletal muscle concentrations of ceramide and glucosylceramide in lean and overweight subjects. J Clin Endocrinol Metab. 2007 Apr;92(4):1524-9. Epub 2007 Jan 30.</reference_text>
+          <pubmed_id>17264178</pubmed_id>
+        </reference>
+        <reference>
           <reference_text>Vice E, Privette JD, Hickner RC, Barakat HA: Ketone body metabolism in lean and obese women.  Metabolism. 2005 Nov;54(11):1542-5.</reference_text>
           <pubmed_id>16253646</pubmed_id>
         </reference>
         <reference>
           <reference_text>Brind J, Strain G, Miller L, Zumoff B, Vogelman J, Orentreich N: Obese men have elevated plasma levels of estrone sulfate.  Int J Obes. 1990 Jun;14(6):483-6.</reference_text>
           <pubmed_id>2401584</pubmed_id>
-        </reference>
-        <reference>
-          <reference_text>Serlie MJ, Meijer AJ, Groener JE, Duran M, Endert E, Fliers E, Aerts JM, Sauerwein HP: Short-term manipulation of plasma free fatty acids does not change skeletal muscle concentrations of ceramide and glucosylceramide in lean and overweight subjects. J Clin Endocrinol Metab. 2007 Apr;92(4):1524-9. Epub 2007 Jan 30.</reference_text>
-          <pubmed_id>17264178</pubmed_id>
         </reference>
         <reference>
           <reference_text>Driskell JA, Chrisley BM, Reynolds LK, Moak SW: Plasma B6 vitamer and plasma and urinary 4-pyridoxic acid concentrations of middle-aged obese black women. J Chromatogr. 1991 Aug 23;568(2):333-40.</reference_text>

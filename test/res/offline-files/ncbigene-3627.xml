@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
@@ -22,8 +22,8 @@
           <Date_std>
             <Date-std>
               <Date-std_year>2016</Date-std_year>
-              <Date-std_month>3</Date-std_month>
-              <Date-std_day>6</Date-std_day>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>11</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -50,6 +50,7 @@
             </Dbtag>
           </Org-ref_db>
           <Org-ref_syn>
+            <Org-ref_syn_E>humans</Org-ref_syn_E>
             <Org-ref_syn_E>man</Org-ref_syn_E>
           </Org-ref_syn>
           <Org-ref_orgname>
@@ -143,7 +144,6 @@
         <Prot-ref_name_E>10 kDa interferon gamma-induced protein</Prot-ref_name_E>
         <Prot-ref_name_E>chemokine (C-X-C motif) ligand 10</Prot-ref_name_E>
         <Prot-ref_name_E>gamma IP10</Prot-ref_name_E>
-        <Prot-ref_name_E>gamma-IP10</Prot-ref_name_E>
         <Prot-ref_name_E>interferon-inducible cytokine IP-10</Prot-ref_name_E>
         <Prot-ref_name_E>protein 10 from interferon (gamma)-induced cell line</Prot-ref_name_E>
         <Prot-ref_name_E>small inducible cytokine subfamily B (Cys-X-Cys), member 10</Prot-ref_name_E>
@@ -171,8 +171,8 @@
   <Entrezgene_locus>
     <Gene-commentary>
       <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-      <Gene-commentary_heading>Reference GRCh38.p2 Primary Assembly</Gene-commentary_heading>
-      <Gene-commentary_label>Chromosome 4 Reference GRCh38.p2 Primary Assembly</Gene-commentary_label>
+      <Gene-commentary_heading>Reference GRCh38.p7 Primary Assembly</Gene-commentary_heading>
+      <Gene-commentary_label>Chromosome 4 Reference GRCh38.p7 Primary Assembly</Gene-commentary_label>
       <Gene-commentary_accession>NC_000004</Gene-commentary_accession>
       <Gene-commentary_version>12</Gene-commentary_version>
       <Gene-commentary_seqs>
@@ -1450,13 +1450,6 @@
             </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="comment">254</Gene-commentary_type>
-              <Gene-commentary_refs>
-                <Pub>
-                  <Pub_pmid>
-                    <PubMedId>10903763</PubMedId>
-                  </Pub_pmid>
-                </Pub>
-              </Gene-commentary_refs>
               <Gene-commentary_source>
                 <Other-source>
                   <Other-source_src>
@@ -1470,7 +1463,7 @@
                     </Dbtag>
                   </Other-source_src>
                   <Other-source_anchor>regulation of protein kinase activity</Other-source_anchor>
-                  <Other-source_post-text>evidence: TAS</Other-source_post-text>
+                  <Other-source_post-text>evidence: IEA</Other-source_post-text>
                 </Other-source>
               </Gene-commentary_source>
             </Gene-commentary>
@@ -1687,7 +1680,7 @@
             </Dbtag>
           </Other-source_src>
           <Other-source_anchor>Map Viewer</Other-source_anchor>
-          <Other-source_url>http://www.ncbi.nlm.nih.gov/mapview/maps.cgi?taxid=9606&amp;chr=4&amp;MAPS=genes-r-org/rat-chr/human%3A4,genes-r-org/mouse-chr/human%3A4,genes-r-org/human-chr4&amp;query=e%3A3627[egene_id]+AND+gene[obj_type]&amp;QSTR=cxcl10&amp;cmd=focus&amp;fill=10</Other-source_url>
+          <Other-source_url>https://www.ncbi.nlm.nih.gov/mapview/maps.cgi?taxid=9606&amp;chr=4&amp;MAPS=genes-r-org/rat-chr/human%3A4,genes-r-org/mouse-chr/human%3A4,genes-r-org/human-chr4&amp;query=e%3A3627[egene_id]+AND+gene[obj_type]&amp;QSTR=cxcl10&amp;cmd=focus&amp;fill=10</Other-source_url>
         </Other-source>
       </Gene-commentary_source>
     </Gene-commentary>
@@ -1773,6 +1766,91 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>27012046</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26907493</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26881918</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26771653</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26708691</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26602091</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26555697</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26553462</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26406121</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26385705</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26346028</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26339796</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26339406</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26336986</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26317795</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26275808</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26253531</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26136521</PubMedId>
           </Pub_pmid>
         </Pub>
@@ -1793,7 +1871,17 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26020377</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>25982097</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25973761</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1839,6 +1927,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>25713416</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25702175</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -4171,11 +4264,11 @@
         </Gene-commentary>
         <Gene-commentary>
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
-          <Gene-commentary_heading>RefSeqs of Annotated Genomes: Homo sapiens Annotation Release 107</Gene-commentary_heading>
+          <Gene-commentary_heading>RefSeqs of Annotated Genomes: Homo sapiens Annotation Release 108</Gene-commentary_heading>
           <Gene-commentary_products>
             <Gene-commentary>
               <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-              <Gene-commentary_heading>Reference GRCh38.p2 Primary Assembly</Gene-commentary_heading>
+              <Gene-commentary_heading>Reference GRCh38.p7 Primary Assembly</Gene-commentary_heading>
               <Gene-commentary_accession>NC_000004</Gene-commentary_accession>
               <Gene-commentary_version>12</Gene-commentary_version>
               <Gene-commentary_source>
@@ -4210,6 +4303,7 @@
                   </Seq-loc_int>
                 </Seq-loc>
               </Gene-commentary_seqs>
+              <Gene-commentary_products></Gene-commentary_products>
             </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="genomic">1</Gene-commentary_type>
@@ -4248,6 +4342,7 @@
                   </Seq-loc_int>
                 </Seq-loc>
               </Gene-commentary_seqs>
+              <Gene-commentary_products></Gene-commentary_products>
             </Gene-commentary>
           </Gene-commentary_products>
         </Gene-commentary>
@@ -4875,7 +4970,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>AceView</Other-source_anchor>
-              <Other-source_url>http://www.ncbi.nlm.nih.gov/IEB/Research/Acembly/av.cgi?c=geneid&amp;org=9606&amp;l=3627</Other-source_url>
+              <Other-source_url>https://www.ncbi.nlm.nih.gov/IEB/Research/Acembly/av.cgi?c=geneid&amp;org=9606&amp;l=3627</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -4959,11 +5054,791 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>Hs.632586</Other-source_anchor>
-              <Other-source_url>http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&amp;CID=632586</Other-source_url>
+              <Other-source_url>https://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&amp;CID=632586</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCL10 has been implicated in exuberating the inflammatory response during viral infections and antibodies could therefore play a role in the pathogenesis of RSV infections</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26253531</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>10</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>10</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>15</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>higher concentration is associated with neutrophils accumulation in the alveolar space of Systemic Lupus Erythematosus patients with pulmonary fibrosis</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26275808</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>3</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>3</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>0</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>increased serum levels in 22q11.2 Deletion Syndrome patients</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26708691</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>20</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>20</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>7</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>may promote cisplatin resistance after liver transplantation by activating endoplasmic reticulum stress signaling pathways.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26336986</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>20</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>20</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>41</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Our results suggested that TNF-alpha may be an ideal biomarker for diagnosing the 3 forms of TB presentation, while the other factors (IL-6, IP-10, MCP-1, and IFN-gamma) can potentially facilitate differential diagnosis for the 3 TB presentation types</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26881918</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>6</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>6</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>31</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>ANDV caused long-term elevated levels of eotaxin-1, IL-6, IL-8, IP-10, and VEGF-A that peaked 20-25 days after infection</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26907493</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>6</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>6</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>6</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Serum CXCL10 and CXCL13 levels may serve as clinical markers and contribute to the inflammatory response, especially skin manifestations thereof, in adult-onset Still&apos;s disease</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26385705</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>41</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>indicate that chemokines CCL5 and CXCL10 serve as the key chemokines to recruit CD8(+) T lymphocytes into esophageal squamous cell carcinoma (ESCC) tissue and may play a role in patient survival.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26317795</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>28</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Interferon Gamma Inducible Protein 10 can be used as a Potential Biomarker in the Diagnosis of Latent Tuberculosis Infection</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26771653</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>47</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>During hepatocyte lipotoxicity, activated MLK3 induces the release of CXCL10-bearing vesicles from hepatocytes, which are chemotactic for macrophages.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26406121</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>8</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>High amounts of IL-17, IP-10, and IL-10 were predictors of MOD; decreased IL-17 and MIP-1alpha separated CM-MOD from MOD; and increased IL-12p40 differentiated CM from CM-MOD</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26602091</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>9</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>45</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>findings were confirmed in EPC precursors in vitro; where it was determined that heme-induced apoptosis and CXCL10 expression was TLR4-mediated</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26555697</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>9</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>52</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>IP-10 levels are higher in children with respiratory illness compared to controls, independent of &quot;TB status&quot; suggesting that the evaluation of this parameter can be used as an inflammatory marker more than a TB test.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26346028</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>11</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>11</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>44</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Serum IP-10 may be correlated with the risk of chronic hepatitis B and the efficiency of interferon therapy.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26339406</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>11</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>11</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>15</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCL10 exerts antibacterial effects on clinical and laboratory strains of Escherichia coli and disruption of pyruvate dehydrogenase complex, which converts pyruvate to acetyl coenzyme A, enables E. coli to resist these antimicrobial effects.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26553462</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>17</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Association has been found between CXCL10 and DPP4 Gene polymorphisms and a complementary role for unfavorable IL28B genotype in prediction of treatment response in Thai patients with chronic hepatitis C virus infection.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26339796</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>21</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>21</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>58</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Serum IP-10 seems to represent a satisfactory diagnostic marker for the diagnosis of spontaneous bacterial peritonitis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26020377</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>7</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>7</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>35</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Pretreatment IP-10 could not predict either fibrosis or response to PEG-IFN/RIB therapy in chronic HCV Egyptian patients.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25973761</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>7</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>7</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>0</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Findings indicate high sensitivity and specificity of IP-10 as a novel biomarker for tuberculosis in China.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27012046</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>23</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>23</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>57</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Results of this study suggest the association between CXCL10 gene polymorphism and rheumatoid arthritis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25702175</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>3</Date-std_month>
+              <Date-std_day>19</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>3</Date-std_month>
+              <Date-std_day>19</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>14</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -19954,6 +20829,186 @@
       <Gene-commentary_comment>
         <Gene-commentary>
           <Gene-commentary_type value="generif">18</Gene-commentary_type>
+          <Gene-commentary_text>HIV-1 Tat upregulates CXCL10 mRNA and protein expression in CRT-MG human astroglioma cells</Gene-commentary_text>
+          <Gene-commentary_refs>
+            <Pub>
+              <Pub_pmid>
+                <PubMedId>26031809</PubMedId>
+              </Pub_pmid>
+            </Pub>
+          </Gene-commentary_refs>
+          <Gene-commentary_comment>
+            <Gene-commentary>
+              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>GeneID</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>155871</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>tat</Other-source_anchor>
+                </Other-source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>Protein</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>9629358</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>Tat</Other-source_anchor>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>Protein</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>149999382</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>C-X-C motif chemokine 10 precursor</Other-source_anchor>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
+          </Gene-commentary_comment>
+          <Gene-commentary_create-date>
+            <Date>
+              <Date_std>
+                <Date-std>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>19</Date-std_day>
+                  <Date-std_hour>9</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
+                  <Date-std_second>0</Date-std_second>
+                </Date-std>
+              </Date_std>
+            </Date>
+          </Gene-commentary_create-date>
+          <Gene-commentary_update-date>
+            <Date>
+              <Date_std>
+                <Date-std>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
+                  <Date-std_second>0</Date-std_second>
+                </Date-std>
+              </Date_std>
+            </Date>
+          </Gene-commentary_update-date>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="generif">18</Gene-commentary_type>
+          <Gene-commentary_text>HIV-1 Vpr upregulates the expression of CXCL10 in human monocyte-derived dendritic cells</Gene-commentary_text>
+          <Gene-commentary_refs>
+            <Pub>
+              <Pub_pmid>
+                <PubMedId>26116899</PubMedId>
+              </Pub_pmid>
+            </Pub>
+          </Gene-commentary_refs>
+          <Gene-commentary_comment>
+            <Gene-commentary>
+              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>GeneID</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>155807</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>vpr</Other-source_anchor>
+                </Other-source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>Protein</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>28872817</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>Vpr</Other-source_anchor>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>Protein</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>149999382</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>C-X-C motif chemokine 10 precursor</Other-source_anchor>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
+          </Gene-commentary_comment>
+          <Gene-commentary_create-date>
+            <Date>
+              <Date_std>
+                <Date-std>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>19</Date-std_day>
+                  <Date-std_hour>9</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
+                  <Date-std_second>0</Date-std_second>
+                </Date-std>
+              </Date_std>
+            </Date>
+          </Gene-commentary_create-date>
+          <Gene-commentary_update-date>
+            <Date>
+              <Date_std>
+                <Date-std>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
+                  <Date-std_second>0</Date-std_second>
+                </Date-std>
+              </Date_std>
+            </Date>
+          </Gene-commentary_update-date>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="generif">18</Gene-commentary_type>
           <Gene-commentary_text>Curcumin, a potent and safe anti-inflammatory compound, inhibits HIV-1 gp120-mediated upregulation of the proinflammatory cytokines TNF-alpha and IL-6, and the chemokines IL-8, RANTES, and IP-10 in primary human genital epithelial cells</Gene-commentary_text>
           <Gene-commentary_refs>
             <Pub>
@@ -20031,11 +21086,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20156,11 +21211,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20246,11 +21301,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20336,11 +21391,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20426,11 +21481,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20516,11 +21571,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>35</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20606,11 +21661,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20696,11 +21751,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20786,11 +21841,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20881,11 +21936,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20976,11 +22031,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21066,11 +22121,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21161,11 +22216,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21261,11 +22316,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21351,11 +22406,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21441,11 +22496,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21536,11 +22591,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21631,11 +22686,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>32</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -22370,10 +23425,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>20</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>28</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -22473,10 +23528,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>20</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>28</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -23101,13 +24156,102 @@
       <Gene-commentary_comment>
         <Gene-commentary>
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
+          <Gene-commentary_heading>Homo sapiens Annotation Release 108</Gene-commentary_heading>
+          <Gene-commentary_comment>
+            <Gene-commentary>
+              <Gene-commentary_type value="assembly">24</Gene-commentary_type>
+              <Gene-commentary_heading>GRCh38.p7</Gene-commentary_heading>
+              <Gene-commentary_label>Reference</Gene-commentary_label>
+              <Gene-commentary_text>current</Gene-commentary_text>
+              <Gene-commentary_accession>GCF_000001405</Gene-commentary_accession>
+              <Gene-commentary_version>33</Gene-commentary_version>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="assembly-unit">25</Gene-commentary_type>
+                  <Gene-commentary_heading>Primary Assembly</Gene-commentary_heading>
+                  <Gene-commentary_accession>GCF_000001305</Gene-commentary_accession>
+                  <Gene-commentary_version>14</Gene-commentary_version>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+                      <Gene-commentary_label>Chromosome 4</Gene-commentary_label>
+                      <Gene-commentary_accession>NC_000004</Gene-commentary_accession>
+                      <Gene-commentary_version>12</Gene-commentary_version>
+                      <Gene-commentary_seqs>
+                        <Seq-loc>
+                          <Seq-loc_int>
+                            <Seq-interval>
+                              <Seq-interval_from>76021115</Seq-interval_from>
+                              <Seq-interval_to>76023535</Seq-interval_to>
+                              <Seq-interval_strand>
+                                <Na-strand value="minus"/>
+                              </Seq-interval_strand>
+                              <Seq-interval_id>
+                                <Seq-id>
+                                  <Seq-id_gi>568815594</Seq-id_gi>
+                                </Seq-id>
+                              </Seq-interval_id>
+                            </Seq-interval>
+                          </Seq-loc_int>
+                        </Seq-loc>
+                      </Gene-commentary_seqs>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="assembly">24</Gene-commentary_type>
+              <Gene-commentary_heading>CHM1_1.1</Gene-commentary_heading>
+              <Gene-commentary_label>Alternate</Gene-commentary_label>
+              <Gene-commentary_text>current</Gene-commentary_text>
+              <Gene-commentary_accession>GCF_000306695</Gene-commentary_accession>
+              <Gene-commentary_version>2</Gene-commentary_version>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="assembly-unit">25</Gene-commentary_type>
+                  <Gene-commentary_heading>Primary Assembly</Gene-commentary_heading>
+                  <Gene-commentary_accession>GCF_000306705</Gene-commentary_accession>
+                  <Gene-commentary_version>2</Gene-commentary_version>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+                      <Gene-commentary_label>Chromosome 4</Gene-commentary_label>
+                      <Gene-commentary_accession>NC_018915</Gene-commentary_accession>
+                      <Gene-commentary_version>2</Gene-commentary_version>
+                      <Gene-commentary_seqs>
+                        <Seq-loc>
+                          <Seq-loc_int>
+                            <Seq-interval>
+                              <Seq-interval_from>76918846</Seq-interval_from>
+                              <Seq-interval_to>76921264</Seq-interval_to>
+                              <Seq-interval_strand>
+                                <Na-strand value="minus"/>
+                              </Seq-interval_strand>
+                              <Seq-interval_id>
+                                <Seq-id>
+                                  <Seq-id_gi>528476651</Seq-id_gi>
+                                </Seq-id>
+                              </Seq-interval_id>
+                            </Seq-interval>
+                          </Seq-loc_int>
+                        </Seq-loc>
+                      </Gene-commentary_seqs>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+          </Gene-commentary_comment>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="comment">254</Gene-commentary_type>
           <Gene-commentary_heading>Homo sapiens Annotation Release 107</Gene-commentary_heading>
           <Gene-commentary_comment>
             <Gene-commentary>
               <Gene-commentary_type value="assembly">24</Gene-commentary_type>
               <Gene-commentary_heading>GRCh38.p2</Gene-commentary_heading>
               <Gene-commentary_label>Reference</Gene-commentary_label>
-              <Gene-commentary_text>current</Gene-commentary_text>
               <Gene-commentary_accession>GCF_000001405</Gene-commentary_accession>
               <Gene-commentary_version>28</Gene-commentary_version>
               <Gene-commentary_comment>
@@ -23149,7 +24293,6 @@
               <Gene-commentary_type value="assembly">24</Gene-commentary_type>
               <Gene-commentary_heading>CHM1_1.1</Gene-commentary_heading>
               <Gene-commentary_label>Alternate</Gene-commentary_label>
-              <Gene-commentary_text>current</Gene-commentary_text>
               <Gene-commentary_accession>GCF_000306695</Gene-commentary_accession>
               <Gene-commentary_version>2</Gene-commentary_version>
               <Gene-commentary_comment>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
@@ -22,11 +22,8 @@
           <Date_std>
             <Date-std>
               <Date-std_year>2016</Date-std_year>
-              <Date-std_month>3</Date-std_month>
-              <Date-std_day>17</Date-std_day>
-              <Date-std_hour>16</Date-std_hour>
-              <Date-std_minute>41</Date-std_minute>
-              <Date-std_second>1</Date-std_second>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>18</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -53,6 +50,7 @@
             </Dbtag>
           </Org-ref_db>
           <Org-ref_syn>
+            <Org-ref_syn_E>humans</Org-ref_syn_E>
             <Org-ref_syn_E>man</Org-ref_syn_E>
           </Org-ref_syn>
           <Org-ref_orgname>
@@ -142,7 +140,6 @@
       <Prot-ref_name>
         <Prot-ref_name_E>cytolysin</Prot-ref_name_E>
         <Prot-ref_name_E>lymphocyte pore forming protein</Prot-ref_name_E>
-        <Prot-ref_name_E>lymphocyte pore-forming protein</Prot-ref_name_E>
         <Prot-ref_name_E>perforin 1 (pore forming protein)</Prot-ref_name_E>
       </Prot-ref_name>
       <Prot-ref_desc>perforin-1</Prot-ref_desc>
@@ -167,8 +164,8 @@
   <Entrezgene_locus>
     <Gene-commentary>
       <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-      <Gene-commentary_heading>Reference GRCh38.p2 Primary Assembly</Gene-commentary_heading>
-      <Gene-commentary_label>Chromosome 10 Reference GRCh38.p2 Primary Assembly</Gene-commentary_label>
+      <Gene-commentary_heading>Reference GRCh38.p7 Primary Assembly</Gene-commentary_heading>
+      <Gene-commentary_label>Chromosome 10 Reference GRCh38.p7 Primary Assembly</Gene-commentary_label>
       <Gene-commentary_accession>NC_000010</Gene-commentary_accession>
       <Gene-commentary_version>11</Gene-commentary_version>
       <Gene-commentary_seqs>
@@ -1247,32 +1244,6 @@
             </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="comment">254</Gene-commentary_type>
-              <Gene-commentary_refs>
-                <Pub>
-                  <Pub_pmid>
-                    <PubMedId>20889983</PubMedId>
-                  </Pub_pmid>
-                </Pub>
-              </Gene-commentary_refs>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>GO</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>55085</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>transmembrane transport</Other-source_anchor>
-                  <Other-source_post-text>evidence: IDA</Other-source_post-text>
-                </Other-source>
-              </Gene-commentary_source>
-            </Gene-commentary>
-            <Gene-commentary>
-              <Gene-commentary_type value="comment">254</Gene-commentary_type>
               <Gene-commentary_source>
                 <Other-source>
                   <Other-source_src>
@@ -1465,7 +1436,7 @@
             </Dbtag>
           </Other-source_src>
           <Other-source_anchor>Map Viewer</Other-source_anchor>
-          <Other-source_url>http://www.ncbi.nlm.nih.gov/mapview/maps.cgi?taxid=9606&amp;chr=10&amp;MAPS=genes-r-org/rat-chr/human%3A10,genes-r-org/mouse-chr/human%3A10,genes-r-org/human-chr10&amp;query=e%3A5551[egene_id]+AND+gene[obj_type]&amp;QSTR=prf1&amp;cmd=focus&amp;fill=10</Other-source_url>
+          <Other-source_url>https://www.ncbi.nlm.nih.gov/mapview/maps.cgi?taxid=9606&amp;chr=10&amp;MAPS=genes-r-org/rat-chr/human%3A10,genes-r-org/mouse-chr/human%3A10,genes-r-org/human-chr10&amp;query=e%3A5551[egene_id]+AND+gene[obj_type]&amp;QSTR=prf1&amp;cmd=focus&amp;fill=10</Other-source_url>
         </Other-source>
       </Gene-commentary_source>
     </Gene-commentary>
@@ -1556,7 +1527,32 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26897841</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26752517</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26752080</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26739415</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26450956</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26314831</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1572,6 +1568,26 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>26182270</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25975970</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25947952</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25776844</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25725937</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -2475,7 +2491,7 @@
               <Gene-commentary_source>
                 <Other-source>
                   <Other-source_anchor>NHGRI GWA Catalog</Other-source_anchor>
-                  <Other-source_url>http://www.genome.gov/gwastudies/index.cfm?pmid=19553259#result_table</Other-source_url>
+                  <Other-source_url>https://www.genome.gov/gwastudies/index.cfm?pmid=19553259#result_table</Other-source_url>
                 </Other-source>
               </Gene-commentary_source>
             </Gene-commentary>
@@ -2523,7 +2539,7 @@
                     <Gene-commentary>
                       <Gene-commentary_type value="comment">254</Gene-commentary_type>
                       <Gene-commentary_label>Diagnosis Testing</Gene-commentary_label>
-                      <Gene-commentary_text>The diagnosis of FHL is made based on the presence of clinical criteria and is confirmed by molecular genetic testing. Five disease subtypes (FHL1, FHL2, FHL3, FHL4, and FHL5) are described. Four genes in which mutations are causative have been identified: PRF1 (FHL2), UNC13D (FHL3), STX11 (FHL4), and STXBP2 (FHL5).</Gene-commentary_text>
+                      <Gene-commentary_text>The diagnosis of FHL is made based on the presence of clinical criteria and is confirmed by molecular genetic testing. Five disease subtypes (FHL1, FHL2, FHL3, FHL4, and FHL5) are described. Four genes in which pathogenic variants are causative have been identified: PRF1 (FHL2), UNC13D (FHL3), STX11 (FHL4), and STXBP2 (FHL5).</Gene-commentary_text>
                     </Gene-commentary>
                     <Gene-commentary>
                       <Gene-commentary_type value="comment">254</Gene-commentary_type>
@@ -3242,11 +3258,11 @@
         </Gene-commentary>
         <Gene-commentary>
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
-          <Gene-commentary_heading>RefSeqs of Annotated Genomes: Homo sapiens Annotation Release 107</Gene-commentary_heading>
+          <Gene-commentary_heading>RefSeqs of Annotated Genomes: Homo sapiens Annotation Release 108</Gene-commentary_heading>
           <Gene-commentary_products>
             <Gene-commentary>
               <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-              <Gene-commentary_heading>Reference GRCh38.p2 Primary Assembly</Gene-commentary_heading>
+              <Gene-commentary_heading>Reference GRCh38.p7 Primary Assembly</Gene-commentary_heading>
               <Gene-commentary_accession>NC_000010</Gene-commentary_accession>
               <Gene-commentary_version>11</Gene-commentary_version>
               <Gene-commentary_source>
@@ -3281,6 +3297,7 @@
                   </Seq-loc_int>
                 </Seq-loc>
               </Gene-commentary_seqs>
+              <Gene-commentary_products></Gene-commentary_products>
             </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="genomic">1</Gene-commentary_type>
@@ -3319,6 +3336,7 @@
                   </Seq-loc_int>
                 </Seq-loc>
               </Gene-commentary_seqs>
+              <Gene-commentary_products></Gene-commentary_products>
             </Gene-commentary>
           </Gene-commentary_products>
         </Gene-commentary>
@@ -4529,7 +4547,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>AceView</Other-source_anchor>
-              <Other-source_url>http://www.ncbi.nlm.nih.gov/IEB/Research/Acembly/av.cgi?c=geneid&amp;org=9606&amp;l=5551</Other-source_url>
+              <Other-source_url>https://www.ncbi.nlm.nih.gov/IEB/Research/Acembly/av.cgi?c=geneid&amp;org=9606&amp;l=5551</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -4579,26 +4597,6 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>PA33732</Other-source_anchor>
-            </Other-source>
-          </Gene-commentary_source>
-        </Gene-commentary>
-        <Gene-commentary>
-          <Gene-commentary_type value="comment">254</Gene-commentary_type>
-          <Gene-commentary_text>Resource of Asian Primary Immunodeficiency Diseases (RAPID)</Gene-commentary_text>
-          <Gene-commentary_source>
-            <Other-source>
-              <Other-source_src>
-                <Dbtag>
-                  <Dbtag_db>Resource of Asian Primary Immunodeficiency Diseases (RAPID)</Dbtag_db>
-                  <Dbtag_tag>
-                    <Object-id>
-                      <Object-id_str>Resource of Asian Primary Immunodeficiency Diseases (RAPID)</Object-id_str>
-                    </Object-id>
-                  </Dbtag_tag>
-                </Dbtag>
-              </Other-source_src>
-              <Other-source_anchor>Resource of Asian Primary Immunodeficiency Diseases (RAPID)</Other-source_anchor>
-              <Other-source_url>http://web16.kazusa.or.jp/rapid/diseasePhenotype?pid_id=AGID_107</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -4682,11 +4680,362 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>Hs.2200</Other-source_anchor>
-              <Other-source_url>http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&amp;CID=2200</Other-source_url>
+              <Other-source_url>https://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&amp;CID=2200</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Letter/Case Report: recurrent episodes of macrophage activation syndrome in peripheral spondyloarthritis with monoallelic missense mutations in PRF1.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26752080</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>46</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>A new heterozygous mutation (c.916G&gt;A and c.65delC) was identified as familial hemophagocytic lymphohistiocytosis type 2 causing defect.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26739415</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>6</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>6</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>31</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>mutations result in severe chronic active Epstein-Barr virus disease</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25947952</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>2</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>2</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>24</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>mutations result in hemophagocytic lymphohistiocytosis</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25975970</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>2</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>2</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>18</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>PRF delivers granulysin and granzymes into parasite infected cells to kill the parasite.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26752517</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>2</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>2</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>52</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Among SLAMF4+ cells, the T cell fraction positive for perforin and granzyme B was higher in those obtained from healthy donors compared to SLE patients.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26314831</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>7</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>7</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>10</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>elevated in the inflammatory lesions of placentas with villitis of unknown etiology</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25725937</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>44</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>monoallelic mutations of PRF1 decrease NK-cell cytotoxicity should be considered in individuals presenting with the manifestations of immune deficiency states that impinge on NK-cell cytotoxicity.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25776844</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>9</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>9</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>29</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Calcific aortic valve disease is characterized by increased expression of granzymes and perforin.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26897841</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>3</Date-std_month>
+              <Date-std_day>26</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>3</Date-std_month>
+              <Date-std_day>26</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>38</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -10020,11 +10369,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10110,11 +10459,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10200,11 +10549,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>31</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10310,10 +10659,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>2</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>32</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10413,10 +10762,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>2</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>32</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10516,10 +10865,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>2</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>32</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10619,10 +10968,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>2</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>32</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -11034,10 +11383,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>2</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>32</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -11141,13 +11490,102 @@
       <Gene-commentary_comment>
         <Gene-commentary>
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
+          <Gene-commentary_heading>Homo sapiens Annotation Release 108</Gene-commentary_heading>
+          <Gene-commentary_comment>
+            <Gene-commentary>
+              <Gene-commentary_type value="assembly">24</Gene-commentary_type>
+              <Gene-commentary_heading>GRCh38.p7</Gene-commentary_heading>
+              <Gene-commentary_label>Reference</Gene-commentary_label>
+              <Gene-commentary_text>current</Gene-commentary_text>
+              <Gene-commentary_accession>GCF_000001405</Gene-commentary_accession>
+              <Gene-commentary_version>33</Gene-commentary_version>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="assembly-unit">25</Gene-commentary_type>
+                  <Gene-commentary_heading>Primary Assembly</Gene-commentary_heading>
+                  <Gene-commentary_accession>GCF_000001305</Gene-commentary_accession>
+                  <Gene-commentary_version>14</Gene-commentary_version>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+                      <Gene-commentary_label>Chromosome 10</Gene-commentary_label>
+                      <Gene-commentary_accession>NC_000010</Gene-commentary_accession>
+                      <Gene-commentary_version>11</Gene-commentary_version>
+                      <Gene-commentary_seqs>
+                        <Seq-loc>
+                          <Seq-loc_int>
+                            <Seq-interval>
+                              <Seq-interval_from>70597347</Seq-interval_from>
+                              <Seq-interval_to>70602774</Seq-interval_to>
+                              <Seq-interval_strand>
+                                <Na-strand value="minus"/>
+                              </Seq-interval_strand>
+                              <Seq-interval_id>
+                                <Seq-id>
+                                  <Seq-id_gi>568815588</Seq-id_gi>
+                                </Seq-id>
+                              </Seq-interval_id>
+                            </Seq-interval>
+                          </Seq-loc_int>
+                        </Seq-loc>
+                      </Gene-commentary_seqs>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="assembly">24</Gene-commentary_type>
+              <Gene-commentary_heading>CHM1_1.1</Gene-commentary_heading>
+              <Gene-commentary_label>Alternate</Gene-commentary_label>
+              <Gene-commentary_text>current</Gene-commentary_text>
+              <Gene-commentary_accession>GCF_000306695</Gene-commentary_accession>
+              <Gene-commentary_version>2</Gene-commentary_version>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="assembly-unit">25</Gene-commentary_type>
+                  <Gene-commentary_heading>Primary Assembly</Gene-commentary_heading>
+                  <Gene-commentary_accession>GCF_000306705</Gene-commentary_accession>
+                  <Gene-commentary_version>2</Gene-commentary_version>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+                      <Gene-commentary_label>Chromosome 10</Gene-commentary_label>
+                      <Gene-commentary_accession>NC_018921</Gene-commentary_accession>
+                      <Gene-commentary_version>2</Gene-commentary_version>
+                      <Gene-commentary_seqs>
+                        <Seq-loc>
+                          <Seq-loc_int>
+                            <Seq-interval>
+                              <Seq-interval_from>72639250</Seq-interval_from>
+                              <Seq-interval_to>72644702</Seq-interval_to>
+                              <Seq-interval_strand>
+                                <Na-strand value="minus"/>
+                              </Seq-interval_strand>
+                              <Seq-interval_id>
+                                <Seq-id>
+                                  <Seq-id_gi>528476605</Seq-id_gi>
+                                </Seq-id>
+                              </Seq-interval_id>
+                            </Seq-interval>
+                          </Seq-loc_int>
+                        </Seq-loc>
+                      </Gene-commentary_seqs>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+          </Gene-commentary_comment>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="comment">254</Gene-commentary_type>
           <Gene-commentary_heading>Homo sapiens Annotation Release 107</Gene-commentary_heading>
           <Gene-commentary_comment>
             <Gene-commentary>
               <Gene-commentary_type value="assembly">24</Gene-commentary_type>
               <Gene-commentary_heading>GRCh38.p2</Gene-commentary_heading>
               <Gene-commentary_label>Reference</Gene-commentary_label>
-              <Gene-commentary_text>current</Gene-commentary_text>
               <Gene-commentary_accession>GCF_000001405</Gene-commentary_accession>
               <Gene-commentary_version>28</Gene-commentary_version>
               <Gene-commentary_comment>
@@ -11189,7 +11627,6 @@
               <Gene-commentary_type value="assembly">24</Gene-commentary_type>
               <Gene-commentary_heading>CHM1_1.1</Gene-commentary_heading>
               <Gene-commentary_label>Alternate</Gene-commentary_label>
-              <Gene-commentary_text>current</Gene-commentary_text>
               <Gene-commentary_accession>GCF_000306695</Gene-commentary_accession>
               <Gene-commentary_version>2</Gene-commentary_version>
               <Gene-commentary_comment>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
@@ -22,11 +22,8 @@
           <Date_std>
             <Date-std>
               <Date-std_year>2016</Date-std_year>
-              <Date-std_month>3</Date-std_month>
-              <Date-std_day>17</Date-std_day>
-              <Date-std_hour>16</Date-std_hour>
-              <Date-std_minute>41</Date-std_minute>
-              <Date-std_second>1</Date-std_second>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>18</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -53,6 +50,7 @@
             </Dbtag>
           </Org-ref_db>
           <Org-ref_syn>
+            <Org-ref_syn_E>humans</Org-ref_syn_E>
             <Org-ref_syn_E>man</Org-ref_syn_E>
           </Org-ref_syn>
           <Org-ref_orgname>
@@ -168,8 +166,8 @@
   <Entrezgene_locus>
     <Gene-commentary>
       <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-      <Gene-commentary_heading>Reference GRCh38.p2 Primary Assembly</Gene-commentary_heading>
-      <Gene-commentary_label>Chromosome 11 Reference GRCh38.p2 Primary Assembly</Gene-commentary_label>
+      <Gene-commentary_heading>Reference GRCh38.p7 Primary Assembly</Gene-commentary_heading>
+      <Gene-commentary_label>Chromosome 11 Reference GRCh38.p7 Primary Assembly</Gene-commentary_label>
       <Gene-commentary_accession>NC_000011</Gene-commentary_accession>
       <Gene-commentary_version>10</Gene-commentary_version>
       <Gene-commentary_seqs>
@@ -177,7 +175,7 @@
           <Seq-loc_int>
             <Seq-interval>
               <Seq-interval_from>102520507</Seq-interval_from>
-              <Seq-interval_to>102530746</Seq-interval_to>
+              <Seq-interval_to>102530752</Seq-interval_to>
               <Seq-interval_strand>
                 <Na-strand value="minus"/>
               </Seq-interval_strand>
@@ -195,7 +193,7 @@
           <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
           <Gene-commentary_heading>Reference</Gene-commentary_heading>
           <Gene-commentary_accession>NM_002423</Gene-commentary_accession>
-          <Gene-commentary_version>3</Gene-commentary_version>
+          <Gene-commentary_version>4</Gene-commentary_version>
           <Gene-commentary_genomic-coords>
             <Seq-loc>
               <Seq-loc_mix>
@@ -204,7 +202,7 @@
                     <Seq-loc_int>
                       <Seq-interval>
                         <Seq-interval_from>102530592</Seq-interval_from>
-                        <Seq-interval_to>102530746</Seq-interval_to>
+                        <Seq-interval_to>102530752</Seq-interval_to>
                         <Seq-interval_strand>
                           <Na-strand value="minus"/>
                         </Seq-interval_strand>
@@ -304,7 +302,7 @@
             <Seq-loc>
               <Seq-loc_whole>
                 <Seq-id>
-                  <Seq-id_gi>75709180</Seq-id_gi>
+                  <Seq-id_gi>974987432</Seq-id_gi>
                 </Seq-id>
               </Seq-loc_whole>
             </Seq-loc>
@@ -473,7 +471,7 @@
           <Seq-loc_int>
             <Seq-interval>
               <Seq-interval_from>102274286</Seq-interval_from>
-              <Seq-interval_to>102284527</Seq-interval_to>
+              <Seq-interval_to>102284533</Seq-interval_to>
               <Seq-interval_strand>
                 <Na-strand value="minus"/>
               </Seq-interval_strand>
@@ -491,7 +489,7 @@
           <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
           <Gene-commentary_heading>Reference</Gene-commentary_heading>
           <Gene-commentary_accession>NM_002423</Gene-commentary_accession>
-          <Gene-commentary_version>3</Gene-commentary_version>
+          <Gene-commentary_version>4</Gene-commentary_version>
           <Gene-commentary_genomic-coords>
             <Seq-loc>
               <Seq-loc_mix>
@@ -500,7 +498,7 @@
                     <Seq-loc_int>
                       <Seq-interval>
                         <Seq-interval_from>102284373</Seq-interval_from>
-                        <Seq-interval_to>102284527</Seq-interval_to>
+                        <Seq-interval_to>102284533</Seq-interval_to>
                         <Seq-interval_strand>
                           <Na-strand value="minus"/>
                         </Seq-interval_strand>
@@ -600,7 +598,7 @@
             <Seq-loc>
               <Seq-loc_whole>
                 <Seq-id>
-                  <Seq-id_gi>75709180</Seq-id_gi>
+                  <Seq-id_gi>974987432</Seq-id_gi>
                 </Seq-id>
               </Seq-loc_whole>
             </Seq-loc>
@@ -833,6 +831,25 @@
                       <Dbtag_db>GO</Dbtag_db>
                       <Dbtag_tag>
                         <Object-id>
+                          <Object-id_id>4252</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>serine-type endopeptidase activity</Other-source_anchor>
+                  <Other-source_post-text>evidence: TAS</Other-source_post-text>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="comment">254</Gene-commentary_type>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>GO</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
                           <Object-id_id>8270</Object-id_id>
                         </Object-id>
                       </Dbtag_tag>
@@ -940,25 +957,6 @@
                     </Dbtag>
                   </Other-source_src>
                   <Other-source_anchor>extracellular matrix disassembly</Other-source_anchor>
-                  <Other-source_post-text>evidence: TAS</Other-source_post-text>
-                </Other-source>
-              </Gene-commentary_source>
-            </Gene-commentary>
-            <Gene-commentary>
-              <Gene-commentary_type value="comment">254</Gene-commentary_type>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>GO</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>30198</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>extracellular matrix organization</Other-source_anchor>
                   <Other-source_post-text>evidence: TAS</Other-source_post-text>
                 </Other-source>
               </Gene-commentary_source>
@@ -1155,7 +1153,7 @@
             </Dbtag>
           </Other-source_src>
           <Other-source_anchor>Map Viewer</Other-source_anchor>
-          <Other-source_url>http://www.ncbi.nlm.nih.gov/mapview/maps.cgi?taxid=9606&amp;chr=11&amp;MAPS=genes-r-org/rat-chr/human%3A11,genes-r-org/mouse-chr/human%3A11,genes-r-org/human-chr11&amp;query=e%3A4316[egene_id]+AND+gene[obj_type]&amp;QSTR=mmp7&amp;cmd=focus&amp;fill=10</Other-source_url>
+          <Other-source_url>https://www.ncbi.nlm.nih.gov/mapview/maps.cgi?taxid=9606&amp;chr=11&amp;MAPS=genes-r-org/rat-chr/human%3A11,genes-r-org/mouse-chr/human%3A11,genes-r-org/human-chr11&amp;query=e%3A4316[egene_id]+AND+gene[obj_type]&amp;QSTR=mmp7&amp;cmd=focus&amp;fill=10</Other-source_url>
         </Other-source>
       </Gene-commentary_source>
     </Gene-commentary>
@@ -1241,7 +1239,107 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>27078876</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27069188</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26906940</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26792722</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26652716</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26520416</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26507660</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26464654</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26457789</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26418251</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26412030</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26408312</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26402225</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26330178</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26301605</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26229436</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26214021</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26164539</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26116564</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>25919283</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25901368</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -3012,7 +3110,7 @@
               <Gene-commentary_source>
                 <Other-source>
                   <Other-source_anchor>NHGRI GWA Catalog</Other-source_anchor>
-                  <Other-source_url>http://www.genome.gov/gwastudies/index.cfm?pmid=23535732#result_table</Other-source_url>
+                  <Other-source_url>https://www.genome.gov/gwastudies/index.cfm?pmid=23535732#result_table</Other-source_url>
                 </Other-source>
               </Gene-commentary_source>
             </Gene-commentary>
@@ -3132,7 +3230,7 @@
                                   <Dbtag_db>CDD</Dbtag_db>
                                   <Dbtag_tag>
                                     <Object-id>
-                                      <Object-id_id>249842</Object-id_id>
+                                      <Object-id_id>278824</Object-id_id>
                                     </Object-id>
                                   </Dbtag_tag>
                                 </Dbtag>
@@ -3156,7 +3254,7 @@
                                   <Dbtag_db>CDD</Dbtag_db>
                                   <Dbtag_tag>
                                     <Object-id>
-                                      <Object-id_id>250643</Object-id_id>
+                                      <Object-id_id>279773</Object-id_id>
                                     </Object-id>
                                   </Dbtag_tag>
                                 </Dbtag>
@@ -3323,11 +3421,11 @@
         </Gene-commentary>
         <Gene-commentary>
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
-          <Gene-commentary_heading>RefSeqs of Annotated Genomes: Homo sapiens Annotation Release 107</Gene-commentary_heading>
+          <Gene-commentary_heading>RefSeqs of Annotated Genomes: Homo sapiens Annotation Release 108</Gene-commentary_heading>
           <Gene-commentary_products>
             <Gene-commentary>
               <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-              <Gene-commentary_heading>Reference GRCh38.p2 Primary Assembly</Gene-commentary_heading>
+              <Gene-commentary_heading>Reference GRCh38.p7 Primary Assembly</Gene-commentary_heading>
               <Gene-commentary_accession>NC_000011</Gene-commentary_accession>
               <Gene-commentary_version>10</Gene-commentary_version>
               <Gene-commentary_source>
@@ -3349,7 +3447,7 @@
                   <Seq-loc_int>
                     <Seq-interval>
                       <Seq-interval_from>102520507</Seq-interval_from>
-                      <Seq-interval_to>102530746</Seq-interval_to>
+                      <Seq-interval_to>102530752</Seq-interval_to>
                       <Seq-interval_strand>
                         <Na-strand value="minus"/>
                       </Seq-interval_strand>
@@ -3362,6 +3460,7 @@
                   </Seq-loc_int>
                 </Seq-loc>
               </Gene-commentary_seqs>
+              <Gene-commentary_products></Gene-commentary_products>
             </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="genomic">1</Gene-commentary_type>
@@ -3387,7 +3486,7 @@
                   <Seq-loc_int>
                     <Seq-interval>
                       <Seq-interval_from>102274286</Seq-interval_from>
-                      <Seq-interval_to>102284527</Seq-interval_to>
+                      <Seq-interval_to>102284533</Seq-interval_to>
                       <Seq-interval_strand>
                         <Na-strand value="minus"/>
                       </Seq-interval_strand>
@@ -3400,6 +3499,7 @@
                   </Seq-loc_int>
                 </Seq-loc>
               </Gene-commentary_seqs>
+              <Gene-commentary_products></Gene-commentary_products>
             </Gene-commentary>
           </Gene-commentary_products>
         </Gene-commentary>
@@ -3434,7 +3534,7 @@
               <Seq-loc_int>
                 <Seq-interval>
                   <Seq-interval_from>13717</Seq-interval_from>
-                  <Seq-interval_to>23958</Seq-interval_to>
+                  <Seq-interval_to>23964</Seq-interval_to>
                   <Seq-interval_strand>
                     <Na-strand value="minus"/>
                   </Seq-interval_strand>
@@ -4766,7 +4866,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>AceView</Other-source_anchor>
-              <Other-source_url>http://www.ncbi.nlm.nih.gov/IEB/Research/Acembly/av.cgi?c=geneid&amp;org=9606&amp;l=4316</Other-source_url>
+              <Other-source_url>https://www.ncbi.nlm.nih.gov/IEB/Research/Acembly/av.cgi?c=geneid&amp;org=9606&amp;l=4316</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -4850,11 +4950,791 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>Hs.2256</Other-source_anchor>
-              <Other-source_url>http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&amp;CID=2256</Other-source_url>
+              <Other-source_url>https://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&amp;CID=2256</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Data suggest that, in type 2 diabetes complicated by kidney disease, up-regulation of urinary MMP7 is strongly associated with progression to end-stage renal disease/subsequent mortality; study was conducted in public hospitals in Los Angeles County.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26412030</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>4</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Data suggest MMP7 (matrix metalloproteinase 7) in follicular fluid cleaves proNGF (pro-nerve growth factor) in ovarian follicle; both MMP7 and proNGF appear to be products of granulosa cells; processing of proNGF to NGF appears to regulate apoptosis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26457789</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>10</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>10</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>53</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Data show that spider venom sphingomyelinase D increased expression/secretion of MMP2, MMP9 and MMP7 which was associated with keratinocyte cell death.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27078876</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>3</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>3</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>41</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>The multivariate stepwise logistic regression identified the following biomarkers as the best gastric cancer predictors: CEA, CA72-4, pepsinogen I, Helicobacter pylori presence and MMP7</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27069188</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>3</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>3</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>5</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>The ELM7 assay was specific towards in vitro MMP-7 degraded elastin.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26164539</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>27</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>27</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>33</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Study shows that MiR-543 inhibits translation of MMP7 through binding to the 3&apos;-UTR of MMP7 mRNA in ovarian cancer. PLGF suppresses miR-543, which activates MMP7-mediated cancer invasion.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26402225</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>13</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>13</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>55</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Protein, mRNA, and serum expression levels of MMP-7 and IL-15 in patients with osteoarthritis were all significantly increased in osteoarthritis patients compared with the control group.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26464654</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>13</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>13</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>53</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Data showed that AEG1 and MMP7 levels were both significantly increased and strongly correlated in non-small cell lung cancer (NSCLC) tissues. AEG-1 promotes NSCLC cell invasiveness through MAPK-p42/p44-dependent activation of MMP7.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26418251</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>13</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>13</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>54</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>For the MMP7 -181 A/G polymorphism, a decreased bladder cancer risk was found (G-allele vs. A-allele.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26301605</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>13</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>8</Date-std_month>
+              <Date-std_day>13</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>51</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>In a Chinese population, genetic polymorphisms in MMP7 were associated with risk of coal workers pneumoconiosis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26330178</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>45</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Data show that 5-hydroxytryptamine receptor (5-HT1DR) played an important role in cell invasion via Axin1/beta-catenin/matrix metalloproteinase 7 (MMP-7) pathway.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26214021</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>30</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>27</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Urinary MMP7 improves the overall diagnostic performance of urinary CXCL10 for distinguishing normal histology from subclinical and clinical inflammation/injury, but not subclinical inflammation alone.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26906940</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>11</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Our data suggested a potential role of Rab11-FIP2 in tumor progression and provided novel insights into the mechanism of how Rab11-FIP2 positively regulated cell migration and invasion in CRC cells.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26792722</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>9</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>30</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>The expression of KAI1/CD82, CD44, MMP7 and beta-catenin is related to tumor metastasis and prognosis in colorectal carcinoma.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26408312</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>11</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>11</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>39</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>PKD2 is a core factor in the formation of this multiprotein complex at the TGN that controls constitutive secretion of matrix metalloproteinase cargo.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26507660</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>21</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>21</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>41</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>MMP-7 expression is highly specific, though only of moderate sensitivity, for the diagnosis of carcinoma in the differential diagnosis from both benign and malignant mesothelial cells.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26520416</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>23</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>23</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>40</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>increased expression levels of MMP-7 may be related to an advanced TNM stage, lower differentiation grade, aggressive invasive grade, and lymph node metastasis in esophageal cancer</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26229436</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>23</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>23</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>16</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>the expression of WNT4, a Wnt ligand, and three targets of Wnt-ss-catenin transcription activation, namely, MMP7, cyclinD1 (CD1) and c-MYC in 141 penile tissue cores from 101 unique samples, were investigated.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25901368</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>9</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>4</Date-std_month>
+              <Date-std_day>9</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>36</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Molecular switch from NOX1 to NOX2 in colon cancer cells induces ROS production and subsequently enhances MMP-7 expression by deactivating AMPK.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26116564</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>3</Date-std_month>
+              <Date-std_day>26</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>3</Date-std_month>
+              <Date-std_day>26</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>47</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Expression of MMP2 and MMP7 in gastric cancer is not associated with mTOR, MMP9 expression might be related to mTOR signalling in a subset of tumors</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26652716</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>3</Date-std_month>
+              <Date-std_day>19</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>3</Date-std_month>
+              <Date-std_day>19</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>42</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -16393,11 +17273,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>25</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>34</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -16483,11 +17363,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2015</Date-std_year>
-                  <Date-std_month>8</Date-std_month>
-                  <Date-std_day>24</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2016</Date-std_year>
+                  <Date-std_month>7</Date-std_month>
+                  <Date-std_day>28</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>33</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -16598,10 +17478,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>33</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -16701,10 +17581,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -16804,10 +17684,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -16907,10 +17787,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17010,10 +17890,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17113,10 +17993,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17216,10 +18096,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17319,10 +18199,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17422,10 +18302,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17525,10 +18405,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17628,10 +18508,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17731,10 +18611,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17834,10 +18714,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17937,10 +18817,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18040,10 +18920,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18143,10 +19023,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18210,7 +19090,7 @@
                       </Dbtag_tag>
                     </Dbtag>
                   </Other-source_src>
-                  <Other-source_anchor>RQCD1</Other-source_anchor>
+                  <Other-source_anchor>CNOT9</Other-source_anchor>
                 </Other-source>
                 <Other-source>
                   <Other-source_src>
@@ -18246,10 +19126,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>6</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18349,10 +19229,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>33</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18452,10 +19332,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>33</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18555,10 +19435,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>33</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20327,10 +21207,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>51</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>12</Date-std_hour>
+                  <Date-std_minute>30</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20430,10 +21310,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>33</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20533,10 +21413,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>3</Date-std_month>
-                  <Date-std_day>6</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>33</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>4</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>29</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -20724,13 +21604,102 @@
       <Gene-commentary_comment>
         <Gene-commentary>
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
+          <Gene-commentary_heading>Homo sapiens Annotation Release 108</Gene-commentary_heading>
+          <Gene-commentary_comment>
+            <Gene-commentary>
+              <Gene-commentary_type value="assembly">24</Gene-commentary_type>
+              <Gene-commentary_heading>GRCh38.p7</Gene-commentary_heading>
+              <Gene-commentary_label>Reference</Gene-commentary_label>
+              <Gene-commentary_text>current</Gene-commentary_text>
+              <Gene-commentary_accession>GCF_000001405</Gene-commentary_accession>
+              <Gene-commentary_version>33</Gene-commentary_version>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="assembly-unit">25</Gene-commentary_type>
+                  <Gene-commentary_heading>Primary Assembly</Gene-commentary_heading>
+                  <Gene-commentary_accession>GCF_000001305</Gene-commentary_accession>
+                  <Gene-commentary_version>14</Gene-commentary_version>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+                      <Gene-commentary_label>Chromosome 11</Gene-commentary_label>
+                      <Gene-commentary_accession>NC_000011</Gene-commentary_accession>
+                      <Gene-commentary_version>10</Gene-commentary_version>
+                      <Gene-commentary_seqs>
+                        <Seq-loc>
+                          <Seq-loc_int>
+                            <Seq-interval>
+                              <Seq-interval_from>102520507</Seq-interval_from>
+                              <Seq-interval_to>102530752</Seq-interval_to>
+                              <Seq-interval_strand>
+                                <Na-strand value="minus"/>
+                              </Seq-interval_strand>
+                              <Seq-interval_id>
+                                <Seq-id>
+                                  <Seq-id_gi>568815587</Seq-id_gi>
+                                </Seq-id>
+                              </Seq-interval_id>
+                            </Seq-interval>
+                          </Seq-loc_int>
+                        </Seq-loc>
+                      </Gene-commentary_seqs>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="assembly">24</Gene-commentary_type>
+              <Gene-commentary_heading>CHM1_1.1</Gene-commentary_heading>
+              <Gene-commentary_label>Alternate</Gene-commentary_label>
+              <Gene-commentary_text>current</Gene-commentary_text>
+              <Gene-commentary_accession>GCF_000306695</Gene-commentary_accession>
+              <Gene-commentary_version>2</Gene-commentary_version>
+              <Gene-commentary_comment>
+                <Gene-commentary>
+                  <Gene-commentary_type value="assembly-unit">25</Gene-commentary_type>
+                  <Gene-commentary_heading>Primary Assembly</Gene-commentary_heading>
+                  <Gene-commentary_accession>GCF_000306705</Gene-commentary_accession>
+                  <Gene-commentary_version>2</Gene-commentary_version>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+                      <Gene-commentary_label>Chromosome 11</Gene-commentary_label>
+                      <Gene-commentary_accession>NC_018922</Gene-commentary_accession>
+                      <Gene-commentary_version>2</Gene-commentary_version>
+                      <Gene-commentary_seqs>
+                        <Seq-loc>
+                          <Seq-loc_int>
+                            <Seq-interval>
+                              <Seq-interval_from>102274286</Seq-interval_from>
+                              <Seq-interval_to>102284533</Seq-interval_to>
+                              <Seq-interval_strand>
+                                <Na-strand value="minus"/>
+                              </Seq-interval_strand>
+                              <Seq-interval_id>
+                                <Seq-id>
+                                  <Seq-id_gi>528476600</Seq-id_gi>
+                                </Seq-id>
+                              </Seq-interval_id>
+                            </Seq-interval>
+                          </Seq-loc_int>
+                        </Seq-loc>
+                      </Gene-commentary_seqs>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
+                </Gene-commentary>
+              </Gene-commentary_comment>
+            </Gene-commentary>
+          </Gene-commentary_comment>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="comment">254</Gene-commentary_type>
           <Gene-commentary_heading>Homo sapiens Annotation Release 107</Gene-commentary_heading>
           <Gene-commentary_comment>
             <Gene-commentary>
               <Gene-commentary_type value="assembly">24</Gene-commentary_type>
               <Gene-commentary_heading>GRCh38.p2</Gene-commentary_heading>
               <Gene-commentary_label>Reference</Gene-commentary_label>
-              <Gene-commentary_text>current</Gene-commentary_text>
               <Gene-commentary_accession>GCF_000001405</Gene-commentary_accession>
               <Gene-commentary_version>28</Gene-commentary_version>
               <Gene-commentary_comment>
@@ -20772,7 +21741,6 @@
               <Gene-commentary_type value="assembly">24</Gene-commentary_type>
               <Gene-commentary_heading>CHM1_1.1</Gene-commentary_heading>
               <Gene-commentary_label>Alternate</Gene-commentary_label>
-              <Gene-commentary_text>current</Gene-commentary_text>
               <Gene-commentary_accession>GCF_000306695</Gene-commentary_accession>
               <Gene-commentary_version>2</Gene-commentary_version>
               <Gene-commentary_comment>

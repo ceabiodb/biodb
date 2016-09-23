@@ -45,14 +45,14 @@
 
      Ajugasterone C (CHEBI:2528)
 </title>
-    <link rel="search" type="application/opensearchdescription+xml" title="ChEBI" href="/chebi/plugins/openSearch/openSearch.xml;jsessionid=7FFD038A4C5D8B35EACC8CC085246233">
+    <link rel="search" type="application/opensearchdescription+xml" title="ChEBI" href="/chebi/plugins/openSearch/openSearch.xml;jsessionid=093B83ED2AEC865060625403BFF29372">
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css" type="text/css">
-    <link rel="stylesheet" href="/chebi/layouts/styles/chebiColorScheme.css;jsessionid=7FFD038A4C5D8B35EACC8CC085246233" type="text/css"/>
+    <link rel="stylesheet" href="/chebi/layouts/styles/chebiColorScheme.css;jsessionid=093B83ED2AEC865060625403BFF29372" type="text/css"/>
 
-    <link rel="SHORTCUT ICON" href="/chebi/images/ChEBI_logo_16.ico;jsessionid=7FFD038A4C5D8B35EACC8CC085246233"/>
+    <link rel="SHORTCUT ICON" href="/chebi/images/ChEBI_logo_16.ico;jsessionid=093B83ED2AEC865060625403BFF29372"/>
 
-    <script type="text/javascript" src="/chebi/javascripts/chebi.js;jsessionid=7FFD038A4C5D8B35EACC8CC085246233"></script>
-    <script type="text/javascript" src="/chebi/marvin/js/lib/jquery-1.9.1.min.js;jsessionid=7FFD038A4C5D8B35EACC8CC085246233"></script>
+    <script type="text/javascript" src="/chebi/javascripts/chebi.js;jsessionid=093B83ED2AEC865060625403BFF29372"></script>
+    <script type="text/javascript" src="/chebi/marvin/js/lib/jquery-1.9.1.min.js;jsessionid=093B83ED2AEC865060625403BFF29372"></script>
     <script src="//www.ebi.ac.uk/web_guidelines/js/ebi-global-search-run.js"></script>
     <script src="//www.ebi.ac.uk/web_guidelines/js/ebi-global-search.js"></script>
 
@@ -228,14 +228,23 @@
        url = url.replace("chebiOntology", "pathway");
        url = url.replace("displayAutoXrefs", "pathway");
        url = url.replace("reaction", "pathway");
+       url = url.replace("biomodel","pathway");
        window.location= url;
     };
 </script>
 
-<div id="content" role="main" class="grid_24 clearfix">
+<div id="content" role="main" class="grid_24 clearfix" style="z-index: 100;">
 
     <div id = "breadcrumbs">
         <p> <a href="init.do">ChEBI</a> > Main </p>
+    </div>
+
+    
+    <div style="border-radius: 5px; padding: 15px; margin:20px;background-color:#f1f1f4; text-align: center; font-size:20px">
+        <span style="color: red;font-weight: bold; align-content: center;">
+            User Survey :
+        </span>
+        <span> Help improve ChEBI - please <a href="https://goo.gl/forms/otpG8TU45pwAvYa92" target="_blank">click here</a> to take part in our quick User Survey.</span>
     </div>
     
 
@@ -252,6 +261,8 @@
             <td id="reactionTab" class="tabStyle" onclick="window.location='reaction.do?chebiId=CHEBI:2528';"  title="Click on the tab to display the reactions for this entity.">Reactions</td>
             <td class="tabStyleBlank"></td>
             <td id="pathwayTab" class="tabStyle" onclick="redirectToPathway()"  title="Click on the tab to display the Pathways for this entity.">Pathways</td>
+            <td class="tabStyleBlank"></td>
+            <td id="biomodelTab" class="tabStyle" onclick="window.location='biomodel.do?chebiId=CHEBI:2528';"  title="Click on the tab to display the Models for this entity.">Models</td>
             <td class="tabStyleBlank" style="width: 50%;"></td>
         </tr>
     </table>
@@ -302,6 +313,14 @@
     } else {
         disableTab('pathwayTab', 'pathways');
     }
+
+    var biomodelCounter = 0;
+    if (biomodelCounter > 0) {
+        $('#biomodelTab').removeClass('tabStyleView');
+    } else {
+        disableTab('biomodelTab', 'biomodels');
+    }
+
 </script>
 
 
@@ -373,9 +392,9 @@
                         
                         
                             
-                            <img src="displayImage.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?defaultImage=true&imageIndex=0&chebiId=2528&dimensions=400" height="400" width="400" style="border:1px solid black" class="imageStructure bigImg">
+                            <img src="displayImage.do;jsessionid=093B83ED2AEC865060625403BFF29372?defaultImage=true&imageIndex=0&chebiId=2528&dimensions=400" height="400" width="400" style="border:1px solid black" class="imageStructure bigImg">
                             
-                            <img src="displayImage.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?defaultImage=true&imageIndex=0&chebiId=2528" class="imageStructure">
+                            <img src="displayImage.do;jsessionid=093B83ED2AEC865060625403BFF29372?defaultImage=true&imageIndex=0&chebiId=2528" class="imageStructure">
                         
                         
                     
@@ -386,7 +405,7 @@
                 
 
                 <td style="padding: 0">
-                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?printerFriendlyView=true#ChEBI ID', 800, 600)" titleKey="compoundResult.link.title.help" class="no-underline">
+                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=093B83ED2AEC865060625403BFF29372?printerFriendlyView=true#ChEBI ID', 800, 600)" titleKey="compoundResult.link.title.help" class="no-underline">
                         <img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" style="float: right;"/>
                     </a>
                     <table width="100%" style="vertical-align:top; margin-top:5px; ">
@@ -442,7 +461,7 @@
                                     
                                     
                                     
-                                    <img src="/chebi/images/save_file.gif;jsessionid=7FFD038A4C5D8B35EACC8CC085246233" height="18" width="18" border="0" title="Save Molfile to disk" alt="Save molfile"> <a href="saveStructure.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?defaultImage=true&chebiId=2528&imageId=0" style="vertical-align: top" title="Save Molfile to disk">Download Molfile</a>
+                                    <img src="/chebi/images/save_file.gif;jsessionid=093B83ED2AEC865060625403BFF29372" height="18" width="18" border="0" title="Save Molfile to disk" alt="Save molfile"> <a href="saveStructure.do;jsessionid=093B83ED2AEC865060625403BFF29372?defaultImage=true&chebiId=2528&imageId=0" style="vertical-align: top" title="Save Molfile to disk">Download Molfile</a>
                                 </td>
                             </tr>
                         
@@ -537,8 +556,8 @@
  15 37  1  1     0  0\
 M  END\
 "/>
-                                <li><a href="advancedSearchFT.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?chebiId=2528&structureSearchMethod=substructure" >Find compounds which contain this structure</a></li>
-                                <li><a href="advancedSearchFT.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?chebiId=2528&structureSearchMethod=similarity">Find compounds which resemble this structure</a></li>
+                                <li><a href="advancedSearchFT.do;jsessionid=093B83ED2AEC865060625403BFF29372?chebiId=2528&structureSearchMethod=substructure" >Find compounds which contain this structure</a></li>
+                                <li><a href="advancedSearchFT.do;jsessionid=093B83ED2AEC865060625403BFF29372?chebiId=2528&structureSearchMethod=similarity">Find compounds which resemble this structure</a></li>
                                 <li><a href='javascript:$(goToAdvancedSearch).submit()'>Take structure to the Advanced Search</a></li>
                             </form>
                         </ul>
@@ -558,8 +577,8 @@ M  END\
 
 
 
-    <script type='text/javascript' src='/chebi/dwr/interface/WikipediaDWR.js;jsessionid=7FFD038A4C5D8B35EACC8CC085246233'></script>
-    <script type='text/javascript' src='/chebi/javascripts/wikipedia.js;jsessionid=7FFD038A4C5D8B35EACC8CC085246233'></script>
+    <script type='text/javascript' src='/chebi/dwr/interface/WikipediaDWR.js;jsessionid=093B83ED2AEC865060625403BFF29372'></script>
+    <script type='text/javascript' src='/chebi/javascripts/wikipedia.js;jsessionid=093B83ED2AEC865060625403BFF29372'></script>
     <div style="padding:5px"></div>
     
     
@@ -575,13 +594,13 @@ M  END\
 
     <table class="small-boxed-section"><tr><td>
 
-        <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?printerFriendlyView=true#Formula', 800, 600);" class="no-underline" title="Please click here to get further information on Formulae"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" style="position: absolute; right: 25px;"/></a>
+        <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=093B83ED2AEC865060625403BFF29372?printerFriendlyView=true#Formula', 800, 600);" class="no-underline" title="Please click here to get further information on Formulae"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" style="position: absolute; right: 25px;"/></a>
 
         
             
             <table class="chebiTableContent" style="margin: 3px;">
                     
-                <td class="chebiDataHeader" style="width: 110px; height: 15px;">
+                <td class="chebiDataHeader" style="width: 150px; height: 15px;">
                     Formula
                         
                         
@@ -607,7 +626,51 @@ M  END\
         
 
         
+            <table class="chebiTableContent" style="margin: 3px;">
+                <tr>
+                    <td class="chebiDataHeader" style="width: 150px; height: 15px;">
+                        Net Charge
+                            
+                            
+                            
+                    </td>
+                    <td>
+                        0
+                    </td>
+                </tr>
+            </table>
+        
 
+        
+            <table class="chebiTableContent" style="margin: 3px;">
+                <tr>
+                    <td class="chebiDataHeader" style="width: 150px; height: 15px;">
+                        Average Mass
+                        
+                        
+                        
+                            
+                            
+                            
+                    </td>
+                    <td>
+                        480.635
+                    </td>
+                </tr>
+            </table>
+        
+        
+            <table class="chebiTableContent" style="margin: 3px;">
+                <tr>
+                    <td class="chebiDataHeader" style="width: 150px; height: 15px;">
+                        Monoisotopic Mass
+                        
+                    </td>
+                    <td>
+                        480.309
+                    </td>
+                </tr>
+            </table>
         
 
         
@@ -643,7 +706,7 @@ M  END\
 
     <table class="chebiTableContent" style="margin: 3px;">
         <tr>
-            <td class="chebiDataHeader" style="width: 110px; height: 15px;">InChI</td>
+            <td class="chebiDataHeader" style="width: 150px; height: 15px;">InChI</td>
             <td>InChI=1S/C27H44O7/c1-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>14(2)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>6-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>7-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>22(32)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>26(5,33)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>21-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>8-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>9-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>27(34)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>16-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>11-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>17(28)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>15-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>10-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>18(29)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>19(30)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>12-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>24(15,3)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>23(16)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>20(31)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>13-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>25(21,27)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>4/h11,14-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>15,18-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>23,29-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>34H,6-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>10,12-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>13H2,1-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>5H3/t15-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>,18+,19-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>,20+,21-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>,22+,23+,24-<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>,25+,26+,27+/m0/s1</td>
         </tr>
     </table>
@@ -651,7 +714,7 @@ M  END\
 
     <table class="chebiTableContent" style="margin: 3px;">
         <tr>
-            <td class="chebiDataHeader" style="width: 110px; height: 15px;">InChIKey</td>
+            <td class="chebiDataHeader" style="width: 150px; height: 15px;">InChIKey</td>
             <td>LQGNCUXDDPRDJH-UKTRSHMFSA-N</td>
         </tr>
     </table>
@@ -659,7 +722,7 @@ M  END\
 
     <table class="chebiTableContent" style="margin: 3px;">
         <tr>
-            <td class="chebiDataHeader" style="width: 110px; height: 15px;">SMILES</td>
+            <td class="chebiDataHeader" style="width: 150px; height: 15px;">SMILES</td>
             <td>CC(C)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>CC[C@@H]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>(O)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>[C@]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>(C)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>(O)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>[C@H]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>1CC[C@@]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>2(O)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>C3=CC(=O)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>[C@@H]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>4C[C@@H]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>(O)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>[C@@H]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>(O)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>C[C@]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>4(C)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>[C@H]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>3[C@H]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>(O)<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>C[C@]<img alt="" src="images/invisible_space.gif" width="0" height="0" border="0"/>12C</td>
         </tr>
     </table>
@@ -687,7 +750,7 @@ M  END\
             
                 <td class="chebiDataHeader" align="left" colspan="2" width="200">
                     ChEBI Ontology
-                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?printerFriendlyView=true#ChEBI Ontology', 800, 600);" class="no-underline" title="Please click here to get further information on the ChEBI Ontology"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=093B83ED2AEC865060625403BFF29372?printerFriendlyView=true#ChEBI Ontology', 800, 600);" class="no-underline" title="Please click here to get further information on the ChEBI Ontology"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
                 </td>
             
         </a>
@@ -697,20 +760,20 @@ M  END\
         
             <tr>
                 <td width="110px">
-                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?printerFriendlyView=true#Parents and Children View', 800, 600);" class="anchoredHigh" title="Please click here to get further information on Parents and Children View">Outgoing</a>
+                    <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=093B83ED2AEC865060625403BFF29372?printerFriendlyView=true#Parents and Children View', 800, 600);" class="anchoredHigh" title="Please click here to get further information on Parents and Children View">Outgoing</a>
 
                 </td>
                 <td >
                     
                         Ajugasterone C
-                        (<a href="/chebi/searchId.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?chebiId=CHEBI%3A2528">CHEBI:2528</a>)
+                        (<a href="/chebi/searchId.do;jsessionid=093B83ED2AEC865060625403BFF29372?chebiId=CHEBI%3A2528">CHEBI:2528</a>)
                         <font style="font-weight:bold;">
                             is a
                         </font>
                         steroid
                         
                         
-                            (<a href="/chebi/searchId.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?chebiId=CHEBI%3A35341">CHEBI:35341</a>)
+                            (<a href="/chebi/searchId.do;jsessionid=093B83ED2AEC865060625403BFF29372?chebiId=CHEBI%3A35341">CHEBI:35341</a>)
                         
                         <br/>
                     
@@ -734,7 +797,7 @@ M  END\
         <tr>
             <td class="chebiDataHeader" width="80%" align="left">
                 Synonym
-                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?printerFriendlyView=true#Synonyms', 800, 600);" class="no-underline" title="Please click here to get further information on synonyms"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=093B83ED2AEC865060625403BFF29372?printerFriendlyView=true#Synonyms', 800, 600);" class="no-underline" title="Please click here to get further information on synonyms"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
             </td>
             <td class="chebiDataHeader" width="20%" align="left">
                 Source
@@ -766,7 +829,7 @@ M  END\
         <tr>
             <td class="chebiDataHeader" width="80%" align="left">
                 Database Links
-                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?printerFriendlyView=true#Database links', 800, 600);" class="no-underline" title="Please click here to get further information on Database Links"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=093B83ED2AEC865060625403BFF29372?printerFriendlyView=true#Database links', 800, 600);" class="no-underline" title="Please click here to get further information on Database Links"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
             </td>
             <td class="chebiDataHeader" width="20%" align="left">
                 Databases
@@ -813,7 +876,7 @@ M  END\
         <tr>
             <td class="chebiDataHeader" width="30%" align="left">
                 Registry Number
-                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?printerFriendlyView=true#Registry Number', 800, 600);" class="no-underline" title="Please click here to get further information on Registry Numbers"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=093B83ED2AEC865060625403BFF29372?printerFriendlyView=true#Registry Number', 800, 600);" class="no-underline" title="Please click here to get further information on Registry Numbers"><img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" /></a>
             </td>
             <td class="chebiDataHeader" width="40%" align="left">
                 Type
@@ -851,7 +914,7 @@ M  END\
         <tr>
             <td class="chebiDataHeader">
                 Last Modified
-                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=7FFD038A4C5D8B35EACC8CC085246233?printerFriendlyView=true#Last Modified', 800, 600)" titleKey="structure.link.title.lastmodified" class="no-underline">
+                <a href="javascript:windowOpenWithSize('userManualForward.do;jsessionid=093B83ED2AEC865060625403BFF29372?printerFriendlyView=true#Last Modified', 800, 600)" titleKey="structure.link.title.lastmodified" class="no-underline">
                     <img src="http://www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/info.png" class="helpinfo" />
                 </a>
                     
