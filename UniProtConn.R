@@ -21,13 +21,13 @@ if ( ! exists('UniprotConn')) { # Do not load again if already loaded
 	# GET ENTRY CONTENT #
 	#####################
 	
-	UniprotConn$methods( getEntryContent = function() {
+	UniprotConn$methods( getEntryContent = function(ids) {
 
 		# Initialize return values
-		content <- rep(NA_character_, length(id))
+		content <- rep(NA_character_, length(ids))
 
 		# Request
-		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.UNIPROT, x, content.type = BIODB.XML)), FUN.VALUE = '')
+		content <- vapply(ids, function(x) .self$.get.url(get.entry.url(BIODB.UNIPROT, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
 		return(content)
 	})

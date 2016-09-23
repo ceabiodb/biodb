@@ -38,7 +38,7 @@ if ( ! exists('UniprotEntry')) { # Do not load again if already loaded
 		for (content in contents) {
 
 			# Create instance
-			entry <- HmdbCompound$new()
+			entry <- UniprotEntry$new()
 
 			# If the entity doesn't exist (i.e.: no <id>.xml page), then it returns an HTML page
 			if ( ! grepl("^<!DOCTYPE html ", content, perl = TRUE)) {
