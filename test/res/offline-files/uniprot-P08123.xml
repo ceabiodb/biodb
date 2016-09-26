@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1988-08-01" modified="2016-02-17" version="189">
+<entry dataset="Swiss-Prot" created="1988-08-01" modified="2016-09-07" version="194">
 <accession>P08123</accession>
 <accession>P02464</accession>
 <accession>Q13897</accession>
@@ -126,6 +126,7 @@
 <person name="Prockop D.J."/>
 </authorList>
 <dbReference type="PubMed" id="3421913"/>
+<dbReference type="DOI" id="10.1042/bj2520633"/>
 </citation>
 <scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1-765</scope>
 <scope>VARIANTS HIS-678 AND GLY-743</scope>
@@ -565,6 +566,7 @@
 <person name="Cole W.G."/>
 </authorList>
 <dbReference type="PubMed" id="2064612"/>
+<dbReference type="DOI" id="10.1042/bj2760765"/>
 </citation>
 <scope>VARIANT OI4 VAL-676</scope>
 </reference>
@@ -1181,9 +1183,9 @@
 </comment>
 <comment type="subcellular location">
 <subcellularLocation>
-<location evidence="4">Secreted</location>
-<location evidence="4">Extracellular space</location>
-<location evidence="4">Extracellular matrix</location>
+<location evidence="5">Secreted</location>
+<location evidence="5">Extracellular space</location>
+<location evidence="5">Extracellular matrix</location>
 </subcellularLocation>
 </comment>
 <comment type="tissue specificity">
@@ -1193,9 +1195,9 @@
 <text evidence="1">The C-terminal propeptide, also known as COLFI domain, have crucial roles in tissue growth and repair by controlling both the intracellular assembly of procollagen molecules and the extracellular assembly of collagen fibrils. It binds a calcium ion which is essential for its function (By similarity).</text>
 </comment>
 <comment type="PTM">
-<text evidence="35">Prolines at the third position of the tripeptide repeating unit (G-X-Y) are hydroxylated in some or all of the chains.</text>
+<text evidence="36">Prolines at the third position of the tripeptide repeating unit (G-X-Y) are hydroxylated in some or all of the chains.</text>
 </comment>
-<comment type="disease" evidence="11 26 33">
+<comment type="disease" evidence="12 27 34">
 <disease id="DI-00443">
 <name>Ehlers-Danlos syndrome 7B</name>
 <acronym>EDS7B</acronym>
@@ -1204,7 +1206,7 @@
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
-<comment type="disease" evidence="13 14 20 54 58">
+<comment type="disease" evidence="14 15 21 55 59">
 <disease id="DI-02106">
 <name>Osteogenesis imperfecta 1</name>
 <acronym>OI1</acronym>
@@ -1213,7 +1215,7 @@
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
-<comment type="disease" evidence="6 7 8 9 14 16 18 19 27 31 41 46 47 48 51 61">
+<comment type="disease" evidence="7 8 9 10 15 17 19 20 28 32 42 47 48 49 52 62">
 <disease id="DI-02107">
 <name>Osteogenesis imperfecta 2</name>
 <acronym>OI2</acronym>
@@ -1222,7 +1224,7 @@
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
-<comment type="disease" evidence="15">
+<comment type="disease" evidence="16">
 <disease id="DI-01317">
 <name>Ehlers-Danlos syndrome, autosomal recessive, cardiac valvular form</name>
 <acronym>EDSCV</acronym>
@@ -1231,7 +1233,7 @@
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
-<comment type="disease" evidence="5 14 16 20 40 42 43 44 45 49 53 54 56 57 58">
+<comment type="disease" evidence="6 15 17 21 41 43 44 45 46 50 54 55 57 58 59">
 <disease id="DI-02108">
 <name>Osteogenesis imperfecta 3</name>
 <acronym>OI3</acronym>
@@ -1240,7 +1242,7 @@
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
-<comment type="disease" evidence="12 14 16 21 22 30 41 50 52 57">
+<comment type="disease" evidence="13 15 17 22 23 31 42 51 53 58">
 <disease id="DI-02103">
 <name>Osteogenesis imperfecta 4</name>
 <acronym>OI4</acronym>
@@ -1253,10 +1255,10 @@
 <text>A chromosomal aberration involving COL1A2 may be a cause of lipoblastomas, which are benign tumors resulting from transformation of adipocytes, usually diagnosed in children. Translocation t(7;8)(p22;q13) with PLAG1.</text>
 </comment>
 <comment type="similarity">
-<text evidence="4">Belongs to the fibrillar collagen family.</text>
+<text evidence="5">Belongs to the fibrillar collagen family.</text>
 </comment>
 <comment type="similarity">
-<text evidence="4">Contains 1 fibrillar collagen NC1 domain.</text>
+<text evidence="5">Contains 1 fibrillar collagen NC1 domain.</text>
 </comment>
 <comment type="online information" name="Atlas of Genetics and Cytogenetics in Oncology and Haematology">
 <link uri="http://atlasgeneticsoncology.org/Genes/COL1A2ID411ch7q22.html"/>
@@ -1374,7 +1376,7 @@
 <property type="residue range" value="1151-1365"/>
 </dbReference>
 <dbReference type="BioGrid" id="107675">
-<property type="interactions" value="13"/>
+<property type="interactions" value="18"/>
 </dbReference>
 <dbReference type="DIP" id="DIP-36079N"/>
 <dbReference type="IntAct" id="P08123">
@@ -1390,8 +1392,10 @@
 <dbReference type="PhosphoSite" id="P08123"/>
 <dbReference type="BioMuta" id="COL1A2"/>
 <dbReference type="DMDM" id="296439507"/>
+<dbReference type="EPD" id="P08123"/>
 <dbReference type="MaxQB" id="P08123"/>
 <dbReference type="PaxDb" id="P08123"/>
+<dbReference type="PeptideAtlas" id="P08123"/>
 <dbReference type="PRIDE" id="P08123"/>
 <dbReference type="Ensembl" id="ENST00000297268">
 <property type="protein sequence ID" value="ENSP00000297268"/>
@@ -1464,12 +1468,12 @@
 <dbReference type="eggNOG" id="ENOG410XNMM">
 <property type="taxonomic scope" value="LUCA"/>
 </dbReference>
-<dbReference type="GeneTree" id="ENSGT00830000128243"/>
+<dbReference type="GeneTree" id="ENSGT00840000129673"/>
 <dbReference type="HOVERGEN" id="HBG004933"/>
 <dbReference type="InParanoid" id="P08123"/>
 <dbReference type="KO" id="K06236"/>
-<dbReference type="OMA" id="PTGKHGN"/>
-<dbReference type="OrthoDB" id="EOG7TJ3HH"/>
+<dbReference type="OMA" id="TGKHGHR"/>
+<dbReference type="OrthoDB" id="EOG091G03LV"/>
 <dbReference type="PhylomeDB" id="P08123"/>
 <dbReference type="TreeFam" id="TF344135"/>
 <dbReference type="Reactome" id="R-HSA-114604">
@@ -1517,17 +1521,17 @@
 <dbReference type="Reactome" id="R-HSA-75892">
 <property type="pathway name" value="Platelet Adhesion to exposed collagen"/>
 </dbReference>
+<dbReference type="SIGNOR" id="P08123"/>
 <dbReference type="ChiTaRS" id="COL1A2">
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="GeneWiki" id="COL1A2"/>
 <dbReference type="GenomeRNAi" id="1278"/>
-<dbReference type="NextBio" id="5165"/>
 <dbReference type="PRO" id="PR:P08123"/>
 <dbReference type="Proteomes" id="UP000005640">
 <property type="component" value="Chromosome 7"/>
 </dbReference>
-<dbReference type="Bgee" id="P08123"/>
+<dbReference type="Bgee" id="ENSG00000164692"/>
 <dbReference type="ExpressionAtlas" id="P08123">
 <property type="expression patterns" value="baseline and differential"/>
 </dbReference>
@@ -1614,11 +1618,6 @@
 <property type="evidence" value="ECO:0000315"/>
 <property type="project" value="UniProtKB"/>
 </dbReference>
-<dbReference type="GO" id="GO:0022617">
-<property type="term" value="P:extracellular matrix disassembly"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
-</dbReference>
 <dbReference type="GO" id="GO:0030198">
 <property type="term" value="P:extracellular matrix organization"/>
 <property type="evidence" value="ECO:0000304"/>
@@ -1643,11 +1642,6 @@
 <property type="term" value="P:protein heterotrimerization"/>
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="Ensembl"/>
-</dbReference>
-<dbReference type="GO" id="GO:0006898">
-<property type="term" value="P:receptor-mediated endocytosis"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
 </dbReference>
 <dbReference type="GO" id="GO:0008217">
 <property type="term" value="P:regulation of blood pressure"/>
@@ -1729,12 +1723,12 @@
 <feature type="signal peptide" evidence="3">
 <location>
 <begin position="1"/>
-<end position="24"/>
+<end position="22"/>
 </location>
 </feature>
-<feature type="propeptide" description="N-terminal propeptide" id="PRO_0000005804" evidence="36">
+<feature type="propeptide" description="N-terminal propeptide" id="PRO_0000005804" evidence="37">
 <location>
-<begin position="25"/>
+<begin position="23"/>
 <end position="79"/>
 </location>
 </feature>
@@ -1750,7 +1744,7 @@
 <end position="1366"/>
 </location>
 </feature>
-<feature type="domain" description="Fibrillar collagen NC1" evidence="4">
+<feature type="domain" description="Fibrillar collagen NC1" evidence="5">
 <location>
 <begin position="1133"/>
 <end position="1366"/>
@@ -1791,162 +1785,162 @@
 <position position="84"/>
 </location>
 </feature>
-<feature type="modified residue" description="Hydroxyproline" evidence="35">
+<feature type="modified residue" description="Hydroxyproline" evidence="36">
 <location>
 <position position="420"/>
 </location>
 </feature>
-<feature type="modified residue" description="Hydroxyproline" evidence="35">
+<feature type="modified residue" description="Hydroxyproline" evidence="36">
 <location>
 <position position="441"/>
 </location>
 </feature>
-<feature type="modified residue" description="Hydroxyproline" evidence="35">
+<feature type="modified residue" description="Hydroxyproline" evidence="36">
 <location>
 <position position="444"/>
 </location>
 </feature>
-<feature type="glycosylation site" description="N-linked (GlcNAc...)" evidence="3">
+<feature type="glycosylation site" description="N-linked (GlcNAc...)" evidence="4">
 <location>
 <position position="1267"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="4">
+<feature type="disulfide bond" evidence="5">
 <location>
 <begin position="1163"/>
 <end position="1195"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="4">
+<feature type="disulfide bond" evidence="5">
 <location>
 <begin position="1203"/>
 <end position="1364"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="4">
+<feature type="disulfide bond" evidence="5">
 <location>
 <begin position="1272"/>
 <end position="1317"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs1800221." id="VAR_030116" evidence="34">
+<feature type="sequence variant" description="In dbSNP:rs1800221." id="VAR_030116" evidence="35">
 <original>T</original>
 <variation>P</variation>
 <location>
 <position position="59"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS7B." id="VAR_001851" evidence="11 26 33">
+<feature type="sequence variant" description="In EDS7B." id="VAR_001851" evidence="12 27 34">
 <location>
 <begin position="76"/>
 <end position="93"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_030117" evidence="12">
+<feature type="sequence variant" description="In OI4." id="VAR_030117" evidence="13">
 <location>
 <begin position="181"/>
 <end position="198"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063343" evidence="16">
+<feature type="sequence variant" description="In OI4; dbSNP:rs72656370." id="VAR_063343" evidence="17">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="193"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063344" evidence="14">
+<feature type="sequence variant" description="In OI4." id="VAR_063344" evidence="15">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="202"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_001852" evidence="58">
+<feature type="sequence variant" description="In OI1." id="VAR_001852" evidence="59">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="211"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063345" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063345" evidence="20">
 <original>R</original>
 <variation>C</variation>
 <location>
 <position position="234"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_063346" evidence="14">
+<feature type="sequence variant" description="In OI1." id="VAR_063346" evidence="15">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="247"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs1800228." id="VAR_001853" evidence="28">
+<feature type="sequence variant" description="In dbSNP:rs1800228." id="VAR_001853" evidence="29">
 <original>I</original>
 <variation>N</variation>
 <location>
 <position position="249"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063347" evidence="14">
+<feature type="sequence variant" description="In OI2." id="VAR_063347" evidence="15">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="253"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063348" evidence="14">
+<feature type="sequence variant" description="In OI4." id="VAR_063348" evidence="15">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="256"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs368468." id="VAR_030118" evidence="60">
+<feature type="sequence variant" description="In dbSNP:rs368468." id="VAR_030118" evidence="61">
 <original>V</original>
 <variation>I</variation>
 <location>
 <position position="270"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs1800231." id="VAR_001854" evidence="28">
+<feature type="sequence variant" description="In dbSNP:rs1800231." id="VAR_001854" evidence="29">
 <original>A</original>
 <variation>T</variation>
 <location>
 <position position="276"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063349" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063349" evidence="20">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="283"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_063350" evidence="14">
+<feature type="sequence variant" description="In OI1." id="VAR_063350" evidence="15">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="319"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063351" evidence="13">
+<feature type="sequence variant" description="In OI4." id="VAR_063351" evidence="14">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="325"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1, OI3 AND OI4." id="VAR_001855" evidence="13 44">
+<feature type="sequence variant" description="In OI1, OI3 AND OI4." id="VAR_001855" evidence="14 45">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="328"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_008119" evidence="5">
+<feature type="sequence variant" description="In OI3." id="VAR_008119" evidence="6">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -1960,14 +1954,14 @@
 <position position="334"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001857" evidence="5">
+<feature type="sequence variant" description="In OI3." id="VAR_001857" evidence="6">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="337"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001858" evidence="58">
+<feature type="sequence variant" description="In OI3." id="VAR_001858" evidence="59">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -1981,74 +1975,74 @@
 <position position="344"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001859" evidence="53">
+<feature type="sequence variant" description="In OI3." id="VAR_001859" evidence="54">
 <location>
 <position position="345"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001860" evidence="20 54">
+<feature type="sequence variant" description="In OI3." id="VAR_001860" evidence="21 55">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="349"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063352" evidence="13">
+<feature type="sequence variant" description="In OI3." id="VAR_063352" evidence="14">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="358"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063353" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063353" evidence="20">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="397"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001861" evidence="6">
+<feature type="sequence variant" description="In OI2." id="VAR_001861" evidence="7">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="409"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001862" evidence="47">
+<feature type="sequence variant" description="In OI2." id="VAR_001862" evidence="48">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="433"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063354" evidence="19">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658117." id="VAR_063354" evidence="20">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="454"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2; requires 2 nucleotide substitutions." id="VAR_063355" evidence="19">
+<feature type="sequence variant" description="In OI2; requires 2 nucleotide substitutions." id="VAR_063355" evidence="20">
 <original>G</original>
 <variation>L</variation>
 <location>
 <position position="457"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001863" evidence="58">
+<feature type="sequence variant" description="In OI3." id="VAR_001863" evidence="59">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="460"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063356" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063356" evidence="20">
 <location>
 <begin position="461"/>
 <end position="466"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs414408." id="VAR_030119" evidence="28 60">
+<feature type="sequence variant" description="In dbSNP:rs414408." id="VAR_030119" evidence="29 61">
 <original>A</original>
 <variation>V</variation>
 <location>
@@ -2062,35 +2056,35 @@
 <position position="511"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001865" evidence="40">
+<feature type="sequence variant" description="In OI3." id="VAR_001865" evidence="41">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="517"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063357" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063357" evidence="20">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="526"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs41317144." id="VAR_033040" evidence="17">
+<feature type="sequence variant" description="In dbSNP:rs41317144." id="VAR_033040" evidence="18">
 <original>N</original>
 <variation>S</variation>
 <location>
 <position position="528"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001866" evidence="7">
+<feature type="sequence variant" description="In OI2." id="VAR_001866" evidence="8">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="547"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs42524." id="VAR_001867" evidence="10 17 19 28 29 55 59">
+<feature type="sequence variant" description="In dbSNP:rs42524." id="VAR_001867" evidence="11 18 20 29 30 56 60">
 <original>P</original>
 <variation>A</variation>
 <location>
@@ -2104,14 +2098,14 @@
 <position position="562"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063358" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063358" evidence="20">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="562"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs41317153." id="VAR_033041" evidence="17">
+<feature type="sequence variant" description="In dbSNP:rs41317153." id="VAR_033041" evidence="18">
 <original>A</original>
 <variation>T</variation>
 <location>
@@ -2125,28 +2119,28 @@
 <position position="586"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001870" evidence="48">
+<feature type="sequence variant" description="In OI2." id="VAR_001870" evidence="49">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="592"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI." id="VAR_063359" evidence="13">
+<feature type="sequence variant" description="In OI." id="VAR_063359" evidence="14">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="601"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063360" evidence="16">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658145." id="VAR_063360" evidence="17">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="625"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_001871" evidence="52">
+<feature type="sequence variant" description="In OI4." id="VAR_001871" evidence="53">
 <original>G</original>
 <variation>V</variation>
 <location>
@@ -2167,47 +2161,47 @@
 <position position="640"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001874" evidence="9">
+<feature type="sequence variant" description="In OI2." id="VAR_001874" evidence="10">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="670"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_030120" evidence="8">
+<feature type="sequence variant" description="In OI2." id="VAR_030120" evidence="9">
 <location>
 <begin position="676"/>
 <end position="855"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063361" evidence="13">
+<feature type="sequence variant" description="In OI3." id="VAR_063361" evidence="14">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="676"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3 and OI4." id="VAR_001875" evidence="22 45">
+<feature type="sequence variant" description="In OI3 and OI4." id="VAR_001875" evidence="23 46">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="676"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs409108." id="VAR_030121" evidence="28 32 39 59 60">
+<feature type="sequence variant" description="In dbSNP:rs409108." id="VAR_030121" evidence="29 33 40 60 61">
 <original>P</original>
 <variation>H</variation>
 <location>
 <position position="678"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063362" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063362" evidence="20">
 <location>
 <begin position="705"/>
 <end position="707"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In Marfan syndrome." id="VAR_001876">
+<feature type="sequence variant" description="In Marfan syndrome; dbSNP:rs72658163." id="VAR_001876">
 <original>R</original>
 <variation>Q</variation>
 <location>
@@ -2221,56 +2215,56 @@
 <position position="715"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001878" evidence="46">
+<feature type="sequence variant" description="In OI2." id="VAR_001878" evidence="47">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="730"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_063363" evidence="14">
+<feature type="sequence variant" description="In OI1." id="VAR_063363" evidence="15">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="733"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1; mild." id="VAR_001879" evidence="20 54">
+<feature type="sequence variant" description="In OI1; mild." id="VAR_001879" evidence="21 55">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="736"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063364" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063364" evidence="20">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="739"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs408535." id="VAR_001880" evidence="28 32 60">
+<feature type="sequence variant" description="In dbSNP:rs408535." id="VAR_001880" evidence="29 33 61">
 <original>A</original>
 <variation>G</variation>
 <location>
 <position position="743"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063365" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063365" evidence="20">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="748"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_001881" evidence="21">
+<feature type="sequence variant" description="In OI4; dbSNP:rs72658176." id="VAR_001881" evidence="22">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="751"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063366" evidence="16">
+<feature type="sequence variant" description="In OI4." id="VAR_063366" evidence="17">
 <original>G</original>
 <variation>C</variation>
 <location>
@@ -2284,56 +2278,56 @@
 <position position="754"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_001883" evidence="41">
+<feature type="sequence variant" description="In OI4." id="VAR_001883" evidence="42">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="766"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001884" evidence="42">
+<feature type="sequence variant" description="In OI3." id="VAR_001884" evidence="43">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="778"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001885" evidence="18">
+<feature type="sequence variant" description="In OI2." id="VAR_001885" evidence="19">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="784"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001886" evidence="6">
+<feature type="sequence variant" description="In OI2." id="VAR_001886" evidence="7">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="787"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001887" evidence="19 51">
+<feature type="sequence variant" description="In OI2." id="VAR_001887" evidence="20 52">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="790"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001888" evidence="41">
+<feature type="sequence variant" description="In OI2." id="VAR_001888" evidence="42">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="796"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063367" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063367" evidence="20">
 <original>P</original>
 <variation>PP</variation>
 <location>
 <position position="798"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063368" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063368" evidence="20">
 <location>
 <begin position="806"/>
 <end position="811"/>
@@ -2346,56 +2340,56 @@
 <position position="811"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063370" evidence="13">
+<feature type="sequence variant" description="In OI3." id="VAR_063370" evidence="14">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="820"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs1800240." id="VAR_001889" evidence="58">
+<feature type="sequence variant" description="In dbSNP:rs1800240." id="VAR_001889" evidence="59">
 <original>R</original>
 <variation>H</variation>
 <location>
 <position position="822"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063371" evidence="16">
+<feature type="sequence variant" description="In OI3." id="VAR_063371" evidence="17">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="835"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_001890" evidence="58">
+<feature type="sequence variant" description="In OI1." id="VAR_001890" evidence="59">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="835"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063372" evidence="13">
+<feature type="sequence variant" description="In OI3." id="VAR_063372" evidence="14">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="856"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063373" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063373" evidence="20">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="856"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001891" evidence="61">
+<feature type="sequence variant" description="In OI2." id="VAR_001891" evidence="62">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="877"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3 and OI4." id="VAR_001892" evidence="57">
+<feature type="sequence variant" description="In OI3 and OI4." id="VAR_001892" evidence="58">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2409,35 +2403,35 @@
 <position position="895"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3; moderate." id="VAR_001894" evidence="19 49">
+<feature type="sequence variant" description="In OI3; moderate." id="VAR_001894" evidence="20 50">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="949"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063374" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063374" evidence="20">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="955"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001895" evidence="27">
+<feature type="sequence variant" description="In OI2." id="VAR_001895" evidence="28">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="955"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_008120" evidence="5">
+<feature type="sequence variant" description="In OI3." id="VAR_008120" evidence="6">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="973"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063375" evidence="14">
+<feature type="sequence variant" description="In OI2." id="VAR_063375" evidence="15">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2451,49 +2445,49 @@
 <position position="989"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063377" evidence="16">
+<feature type="sequence variant" description="In OI3." id="VAR_063377" evidence="17">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="991"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001896" evidence="31">
+<feature type="sequence variant" description="In OI2." id="VAR_001896" evidence="32">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="997"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063378" evidence="14">
+<feature type="sequence variant" description="In OI2." id="VAR_063378" evidence="15">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="1003"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3 and OI4; moderate." id="VAR_001897" evidence="13 50">
+<feature type="sequence variant" description="In OI3 and OI4; moderate; dbSNP:rs72659319." id="VAR_001897" evidence="14 51">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="1012"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs392609." id="VAR_001898" evidence="28 39 60">
+<feature type="sequence variant" description="In dbSNP:rs392609." id="VAR_001898" evidence="29 40 61">
 <original>L</original>
 <variation>F</variation>
 <location>
 <position position="1022"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063379" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063379" evidence="20">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="1027"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063380" evidence="19">
+<feature type="sequence variant" description="In OI2." id="VAR_063380" evidence="20">
 <location>
 <begin position="1058"/>
 <end position="1062"/>
@@ -2506,7 +2500,7 @@
 <position position="1066"/>
 </location>
 </feature>
-<feature type="sequence variant" id="VAR_069633" evidence="25">
+<feature type="sequence variant" description="In dbSNP:rs530026906." id="VAR_069633" evidence="26">
 <original>R</original>
 <variation>H</variation>
 <location>
@@ -2520,20 +2514,20 @@
 <position position="1078"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063381" evidence="14">
+<feature type="sequence variant" description="In OI3." id="VAR_063381" evidence="15">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="1087"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063382" evidence="13">
+<feature type="sequence variant" description="In OI4." id="VAR_063382" evidence="14">
 <location>
 <begin position="1094"/>
 <end position="1096"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001901" evidence="43">
+<feature type="sequence variant" description="In OI3." id="VAR_001901" evidence="44">
 <original>G</original>
 <variation>A</variation>
 <location>
@@ -2547,125 +2541,125 @@
 <position position="1101"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_001902" evidence="30">
+<feature type="sequence variant" description="In OI4." id="VAR_001902" evidence="31">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="1102"/>
 </location>
 </feature>
-<feature type="sequence variant" description="Found in a patient with mild osteogenesis imperfecta associated with increased bone mineral density; results in defective type I procollagen processing; incorporation of the immature procollagen into the matrix leads to increased bone matrix mineralization and altered collagen fibril structure." id="VAR_066386" evidence="23">
+<feature type="sequence variant" description="Found in a patient with mild osteogenesis imperfecta associated with increased bone mineral density; results in defective type I procollagen processing; incorporation of the immature procollagen into the matrix leads to increased bone matrix mineralization and altered collagen fibril structure." id="VAR_066386" evidence="24">
 <original>A</original>
 <variation>T</variation>
 <location>
 <position position="1119"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3; dbSNP:rs1800250." id="VAR_001904" evidence="56">
+<feature type="sequence variant" description="In OI3; dbSNP:rs1800250." id="VAR_001904" evidence="57">
 <original>T</original>
 <variation>P</variation>
 <location>
 <position position="1148"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs422361." id="VAR_001905" evidence="28 39 60">
+<feature type="sequence variant" description="In dbSNP:rs422361." id="VAR_001905" evidence="29 40 61">
 <original>D</original>
 <variation>E</variation>
 <location>
 <position position="1189"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_063383" evidence="14">
+<feature type="sequence variant" description="In OI1." id="VAR_063383" evidence="15">
 <original>C</original>
 <variation>Y</variation>
 <location>
 <position position="1195"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs384487." id="VAR_001906" evidence="28 39 60">
+<feature type="sequence variant" description="In dbSNP:rs384487." id="VAR_001906" evidence="29 40 61">
 <original>S</original>
 <variation>P</variation>
 <location>
 <position position="1198"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In dbSNP:rs418570." id="VAR_030122" evidence="24 28 37 38 39 59 60">
+<feature type="sequence variant" description="In dbSNP:rs418570." id="VAR_030122" evidence="25 29 38 39 40 60 61">
 <original>Q</original>
 <variation>H</variation>
 <location>
 <position position="1354"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 6; CAA26320." ref="6" evidence="62">
+<feature type="sequence conflict" description="In Ref. 6; CAA26320." ref="6" evidence="63">
 <original>E</original>
 <variation>G</variation>
 <location>
 <position position="55"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 1; AAB59374." ref="1" evidence="62">
+<feature type="sequence conflict" description="In Ref. 1; AAB59374." ref="1" evidence="63">
 <original>V</original>
 <variation>P</variation>
 <location>
 <position position="333"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 1; AAB59374." ref="1" evidence="62">
+<feature type="sequence conflict" description="In Ref. 1; AAB59374." ref="1" evidence="63">
 <original>A</original>
 <variation>T</variation>
 <location>
 <position position="338"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 5; CAA68709." ref="5" evidence="62">
+<feature type="sequence conflict" description="In Ref. 5; CAA68709." ref="5" evidence="63">
 <original>P</original>
 <variation>D</variation>
 <location>
 <position position="549"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="62">
+<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="63">
 <original>V</original>
 <variation>A</variation>
 <location>
 <position position="828"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="62">
+<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="63">
 <original>T</original>
 <variation>P</variation>
 <location>
 <position position="831"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="62">
+<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="63">
 <original>V</original>
 <variation>P</variation>
 <location>
 <position position="837"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 21; AAA51996." ref="21" evidence="62">
+<feature type="sequence conflict" description="In Ref. 21; AAA51996." ref="21" evidence="63">
 <original>E</original>
 <variation>V</variation>
 <location>
 <position position="980"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="62">
+<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="63">
 <original>P</original>
 <variation>L</variation>
 <location>
 <position position="1098"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="62">
+<feature type="sequence conflict" description="In Ref. 17; CAA23761." ref="17" evidence="63">
 <location>
 <begin position="1122"/>
 <end position="1125"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 23; AAA51887." ref="23" evidence="62">
+<feature type="sequence conflict" description="In Ref. 23; AAA51887." ref="23" evidence="63">
 <original>R</original>
 <variation>A</variation>
 <location>
@@ -2678,296 +2672,301 @@
 <dbReference type="UniProtKB" id="P02465"/>
 </source>
 </evidence>
-<evidence key="3" type="ECO:0000255"/>
-<evidence key="4" type="ECO:0000255">
+<evidence key="3" type="ECO:0000250">
+<source>
+<dbReference type="UniProtKB" id="P02466"/>
+</source>
+</evidence>
+<evidence key="4" type="ECO:0000255"/>
+<evidence key="5" type="ECO:0000255">
 <source>
 <dbReference type="PROSITE-ProRule" id="PRU00793"/>
 </source>
 </evidence>
-<evidence key="5" type="ECO:0000269">
+<evidence key="6" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="10408781"/>
 </source>
 </evidence>
-<evidence key="6" type="ECO:0000269">
+<evidence key="7" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="10627137"/>
 </source>
 </evidence>
-<evidence key="7" type="ECO:0000269">
+<evidence key="8" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="1284475"/>
 </source>
 </evidence>
-<evidence key="8" type="ECO:0000269">
+<evidence key="9" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="1339453"/>
 </source>
 </evidence>
-<evidence key="9" type="ECO:0000269">
+<evidence key="10" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="1385413"/>
 </source>
 </evidence>
-<evidence key="10" type="ECO:0000269">
+<evidence key="11" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="15489334"/>
 </source>
 </evidence>
-<evidence key="11" type="ECO:0000269">
+<evidence key="12" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="1577745"/>
 </source>
 </evidence>
-<evidence key="12" type="ECO:0000269">
+<evidence key="13" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="1642148"/>
 </source>
 </evidence>
-<evidence key="13" type="ECO:0000269">
+<evidence key="14" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="16705691"/>
 </source>
 </evidence>
-<evidence key="14" type="ECO:0000269">
+<evidence key="15" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="16786509"/>
 </source>
 </evidence>
-<evidence key="15" type="ECO:0000269">
+<evidence key="16" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="16816023"/>
 </source>
 </evidence>
-<evidence key="16" type="ECO:0000269">
+<evidence key="17" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="16879195"/>
 </source>
 </evidence>
-<evidence key="17" type="ECO:0000269">
+<evidence key="18" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="18272325"/>
 </source>
 </evidence>
-<evidence key="18" type="ECO:0000269">
+<evidence key="19" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="1874719"/>
 </source>
 </evidence>
-<evidence key="19" type="ECO:0000269">
+<evidence key="20" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="18996919"/>
 </source>
 </evidence>
-<evidence key="20" type="ECO:0000269">
+<evidence key="21" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="1990009"/>
 </source>
 </evidence>
-<evidence key="21" type="ECO:0000269">
+<evidence key="22" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2052622"/>
 </source>
 </evidence>
-<evidence key="22" type="ECO:0000269">
+<evidence key="23" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2064612"/>
 </source>
 </evidence>
-<evidence key="23" type="ECO:0000269">
+<evidence key="24" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="21344539"/>
 </source>
 </evidence>
-<evidence key="24" type="ECO:0000269">
+<evidence key="25" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2364107"/>
 </source>
 </evidence>
-<evidence key="25" type="ECO:0000269">
+<evidence key="26" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="23656646"/>
 </source>
 </evidence>
-<evidence key="26" type="ECO:0000269">
+<evidence key="27" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2394758"/>
 </source>
 </evidence>
-<evidence key="27" type="ECO:0000269">
+<evidence key="28" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2777764"/>
 </source>
 </evidence>
-<evidence key="28" type="ECO:0000269">
+<evidence key="29" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2824475"/>
 </source>
 </evidence>
-<evidence key="29" type="ECO:0000269">
+<evidence key="30" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2839839"/>
 </source>
 </evidence>
-<evidence key="30" type="ECO:0000269">
+<evidence key="31" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2897363"/>
 </source>
 </evidence>
-<evidence key="31" type="ECO:0000269">
+<evidence key="32" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2914942"/>
 </source>
 </evidence>
-<evidence key="32" type="ECO:0000269">
+<evidence key="33" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="3421913"/>
 </source>
 </evidence>
-<evidence key="33" type="ECO:0000269">
+<evidence key="34" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="3680255"/>
 </source>
 </evidence>
-<evidence key="34" type="ECO:0000269">
+<evidence key="35" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="4011429"/>
 </source>
 </evidence>
-<evidence key="35" type="ECO:0000269">
+<evidence key="36" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="4412529"/>
 </source>
 </evidence>
-<evidence key="36" type="ECO:0000269">
+<evidence key="37" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="5529814"/>
 </source>
 </evidence>
-<evidence key="37" type="ECO:0000269">
+<evidence key="38" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="6092353"/>
 </source>
 </evidence>
-<evidence key="38" type="ECO:0000269">
+<evidence key="39" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="6309769"/>
 </source>
 </evidence>
-<evidence key="39" type="ECO:0000269">
+<evidence key="40" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="6687691"/>
 </source>
 </evidence>
-<evidence key="40" type="ECO:0000269">
+<evidence key="41" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7520724"/>
 </source>
 </evidence>
-<evidence key="41" type="ECO:0000269">
+<evidence key="42" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7693712"/>
 </source>
 </evidence>
-<evidence key="42" type="ECO:0000269">
+<evidence key="43" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7720740"/>
 </source>
 </evidence>
-<evidence key="43" type="ECO:0000269">
+<evidence key="44" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7749416"/>
 </source>
 </evidence>
-<evidence key="44" type="ECO:0000269">
+<evidence key="45" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7860070"/>
 </source>
 </evidence>
-<evidence key="45" type="ECO:0000269">
+<evidence key="46" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7881420"/>
 </source>
 </evidence>
-<evidence key="46" type="ECO:0000269">
+<evidence key="47" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7891382"/>
 </source>
 </evidence>
-<evidence key="47" type="ECO:0000269">
+<evidence key="48" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7906591"/>
 </source>
 </evidence>
-<evidence key="48" type="ECO:0000269">
+<evidence key="49" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7959683"/>
 </source>
 </evidence>
-<evidence key="49" type="ECO:0000269">
+<evidence key="50" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8081394"/>
 </source>
 </evidence>
-<evidence key="50" type="ECO:0000269">
+<evidence key="51" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8094076"/>
 </source>
 </evidence>
-<evidence key="51" type="ECO:0000269">
+<evidence key="52" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8182080"/>
 </source>
 </evidence>
-<evidence key="52" type="ECO:0000269">
+<evidence key="53" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8401517"/>
 </source>
 </evidence>
-<evidence key="53" type="ECO:0000269">
+<evidence key="54" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8444468"/>
 </source>
 </evidence>
-<evidence key="54" type="ECO:0000269">
+<evidence key="55" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8456807"/>
 </source>
 </evidence>
-<evidence key="55" type="ECO:0000269">
+<evidence key="56" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8456808"/>
 </source>
 </evidence>
-<evidence key="56" type="ECO:0000269">
+<evidence key="57" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8723681"/>
 </source>
 </evidence>
-<evidence key="57" type="ECO:0000269">
+<evidence key="58" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8800927"/>
 </source>
 </evidence>
-<evidence key="58" type="ECO:0000269">
+<evidence key="59" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="8829649"/>
 </source>
 </evidence>
-<evidence key="59" type="ECO:0000269">
+<evidence key="60" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="9016532"/>
 </source>
 </evidence>
-<evidence key="60" type="ECO:0000269">
+<evidence key="61" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="9443882"/>
 </source>
 </evidence>
-<evidence key="61" type="ECO:0000269">
+<evidence key="62" type="ECO:0000269">
 <source ref="33"/>
 </evidence>
-<evidence key="62" type="ECO:0000305"/>
+<evidence key="63" type="ECO:0000305"/>
 <sequence length="1366" mass="129314" checksum="1E68A5970FB4210A" modified="2010-05-18" version="7" precursor="true">
 MLSFVDTRTLLLLAVTLCLATCQSLQEETVRKGPAGDRGPRGERGPPGPPGRDGEDGPTG
 PPGPPGPPGPPGLGGNFAAQYDGKGVGLGPGPMGLMGPRGPPGAAGAPGPQGFQGPAGEP

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1989-07-01" modified="2016-03-16" version="174">
+<entry dataset="Swiss-Prot" created="1989-07-01" modified="2016-09-07" version="178">
 <accession>P09237</accession>
 <accession>Q9BTK9</accession>
 <name>MMP7_HUMAN</name>
@@ -61,8 +61,9 @@
 <person name="Breathnach R."/>
 </authorList>
 <dbReference type="PubMed" id="2844164"/>
+<dbReference type="DOI" id="10.1042/bj2530187"/>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+<scope>NUCLEOTIDE SEQUENCE [MRNA&#x5d;</scope>
 </reference>
 <reference key="2">
 <citation type="journal article" date="1992" name="Biochem. J." volume="285" first="899" last="905">
@@ -75,8 +76,9 @@
 <person name="Lovett D.H."/>
 </authorList>
 <dbReference type="PubMed" id="1497627"/>
+<dbReference type="DOI" id="10.1042/bj2850899"/>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+<scope>NUCLEOTIDE SEQUENCE [MRNA&#x5d;</scope>
 <source>
 <tissue>Kidney</tissue>
 </source>
@@ -94,7 +96,7 @@
 </authorList>
 <dbReference type="PubMed" id="8294454"/>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA&#x5d;</scope>
 <source>
 <tissue>Placenta</tissue>
 </source>
@@ -105,7 +107,7 @@
 <consortium name="NIEHS SNPs program"/>
 </authorList>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA&#x5d;</scope>
 <scope>VARIANTS HIS-77; ASP-137 AND LEU-241</scope>
 </reference>
 <reference key="5">
@@ -117,7 +119,7 @@
 <dbReference type="PubMed" id="15489334"/>
 <dbReference type="DOI" id="10.1101/gr.2596504"/>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA]</scope>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA&#x5d;</scope>
 <source>
 <tissue>Colon</tissue>
 </source>
@@ -321,6 +323,7 @@
 <dbReference type="BioMuta" id="MMP7"/>
 <dbReference type="DMDM" id="116861"/>
 <dbReference type="PaxDb" id="P09237"/>
+<dbReference type="PeptideAtlas" id="P09237"/>
 <dbReference type="PRIDE" id="P09237"/>
 <dbReference type="DNASU" id="4316"/>
 <dbReference type="Ensembl" id="ENST00000260227">
@@ -350,13 +353,13 @@
 <dbReference type="eggNOG" id="ENOG410XQ5D">
 <property type="taxonomic scope" value="LUCA"/>
 </dbReference>
-<dbReference type="GeneTree" id="ENSGT00830000128254"/>
+<dbReference type="GeneTree" id="ENSGT00760000118870"/>
 <dbReference type="HOGENOM" id="HOG000239471"/>
 <dbReference type="HOVERGEN" id="HBG052484"/>
 <dbReference type="InParanoid" id="P09237"/>
 <dbReference type="KO" id="K01397"/>
 <dbReference type="OMA" id="GAHGDSY"/>
-<dbReference type="OrthoDB" id="EOG7XPZ57"/>
+<dbReference type="OrthoDB" id="EOG091G03DP"/>
 <dbReference type="PhylomeDB" id="P09237"/>
 <dbReference type="TreeFam" id="TF315428"/>
 <dbReference type="BRENDA" id="3.4.24.23">
@@ -381,13 +384,12 @@
 <dbReference type="EvolutionaryTrace" id="P09237"/>
 <dbReference type="GeneWiki" id="MMP7"/>
 <dbReference type="GenomeRNAi" id="4316"/>
-<dbReference type="NextBio" id="16981"/>
 <dbReference type="PMAP-CutDB" id="P09237"/>
 <dbReference type="PRO" id="PR:P09237"/>
 <dbReference type="Proteomes" id="UP000005640">
 <property type="component" value="Chromosome 11"/>
 </dbReference>
-<dbReference type="Bgee" id="P09237"/>
+<dbReference type="Bgee" id="ENSG00000137673"/>
 <dbReference type="CleanEx" id="HS_MMP7"/>
 <dbReference type="Genevisible" id="P09237">
 <property type="organism ID" value="HS"/>
@@ -427,6 +429,11 @@
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="ProtInc"/>
 </dbReference>
+<dbReference type="GO" id="GO:0004252">
+<property type="term" value="F:serine-type endopeptidase activity"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
 <dbReference type="GO" id="GO:0008270">
 <property type="term" value="F:zinc ion binding"/>
 <property type="evidence" value="ECO:0000501"/>
@@ -434,16 +441,6 @@
 </dbReference>
 <dbReference type="GO" id="GO:0007568">
 <property type="term" value="P:aging"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
-<dbReference type="GO" id="GO:0002780">
-<property type="term" value="P:antibacterial peptide biosynthetic process"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
-<dbReference type="GO" id="GO:0002779">
-<property type="term" value="P:antibacterial peptide secretion"/>
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="Ensembl"/>
 </dbReference>
@@ -457,16 +454,6 @@
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="Reactome"/>
 </dbReference>
-<dbReference type="GO" id="GO:0050829">
-<property type="term" value="P:defense response to Gram-negative bacterium"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
-<dbReference type="GO" id="GO:0050830">
-<property type="term" value="P:defense response to Gram-positive bacterium"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
 <dbReference type="GO" id="GO:0044849">
 <property type="term" value="P:estrous cycle"/>
 <property type="evidence" value="ECO:0000501"/>
@@ -474,11 +461,6 @@
 </dbReference>
 <dbReference type="GO" id="GO:0022617">
 <property type="term" value="P:extracellular matrix disassembly"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
-</dbReference>
-<dbReference type="GO" id="GO:0030198">
-<property type="term" value="P:extracellular matrix organization"/>
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="Reactome"/>
 </dbReference>
@@ -492,23 +474,20 @@
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="ProtInc"/>
 </dbReference>
-<dbReference type="GO" id="GO:0042127">
-<property type="term" value="P:regulation of cell proliferation"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
-<dbReference type="GO" id="GO:0042493">
-<property type="term" value="P:response to drug"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
 <dbReference type="GO" id="GO:0031667">
 <property type="term" value="P:response to nutrient levels"/>
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="Ensembl"/>
 </dbReference>
+<dbReference type="CDD" id="cd04278">
+<property type="entry name" value="ZnMc_MMP"/>
+<property type="match status" value="1"/>
+</dbReference>
 <dbReference type="Gene3D" id="3.40.390.10">
 <property type="match status" value="1"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR033739">
+<property type="entry name" value="M10A_MMP"/>
 </dbReference>
 <dbReference type="InterPro" id="IPR028707">
 <property type="entry name" value="Matrilysin"/>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-03-16" version="181">
+<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-09-07" version="185">
 <accession>P02462</accession>
 <accession>A7E2W4</accession>
 <accession>B1AM70</accession>
@@ -1333,7 +1333,7 @@
 <property type="residue range" value="1442-1669"/>
 </dbReference>
 <dbReference type="BioGrid" id="107679">
-<property type="interactions" value="19"/>
+<property type="interactions" value="21"/>
 </dbReference>
 <dbReference type="IntAct" id="P02462">
 <property type="interactions" value="26"/>
@@ -1341,6 +1341,7 @@
 <dbReference type="MINT" id="MINT-6743187"/>
 <dbReference type="STRING" id="9606.ENSP00000364979"/>
 <dbReference type="ChEMBL" id="CHEMBL2364188"/>
+<dbReference type="iPTMnet" id="P02462"/>
 <dbReference type="PhosphoSite" id="P02462"/>
 <dbReference type="SwissPalm" id="P02462"/>
 <dbReference type="BioMuta" id="COL4A1"/>
@@ -1348,6 +1349,7 @@
 <dbReference type="EPD" id="P02462"/>
 <dbReference type="MaxQB" id="P02462"/>
 <dbReference type="PaxDb" id="P02462"/>
+<dbReference type="PeptideAtlas" id="P02462"/>
 <dbReference type="PRIDE" id="P02462"/>
 <dbReference type="Ensembl" id="ENST00000375820">
 <property type="protein sequence ID" value="ENSP00000364979"/>
@@ -1415,7 +1417,7 @@
 <dbReference type="HOVERGEN" id="HBG004933"/>
 <dbReference type="InParanoid" id="P02462"/>
 <dbReference type="KO" id="K06237"/>
-<dbReference type="OrthoDB" id="EOG7RZ5P3"/>
+<dbReference type="OrthoDB" id="EOG091G0613"/>
 <dbReference type="PhylomeDB" id="P02462"/>
 <dbReference type="TreeFam" id="TF316865"/>
 <dbReference type="Reactome" id="R-HSA-1442490">
@@ -1460,12 +1462,11 @@
 <dbReference type="EvolutionaryTrace" id="P02462"/>
 <dbReference type="GeneWiki" id="Collagen,_type_IV,_alpha_1"/>
 <dbReference type="GenomeRNAi" id="1282"/>
-<dbReference type="NextBio" id="5181"/>
 <dbReference type="PRO" id="PR:P02462"/>
 <dbReference type="Proteomes" id="UP000005640">
 <property type="component" value="Chromosome 13"/>
 </dbReference>
-<dbReference type="Bgee" id="P02462"/>
+<dbReference type="Bgee" id="ENSG00000187498"/>
 <dbReference type="CleanEx" id="HS_COL4A1"/>
 <dbReference type="ExpressionAtlas" id="P02462">
 <property type="expression patterns" value="baseline and differential"/>
@@ -1513,11 +1514,6 @@
 <property type="evidence" value="ECO:0000314"/>
 <property type="project" value="MGI"/>
 </dbReference>
-<dbReference type="GO" id="GO:0007411">
-<property type="term" value="P:axon guidance"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
-</dbReference>
 <dbReference type="GO" id="GO:0071711">
 <property type="term" value="P:basement membrane organization"/>
 <property type="evidence" value="ECO:0000315"/>
@@ -1548,11 +1544,6 @@
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="Ensembl"/>
 </dbReference>
-<dbReference type="GO" id="GO:0022617">
-<property type="term" value="P:extracellular matrix disassembly"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
-</dbReference>
 <dbReference type="GO" id="GO:0030198">
 <property type="term" value="P:extracellular matrix organization"/>
 <property type="evidence" value="ECO:0000304"/>
@@ -1567,11 +1558,6 @@
 <property type="term" value="P:patterning of blood vessels"/>
 <property type="evidence" value="ECO:0000315"/>
 <property type="project" value="BHF-UCL"/>
-</dbReference>
-<dbReference type="GO" id="GO:0006898">
-<property type="term" value="P:receptor-mediated endocytosis"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
 </dbReference>
 <dbReference type="GO" id="GO:0061333">
 <property type="term" value="P:renal tubule morphogenesis"/>

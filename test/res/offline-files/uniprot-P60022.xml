@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="2003-11-21" modified="2016-03-16" version="125">
+<entry dataset="Swiss-Prot" created="2003-11-21" modified="2016-09-07" version="127">
 <accession>P60022</accession>
 <accession>Q09753</accession>
 <name>DEFB1_HUMAN</name>
@@ -131,6 +131,34 @@
 <scope>SYNTHESIS OF 33-68</scope>
 </reference>
 <reference key="7">
+<citation type="journal article" date="2014" name="Sci. Transl. Med." volume="6" first="249RA108" last="249RA108">
+<title>Deficient human beta-defensin 1 underlies male infertility associated with poor sperm motility and genital tract infection.</title>
+<authorList>
+<person name="Diao R."/>
+<person name="Fok K.L."/>
+<person name="Chen H."/>
+<person name="Yu M.K."/>
+<person name="Duan Y."/>
+<person name="Chung C.M."/>
+<person name="Li Z."/>
+<person name="Wu H."/>
+<person name="Li Z."/>
+<person name="Zhang H."/>
+<person name="Ji Z."/>
+<person name="Zhen W."/>
+<person name="Ng C.F."/>
+<person name="Gui Y."/>
+<person name="Cai Z."/>
+<person name="Chan H.C."/>
+</authorList>
+<dbReference type="PubMed" id="25122636"/>
+<dbReference type="DOI" id="10.1126/scitranslmed.3009071"/>
+</citation>
+<scope>FUNCTION</scope>
+<scope>TISSUE SPECIFICITY</scope>
+<scope>BINDING TO CCR6</scope>
+</reference>
+<reference key="8">
 <citation type="journal article" date="2015" name="Proteomics" volume="15" first="2519" last="2524">
 <title>N-terminome analysis of the human mitochondrial proteome.</title>
 <authorList>
@@ -150,7 +178,7 @@
 <scope>CLEAVAGE OF SIGNAL PEPTIDE [LARGE SCALE ANALYSIS] AFTER GLY-21</scope>
 <scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
 </reference>
-<reference key="8">
+<reference key="9">
 <citation type="journal article" date="2001" name="J. Biol. Chem." volume="276" first="39021" last="39026">
 <title>The structure of human beta-defensin-1: new insights into structural properties of beta-defensins.</title>
 <authorList>
@@ -163,7 +191,7 @@
 </citation>
 <scope>X-RAY CRYSTALLOGRAPHY (1.2 ANGSTROMS) OF 33-68</scope>
 </reference>
-<reference key="9">
+<reference key="10">
 <citation type="journal article" date="2001" name="Protein Sci." volume="10" first="2470" last="2479">
 <title>Structure determination of human and murine beta-defensins reveals structural conservation in the absence of significant sequence similarity.</title>
 <authorList>
@@ -182,7 +210,7 @@
 <scope>STRUCTURE BY NMR OF 33-68</scope>
 </reference>
 <comment type="function">
-<text evidence="4">Has bactericidal activity.</text>
+<text evidence="5">Has bactericidal activity. May act as a ligand for C-C chemokine receptor CCR6. Positively regulates the sperm motility and bactericidal activity in a CCR6-dependent manner. Binds to CCR6 and triggers Ca2+ mobilization in the sperm which is important for its motility (PubMed:25122636).</text>
 </comment>
 <comment type="subcellular location">
 <subcellularLocation>
@@ -190,7 +218,7 @@
 </subcellularLocation>
 </comment>
 <comment type="tissue specificity">
-<text evidence="6">Blood plasma (at protein level).</text>
+<text evidence="5 6">Blood plasma. Sperm. Highly expressed in the lower head and midpiece of sperm. Significantly reduced levels found in the sperms of asthenozoospermia and leukocytospermia patients (at protein level).</text>
 </comment>
 <comment type="mass spectrometry" mass="3928" method="Electrospray" error="0.5" evidence="6">
 <location>
@@ -364,6 +392,7 @@
 <dbReference type="HGNC" id="HGNC:2766">
 <property type="gene designation" value="DEFB1"/>
 </dbReference>
+<dbReference type="HPA" id="CAB013538"/>
 <dbReference type="MIM" id="602056">
 <property type="type" value="gene"/>
 </dbReference>
@@ -380,7 +409,7 @@
 <dbReference type="HOVERGEN" id="HBG084156"/>
 <dbReference type="InParanoid" id="P60022"/>
 <dbReference type="OMA" id="KIQGTCY"/>
-<dbReference type="OrthoDB" id="EOG77WWGH"/>
+<dbReference type="OrthoDB" id="EOG091G18L0"/>
 <dbReference type="PhylomeDB" id="P60022"/>
 <dbReference type="Reactome" id="R-HSA-1461957">
 <property type="pathway name" value="Beta defensins"/>
@@ -391,13 +420,12 @@
 <dbReference type="EvolutionaryTrace" id="P60022"/>
 <dbReference type="GeneWiki" id="Defensin,_beta_1"/>
 <dbReference type="GenomeRNAi" id="1672"/>
-<dbReference type="NextBio" id="6880"/>
 <dbReference type="PMAP-CutDB" id="P60022"/>
 <dbReference type="PRO" id="PR:P60022"/>
 <dbReference type="Proteomes" id="UP000005640">
 <property type="component" value="Chromosome 8"/>
 </dbReference>
-<dbReference type="Bgee" id="P60022"/>
+<dbReference type="Bgee" id="ENSG00000164825"/>
 <dbReference type="CleanEx" id="HS_DEFB1"/>
 <dbReference type="Genevisible" id="P60022">
 <property type="organism ID" value="HS"/>
@@ -422,6 +450,16 @@
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="Reactome"/>
 </dbReference>
+<dbReference type="GO" id="GO:0097225">
+<property type="term" value="C:sperm midpiece"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0031731">
+<property type="term" value="F:CCR6 chemokine receptor binding"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
 <dbReference type="GO" id="GO:0002526">
 <property type="term" value="P:acute inflammatory response"/>
 <property type="evidence" value="ECO:0000501"/>
@@ -432,10 +470,30 @@
 <property type="evidence" value="ECO:0000314"/>
 <property type="project" value="UniProtKB"/>
 </dbReference>
+<dbReference type="GO" id="GO:0035584">
+<property type="term" value="P:calcium-mediated signaling using intracellular calcium source"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0019933">
+<property type="term" value="P:cAMP-mediated signaling"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
 <dbReference type="GO" id="GO:0006935">
 <property type="term" value="P:chemotaxis"/>
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="ProtInc"/>
+</dbReference>
+<dbReference type="GO" id="GO:0042742">
+<property type="term" value="P:defense response to bacterium"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="MGI"/>
+</dbReference>
+<dbReference type="GO" id="GO:0050829">
+<property type="term" value="P:defense response to Gram-negative bacterium"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
 </dbReference>
 <dbReference type="GO" id="GO:0050830">
 <property type="term" value="P:defense response to Gram-positive bacterium"/>
@@ -460,6 +518,11 @@
 <dbReference type="GO" id="GO:0002227">
 <property type="term" value="P:innate immune response in mucosa"/>
 <property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0060474">
+<property type="term" value="P:positive regulation of sperm motility involved in capacitation"/>
+<property type="evidence" value="ECO:0000315"/>
 <property type="project" value="UniProtKB"/>
 </dbReference>
 <dbReference type="GO" id="GO:0009617">
@@ -491,7 +554,7 @@
 <keyword id="KW-1185">Reference proteome</keyword>
 <keyword id="KW-0964">Secreted</keyword>
 <keyword id="KW-0732">Signal</keyword>
-<feature type="signal peptide" evidence="3 5">
+<feature type="signal peptide" evidence="3 4">
 <location>
 <begin position="1"/>
 <end position="21"/>
@@ -599,8 +662,12 @@
 <dbReference type="PubMed" id="25944712"/>
 </source>
 </evidence>
-<evidence key="4" type="ECO:0000250"/>
-<evidence key="5" type="ECO:0000255"/>
+<evidence key="4" type="ECO:0000255"/>
+<evidence key="5" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="25122636"/>
+</source>
+</evidence>
 <evidence key="6" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7628632"/>

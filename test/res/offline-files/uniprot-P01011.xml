@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-03-16" version="198">
+<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-09-07" version="203">
 <accession>P01011</accession>
 <accession>B3KVQ7</accession>
 <accession>Q13703</accession>
@@ -958,6 +958,7 @@
 <dbReference type="EPD" id="P01011"/>
 <dbReference type="MaxQB" id="P01011"/>
 <dbReference type="PaxDb" id="P01011"/>
+<dbReference type="PeptideAtlas" id="P01011"/>
 <dbReference type="PRIDE" id="P01011"/>
 <dbReference type="DNASU" id="12"/>
 <dbReference type="Ensembl" id="ENST00000393080">
@@ -1010,21 +1011,24 @@
 <dbReference type="InParanoid" id="P01011"/>
 <dbReference type="KO" id="K04525"/>
 <dbReference type="OMA" id="FLMIIVP"/>
+<dbReference type="OrthoDB" id="EOG091G0ION"/>
 <dbReference type="PhylomeDB" id="P01011"/>
 <dbReference type="TreeFam" id="TF343201"/>
+<dbReference type="Reactome" id="R-HSA-114608">
+<property type="pathway name" value="Platelet degranulation"/>
+</dbReference>
 <dbReference type="ChiTaRS" id="SERPINA3">
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="EvolutionaryTrace" id="P01011"/>
 <dbReference type="GeneWiki" id="Alpha_1-antichymotrypsin"/>
 <dbReference type="GenomeRNAi" id="12"/>
-<dbReference type="NextBio" id="23"/>
 <dbReference type="PMAP-CutDB" id="P01011"/>
 <dbReference type="PRO" id="PR:P01011"/>
 <dbReference type="Proteomes" id="UP000005640">
 <property type="component" value="Chromosome 14"/>
 </dbReference>
-<dbReference type="Bgee" id="P01011"/>
+<dbReference type="Bgee" id="ENSG00000196136"/>
 <dbReference type="ExpressionAtlas" id="P01011">
 <property type="expression patterns" value="baseline and differential"/>
 </dbReference>
@@ -1061,6 +1065,11 @@
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="UniProtKB"/>
 </dbReference>
+<dbReference type="GO" id="GO:0031093">
+<property type="term" value="C:platelet alpha granule lumen"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
 <dbReference type="GO" id="GO:0003677">
 <property type="term" value="F:DNA binding"/>
 <property type="evidence" value="ECO:0000304"/>
@@ -1086,10 +1095,10 @@
 <property type="evidence" value="ECO:0000303"/>
 <property type="project" value="UniProtKB"/>
 </dbReference>
-<dbReference type="GO" id="GO:0010951">
-<property type="term" value="P:negative regulation of endopeptidase activity"/>
+<dbReference type="GO" id="GO:0002576">
+<property type="term" value="P:platelet degranulation"/>
 <property type="evidence" value="ECO:0000304"/>
-<property type="project" value="GOC"/>
+<property type="project" value="Reactome"/>
 </dbReference>
 <dbReference type="GO" id="GO:0019216">
 <property type="term" value="P:regulation of lipid metabolic process"/>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1988-08-01" modified="2016-03-16" version="164">
+<entry dataset="Swiss-Prot" created="1988-08-01" modified="2016-09-07" version="169">
 <accession>P07911</accession>
 <accession>B3KP48</accession>
 <accession>B3KRN9</accession>
@@ -618,7 +618,7 @@
 <scope>IDENTIFICATION BY MASS SPECTROMETRY</scope>
 </reference>
 <reference key="16">
-<citation type="journal article" date="2016" name="Proc. Natl. Acad. Sci. U.S.A.">
+<citation type="journal article" date="2016" name="Proc. Natl. Acad. Sci. U.S.A." volume="113" first="1552" last="1557">
 <title>A structured interdomain linker directs self-polymerization of human uromodulin.</title>
 <authorList>
 <person name="Bokhove M."/>
@@ -915,37 +915,37 @@
 <scope>CHARACTERIZATION OF VARIANT ARG-155</scope>
 </reference>
 <comment type="function">
-<text evidence="18 29 33">Uromodulin: Functions in biogenesis and organization of the apical membrane of epithelial cells of the thick ascending limb of Henle's loop (TALH), where it promotes formation of complex filamentous gel-like structure that may play a role in the water barrier permeability (Probable). May serve as a receptor for binding and endocytosis of cytokines (IL-1, IL-2) and TNF (PubMed:3498215). Facilitates neutrophil migration across renal epithelia (PubMed:20798515).</text>
+<text evidence="19 30 34">Uromodulin: Functions in biogenesis and organization of the apical membrane of epithelial cells of the thick ascending limb of Henle's loop (TALH), where it promotes formation of complex filamentous gel-like structure that may play a role in the water barrier permeability (Probable). May serve as a receptor for binding and endocytosis of cytokines (IL-1, IL-2) and TNF (PubMed:3498215). Facilitates neutrophil migration across renal epithelia (PubMed:20798515).</text>
 </comment>
 <comment type="function">
-<text evidence="1 33">Uromodulin, secreted form: In the urine, may contribute to colloid osmotic pressure, retards passage of positively charged electrolytes, prevents urinary tract infection and inhibits formation of liquid containing supersaturated salts and subsequent formation of salt crystals.</text>
+<text evidence="2 34">Uromodulin, secreted form: In the urine, may contribute to colloid osmotic pressure, retards passage of positively charged electrolytes, prevents urinary tract infection and inhibits formation of liquid containing supersaturated salts and subsequent formation of salt crystals.</text>
 </comment>
 <comment type="subunit">
-<text evidence="16 26 27">Uromodulin, secreted form: homodimer that then polymerizes into long filaments.</text>
+<text evidence="17 27 28">Uromodulin, secreted form: homodimer that then polymerizes into long filaments.</text>
 </comment>
 <comment type="subcellular location">
 <subcellularLocation>
-<location evidence="22 24 26 30">Apical cell membrane</location>
-<topology evidence="21">Lipid-anchor</topology>
-<topology evidence="21">GPI-anchor</topology>
+<location evidence="23 25 27 31">Apical cell membrane</location>
+<topology evidence="22">Lipid-anchor</topology>
+<topology evidence="22">GPI-anchor</topology>
 </subcellularLocation>
 <subcellularLocation>
-<location evidence="30">Basolateral cell membrane</location>
-<topology evidence="21">Lipid-anchor</topology>
-<topology evidence="21">GPI-anchor</topology>
+<location evidence="31">Basolateral cell membrane</location>
+<topology evidence="22">Lipid-anchor</topology>
+<topology evidence="22">GPI-anchor</topology>
 </subcellularLocation>
 <subcellularLocation>
-<location evidence="17">Cell projection</location>
-<location evidence="17">Cilium membrane</location>
+<location evidence="18">Cell projection</location>
+<location evidence="18">Cilium membrane</location>
 </subcellularLocation>
-<text evidence="15 17 27 28 30">Only a small fraction sorts to the basolateral pole of tubular epithelial cells compared to apical localization (PubMed:22776760). Secreted into urine after cleavage (PubMed:18375198, PubMed:26811476). Colocalizes with NPHP1 and KIF3A (PubMed:20172860).</text>
+<text evidence="16 18 28 29 31">Only a small fraction sorts to the basolateral pole of tubular epithelial cells compared to apical localization (PubMed:22776760). Secreted into urine after cleavage (PubMed:18375198, PubMed:26811476). Colocalizes with NPHP1 and KIF3A (PubMed:20172860).</text>
 </comment>
 <comment type="subcellular location">
 <molecule>Uromodulin, secreted form</molecule>
 <subcellularLocation>
-<location evidence="15 16 26 27 28 30">Secreted</location>
+<location evidence="16 17 27 28 29 31">Secreted</location>
 </subcellularLocation>
-<text evidence="15 27 28 30">Detected in urine.</text>
+<text evidence="16 28 29 31">Detected in urine.</text>
 </comment>
 <comment type="alternative products">
 <event type="alternative splicing"/>
@@ -978,18 +978,18 @@
 </isoform>
 </comment>
 <comment type="tissue specificity">
-<text evidence="15 22 24 28 30">Expressed in the tubular cells of the kidney. Most abundant protein in normal urine (at protein level). Synthesized exclusively in the kidney. Expressed exclusively by epithelial cells of the thick ascending limb of Henle's loop (TALH) and of distal convoluted tubule lumen.</text>
+<text evidence="16 23 25 29 31">Expressed in the tubular cells of the kidney. Most abundant protein in normal urine (at protein level). Synthesized exclusively in the kidney. Expressed exclusively by epithelial cells of the thick ascending limb of Henle's loop (TALH) and of distal convoluted tubule lumen.</text>
 </comment>
 <comment type="domain">
-<text evidence="27">The ZP domain mediates polymerization, leading to the formation of long filaments.</text>
+<text evidence="28">The ZP domain mediates polymerization, leading to the formation of long filaments.</text>
 </comment>
 <comment type="PTM">
-<text evidence="16 20 26 27">N-glycosylated (PubMed:19005207, PubMed:26673890, PubMed:26811476). N-glycan heterogeneity at Asn-232: Hex7HexNAc6 (major) and dHex1Hex7HexNAc6 (minor); at Asn-322: dHex1Hex6HexNAc5 (minor), dHex1Hex7HexNAc6 (major) and dHex1Hex8HexNAc7 (minor); at Asn-396: Hex6HexNAc5 (major), dHex1Hex6HexNAc5 (minor) and Hex7HexNAc6 (minor) (PubMed:22171320).</text>
+<text evidence="17 21 27 28">N-glycosylated (PubMed:19005207, PubMed:26673890, PubMed:26811476). N-glycan heterogeneity at Asn-232: Hex7HexNAc6 (major) and dHex1Hex7HexNAc6 (minor); at Asn-322: dHex1Hex6HexNAc5 (minor), dHex1Hex7HexNAc6 (major) and dHex1Hex8HexNAc7 (minor); at Asn-396: Hex6HexNAc5 (major), dHex1Hex6HexNAc5 (minor) and Hex7HexNAc6 (minor) (PubMed:22171320).</text>
 </comment>
 <comment type="PTM">
-<text evidence="15 16 26">Proteolytically cleaved at a conserved C-terminal proteolytic cleavage site to generate the secreted form found in urine (PubMed:18375198, PubMed:19005207). This cleavage is catalyzed by HPN (PubMed:26673890).</text>
+<text evidence="16 17 27">Proteolytically cleaved at a conserved C-terminal proteolytic cleavage site to generate the secreted form found in urine (PubMed:18375198, PubMed:19005207). This cleavage is catalyzed by HPN (PubMed:26673890).</text>
 </comment>
-<comment type="disease" evidence="5 6 7 9 10 11 12 13 14 19 22 23 24">
+<comment type="disease" evidence="6 7 8 10 11 12 13 14 15 20 23 24 25">
 <disease id="DI-00493">
 <name>Familial juvenile hyperuricemic nephropathy 1</name>
 <acronym>HNFJ1</acronym>
@@ -998,7 +998,7 @@
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
-<comment type="disease" evidence="5 8 14 25">
+<comment type="disease" evidence="6 9 15 26">
 <disease id="DI-00705">
 <name>Medullary cystic kidney disease 2</name>
 <acronym>MCKD2</acronym>
@@ -1007,7 +1007,7 @@
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
-<comment type="disease" evidence="10 14">
+<comment type="disease" evidence="11 15">
 <disease id="DI-00511">
 <name>Glomerulocystic kidney disease with hyperuricemia and isosthenuria</name>
 <acronym>GCKDHI</acronym>
@@ -1017,10 +1017,10 @@
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
 <comment type="similarity">
-<text evidence="3">Contains 3 EGF-like domains.</text>
+<text evidence="4">Contains 3 EGF-like domains.</text>
 </comment>
 <comment type="similarity">
-<text evidence="4">Contains 1 ZP domain.</text>
+<text evidence="5">Contains 1 ZP domain.</text>
 </comment>
 <dbReference type="EMBL" id="M15881">
 <property type="protein sequence ID" value="AAA36798.1"/>
@@ -1123,10 +1123,12 @@
 <property type="interactions" value="2"/>
 </dbReference>
 <dbReference type="STRING" id="9606.ENSP00000306279"/>
+<dbReference type="PhosphoSite" id="P07911"/>
 <dbReference type="UniCarbKB" id="P07911"/>
 <dbReference type="BioMuta" id="UMOD"/>
 <dbReference type="DMDM" id="137116"/>
 <dbReference type="PaxDb" id="P07911"/>
+<dbReference type="PeptideAtlas" id="P07911"/>
 <dbReference type="PRIDE" id="P07911"/>
 <dbReference type="Ensembl" id="ENST00000302509">
 <molecule id="P07911-1"/>
@@ -1191,17 +1193,15 @@
 <dbReference type="HOVERGEN" id="HBG004349"/>
 <dbReference type="InParanoid" id="P07911"/>
 <dbReference type="KO" id="K18274"/>
-<dbReference type="OrthoDB" id="EOG7SFHWJ"/>
 <dbReference type="PhylomeDB" id="P07911"/>
 <dbReference type="TreeFam" id="TF330284"/>
 <dbReference type="GeneWiki" id="Tamm%E2%80%93Horsfall_protein"/>
 <dbReference type="GenomeRNAi" id="7369"/>
-<dbReference type="NextBio" id="28856"/>
 <dbReference type="PRO" id="PR:P07911"/>
 <dbReference type="Proteomes" id="UP000005640">
 <property type="component" value="Chromosome 16"/>
 </dbReference>
-<dbReference type="Bgee" id="P07911"/>
+<dbReference type="Bgee" id="ENSG00000169344"/>
 <dbReference type="CleanEx" id="HS_UMOD"/>
 <dbReference type="ExpressionAtlas" id="P07911">
 <property type="expression patterns" value="baseline and differential"/>
@@ -1357,6 +1357,9 @@
 <dbReference type="InterPro" id="IPR018097">
 <property type="entry name" value="EGF_Ca-bd_CS"/>
 </dbReference>
+<dbReference type="InterPro" id="IPR024731">
+<property type="entry name" value="EGF_dom"/>
+</dbReference>
 <dbReference type="InterPro" id="IPR023413">
 <property type="entry name" value="GFP-like"/>
 </dbReference>
@@ -1369,12 +1372,24 @@
 <dbReference type="InterPro" id="IPR017977">
 <property type="entry name" value="ZP_dom_CS"/>
 </dbReference>
+<dbReference type="Pfam" id="PF12947">
+<property type="entry name" value="EGF_3"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="Pfam" id="PF07645">
+<property type="entry name" value="EGF_CA"/>
+<property type="match status" value="2"/>
+</dbReference>
+<dbReference type="Pfam" id="PF00100">
+<property type="entry name" value="Zona_pellucida"/>
+<property type="match status" value="1"/>
+</dbReference>
 <dbReference type="PRINTS" id="PR00023">
 <property type="entry name" value="ZPELLUCIDA"/>
 </dbReference>
 <dbReference type="SMART" id="SM00181">
 <property type="entry name" value="EGF"/>
-<property type="match status" value="1"/>
+<property type="match status" value="3"/>
 </dbReference>
 <dbReference type="SMART" id="SM00179">
 <property type="entry name" value="EGF_CA"/>
@@ -1452,81 +1467,81 @@
 <end position="587"/>
 </location>
 </feature>
-<feature type="propeptide" description="Removed in mature form" id="PRO_0000041672" evidence="2">
+<feature type="propeptide" description="Removed in mature form" id="PRO_0000041672" evidence="3">
 <location>
 <begin position="615"/>
 <end position="640"/>
 </location>
 </feature>
-<feature type="domain" description="EGF-like 1" evidence="3">
+<feature type="domain" description="EGF-like 1" evidence="4">
 <location>
 <begin position="28"/>
 <end position="64"/>
 </location>
 </feature>
-<feature type="domain" description="EGF-like 2; calcium-binding" evidence="3">
+<feature type="domain" description="EGF-like 2; calcium-binding" evidence="4">
 <location>
 <begin position="65"/>
 <end position="107"/>
 </location>
 </feature>
-<feature type="domain" description="EGF-like 3; calcium-binding" evidence="3">
+<feature type="domain" description="EGF-like 3; calcium-binding" evidence="4">
 <location>
 <begin position="108"/>
 <end position="149"/>
 </location>
 </feature>
-<feature type="domain" description="ZP" evidence="4">
+<feature type="domain" description="ZP" evidence="5">
 <location>
 <begin position="334"/>
 <end position="589"/>
 </location>
 </feature>
-<feature type="region of interest" description="Important for secretion and polymerization into filaments" evidence="27">
+<feature type="region of interest" description="Important for secretion and polymerization into filaments" evidence="28">
 <location>
 <begin position="430"/>
 <end position="453"/>
 </location>
 </feature>
-<feature type="region of interest" description="Essential for cleavage by HPN" evidence="16 26 27">
+<feature type="region of interest" description="Essential for cleavage by HPN" evidence="17 27 28">
 <location>
 <begin position="586"/>
 <end position="589"/>
 </location>
 </feature>
-<feature type="region of interest" description="Regulates polymerization into filaments" evidence="16">
+<feature type="region of interest" description="Regulates polymerization into filaments" evidence="17">
 <location>
 <begin position="598"/>
 <end position="607"/>
 </location>
 </feature>
-<feature type="site" description="Cleavage" evidence="15">
+<feature type="site" description="Cleavage" evidence="16">
 <location>
 <begin position="587"/>
 <end position="588"/>
 </location>
 </feature>
-<feature type="lipid moiety-binding region" description="GPI-anchor amidated serine" evidence="2">
+<feature type="lipid moiety-binding region" description="GPI-anchor amidated serine" evidence="3">
 <location>
 <position position="614"/>
 </location>
 </feature>
-<feature type="glycosylation site" description="N-linked (GlcNAc...)" evidence="2">
+<feature type="glycosylation site" description="N-linked (GlcNAc...)" evidence="3">
 <location>
 <position position="38"/>
 </location>
 </feature>
-<feature type="glycosylation site" description="N-linked (GlcNAc...)" evidence="2">
+<feature type="glycosylation site" description="N-linked (GlcNAc...)" evidence="3">
 <location>
 <position position="76"/>
 </location>
 </feature>
-<feature type="glycosylation site" description="N-linked (GlcNAc...)" evidence="2">
+<feature type="glycosylation site" description="N-linked (GlcNAc...)" evidence="3">
 <location>
 <position position="80"/>
 </location>
 </feature>
-<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex)" evidence="20 27">
+<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex)" evidence="21 28">
 <location>
 <position position="232"/>
 </location>
@@ -1536,138 +1551,138 @@
 <position position="275"/>
 </location>
 </feature>
-<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex)" evidence="20">
+<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex)" evidence="21">
 <location>
 <position position="322"/>
 </location>
 </feature>
-<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex)" evidence="20">
+<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex)" evidence="21">
 <location>
 <position position="396"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="32"/>
 <end position="41"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="35"/>
 <end position="50"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="52"/>
 <end position="63"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="69"/>
 <end position="83"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="77"/>
 <end position="92"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="94"/>
 <end position="106"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="112"/>
 <end position="126"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="120"/>
 <end position="135"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3">
+<feature type="disulfide bond" evidence="4">
 <location>
 <begin position="137"/>
 <end position="148"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="27">
+<feature type="disulfide bond" evidence="28">
 <location>
 <begin position="297"/>
 <end position="306"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="27">
+<feature type="disulfide bond" evidence="28">
 <location>
 <begin position="300"/>
 <end position="315"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="27">
+<feature type="disulfide bond" evidence="28">
 <location>
 <begin position="317"/>
 <end position="347"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="27">
+<feature type="disulfide bond" evidence="28">
 <location>
 <begin position="335"/>
 <end position="425"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="27">
+<feature type="disulfide bond" evidence="28">
 <location>
 <begin position="366"/>
 <end position="389"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="3 27">
+<feature type="disulfide bond" evidence="4 28">
 <location>
 <begin position="506"/>
 <end position="566"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="27">
+<feature type="disulfide bond" evidence="28">
 <location>
 <begin position="527"/>
 <end position="582"/>
 </location>
 </feature>
-<feature type="disulfide bond" evidence="27">
+<feature type="disulfide bond" evidence="28">
 <location>
 <begin position="571"/>
 <end position="578"/>
 </location>
 </feature>
-<feature type="splice variant" description="In isoform 5." id="VSP_054828" evidence="31">
+<feature type="splice variant" description="In isoform 5." id="VSP_054828" evidence="32">
 <original>A</original>
 <variation>ARTKYNCPARWSWRTPQRGGDTEQGPDEDFTSQG</variation>
 <location>
 <position position="29"/>
 </location>
 </feature>
-<feature type="splice variant" description="In isoform 2." id="VSP_017565" evidence="31">
+<feature type="splice variant" description="In isoform 2." id="VSP_017565" evidence="32">
 <location>
 <begin position="67"/>
 <end position="199"/>
 </location>
 </feature>
-<feature type="splice variant" description="In isoform 4." id="VSP_040973" evidence="31">
+<feature type="splice variant" description="In isoform 4." id="VSP_040973" evidence="32">
 <location>
 <begin position="133"/>
 <end position="154"/>
 </location>
 </feature>
-<feature type="splice variant" description="In isoform 3." id="VSP_017566" evidence="32">
+<feature type="splice variant" description="In isoform 3." id="VSP_017566" evidence="33">
 <original>FVGQGGARMAETCVPVLRCNTAAPMWLNGT</original>
 <variation>P</variation>
 <location>
@@ -1675,28 +1690,28 @@
 <end position="234"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073052" evidence="11">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073052" evidence="12">
 <original>C</original>
 <variation>W</variation>
 <location>
 <position position="52"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073053" evidence="9 14">
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073053" evidence="10 15">
 <original>D</original>
 <variation>A</variation>
 <location>
 <position position="59"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_025950" evidence="6">
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917768." id="VAR_025950" evidence="7">
 <original>C</original>
 <variation>Y</variation>
 <location>
 <position position="77"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In MCKD2; results in mutant retention in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_025951" evidence="8 25">
+<feature type="sequence variant" description="In MCKD2; results in mutant retention in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_025951" evidence="9 26">
 <original>VCPEG</original>
 <variation>AASC</variation>
 <location>
@@ -1704,231 +1719,231 @@
 <end position="97"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In MCKD2; dbSNP:rs28934584." id="VAR_017666" evidence="5">
+<feature type="sequence variant" description="In MCKD2; dbSNP:rs28934584." id="VAR_017666" evidence="6">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="103"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_071398" evidence="24">
+<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER; dbSNP:rs780462125." id="VAR_071398" evidence="25">
 <original>V</original>
 <variation>E</variation>
 <location>
 <position position="109"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073054" evidence="9">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073054" evidence="10">
 <original>C</original>
 <variation>R</variation>
 <location>
 <position position="112"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_025952" evidence="6 9">
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917769." id="VAR_025952" evidence="7 10">
 <original>C</original>
 <variation>R</variation>
 <location>
 <position position="126"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_025953" evidence="6 14">
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER; dbSNP:rs121917770." id="VAR_025953" evidence="7 15">
 <original>N</original>
 <variation>S</variation>
 <location>
 <position position="128"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073055" evidence="11">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073055" evidence="12">
 <original>C</original>
 <variation>S</variation>
 <location>
 <position position="135"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025954" evidence="10 14">
+<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025954" evidence="11 15">
 <original>C</original>
 <variation>W</variation>
 <location>
 <position position="148"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; dbSNP:rs28934582." id="VAR_017667" evidence="5">
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs28934582." id="VAR_017667" evidence="6">
 <original>C</original>
 <variation>Y</variation>
 <location>
 <position position="148"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_025955" evidence="10 14 25">
+<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_025955" evidence="11 15 26">
 <original>C</original>
 <variation>S</variation>
 <location>
 <position position="150"/>
 </location>
 </feature>
-<feature type="sequence variant" description="Probable-disease association mutation found in a patient with cystic kidney disease; results in mutant retention in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_073056" evidence="25">
+<feature type="sequence variant" description="Probable-disease association mutation found in a patient with cystic kidney disease; results in mutant retention in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_073056" evidence="26">
 <original>C</original>
 <variation>R</variation>
 <location>
 <position position="155"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073057" evidence="9">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073057" evidence="10">
 <original>C</original>
 <variation>Y</variation>
 <location>
 <position position="170"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073058" evidence="9">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073058" evidence="10">
 <original>R</original>
 <variation>S</variation>
 <location>
 <position position="185"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073059" evidence="11">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073059" evidence="12">
 <original>C</original>
 <variation>F</variation>
 <location>
 <position position="195"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073060" evidence="11">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073060" evidence="12">
 <original>W</original>
 <variation>S</variation>
 <location>
 <position position="202"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073061" evidence="9 14">
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073061" evidence="10 15">
 <original>R</original>
 <variation>G</variation>
 <location>
 <position position="204"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073062" evidence="9">
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs28934583." id="VAR_073062" evidence="10">
 <original>C</original>
 <variation>G</variation>
 <location>
 <position position="217"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER; dbSNP:rs28934583." id="VAR_017668" evidence="5 14">
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER; dbSNP:rs28934583." id="VAR_017668" evidence="6 15">
 <original>C</original>
 <variation>R</variation>
 <location>
 <position position="217"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073063" evidence="9">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073063" evidence="10">
 <original>R</original>
 <variation>P</variation>
 <location>
 <position position="222"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_025956" evidence="7">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_025956" evidence="8">
 <original>C</original>
 <variation>Y</variation>
 <location>
 <position position="223"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In MCKD2; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_025957" evidence="8 14">
+<feature type="sequence variant" description="In MCKD2; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_025957" evidence="9 15">
 <original>T</original>
 <variation>K</variation>
 <location>
 <position position="225"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073064" evidence="9">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073064" evidence="10">
 <original>T</original>
 <variation>M</variation>
 <location>
 <position position="225"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_071399" evidence="23">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_071399" evidence="24">
 <original>W</original>
 <variation>R</variation>
 <location>
 <position position="230"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073065" evidence="11">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073065" evidence="12">
 <original>P</original>
 <variation>L</variation>
 <location>
 <position position="236"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_071400" evidence="24">
+<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_071400" evidence="25">
 <original>P</original>
 <variation>Q</variation>
 <location>
 <position position="236"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073066" evidence="14">
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073066" evidence="15">
 <original>P</original>
 <variation>R</variation>
 <location>
 <position position="236"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In MCKD2 and HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025958" evidence="8 24">
+<feature type="sequence variant" description="In MCKD2 and HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025958" evidence="9 25">
 <original>C</original>
 <variation>W</variation>
 <location>
 <position position="248"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_025959" evidence="6">
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917771." id="VAR_025959" evidence="7">
 <original>C</original>
 <variation>Y</variation>
 <location>
 <position position="255"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073067" evidence="9">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073067" evidence="10">
 <original>C</original>
 <variation>R</variation>
 <location>
 <position position="282"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_025960" evidence="6">
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917772." id="VAR_025960" evidence="7">
 <original>C</original>
 <variation>G</variation>
 <location>
 <position position="300"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In GCKDHI; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025961" evidence="10 14">
+<feature type="sequence variant" description="In GCKDHI; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER; dbSNP:rs121917773." id="VAR_025961" evidence="11 15">
 <original>C</original>
 <variation>R</variation>
 <location>
 <position position="315"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_073068" evidence="13">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073068" evidence="14">
 <original>Q</original>
 <variation>P</variation>
 <location>
 <position position="316"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025962" evidence="10">
+<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025962" evidence="11">
 <original>C</original>
 <variation>Y</variation>
 <location>
 <position position="317"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_073069" evidence="12">
+<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_073069" evidence="13">
 <original>C</original>
 <variation>G</variation>
 <location>
@@ -1942,49 +1957,49 @@
 <position position="458"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In HNFJ1." id="VAR_071401" evidence="19">
+<feature type="sequence variant" description="In HNFJ1." id="VAR_071401" evidence="20">
 <original>A</original>
 <variation>E</variation>
 <location>
 <position position="461"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="Abolishes polymerization and filament formation of the secreted form." evidence="27">
+<feature type="mutagenesis site" description="Abolishes polymerization and filament formation of the secreted form." evidence="28">
 <original>L</original>
 <variation>K</variation>
 <location>
 <position position="333"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="Abolishes polymerization and filament formation of the secreted form." evidence="27">
+<feature type="mutagenesis site" description="Abolishes polymerization and filament formation of the secreted form." evidence="28">
 <original>I</original>
 <variation>K</variation>
 <location>
 <position position="421"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="Impairs polymerization and filament formation of the secreted form." evidence="16">
+<feature type="mutagenesis site" description="Impairs polymerization and filament formation of the secreted form." evidence="17">
 <original>D</original>
 <variation>L</variation>
 <location>
 <position position="430"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="Impairs polymerization and filament formation of the secreted form." evidence="16">
+<feature type="mutagenesis site" description="Impairs polymerization and filament formation of the secreted form." evidence="17">
 <original>L</original>
 <variation>S</variation>
 <location>
 <position position="435"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="Leads to retention in the endoplasmic reticulum, probably due to misfolding." evidence="16">
+<feature type="mutagenesis site" description="Leads to retention in the endoplasmic reticulum, probably due to misfolding." evidence="17">
 <original>V</original>
 <variation>R</variation>
 <location>
 <position position="458"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="Abolishes cleavage by HPN." evidence="16 26 27">
+<feature type="mutagenesis site" description="Abolishes cleavage by HPN." evidence="17 27 28">
 <original>RFRS</original>
 <variation>AAAA</variation>
 <location>
@@ -1992,7 +2007,7 @@
 <end position="589"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="Decreased export from the endoplasmic reticulum, leading to decreased secretion. Impairs polymerization." evidence="16">
+<feature type="mutagenesis site" description="Decreased export from the endoplasmic reticulum, leading to decreased secretion. Impairs polymerization." evidence="17">
 <original>VLN</original>
 <variation>AAA</variation>
 <location>
@@ -2000,7 +2015,7 @@
 <end position="600"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="Decreased export from the endoplasmic reticulum, leading to decreased secretion. Impairs polymerization." evidence="16">
+<feature type="mutagenesis site" description="Decreased export from the endoplasmic reticulum, leading to decreased secretion. Impairs polymerization." evidence="17">
 <original>GP</original>
 <variation>AA</variation>
 <location>
@@ -2008,7 +2023,7 @@
 <end position="603"/>
 </location>
 </feature>
-<feature type="mutagenesis site" description="No effect on secretion. Does not impair polymerization." evidence="16">
+<feature type="mutagenesis site" description="No effect on secretion. Does not impair polymerization." evidence="17">
 <original>TRK</original>
 <variation>AAA</variation>
 <location>
@@ -2016,184 +2031,381 @@
 <end position="607"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="33">
+<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="34">
 <original>T</original>
 <variation>A</variation>
 <location>
 <position position="288"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="33">
+<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="34">
 <original>M</original>
 <variation>I</variation>
 <location>
 <position position="503"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 2; AAA36799." ref="2" evidence="33">
+<feature type="sequence conflict" description="In Ref. 2; AAA36799." ref="2" evidence="34">
 <original>H</original>
 <variation>D</variation>
 <location>
 <position position="565"/>
 </location>
 </feature>
-<evidence key="1" type="ECO:0000250">
+<feature type="helix" evidence="1">
+<location>
+<begin position="296"/>
+<end position="299"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="304"/>
+<end position="308"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="313"/>
+<end position="317"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="327"/>
+<end position="329"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="332"/>
+<end position="335"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="337"/>
+<end position="345"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="346"/>
+<end position="350"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="351"/>
+<end position="353"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="377"/>
+<end position="387"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="388"/>
+<end position="390"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="392"/>
+<end position="395"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="397"/>
+<end position="408"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="411"/>
+<end position="414"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="419"/>
+<end position="428"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="431"/>
+<end position="437"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="438"/>
+<end position="441"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="443"/>
+<end position="450"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="451"/>
+<end position="453"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="454"/>
+<end position="465"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="473"/>
+<end position="475"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="477"/>
+<end position="479"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="485"/>
+<end position="494"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="496"/>
+<end position="498"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="499"/>
+<end position="512"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="520"/>
+<end position="524"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="527"/>
+<end position="529"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="535"/>
+<end position="550"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="552"/>
+<end position="555"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="560"/>
+<end position="572"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="573"/>
+<end position="575"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="595"/>
+<end position="597"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="598"/>
+<end position="606"/>
+</location>
+</feature>
+<evidence key="1" type="ECO:0000244">
+<source>
+<dbReference type="PDB" id="4WRN"/>
+</source>
+</evidence>
+<evidence key="2" type="ECO:0000250">
 <source>
 <dbReference type="UniProtKB" id="Q91X17"/>
 </source>
 </evidence>
-<evidence key="2" type="ECO:0000255"/>
-<evidence key="3" type="ECO:0000255">
+<evidence key="3" type="ECO:0000255"/>
+<evidence key="4" type="ECO:0000255">
 <source>
 <dbReference type="PROSITE-ProRule" id="PRU00076"/>
 </source>
 </evidence>
-<evidence key="4" type="ECO:0000255">
+<evidence key="5" type="ECO:0000255">
 <source>
 <dbReference type="PROSITE-ProRule" id="PRU00375"/>
 </source>
 </evidence>
-<evidence key="5" type="ECO:0000269">
+<evidence key="6" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="12471200"/>
 </source>
 </evidence>
-<evidence key="6" type="ECO:0000269">
+<evidence key="7" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="12629136"/>
 </source>
 </evidence>
-<evidence key="7" type="ECO:0000269">
+<evidence key="8" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="12900848"/>
 </source>
 </evidence>
-<evidence key="8" type="ECO:0000269">
+<evidence key="9" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="14531790"/>
 </source>
 </evidence>
-<evidence key="9" type="ECO:0000269">
+<evidence key="10" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="14569098"/>
 </source>
 </evidence>
-<evidence key="10" type="ECO:0000269">
+<evidence key="11" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="14570709"/>
 </source>
 </evidence>
-<evidence key="11" type="ECO:0000269">
+<evidence key="12" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="15086896"/>
 </source>
 </evidence>
-<evidence key="12" type="ECO:0000269">
+<evidence key="13" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="15575003"/>
 </source>
 </evidence>
-<evidence key="13" type="ECO:0000269">
+<evidence key="14" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="15983957"/>
 </source>
 </evidence>
-<evidence key="14" type="ECO:0000269">
+<evidence key="15" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="17010121"/>
 </source>
 </evidence>
-<evidence key="15" type="ECO:0000269">
+<evidence key="16" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="18375198"/>
 </source>
 </evidence>
-<evidence key="16" type="ECO:0000269">
+<evidence key="17" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="19005207"/>
 </source>
 </evidence>
-<evidence key="17" type="ECO:0000269">
+<evidence key="18" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="20172860"/>
 </source>
 </evidence>
-<evidence key="18" type="ECO:0000269">
+<evidence key="19" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="20798515"/>
 </source>
 </evidence>
-<evidence key="19" type="ECO:0000269">
+<evidence key="20" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="21060763"/>
 </source>
 </evidence>
-<evidence key="20" type="ECO:0000269">
+<evidence key="21" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="22171320"/>
 </source>
 </evidence>
-<evidence key="21" type="ECO:0000269">
+<evidence key="22" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="2249987"/>
 </source>
 </evidence>
-<evidence key="22" type="ECO:0000269">
+<evidence key="23" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="22776760"/>
 </source>
 </evidence>
-<evidence key="23" type="ECO:0000269">
+<evidence key="24" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="23197950"/>
 </source>
 </evidence>
-<evidence key="24" type="ECO:0000269">
+<evidence key="25" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="23988501"/>
 </source>
 </evidence>
-<evidence key="25" type="ECO:0000269">
+<evidence key="26" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="25436415"/>
 </source>
 </evidence>
-<evidence key="26" type="ECO:0000269">
+<evidence key="27" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="26673890"/>
 </source>
 </evidence>
-<evidence key="27" type="ECO:0000269">
+<evidence key="28" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="26811476"/>
 </source>
 </evidence>
-<evidence key="28" type="ECO:0000269">
+<evidence key="29" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="3453112"/>
 </source>
 </evidence>
-<evidence key="29" type="ECO:0000269">
+<evidence key="30" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="3498215"/>
 </source>
 </evidence>
-<evidence key="30" type="ECO:0000269">
+<evidence key="31" type="ECO:0000269">
 <source>
 <dbReference type="PubMed" id="7028707"/>
 </source>
 </evidence>
-<evidence key="31" type="ECO:0000303">
+<evidence key="32" type="ECO:0000303">
 <source>
 <dbReference type="PubMed" id="14702039"/>
 </source>
 </evidence>
-<evidence key="32" type="ECO:0000303">
+<evidence key="33" type="ECO:0000303">
 <source>
 <dbReference type="PubMed" id="15489334"/>
 </source>
 </evidence>
-<evidence key="33" type="ECO:0000305"/>
+<evidence key="34" type="ECO:0000305"/>
 <sequence length="640" mass="69761" checksum="D26A07A76353AE48" modified="1988-08-01" version="1" precursor="true">
 MGQPSLTWMLMVVVASWFITTAATDTSEARWCSECHSNATCTEDEAVTTCTCQEGFTGDG
 LTCVDLDECAIPGAHNCSANSSCVNTPGSFSCVCPEGFRLSPGLGCTDVDECAEPGLSHC

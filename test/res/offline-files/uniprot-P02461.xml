@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-03-16" version="185">
+<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-09-07" version="189">
 <accession>P02461</accession>
 <accession>D2JYH5</accession>
 <accession>D3DPH4</accession>
@@ -61,6 +61,7 @@
 <person name="Prockop D.J."/>
 </authorList>
 <dbReference type="PubMed" id="2764886"/>
+<dbReference type="DOI" id="10.1042/bj2600509"/>
 </citation>
 <scope>NUCLEOTIDE SEQUENCE [MRNA] (ISOFORM 1)</scope>
 <scope>VARIANT GLN-1353</scope>
@@ -383,6 +384,7 @@
 <person name="Bateman J.F."/>
 </authorList>
 <dbReference type="PubMed" id="7487954"/>
+<dbReference type="DOI" id="10.1042/bj3110939"/>
 </citation>
 <scope>NUCLEOTIDE SEQUENCE [MRNA] OF 302-423 (ISOFORMS 1/2)</scope>
 </reference>
@@ -1254,7 +1256,7 @@
 <scope>VARIANTS THR-679; THR-698; VAL-1205 AND GLN-1353</scope>
 </reference>
 <comment type="function">
-<text>Collagen type III occurs in most soft connective tissues along with type I collagen. Involved in regulation of cortical development. Is the major ligand of GPR56 in the developing brain and binding to GPR56 inhibits neuronal migration and activates the RhoA pathway by coupling GPR56 to GNA13 and possibly GNA12.</text>
+<text>Collagen type III occurs in most soft connective tissues along with type I collagen. Involved in regulation of cortical development. Is the major ligand of ADGRG1 in the developing brain and binding to ADGRG1 inhibits neuronal migration and activates the RhoA pathway by coupling ADGRG1 to GNA13 and possibly GNA12.</text>
 </comment>
 <comment type="subunit">
 <text>Trimers of identical alpha 1(III) chains. The chains are linked to each other by interchain disulfide bonds. Trimers are also cross-linked via hydroxylysines.</text>
@@ -1528,6 +1530,7 @@
 <dbReference type="BioMuta" id="COL3A1"/>
 <dbReference type="DMDM" id="124056490"/>
 <dbReference type="PaxDb" id="P02461"/>
+<dbReference type="PeptideAtlas" id="P02461"/>
 <dbReference type="PRIDE" id="P02461"/>
 <dbReference type="Ensembl" id="ENST00000304636">
 <molecule id="P02461-1"/>
@@ -1586,12 +1589,12 @@
 <dbReference type="eggNOG" id="ENOG410XNMM">
 <property type="taxonomic scope" value="LUCA"/>
 </dbReference>
-<dbReference type="GeneTree" id="ENSGT00830000128243"/>
+<dbReference type="GeneTree" id="ENSGT00840000129673"/>
 <dbReference type="HOVERGEN" id="HBG004933"/>
 <dbReference type="InParanoid" id="P02461"/>
 <dbReference type="KO" id="K19720"/>
 <dbReference type="OMA" id="AEKKHVW"/>
-<dbReference type="OrthoDB" id="EOG7TJ3HH"/>
+<dbReference type="OrthoDB" id="EOG091G03LV"/>
 <dbReference type="PhylomeDB" id="P02461"/>
 <dbReference type="TreeFam" id="TF344135"/>
 <dbReference type="Reactome" id="R-HSA-1442490">
@@ -1636,12 +1639,11 @@
 <dbReference type="EvolutionaryTrace" id="P02461"/>
 <dbReference type="GeneWiki" id="Collagen,_type_III,_alpha_1"/>
 <dbReference type="GenomeRNAi" id="1281"/>
-<dbReference type="NextBio" id="35489581"/>
 <dbReference type="PRO" id="PR:P02461"/>
 <dbReference type="Proteomes" id="UP000005640">
 <property type="component" value="Chromosome 2"/>
 </dbReference>
-<dbReference type="Bgee" id="P02461"/>
+<dbReference type="Bgee" id="ENSG00000168542"/>
 <dbReference type="ExpressionAtlas" id="P02461">
 <property type="expression patterns" value="baseline and differential"/>
 </dbReference>
@@ -1703,11 +1705,6 @@
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="Ensembl"/>
 </dbReference>
-<dbReference type="GO" id="GO:0007411">
-<property type="term" value="P:axon guidance"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
-</dbReference>
 <dbReference type="GO" id="GO:0007160">
 <property type="term" value="P:cell-matrix adhesion"/>
 <property type="evidence" value="ECO:0000314"/>
@@ -1742,11 +1739,6 @@
 <property type="term" value="P:extracellular fibril organization"/>
 <property type="evidence" value="ECO:0000315"/>
 <property type="project" value="UniProtKB"/>
-</dbReference>
-<dbReference type="GO" id="GO:0022617">
-<property type="term" value="P:extracellular matrix disassembly"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
 </dbReference>
 <dbReference type="GO" id="GO:0030198">
 <property type="term" value="P:extracellular matrix organization"/>
@@ -1787,11 +1779,6 @@
 <property type="term" value="P:positive regulation of Rho protein signal transduction"/>
 <property type="evidence" value="ECO:0000250"/>
 <property type="project" value="UniProtKB"/>
-</dbReference>
-<dbReference type="GO" id="GO:0006898">
-<property type="term" value="P:receptor-mediated endocytosis"/>
-<property type="evidence" value="ECO:0000304"/>
-<property type="project" value="Reactome"/>
 </dbReference>
 <dbReference type="GO" id="GO:0050776">
 <property type="term" value="P:regulation of immune response"/>

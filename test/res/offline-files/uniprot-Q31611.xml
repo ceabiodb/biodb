@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="TrEMBL" created="1996-11-01" modified="2016-03-16" version="134">
+<entry dataset="TrEMBL" created="1996-11-01" modified="2016-09-07" version="137">
 <accession>Q31611</accession>
 <name>Q31611_HUMAN</name>
 <protein>
@@ -288,23 +288,11 @@
 <property type="protein sequence ID" value="AAA59836.1"/>
 <property type="molecule type" value="mRNA"/>
 </dbReference>
-<dbReference type="RefSeq" id="XP_011545953.1">
-<property type="nucleotide sequence ID" value="XM_011547651.1"/>
-</dbReference>
-<dbReference type="RefSeq" id="XP_011546184.1">
-<property type="nucleotide sequence ID" value="XM_011547882.1"/>
-</dbReference>
-<dbReference type="RefSeq" id="XP_011546350.1">
-<property type="nucleotide sequence ID" value="XM_011548048.1"/>
-</dbReference>
-<dbReference type="RefSeq" id="XP_011546733.1">
-<property type="nucleotide sequence ID" value="XM_011548431.1"/>
-</dbReference>
 <dbReference type="UniGene" id="Hs.512152"/>
 <dbReference type="SMR" id="Q31611">
 <property type="residue range" value="25-208"/>
 </dbReference>
-<dbReference type="EPD" id="Q31611"/>
+<dbReference type="PeptideAtlas" id="Q31611"/>
 <dbReference type="Ensembl" id="ENST00000376818">
 <property type="protein sequence ID" value="ENSP00000366014"/>
 <property type="gene ID" value="ENSG00000204632"/>
@@ -361,7 +349,6 @@
 <property type="protein sequence ID" value="ENSP00000432239"/>
 <property type="gene ID" value="ENSG00000230413"/>
 </dbReference>
-<dbReference type="GeneID" id="3135"/>
 <dbReference type="UCSC" id="uc003nnz.4">
 <property type="organism name" value="human"/>
 </dbReference>
@@ -374,12 +361,11 @@
 <dbReference type="ChiTaRS" id="HLA-G">
 <property type="organism name" value="human"/>
 </dbReference>
+<dbReference type="GenomeRNAi" id="3135"/>
 <dbReference type="Proteomes" id="UP000005640">
 <property type="component" value="Chromosome 6"/>
 </dbReference>
-<dbReference type="ExpressionAtlas" id="Q31611">
-<property type="expression patterns" value="baseline and differential"/>
-</dbReference>
+<dbReference type="Bgee" id="ENSG00000204632"/>
 <dbReference type="GO" id="GO:0016021">
 <property type="term" value="C:integral component of membrane"/>
 <property type="evidence" value="ECO:0000501"/>
@@ -413,9 +399,6 @@
 </dbReference>
 <dbReference type="InterPro" id="IPR011162">
 <property type="entry name" value="MHC_I/II-like_Ag-recog"/>
-</dbReference>
-<dbReference type="InterPro" id="IPR001039">
-<property type="entry name" value="MHC_I_a_a1/a2"/>
 </dbReference>
 <dbReference type="Pfam" id="PF07654">
 <property type="entry name" value="C1-set"/>
@@ -455,7 +438,7 @@
 <end position="24"/>
 </location>
 </feature>
-<feature type="chain" id="PRO_5006485400" evidence="3">
+<feature type="chain" id="PRO_5007701807" evidence="3">
 <location>
 <begin position="25"/>
 <end position="246"/>
