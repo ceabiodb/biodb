@@ -1,3 +1,9 @@
+#############
+# CONSTANTS #
+#############
+
+.MASSFILEDB.URL <- file.path(dirname(script.path), 'res', 'massfiledb.tsv')
+
 ####################
 # TEST WRONG ENTRY #
 ####################
@@ -31,6 +37,29 @@ test_entry_fields <- function(factory, db) {
 	}
 }
 
+###################
+# TEST NB ENTRIES #
+###################
+
+test_nb_entries <- function(db) {
+
+	# Test getNbEntries()
+	n <- db$getNbEntries()
+	expect_true(is.na(n) || n >= 0)
+}
+
+##################
+# TEST ENTRY IDS #
+##################
+
+test_entry_ids <- function(db) {
+
+	# Test getEntryIds()
+	max <- 100
+	n <- db$getEntryIds(max.results = max)
+	expect_true(n >= 0 && n <= max)
+}
+
 ########
 # MAIN #
 ########
@@ -54,11 +83,18 @@ for (online in online.modes) {
 								)
 
 	# Loop on all databases
-	for (db in BIODB.ONLINE.DATABASES) {
+	for (db in BIODB.DATABASES) {
+
+		# Initialize massfiledb
+		if (db == BIODB.MASSFILEDB)
+			factory$createConn(db, url = .MASSFILEDB.URL)
+
 		if (is.null(opt[['databases']]) || db %in% opt[['databases']]) {
 			context(paste0("Testing database ", db, if (online) " online" else " offline"))
 			test_that("Wrong entry gives NULL", test_wrong_entry(factory, db))
 			test_that("Entry fields have a correct value", test_entry_fields(factory, db))
+			test_that("Nb entries is positive", test_nb_entries(factory$getConn(db)))
+			test_that("We can get a list of entry ids", test_entry_ids(factory$getConn(db)))
 		}
 	}
 }

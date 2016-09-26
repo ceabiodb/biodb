@@ -52,22 +52,6 @@ read.args <- function() {
   return(opt)
 }
 
-###########
-# TEST DB #
-###########
-
-test.db <- function(db) {
-
-	# Test getEntryIds()
-	max <- 100
-	n <- db$getEntryIds(max.results = max)
-	expect_true(n >= 0 && n <= max)
-
-	# Test getNbEntries()
-	n <- db$getNbEntries()
-	expect_true(is.na(n) || n >= 0)
-}
-
 ########
 # MAIN #
 ########
