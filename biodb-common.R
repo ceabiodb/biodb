@@ -94,6 +94,19 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.CHROM.COL.RT  <- 'chromcolrt' # Retention time measured on chromatographic column
 	BIODB.ID <- 'id'
 	BIODB.TITLE <- 'title'
+	BIODB.PEAK.MZ <- 'mz'
+	BIODB.PEAK.RT <- 'rt'
+	BIODB.PEAK.MZEXP <- 'mzexp'
+	BIODB.PEAK.MZTHEO <- 'mztheo'
+	BIODB.PEAK.FORMULA <- 'formula'
+	BIODB.PEAK.FORMULA.COUNT <- 'formula.count'
+	BIODB.PEAK.COMP     <- 'peakcomp' # Peak composition
+	BIODB.PEAK.ATTR     <- 'peakattr' # Peak attribution
+	BIODB.PEAK.MASS <- 'mass'
+#	BIODB.PEAK.ATTR <- 'attr'
+	BIODB.PEAK.ERROR.PPM <- 'error.ppm'
+	BIODB.PEAK.INTENSITY <- 'intensity'
+	BIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
 
 	# Mode values
 	BIODB.MSMODE.NEG <- 'neg'
@@ -142,6 +155,7 @@ if ( ! exists('BIODB.XML')) {
 		BIODB.MSTYPE,               'character',    BIODB.CARD.ONE,		'none',
 		BIODB.MSMODE,               'character',    BIODB.CARD.ONE,		'none',
 		BIODB.MSPRECMZ,             'double',       BIODB.CARD.ONE,		'none',
+		BIODB.PEAK.MZTHEO,			'double',		BIODB.CARD.ONE,		'none',
 		BIODB.MSPRECANNOT,          'character',    BIODB.CARD.ONE,		'none',
 		BIODB.FORMULA,              'character',    BIODB.CARD.ONE,		'none',
 		BIODB.SUPER.CLASS,          'character',    BIODB.CARD.ONE,		'none',
@@ -188,21 +202,6 @@ if ( ! exists('BIODB.XML')) {
 	####################
 	# PEAKS DATA FRAME #
 	####################
-
-	# Columns
-	BIODB.PEAK.MZ <- 'mz'
-	BIODB.PEAK.RT <- 'rt'
-	BIODB.PEAK.MZEXP <- 'mzexp'
-	BIODB.PEAK.MZTHEO <- 'mztheo'
-	BIODB.PEAK.FORMULA <- 'formula'
-	BIODB.PEAK.FORMULA.COUNT <- 'formula.count'
-	BIODB.PEAK.COMP     <- 'peakcomp' # Peak composition
-	BIODB.PEAK.ATTR     <- 'peakattr' # Peak attribution
-	BIODB.PEAK.MASS <- 'mass'
-#	BIODB.PEAK.ATTR <- 'attr'
-	BIODB.PEAK.ERROR.PPM <- 'error.ppm'
-	BIODB.PEAK.INTENSITY <- 'intensity'
-	BIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
 
 	# Example
 	BIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
