@@ -17,6 +17,7 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.XML  <- 'xml'
 	BIODB.CSV  <- 'csv'
 	BIODB.DATAFRAME  <- 'dataframe'
+	BIODB.JSON <- 'json'
 
 	#############
 	# DATABASES #
@@ -36,8 +37,9 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.UNIPROT      <- 'uniprot'
 	BIODB.MASSBANK     <- 'massbank'
 	BIODB.MASSFILEDB   <- 'massfiledb'
+	BIODB.PEAKFOREST   <- 'peakforest'
 
-	BIODB.DATABASES <- c(BIODB.CHEBI, BIODB.KEGG, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDB, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB)
+	BIODB.DATABASES <- c(BIODB.CHEBI, BIODB.KEGG, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDB, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFOREST)
 
 	##########
 	# FIELDS #
@@ -68,6 +70,7 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.CHEMSPIDER.ID   <- 'chemspiderid'
 	BIODB.UNIPROT.ID   <- 'uniprotid'
 	BIODB.CAS.ID        <- 'casid'
+	BIODB.PEAKFOREST.ID <- 'peakforestid'
 	BIODB.SMILES        <- 'smiles'
 	BIODB.INCHI        <- 'inchi'
 	BIODB.INCHIKEY     <- 'inchikey'
@@ -145,6 +148,7 @@ if ( ! exists('BIODB.XML')) {
 		BIODB.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
 		BIODB.PUBCHEMCOMP.ID,       'character',    BIODB.CARD.ONE,		'none',
 		BIODB.PUBCHEMSUB.ID,        'character',    BIODB.CARD.ONE,		'none',
+		BIODB.PEAKFOREST.ID,        'character',    BIODB.CARD.ONE,		'none',
 		BIODB.UNIPROT.ID,           'character',    BIODB.CARD.ONE,		'none',
 		BIODB.NCBI.CCDS.ID,         'character',    BIODB.CARD.ONE,		'none',
 		BIODB.NCBI.GENE.ID,         'character',    BIODB.CARD.ONE,		'none',
@@ -254,6 +258,10 @@ if ( ! exists('BIODB.XML')) {
 			ncbigene    = if (content.type == BIODB.XML) paste0('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
 			ncbiccds    = if (content.type == BIODB.HTML) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
 			uniprot     = if (content.type == BIODB.XML) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
+			peakforest  = switch(content.type,
+			                     html= paste0('https://peakforest.org/home?PFs=',accession),
+			                     json= paste0('https://rest.peakforest.org/spectra/lcms/',accession)),
+			                     
 			NULL
 			)
 

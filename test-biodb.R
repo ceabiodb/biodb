@@ -5,7 +5,8 @@ library(testthat)
 library(getopt)
 args <- commandArgs(trailingOnly = FALSE)
 script.path <- sub("--file=", "", args[grep("--file=", args)])
-source(file.path(dirname(script.path), '..', 'BiodbFactory.R'), chdir = TRUE)
+script.path <- "C:/Users/AD244905/Documents/dev/biodb/test"
+source(file.path(dirname(script.path), 'BiodbFactory.R'), chdir = TRUE)
 
 #############
 # CONSTANTS #
@@ -60,4 +61,4 @@ options(error = function() { traceback(2) ; q(status = 1) }, warn = 2 )
 
 opt <- read.args()
 
-test_dir(dirname(script.path))
+test_dir(script.path)
