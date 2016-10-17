@@ -7,6 +7,8 @@ if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
     # CLASS DECLARATION #
     #####################
     
+    # TODO Rename as PeakForestSpectrumEntry
+    # TODO Create class PeakforestCompoundEntry
     PeakForestEntry <- setRefClass("PeakForestEntry", contains = "BiodbEntry")
     
     
@@ -14,10 +16,12 @@ if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
     # FACTORY #
     ###########
     
+    # TODO Useless -> remove it.
     PeakForestEntry$methods( getPeaks = function(){
         as.data.frame(.self$getFieldValue(BIODB.PEAKS))
     })
     
+    # TODO To remove.
     .extract.from.json.list<-function(jstree,index,sep="/"){
         tindex <- strsplit(index,sep,fixed=TRUE)[[1]]
         if(length(tindex)==1) return(jstree[[index]])
@@ -35,16 +39,18 @@ if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
         
         entries <- vector(length(contents),mode="list")
         jsonfields <- character()
-        jsonfields[[BIODB.PEAKFOREST.ID]] <- "id"
+        jsonfields[[BIODB.PEAKFOREST.ID]] <- "id" # TODO Use BIODB.ACCESSION instead
         jsonfields[[BIODB.MSMODE]] <- "polarity"
         jsonfields[[BIODB.MSDEV]] <- "analyzerMassSpectrometerDevice/instrumentName"
         jsonfields[[BIODB.MSDEVTYPE]] <- "analyzerMassSpectrometerDevice/ionAnalyzerType"
         
+        # TODO verify if it sub or comp
+        # TODO Since a spectrum can be associated with several compounds and listOfCompounds contain all compound info, we will create a field BIODB.COMPOUND of type BiodbCompoundEntry with cardinality MANY
+        # TODO Do a loop on all elements of listOfCompounds and for each subJSON call createPeakforestCompoundFromJSON
+        jsonfields[[BIODB.PUBCHEMCOMP.ID]] <- "PubChemCID"
         jsonfields[[BIODB.CHEBI.ID]] <- "listOfCompounds/ChEBI"
         jsonfields[[BIODB.HMDB.ID]] <- "listOfCompounds/HMDB"
         jsonfields[[BIODB.KEGG.ID]] <- "listOfCompounds/KEGG"
-        ###TO DO verify if it sub or comp
-        jsonfields[[BIODB.PUBCHEMCOMP.ID]] <- "PubChemCID"
         jsonfields[[BIODB.FORMULA]] <- "listOfCompounds/formula"
         jsonfields[[BIODB.SMILES]] <- "listOfCompounds/canSmiles"
         jsonfields[[BIODB.AVERAGE.MASS]] <- "listOfCompounds/averageMass"
@@ -63,7 +69,7 @@ if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
             cnames <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.MZTHEO, BIODB.PEAK.ERROR.PPM)
             
             
-            
+			# TODO To be factorized            
             if(is.null(names(jsontree))){  ###Case of multiples spectra in the json.
                 
                 entries[[i]]<-list()
