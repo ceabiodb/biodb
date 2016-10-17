@@ -31,7 +31,7 @@ if ( ! exists('BIODB.MZTOLUNIT.PPM')) {
         
         # Only certain databases can handle multiple searchs
         if ( ! class %in% c(BIODB.PEAKFOREST) && length(mass) > 1)
-            stop(paste0("Cannot build a URL for getting multiple entries for class ", class, "."))
+            stop(paste0("Cannot build a URL for performing multiple searches for class ", class, "."))
         #https://rest.peakforest.org/spectra/lcms/search-naive/205.097,188.0703/0.25?matchAll=false&
         
         ####Put this part in a separate function
