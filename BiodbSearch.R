@@ -3,13 +3,16 @@ if ( ! exists('BIODB.MZTOLUNIT.PPM')) {
     source("biodb-common.R")
     source(file.path('..', 'r-lib', 'UrlRequestScheduler.R'), chdir = TRUE)
     
+    # TODO remove this file, and move its content to either biodb-common.R or PeakforestConn.R
+
     # Tolerance units
     BIODB.TOL <- 'mztol'
     BIODB.MZTOLUNIT.PPM <- 'ppm'
     BIODB.MZTOLUNIT.PLAIN <- 'plain' # same as mz: mass-to-charge ratio
     BIODB.MZTOLUNIT.VALS <- c(BIODB.MZTOLUNIT.PPM, BIODB.MZTOLUNIT.PLAIN)
     
-    # 
+    # TODO Rename as .convert.ppm.tol.to.plain.tol
+    # TODO Or instead right a function .get.mz.range(mass, tol, type = )
     .tol.mass<-function(value,mass,type=BIODB.MZTOLUNIT.VALS){
         type=match.arg(type)
         if(type=="ppm"){
@@ -59,6 +62,8 @@ if ( ! exists('BIODB.MZTOLUNIT.PPM')) {
     
     get.mass.search.url <- function(class, mass, tol, tolunit, supp = NULL, content.type = BIODB.HTML, max.length = 0, base.url = NA_character_, token = NA_character_) {
         
+	    # TODO Use "'spectra/lcms/peaks/get-range/', mz.low, '/', mz.high" instead.
+
         if (length(mass) == 0)
             return(NULL)
         
