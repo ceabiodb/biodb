@@ -115,12 +115,19 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.MSMODE.NEG <- 'neg'
 	BIODB.MSMODE.POS <- 'pos'
 
+
 	#################
 	# CARDINALITIES #
 	#################
 
 	BIODB.CARD.ONE <- '1'
 	BIODB.CARD.MANY <- '*'
+	
+	#####################
+	#INTENSITy NOTATIONS#
+	#####################
+	
+	BIODB.GROUP.INTENSITY<-c(BIODB.PEAK.INTENSITY,BIODB.PEAK.RELATIVE.INTENSITY)
 
 	##########################
 	# ENTRY FIELD ATTRIBUTES #
