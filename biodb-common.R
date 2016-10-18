@@ -90,6 +90,8 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.LENGTH       <- 'length'
 	BIODB.NB.PEAKS     <- 'nbpeaks'
 	BIODB.PEAKS        <- 'peaks'
+	BIODB.COMPOUNDS    <- 'compounds'
+    BIODB.NB.COMPOUNDS <- 'nbcompounds'
 	BIODB.COMPOUND.ID   <- 'compoundid'
 	BIODB.COMPOUND.MASS   <- 'compoundmass'
 	BIODB.COMPOUND.COMP   <- 'compoundcomp'

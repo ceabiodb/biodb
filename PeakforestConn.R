@@ -2,7 +2,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	
 	source('RemoteDbConn.R')
 	source('PeakforestEntry.R')
-	#source('MsMsSpectrumSearch.R')
+	source('MassdbConn.R')
 	library(plyr)
 	
 	
@@ -46,33 +46,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		return(content)
 	})
 	
-	################################
-	# PERFORM A NAIVE SEARCH BY MZ #
-	################################
-	
-	# Helpers functions.
-	
-	# TODO What is not used now, must be removed.
-	.make.input.df<-function(mz, tol) {
-		
-		if (length(mz) == 0) return(NULL)
-		if ( ! is.numeric(mz) | ! is.numeric(tol)) stop("tol and mz should be numeric.")
-		
-		df <- NULL
-		tol <- 
-			if(length(mz)==length(tol)){
-				df <- data.frame(matrix(c(mz,tol),byrow=FALSE,ncol=2))
-				colnames(df) <- c(BIODB.PEAK.MZ, BIODB.TOL)
-			}
-		if(length(mz)>1 & length(tol)==1){
-			df <- data.frame(matrix(c(mz,rep(tol,length(mz))),byrow=FALSE,ncol=2))
-			colnames(df) <- c(BIODB.PEAK.MZ, BIODB.TOL)
-		}
-		
-		df
-	}
-	
-	
+
 	##########################################
 	# SEARCH FOR SPECTRA IN GIVEN MASS RANGE #
 	##########################################

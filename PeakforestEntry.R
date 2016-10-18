@@ -10,15 +10,12 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 	# TODO Create class PeakforestCompoundEntry
 	PeakForestSpectrumEntry <- setRefClass("PeakForestSpectrumEntry", contains = "BiodbEntry")
 	
+	PeakForestCompoundEntry <- setRefClass("PeakForestCompoundEntry", contains = "BiodbEntry")
+	
 	
 	###########
 	# FACTORY #
 	###########
-	
-	# TODO Useless -> remove it and replace by a getFields
-	PeakForestSpectrumEntry$methods( getPeaks = function(){
-		as.data.frame(.self$getFieldValue(BIODB.PEAKS))
-	})
 	
 	# TODO To remove.
 	.extract.from.json.list<-function(jstree,index,sep="/"){
@@ -34,6 +31,50 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 		jstree
 	}
 	
+	
+	###Arg is jcontent ot indicate that the content is already a json.
+	createPeakforestCompoundFromJSON(contents, drop = FALSE){
+		
+		if(is.character(contents)) contents <- fromJSON(contents)
+		
+		jsonfields <- list()
+		jsonfields[[ACCESSION]] <- "id"
+		jsonfields[[BIODB.PUBCHEMCOMP.ID]] <- "PubChemCID"
+		jsonfields[[BIODB.CHEBI.ID]] <- "ChEBI"
+		jsonfields[[BIODB.HMDB.ID]] <- "HMDB"
+		jsonfields[[BIODB.KEGG.ID]] <- "KEGG"
+		jsonfields[[BIODB.FORMULA]] <- "formula"
+		jsonfields[[BIODB.SMILES]] <- "canSmiles"
+		jsonfields[[BIODB.AVERAGE.MASS]] <- "averageMass"
+		jsonfields[[BIODB.MONOISOTOPIC.MASS]] <- "monoisotopicMass"
+		jsonfields[[BIODB.INCHI]] <- "inChI"
+		jsonfields[[BIODB.INCHIKEY]] <- "inchiIKey"
+		jsonfields[[BIODB.NAME]] <- "mainName"
+
+		entries <- vector(length(contents),mode="list")
+		
+		for (i in seq_along(contents)){
+			
+			content <- contents[[i]]
+			entry <- PeakForestCompoundEntry$new()
+			
+			
+			for(field in names(jsonfields)){
+				
+				tosearch <- jsonfields[[field]]
+				value <- .extract.from.json.list(jsontree,tosearch)
+				entry$setField(field,value)
+			}
+			
+			entries[[i]] <- entry
+		}
+		
+		
+		if (drop && length(contents) == 1)
+			entries <- entries[[1]]
+		
+		entries
+	}
 	
 	createPeakforestSpectraFromJSON <- function(contents, drop = FALSE, checkSub = TRUE) {
 		
@@ -62,9 +103,6 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 		for (i in seq_along(contents)){
 			
 			content <- contents[[i]]
-			###Going on level down once again if needed.
-			
-			entry <- NULL
 			jsontree <- fromJSON(content)
 			cnames <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.MZTHEO, BIODB.PEAK.ERROR.PPM)
 			
@@ -78,7 +116,11 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 				entry$setField(field,value)
 			}
 			
-			entry$setField(BIODB.NB.PEAKS,length(jsontree$peaks))
+			######################
+			# TREATING THE PEAKS #
+			######################
+			
+			entry$setField(BIODB.NB.COMPOUNDS,length(jsontree$peaks))
 			peaks <- data.frame( matrix( 0,ncol = length(cnames), nrow = 0))
 			colnames(peaks) <- cnames
 			###Parsing peaks.
@@ -102,6 +144,23 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 			
 			entry$setField(BIODB.PEAKS,peaks)
 			
+			##################################
+			# TREATING THE LIST OF COMPOUNDS #
+			##################################
+			
+			entry$setField(BIODB.NB.COMPOUNDS,length(jsontree$listOfCompounds))
+			compounds <- list
+			
+			###Parsing compounds.
+			if( length( jsontree$listOfCompounds) != 0){
+				compounds <- lapply( jsontree$listOfCompounds, function(x){
+					createPeakforestCompoundFromJSON(x)
+				})
+			}
+			
+			entry$setField(BIODB.COMPOUNDS, compounds)
+			
+			
 			entries[[i]] <- entry
 		}
 		
@@ -111,4 +170,7 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 		
 		entries
 	}
+	
+	
+	
 }#end of the safeguard
