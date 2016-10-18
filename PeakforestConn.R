@@ -3,6 +3,8 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	source('RemoteDbConn.R')
 	source('PeakforestEntry.R')
 	#source('MsMsSpectrumSearch.R')
+	library(plyr)
+	
 	
 	#####################
 	# CLASS DECLARATION #
@@ -31,8 +33,8 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		for(i in 1:length(id)){
 			
 			# Request
-			jsonstr <- .self$.get.url(get.entry.url(BIODB.PEAKFOREST, id, BIODB.JSON))
-			
+			url <- get.entry.url(BIODB.PEAKFOREST, id[i], BIODB.JSON)
+			jsonstr <- .self$.get.url(url)
 			if(startsWith("<html>", jsonstr) ){
 				next
 			}
@@ -70,21 +72,6 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		df
 	}
 	
-	# TODO move this code into searchMz
-	PeakforestConn$methods(.do.search.mz= function(df,db,tolunit,params=list()){
-		results <- vector(nrow(df),mode="list")
-		for(i in 1:nrow(df)){
-			# TODO make directly the URL, no function call.
-			# TODO Use "'spectra/lcms/peaks/get-range/', mz.low, '/', mz.high" instead.
-			allurl <- .self$.get.url(get.mass.search.url(class = db,
-														 mass = df[i,BIODB.PEAK.MZ],
-														 tol=df[i,BIODB.TOL],
-														 tolunit = tolunit,
-														 supp = params,content.type = BIODB.JSON))
-			results[[i]] <- allurl
-		}
-		results
-	})
 	
 	##########################################
 	# SEARCH FOR SPECTRA IN GIVEN MASS RANGE #
@@ -97,7 +84,6 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 			stop("mzmin shloud be inferior to mzmax in searchMzRange.")
 		}
 		
-		df <- .make.input.df(mz,tol)
 		url <- paste0("https://rest.peakforest.org/spectra/lcms/peaks/get-range/",mzmin,"/",mzmax)
 		
 		contents <-  .self$.get.url(url)
@@ -111,9 +97,9 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		if( length(jsontree)==0 ) return(NULL)
 		
 		# Getting a list of all the id.
-		lid <- sapply(jsontree){function(x){
+		lid <- sapply(jsontree,function(x){
 			x$source$id
-		}}
+		})
 		
 		# Returning the content for all the spectra
 		contents <- .self$getEntryContent(lid)
@@ -129,13 +115,22 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		toreturn <- NULL
 		if( rtype=="spec" ){
 			toreturn <- sapply(entries,function(x){
-				.x$getFieldsAsDataFrame()
+				x$getFieldsAsDataFrame()
 			})
 		}
 		if( rtype=="peak" ){
-			toreturn <- sapply(entries,function(x){
-				.x$getFieldValue( BIODB.PEAKS )
+			toreturn <- lapply(entries,function(x){
+				temp <- as.data.frame( x$getFieldValue( BIODB.PEAKS ))
+				temp$accession = x$getFieldValue( BIODB.ACCESSION) 
+				return(temp)
+				
 			})
+		}
+		###Trying to convert in data.frame
+		if(!is.data.frame(toreturn)){
+			temp <- colnames(toreturn[[1]])
+			toreturn <- do.call("rbind.fill",toreturn)
+			colnames(toreturn) <- temp
 		}
 		
 		return(toreturn)
@@ -201,6 +196,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		lret <-vector(length(lspec),mode = "list")
 		#print(res$similarity)
 		###Adiing the matched peaks and the smimlarity values to spectra.
+		
 		for(i in 1:length(lspec)){
 			if(rtype =="id") lret[[i]] <- lspec[[i]]$getFieldValue(BIODB.PEAKFOREST.ID) # Change into BIODB.ACCESSION
 			lret[[i]]$MsMsSim <- res$similarity[i]

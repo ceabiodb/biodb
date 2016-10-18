@@ -146,16 +146,15 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	############################
 	# GET FIELDS AS DATA FRAME #
 	############################
-	###TODO add a limiting option to get somz fields.
+	###TODO add a limiting option to get some fields.
 	BiodbEntry$methods(	getFieldsAsDataFrame = function() {
-
 		df <- data.frame()
-
 		# Loop on all fields
 		for (f in names(.self$.fields))
 
 			# If field class is a basic type
-			if (.self$getFieldClass(f) %in% c('character', 'logical', 'integer', 'double'))
+			if (.self$getFieldClass(f) %in% c('character', 'logical', 'integer', 'double')  &
+				length(.self$getFieldValue(f)) == 1)
 				df[1, f] <- .self$getFieldValue(f)
 
 		return(df)
