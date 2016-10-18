@@ -86,12 +86,10 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		results
 	})
 	
-	################################
-	# SEARCH FOR SPECTRA IN GIVEN RANGE #
-	################################
+	##########################################
+	# SEARCH FOR SPECTRA IN GIVEN MASS RANGE #
+	##########################################
 	
-	# TODO ADd option to get either list of entries or data.frame (data frame of spectra only, or data frame of peaks)
-	# TODO Remove params param.
 	PeakforestConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("object","spec","peak")){
 		
 		rtype <- match.arg(rtype)
@@ -127,7 +125,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 			return( entries )
 		}
 		
-		### XXXX See if we don't want to reduce the output.
+		### XXXX See if we don't want to reduce the output and factorize this shit.
 		toreturn <- NULL
 		if( rtype=="spec" ){
 			toreturn <- sapply(entries,function(x){
@@ -144,69 +142,26 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	})
 	
 	
+	#################################################
+	# SEARCH FOR SPECTRA IN A TOLERANCE AROUND A MZ #
+	#################################################
 	
-	
-	###TO DO a function to handle the supplementary arguments correctly.
-	.do.get.search.url <- function(class, mass, tol, tolunit, supp = NULL, content.type = BIODB.HTML, base.url = NA_character_, token = NA_character_) {
-		if ( ! class %in% c(BIODB.PEAKFOREST)){
-			stop(paste0("Class ", class, " not implemented yet."))
+	PeakforestConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS,
+												   rtype = c("objects","dfspecs","dfpeaks")){
+		
+		rtype <- match.arg(rtype)
+		tolunit <- match.arg(tolunit)
+		
+		if( tolunit == BIODB.MZTOLUNIT.PPM){
+			tol <- tol * mz * 10^-6
 		}
-		tol <- .tol.mass(tol,mass,type=tolunit)
 		
-		# Only certain databases can handle multiple searchs
-		if ( ! class %in% c(BIODB.PEAKFOREST) && length(mass) > 1)
-			stop(paste0("Cannot build a URL for performing multiple searches for class ", class, "."))
-		#https://rest.peakforest.org/spectra/lcms/search-naive/205.097,188.0703/0.25?matchAll=false&
+		mzmin <- mz - tol
+		mzmax <- mz + tol
 		
-		####Put this part in a separate function
-		strsupp <- ''
-		if( !is.null(supp)&length(supp)>0){
-			strsupp <- switch(class,
-							  peakforest=paste(paste(names(supp),unlist(supp),sep = '='),collapse = ",")
-			)
-		}
-		####
+		return(.self$searchMzRange(mzmin, mzmax, rtype = rtype))
 		
-		
-		# Get URL
-		url <- switch(class,
-					  peakforest  = switch(content.type,
-					  					 json= paste0('https://rest.peakforest.org/spectra/lcms/search-naive/',
-					  					 			 paste(mass,collapse=","),"/",tol,strsupp)),
-					  
-					  NULL
-		)
-		return(url)
-	}
-	
-	
-	
-	get.mass.search.url <- function(class, mass, tol, tolunit, supp = NULL, content.type = BIODB.HTML, max.length = 0, base.url = NA_character_, token = NA_character_) {
-		
-		# TODO Use "'spectra/lcms/peaks/get-range/', mz.low, '/', mz.high" instead.
-		
-		if (length(mass) == 0)
-			return(NULL)
-		
-		full.url <- .do.get.search.url(class, mass, tol, tolunit, supp, content.type = content.type, base.url = base.url, token = token)
-		if (max.length == 0 || nchar(full.url) <= max.length)
-			return(if (max.length == 0) full.url else list(url = full.url, n = length(mass)))
-		
-		# Find max size URL
-		a <- 1
-		b <- length(mass)
-		while (a < b) {
-			m <- as.integer((a + b) / 2)
-			url <- .do.get.search.url(class, mass[1:m], content.type = content.type, base.url = base.url, token = token)
-			if (nchar(url) <= max.length && m != a)
-				a <- m
-			else
-				b <- m
-		}
-		url <- .do.get.search.url(class, mass[1:a], content.type = content.type, base.url = base.url, token = token)
-		
-		return(list( url = url, n = a))
-	}
+	})
 	
 	
 	#################################
