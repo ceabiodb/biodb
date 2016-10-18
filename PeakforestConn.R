@@ -2,7 +2,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
     
     source('RemoteDbConn.R')
     source('PeakforestEntry.R')
-    source('MsMsSpectrumSearch.R')
+    #source('MsMsSpectrumSearch.R')
     
     #####################
     # CLASS DECLARATION #

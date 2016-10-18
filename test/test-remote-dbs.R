@@ -22,7 +22,7 @@ test_wrong_entry <- function(factory, db) {
 test_entry_fields <- function(factory, db) {
 
 	# Download contents
-	entries.file <- file.path(dirname(script.path), 'res', paste0(db, '-entries.txt'))
+	entries.file <- file.path(script.path, 'res', paste0(db, '-entries.txt'))
 	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
 
 	# Create entries
