@@ -28,23 +28,19 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
         # Initialize return values
         content <- rep(NA_character_, length(id))
 
-        # TODO Loop on id
-
-        # Request
-        jsonstr <- .self$.get.url(get.entry.url(BIODB.PEAKFOREST, id, BIODB.JSON))
-        if(jsonstr=="null") return(NULL) # TODO remove: useless
-
-        # Parse JSON
-        if ( ! is.na(jsonstr)) { # TODO Test is.null and/or is.na (to check).
-            library(RJSONIO)
-            jsontree <- fromJSON(jsonstr)
-
-            # TODO Remove (useless) because only one id
-            returned.ids <- vapply(jsontree, '[[', FUN.VALUE=NA_real_, i="id")
+        for(i in 1:length(id)){
+        
+            # Request
+            jsonstr <- .self$.get.url(get.entry.url(BIODB.PEAKFOREST, id, BIODB.JSON))
             
-            matched <- match(returned.ids, id)
-            content[matched] <- toJSON(jsontree[matched])
+            if(startsWith("<html>", jsonstr) ){
+                next
+            }
+            
+            content <- jsonstr
+        
         }
+
         return(content)
     })
     

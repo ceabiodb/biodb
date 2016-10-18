@@ -39,7 +39,7 @@ if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
         
         entries <- vector(length(contents),mode="list")
         jsonfields <- character()
-        jsonfields[[BIODB.PEAKFOREST.ID]] <- "id" # TODO Use BIODB.ACCESSION instead
+        jsonfields[[BIODB.ACCESSION]] <- "id" # TODO Use BIODB.ACCESSION instead
         jsonfields[[BIODB.MSMODE]] <- "polarity"
         jsonfields[[BIODB.MSDEV]] <- "analyzerMassSpectrometerDevice/instrumentName"
         jsonfields[[BIODB.MSDEVTYPE]] <- "analyzerMassSpectrometerDevice/ionAnalyzerType"
