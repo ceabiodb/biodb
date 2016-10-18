@@ -115,7 +115,12 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.MSMODE.NEG <- 'neg'
 	BIODB.MSMODE.POS <- 'pos'
 
-
+    # Tolerance values
+	BIODB.TOL <- 'mztol'
+	BIODB.MZTOLUNIT.PPM <- 'ppm'
+	BIODB.MZTOLUNIT.PLAIN <- 'plain' # same as mz: mass-to-charge ratio
+	BIODB.MZTOLUNIT.VALS <- c(BIODB.MZTOLUNIT.PPM, BIODB.MZTOLUNIT.PLAIN)
+	
 	#################
 	# CARDINALITIES #
 	#################

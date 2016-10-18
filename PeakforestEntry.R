@@ -1,4 +1,4 @@
-if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
+if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loaded
     
     if(!require(RJSONIO)) stop("RJSONIO required")
     source('BiodbEntry.R')
@@ -7,17 +7,16 @@ if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
     # CLASS DECLARATION #
     #####################
     
-    # TODO Rename as PeakForestSpectrumEntry
     # TODO Create class PeakforestCompoundEntry
-    PeakForestEntry <- setRefClass("PeakForestEntry", contains = "BiodbEntry")
+    PeakForestSpectrumEntry <- setRefClass("PeakForestSpectrumEntry", contains = "BiodbEntry")
     
     
     ###########
     # FACTORY #
     ###########
     
-    # TODO Useless -> remove it.
-    PeakForestEntry$methods( getPeaks = function(){
+    # TODO Useless -> remove it and replace by a getFields
+    PeakForestSpectrumEntry$methods( getPeaks = function(){
         as.data.frame(.self$getFieldValue(BIODB.PEAKS))
     })
     
@@ -34,6 +33,7 @@ if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
         }
         jstree
     }
+    
     
     createPeakforestSpectraFromJSON <- function(contents, drop = FALSE, checkSub = TRUE) {
         
@@ -76,7 +76,7 @@ if ( ! exists('PeakForestEntry')) { # Do not load again if already loaded
                 
                 for(j in seq_along(jsontree)){
                     
-                    entry <- PeakForestEntry$new()
+                    entry <- PeakForestSpectrumEntry$new()
                     
                     for(field in names(jsonfields)){
                         

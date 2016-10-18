@@ -34,7 +34,7 @@ if ( ! exists('MassdbConn')) {
 	
 	# Returns the number of peaks contained in the database
 	MassdbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
-		stop("Method getMzValues() not implemented in concrete class.")
+		stop("Method getNbPeaks() not implemented in concrete class.")
 	})
 
 	#########################
@@ -45,6 +45,22 @@ if ( ! exists('MassdbConn')) {
 	# name   A vector of molecule names to search for.
 	# Return an integer vector of the same size as the name input vector, containing the found molecule IDs, in the same order.
 	MassdbConn$methods( findCompoundByName = function(name) {
-		stop("Method getMzValues() not implemented in concrete class.")
+		stop("Method findCompoundByName() not implemented in concrete class.")
 	})
+	
+	########################################
+	# FIND A MOLECULES IN GIVEN MASS RANGE #
+	########################################
+	# Find spectra in the given mass range.
+	# rtype the type of return, objects, dfspecs data.frame of spectra, dfpeaks data.frame of peaks.
+	PeakforestConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("objects","dfspecs","dfpeaks")){
+	    stop("Method searchMzRange() not implemented in concrete class.")
+	})
+	
+	##########################################################
+	# FIND A MOLECULES WITHIN A GIVEN TOLERANCE AROUND A MASS #
+	##########################################################
+	PeakforestConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, rtype = c("objects","dfspecs","dfpeaks")){
+	    stop("Method searchMzTol() not implemented in concrete class.")
+    })
 }

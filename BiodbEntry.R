@@ -146,8 +146,8 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 	############################
 	# GET FIELDS AS DATA FRAME #
 	############################
-	
-	BiodbEntry$methods(	getFieldsAsDataFrame = function(field) {
+	###TODO add a limiting option to get somz fields.
+	BiodbEntry$methods(	getFieldsAsDataFrame = function() {
 
 		df <- data.frame()
 
