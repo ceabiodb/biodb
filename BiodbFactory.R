@@ -15,6 +15,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('UniprotConn.R')
 	source('MassbankConn.R')
 	source('MassFiledbConn.R')
+    source('PeakForestConn.R')
 
 	#####################
 	# CLASS DECLARATION #
@@ -103,6 +104,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 		                uniprot     = UniprotConn$new(useragent = .self$.useragent, debug = .self$.debug),
 		                massbank    = MassbankConn$new(useragent = .self$.useragent, url = url, debug = .self$.debug),
 						massfiledb  = MassFiledbConn$new(file = url, debug = .self$.debug),
+						peakforest  = PeakforestConn$new(useragent = .self$.useragent, debug = .self$.debug),
 		      	        NULL)
 
 		# Unknown class
