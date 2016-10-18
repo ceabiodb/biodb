@@ -91,7 +91,7 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.NB.PEAKS     <- 'nbpeaks'
 	BIODB.PEAKS        <- 'peaks'
 	BIODB.COMPOUNDS    <- 'compounds'
-    BIODB.NB.COMPOUNDS <- 'nbcompounds'
+  BIODB.NB.COMPOUNDS <- 'nbcompounds'
 	BIODB.COMPOUND.ID   <- 'compoundid'
 	BIODB.COMPOUND.MASS   <- 'compoundmass'
 	BIODB.COMPOUND.COMP   <- 'compoundcomp'
@@ -155,6 +155,8 @@ if ( ! exists('BIODB.XML')) {
 		BIODB.PROTEIN.DESCRIPTION,  'character',    BIODB.CARD.ONE,		'none',
 		BIODB.SYMBOL,               'character',    BIODB.CARD.ONE,		'none',
 		BIODB.GENE.SYMBOLS,         'character',    BIODB.CARD.MANY,	'none',
+		BIODB.COMPOUNDS,            'object',       BIODB.CARD.MANY,  'none',
+		BIODB.NB.COMPOUNDS          'integer',      BIODB.CARD.ONE,   'none',
 		BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
 		BIODB.LIPIDMAPS.ID,         'character',    BIODB.CARD.ONE,		'none',
 		BIODB.KEGG.ID,              'character',    BIODB.CARD.ONE,		'none',

@@ -34,6 +34,10 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 
 		class = .self$getFieldClass(field)
 
+		# Secific case to handle objects.
+		if ( class ==" object" & !(isS4(value) & is(x, value)))
+		  stop(paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
+		
 		# Check cardinality
 		if (class != 'data.frame' && .self$getFieldCardinality(field) == BIODB.CARD.ONE && length(value) > 1)
 			stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))

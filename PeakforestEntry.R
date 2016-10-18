@@ -149,7 +149,7 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 			##################################
 			
 			entry$setField(BIODB.NB.COMPOUNDS,length(jsontree$listOfCompounds))
-			compounds <- list
+			compounds <- list()
 			
 			###Parsing compounds.
 			if( length( jsontree$listOfCompounds) != 0){
