@@ -15,7 +15,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	source('UniprotConn.R')
 	source('MassbankConn.R')
 	source('MassFiledbConn.R')
-    source('PeakForestConn.R')
+    source('PeakforestConn.R')
 
 	#####################
 	# CLASS DECLARATION #

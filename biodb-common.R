@@ -148,9 +148,8 @@ if ( ! exists('BIODB.XML')) {
 	##########################
 	# ENTRY FIELD ATTRIBUTES #
 	##########################
-
+	# FIELD NAME                CLASS           CARDINALITY			TYPE  
 	BIODB.FIELDS <- data.frame(matrix(c(
-		# FIELD NAME                CLASS           CARDINALITY			TYPE  
 		BIODB.ACCESSION,            'character',    BIODB.CARD.ONE,		'none',
 		BIODB.DESCRIPTION,          'character',    BIODB.CARD.ONE,		'none',
 		BIODB.NAME,                 'character',    BIODB.CARD.ONE,		'name',
@@ -165,7 +164,7 @@ if ( ! exists('BIODB.XML')) {
 		BIODB.SYMBOL,               'character',    BIODB.CARD.ONE,		'none',
 		BIODB.GENE.SYMBOLS,         'character',    BIODB.CARD.MANY,	'none',
 		BIODB.COMPOUNDS,            'object',       BIODB.CARD.MANY,  'none',
-		BIODB.NB.COMPOUNDS          'integer',      BIODB.CARD.ONE,   'none',
+		BIODB.NB.COMPOUNDS,         'integer',      BIODB.CARD.ONE,   'none',
 		BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
 		BIODB.LIPIDMAPS.ID,         'character',    BIODB.CARD.ONE,		'none',
 		BIODB.KEGG.ID,              'character',    BIODB.CARD.ONE,		'none',

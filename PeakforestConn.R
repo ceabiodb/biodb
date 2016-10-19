@@ -1,6 +1,6 @@
 if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	
-	source('RemoteDbConn.R')
+	source('RemotedbConn.R')
 	source('PeakforestEntry.R')
 	source('MassdbConn.R')
 	library(plyr)
