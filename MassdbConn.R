@@ -63,4 +63,66 @@ if ( ! exists('MassdbConn')) {
 	MassdbConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, rtype = c("objects","dfspecs","dfpeaks")){
 	    stop("Method searchMzTol() not implemented in concrete class.")
     })
+	
+	#################################
+	#perform a database MS-MS search#
+	#################################
+	
+	### spec : the spec to match against the database.
+	### precursor : the mass/charge of the precursor to be looked for.
+	### mtol : the size of the windows arounf the precursor to be looked for.
+	### ppm : the matching ppm tolerance.
+	### fun :  
+	### dmz : the mass tolerance is taken as the minium between this quantity and the ppm.
+	### npmin : the minimum number of peak to detect a match (2 recommended)
+
+	PeakforestConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
+												 ppm, fun = BIODB.MSMS.DIST.WCOSINE,
+												 params = list(), npmin=2, dmz = 0.001,
+												 return.ids.only = TRUE){
+
+		
+		# TODO replace by msms precursor search when available.
+		lspec <- .self$searchMz( precursor, mztol, BIODB.MZTOLUNIT.PLAIN, rtype = "objects")
+		
+		rspec <- lapply(lspec,function(x){
+            peaks <- x$getFieldValue(BIODB.PEAKS)
+			
+			####Getting the correct fields
+			vcomp <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.INTENSITY)
+			
+			foundfields <- vcomp %in% colnames(peaks)
+			if(sum(vcomp) <= 2) stop(paste0("fileds can't be coerced to mz and intensity : ",colnames(peaks)))
+			
+			peaks <- peaks[ , vcomp[which( foundfields ) ] ]
+			
+			peaks
+		})
+		
+		# TODO Import compareSpectra into biodb and put it inside massdb-helper.R or hide it as a private method.
+		res <- compareSpectra(spec, rspec, npmin = npmin, fun = fun, params = params)
+		
+		if(is.null(res)) return(NULL) # To decide at MassdbConn level: return empty list (or empty data frame) or NULL.
+		###Adiing the matched peaks and the smimlarity values to spectra.
+		
+		lret <-vector(length(lspec),mode = "list")
+		vsimilarity <- numeric( length( lspec ) )
+	    vmatched <- vector( mode = "list", length( lspec ) )
+	    
+	    if( return.ids.only ){
+	    	lret <- sapply( lspec, function( x ) {
+	    		x$getFieldValue( BIODB.ACCESSION )
+	    	})
+	    }else{
+	    	###TODO implement three types of return.
+	    	lret <- lspec
+	    }
+	    
+	    ###Reordering the list.
+	    lret <- lret[ res$ord ]
+	    
+
+		return( res$similarity = vector(), matchedpeaks = res$matched, spectra = lret)
+	})
+	
 }

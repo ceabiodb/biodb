@@ -133,54 +133,6 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	})
 	
 	
-	#################################
-	#perform a database MS-MS search#
-	#################################
-	
-	###spec : the spec to match against the database.
-	###precursor : the mass/charge of the precursor to be looked for.
-	###mtol : the size of the windows arounf the precursor to be looked for.
-	###ppm : the matching ppm tolerance.
-	###dmz : the mass tolerance is taken as the minium between this quantity and the ppm.
-	###npmin : the minimum number of peak to detect a match (2 recommended)
-	
-	# Put this method into MassdbConn and rename it msmsSearch
-	# TODO Rename rtype in return.ids.only and make it a boolean
-	# TODO Returns list( msmssim = vector(), matchedpeaks = list(), spectra = either list of entries or data.frame)
-	PeakforestConn$methods(peakForestMSMSSearch = function(spec, precursor, mztol, ppm, npmin=2, dmz = 0.001, rtype = c("id")){
-		
-		rtype <- match.arg(rtype)
-		
-		rspec <- .self$searchMz(precursor,mztol,BIODB.MZTOLUNIT.PLAIN)
-		# TODO No. We want searchMz to return the list of entries
-		lspec <- createPeakforestSpectraFromJSON(rspec, drop = TRUE)
-		
-		rspec <- lapply(lspec,function(x){
-			# TODO Test that the peak data frame contains the column BIODB.PEAK.MZ and either BIODB.PEAK.INTENSITY or BIODB.PEAK.RELATIVE.INTENSITY
-			x$getPeaks()[,c(1,2)] # Use peak data frame column names from biodb-common
-		})
-		
-		params <- list(ppm = ppm, dmz = dmz)
-		
-		# TODO Import compareSpectra into biodb and put it inside massdb-helper.R or hide it as a private method.
-		# TODO Add parameters fun and params to msmsSearch
-		res <- compareSpectra(spec, rspec, npmin = npmin, fun = MSMS.DIST.WCOSINE, params = params)
-		
-		if(is.null(res)) return(NULL) # To decide at MassdbConn level: return empty list (or empty data frame) or NULL.
-		lret <-vector(length(lspec),mode = "list")
-		#print(res$similarity)
-		###Adiing the matched peaks and the smimlarity values to spectra.
-		
-		for(i in 1:length(lspec)){
-			if(rtype =="id") lret[[i]] <- lspec[[i]]$getFieldValue(BIODB.PEAKFOREST.ID) # Change into BIODB.ACCESSION
-			lret[[i]]$MsMsSim <- res$similarity[i]
-			lret[[i]]$matchedPeaks <- res$matched[[i]]
-		}
-		###Reordering the list.
-		return(lret[res$ord])
-	})
-	
-	
 	
 	
 	
