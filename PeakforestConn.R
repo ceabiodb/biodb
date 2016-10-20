@@ -29,18 +29,12 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		
 		# Initialize return values
 		content <- rep(NA_character_, length(id))
+		# Request
 		
-		for(i in 1:length(id)){
-			
-			# Request
-			url <- get.entry.url(BIODB.PEAKFOREST, id[i], BIODB.JSON)
-			jsonstr <- .self$.get.url(url)
-			if(startsWith("<html>", jsonstr) ){
-				next
-			}
-			
-			content[i] <- jsonstr
-			
+		url <- get.entry.url(BIODB.PEAKFOREST, id[i], BIODB.JSON,token = .self$.token)
+		jsonstr <- .self$.get.url(url)
+		if(startsWith("<html>", jsonstr) ){
+			next
 		}
 		
 		return(content)
@@ -61,8 +55,6 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		url <- paste0("https://rest.peakforest.org/spectra/lcms/peaks/get-range/",mzmin,"/",mzmax)
 		
 		contents <-  .self$.get.url(url)
-		
-		# TODO When webservice is fixed remove the peak list.
 		library(RJSONIO)
 		
 		jsontree <- fromJSON(contents)
@@ -116,7 +108,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	#################################################
 	
 	PeakforestConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS,
-												   rtype = c("objects","dfspecs","dfpeaks")){
+												   rtype = c("object","spec","peak")){
 		
 		rtype <- match.arg(rtype)
 		tolunit <- match.arg(tolunit)
@@ -133,7 +125,37 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	})
 	
 	
+	##############################################
+	# SEARCH FOR MSMS SPECTRA WITH AROUND A MASS #
+	##############################################
 	
+	###TODO remake this function when msms request are im
+	PeakforestConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, 
+														 mode = NULL ){
+		
+		tolunit <- match.arg(tolunit)
+		
+		strmode <- ''
+		
+		if(!is.null(mode)){
+			
+			if(mode %in% c(BIODB.MSMODE.NEG,BIODB.MSMODE.POS)){
+			    strmode <- paste0('?polarity=',mode)
+			}
+			
+		}
+		
+		if( tolunit == BIODB.MZTOLUNIT.PPM){
+			tol <- tol * mz * 10^-6
+		}
+		
+		url <- paste0("https://rest.peakforest.org/spectra/lcms/search-naive/",mz,"/",tol,strmode)
+		contents <-  .self$.get.url(url)
+		
+		entries  <- .self$createReducedEntry(contents,drop=TRUE)
+		entries
+		
+	})
 	
 	
 	################
@@ -145,5 +167,9 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	# RETURN        A spectrum instance.
 	PeakforestConn$methods( createEntry = function(content, drop = TRUE) {
 		return(createPeakforestSpectraFromJSON(content, drop = drop))
+	})
+	
+	PeakforestConn$methods( createReducedEntry = function(content , drop = TRUE){
+		createListSimpleSpectraFromJSON(content, drop = drop)	
 	})
 }

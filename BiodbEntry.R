@@ -35,7 +35,7 @@ if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 		class = .self$getFieldClass(field)
 
 		# Secific case to handle objects.
-		if ( class ==" object" & !(isS4(value) & is(x, value)))
+		if ( class ==" object" & !(isS4(value) & is(value, "refClass")))
 		  stop(paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
 		
 		# Check cardinality

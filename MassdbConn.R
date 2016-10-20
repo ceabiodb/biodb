@@ -49,21 +49,28 @@ if ( ! exists('MassdbConn')) {
 		stop("Method findCompoundByName() not implemented in concrete class.")
 	})
 	
-	########################################
-	# FIND A MOLECULES IN GIVEN MASS RANGE #
-	########################################
+	####################################
+	# FIND SPECTRA IN GIVEN MASS RANGE #
+	####################################
 	# Find spectra in the given mass range.
 	# rtype the type of return, objects, dfspecs data.frame of spectra, dfpeaks data.frame of peaks.
 	MassdbConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("objects","dfspecs","dfpeaks")){
 	    stop("Method searchMzRange() not implemented in concrete class.")
 	})
 	
-	##########################################################
-	# FIND A MOLECULES WITHIN A GIVEN TOLERANCE AROUND A MASS #
-	##########################################################
+	####################################
+	# FIND SPECTRA IN GIVEN MASS RANGE #
+	####################################
 	MassdbConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, rtype = c("objects","dfspecs","dfpeaks")){
 	    stop("Method searchMzTol() not implemented in concrete class.")
     })
+	
+	######################################################
+	# FIND A MOLECULES WITH PRECURSOR WITHIN A TOLERANCE #
+	######################################################
+	MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, mode = NULL){
+		stop("Method searchSpecPrecTol not implemented in concrete class.")
+	})
 	
 	#################################
 	#perform a database MS-MS search#
@@ -77,15 +84,15 @@ if ( ! exists('MassdbConn')) {
 	### dmz : the mass tolerance is taken as the minium between this quantity and the ppm.
 	### npmin : the minimum number of peak to detect a match (2 recommended)
 
-	PeakforestConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
+	MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 												 ppm, fun = BIODB.MSMS.DIST.WCOSINE,
 												 params = list(), npmin=2, dmz = 0.001,
-												 return.ids.only = TRUE){
+											     mode = NULL, return.ids.only = TRUE){
 
 		
 		# TODO replace by msms precursor search when available.
-		lspec <- .self$searchMz( precursor, mztol, BIODB.MZTOLUNIT.PLAIN, rtype = "objects")
-		
+		lspec <- .self$searchSpecPrecTol( precursor, mztol, BIODB.MZTOLUNIT.PLAIN, mode = mode)
+		cat("length(lspec) :",length(lspec),"names",names(lspec))
 		rspec <- lapply(lspec,function(x){
             peaks <- x$getFieldValue(BIODB.PEAKS)
 			
@@ -93,7 +100,9 @@ if ( ! exists('MassdbConn')) {
 			vcomp <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.INTENSITY)
 			
 			foundfields <- vcomp %in% colnames(peaks)
-			if(sum(vcomp) <= 2) stop(paste0("fileds can't be coerced to mz and intensity : ",colnames(peaks)))
+			if(sum(foundfields ) < 2){
+				stop(paste0("fields can't be coerced to mz and intensity : ",colnames(peaks)))
+			}
 			
 			peaks <- peaks[ , vcomp[which( foundfields ) ] ]
 			
@@ -123,7 +132,7 @@ if ( ! exists('MassdbConn')) {
 	    lret <- lret[ res$ord ]
 	    
 
-		return( res$similarity = vector(), matchedpeaks = res$matched, spectra = lret)
+		return( list(measure = res$similarity[ res$ord ], matchedpeaks = res$matched [ res$ord ], spectra = lret))
 	})
 	
 }

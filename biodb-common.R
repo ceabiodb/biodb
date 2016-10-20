@@ -91,7 +91,7 @@ if ( ! exists('BIODB.XML')) {
 	BIODB.NB.PEAKS     <- 'nbpeaks'
 	BIODB.PEAKS        <- 'peaks'
 	BIODB.COMPOUNDS    <- 'compounds'
-  BIODB.NB.COMPOUNDS <- 'nbcompounds'
+    BIODB.NB.COMPOUNDS <- 'nbcompounds'
 	BIODB.COMPOUND.ID   <- 'compoundid'
 	BIODB.COMPOUND.MASS   <- 'compoundmass'
 	BIODB.COMPOUND.COMP   <- 'compoundcomp'
@@ -129,7 +129,7 @@ if ( ! exists('BIODB.XML')) {
 	
 	BIODB.MSMS.DIST.COS <- "cosine"
 	BIODB.MSMS.DIST.WCOSINE <- "wcosine"
-	BIODB.MSMS.DIST <- c(MSMS.DIST.COS, MSMS.DIST.WCOSINE)
+	BIODB.MSMS.DIST <- c(BIODB.MSMS.DIST.COS, BIODB.MSMS.DIST.WCOSINE)
 	
 	
 	#################
@@ -163,8 +163,8 @@ if ( ! exists('BIODB.XML')) {
 		BIODB.PROTEIN.DESCRIPTION,  'character',    BIODB.CARD.ONE,		'none',
 		BIODB.SYMBOL,               'character',    BIODB.CARD.ONE,		'none',
 		BIODB.GENE.SYMBOLS,         'character',    BIODB.CARD.MANY,	'none',
+		BIODB.NB.COMPOUNDS,         'integer',      BIODB.CARD.ONE,     'none',
 		BIODB.COMPOUNDS,            'object',       BIODB.CARD.MANY,  'none',
-		BIODB.NB.COMPOUNDS,         'integer',      BIODB.CARD.ONE,   'none',
 		BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
 		BIODB.LIPIDMAPS.ID,         'character',    BIODB.CARD.ONE,		'none',
 		BIODB.KEGG.ID,              'character',    BIODB.CARD.ONE,		'none',
@@ -246,7 +246,7 @@ if ( ! exists('BIODB.XML')) {
 	.do.get.entry.url <- function(class, accession, content.type = BIODB.HTML, base.url = NA_character_, token = NA_character_) {
 
 		# Only certain databases can handle multiple accession ids
-		if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB) && length(accession) > 1)
+		if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.PEAKFOREST) && length(accession) > 1)
 			stop(paste0("Cannot build a URL for getting multiple entries for class ", class, "."))
 
 		# Get URL
@@ -284,7 +284,7 @@ if ( ! exists('BIODB.XML')) {
 			uniprot     = if (content.type == BIODB.XML) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
 			peakforest  = switch(content.type,
 			                     html= paste0('https://peakforest.org/home?PFs=',accession),
-			                     json= paste0('https://rest.peakforest.org/spectra/lcms/',accession)),
+			                     json= paste0('https://peakforest-alpha.inra.fr/rest/spectra/lcms/ids/',paste(accession,sep=','),'?token=',token),
 			                     
 			NULL
 			)

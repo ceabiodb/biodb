@@ -1,5 +1,7 @@
 if(! exists ("compareSpectra")) {
 	
+	source('spec-dist.R')
+	
 	simplifySpectrum <- function(spec) {
 		if (nrow(spec) == 0)
 			stop("Empty spectrum.")
@@ -26,7 +28,7 @@ if(! exists ("compareSpectra")) {
 		function(spec1 ,
 				 spec2,
 				 npmin = 2,
-				 fun = MSMS.DIST,
+				 fun = BIODB.MSMS.DIST,
 				 params = list()) {
 			fun <- match.arg(fun)
 			
@@ -51,7 +53,7 @@ if(! exists ("compareSpectra")) {
 		function(spec,
 				 libspec,
 				 npmin = 2,
-				 fun = MSMS.DIST,
+				 fun = BIODB.MSMS.DIST,
 				 params = list(),
 				 decreasing = TRUE) {
 			fun <- match.arg(fun)
@@ -79,7 +81,6 @@ if(! exists ("compareSpectra")) {
 					   i = "similarity",
 					   FUN.VALUE = ifelse(decreasing, 0, 1))
 			osim <- order(sim, decreasing = decreasing)
-			print(sim)
 			matched <- sapply(vall, '[[', i = "matched", simplify = FALSE)
 			
 			return(list(
