@@ -132,7 +132,7 @@ if ( ! exists('MassdbConn')) {
 	    lret <- lret[ res$ord ]
 	    
 
-		return( list(measure = res$similarity[ res$ord ], matchedpeaks = res$matched [ res$ord ], spectra = lret))
+		return( list(measure = res$similarity[ res$ord ], matchedpeaks = res$matched [ res$ord ], id = lret))
 	})
 	
 }
