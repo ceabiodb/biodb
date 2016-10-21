@@ -1,7 +1,7 @@
 if ( ! exists('LipidmapsEntry')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
-	source('../r-lib/strhlp.R', chdir = TRUE)
+	source('strhlp.R')
 
 	#####################
 	# CLASS DECLARATION #

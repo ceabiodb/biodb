@@ -1,7 +1,7 @@
 if ( ! exists('RemotedbConn')) {
 
 	source('BiodbConn.R')
-	source(file.path('..', 'r-lib', 'UrlRequestScheduler.R'), chdir = TRUE)
+	source('UrlRequestScheduler.R')
 
 	#####################
 	# CLASS DECLARATION #

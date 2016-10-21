@@ -1,7 +1,7 @@
 if ( ! exists('NcbigeneEntry')) { # Do not load again if already loaded
 
 	source('BiodbEntry.R')
-	source(file.path('..', 'r-lib', 'strhlp.R'), chdir = TRUE)
+	source('strhlp.R')
 
 	#####################
 	# CLASS DECLARATION #
