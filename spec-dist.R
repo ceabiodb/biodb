@@ -1,6 +1,6 @@
 if( ! exists('matchPpm')){
 	
-dyn.load('C:/Users/AD244905/Documents/dev/SpectralDistancePF/src/closeMatchPpm.dll')
+dyn.load('src/closeMatchPpm.dll')
 
 ###Symetric visibly do the same thing than I do.
 matchPpm <- function(x,y,ppm=3, mzmin=0) {

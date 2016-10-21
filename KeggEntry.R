@@ -49,17 +49,17 @@ if ( ! exists('KeggEntry')) {
 				{
 					# ENZYME ID
 					g <- str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
-					if ( ! is.na(g[1,1]))
+					if ( ! is.na(g[1,1])){
 						entry$setField(BIODB.ACCESSION, paste('ec', g[1,2], sep = ':'))
 
 					# ENTRY ID
-					else {
+					}else {
 						g <- str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
-						if ( ! is.na(g[1,1]))
+						if ( ! is.na(g[1,1])){
 							entry$setField(BIODB.ACCESSION, paste('cpd', g[1,2], sep = ':'))
 
 						# OTHER ID
-						else {
+						}else {
 							g <- str_match(s, "^ENTRY\\s+(\\S+)")
 							if ( ! is.na(g[1,1]))
 								entry$setField(BIODB.ACCESSION, g[1,2])

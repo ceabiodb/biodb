@@ -88,7 +88,7 @@ if ( ! exists('UrlRequestScheduler')) { # Do not load again if already loaded
 		content <- NA_character_
 	
 		# Use form to send URL request
-		if ( ! is.null(params) && ! is.na(params))
+		if ( ! is.null(params) && ! is.na(params)){
 			switch(method,
 			       GET = { content <- getForm(url, .opts = .self$.get_curl_opts(), .params = params) },
 			       POST = { content <- postForm(url, .opts = .self$.get_curl_opts(), .params = params) },
@@ -96,9 +96,9 @@ if ( ! exists('UrlRequestScheduler')) { # Do not load again if already loaded
 			      )
 	
 		# Get URL normally
-		else
+		}else{
 			content <- getURL(url, .opts = .self$.get_curl_opts(), ssl.verifypeer = .self$.ssl.verifypeer)
-	
+		}
 		return(content)
 	})
 	
