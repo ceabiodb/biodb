@@ -21,6 +21,10 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
+	#' A Reference Class to handle dtabases connection.
+	#'
+	#' @export
+	#' @field balance A length-one numeric vector
 	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character",
 															  .conn = "list",
 															  .cache.dir = "character",
@@ -67,16 +71,17 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# SET USER AGENT #
 	##################
 
-	BiodbFactory$methods( setUserAgent = function(useragent) {
+		BiodbFactory$methods( setUserAgent = function(useragent) {
+		"Set useragent of BiodbFactory."
 		.useragent <<- useragent
 	})
 
 	###############
 	# CREATE CONN #
 	###############
-
+	
 	BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
-
+        " Create connection to databases useful for metabolomics."
 		if (class %in% names(.self$.conn))
 			stop(paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
 
@@ -122,6 +127,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	############
 
 	BiodbFactory$methods( getConn = function(class) {
+		"Get connection to a database."
 
 		if ( ! class %in% names(.self$.conn))
 			.self$createConn(class)
@@ -134,6 +140,7 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	################
 
 	BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, drop = TRUE) {
+		"Create Entry from a database by id."
 
 		is.null(id) && is.null(content) && stop("One of id or content must be set.")
 		! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
