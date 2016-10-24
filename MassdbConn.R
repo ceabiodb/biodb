@@ -68,9 +68,9 @@ if ( ! exists('MassdbConn')) {
 	######################################################
 	# FIND A MOLECULES WITH PRECURSOR WITHIN A TOLERANCE #
 	######################################################
-	MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, mode = NULL){
-		stop("Method searchSpecPrecTol not implemented in concrete class.")
-	})
+	# MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, mode = NULL){
+	# 	stop("Method searchSpecPrecTol not implemented in concrete class.")
+	# })
 	
 	#################################
 	#perform a database MS-MS search#
@@ -92,7 +92,6 @@ if ( ! exists('MassdbConn')) {
 		
 		# TODO replace by msms precursor search when available.
 		lspec <- .self$searchSpecPrecTol( precursor, mztol, BIODB.MZTOLUNIT.PLAIN, mode = mode)
-		cat("length(lspec) :",length(lspec),"names",names(lspec))
 		rspec <- lapply(lspec,function(x){
             peaks <- x$getFieldValue(BIODB.PEAKS)
 			

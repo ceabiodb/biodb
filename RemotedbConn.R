@@ -39,5 +39,13 @@ if ( ! exists('RemotedbConn')) {
 		.self$.print.debug.msg(paste0("Sending URL request '", url, "'..."))
 		return(.self$.scheduler$getUrl(url))
 	})
+	
+	###########
+	# GET URL #
+	###########
+	
+	RemotedbConn$methods( .set.useragent = function(useragent) {
+		.scheduler$setUserAgent(useragent) # set agent
+	})
 
 }

@@ -9,7 +9,9 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	#####################
 	# CLASS DECLARATION #
 	#####################
-	
+#'A class to connect to peakforest
+#'@export
+#'@field .url An urel to the database
 	PeakforestConn <- setRefClass("PeakforestConn", contains = c("RemotedbConn","MassdbConn"), fields = list( .url = "character" )) # TODO Inherits also from MassdbConn
 	
 	##########################
@@ -124,38 +126,46 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		
 	})
 	
+	##################################################
+	# SEARCH FOR MSMS SPECTRA PRECUSOR AROUND A MASS #
+	##################################################
 	
-	##############################################
-	# SEARCH FOR MSMS SPECTRA WITH AROUND A MASS #
-	##############################################
 	
-	###TODO remake this function when msms request are im
-	PeakforestConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, 
-														 mode = NULL ){
-		
-		tolunit <- match.arg(tolunit)
-		
-		strmode <- ''
-		
-		if(!is.null(mode)){
+	PeakforestConn$methods(
+		searchSpecPrecTol = function(mz,
+									 tol,
+									 tolunit = BIODB.MZTOLUNIT.VALS,
+									 mode = NULL) {
+			tolunit <- match.arg(tolunit)
 			
-			if(mode %in% c(BIODB.MSMODE.NEG,BIODB.MSMODE.POS)){
-			    strmode <- paste0('?polarity=',mode)
+			strmode <- ''
+			
+			if (!is.null(mode)) {
+				if (mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)) {
+					strmode <- paste0('?polarity=', mode)
+				}
+				
 			}
 			
+			if (tolunit == BIODB.MZTOLUNIT.PPM) {
+				tol <- tol * mz * 10 ^ -6
+			}
+			
+			##Request which return peak and not spectra.
+			url <-
+				paste0(
+					"https://rest.peakforest.org/spectra/lcms/search-naive/",
+					mz,
+					"/",
+					tol,
+					strmode
+				)
+			contents <-  .self$.get.url(url)
+			
+			entries  <- .self$createReducedEntry(contents, drop = TRUE)
+			entries
 		}
-		
-		if( tolunit == BIODB.MZTOLUNIT.PPM){
-			tol <- tol * mz * 10^-6
-		}
-		
-		url <- paste0("https://rest.peakforest.org/spectra/lcms/search-naive/",mz,"/",tol,strmode)
-		contents <-  .self$.get.url(url)
-		
-		entries  <- .self$createReducedEntry(contents,drop=TRUE)
-		entries
-		
-	})
+	)
 	
 	
 	################
@@ -170,6 +180,6 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	})
 	
 	PeakforestConn$methods( createReducedEntry = function(content , drop = TRUE){
-		createListSimpleSpectraFromJSON(content, drop = drop)	
+		createReducedSpectraFromJSON(content, drop = drop)	
 	})
 }

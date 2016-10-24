@@ -166,83 +166,93 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 	}
 	
 	
-	createListSimpleSpectraFromJSON <- function(contents, drop = FALSE, checkSub = TRUE) {
-		
-		entries <- vector(length(contents),mode="list")
-		jsonfields <- character()
-		jsonfields[[BIODB.ACCESSION]] <- "id" # TODO Use BIODB.ACCESSION instead
-		
-		
-		###Checking that it's a list.
-		if(length(contents) == 1){
-			if(startsWith(contents[[1]], "<html>") ){
-				return(NULL)
-			}else{
-				contents <- fromJSON(contents[[1]], nullValue = NA)	
-				
-			}
-		}
-		
-		for (i in seq_along(contents)){
+	####TDO CLEAN THIS
+	
+	createReducedSpectraFromJSON <-
+		function(contents,
+				 drop = FALSE,
+				 checkSub = TRUE) {
+			entries <- vector(length(contents), mode = "list")
+			jsonfields <- character()
+			jsonfields[[BIODB.ACCESSION]] <-
+				"id" # TODO Use BIODB.ACCESSION instead
 			
-			content <- contents[[i]]
-			jsontree <- NULL
-			if(typeof(content) == "character"){
-				if(startsWith(content, "<html>")|content=="null"){
-					entries[[i]] <- NULL
-					next
+			
+			###Checking that it's a list.
+			if (length(contents) == 1) {
+				if (startsWith(contents[[1]], "<html>")) {
+					return(NULL)
+				} else{
+					contents <- fromJSON(contents[[1]], nullValue = NA)
+					
 				}
-				jsontree <- fromJSON(content, nullValue=NA)
-			}else{
-				jsontree <- content
 			}
 			
-			
-			cnames <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.MZTHEO, BIODB.PEAK.ERROR.PPM)
-			
-			entry <- PeakForestSpectrumEntry$new()
-
-			entry$setField(BIODB.ACCESSION,jsontree$id)
-			
-			######################
-			# TREATING THE PEAKS #
-			######################
-			
-			entry$setField(BIODB.NB.PEAKS,length(jsontree$peaks))
-			peaks <- data.frame( matrix( 0,ncol = length(cnames), nrow = 0))
-			colnames(peaks) <- cnames
-			###Parsing peaks.
-			if(length(jsontree$peaks) != 0){
-				peaks <- sapply(jsontree$peaks,function(x){
-					return(list(as.double(x$mz),
+			for (i in seq_along(contents)) {
+				content <- contents[[i]]
+				jsontree <- NULL
+				if (typeof(content) == "character") {
+					if (startsWith(content, "<html>") | content == "null") {
+						entries[[i]] <- NULL
+						next
+					}
+					jsontree <- fromJSON(content, nullValue = NA)
+				} else{
+					jsontree <- content
+				}
+				
+				
+				cnames <-
+					c(
+						BIODB.PEAK.MZ,
+						BIODB.PEAK.RELATIVE.INTENSITY,
+						BIODB.PEAK.FORMULA,
+						BIODB.PEAK.MZTHEO,
+						BIODB.PEAK.ERROR.PPM
+					)
+				
+				entry <- PeakForestSpectrumEntry$new()
+				
+				entry$setField(BIODB.ACCESSION, jsontree$id)
+				
+				######################
+				# TREATING THE PEAKS #
+				######################
+				
+				entry$setField(BIODB.NB.PEAKS, length(jsontree$peaks))
+				peaks <- data.frame(matrix(0, ncol = length(cnames), nrow = 0))
+				colnames(peaks) <- cnames
+				###Parsing peaks.
+				if (length(jsontree$peaks) != 0) {
+					peaks <- sapply(jsontree$peaks, function(x) {
+						return(
+							list(
+								as.double(x$mz),
 								as.integer(x$ri),
 								as.character(x$composition),
 								as.double(x$theoricalMass),
 								as.double(x$deltaPPM)
-					))
-				})
-				###Removing all whitespaces from the formule.
-				peaks[3,]<-vapply(peaks[3,],function(x){
-					gsub(" ","",trimws(x))
-				},FUN.VALUE = NA_character_)
+							)
+						)
+					})
+					###Removing all whitespaces from the formule.
+					peaks[3, ] <- vapply(peaks[3, ], function(x) {
+						gsub(" ", "", trimws(x))
+					}, FUN.VALUE = NA_character_)
+					
+					peaks <- t(peaks)
+					colnames(peaks) <- cnames
+				}
 				
-				peaks<-t(peaks)
-				colnames(peaks)<-cnames
+				entry$setField(BIODB.PEAKS, peaks)
+				
+				entries[[i]] <- entry
 			}
 			
-			entry$setField(BIODB.PEAKS,peaks)
 			
-			entries[[i]] <- entry
+			if (drop && length(contents) == 1)
+				entries <- entries[[1]]
+			
+			entries
 		}
-		
-		
-		if (drop && length(contents) == 1)
-			entries <- entries[[1]]
-		
-		entries
-	}
-	
-	
-	
-	
 }#end of the safeguard

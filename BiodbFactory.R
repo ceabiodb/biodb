@@ -21,10 +21,6 @@ if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	# CLASS DECLARATION #
 	#####################
 	
-	#' A Reference Class to handle dtabases connection.
-	#'
-	#' @export
-	#' @field balance A length-one numeric vector
 	BiodbFactory <- setRefClass("BiodbFactory", fields = list(.useragent = "character",
 															  .conn = "list",
 															  .cache.dir = "character",

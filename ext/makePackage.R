@@ -7,7 +7,7 @@ if(!require("formatR")) stop("impossible to make a package.")
 ####SCRIPT DIRECTORY
 dirscript <- "C:/Users/AD244905/Documents/dev/biodb"
 ####DESTINATION DIRECTORY
-pdir <- "C:/Users/AD244905/Documents/tpackbiod"
+pdir <- "C:/Users/AD244905/Documents/biodb"
 
 ####TEMPORARY BUFFER FILES
 tempname <- "temp"
@@ -99,15 +99,19 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 		pmatch <- which(tdll != -1)
 		if(length(pmatch) != 0){
 			
+			
 			dfdep <- data.frame(strm = lines[pmatch],clength = attr(tdll,"capture.length")[pmatch],
 								cstart = attr(tdll,"capture.start")[pmatch],stringsAsFactors = FALSE)
 			
 			ondll <- ndll+1
 			ndll <- ndll+length(pmatch)
-			dllfiles[ondll:ndll] <- apply(dfdep,1,function(x){
+			tempdll <- apply(dfdep,1,function(x){
 				
 				substr(x[1],as.numeric(x[3]),as.numeric(x[3])+as.numeric(x[2])-1)
 			})
+			tempdll <- file.path(rep(dirname(lf[i]),length(pmatch)),tempdll)
+			
+			dllfiles[ondll:ndll] <- tempdll
 			toremove <- c(toremove,pmatch)
 		}
 		
@@ -193,8 +197,9 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	}
 
 	###Trying to copy the dll file to the src.
-	rawsrc <- file.path(dirscript,gsub(dllfiles,pattern = "\\.dll",replacement = "\\.c"))
+	rawsrc <- gsub(dllfiles,pattern = "\\.dll",replacement = "\\.c")
 	existingfiles <- sapply(rawsrc,file.exists)
+	print(rawsrc)
 	if(!all(existingfiles)){
 		stop("Missing src files")
 	}
@@ -211,7 +216,7 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	
 	
 	##Cleaning the source code.
-	tidy_dir(file.path(pdir,'R'))
+	#tidy_dir(file.path(pdir,'R'))
 	
 	###Creating the documentation 
 	roxygenise(pdir)
