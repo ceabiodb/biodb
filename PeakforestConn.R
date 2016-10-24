@@ -134,9 +134,10 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	PeakforestConn$methods(
 		searchSpecPrecTol = function(mz,
 									 tol,
-									 tolunit = BIODB.MZTOLUNIT.VALS,
+									 tolunit = "plain",
 									 mode = NULL) {
-			tolunit <- match.arg(tolunit)
+			#TODO handle the units
+			#tolunit <- match.arg(tolunit)
 			
 			strmode <- ''
 			

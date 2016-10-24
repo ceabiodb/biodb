@@ -28,9 +28,9 @@ if(! exists ("compareSpectra")) {
 		function(spec1 ,
 				 spec2,
 				 npmin = 2,
-				 fun = BIODB.MSMS.DIST,
+				 fun = c("wcosine"),
 				 params = list()) {
-			fun <- match.arg(fun)
+			#fun <- match.arg(fun)
 			
 			#SPec are always notmlized in pourcentage toa voir issues;
 			spec1 <- simplifySpectrum(spec1)
@@ -53,10 +53,10 @@ if(! exists ("compareSpectra")) {
 		function(spec,
 				 libspec,
 				 npmin = 2,
-				 fun = BIODB.MSMS.DIST,
+				 fun = BIODB.MSMS.DIST.WCOSINE,
 				 params = list(),
 				 decreasing = TRUE) {
-			fun <- match.arg(fun)
+			#fun <- match.arg(fun)
 			if (length(libspec) == 0) {
 				return(NULL)
 			}

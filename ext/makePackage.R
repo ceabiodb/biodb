@@ -3,6 +3,7 @@
 if(!require("igraph")) stop("impossible to make a package.")
 if(!require("roxygen2")) stop("impossible to make a package.")
 if(!require("formatR")) stop("impossible to make a package.")
+if(!require("devtools")) stop("impossible to make a package.")
 
 ####SCRIPT DIRECTORY
 dirscript <- "C:/Users/AD244905/Documents/dev/biodb"
@@ -51,7 +52,7 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	depgraph <- make_graph(character(0),isolates = basename(lf),directed=TRUE)
 	dllfiles <- character(0)
 	ndll <- 0
-	
+	npa <- basename(pdir)
 	for(i in 1:length(lf)){
 		toremove <- numeric(0)
 		
@@ -163,7 +164,13 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	orderloading <- topo_sort(depgraph,mode="out")
 	
 	cat("File order Made :",basename(lf[orderloading]),"\n")
-	#stop("poney")
+	nfiles <- file.path(pdir,"R", paste0(npa,"-package.R"))
+	print(nfiles)
+	
+	
+	lf=c(lf,nfiles)
+	orderloading=c(as.numeric(orderloading),length(lf))
+	
 	strload <- character(length(orderloading)) 
 	for(i in 1:length(orderloading)){
 		strload [i] <- paste0("    '",basename(lf[orderloading[i]]),"'\n")
@@ -174,7 +181,7 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	
 	options <- list("Imports"=package_dependency,"NeedsCompilation"="yes",
 					"Collate"=strload,"Title" = short_description, "Description" = long_description,
-					"Authors"=author,"Version"=version,"License"=license)
+					"Author"=authors,"Version"=version,"License"=license)
 	
 	
 	if(length(list.files(pdir))==0){
@@ -184,6 +191,8 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	if(!dir.exists(file.path(pdir,"R"))){
 		stop("not an empty directory or a package directory")
 	}
+	vlines <- paste0("#' @useDynLib ",npa,"\n",'NULL')
+	writeLines(vlines,con = nfiles)
 	
 	###Copying each directory in the pdir directory
 	lmodif <- list.files(tpath,full.names = TRUE)
@@ -210,9 +219,6 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	
 	###Creating a R package name
 	
-	npa <- basename(pdir)
-	nfiles <- file.path(pdir,"R", paste0(npa,"-package.R"))
-	vlines <- paste0("#' @useDynLib ",npa,"\n",'NULL')
 	
 	
 	##Cleaning the source code.

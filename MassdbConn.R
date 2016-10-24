@@ -61,16 +61,16 @@ if ( ! exists('MassdbConn')) {
 	####################################
 	# FIND SPECTRA IN GIVEN MASS RANGE #
 	####################################
-	MassdbConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, rtype = c("objects","dfspecs","dfpeaks")){
+	MassdbConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, rtype = c("objects","dfspecs","dfpeaks")){
 	    stop("Method searchMzTol() not implemented in concrete class.")
     })
 	
 	######################################################
 	# FIND A MOLECULES WITH PRECURSOR WITHIN A TOLERANCE #
 	######################################################
-	# MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS, mode = NULL){
-	# 	stop("Method searchSpecPrecTol not implemented in concrete class.")
-	# })
+	 MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, mode = NULL){
+	 	stop("Method searchSpecPrecTol not implemented in concrete class.")
+	 })
 	
 	#################################
 	#perform a database MS-MS search#
