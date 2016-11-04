@@ -60,8 +60,8 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 		cat("\nProcessing : ",nfile,"\n")
 		con <- file(lf[i],open = "r")
 		lines <- readLines(con)
-		
-		if(grep(pattern = "^if",lines[1])){
+		print(grep(pattern = "^if",lines[1]))
+		if(grepl(pattern = "^if",lines[1])){
 			toremove <- c(toremove,1,length(lines))
 		}
 		
