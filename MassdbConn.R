@@ -87,7 +87,7 @@ if ( ! exists('MassdbConn')) {
 	MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 												 ppm, fun = BIODB.MSMS.DIST.WCOSINE,
 												 params = list(), npmin=2, dmz = 0.001,
-											     mode = NULL, return.ids.only = TRUE){
+											     mode = BIODB.MSMODE.POS, return.ids.only = TRUE){
 
 		
 		# TODO replace by msms precursor search when available.

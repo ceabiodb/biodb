@@ -67,6 +67,7 @@ cosine <-
 			return(list(measure = 0, matched = rep(-1, length(mz1))))
 		w1 <- int1 ^ intexp * mz1 ^ mzexp
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
+		cat(w1[pfound], w2[unlist(matchList[pfound])],'\n')
 		cos_value <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
 																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))
@@ -92,7 +93,6 @@ wcosine <-
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		###Weigthed intensity
 		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
-		
 		###If no peak is found.
 		if (length(pfound) == 0)
 			return(list(measure = 0, matched = rep(-1, length(mz1))))
@@ -103,6 +103,7 @@ wcosine <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
 																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))
 		
+		if(is.nan(cos_value)) cos_value <- 0
 		####Adding the penality if needed.
 		div = 1
 		if (penality == "rweigth") {
@@ -113,7 +114,10 @@ wcosine <-
 		} else{
 			p <- 0
 		}
-		list(measure = (cos_value + p) / div,
+		
+		measure <-  (cos_value + p) / div
+		if(is.nan(measure)) measure <-  (cos_value) / div
+		list(measure = measure,
 			 matched = simpList(matchList))
 	}
 

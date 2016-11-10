@@ -103,7 +103,7 @@ if ( ! exists('UrlRequestScheduler')) { # Do not load again if already loaded
 	})
 	
 	UrlRequestScheduler$methods( getUrl = function(url, params = NULL, method = RLIB.GET) {
-	
+	    cat("url : ",url,"\n")
 		# Load library here and not inside .doGetUrl() since it is called from inside a try/catch clause, hence if library is missing the error will be ignored.
 		library(bitops)
 		library(RCurl)

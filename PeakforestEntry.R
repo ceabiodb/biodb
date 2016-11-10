@@ -1,6 +1,6 @@
 if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loaded
 	
-	if(!require(RJSONIO)) stop("RJSONIO required")
+	if(!require(jsonlite)) stop("jsonlite required")
 	source('BiodbEntry.R')
 	
 	#####################
@@ -21,7 +21,8 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 	###Arg is jcontent ot indicate that the content is already a json.
 	createPeakforestCompoundFromJSON<-function(contents, drop = FALSE){
 		
-		if(is.character(contents)) contents <- fromJSON(contents)
+		if(is.character(contents)) contents <- fromJSON(contents,
+														simplifyDataFrame=FALSE)
 		
 		jsonfields <- list()
 		jsonfields[[BIODB.ACCESSION]] <- "id"
@@ -75,13 +76,12 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 			if(startsWith(contents[[1]], "<html>") ){
 				return(NULL)
 			}else{
-			    contents <- fromJSON(contents[[1]], nullValue = NA)	
+			    contents <- fromJSON(contents[[1]],simplifyDataFrame=FALSE)	
 				
 			}
 		}
 		
 		for (i in seq_along(contents)){
-			print(i)
 			
 			content <- contents[[i]]
 			jsontree <- NULL
@@ -90,7 +90,7 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 					entries[[i]] <- NULL
 					next
 				}
-				jsontree <- fromJSON(content, nullValue=NA)
+				jsontree <- fromJSON(content,simplifyDataFrame=FALSE)
 			}else{
 				jsontree <- content
 			}
@@ -174,8 +174,8 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 				 checkSub = TRUE) {
 			entries <- vector(length(contents), mode = "list")
 			jsonfields <- character()
-			jsonfields[[BIODB.ACCESSION]] <-
-				"id" # TODO Use BIODB.ACCESSION instead
+			# jsonfields[[BIODB.ACCESSION]] <-
+			# 	"id" # TODO Use BIODB.ACCESSION instead
 			
 			
 			###Checking that it's a list.
@@ -183,7 +183,7 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 				if (startsWith(contents[[1]], "<html>")) {
 					return(NULL)
 				} else{
-					contents <- fromJSON(contents[[1]], nullValue = NA)
+					contents <- fromJSON(contents[[1]], simplifyDataFrame=FALSE)
 					
 				}
 			}
@@ -196,7 +196,7 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 						entries[[i]] <- NULL
 						next
 					}
-					jsontree <- fromJSON(content, nullValue = NA)
+					jsontree <- fromJSON(content, simplifyDataFrame=FALSE)
 				} else{
 					jsontree <- content
 				}
@@ -212,7 +212,6 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 					)
 				
 				entry <- PeakForestSpectrumEntry$new()
-				
 				entry$setField(BIODB.ACCESSION, jsontree$id)
 				
 				######################
@@ -240,7 +239,7 @@ if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loade
 						gsub(" ", "", trimws(x))
 					}, FUN.VALUE = NA_character_)
 					
-					peaks <- t(peaks)
+					peaks <- as.data.frame(t(peaks))
 					colnames(peaks) <- cnames
 				}
 				

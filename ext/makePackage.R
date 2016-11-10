@@ -118,7 +118,6 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 		
 		pmatch <- which(treq != -1|tlib != -1)
 		if(length(pmatch) != 0){
-			
 			dfdep <- data.frame(strm = lines[pmatch],
 								clength = mapply(max,attr(treq,"capture.length")[pmatch],
 												 attr(tlib,"capture.length")[pmatch]),
@@ -132,6 +131,7 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 				
 				substr(x[1],as.numeric(x[3]),as.numeric(x[3])+as.numeric(x[2])-1)
 			})
+			cat('aaa',nfile,package_dependency[ondep:ndep],'\n')
 			
 			###Removing problematic lines.
 			toremove <- c(toremove,pmatch)
@@ -237,5 +237,8 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 }
 
 res <- makePackageSkel(dirscript,pdir,tempname)
+unload("biodb")
+remove.packages("biodb")
+
 
 install.packages(pdir,type="source",repos=NULL)

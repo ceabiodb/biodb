@@ -3,8 +3,12 @@ if(! exists ("compareSpectra")) {
 	source('spec-dist.R')
 	
 	simplifySpectrum <- function(spec) {
+		if(length(spec) == 0){
+			return(NA_real_)
+		}
+		#print(spec)
 		if (nrow(spec) == 0)
-			stop("Empty spectrum.")
+			return(NA_real_)
 		if (ncol(spec) != 2) {
 			spec[, BIODB.PEAK.MZ]
 			mint <- BIODB.GROUP.INTENSITY %in% colnames(libspec)
@@ -35,6 +39,7 @@ if(! exists ("compareSpectra")) {
 			#SPec are always notmlized in pourcentage toa voir issues;
 			spec1 <- simplifySpectrum(spec1)
 			spec2 <- simplifySpectrum(spec2)
+			if(is.na(spec1)||is.na(spec2)) return(list(matched=numeric(0),similarity=0))
 			params$mz1 <- as.numeric(spec1[, BIODB.PEAK.MZ])
 			params$mz2 <- as.numeric(spec2[, BIODB.PEAK.MZ])
 			params$int1 <- as.numeric(spec1[, BIODB.PEAK.RELATIVE.INTENSITY])

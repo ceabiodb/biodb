@@ -57,7 +57,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 		url <- paste0("https://rest.peakforest.org/spectra/lcms/peaks/get-range/",mzmin,"/",mzmax)
 		
 		contents <-  .self$.get.url(url)
-		library(RJSONIO)
+		library(jsonlite)
 		
 		jsontree <- fromJSON(contents)
 		
@@ -162,7 +162,6 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 					strmode
 				)
 			contents <-  .self$.get.url(url)
-			
 			entries  <- .self$createReducedEntry(contents, drop = TRUE)
 			entries
 		}
