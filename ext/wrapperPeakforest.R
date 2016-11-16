@@ -7,11 +7,11 @@ library(batch)
 
 # Load biodb
 env <- Sys.getenv()
-.source.biodb <- env[["__SOURCE_BIODB"]]
-if (nchar(.source.biodb) == 0) {
-	library(biodb)
-} else {
+.source.biodb <- '__SOURCE_BIODB' %in% names(env)
+if (.source.biodb) {
 	source(file.path(dirname(script.path), '..', 'BiodbFactory.R'), chdir = TRUE)
+} else {
+	library(biodb)
 }
 
 USER_AGENT <- 'msmssearch , alexis.delabriere@cea.fr'
@@ -75,10 +75,10 @@ searchMSMSPeakforest <- function(spec, precursor, mztol, ppm, mode){
 	spec <- spec[,c(1,2)]
 	colnames(spec) <- c("mz","intensity")
 	
-if (nchar(.source.biodb) == 0) {
-	pfcon <- biodb:::PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
-} else {
+if (.source.biodb) {
 	pfcon <- PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
+} else {
+	pfcon <- biodb:::PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
 }
 	res <- pfcon$msmsSearch(spec = spec, precursor = precursor, npmin = NPMIN, mztol=mztol, mode=mode,tolunit="plain",fun = DIST,params = list(ppm = ppm, dmz = DMZ, mzexp = MZEXP, intexp = INTEXP))
 	return(res)
