@@ -1,14 +1,17 @@
 ######CREATING A PACKAGE REPSITORY FROM A HIERARCHY WITH SOURCES
 
-if(!require("igraph")) stop("impossible to make a package.")
-if(!require("roxygen2")) stop("impossible to make a package.")
-if(!require("formatR")) stop("impossible to make a package.")
-if(!require("devtools")) stop("impossible to make a package.")
+library("igraph")
+library("roxygen2")
+library("formatR")
+library("devtools")
+
+args <- commandArgs(trailingOnly = F)
+script.path <- sub("--file=","",args[grep("--file=",args)])
 
 ####SCRIPT DIRECTORY
-dirscript <- "C:/Users/AD244905/Documents/dev/biodb"
+dirscript <- file.path(dirname(script.path), '..')
 ####DESTINATION DIRECTORY
-pdir <- "C:/Users/AD244905/Documents/biodb"
+pdir <- file.path(dirname(script.path), 'biodb')
 
 ####TEMPORARY BUFFER FILES
 tempname <- "temp"
@@ -16,7 +19,7 @@ tempname <- "temp"
 short_description <- "Connection and parsing of metabolomics databases."
 long_description <- "Connection and parsing of metabolomics databases"
 authors <- "Pierrick Roger-Mele"
-version <- "0.1.0"
+version <- "0.1.1"
 license <- "???"
 
 ####PDIR DOIT AVOIR ETE CREE.
@@ -27,7 +30,7 @@ license <- "???"
 # makeEmpty dit si pdir doit être nettoye
 makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, makeEmpty = TRUE){
 	if(!dir.exists(dirscript)) stop(paste0("the given repository ",dirscript," is not  a directory"))
-	if(!dir.exists(pdir)) stop(paste0("you need to create the rpository to make the dir"))
+	if(!dir.exists(pdir)) dir.create(pdir)
 	
 	if(makeEmpty){
 		todelete <- list.files(pdir,recursive = TRUE,include.dirs = TRUE,full.names = TRUE)
