@@ -1,9 +1,10 @@
 ######CREATING A PACKAGE REPSITORY FROM A HIERARCHY WITH SOURCES
 
-library("igraph")
-library("roxygen2")
-library("formatR")
-library("devtools")
+library(igraph)
+library(roxygen2)
+library(formatR)
+library(devtools)
+library(R.utils)
 
 args <- commandArgs(trailingOnly = F)
 script.path <- sub("--file=","",args[grep("--file=",args)])
@@ -216,20 +217,21 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	
 	
 	if(length(dllfiles)>0){
-	if(!dir.exists(file.path(pdir,"src"))){
-		dir.create(file.path(pdir,"src"))
-	}
+		if(!dir.exists(file.path(pdir,"src"))){
+			dir.create(file.path(pdir,"src"))
+		}
 
-	###Trying to copy the dll file to the src.
-	rawsrc <- gsub(dllfiles,pattern = "\\.dll",replacement = "\\.c")
-	existingfiles <- sapply(rawsrc,file.exists)
-	print(rawsrc)
-	if(!all(existingfiles)){
-		stop("Missing src files")
-	}
-	for(i in 1:length(rawsrc))
-		dest <- file.path(pdir,"src",basename(rawsrc[i]))
-	    file.copy(rawsrc[i],to = dest)
+		###Trying to copy the dll file to the src.
+		rawsrc <- gsub(dllfiles,pattern = "\\.(dll|so)",replacement = "\\.c")
+		rawsrc <- rawsrc[ ! duplicated(rawsrc)]
+		existingfiles <- sapply(rawsrc,file.exists)
+		if(!all(existingfiles)){
+			stop("Missing src files")
+		}
+		for(i in 1:length(rawsrc)) {
+			dest <- file.path(pdir,"src",basename(rawsrc[i]))
+	    	file.copy(rawsrc[i],to = dest)
+		}
 	}
 	
 	###Creating a R package name
@@ -246,14 +248,14 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 	todelete <- list.files(tempname,recursive = TRUE,include.dirs = TRUE,full.names = TRUE)
 	unlink(todelete,recursive = TRUE)
 	
-	cat("Finished.")
+	cat("Finished.\n")
 	
 	return(list(g=depgraph,dep=package_dependency,dll=dllfiles,og=basename(lf[orderloading])))
 }
 
 res <- makePackageSkel(dirscript,pdir,tempname)
-unload("biodb")
-remove.packages("biodb")
-
-
-install.packages(pdir,type="source",repos=NULL)
+if (isPackageLoaded('biodb'))
+	unload("biodb") # XXX Fails if script is run from shell (i.e.: biodb is sure to not be installed) or if biodb is not loaded in current R session.
+if ('biodb' %in% rownames(installed.packages()))
+	remove.packages("biodb") # XXX What if biodb is not installed already.
+install.packages(pdir, type="source", repos=NULL)
