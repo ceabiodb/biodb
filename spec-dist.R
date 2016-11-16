@@ -1,4 +1,5 @@
-dyn.load('src/closeMatchPpm.dll')
+#dyn.load('src/closeMatchPpm.dll')
+dyn.load('src/closeMatchPpm.so')
 
 matchPpm <- function(x, y, ppm = 3, mzmin = 0) {
 	if (any(is.na(y)))

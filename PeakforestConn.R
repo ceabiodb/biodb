@@ -163,7 +163,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 				)
 			contents <-  .self$.get.url(url)
 			entries  <- .self$createReducedEntry(contents, drop = TRUE)
-			entries
+			return(entries)
 		}
 	)
 	
@@ -180,6 +180,7 @@ if ( ! exists('PeakforestConn')) { # Do not load again if already loaded
 	})
 	
 	PeakforestConn$methods( createReducedEntry = function(content , drop = TRUE){
-		createReducedSpectraFromJSON(content, drop = drop)	
+		entries <- createReducedSpectraFromJSON(content, drop = drop)	
+		return(entries)
 	})
 }

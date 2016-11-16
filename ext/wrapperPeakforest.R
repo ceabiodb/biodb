@@ -1,11 +1,21 @@
 ###Script wrapper pour biodb
-if(!require(jsonlite)) stop("install R package jsonlite")
-if(!require(biodb)) stop("install R package biodb")
-if(!require(batch)) stop("install R package batch")
+args <- commandArgs(trailingOnly = F)
+script.path <- sub("--file=","",args[grep("--file=",args)])
+
+library(jsonlite)
+library(batch)
+
+# Load biodb
+env <- Sys.getenv()
+.source.biodb <- env[["__SOURCE_BIODB"]]
+if (nchar(.source.biodb) == 0) {
+	library(biodb)
+} else {
+	source(file.path(dirname(script.path), '..', 'BiodbFactory.R'), chdir = TRUE)
+}
 
 USER_AGENT <- 'msmssearch , alexis.delabriere@cea.fr'
 TOKEN <- '10omgahvttp9rm41agr60drmd6'
-
 
 ###PARAMETERS :
 # file : The path to the file containing the query spectra.
@@ -65,8 +75,13 @@ searchMSMSPeakforest <- function(spec, precursor, mztol, ppm, mode){
 	spec <- spec[,c(1,2)]
 	colnames(spec) <- c("mz","intensity")
 	
-	pfcon<-biodb:::PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
-	pfcon$msmsSearch(spec = spec, precursor = precursor, npmin = NPMIN, mztol=mztol, mode=mode,tolunit="plain",fun = DIST,params = list(ppm = ppm, dmz = DMZ, mzexp = MZEXP, intexp = INTEXP))
+if (nchar(.source.biodb) == 0) {
+	pfcon <- biodb:::PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
+} else {
+	pfcon <- PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
+}
+	res <- pfcon$msmsSearch(spec = spec, precursor = precursor, npmin = NPMIN, mztol=mztol, mode=mode,tolunit="plain",fun = DIST,params = list(ppm = ppm, dmz = DMZ, mzexp = MZEXP, intexp = INTEXP))
+	return(res)
 }
 
 
@@ -107,4 +122,4 @@ if(is.null(listArguments[['-mode']])) mode <- 'pos'
 mode <- listArguments[['-mode']]
 
 res <- searchMSMSPeakforest(spec,prec,mztol,ppm,mode)
-toJSON(res)
+print(toJSON(res))
