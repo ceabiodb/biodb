@@ -5,6 +5,8 @@ if(!require("roxygen2")) stop("impossible to make a package.")
 if(!require("formatR")) stop("impossible to make a package.")
 if(!require("devtools")) stop("impossible to make a package.")
 
+DEBUG <- TRUE
+
 ####SCRIPT DIRECTORY
 dirscript <- "C:/Users/AD244905/Documents/dev/biodb"
 ####DESTINATION DIRECTORY
@@ -88,6 +90,16 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 			substr(x[1],as.numeric(x[3]),as.numeric(x[3])+as.numeric(x[2])-1)
 		})
 		toremove <- c(toremove,pmatch)
+		
+		if(DEBUG & length(vfiles)>0){
+		  names_vert <- names(V(depgraph))
+		  set_inter <- intersect(names_vert,vfiles)
+		  wrong_vertices <- vfiles[!(vfiles %in% set_inter)]
+		  if(length(wrong_vertices)>0){
+		  cat("wrong vertices in",nfile,":",wrong_vertices)
+		  }
+		}
+		
 		
 		toadd <- character(length(vfiles)*2)
 		for(i in 1:length(vfiles)){
