@@ -95,7 +95,7 @@ makePackageSkel<-function(dirscript,pdir,tempname = "temp", cleaning = TRUE, mak
 		toremove <- c(toremove,pmatch)
 		
 		if(DEBUG & length(vfiles)>0){
-		  names_vert <- names(V(res$g))
+		  names_vert <- names(V(depgraph))
 		  set_inter <- intersect(names_vert,vfiles)
 		  wrong_vertices <- vfiles[!(vfiles %in% set_inter)]
 		  if(length(wrong_vertices)>0){
