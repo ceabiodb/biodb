@@ -6,7 +6,7 @@ notifications:
 before_install:
  - sudo apt-get install -y ant
  - sudo apt-get install -y r-base
- - sudo R -e "install.packages(c('getopt', 'stringr'), dependencies = TRUE, repos='http://lib.ugent.be/CRAN/')"
+ - sudo R -e "install.packages(c('getopt', 'stringr', 'XML', 'bitops', 'RCurl', 'plyr', 'jsonlite', 'testthat'), dependencies = TRUE, repos='http://lib.ugent.be/CRAN/')"
 
 script:
  - ant test
