@@ -4,7 +4,7 @@ notifications:
    - pierrick.roger@gmail.com
                            
 before_install:
- - sudo sed -i -e '$adeb http://mirrors.ebi.ac.uk/CRAN/bin/linux/ubuntu trusty/' /etc/apt/sources.list
+ - sudo sed -i -e '$adeb http://mirrors.ebi.ac.uk/CRAN/bin/linux/debian jessie/' /etc/apt/sources.list
  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
  - sudo apt-get update
  - sudo apt-get install -y ant
