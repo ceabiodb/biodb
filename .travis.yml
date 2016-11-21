@@ -13,4 +13,5 @@ before_install:
  - sudo R -e "install.packages(c('getopt', 'stringr', 'XML', 'bitops', 'RCurl', 'plyr', 'jsonlite', 'testthat'), dependencies = TRUE, repos='http://lib.ugent.be/CRAN/')"
 
 script:
+ - make -C src
  - ant test
