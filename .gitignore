@@ -5,3 +5,5 @@
 cache
 NAMESPACE
 man
+..Rcheck
+src/*.rds
