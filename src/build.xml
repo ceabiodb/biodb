@@ -1,0 +1,25 @@
+<project name="rbiodb.src" default="all">
+
+	<!-- ALL -->
+	<target name="all" depends="compile"/>
+
+	<!-- COMPILE -->
+	<target name="compile">
+		<exec executable="R" failonerror="true">
+			<arg value="CMD"/>
+			<arg value="SHLIB"/>
+			<arg value="closeMatchPpm.c"/>
+		</exec>
+	</target>
+
+	<!-- CLEAN -->
+	<target name="clean">
+		<delete>
+			<fileset dir=".">
+				<include name="*.o"/>
+				<include name="*.so"/>
+			</fileset>
+		</delete>
+	</target>
+
+</project>

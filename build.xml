@@ -1,13 +1,15 @@
-<project name="fr.cea.r-biodb" default="all">
+<project name="rbiodb" default="all">
 
 	<!-- ALL -->
-	<target name="all"/>
+	<target name="all">
+		<ant dir="src" inheritAll="false"/>
+	</target>
 
 	<!-- DOC -->
 	<target name="doc"/>
 
 	<!-- TEST -->
-	<target name="test">
+	<target name="test" depends="all">
 		<ant dir="test" inheritAll="false"/>
 	</target>
 
