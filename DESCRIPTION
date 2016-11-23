@@ -1,0 +1,27 @@
+Package: biodb
+Title: Connection and parsing of metabolomics databases.
+Version: 0.1.0
+Authors@R: person("Pierrick", "Roger", email = "pierrick.roger@gmail.com", role = c("aut", "cre"))
+Description: Connection and parsing of metabolomics databases
+Depends: R (>= 3.3.1)
+License: ???
+Encoding: UTF-8
+LazyData: true
+Imports: methods, XML, stringr, plyr, jsonlite, bitops, RCurl
+NeedsCompilation: yes
+Collate: 'biodb-common.R' 'spec-dist.R' 'strhlp.R'
+        'UrlRequestScheduler.R' 'BiodbConn.R' 'BiodbEntry.R'
+        'massdb-helper.R' 'RemotedbConn.R' 'ChebiEntry.R'
+        'ChemspiderEntry.R' 'EnzymeEntry.R' 'HmdbEntry.R' 'KeggEntry.R'
+        'LipidmapsEntry.R' 'MassbankEntry.R' 'MirbaseEntry.R'
+        'NcbiccdsEntry.R' 'NcbigeneEntry.R' 'PeakforestEntry.R'
+        'PubchemEntry.R' 'UniprotEntry.R' 'MassdbConn.R' 'ChebiConn.R'
+        'ChemspiderConn.R' 'EnzymeConn.R' 'HmdbConn.R' 'KeggConn.R'
+        'LipidmapsConn.R' 'MirbaseConn.R' 'NcbiccdsConn.R'
+        'NcbigeneConn.R' 'PubchemConn.R' 'UniprotConn.R'
+        'MassbankConn.R' 'MassFiledbConn.R' 'PeakforestConn.R'
+        'BiodbFactory.R' 'biodb-package.R'
+Author: NA
+RoxygenNote: 5.0.1
+Packaged: 2016-11-10 12:17:56 UTC; AD244905
+Maintainer: Pierrick Roger <pierrick.roger@gmail.com>
