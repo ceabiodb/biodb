@@ -14,7 +14,7 @@
 
 	<!-- TEST -->
 	<target name="test" depends="all">
-		<exec executable="${this.dir}/generate-doc" failonerror="true"/>
+		<exec executable="${this.dir}/check-pkg" failonerror="true"/>
 	</target>
 
 	<!-- CLEAN -->
