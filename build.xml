@@ -14,11 +14,7 @@
 
 	<!-- TEST -->
 	<target name="test" depends="all">
-		<exec executable="R" failonerror="true">
-			<arg value="CMD"/>
-			<arg value="check"/>
-			<arg value="."/>
-		</exec>
+		<exec executable="${this.dir}/generate-doc" failonerror="true"/>
 	</target>
 
 	<!-- CLEAN -->
