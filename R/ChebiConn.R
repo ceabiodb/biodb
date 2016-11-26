@@ -1,8 +1,5 @@
 if ( ! exists('ChebiConn')) {
 
-	source('RemotedbConn.R')
-	source('ChebiEntry.R')
-	
 	#####################
 	# CLASS DECLARATION #
 	#####################

@@ -1,7 +1,5 @@
 if ( ! exists('ChemspiderEntry')) {
 
-	source('BiodbEntry.R')
-	
 	#####################
 	# CLASS DECLARATION #
 	#####################

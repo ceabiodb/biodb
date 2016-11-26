@@ -1,8 +1,5 @@
 if ( ! exists('ChemspiderConn')) {
 
-	source('RemotedbConn.R')
-	source('ChemspiderEntry.R')
-	
 	#####################
 	# CLASS DECLARATION #
 	#####################

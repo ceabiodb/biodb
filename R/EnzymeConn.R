@@ -1,8 +1,5 @@
 if ( ! exists('EnzymeConn')) { # Do not load again if already loaded
 
-	source('RemotedbConn.R')
-	source('EnzymeEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

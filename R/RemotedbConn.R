@@ -1,8 +1,5 @@
 if ( ! exists('RemotedbConn')) {
 
-	source('BiodbConn.R')
-	source('UrlRequestScheduler.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

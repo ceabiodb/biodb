@@ -1,8 +1,5 @@
 if ( ! exists('MirbaseConn')) { # Do not load again if already loaded
 
-	source('RemotedbConn.R')
-	source('MirbaseEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

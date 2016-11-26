@@ -1,7 +1,6 @@
 if ( ! exists('PeakForestSpectrumEntry')) { # Do not load again if already loaded
 	
-	if(!require(jsonlite)) stop("jsonlite required")
-	source('BiodbEntry.R')
+	library(jsonlite)
 	
 	#####################
 	# CLASS DECLARATION #

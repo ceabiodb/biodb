@@ -1,8 +1,5 @@
 if ( ! exists('get.pubchem.compound.url')) {
 
-	source('RemotedbConn.R')
-	source('PubchemEntry.R')
-	
 	#####################
 	# CLASS DECLARATION #
 	#####################

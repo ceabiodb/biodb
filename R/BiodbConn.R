@@ -1,7 +1,5 @@
 if ( ! exists('BiodbConn')) {
 
-	source('biodb-common.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

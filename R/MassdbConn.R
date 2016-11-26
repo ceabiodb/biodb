@@ -1,8 +1,5 @@
 if ( ! exists('MassdbConn')) {
 
-	source('BiodbConn.R')
-	source('massdb-helper.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

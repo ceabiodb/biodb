@@ -1,8 +1,5 @@
 if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
 
-	source('RemotedbConn.R')
-	source('LipidmapsEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

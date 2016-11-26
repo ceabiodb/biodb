@@ -1,7 +1,5 @@
 if ( ! exists('PubchemEntry')) { # Do not load again if already loaded
 
-	source('BiodbEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

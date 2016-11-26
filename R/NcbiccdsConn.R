@@ -1,8 +1,5 @@
 if ( ! exists('NcbiccdsConn')) { # Do not load again if already loaded
 
-	source('RemotedbConn.R')
-	source('NcbiccdsEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

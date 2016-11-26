@@ -1,8 +1,5 @@
 if ( ! exists('KeggConn')) {
 
-	source('RemotedbConn.R')
-	source('KeggEntry.R')
-	
 	#####################
 	# CLASS DECLARATION #
 	#####################

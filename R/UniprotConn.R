@@ -1,8 +1,5 @@
 if ( ! exists('UniprotConn')) { # Do not load again if already loaded
 
-	source('RemotedbConn.R')
-	source('UniprotEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

@@ -1,7 +1,5 @@
 if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 
-	source('BiodbEntry.R')
-
 	###########################
 	# MASSBANK SPECTRUM CLASS #
 	###########################

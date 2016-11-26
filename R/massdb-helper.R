@@ -1,7 +1,5 @@
 if(! exists ("compareSpectra")) {
 	
-	source('spec-dist.R')
-	
 	simplifySpectrum <- function(spec) {
 		if(length(spec) == 0){
 			return(NA_real_)

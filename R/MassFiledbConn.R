@@ -1,7 +1,5 @@
 if ( ! exists('MassFiledbConn')) {
 
-	source('MassdbConn.R')
-	
 	# LCMS File db.
 	# In this type of database, a single file is provided in CSV format. Default separator is tabulation.
 	# Each line is a MS peak measure, .

@@ -1,7 +1,5 @@
 if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
 
-	source('biodb-common.R')
-
 	#############
 	# CONSTANTS #
 	#############

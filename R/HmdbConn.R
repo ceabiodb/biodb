@@ -1,8 +1,5 @@
 if ( ! exists('HmdbConn')) {
 
-	source('RemotedbConn.R')
-	source('HmdbEntry.R')
-	
 	#####################
 	# CLASS DECLARATION #
 	#####################

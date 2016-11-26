@@ -1,9 +1,5 @@
 if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
-	source('RemotedbConn.R')
-	source('MassdbConn.R')
-	source('MassbankEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

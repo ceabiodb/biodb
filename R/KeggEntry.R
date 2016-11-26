@@ -1,7 +1,5 @@
 if ( ! exists('KeggEntry')) {
 
-	source('BiodbEntry.R')
-	
 	#####################
 	# CLASS DECLARATION #
 	#####################

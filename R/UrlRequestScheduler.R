@@ -1,5 +1,7 @@
 if ( ! exists('UrlRequestScheduler')) { # Do not load again if already loaded
 
+	library(methods)
+
 	#############
 	# CONSTANTS #
 	#############

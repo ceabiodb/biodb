@@ -1,8 +1,5 @@
 if ( ! exists('NcbigeneConn')) { # Do not load again if already loaded
 
-	source('RemotedbConn.R')
-	source('NcbigeneEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################

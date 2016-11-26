@@ -1,21 +1,6 @@
 if ( ! exists('BiodbFactory')) { # Do not load again if already loaded
 	
 	library(methods)
-	source('biodb-common.R')
-	source('ChebiConn.R')
-	source('KeggConn.R')
-	source('PubchemConn.R')
-	source('HmdbConn.R')
-	source('ChemspiderConn.R')
-	source('EnzymeConn.R')
-	source('LipidmapsConn.R')
-	source('MirbaseConn.R')
-	source('NcbigeneConn.R')
-	source('NcbiccdsConn.R')
-	source('UniprotConn.R')
-	source('MassbankConn.R')
-	source('MassFiledbConn.R')
-    source('PeakforestConn.R')
 
 	#####################
 	# CLASS DECLARATION #

@@ -1,7 +1,5 @@
 if ( ! exists('MirbaseEntry')) {
 
-	source('BiodbEntry.R')
-
 	#####################
 	# CLASS DECLARATION #
 	#####################
