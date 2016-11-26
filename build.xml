@@ -14,7 +14,15 @@
 
 	<!-- TEST -->
 	<target name="test" depends="all">
-		<exec executable="${this.dir}/check-pkg" failonerror="true"/>
+		<exec executable="${this.dir}/check-pkg" failonerror="true">
+			<redirector>
+				<outputfilterchain>
+					<tokenfilter>
+						<replaceregex pattern="from " replace="from R/"/>
+					</tokenfilter>
+				</outputfilterchain>
+			</redirector>
+		</exec>
 	</target>
 
 	<!-- CLEAN -->
