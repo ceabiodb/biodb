@@ -18,6 +18,7 @@
 			<fileset dir=".">
 				<include name="*.o"/>
 				<include name="*.so"/>
+				<include name="*.rds"/>
 			</fileset>
 		</delete>
 	</target>

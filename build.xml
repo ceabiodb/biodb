@@ -2,13 +2,16 @@
 
 	<dirname property="this.dir" file="${ant.file.biodb}"/>
 
+	<property name="namespace.file" value="NAMESPACE"/>
+
 	<!-- ALL -->
-	<target name="all">
+	<target name="all" depends="doc">
 		<ant dir="src" inheritAll="false"/>
 	</target>
 
 	<!-- DOC -->
-	<target name="doc">
+	<available file="${namespace.file}" property="namespace.file.exists"/>
+	<target name="doc" unless="${namespace.file.exists}">
 		<exec executable="${this.dir}/generate-doc" failonerror="true"/>
 	</target>
 
@@ -28,8 +31,9 @@
 	<!-- CLEAN -->
 	<target name="clean">
 		<ant dir="test" target="clean" inheritAll="false"/>
+		<ant dir="src" target="clean" inheritAll="false"/>
 		<delete dir="man"/>
-		<delete dir="." includes="NAMESPACE"/>
+		<delete dir="." includes="${namespace.file}"/>
 	</target>
 
 </project>
