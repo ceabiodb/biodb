@@ -1,3 +1,4 @@
+library(stats)
 #dyn.load('src/closeMatchPpm.dll')
 # commented out for refactoring as package
 #dyn.load('src/closeMatchPpm.so')
@@ -163,19 +164,19 @@ pkernel <-
 		###TO DO rcopder en C
 		for (i in 1:l1) {
 			for (j in 1:l2) {
-				divisor = max(dnorm(
+				divisor = max(stats::dnorm(
 					mz1[i],
 					mean = mz1[i],
 					sd = sqrt(vsig1[i] ^ 2 + vsig1[i] ^ 2)
 				),
-				dnorm(
+				stats::dnorm(
 					mz2[j],
 					mean = mz2[j],
 					sd = sqrt(vsig2[j] ^ 2 + vsig2[j] ^ 2)
 				))
 				if (divisor == 0)
 					next
-				scalet = dnorm(mz1[i],
+				scalet = stats::dnorm(mz1[i],
 							   mean = mz2[j],
 							   sd = sqrt(vsig1[i] ^ 2 + vsig2[j] ^ 2))
 				accu = accu + scalet / divisor

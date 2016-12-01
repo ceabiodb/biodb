@@ -1,113 +1,111 @@
-if ( ! exists('PubchemEntry')) { # Do not load again if already loaded
+library(methods)
+library(XML)
 
-	library(XML)
+#####################
+# CLASS DECLARATION #
+#####################
 
-	#####################
-	# CLASS DECLARATION #
-	#####################
+PubchemEntry <- methods::setRefClass("PubchemEntry", contains = "BiodbEntry")
+PubchemSubstance <- methods::setRefClass("PubchemSubstance", contains = "BiodbEntry")
 
-	PubchemEntry <- setRefClass("PubchemEntry", contains = "BiodbEntry")
-	PubchemSubstance <- setRefClass("PubchemSubstance", contains = "BiodbEntry")
+#####################
+# SUBSTANCE FACTORY #
+#####################
 
-	#####################
-	# SUBSTANCE FACTORY #
-	#####################
+createPubchemSubstanceFromXml <- function(contents, drop = TRUE) {
 
-	createPubchemSubstanceFromXml <- function(contents, drop = TRUE) {
+	entries <- list()
 
-		entries <- list()
+	# Define xpath expressions
+	xpath.expr <- character()
+	xpath.expr[[BIODB.ACCESSION]] <- "//PC-ID_id"
+	#xpath.expr[[BIODB.PUBCHEMCOMP.ID]] <- "//PC-CompoundType_id_cid" --> Apparently that can be more than one CID for a substance.
 
-		# Define xpath expressions
-		xpath.expr <- character()
-		xpath.expr[[BIODB.ACCESSION]] <- "//PC-ID_id"
-		#xpath.expr[[BIODB.PUBCHEMCOMP.ID]] <- "//PC-CompoundType_id_cid" --> Apparently that can be more than one CID for a substance.
+	for (content in contents) {
 
-		for (content in contents) {
+		# Create instance
+		entry <- PubchemEntry$new()
 
-			# Create instance
-			entry <- PubchemEntry$new()
+		if ( ! is.null(content) && ! is.na(content)) {
 
-			if ( ! is.null(content) && ! is.na(content)) {
+			# Parse XML
+			xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
 
-				# Parse XML
-				xml <-  xmlInternalTreeParse(content, asText = TRUE)
+			# Unknown entry
+			fault <- XML::xpathSApply(xml, "/Fault", XML::xmlValue)
+			if (length(fault) == 0) {
 
-				# Unknown entry
-				fault <- xpathSApply(xml, "/Fault", xmlValue)
-				if (length(fault) == 0) {
-
-					# Test generic xpath expressions
-					for (field in names(xpath.expr)) {
-						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
-						if (length(v) > 0)
-							entry$setField(field, v)
-					}
+				# Test generic xpath expressions
+				for (field in names(xpath.expr)) {
+					v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
+					if (length(v) > 0)
+						entry$setField(field, v)
 				}
 			}
-
-			entries <- c(entries, entry)
 		}
 
-		# Replace elements with no accession id by NULL
-		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-		# If the input was a single element, then output a single object
-		if (drop && length(contents) == 1)
-			entries <- entries[[1]]
-	
-		return(entries)
+		entries <- c(entries, entry)
 	}
 
-	####################
-	# COMPOUND FACTORY #
-	####################
+	# Replace elements with no accession id by NULL
+	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
-	createPubchemEntryFromXml <- function(contents, drop = TRUE) {
+	# If the input was a single element, then output a single object
+	if (drop && length(contents) == 1)
+		entries <- entries[[1]]
 
-		entries <- list()
+	return(entries)
+}
 
-		# Define xpath expressions
-		xpath.expr <- character()
-		xpath.expr[[BIODB.ACCESSION]] <- "//PC-CompoundType_id_cid"
-		xpath.expr[[BIODB.INCHI]] <- "//PC-Urn_label[text()='InChI']/../../..//PC-InfoData_value_sval"
-		xpath.expr[[BIODB.INCHIKEY]] <- "//PC-Urn_label[text()='InChIKey']/../../..//PC-InfoData_value_sval"
-		xpath.expr[[BIODB.FORMULA]] <- "//PC-Urn_label[text()='Molecular Formula']/../../..//PC-InfoData_value_sval"
-		xpath.expr[[BIODB.MASS]] <- "//PC-Urn_label[text()='Mass']/../../..//PC-InfoData_value_fval"
-		xpath.expr[[BIODB.COMP.IUPAC.NAME.SYST]] <- "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Systematic']/../../..//PC-InfoData_value_sval"
+####################
+# COMPOUND FACTORY #
+####################
 
-		for (content in contents) {
+createPubchemEntryFromXml <- function(contents, drop = TRUE) {
 
-			# Create instance
-			entry <- PubchemEntry$new()
+	entries <- list()
 
-			if ( ! is.null(content) && ! is.na(content)) {
+	# Define xpath expressions
+	xpath.expr <- character()
+	xpath.expr[[BIODB.ACCESSION]] <- "//PC-CompoundType_id_cid"
+	xpath.expr[[BIODB.INCHI]] <- "//PC-Urn_label[text()='InChI']/../../..//PC-InfoData_value_sval"
+	xpath.expr[[BIODB.INCHIKEY]] <- "//PC-Urn_label[text()='InChIKey']/../../..//PC-InfoData_value_sval"
+	xpath.expr[[BIODB.FORMULA]] <- "//PC-Urn_label[text()='Molecular Formula']/../../..//PC-InfoData_value_sval"
+	xpath.expr[[BIODB.MASS]] <- "//PC-Urn_label[text()='Mass']/../../..//PC-InfoData_value_fval"
+	xpath.expr[[BIODB.COMP.IUPAC.NAME.SYST]] <- "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Systematic']/../../..//PC-InfoData_value_sval"
 
-				# Parse XML
-				xml <-  xmlInternalTreeParse(content, asText = TRUE)
+	for (content in contents) {
 
-				# Unknown entry
-				fault <- xpathSApply(xml, "/Fault", xmlValue)
-				if (length(fault) == 0) {
+		# Create instance
+		entry <- PubchemEntry$new()
 
-					# Test generic xpath expressions
-					for (field in names(xpath.expr)) {
-						v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
-						if (length(v) > 0)
-							entry$setField(field, v)
-					}
+		if ( ! is.null(content) && ! is.na(content)) {
+
+			# Parse XML
+			xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
+
+			# Unknown entry
+			fault <- XML::xpathSApply(xml, "/Fault", XML::xmlValue)
+			if (length(fault) == 0) {
+
+				# Test generic xpath expressions
+				for (field in names(xpath.expr)) {
+					v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
+					if (length(v) > 0)
+						entry$setField(field, v)
 				}
 			}
-
-			entries <- c(entries, entry)
 		}
 
-		# Replace elements with no accession id by NULL
-		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-		# If the input was a single element, then output a single object
-		if (drop && length(contents) == 1)
-			entries <- entries[[1]]
-	
-		return(entries)
+		entries <- c(entries, entry)
 	}
+
+	# Replace elements with no accession id by NULL
+	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+
+	# If the input was a single element, then output a single object
+	if (drop && length(contents) == 1)
+		entries <- entries[[1]]
+
+	return(entries)
 }

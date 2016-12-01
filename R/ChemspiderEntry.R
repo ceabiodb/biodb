@@ -1,108 +1,106 @@
-if ( ! exists('ChemspiderEntry')) {
+library(XML)
+library(methods)
 
-	library(XML)
+#####################
+# CLASS DECLARATION #
+#####################
 
-	#####################
-	# CLASS DECLARATION #
-	#####################
-	
-	ChemspiderEntry <- setRefClass("ChemspiderEntry", contains = "BiodbEntry")
-	
-	############################
-	# CREATE COMPOUND FROM XML #
-	############################
-	
-	createChemspiderEntryFromXml <- function(contents, drop = TRUE) {
+ChemspiderEntry <- methods::setRefClass("ChemspiderEntry", contains = "BiodbEntry")
 
-		entries <- list()
+############################
+# CREATE COMPOUND FROM XML #
+############################
 
-		# Define xpath expressions
-		xpath.expr <- character()
-		xpath.expr[[BIODB.ACCESSION]]    	<- "//CSID"
-		xpath.expr[[BIODB.FORMULA]]      	<- "//MF"
-		xpath.expr[[BIODB.NAME]]         	<- "//CommonName"
-		xpath.expr[[BIODB.AVERAGE.MASS]] 	<- "//AverageMass"
-		xpath.expr[[BIODB.INCHI]]           <- "//InChI"
-		xpath.expr[[BIODB.INCHIKEY]]       	<- "//InChIKey"
-		xpath.expr[[BIODB.SMILES]]          <- "//SMILES"
+createChemspiderEntryFromXml <- function(contents, drop = TRUE) {
 
-		for (content in contents) {
+	entries <- list()
 
-			# Create instance
-			entry <- ChemspiderEntry$new()
+	# Define xpath expressions
+	xpath.expr <- character()
+	xpath.expr[[BIODB.ACCESSION]]    	<- "//CSID"
+	xpath.expr[[BIODB.FORMULA]]      	<- "//MF"
+	xpath.expr[[BIODB.NAME]]         	<- "//CommonName"
+	xpath.expr[[BIODB.AVERAGE.MASS]] 	<- "//AverageMass"
+	xpath.expr[[BIODB.INCHI]]           <- "//InChI"
+	xpath.expr[[BIODB.INCHIKEY]]       	<- "//InChIKey"
+	xpath.expr[[BIODB.SMILES]]          <- "//SMILES"
 
-			if ( ! is.null(content) && ! is.na(content) && content != 'NA') {
-			
-				# Parse XML
-				xml <-  xmlInternalTreeParse(content, asText = TRUE)
+	for (content in contents) {
 
-				# Test generic xpath expressions
-				for (field in names(xpath.expr)) {
-					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
-					if (length(v) > 0)
-						entry$setField(field, v)
-				}
+		# Create instance
+		entry <- ChemspiderEntry$new()
+
+		if ( ! is.null(content) && ! is.na(content) && content != 'NA') {
+		
+			# Parse XML
+			xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
+
+			# Test generic xpath expressions
+			for (field in names(xpath.expr)) {
+				v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
+				if (length(v) > 0)
+					entry$setField(field, v)
 			}
-
-			entries <- c(entries, entry)
 		}
 
-		# Replace elements with no accession id by NULL
-		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-		# If the input was a single element, then output a single object
-		if (drop && length(contents) == 1)
-			entries <- entries[[1]]
-
-		return(entries)
+		entries <- c(entries, entry)
 	}
 
-	#############################
-	# CREATE COMPOUND FROM HTML #
-	#############################
+	# Replace elements with no accession id by NULL
+	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
-	createChemspiderEntryFromHtml <- function(contents, drop = TRUE) {
+	# If the input was a single element, then output a single object
+	if (drop && length(contents) == 1)
+		entries <- entries[[1]]
 
-		entries <- list()
+	return(entries)
+}
 
-		# Define xpath expressions
-		xpath.expr <- character()
+#############################
+# CREATE COMPOUND FROM HTML #
+#############################
 
-		for (content in contents) {
+createChemspiderEntryFromHtml <- function(contents, drop = TRUE) {
 
-			# Create instance
-			entry <- ChemspiderEntry$new()
+	entries <- list()
 
-			if ( ! is.null(content) && ! is.na(content)) {
-			
-				# Parse HTML
-				xml <-  htmlTreeParse(content, asText = TRUE, useInternalNodes = TRUE)
+	# Define xpath expressions
+	xpath.expr <- character()
 
-				# Test generic xpath expressions
-				for (field in names(xpath.expr)) {
-					v <- xpathSApply(xml, xpath.expr[[field]], xmlValue)
-					if (length(v) > 0)
-						entry$setField(field, v)
-				}
-			
-				# Get accession
-				accession <- xpathSApply(xml, "//li[starts-with(., 'ChemSpider ID')]", xmlValue)
-				if (length(accession) > 0) {
-					accession <- sub('^ChemSpider ID([0-9]+)$', '\\1', accession, perl = TRUE)
-					entry$setField(BIODB.ACCESSION, accession)
-				}
+	for (content in contents) {
+
+		# Create instance
+		entry <- ChemspiderEntry$new()
+
+		if ( ! is.null(content) && ! is.na(content)) {
+		
+			# Parse HTML
+			xml <-  XML::htmlTreeParse(content, asText = TRUE, useInternalNodes = TRUE)
+
+			# Test generic xpath expressions
+			for (field in names(xpath.expr)) {
+				v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
+				if (length(v) > 0)
+					entry$setField(field, v)
 			}
-
-			entries <- c(entries, entry)
+		
+			# Get accession
+			accession <- XML::xpathSApply(xml, "//li[starts-with(., 'ChemSpider ID')]", XML::xmlValue)
+			if (length(accession) > 0) {
+				accession <- sub('^ChemSpider ID([0-9]+)$', '\\1', accession, perl = TRUE)
+				entry$setField(BIODB.ACCESSION, accession)
+			}
 		}
 
-		# Replace elements with no accession id by NULL
-		entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-		# If the input was a single element, then output a single object
-		if (drop && length(contents) == 1)
-			entries <- entries[[1]]
-	
-		return(entries)
+		entries <- c(entries, entry)
 	}
+
+	# Replace elements with no accession id by NULL
+	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+
+	# If the input was a single element, then output a single object
+	if (drop && length(contents) == 1)
+		entries <- entries[[1]]
+
+	return(entries)
 }

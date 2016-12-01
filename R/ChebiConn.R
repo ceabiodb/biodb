@@ -1,40 +1,38 @@
-if ( ! exists('ChebiConn')) {
+library(methods)
 
-	#####################
-	# CLASS DECLARATION #
-	#####################
-	
-	ChebiConn <- setRefClass("ChebiConn", contains = "RemotedbConn")
+#####################
+# CLASS DECLARATION #
+#####################
 
-	##########################
-	# GET ENTRY CONTENT TYPE #
-	##########################
+ChebiConn <- methods::setRefClass("ChebiConn", contains = "RemotedbConn")
 
-	ChebiConn$methods( getEntryContentType = function() {
-		return(BIODB.HTML)
-	})
+##########################
+# GET ENTRY CONTENT TYPE #
+##########################
 
-	#####################
-	# GET ENTRY CONTENT #
-	#####################
+ChebiConn$methods( getEntryContentType = function() {
+	return(BIODB.HTML)
+})
 
-	ChebiConn$methods( getEntryContent = function(id) {
+#####################
+# GET ENTRY CONTENT #
+#####################
 
-		# Initialize return values
-		content <- rep(NA_character_, length(id))
+ChebiConn$methods( getEntryContent = function(id) {
 
-		# Request
-		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.CHEBI, x)), FUN.VALUE = '')
+	# Initialize return values
+	content <- rep(NA_character_, length(id))
 
-		return(content)
-	})
-	
-	################
-	# CREATE ENTRY #
-	################
-	
-	ChebiConn$methods( createEntry = function(content, drop = TRUE) {
-		return(createChebiEntryFromHtml(content, drop = drop))
-	})
+	# Request
+	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.CHEBI, x)), FUN.VALUE = '')
 
-}
+	return(content)
+})
+
+################
+# CREATE ENTRY #
+################
+
+ChebiConn$methods( createEntry = function(content, drop = TRUE) {
+	return(createChebiEntryFromHtml(content, drop = drop))
+})
