@@ -1,5 +1,7 @@
 if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 
+	library(stringr)
+
 	###########################
 	# MASSBANK SPECTRUM CLASS #
 	###########################
@@ -11,8 +13,6 @@ if ( ! exists('MassbankEntry')) { # Do not load again if already loaded
 	###########
 	
 	createMassbankEntryFromTxt <- function(contents, drop = TRUE) {
-
-		library(stringr)
 
 		entries <- list()
 

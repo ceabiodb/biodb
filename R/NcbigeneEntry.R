@@ -1,5 +1,7 @@
 if ( ! exists('NcbigeneEntry')) { # Do not load again if already loaded
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -11,8 +13,6 @@ if ( ! exists('NcbigeneEntry')) { # Do not load again if already loaded
 	###########
 
 	createNcbigeneEntryFromXml <- function(contents, drop = TRUE) {
-
-		library(XML)
 
 		entries <- list()
 

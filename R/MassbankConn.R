@@ -1,5 +1,7 @@
 if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -61,7 +63,6 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
 			# Parse XML and get text
 			if ( ! is.na(xmlstr)) {
-				library(XML)
 				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
 				ns <- c(ax21 = "http://api.massbank/xsd")
 				returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
@@ -109,7 +110,6 @@ if ( ! exists('MassbankConn')) { # Do not load again if already loaded
 
 		# Parse XML and get text
 		if ( ! is.na(xmlstr)) {
-			library(XML)
 			xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
 			ns <- c(ax21 = "http://api.massbank/xsd")
 			returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)

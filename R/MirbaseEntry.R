@@ -1,5 +1,7 @@
 if ( ! exists('MirbaseEntry')) {
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -11,8 +13,6 @@ if ( ! exists('MirbaseEntry')) {
 	###########
 
 	createMirbaseEntryFromHtml <- function(contents, drop = TRUE) {
-
-		library(XML)
 
 		entries <- list()
 	

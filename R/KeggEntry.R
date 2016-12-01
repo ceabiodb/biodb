@@ -1,4 +1,6 @@
 if ( ! exists('KeggEntry')) {
+	
+	library(stringr)
 
 	#####################
 	# CLASS DECLARATION #
@@ -11,8 +13,6 @@ if ( ! exists('KeggEntry')) {
 	###########
 	
 	createKeggEntryFromTxt <- function(contents, drop = TRUE) {
-	
-		library(stringr)
 
 		entries <- list()
 	

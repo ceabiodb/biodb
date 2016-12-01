@@ -1,5 +1,7 @@
 if ( ! exists('NcbiccdsEntry')) { # Do not load again if already loaded
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -11,8 +13,6 @@ if ( ! exists('NcbiccdsEntry')) { # Do not load again if already loaded
 	###########
 
 	createNcbiccdsEntryFromHtml <- function(contents, drop = TRUE) {
-
-		library(XML)
 
 		entries <- list()
 

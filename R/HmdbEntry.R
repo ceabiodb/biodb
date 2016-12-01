@@ -1,5 +1,7 @@
 if ( ! exists('HmdbEntry')) { # Do not load again if already loaded
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -11,8 +13,6 @@ if ( ! exists('HmdbEntry')) { # Do not load again if already loaded
 	###########
 
 	createHmdbEntryFromXml <- function(contents, drop = FALSE) {
-
-		library(XML)
 
 		entries <- list()
 

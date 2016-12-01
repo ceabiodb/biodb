@@ -1,5 +1,7 @@
 if ( ! exists('ChebiEntry')) { # Do not load again if already loaded
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -11,8 +13,6 @@ if ( ! exists('ChebiEntry')) { # Do not load again if already loaded
 	###########
 	
 	createChebiEntryFromHtml <- function(contents, drop = TRUE) {
-
-		library(XML)
 
 		entries <- list()
 

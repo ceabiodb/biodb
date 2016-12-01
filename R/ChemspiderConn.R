@@ -1,5 +1,7 @@
 if ( ! exists('ChemspiderConn')) {
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -61,7 +63,6 @@ if ( ! exists('ChemspiderConn')) {
 
 			# Parse XML and get included XML
 			if ( ! is.na(xmlstr)) {
-				library(XML)
 				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
 				ns <- c(csns = "http://www.chemspider.com/")
 				returned.ids <- xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", xmlValue, namespaces = ns)

@@ -1,5 +1,7 @@
 if ( ! exists('UniprotEntry')) { # Do not load again if already loaded
 
+		library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -11,8 +13,6 @@ if ( ! exists('UniprotEntry')) { # Do not load again if already loaded
 	###########
 
 	createUniprotEntryFromXml <- function(contents, drop = FALSE) {
-
-		library(XML)
 
 		# Set XML namespace
 		ns <- c(uniprot = "http://uniprot.org/uniprot")

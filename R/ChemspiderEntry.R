@@ -1,5 +1,7 @@
 if ( ! exists('ChemspiderEntry')) {
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -11,8 +13,6 @@ if ( ! exists('ChemspiderEntry')) {
 	############################
 	
 	createChemspiderEntryFromXml <- function(contents, drop = TRUE) {
-
-		library(XML)
 
 		entries <- list()
 
@@ -62,8 +62,6 @@ if ( ! exists('ChemspiderEntry')) {
 	#############################
 
 	createChemspiderEntryFromHtml <- function(contents, drop = TRUE) {
-
-		library(XML)
 
 		entries <- list()
 

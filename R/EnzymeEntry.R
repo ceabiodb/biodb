@@ -1,5 +1,7 @@
 if ( ! exists('EnzymeEntry')) { # Do not load again if already loaded
 
+	library(stringr)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -11,8 +13,6 @@ if ( ! exists('EnzymeEntry')) { # Do not load again if already loaded
 	###########
 
 	createEnzymeEntryFromTxt <- function(contents, drop = TRUE) {
-
-		library(stringr)
 
 		entries <- list()
 	

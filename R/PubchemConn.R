@@ -1,5 +1,7 @@
 if ( ! exists('get.pubchem.compound.url')) {
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -65,7 +67,6 @@ if ( ! exists('get.pubchem.compound.url')) {
 
 			# Parse XML and get included XML
 			if ( ! is.na(xmlstr)) {
-				library(XML)
 				xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
 				ns <- c(pcns = "http://www.ncbi.nlm.nih.gov")
 				returned.ids <- xpathSApply(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) 'PC-CompoundType_id_cid' else 'PC-ID_id'), xmlValue, namespaces = ns)

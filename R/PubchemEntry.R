@@ -1,5 +1,7 @@
 if ( ! exists('PubchemEntry')) { # Do not load again if already loaded
 
+	library(XML)
+
 	#####################
 	# CLASS DECLARATION #
 	#####################
@@ -12,8 +14,6 @@ if ( ! exists('PubchemEntry')) { # Do not load again if already loaded
 	#####################
 
 	createPubchemSubstanceFromXml <- function(contents, drop = TRUE) {
-
-		library(XML)
 
 		entries <- list()
 
@@ -63,8 +63,6 @@ if ( ! exists('PubchemEntry')) { # Do not load again if already loaded
 	####################
 
 	createPubchemEntryFromXml <- function(contents, drop = TRUE) {
-
-		library(XML)
 
 		entries <- list()
 
