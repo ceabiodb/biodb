@@ -26,7 +26,6 @@
 				</outputfilterchain>
 			</redirector>
 		</exec>
-		<ant dir="test" inheritAll="false"/>
 	</target>
 
 	<!-- CLEAN -->

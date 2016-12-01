@@ -1,185 +1,182 @@
-if ( ! exists('BiodbEntry')) { # Do not load again if already loaded
+#############
+# CONSTANTS #
+#############
 
-	#############
-	# CONSTANTS #
-	#############
+BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
 
-	BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
+########################
+# ENTRY ABSTRACT CLASS #
+########################
 
-	########################
-	# ENTRY ABSTRACT CLASS #
-	########################
+BiodbEntry <- methods::setRefClass("BiodbEntry", fields = list(.fields ='list', .factory = "ANY"))
+
+###############
+# CONSTRUCTOR #
+###############
+
+BiodbEntry$methods( initialize = function(...) {
+
+	.fields <<- list()
+	.factory <<- NULL
+
+	callSuper(...) # calls super-class initializer with remaining parameters
+})
+
+###################
+# SET FIELD VALUE #
+###################
+
+BiodbEntry$methods(	setFieldValue = function(field, value) {
+
+	class = .self$getFieldClass(field)
+
+	# Secific case to handle objects.
+	if ( class ==" object" & !(isS4(value) & is(value, "refClass")))
+	  stop(paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
 	
-	BiodbEntry <- setRefClass("BiodbEntry", fields = list(.fields ='list', .factory = "ANY"))
-	
-	###############
-	# CONSTRUCTOR #
-	###############
-	
-	BiodbEntry$methods( initialize = function(...) {
-	
-		.fields <<- list()
-		.factory <<- NULL
-	
-		callSuper(...) # calls super-class initializer with remaining parameters
-	})
-	
-	###################
-	# SET FIELD VALUE #
-	###################
+	# Check cardinality
+	if (class != 'data.frame' && .self$getFieldCardinality(field) == BIODB.CARD.ONE && length(value) > 1)
+		stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
 
-	BiodbEntry$methods(	setFieldValue = function(field, value) {
+	# Check value class
+	value <- switch(class,
+		   'character' = as.character(value),
+		   'double' = as.double(value),
+		   'integer' = as.integer(value),
+		   'logical' = as.logical(value),
+		   value)
+	# TODO check value class
 
-		class = .self$getFieldClass(field)
+	.self$.fields[[field]] <- value
+})
 
-		# Secific case to handle objects.
-		if ( class ==" object" & !(isS4(value) & is(value, "refClass")))
-		  stop(paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
-		
-		# Check cardinality
-		if (class != 'data.frame' && .self$getFieldCardinality(field) == BIODB.CARD.ONE && length(value) > 1)
-			stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
+###################
+# GET FIELD NAMES #
+###################
 
-		# Check value class
-		value <- switch(class,
-		       'character' = as.character(value),
-		       'double' = as.double(value),
-		       'integer' = as.integer(value),
-		       'logical' = as.logical(value),
-		       value)
-		# TODO check value class
+BiodbEntry$methods(	getFieldNames = function(field) {
+	return(names(.self$.fields))
+})
 
-		.self$.fields[[field]] <- value
-	})
+#############
+# HAS FIELD #
+#############
 
-	###################
-	# GET FIELD NAMES #
-	###################
+BiodbEntry$methods(	hasField = function(field) {
+	return(field %in% names(.self$.fields))
+})
 
-	BiodbEntry$methods(	getFieldNames = function(field) {
-		return(names(.self$.fields))
-	})
+###################
+# GET FIELD CLASS #
+###################
 
-	#############
-	# HAS FIELD #
-	#############
+BiodbEntry$methods(	getFieldClass = function(field) {
 
-	BiodbEntry$methods(	hasField = function(field) {
-		return(field %in% names(.self$.fields))
-	})
+	if ( ! field %in% BIODB.FIELDS[['name']])
+		stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
-	###################
-	# GET FIELD CLASS #
-	###################
+	field.class <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'class']
 
-	BiodbEntry$methods(	getFieldClass = function(field) {
+	return(field.class)
+})
 
-		if ( ! field %in% BIODB.FIELDS[['name']])
-			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+#########################
+# FIELD HAS BASIC CLASS #
+#########################
 
-		field.class <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'class']
+BiodbEntry$methods(	fieldHasBasicClass = function(field) {
+	return(.self$getFieldClass(field) %in% BIODB.BASIC.CLASSES)
+})
 
-		return(field.class)
-	})
+#########################
+# GET FIELD CARDINALITY #
+#########################
 
-	#########################
-	# FIELD HAS BASIC CLASS #
-	#########################
+BiodbEntry$methods(	getFieldCardinality = function(field) {
 
-	BiodbEntry$methods(	fieldHasBasicClass = function(field) {
-		return(.self$getFieldClass(field) %in% BIODB.BASIC.CLASSES)
-	})
+	if ( ! field %in% BIODB.FIELDS[['name']])
+		stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
-	#########################
-	# GET FIELD CARDINALITY #
-	#########################
-	
-	BiodbEntry$methods(	getFieldCardinality = function(field) {
+	field.card <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'cardinality']
 
-		if ( ! field %in% BIODB.FIELDS[['name']])
-			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+	return(field.card)
+})
 
-		field.card <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'cardinality']
+###################
+# GET FIELD VALUE #
+###################
 
-		return(field.card)
-	})
-	
-	###################
-	# GET FIELD VALUE #
-	###################
-	
-	BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE) {
+BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE) {
 
-		if ( ! field %in% BIODB.FIELDS[['name']])
-			stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+	if ( ! field %in% BIODB.FIELDS[['name']])
+		stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
-		if (field %in% names(.self$.fields))
-			return(.self$.fields[[field]])
-		else if (compute && .self$.compute.field(field))
-			return(.self$.fields[[field]])
+	if (field %in% names(.self$.fields))
+		return(.self$.fields[[field]])
+	else if (compute && .self$.compute.field(field))
+		return(.self$.fields[[field]])
 
-		# Return NULL or NA
-		class = .self$getFieldClass(field)
-		return(if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL)
-	})
-	
-	#################
-	# COMPUTE FIELD #
-	##################
-	
-	BiodbEntry$methods(	.compute.field = function(field) {
+	# Return NULL or NA
+	class = .self$getFieldClass(field)
+	return(if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL)
+})
 
-		if ( ! is.null(.self$.factory) && field %in% names(BIODB.FIELD.COMPUTING)) {
-			for (db in BIODB.FIELD.COMPUTING[[field]]) {
-				db.id <- .self$getField(paste0(db, 'id'))
-				if ( ! is.na(db.id)) {
-					db.entry <- .self$.factory$createEntry(db, id = db.id)
-					if ( ! is.null(db.entry)) {
-						.self$setField(field, db.entry$getField(field))
-						return(TRUE)
-					}
+#################
+# COMPUTE FIELD #
+##################
+
+BiodbEntry$methods(	.compute.field = function(field) {
+
+	if ( ! is.null(.self$.factory) && field %in% names(BIODB.FIELD.COMPUTING)) {
+		for (db in BIODB.FIELD.COMPUTING[[field]]) {
+			db.id <- .self$getField(paste0(db, 'id'))
+			if ( ! is.na(db.id)) {
+				db.entry <- .self$.factory$createEntry(db, id = db.id)
+				if ( ! is.null(db.entry)) {
+					.self$setField(field, db.entry$getField(field))
+					return(TRUE)
 				}
 			}
 		}
+	}
 
-		return(FALSE)
-	})
-	
-	############################
-	# GET FIELDS AS DATA FRAME #
-	############################
-	###TODO add a limiting option to get some fields.
-	BiodbEntry$methods(	getFieldsAsDataFrame = function() {
-		df <- data.frame()
-		# Loop on all fields
-		for (f in names(.self$.fields))
+	return(FALSE)
+})
 
-			# If field class is a basic type
-			if (.self$getFieldClass(f) %in% c('character', 'logical', 'integer', 'double')  &
-				length(.self$getFieldValue(f)) == 1)
-				df[1, f] <- .self$getFieldValue(f)
+############################
+# GET FIELDS AS DATA FRAME #
+############################
+###TODO add a limiting option to get some fields.
+BiodbEntry$methods(	getFieldsAsDataFrame = function() {
+	df <- data.frame()
+	# Loop on all fields
+	for (f in names(.self$.fields))
 
-		return(df)
-	})
+		# If field class is a basic type
+		if (.self$getFieldClass(f) %in% c('character', 'logical', 'integer', 'double')  &
+			length(.self$getFieldValue(f)) == 1)
+			df[1, f] <- .self$getFieldValue(f)
 
-	###########
-	# FACTORY #
-	###########
-	
-	BiodbEntry$methods(	setFactory = function(factory) {
-		is.null(factory) || inherits(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
-		.factory <<- factory
-	})
+	return(df)
+})
 
-	##############
-	# DEPRECATED #
-	##############
+###########
+# FACTORY #
+###########
 
-	BiodbEntry$methods(	getField = function(field) {
-		return(.self$getFieldValue(field))
-	})
-	
-	BiodbEntry$methods(	setField = function(field, value) {
-		.self$setFieldValue(field, value)
-	})
-}
+BiodbEntry$methods(	setFactory = function(factory) {
+	is.null(factory) || inherits(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
+	.factory <<- factory
+})
+
+##############
+# DEPRECATED #
+##############
+
+BiodbEntry$methods(	getField = function(field) {
+	return(.self$getFieldValue(field))
+})
+
+BiodbEntry$methods(	setField = function(field, value) {
+	.self$setFieldValue(field, value)
+})

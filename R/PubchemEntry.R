@@ -1,6 +1,3 @@
-library(methods)
-library(XML)
-
 #####################
 # CLASS DECLARATION #
 #####################

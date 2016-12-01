@@ -1,5 +1,3 @@
-library(methods)
-
 #####################
 # CLASS DECLARATION #
 #####################

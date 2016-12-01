@@ -1,10 +1,8 @@
-library(stringr)
-
 ###########################
 # MASSBANK SPECTRUM CLASS #
 ###########################
 
-MassbankEntry <- setRefClass("MassbankEntry", contains = "BiodbEntry")
+MassbankEntry <- methods::setRefClass("MassbankEntry", contains = "BiodbEntry")
 
 ###########
 # FACTORY #

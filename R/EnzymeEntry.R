@@ -1,10 +1,8 @@
-library(stringr)
-
 #####################
 # CLASS DECLARATION #
 #####################
 
-EnzymeEntry <- setRefClass("EnzymeEntry", contains = 'BiodbEntry')
+EnzymeEntry <- methods::setRefClass("EnzymeEntry", contains = 'BiodbEntry')
 
 ###########
 # FACTORY #

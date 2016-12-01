@@ -1,6 +1,3 @@
-library(methods)
-library(stringr)
-
 #####################
 # CLASS DECLARATION #
 #####################

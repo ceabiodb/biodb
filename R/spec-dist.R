@@ -1,4 +1,3 @@
-library(stats)
 #dyn.load('src/closeMatchPpm.dll')
 # commented out for refactoring as package
 #dyn.load('src/closeMatchPpm.so')

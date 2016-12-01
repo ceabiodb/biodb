@@ -1,5 +1,3 @@
-library(jsonlite)
-
 #####################
 # CLASS DECLARATION #
 #####################
