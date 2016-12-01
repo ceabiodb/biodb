@@ -1,0 +1,9 @@
+#!/usr/bin/env Rscript
+# vi: ft=R
+
+library(devtools)
+
+args <- commandArgs(trailingOnly = F)
+script.path <- sub("--file=","",args[grep("--file=",args)])
+
+devtools::test(dirname(script.path))

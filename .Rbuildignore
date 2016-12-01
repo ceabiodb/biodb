@@ -1,5 +1,6 @@
 build.xml
 check-pkg
+test-pkg
 doc
 ext
 generate-doc
