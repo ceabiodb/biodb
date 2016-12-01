@@ -1,0 +1,7 @@
+build.xml
+check-pkg
+doc
+ext
+generate-doc
+test
+.travis.yml

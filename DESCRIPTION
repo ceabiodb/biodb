@@ -1,10 +1,10 @@
 Package: biodb
-Title: Connection and parsing of metabolomics databases.
+Title: Connection to chemical and biological databases
 Version: 0.1.0
 Authors@R: person("Pierrick", "Roger", email = "pierrick.roger@gmail.com", role = c("aut", "cre"))
-Description: Connection and parsing of metabolomics databases
+Description: Connection to chemical and biological databases.
 Depends: R (>= 3.3.1)
-License: ???
+License: AGPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: methods, XML, stringr, plyr, jsonlite, bitops, RCurl
@@ -21,7 +21,7 @@ Collate: 'biodb-common.R' 'spec-dist.R' 'strhlp.R'
         'NcbigeneConn.R' 'PubchemConn.R' 'UniprotConn.R'
         'MassbankConn.R' 'MassFiledbConn.R' 'PeakforestConn.R'
         'BiodbFactory.R' 'biodb-package.R'
-Author: NA
+Author: Pierrick Roger
 RoxygenNote: 5.0.1
 Packaged: 2016-11-10 12:17:56 UTC; AD244905
 Maintainer: Pierrick Roger <pierrick.roger@gmail.com>
