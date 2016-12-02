@@ -11,7 +11,8 @@ BiodbObject <- methods::setRefClass("BiodbObject", fields = list( .debug = "logi
 BiodbObject$methods( .abstract.method = function() {
 
 	class <- class(.self)
-	method <- sub('^[^$]*\\$([^(]*)\\(.*$', '\\1()', traceback(0)[[5]])
+	method <- sys.call(length(sys.calls()) - 1)
+	method <- sub('^[^$]*\\$([^(]*)\\(.*$', '\\1()', method)
 
 	stop(paste("Method", method, "is not implemented in", class, "class."))
 })
