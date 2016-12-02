@@ -3,6 +3,7 @@
 	<dirname property="this.dir" file="${ant.file.biodb}"/>
 
 	<property name="namespace.file" value="NAMESPACE"/>
+	<property name="test.pkg.output.file" value="test-pkg.output"/>
 
 	<!-- ALL -->
 	<target name="all" depends="doc">
@@ -34,14 +35,13 @@
 	<!-- TEST PACKAGE -->
 	<target name="test.pkg">
 		<exec executable="${this.dir}/test-pkg" failonerror="true">
-			<!--			<redirector>
-				<outputfilterchain>
-					<tokenfilter>
-						<replaceregex pattern="from " replace="from R/"/>
-					</tokenfilter>
-				</outputfilterchain>
-			</redirector>-->
+			<redirector alwayslog="true" output="${test.pkg.output.file}"/>
 		</exec>
+		<fail message="Tests failed.">
+			<condition>
+				<resourcecontains resource="${test.pkg.output.file}" substring="Error:"/>
+			</condition>
+		</fail>
 	</target>
 
 	<!-- CLEAN -->
@@ -50,6 +50,7 @@
 		<ant dir="src" target="clean" inheritAll="false"/>
 		<delete dir="man"/>
 		<delete dir="." includes="${namespace.file}"/>
+		<delete dir="." includes="${test.pkg.output.file}"/>
 	</target>
 
 </project>

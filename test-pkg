@@ -4,6 +4,7 @@
 library(devtools)
 
 args <- commandArgs(trailingOnly = F)
-script.path <- sub("--file=","",args[grep("--file=",args)])
+SCRIPT.PATH <- sub("--file=","",args[grep("--file=",args)])
+SCRIPT.DIR <- dirname(SCRIPT.PATH)
 
-devtools::test(dirname(script.path))
+devtools::test(SCRIPT.DIR)
