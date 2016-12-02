@@ -1,3 +1,5 @@
+# vi: fdm=marker
+
 ##############
 # MASSFILEDB #
 ##############
@@ -5,7 +7,7 @@
 offline.test.massfiledb <- function() {
 
 	# Open file
-	file <- file.path(dirname(script.path), 'res', 'massfiledb.tsv')
+	file <- file.path(SCRIPT.DIR, 'tests', 'res', 'massfiledb.tsv')
 	df <- read.table(file, sep = "\t", header = TRUE)
 
 	# Create factory
@@ -29,7 +31,7 @@ offline.test.massfiledb <- function() {
 	db$setMsMode(BIODB.MSMODE.POS, 'POS')
 
 	# Run general tests
-	test.db(db)
+#	test.db(db)
 
 	# Generic tests
 
@@ -57,3 +59,10 @@ offline.test.massfiledb <- function() {
 		# Test nb entries
 		checkTrue(db$getNbEntries() == sum(as.integer(! duplicated(df['molid']))))
 }
+
+#############
+# MAIN {{{1 #
+#############
+
+context("Testing massfiledb offline")
+test_that("MassfiledbConn methods are correct", offline.test.massfiledb())
