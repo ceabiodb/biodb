@@ -2,7 +2,7 @@
 # CLASS DECLARATION #
 #####################
 
-BiodbConn <- methods::setRefClass("BiodbConn", fields = list( .debug = "logical" ))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .debug = "logical" ))
 
 ###############
 # CONSTRUCTOR #
@@ -26,7 +26,7 @@ BiodbConn$methods( .print.debug.msg = function(msg) {
 ##########################
 
 BiodbConn$methods( getEntryContentType = function() {
-	stop("Method getEntryContentType() is not implemented in concrete class.")
+	.self$.abstract.method()
 })
 
 #############
@@ -47,7 +47,7 @@ BiodbConn$methods( getEntry = function(id, drop = TRUE) {
 # id        The ID of the entry to get.
 # RETURN    An entry content downloaded from database.
 BiodbConn$methods( getEntryContent = function(id) {
-	stop("Method getEntryContent() is not implemented in concrete class.")
+	.self$.abstract.method()
 })
 
 #############################
@@ -58,7 +58,7 @@ BiodbConn$methods( getEntryContent = function(id) {
 # content       A file content, downloaded from the public database.
 # RETURN        A compound instance.
 BiodbConn$methods( createEntry = function(content, drop = TRUE) {
-	stop("Method createEntry() is not implemented in concrete class.")
+	.self$.abstract.method()
 })
 
 #################
@@ -67,7 +67,7 @@ BiodbConn$methods( createEntry = function(content, drop = TRUE) {
 
 # Get a list of IDs of all entries contained in this database.
 BiodbConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	stop("Method getEntryIds() is not implemented in concrete class.")
+	.self$.abstract.method()
 })
 
 ##################
@@ -76,5 +76,5 @@ BiodbConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 # Get the number of entries contained in this database.
 BiodbConn$methods( getNbEntries = function() {
-	stop("Method getNbEntries() is not implemented in concrete class.")
+	.self$.abstract.method()
 })
