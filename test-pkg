@@ -1,6 +1,16 @@
 #!/usr/bin/env Rscript
 # vi: ft=R
 
+##################
+# CONSTANTS {{{1 #
+##################
+
+USER.AGENT <- "r-biodb.test ; pierrick.roger@gmail.com"
+
+#############
+# MAIN {{{1 #
+#############
+
 library(devtools)
 
 args <- commandArgs(trailingOnly = F)

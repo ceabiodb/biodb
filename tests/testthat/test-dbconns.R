@@ -4,7 +4,7 @@
 # CONSTANTS {{{1 #
 ##################
 
-USER.AGENT <- "r-biodb.test ; pierrick.roger@gmail.com"
+.MASSFILEDB.URL <- file.path(SCRIPT.DIR, 'tests', 'res', 'massfiledb.tsv')
 
 #####################
 # TEST ENTRY FIELDS #
