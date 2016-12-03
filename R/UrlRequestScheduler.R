@@ -86,22 +86,17 @@ UrlRequestScheduler$methods( .doGetUrl = function(url, params = list(), method =
 	content <- NA_character_
 
 	# Use form to send URL request
-	print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-	print(url)
-	print(opts)
-	print(method)
-	print(params)
 	if ( method == BIODB.POST || ( ! is.null(params) && ! is.na(params) && length(params) > 0)) {
 		switch(method,
-			   GET = { content <- getForm(url, .opts = opts, .params = params) },
-			   POST = { content <- postForm(url, .opts = opts, .params = params) },
+			   GET = { content <- RCurl::getForm(url, .opts = opts, .params = params) },
+			   POST = { content <- RCurl::postForm(url, .opts = opts, .params = params) },
 			   stop(paste('Unknown method "', method, '".'))
 			  )
-	print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+	}
 
 	# Get URL normally
-	}else{
-		content <- getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
+	else {
+		content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
 	}
 	return(content)
 })
@@ -111,14 +106,9 @@ UrlRequestScheduler$methods( .doGetUrl = function(url, params = list(), method =
 ##########################
 
 UrlRequestScheduler$methods( sendSoapRequest = function(url, request) {
-	print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-	print('sendSoapRequest')
 	header <- c(Accept="text/xml", Accept="multipart/*",  'Content-Type'="text/xml; charset=utf-8")
-	print(header)
 	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = request))
-	print(opts)
 	results <- .self$getUrl(url, method = BIODB.POST, opts = opts)
-	print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
 	return(results)
 })
 

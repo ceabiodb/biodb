@@ -31,7 +31,7 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	class = .self$getFieldClass(field)
 
 	# Secific case to handle objects.
-	if ( class ==" object" & !(isS4(value) & is(value, "refClass")))
+	if ( class ==" object" & !(isS4(value) & methods::is(value, "refClass")))
 	  stop(paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
 	
 	# Check cardinality
