@@ -1,3 +1,1 @@
-library(testthat)
-library(biodb)
-test_check("biodb")
+testthat::test_check("biodb")
