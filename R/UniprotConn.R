@@ -1,39 +1,36 @@
-if ( ! exists('UniprotConn')) { # Do not load again if already loaded
+#####################
+# CLASS DECLARATION #
+#####################
 
-	#####################
-	# CLASS DECLARATION #
-	#####################
+UniprotConn <- methods::setRefClass("UniprotConn", contains = "RemotedbConn")
 
-	UniprotConn <- setRefClass("UniprotConn", contains = "RemotedbConn")
+##########################
+# GET ENTRY CONTENT TYPE #
+##########################
 
-	##########################
-	# GET ENTRY CONTENT TYPE #
-	##########################
+UniprotConn$methods( getEntryContentType = function() {
+	return(BIODB.XML)
+})
 
-	UniprotConn$methods( getEntryContentType = function() {
-		return(BIODB.XML)
-	})
+#####################
+# GET ENTRY CONTENT #
+#####################
 
-	#####################
-	# GET ENTRY CONTENT #
-	#####################
-	
-	UniprotConn$methods( getEntryContent = function(ids) {
+UniprotConn$methods( getEntryContent = function(ids) {
 
-		# Initialize return values
-		content <- rep(NA_character_, length(ids))
+	# Initialize return values
+	content <- rep(NA_character_, length(ids))
 
-		# Request
-		content <- vapply(ids, function(x) .self$.get.url(get.entry.url(BIODB.UNIPROT, x, content.type = BIODB.XML)), FUN.VALUE = '')
+	# Request
+	content <- vapply(ids, function(x) .self$.get.url(get.entry.url(BIODB.UNIPROT, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
-		return(content)
-	})
-	
-	################
-	# CREATE ENTRY #
-	################
-	
-	UniprotConn$methods( createEntry = function(content, drop = TRUE) {
-		return(createUniprotEntryFromXml(content, drop = drop))
-	})
-}
+	return(content)
+})
+
+################
+# CREATE ENTRY #
+################
+
+UniprotConn$methods( createEntry = function(content, drop = TRUE) {
+	return(createUniprotEntryFromXml(content, drop = drop))
+})

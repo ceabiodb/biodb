@@ -1,40 +1,36 @@
-if ( ! exists('HmdbConn')) {
+#####################
+# CLASS DECLARATION #
+#####################
 
-	#####################
-	# CLASS DECLARATION #
-	#####################
-	
-	HmdbConn <- setRefClass("HmdbConn", contains = "RemotedbConn")
+HmdbConn <- methods::setRefClass("HmdbConn", contains = "RemotedbConn")
 
-	##########################
-	# GET ENTRY CONTENT TYPE #
-	##########################
+##########################
+# GET ENTRY CONTENT TYPE #
+##########################
 
-	HmdbConn$methods( getEntryContentType = function() {
-		return(BIODB.XML)
-	})
+HmdbConn$methods( getEntryContentType = function() {
+	return(BIODB.XML)
+})
 
-	#####################
-	# GET ENTRY CONTENT #
-	#####################
-	
-	HmdbConn$methods( getEntryContent = function(id) {
+#####################
+# GET ENTRY CONTENT #
+#####################
 
-		# Initialize return values
-		content <- rep(NA_character_, length(id))
+HmdbConn$methods( getEntryContent = function(id) {
 
-		# Request
-		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.HMDB, x, content.type = BIODB.XML)), FUN.VALUE = '')
+	# Initialize return values
+	content <- rep(NA_character_, length(id))
 
-		return(content)
-	})
-	
-	################
-	# CREATE ENTRY #
-	################
-	
-	HmdbConn$methods( createEntry = function(content, drop = TRUE) {
-		return(createHmdbEntryFromXml(content, drop = drop))
-	})
-	
-}
+	# Request
+	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.HMDB, x, content.type = BIODB.XML)), FUN.VALUE = '')
+
+	return(content)
+})
+
+################
+# CREATE ENTRY #
+################
+
+HmdbConn$methods( createEntry = function(content, drop = TRUE) {
+	return(createHmdbEntryFromXml(content, drop = drop))
+})

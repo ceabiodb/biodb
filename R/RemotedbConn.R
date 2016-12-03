@@ -4,7 +4,7 @@ if ( ! exists('RemotedbConn')) {
 	# CLASS DECLARATION #
 	#####################
 	
-	RemotedbConn <- setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler", .token = "character"))
+	RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler", .token = "character"))
 
 	###############
 	# CONSTRUCTOR #

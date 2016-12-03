@@ -1,11 +1,9 @@
-library(methods)
-
 #############
 # CONSTANTS #
 #############
 
-RLIB.GET  <- 'GET'
-RLIB.POST <- 'POST'
+BIODB.GET  <- 'GET'
+BIODB.POST <- 'POST'
 
 #####################
 # CLASS DECLARATION #
@@ -70,40 +68,65 @@ UrlRequestScheduler$methods( .wait.as.needed = function() {
 	.time.of.last.request <<- Sys.time()
 })
 
-####################
-# GET CURL OPTIONS #
-####################
+#########################
+# GET CURL OPTIONS {{{1 #
+#########################
 
-UrlRequestScheduler$methods( .get_curl_opts = function(url) {
-	opts <- curlOptions(useragent = .self$.useragent, timeout.ms = 60000, verbose = FALSE)
+UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
+	opts <- RCurl::curlOptions(useragent = .self$.useragent, timeout.ms = 60000, verbose = FALSE, .opts = opts)
 	return(opts)
 })
 
-###########
-# GET URL #
-###########
+###################
+# DO GET URL {{{1 #
+###################
 
-UrlRequestScheduler$methods( .doGetUrl = function(url, params = NULL, method = RLIB.GET) {
+UrlRequestScheduler$methods( .doGetUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
 
 	content <- NA_character_
 
 	# Use form to send URL request
-	if ( ! is.null(params) && ! is.na(params)){
+	print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+	print(url)
+	print(opts)
+	print(method)
+	print(params)
+	if ( method == BIODB.POST || ( ! is.null(params) && ! is.na(params) && length(params) > 0)) {
 		switch(method,
-			   GET = { content <- getForm(url, .opts = .self$.get_curl_opts(), .params = params) },
-			   POST = { content <- postForm(url, .opts = .self$.get_curl_opts(), .params = params) },
+			   GET = { content <- getForm(url, .opts = opts, .params = params) },
+			   POST = { content <- postForm(url, .opts = opts, .params = params) },
 			   stop(paste('Unknown method "', method, '".'))
 			  )
+	print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
 
 	# Get URL normally
 	}else{
-		content <- getURL(url, .opts = .self$.get_curl_opts(), ssl.verifypeer = .self$.ssl.verifypeer)
+		content <- getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
 	}
 	return(content)
 })
 
-UrlRequestScheduler$methods( getUrl = function(url, params = NULL, method = RLIB.GET) {
-	# Load library here and not inside .doGetUrl() since it is called from inside a try/catch clause, hence if library is missing the error will be ignored.
+##########################
+# SEND SOAP REQUEST {{{1 #
+##########################
+
+UrlRequestScheduler$methods( sendSoapRequest = function(url, request) {
+	print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+	print('sendSoapRequest')
+	header <- c(Accept="text/xml", Accept="multipart/*",  'Content-Type'="text/xml; charset=utf-8")
+	print(header)
+	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = request))
+	print(opts)
+	results <- .self$getUrl(url, method = BIODB.POST, opts = opts)
+	print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+	return(results)
+})
+
+################
+# GET URL {{{1 #
+################
+
+UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
 
 	content <- NA_character_
 
@@ -112,7 +135,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = NULL, method = RLIB
 
 	# Run query
 	for (i in seq(.self$.nb.max.tries)) {
-		tryCatch({ content <- .self$.doGetUrl(url, params = params, method = method) },
+		tryCatch({ content <- .self$.doGetUrl(url, params = params, method = method, opts = opts) },
 			     error = function(e) { if (.self$.verbose > 0) print("Retry connection to server...") } )
 		if ( ! is.na(content))
 			break

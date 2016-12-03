@@ -1,49 +1,46 @@
-if ( ! exists('LipdmapsConn')) { # Do not load again if already loaded
+#####################
+# CLASS DECLARATION #
+#####################
 
-	#####################
-	# CLASS DECLARATION #
-	#####################
+LipidmapsConn <- methods::setRefClass("LipidmapsConn", contains = "RemotedbConn")
 
-	LipidmapsConn <- setRefClass("LipidmapsConn", contains = "RemotedbConn")
+###############
+# CONSTRUCTOR #
+###############
 
-	###############
-	# CONSTRUCTOR #
-	###############
+LipidmapsConn$methods( initialize = function(...) {
+	# From http://www.lipidmaps.org/data/structure/programmaticaccess.html:
+	# If you write a script to automate calls to LMSD, please be kind and do not hit our server more often than once per 20 seconds. We may have to kill scripts that hit our server more frequently.
+	callSuper(scheduler = UrlRequestScheduler$new(t = 20), ...)
+})
 
-	LipidmapsConn$methods( initialize = function(...) {
-		# From http://www.lipidmaps.org/data/structure/programmaticaccess.html:
-		# If you write a script to automate calls to LMSD, please be kind and do not hit our server more often than once per 20 seconds. We may have to kill scripts that hit our server more frequently.
-		callSuper(scheduler = UrlRequestScheduler$new(t = 20), ...)
-	})
+##########################
+# GET ENTRY CONTENT TYPE #
+##########################
 
-	##########################
-	# GET ENTRY CONTENT TYPE #
-	##########################
+LipidmapsConn$methods( getEntryContentType = function() {
+	return(BIODB.CSV)
+})
 
-	LipidmapsConn$methods( getEntryContentType = function() {
-		return(BIODB.CSV)
-	})
+#####################
+# GET ENTRY CONTENT #
+#####################
 
-	#####################
-	# GET ENTRY CONTENT #
-	#####################
+LipidmapsConn$methods( getEntryContent = function(id) {
 
-	LipidmapsConn$methods( getEntryContent = function(id) {
+	# Initialize return values
+	content <- rep(NA_character_, length(id))
 
-		# Initialize return values
-		content <- rep(NA_character_, length(id))
+	# Request
+	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.LIPIDMAPS, x, content.type = BIODB.CSV)), FUN.VALUE = '')
 
-		# Request
-		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.LIPIDMAPS, x, content.type = BIODB.CSV)), FUN.VALUE = '')
+	return(content)
+})
 
-		return(content)
-	})
+################
+# CREATE ENTRY #
+################
 
-	################
-	# CREATE ENTRY #
-	################
-
-	LipidmapsConn$methods( createEntry = function(content, drop = TRUE) {
-		return(createLipidmapsEntryFromCsv(content, drop = drop))
-	})
-}
+LipidmapsConn$methods( createEntry = function(content, drop = TRUE) {
+	return(createLipidmapsEntryFromCsv(content, drop = drop))
+})

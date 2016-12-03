@@ -1,48 +1,45 @@
-if ( ! exists('NcbiccdsConn')) { # Do not load again if already loaded
+#####################
+# CLASS DECLARATION #
+#####################
 
-	#####################
-	# CLASS DECLARATION #
-	#####################
+NcbiccdsConn <- methods::setRefClass("NcbiccdsConn", contains = "RemotedbConn")
 
-	NcbiccdsConn <- setRefClass("NcbiccdsConn", contains = "RemotedbConn")
+###############
+# CONSTRUCTOR #
+###############
 
-	###############
-	# CONSTRUCTOR #
-	###############
+NcbiccdsConn$methods( initialize = function(...) {
+	# From NCBI E-Utility manual: "In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays".
+	callSuper(scheduler = UrlRequestScheduler$new(n = 3), ...)
+})
 
-	NcbiccdsConn$methods( initialize = function(...) {
-		# From NCBI E-Utility manual: "In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays".
-		callSuper(scheduler = UrlRequestScheduler$new(n = 3), ...)
-	})
+##########################
+# GET ENTRY CONTENT TYPE #
+##########################
 
-	##########################
-	# GET ENTRY CONTENT TYPE #
-	##########################
+NcbiccdsConn$methods( getEntryContentType = function() {
+	return(BIODB.HTML)
+})
 
-	NcbiccdsConn$methods( getEntryContentType = function() {
-		return(BIODB.HTML)
-	})
+#####################
+# GET ENTRY CONTENT #
+#####################
 
-	#####################
-	# GET ENTRY CONTENT #
-	#####################
-	
-	NcbiccdsConn$methods( getEntryContent = function(id) {
+NcbiccdsConn$methods( getEntryContent = function(id) {
 
-		# Initialize return values
-		content <- rep(NA_character_, length(id))
+	# Initialize return values
+	content <- rep(NA_character_, length(id))
 
-		# Request
-		content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBICCDS, x, content.type = BIODB.HTML)), FUN.VALUE = '')
+	# Request
+	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBICCDS, x, content.type = BIODB.HTML)), FUN.VALUE = '')
 
-		return(content)
-	})
-	
-	################
-	# CREATE ENTRY #
-	################
-	
-	NcbiccdsConn$methods( createEntry = function(content, drop = TRUE) {
-		return(createNcbiccdsEntryFromHtml(content, drop = drop))
-	})
-}
+	return(content)
+})
+
+################
+# CREATE ENTRY #
+################
+
+NcbiccdsConn$methods( createEntry = function(content, drop = TRUE) {
+	return(createNcbiccdsEntryFromHtml(content, drop = drop))
+})

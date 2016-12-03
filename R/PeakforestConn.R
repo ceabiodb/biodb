@@ -49,7 +49,6 @@ PeakforestConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("object
 	url <- paste0("https://rest.peakforest.org/spectra/lcms/peaks/get-range/",mzmin,"/",mzmax)
 	
 	contents <-  .self$.get.url(url)
-	library(jsonlite)
 	
 	jsontree <- fromJSON(contents)
 	
