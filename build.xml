@@ -35,13 +35,14 @@
 	<!-- TEST PACKAGE -->
 	<target name="test.pkg">
 		<exec executable="${this.dir}/test-pkg" failonerror="true">
-			<redirector alwayslog="true" output="${test.pkg.output.file}"/>
+			<redirector>
+				<outputfilterchain>
+					<tokenfilter>
+						<replaceregex pattern="from " replace="from R/"/>
+					</tokenfilter>
+				</outputfilterchain>
+			</redirector>
 		</exec>
-		<fail message="Tests failed.">
-			<condition>
-				<resourcecontains resource="${test.pkg.output.file}" substring="Error:"/>
-			</condition>
-		</fail>
 	</target>
 
 	<!-- CLEAN -->

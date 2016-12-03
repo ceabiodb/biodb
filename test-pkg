@@ -1,20 +1,20 @@
-#!/usr/bin/env Rscript
-# vi: ft=R
+#!/bin/bash
 
 ##################
-# CONSTANTS {{{1 #
+# Constants {{{1 #
 ##################
 
-USER.AGENT <- "r-biodb.test ; pierrick.roger@gmail.com"
+PROG_NAME=$(basename $0)
+PROG_DIR=$(dirname $0)
+OUTPUT=test-pkg.output
 
 #############
 # MAIN {{{1 #
 #############
 
-library(devtools)
+# Run test
+Rscript $PROG_DIR/test-pkg.R 2>&1 | tee $OUTPUT
 
-args <- commandArgs(trailingOnly = F)
-SCRIPT.PATH <- sub("--file=","",args[grep("--file=",args)])
-SCRIPT.DIR <- dirname(SCRIPT.PATH)
-
-devtools::test(SCRIPT.DIR)
+# Look for error message
+error=$(grep Error $OUTPUT)
+[ -z "$error" ] || exit 1

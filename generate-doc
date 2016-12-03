@@ -1,9 +1,7 @@
 #!/usr/bin/env Rscript
 # vi: ft=R
 
-library(roxygen2)
-
 args <- commandArgs(trailingOnly = F)
 script.path <- sub("--file=","",args[grep("--file=",args)])
 
-roxygenise(dirname(script.path))
+roxygen2::roxygenise(dirname(script.path))
