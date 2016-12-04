@@ -1,8 +1,10 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-BiodbFactory <- methods::setRefClass("BiodbFactory", fields = list(.useragent = "character",
+##########################
+# CLASS DECLARATION {{{1 #
+##########################
+
+BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(.useragent = "character",
 														  .conn = "list",
 														  .cache.dir = "character",
 														  .cache.mode = "character",
