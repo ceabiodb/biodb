@@ -1,0 +1,27 @@
+@startuml
+
+skinparam classBackgroundColor white
+skinparam classArrowColor black
+skinparam classBorderColor black
+skinparam shadowing false
+hide empty members
+hide circle
+
+namespace biodb {
+	abstract class Object
+	abstract class Conn
+	abstract class Entry
+	class Factory
+	class ChebiConn
+	class ChebiEntry
+	abstract class Observer
+	class Logger
+
+	Object <|-- Conn
+	Object <|-- Entry
+	Object <|-- Factory
+	Conn <|-- ChebiConn
+	Entry <|-- ChebiEntry
+}
+
+@enduml
