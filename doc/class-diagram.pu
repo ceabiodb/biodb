@@ -33,7 +33,7 @@ namespace biodb {
 	' Relations
 	Factory "1" *-- "*" Conn
 	Biodb "1" *-- "1" Factory
-	Biodb "1" *-- "*" Observer
+	Biodb "1" o-- "*" Observer
 }
 
 @enduml
