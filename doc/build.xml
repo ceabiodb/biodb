@@ -9,7 +9,7 @@
 
 	<!-- DOC -->
 	<target name="doc">
-		<plantuml output=".">
+		<plantuml output="." format="svg">
 			<fileset dir=".">
 				<include name="*.pu"/>
 			</fileset>
