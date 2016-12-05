@@ -1,10 +1,21 @@
 <project name="biodb.doc" default="all">
 
+	<!-- Load Plant UML task. `plantuml.jar` needs to be in `CLASSPATH` env var. -->
+
+	<taskdef name="plantuml" classname="net.sourceforge.plantuml.ant.PlantUmlTask"/>
+
 	<!-- ALL -->
 	<target name="all" depends="doc"/>
 
 	<!-- DOC -->
-	<target name="doc"/>
+	<target name="doc">
+		<plantuml output=".">
+			<fileset dir=".">
+				<include name="*.pu"/>
+			</fileset>
+		</plantuml>
+	</target>
+			                  
 
 	<!-- CLEAN -->
 	<target name="clean">
