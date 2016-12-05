@@ -8,6 +8,8 @@ hide empty members
 hide circle
 
 namespace biodb {
+
+	' Classes
 	abstract class Object
 	abstract class Conn
 	abstract class Entry
@@ -16,12 +18,18 @@ namespace biodb {
 	class ChebiEntry
 	abstract class Observer
 	class Logger
+	abstract class Observable
 
+	' Hierarchy
 	Object <|-- Conn
 	Object <|-- Entry
 	Object <|-- Factory
 	Conn <|-- ChebiConn
 	Entry <|-- ChebiEntry
+	Observer <|-- Logger
+
+	' Relations
+	Factory "1" *-- "*" Conn
 }
 
 @enduml
