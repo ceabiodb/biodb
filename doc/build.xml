@@ -1,0 +1,19 @@
+<project name="biodb.doc" default="all">
+
+	<!-- ALL -->
+	<target name="all" depends="doc"/>
+
+	<!-- DOC -->
+	<target name="doc"/>
+
+	<!-- CLEAN -->
+	<target name="clean">
+		<delete>
+			<fileset dir=".">
+				<include name="*.png"/>
+				<include name="*.svg"/>
+			</fileset>
+		</delete>
+	</target>
+
+</project>
