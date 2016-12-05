@@ -11,6 +11,7 @@ namespace biodb {
 
 	' Classes
 	abstract class Object
+	class Biodb
 	abstract class Conn
 	abstract class Entry
 	class Factory
@@ -21,6 +22,7 @@ namespace biodb {
 	abstract class Observable
 
 	' Hierarchy
+	Object <|-- Biodb
 	Object <|-- Conn
 	Object <|-- Entry
 	Object <|-- Factory
@@ -30,6 +32,8 @@ namespace biodb {
 
 	' Relations
 	Factory "1" *-- "*" Conn
+	Biodb "1" *-- "1" Factory
+	Biodb "1" *-- "*" Observer
 }
 
 @enduml
