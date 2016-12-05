@@ -1,8 +1,0 @@
-test-*.xml
-test-*.html
-*.txt
-*-entry-*.*
-*-compound-*.*
-!res/*
-res/.swp
-res/.*.swp
