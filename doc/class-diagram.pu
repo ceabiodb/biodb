@@ -4,13 +4,16 @@ skinparam classBackgroundColor white
 skinparam classArrowColor black
 skinparam classBorderColor black
 skinparam shadowing false
-hide empty members
+hide empty fields
+hide empty methods
 hide circle
 
 namespace biodb {
 
 	' Classes
-	abstract class Object
+	abstract class Object {
+		Biodb getBiodb()
+	}
 	class Biodb
 	abstract class Conn
 	abstract class Entry
@@ -22,7 +25,7 @@ namespace biodb {
 	abstract class Observable
 
 	' Hierarchy
-	Object <|-- Biodb
+	Object <|-down- Biodb
 	Object <|-- Conn
 	Object <|-- Entry
 	Object <|-- Factory
@@ -31,9 +34,10 @@ namespace biodb {
 	Observer <|-- Logger
 
 	' Relations
-	Factory "1" *-- "*" Conn
-	Biodb "1" *-- "1" Factory
-	Biodb "1" o-- "*" Observer
+	Factory "1" *- "*" Conn
+	Biodb "1" *- "1" Factory
+	Biodb "1" o- "*" Observer
+	Object --> Biodb
 }
 
 @enduml
