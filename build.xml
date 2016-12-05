@@ -13,7 +13,16 @@
 	<!-- DOC -->
 	<available file="${namespace.file}" property="namespace.file.exists"/>
 	<target name="doc" unless="${namespace.file.exists}">
+		<ant dir="doc" inheritAll="false"/>
 		<exec executable="${this.dir}/generate-doc" failonerror="true"/>
+	</target>
+
+	<!-- INSTALL DEPS -->
+	<target name="install.deps">
+		<exec executable="R" failonerror="true">
+			<arg value="-e"/>
+			<arg value="install.packages(c('getopt', 'stringr', 'XML', 'bitops', 'RCurl', 'plyr', 'jsonlite', 'testthat'), dependencies = TRUE, repos='http://lib.ugent.be/CRAN/')"/>
+		</exec>
 	</target>
 
 	<!-- TEST -->
