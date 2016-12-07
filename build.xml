@@ -56,7 +56,6 @@
 
 	<!-- CLEAN -->
 	<target name="clean">
-		<ant dir="test" target="clean" inheritAll="false"/>
 		<ant dir="src" target="clean" inheritAll="false"/>
 		<delete dir="man"/>
 		<delete dir="." includes="${namespace.file}"/>

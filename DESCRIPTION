@@ -10,8 +10,8 @@ LazyData: true
 Imports: methods, XML, stringr, plyr, jsonlite, bitops, RCurl, stats
 NeedsCompilation: yes
 Collate: 'biodb-common.R' 'spec-dist.R' 'strhlp.R'
-		 'BiodbObserver.R' 'BiodbLogger.R'
-        'UrlRequestScheduler.R' 'BiodbObject.R' 'BiodbConn.R' 'BiodbEntry.R'
+		 'BiodbObserver.R' 'BiodbLogger.R' 'WarningReporter.R' 'ErrorReporter.R'
+        'UrlRequestScheduler.R' 'BiodbObject.R' 'Biodb.R' 'BiodbConn.R' 'BiodbEntry.R'
         'massdb-helper.R' 'RemotedbConn.R' 'ChebiEntry.R'
         'ChemspiderEntry.R' 'EnzymeEntry.R' 'HmdbEntry.R' 'KeggEntry.R'
         'LipidmapsEntry.R' 'MassbankEntry.R' 'MirbaseEntry.R'
