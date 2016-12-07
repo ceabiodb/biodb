@@ -19,7 +19,7 @@ BiodbEntry$methods( initialize = function(...) {
 	.fields <<- list()
 	.factory <<- NULL
 
-	callSuper(...) # calls super-class initializer with remaining parameters
+	callSuper(...)
 })
 
 ###################

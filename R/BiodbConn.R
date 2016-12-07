@@ -10,6 +10,7 @@ BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields 
 
 BiodbConn$methods( initialize = function(debug = FALSE, ...) {
 	.debug <<- debug
+	callSuper(...)
 })
 
 #######################

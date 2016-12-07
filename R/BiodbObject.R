@@ -1,32 +1,34 @@
-##########################
-# CLASS DECLARATION {{{1 #
-##########################
+# vi: fdm=marker
+
+# CLASS DECLARATION {{{1
+################################################################
 
 BiodbObject <- methods::setRefClass("BiodbObject", fields = list( .observers = "ANY" ))
 
-########################
-# ABSTRACT METHOD {{{1 #
-########################
+# ABSTRACT METHOD {{{1
+################################################################
 
+# This method is used to declare a method as abstract.
 BiodbObject$methods( .abstract.method = function() {
 
 	class <- class(.self)
 	method <- sys.call(length(sys.calls()) - 1)
 	method <- sub('^[^$]*\\$([^(]*)\\(.*$', '\\1()', method)
 
-	stop(paste("Method", method, "is not implemented in", class, "class."))
+	.self$message(type = MSG.ERROR, paste("Method", method, "is not implemented in", class, "class."))
 })
 
-######################
-# ADD OBSERVERS {{{1 #
-######################
+# GET BIODB {{{1
+################################################################
 
-BiodbObject$methods( addObservers = function(obs) {
+BiodbObject$methods( getBiodb = function() {
+	.self$.abstract.method()
+})
 
-	# Check types of observers
-	if ( ( ! is.list(obs) && ! inherits(obs, "BiodbObserver")) || (is.list(obs) && any( ! vapply(obs, function(o) inherits(o, "BiodbObserver"), FUN.VALUE = TRUE))))
-		stop("Observers must inherit from BiodbObserver class.")
+# MESSAGE {{{1
+################################################################
 
-	# Add observers to current list
-	.observers <<- if (is.null(.self$.observers)) c(obs) else c(.self$.observers, obs)
+# Send a message to observers
+BiodbObject$methods( message = function(type = MSG.INFO, msg, level = 1) {
+	lapply(.self$getBiodb()$getObservers(), function(x) x$message(type = type, msg = msg, level = level))
 })
