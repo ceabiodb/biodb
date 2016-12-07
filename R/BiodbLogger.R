@@ -8,10 +8,10 @@ BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', f
 # CONSTRUCTOR {{{1
 ################################################################
 
-BiodbLogger$methods( initialize = function(verbose.level = 1, debug.level = 1, file = NULL, ...) {
+BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.level = as.integer(1), file = NULL, ...) {
 
-	.verbose.level <<- if ( ! is.null(verbose.level) && ! is.na(verbose.level)) verbose.level else 1
-	.debug.level <<- if ( ! is.null(debug.level) && ! is.na(debug.level)) debug.level else 1
+	.verbose.level <<- if ( ! is.null(verbose.level) && ! is.na(verbose.level)) verbose.level else as.integer(1)
+	.debug.level <<- if ( ! is.null(debug.level) && ! is.na(debug.level)) debug.level else as.integer(1)
 	.file <<- if ( ! is.null(file) && ! is.na(file)) file else stderr()
 
 	callSuper(...)

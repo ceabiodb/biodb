@@ -66,6 +66,9 @@ test_entry_ids <- function(db) {
 # MAIN {{{1 #
 #############
 
+biodb <- Biodb$new()
+biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.logs')))
+
 # Set online/offline modes to test
 online.modes = logical()
 #if ( ! is.null(opt[['offline']]))
@@ -78,10 +81,9 @@ for (online in online.modes) {
 
 	# Create factory
 	# TODO Add option in factory for blocking online access when in offline mode
-	factory <- BiodbFactory$new(useragent = USER.AGENT,
+	factory <- biodb$getFactory(useragent = USER.AGENT,
 								cache.dir = file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')),
 								cache.mode = if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY,
-								debug = FALSE, # TODO Set to TRUE, and make a class that records messages. Then print them at the end or inside a log file.
 								use.env.var = TRUE
 								)
 

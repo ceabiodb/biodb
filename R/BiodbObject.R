@@ -25,10 +25,45 @@ BiodbObject$methods( getBiodb = function() {
 	.self$.abstract.method()
 })
 
+# GET ENV VAR {{{1
+################################################################
+
+BiodbObject$methods( getEnvVar = function(name) {
+
+	biodb <- .self$getBiodb() 
+
+	if ( ! is.null(biodb))
+		return(biodb$getEnvVar(name))
+
+	return(NA_character_)
+})
+
+# GET USER AGENT {{{1
+################################################################
+
+BiodbObject$methods( getUserAgent = function() {
+
+	biodb <- .self$getBiodb() 
+
+	if ( ! is.null(biodb))
+		return(biodb$getUserAgent())
+
+	return(NA_character_)
+})
+
 # MESSAGE {{{1
 ################################################################
 
 # Send a message to observers
 BiodbObject$methods( message = function(type = MSG.INFO, msg, level = 1) {
-	lapply(.self$getBiodb()$getObservers(), function(x) x$message(type = type, msg = msg, level = level))
+
+	biodb <- .self$getBiodb() 
+
+	if ( ! is.null(biodb))
+		lapply(biodb$getObservers(), function(x) x$message(type = type, msg = msg, class = class(.self), level = level))
+	else
+		switch(type,
+		       ERROR = stop(msg),
+		       WARNING = warning(msg),
+		       cat(msg, "\n", file = stderr()))
 })

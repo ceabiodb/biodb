@@ -1,55 +1,36 @@
-#############
 # CONSTANTS #
-#############
 
 BIODB.GET  <- 'GET'
 BIODB.POST <- 'POST'
 
-#####################
 # CLASS DECLARATION #
-#####################
 
-UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .useragent = "character", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer"))
+UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "BiodbObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer"))
 
 # n: number of connections
 # t: time (in seconds)
 
 # The scheduler restrict the number of connections at n per t seconds.
 
-###############
 # CONSTRUCTOR #
-###############
 
-UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, useragent = NA_character_, ssl.verifypeer = TRUE, ...) {
+UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer = TRUE, ...) {
 	.n <<- n
 	.t <<- t
 	.time.of.last.request <<- -1
-	.useragent <<- useragent
 	.nb.max.tries <<- 10L
 	.ssl.verifypeer <<- ssl.verifypeer
 	.verbose <<- 0L
 	callSuper(...) # calls super-class initializer with remaining parameters
 })
 
-##################
-# SET USER AGENT #
-##################
-
-UrlRequestScheduler$methods( setUserAgent = function(useragent) {
-	.useragent <<- useragent
-})
-
-###############
 # SET VERBOSE #
-###############
 
 UrlRequestScheduler$methods( setVerbose = function(verbose) {
 	.verbose <<- verbose
 })
 
-##################
 # WAIT AS NEEDED #
-##################
 
 # Wait the specified between two requests.
 UrlRequestScheduler$methods( .wait.as.needed = function() {
@@ -68,18 +49,16 @@ UrlRequestScheduler$methods( .wait.as.needed = function() {
 	.time.of.last.request <<- Sys.time()
 })
 
-#########################
-# GET CURL OPTIONS {{{1 #
-#########################
+# GET CURL OPTIONS {{{1
+################################################################
 
 UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
-	opts <- RCurl::curlOptions(useragent = .self$.useragent, timeout.ms = 60000, verbose = FALSE, .opts = opts)
+	opts <- RCurl::curlOptions(useragent = .self$getUserAgent(), timeout.ms = 60000, verbose = FALSE, .opts = opts)
 	return(opts)
 })
 
-###################
-# DO GET URL {{{1 #
-###################
+# DO GET URL {{{1
+################################################################
 
 UrlRequestScheduler$methods( .doGetUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
 
@@ -101,9 +80,8 @@ UrlRequestScheduler$methods( .doGetUrl = function(url, params = list(), method =
 	return(content)
 })
 
-##########################
-# SEND SOAP REQUEST {{{1 #
-##########################
+# SEND SOAP REQUEST {{{1
+################################################################
 
 UrlRequestScheduler$methods( sendSoapRequest = function(url, request) {
 	header <- c(Accept="text/xml", Accept="multipart/*",  'Content-Type'="text/xml; charset=utf-8")
@@ -112,9 +90,8 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request) {
 	return(results)
 })
 
-################
-# GET URL {{{1 #
-################
+# GET URL {{{1
+################################################################
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
 

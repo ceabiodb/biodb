@@ -3,16 +3,56 @@
 # CLASS DECLARATION {{{1
 ################################################################
 
-Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .observers = "ANY" ))
+Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .useragent = "character", .use.env.var = "logical" ))
 
 # CONSTRUCTOR {{{1
 ################################################################
 
-Biodb$methods( initialize = function(...) {
+Biodb$methods( initialize = function(useragent = NA_character_, use.env.var = FALSE, ...) {
 
+	.useragent <<- useragent
+	.use.env.var <<- use.env.var
 	.observers <<- list(WarningReporter$new(), ErrorReporter$new())
+	.factory <<- BiodbFactory$new()
 
 	callSuper(...)
+})
+
+# GET USER AGENT {{{1
+################################################################
+
+Biodb$methods( getUserAgent = function() {
+	return(.self$.useragent)
+})
+
+# GET ENV VAR {{{1
+################################################################
+
+Biodb$methods( getEnvVar = function(name) {
+
+	value <- NA_character_
+
+	if (.self$.use.env.var) {
+
+		# Get all env vars
+		env <- Sys.getenv()
+
+		# Make env var name
+		env.var <- paste(c('BIODB', toupper(name)), collapse = '_')
+
+		# Look if this env var exists
+		if (env.var %in% names(env))
+			return(env[[env.var]])
+	}
+
+	return(value)
+})
+
+# GET FACTORY {{{1
+################################################################
+
+Biodb$methods( getFactory = function() {
+	return(.self$.factory)
 })
 
 # ADD OBSERVERS {{{1

@@ -19,7 +19,7 @@ ChemspiderConn$methods( getEntryContentType = function() {
 ChemspiderConn$methods( getEntryContent = function(ids) {
 
 	# Debug
-	.self$.print.debug.msg(paste0("Get entry content(s) for ", length(ids)," id(s)..."))
+	.self$message(paste0("Get entry content(s) for ", length(ids)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2083
 
@@ -38,7 +38,7 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 		x <- get.entry.url(class = BIODB.CHEMSPIDER, accession = accessions, content.type = BIODB.XML, max.length = URL.MAX.LENGTH, base.url = .self$.url, token = .self$.token)
 
 		# Debug
-		.self$.print.debug.msg(paste0("Send URL request for ", x$n," id(s)..."))
+		.self$message(paste0("Send URL request for ", x$n," id(s)..."))
 
 		# Send request
 		xmlstr <- .self$.get.url(x$url)
@@ -66,7 +66,7 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 		}
 
 		# Debug
-		.self$.print.debug.msg(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
+		.self$message(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 	}
 
 	return(content)

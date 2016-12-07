@@ -13,15 +13,6 @@ BiodbConn$methods( initialize = function(debug = FALSE, ...) {
 	callSuper(...)
 })
 
-#######################
-# PRINT DEBUG MESSAGE #
-#######################
-
-BiodbConn$methods( .print.debug.msg = function(msg) {
-	if (.self$.debug)
-		.print.msg(msg = msg, class = class(.self))
-})
-
 ##########################
 # GET ENTRY CONTENT TYPE #
 ##########################

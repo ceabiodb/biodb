@@ -1,94 +1,61 @@
 # vi: fdm=marker
 
-##########################
-# CLASS DECLARATION {{{1 #
-##########################
+# CLASS DECLARATION {{{1 {{{1
+################################################################
 
-BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(.useragent = "character",
+BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(
 														  .conn = "list",
 														  .cache.dir = "character",
 														  .cache.mode = "character",
-														  .debug = "logical",
 														  .chunk.size = "integer",
-														  .use.env.var = "logical"))
+														  .biodb = "ANY"))
 
-###############
-# CONSTRUCTOR #
-###############
+# CONSTRUCTOR {{{1
+################################################################
 
-BiodbFactory$methods( initialize = function(useragent = NA_character_, cache.dir = NA_character_, cache.mode = BIODB.CACHE.READ.WRITE, debug = FALSE, chunk.size = NA_integer_, use.env.var = FALSE, ...) {
+BiodbFactory$methods( initialize = function(cache.dir = NA_character_, cache.mode = BIODB.CACHE.READ.WRITE, chunk.size = NA_integer_, biodb = NULL, ...) {
 
-	.useragent <<- useragent
 	.conn <<- list()
 	.cache.dir <<- cache.dir
 	.cache.mode <<- cache.mode
-	.debug <<- debug
 	.chunk.size <<- as.integer(chunk.size)
-	.use.env.var <<- use.env.var
+	.biodb <<- biodb
 
 	callSuper(...) # calls super-class initializer with remaining parameters
 })
 
-#######################
-# PRINT DEBUG MESSAGE #
-#######################
-
-BiodbFactory$methods( .print.debug.msg = function(msg) {
-	if (.self$.debug)
-		.print.msg(msg = msg, class = class(.self))
-})
-
-##################
-# GET USER AGENT #
-##################
-
-BiodbFactory$methods( getUserAgent = function() {
-	return(.self$.useragent)
-})
-
-##################
-# SET USER AGENT #
-##################
-
-	BiodbFactory$methods( setUserAgent = function(useragent) {
-	"Set useragent of BiodbFactory."
-	.useragent <<- useragent
-})
-
-###############
-# CREATE CONN #
-###############
+# CREATE CONN {{{1
+################################################################
 
 BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
     " Create connection to databases useful for metabolomics."
+
 	if (class %in% names(.self$.conn))
 		stop(paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
 
 	# Use environment variables
-	if (.self$.use.env.var) {
-		if (is.na(url))
-			url <- .biodb.get.env.var(c(class, 'URL'))
-		if (is.na(token))
-			token <- .biodb.get.env.var(c(class, 'TOKEN'))
-	}
+	if (is.na(url))
+		url <- .self$getEnvVar(c(class, 'URL'))
+	if (is.na(token))
+		token <- .self$getEnvVar(c(class, 'TOKEN'))
 
 	# Create connection instance
 	conn <- switch(class,
-		            chebi       = ChebiConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            kegg        = KeggConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            pubchemcomp = PubchemConn$new(useragent = .self$.useragent, db = BIODB.PUBCHEMCOMP, debug = .self$.debug),
-		            pubchemsub  = PubchemConn$new(useragent = .self$.useragent, db = BIODB.PUBCHEMSUB, debug = .self$.debug),
-		            hmdb        = HmdbConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            chemspider  = ChemspiderConn$new(useragent = .self$.useragent, debug = .self$.debug, token = token),
-		            enzyme      = EnzymeConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            lipidmaps   = LipidmapsConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            mirbase     = MirbaseConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            ncbigene    = NcbigeneConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            ncbiccds    = NcbiccdsConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            uniprot     = UniprotConn$new(useragent = .self$.useragent, debug = .self$.debug),
-		            massbank    = MassbankConn$new(useragent = .self$.useragent, url = url, debug = .self$.debug),
-					massfiledb  = MassFiledbConn$new(file = url, debug = .self$.debug),
-					peakforest  = PeakforestConn$new(useragent = .self$.useragent, debug = .self$.debug),
+		            chebi       = ChebiConn$new(       biodb = .self$.biodb),
+		            kegg        = KeggConn$new(        biodb = .self$.biodb),
+		            pubchemcomp = PubchemConn$new(     biodb = .self$.biodb, db = BIODB.PUBCHEMCOMP),
+		            pubchemsub  = PubchemConn$new(     biodb = .self$.biodb, db = BIODB.PUBCHEMSUB),
+		            hmdb        = HmdbConn$new(        biodb = .self$.biodb),
+		            chemspider  = ChemspiderConn$new(  biodb = .self$.biodb, token = token),
+		            enzyme      = EnzymeConn$new(      biodb = .self$.biodb),
+		            lipidmaps   = LipidmapsConn$new(   biodb = .self$.biodb),
+		            mirbase     = MirbaseConn$new(     biodb = .self$.biodb),
+		            ncbigene    = NcbigeneConn$new(    biodb = .self$.biodb),
+		            ncbiccds    = NcbiccdsConn$new(    biodb = .self$.biodb),
+		            uniprot     = UniprotConn$new(     biodb = .self$.biodb),
+		            massbank    = MassbankConn$new(    biodb = .self$.biodb, url = url),
+					massfiledb  = MassFiledbConn$new(  biodb = .self$.biodb, file = url),
+					peakforest  = PeakforestConn$new(  biodb = .self$.biodb),
 		      	    NULL)
 
 	# Unknown class
@@ -101,9 +68,8 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 	return (.self$.conn[[class]])
 })
 
-############
-# GET CONN #
-############
+# GET CONN {{{1
+################################################################
 
 BiodbFactory$methods( getConn = function(class) {
 	"Get connection to a database."
@@ -114,9 +80,8 @@ BiodbFactory$methods( getConn = function(class) {
 	return (.self$.conn[[class]])
 })
 
-################
-# CREATE ENTRY #
-################
+# CREATE ENTRY {{{1
+################################################################
 
 BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, drop = TRUE) {
 	"Create Entry from a database by id."
@@ -125,7 +90,7 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 	! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
 
 	# Debug
-	.self$.print.debug.msg(paste0("Creating ", if (is.null(id)) length(content) else length(id), " entries from ", if (is.null(id)) "contents" else paste("ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", ")), "..."))
+	.self$message(paste0("Creating ", if (is.null(id)) length(content) else length(id), " entries from ", if (is.null(id)) "contents" else paste("ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", ")), "..."))
 
 	# Get content
 	if ( ! is.null(id))
@@ -134,7 +99,7 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 	entry <- conn$createEntry(content = content, drop = drop)
 
 	# Set factory
-	.self$.print.debug.msg(paste0("Setting factory reference into entries..."))
+	.self$message(paste0("Setting factory reference into entries..."))
 	for (e in c(entry))
 		if ( ! is.null(e))
 			e$setFactory(.self)
@@ -142,9 +107,8 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 	return(entry)
 })
 
-########################
-# GET CACHE FILE PATHS #
-########################
+# GET CACHE FILE PATHS {{{1
+################################################################
 
 BiodbFactory$methods( .get.cache.file.paths = function(class, id) {
 
@@ -164,9 +128,8 @@ BiodbFactory$methods( .get.cache.file.paths = function(class, id) {
 	return(file.paths)
 })
 
-###########################
-# LOAD CONTENT FROM CACHE #
-###########################
+# LOAD CONTENT FROM CACHE {{{1
+################################################################
 
 BiodbFactory$methods( .load.content.from.cache = function(class, id) {
 
@@ -179,25 +142,22 @@ BiodbFactory$methods( .load.content.from.cache = function(class, id) {
 	return(content)
 })
 
-############################
-# IS CACHE READING ENABLED #
-############################
+# IS CACHE READING ENABLED {{{1
+################################################################
 
 BiodbFactory$methods( .is.cache.reading.enabled = function() {
 	return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE))
 })
 
-############################
-# IS CACHE WRITING ENABLED #
-############################
+# IS CACHE WRITING ENABLED {{{1
+################################################################
 
 BiodbFactory$methods( .is.cache.writing.enabled = function() {
 	return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.WRITE.ONLY, BIODB.CACHE.READ.WRITE))
 })
 
-#########################
-# SAVE CONTENT TO CACHE #
-#########################
+# SAVE CONTENT TO CACHE {{{1
+################################################################
 
 BiodbFactory$methods( .save.content.to.cache = function(class, id, content) {
 
@@ -206,14 +166,13 @@ BiodbFactory$methods( .save.content.to.cache = function(class, id, content) {
 	mapply(function(c, f) { if ( ! is.null(c)) writeLines(c, f) }, content, file.paths)
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# GET ENTRY CONTENT {{{1
+################################################################
 
 BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
-	.self$.print.debug.msg(paste0("Get entry content(s) for ", length(id)," id(s)..."))
+	.self$message(paste0("Get entry content(s) for ", length(id)," id(s)..."))
 
 	# Initialize content
 	if (.self$.is.cache.reading.enabled()) {
@@ -231,12 +190,12 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
 	if (any(is.na(id)))
-		.self$.print.debug.msg(paste0(sum(is.na(id)), " entry ids are NA."))
+		.self$message(paste0(sum(is.na(id)), " entry ids are NA."))
 	if (.self$.is.cache.reading.enabled()) {
-		.self$.print.debug.msg(paste0(sum( ! is.na(id)) - length(missing.ids), " entry content(s) loaded from cache."))
+		.self$message(paste0(sum( ! is.na(id)) - length(missing.ids), " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
-			.self$.print.debug.msg(paste0(n.duplicates, " entry ids, whose content needs to be fetched, are duplicates."))
-		.self$.print.debug.msg(paste0(length(missing.ids), " entry content(s) need to be fetched."))
+			.self$message(paste0(n.duplicates, " entry ids, whose content needs to be fetched, are duplicates."))
+		.self$message(paste0(length(missing.ids), " entry content(s) need to be fetched."))
 	}
 
 	# Get contents
@@ -263,7 +222,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 			# Debug
 			if (.self$.is.cache.reading.enabled())
-				.self$.print.debug.msg(paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+				.self$message(paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
 		}
 
 		# Merge content and missing.contents
