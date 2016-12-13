@@ -61,11 +61,13 @@ Biodb$methods( getFactory = function() {
 Biodb$methods( addObservers = function(obs) {
 
 	# Check types of observers
-	if ( ( ! is.list(obs) && ! inherits(obs, "BiodbObserver")) || (is.list(obs) && any( ! vapply(obs, function(o) inherits(o, "BiodbObserver"), FUN.VALUE = TRUE))))
+	if ( ! is.list(obs)) obs <- list(obs)
+	is.obs <- vapply(obs, function(o) is(o, "BiodbObserver"), FUN.VALUE = TRUE)
+	if (any( ! is.obs))
 		stop("Observers must inherit from BiodbObserver class.")
 
 	# Add observers to current list (insert at beginning)
-	.observers <<- if (is.null(.self$.observers)) c(obs) else c(obs, .self$.observers)
+	.observers <<- if (is.null(.self$.observers)) obs else c(obs, .self$.observers)
 })
 
 # GET OBSERVERS {{{1

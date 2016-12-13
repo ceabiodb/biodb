@@ -1,4 +1,3 @@
 #' @useDynLib biodb
-#' @importFrom methods new
-#' @importFrom methods getGeneric
+#' @import methods
 NULL

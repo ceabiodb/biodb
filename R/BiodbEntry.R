@@ -165,7 +165,7 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function() {
 ###########
 
 BiodbEntry$methods(	setFactory = function(factory) {
-	is.null(factory) || inherits(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
+	is.null(factory) || is(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
 	.factory <<- factory
 })
 

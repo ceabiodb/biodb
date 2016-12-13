@@ -18,7 +18,7 @@ if ( ! exists('RemotedbConn')) {
 		# Set scheduler
 		if (is.null(scheduler))
 			scheduler <- UrlRequestScheduler$new(n = 3)
-		inherits(scheduler, "UrlRequestScheduler") || stop("The scheduler instance must inherit from UrlRequestScheduler class.")
+		is(scheduler, "UrlRequestScheduler") || stop("The scheduler instance must inherit from UrlRequestScheduler class.")
 		.scheduler <<- scheduler
 	
 		callSuper(...) # calls super-class initializer with remaining parameters
