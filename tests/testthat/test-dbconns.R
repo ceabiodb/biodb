@@ -66,9 +66,6 @@ test_entry_ids <- function(db) {
 # MAIN {{{1 #
 #############
 
-biodb <- Biodb$new()
-biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.logs')))
-
 # Set online/offline modes to test
 online.modes = logical()
 #if ( ! is.null(opt[['offline']]))
@@ -76,16 +73,18 @@ online.modes = logical()
 #if ( ! is.null(opt[['online']]))
 	online.modes <- c(online.modes, TRUE)
 
+biodb <- Biodb$new(useragent = USER.AGENT, use.env.var = TRUE)
+biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
+biodb$message(MSG.INFO, 'Zouzou')
+
 # Loop on online/offline modes
 for (online in online.modes) {
 
 	# Create factory
 	# TODO Add option in factory for blocking online access when in offline mode
-	factory <- biodb$getFactory(useragent = USER.AGENT,
-								cache.dir = file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')),
-								cache.mode = if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY,
-								use.env.var = TRUE
-								)
+	factory <- biodb$getFactory()
+	factory$setCacheDir(file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
+	factory$setCacheMode(if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY)
 
 	# Loop on all databases
 	for (db in BIODB.DATABASES) {

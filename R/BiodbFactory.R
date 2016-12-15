@@ -1,6 +1,6 @@
 # vi: fdm=marker
 
-# CLASS DECLARATION {{{1 {{{1
+# CLASS DECLARATION {{{1
 ################################################################
 
 BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(
@@ -13,20 +13,83 @@ BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', f
 # CONSTRUCTOR {{{1
 ################################################################
 
-BiodbFactory$methods( initialize = function(cache.dir = NA_character_, cache.mode = BIODB.CACHE.READ.WRITE, chunk.size = NA_integer_, biodb = NULL, ...) {
+BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
 
 	.conn <<- list()
-	.cache.dir <<- cache.dir
-	.cache.mode <<- cache.mode
-	.chunk.size <<- as.integer(chunk.size)
+	.cache.mode <<- BIODB.CACHE.READ.WRITE
+	.cache.dir <<- NA_character_
+	.cache.mode <<- NA_character_
+	.chunk.size <<- NA_integer_
 	.biodb <<- biodb
 
 	callSuper(...) # calls super-class initializer with remaining parameters
 })
 
-# CREATE CONN {{{1
-################################################################
+# CACHE {{{1
 
+# Set cache dir {{{2
+BiodbFactory$methods( setCacheDir = function(dir) {
+	.cache.dir <<- dir
+})
+
+# Set cache mode {{{2
+BiodbFactory$methods( setCacheMode = function(mode) {
+	mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE, BIODB.CACHE.WRITE.ONLY) || .self$message(MSG.ERROR, paste0("Invalid value \"", mode, "\" for cache mode."))
+	.cache.mode <<- mode
+})
+
+# Get cache file paths {{{2
+BiodbFactory$methods( .get.cache.file.paths = function(class, id) {
+
+	# Get extension
+	ext <- .self$getConn(class)$getEntryContentType()
+
+	# Set filenames
+	filenames <- vapply(id, function(x) { if (is.na(x)) NA_character_ else paste0(class, '-', x, '.', ext) }, FUN.VALUE = '')
+
+	# set file paths
+	file.paths <- vapply(filenames, function(x) { if (is.na(x)) NA_character_ else file.path(.self$.cache.dir, x) }, FUN.VALUE = '')
+
+	# Create cache dir if needed
+	if ( ! is.na(.self$.cache.dir) && ! file.exists(.self$.cache.dir))
+		dir.create(.self$.cache.dir)
+
+	return(file.paths)
+})
+
+# Load content from cache {{{2
+BiodbFactory$methods( .load.content.from.cache = function(class, id) {
+
+	content <- NULL
+
+	# Read contents from files
+	file.paths <- .self$.get.cache.file.paths(class, id)
+	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL )} )
+
+	return(content)
+})
+
+# Is cache reading enabled {{{2
+BiodbFactory$methods( .is.cache.reading.enabled = function() {
+	return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE))
+})
+
+# Is cache writing enabled {{{2
+BiodbFactory$methods( .is.cache.writing.enabled = function() {
+	return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.WRITE.ONLY, BIODB.CACHE.READ.WRITE))
+})
+
+# Save content to cache {{{2
+BiodbFactory$methods( .save.content.to.cache = function(class, id, content) {
+
+	# Write contents into files
+	file.paths <- .self$.get.cache.file.paths(class, id)
+	mapply(function(c, f) { if ( ! is.null(c)) writeLines(c, f) }, content, file.paths)
+})
+
+# CONNECTIONS {{{1
+
+# Create conn {{{2
 BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
     " Create connection to databases useful for metabolomics."
 
@@ -68,7 +131,7 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 	return (.self$.conn[[class]])
 })
 
-# GET CONN {{{1
+# Get conn {{{2
 ################################################################
 
 BiodbFactory$methods( getConn = function(class) {
@@ -80,9 +143,14 @@ BiodbFactory$methods( getConn = function(class) {
 	return (.self$.conn[[class]])
 })
 
-# CREATE ENTRY {{{1
-################################################################
+# ENTRIES {{{1
 
+# Set chunk size {{{2
+BiodbFactory$methods( setChunkSize = function(size) {
+	.chunk.size <<- as.integer(size)
+})
+
+# Create entry {{{2
 BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, drop = TRUE) {
 	"Create Entry from a database by id."
 
@@ -107,68 +175,7 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 	return(entry)
 })
 
-# GET CACHE FILE PATHS {{{1
-################################################################
-
-BiodbFactory$methods( .get.cache.file.paths = function(class, id) {
-
-	# Get extension
-	ext <- .self$getConn(class)$getEntryContentType()
-
-	# Set filenames
-	filenames <- vapply(id, function(x) { if (is.na(x)) NA_character_ else paste0(class, '-', x, '.', ext) }, FUN.VALUE = '')
-
-	# set file paths
-	file.paths <- vapply(filenames, function(x) { if (is.na(x)) NA_character_ else file.path(.self$.cache.dir, x) }, FUN.VALUE = '')
-
-	# Create cache dir if needed
-	if ( ! is.na(.self$.cache.dir) && ! file.exists(.self$.cache.dir))
-		dir.create(.self$.cache.dir)
-
-	return(file.paths)
-})
-
-# LOAD CONTENT FROM CACHE {{{1
-################################################################
-
-BiodbFactory$methods( .load.content.from.cache = function(class, id) {
-
-	content <- NULL
-
-	# Read contents from files
-	file.paths <- .self$.get.cache.file.paths(class, id)
-	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL )} )
-
-	return(content)
-})
-
-# IS CACHE READING ENABLED {{{1
-################################################################
-
-BiodbFactory$methods( .is.cache.reading.enabled = function() {
-	return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE))
-})
-
-# IS CACHE WRITING ENABLED {{{1
-################################################################
-
-BiodbFactory$methods( .is.cache.writing.enabled = function() {
-	return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.WRITE.ONLY, BIODB.CACHE.READ.WRITE))
-})
-
-# SAVE CONTENT TO CACHE {{{1
-################################################################
-
-BiodbFactory$methods( .save.content.to.cache = function(class, id, content) {
-
-	# Write contents into files
-	file.paths <- .self$.get.cache.file.paths(class, id)
-	mapply(function(c, f) { if ( ! is.null(c)) writeLines(c, f) }, content, file.paths)
-})
-
-# GET ENTRY CONTENT {{{1
-################################################################
-
+# Get entry content {{{2
 BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
