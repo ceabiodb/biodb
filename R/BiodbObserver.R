@@ -18,5 +18,5 @@ MSG.ERROR <- 'ERROR'
 # MESSAGE {{{1
 ################################################################
 
-BiodbObserver$methods( message = function(type = MSG.INFO, msg, level = 1) {
+BiodbObserver$methods( message = function(type = MSG.INFO, msg, class = NA_character_, level = 1) {
 })

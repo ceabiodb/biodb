@@ -74,7 +74,7 @@ online.modes = logical()
 	online.modes <- c(online.modes, TRUE)
 
 biodb <- Biodb$new(useragent = USER.AGENT, use.env.var = TRUE)
-biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
+biodb$addObservers(BiodbLogger$new()) #file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
 biodb$message(MSG.INFO, 'Zouzou')
 
 # Loop on online/offline modes

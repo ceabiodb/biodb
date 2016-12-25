@@ -60,10 +60,12 @@ BiodbObject$methods( message = function(type = MSG.INFO, msg, level = 1) {
 	biodb <- .self$getBiodb() 
 
 	if ( ! is.null(biodb))
-		lapply(biodb$getObservers(), function(x) x$message(type = type, msg = msg, class = class(.self), level = level))
-	else
+		lapply(biodb$getObservers(), function(x) { print(class(x)); x$message(type = type, msg = msg, class = class(.self), level = level) })
+	else {
+		class.info <- if (is.na(class)) '' else paste0('[', class, '] ')
 		switch(type,
-		       ERROR = stop(msg),
-		       WARNING = warning(msg),
-		       cat(msg, "\n", file = stderr()))
+		       ERROR = stop(paste0(classinfo, msg)),
+		       WARNING = warning(paste0(classinfo, msg)),
+		       cat(classinfo, msg, "\n", file = stderr()))
+	}
 })

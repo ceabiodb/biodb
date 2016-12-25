@@ -18,6 +18,13 @@ Biodb$methods( initialize = function(useragent = NA_character_, use.env.var = FA
 	callSuper(...)
 })
 
+# GET BIODB {{{1
+################################################################
+
+Biodb$methods( getBiodb = function() {
+	return(.self)
+})
+
 # GET USER AGENT {{{1
 ################################################################
 
