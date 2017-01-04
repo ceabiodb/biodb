@@ -1,14 +1,12 @@
 # vi: fdm=marker
 
-##################
-# CONSTANTS {{{1 #
-##################
+# CONSTANTS {{{1
+################################################################
 
 .MASSFILEDB.URL <- file.path(SCRIPT.DIR, 'tests', 'res', 'massfiledb.tsv')
 
-#####################
-# TEST ENTRY FIELDS #
-#####################
+# TEST ENTRY FIELDS {{{1
+################################################################
 
 test_entry_fields <- function(factory, db) {
 
@@ -28,9 +26,8 @@ test_entry_fields <- function(factory, db) {
 	}
 }
 
-####################
-# TEST WRONG ENTRY #
-####################
+# TEST WRONG ENTRY {{{1
+################################################################
 
 test_wrong_entry <- function(factory, db) {
 
@@ -39,9 +36,8 @@ test_wrong_entry <- function(factory, db) {
 	expect_null(wrong.entry)
 }
 
-########################
-# TEST NB ENTRIES {{{1 #
-########################
+# TEST NB ENTRIES {{{1
+################################################################
 
 test_nb_entries <- function(db) {
 
@@ -50,9 +46,8 @@ test_nb_entries <- function(db) {
 	expect_true(is.na(n) || n >= 0)
 }
 
-#######################
-# TEST ENTRY IDS {{{1 #
-#######################
+# TEST ENTRY IDS {{{1
+################################################################
 
 test_entry_ids <- function(db) {
 
@@ -62,9 +57,8 @@ test_entry_ids <- function(db) {
 	expect_true(n >= 0 && n <= max)
 }
 
-#############
-# MAIN {{{1 #
-#############
+# MAIN {{{1
+################################################################
 
 # Set online/offline modes to test
 online.modes = logical()
@@ -75,7 +69,6 @@ online.modes = logical()
 
 biodb <- Biodb$new(useragent = USER.AGENT, use.env.var = TRUE)
 biodb$addObservers(BiodbLogger$new()) #file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
-biodb$message(MSG.INFO, 'Zouzou')
 
 # Loop on online/offline modes
 for (online in online.modes) {
