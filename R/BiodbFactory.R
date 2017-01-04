@@ -22,7 +22,7 @@ BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
 	.chunk.size <<- NA_integer_
 	.biodb <<- biodb
 
-	callSuper(...) # calls super-class initializer with remaining parameters
+	callSuper(...)
 })
 
 # CACHE {{{1
