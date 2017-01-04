@@ -76,7 +76,7 @@ BiodbObject$methods( message = function(type = MSG.INFO, msg, level = 1) {
 	if ( ! is.null(biodb))
 		lapply(biodb$getObservers(), function(x) x$message(type = type, msg = msg, class = class(.self), level = level))
 	else {
-		class.info <- if (is.na(type)) '' else paste0('[', type, '] ')
+		class.info <- if (is.na(class(.self))) '' else paste0('[', class(.self), '] ')
 		switch(type,
 		       ERROR = stop(paste0(class.info, msg)),
 		       WARNING = warning(paste0(class.info, msg)),

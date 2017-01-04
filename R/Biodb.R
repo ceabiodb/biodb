@@ -13,7 +13,7 @@ Biodb$methods( initialize = function(useragent = NA_character_, use.env.var = FA
 	.useragent <<- useragent
 	.use.env.var <<- use.env.var
 	.observers <<- list(WarningReporter$new(), ErrorReporter$new())
-	.factory <<- BiodbFactory$new()
+	.factory <<- BiodbFactory$new(biodb = .self)
 
 	callSuper(...)
 })

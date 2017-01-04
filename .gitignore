@@ -8,3 +8,4 @@ man
 ..Rcheck
 src/*.rds
 test-pkg.output
+*.log

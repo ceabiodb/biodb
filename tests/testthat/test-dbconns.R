@@ -68,7 +68,7 @@ online.modes = logical()
 	online.modes <- c(online.modes, TRUE)
 
 biodb <- Biodb$new(useragent = USER.AGENT, use.env.var = TRUE)
-biodb$addObservers(BiodbLogger$new()) #file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
+biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
 
 # Loop on online/offline modes
 for (online in online.modes) {
@@ -76,6 +76,7 @@ for (online in online.modes) {
 	# Create factory
 	# TODO Add option in factory for blocking online access when in offline mode
 	factory <- biodb$getFactory()
+	factory$message(msg = "BLABLA")
 	factory$setCacheDir(file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
 	factory$setCacheMode(if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY)
 

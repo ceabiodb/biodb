@@ -13,6 +13,8 @@ BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.
 	.verbose.level <<- if ( ! is.null(verbose.level) && ! is.na(verbose.level)) verbose.level else as.integer(1)
 	.debug.level <<- if ( ! is.null(debug.level) && ! is.na(debug.level)) debug.level else as.integer(1)
 	.file <<- if ( ! is.null(file) && ! is.na(file)) file else stderr()
+	if (is.character(.file))
+		.file <<- file(.self$.file, "w")
 
 	callSuper(...)
 })
@@ -25,15 +27,15 @@ BiodbLogger$methods( message = function(type = MSG.INFO, msg, class = NA_charact
 	# Check message type
 	type %in% .MSG.TYPES || .self$message(MSG.ERROR, paste0("Unknown message type ", type, "."))
 
-	# Should message be displayed ?
-	display = TRUE
+	# Should message be output ?
+	output = TRUE
 	if (type == MSG.INFO && .self$.verbose.level < level)
-		display = FALSE
+		output = FALSE
 	if (type == MSG.DEBUG && .self$.debug.level < level)
-		display = FALSE
+		output = FALSE
 
-	# Display message
-	if (display) {
+	# Output message
+	if (output) {
 		class.info <- if (is.na(class)) '' else paste0('[', class, ']')
 		cat(type, class.info, ': ', msg, "\n", sep = '', file = .self$.file)
 	}
