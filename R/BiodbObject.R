@@ -3,7 +3,15 @@
 # CLASS DECLARATION {{{1
 ################################################################
 
-BiodbObject <- methods::setRefClass("BiodbObject", fields = list( .observers = "ANY" ))
+BiodbObject <- methods::setRefClass("BiodbObject", fields = list( .observers = "ANY", .message.enabled = "logical"))
+
+# CONSTRUCTOR {{{1
+################################################################
+
+BiodbObject$methods( initialize = function(...) {
+	.message.enabled <<- TRUE
+	callSuper(...)
+})
 
 # ABSTRACT METHOD {{{1
 ################################################################
@@ -13,7 +21,7 @@ BiodbObject$methods( .abstract.method = function() {
 
 	class <- class(.self)
 	method <- sys.call(length(sys.calls()) - 1)
-	method <- sub('^[^$]*\\$([^(]*)\\(.*$', '\\1()', method)
+	method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
 
 	.self$message(type = MSG.ERROR, paste("Method", method, "is not implemented in", class, "class."))
 })
@@ -57,15 +65,21 @@ BiodbObject$methods( getUserAgent = function() {
 # Send a message to observers
 BiodbObject$methods( message = function(type = MSG.INFO, msg, level = 1) {
 
-	biodb <- .self$getBiodb() 
+	# Get biodb instance
+	biodb <- NULL
+	if (.self$.message.enabled) {
+		.message.enabled <<- FALSE
+		biodb <- .self$getBiodb() 
+		.message.enabled <<- TRUE
+	}
 
 	if ( ! is.null(biodb))
-		lapply(biodb$getObservers(), function(x) { print(class(x)); x$message(type = type, msg = msg, class = class(.self), level = level) })
+		lapply(biodb$getObservers(), function(x) x$message(type = type, msg = msg, class = class(.self), level = level))
 	else {
-		class.info <- if (is.na(class)) '' else paste0('[', class, '] ')
+		class.info <- if (is.na(type)) '' else paste0('[', type, '] ')
 		switch(type,
-		       ERROR = stop(paste0(classinfo, msg)),
-		       WARNING = warning(paste0(classinfo, msg)),
-		       cat(classinfo, msg, "\n", file = stderr()))
+		       ERROR = stop(paste0(class.info, msg)),
+		       WARNING = warning(paste0(class.info, msg)),
+		       cat(class.info, msg, "\n", file = stderr()))
 	}
 })
