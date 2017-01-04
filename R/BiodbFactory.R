@@ -165,7 +165,7 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 	! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
 
 	# Debug
-	.self$message(paste0("Creating ", if (is.null(id)) length(content) else length(id), " entries from ", if (is.null(id)) "contents" else paste("ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", ")), "..."))
+	.self$message(MSG.INFO, paste0("Creating ", if (is.null(id)) length(content) else length(id), " entries from ", if (is.null(id)) "contents" else paste("ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", ")), "..."))
 
 	# Get content
 	if ( ! is.null(id))
@@ -174,7 +174,7 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 	entry <- conn$createEntry(content = content, drop = drop)
 
 	# Set factory
-	.self$message(paste0("Setting factory reference into entries..."))
+	.self$message(MSG.INFO, paste0("Setting factory reference into entries..."))
 	for (e in c(entry))
 		if ( ! is.null(e))
 			e$setFactory(.self)
@@ -186,7 +186,7 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
-	.self$message(paste0("Get entry content(s) for ", length(id)," id(s)..."))
+	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(id)," id(s)..."))
 
 	# Initialize content
 	if (.self$.is.cache.reading.enabled()) {
@@ -204,12 +204,12 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
 	if (any(is.na(id)))
-		.self$message(paste0(sum(is.na(id)), " entry ids are NA."))
+		.self$message(MSG.INFO, paste0(sum(is.na(id)), " entry ids are NA."))
 	if (.self$.is.cache.reading.enabled()) {
-		.self$message(paste0(sum( ! is.na(id)) - length(missing.ids), " entry content(s) loaded from cache."))
+		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
-			.self$message(paste0(n.duplicates, " entry ids, whose content needs to be fetched, are duplicates."))
-		.self$message(paste0(length(missing.ids), " entry content(s) need to be fetched."))
+			.self$message(MSG.INFO, paste0(n.duplicates, " entry ids, whose content needs to be fetched, are duplicates."))
+		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched."))
 	}
 
 	# Get contents
@@ -236,7 +236,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 			# Debug
 			if (.self$.is.cache.reading.enabled())
-				.self$message(paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+				.self$message(MSG.INFO, paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
 		}
 
 		# Merge content and missing.contents

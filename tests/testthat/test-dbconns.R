@@ -76,7 +76,6 @@ for (online in online.modes) {
 	# Create factory
 	# TODO Add option in factory for blocking online access when in offline mode
 	factory <- biodb$getFactory()
-	factory$message(msg = "BLABLA")
 	factory$setCacheDir(file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
 	factory$setCacheMode(if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY)
 

@@ -63,7 +63,7 @@ BiodbObject$methods( getUserAgent = function() {
 ################################################################
 
 # Send a message to observers
-BiodbObject$methods( message = function(type = MSG.INFO, msg, level = 1) {
+BiodbObject$methods( message = function(type, msg, level = 1) {
 
 	# Get biodb instance
 	biodb <- NULL
