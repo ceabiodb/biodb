@@ -25,6 +25,13 @@ BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
 	callSuper(...)
 })
 
+# GET BIODB {{{1
+################################################################
+
+BiodbFactory$methods( getBiodb = function() {
+	return(.self$.biodb)
+})
+
 # CACHE {{{1
 
 # Set cache dir {{{2
