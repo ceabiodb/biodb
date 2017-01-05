@@ -1,20 +1,27 @@
-# CONSTANTS #
+# vi: fdm=marker
+
+# CONSTANTS {{{1
+################################################################
 
 BIODB.GET  <- 'GET'
 BIODB.POST <- 'POST'
 
-# CLASS DECLARATION #
+# CLASS DECLARATION {{{1
+################################################################
 
-UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "BiodbObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer"))
+UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "BiodbObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer", .parent = "ANY"))
 
 # n: number of connections
 # t: time (in seconds)
 
 # The scheduler restrict the number of connections at n per t seconds.
 
-# CONSTRUCTOR #
+# CONSTRUCTOR {{{1
+################################################################
 
-UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer = TRUE, ...) {
+UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer = TRUE, parent = NULL, ...) {
+	is.null(parent) || is(parent, "BiodbObject") || .self$message(MSG.ERROR, paste0("Parent must be of class BiodbObject, it was of class ", class(parent), "."))
+	.parent <<- parent
 	.n <<- n
 	.t <<- t
 	.time.of.last.request <<- -1
@@ -24,13 +31,23 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer 
 	callSuper(...) # calls super-class initializer with remaining parameters
 })
 
-# SET VERBOSE #
+# GET BIODB {{{1
+################################################################
+
+UrlRequestScheduler$methods( getBiodb = function() {
+	biodb <- if (is.null(.self$.parent)) NULL else .self$.parent$getBiodb()
+	return(biodb)
+})
+
+# SET VERBOSE {{{1
+################################################################
 
 UrlRequestScheduler$methods( setVerbose = function(verbose) {
 	.verbose <<- verbose
 })
 
-# WAIT AS NEEDED #
+# WAIT AS NEEDED {{{1
+################################################################
 
 # Wait the specified between two requests.
 UrlRequestScheduler$methods( .wait.as.needed = function() {

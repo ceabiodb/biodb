@@ -67,7 +67,8 @@ BiodbObject$methods( message = function(type, msg, level = 1) {
 
 	# Get biodb instance
 	biodb <- NULL
-	if (.self$.message.enabled) {
+	if (length(.self$.message.enabled) == 1 # length is 0 if called from constructor
+		&& .self$.message.enabled) {
 		.message.enabled <<- FALSE
 		biodb <- .self$getBiodb() 
 		.message.enabled <<- TRUE
