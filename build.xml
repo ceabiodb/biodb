@@ -48,6 +48,7 @@
 				<outputfilterchain>
 					<tokenfilter>
 						<replaceregex pattern="from " replace="from R/"/>
+						<replaceregex pattern="@" replace="@tests/testthat/"/>
 					</tokenfilter>
 				</outputfilterchain>
 			</redirector>

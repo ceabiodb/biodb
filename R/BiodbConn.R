@@ -15,6 +15,13 @@ BiodbConn$methods( initialize = function(debug = FALSE, biodb = NULL, ...) {
 	callSuper(...)
 })
 
+# GET BIODB {{{1
+################################################################
+
+BiodbConn$methods( getBiodb = function() {
+	return(.self$.biodb)
+})
+
 ##########################
 # GET ENTRY CONTENT TYPE #
 ##########################

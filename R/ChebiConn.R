@@ -48,8 +48,22 @@ ChebiConn$methods( getNbEntries = function() {
 #################
 
 ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	request <- "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" ><SOAP-ENV:Body><tns:getLiteEntity xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\"><tns:search>1*</tns:search><tns:searchCategory>CHEBI ID</tns:searchCategory><tns:maximumResults>100</tns:maximumResults><tns:stars></tns:stars></tns:getLiteEntity></SOAP-ENV:Body></SOAP-ENV:Envelope>"
-	results <- .self$.scheduler$sendSoapRequest('http://www.ebi.ac.uk:80/webservices/chebi/2.0/webservice', request)
-	.self$message(MSG.DEBUG, paste0("Received response from ChEBI: ", substr(results, 0, 10)))
-	return(NULL)
+
+	# Build request
+	xml.request <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><SOAP-ENV:Body><tns:getLiteEntity xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\"><tns:search>1*</tns:search><tns:searchCategory>CHEBI ID</tns:searchCategory><tns:maximumResults>", max.results, "</tns:maximumResults><tns:stars></tns:stars></tns:getLiteEntity></SOAP-ENV:Body></SOAP-ENV:Envelope>")
+
+	# Send request
+	xml.results <- .self$.scheduler$sendSoapRequest('http://www.ebi.ac.uk:80/webservices/chebi/2.0/webservice', xml.request)
+
+	# Set XML namespace
+	ns <- c(chebi = "http://www.ebi.ac.uk/webservices/chebi")
+
+	# Parse XML
+	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
+
+	# Get elements
+	ids <- XML::xpathSApply(xml, "//chebi:chebiId", XML::xmlValue, namespaces = ns)
+	ids <- sub('CHEBI:', '', ids)
+
+	return(ids)
 })
