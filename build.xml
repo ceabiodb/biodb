@@ -41,18 +41,33 @@
 		</exec>
 	</target>
 
+	<!-- TEST PACKAGE MACRO -->
+	<macrodef name="testpkg">
+		<attribute name="online" default="true"/>
+		<sequential>
+			<exec executable="${this.dir}/test-pkg" failonerror="true">
+				<arg value="--online"/>
+				<arg value="@{online}"/>
+				<redirector>
+					<outputfilterchain>
+						<tokenfilter>
+							<replaceregex pattern="from " replace="from R/"/>
+							<replaceregex pattern="@" replace="@tests/testthat/"/>
+						</tokenfilter>
+					</outputfilterchain>
+				</redirector>
+			</exec>
+		</sequential>
+	</macrodef>
+
 	<!-- TEST PACKAGE -->
 	<target name="test.pkg">
-		<exec executable="${this.dir}/test-pkg" failonerror="true">
-			<redirector>
-				<outputfilterchain>
-					<tokenfilter>
-						<replaceregex pattern="from " replace="from R/"/>
-						<replaceregex pattern="@" replace="@tests/testthat/"/>
-					</tokenfilter>
-				</outputfilterchain>
-			</redirector>
-		</exec>
+		<testpkg/>
+	</target>
+
+	<!-- OFFLINE TEST PACKAGE -->
+	<target name="offline.test.pkg">
+		<testpkg online="false"/>
 	</target>
 
 	<!-- CLEAN -->

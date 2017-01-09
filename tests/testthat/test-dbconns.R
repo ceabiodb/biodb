@@ -10,12 +10,17 @@
 
 test_entry_fields <- function(factory, db) {
 
-	# Download contents
+	# Define reference file
 	entries.file <- file.path(SCRIPT.DIR, 'tests', 'res', paste0(db, '-entries.txt'))
+	file.exists(entries.file) || stop(paste0("Cannot find file \"", entries.file, "\"."))
+
+	# Load reference contents from file
 	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
+	nrow(entries.desc) > 0 || stop(paste0("No reference entries found in file \"", entries.file, "\" in test_entry_fields()."))
 
 	# Create entries
 	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	length(entries) > 0 || stop("No entries created in test_entry_fields().")
 
 	# Test fields of entries
 	for (f in colnames(entries.desc)) {
@@ -62,9 +67,8 @@ test_entry_ids <- function(db) {
 
 # Set online/offline modes to test
 online.modes = logical()
-#if ( ! is.null(opt[['offline']]))
-	online.modes <- c(online.modes, FALSE)
-#if ( ! is.null(opt[['online']]))
+online.modes <- c(online.modes, FALSE)
+if (opt[['online']])
 	online.modes <- c(online.modes, TRUE)
 
 biodb <- Biodb$new(useragent = USER.AGENT, use.env.var = TRUE)
