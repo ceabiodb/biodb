@@ -29,7 +29,6 @@ if ( ! exists('RemotedbConn')) {
 	###########
 
 	RemotedbConn$methods( .get.url = function(url) {
-		.self$message(paste0("Sending URL request '", url, "'..."))
 		return(.self$.scheduler$getUrl(url))
 	})
 	

@@ -102,10 +102,12 @@ for (online in online.modes) {
 
 #		if (is.null(opt[['databases']]) || db %in% opt[['databases']]) {
 			context(paste0("Testing database ", db, if (online) " online" else " offline"))
-			test_that("Wrong entry gives NULL", test_wrong_entry(factory, db))
 			test_that("Entry fields have a correct value", test_entry_fields(factory, db))
-			test_that("Nb entries is positive", test_nb_entries(factory$getConn(db)))
-			test_that("We can get a list of entry ids", test_entry_ids(factory$getConn(db)))
+			if (online) {
+				test_that("Wrong entry gives NULL", test_wrong_entry(factory, db))
+				test_that("Nb entries is positive", test_nb_entries(factory$getConn(db)))
+				test_that("We can get a list of entry ids", test_entry_ids(factory$getConn(db)))
+			}
 #		}
 	}
 }

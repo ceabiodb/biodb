@@ -186,7 +186,7 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
-	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(id)," id(s)..."))
+	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
 
 	# Initialize content
 	if (.self$.is.cache.reading.enabled()) {
@@ -204,12 +204,12 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
 	if (any(is.na(id)))
-		.self$message(MSG.INFO, paste0(sum(is.na(id)), " entry ids are NA."))
+		.self$message(MSG.INFO, paste0(sum(is.na(id)), " ", class, " entry ids are NA."))
 	if (.self$.is.cache.reading.enabled()) {
-		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " entry content(s) loaded from cache."))
+		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " ", class, " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
-			.self$message(MSG.INFO, paste0(n.duplicates, " entry ids, whose content needs to be fetched, are duplicates."))
-		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched."))
+			.self$message(MSG.INFO, paste0(n.duplicates, " ", class, " entry ids, whose content needs to be fetched, are duplicates."))
+		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched for ", class, "."))
 	}
 
 	# Get contents
