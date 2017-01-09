@@ -11,7 +11,7 @@ LipidmapsConn <- methods::setRefClass("LipidmapsConn", contains = "RemotedbConn"
 LipidmapsConn$methods( initialize = function(...) {
 	# From http://www.lipidmaps.org/data/structure/programmaticaccess.html:
 	# If you write a script to automate calls to LMSD, please be kind and do not hit our server more often than once per 20 seconds. We may have to kill scripts that hit our server more frequently.
-	callSuper(scheduler = UrlRequestScheduler$new(t = 20), ...)
+	callSuper(scheduler = UrlRequestScheduler$new(t = 20, parent = .self), ...)
 })
 
 ##########################
