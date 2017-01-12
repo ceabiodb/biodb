@@ -13,6 +13,6 @@ ErrorReporter$methods( message = function(type = MSG.INFO, msg, class = NA_chara
 	# Raise error
 	if (type == biodb::MSG.ERROR) {
 		class.info <- if (is.na(class)) '' else paste0('[', class, '] ')
-		stop(paste0(classinfo, msg))
+		stop(paste0(class.info, msg))
 	}
 })

@@ -87,8 +87,8 @@ for (online in online.modes) {
 	for (db in BIODB.DATABASES) {
 
 		# Initialize massfiledb
-		# if (db == BIODB.MASSFILEDB) {
-			# db.instance <- factory$createConn(db, url = .MASSFILEDB.URL)
+		if (db == BIODB.MASSFILEDB) {
+			db.instance <- factory$createConn(db, url = .MASSFILEDB.URL)
 			# db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 			# db.instance$setField(BIODB.COMPOUND.ID, 'molid')
 			# db.instance$setField(BIODB.MSMODE, 'mode')
@@ -102,7 +102,7 @@ for (online in online.modes) {
 			# db.instance$setField(BIODB.FULLNAMES, 'molnames')
 			# db.instance$setMsMode(BIODB.MSMODE.NEG, 'NEG')
 			# db.instance$setMsMode(BIODB.MSMODE.POS, 'POS')
-		# }
+		}
 
 #		if (is.null(opt[['databases']]) || db %in% opt[['databases']]) {
 			context(paste0("Testing database ", db, if (online) " online" else " offline"))

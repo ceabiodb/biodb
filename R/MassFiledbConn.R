@@ -27,8 +27,8 @@ MassFiledbConn <- methods::setRefClass("MassFiledbConn", contains = "MassdbConn"
 MassFiledbConn$methods( initialize = function(file = NA_character_, file.sep = "\t", file.quote = "\"", ...) {
 
 	# Check file
-	(! is.null(file) && ! is.na(file)) || stop("You must specify a file database to load.")
-	file.exists(file) || stop(paste0("Cannot locate the file database \"", file ,"\"."))
+	(! is.null(file) && ! is.na(file)) || .self$message(MSG.ERROR, "You must specify a file database to load.")
+	file.exists(file) || .self$message(MSG.ERROR, paste0("Cannot locate the file database \"", file ,"\"."))
 
 	# Set fields
 	.db <<- NULL
@@ -74,17 +74,17 @@ MassFiledbConn$methods( .init.db = function() {
 
 MassFiledbConn$methods( setField = function(tag, colname) {
 
-	( ! is.null(tag) && ! is.na(tag)) || stop("No tag specified.")
-	( ! is.null(colname) && ! is.na(colname)) || stop("No column name specified.")
+	( ! is.null(tag) && ! is.na(tag)) || .self$message(MSG.ERROR, "No tag specified.")
+	( ! is.null(colname) && ! is.na(colname)) || .self$message(MSG.ERROR, "No column name specified.")
 
 	# Load database file
 	.self$.init.db()
 
 	# Check that this field tag is defined in the fields list
-	.self$isValidFieldTag(tag) || stop(paste0("Database field tag \"", tag, "\" is not valid."))
+	.self$isValidFieldTag(tag) || .self$message(MSG.ERROR, paste0("Database field tag \"", tag, "\" is not valid."))
 
 	# Check that columns are defined in database file
-	all(colname %in% names(.self$.db)) || stop(paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
+	all(colname %in% names(.self$.db)) || .self$message(MSG.ERROR, paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
 
 	# Set new definition
 	if (length(colname) == 1)
@@ -135,7 +135,7 @@ MassFiledbConn$methods( .check.fields = function(fields) {
 	# Check if fields are known
 	unknown.fields <- names(.self$.fields)[ ! fields %in% names(.self$.fields)]
 	if (length(unknown.fields) > 0)
-		stop(paste0("Field(s) ", paste(fields, collapse = ", "), " is/are unknown."))
+		.self$message(MSG.ERROR, paste0("Field(s) ", paste(fields, collapse = ", "), " is/are unknown."))
 
 	# Init db
 	.self$.init.db()
@@ -143,7 +143,7 @@ MassFiledbConn$methods( .check.fields = function(fields) {
 	# Check if fields are defined in file database
 	undefined.fields <- colnames(.self$.db)[ ! fields %in% colnames(.self$.db)]
 	if (length(undefined.fields) > 0)
-		stop(paste0("Column(s) ", paste(fields), collapse = ", "), " is/are undefined in file database.")
+		.self$message(MSG.ERROR, paste0("Column(s) ", paste(fields), collapse = ", "), " is/are undefined in file database.")
 })
 
 ##########
@@ -165,7 +165,7 @@ MassFiledbConn$methods( .select = function(cols = NULL, mode = NULL, compound.id
 	if ( ! is.null(mode) && ! is.na(mode)) {
 
 		# Check mode value
-		mode %in% names(.self$.ms.modes) || stop(paste0("Unknown mode value '", mode, "'."))
+		mode %in% names(.self$.ms.modes) || .self$message(MSG.ERROR, paste0("Unknown mode value '", mode, "'."))
 		.self$.check.fields(BIODB.MSMODE)
 
 		# Filter on mode
