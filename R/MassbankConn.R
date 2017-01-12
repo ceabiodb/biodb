@@ -31,7 +31,7 @@ MassbankConn$methods( getEntryContentType = function() {
 MassbankConn$methods( getEntryContent = function(ids) {
 
 	# Debug
-	.self$message(paste0("Get entry content(s) for ", length(ids)," id(s)..."))
+	.self$message(MSG.DEBUG, paste0("Get entry content(s) for ", length(ids)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2083
 
@@ -49,7 +49,7 @@ MassbankConn$methods( getEntryContent = function(ids) {
 		x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$.url)
 
 		# Debug
-		.self$message(paste0("Send URL request for ", x$n," id(s)..."))
+		.self$message(MSG.DEBUG, paste0("Send URL request for ", x$n," id(s)..."))
 
 		# Send request
 		xmlstr <- .self$.get.url(x$url)
@@ -59,15 +59,15 @@ MassbankConn$methods( getEntryContent = function(ids) {
 
 		# Parse XML and get text
 		if ( ! is.na(xmlstr)) {
-			xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
 			ns <- c(ax21 = "http://api.massbank/xsd")
-			returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
+			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
 			if (length(returned.ids) > 0)
-				content[match(returned.ids, ids)] <- xpathSApply(xml, "//ax21:info", xmlValue, namespaces = ns)
+				content[match(returned.ids, ids)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
 		}
 
 		# Debug
-		.self$message(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
+		.self$message(MSG.DEBUG, paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 	}
 
 	return(content)
@@ -106,9 +106,9 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Parse XML and get text
 	if ( ! is.na(xmlstr)) {
-		xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+		xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
 		ns <- c(ax21 = "http://api.massbank/xsd")
-		returned.ids <- xpathSApply(xml, "//ax21:id", xmlValue, namespaces = ns)
+		returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
 		return(returned.ids)
 	}
 })
