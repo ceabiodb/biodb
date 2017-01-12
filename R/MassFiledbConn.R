@@ -1,5 +1,4 @@
-# LCMS File db.
-# In this type of database, a single file is provided in CSV format. Default separator is tabulation.
+
 # Each line is a MS peak measure, .
 # The file contains molecule and spectrum information. Each spectrum has an accession id.
 
@@ -119,7 +118,7 @@ MassFiledbConn$methods( setMsMode = function(mode, value) {
 # GET ENTRY CONTENT TYPE #
 ##########################
 
-MassFiledbConn$methods( getEntryContentType = function(type) {
+MassFiledbConn$methods( getEntryContentType = function() {
 	return(BIODB.DATAFRAME)
 })
 
