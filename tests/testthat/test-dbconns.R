@@ -20,7 +20,7 @@ test_entry_fields <- function(factory, db) {
 
 	# Create entries
 	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
-	length(entries) > 0 || stop("No entries created in test_entry_fields().")
+	length(entries) == nrow(entries.desc) || stop("Not enough entries created in test_entry_fields().")
 
 	# Test fields of entries
 	for (f in colnames(entries.desc)) {

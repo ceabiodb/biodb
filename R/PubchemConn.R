@@ -28,7 +28,7 @@ PubchemConn$methods( getEntryContentType = function() {
 PubchemConn$methods( getEntryContent = function(ids) {
 
 	# Debug
-	.self$message(paste0("Get entry content(s) for ", length(ids)," id(s)..."))
+	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(ids)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2083
 
@@ -46,7 +46,7 @@ PubchemConn$methods( getEntryContent = function(ids) {
 		x <- get.entry.url(class = .self$.db, accession = accessions, content.type = BIODB.XML, max.length = URL.MAX.LENGTH)
 
 		# Debug
-		.self$message(paste0("Send URL request for ", x$n," id(s)..."))
+		.self$message(MSG.INFO, paste0("Send URL request for ", x$n," id(s)..."))
 
 		# Send request
 		xmlstr <- .self$.get.url(x$url)
@@ -63,14 +63,14 @@ PubchemConn$methods( getEntryContent = function(ids) {
 
 		# Parse XML and get included XML
 		if ( ! is.na(xmlstr)) {
-			xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
 			ns <- c(pcns = "http://www.ncbi.nlm.nih.gov")
-			returned.ids <- xpathSApply(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) 'PC-CompoundType_id_cid' else 'PC-ID_id'), xmlValue, namespaces = ns)
-			content[match(returned.ids, ids)] <- vapply(getNodeSet(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) "PC-Compound" else 'PC-Substance'), namespaces = ns), saveXML, FUN.VALUE = '')
+			returned.ids <- XML::xpathSApply(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) 'PC-CompoundType_id_cid' else 'PC-ID_id'), XML::xmlValue, namespaces = ns)
+			content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) "PC-Compound" else 'PC-Substance'), namespaces = ns), XML::saveXML, FUN.VALUE = '')
 		}
 
 		# Debug
-		.self$message(paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
+		.self$message(MSG.INFO, paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 	}
 
 	return(content)
