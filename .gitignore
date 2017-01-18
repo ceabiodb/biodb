@@ -3,7 +3,6 @@
 .RData
 .Rhistory
 cache
-NAMESPACE
 man
 ..Rcheck
 src/*.rds
