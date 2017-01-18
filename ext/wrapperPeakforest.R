@@ -63,7 +63,7 @@ NPMIN <- 2
 DMZ <- 0.005
 MZEXP <- 2
 INTEXP <- 0.5
-DIST <- 'wcosine'
+DIST <- 'pbachtttarya'
 
 ###RETURN PARAMETER
 

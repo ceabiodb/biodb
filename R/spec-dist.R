@@ -69,7 +69,7 @@ cosine <-
 			return(list(measure = 0, matched = rep(-1, length(mz1))))
 		w1 <- int1 ^ intexp * mz1 ^ mzexp
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
-		cat(w1[pfound], w2[unlist(matchList[pfound])],'\n')
+		cat(w1[pfound], w2[unlist(matchList[pfound])], '\n')
 		cos_value <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
 																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))
@@ -105,7 +105,8 @@ wcosine <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
 																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))
 		
-		if(is.nan(cos_value)) cos_value <- 0
+		if (is.nan(cos_value))
+			cos_value <- 0
 		####Adding the penality if needed.
 		div = 1
 		if (penality == "rweigth") {
@@ -118,12 +119,13 @@ wcosine <-
 		}
 		
 		measure <-  (cos_value + p) / div
-		if(is.nan(measure)) measure <-  (cos_value) / div
+		if (is.nan(measure))
+			measure <-  (cos_value) / div
 		list(measure = measure,
 			 matched = simpList(matchList))
 	}
 
-##A gaussian of the two spectra seen as a mixture of gaussian, derived form Heinonen et al 2012
+##The spec is seen as the mixture of two gaussian.
 pkernel <-
 	function(mz1,
 			 mz2,
@@ -132,8 +134,8 @@ pkernel <-
 			 mzexp = 2,
 			 intexp = 0.5,
 			 ppm,
+			 ###here ppm is the sigma ofthe mass distribution.
 			 dmz = 0.005,
-			 sigint = 0.5,
 			 penality = c("rweigth")) {
 		###We first match the peak
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
@@ -145,8 +147,11 @@ pkernel <-
 			return(list(measure = 0, matched = rep(-1, length(mz1))))
 		w1 <- int1 ^ intexp * mz1 ^ mzexp
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
+		
+		#w1 and w2 are normalized.
 		w1 <- w1 * 1 / sum(w1)
 		w2 <- w2 * 1 / sum(w2)
+		
 		l1 <- length(w1)
 		l2 <- length(w2)
 		###The mz dev
@@ -163,23 +168,98 @@ pkernel <-
 		###TO DO rcopder en C
 		for (i in 1:l1) {
 			for (j in 1:l2) {
-				divisor = max(stats::dnorm(
-					mz1[i],
-					mean = mz1[i],
-					sd = sqrt(vsig1[i] ^ 2 + vsig1[i] ^ 2)
-				),
-				stats::dnorm(
-					mz2[j],
-					mean = mz2[j],
-					sd = sqrt(vsig2[j] ^ 2 + vsig2[j] ^ 2)
-				))
+				divisor = max(
+					stats::dnorm(
+						mz1[i],
+						mean = mz1[i],
+						sd = sqrt(vsig1[i] ^ 2 + vsig1[i] ^ 2)
+					),
+					stats::dnorm(
+						mz2[j],
+						mean = mz2[j],
+						sd = sqrt(vsig2[j] ^ 2 + vsig2[j] ^ 2)
+					)
+				)
 				if (divisor == 0)
 					next
 				scalet = stats::dnorm(mz1[i],
-							   mean = mz2[j],
-							   sd = sqrt(vsig1[i] ^ 2 + vsig2[j] ^ 2))
+									  mean = mz2[j],
+									  sd = sqrt(vsig1[i] ^ 2 + vsig2[j] ^ 2))
 				accu = accu + scalet / divisor
 			}
+		}
+		div = 1
+		if (penality == "rweigth") {
+			p <-
+				(sum(w1[pfound]) / sum(w1) + sum(w2[unlist(matchList[pfound])]) / sum(w2)) /
+				2
+			div = 2
+		} else{
+			p <- 0
+		}
+		accu = accu / (l2 * l1)
+		list(measure = (accu + p) / div,
+			 matched = simpList(matchList))
+	}
+
+###Uing the bachttarya similarity :
+pbachtttarya <-
+	function(mz1,
+			 mz2,
+			 int1,
+			 int2,
+			 mzexp = 2,
+			 intexp = 0.5,
+			 ppm,
+			 ###here ppm is the sigma ofthe mass distribution.
+			 dmz = 0.005,
+			 penality = c("rweigth")) {
+		###We first match the peak
+		matchList <- matchPpm(mz1, mz2, ppm, dmz)
+		# ###Weigthed intensity
+		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		#
+		###If no peak is found.
+		if (length(pfound) == 0)
+			return(list(measure = 0, matched = rep(-1, length(mz1))))
+		w1 <- int1 ^ intexp * mz1 ^ mzexp
+		w2 <- int2 ^ intexp * mz2 ^ mzexp
+		
+		#w1 and w2 are normalized.
+		w1 <- w1 * 1 / sum(w1)
+		w2 <- w2 * 1 / sum(w2)
+		
+		l1 <- length(w1)
+		l2 <- length(w2)
+		###The mz dev
+		vsig1 = mz1 * ppm * 3 * 10 ^ -6
+		vsig1 = sapply(vsig1, function(x, y) {
+			return(max(x, y))
+		}, y = dmz)
+		
+		vsig2 = mz2 * ppm * 3 * 10 ^ -6
+		vsig2 = sapply(vsig2, function(x, y) {
+			return(max(x, y))
+		}, y = dmz)
+		
+		accu = 0
+		
+		###TO DO rcopder en C
+		###For each matched peak in we compute the Bhattacharyya coefficient:
+		for (j in 1:length(matchList)) {
+			if (is.null(matchList[[j]]))
+				next
+			mz1v <- mz1[j]
+			mz2v <- mz2[matchList[[j]]]
+			sig1 <- vsig1[j]
+			sig2 <- vsig2[matchList[[j]]]
+			#cat(paste("ml",matchList[[j]],"mz1 ",mz1," mz2 ",mz2," sig1 ",sig1," sig2 ",sig2,"\n"))
+			sig <- max(sig1, sig2)
+			xseq <- seq(min(mz1v, mz2v) - 4 * sig, max(mz1v, mz2v) + 4 * sig, length =
+							100)
+			y1 <- dnorm(xseq, mean = mz1v, sd = sig)
+			y2 <- dnorm(xseq, mean = mz2v, sd = sig)
+			accu = accu + sum(pracma:::trapz(xseq,sqrt(y1 * y2)))
 		}
 		div = 1
 		if (penality == "rweigth") {
