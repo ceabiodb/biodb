@@ -2,6 +2,32 @@
 # commented out for refactoring as package
 #dyn.load('src/closeMatchPpm.so')
 
+trpz <- function (x, y) 
+{
+	if (missing(y)) {
+		if (length(x) == 0) 
+			return(0)
+		y <- x
+		x <- seq(along = x)
+	}
+	if (length(x) == 0 && length(y) == 0) 
+		return(0)
+	if (!(is.numeric(x) || is.complex(x)) || !(is.numeric(y) || 
+											   is.complex(y))) 
+		stop("Arguments 'x' and 'y' must be real or complex vectors.")
+	m <- length(x)
+	if (length(y) != m) 
+		stop("Arguments 'x', 'y' must be vectors of the same length.")
+	if (m <= 1) 
+		return(0)
+	xp <- c(x, x[m:1])
+	yp <- c(numeric(m), y[m:1])
+	n <- 2 * m
+	p1 <- sum(xp[1:(n - 1)] * yp[2:n]) + xp[n] * yp[1]
+	p2 <- sum(xp[2:n] * yp[1:(n - 1)]) + xp[1] * yp[n]
+	return(0.5 * (p1 - p2))
+}
+
 matchPpm <- function(x, y, ppm = 3, mzmin = 0) {
 	if (any(is.na(y)))
 		stop("NA's are not allowed in y !\n")
@@ -259,7 +285,7 @@ pbachtttarya <-
 							100)
 			y1 <- dnorm(xseq, mean = mz1v, sd = sig)
 			y2 <- dnorm(xseq, mean = mz2v, sd = sig)
-			accu = accu + sum(pracma:::trapz(xseq,sqrt(y1 * y2)))
+			accu = accu + sum(trpz(xseq,sqrt(y1 * y2)))
 		}
 		div = 1
 		if (penality == "rweigth") {
