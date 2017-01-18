@@ -75,11 +75,17 @@ searchMSMSPeakforest <- function(spec, precursor, mztol, ppm, mode){
 	spec <- spec[,c(1,2)]
 	colnames(spec) <- c("mz","intensity")
 	
-if (.source.biodb) {
-	pfcon <- PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
-} else {
-	pfcon <- biodb:::PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
-}
+	biodb_obj <-  biodb:::Biodb$new(USER_AGENT)
+	fac <- biodb_obj$getFactory()
+	pfcon <- fac$createConn(biodb:::BIODB.PEAKFOREST,url="https://rest.peakforest.org",token=TOKEN)
+	
+# if (.source.biodb) {
+# 	pfcon <- PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
+# 	pfconPeakforestConn$.set.useragent(USER_AGENT)
+# } else {
+# 	pfcon <- biodb:::PeakforestConn$new(token = TOKEN,.debug=TRUE)
+# 	biodb:::PeakforestConn$.set.useragent(USER_AGENT)
+# }
 	res <- pfcon$msmsSearch(spec = spec, precursor = precursor, npmin = NPMIN, mztol=mztol, mode=mode,tolunit="plain",fun = DIST,params = list(ppm = ppm, dmz = DMZ, mzexp = MZEXP, intexp = INTEXP))
 	return(res)
 }
