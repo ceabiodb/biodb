@@ -11,7 +11,7 @@ WarningReporter <- methods::setRefClass("WarningReporter", contains = 'BiodbObse
 WarningReporter$methods( message = function(type = MSG.INFO, msg, class = NA_character_, level = 1) {
 
 	# Raise warning
-	if (type == biodb::MSG.WARNING) {
+	if (type == MSG.WARNING) {
 		class.info <- if (is.na(class)) '' else paste0('[', class, '] ')
 		warning(paste0(classinfo, msg))
 	}
