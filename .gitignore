@@ -8,3 +8,5 @@ man
 src/*.rds
 test-pkg.output
 *.log
+src-i386
+src-x64
