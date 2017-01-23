@@ -1,0 +1,106 @@
+#!/usr/bin/env Rscript
+# vi: ft=R fdm=marker
+
+library(methods)
+library(getopt)
+library(plyr)
+library(biodb)
+
+# Constants {{{1
+################################################################
+
+DFT.MAX.NB.ENTRIES <- 500
+
+# Read args {{{1
+################################################################
+
+read.args <-  function() {
+	spec = c(
+		'database',         'd',            1,  'character',    'The database from which to extract the peaks.',
+		'max-nb-entries',   'n',            1,  'integer',      'The maximum number of entries to retrieve.',
+		'output',           'o',            1,  'character',    'The path to the output file.'
+		)
+	spec <- matrix(spec, byrow = TRUE, ncol = 5)
+	opt <- getopt(spec)
+
+	# Set default values
+
+ 	if (is.null(opt[['max-nb-entries']]))
+	     opt[['max-nb-entries']] <- DFT.MAX.NB.ENTRIES
+
+	# Check arguments
+	if (is.null(opt$database)) stop("You must choose a database through -d option.")
+	if (is.null(opt$output)) stop("You must specify an output file through -o option.")
+
+	return(opt)
+}
+
+# MAIN {{{1
+################################################################
+
+opt <- read.args()
+
+# Instantiate biodb
+# TODO Why Biodb is not found in namespace biodb? : biodb::Biodb$new() gives:
+# Error: 'Biodb' is not an exported object from 'namespace:biodb'
+biodb <- biodb:::Biodb$new(useragent = 'peak-extractor ; pierrick.roger@gmail.com', use.env.var = TRUE)
+
+# Get factory and connection
+fact <- biodb$getFactory()
+db.conn <- fact$getConn(opt$database)
+if ( ! is(db.conn, 'MassdbConn')) stop(paste("Database", opt$database, "is not an MS database."))
+
+# Get a bunch of IDs
+entry.ids <- db.conn$getEntryIds(max.results = opt[['max-nb-entries']])
+
+# Get all entries
+cat("Get all entry contents...\n")
+entry.contents <- fact$getEntryContent(opt$database, id = entry.ids)
+
+# Create data frame from entries
+cat("Create data frame from entry contents...\n")
+entries.df <- NULL
+n <- 0
+for (ec in entry.contents) {
+
+	cat(paste0(if (is.null(entries.df)) 0 else nrow(entries.df), " peaks found.\n"))
+
+	n <- n + 1
+	cat(paste0("Processing entry n°", n, " / ", length(entry.contents), ".\n"))
+
+	# Get entry
+	e <- fact$createEntry(opt$database, content = ec)
+
+	# Reject if not MS or MS1
+	if ( ! e$getField(biodb:::BIODB.MSTYPE) %in% c('MS', 'MS1')) {
+		cat(paste0("Entry n°", n, " (accession ", e$getField(biodb:::BIODB.ACCESSION), ")", " rejected because MS TYPE is ", e$getField(biodb:::BIODB.MSTYPE), ".\n"))
+		next
+	}
+
+	# Transform entry in data frame
+	e.df <- e$getFieldsAsDataFrame()
+
+	# Merge peaks
+	peaks <- e$getField(biodb:::BIODB.PEAKS)
+	if (is.null(peaks)) # || ( ! biodb:::BIODB.FORMULA %in% colnames(peaks)) || all(is.na(peaks[[biodb:::BIODB.FORMULA]])))
+	{
+		cat(paste0("Entry n°", n, " (accession ", e$getField(biodb:::BIODB.ACCESSION), ")", " rejected because of ", if (is.null(peaks)) "empty peak list" else "missing formula field", ".\n"))
+		next
+	}
+	e.df <- merge(e.df, peaks)
+
+	# Merge compound info
+#	compound.df <- e$getField(BIODB.COMPOUND)$getFieldsAsDataFrame()
+#	if (is.null(compound.df) || ( ! BIODB.INCHI %in% colnames(compound.df)) || all(is.na(compound.df[[BIODB.INCHI]]))) {
+#		cat(paste0("Entry n°", n, " (accession ", e$getField(BIODB.ACCESSION), ")", " rejected because of ", if (is.null(compound.df)) "missing compound information" else "missing InChI field", ".\n"))
+#		next
+#	}
+#	e.df <- merge(e.df, compound.df)
+
+	# Append entry to final data frame
+	entries.df <- rbind.fill(entries.df, e.df)
+}
+
+# Export peaks data frame
+if ( ! is.null(entries.df))
+	write.table(entries.df, file = opt$output, sep = "\t", row.names = FALSE)

@@ -3,8 +3,8 @@
 #####################
 #'A class to connect to peakforest
 #'@export
-#'@field .url An urel to the database
-PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn","MassdbConn"), fields = list( .url = "character" )) # TODO Inherits also from MassdbConn
+#'@field .url A URL to the database
+PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn","MassdbConn"), fields = list( .url = "character" ))
 
 ##########################
 # GET ENTRY CONTENT TYPE #

@@ -3,6 +3,8 @@
 # CLASS DECLARATION {{{1
 ################################################################
 
+#'The mother abstract class of all connection classes.
+#'@export
 Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .useragent = "character", .use.env.var = "logical" ))
 
 # CONSTRUCTOR {{{1

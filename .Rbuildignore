@@ -6,3 +6,4 @@ ext
 generate-doc
 test
 .travis.yml
+scripts

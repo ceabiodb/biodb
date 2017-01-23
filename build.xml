@@ -11,8 +11,7 @@
 	</target>
 
 	<!-- DOC -->
-	<available file="${namespace.file}" property="namespace.file.exists"/>
-	<target name="doc" unless="${namespace.file.exists}">
+	<target name="doc">
 		<ant dir="doc" inheritAll="false"/>
 		<exec executable="${this.dir}/generate-doc" failonerror="true"/>
 	</target>
