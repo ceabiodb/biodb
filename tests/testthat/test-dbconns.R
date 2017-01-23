@@ -71,6 +71,12 @@ online.modes <- c(online.modes, FALSE)
 if (opt[['online']])
 	online.modes <- c(online.modes, TRUE)
 
+# Set list of databases to test
+databases <- if (is.null(opt[['databases']])) BIODB.DATABASES else opt[['databases']]
+unknown.dbs <- opt[['databases']][ ! opt[['databases']] %in% BIODB.DATABASES]
+if (length(unknown.dbs) > 0) stop(paste("Unknown database(s): ", paste(unknown.dbs, collapse = ", "), ".", sep = ''))
+
+# Create biodb instance
 biodb <- Biodb$new(useragent = USER.AGENT, use.env.var = TRUE)
 biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
 
@@ -83,8 +89,8 @@ for (online in online.modes) {
 	factory$setCacheDir(file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
 	factory$setCacheMode(if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY)
 
-	# Loop on all databases
-	for (db in BIODB.DATABASES) {
+	# Loop on databases
+	for (db in databases) {
 
 		# Initialize massfiledb
 		if (db == BIODB.MASSFILEDB) {

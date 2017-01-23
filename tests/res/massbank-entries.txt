@@ -1,3 +1,4 @@
 accession   msdev                                                               msdevtype           mstype  msmode  msprecmz    msprecannot
 'EA256108'  'LTQ Orbitrap XL Thermo Scientific'                                 LC-ESI-ITFT         MS2     pos     172.1332    [M+H]+
 'PR010173'  'Pegasus III TOF-MS system, Leco; GC 6890, Agilent Technologies'    GC-EI-TOF           MS      pos     NA          NA
+'PR010001'  'Pegasus III TOF-MS system, Leco; GC 6890, Agilent Technologies'    GC-EI-TOF           MS      pos     NA          NA

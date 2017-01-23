@@ -6,6 +6,9 @@
 
 offline.test.massfiledb <- function() {
 
+	if ( ! is.null(opt[['databases']]) && ! BIODB.MASSFILEDB %in% opt[['databases']])
+		return
+
 	# Open file
 	file <- file.path(SCRIPT.DIR, 'tests', 'res', 'massfiledb.tsv')
 	df <- read.table(file, sep = "\t", header = TRUE)

@@ -14,6 +14,7 @@ FALSE='false'
 
 DEBUG=0
 ONLINE=$TRUE
+DATABASES=
 
 # Print help {{{1
 ################################################################
@@ -21,7 +22,8 @@ ONLINE=$TRUE
 function print_help {
 	echo "Usage: $PROG_NAME [options]"
 	echo
-	echo "   -o, --online $TRUE/$FALSE  Enable or disable online tests. Default is '$TRUE'."
+	echo "   -d, --databases db1,db2,...   Set list of databases on which to run the tests. Optional."
+	echo "   -o, --online    $TRUE/$FALSE  Enable or disable online tests. Default is '$TRUE'."
 }
 
 # Msg {{{1
@@ -73,6 +75,7 @@ function read_args {
 	while true ; do
 		shift_count=1
 		case $1 in
+			-d|--databases)         DATABASES=$(get_opt_val $1 $2) ; shift_count=2 ;;
 			-o|--online)            ONLINE=$(get_opt_val $1 $2) ; shift_count=2 ;;
 			-g|--debug)             DEBUG=$((DEBUG + 1)) ;;
 			-h|--help)              print_help ; exit 0 ;;
@@ -103,7 +106,9 @@ function read_args {
 read_args "$@"
 
 # Run test
-Rscript $PROG_DIR/test-pkg.R --online $ONLINE 2>&1 | tee $OUTPUT
+options=
+[ -z "$DATABASES" ] || options+=" -d $DATABASES"
+Rscript $PROG_DIR/test-pkg.R --online $ONLINE $options 2>&1 | tee $OUTPUT
 
 # Look for error message
 error=$(grep Error $OUTPUT)

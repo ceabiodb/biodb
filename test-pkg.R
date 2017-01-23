@@ -2,6 +2,7 @@
 # vi: ft=R fdm=marker
 
 library(getopt)
+library(R.utils)
 
 # CONSTANTS {{{1
 ################################################################
@@ -9,6 +10,7 @@ library(getopt)
 args <- commandArgs(trailingOnly = F)
 SCRIPT.PATH <- sub("--file=","",args[grep("--file=",args)])
 SCRIPT.DIR <- dirname(SCRIPT.PATH)
+if ( ! isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
 
 USER.AGENT <- "biodb.test ; pierrick.roger@gmail.com"
 
@@ -19,8 +21,9 @@ read_args <- function() {
 
 	# options
 	spec <- c(
-		'help',     'h',    0,  'logical',        'Print this help.',
-		'online',   'o',    1,  'character',      'Enable or disable online testing.'
+		'databases',    'd',    1,  'character',    'Set list of databases on which to run the tests. Optional.',
+		'help',         'h',    0,  'logical',      'Print this help.',
+		'online',       'o',    1,  'character',    'Enable or disable online testing.'
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
 	opt <- getopt(spec)
@@ -30,6 +33,8 @@ read_args <- function() {
 		opt[['online']] <- TRUE
 	else
 		opt[['online']] <- as.logical(opt$online)
+	if ( ! is.null(opt$databases))
+		opt[['databases']] <- strsplit(opt[['databases']], ',')
 
 	# help
 	if ( ! is.null(opt$help))
