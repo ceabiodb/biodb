@@ -1,12 +1,12 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
+
+# Class declaration {{{1
+################################################################
 
 MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"), fields = list( .url = "character" ))
 
-###############
-# CONSTRUCTOR #
-###############
+# Constructor {{{1
+################################################################
 
 MassbankConn$methods( initialize = function(url = NA_character_, ...) {
 
@@ -16,17 +16,15 @@ MassbankConn$methods( initialize = function(url = NA_character_, ...) {
 	callSuper(...)
 })
 
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
+# Get entry content type {{{1
+################################################################
 
 MassbankConn$methods( getEntryContentType = function() {
 	return(BIODB.TXT) 
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# Get entry content {{{1
+################################################################
 
 MassbankConn$methods( getEntryContent = function(ids) {
 
@@ -73,9 +71,8 @@ MassbankConn$methods( getEntryContent = function(ids) {
 	return(content)
 })
 
-################
-# CREATE ENTRY #
-################
+# Create entry {{{1
+################################################################
 
 # Creates a Spectrum instance from file content.
 # content       A file content, downloaded from the public database.
@@ -84,16 +81,14 @@ MassbankConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createMassbankEntryFromTxt(content, drop = drop))
 })
 
-#################
-# GET MZ VALUES #
-#################
+# Get mz values {{{1
+################################################################
 
 MassbankConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 })
 
-#################
-# GET ENTRY IDS #
-#################
+# Get entry ids {{{1
+################################################################
 
 MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
@@ -113,10 +108,9 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	}
 })
 
-##################
-# GET NB ENTRIES #
-##################
+# Get nb entries {{{1
+################################################################
 
-MassbankConn$methods( getNbEntries = function() {
-	return(length(.self$getEntryIds()))
+MassbankConn$methods( getNbEntries = function(count = FALSE) {
+	return(if (count) length(.self$getEntryIds()) else NA_integer_)
 })

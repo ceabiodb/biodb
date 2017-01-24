@@ -8,7 +8,7 @@
 # TEST ENTRY FIELDS {{{1
 ################################################################
 
-test_entry_fields <- function(factory, db) {
+test.entry.fields <- function(factory, db) {
 
 	# Define reference file
 	entries.file <- file.path(SCRIPT.DIR, 'tests', 'res', paste0(db, '-entries.txt'))
@@ -16,11 +16,11 @@ test_entry_fields <- function(factory, db) {
 
 	# Load reference contents from file
 	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
-	nrow(entries.desc) > 0 || stop(paste0("No reference entries found in file \"", entries.file, "\" in test_entry_fields()."))
+	nrow(entries.desc) > 0 || stop(paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
 
 	# Create entries
 	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
-	length(entries) == nrow(entries.desc) || stop("Not enough entries created in test_entry_fields().")
+	length(entries) == nrow(entries.desc) || stop("Not enough entries created in test.entry.fields().")
 
 	# Test fields of entries
 	for (f in colnames(entries.desc)) {
@@ -34,7 +34,7 @@ test_entry_fields <- function(factory, db) {
 # TEST WRONG ENTRY {{{1
 ################################################################
 
-test_wrong_entry <- function(factory, db) {
+test.wrong.entry <- function(factory, db) {
 
 	# Test a wrong accession number
 	wrong.entry <- factory$createEntry(db, id = 'WRONG')
@@ -44,7 +44,7 @@ test_wrong_entry <- function(factory, db) {
 # TEST NB ENTRIES {{{1
 ################################################################
 
-test_nb_entries <- function(db) {
+test.nb.entries <- function(db) {
 
 	# Test getNbEntries()
 	n <- db$getNbEntries()
@@ -54,11 +54,12 @@ test_nb_entries <- function(db) {
 # TEST ENTRY IDS {{{1
 ################################################################
 
-test_entry_ids <- function(db) {
+test.entry.ids <- function(db) {
 
 	# Test getEntryIds()
 	max <- 100
-	n <- db$getEntryIds(max.results = max)
+	ids <- db$getEntryIds(max.results = max)
+	n <- length(ids)
 	expect_true(n >= 0 && n <= max)
 }
 
@@ -111,14 +112,12 @@ for (online in online.modes) {
 			# db.instance$setMsMode(BIODB.MSMODE.POS, 'POS')
 		}
 
-#		if (is.null(opt[['databases']]) || db %in% opt[['databases']]) {
-			context(paste0("Testing database ", db, if (online) " online" else " offline"))
-			test_that("Entry fields have a correct value", test_entry_fields(factory, db))
-			if (online) {
-				test_that("Wrong entry gives NULL", test_wrong_entry(factory, db))
-				test_that("Nb entries is positive", test_nb_entries(factory$getConn(db)))
-				test_that("We can get a list of entry ids", test_entry_ids(factory$getConn(db)))
-			}
-#		}
+		context(paste0("Testing database ", db, if (online) " online" else " offline"))
+		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
+		if (online) {
+			test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
+			test_that("Nb entries is positive", test.nb.entries(factory$getConn(db)))
+			test_that("We can get a list of entry ids", test.entry.ids(factory$getConn(db)))
+		}
 	}
 }

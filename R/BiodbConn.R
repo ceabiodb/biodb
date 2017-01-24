@@ -1,12 +1,12 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
+
+# Class declaration {{{1
+################################################################
 
 BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .debug = "logical", .biodb = "ANY" ))
 
-###############
-# CONSTRUCTOR #
-###############
+# Constructor {{{1
+################################################################
 
 BiodbConn$methods( initialize = function(debug = FALSE, biodb = NULL, ...) {
 	is(biodb, "Biodb") || .self$message(MSG.ERROR, paste0("The biodb parameter must be of class Biodb, its class was ", class(biodb), "."))
@@ -22,26 +22,23 @@ BiodbConn$methods( getBiodb = function() {
 	return(.self$.biodb)
 })
 
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
+# Get entry content type {{{1
+################################################################
 
 BiodbConn$methods( getEntryContentType = function() {
 	.self$.abstract.method()
 })
 
-#############
-# GET ENTRY #
-#############
+# Get entry {{{1
+################################################################
 
 BiodbConn$methods( getEntry = function(id, drop = TRUE) {
 	content <- .self$getEntryContent(id)
 	return(.self$createEntry(content, drop = drop))
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# Get entry content {{{1
+################################################################
 
 # Download entry content from the public database.
 # type      The entry type.
@@ -51,9 +48,8 @@ BiodbConn$methods( getEntryContent = function(id) {
 	.self$.abstract.method()
 })
 
-#############################
-# CREATE ENTRY FROM CONTENT #
-#############################
+# Create entry from content {{{1
+################################################################
 
 # Creates a Compound instance from file content.
 # content       A file content, downloaded from the public database.
@@ -62,20 +58,19 @@ BiodbConn$methods( createEntry = function(content, drop = TRUE) {
 	.self$.abstract.method()
 })
 
-#################
-# GET ENTRY IDS #
-#################
+# Get entry ids {{{1
+################################################################
 
 # Get a list of IDs of all entries contained in this database.
 BiodbConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$.abstract.method()
 })
 
-##################
-# GET NB ENTRIES #
-##################
+# Get nb entries {{{1
+################################################################
 
 # Get the number of entries contained in this database.
-BiodbConn$methods( getNbEntries = function() {
+# count: if no straightforward way exists to get number of entries, count the output of getEntryIds().
+BiodbConn$methods( getNbEntries = function(count = FALSE) {
 	.self$.abstract.method()
 })
