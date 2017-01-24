@@ -1,8 +1,10 @@
 #!/usr/bin/env Rscript
 # vi: ft=R fdm=marker
 
-library(getopt)
-library(R.utils)
+for (lib in c('getopt', 'R.utils')) {
+	library(lib, character.only = TRUE, warn.conflicts = FALSE, quietly = TRUE, verbose = FALSE)
+	detach(paste('package', lib, sep = ':'), character.only = TRUE, unload = TRUE)
+}
 
 # CONSTANTS {{{1
 ################################################################
@@ -10,7 +12,7 @@ library(R.utils)
 args <- commandArgs(trailingOnly = F)
 SCRIPT.PATH <- sub("--file=","",args[grep("--file=",args)])
 SCRIPT.DIR <- dirname(SCRIPT.PATH)
-if ( ! isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
+if ( ! R.utils::isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
 
 USER.AGENT <- "biodb.test ; pierrick.roger@gmail.com"
 
@@ -26,7 +28,7 @@ read_args <- function() {
 		'online',       'o',    1,  'character',    'Enable or disable online testing.'
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
-	opt <- getopt(spec)
+	opt <- getopt::getopt(spec)
 
 	# Parse option values
 	if (is.null(opt$online))
