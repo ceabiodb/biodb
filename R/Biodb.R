@@ -89,7 +89,7 @@ Biodb$methods( getObservers = function() {
 # Entries to data frame {{{1
 ################################################################
 
-Biodb$methods( entriesToDataframe = function(entries) {
+Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE) {
 	"Convert a list of entries (BiodbEntry objects) into a data frame."
 
 	# Check classes
@@ -99,7 +99,7 @@ Biodb$methods( entriesToDataframe = function(entries) {
 
 	# Loop on all entries
 	for (e in entries) {
-		e.df <- e$getFieldsAsDataFrame()
+		e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic)
 		entries.df <- plyr::rbind.fill(entries.df, e.df)
 	}
 

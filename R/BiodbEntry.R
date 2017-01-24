@@ -137,17 +137,27 @@ BiodbEntry$methods(	.compute.field = function(field) {
 # Get fields as data frame {{{1
 ################################################################
 
-# TODO add a limiting option to get some fields.
-BiodbEntry$methods(	getFieldsAsDataFrame = function() {
+# TODO add a limiting option to get some of the fields.
+BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE) {
+	"Convert the entry into a data frame."
 
 	df <- data.frame()
 
 	# Loop on all fields
-	for (f in names(.self$.fields))
+	for (f in names(.self$.fields)) {
 
-		# If field class is a basic type
-		if (any(.self$getFieldClass(f) %in% c('character', 'logical', 'integer', 'double')) && length(.self$getFieldValue(f)) == 1)
-			df[1, f] <- .self$getFieldValue(f)
+		v <- .self$getFieldValue(f)
+
+		# Transform vector into data frame
+		if (is.vector(v)) {
+			v <- as.data.frame(v)
+			colnames(v) <- f
+		}
+
+		# Merge value into data frame
+		if (is.data.frame(v))
+			df <- if (nrow(df) == 0) v else merge(df, v)
+	}
 
 	return(df)
 })

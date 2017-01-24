@@ -52,9 +52,8 @@ if ( ! is(db.conn, 'MassdbConn')) stop(paste("Database", opt$database, "is not a
 
 # Get a bunch of IDs
 cat("Get entry ids...\n")
-print(opt[['max-nb-entries']])
 entry.ids <- db.conn$getEntryIds(max.results = opt[['max-nb-entries']])
-print(entry.ids)
+
 # Get all entries
 if ( ! is.null(entry.ids)) {
 	cat("Get all entry contents...\n")
@@ -68,42 +67,18 @@ if ( ! is.null(entry.ids)) {
 
 		n <- n + 1
 		cat(paste0("Processing entry n°", n, " / ", length(entry.contents), ". ", if (is.null(entries.df)) 0 else nrow(entries.df), " peaks found.\n"))
-		print(ec)
 
 		# Get entry
 		e <- fact$createEntry(opt$database, content = ec)
-		cat("COUCOU 01\n")
 
 		# Reject if not MS or MS1
 		if ( ! e$getField(biodb:::BIODB.MSTYPE) %in% c('MS', 'MS1')) {
 			cat(paste0("Entry n°", n, " (accession ", e$getField(biodb:::BIODB.ACCESSION), ")", " rejected because MS TYPE is ", e$getField(biodb:::BIODB.MSTYPE), ".\n"))
 			next
 		}
-		cat("COUCOU 02\n")
 
 		# Transform entry in data frame
-		e.df <- e$getFieldsAsDataFrame()
-		cat("COUCOU 03\n")
-
-		# Merge peaks
-		peaks <- e$getField(biodb:::BIODB.PEAKS)
-		cat("COUCOU 04\n")
-		if (is.null(peaks))	{
-			cat(paste0("Entry n°", n, " (accession ", e$getField(biodb:::BIODB.ACCESSION), ")", " rejected because of empty peak list.\n"))
-			next
-		}
-		cat("COUCOU 05\n")
-		e.df <- merge(e.df, peaks)
-		print(e.df)
-		cat("COUCOU 06\n")
-
-		# Merge compound info
-	#	compound.df <- e$getField(BIODB.COMPOUND)$getFieldsAsDataFrame()
-	#	if (is.null(compound.df) || ( ! BIODB.INCHI %in% colnames(compound.df)) || all(is.na(compound.df[[BIODB.INCHI]]))) {
-	#		cat(paste0("Entry n°", n, " (accession ", e$getField(BIODB.ACCESSION), ")", " rejected because of ", if (is.null(compound.df)) "missing compound information" else "missing InChI field", ".\n"))
-	#		next
-	#	}
-	#	e.df <- merge(e.df, compound.df)
+		e.df <- e$getFieldsAsDataFrame(only.atomic = TRUE)
 
 		# Append entry to final data frame
 		entries.df <- rbind.fill(entries.df, e.df)

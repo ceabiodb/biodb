@@ -97,19 +97,19 @@ BIODB.CHROM.COL     <- 'chromcol' # Chromatographic column
 BIODB.CHROM.COL.RT  <- 'chromcolrt' # Retention time measured on chromatographic column
 BIODB.ID <- 'id'
 BIODB.TITLE <- 'title'
-BIODB.PEAK.MZ <- 'mz'
-BIODB.PEAK.RT <- 'rt'
-BIODB.PEAK.MZEXP <- 'mzexp'
-BIODB.PEAK.MZTHEO <- 'mztheo'
-BIODB.PEAK.FORMULA <- 'formula'
-BIODB.PEAK.FORMULA.COUNT <- 'formula.count'
-BIODB.PEAK.COMP     <- 'peakcomp' # Peak composition
-BIODB.PEAK.ATTR     <- 'peakattr' # Peak attribution
-BIODB.PEAK.MASS <- 'mass'
+BIODB.PEAK.MZ <- 'peak.mz'
+BIODB.PEAK.RT <- 'peak.rt'
+BIODB.PEAK.MZEXP <- 'peak.mzexp'
+BIODB.PEAK.MZTHEO <- 'peak.mztheo'
+BIODB.PEAK.FORMULA <- 'peak.formula'
+BIODB.PEAK.FORMULA.COUNT <- 'peak.formula.count'
+BIODB.PEAK.COMP     <- 'peak.comp' # Peak composition
+BIODB.PEAK.ATTR     <- 'peak.attr' # Peak attribution
+BIODB.PEAK.MASS <- 'peak.mass'
 #	BIODB.PEAK.ATTR <- 'attr'
-BIODB.PEAK.ERROR.PPM <- 'error.ppm'
-BIODB.PEAK.INTENSITY <- 'intensity'
-BIODB.PEAK.RELATIVE.INTENSITY <- 'relative.intensity'
+BIODB.PEAK.ERROR.PPM <- 'peak.error.ppm'
+BIODB.PEAK.INTENSITY <- 'peak.intensity'
+BIODB.PEAK.RELATIVE.INTENSITY <- 'peak.relative.intensity'
 
 # Mode values
 BIODB.MSMODE.NEG <- 'neg'
