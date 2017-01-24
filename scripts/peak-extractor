@@ -84,7 +84,7 @@ if ( ! is.null(entry.ids)) {
 		}
 
 		# Transform entry in data frame
-		e.df <- e$getFieldsAsDataFrame(only.atomic = TRUE)
+		e.df <- e$getFieldsAsDataFrame(only.atomic = FALSE)
 
 		# Append entry to final data frame
 		entries.df <- plyr::rbind.fill(entries.df, e.df)
