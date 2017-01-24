@@ -67,8 +67,9 @@ test_entry_ids <- function(db) {
 
 # Set online/offline modes to test
 online.modes = logical()
-online.modes <- c(online.modes, FALSE)
-if (opt[['online']])
+if (is.null(opt[['online']]) || ! opt[['online']])
+	online.modes <- c(online.modes, FALSE)
+if (is.null(opt[['online']]) || opt[['online']])
 	online.modes <- c(online.modes, TRUE)
 
 # Set list of databases to test

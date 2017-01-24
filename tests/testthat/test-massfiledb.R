@@ -6,9 +6,6 @@
 
 offline.test.massfiledb <- function() {
 
-	if ( ! is.null(opt[['databases']]) && ! BIODB.MASSFILEDB %in% opt[['databases']])
-		return
-
 	# Open file
 	file <- file.path(SCRIPT.DIR, 'tests', 'res', 'massfiledb.tsv')
 	df <- read.table(file, sep = "\t", header = TRUE)
@@ -67,5 +64,9 @@ offline.test.massfiledb <- function() {
 # MAIN {{{1 #
 #############
 
-context("Testing massfiledb offline")
-test_that("MassfiledbConn methods are correct", offline.test.massfiledb())
+
+if ((is.null(opt[['databases']]) || BIODB.MASSFILEDB %in% opt[['databases']])
+	&& (is.null(opt[['online']]) || ! opt[['online']])) {
+	context("Testing massfiledb offline")
+	test_that("MassfiledbConn methods are correct", offline.test.massfiledb())
+}
