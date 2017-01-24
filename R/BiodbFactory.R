@@ -1,6 +1,6 @@
 # vi: fdm=marker
 
-# CLASS DECLARATION {{{1
+# Class declaration {{{1
 ################################################################
 
 #'A class for constructing biodb objects.
@@ -12,7 +12,7 @@ BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', f
 														  .chunk.size = "integer",
 														  .biodb = "ANY"))
 
-# CONSTRUCTOR {{{1
+# Constructor {{{1
 ################################################################
 
 BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
@@ -20,14 +20,13 @@ BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
 	.conn <<- list()
 	.cache.mode <<- BIODB.CACHE.READ.WRITE
 	.cache.dir <<- NA_character_
-	.cache.mode <<- NA_character_
 	.chunk.size <<- NA_integer_
 	.biodb <<- biodb
 
 	callSuper(...)
 })
 
-# GET BIODB {{{1
+# Get biodb {{{1
 ################################################################
 
 BiodbFactory$methods( getBiodb = function() {
@@ -38,6 +37,7 @@ BiodbFactory$methods( getBiodb = function() {
 
 # Set cache dir {{{2
 BiodbFactory$methods( setCacheDir = function(dir) {
+	.self$message(MSG.INFO, paste("Setting factory cache directory to ", dir, ".", sep = ""))
 	.cache.dir <<- dir
 })
 

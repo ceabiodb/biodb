@@ -92,6 +92,8 @@ MassbankConn$methods( getMzValues = function(mode = NULL, max.results = NA_integ
 
 MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
+	.self$message(MSG.INFO, paste("Getting", if (is.na(max.results)) 'all' else max.results, "massbank entry ids..."))
+
 	# Set URL
 	url <- paste0(.self$.url, 'searchPeak?mzs=1000&relativeIntensity=100&tolerance=1000&instrumentTypes=all&ionMode=Both')
 	url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))

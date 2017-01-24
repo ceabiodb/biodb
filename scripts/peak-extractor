@@ -1,13 +1,19 @@
 #!/usr/bin/env Rscript
 # vi: ft=R fdm=marker
 
-library(methods)
-library(getopt)
-library(plyr)
-library(biodb)
+for (lib in c('methods', 'plyr', 'biodb', 'getopt', 'R.utils')) {
+	library(lib, character.only = TRUE, warn.conflicts = FALSE, quietly = TRUE, verbose = FALSE)
+	detach(paste('package', lib, sep = ':'), character.only = TRUE, unload = TRUE)
+}
 
 # Constants {{{1
 ################################################################
+
+ARGS <- commandArgs(trailingOnly = F)
+SCRIPT.PATH <- sub("--file=", "", ARGS[grep("--file=", ARGS)])
+SCRIPT.DIR <- dirname(SCRIPT.PATH)
+if ( ! R.utils::isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
+PROG.NAME <- sub('^.*/([^/]+)$', '\\1', commandArgs()[4], perl = TRUE)
 
 DFT.MAX.NB.ENTRIES <- 500
 
@@ -21,7 +27,7 @@ read.args <-  function() {
 		'output',           'o',            1,  'character',    'The path to the output file.'
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
-	opt <- getopt(spec)
+	opt <- getopt::getopt(spec)
 
 	# Set default values
 
@@ -44,14 +50,14 @@ opt <- read.args()
 # TODO Why Biodb is not found in namespace biodb? : biodb::Biodb$new() gives:
 # Error: 'Biodb' is not an exported object from 'namespace:biodb'
 biodb <- biodb:::Biodb$new(useragent = 'peak-extractor ; pierrick.roger@gmail.com', use.env.var = TRUE)
+biodb$addObservers(biodb:::BiodbLogger$new())
 
 # Get factory and connection
 fact <- biodb$getFactory()
+fact$setCacheDir(file.path(SCRIPT.DIR, 'cache'))
 db.conn <- fact$getConn(opt$database)
-if ( ! is(db.conn, 'MassdbConn')) stop(paste("Database", opt$database, "is not an MS database."))
 
 # Get a bunch of IDs
-cat("Get entry ids...\n")
 entry.ids <- db.conn$getEntryIds(max.results = opt[['max-nb-entries']])
 
 # Get all entries
@@ -81,7 +87,7 @@ if ( ! is.null(entry.ids)) {
 		e.df <- e$getFieldsAsDataFrame(only.atomic = TRUE)
 
 		# Append entry to final data frame
-		entries.df <- rbind.fill(entries.df, e.df)
+		entries.df <- plyr::rbind.fill(entries.df, e.df)
 	}
 
 	# Export peaks data frame

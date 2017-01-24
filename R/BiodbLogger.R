@@ -1,11 +1,13 @@
 # vi: fdm=marker
 
-# CLASS DECLARATION {{{1
+# Class declaration {{{1
 ################################################################
 
+#'A class for logging biodb messages.
+#'@export
 BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.verbose.level = 'integer', .debug.level = 'integer', .file = 'ANY'))
 
-# CONSTRUCTOR {{{1
+# Constructor {{{1
 ################################################################
 
 BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.level = as.integer(1), file = NULL, ...) {
@@ -19,7 +21,7 @@ BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.
 	callSuper(...)
 })
 
-# MESSAGE {{{1
+# Message {{{1
 ################################################################
 
 BiodbLogger$methods( message = function(type = MSG.INFO, msg, class = NA_character_, level = 1) {
