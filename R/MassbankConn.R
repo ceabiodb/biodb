@@ -78,7 +78,7 @@ MassbankConn$methods( getEntryContent = function(ids) {
 # content       A file content, downloaded from the public database.
 # RETURN        A spectrum instance.
 MassbankConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createMassbankEntryFromTxt(content, drop = drop))
+	return(createMassbankEntryFromTxt(.self$getBiodb(), content, drop = drop))
 })
 
 # Get mz values {{{1

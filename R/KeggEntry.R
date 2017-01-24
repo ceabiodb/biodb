@@ -8,7 +8,7 @@ KeggEntry <- methods::setRefClass("KeggEntry", contains = 'BiodbEntry')
 # FACTORY #
 ###########
 
-createKeggEntryFromTxt <- function(contents, drop = TRUE) {
+createKeggEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -21,7 +21,7 @@ createKeggEntryFromTxt <- function(contents, drop = TRUE) {
 	for (text in contents) {
 
 		# Create instance
-		entry <- KeggEntry$new()
+		entry <- KeggEntry$new(biodb = biodb)
 
 		lines <- strsplit(text, "\n")
 		for (s in lines[[1]]) {

@@ -77,7 +77,7 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 ################
 
 ChemspiderConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createChemspiderEntryFromXml(content, drop = drop))
+	return(createChemspiderEntryFromXml(.self$getBiodb(), content, drop = drop))
 })
 
 ############################

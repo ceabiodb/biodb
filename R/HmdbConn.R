@@ -32,5 +32,5 @@ HmdbConn$methods( getEntryContent = function(id) {
 ################
 
 HmdbConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createHmdbEntryFromXml(content, drop = drop))
+	return(createHmdbEntryFromXml(.self$getBiodb(), content, drop = drop))
 })

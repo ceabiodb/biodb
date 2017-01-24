@@ -32,5 +32,5 @@ UniprotConn$methods( getEntryContent = function(ids) {
 ################
 
 UniprotConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createUniprotEntryFromXml(content, drop = drop))
+	return(createUniprotEntryFromXml(.self$getBiodb(), content, drop = drop))
 })

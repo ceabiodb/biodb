@@ -14,8 +14,8 @@ PeakForestCompoundEntry <- methods::setRefClass("PeakForestCompoundEntry", conta
 
 
 ###Arg is jcontent ot indicate that the content is already a json.
-createPeakforestCompoundFromJSON <- function(contents, drop = FALSE) {
-	
+createPeakforestCompoundFromJSON <- function(biodb, contents, drop = FALSE) {
+
 	if(is.character(contents))
 		contents <- jsonlite::fromJSON(contents, simplifyDataFrame=FALSE)
 	
@@ -38,8 +38,7 @@ createPeakforestCompoundFromJSON <- function(contents, drop = FALSE) {
 	for (i in seq_along(contents)){
 		
 		jsontree <- contents[[i]]
-		entry <- PeakForestCompoundEntry$new()
-		
+		entry <- PeakForestCompoundEntry$new(biodb = biodb)
 		
 		for(field in names(jsonfields)){
 			

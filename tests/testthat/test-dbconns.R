@@ -12,18 +12,19 @@ test.entry.fields <- function(factory, db) {
 
 	# Define reference file
 	entries.file <- file.path(SCRIPT.DIR, 'tests', 'res', paste0(db, '-entries.txt'))
-	file.exists(entries.file) || stop(paste0("Cannot find file \"", entries.file, "\"."))
+	expect_true(file.exists(entries.file), info = paste0("Cannot find file \"", entries.file, "\"."))
 
 	# Load reference contents from file
 	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
-	nrow(entries.desc) > 0 || stop(paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
+	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
 
 	# Create entries
 	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
-	length(entries) == nrow(entries.desc) || stop("Not enough entries created in test.entry.fields().")
+	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 
 	# Get data frame
 	entries.df <- factory$getBiodb()$entriesToDataframe(entries)
+	expect_equal(nrow(entries.df), length(entries), info = paste0("Error while converting entries into a data frame. Wrong number of rows: ", nrow(entries.df), " instead of ", length(entries), ">"))
 
 	# Test fields of entries
 	for (f in colnames(entries.desc)) {

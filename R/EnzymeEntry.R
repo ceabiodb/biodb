@@ -8,7 +8,7 @@ EnzymeEntry <- methods::setRefClass("EnzymeEntry", contains = 'BiodbEntry')
 # FACTORY #
 ###########
 
-createEnzymeEntryFromTxt <- function(contents, drop = TRUE) {
+createEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -20,7 +20,7 @@ createEnzymeEntryFromTxt <- function(contents, drop = TRUE) {
 	for (text in contents) {
 
 		# Create instance
-		entry <- EnzymeEntry$new()
+		entry <- EnzymeEntry$new(biodb)
 
 		lines <- strsplit(text, "\n")
 		for (s in lines[[1]]) {

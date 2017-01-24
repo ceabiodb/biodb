@@ -9,7 +9,7 @@ PubchemSubstance <- methods::setRefClass("PubchemSubstance", contains = "BiodbEn
 # SUBSTANCE FACTORY #
 #####################
 
-createPubchemSubstanceFromXml <- function(contents, drop = TRUE) {
+createPubchemSubstanceFromXml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -21,7 +21,7 @@ createPubchemSubstanceFromXml <- function(contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- PubchemEntry$new()
+		entry <- PubchemEntry$new(biodb = biodb)
 
 		if ( ! is.null(content) && ! is.na(content)) {
 
@@ -58,7 +58,7 @@ createPubchemSubstanceFromXml <- function(contents, drop = TRUE) {
 # COMPOUND FACTORY #
 ####################
 
-createPubchemEntryFromXml <- function(contents, drop = TRUE) {
+createPubchemEntryFromXml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -74,7 +74,7 @@ createPubchemEntryFromXml <- function(contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- PubchemEntry$new()
+		entry <- PubchemEntry$new(biodb = biodb)
 
 		if ( ! is.null(content) && ! is.na(content)) {
 

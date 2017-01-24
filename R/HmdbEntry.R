@@ -8,7 +8,7 @@ HmdbEntry <- methods::setRefClass("HmdbEntry", contains = "BiodbEntry")
 # FACTORY #
 ###########
 
-createHmdbEntryFromXml <- function(contents, drop = FALSE) {
+createHmdbEntryFromXml <- function(biodb, contents, drop = FALSE) {
 
 	entries <- list()
 
@@ -25,7 +25,7 @@ createHmdbEntryFromXml <- function(contents, drop = FALSE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- HmdbEntry$new()
+		entry <- HmdbEntry$new(biodb)
 
 		if ( ! is.null(content) && ! is.na(content)) {
 

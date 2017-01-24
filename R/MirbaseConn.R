@@ -32,7 +32,7 @@ MirbaseConn$methods( getEntryContent = function(ids) {
 ################
 
 MirbaseConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createMirbaseEntryFromHtml(content, drop = drop))
+	return(createMirbaseEntryFromHtml(.self$getBiodb(), content, drop = drop))
 })
 
 ###################

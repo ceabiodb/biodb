@@ -41,5 +41,5 @@ NcbigeneConn$methods( getEntryContent = function(id) {
 ################
 
 NcbigeneConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createNcbigeneEntryFromXml(content, drop = drop))
+	return(createNcbigeneEntryFromXml(.self$getBiodb(), content, drop = drop))
 })

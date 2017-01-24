@@ -32,5 +32,5 @@ EnzymeConn$methods( getEntryContent = function(id) {
 ################
 
 EnzymeConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createEnzymeEntryFromTxt(content, drop = drop))
+	return(createEnzymeEntryFromTxt(.self$getBiodb(), content, drop = drop))
 })

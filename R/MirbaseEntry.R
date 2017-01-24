@@ -8,7 +8,7 @@ MirbaseEntry <- methods::setRefClass("MirbaseEntry", contains = "BiodbEntry")
 # FACTORY #
 ###########
 
-createMirbaseEntryFromHtml <- function(contents, drop = TRUE) {
+createMirbaseEntryFromHtml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -21,7 +21,7 @@ createMirbaseEntryFromHtml <- function(contents, drop = TRUE) {
 	for (html in contents) {
 
 		# Create instance
-		entry <- MirbaseEntry$new()
+		entry <- MirbaseEntry$new(biodb)
 	
 		# Parse HTML
 		xml <-  XML::htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)

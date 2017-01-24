@@ -8,7 +8,7 @@ MassbankEntry <- methods::setRefClass("MassbankEntry", contains = "BiodbEntry")
 # FACTORY #
 ###########
 
-createMassbankEntryFromTxt <- function(contents, drop = TRUE) {
+createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -30,13 +30,14 @@ createMassbankEntryFromTxt <- function(contents, drop = TRUE) {
 	regex[[BIODB.FORMULA]] <- "^CH\\$FORMULA:\\s+(.+)$"
 	regex[[BIODB.SMILES]] <- "^CH\\$SMILES:\\s+(.+)$"
 	regex[[BIODB.MASS]] <- "^CH\\$EXACT_MASS:\\s+(.+)$"
-	regex[[BIODB.PUBCHEMCOMP.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*CID:([0-9]+)"
+	regex[[BIODB.PUBCHEMCOMP.ID]] <- "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)"
 	regex[[BIODB.PUBCHEMSUB.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)"
+	regex[[BIODB.HMDB.ID]] <- "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)"
 
 	for (text in contents) {
 
 		# Create instance
-		entry <- MassbankEntry$new()
+		entry <- MassbankEntry$new(biodb = biodb)
 
 		if ( ! is.null(text) && ! is.na(text)) {
 
@@ -57,17 +58,34 @@ createMassbankEntryFromTxt <- function(contents, drop = TRUE) {
 				if (parsed)
 					next
 
+				# Retention time
+				g <- stringr::str_match(s, "^AC\\$CHROMATOGRAPHY: RETENTION_TIME\\s+([0-9.]+)\\s+(.*)$")
+				if ( ! is.na(g[1,1])) {
+					unit <- tolower(g[1,3]) 
+					if ( ! unit %in% c('min', 'sec'))
+						entry$message(MSG.WARNING, "Unknown unit for retention time while parsing massbank entry.")
+					rt <- as.numeric(g[1,2])
+					if (unit == 'min')
+						rt <- 60 * rt
+					entry$setField(BIODB.CHROM.COL.RT, rt)
+					next
+				}
+
 				# Name
 				if (is.na(entry$getField(BIODB.NAME))) {
 					g <- stringr::str_match(s, "^CH\\$NAME:\\s+(.+)$")
-					if ( ! is.na(g[1,1]))
+					if ( ! is.na(g[1,1])) {
 						entry$setField(BIODB.NAME, g[1,2])
+						next
+					}
 				}
 		
 				# PubChem
 				g <- stringr::str_match(s, "^CH\\$LINK: PUBCHEM\\s+([0-9]+)$")
-				if ( ! is.na(g[1,1]))
+				if ( ! is.na(g[1,1])) {
 					entry$setField(BIODB.PUBCHEMSUB.ID, g[1,2])
+					next
+				}
 
 				# MS MODE
 				g <- stringr::str_match(s, "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")

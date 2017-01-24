@@ -8,15 +8,15 @@ BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
 # Entry abstract class {{{1
 ################################################################
 
-BiodbEntry <- methods::setRefClass("BiodbEntry", fields = list(.fields ='list', .factory = "ANY"))
+BiodbEntry <- methods::setRefClass("BiodbEntry", fields = list(.fields ='list', .biodb = "ANY"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntry$methods( initialize = function(...) {
+BiodbEntry$methods( initialize = function(biodb = NULL, ...) {
 
 	.fields <<- list()
-	.factory <<- NULL
+	.biodb <<- biodb
 
 	callSuper(...)
 })
@@ -118,11 +118,11 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE) {
 
 BiodbEntry$methods(	.compute.field = function(field) {
 
-	if ( ! is.null(.self$.factory) && field %in% names(BIODB.FIELD.COMPUTING)) {
+	if ( ! is.null(.self$.biodb) && field %in% names(BIODB.FIELD.COMPUTING)) {
 		for (db in BIODB.FIELD.COMPUTING[[field]]) {
 			db.id <- .self$getField(paste0(db, 'id'))
 			if ( ! is.na(db.id)) {
-				db.entry <- .self$.factory$createEntry(db, id = db.id)
+				db.entry <- .self$.biodb$getFactory$createEntry(db, id = db.id)
 				if ( ! is.null(db.entry)) {
 					.self$setField(field, db.entry$getField(field))
 					return(TRUE)
@@ -141,16 +141,20 @@ BiodbEntry$methods(	.compute.field = function(field) {
 BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE) {
 	"Convert the entry into a data frame."
 
-	df <- data.frame()
+	df <- data.frame(stringsAsFactors = FALSE)
 
 	# Loop on all fields
 	for (f in names(.self$.fields)) {
 
 		v <- .self$getFieldValue(f)
 
+		# Ignore non atomic values
+		if (only.atomic && ( ! is.vector(v) || length(v) != 1))
+			next
+
 		# Transform vector into data frame
 		if (is.vector(v)) {
-			v <- as.data.frame(v)
+			v <- as.data.frame(v, stringsAsFactors = FALSE)
 			colnames(v) <- f
 		}
 
@@ -160,14 +164,6 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE) {
 	}
 
 	return(df)
-})
-
-# Set factory {{{1
-################################################################
-
-BiodbEntry$methods(	setFactory = function(factory) {
-	is.null(factory) || is(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
-	.factory <<- factory
 })
 
 # DEPRECATED METHODS {{{1

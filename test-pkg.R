@@ -31,9 +31,7 @@ read_args <- function() {
 	opt <- getopt::getopt(spec)
 
 	# Parse option values
-	if (is.null(opt$online))
-		opt[['online']] <- TRUE
-	else
+	if ( ! is.null(opt$online))
 		opt[['online']] <- as.logical(opt$online)
 	if ( ! is.null(opt$databases))
 		opt[['databases']] <- strsplit(opt[['databases']], ',')

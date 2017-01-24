@@ -175,12 +175,6 @@ BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, d
 	conn <- .self$getConn(class)
 	entry <- conn$createEntry(content = content, drop = drop)
 
-	# Set factory
-	.self$message(MSG.INFO, paste0("Setting factory reference into entries..."))
-	for (e in c(entry))
-		if ( ! is.null(e))
-			e$setFactory(.self)
-
 	return(entry)
 })
 

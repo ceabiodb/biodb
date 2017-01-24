@@ -32,5 +32,5 @@ KeggConn$methods( getEntryContent = function(id) {
 ################
 
 KeggConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createKeggEntryFromTxt(content, drop = drop))
+	return(createKeggEntryFromTxt(.self$getBiodb(), content, drop = drop))
 })

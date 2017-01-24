@@ -8,7 +8,7 @@ ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "BiodbEntry")
 # FACTORY #
 ###########
 
-createChebiEntryFromHtml <- function(contents, drop = TRUE) {
+createChebiEntryFromHtml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -21,7 +21,7 @@ createChebiEntryFromHtml <- function(contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- ChebiEntry$new()
+		entry <- ChebiEntry$new(biodb)
 
 		if ( ! is.null(content) && ! is.na(content)) {
 		

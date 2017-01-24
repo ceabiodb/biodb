@@ -167,10 +167,10 @@ PeakforestConn$methods(
 # content       A file content, downloaded from the public database.
 # RETURN        A spectrum instance.
 PeakforestConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createPeakforestSpectraFromJSON(content, drop = drop))
+	return(createPeakforestSpectraFromJSON(.self$getBiodb(), content, drop = drop))
 })
 
 PeakforestConn$methods( createReducedEntry = function(content , drop = TRUE){
-	entries <- createReducedSpectraFromJSON(content, drop = drop)	
+	entries <- createReducedSpectraFromJSON(.self$getBiodb(), content, drop = drop)	
 	return(entries)
 })

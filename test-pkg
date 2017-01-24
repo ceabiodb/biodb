@@ -13,7 +13,7 @@ FALSE='false'
 ################################################################
 
 DEBUG=0
-ONLINE=$TRUE
+ONLINE=
 DATABASES=
 
 # Print help {{{1
@@ -23,7 +23,7 @@ function print_help {
 	echo "Usage: $PROG_NAME [options]"
 	echo
 	echo "   -d, --databases db1,db2,...   Set list of databases on which to run the tests. Optional."
-	echo "   -o, --online    $TRUE/$FALSE  Enable or disable online tests. Default is '$TRUE'."
+	echo "   -o, --online    $TRUE/$FALSE  If set to true, restrict to online tests. If set to false, disable online tests. By default do both online and offline tests."
 }
 
 # Msg {{{1
@@ -89,7 +89,7 @@ function read_args {
 	shift $((OPTIND - 1))
 
 	# Check arguments
-	[ "$ONLINE" = $TRUE -o "$ONLINE" = $FALSE ] || msg ERROR "Command line argument --online must be set to either \"$TRUE\" or \"$FALSE\"."
+	[ "$ONLINE" = $TRUE -o "$ONLINE" = $FALSE -o -z "$ONLINE" ] || msg ERROR "Command line argument --online must be set to either \"$TRUE\" or \"$FALSE\"."
 
 	# Read remaining arguments
 	[ $# -eq 0 ] || msg ERROR "No remaining argument is allowed."
@@ -108,7 +108,8 @@ read_args "$@"
 # Run test
 options=
 [ -z "$DATABASES" ] || options+=" -d $DATABASES"
-Rscript $PROG_DIR/test-pkg.R --online $ONLINE $options 2>&1 | tee $OUTPUT
+[ -z "$ONLINE" ] || options+=" -o $ONLINE"
+Rscript $PROG_DIR/test-pkg.R $options 2>&1 | tee $OUTPUT
 
 # Look for error message
 error=$(grep Error $OUTPUT)

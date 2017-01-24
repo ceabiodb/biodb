@@ -183,6 +183,8 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.MSTYPE,               'character',    BIODB.CARD.ONE,		'none',
 	BIODB.MSMODE,               'character',    BIODB.CARD.ONE,		'none',
 	BIODB.MSPRECMZ,             'double',       BIODB.CARD.ONE,		'none',
+	BIODB.CHROM.COL,            'character',    BIODB.CARD.ONE,		'none',
+	BIODB.CHROM.COL.RT,         'double',       BIODB.CARD.ONE,		'none',
 	BIODB.PEAK.MZTHEO,			'double',		BIODB.CARD.ONE,		'none',
 	BIODB.MSPRECANNOT,          'character',    BIODB.CARD.ONE,		'none',
 	BIODB.FORMULA,              'character',    BIODB.CARD.ONE,		'none',

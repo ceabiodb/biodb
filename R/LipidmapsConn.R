@@ -42,5 +42,5 @@ LipidmapsConn$methods( getEntryContent = function(id) {
 ################
 
 LipidmapsConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createLipidmapsEntryFromCsv(content, drop = drop))
+	return(createLipidmapsEntryFromCsv(.self$getBiodb(), content, drop = drop))
 })

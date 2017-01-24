@@ -8,7 +8,7 @@ NcbigeneEntry <- methods::setRefClass("NcbigeneEntry", contains = "BiodbEntry")
 # FACTORY #
 ###########
 
-createNcbigeneEntryFromXml <- function(contents, drop = TRUE) {
+createNcbigeneEntryFromXml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -25,7 +25,7 @@ createNcbigeneEntryFromXml <- function(contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- NcbigeneEntry$new()
+		entry <- NcbigeneEntry$new(biodb = biodb)
 	
 		# Parse HTML
 		xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)

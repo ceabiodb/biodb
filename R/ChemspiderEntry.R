@@ -57,7 +57,7 @@ createChemspiderEntryFromXml <- function(contents, drop = TRUE) {
 # CREATE COMPOUND FROM HTML #
 #############################
 
-createChemspiderEntryFromHtml <- function(contents, drop = TRUE) {
+createChemspiderEntryFromHtml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -67,7 +67,7 @@ createChemspiderEntryFromHtml <- function(contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- ChemspiderEntry$new()
+		entry <- ChemspiderEntry$new(biodb = biodb)
 
 		if ( ! is.null(content) && ! is.na(content)) {
 		

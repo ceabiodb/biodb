@@ -8,7 +8,7 @@ UniprotEntry <- methods::setRefClass("UniprotEntry", contains = "BiodbEntry")
 # FACTORY #
 ###########
 
-createUniprotEntryFromXml <- function(contents, drop = FALSE) {
+createUniprotEntryFromXml <- function(biodb, contents, drop = FALSE) {
 
 	# Set XML namespace
 	ns <- c(uniprot = "http://uniprot.org/uniprot")
@@ -32,7 +32,7 @@ createUniprotEntryFromXml <- function(contents, drop = FALSE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- UniprotEntry$new()
+		entry <- UniprotEntry$new(biodb = biodb)
 
 		# If the entity doesn't exist (i.e.: no <id>.xml page), then it returns an HTML page
 		if ( ! grepl("^<!DOCTYPE html ", content, perl = TRUE)) {

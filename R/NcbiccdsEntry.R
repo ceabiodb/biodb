@@ -8,14 +8,14 @@ NcbiccdsEntry <- methods::setRefClass("NcbiccdsEntry", contains = "BiodbEntry")
 # FACTORY #
 ###########
 
-createNcbiccdsEntryFromHtml <- function(contents, drop = TRUE) {
+createNcbiccdsEntryFromHtml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
 	for (html in contents) {
 
 		# Create instance
-		entry <- NcbiccdsEntry$new()
+		entry <- NcbiccdsEntry$new(biodb = biodb)
 	
 		# Parse HTML
 		xml <-  XML::htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)

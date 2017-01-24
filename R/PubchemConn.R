@@ -81,7 +81,7 @@ PubchemConn$methods( getEntryContent = function(ids) {
 ################
 
 PubchemConn$methods( createEntry = function(content, drop = TRUE) {
-	return(if (.self$.db == BIODB.PUBCHEMCOMP) createPubchemEntryFromXml(content, drop = drop) else createPubchemSubstanceFromXml(content, drop = drop))
+	return(if (.self$.db == BIODB.PUBCHEMCOMP) createPubchemEntryFromXml(.self$getBiodb(), content, drop = drop) else createPubchemSubstanceFromXml(.self$getBiodb(), content, drop = drop))
 })
 
 #########################

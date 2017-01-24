@@ -32,7 +32,7 @@ ChebiConn$methods( getEntryContent = function(id) {
 ################
 
 ChebiConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createChebiEntryFromHtml(content, drop = drop))
+	return(createChebiEntryFromHtml(.self$getBiodb(), content, drop = drop))
 })
 
 ##################

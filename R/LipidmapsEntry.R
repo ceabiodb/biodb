@@ -8,7 +8,7 @@ LipidmapsEntry <- methods::setRefClass("LipidmapsEntry", contains = 'BiodbEntry'
 # FACTORY #
 ###########
 
-createLipidmapsEntryFromCsv <- function(contents, drop = TRUE) {
+createLipidmapsEntryFromCsv <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -24,7 +24,7 @@ createLipidmapsEntryFromCsv <- function(contents, drop = TRUE) {
 	for (text in contents) {
 
 		# Create instance
-		entry <- LipidmapsEntry$new()
+		entry <- LipidmapsEntry$new(biodb = biodb)
 
 		# Split text in lines
 		lines <- split.str(text, sep = "\n", unlist = TRUE)
