@@ -1,18 +1,17 @@
-#############
-# CONSTANTS #
-#############
+# vi: fdm=marker
+
+# Constants {{{1
+################################################################
 
 BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
 
-########################
-# ENTRY ABSTRACT CLASS #
-########################
+# Entry abstract class {{{1
+################################################################
 
 BiodbEntry <- methods::setRefClass("BiodbEntry", fields = list(.fields ='list', .factory = "ANY"))
 
-###############
-# CONSTRUCTOR #
-###############
+# Constructor {{{1
+################################################################
 
 BiodbEntry$methods( initialize = function(...) {
 
@@ -22,9 +21,8 @@ BiodbEntry$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-###################
-# SET FIELD VALUE #
-###################
+# Set field value {{{1
+################################################################
 
 BiodbEntry$methods(	setFieldValue = function(field, value) {
 
@@ -50,25 +48,22 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	.self$.fields[[field]] <- value
 })
 
-###################
-# GET FIELD NAMES #
-###################
+# Get field names {{{1
+################################################################
 
 BiodbEntry$methods(	getFieldNames = function(field) {
 	return(names(.self$.fields))
 })
 
-#############
-# HAS FIELD #
-#############
+# Has field {{{1
+################################################################
 
 BiodbEntry$methods(	hasField = function(field) {
 	return(field %in% names(.self$.fields))
 })
 
-###################
-# GET FIELD CLASS #
-###################
+# Get field class {{{1
+################################################################
 
 BiodbEntry$methods(	getFieldClass = function(field) {
 
@@ -80,17 +75,15 @@ BiodbEntry$methods(	getFieldClass = function(field) {
 	return(field.class)
 })
 
-#########################
-# FIELD HAS BASIC CLASS #
-#########################
+# Field has basic class {{{1
+################################################################
 
 BiodbEntry$methods(	fieldHasBasicClass = function(field) {
 	return(.self$getFieldClass(field) %in% BIODB.BASIC.CLASSES)
 })
 
-#########################
-# GET FIELD CARDINALITY #
-#########################
+# Get field cardinality {{{1
+################################################################
 
 BiodbEntry$methods(	getFieldCardinality = function(field) {
 
@@ -102,9 +95,8 @@ BiodbEntry$methods(	getFieldCardinality = function(field) {
 	return(field.card)
 })
 
-###################
-# GET FIELD VALUE #
-###################
+# Get field value {{{1
+################################################################
 
 BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE) {
 
@@ -121,9 +113,8 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE) {
 	return(if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL)
 })
 
-#################
-# COMPUTE FIELD #
-##################
+# Compute field {{{1
+################################################################
 
 BiodbEntry$methods(	.compute.field = function(field) {
 
@@ -143,35 +134,34 @@ BiodbEntry$methods(	.compute.field = function(field) {
 	return(FALSE)
 })
 
-############################
-# GET FIELDS AS DATA FRAME #
-############################
-###TODO add a limiting option to get some fields.
+# Get fields as data frame {{{1
+################################################################
+
+# TODO add a limiting option to get some fields.
 BiodbEntry$methods(	getFieldsAsDataFrame = function() {
+
 	df <- data.frame()
+
 	# Loop on all fields
 	for (f in names(.self$.fields))
 
 		# If field class is a basic type
-		if (.self$getFieldClass(f) %in% c('character', 'logical', 'integer', 'double')  &
-			length(.self$getFieldValue(f)) == 1)
+		if (any(.self$getFieldClass(f) %in% c('character', 'logical', 'integer', 'double')) && length(.self$getFieldValue(f)) == 1)
 			df[1, f] <- .self$getFieldValue(f)
 
 	return(df)
 })
 
-###########
-# FACTORY #
-###########
+# Set factory {{{1
+################################################################
 
 BiodbEntry$methods(	setFactory = function(factory) {
 	is.null(factory) || is(factory, "BiodbFactory") || stop("The factory instance must inherit from BiodbFactory class.")
 	.factory <<- factory
 })
 
-##############
-# DEPRECATED #
-##############
+# DEPRECATED METHODS {{{1
+################################################################
 
 BiodbEntry$methods(	getField = function(field) {
 	return(.self$getFieldValue(field))

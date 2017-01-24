@@ -1,13 +1,13 @@
 # vi: fdm=marker
 
-# CLASS DECLARATION {{{1
+# Class declaration {{{1
 ################################################################
 
 #'The mother abstract class of all connection classes.
 #'@export
 Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .useragent = "character", .use.env.var = "logical" ))
 
-# CONSTRUCTOR {{{1
+# Constructor {{{1
 ################################################################
 
 Biodb$methods( initialize = function(useragent = NA_character_, use.env.var = FALSE, ...) {
@@ -20,21 +20,21 @@ Biodb$methods( initialize = function(useragent = NA_character_, use.env.var = FA
 	callSuper(...)
 })
 
-# GET BIODB {{{1
+# Get biodb {{{1
 ################################################################
 
 Biodb$methods( getBiodb = function() {
 	return(.self)
 })
 
-# GET USER AGENT {{{1
+# Get user agent {{{1
 ################################################################
 
 Biodb$methods( getUserAgent = function() {
 	return(.self$.useragent)
 })
 
-# GET ENV VAR {{{1
+# Get env var {{{1
 ################################################################
 
 Biodb$methods( getEnvVar = function(name) {
@@ -57,14 +57,14 @@ Biodb$methods( getEnvVar = function(name) {
 	return(value)
 })
 
-# GET FACTORY {{{1
+# Get factory {{{1
 ################################################################
 
 Biodb$methods( getFactory = function() {
 	return(.self$.factory)
 })
 
-# ADD OBSERVERS {{{1
+# Add observers {{{1
 ################################################################
 
 Biodb$methods( addObservers = function(obs) {
@@ -79,9 +79,29 @@ Biodb$methods( addObservers = function(obs) {
 	.observers <<- if (is.null(.self$.observers)) obs else c(obs, .self$.observers)
 })
 
-# GET OBSERVERS {{{1
+# Get observers {{{1
 ################################################################
 
 Biodb$methods( getObservers = function() {
 	return(.self$.observers)
+})
+
+# Entries to data frame {{{1
+################################################################
+
+Biodb$methods( entriesToDataframe = function(entries) {
+	"Convert a list of entries (BiodbEntry objects) into a data frame."
+
+	# Check classes
+	all(vapply(entries, function(x) is(x, 'BiodbEntry'), FUN.VALUE = TRUE)) || .self$message(BIODB.ERROR, "Some objects in the input list ar not a subclass of BiodbEntry.")
+
+	entries.df <- NULL
+
+	# Loop on all entries
+	for (e in entries) {
+		e.df <- e$getFieldsAsDataFrame()
+		entries.df <- plyr::rbind.fill(entries.df, e.df)
+	}
+
+	return(entries.df)
 })

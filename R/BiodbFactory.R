@@ -3,6 +3,8 @@
 # CLASS DECLARATION {{{1
 ################################################################
 
+#'A class for constructing biodb objects.
+#'@export
 BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(
 														  .conn = "list",
 														  .cache.dir = "character",

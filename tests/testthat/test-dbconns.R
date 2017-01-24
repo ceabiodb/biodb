@@ -22,12 +22,16 @@ test.entry.fields <- function(factory, db) {
 	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
 	length(entries) == nrow(entries.desc) || stop("Not enough entries created in test.entry.fields().")
 
+	# Get data frame
+	entries.df <- factory$getBiodb()$entriesToDataframe(entries)
+
 	# Test fields of entries
 	for (f in colnames(entries.desc)) {
 		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
 		card <- entries[[1]]$getFieldCardinality(f)
 		e.values <- vapply(entries, function(e) if (card == BIODB.CARD.ONE || is.na(e$getField(f))) e$getField(f) else paste(e$getField(f), collapse = ';'), FUN.VALUE = vector(mode = entries[[1]]$getFieldClass(f), length = 1))
-		expect_equal(e.values, entries.desc[[f]], info = paste0("Error with field \"", f, "\""))
+		expect_equal(e.values, entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entry objects."))
+		expect_equal(entries.df[[f]], entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entries data frame"))
 	}
 }
 
