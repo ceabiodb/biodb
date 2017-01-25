@@ -8,7 +8,7 @@ BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
 # Entry abstract class {{{1
 ################################################################
 
-BiodbEntry <- methods::setRefClass("BiodbEntry", fields = list(.fields ='list', .biodb = "ANY"))
+BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "BiodbObject", fields = list(.fields ='list', .biodb = "ANY"))
 
 # Constructor {{{1
 ################################################################
