@@ -74,13 +74,21 @@ BiodbObject$methods( message = function(type, msg, level = 1) {
 		.message.enabled <<- TRUE
 	}
 
+	# Get class and method information
+	class <- class(.self)
+	method <- sys.call(length(sys.calls()) - 1)
+	method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)[[1]]
+
 	if ( ! is.null(biodb))
-		lapply(biodb$getObservers(), function(x) x$message(type = type, msg = msg, class = class(.self), level = level))
+		lapply(biodb$getObservers(), function(x) x$message(type = type, msg = msg, class = class, method = method, level = level))
 	else {
-		class.info <- if (is.na(class(.self))) '' else paste0('[', class(.self), '] ')
+		caller.info <- if (is.na(class)) '' else class
+		if (! is.na(method))
+			caller.info <- paste(caller.info, method, sep = '::')
+		if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
 		switch(type,
-		       ERROR = stop(paste0(class.info, msg)),
-		       WARNING = warning(paste0(class.info, msg)),
-		       cat(class.info, msg, "\n", file = stderr()))
+		       ERROR = stop(paste0(caller.info, msg)),
+		       WARNING = warning(paste0(caller.info, msg)),
+		       cat(caller.info, msg, "\n", file = stderr()))
 	}
 })

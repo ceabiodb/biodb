@@ -10,11 +10,25 @@ Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( 
 # Constructor {{{1
 ################################################################
 
-Biodb$methods( initialize = function(useragent = NA_character_, use.env.var = FALSE, ...) {
+Biodb$methods( initialize = function(useragent = NA_character_, use.env.var = TRUE, logger = TRUE, ...) {
 
-	.useragent <<- useragent
 	.use.env.var <<- use.env.var
+
+	# Set useragent
+	.useragent <<- useragent
+	if (is.na(useragent) && .self$.use.env.var) {
+		env <- Sys.getenv()
+		email <- env[["EMAIL"]]
+		if ( ! is.na(email))
+			.useragent <<- paste("Biodb user", email, sep = " ; ")
+	}
+
+	# Set observers
 	.observers <<- list(WarningReporter$new(), ErrorReporter$new())
+	if (logger)
+		.self$addObservers(BiodbLogger$new())
+
+	# Create factory
 	.factory <<- BiodbFactory$new(biodb = .self)
 
 	callSuper(...)
@@ -98,7 +112,10 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE) {
 	entries.df <- NULL
 
 	# Loop on all entries
+	n <- 0
 	for (e in entries) {
+		n <- n + 1
+		.self$message(BIODB.DEBUG, paste("Processing entry", n, "/", length(entries), "..."))
 		e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic)
 		entries.df <- plyr::rbind.fill(entries.df, e.df)
 	}

@@ -112,7 +112,7 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request) {
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
 
-	.self$message(MSG.INFO, paste0("Sending URL request '", url, "'..."))
+	.self$message(MSG.DEBUG, paste0("Sending URL request '", url, "'..."))
 
 	content <- NA_character_
 

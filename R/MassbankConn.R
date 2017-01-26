@@ -47,7 +47,7 @@ MassbankConn$methods( getEntryContent = function(ids) {
 		x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$.url)
 
 		# Debug
-		.self$message(MSG.DEBUG, paste0("Send URL request for ", x$n," id(s)..."))
+		.self$message(MSG.INFO, paste0("Send URL request for ", x$n," id(s)..."))
 
 		# Send request
 		xmlstr <- .self$.get.url(x$url)
@@ -65,7 +65,7 @@ MassbankConn$methods( getEntryContent = function(ids) {
 		}
 
 		# Debug
-		.self$message(MSG.DEBUG, paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
+		.self$message(MSG.INFO, paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 	}
 
 	return(content)
@@ -87,24 +87,15 @@ MassbankConn$methods( createEntry = function(content, drop = TRUE) {
 MassbankConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 })
 
-# Search peak {{{1
+# Do search peak {{{1
 ################################################################
 
-MassbankConn$methods( searchPeak = function(mz = NA_real_, tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
-
-	if (is.na(mz) || length(mz) == 0)
-		.self$message(MSG.ERROR, "At least one mz value is required for searchPeak() method.")
-	if (! all(mz > 0))
-		.self$message(MSG.ERROR, "MZ values must be positive for searchPeak() method.")
-	if (is.na(tol) || length(tol) == 0)
-		.self$message(MSG.ERROR, "A tolerance value is required for searchPeak() method.")
-	if (length(tol) > 1)
-		.self$message(MSG.ERROR, "No more than one tolerance value is allowed for searchPeak() method.")
-	if ( ! is.na(max.results) && max.results < 0)
-		.self$message(MSG.ERROR, "The maximum number of results must be positive or zero for searchPeak() method.")
+MassbankConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
 
 	# Set URL
-	url <- paste0(.self$.url, 'searchPeak?mzs=', mz, '&relativeIntensity=', relint, '&tolerance=', tol, '&instrumentTypes=all')
+	url <- paste0(.self$.url, 'searchPeak?mzs=', mz)
+	url <- paste0(url, '&relativeIntensity=', if (is.na(relint)) 0 else relint)
+	url <- paste0(url, '&tolerance=', tol, '&instrumentTypes=all')
 	url <- paste0(url, '&ionMode=', if (is.na(mode)) 'Both' else ( if (mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'))
 	url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
 
@@ -128,7 +119,7 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	.self$message(MSG.INFO, paste("Getting", if (is.na(max.results)) 'all' else max.results, "massbank entry ids..."))
 
-	return(.self$searchPeak(mz = 1000, tol = 1000, max.results = max.results))
+	return(.self$searchPeak(mz = 1000, tol = 1000, relint = 100, max.results = max.results))
 })
 
 # Get nb entries {{{1

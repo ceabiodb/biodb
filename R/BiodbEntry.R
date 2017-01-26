@@ -21,6 +21,13 @@ BiodbEntry$methods( initialize = function(biodb = NULL, ...) {
 	callSuper(...)
 })
 
+# Get biodb {{{1
+################################################################
+
+BiodbEntry$methods( getBiodb = function() {
+	return(.self$.biodb)
+})
+
 # Set field value {{{1
 ################################################################
 

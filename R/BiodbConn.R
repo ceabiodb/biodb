@@ -15,7 +15,7 @@ BiodbConn$methods( initialize = function(debug = FALSE, biodb = NULL, ...) {
 	callSuper(...)
 })
 
-# GET BIODB {{{1
+# Get biodb {{{1
 ################################################################
 
 BiodbConn$methods( getBiodb = function() {

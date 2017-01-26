@@ -24,10 +24,11 @@ BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.
 # Message {{{1
 ################################################################
 
-BiodbLogger$methods( message = function(type = MSG.INFO, msg, class = NA_character_, level = 1) {
+BiodbLogger$methods( message = function(type = MSG.INFO, msg, class = NA_character_, method = NA_character_, level = 1) {
 
 	# Check message type
-	type %in% .MSG.TYPES || .self$message(MSG.ERROR, paste0("Unknown message type ", type, "."))
+	if ( ! type %in% .MSG.TYPES)
+		.self$message(MSG.ERROR, paste0("Unknown message type ", type, "."))
 
 	# Should message be output ?
 	output = TRUE
@@ -38,7 +39,9 @@ BiodbLogger$methods( message = function(type = MSG.INFO, msg, class = NA_charact
 
 	# Output message
 	if (output) {
-		class.info <- if (is.na(class)) '' else paste0('[', class, ']')
-		cat(type, class.info, ': ', msg, "\n", sep = '', file = .self$.file)
+		caller.info <- if (is.na(class)) '' else class
+		caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
+		if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
+		cat(type, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
 	}
 })

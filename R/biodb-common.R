@@ -2,6 +2,7 @@
 # CACHE MODES #
 ###############
 
+#'@export
 BIODB.CACHE.READ.ONLY  <- 'read-only'
 BIODB.CACHE.READ.WRITE <- 'read-write'
 BIODB.CACHE.WRITE.ONLY <- 'write-only'

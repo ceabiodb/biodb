@@ -17,11 +17,17 @@ BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', f
 
 BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
 
+	.biodb <<- biodb
 	.conn <<- list()
 	.cache.mode <<- BIODB.CACHE.READ.WRITE
-	.cache.dir <<- NA_character_
 	.chunk.size <<- NA_integer_
-	.biodb <<- biodb
+
+	# Set cache directory
+	.cache.dir <<- NA_character_
+	env <- Sys.getenv()
+	home <- env[["HOME"]]
+	if ( ! is.na(home))
+		.self$setCacheDir(file.path(home, ".biodb.cache"))
 
 	callSuper(...)
 })
@@ -39,6 +45,12 @@ BiodbFactory$methods( getBiodb = function() {
 BiodbFactory$methods( setCacheDir = function(dir) {
 	.self$message(MSG.INFO, paste("Setting factory cache directory to ", dir, ".", sep = ""))
 	.cache.dir <<- dir
+})
+
+# Disable cache {{{2
+BiodbFactory$methods( disableCache = function(dir) {
+	.self$message(MSG.INFO, "Disabling factory caching system.")
+	.cache.dir <<- NA_character_
 })
 
 # Set cache mode {{{2

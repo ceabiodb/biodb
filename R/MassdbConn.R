@@ -12,7 +12,7 @@ MassdbConn <- methods::setRefClass("MassdbConn", contains = "BiodbConn")
 # compound.ids  A list of compound IDs used to filter results.
 # The returned value is a data.frame with two columns : one for the ID (BIODB.ID) and another one for the title (BIODB.TITLE).
 MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
-	stop("Method getChromCol() is not implemented in concrete class.")
+	.self$.abstract.method()
 })
 
 #################
@@ -47,10 +47,32 @@ MassdbConn$methods( findCompoundByName = function(name) {
 # Search peak {{{1
 ################################################################
 
-MassdbConn$methods( searchPeak = function(mz = NA_real_, tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
+MassdbConn$methods( searchPeak = function(mz = NA_real_, tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
 	"Search matching peaks in database, and return a list of entry IDs."
 
-	stop("Method searchPeak() not implemented in concrete class.")
+	if (is.na(mz) || length(mz) == 0)
+		.self$message(MSG.ERROR, "At least one mz value is required for searchPeak() method.")
+	if (! all(mz > 0))
+		.self$message(MSG.ERROR, "MZ values must be positive for searchPeak() method.")
+	if (is.na(tol) || length(tol) == 0)
+		.self$message(MSG.ERROR, "A tolerance value is required for searchPeak() method.")
+	if (length(tol) > 1)
+		.self$message(MSG.ERROR, "No more than one tolerance value is allowed for searchPeak() method.")
+	if ( ! is.na(max.results) && max.results < 0)
+		.self$message(MSG.ERROR, "The maximum number of results must be positive or zero for searchPeak() method.")
+	if ( ! is.na(mode) && ! mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS))
+		.self$message(MSG.ERROR, paste("Incorrect MS mode", mode, "for searchPeak() method."))
+	if ( ! is.na(relint) && relint < 0)
+		.self$message(MSG.ERROR, "The relative intensity must be positive or zero for searchPeak() method.")
+
+	.self$.do.search.peak(mz = mz, tol = tol, relint = relint, mode = mode, max.results = max.results)
+})
+
+# Do search peak {{{1
+################################################################
+
+MassdbConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
+	.self$.abstract.method()
 })
 
 ####################################

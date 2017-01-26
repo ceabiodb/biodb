@@ -34,10 +34,15 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	regex[[BIODB.PUBCHEMSUB.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)"
 	regex[[BIODB.HMDB.ID]] <- "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)"
 
+	n <- 0
 	for (text in contents) {
+
+		n <- n +1
 
 		# Create instance
 		entry <- MassbankEntry$new(biodb = biodb)
+
+		entry$message(MSG.DEBUG, paste("Parsing content", n, "/", length(contents), "..."))
 
 		if ( ! is.null(text) && ! is.na(text)) {
 
@@ -59,11 +64,11 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 					next
 
 				# Retention time
-				g <- stringr::str_match(s, "^AC\\$CHROMATOGRAPHY: RETENTION_TIME\\s+([0-9.]+)\\s+(.*)$")
+				g <- stringr::str_match(s, "^AC\\$CHROMATOGRAPHY: RETENTION_TIME\\s+([0-9.]+)\\s+([minsec]+)\\s*.*$")
 				if ( ! is.na(g[1,1])) {
 					unit <- tolower(g[1,3]) 
-					if ( ! unit %in% c('min', 'sec'))
-						entry$message(MSG.WARNING, "Unknown unit for retention time while parsing massbank entry.")
+					if ( ! unit %in% c('min', 'sec', 's'))
+						entry$message(MSG.WARNING, paste("Unknown unit", unit, " for retention time while parsing massbank entry."))
 					rt <- as.numeric(g[1,2])
 					if (unit == 'min')
 						rt <- 60 * rt
