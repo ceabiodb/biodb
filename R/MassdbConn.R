@@ -44,6 +44,15 @@ MassdbConn$methods( findCompoundByName = function(name) {
 	stop("Method findCompoundByName() not implemented in concrete class.")
 })
 
+# Search peak {{{1
+################################################################
+
+MassdbConn$methods( searchPeak = function(mz = NA_real_, tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
+	"Search matching peaks in database, and return a list of entry IDs."
+
+	stop("Method searchPeak() not implemented in concrete class.")
+})
+
 ####################################
 # FIND SPECTRA IN GIVEN MASS RANGE #
 ####################################

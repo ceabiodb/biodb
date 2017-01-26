@@ -87,15 +87,25 @@ MassbankConn$methods( createEntry = function(content, drop = TRUE) {
 MassbankConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 })
 
-# Get entry ids {{{1
+# Search peak {{{1
 ################################################################
 
-MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
+MassbankConn$methods( searchPeak = function(mz = NA_real_, tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
 
-	.self$message(MSG.INFO, paste("Getting", if (is.na(max.results)) 'all' else max.results, "massbank entry ids..."))
+	if (is.na(mz) || length(mz) == 0)
+		.self$message(MSG.ERROR, "At least one mz value is required for searchPeak() method.")
+	if (! all(mz > 0))
+		.self$message(MSG.ERROR, "MZ values must be positive for searchPeak() method.")
+	if (is.na(tol) || length(tol) == 0)
+		.self$message(MSG.ERROR, "A tolerance value is required for searchPeak() method.")
+	if (length(tol) > 1)
+		.self$message(MSG.ERROR, "No more than one tolerance value is allowed for searchPeak() method.")
+	if ( ! is.na(max.results) && max.results < 0)
+		.self$message(MSG.ERROR, "The maximum number of results must be positive or zero for searchPeak() method.")
 
 	# Set URL
-	url <- paste0(.self$.url, 'searchPeak?mzs=1000&relativeIntensity=100&tolerance=1000&instrumentTypes=all&ionMode=Both')
+	url <- paste0(.self$.url, 'searchPeak?mzs=', mz, '&relativeIntensity=', relint, '&tolerance=', tol, '&instrumentTypes=all')
+	url <- paste0(url, '&ionMode=', if (is.na(mode)) 'Both' else ( if (mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'))
 	url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
 
 	# Send request
@@ -108,6 +118,17 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 		returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
 		return(returned.ids)
 	}
+
+})
+
+# Get entry ids {{{1
+################################################################
+
+MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
+
+	.self$message(MSG.INFO, paste("Getting", if (is.na(max.results)) 'all' else max.results, "massbank entry ids..."))
+
+	return(.self$searchPeak(mz = 1000, tol = 1000, max.results = max.results))
 })
 
 # Get nb entries {{{1
