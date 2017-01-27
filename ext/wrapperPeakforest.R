@@ -78,7 +78,7 @@ searchMSMSPeakforest <- function(spec, precursor, mztol, ppm, mode){
 	biodb_obj <-  biodb:::Biodb$new(USER_AGENT)
 	biodb_obj$addObservers(biodb:::BiodbLogger$new())
 	fac <- biodb_obj$getFactory()
-	pfcon <- fac$createConn(biodb:::BIODB.PEAKFOREST,url="https://rest.peakforest.org",token=TOKEN)
+	pfcon <- fac$createConn(biodb:::BIODB.PEAKFOREST,url="https://peakforest-alpha.inra.fr/rest/",token=TOKEN)
 	
 # if (.source.biodb) {
 # 	pfcon <- PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)

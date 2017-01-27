@@ -87,9 +87,11 @@ MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 	
 	# TODO replace by msms precursor search when available.
 	lspec <- .self$searchSpecPrecTol( precursor, mztol, BIODB.MZTOLUNIT.PLAIN, mode = mode)
+	if(length(lspec)==0){
+		return(list(measure = numeric(0), matchedpeaks = list(), id = character(0)))
+	}
 	rspec <- lapply(lspec,function(x){
-        peaks <- x$getFieldValue(BIODB.PEAKS)
-		
+        peaks <- x$getFieldValue(BIODB.PEAKS,compute=FALSE)
 		####Getting the correct fields
 		vcomp <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.INTENSITY)
 		
