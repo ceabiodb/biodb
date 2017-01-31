@@ -23,16 +23,15 @@ read_args <- function() {
 
 	# options
 	spec <- c(
-		'databases',    'd',    1,  'character',    'Set list of databases on which to run the tests. Optional.',
-		'help',         'h',    0,  'logical',      'Print this help.',
-		'online',       'o',    1,  'character',    'Enable or disable online testing.'
+		'databases',       'd',    1,  'character',    'Set list of databases on which to run the tests. Optional.',
+		'help',            'h',    0,  'logical',      'Print this help.',
+		'disable-online',  'x',    0,  'logical',      'Disable online testing.',
+		'disable-offline', 'y',    0,  'logical',      'Disable offline testing.'
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
 	opt <- getopt::getopt(spec)
 
 	# Parse option values
-	if ( ! is.null(opt$online))
-		opt[['online']] <- as.logical(opt$online)
 	if ( ! is.null(opt$databases))
 		opt[['databases']] <- strsplit(opt[['databases']], ',')
 

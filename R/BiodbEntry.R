@@ -105,19 +105,33 @@ BiodbEntry$methods(	getFieldCardinality = function(field) {
 # Get field value {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE) {
+BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FALSE) {
+
+	val <- NULL
+
 	if ( ! field %in% BIODB.FIELDS[['name']])
-		stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+		.self$message(MSG.ERROR, paste0('Unknown field "', field, '" in BiodEntry.'))
 
-	if (field %in% names(.self$.fields)){
-		return(.self$.fields[[field]])
+	if (field %in% names(.self$.fields)) {
+		val <- .self$.fields[[field]]
 	}
-	else if (compute && .self$.compute.field(field))
-		return(.self$.fields[[field]])
+	else {
+		if (compute && .self$.compute.field(field)) {
+			val <- .self$.fields[[field]]
+		}
+		else {
+			# Return NULL or NA
+			class = .self$getFieldClass(field)
+			val <- if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL
+		}
+	}
 
-	# Return NULL or NA
-	class = .self$getFieldClass(field)
-	return(if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL)
+	# Flatten: convert atomic values with cardinality > 1 into a string
+	if (flatten)
+		if (.self$.biodb$fieldIsAtomic(field) && .self$getFieldCardinality(field) != BIODB.CARD.ONE)
+			val <- paste(val, collapse = biodb::MULTIVAL.FIELD.SEP)
+
+	return(val)
 })
 
 # Compute field {{{1
@@ -129,6 +143,8 @@ BiodbEntry$methods(	.compute.field = function(field) {
 		for (db in BIODB.FIELD.COMPUTING[[field]]) {
 			db.id <- .self$getField(paste0(db, 'id'))
 			if ( ! is.na(db.id)) {
+
+				.self$message(MSG.DEBUG, paste("Compute value for field \"", field, "\".", sep = '')) 
 				db.entry <- .self$.biodb$getFactory$createEntry(db, id = db.id)
 				if ( ! is.null(db.entry)) {
 					.self$setField(field, db.entry$getField(field))

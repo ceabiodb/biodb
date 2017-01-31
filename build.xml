@@ -42,11 +42,20 @@
 
 	<!-- TEST PACKAGE MACRO -->
 	<macrodef name="testpkg">
+
+		<!-- attributes -->
 		<attribute name="online" default="true"/>
+
 		<sequential>
+
+			<!-- Set arguments -->
+			<condition property="databases" value="-d ${DATABASES}" else=""><isset property="DATABASES"/></condition>
+			<condition property="disable.online" value="-x" else=""><isfalse value="@{online}"/></condition>
+
+			<!-- execution -->
 			<exec executable="${this.dir}/test-pkg" failonerror="true">
-				<arg value="--online"/>
-				<arg value="@{online}"/>
+				<arg line="${databases}"/>
+				<arg line="${disable.online}"/>
 				<redirector>
 					<outputfilterchain>
 						<tokenfilter>

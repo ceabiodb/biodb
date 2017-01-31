@@ -24,13 +24,12 @@ test.entry.fields <- function(factory, db) {
 
 	# Get data frame
 	entries.df <- factory$getBiodb()$entriesToDataframe(entries)
-	expect_equal(nrow(entries.df), length(entries), info = paste0("Error while converting entries into a data frame. Wrong number of rows: ", nrow(entries.df), " instead of ", length(entries), ">"))
+	expect_equal(nrow(entries.df), length(entries), info = paste0("Error while converting entries into a data frame. Wrong number of rows: ", nrow(entries.df), " instead of ", length(entries), "."))
 
 	# Test fields of entries
 	for (f in colnames(entries.desc)) {
 		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
-		card <- entries[[1]]$getFieldCardinality(f)
-		e.values <- vapply(entries, function(e) if (card == BIODB.CARD.ONE || is.na(e$getField(f))) e$getField(f) else paste(e$getField(f), collapse = ';'), FUN.VALUE = vector(mode = entries[[1]]$getFieldClass(f), length = 1))
+		e.values <- factory$getBiodb()$entriesFieldToVctOrLst(entries, f, flatten = TRUE)
 		expect_equal(e.values, entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entry objects."))
 		expect_equal(entries.df[[f]], entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entries data frame"))
 	}
@@ -73,9 +72,9 @@ test.entry.ids <- function(db) {
 
 # Set online/offline modes to test
 online.modes = logical()
-if (is.null(opt[['online']]) || ! opt[['online']])
+if (is.null(opt[['disable-offline']]))
 	online.modes <- c(online.modes, FALSE)
-if (is.null(opt[['online']]) || opt[['online']])
+if (is.null(opt[['disable-online']]))
 	online.modes <- c(online.modes, TRUE)
 
 # Set list of databases to test

@@ -69,7 +69,7 @@ offline.test.massfiledb <- function() {
 
 
 if ((is.null(opt[['databases']]) || BIODB.MASSFILEDB %in% opt[['databases']])
-	&& (is.null(opt[['online']]) || ! opt[['online']])) {
+	&& is.null(opt[['disable-offline']] )) {
 	context("Testing massfiledb offline")
 	test_that("MassfiledbConn methods are correct", offline.test.massfiledb())
 }

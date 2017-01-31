@@ -113,6 +113,8 @@ BIODB.PEAK.INTENSITY <- 'peak.intensity'
 BIODB.PEAK.RELATIVE.INTENSITY <- 'peak.relative.intensity'
 BIODB.PEAK.RELATIVE.INTENSITY.SHORT <- 'rel.int' # XXX should not exist, we don't want twice the same field with different names.
 
+MULTIVAL.FIELD.SEP <- ';'
+
 # Mode values
 BIODB.MSMODE.NEG <- 'neg'
 BIODB.MSMODE.POS <- 'pos'
