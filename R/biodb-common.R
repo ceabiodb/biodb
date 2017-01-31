@@ -111,6 +111,7 @@ BIODB.PEAK.MASS <- 'peak.mass'
 BIODB.PEAK.ERROR.PPM <- 'peak.error.ppm'
 BIODB.PEAK.INTENSITY <- 'peak.intensity'
 BIODB.PEAK.RELATIVE.INTENSITY <- 'peak.relative.intensity'
+BIODB.PEAK.RELATIVE.INTENSITY.SHORT <- 'rel.int' # XXX should not exist, we don't want twice the same field with different names.
 
 # Mode values
 BIODB.MSMODE.NEG <- 'neg'
@@ -130,7 +131,7 @@ BIODB.MSMS.DIST.COS <- "cosine"
 BIODB.MSMS.DIST.WCOSINE <- "wcosine"
 BIODB.MSMS.DIST.PKERNEL <- "pkernel"
 BIODB.MSMS.DIST.PBACH <- "bachtttarya"
-BIODB.MSMS.DIST <- c(BIODB.MSMS.DIST.COS, BIODB.MSMS.DIST.WCOSINE, BIODB.MSMS.DIST.PKERNEL, BIODB.MSMS.DIST.PBACH)
+BIODB.MSMS.DIST <- c(BIODB.MSMS.DIST.COS,BIODB.PEAK.RELATIVE.INTENSITY.SHORT, BIODB.MSMS.DIST.WCOSINE, BIODB.MSMS.DIST.PKERNEL, BIODB.MSMS.DIST.PBACH) # XXX Not used ?
 
 
 #################

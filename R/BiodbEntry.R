@@ -106,12 +106,12 @@ BiodbEntry$methods(	getFieldCardinality = function(field) {
 ################################################################
 
 BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE) {
-
 	if ( ! field %in% BIODB.FIELDS[['name']])
 		stop(paste0('Unknown field "', field, '" in BiodEntry.'))
 
-	if (field %in% names(.self$.fields))
+	if (field %in% names(.self$.fields)){
 		return(.self$.fields[[field]])
+	}
 	else if (compute && .self$.compute.field(field))
 		return(.self$.fields[[field]])
 

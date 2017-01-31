@@ -167,9 +167,6 @@ createReducedSpectraFromJSON <- function(contents,
 			 checkSub = TRUE) {
 	entries <- vector(length(contents), mode = "list")
 	jsonfields <- character()
-	# jsonfields[[BIODB.ACCESSION]] <-
-	# 	"id" # TODO Use BIODB.ACCESSION instead
-	
 	
 	###Checking that it's a list.
 	if (length(contents) == 1) {
@@ -179,6 +176,9 @@ createReducedSpectraFromJSON <- function(contents,
 			contents <- jsonlite::fromJSON(contents[[1]], simplifyDataFrame=FALSE)
 			
 		}
+	}
+	if(length(contents)==0){
+		return(list())
 	}
 	
 	for (i in seq_along(contents)) {
@@ -235,7 +235,6 @@ createReducedSpectraFromJSON <- function(contents,
 			peaks <- as.data.frame(t(peaks))
 			colnames(peaks) <- cnames
 		}
-		
 		entry$setField(BIODB.PEAKS, peaks)
 		
 		entries[[i]] <- entry

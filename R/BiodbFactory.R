@@ -139,7 +139,7 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 		            uniprot     = UniprotConn$new(     biodb = .self$.biodb),
 		            massbank    = MassbankConn$new(    biodb = .self$.biodb, url = url),
 					massfiledb  = MassFiledbConn$new(  biodb = .self$.biodb, file = url),
-					peakforest  = PeakforestConn$new(  biodb = .self$.biodb),
+					peakforest  = PeakforestConn$new(  biodb = .self$.biodb, url = url, token = token),
 		      	    NULL)
 
 	# Unknown class

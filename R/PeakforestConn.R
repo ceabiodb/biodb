@@ -4,7 +4,8 @@
 #'A class to connect to peakforest
 #'@export
 #'@field .url A URL to the database
-PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn","MassdbConn"), fields = list( .url = "character" ))
+#'@field .url An urel to the database
+PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn","MassdbConn"), fields = list( .url = "character" , .token = "character"))
 
 ##########################
 # GET ENTRY CONTENT TYPE #
@@ -13,6 +14,24 @@ PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbC
 PeakforestConn$methods( getEntryContentType = function(type) {
 	return(BIODB.JSON) 
 })
+
+################
+#INITIALIZATION#
+################
+
+PeakforestConn$methods( initialize = function(scheduler = NULL, url = NA_character_,...) {
+	
+	# Set token
+	.url <<- url
+	# Set scheduler
+	if (is.null(scheduler))
+		scheduler <- UrlRequestScheduler$new(n = 3, parent = .self)
+	is(scheduler, "UrlRequestScheduler") || .self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
+	.scheduler <<- scheduler
+	
+	callSuper(...) # calls super-class initializer with remaining parameters
+})
+
 
 #####################
 # GET ENTRY CONTENT #
@@ -127,37 +146,36 @@ PeakforestConn$methods(
 								 tol,
 								 tolunit = "plain",
 								 mode = NULL) {
-		#TODO handle the units
-		#tolunit <- match.arg(tolunit)
-		
-		strmode <- ''
+
+		largs <- list(token=.self$.token)
 		
 		if (!is.null(mode)) {
 			if (mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)) {
-				strmode <- paste0('?polarity=', mode)
+				largs<- c(largs,mode=mode)
 			}
-			
 		}
 		
 		if (tolunit == BIODB.MZTOLUNIT.PPM) {
 			tol <- tol * mz * 10 ^ -6
 		}
+		largs<- c(largs,precursorMassDelta=tol)
 		
+		
+		strargs <- apply(rbind(names(largs),as.character(largs)),2,paste,collapse="=")
+		strargs <- paste(strargs,collapse = "&")
 		##Request which return peak and not spectra.
 		url <-
-			paste0(
-				"https://rest.peakforest.org/spectra/lcms/search-naive/",
+			paste0(.self$.url,
+				"/spectra/lcmsms/from-precursor/",
 				mz,
-				"/",
-				tol,
-				strmode
+				"?",
+				strargs
 			)
 		contents <-  .self$.get.url(url)
-		entries  <- .self$createReducedEntry(contents, drop = TRUE)
+		entries  <- .self$createReducedEntry(contents, drop = FALSE)
 		return(entries)
 	}
 )
-
 
 ################
 # CREATE ENTRY #
