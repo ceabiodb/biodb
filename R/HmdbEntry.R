@@ -15,7 +15,7 @@ createHmdbEntryFromXml <- function(biodb, contents, drop = FALSE) {
 	# Define xpath expressions
 	xpath.expr <- character()
 	xpath.expr[[BIODB.ACCESSION]]          <- "/metabolite/accession"
-	xpath.expr[[BIODB.KEGG.ID]]            <- "//kegg_id"
+	xpath.expr[[BIODB.KEGGCOMPOUND.ID]]    <- "//kegg_id"
 	xpath.expr[[BIODB.NAME]]               <- "/metabolite/name"
 	xpath.expr[[BIODB.FORMULA]]            <- "/metabolite/chemical_formula"
 	xpath.expr[[BIODB.SUPER.CLASS]]        <- "//super_class"

@@ -22,7 +22,7 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	regex[[BIODB.NB.PEAKS]] <- "^PK\\$NUM_PEAK: ([0-9]+)$"
 	regex[[BIODB.MSPRECANNOT]] <- "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$"
 	regex[[BIODB.CHEBI.ID]] <- "^CH\\$LINK: CHEBI\\s+(.+)$"
-	regex[[BIODB.KEGG.ID]] <- "^CH\\$LINK: KEGG\\s+(.+)$"
+	regex[[BIODB.KEGGCOMPOUND.ID]] <- "^CH\\$LINK: KEGG\\s+(.+)$"
 	regex[[BIODB.INCHI]] <- "^CH\\$IUPAC:\\s+(.+)$"
 	regex[[BIODB.INCHIKEY]] <- "^CH\\$LINK: INCHIKEY\\s+(.+)$"
 	regex[[BIODB.CHEMSPIDER.ID]] <- "^CH\\$LINK: CHEMSPIDER\\s+(.+)$"

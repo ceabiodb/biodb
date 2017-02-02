@@ -16,7 +16,7 @@ createLipidmapsEntryFromCsv <- function(biodb, contents, drop = TRUE) {
 	col2field <- list()
 	col2field[[BIODB.NAME]] <- 'COMMON_NAME'
 	col2field[[BIODB.ACCESSION]] <- 'LM_ID'
-	col2field[[BIODB.KEGG.ID]] <- 'KEGG_ID'
+	col2field[[BIODB.KEGGCOMPOUND.ID]] <- 'KEGG_ID'
 	col2field[[BIODB.HMDB.ID]] <- 'HMDBID'
 	col2field[[BIODB.MASS]] <- 'MASS'
 	col2field[[BIODB.FORMULA]] <- 'FORMULA'
