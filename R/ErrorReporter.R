@@ -15,6 +15,6 @@ ErrorReporter$methods( message = function(type = MSG.INFO, msg, class = NA_chara
 		caller.info <- if (is.na(class)) '' else class
 		caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
 		if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
-		stop(paste0(caller, msg))
+		stop(paste0(caller.info, msg))
 	}
 })
