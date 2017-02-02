@@ -59,10 +59,10 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 
 		# Parse XML and get included XML
 		if ( ! is.na(xmlstr)) {
-			xml <-  xmlInternalTreeParse(xmlstr, asText = TRUE)
+			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
 			ns <- c(csns = "http://www.chemspider.com/")
-			returned.ids <- xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", xmlValue, namespaces = ns)
-			content[match(returned.ids, ids)] <- vapply(getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), saveXML, FUN.VALUE = '')
+			returned.ids <- XML::xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", XML::xmlValue, namespaces = ns)
+			content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), XML::saveXML, FUN.VALUE = '')
 		}
 
 		# Debug
