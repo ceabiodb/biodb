@@ -8,7 +8,7 @@ ChemspiderEntry <- methods::setRefClass("ChemspiderEntry", contains = "BiodbEntr
 # CREATE COMPOUND FROM XML #
 ############################
 
-createChemspiderEntryFromXml <- function(contents, drop = TRUE) {
+createChemspiderEntryFromXml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -25,7 +25,7 @@ createChemspiderEntryFromXml <- function(contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- ChemspiderEntry$new()
+		entry <- ChemspiderEntry$new(biodb = biodb)
 
 		if ( ! is.null(content) && ! is.na(content) && content != 'NA') {
 		
