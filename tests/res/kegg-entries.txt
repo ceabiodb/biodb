@@ -1,4 +1,0 @@
-accession       name                            chebiid
-'cpd:C00751'    'Squalene'                      '15440'
-'hsa:3627'      'CXCL10'                        NA
-'ec:1.1.1.54'   'allyl-alcohol dehydrogenase'   NA

@@ -23,7 +23,7 @@ BIODB.JSON <- 'json'
 #############
 
 BIODB.CHEBI        <- 'chebi'
-BIODB.KEGG         <- 'kegg'
+BIODB.KEGGCOMPOUND <- 'keggcompound'
 BIODB.PUBCHEMCOMP  <- 'pubchemcomp' # Compound database
 BIODB.PUBCHEMSUB   <- 'pubchemsub'  # Substance database
 BIODB.HMDB         <- 'hmdb'
@@ -38,7 +38,7 @@ BIODB.MASSBANK     <- 'massbank'
 BIODB.MASSFILEDB   <- 'massfiledb'
 BIODB.PEAKFOREST   <- 'peakforest'
 
-BIODB.DATABASES <- c(BIODB.CHEBI, BIODB.KEGG, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDB, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFOREST)
+BIODB.DATABASES <- c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDB, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFOREST)
 
 ##########
 # FIELDS #
@@ -59,7 +59,7 @@ BIODB.SYMBOL       <- 'symbol'
 BIODB.GENE.SYMBOLS <- 'genesymbols'
 BIODB.CHEBI.ID     <- 'chebiid'
 BIODB.LIPIDMAPS.ID <- 'lipidmapsid'
-BIODB.KEGG.ID      <- 'keggid'
+BIODB.KEGGCOMPOUND.ID      <- 'keggcompoundid'
 BIODB.HMDB.ID      <- 'hmdbid'
 BIODB.ENZYME.ID    <- 'enzymeid'
 BIODB.NCBI.CCDS.ID <- 'ncbiccdsid'
@@ -171,7 +171,7 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.COMPOUNDS,            'object',       BIODB.CARD.MANY,  'none',
 	BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
 	BIODB.LIPIDMAPS.ID,         'character',    BIODB.CARD.ONE,		'none',
-	BIODB.KEGG.ID,              'character',    BIODB.CARD.ONE,		'none',
+	BIODB.KEGGCOMPOUND.ID,      'character',    BIODB.CARD.ONE,		'none',
 	BIODB.HMDB.ID,              'character',    BIODB.CARD.ONE,		'none',
 	BIODB.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
 	BIODB.PUBCHEMCOMP.ID,       'character',    BIODB.CARD.ONE,		'none',
@@ -269,10 +269,6 @@ BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/"
 		hmdb        = switch(content.type,
 			                 xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
 			                 html = paste0('http://www.hmdb.ca/metabolites/', accession),
-			                 NULL),
-		kegg        = switch(content.type,
-			                 txt = paste0('http://rest.kegg.jp/get/', accession),
-			                 html = paste0('http://www.genome.jp/dbget-bin/www_bget?cpd:', accession),
 			                 NULL),
 		lipidmaps   = if (content.type == BIODB.CSV) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
 		massbank    = if (content.type == BIODB.TXT) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,

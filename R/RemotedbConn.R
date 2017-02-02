@@ -1,43 +1,58 @@
-if ( ! exists('RemotedbConn')) {
+# vi: fdm=marker
 
-	#####################
-	# CLASS DECLARATION #
-	#####################
-	
-	RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler", .token = "character"))
+# Class declaration {{{1
+################################################################
 
-	###############
-	# CONSTRUCTOR #
-	###############
+RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler", .token = "character", .base.url = "character"))
 
-	RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_character_, ...) {
+# Constructor {{{1
+################################################################
 
-		# Set token
-		.token <<- token
+RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_character_, base.url = NA_character_, ...) {
 
-		# Set scheduler
-		if (is.null(scheduler))
-			scheduler <- UrlRequestScheduler$new(n = 3, parent = .self)
-		is(scheduler, "UrlRequestScheduler") || .self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
-		.scheduler <<- scheduler
-	
-		callSuper(...) # calls super-class initializer with remaining parameters
-	})
+	# Set base URL
+	.base.url <<- base.url
 
-	###########
-	# GET URL #
-	###########
+	# Set token
+	.token <<- token
 
-	RemotedbConn$methods( .get.url = function(url) {
-		return(.self$.scheduler$getUrl(url))
-	})
-	
-	###########
-	# GET URL #
-	###########
-	
-	RemotedbConn$methods( .set.useragent = function(useragent) {
-		.scheduler$setUserAgent(useragent) # set agent
-	})
+	# Set scheduler
+	if (is.null(scheduler))
+		scheduler <- UrlRequestScheduler$new(n = 3, parent = .self)
+	is(scheduler, "UrlRequestScheduler") || .self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
+	.scheduler <<- scheduler
 
-}
+	callSuper(...) # calls super-class initializer with remaining parameters
+})
+
+# Get url {{{1
+################################################################
+
+RemotedbConn$methods( .get.url = function(url) {
+	return(.self$.scheduler$getUrl(url))
+})
+
+# Get url {{{1
+################################################################
+
+RemotedbConn$methods( .set.useragent = function(useragent) {
+	.scheduler$setUserAgent(useragent) # set agent
+})
+
+# Get entry content url {{{1
+################################################################
+
+RemotedbConn$methods( getEntryContentUrl = function(id) {
+	"Get the contents of specified entry identifiers. 
+	id: A character vector containing the identifiers.
+	return: A character vector containing the entry contents. NULL if no identifier is given (empty vector)."
+
+	.self$.abstract.method()
+})
+
+# Get entry page url {{{1
+################################################################
+
+RemotedbConn$methods( getEntryPageUrl = function(id) {
+	.self$.abstract.method()
+})

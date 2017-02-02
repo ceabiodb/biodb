@@ -1,14 +1,23 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-KeggEntry <- methods::setRefClass("KeggEntry", contains = 'BiodbEntry')
+# Class declaration {{{1
+################################################################
 
-###########
-# FACTORY #
-###########
+#'KEGG Compound connection class.
+#'@export
+KeggcompoundConn <- methods::setRefClass("KeggcompoundConn", contains = "KeggConn")
 
-createKeggEntryFromTxt <- function(biodb, contents, drop = TRUE) {
+# Constructor {{{1
+################################################################
+
+KeggcompoundConn$methods( initialize = function(...) {
+	callSuper(db.name = 'compound', db.abbrev = 'cpd', ...)
+})
+
+# Create entry {{{1
+################################################################
+
+KeggcompoundConn$methods( createEntry = function(contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -21,7 +30,7 @@ createKeggEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	for (text in contents) {
 
 		# Create instance
-		entry <- KeggEntry$new(biodb = biodb)
+		entry <- BiodbEntry$new(biodb = .self$getBiodb())
 
 		lines <- strsplit(text, "\n")
 		for (s in lines[[1]]) {
@@ -41,23 +50,23 @@ createKeggEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 
 			# ACCESSION
 			{
-				# ENZYME ID
-				g <- stringr::str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
-				if ( ! is.na(g[1,1])){
-					entry$setField(BIODB.ACCESSION, paste('ec', g[1,2], sep = ':'))
-
-				# ENTRY ID
-				}else {
+#				# ENZYME ID
+#				g <- stringr::str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
+#				if ( ! is.na(g[1,1])){
+#					entry$setField(BIODB.ACCESSION, paste('ec', g[1,2], sep = ':'))
+#
+#				# ENTRY ID
+#				}else {
 					g <- stringr::str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
 					if ( ! is.na(g[1,1])){
-						entry$setField(BIODB.ACCESSION, paste('cpd', g[1,2], sep = ':'))
+						entry$setField(BIODB.ACCESSION, g[1,2])
 
 					# OTHER ID
-					}else {
-						g <- stringr::str_match(s, "^ENTRY\\s+(\\S+)")
-						if ( ! is.na(g[1,1]))
-							entry$setField(BIODB.ACCESSION, g[1,2])
-					}
+#					}else {
+#						g <- stringr::str_match(s, "^ENTRY\\s+(\\S+)")
+#						if ( ! is.na(g[1,1]))
+#							entry$setField(BIODB.ACCESSION, g[1,2])
+#					}
 				}
 
 				# ORGANISM
@@ -78,4 +87,4 @@ createKeggEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 		entries <- entries[[1]]
 
 	return(entries)
-}
+})
