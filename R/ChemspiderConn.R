@@ -3,7 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = "RemotedbConn", fields = list(.ns = "character"))
+ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("RemotedbConn", "CompounddbConn"), fields = list(.ns = "character"))
 
 # Constructor {{{1
 ################################################################
