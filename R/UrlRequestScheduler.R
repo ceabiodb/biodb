@@ -100,8 +100,10 @@ UrlRequestScheduler$methods( .doGetUrl = function(url, params = list(), method =
 # SEND SOAP REQUEST {{{1
 ################################################################
 
-UrlRequestScheduler$methods( sendSoapRequest = function(url, request) {
-	header <- c(Accept="text/xml", Accept="multipart/*",  'Content-Type'="text/xml; charset=utf-8")
+UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = NA_character_) {
+	header <- c(Accept = "text/xml", Accept = "multipart/*",  'Content-Type' = "text/xml; charset=utf-8")
+	if ( ! is.na(action))
+		header <- c(header, c(SOAPAction = action))
 	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = request))
 	results <- .self$getUrl(url, method = BIODB.POST, opts = opts)
 	return(results)
@@ -112,7 +114,16 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request) {
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
 
-	.self$message(MSG.DEBUG, paste0("Sending URL request '", url, "'..."))
+	# Append params for GET method
+	if (method == BIODB.GET) {
+		params.lst <- vapply(names(params), function(n) paste(n, params[[n]], sep = '='), FUN.VALUE = '')
+		params.str <- paste(params.lst, collapse = '&')
+		url <- paste(url, params.str, sep = '?')
+		params <- list()
+	}
+
+	# Log URL
+	.self$message(MSG.DEBUG, paste0("Sending URL request \"", url, "\" with ", method, " method..."))
 
 	content <- NA_character_
 
