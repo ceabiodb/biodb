@@ -45,17 +45,20 @@
 
 		<!-- attributes -->
 		<attribute name="online" default="true"/>
+		<attribute name="offline" default="true"/>
 
 		<sequential>
 
 			<!-- Set arguments -->
 			<condition property="databases" value="-d ${DATABASES}" else=""><isset property="DATABASES"/></condition>
-			<condition property="disable.online" value="-x" else=""><isfalse value="@{online}"/></condition>
+			<condition property="disable.online"  value="-x" else=""><isfalse value="@{online}"/></condition>
+			<condition property="disable.offline" value="-y" else=""><isfalse value="@{offline}"/></condition>
 
 			<!-- execution -->
 			<exec executable="${this.dir}/test-pkg" failonerror="true">
 				<arg line="${databases}"/>
 				<arg line="${disable.online}"/>
+				<arg line="${disable.offline}"/>
 				<redirector>
 					<outputfilterchain>
 						<tokenfilter>
@@ -76,6 +79,11 @@
 	<!-- OFFLINE TEST PACKAGE -->
 	<target name="offline.test.pkg">
 		<testpkg online="false"/>
+	</target>
+
+	<!-- ONLINE TEST PACKAGE -->
+	<target name="online.test.pkg">
+		<testpkg offline="false"/>
 	</target>
 
 	<!-- CLEAN -->
