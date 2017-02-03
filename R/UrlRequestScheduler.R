@@ -74,29 +74,6 @@ UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
 	return(opts)
 })
 
-# DO GET URL {{{1
-################################################################
-
-UrlRequestScheduler$methods( .doGetUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
-
-	content <- NA_character_
-
-	# Use form to send URL request
-	if ( method == BIODB.POST || ( ! is.null(params) && ! is.na(params) && length(params) > 0)) {
-		switch(method,
-			   GET = { content <- RCurl::getForm(url, .opts = opts, .params = params) },
-			   POST = { content <- RCurl::postForm(url, .opts = opts, .params = params) },
-			   stop(paste('Unknown method "', method, '".'))
-			  )
-	}
-
-	# Get URL normally
-	else {
-		content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
-	}
-	return(content)
-})
-
 # SEND SOAP REQUEST {{{1
 ################################################################
 
@@ -113,6 +90,10 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = N
 ################################################################
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
+
+	# Check method
+	if ( ! method %in% c(BIODB.GET, BIODB.POST))
+		.self$message(MSG.ERROR, paste('Unknown method "', method, '".', sep = ''))
 
 	# Append params for GET method
 	if (method == BIODB.GET) {
@@ -132,8 +113,13 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 	# Run query
 	for (i in seq(.self$.nb.max.tries)) {
-		tryCatch({ content <- .self$.doGetUrl(url, params = params, method = method, opts = opts) },
-			     error = function(e) { if (.self$.verbose > 0) print("Retry connection to server...") } )
+		tryCatch({
+			content <- if (method == BIODB.GET)
+						RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
+					else
+			   			RCurl::postForm(url, .opts = opts, .params = params)
+		},
+			error = function(e) { if (.self$.verbose > 0) print("Retry connection to server...") } )
 		if ( ! is.na(content))
 			break
 	}

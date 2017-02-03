@@ -22,14 +22,38 @@ RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_charact
 	is(scheduler, "UrlRequestScheduler") || .self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
 	.scheduler <<- scheduler
 
-	callSuper(...) # calls super-class initializer with remaining parameters
+	callSuper(...)
+})
+
+# Get base url {{{1
+################################################################
+
+RemotedbConn$methods( getBaseUrl = function() {
+	return(.self$.base.url)
+})
+
+# Get token {{{1
+################################################################
+
+RemotedbConn$methods( getToken = function() {
+	return(.self$.token)
+})
+
+# Get URL scheduler {{{1
+################################################################
+
+RemotedbConn$methods( .get.url.scheduler = function() {
+	"!!! PRIVATE METHOD !!! Returns the URL scheduler.
+	returns: The URL scheduler."
+
+	return(.self$.scheduler)
 })
 
 # Get url {{{1
 ################################################################
 
-RemotedbConn$methods( .get.url = function(url) {
-	return(.self$.scheduler$getUrl(url))
+RemotedbConn$methods( .get.url = function(url, params = list()) {
+	return(.self$.scheduler$getUrl(url, params = params))
 })
 
 # Get url {{{1

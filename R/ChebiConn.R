@@ -35,14 +35,6 @@ ChebiConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createChebiEntryFromHtml(.self$getBiodb(), content, drop = drop))
 })
 
-##################
-# GET NB ENTRIES #
-##################
-
-ChebiConn$methods( getNbEntries = function() {
-	return(NA_integer_)
-})
-
 #################
 # GET ENTRY IDS #
 #################

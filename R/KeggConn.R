@@ -67,13 +67,6 @@ KeggConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-# Get nb entries {{{1
-################################################################
-
-KeggConn$methods( getNbEntries = function(count = FALSE) {
-	return(if (count) length(.self$getEntryIds()) else NA_integer_)
-})
-
 # Get entry ids {{{1
 ################################################################
 

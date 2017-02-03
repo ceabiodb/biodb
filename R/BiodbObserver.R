@@ -10,10 +10,11 @@ BiodbObserver <- methods::setRefClass("BiodbObserver", fields = list())
 
 MSG.INFO <- 'INFO'
 MSG.DEBUG <- 'DEBUG'
+MSG.CAUTION <- 'CAUTION'
 MSG.WARNING <- 'WARNING'
 MSG.ERROR <- 'ERROR'
 
-.MSG.TYPES <- c(MSG.ERROR, MSG.WARNING, MSG.DEBUG, MSG.INFO)
+.MSG.TYPES <- c(MSG.ERROR, MSG.WARNING, MSG.CAUTION, MSG.DEBUG, MSG.INFO)
 
 # MESSAGE {{{1
 ################################################################
