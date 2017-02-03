@@ -27,16 +27,16 @@ createLipidmapsEntryFromCsv <- function(biodb, contents, drop = TRUE) {
 		entry <- LipidmapsEntry$new(biodb = biodb)
 
 		# Split text in lines
-		lines <- split.str(text, sep = "\n", unlist = TRUE)
+		lines <- strsplit(text, sep = "\n")[[1]]
 
 		# An error occured
 		if ( ! grepl("No record found", lines[[2]])) {
 
 			# Keys on first line
-			keys <- split.str(lines[[1]], unlist = TRUE)
+			keys <- strsplit(lines[[1]], ',')[[1]]
 
 			# Values on second line
-			values <- split.str(lines[[2]], unlist = TRUE)
+			values <- strsplit(lines[[2]], ',')[[1]]
 			names(values) <- keys[seq(values)]
 
 			# Get field values
