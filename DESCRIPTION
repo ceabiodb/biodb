@@ -9,7 +9,7 @@ Encoding: UTF-8
 LazyData: true
 Imports: methods, XML, stringr, plyr, jsonlite, bitops, RCurl, stats
 NeedsCompilation: yes
-Collate: 'biodb-common.R' 'spec-dist.R' 'strhlp.R'
+Collate: 'biodb-common.R' 'spec-dist.R'
 		'BiodbObserver.R' 'BiodbLogger.R' 'WarningReporter.R' 'ErrorReporter.R'
         'BiodbObject.R' 'UrlRequestScheduler.R' 'Biodb.R' 'BiodbConn.R' 'BiodbEntry.R'
         'massdb-helper.R' 'RemotedbConn.R' 'CompounddbConn.R' 'MassdbConn.R' 'ChebiEntry.R'
