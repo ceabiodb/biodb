@@ -96,7 +96,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 		.self$message(MSG.ERROR, paste('Unknown method "', method, '".', sep = ''))
 
 	# Append params for GET method
-	if (method == BIODB.GET) {
+	if (method == BIODB.GET && length(params) > 0) {
 		params.lst <- vapply(names(params), function(n) paste(n, params[[n]], sep = '='), FUN.VALUE = '')
 		params.str <- paste(params.lst, collapse = '&')
 		url <- paste(url, params.str, sep = '?')

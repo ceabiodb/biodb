@@ -52,11 +52,11 @@ RemotedbConn$methods( .get.url.scheduler = function() {
 # Get url {{{1
 ################################################################
 
-RemotedbConn$methods( .get.url = function(url, params = list()) {
-	return(.self$.scheduler$getUrl(url, params = params))
+RemotedbConn$methods( .get.url = function(url) {
+	return(.self$.scheduler$getUrl(url))
 })
 
-# Get url {{{1
+# Set user agent {{{1
 ################################################################
 
 RemotedbConn$methods( .set.useragent = function(useragent) {
