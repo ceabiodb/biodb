@@ -162,7 +162,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE) {
 	only.atomic Set to TRUE if you want only the atomic fields (integer, numeric, logical and character) inside the data frame."
 
 	# Check classes
-	all(vapply(entries, function(x) is(x, 'BiodbEntry'), FUN.VALUE = TRUE)) || .self$message(BIODB.ERROR, "Some objects in the input list ar not a subclass of BiodbEntry.")
+	all(vapply(entries, function(x) is(x, 'BiodbEntry'), FUN.VALUE = TRUE)) || .self$message(MSG.ERROR, "Some objects in the input list are not a subclass of BiodbEntry.")
 
 	entries.df <- NULL
 

@@ -19,8 +19,10 @@ test.entry.fields <- function(factory, db) {
 	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
 
 	# Create entries
+	factory$message(MSG.DEBUG, paste("ENTRY IDS =", paste(entries.desc[[BIODB.ACCESSION]], collapse = " ||| "), "// FIN"))
 	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
+	factory$message(MSG.DEBUG, paste("ENTRIES CLASSES =", paste(lapply(entries, class), collapse = " ||| "), "// FIN"))
 
 	# Get data frame
 	entries.df <- factory$getBiodb()$entriesToDataframe(entries)
