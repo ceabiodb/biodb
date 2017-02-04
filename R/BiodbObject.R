@@ -20,7 +20,9 @@ BiodbObject$methods( initialize = function(...) {
 BiodbObject$methods( .abstract.method = function() {
 
 	class <- class(.self)
-	method <- sys.call(length(sys.calls()) - 1)
+	method <- sys.calls()[[length(sys.calls()) - 1]]
+	method <- as.character(method)
+	method <- method[[1]]
 	method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
 
 	.self$message(type = MSG.ERROR, paste("Method", method, "is not implemented in", class, "class."))
