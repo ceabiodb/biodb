@@ -2,7 +2,7 @@
 <metabolite>
   <version>3.6</version>
   <creation_date>2005-11-16 15:48:42 UTC</creation_date>
-  <update_date>2016-06-10 21:21:45 UTC</update_date>
+  <update_date>2016-09-22 21:05:55 UTC</update_date>
   <accession>HMDB00001</accession>
   <secondary_accessions>
     <accession>HMDB04935</accession>
@@ -32,15 +32,15 @@
   <inchi>InChI=1S/C7H11N3O2/c1-10-3-5(9-4-10)2-6(8)7(11)12/h3-4,6H,2,8H2,1H3,(H,11,12)/t6-/m0/s1</inchi>
   <inchikey>InChIKey=BRMWTNUJHUMWMS-LURJTMIESA-N</inchikey>
   <taxonomy>
-    <description>This compound belongs to the class of organic compounds known as l-alpha-amino acids. These are alpha amino acids which have the L-configuration of the alpha-carbon atom.</description>
-    <direct_parent>L-alpha-amino acids</direct_parent>
-    <kingdom>Organic compounds</kingdom>
-    <super_class>Organic acids and derivatives</super_class>
-    <class>Carboxylic acids and derivatives</class>
-    <sub_class>Amino acids, peptides, and analogues</sub_class>
+    <description>This compound belongs to the class of chemical entities known as histidine and derivatives. These are compounds containing cysteine or a derivative thereof resulting from reaction of cysteine at the amino group or the carboxy group, or from the replacement of any hydrogen of glycine by a heteroatom.</description>
+    <direct_parent>Histidine and derivatives</direct_parent>
+    <kingdom>Chemical entities</kingdom>
+    <super_class>Organic compounds</super_class>
+    <class>Organic acids and derivatives</class>
+    <sub_class>Carboxylic acids and derivatives</sub_class>
     <molecular_framework>Aromatic heteromonocyclic compounds</molecular_framework>
     <alternative_parents>
-      <alternative_parent>Amino fatty acids</alternative_parent>
+      <alternative_parent>Amino acids</alternative_parent>
       <alternative_parent>Aralkylamines</alternative_parent>
       <alternative_parent>Azacyclic compounds</alternative_parent>
       <alternative_parent>Carbonyl compounds</alternative_parent>
@@ -48,30 +48,38 @@
       <alternative_parent>Heteroaromatic compounds</alternative_parent>
       <alternative_parent>Hydrocarbon derivatives</alternative_parent>
       <alternative_parent>Imidazolyl carboxylic acids and derivatives</alternative_parent>
+      <alternative_parent>L-alpha-amino acids</alternative_parent>
       <alternative_parent>Monoalkylamines</alternative_parent>
       <alternative_parent>Monocarboxylic acids and derivatives</alternative_parent>
       <alternative_parent>N-substituted imidazoles</alternative_parent>
+      <alternative_parent>Organic oxides</alternative_parent>
+      <alternative_parent>Organopnictogen compounds</alternative_parent>
     </alternative_parents>
     <substituents>
+      <substituent>Alpha-amino acid</substituent>
       <substituent>Amine</substituent>
-      <substituent>Amino fatty acid</substituent>
+      <substituent>Amino acid</substituent>
       <substituent>Aralkylamine</substituent>
       <substituent>Aromatic heteromonocyclic compound</substituent>
       <substituent>Azacycle</substituent>
       <substituent>Azole</substituent>
       <substituent>Carbonyl group</substituent>
       <substituent>Carboxylic acid</substituent>
-      <substituent>Fatty acyl</substituent>
       <substituent>Heteroaromatic compound</substituent>
+      <substituent>Histidine or derivatives</substituent>
       <substituent>Hydrocarbon derivative</substituent>
       <substituent>Imidazole</substituent>
       <substituent>Imidazolyl carboxylic acid derivative</substituent>
       <substituent>L-alpha-amino acid</substituent>
       <substituent>Monocarboxylic acid or derivatives</substituent>
       <substituent>N-substituted imidazole</substituent>
+      <substituent>Organic nitrogen compound</substituent>
+      <substituent>Organic oxide</substituent>
+      <substituent>Organic oxygen compound</substituent>
       <substituent>Organoheterocyclic compound</substituent>
       <substituent>Organonitrogen compound</substituent>
       <substituent>Organooxygen compound</substituent>
+      <substituent>Organopnictogen compound</substituent>
       <substituent>Primary aliphatic amine</substituent>
       <substituent>Primary amine</substituent>
     </substituents>
@@ -238,6 +246,7 @@
   <biofluid_locations>
     <biofluid>Blood</biofluid>
     <biofluid>Cerebrospinal Fluid (CSF)</biofluid>
+    <biofluid>Feces</biofluid>
     <biofluid>Saliva</biofluid>
     <biofluid>Urine</biofluid>
   </biofluid_locations>
@@ -362,6 +371,21 @@
         <reference>
           <reference_text>Fonteh AN, Harrington RJ, Tsai A, Liao P, Harrington MG: Free amino acid and dipeptide changes in the body fluids from Alzheimer's disease subjects. Amino Acids. 2007 Feb;32(2):213-24. Epub 2006 Oct 10.</reference_text>
           <pubmed_id>17031479</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Feces</biofluid>
+      <concentration_value/>
+      <concentration_units/>
+      <subject_age>Not Specified</subject_age>
+      <subject_sex>Both</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>By CIL LC−MS </comment>
+      <references>
+        <reference>
+          <reference_text>Xu W, Chen D, Wang N, Zhang T, Zhou R, Huan T, Lu Y, Su X, Xie Q, Li L, Li L: Development of high-performance chemical isotope labeling LC-MS for profiling the human fecal metabolome. Anal Chem. 2015 Jan 20;87(2):829-36. doi: 10.1021/ac503619q. Epub 2014 Dec 25.</reference_text>
+          <pubmed_id>25486321</pubmed_id>
         </reference>
       </references>
     </concentration>
