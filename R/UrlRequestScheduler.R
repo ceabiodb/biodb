@@ -97,7 +97,8 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 	# Append params for GET method
 	if (method == BIODB.GET && length(params) > 0) {
-		params.lst <- vapply(names(params), function(n) paste(n, params[[n]], sep = '='), FUN.VALUE = '')
+		pn <- names(params)
+		params.lst <- vapply(seq(params), function(n) if (is.null(pn) || nchar(pn[[n]]) == 0) params[[n]] else paste(pn[[n]], params[[n]], sep = '='), FUN.VALUE = '')
 		params.str <- paste(params.lst, collapse = '&')
 		url <- paste(url, params.str, sep = '?')
 		params <- list()

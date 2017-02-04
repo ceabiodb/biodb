@@ -1,20 +1,27 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
+
+# Class declaration {{{1
+################################################################
 
 EnzymeConn <- methods::setRefClass("EnzymeConn", contains = "RemotedbConn")
 
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
+# Constructor {{{1
+################################################################
+
+EnzymeConn$methods( initialize = function(...) {
+
+	callSuper(base.url = "http://enzyme.expasy.org/", ...)
+})
+
+# Get entry content type {{{1
+################################################################
 
 EnzymeConn$methods( getEntryContentType = function() {
 	return(BIODB.TXT)
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# Get entry content {{{1
+################################################################
 
 EnzymeConn$methods( getEntryContent = function(id) {
 
@@ -27,10 +34,31 @@ EnzymeConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-################
-# CREATE ENTRY #
-################
+# Create entry {{{1
+################################################################
 
 EnzymeConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createEnzymeEntryFromTxt(.self$getBiodb(), content, drop = drop))
+})
+
+# Get entry ids {{{1
+################################################################
+
+EnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
+
+	# Send request
+	html.results <- .self$.get.url.scheduler()$getUrl(paste(.self$getBaseUrl(), "enzyme-bycomment.html", sep = ''), params = c('e'))
+
+	# Parse HTML
+	xml <-  XML::htmlTreeParse(html.results, asText = TRUE, useInternalNodes = TRUE)
+
+	# Get ids
+	ids <- XML::xpathSApply(xml, "//a[starts-with(@href,'/EC/')]", XML::xmlValue)
+	.self$message(MSG.DEBUG, paste('ENZYME IDS =', paste(ids, collapse = "\n")))
+
+	# Cut results
+	if ( ! is.na(max.results) && length(ids) > max.results)
+		ids <- ids[1:max.results]
+
+	return(ids)
 })

@@ -1,20 +1,19 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
+
+# Class declaration {{{1
+################################################################
 
 ChebiConn <- methods::setRefClass("ChebiConn", contains = "RemotedbConn")
 
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
+# Get entry content type {{{1
+################################################################
 
 ChebiConn$methods( getEntryContentType = function() {
 	return(BIODB.HTML)
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# Get entry content {{{1
+################################################################
 
 ChebiConn$methods( getEntryContent = function(id) {
 
@@ -27,17 +26,15 @@ ChebiConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-################
-# CREATE ENTRY #
-################
+# Create entry {{{1
+################################################################
 
 ChebiConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createChebiEntryFromHtml(.self$getBiodb(), content, drop = drop))
 })
 
-#################
-# GET ENTRY IDS #
-#################
+# Get entry ids {{{1
+################################################################
 
 ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
