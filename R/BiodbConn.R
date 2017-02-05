@@ -72,5 +72,14 @@ BiodbConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Get the number of entries contained in this database.
 # count: if no straightforward way exists to get number of entries, count the output of getEntryIds().
 BiodbConn$methods( getNbEntries = function(count = FALSE) {
-	return(if (count) length(.self$getEntryIds()) else NA_integer_)
+
+	n <- NA_integer_
+
+	if (count) {
+		ids <- .self$getEntryIds()
+		if ( ! is.null(ids))
+			n <- length(ids)
+	}
+
+	return(n)
 })
