@@ -85,16 +85,17 @@ unknown.dbs <- opt[['databases']][ ! opt[['databases']] %in% BIODB.DATABASES]
 if (length(unknown.dbs) > 0) stop(paste("Unknown database(s): ", paste(unknown.dbs, collapse = ", "), ".", sep = ''))
 
 # Create biodb instance
-biodb <- Biodb$new(useragent = USER.AGENT, use.env.var = TRUE, logger = FALSE)
+biodb <- Biodb$new(logger = FALSE)
 biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
 
 # Loop on online/offline modes
 for (online in online.modes) {
 
+	biodb$getConfig()$set(biodb:::CFG.CACHEDIR, file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
+
 	# Create factory
 	# TODO Add option in factory for blocking online access when in offline mode
 	factory <- biodb$getFactory()
-	factory$setCacheDir(file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
 	factory$setCacheMode(if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY)
 
 	# Loop on databases

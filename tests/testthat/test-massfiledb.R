@@ -11,7 +11,7 @@ offline.test.massfiledb <- function() {
 	df <- read.table(file, sep = "\t", header = TRUE)
 
 	# Create biodb instance
-	biodb <- Biodb$new(useragent = USER.AGENT, use.env.var = TRUE, logger = FALSE)
+	biodb <- Biodb$new(logger = FALSE)
 	biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
 	factory <- biodb$getFactory()
 	factory$disableCache()

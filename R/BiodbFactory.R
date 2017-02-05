@@ -7,7 +7,6 @@
 #'@export
 BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(
 														  .conn = "list",
-														  .cache.dir = "character",
 														  .cache.mode = "character",
 														  .chunk.size = "integer",
 														  .biodb = "ANY"))
@@ -22,13 +21,6 @@ BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
 	.cache.mode <<- BIODB.CACHE.READ.WRITE
 	.chunk.size <<- NA_integer_
 
-	# Set cache directory
-	.cache.dir <<- NA_character_
-	env <- Sys.getenv()
-	home <- env[["HOME"]]
-	if ( ! is.na(home))
-		.self$setCacheDir(file.path(home, ".biodb.cache"))
-
 	callSuper(...)
 })
 
@@ -41,18 +33,6 @@ BiodbFactory$methods( getBiodb = function() {
 
 # CACHE {{{1
 
-# Set cache dir {{{2
-BiodbFactory$methods( setCacheDir = function(dir) {
-	.self$message(MSG.INFO, paste("Setting factory cache directory to ", dir, ".", sep = ""))
-	.cache.dir <<- dir
-})
-
-# Disable cache {{{2
-BiodbFactory$methods( disableCache = function(dir) {
-	.self$message(MSG.INFO, "Disabling factory caching system.")
-	.cache.dir <<- NA_character_
-})
-
 # Set cache mode {{{2
 BiodbFactory$methods( setCacheMode = function(mode) {
 	mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE, BIODB.CACHE.WRITE.ONLY) || .self$message(MSG.ERROR, paste0("Invalid value \"", mode, "\" for cache mode."))
@@ -62,6 +42,9 @@ BiodbFactory$methods( setCacheMode = function(mode) {
 # Get cache file paths {{{2
 BiodbFactory$methods( .get.cache.file.paths = function(class, id) {
 
+	# Get cache dir
+	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHEDIR)
+
 	# Get extension
 	ext <- .self$getConn(class)$getEntryContentType()
 
@@ -69,11 +52,11 @@ BiodbFactory$methods( .get.cache.file.paths = function(class, id) {
 	filenames <- vapply(id, function(x) { if (is.na(x)) NA_character_ else paste0(class, '-', x, '.', ext) }, FUN.VALUE = '')
 
 	# set file paths
-	file.paths <- vapply(filenames, function(x) { if (is.na(x)) NA_character_ else file.path(.self$.cache.dir, x) }, FUN.VALUE = '')
+	file.paths <- vapply(filenames, function(x) { if (is.na(x)) NA_character_ else file.path(cachedir, x) }, FUN.VALUE = '')
 
 	# Create cache dir if needed
-	if ( ! is.na(.self$.cache.dir) && ! file.exists(.self$.cache.dir))
-		dir.create(.self$.cache.dir)
+	if ( ! is.na(cachedir) && ! file.exists(cachedir))
+		dir.create(cachedir)
 
 	return(file.paths)
 })
@@ -92,12 +75,14 @@ BiodbFactory$methods( .load.content.from.cache = function(class, id) {
 
 # Is cache reading enabled {{{2
 BiodbFactory$methods( .is.cache.reading.enabled = function() {
-	return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE))
+	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHEDIR)
+	return( ! is.na(cachedir) && .self$.cache.mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE))
 })
 
 # Is cache writing enabled {{{2
 BiodbFactory$methods( .is.cache.writing.enabled = function() {
-	return( ! is.na(.self$.cache.dir) && .self$.cache.mode %in% c(BIODB.CACHE.WRITE.ONLY, BIODB.CACHE.READ.WRITE))
+	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHEDIR)
+	return( ! is.na(cachedir) && .self$.cache.mode %in% c(BIODB.CACHE.WRITE.ONLY, BIODB.CACHE.READ.WRITE))
 })
 
 # Save content to cache {{{2
@@ -117,12 +102,6 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 	if (class %in% names(.self$.conn))
 		stop(paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
 
-	# Use environment variables
-	if (is.na(url))
-		url <- .self$getEnvVar(c(class, 'URL'))
-	if (is.na(token))
-		token <- .self$getEnvVar(c(class, 'TOKEN'))
-
 	# Create connection instance
 	conn <- switch(class,
 		            chebi        = ChebiConn$new(       biodb = .self$.biodb),
@@ -130,16 +109,16 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 		            pubchemcomp  = PubchemConn$new(     biodb = .self$.biodb, db = BIODB.PUBCHEMCOMP),
 		            pubchemsub   = PubchemConn$new(     biodb = .self$.biodb, db = BIODB.PUBCHEMSUB),
 		            hmdb         = HmdbConn$new(        biodb = .self$.biodb),
-		            chemspider   = ChemspiderConn$new(  biodb = .self$.biodb, token = token),
+		            chemspider   = ChemspiderConn$new(  biodb = .self$.biodb, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.CHEMSPIDER.TOKEN) else token),
 		            enzyme       = EnzymeConn$new(      biodb = .self$.biodb),
 		            lipidmaps    = LipidmapsConn$new(   biodb = .self$.biodb),
 		            mirbase      = MirbaseConn$new(     biodb = .self$.biodb),
 		            ncbigene     = NcbigeneConn$new(    biodb = .self$.biodb),
 		            ncbiccds     = NcbiccdsConn$new(    biodb = .self$.biodb),
 		            uniprot      = UniprotConn$new(     biodb = .self$.biodb),
-		            massbank     = MassbankConn$new(    biodb = .self$.biodb, url = url),
+		            massbank     = MassbankConn$new(    biodb = .self$.biodb, url = if (is.na(url)) .self$getBiodb()$getConfig()$get(CFG.MASSBANK.URL) else url),
 					massfiledb   = MassFiledbConn$new(  biodb = .self$.biodb, file = url),
-					peakforest   = PeakforestConn$new(  biodb = .self$.biodb, url = url, token = token),
+					peakforest   = PeakforestConn$new(  biodb = .self$.biodb, url = if (is.na(url)) .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.URL) else url, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.TOKEN) else token),
 		      	    NULL)
 
 	# Unknown class

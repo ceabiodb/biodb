@@ -6,6 +6,7 @@
 PROG_NAME=$(basename $0)
 PROG_DIR=$(dirname $0)
 OUTPUT=test-pkg.output
+BIODB_USERAGENT="biodb.test ; pierrick.roger@gmail.com"
 
 # MAIN {{{1
 ################################################################

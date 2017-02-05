@@ -35,31 +35,7 @@ BiodbObject$methods( getBiodb = function() {
 	.self$.abstract.method()
 })
 
-# GET ENV VAR {{{1
-################################################################
 
-BiodbObject$methods( getEnvVar = function(name) {
-
-	biodb <- .self$getBiodb() 
-
-	if ( ! is.null(biodb))
-		return(biodb$getEnvVar(name))
-
-	return(NA_character_)
-})
-
-# GET USER AGENT {{{1
-################################################################
-
-BiodbObject$methods( getUserAgent = function() {
-
-	biodb <- .self$getBiodb() 
-
-	if ( ! is.null(biodb))
-		return(biodb$getUserAgent())
-
-	return(NA_character_)
-})
 
 # MESSAGE {{{1
 ################################################################

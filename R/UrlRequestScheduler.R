@@ -70,7 +70,7 @@ UrlRequestScheduler$methods( .wait.as.needed = function() {
 ################################################################
 
 UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
-	opts <- RCurl::curlOptions(useragent = .self$getUserAgent(), timeout.ms = 60000, verbose = FALSE, .opts = opts)
+	opts <- RCurl::curlOptions(useragent = .self$getBiodb()$getConfig()$get(CFG.USERAGENT), timeout.ms = 60000, verbose = FALSE, .opts = opts)
 	return(opts)
 })
 

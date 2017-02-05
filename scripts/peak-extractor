@@ -49,12 +49,13 @@ opt <- read.args()
 # Instantiate biodb
 # TODO Why Biodb is not found in namespace biodb? : biodb::Biodb$new() gives:
 # Error: 'Biodb' is not an exported object from 'namespace:biodb'
-biodb <- biodb:::Biodb$new(useragent = 'peak-extractor ; pierrick.roger@gmail.com', use.env.var = TRUE)
+biodb <- biodb:::Biodb$new()
+biodb$getConfig()$set(biodb:::CFG.USERAGENT, 'peak-extractor ; pierrick.roger@gmail.com')
+biodb$getConfig()$set(biodb:::CFG.CACHEDIR, file.path(SCRIPT.DIR, 'cache'))
 biodb$addObservers(biodb:::BiodbLogger$new())
 
 # Get factory and connection
 fact <- biodb$getFactory()
-fact$setCacheDir(file.path(SCRIPT.DIR, 'cache'))
 db.conn <- fact$getConn(opt$database)
 
 # Get a bunch of IDs

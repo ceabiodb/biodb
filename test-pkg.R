@@ -14,8 +14,6 @@ SCRIPT.PATH <- sub("--file=","",args[grep("--file=",args)])
 SCRIPT.DIR <- dirname(SCRIPT.PATH)
 if ( ! R.utils::isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
 
-USER.AGENT <- "biodb.test ; pierrick.roger@gmail.com"
-
 # READ ARGS {{{1
 ################################################################
 

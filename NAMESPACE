@@ -2,6 +2,7 @@
 
 export(BIODB.CACHE.READ.ONLY)
 exportClasses(Biodb)
+exportClasses(BiodbConfig)
 exportClasses(BiodbFactory)
 exportClasses(BiodbLogger)
 exportClasses(KeggConn)
