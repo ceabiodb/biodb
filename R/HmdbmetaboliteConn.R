@@ -79,6 +79,20 @@ HmdbmetaboliteConn$methods( createEntry = function(contents, drop = TRUE) {
 	return(entries)
 })
 
+# Download {{{1
+################################################################
+
+HmdbmetaboliteConn$methods( download = function() {
+	zip.url <- "http://www.hmdb.ca/system/downloads/current/hmdb_metabolites.zip"
+
+		.self$getBiodb()$getCache()$getFilePaths(BIODB.HMDBMETABOLITE, )
+		# Download entries if not already done. --> downloadzip 
+		# Expand zip, and copy files into cache folder (remove old files first).
+		# TODO How to know it has not already been downloaded?
+		# List files to get all entry IDs
+		# Count files to get number of entries
+})
+
 # Get entry ids {{{1
 ################################################################
 
@@ -86,17 +100,9 @@ HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	ids <- NULL
 
-	# TODO Needs first to create BiodbConfig and BiodbCache classes.
-	# TODO Rename HmdbmetaboliteConn to HmdbmetaboliteConn
-
 	# Do we allow database download? This can take some time.
 	if (.self$getBiodb()$getConfig()$isEnabled(CFG.DBDWNLD)) {
-
-		# Download entries if not already done. --> downloadzip http://www.hmdb.ca/system/downloads/current/hmdb_metabolites.zip
-		# Expand zip, and copy files into cache folder (remove old files first).
-		# TODO How to know it has not already been downloaded?
-		# List files to get all entry IDs
-		# Count files to get number of entries
+		.self$download()
 	}
 
 	return(ids)
