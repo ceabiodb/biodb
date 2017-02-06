@@ -7,7 +7,6 @@
 #'@export
 BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(
 														  .conn = "list",
-														  .cache.mode = "character",
 														  .chunk.size = "integer",
 														  .biodb = "ANY"))
 
@@ -18,7 +17,6 @@ BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
 
 	.biodb <<- biodb
 	.conn <<- list()
-	.cache.mode <<- BIODB.CACHE.READ.WRITE
 	.chunk.size <<- NA_integer_
 
 	callSuper(...)
@@ -33,63 +31,23 @@ BiodbFactory$methods( getBiodb = function() {
 
 # CACHE {{{1
 
-# Set cache mode {{{2
-BiodbFactory$methods( setCacheMode = function(mode) {
-	mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE, BIODB.CACHE.WRITE.ONLY) || .self$message(MSG.ERROR, paste0("Invalid value \"", mode, "\" for cache mode."))
-	.cache.mode <<- mode
-})
-
-# Get cache file paths {{{2
-BiodbFactory$methods( .get.cache.file.paths = function(class, id) {
-
-	# Get cache dir
-	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHEDIR)
-
-	# Get extension
-	ext <- .self$getConn(class)$getEntryContentType()
-
-	# Set filenames
-	filenames <- vapply(id, function(x) { if (is.na(x)) NA_character_ else paste0(class, '-', x, '.', ext) }, FUN.VALUE = '')
-
-	# set file paths
-	file.paths <- vapply(filenames, function(x) { if (is.na(x)) NA_character_ else file.path(cachedir, x) }, FUN.VALUE = '')
-
-	# Create cache dir if needed
-	if ( ! is.na(cachedir) && ! file.exists(cachedir))
-		dir.create(cachedir)
-
-	return(file.paths)
-})
-
 # Load content from cache {{{2
 BiodbFactory$methods( .load.content.from.cache = function(class, id) {
 
 	content <- NULL
 
 	# Read contents from files
-	file.paths <- .self$.get.cache.file.paths(class, id)
+	file.paths <- .self$getBiodb()$getCache()$getFilePaths(class, id, .self$getConn(class)$getEntryContentType())
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL )} )
 
 	return(content)
-})
-
-# Is cache reading enabled {{{2
-BiodbFactory$methods( .is.cache.reading.enabled = function() {
-	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHEDIR)
-	return( ! is.na(cachedir) && .self$.cache.mode %in% c(BIODB.CACHE.READ.ONLY, BIODB.CACHE.READ.WRITE))
-})
-
-# Is cache writing enabled {{{2
-BiodbFactory$methods( .is.cache.writing.enabled = function() {
-	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHEDIR)
-	return( ! is.na(cachedir) && .self$.cache.mode %in% c(BIODB.CACHE.WRITE.ONLY, BIODB.CACHE.READ.WRITE))
 })
 
 # Save content to cache {{{2
 BiodbFactory$methods( .save.content.to.cache = function(class, id, content) {
 
 	# Write contents into files
-	file.paths <- .self$.get.cache.file.paths(class, id)
+	file.paths <- .self$getBiodb()$getCache()$getFilePaths(class, id, .self$getConn(class)$getEntryContentType())
 	mapply(function(c, f) { if ( ! is.null(c)) writeLines(c, f) }, content, file.paths)
 })
 
@@ -176,7 +134,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
 
 	# Initialize content
-	if (.self$.is.cache.reading.enabled()) {
+	if (.self$getBiodb()$getCache()$isReadable()) {
 		content <- .self$.load.content.from.cache(class, id)	
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 	}
@@ -192,7 +150,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 	# Debug
 	if (any(is.na(id)))
 		.self$message(MSG.INFO, paste0(sum(is.na(id)), " ", class, " entry ids are NA."))
-	if (.self$.is.cache.reading.enabled()) {
+	if (.self$getBiodb()$getCache()$isReadable()) {
 		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " ", class, " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
 			.self$message(MSG.INFO, paste0(n.duplicates, " ", class, " entry ids, whose content needs to be fetched, are duplicates."))
@@ -215,14 +173,14 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 			ch.missing.contents <- conn$getEntryContent(ch.missing.ids)
 
 			# Save to cache
-			if ( ! is.null(ch.missing.contents) && .self$.is.cache.writing.enabled())
+			if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
 				.self$.save.content.to.cache(class, ch.missing.ids, ch.missing.contents)
 
 			# Append
 			missing.contents <- c(missing.contents, ch.missing.contents)
 
 			# Debug
-			if (.self$.is.cache.reading.enabled())
+			if (.self$getBiodb()$getCache()$isReadable())
 				.self$message(MSG.INFO, paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
 		}
 

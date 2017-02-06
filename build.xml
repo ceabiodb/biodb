@@ -25,7 +25,7 @@
 	</target>
 
 	<!-- TEST -->
-	<target name="test" depends="all,check.pkg,test.pkg"/>
+	<target name="test" depends="check.pkg,test.pkg"/>
 
 	<!-- CHECK PACKAGE -->
 	<target name="check.pkg">

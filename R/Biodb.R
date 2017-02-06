@@ -5,12 +5,13 @@
 
 #'The mother abstract class of all connection classes.
 #'@export
-Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY" ))
+Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY" ))
 
 # Constructor {{{1
 ################################################################
 
 Biodb$methods( initialize = function(useragent = NA_character_, logger = TRUE, ...) {
+
 	# Create config instance
 	.config <<- BiodbConfig$new()
 
@@ -19,10 +20,20 @@ Biodb$methods( initialize = function(useragent = NA_character_, logger = TRUE, .
 	if (logger)
 		.self$addObservers(BiodbLogger$new())
 
+	# Create cache
+	.cache <<- BiodbCache$new(biodb = .self)
+
 	# Create factory
 	.factory <<- BiodbFactory$new(biodb = .self)
 
 	callSuper(...)
+})
+
+# Get biodb {{{1
+################################################################
+
+Biodb$methods( getBiodb = function() {
+	return(.self)
 })
 
 # Get config {{{1
@@ -32,11 +43,11 @@ Biodb$methods( getConfig = function() {
 	return(.self$.config)
 })
 
-# Get biodb {{{1
+# Get cache {{{1
 ################################################################
 
-Biodb$methods( getBiodb = function() {
-	return(.self)
+Biodb$methods( getCache = function() {
+	return(.self$.cache)
 })
 
 # Get factory {{{1

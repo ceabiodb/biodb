@@ -11,7 +11,7 @@ Imports: methods, XML, stringr, plyr, jsonlite, bitops, RCurl, stats
 NeedsCompilation: yes
 Collate: 'biodb-common.R' 'spec-dist.R'
 		'BiodbObserver.R' 'BiodbLogger.R' 'WarningReporter.R' 'ErrorReporter.R'
-        'BiodbObject.R' 'UrlRequestScheduler.R' 'Biodb.R' 'BiodbConn.R' 'BiodbEntry.R' 'BiodbConfig.R'
+        'BiodbObject.R' 'UrlRequestScheduler.R' 'Biodb.R' 'BiodbConn.R' 'BiodbEntry.R' 'BiodbConfig.R' 'BiodbCache.R'
         'massdb-helper.R' 'RemotedbConn.R' 'CompounddbConn.R' 'MassdbConn.R' 'ChebiEntry.R'
         'ChemspiderEntry.R' 'EnzymeEntry.R' 'HmdbEntry.R'
         'LipidmapsEntry.R' 'MassbankEntry.R' 'MirbaseEntry.R'

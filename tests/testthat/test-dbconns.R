@@ -91,12 +91,14 @@ biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-d
 # Loop on online/offline modes
 for (online in online.modes) {
 
-	biodb$getConfig()$set(biodb:::CFG.CACHEDIR, file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
 
 	# Create factory
 	# TODO Add option in factory for blocking online access when in offline mode
 	factory <- biodb$getFactory()
-	factory$setCacheMode(if (online) BIODB.CACHE.WRITE.ONLY else BIODB.CACHE.READ.ONLY)
+
+	# Configure cache
+	biodb$getConfig()$set(CFG.CACHEDIR, file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
+	biodb$getCache()$setMode(if (online) CACHE.WRITE.ONLY else CACHE.READ.ONLY)
 
 	# Loop on databases
 	for (db in databases) {
