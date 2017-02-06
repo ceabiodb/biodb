@@ -44,13 +44,8 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 		stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
 
 	# Check value class
-	value <- switch(class,
-		   'character' = as.character(value),
-		   'double' = as.double(value),
-		   'integer' = as.integer(value),
-		   'logical' = as.logical(value),
-		   value)
-	# TODO check value class
+	if (class %in% c('character', 'double', 'integer', 'logical'))
+		value <- as.vector(value, mode = class)
 
 	.self$.fields[[field]] <- value
 })

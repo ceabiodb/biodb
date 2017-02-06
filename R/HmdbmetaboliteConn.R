@@ -90,7 +90,7 @@ HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	# TODO Rename HmdbmetaboliteConn to HmdbmetaboliteConn
 
 	# Do we allow database download? This can take some time.
-	if (.self$getBiodb()$getConfig()$enabled(CFG.DBDWNLD)) {
+	if (.self$getBiodb()$getConfig()$isEnabled(CFG.DBDWNLD)) {
 
 		# Download entries if not already done. --> downloadzip http://www.hmdb.ca/system/downloads/current/hmdb_metabolites.zip
 		# Expand zip, and copy files into cache folder (remove old files first).
