@@ -17,23 +17,23 @@ BIODB.JSON <- 'json'
 # DATABASES #
 #############
 
-BIODB.CHEBI        <- 'chebi'
-BIODB.KEGGCOMPOUND <- 'keggcompound'
-BIODB.PUBCHEMCOMP  <- 'pubchemcomp' # Compound database
-BIODB.PUBCHEMSUB   <- 'pubchemsub'  # Substance database
-BIODB.HMDB         <- 'hmdb'
-BIODB.CHEMSPIDER   <- 'chemspider'
-BIODB.ENZYME       <- 'enzyme'
-BIODB.LIPIDMAPS    <- 'lipidmaps'
-BIODB.MIRBASE      <- 'mirbase'
-BIODB.NCBIGENE     <- 'ncbigene'
-BIODB.NCBICCDS     <- 'ncbiccds'
-BIODB.UNIPROT      <- 'uniprot'
-BIODB.MASSBANK     <- 'massbank'
-BIODB.MASSFILEDB   <- 'massfiledb'
-BIODB.PEAKFOREST   <- 'peakforest'
+BIODB.CHEBI             <- 'chebi'
+BIODB.CHEMSPIDER        <- 'chemspider'
+BIODB.ENZYME            <- 'enzyme'
+BIODB.HMDBMETABOLITE    <- 'hmdbmetabolite'
+BIODB.KEGGCOMPOUND      <- 'keggcompound'
+BIODB.LIPIDMAPS         <- 'lipidmaps'
+BIODB.MASSBANK          <- 'massbank'
+BIODB.MASSFILEDB        <- 'massfiledb'
+BIODB.MIRBASE           <- 'mirbase'
+BIODB.NCBICCDS          <- 'ncbiccds'
+BIODB.NCBIGENE          <- 'ncbigene'
+BIODB.PEAKFOREST        <- 'peakforest'
+BIODB.PUBCHEMCOMP       <- 'pubchemcomp' # Compound database
+BIODB.PUBCHEMSUB        <- 'pubchemsub'  # Substance database
+BIODB.UNIPROT           <- 'uniprot'
 
-BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDB, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFOREST))
+BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFOREST))
 
 ##########
 # FIELDS #
@@ -48,23 +48,23 @@ BIODB.COMP.IUPAC.NAME.TRAD     <- 'comp.iupac.name.trad'
 BIODB.COMP.IUPAC.NAME.SYST     <- 'comp.iupac.name.syst'
 BIODB.COMP.IUPAC.NAME.PREF     <- 'comp.iupac.name.pref'
 BIODB.COMP.IUPAC.NAME.CAS      <- 'comp.iupac.name.cas'
-BIODB.FULLNAMES    <- 'fullnames'
-BIODB.SYNONYMS     <- 'synonyms'
-BIODB.SYMBOL       <- 'symbol'
-BIODB.GENE.SYMBOLS <- 'genesymbols'
-BIODB.CHEBI.ID     <- 'chebiid'
-BIODB.LIPIDMAPS.ID <- 'lipidmapsid'
-BIODB.KEGGCOMPOUND.ID      <- 'keggcompoundid'
-BIODB.HMDB.ID      <- 'hmdbid'
-BIODB.ENZYME.ID    <- 'enzymeid'
-BIODB.NCBI.CCDS.ID <- 'ncbiccdsid'
-BIODB.NCBI.GENE.ID <- 'ncbigeneid'
-BIODB.PUBCHEMCOMP.ID   <- 'pubchemcompid'
-BIODB.PUBCHEMSUB.ID   <- 'pubchemsubid'
-BIODB.CHEMSPIDER.ID   <- 'chemspiderid'
-BIODB.UNIPROT.ID   <- 'uniprotid'
-BIODB.CAS.ID        <- 'casid'
-BIODB.PEAKFOREST.ID <- 'peakforestid'
+BIODB.FULLNAMES                 <- 'fullnames'
+BIODB.SYNONYMS                  <- 'synonyms'
+BIODB.SYMBOL                    <- 'symbol'
+BIODB.GENE.SYMBOLS              <- 'genesymbols'
+BIODB.CHEBI.ID                  <- 'chebiid'
+BIODB.LIPIDMAPS.ID              <- 'lipidmapsid'
+BIODB.KEGGCOMPOUND.ID           <- 'keggcompoundid'
+BIODB.HMDBMETABOLITE.ID         <- 'hmdbmetaboliteid'
+BIODB.ENZYME.ID                 <- 'enzymeid'
+BIODB.NCBI.CCDS.ID              <- 'ncbiccdsid'
+BIODB.NCBI.GENE.ID              <- 'ncbigeneid'
+BIODB.PUBCHEMCOMP.ID            <- 'pubchemcompid'
+BIODB.PUBCHEMSUB.ID             <- 'pubchemsubid'
+BIODB.CHEMSPIDER.ID             <- 'chemspiderid'
+BIODB.UNIPROT.ID                <- 'uniprotid'
+BIODB.CAS.ID                    <- 'casid'
+BIODB.PEAKFOREST.ID             <- 'peakforestid'
 BIODB.SMILES        <- 'smiles'
 BIODB.INCHI        <- 'inchi'
 BIODB.INCHIKEY     <- 'inchikey'
@@ -167,7 +167,7 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
 	BIODB.LIPIDMAPS.ID,         'character',    BIODB.CARD.ONE,		'none',
 	BIODB.KEGGCOMPOUND.ID,      'character',    BIODB.CARD.ONE,		'none',
-	BIODB.HMDB.ID,              'character',    BIODB.CARD.ONE,		'none',
+	BIODB.HMDBMETABOLITE.ID,    'character',    BIODB.CARD.ONE,		'none',
 	BIODB.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
 	BIODB.PUBCHEMCOMP.ID,       'character',    BIODB.CARD.ONE,		'none',
 	BIODB.PUBCHEMSUB.ID,        'character',    BIODB.CARD.ONE,		'none',
@@ -261,7 +261,7 @@ BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/"
 		                       NULL)
 		},
 		enzyme      = if (content.type == BIODB.TXT) paste0('http://enzyme.expasy.org/EC/', accession, '.txt') else NULL,
-		hmdb        = switch(content.type,
+		hmdbmetabolite = switch(content.type,
 			                 xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
 			                 html = paste0('http://www.hmdb.ca/metabolites/', accession),
 			                 NULL),

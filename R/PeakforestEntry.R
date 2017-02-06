@@ -23,7 +23,7 @@ createPeakforestCompoundFromJSON <- function(biodb, contents, drop = FALSE) {
 	jsonfields[[BIODB.ACCESSION]] <- "id"
 	jsonfields[[BIODB.PUBCHEMCOMP.ID]] <- "PubChemCID"
 	jsonfields[[BIODB.CHEBI.ID]] <- "ChEBI"
-	jsonfields[[BIODB.HMDB.ID]] <- "HMDB"
+	jsonfields[[BIODB.HMDBMETABOLITE.ID]] <- "HMDB"
 	jsonfields[[BIODB.KEGGCOMPOUND.ID]] <- "KEGG"
 	jsonfields[[BIODB.FORMULA]] <- "formula"
 	jsonfields[[BIODB.SMILES]] <- "canSmiles"

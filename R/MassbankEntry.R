@@ -32,7 +32,7 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	regex[[BIODB.MASS]] <- "^CH\\$EXACT_MASS:\\s+(.+)$"
 	regex[[BIODB.PUBCHEMCOMP.ID]] <- "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)"
 	regex[[BIODB.PUBCHEMSUB.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)"
-	regex[[BIODB.HMDB.ID]] <- "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)"
+	regex[[BIODB.HMDBMETABOLITE.ID]] <- "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)"
 
 	n <- 0
 	for (text in contents) {
