@@ -71,4 +71,4 @@ LOG.FILE <- file(LOG.FILE.PATH, open = 'w')
 devtools::test(SCRIPT.DIR)
 
 # Close log file
-close(log.file)
+close(LOG.FILE)

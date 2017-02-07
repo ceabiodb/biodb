@@ -143,6 +143,10 @@ HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 		# Filter out wrong IDs
 		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
+
+		# Cut
+		if ( ! is.na(max.results) && max.results < length(ids))
+			ids <- ids[1:max.results]
 	}
 
 	return(ids)
