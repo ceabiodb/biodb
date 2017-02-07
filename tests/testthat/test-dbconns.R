@@ -70,59 +70,45 @@ test.entry.ids <- function(db) {
 # MAIN {{{1
 ################################################################
 
-# Set online/offline modes to test
-online.modes = logical()
-if (is.null(opt[['disable-offline']]))
-	online.modes <- c(online.modes, FALSE)
-if (is.null(opt[['disable-online']]))
-	online.modes <- c(online.modes, TRUE)
-
-# Set list of databases to test
-databases <- if (is.null(opt[['databases']])) BIODB.DATABASES else opt[['databases']]
-unknown.dbs <- opt[['databases']][ ! opt[['databases']] %in% BIODB.DATABASES]
-if (length(unknown.dbs) > 0) stop(paste("Unknown database(s): ", paste(unknown.dbs, collapse = ", "), ".", sep = ''))
-
 # Create biodb instance
 biodb <- Biodb$new(logger = FALSE)
-biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
+biodb$addObservers(BiodbLogger$new(file = LOG.FILE, mode = 'a'))
 
-# Loop on online/offline modes
-for (online in online.modes) {
+# Get factory
+factory <- biodb$getFactory()
+
+# Initialize massfiledb
+if (length(TEST.DATABASES) || BIODB.MASSFILEDB %in% TEST.DATABASES) {
+	db.instance <- factory$createConn(db, url = .MASSFILEDB.URL)
+	# db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
+	# db.instance$setField(BIODB.COMPOUND.ID, 'molid')
+	# db.instance$setField(BIODB.MSMODE, 'mode')
+	# db.instance$setField(BIODB.PEAK.MZTHEO, 'mztheo')
+	# db.instance$setField(BIODB.PEAK.COMP, 'comp')
+	# db.instance$setField(BIODB.PEAK.ATTR, 'attr')
+	# db.instance$setField(BIODB.CHROM.COL, 'col')
+	# db.instance$setField(BIODB.CHROM.COL.RT, 'colrt')
+	# db.instance$setField(BIODB.FORMULA, 'molcomp')
+	# db.instance$setField(BIODB.MASS, 'molmass')
+	# db.instance$setField(BIODB.FULLNAMES, 'molnames')
+	# db.instance$setMsMode(BIODB.MSMODE.NEG, 'NEG')
+	# db.instance$setMsMode(BIODB.MSMODE.POS, 'POS')
+}
 
 
-	# Create factory
-	# TODO Add option in factory for blocking online access when in offline mode
-	factory <- biodb$getFactory()
+# Loop on test modes
+for (mode in TEST.MODES) {
 
 	# Configure cache
-	biodb$getConfig()$set(CFG.CACHEDIR, file.path(SCRIPT.DIR, 'tests', if (online) 'cache' else file.path('res', 'offline-files')))
-	biodb$getCache()$setMode(if (online) CACHE.WRITE.ONLY else CACHE.READ.ONLY)
+	biodb$getConfig()$set(CFG.CACHEDIR, file.path(SCRIPT.DIR, 'tests', if (mode == ONLINE) 'cache' else file.path('res', 'offline-files')))
+	biodb$getCache()$setMode(if (mode == ONLINE) CACHE.WRITE.ONLY else CACHE.READ.ONLY)
 
-	# Loop on databases
-	for (db in databases) {
-
-		# Initialize massfiledb
-		if (db == BIODB.MASSFILEDB) {
-			db.instance <- factory$createConn(db, url = .MASSFILEDB.URL)
-			# db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
-			# db.instance$setField(BIODB.COMPOUND.ID, 'molid')
-			# db.instance$setField(BIODB.MSMODE, 'mode')
-			# db.instance$setField(BIODB.PEAK.MZTHEO, 'mztheo')
-			# db.instance$setField(BIODB.PEAK.COMP, 'comp')
-			# db.instance$setField(BIODB.PEAK.ATTR, 'attr')
-			# db.instance$setField(BIODB.CHROM.COL, 'col')
-			# db.instance$setField(BIODB.CHROM.COL.RT, 'colrt')
-			# db.instance$setField(BIODB.FORMULA, 'molcomp')
-			# db.instance$setField(BIODB.MASS, 'molmass')
-			# db.instance$setField(BIODB.FULLNAMES, 'molnames')
-			# db.instance$setMsMode(BIODB.MSMODE.NEG, 'NEG')
-			# db.instance$setMsMode(BIODB.MSMODE.POS, 'POS')
-		}
-
-		context(paste0("Testing database ", db, if (online) " online" else " offline"))
+	# Loop on test databases
+	for (db in if (length(TEST.DATABASES) > 0) TEST.DATABASES else BIODB.DATABASES) {
+		context(paste("Testing database", db, "in", mode, "mode"))
 		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
-		if (online) {
-			test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
+		test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
+		if (mode == ONLINE) {
 			test_that("Nb entries is positive", test.nb.entries(factory$getConn(db)))
 			test_that("We can get a list of entry ids", test.entry.ids(factory$getConn(db)))
 		}

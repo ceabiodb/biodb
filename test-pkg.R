@@ -6,7 +6,7 @@ for (lib in c('getopt', 'R.utils')) {
 	detach(paste('package', lib, sep = ':'), character.only = TRUE, unload = TRUE)
 }
 
-# CONSTANTS {{{1
+# Constants {{{1
 ################################################################
 
 args <- commandArgs(trailingOnly = F)
@@ -14,7 +14,13 @@ SCRIPT.PATH <- sub("--file=","",args[grep("--file=",args)])
 SCRIPT.DIR <- dirname(SCRIPT.PATH)
 if ( ! R.utils::isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
 
-# READ ARGS {{{1
+OFFLINE <- 'offline'
+ONLINE <- 'online'
+TEST.MODES <- logical()
+TEST.DATABASES <- character()
+LOG.FILE <- file.path(SCRIPT.DIR, 'tests', 'test.log')
+
+# Read args {{{1
 ################################################################
 
 read_args <- function() {
@@ -45,6 +51,20 @@ read_args <- function() {
 
 # Read command line arguments
 opt <- read_args()
+
+# Set online/offline modes to test
+if (is.null(opt[['disable-offline']]))
+	TEST.MODES <- c(TEST.MODES, OFFLINE)
+if (is.null(opt[['disable-online']]))
+	TEST.MODES <- c(TEST.MODES, ONLINE)
+
+# Set list of databases to test
+if ( ! is.null(opt[['databases']]))
+	TEST.DATABASES <- opt[['databases']]
+
+# Create log file
+log.file <- file(LOG.FILE, open = 'w')
+close(log.file)
 
 # Run tests
 devtools::test(SCRIPT.DIR)

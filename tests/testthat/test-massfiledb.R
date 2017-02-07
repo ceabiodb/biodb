@@ -1,9 +1,7 @@
 # vi: fdm=marker
 
-##############
-# MASSFILEDB #
-##############
-
+# Offline test massfiledb {{{1
+################################################################
 offline.test.massfiledb <- function() {
 
 	# Open file
@@ -12,12 +10,12 @@ offline.test.massfiledb <- function() {
 
 	# Create biodb instance
 	biodb <- Biodb$new(logger = FALSE)
-	biodb$addObservers(BiodbLogger$new(file = file.path(SCRIPT.DIR, 'tests', 'test-dbconns.log')))
+	biodb$addObservers(BiodbLogger$new(file = LOG.FILE, mode = 'a'))
 	biodb$getCache()$disable()
 	factory <- biodb$getFactory()
 
 	# Create database
-	db <- factory$getConn(BIODB.MASSFILEDB, url = file)
+	db <- factory$createConn(BIODB.MASSFILEDB, url = file)
 	fields <- list()
 	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	db$setField(BIODB.COMPOUND.ID, 'molid')
@@ -63,13 +61,10 @@ offline.test.massfiledb <- function() {
 		checkTrue(db$getNbEntries() == sum(as.integer(! duplicated(df['molid']))))
 }
 
-#############
-# MAIN {{{1 #
-#############
+# MAIN {{{1
+################################################################
 
-
-if ((is.null(opt[['databases']]) || BIODB.MASSFILEDB %in% opt[['databases']])
-	&& is.null(opt[['disable-offline']] )) {
+if ((length(TEST.DATABASES) == 0 || BIODB.MASSFILEDB %in% TEST.DATABASES) && OFFLINE %in% TEST.MODES) {
 	context("Testing massfiledb offline")
 	test_that("MassfiledbConn methods are correct", offline.test.massfiledb())
 }
