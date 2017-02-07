@@ -18,7 +18,7 @@ OFFLINE <- 'offline'
 ONLINE <- 'online'
 TEST.MODES <- logical()
 TEST.DATABASES <- character()
-LOG.FILE <- file.path(SCRIPT.DIR, 'tests', 'test.log')
+LOG.FILE.PATH <- file.path(SCRIPT.DIR, 'tests', 'test.log')
 
 # Read args {{{1
 ################################################################
@@ -63,8 +63,10 @@ if ( ! is.null(opt[['databases']]))
 	TEST.DATABASES <- opt[['databases']]
 
 # Create log file
-log.file <- file(LOG.FILE, open = 'w')
-close(log.file)
+LOG.FILE <- file(LOG.FILE.PATH, open = 'w')
 
 # Run tests
 devtools::test(SCRIPT.DIR)
+
+# Close log file
+close(log.file)

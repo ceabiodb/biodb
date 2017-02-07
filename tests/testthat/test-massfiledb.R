@@ -2,6 +2,7 @@
 
 # Offline test massfiledb {{{1
 ################################################################
+
 offline.test.massfiledb <- function() {
 
 	# Open file
@@ -10,7 +11,7 @@ offline.test.massfiledb <- function() {
 
 	# Create biodb instance
 	biodb <- Biodb$new(logger = FALSE)
-	biodb$addObservers(BiodbLogger$new(file = LOG.FILE, mode = 'a'))
+	biodb$addObservers(BiodbLogger$new(file = LOG.FILE))
 	biodb$getCache()$disable()
 	factory <- biodb$getFactory()
 
@@ -37,28 +38,28 @@ offline.test.massfiledb <- function() {
 	# Generic tests
 
 		# Test entries
-		checkTrue(db$getNbEntries() > 1)
+		expect_gt(db$getNbEntries(), 1)
 
 		# Test chrom cols
 		entry.id <- db$getEntryIds()[[1]]
-		checkTrue(nrow(db$getChromCol()) > 1)
-		checkTrue(nrow(db$getChromCol(entry.id)) > 1)
-		checkTrue(nrow(db$getChromCol(entry.id)) < nrow(db$getChromCol()))
-		checkTrue(all(db$getChromCol(entry.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
+		expect_gt(nrow(db$getChromCol()), 1)
+		expect_gt(nrow(db$getChromCol(entry.id)), 1)
+		expect_lt(nrow(db$getChromCol(entry.id)), nrow(db$getChromCol()))
+		expect_true(all(db$getChromCol(entry.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
 
 		# Test mz values
-		checkTrue(is.vector(db$getMzValues()))
-		checkTrue(length(db$getMzValues()) > 1)
-		checkException(db$getMzValues('wrong.mode.value'), silent = TRUE)
-		checkTrue(length(db$getMzValues(BIODB.MSMODE.NEG)) > 1)
-		checkTrue(length(db$getMzValues(BIODB.MSMODE.POS)) > 1)
+		expect_true(is.vector(db$getMzValues()))
+		expect_gt(length(db$getMzValues()), 1)
+		expect_error(db$getMzValues('wrong.mode.value'), silent = TRUE)
+		expect_gt(length(db$getMzValues(BIODB.MSMODE.NEG)), 1)
+		expect_gt(length(db$getMzValues(BIODB.MSMODE.POS)), 1)
 
 	# Specific tests for filedb
 		# Test entry ids
-		checkEquals(db$getEntryIds(), sort(as.character(df[! duplicated(df['molid']), 'molid'])))
+		expect_equal(db$getEntryIds(), sort(as.character(df[! duplicated(df['molid']), 'molid'])))
 
 		# Test nb entries
-		checkTrue(db$getNbEntries() == sum(as.integer(! duplicated(df['molid']))))
+		expect_equal(db$getNbEntries(), sum(as.integer(! duplicated(df['molid']))))
 }
 
 # MAIN {{{1

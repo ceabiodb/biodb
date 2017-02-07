@@ -161,15 +161,16 @@ BiodbCache$methods( deleteFiles = function(db, ext = NA_character_) {
 # List files {{{1
 ################################################################
 
-BiodbCache$methods( listFiles = function(db, ext = NA_character_, extract.names = TRUE) {
+BiodbCache$methods( listFiles = function(db, ext = NA_character_, extract.names = FALSE) {
 
 	# Pattern
 	pattern <- paste('^', db, '-.*', sep = '')
 	if ( ! is.na(ext))
 		pattern <- paste(pattern, ext, sep = '\\.')
-	pattern <- paste(db, '$', sep = '')
+	pattern <- paste(pattern, '$', sep = '')
 
 	# List files
+	.self$message(MSG.DEBUG, paste("List files in", .self$getDir(), "using pattern ", pattern))
 	files <- list.files(path = .self$getDir(), pattern = pattern)
 
 	# Extract only the name part
@@ -177,7 +178,7 @@ BiodbCache$methods( listFiles = function(db, ext = NA_character_, extract.names 
 		pattern <- paste('^', db, '-(.*)', sep = '')
 		if ( ! is.na(ext))
 			pattern <- paste(pattern, ext, sep = '\\.')
-		pattern <- paste(db, '$', sep = '')
+		pattern <- paste(pattern, '$', sep = '')
 		files <- sub(pattern, '\\1', files, perl = TRUE)
 	}
 

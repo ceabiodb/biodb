@@ -72,14 +72,14 @@ test.entry.ids <- function(db) {
 
 # Create biodb instance
 biodb <- Biodb$new(logger = FALSE)
-biodb$addObservers(BiodbLogger$new(file = LOG.FILE, mode = 'a'))
+biodb$addObservers(BiodbLogger$new(file = LOG.FILE))
 
 # Get factory
 factory <- biodb$getFactory()
 
 # Initialize massfiledb
 if (length(TEST.DATABASES) || BIODB.MASSFILEDB %in% TEST.DATABASES) {
-	db.instance <- factory$createConn(db, url = .MASSFILEDB.URL)
+	db.instance <- factory$createConn(BIODB.MASSFILEDB, url = .MASSFILEDB.URL)
 	# db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	# db.instance$setField(BIODB.COMPOUND.ID, 'molid')
 	# db.instance$setField(BIODB.MSMODE, 'mode')
