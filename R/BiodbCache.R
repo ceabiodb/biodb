@@ -153,7 +153,33 @@ BiodbCache$methods( deleteFiles = function(db, ext = NA_character_) {
 
 	files <- paste(db, '*',sep = '-')
 	if ( ! is.na(ext))
-		files <- paste(db, ext, sep = '.')
+		files <- paste(files, ext, sep = '.')
 
 	unlink(file.path(.self$getDir(), files))
+})
+
+# List files {{{1
+################################################################
+
+BiodbCache$methods( listFiles = function(db, ext = NA_character_, extract.names = TRUE) {
+
+	# Pattern
+	pattern <- paste('^', db, '-.*', sep = '')
+	if ( ! is.na(ext))
+		pattern <- paste(pattern, ext, sep = '\\.')
+	pattern <- paste(db, '$', sep = '')
+
+	# List files
+	files <- list.files(path = .self$getDir(), pattern = pattern)
+
+	# Extract only the name part
+	if (extract.names) {
+		pattern <- paste('^', db, '-(.*)', sep = '')
+		if ( ! is.na(ext))
+			pattern <- paste(pattern, ext, sep = '\\.')
+		pattern <- paste(db, '$', sep = '')
+		files <- sub(pattern, '\\1', files, perl = TRUE)
+	}
+
+	return(files)
 })

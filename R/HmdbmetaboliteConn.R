@@ -137,8 +137,26 @@ HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 		# Download
 		.self$download()
 
+		# Get IDs from cache
+		ids <- .self$getBiodb()$getCache()$listFiles(BIODB.HMDBMETABOLITE, .self$getEntryContentType())
 
+		# Filter out wrong IDs
+		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
 	}
 
 	return(ids)
+})
+
+# Get nb entries {{{1
+################################################################
+
+HmdbmetaboliteConn$methods( getNbEntries = function(count = FALSE) {
+
+	n <- NA_integer_
+
+	ids <- .self$getEntryIds()
+	if ( ! is.null(ids))
+		n <- length(ids)
+
+	return(n)
 })
