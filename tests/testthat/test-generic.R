@@ -100,7 +100,7 @@ if (length(TEST.DATABASES) || BIODB.MASSFILEDB %in% TEST.DATABASES) {
 for (mode in TEST.MODES) {
 
 	# Configure cache
-	biodb$getConfig()$set(CFG.CACHEDIR, file.path(SCRIPT.DIR, 'tests', if (mode == ONLINE) 'cache' else file.path('res', 'offline-files')))
+	biodb$getConfig()$set(CFG.CACHEDIR, if (mode == ONLINE) CACHE.DIR else OFFLINE.FILES.DIR)
 	biodb$getCache()$setMode(if (mode == ONLINE) CACHE.WRITE.ONLY else CACHE.READ.ONLY)
 
 	# Loop on test databases

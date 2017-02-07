@@ -19,6 +19,8 @@ ONLINE <- 'online'
 TEST.MODES <- logical()
 TEST.DATABASES <- character()
 LOG.FILE.PATH <- file.path(SCRIPT.DIR, 'tests', 'test.log')
+CACHE.DIR <- file.path(SCRIPT.DIR, 'tests', 'cache')
+OFFLINE.FILES.DIR <- file.path(SCRIPT.DIR, 'tests', 'res', 'offline-files')
 
 # Read args {{{1
 ################################################################
