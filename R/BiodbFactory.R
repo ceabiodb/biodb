@@ -29,28 +29,6 @@ BiodbFactory$methods( getBiodb = function() {
 	return(.self$.biodb)
 })
 
-# CACHE {{{1
-
-# Load content from cache {{{2
-BiodbFactory$methods( .load.content.from.cache = function(class, id) {
-
-	content <- NULL
-
-	# Read contents from files
-	file.paths <- .self$getBiodb()$getCache()$getFilePaths(class, id, .self$getConn(class)$getEntryContentType())
-	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL )} )
-
-	return(content)
-})
-
-# Save content to cache {{{2
-BiodbFactory$methods( .save.content.to.cache = function(class, id, content) {
-
-	# Write contents into files
-	file.paths <- .self$getBiodb()$getCache()$getFilePaths(class, id, .self$getConn(class)$getEntryContentType())
-	mapply(function(c, f) { if ( ! is.null(c)) writeLines(c, f) }, content, file.paths)
-})
-
 # CONNECTIONS {{{1
 
 # Create conn {{{2
@@ -135,7 +113,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Initialize content
 	if (.self$getBiodb()$getCache()$isReadable()) {
-		content <- .self$.load.content.from.cache(class, id)	
+		content <- .self$getBiodb()$getCache()$loadFileContent(class, id, .self$getConn(class)$getEntryContentType())
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 	}
 	else {
@@ -174,7 +152,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 			# Save to cache
 			if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-				.self$.save.content.to.cache(class, ch.missing.ids, ch.missing.contents)
+				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, class, ch.missing.ids, .self$getConn(class)$getEntryContentType())
 
 			# Append
 			missing.contents <- c(missing.contents, ch.missing.contents)

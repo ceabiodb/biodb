@@ -3,7 +3,18 @@
 # Class declaration {{{1
 ################################################################
 
-HmdbmetaboliteConn <- methods::setRefClass("HmdbmetaboliteConn", contains = "RemotedbConn")
+HmdbmetaboliteConn <- methods::setRefClass("HmdbmetaboliteConn", contains = "RemotedbConn", fields = list(.ns = "character"))
+
+# Constructor {{{1
+################################################################
+
+HmdbmetaboliteConn$methods( initialize = function(...) {
+
+	callSuper(base.url = "http://www.hmdb.ca/", ...)
+
+	# Set XML namespace
+	.ns <<- c(hmdb = 'http://www.hmdb.ca')
+})
 
 # Get entry content type {{{1
 ################################################################
@@ -83,14 +94,34 @@ HmdbmetaboliteConn$methods( createEntry = function(contents, drop = TRUE) {
 ################################################################
 
 HmdbmetaboliteConn$methods( download = function() {
-	zip.url <- "http://www.hmdb.ca/system/downloads/current/hmdb_metabolites.zip"
 
-		.self$getBiodb()$getCache()$getFilePaths(BIODB.HMDBMETABOLITE, )
-		# Download entries if not already done. --> downloadzip 
-		# Expand zip, and copy files into cache folder (remove old files first).
-		# TODO How to know it has not already been downloaded?
-		# List files to get all entry IDs
-		# Count files to get number of entries
+	if ( ! .self$getBiodb()$getCache()$fileExists(BIODB.HMDBMETABOLITE, 'download', 'zip')) {
+
+		# Download
+		zip.path <- .self$getBiodb()$getCache()$getFilePaths(BIODB.HMDBMETABOLITE, 'download', 'zip')
+		zip.url <- paste(.self$getBaseUrl(), "system/downloads/current/hmdb_metabolites.zip", sep = '')
+		.self$message(MSG.INFO, paste("Downloading \"", zip.url, "\"...", sep = ''))
+		download.file(url = zip.url, destfile = zip.path, method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
+
+		# Expand zip
+		extract.dir <- tempfile(BIODB.HMDBMETABOLITE)
+		unzip(zip.path, exdir = extract.dir)
+		
+		# Load extracted XML file
+		xml.file <- file.path(extract.dir, list.files(path = extract.dir))
+		if (length(xml.file) == 0)
+			.self$message(MSG.ERROR, paste("No XML file found in zip file \"", zip.path, "\".", sep = ''))
+		if (length(xml.file) > 1)
+			.self$message(MSG.ERROR, paste("More than one file found in zip file \"", zip.path, "\".", sep = ''))
+		xml <- XML::xmlInternalTreeParse(xml.file)
+
+		# Write all XML entries into files
+		ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = .self$.ns)
+		.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
+		contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')
+		.self$getBiodb()$getCache()$deleteFiles(BIODB.HMDBMETABOLITE, .self$getEntryContentType())
+		.self$getBiodb()$getCache()$saveContentToFile(contents, BIODB.HMDBMETABOLITE, ids, .self$getEntryContentType())
+	}
 })
 
 # Get entry ids {{{1
@@ -102,7 +133,11 @@ HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Do we allow database download? This can take some time.
 	if (.self$getBiodb()$getConfig()$isEnabled(CFG.DBDWNLD)) {
+
+		# Download
 		.self$download()
+
+
 	}
 
 	return(ids)
