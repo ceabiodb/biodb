@@ -14,7 +14,7 @@ test.hmdbmetabolite.nbentries <- function(db) {
 
 if (length(TEST.DATABASES) == 0 || BIODB.HMDBMETABOLITE %in% TEST.DATABASES) {
 
-	context("Testing massfiledb offline")
+	context("Testing hmdbmetabolite")
 
 	# Create biodb instance
 	biodb <- Biodb$new(logger = FALSE)

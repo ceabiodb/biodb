@@ -95,7 +95,6 @@ if (length(TEST.DATABASES) || BIODB.MASSFILEDB %in% TEST.DATABASES) {
 	# db.instance$setMsMode(BIODB.MSMODE.POS, 'POS')
 }
 
-
 # Loop on test modes
 for (mode in TEST.MODES) {
 
@@ -105,7 +104,7 @@ for (mode in TEST.MODES) {
 
 	# Loop on test databases
 	for (db in if (length(TEST.DATABASES) > 0) TEST.DATABASES else BIODB.DATABASES) {
-		context(paste("Testing database", db, "in", mode, "mode"))
+		context(paste("Running generic tests on", db, "in", mode, "mode"))
 		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
 		test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
 		if (mode == ONLINE) {

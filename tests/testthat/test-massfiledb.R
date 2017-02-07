@@ -66,6 +66,6 @@ offline.test.massfiledb <- function() {
 ################################################################
 
 if ((length(TEST.DATABASES) == 0 || BIODB.MASSFILEDB %in% TEST.DATABASES) && OFFLINE %in% TEST.MODES) {
-	context("Testing massfiledb offline")
+	context("Testing massfiledb")
 	test_that("MassfiledbConn methods are correct", offline.test.massfiledb())
 }
