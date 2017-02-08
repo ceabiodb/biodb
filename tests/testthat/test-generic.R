@@ -81,7 +81,7 @@ biodb$addObservers(BiodbLogger$new(file = LOG.FILE))
 factory <- biodb$getFactory()
 
 # Initialize massfiledb
-if (length(TEST.DATABASES) || BIODB.MASSFILEDB %in% TEST.DATABASES) {
+if (length(TEST.DATABASES) == 0 || BIODB.MASSFILEDB %in% TEST.DATABASES) {
 	db.instance <- factory$createConn(BIODB.MASSFILEDB, url = .MASSFILEDB.URL)
 	# db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	# db.instance$setField(BIODB.COMPOUND.ID, 'molid')

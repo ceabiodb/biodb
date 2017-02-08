@@ -1,33 +1,31 @@
+# vi: fdm=marker
 
-# Each line is a MS peak measure, .
+# In the provided file, each line represents an MS peak measure.
 # The file contains molecule and spectrum information. Each spectrum has an accession id.
 
-# TODO Rename setField into setFieldName + addNewField, and setMsMode into setMsModeValue
-
-#############
-# CONSTANTS #
-#############
+# Constants {{{1
+################################################################
 
 # Default database fields
 .BIODB.DFT.DB.FIELDS <- list()
 for (f in c(BIODB.ACCESSION, BIODB.NAME, BIODB.FULLNAMES, BIODB.COMPOUND.ID, BIODB.MSMODE, BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.COMP, BIODB.PEAK.ATTR, BIODB.CHROM.COL, BIODB.CHROM.COL.RT, BIODB.FORMULA, BIODB.MASS))
 	.BIODB.DFT.DB.FIELDS[[f]] <- f
 
-#####################
-# CLASS DECLARATION #
-#####################
+# Class declaration {{{1
+################################################################
 
 MassFiledbConn <- methods::setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "list", .ms.modes = "character"))
 
-###############
-# CONSTRUCTOR #
-###############
+# Constructor {{{1
+################################################################
 
 MassFiledbConn$methods( initialize = function(file = NA_character_, file.sep = "\t", file.quote = "\"", ...) {
 
 	# Check file
-	(! is.null(file) && ! is.na(file)) || .self$message(MSG.ERROR, "You must specify a file database to load.")
-	file.exists(file) || .self$message(MSG.ERROR, paste0("Cannot locate the file database \"", file ,"\"."))
+	if (is.null(file) || is.na(file))
+		.self$message(MSG.ERROR, "You must specify a file database to load.")
+	if ( ! file.exists(file))
+		.self$message(MSG.ERROR, paste("Cannot locate the file database \"", file ,"\".", sep = ''))
 
 	# Set fields
 	.db <<- NULL
@@ -43,17 +41,15 @@ MassFiledbConn$methods( initialize = function(file = NA_character_, file.sep = "
 	callSuper(...)
 })
 
-######################
-# Is valid field tag #
-######################
+# Is valid field tag {{{1
+################################################################
 
 MassFiledbConn$methods( isValidFieldTag = function(tag) {
 	return (tag %in% names(.self$.fields))
 })
 
-###########
-# INIT DB #
-###########
+# Init db {{{1
+################################################################
 
 MassFiledbConn$methods( .init.db = function() {
 
@@ -67,9 +63,8 @@ MassFiledbConn$methods( .init.db = function() {
 	}
 })
 
-#############
-# Set field #
-#############
+# Set field {{{1
+################################################################
 
 MassFiledbConn$methods( setField = function(tag, colname) {
 
@@ -98,33 +93,29 @@ MassFiledbConn$methods( setField = function(tag, colname) {
 	colnames(.self$.db) <- vapply(.self$.db.orig.colnames, function(c) if (c %in% .self$.fields) names(.self$.fields)[.self$.fields %in% c] else c, FUN.VALUE = '')
 })
 
-######################################
-# SET FIELD MULTIPLE VALUE SEPARATOR #
-######################################
+# Set field multiple value separator {{{1
+################################################################
 
 MassFiledbConn$methods( setFieldMultValSep = function(sep) {
 	.field.multval.sep <<- sep
 })
 
-################
-# SET MS MODES #
-################
+# Set ms modes {{{1
+################################################################
 
 MassFiledbConn$methods( setMsMode = function(mode, value) {
 	.self$.ms.modes[[mode]] <- value
 })
 
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
+# Get entry content type {{{1
+################################################################
 
 MassFiledbConn$methods( getEntryContentType = function() {
-	return(BIODB.DATAFRAME)
+	return(BIODB.TSV)
 })
 
-################
-# CHECK FIELDS #
-################
+# Check fields {{{1
+################################################################
 
 MassFiledbConn$methods( .check.fields = function(fields) {
 
@@ -145,12 +136,11 @@ MassFiledbConn$methods( .check.fields = function(fields) {
 		.self$message(MSG.ERROR, paste0("Column(s) ", paste(fields), collapse = ", "), " is/are undefined in file database.")
 })
 
-##########
-# SELECT #
-##########
+# Select {{{1
+################################################################
 
 # Select data from database
-MassFiledbConn$methods( .select = function(cols = NULL, mode = NULL, compound.ids = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_) {
+MassFiledbConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL, compound.ids = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_) {
 
 	x <- NULL
 
@@ -171,8 +161,13 @@ MassFiledbConn$methods( .select = function(cols = NULL, mode = NULL, compound.id
 		db <- db[db[[unlist(.self$.fields[BIODB.MSMODE])]] %in% .self$.ms.modes[[mode]], ]
 	}
 
+	# Filter db on ids
+	if ( ! is.null(ids))
+		db <- db[db[[BIODB.ACCESSION]] %in% ids, ]
+
 	# Filter db on compound ids
-	# TODO
+	if ( ! is.null(compound.ids) && BIODB.COMPOUND.ID)
+		db <- db[db[[BIODB.COMPOUND.ID]] %in% compound.ids, ]
 
 	if ( ! is.null(cols) && ! is.na(cols))
 		.self$.check.fields(cols)
@@ -198,31 +193,20 @@ MassFiledbConn$methods( .select = function(cols = NULL, mode = NULL, compound.id
 	return(x)
 })
 
-#################
-# GET ENTRY IDS #
-#################
+# Get entry ids {{{1
+################################################################
 
-MassFiledbConn$methods( getEntryIds = function(type) {
+MassFiledbConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	ids <- NA_character_
 
-	if (type %in% c(BIODB.SPECTRUM, BIODB.COMPOUND))
-		ids <- as.character(.self$.select(cols = if (type == BIODB.SPECTRUM) BIODB.ACCESSION else BIODB.COMPOUND.ID, drop = TRUE, uniq = TRUE, sort = TRUE))
+	ids <- as.character(.self$.select(cols =  BIODB.ACCESSION, drop = TRUE, uniq = TRUE, sort = TRUE))
 
 	return(ids)
 })
 
-##################
-# GET NB ENTRIES #
-##################
-
-MassFiledbConn$methods( getNbEntries = function(type) {
-	return(length(.self$getEntryIds(type)))
-})
-
-###############################
-# GET CHROMATOGRAPHIC COLUMNS #
-###############################
+# Get chromatographic columns {{{1
+################################################################
 
 # Inherited from MassdbConn.
 MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
@@ -247,9 +231,8 @@ MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
 	return(chrom.cols)
 })
 
-#################
-# GET MZ VALUES #
-#################
+# Get mz values {{{1
+################################################################
 
 # Inherited from MassdbConn.
 MassFiledbConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
@@ -260,9 +243,8 @@ MassFiledbConn$methods( getMzValues = function(mode = NULL, max.results = NA_int
 	return(mz)
 })
 
-################
-# GET NB PEAKS #
-################
+# Get nb peaks {{{1
+################################################################
 
 # Inherited from MassdbConn.
 MassFiledbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
@@ -271,4 +253,70 @@ MassFiledbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) 
 	peaks <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, compound.ids = compound.ids)
 
 	return(length(peaks))
+})
+
+# Get entry content {{{1
+################################################################
+
+MassFiledbConn$methods( getEntryContent = function(id) {
+
+	# Initialize return values
+	content <- rep(NA_character_, length(id))
+
+	# Get data frame
+	df <- .self$.select(ids = id, uniq = TRUE, sort = TRUE)
+
+	# For each id, take the sub data frame and convert it into string
+	content <- vapply(id, function(x) if (is.na(x)) NA_character_ else { c <- '' ; write.table(df[df[[BIODB.ACCESSION]] == id, ], textConnection("c", "w", local = TRUE), row.names = FALSE, quote = FALSE, sep = "\t") ; c }, FUN.VALUE = '')
+
+	return(content)
+})
+
+# Create entry {{{1
+################################################################
+
+MassFiledbConn$methods( createEntry = function(content, drop = TRUE) {
+
+	entries <- list()
+
+	# Loop on all contents
+	for (single.content in content) {
+
+		# Create instance
+		entry <- BiodbEntry$new(.self$getBiodb())
+
+		if ( ! is.null(single.content) && ! is.na(single.content)) {
+
+			# Parse content
+			df <- read.table(text = single.content, header = TRUE, row.names = NULL, sep = "\t", quote = '', stringsAsFactors = FALSE)
+
+			if (nrow(df) > 0) {
+
+				# Determine which columns contain constant value
+				entry.fields <- colnames(df)[vapply(colnames(df), function(x) sum(! duplicated(x)) == 1, FUN.VALUE = TRUE)]
+
+				# Remove peak columns from those columns (case where zero or only one peak in the table)
+				entry.fields <- entry.fields[ ! entry.fields %in% c(BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.COMP, BIODB.PEAK.ATTR)]
+
+				# Set entry fields
+				for (f in entry.fields)
+					entry$setFieldValue(f, df[1, f])
+
+				# Make peak table
+				peaks <- df[, ! colnames(df) %in% entry.fields]
+				entry$setFieldValue(BIODB.PEAKS, peaks)
+			}
+		}
+
+		entries <- c(entries, entry)
+	}
+
+	# Replace elements with no accession id by NULL
+	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+
+	# If the input was a single element, then output a single object
+	if (drop && length(content) == 1)
+		entries <- entries[[1]]
+
+	return(entries)
 })

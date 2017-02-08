@@ -10,7 +10,7 @@ BIODB.HTML <- 'html'
 BIODB.TXT  <- 'txt'
 BIODB.XML  <- 'xml'
 BIODB.CSV  <- 'csv'
-BIODB.DATAFRAME  <- 'dataframe'
+BIODB.TSV  <- 'tsv'
 BIODB.JSON <- 'json'
 
 #############

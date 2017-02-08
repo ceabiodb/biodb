@@ -28,6 +28,21 @@ BiodbObject$methods( .abstract.method = function() {
 	.self$message(type = MSG.ERROR, paste("Method", method, "is not implemented in", class, "class."))
 })
 
+# This method is used to declare a method as deprecated.
+BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {
+
+	class <- class(.self)
+	method <- sys.calls()[[length(sys.calls()) - 1]]
+	method <- as.character(method)
+	method <- method[[1]]
+	method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
+
+	msg <- paste("Method", method, "is now deprecated in", class, "class.")
+	if ( ! is.na(new.method))
+		msg <- paste(msg, " Please use now method", new.method, ".", sep = '.')
+	.self$message(type = MSG.CAUTION, msg)
+})
+
 # GET BIODB {{{1
 ################################################################
 

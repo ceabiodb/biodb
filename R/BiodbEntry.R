@@ -188,9 +188,11 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE) {
 ################################################################
 
 BiodbEntry$methods(	getField = function(field) {
+	.self$.deprecated.method("getFieldValue()")
 	return(.self$getFieldValue(field))
 })
 
 BiodbEntry$methods(	setField = function(field, value) {
+	.self$.deprecated.method("setFieldValue()")
 	.self$setFieldValue(field, value)
 })
