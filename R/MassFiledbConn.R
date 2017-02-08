@@ -7,14 +7,13 @@
 ################################################################
 
 # Default database fields
-.BIODB.DFT.DB.FIELDS <- list()
-for (f in c(BIODB.ACCESSION, BIODB.NAME, BIODB.FULLNAMES, BIODB.COMPOUND.ID, BIODB.MSMODE, BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.COMP, BIODB.PEAK.ATTR, BIODB.CHROM.COL, BIODB.CHROM.COL.RT, BIODB.FORMULA, BIODB.MASS))
-	.BIODB.DFT.DB.FIELDS[[f]] <- f
+.BIODB.DFT.DB.FIELDS <- c(BIODB.ACCESSION, BIODB.NAME, BIODB.FULLNAMES, BIODB.COMPOUND.ID, BIODB.MSMODE, BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.COMP, BIODB.PEAK.ATTR, BIODB.CHROM.COL, BIODB.CHROM.COL.RT, BIODB.FORMULA, BIODB.MASS)
+names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
 
 # Class declaration {{{1
 ################################################################
 
-MassFiledbConn <- methods::setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "list", .ms.modes = "character"))
+MassFiledbConn <- methods::setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .ms.modes = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -82,15 +81,16 @@ MassFiledbConn$methods( setField = function(tag, colname) {
 
 	# Set new definition
 	if (length(colname) == 1)
-		.fields[[tag]] <<- colname
+		.self$.fields[[tag]] <- colname
 	else {
 		new.col <- paste(colname, collapse = ".")
 		.self$.db[[new.col]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
-		.fields[[tag]] <<- new.col
+		.self$.fields[[tag]] <- new.col
 	}
 
 	# Update data frame column names
-	colnames(.self$.db) <- vapply(.self$.db.orig.colnames, function(c) if (c %in% .self$.fields) names(.self$.fields)[.self$.fields %in% c] else c, FUN.VALUE = '')
+	# XXX Why just update here and not init.db()?
+#	colnames(.self$.db) <- vapply(.self$.db.orig.colnames, function(c) if (c %in% .self$.fields) names(.self$.fields)[.self$.fields %in% c] else c, FUN.VALUE = '')
 })
 
 # Set field multiple value separator {{{1
@@ -131,9 +131,9 @@ MassFiledbConn$methods( .check.fields = function(fields) {
 	.self$.init.db()
 
 	# Check if fields are defined in file database
-	undefined.fields <- colnames(.self$.db)[ ! fields %in% colnames(.self$.db)]
+	undefined.fields <- colnames(.self$.db)[ ! .self$.fields[fields] %in% colnames(.self$.db)]
 	if (length(undefined.fields) > 0)
-		.self$message(MSG.ERROR, paste0("Column(s) ", paste(fields), collapse = ", "), " is/are undefined in file database.")
+		.self$message(MSG.ERROR, paste0("Column(s) ", paste(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database.")
 })
 
 # Select {{{1
@@ -158,16 +158,26 @@ MassFiledbConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL,
 		.self$.check.fields(BIODB.MSMODE)
 
 		# Filter on mode
-		db <- db[db[[unlist(.self$.fields[BIODB.MSMODE])]] %in% .self$.ms.modes[[mode]], ]
+		db <- db[db[[.self$.fields[[BIODB.MSMODE]]]] %in% .self$.ms.modes[[mode]], ]
 	}
 
 	# Filter db on ids
-	if ( ! is.null(ids))
-		db <- db[db[[BIODB.ACCESSION]] %in% ids, ]
+	if ( ! is.null(ids)) {
+		print('================================================================')
+		print('Select on IDS:')
+		print(ids)
+		print('================================================================')
+		.self$.check.fields(BIODB.ACCESSION)
+		db <- db[db[[.self$.fields[[BIODB.ACCESSION]]]] %in% ids, ]
+		print(db)
+		print('================================================================')
+	}
 
 	# Filter db on compound ids
-	if ( ! is.null(compound.ids) && BIODB.COMPOUND.ID)
-		db <- db[db[[BIODB.COMPOUND.ID]] %in% compound.ids, ]
+	if ( ! is.null(compound.ids)) {
+		.self$.check.fields(BIODB.COMPOUND.ID)
+		db <- db[db[[.self$.fields[[BIODB.COMPOUND.ID]]]] %in% compound.ids, ]
+	}
 
 	if ( ! is.null(cols) && ! is.na(cols))
 		.self$.check.fields(cols)
@@ -176,7 +186,7 @@ MassFiledbConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL,
 	if (is.null(cols) || is.na(cols))
 		x <- db
 	else
-		x <- db[, unlist(.self$.fields[cols]), drop = drop]
+		x <- db[, .self$.fields[cols], drop = drop]
 
 	# Rearrange
 	if (drop && is.vector(x)) {
@@ -264,10 +274,20 @@ MassFiledbConn$methods( getEntryContent = function(id) {
 	content <- rep(NA_character_, length(id))
 
 	# Get data frame
+	.self$message(MSG.DEBUG, paste("Entry id:", paste(id, collapse = ", ")))
 	df <- .self$.select(ids = id, uniq = TRUE, sort = TRUE)
+	print('****************************************************************')
+	print(id)
+	print('****************************************************************')
+	print(.self$.db[1:2,])
+	print('****************************************************************')
+	print(df)
+	print('****************************************************************')
 
 	# For each id, take the sub data frame and convert it into string
 	content <- vapply(id, function(x) if (is.na(x)) NA_character_ else { c <- '' ; write.table(df[df[[BIODB.ACCESSION]] == id, ], textConnection("c", "w", local = TRUE), row.names = FALSE, quote = FALSE, sep = "\t") ; c }, FUN.VALUE = '')
+
+	.self$message(MSG.DEBUG, paste("Entry content:", content))
 
 	return(content)
 })

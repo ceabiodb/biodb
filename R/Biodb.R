@@ -136,12 +136,13 @@ Biodb$methods( fieldIsAtomic = function(field) {
 # Entries to data frame {{{1
 ################################################################
 
-Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE) {
+Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE) {
 	"Convert a list of entries (BiodbEntry objects) into a data frame.
-	only.atomic Set to TRUE if you want only the atomic fields (integer, numeric, logical and character) inside the data frame."
+	only.atomic Set to TRUE if you want only the atomic fields (integer, numeric, logical and character) inside the data frame.
+	null.to.na  If TRUE, each NULL entry gives a line of NA values inside the data frame."
 
 	# Check classes
-	if ( ! all(vapply(entries, function(x) is(x, 'BiodbEntry'), FUN.VALUE = TRUE)))
+	if ( ! all(vapply(entries, function(x) is.null(x) || is(x, 'BiodbEntry'), FUN.VALUE = TRUE)))
 		.self$message(MSG.ERROR, "Some objects in the input list are not a subclass of BiodbEntry.")
 
 	entries.df <- NULL
@@ -151,8 +152,15 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE) {
 	for (e in entries) {
 		n <- n + 1
 		.self$message(BIODB.DEBUG, paste("Processing entry", n, "/", length(entries), "..."))
-		e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic)
-		entries.df <- plyr::rbind.fill(entries.df, e.df)
+		if ( ! is.null(e)) {
+			e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic)
+			entries.df <- plyr::rbind.fill(entries.df, e.df)
+		}
+		else if (null.to.na) {
+			e.df <- data.frame(accession <- NA_character_)
+			colnames(e.df) <- BIODB.ACCESSION
+			entries.df <- plyr::rbind.fill(entries.df, e.df)
+		}
 	}
 
 	return(entries.df)
