@@ -31,7 +31,10 @@ test.entry.fields <- function(factory, db) {
 		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
 		e.values <- factory$getBiodb()$entriesFieldToVctOrLst(entries, f, flatten = TRUE)
 		expect_equal(e.values, entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entry objects."))
-		expect_equal(entries.df[[f]], entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entries data frame"))
+		if (f %in% names(entries.df))
+			expect_equal(entries.df[[f]], entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entries data frame"))
+		else
+			expect_true(all(is.na(entries.desc[[f]])))
 	}
 }
 
