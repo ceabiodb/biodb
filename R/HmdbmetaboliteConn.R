@@ -40,7 +40,7 @@ HmdbmetaboliteConn$methods( getEntryContent = function(id) {
 # Create entry {{{1
 ################################################################
 
-HmdbmetaboliteConn$methods( createEntry = function(contents, drop = TRUE) {
+HmdbmetaboliteConn$methods( createEntry = function(content, drop = TRUE) {
 
 	entries <- list()
 
@@ -54,15 +54,15 @@ HmdbmetaboliteConn$methods( createEntry = function(contents, drop = TRUE) {
 	xpath.expr[[BIODB.AVERAGE.MASS]]       <- "//average_molecular_weight"
 	xpath.expr[[BIODB.MONOISOTOPIC.MASS]]  <- "//monisotopic_moleculate_weight"
 
-	for (content in contents) {
+	for (single.content in content) {
 
 		# Create instance
 		entry <- BiodbEntry$new(.self$getBiodb())
 
-		if ( ! is.null(content) && ! is.na(content)) {
+		if ( ! is.null(single.content) && ! is.na(single.content)) {
 
 			# Parse XML
-			xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
+			xml <-  XML::xmlInternalTreeParse(single.content, asText = TRUE)
 
 			# An error occured
 			if (length(XML::getNodeSet(xml, "//error")) == 0) {
@@ -84,7 +84,7 @@ HmdbmetaboliteConn$methods( createEntry = function(contents, drop = TRUE) {
 	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 	# If the input was a single element, then output a single object
-	if (drop && length(contents) == 1)
+	if (drop && length(content) == 1)
 		entries <- entries[[1]]
 
 	return(entries)

@@ -122,7 +122,7 @@ ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
 
 	# Send request
 	.self$message(MSG.DEBUG, paste("XML REQUEST =", xml.request))
-	xml.results <- .self$.get.url.scheduler()$sendSoapRequest(paste(.self$getBaseUrl(), "MassSpecAPI.asmx", sep = ''), action = paste(.self$getBaseUrl(), "SearchByMassAsync", sep = ''), request = xml.request)
+	xml.results <- .self$.getUrlScheduler()$sendSoapRequest(paste(.self$getBaseUrl(), "MassSpecAPI.asmx", sep = ''), action = paste(.self$getBaseUrl(), "SearchByMassAsync", sep = ''), request = xml.request)
 	.self$message(MSG.DEBUG, paste("XML RESULTS =", xml.results))
 
 	# Parse XML
@@ -141,7 +141,7 @@ ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
 ChemspiderConn$methods( searchEntryByMass = function(mass, tol, max.results = NA_integer_) {
 
 	# Send request
-	xml.results <- .self$.get.url.scheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = tol))
+	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = tol))
 
 	# Parse XML
 	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)

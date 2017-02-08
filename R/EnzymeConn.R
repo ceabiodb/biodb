@@ -47,7 +47,7 @@ EnzymeConn$methods( createEntry = function(content, drop = TRUE) {
 EnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Send request
-	html.results <- .self$.get.url.scheduler()$getUrl(paste(.self$getBaseUrl(), "enzyme-bycomment.html", sep = ''), params = c('e'))
+	html.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "enzyme-bycomment.html", sep = ''), params = c('e'))
 
 	# Parse HTML
 	xml <-  XML::htmlTreeParse(html.results, asText = TRUE, useInternalNodes = TRUE)

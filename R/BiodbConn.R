@@ -3,15 +3,14 @@
 # Class declaration {{{1
 ################################################################
 
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .debug = "logical", .biodb = "ANY" ))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .biodb = "ANY" ))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(debug = FALSE, biodb = NULL, ...) {
+BiodbConn$methods( initialize = function(biodb = NULL, ...) {
 	is(biodb, "Biodb") || .self$message(MSG.ERROR, paste0("The biodb parameter must be of class Biodb, its class was ", class(biodb), "."))
 	.biodb <<- biodb
-	.debug <<- debug
 	callSuper(...)
 })
 

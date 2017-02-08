@@ -17,7 +17,7 @@ KeggcompoundConn$methods( initialize = function(...) {
 # Create entry {{{1
 ################################################################
 
-KeggcompoundConn$methods( createEntry = function(contents, drop = TRUE) {
+KeggcompoundConn$methods( createEntry = function(content, drop = TRUE) {
 
 	entries <- list()
 
@@ -27,7 +27,7 @@ KeggcompoundConn$methods( createEntry = function(contents, drop = TRUE) {
 	regex[[BIODB.CHEBI.ID]] <- "^\\s+ChEBI:\\s+(\\S+)"
 	regex[[BIODB.LIPIDMAPS.ID]] <- "^\\s+LIPIDMAPS:\\s+(\\S+)"
 
-	for (text in contents) {
+	for (text in content) {
 
 		# Create instance
 		entry <- BiodbEntry$new(biodb = .self$getBiodb())
@@ -83,7 +83,7 @@ KeggcompoundConn$methods( createEntry = function(contents, drop = TRUE) {
 	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 	# If the input was a single element, then output a single object
-	if (drop && length(contents) == 1)
+	if (drop && length(content) == 1)
 		entries <- entries[[1]]
 
 	return(entries)

@@ -16,12 +16,12 @@ KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_
 
 	# Set name
 	if (is.null(db.name) || is.na(db.name))
-		.self$message(MSG.ERROR, "You must set a name this KEGG database.")
+		.self$message(MSG.ERROR, "You must set a name for this KEGG database.")
 	.db.name <<- db.name
 
 	# Set abbreviation
 	if (is.null(db.abbrev) || is.na(db.abbrev))
-		.self$message(MSG.ERROR, "You must set a abbreviation this KEGG database.")
+		.self$message(MSG.ERROR, "You must set an abbreviation for this KEGG database.")
 	.db.abbrev <<- db.abbrev
 })
 
@@ -62,7 +62,7 @@ KeggConn$methods( getEntryContent = function(id) {
 	content <- rep(NA_character_, length(id))
 
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(getEntryContentUrl(x)), FUN.VALUE = '')
+	content <- vapply(id, function(x) .self$.get.url(.self$getEntryContentUrl(x)), FUN.VALUE = '')
 
 	return(content)
 })

@@ -22,7 +22,7 @@ BIODB.CHEMSPIDER        <- 'chemspider'
 BIODB.ENZYME            <- 'enzyme'
 BIODB.HMDBMETABOLITE    <- 'hmdbmetabolite'
 BIODB.KEGGCOMPOUND      <- 'keggcompound'
-BIODB.LIPIDMAPS         <- 'lipidmaps'
+BIODB.LIPIDMAPSSTRUCTURE<- 'lipidmaps'
 BIODB.MASSBANK          <- 'massbank'
 BIODB.MASSFILEDB        <- 'massfiledb'
 BIODB.MIRBASE           <- 'mirbase'
@@ -33,7 +33,7 @@ BIODB.PUBCHEMCOMP       <- 'pubchemcomp' # Compound database
 BIODB.PUBCHEMSUB        <- 'pubchemsub'  # Substance database
 BIODB.UNIPROT           <- 'uniprot'
 
-BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPS, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFOREST))
+BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPSSTRUCTURE, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFOREST))
 
 ##########
 # FIELDS #
@@ -53,7 +53,7 @@ BIODB.SYNONYMS                  <- 'synonyms'
 BIODB.SYMBOL                    <- 'symbol'
 BIODB.GENE.SYMBOLS              <- 'genesymbols'
 BIODB.CHEBI.ID                  <- 'chebiid'
-BIODB.LIPIDMAPS.ID              <- 'lipidmapsid'
+BIODB.LIPIDMAPSSTRUCTURE.ID     <- 'lipidmapsstructureid'
 BIODB.KEGGCOMPOUND.ID           <- 'keggcompoundid'
 BIODB.HMDBMETABOLITE.ID         <- 'hmdbmetaboliteid'
 BIODB.ENZYME.ID                 <- 'enzymeid'
@@ -165,7 +165,7 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.NB.COMPOUNDS,         'integer',      BIODB.CARD.ONE,     'none',
 	BIODB.COMPOUNDS,            'object',       BIODB.CARD.MANY,  'none',
 	BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
-	BIODB.LIPIDMAPS.ID,         'character',    BIODB.CARD.ONE,		'none',
+	BIODB.LIPIDMAPSSTRUCTURE.ID,'character',    BIODB.CARD.ONE,		'none',
 	BIODB.KEGGCOMPOUND.ID,      'character',    BIODB.CARD.ONE,		'none',
 	BIODB.HMDBMETABOLITE.ID,    'character',    BIODB.CARD.ONE,		'none',
 	BIODB.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
@@ -265,7 +265,6 @@ BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/"
 			                 xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
 			                 html = paste0('http://www.hmdb.ca/metabolites/', accession),
 			                 NULL),
-		lipidmaps   = if (content.type == BIODB.CSV) paste0('http://www.lipidmaps.org/data/LMSDRecord.php?Mode=File&LMID=', accession, '&OutputType=CSV&OutputQuote=No') else NULL, 
 		massbank    = if (content.type == BIODB.TXT) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
 		mirbase     = if (content.type == BIODB.HTML) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
 		pubchemcomp = switch(content.type,

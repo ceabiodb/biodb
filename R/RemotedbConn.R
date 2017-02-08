@@ -42,7 +42,7 @@ RemotedbConn$methods( getToken = function() {
 # Get URL scheduler {{{1
 ################################################################
 
-RemotedbConn$methods( .get.url.scheduler = function() {
+RemotedbConn$methods( .getUrlScheduler = function() {
 	"!!! PRIVATE METHOD !!! Returns the URL scheduler.
 	returns: The URL scheduler."
 

@@ -47,7 +47,7 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 		            hmdbmetabolite  = HmdbmetaboliteConn$new(   biodb = .self$.biodb),
 		            chemspider      = ChemspiderConn$new(       biodb = .self$.biodb, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.CHEMSPIDER.TOKEN) else token),
 		            enzyme          = EnzymeConn$new(           biodb = .self$.biodb),
-		            lipidmaps       = LipidmapsConn$new(        biodb = .self$.biodb),
+		            lipidmapsstructure = LipidmapsstructureConn$new(        biodb = .self$.biodb),
 		            mirbase         = MirbaseConn$new(          biodb = .self$.biodb),
 		            ncbigene        = NcbigeneConn$new(         biodb = .self$.biodb),
 		            ncbiccds        = NcbiccdsConn$new(         biodb = .self$.biodb),
@@ -59,7 +59,7 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 
 	# Unknown class
 	if (is.null(conn))
-		stop(paste0("Unknown r-biodb class \"", class,"\"."))
+		.self$message(paste("Unknown connection class ", class, ".", sep = ''))
 
 	# Register new class
 	.self$.conn[[class]] <- conn
