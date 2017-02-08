@@ -107,4 +107,23 @@ LipidmapsstructureConn$methods( createEntry = function(content, drop = TRUE) {
 	return(entries)
 })
 
-# http://www.lipidmaps.org/data/structure/LMSDSearch.php?Mode=ProcessStrSearch&OutputMode=File
+# Get entry ids {{{1
+################################################################
+
+LipidmapsstructureConn$methods( getEntryIds = function(max.results = NA_integer_) {
+
+	# Retrieve all entries
+	result.txt <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), 'structure/LMSDSearch.php?Mode=ProcessStrSearch&OutputMode=File', sep = ''))
+
+	# Convert into data frame
+	result.df <- read.table(text = result.txt, sep = "\t", header = TRUE, comment.char = '', stringsAsFactors = FALSE, quote = '')
+
+	# Extract IDs
+	ids <- result.df[['LM_ID']]
+
+	# Cut
+	if ( ! is.na(max.results) && length(ids) > max.results)
+		ids <- ids[1:max.results]
+
+	return(ids)
+})
