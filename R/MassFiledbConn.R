@@ -209,6 +209,20 @@ MassFiledbConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	return(ids)
 })
 
+# Get nb entries {{{1
+################################################################
+
+MassFiledbConn$methods( getNbEntries = function(count = FALSE) {
+
+	n <- NA_integer_
+
+	ids <- .self$getEntryIds()
+	if ( ! is.null(ids))
+		n <- length(ids)
+
+	return(n)
+})
+
 # Get chromatographic columns {{{1
 ################################################################
 
@@ -229,7 +243,10 @@ MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
 	cols <- cols[ ! duplicated(cols)]
 
 	# Make data frame
-	chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
+	if (is.null(cols))
+		chrom.cols <- data.frame(a = character(0), b = character(0))
+	else
+		chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
 	colnames(chrom.cols) <- c(BIODB.ID, BIODB.TITLE)
 
 	return(chrom.cols)
