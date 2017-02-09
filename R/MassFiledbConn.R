@@ -204,7 +204,7 @@ MassFiledbConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	ids <- NA_character_
 
-	ids <- as.character(.self$.select(cols =  BIODB.ACCESSION, drop = TRUE, uniq = TRUE, sort = TRUE))
+	ids <- as.character(.self$.select(cols =  BIODB.ACCESSION, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
 
 	return(ids)
 })
