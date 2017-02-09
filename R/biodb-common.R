@@ -164,6 +164,7 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.GENE.SYMBOLS,         'character',    BIODB.CARD.MANY,	'none',
 	BIODB.NB.COMPOUNDS,         'integer',      BIODB.CARD.ONE,     'none',
 	BIODB.COMPOUNDS,            'object',       BIODB.CARD.MANY,  'none',
+	BIODB.COMPOUND.ID,          'character',    BIODB.CARD.ONE,     'none',
 	BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
 	BIODB.LIPIDMAPSSTRUCTURE.ID,'character',    BIODB.CARD.ONE,		'none',
 	BIODB.KEGGCOMPOUND.ID,      'character',    BIODB.CARD.ONE,		'none',

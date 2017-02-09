@@ -163,14 +163,8 @@ MassFiledbConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL,
 
 	# Filter db on ids
 	if ( ! is.null(ids)) {
-		print('================================================================')
-		print('Select on IDS:')
-		print(ids)
-		print('================================================================')
 		.self$.check.fields(BIODB.ACCESSION)
 		db <- db[db[[.self$.fields[[BIODB.ACCESSION]]]] %in% ids, ]
-		print(db)
-		print('================================================================')
 	}
 
 	# Filter db on compound ids
@@ -276,16 +270,10 @@ MassFiledbConn$methods( getEntryContent = function(id) {
 	# Get data frame
 	.self$message(MSG.DEBUG, paste("Entry id:", paste(id, collapse = ", ")))
 	df <- .self$.select(ids = id, uniq = TRUE, sort = TRUE)
-	print('****************************************************************')
-	print(id)
-	print('****************************************************************')
-	print(.self$.db[1:2,])
-	print('****************************************************************')
-	print(df)
-	print('****************************************************************')
 
 	# For each id, take the sub data frame and convert it into string
-	content <- vapply(id, function(x) if (is.na(x)) NA_character_ else { c <- '' ; write.table(df[df[[BIODB.ACCESSION]] == id, ], textConnection("c", "w", local = TRUE), row.names = FALSE, quote = FALSE, sep = "\t") ; c }, FUN.VALUE = '')
+	df.ids <- df[[.self$.fields[[BIODB.ACCESSION]]]]
+	content <- vapply(id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
 
 	.self$message(MSG.DEBUG, paste("Entry content:", content))
 
@@ -311,6 +299,9 @@ MassFiledbConn$methods( createEntry = function(content, drop = TRUE) {
 			df <- read.table(text = single.content, header = TRUE, row.names = NULL, sep = "\t", quote = '', stringsAsFactors = FALSE)
 
 			if (nrow(df) > 0) {
+
+				# Translate custom fields to Biodb fields
+				colnames(df) <- vapply(colnames(df), function(x) if (x %in% .self$.fields) names(.self$.fields)[.self$.fields == x] else x, FUN.VALUE = '')
 
 				# Determine which columns contain constant value
 				entry.fields <- colnames(df)[vapply(colnames(df), function(x) sum(! duplicated(x)) == 1, FUN.VALUE = TRUE)]
