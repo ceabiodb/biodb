@@ -21,7 +21,7 @@ offline.test.massfiledb <- function() {
 	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	db$setField(BIODB.COMPOUND.ID, 'molid')
 	db$setField(BIODB.MSMODE, 'mode')
-	db$setField(BIODB.PEAK.MZ, 'mztheo')
+	db$setField(BIODB.PEAK.MZTHEO, 'mztheo')
 	db$setField(BIODB.PEAK.COMP, 'comp')
 	db$setField(BIODB.PEAK.ATTR, 'attr')
 	db$setField(BIODB.CHROM.COL, 'col')
