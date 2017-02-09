@@ -43,6 +43,7 @@ offline.test.massfiledb <- function() {
 		# Test chrom cols
 		entry.id <- db$getEntryIds()[[1]]
 		expect_gt(nrow(db$getChromCol()), 1)
+		# TODO entry id is not a compound id !!!!!
 		expect_gt(nrow(db$getChromCol(entry.id)), 1)
 		expect_lt(nrow(db$getChromCol(entry.id)), nrow(db$getChromCol()))
 		expect_true(all(db$getChromCol(entry.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))

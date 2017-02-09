@@ -234,10 +234,10 @@ MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
 
 	# Filter on molecule IDs
 	if ( ! is.null(compound.ids))
-		db <- db[db[[BIODB.COMPOUND.ID]] %in% compound.ids, ]
+		db <- db[db[[.self$.fields[[BIODB.COMPOUND.ID]]]] %in% compound.ids, ]
 
 	# Get column names
-	cols <- db[[BIODB.CHROM.COL]]
+	cols <- db[[.self$.fields[[BIODB.CHROM.COL]]]]
 
 	# Remove duplicates
 	cols <- cols[ ! duplicated(cols)]
