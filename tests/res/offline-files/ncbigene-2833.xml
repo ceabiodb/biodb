@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
+<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "https://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
   <Entrezgene_track-info>
@@ -21,12 +21,9 @@
         <Date>
           <Date_std>
             <Date-std>
-              <Date-std_year>2016</Date-std_year>
-              <Date-std_month>9</Date-std_month>
-              <Date-std_day>10</Date-std_day>
-              <Date-std_hour>17</Date-std_hour>
-              <Date-std_minute>28</Date-std_minute>
-              <Date-std_second>0</Date-std_second>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>5</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -86,7 +83,7 @@
     <Gene-ref>
       <Gene-ref_locus>CXCR3</Gene-ref_locus>
       <Gene-ref_desc>C-X-C motif chemokine receptor 3</Gene-ref_desc>
-      <Gene-ref_maploc>Xq13</Gene-ref_maploc>
+      <Gene-ref_maploc>Xq13.1</Gene-ref_maploc>
       <Gene-ref_db>
         <Dbtag>
           <Dbtag_db>HGNC</Dbtag_db>
@@ -101,14 +98,6 @@
           <Dbtag_tag>
             <Object-id>
               <Object-id_str>ENSG00000186810</Object-id_str>
-            </Object-id>
-          </Dbtag_tag>
-        </Dbtag>
-        <Dbtag>
-          <Dbtag_db>HPRD</Dbtag_db>
-          <Dbtag_tag>
-            <Object-id>
-              <Object-id_str>02936</Object-id_str>
             </Object-id>
           </Dbtag_tag>
         </Dbtag>
@@ -157,7 +146,7 @@
   <Entrezgene_summary>This gene encodes a G protein-coupled receptor with selectivity for three chemokines, termed CXCL9/Mig (monokine induced by interferon-g), CXCL10/IP10 (interferon-g-inducible 10 kDa protein) and CXCL11/I-TAC (interferon-inducible T cell a-chemoattractant). Binding of chemokines to this protein induces cellular responses that are involved in leukocyte traffic, most notably integrin activation, cytoskeletal changes and chemotactic migration. Alternatively spliced transcript variants encoding different isoforms have been found for this gene. One of the isoforms (CXCR3-B) shows high affinity binding to chemokine, CXCL4/PF4 (PMID:12782716). [provided by RefSeq, Jun 2011]</Entrezgene_summary>
   <Entrezgene_location>
     <Maps>
-      <Maps_display-str>Xq13</Maps_display-str>
+      <Maps_display-str>Xq13.1</Maps_display-str>
       <Maps_method>
         <Maps_method_map-type value="cyto"/>
       </Maps_method>
@@ -1756,25 +1745,6 @@
                       <Dbtag_db>GO</Dbtag_db>
                       <Dbtag_tag>
                         <Object-id>
-                          <Object-id_id>5829</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>cytosol</Other-source_anchor>
-                  <Other-source_post-text>evidence: IEA</Other-source_post-text>
-                </Other-source>
-              </Gene-commentary_source>
-            </Gene-commentary>
-            <Gene-commentary>
-              <Gene-commentary_type value="comment">254</Gene-commentary_type>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>GO</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
                           <Object-id_id>9897</Object-id_id>
                         </Object-id>
                       </Dbtag_tag>
@@ -1938,7 +1908,27 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>27470388</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26871637</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26831417</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26823797</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26589908</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1953,7 +1943,17 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26394162</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26339376</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26275313</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -2019,6 +2019,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>25013801</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>24999582</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -3959,6 +3964,31 @@
                             </Gene-commentary>
                           </Gene-commentary_comment>
                         </Gene-commentary>
+                        <Gene-commentary>
+                          <Gene-commentary_type value="other">255</Gene-commentary_type>
+                          <Gene-commentary_heading>UniProtKB</Gene-commentary_heading>
+                          <Gene-commentary_source></Gene-commentary_source>
+                          <Gene-commentary_comment>
+                            <Gene-commentary>
+                              <Gene-commentary_type value="other">255</Gene-commentary_type>
+                              <Gene-commentary_source>
+                                <Other-source>
+                                  <Other-source_src>
+                                    <Dbtag>
+                                      <Dbtag_db>UniProtKB/Swiss-Prot</Dbtag_db>
+                                      <Dbtag_tag>
+                                        <Object-id>
+                                          <Object-id_str>P49682</Object-id_str>
+                                        </Object-id>
+                                      </Dbtag_tag>
+                                    </Dbtag>
+                                  </Other-source_src>
+                                  <Other-source_anchor>P49682</Other-source_anchor>
+                                </Other-source>
+                              </Gene-commentary_source>
+                            </Gene-commentary>
+                          </Gene-commentary_comment>
+                        </Gene-commentary>
                       </Gene-commentary_comment>
                     </Gene-commentary>
                   </Gene-commentary_products>
@@ -5110,6 +5140,8 @@
                       </Dbtag_tag>
                     </Dbtag>
                   </Other-source_src>
+                  <Other-source_anchor>UniProtKB/Swiss-Prot:P49682</Other-source_anchor>
+                  <Other-source_url>http://www.uniprot.org/uniprot/P49682</Other-source_url>
                 </Other-source>
               </Gene-commentary_source>
               <Gene-commentary_seqs>
@@ -5325,7 +5357,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>MGC</Other-source_anchor>
-              <Other-source_url>http://mgc.nci.nih.gov/Genes/CloneList?ORG=Hs&amp;LIST=BC034403</Other-source_url>
+              <Other-source_url>https://genecollections.nci.nih.gov/MGC/?ORG=Hs&amp;LIST=BC034403</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -5375,6 +5407,279 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCL10/CXCR3 axis promotes gastric cancer cell invasion and migration by upregulating MMP-2 and MMP-9 production via PI3K/AKT pathway.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27470388</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>59</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCR3 expression in chronic lymphocytic leukemia cells was a strong determinant of a worse clinical outcome.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26589908</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>14</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>14</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>35</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Speculate that aberrant expression of CXCR3 in marginal zone lymphoma of the skin is associated with migration of lymphoma cells to the epidermis and could lead to an epidermotropic pattern.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26275313</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>14</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>14</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>13</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCR3 role in autoimmune thyroiditis [review]</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>24999582</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>15</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Both CXCL10 and CXCR3 appeared to be useful in differentiating T1R reaction in borderline leprosy while CXCR3 alone differentiated BT from BT-T1R</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26831417</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>9</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCR3 expression was upregulated in advanced gastric cancer and was associated with increased CD4+, CD8+ tumor-infiltrating lymphocyte infiltration and improved overall survival</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26823797</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>3</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCR3 was also linked to steatosis through inducing hepatic lipogenic genes</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26394162</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>32</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -13910,11 +14215,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>26</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>44</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14013,11 +14318,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>26</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>44</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14116,11 +14421,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>26</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>44</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14224,11 +14529,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>26</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>44</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -14327,11 +14632,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>26</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>44</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
+<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "https://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
   <Entrezgene_track-info>
@@ -21,9 +21,12 @@
         <Date>
           <Date_std>
             <Date-std>
-              <Date-std_year>2016</Date-std_year>
-              <Date-std_month>9</Date-std_month>
-              <Date-std_day>18</Date-std_day>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>16</Date-std_hour>
+              <Date-std_minute>38</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
             </Date-std>
           </Date_std>
         </Date>
@@ -98,14 +101,6 @@
           <Dbtag_tag>
             <Object-id>
               <Object-id_str>ENSG00000137673</Object-id_str>
-            </Object-id>
-          </Dbtag_tag>
-        </Dbtag>
-        <Dbtag>
-          <Dbtag_db>HPRD</Dbtag_db>
-          <Dbtag_tag>
-            <Object-id>
-              <Object-id_str>01525</Object-id_str>
             </Object-id>
           </Dbtag_tag>
         </Dbtag>
@@ -818,7 +813,33 @@
                     </Dbtag>
                   </Other-source_src>
                   <Other-source_anchor>metalloendopeptidase activity</Other-source_anchor>
-                  <Other-source_post-text>evidence: IEA</Other-source_post-text>
+                  <Other-source_post-text>evidence: TAS</Other-source_post-text>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="comment">254</Gene-commentary_type>
+              <Gene-commentary_refs>
+                <Pub>
+                  <Pub_pmid>
+                    <PubMedId>20812334</PubMedId>
+                  </Pub_pmid>
+                </Pub>
+              </Gene-commentary_refs>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>GO</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>5515</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>protein binding</Other-source_anchor>
+                  <Other-source_post-text>evidence: IPI</Other-source_post-text>
                 </Other-source>
               </Gene-commentary_source>
             </Gene-commentary>
@@ -1239,6 +1260,21 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>27538541</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27222481</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27098106</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>27078876</PubMedId>
           </Pub_pmid>
         </Pub>
@@ -1249,7 +1285,17 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26950446</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26906940</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26862737</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1260,6 +1306,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>26652716</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26648518</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1950,6 +2001,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>20813660</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>20812334</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -3512,6 +3568,67 @@
         <Gene-commentary>
           <Gene-commentary_type value="genomic">1</Gene-commentary_type>
           <Gene-commentary_heading>Genomic</Gene-commentary_heading>
+          <Gene-commentary_accession>AH006461</Gene-commentary_accession>
+          <Gene-commentary_version>2</Gene-commentary_version>
+          <Gene-commentary_source>
+            <Other-source>
+              <Other-source_src>
+                <Dbtag>
+                  <Dbtag_db>Nucleotide</Dbtag_db>
+                  <Dbtag_tag>
+                    <Object-id>
+                      <Object-id_id>1134617879</Object-id_id>
+                    </Object-id>
+                  </Dbtag_tag>
+                </Dbtag>
+              </Other-source_src>
+              <Other-source_anchor>AH006461.2</Other-source_anchor>
+            </Other-source>
+          </Gene-commentary_source>
+          <Gene-commentary_seqs>
+            <Seq-loc>
+              <Seq-loc_whole>
+                <Seq-id>
+                  <Seq-id_gi>1134617879</Seq-id_gi>
+                </Seq-id>
+              </Seq-loc_whole>
+            </Seq-loc>
+          </Gene-commentary_seqs>
+          <Gene-commentary_products>
+            <Gene-commentary>
+              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+              <Gene-commentary_accession>AAC37543</Gene-commentary_accession>
+              <Gene-commentary_version>1</Gene-commentary_version>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>Protein</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>348021</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>AAC37543.1</Other-source_anchor>
+                </Other-source>
+              </Gene-commentary_source>
+              <Gene-commentary_seqs>
+                <Seq-loc>
+                  <Seq-loc_whole>
+                    <Seq-id>
+                      <Seq-id_gi>348021</Seq-id_gi>
+                    </Seq-id>
+                  </Seq-loc_whole>
+                </Seq-loc>
+              </Gene-commentary_seqs>
+            </Gene-commentary>
+          </Gene-commentary_products>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="genomic">1</Gene-commentary_type>
+          <Gene-commentary_heading>Genomic</Gene-commentary_heading>
           <Gene-commentary_accession>AMYH02025486</Gene-commentary_accession>
           <Gene-commentary_version>1</Gene-commentary_version>
           <Gene-commentary_source>
@@ -3775,372 +3892,6 @@
                   <Seq-loc_whole>
                     <Seq-id>
                       <Seq-id_gi>227908369</Seq-id_gi>
-                    </Seq-id>
-                  </Seq-loc_whole>
-                </Seq-loc>
-              </Gene-commentary_seqs>
-            </Gene-commentary>
-          </Gene-commentary_products>
-        </Gene-commentary>
-        <Gene-commentary>
-          <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-          <Gene-commentary_heading>Genomic</Gene-commentary_heading>
-          <Gene-commentary_accession>L22519</Gene-commentary_accession>
-          <Gene-commentary_version>1</Gene-commentary_version>
-          <Gene-commentary_source>
-            <Other-source>
-              <Other-source_src>
-                <Dbtag>
-                  <Dbtag_db>Nucleotide</Dbtag_db>
-                  <Dbtag_tag>
-                    <Object-id>
-                      <Object-id_id>348014</Object-id_id>
-                    </Object-id>
-                  </Dbtag_tag>
-                </Dbtag>
-              </Other-source_src>
-              <Other-source_anchor>L22519.1</Other-source_anchor>
-            </Other-source>
-          </Gene-commentary_source>
-          <Gene-commentary_seqs>
-            <Seq-loc>
-              <Seq-loc_whole>
-                <Seq-id>
-                  <Seq-id_gi>348014</Seq-id_gi>
-                </Seq-id>
-              </Seq-loc_whole>
-            </Seq-loc>
-          </Gene-commentary_seqs>
-          <Gene-commentary_products>
-            <Gene-commentary>
-              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
-              <Gene-commentary_accession>AAC37543</Gene-commentary_accession>
-              <Gene-commentary_version>1</Gene-commentary_version>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>Protein</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>348021</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>AAC37543.1</Other-source_anchor>
-                </Other-source>
-              </Gene-commentary_source>
-              <Gene-commentary_seqs>
-                <Seq-loc>
-                  <Seq-loc_whole>
-                    <Seq-id>
-                      <Seq-id_gi>348021</Seq-id_gi>
-                    </Seq-id>
-                  </Seq-loc_whole>
-                </Seq-loc>
-              </Gene-commentary_seqs>
-            </Gene-commentary>
-          </Gene-commentary_products>
-        </Gene-commentary>
-        <Gene-commentary>
-          <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-          <Gene-commentary_heading>Genomic</Gene-commentary_heading>
-          <Gene-commentary_accession>L22520</Gene-commentary_accession>
-          <Gene-commentary_version>1</Gene-commentary_version>
-          <Gene-commentary_source>
-            <Other-source>
-              <Other-source_src>
-                <Dbtag>
-                  <Dbtag_db>Nucleotide</Dbtag_db>
-                  <Dbtag_tag>
-                    <Object-id>
-                      <Object-id_id>348015</Object-id_id>
-                    </Object-id>
-                  </Dbtag_tag>
-                </Dbtag>
-              </Other-source_src>
-              <Other-source_anchor>L22520.1</Other-source_anchor>
-            </Other-source>
-          </Gene-commentary_source>
-          <Gene-commentary_seqs>
-            <Seq-loc>
-              <Seq-loc_whole>
-                <Seq-id>
-                  <Seq-id_gi>348015</Seq-id_gi>
-                </Seq-id>
-              </Seq-loc_whole>
-            </Seq-loc>
-          </Gene-commentary_seqs>
-          <Gene-commentary_products>
-            <Gene-commentary>
-              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
-              <Gene-commentary_accession>AAC37543</Gene-commentary_accession>
-              <Gene-commentary_version>1</Gene-commentary_version>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>Protein</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>348021</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>AAC37543.1</Other-source_anchor>
-                </Other-source>
-              </Gene-commentary_source>
-              <Gene-commentary_seqs>
-                <Seq-loc>
-                  <Seq-loc_whole>
-                    <Seq-id>
-                      <Seq-id_gi>348021</Seq-id_gi>
-                    </Seq-id>
-                  </Seq-loc_whole>
-                </Seq-loc>
-              </Gene-commentary_seqs>
-            </Gene-commentary>
-          </Gene-commentary_products>
-        </Gene-commentary>
-        <Gene-commentary>
-          <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-          <Gene-commentary_heading>Genomic</Gene-commentary_heading>
-          <Gene-commentary_accession>L22521</Gene-commentary_accession>
-          <Gene-commentary_version>1</Gene-commentary_version>
-          <Gene-commentary_source>
-            <Other-source>
-              <Other-source_src>
-                <Dbtag>
-                  <Dbtag_db>Nucleotide</Dbtag_db>
-                  <Dbtag_tag>
-                    <Object-id>
-                      <Object-id_id>348016</Object-id_id>
-                    </Object-id>
-                  </Dbtag_tag>
-                </Dbtag>
-              </Other-source_src>
-              <Other-source_anchor>L22521.1</Other-source_anchor>
-            </Other-source>
-          </Gene-commentary_source>
-          <Gene-commentary_seqs>
-            <Seq-loc>
-              <Seq-loc_whole>
-                <Seq-id>
-                  <Seq-id_gi>348016</Seq-id_gi>
-                </Seq-id>
-              </Seq-loc_whole>
-            </Seq-loc>
-          </Gene-commentary_seqs>
-          <Gene-commentary_products>
-            <Gene-commentary>
-              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
-              <Gene-commentary_accession>AAC37543</Gene-commentary_accession>
-              <Gene-commentary_version>1</Gene-commentary_version>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>Protein</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>348021</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>AAC37543.1</Other-source_anchor>
-                </Other-source>
-              </Gene-commentary_source>
-              <Gene-commentary_seqs>
-                <Seq-loc>
-                  <Seq-loc_whole>
-                    <Seq-id>
-                      <Seq-id_gi>348021</Seq-id_gi>
-                    </Seq-id>
-                  </Seq-loc_whole>
-                </Seq-loc>
-              </Gene-commentary_seqs>
-            </Gene-commentary>
-          </Gene-commentary_products>
-        </Gene-commentary>
-        <Gene-commentary>
-          <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-          <Gene-commentary_heading>Genomic</Gene-commentary_heading>
-          <Gene-commentary_accession>L22522</Gene-commentary_accession>
-          <Gene-commentary_version>1</Gene-commentary_version>
-          <Gene-commentary_source>
-            <Other-source>
-              <Other-source_src>
-                <Dbtag>
-                  <Dbtag_db>Nucleotide</Dbtag_db>
-                  <Dbtag_tag>
-                    <Object-id>
-                      <Object-id_id>348017</Object-id_id>
-                    </Object-id>
-                  </Dbtag_tag>
-                </Dbtag>
-              </Other-source_src>
-              <Other-source_anchor>L22522.1</Other-source_anchor>
-            </Other-source>
-          </Gene-commentary_source>
-          <Gene-commentary_seqs>
-            <Seq-loc>
-              <Seq-loc_whole>
-                <Seq-id>
-                  <Seq-id_gi>348017</Seq-id_gi>
-                </Seq-id>
-              </Seq-loc_whole>
-            </Seq-loc>
-          </Gene-commentary_seqs>
-          <Gene-commentary_products>
-            <Gene-commentary>
-              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
-              <Gene-commentary_accession>AAC37543</Gene-commentary_accession>
-              <Gene-commentary_version>1</Gene-commentary_version>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>Protein</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>348021</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>AAC37543.1</Other-source_anchor>
-                </Other-source>
-              </Gene-commentary_source>
-              <Gene-commentary_seqs>
-                <Seq-loc>
-                  <Seq-loc_whole>
-                    <Seq-id>
-                      <Seq-id_gi>348021</Seq-id_gi>
-                    </Seq-id>
-                  </Seq-loc_whole>
-                </Seq-loc>
-              </Gene-commentary_seqs>
-            </Gene-commentary>
-          </Gene-commentary_products>
-        </Gene-commentary>
-        <Gene-commentary>
-          <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-          <Gene-commentary_heading>Genomic</Gene-commentary_heading>
-          <Gene-commentary_accession>L22523</Gene-commentary_accession>
-          <Gene-commentary_version>1</Gene-commentary_version>
-          <Gene-commentary_source>
-            <Other-source>
-              <Other-source_src>
-                <Dbtag>
-                  <Dbtag_db>Nucleotide</Dbtag_db>
-                  <Dbtag_tag>
-                    <Object-id>
-                      <Object-id_id>348018</Object-id_id>
-                    </Object-id>
-                  </Dbtag_tag>
-                </Dbtag>
-              </Other-source_src>
-              <Other-source_anchor>L22523.1</Other-source_anchor>
-            </Other-source>
-          </Gene-commentary_source>
-          <Gene-commentary_seqs>
-            <Seq-loc>
-              <Seq-loc_whole>
-                <Seq-id>
-                  <Seq-id_gi>348018</Seq-id_gi>
-                </Seq-id>
-              </Seq-loc_whole>
-            </Seq-loc>
-          </Gene-commentary_seqs>
-          <Gene-commentary_products>
-            <Gene-commentary>
-              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
-              <Gene-commentary_accession>AAC37543</Gene-commentary_accession>
-              <Gene-commentary_version>1</Gene-commentary_version>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>Protein</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>348021</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>AAC37543.1</Other-source_anchor>
-                </Other-source>
-              </Gene-commentary_source>
-              <Gene-commentary_seqs>
-                <Seq-loc>
-                  <Seq-loc_whole>
-                    <Seq-id>
-                      <Seq-id_gi>348021</Seq-id_gi>
-                    </Seq-id>
-                  </Seq-loc_whole>
-                </Seq-loc>
-              </Gene-commentary_seqs>
-            </Gene-commentary>
-          </Gene-commentary_products>
-        </Gene-commentary>
-        <Gene-commentary>
-          <Gene-commentary_type value="genomic">1</Gene-commentary_type>
-          <Gene-commentary_heading>Genomic</Gene-commentary_heading>
-          <Gene-commentary_accession>L22524</Gene-commentary_accession>
-          <Gene-commentary_version>1</Gene-commentary_version>
-          <Gene-commentary_source>
-            <Other-source>
-              <Other-source_src>
-                <Dbtag>
-                  <Dbtag_db>Nucleotide</Dbtag_db>
-                  <Dbtag_tag>
-                    <Object-id>
-                      <Object-id_id>348019</Object-id_id>
-                    </Object-id>
-                  </Dbtag_tag>
-                </Dbtag>
-              </Other-source_src>
-              <Other-source_anchor>L22524.1</Other-source_anchor>
-            </Other-source>
-          </Gene-commentary_source>
-          <Gene-commentary_seqs>
-            <Seq-loc>
-              <Seq-loc_whole>
-                <Seq-id>
-                  <Seq-id_gi>348019</Seq-id_gi>
-                </Seq-id>
-              </Seq-loc_whole>
-            </Seq-loc>
-          </Gene-commentary_seqs>
-          <Gene-commentary_products>
-            <Gene-commentary>
-              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
-              <Gene-commentary_accession>AAC37543</Gene-commentary_accession>
-              <Gene-commentary_version>1</Gene-commentary_version>
-              <Gene-commentary_source>
-                <Other-source>
-                  <Other-source_src>
-                    <Dbtag>
-                      <Dbtag_db>Protein</Dbtag_db>
-                      <Dbtag_tag>
-                        <Object-id>
-                          <Object-id_id>348021</Object-id_id>
-                        </Object-id>
-                      </Dbtag_tag>
-                    </Dbtag>
-                  </Other-source_src>
-                  <Other-source_anchor>AAC37543.1</Other-source_anchor>
-                </Other-source>
-              </Gene-commentary_source>
-              <Gene-commentary_seqs>
-                <Seq-loc>
-                  <Seq-loc_whole>
-                    <Seq-id>
-                      <Seq-id_gi>348021</Seq-id_gi>
                     </Seq-id>
                   </Seq-loc_whole>
                 </Seq-loc>
@@ -4690,6 +4441,8 @@
                       </Dbtag_tag>
                     </Dbtag>
                   </Other-source_src>
+                  <Other-source_anchor>UniProtKB/Swiss-Prot:P09237</Other-source_anchor>
+                  <Other-source_url>http://www.uniprot.org/uniprot/P09237</Other-source_url>
                 </Other-source>
               </Gene-commentary_source>
               <Gene-commentary_seqs>
@@ -4905,7 +4658,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>MGC</Other-source_anchor>
-              <Other-source_url>http://mgc.nci.nih.gov/Genes/CloneList?ORG=Hs&amp;LIST=BC003635</Other-source_url>
+              <Other-source_url>https://genecollections.nci.nih.gov/MGC/?ORG=Hs&amp;LIST=BC003635</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -4955,6 +4708,240 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>The results suggest that MMP2, MMP7 and MMP9 promoter polymorphisms play a role as one of the key modulators of the risk of developing colorectal cancer in Kashmiri population.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27222481</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>38</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>In conclusion, individuals with -181GG genotype and G allele had no impact on susceptibility to the development of HIV-associated neurocognitive disorder and its severity.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27538541</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>51</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Changes in MMPs and TIMP expression may be a common element in, or perhaps even a marker for, recurrent depressive disorders and somatic diseases.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27098106</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>31</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>31</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>47</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Together, perlecan fragments in sera and MMP-7 in tissues of Prostate cancer patients are measures of invasive Prostate cancer.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26862737</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>31</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>31</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>23</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>The prevalence of matrix metallopeptidase 7 G allele was 40% in studied individuals.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26950446</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>40</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>These findings demonstrate that Tan-IIA inhibits the migration ability of AGS human gastric cancer cells and that decreasing the protein expression of NF-kappaB-p65, COX-2, and MMP-2, -7 and -9 may be an underlying molecular mechanism</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26648518</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -17477,11 +17464,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17580,11 +17567,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17683,11 +17670,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17786,11 +17773,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17889,11 +17876,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -17992,11 +17979,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18095,11 +18082,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18198,11 +18185,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18301,11 +18288,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18404,11 +18391,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18507,11 +18494,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18610,11 +18597,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18713,11 +18700,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18816,11 +18803,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -18919,11 +18906,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -19022,11 +19009,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -19125,11 +19112,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -19228,11 +19215,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -19331,11 +19318,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -19434,11 +19421,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21206,11 +21193,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>30</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21309,11 +21296,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -21412,11 +21399,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>29</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>38</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>

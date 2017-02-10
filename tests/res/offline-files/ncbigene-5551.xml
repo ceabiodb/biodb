@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
+<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "https://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
   <Entrezgene_track-info>
@@ -21,9 +21,12 @@
         <Date>
           <Date_std>
             <Date-std>
-              <Date-std_year>2016</Date-std_year>
-              <Date-std_month>9</Date-std_month>
-              <Date-std_day>18</Date-std_day>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>16</Date-std_hour>
+              <Date-std_minute>53</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
             </Date-std>
           </Date_std>
         </Date>
@@ -83,7 +86,7 @@
     <Gene-ref>
       <Gene-ref_locus>PRF1</Gene-ref_locus>
       <Gene-ref_desc>perforin 1</Gene-ref_desc>
-      <Gene-ref_maploc>10q22</Gene-ref_maploc>
+      <Gene-ref_maploc>10q22.1</Gene-ref_maploc>
       <Gene-ref_db>
         <Dbtag>
           <Dbtag_db>HGNC</Dbtag_db>
@@ -98,14 +101,6 @@
           <Dbtag_tag>
             <Object-id>
               <Object-id_str>ENSG00000180644</Object-id_str>
-            </Object-id>
-          </Dbtag_tag>
-        </Dbtag>
-        <Dbtag>
-          <Dbtag_db>HPRD</Dbtag_db>
-          <Dbtag_tag>
-            <Object-id>
-              <Object-id_str>01362</Object-id_str>
             </Object-id>
           </Dbtag_tag>
         </Dbtag>
@@ -148,7 +143,7 @@
   <Entrezgene_summary>The protein encoded by this gene has structural and functional similarities to complement component 9 (C9). Like C9, this protein creates transmembrane tubules and is capable of lysing non-specifically a variety of target cells. This protein is one of the main cytolytic proteins of cytolytic granules, and it is known to be a key effector molecule for T-cell- and natural killer-cell-mediated cytolysis. Defects in this gene cause familial hemophagocytic lymphohistiocytosis type 2 (HPLH2), a rare and lethal autosomal recessive disorder of early childhood. Alternative splicing results in multiple transcript variants encoding the same protein. [provided by RefSeq, Jul 2008]</Entrezgene_summary>
   <Entrezgene_location>
     <Maps>
-      <Maps_display-str>10q22</Maps_display-str>
+      <Maps_display-str>10q22.1</Maps_display-str>
       <Maps_method>
         <Maps_method_map-type value="cyto"/>
       </Maps_method>
@@ -1295,13 +1290,13 @@
                       <Dbtag_db>GO</Dbtag_db>
                       <Dbtag_tag>
                         <Object-id>
-                          <Object-id_id>16023</Object-id_id>
+                          <Object-id_id>5829</Object-id_id>
                         </Object-id>
                       </Dbtag_tag>
                     </Dbtag>
                   </Other-source_src>
-                  <Other-source_anchor>cytoplasmic, membrane-bounded vesicle</Other-source_anchor>
-                  <Other-source_post-text>evidence: IEA</Other-source_post-text>
+                  <Other-source_anchor>cytosol</Other-source_anchor>
+                  <Other-source_post-text>evidence: IDA</Other-source_post-text>
                 </Other-source>
               </Gene-commentary_source>
             </Gene-commentary>
@@ -1543,6 +1538,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>26739415</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26586704</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -4493,6 +4493,8 @@
                       </Dbtag_tag>
                     </Dbtag>
                   </Other-source_src>
+                  <Other-source_anchor>UniProtKB/Swiss-Prot:P14222</Other-source_anchor>
+                  <Other-source_url>http://www.uniprot.org/uniprot/P14222</Other-source_url>
                 </Other-source>
               </Gene-commentary_source>
               <Gene-commentary_seqs>
@@ -4635,7 +4637,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>MGC</Other-source_anchor>
-              <Other-source_url>http://mgc.nci.nih.gov/Genes/CloneList?ORG=Hs&amp;LIST=BC047695,BC063043</Other-source_url>
+              <Other-source_url>https://genecollections.nci.nih.gov/MGC/?ORG=Hs&amp;LIST=BC047695,BC063043</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -4685,6 +4687,45 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>The decreased expression of perforin in circulating CD3+CD8+ positive T cells is an important biomarker of damaged antitumor immunity in advanced lung cancer.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26586704</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>8</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>8</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>8</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -10658,11 +10699,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>32</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>53</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10761,11 +10802,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>32</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>53</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10864,11 +10905,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>32</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>53</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10967,11 +11008,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>32</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>53</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -11382,11 +11423,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>32</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
+                  <Date-std_minute>53</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>

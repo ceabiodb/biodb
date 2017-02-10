@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
+<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "https://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
   <Entrezgene_track-info>
@@ -21,12 +21,9 @@
         <Date>
           <Date_std>
             <Date-std>
-              <Date-std_year>2016</Date-std_year>
-              <Date-std_month>9</Date-std_month>
-              <Date-std_day>17</Date-std_day>
-              <Date-std_hour>17</Date-std_hour>
-              <Date-std_minute>41</Date-std_minute>
-              <Date-std_second>0</Date-std_second>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>5</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -101,14 +98,6 @@
           <Dbtag_tag>
             <Object-id>
               <Object-id_str>ENSG00000049768</Object-id_str>
-            </Object-id>
-          </Dbtag_tag>
-        </Dbtag>
-        <Dbtag>
-          <Dbtag_db>HPRD</Dbtag_db>
-          <Dbtag_tag>
-            <Object-id>
-              <Object-id_str>02242</Object-id_str>
             </Object-id>
           </Dbtag_tag>
         </Dbtag>
@@ -4567,6 +4556,11 @@
                 </Pub>
                 <Pub>
                   <Pub_pmid>
+                    <PubMedId>23973223</PubMedId>
+                  </Pub_pmid>
+                </Pub>
+                <Pub>
+                  <Pub_pmid>
                     <PubMedId>24012345</PubMedId>
                   </Pub_pmid>
                 </Pub>
@@ -6162,6 +6156,25 @@
             </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="comment">254</Gene-commentary_type>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>GO</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>5654</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>nucleoplasm</Other-source_anchor>
+                  <Other-source_post-text>evidence: IDA</Other-source_post-text>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="comment">254</Gene-commentary_type>
               <Gene-commentary_refs>
                 <Pub>
                   <Pub_pmid>
@@ -6345,6 +6358,41 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>28011488</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27875659</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27817017</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27798870</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27751813</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27466478</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27178149</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>27082299</PubMedId>
           </Pub_pmid>
         </Pub>
@@ -6360,7 +6408,17 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26931655</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26882813</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26823784</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -6375,12 +6433,57 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26753722</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26748374</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26735887</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26735609</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26724144</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26722524</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26718402</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26714416</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26710835</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26681759</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26661331</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -6485,6 +6588,11 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26333292</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26329520</PubMedId>
           </Pub_pmid>
         </Pub>
@@ -6540,12 +6648,22 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26013006</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26011970</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
           <Pub_pmid>
             <PubMedId>25989617</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25982578</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -6591,6 +6709,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>25778305</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25771887</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -6706,6 +6829,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>25481456</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25459573</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -10974,7 +11102,7 @@
                           <Gene-commentary_heading>Conserved Domains</Gene-commentary_heading>
                           <Gene-commentary_source>
                             <Other-source>
-                              <Other-source_pre-text>(1)</Other-source_pre-text>
+                              <Other-source_pre-text>(3)</Other-source_pre-text>
                               <Other-source_anchor>summary</Other-source_anchor>
                             </Other-source>
                           </Gene-commentary_source>
@@ -10988,7 +11116,55 @@
                                       <Dbtag_db>CDD</Dbtag_db>
                                       <Dbtag_tag>
                                         <Object-id>
-                                          <Object-id_id>241580</Object-id_id>
+                                          <Object-id_id>285086</Object-id_id>
+                                        </Object-id>
+                                      </Dbtag_tag>
+                                    </Dbtag>
+                                  </Other-source_src>
+                                  <Other-source_anchor>pfam07793: DUF1631; Protein of unknown function (DUF1631)</Other-source_anchor>
+                                </Other-source>
+                              </Gene-commentary_source>
+                              <Gene-commentary_comment>
+                                <Gene-commentary>
+                                  <Gene-commentary_type value="other">255</Gene-commentary_type>
+                                  <Gene-commentary_text>Location: 109 - 219</Gene-commentary_text>
+                                </Gene-commentary>
+                              </Gene-commentary_comment>
+                            </Gene-commentary>
+                            <Gene-commentary>
+                              <Gene-commentary_type value="other">255</Gene-commentary_type>
+                              <Gene-commentary_source>
+                                <Other-source>
+                                  <Other-source_src>
+                                    <Dbtag>
+                                      <Dbtag_db>CDD</Dbtag_db>
+                                      <Dbtag_tag>
+                                        <Object-id>
+                                          <Object-id_id>292777</Object-id_id>
+                                        </Object-id>
+                                      </Dbtag_tag>
+                                    </Dbtag>
+                                  </Other-source_src>
+                                  <Other-source_anchor>pfam16159: FOXP-CC; FOXP coiled-coil domain</Other-source_anchor>
+                                </Other-source>
+                              </Gene-commentary_source>
+                              <Gene-commentary_comment>
+                                <Gene-commentary>
+                                  <Gene-commentary_type value="other">255</Gene-commentary_type>
+                                  <Gene-commentary_text>Location: 266 - 333</Gene-commentary_text>
+                                </Gene-commentary>
+                              </Gene-commentary_comment>
+                            </Gene-commentary>
+                            <Gene-commentary>
+                              <Gene-commentary_type value="other">255</Gene-commentary_type>
+                              <Gene-commentary_source>
+                                <Other-source>
+                                  <Other-source_src>
+                                    <Dbtag>
+                                      <Dbtag_db>CDD</Dbtag_db>
+                                      <Dbtag_tag>
+                                        <Object-id>
+                                          <Object-id_id>294049</Object-id_id>
                                         </Object-id>
                                       </Dbtag_tag>
                                     </Dbtag>
@@ -11064,6 +11240,68 @@
                           </Seq-loc_whole>
                         </Seq-loc>
                       </Gene-commentary_seqs>
+                      <Gene-commentary_comment>
+                        <Gene-commentary>
+                          <Gene-commentary_type value="other">255</Gene-commentary_type>
+                          <Gene-commentary_heading>Conserved Domains</Gene-commentary_heading>
+                          <Gene-commentary_source>
+                            <Other-source>
+                              <Other-source_pre-text>(2)</Other-source_pre-text>
+                              <Other-source_anchor>summary</Other-source_anchor>
+                            </Other-source>
+                          </Gene-commentary_source>
+                          <Gene-commentary_comment>
+                            <Gene-commentary>
+                              <Gene-commentary_type value="other">255</Gene-commentary_type>
+                              <Gene-commentary_source>
+                                <Other-source>
+                                  <Other-source_src>
+                                    <Dbtag>
+                                      <Dbtag_db>CDD</Dbtag_db>
+                                      <Dbtag_tag>
+                                        <Object-id>
+                                          <Object-id_id>238016</Object-id_id>
+                                        </Object-id>
+                                      </Dbtag_tag>
+                                    </Dbtag>
+                                  </Other-source_src>
+                                  <Other-source_anchor>cd00059: FH; Forkhead (FH), also known as a &quot;winged helix&quot;.  FH is named for the Drosophila fork head protein, a transcription factor which promotes terminal rather than segmental development. This family of transcription factor domains, which bind to B-DNA as ...</Other-source_anchor>
+                                </Other-source>
+                              </Gene-commentary_source>
+                              <Gene-commentary_comment>
+                                <Gene-commentary>
+                                  <Gene-commentary_type value="other">255</Gene-commentary_type>
+                                  <Gene-commentary_text>Location: 422 - 494</Gene-commentary_text>
+                                </Gene-commentary>
+                              </Gene-commentary_comment>
+                            </Gene-commentary>
+                            <Gene-commentary>
+                              <Gene-commentary_type value="other">255</Gene-commentary_type>
+                              <Gene-commentary_source>
+                                <Other-source>
+                                  <Other-source_src>
+                                    <Dbtag>
+                                      <Dbtag_db>CDD</Dbtag_db>
+                                      <Dbtag_tag>
+                                        <Object-id>
+                                          <Object-id_id>292777</Object-id_id>
+                                        </Object-id>
+                                      </Dbtag_tag>
+                                    </Dbtag>
+                                  </Other-source_src>
+                                  <Other-source_anchor>pfam16159: FOXP-CC; FOXP coiled-coil domain</Other-source_anchor>
+                                </Other-source>
+                              </Gene-commentary_source>
+                              <Gene-commentary_comment>
+                                <Gene-commentary>
+                                  <Gene-commentary_type value="other">255</Gene-commentary_type>
+                                  <Gene-commentary_text>Location: 278 - 345</Gene-commentary_text>
+                                </Gene-commentary>
+                              </Gene-commentary_comment>
+                            </Gene-commentary>
+                          </Gene-commentary_comment>
+                        </Gene-commentary>
+                      </Gene-commentary_comment>
                     </Gene-commentary>
                   </Gene-commentary_products>
                 </Gene-commentary>
@@ -12969,6 +13207,8 @@
                       </Dbtag_tag>
                     </Dbtag>
                   </Other-source_src>
+                  <Other-source_anchor>UniProtKB/Swiss-Prot:Q9BZS1</Other-source_anchor>
+                  <Other-source_url>http://www.uniprot.org/uniprot/Q9BZS1</Other-source_url>
                 </Other-source>
               </Gene-commentary_source>
               <Gene-commentary_seqs>
@@ -13204,7 +13444,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>MGC</Other-source_anchor>
-              <Other-source_url>http://mgc.nci.nih.gov/Genes/CloneList?ORG=Hs&amp;LIST=BC111853</Other-source_url>
+              <Other-source_url>https://genecollections.nci.nih.gov/MGC/?ORG=Hs&amp;LIST=BC111853</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -13254,6 +13494,903 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>this study shows that there is no significant difference in mucosal FOXP3 expression in Ulcerative Colitis patients with moderate-to-severe disease activity compared to those in remission</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27178149</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>0</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>In this work, we analyzed the expression of CD133, FOXP3, ABCG2 and CD24 in women affected by vulvar cancer, correlating these with common clinical prognostic factors</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27798870</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>21</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>FOXP3 single nucleotide polymorphism rs2232365 is associated with autism in Iranian autistic patients.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27751813</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>21</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>MiR-16 may be involved in Th17/Treg imbalance in rheumatoid arthritis patients by affecting the expression of RORgt and FoxP3.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27875659</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>23</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Under conditions of directed induction of phenotypic changes in CD4(+) lymphocytes to regulatory T cells (Treg), pregnancy-specific at high concentrations (10 and 100 mug/mL) increased FOXP3 expression. The evaluation of the spontaneous expression level of FOXP3 mRNA showed that pregnancy-specific beta1-glycoprotein (1 and 100 mug/mL) stimulated the expression of this factor in mononuclear cells and isolated CD4(+) lym...</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27817017</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>23</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>High CXCR4 expression in primary breast tumors (PTs) was found to be associated with luminal A type tumor, suggesting more favorable outcome. In contrast, CCR7 and FOXP3 expressions in PTs represented luminal B tumors, pointing to more aggressive tumor behavior. Maspin expression did not differ between luminal types.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>28011488</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>23</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Latest reports indicate that the FOXP3 gene mutation can contribute to carcinogenesis, which can be associated with immune response abnormalities. Infiltration of the Treg cells into tumor cells can be associated with prognosis. Understanding the biology of the FOXP3 gene may be crucial in developing new immunotherapeutics</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27466478</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>17</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Our results suggest that FOXP3 acts as a master switch governing the development and function of T-regulatory cells, whose functions include the inhibition of immune responses and temper inflammation</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25459573</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>14</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>14</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>45</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>High FOXP3 expression is associated with breast cancer.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26735887</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>24</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>24</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>54</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>we detected a significant down-regulation of the FOXP3 gene in patients with acute coronary syndrome; such decreased expression was more prominent in female patients, which implies the role of immune responses in plaque destabilization in such patients</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26931655</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>13</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>genetic polymorphism is associated with the clinical outcomes after allogeneic hematopoietic stem cell transplantation in pediatric acute leukemia patient</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26735609</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Accumulation of FoxP3+ Tregs in the tumor microenvironment is an early event along the adenoma-carcinoma sequence.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26724144</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>12</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>12</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>45</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Hypomethylation of the Treg-Specific Demethylated Region in FOXP3 Is a Hallmark of the Regulatory T-cell Subtype in Adult T-cell Leukemia.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26681759</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>51</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Methylation of promoter region of the FOXP3 gene was determined in all EC cases.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26710835</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>26</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>the loss of FOXP3 expression in cancer cells is thought to contribute to tumorigenesis and progression of gastric adenocarcinoma.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26823784</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>3</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>different course of clinical symptoms in two siblings carrying mutation</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26661331</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>17</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>In Hodgkin lymphoma infiltrating lymphocytes, there was a difference of Sirt1 to FoxP3 ratios between remission and recurrence groups, being significantly higher in the recurrence group</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26722524</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>31</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Urinary PD-1 and FOXP3 mRNA were high in acute rejection of renal allograft.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26753722</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>8</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>8</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>12</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>decreased expression in regulatory T cells in Type 1 Diabetes patients</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26714416</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>28</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>genetic polymorphism is associated with allergic and autoimmune diseases in Spanish children</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25982578</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>16</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>expression decreased in Hashimoto thyroiditis patients</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25771887</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>10</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>An IL-27/Lag3 axis enhances Foxp3+ regulatory T cell-suppressive function and therapeutic efficacy.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26013006</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>4</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>A decrease of CD4(+) CD25(+) CD127(low) FoxP3(+) regulatory T cells with impaired suppressive function had been found in untreated ulcerative colitis patients.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26333292</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>24</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>24</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>13</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -40583,10 +41720,10 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
                   <Date-std_minute>16</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
@@ -40686,11 +41823,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>13</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -40789,11 +41926,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -40892,11 +42029,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -40995,11 +42132,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41098,11 +42235,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41201,11 +42338,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41304,11 +42441,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41407,11 +42544,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41510,11 +42647,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41613,11 +42750,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41716,11 +42853,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41819,11 +42956,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -41922,11 +43059,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42025,11 +43162,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42128,11 +43265,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42231,11 +43368,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42334,11 +43471,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42437,11 +43574,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42540,11 +43677,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42643,11 +43780,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42746,11 +43883,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42849,11 +43986,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -42952,11 +44089,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43055,11 +44192,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43158,11 +44295,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43261,11 +44398,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43364,11 +44501,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43467,11 +44604,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43570,11 +44707,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43673,11 +44810,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43776,11 +44913,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43879,11 +45016,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -43982,11 +45119,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44085,11 +45222,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44188,11 +45325,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44291,11 +45428,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>11</Date-std_hour>
-                  <Date-std_minute>24</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44394,11 +45531,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>14</Date-std_hour>
-                  <Date-std_minute>10</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44502,11 +45639,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>14</Date-std_hour>
-                  <Date-std_minute>10</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44605,11 +45742,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>14</Date-std_hour>
-                  <Date-std_minute>10</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44708,11 +45845,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>7</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44811,11 +45948,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>7</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -44914,11 +46051,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>7</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45017,10 +46154,10 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
                   <Date-std_minute>16</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
@@ -45120,11 +46257,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>7</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45223,11 +46360,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>14</Date-std_hour>
-                  <Date-std_minute>10</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45326,11 +46463,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45429,11 +46566,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45537,11 +46674,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45645,11 +46782,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>14</Date-std_hour>
-                  <Date-std_minute>10</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45748,11 +46885,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45851,11 +46988,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -45954,11 +47091,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46057,11 +47194,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46160,11 +47297,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46263,11 +47400,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>14</Date-std_hour>
-                  <Date-std_minute>10</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46366,11 +47503,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
-                  <Date-std_minute>7</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46469,11 +47606,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46577,11 +47714,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46680,11 +47817,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>14</Date-std_hour>
-                  <Date-std_minute>10</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46783,11 +47920,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>14</Date-std_hour>
-                  <Date-std_minute>10</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46886,11 +48023,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -46989,11 +48126,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -47092,11 +48229,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -47507,11 +48644,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -47610,11 +48747,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>15</Date-std_hour>
-                  <Date-std_minute>16</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_minute>10</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -47713,11 +48850,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -47816,11 +48953,11 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>12</Date-std_hour>
-                  <Date-std_minute>55</Date-std_minute>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>17</Date-std_hour>
+                  <Date-std_minute>39</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
+<!DOCTYPE Entrezgene-Set PUBLIC "-//NLM//DTD NCBI-Entrezgene, 21st January 2005//EN" "https://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_Entrezgene.dtd">
 <Entrezgene-Set>
 <Entrezgene>
   <Entrezgene_track-info>
@@ -21,9 +21,9 @@
         <Date>
           <Date_std>
             <Date-std>
-              <Date-std_year>2016</Date-std_year>
-              <Date-std_month>9</Date-std_month>
-              <Date-std_day>11</Date-std_day>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>5</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -83,7 +83,7 @@
     <Gene-ref>
       <Gene-ref_locus>CXCL10</Gene-ref_locus>
       <Gene-ref_desc>C-X-C motif chemokine ligand 10</Gene-ref_desc>
-      <Gene-ref_maploc>4q21</Gene-ref_maploc>
+      <Gene-ref_maploc>4q21.1</Gene-ref_maploc>
       <Gene-ref_db>
         <Dbtag>
           <Dbtag_db>HGNC</Dbtag_db>
@@ -98,14 +98,6 @@
           <Dbtag_tag>
             <Object-id>
               <Object-id_str>ENSG00000169245</Object-id_str>
-            </Object-id>
-          </Dbtag_tag>
-        </Dbtag>
-        <Dbtag>
-          <Dbtag_db>HPRD</Dbtag_db>
-          <Dbtag_tag>
-            <Object-id>
-              <Object-id_str>00930</Object-id_str>
             </Object-id>
           </Dbtag_tag>
         </Dbtag>
@@ -155,7 +147,7 @@
   <Entrezgene_summary>This antimicrobial gene encodes a chemokine of the CXC subfamily and ligand for the receptor CXCR3. Binding of this protein to CXCR3 results in pleiotropic effects, including stimulation of monocytes, natural killer and T-cell migration, and modulation of adhesion molecule expression. [provided by RefSeq, Sep 2014]</Entrezgene_summary>
   <Entrezgene_location>
     <Maps>
-      <Maps_display-str>4q21</Maps_display-str>
+      <Maps_display-str>4q21.1</Maps_display-str>
       <Maps_method>
         <Maps_method_map-type value="cyto"/>
       </Maps_method>
@@ -1766,7 +1758,27 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>28074184</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27470388</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>27012046</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27002757</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26950614</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1781,12 +1793,42 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26861446</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26831417</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26827189</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26786652</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26771653</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
           <Pub_pmid>
             <PubMedId>26708691</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26687629</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26658573</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1806,12 +1848,22 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26464192</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26406121</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
           <Pub_pmid>
             <PubMedId>26385705</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26361424</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1841,12 +1893,22 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26285074</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26275808</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
           <Pub_pmid>
             <PubMedId>26253531</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26153763</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1922,6 +1984,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>25760840</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25741937</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -2026,6 +2093,11 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>25203349</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>25175315</PubMedId>
           </Pub_pmid>
         </Pub>
@@ -2052,6 +2124,16 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>25013801</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>24999582</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>24999581</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -4794,6 +4876,8 @@
                       </Dbtag_tag>
                     </Dbtag>
                   </Other-source_src>
+                  <Other-source_anchor>UniProtKB/Swiss-Prot:P02778</Other-source_anchor>
+                  <Other-source_url>http://www.uniprot.org/uniprot/P02778</Other-source_url>
                 </Other-source>
               </Gene-commentary_source>
               <Gene-commentary_seqs>
@@ -5009,7 +5093,7 @@
                 </Dbtag>
               </Other-source_src>
               <Other-source_anchor>MGC</Other-source_anchor>
-              <Other-source_url>http://mgc.nci.nih.gov/Genes/CloneList?ORG=Hs&amp;LIST=BC010954</Other-source_url>
+              <Other-source_url>https://genecollections.nci.nih.gov/MGC/?ORG=Hs&amp;LIST=BC010954</Other-source_url>
             </Other-source>
           </Gene-commentary_source>
         </Gene-commentary>
@@ -5059,6 +5143,708 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCL10/CXCR3 axis promotes gastric cancer cell invasion and migration by upregulating MMP-2 and MMP-9 production via PI3K/AKT pathway.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27470388</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>59</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>MCP-1, MIP-1beta, and IP-10 may modify the pathologic features of Rhegmatogenous Retinal Detachment.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>28074184</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>4</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>51</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>In contrast to elevated 1st trimester levels of IP-10 previously found in the maternal serum of women who later developed preeclampsia, this study found lower umbilical cord IP-10 and ITAC plasma levels in near-term gestations with established severe preeclampsia.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25741937</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>13</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>the results of the present study showed higher serum levels of CXCL10 in patients with breast cancer. The levels of CXCL10 also increased with advanced stageswhich represent that the chemokine may contribute in thetumor development.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27002757</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>1</Date-std_month>
+              <Date-std_day>28</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>8</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Oral lipid loading is linked to reduced circulating pro-inflammatory chemokines CCL2, IP-10, and chemerin and to increased RANTES levels, suggesting that dietary lipids affect immune function.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26950614</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>31</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>31</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>43</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Donor interleukin-22 and host type I interferon signaling pathway participate in intestinal graft-versus-host disease via STAT1 activation and CXCL10.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26153763</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CXCL10 role in autoimmune thyroiditis [review]</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>24999582</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>15</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>The role of IP-10 in in Graves&apos; disease and Graves&apos;ophthalmopathy [review]</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>24999581</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>15</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Data suggest that Th1 (IFN-gamma-inducible protein-10 IP-10/CXCL10) and Th2 (thymus and activation regulated chemokine TARC/CCL17) and (macrophage derived chemokine MDC/CCL22) cooperatively play a role in the development of ankylosing spondylitis (AS).</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26827189</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>12</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>IP-10 role in cryoglobulinemia [review]</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25203349</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>12</Date-std_month>
+              <Date-std_day>17</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>10</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>High CXCL10 expression is associated with Thoracic Esophageal Squamous Cell Carcinoma.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26464192</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>12</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>12</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>49</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>serum level preoperative period may serve as a predictive parameter for early liver allograft dysfunction</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26658573</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>12</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>12</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>9</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Both CXCL10 and CXCR3 appeared to be useful in differentiating T1R reaction in borderline leprosy while CXCR3 alone differentiated BT from BT-T1R</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26831417</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>11</Date-std_month>
+              <Date-std_day>5</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>9</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>clinical samples, taken from confirmed TB and non-TB (i.e. other respiratory diseases (ORD)) cases, were collected and analyzed simultaneously with quality control (QC) human IP-10 or CCL4 standards</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26285074</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>50</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Report use of up-converting phosphor reporter technology in a lateral flow based test to determine IP-10 levels in pleural effusions and whole blood for tuberculosis diagnosis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26786652</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>29</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>17</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Metformin simultaneously increases VEGFA and reduces CXCL10 and TIMP1 in CD34(+) cells in a model of the diabetic state combined with hypoxia to stimulate angiogenesis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26861446</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>45</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Lower pretreatment serum CXCL10 levels are associated with thyroid dysfunction. Thyroid dysfunction prevalence increases in female patients and patients who are positive for TPOAb at baseline.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26361424</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>8</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>8</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>30</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>The results suggested that astrocytes contribute to Cerebral Malaria pathogenesis by producing CXCL10 in response to IFN-gamma and LT-alpha.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26687629</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2016</Date-std_year>
+              <Date-std_month>10</Date-std_month>
+              <Date-std_day>1</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>53</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -23424,10 +24210,10 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
                   <Date-std_minute>28</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
@@ -23527,10 +24313,10 @@
             <Date>
               <Date_std>
                 <Date-std>
-                  <Date-std_year>2016</Date-std_year>
-                  <Date-std_month>9</Date-std_month>
-                  <Date-std_day>4</Date-std_day>
-                  <Date-std_hour>13</Date-std_hour>
+                  <Date-std_year>2017</Date-std_year>
+                  <Date-std_month>2</Date-std_month>
+                  <Date-std_day>5</Date-std_day>
+                  <Date-std_hour>16</Date-std_hour>
                   <Date-std_minute>28</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
