@@ -162,7 +162,7 @@ ChemspiderConn$methods( searchEntryByMass = function(mass, tol, max.results = NA
 ChemspiderConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	"This method is not correctly implemented. This is because ChemSpider API does not provide a service for obtaining the exact number of entries. As a consequence we use `searchEntryByMass()` method to search for entries. However, since looking for all entries this way makes ChemSpider fails with `System.OutOfMemoryException`, only a subset of the entries is retrieve. This method, implemented this way, is still useful for testing purposes."
 
-	.self$message(MSG.CAUTION, "Method incorrectly implemented. Returns only a small subset of ChemSpider entries.")
+	.self$message(MSG.CAUTION, "Method using a last resort solution for its implementation. Returns only a small subset of ChemSpider entries.")
 
 	return(.self$searchEntryByMass(100, 10, max.results = max.results))
 })

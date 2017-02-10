@@ -1,16 +1,16 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-NcbigeneConn <- methods::setRefClass("NcbigeneConn", contains = "RemotedbConn")
+# Class declaration {{{1
+################################################################
 
-###############
-# CONSTRUCTOR #
-###############
+NcbigeneConn <- methods::setRefClass("NcbigeneConn", contains = "NcbiConn")
+
+# Constructor {{{1
+################################################################
 
 NcbigeneConn$methods( initialize = function(...) {
-	# From NCBI E-Utility manual: "In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays".
-	callSuper(scheduler = UrlRequestScheduler$new(n = 3, parent = .self), ...)
+
+	callSuper(db.name = 'gene', ...)
 })
 
 ##########################
