@@ -142,7 +142,7 @@ BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 		fields <- field
 
 	# Loop on all fields to compute
-	for(f in fields)
+	for(f in fields) {
 
 		# Skip this field if we already have a value for it
 		if (.self$hasField(f))
@@ -151,8 +151,11 @@ BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 		# Loop on all databases where we can look for a value
 		for (db in BIODB.FIELD.COMPUTING[[f]]) {
 
-			# Have we an reference for this database?
-			db.id <- .self$getFieldValue(paste0(db, 'id'))
+			# Have we a reference for this database?
+			db.id.field <- paste0(db, 'id')
+			if ( ! .self$hasField(db.id.field))
+				next
+			db.id <- .self$getFieldValue(db.id.field, compute = FALSE)
 			if ( ! is.na(db.id)) {
 
 				# Get value for this field in the database
@@ -161,12 +164,13 @@ BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 
 				# Set found value
 				if ( ! is.null(db.entry)) {
-					.self$setFieldValue(f, db.entry$getField(f))
+					.self$setFieldValue(f, db.entry$getFieldValue(f))
 					success <- TRUE
 					break
 				}
 			}
 		}
+	}
 
 	return(success)
 })

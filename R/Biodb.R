@@ -151,7 +151,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 	n <- 0
 	for (e in entries) {
 		n <- n + 1
-		.self$message(BIODB.DEBUG, paste("Processing entry", n, "/", length(entries), "..."))
+		.self$message(MSG.DEBUG, paste("Processing entry", n, "/", length(entries), "..."))
 		if ( ! is.null(e)) {
 			e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic)
 			entries.df <- plyr::rbind.fill(entries.df, e.df)
