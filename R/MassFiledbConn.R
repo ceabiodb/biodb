@@ -55,7 +55,7 @@ MassFiledbConn$methods( .init.db = function() {
 	if (is.null(.self$.db)) {
 
 		# Load database
-		.db <<- read.table(.self$.file, sep = .self$.file.sep, .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
+		.db <<- read.table(.self$.file, sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
 
 		# Save column names
 		.db.orig.colnames <<- colnames(.self$.db)
@@ -182,13 +182,17 @@ MassFiledbConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL,
 	else
 		x <- db[, .self$.fields[cols], drop = drop]
 
-	# Rearrange
-	if (drop && is.vector(x)) {
-		if (uniq)
+	# Remove duplicates
+	if (uniq) {
+		if (is.vector(x))
 			x <- x[ ! duplicated(x)]
-		if (sort)
-			x <- sort(x)
+		else
+			x <- x[ ! duplicated(x), ]
 	}
+
+	# Sort
+	if (sort && is.vector(x))
+		x <- sort(x)
 
 	# Cut
 	if ( ! is.na(max.rows))
@@ -259,7 +263,7 @@ MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
 MassFiledbConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 
 	# Get mz values
-	mz <- .self$.select(cols = BIODB.PEAK.MZ, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results)
+	mz <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results)
 
 	return(mz)
 })
@@ -271,7 +275,7 @@ MassFiledbConn$methods( getMzValues = function(mode = NULL, max.results = NA_int
 MassFiledbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
 
 	# Get peaks
-	peaks <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, compound.ids = compound.ids)
+	peaks <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, compound.ids = compound.ids, drop = TRUE)
 
 	return(length(peaks))
 })

@@ -7,7 +7,7 @@ offline.test.massfiledb <- function() {
 
 	# Open file
 	file <- file.path(SCRIPT.DIR, 'tests', 'res', 'massfiledb.tsv')
-	df <- read.table(file, sep = "\t", header = TRUE)
+	df <- read.table(file, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
 	# Create biodb instance
 	biodb <- Biodb$new(logger = FALSE)
@@ -32,35 +32,32 @@ offline.test.massfiledb <- function() {
 	db$setMsMode(BIODB.MSMODE.NEG, 'NEG')
 	db$setMsMode(BIODB.MSMODE.POS, 'POS')
 
-	# Run general tests
-#	test.db(db)
+	# Test number of entries
+	expect_gt(db$getNbEntries(), 1)
+	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('molid', 'mode', 'col')])))
 
-	# Generic tests
+	# Get a compound ID
+	compound.id <- df[['molid']][[1]]
 
-		# Test entries
-		expect_gt(db$getNbEntries(), 1)
+	# Test number of peaks
+	expect_gt(db$getNbPeaks(), 1)
+	expect_gt(db$getNbPeaks(mode = BIODB.MSMODE.NEG), 1)
+	expect_gt(db$getNbPeaks(mode = BIODB.MSMODE.POS), 1)
+	expect_equal(db$getNbPeaks(), nrow(df))
+	expect_gt(db$getNbPeaks(compound.ids = compound.id), 1)
 
-		# Test chrom cols
-		entry.id <- db$getEntryIds()[[1]]
-		expect_gt(nrow(db$getChromCol()), 1)
-		# TODO entry id is not a compound id !!!!!
-		expect_gt(nrow(db$getChromCol(entry.id)), 1)
-		expect_lt(nrow(db$getChromCol(entry.id)), nrow(db$getChromCol()))
-		expect_true(all(db$getChromCol(entry.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
+	# Test chrom cols
+	expect_gt(nrow(db$getChromCol()), 1)
+	expect_gt(nrow(db$getChromCol(compound.ids = compound.id)), 1)
+	expect_lte(nrow(db$getChromCol(compound.ids = compound.id)), nrow(db$getChromCol()))
+	expect_true(all(db$getChromCol(compound.ids = compound.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
 
-		# Test mz values
-		expect_true(is.vector(db$getMzValues()))
-		expect_gt(length(db$getMzValues()), 1)
-		expect_error(db$getMzValues('wrong.mode.value'), silent = TRUE)
-		expect_gt(length(db$getMzValues(BIODB.MSMODE.NEG)), 1)
-		expect_gt(length(db$getMzValues(BIODB.MSMODE.POS)), 1)
-
-	# Specific tests for filedb
-		# Test entry ids
-		expect_equal(db$getEntryIds(), sort(as.character(df[! duplicated(df['molid']), 'molid'])))
-
-		# Test nb entries
-		expect_equal(db$getNbEntries(), sum(as.integer(! duplicated(df['molid']))))
+	# Test mz values
+	expect_true(is.vector(db$getMzValues()))
+	expect_gt(length(db$getMzValues()), 1)
+	expect_error(db$getMzValues('wrong.mode.value'), silent = TRUE)
+	expect_gt(length(db$getMzValues(BIODB.MSMODE.NEG)), 1)
+	expect_gt(length(db$getMzValues(BIODB.MSMODE.POS)), 1)
 }
 
 # MAIN {{{1
