@@ -104,27 +104,27 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 
 	val <- NULL
 
+	# Check field
 	if ( ! field %in% BIODB.FIELDS[['name']])
 		.self$message(MSG.ERROR, paste0('Unknown field "', field, '" in BiodEntry.'))
 
-	if (field %in% names(.self$.fields)) {
+	# Compute field value
+	if (compute && ! .self$hasField(field))
+		.self$.compute.field(field)
+
+	# Get value
+	if (.self$hasField(field))
 		val <- .self$.fields[[field]]
-	}
 	else {
-		if (compute && .self$.compute.field(field)) {
-			val <- .self$.fields[[field]]
-		}
-		else {
-			# Return NULL or NA
-			class = .self$getFieldClass(field)
-			val <- if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL
-		}
+		# Return NULL or NA
+		class = .self$getFieldClass(field)
+		val <- if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL
 	}
 
 	# Flatten: convert atomic values with cardinality > 1 into a string
 	if (flatten)
 		if (.self$.biodb$fieldIsAtomic(field) && .self$getFieldCardinality(field) != BIODB.CARD.ONE)
-			val <- paste(val, collapse = biodb::MULTIVAL.FIELD.SEP)
+			val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
 
 	return(val)
 })
@@ -132,43 +132,65 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 # Compute field {{{1
 ################################################################
 
-BiodbEntry$methods(	.compute.field = function(field) {
+BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 
-	if ( ! is.null(.self$.biodb) && field %in% names(BIODB.FIELD.COMPUTING)) {
-		for (db in BIODB.FIELD.COMPUTING[[field]]) {
-			db.id <- .self$getField(paste0(db, 'id'))
+	success <- FALSE
+
+	# Set of fields to compute
+	fields <- names(BIODB.FIELD.COMPUTING)
+	if ( ! is.na(field) && field %in% fields)
+		fields <- field
+
+	# Loop on all fields to compute
+	for(f in fields)
+
+		# Skip this field if we already have a value for it
+		if (.self$hasField(f))
+			next
+
+		# Loop on all databases where we can look for a value
+		for (db in BIODB.FIELD.COMPUTING[[f]]) {
+
+			# Have we an reference for this database?
+			db.id <- .self$getFieldValue(paste0(db, 'id'))
 			if ( ! is.na(db.id)) {
 
-				.self$message(MSG.DEBUG, paste("Compute value for field \"", field, "\".", sep = '')) 
-				db.entry <- .self$.biodb$getFactory$createEntry(db, id = db.id)
+				# Get value for this field in the database
+				.self$message(MSG.DEBUG, paste("Compute value for field \"", f, "\".", sep = '')) 
+				db.entry <- .self$getBiodb()$getFactory()$createEntry(db, id = db.id)
+
+				# Set found value
 				if ( ! is.null(db.entry)) {
-					.self$setField(field, db.entry$getField(field))
-					return(TRUE)
+					.self$setFieldValue(f, db.entry$getField(f))
+					success <- TRUE
+					break
 				}
 			}
 		}
-	}
 
-	return(FALSE)
+	return(success)
 })
 
 # Get fields as data frame {{{1
 ################################################################
 
 # TODO add a limiting option to get some of the fields.
-BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE) {
+BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE) {
 	"Convert the entry into a data frame."
 
 	df <- data.frame(stringsAsFactors = FALSE)
 
+	# Compute fields
+	.self$.compute.field()
+
 	# Loop on all fields
 	for (f in names(.self$.fields)) {
 
-		v <- .self$getFieldValue(f)
-
 		# Ignore non atomic values
-		if (only.atomic && ( ! is.vector(v) || length(v) != 1))
+		if (only.atomic && ! .self$.biodb$fieldIsAtomic(f))
 			next
+
+		v <- .self$getFieldValue(f, flatten = TRUE)
 
 		# Transform vector into data frame
 		if (is.vector(v)) {
