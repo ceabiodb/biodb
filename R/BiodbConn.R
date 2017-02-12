@@ -3,15 +3,33 @@
 # Class declaration {{{1
 ################################################################
 
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .biodb = "ANY" ))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .biodb = "ANY", .content.type = "character"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(biodb = NULL, ...) {
-	is(biodb, "Biodb") || .self$message(MSG.ERROR, paste0("The biodb parameter must be of class Biodb, its class was ", class(biodb), "."))
-	.biodb <<- biodb
+BiodbConn$methods( initialize = function(biodb = NULL, content.type = NA_character_, ...) {
+
 	callSuper(...)
+
+	# Set biodb
+	if ( ! is(biodb, "Biodb"))
+		.self$message(MSG.ERROR, paste0("The biodb parameter must be of class Biodb, its class was ", class(biodb), "."))
+	.biodb <<- biodb
+
+	# Set content type
+	if (is.null(content.type) || is.na(content.type))
+		.self$message(MSG.ERROR, "Content type not defined.")
+	if ( ! content.type %in% BIODB.CONTENT.TYPES)
+		.self$message(MSG.ERROR, paste("Unknown content type \"", content.type, "\"."))
+	.content.type <<- content.type
+})
+
+# Get entry content type {{{1
+################################################################
+
+BiodbConn$methods( getEntryContentType = function(type) {
+	return(.self$.content.type) 
 })
 
 # Get biodb {{{1
@@ -19,13 +37,6 @@ BiodbConn$methods( initialize = function(biodb = NULL, ...) {
 
 BiodbConn$methods( getBiodb = function() {
 	return(.self$.biodb)
-})
-
-# Get entry content type {{{1
-################################################################
-
-BiodbConn$methods( getEntryContentType = function() {
-	.self$.abstract.method()
 })
 
 # Get entry {{{1

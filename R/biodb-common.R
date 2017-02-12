@@ -13,6 +13,8 @@ BIODB.CSV  <- 'csv'
 BIODB.TSV  <- 'tsv'
 BIODB.JSON <- 'json'
 
+BIODB.CONTENT.TYPES <- c(BIODB.HTML, BIODB.TXT, BIODB.XML, BIODB.CSV, BIODB.TSV, BIODB.JSON)
+
 #############
 # DATABASES #
 #############
@@ -243,10 +245,6 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 # GET ENTRY URL #
 #################
 
-# TODO Let the choice to use either jp or eu
-BIODB.MASSBANK.JP.WS.URL  <- "http://www.massbank.jp/api/services/MassBankAPI/"
-BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/"
-
 .do.get.entry.url <- function(class, accession, content.type = BIODB.HTML, base.url = NA_character_, token = NA_character_) {
 
 	# Only certain databases can handle multiple accession ids
@@ -268,7 +266,7 @@ BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/"
 			                 xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
 			                 html = paste0('http://www.hmdb.ca/metabolites/', accession),
 			                 NULL),
-		massbank    = if (content.type == BIODB.TXT) paste0((if (is.na(base.url)) BIODB.MASSBANK.EU.WS.URL else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
+		massbank    = if (content.type == BIODB.TXT) paste0((if (is.na(base.url)) 'http://massbank.eu/api/services/MassBankAPI/' else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
 		mirbase     = if (content.type == BIODB.HTML) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
 		pubchemcomp = switch(content.type,
 			                 xml = paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/', paste(accession, collapse = ','), '/XML'),
@@ -281,13 +279,9 @@ BIODB.MASSBANK.EU.WS.URL  <- "http://massbank.eu/api/services/MassBankAPI/"
 		ncbigene    = if (content.type == BIODB.XML) paste0('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
 		ncbiccds    = if (content.type == BIODB.HTML) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
 		uniprot     = if (content.type == BIODB.XML) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
-		peakforest  = switch(content.type,
-			                 html= paste0('https://peakforest.org/home?PFs=',accession),
-			                 json= paste0('https://peakforest-alpha.inra.fr/rest/spectra/lcms/ids/',paste(accession,sep=','),'?token=',token),
-			                 
 		NULL
 		)
-	)
+
 	return(url)
 }
 
@@ -314,15 +308,4 @@ get.entry.url <- function(class, accession, content.type = BIODB.HTML, max.lengt
 	url <- .do.get.entry.url(class, accession[1:a], content.type = content.type, base.url = base.url, token = token)
 		
 	return(list( url = url, n = a))
-}
-
-#################
-# PRINT MESSAGE #
-#################
-
-BIODB.DEBUG <- 1
-BIODB.LEVEL.NAMES <- c('DEBUG')
-
-.print.msg <- function(msg, level = BIODB.DEBUG, class = NA_character_) {
-	cat(paste0(BIODB.LEVEL.NAMES[[level]], if (is.na(class)) '' else paste0(", ", class), ": ", msg, "\n"), file = stderr())
 }

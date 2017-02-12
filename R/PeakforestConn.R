@@ -1,54 +1,44 @@
-#####################
-# CLASS DECLARATION #
-#####################
-#'A class to connect to peakforest
+# vi: fdm=marker
+
+# Class declaration {{{1
+################################################################
+
+#'PeakForest connector class.
 #'@export
-#'@field .url A URL to the database
-#'@field .url An urel to the database
-PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn","MassdbConn"), fields = list( .url = "character" , .token = "character"))
+PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn", "MassdbConn"))
 
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
+# Constructor {{{1
+################################################################
 
-PeakforestConn$methods( getEntryContentType = function(type) {
-	return(BIODB.JSON) 
+PeakforestConn$methods( initialize = function(...) {
+	callSuper(content.type = BIODB.JSON, ...)
 })
 
-################
-#INITIALIZATION#
-################
+# Get entry content url {{{1
+################################################################
 
-PeakforestConn$methods( initialize = function(scheduler = NULL, url = NA_character_,...) {
-	
-	# Set token
-	.url <<- url
-	# Set scheduler
-	if (is.null(scheduler))
-		scheduler <- UrlRequestScheduler$new(n = 3, parent = .self)
-	is(scheduler, "UrlRequestScheduler") || .self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
-	.scheduler <<- scheduler
-	
-	callSuper(...) # calls super-class initializer with remaining parameters
+PeakforestConn$methods( getEntryContentUrl = function(id) {
+	return(paste(.self$getBaseUrl(), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
 })
 
+# Get entry page url {{{1
+################################################################
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+PeakforestConn$methods( getEntryPageUrl = function(id) {
+	return(paste('https://peakforest.org/home?PFs=', id))
+})
+
+# Get entry content {{{1
+################################################################
 
 PeakforestConn$methods( getEntryContent = function(id) {
 	
-	
-	# Initialize return values
+	# Initialize contents to return
 	content <- rep(NA_character_, length(id))
-	# Request
-	
-	url <- get.entry.url(BIODB.PEAKFOREST, id[i], BIODB.JSON,token = .self$.token)
-	jsonstr <- .self$.get.url(url)
-	if(startsWith("<html>", jsonstr) ){
-		next
-	}
+
+	# Send request
+	jsonstr <- .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(id))
+	.self$message(MSG.DEBUG, jsonstr)
 	
 	return(content)
 })
