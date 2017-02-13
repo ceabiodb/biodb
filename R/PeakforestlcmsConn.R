@@ -98,10 +98,48 @@ PeakforestlcmsConn$methods( .createPeakforestCompoundFromJSON = function(content
 ################################################################
 
 PeakforestlcmsConn$methods( createEntry = function(content, drop = TRUE) {
-	entries <- vector(length(content),mode="list")
+
+	entries <- list()
+
+	# JSON fields
 	jsonfields <- character()
-	jsonfields[[BIODB.ACCESSION]] <- "id" # TODO Use BIODB.ACCESSION instead
+	jsonfields[[BIODB.ACCESSION]] <- "id"
 	jsonfields[[BIODB.MSMODE]] <- "polarity"
+
+	for (single.content in content) {
+
+		# Create instance
+		entry <- BiodbEntry$new(.self$getBiodb())
+
+		if ( ! is.null(single.content) && ! is.na(single.content)) {
+
+			# Parse JSON
+			json <- jsonlite::fromJSON(single.content, simplifyDataFrame = FALSE)	
+		
+			# Set fields
+			for (field in names(jsonfields)) {
+				tosearch <- jsonfields[[field]]
+				value <- jsontree[[tosearch]]
+				entry$setField(field, value)
+			}
+			entry$setField(BIODB.MSDEV,     json$analyzerMassSpectrometerDevice$instrumentName)
+			entry$setField(BIODB.MSDEVTYPE, json$analyzerMassSpectrometerDevice$ionAnalyzerType)	
+		}
+
+		entries <- c(entries, entry)
+	}
+
+	# Replace elements with no accession id by NULL
+	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+
+	# If the input was a single element, then output a single object
+	if (drop && length(content) == 1)
+		entries <- entries[[1]]
+
+	return(entries)
+
+	# ---------------------------------------------------------
+	entries <- vector(length(content),mode="list")
 	
 	
 	###Checking that it's a list.
@@ -114,7 +152,7 @@ PeakforestlcmsConn$methods( createEntry = function(content, drop = TRUE) {
 		}
 	}
 	
-	for (i in seq_along(content)){
+	for (i in seq_along(content)) {
 		
 		single.content <- content[[i]]
 		jsontree <- NULL
