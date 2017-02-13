@@ -204,13 +204,13 @@ BiodbConfig$methods( isEnabled = function(key) {
 
 BiodbConfig$methods( get = function(key) {
 
-	value <- NULL
-
 	.self$.checkKey(key)
 
 	# Is value defined ?
 	if (.self$isDefined(key))
 		value <- .self$.values[[key]]
+	else
+		value <- as.vector(NA, mode = .self$.getType(key))
 
 	return(value)
 })

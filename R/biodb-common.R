@@ -30,12 +30,12 @@ BIODB.MASSFILEDB        <- 'massfiledb'
 BIODB.MIRBASE           <- 'mirbase'
 BIODB.NCBICCDS          <- 'ncbiccds'
 BIODB.NCBIGENE          <- 'ncbigene'
-BIODB.PEAKFOREST        <- 'peakforest'
+BIODB.PEAKFORESTLCMS    <- 'peakforestlcms'
 BIODB.PUBCHEMCOMP       <- 'pubchemcomp' # Compound database
 BIODB.PUBCHEMSUB        <- 'pubchemsub'  # Substance database
 BIODB.UNIPROT           <- 'uniprot'
 
-BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPSSTRUCTURE, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFOREST))
+BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPSSTRUCTURE, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFORESTLCMS))
 
 ##########
 # FIELDS #
@@ -66,7 +66,7 @@ BIODB.PUBCHEMSUB.ID             <- 'pubchemsubid'
 BIODB.CHEMSPIDER.ID             <- 'chemspiderid'
 BIODB.UNIPROT.ID                <- 'uniprotid'
 BIODB.CAS.ID                    <- 'casid'
-BIODB.PEAKFOREST.ID             <- 'peakforestid'
+BIODB.PEAKFORESTLCMS.ID         <- 'peakforestlcmsid'
 BIODB.SMILES        <- 'smiles'
 BIODB.INCHI        <- 'inchi'
 BIODB.INCHIKEY     <- 'inchikey'
@@ -174,7 +174,7 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
 	BIODB.PUBCHEMCOMP.ID,       'character',    BIODB.CARD.ONE,		'none',
 	BIODB.PUBCHEMSUB.ID,        'character',    BIODB.CARD.ONE,		'none',
-	BIODB.PEAKFOREST.ID,        'character',    BIODB.CARD.ONE,		'none',
+	BIODB.PEAKFORESTLCMS.ID,    'character',    BIODB.CARD.ONE,		'none',
 	BIODB.UNIPROT.ID,           'character',    BIODB.CARD.ONE,		'none',
 	BIODB.NCBI.CCDS.ID,         'character',    BIODB.CARD.ONE,		'none',
 	BIODB.NCBI.GENE.ID,         'character',    BIODB.CARD.ONE,		'none',
@@ -248,7 +248,7 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 .do.get.entry.url <- function(class, accession, content.type = BIODB.HTML, base.url = NA_character_, token = NA_character_) {
 
 	# Only certain databases can handle multiple accession ids
-	if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.PEAKFOREST) && length(accession) > 1)
+	if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB) && length(accession) > 1)
 		stop(paste0("Cannot build a URL for getting multiple entries for class ", class, "."))
 
 	# Get URL
