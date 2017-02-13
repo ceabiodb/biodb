@@ -10,15 +10,7 @@ NcbiccdsConn <- methods::setRefClass("NcbiccdsConn", contains = "RemotedbConn")
 
 NcbiccdsConn$methods( initialize = function(...) {
 	# From NCBI E-Utility manual: "In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays".
-	callSuper(scheduler = UrlRequestScheduler$new(n = 3, parent = .self), ...)
-})
-
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
-
-NcbiccdsConn$methods( getEntryContentType = function() {
-	return(BIODB.HTML)
+	callSuper(content.type = BIODB.HTML, scheduler = UrlRequestScheduler$new(n = 3, parent = .self), ...)
 })
 
 #####################

@@ -4,12 +4,11 @@
 
 MirbaseConn <- methods::setRefClass("MirbaseConn", contains = "RemotedbConn")
 
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
+# Constructor {{{1
+################################################################
 
-MirbaseConn$methods( getEntryContentType = function() {
-	return(BIODB.HTML)
+MirbaseConn$methods( initialize = function(...) {
+	callSuper(content.type = BIODB.HTML, ...)
 })
 
 #####################

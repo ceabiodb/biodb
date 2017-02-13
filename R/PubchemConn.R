@@ -9,16 +9,8 @@ PubchemConn <- methods::setRefClass("PubchemConn", contains = "RemotedbConn", fi
 ###############
 
 PubchemConn$methods( initialize = function(db = BIODB.PUBCHEMCOMP, ...) {
+	callSuper(content.type = BIODB.XML, ...)
 	.db <<- db
-	callSuper(...)
-})
-
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
-
-PubchemConn$methods( getEntryContentType = function() {
-	return(BIODB.XML)
 })
 
 #####################

@@ -10,17 +10,10 @@ MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn"
 
 MassbankConn$methods( initialize = function(url = NA_character_, ...) {
 
+	callSuper(content.type = BIODB.TXT, ...)
+
 	# Set URL
 	.url <<- if (is.null(url) || is.na(url)) BIODB.MASSBANK.EU.WS.URL else url
-
-	callSuper(...)
-})
-
-# Get entry content type {{{1
-################################################################
-
-MassbankConn$methods( getEntryContentType = function() {
-	return(BIODB.TXT) 
 })
 
 # Get entry content {{{1

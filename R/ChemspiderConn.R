@@ -10,17 +10,10 @@ ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("RemotedbC
 
 ChemspiderConn$methods( initialize = function(...) {
 
-	callSuper(base.url = "http://www.chemspider.com/", ...)
+	callSuper(content.type = BIODB.XML, base.url = "http://www.chemspider.com/", ...)
 
 	# Set XML namespace
 	.ns <<- c(chemspider = "http://www.chemspider.com/")
-})
-
-# Get entry content type {{{1
-################################################################
-
-ChemspiderConn$methods( getEntryContentType = function() {
-	return(BIODB.XML)
 })
 
 # Get entry content {{{1

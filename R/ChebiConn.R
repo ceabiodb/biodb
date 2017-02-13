@@ -5,11 +5,11 @@
 
 ChebiConn <- methods::setRefClass("ChebiConn", contains = "RemotedbConn")
 
-# Get entry content type {{{1
+# Constructor {{{1
 ################################################################
 
-ChebiConn$methods( getEntryContentType = function() {
-	return(BIODB.HTML)
+ChebiConn$methods( initialize = function(...) {
+	callSuper(content.type = BIODB.HTML, ...)
 })
 
 # Get entry content {{{1

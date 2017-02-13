@@ -11,7 +11,7 @@ LipidmapsstructureConn <- methods::setRefClass("LipidmapsstructureConn", contain
 LipidmapsstructureConn$methods( initialize = function(...) {
 	# From http://www.lipidmaps.org/data/structure/programmaticaccess.html:
 	# If you write a script to automate calls to LMSD, please be kind and do not hit our server more often than once per 20 seconds. We may have to kill scripts that hit our server more frequently.
-	callSuper(base.url = 'http://www.lipidmaps.org/data/', scheduler = UrlRequestScheduler$new(t = 20, parent = .self), ...)
+	callSuper(content.type = BIODB.CSV, base.url = 'http://www.lipidmaps.org/data/', scheduler = UrlRequestScheduler$new(t = 20, parent = .self), ...)
 })
 
 # Get entry content url {{{1
@@ -26,13 +26,6 @@ LipidmapsstructureConn$methods( getEntryContentUrl = function(id) {
 
 LipidmapsstructureConn$methods( getEntryPageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), '?LMID=', id, sep = ''))
-})
-
-# Get entry content type {{{1
-################################################################
-
-LipidmapsstructureConn$methods( getEntryContentType = function() {
-	return(BIODB.CSV)
 })
 
 # Get entry content {{{1

@@ -10,14 +10,7 @@ EnzymeConn <- methods::setRefClass("EnzymeConn", contains = "RemotedbConn")
 
 EnzymeConn$methods( initialize = function(...) {
 
-	callSuper(base.url = "http://enzyme.expasy.org/", ...)
-})
-
-# Get entry content type {{{1
-################################################################
-
-EnzymeConn$methods( getEntryContentType = function() {
-	return(BIODB.TXT)
+	callSuper(content.type = BIODB.TXT, base.url = "http://enzyme.expasy.org/", ...)
 })
 
 # Get entry content {{{1

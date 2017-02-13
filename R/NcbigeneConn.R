@@ -10,15 +10,7 @@ NcbigeneConn <- methods::setRefClass("NcbigeneConn", contains = "NcbiConn")
 
 NcbigeneConn$methods( initialize = function(...) {
 
-	callSuper(db.name = 'gene', ...)
-})
-
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
-
-NcbigeneConn$methods( getEntryContentType = function() {
-	return(BIODB.XML)
+	callSuper(content.type = BIODB.XML, db.name = 'gene', ...)
 })
 
 #####################

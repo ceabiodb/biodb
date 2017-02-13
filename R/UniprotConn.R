@@ -4,12 +4,11 @@
 
 UniprotConn <- methods::setRefClass("UniprotConn", contains = "RemotedbConn")
 
-##########################
-# GET ENTRY CONTENT TYPE #
-##########################
+# Constructor {{{1
+################################################################
 
-UniprotConn$methods( getEntryContentType = function() {
-	return(BIODB.XML)
+UniprotConn$methods( initialize = function(...) {
+	callSuper(content.type = BIODB.XML, ...)
 })
 
 #####################

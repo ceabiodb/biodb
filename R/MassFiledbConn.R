@@ -20,6 +20,8 @@ MassFiledbConn <- methods::setRefClass("MassFiledbConn", contains = "MassdbConn"
 
 MassFiledbConn$methods( initialize = function(file = NA_character_, file.sep = "\t", file.quote = "\"", ...) {
 
+	callSuper(content.type = BIODB.TSV, ...)
+
 	# Check file
 	if (is.null(file) || is.na(file))
 		.self$message(MSG.ERROR, "You must specify a file database to load.")
@@ -36,8 +38,6 @@ MassFiledbConn$methods( initialize = function(file = NA_character_, file.sep = "
 	.field.multval.sep <<- ';'
 	.ms.modes <<- c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)
 	names(.self$.ms.modes) <- .self$.ms.modes
-
-	callSuper(...)
 })
 
 # Is valid field tag {{{1
@@ -105,13 +105,6 @@ MassFiledbConn$methods( setFieldMultValSep = function(sep) {
 
 MassFiledbConn$methods( setMsMode = function(mode, value) {
 	.self$.ms.modes[[mode]] <- value
-})
-
-# Get entry content type {{{1
-################################################################
-
-MassFiledbConn$methods( getEntryContentType = function() {
-	return(BIODB.TSV)
 })
 
 # Check fields {{{1

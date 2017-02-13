@@ -12,7 +12,7 @@ KeggConn <- methods::setRefClass("KeggConn", contains = "RemotedbConn", fields =
 
 KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_character_, ...) {
 
-	callSuper(base.url = 'http://rest.kegg.jp/', ...)
+	callSuper(content.type = BIODB.TXT, base.url = 'http://rest.kegg.jp/', ...)
 
 	# Set name
 	if (is.null(db.name) || is.na(db.name))
@@ -44,13 +44,6 @@ KeggConn$methods( getEntryContentUrl = function(id) {
 
 KeggConn$methods( getEntryPageUrl = function(id) {
 	return(paste('http://www.genome.jp/dbget-bin/www_bget?', .self$.complete.entry.id(id), sep = ''))
-})
-
-# Get entry content type {{{1
-################################################################
-
-KeggConn$methods( getEntryContentType = function() {
-	return(BIODB.TXT)
 })
 
 # Get entry content {{{1

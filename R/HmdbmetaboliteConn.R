@@ -10,17 +10,10 @@ HmdbmetaboliteConn <- methods::setRefClass("HmdbmetaboliteConn", contains = "Rem
 
 HmdbmetaboliteConn$methods( initialize = function(...) {
 
-	callSuper(base.url = "http://www.hmdb.ca/", ...)
+	callSuper(content.type = BIODB.XML, base.url = "http://www.hmdb.ca/", ...)
 
 	# Set XML namespace
 	.ns <<- c(hmdb = 'http://www.hmdb.ca')
-})
-
-# Get entry content type {{{1
-################################################################
-
-HmdbmetaboliteConn$methods( getEntryContentType = function() {
-	return(BIODB.XML)
 })
 
 # Get entry content {{{1
