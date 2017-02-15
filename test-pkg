@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Constants {{{1
+################################################################
+
+PROG_NAME=$(basename $0)
+PROG_DIR=$(dirname $0)
+OUTPUT=test-pkg.output
+BIODB_USERAGENT="biodb.test ; pierrick.roger@gmail.com"
+
+# MAIN {{{1
+################################################################
+
+Rscript $PROG_DIR/test-pkg.R "$@" 2>&1 | tee $OUTPUT
+
+# Look for error message
+error=$(grep Error $OUTPUT)
+[ -z "$error" ] || exit 1

@@ -1,4 +1,4 @@
-R-BioDb library
-===============
+BioDb
+=====
 
-Version 2.0
+An R package for connecting to chemical and biological databases.

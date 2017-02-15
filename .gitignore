@@ -1,4 +1,14 @@
 .swp
 .*.swp
-cache
 .DS_Store
+.RData
+.Rhistory
+cache
+man
+..Rcheck
+src/*.rds
+test-pkg.output
+*.log
+src-i386
+src-x64
+peaks.tsv

@@ -1,6 +1,0 @@
-E-UTILITY
-=========
-The request must start with:
-http://eutils.ncbi.nlm.nih.gov/entrez/eutils/
-
-In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays. 

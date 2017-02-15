@@ -1,0 +1,43 @@
+@startuml
+
+skinparam classBackgroundColor white
+skinparam classArrowColor black
+skinparam classBorderColor black
+skinparam shadowing false
+hide empty fields
+hide empty methods
+hide circle
+
+namespace biodb {
+
+	' Classes
+	abstract class Object {
+		Biodb getBiodb()
+	}
+	class Biodb
+	abstract class Conn
+	abstract class Entry
+	class Factory
+	class ChebiConn
+	class ChebiEntry
+	abstract class Observer
+	class Logger
+	abstract class Observable
+
+	' Hierarchy
+	Object <|-down- Biodb
+	Object <|-- Conn
+	Object <|-- Entry
+	Object <|-- Factory
+	Conn <|-- ChebiConn
+	Entry <|-- ChebiEntry
+	Observer <|-- Logger
+
+	' Relations
+	Factory "1" *- "*" Conn
+	Biodb "1" *- "1" Factory
+	Biodb "1" o- "*" Observer
+	Object --> Biodb
+}
+
+@enduml

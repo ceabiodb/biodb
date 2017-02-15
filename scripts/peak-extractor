@@ -1,0 +1,97 @@
+#!/usr/bin/env Rscript
+# vi: ft=R fdm=marker
+
+for (lib in c('methods', 'plyr', 'biodb', 'getopt', 'R.utils')) {
+	library(lib, character.only = TRUE, warn.conflicts = FALSE, quietly = TRUE, verbose = FALSE)
+	detach(paste('package', lib, sep = ':'), character.only = TRUE, unload = TRUE)
+}
+
+# Constants {{{1
+################################################################
+
+ARGS <- commandArgs(trailingOnly = F)
+SCRIPT.PATH <- sub("--file=", "", ARGS[grep("--file=", ARGS)])
+SCRIPT.DIR <- dirname(SCRIPT.PATH)
+if ( ! R.utils::isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
+PROG.NAME <- sub('^.*/([^/]+)$', '\\1', commandArgs()[4], perl = TRUE)
+
+DFT.MAX.NB.ENTRIES <- 500
+
+# Read args {{{1
+################################################################
+
+read.args <-  function() {
+	spec = c(
+		'database',         'd',            1,  'character',    'The database from which to extract the peaks.',
+		'max-nb-entries',   'n',            1,  'integer',      'The maximum number of entries to retrieve.',
+		'output',           'o',            1,  'character',    'The path to the output file.'
+		)
+	spec <- matrix(spec, byrow = TRUE, ncol = 5)
+	opt <- getopt::getopt(spec)
+
+	# Set default values
+
+ 	if (is.null(opt[['max-nb-entries']]))
+	     opt[['max-nb-entries']] <- DFT.MAX.NB.ENTRIES
+
+	# Check arguments
+	if (is.null(opt$database)) stop("You must choose a database through -d option.")
+	if (is.null(opt$output)) stop("You must specify an output file through -o option.")
+
+	return(opt)
+}
+
+# MAIN {{{1
+################################################################
+
+opt <- read.args()
+
+# Instantiate biodb
+# TODO Why Biodb is not found in namespace biodb? : biodb::Biodb$new() gives:
+# Error: 'Biodb' is not an exported object from 'namespace:biodb'
+biodb <- biodb:::Biodb$new()
+biodb$getConfig()$set(biodb:::CFG.USERAGENT, 'peak-extractor ; pierrick.roger@gmail.com')
+biodb$getConfig()$set(biodb:::CFG.CACHEDIR, file.path(SCRIPT.DIR, 'cache'))
+biodb$addObservers(biodb:::BiodbLogger$new())
+
+# Get factory and connection
+fact <- biodb$getFactory()
+db.conn <- fact$getConn(opt$database)
+
+# Get a bunch of IDs
+entry.ids <- db.conn$getEntryIds(max.results = opt[['max-nb-entries']])
+
+# Get all entries
+if ( ! is.null(entry.ids)) {
+	cat("Get all entry contents...\n")
+	entry.contents <- fact$getEntryContent(opt$database, id = entry.ids)
+
+	# Create data frame from entries
+	cat("Create data frame from entry contents...\n")
+	entries.df <- NULL
+	n <- 0
+	for (ec in entry.contents) {
+
+		n <- n + 1
+		cat(paste0("Processing entry n°", n, " / ", length(entry.contents), ". ", if (is.null(entries.df)) 0 else nrow(entries.df), " peaks found.\n"))
+
+		# Get entry
+		e <- fact$createEntry(opt$database, content = ec)
+
+		# Reject if not MS or MS1
+		if ( ! e$getField(biodb:::BIODB.MSTYPE) %in% c('MS', 'MS1')) {
+			cat(paste0("Entry n°", n, " (accession ", e$getField(biodb:::BIODB.ACCESSION), ")", " rejected because MS TYPE is ", e$getField(biodb:::BIODB.MSTYPE), ".\n"))
+			next
+		}
+
+		# Transform entry in data frame
+		e.df <- e$getFieldsAsDataFrame(only.atomic = FALSE)
+
+		# Append entry to final data frame
+		entries.df <- plyr::rbind.fill(entries.df, e.df)
+	}
+
+	# Export peaks data frame
+	if ( ! is.null(entries.df))
+		write.table(entries.df, file = opt$output, sep = "\t", row.names = FALSE)
+}

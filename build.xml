@@ -1,19 +1,97 @@
-<project name="fr.cea.r-biodb" default="all">
+<project name="biodb" default="all">
+
+	<dirname property="this.dir" file="${ant.file.biodb}"/>
+
+	<property name="namespace.file" value="NAMESPACE"/>
+	<property name="test.pkg.output.file" value="test-pkg.output"/>
 
 	<!-- ALL -->
-	<target name="all"/>
+	<target name="all" depends="doc">
+		<ant dir="src" inheritAll="false"/>
+	</target>
 
 	<!-- DOC -->
-	<target name="doc"/>
+	<target name="doc">
+		<ant dir="doc" inheritAll="false"/>
+		<exec executable="${this.dir}/generate-doc" failonerror="true"/>
+	</target>
+
+	<!-- INSTALL DEPS -->
+	<target name="install.deps">
+		<exec executable="R" failonerror="true">
+			<arg value="-e"/>
+			<arg value="install.packages(c('getopt', 'stringr', 'XML', 'bitops', 'RCurl', 'plyr', 'jsonlite', 'testthat'), dependencies = TRUE, repos='http://lib.ugent.be/CRAN/')"/>
+		</exec>
+	</target>
 
 	<!-- TEST -->
-	<target name="test">
-		<ant dir="test" inheritAll="false"/>
+	<target name="test" depends="check.pkg,test.pkg"/>
+
+	<!-- CHECK PACKAGE -->
+	<target name="check.pkg">
+		<exec executable="${this.dir}/check-pkg" failonerror="true">
+			<redirector>
+				<outputfilterchain>
+					<tokenfilter>
+						<replaceregex pattern="from " replace="from R/"/>
+					</tokenfilter>
+				</outputfilterchain>
+			</redirector>
+		</exec>
+	</target>
+
+	<!-- TEST PACKAGE MACRO -->
+	<macrodef name="testpkg">
+
+		<!-- attributes -->
+		<attribute name="online" default="true"/>
+		<attribute name="offline" default="true"/>
+
+		<sequential>
+
+			<!-- Set arguments -->
+			<condition property="databases" value="-d ${DATABASES}" else=""><isset property="DATABASES"/></condition>
+			<condition property="disable.online"  value="-x" else=""><isfalse value="@{online}"/></condition>
+			<condition property="disable.offline" value="-y" else=""><isfalse value="@{offline}"/></condition>
+
+			<!-- execution -->
+			<exec executable="${this.dir}/test-pkg" failonerror="true">
+				<arg line="${databases}"/>
+				<arg line="${disable.online}"/>
+				<arg line="${disable.offline}"/>
+				<redirector>
+					<outputfilterchain>
+						<tokenfilter>
+							<replaceregex pattern="from " replace="from R/"/>
+							<replaceregex pattern="@" replace="@tests/testthat/"/>
+						</tokenfilter>
+					</outputfilterchain>
+				</redirector>
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<!-- TEST PACKAGE -->
+	<target name="test.pkg">
+		<testpkg/>
+	</target>
+
+	<!-- OFFLINE TEST PACKAGE -->
+	<target name="offline.test.pkg">
+		<testpkg online="false"/>
+	</target>
+
+	<!-- ONLINE TEST PACKAGE -->
+	<target name="online.test.pkg">
+		<testpkg offline="false"/>
 	</target>
 
 	<!-- CLEAN -->
 	<target name="clean">
-		<ant dir="test" target="clean" inheritAll="false"/>
+		<ant dir="src" target="clean" inheritAll="false"/>
+		<delete dir="man"/>
+		<delete dir="." includes="${namespace.file}"/>
+		<delete dir="." includes="${test.pkg.output.file}"/>
 	</target>
 
 </project>
