@@ -133,6 +133,9 @@ BiodbCache$methods( loadFileContent = function(db, names, ext) {
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, names, ext)
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL )} )
 
+	# Set to NA
+	content[content == 'NA'] <- NA_character_
+
 	return(content)
 })
 
