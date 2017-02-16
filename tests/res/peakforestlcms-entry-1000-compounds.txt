@@ -1,0 +1,2 @@
+accession   monoisotopicmass    formula
+PFc002075   260.0297            "C6H13O9P"

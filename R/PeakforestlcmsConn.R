@@ -101,10 +101,12 @@ PeakforestlcmsConn$methods( createEntry = function(content, drop = TRUE) {
 
 	entries <- list()
 
-	# JSON fields
-	jsonfields <- character()
-	jsonfields[[BIODB.ACCESSION]] <- "id"
-	jsonfields[[BIODB.MSMODE]] <- "polarity"
+	# JSON tag paths
+	json.tag.paths <- list()
+	json.tag.paths[[BIODB.ACCESSION]]   <- "id"
+	json.tag.paths[[BIODB.MSMODE]]      <- "polarity"
+	json.tag.paths[[BIODB.MSDEV]]       <- c('analyzerMassSpectrometerDevice', 'instrumentName')
+	json.tag.paths[[BIODB.MSDEVTYPE]]   <- c('analyzerMassSpectrometerDevice', 'ionAnalyzerType')
 
 	for (single.content in content) {
 
@@ -117,13 +119,19 @@ PeakforestlcmsConn$methods( createEntry = function(content, drop = TRUE) {
 			json <- jsonlite::fromJSON(single.content, simplifyDataFrame = FALSE)	
 		
 			# Set fields
-			for (field in names(jsonfields)) {
-				tosearch <- jsonfields[[field]]
-				value <- jsontree[[tosearch]]
-				entry$setField(field, value)
+			for (field in names(json.tag.paths)) {
+				x <- json
+				found.value <- TRUE
+				for (t in json.tag.paths[[field]])
+					if (t %in% names(x))
+						x <- x[[t]]
+					else {
+						found.value <- FALSE
+						break
+					}
+				if (found.value && length(x) == 1)
+					entry$setField(field, x)
 			}
-			entry$setField(BIODB.MSDEV,     json$analyzerMassSpectrometerDevice$instrumentName)
-			entry$setField(BIODB.MSDEVTYPE, json$analyzerMassSpectrometerDevice$ionAnalyzerType)	
 		}
 
 		entries <- c(entries, entry)
@@ -139,99 +147,99 @@ PeakforestlcmsConn$methods( createEntry = function(content, drop = TRUE) {
 	return(entries)
 
 	# ---------------------------------------------------------
-	entries <- vector(length(content),mode="list")
-	
-	
-	###Checking that it's a list.
-	if(length(content) == 1){
-		if(startsWith(content[[1]], "<html>") ){
-			return(NULL)
-		}else{
-			content <- jsonlite::fromJSON(content[[1]],simplifyDataFrame=FALSE)	
-			
-		}
-	}
-	
-	for (i in seq_along(content)) {
-		
-		single.content <- content[[i]]
-		jsontree <- NULL
-		if(typeof(single.content) == "character"){
-			if(startsWith(single.content, "<html>")|single.content=="null"){
-				entries[[i]] <- NULL
-				next
-			}
-			jsontree <- jsonlite::fromJSON(single.content,simplifyDataFrame=FALSE)
-		}else{
-			jsontree <- content
-		}
-		cnames <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.MZTHEO, BIODB.PEAK.ERROR.PPM)
-		
-		entry <- BiodbEntry$new(.self$getBiodb())
-		#####Setting thz mass analyzer
-		entry$setField(BIODB.MSDEV,jsontree$analyzerMassSpectrometerDevice$instrumentName)
-		entry$setField(BIODB.MSDEVTYPE,jsontree$analyzerMassSpectrometerDevice$ionAnalyzerType)	
-		
-		
-		
-		for(field in names(jsonfields)){
-			
-			tosearch <- jsonfields[[field]]
-			value <- jsontree$tosearch
-			entry$setField(field,value)
-		}
-		
-		######################
-		# TREATING THE PEAKS #
-		######################
-		
-		entry$setField(BIODB.NB.PEAKS,length(jsontree$peaks))
-		peaks <- data.frame( matrix( 0,ncol = length(cnames), nrow = 0))
-		colnames(peaks) <- cnames
-		###Parsing peaks.
-		if(length(jsontree$peaks) != 0){
-			peaks <- sapply(jsontree$peaks,function(x){
-				return(list(as.double(x$mz),
-							as.integer(x$ri),
-							as.character(x$composition),
-							as.double(x$theoricalMass),
-							as.double(x$deltaPPM)
-				))
-			})
-			###Removing all whitespaces from the formule.
-			peaks[3,]<-vapply(peaks[3,],function(x){
-				gsub(" ","",trimws(x))
-			},FUN.VALUE = NA_character_)
-			
-			peaks<-t(peaks)
-			colnames(peaks)<-cnames
-		}
-		
-		entry$setField(BIODB.PEAKS,peaks)
-		
-		##################################
-		# TREATING THE LIST OF COMPOUNDS #
-		##################################
-		
-		entry$setField(BIODB.NB.COMPOUNDS,length(jsontree$listOfCompounds))
-		compounds <- list()
-		
-		###Parsing compounds.
-		if( length( jsontree$listOfCompounds) != 0){
-			compounds <- lapply( jsontree$listOfCompounds, function(x){
-				.self$.createPeakforestCompoundFromJSON(x)
-			})
-		}
-		
-		entry$setField(BIODB.COMPOUNDS, compounds)
-		
-		
-		entries[[i]] <- entry
-	}
-	
-	
-	if (drop && length(content) == 1)
-		entries <- entries[[1]]
+#	entries <- vector(length(content),mode="list")
+#	
+#	
+#	###Checking that it's a list.
+#	if(length(content) == 1){
+#		if(startsWith(content[[1]], "<html>") ){
+#			return(NULL)
+#		}else{
+#			content <- jsonlite::fromJSON(content[[1]],simplifyDataFrame=FALSE)	
+#			
+#		}
+#	}
+#	
+#	for (i in seq_along(content)) {
+#		
+#		single.content <- content[[i]]
+#		jsontree <- NULL
+#		if(typeof(single.content) == "character"){
+#			if(startsWith(single.content, "<html>")|single.content=="null"){
+#				entries[[i]] <- NULL
+#				next
+#			}
+#			jsontree <- jsonlite::fromJSON(single.content,simplifyDataFrame=FALSE)
+#		}else{
+#			jsontree <- content
+#		}
+#		cnames <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.MZTHEO, BIODB.PEAK.ERROR.PPM)
+#		
+#		entry <- BiodbEntry$new(.self$getBiodb())
+#		#####Setting thz mass analyzer
+#		entry$setField(BIODB.MSDEV,jsontree$analyzerMassSpectrometerDevice$instrumentName)
+#		entry$setField(BIODB.MSDEVTYPE,jsontree$analyzerMassSpectrometerDevice$ionAnalyzerType)	
+#		
+#		
+#		
+#		for(field in names(jsonfields)){
+#			
+#			tosearch <- jsonfields[[field]]
+#			value <- jsontree$tosearch
+#			entry$setField(field,value)
+#		}
+#		
+#		######################
+#		# TREATING THE PEAKS #
+#		######################
+#		
+#		entry$setField(BIODB.NB.PEAKS,length(jsontree$peaks))
+#		peaks <- data.frame( matrix( 0,ncol = length(cnames), nrow = 0))
+#		colnames(peaks) <- cnames
+#		###Parsing peaks.
+#		if(length(jsontree$peaks) != 0){
+#			peaks <- sapply(jsontree$peaks,function(x){
+#				return(list(as.double(x$mz),
+#							as.integer(x$ri),
+#							as.character(x$composition),
+#							as.double(x$theoricalMass),
+#							as.double(x$deltaPPM)
+#				))
+#			})
+#			###Removing all whitespaces from the formule.
+#			peaks[3,]<-vapply(peaks[3,],function(x){
+#				gsub(" ","",trimws(x))
+#			},FUN.VALUE = NA_character_)
+#			
+#			peaks<-t(peaks)
+#			colnames(peaks)<-cnames
+#		}
+#		
+#		entry$setField(BIODB.PEAKS,peaks)
+#		
+#		##################################
+#		# TREATING THE LIST OF COMPOUNDS #
+#		##################################
+#		
+#		entry$setField(BIODB.NB.COMPOUNDS,length(jsontree$listOfCompounds))
+#		compounds <- list()
+#		
+#		###Parsing compounds.
+#		if( length( jsontree$listOfCompounds) != 0){
+#			compounds <- lapply( jsontree$listOfCompounds, function(x){
+#				.self$.createPeakforestCompoundFromJSON(x)
+#			})
+#		}
+#		
+#		entry$setField(BIODB.COMPOUNDS, compounds)
+#		
+#		
+#		entries[[i]] <- entry
+#	}
+#	
+#	
+#	if (drop && length(content) == 1)
+#		entries <- entries[[1]]
 })
 
 # Create reduced entry {{{1

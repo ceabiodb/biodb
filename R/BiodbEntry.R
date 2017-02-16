@@ -37,11 +37,15 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 
 	# Secific case to handle objects.
 	if ( class ==" object" & !(isS4(value) & methods::is(value, "refClass")))
-	  stop(paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
+	  .self$message(MSG.ERROR, paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
 	
 	# Check cardinality
-	if (class != 'data.frame' && .self$getFieldCardinality(field) == BIODB.CARD.ONE && length(value) > 1)
-		stop(paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
+	if (class != 'data.frame' && .self$getFieldCardinality(field) == BIODB.CARD.ONE) {
+		if (length(value) > 1)
+			.self$message(MSG.ERROR, paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
+		if (length(value) == 0)
+			.self$message(MSG.ERROR, paste0('Cannot set single value field "', field, '" to an empty vector in BiodEntry.'))
+	}
 
 	# Check value class
 	if (class %in% c('character', 'double', 'integer', 'logical'))
@@ -203,7 +207,7 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 		}
 
 		# Merge value into data frame
-		if (is.data.frame(v))
+		if (is.data.frame(v) && nrow(v) > 0)
 			df <- if (nrow(df) == 0) v else merge(df, v)
 	}
 

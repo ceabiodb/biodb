@@ -36,6 +36,7 @@ test.entry.fields <- function(factory, db) {
 		else
 			expect_true(all(is.na(entries.desc[[f]])), info = paste("Cannot find field", f, "in entries.df."))
 	}
+	
 }
 
 # TEST WRONG ENTRY {{{1

@@ -1,0 +1,2 @@
+accession   monoisotopicmass    formula
+PFc001839   240.0238            "C6H12N2O4S2"
