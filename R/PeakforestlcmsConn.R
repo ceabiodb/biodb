@@ -42,7 +42,7 @@ PeakforestlcmsConn$methods( getEntryContent = function(id) {
 
 	if (length(json) > 0) {
 		json.ids <- vapply(json, function(x) as.character(x$id), FUN.VALUE = '')
-		content[id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x), FUN.VALUE = '')
+		content[id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x, pretty = TRUE), FUN.VALUE = '')
 	}
 
 	return(content)
