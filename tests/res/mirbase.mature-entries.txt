@@ -1,0 +1,3 @@
+accession       name            sequence
+MIMAT0000434    hsa-miR-142-3p  UGUAGUGUUUCCUACUUUAUGGA
+MIMAT0000433    hsa-miR-142-5p  CAUAAAGUAGAAAGCACUACU

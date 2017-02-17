@@ -34,7 +34,7 @@ test.entry.fields <- function(factory, db) {
 		if (f %in% names(entries.df))
 			expect_equal(entries.df[[f]], entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entries data frame"))
 		else
-			expect_true(all(is.na(entries.desc[[f]])), info = paste("Cannot find field", f, "in entries.df."))
+			expect_true(all(is.na(entries.desc[[f]])), info = paste("Cannot find field \"", f, "\" in \"entries.df\".", sep = ''))
 	}
 	
 }

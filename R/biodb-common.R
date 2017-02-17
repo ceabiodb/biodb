@@ -27,7 +27,7 @@ BIODB.KEGGCOMPOUND      <- 'keggcompound'
 BIODB.LIPIDMAPSSTRUCTURE<- 'lipidmapsstructure'
 BIODB.MASSBANK          <- 'massbank'
 BIODB.MASSFILEDB        <- 'massfiledb'
-BIODB.MIRBASE           <- 'mirbase'
+BIODB.MIRBASE.MATURE    <- 'mirbase.mature'
 BIODB.NCBICCDS          <- 'ncbiccds'
 BIODB.NCBIGENE          <- 'ncbigene'
 BIODB.PEAKFORESTLCMS    <- 'peakforestlcms'
@@ -35,7 +35,7 @@ BIODB.PUBCHEMCOMP       <- 'pubchemcomp' # Compound database
 BIODB.PUBCHEMSUB        <- 'pubchemsub'  # Substance database
 BIODB.UNIPROT           <- 'uniprot'
 
-BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPSSTRUCTURE, BIODB.MIRBASE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFORESTLCMS))
+BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPSSTRUCTURE, BIODB.MIRBASE.MATURE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFORESTLCMS))
 
 ##########
 # FIELDS #
@@ -267,7 +267,6 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 			                 html = paste0('http://www.hmdb.ca/metabolites/', accession),
 			                 NULL),
 		massbank    = if (content.type == BIODB.TXT) paste0((if (is.na(base.url)) 'http://massbank.eu/api/services/MassBankAPI/' else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
-		mirbase     = if (content.type == BIODB.HTML) paste0('http://www.mirbase.org/cgi-bin/mature.pl?mature_acc=', accession) else NULL,
 		pubchemcomp = switch(content.type,
 			                 xml = paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/', paste(accession, collapse = ','), '/XML'),
 			                 html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),

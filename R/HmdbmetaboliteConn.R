@@ -129,7 +129,6 @@ HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 		# Download
 		.self$download()
-		.self$message(MSG.DEBUG, 'ZAP')
 
 		# Get IDs from cache
 		ids <- .self$getBiodb()$getCache()$listFiles(BIODB.HMDBMETABOLITE, .self$getEntryContentType(), extract.names = TRUE)

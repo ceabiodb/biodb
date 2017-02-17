@@ -125,7 +125,7 @@ BiodbCache$methods( getFilePaths = function(db, names, ext) {
 # Load file content {{{1
 ################################################################
 
-BiodbCache$methods( loadFileContent = function(db, names, ext) {
+BiodbCache$methods( loadFileContent = function(db, names, ext, output.vector = FALSE) {
 
 	content <- NULL
 
@@ -135,6 +135,10 @@ BiodbCache$methods( loadFileContent = function(db, names, ext) {
 
 	# Set to NA
 	content[content == 'NA'] <- NA_character_
+
+	# Vector ?
+	if (output.vector)
+		content <- vapply(content, function(x) if (is.null(x)) NA_character_ else x, FUN.VALUE = '')
 
 	return(content)
 })

@@ -2,43 +2,36 @@
 # CLASS DECLARATION #
 #####################
 
-EnzymeEntry <- methods::setRefClass("EnzymeEntry", contains = 'BiodbEntry')
+MirbaseMatureEntry <- methods::setRefClass("MirbaseMatureEntry", contains = "BiodbEntry")
 
 ###########
 # FACTORY #
 ###########
 
-createEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
+createMirbaseMatureEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
-	# XXX Content in EMBL Format ?
-
 	# Define fields regex
 	regex <- character()
-	regex[[BIODB.ACCESSION]] <- "^ID\\s+([0-9.]+)$"
-	regex[[BIODB.DESCRIPTION]] <- "^DE\\s+(.+)$"
+	regex[[BIODB.ACCESSION]] <- "^>[^ ]+ *(MIMAT[0-9]+) .*$"
+	regex[[BIODB.NAME]] <- "^>([^ ]+) *MIMAT[0-9]+ .*$"
+	regex[[BIODB.SEQUENCE]] <- "^([ACGU]+)$"
 
 	for (text in contents) {
 
 		# Create instance
-		entry <- EnzymeEntry$new(biodb)
+		entry <- MirbaseMatureEntry$new(biodb)
 
 		lines <- strsplit(text, "\n")
 		for (s in lines[[1]]) {
 
 			# Test generic regex
-			parsed <- FALSE
 			for (field in names(regex)) {
 				g <- stringr::str_match(s, regex[[field]])
-				if ( ! is.na(g[1,1])) {
+				if ( ! is.na(g[1,1]))
 					entry$setField(field, g[1,2])
-					parsed <- TRUE
-					break
-				}
 			}
-			if (parsed)
-				next
 		}
 
 		entries <- c(entries, entry)
