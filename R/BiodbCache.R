@@ -127,6 +127,9 @@ BiodbCache$methods( getFilePaths = function(db, names, ext) {
 
 BiodbCache$methods( loadFileContent = function(db, names, ext, output.vector = FALSE) {
 
+	if ( ! .self$isReadable())
+		.self$message(MSG.ERROR, paste("Attempt to read from non-readable cache \"", .self$getDir(), "\".", sep = ''))
+
 	content <- NULL
 
 	# Read contents from files
@@ -147,6 +150,9 @@ BiodbCache$methods( loadFileContent = function(db, names, ext, output.vector = F
 ################################################################
 
 BiodbCache$methods( saveContentToFile = function(contents, db, names, ext) {
+
+	if ( ! .self$isWritable())
+		.self$message(MSG.ERROR, paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
 
 	# Write contents into files
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, names, ext)
