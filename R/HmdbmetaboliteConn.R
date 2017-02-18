@@ -101,11 +101,19 @@ HmdbmetaboliteConn$methods( download = function() {
 		unzip(zip.path, exdir = extract.dir)
 		
 		# Load extracted XML file
-		xml.file <- file.path(extract.dir, list.files(path = extract.dir))
-		if (length(xml.file) == 0)
+		files <- list.files(path = extract.dir)
+		xml.file <- NULL
+		if (length(files) == 0)
 			.self$message(MSG.ERROR, paste("No XML file found in zip file \"", zip.path, "\".", sep = ''))
-		if (length(xml.file) > 1)
-			.self$message(MSG.ERROR, paste("More than one file found in zip file \"", zip.path, "\".", sep = ''))
+		else if (length(files) == 1)
+			xml.file <- file.path(extract.dir, files)
+		else {
+			for (f in c('hmdb_metabolites.xml', 'hmdb_metabolites_tmp.xml'))
+				if (f %in% files)
+					xml.file <- file.path(extract.dir, f)
+			if (is.null(xml.file))
+				.self$message(MSG.ERROR, paste("More than one file found in zip file \"", zip.path, "\":", paste(files, collapse = ", "), ".", sep = ''))
+		}
 		xml <- XML::xmlInternalTreeParse(xml.file)
 
 		# Write all XML entries into files
