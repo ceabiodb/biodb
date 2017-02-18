@@ -14,9 +14,8 @@ NcbiccdsConn$methods( initialize = function(...) {
 	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', content.type = BIODB.HTML, ...)
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# Get entry content {{{1
+################################################################
 
 NcbiccdsConn$methods( getEntryContent = function(id) {
 
@@ -29,10 +28,16 @@ NcbiccdsConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-################
-# CREATE ENTRY #
-################
+# Create entry {{{1
+################################################################
 
 NcbiccdsConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createNcbiccdsEntryFromHtml(.self$getBiodb(), content, drop = drop))
+})
+
+# Get entry ids {{{1
+################################################################
+
+NcbiccdsConn$methods( getEntryIds = function(max.results = NA_integer_) {
+	return(NULL)
 })
