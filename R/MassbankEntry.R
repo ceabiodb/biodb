@@ -55,7 +55,7 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 				for (field in names(regex)) {
 					g <- stringr::str_match(s, regex[[field]])
 					if ( ! is.na(g[1,1])) {
-						entry$setField(field, g[1,2])
+						entry$setFieldValue(field, g[1,2])
 						parsed <- TRUE
 						break
 					}
@@ -72,15 +72,15 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 					rt <- as.numeric(g[1,2])
 					if (unit == 'min')
 						rt <- 60 * rt
-					entry$setField(BIODB.CHROM.COL.RT, rt)
+					entry$setFieldValue(BIODB.CHROM.COL.RT, rt)
 					next
 				}
 
 				# Name
-				if (is.na(entry$getField(BIODB.NAME))) {
+				if (is.na(entry$getFieldValue(BIODB.NAME))) {
 					g <- stringr::str_match(s, "^CH\\$NAME:\\s+(.+)$")
 					if ( ! is.na(g[1,1])) {
-						entry$setField(BIODB.NAME, g[1,2])
+						entry$setFieldValue(BIODB.NAME, g[1,2])
 						next
 					}
 				}
@@ -88,14 +88,14 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 				# PubChem
 				g <- stringr::str_match(s, "^CH\\$LINK: PUBCHEM\\s+([0-9]+)$")
 				if ( ! is.na(g[1,1])) {
-					entry$setField(BIODB.PUBCHEMSUB.ID, g[1,2])
+					entry$setFieldValue(BIODB.PUBCHEMSUB.ID, g[1,2])
 					next
 				}
 
 				# MS MODE
 				g <- stringr::str_match(s, "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
 				if ( ! is.na(g[1,1])) {
-					entry$setField(BIODB.MSMODE, if (g[1,2] == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
+					entry$setFieldValue(BIODB.MSMODE, if (g[1,2] == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
 					next
 				}
 
@@ -109,7 +109,7 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	}
 
 	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+	entries <- lapply(entries, function(x) if (is.na(x$getFieldValue(BIODB.ACCESSION))) NULL else x)
 
 	# If the input was a single element, then output a single object
 	if (drop && length(contents) == 1)
@@ -139,11 +139,11 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	if (nrow(peaks) > 0) {
 
 		# Get curent peaks and merge with new peaks
-		current.peaks <- entry$getField(BIODB.PEAKS)
+		current.peaks <- entry$getFieldValue(BIODB.PEAKS)
 		if ( ! is.null(current.peaks))
 			peaks <- rbind(current.peaks, peaks)
 
-		entry$setField(BIODB.PEAKS, peaks)
+		entry$setFieldValue(BIODB.PEAKS, peaks)
 
 		return(TRUE)
 	}
