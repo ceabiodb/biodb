@@ -3,7 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-NcbigeneConn <- methods::setRefClass("NcbigeneConn", contains = "NcbiConn")
+NcbigeneConn <- methods::setRefClass("NcbigeneConn", contains = "NcbiEntrezConn")
 
 # Constructor {{{1
 ################################################################
