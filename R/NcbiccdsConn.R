@@ -1,16 +1,17 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-NcbiccdsConn <- methods::setRefClass("NcbiccdsConn", contains = "RemotedbConn")
+# Class declaration {{{1
+################################################################
 
-###############
-# CONSTRUCTOR #
-###############
+NcbiccdsConn <- methods::setRefClass("NcbiccdsConn", contains = "NcbiConn")
+
+# Constructor {{{1
+################################################################
 
 NcbiccdsConn$methods( initialize = function(...) {
-	# From NCBI E-Utility manual: "In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays".
-	callSuper(content.type = BIODB.HTML, scheduler = UrlRequestScheduler$new(n = 3, parent = .self), ...)
+
+	# Call parent constructor
+	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', content.type = BIODB.HTML, ...)
 })
 
 #####################
