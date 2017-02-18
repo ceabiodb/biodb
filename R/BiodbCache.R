@@ -5,19 +5,7 @@
 
 #'A class for constructing biodb objects.
 #'@export
-BiodbCache <- methods::setRefClass("BiodbCache", contains = 'BiodbObject', fields = list( .mode = "character", .biodb = "ANY", .enabled = "logical"))
-
-# Constants {{{1
-################################################################
-
-#'@export
-CACHE.READ.ONLY  <- 'read-only'
-
-#'@export
-CACHE.READ.WRITE <- 'read-write'
-
-#'@export
-CACHE.WRITE.ONLY <- 'write-only'
+BiodbCache <- methods::setRefClass("BiodbCache", contains = 'BiodbObject', fields = list( .biodb = "ANY", .enabled = "logical", .read.only = "logical", .force.download = "logical"))
 
 # Constructor {{{1
 ################################################################
@@ -26,7 +14,6 @@ BiodbCache$methods( initialize = function(biodb = NULL, ...) {
 
 	.enabled <<- TRUE
 	.biodb <<- biodb
-	.mode <<- CACHE.READ.WRITE
 
 	callSuper(...)
 })
@@ -64,7 +51,7 @@ BiodbCache$methods( disable = function() {
 
 BiodbCache$methods( getDir = function() {
 
-	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHEDIR)
+	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHE.DIRECTORY)
 
 	# Create cache dir if needed
 	if ( ! is.na(cachedir) && ! file.exists(cachedir))
@@ -73,31 +60,18 @@ BiodbCache$methods( getDir = function() {
 	return(cachedir)
 })
 
-# Set mode {{{1
-################################################################
-
-BiodbCache$methods( setMode = function(mode) {
-
-	# Check mode		   
-	if ( ! mode %in% c(CACHE.READ.ONLY, CACHE.READ.WRITE, CACHE.WRITE.ONLY))
-		.self$message(MSG.ERROR, paste0("Invalid value \"", mode, "\" for cache mode."))
-
-	# Set mode
-	.mode <<- mode
-})
-
 # Is cache reading enabled {{{1
 ################################################################
 
 BiodbCache$methods( isReadable = function() {
-	return( .self$enabled() && ! is.na(.self$getDir()) && .self$.mode %in% c(CACHE.READ.ONLY, CACHE.READ.WRITE))
+	return( .self$enabled() && ! is.na(.self$getDir()))
 })
 
 # Is cache writing enabled {{{1
 ################################################################
 
 BiodbCache$methods( isWritable = function() {
-	return( .self$enabled() && ! is.na(.self$getDir()) && .self$.mode %in% c(CACHE.WRITE.ONLY, CACHE.READ.WRITE))
+	return( .self$enabled() && ! is.na(.self$getDir()) && ! .self$getBiodb()$getConfig()$get(CFG.CACHE.READ.ONLY))
 })
 
 # File exists {{{1
@@ -105,7 +79,12 @@ BiodbCache$methods( isWritable = function() {
 
 BiodbCache$methods( fileExists = function(db, names, ext) {
 
-	return(file.exists(.self$getFilePaths(db, names, ext)))
+	exists <- FALSE
+
+	if ( ! .self$getBiodb()$getConfig()$get(CFG.CACHE.FORCE.DOWNLOAD))
+		exists <- file.exists(.self$getFilePaths(db, names, ext))
+
+	return(exists)
 })
 
 # Get file paths {{{1

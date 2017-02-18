@@ -11,13 +11,15 @@ BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "BiodbObject", fie
 ################################################################
 
 # Keys
-CFG.CACHEDIR            <- 'cachedir'
-CFG.CHEMSPIDER.TOKEN    <- 'chemspider_token'
-CFG.DBDWNLD             <- 'dbdwnld'
-CFG.MASSBANK.URL        <- 'massbank_url'
-CFG.PEAKFOREST.TOKEN    <- 'peakforest_token'
-CFG.PEAKFOREST.URL      <- 'peakforest_url'
-CFG.USERAGENT           <- 'useragent'
+CFG.CACHE.DIRECTORY         <- 'cache.directory'
+CFG.CACHE.FORCE.DOWNLOAD    <- 'cache.force.download'
+CFG.CACHE.READ.ONLY         <- 'cache.read.only'
+CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
+CFG.DBDWNLD                 <- 'dbdwnld'
+CFG.MASSBANK.URL            <- 'massbank_url'
+CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
+CFG.PEAKFOREST.URL          <- 'peakforest_url'
+CFG.USERAGENT               <- 'useragent'
 
 # Database URLs
 BIODB.MASSBANK.JP.URL  <- 'http://www.massbank.jp/'
@@ -69,7 +71,9 @@ BiodbConfig$methods( .initValueInfo = function() {
 	useragent.default <- if ('EMAIL' %in% names(.self$.env)) paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ') else NULL
 
 	# Define keys
-	.self$.newKey(CFG.CACHEDIR,         type = 'character', default = cachedir.default)
+	.self$.newKey(CFG.CACHE.DIRECTORY,  type = 'character', default = cachedir.default)
+	.self$.newKey(CFG.CACHE.FORCE.DOWNLOAD,  type = 'logical', default = FALSE)
+	.self$.newKey(CFG.CACHE.READ.ONLY,  type = 'logical', default = FALSE)
 	.self$.newKey(CFG.CHEMSPIDER.TOKEN, type = 'character')
 	.self$.newKey(CFG.DBDWNLD,          type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.MASSBANK.URL,     type = 'character', default = BIODB.MASSBANK.EU.WS.URL)
@@ -78,7 +82,7 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey(CFG.USERAGENT,        type = 'character', default = useragent.default)
 })
 
-# Initialize value information {{{1
+# New key {{{1
 ################################################################
 
 BiodbConfig$methods( .newKey = function(key, type, default = NULL) {

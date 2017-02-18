@@ -103,8 +103,15 @@ if (length(TEST.DATABASES) == 0 || BIODB.MASSFILEDB %in% TEST.DATABASES) {
 for (mode in TEST.MODES) {
 
 	# Configure cache
-	biodb$getConfig()$set(CFG.CACHEDIR, if (mode == ONLINE) CACHE.DIR else OFFLINE.FILES.DIR)
-	biodb$getCache()$setMode(if (mode == ONLINE) CACHE.WRITE.ONLY else CACHE.READ.ONLY)
+	biodb$getConfig()$set(CFG.CACHE.DIRECTORY, if (mode == ONLINE) CACHE.DIR else OFFLINE.FILES.DIR)
+	if (mode == ONLINE) {
+		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
+		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
+	}
+	else {
+		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
+		biodb$getConfig()$disable(CFG.CACHE.FORCE.DOWNLOAD)
+	}
 
 	# Loop on test databases
 	for (db in if (length(TEST.DATABASES) > 0) TEST.DATABASES else BIODB.DATABASES) {
