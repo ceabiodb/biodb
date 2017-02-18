@@ -114,6 +114,9 @@ HmdbmetaboliteConn$methods( download = function() {
 		contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')
 		.self$getBiodb()$getCache()$deleteFiles(BIODB.HMDBMETABOLITE, .self$getEntryContentType())
 		.self$getBiodb()$getCache()$saveContentToFile(contents, BIODB.HMDBMETABOLITE, ids, .self$getEntryContentType())
+
+		# Remove extract directory
+		unlink(extract.dir, recursive = TRUE)
 	}
 })
 

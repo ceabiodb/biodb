@@ -32,8 +32,13 @@ MirbaseMatureConn$methods( download = function() {
 		.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
 		download.file(url = gz.url, destfile = gz.path, method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
 
+		# Extract
+		# We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.
+		extracted.file <- tempfile(BIODB.MIRBASE.MATURE)
+		R.utils::gunzip(filename = gz.path, destname = extracted.file)
+
 		# Read file
-		fd <- gzfile(gz.path, 'r')
+		fd <- file(extracted.file, 'r')
 		lines <- readLines(fd)
 		close(fd)
 
@@ -49,6 +54,9 @@ MirbaseMatureConn$methods( download = function() {
 			.self$getBiodb()$getCache()$deleteFiles(BIODB.MIRBASE.MATURE, .self$getEntryContentType())
 			.self$getBiodb()$getCache()$saveContentToFile(contents, BIODB.MIRBASE.MATURE, ids, .self$getEntryContentType())
 		}
+
+		# Remove extract directory
+		unlink(extracted.file)
 	}
 })
 

@@ -7,7 +7,7 @@ Depends: R (>= 3.3.1)
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: methods, XML, stringr, plyr, jsonlite, bitops, RCurl, stats
+Imports: methods, XML, stringr, plyr, jsonlite, bitops, RCurl, stats, R.utils
 NeedsCompilation: yes
 Collate: 'biodb-common.R' 'spec-dist.R'
 		'BiodbObserver.R' 'BiodbLogger.R' 'WarningReporter.R' 'ErrorReporter.R'
