@@ -24,8 +24,8 @@ CFG.USERAGENT               <- 'useragent'
 # Database URLs
 BIODB.MASSBANK.JP.URL  <- 'http://www.massbank.jp/'
 BIODB.MASSBANK.EU.URL  <- 'http://www.massbank.eu/'
-BIODB.MASSBANK.JP.WS.URL  <- paste(BIODB.MASSBANK.JP.URL, 'api/services/MassBankAPI/')
-BIODB.MASSBANK.EU.WS.URL  <- paste(BIODB.MASSBANK.EU.URL, 'api/services/MassBankAPI/')
+BIODB.MASSBANK.JP.WS.URL  <- paste(BIODB.MASSBANK.JP.URL, 'api/services/MassBankAPI/', sep = '')
+BIODB.MASSBANK.EU.WS.URL  <- paste(BIODB.MASSBANK.EU.URL, 'api/services/MassBankAPI/', sep = '')
 PEAKFOREST.WS.URL         <- 'https://rest.peakforest.org/'
 PEAKFOREST.WS.ALPHA.URL   <- 'https://peakforest-alpha.inra.fr/rest/'
 
