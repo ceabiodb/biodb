@@ -136,7 +136,7 @@ HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	ids <- NULL
 
 	# Do we allow database download? This can take some time.
-	if (.self$getBiodb()$getConfig()$isEnabled(CFG.DBDWNLD)) {
+	if (.self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS)) {
 
 		# Download
 		.self$download()

@@ -15,7 +15,7 @@ CFG.CACHE.DIRECTORY         <- 'cache.directory'
 CFG.CACHE.FORCE.DOWNLOAD    <- 'cache.force.download'
 CFG.CACHE.READ.ONLY         <- 'cache.read.only'
 CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
-CFG.DBDWNLD                 <- 'dbdwnld'
+CFG.ALLOW.HUGE.DOWNLOADS    <- 'allow.huge.downloads'
 CFG.MASSBANK.URL            <- 'massbank_url'
 CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
 CFG.PEAKFOREST.URL          <- 'peakforest_url'
@@ -71,15 +71,15 @@ BiodbConfig$methods( .initValueInfo = function() {
 	useragent.default <- if ('EMAIL' %in% names(.self$.env)) paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ') else NULL
 
 	# Define keys
-	.self$.newKey(CFG.CACHE.DIRECTORY,  type = 'character', default = cachedir.default)
-	.self$.newKey(CFG.CACHE.FORCE.DOWNLOAD,  type = 'logical', default = FALSE)
-	.self$.newKey(CFG.CACHE.READ.ONLY,  type = 'logical', default = FALSE)
-	.self$.newKey(CFG.CHEMSPIDER.TOKEN, type = 'character')
-	.self$.newKey(CFG.DBDWNLD,          type = 'logical',   default = TRUE)
-	.self$.newKey(CFG.MASSBANK.URL,     type = 'character', default = BIODB.MASSBANK.EU.WS.URL)
-	.self$.newKey(CFG.PEAKFOREST.TOKEN, type = 'character')
-	.self$.newKey(CFG.PEAKFOREST.URL,   type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
-	.self$.newKey(CFG.USERAGENT,        type = 'character', default = useragent.default)
+	.self$.newKey(CFG.CACHE.DIRECTORY,          type = 'character', default = cachedir.default)
+	.self$.newKey(CFG.CACHE.FORCE.DOWNLOAD,     type = 'logical',   default = FALSE)
+	.self$.newKey(CFG.CACHE.READ.ONLY,          type = 'logical',   default = FALSE)
+	.self$.newKey(CFG.CHEMSPIDER.TOKEN,         type = 'character')
+	.self$.newKey(CFG.ALLOW.HUGE.DOWNLOADS,     type = 'logical',   default = TRUE)
+	.self$.newKey(CFG.MASSBANK.URL,             type = 'character', default = BIODB.MASSBANK.EU.WS.URL)
+	.self$.newKey(CFG.PEAKFOREST.TOKEN,         type = 'character')
+	.self$.newKey(CFG.PEAKFOREST.URL,           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
+	.self$.newKey(CFG.USERAGENT,                type = 'character', default = useragent.default)
 })
 
 # New key {{{1
