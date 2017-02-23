@@ -42,8 +42,8 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 	conn <- switch(class,
 		            chebi           = ChebiConn$new(            biodb = .self$.biodb),
 		            keggcompound    = KeggcompoundConn$new(     biodb = .self$.biodb),
-		            pubchemcomp     = PubchemConn$new(          biodb = .self$.biodb, db = BIODB.PUBCHEMCOMP),
-		            pubchemsub      = PubchemConn$new(          biodb = .self$.biodb, db = BIODB.PUBCHEMSUB),
+		            pubchem.comp    = PubchemCompConn$new(      biodb = .self$.biodb),
+		            pubchem.subst   = PubchemSubstConn$new(     biodb = .self$.biodb),
 		            hmdbmetabolite  = HmdbmetaboliteConn$new(   biodb = .self$.biodb),
 		            chemspider      = ChemspiderConn$new(       biodb = .self$.biodb, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.CHEMSPIDER.TOKEN) else token),
 		            enzyme          = EnzymeConn$new(           biodb = .self$.biodb),
@@ -112,7 +112,8 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
 
 	# Initialize content
-	if (.self$getBiodb()$getCache()$isReadable()) {
+	if (.self$getBiodb()$getCache()$isReadable() && ! .self$getBiodb()$getConfig()$isEnabled(CFG.CACHE.FORCE.DOWNLOAD)) {
+		# Load content from cache
 		content <- .self$getBiodb()$getCache()$loadFileContent(class, id, .self$getConn(class)$getEntryContentType())
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 	}

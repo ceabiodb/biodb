@@ -20,6 +20,7 @@ test.entry.fields <- function(factory, db) {
 
 	# Create entries
 	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	expect_true( ! any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 
 	# Get data frame
@@ -103,12 +104,13 @@ if (length(TEST.DATABASES) == 0 || BIODB.MASSFILEDB %in% TEST.DATABASES) {
 for (mode in TEST.MODES) {
 
 	# Configure cache
-	biodb$getConfig()$set(CFG.CACHE.DIRECTORY, if (mode == ONLINE) CACHE.DIR else OFFLINE.FILES.DIR)
 	if (mode == ONLINE) {
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
 	}
 	else {
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.FILES.DIR)
 		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$disable(CFG.CACHE.FORCE.DOWNLOAD)
 	}

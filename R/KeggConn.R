@@ -35,7 +35,7 @@ KeggConn$methods( .complete.entry.id = function(id) {
 # Get entry content url {{{1
 ################################################################
 
-KeggConn$methods( getEntryContentUrl = function(id) {
+KeggConn$methods( .doGetEntryContentUrl = function(id) {
 	return(paste(.self$.base.url, 'get/', .self$.complete.entry.id(id), sep = ''))
 })
 

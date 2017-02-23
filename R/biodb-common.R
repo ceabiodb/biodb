@@ -31,11 +31,11 @@ BIODB.MIRBASE.MATURE    <- 'mirbase.mature'
 BIODB.NCBICCDS          <- 'ncbiccds'
 BIODB.NCBIGENE          <- 'ncbigene'
 BIODB.PEAKFORESTLCMS    <- 'peakforestlcms'
-BIODB.PUBCHEMCOMP       <- 'pubchemcomp' # Compound database
-BIODB.PUBCHEMSUB        <- 'pubchemsub'  # Substance database
+BIODB.PUBCHEM.COMP      <- 'pubchem.comp'
+BIODB.PUBCHEM.SUBST     <- 'pubchem.subst'
 BIODB.UNIPROT           <- 'uniprot'
 
-BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPSSTRUCTURE, BIODB.MIRBASE.MATURE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFORESTLCMS))
+BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEM.COMP, BIODB.PUBCHEM.SUBST, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPSSTRUCTURE, BIODB.MIRBASE.MATURE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASSFILEDB, BIODB.PEAKFORESTLCMS))
 
 ##########
 # FIELDS #
@@ -61,8 +61,8 @@ BIODB.HMDBMETABOLITE.ID         <- 'hmdbmetaboliteid'
 BIODB.ENZYME.ID                 <- 'enzymeid'
 BIODB.NCBI.CCDS.ID              <- 'ncbiccdsid'
 BIODB.NCBI.GENE.ID              <- 'ncbigeneid'
-BIODB.PUBCHEMCOMP.ID            <- 'pubchemcompid'
-BIODB.PUBCHEMSUB.ID             <- 'pubchemsubid'
+BIODB.PUBCHEM.COMP.ID           <- 'pubchem.comp.id'
+BIODB.PUBCHEM.SUBST.ID          <- 'pubchem.subst.id'
 BIODB.CHEMSPIDER.ID             <- 'chemspiderid'
 BIODB.UNIPROT.ID                <- 'uniprotid'
 BIODB.CAS.ID                    <- 'casid'
@@ -172,8 +172,8 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.KEGGCOMPOUND.ID,      'character',    BIODB.CARD.ONE,		'none',
 	BIODB.HMDBMETABOLITE.ID,    'character',    BIODB.CARD.ONE,		'none',
 	BIODB.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
-	BIODB.PUBCHEMCOMP.ID,       'character',    BIODB.CARD.ONE,		'none',
-	BIODB.PUBCHEMSUB.ID,        'character',    BIODB.CARD.ONE,		'none',
+	BIODB.PUBCHEM.COMP.ID,      'character',    BIODB.CARD.ONE,		'none',
+	BIODB.PUBCHEM.SUBST.ID,     'character',    BIODB.CARD.ONE,		'none',
 	BIODB.PEAKFORESTLCMS.ID,    'character',    BIODB.CARD.ONE,		'none',
 	BIODB.UNIPROT.ID,           'character',    BIODB.CARD.ONE,		'none',
 	BIODB.NCBI.CCDS.ID,         'character',    BIODB.CARD.ONE,		'none',
@@ -247,8 +247,10 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 
 .do.get.entry.url <- function(class, accession, content.type = BIODB.HTML, base.url = NA_character_, token = NA_character_) {
 
+	# XXX DEPRECATED
+
 	# Only certain databases can handle multiple accession ids
-	if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER, BIODB.PUBCHEMCOMP, BIODB.PUBCHEMSUB) && length(accession) > 1)
+	if ( ! class %in% c(BIODB.MASSBANK, BIODB.CHEMSPIDER) && length(accession) > 1)
 		stop(paste0("Cannot build a URL for getting multiple entries for class ", class, "."))
 
 	# Get URL
@@ -267,14 +269,6 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 			                 html = paste0('http://www.hmdb.ca/metabolites/', accession),
 			                 NULL),
 		massbank    = if (content.type == BIODB.TXT) paste0((if (is.na(base.url)) 'http://massbank.eu/api/services/MassBankAPI/' else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
-		pubchemcomp = switch(content.type,
-			                 xml = paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/', paste(accession, collapse = ','), '/XML'),
-			                 html = paste0('http://pubchem.ncbi.nlm.nih.gov/compound/', accession),
-			                 NULL),
-		pubchemsub  = switch(content.type,
-			                 xml = paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sid/', paste(accession, collapse = ','), '/XML'),
-			                 html = paste0('http://pubchem.ncbi.nlm.nih.gov/substance/', accession),
-			                 NULL),
 		ncbigene    = if (content.type == BIODB.XML) paste0('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
 		ncbiccds    = if (content.type == BIODB.HTML) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
 		uniprot     = if (content.type == BIODB.XML) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
@@ -285,6 +279,8 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 }
 
 get.entry.url <- function(class, accession, content.type = BIODB.HTML, max.length = 0, base.url = NA_character_, token = NA_character_) {
+
+	# XXX DEPRECATED
 
 	if (length(accession) == 0)
 		return(NULL)

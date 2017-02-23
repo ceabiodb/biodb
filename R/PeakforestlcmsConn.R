@@ -10,7 +10,7 @@ PeakforestlcmsConn <- methods::setRefClass("PeakforestlcmsConn", contains = c("P
 # Get entry content url {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( getEntryContentUrl = function(id) {
+PeakforestlcmsConn$methods( .doGetEntryContentUrl = function(id) {
 
 	# Check token
 	if (is.na(.self$getToken()))

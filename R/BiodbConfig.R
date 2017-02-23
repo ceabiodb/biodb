@@ -189,7 +189,7 @@ BiodbConfig$methods( isDefined = function(key) {
 	return(key %in% names(.self$.values))
 })
 
-# Enabled {{{1
+# Is enabled {{{1
 ################################################################
 
 BiodbConfig$methods( isEnabled = function(key) {

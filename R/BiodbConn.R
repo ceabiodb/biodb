@@ -58,12 +58,12 @@ BiodbConn$methods( getEntryContent = function(id) {
 	.self$.abstract.method()
 })
 
-# Create entry from content {{{1
+# Create entry {{{1
 ################################################################
 
-# Creates a Compound instance from file content.
-# content       A file content, downloaded from the public database.
-# RETURN        A compound instance.
+# Creates an entry instance from text content.
+# content       A text content describing the entry.
+# RETURN        An entry instance.
 BiodbConn$methods( createEntry = function(content, drop = TRUE) {
 	.self$.abstract.method()
 })

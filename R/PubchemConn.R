@@ -1,88 +1,89 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-PubchemConn <- methods::setRefClass("PubchemConn", contains = "RemotedbConn", fields = list( .db = "character" ))
+# Class declaration {{{1
+################################################################
 
-###############
-# CONSTRUCTOR #
-###############
+PubchemConn <- methods::setRefClass("PubchemConn", contains = "RemotedbConn", fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
 
-PubchemConn$methods( initialize = function(db = BIODB.PUBCHEMCOMP, ...) {
-	callSuper(content.type = BIODB.XML, ...)
-	.db <<- db
+# Constructor {{{1
+################################################################
+
+PubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
+	callSuper(...)
+
+	.db.name <<- db.name
+	.id.xmltag <<- id.xmltag
+	.entry.xmltag <<- entry.xmltag
+	.id.urlfield <<- id.urlfield
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# Do get entry content url {{{1
+################################################################
+
+PubchemConn$methods( .doGetEntryContentUrl = function(id) {
+	return(paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/', .self$.db.name, '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML'))
+})
+
+# Get entry page url {{{1
+################################################################
+
+PubchemConn$methods( getEntryPageUrl = function(id) {
+	return(paste0('http://pubchem.ncbi.nlm.nih.gov/', .self$.db.name, '/', id))
+})
+
+# Get entry content {{{1
+################################################################
 
 PubchemConn$methods( getEntryContent = function(ids) {
 
 	# Debug
 	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(ids)," id(s)..."))
 
-	URL.MAX.LENGTH <- 2083
+	# Get URL requests
+	url.requests <- .self$getEntryContentUrl(ids, max.length = 2048)
 
 	# Initialize return values
 	content <- rep(NA_character_, length(ids))
 
-	# Loop on all
-	n <- 0
-	while (n < length(ids)) {
-
-		# Get list of accession ids to retrieve
-		accessions <- ids[(n + 1):length(ids)]
-
-		# Create URL request
-		x <- get.entry.url(class = .self$.db, accession = accessions, content.type = BIODB.XML, max.length = URL.MAX.LENGTH)
-
-		# Debug
-		.self$message(MSG.INFO, paste0("Send URL request for ", x$n," id(s)..."))
+	# Loop on all URLs
+	for (url in url.requests) {
 
 		# Send request
-		xmlstr <- .self$.get.url(x$url)
+		xmlstr <- .self$.getUrlScheduler()$getUrl(url)
 
-		# Increase number of entries retrieved
-		n <- n + x$n
+		if ( ! is.na(xmlstr) && length(grep('PUGREST.BadRequest', xmlstr)) == 0) {
 
-		# TODO When one of the id is wrong, no content is returned. Only a single error is returned, with the first faulty ID:
-#		<Fault xmlns="http://pubchem.ncbi.nlm.nih.gov/pug_rest" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:schemaLocation="http://pubchem.ncbi.nlm.nih.gov/pug_rest https://pubchem.ncbi.nlm.nih.gov/pug_rest/pug_rest.xsd">
-#		<Code>PUGREST.NotFound</Code>
-#		<Message>Record not found</Message>
-#		<Details>No record data for CID 1246452553</Details>
-#		</Fault>
-
-		# Parse XML and get included XML
-		if ( ! is.na(xmlstr)) {
+			# Parse XML
 			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
+
+			# TODO When one of the id is wrong, no content is returned. Only a single error is returned, with the first faulty ID:
+	#		<Fault xmlns="http://pubchem.ncbi.nlm.nih.gov/pug_rest" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:schemaLocation="http://pubchem.ncbi.nlm.nih.gov/pug_rest https://pubchem.ncbi.nlm.nih.gov/pug_rest/pug_rest.xsd">
+	#		<Code>PUGREST.NotFound</Code>
+	#		<Message>Record not found</Message>
+	#		<Details>No record data for CID 1246452553</Details>
+	#		</Fault>
+
+			# Get returned IDs
 			ns <- c(pcns = "http://www.ncbi.nlm.nih.gov")
-			returned.ids <- XML::xpathSApply(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) 'PC-CompoundType_id_cid' else 'PC-ID_id'), XML::xmlValue, namespaces = ns)
-			content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, paste0("//pcns:", if (.self$.db == BIODB.PUBCHEMCOMP) "PC-Compound" else 'PC-Substance'), namespaces = ns), XML::saveXML, FUN.VALUE = '')
+			returned.ids <- XML::xpathSApply(xml, paste0("//pcns:", .self$.id.xmltag), XML::xmlValue, namespaces = ns)
+
+			# Store contents
+			content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, paste0("//pcns:", .self$.entry.xmltag), namespaces = ns), XML::saveXML, FUN.VALUE = '')
 		}
 
-		# Debug
-		.self$message(MSG.INFO, paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 	}
+
+	.self$message(MSG.DEBUG, paste("Returning found content (nchars = ", paste(nchar(content), collapse = ", "), ")."))
 
 	return(content)
 })
 
-################
-# CREATE ENTRY #
-################
+# Get compound image url {{{1
+################################################################
 
-PubchemConn$methods( createEntry = function(content, drop = TRUE) {
-	return(if (.self$.db == BIODB.PUBCHEMCOMP) createPubchemEntryFromXml(.self$getBiodb(), content, drop = drop) else createPubchemSubstanceFromXml(.self$getBiodb(), content, drop = drop))
-})
+PubchemConn$methods( getCompoundImageUrl = function(id) {
 
-#########################
-# GET PUBCHEM IMAGE URL #
-#########################
-
-get.pubchem.image.url <- function(id, db = BIODB.PUBCHEMCOMP) {
-
-	url <- paste0('http://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?', (if (db == BIODB.PUBCHEMCOMP) 'cid' else 'sid'), '=', id, '&t=l')
+	url <- paste0('http://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?', .self$.id.urlfield, '=', id, '&t=l')
 
 	return(url)
-}
+})
