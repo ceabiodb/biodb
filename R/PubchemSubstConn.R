@@ -18,3 +18,11 @@ PubchemSubstConn$methods( initialize = function(...) {
 PubchemSubstConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createPubchemSubstanceFromXml(.self$getBiodb(), content, drop = drop))
 })
+
+# Get entry ids {{{1
+################################################################
+
+PubchemSubstConn$methods( getEntryIds = function(max.results = NA_integer_) {
+	.self$message(MSG.CAUTION, "No method implemented for computing list of IDs.")
+	return(NULL)
+})
