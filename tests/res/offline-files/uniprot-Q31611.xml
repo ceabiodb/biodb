@@ -1,21 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="TrEMBL" created="1996-11-01" modified="2016-09-07" version="137">
+<entry dataset="TrEMBL" created="1996-11-01" modified="2016-11-30" version="140">
 <accession>Q31611</accession>
 <name>Q31611_HUMAN</name>
 <protein>
 <submittedName>
-<fullName evidence="5">B2 microglobulin</fullName>
+<fullName evidence="6">B2 microglobulin</fullName>
 </submittedName>
 <submittedName>
-<fullName evidence="7">HLA class I histocompatibility antigen, alpha chain G</fullName>
+<fullName evidence="8">HLA class I histocompatibility antigen, alpha chain G</fullName>
 </submittedName>
 </protein>
 <gene>
-<name type="primary" evidence="5">HLA-G2.2</name>
-<name type="synonym" evidence="6 7">HLA-G</name>
+<name type="primary" evidence="6">HLA-G2.2</name>
+<name type="synonym" evidence="7 8">HLA-G</name>
 </gene>
-<organism evidence="5">
+<organism evidence="6">
 <name type="scientific">Homo sapiens</name>
 <name type="common">Human</name>
 <dbReference type="NCBI Taxonomy" id="9606"/>
@@ -36,7 +36,7 @@
 <taxon>Homo</taxon>
 </lineage>
 </organism>
-<reference key="1" evidence="5">
+<reference key="1" evidence="6">
 <citation type="journal article" date="1992" name="Proc. Natl. Acad. Sci. U.S.A." volume="89" first="3947" last="3951">
 <title>Alternative splicing of HLA-G transcripts yields proteins with primary structures resembling both class I and class II antigens.</title>
 <authorList>
@@ -48,10 +48,10 @@
 </citation>
 <scope>NUCLEOTIDE SEQUENCE</scope>
 <source>
-<tissue evidence="5">Placenta</tissue>
+<tissue evidence="6">Placenta</tissue>
 </source>
 </reference>
-<reference key="2" evidence="7 9">
+<reference key="2" evidence="8 10">
 <citation type="journal article" date="2003" name="Nature" volume="425" first="805" last="811">
 <title>The DNA sequence and analysis of human chromosome 6.</title>
 <authorList>
@@ -232,7 +232,7 @@
 </citation>
 <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
 </reference>
-<reference key="3" evidence="7">
+<reference key="3" evidence="8">
 <citation type="submission" date="2012-02" db="UniProtKB">
 <authorList>
 <consortium name="Ensembl"/>
@@ -240,7 +240,7 @@
 </citation>
 <scope>IDENTIFICATION</scope>
 </reference>
-<reference key="4" evidence="8">
+<reference key="4" evidence="9">
 <citation type="submission" date="2015-06" db="UniProtKB">
 <authorList>
 <consortium name="Ensembl"/>
@@ -288,11 +288,18 @@
 <property type="protein sequence ID" value="AAA59836.1"/>
 <property type="molecule type" value="mRNA"/>
 </dbReference>
-<dbReference type="UniGene" id="Hs.512152"/>
-<dbReference type="SMR" id="Q31611">
-<property type="residue range" value="25-208"/>
+<dbReference type="RefSeq" id="XP_016866306.1">
+<property type="nucleotide sequence ID" value="XM_017010817.1"/>
 </dbReference>
+<dbReference type="RefSeq" id="XP_016866307.1">
+<property type="nucleotide sequence ID" value="XM_017010818.1"/>
+</dbReference>
+<dbReference type="UniGene" id="Hs.512152"/>
+<dbReference type="ProteinModelPortal" id="Q31611"/>
+<dbReference type="SMR" id="Q31611"/>
+<dbReference type="MaxQB" id="Q31611"/>
 <dbReference type="PeptideAtlas" id="Q31611"/>
+<dbReference type="PRIDE" id="Q31611"/>
 <dbReference type="Ensembl" id="ENST00000376818">
 <property type="protein sequence ID" value="ENSP00000366014"/>
 <property type="gene ID" value="ENSG00000204632"/>
@@ -349,6 +356,7 @@
 <property type="protein sequence ID" value="ENSP00000432239"/>
 <property type="gene ID" value="ENSG00000230413"/>
 </dbReference>
+<dbReference type="GeneID" id="3135"/>
 <dbReference type="UCSC" id="uc003nnz.4">
 <property type="organism name" value="human"/>
 </dbReference>
@@ -356,6 +364,13 @@
 <dbReference type="HGNC" id="HGNC:4964">
 <property type="gene designation" value="HLA-G"/>
 </dbReference>
+<dbReference type="OpenTargets" id="ENSG00000204632"/>
+<dbReference type="OpenTargets" id="ENSG00000206506"/>
+<dbReference type="OpenTargets" id="ENSG00000230413"/>
+<dbReference type="OpenTargets" id="ENSG00000233095"/>
+<dbReference type="OpenTargets" id="ENSG00000235346"/>
+<dbReference type="OpenTargets" id="ENSG00000235680"/>
+<dbReference type="OpenTargets" id="ENSG00000237216"/>
 <dbReference type="GeneTree" id="ENSGT00760000118960"/>
 <dbReference type="HOVERGEN" id="HBG016709"/>
 <dbReference type="ChiTaRS" id="HLA-G">
@@ -366,15 +381,13 @@
 <property type="component" value="Chromosome 6"/>
 </dbReference>
 <dbReference type="Bgee" id="ENSG00000204632"/>
+<dbReference type="ExpressionAtlas" id="Q31611">
+<property type="expression patterns" value="baseline and differential"/>
+</dbReference>
 <dbReference type="GO" id="GO:0016021">
 <property type="term" value="C:integral component of membrane"/>
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="UniProtKB-KW"/>
-</dbReference>
-<dbReference type="GO" id="GO:0006955">
-<property type="term" value="P:immune response"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="InterPro"/>
 </dbReference>
 <dbReference type="Gene3D" id="2.60.40.10">
 <property type="match status" value="1"/>
@@ -425,32 +438,32 @@
 <property type="match status" value="1"/>
 </dbReference>
 <proteinExistence type="evidence at protein level"/>
-<keyword id="KW-0181" evidence="9">Complete proteome</keyword>
-<keyword id="KW-0472" evidence="2">Membrane</keyword>
-<keyword id="KW-1267" evidence="1">Proteomics identification</keyword>
-<keyword id="KW-1185" evidence="9">Reference proteome</keyword>
-<keyword id="KW-0732" evidence="3">Signal</keyword>
-<keyword id="KW-0812" evidence="2">Transmembrane</keyword>
-<keyword id="KW-1133" evidence="2">Transmembrane helix</keyword>
-<feature type="signal peptide" evidence="3">
+<keyword id="KW-0181" evidence="10">Complete proteome</keyword>
+<keyword id="KW-0472" evidence="3">Membrane</keyword>
+<keyword id="KW-1267" evidence="1 2">Proteomics identification</keyword>
+<keyword id="KW-1185" evidence="10">Reference proteome</keyword>
+<keyword id="KW-0732" evidence="4">Signal</keyword>
+<keyword id="KW-0812" evidence="3">Transmembrane</keyword>
+<keyword id="KW-1133" evidence="3">Transmembrane helix</keyword>
+<feature type="signal peptide" evidence="4">
 <location>
 <begin position="1"/>
 <end position="24"/>
 </location>
 </feature>
-<feature type="chain" id="PRO_5007701807" evidence="3">
+<feature type="chain" id="PRO_5007701807" evidence="4">
 <location>
 <begin position="25"/>
 <end position="246"/>
 </location>
 </feature>
-<feature type="transmembrane region" description="Helical" evidence="2">
+<feature type="transmembrane region" description="Helical" evidence="3">
 <location>
 <begin position="216"/>
 <end position="240"/>
 </location>
 </feature>
-<feature type="domain" description="Ig-like (immunoglobulin-like)" evidence="4">
+<feature type="domain" description="Ig-like (immunoglobulin-like)" evidence="5">
 <location>
 <begin position="117"/>
 <end position="195"/>
@@ -458,45 +471,50 @@
 </feature>
 <evidence key="1" type="ECO:0000213">
 <source>
-<dbReference type="PeptideAtlas" id="Q31611"/>
+<dbReference type="MaxQB" id="Q31611"/>
 </source>
 </evidence>
-<evidence key="2" type="ECO:0000256">
+<evidence key="2" type="ECO:0000213">
 <source>
-<dbReference type="SAM" id="Phobius"/>
+<dbReference type="PeptideAtlas" id="Q31611"/>
 </source>
 </evidence>
 <evidence key="3" type="ECO:0000256">
 <source>
+<dbReference type="SAM" id="Phobius"/>
+</source>
+</evidence>
+<evidence key="4" type="ECO:0000256">
+<source>
 <dbReference type="SAM" id="SignalP"/>
 </source>
 </evidence>
-<evidence key="4" type="ECO:0000259">
+<evidence key="5" type="ECO:0000259">
 <source>
 <dbReference type="PROSITE" id="PS50835"/>
 </source>
 </evidence>
-<evidence key="5" type="ECO:0000313">
+<evidence key="6" type="ECO:0000313">
 <source>
 <dbReference type="EMBL" id="AAA58653.1"/>
 </source>
 </evidence>
-<evidence key="6" type="ECO:0000313">
+<evidence key="7" type="ECO:0000313">
 <source>
 <dbReference type="EMBL" id="AAA59836.1"/>
 </source>
 </evidence>
-<evidence key="7" type="ECO:0000313">
+<evidence key="8" type="ECO:0000313">
 <source>
 <dbReference type="Ensembl" id="ENSP00000366014"/>
 </source>
 </evidence>
-<evidence key="8" type="ECO:0000313">
+<evidence key="9" type="ECO:0000313">
 <source>
 <dbReference type="Ensembl" id="ENSP00000373118"/>
 </source>
 </evidence>
-<evidence key="9" type="ECO:0000313">
+<evidence key="10" type="ECO:0000313">
 <source>
 <dbReference type="Proteomes" id="UP000005640"/>
 </source>

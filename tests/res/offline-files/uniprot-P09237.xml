@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1989-07-01" modified="2016-09-07" version="178">
+<entry dataset="Swiss-Prot" created="1989-07-01" modified="2017-02-15" version="182">
 <accession>P09237</accession>
 <accession>Q9BTK9</accession>
 <name>MMP7_HUMAN</name>
@@ -63,7 +63,7 @@
 <dbReference type="PubMed" id="2844164"/>
 <dbReference type="DOI" id="10.1042/bj2530187"/>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [MRNA&#x5d;</scope>
+<scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
 </reference>
 <reference key="2">
 <citation type="journal article" date="1992" name="Biochem. J." volume="285" first="899" last="905">
@@ -78,7 +78,7 @@
 <dbReference type="PubMed" id="1497627"/>
 <dbReference type="DOI" id="10.1042/bj2850899"/>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [MRNA&#x5d;</scope>
+<scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
 <source>
 <tissue>Kidney</tissue>
 </source>
@@ -96,7 +96,7 @@
 </authorList>
 <dbReference type="PubMed" id="8294454"/>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA&#x5d;</scope>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
 <source>
 <tissue>Placenta</tissue>
 </source>
@@ -107,7 +107,7 @@
 <consortium name="NIEHS SNPs program"/>
 </authorList>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA&#x5d;</scope>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
 <scope>VARIANTS HIS-77; ASP-137 AND LEU-241</scope>
 </reference>
 <reference key="5">
@@ -119,7 +119,7 @@
 <dbReference type="PubMed" id="15489334"/>
 <dbReference type="DOI" id="10.1101/gr.2596504"/>
 </citation>
-<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA&#x5d;</scope>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA]</scope>
 <source>
 <tissue>Colon</tissue>
 </source>
@@ -183,6 +183,15 @@
 <dbReference type="ChEBI" id="CHEBI:29105"/>
 </cofactor>
 <text>Binds 2 Zn(2+) ions per subunit.</text>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-6595344"/>
+<interactant intactId="EBI-1170392">
+<id>P17931</id>
+<label>LGALS3</label>
+</interactant>
+<organismsDiffer>false</organismsDiffer>
+<experiments>5</experiments>
 </comment>
 <comment type="subcellular location">
 <subcellularLocation>
@@ -281,6 +290,10 @@
 <property type="method" value="NMR"/>
 <property type="chains" value="A=20-267"/>
 </dbReference>
+<dbReference type="PDB" id="2MZI">
+<property type="method" value="NMR"/>
+<property type="chains" value="A=18-267"/>
+</dbReference>
 <dbReference type="PDB" id="2Y6C">
 <property type="method" value="X-ray"/>
 <property type="resolution" value="1.70"/>
@@ -297,17 +310,16 @@
 <dbReference type="PDBsum" id="2DDY"/>
 <dbReference type="PDBsum" id="2MZE"/>
 <dbReference type="PDBsum" id="2MZH"/>
+<dbReference type="PDBsum" id="2MZI"/>
 <dbReference type="PDBsum" id="2Y6C"/>
 <dbReference type="PDBsum" id="2Y6D"/>
 <dbReference type="ProteinModelPortal" id="P09237"/>
-<dbReference type="SMR" id="P09237">
-<property type="residue range" value="33-263"/>
-</dbReference>
+<dbReference type="SMR" id="P09237"/>
 <dbReference type="BioGrid" id="110459">
 <property type="interactions" value="23"/>
 </dbReference>
 <dbReference type="IntAct" id="P09237">
-<property type="interactions" value="2"/>
+<property type="interactions" value="3"/>
 </dbReference>
 <dbReference type="MINT" id="MINT-7709639"/>
 <dbReference type="STRING" id="9606.ENSP00000260227"/>
@@ -319,7 +331,7 @@
 <dbReference type="GuidetoPHARMACOLOGY" id="1631"/>
 <dbReference type="MEROPS" id="M10.008"/>
 <dbReference type="iPTMnet" id="P09237"/>
-<dbReference type="PhosphoSite" id="P09237"/>
+<dbReference type="PhosphoSitePlus" id="P09237"/>
 <dbReference type="BioMuta" id="MMP7"/>
 <dbReference type="DMDM" id="116861"/>
 <dbReference type="PaxDb" id="P09237"/>
@@ -336,6 +348,7 @@
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="CTD" id="4316"/>
+<dbReference type="DisGeNET" id="4316"/>
 <dbReference type="GeneCards" id="MMP7"/>
 <dbReference type="HGNC" id="HGNC:7174">
 <property type="gene designation" value="MMP7"/>
@@ -346,6 +359,7 @@
 <property type="type" value="gene"/>
 </dbReference>
 <dbReference type="neXtProt" id="NX_P09237"/>
+<dbReference type="OpenTargets" id="ENSG00000137673"/>
 <dbReference type="PharmGKB" id="PA30887"/>
 <dbReference type="eggNOG" id="KOG1565">
 <property type="taxonomic scope" value="Eukaryota"/>
@@ -359,7 +373,7 @@
 <dbReference type="InParanoid" id="P09237"/>
 <dbReference type="KO" id="K01397"/>
 <dbReference type="OMA" id="GAHGDSY"/>
-<dbReference type="OrthoDB" id="EOG091G03DP"/>
+<dbReference type="OrthoDB" id="EOG0937083G"/>
 <dbReference type="PhylomeDB" id="P09237"/>
 <dbReference type="TreeFam" id="TF315428"/>
 <dbReference type="BRENDA" id="3.4.24.23">
@@ -510,8 +524,8 @@
 <dbReference type="InterPro" id="IPR002477">
 <property type="entry name" value="Peptidoglycan-bd-like"/>
 </dbReference>
-<dbReference type="PANTHER" id="PTHR10201:SF143">
-<property type="entry name" value="PTHR10201:SF143"/>
+<dbReference type="PANTHER" id="PTHR10201:SF210">
+<property type="entry name" value="PTHR10201:SF210"/>
 <property type="match status" value="1"/>
 </dbReference>
 <dbReference type="Pfam" id="PF00413">

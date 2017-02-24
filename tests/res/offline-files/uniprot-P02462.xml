@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-09-07" version="185">
+<entry dataset="Swiss-Prot" created="1986-07-21" modified="2017-02-15" version="188">
 <accession>P02462</accession>
 <accession>A7E2W4</accession>
 <accession>B1AM70</accession>
@@ -1013,9 +1013,6 @@
 <comment type="similarity">
 <text evidence="2">Belongs to the type IV collagen family.</text>
 </comment>
-<comment type="similarity">
-<text evidence="2">Contains 1 collagen IV NC1 (C-terminal non-collagenous) domain.</text>
-</comment>
 <dbReference type="EMBL" id="M26576">
 <property type="protein sequence ID" value="AAA53098.1"/>
 <property type="molecule type" value="Genomic_DNA"/>
@@ -1329,9 +1326,7 @@
 </dbReference>
 <dbReference type="PDBsum" id="1LI1"/>
 <dbReference type="ProteinModelPortal" id="P02462"/>
-<dbReference type="SMR" id="P02462">
-<property type="residue range" value="1442-1669"/>
-</dbReference>
+<dbReference type="SMR" id="P02462"/>
 <dbReference type="BioGrid" id="107679">
 <property type="interactions" value="21"/>
 </dbReference>
@@ -1342,7 +1337,7 @@
 <dbReference type="STRING" id="9606.ENSP00000364979"/>
 <dbReference type="ChEMBL" id="CHEMBL2364188"/>
 <dbReference type="iPTMnet" id="P02462"/>
-<dbReference type="PhosphoSite" id="P02462"/>
+<dbReference type="PhosphoSitePlus" id="P02462"/>
 <dbReference type="SwissPalm" id="P02462"/>
 <dbReference type="BioMuta" id="COL4A1"/>
 <dbReference type="DMDM" id="125987809"/>
@@ -1362,6 +1357,7 @@
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="CTD" id="1282"/>
+<dbReference type="DisGeNET" id="1282"/>
 <dbReference type="GeneCards" id="COL4A1"/>
 <dbReference type="GeneReviews" id="COL4A1"/>
 <dbReference type="HGNC" id="HGNC:2202">
@@ -1417,7 +1413,7 @@
 <dbReference type="HOVERGEN" id="HBG004933"/>
 <dbReference type="InParanoid" id="P02462"/>
 <dbReference type="KO" id="K06237"/>
-<dbReference type="OrthoDB" id="EOG091G0613"/>
+<dbReference type="OrthoDB" id="EOG090B05UR"/>
 <dbReference type="PhylomeDB" id="P02462"/>
 <dbReference type="TreeFam" id="TF316865"/>
 <dbReference type="Reactome" id="R-HSA-1442490">
@@ -1499,6 +1495,11 @@
 <property type="evidence" value="ECO:0000303"/>
 <property type="project" value="UniProtKB"/>
 </dbReference>
+<dbReference type="GO" id="GO:0005615">
+<property type="term" value="C:extracellular space"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
 <dbReference type="GO" id="GO:0030023">
 <property type="term" value="F:extracellular matrix constituent conferring elasticity"/>
 <property type="evidence" value="ECO:0000305"/>
@@ -1529,6 +1530,11 @@
 <property type="evidence" value="ECO:0000315"/>
 <property type="project" value="BHF-UCL"/>
 </dbReference>
+<dbReference type="GO" id="GO:0001569">
+<property type="term" value="P:branching involved in blood vessel morphogenesis"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
 <dbReference type="GO" id="GO:0071230">
 <property type="term" value="P:cellular response to amino acid stimulus"/>
 <property type="evidence" value="ECO:0000501"/>
@@ -1538,6 +1544,11 @@
 <property type="term" value="P:collagen catabolic process"/>
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0038063">
+<property type="term" value="P:collagen-activated tyrosine kinase receptor signaling pathway"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
 </dbReference>
 <dbReference type="GO" id="GO:0030855">
 <property type="term" value="P:epithelial cell differentiation"/>
@@ -1554,11 +1565,6 @@
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="Ensembl"/>
 </dbReference>
-<dbReference type="GO" id="GO:0001569">
-<property type="term" value="P:patterning of blood vessels"/>
-<property type="evidence" value="ECO:0000315"/>
-<property type="project" value="BHF-UCL"/>
-</dbReference>
 <dbReference type="GO" id="GO:0061333">
 <property type="term" value="P:renal tubule morphogenesis"/>
 <property type="evidence" value="ECO:0000315"/>
@@ -1572,14 +1578,14 @@
 <dbReference type="Gene3D" id="2.170.240.10">
 <property type="match status" value="1"/>
 </dbReference>
-<dbReference type="InterPro" id="IPR016187">
-<property type="entry name" value="C-type_lectin_fold"/>
-</dbReference>
 <dbReference type="InterPro" id="IPR008160">
 <property type="entry name" value="Collagen"/>
 </dbReference>
 <dbReference type="InterPro" id="IPR001442">
 <property type="entry name" value="Collagen_VI_NC"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR016187">
+<property type="entry name" value="CTDL_fold"/>
 </dbReference>
 <dbReference type="Pfam" id="PF01413">
 <property type="entry name" value="C4"/>

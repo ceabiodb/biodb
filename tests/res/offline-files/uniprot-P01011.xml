@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-09-07" version="203">
+<entry dataset="Swiss-Prot" created="1986-07-21" modified="2017-02-15" version="207">
 <accession>P01011</accession>
 <accession>B3KVQ7</accession>
 <accession>Q13703</accession>
@@ -936,9 +936,7 @@
 <dbReference type="PDBsum" id="3DLW"/>
 <dbReference type="PDBsum" id="4CAA"/>
 <dbReference type="ProteinModelPortal" id="P01011"/>
-<dbReference type="SMR" id="P01011">
-<property type="residue range" value="48-422"/>
-</dbReference>
+<dbReference type="SMR" id="P01011"/>
 <dbReference type="BioGrid" id="106530">
 <property type="interactions" value="22"/>
 </dbReference>
@@ -949,7 +947,7 @@
 <dbReference type="ChEMBL" id="CHEMBL5960"/>
 <dbReference type="MEROPS" id="I04.002"/>
 <dbReference type="iPTMnet" id="P01011"/>
-<dbReference type="PhosphoSite" id="P01011"/>
+<dbReference type="PhosphoSitePlus" id="P01011"/>
 <dbReference type="UniCarbKB" id="P01011"/>
 <dbReference type="BioMuta" id="SERPINA3"/>
 <dbReference type="DMDM" id="112874"/>
@@ -983,6 +981,7 @@
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="CTD" id="12"/>
+<dbReference type="DisGeNET" id="12"/>
 <dbReference type="GeneCards" id="SERPINA3"/>
 <dbReference type="H-InvDB" id="HIX0079611"/>
 <dbReference type="HGNC" id="HGNC:16">
@@ -996,6 +995,8 @@
 <property type="type" value="gene"/>
 </dbReference>
 <dbReference type="neXtProt" id="NX_P01011"/>
+<dbReference type="OpenTargets" id="ENSG00000196136"/>
+<dbReference type="OpenTargets" id="ENSG00000273259"/>
 <dbReference type="Orphanet" id="93594">
 <property type="disease" value="Alpha-1-antichymotrypsin deficiency"/>
 </dbReference>
@@ -1011,11 +1012,14 @@
 <dbReference type="InParanoid" id="P01011"/>
 <dbReference type="KO" id="K04525"/>
 <dbReference type="OMA" id="FLMIIVP"/>
-<dbReference type="OrthoDB" id="EOG091G0ION"/>
+<dbReference type="OrthoDB" id="EOG090B06DD"/>
 <dbReference type="PhylomeDB" id="P01011"/>
 <dbReference type="TreeFam" id="TF343201"/>
 <dbReference type="Reactome" id="R-HSA-114608">
 <property type="pathway name" value="Platelet degranulation"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-6798695">
+<property type="pathway name" value="Neutrophil degranulation"/>
 </dbReference>
 <dbReference type="ChiTaRS" id="SERPINA3">
 <property type="organism name" value="human"/>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="2003-11-21" modified="2016-09-07" version="127">
+<entry dataset="Swiss-Prot" created="2003-11-21" modified="2017-02-15" version="131">
 <accession>P60022</accession>
 <accession>Q09753</accession>
 <name>DEFB1_HUMAN</name>
@@ -358,9 +358,7 @@
 <dbReference type="PDBsum" id="2NLS"/>
 <dbReference type="PDBsum" id="2PLZ"/>
 <dbReference type="ProteinModelPortal" id="P60022"/>
-<dbReference type="SMR" id="P60022">
-<property type="residue range" value="33-68"/>
-</dbReference>
+<dbReference type="SMR" id="P60022"/>
 <dbReference type="BioGrid" id="108036">
 <property type="interactions" value="9"/>
 </dbReference>
@@ -388,15 +386,16 @@
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="CTD" id="1672"/>
+<dbReference type="DisGeNET" id="1672"/>
 <dbReference type="GeneCards" id="DEFB1"/>
 <dbReference type="HGNC" id="HGNC:2766">
 <property type="gene designation" value="DEFB1"/>
 </dbReference>
-<dbReference type="HPA" id="CAB013538"/>
 <dbReference type="MIM" id="602056">
 <property type="type" value="gene"/>
 </dbReference>
 <dbReference type="neXtProt" id="NX_P60022"/>
+<dbReference type="OpenTargets" id="ENSG00000164825"/>
 <dbReference type="PharmGKB" id="PA27243"/>
 <dbReference type="eggNOG" id="ENOG410J7H1">
 <property type="taxonomic scope" value="Eukaryota"/>
@@ -409,7 +408,7 @@
 <dbReference type="HOVERGEN" id="HBG084156"/>
 <dbReference type="InParanoid" id="P60022"/>
 <dbReference type="OMA" id="KIQGTCY"/>
-<dbReference type="OrthoDB" id="EOG091G18L0"/>
+<dbReference type="OrthoDB" id="EOG090A0GMZ"/>
 <dbReference type="PhylomeDB" id="P60022"/>
 <dbReference type="Reactome" id="R-HSA-1461957">
 <property type="pathway name" value="Beta defensins"/>
@@ -521,7 +520,7 @@
 <property type="project" value="UniProtKB"/>
 </dbReference>
 <dbReference type="GO" id="GO:0060474">
-<property type="term" value="P:positive regulation of sperm motility involved in capacitation"/>
+<property type="term" value="P:positive regulation of flagellated sperm motility involved in capacitation"/>
 <property type="evidence" value="ECO:0000315"/>
 <property type="project" value="UniProtKB"/>
 </dbReference>

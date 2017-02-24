@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1986-07-21" modified="2016-09-07" version="189">
+<entry dataset="Swiss-Prot" created="1986-07-21" modified="2017-02-15" version="193">
 <accession>P02461</accession>
 <accession>D2JYH5</accession>
 <accession>D3DPH4</accession>
@@ -1330,12 +1330,6 @@
 <comment type="similarity">
 <text evidence="5">Belongs to the fibrillar collagen family.</text>
 </comment>
-<comment type="similarity">
-<text evidence="5">Contains 1 fibrillar collagen NC1 domain.</text>
-</comment>
-<comment type="similarity">
-<text evidence="4">Contains 1 VWFC domain.</text>
-</comment>
 <comment type="online information" name="COL3A1">
 <link uri="http://www.le.ac.uk/genetics/collagen/col3a1.html"/>
 <text>Collagen type III alpha-1 chain mutations</text>
@@ -1509,15 +1503,13 @@
 <dbReference type="PDBsum" id="4AK3"/>
 <dbReference type="PDBsum" id="4GYX"/>
 <dbReference type="ProteinModelPortal" id="P02461"/>
-<dbReference type="SMR" id="P02461">
-<property type="residue range" value="1249-1466"/>
-</dbReference>
+<dbReference type="SMR" id="P02461"/>
 <dbReference type="BioGrid" id="107678">
 <property type="interactions" value="9"/>
 </dbReference>
 <dbReference type="DIP" id="DIP-57177N"/>
 <dbReference type="IntAct" id="P02461">
-<property type="interactions" value="20"/>
+<property type="interactions" value="21"/>
 </dbReference>
 <dbReference type="MINT" id="MINT-7299332"/>
 <dbReference type="STRING" id="9606.ENSP00000304408"/>
@@ -1526,7 +1518,7 @@
 <property type="generic name" value="Collagenase clostridium histolyticum"/>
 </dbReference>
 <dbReference type="iPTMnet" id="P02461"/>
-<dbReference type="PhosphoSite" id="P02461"/>
+<dbReference type="PhosphoSitePlus" id="P02461"/>
 <dbReference type="BioMuta" id="COL3A1"/>
 <dbReference type="DMDM" id="124056490"/>
 <dbReference type="PaxDb" id="P02461"/>
@@ -1549,12 +1541,15 @@
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="CTD" id="1281"/>
+<dbReference type="DisGeNET" id="1281"/>
 <dbReference type="GeneCards" id="COL3A1"/>
+<dbReference type="GeneCards" id="MIR3606"/>
 <dbReference type="GeneReviews" id="COL3A1"/>
 <dbReference type="HGNC" id="HGNC:2201">
 <property type="gene designation" value="COL3A1"/>
 </dbReference>
 <dbReference type="HPA" id="CAB016766"/>
+<dbReference type="HPA" id="CAB059993"/>
 <dbReference type="HPA" id="HPA007583"/>
 <dbReference type="MalaCards" id="COL3A1"/>
 <dbReference type="MIM" id="100070">
@@ -1570,6 +1565,7 @@
 <property type="type" value="phenotype"/>
 </dbReference>
 <dbReference type="neXtProt" id="NX_P02461"/>
+<dbReference type="OpenTargets" id="ENSG00000168542"/>
 <dbReference type="Orphanet" id="2500">
 <property type="disease" value="Acrogeria"/>
 </dbReference>
@@ -1594,7 +1590,7 @@
 <dbReference type="InParanoid" id="P02461"/>
 <dbReference type="KO" id="K19720"/>
 <dbReference type="OMA" id="AEKKHVW"/>
-<dbReference type="OrthoDB" id="EOG091G03LV"/>
+<dbReference type="OrthoDB" id="EOG090B07BN"/>
 <dbReference type="PhylomeDB" id="P02461"/>
 <dbReference type="TreeFam" id="TF344135"/>
 <dbReference type="Reactome" id="R-HSA-1442490">
@@ -1632,6 +1628,9 @@
 </dbReference>
 <dbReference type="Reactome" id="R-HSA-419037">
 <property type="pathway name" value="NCAM1 interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-8874081">
+<property type="pathway name" value="MET activates PTK2 signaling"/>
 </dbReference>
 <dbReference type="ChiTaRS" id="COL3A1">
 <property type="organism name" value="human"/>
@@ -2043,56 +2042,56 @@
 <end position="1149"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In AAA." id="VAR_001767">
+<feature type="sequence variant" description="In AAA; dbSNP:rs111391222." id="VAR_001767">
 <original>L</original>
 <variation>F</variation>
 <location>
 <position position="169"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001768" evidence="44 49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912926." id="VAR_001768" evidence="44 49">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="183"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011095">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779420." id="VAR_011095">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="183"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011096">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912926." id="VAR_011096">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="183"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011097">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779710." id="VAR_011097">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="192"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001769" evidence="44 49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779436." id="VAR_001769" evidence="44 49">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="201"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011098" evidence="8">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779626." id="VAR_011098" evidence="8">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="204"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011099">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779711." id="VAR_011099">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2106,77 +2105,77 @@
 <position position="210"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011101">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779624." id="VAR_011101">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="219"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011102">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779533." id="VAR_011102">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="225"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001770" evidence="44 49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779555." id="VAR_001770" evidence="44 49">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="228"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011103">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779468." id="VAR_011103">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="240"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011104">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779629." id="VAR_011104">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="243"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011105">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912927." id="VAR_011105">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="249"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011106">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912927." id="VAR_011106">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="249"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011107">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779464." id="VAR_011107">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="252"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011108">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779705." id="VAR_011108">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="252"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011109">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779464." id="VAR_011109">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="252"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011110">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779605." id="VAR_011110">
 <original>G</original>
 <variation>V</variation>
 <location>
@@ -2190,7 +2189,7 @@
 <position position="264"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011112">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779427." id="VAR_011112">
 <original>G</original>
 <variation>V</variation>
 <location>
@@ -2204,14 +2203,14 @@
 <position position="297"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In fibromuscular dysplasia and aortic aneurysm." id="VAR_001771" evidence="39">
+<feature type="sequence variant" description="In fibromuscular dysplasia and aortic aneurysm; dbSNP:rs121912919." id="VAR_001771" evidence="39">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="303"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011113">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779588." id="VAR_011113">
 <original>G</original>
 <variation>V</variation>
 <location>
@@ -2225,42 +2224,42 @@
 <position position="327"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011115">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779419." id="VAR_011115">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="345"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011116">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779637." id="VAR_011116">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="417"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In a colorectal cancer sample; somatic mutation." id="VAR_035738" evidence="18">
+<feature type="sequence variant" description="In a colorectal cancer sample; somatic mutation; dbSNP:rs587779692." id="VAR_035738" evidence="18">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="420"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011117">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779489." id="VAR_011117">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="444"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011118">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779476." id="VAR_011118">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="489"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011119">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779523." id="VAR_011119">
 <original>G</original>
 <variation>R</variation>
 <location>
@@ -2281,21 +2280,21 @@
 <position position="534"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001772" evidence="44 49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779584." id="VAR_001772" evidence="44 49">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="540"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011121">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779679." id="VAR_011121">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="549"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011122">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912928." id="VAR_011122">
 <original>G</original>
 <variation>E</variation>
 <location>
@@ -2309,14 +2308,14 @@
 <position position="567"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001774" evidence="43">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912923." id="VAR_001774" evidence="43">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="582"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011123">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779691." id="VAR_011123">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2337,28 +2336,28 @@
 <position position="635"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011124">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779522." id="VAR_011124">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="636"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011125">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779699." id="VAR_011125">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="657"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011126">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779493." id="VAR_011126">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="660"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001777" evidence="40">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912921." id="VAR_001777" evidence="40">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2393,35 +2392,35 @@
 <position position="698"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011128">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779668." id="VAR_011128">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="699"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001779" evidence="46 47">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779638." id="VAR_001779" evidence="46 47">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="726"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011129">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912925." id="VAR_011129">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="738"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011130">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779615." id="VAR_011130">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="738"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011131">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779697." id="VAR_011131">
 <original>G</original>
 <variation>V</variation>
 <location>
@@ -2442,14 +2441,14 @@
 <position position="762"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In AAA." id="VAR_001782" evidence="22 24">
+<feature type="sequence variant" description="In AAA; dbSNP:rs113485686." id="VAR_001782" evidence="22 24">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="786"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS3." id="VAR_001783" evidence="33">
+<feature type="sequence variant" description="In EDS3; dbSNP:rs121912920." id="VAR_001783" evidence="33">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2463,7 +2462,7 @@
 <position position="828"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011132">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779486." id="VAR_011132">
 <original>G</original>
 <variation>W</variation>
 <location>
@@ -2476,35 +2475,35 @@
 <end position="838"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011133">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779690." id="VAR_011133">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="852"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011134">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779645." id="VAR_011134">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="879"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011135">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779622." id="VAR_011135">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="882"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011136">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779599." id="VAR_011136">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="900"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011137">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779505." id="VAR_011137">
 <original>G</original>
 <variation>E</variation>
 <location>
@@ -2518,28 +2517,28 @@
 <position position="909"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011138">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779483." id="VAR_011138">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="909"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011139">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779662." id="VAR_011139">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="918"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011140">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779471." id="VAR_011140">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="924"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001786" evidence="44 49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779566." id="VAR_001786" evidence="44 49">
 <original>G</original>
 <variation>R</variation>
 <location>
@@ -2553,42 +2552,42 @@
 <position position="936"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001788" evidence="41">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs112978464." id="VAR_001788" evidence="41">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="939"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011141">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779517." id="VAR_011141">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="942"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4; severe variant." id="VAR_001789" evidence="25">
+<feature type="sequence variant" description="In EDS4; severe variant; dbSNP:rs121912913." id="VAR_001789" evidence="25">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="957"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4; severe variant." id="VAR_001790" evidence="32">
+<feature type="sequence variant" description="In EDS4; severe variant; dbSNP:rs121912922." id="VAR_001790" evidence="32">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="960"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011142">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779571." id="VAR_011142">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="966"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011143">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779559." id="VAR_011143">
 <original>G</original>
 <variation>A</variation>
 <location>
@@ -2602,42 +2601,42 @@
 <position position="984"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001791" evidence="49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779576." id="VAR_001791" evidence="49">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="996"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011145">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779548." id="VAR_011145">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="999"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011146">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779552." id="VAR_011146">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="1011"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001792" evidence="13">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912916." id="VAR_001792" evidence="13">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="1014"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011147">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779428." id="VAR_011147">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1032"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011148">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779704." id="VAR_011148">
 <original>G</original>
 <variation>C</variation>
 <location>
@@ -2651,35 +2650,35 @@
 <position position="1044"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4; mild variant." id="VAR_001793" evidence="28">
+<feature type="sequence variant" description="In EDS4; mild variant; dbSNP:rs121912914." id="VAR_001793" evidence="28">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="1050"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011150" evidence="12">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912914." id="VAR_011150" evidence="12">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1050"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001794" evidence="49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779709." id="VAR_001794" evidence="49">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1071"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001795" evidence="20">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912915." id="VAR_001795" evidence="20">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1077"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011151">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779672." id="VAR_011151">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2693,14 +2692,14 @@
 <position position="1098"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011153">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779614." id="VAR_011153">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1098"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001796" evidence="45">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912924." id="VAR_001796" evidence="45">
 <original>G</original>
 <variation>E</variation>
 <location>
@@ -2714,21 +2713,21 @@
 <position position="1104"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011154">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779473." id="VAR_011154">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1161"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011155">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779431." id="VAR_011155">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="1164"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011156">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779553." id="VAR_011156">
 <original>G</original>
 <variation>R</variation>
 <location>
@@ -2742,35 +2741,35 @@
 <position position="1164"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001799" evidence="48">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779578." id="VAR_001799" evidence="48">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1167"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001800" evidence="42 48">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779465." id="VAR_001800" evidence="42 48">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="1170"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011157">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779465." id="VAR_011157">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1170"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001801" evidence="8 14 48">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912918." id="VAR_001801" evidence="8 14 48">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="1173"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4; Gottron type acrogeria." id="VAR_011158" evidence="7">
+<feature type="sequence variant" description="In EDS4; Gottron type acrogeria; dbSNP:rs587779521." id="VAR_011158" evidence="7">
 <original>G</original>
 <variation>R</variation>
 <location>
@@ -2784,42 +2783,42 @@
 <position position="1176"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_011159">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779574." id="VAR_011159">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="1179"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001803" evidence="49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs111505097." id="VAR_001803" evidence="49">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="1182"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4; severe variant." id="VAR_001804" evidence="16">
+<feature type="sequence variant" description="In EDS4; severe variant; dbSNP:rs121912917." id="VAR_001804" evidence="16">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="1185"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001805" evidence="49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs121912917." id="VAR_001805" evidence="49">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="1185"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4; severe variant." id="VAR_001806" evidence="36 49">
+<feature type="sequence variant" description="In EDS4; severe variant; dbSNP:rs112456072." id="VAR_001806" evidence="36 49">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="1188"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In EDS4." id="VAR_001807" evidence="49">
+<feature type="sequence variant" description="In EDS4; dbSNP:rs587779504." id="VAR_001807" evidence="49">
 <original>G</original>
 <variation>R</variation>
 <location>
@@ -2840,7 +2839,7 @@
 <position position="1353"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In a colorectal cancer sample; somatic mutation." id="VAR_035739" evidence="18">
+<feature type="sequence variant" description="In a colorectal cancer sample; somatic mutation; dbSNP:rs747324731." id="VAR_035739" evidence="18">
 <original>R</original>
 <variation>C</variation>
 <location>

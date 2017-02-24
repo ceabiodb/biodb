@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1988-08-01" modified="2016-09-07" version="169">
+<entry dataset="Swiss-Prot" created="1988-08-01" modified="2017-02-15" version="173">
 <accession>P07911</accession>
 <accession>B3KP48</accession>
 <accession>B3KRN9</accession>
@@ -914,23 +914,49 @@
 <scope>CHARACTERIZATION OF VARIANTS HNFJ1 SER-150</scope>
 <scope>CHARACTERIZATION OF VARIANT ARG-155</scope>
 </reference>
+<reference key="30">
+<citation type="journal article" date="2016" name="Clin. Biochem.">
+<title>A new missense mutation in UMOD gene leads to severely reduced serum uromodulin concentrations - A tool for the diagnosis of uromodulin-associated kidney disease.</title>
+<authorList>
+<person name="Satanovskij R."/>
+<person name="Bader A."/>
+<person name="Block M."/>
+<person name="Herbst V."/>
+<person name="Schlumberger W."/>
+<person name="Haack T."/>
+<person name="Nockher W.A."/>
+<person name="Heemann U."/>
+<person name="Renders L."/>
+<person name="Schmaderer C."/>
+<person name="Angermann S."/>
+<person name="Wen M."/>
+<person name="Meitinger T."/>
+<person name="Scherberich J."/>
+<person name="Steubl D."/>
+</authorList>
+<dbReference type="PubMed" id="27729211"/>
+<dbReference type="DOI" id="10.1016/j.clinbiochem.2016.10.003"/>
+</citation>
+<scope>VARIANT MCKD2 GLY-120</scope>
+<scope>CHARACTERIZATION OF VARIANT MCKD2 GLY-120</scope>
+</reference>
 <comment type="function">
-<text evidence="19 30 34">Uromodulin: Functions in biogenesis and organization of the apical membrane of epithelial cells of the thick ascending limb of Henle's loop (TALH), where it promotes formation of complex filamentous gel-like structure that may play a role in the water barrier permeability (Probable). May serve as a receptor for binding and endocytosis of cytokines (IL-1, IL-2) and TNF (PubMed:3498215). Facilitates neutrophil migration across renal epithelia (PubMed:20798515).</text>
+<text evidence="19 31 35">Uromodulin: Functions in biogenesis and organization of the apical membrane of epithelial cells of the thick ascending limb of Henle's loop (TALH), where it promotes formation of complex filamentous gel-like structure that may play a role in the water barrier permeability (Probable). May serve as a receptor for binding and endocytosis of cytokines (IL-1, IL-2) and TNF (PubMed:3498215). Facilitates neutrophil migration across renal epithelia (PubMed:20798515).</text>
 </comment>
 <comment type="function">
-<text evidence="2 34">Uromodulin, secreted form: In the urine, may contribute to colloid osmotic pressure, retards passage of positively charged electrolytes, prevents urinary tract infection and inhibits formation of liquid containing supersaturated salts and subsequent formation of salt crystals.</text>
+<text evidence="2 35">Uromodulin, secreted form: In the urine, may contribute to colloid osmotic pressure, retards passage of positively charged electrolytes, prevents urinary tract infection and inhibits formation of liquid containing supersaturated salts and subsequent formation of salt crystals.</text>
 </comment>
 <comment type="subunit">
 <text evidence="17 27 28">Uromodulin, secreted form: homodimer that then polymerizes into long filaments.</text>
 </comment>
 <comment type="subcellular location">
 <subcellularLocation>
-<location evidence="23 25 27 31">Apical cell membrane</location>
+<location evidence="23 25 27 32">Apical cell membrane</location>
 <topology evidence="22">Lipid-anchor</topology>
 <topology evidence="22">GPI-anchor</topology>
 </subcellularLocation>
 <subcellularLocation>
-<location evidence="31">Basolateral cell membrane</location>
+<location evidence="32">Basolateral cell membrane</location>
 <topology evidence="22">Lipid-anchor</topology>
 <topology evidence="22">GPI-anchor</topology>
 </subcellularLocation>
@@ -938,14 +964,14 @@
 <location evidence="18">Cell projection</location>
 <location evidence="18">Cilium membrane</location>
 </subcellularLocation>
-<text evidence="16 18 28 29 31">Only a small fraction sorts to the basolateral pole of tubular epithelial cells compared to apical localization (PubMed:22776760). Secreted into urine after cleavage (PubMed:18375198, PubMed:26811476). Colocalizes with NPHP1 and KIF3A (PubMed:20172860).</text>
+<text evidence="16 18 28 30 32">Only a small fraction sorts to the basolateral pole of tubular epithelial cells compared to apical localization (PubMed:22776760). Secreted into urine after cleavage (PubMed:18375198, PubMed:26811476). Colocalizes with NPHP1 and KIF3A (PubMed:20172860).</text>
 </comment>
 <comment type="subcellular location">
 <molecule>Uromodulin, secreted form</molecule>
 <subcellularLocation>
-<location evidence="16 17 27 28 29 31">Secreted</location>
+<location evidence="16 17 27 28 30 32">Secreted</location>
 </subcellularLocation>
-<text evidence="16 28 29 31">Detected in urine.</text>
+<text evidence="16 28 30 32">Detected in urine.</text>
 </comment>
 <comment type="alternative products">
 <event type="alternative splicing"/>
@@ -978,7 +1004,7 @@
 </isoform>
 </comment>
 <comment type="tissue specificity">
-<text evidence="16 23 25 29 31">Expressed in the tubular cells of the kidney. Most abundant protein in normal urine (at protein level). Synthesized exclusively in the kidney. Expressed exclusively by epithelial cells of the thick ascending limb of Henle's loop (TALH) and of distal convoluted tubule lumen.</text>
+<text evidence="16 23 25 30 32">Expressed in the tubular cells of the kidney. Most abundant protein in normal urine (at protein level). Synthesized exclusively in the kidney. Expressed exclusively by epithelial cells of the thick ascending limb of Henle's loop (TALH) and of distal convoluted tubule lumen.</text>
 </comment>
 <comment type="domain">
 <text evidence="28">The ZP domain mediates polymerization, leading to the formation of long filaments.</text>
@@ -989,7 +1015,7 @@
 <comment type="PTM">
 <text evidence="16 17 27">Proteolytically cleaved at a conserved C-terminal proteolytic cleavage site to generate the secreted form found in urine (PubMed:18375198, PubMed:19005207). This cleavage is catalyzed by HPN (PubMed:26673890).</text>
 </comment>
-<comment type="disease" evidence="6 7 8 10 11 12 13 14 15 20 23 24 25">
+<comment type="disease" evidence="6 7 8 10 11 12 13 14 15 20 23 24 25 26">
 <disease id="DI-00493">
 <name>Familial juvenile hyperuricemic nephropathy 1</name>
 <acronym>HNFJ1</acronym>
@@ -998,7 +1024,7 @@
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
 </comment>
-<comment type="disease" evidence="6 9 15 26">
+<comment type="disease" evidence="6 9 11 15 26 29">
 <disease id="DI-00705">
 <name>Medullary cystic kidney disease 2</name>
 <acronym>MCKD2</acronym>
@@ -1015,12 +1041,6 @@
 <dbReference type="MIM" id="609886"/>
 </disease>
 <text>The disease is caused by mutations affecting the gene represented in this entry.</text>
-</comment>
-<comment type="similarity">
-<text evidence="4">Contains 3 EGF-like domains.</text>
-</comment>
-<comment type="similarity">
-<text evidence="5">Contains 1 ZP domain.</text>
 </comment>
 <dbReference type="EMBL" id="M15881">
 <property type="protein sequence ID" value="AAA36798.1"/>
@@ -1113,9 +1133,7 @@
 </dbReference>
 <dbReference type="PDBsum" id="4WRN"/>
 <dbReference type="ProteinModelPortal" id="P07911"/>
-<dbReference type="SMR" id="P07911">
-<property type="residue range" value="29-174"/>
-</dbReference>
+<dbReference type="SMR" id="P07911"/>
 <dbReference type="BioGrid" id="113216">
 <property type="interactions" value="1"/>
 </dbReference>
@@ -1123,7 +1141,6 @@
 <property type="interactions" value="2"/>
 </dbReference>
 <dbReference type="STRING" id="9606.ENSP00000306279"/>
-<dbReference type="PhosphoSite" id="P07911"/>
 <dbReference type="UniCarbKB" id="P07911"/>
 <dbReference type="BioMuta" id="UMOD"/>
 <dbReference type="DMDM" id="137116"/>
@@ -1152,6 +1169,7 @@
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="CTD" id="7369"/>
+<dbReference type="DisGeNET" id="7369"/>
 <dbReference type="GeneCards" id="UMOD"/>
 <dbReference type="GeneReviews" id="UMOD"/>
 <dbReference type="H-InvDB" id="HIX0012858"/>
@@ -1175,6 +1193,7 @@
 <property type="type" value="phenotype"/>
 </dbReference>
 <dbReference type="neXtProt" id="NX_P07911"/>
+<dbReference type="OpenTargets" id="ENSG00000169344"/>
 <dbReference type="Orphanet" id="34149">
 <property type="disease" value="Autosomal dominant medullary cystic kidney disease with or without hyperuricemia"/>
 </dbReference>
@@ -1195,6 +1214,9 @@
 <dbReference type="KO" id="K18274"/>
 <dbReference type="PhylomeDB" id="P07911"/>
 <dbReference type="TreeFam" id="TF330284"/>
+<dbReference type="Reactome" id="R-HSA-446203">
+<property type="pathway name" value="Asparagine N-linked glycosylation"/>
+</dbReference>
 <dbReference type="GeneWiki" id="Tamm%E2%80%93Horsfall_protein"/>
 <dbReference type="GenomeRNAi" id="7369"/>
 <dbReference type="PRO" id="PR:P07911"/>
@@ -1229,40 +1251,20 @@
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="UniProtKB-SubCell"/>
 </dbReference>
-<dbReference type="GO" id="GO:0031410">
-<property type="term" value="C:cytoplasmic vesicle"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
+<dbReference type="GO" id="GO:0005929">
+<property type="term" value="C:cilium"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
 </dbReference>
 <dbReference type="GO" id="GO:0070062">
 <property type="term" value="C:extracellular exosome"/>
 <property type="evidence" value="ECO:0000314"/>
 <property type="project" value="UniProtKB"/>
 </dbReference>
-<dbReference type="GO" id="GO:0005615">
-<property type="term" value="C:extracellular space"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
 <dbReference type="GO" id="GO:0019898">
 <property type="term" value="C:extrinsic component of membrane"/>
 <property type="evidence" value="ECO:0000304"/>
 <property type="project" value="ProtInc"/>
-</dbReference>
-<dbReference type="GO" id="GO:0005794">
-<property type="term" value="C:Golgi apparatus"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
-<dbReference type="GO" id="GO:0045121">
-<property type="term" value="C:membrane raft"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
-<dbReference type="GO" id="GO:0072372">
-<property type="term" value="C:primary cilium"/>
-<property type="evidence" value="ECO:0000314"/>
-<property type="project" value="UniProtKB"/>
 </dbReference>
 <dbReference type="GO" id="GO:0000922">
 <property type="term" value="C:spindle pole"/>
@@ -1331,11 +1333,6 @@
 </dbReference>
 <dbReference type="GO" id="GO:2000021">
 <property type="term" value="P:regulation of ion homeostasis"/>
-<property type="evidence" value="ECO:0000501"/>
-<property type="project" value="Ensembl"/>
-</dbReference>
-<dbReference type="GO" id="GO:0010033">
-<property type="term" value="P:response to organic substance"/>
 <property type="evidence" value="ECO:0000501"/>
 <property type="project" value="Ensembl"/>
 </dbReference>
@@ -1663,26 +1660,26 @@
 <end position="578"/>
 </location>
 </feature>
-<feature type="splice variant" description="In isoform 5." id="VSP_054828" evidence="32">
+<feature type="splice variant" description="In isoform 5." id="VSP_054828" evidence="33">
 <original>A</original>
 <variation>ARTKYNCPARWSWRTPQRGGDTEQGPDEDFTSQG</variation>
 <location>
 <position position="29"/>
 </location>
 </feature>
-<feature type="splice variant" description="In isoform 2." id="VSP_017565" evidence="32">
+<feature type="splice variant" description="In isoform 2." id="VSP_017565" evidence="33">
 <location>
 <begin position="67"/>
 <end position="199"/>
 </location>
 </feature>
-<feature type="splice variant" description="In isoform 4." id="VSP_040973" evidence="32">
+<feature type="splice variant" description="In isoform 4." id="VSP_040973" evidence="33">
 <location>
 <begin position="133"/>
 <end position="154"/>
 </location>
 </feature>
-<feature type="splice variant" description="In isoform 3." id="VSP_017566" evidence="33">
+<feature type="splice variant" description="In isoform 3." id="VSP_017566" evidence="34">
 <original>FVGQGGARMAETCVPVLRCNTAAPMWLNGT</original>
 <variation>P</variation>
 <location>
@@ -1738,6 +1735,13 @@
 <variation>R</variation>
 <location>
 <position position="112"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In MCKD2; serum levels severely reduced." id="VAR_077514" evidence="29">
+<original>C</original>
+<variation>G</variation>
+<location>
+<position position="120"/>
 </location>
 </feature>
 <feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917769." id="VAR_025952" evidence="7 10">
@@ -2031,21 +2035,21 @@
 <end position="607"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="34">
+<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="35">
 <original>T</original>
 <variation>A</variation>
 <location>
 <position position="288"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="34">
+<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="35">
 <original>M</original>
 <variation>I</variation>
 <location>
 <position position="503"/>
 </location>
 </feature>
-<feature type="sequence conflict" description="In Ref. 2; AAA36799." ref="2" evidence="34">
+<feature type="sequence conflict" description="In Ref. 2; AAA36799." ref="2" evidence="35">
 <original>H</original>
 <variation>D</variation>
 <location>
@@ -2382,30 +2386,35 @@
 </evidence>
 <evidence key="29" type="ECO:0000269">
 <source>
-<dbReference type="PubMed" id="3453112"/>
+<dbReference type="PubMed" id="27729211"/>
 </source>
 </evidence>
 <evidence key="30" type="ECO:0000269">
 <source>
-<dbReference type="PubMed" id="3498215"/>
+<dbReference type="PubMed" id="3453112"/>
 </source>
 </evidence>
 <evidence key="31" type="ECO:0000269">
 <source>
-<dbReference type="PubMed" id="7028707"/>
+<dbReference type="PubMed" id="3498215"/>
 </source>
 </evidence>
-<evidence key="32" type="ECO:0000303">
+<evidence key="32" type="ECO:0000269">
 <source>
-<dbReference type="PubMed" id="14702039"/>
+<dbReference type="PubMed" id="7028707"/>
 </source>
 </evidence>
 <evidence key="33" type="ECO:0000303">
 <source>
+<dbReference type="PubMed" id="14702039"/>
+</source>
+</evidence>
+<evidence key="34" type="ECO:0000303">
+<source>
 <dbReference type="PubMed" id="15489334"/>
 </source>
 </evidence>
-<evidence key="34" type="ECO:0000305"/>
+<evidence key="35" type="ECO:0000305"/>
 <sequence length="640" mass="69761" checksum="D26A07A76353AE48" modified="1988-08-01" version="1" precursor="true">
 MGQPSLTWMLMVVVASWFITTAATDTSEARWCSECHSNATCTEDEAVTTCTCQEGFTGDG
 LTCVDLDECAIPGAHNCSANSSCVNTPGSFSCVCPEGFRLSPGLGCTDVDECAEPGLSHC

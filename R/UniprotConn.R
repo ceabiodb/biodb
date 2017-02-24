@@ -33,3 +33,11 @@ UniprotConn$methods( getEntryContent = function(ids) {
 UniprotConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createUniprotEntryFromXml(.self$getBiodb(), content, drop = drop))
 })
+
+# Get entry ids {{{1
+################################################################
+
+UniprotConn$methods( getEntryIds = function(max.results = NA_integer_) {
+	.self$message(MSG.CAUTION, "No method implemented for computing list of IDs.")
+	return(NULL)
+})

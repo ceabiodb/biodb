@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="Swiss-Prot" created="1988-08-01" modified="2016-09-07" version="194">
+<entry dataset="Swiss-Prot" created="1988-08-01" modified="2017-02-15" version="199">
 <accession>P08123</accession>
 <accession>P02464</accession>
 <accession>Q13897</accession>
@@ -1161,7 +1161,7 @@
 <label>SGTA</label>
 </interactant>
 <organismsDiffer>false</organismsDiffer>
-<experiments>3</experiments>
+<experiments>5</experiments>
 </comment>
 <comment type="interaction">
 <interactant intactId="EBI-983038"/>
@@ -1170,7 +1170,7 @@
 <label>UBQLN1</label>
 </interactant>
 <organismsDiffer>false</organismsDiffer>
-<experiments>3</experiments>
+<experiments>5</experiments>
 </comment>
 <comment type="interaction">
 <interactant intactId="EBI-983038"/>
@@ -1256,9 +1256,6 @@
 </comment>
 <comment type="similarity">
 <text evidence="5">Belongs to the fibrillar collagen family.</text>
-</comment>
-<comment type="similarity">
-<text evidence="5">Contains 1 fibrillar collagen NC1 domain.</text>
 </comment>
 <comment type="online information" name="Atlas of Genetics and Cytogenetics in Oncology and Haematology">
 <link uri="http://atlasgeneticsoncology.org/Genes/COL1A2ID411ch7q22.html"/>
@@ -1371,25 +1368,41 @@
 <property type="nucleotide sequence ID" value="NM_000089.3"/>
 </dbReference>
 <dbReference type="UniGene" id="Hs.489142"/>
-<dbReference type="ProteinModelPortal" id="P08123"/>
-<dbReference type="SMR" id="P08123">
-<property type="residue range" value="1151-1365"/>
+<dbReference type="PDB" id="5CTD">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="1.60"/>
+<property type="chains" value="B=484-495"/>
 </dbReference>
+<dbReference type="PDB" id="5CTI">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="1.90"/>
+<property type="chains" value="B=484-495"/>
+</dbReference>
+<dbReference type="PDB" id="5CVA">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="2.10"/>
+<property type="chains" value="A/D=484-495"/>
+</dbReference>
+<dbReference type="PDBsum" id="5CTD"/>
+<dbReference type="PDBsum" id="5CTI"/>
+<dbReference type="PDBsum" id="5CVA"/>
+<dbReference type="ProteinModelPortal" id="P08123"/>
+<dbReference type="SMR" id="P08123"/>
 <dbReference type="BioGrid" id="107675">
-<property type="interactions" value="18"/>
+<property type="interactions" value="19"/>
 </dbReference>
 <dbReference type="DIP" id="DIP-36079N"/>
 <dbReference type="IntAct" id="P08123">
-<property type="interactions" value="15"/>
+<property type="interactions" value="16"/>
 </dbReference>
 <dbReference type="MINT" id="MINT-4791958"/>
 <dbReference type="STRING" id="9606.ENSP00000297268"/>
-<dbReference type="ChEMBL" id="CHEMBL2364188"/>
+<dbReference type="ChEMBL" id="CHEMBL2685"/>
 <dbReference type="DrugBank" id="DB00048">
 <property type="generic name" value="Collagenase clostridium histolyticum"/>
 </dbReference>
 <dbReference type="iPTMnet" id="P08123"/>
-<dbReference type="PhosphoSite" id="P08123"/>
+<dbReference type="PhosphoSitePlus" id="P08123"/>
 <dbReference type="BioMuta" id="COL1A2"/>
 <dbReference type="DMDM" id="296439507"/>
 <dbReference type="EPD" id="P08123"/>
@@ -1407,6 +1420,7 @@
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="CTD" id="1278"/>
+<dbReference type="DisGeNET" id="1278"/>
 <dbReference type="GeneCards" id="COL1A2"/>
 <dbReference type="GeneReviews" id="COL1A2"/>
 <dbReference type="H-InvDB" id="HIX0006854"/>
@@ -1414,6 +1428,7 @@
 <property type="gene designation" value="COL1A2"/>
 </dbReference>
 <dbReference type="HPA" id="CAB032650"/>
+<dbReference type="HPA" id="HPA059738"/>
 <dbReference type="MalaCards" id="COL1A2"/>
 <dbReference type="MIM" id="120160">
 <property type="type" value="gene"/>
@@ -1437,6 +1452,7 @@
 <property type="type" value="phenotype"/>
 </dbReference>
 <dbReference type="neXtProt" id="NX_P08123"/>
+<dbReference type="OpenTargets" id="ENSG00000164692"/>
 <dbReference type="Orphanet" id="99876">
 <property type="disease" value="Ehlers-Danlos syndrome type 7B"/>
 </dbReference>
@@ -1473,7 +1489,7 @@
 <dbReference type="InParanoid" id="P08123"/>
 <dbReference type="KO" id="K06236"/>
 <dbReference type="OMA" id="TGKHGHR"/>
-<dbReference type="OrthoDB" id="EOG091G03LV"/>
+<dbReference type="OrthoDB" id="EOG090B0356"/>
 <dbReference type="PhylomeDB" id="P08123"/>
 <dbReference type="TreeFam" id="TF344135"/>
 <dbReference type="Reactome" id="R-HSA-114604">
@@ -1518,8 +1534,17 @@
 <dbReference type="Reactome" id="R-HSA-3000480">
 <property type="pathway name" value="Scavenging by Class A Receptors"/>
 </dbReference>
+<dbReference type="Reactome" id="R-HSA-430116">
+<property type="pathway name" value="GP1b-IX-V activation signalling"/>
+</dbReference>
 <dbReference type="Reactome" id="R-HSA-75892">
 <property type="pathway name" value="Platelet Adhesion to exposed collagen"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-76009">
+<property type="pathway name" value="Platelet Aggregation (Plug Formation)"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-8874081">
+<property type="pathway name" value="MET activates PTK2 signaling"/>
 </dbReference>
 <dbReference type="SIGNOR" id="P08123"/>
 <dbReference type="ChiTaRS" id="COL1A2">
@@ -1700,6 +1725,7 @@
 <property type="match status" value="1"/>
 </dbReference>
 <proteinExistence type="evidence at protein level"/>
+<keyword id="KW-0002">3D-structure</keyword>
 <keyword id="KW-0106">Calcium</keyword>
 <keyword id="KW-0160">Chromosomal rearrangement</keyword>
 <keyword id="KW-0176">Collagen</keyword>
@@ -1849,14 +1875,14 @@
 <position position="193"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063344" evidence="15">
+<feature type="sequence variant" description="In OI4; dbSNP:rs72656376." id="VAR_063344" evidence="15">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="202"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_001852" evidence="59">
+<feature type="sequence variant" description="In OI1; dbSNP:rs72656378." id="VAR_001852" evidence="59">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -1884,14 +1910,14 @@
 <position position="249"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063347" evidence="15">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72656385." id="VAR_063347" evidence="15">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="253"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063348" evidence="15">
+<feature type="sequence variant" description="In OI4; dbSNP:rs67525025." id="VAR_063348" evidence="15">
 <original>G</original>
 <variation>V</variation>
 <location>
@@ -1919,28 +1945,28 @@
 <position position="283"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_063350" evidence="15">
+<feature type="sequence variant" description="In OI1; dbSNP:rs72656393." id="VAR_063350" evidence="15">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="319"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063351" evidence="14">
+<feature type="sequence variant" description="In OI4; dbSNP:rs72656395." id="VAR_063351" evidence="14">
 <original>G</original>
 <variation>E</variation>
 <location>
 <position position="325"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1, OI3 AND OI4." id="VAR_001855" evidence="14 45">
+<feature type="sequence variant" description="In OI1, OI3 AND OI4; dbSNP:rs66612022." id="VAR_001855" evidence="14 45">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="328"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_008119" evidence="6">
+<feature type="sequence variant" description="In OI3; dbSNP:rs67729041." id="VAR_008119" evidence="6">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -1954,14 +1980,14 @@
 <position position="334"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001857" evidence="6">
+<feature type="sequence variant" description="In OI3; dbSNP:rs67865220." id="VAR_001857" evidence="6">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="337"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001858" evidence="59">
+<feature type="sequence variant" description="In OI3; dbSNP:rs67865220." id="VAR_001858" evidence="59">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -1980,14 +2006,14 @@
 <position position="345"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001860" evidence="21 55">
+<feature type="sequence variant" description="In OI3; dbSNP:rs66773001." id="VAR_001860" evidence="21 55">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="349"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063352" evidence="14">
+<feature type="sequence variant" description="In OI3; dbSNP:rs66619856." id="VAR_063352" evidence="14">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2001,14 +2027,14 @@
 <position position="397"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001861" evidence="7">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658109." id="VAR_001861" evidence="7">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="409"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001862" evidence="48">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658114." id="VAR_001862" evidence="48">
 <original>G</original>
 <variation>E</variation>
 <location>
@@ -2029,7 +2055,7 @@
 <position position="457"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001863" evidence="59">
+<feature type="sequence variant" description="In OI3; dbSNP:rs72658118." id="VAR_001863" evidence="59">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2049,21 +2075,21 @@
 <position position="483"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001864">
+<feature type="sequence variant" description="In OI2; dbSNP:rs66999265." id="VAR_001864">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="511"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001865" evidence="41">
+<feature type="sequence variant" description="In OI3; dbSNP:rs72658126." id="VAR_001865" evidence="41">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="517"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063357" evidence="20">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658130." id="VAR_063357" evidence="20">
 <original>G</original>
 <variation>E</variation>
 <location>
@@ -2077,7 +2103,7 @@
 <position position="528"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001866" evidence="8">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658136." id="VAR_001866" evidence="8">
 <original>G</original>
 <variation>R</variation>
 <location>
@@ -2091,7 +2117,7 @@
 <position position="549"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001868">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658138." id="VAR_001868">
 <original>G</original>
 <variation>C</variation>
 <location>
@@ -2112,21 +2138,21 @@
 <position position="564"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001869">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658139." id="VAR_001869">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="586"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001870" evidence="49">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658141." id="VAR_001870" evidence="49">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="592"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI." id="VAR_063359" evidence="14">
+<feature type="sequence variant" description="In OI; dbSNP:rs72658143." id="VAR_063359" evidence="14">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2140,14 +2166,14 @@
 <position position="625"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_001871" evidence="53">
+<feature type="sequence variant" description="In OI4; dbSNP:rs72658147." id="VAR_001871" evidence="53">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="634"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001872">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658148." id="VAR_001872">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2161,7 +2187,7 @@
 <position position="640"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001874" evidence="10">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658155." id="VAR_001874" evidence="10">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2174,14 +2200,14 @@
 <end position="855"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063361" evidence="14">
+<feature type="sequence variant" description="In OI3; dbSNP:rs66883877." id="VAR_063361" evidence="14">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="676"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3 and OI4." id="VAR_001875" evidence="23 46">
+<feature type="sequence variant" description="In OI3 and OI4; dbSNP:rs66883877." id="VAR_001875" evidence="23 46">
 <original>G</original>
 <variation>V</variation>
 <location>
@@ -2208,35 +2234,35 @@
 <position position="708"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001877">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658167." id="VAR_001877">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="715"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001878" evidence="47">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658171." id="VAR_001878" evidence="47">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="730"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_063363" evidence="15">
+<feature type="sequence variant" description="In OI1; dbSNP:rs72658172." id="VAR_063363" evidence="15">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="733"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1; mild." id="VAR_001879" evidence="21 55">
+<feature type="sequence variant" description="In OI1; mild; dbSNP:rs72658173." id="VAR_001879" evidence="21 55">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="736"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063364" evidence="20">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658174." id="VAR_063364" evidence="20">
 <original>G</original>
 <variation>R</variation>
 <location>
@@ -2264,7 +2290,7 @@
 <position position="751"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_063366" evidence="17">
+<feature type="sequence variant" description="In OI4; dbSNP:rs72658177." id="VAR_063366" evidence="17">
 <original>G</original>
 <variation>C</variation>
 <location>
@@ -2278,42 +2304,42 @@
 <position position="754"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_001883" evidence="42">
+<feature type="sequence variant" description="In OI4; dbSNP:rs72658183." id="VAR_001883" evidence="42">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="766"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001884" evidence="43">
+<feature type="sequence variant" description="In OI3; dbSNP:rs72658186." id="VAR_001884" evidence="43">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="778"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001885" evidence="19">
+<feature type="sequence variant" description="In OI2; dbSNP:rs66592844." id="VAR_001885" evidence="19">
 <original>G</original>
 <variation>R</variation>
 <location>
 <position position="784"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001886" evidence="7">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658187." id="VAR_001886" evidence="7">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="787"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001887" evidence="20 52">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658188." id="VAR_001887" evidence="20 52">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="790"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001888" evidence="42">
+<feature type="sequence variant" description="In OI2; dbSNP:rs66716547." id="VAR_001888" evidence="42">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2340,7 +2366,7 @@
 <position position="811"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063370" evidence="14">
+<feature type="sequence variant" description="In OI3; dbSNP:rs72658191." id="VAR_063370" evidence="14">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2361,7 +2387,7 @@
 <position position="835"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_001890" evidence="59">
+<feature type="sequence variant" description="In OI1; dbSNP:rs72658193." id="VAR_001890" evidence="59">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2382,28 +2408,28 @@
 <position position="856"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001891" evidence="62">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658201." id="VAR_001891" evidence="62">
 <original>G</original>
 <variation>C</variation>
 <location>
 <position position="877"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3 and OI4." id="VAR_001892" evidence="58">
+<feature type="sequence variant" description="In OI3 and OI4; dbSNP:rs72659304." id="VAR_001892" evidence="58">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="892"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001893">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72659305." id="VAR_001893">
 <original>G</original>
 <variation>D</variation>
 <location>
 <position position="895"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3; moderate." id="VAR_001894" evidence="20 50">
+<feature type="sequence variant" description="In OI3; moderate; dbSNP:rs72659312." id="VAR_001894" evidence="20 50">
 <original>G</original>
 <variation>S</variation>
 <location>
@@ -2417,21 +2443,21 @@
 <position position="955"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001895" evidence="28">
+<feature type="sequence variant" description="In OI2; dbSNP:rs66507857." id="VAR_001895" evidence="28">
 <original>G</original>
 <variation>S</variation>
 <location>
 <position position="955"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_008120" evidence="6">
+<feature type="sequence variant" description="In OI3; dbSNP:rs67609234." id="VAR_008120" evidence="6">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="973"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063375" evidence="15">
+<feature type="sequence variant" description="In OI2; dbSNP:rs67422093." id="VAR_063375" evidence="15">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2445,14 +2471,14 @@
 <position position="989"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063377" evidence="17">
+<feature type="sequence variant" description="In OI3; dbSNP:rs72659316." id="VAR_063377" evidence="17">
 <original>G</original>
 <variation>V</variation>
 <location>
 <position position="991"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001896" evidence="32">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72659317." id="VAR_001896" evidence="32">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2480,7 +2506,7 @@
 <position position="1022"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_063379" evidence="20">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72659323." id="VAR_063379" evidence="20">
 <original>G</original>
 <variation>E</variation>
 <location>
@@ -2493,7 +2519,7 @@
 <end position="1062"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI2." id="VAR_001899">
+<feature type="sequence variant" description="In OI2; dbSNP:rs72659331." id="VAR_001899">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2514,7 +2540,7 @@
 <position position="1078"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_063381" evidence="15">
+<feature type="sequence variant" description="In OI3; dbSNP:rs72659335." id="VAR_063381" evidence="15">
 <original>G</original>
 <variation>D</variation>
 <location>
@@ -2527,7 +2553,7 @@
 <end position="1096"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI3." id="VAR_001901" evidence="44">
+<feature type="sequence variant" description="In OI3; dbSNP:rs72659337." id="VAR_001901" evidence="44">
 <original>G</original>
 <variation>A</variation>
 <location>
@@ -2541,7 +2567,7 @@
 <position position="1101"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI4." id="VAR_001902" evidence="31">
+<feature type="sequence variant" description="In OI4; dbSNP:rs67768540." id="VAR_001902" evidence="31">
 <original>G</original>
 <variation>R</variation>
 <location>
@@ -2569,7 +2595,7 @@
 <position position="1189"/>
 </location>
 </feature>
-<feature type="sequence variant" description="In OI1." id="VAR_063383" evidence="15">
+<feature type="sequence variant" description="In OI1; dbSNP:rs72659342." id="VAR_063383" evidence="15">
 <original>C</original>
 <variation>Y</variation>
 <location>
