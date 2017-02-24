@@ -58,7 +58,7 @@ PeakforestlcmsConn$methods( .createPeakforestCompoundFromJSON = function(content
 	
 	jsonfields <- list()
 	jsonfields[[BIODB.ACCESSION]] <- "id"
-	jsonfields[[BIODB.PUBCHEMCOMP.ID]] <- "PubChemCID"
+	jsonfields[[BIODB.PUBCHEM.COMP.ID]] <- "PubChemCID"
 	jsonfields[[BIODB.CHEBI.ID]] <- "ChEBI"
 	jsonfields[[BIODB.HMDBMETABOLITE.ID]] <- "HMDB"
 	jsonfields[[BIODB.KEGGCOMPOUND.ID]] <- "KEGG"

@@ -30,8 +30,8 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	regex[[BIODB.FORMULA]] <- "^CH\\$FORMULA:\\s+(.+)$"
 	regex[[BIODB.SMILES]] <- "^CH\\$SMILES:\\s+(.+)$"
 	regex[[BIODB.MASS]] <- "^CH\\$EXACT_MASS:\\s+(.+)$"
-	regex[[BIODB.PUBCHEMCOMP.ID]] <- "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)"
-	regex[[BIODB.PUBCHEMSUB.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)"
+	regex[[BIODB.PUBCHEM.COMP.ID]] <- "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)"
+	regex[[BIODB.PUBCHEM.SUBST.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)"
 	regex[[BIODB.HMDBMETABOLITE.ID]] <- "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)"
 
 	n <- 0
@@ -88,7 +88,7 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 				# PubChem
 				g <- stringr::str_match(s, "^CH\\$LINK: PUBCHEM\\s+([0-9]+)$")
 				if ( ! is.na(g[1,1])) {
-					entry$setFieldValue(BIODB.PUBCHEMSUB.ID, g[1,2])
+					entry$setFieldValue(BIODB.PUBCHEM.SUBST.ID, g[1,2])
 					next
 				}
 
