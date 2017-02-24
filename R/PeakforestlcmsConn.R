@@ -444,3 +444,11 @@ PeakforestlcmsConn$methods(
 		return(entries)
 	}
 )
+
+# Get entry ids {{{1
+################################################################
+
+PeakforestlcmsConn$methods( getEntryIds = function(max.results = NA_integer_) {
+	.self$message(MSG.CAUTION, "No method implemented for computing list of IDs.")
+	return(NULL)
+})
