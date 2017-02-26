@@ -53,7 +53,7 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 		            ncbiccds        = NcbiccdsConn$new(         biodb = .self$.biodb),
 		            uniprot         = UniprotConn$new(          biodb = .self$.biodb),
 		            massbank        = MassbankConn$new(         biodb = .self$.biodb, url = if (is.na(url)) .self$getBiodb()$getConfig()$get(CFG.MASSBANK.URL) else url),
-					massfiledb      = MassFiledbConn$new(       biodb = .self$.biodb, file = url),
+					mass.csv.file   = MassCsvFileConn$new(      biodb = .self$.biodb, file = url),
 					peakforestlcms  = PeakforestlcmsConn$new(       biodb = .self$.biodb, base.url = if (is.na(url)) .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.URL) else url, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.TOKEN) else token),
 		      	    NULL)
 

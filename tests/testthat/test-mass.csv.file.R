@@ -1,12 +1,12 @@
 # vi: fdm=marker
 
-# Offline test massfiledb {{{1
+# Offline test mass.csv.file {{{1
 ################################################################
 
-offline.test.massfiledb <- function() {
+offline.test.mass.csv.file <- function() {
 
 	# Open file
-	file <- file.path(SCRIPT.DIR, 'tests', 'res', 'massfiledb.tsv')
+	file <- file.path(SCRIPT.DIR, 'tests', 'res', 'mass.csv.file.tsv')
 	df <- read.table(file, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
 	# Create biodb instance
@@ -16,7 +16,7 @@ offline.test.massfiledb <- function() {
 	factory <- biodb$getFactory()
 
 	# Create database
-	db <- factory$createConn(BIODB.MASSFILEDB, url = file)
+	db <- factory$createConn(BIODB.MASS.CSV.FILE, url = file)
 	fields <- list()
 	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	db$setField(BIODB.COMPOUND.ID, 'molid')
@@ -63,7 +63,7 @@ offline.test.massfiledb <- function() {
 # MAIN {{{1
 ################################################################
 
-if ((length(TEST.DATABASES) == 0 || BIODB.MASSFILEDB %in% TEST.DATABASES) && OFFLINE %in% TEST.MODES) {
-	context("Testing massfiledb")
-	test_that("MassfiledbConn methods are correct", offline.test.massfiledb())
+if ((length(TEST.DATABASES) == 0 || BIODB.MASS.CSV.FILE %in% TEST.DATABASES) && OFFLINE %in% TEST.MODES) {
+	context("Testing mass.csv.file")
+	test_that("MassCsvFileConn methods are correct", offline.test.mass.csv.file())
 }

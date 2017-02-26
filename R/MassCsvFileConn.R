@@ -13,12 +13,12 @@ names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
 # Class declaration {{{1
 ################################################################
 
-MassFiledbConn <- methods::setRefClass("MassFiledbConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .ms.modes = "character"))
+MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .ms.modes = "character"))
 
 # Constructor {{{1
 ################################################################
 
-MassFiledbConn$methods( initialize = function(file = NA_character_, file.sep = "\t", file.quote = "\"", ...) {
+MassCsvFileConn$methods( initialize = function(file = NA_character_, file.sep = "\t", file.quote = "\"", ...) {
 
 	callSuper(content.type = BIODB.TSV, ...)
 
@@ -43,14 +43,14 @@ MassFiledbConn$methods( initialize = function(file = NA_character_, file.sep = "
 # Is valid field tag {{{1
 ################################################################
 
-MassFiledbConn$methods( isValidFieldTag = function(tag) {
+MassCsvFileConn$methods( isValidFieldTag = function(tag) {
 	return (tag %in% names(.self$.fields))
 })
 
 # Init db {{{1
 ################################################################
 
-MassFiledbConn$methods( .init.db = function() {
+MassCsvFileConn$methods( .init.db = function() {
 
 	if (is.null(.self$.db)) {
 
@@ -65,7 +65,7 @@ MassFiledbConn$methods( .init.db = function() {
 # Set field {{{1
 ################################################################
 
-MassFiledbConn$methods( setField = function(tag, colname) {
+MassCsvFileConn$methods( setField = function(tag, colname) {
 
 	( ! is.null(tag) && ! is.na(tag)) || .self$message(MSG.ERROR, "No tag specified.")
 	( ! is.null(colname) && ! is.na(colname)) || .self$message(MSG.ERROR, "No column name specified.")
@@ -96,21 +96,21 @@ MassFiledbConn$methods( setField = function(tag, colname) {
 # Set field multiple value separator {{{1
 ################################################################
 
-MassFiledbConn$methods( setFieldMultValSep = function(sep) {
+MassCsvFileConn$methods( setFieldMultValSep = function(sep) {
 	.field.multval.sep <<- sep
 })
 
 # Set ms modes {{{1
 ################################################################
 
-MassFiledbConn$methods( setMsMode = function(mode, value) {
+MassCsvFileConn$methods( setMsMode = function(mode, value) {
 	.self$.ms.modes[[mode]] <- value
 })
 
 # Check fields {{{1
 ################################################################
 
-MassFiledbConn$methods( .check.fields = function(fields) {
+MassCsvFileConn$methods( .check.fields = function(fields) {
 
 	if (length(fields) ==0 || (length(fields) == 1 && is.na(fields)))
 		return
@@ -133,7 +133,7 @@ MassFiledbConn$methods( .check.fields = function(fields) {
 ################################################################
 
 # Select data from database
-MassFiledbConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL, compound.ids = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_) {
+MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL, compound.ids = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_) {
 
 	x <- NULL
 
@@ -197,7 +197,7 @@ MassFiledbConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL,
 # Get entry ids {{{1
 ################################################################
 
-MassFiledbConn$methods( getEntryIds = function(max.results = NA_integer_) {
+MassCsvFileConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	ids <- NA_character_
 
@@ -209,7 +209,7 @@ MassFiledbConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Get nb entries {{{1
 ################################################################
 
-MassFiledbConn$methods( getNbEntries = function(count = FALSE) {
+MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
 
 	n <- NA_integer_
 
@@ -224,7 +224,7 @@ MassFiledbConn$methods( getNbEntries = function(count = FALSE) {
 ################################################################
 
 # Inherited from MassdbConn.
-MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
+MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 
 	# Extract needed columns
 	db <- .self$.select(cols = c(BIODB.COMPOUND.ID, BIODB.CHROM.COL))
@@ -253,7 +253,7 @@ MassFiledbConn$methods( getChromCol = function(compound.ids = NULL) {
 ################################################################
 
 # Inherited from MassdbConn.
-MassFiledbConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
+MassCsvFileConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 
 	# Get mz values
 	mz <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results)
@@ -265,7 +265,7 @@ MassFiledbConn$methods( getMzValues = function(mode = NULL, max.results = NA_int
 ################################################################
 
 # Inherited from MassdbConn.
-MassFiledbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
+MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
 
 	# Get peaks
 	peaks <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, compound.ids = compound.ids, drop = TRUE)
@@ -276,7 +276,7 @@ MassFiledbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) 
 # Get entry content {{{1
 ################################################################
 
-MassFiledbConn$methods( getEntryContent = function(id) {
+MassCsvFileConn$methods( getEntryContent = function(id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
@@ -297,7 +297,7 @@ MassFiledbConn$methods( getEntryContent = function(id) {
 # Create entry {{{1
 ################################################################
 
-MassFiledbConn$methods( createEntry = function(content, drop = TRUE) {
+MassCsvFileConn$methods( createEntry = function(content, drop = TRUE) {
 
 	entries <- list()
 

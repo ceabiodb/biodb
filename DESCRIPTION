@@ -22,7 +22,7 @@ Collate: 'biodb-common.R' 'spec-dist.R'
 		'NcbiConn.R' 'NcbiEntrezConn.R' 'NcbiccdsConn.R' 'NcbigeneConn.R'
 		'PubchemConn.R' 'PubchemCompConn.R' 'PubchemSubstConn.R'
 		'UniprotConn.R'
-        'MassbankConn.R' 'MassFiledbConn.R' 'PeakforestConn.R' 'PeakforestlcmsConn.R'
+        'MassbankConn.R' 'MassCsvFileConn.R' 'PeakforestConn.R' 'PeakforestlcmsConn.R'
         'BiodbFactory.R' 'biodb-package.R'
 Author: Pierrick Roger
 RoxygenNote: 6.0.1
