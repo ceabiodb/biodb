@@ -1,6 +1,6 @@
 Package: biodb
 Title: Connection to chemical and biological databases
-Version: 0.2.0
+Version: 1.0.0
 Authors@R: person("Pierrick", "Roger", email = "pierrick.roger@gmail.com", role = c("aut", "cre"))
 Description: Connection to chemical and biological databases.
 Depends: R (>= 3.3.1)
@@ -12,18 +12,23 @@ NeedsCompilation: yes
 Collate: 'biodb-common.R' 'spec-dist.R'
 		'BiodbObserver.R' 'BiodbLogger.R' 'WarningReporter.R' 'ErrorReporter.R'
         'BiodbObject.R' 'UrlRequestScheduler.R' 'Biodb.R' 'BiodbConn.R' 'BiodbEntry.R' 'BiodbConfig.R' 'BiodbCache.R'
-        'massdb-helper.R' 'RemotedbConn.R' 'CompounddbConn.R' 'MassdbConn.R' 'ChebiEntry.R'
-        'ChemspiderEntry.R' 'EnzymeEntry.R'
-        'MassbankEntry.R' 'MirbaseMatureEntry.R'
-        'NcbiccdsEntry.R' 'NcbigeneEntry.R'
-        'PubchemEntry.R' 'UniprotEntry.R' 'ChebiConn.R'
-        'ChemspiderConn.R' 'EnzymeConn.R' 'HmdbmetaboliteConn.R' 'KeggConn.R' 'KeggcompoundConn.R'
-        'LipidmapsstructureConn.R' 'MirbaseConn.R' 'MirbaseMatureConn.R'
-		'NcbiConn.R' 'NcbiEntrezConn.R' 'NcbiccdsConn.R' 'NcbigeneConn.R'
-		'PubchemConn.R' 'PubchemCompConn.R' 'PubchemSubstConn.R'
-		'UniprotConn.R'
-        'MassbankConn.R' 'MassCsvFileConn.R' 'PeakforestConn.R' 'PeakforestlcmsConn.R'
-        'BiodbFactory.R' 'biodb-package.R'
+		'BiodbFactory.R' 
+        'massdb-helper.R'
+		'RemotedbConn.R' 'CompounddbConn.R' 'MassdbConn.R'
+		'ChebiConn.R' 'ChebiEntry.R'
+        'ChemspiderConn.R' 'ChemspiderEntry.R'
+		'ExpazyEnzymeConn.R' 'ExpazyEnzymeEntry.R'
+        'HmdbMetaboliteConn.R'
+		'KeggConn.R' 'KeggCompoundConn.R'
+		'LipidmapsStructureConn.R'
+        'MassbankConn.R' 'MassbankEntry.R'
+		'MassCsvFileConn.R'
+		'MirbaseConn.R' 'MirbaseMatureConn.R' 'MirbaseMatureEntry.R'
+        'NcbiConn.R' 'NcbiEntrezConn.R' 'NcbiCcdsConn.R' 'NcbiGeneConn.R' 'NcbiCcdsEntry.R' 'NcbiGeneEntry.R' 'NcbiPubchemConn.R' 'NcbiPubchemCompConn.R' 'NcbiPubchemSubstConn.R'
+        'NcbiPubchemEntry.R'
+        'PeakforestConn.R' 'PeakforestlcmsConn.R'
+		'UniprotConn.R' 'UniprotEntry.R' 
+        'biodb-package.R'
 Author: Pierrick Roger
 RoxygenNote: 6.0.1
 Packaged: 2016-11-10 12:17:56 UTC; AD244905

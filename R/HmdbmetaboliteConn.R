@@ -3,12 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-HmdbmetaboliteConn <- methods::setRefClass("HmdbmetaboliteConn", contains = "RemotedbConn", fields = list(.ns = "character"))
+HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = "RemotedbConn", fields = list(.ns = "character"))
 
 # Constructor {{{1
 ################################################################
 
-HmdbmetaboliteConn$methods( initialize = function(...) {
+HmdbMetaboliteConn$methods( initialize = function(...) {
 
 	callSuper(content.type = BIODB.XML, base.url = "http://www.hmdb.ca/", ...)
 
@@ -19,7 +19,7 @@ HmdbmetaboliteConn$methods( initialize = function(...) {
 # Get entry content {{{1
 ################################################################
 
-HmdbmetaboliteConn$methods( getEntryContent = function(id) {
+HmdbMetaboliteConn$methods( getEntryContent = function(id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
@@ -33,7 +33,7 @@ HmdbmetaboliteConn$methods( getEntryContent = function(id) {
 # Create entry {{{1
 ################################################################
 
-HmdbmetaboliteConn$methods( createEntry = function(content, drop = TRUE) {
+HmdbMetaboliteConn$methods( createEntry = function(content, drop = TRUE) {
 
 	entries <- list()
 
@@ -86,7 +86,7 @@ HmdbmetaboliteConn$methods( createEntry = function(content, drop = TRUE) {
 # Download {{{1
 ################################################################
 
-HmdbmetaboliteConn$methods( download = function() {
+HmdbMetaboliteConn$methods( download = function() {
 
 	if ( ! .self$getBiodb()$getCache()$fileExists(BIODB.HMDBMETABOLITE, 'download', 'zip')) {
 
@@ -131,7 +131,7 @@ HmdbmetaboliteConn$methods( download = function() {
 # Get entry ids {{{1
 ################################################################
 
-HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
+HmdbMetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	ids <- NULL
 
@@ -158,7 +158,7 @@ HmdbmetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Get nb entries {{{1
 ################################################################
 
-HmdbmetaboliteConn$methods( getNbEntries = function(count = FALSE) {
+HmdbMetaboliteConn$methods( getNbEntries = function(count = FALSE) {
 
 	n <- NA_integer_
 

@@ -3,12 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-LipidmapsstructureConn <- methods::setRefClass("LipidmapsstructureConn", contains = "RemotedbConn")
+LipidmapsStructureConng <- methods::setRefClass("LipidmapsstructureConn", contains = "RemotedbConn")
 
 # Constructor {{{1
 ################################################################
 
-LipidmapsstructureConn$methods( initialize = function(...) {
+LipidmapsStructureConng$methods( initialize = function(...) {
 	# From http://www.lipidmaps.org/data/structure/programmaticaccess.html:
 	# If you write a script to automate calls to LMSD, please be kind and do not hit our server more often than once per 20 seconds. We may have to kill scripts that hit our server more frequently.
 	callSuper(content.type = BIODB.CSV, base.url = 'http://www.lipidmaps.org/data/', scheduler = UrlRequestScheduler$new(t = 20, parent = .self), ...)
@@ -17,21 +17,21 @@ LipidmapsstructureConn$methods( initialize = function(...) {
 # Get entry content url {{{1
 ################################################################
 
-LipidmapsstructureConn$methods( .doGetEntryContentUrl = function(id) {
+LipidmapsStructureConng$methods( .doGetEntryContentUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'LMSDRecord.php', '?Mode=File&LMID=', id, '&OutputType=CSV&OutputQuote=No', sep = ''))
 })
 
 # Get entry page url {{{1
 ################################################################
 
-LipidmapsstructureConn$methods( getEntryPageUrl = function(id) {
+LipidmapsStructureConng$methods( getEntryPageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), '?LMID=', id, sep = ''))
 })
 
 # Get entry content {{{1
 ################################################################
 
-LipidmapsstructureConn$methods( getEntryContent = function(id) {
+LipidmapsStructureConng$methods( getEntryContent = function(id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
@@ -45,7 +45,7 @@ LipidmapsstructureConn$methods( getEntryContent = function(id) {
 # Create entry {{{1
 ################################################################
 
-LipidmapsstructureConn$methods( createEntry = function(content, drop = TRUE) {
+LipidmapsStructureConng$methods( createEntry = function(content, drop = TRUE) {
 
 	entries <- list()
 
@@ -103,7 +103,7 @@ LipidmapsstructureConn$methods( createEntry = function(content, drop = TRUE) {
 # Get entry ids {{{1
 ################################################################
 
-LipidmapsstructureConn$methods( getEntryIds = function(max.results = NA_integer_) {
+LipidmapsStructureConng$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Retrieve all entries
 	result.txt <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), 'structure/LMSDSearch.php?Mode=ProcessStrSearch&OutputMode=File', sep = ''))

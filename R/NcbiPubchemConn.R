@@ -3,12 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-PubchemConn <- methods::setRefClass("PubchemConn", contains = "RemotedbConn", fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
+NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = "RemotedbConn", fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-PubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
+NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
 	callSuper(...)
 
 	.db.name <<- db.name
@@ -20,21 +20,21 @@ PubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag, id.
 # Do get entry content url {{{1
 ################################################################
 
-PubchemConn$methods( .doGetEntryContentUrl = function(id) {
+NcbiPubchemConn$methods( .doGetEntryContentUrl = function(id) {
 	return(paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/', .self$.db.name, '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML'))
 })
 
 # Get entry page url {{{1
 ################################################################
 
-PubchemConn$methods( getEntryPageUrl = function(id) {
+NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
 	return(paste0('http://pubchem.ncbi.nlm.nih.gov/', .self$.db.name, '/', id))
 })
 
 # Get entry content {{{1
 ################################################################
 
-PubchemConn$methods( getEntryContent = function(ids) {
+NcbiPubchemConn$methods( getEntryContent = function(ids) {
 
 	# Debug
 	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(ids)," id(s)..."))
@@ -81,7 +81,7 @@ PubchemConn$methods( getEntryContent = function(ids) {
 # Get compound image url {{{1
 ################################################################
 
-PubchemConn$methods( getCompoundImageUrl = function(id) {
+NcbiPubchemConn$methods( getCompoundImageUrl = function(id) {
 
 	url <- paste0('http://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?', .self$.id.urlfield, '=', id, '&t=l')
 

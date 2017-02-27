@@ -35,33 +35,39 @@ BiodbFactory$methods( getBiodb = function() {
 BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
     " Create connection to databases useful for metabolomics."
 
+    # Has connection been already created?
 	if (class %in% names(.self$.conn))
-		stop(paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
+		.self$message(MSG.ERROR, paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
 
-	# Create connection instance
-	conn <- switch(class,
-		            chebi           = ChebiConn$new(            biodb = .self$.biodb),
-		            keggcompound    = KeggcompoundConn$new(     biodb = .self$.biodb),
-		            pubchem.comp    = PubchemCompConn$new(      biodb = .self$.biodb),
-		            pubchem.subst   = PubchemSubstConn$new(     biodb = .self$.biodb),
-		            hmdbmetabolite  = HmdbmetaboliteConn$new(   biodb = .self$.biodb),
-		            chemspider      = ChemspiderConn$new(       biodb = .self$.biodb, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.CHEMSPIDER.TOKEN) else token),
-		            enzyme          = EnzymeConn$new(           biodb = .self$.biodb),
-		            lipidmapsstructure = LipidmapsstructureConn$new(        biodb = .self$.biodb),
-		            mirbase.mature  = MirbaseMatureConn$new(    biodb = .self$.biodb),
-		            ncbigene        = NcbigeneConn$new(         biodb = .self$.biodb),
-		            ncbiccds        = NcbiccdsConn$new(         biodb = .self$.biodb),
-		            uniprot         = UniprotConn$new(          biodb = .self$.biodb),
-		            massbank        = MassbankConn$new(         biodb = .self$.biodb, url = if (is.na(url)) .self$getBiodb()$getConfig()$get(CFG.MASSBANK.URL) else url),
-					mass.csv.file   = MassCsvFileConn$new(      biodb = .self$.biodb, file = url),
-					peakforestlcms  = PeakforestlcmsConn$new(       biodb = .self$.biodb, base.url = if (is.na(url)) .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.URL) else url, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.TOKEN) else token),
-		      	    NULL)
-
-	# Unknown class
-	if (is.null(conn))
+    # Check that class is known
+    if ( ! class %in% BIODB.DATABASES)
 		.self$message(MSG.ERROR, paste("Unknown connection class ", class, ".", sep = ''))
 
-	# Register new class
+    # Get connection class name
+    s <- class
+	indices <- as.integer(gregexpr('\\.[a-z]', class, perl = TRUE)[[1]])
+    indices <- indices + 1  # We are interested in the letter after the dot.
+    indices <- c(1, indices) # Add first letter.
+	for (i in indices)
+		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, 1)), substring(s, i + 1), sep = '')
+    s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+	conn.class.name <- s
+
+    # Get connection class
+    conn.class <- get(conn.class.name)
+
+	# Create connection instance
+    conn <- conn.class$new(biodb = .self$getBiodb())
+
+	# Set URL
+    if ( ! is.na(url))
+	    conn$setBaseUrl(url)
+
+    # Set token
+    if ( ! is.na(token))
+	    conn$setToken(token)
+
+	# Register new class instance
 	.self$.conn[[class]] <- conn
 
 	return (.self$.conn[[class]])

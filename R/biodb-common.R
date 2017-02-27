@@ -19,23 +19,15 @@ BIODB.CONTENT.TYPES <- c(BIODB.HTML, BIODB.TXT, BIODB.XML, BIODB.CSV, BIODB.TSV,
 # DATABASES #
 #############
 
-BIODB.CHEBI             <- 'chebi'
-BIODB.CHEMSPIDER        <- 'chemspider'
-BIODB.ENZYME            <- 'enzyme'
-BIODB.HMDBMETABOLITE    <- 'hmdbmetabolite'
-BIODB.KEGGCOMPOUND      <- 'keggcompound'
-BIODB.LIPIDMAPSSTRUCTURE<- 'lipidmapsstructure'
-BIODB.MASSBANK          <- 'massbank'
-BIODB.MASS.CSV.FILE     <- 'mass.csv.file'
-BIODB.MIRBASE.MATURE    <- 'mirbase.mature'
-BIODB.NCBICCDS          <- 'ncbiccds'
-BIODB.NCBIGENE          <- 'ncbigene'
-BIODB.PEAKFORESTLCMS    <- 'peakforestlcms'
-BIODB.PUBCHEM.COMP      <- 'pubchem.comp'
-BIODB.PUBCHEM.SUBST     <- 'pubchem.subst'
-BIODB.UNIPROT           <- 'uniprot'
+BIODB.DATABASES <- sort(c('chebi', 'chemspider', 'expazy.enzyme', 'hmdb.metabolite', 'kegg.compound', 'lipidmaps.structure', 'massbank', 'mass.csv.file', 'mirbase.mature', 'ncbi.ccds', 'ncbi.gene', 'peakforest.lcms', 'ncbi.pubchem.comp', 'ncbi.pubchem.subst', 'uniprot'))
+for (db in BIODB.DATABASES) {
 
-BIODB.DATABASES <- sort(c(BIODB.CHEBI, BIODB.KEGGCOMPOUND, BIODB.PUBCHEM.COMP, BIODB.PUBCHEM.SUBST, BIODB.HMDBMETABOLITE, BIODB.CHEMSPIDER, BIODB.ENZYME, BIODB.LIPIDMAPSSTRUCTURE, BIODB.MIRBASE.MATURE, BIODB.NCBIGENE, BIODB.NCBICCDS, BIODB.UNIPROT, BIODB.MASSBANK, BIODB.MASS.CSV.FILE, BIODB.PEAKFORESTLCMS))
+	# Create constant for database name
+	assign(toupper(paste('biodb', db, sep = '.')), db)
+
+	# Create constant for database ID
+	assign(toupper(paste('biodb', db, 'id', sep = '.')), paste(db, 'id', sep = '.'))
+}
 
 ##########
 # FIELDS #
@@ -54,19 +46,7 @@ BIODB.FULLNAMES                 <- 'fullnames'
 BIODB.SYNONYMS                  <- 'synonyms'
 BIODB.SYMBOL                    <- 'symbol'
 BIODB.GENE.SYMBOLS              <- 'genesymbols'
-BIODB.CHEBI.ID                  <- 'chebiid'
-BIODB.LIPIDMAPSSTRUCTURE.ID     <- 'lipidmapsstructureid'
-BIODB.KEGGCOMPOUND.ID           <- 'keggcompoundid'
-BIODB.HMDBMETABOLITE.ID         <- 'hmdbmetaboliteid'
-BIODB.ENZYME.ID                 <- 'enzymeid'
-BIODB.NCBI.CCDS.ID              <- 'ncbiccdsid'
-BIODB.NCBI.GENE.ID              <- 'ncbigeneid'
-BIODB.PUBCHEM.COMP.ID           <- 'pubchem.comp.id'
-BIODB.PUBCHEM.SUBST.ID          <- 'pubchem.subst.id'
-BIODB.CHEMSPIDER.ID             <- 'chemspiderid'
-BIODB.UNIPROT.ID                <- 'uniprotid'
 BIODB.CAS.ID                    <- 'casid'
-BIODB.PEAKFORESTLCMS.ID         <- 'peakforestlcmsid'
 BIODB.SMILES        <- 'smiles'
 BIODB.INCHI        <- 'inchi'
 BIODB.INCHIKEY     <- 'inchikey'
@@ -167,17 +147,20 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.NB.COMPOUNDS,         'integer',      BIODB.CARD.ONE,     'none',
 	BIODB.COMPOUNDS,            'object',       BIODB.CARD.MANY,  'none',
 	BIODB.COMPOUND.ID,          'character',    BIODB.CARD.ONE,     'none',
+
 	BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
-	BIODB.LIPIDMAPSSTRUCTURE.ID,'character',    BIODB.CARD.ONE,		'none',
-	BIODB.KEGGCOMPOUND.ID,      'character',    BIODB.CARD.ONE,		'none',
-	BIODB.HMDBMETABOLITE.ID,    'character',    BIODB.CARD.ONE,		'none',
-	BIODB.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
-	BIODB.PUBCHEM.COMP.ID,      'character',    BIODB.CARD.ONE,		'none',
-	BIODB.PUBCHEM.SUBST.ID,     'character',    BIODB.CARD.ONE,		'none',
-	BIODB.PEAKFORESTLCMS.ID,    'character',    BIODB.CARD.ONE,		'none',
-	BIODB.UNIPROT.ID,           'character',    BIODB.CARD.ONE,		'none',
+	BIODB.CHEMSPIDER.ID,        'character',    BIODB.CARD.ONE,		'none',
+	BIODB.EXPAZY.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
+	BIODB.HMDB.METABOLITE.ID,    'character',    BIODB.CARD.ONE,		'none',
+	BIODB.KEGG.COMPOUND.ID,      'character',    BIODB.CARD.ONE,		'none',
+	BIODB.LIPIDMAPS.STRUCTURE.ID,'character',    BIODB.CARD.ONE,		'none',
 	BIODB.NCBI.CCDS.ID,         'character',    BIODB.CARD.ONE,		'none',
 	BIODB.NCBI.GENE.ID,         'character',    BIODB.CARD.ONE,		'none',
+	BIODB.NCBI.PUBCHEM.COMP.ID,      'character',    BIODB.CARD.ONE,		'none',
+	BIODB.NCBI.PUBCHEM.SUBST.ID,     'character',    BIODB.CARD.ONE,		'none',
+	BIODB.PEAKFOREST.LCMS.ID,   'character',    BIODB.CARD.ONE,		'none',
+	BIODB.UNIPROT.ID,           'character',    BIODB.CARD.ONE,		'none',
+
 	BIODB.INCHI,                'character',    BIODB.CARD.ONE,		'none',
 	BIODB.INCHIKEY,             'character',    BIODB.CARD.ONE,		'none',
 	BIODB.MSDEV,                'character',    BIODB.CARD.ONE,		'none',
@@ -202,7 +185,6 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.NB.PEAKS,             'integer',      BIODB.CARD.ONE,		'none',
 	BIODB.PEAKS,                'data.frame',   BIODB.CARD.ONE,		'none',
 	BIODB.SMILES,               'character',    BIODB.CARD.ONE,		'none',
-	BIODB.CHEMSPIDER.ID,        'character',    BIODB.CARD.ONE,		'none',
 	BIODB.CAS.ID,               'character',    BIODB.CARD.ONE,		'none'
 	), byrow = TRUE, ncol = 4), stringsAsFactors = FALSE)
 colnames(BIODB.FIELDS) <- c('name', 'class', 'cardinality', 'type')
@@ -231,7 +213,7 @@ biodb.get.database.id.field <- function(database) {
 BIODB.FIELD.COMPUTING <- list()
 BIODB.FIELD.COMPUTING[[BIODB.INCHI]]      <- c(BIODB.CHEBI)
 BIODB.FIELD.COMPUTING[[BIODB.INCHIKEY]]   <- c(BIODB.CHEBI)
-BIODB.FIELD.COMPUTING[[BIODB.SEQUENCE]]   <- c(BIODB.NCBICCDS)
+BIODB.FIELD.COMPUTING[[BIODB.SEQUENCE]]   <- c(BIODB.NCBI.CCDS)
 
 ####################
 # PEAKS DATA FRAME #

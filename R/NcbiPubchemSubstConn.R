@@ -3,26 +3,26 @@
 # Class declaration {{{1
 ################################################################
 
-PubchemSubstConn <- methods::setRefClass("PubchemSubstConn", contains = "PubchemConn")
+NcbiPubchemSubstConn <- methods::setRefClass("NcbiPubchemSubstConn", contains = "NcbiPubchemConn")
 
 # Constructor {{{1
 ################################################################
 
-PubchemSubstConn$methods( initialize = function(...) {
+NcbiPubchemSubstConn$methods( initialize = function(...) {
 	callSuper(content.type = BIODB.XML, db.name = 'substance', id.xmltag = 'PC-ID_id', entry.xmltag = 'PC-Substance', id.urlfield = 'sid', ...)
 })
 
 # Create entry {{{1
 ################################################################
 
-PubchemSubstConn$methods( createEntry = function(content, drop = TRUE) {
+NcbiPubchemSubstConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createPubchemSubstanceFromXml(.self$getBiodb(), content, drop = drop))
 })
 
 # Get entry ids {{{1
 ################################################################
 
-PubchemSubstConn$methods( getEntryIds = function(max.results = NA_integer_) {
+NcbiPubchemSubstConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$message(MSG.CAUTION, "No method implemented for computing list of IDs.")
 	return(NULL)
 })

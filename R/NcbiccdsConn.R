@@ -3,12 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-NcbiccdsConn <- methods::setRefClass("NcbiccdsConn", contains = "NcbiConn")
+NcbiCcdsConn <- methods::setRefClass("NcbiCcdsConn", contains = "NcbiConn")
 
 # Constructor {{{1
 ################################################################
 
-NcbiccdsConn$methods( initialize = function(...) {
+NcbiCcdsConn$methods( initialize = function(...) {
 
 	# Call parent constructor
 	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', content.type = BIODB.HTML, ...)
@@ -17,7 +17,7 @@ NcbiccdsConn$methods( initialize = function(...) {
 # Get entry content {{{1
 ################################################################
 
-NcbiccdsConn$methods( getEntryContent = function(id) {
+NcbiCcdsConn$methods( getEntryContent = function(id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
@@ -31,13 +31,13 @@ NcbiccdsConn$methods( getEntryContent = function(id) {
 # Create entry {{{1
 ################################################################
 
-NcbiccdsConn$methods( createEntry = function(content, drop = TRUE) {
+NcbiCcdsConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createNcbiccdsEntryFromHtml(.self$getBiodb(), content, drop = drop))
 })
 
 # Get entry ids {{{1
 ################################################################
 
-NcbiccdsConn$methods( getEntryIds = function(max.results = NA_integer_) {
+NcbiCcdsConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	return(NULL)
 })

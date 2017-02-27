@@ -3,12 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-NcbigeneConn <- methods::setRefClass("NcbigeneConn", contains = "NcbiEntrezConn")
+NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = "NcbiEntrezConn")
 
 # Constructor {{{1
 ################################################################
 
-NcbigeneConn$methods( initialize = function(...) {
+NcbiGeneConn$methods( initialize = function(...) {
 
 	callSuper(content.type = BIODB.XML, db.name = 'gene', ...)
 })
@@ -17,7 +17,7 @@ NcbigeneConn$methods( initialize = function(...) {
 # GET ENTRY CONTENT #
 #####################
 
-NcbigeneConn$methods( getEntryContent = function(id) {
+NcbiGeneConn$methods( getEntryContent = function(id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
@@ -32,6 +32,6 @@ NcbigeneConn$methods( getEntryContent = function(id) {
 # CREATE ENTRY #
 ################
 
-NcbigeneConn$methods( createEntry = function(content, drop = TRUE) {
+NcbiGeneConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createNcbigeneEntryFromXml(.self$getBiodb(), content, drop = drop))
 })

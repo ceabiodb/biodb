@@ -5,12 +5,12 @@
 
 #'PeakForest connector class.
 #'@export
-PeakforestlcmsConn <- methods::setRefClass("PeakforestlcmsConn", contains = c("PeakforestConn", "MassdbConn"))
+PeakforestLcmsConn <- methods::setRefClass("PeakforestLcmsConn", contains = c("PeakforestConn", "MassdbConn"))
 
 # Get entry content url {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( .doGetEntryContentUrl = function(id) {
+PeakforestLcmsConn$methods( .doGetEntryContentUrl = function(id) {
 
 	# Check token
 	if (is.na(.self$getToken()))
@@ -22,14 +22,14 @@ PeakforestlcmsConn$methods( .doGetEntryContentUrl = function(id) {
 # Get entry page url {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( getEntryPageUrl = function(id) {
+PeakforestLcmsConn$methods( getEntryPageUrl = function(id) {
 	return(paste('https://peakforest.org/home?PFs=', id))
 })
 
 # Get entry content {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( getEntryContent = function(id) {
+PeakforestLcmsConn$methods( getEntryContent = function(id) {
 	
 	# Initialize contents to return
 	content <- rep(NA_character_, length(id))
@@ -51,7 +51,7 @@ PeakforestlcmsConn$methods( getEntryContent = function(id) {
 # Create compoud from json {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( .createPeakforestCompoundFromJSON = function(contents, drop = FALSE) {
+PeakforestLcmsConn$methods( .createPeakforestCompoundFromJSON = function(contents, drop = FALSE) {
 
 	if(is.character(contents))
 		contents <- jsonlite::fromJSON(contents, simplifyDataFrame=FALSE)
@@ -97,7 +97,7 @@ PeakforestlcmsConn$methods( .createPeakforestCompoundFromJSON = function(content
 # Create entry {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( createEntry = function(content, drop = TRUE) {
+PeakforestLcmsConn$methods( createEntry = function(content, drop = TRUE) {
 
 	entries <- list()
 
@@ -245,7 +245,7 @@ PeakforestlcmsConn$methods( createEntry = function(content, drop = TRUE) {
 # Create reduced entry {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( createReducedEntry = function(content , drop = TRUE){
+PeakforestLcmsConn$methods( createReducedEntry = function(content , drop = TRUE){
 	entries <- vector(length(content), mode = "list")
 	jsonfields <- character()
 	
@@ -330,7 +330,7 @@ PeakforestlcmsConn$methods( createReducedEntry = function(content , drop = TRUE)
 # Search mz range {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("object","spec","peak")){
+PeakforestLcmsConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("object","spec","peak")){
 	
 	rtype <- match.arg(rtype)
 	if(mzmin > mzmax){
@@ -389,7 +389,7 @@ PeakforestlcmsConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("ob
 # Search mz tol {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS,
+PeakforestLcmsConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS,
 											   rtype = c("object","spec","peak")){
 	
 	rtype <- match.arg(rtype)
@@ -409,7 +409,7 @@ PeakforestlcmsConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLU
 # Search for msms spectra precusor around a mass {{{1
 ################################################################
 
-PeakforestlcmsConn$methods(
+PeakforestLcmsConn$methods(
 	searchSpecPrecTol = function(mz,
 								 tol,
 								 tolunit = "plain",
@@ -448,7 +448,7 @@ PeakforestlcmsConn$methods(
 # Get entry ids {{{1
 ################################################################
 
-PeakforestlcmsConn$methods( getEntryIds = function(max.results = NA_integer_) {
+PeakforestLcmsConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$message(MSG.CAUTION, "No method implemented for computing list of IDs.")
 	return(NULL)
 })

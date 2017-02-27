@@ -13,20 +13,18 @@ names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
 # Class declaration {{{1
 ################################################################
 
-MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = "MassdbConn", fields = list(.file = "character", .file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .ms.modes = "character"))
+MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = "MassdbConn", fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .ms.modes = "character"))
 
 # Constructor {{{1
 ################################################################
 
-MassCsvFileConn$methods( initialize = function(file = NA_character_, file.sep = "\t", file.quote = "\"", ...) {
+MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"", ...) {
 
 	callSuper(content.type = BIODB.TSV, ...)
 
 	# Check file
-	if (is.null(file) || is.na(file))
-		.self$message(MSG.ERROR, "You must specify a file database to load.")
-	if ( ! file.exists(file))
-		.self$message(MSG.ERROR, paste("Cannot locate the file database \"", file ,"\".", sep = ''))
+	if ( ! file.exists(.self$getBaseUrl()))
+		.self$message(MSG.ERROR, paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
 
 	# Set fields
 	.db <<- NULL
@@ -55,7 +53,7 @@ MassCsvFileConn$methods( .init.db = function() {
 	if (is.null(.self$.db)) {
 
 		# Load database
-		.db <<- read.table(.self$.file, sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
+		.db <<- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
 
 		# Save column names
 		.db.orig.colnames <<- colnames(.self$.db)

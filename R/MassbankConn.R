@@ -3,17 +3,14 @@
 # Class declaration {{{1
 ################################################################
 
-MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"), fields = list( .url = "character" ))
+MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"))
 
 # Constructor {{{1
 ################################################################
 
 MassbankConn$methods( initialize = function(url = NA_character_, ...) {
 
-	callSuper(content.type = BIODB.TXT, ...)
-
-	# Set URL
-	.url <<- if (is.null(url) || is.na(url)) BIODB.MASSBANK.EU.WS.URL else url
+	callSuper(content.type = BIODB.TXT, base.url = .self$getBiodb()$getConfig()$get(CFG.MASSBANK.URL), ...)
 })
 
 # Get entry content {{{1
@@ -37,7 +34,7 @@ MassbankConn$methods( getEntryContent = function(ids) {
 		accessions <- ids[(n + 1):length(ids)]
 
 		# Create URL request
-		x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$.url)
+		x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$getBaseUrl())
 
 		# Debug
 		.self$message(MSG.INFO, paste0("Send URL request for ", x$n," id(s)..."))
@@ -86,7 +83,7 @@ MassbankConn$methods( getMzValues = function(mode = NULL, max.results = NA_integ
 MassbankConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
 
 	# Set URL
-	url <- paste0(.self$.url, 'searchPeak?mzs=', mz)
+	url <- paste0(.self$getBaseUrl(), 'searchPeak?mzs=', mz)
 	url <- paste0(url, '&relativeIntensity=', if (is.na(relint)) 0 else relint)
 	url <- paste0(url, '&tolerance=', tol, '&instrumentTypes=all')
 	url <- paste0(url, '&ionMode=', if (is.na(mode)) 'Both' else ( if (mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'))

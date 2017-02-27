@@ -3,15 +3,14 @@
 # Class declaration {{{1
 ################################################################
 
-RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler", .token = "character", .base.url = "character"))
+RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler", .token = "character"))
 
 # Constructor {{{1
 ################################################################
 
-RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_character_, base.url = NA_character_, ...) {
+RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_character_, ...) {
 
-	# Set base URL
-	.base.url <<- base.url
+	callSuper(...)
 
 	# Set token
 	.token <<- token
@@ -21,15 +20,6 @@ RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_charact
 		scheduler <- UrlRequestScheduler$new(n = 3, parent = .self)
 	is(scheduler, "UrlRequestScheduler") || .self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
 	.scheduler <<- scheduler
-
-	callSuper(...)
-})
-
-# Get base url {{{1
-################################################################
-
-RemotedbConn$methods( getBaseUrl = function() {
-	return(.self$.base.url)
 })
 
 # Get token {{{1

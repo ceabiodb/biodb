@@ -2,14 +2,14 @@
 # CLASS DECLARATION #
 #####################
 
-PubchemEntry <- methods::setRefClass("PubchemEntry", contains = "BiodbEntry")
-PubchemSubstance <- methods::setRefClass("PubchemSubstance", contains = "BiodbEntry")
+NcbiPubchemEntry <- methods::setRefClass("NcbiPubchemEntry", contains = "BiodbEntry")
+NcbiPubchemSubstance <- methods::setRefClass("NcbiPubchemSubstance", contains = "BiodbEntry")
 
 #####################
 # SUBSTANCE FACTORY #
 #####################
 
-createPubchemSubstanceFromXml <- function(biodb, contents, drop = TRUE) {
+createNcbiPubchemSubstanceFromXml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -21,7 +21,7 @@ createPubchemSubstanceFromXml <- function(biodb, contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- PubchemEntry$new(biodb = biodb)
+		entry <- NcbiPubchemEntry$new(biodb = biodb)
 
 		if ( ! is.null(content) && ! is.na(content)) {
 
@@ -58,7 +58,7 @@ createPubchemSubstanceFromXml <- function(biodb, contents, drop = TRUE) {
 # COMPOUND FACTORY #
 ####################
 
-createPubchemEntryFromXml <- function(biodb, contents, drop = TRUE) {
+createNcbiPubchemEntryFromXml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -74,7 +74,7 @@ createPubchemEntryFromXml <- function(biodb, contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- PubchemEntry$new(biodb = biodb)
+		entry <- NcbiPubchemEntry$new(biodb = biodb)
 
 		if ( ! is.null(content) && ! is.na(content)) {
 

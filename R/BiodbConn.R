@@ -3,12 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .biodb = "ANY", .content.type = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .biodb = "ANY", .content.type = "character", .base.url = "character"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(biodb = NULL, content.type = NA_character_, ...) {
+BiodbConn$methods( initialize = function(biodb = NULL, content.type = NA_character_, base.url = NA_character_, ...) {
 
 	callSuper(...)
 
@@ -23,6 +23,18 @@ BiodbConn$methods( initialize = function(biodb = NULL, content.type = NA_charact
 	if ( ! content.type %in% BIODB.CONTENT.TYPES)
 		.self$message(MSG.ERROR, paste("Unknown content type \"", content.type, "\"."))
 	.content.type <<- content.type
+
+	# Set base URL
+	if (is.null(base.url) || is.na(base.url))
+		.self$message(MSG.ERROR, "You must specify a base URL for the database.")
+	.base.url <<- base.url
+})
+
+# Get base url {{{1
+################################################################
+
+BiodbConn$methods( getBaseUrl = function() {
+	return(.self$.base.url)
 })
 
 # Get entry content type {{{1

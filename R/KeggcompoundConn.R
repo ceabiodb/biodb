@@ -5,19 +5,19 @@
 
 #'KEGG Compound connection class.
 #'@export
-KeggcompoundConn <- methods::setRefClass("KeggcompoundConn", contains = "KeggConn")
+KeggCompoundConn <- methods::setRefClass("KeggCompoundConn", contains = "KeggConn")
 
 # Constructor {{{1
 ################################################################
 
-KeggcompoundConn$methods( initialize = function(...) {
+KeggCompoundConn$methods( initialize = function(...) {
 	callSuper(db.name = 'compound', db.abbrev = 'cpd', ...)
 })
 
 # Create entry {{{1
 ################################################################
 
-KeggcompoundConn$methods( createEntry = function(content, drop = TRUE) {
+KeggCompoundConn$methods( createEntry = function(content, drop = TRUE) {
 
 	entries <- list()
 

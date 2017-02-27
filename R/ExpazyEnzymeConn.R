@@ -3,12 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-EnzymeConn <- methods::setRefClass("EnzymeConn", contains = "RemotedbConn")
+ExpazyEnzymeConn <- methods::setRefClass("ExpazyEnzymeConn", contains = "RemotedbConn")
 
 # Constructor {{{1
 ################################################################
 
-EnzymeConn$methods( initialize = function(...) {
+ExpazyEnzymeConn$methods( initialize = function(...) {
 
 	callSuper(content.type = BIODB.TXT, base.url = "http://enzyme.expasy.org/", ...)
 })
@@ -16,7 +16,7 @@ EnzymeConn$methods( initialize = function(...) {
 # Get entry content {{{1
 ################################################################
 
-EnzymeConn$methods( getEntryContent = function(id) {
+ExpazyEnzymeConn$methods( getEntryContent = function(id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
@@ -30,14 +30,14 @@ EnzymeConn$methods( getEntryContent = function(id) {
 # Create entry {{{1
 ################################################################
 
-EnzymeConn$methods( createEntry = function(content, drop = TRUE) {
+ExpazyEnzymeConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createEnzymeEntryFromTxt(.self$getBiodb(), content, drop = drop))
 })
 
 # Get entry ids {{{1
 ################################################################
 
-EnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
+ExpazyEnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Send request
 	html.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "enzyme-bycomment.html", sep = ''), params = c('e'))

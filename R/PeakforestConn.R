@@ -12,7 +12,7 @@ PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbC
 
 PeakforestConn$methods( initialize = function(...) {
 
-	callSuper(content.type = BIODB.JSON, ...)
+	callSuper(content.type = BIODB.JSON, base.url = .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.URL), token = .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.TOKEN), ...)
 
 	# Check token
 	if (is.na(.self$getToken()))

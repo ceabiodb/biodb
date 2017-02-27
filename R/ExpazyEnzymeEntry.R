@@ -2,13 +2,13 @@
 # CLASS DECLARATION #
 #####################
 
-EnzymeEntry <- methods::setRefClass("EnzymeEntry", contains = 'BiodbEntry')
+ExpazyEnzymeEntry <- methods::setRefClass("ExpazyEnzymeEntry", contains = 'BiodbEntry')
 
 ###########
 # FACTORY #
 ###########
 
-createEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
+createExpazyEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -22,7 +22,7 @@ createEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	for (text in contents) {
 
 		# Create instance
-		entry <- EnzymeEntry$new(biodb)
+		entry <- ExpazyEnzymeEntry$new(biodb)
 
 		lines <- strsplit(text, "\n")
 		for (s in lines[[1]]) {

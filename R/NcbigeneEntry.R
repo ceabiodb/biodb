@@ -2,13 +2,13 @@
 # CLASS DECLARATION #
 #####################
 
-NcbigeneEntry <- methods::setRefClass("NcbigeneEntry", contains = "BiodbEntry")
+NcbiGeneEntry <- methods::setRefClass("NcbiGeneEntry", contains = "BiodbEntry")
 
 ###########
 # FACTORY #
 ###########
 
-createNcbigeneEntryFromXml <- function(biodb, contents, drop = TRUE) {
+createNcbiGeneEntryFromXml <- function(biodb, contents, drop = TRUE) {
 
 	entries <- list()
 
@@ -25,7 +25,7 @@ createNcbigeneEntryFromXml <- function(biodb, contents, drop = TRUE) {
 	for (content in contents) {
 
 		# Create instance
-		entry <- NcbigeneEntry$new(biodb = biodb)
+		entry <- NcbiGeneEntry$new(biodb = biodb)
 	
 		# Parse HTML
 		xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
