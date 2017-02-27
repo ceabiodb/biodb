@@ -23,7 +23,7 @@ NcbiGeneConn$methods( getEntryContent = function(id) {
 	content <- rep(NA_character_, length(id))
 
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBIGENE, x, content.type = BIODB.XML)), FUN.VALUE = '')
+	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBI.GENE, x, content.type = BIODB.XML)), FUN.VALUE = '')
 
 	return(content)
 })
