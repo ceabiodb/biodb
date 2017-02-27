@@ -25,7 +25,7 @@ KeggCompoundConn$methods( createEntry = function(content, drop = TRUE) {
 	regex <- character()
 	regex[[BIODB.NAME]] <- "^NAME\\s+([^,;]+)"
 	regex[[BIODB.CHEBI.ID]] <- "^\\s+ChEBI:\\s+(\\S+)"
-	regex[[BIODB.LIPIDMAPSSTRUCTURE.ID]] <- "^\\s+LIPIDMAPS:\\s+(\\S+)"
+	regex[[BIODB.LIPIDMAPS.STRUCTURE.ID]] <- "^\\s+LIPIDMAPS:\\s+(\\S+)"
 
 	for (text in content) {
 

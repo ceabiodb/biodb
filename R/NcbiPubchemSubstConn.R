@@ -16,7 +16,7 @@ NcbiPubchemSubstConn$methods( initialize = function(...) {
 ################################################################
 
 NcbiPubchemSubstConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createPubchemSubstanceFromXml(.self$getBiodb(), content, drop = drop))
+	return(createNcbiPubchemSubstanceFromXml(.self$getBiodb(), content, drop = drop))
 })
 
 # Get entry ids {{{1

@@ -12,7 +12,7 @@ test.hmdbmetabolite.nbentries <- function(db) {
 # MAIN {{{1
 ################################################################
 
-if (length(TEST.DATABASES) == 0 || BIODB.HMDBMETABOLITE %in% TEST.DATABASES) {
+if (length(TEST.DATABASES) == 0 || BIODB.HMDB.METABOLITE %in% TEST.DATABASES) {
 
 	context("Testing hmdbmetabolite")
 
@@ -23,7 +23,7 @@ if (length(TEST.DATABASES) == 0 || BIODB.HMDBMETABOLITE %in% TEST.DATABASES) {
 	factory <- biodb$getFactory()
 
 	# Create database
-	db <- factory$createConn(BIODB.HMDBMETABOLITE)
+	db <- factory$createConn(BIODB.HMDB.METABOLITE)
 
 	if (ONLINE %in% TEST.MODES)
 		test_that("HMDB metabolite returns enough entries ", test.hmdbmetabolite.nbentries(db))

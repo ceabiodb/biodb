@@ -9,7 +9,7 @@ ChebiConn <- methods::setRefClass("ChebiConn", contains = "RemotedbConn")
 ################################################################
 
 ChebiConn$methods( initialize = function(...) {
-	callSuper(content.type = BIODB.HTML, ...)
+	callSuper(content.type = BIODB.HTML, base.url = 'https://www.ebi.ac.uk', ...)
 })
 
 # Get entry content {{{1

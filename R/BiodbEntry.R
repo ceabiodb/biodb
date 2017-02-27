@@ -74,7 +74,7 @@ BiodbEntry$methods(	hasField = function(field) {
 BiodbEntry$methods(	getFieldClass = function(field) {
 
 	if ( ! field %in% BIODB.FIELDS[['name']])
-		stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+		.self$message(MSG.ERROR, paste('Unknown field "', field, "\".", sep = ''))
 
 	field.class <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'class']
 
@@ -156,7 +156,7 @@ BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 		for (db in BIODB.FIELD.COMPUTING[[f]]) {
 
 			# Have we a reference for this database?
-			db.id.field <- paste0(db, 'id')
+			db.id.field <- paste(db, 'id', sep = '.')
 			if ( ! .self$hasField(db.id.field))
 				next
 			db.id <- .self$getFieldValue(db.id.field, compute = FALSE)

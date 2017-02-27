@@ -32,7 +32,7 @@ NcbiCcdsConn$methods( getEntryContent = function(id) {
 ################################################################
 
 NcbiCcdsConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createNcbiccdsEntryFromHtml(.self$getBiodb(), content, drop = drop))
+	return(createNcbiCcdsEntryFromHtml(.self$getBiodb(), content, drop = drop))
 })
 
 # Get entry ids {{{1

@@ -45,23 +45,26 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 
     # Get connection class name
     s <- class
+    .self$message(MSG.DEBUG, paste("Create instance for class", class))
 	indices <- as.integer(gregexpr('\\.[a-z]', class, perl = TRUE)[[1]])
     indices <- indices + 1  # We are interested in the letter after the dot.
     indices <- c(1, indices) # Add first letter.
+    .self$message(MSG.DEBUG, paste("Letters to put in uppercase:", paste(indices, collapse = ", ")))
 	for (i in indices)
-		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, 1)), substring(s, i + 1), sep = '')
+		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
+    .self$message(MSG.DEBUG, paste("Create instance for class", s))
     s <- gsub('.', '', s, fixed = TRUE) # Remove dots
-	conn.class.name <- s
+    .self$message(MSG.DEBUG, paste("Create instance of class", s))
+	conn.class.name <- paste(s, 'Conn', sep = '')
 
     # Get connection class
     conn.class <- get(conn.class.name)
 
 	# Create connection instance
-    conn <- conn.class$new(biodb = .self$getBiodb())
-
-	# Set URL
-    if ( ! is.na(url))
-	    conn$setBaseUrl(url)
+    if (is.na(url))
+    	conn <- conn.class$new(biodb = .self$getBiodb())
+    else
+    	conn <- conn.class$new(biodb = .self$getBiodb(), base.url = url)
 
     # Set token
     if ( ! is.na(token))

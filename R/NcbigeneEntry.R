@@ -15,7 +15,7 @@ createNcbiGeneEntryFromXml <- function(biodb, contents, drop = TRUE) {
 	# Define xpath expressions
 	xpath.expr <- character()
 	xpath.expr[[BIODB.ACCESSION]] <- "//Gene-track_geneid"
-	xpath.expr[[BIODB.KEGGCOMPOUND.ID]] <- "/Dbtag_db[text()='KEGG']/..//Object-id_str"
+	xpath.expr[[BIODB.KEGG.COMPOUND.ID]] <- "/Dbtag_db[text()='KEGG']/..//Object-id_str"
 	xpath.expr[[BIODB.UNIPROT.ID]] <- "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str"
 	xpath.expr[[BIODB.LOCATION]] <- "//Gene-ref_maploc"
 	xpath.expr[[BIODB.PROTEIN.DESCRIPTION]] <- "//Gene-ref_desc"

@@ -23,9 +23,9 @@ createUniprotEntryFromXml <- function(biodb, contents, drop = FALSE) {
 	xpath.values[[BIODB.SEQUENCE]] <- "//uniprot:entry/uniprot:sequence"
 	xpath.values[[BIODB.ACCESSION]] <- "//uniprot:accession[1]"
 	xpath.attr <- list()
-	xpath.attr[[BIODB.KEGGCOMPOUND.ID]] <- list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id')
+	xpath.attr[[BIODB.KEGG.COMPOUND.ID]] <- list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id')
 	xpath.attr[[BIODB.NCBI.GENE.ID]] <- list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id')
-	xpath.attr[[BIODB.ENZYME.ID]] <- list(path = "//uniprot:dbReference[@type='EC']", attr = 'id')
+	xpath.attr[[BIODB.EXPAZY.ENZYME.ID]] <- list(path = "//uniprot:dbReference[@type='EC']", attr = 'id')
 	xpath.attr[[BIODB.MASS]] <- list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass')
 	xpath.attr[[BIODB.LENGTH]] <- list(path = "//uniprot:entry/uniprot:sequence", attr = 'length')
 

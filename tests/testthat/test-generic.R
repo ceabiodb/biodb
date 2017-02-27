@@ -3,7 +3,7 @@
 # CONSTANTS {{{1
 ################################################################
 
-.MASSFILEDB.URL <- file.path(SCRIPT.DIR, 'tests', 'res', 'massfiledb.tsv')
+.MASSFILEDB.URL <- file.path(SCRIPT.DIR, 'tests', 'res', 'mass.csv.file.tsv')
 
 # TEST ENTRY FIELDS {{{1
 ################################################################
@@ -82,7 +82,7 @@ biodb$addObservers(BiodbLogger$new(file = LOG.FILE))
 # Get factory
 factory <- biodb$getFactory()
 
-# Initialize massfiledb
+# Initialize MassCsvFile
 if (length(TEST.DATABASES) == 0 || BIODB.MASS.CSV.FILE %in% TEST.DATABASES) {
 	db.instance <- factory$createConn(BIODB.MASS.CSV.FILE, url = .MASSFILEDB.URL)
 	db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))

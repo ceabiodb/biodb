@@ -1,6 +1,8 @@
 #!/usr/bin/env Rscript
 # vi: ft=R fdm=marker
 
+library(methods)
+
 for (lib in c('getopt', 'R.utils')) {
 	library(lib, character.only = TRUE, warn.conflicts = FALSE, quietly = TRUE, verbose = FALSE)
 	detach(paste('package', lib, sep = ':'), character.only = TRUE, unload = TRUE)
@@ -72,3 +74,6 @@ devtools::test(SCRIPT.DIR)
 
 # Close log file
 close(LOG.FILE)
+
+# Print warnings
+warnings()

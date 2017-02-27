@@ -29,7 +29,6 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	# Set fields
 	.db <<- NULL
 	.db.orig.colnames <<- NA_character_
-	.file <<- file
 	.file.sep <<- file.sep
 	.file.quote <<- file.quote
 	.fields <<- .BIODB.DFT.DB.FIELDS

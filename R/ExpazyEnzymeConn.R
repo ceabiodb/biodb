@@ -22,7 +22,7 @@ ExpazyEnzymeConn$methods( getEntryContent = function(id) {
 	content <- rep(NA_character_, length(id))
 
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.ENZYME, accession = x, content.type = BIODB.TXT)), FUN.VALUE = '')
+	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.EXPAZY.ENZYME, accession = x, content.type = BIODB.TXT)), FUN.VALUE = '')
 
 	return(content)
 })
@@ -31,7 +31,7 @@ ExpazyEnzymeConn$methods( getEntryContent = function(id) {
 ################################################################
 
 ExpazyEnzymeConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createEnzymeEntryFromTxt(.self$getBiodb(), content, drop = drop))
+	return(createExpazyEnzymeEntryFromTxt(.self$getBiodb(), content, drop = drop))
 })
 
 # Get entry ids {{{1

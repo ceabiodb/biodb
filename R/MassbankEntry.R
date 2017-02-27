@@ -22,7 +22,7 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	regex[[BIODB.NB.PEAKS]] <- "^PK\\$NUM_PEAK: ([0-9]+)$"
 	regex[[BIODB.MSPRECANNOT]] <- "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$"
 	regex[[BIODB.CHEBI.ID]] <- "^CH\\$LINK: CHEBI\\s+(.+)$"
-	regex[[BIODB.KEGGCOMPOUND.ID]] <- "^CH\\$LINK: KEGG\\s+(.+)$"
+	regex[[BIODB.KEGG.COMPOUND.ID]] <- "^CH\\$LINK: KEGG\\s+(.+)$"
 	regex[[BIODB.INCHI]] <- "^CH\\$IUPAC:\\s+(.+)$"
 	regex[[BIODB.INCHIKEY]] <- "^CH\\$LINK: INCHIKEY\\s+(.+)$"
 	regex[[BIODB.CHEMSPIDER.ID]] <- "^CH\\$LINK: CHEMSPIDER\\s+(.+)$"
@@ -30,9 +30,9 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	regex[[BIODB.FORMULA]] <- "^CH\\$FORMULA:\\s+(.+)$"
 	regex[[BIODB.SMILES]] <- "^CH\\$SMILES:\\s+(.+)$"
 	regex[[BIODB.MASS]] <- "^CH\\$EXACT_MASS:\\s+(.+)$"
-	regex[[BIODB.PUBCHEM.COMP.ID]] <- "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)"
-	regex[[BIODB.PUBCHEM.SUBST.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)"
-	regex[[BIODB.HMDBMETABOLITE.ID]] <- "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)"
+	regex[[BIODB.NCBI.PUBCHEM.COMP.ID]] <- "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)"
+	regex[[BIODB.NCBI.PUBCHEM.SUBST.ID]] <- "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)"
+	regex[[BIODB.HMDB.METABOLITE.ID]] <- "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)"
 
 	n <- 0
 	for (text in contents) {
@@ -88,7 +88,7 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 				# PubChem
 				g <- stringr::str_match(s, "^CH\\$LINK: PUBCHEM\\s+([0-9]+)$")
 				if ( ! is.na(g[1,1])) {
-					entry$setFieldValue(BIODB.PUBCHEM.SUBST.ID, g[1,2])
+					entry$setFieldValue(BIODB.NCBI.PUBCHEM.SUBST.ID, g[1,2])
 					next
 				}
 

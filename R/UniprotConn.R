@@ -8,7 +8,7 @@ UniprotConn <- methods::setRefClass("UniprotConn", contains = "RemotedbConn")
 ################################################################
 
 UniprotConn$methods( initialize = function(...) {
-	callSuper(content.type = BIODB.XML, ...)
+	callSuper(content.type = BIODB.XML, base.url = 'http://www.uniprot.org/uniprot/', ...)
 })
 
 #####################
