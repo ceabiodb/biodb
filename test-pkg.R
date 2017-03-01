@@ -16,8 +16,10 @@ SCRIPT.PATH <- sub("--file=","",args[grep("--file=",args)])
 SCRIPT.DIR <- dirname(SCRIPT.PATH)
 if ( ! R.utils::isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
 
-OFFLINE <- 'offline'
-ONLINE <- 'online'
+MODE.OFFLINE <- 'offline'
+MODE.ONLINE <- 'online'
+MODE.QUICK.ONLINE <- 'quick.online'
+ALLOWED.MODES <- c(MODE.OFFLINE, MODE.ONLINE, MODE.QUICK.ONLINE)
 TEST.MODES <- logical()
 TEST.DATABASES <- character()
 LOG.FILE.PATH <- file.path(SCRIPT.DIR, 'tests', 'test.log')
@@ -35,6 +37,7 @@ read_args <- function() {
 		'help',            'h',    0,  'logical',      'Print this help.',
 		'disable-online',  'x',    0,  'logical',      'Disable online testing.',
 		'disable-offline', 'y',    0,  'logical',      'Disable offline testing.'
+		'disable-offline', 'z',    0,  'logical',      'Disable offline testing.'
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
 	opt <- getopt::getopt(spec)
