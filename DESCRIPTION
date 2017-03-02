@@ -25,7 +25,7 @@ Collate: 'biodb-common.R' 'spec-dist.R'
 		'MassCsvFileConn.R'
 		'MirbaseConn.R' 'MirbaseMatureConn.R' 'MirbaseMatureEntry.R'
         'NcbiConn.R' 'NcbiEntrezConn.R' 'NcbiCcdsConn.R' 'NcbiGeneConn.R' 'NcbiCcdsEntry.R' 'NcbiGeneEntry.R' 'NcbiPubchemConn.R' 'NcbiPubchemCompConn.R' 'NcbiPubchemSubstConn.R' 'NcbiPubchemEntry.R'
-        'PeakforestConn.R' 'PeakforestlcmsConn.R'
+        'PeakforestConn.R' 'PeakforestLcmsConn.R'
 		'UniprotConn.R' 'UniprotEntry.R' 
         'biodb-package.R'
 Author: Pierrick Roger

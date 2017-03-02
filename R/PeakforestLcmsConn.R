@@ -449,6 +449,36 @@ PeakforestLcmsConn$methods(
 ################################################################
 
 PeakforestLcmsConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	.self$message(MSG.CAUTION, "No method implemented for computing list of IDs.")
-	return(NULL)
+
+	# Build URL
+	url <- paste(.self$getBaseUrl(), 'spectra/lcms/all/ids?token=', .self$getToken(), sep = '')
+
+	# Send request
+	json.str <- .self$.getUrlScheduler()$getUrl(url)
+
+	# Parse JSON
+	json <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
+
+	# Get IDs
+	ids <- json
+
+	# Cut
+	if ( ! is.na(max.results) && max.results > 1 && max.results < length(ids))
+		ids <- ids[1:max.results]
+
+	return(ids)
+})
+
+# Get nb entries {{{1
+################################################################
+
+PeakforestLcmsConn$methods( getNbEntries = function(count = FALSE) {
+
+	# Build URL
+	url <- paste(.self$getBaseUrl(), 'spectra/lcms/all/count?token=', .self$getToken(), sep = '')
+
+	# Send request
+	n <- as.integer(.self$.getUrlScheduler()$getUrl(url))
+
+	return(n)
 })
