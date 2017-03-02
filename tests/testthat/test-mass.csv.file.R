@@ -63,7 +63,7 @@ offline.test.mass.csv.file <- function() {
 # MAIN {{{1
 ################################################################
 
-if ((length(TEST.DATABASES) == 0 || BIODB.MASS.CSV.FILE %in% TEST.DATABASES) && OFFLINE %in% TEST.MODES) {
+if ((length(TEST.DATABASES) == 0 || BIODB.MASS.CSV.FILE %in% TEST.DATABASES) && MODE.OFFLINE %in% TEST.MODES) {
 	context("Testing mass.csv.file")
 	test_that("MassCsvFileConn methods are correct", offline.test.mass.csv.file())
 }

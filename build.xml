@@ -40,50 +40,26 @@
 		</exec>
 	</target>
 
-	<!-- TEST PACKAGE MACRO -->
-	<macrodef name="testpkg">
-
-		<!-- attributes -->
-		<attribute name="online" default="true"/>
-		<attribute name="offline" default="true"/>
-
-		<sequential>
-
-			<!-- Set arguments -->
-			<condition property="databases" value="-d ${DATABASES}" else=""><isset property="DATABASES"/></condition>
-			<condition property="disable.online"  value="-x" else=""><isfalse value="@{online}"/></condition>
-			<condition property="disable.offline" value="-y" else=""><isfalse value="@{offline}"/></condition>
-
-			<!-- execution -->
-			<exec executable="${this.dir}/test-pkg" failonerror="true">
-				<arg line="${databases}"/>
-				<arg line="${disable.online}"/>
-				<arg line="${disable.offline}"/>
-				<redirector>
-					<outputfilterchain>
-						<tokenfilter>
-							<replaceregex pattern="from " replace="from R/"/>
-							<replaceregex pattern="@" replace="@tests/testthat/"/>
-						</tokenfilter>
-					</outputfilterchain>
-				</redirector>
-			</exec>
-		</sequential>
-	</macrodef>
-
 	<!-- TEST PACKAGE -->
 	<target name="test.pkg">
-		<testpkg/>
-	</target>
 
-	<!-- OFFLINE TEST PACKAGE -->
-	<target name="offline.test.pkg">
-		<testpkg online="false"/>
-	</target>
+		<!-- Set arguments -->
+		<condition property="databases" value="-d ${DATABASES}" else=""><isset property="DATABASES"/></condition>
+		<condition property="modes" value="-m ${MODES}" else=""><isset property="MODES"/></condition>
 
-	<!-- ONLINE TEST PACKAGE -->
-	<target name="online.test.pkg">
-		<testpkg offline="false"/>
+		<!-- execution -->
+		<exec executable="${this.dir}/test-pkg" failonerror="true">
+			<arg line="${databases}"/>
+			<arg line="${modes}"/>
+			<redirector>
+				<outputfilterchain>
+					<tokenfilter>
+						<replaceregex pattern="from " replace="from R/"/>
+						<replaceregex pattern="@" replace="@tests/testthat/"/>
+					</tokenfilter>
+				</outputfilterchain>
+			</redirector>
+		</exec>
 	</target>
 
 	<!-- CLEAN -->

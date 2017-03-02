@@ -35,9 +35,7 @@ read_args <- function() {
 	spec <- c(
 		'databases',       'd',    1,  'character',    'Set list of databases on which to run the tests. Optional.',
 		'help',            'h',    0,  'logical',      'Print this help.',
-		'disable-online',  'x',    0,  'logical',      'Disable online testing.',
-		'disable-offline', 'y',    0,  'logical',      'Disable offline testing.'
-		'disable-offline', 'z',    0,  'logical',      'Disable offline testing.'
+		'modes',           'm',    1,  'character',    'Set list of testing modes. Optional.'
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
 	opt <- getopt::getopt(spec)
@@ -45,6 +43,8 @@ read_args <- function() {
 	# Parse option values
 	if ( ! is.null(opt$databases))
 		opt[['databases']] <- strsplit(opt[['databases']], ',')
+	if ( ! is.null(opt$modes))
+		opt[['modes']] <- strsplit(opt[['modes']], ',')
 
 	# help
 	if ( ! is.null(opt$help))
@@ -59,11 +59,15 @@ read_args <- function() {
 # Read command line arguments
 opt <- read_args()
 
-# Set online/offline modes to test
-if (is.null(opt[['disable-offline']]))
-	TEST.MODES <- c(TEST.MODES, OFFLINE)
-if (is.null(opt[['disable-online']]))
-	TEST.MODES <- c(TEST.MODES, ONLINE)
+# Set testing modes
+if ( ! is.null(opt[['modes']])) {
+	mode.exists <- opt[['modes']] %in% ALLOWED.MODES
+	if ( ! all(mode.exists)) {
+		wrong.modes <- opt[['modes']][ ! mode.exists]
+		stop(paste('Unknown testing mode(s) ', paste(wrong.modes, collapse = ', ')), '.', sep = '')
+	}
+	TEST.MODES <- opt[['modes']]
+}
 
 # Set list of databases to test
 if ( ! is.null(opt[['databases']]))

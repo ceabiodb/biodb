@@ -104,10 +104,17 @@ if (length(TEST.DATABASES) == 0 || BIODB.MASS.CSV.FILE %in% TEST.DATABASES) {
 for (mode in TEST.MODES) {
 
 	# Configure cache
-	if (mode == ONLINE) {
+	if (mode == MODE.ONLINE) {
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
+		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
+	}
+	else if (mode == MODE.QUICK.ONLINE) {
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
+		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
+		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
+		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
 	}
 	else {
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.FILES.DIR)
@@ -120,7 +127,7 @@ for (mode in TEST.MODES) {
 		context(paste("Running generic tests on", db, "in", mode, "mode"))
 		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
 		test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
-		if (mode == ONLINE) {
+		if ( ! is(factory$getConn(db), 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
 			test_that("Nb entries is positive", test.nb.entries(factory$getConn(db)))
 			test_that("We can get a list of entry ids", test.entry.ids(factory$getConn(db)))
 		}

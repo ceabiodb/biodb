@@ -25,6 +25,6 @@ if (length(TEST.DATABASES) == 0 || BIODB.HMDB.METABOLITE %in% TEST.DATABASES) {
 	# Create database
 	db <- factory$createConn(BIODB.HMDB.METABOLITE)
 
-	if (ONLINE %in% TEST.MODES)
+	if (MODE.ONLINE %in% TEST.MODES)
 		test_that("HMDB metabolite returns enough entries ", test.hmdbmetabolite.nbentries(db))
 }
