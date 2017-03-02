@@ -10,23 +10,25 @@ Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( 
 # Constructor {{{1
 ################################################################
 
-Biodb$methods( initialize = function(useragent = NA_character_, logger = TRUE, ...) {
+Biodb$methods( initialize = function(useragent = NA_character_, logger = TRUE, observers = NULL, ...) {
 
-	# Create config instance
-	.config <<- BiodbConfig$new()
+	callSuper(...)
 
 	# Set observers
 	.observers <<- list(WarningReporter$new(), ErrorReporter$new())
 	if (logger)
 		.self$addObservers(BiodbLogger$new())
+	if ( ! is.null(observers))
+		.self$addObservers(observers)
+
+	# Create config instance
+	.config <<- BiodbConfig$new(biodb = .self)
 
 	# Create cache
 	.cache <<- BiodbCache$new(biodb = .self)
 
 	# Create factory
 	.factory <<- BiodbFactory$new(biodb = .self)
-
-	callSuper(...)
 })
 
 # Get biodb {{{1

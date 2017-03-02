@@ -59,8 +59,10 @@ BIODB.MSPRECANNOT  <- 'msprecannot'
 BIODB.FORMULA      <- 'formula'
 BIODB.SUPER.CLASS  <- 'superclass'
 BIODB.MASS         <- 'mass'
-BIODB.AVERAGE.MASS <- 'averagemass'
-BIODB.MONOISOTOPIC.MASS <- 'monoisotopicmass'
+BIODB.AVERAGE.MASS <- 'average.mass'
+BIODB.MONOISOTOPIC.MASS <- 'monoisotopic.mass'
+BIODB.NOMINAL.MASS <- 'nominal.mass'
+BIODB.MOLECULAR.WEIGHT <- 'molecular.weight'
 BIODB.SEQUENCE     <- 'sequence'
 BIODB.LOCATION     <- 'location'
 BIODB.LENGTH       <- 'length'
@@ -179,6 +181,8 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.MASS,                 'double',       BIODB.CARD.ONE,		'none',
 	BIODB.AVERAGE.MASS,         'double',       BIODB.CARD.ONE,		'none',
 	BIODB.MONOISOTOPIC.MASS,    'double',       BIODB.CARD.ONE,		'none',
+	BIODB.NOMINAL.MASS,         'integer',      BIODB.CARD.ONE,		'none',
+	BIODB.MOLECULAR.WEIGHT,     'double',       BIODB.CARD.ONE,		'none',
 	BIODB.SEQUENCE,             'character',    BIODB.CARD.ONE,		'none',
 	BIODB.LENGTH,               'integer',      BIODB.CARD.ONE,		'none',
 	BIODB.LOCATION,             'character',    BIODB.CARD.ONE,		'none',

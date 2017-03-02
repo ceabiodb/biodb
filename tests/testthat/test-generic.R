@@ -76,8 +76,7 @@ test.entry.ids <- function(db) {
 ################################################################
 
 # Create biodb instance
-biodb <- Biodb$new(logger = FALSE)
-biodb$addObservers(BiodbLogger$new(file = LOG.FILE))
+biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE))
 
 # Get factory
 factory <- biodb$getFactory()
@@ -120,6 +119,7 @@ for (mode in TEST.MODES) {
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.FILES.DIR)
 		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$disable(CFG.CACHE.FORCE.DOWNLOAD)
+		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
 	}
 
 	# Loop on test databases

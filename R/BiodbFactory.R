@@ -142,7 +142,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " ", class, " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
 			.self$message(MSG.INFO, paste0(n.duplicates, " ", class, " entry ids, whose content needs to be fetched, are duplicates."))
-		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched for ", class, "."))
+		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched from ", class, " database."))
 	}
 
 	# Get contents

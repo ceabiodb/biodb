@@ -226,6 +226,7 @@ BiodbConfig$methods( set = function(key, value) {
 
 	.self$.checkKey(key)
 
+	.self$message(MSG.INFO, paste("Set ", key, " to ", value, ".", sep = ''))
 	.self$.values[[key]] <- as.vector(value, mode = .self$.getType(key))
 })
 
@@ -236,6 +237,7 @@ BiodbConfig$methods( enable = function(key) {
 
 	.self$.checkKey(key, type = 'logical')
 
+	.self$message(MSG.INFO, paste("Enable ", key, ".", sep = ''))
 	.self$.values[[key]] <- TRUE
 })
 
@@ -246,5 +248,6 @@ BiodbConfig$methods( disable = function(key) {
 
 	.self$.checkKey(key, type = 'logical')
 
+	.self$message(MSG.INFO, paste("Disable ", key, ".", sep = ''))
 	.self$.values[[key]] <- FALSE
 })

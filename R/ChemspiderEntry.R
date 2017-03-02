@@ -18,6 +18,10 @@ createChemspiderEntryFromXml <- function(biodb, contents, drop = TRUE) {
 	xpath.expr[[BIODB.FORMULA]]      	<- "//MF"
 	xpath.expr[[BIODB.NAME]]         	<- "//CommonName"
 	xpath.expr[[BIODB.AVERAGE.MASS]] 	<- "//AverageMass"
+	xpath.expr[[BIODB.MONOISOTOPIC.MASS]] 	<- "//MonoisotopicMass"
+	xpath.expr[[BIODB.NOMINAL.MASS]] 	<- "//NominalMass"
+	xpath.expr[[BIODB.MONOISOTOPIC.MASS]] 	<- "//MonoisotopicMass"
+	xpath.expr[[BIODB.MOLECULAR.WEIGHT]] 	<- "//MolecularWeight"
 	xpath.expr[[BIODB.INCHI]]           <- "//InChI"
 	xpath.expr[[BIODB.INCHIKEY]]       	<- "//InChIKey"
 	xpath.expr[[BIODB.SMILES]]          <- "//SMILES"
@@ -36,7 +40,7 @@ createChemspiderEntryFromXml <- function(biodb, contents, drop = TRUE) {
 			for (field in names(xpath.expr)) {
 				v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
 				if (length(v) > 0)
-					entry$setField(field, v)
+					entry$setFieldValue(field, v)
 			}
 		}
 
@@ -44,7 +48,7 @@ createChemspiderEntryFromXml <- function(biodb, contents, drop = TRUE) {
 	}
 
 	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+	entries <- lapply(entries, function(x) if (is.na(x$getFieldValue(BIODB.ACCESSION))) NULL else x)
 
 	# If the input was a single element, then output a single object
 	if (drop && length(contents) == 1)

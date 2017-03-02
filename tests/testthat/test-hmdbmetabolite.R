@@ -17,8 +17,7 @@ if (length(TEST.DATABASES) == 0 || BIODB.HMDB.METABOLITE %in% TEST.DATABASES) {
 	context("Testing hmdbmetabolite")
 
 	# Create biodb instance
-	biodb <- Biodb$new(logger = FALSE)
-	biodb$addObservers(BiodbLogger$new(file = LOG.FILE))
+	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE))
 	biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
 	factory <- biodb$getFactory()
 

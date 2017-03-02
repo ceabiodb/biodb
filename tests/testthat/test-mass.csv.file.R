@@ -10,8 +10,7 @@ offline.test.mass.csv.file <- function() {
 	df <- read.table(file, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
 	# Create biodb instance
-	biodb <- Biodb$new(logger = FALSE)
-	biodb$addObservers(BiodbLogger$new(file = LOG.FILE))
+	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE))
 	biodb$getCache()$disable()
 	factory <- biodb$getFactory()
 
