@@ -1,3 +1,3 @@
-accession   description
-1.1.1.1     "Alcohol dehydrogenase."
-1.1.1.54    "Allyl-alcohol dehydrogenase."
+accession   name                            synonyms             cofactor              catalytic.activity
+1.1.1.1     "Alcohol dehydrogenase"         "Aldehyde reductase" "Zn(2+) or Fe cation" "(1) An alcohol + NAD(+) = an aldehyde or ketone + NADH;(2) A secondary alcohol + NAD(+) = a ketone + NADH"
+1.1.1.54    "Allyl-alcohol dehydrogenase"   NA                   NA                    "Allyl alcohol + NADP(+) = acrolein + NADPH"

@@ -17,29 +17,39 @@ createExpazyEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	# Define fields regex
 	regex <- character()
 	regex[[BIODB.ACCESSION]] <- "^ID\\s+([0-9.]+)$"
-	regex[[BIODB.DESCRIPTION]] <- "^DE\\s+(.+)$"
+	regex[[BIODB.NAME]]      <- "^DE\\s+(.+?)\\.?$"
+	regex[[BIODB.SYNONYMS]]  <- "^AN\\s+(.+?)\\.?$" # Alternate names
+	regex[[BIODB.CATALYTIC.ACTIVITY]]  <- "^CA\\s+(.+?)\\.?$"
+	regex[[BIODB.COFACTOR]]  <- "^CF\\s+(.+?)\\.?$"
 
 	for (text in contents) {
 
 		# Create instance
 		entry <- ExpazyEnzymeEntry$new(biodb)
 
-		lines <- strsplit(text, "\n")
-		for (s in lines[[1]]) {
+		lines <- strsplit(text, "\n")[[1]]
+		for (s in lines) {
 
 			# Test generic regex
-			parsed <- FALSE
 			for (field in names(regex)) {
 				g <- stringr::str_match(s, regex[[field]])
 				if ( ! is.na(g[1,1])) {
-					entry$setField(field, g[1,2])
-					parsed <- TRUE
+					if (entry$hasField(field)) {
+						if (entry$getFieldCardinality(field) == BIODB.CARD.MANY)
+							entry$setFieldValue(field, c(entry$getFieldValue(field), g[1,2]))
+						else
+							stop(paste("Cannot set multiple values into field \"", field, "\".", sep = ''))
+					}
+					else
+						entry$setFieldValue(field, g[1,2])
 					break
 				}
 			}
-			if (parsed)
-				next
 		}
+
+		# Cofactors may be listed on a single line, separated by a semicolon.
+		if (entry$hasField(BIODB.COFACTOR))
+			entry$setFieldValue(BIODB.COFACTOR, unlist(strsplit(entry$getFieldValue(BIODB.COFACTOR), ' *; *')))
 
 		entries <- c(entries, entry)
 	}

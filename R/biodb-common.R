@@ -91,6 +91,8 @@ BIODB.PEAK.ERROR.PPM <- 'peak.error.ppm'
 BIODB.PEAK.INTENSITY <- 'peak.intensity'
 BIODB.PEAK.RELATIVE.INTENSITY <- 'peak.relative.intensity'
 BIODB.PEAK.RELATIVE.INTENSITY.SHORT <- 'rel.int' # XXX should not exist, we don't want twice the same field with different names.
+BIODB.CATALYTIC.ACTIVITY <- 'catalytic.activity'
+BIODB.COFACTOR <- 'cofactor'
 
 MULTIVAL.FIELD.SEP <- ';'
 
@@ -189,6 +191,8 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.NB.PEAKS,             'integer',      BIODB.CARD.ONE,		'none',
 	BIODB.PEAKS,                'data.frame',   BIODB.CARD.ONE,		'none',
 	BIODB.SMILES,               'character',    BIODB.CARD.ONE,		'none',
+	BIODB.CATALYTIC.ACTIVITY,   'character',    BIODB.CARD.MANY,    'none',
+	BIODB.COFACTOR,             'character',    BIODB.CARD.MANY,    'none',
 	BIODB.CAS.ID,               'character',    BIODB.CARD.ONE,		'none'
 	), byrow = TRUE, ncol = 4), stringsAsFactors = FALSE)
 colnames(BIODB.FIELDS) <- c('name', 'class', 'cardinality', 'type')
