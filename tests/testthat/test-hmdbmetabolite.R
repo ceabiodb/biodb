@@ -14,16 +14,21 @@ test.hmdbmetabolite.nbentries <- function(db) {
 
 if (length(TEST.DATABASES) == 0 || BIODB.HMDB.METABOLITE %in% TEST.DATABASES) {
 
-	context("Testing hmdbmetabolite")
+	if (MODE.ONLINE %in% TEST.MODES) {
+		context("Testing hmdbmetabolite")
 
-	# Create biodb instance
-	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE))
-	biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
-	factory <- biodb$getFactory()
+		# Create biodb instance
+		biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE))
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
+		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
+		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
+		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
+		biodb$getConfig()$disable(CFG.OFFLINE)
+		factory <- biodb$getFactory()
 
-	# Create database
-	db <- factory$createConn(BIODB.HMDB.METABOLITE)
+		# Create database
+		db <- factory$createConn(BIODB.HMDB.METABOLITE)
 
-	if (MODE.ONLINE %in% TEST.MODES)
 		test_that("HMDB metabolite returns enough entries ", test.hmdbmetabolite.nbentries(db))
+	}
 }

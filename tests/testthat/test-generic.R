@@ -108,12 +108,14 @@ for (mode in TEST.MODES) {
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
 		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
+		biodb$getConfig()$disable(CFG.OFFLINE)
 	}
 	else if (mode == MODE.QUICK.ONLINE) {
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
 		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
+		biodb$getConfig()$disable(CFG.OFFLINE)
 	}
 	else {
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.FILES.DIR)

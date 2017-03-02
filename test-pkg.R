@@ -60,6 +60,7 @@ read_args <- function() {
 opt <- read_args()
 
 # Set testing modes
+TEST.MODES <- ALLOWED.MODES
 if ( ! is.null(opt[['modes']])) {
 	mode.exists <- opt[['modes']] %in% ALLOWED.MODES
 	if ( ! all(mode.exists)) {
