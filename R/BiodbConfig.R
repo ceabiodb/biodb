@@ -17,6 +17,7 @@ CFG.CACHE.READ.ONLY         <- 'cache.read.only'
 CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
 CFG.ALLOW.HUGE.DOWNLOADS    <- 'allow.huge.downloads'
 CFG.MASSBANK.URL            <- 'massbank_url'
+CFG.OFFLINE                 <- 'offline'
 CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
 CFG.PEAKFOREST.URL          <- 'peakforest_url'
 CFG.USERAGENT               <- 'useragent'
@@ -77,6 +78,7 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey(CFG.CHEMSPIDER.TOKEN,         type = 'character')
 	.self$.newKey(CFG.ALLOW.HUGE.DOWNLOADS,     type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.MASSBANK.URL,             type = 'character', default = BIODB.MASSBANK.EU.WS.URL)
+	.self$.newKey(CFG.OFFLINE,                  type = 'logical',   default = FALSE)
 	.self$.newKey(CFG.PEAKFOREST.TOKEN,         type = 'character')
 	.self$.newKey(CFG.PEAKFOREST.URL,           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
 	.self$.newKey(CFG.USERAGENT,                type = 'character', default = useragent.default)

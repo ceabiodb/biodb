@@ -120,6 +120,7 @@ for (mode in TEST.MODES) {
 		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$disable(CFG.CACHE.FORCE.DOWNLOAD)
 		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
+		biodb$getConfig()$enable(CFG.OFFLINE)
 	}
 
 	# Loop on test databases

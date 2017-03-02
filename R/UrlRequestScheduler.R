@@ -74,10 +74,22 @@ UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
 	return(opts)
 })
 
+# Check offline mode {{{1
+################################################################
+
+UrlRequestScheduler$methods( .check.offline.mode = function() {
+
+	if (.self$getBiodb()$getConfig()$isEnabled(CFG.OFFLINE))
+		.self$message(MSG.ERROR, "Offline mode is enabled. All connections are forbidden.")
+})
+
 # SEND SOAP REQUEST {{{1
 ################################################################
 
 UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = NA_character_) {
+
+	.self$.check.offline.mode()
+
 	header <- c(Accept = "text/xml", Accept = "multipart/*",  'Content-Type' = "text/xml; charset=utf-8")
 	if ( ! is.na(action))
 		header <- c(header, c(SOAPAction = action))
@@ -90,6 +102,8 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = N
 ################################################################
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
+
+	.self$.check.offline.mode()
 
 	# Check method
 	if ( ! method %in% c(BIODB.GET, BIODB.POST))
