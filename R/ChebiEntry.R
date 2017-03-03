@@ -8,35 +8,38 @@ ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "BiodbEntry")
 # FACTORY #
 ###########
 
-createChebiEntryFromHtml <- function(biodb, contents, drop = TRUE) {
+createChebiEntryFromXml <- function(biodb, content, drop = TRUE) {
 
 	entries <- list()
 
 	# Define xpath expressions
 	xpath.expr <- character()
-#		xpath.expr[[BIODB.ACCESSION]] <- "//b[starts-with(., 'CHEBI:')]"
-	xpath.expr[[BIODB.INCHI]] <- "//td[starts-with(., 'InChI=')]"
-	xpath.expr[[BIODB.INCHIKEY]] <- "//td[text()='InChIKey']/../td[2]"
+	xpath.expr[[BIODB.SMILES]] <- "//chebi:return/chebi:smiles"
+	xpath.expr[[BIODB.INCHI]] <- "//chebi:return/chebi:inchi"
+	xpath.expr[[BIODB.INCHIKEY]] <- "//chebi:return/chebi:inchiKey"
 
-	for (content in contents) {
+	ns <- c(chebi = "http://www.ebi.ac.uk/webservices/chebi")
+
+	for (single.content in content) {
 
 		# Create instance
 		entry <- ChebiEntry$new(biodb)
 
-		if ( ! is.null(content) && ! is.na(content)) {
+		if ( ! is.null(single.content) && ! is.na(single.content)) {
 		
-			# Parse HTML
-			xml <-  XML::htmlTreeParse(content, asText = TRUE, useInternalNodes = TRUE)
+			# Parse XML
+			biodb$message(MSG.DEBUG, single.content)
+			xml <-  XML::xmlInternalTreeParse(single.content, asText = TRUE)
 
 			# Test generic xpath expressions
 			for (field in names(xpath.expr)) {
-				v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
+				v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue, namespaces = ns)
 				if (length(v) > 0)
 					entry$setField(field, v)
 			}
 		
 			# Get accession
-			accession <- XML::xpathSApply(xml, "//b[starts-with(., 'CHEBI:')]", XML::xmlValue)
+			accession <- XML::xpathSApply(xml, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = ns)
 			if (length(accession) > 0) {
 				accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
 				entry$setField(BIODB.ACCESSION, accession)
@@ -50,7 +53,7 @@ createChebiEntryFromHtml <- function(biodb, contents, drop = TRUE) {
 	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
 
 	# If the input was a single element, then output a single object
-	if (drop && length(contents) == 1)
+	if (drop && length(content) == 1)
 		entries <- entries[[1]]
 
 	return(entries)

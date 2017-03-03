@@ -113,7 +113,7 @@ BiodbCache$methods( loadFileContent = function(db, names, ext, output.vector = F
 
 	# Read contents from files
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, names, ext)
-	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) paste(readLines(x), collapse = "\n") else NULL )} )
+	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size) else NULL )} )
 
 	# Set to NA
 	content[content == 'NA'] <- NA_character_

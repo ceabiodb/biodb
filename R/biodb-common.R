@@ -245,7 +245,6 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 
 	# Get URL
 	url <- switch(class,
-		chebi       = if (content.type == BIODB.HTML) paste0('https://www.ebi.ac.uk/chebi/searchId.do?chebiId=', accession) else NULL,
 		chemspider  = {
 						token.param <- if (is.na(token)) '' else paste('&token', token, sep = '=')
 						switch(content.type,
