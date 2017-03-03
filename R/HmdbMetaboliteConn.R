@@ -80,6 +80,10 @@ HmdbMetaboliteConn$methods( createEntry = function(content, drop = TRUE) {
 			}
 		}
 
+		# Correct InChIKey
+		if (entry$hasField(BIODB.INCHIKEY))
+			entry$setFieldValue(BIODB.INCHIKEY, sub('^InChIKey=', '', entry$getFieldValue(BIODB.INCHIKEY), perl = TRUE))
+
 		entries <- c(entries, entry)
 	}
 
