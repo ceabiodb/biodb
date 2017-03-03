@@ -42,21 +42,21 @@ createNcbiGeneEntryFromXml <- function(biodb, contents, drop = TRUE) {
 					v <- v[ ! duplicated(v)]
 
 					# Set field
-					entry$setField(field, v)
+					entry$setFieldValue(field, v)
 				}
 			}
 		
 			# CCDS ID
 			ccdsid <- .find.ccds.id(xml)
 			if ( ! is.na(ccdsid))
-				entry$setField(BIODB.NCBI.CCDS.ID, ccdsid)
+				entry$setFieldValue(BIODB.NCBI.CCDS.ID, ccdsid)
 		}
 
 		entries <- c(entries, entry)
 	}
 
 	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
+	entries <- lapply(entries, function(x) if (is.na(x$getFieldValue(BIODB.ACCESSION))) NULL else x)
 
 	# If the input was a single element, then output a single object
 	if (drop && length(contents) == 1)

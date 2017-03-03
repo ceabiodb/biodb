@@ -23,7 +23,7 @@
             <Date-std>
               <Date-std_year>2017</Date-std_year>
               <Date-std_month>2</Date-std_month>
-              <Date-std_day>5</Date-std_day>
+              <Date-std_day>20</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -1913,6 +1913,11 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>26965295</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>26871637</PubMedId>
           </Pub_pmid>
         </Pub>
@@ -3666,6 +3671,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_016884925</Other-source_anchor>
+                          <Other-source_post-text>C-X-C chemokine receptor type 3 isoform X4</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -3724,6 +3731,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_005262314</Other-source_anchor>
+                          <Other-source_post-text>C-X-C chemokine receptor type 3 isoform X3</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -3820,6 +3829,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_005262313</Other-source_anchor>
+                          <Other-source_post-text>C-X-C chemokine receptor type 3 isoform X2</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -3916,6 +3927,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_016884924</Other-source_anchor>
+                          <Other-source_post-text>C-X-C chemokine receptor type 3 isoform X1</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -5407,6 +5420,45 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>monocytes and lymphocytes cooperate to enhance migration towards CXCR3 chemokines and CCL5 in COPD</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26965295</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>11</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -15928,4 +15980,4 @@
   </Entrezgene_xtra-index-terms>
 </Entrezgene>
 </Entrezgene-Set>
-
+ 

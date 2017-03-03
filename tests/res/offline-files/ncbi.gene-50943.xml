@@ -23,7 +23,7 @@
             <Date-std>
               <Date-std_year>2017</Date-std_year>
               <Date-std_month>2</Date-std_month>
-              <Date-std_day>5</Date-std_day>
+              <Date-std_day>26</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -4556,6 +4556,11 @@
                 </Pub>
                 <Pub>
                   <Pub_pmid>
+                    <PubMedId>23543754</PubMedId>
+                  </Pub_pmid>
+                </Pub>
+                <Pub>
+                  <Pub_pmid>
                     <PubMedId>23973223</PubMedId>
                   </Pub_pmid>
                 </Pub>
@@ -4567,6 +4572,11 @@
                 <Pub>
                   <Pub_pmid>
                     <PubMedId>25416956</PubMedId>
+                  </Pub_pmid>
+                </Pub>
+                <Pub>
+                  <Pub_pmid>
+                    <PubMedId>25910212</PubMedId>
                   </Pub_pmid>
                 </Pub>
               </Gene-commentary_refs>
@@ -6363,6 +6373,11 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>27885422</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>27875659</PubMedId>
           </Pub_pmid>
         </Pub>
@@ -6403,12 +6418,22 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>27035558</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>27000869</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
           <Pub_pmid>
             <PubMedId>26931655</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26921303</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -6479,6 +6504,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>26681759</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26676638</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -6674,6 +6704,11 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>25977253</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>25910212</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -10941,6 +10976,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_016885055</Other-source_anchor>
+                          <Other-source_post-text>forkhead box protein P3 isoform X4</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -11085,6 +11122,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_011542218</Other-source_anchor>
+                          <Other-source_post-text>forkhead box protein P3 isoform X1</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -11229,6 +11268,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_016885054</Other-source_anchor>
+                          <Other-source_post-text>forkhead box protein P3 isoform X3</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -11349,6 +11390,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_006724596</Other-source_anchor>
+                          <Other-source_post-text>forkhead box protein P3 isoform X2</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -11532,6 +11575,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_016885056</Other-source_anchor>
+                          <Other-source_post-text>forkhead box protein P3 isoform X5</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -13494,6 +13539,162 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CD44 has a regulatory role in FOXP3 expression and is associated with good prognostic factors in breast cancer</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27885422</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>25</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>25</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>16</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>CsA and RAPA did not interfere with the suppressor properties of human CD8(+)CD28(-) T cells in vitro, although they affected the expression of the FOXP3 molecule</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26921303</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>25</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>25</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>46</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>FOXP3 was expressed in lung adenocarcinoma tissue and A549 cells. FOXP3 inhibition decreased cell proliferation, migration, and invasion as well as the secretion of inhibitory cytokines. It enhanced lung adenocarcinoma cell proliferation via upregulating the levels of the cell cycle G1/S checkpoint gene CCND1.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26676638</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>18</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>it was observed that ER stimulated gene expression by interacting with MEIS1 and FOXP3, and ER inhibited gene expression by interacting with THRB and GRHL1.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27035558</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>49</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -50292,4 +50493,4 @@
   </Entrezgene_xtra-properties>
 </Entrezgene>
 </Entrezgene-Set>
-
+ 

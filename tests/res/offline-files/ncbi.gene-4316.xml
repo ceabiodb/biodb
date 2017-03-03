@@ -23,10 +23,7 @@
             <Date-std>
               <Date-std_year>2017</Date-std_year>
               <Date-std_month>2</Date-std_month>
-              <Date-std_day>5</Date-std_day>
-              <Date-std_hour>16</Date-std_hour>
-              <Date-std_minute>38</Date-std_minute>
-              <Date-std_second>0</Date-std_second>
+              <Date-std_day>26</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -1260,7 +1257,22 @@
       <Gene-commentary_refs>
         <Pub>
           <Pub_pmid>
+            <PubMedId>27827523</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>27538541</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27429508</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27293304</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -1311,6 +1323,16 @@
         <Pub>
           <Pub_pmid>
             <PubMedId>26648518</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26553362</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26526578</PubMedId>
           </Pub_pmid>
         </Pub>
         <Pub>
@@ -4708,6 +4730,201 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Elevated levels of MMP-7 are Associated with Idiopathic Pulmonary Fibrosis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27293304</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>25</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>25</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>54</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>High MMP2 expression is associated with necrosis in Pancreatic Ductal Adenocarcinoma.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27429508</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>25</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>25</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>18</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>A hospital-based case-control study was conducted in 230 patients with cervical cancer and 230 healthy controls to investigate the possible association between the MMP2 rs243865, MMP3 rs3025058, MMP7 rs11568818, and MMP9 rs3918242 polymorphisms, respectively, and the risk of cervical cancer</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26526578</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>30</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Together, these data suggest that IDH2 may be a tumor suppressor in that its loss may promote malignant progression of gastric cancer via NF-kappaB-dependent increases in MMP7 activity.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>26553362</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>15</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Expression of MMP7 was increased in CRC tissues and cell lines, and inversely correlated with miR-143 expression in CRC tissues. Increased expression of miR-143 repressed MMP7 expression in CRC cells both in mRNA and protein levels.  Increased expression of MMP7 reversed the potential influence of miR-143 on CRC cell proliferation and invasion ability.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27827523</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>2</Date-std_month>
+              <Date-std_day>18</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>34</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -22758,4 +22975,4 @@
   </Entrezgene_xtra-properties>
 </Entrezgene>
 </Entrezgene-Set>
-
+ 

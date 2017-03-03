@@ -23,10 +23,7 @@
             <Date-std>
               <Date-std_year>2017</Date-std_year>
               <Date-std_month>2</Date-std_month>
-              <Date-std_day>5</Date-std_day>
-              <Date-std_hour>18</Date-std_hour>
-              <Date-std_minute>2</Date-std_minute>
-              <Date-std_second>0</Date-std_second>
+              <Date-std_day>20</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -1426,6 +1423,25 @@
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
           <Gene-commentary_label>Component</Gene-commentary_label>
           <Gene-commentary_comment>
+            <Gene-commentary>
+              <Gene-commentary_type value="comment">254</Gene-commentary_type>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>GO</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>5737</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>cytoplasm</Other-source_anchor>
+                  <Other-source_post-text>evidence: IBA</Other-source_post-text>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="comment">254</Gene-commentary_type>
               <Gene-commentary_source>
@@ -2985,6 +3001,46 @@
                       </Seq-loc_whole>
                     </Seq-loc>
                   </Gene-commentary_seqs>
+                  <Gene-commentary_comment>
+                    <Gene-commentary>
+                      <Gene-commentary_type value="other">255</Gene-commentary_type>
+                      <Gene-commentary_heading>UniProtKB</Gene-commentary_heading>
+                      <Gene-commentary_source></Gene-commentary_source>
+                      <Gene-commentary_comment>
+                        <Gene-commentary>
+                          <Gene-commentary_type value="other">255</Gene-commentary_type>
+                          <Gene-commentary_source>
+                            <Other-source>
+                              <Other-source_src>
+                                <Dbtag>
+                                  <Dbtag_db>UniProtKB/TrEMBL</Dbtag_db>
+                                  <Dbtag_tag>
+                                    <Object-id>
+                                      <Object-id_str>J3KQ52</Object-id_str>
+                                    </Object-id>
+                                  </Dbtag_tag>
+                                </Dbtag>
+                              </Other-source_src>
+                              <Other-source_anchor>J3KQ52</Other-source_anchor>
+                            </Other-source>
+                            <Other-source>
+                              <Other-source_src>
+                                <Dbtag>
+                                  <Dbtag_db>UniProtKB/TrEMBL</Dbtag_db>
+                                  <Dbtag_tag>
+                                    <Object-id>
+                                      <Object-id_str>Q6XGZ4</Object-id_str>
+                                    </Object-id>
+                                  </Dbtag_tag>
+                                </Dbtag>
+                              </Other-source_src>
+                              <Other-source_anchor>Q6XGZ4</Other-source_anchor>
+                            </Other-source>
+                          </Gene-commentary_source>
+                        </Gene-commentary>
+                      </Gene-commentary_comment>
+                    </Gene-commentary>
+                  </Gene-commentary_comment>
                 </Gene-commentary>
               </Gene-commentary_products>
               <Gene-commentary_comment>
@@ -3509,6 +3565,8 @@
                               </Dbtag_tag>
                             </Dbtag>
                           </Other-source_src>
+                          <Other-source_anchor>XP_011534987</Other-source_anchor>
+                          <Other-source_post-text>granzyme B isoform X1</Other-source_post-text>
                         </Other-source>
                       </Gene-commentary_source>
                       <Gene-commentary_seqs>
@@ -19446,4 +19504,4 @@
   </Entrezgene_xtra-properties>
 </Entrezgene>
 </Entrezgene-Set>
-
+ 
