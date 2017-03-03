@@ -38,7 +38,7 @@ createExpasyEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 						if (entry$getFieldCardinality(field) == BIODB.CARD.MANY)
 							entry$setFieldValue(field, c(entry$getFieldValue(field), g[1,2]))
 						else
-							stop(paste("Cannot set multiple values into field \"", field, "\".", sep = ''))
+							biodb$message(MSG.ERROR, paste("Cannot set multiple values into field \"", field, "\".", sep = ''))
 					}
 					else
 						entry$setFieldValue(field, g[1,2])

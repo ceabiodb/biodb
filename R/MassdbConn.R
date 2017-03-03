@@ -81,21 +81,21 @@ MassdbConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, re
 # Find spectra in the given mass range.
 # rtype the type of return, objects, dfspecs data.frame of spectra, dfpeaks data.frame of peaks.
 MassdbConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("objects","dfspecs","dfpeaks")){
-	stop("Method searchMzRange() not implemented in concrete class.")
+	.self$.abstract.method()
 })
 
 ####################################
 # FIND SPECTRA IN GIVEN MASS RANGE #
 ####################################
 MassdbConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, rtype = c("objects","dfspecs","dfpeaks")){
-	stop("Method searchMzTol() not implemented in concrete class.")
+	.self$.abstract.method()
 })
 
 ######################################################
 # FIND A MOLECULES WITH PRECURSOR WITHIN A TOLERANCE #
 ######################################################
  MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, mode = NULL){
-	stop("Method searchSpecPrecTol not implemented in concrete class.")
+	.self$.abstract.method()
  })
 
 #################################
@@ -128,7 +128,7 @@ MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 		
 		foundfields <- vcomp %in% colnames(peaks)
 		if(sum(foundfields ) < 2){
-			stop(paste0("fields can't be coerced to mz and intensity : ",colnames(peaks)))
+			.self$message(MSG.ERROR, paste0("fields can't be coerced to mz and intensity : ",colnames(peaks)))
 		}
 		
 		peaks <- peaks[ , vcomp[which( foundfields ) ] ]

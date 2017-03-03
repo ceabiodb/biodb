@@ -68,7 +68,7 @@ Biodb$methods( addObservers = function(obs) {
 	if ( ! is.list(obs)) obs <- list(obs)
 	is.obs <- vapply(obs, function(o) is(o, "BiodbObserver"), FUN.VALUE = TRUE)
 	if (any( ! is.obs))
-		stop("Observers must inherit from BiodbObserver class.")
+		.self$message(MSG.ERROR, "Observers must inherit from BiodbObserver class.")
 
 	# Add observers to current list (insert at beginning)
 	.observers <<- if (is.null(.self$.observers)) obs else c(obs, .self$.observers)

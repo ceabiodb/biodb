@@ -99,8 +99,10 @@ BiodbFactory$methods( setChunkSize = function(size) {
 BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, drop = TRUE) {
 	"Create Entry from a database by id."
 
-	is.null(id) && is.null(content) && stop("One of id or content must be set.")
-	! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
+	if (is.null(id) && is.null(content))
+		.self$message(MSG.ERROR, "One of id or content must be set.")
+	if ( ! is.null(id) && ! is.null(content))
+		.self$message(MSG.ERROR, "id and content cannot be both set.")
 
 	# Debug
 	.self$message(MSG.INFO, paste0("Creating ", if (is.null(id)) length(content) else length(id), " entries from ", if (is.null(id)) "contents" else paste("ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", ")), "..."))

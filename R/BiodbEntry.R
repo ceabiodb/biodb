@@ -94,7 +94,7 @@ BiodbEntry$methods(	fieldHasBasicClass = function(field) {
 BiodbEntry$methods(	getFieldCardinality = function(field) {
 
 	if ( ! field %in% BIODB.FIELDS[['name']])
-		stop(paste0('Unknown field "', field, '" in BiodEntry.'))
+		.self$message(MSG.ERROR, paste0('Unknown field "', field, '" in BiodEntry.'))
 
 	field.card <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'cardinality']
 
