@@ -11,11 +11,12 @@ BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "BiodbObject", fie
 ################################################################
 
 # Keys
+CFG.ALLOW.HUGE.DOWNLOADS    <- 'allow.huge.downloads'
 CFG.CACHE.DIRECTORY         <- 'cache.directory'
 CFG.CACHE.FORCE.DOWNLOAD    <- 'cache.force.download'
 CFG.CACHE.READ.ONLY         <- 'cache.read.only'
 CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
-CFG.ALLOW.HUGE.DOWNLOADS    <- 'allow.huge.downloads'
+CFG.COMPUTE.FIELDS          <- 'compute.fields'
 CFG.MASSBANK.URL            <- 'massbank_url'
 CFG.OFFLINE                 <- 'offline'
 CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
@@ -72,11 +73,12 @@ BiodbConfig$methods( .initValueInfo = function() {
 	useragent.default <- if ('EMAIL' %in% names(.self$.env)) paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ') else NULL
 
 	# Define keys
+	.self$.newKey(CFG.ALLOW.HUGE.DOWNLOADS,     type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.CACHE.DIRECTORY,          type = 'character', default = cachedir.default)
 	.self$.newKey(CFG.CACHE.FORCE.DOWNLOAD,     type = 'logical',   default = FALSE)
 	.self$.newKey(CFG.CACHE.READ.ONLY,          type = 'logical',   default = FALSE)
 	.self$.newKey(CFG.CHEMSPIDER.TOKEN,         type = 'character')
-	.self$.newKey(CFG.ALLOW.HUGE.DOWNLOADS,     type = 'logical',   default = TRUE)
+	.self$.newKey(CFG.COMPUTE.FIELDS,           type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.MASSBANK.URL,             type = 'character', default = BIODB.MASSBANK.EU.WS.URL)
 	.self$.newKey(CFG.OFFLINE,                  type = 'logical',   default = FALSE)
 	.self$.newKey(CFG.PEAKFOREST.TOKEN,         type = 'character')

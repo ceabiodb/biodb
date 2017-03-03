@@ -139,9 +139,8 @@ createMassbankEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	if (nrow(peaks) > 0) {
 
 		# Get curent peaks and merge with new peaks
-		current.peaks <- entry$getFieldValue(BIODB.PEAKS)
-		if ( ! is.null(current.peaks))
-			peaks <- rbind(current.peaks, peaks)
+		if (entry$hasField(BIODB.PEAKS))
+			peaks <- rbind(entry$getFieldValue(BIODB.PEAKS), peaks)
 
 		entry$setFieldValue(BIODB.PEAKS, peaks)
 

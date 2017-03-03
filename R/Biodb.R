@@ -84,7 +84,7 @@ Biodb$methods( getObservers = function() {
 # Entries' field to vector or list {{{1
 ################################################################
 
-Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE) {
+Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE, compute = TRUE) {
 	"Extract  of entries (BiodbEntry objects) into a data frame.
 	entries: a list containing BiodbEntry objects.
 	field:   
@@ -98,7 +98,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 		field.class = .self$getFieldClass(field)
 
 		if (length(entries) > 0)
-			val <- vapply(entries, function(e) { v <- e$getFieldValue(field) ; if ( ! is.null(v) && ! all(is.na(v))) e$getFieldValue(field, flatten = flatten) else as.vector(NA, mode = field.class) }, FUN.VALUE = vector(mode = field.class, length = 1))
+			val <- vapply(entries, function(e) { v <- e$getFieldValue(field, compute = compute) ; if ( ! is.null(v) && ! all(is.na(v))) e$getFieldValue(field, flatten = flatten, compute = compute) else as.vector(NA, mode = field.class) }, FUN.VALUE = vector(mode = field.class, length = 1))
 		else
 			val <- vector(mode = field.class, length = 0)
 	}
@@ -106,7 +106,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 	# List
 	else {
 		if (length(entries) > 0)
-			val <- lapply(entries, function(e) e$getFieldValue())
+			val <- lapply(entries, function(e) e$getFieldValue(field, compute = compute))
 		else
 			val <- list()
 	}
@@ -138,7 +138,7 @@ Biodb$methods( fieldIsAtomic = function(field) {
 # Entries to data frame {{{1
 ################################################################
 
-Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE) {
+Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE, compute = TRUE) {
 	"Convert a list of entries (BiodbEntry objects) into a data frame.
 	only.atomic Set to TRUE if you want only the atomic fields (integer, numeric, logical and character) inside the data frame.
 	null.to.na  If TRUE, each NULL entry gives a line of NA values inside the data frame."
@@ -155,7 +155,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 		n <- n + 1
 		.self$message(MSG.DEBUG, paste("Processing entry", n, "/", length(entries), "..."))
 		if ( ! is.null(e)) {
-			e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic)
+			e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic, compute = compute)
 			entries.df <- plyr::rbind.fill(entries.df, e.df)
 		}
 		else if (null.to.na) {

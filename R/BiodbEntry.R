@@ -140,37 +140,40 @@ BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 
 	success <- FALSE
 
-	# Set of fields to compute
-	fields <- names(BIODB.FIELD.COMPUTING)
-	if ( ! is.na(field) && field %in% fields)
-		fields <- field
+	if (.self$getBiodb()$getConfig()$isEnabled(CFG.COMPUTE.FIELDS)) {
 
-	# Loop on all fields to compute
-	for(f in fields) {
+		# Set of fields to compute
+		fields <- names(BIODB.FIELD.COMPUTING)
+		if ( ! is.na(field) && field %in% fields)
+			fields <- field
 
-		# Skip this field if we already have a value for it
-		if (.self$hasField(f))
-			next
+		# Loop on all fields to compute
+		for(f in fields) {
 
-		# Loop on all databases where we can look for a value
-		for (db in BIODB.FIELD.COMPUTING[[f]]) {
-
-			# Have we a reference for this database?
-			db.id.field <- paste(db, 'id', sep = '.')
-			if ( ! .self$hasField(db.id.field))
+			# Skip this field if we already have a value for it
+			if (.self$hasField(f))
 				next
-			db.id <- .self$getFieldValue(db.id.field, compute = FALSE)
-			if ( ! is.na(db.id)) {
 
-				# Get value for this field in the database
-				.self$message(MSG.DEBUG, paste("Compute value for field \"", f, "\".", sep = '')) 
-				db.entry <- .self$getBiodb()$getFactory()$createEntry(db, id = db.id)
+			# Loop on all databases where we can look for a value
+			for (db in BIODB.FIELD.COMPUTING[[f]]) {
 
-				# Set found value
-				if ( ! is.null(db.entry)) {
-					.self$setFieldValue(f, db.entry$getFieldValue(f))
-					success <- TRUE
-					break
+				# Have we a reference for this database?
+				db.id.field <- paste(db, 'id', sep = '.')
+				if ( ! .self$hasField(db.id.field))
+					next
+				db.id <- .self$getFieldValue(db.id.field, compute = FALSE)
+				if ( ! is.na(db.id)) {
+
+					# Get value for this field in the database
+					.self$message(MSG.DEBUG, paste("Compute value for field \"", f, "\".", sep = '')) 
+					db.entry <- .self$getBiodb()$getFactory()$createEntry(db, id = db.id)
+
+					# Set found value
+					if ( ! is.null(db.entry)) {
+						.self$setFieldValue(f, db.entry$getFieldValue(f))
+						success <- TRUE
+						break
+					}
 				}
 			}
 		}
@@ -189,7 +192,8 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	df <- data.frame(stringsAsFactors = FALSE)
 
 	# Compute fields
-	.self$.compute.field()
+	if (compute)
+		.self$.compute.field()
 
 	# Loop on all fields
 	for (f in names(.self$.fields)) {
