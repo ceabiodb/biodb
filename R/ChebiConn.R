@@ -16,7 +16,7 @@ ChebiConn$methods( initialize = function(...) {
 ################################################################
 
 ChebiConn$methods( .doGetEntryContentUrl = function(id) {
-	return(paste(.self$.base.url, 'get/webservices/chebi/2.0/test/getCompleteEntity?chebiId=', id, sep = ''))
+	return(paste(.self$.base.url, 'webservices/chebi/2.0/test/getCompleteEntity?chebiId=', id, sep = ''))
 })
 
 # Get entry content {{{1

@@ -28,7 +28,6 @@ createChebiEntryFromXml <- function(biodb, content, drop = TRUE) {
 		if ( ! is.null(single.content) && ! is.na(single.content)) {
 		
 			# Parse XML
-			biodb$message(MSG.DEBUG, single.content)
 			xml <-  XML::xmlInternalTreeParse(single.content, asText = TRUE)
 
 			# Test generic xpath expressions
