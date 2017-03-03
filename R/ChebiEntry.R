@@ -18,6 +18,9 @@ createChebiEntryFromXml <- function(biodb, content, drop = TRUE) {
 	xpath.expr[[BIODB.INCHI]] <- "//chebi:return/chebi:inchi"
 	xpath.expr[[BIODB.INCHIKEY]] <- "//chebi:return/chebi:inchiKey"
 	xpath.expr[[BIODB.KEGG.COMPOUND.ID]] <- "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data"
+	xpath.expr[[BIODB.MASS]] <- "//chebi:mass"
+	xpath.expr[[BIODB.MONOISOTOPIC.MASS]] <- "//chebi:monoisotopicMass"
+	xpath.expr[[BIODB.CHARGE]] <- "//chebi:charge"
 
 	ns <- c(chebi = "http://www.ebi.ac.uk/webservices/chebi")
 

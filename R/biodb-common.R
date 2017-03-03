@@ -93,6 +93,7 @@ BIODB.PEAK.RELATIVE.INTENSITY <- 'peak.relative.intensity'
 BIODB.PEAK.RELATIVE.INTENSITY.SHORT <- 'rel.int' # XXX should not exist, we don't want twice the same field with different names.
 BIODB.CATALYTIC.ACTIVITY <- 'catalytic.activity'
 BIODB.COFACTOR <- 'cofactor'
+BIODB.CHARGE <- 'charge'
 
 MULTIVAL.FIELD.SEP <- ';'
 
@@ -193,6 +194,7 @@ BIODB.FIELDS <- data.frame(matrix(c(
 	BIODB.SMILES,               'character',    BIODB.CARD.ONE,		'none',
 	BIODB.CATALYTIC.ACTIVITY,   'character',    BIODB.CARD.MANY,    'none',
 	BIODB.COFACTOR,             'character',    BIODB.CARD.MANY,    'none',
+	BIODB.CHARGE,               'integer',      BIODB.CARD.ONE,		'none',
 	BIODB.CAS.ID,               'character',    BIODB.CARD.ONE,		'none'
 	), byrow = TRUE, ncol = 4), stringsAsFactors = FALSE)
 colnames(BIODB.FIELDS) <- c('name', 'class', 'cardinality', 'type')
