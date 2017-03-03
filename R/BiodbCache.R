@@ -116,7 +116,7 @@ BiodbCache$methods( loadFileContent = function(db, names, ext, output.vector = F
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size) else NULL )} )
 
 	# Set to NA
-	content[content == 'NA'] <- NA_character_
+	content[content == 'NA' | content == "NA\n"] <- NA_character_
 
 	# Vector ?
 	if (output.vector)
@@ -135,7 +135,7 @@ BiodbCache$methods( saveContentToFile = function(contents, db, names, ext) {
 
 	# Write contents into files
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, names, ext)
-	mapply(function(c, f) { if ( ! is.null(c)) writeLines(c, f) }, contents, file.paths)
+	mapply(function(c, f) { if ( ! is.null(c)) writeChar(if (is.na(c)) 'NA' else c, f) }, contents, file.paths)
 })
 
 # Delete files {{{1

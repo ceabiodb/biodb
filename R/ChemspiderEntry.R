@@ -31,7 +31,7 @@ createChemspiderEntryFromXml <- function(biodb, contents, drop = TRUE) {
 		# Create instance
 		entry <- ChemspiderEntry$new(biodb = biodb)
 
-		if ( ! is.null(content) && ! is.na(content) && content != 'NA') {
+		if ( ! is.null(content) && ! is.na(content)) {
 		
 			# Parse XML
 			xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
