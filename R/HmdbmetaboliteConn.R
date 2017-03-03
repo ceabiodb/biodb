@@ -40,12 +40,22 @@ HmdbMetaboliteConn$methods( createEntry = function(content, drop = TRUE) {
 	# Define xpath expressions
 	xpath.expr <- character()
 	xpath.expr[[BIODB.ACCESSION]]          <- "/metabolite/accession"
-	xpath.expr[[BIODB.KEGG.COMPOUND.ID]]    <- "//kegg_id"
+	xpath.expr[[BIODB.KEGG.COMPOUND.ID]]     <- "//kegg_id"
+	xpath.expr[[BIODB.CHEBI.ID]]             <- "//chebi_id"
+	xpath.expr[[BIODB.CHEMSPIDER.ID]]        <- "//chemspider_id"
+	xpath.expr[[BIODB.NCBI.PUBCHEM.COMP.ID]] <- "//pubchem_compound_id"
 	xpath.expr[[BIODB.NAME]]               <- "/metabolite/name"
 	xpath.expr[[BIODB.FORMULA]]            <- "/metabolite/chemical_formula"
 	xpath.expr[[BIODB.SUPER.CLASS]]        <- "//super_class"
 	xpath.expr[[BIODB.AVERAGE.MASS]]       <- "//average_molecular_weight"
 	xpath.expr[[BIODB.MONOISOTOPIC.MASS]]  <- "//monisotopic_moleculate_weight"
+	xpath.expr[[BIODB.SYNONYMS]]           <- "//synonym"
+	xpath.expr[[BIODB.COMP.IUPAC.NAME.SYST]]           <- "//iupac_name"
+	xpath.expr[[BIODB.COMP.IUPAC.NAME.TRAD]]           <- "//traditional_iupac"
+	xpath.expr[[BIODB.CAS.ID]]           <- "//cas_registry_number"
+	xpath.expr[[BIODB.SMILES]]           <- "//smiles"
+	xpath.expr[[BIODB.INCHI]]           <- "//inchi"
+	xpath.expr[[BIODB.INCHIKEY]]           <- "//inchikey"
 
 	for (single.content in content) {
 
