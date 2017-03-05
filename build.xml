@@ -54,7 +54,6 @@
 
 	<!-- CLEAN -->
 	<target name="clean">
-		<ant dir="src" target="clean" inheritAll="false"/>
 		<delete dir="." includes="${test.pkg.output.file}"/>
 	</target>
 
