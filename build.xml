@@ -2,7 +2,6 @@
 
 	<dirname property="this.dir" file="${ant.file.biodb}"/>
 
-	<property name="namespace.file" value="NAMESPACE"/>
 	<property name="test.pkg.output.file" value="test-pkg.output"/>
 
 	<!-- ALL -->
@@ -12,16 +11,7 @@
 
 	<!-- DOC -->
 	<target name="doc">
-		<ant dir="doc" inheritAll="false"/>
-		<exec executable="${this.dir}/generate-doc" failonerror="true"/>
-	</target>
-
-	<!-- INSTALL DEPS -->
-	<target name="install.deps">
-		<exec executable="R" failonerror="true">
-			<arg value="-e"/>
-			<arg value="install.packages(c('getopt', 'stringr', 'XML', 'bitops', 'RCurl', 'plyr', 'jsonlite', 'testthat'), dependencies = TRUE, repos='http://lib.ugent.be/CRAN/')"/>
-		</exec>
+		<!--		<ant dir="doc" inheritAll="false"/>-->
 	</target>
 
 	<!-- TEST -->
@@ -65,8 +55,6 @@
 	<!-- CLEAN -->
 	<target name="clean">
 		<ant dir="src" target="clean" inheritAll="false"/>
-		<delete dir="man"/>
-		<delete dir="." includes="${namespace.file}"/>
 		<delete dir="." includes="${test.pkg.output.file}"/>
 	</target>
 

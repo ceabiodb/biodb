@@ -4,4 +4,6 @@
 args <- commandArgs(trailingOnly = F)
 script.path <- sub("--file=","",args[grep("--file=",args)])
 
-roxygen2::roxygenise(dirname(script.path))
+devtools::document(dirname(script.path))
+
+warnings()

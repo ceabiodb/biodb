@@ -29,6 +29,5 @@ Collate: 'biodb-common.R' 'spec-dist.R'
 		'UniprotConn.R' 'UniprotEntry.R' 
         'biodb-package.R'
 Author: Pierrick Roger
-RoxygenNote: 6.0.1
-Packaged: 2016-11-10 12:17:56 UTC; AD244905
 Maintainer: Pierrick Roger <pierrick.roger@gmail.com>
+RoxygenNote: 6.0.1
