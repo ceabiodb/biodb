@@ -1,9 +1,11 @@
 # vi: fdm=marker
 
+source('init.R')
+
 # CONSTANTS {{{1
 ################################################################
 
-.MASSFILEDB.URL <- file.path(SCRIPT.DIR, 'tests', 'res', 'mass.csv.file.tsv')
+.MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 
 # TEST ENTRY FIELDS {{{1
 ################################################################
@@ -11,7 +13,7 @@
 test.entry.fields <- function(factory, db) {
 
 	# Define reference file
-	entries.file <- file.path(SCRIPT.DIR, 'tests', 'res', paste0(db, '-entries.txt'))
+	entries.file <- file.path(RES.DIR, paste0(db, '-entries.txt'))
 	expect_true(file.exists(entries.file), info = paste0("Cannot find file \"", entries.file, "\"."))
 
 	# Load reference contents from file
@@ -76,13 +78,14 @@ test.entry.ids <- function(db) {
 ################################################################
 
 # Create biodb instance
-biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE))
+biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = file.path(LOG.DIR, 'test-generic.log')))
+biodb$getConfig()$set(CFG.USERAGENT, USERAGENT)
 
 # Get factory
 factory <- biodb$getFactory()
 
 # Initialize MassCsvFile
-if (length(TEST.DATABASES) == 0 || BIODB.MASS.CSV.FILE %in% TEST.DATABASES) {
+if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES) {
 	db.instance <- factory$createConn(BIODB.MASS.CSV.FILE, url = .MASSFILEDB.URL)
 	db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	db.instance$setField(BIODB.COMPOUND.ID, 'molid')
@@ -127,7 +130,7 @@ for (mode in TEST.MODES) {
 	}
 
 	# Loop on test databases
-	for (db in if (length(TEST.DATABASES) > 0) TEST.DATABASES else BIODB.DATABASES) {
+	for (db in TEST.DATABASES) {
 		context(paste("Running generic tests on", db, "in", mode, "mode"))
 		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
 		test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))

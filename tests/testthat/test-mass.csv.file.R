@@ -1,16 +1,18 @@
 # vi: fdm=marker
 
+source('init.R')
+
 # Offline test mass.csv.file {{{1
 ################################################################
 
 offline.test.mass.csv.file <- function() {
 
 	# Open file
-	file <- file.path(SCRIPT.DIR, 'tests', 'res', 'mass.csv.file.tsv')
+	file <- file.path(RES.DIR, 'mass.csv.file.tsv')
 	df <- read.table(file, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
 	# Create biodb instance
-	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE))
+	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = file.path(LOG.DIR, 'test-mass.csv.file.log')))
 	biodb$getCache()$disable()
 	factory <- biodb$getFactory()
 

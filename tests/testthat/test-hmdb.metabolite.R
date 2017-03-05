@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+source('init.R')
+
 # Test HMDB Metabolite nb entries {{{1
 ################################################################
 
@@ -12,13 +14,13 @@ test.hmdbmetabolite.nbentries <- function(db) {
 # MAIN {{{1
 ################################################################
 
-if (length(TEST.DATABASES) == 0 || BIODB.HMDB.METABOLITE %in% TEST.DATABASES) {
+if (BIODB.HMDB.METABOLITE %in% TEST.DATABASES) {
 
 	if (MODE.ONLINE %in% TEST.MODES) {
 		context("Testing hmdbmetabolite")
 
 		# Create biodb instance
-		biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE))
+		biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = file.path(LOG.DIR, 'test-hmdb.metabolite.log')))
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)

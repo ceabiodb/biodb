@@ -10,7 +10,7 @@ Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( 
 # Constructor {{{1
 ################################################################
 
-Biodb$methods( initialize = function(useragent = NA_character_, logger = TRUE, observers = NULL, ...) {
+Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 
 	callSuper(...)
 
