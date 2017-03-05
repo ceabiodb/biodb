@@ -20,10 +20,10 @@ if (BIODB.HMDB.METABOLITE %in% TEST.DATABASES) {
 		context("Testing hmdbmetabolite")
 
 		# Create biodb instance
-		biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = file.path(LOG.DIR, 'test-hmdb.metabolite.log')))
+		biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE, mode = 'a'))
+		biodb$getConfig()$set(CFG.USERAGENT, USERAGENT)
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
 		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$disable(CFG.OFFLINE)
 		factory <- biodb$getFactory()

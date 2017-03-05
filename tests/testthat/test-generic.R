@@ -78,7 +78,7 @@ test.entry.ids <- function(db) {
 ################################################################
 
 # Create biodb instance
-biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = file.path(LOG.DIR, 'test-generic.log')))
+biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE, mode = 'a'))
 biodb$getConfig()$set(CFG.USERAGENT, USERAGENT)
 
 # Get factory
@@ -109,24 +109,20 @@ for (mode in TEST.MODES) {
 	if (mode == MODE.ONLINE) {
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
 		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$disable(CFG.OFFLINE)
 	}
 	else if (mode == MODE.QUICK.ONLINE) {
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$enable(CFG.CACHE.FORCE.DOWNLOAD)
 		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$disable(CFG.OFFLINE)
 	}
 	else {
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.FILES.DIR)
 		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$disable(CFG.CACHE.FORCE.DOWNLOAD)
 		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$enable(CFG.OFFLINE)
-#		biodb$getConfig()$disable(CFG.COMPUTE.FIELDS)
 	}
 
 	# Loop on test databases

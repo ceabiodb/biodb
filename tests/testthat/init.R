@@ -8,6 +8,7 @@ RES.DIR  <- file.path(TEST.DIR, 'res')
 OFFLINE.FILES.DIR <- file.path(RES.DIR, 'offline-files')
 CACHE.DIR <- file.path(TEST.DIR, 'cache')
 LOG.DIR  <- file.path(TEST.DIR)
+LOG.FILE <- file.path(LOG.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pierrick.rogermele@cloud.com'
 
 # Set databases to test {{{1
@@ -30,12 +31,16 @@ MODE.ALL <- 'all'
 DEFAULT.MODES <- MODE.OFFLINE
 ALLOWED.MODES <- c(MODE.OFFLINE, MODE.QUICK.ONLINE, MODE.ONLINE)
 if ('MODES' %in% names(env)) {
-	mode.exists <- env[['MODES']] %in% ALLOWED.MODES
-	if ( ! all(mode.exists)) {
-		wrong.modes <- env[['MODES']][ ! mode.exists]
-		stop(paste('Unknown testing mode(s) ', paste(wrong.modes, collapse = ', ')), '.', sep = '')
+	if (env[['MODES']] == MODE.ALL)
+		TEST.MODES <- ALLOWED.MODES
+	else {
+		mode.exists <- env[['MODES']] %in% ALLOWED.MODES
+		if ( ! all(mode.exists)) {
+			wrong.modes <- env[['MODES']][ ! mode.exists]
+			stop(paste('Unknown testing mode(s) ', paste(wrong.modes, collapse = ', ')), '.', sep = '')
+		}
+		TEST.MODES <- env[['MODES']]
 	}
-	TEST.MODES <- env[['MODES']]
 } else {
 	TEST.MODES <- DEFAULT.MODES
 }
