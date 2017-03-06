@@ -1,6 +1,6 @@
 # vi: fdm=marker
 
-source('config.R')
+source('common.R')
 
 # Initialization of tests {{{1
 ################################################################

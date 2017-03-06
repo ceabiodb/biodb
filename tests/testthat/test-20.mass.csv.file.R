@@ -1,18 +1,17 @@
 # vi: fdm=marker
 
-source('config.R')
+source('common.R')
 
 # Offline test mass.csv.file {{{1
 ################################################################
 
-offline.test.mass.csv.file <- function() {
+offline.test.mass.csv.file <- function(biodb) {
 
 	# Open file
 	file <- file.path(RES.DIR, 'mass.csv.file.tsv')
 	df <- read.table(file, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
 	# Create biodb instance
-	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE, mode = 'a'))
 	biodb$getCache()$disable()
 	factory <- biodb$getFactory()
 
@@ -64,7 +63,9 @@ offline.test.mass.csv.file <- function() {
 # MAIN {{{1
 ################################################################
 
-if ((length(TEST.DATABASES) == 0 || BIODB.MASS.CSV.FILE %in% TEST.DATABASES) && MODE.OFFLINE %in% TEST.MODES) {
-	context("Testing mass.csv.file")
-	test_that("MassCsvFileConn methods are correct", offline.test.mass.csv.file())
+if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES && MODE.OFFLINE %in% TEST.MODES) {
+	biodb <- create.biodb.instance()
+	set.test.context(biodb, "Testing mass.csv.file")
+	set.mode(biodb, MODE.OFFLINE)
+	test_that("MassCsvFileConn methods are correct", offline.test.mass.csv.file(biodb))
 }

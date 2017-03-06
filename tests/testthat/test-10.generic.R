@@ -1,6 +1,6 @@
 # vi: fdm=marker
 
-source('config.R')
+source('common.R')
 
 # CONSTANTS {{{1
 ################################################################
@@ -78,8 +78,7 @@ test.entry.ids <- function(db) {
 ################################################################
 
 # Create biodb instance
-biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE, mode = 'a'))
-biodb$getConfig()$set(CFG.USERAGENT, USERAGENT)
+biodb <- create.biodb.instance()
 
 # Get factory
 factory <- biodb$getFactory()
@@ -105,29 +104,12 @@ if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES) {
 # Loop on test modes
 for (mode in TEST.MODES) {
 
-	# Configure cache
-	if (mode == MODE.ONLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
-		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
-		biodb$getConfig()$disable(CFG.OFFLINE)
-	}
-	else if (mode == MODE.QUICK.ONLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
-		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
-		biodb$getConfig()$disable(CFG.OFFLINE)
-	}
-	else {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.FILES.DIR)
-		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
-		biodb$getConfig()$enable(CFG.OFFLINE)
-	}
+	# Configure mode
+	set.mode(biodb, mode)
 
 	# Loop on test databases
 	for (db in TEST.DATABASES) {
-		context(paste("Running generic tests on", db, "in", mode, "mode"))
+		set.test.context(biodb, paste("Running generic tests on", db, "in", mode, "mode"))
 		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
 		test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
 		if ( ! is(factory$getConn(db), 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
