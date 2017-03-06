@@ -1,6 +1,6 @@
 # vi: fdm=marker
 
-source('init.R')
+source('config.R')
 
 # Test HMDB Metabolite nb entries {{{1
 ################################################################

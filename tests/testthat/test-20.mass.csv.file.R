@@ -1,6 +1,6 @@
 # vi: fdm=marker
 
-source('init.R')
+source('config.R')
 
 # Offline test mass.csv.file {{{1
 ################################################################
