@@ -22,11 +22,6 @@ if (BIODB.HMDB.METABOLITE %in% TEST.DATABASES) {
 		biodb <- create.biodb.instance()
 		set.test.context(biodb, "Testing hmdbmetabolite")
 		set.mode(biodb, MODE.ONLINE)
-		biodb$getConfig()$set(CFG.USERAGENT, USERAGENT)
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
-		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
-		biodb$getConfig()$disable(CFG.OFFLINE)
 		factory <- biodb$getFactory()
 
 		# Create database
