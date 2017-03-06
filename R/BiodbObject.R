@@ -13,7 +13,7 @@ BiodbObject$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-# ABSTRACT METHOD {{{1
+# Abstract method {{{1
 ################################################################
 
 # This method is used to declare a method as abstract.
@@ -27,6 +27,9 @@ BiodbObject$methods( .abstract.method = function() {
 
 	.self$message(type = MSG.ERROR, paste("Method", method, "is not implemented in", class, "class."))
 })
+
+# Deprecated method {{{1
+################################################################
 
 # This method is used to declare a method as deprecated.
 BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {

@@ -43,6 +43,7 @@ RemotedbConn$methods( .getUrlScheduler = function() {
 ################################################################
 
 RemotedbConn$methods( .get.url = function(url) {
+	.self$.deprecated.method(new.method = ".getUrlScheduler()$getUrl()")
 	return(.self$.scheduler$getUrl(url))
 })
 

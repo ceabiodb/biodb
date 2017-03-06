@@ -13,6 +13,21 @@ MassbankConn$methods( initialize = function(url = NA_character_, ...) {
 	callSuper(content.type = BIODB.TXT, base.url = .self$getBiodb()$getConfig()$get(CFG.MASSBANK.URL), ...)
 })
 
+# Send URL request {{{1
+################################################################
+
+MassbankConn$methods( .send.url.request = function(url) {
+
+	# Send request
+	result <- .self$.getUrlScheduler()$getUrl(url)
+
+	# Test if a server error occured
+	if (length(grep("The service cannot be found", result)) > 0)
+		.self$message(MSG.ERROR, paste("Massbank website \"", .self$getBaseUrl(), "\" is not available.", sep = ''))
+
+	return(result)
+})
+
 # Get entry content {{{1
 ################################################################
 
@@ -40,7 +55,7 @@ MassbankConn$methods( getEntryContent = function(ids) {
 		.self$message(MSG.INFO, paste0("Send URL request for ", x$n," id(s)..."))
 
 		# Send request
-		xmlstr <- .self$.get.url(x$url)
+		xmlstr <- .self$.send.url.request(x$url)
 
 		# Increase number of entries retrieved
 		n <- n + x$n
@@ -90,7 +105,7 @@ MassbankConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, 
 	url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
 
 	# Send request
-	xmlstr <- .self$.get.url(url)
+	xmlstr <- .self$.send.url.request(url)
 
 	# Parse XML and get text
 	if ( ! is.na(xmlstr)) {
