@@ -2,8 +2,8 @@
 % Please edit documentation in R/KeggConn.R
 \docType{class}
 \name{KeggConn-class}
-\alias{KeggConn-class}
 \alias{KeggConn}
+\alias{KeggConn-class}
 \title{The mother abstract class of all KEGG connection classes.}
 \description{
 The mother abstract class of all KEGG connection classes.

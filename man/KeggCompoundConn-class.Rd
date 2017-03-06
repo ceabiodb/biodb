@@ -2,8 +2,8 @@
 % Please edit documentation in R/KeggCompoundConn.R
 \docType{class}
 \name{KeggCompoundConn-class}
-\alias{KeggCompoundConn-class}
 \alias{KeggCompoundConn}
+\alias{KeggCompoundConn-class}
 \title{KEGG Compound connection class.}
 \description{
 KEGG Compound connection class.

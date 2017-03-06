@@ -2,8 +2,8 @@
 % Please edit documentation in R/BiodbFactory.R
 \docType{class}
 \name{BiodbFactory-class}
-\alias{BiodbFactory-class}
 \alias{BiodbFactory}
+\alias{BiodbFactory-class}
 \title{A class for constructing biodb objects.}
 \description{
 A class for constructing biodb objects.
