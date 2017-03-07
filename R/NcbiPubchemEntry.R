@@ -16,7 +16,7 @@ createNcbiPubchemSubstanceFromXml <- function(biodb, contents, drop = TRUE) {
 	# Define xpath expressions
 	xpath.expr <- character()
 	xpath.expr[[BIODB.ACCESSION]] <- "//PC-ID_id"
-	#xpath.expr[[BIODB.PUBCHEM.COMP.ID]] <- "//PC-CompoundType_id_cid" --> Apparently that can be more than one CID for a substance.
+	#xpath.expr[[BIODB.PUBCHEM.COMP.ID]] <- "//PC-CompoundType_id_cid" --> Apparently there can be more than one CID for a substance.
 
 	for (content in contents) {
 
