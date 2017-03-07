@@ -2,8 +2,8 @@
 % Please edit documentation in R/Biodb.R
 \docType{class}
 \name{Biodb-class}
-\alias{Biodb-class}
 \alias{Biodb}
+\alias{Biodb-class}
 \title{The mother abstract class of all connection classes.}
 \description{
 The mother abstract class of all connection classes.

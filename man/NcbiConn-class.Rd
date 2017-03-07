@@ -2,8 +2,8 @@
 % Please edit documentation in R/NcbiConn.R
 \docType{class}
 \name{NcbiConn-class}
-\alias{NcbiConn-class}
 \alias{NcbiConn}
+\alias{NcbiConn-class}
 \title{The mother abstract class of all NCBI connection classes.}
 \description{
 The mother abstract class of all NCBI connection classes.

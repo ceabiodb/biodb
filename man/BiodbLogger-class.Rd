@@ -2,8 +2,8 @@
 % Please edit documentation in R/BiodbLogger.R
 \docType{class}
 \name{BiodbLogger-class}
-\alias{BiodbLogger-class}
 \alias{BiodbLogger}
+\alias{BiodbLogger-class}
 \title{A class for logging biodb messages.}
 \description{
 A class for logging biodb messages.
