@@ -69,6 +69,7 @@ createNcbiPubchemEntryFromXml <- function(biodb, contents, drop = TRUE) {
 	xpath.expr[[BIODB.INCHIKEY]] <- "//PC-Urn_label[text()='InChIKey']/../../..//PC-InfoData_value_sval"
 	xpath.expr[[BIODB.FORMULA]] <- "//PC-Urn_label[text()='Molecular Formula']/../../..//PC-InfoData_value_sval"
 	xpath.expr[[BIODB.MASS]] <- "//PC-Urn_label[text()='Mass']/../../..//PC-InfoData_value_fval"
+	xpath.expr[[BIODB.MOLECULAR.WEIGHT]] <- "//PC-Urn_label[text()='Molecular Weight']/../../..//PC-InfoData_value_fval"
 	xpath.expr[[BIODB.COMP.IUPAC.NAME.SYST]] <- "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Systematic']/../../..//PC-InfoData_value_sval"
 
 	for (content in contents) {
