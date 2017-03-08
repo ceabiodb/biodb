@@ -29,36 +29,20 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 	# Initialize return values
 	content <- rep(NA_character_, length(ids))
 
-	# Loop on all
-	n <- 0
-	inc <- NA_integer_
-	while (n < length(ids)) {
+	# Get request URLs
+	urls <- .self$getEntryContentUrl(ids, URL.MAX.LENGTH)
 
-		# Get list of accession ids to retrieve
-		accessions <- ids[(n + 1):(if (is.na(inc)) length(ids) else (min(n + inc, length(ids))))]
-
-		# Create URL request
-		x <- get.entry.url(class = BIODB.CHEMSPIDER, accession = accessions, content.type = BIODB.XML, max.length = URL.MAX.LENGTH, base.url = .self$.url, token = .self$.token)
-
-		# Debug
-		.self$message(MSG.INFO, paste0("Send URL request for ", x$n," id(s)..."))
+	# Loop on all URLs
+	for (url in urls) {
 
 		# Send request
-		xmlstr <- .self$.get.url(x$url)
+		xmlstr <- .self$.getUrlScheduler()$getUrl(url)
 
 		# Error : "Cannot convert WRONG to System.Int32.\r\nParameter name: type ---> Input string was not in a correct format.\r\n"
 		if (grepl('^Cannot convert .* to System\\.Int32\\.', xmlstr)) {
-			# One of the ids is incorrect
-			if (is.na(inc)) {
-				inc <- 1
-				next
-			}
-			else
-				xmlstr <- NA_character_
+			.self$message(MSG.CAUTION, "One of the Chemspider IDs to retrieve is wrong.")
+			break
 		}
-
-		# Increase number of entries retrieved
-		n <- n + x$n
 
 		# Parse XML and get included XML
 		if ( ! is.na(xmlstr)) {
@@ -67,9 +51,6 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 			returned.ids <- XML::xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", XML::xmlValue, namespaces = ns)
 			content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), XML::saveXML, FUN.VALUE = '')
 		}
-
-		# Debug
-		.self$message(MSG.INFO, paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 	}
 
 	return(content)
@@ -82,15 +63,36 @@ ChemspiderConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createChemspiderEntryFromXml(.self$getBiodb(), content, drop = drop))
 })
 
-# Get chemspider image url {{{1
+# Do get entry content url {{{1
 ################################################################
 
-get.chemspider.image.url <- function(id) {
+ChemspiderConn$methods( .doGetEntryContentUrl = function(id) {
 
-	url <- paste0('http://www.chemspider.com/ImagesHandler.ashx?w=300&h=300&id=', id)
+	token.param <- if (is.na(.self$getToken())) '' else paste('&token', .self$getToken(), sep = '=')
+	url <- paste0(.self$getBaseUrl(), 'MassSpecAPI.asmx/GetExtendedCompoundInfoArray?', paste(paste0('CSIDs=', id), collapse = '&'), token.param)
 
 	return(url)
-}
+})
+
+# Get entry page url {{{1
+################################################################
+
+ChemspiderConn$methods( getEntryPageUrl = function(id) {
+
+	url <- paste0(.self$getBaseUrl(), 'Chemical-Structure.', id, '.html')
+
+	return(url)
+})
+
+# Get entry image url {{{1
+################################################################
+
+ChemspiderConn$methods( getEntryImageUrl = function(id) {
+
+	url <- paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = '')
+
+	return(url)
+})
 
 # Send search mass request {{{1
 ################################################################

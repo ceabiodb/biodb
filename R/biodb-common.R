@@ -247,13 +247,6 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 
 	# Get URL
 	url <- switch(class,
-		chemspider  = {
-						token.param <- if (is.na(token)) '' else paste('&token', token, sep = '=')
-						switch(content.type,
-			                   html = paste0('http://www.chemspider.com/Chemical-Structure.', accession, '.html'),
-							   xml = paste0('http://www.chemspider.com/MassSpecAPI.asmx/GetExtendedCompoundInfoArray?', paste(paste0('CSIDs=', accession), collapse = '&'), token.param),
-		                       NULL)
-		},
 		expasy.enzyme      = if (content.type == BIODB.TXT) paste0('http://enzyme.expasy.org/EC/', accession, '.txt') else NULL,
 		hmdb.metabolite = switch(content.type,
 			                 xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
@@ -271,7 +264,7 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 
 get.entry.url <- function(class, accession, content.type = BIODB.HTML, max.length = 0, base.url = NA_character_, token = NA_character_) {
 
-	# XXX DEPRECATED
+	# XXX DEPRECATED --> code transfered into RemotedbConn::getEntryContentUrl()
 
 	if (length(accession) == 0)
 		return(NULL)

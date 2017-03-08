@@ -126,6 +126,13 @@ RemotedbConn$methods( .doGetEntryContentUrl = function(id) {
 	.self$.abstract.method()
 })
 
+# Get entry image url {{{1
+################################################################
+
+RemotedbConn$methods( getEntryImageUrl = function(id) {
+	.self$.abstract.method()
+})
+
 # Get entry page url {{{1
 ################################################################
 
