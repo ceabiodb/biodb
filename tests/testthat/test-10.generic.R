@@ -2,15 +2,15 @@
 
 source('common.R')
 
-# CONSTANTS {{{1
+# Constants {{{1
 ################################################################
 
 .MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 
-# TEST ENTRY FIELDS {{{1
+# Load reference entries {{{1
 ################################################################
 
-test.entry.fields <- function(factory, db) {
+load.ref.entries <- function(db) {
 
 	# Define reference file
 	entries.file <- file.path(RES.DIR, paste0(db, '-entries.txt'))
@@ -20,9 +20,20 @@ test.entry.fields <- function(factory, db) {
 	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
 	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
 
+	return(entries.desc)
+}
+
+# Test entry fields {{{1
+################################################################
+
+test.entry.fields <- function(factory, db) {
+
+	# Load reference entries
+	entries.desc <- load.ref.entries(db)
+
 	# Create entries
 	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
-	expect_true( ! any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
+	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 
 	# Get data frame
@@ -48,8 +59,23 @@ test.entry.fields <- function(factory, db) {
 test.wrong.entry <- function(factory, db) {
 
 	# Test a wrong accession number
-	wrong.entry <- factory$createEntry(db, id = 'WRONG')
+	wrong.entry <- factory$createEntry(db, id = 'WRONG.01')
 	expect_null(wrong.entry)
+}
+
+# TEST WRONG ENTRY AMONG GOOD ONES {{{1
+################################################################
+
+test.wrong.entry.among.good.ones <- function(factory, db) {
+
+	# Load reference entries
+	entries.desc <- load.ref.entries(db)
+
+	# Test a wrong accession number
+	entries <- factory$createEntry(db, id = c('WRONG.02', entries.desc[[BIODB.ACCESSION]]))
+	expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
+	expect_null(entries[[1]])
+	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
 }
 
 # TEST NB ENTRIES {{{1
@@ -110,8 +136,9 @@ for (mode in TEST.MODES) {
 	# Loop on test databases
 	for (db in TEST.DATABASES) {
 		set.test.context(biodb, paste("Running generic tests on", db, "in", mode, "mode"))
-		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
 		test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
+		test_that("One wrong entry does not block the download of good ones", test.wrong.entry.among.good.ones(factory, db))
+		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
 		if ( ! is(factory$getConn(db), 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
 			test_that("Nb entries is positive", test.nb.entries(factory$getConn(db)))
 			test_that("We can get a list of entry ids", test.entry.ids(factory$getConn(db)))

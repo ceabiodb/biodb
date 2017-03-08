@@ -25,31 +25,43 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(ids)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2083
+	concatenate <- TRUE
+	done <- FALSE
 
-	# Initialize return values
-	content <- rep(NA_character_, length(ids))
+	while ( ! done) {
 
-	# Get request URLs
-	urls <- .self$getEntryContentUrl(ids, URL.MAX.LENGTH)
+		done <- TRUE
 
-	# Loop on all URLs
-	for (url in urls) {
+		# Initialize return values
+		content <- rep(NA_character_, length(ids))
 
-		# Send request
-		xmlstr <- .self$.getUrlScheduler()$getUrl(url)
+		# Get request URLs
+		urls <- .self$getEntryContentUrl(ids, concatenate = concatenate, max.length = URL.MAX.LENGTH)
 
-		# Error : "Cannot convert WRONG to System.Int32.\r\nParameter name: type ---> Input string was not in a correct format.\r\n"
-		if (grepl('^Cannot convert .* to System\\.Int32\\.', xmlstr)) {
-			.self$message(MSG.CAUTION, "One of the Chemspider IDs to retrieve is wrong.")
-			break
-		}
+		# Loop on all URLs
+		for (url in urls) {
 
-		# Parse XML and get included XML
-		if ( ! is.na(xmlstr)) {
-			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-			ns <- c(csns = "http://www.chemspider.com/")
-			returned.ids <- XML::xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", XML::xmlValue, namespaces = ns)
-			content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), XML::saveXML, FUN.VALUE = '')
+			# Send request
+			xmlstr <- .self$.getUrlScheduler()$getUrl(url)
+
+			# Error : "Cannot convert WRONG to System.Int32.\r\nParameter name: type ---> Input string was not in a correct format.\r\n"
+			if (grepl('^Cannot convert .* to System\\.Int32\\.', xmlstr)) {
+				if (concatenate) {
+					.self$message(MSG.CAUTION, "One of the Chemspider IDs to retrieve is wrong.")
+					concatenate <- FALSE
+					done <- FALSE
+					break
+				}
+				next
+			}
+
+			# Parse XML and get included XML
+			if ( ! is.na(xmlstr)) {
+				xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
+				ns <- c(csns = "http://www.chemspider.com/")
+				returned.ids <- XML::xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", XML::xmlValue, namespaces = ns)
+				content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), XML::saveXML, FUN.VALUE = '')
+			}
 		}
 	}
 
@@ -66,10 +78,13 @@ ChemspiderConn$methods( createEntry = function(content, drop = TRUE) {
 # Do get entry content url {{{1
 ################################################################
 
-ChemspiderConn$methods( .doGetEntryContentUrl = function(id) {
+ChemspiderConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 	token.param <- if (is.na(.self$getToken())) '' else paste('&token', .self$getToken(), sep = '=')
-	url <- paste0(.self$getBaseUrl(), 'MassSpecAPI.asmx/GetExtendedCompoundInfoArray?', paste(paste0('CSIDs=', id), collapse = '&'), token.param)
+	if (concatenate)
+		url <- paste0(.self$getBaseUrl(), 'MassSpecAPI.asmx/GetExtendedCompoundInfoArray?', paste(paste0('CSIDs=', id), collapse = '&'), token.param)
+	else
+		url <- paste0(.self$getBaseUrl(), 'MassSpecAPI.asmx/GetExtendedCompoundInfoArray?CSIDs=', id, token.param)
 
 	return(url)
 })

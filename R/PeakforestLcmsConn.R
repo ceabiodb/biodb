@@ -10,13 +10,18 @@ PeakforestLcmsConn <- methods::setRefClass("PeakforestLcmsConn", contains = c("P
 # Get entry content url {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( .doGetEntryContentUrl = function(id) {
+PeakforestLcmsConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 	# Check token
 	if (is.na(.self$getToken()))
 		.self$message(MSG.ERROR, "Peakforest requires a token for this service.")
 
-	return(paste(.self$getBaseUrl(), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
+	if (concatenate)
+		url <- paste(.self$getBaseUrl(), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
+	else
+		url <- paste(.self$getBaseUrl(), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
+
+	return(url)
 })
 
 # Get entry page url {{{1

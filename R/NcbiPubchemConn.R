@@ -20,8 +20,14 @@ NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag,
 # Do get entry content url {{{1
 ################################################################
 
-NcbiPubchemConn$methods( .doGetEntryContentUrl = function(id) {
-	return(paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/', .self$.db.name, '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML'))
+NcbiPubchemConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+
+	if (concatenate)
+		url <- paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/', .self$.db.name, '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML')
+	else
+		url <- paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/', .self$.db.name, '/', .self$.id.urlfield, '/', id, '/XML')
+
+	return(url)
 })
 
 # Get entry page url {{{1

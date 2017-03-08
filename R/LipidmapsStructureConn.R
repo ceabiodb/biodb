@@ -17,7 +17,7 @@ LipidmapsStructureConn$methods( initialize = function(...) {
 # Get entry content url {{{1
 ################################################################
 
-LipidmapsStructureConn$methods( .doGetEntryContentUrl = function(id) {
+LipidmapsStructureConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	return(paste(.self$getBaseUrl(), 'LMSDRecord.php', '?Mode=File&LMID=', id, '&OutputType=CSV&OutputQuote=No', sep = ''))
 })
 

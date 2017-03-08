@@ -57,7 +57,7 @@ RemotedbConn$methods( .set.useragent = function(useragent) {
 # Get entry content url {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryContentUrl = function(ids, max.length = 0) {
+RemotedbConn$methods( getEntryContentUrl = function(ids, concatenate = TRUE, max.length = 0) {
 	"Get the contents of specified entry identifiers. 
 	id: A character vector containing the identifiers.
 	max.length: Maximum length of URL strings.
@@ -72,7 +72,7 @@ RemotedbConn$methods( getEntryContentUrl = function(ids, max.length = 0) {
 
 		# Get full URL
 		.self$message(MSG.DEBUG, "Getting full URL.")
-		full.url <- .self$.doGetEntryContentUrl(ids)
+		full.url <- .self$.doGetEntryContentUrl(ids, concatenate = concatenate)
 
 		# No single URL for multiple IDs
 		if (length(ids) > 1 && length(full.url) > 1) {
@@ -118,7 +118,7 @@ RemotedbConn$methods( getEntryContentUrl = function(ids, max.length = 0) {
 # Do get entry content url {{{1
 ################################################################
 
-RemotedbConn$methods( .doGetEntryContentUrl = function(id) {
+RemotedbConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	"Get the contents of specified entry identifiers. 
 	id: A character vector containing the identifiers.
 	return: A character vector containing the entry contents. NULL if no identifier is given (empty vector)."
