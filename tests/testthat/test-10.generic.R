@@ -59,7 +59,7 @@ test.entry.fields <- function(factory, db) {
 test.wrong.entry <- function(factory, db) {
 
 	# Test a wrong accession number
-	wrong.entry <- factory$createEntry(db, id = 'WRONG.01')
+	wrong.entry <- factory$createEntry(db, id = 'WRONGA')
 	expect_null(wrong.entry)
 }
 
@@ -72,7 +72,7 @@ test.wrong.entry.among.good.ones <- function(factory, db) {
 	entries.desc <- load.ref.entries(db)
 
 	# Test a wrong accession number
-	entries <- factory$createEntry(db, id = c('WRONG.02', entries.desc[[BIODB.ACCESSION]]))
+	entries <- factory$createEntry(db, id = c('WRONGB', entries.desc[[BIODB.ACCESSION]]))
 	expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
 	expect_null(entries[[1]])
 	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
