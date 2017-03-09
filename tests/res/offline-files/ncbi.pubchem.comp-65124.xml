@@ -332,10 +332,10 @@
             <PC-UrnDataType value="double">7</PC-UrnDataType>
           </PC-Urn_datatype>
           <PC-Urn_implementation>E_COMPLEXITY</PC-Urn_implementation>
-          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_version>3.444</PC-Urn_version>
           <PC-Urn_software>Cactvs</PC-Urn_software>
           <PC-Urn_source>xemistry.com</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -351,10 +351,10 @@
             <PC-UrnDataType value="uint">5</PC-UrnDataType>
           </PC-Urn_datatype>
           <PC-Urn_implementation>E_NHACCEPTORS</PC-Urn_implementation>
-          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_version>3.444</PC-Urn_version>
           <PC-Urn_software>Cactvs</PC-Urn_software>
           <PC-Urn_source>xemistry.com</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -370,10 +370,10 @@
             <PC-UrnDataType value="uint">5</PC-UrnDataType>
           </PC-Urn_datatype>
           <PC-Urn_implementation>E_NHDONORS</PC-Urn_implementation>
-          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_version>3.444</PC-Urn_version>
           <PC-Urn_software>Cactvs</PC-Urn_software>
           <PC-Urn_source>xemistry.com</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -389,10 +389,10 @@
             <PC-UrnDataType value="uint">5</PC-UrnDataType>
           </PC-Urn_datatype>
           <PC-Urn_implementation>E_NROTBONDS</PC-Urn_implementation>
-          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_version>3.444</PC-Urn_version>
           <PC-Urn_software>Cactvs</PC-Urn_software>
           <PC-Urn_source>xemistry.com</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -409,10 +409,10 @@
           </PC-Urn_datatype>
           <PC-Urn_parameters>extended 2</PC-Urn_parameters>
           <PC-Urn_implementation>E_SCREEN</PC-Urn_implementation>
-          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_version>3.444</PC-Urn_version>
           <PC-Urn_software>Cactvs</PC-Urn_software>
           <PC-Urn_source>xemistry.com</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -430,7 +430,7 @@
           <PC-Urn_version>1.0.4</PC-Urn_version>
           <PC-Urn_software>InChI</PC-Urn_software>
           <PC-Urn_source>iupac.org</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -448,7 +448,7 @@
           <PC-Urn_version>1.0.4</PC-Urn_version>
           <PC-Urn_software>InChI</PC-Urn_software>
           <PC-Urn_source>iupac.org</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -465,7 +465,7 @@
           </PC-Urn_datatype>
           <PC-Urn_version>3.0</PC-Urn_version>
           <PC-Urn_source>sioc-ccbg.ac.cn</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -483,11 +483,11 @@
           <PC-Urn_version>2.1</PC-Urn_version>
           <PC-Urn_software>PubChem</PC-Urn_software>
           <PC-Urn_source>ncbi.nlm.nih.gov</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
-        <PC-InfoData_value_fval>226.058971</PC-InfoData_value_fval>
+        <PC-InfoData_value_fval>226.059</PC-InfoData_value_fval>
       </PC-InfoData_value>
     </PC-InfoData>
     <PC-InfoData>
@@ -500,7 +500,7 @@
           <PC-Urn_version>2.1</PC-Urn_version>
           <PC-Urn_software>PubChem</PC-Urn_software>
           <PC-Urn_source>ncbi.nlm.nih.gov</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -517,11 +517,11 @@
           <PC-Urn_version>2.1</PC-Urn_version>
           <PC-Urn_software>PubChem</PC-Urn_software>
           <PC-Urn_source>ncbi.nlm.nih.gov</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
-        <PC-InfoData_value_fval>226.1861</PC-InfoData_value_fval>
+        <PC-InfoData_value_fval>226.188</PC-InfoData_value_fval>
       </PC-InfoData_value>
     </PC-InfoData>
     <PC-InfoData>
@@ -535,7 +535,7 @@
           <PC-Urn_version>1.9.0</PC-Urn_version>
           <PC-Urn_software>OEChem</PC-Urn_software>
           <PC-Urn_source>openeye.com</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -553,7 +553,7 @@
           <PC-Urn_version>1.9.0</PC-Urn_version>
           <PC-Urn_software>OEChem</PC-Urn_software>
           <PC-Urn_source>openeye.com</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -569,10 +569,10 @@
             <PC-UrnDataType value="double">7</PC-UrnDataType>
           </PC-Urn_datatype>
           <PC-Urn_implementation>E_TPSA</PC-Urn_implementation>
-          <PC-Urn_version>3.408</PC-Urn_version>
+          <PC-Urn_version>3.444</PC-Urn_version>
           <PC-Urn_software>Cactvs</PC-Urn_software>
           <PC-Urn_source>xemistry.com</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
@@ -590,11 +590,11 @@
           <PC-Urn_version>2.1</PC-Urn_version>
           <PC-Urn_software>PubChem</PC-Urn_software>
           <PC-Urn_source>ncbi.nlm.nih.gov</PC-Urn_source>
-          <PC-Urn_release>2012.11.26</PC-Urn_release>
+          <PC-Urn_release>2016.09.28</PC-Urn_release>
         </PC-Urn>
       </PC-InfoData_urn>
       <PC-InfoData_value>
-        <PC-InfoData_value_fval>226.058971</PC-InfoData_value_fval>
+        <PC-InfoData_value_fval>226.059</PC-InfoData_value_fval>
       </PC-InfoData_value>
     </PC-InfoData>
   </PC-Compound_props>
@@ -612,4 +612,4 @@
       <PC-Count_tautomers>5</PC-Count_tautomers>
     </PC-Count>
   </PC-Compound_count>
-</PC-Compound>
+</PC-Compound> 
