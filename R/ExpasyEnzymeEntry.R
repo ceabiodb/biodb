@@ -1,16 +1,14 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
+
+# Class declaration {{{1
+################################################################
 
 ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'BiodbEntry')
 
-###########
-# FACTORY #
-###########
+# Parse content {{{1
+################################################################
 
-createExpasyEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
-
-	entries <- list()
+ExpasyEnzymeEntry$methods( parseContent = function(content) {
 
 	# XXX Content in EMBL Format ?
 
@@ -22,44 +20,27 @@ createExpasyEnzymeEntryFromTxt <- function(biodb, contents, drop = TRUE) {
 	regex[[BIODB.CATALYTIC.ACTIVITY]]  <- "^CA\\s+(.+?)\\.?$"
 	regex[[BIODB.COFACTOR]]  <- "^CF\\s+(.+?)\\.?$"
 
-	for (text in contents) {
+	lines <- strsplit(content, "\n")[[1]]
+	for (s in lines) {
 
-		# Create instance
-		entry <- ExpasyEnzymeEntry$new(biodb)
-
-		lines <- strsplit(text, "\n")[[1]]
-		for (s in lines) {
-
-			# Test generic regex
-			for (field in names(regex)) {
-				g <- stringr::str_match(s, regex[[field]])
-				if ( ! is.na(g[1,1])) {
-					if (entry$hasField(field)) {
-						if (entry$getFieldCardinality(field) == BIODB.CARD.MANY)
-							entry$setFieldValue(field, c(entry$getFieldValue(field), g[1,2]))
-						else
-							biodb$message(MSG.ERROR, paste("Cannot set multiple values into field \"", field, "\".", sep = ''))
-					}
+		# Test generic regex
+		for (field in names(regex)) {
+			g <- stringr::str_match(s, regex[[field]])
+			if ( ! is.na(g[1,1])) {
+				if (.self$hasField(field)) {
+					if (.self$getFieldCardinality(field) == BIODB.CARD.MANY)
+						.self$setFieldValue(field, c(.self$getFieldValue(field), g[1,2]))
 					else
-						entry$setFieldValue(field, g[1,2])
-					break
+						biodb$message(MSG.ERROR, paste("Cannot set multiple values into field \"", field, "\".", sep = ''))
 				}
+				else
+					.self$setFieldValue(field, g[1,2])
+				break
 			}
 		}
-
-		# Cofactors may be listed on a single line, separated by a semicolon.
-		if (entry$hasField(BIODB.COFACTOR))
-			entry$setFieldValue(BIODB.COFACTOR, unlist(strsplit(entry$getFieldValue(BIODB.COFACTOR), ' *; *')))
-
-		entries <- c(entries, entry)
 	}
 
-	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-	# If the input was a single element, then output a single object
-	if (drop && length(contents) == 1)
-		entries <- entries[[1]]
-
-	return(entries)
-}
+	# Cofactors may be listed on a single line, separated by a semicolon.
+	if (.self$hasField(BIODB.COFACTOR))
+		.self$setFieldValue(BIODB.COFACTOR, unlist(strsplit(.self$getFieldValue(BIODB.COFACTOR), ' *; *')))
+})

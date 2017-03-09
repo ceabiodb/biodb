@@ -16,7 +16,7 @@ XmlEntry$methods( initialize = function(xml.namespace = NA_character_, ...) {
 	.xml.namespace <<- xml.namespace
 })
 
-# Add XPath statement
+# Add XPath statement {{{1
 ################################################################
 
 XmlEntry$methods( addXpathStatement = function(field, xpath) {

@@ -30,13 +30,6 @@ ExpasyEnzymeConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-# Create entry {{{1
-################################################################
-
-ExpasyEnzymeConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createExpasyEnzymeEntryFromTxt(.self$getBiodb(), content, drop = drop))
-})
-
 # Get entry ids {{{1
 ################################################################
 
