@@ -111,7 +111,7 @@ HmdbMetaboliteConn$methods( download = function() {
 		zip.path <- .self$getBiodb()$getCache()$getFilePaths(BIODB.HMDB.METABOLITE, 'download', 'zip')
 		zip.url <- paste(.self$getBaseUrl(), "system/downloads/current/hmdb_metabolites.zip", sep = '')
 		.self$message(MSG.INFO, paste("Downloading \"", zip.url, "\"...", sep = ''))
-		utils::download.file(url = zip.url, destfile = zip.path, method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
+		.self$.getUrlScheduler()$downloadFile(url = zip.url, dest.file = zip.path)
 
 		# Expand zip
 		extract.dir <- tempfile(BIODB.HMDB.METABOLITE)

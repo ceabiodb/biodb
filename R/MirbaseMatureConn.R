@@ -30,7 +30,7 @@ MirbaseMatureConn$methods( download = function() {
 		gz.path <- .self$getBiodb()$getCache()$getFilePaths(BIODB.MIRBASE.MATURE, 'download', 'gz')
 		gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
 		.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
-		utils::download.file(url = gz.url, destfile = gz.path, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
+		.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = gz.path)
 
 		# Extract
 		# We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.

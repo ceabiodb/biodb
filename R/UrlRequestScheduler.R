@@ -9,7 +9,7 @@ BIODB.POST <- 'POST'
 # CLASS DECLARATION {{{1
 ################################################################
 
-UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "BiodbObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer", .parent = "ANY"))
+UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "BiodbObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer", .parent = "ANY", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
 
 # n: number of connections
 # t: time (in seconds)
@@ -28,6 +28,8 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer 
 	.nb.max.tries <<- 10L
 	.ssl.verifypeer <<- ssl.verifypeer
 	.verbose <<- 0L
+	.huge.download.waiting.time <<- 60L # in seconds
+	.time.of.last.huge.dwnld.request <<- -1
 	callSuper(...) # calls super-class initializer with remaining parameters
 })
 
@@ -39,14 +41,14 @@ UrlRequestScheduler$methods( getBiodb = function() {
 	return(biodb)
 })
 
-# SET VERBOSE {{{1
+# Set verbose {{{1
 ################################################################
 
 UrlRequestScheduler$methods( setVerbose = function(verbose) {
 	.verbose <<- verbose
 })
 
-# WAIT AS NEEDED {{{1
+# Wait as needed {{{1
 ################################################################
 
 # Wait enough time between two requests.
@@ -98,7 +100,7 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = N
 	return(results)
 })
 
-# GET URL {{{1
+# Get url {{{1
 ################################################################
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
@@ -141,4 +143,31 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	}
 
 	return(content)
+})
+
+# Wait for huge download as needed {{{1
+################################################################
+
+UrlRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
+
+	# Wait, if needed, before previous URL request and this new URL request.
+	if (.self$.time.of.last.huge.dwnld.request > 0) {
+		spent_time <- Sys.time() - .self$.time.of.last.huge.dwnld.request
+		if (spent_time < .huge.dwnld.waiting.time)
+			Sys.sleep(.huge.dwnld.waiting.time - spent_time)
+	}
+
+	# Store current time
+	.time.of.last.huge.dwnld.request <<- Sys.time()
+})
+
+# Download file {{{1
+################################################################
+
+UrlRequestScheduler$methods( downloadFile = function(url, dest.file) {
+
+	# Wait required time between two requests
+	.self$.wait.for.huge.dwnld.as.needed()
+
+	utils::download.file(url = url, destfile = dest.file, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
 })
