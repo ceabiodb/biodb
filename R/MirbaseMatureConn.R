@@ -109,16 +109,14 @@ MirbaseMatureConn$methods( createEntry = function(content, drop = TRUE) {
 
 MirbaseMatureConn$methods( findByName = function(name) {
 
-	# TODO Search in downloaded file?
-
 	# Get HTML
 	htmlstr <- .self$.get.url('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = name, submit = 'Search'))
 
 	# Parse HTML
-	xml <-  htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
+	xml <-  XML::htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
 
 	# Get accession number
-	acc <- unlist(xpathSApply(xml, "//a[starts-with(.,'MIMAT')]", xmlValue))
+	acc <- unlist(XML::xpathSApply(xml, "//a[starts-with(.,'MIMAT')]", XML::xmlValue))
 
 	return(acc)
 })

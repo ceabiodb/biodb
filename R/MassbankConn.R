@@ -31,34 +31,24 @@ MassbankConn$methods( .send.url.request = function(url) {
 # Get entry content {{{1
 ################################################################
 
-MassbankConn$methods( getEntryContent = function(ids) {
+MassbankConn$methods( getEntryContent = function(id) {
 
 	# Debug
-	.self$message(MSG.DEBUG, paste0("Get entry content(s) for ", length(ids)," id(s)..."))
+	.self$message(MSG.DEBUG, paste0("Get entry content(s) for ", length(id)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2083
 
 	# Initialize return values
-	content <- rep(NA_character_, length(ids))
+	content <- rep(NA_character_, length(id))
 
-	# Loop on all
-	n <- 0
-	while (n < length(ids)) {
+	# Get URLs
+	urls <- .self$getEntryContentUrl(id, max.length = URL.MAX.LENGTH)
 
-		# Get list of accession ids to retrieve
-		accessions <- ids[(n + 1):length(ids)]
-
-		# Create URL request
-		x <- get.entry.url(class = BIODB.MASSBANK, accession = accessions, content.type = BIODB.TXT, max.length = URL.MAX.LENGTH, base.url = .self$getBaseUrl())
-
-		# Debug
-		.self$message(MSG.INFO, paste0("Send URL request for ", x$n," id(s)..."))
+	# Loop on all URLs
+	for (url in urls) {
 
 		# Send request
-		xmlstr <- .self$.send.url.request(x$url)
-
-		# Increase number of entries retrieved
-		n <- n + x$n
+		xmlstr <- .self$.send.url.request(url)
 
 		# Parse XML and get text
 		if ( ! is.na(xmlstr)) {
@@ -66,11 +56,8 @@ MassbankConn$methods( getEntryContent = function(ids) {
 			ns <- c(ax21 = "http://api.massbank/xsd")
 			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
 			if (length(returned.ids) > 0)
-				content[match(returned.ids, ids)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
+				content[match(returned.ids, id)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
 		}
-
-		# Debug
-		.self$message(MSG.INFO, paste0("Now ", length(ids) - n," id(s) left to be retrieved..."))
 	}
 
 	return(content)
@@ -132,4 +119,17 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 MassbankConn$methods( getNbEntries = function(count = FALSE) {
 	return(if (count) length(.self$getEntryIds()) else NA_integer_)
+})
+
+# Do get entry content url {{{1
+################################################################
+
+MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+
+	if (concatenate)
+		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', paste(id, collapse = ','), sep = '')
+	else
+		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', id, sep = '')
+
+	return(url)
 })
