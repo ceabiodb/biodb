@@ -3,37 +3,31 @@
 # Class declaration {{{1
 ################################################################
 
-ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "BiodbEntry")
+ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "XmlEntry")
 
-# Parse content {{{1
+# Constructor {{{1
 ################################################################
 
-ChebiEntry$methods( parseContent = function(content) {
+ChebiEntry$methods( initialize = function(...) {
 
-	# Define xpath expressions
-	xpath.expr <- character()
-	xpath.expr[[BIODB.SMILES]] <- "//chebi:return/chebi:smiles"
-	xpath.expr[[BIODB.INCHI]] <- "//chebi:return/chebi:inchi"
-	xpath.expr[[BIODB.INCHIKEY]] <- "//chebi:return/chebi:inchiKey"
-	xpath.expr[[BIODB.KEGG.COMPOUND.ID]] <- "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data"
-	xpath.expr[[BIODB.MASS]] <- "//chebi:mass"
-	xpath.expr[[BIODB.MONOISOTOPIC.MASS]] <- "//chebi:monoisotopicMass"
-	xpath.expr[[BIODB.CHARGE]] <- "//chebi:charge"
+	callSuper(xml.namespace = c(chebi = "http://www.ebi.ac.uk/webservices/chebi"), ...)
 
-	ns <- c(chebi = "http://www.ebi.ac.uk/webservices/chebi")
-	
-	# Parse XMLV
-	xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
+	.self$addXpathStatement(BIODB.SMILES, "//chebi:return/chebi:smiles")
+	.self$addXpathStatement(BIODB.INCHI, "//chebi:return/chebi:inchi")
+	.self$addXpathStatement(BIODB.INCHIKEY, "//chebi:return/chebi:inchiKey")
+	.self$addXpathStatement(BIODB.KEGG.COMPOUND.ID, "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data")
+	.self$addXpathStatement(BIODB.MASS, "//chebi:mass")
+	.self$addXpathStatement(BIODB.MONOISOTOPIC.MASS, "//chebi:monoisotopicMass")
+	.self$addXpathStatement(BIODB.CHARGE, "//chebi:charge")
+})
 
-	# Test generic xpath expressions
-	for (field in names(xpath.expr)) {
-		v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue, namespaces = ns)
-		if (length(v) > 0)
-			.self$setFieldValue(field, v)
-	}
+# Run custom xpath statements {{{1
+################################################################
+
+ChebiEntry$methods( runCustomXpathStatements = function(xml) {
 
 	# Get accession
-	accession <- XML::xpathSApply(xml, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = ns)
+	accession <- XML::xpathSApply(xml, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = .self$.xml.namespace)
 	if (length(accession) > 0) {
 		accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
 		.self$setFieldValue(BIODB.ACCESSION, accession)
