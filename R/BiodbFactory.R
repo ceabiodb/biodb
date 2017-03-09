@@ -76,7 +76,7 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 	return (.self$.conn[[class]])
 })
 
-# Get conn {{{2
+# Get conn {{{1
 ################################################################
 
 BiodbFactory$methods( getConn = function(class) {
@@ -88,35 +88,49 @@ BiodbFactory$methods( getConn = function(class) {
 	return (.self$.conn[[class]])
 })
 
-# ENTRIES {{{1
 
-# Set chunk size {{{2
+# Set chunk size {{{1
+################################################################
+
 BiodbFactory$methods( setChunkSize = function(size) {
 	.chunk.size <<- as.integer(size)
 })
 
-# Create entry {{{2
-BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, drop = TRUE) {
-	"Create Entry from a database by id."
+# Create entry {{{1
+################################################################
 
-	if (is.null(id) && is.null(content))
-		.self$message(MSG.ERROR, "One of id or content must be set.")
-	if ( ! is.null(id) && ! is.null(content))
-		.self$message(MSG.ERROR, "id and content cannot be both set.")
+BiodbFactory$methods( createEntry = function(class, content, drop = TRUE) {
 
-	# Debug
-	.self$message(MSG.INFO, paste0("Creating ", if (is.null(id)) length(content) else length(id), " entries from ", if (is.null(id)) "contents" else paste("ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", ")), "..."))
-
-	# Get content
-	if ( ! is.null(id))
-		content <- .self$getEntryContent(class, id)
+	# Get connection
 	conn <- .self$getConn(class)
-	entry <- conn$createEntry(content = content, drop = drop)
 
-	return(entry)
+	# Create entries
+	entries <- conn$createEntry(content = content, drop = drop)
+
+	return(entries)
 })
 
-# Get entry content {{{2
+# Get entry {{{1
+################################################################
+
+BiodbFactory$methods( getEntry = function(class, id, drop = TRUE) {
+	"Create Entry from a database by id."
+
+	# Debug
+	.self$message(MSG.INFO, paste0("Creating ", length(id), " entries from ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", "), "..."))
+
+	# Get contents
+	content <- .self$getEntryContent(class, id)
+
+	# Create entries
+	entries <- .self$createEntry(class, content)
+
+	return(entries)
+})
+
+# Get entry content {{{1
+################################################################
+
 BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug

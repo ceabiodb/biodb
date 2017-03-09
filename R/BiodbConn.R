@@ -51,13 +51,6 @@ BiodbConn$methods( getBiodb = function() {
 	return(.self$.biodb)
 })
 
-# Get entry {{{1
-################################################################
-
-BiodbConn$methods( getEntry = function(id, drop = TRUE) {
-	content <- .self$getEntryContent(id)
-	return(.self$createEntry(content, drop = drop))
-})
 
 # Get entry content {{{1
 ################################################################

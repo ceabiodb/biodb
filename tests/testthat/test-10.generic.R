@@ -32,7 +32,7 @@ test.entry.fields <- function(factory, db) {
 	entries.desc <- load.ref.entries(db)
 
 	# Create entries
-	entries <- factory$createEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	entries <- factory$getEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 
@@ -59,7 +59,7 @@ test.entry.fields <- function(factory, db) {
 test.wrong.entry <- function(factory, db) {
 
 	# Test a wrong accession number
-	wrong.entry <- factory$createEntry(db, id = 'WRONGA')
+	wrong.entry <- factory$getEntry(db, id = 'WRONGA')
 	expect_null(wrong.entry)
 }
 
@@ -72,7 +72,7 @@ test.wrong.entry.among.good.ones <- function(factory, db) {
 	entries.desc <- load.ref.entries(db)
 
 	# Test a wrong accession number
-	entries <- factory$createEntry(db, id = c('WRONGB', entries.desc[[BIODB.ACCESSION]]))
+	entries <- factory$getEntry(db, id = c('WRONGB', entries.desc[[BIODB.ACCESSION]]))
 	expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
 	expect_null(entries[[1]])
 	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
