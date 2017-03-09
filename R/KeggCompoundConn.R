@@ -24,8 +24,6 @@ KeggCompoundConn$methods( createEntry = function(content, drop = TRUE) {
 	# Define fields regex
 	regex <- character()
 	regex[[BIODB.NAME]] <- "^NAME\\s+([^,;]+)"
-	regex[[BIODB.CHEBI.ID]] <- "^\\s+ChEBI:\\s+(\\S+)"
-	regex[[BIODB.LIPIDMAPS.STRUCTURE.ID]] <- "^\\s+LIPIDMAPS:\\s+(\\S+)"
 
 	for (text in content) {
 
@@ -49,31 +47,9 @@ KeggCompoundConn$methods( createEntry = function(content, drop = TRUE) {
 				next
 
 			# ACCESSION
-			{
-#				# ENZYME ID
-#				g <- stringr::str_match(s, "^ENTRY\\s+EC\\s+(\\S+)")
-#				if ( ! is.na(g[1,1])){
-#					entry$setField(BIODB.ACCESSION, paste('ec', g[1,2], sep = ':'))
-#
-#				# ENTRY ID
-#				}else {
-					g <- stringr::str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
-					if ( ! is.na(g[1,1])){
-						entry$setField(BIODB.ACCESSION, g[1,2])
-
-					# OTHER ID
-#					}else {
-#						g <- stringr::str_match(s, "^ENTRY\\s+(\\S+)")
-#						if ( ! is.na(g[1,1]))
-#							entry$setField(BIODB.ACCESSION, g[1,2])
-#					}
-				}
-
-				# ORGANISM
-				g <- stringr::str_match(s, "^ORGANISM\\s+(\\S+)")
-				if ( ! is.na(g[1,1]))
-					entry$setField(BIODB.ACCESSION, paste(g[1,2], entry$getField(BIODB.ACCESSION), sep = ':'))
-			}
+			g <- stringr::str_match(s, "^ENTRY\\s+(\\S+)\\s+Compound")
+			if ( ! is.na(g[1,1]))
+				entry$setField(BIODB.ACCESSION, g[1,2])
 		}
 
 		entries <- c(entries, entry)

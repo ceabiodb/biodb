@@ -13,25 +13,36 @@ NcbiGeneConn$methods( initialize = function(...) {
 	callSuper(content.type = BIODB.XML, db.name = 'gene', ...)
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# Get entry content {{{1
+################################################################
 
 NcbiGeneConn$methods( getEntryContent = function(id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
 
+	# Get URLs
+	urls <- .self$getEntryContentUrl(id)
+
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBI.GENE, x, content.type = BIODB.XML)), FUN.VALUE = '')
+	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
 	return(content)
 })
 
-################
-# CREATE ENTRY #
-################
+# Create entry {{{1
+################################################################
 
 NcbiGeneConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createNcbiGeneEntryFromXml(.self$getBiodb(), content, drop = drop))
+})
+
+# Do get entry content url {{{1
+################################################################
+
+NcbiGeneConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+
+	url <- paste0('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', id, '&rettype=xml&retmode=text')
+
+	return(url)
 })

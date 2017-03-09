@@ -247,15 +247,7 @@ colnames(BIODB.PEAK.DF.EXAMPLE) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.
 
 	# Get URL
 	url <- switch(class,
-		expasy.enzyme      = if (content.type == BIODB.TXT) paste0('http://enzyme.expasy.org/EC/', accession, '.txt') else NULL,
-		hmdb.metabolite = switch(content.type,
-			                 xml = paste0('http://www.hmdb.ca/metabolites/', accession, '.xml'),
-			                 html = paste0('http://www.hmdb.ca/metabolites/', accession),
-			                 NULL),
 		massbank    = if (content.type == BIODB.TXT) paste0((if (is.na(base.url)) 'http://massbank.eu/api/services/MassBankAPI/' else base.url), 'getRecordInfo?ids=', paste(accession, collapse = ',')) else NULL,
-		ncbi.gene    = if (content.type == BIODB.XML) paste0('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', accession, '&rettype=xml&retmode=text') else NULL,
-		ncbi.ccds    = if (content.type == BIODB.HTML) paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', accession),
-		uniprot     = if (content.type == BIODB.XML) paste0('http://www.uniprot.org/uniprot/', accession, '.xml'),
 		NULL
 		)
 

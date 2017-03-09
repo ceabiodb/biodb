@@ -1,2 +1,3 @@
-accession   name                            chebi.id
-'C00751'    'Squalene'                      '15440'
+accession   name
+C00751      Squalene
+C00005      NADPH

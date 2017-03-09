@@ -47,7 +47,7 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 			# Error : "Cannot convert WRONG to System.Int32.\r\nParameter name: type ---> Input string was not in a correct format.\r\n"
 			if (grepl('^Cannot convert .* to System\\.Int32\\.', xmlstr)) {
 				if (concatenate) {
-					.self$message(MSG.CAUTION, "One of the Chemspider IDs to retrieve is wrong.")
+					.self$message(MSG.CAUTION, "One of the IDs to retrieve is wrong.")
 					concatenate <- FALSE
 					done <- FALSE
 					break

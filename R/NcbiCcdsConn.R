@@ -22,8 +22,11 @@ NcbiCcdsConn$methods( getEntryContent = function(id) {
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
 
+	# Get URLs
+	urls <- .self$getEntryContentUrl(id)
+
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.NCBI.CCDS, x, content.type = BIODB.HTML)), FUN.VALUE = '')
+	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
 	return(content)
 })
@@ -40,4 +43,21 @@ NcbiCcdsConn$methods( createEntry = function(content, drop = TRUE) {
 
 NcbiCcdsConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	return(NULL)
+})
+
+# Do get entry content url {{{1
+################################################################
+
+NcbiCcdsConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+	return(.self$getEntryPageUrl(id))
+})
+
+# Get entry page url {{{1
+################################################################
+
+NcbiCcdsConn$methods( getEntryPageUrl = function(id) {
+
+	url <- paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', id)
+
+	return(url)
 })

@@ -15,8 +15,13 @@ USERAGENT <- 'biodb.test ; pierrick.rogermele@cloud.com'
 ################################################################
 
 env <- Sys.getenv()
-if ('DATABASES' %in% names(env)) {
-	TEST.DATABASES <- env[['DATABASES']]
+if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
+	TEST.DATABASES <- strsplit(env[['DATABASES']], ',')
+	db.exists <- TEST.DATABASES %in% BIODB.DATABASES
+	if ( ! all(db.exists)) {
+		wrong.dbs <- TEST.DATABASES[ ! db.exists]
+		stop(paste('Unknown testing database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+	}
 } else {
 	TEST.DATABASES <- BIODB.DATABASES
 }
@@ -30,16 +35,16 @@ MODE.QUICK.ONLINE <- 'quick.online'
 MODE.ALL <- 'all'
 DEFAULT.MODES <- MODE.OFFLINE
 ALLOWED.MODES <- c(MODE.OFFLINE, MODE.QUICK.ONLINE, MODE.ONLINE)
-if ('MODES' %in% names(env)) {
+if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
 	if (env[['MODES']] == MODE.ALL)
 		TEST.MODES <- ALLOWED.MODES
 	else {
-		mode.exists <- env[['MODES']] %in% ALLOWED.MODES
+		TEST.MODES <- strsplit(env[['MODES']], ',')
+		mode.exists <- TEST.MODES %in% ALLOWED.MODES
 		if ( ! all(mode.exists)) {
-			wrong.modes <- env[['MODES']][ ! mode.exists]
+			wrong.modes <- TEST.MODES[ ! mode.exists]
 			stop(paste('Unknown testing mode(s) ', paste(wrong.modes, collapse = ', ')), '.', sep = '')
 		}
-		TEST.MODES <- env[['MODES']]
 	}
 } else {
 	TEST.MODES <- DEFAULT.MODES

@@ -24,8 +24,11 @@ HmdbMetaboliteConn$methods( getEntryContent = function(id) {
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
 
+	# Get URLs
+	urls <- .self$getEntryContentUrl(id)
+
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.HMDB.METABOLITE, x, content.type = BIODB.XML)), FUN.VALUE = '')
+	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
 	return(content)
 })
@@ -181,4 +184,24 @@ HmdbMetaboliteConn$methods( getNbEntries = function(count = FALSE) {
 		n <- length(ids)
 
 	return(n)
+})
+
+# Do get entry content url {{{1
+################################################################
+
+HmdbMetaboliteConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+
+	url <- paste0(.self$getBaseUrl(), 'metabolites/', id, '.xml')
+
+	return(url)
+})
+
+# Get entry page url {{{1
+################################################################
+
+HmdbMetaboliteConn$methods( getEntryPageUrl = function(id) {
+
+	url <- paste0(.self$getBaseUrl(), 'metabolites/', id)
+
+	return(url)
 })

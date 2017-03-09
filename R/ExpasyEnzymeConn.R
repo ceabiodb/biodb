@@ -21,8 +21,11 @@ ExpasyEnzymeConn$methods( getEntryContent = function(id) {
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
 
+	# Get URLs
+	urls <- .self$getEntryContentUrl(id)
+
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.EXPASY.ENZYME, accession = x, content.type = BIODB.TXT)), FUN.VALUE = '')
+	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
 	return(content)
 })
@@ -47,11 +50,20 @@ ExpasyEnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Get ids
 	ids <- XML::xpathSApply(xml, "//a[starts-with(@href,'/EC/')]", XML::xmlValue)
-	.self$message(MSG.DEBUG, paste('ENZYME IDS =', paste(ids, collapse = "\n")))
 
 	# Cut results
 	if ( ! is.na(max.results) && length(ids) > max.results)
 		ids <- ids[1:max.results]
 
 	return(ids)
+})
+
+# Do get entry content url {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+
+	url <- paste0(.self$getBaseUrl(), 'EC/', id, '.txt')
+
+	return(url)
 })
