@@ -137,7 +137,7 @@ for (mode in TEST.MODES) {
 	for (db in TEST.DATABASES) {
 		set.test.context(biodb, paste("Running generic tests on", db, "in", mode, "mode"))
 		test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
-		test_that("One wrong entry does not block the download of good ones", test.wrong.entry.among.good.ones(factory, db))
+		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(factory, db))
 		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
 		if ( ! is(factory$getConn(db), 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
 			test_that("Nb entries is positive", test.nb.entries(factory$getConn(db)))

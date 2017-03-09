@@ -49,7 +49,7 @@ UrlRequestScheduler$methods( setVerbose = function(verbose) {
 # WAIT AS NEEDED {{{1
 ################################################################
 
-# Wait the specified between two requests.
+# Wait enough time between two requests.
 UrlRequestScheduler$methods( .wait.as.needed = function() {
 
 	# Compute minimum waiting time between two URL requests
@@ -103,8 +103,6 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = N
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
 
-	.self$.check.offline.mode()
-
 	# Check method
 	if ( ! method %in% c(BIODB.GET, BIODB.POST))
 		.self$message(MSG.ERROR, paste('Unknown method "', method, '".', sep = ''))
@@ -120,6 +118,9 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 	# Log URL
 	.self$message(MSG.DEBUG, paste0("Sending URL request \"", url, "\" with ", method, " method..."))
+
+	# Check if in offline mode
+	.self$.check.offline.mode()
 
 	content <- NA_character_
 
