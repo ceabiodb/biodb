@@ -68,12 +68,6 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 	return(content)
 })
 
-# Create entry {{{1
-################################################################
-
-ChemspiderConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createChemspiderEntryFromXml(.self$getBiodb(), content, drop = drop))
-})
 
 # Do get entry content url {{{1
 ################################################################

@@ -157,13 +157,13 @@ BiodbFactory$methods( getEntry = function(class, id, drop = TRUE) {
 	"Create Entry from a database by id."
 
 	# Debug
-	.self$message(MSG.INFO, paste0("Creating ", length(id), " entries from ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", "), "..."))
+	.self$message(MSG.INFO, paste("Creating", length(id), "entries from ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", "), "..."))
 
 	# Get contents
 	content <- .self$getEntryContent(class, id)
 
 	# Create entries
-	entries <- .self$createEntry(class, content)
+	entries <- .self$createEntry(class, content = content, drop = drop)
 
 	return(entries)
 })
