@@ -47,6 +47,7 @@ Collate:
     'ExpasyEnzymeConn.R'
     'ExpasyEnzymeEntry.R'
     'HmdbMetaboliteConn.R'
+    'HmdbMetaboliteEntry.R'
     'LipidmapsStructureConn.R'
     'KeggConn.R'
     'KeggCompoundConn.R'
