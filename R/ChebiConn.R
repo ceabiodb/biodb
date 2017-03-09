@@ -33,12 +33,6 @@ ChebiConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-# Create entry {{{1
-################################################################
-
-ChebiConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createChebiEntryFromXml(.self$getBiodb(), content, drop = drop))
-})
 
 # Get entry ids {{{1
 ################################################################

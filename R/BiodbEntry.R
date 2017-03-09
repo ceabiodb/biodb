@@ -8,15 +8,15 @@ BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
 # Entry abstract class {{{1
 ################################################################
 
-BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "BiodbObject", fields = list(.fields ='list', .biodb = "ANY"))
+BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "BiodbObject", fields = list(.fields ='list', .conn = "ANY"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntry$methods( initialize = function(biodb = NULL, ...) {
+BiodbEntry$methods( initialize = function(conn = NULL, ...) {
 
 	.fields <<- list()
-	.biodb <<- biodb
+	.conn <<- conn 
 
 	callSuper(...)
 })
@@ -25,7 +25,7 @@ BiodbEntry$methods( initialize = function(biodb = NULL, ...) {
 ################################################################
 
 BiodbEntry$methods( getBiodb = function() {
-	return(.self$.biodb)
+	return(.self$.conn$getBiodb())
 })
 
 # Set field value {{{1
@@ -127,7 +127,7 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 
 	# Flatten: convert atomic values with cardinality > 1 into a string
 	if (flatten)
-		if (.self$.biodb$fieldIsAtomic(field) && .self$getFieldCardinality(field) != BIODB.CARD.ONE)
+		if (.self$getBiodb()$fieldIsAtomic(field) && .self$getFieldCardinality(field) != BIODB.CARD.ONE)
 			val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
 
 	return(val)
@@ -199,7 +199,7 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	for (f in names(.self$.fields)) {
 
 		# Ignore non atomic values
-		if (only.atomic && ! .self$.biodb$fieldIsAtomic(f))
+		if (only.atomic && ! .self$getBiodb()$fieldIsAtomic(f))
 			next
 
 		v <- .self$getFieldValue(f, flatten = TRUE)
