@@ -21,10 +21,10 @@ ChebiEntry$methods( initialize = function(...) {
 	.self$addXpathStatement(BIODB.CHARGE, "//chebi:charge")
 })
 
-# Run custom xpath statements {{{1
+# After parse content {{{1
 ################################################################
 
-ChebiEntry$methods( runCustomXpathStatements = function(xml) {
+ChebiEntry$methods( afterParseContent = function(xml) {
 
 	# Get accession
 	accession <- XML::xpathSApply(xml, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = .self$.xml.namespace)

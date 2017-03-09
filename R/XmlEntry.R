@@ -37,21 +37,31 @@ XmlEntry$methods( parseContent = function(content) {
 	# Parse XML
 	xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
 
-	# Test generic xpath expressions
-	for (field in names(.self$.xpath.expr)) {
-		if (is.na(.self$.xml.namespace))
-			v <- XML::xpathSApply(xml, .self$.xpath.expr[[field]], XML::xmlValue)
-		else
-			v <- XML::xpathSApply(xml, .self$.xpath.expr[[field]], XML::xmlValue, namespaces = .self$.xml.namespace)
-		if (length(v) > 0)
-			.self$setFieldValue(field, v)
+	if (.self$beforeParseContent(xml)) {
+
+		# Test generic xpath expressions
+		for (field in names(.self$.xpath.expr)) {
+			if (is.na(.self$.xml.namespace))
+				v <- XML::xpathSApply(xml, .self$.xpath.expr[[field]], XML::xmlValue)
+			else
+				v <- XML::xpathSApply(xml, .self$.xpath.expr[[field]], XML::xmlValue, namespaces = .self$.xml.namespace)
+			if (length(v) > 0)
+				.self$setFieldValue(field, v)
+		}
 	}
 
-	.self$runCustomXpathStatements(xml)
+	.self$afterParseContent(xml)
 })
 
-# Run custom xpath statements {{{1
+# Before parse content {{{1
 ################################################################
 
-XmlEntry$methods( runCustomXpathStatements = function(xml) {
+XmlEntry$methods( beforeParseContent = function(xml) {
+	return(TRUE)
+})
+
+# After parse content {{{1
+################################################################
+
+XmlEntry$methods( afterParseContent = function(xml) {
 })
