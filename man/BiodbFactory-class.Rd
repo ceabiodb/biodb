@@ -2,8 +2,8 @@
 % Please edit documentation in R/BiodbFactory.R
 \docType{class}
 \name{BiodbFactory-class}
-\alias{BiodbFactory}
 \alias{BiodbFactory-class}
+\alias{BiodbFactory}
 \title{A class for constructing biodb objects.}
 \description{
 A class for constructing biodb objects.
@@ -13,8 +13,8 @@ A class for constructing biodb objects.
 \describe{
 \item{\code{createConn(class, url = NA_character_, token = NA_character_)}}{Create connection to databases useful for metabolomics.}
 
-\item{\code{createEntry(class, id = NULL, content = NULL, drop = TRUE)}}{Create Entry from a database by id.}
-
 \item{\code{getConn(class)}}{Get connection to a database.}
+
+\item{\code{getEntry(class, id, drop = TRUE)}}{Create Entry from a database by id.}
 }}
 

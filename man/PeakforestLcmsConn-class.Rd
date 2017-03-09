@@ -2,8 +2,8 @@
 % Please edit documentation in R/PeakforestLcmsConn.R
 \docType{class}
 \name{PeakforestLcmsConn-class}
-\alias{PeakforestLcmsConn}
 \alias{PeakforestLcmsConn-class}
+\alias{PeakforestLcmsConn}
 \title{PeakForest connector class.}
 \description{
 PeakForest connector class.

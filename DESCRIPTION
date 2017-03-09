@@ -32,6 +32,7 @@ Collate:
     'Biodb.R'
     'BiodbConn.R'
     'BiodbEntry.R'
+    'XmlEntry.R'
     'BiodbConfig.R'
     'BiodbCache.R'
     'BiodbFactory.R'
@@ -72,4 +73,4 @@ Collate:
     'biodb-package.R'
 Author: Pierrick Roger
 Maintainer: Pierrick Roger <pierrick.rogermele@icloud.com>
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

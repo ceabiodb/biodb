@@ -3,34 +3,23 @@
 # Class declaration {{{1
 ################################################################
 
-ChemspiderEntry <- methods::setRefClass("ChemspiderEntry", contains = "BiodbEntry")
+ChemspiderEntry <- methods::setRefClass("ChemspiderEntry", contains = "XmlEntry")
 
-# Parse content {{{1
+# Constructor {{{1
 ################################################################
 
-ChemspiderEntry$methods( parseContent = function(content) {
+ChemspiderEntry$methods( initialize = function(...) {
 
-	# Define xpath expressions
-	xpath.expr <- character()
-	xpath.expr[[BIODB.ACCESSION]]    	<- "//CSID"
-	xpath.expr[[BIODB.FORMULA]]      	<- "//MF"
-	xpath.expr[[BIODB.NAME]]         	<- "//CommonName"
-	xpath.expr[[BIODB.AVERAGE.MASS]] 	<- "//AverageMass"
-	xpath.expr[[BIODB.MONOISOTOPIC.MASS]] 	<- "//MonoisotopicMass"
-	xpath.expr[[BIODB.NOMINAL.MASS]] 	<- "//NominalMass"
-	xpath.expr[[BIODB.MONOISOTOPIC.MASS]] 	<- "//MonoisotopicMass"
-	xpath.expr[[BIODB.MOLECULAR.WEIGHT]] 	<- "//MolecularWeight"
-	xpath.expr[[BIODB.INCHI]]           <- "//InChI"
-	xpath.expr[[BIODB.INCHIKEY]]       	<- "//InChIKey"
-	xpath.expr[[BIODB.SMILES]]          <- "//SMILES"
+	callSuper(...)
 
-	# Parse XML
-	xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
-
-	# Test generic xpath expressions
-	for (field in names(xpath.expr)) {
-		v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
-		if (length(v) > 0)
-			.self$setFieldValue(field, v)
-	}
+	.self$addXpathStatement(BIODB.ACCESSION, "//CSID")
+	.self$addXpathStatement(BIODB.FORMULA, "//MF")
+	.self$addXpathStatement(BIODB.NAME, "//CommonName")
+	.self$addXpathStatement(BIODB.AVERAGE.MASS, "//AverageMass")
+	.self$addXpathStatement(BIODB.MONOISOTOPIC.MASS, "//MonoisotopicMass")
+	.self$addXpathStatement(BIODB.NOMINAL.MASS, "//NominalMass")
+	.self$addXpathStatement(BIODB.MOLECULAR.WEIGHT, "//MolecularWeight")
+	.self$addXpathStatement(BIODB.INCHI, "//InChI")
+	.self$addXpathStatement(BIODB.INCHIKEY, "//InChIKey")
+	.self$addXpathStatement(BIODB.SMILES, "//SMILES")
 })
