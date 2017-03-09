@@ -16,7 +16,7 @@ USERAGENT <- 'biodb.test ; pierrick.rogermele@cloud.com'
 
 env <- Sys.getenv()
 if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
-	TEST.DATABASES <- strsplit(env[['DATABASES']], ',')
+	TEST.DATABASES <- strsplit(env[['DATABASES']], ',')[[1]]
 	db.exists <- TEST.DATABASES %in% BIODB.DATABASES
 	if ( ! all(db.exists)) {
 		wrong.dbs <- TEST.DATABASES[ ! db.exists]
@@ -39,7 +39,7 @@ if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
 	if (env[['MODES']] == MODE.ALL)
 		TEST.MODES <- ALLOWED.MODES
 	else {
-		TEST.MODES <- strsplit(env[['MODES']], ',')
+		TEST.MODES <- strsplit(env[['MODES']], ',')[[1]]
 		mode.exists <- TEST.MODES %in% ALLOWED.MODES
 		if ( ! all(mode.exists)) {
 			wrong.modes <- TEST.MODES[ ! mode.exists]
