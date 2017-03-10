@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' include TextEntry.R
+
 # Class declaration {{{1
 ################################################################
 
