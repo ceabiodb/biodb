@@ -8,17 +8,18 @@ BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
 # Entry abstract class {{{1
 ################################################################
 
-BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "BiodbObject", fields = list(.fields ='list', .conn = "ANY"))
+BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "BiodbObject", fields = list(.fields ='list', .conn = "ANY", .parsing.expr = 'ANY'))
 
 # Constructor {{{1
 ################################################################
 
 BiodbEntry$methods( initialize = function(conn = NULL, ...) {
 
+	callSuper(...)
+
 	.fields <<- list()
 	.conn <<- conn 
-
-	callSuper(...)
+	.parsing.expr <<- list()
 })
 
 # Get biodb {{{1
@@ -216,6 +217,26 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	}
 
 	return(df)
+})
+
+# Add Parsing expression {{{1
+################################################################
+
+BiodbEntry$methods( addParsingExpression = function(field, expr) {
+
+	# Check that this field has no expression associated
+	if (field %in% names(.self$.parsing.expr))
+		.self$message(MSG.ERROR, paste("A parsing expression has already been defined for field", field))
+
+	# Register new parsing expression
+	.self$.parsing.expr[[field]] <- expr 
+})
+
+# Parse content {{{1
+################################################################
+
+BiodbEntry$methods( parseContent = function(content) {
+	.self$.abstract.method()
 })
 
 # DEPRECATED METHODS {{{1

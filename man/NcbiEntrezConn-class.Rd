@@ -2,8 +2,8 @@
 % Please edit documentation in R/NcbiEntrezConn.R
 \docType{class}
 \name{NcbiEntrezConn-class}
-\alias{NcbiEntrezConn-class}
 \alias{NcbiEntrezConn}
+\alias{NcbiEntrezConn-class}
 \title{The mother abstract class of all NCBI Entrez connection classes.}
 \description{
 The mother abstract class of all NCBI Entrez connection classes.

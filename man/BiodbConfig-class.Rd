@@ -2,8 +2,8 @@
 % Please edit documentation in R/BiodbConfig.R
 \docType{class}
 \name{BiodbConfig-class}
-\alias{BiodbConfig-class}
 \alias{BiodbConfig}
+\alias{BiodbConfig-class}
 \title{Class for storing configuration values.}
 \description{
 Class for storing configuration values.
