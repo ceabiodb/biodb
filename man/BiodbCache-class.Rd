@@ -2,8 +2,8 @@
 % Please edit documentation in R/BiodbCache.R
 \docType{class}
 \name{BiodbCache-class}
-\alias{BiodbCache}
 \alias{BiodbCache-class}
+\alias{BiodbCache}
 \title{A class for constructing biodb objects.}
 \description{
 A class for constructing biodb objects.

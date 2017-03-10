@@ -1,15 +1,17 @@
 # vi: fdm=marker
 
+#' @include BiodbEntry.R
+
 # Class declaration {{{1
 ################################################################
 
-TextEntry <- methods::setRefClass("TextEntry", contains = 'BiodbEntry')
+TxtEntry <- methods::setRefClass("TxtEntry", contains = 'BiodbEntry')
 
 
 # Constructor {{{1
 ################################################################
 
-TextEntry$methods( initialize = function(...) {
+TxtEntry$methods( initialize = function(...) {
 
 	superClass(...)
 })

@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include XmlEntry.R
+
 # Class declaration {{{1
 ################################################################
 

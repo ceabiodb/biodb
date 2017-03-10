@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include NcbiConn.R
+
 # Class declaration {{{1
 ################################################################
 

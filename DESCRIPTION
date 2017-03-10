@@ -2,7 +2,7 @@ Package: biodb
 Title: Biodb, a library for connecting to chemical and biological databases
 Version: 1.0.0
 Authors@R: person("Pierrick", "Roger", email = "pierrick.rogermele@icloud.com", role = c("aut", "cre"))
-Description: The biodb library, provides a way to connection to several chemical
+Description: The biodb library provides a way to connection to several chemical
     and biological databases, and retrieve entries easily.
 Depends:
     R (>= 3.3.1)
@@ -20,59 +20,59 @@ Imports:
     stats,
     R.utils
 NeedsCompilation: yes
-Collate:
-    'biodb-common.R'
-    'spec-dist.R'
-    'BiodbObserver.R'
-    'BiodbLogger.R'
-    'WarningReporter.R'
-    'ErrorReporter.R'
+Author: Pierrick Roger
+Maintainer: Pierrick Roger <pierrick.rogermele@icloud.com>
+RoxygenNote: 6.0.1
+Collate: 
     'BiodbObject.R'
-    'UrlRequestScheduler.R'
     'Biodb.R'
+    'BiodbCache.R'
+    'BiodbConfig.R'
     'BiodbConn.R'
     'BiodbEntry.R'
-    'TextEntry.R'
-    'XmlEntry.R'
-    'BiodbConfig.R'
-    'BiodbCache.R'
     'BiodbFactory.R'
-    'massdb-helper.R'
+    'BiodbObserver.R'
+    'BiodbLogger.R'
+    'UrlRequestScheduler.R'
     'RemotedbConn.R'
-    'CompounddbConn.R'
-    'MassdbConn.R'
     'ChebiConn.R'
+    'XmlEntry.R'
     'ChebiEntry.R'
+    'CompounddbConn.R'
     'ChemspiderConn.R'
     'ChemspiderEntry.R'
+    'ErrorReporter.R'
     'ExpasyEnzymeConn.R'
+    'TxtEntry.R'
     'ExpasyEnzymeEntry.R'
     'HmdbMetaboliteConn.R'
     'HmdbMetaboliteEntry.R'
-    'LipidmapsStructureConn.R'
     'KeggConn.R'
     'KeggCompoundConn.R'
+    'LipidmapsStructureConn.R'
+    'MassdbConn.R'
+    'biodb-common.R'
+    'MassCsvFileConn.R'
     'MassbankConn.R'
     'MassbankEntry.R'
-    'MassCsvFileConn.R'
     'MirbaseConn.R'
     'MirbaseMatureConn.R'
     'MirbaseMatureEntry.R'
     'NcbiConn.R'
-    'NcbiEntrezConn.R'
     'NcbiCcdsConn.R'
-    'NcbiGeneConn.R'
     'NcbiCcdsEntry.R'
+    'NcbiEntrezConn.R'
+    'NcbiGeneConn.R'
     'NcbiGeneEntry.R'
     'NcbiPubchemConn.R'
     'NcbiPubchemCompConn.R'
-    'NcbiPubchemSubstConn.R'
     'NcbiPubchemEntry.R'
+    'NcbiPubchemSubstConn.R'
     'PeakforestConn.R'
     'PeakforestLcmsConn.R'
     'UniprotConn.R'
     'UniprotEntry.R'
+    'WarningReporter.R'
     'biodb-package.R'
-Author: Pierrick Roger
-Maintainer: Pierrick Roger <pierrick.rogermele@icloud.com>
-RoxygenNote: 5.0.1
+    'massdb-helper.R'
+    'spec-dist.R'

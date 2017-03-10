@@ -1,5 +1,8 @@
 # vi: fdm=marker
 
+#' @include biodb-common.R
+#' @include MassdbConn.R 
+
 # In the provided file, each line represents an MS peak measure.
 # The file contains molecule and spectrum information. Each spectrum has an accession id.
 

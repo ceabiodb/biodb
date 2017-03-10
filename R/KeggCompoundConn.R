@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include KeggConn.R
+
 # Class declaration {{{1
 ################################################################
 

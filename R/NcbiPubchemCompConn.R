@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include NcbiPubchemConn.R
+
 # Class declaration {{{1
 ################################################################
 

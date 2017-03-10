@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include BiodbObserver.R
+
 # Class declaration {{{1
 ################################################################
 

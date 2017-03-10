@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include UrlRequestScheduler.R
+
 # Class declaration {{{1
 ################################################################
 

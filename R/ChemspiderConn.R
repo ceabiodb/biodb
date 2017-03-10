@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include CompounddbConn.R
+
 # Class declaration {{{1
 ################################################################
 

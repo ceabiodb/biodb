@@ -1,9 +1,11 @@
 # vi: fdm=marker
 
+#' @include TxtEntry.R
+
 # Class declaration {{{1
 ################################################################
 
-ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'TextEntry')
+ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'TxtEntry')
 
 # Constructor {{{1
 ################################################################

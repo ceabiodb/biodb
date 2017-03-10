@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include RemotedbConn.R
+
 # Class declaration {{{1
 ################################################################
 
