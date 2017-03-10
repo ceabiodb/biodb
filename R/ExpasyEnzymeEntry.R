@@ -3,7 +3,21 @@
 # Class declaration {{{1
 ################################################################
 
-ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'BiodbEntry')
+ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'TextEntry')
+
+# Constructor {{{1
+################################################################
+
+ExpasyEnzymeEntry$methods( initialize = function(...) {
+
+	superClass(...)
+
+	regex[[BIODB.ACCESSION]] <- "^ID\\s+([0-9.]+)$"
+	regex[[BIODB.NAME]]      <- "^DE\\s+(.+?)\\.?$"
+	regex[[BIODB.SYNONYMS]]  <- "^AN\\s+(.+?)\\.?$" # Alternate names
+	regex[[BIODB.CATALYTIC.ACTIVITY]]  <- "^CA\\s+(.+?)\\.?$"
+	regex[[BIODB.COFACTOR]]  <- "^CF\\s+(.+?)\\.?$"
+})
 
 # Parse content {{{1
 ################################################################
@@ -14,11 +28,6 @@ ExpasyEnzymeEntry$methods( parseContent = function(content) {
 
 	# Define fields regex
 	regex <- character()
-	regex[[BIODB.ACCESSION]] <- "^ID\\s+([0-9.]+)$"
-	regex[[BIODB.NAME]]      <- "^DE\\s+(.+?)\\.?$"
-	regex[[BIODB.SYNONYMS]]  <- "^AN\\s+(.+?)\\.?$" # Alternate names
-	regex[[BIODB.CATALYTIC.ACTIVITY]]  <- "^CA\\s+(.+?)\\.?$"
-	regex[[BIODB.COFACTOR]]  <- "^CF\\s+(.+?)\\.?$"
 
 	lines <- strsplit(content, "\n")[[1]]
 	for (s in lines) {
