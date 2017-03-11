@@ -1,5 +1,8 @@
 # vi: fdm=marker
 
+#' @include RemotedbConn.R
+#' @include MassdbConn.R
+
 # Class declaration {{{1
 ################################################################
 
@@ -61,16 +64,6 @@ MassbankConn$methods( getEntryContent = function(id) {
 	}
 
 	return(content)
-})
-
-# Create entry {{{1
-################################################################
-
-# Creates a Spectrum instance from file content.
-# content       A file content, downloaded from the public database.
-# RETURN        A spectrum instance.
-MassbankConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createMassbankEntryFromTxt(.self$getBiodb(), content, drop = drop))
 })
 
 # Get mz values {{{1
