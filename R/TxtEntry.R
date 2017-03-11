@@ -30,14 +30,7 @@ TxtEntry$methods( parseContent = function(content) {
 		for (field in names(.self$.parsing.expr)) {
 			g <- stringr::str_match(s, .self$.parsing.expr[[field]])
 			if ( ! is.na(g[1,1])) {
-				if (.self$hasField(field)) {
-					if (.self$getFieldCardinality(field) == BIODB.CARD.MANY)
-						.self$setFieldValue(field, c(.self$getFieldValue(field), g[1,2]))
-					else
-						biodb$message(MSG.ERROR, paste("Cannot set multiple values into field \"", field, "\".", sep = ''))
-				}
-				else
-					.self$setFieldValue(field, g[1,2])
+				.self$appendFieldValue(field, g[1,2])
 				break
 			}
 		}

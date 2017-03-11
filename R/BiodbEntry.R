@@ -43,9 +43,9 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	# Check cardinality
 	if (class != 'data.frame' && .self$getFieldCardinality(field) == BIODB.CARD.ONE) {
 		if (length(value) > 1)
-			.self$message(MSG.ERROR, paste0('Cannot set more that one value to single value field "', field, '" in BiodEntry.'))
+			.self$message(MSG.ERROR, paste0('Cannot set more that one value into single value field "', field, '".'))
 		if (length(value) == 0)
-			.self$message(MSG.ERROR, paste0('Cannot set single value field "', field, '" to an empty vector in BiodEntry.'))
+			.self$message(MSG.ERROR, paste0('Cannot set an empty vector into single value field "', field, '".'))
 	}
 
 	# Check value class
@@ -53,6 +53,16 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 		value <- as.vector(value, mode = class)
 
 	.self$.fields[[field]] <- value
+})
+
+# Append field value {{{1
+################################################################
+
+BiodbEntry$methods(	appendFieldValue = function(field, value) {
+	if (.self$hasField(field))
+		.self$setFieldValue(field, c(.self$getFieldValue(field), value))
+	else
+		.self$setFieldValue(field, value)
 })
 
 # Get field names {{{1

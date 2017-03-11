@@ -49,6 +49,7 @@ Collate:
     'HmdbMetaboliteEntry.R'
     'KeggConn.R'
     'KeggCompoundConn.R'
+    'KeggCompoundEntry.R'
     'LipidmapsStructureConn.R'
     'MassdbConn.R'
     'biodb-common.R'
