@@ -1,5 +1,5 @@
 "molid"	"mode"	"mztheo"	"comp"	"attr"	"col"	"colrt"	"molcomp"	"molmass"	"molnames"
-A10	"POS"	112.07569	"P9Z6W410 O"	"[(M+H)-(H2O)-(NH3)]+"	"colzz"	5.69	"J114L6M62O2"	146.10553	Blablaine'
+A10	"POS"	112.07569	"P9Z6W410 O"	"[(M+H)-(H2O)-(NH3)]+"	"colzz"	5.69	"J114L6M62O2"	146.10553	Blablaine
 A10	"POS"	112.07569	"P9Z6W410 O"	"[(M+H)-(H2O)-(NH3)]+"	"col12"	0.8	"J114L6M62O2"	146.10553	"Blablaine"
 A10	"POS"	112.07569	"P9Z6W410 O"	"[(M+H)-(H2O)-(NH3)]+"	"somecol"	8.97	"J114L6M62O2"	146.10553	"Blablaine"
 A10	"POS"	191.076694	"P92Z6W413 Na2 O2"	"[(M-H+2Na)]+"	"colAA"	1.58	"J114L6M62O2"	146.10553	"Blablaine"
