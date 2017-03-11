@@ -23,13 +23,13 @@ ChebiEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.CHARGE, "//chebi:charge")
 })
 
-# After parse content {{{1
+# Parse fields after {{{1
 ################################################################
 
-ChebiEntry$methods( .afterParseContent = function(xml) {
+ChebiEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Get accession
-	accession <- XML::xpathSApply(xml, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = .self$.xml.namespace)
+	accession <- XML::xpathSApply(parsed.content, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = .self$.xml.namespace)
 	if (length(accession) > 0) {
 		accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
 		.self$setFieldValue(BIODB.ACCESSION, accession)

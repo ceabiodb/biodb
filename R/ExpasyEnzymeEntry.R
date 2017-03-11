@@ -21,10 +21,10 @@ ExpasyEnzymeEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.COFACTOR, "^CF\\s+(.+?)\\.?$")
 })
 
-# Parse content {{{1
+# Parse fields after {{{1
 ################################################################
 
-ExpasyEnzymeEntry$methods( .afterParseContent = function() {
+ExpasyEnzymeEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Cofactors may be listed on a single line, separated by a semicolon.
 	if (.self$hasField(BIODB.COFACTOR))

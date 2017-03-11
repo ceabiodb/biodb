@@ -15,32 +15,33 @@ TxtEntry$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-# Parse content {{{1
+# Do parse content {{{1
 ################################################################
 
-TxtEntry$methods( parseContent = function(content) {
+TxtEntry$methods( .doParseContent = function(content) {
 
 	# Get lines of content
 	lines <- strsplit(content, "\n")[[1]]
 
-	# Loop on lines
-	for (s in lines) {
-
-		# Test generic regex
-		for (field in names(.self$.parsing.expr)) {
-			g <- stringr::str_match(s, .self$.parsing.expr[[field]])
-			if ( ! is.na(g[1,1])) {
-				.self$appendFieldValue(field, g[1,2])
-				break
-			}
-		}
-	}
-
-	.self$.afterParseContent()
+	return(lines)
 })
 
-# After parse content {{{1
+# Parse fields from expressions {{{1
 ################################################################
 
-TxtEntry$methods( .afterParseContent = function(xml) {
+TxtEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
+
+	# Loop on all parsing expressions
+	for (field in names(.self$.parsing.expr)) {
+
+		# Match whole content 
+		g <- stringr::str_match(parsed.content, .self$.parsing.expr[[field]])
+
+		# Get positive results
+		results <- g[ ! is.na(g[,1]), , drop = FALSE]
+
+		# Any match ?
+		if (nrow(results) > 0)
+			.self$setFieldValue(field, results[,2])
+	}
 })

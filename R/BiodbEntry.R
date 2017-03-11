@@ -246,7 +246,53 @@ BiodbEntry$methods( addParsingExpression = function(field, expr) {
 ################################################################
 
 BiodbEntry$methods( parseContent = function(content) {
+
+	if (.self$.isContentCorrect(content)) {
+
+		# Parse content
+		parsed.content <- .self$.doParseContent(content)
+
+		if (.self$.isParsedContentCorrect(parsed.content)) {
+
+			.self$.parseFieldsFromExpr(parsed.content)
+
+			.self$.parseFieldsAfter(parsed.content)
+		}
+	}
+})
+
+# Is content correct {{{1
+################################################################
+
+BiodbEntry$methods( .isContentCorrect = function(content) {
+	return(nchar(content) > 0)
+})
+
+# Do parse content {{{1
+################################################################
+
+BiodbEntry$methods( .doParseContent = function(content) {
 	.self$.abstract.method()
+})
+
+# Is parsed content correct {{{1
+################################################################
+
+BiodbEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+	return(TRUE)
+})
+
+# Parse fields from expressions {{{1
+################################################################
+
+BiodbEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
+	.self$.abstract.method()
+})
+
+# Parse fields after {{{1
+################################################################
+
+BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
 })
 
 # DEPRECATED METHODS {{{1

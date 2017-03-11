@@ -32,17 +32,17 @@ HmdbMetaboliteEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.INCHIKEY, "//inchikey")
 })
 
-# Before parse content {{{1
+# Is parsed content correct {{{1
 ################################################################
 
-HmdbMetaboliteEntry$methods( .beforeParseContent = function(xml) {
-	return(length(XML::getNodeSet(xml, "//error")) == 0)
+HmdbMetaboliteEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+	return(length(XML::getNodeSet(parsed.content, "//error")) == 0)
 })
 
-# After parse content {{{1
+# Parse fields after {{{1
 ################################################################
 
-HmdbMetaboliteEntry$methods( .afterParseContent = function(xml) {
+HmdbMetaboliteEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Correct InChIKey
 	if (.self$hasField(BIODB.INCHIKEY))
