@@ -12,44 +12,19 @@ ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'TxtEn
 
 ExpasyEnzymeEntry$methods( initialize = function(...) {
 
-	superClass(...)
+	callSuper(...)
 
-	regex[[BIODB.ACCESSION]] <- "^ID\\s+([0-9.]+)$"
-	regex[[BIODB.NAME]]      <- "^DE\\s+(.+?)\\.?$"
-	regex[[BIODB.SYNONYMS]]  <- "^AN\\s+(.+?)\\.?$" # Alternate names
-	regex[[BIODB.CATALYTIC.ACTIVITY]]  <- "^CA\\s+(.+?)\\.?$"
-	regex[[BIODB.COFACTOR]]  <- "^CF\\s+(.+?)\\.?$"
+	.self$addParsingExpression(BIODB.ACCESSION, "^ID\\s+([0-9.]+)$")
+	.self$addParsingExpression(BIODB.NAME, "^DE\\s+(.+?)\\.?$")
+	.self$addParsingExpression(BIODB.SYNONYMS, "^AN\\s+(.+?)\\.?$") # Alternate names
+	.self$addParsingExpression(BIODB.CATALYTIC.ACTIVITY, "^CA\\s+(.+?)\\.?$")
+	.self$addParsingExpression(BIODB.COFACTOR, "^CF\\s+(.+?)\\.?$")
 })
 
 # Parse content {{{1
 ################################################################
 
-ExpasyEnzymeEntry$methods( parseContent = function(content) {
-
-	# XXX Content in EMBL Format ?
-
-	# Define fields regex
-	regex <- character()
-
-	lines <- strsplit(content, "\n")[[1]]
-	for (s in lines) {
-
-		# Test generic regex
-		for (field in names(regex)) {
-			g <- stringr::str_match(s, regex[[field]])
-			if ( ! is.na(g[1,1])) {
-				if (.self$hasField(field)) {
-					if (.self$getFieldCardinality(field) == BIODB.CARD.MANY)
-						.self$setFieldValue(field, c(.self$getFieldValue(field), g[1,2]))
-					else
-						biodb$message(MSG.ERROR, paste("Cannot set multiple values into field \"", field, "\".", sep = ''))
-				}
-				else
-					.self$setFieldValue(field, g[1,2])
-				break
-			}
-		}
-	}
+ExpasyEnzymeEntry$methods( .afterParseContent = function() {
 
 	# Cofactors may be listed on a single line, separated by a semicolon.
 	if (.self$hasField(BIODB.COFACTOR))
