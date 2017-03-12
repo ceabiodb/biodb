@@ -73,6 +73,7 @@ Collate:
     'NcbiGeneEntry.R'
     'NcbiPubchemConn.R'
     'NcbiPubchemCompConn.R'
+    'NcbiPubchemCompEntry.R'
     'NcbiPubchemEntry.R'
     'NcbiPubchemSubstConn.R'
     'PeakforestConn.R'
