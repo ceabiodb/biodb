@@ -104,53 +104,6 @@ PeakforestLcmsConn$methods( .createPeakforestCompoundFromJSON = function(content
 
 PeakforestLcmsConn$methods( createEntry = function(content, drop = TRUE) {
 
-	entries <- list()
-
-	# JSON tag paths
-	json.tag.paths <- list()
-	json.tag.paths[[BIODB.ACCESSION]]   <- "id"
-	json.tag.paths[[BIODB.MSMODE]]      <- "polarity"
-	json.tag.paths[[BIODB.MSDEV]]       <- c('analyzerMassSpectrometerDevice', 'instrumentName')
-	json.tag.paths[[BIODB.MSDEVTYPE]]   <- c('analyzerMassSpectrometerDevice', 'ionAnalyzerType')
-
-	for (single.content in content) {
-
-		# Create instance
-		entry <- BiodbEntry$new(.self$getBiodb())
-
-		if ( ! is.null(single.content) && ! is.na(single.content)) {
-
-			# Parse JSON
-			json <- jsonlite::fromJSON(single.content, simplifyDataFrame = FALSE)	
-		
-			# Set fields
-			for (field in names(json.tag.paths)) {
-				x <- json
-				found.value <- TRUE
-				for (t in json.tag.paths[[field]])
-					if (t %in% names(x))
-						x <- x[[t]]
-					else {
-						found.value <- FALSE
-						break
-					}
-				if (found.value && length(x) == 1)
-					entry$setField(field, x)
-			}
-		}
-
-		entries <- c(entries, entry)
-	}
-
-	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-	# If the input was a single element, then output a single object
-	if (drop && length(content) == 1)
-		entries <- entries[[1]]
-
-	return(entries)
-
 	# ---------------------------------------------------------
 #	entries <- vector(length(content),mode="list")
 #	
@@ -181,11 +134,6 @@ PeakforestLcmsConn$methods( createEntry = function(content, drop = TRUE) {
 #		cnames <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.MZTHEO, BIODB.PEAK.ERROR.PPM)
 #		
 #		entry <- BiodbEntry$new(.self$getBiodb())
-#		#####Setting thz mass analyzer
-#		entry$setField(BIODB.MSDEV,jsontree$analyzerMassSpectrometerDevice$instrumentName)
-#		entry$setField(BIODB.MSDEVTYPE,jsontree$analyzerMassSpectrometerDevice$ionAnalyzerType)	
-#		
-#		
 #		
 #		for(field in names(jsonfields)){
 #			
