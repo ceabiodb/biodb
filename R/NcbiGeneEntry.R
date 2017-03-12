@@ -37,13 +37,13 @@ NcbiGeneEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	# CCDS ID
 	ccdsid <- .self$.find.ccds.id(parsed.content)
 	if ( ! is.na(ccdsid))
-		entry$setFieldValue(BIODB.NCBI.CCDS.ID, ccdsid)
+		.self$setFieldValue(BIODB.NCBI.CCDS.ID, ccdsid)
 })
 
 # Find ccds id {{{1
 ################################################################
 
-NcbiGeneEntry$methods( .parseFieldsAfter = function(parsed.content) {
+NcbiGeneEntry$methods( .find.ccds.id = function(parsed.content) {
 
 	# 1) Get all CCDS tags.
 	ccds_elements <- XML::getNodeSet(parsed.content, "//Dbtag_db[text()='CCDS']/..//Object-id_str")
