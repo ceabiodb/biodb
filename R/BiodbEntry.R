@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include ChildObject.R
+
 # Constants {{{1
 ################################################################
 
@@ -8,25 +10,17 @@ BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
 # Entry abstract class {{{1
 ################################################################
 
-BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "BiodbObject", fields = list(.fields ='list', .conn = "ANY", .parsing.expr = 'ANY'))
+BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .parsing.expr = 'ANY'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntry$methods( initialize = function(conn = NULL, ...) {
+BiodbEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
 	.fields <<- list()
-	.conn <<- conn 
 	.parsing.expr <<- list()
-})
-
-# Get biodb {{{1
-################################################################
-
-BiodbEntry$methods( getBiodb = function() {
-	return(.self$.conn$getBiodb())
 })
 
 # Set field value {{{1

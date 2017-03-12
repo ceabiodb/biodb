@@ -1,6 +1,7 @@
 # vi: fdm=marker
 
 #' @include biodb-common.R
+#' @include ChildObject.R
 
 # Constants {{{1
 ################################################################
@@ -15,16 +16,14 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 # Class declaration {{{1
 ################################################################
 
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "BiodbObject", fields = list(  .parent = "ANY", .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical'))
 
 # constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(parent, name, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, ...) {
+BiodbEntryField$methods( initialize = function(name, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, ...) {
 
 	callSuper(...)
-
-	.parent <<- parent
 
 	# Set name
 	if ( is.null(name) || is.na(name) || nchar(name) == '')
@@ -43,13 +42,6 @@ BiodbEntryField$methods( initialize = function(parent, name, class = 'character'
 
 	# Set other fields
 	.allow.duplicates <<- allow.duplicates
-})
-
-# Get biodb {{{1
-################################################################
-
-BiodbEntryField$methods( getBiodb = function() {
-	return(.self$.parent$getBiodb())
 })
 
 # Has card one {{{1

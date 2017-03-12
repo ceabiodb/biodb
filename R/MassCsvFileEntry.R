@@ -14,9 +14,9 @@ MassCsvFileEntry$methods( initialize = function(...) {
 
 	callSuper(sep = "\t", ...)
 
-	for (field in names(.self$.conn$.fields))
+	for (field in names(.self$getParent()$.fields))
 		if ( ! field %in% BIODB.PEAK.FIELDS)
-			.self$addParsingExpression(field, .self$.conn$.fields[[field]])
+			.self$addParsingExpression(field, .self$getParent()$.fields[[field]])
 })
 
 ## Parse fields from expressions {{{1

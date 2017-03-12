@@ -1,28 +1,22 @@
 # vi: fdm=marker
 
+#' @include ChildObject.R
+
 # Class declaration {{{1
 ################################################################
 
 #'A class for constructing biodb objects.
 #'@export
-BiodbCache <- methods::setRefClass("BiodbCache", contains = 'BiodbObject', fields = list( .biodb = "ANY", .enabled = "logical", .read.only = "logical", .force.download = "logical"))
+BiodbCache <- methods::setRefClass("BiodbCache", contains = 'ChildObject', fields = list(.enabled = "logical"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbCache$methods( initialize = function(biodb = NULL, ...) {
+BiodbCache$methods( initialize = function(...) {
 
 	callSuper(...)
 
 	.enabled <<- TRUE
-	.biodb <<- biodb
-})
-
-# Get biodb {{{1
-################################################################
-
-BiodbCache$methods( getBiodb = function() {
-	return(.self$.biodb)
 })
 
 # Enabled {{{1

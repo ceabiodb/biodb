@@ -123,23 +123,6 @@ BIODB.MSMS.DIST <- c(BIODB.MSMS.DIST.COS,BIODB.PEAK.RELATIVE.INTENSITY.SHORT, BI
 
 BIODB.GROUP.INTENSITY<-c(BIODB.PEAK.INTENSITY,BIODB.PEAK.RELATIVE.INTENSITY)
 
-#########################
-# GET DATABASE ID FIELD #
-#########################
-
-biodb.get.database.id.field <- function(database) {
-
-	id.field <- NA_character_
-
-	if (database %in% BIODB.DATABASES) {
-		id.field <- paste0(database, 'id')
-		if ( ! id.field %in% BIODB.FIELDS[['name']])
-			stop(paste0('No ID field defined for database ', database, '.'))
-	}
-
-	return(id.field)
-}
-
 #####################
 # COMPUTABLE FIELDS #
 #####################

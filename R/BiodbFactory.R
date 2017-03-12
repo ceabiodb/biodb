@@ -1,32 +1,23 @@
 # vi: fdm=marker
 
+#' @include ChildObject.R
+
 # Class declaration {{{1
 ################################################################
 
 #'A class for constructing biodb objects.
 #'@export
-BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(
-														  .conn = "list",
-														  .chunk.size = "integer",
-														  .biodb = "ANY"))
+BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
-
-	.biodb <<- biodb
-	.conn <<- list()
-	.chunk.size <<- NA_integer_
+BiodbFactory$methods( initialize = function(...) {
 
 	callSuper(...)
-})
 
-# Get biodb {{{1
-################################################################
-
-BiodbFactory$methods( getBiodb = function() {
-	return(.self$.biodb)
+	.conn <<- list()
+	.chunk.size <<- NA_integer_
 })
 
 # CONNECTIONS {{{1
@@ -62,9 +53,9 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 
 	# Create connection instance
     if (is.na(url))
-    	conn <- conn.class$new(biodb = .self$getBiodb())
+    	conn <- conn.class$new(parent = .self)
     else
-    	conn <- conn.class$new(biodb = .self$getBiodb(), base.url = url)
+    	conn <- conn.class$new(parent = .self, base.url = url)
 
     # Set token
     if ( ! is.na(token))
@@ -131,7 +122,7 @@ BiodbFactory$methods( createEntry = function(class, content, drop = TRUE) {
 	for (single.content in content) {
 
 		# Create empty entry instance
-    	entry <- entry.class$new(conn = conn)
+    	entry <- entry.class$new(parent = conn)
 
 		# Parse content
 		if ( ! is.null(single.content) && ! is.na(single.content))

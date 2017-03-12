@@ -24,23 +24,16 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 		.self$addObservers(observers)
 
 	# Create config instance
-	.config <<- BiodbConfig$new(biodb = .self)
+	.config <<- BiodbConfig$new(parent = .self)
 
 	# Create cache
-	.cache <<- BiodbCache$new(biodb = .self)
+	.cache <<- BiodbCache$new(parent = .self)
 
 	# Create factory
-	.factory <<- BiodbFactory$new(biodb = .self)
+	.factory <<- BiodbFactory$new(parent = .self)
 
 	# Create entry fields
-	.entry.fields <<- BiodbEntryFields$new(biodb = .self)
-})
-
-# Get biodb {{{1
-################################################################
-
-Biodb$methods( getBiodb = function() {
-	return(.self)
+	.entry.fields <<- BiodbEntryFields$new(parent = .self)
 })
 
 # Get config {{{1

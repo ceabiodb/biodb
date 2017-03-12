@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include BiodbConn.R
+
 # Class declaration {{{1
 ################################################################
 

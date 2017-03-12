@@ -2,32 +2,24 @@
 
 #' @include biodb-common.R
 #' @include Biodb.R
-#' @include BiodbObject.R
+#' @include ChildObject.R
 #' @include BiodbEntryField.R
 
 # Class declaration {{{1
 ################################################################
 
-BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "BiodbObject", fields = list( .fields = "list", .biodb = "ANY"))
+BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list" ))
 
 # constructor {{{1
 ################################################################
 
-BiodbEntryFields$methods( initialize = function(biodb, ...) {
+BiodbEntryFields$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.biodb <<- biodb
 	.fields <<- list()
 
 	.self$.initFields()
-})
-
-# Get biodb {{{1
-################################################################
-
-BiodbEntryFields$methods( getBiodb = function() {
-	return(.self$.biodb)
 })
 
 # Init fields {{{1
@@ -130,4 +122,15 @@ BiodbEntryFields$methods( checkIsDefined = function(name) {
 BiodbEntryFields$methods( get = function(name) {
 	.self$checkIsDefined(name)
 	return(.self$.fields[[name]])
+})
+
+# Get database id field {{{1
+################################################################
+
+BiodbEntryFields$methods( getDatabaseIdField = function(database) {
+
+	if ( ! database %in% BIODB.DATABASES)
+		.self$message(MSG.ERROR, paste("Unknown database \"", database, "\"."))
+
+	return(.self$get(paste(database, 'id', sep = '.')))
 })

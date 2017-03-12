@@ -80,7 +80,7 @@ PeakforestLcmsConn$methods( .createPeakforestCompoundFromJSON = function(content
 	for (i in seq_along(contents)){
 		
 		jsontree <- contents[[i]]
-		entry <- BiodbEntry$new(.self$getBiodb())
+		entry <- BiodbEntry$new(parent = .self)
 		
 		for(field in names(jsonfields)){
 			
@@ -238,7 +238,7 @@ PeakforestLcmsConn$methods( createReducedEntry = function(content , drop = TRUE)
 				BIODB.PEAK.ERROR.PPM
 			)
 		
-		entry <- BiodbEntry$new(.self$getBiodb())
+		entry <- BiodbEntry$new(parent = .self)
 		entry$setField(BIODB.ACCESSION, jsontree$id)
 		
 		######################

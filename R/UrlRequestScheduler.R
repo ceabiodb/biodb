@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include ChildObject.R
+
 # CONSTANTS {{{1
 ################################################################
 
@@ -9,19 +11,20 @@ BIODB.POST <- 'POST'
 # CLASS DECLARATION {{{1
 ################################################################
 
-UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "BiodbObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer", .parent = "ANY", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
+UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
 
 # n: number of connections
 # t: time (in seconds)
 
 # The scheduler restrict the number of connections at n per t seconds.
 
-# CONSTRUCTOR {{{1
+# Constructor {{{1
 ################################################################
 
-UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer = TRUE, parent = NULL, ...) {
-	is.null(parent) || is(parent, "BiodbObject") || .self$message(MSG.ERROR, paste0("Parent must be of class BiodbObject, it was of class ", class(parent), "."))
-	.parent <<- parent
+UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer = TRUE, ...) {
+
+	callSuper(...)
+
 	.n <<- n
 	.t <<- t
 	.time.of.last.request <<- -1
@@ -30,16 +33,8 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer 
 	.verbose <<- 0L
 	.huge.download.waiting.time <<- 60L # in seconds
 	.time.of.last.huge.dwnld.request <<- -1
-	callSuper(...) # calls super-class initializer with remaining parameters
 })
 
-# GET BIODB {{{1
-################################################################
-
-UrlRequestScheduler$methods( getBiodb = function() {
-	biodb <- if (is.null(.self$.parent)) NULL else .self$.parent$getBiodb()
-	return(biodb)
-})
 
 # Set verbose {{{1
 ################################################################

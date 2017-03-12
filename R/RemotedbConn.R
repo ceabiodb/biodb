@@ -1,11 +1,12 @@
 # vi: fdm=marker
 
+#' @include BiodbConn.R
 #' @include UrlRequestScheduler.R
 
 # Class declaration {{{1
 ################################################################
 
-RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "UrlRequestScheduler", .token = "character"))
+RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "ANY", .token = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -20,7 +21,8 @@ RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_charact
 	# Set scheduler
 	if (is.null(scheduler))
 		scheduler <- UrlRequestScheduler$new(n = 3, parent = .self)
-	is(scheduler, "UrlRequestScheduler") || .self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
+	if ( ! is(scheduler, "UrlRequestScheduler"))
+		.self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
 	.scheduler <<- scheduler
 })
 
