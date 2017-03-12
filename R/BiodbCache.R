@@ -12,10 +12,10 @@ BiodbCache <- methods::setRefClass("BiodbCache", contains = 'BiodbObject', field
 
 BiodbCache$methods( initialize = function(biodb = NULL, ...) {
 
+	callSuper(...)
+
 	.enabled <<- TRUE
 	.biodb <<- biodb
-
-	callSuper(...)
 })
 
 # Get biodb {{{1

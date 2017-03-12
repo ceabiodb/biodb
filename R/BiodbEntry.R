@@ -34,14 +34,18 @@ BiodbEntry$methods( getBiodb = function() {
 
 BiodbEntry$methods(	setFieldValue = function(field, value) {
 
-	class = .self$getFieldClass(field)
+	field.def = .self$getBiodb()$getEntryFields()$get(field)
+
+	# Remove duplicates
+	if ( ! field.def$allowsDuplicates() && is.vector(value))
+		value <- value[ ! duplicated(value)]
 
 	# Secific case to handle objects.
-	if ( class ==" object" & !(isS4(value) & methods::is(value, "refClass")))
+	if (field.def$isObject() && !(isS4(value) & methods::is(value, "refClass")))
 	  .self$message(MSG.ERROR, paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
 	
 	# Check cardinality
-	if (class != 'data.frame' && .self$getFieldCardinality(field) == BIODB.CARD.ONE) {
+	if (field.def$isDataFrame() && field.def$hasCardOne()) {
 		if (length(value) > 1)
 			.self$message(MSG.ERROR, paste0('Cannot set more that one value into single value field "', field, '".'))
 		if (length(value) == 0)
@@ -49,8 +53,8 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	}
 
 	# Check value class
-	if (class %in% c('character', 'double', 'integer', 'logical'))
-		value <- as.vector(value, mode = class)
+	if (field.def$isVector())
+		value <- as.vector(value, mode = field.def$getClass())
 
 	.self$.fields[[field]] <- value
 })
@@ -79,37 +83,11 @@ BiodbEntry$methods(	hasField = function(field) {
 	return(field %in% names(.self$.fields))
 })
 
-# Get field class {{{1
-################################################################
-
-BiodbEntry$methods(	getFieldClass = function(field) {
-
-	if ( ! field %in% BIODB.FIELDS[['name']])
-		.self$message(MSG.ERROR, paste('Unknown field "', field, "\".", sep = ''))
-
-	field.class <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'class']
-
-	return(field.class)
-})
-
 # Field has basic class {{{1
 ################################################################
 
 BiodbEntry$methods(	fieldHasBasicClass = function(field) {
 	return(.self$getFieldClass(field) %in% BIODB.BASIC.CLASSES)
-})
-
-# Get field cardinality {{{1
-################################################################
-
-BiodbEntry$methods(	getFieldCardinality = function(field) {
-
-	if ( ! field %in% BIODB.FIELDS[['name']])
-		.self$message(MSG.ERROR, paste0('Unknown field "', field, '" in BiodEntry.'))
-
-	field.card <- BIODB.FIELDS[which(field == BIODB.FIELDS[['name']]), 'cardinality']
-
-	return(field.card)
 })
 
 # Get field value {{{1
@@ -120,8 +98,7 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 	val <- NULL
 
 	# Check field
-	if ( ! field %in% BIODB.FIELDS[['name']])
-		.self$message(MSG.ERROR, paste0('Unknown field "', field, '" in BiodEntry.'))
+	.self$getBiodb()$getEntryFields()$checkIsDefined(field)
 
 	# Compute field value
 	if (compute && ! .self$hasField(field))
@@ -298,12 +275,38 @@ BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
 # DEPRECATED METHODS {{{1
 ################################################################
 
+# Get Field {{{2
+################################################################
+
 BiodbEntry$methods(	getField = function(field) {
 	.self$.deprecated.method("getFieldValue()")
 	return(.self$getFieldValue(field))
 })
 
+# Set Field {{{2
+################################################################
+
 BiodbEntry$methods(	setField = function(field, value) {
 	.self$.deprecated.method("setFieldValue()")
 	.self$setFieldValue(field, value)
+})
+
+# Get field class {{{2
+################################################################
+
+BiodbEntry$methods(	getFieldClass = function(field) {
+
+	.self$.deprecated.method('Biodb::getEntryFields()$get(field)$getClass()')
+
+	return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
+})
+
+# Get field cardinality {{{2
+################################################################
+
+BiodbEntry$methods(	getFieldCardinality = function(field) {
+
+	.self$.deprecated.method('Biodb::getEntryFields()$get(field)$hasCardOne() or Biodb::getEntryFields()$get(field)$hasCardMany()')
+
+	return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
 })
