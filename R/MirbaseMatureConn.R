@@ -97,13 +97,6 @@ MirbaseMatureConn$methods( getEntryContent = function(ids) {
 	return(content)
 })
 
-# Create entry {{{1
-################################################################
-
-MirbaseMatureConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createMirbaseMatureEntryFromTxt(.self$getBiodb(), content, drop = drop))
-})
-
 # Find by name {{{1
 ################################################################
 
