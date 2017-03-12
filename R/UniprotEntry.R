@@ -26,6 +26,13 @@ UniprotEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.LENGTH, list(path = "//uniprot:entry/uniprot:sequence", attr = 'length'))
 })
 
+# Is content correct {{{1
+################################################################
+
+UniprotEntry$methods( .isContentCorrect = function(content) {
+	return( ! grepl("^<!DOCTYPE html ", content, perl = TRUE))
+})
+
 # Parse fields after {{{1
 ################################################################
 
