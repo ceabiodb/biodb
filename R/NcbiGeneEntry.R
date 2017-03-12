@@ -1,80 +1,52 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-NcbiGeneEntry <- methods::setRefClass("NcbiGeneEntry", contains = "BiodbEntry")
+#' @include XmlEntry.R
 
-###########
-# FACTORY #
-###########
+# Class declaration {{{1
+################################################################
 
-createNcbiGeneEntryFromXml <- function(biodb, contents, drop = TRUE) {
+NcbiGeneEntry <- methods::setRefClass("NcbiGeneEntry", contains = "XmlEntry")
 
-	entries <- list()
+# Constructor {{{1
+################################################################
 
-	# Define xpath expressions
-	xpath.expr <- character()
-	xpath.expr[[BIODB.ACCESSION]] <- "//Gene-track_geneid"
-	xpath.expr[[BIODB.UNIPROT.ID]] <- "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str"
-	xpath.expr[[BIODB.LOCATION]] <- "//Gene-ref_maploc"
-	xpath.expr[[BIODB.PROTEIN.DESCRIPTION]] <- "//Gene-ref_desc"
-	xpath.expr[[BIODB.SYMBOL]] <- "//Gene-ref_locus"
-	xpath.expr[[BIODB.SYNONYMS]] <- "//Gene-ref_syn_E"
+NcbiGeneEntry$methods( initialize = function(...) {
 
-	for (content in contents) {
+	callSuper(...)
 
-		# Create instance
-		entry <- NcbiGeneEntry$new(biodb = biodb)
-	
-		# Parse HTML
-		xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
+	.self$addParsingExpression(BIODB.ACCESSION, "//Gene-track_geneid")
+	.self$addParsingExpression(BIODB.UNIPROT.ID, "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str")
+	.self$addParsingExpression(BIODB.LOCATION, "//Gene-ref_maploc")
+	.self$addParsingExpression(BIODB.PROTEIN.DESCRIPTION, "//Gene-ref_desc")
+	.self$addParsingExpression(BIODB.SYMBOL, "//Gene-ref_locus")
+	.self$addParsingExpression(BIODB.SYNONYMS, "//Gene-ref_syn_E")
+})
 
-		# An error occured
-		if (length(XML::getNodeSet(xml, "//Error")) == 0 && length(XML::getNodeSet(xml, "//ERROR")) == 0) {
+# Is parsed content correct {{{1
+################################################################
 
-			# Test generic xpath expressions
-			for (field in names(xpath.expr)) {
-				v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
-				if (length(v) > 0) {
+NcbiGeneEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+	return(length(XML::getNodeSet(parsed.content, "//Error")) == 0 && length(XML::getNodeSet(parsed.content, "//ERROR")) == 0)
+})
 
-					# Eliminate duplicates
-					v <- v[ ! duplicated(v)]
+# Parse fields after {{{1
+################################################################
 
-					# Set field
-					entry$setFieldValue(field, v)
-				}
-			}
-		
-			# CCDS ID
-			ccdsid <- .find.ccds.id(xml)
-			if ( ! is.na(ccdsid))
-				entry$setFieldValue(BIODB.NCBI.CCDS.ID, ccdsid)
-		}
+NcbiGeneEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
-		entries <- c(entries, entry)
-	}
+	# CCDS ID
+	ccdsid <- .self$.find.ccds.id(parsed.content)
+	if ( ! is.na(ccdsid))
+		entry$setFieldValue(BIODB.NCBI.CCDS.ID, ccdsid)
+})
 
-	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getFieldValue(BIODB.ACCESSION))) NULL else x)
+# Find ccds id {{{1
+################################################################
 
-	# If the input was a single element, then output a single object
-	if (drop && length(contents) == 1)
-		entries <- entries[[1]]
-
-	return(entries)
-
-	# Get data
-
-}
-
-################
-# FIND CCDS ID #
-################
-
-.find.ccds.id <- function(xml) {
+NcbiGeneEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# 1) Get all CCDS tags.
-	ccds_elements <- XML::getNodeSet(xml, "//Dbtag_db[text()='CCDS']/..//Object-id_str")
+	ccds_elements <- XML::getNodeSet(parsed.content, "//Dbtag_db[text()='CCDS']/..//Object-id_str")
 
 	# 2) If all CCDS are the same, go to point 4.
 	ccds <- NA_character_
@@ -106,4 +78,4 @@ createNcbiGeneEntryFromXml <- function(biodb, contents, drop = TRUE) {
 	}
 
 	return(ccds)
-}
+})
