@@ -1,10 +1,11 @@
 # vi: fdm=marker
 
+#' @include XmlEntry.R
+
 # Class declaration {{{1
 ################################################################
 
 HmdbMetaboliteEntry <- methods::setRefClass("HmdbMetaboliteEntry", contains = "XmlEntry")
-
 
 # Constructor {{{1
 ################################################################

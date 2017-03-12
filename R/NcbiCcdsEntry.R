@@ -1,8 +1,30 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains = "BiodbEntry")
+#' @include HtmlEntry.R
+
+# Class declaration {{{1
+################################################################
+
+NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains = "HtmlEntry")
+
+# Constructor {{{1
+################################################################
+
+NcbiCcdsEntry$methods( initialize = function(...) {
+
+	callSuper(...)
+})
+
+# Parse fields after {{{1
+################################################################
+
+NcbiCcdsEntry$methods( .parseFieldsAfter = function(parsed.content) {
+
+	if (length(XML::getNodeSet(parsed.content, "//*[starts-with(.,'No results found for CCDS ID ')]")) == 0) {
+		.self$setFieldValue(BIODB.ACCESSION, XML::xpathSApply(parsed.content, "//input[@id='DATA']", XML::xmlGetAttr, "value"))
+		.self$setFieldValue(BIODB.SEQUENCE, XML::xpathSApply(parsed.content, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", XML::xmlValue))
+	}
+})
 
 ###########
 # FACTORY #
@@ -19,11 +41,6 @@ createNcbiCcdsEntryFromHtml <- function(biodb, contents, drop = TRUE) {
 	
 		# Parse HTML
 		xml <-  XML::htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
-
-		if (length(XML::getNodeSet(xml, "//*[starts-with(.,'No results found for CCDS ID ')]")) == 0) {
-			entry$setField(BIODB.ACCESSION, XML::xpathSApply(xml, "//input[@id='DATA']", XML::xmlGetAttr, "value"))
-			entry$setField(BIODB.SEQUENCE, XML::xpathSApply(xml, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", XML::xmlValue))
-		}
 
 		entries <- c(entries, entry)
 	}

@@ -36,6 +36,7 @@ Collate:
     'UrlRequestScheduler.R'
     'RemotedbConn.R'
     'ChebiConn.R'
+    'HtmlEntry.R'
     'XmlEntry.R'
     'ChebiEntry.R'
     'CompounddbConn.R'
