@@ -129,6 +129,8 @@ BiodbCache$methods( saveContentToFile = function(contents, db, names, ext) {
 
 	# Write contents into files
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, names, ext)
+	if (length(file.paths) != length(contents))
+		.self$message(MSG.ERROR, paste("The number of contents to save (", length(contents), ") is different from the number of paths (", length(file.paths), ").", sep = ''))
 	mapply(function(c, f) { if ( ! is.null(c)) writeChar(if (is.na(c)) 'NA' else c, f) }, contents, file.paths)
 })
 

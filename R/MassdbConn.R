@@ -115,7 +115,12 @@ MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 
 	
 	# TODO replace by msms precursor search when available.
+	writetc <- textConnection("spec.str", "w", local = TRUE)
+	write.csv(spec, writetc)
+	.self$message(MSG.DEBUG, spec.str)
+	.self$message(MSG.DEBUG, precursor)
 	lspec <- .self$searchSpecPrecTol( precursor, mztol, BIODB.MZTOLUNIT.PLAIN, mode = mode)
+	.self$message(MSG.DEBUG, class(lspec))
 	if(length(lspec)==0){
 		return(list(measure = numeric(0), matchedpeaks = list(), id = character(0)))
 	}

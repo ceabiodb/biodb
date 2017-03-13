@@ -209,38 +209,26 @@ PeakforestLcmsConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLU
 # Search for msms spectra precusor around a mass {{{1
 ################################################################
 
-PeakforestLcmsConn$methods(
-	searchSpecPrecTol = function(mz,
-								 tol,
-								 tolunit = "plain",
-								 mode = NULL) {
+PeakforestLcmsConn$methods( searchSpecPrecTol = function(mz, tol, tolunit = BIODB.MZTOLUNIT.PLAIN, mode = NA_character_) {
 
-		largs <- list(token=.self$.token)
-		
-		if (!is.null(mode)) {
-			if (mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)) {
-				largs<- c(largs,mode=mode)
-			}
-		}
-		
-		if (tolunit == BIODB.MZTOLUNIT.PPM) {
-			tol <- tol * mz * 10 ^ -6
-		}
-		largs<- c(largs,precursorMassDelta=tol)
-		
-		
-		strargs <- apply(rbind(names(largs),as.character(largs)),2,paste,collapse="=")
-		strargs <- paste(strargs,collapse = "&")
-		##Request which return peak and not spectra.
-		url <-
-			paste0(.self$geBaseUrl(),
-				"/spectra/lcmsms/from-precursor/",
-				mz,
-				"?",
-				strargs
-			)
-		contents <-  .self$.get.url(url)
-		entries  <- .self$createReducedEntry(contents, drop = FALSE)
-		return(entries)
-	}
-)
+	# Set token
+	largs <- list(token = .self$getToken())
+	
+	# Set mode
+	if ( ! is.na(mode) && mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS))
+			largs<- c(largs,mode=mode)
+	
+	# Set tolerance
+	if (tolunit == BIODB.MZTOLUNIT.PPM)
+		tol <- tol * mz * 10 ^ -6
+	largs<- c(largs,precursorMassDelta=tol)
+
+	strargs <- apply(rbind(names(largs),as.character(largs)),2,paste,collapse="=")
+	strargs <- paste(strargs,collapse = "&")
+	##Request which return peak and not spectra.
+	url <- paste0(.self$getBaseUrl(), "spectra/lcmsms/from-precursor/", mz, "?", strargs)
+	contents <-  .self$.get.url(url)
+	entries  <- .self$createReducedEntry(contents, drop = FALSE)
+
+	return(entries)
+})

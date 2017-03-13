@@ -40,19 +40,20 @@ PeakforestConn$methods( getEntryContent = function(id) {
 
 	# Parse JSON
 	if (length(jsonstr) > 1) {
+		print('ZAP 1')
 		if (length(jsonstr) != length(id))
 			.self$message(MSG.ERROR, paste("Got only", length(jsonstr), "contents for", length(id), "IDs."))
 		content <- jsonstr
 	}
 	else {
-		if (jsonstr != 'null') {
-			json <- jsonlite::fromJSON(jsonstr, simplifyDataFrame = FALSE)
+		json <- jsonlite::fromJSON(jsonstr, simplifyDataFrame = FALSE)
 
-			if (length(json) > 0) {
+		if ( ! is.null(json)) {
+			if (length(json) > 1) {
 				json.ids <- vapply(json, function(x) as.character(x$id), FUN.VALUE = '')
 				content[id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
 			}
-			else
+			else if (length(json) == 1)
 				content <- json
 		}
 	}
