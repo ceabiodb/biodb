@@ -1,12 +1,14 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
+
+#' @include BiodbConn.R
+
+# Class declaration {{{1
+################################################################
 
 MassdbConn <- methods::setRefClass("MassdbConn", contains = "BiodbConn")
 
-###############################
-# GET CHROMATOGRAPHIC COLUMNS #
-###############################
+# Get chromatographic columns {{{1
+################################################################
 
 # Get a list of chromatographic columns contained in this database.
 # compound.ids  A list of compound IDs used to filter results.
@@ -15,27 +17,24 @@ MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
 	.self$.abstract.method()
 })
 
-#################
-# GET MZ VALUES #
-#################
+# Get mz values {{{1
+################################################################
 
 # Returns a numeric vector of all masses stored inside the database.
 MassdbConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
 	.self$.abstract.method()
 })
 
-################
-# GET NB PEAKS #
-################
+# Get nb peaks {{{1
+################################################################
 
 # Returns the number of peaks contained in the database
 MassdbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
 	.self$.abstract.method()
 })
 
-#########################
-# FIND COMPOUND BY NAME #
-#########################
+# Find compound by name {{{1
+################################################################
 
 # Find a molecule by name
 # name   A vector of molecule names to search for.
@@ -75,32 +74,31 @@ MassdbConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, re
 	.self$.abstract.method()
 })
 
-####################################
-# FIND SPECTRA IN GIVEN MASS RANGE #
-####################################
+# Find spectra in given mass range {{{1
+################################################################
+
 # Find spectra in the given mass range.
 # rtype the type of return, objects, dfspecs data.frame of spectra, dfpeaks data.frame of peaks.
 MassdbConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("objects","dfspecs","dfpeaks")){
 	.self$.abstract.method()
 })
 
-####################################
-# FIND SPECTRA IN GIVEN MASS RANGE #
-####################################
+# Find spectra in given mass range {{{1
+################################################################
+
 MassdbConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, rtype = c("objects","dfspecs","dfpeaks")){
 	.self$.abstract.method()
 })
 
-######################################################
-# FIND A MOLECULES WITH PRECURSOR WITHIN A TOLERANCE #
-######################################################
- MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, mode = NULL){
+# Find molecules with precursor within a tolerance {{{1
+################################################################
+
+MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, mode = NULL){
 	.self$.abstract.method()
  })
 
-#################################
-#perform a database MS-MS search#
-#################################
+# Perform a database MS-MS search {{{1
+################################################################
 
 ### spec : the spec to match against the database.
 ### precursor : the mass/charge of the precursor to be looked for.
