@@ -210,7 +210,7 @@ BiodbEntry$methods(	getFieldsAsJson = function(compute = TRUE) {
 	if (compute)
 		.self$.compute.field()
 
-	return(jsonlite::toJSON(.self$.fields, pretty = TRUE))
+	return(jsonlite::toJSON(.self$.fields, pretty = TRUE, digits = NA_integer_))
 })
 
 # Add Parsing expression {{{1
