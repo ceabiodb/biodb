@@ -69,7 +69,8 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	g <- stringr::str_match(parsed.content, "^\\s+([0-9][0-9.]*) ([A-Z0-9+-]+) ([0-9]+) ([0-9][0-9.]*) ([0-9][0-9.]*)$")
 	results <- g[ ! is.na(g[,1]), , drop = FALSE]
 	if (nrow(results) > 0) {
-		peaks <- BIODB.PEAK.DF.EXAMPLE
+		peaks <- data.frame(mz = double(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
+		colnames(peaks) <- c(BIODB.PEAK.MZ, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM)
 		peaks[1:nrow(results), c(BIODB.PEAK.MZ, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM)] <- list(as.double(results[,2]), results[,3], as.integer(results[,4]), as.double(results[,5]), as.double(results[,6]))
 		.self$setFieldValue(BIODB.PEAKS, peaks)
 	}
@@ -78,12 +79,12 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	g <- stringr::str_match(parsed.content, "^\\s+([0-9][0-9.]*) ([0-9][0-9.]*) ([0-9]+)$")
 	results <- g[ ! is.na(g[,1]), , drop = FALSE]
 	if (nrow(results) > 0) {
-		peaks <- BIODB.PEAK.DF.EXAMPLE
+		peaks <- data.frame(mz = double(), int = double(), rel.int = integer(), stringsAsFactors = FALSE)
+		colnames(peaks) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)
 		peaks[1:nrow(results), c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)] <- list(as.double(results[,2]), as.double(results[,3]), as.integer(results[,4]))
 		if (.self$hasField(BIODB.PEAKS))
-			peaks <- rbind(.self$getFieldValue(BIODB.PEAKS), peaks)
-		else
-			.self$setFieldValue(BIODB.PEAKS, peaks)
+			peaks <- merge(.self$getFieldValue(BIODB.PEAKS), peaks)
+		.self$setFieldValue(BIODB.PEAKS, peaks)
 	}
 	if (.self$getFieldValue(BIODB.NB.PEAKS) != nrow(.self$getFieldValue(BIODB.PEAKS)))
 	    .self$message(MSG.ERROR, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS), ".", sep = ''))
