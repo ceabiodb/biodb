@@ -51,6 +51,17 @@ test.entry.fields <- function(factory, db) {
 			expect_true(all(is.na(entries.desc[[f]])), info = paste("Cannot find field \"", f, "\" in \"entries.df\".", sep = ''))
 	}
 	
+	# Print message about fields that were not tested
+	not.tested.fields <- character(0)
+	for (e in entries) {
+		e.fields <- e$getFieldNames()
+		not.tested.fields <- c(not.tested.fields, e.fields[ ! e.fields %in% colnames(entries.desc)])
+	}
+	if (length(not.tested.fields) > 0) {
+		not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
+		not.tested.fields <- sort(not.tested.fields)
+		biodb$message(MSG.CAUTION, paste("Fields \"", paste(not.tested.fields, collapse = ", "), "\" are not tested in database ", db, ".", sep = ''))
+	}
 }
 
 # TEST WRONG ENTRY {{{1
