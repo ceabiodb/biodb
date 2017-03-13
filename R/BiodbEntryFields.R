@@ -54,6 +54,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.NCBI.PUBCHEM.COMP.ID)
 	.self$.define(BIODB.NCBI.PUBCHEM.SUBST.ID)
 	.self$.define(BIODB.PEAKFOREST.LCMS.ID)
+	.self$.define(BIODB.PEAKFOREST.COMPOUND.ID, card = BIODB.CARD.MANY)
 	.self$.define(BIODB.UNIPROT.ID)
 
 	.self$.define(BIODB.INCHI)

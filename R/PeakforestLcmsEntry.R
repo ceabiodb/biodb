@@ -37,4 +37,9 @@ PeakforestLcmsEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		.self$setFieldValue(BIODB.PEAKS, peaks)
 		.self$setFieldValue(BIODB.NB.PEAKS, nrow(peaks))
 	}
+
+	# Parse compound IDs
+	if ('listOfCompounds' %in% names(parsed.content))
+		for (c in parsed.content$listOfCompounds)
+			.self$appendFieldValue(BIODB.PEAKFOREST.COMPOUND.ID, c$id)
 })
