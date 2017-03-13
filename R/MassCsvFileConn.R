@@ -1,5 +1,8 @@
 # vi: fdm=marker
 
+#' @include biodb-common.R
+#' @include MassdbConn.R 
+
 # In the provided file, each line represents an MS peak measure.
 # The file contains molecule and spectrum information. Each spectrum has an accession id.
 
@@ -291,54 +294,3 @@ MassCsvFileConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-# Create entry {{{1
-################################################################
-
-MassCsvFileConn$methods( createEntry = function(content, drop = TRUE) {
-
-	entries <- list()
-
-	# Loop on all contents
-	for (single.content in content) {
-
-		# Create instance
-		entry <- BiodbEntry$new(.self$getBiodb())
-
-		if ( ! is.null(single.content) && ! is.na(single.content)) {
-
-			# Parse content
-			df <- read.table(text = single.content, header = TRUE, row.names = NULL, sep = "\t", quote = '', stringsAsFactors = FALSE)
-
-			if (nrow(df) > 0) {
-
-				# Translate custom fields to Biodb fields
-				colnames(df) <- vapply(colnames(df), function(x) if (x %in% .self$.fields) names(.self$.fields)[.self$.fields == x] else x, FUN.VALUE = '')
-
-				# Determine which columns contain constant value
-				entry.fields <- colnames(df)[vapply(colnames(df), function(x) sum(! duplicated(x)) == 1, FUN.VALUE = TRUE)]
-
-				# Remove peak columns from those columns (case where zero or only one peak in the table)
-				entry.fields <- entry.fields[ ! entry.fields %in% c(BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.COMP, BIODB.PEAK.ATTR)]
-
-				# Set entry fields
-				for (f in entry.fields)
-					entry$setFieldValue(f, df[1, f])
-
-				# Make peak table
-				peaks <- df[, ! colnames(df) %in% entry.fields]
-				entry$setFieldValue(BIODB.PEAKS, peaks)
-			}
-		}
-
-		entries <- c(entries, entry)
-	}
-
-	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-	# If the input was a single element, then output a single object
-	if (drop && length(content) == 1)
-		entries <- entries[[1]]
-
-	return(entries)
-})

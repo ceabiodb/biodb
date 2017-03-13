@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include NcbiConn.R
+
 # Class declaration {{{1
 ################################################################
 
@@ -29,13 +31,6 @@ NcbiCcdsConn$methods( getEntryContent = function(id) {
 	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
 	return(content)
-})
-
-# Create entry {{{1
-################################################################
-
-NcbiCcdsConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createNcbiCcdsEntryFromHtml(.self$getBiodb(), content, drop = drop))
 })
 
 # Get entry ids {{{1

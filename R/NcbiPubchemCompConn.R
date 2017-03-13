@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include NcbiPubchemConn.R
+
 # Class declaration {{{1
 ################################################################
 
@@ -10,13 +12,6 @@ NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains = "N
 
 NcbiPubchemCompConn$methods( initialize = function(...) {
 	callSuper(content.type = BIODB.XML, db.name = 'compound', id.xmltag = 'PC-CompoundType_id_cid', entry.xmltag = 'PC-Compound', id.urlfield = 'cid', ...)
-})
-
-# Create entry {{{1
-################################################################
-
-NcbiPubchemCompConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createNcbiPubchemEntryFromXml(.self$getBiodb(), content, drop = drop))
 })
 
 # Get entry ids {{{1

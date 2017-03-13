@@ -1,46 +1,30 @@
 # vi: fdm=marker
 
-#' include TextEntry.R
+#' @include TxtEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'BiodbEntry')
+ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'TxtEntry')
 
-# Parse content {{{1
+# Constructor {{{1
 ################################################################
 
-ExpasyEnzymeEntry$methods( parseContent = function(content) {
+ExpasyEnzymeEntry$methods( initialize = function(...) {
 
-	# XXX Content in EMBL Format ?
+	callSuper(...)
 
-	# Define fields regex
-	regex <- character()
-	regex[[BIODB.ACCESSION]] <- "^ID\\s+([0-9.]+)$"
-	regex[[BIODB.NAME]]      <- "^DE\\s+(.+?)\\.?$"
-	regex[[BIODB.SYNONYMS]]  <- "^AN\\s+(.+?)\\.?$" # Alternate names
-	regex[[BIODB.CATALYTIC.ACTIVITY]]  <- "^CA\\s+(.+?)\\.?$"
-	regex[[BIODB.COFACTOR]]  <- "^CF\\s+(.+?)\\.?$"
+	.self$addParsingExpression(BIODB.ACCESSION, "^ID\\s+([0-9.]+)$")
+	.self$addParsingExpression(BIODB.NAME, "^DE\\s+(.+?)\\.?$")
+	.self$addParsingExpression(BIODB.SYNONYMS, "^AN\\s+(.+?)\\.?$") # Alternate names
+	.self$addParsingExpression(BIODB.CATALYTIC.ACTIVITY, "^CA\\s+(.+?)\\.?$")
+	.self$addParsingExpression(BIODB.COFACTOR, "^CF\\s+(.+?)\\.?$")
+})
 
-	lines <- strsplit(content, "\n")[[1]]
-	for (s in lines) {
+# Parse fields after {{{1
+################################################################
 
-		# Test generic regex
-		for (field in names(regex)) {
-			g <- stringr::str_match(s, regex[[field]])
-			if ( ! is.na(g[1,1])) {
-				if (.self$hasField(field)) {
-					if (.self$getFieldCardinality(field) == BIODB.CARD.MANY)
-						.self$setFieldValue(field, c(.self$getFieldValue(field), g[1,2]))
-					else
-						biodb$message(MSG.ERROR, paste("Cannot set multiple values into field \"", field, "\".", sep = ''))
-				}
-				else
-					.self$setFieldValue(field, g[1,2])
-				break
-			}
-		}
-	}
+ExpasyEnzymeEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Cofactors may be listed on a single line, separated by a semicolon.
 	if (.self$hasField(BIODB.COFACTOR))

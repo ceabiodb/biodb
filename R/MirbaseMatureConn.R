@@ -35,7 +35,7 @@ MirbaseMatureConn$methods( download = function() {
 		# Extract
 		# We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.
 		extracted.file <- tempfile(BIODB.MIRBASE.MATURE)
-		R.utils::gunzip(filename = gz.path, destname = extracted.file, removed = FALSE)
+		R.utils::gunzip(filename = gz.path, destname = extracted.file, remove = FALSE)
 
 		# Read file
 		fd <- file(extracted.file, 'r')
@@ -95,13 +95,6 @@ MirbaseMatureConn$methods( getEntryContent = function(ids) {
 	content <- .self$getBiodb()$getCache()$loadFileContent(BIODB.MIRBASE.MATURE, ids, .self$getEntryContentType(), output.vector = TRUE)
 
 	return(content)
-})
-
-# Create entry {{{1
-################################################################
-
-MirbaseMatureConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createMirbaseMatureEntryFromTxt(.self$getBiodb(), content, drop = drop))
 })
 
 # Find by name {{{1

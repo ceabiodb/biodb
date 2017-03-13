@@ -1,39 +1,26 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains = "BiodbEntry")
+#' @include HtmlEntry.R
 
-###########
-# FACTORY #
-###########
+# Class declaration {{{1
+################################################################
 
-createNcbiCcdsEntryFromHtml <- function(biodb, contents, drop = TRUE) {
+NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains = "HtmlEntry")
 
-	entries <- list()
+# Constructor {{{1
+################################################################
 
-	for (html in contents) {
+NcbiCcdsEntry$methods( initialize = function(...) {
 
-		# Create instance
-		entry <- NcbiCcdsEntry$new(biodb = biodb)
-	
-		# Parse HTML
-		xml <-  XML::htmlTreeParse(html, asText = TRUE, useInternalNodes = TRUE)
+	callSuper(...)
 
-		if (length(XML::getNodeSet(xml, "//*[starts-with(.,'No results found for CCDS ID ')]")) == 0) {
-			entry$setField(BIODB.ACCESSION, XML::xpathSApply(xml, "//input[@id='DATA']", XML::xmlGetAttr, "value"))
-			entry$setField(BIODB.SEQUENCE, XML::xpathSApply(xml, "//b[starts-with(.,'Nucleotide Sequence')]/../tt", XML::xmlValue))
-		}
+	.self$addParsingExpression(BIODB.ACCESSION, list(path = "//input[@id='DATA']", attr = "value"))
+	.self$addParsingExpression(BIODB.SEQUENCE, "//b[starts-with(.,'Nucleotide Sequence')]/../tt")
+})
 
-		entries <- c(entries, entry)
-	}
+# Is parsed content correct {{{1
+################################################################
 
-	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-	# If the input was a single element, then output a single object
-	if (drop && length(contents) == 1)
-		entries <- entries[[1]]
-
-	return(entries)
-}
+NcbiCcdsEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+	return(length(XML::getNodeSet(parsed.content, "//*[starts-with(.,'No results found for CCDS ID ')]")) == 0)
+})

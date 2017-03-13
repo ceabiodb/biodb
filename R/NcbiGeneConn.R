@@ -30,13 +30,6 @@ NcbiGeneConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-# Create entry {{{1
-################################################################
-
-NcbiGeneConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createNcbiGeneEntryFromXml(.self$getBiodb(), content, drop = drop))
-})
-
 # Do get entry content url {{{1
 ################################################################
 

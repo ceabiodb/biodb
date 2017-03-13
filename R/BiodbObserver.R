@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-# CLASS DECLARATION {{{1
+# Class declaration {{{1
 ################################################################
 
 BiodbObserver <- methods::setRefClass("BiodbObserver", fields = list())
 
-# CONSTANTS {{{1
+# Constants {{{1
 ################################################################
 
 MSG.INFO <- 'INFO'
@@ -16,7 +16,7 @@ MSG.ERROR <- 'ERROR'
 
 .MSG.TYPES <- c(MSG.ERROR, MSG.WARNING, MSG.CAUTION, MSG.DEBUG, MSG.INFO)
 
-# MESSAGE {{{1
+# Message {{{1
 ################################################################
 
 BiodbObserver$methods( message = function(type = MSG.INFO, msg, class = NA_character_, method = NA_character_, level = 1) {

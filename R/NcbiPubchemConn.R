@@ -9,6 +9,7 @@ NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = "RemotedbC
 ################################################################
 
 NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
+
 	callSuper(base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ...)
 
 	.db.name <<- db.name

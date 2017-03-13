@@ -117,104 +117,11 @@ BIODB.MSMS.DIST.PKERNEL <- "pkernel"
 BIODB.MSMS.DIST.PBACH <- "bachtttarya"
 BIODB.MSMS.DIST <- c(BIODB.MSMS.DIST.COS,BIODB.PEAK.RELATIVE.INTENSITY.SHORT, BIODB.MSMS.DIST.WCOSINE, BIODB.MSMS.DIST.PKERNEL, BIODB.MSMS.DIST.PBACH) # XXX Not used ?
 
-
-#################
-# CARDINALITIES #
-#################
-
-BIODB.CARD.ONE <- '1'
-BIODB.CARD.MANY <- '*'
-
 #####################
 #INTENSITy NOTATIONS#
 #####################
 
 BIODB.GROUP.INTENSITY<-c(BIODB.PEAK.INTENSITY,BIODB.PEAK.RELATIVE.INTENSITY)
-
-##########################
-# ENTRY FIELD ATTRIBUTES #
-##########################
-# FIELD NAME                CLASS           CARDINALITY			TYPE  
-BIODB.FIELDS <- data.frame(matrix(c(
-	BIODB.ACCESSION,            'character',    BIODB.CARD.ONE,		'none',
-	BIODB.DESCRIPTION,          'character',    BIODB.CARD.ONE,		'none',
-	BIODB.NAME,                 'character',    BIODB.CARD.ONE,		'name',
-	BIODB.COMP.IUPAC.NAME.ALLOWED,	'character',    BIODB.CARD.ONE,		'name',
-	BIODB.COMP.IUPAC.NAME.TRAD,    	'character',    BIODB.CARD.ONE,		'name',
-	BIODB.COMP.IUPAC.NAME.SYST,    	'character',    BIODB.CARD.ONE,		'name',
-	BIODB.COMP.IUPAC.NAME.PREF,    	'character',    BIODB.CARD.ONE,		'name',
-	BIODB.COMP.IUPAC.NAME.CAS,    	'character',    BIODB.CARD.ONE,		'name',
-	BIODB.FULLNAMES,            'character',    BIODB.CARD.MANY,	'name',
-	BIODB.SYNONYMS,             'character',    BIODB.CARD.MANY,	'name',
-	BIODB.PROTEIN.DESCRIPTION,  'character',    BIODB.CARD.ONE,		'none',
-	BIODB.SYMBOL,               'character',    BIODB.CARD.ONE,		'none',
-	BIODB.GENE.SYMBOLS,         'character',    BIODB.CARD.MANY,	'none',
-	BIODB.NB.COMPOUNDS,         'integer',      BIODB.CARD.ONE,     'none',
-	BIODB.COMPOUNDS,            'object',       BIODB.CARD.MANY,  'none',
-	BIODB.COMPOUND.ID,          'character',    BIODB.CARD.ONE,     'none',
-
-	BIODB.CHEBI.ID,             'character',    BIODB.CARD.ONE,		'none',
-	BIODB.CHEMSPIDER.ID,        'character',    BIODB.CARD.ONE,		'none',
-	BIODB.EXPASY.ENZYME.ID,            'character',    BIODB.CARD.ONE,		'none',
-	BIODB.HMDB.METABOLITE.ID,    'character',    BIODB.CARD.ONE,		'none',
-	BIODB.KEGG.COMPOUND.ID,      'character',    BIODB.CARD.ONE,		'none',
-	BIODB.LIPIDMAPS.STRUCTURE.ID,'character',    BIODB.CARD.ONE,		'none',
-	BIODB.NCBI.CCDS.ID,         'character',    BIODB.CARD.ONE,		'none',
-	BIODB.NCBI.GENE.ID,         'character',    BIODB.CARD.ONE,		'none',
-	BIODB.NCBI.PUBCHEM.COMP.ID,      'character',    BIODB.CARD.ONE,		'none',
-	BIODB.NCBI.PUBCHEM.SUBST.ID,     'character',    BIODB.CARD.ONE,		'none',
-	BIODB.PEAKFOREST.LCMS.ID,   'character',    BIODB.CARD.ONE,		'none',
-	BIODB.UNIPROT.ID,           'character',    BIODB.CARD.ONE,		'none',
-
-	BIODB.INCHI,                'character',    BIODB.CARD.ONE,		'none',
-	BIODB.INCHIKEY,             'character',    BIODB.CARD.ONE,		'none',
-	BIODB.MSDEV,                'character',    BIODB.CARD.ONE,		'none',
-	BIODB.MSDEVTYPE,            'character',    BIODB.CARD.ONE,		'none',
-	BIODB.MSTYPE,               'character',    BIODB.CARD.ONE,		'none',
-	BIODB.MSMODE,               'character',    BIODB.CARD.ONE,		'none',
-	BIODB.MSPRECMZ,             'double',       BIODB.CARD.ONE,		'none',
-	BIODB.CHROM.COL,            'character',    BIODB.CARD.ONE,		'none',
-	BIODB.CHROM.COL.RT,         'double',       BIODB.CARD.ONE,		'none',
-	BIODB.PEAK.MZ,    			'double',		BIODB.CARD.ONE,		'none',
-	BIODB.PEAK.MZTHEO,			'double',		BIODB.CARD.ONE,		'none',
-	BIODB.PEAK.MZEXP, 			'double',		BIODB.CARD.ONE,		'none',
-	BIODB.MSPRECANNOT,          'character',    BIODB.CARD.ONE,		'none',
-	BIODB.FORMULA,              'character',    BIODB.CARD.ONE,		'none',
-	BIODB.SUPER.CLASS,          'character',    BIODB.CARD.ONE,		'none',
-	BIODB.MASS,                 'double',       BIODB.CARD.ONE,		'none',
-	BIODB.AVERAGE.MASS,         'double',       BIODB.CARD.ONE,		'none',
-	BIODB.MONOISOTOPIC.MASS,    'double',       BIODB.CARD.ONE,		'none',
-	BIODB.NOMINAL.MASS,         'integer',      BIODB.CARD.ONE,		'none',
-	BIODB.MOLECULAR.WEIGHT,     'double',       BIODB.CARD.ONE,		'none',
-	BIODB.SEQUENCE,             'character',    BIODB.CARD.ONE,		'none',
-	BIODB.LENGTH,               'integer',      BIODB.CARD.ONE,		'none',
-	BIODB.LOCATION,             'character',    BIODB.CARD.ONE,		'none',
-	BIODB.NB.PEAKS,             'integer',      BIODB.CARD.ONE,		'none',
-	BIODB.PEAKS,                'data.frame',   BIODB.CARD.ONE,		'none',
-	BIODB.SMILES,               'character',    BIODB.CARD.ONE,		'none',
-	BIODB.CATALYTIC.ACTIVITY,   'character',    BIODB.CARD.MANY,    'none',
-	BIODB.COFACTOR,             'character',    BIODB.CARD.MANY,    'none',
-	BIODB.CHARGE,               'integer',      BIODB.CARD.ONE,		'none',
-	BIODB.CAS.ID,               'character',    BIODB.CARD.ONE,		'none'
-	), byrow = TRUE, ncol = 4), stringsAsFactors = FALSE)
-colnames(BIODB.FIELDS) <- c('name', 'class', 'cardinality', 'type')
-
-#########################
-# GET DATABASE ID FIELD #
-#########################
-
-biodb.get.database.id.field <- function(database) {
-
-	id.field <- NA_character_
-
-	if (database %in% BIODB.DATABASES) {
-		id.field <- paste0(database, 'id')
-		if ( ! id.field %in% BIODB.FIELDS[['name']])
-			stop(paste0('No ID field defined for database ', database, '.'))
-	}
-
-	return(id.field)
-}
 
 #####################
 # COMPUTABLE FIELDS #
@@ -228,6 +135,10 @@ BIODB.FIELD.COMPUTING[[BIODB.SEQUENCE]]   <- c(BIODB.NCBI.CCDS)
 ####################
 # PEAKS DATA FRAME #
 ####################
+
+# Peak fields
+
+BIODB.PEAK.FIELDS <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM, BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.COMP, BIODB.PEAK.ATTR)
 
 # Example
 BIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)

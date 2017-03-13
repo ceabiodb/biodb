@@ -1,16 +1,18 @@
 # vi: fdm=marker
 
-# CLASS DECLARATION {{{1
+# Class declaration {{{1
 ################################################################
 
-BiodbObject <- methods::setRefClass("BiodbObject", fields = list( .observers = "ANY", .message.enabled = "logical"))
+BiodbObject <- methods::setRefClass("BiodbObject", fields = list(.message.enabled = "logical"))
 
-# CONSTRUCTOR {{{1
+# Constructor {{{1
 ################################################################
 
 BiodbObject$methods( initialize = function(...) {
-	.message.enabled <<- TRUE
+
 	callSuper(...)
+
+	.message.enabled <<- TRUE
 })
 
 # Abstract method {{{1
@@ -46,14 +48,19 @@ BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {
 	.self$message(type = MSG.CAUTION, msg)
 })
 
-# GET BIODB {{{1
+# Get biodb {{{1
 ################################################################
 
 BiodbObject$methods( getBiodb = function() {
-	.self$.abstract.method()
+
+	if (is(.self, 'Biodb'))
+	    return(.self)
+
+	if (is.null(.self$getParent()))
+		.self$message(MSG.ERROR, "Object has no parent.")
+
+	return(.self$getParent()$getBiodb())
 })
-
-
 
 # MESSAGE {{{1
 ################################################################

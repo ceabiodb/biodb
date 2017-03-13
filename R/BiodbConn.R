@@ -1,21 +1,18 @@
 # vi: fdm=marker
 
+#' @include ChildObject.R
+
 # Class declaration {{{1
 ################################################################
 
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbObject", fields = list( .biodb = "ANY", .content.type = "character", .base.url = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list( .content.type = "character", .base.url = "character"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(biodb = NULL, content.type = NA_character_, base.url = NA_character_, ...) {
+BiodbConn$methods( initialize = function(content.type = NA_character_, base.url = NA_character_, ...) {
 
 	callSuper(...)
-
-	# Set biodb
-	if ( ! is(biodb, "Biodb"))
-		.self$message(MSG.ERROR, paste0("The biodb parameter must be of class Biodb, its class was ", class(biodb), "."))
-	.biodb <<- biodb
 
 	# Set content type
 	if (is.null(content.type) || is.na(content.type))
@@ -43,14 +40,6 @@ BiodbConn$methods( getBaseUrl = function() {
 BiodbConn$methods( getEntryContentType = function(type) {
 	return(.self$.content.type) 
 })
-
-# Get biodb {{{1
-################################################################
-
-BiodbConn$methods( getBiodb = function() {
-	return(.self$.biodb)
-})
-
 
 # Get entry content {{{1
 ################################################################

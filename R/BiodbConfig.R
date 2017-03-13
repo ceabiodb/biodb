@@ -1,11 +1,13 @@
 # vi: fdm=marker
 
+#' @include ChildObject.R
+
 # Class declaration {{{1
 ################################################################
 
 #'Class for storing configuration values.
 #'@export
-BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "BiodbObject", fields = list( .biodb = "ANY", .values = "list", .env = "ANY", .value.info = "list" ))
+BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .value.info = "list" ))
 
 # Constants {{{1
 ################################################################
@@ -34,11 +36,9 @@ PEAKFOREST.WS.ALPHA.URL   <- 'https://peakforest-alpha.inra.fr/rest/'
 # Constructor {{{1
 ################################################################
 
-BiodbConfig$methods( initialize = function(biodb = NULL, ...) {
+BiodbConfig$methods( initialize = function(...) {
 
 	callSuper(...)
-
-	.biodb <<- biodb
 
 	.env <<- Sys.getenv()
 	.self$.initValueInfo()
@@ -148,12 +148,6 @@ BiodbConfig$methods( .initValues = function() {
 	}
 })
 
-# Get biodb {{{1
-################################################################
-
-BiodbConfig$methods( getBiodb = function() {
-	return(.self$.biodb)
-})
 
 # Get type {{{1
 ################################################################

@@ -1,11 +1,13 @@
 # vi: fdm=marker
 
+#' @include BiodbObject.R
+
 # Class declaration {{{1
 ################################################################
 
 #'The mother abstract class of all connection classes.
 #'@export
-Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY" ))
+Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY", .entry.fields = "ANY" ))
 
 # Constructor {{{1
 ################################################################
@@ -22,20 +24,16 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 		.self$addObservers(observers)
 
 	# Create config instance
-	.config <<- BiodbConfig$new(biodb = .self)
+	.config <<- BiodbConfig$new(parent = .self)
 
 	# Create cache
-	.cache <<- BiodbCache$new(biodb = .self)
+	.cache <<- BiodbCache$new(parent = .self)
 
 	# Create factory
-	.factory <<- BiodbFactory$new(biodb = .self)
-})
+	.factory <<- BiodbFactory$new(parent = .self)
 
-# Get biodb {{{1
-################################################################
-
-Biodb$methods( getBiodb = function() {
-	return(.self)
+	# Create entry fields
+	.entry.fields <<- BiodbEntryFields$new(parent = .self)
 })
 
 # Get config {{{1
@@ -50,6 +48,13 @@ Biodb$methods( getConfig = function() {
 
 Biodb$methods( getCache = function() {
 	return(.self$.cache)
+})
+
+# Get entry fields {{{1
+################################################################
+
+Biodb$methods( getEntryFields = function() {
+	return(.self$.entry.fields)
 })
 
 # Get factory {{{1
@@ -117,20 +122,6 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 # Get field class {{{1
 ################################################################
 
-Biodb$methods( getFieldClass = function(field) {
-
-	if ( ! field %in% BIODB.FIELDS[['name']])
-		biodb$message(MSG.ERROR, paste("Unknown field \"", field, "\".", sep = ''))
-
-	# Get class
-	class <- BIODB.FIELDS[BIODB.FIELDS[['name']] == field, 'class']
-
-	return(class)
-})
-
-# Get field class {{{1
-################################################################
-
 Biodb$methods( fieldIsAtomic = function(field) {
 	return(.self$getFieldClass(field) %in% c('integer', 'double', 'character', 'logical'))
 })
@@ -174,4 +165,17 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 	}
 
 	return(entries.df)
+})
+
+# DEPRECATED METHODS {{{1
+################################################################
+
+# Get field class {{{2
+################################################################
+
+Biodb$methods( getFieldClass = function(field) {
+
+	.self$.deprecated.method('Biodb::getEntryFields()$get(field)$getClass()')
+
+	return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 })
