@@ -23,6 +23,18 @@ load.ref.entries <- function(db) {
 	return(entries.desc)
 }
 
+# Save entries as JSON {{{1
+################################################################
+
+save.entries.as.json <- function(db, entries) {
+
+	# Loop on all entries
+	for (e in entries) {
+		json <- e$getFieldsAsJson()
+		writeChar(json, file.path(OUTPUT.DIR, paste(db, '-entry-', e$getFieldValue(BIODB.ACCESSION), '.json', sep = '')))
+	}
+}
+
 # Test entry fields {{{1
 ################################################################
 
@@ -35,6 +47,7 @@ test.entry.fields <- function(factory, db) {
 	entries <- factory$getEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
+	save.entries.as.json(db, entries)
 
 	# Get data frame
 	entries.df <- factory$getBiodb()$entriesToDataframe(entries)

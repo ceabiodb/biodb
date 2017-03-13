@@ -4,12 +4,18 @@
 ################################################################
 
 TEST.DIR <- file.path(getwd(), '..')
+OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
+REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 OFFLINE.FILES.DIR <- file.path(RES.DIR, 'offline-files')
 CACHE.DIR <- file.path(TEST.DIR, 'cache')
 LOG.DIR  <- file.path(TEST.DIR)
 LOG.FILE <- file.path(LOG.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pierrick.rogermele@cloud.com'
+
+# Create output directory
+if ( ! file.exists(OUTPUT.DIR))
+	dir.create(OUTPUT.DIR)
 
 # Set databases to test {{{1
 ################################################################

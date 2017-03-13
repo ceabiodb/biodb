@@ -169,7 +169,7 @@ BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 
 # TODO add a limiting option to get some of the fields.
 BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE) {
-	"Convert the entry into a data frame."
+	"Convert entry into a data frame."
 
 	df <- data.frame(stringsAsFactors = FALSE)
 
@@ -198,6 +198,19 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	}
 
 	return(df)
+})
+# Get fields as json {{{1
+################################################################
+
+# TODO add a limiting option to get some of the fields.
+BiodbEntry$methods(	getFieldsAsJson = function(compute = TRUE) {
+	"Convert entry into a JSON string."
+
+	# Compute fields
+	if (compute)
+		.self$.compute.field()
+
+	return(jsonlite::toJSON(.self$.fields, pretty = TRUE))
 })
 
 # Add Parsing expression {{{1
