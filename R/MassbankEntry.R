@@ -71,10 +71,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	if (nrow(results) > 0) {
 		peaks <- BIODB.PEAK.DF.EXAMPLE
 		peaks[1:nrow(results), c(BIODB.PEAK.MZ, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM)] <- list(as.double(results[,2]), results[,3], as.integer(results[,4]), as.double(results[,5]), as.double(results[,6]))
-		if (.self$hasField(BIODB.PEAKS))
-			peaks <- rbind(.self$getFieldValue(BIODB.PEAKS), peaks)
-		else
-			.self$setFieldValue(BIODB.PEAKS, peaks)
+		.self$setFieldValue(BIODB.PEAKS, peaks)
 	}
 
 	# Peaks
@@ -82,10 +79,13 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	results <- g[ ! is.na(g[,1]), , drop = FALSE]
 	if (nrow(results) > 0) {
 		peaks <- BIODB.PEAK.DF.EXAMPLE
-		peaks[1, c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)] <- list(as.double(g[1,2]), as.double(g[1,3]), as.integer(g[1,4]))
+		peaks[1:nrow(results), c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)] <- list(as.double(results[,2]), as.double(results[,3]), as.integer(results[,4]))
 		if (.self$hasField(BIODB.PEAKS))
 			peaks <- rbind(.self$getFieldValue(BIODB.PEAKS), peaks)
 		else
 			.self$setFieldValue(BIODB.PEAKS, peaks)
 	}
+	if (.self$getFieldValue(BIODB.NB.PEAKS) != nrow(.self$getFieldValue(BIODB.PEAKS)))
+	    .self$message(MSG.ERROR, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS), ".", sep = ''))
+
 })
