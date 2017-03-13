@@ -79,6 +79,8 @@ Collate:
     'NcbiPubchemSubstConn.R'
     'NcbiPubchemSubstEntry.R'
     'PeakforestConn.R'
+    'PeakforestCompoundConn.R'
+    'PeakforestCompoundEntry.R'
     'PeakforestLcmsConn.R'
     'PeakforestLcmsEntry.R'
     'UniprotConn.R'

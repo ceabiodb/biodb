@@ -249,7 +249,7 @@ BiodbEntry$methods( parseContent = function(content) {
 ################################################################
 
 BiodbEntry$methods( .isContentCorrect = function(content) {
-	return(nchar(content) > 0)
+	return( ! is.null(content) && ! is.na(content) && nchar(content) > 0)
 })
 
 # Do parse content {{{1
