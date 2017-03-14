@@ -39,10 +39,10 @@ HmdbMetaboliteConn$methods( getEntryContent = function(id) {
 
 HmdbMetaboliteConn$methods( download = function() {
 
-	if ( ! .self$getBiodb()$getCache()$fileExists(BIODB.HMDB.METABOLITE, 'download', 'zip')) {
+	if ( ! .self$getBiodb()$getCache()$fileExists(db = BIODB.HMDB.METABOLITE, folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'zip')) {
 
 		# Download
-		zip.path <- .self$getBiodb()$getCache()$getFilePaths(BIODB.HMDB.METABOLITE, 'download', 'zip')
+		zip.path <- .self$getBiodb()$getCache()$getFilePaths(db = BIODB.HMDB.METABOLITE, folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'zip')
 		zip.url <- paste(.self$getBaseUrl(), "system/downloads/current/hmdb_metabolites.zip", sep = '')
 		.self$message(MSG.INFO, paste("Downloading \"", zip.url, "\"...", sep = ''))
 		.self$.getUrlScheduler()$downloadFile(url = zip.url, dest.file = zip.path)
@@ -71,8 +71,8 @@ HmdbMetaboliteConn$methods( download = function() {
 		ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = .self$.ns)
 		.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
 		contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')
-		.self$getBiodb()$getCache()$deleteFiles(BIODB.HMDB.METABOLITE, .self$getEntryContentType())
-		.self$getBiodb()$getCache()$saveContentToFile(contents, BIODB.HMDB.METABOLITE, ids, .self$getEntryContentType())
+		.self$getBiodb()$getCache()$deleteFiles(db = BIODB.HMDB.METABOLITE, folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+		.self$getBiodb()$getCache()$saveContentToFile(contents, db = BIODB.HMDB.METABOLITE, folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
 
 		# Remove extract directory
 		unlink(extract.dir, recursive = TRUE)
@@ -93,7 +93,7 @@ HmdbMetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 		.self$download()
 
 		# Get IDs from cache
-		ids <- .self$getBiodb()$getCache()$listFiles(BIODB.HMDB.METABOLITE, .self$getEntryContentType(), extract.names = TRUE)
+		ids <- .self$getBiodb()$getCache()$listFiles(db = BIODB.HMDB.METABOLITE, folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
 
 		# Filter out wrong IDs
 		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]

@@ -24,13 +24,15 @@ MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
 
 MirbaseMatureConn$methods( download = function() {
 
-	if ( ! .self$getBiodb()$getCache()$fileExists(BIODB.MIRBASE.MATURE, 'download', 'gz')) {
+	if ( ! .self$getBiodb()$getCache()$markerExists(db = BIODB.MIRBASE.MATURE, folder = CACHE.LONG.TERM.FOLDER, name = 'extracted')) {
 
 		# Download
-		gz.path <- .self$getBiodb()$getCache()$getFilePaths(BIODB.MIRBASE.MATURE, 'download', 'gz')
-		gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
-		.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
-		.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = gz.path)
+		gz.path <- .self$getBiodb()$getCache()$getFilePaths(db = BIODB.MIRBASE.MATURE, folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'gz')
+		if ( ! file.exists(gz.path)) {
+			gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
+			.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
+			.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = gz.path)
+		}
 
 		# Extract
 		# We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.
@@ -51,12 +53,15 @@ MirbaseMatureConn$methods( download = function() {
 			contents <- paste(lines[seq(1, length(ids), 2)], lines[seq(2, length(ids), 2)], sep = "\n")
 
 			# Write all entries into files
-			.self$getBiodb()$getCache()$deleteFiles(BIODB.MIRBASE.MATURE, .self$getEntryContentType())
-			.self$getBiodb()$getCache()$saveContentToFile(contents, BIODB.MIRBASE.MATURE, ids, .self$getEntryContentType())
+			.self$getBiodb()$getCache()$deleteFiles(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+			.self$getBiodb()$getCache()$saveContentToFile(contents, db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
 		}
 
 		# Remove extract directory
 		unlink(extracted.file)
+
+		# Set marker
+		.self$getBiodb()$getCache()$setMarker(db = BIODB.MIRBASE.MATURE, folder = CACHE.LONG.TERM.FOLDER, name = 'extracted')
 	}
 })
 
@@ -71,7 +76,7 @@ MirbaseMatureConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(BIODB.MIRBASE.MATURE, .self$getEntryContentType(), extract.names = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
 
 	# Filter out wrong IDs
 	ids <- ids[grepl("^MIMAT[0-9]+$", ids, perl = TRUE)]
@@ -92,7 +97,7 @@ MirbaseMatureConn$methods( getEntryContent = function(ids) {
 	.self$download()
 
 	# Load content from cache
-	content <- .self$getBiodb()$getCache()$loadFileContent(BIODB.MIRBASE.MATURE, ids, .self$getEntryContentType(), output.vector = TRUE)
+	content <- .self$getBiodb()$getCache()$loadFileContent(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType(), output.vector = TRUE)
 
 	return(content)
 })

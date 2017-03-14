@@ -42,10 +42,11 @@ MODE.OFFLINE <- 'offline'
 MODE.ONLINE <- 'online'
 MODE.QUICK.ONLINE <- 'quick.online'
 MODE.ALL <- 'all'
+MODE.FULL <- 'full'
 DEFAULT.MODES <- MODE.OFFLINE
 ALLOWED.MODES <- c(MODE.OFFLINE, MODE.QUICK.ONLINE, MODE.ONLINE)
 if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
-	if (env[['MODES']] == MODE.ALL)
+	if (env[['MODES']] %in% c(MODE.ALL, MODE.FULL))
 		TEST.MODES <- ALLOWED.MODES
 	else {
 		TEST.MODES <- strsplit(env[['MODES']], ',')[[1]]
