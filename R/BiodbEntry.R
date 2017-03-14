@@ -81,7 +81,7 @@ BiodbEntry$methods(	hasField = function(field) {
 ################################################################
 
 BiodbEntry$methods(	fieldHasBasicClass = function(field) {
-	return(.self$getFieldClass(field) %in% BIODB.BASIC.CLASSES)
+	return(.self$getBiodb()$getEntryFields()$getField(field)$getClass() %in% BIODB.BASIC.CLASSES)
 })
 
 # Get field value {{{1
@@ -103,13 +103,13 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 		val <- .self$.fields[[field]]
 	else {
 		# Return NULL or NA
-		class = .self$getFieldClass(field)
+		class = .self$getBiodb()$getEntryFields()$get(field)$getClass()
 		val <- if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL
 	}
 
 	# Flatten: convert atomic values with cardinality > 1 into a string
 	if (flatten)
-		if (.self$getBiodb()$fieldIsAtomic(field) && .self$getFieldCardinality(field) != BIODB.CARD.ONE)
+		if (.self$getBiodb()$fieldIsAtomic(field) && .self$getBiodb()$getEntryFields()$get(field)$hasCardOne())
 			val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
 
 	return(val)
@@ -313,7 +313,7 @@ BiodbEntry$methods(	getFieldClass = function(field) {
 
 BiodbEntry$methods(	getFieldCardinality = function(field) {
 
-	.self$.deprecated.method('Biodb::getEntryFields()$get(field)$hasCardOne() or Biodb::getEntryFields()$get(field)$hasCardMany()')
+	.self$.deprecated.method('BiodbEntryFields::hasCardOne() or BiodbEntryFields::hasCardMany()')
 
 	return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
 })

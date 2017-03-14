@@ -22,25 +22,25 @@ save.entries.as.json <- function(db, entries) {
 # Test entry fields {{{1
 ################################################################
 
-test.entry.fields <- function(factory, db) {
+test.entry.fields <- function(biodb, db) {
 
 	# Load reference entries
 	entries.desc <- load.ref.entries(db)
 
 	# Create entries
-	entries <- factory$getEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	entries <- biodb$getFactory()$getEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 	save.entries.as.json(db, entries)
 
 	# Get data frame
-	entries.df <- factory$getBiodb()$entriesToDataframe(entries)
+	entries.df <- biodb$entriesToDataframe(entries)
 	expect_equal(nrow(entries.df), length(entries), info = paste0("Error while converting entries into a data frame. Wrong number of rows: ", nrow(entries.df), " instead of ", length(entries), "."))
 
 	# Test fields of entries
 	for (f in colnames(entries.desc)) {
-		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = entries[[1]]$getFieldClass(f))
-		e.values <- factory$getBiodb()$entriesFieldToVctOrLst(entries, f, flatten = TRUE)
+		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = biodb$getEntryFields()$get(f)$getClass())
+		e.values <- biodb$entriesFieldToVctOrLst(entries, f, flatten = TRUE)
 		expect_equal(e.values, entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entry objects."))
 		if (f %in% names(entries.df))
 			expect_equal(entries.df[[f]], entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entries data frame"))
@@ -64,23 +64,23 @@ test.entry.fields <- function(factory, db) {
 # TEST WRONG ENTRY {{{1
 ################################################################
 
-test.wrong.entry <- function(factory, db) {
+test.wrong.entry <- function(biodb, db) {
 
 	# Test a wrong accession number
-	wrong.entry <- factory$getEntry(db, id = 'WRONGA')
+	wrong.entry <- biodb$getFactory()$getEntry(db, id = 'WRONGA')
 	expect_null(wrong.entry)
 }
 
 # TEST WRONG ENTRY AMONG GOOD ONES {{{1
 ################################################################
 
-test.wrong.entry.among.good.ones <- function(factory, db) {
+test.wrong.entry.among.good.ones <- function(biodb, db) {
 
 	# Load reference entries
 	entries.desc <- load.ref.entries(db)
 
 	# Test a wrong accession number
-	entries <- factory$getEntry(db, id = c('WRONGB', entries.desc[[BIODB.ACCESSION]]))
+	entries <- biodb$getFactory()$getEntry(db, id = c('WRONGB', entries.desc[[BIODB.ACCESSION]]))
 	expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
 	expect_null(entries[[1]])
 	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
@@ -114,12 +114,9 @@ test.entry.ids <- function(db) {
 # Create biodb instance
 biodb <- create.biodb.instance()
 
-# Get factory
-factory <- biodb$getFactory()
-
 # Initialize MassCsvFile
 if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES) {
-	db.instance <- factory$createConn(BIODB.MASS.CSV.FILE, url = .MASSFILEDB.URL)
+	db.instance <- biodb$getFactory()$createConn(BIODB.MASS.CSV.FILE, url = .MASSFILEDB.URL)
 	db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
 	db.instance$setField(BIODB.COMPOUND.ID, 'molid')
 	db.instance$setField(BIODB.MSMODE, 'mode')
@@ -144,12 +141,12 @@ for (mode in TEST.MODES) {
 	# Loop on test databases
 	for (db in TEST.DATABASES) {
 		set.test.context(biodb, paste("Running generic tests on", db, "in", mode, "mode"))
-		test_that("Wrong entry gives NULL", test.wrong.entry(factory, db))
-		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(factory, db))
-		test_that("Entry fields have a correct value", test.entry.fields(factory, db))
-		if ( ! is(factory$getConn(db), 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
-			test_that("Nb entries is positive", test.nb.entries(factory$getConn(db)))
-			test_that("We can get a list of entry ids", test.entry.ids(factory$getConn(db)))
+		test_that("Wrong entry gives NULL", test.wrong.entry(biodb, db))
+		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(biodb, db))
+		test_that("Entry fields have a correct value", test.entry.fields(biodb, db))
+		if ( ! is(biodb$getFactory()$getConn(db), 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
+			test_that("Nb entries is positive", test.nb.entries(biodb$getFactory()$getConn(db)))
+			test_that("We can get a list of entry ids", test.entry.ids(biodb$getFactory()$getConn(db)))
 		}
 	}
 }

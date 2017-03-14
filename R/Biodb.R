@@ -99,8 +99,8 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 	val <- NULL
 
 	# Vector
-	if (.self$fieldIsAtomic(field) && (flatten || .self$getFieldCardinality(field) == BIODB.CARD.ONE)) {
-		field.class = .self$getFieldClass(field)
+	if (.self$fieldIsAtomic(field) && (flatten || .self$getEntryFields()$get(field)$hasCardOne())) {
+		field.class = .self$getEntryFields()$get(field)$getClass()
 
 		if (length(entries) > 0)
 			val <- vapply(entries, function(e) { v <- e$getFieldValue(field, compute = compute) ; if ( ! is.null(v) && ! all(is.na(v))) e$getFieldValue(field, flatten = flatten, compute = compute) else as.vector(NA, mode = field.class) }, FUN.VALUE = vector(mode = field.class, length = 1))
@@ -123,7 +123,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 ################################################################
 
 Biodb$methods( fieldIsAtomic = function(field) {
-	return(.self$getFieldClass(field) %in% c('integer', 'double', 'character', 'logical'))
+	return(.self$getEntryFields()$get(field)$getClass() %in% c('integer', 'double', 'character', 'logical'))
 })
 
 # Entries to data frame {{{1
