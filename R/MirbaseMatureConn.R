@@ -50,7 +50,7 @@ MirbaseMatureConn$methods( download = function() {
 
 		if (length(ids) > 0) {
 			# Get contents
-			contents <- paste(lines[seq(1, length(ids), 2)], lines[seq(2, length(ids), 2)], sep = "\n")
+			contents <- paste(lines[seq(1, 2*length(ids), 2)], lines[seq(2, 2*length(ids), 2)], sep = "\n")
 
 			# Write all entries into files
 			.self$getBiodb()$getCache()$deleteFiles(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
