@@ -223,7 +223,6 @@ MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
 # Get chromatographic columns {{{1
 ################################################################
 
-# Inherited from MassdbConn.
 MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 
 	# Extract needed columns

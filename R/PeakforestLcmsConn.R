@@ -232,3 +232,23 @@ PeakforestLcmsConn$methods( searchSpecPrecTol = function(mz, tol, tolunit = BIOD
 
 	return(entries)
 })
+# Get chromatographic columns {{{1
+################################################################
+
+PeakforestLcmsConn$methods( getChromCol = function(compound.ids = NULL) {
+
+	# Set URL
+	url <- paste(.self$getBaseUrl(), 'metadata/lc/list-code-columns?token=', .self$getToken(), sep = '')
+	if ( ! is.null(compound.ids))
+		url <- paste(url, '&molids=', paste(compound.ids, collapse = ','), sep = '')
+
+	# Send request
+	wscols <- .self$.getUrlScheduler$getUrl(url)
+
+	# Build data frame
+	cols <- data.frame(id = character(), title = character())
+	for(id in names(wscols))
+		cols <- rbind(cols, data.frame(id = id, title = wscols[[id]]$name, stringsAsFactors = FALSE))
+
+	return(cols)
+})
