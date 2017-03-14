@@ -37,15 +37,16 @@ BiodbObject$methods( .abstract.method = function() {
 BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {
 
 	class <- class(.self)
-	method <- sys.calls()[[length(sys.calls()) - 1]]
-	method <- as.character(method)
-	method <- method[[1]]
-	method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
+	call <- sys.call(-1)
+	call <- as.character(call)
+	call <- call[[1]]
+	calls <- strsplit(call, '$', fixed = TRUE)[[1]]
+	method <- calls[[length(calls)]]
 
-	msg <- paste("Method", method, "is now deprecated in", class, "class.")
+	msg <- paste("Method ", method, "() is now deprecated in ", class, " class.", sep = '')
 	if ( ! is.na(new.method))
-		msg <- paste(msg, " Please use now method", new.method, ".", sep = '.')
-	.self$message(type = MSG.CAUTION, msg)
+		msg <- paste(msg, " Please use now method ", new.method, ".", sep = '')
+	.self$message(MSG.CAUTION, msg)
 })
 
 # Get biodb {{{1

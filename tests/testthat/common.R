@@ -21,15 +21,18 @@ if ( ! file.exists(OUTPUT.DIR))
 ################################################################
 
 env <- Sys.getenv()
+TEST.DATABASES <- BIODB.DATABASES
 if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
-	TEST.DATABASES <- strsplit(env[['DATABASES']], ',')[[1]]
-	db.exists <- TEST.DATABASES %in% BIODB.DATABASES
-	if ( ! all(db.exists)) {
-		wrong.dbs <- TEST.DATABASES[ ! db.exists]
-		stop(paste('Unknown testing database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+	if (env[['DATABASES']] == 'none')
+		TEST.DATABASES <- character(0)
+	else {
+		TEST.DATABASES <- strsplit(env[['DATABASES']], ',')[[1]]
+		db.exists <- TEST.DATABASES %in% BIODB.DATABASES
+		if ( ! all(db.exists)) {
+			wrong.dbs <- TEST.DATABASES[ ! db.exists]
+			stop(paste('Unknown testing database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+		}
 	}
-} else {
-	TEST.DATABASES <- BIODB.DATABASES
 }
 
 # Set modes {{{1
@@ -119,4 +122,20 @@ set.mode <- function(biodb, mode) {
 	else {
 		stop(paste("Unknown mode \"", mode, "\".", sep = "."))
 	}
+}
+
+# Load reference entries {{{1
+################################################################
+
+load.ref.entries <- function(db) {
+
+	# Define reference file
+	entries.file <- file.path(RES.DIR, paste0(db, '-entries.txt'))
+	expect_true(file.exists(entries.file), info = paste0("Cannot find file \"", entries.file, "\"."))
+
+	# Load reference contents from file
+	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
+	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
+
+	return(entries.desc)
 }

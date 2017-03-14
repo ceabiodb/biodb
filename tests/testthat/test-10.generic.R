@@ -7,22 +7,6 @@ source('common.R')
 
 .MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 
-# Load reference entries {{{1
-################################################################
-
-load.ref.entries <- function(db) {
-
-	# Define reference file
-	entries.file <- file.path(RES.DIR, paste0(db, '-entries.txt'))
-	expect_true(file.exists(entries.file), info = paste0("Cannot find file \"", entries.file, "\"."))
-
-	# Load reference contents from file
-	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
-	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
-
-	return(entries.desc)
-}
-
 # Save entries as JSON {{{1
 ################################################################
 
