@@ -168,7 +168,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
 
 	# Initialize content
-	if (.self$getBiodb()$getCache()$isReadable() && ! .self$getBiodb()$getConfig()$isEnabled(CFG.CACHE.FORCE.DOWNLOAD)) {
+	if (.self$getBiodb()$getCache()$isReadable()) {
 		# Load content from cache
 		content <- .self$getBiodb()$getCache()$loadFileContent(class, id, .self$getConn(class)$getEntryContentType())
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]

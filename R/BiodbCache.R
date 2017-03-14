@@ -73,10 +73,7 @@ BiodbCache$methods( isWritable = function() {
 
 BiodbCache$methods( fileExists = function(db, names, ext) {
 
-	exists <- FALSE
-
-	if ( ! .self$getBiodb()$getConfig()$get(CFG.CACHE.FORCE.DOWNLOAD))
-		exists <- file.exists(.self$getFilePaths(db, names, ext))
+	exists <- file.exists(.self$getFilePaths(db, names, ext))
 
 	return(exists)
 })
