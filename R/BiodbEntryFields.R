@@ -52,7 +52,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.LIPIDMAPS.STRUCTURE.ID)
 	.self$.define(BIODB.NCBI.CCDS.ID)
 	.self$.define(BIODB.NCBI.GENE.ID)
-	.self$.define(BIODB.NCBI.PUBCHEM.COMP.ID)
+	.self$.define(BIODB.NCBI.PUBCHEM.COMP.ID,           card = BIODB.CARD.MANY)
 	.self$.define(BIODB.NCBI.PUBCHEM.SUBST.ID)
 	.self$.define(BIODB.PEAKFOREST.LCMS.ID)
 	.self$.define(BIODB.PEAKFOREST.COMPOUND.ID, card = BIODB.CARD.MANY)

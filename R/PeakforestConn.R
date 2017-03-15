@@ -40,7 +40,6 @@ PeakforestConn$methods( getEntryContent = function(id) {
 
 	# Parse JSON
 	if (length(jsonstr) > 1) {
-		print('ZAP 1')
 		if (length(jsonstr) != length(id))
 			.self$message(MSG.ERROR, paste("Got only", length(jsonstr), "contents for", length(id), "IDs."))
 		content <- jsonstr
