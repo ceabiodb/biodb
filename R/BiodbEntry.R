@@ -77,6 +77,14 @@ BiodbEntry$methods(	hasField = function(field) {
 	return(field %in% names(.self$.fields))
 })
 
+# Remove field {{{1
+################################################################
+
+BiodbEntry$methods(	removeField = function(field) {
+	if (.self$hasField(field))
+		.fields <<- .self$.fields[names(.self$.fields) != field]
+})
+
 # Field has basic class {{{1
 ################################################################
 
