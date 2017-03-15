@@ -18,6 +18,7 @@ PeakforestLcmsEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.MSMODE, "polarity")
 	.self$addParsingExpression(BIODB.MSDEV, c('analyzerMassSpectrometerDevice', 'instrumentName'))
 	.self$addParsingExpression(BIODB.MSDEVTYPE, c('analyzerMassSpectrometerDevice', 'ionAnalyzerType'))
+	.self$addParsingExpression(BIODB.MSTYPE, 'type')
 })
 
 # Parse fields after {{{1
