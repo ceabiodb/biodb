@@ -7,8 +7,8 @@ TEST.DIR <- file.path(getwd(), '..')
 OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
-OFFLINE.FILES.DIR <- file.path(RES.DIR, 'offline-files')
-CACHE.DIR <- file.path(TEST.DIR, 'cache')
+OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
+ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
 LOG.DIR  <- file.path(TEST.DIR)
 LOG.FILE <- file.path(LOG.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pierrick.rogermele@cloud.com'
@@ -35,7 +35,7 @@ if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
 	}
 }
 
-# Set modes {{{1
+# Define modes {{{1
 ################################################################
 
 MODE.OFFLINE <- 'offline'
@@ -97,26 +97,29 @@ set.mode <- function(biodb, mode) {
 
 	# Online
 	if (mode == MODE.ONLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$disable(CFG.OFFLINE)
+		biodb$getConfig()$enable(CFG.USE.CACHE.SUBFOLDERS)
 	}
 
 	# Quick online
 	else if (mode == MODE.QUICK.ONLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$disable(CFG.OFFLINE)
+		biodb$getConfig()$enable(CFG.USE.CACHE.SUBFOLDERS)
 	}
 
 	# Offline
 	else if (mode == MODE.OFFLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.FILES.DIR)
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.CACHE.DIR)
 		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$enable(CFG.OFFLINE)
+		biodb$getConfig()$disable(CFG.USE.CACHE.SUBFOLDERS)
 	}
 
 	# Unknown mode

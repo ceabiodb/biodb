@@ -165,7 +165,10 @@ BiodbCache$methods( getFolderPath = function(folder) {
 		.self$message(MSG.ERROR, paste("Unknown cache folder \"", folder, "\".", sep = ''))
 
 	# Get folder path
-	folder.path <- file.path(.self$getDir(), folder)
+	if (.self$getBiodb()$getConfig()$isEnabled(CFG.USE.CACHE.SUBFOLDERS))
+		folder.path <- file.path(.self$getDir(), folder)
+	else
+		folder.path <- .self$getDir()
 
 	# Create folder if needed
 	if ( ! is.na(folder.path) && ! file.exists(folder.path))

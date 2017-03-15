@@ -18,11 +18,12 @@ CFG.CACHE.DIRECTORY         <- 'cache.directory'
 CFG.CACHE.READ.ONLY         <- 'cache.read.only'
 CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
 CFG.COMPUTE.FIELDS          <- 'compute.fields'
-CFG.MASSBANK.URL            <- 'massbank_url'
+CFG.MASSBANK.URL            <- 'massbank.url'
 CFG.OFFLINE                 <- 'offline'
-CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
-CFG.PEAKFOREST.URL          <- 'peakforest_url'
+CFG.PEAKFOREST.TOKEN        <- 'peakforest.token'
+CFG.PEAKFOREST.URL          <- 'peakforest.url'
 CFG.USERAGENT               <- 'useragent'
+CFG.USE.CACHE.SUBFOLDERS    <- 'cache.subfolders'
 
 # Database URLs
 BIODB.MASSBANK.JP.URL  <- 'http://www.massbank.jp/'
@@ -82,6 +83,7 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey(CFG.PEAKFOREST.TOKEN,         type = 'character')
 	.self$.newKey(CFG.PEAKFOREST.URL,           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
 	.self$.newKey(CFG.USERAGENT,                type = 'character', default = useragent.default)
+	.self$.newKey(CFG.USE.CACHE.SUBFOLDERS,     type = 'logical',   default = TRUE)
 })
 
 # New key {{{1
