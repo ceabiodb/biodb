@@ -1,2 +1,2 @@
-accession
-3
+accession ncbi.pubchem.comp.id
+3         449639
