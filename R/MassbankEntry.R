@@ -21,19 +21,20 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.MSPRECMZ, "^MS\\$FOCUSED_ION: PRECURSOR_M/Z (.+)$")
 	.self$addParsingExpression(BIODB.NB.PEAKS, "^PK\\$NUM_PEAK: ([0-9]+)$")
 	.self$addParsingExpression(BIODB.MSPRECANNOT, "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$")
-	.self$addParsingExpression(BIODB.CHEBI.ID, "^CH\\$LINK: CHEBI\\s+(.+)$")
-	.self$addParsingExpression(BIODB.KEGG.COMPOUND.ID, "^CH\\$LINK: KEGG\\s+(.+)$")
 	.self$addParsingExpression(BIODB.INCHI, "^CH\\$IUPAC:\\s+(.+)$")
 	.self$addParsingExpression(BIODB.INCHIKEY, "^CH\\$LINK: INCHIKEY\\s+(.+)$")
 	.self$addParsingExpression(BIODB.CHEMSPIDER.ID, "^CH\\$LINK: CHEMSPIDER\\s+(.+)$")
+	.self$addParsingExpression(BIODB.CHEBI.ID, "^CH\\$LINK: CHEBI\\s+(.+)$")
+	.self$addParsingExpression(BIODB.KEGG.COMPOUND.ID, "^CH\\$LINK: KEGG\\s+(.+)$")
 	.self$addParsingExpression(BIODB.CAS.ID, "^CH\\$LINK: CAS\\s+(.+)$")
-	.self$addParsingExpression(BIODB.FORMULA, "^CH\\$FORMULA:\\s+(.+)$")
-	.self$addParsingExpression(BIODB.SMILES, "^CH\\$SMILES:\\s+(.+)$")
-	.self$addParsingExpression(BIODB.MASS, "^CH\\$EXACT_MASS:\\s+(.+)$")
 	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.COMP.ID, "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)")
 	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.SUBST.ID, "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)")
 	.self$addParsingExpression(BIODB.HMDB.METABOLITE.ID, "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)")
+	.self$addParsingExpression(BIODB.FORMULA, "^CH\\$FORMULA:\\s+(.+)$")
+	.self$addParsingExpression(BIODB.SMILES, "^CH\\$SMILES:\\s+(.+)$")
+	.self$addParsingExpression(BIODB.MASS, "^CH\\$EXACT_MASS:\\s+(.+)$")
 	.self$addParsingExpression(BIODB.MSMODE, "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
+	.self$addParsingExpression(BIODB.SYNONYMS, "^CH\\$NAME:\\s+(.+)$")
 })
 
 # Parse fields after {{{1
@@ -55,10 +56,16 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	}
 
 	# Name
-	g <- stringr::str_match(parsed.content, "^CH\\$NAME:\\s+(.+)$")
-	results <- g[ ! is.na(g[,1]), , drop = FALSE]
-	if (nrow(results) > 0)
-		.self$setFieldValue(BIODB.NAME, results[1,2]) # Take first one only
+	if (.self$hasField(BIODB.SYNONYMS)) {
+		v <- .self$getFieldValue(BIODB.SYNONYMS)
+		if (length(v) > 0) {
+			.self$setFieldValue(BIODB.NAME, v[[1]])
+			if (length(v) == 1)
+				.self$removeField(BIODB.SYNONYMS)
+			else
+				.self$setFieldValue(BIODB.SYNONYMS, v[2:length(v)])
+		}
+	}
 
 	# MS mode
 	if (.self$hasField(BIODB.MSMODE))
