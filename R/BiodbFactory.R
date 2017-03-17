@@ -1,12 +1,12 @@
 # vi: fdm=marker
 
-#' @include ChildObject.R
-
 # Class declaration {{{1
 ################################################################
 
-#'A class for constructing biodb objects.
-#'@export
+#' A class for constructing biodb objects.
+#'
+#' @include ChildObject.R
+#' @exportClass BiodbFactory
 BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
 
 # Constructor {{{1

@@ -1,13 +1,10 @@
 # vi: fdm=marker
 
-#' @include PeakforestConn.R
-#' @include CompounddbConn.R
-
 # Class declaration {{{1
 ################################################################
 
-#'PeakForest Compound connector class.
-#'@export
+#' @include PeakforestConn.R
+#' @include CompounddbConn.R
 PeakforestCompoundConn <- methods::setRefClass("PeakforestCompoundConn", contains = c("PeakforestConn", "CompounddbConn"))
 
 # Constructor {{{1

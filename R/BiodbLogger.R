@@ -1,12 +1,13 @@
 # vi: fdm=marker
 
-#' @include BiodbObserver.R
-
 # Class declaration {{{1
 ################################################################
 
-#'A class for logging biodb messages.
-#'@export
+#' A class for logging biodb messages either to standard error or into a file.
+#'
+#' @include BiodbObserver.R
+#' @export BiodbLogger
+#' @exportClass BiodbLogger
 BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.verbose.level = 'integer', .debug.level = 'integer', .file = 'ANY'))
 
 # Constructor {{{1

@@ -39,7 +39,7 @@ test.deprecated.methods <- function(biodb) {
 # MAIN {{{1
 ################################################################
 
-biodb <- biodb:::Biodb$new(logger = FALSE)
+biodb <- Biodb$new(logger = FALSE)
 set.test.context(biodb, "Test observers")
 set.mode(biodb, MODE.OFFLINE)
 test_that("Deprecated methods send correct message.", test.deprecated.methods(biodb))

@@ -1,7 +1,5 @@
 # vi: fdm=marker
 
-#' @include ChildObject.R
-
 # Constants {{{1
 ################################################################
 
@@ -12,8 +10,11 @@ CACHE.FOLDERS <- c(CACHE.SHORT.TERM.FOLDER, CACHE.LONG.TERM.FOLDER)
 # Class declaration {{{1
 ################################################################
 
-#'A class for constructing biodb objects.
-#'@export
+#' A class for constructing biodb objects.
+#'
+#' @import methods
+#' @include ChildObject.R
+#' @exportClass BiodbCache
 BiodbCache <- methods::setRefClass("BiodbCache", contains = 'ChildObject', fields = list(.enabled = "logical"))
 
 # Constructor {{{1

@@ -21,7 +21,7 @@ if ( ! file.exists(OUTPUT.DIR))
 ################################################################
 
 env <- Sys.getenv()
-TEST.DATABASES <- BIODB.DATABASES
+TEST.DATABASES <- biodb::BIODB.DATABASES
 if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
 	if (env[['DATABASES']] == 'none')
 		TEST.DATABASES <- character(0)

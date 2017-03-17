@@ -1,10 +1,9 @@
 # vi: fdm=marker
 
-#' @include NcbiPubchemConn.R
-
 # Class declaration {{{1
 ################################################################
 
+#' @include NcbiPubchemConn.R
 NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains = "NcbiPubchemConn")
 
 # Constructor {{{1

@@ -1,12 +1,9 @@
 # vi: fdm=marker
 
-#' @include RemotedbConn.R
-
 # Class declaration {{{1
 ################################################################
 
-#'PeakForest connector class.
-#'@export
+#' @include RemotedbConn.R
 PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn"), fields = list(.db.name = 'character'))
 
 # Constructor {{{1

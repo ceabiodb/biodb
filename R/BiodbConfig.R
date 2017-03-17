@@ -1,12 +1,12 @@
 # vi: fdm=marker
 
-#' @include ChildObject.R
-
 # Class declaration {{{1
 ################################################################
 
-#'Class for storing configuration values.
-#'@export
+#' Class for storing configuration values.
+#'
+#' @include ChildObject.R
+#' @export
 BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .value.info = "list" ))
 
 # Constants {{{1

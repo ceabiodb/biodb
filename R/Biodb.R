@@ -1,12 +1,14 @@
 # vi: fdm=marker
 
-#' @include BiodbObject.R
-
 # Class declaration {{{1
 ################################################################
 
-#'The mother abstract class of all connection classes.
-#'@export
+#' The mother abstract class of all connection classes.
+#'
+#' @import methods
+#' @include BiodbObject.R
+#' @export Biodb
+#' @exportClass Biodb
 Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY", .entry.fields = "ANY" ))
 
 # Constructor {{{1
