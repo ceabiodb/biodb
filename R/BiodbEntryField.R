@@ -17,6 +17,14 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #'
 #' This class is used by \code{BiodbEntryFields} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used.
 #'
+#'
+#' @seealso \code{\link{BiodbEntryFields}}.
+#'
+#' @examples
+#' #
+#' mybiodb <- biodb::Biodb()
+#' inchi.field.class <- mybiodb$getEntryFields()$get('inchi')$getClass()
+#'
 #' @import methods
 #' @include biodb-common.R
 #' @include ChildObject.R
