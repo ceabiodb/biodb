@@ -6,7 +6,7 @@
 \alias{Biodb}
 \title{The central class of the biodb package.}
 \arguments{
-\item{compute}{If set to \code{TRUE} and an entry has not the field, then try to compute the field.}
+\item{compute}{If set to \code{TRUE} and an entry has not the field defined, then try to compute the field values.}
 
 \item{entries}{A list of \code{BiodbEntry} objects.}
 
@@ -15,6 +15,10 @@
 \item{flatten}{If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character.}
 
 \item{observers}{Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.}
+
+\item{only.atomic}{Set to \code{TRUE} if you want only the fields of atomic type (\code{integer}, \code{numeric}, \code{logical} and \code{character}) inside the data frame.}
+
+\item{null.to.na}{If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."}
 }
 \description{
 In order to use the biodb package, you need first to create an instance of this class. See section Fields for a list of the constructor's parameters.
@@ -41,9 +45,9 @@ Extract the value of a field from a list of entries.
 Returns either a vector or a list depending on the type of the field.}
 
 \item{\code{entriesToDataframe(entries, only.atomic = TRUE, null.to.na = TRUE,
-  compute = TRUE)}}{Convert a list of entries (BiodbEntry objects) into a data frame.
-only.atomic Set to TRUE if you want only the atomic fields (integer, numeric, logical and character) inside the data frame.
-null.to.na  If TRUE, each NULL entry gives a line of NA values inside the data frame.}
+  compute = TRUE)}}{:
+
+Convert a list of entries (\code{BiodbEntry} objects) into a data frame.}
 
 \item{\code{getCache()}}{:
 
@@ -71,7 +75,10 @@ Get the list of registered observers.}
 mybiodb <- biodb::Biodb()
 
 # Create an instance without the default logger:
-mybiodb.without.logger <- biodb::Biodb(logger = FALSE)
+mybiodb <- biodb::Biodb(logger = FALSE)
+
+# Create an instance with a file logger
+mybiodb <- biodb::Biodb(logger = FALSE, observers = new biodb::BiodbLogger(file = "/path/to/my/log/file.log"))
 
 }
 \seealso{

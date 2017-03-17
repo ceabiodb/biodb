@@ -15,6 +15,7 @@ BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fie
 # Keys
 CFG.ALLOW.HUGE.DOWNLOADS    <- 'allow.huge.downloads'
 CFG.CACHE.DIRECTORY         <- 'cache.directory'
+CFG.CACHE.SYSTEM            <- 'cache.system'
 CFG.CACHE.READ.ONLY         <- 'cache.read.only'
 CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
 CFG.COMPUTE.FIELDS          <- 'compute.fields'
@@ -75,6 +76,7 @@ BiodbConfig$methods( .initValueInfo = function() {
 	# Define keys
 	.self$.newKey(CFG.ALLOW.HUGE.DOWNLOADS,     type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.CACHE.DIRECTORY,          type = 'character', default = cachedir.default)
+	.self$.newKey(CFG.CACHE.SYSTEM,             type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.CACHE.READ.ONLY,          type = 'logical',   default = FALSE)
 	.self$.newKey(CFG.CHEMSPIDER.TOKEN,         type = 'character')
 	.self$.newKey(CFG.COMPUTE.FIELDS,           type = 'logical',   default = TRUE)

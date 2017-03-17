@@ -33,6 +33,15 @@ This class is used by \code{BiodbEntryFields} for storing field characteristics,
 
 \item{\code{isVector()}}{:
 
-Returns \code{TRUE} if the field's type is one a vector type (character, integer, double or logical).}
+Returns \code{TRUE} if the field's type is vector (i.e.: character, integer, double or logical).}
 }}
 
+\examples{
+#
+mybiodb <- biodb::Biodb()
+inchi.field.class <- mybiodb$getEntryFields()$get('inchi')$getClass()
+
+}
+\seealso{
+\code{\link{BiodbEntryFields}}.
+}

@@ -10,7 +10,9 @@ CACHE.FOLDERS <- c(CACHE.SHORT.TERM.FOLDER, CACHE.LONG.TERM.FOLDER)
 # Class declaration {{{1
 ################################################################
 
-BiodbCache <- methods::setRefClass("BiodbCache", contains = 'ChildObject', fields = list(.enabled = "logical"))
+#' @import methods
+#' @include ChildObject.R
+BiodbCache <- methods::setRefClass("BiodbCache", contains = 'ChildObject')
 
 # Constructor {{{1
 ################################################################
@@ -18,29 +20,6 @@ BiodbCache <- methods::setRefClass("BiodbCache", contains = 'ChildObject', field
 BiodbCache$methods( initialize = function(...) {
 
 	callSuper(...)
-
-	.enabled <<- TRUE
-})
-
-# Enabled {{{1
-################################################################
-
-BiodbCache$methods( enabled = function() {
-	return(.self$.enabled)
-})
-
-# Enable {{{1
-################################################################
-
-BiodbCache$methods( enable = function() {
-	.enabled <<- TRUE
-})
-
-# Disable {{{1
-################################################################
-
-BiodbCache$methods( disable = function() {
-	.enabled <<- FALSE
 })
 
 # Get directory {{{1
@@ -61,14 +40,14 @@ BiodbCache$methods( getDir = function() {
 ################################################################
 
 BiodbCache$methods( isReadable = function() {
-	return( .self$enabled() && ! is.na(.self$getDir()))
+	return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()))
 })
 
 # Is cache writing enabled {{{1
 ################################################################
 
 BiodbCache$methods( isWritable = function() {
-	return( .self$enabled() && ! is.na(.self$getDir()) && ! .self$getBiodb()$getConfig()$get(CFG.CACHE.READ.ONLY))
+	return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()) && ! .self$getBiodb()$getConfig()$get(CFG.CACHE.READ.ONLY))
 })
 
 # File exists {{{1
@@ -211,4 +190,37 @@ BiodbCache$methods( listFiles = function(db, folder, ext = NA_character_, extrac
 	}
 
 	return(files)
+})
+
+# DEPRECATED METHODS {{{1
+################################################################
+
+# Enabled {{{2
+################################################################
+
+BiodbCache$methods( enabled = function() {
+
+	.self$.deprecated.method("BiodbConfig::isEnabled('cache.system')")
+
+	return(.self$getBiodb()$getConfig()$isEnabled('cache.system'))
+})
+
+# Enable {{{2
+################################################################
+
+BiodbCache$methods( enable = function() {
+
+	.self$.deprecated.method("BiodbConfig::enable('cache.system')")
+	
+	.self$getBiodb()$getConfig()$enable('cache.system')
+})
+
+# Disable {{{2
+################################################################
+
+BiodbCache$methods( disable = function() {
+
+	.self$.deprecated.method("BiodbConfig::disable('cache.system')")
+	
+	.self$getBiodb()$getConfig()$disable('cache.system')
 })
