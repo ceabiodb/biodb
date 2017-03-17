@@ -148,13 +148,6 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 	return(val)
 })
 
-# Get field class {{{1
-################################################################
-
-Biodb$methods( fieldIsAtomic = function(field) {
-	return(.self$getEntryFields()$get(field)$getClass() %in% c('integer', 'double', 'character', 'logical'))
-})
-
 # Entries to data frame {{{1
 ################################################################
 
@@ -198,6 +191,16 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 
 # DEPRECATED METHODS {{{1
 ################################################################
+
+# Field is atomic {{{2
+################################################################
+
+Biodb$methods( fieldIsAtomic = function(field) {
+
+	.self$.deprecated.method('BiodbEntryField::isVector()')
+
+	return(.self$getEntryFields()$get(field)$getClass() %in% c('integer', 'double', 'character', 'logical'))
+})
 
 # Get field class {{{2
 ################################################################

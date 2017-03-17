@@ -1,8 +1,5 @@
 # vi: fdm=marker
 
-#' @include biodb-common.R
-#' @include ChildObject.R
-
 # Constants {{{1
 ################################################################
 
@@ -16,6 +13,14 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 # Class declaration {{{1
 ################################################################
 
+#' A class for describing an entry field.
+#'
+#' @include biodb-common.R
+#' @include ChildObject.R
+#'
+#' @import methods
+#' @export BiodbEntryField
+#' @exportClass BiodbEntryField
 BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical'))
 
 # constructor {{{1
@@ -97,6 +102,7 @@ BiodbEntryField$methods( isDataFrame = function() {
 ################################################################
 
 BiodbEntryField$methods( isVector = function() {
+	":\n\nReturns \\code{TRUE} if the field's type is one a vector type (character, integer, double or logical)."
 	return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
 })
 
