@@ -117,7 +117,7 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 
 	# Flatten: convert atomic values with cardinality > 1 into a string
 	if (flatten)
-		if (.self$getBiodb()$fieldIsAtomic(field) && .self$getBiodb()$getEntryFields()$get(field)$hasCardOne())
+		if (.self$getBiodb()$getEntryFields()$get(field)$isVector() && .self$getBiodb()$getEntryFields()$get(field)$hasCardOne())
 			val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
 
 	return(val)
@@ -189,7 +189,7 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	for (f in names(.self$.fields)) {
 
 		# Ignore non atomic values
-		if (only.atomic && ! .self$getBiodb()$fieldIsAtomic(f))
+		if (only.atomic && ! .self$getBiodb()$getEntryFields()$get(f)$isVector())
 			next
 
 		v <- .self$getFieldValue(f, flatten = TRUE)

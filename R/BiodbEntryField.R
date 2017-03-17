@@ -15,10 +15,11 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 
 #' A class for describing an entry field.
 #'
-#' @include biodb-common.R
-#' @include ChildObject.R
+#' This class is used by \code{BiodbEntryFields} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used.
 #'
 #' @import methods
+#' @include biodb-common.R
+#' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
 BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical'))
@@ -53,6 +54,8 @@ BiodbEntryField$methods( initialize = function(name, class = 'character', card =
 ################################################################
 
 BiodbEntryField$methods( hasCardOne = function() {
+	":\n\n Returns \\code{TRUE} if the cardinality of this field is one."
+
 	return(.self$.cardinality == BIODB.CARD.MANY)
 })
 
@@ -60,13 +63,8 @@ BiodbEntryField$methods( hasCardOne = function() {
 ################################################################
 
 BiodbEntryField$methods( hasCardMany = function() {
-	return(.self$.cardinality == BIODB.CARD.MANY)
-})
+	":\n\n Returns \\code{TRUE} if the cardinality of this field is many."
 
-# Card is many {{{1
-################################################################
-
-BiodbEntryField$methods( cardIsMany = function() {
 	return(.self$.cardinality == BIODB.CARD.MANY)
 })
 
@@ -74,6 +72,8 @@ BiodbEntryField$methods( cardIsMany = function() {
 ################################################################
 
 BiodbEntryField$methods( allowsDuplicates = function() {
+	":\n\n Returns \\code{TRUE} if this field allows duplicated values."
+
 	return(.self$.allow.duplicates)
 })
 
@@ -81,6 +81,8 @@ BiodbEntryField$methods( allowsDuplicates = function() {
 ################################################################
 
 BiodbEntryField$methods( getClass = function() {
+	":\n\n Returns the type (i.e.: class) of this field."
+
 	return(.self$.class)
 })
 
@@ -88,6 +90,8 @@ BiodbEntryField$methods( getClass = function() {
 ################################################################
 
 BiodbEntryField$methods( isObject = function() {
+	":\n\n Returns \\code{TRUE} if field's type is a class."
+
 	return(.self$.class == 'object')
 })
 
@@ -95,6 +99,8 @@ BiodbEntryField$methods( isObject = function() {
 ################################################################
 
 BiodbEntryField$methods( isDataFrame = function() {
+	":\n\n Returns \\code{TRUE} if field's type is data frame."
+
 	return(.self$.class == 'data.frame')
 })
 
@@ -102,7 +108,7 @@ BiodbEntryField$methods( isDataFrame = function() {
 ################################################################
 
 BiodbEntryField$methods( isVector = function() {
-	":\n\nReturns \\code{TRUE} if the field's type is one a vector type (character, integer, double or logical)."
+	":\n\nReturns \\code{TRUE} if the field's type is vector (i.e.: character, integer, double or logical)."
 	return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
 })
 

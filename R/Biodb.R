@@ -10,11 +10,13 @@
 #' @field logger    Set to \code{FALSE} if you want to disable the default logger.
 #' @field observers Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.
 #'
-#' @param compute   If set to \code{TRUE} and an entry has not the field, then try to compute the field.
-#' @param entries   A list of \code{BiodbEntry} objects.
-#' @param field     The name of a field.
-#' @param flatten   If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character. 
+#' @param compute     If set to \code{TRUE} and an entry has not the field defined, then try to compute the field values.
+#' @param entries     A list of \code{BiodbEntry} objects.
+#' @param field       The name of a field.
+#' @param flatten     If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character. 
 #' @param observers Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.
+#' @param only.atomic Set to \code{TRUE} if you want only the fields of atomic type (\code{integer}, \code{numeric}, \code{logical} and \code{character}) inside the data frame.
+#' @param null.to.na  If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."
 #'
 #' @seealso \code{\link{BiodbFactory}}
 #'
@@ -128,7 +130,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 	val <- NULL
 
 	# Vector
-	if (.self$fieldIsAtomic(field) && (flatten || .self$getEntryFields()$get(field)$hasCardOne())) {
+	if (.self$getEntryFields()$get(field)$isVector() && (flatten || .self$getEntryFields()$get(field)$hasCardOne())) {
 		field.class = .self$getEntryFields()$get(field)$getClass()
 
 		if (length(entries) > 0)
@@ -152,9 +154,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 ################################################################
 
 Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE, compute = TRUE) {
-	"Convert a list of entries (BiodbEntry objects) into a data frame.
-	only.atomic Set to TRUE if you want only the atomic fields (integer, numeric, logical and character) inside the data frame.
-	null.to.na  If TRUE, each NULL entry gives a line of NA values inside the data frame."
+	":\n\nConvert a list of entries (\\code{BiodbEntry} objects) into a data frame."
 
 	if ( ! is.list(entries))
 		.self$message(MSG.ERROR, "Parameter 'entries' must be a list.")
@@ -199,7 +199,7 @@ Biodb$methods( fieldIsAtomic = function(field) {
 
 	.self$.deprecated.method('BiodbEntryField::isVector()')
 
-	return(.self$getEntryFields()$get(field)$getClass() %in% c('integer', 'double', 'character', 'logical'))
+	return(.self$getEntryFields()$get(field)$isVector())
 })
 
 # Get field class {{{2
