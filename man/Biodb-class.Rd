@@ -4,22 +4,76 @@
 \name{Biodb-class}
 \alias{Biodb-class}
 \alias{Biodb}
-\title{The mother abstract class of all connection classes.}
-\description{
-The mother abstract class of all connection classes.
+\title{The central class of the biodb package.}
+\arguments{
+\item{compute}{If set to \code{TRUE} and an entry has not the field, then try to compute the field.}
+
+\item{entries}{A list of \code{BiodbEntry} objects.}
+
+\item{field}{The name of a field.}
+
+\item{flatten}{If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character.}
+
+\item{observers}{Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.}
 }
+\description{
+In order to use the biodb package, you need first to create an instance of this class. See section Fields for a list of the constructor's parameters.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{logger}}{Set to \code{FALSE} if you want to disable the default logger.}
+
+\item{\code{observers}}{Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.}
+}}
+
 \section{Methods}{
 
 \describe{
-\item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{Extract  of entries (BiodbEntry objects) into a data frame.
-entries: a list containing BiodbEntry objects.
-field:   
-flatten: if the field has a cardinality greater than one, then values are collapsed and output is a vector of class character. 
-return:  a vector or a list of values, depending on the field's type.}
+\item{\code{addObservers(observers)}}{:
+
+Add new observers. Observers will be called each time an event occurs. This is the way used in biodb to get feedback about what is going inside biodb code.}
+
+\item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{:
+
+Extract the value of a field from a list of entries.
+
+Returns either a vector or a list depending on the type of the field.}
 
 \item{\code{entriesToDataframe(entries, only.atomic = TRUE, null.to.na = TRUE,
   compute = TRUE)}}{Convert a list of entries (BiodbEntry objects) into a data frame.
 only.atomic Set to TRUE if you want only the atomic fields (integer, numeric, logical and character) inside the data frame.
 null.to.na  If TRUE, each NULL entry gives a line of NA values inside the data frame.}
+
+\item{\code{getCache()}}{:
+
+Returns the instance of the \code{BiodbCache} class.}
+
+\item{\code{getConfig()}}{:
+
+Returns the instance of the \code{BiodbConfig} class.}
+
+\item{\code{getEntryFields()}}{:
+
+Returns the instance of the \code{BiodbEntryFields} class.}
+
+\item{\code{getFactory()}}{:
+
+Returns the instance of the \code{BiodbFactory} class.}
+
+\item{\code{getObservers()}}{:
+
+Get the list of registered observers.}
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create an instance without the default logger:
+mybiodb.without.logger <- biodb::Biodb(logger = FALSE)
+
+}
+\seealso{
+\code{\link{BiodbFactory}}
+}
