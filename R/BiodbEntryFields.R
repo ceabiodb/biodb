@@ -65,11 +65,6 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.MSTYPE)
 	.self$.define(BIODB.MSMODE)
 	.self$.define(BIODB.MSPRECMZ,     class =  'double')
-	.self$.define(BIODB.CHROM.COL)
-	.self$.define(BIODB.CHROM.COL.RT, class = 'double')
-	.self$.define(BIODB.PEAK.MZ,      class = 'double')
-	.self$.define(BIODB.PEAK.MZTHEO,  class = 'double')
-	.self$.define(BIODB.PEAK.MZEXP,   class = 'double')
 	.self$.define(BIODB.MSPRECANNOT)
 	.self$.define(BIODB.FORMULA)
 	.self$.define(BIODB.SUPER.CLASS)
@@ -82,7 +77,6 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.LENGTH,               class = 'integer')
 	.self$.define(BIODB.LOCATION)
 	.self$.define(BIODB.NB.PEAKS,             class = 'integer')
-	.self$.define(BIODB.PEAKS,                class = 'data.frame')
 	.self$.define(BIODB.SMILES)
 	.self$.define(BIODB.SMILES.CANONICAL)
 	.self$.define(BIODB.SMILES.ISOMERIC)
@@ -90,6 +84,24 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.COFACTOR,                                  card = BIODB.CARD.MANY)
 	.self$.define(BIODB.CHARGE,               class = 'integer')
 	.self$.define(BIODB.CAS.ID)
+
+	# MS Peaks
+	.self$.define(BIODB.PEAKS,                class = 'data.frame')
+	.self$.define(BIODB.PEAK.MZ,      class = 'double')
+	.self$.define(BIODB.PEAK.MZTHEO,  class = 'double')
+	.self$.define(BIODB.PEAK.MZEXP,   class = 'double')
+
+	# Chromatographic column
+	.self$.define(BIODB.CHROM.COL)
+	.self$.define(BIODB.CHROM.COL.NAME)
+	.self$.define(BIODB.CHROM.COL.METHOD.PROTOCOL)
+	.self$.define(BIODB.CHROM.COL.ID)
+	.self$.define(BIODB.CHROM.COL.CONSTRUCTOR)
+	.self$.define(BIODB.CHROM.COL.LENGTH, class = "double")
+	.self$.define(BIODB.CHROM.COL.DIAMETER, class = "double")
+	.self$.define(BIODB.CHROM.COL.RT, class = 'double')
+	.self$.define(BIODB.CHROM.COL.RT.MIN, class = "double")
+	.self$.define(BIODB.CHROM.COL.RT.MAX, class = "double")
 })
 
 # Define {{{1

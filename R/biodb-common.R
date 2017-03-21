@@ -76,8 +76,19 @@ BIODB.NB.COMPOUNDS <- 'nbcompounds'
 BIODB.COMPOUND.ID   <- 'compoundid'
 BIODB.COMPOUND.MASS   <- 'compoundmass'
 BIODB.COMPOUND.COMP   <- 'compoundcomp'
-BIODB.CHROM.COL     <- 'chromcol' # Chromatographic column
-BIODB.CHROM.COL.RT  <- 'chromcolrt' # Retention time measured on chromatographic column
+
+# Chromatographic column
+BIODB.CHROM.COL      <- 'chromcol'
+BIODB.CHROM.COL.NAME <- 'chrom.col.name'
+BIODB.CHROM.COL.ID <- 'chrom.col.id'
+BIODB.CHROM.COL.CONSTRUCTOR <- 'chrom.col.constructor'
+BIODB.CHROM.COL.LENGTH <- 'chrom.col.length'
+BIODB.CHROM.COL.DIAMETER <- 'chrom.col.diameter'
+BIODB.CHROM.COL.RT  <- 'chromcolrt'
+BIODB.CHROM.COL.RT.MIN  <- 'chrom.col.rt.min'
+BIODB.CHROM.COL.RT.MAX  <- 'chrom.col.rt.max'
+BIODB.CHROM.COL.METHOD.PROTOCOL <- 'chrom.col.method.protocol'
+
 BIODB.ID <- 'id'
 BIODB.TITLE <- 'title'
 BIODB.PEAK.MZ <- 'peak.mz'
