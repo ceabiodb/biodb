@@ -96,7 +96,7 @@ test.nb.entries <- function(db) {
 	expect_true(is.na(n) || n >= 0)
 }
 
-# TEST ENTRY IDS {{{1
+# Test entry ids {{{1
 ################################################################
 
 test.entry.ids <- function(db) {
@@ -104,8 +104,39 @@ test.entry.ids <- function(db) {
 	# Test getEntryIds()
 	max <- 100
 	ids <- db$getEntryIds(max.results = max)
+	expect_true(is.character(ids))
 	n <- length(ids)
 	expect_true(n >= 0 && n <= max)
+}
+
+# Test getMzValues() {{{1
+################################################################
+
+test.getMzValues <- function(db) {
+	max <- 10
+	for (mode in c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)) {
+		mz <- db$getMzValues(mode = mode, max.results = max)
+		expect_true(is.double(mz))
+		n <- length(mz)
+		expect_true(n >= 1 && n <= max)
+	}
+}
+
+# Test searchPeak() {{{1
+################################################################
+
+test.searchPeak <- function(db) {
+
+	# Get M/Z values from database
+	mode <- BIODB.MSMODE.POS
+	mz <- db$getMzValues(mode = mode, max.results = 10)
+	expect_true(is.double(mz))
+	expect_true(length(mz) >= 1)
+
+	# Search
+	ids <- db$searchPeak(mz = mz, tol = 5, relint = 0, mode = mode)
+	expect_true(is.character(ids))
+	expect_true(length(ids) > 0)
 }
 
 # MAIN {{{1
@@ -139,14 +170,25 @@ for (mode in TEST.MODES) {
 	set.mode(biodb, mode)
 
 	# Loop on test databases
-	for (db in TEST.DATABASES) {
-		set.test.context(biodb, paste("Running generic tests on", db, "in", mode, "mode"))
-		test_that("Wrong entry gives NULL", test.wrong.entry(biodb, db))
-		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(biodb, db))
-		test_that("Entry fields have a correct value", test.entry.fields(biodb, db))
-		if ( ! is(biodb$getFactory()$getConn(db), 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
-			test_that("Nb entries is positive", test.nb.entries(biodb$getFactory()$getConn(db)))
-			test_that("We can get a list of entry ids", test.entry.ids(biodb$getFactory()$getConn(db)))
+	for (db.name in TEST.DATABASES) {
+
+		set.test.context(biodb, paste("Running generic tests on", db.name, "in", mode, "mode"))
+		test_that("Wrong entry gives NULL", test.wrong.entry(biodb, db.name))
+		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(biodb, db.name))
+		test_that("Entry fields have a correct value", test.entry.fields(biodb, db.name))
+
+		# Get instance
+		db <- biodb$getFactory()$getConn(db.name)
+
+		if ( ! methods::is(db, 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
+			test_that("Nb entries is positive", test.nb.entries(db))
+			test_that("We can get a list of entry ids", test.entry.ids(db))
+
+			# Mass database testing
+			if (methods::is(db, 'MassdbConn')) {
+				test_that("We can retrieve a list of M/Z values", test.getMzValues(db))
+				test_that("We can match M/Z peaks", test.searchPeak(db))
+			}
 		}
 	}
 }
