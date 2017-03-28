@@ -73,6 +73,7 @@ PeakforestConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Get IDs
 	ids <- json
+	ids <- as.character(ids)
 
 	# Cut
 	if ( ! is.na(max.results) && max.results > 1 && max.results < length(ids))

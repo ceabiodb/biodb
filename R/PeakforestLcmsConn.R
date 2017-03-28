@@ -183,26 +183,6 @@ PeakforestLcmsConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("ob
 	return(toreturn)
 })
 
-# Search mz tol {{{1
-################################################################
-
-PeakforestLcmsConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.VALS,
-											   rtype = c("object","spec","peak")){
-	
-	rtype <- match.arg(rtype)
-	tolunit <- match.arg(tolunit)
-	
-	if( tolunit == BIODB.MZTOLUNIT.PPM){
-		tol <- tol * mz * 10^-6
-	}
-	
-	mzmin <- mz - tol
-	mzmax <- mz + tol
-	
-	return(.self$searchMzRange(mzmin, mzmax, rtype = rtype))
-	
-})
-
 # Search for msms spectra precusor around a mass {{{1
 ################################################################
 
@@ -248,4 +228,26 @@ PeakforestLcmsConn$methods( getChromCol = function(compound.ids = NULL) {
 		cols <- rbind(cols, data.frame(id = id, title = wscols[[id]]$name, stringsAsFactors = FALSE))
 
 	return(cols)
+})
+# Get mz values {{{1
+################################################################
+
+PeakforestLcmsConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
+
+	# Set URL
+	url <- paste(.self$getBaseUrl(), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
+	if ( ! is.null(mode))
+		url <- paste(url, '&mode=', if (mode == BIODB.MSMODE.POS) 'positive' else 'negative', sep ='')
+
+	# Get MZ valuels
+	json.str <- .self$.getUrlScheduler()$getUrl(url)
+
+	# Parse JSON
+	mz <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
+
+	# Apply cut-off
+	if ( ! is.na(max.results) && length(mz) > max.results)
+		mz <- mz[1:max.results]
+
+	return(mz)
 })

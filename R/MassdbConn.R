@@ -86,8 +86,17 @@ MassdbConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("objects","
 # Find spectra in given mass range {{{1
 ################################################################
 
-MassdbConn$methods( searchMzTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, rtype = c("objects","dfspecs","dfpeaks")){
-	.self$.abstract.method()
+MassdbConn$methods( searchMzTol = function(mz, tol, tolunit = BIODB.MZTOLUNIT.PPM, rtype = c("objects","dfspecs","dfpeaks")){
+
+	rtype <- match.arg(rtype)
+
+	if (tolunit == BIODB.MZTOLUNIT.PPM)
+		tol <- tol * mz * 1e-6
+
+	mzmin <- mz - tol
+	mzmax <- mz + tol
+
+	return(.self$searchMzRange(mzmin, mzmax, rtype = rtype))
 })
 
 # Find molecules with precursor within a tolerance {{{1
