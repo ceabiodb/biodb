@@ -110,6 +110,7 @@ MULTIVAL.FIELD.SEP <- ';'
 # Mode values
 BIODB.MSMODE.NEG <- 'neg'
 BIODB.MSMODE.POS <- 'pos'
+BIODB.MSMODE.VALS <- c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)
 
 # Tolerance values
 BIODB.TOL <- 'mztol'

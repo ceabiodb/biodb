@@ -127,12 +127,7 @@ PeakforestLcmsConn$methods( createReducedEntry = function(content , drop = TRUE)
 # Search mz range {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("object","spec","peak")){
-	
-	rtype <- match.arg(rtype)
-	if(mzmin > mzmax){
-		.self$message(MSG.ERROR, "mzmin should be inferior to mzmax.")
-	}
+PeakforestLcmsConn$methods( searchMzRange = function(mz.min, mz.max) {
 	
 	url <- paste0("https://rest.peakforest.org/spectra/lcms/peaks/get-range/",mzmin,"/",mzmax)
 	
@@ -250,4 +245,9 @@ PeakforestLcmsConn$methods( getMzValues = function(mode = NULL, max.results = NA
 		mz <- mz[1:max.results]
 
 	return(mz)
+})
+# Do search peak {{{1
+################################################################
+
+PeakforestLcmsConn$methods( .do.search.peak = function(mz = NA_real_, plain.tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
 })

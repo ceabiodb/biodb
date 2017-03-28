@@ -49,6 +49,67 @@ BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {
 	.self$message(MSG.CAUTION, msg)
 })
 
+# Assert not NA {{{1
+################################################################
+
+BiodbObject$methods( .assert.not.na = function(param, msg.type = MSG.ERROR) {
+	if (is.na(param)) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste(param.name, ' cannot be set to NA.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert not NULL {{{1
+################################################################
+
+BiodbObject$methods( .assert.not.null = function(param, msg.type = MSG.ERROR) {
+	if (is.null(param)) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste(param.name, ' cannot be NULL.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert inferior {{{1
+################################################################
+
+BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = MSG.ERROR) {
+	if (param1 > param2) {
+		param1.name <- as.character(sys.call(0))[[2]]
+		param2.name <- as.character(sys.call(0))[[3]]
+		.self$message(msg.type, paste(param1.name, ' (', param1, ') must be lesser than ', param2.name, ' (', param2, ').', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert positive {{{1
+################################################################
+
+BiodbObject$methods( .assert.positive = function(param, msg.type = MSG.ERROR) {
+	if ( ! is.na(param) && param < 0) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste(param.name, ' (', param, ') cannot be negative.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert in {{{1
+################################################################
+
+BiodbObject$methods( .assert.in = function(param, values, msg.type = MSG.ERROR) {
+	if ( ! is.na(param) && ! param %in% values) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste(param.name, ' cannot be set to ', param, '. Allowed values are: ', paste(values, collapse = ', '), '.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
 # Get biodb {{{1
 ################################################################
 

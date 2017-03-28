@@ -69,19 +69,42 @@ MassbankConn$methods( getEntryContent = function(id) {
 # Get mz values {{{1
 ################################################################
 
-MassbankConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
+MassbankConn$methods( getMzValues = function(ms.mode = NA_character_, max.results = NA_integer_) {
+
+	mz <- numeric(0)
+
+	# Get list of spectra
+	spectra.ids <- .self$searchMzRange(10, 1000, ms.mode = ms.mode, max.results = max.results)
+
+	# Get entries
+	entries <- .self$getBiodb()$getFactory()$getEntry(BIODB.MASSBANK, spectra.ids)
+
+	# Get peaks
+	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
+	if (BIODB.PEAK.MZ %in% colnames(df))
+		mz <- df[[BIODB.PEAK.MZ]]
+
+	# Cut
+	if ( ! is.na(max.results) && length(mz) > max.results)
+		mz <- mz[1:max.results]
+
+	return(mz)
 })
 
-# Do search peak {{{1
+# Do search M/Z with tolerance {{{1
 ################################################################
 
-MassbankConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
+MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms.mode, max.results) {
+
+	# Set tolerance
+	if (tol.unit == BIODB.MZTOLUNIT.PPM)
+		tol <- tol * mz * 1e-6
 
 	# Set URL
 	url <- paste0(.self$getBaseUrl(), 'searchPeak?mzs=', mz)
-	url <- paste0(url, '&relativeIntensity=', if (is.na(relint)) 0 else relint)
-	url <- paste0(url, '&tolerance=', tol, '&instrumentTypes=all')
-	url <- paste0(url, '&ionMode=', if (is.na(mode)) 'Both' else ( if (mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'))
+	url <- paste0(url, '&relativeIntensity=', if (is.na(min.rel.int)) 0 else min.rel.int)
+	url <- paste0(url, '&tolerance=', tol, '&instrumentTypes=all') # Tolerance seems to be the plain tolerance (i.e.: mz ± tol).
+	url <- paste0(url, '&ionMode=', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'))
 	url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
 
 	# Send request
@@ -97,6 +120,15 @@ MassbankConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, 
 
 })
 
+# Do search M/Z range {{{1
+################################################################
+
+MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results) {
+	mz <- (mz.min + mz.max) / 2
+	tol <- mz.max - mz
+	return(.self$searchMzTol(mz = mz, tol = tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results))
+})
+
 # Get entry ids {{{1
 ################################################################
 
@@ -104,7 +136,7 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	.self$message(MSG.INFO, paste("Getting", if (is.na(max.results)) 'all' else max.results, "massbank entry ids..."))
 
-	return(.self$searchPeak(mz = 1000, tol = 1000, relint = 100, max.results = max.results))
+	return(.self$searchMzTol(mz = 1000, tol = 1000, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 100, max.results = max.results))
 })
 
 # Get nb entries {{{1

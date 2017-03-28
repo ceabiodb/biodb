@@ -1,10 +1,24 @@
 # vi: fdm=marker
 
-#' @include BiodbConn.R
-
 # Class declaration {{{1
 ################################################################
 
+#' The mother class of all Mass spectra databases.
+#'
+#' All Mass spectra databases inherit from this class.
+#'
+#' @param max.results   The maximum of elements returned by a method.
+#' @param min.rel.int   The minimum relative intensity.
+#' @param ms.mode       The MS mode. Set it to either \code{BIODB.MSMODE.NEG} or \code{BIODB.MSMODE.POS}.
+#' @param mz            An M/Z value.
+#' @param mz.max        The maximum allowed for searched M/Z values.
+#' @param mz.min        The minimum allowed for searched M/Z values.
+#' @param plain.tol     The M/Z tolerance in M/Z unit. Thus the searched mz must satisfy the folloing double inequality: mz - plain.tol <= mz <= mz + plain.tol.
+#' @param tol           An M/Z tolerance, whose unit is not defined.
+#' @param tol.unit      The unit of the M/Z tolerance. Set it to either \code{BIODB.MZTOLUNIT.PPM} or \code{BIODB.MZTOLUNIT.PLAIN}.
+#'
+#' @import methods
+#' @include BiodbConn.R
 MassdbConn <- methods::setRefClass("MassdbConn", contains = "BiodbConn")
 
 # Get chromatographic columns {{{1
@@ -21,7 +35,7 @@ MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
 ################################################################
 
 # Returns a numeric vector of all masses stored inside the database.
-MassdbConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
+MassdbConn$methods( getMzValues = function(ms.mode = NA_character_, max.results = NA_integer_) {
 	.self$.abstract.method()
 })
 
@@ -43,60 +57,94 @@ MassdbConn$methods( findCompoundByName = function(name) {
 	.self$.abstract.method()
 })
 
-# Search peak {{{1
+## Search peak {{{1
+#################################################################
+#
+#MassdbConn$methods( searchPeak = function(mz = NA_real_, plain.tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
+#	"Search matching peaks in database, and return a list of entry IDs."
+#
+#	if (is.na(mz) || length(mz) == 0)
+#		.self$message(MSG.ERROR, "At least one mz value is required for searchPeak() method.")
+#	if (! all(mz > 0))
+#		.self$message(MSG.ERROR, "MZ values must be positive for searchPeak() method.")
+#	if (is.na(tol) || length(tol) == 0)
+#		.self$message(MSG.ERROR, "A tolerance value is required for searchPeak() method.")
+#	if (length(tol) > 1)
+#		.self$message(MSG.ERROR, "No more than one tolerance value is allowed for searchPeak() method.")
+#	if ( ! is.na(max.results) && max.results < 0)
+#		.self$message(MSG.ERROR, "The maximum number of results must be positive or zero for searchPeak() method.")
+#	if ( ! is.na(mode) && ! mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS))
+#		.self$message(MSG.ERROR, paste("Incorrect MS mode", mode, "for searchPeak() method."))
+#	if ( ! is.na(relint) && relint < 0)
+#		.self$message(MSG.ERROR, "The relative intensity must be positive or zero for searchPeak() method.")
+#
+#	.self$.do.search.peak(mz = mz, plain.tol = plain.tol, relint = relint, mode = mode, max.results = max.results)
+#})
+#
+## Do search peak {{{1
+#################################################################
+#
+#MassdbConn$methods( .do.search.peak = function(mz = NA_real_, plain.tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
+#	.self$.abstract.method()
+#})
+
+# Find spectra in given mass range {{{1
 ################################################################
 
-MassdbConn$methods( searchPeak = function(mz = NA_real_, tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
-	"Search matching peaks in database, and return a list of entry IDs."
+MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
+	"Find spectra in the given M/Z range. Returns a list of spectra IDs."
+	
+	# Check arguments
+	if ( ! .self$.assert.not.na(mz.min, msg.type = MSG.WARNING)) return(NULL)
+	if ( ! .self$.assert.not.null(mz.max, msg.type = MSG.WARNING)) return(NULL)
+	if ( ! .self$.assert.not.na(mz.min, msg.type = MSG.WARNING)) return(NULL)
+	if ( ! .self$.assert.not.null(mz.max, msg.type = MSG.WARNING)) return(NULL)
+	.self$.assert.positive(mz.min)
+	.self$.assert.positive(mz.max)
+	.self$.assert.inferior(mz.min, mz.max)
+	.self$.assert.positive(min.rel.int)
+	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
+	.self$.assert.positive(max.results)
 
-	if (is.na(mz) || length(mz) == 0)
-		.self$message(MSG.ERROR, "At least one mz value is required for searchPeak() method.")
-	if (! all(mz > 0))
-		.self$message(MSG.ERROR, "MZ values must be positive for searchPeak() method.")
-	if (is.na(tol) || length(tol) == 0)
-		.self$message(MSG.ERROR, "A tolerance value is required for searchPeak() method.")
-	if (length(tol) > 1)
-		.self$message(MSG.ERROR, "No more than one tolerance value is allowed for searchPeak() method.")
-	if ( ! is.na(max.results) && max.results < 0)
-		.self$message(MSG.ERROR, "The maximum number of results must be positive or zero for searchPeak() method.")
-	if ( ! is.na(mode) && ! mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS))
-		.self$message(MSG.ERROR, paste("Incorrect MS mode", mode, "for searchPeak() method."))
-	if ( ! is.na(relint) && relint < 0)
-		.self$message(MSG.ERROR, "The relative intensity must be positive or zero for searchPeak() method.")
-
-	.self$.do.search.peak(mz = mz, tol = tol, relint = relint, mode = mode, max.results = max.results)
+	return(.self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results))
 })
 
-# Do search peak {{{1
+# Do search M/Z range {{{1
 ################################################################
 
-MassdbConn$methods( .do.search.peak = function(mz = NA_real_, tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
+MassdbConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results) {
 	.self$.abstract.method()
 })
 
 # Find spectra in given mass range {{{1
 ################################################################
 
-# Find spectra in the given mass range.
-# rtype the type of return, objects, dfspecs data.frame of spectra, dfpeaks data.frame of peaks.
-MassdbConn$methods( searchMzRange = function(mzmin, mzmax, rtype = c("objects","dfspecs","dfpeaks")){
-	.self$.abstract.method()
+MassdbConn$methods( searchMzTol = function(mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
+	"Find spectra containg a peak around the given M/Z value. Returns a list of spectra IDs."
+	
+	if ( ! .self$.assert.not.na(mz, msg.type = MSG.WARNING)) return(NULL)
+	if ( ! .self$.assert.not.null(mz, msg.type = MSG.WARNING)) return(NULL)
+	.self$.assert.positive(mz)
+	.self$.assert.positive(tol)
+	.self$.assert.positive(min.rel.int)
+	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
+	.self$.assert.positive(max.results)
+
+	return(.self$.doSearchMzTol(mz = mz, tol = tol, tol.unit = tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results))
 })
 
-# Find spectra in given mass range {{{1
+# Do search M/Z with tolerance {{{1
 ################################################################
 
-MassdbConn$methods( searchMzTol = function(mz, tol, tolunit = BIODB.MZTOLUNIT.PPM, rtype = c("objects","dfspecs","dfpeaks")){
+MassdbConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms.mode, max.results) {
 
-	rtype <- match.arg(rtype)
-
-	if (tolunit == BIODB.MZTOLUNIT.PPM)
+	if (tol.unit == BIODB.MZTOLUNIT.PPM)
 		tol <- tol * mz * 1e-6
 
-	mzmin <- mz - tol
-	mzmax <- mz + tol
+	mz.min <- mz - tol
+	mz.max <- mz + tol
 
-	return(.self$searchMzRange(mzmin, mzmax, rtype = rtype))
+	return(.self$searchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results))
 })
 
 # Find molecules with precursor within a tolerance {{{1

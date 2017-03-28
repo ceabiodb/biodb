@@ -115,7 +115,7 @@ test.entry.ids <- function(db) {
 test.getMzValues <- function(db) {
 	max <- 10
 	for (mode in c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)) {
-		mz <- db$getMzValues(mode = mode, max.results = max)
+		mz <- db$getMzValues(ms.mode = mode, max.results = max)
 		expect_true(is.double(mz))
 		n <- length(mz)
 		expect_true(n >= 1 && n <= max)
@@ -125,16 +125,18 @@ test.getMzValues <- function(db) {
 # Test searchPeak() {{{1
 ################################################################
 
-test.searchPeak <- function(db) {
+test.searchMzTol <- function(db) {
 
 	# Get M/Z values from database
 	mode <- BIODB.MSMODE.POS
-	mz <- db$getMzValues(mode = mode, max.results = 10)
+	mz <- db$getMzValues(ms.mode = mode, max.results = 10)
 	expect_true(is.double(mz))
 	expect_true(length(mz) >= 1)
 
 	# Search
-	ids <- db$searchPeak(mz = mz, tol = 5, relint = 0, mode = mode)
+	ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+	print('* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * IDS')
+	print(ids)
 	expect_true(is.character(ids))
 	expect_true(length(ids) > 0)
 }
@@ -187,7 +189,7 @@ for (mode in TEST.MODES) {
 			# Mass database testing
 			if (methods::is(db, 'MassdbConn')) {
 				test_that("We can retrieve a list of M/Z values", test.getMzValues(db))
-				test_that("We can match M/Z peaks", test.searchPeak(db))
+				test_that("We can match M/Z peaks", test.searchMzTol(db))
 			}
 		}
 	}
