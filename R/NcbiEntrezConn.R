@@ -3,8 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-#'The mother abstract class of all NCBI Entrez connection classes.
-#'@export
+#' @include NcbiConn.R
 NcbiEntrezConn <- methods::setRefClass("NcbiEntrezConn", contains = "NcbiConn", fields = list(.db.name = "character"))
 
 # Constructor {{{1

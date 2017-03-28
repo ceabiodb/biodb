@@ -1,12 +1,9 @@
 # vi: fdm=marker
 
-#' @include RemotedbConn.R
-
 # Class declaration {{{1
 ################################################################
 
-#'PeakForest connector class.
-#'@export
+#' @include RemotedbConn.R
 PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn"), fields = list(.db.name = 'character'))
 
 # Constructor {{{1
@@ -40,7 +37,6 @@ PeakforestConn$methods( getEntryContent = function(id) {
 
 	# Parse JSON
 	if (length(jsonstr) > 1) {
-		print('ZAP 1')
 		if (length(jsonstr) != length(id))
 			.self$message(MSG.ERROR, paste("Got only", length(jsonstr), "contents for", length(id), "IDs."))
 		content <- jsonstr

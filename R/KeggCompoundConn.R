@@ -1,12 +1,9 @@
 # vi: fdm=marker
 
-#' @include KeggConn.R
-
 # Class declaration {{{1
 ################################################################
 
-#'KEGG Compound connection class.
-#'@export
+#' @include KeggConn.R
 KeggCompoundConn <- methods::setRefClass("KeggCompoundConn", contains = "KeggConn")
 
 # Constructor {{{1

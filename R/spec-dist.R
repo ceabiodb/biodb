@@ -2,6 +2,8 @@
 # commented out for refactoring as package
 #dyn.load('src/closeMatchPpm.so')
 
+#' @import stats
+
 trpz <- function (x, y) 
 {
 	if (missing(y)) {

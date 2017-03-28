@@ -1,13 +1,10 @@
 # vi: fdm=marker
 
-#' @include PeakforestConn.R
-#' @include MassdbConn.R
-
 # Class declaration {{{1
 ################################################################
 
-#'PeakForest LCMS connector class.
-#'@export
+#' @include PeakforestConn.R
+#' @include MassdbConn.R
 PeakforestLcmsConn <- methods::setRefClass("PeakforestLcmsConn", contains = c("PeakforestConn", "MassdbConn"))
 
 # Constructor {{{1

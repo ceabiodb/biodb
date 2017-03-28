@@ -1,12 +1,12 @@
 # vi: fdm=marker
 
-#' @include ChildObject.R
-
 # Class declaration {{{1
 ################################################################
 
-#'A class for constructing biodb objects.
-#'@export
+#' A class for constructing biodb objects.
+#'
+#' @include ChildObject.R
+#' @exportClass BiodbFactory
 BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
 
 # Constructor {{{1
@@ -168,9 +168,9 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
 
 	# Initialize content
-	if (.self$getBiodb()$getCache()$isReadable() && ! .self$getBiodb()$getConfig()$isEnabled(CFG.CACHE.FORCE.DOWNLOAD)) {
+	if (.self$getBiodb()$getCache()$isReadable()) {
 		# Load content from cache
-		content <- .self$getBiodb()$getCache()$loadFileContent(class, id, .self$getConn(class)$getEntryContentType())
+		content <- .self$getBiodb()$getCache()$loadFileContent(db = class, folder = CACHE.SHORT.TERM.FOLDER, names = id, ext = .self$getConn(class)$getEntryContentType())
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 	}
 	else {
@@ -209,7 +209,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 			# Save to cache
 			if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, class, ch.missing.ids, .self$getConn(class)$getEntryContentType())
+				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, db = class, folder = CACHE.SHORT.TERM.FOLDER, names = ch.missing.ids, ext = .self$getConn(class)$getEntryContentType())
 
 			# Append
 			missing.contents <- c(missing.contents, ch.missing.contents)

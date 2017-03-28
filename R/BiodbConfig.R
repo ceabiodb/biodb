@@ -1,12 +1,12 @@
 # vi: fdm=marker
 
-#' @include ChildObject.R
-
 # Class declaration {{{1
 ################################################################
 
-#'Class for storing configuration values.
-#'@export
+#' Class for storing configuration values.
+#'
+#' @include ChildObject.R
+#' @export
 BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .value.info = "list" ))
 
 # Constants {{{1
@@ -15,7 +15,7 @@ BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fie
 # Keys
 CFG.ALLOW.HUGE.DOWNLOADS    <- 'allow.huge.downloads'
 CFG.CACHE.DIRECTORY         <- 'cache.directory'
-CFG.CACHE.FORCE.DOWNLOAD    <- 'cache.force.download'
+CFG.CACHE.SYSTEM            <- 'cache.system'
 CFG.CACHE.READ.ONLY         <- 'cache.read.only'
 CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
 CFG.COMPUTE.FIELDS          <- 'compute.fields'
@@ -24,6 +24,7 @@ CFG.OFFLINE                 <- 'offline'
 CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
 CFG.PEAKFOREST.URL          <- 'peakforest_url'
 CFG.USERAGENT               <- 'useragent'
+CFG.USE.CACHE.SUBFOLDERS    <- 'cache.subfolders'
 
 # Database URLs
 BIODB.MASSBANK.JP.URL  <- 'http://www.massbank.jp/'
@@ -75,7 +76,7 @@ BiodbConfig$methods( .initValueInfo = function() {
 	# Define keys
 	.self$.newKey(CFG.ALLOW.HUGE.DOWNLOADS,     type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.CACHE.DIRECTORY,          type = 'character', default = cachedir.default)
-	.self$.newKey(CFG.CACHE.FORCE.DOWNLOAD,     type = 'logical',   default = FALSE)
+	.self$.newKey(CFG.CACHE.SYSTEM,             type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.CACHE.READ.ONLY,          type = 'logical',   default = FALSE)
 	.self$.newKey(CFG.CHEMSPIDER.TOKEN,         type = 'character')
 	.self$.newKey(CFG.COMPUTE.FIELDS,           type = 'logical',   default = TRUE)
@@ -84,6 +85,7 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey(CFG.PEAKFOREST.TOKEN,         type = 'character')
 	.self$.newKey(CFG.PEAKFOREST.URL,           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
 	.self$.newKey(CFG.USERAGENT,                type = 'character', default = useragent.default)
+	.self$.newKey(CFG.USE.CACHE.SUBFOLDERS,     type = 'logical',   default = TRUE)
 })
 
 # New key {{{1

@@ -3,8 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-#'The mother abstract class of all NCBI connection classes.
-#'@export
+#' @include RemotedbConn.R
 NcbiConn <- methods::setRefClass("NcbiConn", contains = "RemotedbConn")
 
 # Constructor {{{1

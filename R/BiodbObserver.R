@@ -3,6 +3,10 @@
 # Class declaration {{{1
 ################################################################
 
+#' The mother abstract class of all observer classes.
+#'
+#' @export BiodbObserver
+#' @exportClass BiodbObserver
 BiodbObserver <- methods::setRefClass("BiodbObserver", fields = list())
 
 # Constants {{{1

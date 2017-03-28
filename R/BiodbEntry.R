@@ -77,11 +77,19 @@ BiodbEntry$methods(	hasField = function(field) {
 	return(field %in% names(.self$.fields))
 })
 
+# Remove field {{{1
+################################################################
+
+BiodbEntry$methods(	removeField = function(field) {
+	if (.self$hasField(field))
+		.fields <<- .self$.fields[names(.self$.fields) != field]
+})
+
 # Field has basic class {{{1
 ################################################################
 
 BiodbEntry$methods(	fieldHasBasicClass = function(field) {
-	return(.self$getFieldClass(field) %in% BIODB.BASIC.CLASSES)
+	return(.self$getBiodb()$getEntryFields()$getField(field)$getClass() %in% BIODB.BASIC.CLASSES)
 })
 
 # Get field value {{{1
@@ -103,13 +111,13 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 		val <- .self$.fields[[field]]
 	else {
 		# Return NULL or NA
-		class = .self$getFieldClass(field)
+		class = .self$getBiodb()$getEntryFields()$get(field)$getClass()
 		val <- if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL
 	}
 
 	# Flatten: convert atomic values with cardinality > 1 into a string
 	if (flatten)
-		if (.self$getBiodb()$fieldIsAtomic(field) && .self$getFieldCardinality(field) != BIODB.CARD.ONE)
+		if (.self$getBiodb()$getEntryFields()$get(field)$isVector() && .self$getBiodb()$getEntryFields()$get(field)$hasCardOne())
 			val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
 
 	return(val)
@@ -181,7 +189,7 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	for (f in names(.self$.fields)) {
 
 		# Ignore non atomic values
-		if (only.atomic && ! .self$getBiodb()$fieldIsAtomic(f))
+		if (only.atomic && ! .self$getBiodb()$getEntryFields()$get(f)$isVector())
 			next
 
 		v <- .self$getFieldValue(f, flatten = TRUE)
@@ -313,7 +321,7 @@ BiodbEntry$methods(	getFieldClass = function(field) {
 
 BiodbEntry$methods(	getFieldCardinality = function(field) {
 
-	.self$.deprecated.method('Biodb::getEntryFields()$get(field)$hasCardOne() or Biodb::getEntryFields()$get(field)$hasCardMany()')
+	.self$.deprecated.method('BiodbEntryFields::hasCardOne() or BiodbEntryFields::hasCardMany()')
 
 	return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
 })

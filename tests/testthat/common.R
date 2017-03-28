@@ -7,8 +7,8 @@ TEST.DIR <- file.path(getwd(), '..')
 OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
-OFFLINE.FILES.DIR <- file.path(RES.DIR, 'offline-files')
-CACHE.DIR <- file.path(TEST.DIR, 'cache')
+OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
+ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
 LOG.DIR  <- file.path(TEST.DIR)
 LOG.FILE <- file.path(LOG.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pierrick.rogermele@cloud.com'
@@ -21,28 +21,32 @@ if ( ! file.exists(OUTPUT.DIR))
 ################################################################
 
 env <- Sys.getenv()
+TEST.DATABASES <- biodb::BIODB.DATABASES
 if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
-	TEST.DATABASES <- strsplit(env[['DATABASES']], ',')[[1]]
-	db.exists <- TEST.DATABASES %in% BIODB.DATABASES
-	if ( ! all(db.exists)) {
-		wrong.dbs <- TEST.DATABASES[ ! db.exists]
-		stop(paste('Unknown testing database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+	if (env[['DATABASES']] == 'none')
+		TEST.DATABASES <- character(0)
+	else {
+		TEST.DATABASES <- strsplit(env[['DATABASES']], ',')[[1]]
+		db.exists <- TEST.DATABASES %in% BIODB.DATABASES
+		if ( ! all(db.exists)) {
+			wrong.dbs <- TEST.DATABASES[ ! db.exists]
+			stop(paste('Unknown testing database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+		}
 	}
-} else {
-	TEST.DATABASES <- BIODB.DATABASES
 }
 
-# Set modes {{{1
+# Define modes {{{1
 ################################################################
 
 MODE.OFFLINE <- 'offline'
 MODE.ONLINE <- 'online'
 MODE.QUICK.ONLINE <- 'quick.online'
 MODE.ALL <- 'all'
+MODE.FULL <- 'full'
 DEFAULT.MODES <- MODE.OFFLINE
 ALLOWED.MODES <- c(MODE.OFFLINE, MODE.QUICK.ONLINE, MODE.ONLINE)
 if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
-	if (env[['MODES']] == MODE.ALL)
+	if (env[['MODES']] %in% c(MODE.ALL, MODE.FULL))
 		TEST.MODES <- ALLOWED.MODES
 	else {
 		TEST.MODES <- strsplit(env[['MODES']], ',')[[1]]
@@ -93,30 +97,49 @@ set.mode <- function(biodb, mode) {
 
 	# Online
 	if (mode == MODE.ONLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$disable(CFG.OFFLINE)
+		biodb$getConfig()$enable(CFG.USE.CACHE.SUBFOLDERS)
 	}
 
 	# Quick online
 	else if (mode == MODE.QUICK.ONLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, CACHE.DIR)
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$disable(CFG.OFFLINE)
+		biodb$getConfig()$enable(CFG.USE.CACHE.SUBFOLDERS)
 	}
 
 	# Offline
 	else if (mode == MODE.OFFLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.FILES.DIR)
+		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.CACHE.DIR)
 		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
 		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
 		biodb$getConfig()$enable(CFG.OFFLINE)
+		biodb$getConfig()$disable(CFG.USE.CACHE.SUBFOLDERS)
 	}
 
 	# Unknown mode
 	else {
 		stop(paste("Unknown mode \"", mode, "\".", sep = "."))
 	}
+}
+
+# Load reference entries {{{1
+################################################################
+
+load.ref.entries <- function(db) {
+
+	# Define reference file
+	entries.file <- file.path(RES.DIR, paste0(db, '-entries.txt'))
+	expect_true(file.exists(entries.file), info = paste0("Cannot find file \"", entries.file, "\"."))
+
+	# Load reference contents from file
+	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
+	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
+
+	return(entries.desc)
 }

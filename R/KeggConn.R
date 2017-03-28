@@ -3,8 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-#'The mother abstract class of all KEGG connection classes.
-#'@export
+#' @include RemotedbConn.R
 KeggConn <- methods::setRefClass("KeggConn", contains = "RemotedbConn", fields = list(.db.name = "character", .db.abbrev = "character"))
 
 # Constructor {{{1

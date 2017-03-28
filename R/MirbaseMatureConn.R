@@ -24,39 +24,49 @@ MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
 
 MirbaseMatureConn$methods( download = function() {
 
-	if ( ! .self$getBiodb()$getCache()$fileExists(BIODB.MIRBASE.MATURE, 'download', 'gz')) {
+	# TODO test if download is allowed
+
+	if ( ! .self$getBiodb()$getCache()$markerExists(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')) {
 
 		# Download
-		gz.path <- .self$getBiodb()$getCache()$getFilePaths(BIODB.MIRBASE.MATURE, 'download', 'gz')
-		gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
-		.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
-		.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = gz.path)
-
-		# Extract
-		# We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.
-		extracted.file <- tempfile(BIODB.MIRBASE.MATURE)
-		R.utils::gunzip(filename = gz.path, destname = extracted.file, remove = FALSE)
-
-		# Read file
-		fd <- file(extracted.file, 'r')
-		lines <- readLines(fd)
-		close(fd)
-
-		# Get all entry IDs
-		ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value = TRUE), perl = TRUE)
-		.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", gz.path, "\".", sep = ''))
-
-		if (length(ids) > 0) {
-			# Get contents
-			contents <- paste(lines[seq(1, length(ids), 2)], lines[seq(2, length(ids), 2)], sep = "\n")
-
-			# Write all entries into files
-			.self$getBiodb()$getCache()$deleteFiles(BIODB.MIRBASE.MATURE, .self$getEntryContentType())
-			.self$getBiodb()$getCache()$saveContentToFile(contents, BIODB.MIRBASE.MATURE, ids, .self$getEntryContentType())
+		gz.path <- .self$getBiodb()$getCache()$getFilePaths(db = BIODB.MIRBASE.MATURE, folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'gz')
+		if ( ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE) && ! file.exists(gz.path)) {
+			gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
+			.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
+			.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = gz.path)
 		}
 
-		# Remove extract directory
-		unlink(extracted.file)
+		if (file.exists(gz.path)) {
+
+			# Extract
+			# We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.
+			extracted.file <- tempfile(BIODB.MIRBASE.MATURE)
+			R.utils::gunzip(filename = gz.path, destname = extracted.file, remove = FALSE)
+
+			# Read file
+			fd <- file(extracted.file, 'r')
+			lines <- readLines(fd)
+			close(fd)
+
+			# Get all entry IDs
+			ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value = TRUE), perl = TRUE)
+			.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", gz.path, "\".", sep = ''))
+
+			if (length(ids) > 0) {
+				# Get contents
+				contents <- paste(lines[seq(1, 2*length(ids), 2)], lines[seq(2, 2*length(ids), 2)], sep = "\n")
+
+				# Write all entries into files
+				.self$getBiodb()$getCache()$deleteFiles(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+				.self$getBiodb()$getCache()$saveContentToFile(contents, db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
+			}
+
+			# Remove extract directory
+			unlink(extracted.file)
+
+			# Set marker
+			.self$getBiodb()$getCache()$setMarker(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')
+		}
 	}
 })
 
@@ -71,7 +81,7 @@ MirbaseMatureConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(BIODB.MIRBASE.MATURE, .self$getEntryContentType(), extract.names = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
 
 	# Filter out wrong IDs
 	ids <- ids[grepl("^MIMAT[0-9]+$", ids, perl = TRUE)]
@@ -92,7 +102,7 @@ MirbaseMatureConn$methods( getEntryContent = function(ids) {
 	.self$download()
 
 	# Load content from cache
-	content <- .self$getBiodb()$getCache()$loadFileContent(BIODB.MIRBASE.MATURE, ids, .self$getEntryContentType(), output.vector = TRUE)
+	content <- .self$getBiodb()$getCache()$loadFileContent(db = BIODB.MIRBASE.MATURE, folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType(), output.vector = TRUE)
 
 	return(content)
 })
