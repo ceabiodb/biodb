@@ -19,6 +19,14 @@ PeakforestLcmsEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.MSDEV, c('analyzerMassSpectrometerDevice', 'instrumentName'))
 	.self$addParsingExpression(BIODB.MSDEVTYPE, c('analyzerMassSpectrometerDevice', 'ionAnalyzerType'))
 	.self$addParsingExpression(BIODB.MSTYPE, 'type')
+	.self$addParsingExpression(BIODB.CHROM.COL.NAME, c('liquidChromatography', 'columnName'))
+	.self$addParsingExpression(BIODB.CHROM.COL.ID, c('liquidChromatography', 'columnCode'))
+	.self$addParsingExpression(BIODB.CHROM.COL.CONSTRUCTOR, c('liquidChromatography', 'columnConstructorAString'))
+	.self$addParsingExpression(BIODB.CHROM.COL.LENGTH, c('liquidChromatography', 'columnLength'))
+	.self$addParsingExpression(BIODB.CHROM.COL.DIAMETER, c('liquidChromatography', 'columnDiameter'))
+	.self$addParsingExpression(BIODB.CHROM.COL.RT.MIN, 'RTmin')
+	.self$addParsingExpression(BIODB.CHROM.COL.RT.MAX, 'RTmax')
+	.self$addParsingExpression(BIODB.CHROM.COL.METHOD.PROTOCOL, c('liquidChromatography', 'methodProtocol'))
 })
 
 # Parse fields after {{{1
