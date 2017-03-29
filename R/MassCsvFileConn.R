@@ -36,8 +36,8 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	.file.quote <<- file.quote
 	.fields <<- .BIODB.DFT.DB.FIELDS
 	.field.multval.sep <<- ';'
-	.ms.modes <<- c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)
-	names(.self$.ms.modes) <- .self$.ms.modes
+	.ms.modes <<- BIODB.MSMODE.VALS
+	names(.self$.ms.modes) <- BIODB.MSMODE.VALS
 })
 
 # Is valid field tag {{{1
@@ -252,10 +252,10 @@ MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 ################################################################
 
 # Inherited from MassdbConn.
-MassCsvFileConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
+MassCsvFileConn$methods( getMzValues = function(ms.mode = NA_character_, max.results = NA_integer_) {
 
 	# Get mz values
-	mz <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results)
+	mz <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results)
 
 	return(mz)
 })
