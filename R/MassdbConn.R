@@ -57,7 +57,7 @@ MassdbConn$methods( findCompoundByName = function(name) {
 	.self$.abstract.method()
 })
 
-## Search peak {{{1
+# Search peak {{{1
 #################################################################
 #
 #MassdbConn$methods( searchPeak = function(mz = NA_real_, plain.tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
@@ -81,7 +81,7 @@ MassdbConn$methods( findCompoundByName = function(name) {
 #	.self$.do.search.peak(mz = mz, plain.tol = plain.tol, relint = relint, mode = mode, max.results = max.results)
 #})
 #
-## Do search peak {{{1
+# Do search peak {{{1
 #################################################################
 #
 #MassdbConn$methods( .do.search.peak = function(mz = NA_real_, plain.tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {

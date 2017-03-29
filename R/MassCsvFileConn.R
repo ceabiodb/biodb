@@ -10,7 +10,7 @@
 ################################################################
 
 # Default database fields
-.BIODB.DFT.DB.FIELDS <- c(BIODB.ACCESSION, BIODB.NAME, BIODB.FULLNAMES, BIODB.COMPOUND.ID, BIODB.MSMODE, BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.COMP, BIODB.PEAK.ATTR, BIODB.CHROM.COL, BIODB.CHROM.COL.RT, BIODB.FORMULA, BIODB.MASS, BIODB.INCHI, BIODB.INCHIKEY, BIODB.CHEBI.ID, BIODB.HMDB.METABOLITE.ID, BIODB.KEGG.COMPOUND.ID, BIODB.NCBI.PUBCHEM.COMP.ID)
+.BIODB.DFT.DB.FIELDS <- c(BIODB.ACCESSION, BIODB.NAME, BIODB.FULLNAMES, BIODB.COMPOUND.ID, BIODB.MSMODE, BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.COMP, BIODB.PEAK.ATTR, BIODB.CHROM.COL, BIODB.CHROM.COL.RT, BIODB.FORMULA, BIODB.MASS, BIODB.INCHI, BIODB.INCHIKEY, BIODB.CHEBI.ID, BIODB.HMDB.METABOLITE.ID, BIODB.KEGG.COMPOUND.ID, BIODB.NCBI.PUBCHEM.COMP.ID)
 names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
 
 # Class declaration {{{1
@@ -110,7 +110,7 @@ MassCsvFileConn$methods( setMsMode = function(mode, value) {
 # Check fields {{{1
 ################################################################
 
-MassCsvFileConn$methods( .check.fields = function(fields) {
+MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 
 	if (length(fields) ==0 || (length(fields) == 1 && is.na(fields)))
 		return
@@ -125,17 +125,19 @@ MassCsvFileConn$methods( .check.fields = function(fields) {
 
 	# Check if fields are defined in file database
 	undefined.fields <- colnames(.self$.db)[ ! .self$.fields[fields] %in% colnames(.self$.db)]
-	if (length(undefined.fields) > 0)
-		.self$message(MSG.ERROR, paste0("Column(s) ", paste(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database.")
+	if (length(undefined.fields) > 0) {
+		.self$message(if (fail) MSG.ERROR else MSG.DEBUG, paste0("Column(s) ", paste(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database.")
+		return(FALSE)
+	}
+
+	return(TRUE)
 })
 
 # Select {{{1
 ################################################################
 
 # Select data from database
-MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL, compound.ids = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_) {
-
-	x <- NULL
+MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL, compound.ids = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_, mz.min = NA_real_, mz.max = NA_real_, min.rel.int = NA_real_) {
 
 	# Init db
 	.self$.init.db()
@@ -166,32 +168,45 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		db <- db[db[[.self$.fields[[BIODB.COMPOUND.ID]]]] %in% compound.ids, ]
 	}
 
-	if ( ! is.null(cols) && ! is.na(cols))
-		.self$.check.fields(cols)
+	# Filter on mz values
+	if ( ! is.na(mz.min)) {
+		.self$.check.fields(BIODB.PEAK.MZTHEO)
+		db <- db[db[[.self$.fields[[BIODB.PEAK.MZTHEO]]]] >= mz.min, ]
+	}
+	if ( ! is.na(mz.max)) {
+		.self$.check.fields(BIODB.PEAK.MZTHEO)
+		db <- db[db[[.self$.fields[[BIODB.PEAK.MZTHEO]]]] <= mz.max, ]
+	}
 
-	# Get subset
-	if (is.null(cols) || is.na(cols))
-		x <- db
-	else
-		x <- db[, .self$.fields[cols], drop = drop]
+	# Filter on relative intensity
+	if ( ! is.na(min.rel.int)) {
+		if (.self$.check.fields(BIODB.PEAK.RELATIVE.INTENSITY, fail = FALSE))
+			db <- db[db[[.self$.fields[[BIODB.PEAK.RELATIVE.INTENSITY]]]] >= mz.min, ]
+	}
+
+	# Get subset of columns
+	if ( ! is.null(cols) && ! is.na(cols)) {
+		.self$.check.fields(cols)
+		db <- db[, .self$.fields[cols], drop = drop]
+	}
 
 	# Remove duplicates
 	if (uniq) {
-		if (is.vector(x))
-			x <- x[ ! duplicated(x)]
+		if (is.vector(db))
+			db <- db[ ! duplicated(db)]
 		else
-			x <- x[ ! duplicated(x), ]
+			db <- db[ ! duplicated(db), ]
 	}
 
 	# Sort
-	if (sort && is.vector(x))
-		x <- sort(x)
+	if (sort && is.vector(db))
+		db <- sort(db)
 
 	# Cut
 	if ( ! is.na(max.rows))
-		x <- if (is.vector(x)) x[1:max.rows] else x[1:max.rows, ]
+		db <- if (is.vector(db)) db[1:max.rows] else db[1:max.rows, ]
 
-	return(x)
+	return(db)
 })
 
 # Get entry ids {{{1
@@ -291,5 +306,12 @@ MassCsvFileConn$methods( getEntryContent = function(id) {
 	.self$message(MSG.DEBUG, paste("Entry content:", content))
 
 	return(content)
+})
+
+# Do search M/Z range {{{1
+################################################################
+
+MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results) {
+	return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode =ms.mode, max.rows = max.results, cols = BIODB.ACCESSION, drop = TRUE, uniq = TRUE, sort = TRUE))
 })
 
