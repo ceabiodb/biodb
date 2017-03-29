@@ -80,7 +80,7 @@ BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = MSG.
 	if (any(param1 > param2)) {
 		param1.name <- as.character(sys.call(0))[[2]]
 		param2.name <- as.character(sys.call(0))[[3]]
-		.self$message(msg.type, paste(param1.name, ' (', param1, ') must be lesser than ', param2.name, ' (', param2, ').', sep = ''))
+		.self$message(msg.type, paste(param1.name, ' (', param1, ') cannot be greater than ', param2.name, ' (', param2, ').', sep = ''))
 		return(FALSE)
 	}
 	return(TRUE)
@@ -104,7 +104,7 @@ BiodbObject$methods( .assert.positive = function(param, msg.type = MSG.ERROR) {
 BiodbObject$methods( .assert.length.one = function(param, msg.type = MSG.ERROR) {
 	if (length(param) != 1) {
 		param.name <- as.character(sys.call(0))[[2]]
-		.self$message(msg.type, paste('Length of ', param.name, ' (', param, ') must be one.', sep = ''))
+		.self$message(msg.type, paste('Length of ', param.name, ' (', length(param), ') must be one.', sep = ''))
 		return(FALSE)
 	}
 	return(TRUE)
