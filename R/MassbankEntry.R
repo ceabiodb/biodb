@@ -93,7 +93,8 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 			peaks <- merge(.self$getFieldValue(BIODB.PEAKS, compute = FALSE), peaks)
 		.self$setFieldValue(BIODB.PEAKS, peaks)
 	}
-	if (.self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
-	    .self$message(MSG.ERROR, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ".", sep = ''))
+
+	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
+	   	 .self$message(MSG.ERROR, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ".", sep = ''))
 
 })

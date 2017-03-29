@@ -125,10 +125,8 @@ BiodbFactory$methods( createEntry = function(class, content, drop = TRUE) {
     	entry <- entry.class$new(parent = conn)
 
 		# Parse content
-		print(paste('BiodbFactory::createEntry 1', class))
 		if ( ! is.null(single.content) && ! is.na(single.content))
 			entry$parseContent(single.content)
-		print(paste('BiodbFactory::createEntry 2', class))
 
 		entries <- c(entries, entry)
 	}
@@ -156,9 +154,7 @@ BiodbFactory$methods( getEntry = function(class, id, drop = TRUE) {
 	content <- .self$getEntryContent(class, id)
 
 	# Create entries
-	print(paste('BiodbFactory::getEntry 1', class))
 	entries <- .self$createEntry(class, content = content, drop = drop)
-	print(paste('BiodbFactory::getEntry 2', class))
 
 	return(entries)
 })

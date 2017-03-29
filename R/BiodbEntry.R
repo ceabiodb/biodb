@@ -156,10 +156,7 @@ BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 
 					# Get value for this field in the database
 					.self$message(MSG.DEBUG, paste("Compute value for field \"", f, "\".", sep = '')) 
-					print('BiodbEntry::.compute.field 1')
-					print(class(.self))
 					db.entry <- .self$getBiodb()$getFactory()$getEntry(db, id = db.id)
-					print('BiodbEntry::.compute.field 2')
 
 					# Set found value
 					if ( ! is.null(db.entry)) {
