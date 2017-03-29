@@ -57,7 +57,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Name
 	if (.self$hasField(BIODB.SYNONYMS)) {
-		v <- .self$getFieldValue(BIODB.SYNONYMS)
+		v <- .self$getFieldValue(BIODB.SYNONYMS, compute = FALSE)
 		if (length(v) > 0) {
 			.self$setFieldValue(BIODB.NAME, v[[1]])
 			if (length(v) == 1)
@@ -69,7 +69,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# MS mode
 	if (.self$hasField(BIODB.MSMODE))
-		.self$setFieldValue(BIODB.MSMODE, if (.self$getFieldValue(BIODB.MSMODE) == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
+		.self$setFieldValue(BIODB.MSMODE, if (.self$getFieldValue(BIODB.MSMODE, compute = FALSE) == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
 
 	
 	# Annotations
@@ -90,10 +90,10 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		colnames(peaks) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)
 		peaks[1:nrow(results), c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)] <- list(as.double(results[,2]), as.double(results[,3]), as.integer(results[,4]))
 		if (.self$hasField(BIODB.PEAKS))
-			peaks <- merge(.self$getFieldValue(BIODB.PEAKS), peaks)
+			peaks <- merge(.self$getFieldValue(BIODB.PEAKS, compute = FALSE), peaks)
 		.self$setFieldValue(BIODB.PEAKS, peaks)
 	}
-	if (.self$getFieldValue(BIODB.NB.PEAKS) != nrow(.self$getFieldValue(BIODB.PEAKS)))
-	    .self$message(MSG.ERROR, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS), ".", sep = ''))
+	if (.self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
+	    .self$message(MSG.ERROR, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ".", sep = ''))
 
 })

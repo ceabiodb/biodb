@@ -11,7 +11,7 @@ OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
 ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
 LOG.DIR  <- file.path(TEST.DIR)
 LOG.FILE <- file.path(LOG.DIR, 'test.log')
-USERAGENT <- 'biodb.test ; pierrick.rogermele@cloud.com'
+USERAGENT <- 'biodb.test ; pierrick.rogermele@icloud.com'
 
 # Create output directory
 if ( ! file.exists(OUTPUT.DIR))

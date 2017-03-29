@@ -74,10 +74,13 @@ MassbankConn$methods( getMzValues = function(ms.mode = NA_character_, max.result
 	mz <- numeric(0)
 
 	# Get list of spectra
+	.self$message(MSG.DEBUG, paste('max.results=', max.results, sep = ''))
 	spectra.ids <- .self$searchMzRange(10, 1000, ms.mode = ms.mode, max.results = max.results)
 
 	# Get entries
+	print('MassbankConn::getMzValues 1')
 	entries <- .self$getBiodb()$getFactory()$getEntry(BIODB.MASSBANK, spectra.ids)
+	print('MassbankConn::getMzValues 2')
 
 	# Get peaks
 	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)

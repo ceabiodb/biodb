@@ -11,7 +11,7 @@ BIODB.POST <- 'POST'
 # CLASS DECLARATION {{{1
 ################################################################
 
-UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .verbose = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
+UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
 
 # n: number of connections
 # t: time (in seconds)
@@ -30,17 +30,8 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer 
 	.time.of.last.request <<- -1
 	.nb.max.tries <<- 10L
 	.ssl.verifypeer <<- ssl.verifypeer
-	.verbose <<- 0L
 	.huge.download.waiting.time <<- 60L # in seconds
 	.time.of.last.huge.dwnld.request <<- -1
-})
-
-
-# Set verbose {{{1
-################################################################
-
-UrlRequestScheduler$methods( setVerbose = function(verbose) {
-	.verbose <<- verbose
 })
 
 # Wait as needed {{{1
@@ -127,12 +118,12 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	# Run query
 	for (i in seq(.self$.nb.max.tries)) {
 		tryCatch({
-			content <- if (method == BIODB.GET)
-						RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
-					else
-			   			RCurl::postForm(url, .opts = opts, .params = params)
+			if (method == BIODB.GET)
+				content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
+			else
+				content <- RCurl::postForm(url, .opts = opts, .params = params)
 		},
-			error = function(e) { if (.self$.verbose > 0) print("Retry connection to server...") } )
+			error = function(e) { .self$message(MSG.INFO, "Retrying connection to server...") } )
 		if ( ! is.na(content))
 			break
 	}
