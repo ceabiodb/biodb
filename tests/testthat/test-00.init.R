@@ -10,7 +10,7 @@ if (file.exists(ONLINE.CACHE.DIR)) {
 
 	# Erase whole cache
 	if ('MODES' %in% names(env) && env[['MODES']] == MODE.FULL) {
-		context(paste('Delete whole cache directory \"', ONLINE.CACHE.DIR, '\".', sep = ''))
+		cat(paste('Delete whole cache directory \"', ONLINE.CACHE.DIR, "\".\n", sep = ''))
 		unlink(ONLINE.CACHE.DIR, recursive = TRUE)
 	}
 
@@ -19,13 +19,13 @@ if (file.exists(ONLINE.CACHE.DIR)) {
 		biodb <- Biodb$new(logger = FALSE)
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, ONLINE.CACHE.DIR)
 		shortterm.folder <- biodb$getCache()$getFolderPath(CACHE.SHORT.TERM.FOLDER)
-		context(paste('Delete short term cache folder \"', shortterm.folder, '\".', sep = ''))
+		cat(paste('Delete short term cache folder \"', shortterm.folder, "\".\n", sep = ''))
 		unlink(shortterm.folder, recursive = TRUE)
 	}
 }
 
 # Remove log file
 if (file.exists(LOG.FILE)) {
-	context(paste('Delete log file \"', LOG.FILE, '\".', sep = ''))
+	cat(paste('Delete log file \"', LOG.FILE, "\".\n", sep = ''))
 	unlink(LOG.FILE)
 }

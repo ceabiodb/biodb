@@ -53,7 +53,7 @@ BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {
 ################################################################
 
 BiodbObject$methods( .assert.not.na = function(param, msg.type = MSG.ERROR) {
-	if (is.na(param)) {
+	if (any(is.na(param))) {
 		param.name <- as.character(sys.call(0))[[2]]
 		.self$message(msg.type, paste(param.name, ' cannot be set to NA.', sep = ''))
 		return(FALSE)
@@ -77,7 +77,7 @@ BiodbObject$methods( .assert.not.null = function(param, msg.type = MSG.ERROR) {
 ################################################################
 
 BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = MSG.ERROR) {
-	if (param1 > param2) {
+	if (any(param1 > param2)) {
 		param1.name <- as.character(sys.call(0))[[2]]
 		param2.name <- as.character(sys.call(0))[[3]]
 		.self$message(msg.type, paste(param1.name, ' (', param1, ') must be lesser than ', param2.name, ' (', param2, ').', sep = ''))
@@ -93,6 +93,18 @@ BiodbObject$methods( .assert.positive = function(param, msg.type = MSG.ERROR) {
 	if ( ! is.na(param) && param < 0) {
 		param.name <- as.character(sys.call(0))[[2]]
 		.self$message(msg.type, paste(param.name, ' (', param, ') cannot be negative.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert length one {{{1
+################################################################
+
+BiodbObject$methods( .assert.length.one = function(param, msg.type = MSG.ERROR) {
+	if (length(param) != 1) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste('Length of ', param.name, ' (', param, ') must be one.', sep = ''))
 		return(FALSE)
 	}
 	return(TRUE)

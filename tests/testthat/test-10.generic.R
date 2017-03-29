@@ -129,16 +129,16 @@ test.searchMzTol <- function(db) {
 
 	# Get M/Z values from database
 	mode <- BIODB.MSMODE.POS
-	mz <- db$getMzValues(ms.mode = mode, max.results = 10)
-	expect_true(is.double(mz))
-	expect_true(length(mz) >= 1)
+	mzs <- db$getMzValues(ms.mode = mode, max.results = 10)
+	expect_true(is.double(mzs))
+	expect_true(length(mzs) >= 1)
 
 	# Search
-	ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
-	print('* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * IDS')
-	print(ids)
-	expect_true(is.character(ids))
-	expect_true(length(ids) > 0)
+	for (mz in mzs) {
+		ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+		expect_true(is.character(ids))
+		expect_true(length(ids) > 0)
+	}
 }
 
 # MAIN {{{1

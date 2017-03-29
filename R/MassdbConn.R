@@ -88,7 +88,7 @@ MassdbConn$methods( findCompoundByName = function(name) {
 #	.self$.abstract.method()
 #})
 
-# Find spectra in given mass range {{{1
+# Search M/Z range {{{1
 ################################################################
 
 MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
@@ -101,6 +101,8 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 	if ( ! .self$.assert.not.null(mz.max, msg.type = MSG.WARNING)) return(NULL)
 	.self$.assert.positive(mz.min)
 	.self$.assert.positive(mz.max)
+	.self$.assert.length.one(mz.min)
+	.self$.assert.length.one(mz.max)
 	.self$.assert.inferior(mz.min, mz.max)
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
@@ -116,7 +118,7 @@ MassdbConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.
 	.self$.abstract.method()
 })
 
-# Find spectra in given mass range {{{1
+# Search M/Z with tolerance {{{1
 ################################################################
 
 MassdbConn$methods( searchMzTol = function(mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
@@ -125,7 +127,9 @@ MassdbConn$methods( searchMzTol = function(mz, tol, tol.unit = BIODB.MZTOLUNIT.P
 	if ( ! .self$.assert.not.na(mz, msg.type = MSG.WARNING)) return(NULL)
 	if ( ! .self$.assert.not.null(mz, msg.type = MSG.WARNING)) return(NULL)
 	.self$.assert.positive(mz)
+	.self$.assert.length.one(mz)
 	.self$.assert.positive(tol)
+	.self$.assert.length.one(tol)
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
 	.self$.assert.positive(max.results)
