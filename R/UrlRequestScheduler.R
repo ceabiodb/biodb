@@ -8,7 +8,7 @@
 BIODB.GET  <- 'GET'
 BIODB.POST <- 'POST'
 
-# CLASS DECLARATION {{{1
+# Class declaration {{{1
 ################################################################
 
 UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
@@ -71,18 +71,22 @@ UrlRequestScheduler$methods( .check.offline.mode = function() {
 		.self$message(MSG.ERROR, "Offline mode is enabled. All connections are forbidden.")
 })
 
-# SEND SOAP REQUEST {{{1
+# Send soap request {{{1
 ################################################################
 
 UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = NA_character_) {
 
 	.self$.check.offline.mode()
 
+	# Prepare request
 	header <- c(Accept = "text/xml", Accept = "multipart/*",  'Content-Type' = "text/xml; charset=utf-8")
 	if ( ! is.na(action))
 		header <- c(header, c(SOAPAction = action))
 	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = request))
+
+	# Send request
 	results <- .self$getUrl(url, method = BIODB.POST, opts = opts)
+
 	return(results)
 })
 
@@ -105,23 +109,48 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	}
 
 	# Log URL
-	.self$message(MSG.DEBUG, paste0("Sending URL request \"", url, "\" with ", method, " method..."))
-
-	# Check if in offline mode
-	.self$.check.offline.mode()
+	.self$message(MSG.DEBUG, paste0("Getting content of ", method, " URL request \"", url, "\" ..."))
 
 	content <- NA_character_
-
-	# Wait required time between two requests
-	.self$.wait.as.needed()
 
 	# Run query
 	for (i in seq(.self$.nb.max.tries)) {
 		tryCatch({
-			if (method == BIODB.GET)
-				content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
-			else
+
+			# GET method
+			if (method == BIODB.GET) {
+				request.key <- 
+				if (.self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS) && .self$getBiodb()$getCache()$fileExists(method, CACHE.SHORT.TERM.FOLDER, request.key, 'content')) {
+					.self$message(MSG.DEBUG, paste0("Loading content of ", method, " request from cache ..."))
+					content <- .self$getBiodb()$getCache()$loadFileContent(method, CACHE.SHORT.TERM.FOLDER, request.key, 'content')
+				}
+				else {
+					.self$message(MSG.DEBUG, paste0("Sending ", method, " request ..."))
+
+					# Check if in offline mode
+					.self$.check.offline.mode()
+
+					# Wait required time between two requests
+					.self$.wait.as.needed()
+
+					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
+					if (.self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS))
+						.self$getBiodb()$getCache()$saveContentToFile(content, method, CACHE.SHORT.TERM.FOLDER, request.key, 'content')
+				}
+			}
+
+			# POST method
+			else {
+				.self$message(MSG.DEBUG, paste0("Sending ", method, " request ..."))
+
+				# Check if in offline mode
+				.self$.check.offline.mode()
+
+				# Wait required time between two requests
+				.self$.wait.as.needed()
+
 				content <- RCurl::postForm(url, .opts = opts, .params = params)
+			}
 		},
 			error = function(e) { .self$message(MSG.INFO, "Retrying connection to server...") } )
 		if ( ! is.na(content))
