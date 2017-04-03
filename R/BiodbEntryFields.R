@@ -57,10 +57,11 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.PEAKFOREST.LCMS.ID)
 	.self$.define(BIODB.PEAKFOREST.COMPOUND.ID, card = BIODB.CARD.MANY)
 	.self$.define(BIODB.UNIPROT.ID)
-
 	.self$.define(BIODB.INCHI)
 	.self$.define(BIODB.INCHIKEY)
+
 	.self$.define(BIODB.MSDEV)
+	.self$.define(BIODB.MS.LEVEL, class = 'integer')
 	.self$.define(BIODB.MSDEVTYPE)
 	.self$.define(BIODB.MSTYPE)
 	.self$.define(BIODB.MSMODE)

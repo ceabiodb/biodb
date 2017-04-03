@@ -2,21 +2,16 @@
 
 source('common.R')
 
-# Offline test mass.csv.file {{{1
+# Test basic mass.csv.file {{{1
 ################################################################
 
-offline.test.mass.csv.file <- function(biodb) {
+test.basic.mass.csv.file <- function(biodb) {
 
 	# Open file
 	df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
-	# Create biodb instance
-	biodb$getCache()$disable()
-	factory <- biodb$getFactory()
-
-	# Create database
-	init.mass.csv.file.db(biodb)
-	db <- factory$getConn(BIODB.MASS.CSV.FILE)
+	# Get database
+	db <- biodb$getFactory()$getConn(BIODB.MASS.CSV.FILE)
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
@@ -46,12 +41,41 @@ offline.test.mass.csv.file <- function(biodb) {
 	expect_gt(length(db$getMzValues(BIODB.MSMODE.POS)), 1)
 }
 
-# MAIN {{{1
+# Test output columns {{{1
+################################################################
+
+test.output.columns <- function(biodb) {
+
+	# Open database file
+	db.df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
+
+	# Get database
+	db <- biodb$getFactory()$getConn(BIODB.MASS.CSV.FILE)
+
+	# Get M/Z value
+	mz <- db$getMzValues(max.results = 1, ms.level = 1)
+	expect_equal(length(mz), 1)
+
+	# Run a match
+	spectra.ids <- db$searchMzTol(mz, ms.level = 1, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM)
+
+	# Get data frame of results
+	entries <- biodb$getFactory()$getEntry(BIODB.MASS.CSV.FILE, spectra.ids)
+	entries.df <- biodb$entriesToDataframe(entries)
+
+	# Check that all columns of database file are found in entries data frame
+	# NOTE this supposes that the columns of the database file are named according to biodb conventions.
+	expect_true(all(colnames(db.df) %in% colnames(entries.df)))
+}
+
+# Main {{{1
 ################################################################
 
 if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES && MODE.OFFLINE %in% TEST.MODES) {
 	biodb <- create.biodb.instance()
+	init.mass.csv.file.db(biodb)
 	set.test.context(biodb, "Testing mass.csv.file")
 	set.mode(biodb, MODE.OFFLINE)
-	test_that("MassCsvFileConn methods are correct", offline.test.mass.csv.file(biodb))
+	test_that("MassCsvFileConn methods are correct", test.basic.mass.csv.file(biodb))
+	test_that("M/Z match output contains all columns of database.", test.output.columns(biodb))
 }
