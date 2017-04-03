@@ -52,6 +52,7 @@ BIODB.INCHIKEY     <- 'inchikey'
 BIODB.MSDEV        <- 'msdev'
 BIODB.MSDEVTYPE    <- 'msdevtype'
 BIODB.MSTYPE       <- 'mstype'
+BIODB.MS.LEVEL     <- 'ms.level'
 BIODB.MSMODE       <- 'msmode'
 BIODB.MSPRECMZ     <- 'msprecmz'       # numeric
 BIODB.MSPRECANNOT  <- 'msprecannot'

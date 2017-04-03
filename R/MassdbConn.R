@@ -9,11 +9,13 @@
 #'
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity.
+#' @param ms.level      The MS level to which you want to restrict your search. \code{0} means that you want to serach in all levels.
 #' @param ms.mode       The MS mode. Set it to either \code{BIODB.MSMODE.NEG} or \code{BIODB.MSMODE.POS}.
 #' @param mz            An M/Z value.
 #' @param mz.max        The maximum allowed for searched M/Z values.
 #' @param mz.min        The minimum allowed for searched M/Z values.
 #' @param plain.tol     The M/Z tolerance in M/Z unit. Thus the searched mz must satisfy the folloing double inequality: mz - plain.tol <= mz <= mz + plain.tol.
+#' @param precursor     If set to \code{TRUE}, then restrict the search to precursor peaks.
 #' @param tol           An M/Z tolerance, whose unit is not defined.
 #' @param tol.unit      The unit of the M/Z tolerance. Set it to either \code{BIODB.MZTOLUNIT.PPM} or \code{BIODB.MZTOLUNIT.PLAIN}.
 #'
@@ -35,10 +37,18 @@ MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
 ################################################################
 
 # Returns a numeric vector of all masses stored inside the database.
-MassdbConn$methods( getMzValues = function(ms.mode = NA_character_, max.results = NA_integer_) {
-	.self$.abstract.method()
+MassdbConn$methods( getMzValues = function(ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, level = 0) {
+	"Get a list of M/Z values contained inside the database."
+
+	.self$.doGetMzValues(ms.mode = ms.mode, max.results = max.results, precursor = precursor, level = level)
 })
 
+# Do get mz values {{{1
+################################################################
+
+MassdbConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, level) {
+	.self$.abstract.method()
+})
 # Get nb peaks {{{1
 ################################################################
 
@@ -53,6 +63,7 @@ MassdbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
 # Find a molecule by name
 # name   A vector of molecule names to search for.
 # Return an integer vector of the same size as the name input vector, containing the found molecule IDs, in the same order.
+# TODO Rename it searchByCompound
 MassdbConn$methods( findCompoundByName = function(name) {
 	.self$.abstract.method()
 })
@@ -88,10 +99,10 @@ MassdbConn$methods( findCompoundByName = function(name) {
 #	.self$.abstract.method()
 #})
 
-# Search M/Z range {{{1
+# Search by M/Z within range {{{1
 ################################################################
 
-MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
+MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
 	"Find spectra in the given M/Z range. Returns a list of spectra IDs."
 	
 	# Check arguments
@@ -107,21 +118,22 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
 	.self$.assert.positive(max.results)
+	.self$.assert.positive(ms.level)
 
-	return(.self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results))
+	return(.self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
 # Do search M/Z range {{{1
 ################################################################
 
-MassdbConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results) {
+MassdbConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 	.self$.abstract.method()
 })
 
-# Search M/Z with tolerance {{{1
+# Search by M/Z within tolerance {{{1
 ################################################################
 
-MassdbConn$methods( searchMzTol = function(mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
+MassdbConn$methods( searchMzTol = function(mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
 	"Find spectra containg a peak around the given M/Z value. Returns a list of spectra IDs."
 	
 	if ( ! .self$.assert.not.na(mz, msg.type = MSG.WARNING)) return(NULL)
@@ -130,17 +142,19 @@ MassdbConn$methods( searchMzTol = function(mz, tol, tol.unit = BIODB.MZTOLUNIT.P
 	.self$.assert.length.one(mz)
 	.self$.assert.positive(tol)
 	.self$.assert.length.one(tol)
+	.self$.assert.in(tol.unit, BIODB.MZTOLUNIT.VALS)
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
 	.self$.assert.positive(max.results)
+	.self$.assert.positive(ms.level)
 
-	return(.self$.doSearchMzTol(mz = mz, tol = tol, tol.unit = tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results))
+	return(.self$.doSearchMzTol(mz = mz, tol = tol, tol.unit = tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
 # Do search M/Z with tolerance {{{1
 ################################################################
 
-MassdbConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms.mode, max.results) {
+MassdbConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 
 	if (tol.unit == BIODB.MZTOLUNIT.PPM)
 		tol <- tol * mz * 1e-6
@@ -148,17 +162,10 @@ MassdbConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms
 	mz.min <- mz - tol
 	mz.max <- mz + tol
 
-	return(.self$searchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results))
+	return(.self$searchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
-# Find molecules with precursor within a tolerance {{{1
-################################################################
-
-MassdbConn$methods( searchSpecPrecTol = function(mz, tol, tolunit=BIODB.MZTOLUNIT.PLAIN, mode = NULL){
-	.self$.abstract.method()
- })
-
-# Perform a database MS-MS search {{{1
+# MS-MS search {{{1
 ################################################################
 
 ### spec : the spec to match against the database.
@@ -180,7 +187,10 @@ MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 	write.csv(spec, writetc)
 	.self$message(MSG.DEBUG, spec.str)
 	.self$message(MSG.DEBUG, precursor)
-	lspec <- .self$searchSpecPrecTol( precursor, mztol, BIODB.MZTOLUNIT.PLAIN, mode = mode)
+
+	# Now returns a list of IDs, needs to get the peak tables from that
+	lspec <- .self$searchMzTol(mz = precursor, tol = mztol, tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, precursor = TRUE, ms.level = 2)
+
 	.self$message(MSG.DEBUG, class(lspec))
 	if(length(lspec)==0){
 		return(list(measure = numeric(0), matchedpeaks = list(), id = character(0)))

@@ -2,11 +2,6 @@
 
 source('common.R')
 
-# Constants {{{1
-################################################################
-
-.MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
-
 # Save entries as JSON {{{1
 ################################################################
 
@@ -109,38 +104,6 @@ test.entry.ids <- function(db) {
 	expect_true(n >= 0 && n <= max)
 }
 
-# Test getMzValues() {{{1
-################################################################
-
-test.getMzValues <- function(db) {
-	max <- 10
-	for (mode in c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)) {
-		mz <- db$getMzValues(ms.mode = mode, max.results = max)
-		expect_true(is.double(mz))
-		n <- length(mz)
-		expect_true(n >= 1 && n <= max)
-	}
-}
-
-# Test searchPeak() {{{1
-################################################################
-
-test.searchMzTol <- function(db) {
-
-	# Get M/Z values from database
-	mode <- BIODB.MSMODE.POS
-	mzs <- db$getMzValues(ms.mode = mode, max.results = 10)
-	expect_true(is.double(mzs))
-	expect_true(length(mzs) >= 1)
-
-	# Search
-	for (mz in mzs) {
-		ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
-		expect_true(is.character(ids))
-		expect_true(length(ids) > 0)
-	}
-}
-
 # MAIN {{{1
 ################################################################
 
@@ -148,22 +111,8 @@ test.searchMzTol <- function(db) {
 biodb <- create.biodb.instance()
 
 # Initialize MassCsvFile
-if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES) {
-	db.instance <- biodb$getFactory()$createConn(BIODB.MASS.CSV.FILE, url = .MASSFILEDB.URL)
-	db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
-	db.instance$setField(BIODB.COMPOUND.ID, 'molid')
-	db.instance$setField(BIODB.MSMODE, 'mode')
-	db.instance$setField(BIODB.PEAK.MZTHEO, 'mztheo')
-	db.instance$setField(BIODB.PEAK.COMP, 'comp')
-	db.instance$setField(BIODB.PEAK.ATTR, 'attr')
-	db.instance$setField(BIODB.CHROM.COL, 'col')
-	db.instance$setField(BIODB.CHROM.COL.RT, 'colrt')
-	db.instance$setField(BIODB.FORMULA, 'molcomp')
-	db.instance$setField(BIODB.MASS, 'molmass')
-	db.instance$setField(BIODB.FULLNAMES, 'molnames')
-	db.instance$setMsMode(BIODB.MSMODE.NEG, 'NEG')
-	db.instance$setMsMode(BIODB.MSMODE.POS, 'POS')
-}
+if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES)
+	init.mass.csv.file.db(biodb)
 
 # Loop on test modes
 for (mode in TEST.MODES) {
@@ -185,12 +134,6 @@ for (mode in TEST.MODES) {
 		if ( ! methods::is(db, 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
 			test_that("Nb entries is positive", test.nb.entries(db))
 			test_that("We can get a list of entry ids", test.entry.ids(db))
-
-			# Mass database testing
-			if (methods::is(db, 'MassdbConn')) {
-				test_that("We can retrieve a list of M/Z values", test.getMzValues(db))
-				test_that("We can match M/Z peaks", test.searchMzTol(db))
-			}
 		}
 	}
 }

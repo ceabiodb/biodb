@@ -178,31 +178,35 @@ PeakforestLcmsConn$methods( searchMzRange = function(mz.min, mz.max) {
 	return(toreturn)
 })
 
-# Search for msms spectra precusor around a mass {{{1
+# Do search precursor within tolerance {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( searchSpecPrecTol = function(mz, tol, tolunit = BIODB.MZTOLUNIT.PLAIN, mode = NA_character_) {
+# DEPRECATED
+# TODO rename this method and use it inside .doSearchMzRange using new params precursor and level.
+PeakforestLcmsConn$methods( .doSearchPrecTol = function(prec.mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = NA_character_) {
 
 	# Set token
 	largs <- list(token = .self$getToken())
 	
 	# Set mode
-	if ( ! is.na(mode) && mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS))
-			largs<- c(largs,mode=mode)
+	if ( ! is.na(ms.mode) && ms.mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS))
+			largs <- c(largs, mode = ms.mode)
 	
 	# Set tolerance
-	if (tolunit == BIODB.MZTOLUNIT.PPM)
-		tol <- tol * mz * 10 ^ -6
-	largs<- c(largs,precursorMassDelta=tol)
+	if (tol.unit == BIODB.MZTOLUNIT.PPM)
+		tol <- tol * prec.mz * 10 ^ -6
+	largs <- c(largs, precursorMassDelta = tol)
 
 	strargs <- apply(rbind(names(largs),as.character(largs)),2,paste,collapse="=")
 	strargs <- paste(strargs,collapse = "&")
 	##Request which return peak and not spectra.
-	url <- paste0(.self$getBaseUrl(), "spectra/lcmsms/from-precursor/", mz, "?", strargs)
+	url <- paste0(.self$getBaseUrl(), "spectra/lcmsms/from-precursor/", prec.mz, "?", strargs)
 	contents <-  .self$.get.url(url)
-	entries  <- .self$createReducedEntry(contents, drop = FALSE)
+	# TODO Save contents in cache so it's faster next time?
+	# Get IDs from contents
+#	entries  <- .self$createReducedEntry(contents, drop = FALSE)
 
-	return(entries)
+	return(ids)
 })
 # Get chromatographic columns {{{1
 ################################################################
@@ -227,11 +231,11 @@ PeakforestLcmsConn$methods( getChromCol = function(compound.ids = NULL) {
 # Get mz values {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( getMzValues = function(mode = NULL, max.results = NA_integer_) {
+PeakforestLcmsConn$methods( .doGetMzValues = function(mode, max.results, precursor, level) {
 
 	# Set URL
 	url <- paste(.self$getBaseUrl(), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
-	if ( ! is.null(mode))
+	if ( ! is.na(mode))
 		url <- paste(url, '&mode=', if (mode == BIODB.MSMODE.POS) 'positive' else 'negative', sep ='')
 
 	# Get MZ valuels
@@ -245,9 +249,4 @@ PeakforestLcmsConn$methods( getMzValues = function(mode = NULL, max.results = NA
 		mz <- mz[1:max.results]
 
 	return(mz)
-})
-# Do search peak {{{1
-################################################################
-
-PeakforestLcmsConn$methods( .do.search.peak = function(mz = NA_real_, plain.tol = NA_real_, relint = 100, mode = NA_character_, max.results = NA_integer_) {
 })

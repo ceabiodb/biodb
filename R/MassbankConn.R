@@ -69,7 +69,7 @@ MassbankConn$methods( getEntryContent = function(id) {
 # Get mz values {{{1
 ################################################################
 
-MassbankConn$methods( getMzValues = function(ms.mode = NA_character_, max.results = NA_integer_) {
+MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, level) {
 
 	mz <- numeric(0)
 

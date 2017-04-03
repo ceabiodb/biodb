@@ -13,6 +13,8 @@ LOG.DIR  <- file.path(TEST.DIR)
 LOG.FILE <- file.path(LOG.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pierrick.rogermele@icloud.com'
 
+MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
+
 # Create output directory
 if ( ! file.exists(OUTPUT.DIR))
 	dir.create(OUTPUT.DIR)
@@ -142,4 +144,24 @@ load.ref.entries <- function(db) {
 	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
 
 	return(entries.desc)
+}
+
+# Initialize MassCsvFile db {{{1
+################################################################
+
+init.mass.csv.file.db <- function(biodb) {
+	db.instance <- biodb$getFactory()$createConn(BIODB.MASS.CSV.FILE, url = MASSFILEDB.URL)
+	db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
+	db.instance$setField(BIODB.COMPOUND.ID, 'molid')
+	db.instance$setField(BIODB.MSMODE, 'mode')
+	db.instance$setField(BIODB.PEAK.MZTHEO, 'mztheo')
+	db.instance$setField(BIODB.PEAK.COMP, 'comp')
+	db.instance$setField(BIODB.PEAK.ATTR, 'attr')
+	db.instance$setField(BIODB.CHROM.COL, 'col')
+	db.instance$setField(BIODB.CHROM.COL.RT, 'colrt')
+	db.instance$setField(BIODB.FORMULA, 'molcomp')
+	db.instance$setField(BIODB.MASS, 'molmass')
+	db.instance$setField(BIODB.FULLNAMES, 'molnames')
+	db.instance$setMsMode(BIODB.MSMODE.NEG, 'NEG')
+	db.instance$setMsMode(BIODB.MSMODE.POS, 'POS')
 }

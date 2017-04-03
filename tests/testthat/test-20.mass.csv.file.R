@@ -8,36 +8,22 @@ source('common.R')
 offline.test.mass.csv.file <- function(biodb) {
 
 	# Open file
-	file <- file.path(RES.DIR, 'mass.csv.file.tsv')
-	df <- read.table(file, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
+	df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
 	# Create biodb instance
 	biodb$getCache()$disable()
 	factory <- biodb$getFactory()
 
 	# Create database
-	db <- factory$createConn(BIODB.MASS.CSV.FILE, url = file)
-	fields <- list()
-	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
-	db$setField(BIODB.COMPOUND.ID, 'molid')
-	db$setField(BIODB.MSMODE, 'mode')
-	db$setField(BIODB.PEAK.MZTHEO, 'mztheo')
-	db$setField(BIODB.PEAK.COMP, 'comp')
-	db$setField(BIODB.PEAK.ATTR, 'attr')
-	db$setField(BIODB.CHROM.COL, 'col')
-	db$setField(BIODB.CHROM.COL.RT, 'colrt')
-	db$setField(BIODB.FORMULA, 'molcomp')
-	db$setField(BIODB.MASS, 'molmass')
-	db$setField(BIODB.FULLNAMES, 'molnames')
-	db$setMsMode(BIODB.MSMODE.NEG, 'NEG')
-	db$setMsMode(BIODB.MSMODE.POS, 'POS')
+	init.mass.csv.file.db(biodb)
+	db <- factory$getConn(BIODB.MASS.CSV.FILE)
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
 	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('molid', 'mode', 'col')])))
 
 	# Get a compound ID
-	compound.id <- df[['molid']][[1]]
+	compound.id <- df[df[['ms.level']] == 1, 'molid'][[1]]
 
 	# Test number of peaks
 	expect_gt(db$getNbPeaks(), 1)
