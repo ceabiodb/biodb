@@ -69,8 +69,9 @@ MassbankConn$methods( getEntryContent = function(id) {
 # Get mz values {{{1
 ################################################################
 
-MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, level) {
+MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
+	                           # TODO Add some filtering on precursor and MS level
 	mz <- numeric(0)
 
 	# Get list of spectra

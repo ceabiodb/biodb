@@ -37,16 +37,16 @@ MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
 ################################################################
 
 # Returns a numeric vector of all masses stored inside the database.
-MassdbConn$methods( getMzValues = function(ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, level = 0) {
+MassdbConn$methods( getMzValues = function(ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
 	"Get a list of M/Z values contained inside the database."
 
-	.self$.doGetMzValues(ms.mode = ms.mode, max.results = max.results, precursor = precursor, level = level)
+	.self$.doGetMzValues(ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
 })
 
 # Do get mz values {{{1
 ################################################################
 
-MassdbConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, level) {
+MassdbConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 	.self$.abstract.method()
 })
 # Get nb peaks {{{1
@@ -188,7 +188,7 @@ MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 	.self$message(MSG.DEBUG, spec.str)
 	.self$message(MSG.DEBUG, precursor)
 
-	# Now returns a list of IDs, needs to get the peak tables from that
+	# Now returns a list of IDs, TODO needs to get the peak tables from that
 	lspec <- .self$searchMzTol(mz = precursor, tol = mztol, tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, precursor = TRUE, ms.level = 2)
 
 	.self$message(MSG.DEBUG, class(lspec))

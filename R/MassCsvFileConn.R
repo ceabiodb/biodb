@@ -281,10 +281,10 @@ MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 ################################################################
 
 # Inherited from MassdbConn.
-MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, level) {
+MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
 	# Get mz values
-	mz <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = level)
+	mz <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = ms.level)
 
 	return(mz)
 })

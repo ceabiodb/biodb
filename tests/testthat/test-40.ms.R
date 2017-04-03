@@ -68,16 +68,20 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 
 	db <- biodb$getFactory()$getConn(db.name)
 
-	# Get an M/Z value of a precursor
-	mz <- db$getMzValues(precursor = TRUE, max.results = 1)
-	expect_equal(length(mz), 1)
+	# Loop on levels
+	for (ms.level in c(1, 2)) {
 
-	# Search for it
-	spectra.ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE)
-	expect_gte(length(spectra.ids), 1)
+		# Get an M/Z value of a precursor
+		mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
+		expect_equal(length(mz), 1)
+
+		# Search for it
+		spectra.ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)
+		expect_gte(length(spectra.ids), 1)
+	}
 }
 
-# MAIN {{{1
+# Main {{{1
 ################################################################
 
 # Create biodb instance

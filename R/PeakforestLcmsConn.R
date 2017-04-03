@@ -231,8 +231,9 @@ PeakforestLcmsConn$methods( getChromCol = function(compound.ids = NULL) {
 # Get mz values {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( .doGetMzValues = function(mode, max.results, precursor, level) {
+PeakforestLcmsConn$methods( .doGetMzValues = function(mode, max.results, precursor, ms.level) {
 
+	                           # TODO Ask Nils to add some filtering on precursor and MS level
 	# Set URL
 	url <- paste(.self$getBaseUrl(), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
 	if ( ! is.na(mode))
