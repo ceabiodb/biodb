@@ -1,2 +1,2 @@
 accession
-A10.pos.colzz
+A10.pos.colzz.5.69

@@ -15,7 +15,7 @@ test.basic.mass.csv.file <- function(biodb) {
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
-	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compoundid', 'msmode', 'chromcol')])))
+	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compoundid', 'msmode', 'chromcol', 'chromcolrt')])))
 
 	# Get a compound ID
 	compound.id <- df[df[['ms.level']] == 1, 'compoundid'][[1]]

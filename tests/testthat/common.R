@@ -151,5 +151,5 @@ load.ref.entries <- function(db) {
 
 init.mass.csv.file.db <- function(biodb) {
 	db.instance <- biodb$getFactory()$createConn(BIODB.MASS.CSV.FILE, url = MASSFILEDB.URL)
-	db.instance$setField(BIODB.ACCESSION, c('compoundid', 'msmode', 'chromcol'))
+	db.instance$setField(BIODB.ACCESSION, c('compoundid', 'msmode', 'chromcol', 'chromcolrt'))
 }
