@@ -1,2 +1,2 @@
 accession
-A10.POS.colzz
+A10.pos.colzz

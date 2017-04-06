@@ -15,10 +15,10 @@ test.basic.mass.csv.file <- function(biodb) {
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
-	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('molid', 'mode', 'col')])))
+	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compoundid', 'msmode', 'chromcol')])))
 
 	# Get a compound ID
-	compound.id <- df[df[['ms.level']] == 1, 'molid'][[1]]
+	compound.id <- df[df[['ms.level']] == 1, 'compoundid'][[1]]
 
 	# Test number of peaks
 	expect_gt(db$getNbPeaks(), 1)
@@ -61,11 +61,11 @@ test.output.columns <- function(biodb) {
 
 	# Get data frame of results
 	entries <- biodb$getFactory()$getEntry(BIODB.MASS.CSV.FILE, spectra.ids)
-	entries.df <- biodb$entriesToDataframe(entries)
+	entries.df <- biodb$entriesToDataframe(entries, only.atomic = FALSE)
 
 	# Check that all columns of database file are found in entries data frame
 	# NOTE this supposes that the columns of the database file are named according to biodb conventions.
-	expect_true(all(colnames(db.df) %in% colnames(entries.df)))
+	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
 }
 
 # Main {{{1

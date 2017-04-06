@@ -151,17 +151,5 @@ load.ref.entries <- function(db) {
 
 init.mass.csv.file.db <- function(biodb) {
 	db.instance <- biodb$getFactory()$createConn(BIODB.MASS.CSV.FILE, url = MASSFILEDB.URL)
-	db.instance$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
-	db.instance$setField(BIODB.COMPOUND.ID, 'molid')
-	db.instance$setField(BIODB.MSMODE, 'mode')
-	db.instance$setField(BIODB.PEAK.MZTHEO, 'mztheo')
-	db.instance$setField(BIODB.PEAK.COMP, 'comp')
-	db.instance$setField(BIODB.PEAK.ATTR, 'attr')
-	db.instance$setField(BIODB.CHROM.COL, 'col')
-	db.instance$setField(BIODB.CHROM.COL.RT, 'colrt')
-	db.instance$setField(BIODB.FORMULA, 'molcomp')
-	db.instance$setField(BIODB.MASS, 'molmass')
-	db.instance$setField(BIODB.FULLNAMES, 'molnames')
-	db.instance$setMsMode(BIODB.MSMODE.NEG, 'NEG')
-	db.instance$setMsMode(BIODB.MSMODE.POS, 'POS')
+	db.instance$setField(BIODB.ACCESSION, c('compoundid', 'msmode', 'chromcol'))
 }
