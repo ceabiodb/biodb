@@ -1,2 +1,2 @@
-accession
-A10.pos.colzz.5.69
+accession          compoundid ms.level msmode chromcol chromcolrt formula     mass      fullnames
+A10.pos.colzz.5.69 A10        1        pos    colzz    5.69       J114L6M62O2 146.10553 Blablaine
