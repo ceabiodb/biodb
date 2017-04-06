@@ -7,7 +7,7 @@ simplifySpectrum <- function(spec) {
 		return(NA_real_)
 	if (ncol(spec) != 2) {
 		spec[, BIODB.PEAK.MZ]
-		mint <- BIODB.GROUP.INTENSITY %in% colnames(spec)
+		mint <- c(BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY) %in% colnames(spec)
 		pint <- which(mint[1])
 		if (length(pint) == 0)
 			stop(

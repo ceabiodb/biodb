@@ -184,7 +184,7 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	# Filter on relative intensity
 	if ( ! is.na(min.rel.int)) {
 		if (.self$.check.fields(BIODB.PEAK.RELATIVE.INTENSITY, fail = FALSE))
-			db <- db[db[[.self$.fields[[BIODB.PEAK.RELATIVE.INTENSITY]]]] >= mz.min, ]
+			db <- db[db[[.self$.fields[[BIODB.PEAK.RELATIVE.INTENSITY]]]] >= min.rel.int, ]
 	}
 
 	# Filter on precursors

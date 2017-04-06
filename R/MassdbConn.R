@@ -68,36 +68,6 @@ MassdbConn$methods( findCompoundByName = function(name) {
 	.self$.abstract.method()
 })
 
-# Search peak {{{1
-#################################################################
-#
-#MassdbConn$methods( searchPeak = function(mz = NA_real_, plain.tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
-#	"Search matching peaks in database, and return a list of entry IDs."
-#
-#	if (is.na(mz) || length(mz) == 0)
-#		.self$message(MSG.ERROR, "At least one mz value is required for searchPeak() method.")
-#	if (! all(mz > 0))
-#		.self$message(MSG.ERROR, "MZ values must be positive for searchPeak() method.")
-#	if (is.na(tol) || length(tol) == 0)
-#		.self$message(MSG.ERROR, "A tolerance value is required for searchPeak() method.")
-#	if (length(tol) > 1)
-#		.self$message(MSG.ERROR, "No more than one tolerance value is allowed for searchPeak() method.")
-#	if ( ! is.na(max.results) && max.results < 0)
-#		.self$message(MSG.ERROR, "The maximum number of results must be positive or zero for searchPeak() method.")
-#	if ( ! is.na(mode) && ! mode %in% c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS))
-#		.self$message(MSG.ERROR, paste("Incorrect MS mode", mode, "for searchPeak() method."))
-#	if ( ! is.na(relint) && relint < 0)
-#		.self$message(MSG.ERROR, "The relative intensity must be positive or zero for searchPeak() method.")
-#
-#	.self$.do.search.peak(mz = mz, plain.tol = plain.tol, relint = relint, mode = mode, max.results = max.results)
-#})
-#
-# Do search peak {{{1
-#################################################################
-#
-#MassdbConn$methods( .do.search.peak = function(mz = NA_real_, plain.tol = NA_real_, relint = NA_integer_, mode = NA_character_, max.results = NA_integer_) {
-#	.self$.abstract.method()
-#})
 
 # Search by M/Z within range {{{1
 ################################################################
@@ -182,16 +152,9 @@ MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 											 mode = BIODB.MSMODE.POS, return.ids.only = TRUE){
 
 	
-	# TODO replace by msms precursor search when available.
-	writetc <- textConnection("spec.str", "w", local = TRUE)
-	write.csv(spec, writetc)
-	.self$message(MSG.DEBUG, spec.str)
-	.self$message(MSG.DEBUG, precursor)
-
 	# Now returns a list of IDs, TODO needs to get the peak tables from that
 	lspec <- .self$searchMzTol(mz = precursor, tol = mztol, tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, precursor = TRUE, ms.level = 2)
 
-	.self$message(MSG.DEBUG, class(lspec))
 	if(length(lspec)==0){
 		return(list(measure = numeric(0), matchedpeaks = list(), id = character(0)))
 	}
