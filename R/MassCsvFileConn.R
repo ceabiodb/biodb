@@ -202,24 +202,24 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	# Get subset of columns
 	if ( ! is.null(cols) && ! is.na(cols)) {
 		.self$.check.fields(cols)
-		db <- db[, .self$.fields[cols], drop = drop]
+		db <- db[, .self$.fields[cols], drop = FALSE]
 	}
 
 	# Remove duplicates
-	if (uniq) {
-		if (is.vector(db))
-			db <- db[ ! duplicated(db)]
-		else
-			db <- db[ ! duplicated(db), ]
-	}
+	if (uniq)
+		db <- db[ ! duplicated(db), , drop = FALSE]
 
-	# Sort
-	if (sort && is.vector(db))
-		db <- sort(db)
+	# Sort on first column
+	if (sort && ncol(db) >= 1)
+		db <- db[order(db[[1]]), , drop = FALSE]
 
 	# Cut
-	if ( ! is.na(max.rows))
-		db <- if (is.vector(db)) db[1:max.rows] else db[1:max.rows, ]
+	if ( ! is.na(max.rows) && nrow(db) > max.rows)
+		db <- db[1:max.rows, , drop = FALSE]
+
+	# Drop
+	if (drop && ncol(db) == 1)
+		db <- db[[1]]
 
 	return(db)
 })
