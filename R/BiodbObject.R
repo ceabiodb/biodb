@@ -52,9 +52,9 @@ BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {
 # Assert not NA {{{1
 ################################################################
 
-BiodbObject$methods( .assert.not.na = function(param, msg.type = MSG.ERROR) {
+BiodbObject$methods( .assert.not.na = function(param, msg.type = MSG.ERROR, sys.call.level = 0) {
 	if (any(is.na(param))) {
-		param.name <- as.character(sys.call(0))[[2]]
+		param.name <- as.character(sys.call(sys.call.level))[[2]]
 		.self$message(msg.type, paste(param.name, ' cannot be set to NA.', sep = ''))
 		return(FALSE)
 	}
@@ -64,9 +64,9 @@ BiodbObject$methods( .assert.not.na = function(param, msg.type = MSG.ERROR) {
 # Assert not NULL {{{1
 ################################################################
 
-BiodbObject$methods( .assert.not.null = function(param, msg.type = MSG.ERROR) {
+BiodbObject$methods( .assert.not.null = function(param, msg.type = MSG.ERROR, sys.call.level = 0) {
 	if (is.null(param)) {
-		param.name <- as.character(sys.call(0))[[2]]
+		param.name <- as.character(sys.call(sys.call.level))[[2]]
 		.self$message(msg.type, paste(param.name, ' cannot be NULL.', sep = ''))
 		return(FALSE)
 	}
@@ -89,12 +89,18 @@ BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = MSG.
 # Assert positive {{{1
 ################################################################
 
-BiodbObject$methods( .assert.positive = function(param, msg.type = MSG.ERROR) {
-	if ( ! is.na(param) && param < 0) {
+BiodbObject$methods( .assert.positive = function(param, msg.type = MSG.ERROR, na.allowed = TRUE) {
+
+	.self$.assert.not.null(param, msg.type = msg.type, sys.call.level = 1)
+	if ( ! na.allowed)
+		.self$.assert.not.na(param, msg.type = msg.type, sys.call.level = 1)
+
+	if (any(param[ ! is.na(param)] < 0)) {
 		param.name <- as.character(sys.call(0))[[2]]
-		.self$message(msg.type, paste(param.name, ' (', param, ') cannot be negative.', sep = ''))
+		.self$message(msg.type, paste(param.name, ' (', paste(param, collapse = ", "), ') cannot be negative.', sep = ''))
 		return(FALSE)
 	}
+
 	return(TRUE)
 })
 
