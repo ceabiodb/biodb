@@ -5,14 +5,16 @@
 # Class declaration {{{1
 ################################################################
 
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list( .content.type = "character", .base.url = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.id = "character", .content.type = "character", .base.url = "character"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(content.type = NA_character_, base.url = NA_character_, ...) {
+BiodbConn$methods( initialize = function(id = NA_character_, content.type = NA_character_, base.url = NA_character_, ...) {
 
 	callSuper(...)
+
+	.id <<- id
 
 	# Set content type
 	if (is.null(content.type) || is.na(content.type))
@@ -25,6 +27,13 @@ BiodbConn$methods( initialize = function(content.type = NA_character_, base.url 
 	if (is.null(base.url) || is.na(base.url))
 		.self$message(MSG.ERROR, "You must specify a base URL for the database.")
 	.base.url <<- base.url
+})
+
+# Get id {{{1
+################################################################
+
+BiodbConn$methods( getId = function() {
+	return(.self$.id)
 })
 
 # Get base url {{{1

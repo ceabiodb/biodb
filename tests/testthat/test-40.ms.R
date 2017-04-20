@@ -16,7 +16,6 @@ test.msmsSearch <- function(biodb, db.name) {
 		mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
 
 		# Found corresponding spectrum
-		print(mz)
 		spectrum.id <- db$searchMzTol(mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2)
 
 		# Get entry

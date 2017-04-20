@@ -126,16 +126,14 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 # Compute field {{{1
 ################################################################
 
-BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
+BiodbEntry$methods(	.compute.field = function(fields = NULL) {
 
 	success <- FALSE
 
 	if (.self$getBiodb()$getConfig()$isEnabled(CFG.COMPUTE.FIELDS)) {
 
 		# Set of fields to compute
-		fields <- names(BIODB.FIELD.COMPUTING)
-		if ( ! is.na(field) && field %in% fields)
-			fields <- field
+		fields <- if (is.null(fields)) names(BIODB.FIELD.COMPUTING) else fields[fields %in% names(BIODB.FIELD.COMPUTING)]
 
 		# Loop on all fields to compute
 		for(f in fields) {
@@ -176,17 +174,20 @@ BiodbEntry$methods(	.compute.field = function(field = NA_character_) {
 ################################################################
 
 # TODO add a limiting option to get some of the fields.
-BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE) {
+BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL) {
 	"Convert entry into a data frame."
 
 	df <- data.frame(stringsAsFactors = FALSE)
 
 	# Compute fields
 	if (compute)
-		.self$.compute.field()
+		.self$.compute.field(fields)
 
-	# Loop on all fields
-	for (f in names(.self$.fields)) {
+	# Set fields to get
+	fields <- if (is.null(fields)) names(.self$.fields) else fields[fields %in% names(.self$.fields)]
+
+	# Loop on fields
+	for (f in fields) {
 
 		# Ignore non atomic values
 		if (only.atomic && ! .self$getBiodb()$getEntryFields()$get(f)$isVector())
@@ -207,6 +208,7 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 
 	return(df)
 })
+
 # Get fields as json {{{1
 ################################################################
 

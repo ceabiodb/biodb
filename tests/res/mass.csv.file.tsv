@@ -1,6 +1,8 @@
 "peak.relative.intensity"	"compoundid"	"ms.level"	"msmode"	"peak.mztheo"	"peak.comp"	"peak.attr"	"chromcol"	"chromcolrt"	"formula"	"mass"	"fullnames"
 100	ZAP2	2	"pos"	92.04521	"P9Z6R48"	"[(M+H)]+"	NA	NA	"Q14L6M62Y2"	132.10553	Zapataine
 50	ZAP2	2	"pos"	44.04513	"P9Z6R32"	"[(M+H)-(CO2)]+"	NA	NA	"Q14L6M62Y2"	132.10553	Zapataine
+100	ZAP2	2	"neg"	45.34551	"P9Y6R48"	"[(M-H)]-"	NA	NA	"Q14L6M62Y2"	132.10553	Zapataine
+50	ZAP2	2	"neg"	22.34451	"P9W4R32"	"[(M-H)-(H2O)]-"	NA	NA	"Q14L6M62Y2"	132.10553	Zapataine
 50	A10	1	"pos"	112.07569	"P9Z6W410 O"	"[(M+H)-(H2O)-(NH3)]+"	"colzz"	5.69	"J114L6M62O2"	146.10553	Blablaine
 50	A10	1	"pos"	112.07569	"P9Z6W410 O"	"[(M+H)-(H2O)-(NH3)]+"	"col12"	0.8	"J114L6M62O2"	146.10553	"Blablaine"
 50	A10	1	"pos"	112.07569	"P9Z6W410 O"	"[(M+H)-(H2O)-(NH3)]+"	"somecol"	8.97	"J114L6M62O2"	146.10553	"Blablaine"

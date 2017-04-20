@@ -1,3 +1,6 @@
+# Simplify spectrum {{{1
+################################################################
+
 simplifySpectrum <- function(spec) {
 	if(length(spec) == 0){
 		return(NA_real_)
@@ -5,24 +8,34 @@ simplifySpectrum <- function(spec) {
 	#print(spec)
 	if (nrow(spec) == 0)
 		return(NA_real_)
-	if (ncol(spec) != 2) {
-		spec[, BIODB.PEAK.MZ]
-		mint <- c(BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY) %in% colnames(spec)
-		pint <- which(mint[1])
-		if (length(pint) == 0)
-			stop(
-				"No intensity column founds, if there is more than 2 column, columns should be named",
-				paste0(BIODB.GROUP.INTENSITY, collapse = ", ")
-			)
-		spec <- spec[, c(BIODB.PEAK.MZ, BIODB.GROUP.INTENSITY[pint[1]])]
-		###Normalizing the intenities.
+
+	# Get mz vals
+	mz.vals <- NULL
+	for (mzcol in c(BIODB.PEAK.MZ, BIODB.PEAK.MZTHEO, BIODB.PEAK.MZEXP))
+		if (mzcol %in% colnames(spec))
+			mz.vals <- spec[, mzcol]
+	if (is.null(mz.vals))
+		stop("Cannot find MZ values.")
+
+	int.vals <- NULL
+	if (BIODB.PEAK.RELATIVE.INTENSITY %in% colnames(spec))
+		int.vals <- spec[, BIODB.PEAK.RELATIVE.INTENSITY]
+	else {
+		if (BIODB.PEAK.INTENSITY %in% colnames(spec)) {
+			int.vals <- spec[, BIODB.PEAK.INTENSITY,]
+			int.vals <- int.vals * 100 / max(int.vals)
+		}
+		else
+			stop("Cannot find intensity values.")
 	}
-	spec[, 2] <- as.numeric(spec[, 2]) * 100 / max(as.numeric(spec[, 2]))
+
+	spec <- data.frame(mz = mz.vals, int = int.vals)
 	colnames(spec) <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY)
-	spec
+	return(spec)
 }
 
-
+# Calc distance {{{1
+################################################################
 
 calcDistance <-
 	function(spec1 ,
@@ -47,46 +60,26 @@ calcDistance <-
 			 similarity = res$measure)
 	}
 
-
+# Compare spectra {{{1
+################################################################
 
 ###The returned sim list is not ordered
-compareSpectra <-
-	function(spec,
-			 libspec,
-			 npmin = 2,
-			 fun = BIODB.MSMS.DIST.WCOSINE,
-			 params = list(),
-			 decreasing = TRUE) {
+compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSINE, params = list(), decreasing = TRUE) {
+
 		#fun <- match.arg(fun)
-		if (length(libspec) == 0) {
+		if (length(libspec) == 0)
 			return(NULL)
-		}
-		if (nrow(spec) == 0) {
+
+		if (nrow(spec) == 0)
 			return(NULL)
-		}
-		
+
 		####spec is directly normalized.
-		vall <-
-			sapply(
-				libspec,
-				calcDistance,
-				spec1 = spec,
-				params = params,
-				fun = fun,
-				simplify = FALSE
-			)
+		vall <- sapply(libspec, calcDistance, spec1 = spec, params = params, fun = fun, simplify = FALSE)
+
 		####the list is ordered with the chosen metric.
-		sim <-
-			vapply(vall,
-				   '[[',
-				   i = "similarity",
-				   FUN.VALUE = ifelse(decreasing, 0, 1))
+		sim <- vapply(vall,	'[[', i = "similarity", FUN.VALUE = ifelse(decreasing, 0, 1))
 		osim <- order(sim, decreasing = decreasing)
 		matched <- sapply(vall, '[[', i = "matched", simplify = FALSE)
 		
-		return(list(
-			ord = osim,
-			matched = matched,
-			similarity = sim
-		))
-	}
+		return(list(ord = osim, matched = matched, similarity = sim))
+}
