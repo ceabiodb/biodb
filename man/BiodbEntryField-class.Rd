@@ -6,7 +6,7 @@
 \alias{BiodbEntryField}
 \title{A class for describing an entry field.}
 \description{
-This class is used by \code{BiodbEntryFields} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used.
+This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used.
 }
 \section{Methods}{
 
