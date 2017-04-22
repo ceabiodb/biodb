@@ -124,58 +124,25 @@ PeakforestLcmsConn$methods( createReducedEntry = function(content , drop = TRUE)
 	return(entries)
 })
 
-# Search mz range {{{1
+# Do search M/Z range {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( searchMzRange = function(mz.min, mz.max) {
+PeakforestLcmsConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 	
-	url <- paste0("https://rest.peakforest.org/spectra/lcms/peaks/get-range/",mzmin,"/",mzmax)
+	url <- paste0(.self$getBaseUrl(), "spectra/lcms/peaks/get-range/", mz.min, "/", mz.max)
 	
-	contents <-  .self$.get.url(url)
-	
+	# Send request
+	contents <-  .self$.getUrlScheduler()$getUrl(url)
 	jsontree <- fromJSON(contents)
 	
-	###No match form the output.
-	if( length(jsontree)==0 ) return(NULL)
+	# No match form the output.
+	if(length(jsontree) == 0)
+		return(NULL)
 	
-	# Getting a list of all the id.
-	lid <- sapply(jsontree,function(x){
-		x$source$id
-	})
+	# Getting a list of all the IDs.
+	ids <- sapply(jsontree, function(x) x$source$id)
 	
-	# Returning the content for all the spectra
-	contents <- .self$getEntryContent(lid)
-	
-	entries  <- .self$createEntry(contents)
-	
-	# Checking the return type
-	if( rtype=="object" ){
-		return( entries )
-	}
-	
-	### XXXX See if we don't want to reduce the output and factorize this shit.
-	toreturn <- NULL
-	if( rtype=="spec" ){
-		toreturn <- sapply(entries,function(x){
-			x$getFieldsAsDataFrame()
-		})
-	}
-	if( rtype=="peak" ){
-		toreturn <- lapply(entries,function(x){
-			temp <- as.data.frame( x$getFieldValue( BIODB.PEAKS ))
-			temp$accession = x$getFieldValue( BIODB.ACCESSION) 
-			return(temp)
-			
-		})
-	}
-	###Trying to convert in data.frame
-	if(!is.data.frame(toreturn)){
-		temp <- colnames(toreturn[[1]])
-		toreturn <- do.call("rbind.fill",toreturn)
-		colnames(toreturn) <- temp
-	}
-	
-	return(toreturn)
+	return(ids)
 })
 
 # Do search precursor within tolerance {{{1
@@ -231,13 +198,13 @@ PeakforestLcmsConn$methods( getChromCol = function(compound.ids = NULL) {
 # Get mz values {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( .doGetMzValues = function(mode, max.results, precursor, ms.level) {
+PeakforestLcmsConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
 	                           # TODO Ask Nils to add some filtering on precursor and MS level
 	# Set URL
 	url <- paste(.self$getBaseUrl(), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
-	if ( ! is.na(mode))
-		url <- paste(url, '&mode=', if (mode == BIODB.MSMODE.POS) 'positive' else 'negative', sep ='')
+	if ( ! is.na(ms.mode))
+		url <- paste(url, '&mode=', if (ms.mode == BIODB.MSMODE.POS) 'positive' else 'negative', sep ='')
 
 	# Get MZ valuels
 	json.str <- .self$.getUrlScheduler()$getUrl(url)
