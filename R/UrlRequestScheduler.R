@@ -91,6 +91,8 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = N
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
 
+	content <- NA_character_
+
 	# Check method
 	if ( ! method %in% c(BIODB.GET, BIODB.POST))
 		.self$message(MSG.ERROR, paste('Unknown method "', method, '".', sep = ''))
@@ -110,8 +112,6 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	# Check if in offline mode
 	.self$.check.offline.mode()
 
-	content <- NA_character_
-
 	# Wait required time between two requests
 	.self$.wait.as.needed()
 
@@ -123,7 +123,10 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 			else
 				content <- RCurl::postForm(url, .opts = opts, .params = params)
 		},
-			error = function(e) { .self$message(MSG.INFO, "Retrying connection to server...") } )
+			error = function(e) {
+				.self$message(MSG.INFO, paste("Connection error \"", e$message, "\"", sep = ''))
+				.self$message(MSG.INFO, "Retrying connection to server...", sep = '')
+			} )
 		if ( ! is.na(content))
 			break
 	}

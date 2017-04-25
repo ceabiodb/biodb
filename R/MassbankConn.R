@@ -21,6 +21,13 @@ MassbankConn$methods( initialize = function(url = NA_character_, ...) {
 
 MassbankConn$methods( .send.url.request = function(url) {
 
+	# Get server address
+	srv.addr <- sub('^[^/]*//([^/]*).*$', '\\1', url)
+
+	# Test if server is available
+	if (is.na(pingr::ping(srv.addr, count = 1)))
+		.self$message(MSG.ERROR, paste("Massbank website \"", .self$getBaseUrl(), "\" is not available.", sep = ''))
+
 	# Send request
 	result <- .self$.getUrlScheduler()$getUrl(url)
 
