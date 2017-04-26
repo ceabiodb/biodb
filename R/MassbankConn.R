@@ -33,7 +33,7 @@ MassbankConn$methods( .send.url.request = function(url) {
 
 	# Test if a server error occured
 	if (length(grep("The service cannot be found", result)) > 0)
-		.self$message(MSG.ERROR, paste("Massbank website \"", .self$getBaseUrl(), "\" is not available.", sep = ''))
+		.self$message(MSG.ERROR, paste("The service on Massbank website \"", .self$getBaseUrl(), "\" cannot be found.", sep = ''))
 
 	return(result)
 })
