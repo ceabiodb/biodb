@@ -3,17 +3,25 @@
 #' @include RemotedbConn.R
 #' @include MassdbConn.R
 
+# Constants {{{1
+################################################################
+
+MASSBANK.JP.URL  <- 'http://www.massbank.jp/'
+MASSBANK.EU.URL  <- 'http://massbank.eu/'
+
 # Class declaration {{{1
 ################################################################
 
-MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"))
+MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"), fields = list(.base.url.available = "logical"))
 
 # Constructor {{{1
-################################################################
+################################################################0
 
-MassbankConn$methods( initialize = function(url = NA_character_, ...) {
+MassbankConn$methods( initialize = function(...) {
 
-	callSuper(content.type = BIODB.TXT, base.url = .self$getBiodb()$getConfig()$get(CFG.MASSBANK.URL), ...)
+	callSuper(content.type = BIODB.TXT, base.url = c(MASSBANK.EU.URL, MASSBANK.JP.URL), ...)
+
+	.base.url.available <<- rep(NA, length(.self$.base.url))
 })
 
 # Send URL request {{{1
@@ -21,12 +29,37 @@ MassbankConn$methods( initialize = function(url = NA_character_, ...) {
 
 MassbankConn$methods( .send.url.request = function(url) {
 
-	# Get server address
-	srv.addr <- sub('^[^/]*//([^/]*).*$', '\\1', url)
+	# Find an available server
+	srv.available <- FALSE
+	while ( ! srv.available && (any(is.na(.self$.base.url.available)) || any(.self$.base.url.available))) {
 
-	# Test if server is available
-	if (is.na(pingr::ping(srv.addr, count = 1)))
-		.self$message(MSG.ERROR, paste("Massbank website \"", .self$getBaseUrl(), "\" is not available.", sep = ''))
+		# Get server address
+		srv.addr <- sub('^[^/]*//([^/]*).*$', '\\1', url)
+
+		# Test if server is available
+		if (is.na(pingr::ping(srv.addr, count = 1))) {
+			.self$message(MSG.INFO, paste("Massbank website \"", .self$getBaseUrl(), "\" is not available.", sep = ''))
+			.self$.base.url.available[[.self$.base.url.index]] <- FALSE
+			if (length(.self$.base.url) > 1) {
+				old.base.url <- .self$getBaseUrl()
+				i <- .self$.base.url.index + 1L
+				if (i > length(.self$.base.url))
+					i <- 1L
+				.base.url.index <<- i
+				new.base.url <- .self$getBaseUrl()
+				.self$message(MSG.INFO, paste("Trying \"", .self$getBaseUrl(), "\"...", sep = ''))
+
+				# Replace base URL
+				url <- sub(old.base.url, new.base.url, url)
+			}
+		}
+		else {
+			.self$.base.url.available[[.self$.base.url.index]] <- TRUE
+			srv.available <- TRUE
+		}
+	}
+	if ( ! srv.available)
+		.self$message(MSG.ERROR, "No Massbank website available.")
 
 	# Send request
 	result <- .self$.getUrlScheduler()$getUrl(url)

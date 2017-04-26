@@ -89,15 +89,15 @@ BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = MSG.
 # Assert positive {{{1
 ################################################################
 
-BiodbObject$methods( .assert.positive = function(param, msg.type = MSG.ERROR, na.allowed = TRUE) {
+BiodbObject$methods( .assert.positive = function(param, msg.type = MSG.ERROR, na.allowed = TRUE, zero = TRUE) {
 
 	.self$.assert.not.null(param, msg.type = msg.type, sys.call.level = 1)
 	if ( ! na.allowed)
 		.self$.assert.not.na(param, msg.type = msg.type, sys.call.level = 1)
 
-	if (any(param[ ! is.na(param)] < 0)) {
+	if (any(param[ ! is.na(param)] < 0) || ( ! zero && any(param[ ! is.na(param)] == 0))) {
 		param.name <- as.character(sys.call(0))[[2]]
-		.self$message(msg.type, paste(param.name, ' (', paste(param, collapse = ", "), ') cannot be negative.', sep = ''))
+		.self$message(msg.type, paste(param.name, ' (', paste(param, collapse = ", "), ') cannot be negative', if (zero) '' else ' or equal to zero', '.', sep = ''))
 		return(FALSE)
 	}
 

@@ -5,7 +5,7 @@
 # Class declaration {{{1
 ################################################################
 
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.id = "character", .content.type = "character", .base.url = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.id = "character", .content.type = "character", .base.url = "character", .base.url.index = "integer"))
 
 # Constructor {{{1
 ################################################################
@@ -24,9 +24,10 @@ BiodbConn$methods( initialize = function(id = NA_character_, content.type = NA_c
 	.content.type <<- content.type
 
 	# Set base URL
-	if (is.null(base.url) || is.na(base.url))
+	if (is.null(base.url) || any(is.na(base.url)))
 		.self$message(MSG.ERROR, "You must specify a base URL for the database.")
 	.base.url <<- base.url
+	.base.url.index <<- 1L
 })
 
 # Get id {{{1
@@ -40,7 +41,19 @@ BiodbConn$methods( getId = function() {
 ################################################################
 
 BiodbConn$methods( getBaseUrl = function() {
-	return(.self$.base.url)
+	return(.self$.base.url[[.self$.base.url.index]])
+})
+
+# Set base url index {{{1
+################################################################
+
+BiodbConn$methods( .setBaseUrlIndex = function(index) {
+	.self$.assert.not.null(index)
+	.self$.assert.length.one(index)
+	.self$.assert.not.na(index)
+	.self$.assert.positive(index, zero = FALSE)
+	.self$.assert.inferior(index, length(.self$.base.url))
+	.base.url.index <<- index
 })
 
 # Get entry content type {{{1

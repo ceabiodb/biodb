@@ -19,7 +19,6 @@ CFG.CACHE.SYSTEM            <- 'cache.system'
 CFG.CACHE.READ.ONLY         <- 'cache.read.only'
 CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
 CFG.COMPUTE.FIELDS          <- 'compute.fields'
-CFG.MASSBANK.URL            <- 'massbank_url'
 CFG.OFFLINE                 <- 'offline'
 CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
 CFG.PEAKFOREST.URL          <- 'peakforest_url'
@@ -27,10 +26,6 @@ CFG.USERAGENT               <- 'useragent'
 CFG.USE.CACHE.SUBFOLDERS    <- 'cache.subfolders'
 
 # Database URLs
-BIODB.MASSBANK.JP.URL  <- 'http://www.massbank.jp/'
-BIODB.MASSBANK.EU.URL  <- 'http://massbank.eu/'
-BIODB.MASSBANK.JP.WS.URL  <- paste(BIODB.MASSBANK.JP.URL, 'api/services/MassBankAPI/', sep = '')
-BIODB.MASSBANK.EU.WS.URL  <- paste(BIODB.MASSBANK.EU.URL, 'api/services/MassBankAPI/', sep = '')
 PEAKFOREST.WS.URL         <- 'https://rest.peakforest.org/'
 PEAKFOREST.WS.ALPHA.URL   <- 'https://peakforest-alpha.inra.fr/rest/'
 
@@ -80,7 +75,6 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey(CFG.CACHE.READ.ONLY,          type = 'logical',   default = FALSE)
 	.self$.newKey(CFG.CHEMSPIDER.TOKEN,         type = 'character')
 	.self$.newKey(CFG.COMPUTE.FIELDS,           type = 'logical',   default = TRUE)
-	.self$.newKey(CFG.MASSBANK.URL,             type = 'character', default = BIODB.MASSBANK.EU.WS.URL)
 	.self$.newKey(CFG.OFFLINE,                  type = 'logical',   default = FALSE)
 	.self$.newKey(CFG.PEAKFOREST.TOKEN,         type = 'character')
 	.self$.newKey(CFG.PEAKFOREST.URL,           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
