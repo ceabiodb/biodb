@@ -2,7 +2,8 @@ Package: biodb
 Title: Biodb, a library for connecting to chemical and biological databases
 Version: 1.0.0
 Authors@R: person("Pierrick", "Roger", email = "pierrick.rogermele@icloud.com", role = c("aut", "cre"))
-Description: The biodb library provides a way to connect to several chemical and biological databases, and retrieve entries easily.
+Description: The biodb library provides a way to connect to several chemical and
+    biological databases, and retrieve entries easily.
 Depends:
     R (>= 3.3.1)
 License: AGPL-3
@@ -22,7 +23,7 @@ NeedsCompilation: yes
 Author: Pierrick Roger
 Maintainer: Pierrick Roger <pierrick.rogermele@icloud.com>
 RoxygenNote: 6.0.1
-Collate: 
+Collate:
     'BiodbObject.R'
     'Biodb.R'
     'ChildObject.R'

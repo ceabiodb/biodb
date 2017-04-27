@@ -2,42 +2,23 @@
 
 source('common.R')
 
-# Offline test mass.csv.file {{{1
+# Test basic mass.csv.file {{{1
 ################################################################
 
-offline.test.mass.csv.file <- function(biodb) {
+test.basic.mass.csv.file <- function(biodb) {
 
 	# Open file
-	file <- file.path(RES.DIR, 'mass.csv.file.tsv')
-	df <- read.table(file, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
+	df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
-	# Create biodb instance
-	biodb$getCache()$disable()
-	factory <- biodb$getFactory()
-
-	# Create database
-	db <- factory$createConn(BIODB.MASS.CSV.FILE, url = file)
-	fields <- list()
-	db$setField(BIODB.ACCESSION, c('molid', 'mode', 'col'))
-	db$setField(BIODB.COMPOUND.ID, 'molid')
-	db$setField(BIODB.MSMODE, 'mode')
-	db$setField(BIODB.PEAK.MZTHEO, 'mztheo')
-	db$setField(BIODB.PEAK.COMP, 'comp')
-	db$setField(BIODB.PEAK.ATTR, 'attr')
-	db$setField(BIODB.CHROM.COL, 'col')
-	db$setField(BIODB.CHROM.COL.RT, 'colrt')
-	db$setField(BIODB.FORMULA, 'molcomp')
-	db$setField(BIODB.MASS, 'molmass')
-	db$setField(BIODB.FULLNAMES, 'molnames')
-	db$setMsMode(BIODB.MSMODE.NEG, 'NEG')
-	db$setMsMode(BIODB.MSMODE.POS, 'POS')
+	# Get database
+	db <- biodb$getFactory()$getConn(BIODB.MASS.CSV.FILE)
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
-	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('molid', 'mode', 'col')])))
+	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compoundid', 'msmode', 'chromcol', 'chromcolrt')])))
 
 	# Get a compound ID
-	compound.id <- df[['molid']][[1]]
+	compound.id <- df[df[['ms.level']] == 1, 'compoundid'][[1]]
 
 	# Test number of peaks
 	expect_gt(db$getNbPeaks(), 1)
@@ -60,12 +41,41 @@ offline.test.mass.csv.file <- function(biodb) {
 	expect_gt(length(db$getMzValues(BIODB.MSMODE.POS)), 1)
 }
 
-# MAIN {{{1
+# Test output columns {{{1
+################################################################
+
+test.output.columns <- function(biodb) {
+
+	# Open database file
+	db.df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
+
+	# Get database
+	db <- biodb$getFactory()$getConn(BIODB.MASS.CSV.FILE)
+
+	# Get M/Z value
+	mz <- db$getMzValues(max.results = 1, ms.level = 1)
+	expect_equal(length(mz), 1)
+
+	# Run a match
+	spectra.ids <- db$searchMzTol(mz, ms.level = 1, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM)
+
+	# Get data frame of results
+	entries <- biodb$getFactory()$getEntry(BIODB.MASS.CSV.FILE, spectra.ids)
+	entries.df <- biodb$entriesToDataframe(entries, only.atomic = FALSE)
+
+	# Check that all columns of database file are found in entries data frame
+	# NOTE this supposes that the columns of the database file are named according to biodb conventions.
+	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
+}
+
+# Main {{{1
 ################################################################
 
 if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES && MODE.OFFLINE %in% TEST.MODES) {
 	biodb <- create.biodb.instance()
+	init.mass.csv.file.db(biodb)
 	set.test.context(biodb, "Testing mass.csv.file")
 	set.mode(biodb, MODE.OFFLINE)
-	test_that("MassCsvFileConn methods are correct", offline.test.mass.csv.file(biodb))
+	test_that("MassCsvFileConn methods are correct", test.basic.mass.csv.file(biodb))
+	test_that("M/Z match output contains all columns of database.", test.output.columns(biodb))
 }

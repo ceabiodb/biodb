@@ -1,13 +1,25 @@
 # vi: fdm=marker
 
+# Class declaration {{{1
+################################################################
+
+#' A class for handing description of all entry fields.
+#'
+#' The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getEntryFields()} method.
+#'
+#' @seealso \code{\link{BiodbEntryField}}.
+#'
+#' @examples
+#' # Getting information about the accession field:
+#' mybiodb <- biodb::Biodb()
+#' entry.field <- mybiodb$getEntryFields()$get('accession')
+#'
+#' @import methods
 #' @include biodb-common.R
 #' @include Biodb.R
 #' @include ChildObject.R
 #' @include BiodbEntryField.R
-
-# Class declaration {{{1
-################################################################
-
+#' @exportClass BiodbEntryFields
 BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list" ))
 
 # constructor {{{1
@@ -57,10 +69,11 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.PEAKFOREST.LCMS.ID)
 	.self$.define(BIODB.PEAKFOREST.COMPOUND.ID, card = BIODB.CARD.MANY)
 	.self$.define(BIODB.UNIPROT.ID)
-
 	.self$.define(BIODB.INCHI)
 	.self$.define(BIODB.INCHIKEY)
+
 	.self$.define(BIODB.MSDEV)
+	.self$.define(BIODB.MS.LEVEL, class = 'integer')
 	.self$.define(BIODB.MSDEVTYPE)
 	.self$.define(BIODB.MSTYPE)
 	.self$.define(BIODB.MSMODE)

@@ -20,9 +20,9 @@ BiodbFactory$methods( initialize = function(...) {
 	.chunk.size <<- NA_integer_
 })
 
-# CONNECTIONS {{{1
-
 # Create conn {{{2
+################################################################
+
 BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
     " Create connection to databases useful for metabolomics."
 
@@ -53,9 +53,9 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 
 	# Create connection instance
     if (is.na(url))
-    	conn <- conn.class$new(parent = .self)
+    	conn <- conn.class$new(id = class, parent = .self)
     else
-    	conn <- conn.class$new(parent = .self, base.url = url)
+    	conn <- conn.class$new(id = class, parent = .self, base.url = url)
 
     # Set token
     if ( ! is.na(token))

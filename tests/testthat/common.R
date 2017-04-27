@@ -13,6 +13,8 @@ LOG.DIR  <- file.path(TEST.DIR)
 LOG.FILE <- file.path(LOG.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pierrick.rogermele@icloud.com'
 
+MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
+
 # Create output directory
 if ( ! file.exists(OUTPUT.DIR))
 	dir.create(OUTPUT.DIR)
@@ -142,4 +144,12 @@ load.ref.entries <- function(db) {
 	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
 
 	return(entries.desc)
+}
+
+# Initialize MassCsvFile db {{{1
+################################################################
+
+init.mass.csv.file.db <- function(biodb) {
+	db.instance <- biodb$getFactory()$createConn(BIODB.MASS.CSV.FILE, url = MASSFILEDB.URL)
+	db.instance$setField(BIODB.ACCESSION, c('compoundid', 'msmode', 'chromcol', 'chromcolrt'))
 }

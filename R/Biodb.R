@@ -28,7 +28,7 @@
 #' mybiodb <- biodb::Biodb(logger = FALSE)
 #'
 #' # Create an instance with a file logger
-#' mybiodb <- biodb::Biodb(logger = FALSE, observers = new biodb::BiodbLogger(file = "/path/to/my/log/file.log"))
+#' mybiodb <- biodb::Biodb(logger = FALSE, observers = biodb::BiodbLogger(file = "file.log"))
 #'
 #' @import methods
 #' @include BiodbObject.R
