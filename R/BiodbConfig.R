@@ -24,6 +24,7 @@ CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
 CFG.PEAKFOREST.URL          <- 'peakforest_url'
 CFG.USERAGENT               <- 'useragent'
 CFG.USE.CACHE.SUBFOLDERS    <- 'cache.subfolders'
+CFG.SVN.BINARY.PATH         <- 'svn.binary.path'
 
 # Database URLs
 PEAKFOREST.WS.URL         <- 'https://rest.peakforest.org/'
@@ -80,6 +81,7 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey(CFG.PEAKFOREST.URL,           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
 	.self$.newKey(CFG.USERAGENT,                type = 'character', default = useragent.default)
 	.self$.newKey(CFG.USE.CACHE.SUBFOLDERS,     type = 'logical',   default = TRUE)
+	.self$.newKey(CFG.SVN.BINARY.PATH,          type = 'character', default = .self$.get.svn.binary.path())
 })
 
 # New key {{{1
@@ -244,4 +246,29 @@ BiodbConfig$methods( disable = function(key) {
 
 	.self$message(MSG.INFO, paste("Disable ", key, ".", sep = ''))
 	.self$.values[[key]] <- FALSE
+})
+
+# Get SVN binary path {{{1
+################################################################
+
+BiodbConfig$methods( .get.svn.binary.path = function() {
+
+	# Look in system PATH
+	svn_path <- Sys.which("svn")[[1]]
+	if (svn_path == '')
+		svn_path <- NULL
+
+	# On Windows, look in common locations
+	if (is.null(svn_path) && .Platform$OS.type == "windows") {
+		look_in <- c("C:/Program Files/Svn/bin/svn.exe", "C:/Program Files (x86)/Svn/bin/svn.exe")
+		found <- file.exists(look_in)
+		if (any(found))
+			svn_path <- look_in[found][1]
+	}
+
+	# Not found
+	if (is.null(svn_path))
+		.self$message(MSG.ERROR, "SVN does not seem to be installed on your system.")
+
+	return(svn_path)
 })

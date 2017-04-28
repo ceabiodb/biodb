@@ -18,8 +18,7 @@ Imports:
     bitops,
     RCurl,
     stats,
-    R.utils,
-    pingr
+    R.utils
 NeedsCompilation: yes
 Author: Pierrick Roger
 Maintainer: Pierrick Roger <pierrick.rogermele@icloud.com>

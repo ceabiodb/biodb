@@ -12,7 +12,7 @@ MASSBANK.EU.URL  <- 'http://massbank.eu/'
 # Class declaration {{{1
 ################################################################
 
-MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"), fields = list(.base.url.available = "logical"))
+MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"))
 
 # Constructor {{{1
 ################################################################0
@@ -20,8 +20,6 @@ MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn"
 MassbankConn$methods( initialize = function(...) {
 
 	callSuper(content.type = BIODB.TXT, base.url = c(MASSBANK.EU.URL, MASSBANK.JP.URL), ...)
-
-	.base.url.available <<- rep(NA, length(.self$.base.url))
 })
 
 # Send URL request {{{1
@@ -29,23 +27,25 @@ MassbankConn$methods( initialize = function(...) {
 
 MassbankConn$methods( .send.url.request = function(url) {
 
+	# XXX ping doesn't help here, since massbank.eu does not answer ping requests while massbank.jp does.
+
 	# Find an available server
-	srv.available <- FALSE
-	while ( ! srv.available && (any(is.na(.self$.base.url.available)) || any(.self$.base.url.available))) {
+	base.url.indices <- seq(length(.self$.base.url))
+	success <- FALSE
+	while ( ! success && length(base.url.indices) > 0) {
 
-		# Get server address
-		srv.addr <- sub('^[^/]*//([^/]*).*$', '\\1', url)
+		# Send request
+		result <- .self$.getUrlScheduler()$getUrl(url)
 
-		# Test if server is available
-		if (is.na(pingr::ping(srv.addr, count = 1))) {
-			.self$message(MSG.INFO, paste("Massbank website \"", .self$getBaseUrl(), "\" is not available.", sep = ''))
-			.self$.base.url.available[[.self$.base.url.index]] <- FALSE
-			if (length(.self$.base.url) > 1) {
+		# Test if a server error occured
+		if (length(grep("Object not found", result)) > 0 || length(grep("Not Found", result)) > 0 || length(grep("The service cannot be found", result)) > 0) {
+			.self$message(MSG.INFO, paste("The service on Massbank website \"", .self$getBaseUrl(), "\" cannot be found.", sep = ''))
+
+			# Remove current URL from list
+			base.url.indices <- base.url.indices[.self$.base.url.index != base.url.indices] # remove current URL
+			if (length(base.url.indices) > 0) {
 				old.base.url <- .self$getBaseUrl()
-				i <- .self$.base.url.index + 1L
-				if (i > length(.self$.base.url))
-					i <- 1L
-				.base.url.index <<- i
+				.base.url.index <<- base.url.indices[[1]]
 				new.base.url <- .self$getBaseUrl()
 				.self$message(MSG.INFO, paste("Trying \"", .self$getBaseUrl(), "\"...", sep = ''))
 
@@ -53,20 +53,11 @@ MassbankConn$methods( .send.url.request = function(url) {
 				url <- sub(old.base.url, new.base.url, url)
 			}
 		}
-		else {
-			.self$.base.url.available[[.self$.base.url.index]] <- TRUE
-			srv.available <- TRUE
-		}
+		else
+			success <- TRUE
 	}
-	if ( ! srv.available)
+	if ( ! success)
 		.self$message(MSG.ERROR, "No Massbank website available.")
-
-	# Send request
-	result <- .self$.getUrlScheduler()$getUrl(url)
-
-	# Test if a server error occured
-	if (length(grep("The service cannot be found", result)) > 0)
-		.self$message(MSG.ERROR, paste("The service on Massbank website \"", .self$getBaseUrl(), "\" cannot be found.", sep = ''))
 
 	return(result)
 })
@@ -199,4 +190,16 @@ MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', id, sep = '')
 
 	return(url)
+})
+
+# Download {{{1
+################################################################
+
+MassbankConn$methods( download = function() {
+
+	if ( ! .self$getBiodb()$getCache()$markerExists(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')) {
+
+		# Download
+		.path <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'zip')
+	}
 })
