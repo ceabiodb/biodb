@@ -15,7 +15,7 @@ if (file.exists(ONLINE.CACHE.DIR)) {
 	}
 
 	# Erase only short term cache
-	else if ('MODES' %in% names(env) && env[['MODES']] == MODE.ONLINE) {
+	else if ('MODES' %in% names(env) && MODE.ONLINE %in% ALLOWED.MODES) {
 		biodb <- Biodb$new(logger = FALSE)
 		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, ONLINE.CACHE.DIR)
 		shortterm.folder <- biodb$getCache()$getFolderPath(CACHE.SHORT.TERM.FOLDER)
