@@ -1,9 +1,12 @@
 # vi: fdm=marker
 
+#' @include RemotedbConn.R
+#' @include BiodbDownloadable.R
+
 # Class declaration {{{1
 ################################################################
 
-HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = "RemotedbConn", fields = list(.ns = "character"))
+HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = c("RemotedbConn", 'BiodbDownloadable'), fields = list(.ns = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -34,56 +37,54 @@ HmdbMetaboliteConn$methods( getEntryContent = function(id) {
 })
 
 
-# Download {{{1
+# Do download {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( download = function() {
+HmdbMetaboliteConn$methods( .doDownload = function() {
 
-	if ( ! .self$getBiodb()$getCache()$markerExists(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')) {
-
-		# Download
-		zip.path <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'zip')
-		if ( ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE) && ! file.exists(zip.path)) {
-			zip.url <- paste(.self$getBaseUrl(), "system/downloads/current/hmdb_metabolites.zip", sep = '')
-			.self$message(MSG.INFO, paste("Downloading \"", zip.url, "\"...", sep = ''))
-			.self$.getUrlScheduler()$downloadFile(url = zip.url, dest.file = zip.path)
-		}
-
-		if (file.exists(zip.path)) {
-			# Expand zip
-			extract.dir <- tempfile(.self$getId())
-			utils::unzip(zip.path, exdir = extract.dir)
-			
-			# Load extracted XML file
-			files <- list.files(path = extract.dir)
-			xml.file <- NULL
-			if (length(files) == 0)
-				.self$message(MSG.ERROR, paste("No XML file found in zip file \"", zip.path, "\".", sep = ''))
-			else if (length(files) == 1)
-				xml.file <- file.path(extract.dir, files)
-			else {
-				for (f in c('hmdb_metabolites.xml', 'hmdb_metabolites_tmp.xml'))
-					if (f %in% files)
-						xml.file <- file.path(extract.dir, f)
-				if (is.null(xml.file))
-					.self$message(MSG.ERROR, paste("More than one file found in zip file \"", zip.path, "\":", paste(files, collapse = ", "), ".", sep = ''))
-			}
-			xml <- XML::xmlInternalTreeParse(xml.file)
-
-			# Write all XML entries into files
-			ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = .self$.ns)
-			.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
-			contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')
-			.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
-			.self$getBiodb()$getCache()$saveContentToFile(contents, db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
-
-			# Remove extract directory
-			unlink(extract.dir, recursive = TRUE)
-
-			# Set marker
-			.self$getBiodb()$getCache()$setMarker(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')
-		}
+	# Download
+	zip.path <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'zip')
+	if ( ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE) && ! file.exists(zip.path)) {
+		zip.url <- paste(.self$getBaseUrl(), "system/downloads/current/hmdb_metabolites.zip", sep = '')
+		.self$message(MSG.INFO, paste("Downloading \"", zip.url, "\"...", sep = ''))
+		.self$.getUrlScheduler()$downloadFile(url = zip.url, dest.file = zip.path)
 	}
+
+	if (file.exists(zip.path)) {
+		# Expand zip
+		extract.dir <- tempfile(.self$getId())
+		utils::unzip(zip.path, exdir = extract.dir)
+		
+		# Load extracted XML file
+		files <- list.files(path = extract.dir)
+		xml.file <- NULL
+		if (length(files) == 0)
+			.self$message(MSG.ERROR, paste("No XML file found in zip file \"", zip.path, "\".", sep = ''))
+		else if (length(files) == 1)
+			xml.file <- file.path(extract.dir, files)
+		else {
+			for (f in c('hmdb_metabolites.xml', 'hmdb_metabolites_tmp.xml'))
+				if (f %in% files)
+					xml.file <- file.path(extract.dir, f)
+			if (is.null(xml.file))
+				.self$message(MSG.ERROR, paste("More than one file found in zip file \"", zip.path, "\":", paste(files, collapse = ", "), ".", sep = ''))
+		}
+		xml <- XML::xmlInternalTreeParse(xml.file)
+
+		# Write all XML entries into files
+		ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = .self$.ns)
+		.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
+		contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')
+		.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+		.self$getBiodb()$getCache()$saveContentToFile(contents, db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
+
+		# Remove extract directory
+		unlink(extract.dir, recursive = TRUE)
+
+		return(TRUE)
+	}
+
+	return(FALSE)
 })
 
 # Get entry ids {{{1

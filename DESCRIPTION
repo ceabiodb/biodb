@@ -23,13 +23,14 @@ NeedsCompilation: yes
 Author: Pierrick Roger
 Maintainer: Pierrick Roger <pierrick.rogermele@icloud.com>
 RoxygenNote: 6.0.1
-Collate:
+Collate: 
     'BiodbObject.R'
     'Biodb.R'
     'ChildObject.R'
     'BiodbCache.R'
     'BiodbConfig.R'
     'BiodbConn.R'
+    'BiodbDownloadable.R'
     'BiodbEntry.R'
     'biodb-common.R'
     'BiodbEntryField.R'

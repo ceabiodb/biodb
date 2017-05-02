@@ -2,6 +2,7 @@
 
 #' @include RemotedbConn.R
 #' @include MassdbConn.R
+#' @include BiodbDownloadable.R
 
 # Constants {{{1
 ################################################################
@@ -12,7 +13,7 @@ MASSBANK.EU.URL  <- 'http://massbank.eu/'
 # Class declaration {{{1
 ################################################################
 
-MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"))
+MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn", "BiodbDownloadable"))
 
 # Constructor {{{1
 ################################################################0
@@ -70,27 +71,37 @@ MassbankConn$methods( getEntryContent = function(id) {
 	# Debug
 	.self$message(MSG.DEBUG, paste0("Get entry content(s) for ", length(id)," id(s)..."))
 
-	URL.MAX.LENGTH <- 2083
-
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
 
-	# Get URLs
-	urls <- .self$getEntryContentUrl(id, max.length = URL.MAX.LENGTH)
+	# Do we allow database download? This can take some time.
+	if (.self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS)) {
 
-	# Loop on all URLs
-	for (url in urls) {
+		# Load contents from cache
+	}
 
-		# Send request
-		xmlstr <- .self$.send.url.request(url)
+	# Send URL requests
+	else {
 
-		# Parse XML and get text
-		if ( ! is.na(xmlstr)) {
-			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-			ns <- c(ax21 = "http://api.massbank/xsd")
-			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
-			if (length(returned.ids) > 0)
-				content[match(returned.ids, id)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
+		URL.MAX.LENGTH <- 2083
+
+		# Get URLs
+		urls <- .self$getEntryContentUrl(id, max.length = URL.MAX.LENGTH)
+
+		# Loop on all URLs
+		for (url in urls) {
+
+			# Send request
+			xmlstr <- .self$.send.url.request(url)
+
+			# Parse XML and get text
+			if ( ! is.na(xmlstr)) {
+				xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
+				ns <- c(ax21 = "http://api.massbank/xsd")
+				returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
+				if (length(returned.ids) > 0)
+					content[match(returned.ids, id)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
+			}
 		}
 	}
 
@@ -167,16 +178,30 @@ MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, m
 
 MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
-	.self$message(MSG.INFO, paste("Getting", if (is.na(max.results)) 'all' else max.results, "massbank entry ids..."))
+	ids <- NULL
 
-	return(.self$searchMzTol(mz = 1000, tol = 1000, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 100, max.results = max.results))
+	# Do we allow database download? This can take some time.
+	if (.self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS)) {
+
+		# Download
+		.self$download()
+
+		# Get IDs from cache
+		ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
+
+		# Cut
+		if ( ! is.na(max.results) && max.results < length(ids))
+			ids <- ids[1:max.results]
+	}
+
+	return(ids)
 })
 
 # Get nb entries {{{1
 ################################################################
 
 MassbankConn$methods( getNbEntries = function(count = FALSE) {
-	return(if (count) length(.self$getEntryIds()) else NA_integer_)
+	return(length(.self$getEntryIds()))
 })
 
 # Do get entry content url {{{1
@@ -192,14 +217,32 @@ MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	return(url)
 })
 
-# Download {{{1
+# Do download {{{1
 ################################################################
 
-MassbankConn$methods( download = function() {
+MassbankConn$methods( .doDownload = function() {
 
-	if ( ! .self$getBiodb()$getCache()$markerExists(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')) {
+	.self$message(MSG.INFO, "Extract whole MassBank database.")
 
-		# Download
-		.path <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'zip')
+	# SVN export
+	svn.path <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'svn')
+	if ( ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE) && ! file.exists(svn.path)) {
+		.self$message(MSG.INFO, "Download whole MassBank database from SVN server.")
+		svn.cmd <- .self$getBiodb()$getConfig()$get(CFG.SVN.BINARY.PATH)
+		system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', svn.path))
 	}
+
+	# Copy all exported files
+	.self$message(MSG.INFO, "Copy all MassBank record files from SVN local export directory into cache.")
+	svn.files <- Sys.glob(file.path(svn.path, '*', '*.txt'))
+	.self$message(MSG.INFO, paste("Found ", length(svn.files), " record files in MassBank SVN local export directory."))
+	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', svn.files)
+	dup.ids <- duplicated(ids)
+	if (any(dup.ids))
+		.self$message(MSG.CAUTION, paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
+	cache.files <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
+	.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+	file.copy(svn.files, cache.files)
+
+	return(TRUE)
 })
