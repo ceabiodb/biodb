@@ -28,8 +28,6 @@ MassbankConn$methods( initialize = function(...) {
 
 MassbankConn$methods( .send.url.request = function(url) {
 
-	# XXX ping doesn't help here, since massbank.eu does not answer ping requests while massbank.jp does.
-
 	# Find an available server
 	base.url.indices <- seq(length(.self$.base.url))
 	success <- FALSE
@@ -74,34 +72,24 @@ MassbankConn$methods( getEntryContent = function(id) {
 	# Initialize return values
 	content <- rep(NA_character_, length(id))
 
-	# Do we allow database download? This can take some time.
-	if (.self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS)) {
+	URL.MAX.LENGTH <- 2083
 
-		# Load contents from cache
-	}
+	# Get URLs
+	urls <- .self$getEntryContentUrl(id, max.length = URL.MAX.LENGTH)
 
-	# Send URL requests
-	else {
+	# Loop on all URLs
+	for (url in urls) {
 
-		URL.MAX.LENGTH <- 2083
+		# Send request
+		xmlstr <- .self$.send.url.request(url)
 
-		# Get URLs
-		urls <- .self$getEntryContentUrl(id, max.length = URL.MAX.LENGTH)
-
-		# Loop on all URLs
-		for (url in urls) {
-
-			# Send request
-			xmlstr <- .self$.send.url.request(url)
-
-			# Parse XML and get text
-			if ( ! is.na(xmlstr)) {
-				xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-				ns <- c(ax21 = "http://api.massbank/xsd")
-				returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
-				if (length(returned.ids) > 0)
-					content[match(returned.ids, id)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
-			}
+		# Parse XML and get text
+		if ( ! is.na(xmlstr)) {
+			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
+			ns <- c(ax21 = "http://api.massbank/xsd")
+			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
+			if (length(returned.ids) > 0)
+				content[match(returned.ids, id)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
 		}
 	}
 
