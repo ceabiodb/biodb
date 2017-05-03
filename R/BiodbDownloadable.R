@@ -25,7 +25,7 @@ BiodbDownloadable$methods( isDownloaded = function() {
 
 BiodbDownloadable$methods( download = function() {
 
-	if ( ! .self$isDownloaded())
+	if ( ! .self$isDownloaded() && .self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS))
 		if (.self$.doDownload())
 			# Set marker
 			.self$getBiodb()$getCache()$setMarker(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')

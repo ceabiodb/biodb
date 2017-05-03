@@ -72,8 +72,24 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 		ns <- c(ax21 = "http://api.massbank/xsd")
 		returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
 
-		# TODO Filter on precursor
-		# TODO Filter on ms.level
+		if (ms.level > 0 || precursor) {
+
+			# Get entries
+			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids)
+
+			# Filter on precursor
+			if (precursor) {
+				precursor.mz <- vapply(entries, function(x) x$getFieldValue(BIODB.MSPRECMZ), FUN.VALUE = 1.0)
+				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - tol) & (precursor.mz <= mz + tol)
+				entries <- entries[precursor.matched]
+			}
+
+			# Filter on ms.level
+			if (ms.level > 0)
+				entries <- entries[vapply(entries, function(x) x$getFieldValue(BIODB.MS.LEVEL) == ms.level, FUN.VALUE = TRUE)]
+
+			returned.ids <- vapply(entries, function(x) x$getFieldValue(BIODB.ACCESSION), FUN.VALUE = '')
+		}
 	}
 
 	return(returned.ids)

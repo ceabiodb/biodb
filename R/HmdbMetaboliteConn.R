@@ -94,22 +94,18 @@ HmdbMetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	ids <- NULL
 
-	# Do we allow database download? This can take some time.
-	if (.self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS)) {
+	# Download
+	.self$download()
 
-		# Download
-		.self$download()
+	# Get IDs from cache
+	ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
 
-		# Get IDs from cache
-		ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
+	# Filter out wrong IDs
+	ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
 
-		# Filter out wrong IDs
-		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
-
-		# Cut
-		if ( ! is.na(max.results) && max.results < length(ids))
-			ids <- ids[1:max.results]
-	}
+	# Cut
+	if ( ! is.na(max.results) && max.results < length(ids))
+		ids <- ids[1:max.results]
 
 	return(ids)
 })

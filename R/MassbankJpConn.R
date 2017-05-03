@@ -56,21 +56,15 @@ MassbankJpConn$methods( .doDownload = function() {
 
 MassbankJpConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
-	ids <- NULL
+	# Download
+	.self$download()
 
-	# Do we allow database download? This can take some time.
-	if (.self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS)) {
+	# Get IDs from cache
+	ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
 
-		# Download
-		.self$download()
-
-		# Get IDs from cache
-		ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
-
-		# Cut
-		if ( ! is.na(max.results) && max.results < length(ids))
-			ids <- ids[1:max.results]
-	}
+	# Cut
+	if ( ! is.na(max.results) && max.results < length(ids))
+		ids <- ids[1:max.results]
 
 	return(ids)
 })
