@@ -125,7 +125,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 		},
 			error = function(e) {
 				.self$message(MSG.INFO, paste("Connection error \"", e$message, "\"", sep = ''))
-				.self$message(MSG.INFO, "Retrying connection to server...", sep = '')
+				.self$message(MSG.INFO, "Retrying connection to server...")
 			} )
 		if ( ! is.na(content))
 			break
