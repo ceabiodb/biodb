@@ -71,6 +71,17 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	if (.self$hasField(BIODB.MSMODE))
 		.self$setFieldValue(BIODB.MSMODE, if (.self$getFieldValue(BIODB.MSMODE, compute = FALSE) == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
 
+	# MS level
+	if (.self$hasField(BIODB.MSTYPE)) {
+		mstype = .self$getFieldValue(BIODB.MSTYPE)
+		ms.level = strtoi(sub('^MS([0-9])$', '\\1', mstype, perl = TRUE))
+		if (is.na(ms.level) && mstype == 'MS')
+			ms.level = 1
+
+		if (is.na(ms.level)) 
+			.self$message(MSG.ERROR, paste("Impossible to parse MS level of Massbank entry ", .self$getFieldValue(BIODB.ACCESSION), ".", sep = ''))
+		.self$setFieldValue(BIODB.MS.LEVEL, ms.level)
+	}
 	
 	# Annotations
 	g <- stringr::str_match(parsed.content, "^\\s+([0-9][0-9.]*) ([A-Z0-9+-]+) ([0-9]+) ([0-9][0-9.]*) ([0-9][0-9.]*)$")
@@ -94,7 +105,9 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		.self$setFieldValue(BIODB.PEAKS, peaks)
 	}
 
-	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
-	   	 .self$message(MSG.ERROR, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ".", sep = ''))
+	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE))) {
+	   	 .self$message(MSG.CAUTION, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ' for entry ', .self$getFieldValue(BIODB.ACCESSION), ".", sep = ''))
+		.self$setFieldValue(BIODB.NB.PEAKS, nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
+	}
 
 })

@@ -18,6 +18,7 @@ ChebiConn$methods( initialize = function(...) {
 ################################################################
 
 ChebiConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+	                  # TODO Return an URL request object with SOAP message embedded
 	return(paste(.self$.base.url, 'webservices/chebi/2.0/test/getCompleteEntity?chebiId=', id, sep = ''))
 })
 

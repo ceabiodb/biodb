@@ -3,107 +3,17 @@
 #' @include RemotedbConn.R
 #' @include MassdbConn.R
 
-# Constants {{{1
-################################################################
-
-MASSBANK.JP.URL  <- 'http://www.massbank.jp/'
-MASSBANK.EU.URL  <- 'http://massbank.eu/'
-
 # Class declaration {{{1
 ################################################################
 
-MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"), fields = list(.base.url.available = "logical"))
+MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"))
 
 # Constructor {{{1
 ################################################################0
 
 MassbankConn$methods( initialize = function(...) {
 
-	callSuper(content.type = BIODB.TXT, base.url = c(MASSBANK.EU.URL, MASSBANK.JP.URL), ...)
-
-	.base.url.available <<- rep(NA, length(.self$.base.url))
-})
-
-# Send URL request {{{1
-################################################################
-
-MassbankConn$methods( .send.url.request = function(url) {
-
-	# Find an available server
-	srv.available <- FALSE
-	while ( ! srv.available && (any(is.na(.self$.base.url.available)) || any(.self$.base.url.available))) {
-
-		# Get server address
-		srv.addr <- sub('^[^/]*//([^/]*).*$', '\\1', url)
-
-		# Test if server is available
-		if (is.na(pingr::ping(srv.addr, count = 1))) {
-			.self$message(MSG.INFO, paste("Massbank website \"", .self$getBaseUrl(), "\" is not available.", sep = ''))
-			.self$.base.url.available[[.self$.base.url.index]] <- FALSE
-			if (length(.self$.base.url) > 1) {
-				old.base.url <- .self$getBaseUrl()
-				i <- .self$.base.url.index + 1L
-				if (i > length(.self$.base.url))
-					i <- 1L
-				.base.url.index <<- i
-				new.base.url <- .self$getBaseUrl()
-				.self$message(MSG.INFO, paste("Trying \"", .self$getBaseUrl(), "\"...", sep = ''))
-
-				# Replace base URL
-				url <- sub(old.base.url, new.base.url, url)
-			}
-		}
-		else {
-			.self$.base.url.available[[.self$.base.url.index]] <- TRUE
-			srv.available <- TRUE
-		}
-	}
-	if ( ! srv.available)
-		.self$message(MSG.ERROR, "No Massbank website available.")
-
-	# Send request
-	result <- .self$.getUrlScheduler()$getUrl(url)
-
-	# Test if a server error occured
-	if (length(grep("The service cannot be found", result)) > 0)
-		.self$message(MSG.ERROR, paste("The service on Massbank website \"", .self$getBaseUrl(), "\" cannot be found.", sep = ''))
-
-	return(result)
-})
-
-# Get entry content {{{1
-################################################################
-
-MassbankConn$methods( getEntryContent = function(id) {
-
-	# Debug
-	.self$message(MSG.DEBUG, paste0("Get entry content(s) for ", length(id)," id(s)..."))
-
-	URL.MAX.LENGTH <- 2083
-
-	# Initialize return values
-	content <- rep(NA_character_, length(id))
-
-	# Get URLs
-	urls <- .self$getEntryContentUrl(id, max.length = URL.MAX.LENGTH)
-
-	# Loop on all URLs
-	for (url in urls) {
-
-		# Send request
-		xmlstr <- .self$.send.url.request(url)
-
-		# Parse XML and get text
-		if ( ! is.na(xmlstr)) {
-			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-			ns <- c(ax21 = "http://api.massbank/xsd")
-			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
-			if (length(returned.ids) > 0)
-				content[match(returned.ids, id)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
-		}
-	}
-
-	return(content)
+	callSuper(content.type = BIODB.TXT, ...)
 })
 
 # Get mz values {{{1
@@ -111,15 +21,14 @@ MassbankConn$methods( getEntryContent = function(id) {
 
 MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
-	                           # TODO Add some filtering on precursor and MS level
 	mz <- numeric(0)
 
 	# Get list of spectra
 	.self$message(MSG.DEBUG, paste('max.results=', max.results, sep = ''))
-	spectra.ids <- .self$searchMzRange(10, 1000, ms.mode = ms.mode, max.results = max.results)
+	spectra.ids <- .self$searchMzRange(10, 1000, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level, min.rel.int = if (precursor) 80 else NA)
 
 	# Get entries
-	entries <- .self$getBiodb()$getFactory()$getEntry(BIODB.MASSBANK, spectra.ids)
+	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), spectra.ids, drop = FALSE)
 
 	# Get peaks
 	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
@@ -136,56 +45,70 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 # Do search M/Z with tolerance {{{1
 ################################################################
 
-MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms.mode, max.results) {
+MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+
+	returned.ids <- NULL
 
 	# Set tolerance
 	if (tol.unit == BIODB.MZTOLUNIT.PPM)
 		tol <- tol * mz * 1e-6
 
-	# Set URL
-	url <- paste0(.self$getBaseUrl(), 'searchPeak?mzs=', mz)
-	url <- paste0(url, '&relativeIntensity=', if (is.na(min.rel.int)) 0 else min.rel.int)
-	url <- paste0(url, '&tolerance=', tol, '&instrumentTypes=all') # Tolerance seems to be the plain tolerance (i.e.: mz ± tol).
-	url <- paste0(url, '&ionMode=', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'))
-	url <- paste0(url, '&maxNumResults=', (if (is.na(max.results)) 0 else max.results))
+	# Build request
+	if ( ! is.na(max.results) && (precursor || ms.level > 0))
+		max.results <- max(10000, 10 * max.results)
+	xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', mz, '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max.results)) 0 else max.results, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
 
 	# Send request
-	xmlstr <- .self$.send.url.request(url)
+	xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
 
 	# Parse XML and get text
 	if ( ! is.na(xmlstr)) {
 		xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
 		ns <- c(ax21 = "http://api.massbank/xsd")
 		returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
-		return(returned.ids)
+
+		if (ms.level > 0 || precursor) {
+
+			# Get entries
+			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids, drop = FALSE)
+			print('----------------------------------------------------------------')
+			print(ms.level)
+			print(precursor)
+			print(length(entries))
+			print('is null:')
+			print(sum(vapply(entries, is.null, FUN.VALUE = FALSE)))
+
+			# Filter on precursor
+			if (precursor) {
+				precursor.mz <- vapply(entries, function(x) x$getFieldValue(BIODB.MSPRECMZ), FUN.VALUE = 1.0)
+				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - tol) & (precursor.mz <= mz + tol)
+				print('precursor.matched = ')
+				print(sum(precursor.matched))
+				entries <- entries[precursor.matched]
+			}
+
+			# Filter on ms.level
+			if (ms.level > 0) {
+				ms.level.matched <- vapply(entries, function(x) x$getFieldValue(BIODB.MS.LEVEL) == ms.level, FUN.VALUE = TRUE)
+				entries <- entries[ms.level.matched]
+				print('ms.level.matched = ')
+				print(sum(ms.level.matched))
+			}
+
+			returned.ids <- vapply(entries, function(x) x$getFieldValue(BIODB.ACCESSION), FUN.VALUE = '')
+		}
 	}
 
+	return(returned.ids)
 })
 
 # Do search M/Z range {{{1
 ################################################################
 
-MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results) {
+MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 	mz <- (mz.min + mz.max) / 2
 	tol <- mz.max - mz
-	return(.self$searchMzTol(mz = mz, tol = tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results))
-})
-
-# Get entry ids {{{1
-################################################################
-
-MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	.self$message(MSG.INFO, paste("Getting", if (is.na(max.results)) 'all' else max.results, "massbank entry ids..."))
-
-	return(.self$searchMzTol(mz = 1000, tol = 1000, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 100, max.results = max.results))
-})
-
-# Get nb entries {{{1
-################################################################
-
-MassbankConn$methods( getNbEntries = function(count = FALSE) {
-	return(if (count) length(.self$getEntryIds()) else NA_integer_)
+	return(.self$searchMzTol(mz = mz, tol = tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
 # Do get entry content url {{{1
@@ -193,6 +116,7 @@ MassbankConn$methods( getNbEntries = function(count = FALSE) {
 
 MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
+	                  # TODO Return an URL request object with SOAP message embedded
 	if (concatenate)
 		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', paste(id, collapse = ','), sep = '')
 	else

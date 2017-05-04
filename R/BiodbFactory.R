@@ -167,6 +167,10 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 	# Debug
 	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
 
+	# Download full database if possible
+	if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(class), 'BiodbDownloadable'))
+		.self$getConn(class)$download()
+
 	# Initialize content
 	if (.self$getBiodb()$getCache()$isReadable()) {
 		# Load content from cache
@@ -193,7 +197,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 	}
 
 	# Get contents
-	if (length(missing.ids) > 0) {
+	if (length(missing.ids) > 0 && ( ! methods::is(.self$getConn(class), 'BiodbDownloadable') || ! .self$getConn(class)$isDownloaded())) {
 
 		# Use connector to get missing contents
 		conn <- .self$getConn(class)
