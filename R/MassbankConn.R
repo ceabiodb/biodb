@@ -25,17 +25,10 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 
 	# Get list of spectra
 	.self$message(MSG.DEBUG, paste('max.results=', max.results, sep = ''))
-	spectra.ids <- .self$searchMzRange(10, 1000, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
-	print('********************************')
-	print('MassbankConn::.doGetMzValues 01')
-	print(spectra.ids)
-	print('********************************')
-	print('MassbankConn::.doGetMzValues 02')
+	spectra.ids <- .self$searchMzRange(10, 1000, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level, min.rel.int = if (precursor) 80 else NA)
 
 	# Get entries
 	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), spectra.ids, drop = FALSE)
-	print(class(entries))
-	print('********************************')
 
 	# Get peaks
 	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
@@ -61,6 +54,8 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 		tol <- tol * mz * 1e-6
 
 	# Build request
+	if ( ! is.na(max.results) && (precursor || ms.level > 0))
+		max.results <- max(10000, 10 * max.results)
 	xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', mz, '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max.results)) 0 else max.results, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
 
 	# Send request
@@ -75,18 +70,30 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 		if (ms.level > 0 || precursor) {
 
 			# Get entries
-			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids)
+			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids, drop = FALSE)
+			print('----------------------------------------------------------------')
+			print(ms.level)
+			print(precursor)
+			print(length(entries))
+			print('is null:')
+			print(sum(vapply(entries, is.null, FUN.VALUE = FALSE)))
 
 			# Filter on precursor
 			if (precursor) {
 				precursor.mz <- vapply(entries, function(x) x$getFieldValue(BIODB.MSPRECMZ), FUN.VALUE = 1.0)
 				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - tol) & (precursor.mz <= mz + tol)
+				print('precursor.matched = ')
+				print(sum(precursor.matched))
 				entries <- entries[precursor.matched]
 			}
 
 			# Filter on ms.level
-			if (ms.level > 0)
-				entries <- entries[vapply(entries, function(x) x$getFieldValue(BIODB.MS.LEVEL) == ms.level, FUN.VALUE = TRUE)]
+			if (ms.level > 0) {
+				ms.level.matched <- vapply(entries, function(x) x$getFieldValue(BIODB.MS.LEVEL) == ms.level, FUN.VALUE = TRUE)
+				entries <- entries[ms.level.matched]
+				print('ms.level.matched = ')
+				print(sum(ms.level.matched))
+			}
 
 			returned.ids <- vapply(entries, function(x) x$getFieldValue(BIODB.ACCESSION), FUN.VALUE = '')
 		}
