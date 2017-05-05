@@ -54,7 +54,7 @@ UrlRequestScheduler$methods( .wait.as.needed = function() {
 	.time.of.last.request <<- Sys.time()
 })
 
-# GET CURL OPTIONS {{{1
+# Get curl options {{{1
 ################################################################
 
 UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
@@ -115,18 +115,24 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 	content <- NA_character_
 
-	# Run query
-	for (i in seq(.self$.nb.max.tries)) {
-		tryCatch({
+	# Try to get query result from cache
+	# Key built from method + url + params + opts
+	request <- list(url = url, params = params, opts = opts)
+	request.json <- jsonlite::serializeJSON(request)
+	request.json.str <- as.character(request.json)
+	request.key <- digest::digest(request.json.str, algo = 'md5')
+	if (.self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS) && .self$getBiodb()$getCache()$fileExists('request', folder = CACHE.SHORT.TERM.FOLDER, names = request.key, ext = 'content')) {
+		.self$message(MSG.DEBUG, paste0("Loading content of ", method, " request from cache ..."))
+		content <- .self$getBiodb()$getCache()$loadFileContent('request', CACHE.SHORT.TERM.FOLDER, request.key, ext ='content')
+	}
 
-			# GET method
-			if (method == BIODB.GET) {
-				request.key <- 
-				if (.self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS) && .self$getBiodb()$getCache()$fileExists(method, CACHE.SHORT.TERM.FOLDER, request.key, 'content')) {
-					.self$message(MSG.DEBUG, paste0("Loading content of ", method, " request from cache ..."))
-					content <- .self$getBiodb()$getCache()$loadFileContent(method, CACHE.SHORT.TERM.FOLDER, request.key, 'content')
-				}
-				else {
+	if (is.na(content)) {
+		# Run query
+		for (i in seq(.self$.nb.max.tries)) {
+			tryCatch({
+
+				# GET method
+				if (method == BIODB.GET) {
 					.self$message(MSG.DEBUG, paste0("Sending ", method, " request ..."))
 
 					# Check if in offline mode
@@ -139,27 +145,34 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 					if (.self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS))
 						.self$getBiodb()$getCache()$saveContentToFile(content, method, CACHE.SHORT.TERM.FOLDER, request.key, 'content')
 				}
-			}
 
-			# POST method
-			else {
-				.self$message(MSG.DEBUG, paste0("Sending ", method, " request ..."))
+				# POST method
+				else {
+					.self$message(MSG.DEBUG, paste0("Sending ", method, " request ..."))
 
-				# Check if in offline mode
-				.self$.check.offline.mode()
+					# Check if in offline mode
+					.self$.check.offline.mode()
 
-				# Wait required time between two requests
-				.self$.wait.as.needed()
+					# Wait required time between two requests
+					.self$.wait.as.needed()
 
-				content <- RCurl::postForm(url, .opts = opts, .params = params)
-			}
-		},
-			error = function(e) {
-				.self$message(MSG.INFO, paste("Connection error \"", e$message, "\"", sep = ''))
-				.self$message(MSG.INFO, "Retrying connection to server...")
-			} )
-		if ( ! is.na(content))
-			break
+					content <- RCurl::postForm(url, .opts = opts, .params = params)
+				}
+			},
+				error = function(e) {
+					.self$message(MSG.INFO, paste("Connection error \"", e$message, "\"", sep = ''))
+					.self$message(MSG.INFO, "Retrying connection to server...")
+				} )
+			if ( ! is.na(content))
+				break
+		}
+
+		# Save content to cache
+		if ( ! is.na(content) && .self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS)) {
+			.self$message(MSG.DEBUG, paste0("Saving content of ", method, " request to cache ..."))
+			.self$getBiodb()$getCache()$saveContentToFile(content, 'request', CACHE.SHORT.TERM.FOLDER, names = request.key, ext ='content')
+			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, 'request', CACHE.SHORT.TERM.FOLDER, names = request.key, ext ='desc')
+		}
 	}
 
 	return(content)
