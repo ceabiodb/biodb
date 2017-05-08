@@ -2,11 +2,6 @@
 
 #' @include ChildObject.R
 
-# Constants {{{1
-################################################################
-
-BIODB.BASIC.CLASSES <- c('character', 'integer', 'double', 'logical')
-
 # Entry abstract class {{{1
 ################################################################
 
@@ -89,7 +84,7 @@ BiodbEntry$methods(	removeField = function(field) {
 ################################################################
 
 BiodbEntry$methods(	fieldHasBasicClass = function(field) {
-	return(.self$getBiodb()$getEntryFields()$getField(field)$getClass() %in% BIODB.BASIC.CLASSES)
+	return(.self$getBiodb()$getEntryFields()$getField(field)$isVector())
 })
 
 # Get field value {{{1
@@ -109,15 +104,13 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 	# Get value
 	if (.self$hasField(field))
 		val <- .self$.fields[[field]]
-	else {
+	else
 		# Return NULL or NA
-		class = .self$getBiodb()$getEntryFields()$get(field)$getClass()
-		val <- if (class %in% BIODB.BASIC.CLASSES) as.vector(NA, mode = class) else NULL
-	}
+		val <- if (.self$getBiodb()$getEntryFields()$get(field)$isVector()) as.vector(NA, mode = .self$getBiodb()$getEntryFields()$get(field)$getClass()) else NULL
 
 	# Flatten: convert atomic values with cardinality > 1 into a string
-	if (flatten)
-		if (.self$getBiodb()$getEntryFields()$get(field)$isVector() && .self$getBiodb()$getEntryFields()$get(field)$hasCardOne())
+	if (flatten && ! is.null(val))
+		if (.self$getBiodb()$getEntryFields()$get(field)$isVector() && .self$getBiodb()$getEntryFields()$get(field)$hasCardMany())
 			val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
 
 	return(val)
@@ -173,7 +166,6 @@ BiodbEntry$methods(	.compute.field = function(fields = NULL) {
 # Get fields as data frame {{{1
 ################################################################
 
-# TODO add a limiting option to get some of the fields.
 BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL) {
 	"Convert entry into a data frame."
 
@@ -259,7 +251,11 @@ BiodbEntry$methods( parseContent = function(content) {
 ################################################################
 
 BiodbEntry$methods( .isContentCorrect = function(content) {
-	return( ! is.null(content) && ! is.na(content) && nchar(content) > 0)
+
+	correct <- ! is.null(content) && ! is.na(content) && content != ''
+	# NOTE `nchar(content)` gives "invalid multibyte string, element 1" on some strings.
+
+	return(correct)
 })
 
 # Do parse content {{{1

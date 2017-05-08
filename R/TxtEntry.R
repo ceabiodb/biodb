@@ -31,6 +31,12 @@ TxtEntry$methods( .doParseContent = function(content) {
 
 TxtEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 
+	.self$.assert.not.null(parsed.content)
+	.self$.assert.not.na(parsed.content)
+	.self$.assert.not.null(.self$.parsing.expr)
+	.self$.assert.not.na(.self$.parsing.expr)
+	.self$.assert.not.null(names(.self$.parsing.expr))
+
 	# Loop on all parsing expressions
 	for (field in names(.self$.parsing.expr)) {
 

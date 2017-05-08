@@ -2,11 +2,12 @@
 
 #' @include RemotedbConn.R
 #' @include MassdbConn.R
+#' @include BiodbDownloadable.R
 
 # Class declaration {{{1
 ################################################################
 
-MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn"))
+MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn", 'BiodbDownloadable'))
 
 # Constructor {{{1
 ################################################################0
@@ -16,24 +17,50 @@ MassbankConn$methods( initialize = function(...) {
 	callSuper(content.type = BIODB.TXT, ...)
 })
 
-# Get mz values {{{1
+# Do get mz values {{{1
 ################################################################
 
 MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
 	mz <- numeric(0)
 
+	# Download
+	.self$download()
+
 	# Get list of spectra
-	.self$message(MSG.DEBUG, paste('max.results=', max.results, sep = ''))
-	spectra.ids <- .self$searchMzRange(10, 1000, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level, min.rel.int = if (precursor) 80 else NA)
+	spectra.ids <- .self$getEntryIds()
 
-	# Get entries
-	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), spectra.ids, drop = FALSE)
+	# Loop in all spectra
+	for (id in spectra.ids) {
 
-	# Get peaks
-	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
-	if (BIODB.PEAK.MZ %in% colnames(df))
-		mz <- df[[BIODB.PEAK.MZ]]
+		# Get entry
+		entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
+
+		# Filter on mode
+		if ( ! is.null(ms.mode) && ! is.na(ms.mode) && entry$getFieldValue(BIODB.MSMODE) != ms.mode)
+			next
+
+		# Filter on ms.level
+		if ( ! is.null(ms.level) && ! is.na(ms.level) && entry$getFieldValue(BIODB.MS.LEVEL) != ms.level)
+			next
+
+		# Take mz values
+		if (precursor) {
+			if (entry$hasField(BIODB.MSPRECMZ))
+				mz <- c(mz, entry$getFieldValue(BIODB.MSPRECMZ))
+		} else {
+			peaks <- entry$getFieldValue(BIODB.PEAKS)
+			if ( ! is.null(peaks) && nrow(peaks) > 0 && BIODB.PEAK.MZ %in% peaks)
+				mz <- c(mz, peaks[[BIODB.PEAK.MZ]])
+		}
+
+		# Remove duplicates from mz list
+		mz <- mz[ ! duplicated(mz)]
+
+		# Stop if max reached
+		if ( ! is.null(max.results) && ! is.na(max.results) && length(mz) >= max.results)
+			break
+	}
 
 	# Cut
 	if ( ! is.na(max.results) && length(mz) > max.results)
@@ -54,9 +81,10 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 		tol <- tol * mz * 1e-6
 
 	# Build request
-	if ( ! is.na(max.results) && (precursor || ms.level > 0))
-		max.results <- max(10000, 10 * max.results)
-	xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', mz, '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max.results)) 0 else max.results, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
+	max <- max.results
+	if ( ! is.na(max) && (precursor || ms.level > 0))
+		max <- max(10000, 10 * max)
+	xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', mz, '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
 
 	# Send request
 	xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
@@ -71,19 +99,11 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 
 			# Get entries
 			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids, drop = FALSE)
-			print('----------------------------------------------------------------')
-			print(ms.level)
-			print(precursor)
-			print(length(entries))
-			print('is null:')
-			print(sum(vapply(entries, is.null, FUN.VALUE = FALSE)))
 
 			# Filter on precursor
 			if (precursor) {
-				precursor.mz <- vapply(entries, function(x) x$getFieldValue(BIODB.MSPRECMZ), FUN.VALUE = 1.0)
+				precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue(BIODB.MSPRECMZ), FUN.VALUE = 1.0)
 				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - tol) & (precursor.mz <= mz + tol)
-				print('precursor.matched = ')
-				print(sum(precursor.matched))
 				entries <- entries[precursor.matched]
 			}
 
@@ -91,13 +111,15 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 			if (ms.level > 0) {
 				ms.level.matched <- vapply(entries, function(x) x$getFieldValue(BIODB.MS.LEVEL) == ms.level, FUN.VALUE = TRUE)
 				entries <- entries[ms.level.matched]
-				print('ms.level.matched = ')
-				print(sum(ms.level.matched))
 			}
 
 			returned.ids <- vapply(entries, function(x) x$getFieldValue(BIODB.ACCESSION), FUN.VALUE = '')
 		}
 	}
+
+	# Cut
+	if ( ! is.na(max.results) && length(returned.ids) > max.results)
+		returned.ids <- returned.ids[1:max.results]
 
 	return(returned.ids)
 })
@@ -123,4 +145,59 @@ MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', id, sep = '')
 
 	return(url)
+})
+
+# Do download {{{1
+################################################################
+
+MassbankConn$methods( .doDownload = function() {
+
+	.self$message(MSG.INFO, "Extract whole MassBank database.")
+
+	# SVN export
+	svn.path <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'svn')
+	if ( ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE) && ! file.exists(svn.path)) {
+		.self$message(MSG.INFO, "Download whole MassBank database from SVN server.")
+		svn.cmd <- .self$getBiodb()$getConfig()$get(CFG.SVN.BINARY.PATH)
+		system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', svn.path))
+	}
+
+	# Copy all exported files
+	.self$message(MSG.INFO, "Copy all MassBank record files from SVN local export directory into cache.")
+	svn.files <- Sys.glob(file.path(svn.path, '*', '*.txt'))
+	.self$message(MSG.INFO, paste("Found ", length(svn.files), " record files in MassBank SVN local export directory."))
+	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', svn.files)
+	dup.ids <- duplicated(ids)
+	if (any(dup.ids))
+		.self$message(MSG.CAUTION, paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
+	cache.files <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
+	.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+	file.copy(svn.files, cache.files)
+
+	return(TRUE)
+})
+
+# Get entry ids {{{1
+################################################################
+
+MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
+
+	# Download
+	.self$download()
+
+	# Get IDs from cache
+	ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
+
+	# Cut
+	if ( ! is.na(max.results) && max.results < length(ids))
+		ids <- ids[1:max.results]
+
+	return(ids)
+})
+
+# Get nb entries {{{1
+################################################################
+
+MassbankConn$methods( getNbEntries = function(count = FALSE) {
+	return(length(.self$getEntryIds()))
 })

@@ -74,10 +74,15 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 
 	# Loop on levels
 	for (ms.level in c(1, 2)) {
+		print('test.searchMzTol.with.precursor 10')
+		print('MS.LEVEL')
+		print(ms.level)
+		print('test.searchMzTol.with.precursor 20')
 
 		# Get an M/Z value of a precursor
 		mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
-		expect_equal(length(mz), 1)
+		expect_length(mz, 1)
+		expect_false(is.na(mz))
 
 		# Search for it
 		spectra.ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)

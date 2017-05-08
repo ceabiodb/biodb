@@ -150,7 +150,8 @@ BiodbEntryFields$methods( checkIsDefined = function(name) {
 
 BiodbEntryFields$methods( get = function(name) {
 	.self$checkIsDefined(name)
-	return(.self$.fields[[name]])
+	field <- .self$.fields[[name]]
+	return(field)
 })
 
 # Get database id field {{{1
