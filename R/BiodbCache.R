@@ -103,7 +103,14 @@ BiodbCache$methods( loadFileContent = function(db, folder, names, ext, output.ve
 
 	# Read contents from files
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, folder, names, ext)
-	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size) else NULL )} )
+	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size, useBytes = TRUE) else NULL )} )
+
+	# Check that the read content is not conflicting with the current locale
+	for (i in seq(content)) {
+		n <- tryCatch(nchar(content[[i]]), error = function(e) NULL)
+		if (is.null(n))
+			.self$message(MSG.ERROR, paste("Impossible to handle correctly the content of file \"", file.paths[[i]], "\". Your current locale might be conflicting with functions like `nchar` or `strsplit`. Please, set your locale to 'C' (`Sys.setlocale(locale = 'C')`), or enable option `` in biodb configuration.", sep = ''))
+	}
 
 	# Set to NA
 	content[content == 'NA' | content == "NA\n"] <- NA_character_

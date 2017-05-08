@@ -18,14 +18,15 @@ CFG.CACHE.DIRECTORY         <- 'cache.directory'
 CFG.CACHE.SYSTEM            <- 'cache.system'
 CFG.CACHE.ALL.REQUESTS      <- 'cache.all.requests'
 CFG.CACHE.READ.ONLY         <- 'cache.read.only'
-CFG.CHEMSPIDER.TOKEN        <- 'chemspider_token'
+CFG.CHEMSPIDER.TOKEN        <- 'chemspider.token'
 CFG.COMPUTE.FIELDS          <- 'compute.fields'
 CFG.OFFLINE                 <- 'offline'
-CFG.PEAKFOREST.TOKEN        <- 'peakforest_token'
-CFG.PEAKFOREST.URL          <- 'peakforest_url'
+CFG.PEAKFOREST.TOKEN        <- 'peakforest.token'
+CFG.PEAKFOREST.URL          <- 'peakforest.url'
 CFG.USERAGENT               <- 'useragent'
 CFG.USE.CACHE.SUBFOLDERS    <- 'cache.subfolders'
 CFG.SVN.BINARY.PATH         <- 'svn.binary.path'
+CFG.FORCE.C.LOCALE          <- 'force.c.locale'
 
 # Database URLs
 PEAKFOREST.WS.URL         <- 'https://rest.peakforest.org/'
@@ -51,7 +52,7 @@ BiodbConfig$methods( .getFromEnv = function(key) {
 	value <- NULL
 
 	# Look into ENV
-	envvar <- paste(c('BIODB', toupper(key)), collapse = '_')
+	envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
 	if (envvar %in% names(.self$.env))
 		value <- .self$.env[[envvar]]
 
@@ -84,6 +85,7 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey(CFG.USERAGENT,                type = 'character', default = useragent.default)
 	.self$.newKey(CFG.USE.CACHE.SUBFOLDERS,     type = 'logical',   default = TRUE)
 	.self$.newKey(CFG.SVN.BINARY.PATH,          type = 'character', default = .self$.get.svn.binary.path())
+	.self$.newKey(CFG.FORCE.C.LOCALE,           type = 'logical',   default = TRUE)
 })
 
 # New key {{{1

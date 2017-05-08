@@ -24,6 +24,15 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 
 	mz <- numeric(0)
 
+	if ( ! is.null(ms.mode) && ! is.na(ms.mode))
+		.self$message(MSG.DEBUG, paste("ms.mode", ms.mode, sep = ' = '))
+	if ( ! is.null(max.results) && ! is.na(max.results))
+		.self$message(MSG.DEBUG, paste("max.results", max.results, sep = ' = '))
+	if ( ! is.null(precursor) && ! is.na(precursor))
+		.self$message(MSG.DEBUG, paste("precursor", precursor, sep = ' = '))
+	if ( ! is.null(ms.level) && ! is.na(ms.level))
+		.self$message(MSG.DEBUG, paste("ms.level", ms.level, sep = ' = '))
+
 	# Download
 	.self$download()
 
@@ -31,31 +40,48 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 	spectra.ids <- .self$getEntryIds()
 
 	# Loop in all spectra
+	i <- 0
 	for (id in spectra.ids) {
+
+		i <- i + 1
+		.self$message(MSG.DEBUG, paste("Processing entry", i, "/", length(spectra.ids), "..."))
 
 		# Get entry
 		entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
 
 		# Filter on mode
-		if ( ! is.null(ms.mode) && ! is.na(ms.mode) && entry$getFieldValue(BIODB.MSMODE) != ms.mode)
+		if ( ! is.null(ms.mode) && ! is.na(ms.mode) && entry$getFieldValue(BIODB.MSMODE) != ms.mode) {
+			.self$message(MSG.DEBUG, paste("Reject entry", id, "because MS mode is", entry$getFieldValue(BIODB.MSMODE)))
 			next
-
-		# Filter on ms.level
-		if ( ! is.null(ms.level) && ! is.na(ms.level) && entry$getFieldValue(BIODB.MS.LEVEL) != ms.level)
-			next
-
-		# Take mz values
-		if (precursor) {
-			if (entry$hasField(BIODB.MSPRECMZ))
-				mz <- c(mz, entry$getFieldValue(BIODB.MSPRECMZ))
-		} else {
-			peaks <- entry$getFieldValue(BIODB.PEAKS)
-			if ( ! is.null(peaks) && nrow(peaks) > 0 && BIODB.PEAK.MZ %in% peaks)
-				mz <- c(mz, peaks[[BIODB.PEAK.MZ]])
 		}
 
-		# Remove duplicates from mz list
-		mz <- mz[ ! duplicated(mz)]
+		# Filter on ms.level
+		if ( ! is.null(ms.level) && ! is.na(ms.level) && ms.level > 0 && entry$getFieldValue(BIODB.MS.LEVEL) != ms.level) {
+			.self$message(MSG.DEBUG, paste("Reject entry", id, "because MS level is", entry$getFieldValue(BIODB.MS.LEVEL)))
+			next
+		}
+
+		# Take mz values
+		new.mz <- NULL
+		if (precursor) {
+			if (entry$hasField(BIODB.MSPRECMZ))
+				new.mz <- entry$getFieldValue(BIODB.MSPRECMZ)
+		} else {
+			peaks <- entry$getFieldValue(BIODB.PEAKS)
+			if ( ! is.null(peaks) && nrow(peaks) > 0 && BIODB.PEAK.MZ %in% colnames(peaks))
+				new.mz <- peaks[[BIODB.PEAK.MZ]]
+		}
+
+		# Add new M/Z values
+		if ( ! is.null(new.mz)) {
+			new.mz <- new.mz[ ! new.mz %in% mz]
+			if (length(new.mz) > 0) {
+				.self$message(MSG.DEBUG, paste("Add", length(new.mz), "new M/Z values."))
+				mz <- c(mz, new.mz)
+			}
+		}
+
+		.self$message(MSG.DEBUG, paste(length(mz), "M/Z values have been found."))
 
 		# Stop if max reached
 		if ( ! is.null(max.results) && ! is.na(max.results) && length(mz) >= max.results)

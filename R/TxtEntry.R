@@ -21,7 +21,7 @@ TxtEntry$methods( initialize = function(...) {
 TxtEntry$methods( .doParseContent = function(content) {
 
 	# Get lines of content
-	lines <- strsplit(content, "\n")[[1]]
+	lines <- strsplit(content, "\r?\n")[[1]]
 
 	return(lines)
 })
