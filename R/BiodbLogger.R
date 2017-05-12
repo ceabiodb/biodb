@@ -15,14 +15,25 @@ BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', f
 
 BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.level = as.integer(1), file = NULL, mode = 'w', ...) {
 
+	callSuper(...)
+
 	.verbose.level <<- if ( ! is.null(verbose.level) && ! is.na(verbose.level)) verbose.level else as.integer(1)
 	.debug.level <<- if ( ! is.null(debug.level) && ! is.na(debug.level)) debug.level else as.integer(1)
 	.file <<- if ( ! is.null(file) && ! is.na(file)) file else stderr()
 	if (is.character(.file))
 		.file <<- file(.self$.file, open = mode)
-
-	callSuper(...)
 })
+
+## Destructor {{{1
+#################################################################
+#
+#BiodbLogger$methods( dfunc = function() {
+#
+#	# Close file connection
+#	if ( ! is.null(.self$.file))
+#		close(.self$.file)
+#})
+
 
 # Message {{{1
 ################################################################

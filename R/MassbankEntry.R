@@ -18,7 +18,7 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.MSDEV, "^AC\\$INSTRUMENT: (.+)$")
 	.self$addParsingExpression(BIODB.MSDEVTYPE, "^AC\\$INSTRUMENT_TYPE: (.+)$")
 	.self$addParsingExpression(BIODB.MSTYPE, "^AC\\$MASS_SPECTROMETRY: MS_TYPE (.+)$")
-	.self$addParsingExpression(BIODB.MSPRECMZ, "^MS\\$FOCUSED_ION: PRECURSOR_M/Z (.+)$")
+	.self$addParsingExpression(BIODB.MSPRECMZ, "^MS\\$FOCUSED_ION: PRECURSOR_M/Z .*/?([0-9.]+)$")
 	.self$addParsingExpression(BIODB.NB.PEAKS, "^PK\\$NUM_PEAK: ([0-9]+)$")
 	.self$addParsingExpression(BIODB.MSPRECANNOT, "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$")
 	.self$addParsingExpression(BIODB.INCHI, "^CH\\$IUPAC:\\s+(.+)$")

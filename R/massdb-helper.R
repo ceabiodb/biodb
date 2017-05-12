@@ -5,7 +5,6 @@ simplifySpectrum <- function(spec) {
 	if(length(spec) == 0){
 		return(NA_real_)
 	}
-	#print(spec)
 	if (nrow(spec) == 0)
 		return(NA_real_)
 

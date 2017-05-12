@@ -4,7 +4,7 @@ check:
 	@R -q -e "devtools::check('$(CURDIR)')"
 
 test:
-	@R -q -e "devtools::test('$(CURDIR)')" | sed -e "s!(@\(.*\)#\([0-9]*\)).*\$$!at $(CURDIR)/tests/testthat/\1:\2!"
+	@R -q -e "devtools::test('$(CURDIR)')" | sed -e "s!(@\(.*\)#\([0-9]*\))!at $(CURDIR)/tests/testthat/\1:\2!"
 
 install:
 	@R -q -e "try(devtools::uninstall('$(CURDIR)'), silent = TRUE) ; devtools::install_local('$(CURDIR)') ; library(biodb) ; cat('***** Exported methods and classes:', paste(ls('package:biodb'), collapse = ', '), \".\\\\n\", sep = '')"
