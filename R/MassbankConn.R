@@ -65,7 +65,7 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 		new.mz <- NULL
 		if (precursor) {
 			if (entry$hasField(BIODB.MSPRECMZ))
-				new.mz <- entry$getFieldValue(BIODB.MSPRECMZ)
+				new.mz <- entry$getFieldValue(BIODB.MSPRECMZ, last = TRUE)
 		} else {
 			peaks <- entry$getFieldValue(BIODB.PEAKS)
 			if ( ! is.null(peaks) && nrow(peaks) > 0 && BIODB.PEAK.MZ %in% colnames(peaks))
@@ -128,7 +128,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 
 			# Filter on precursor
 			if (precursor) {
-				precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue(BIODB.MSPRECMZ), FUN.VALUE = 1.0)
+				precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue(BIODB.MSPRECMZ, last = TRUE), FUN.VALUE = 1.0)
 				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - tol) & (precursor.mz <= mz + tol)
 				entries <- entries[precursor.matched]
 			}

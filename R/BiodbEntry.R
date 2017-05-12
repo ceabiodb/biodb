@@ -94,12 +94,15 @@ BiodbEntry$methods(	fieldHasBasicClass = function(field) {
 # Get field value {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FALSE) {
+BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FALSE, last = FALSE) {
 
 	val <- NULL
 
 	# Check field
 	.self$getBiodb()$getEntryFields()$checkIsDefined(field)
+
+	# Get field definition
+	field.def <- .self$getBiodb()$getEntryFields()$get(field)
 
 	# Compute field value
 	if (compute && ! .self$hasField(field))
@@ -110,12 +113,21 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 		val <- .self$.fields[[field]]
 	else
 		# Return NULL or NA
-		val <- if (.self$getBiodb()$getEntryFields()$get(field)$isVector()) as.vector(NA, mode = .self$getBiodb()$getEntryFields()$get(field)$getClass()) else NULL
+		val <- if (field.def$isVector()) as.vector(NA, mode = field.def$getClass()) else NULL
+
+	# Get last value only
+	if (last && field.def$hasCardMany() && length(val) > 1)
+		val <- val[[length(val)]]
 
 	# Flatten: convert atomic values with cardinality > 1 into a string
-	if (flatten && ! is.null(val))
-		if (.self$getBiodb()$getEntryFields()$get(field)$isVector() && .self$getBiodb()$getEntryFields()$get(field)$hasCardMany())
-			val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
+	if (flatten && ! is.null(val)) {
+		if (field.def$isVector() && field.def$hasCardMany() && length(val) > 1) {
+			if (all(is.na(val)))
+				val <-  as.vector(NA, mode = field.def$getClass())
+			else
+				val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
+		}
+	}
 
 	return(val)
 })

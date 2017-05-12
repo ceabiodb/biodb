@@ -22,7 +22,7 @@
 #' @exportClass BiodbEntryFields
 BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list" ))
 
-# constructor {{{1
+# Constructor {{{1
 ################################################################
 
 BiodbEntryFields$methods( initialize = function(...) {
@@ -77,7 +77,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.MSDEVTYPE)
 	.self$.define(BIODB.MSTYPE)
 	.self$.define(BIODB.MSMODE)
-	.self$.define(BIODB.MSPRECMZ,     class =  'double')
+	.self$.define(BIODB.MSPRECMZ,     class =  'double',    card = BIODB.CARD.MANY)
 	.self$.define(BIODB.MSPRECANNOT)
 	.self$.define(BIODB.FORMULA)
 	.self$.define(BIODB.SUPER.CLASS)

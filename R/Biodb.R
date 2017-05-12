@@ -141,7 +141,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 		field.class = .self$getEntryFields()$get(field)$getClass()
 
 		if (length(entries) > 0)
-			val <- vapply(entries, function(e) { v <- e$getFieldValue(field, compute = compute) ; if ( ! is.null(v) && ! all(is.na(v))) e$getFieldValue(field, flatten = flatten, compute = compute) else as.vector(NA, mode = field.class) }, FUN.VALUE = vector(mode = field.class, length = 1))
+			val <- unlist(lapply(entries, function(e) e$getFieldValue(field, flatten = flatten, compute = compute)))
 		else
 			val <- vector(mode = field.class, length = 0)
 	}

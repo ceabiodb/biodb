@@ -18,7 +18,6 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.MSDEV, "^AC\\$INSTRUMENT: (.+)$")
 	.self$addParsingExpression(BIODB.MSDEVTYPE, "^AC\\$INSTRUMENT_TYPE: (.+)$")
 	.self$addParsingExpression(BIODB.MSTYPE, "^AC\\$MASS_SPECTROMETRY: MS_TYPE (.+)$")
-	.self$addParsingExpression(BIODB.MSPRECMZ, "^MS\\$FOCUSED_ION: PRECURSOR_M/Z .*/?([0-9.]+)$")
 	.self$addParsingExpression(BIODB.NB.PEAKS, "^PK\\$NUM_PEAK: ([0-9]+)$")
 	.self$addParsingExpression(BIODB.MSPRECANNOT, "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$")
 	.self$addParsingExpression(BIODB.INCHI, "^CH\\$IUPAC:\\s+(.+)$")
@@ -41,6 +40,14 @@ MassbankEntry$methods( initialize = function(...) {
 ################################################################
 
 MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
+
+	# List of precursors
+	g <- stringr::str_match(parsed.content, "^MS\\$FOCUSED_ION: PRECURSOR_M/Z ([0-9./]+)$")
+	results <- g[ ! is.na(g[,1]), , drop = FALSE]
+	if (nrow(results) > 0) {
+		precursors <- strsplit(results[,2], '/', fixed = TRUE)[[1]]
+		.self$setFieldValue(BIODB.MSPRECMZ, precursors)
+	}
 
 	# Retention time
 	g <- stringr::str_match(parsed.content, "^AC\\$CHROMATOGRAPHY: RETENTION_TIME\\s+([0-9.]+)\\s+([minsec]+)\\s*.*$")
