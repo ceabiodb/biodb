@@ -15,6 +15,8 @@ MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn"
 MassbankConn$methods( initialize = function(...) {
 
 	callSuper(content.type = BIODB.TXT, ...)
+
+	.self$.setDownloadExt('svn')
 })
 
 # Do get mz values {{{1
@@ -178,19 +180,20 @@ MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 MassbankConn$methods( .doDownload = function() {
 
-	.self$message(MSG.INFO, "Extract whole MassBank database.")
-
 	# SVN export
-	svn.path <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'svn')
-	if ( ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE) && ! file.exists(svn.path)) {
-		.self$message(MSG.INFO, "Download whole MassBank database from SVN server.")
-		svn.cmd <- .self$getBiodb()$getConfig()$get(CFG.SVN.BINARY.PATH)
-		system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', svn.path))
-	}
+	.self$message(MSG.INFO, "Download whole MassBank database from SVN server.")
+	svn.cmd <- .self$getBiodb()$getConfig()$get(CFG.SVN.BINARY.PATH)
+	system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', .self$getDownloadPath()))
+})
+
+# Do extract download {{{1
+################################################################
+
+MassbankConn$methods( .doExtractDownload = function() {
 
 	# Copy all exported files
 	.self$message(MSG.INFO, "Copy all MassBank record files from SVN local export directory into cache.")
-	svn.files <- Sys.glob(file.path(svn.path, '*', '*.txt'))
+	svn.files <- Sys.glob(file.path(.self$getDownloadPath(), '*', '*.txt'))
 	.self$message(MSG.INFO, paste("Found ", length(svn.files), " record files in MassBank SVN local export directory."))
 	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', svn.files)
 	dup.ids <- duplicated(ids)
@@ -199,8 +202,37 @@ MassbankConn$methods( .doDownload = function() {
 	cache.files <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
 	.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
 	file.copy(svn.files, cache.files)
+})
 
-	return(TRUE)
+# Get entry content {{{1
+################################################################
+
+MassbankConn$methods( getEntryContent = function(id) {
+
+	# NOTE Method unused, since database is downloaded.
+
+	# Debug
+	.self$message(MSG.DEBUG, paste0("Get entry content(s) for ", length(id)," id(s)..."))
+
+	# Initialize return values
+	content <- rep(NA_character_, length(id))
+
+	# Build request
+	xml.request <- paste0('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:getRecordInfo>', paste(paste('<tns:ids>', id, '</tns:ids>', sep = ''), collapse = ''), '</tns:getRecordInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>')
+
+	# Send request
+	xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
+
+	# Parse XML and get text
+	if ( ! is.na(xmlstr)) {
+		xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
+		ns <- c(ax21 = "http://api.massbank/xsd")
+		returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
+		if (length(returned.ids) > 0)
+			content[match(returned.ids, id)] <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue, namespaces = ns)
+	}
+
+	return(content)
 })
 
 # Get entry ids {{{1

@@ -168,8 +168,10 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
 
 	# Download full database if possible
-	if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(class), 'BiodbDownloadable'))
+	if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(class), 'BiodbDownloadable')) {
+		.self$message(MSG.DEBUG, paste('Ask for whole database download of ', class, '.', sep = ''))
 		.self$getConn(class)$download()
+	}
 
 	# Initialize content
 	if (.self$getBiodb()$getCache()$isReadable()) {

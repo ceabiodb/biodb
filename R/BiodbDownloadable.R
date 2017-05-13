@@ -3,7 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-BiodbDownloadable <- methods::setRefClass("BiodbDownloadable", contains = 'BiodbObject')
+BiodbDownloadable <- methods::setRefClass("BiodbDownloadable", contains = 'BiodbObject', fields = list(.ext = 'character'))
 
 # Constructor {{{1
 ################################################################0
@@ -11,12 +11,36 @@ BiodbDownloadable <- methods::setRefClass("BiodbDownloadable", contains = 'Biodb
 BiodbDownloadable$methods( initialize = function(...) {
 
 	callSuper(...)
+
+	.ext <<- NA_character_
+})
+
+# Set download extension {{{1
+################################################################
+
+BiodbDownloadable$methods( .setDownloadExt = function(ext) {
+	.ext <<- ext
+})
+
+# Get download path {{{1
+################################################################
+
+BiodbDownloadable$methods( getDownloadPath = function() {
+	# TODO Massbank.eu needs to download again the db, since target name is different.
+	return(.self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = .self$.ext))
 })
 
 # Is downloaded {{{1
 ################################################################
 
 BiodbDownloadable$methods( isDownloaded = function() {
+	return(file.exists(.self$getDownloadPath()))
+})
+
+# Is extracted {{{1
+################################################################
+
+BiodbDownloadable$methods( isExtracted = function() {
 	return(.self$getBiodb()$getCache()$markerExists(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted'))
 })
 
@@ -25,10 +49,24 @@ BiodbDownloadable$methods( isDownloaded = function() {
 
 BiodbDownloadable$methods( download = function() {
 
-	if ( ! .self$isDownloaded() && .self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS))
-		if (.self$.doDownload())
-			# Set marker
-			.self$getBiodb()$getCache()$setMarker(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')
+	# Download
+	if ( ! .self$isDownloaded() && .self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS) && ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE)) {
+
+		.self$message(MSG.INFO, paste("Download whole database of ", .self$getId(), ".", sep = ''))
+
+		.self$.doDownload()
+	}
+
+	# Extract
+	if (.self$isDownloaded() && ! .self$isExtracted()) {
+
+		.self$message(MSG.INFO, paste("Extract whole database of ", .self$getId(), ".", sep = ''))
+
+		.self$.doExtractDownload()
+
+		# Set marker
+		.self$getBiodb()$getCache()$setMarker(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, name = 'extracted')
+	}
 })
 
 # Do download {{{1
