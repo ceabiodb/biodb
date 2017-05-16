@@ -5,12 +5,12 @@
 
 #' @include PeakforestConn.R
 #' @include MassdbConn.R
-PeakforestLcmsConn <- methods::setRefClass("PeakforestLcmsConn", contains = c("PeakforestConn", "MassdbConn"))
+PeakforestMassConn <- methods::setRefClass("PeakforestMassConn", contains = c("PeakforestConn", "MassdbConn"))
 
 # Constructor {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( initialize = function(...) {
+PeakforestMassConn$methods( initialize = function(...) {
 
 	callSuper(db.name = 'spectra/lcms', ...)
 })
@@ -18,7 +18,7 @@ PeakforestLcmsConn$methods( initialize = function(...) {
 # Get entry content url {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+PeakforestMassConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 	# Check token
 	if (is.na(.self$getToken()))
@@ -35,14 +35,14 @@ PeakforestLcmsConn$methods( .doGetEntryContentUrl = function(id, concatenate = T
 # Get entry page url {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( getEntryPageUrl = function(id) {
+PeakforestMassConn$methods( getEntryPageUrl = function(id) {
 	return(paste('https://peakforest.org/home?PFs=', id))
 })
 
 # Create reduced entry {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( createReducedEntry = function(content , drop = TRUE){
+PeakforestMassConn$methods( createReducedEntry = function(content , drop = TRUE){
 	entries <- vector(length(content), mode = "list")
 	jsonfields <- character()
 	
@@ -127,7 +127,7 @@ PeakforestLcmsConn$methods( createReducedEntry = function(content , drop = TRUE)
 # Do search M/Z range {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 	
 	url <- paste0(.self$getBaseUrl(), "spectra/lcms/peaks/get-range/", mz.min, "/", mz.max)
 	
@@ -150,7 +150,7 @@ PeakforestLcmsConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 
 # DEPRECATED
 # TODO rename this method and use it inside .doSearchMzRange using new params precursor and level.
-PeakforestLcmsConn$methods( .doSearchPrecTol = function(prec.mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = NA_character_) {
+PeakforestMassConn$methods( .doSearchPrecTol = function(prec.mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = NA_character_) {
 
 	# Set token
 	largs <- list(token = .self$getToken())
@@ -178,7 +178,7 @@ PeakforestLcmsConn$methods( .doSearchPrecTol = function(prec.mz, tol, tol.unit =
 # Get chromatographic columns {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( getChromCol = function(compound.ids = NULL) {
+PeakforestMassConn$methods( getChromCol = function(compound.ids = NULL) {
 
 	# Set URL
 	url <- paste(.self$getBaseUrl(), 'metadata/lc/list-code-columns?token=', .self$getToken(), sep = '')
@@ -198,7 +198,7 @@ PeakforestLcmsConn$methods( getChromCol = function(compound.ids = NULL) {
 # Get mz values {{{1
 ################################################################
 
-PeakforestLcmsConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
+PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
 	                           # TODO Ask Nils to add some filtering on precursor and MS level
 	# Set URL

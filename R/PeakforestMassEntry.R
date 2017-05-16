@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################
 
-PeakforestLcmsEntry <- methods::setRefClass("PeakforestLcmsEntry", contains = "JsonEntry")
+PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry", contains = "JsonEntry")
 
 # Constructor {{{1
 ################################################################
 
-PeakforestLcmsEntry$methods( initialize = function(...) {
+PeakforestMassEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
@@ -32,7 +32,7 @@ PeakforestLcmsEntry$methods( initialize = function(...) {
 # Parse fields after {{{1
 ################################################################
 
-PeakforestLcmsEntry$methods( .parseFieldsAfter = function(parsed.content) {
+PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Set peaks
 	if ('peaks' %in% names(parsed.content) && length(parsed.content$peaks) > 0) {
