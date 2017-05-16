@@ -13,6 +13,8 @@ MirbaseMatureConn <- methods::setRefClass("MirbaseMatureConn", contains = c("Mir
 
 MirbaseMatureConn$methods( initialize = function(...) {
 	callSuper(content.type = BIODB.TXT, ...)
+
+	.self$.setDownloadExt('gz')
 })
 
 # Get entry page url {{{1
@@ -28,45 +30,41 @@ MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
 MirbaseMatureConn$methods( .doDownload = function() {
 
 	# Download
-	gz.path <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.LONG.TERM.FOLDER, names = 'download', ext = 'gz')
-	if ( ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE) && ! file.exists(gz.path)) {
-		gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
-		.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
-		.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = gz.path)
+	gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
+	.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
+	.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = .self$getDownloadPath())
+})
+
+# Do extract download {{{1
+################################################################
+
+MirbaseMatureConn$methods( .doExtractDownload = function() {
+
+	# Extract
+	# We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.
+	extracted.file <- tempfile(.self$getId())
+	R.utils::gunzip(filename = .self$getDownloadPath(), destname = extracted.file, remove = FALSE)
+
+	# Read file
+	fd <- file(extracted.file, 'r')
+	lines <- readLines(fd)
+	close(fd)
+
+	# Get all entry IDs
+	ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value = TRUE), perl = TRUE)
+	.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", .self$getDownloadPath(), "\".", sep = ''))
+
+	if (length(ids) > 0) {
+		# Get contents
+		contents <- paste(lines[seq(1, 2*length(ids), 2)], lines[seq(2, 2*length(ids), 2)], sep = "\n")
+
+		# Write all entries into files
+		.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+		.self$getBiodb()$getCache()$saveContentToFile(contents, db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
 	}
 
-	if (file.exists(gz.path)) {
-
-		# Extract
-		# We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.
-		extracted.file <- tempfile(.self$getId())
-		R.utils::gunzip(filename = gz.path, destname = extracted.file, remove = FALSE)
-
-		# Read file
-		fd <- file(extracted.file, 'r')
-		lines <- readLines(fd)
-		close(fd)
-
-		# Get all entry IDs
-		ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value = TRUE), perl = TRUE)
-		.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", gz.path, "\".", sep = ''))
-
-		if (length(ids) > 0) {
-			# Get contents
-			contents <- paste(lines[seq(1, 2*length(ids), 2)], lines[seq(2, 2*length(ids), 2)], sep = "\n")
-
-			# Write all entries into files
-			.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
-			.self$getBiodb()$getCache()$saveContentToFile(contents, db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
-		}
-
-		# Remove extract directory
-		unlink(extracted.file)
-
-		return(TRUE)
-	}
-
-	return(FALSE)
+	# Remove extract directory
+	unlink(extracted.file)
 })
 
 # Get entry ids {{{1

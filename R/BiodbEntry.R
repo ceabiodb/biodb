@@ -269,7 +269,7 @@ BiodbEntry$methods( parseContent = function(content) {
 BiodbEntry$methods( .isContentCorrect = function(content) {
 
 	correct <- ! is.null(content) && ! is.na(content) && content != ''
-	# NOTE `nchar(content)` gives "invalid multibyte string, element 1" on some strings.
+	# NOTE `nchar(content)` may give "invalid multibyte string, element 1" on some strings.
 
 	return(correct)
 })

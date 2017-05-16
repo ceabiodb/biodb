@@ -130,11 +130,18 @@ BiodbCache$methods( saveContentToFile = function(contents, db, folder, names, ex
 	if ( ! .self$isWritable())
 		.self$message(MSG.ERROR, paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
 
-	# Write contents into files
+	# Get file paths
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, folder, names, ext)
+
+	# Check that we have the same number of contents and file paths
 	if (length(file.paths) != length(contents))
 		.self$message(MSG.ERROR, paste("The number of contents to save (", length(contents), ") is different from the number of paths (", length(file.paths), ").", sep = ''))
-	mapply(function(c, f) { if ( ! is.null(c)) writeChar(if (is.na(c)) 'NA' else c, f) }, contents, file.paths)
+
+	# Replace NA values with 'NA' string
+	contents[is.na(contents)] <- 'NA'
+
+	# Write contents to files
+	mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, contents, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
 })
 
 # Get folder path {{{1
