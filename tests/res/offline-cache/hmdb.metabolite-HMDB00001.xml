@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <metabolite>
   <version>3.6</version>
   <creation_date>2005-11-16 15:48:42 UTC</creation_date>
-  <update_date>2016-09-22 21:05:55 UTC</update_date>
+  <update_date>2017-03-02 21:25:33 UTC</update_date>
   <accession>HMDB00001</accession>
   <secondary_accessions>
     <accession>HMDB04935</accession>
@@ -24,13 +23,13 @@
   </synonyms>
   <chemical_formula>C7H11N3O2</chemical_formula>
   <average_molecular_weight>169.1811</average_molecular_weight>
-  <monisotopic_moleculate_weight>169.085126611</monisotopic_moleculate_weight>
+  <monisotopic_molecular_weight>169.085126611</monisotopic_molecular_weight>
   <iupac_name>(2S)-2-amino-3-(1-methyl-1H-imidazol-4-yl)propanoic acid</iupac_name>
   <traditional_iupac>1 methylhistidine</traditional_iupac>
   <cas_registry_number>332-80-9</cas_registry_number>
   <smiles>CN1C=NC(C[C@H](N)C(O)=O)=C1</smiles>
   <inchi>InChI=1S/C7H11N3O2/c1-10-3-5(9-4-10)2-6(8)7(11)12/h3-4,6H,2,8H2,1H3,(H,11,12)/t6-/m0/s1</inchi>
-  <inchikey>InChIKey=BRMWTNUJHUMWMS-LURJTMIESA-N</inchikey>
+  <inchikey>BRMWTNUJHUMWMS-LURJTMIESA-N</inchikey>
   <taxonomy>
     <description>This compound belongs to the class of chemical entities known as histidine and derivatives. These are compounds containing cysteine or a derivative thereof resulting from reaction of cysteine at the amino group or the carboxy group, or from the replacement of any hydrogen of glycine by a heteroatom.</description>
     <direct_parent>Histidine and derivatives</direct_parent>
@@ -169,7 +168,7 @@
     </property>
     <property>
       <kind>inchikey</kind>
-      <value>InChIKey=BRMWTNUJHUMWMS-LURJTMIESA-N</value>
+      <value>BRMWTNUJHUMWMS-LURJTMIESA-N</value>
       <source>ChemAxon</source>
     </property>
     <property>
@@ -271,7 +270,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol. 1982 Jan;52(1):27-33.</reference_text>
+          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol Respir Environ Exerc Physiol. 1982 Jan;52(1):27-33.</reference_text>
           <pubmed_id>7061274</pubmed_id>
         </reference>
       </references>
@@ -285,7 +284,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol. 1982 Jan;52(1):27-33.</reference_text>
+          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol Respir Environ Exerc Physiol. 1982 Jan;52(1):27-33.</reference_text>
           <pubmed_id>7061274</pubmed_id>
         </reference>
       </references>
@@ -299,7 +298,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol. 1982 Jan;52(1):27-33.</reference_text>
+          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol Respir Environ Exerc Physiol. 1982 Jan;52(1):27-33.</reference_text>
           <pubmed_id>7061274</pubmed_id>
         </reference>
       </references>
@@ -313,7 +312,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol. 1982 Jan;52(1):27-33.</reference_text>
+          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol Respir Environ Exerc Physiol. 1982 Jan;52(1):27-33.</reference_text>
           <pubmed_id>7061274</pubmed_id>
         </reference>
       </references>
@@ -327,7 +326,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol. 1982 Jan;52(1):27-33.</reference_text>
+          <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol Respir Environ Exerc Physiol. 1982 Jan;52(1):27-33.</reference_text>
           <pubmed_id>7061274</pubmed_id>
         </reference>
       </references>
@@ -398,7 +397,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Vranic L, Granic P, Rajic Z: Basic amino acid in the pathogenesis of caries.  Acta Stomatol Croat. 1991;25(2):71-6.</reference_text>
+          <reference_text>Vranic L, Granic P, Rajic Z: Basic amino acid in the pathogenesis of caries. Acta Stomatol Croat. 1991;25(2):71-6.</reference_text>
           <pubmed_id>1819935</pubmed_id>
         </reference>
       </references>
@@ -412,7 +411,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Husek P, Svagera Z, Hanzlikova D, Rimnacova L, Zahradnickova H, Opekarova I, Simek P: Profiling of urinary amino-carboxylic metabolites by in-situ heptafluorobutyl chloroformate mediated sample preparation and gas chromatography-mass spectrometry. J Chromatogr A. 2016 Apr 22;1443:211-32. doi: 10.1016/j.chroma.2016.03.019. Epub 2016 Mar 10.</reference_text>
+          <reference_text>Husek P, Svagera Z, Hanzlikova D, Rimnacova L, Zahradnickova H, Opekarova I, Simek P: Profiling of urinary amino-carboxylic metabolites by in-situ heptafluorobutyl chloroformate mediated sample preparation and gas chromatography-mass spectrometry. J Chromatogr A. 2016 Apr 22;1443:211-32. doi: 10.1016/j.chroma.2016.03.019. Epub  2016 Mar 10.</reference_text>
           <pubmed_id>27012787</pubmed_id>
         </reference>
       </references>
@@ -426,7 +425,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Jacobs DM, Spiesser L, Garnier M, de Roo N, van Dorsten F, Hollebrands B, van Velzen E, Draijer R, van Duynhoven J: SPE-NMR metabolite sub-profiling of urine. Anal Bioanal Chem. 2012 Nov;404(8):2349-61. doi: 10.1007/s00216-012-6339-2. Epub 2012 Aug 31.</reference_text>
+          <reference_text>Jacobs DM, Spiesser L, Garnier M, de Roo N, van Dorsten F, Hollebrands B, van Velzen E, Draijer R, van Duynhoven J: SPE-NMR metabolite sub-profiling of urine. Anal Bioanal Chem. 2012 Nov;404(8):2349-61. doi: 10.1007/s00216-012-6339-2. Epub  2012 Aug 31.</reference_text>
           <pubmed_id>22932811</pubmed_id>
         </reference>
       </references>
@@ -455,7 +454,7 @@
       <comment>urine by NMR</comment>
       <references>
         <reference>
-          <reference_text>Bouatra S, Aziat F, Mandal R, Guo AC, Wilson MR, Knox C, Bjorndahl TC, Krishnamurthy R, Saleem F, Liu P, Dame ZT, Poelzer J, Huynh J, Yallou FS, Psychogios N, Dong E, Bogumil R, Roehring C, Wishart DS: The human urine metabolome. PLoS One. 2013 Sep 4;8(9):e73076. doi: 10.1371/journal.pone.0073076.</reference_text>
+          <reference_text>Bouatra S, Aziat F, Mandal R, Guo AC, Wilson MR, Knox C, Bjorndahl TC, Krishnamurthy R, Saleem F, Liu P, Dame ZT, Poelzer J, Huynh J, Yallou FS, Psychogios N, Dong E, Bogumil R, Roehring C, Wishart DS: The human urine metabolome. PLoS One. 2013 Sep 4;8(9):e73076. doi: 10.1371/journal.pone.0073076. eCollection  2013.</reference_text>
           <pubmed_id>24023812</pubmed_id>
         </reference>
       </references>
@@ -483,7 +482,7 @@
       <subject_condition>Normal</subject_condition>
       <references>
         <reference>
-          <reference_text>Husek P, Svagera Z, Hanzlikova D, Rimnacova L, Zahradnickova H, Opekarova I, Simek P: Profiling of urinary amino-carboxylic metabolites by in-situ heptafluorobutyl chloroformate mediated sample preparation and gas chromatography-mass spectrometry. J Chromatogr A. 2016 Apr 22;1443:211-32. doi: 10.1016/j.chroma.2016.03.019. Epub 2016 Mar 10.</reference_text>
+          <reference_text>Husek P, Svagera Z, Hanzlikova D, Rimnacova L, Zahradnickova H, Opekarova I, Simek P: Profiling of urinary amino-carboxylic metabolites by in-situ heptafluorobutyl chloroformate mediated sample preparation and gas chromatography-mass spectrometry. J Chromatogr A. 2016 Apr 22;1443:211-32. doi: 10.1016/j.chroma.2016.03.019. Epub  2016 Mar 10.</reference_text>
           <pubmed_id>27012787</pubmed_id>
         </reference>
       </references>
@@ -641,7 +640,7 @@
       <comment>Patients with chronic renal failure on maintenance hemodialysis. These subjects were treated with nocturnal hemodialysis for 8 h during the night, 6 times/week.</comment>
       <references>
         <reference>
-          <reference_text>Raj DS, Ouwendyk M, Francoeur R, Pierratos A: Plasma amino acid profile on nocturnal hemodialysis.  Blood Purif. 2000;18(2):97-102.</reference_text>
+          <reference_text>Raj DS, Ouwendyk M, Francoeur R, Pierratos A: Plasma amino acid profile on nocturnal hemodialysis. Blood Purif. 2000;18(2):97-102.</reference_text>
           <pubmed_id>10838467</pubmed_id>
         </reference>
       </references>
@@ -656,7 +655,7 @@
       <comment>Patients with chronic renal failure on maintenance hemodialysis. These subjects were treated with conventional hemodialysis for 4 h, 3 times/week.</comment>
       <references>
         <reference>
-          <reference_text>Raj DS, Ouwendyk M, Francoeur R, Pierratos A: Plasma amino acid profile on nocturnal hemodialysis.  Blood Purif. 2000;18(2):97-102.</reference_text>
+          <reference_text>Raj DS, Ouwendyk M, Francoeur R, Pierratos A: Plasma amino acid profile on nocturnal hemodialysis. Blood Purif. 2000;18(2):97-102.</reference_text>
           <pubmed_id>10838467</pubmed_id>
         </reference>
       </references>
@@ -813,7 +812,7 @@
           <pubmed_id>11959400</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Molina JA, Jimenez-Jimenez FJ, Hernanz A, Fernandez-Vivancos E, Medina S, de Bustos F, Gomez-Escalonilla C, Sayed Y: Cerebrospinal fluid levels of thiamine in patients with Alzheimer's disease. J Neural Transm. 2002 Jul;109(7-8):1035-44.</reference_text>
+          <reference_text>Molina JA, Jimenez-Jimenez FJ, Hernanz A, Fernandez-Vivancos E, Medina S, de Bustos F, Gomez-Escalonilla C, Sayed Y: Cerebrospinal fluid levels of thiamine in patients with Alzheimer's disease. J Neural Transm (Vienna). 2002 Jul;109(7-8):1035-44.</reference_text>
           <pubmed_id>12111441</pubmed_id>
         </reference>
         <reference>
@@ -821,7 +820,7 @@
           <pubmed_id>16227558</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Leoni V, Masterman T, Mousavi FS, Wretlind B, Wahlund LO, Diczfalusy U, Hillert J, Bjorkhem I: Diagnostic use of cerebral and extracerebral oxysterols.  Clin Chem Lab Med. 2004 Feb;42(2):186-91.</reference_text>
+          <reference_text>Leoni V, Masterman T, Mousavi FS, Wretlind B, Wahlund LO, Diczfalusy U, Hillert J, Bjorkhem I: Diagnostic use of cerebral and extracerebral oxysterols. Clin Chem Lab Med. 2004 Feb;42(2):186-91.</reference_text>
           <pubmed_id>15061359</pubmed_id>
         </reference>
         <reference>
@@ -849,7 +848,7 @@
           <pubmed_id>12391605</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Molina JA, Jimenez-Jimenez FJ, Aguilar MV, Meseguer I, Mateos-Vega CJ, Gonzalez-Munoz MJ, de Bustos F, Porta J, Orti-Pareja M, Zurdo M, Barrios E, Martinez-Para MC: Cerebrospinal fluid levels of transition metals in patients with Alzheimer's disease. J Neural Transm. 1998;105(4-5):479-88.</reference_text>
+          <reference_text>Molina JA, Jimenez-Jimenez FJ, Aguilar MV, Meseguer I, Mateos-Vega CJ, Gonzalez-Munoz MJ, de Bustos F, Porta J, Orti-Pareja M, Zurdo M, Barrios E, Martinez-Para MC: Cerebrospinal fluid levels of transition metals in patients with Alzheimer's disease. J Neural Transm (Vienna). 1998;105(4-5):479-88.</reference_text>
           <pubmed_id>9720975</pubmed_id>
         </reference>
         <reference>
@@ -857,7 +856,7 @@
           <pubmed_id>16244393</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Kristensen MO, Gulmann NC, Christensen JE, Ostergaard K, Rasmussen K: Serum cobalamin and methylmalonic acid in Alzheimer dementia.  Acta Neurol Scand. 1993 Jun;87(6):475-81.</reference_text>
+          <reference_text>Kristensen MO, Gulmann NC, Christensen JE, Ostergaard K, Rasmussen K: Serum cobalamin and methylmalonic acid in Alzheimer dementia. Acta Neurol Scand. 1993 Jun;87(6):475-81.</reference_text>
           <pubmed_id>8356878</pubmed_id>
         </reference>
       </references>
@@ -871,7 +870,7 @@
           <pubmed_id>15899597</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Tasker RC, Lutman D, Peters MJ: Hyperventilation in severe diabetic ketoacidosis.  Pediatr Crit Care Med. 2005 Jul;6(4):405-11.</reference_text>
+          <reference_text>Tasker RC, Lutman D, Peters MJ: Hyperventilation in severe diabetic ketoacidosis. Pediatr Crit Care Med. 2005 Jul;6(4):405-11.</reference_text>
           <pubmed_id>15982426</pubmed_id>
         </reference>
         <reference>
@@ -883,7 +882,7 @@
           <pubmed_id>6810706</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Zhang AQ, Mitchell SC, Smith RL: Dimethylamine in human urine.  Clin Chim Acta. 1995 Jan 16;233(1-2):81-8.</reference_text>
+          <reference_text>Zhang AQ, Mitchell SC, Smith RL: Dimethylamine in human urine. Clin Chim Acta. 1995 Jan 16;233(1-2):81-8.</reference_text>
           <pubmed_id>7758205</pubmed_id>
         </reference>
         <reference>
@@ -895,7 +894,7 @@
           <pubmed_id>9591306</pubmed_id>
         </reference>
         <reference>
-          <reference_text>McLellan AC, Phillips SA, Thornalley PJ: Fluorimetric assay of D-lactate.  Anal Biochem. 1992 Oct;206(1):12-6.</reference_text>
+          <reference_text>McLellan AC, Phillips SA, Thornalley PJ: Fluorimetric assay of D-lactate. Anal Biochem. 1992 Oct;206(1):12-6.</reference_text>
           <pubmed_id>1456422</pubmed_id>
         </reference>
         <reference>
@@ -915,7 +914,7 @@
           <pubmed_id>2614280</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Sheikh-Ali M, Karon BS, Basu A, Kudva YC, Muller LA, Xu J, Schwenk WF, Miles JM: Can serum beta-hydroxybutyrate be used to diagnose diabetic ketoacidosis?  Diabetes Care. 2008 Apr;31(4):643-7. Epub 2008 Jan 9.</reference_text>
+          <reference_text>Sheikh-Ali M, Karon BS, Basu A, Kudva YC, Muller LA, Xu J, Schwenk WF, Miles JM: Can serum beta-hydroxybutyrate be used to diagnose diabetic ketoacidosis? Diabetes Care. 2008 Apr;31(4):643-7. doi: 10.2337/dc07-1683. Epub 2008 Jan 9.</reference_text>
           <pubmed_id>18184896</pubmed_id>
         </reference>
         <reference>
@@ -939,11 +938,11 @@
           <pubmed_id>17161231</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Liebich HM, Buelow HJ, Kallmayer R: Quantification of endogenous aliphatic alcohols in serum and urine.  J Chromatogr. 1982 Apr 30;239:343-9.</reference_text>
+          <reference_text>Liebich HM, Buelow HJ, Kallmayer R: Quantification of endogenous aliphatic alcohols in serum and urine. J Chromatogr. 1982 Apr 30;239:343-9.</reference_text>
           <pubmed_id>7096503</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Shin CS, Moon BS, Park KS, Kim SY, Park SJ, Chung MH, Lee HK: Serum 8-hydroxy-guanine levels are increased in diabetic patients.  Diabetes Care. 2001 Apr;24(4):733-7.</reference_text>
+          <reference_text>Shin CS, Moon BS, Park KS, Kim SY, Park SJ, Chung MH, Lee HK: Serum 8-hydroxy-guanine levels are increased in diabetic patients. Diabetes Care. 2001 Apr;24(4):733-7.</reference_text>
           <pubmed_id>11315839</pubmed_id>
         </reference>
         <reference>
@@ -955,7 +954,7 @@
           <pubmed_id>484160</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Ostlund RE Jr, McGill JB, Herskowitz I, Kipnis DM, Santiago JV, Sherman WR: D-chiro-inositol metabolism in diabetes mellitus.  Proc Natl Acad Sci U S A. 1993 Nov 1;90(21):9988-92.</reference_text>
+          <reference_text>Ostlund RE Jr, McGill JB, Herskowitz I, Kipnis DM, Santiago JV, Sherman WR: D-chiro-inositol metabolism in diabetes mellitus. Proc Natl Acad Sci U S A. 1993 Nov 1;90(21):9988-92.</reference_text>
           <pubmed_id>8234346</pubmed_id>
         </reference>
         <reference>
@@ -963,7 +962,7 @@
           <pubmed_id>16966827</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Khuhawar MY, Zardari LA, Laghari AJ: Capillary gas chromatographic determination of methylglyoxal from serum of diabetic patients by precolumn derivatization with 1,2-diamonopropane. J Chromatogr B Analyt Technol Biomed Life Sci. 2008 Sep 15;873(1):15-9.       Epub 2008 May 17.</reference_text>
+          <reference_text>Khuhawar MY, Zardari LA, Laghari AJ: Capillary gas chromatographic determination of methylglyoxal from serum of diabetic patients by precolumn derivatization with 1,2-diamonopropane. J Chromatogr B Analyt Technol Biomed Life Sci. 2008 Sep 15;873(1):15-9. doi: 10.1016/j.jchromb.2008.04.048. Epub 2008 May 17.</reference_text>
           <pubmed_id>18760976</pubmed_id>
         </reference>
         <reference>
@@ -981,7 +980,7 @@
           <pubmed_id>11573638</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Yokoyama K, Tajima M, Yoshida H, Nakayama M, Tokutome G, Sakagami H, Hosoya T: Plasma pteridine concentrations in patients with chronic renal failure.  Nephrol Dial Transplant. 2002 Jun;17(6):1032-6.</reference_text>
+          <reference_text>Yokoyama K, Tajima M, Yoshida H, Nakayama M, Tokutome G, Sakagami H, Hosoya T: Plasma pteridine concentrations in patients with chronic renal failure. Nephrol Dial Transplant. 2002 Jun;17(6):1032-6.</reference_text>
           <pubmed_id>12032193</pubmed_id>
         </reference>
         <reference>
@@ -1029,7 +1028,7 @@
           <pubmed_id>914932</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Raj DS, Ouwendyk M, Francoeur R, Pierratos A: Plasma amino acid profile on nocturnal hemodialysis.  Blood Purif. 2000;18(2):97-102.</reference_text>
+          <reference_text>Raj DS, Ouwendyk M, Francoeur R, Pierratos A: Plasma amino acid profile on nocturnal hemodialysis. Blood Purif. 2000;18(2):97-102.</reference_text>
           <pubmed_id>10838467</pubmed_id>
         </reference>
         <reference>
@@ -1041,7 +1040,7 @@
           <pubmed_id>16087168</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Butscheid M, Schafer C, Brenner S, Alscher D, Murdter T, Niwa T, Frischmann M, Pischetsrieder M, Klotz U: Unchanged serum levels of advanced glycation endproducts in patients with liver disease. Naunyn Schmiedebergs Arch Pharmacol. 2007 Aug;375(6):401-6. Epub 2007 Jun       15.</reference_text>
+          <reference_text>Butscheid M, Schafer C, Brenner S, Alscher D, Murdter T, Niwa T, Frischmann M, Pischetsrieder M, Klotz U: Unchanged serum levels of advanced glycation endproducts in patients with liver disease. Naunyn Schmiedebergs Arch Pharmacol. 2007 Aug;375(6):401-6. Epub 2007 Jun 15.</reference_text>
           <pubmed_id>17571253</pubmed_id>
         </reference>
         <reference>
@@ -1049,7 +1048,7 @@
           <pubmed_id>17699218</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Bain MA, Faull R, Milne RW, Evans AM: Oral L-carnitine: metabolite formation and hemodialysis.  Curr Drug Metab. 2006 Oct;7(7):811-6.</reference_text>
+          <reference_text>Bain MA, Faull R, Milne RW, Evans AM: Oral L-carnitine: metabolite formation and hemodialysis. Curr Drug Metab. 2006 Oct;7(7):811-6.</reference_text>
           <pubmed_id>17073580</pubmed_id>
         </reference>
         <reference>
@@ -1071,11 +1070,11 @@
           <pubmed_id>17264178</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Vice E, Privette JD, Hickner RC, Barakat HA: Ketone body metabolism in lean and obese women.  Metabolism. 2005 Nov;54(11):1542-5.</reference_text>
+          <reference_text>Vice E, Privette JD, Hickner RC, Barakat HA: Ketone body metabolism in lean and obese women. Metabolism. 2005 Nov;54(11):1542-5.</reference_text>
           <pubmed_id>16253646</pubmed_id>
         </reference>
         <reference>
-          <reference_text>Brind J, Strain G, Miller L, Zumoff B, Vogelman J, Orentreich N: Obese men have elevated plasma levels of estrone sulfate.  Int J Obes. 1990 Jun;14(6):483-6.</reference_text>
+          <reference_text>Brind J, Strain G, Miller L, Zumoff B, Vogelman J, Orentreich N: Obese men have elevated plasma levels of estrone sulfate. Int J Obes. 1990 Jun;14(6):483-6.</reference_text>
           <pubmed_id>2401584</pubmed_id>
         </reference>
         <reference>
@@ -1085,19 +1084,19 @@
       </references>
     </disease>
   </diseases>
-  <drugbank_id></drugbank_id>
+  <drugbank_id/>
   <drugbank_metabolite_id/>
   <phenol_explorer_compound_id/>
   <phenol_explorer_metabolite_id/>
   <foodb_id>FDB012119</foodb_id>
-  <knapsack_id></knapsack_id>
+  <knapsack_id/>
   <chemspider_id>83153</chemspider_id>
   <kegg_id>C01152</kegg_id>
   <biocyc_id>CPD-1823</biocyc_id>
-  <bigg_id></bigg_id>
-  <wikipidia></wikipidia>
+  <bigg_id/>
+  <wikipidia/>
   <nugowiki>1</nugowiki>
-  <metagene></metagene>
+  <metagene/>
   <metlin_id>3741</metlin_id>
   <pubchem_compound_id>92105</pubchem_compound_id>
   <het_id>HIC</het_id>
@@ -1109,7 +1108,7 @@
       <pubmed_id>10362454</pubmed_id>
     </reference>
     <reference>
-      <reference_text>Nicholson JK, Foxall PJ, Spraul M, Farrant RD, Lindon JC: 750 MHz 1H and 1H-13C NMR spectroscopy of human blood plasma.  Anal Chem. 1995 Mar 1;67(5):793-811.</reference_text>
+      <reference_text>Nicholson JK, Foxall PJ, Spraul M, Farrant RD, Lindon JC: 750 MHz 1H and 1H-13C NMR spectroscopy of human blood plasma. Anal Chem. 1995 Mar 1;67(5):793-811.</reference_text>
       <pubmed_id>7762816</pubmed_id>
     </reference>
     <reference>
@@ -1121,7 +1120,7 @@
       <pubmed_id>2593832</pubmed_id>
     </reference>
     <reference>
-      <reference_text>Vranic L, Granic P, Rajic Z: Basic amino acid in the pathogenesis of caries.  Acta Stomatol Croat. 1991;25(2):71-6.</reference_text>
+      <reference_text>Vranic L, Granic P, Rajic Z: Basic amino acid in the pathogenesis of caries. Acta Stomatol Croat. 1991;25(2):71-6.</reference_text>
       <pubmed_id>1819935</pubmed_id>
     </reference>
     <reference>
@@ -1129,11 +1128,11 @@
       <pubmed_id>2912013</pubmed_id>
     </reference>
     <reference>
-      <reference_text>Cocks DH, Dennis PO, Nelson TH: Isolation of 3-methyl histidine from whalemeat extract and the preparation of some derivatives. Nature. 1964 Apr 11:202:184-5</reference_text>
+      <reference_text>COCKS DH, DENNIS PO, NELSON TH: ISOLATION OF 3-METHYL HISTIDINE FROM WHALEMEAT EXTRACT AND THE PREPARATION OF SOME DERIVATIVES. Nature. 1964 Apr 11;202:184-5.</reference_text>
       <pubmed_id>14156296</pubmed_id>
     </reference>
     <reference>
-      <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol. 1982 Jan;52(1):27-33.</reference_text>
+      <reference_text>Dohm GL, Williams RT, Kasperek GJ, van Rij AM: Increased excretion of urea and N tau -methylhistidine by rats and humans after a bout of exercise. J Appl Physiol Respir Environ Exerc Physiol. 1982 Jan;52(1):27-33.</reference_text>
       <pubmed_id>7061274</pubmed_id>
     </reference>
     <reference>
@@ -1170,4 +1169,3 @@
     </protein>
   </protein_associations>
 </metabolite>
-
