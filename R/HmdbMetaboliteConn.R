@@ -75,11 +75,18 @@ HmdbMetaboliteConn$methods( .doExtractDownload = function() {
 	}
 	xml <- XML::xmlInternalTreeParse(xml.file)
 
-	# Write all XML entries into files
+	# Get IDs of all entries
 	ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = .self$.ns)
 	.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
+
+	# Get contents of all entries
 	contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')
+	Encoding(contents) <- "unknown" # Force encoding to 'unknown', since leaving it set to 'UTF-8' will produce outputs of the form '<U+2022>' for unicode characters. These tags '<U+XXXX>' will then be misinterpreted by XML parser when reading entry content, because there is no slash at the end of the tag.
+
+	# Delete existing cache files
 	.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+
+	# Write all XML entries into files
 	.self$getBiodb()$getCache()$saveContentToFile(contents, db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
 
 	# Remove extract directory
