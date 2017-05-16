@@ -23,7 +23,7 @@ HmdbMetaboliteEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.FORMULA, "/metabolite/chemical_formula")
 	.self$addParsingExpression(BIODB.SUPER.CLASS, "//super_class")
 	.self$addParsingExpression(BIODB.AVERAGE.MASS, "//average_molecular_weight")
-	.self$addParsingExpression(BIODB.MONOISOTOPIC.MASS, "//monisotopic_moleculate_weight")
+	.self$addParsingExpression(BIODB.MONOISOTOPIC.MASS, "//monisotopic_molecular_weight")
 	.self$addParsingExpression(BIODB.SYNONYMS, "//synonym")
 	.self$addParsingExpression(BIODB.COMP.IUPAC.NAME.SYST, "//iupac_name")
 	.self$addParsingExpression(BIODB.COMP.IUPAC.NAME.TRAD, "//traditional_iupac")
