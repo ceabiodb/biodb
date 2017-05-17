@@ -103,7 +103,7 @@ BiodbCache$methods( loadFileContent = function(db, folder, names, ext, output.ve
 
 	# Read contents from files
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, folder, names, ext)
-	.self$message(MSG.DEBUG, paste("Loading from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\"."))
+	.self$message(MSG.DEBUG, paste("Loading from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size, useBytes = TRUE) else NULL )} )
 
 	# Check that the read content is not conflicting with the current locale

@@ -132,7 +132,7 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 	url <- paste0(.self$getBaseUrl(), "spectra/lcms/peaks/get-range/", mz.min, "/", mz.max)
 	
 	# Send request
-	contents <-  .self$.getUrlScheduler()$getUrl(url)
+	contents <- .self$.getUrlScheduler()$getUrl(url)
 	jsontree <- jsonlite::fromJSON(contents)
 	
 	# No match form the output.
