@@ -133,7 +133,7 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 	
 	# Send request
 	contents <-  .self$.getUrlScheduler()$getUrl(url)
-	jsontree <- fromJSON(contents)
+	jsontree <- jsonlite::fromJSON(contents)
 	
 	# No match form the output.
 	if(length(jsontree) == 0)
