@@ -103,6 +103,7 @@ BiodbCache$methods( loadFileContent = function(db, folder, names, ext, output.ve
 
 	# Read contents from files
 	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, folder, names, ext)
+	.self$message(MSG.DEBUG, paste("Loading from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\"."))
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size, useBytes = TRUE) else NULL )} )
 
 	# Check that the read content is not conflicting with the current locale
@@ -141,6 +142,7 @@ BiodbCache$methods( saveContentToFile = function(contents, db, folder, names, ex
 	contents[is.na(contents)] <- 'NA'
 
 	# Write contents to files
+	.self$message(MSG.DEBUG, paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\"."))
 	mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, contents, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
 })
 
