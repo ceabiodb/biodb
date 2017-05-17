@@ -1,11 +1,21 @@
 # vi: fdm=marker
 
+# INITIALIZATION OF TESTS
+
 source('common.R')
 
-# Initialization of tests {{{1
+# Display information {{{1
 ################################################################
 
-# Remove cache folder
+# Print modes info
+cat(paste('Running tests in ', paste(TEST.MODES, collapse = ', '), " mode(s).\n", sep = ''))
+
+# Print databases info
+cat(paste('Running tests on database(s) ', paste(TEST.DATABASES, collapse = ', '), ".\n", sep = ''))
+
+# Remove cache folder {{{1
+################################################################
+
 if (file.exists(ONLINE.CACHE.DIR)) {
 
 	# Erase whole cache
@@ -24,7 +34,9 @@ if (file.exists(ONLINE.CACHE.DIR)) {
 	}
 }
 
-# Remove log file
+# Remove log file {{{1
+################################################################
+
 if (file.exists(LOG.FILE)) {
 	cat(paste('Delete log file \"', LOG.FILE, "\".\n", sep = ''))
 	unlink(LOG.FILE)
