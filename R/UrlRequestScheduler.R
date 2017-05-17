@@ -123,7 +123,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	request.key <- digest::digest(request.json.str, algo = 'md5')
 	if (.self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS) && .self$getBiodb()$getCache()$fileExists('request', folder = CACHE.SHORT.TERM.FOLDER, names = request.key, ext = 'content')) {
 		.self$message(MSG.DEBUG, paste0("Loading content of ", method, " request from cache ..."))
-		content <- .self$getBiodb()$getCache()$loadFileContent('request', CACHE.SHORT.TERM.FOLDER, request.key, ext ='content')
+		content <- .self$getBiodb()$getCache()$loadFileContent('request', CACHE.SHORT.TERM.FOLDER, request.key, ext ='content', output.vector = TRUE)
 	}
 
 	if (is.na(content)) {
