@@ -1,7 +1,5 @@
 # vi: fdm=marker
 
-source('common.R')
-
 # Save entries as JSON {{{1
 ################################################################
 
@@ -56,7 +54,7 @@ test.entry.fields <- function(biodb, db) {
 	}
 }
 
-# TEST WRONG ENTRY {{{1
+# Test wrong entry {{{1
 ################################################################
 
 test.wrong.entry <- function(biodb, db) {
@@ -66,7 +64,7 @@ test.wrong.entry <- function(biodb, db) {
 	expect_null(wrong.entry)
 }
 
-# TEST WRONG ENTRY AMONG GOOD ONES {{{1
+# Test wrong entry among good ones {{{1
 ################################################################
 
 test.wrong.entry.among.good.ones <- function(biodb, db) {
@@ -81,7 +79,7 @@ test.wrong.entry.among.good.ones <- function(biodb, db) {
 	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
 }
 
-# TEST NB ENTRIES {{{1
+# Test nb entries {{{1
 ################################################################
 
 test.nb.entries <- function(db) {
@@ -104,36 +102,3 @@ test.entry.ids <- function(db) {
 	expect_true(n >= 0 && n <= max)
 }
 
-# MAIN {{{1
-################################################################
-
-# Create biodb instance
-biodb <- create.biodb.instance()
-
-# Initialize MassCsvFile
-if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES)
-	init.mass.csv.file.db(biodb)
-
-# Loop on test modes
-for (mode in TEST.MODES) {
-
-	# Configure mode
-	set.mode(biodb, mode)
-
-	# Loop on test databases
-	for (db.name in TEST.DATABASES) {
-
-		set.test.context(biodb, paste("Running generic tests on", db.name, "in", mode, "mode"))
-		test_that("Wrong entry gives NULL", test.wrong.entry(biodb, db.name))
-		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(biodb, db.name))
-		test_that("Entry fields have a correct value", test.entry.fields(biodb, db.name))
-
-		# Get instance
-		db <- biodb$getFactory()$getConn(db.name)
-
-		if ( ! methods::is(db, 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
-			test_that("Nb entries is positive", test.nb.entries(db))
-			test_that("We can get a list of entry ids", test.entry.ids(db))
-		}
-	}
-}

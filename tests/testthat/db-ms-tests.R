@@ -1,6 +1,88 @@
 # vi: fdm=marker
 
-source('common.R')
+# Test msmsSearch {{{1
+################################################################
+
+test.msmsSearch <- function(biodb, db.name) {
+
+	db <- biodb$getFactory()$getConn(db.name)
+
+	# Loop on modes
+	for (mode in BIODB.MSMODE.VALS) {
+
+		# Get one mz value
+		mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
+
+		# Found corresponding spectrum
+		spectrum.id <- db$searchMzTol(mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2)
+
+		# Get entry
+		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
+
+		# Get peaks
+		peaks <- spectrum.entry$getFieldValue(BIODB.PEAKS)
+
+		# Run MSMS search
+		result <- db$msmsSearch(peaks, precursor = mz, mztol = 0.1, tolunit = BIODB.MZTOLUNIT.PLAIN, mode = mode, npmin = 2, fun = 'pbachtttarya', params = list(ppm = 3, dmz = 0.005, mzexp = 2, intexp = 0.5))
+
+		# Check results
+		expect_true( ! is.null(result))
+		expect_true(length(result$matchedpeaks) > 0)
+	}
+}
+
+# Test getMzValues() {{{1
+################################################################
+
+test.getMzValues <- function(db) {
+	max <- 10
+	for (mode in c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)) {
+		mz <- db$getMzValues(ms.mode = mode, max.results = max)
+		expect_true(is.double(mz))
+		n <- length(mz)
+		expect_true(n >= 1 && n <= max)
+	}
+}
+
+# Test searchMzTol() {{{1
+################################################################
+
+test.searchMzTol <- function(db) {
+
+	# Get M/Z values from database
+	mode <- BIODB.MSMODE.POS
+	mzs <- db$getMzValues(ms.mode = mode, max.results = 10)
+	expect_true(is.double(mzs))
+	expect_true(length(mzs) >= 1)
+
+	# Search
+	for (mz in mzs) {
+		ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+		expect_true(is.character(ids))
+		expect_true(length(ids) > 0)
+	}
+}
+
+# Test searchMzTol() with precursor {{{1
+################################################################
+
+test.searchMzTol.with.precursor <- function(biodb, db.name) {
+
+	db <- biodb$getFactory()$getConn(db.name)
+
+	# Loop on levels
+	for (ms.level in c(1, 2)) {
+
+		# Get an M/Z value of a precursor
+		mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
+		expect_length(mz, 1)
+		expect_false(is.na(mz))
+
+		# Search for it
+		spectra.ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)
+		expect_gte(length(spectra.ids), 1)
+	}
+}
 
 # Test basic mass.csv.file {{{1
 ################################################################
@@ -44,7 +126,7 @@ test.basic.mass.csv.file <- function(biodb) {
 # Test output columns {{{1
 ################################################################
 
-test.output.columns <- function(biodb) {
+test.mass.csv.file.output.columns <- function(biodb) {
 
 	# Open database file
 	db.df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
@@ -68,17 +150,3 @@ test.output.columns <- function(biodb) {
 	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
 }
 
-# Main {{{1
-################################################################
-
-if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES && MODE.OFFLINE %in% TEST.MODES) {
-
-	# Create biodb instance
-	biodb <- create.biodb.instance()
-
-	init.mass.csv.file.db(biodb)
-	set.test.context(biodb, "Testing mass.csv.file")
-	set.mode(biodb, MODE.OFFLINE)
-	test_that("MassCsvFileConn methods are correct", test.basic.mass.csv.file(biodb))
-	test_that("M/Z match output contains all columns of database.", test.output.columns(biodb))
-}
