@@ -9,8 +9,7 @@ RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
 ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
-LOG.DIR  <- file.path(TEST.DIR)
-LOG.FILE <- file.path(LOG.DIR, 'test.log')
+LOG.FILE.PATH <- file.path(TEST.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pierrick.rogermele@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
@@ -68,14 +67,13 @@ if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
 create.biodb.instance <- function() {
 
 	# Create instance
-	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE, mode = 'a'))
+	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE.PATH, mode = 'a'))
 
 	# Set user agent
 	biodb$getConfig()$set(CFG.USERAGENT, USERAGENT)
 
 	return(biodb)
 }
-
 # Set test context {{{1
 ################################################################
 

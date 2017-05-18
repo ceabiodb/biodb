@@ -22,18 +22,9 @@ BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.
 	.file <<- if ( ! is.null(file) && ! is.na(file)) file else stderr()
 	if (is.character(.file))
 		.file <<- file(.self$.file, open = mode)
+	else if ( ! all(class(file) == c('file', 'connection')))
+		.self$message(MSG.ERROR, paste('Unknown class "', class(file), '" for log file.', sep = ''))
 })
-
-## Destructor {{{1
-#################################################################
-#
-#BiodbLogger$methods( dfunc = function() {
-#
-#	# Close file connection
-#	if ( ! is.null(.self$.file))
-#		close(.self$.file)
-#})
-
 
 # Message {{{1
 ################################################################

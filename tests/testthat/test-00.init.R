@@ -37,7 +37,7 @@ if (file.exists(ONLINE.CACHE.DIR)) {
 # Remove log file {{{1
 ################################################################
 
-if (file.exists(LOG.FILE)) {
-	cat(paste('Delete log file \"', LOG.FILE, "\".\n", sep = ''))
-	unlink(LOG.FILE)
+if (file.exists(LOG.FILE.PATH)) {
+	cat(paste('Delete log file \"', LOG.FILE.PATH, "\".\n", sep = ''))
+	unlink(LOG.FILE.PATH)
 }

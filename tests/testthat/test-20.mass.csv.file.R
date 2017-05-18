@@ -72,7 +72,10 @@ test.output.columns <- function(biodb) {
 ################################################################
 
 if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES && MODE.OFFLINE %in% TEST.MODES) {
+
+	# Create biodb instance
 	biodb <- create.biodb.instance()
+
 	init.mass.csv.file.db(biodb)
 	set.test.context(biodb, "Testing mass.csv.file")
 	set.mode(biodb, MODE.OFFLINE)
