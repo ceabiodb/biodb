@@ -142,7 +142,7 @@ BiodbCache$methods( saveContentToFile = function(contents, db, folder, names, ex
 	contents[is.na(contents)] <- 'NA'
 
 	# Write contents to files
-	.self$message(MSG.DEBUG, paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\"."))
+	.self$message(MSG.DEBUG, paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
 	mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, contents, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
 })
 

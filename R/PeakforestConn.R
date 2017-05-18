@@ -35,22 +35,25 @@ PeakforestConn$methods( getEntryContent = function(id) {
 	# Send request
 	jsonstr <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
-	# Parse JSON
+	# Get directly one JSON string for each ID
 	if (length(jsonstr) > 1) {
 		if (length(jsonstr) != length(id))
 			.self$message(MSG.ERROR, paste("Got only", length(jsonstr), "contents for", length(id), "IDs."))
 		content <- jsonstr
 	}
+
+	# Parse JSON
 	else {
 		json <- jsonlite::fromJSON(jsonstr, simplifyDataFrame = FALSE)
 
 		if ( ! is.null(json)) {
-			if (length(json) > 1) {
+			if (class(json) == 'list' && is.null(names(json))) {
 				json.ids <- vapply(json, function(x) as.character(x$id), FUN.VALUE = '')
 				content[id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
 			}
-			else if (length(json) == 1)
+			else if (length(json) == 1) {
 				content <- json
+			}
 		}
 	}
 
