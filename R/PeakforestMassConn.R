@@ -213,7 +213,7 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 	if ( ! is.na(ms.mode))
 		url <- paste(url, '&mode=', if (ms.mode == BIODB.MSMODE.POS) 'positive' else 'negative', sep ='')
 
-	# Get MZ valuels
+	# Get MZ values
 	json.str <- .self$.getUrlScheduler()$getUrl(url)
 
 	# Parse JSON

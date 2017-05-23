@@ -104,13 +104,13 @@ RemotedbConn$methods( getEntryContentUrl = function(ids, concatenate = TRUE, max
 				b <- length(ids)
 				while (a < b) {
 					m <- as.integer((a + b) / 2)
-					url <- .self$.doGetEntryContentUrl(ids[1:m])
+					url <- .self$.doGetEntryContentUrl(ids[start:m])
 					if (nchar(url) <= max.length && m != a)
 						a <- m
 					else
 						b <- m
 				}
-				urls <- c(urls, .self$.doGetEntryContentUrl(ids[1:a]))
+				urls <- c(urls, .self$.doGetEntryContentUrl(ids[start:a]))
 				start <- a + 1
 			}
 		}

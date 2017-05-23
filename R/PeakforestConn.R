@@ -30,7 +30,7 @@ PeakforestConn$methods( getEntryContent = function(id) {
 	content <- rep(NA_character_, length(id))
 
 	# Get URLs
-	urls <- .self$getEntryContentUrl(id)
+	urls <- .self$getEntryContentUrl(id, max.length = 2048)
 
 	# Send request
 	jsonstr <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
