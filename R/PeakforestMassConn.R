@@ -132,18 +132,19 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 	url <- paste0(.self$getBaseUrl(), "spectra/lcms/peaks/get-range/", mz.min, "/", mz.max, '?token=', .self$getToken())
 	
 	# Send request
-	contents <- .self$.getUrlScheduler()$getUrl(url)
-	jsontree <- lapply(contents, jsonlite::fromJSON)
+	content <- .self$.getUrlScheduler()$getUrl(url)
+	jsontree <- jsonlite::fromJSON(content, simplifyDataFrame = FALSE)
 	
 	# No match form the output.
 	if(length(jsontree) == 0)
 		return(NULL)
-	
+
 	# Getting a list of all the IDs.
-	ids <- lapply(jsontree, function(x) x$source$id)
+	ids <- vapply(jsontree, function(x) if ('source' %in% names(x) && ! is.null(x$source) && 'id' %in% names(x$source)) x$source$id else NA_integer_, FUN.VALUE = 1)
+	ids <- ids[ ! is.na(ids)] # Remove NA values (some returned matches have no source information).
 	ids <- unlist(ids)
 	ids <- as.character(ids)
-	
+
 	# Cut
 	if ( ! is.na(max.results) && length(ids) > max.results)
 		ids <- ids[1:max.results]

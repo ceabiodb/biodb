@@ -81,6 +81,7 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 		# Search for it
 		spectra.ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)
 		expect_gte(length(spectra.ids), 1)
+		expect_false(any(is.na(spectra.ids)))
 	}
 }
 
