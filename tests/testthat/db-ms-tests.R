@@ -69,6 +69,12 @@ test.searchMzTol <- function(db) {
 test.searchMzTol.with.precursor <- function(biodb, db.name) {
 
 	db <- biodb$getFactory()$getConn(db.name)
+	tol.ppm <- 5
+
+	print('test.searchMzTol.with.precursor 01')
+	all.ids <- db$getEntryIds()
+	all.entries <- biodb$getFactory()$getEntry(db.name, all.ids)
+	print('test.searchMzTol.with.precursor 02')
 
 	# Loop on levels
 	for (ms.level in c(1, 2)) {
@@ -79,9 +85,27 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 		expect_false(is.na(mz))
 
 		# Search for it
-		spectra.ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)
+		spectra.ids <- db$searchMzTol(mz = mz, tol = tol.ppm, tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)
 		expect_gte(length(spectra.ids), 1)
 		expect_false(any(is.na(spectra.ids)))
+
+		# Get first entry
+		for (spectra.id in spectra.ids) {
+			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
+			expect_false(is.null(entry))
+			print(entry$getFieldValue(BIODB.ACCESSION))
+			expect_false(is.na(entry$getFieldValue(BIODB.MS.LEVEL)))
+			expect_equal(entry$getFieldValue(BIODB.MS.LEVEL), ms.level)
+			peaks <- entry$getFieldValue(BIODB.PEAKS)
+			expect_false(is.null(peaks))
+			expect_true(is.data.frame(peaks))
+			expect_gt(nrow(peaks), 0)
+			expect_true(BIODB.PEAK.MZ %in% colnames(peaks))
+			expect_true(BIODB.PEAK.RELATIVE.INTENSITY %in% colnames(peaks))
+			peaks <- peaks[order(peaks[[BIODB.PEAK.RELATIVE.INTENSITY]], decreasing = TRUE), ]
+			expect_lt(abs(mz - peaks[1, BIODB.PEAK.MZ]), mz * tol.ppm / 1e6)
+			expect_equal(peaks[1, BIODB.PEAK.RELATIVE.INTENSITY], 100)
+		}
 	}
 }
 
