@@ -38,7 +38,7 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	if ('peaks' %in% names(parsed.content) && length(parsed.content$peaks) > 0) {
 
 		# Creaate empty peaks data frame
-		peaks <- data.frame(mz = double(), ri = double(), deltaPPM = double(), theoricalMass = double(), composition = character(), attribution = character())
+		peaks <- data.frame(mz = double(), ri = double(), deltaPPM = double(), theoricalMass = double(), composition = character(), attribution = character(), stringsAsFactors = FALSE)
 
 		# Loop on all peaks
 		for (p in parsed.content$peaks) {
@@ -52,7 +52,7 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 					else
 						peak[[field]] <- as.vector(NA, mode = class(peaks[[field]]))
 				}
-			peak <- data.frame(peak)
+			peak <- data.frame(peak, stringsAsFactors = FALSE)
 
 			# Append peak to peaks data frame
 			peaks <- rbind(peaks, peak)
