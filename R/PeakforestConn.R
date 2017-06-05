@@ -43,6 +43,11 @@ PeakforestConn$methods( getEntryContent = function(id) {
 	else {
 		for (single.jsonstr in jsonstr) {
 
+			if (length(grep('^<!DOCTYPE HTML ', single.jsonstr)) > 0) {
+				.self$message(MSG.DEBUG, paste("Peakforest returned error: ", single.jsonstr))
+				break
+			}
+
 			json <- jsonlite::fromJSON(single.jsonstr, simplifyDataFrame = FALSE)
 
 			if ( ! is.null(json)) {

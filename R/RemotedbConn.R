@@ -106,7 +106,7 @@ RemotedbConn$methods( getEntryContentUrl = function(ids, concatenate = TRUE, max
 				while (a < b) {
 					m <- as.integer((a + b) / 2)
 					url <- .self$.doGetEntryContentUrl(ids[start:m])
-					if (nchar(url) <= max.length && m != a)
+					if (all(nchar(url) <= max.length) && m != a)
 						a <- m
 					else
 						b <- m
