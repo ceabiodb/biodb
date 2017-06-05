@@ -81,8 +81,9 @@ RemotedbConn$methods( getEntryContentUrl = function(ids, concatenate = TRUE, max
 		# No single URL for multiple IDs
 		if (length(ids) > 1 && length(full.url) > 1) {
 			.self$message(MSG.DEBUG, "Obtained more than one URL.")
-			if (length(full.url) != length(ids))
-				.self$message(MSG.ERROR, paste(".doGetEntryContentUrl() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
+#  XXX We must comment out this test, because for PeakforestMass we must return two URLs for each ID (one for LCMS request, and one for LCMSMS request).
+#			if (length(full.url) != length(ids))
+#				.self$message(MSG.ERROR, paste(".doGetEntryContentUrl() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
 			urls <- full.url
 		}
 
