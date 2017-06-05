@@ -25,9 +25,9 @@ PeakforestMassConn$methods( .doGetEntryContentUrl = function(id, concatenate = T
 		.self$message(MSG.ERROR, "Peakforest requires a token for this service.")
 
 	if (concatenate)
-		url <- paste(.self$getBaseUrl(), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
+		url <- paste(.self$getBaseUrl(), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
 	else
-		url <- paste(.self$getBaseUrl(), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
+		url <- paste(.self$getBaseUrl(), 'spectra/lcmsms/ids/', id,'?token=', .self$getToken(), sep = '')
 
 	return(url)
 })

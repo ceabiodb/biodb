@@ -71,10 +71,8 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 	db <- biodb$getFactory()$getConn(db.name)
 	tol.ppm <- 5
 
-	print('test.searchMzTol.with.precursor 01')
 	all.ids <- db$getEntryIds()
 	all.entries <- biodb$getFactory()$getEntry(db.name, all.ids)
-	print('test.searchMzTol.with.precursor 02')
 
 	# Loop on levels
 	for (ms.level in c(1, 2)) {
@@ -93,7 +91,6 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 		for (spectra.id in spectra.ids) {
 			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
 			expect_false(is.null(entry))
-			print(entry$getFieldValue(BIODB.ACCESSION))
 			expect_false(is.na(entry$getFieldValue(BIODB.MS.LEVEL)))
 			expect_equal(entry$getFieldValue(BIODB.MS.LEVEL), ms.level)
 			peaks <- entry$getFieldValue(BIODB.PEAKS)
