@@ -21,6 +21,22 @@ PeakforestConn$methods( initialize = function(db.name, ...) {
 		.self$message(MSG.CAUTION, "Peakforest requires a token to function correctly.")
 })
 
+# Check if error {{{1
+################################################################
+
+PeakforestConn$methods( .checkIfError = function(content) {
+
+	if (length(grep('^<!DOCTYPE HTML ', content)) > 0) {
+		.self$message(MSG.DEBUG, paste("Peakforest returned error: ", content))
+		return(TRUE)
+	}
+
+	if (length(grep('^<html>.*Apache Tomcat.*Error report', content)) > 0)
+		.self$message(MSG.ERROR, paste("Peakforest connection error: ", content))
+
+	return(FALSE)
+})
+
 # Get entry content {{{1
 ################################################################
 
@@ -43,10 +59,8 @@ PeakforestConn$methods( getEntryContent = function(id) {
 	else {
 		for (single.jsonstr in jsonstr) {
 
-			if (length(grep('^<!DOCTYPE HTML ', single.jsonstr)) > 0) {
-				.self$message(MSG.DEBUG, paste("Peakforest returned error: ", single.jsonstr))
+			if (.self$.checkIfError(single.jsonstr))
 				break
-			}
 
 			json <- jsonlite::fromJSON(single.jsonstr, simplifyDataFrame = FALSE)
 
@@ -75,6 +89,7 @@ PeakforestConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Send request
 	json.str <- .self$.getUrlScheduler()$getUrl(url)
+	.self$.checkIfError(json.str)
 
 	# Parse JSON
 	json <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)

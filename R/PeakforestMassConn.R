@@ -219,6 +219,7 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 
 	# Get MZ values
 	json.str <- .self$.getUrlScheduler()$getUrl(url)
+	.self$.checkIfError(json.str)
 
 	# Parse JSON
 	mz <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
