@@ -37,7 +37,10 @@ PeakforestCompoundEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	if (.self$hasField(BIODB.HMDB.METABOLITE.ID)) {
 		v <- .self$getFieldValue(BIODB.HMDB.METABOLITE.ID)
 		v <- v[v != 'HMDBnull']
-		.self$setFieldValue(BIODB.HMDB.METABOLITE.ID, v)
+		if (length(v) > 0)
+			.self$setFieldValue(BIODB.HMDB.METABOLITE.ID, v)
+		else
+			.self$removeField(BIODB.HMDB.METABOLITE.ID)
 	}
 
 	# ChEBI IDs
