@@ -26,5 +26,13 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Make peak table
 	peaks <- parsed.content[, colnames(parsed.content) %in% BIODB.PEAK.FIELDS]
+
+	# Add MZ column if missing
+	if ( ! BIODB.PEAK.MZ %in% colnames(peaks))
+		for (mz.col in c(BIODB.PEAK.MZTHEO, BIODB.PEAK.MZEXP))
+			if (mz.col %in% colnames(peaks))
+				peaks[[BIODB.PEAK.MZ]] <- peaks[[mz.col]]
+
+	# Set peaks table in field
 	.self$setFieldValue(BIODB.PEAKS, peaks)
 })
