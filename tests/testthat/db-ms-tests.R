@@ -68,17 +68,20 @@ test.searchMzTol <- function(db) {
 
 test.searchMzTol.with.precursor <- function(biodb, db.name) {
 
+	# Set some initial values to speed up test
+	db.values <- list(massbank.eu = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)))
+
 	db <- biodb$getFactory()$getConn(db.name)
 	tol.ppm <- 5
-
-	all.ids <- db$getEntryIds()
-	all.entries <- biodb$getFactory()$getEntry(db.name, all.ids)
 
 	# Loop on levels
 	for (ms.level in c(1, 2)) {
 
 		# Get an M/Z value of a precursor
-		mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
+		if (db.name %in% names(db.values))
+			mz <- db.values[[db.name]][[ms.level]]$mz
+		else
+			mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
 		expect_length(mz, 1)
 		expect_false(is.na(mz))
 
@@ -89,9 +92,6 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 
 		# Get first entry
 		for (spectra.id in spectra.ids) {
-			print('test.searchMzTol.with.precursor 10')
-			print(spectra.id)
-			print('test.searchMzTol.with.precursor 20')
 			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
 			expect_false(is.null(entry))
 			expect_false(is.na(entry$getFieldValue(BIODB.MS.LEVEL)))
@@ -108,7 +108,7 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 
 			# Check that precursor peak was matched (the one with highest intensity)
 			expect_lt(abs(mz - peaks[1, BIODB.PEAK.MZ]), mz * tol.ppm * 1e-6)
-			expect_equal(peaks[1, BIODB.PEAK.RELATIVE.INTENSITY], 100)
+			expect_lt(100 - peaks[1, BIODB.PEAK.RELATIVE.INTENSITY], 1)
 		}
 	}
 }
