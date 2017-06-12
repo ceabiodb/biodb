@@ -21,11 +21,16 @@ if ( ! file.exists(OUTPUT.DIR))
 # Set databases to test {{{1
 ################################################################
 
+DATABASES.ALL <- 'all'
+DATABASES.NONE <- 'none'
+
 env <- Sys.getenv()
 TEST.DATABASES <- biodb::BIODB.DATABASES
 if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
-	if (env[['DATABASES']] == 'none')
+	if (env[['DATABASES']] == DATABASES.NONE)
 		TEST.DATABASES <- character(0)
+	else if (env[['DATABASES']] == DATABASES.ALL)
+		TEST.DATABASES <- biodb::BIODB.DATABASES
 	else {
 		TEST.DATABASES <- strsplit(env[['DATABASES']], ',')[[1]]
 		db.exists <- TEST.DATABASES %in% BIODB.DATABASES
