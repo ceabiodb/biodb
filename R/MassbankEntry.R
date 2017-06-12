@@ -91,7 +91,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	}
 	
 	# Annotations
-	g <- stringr::str_match(parsed.content, "^\\s+([0-9][0-9.]*) ([A-Z0-9+-\\[\\]]+) ([0-9]+) ([0-9][0-9.]*) (-?[0-9][0-9.]*)$")
+	g <- stringr::str_match(parsed.content, "^\\s+([0-9][0-9.]*) ([A-Za-z0-9+-\\[\\]]+) ([0-9]+) ([0-9][0-9.]*) (-?[0-9][0-9.]*)$")
 	results <- g[ ! is.na(g[,1]), , drop = FALSE]
 	if (nrow(results) > 0) {
 		peaks <- data.frame(mz = double(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
