@@ -107,11 +107,23 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		peaks <- data.frame(mz = double(), int = double(), rel.int = integer(), stringsAsFactors = FALSE)
 		colnames(peaks) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)
 		peaks[1:nrow(results), c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)] <- list(as.double(results[,2]), as.double(results[,3]), as.integer(results[,4]))
+
+		# Set relative intensity on a percentage scale
+		if (any(peaks[[BIODB.PEAK.RELATIVE.INTENSITY]] > 100)) {
+			max <- max(peaks[[BIODB.PEAK.RELATIVE.INTENSITY]])
+			div <- 10 ^ ( ceiling(log(max)/log(10)) - 2 )
+			peaks[[BIODB.PEAK.RELATIVE.INTENSITY]] <- peaks[[BIODB.PEAK.RELATIVE.INTENSITY]] / div
+		}
+
+		# Merge with annotations
 		if (.self$hasField(BIODB.PEAKS))
 			peaks <- merge(.self$getFieldValue(BIODB.PEAKS, compute = FALSE), peaks)
+
+		# Set new peaks table
 		.self$setFieldValue(BIODB.PEAKS, peaks)
 	}
 
+	# Check number of peaks
 	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE))) {
 	   	 .self$message(MSG.CAUTION, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ' for entry ', .self$getFieldValue(BIODB.ACCESSION), ".", sep = ''))
 		.self$setFieldValue(BIODB.NB.PEAKS, nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))

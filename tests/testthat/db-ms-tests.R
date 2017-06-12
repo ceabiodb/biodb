@@ -89,6 +89,9 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 
 		# Get first entry
 		for (spectra.id in spectra.ids) {
+			print('test.searchMzTol.with.precursor 10')
+			print(spectra.id)
+			print('test.searchMzTol.with.precursor 20')
 			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
 			expect_false(is.null(entry))
 			expect_false(is.na(entry$getFieldValue(BIODB.MS.LEVEL)))
