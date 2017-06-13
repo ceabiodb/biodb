@@ -101,14 +101,11 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 			expect_true(is.data.frame(peaks))
 			expect_gt(nrow(peaks), 0)
 			expect_true(BIODB.PEAK.MZ %in% colnames(peaks))
-			expect_true(BIODB.PEAK.RELATIVE.INTENSITY %in% colnames(peaks))
 
-			# Sort peaks table in decreasing intensity order
-			peaks <- peaks[order(peaks[[BIODB.PEAK.RELATIVE.INTENSITY]], decreasing = TRUE), ]
-
-			# Check that precursor peak was matched (the one with highest intensity)
-			expect_lt(abs(mz - peaks[1, BIODB.PEAK.MZ]), mz * tol.ppm * 1e-6)
-			expect_lt(100 - peaks[1, BIODB.PEAK.RELATIVE.INTENSITY], 1)
+			# Check that precursor peak was matched
+			expect_true(any(abs(mz - peaks[[BIODB.PEAK.MZ]] < mz * tol.ppm * 1e-6)))
+			expect_true(entry$hasField(BIODB.MSPRECMZ))
+			expect_true(abs(entry$getFieldValue(BIODB.MSPRECMZ) - mz) < mz * tol.ppm * 1e-6)
 		}
 	}
 }
