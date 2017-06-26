@@ -137,7 +137,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 
 			# Filter on ms.level
 			if (ms.level > 0) {
-				ms.level.matched <- vapply(entries, function(x) x$getFieldValue(BIODB.MS.LEVEL) == ms.level, FUN.VALUE = TRUE)
+				ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue(BIODB.MS.LEVEL) == ms.level, FUN.VALUE = TRUE)
 				entries <- entries[ms.level.matched]
 			}
 
