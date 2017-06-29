@@ -18,7 +18,7 @@
 #' @param only.atomic Set to \code{TRUE} if you want only the fields of atomic type (\code{integer}, \code{numeric}, \code{logical} and \code{character}) inside the data frame.
 #' @param null.to.na  If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."
 #'
-#' @seealso \code{\link{BiodbFactory}}
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbCache}}, \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}}, \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -71,7 +71,7 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 ################################################################
 
 Biodb$methods( getConfig = function() {
-	":\n\nReturns the instance of the \\code{BiodbConfig} class."
+	":\n\nReturns the single instance of the \\code{BiodbConfig} class."
 
 	return(.self$.config)
 })
@@ -80,7 +80,7 @@ Biodb$methods( getConfig = function() {
 ################################################################
 
 Biodb$methods( getCache = function() {
-	":\n\nReturns the instance of the \\code{BiodbCache} class."
+	":\n\nReturns the single instance of the \\code{BiodbCache} class."
 
 	return(.self$.cache)
 })
@@ -89,7 +89,7 @@ Biodb$methods( getCache = function() {
 ################################################################
 
 Biodb$methods( getEntryFields = function() {
-	":\n\nReturns the instance of the \\code{BiodbEntryFields} class."
+	":\n\nReturns the single instance of the \\code{BiodbEntryFields} class."
 
 	return(.self$.entry.fields)
 })
@@ -98,7 +98,7 @@ Biodb$methods( getEntryFields = function() {
 ################################################################
 
 Biodb$methods( getFactory = function() {
-	":\n\nReturns the instance of the \\code{BiodbFactory} class."
+	":\n\nReturns the single instance of the \\code{BiodbFactory} class."
 
 	return(.self$.factory)
 })

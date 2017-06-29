@@ -5,6 +5,7 @@
 
 #' A class for logging biodb messages either to standard error or into a file.
 #'
+#' @import methods
 #' @include BiodbObserver.R
 #' @export BiodbLogger
 #' @exportClass BiodbLogger

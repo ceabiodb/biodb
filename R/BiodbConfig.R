@@ -3,10 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-#' Class for storing configuration values.
+#' A class for storing configuration values.
 #'
+#' @import methods
 #' @include ChildObject.R
-#' @export
+#' @export BiodbConfig
+#' @exportClass BiodbConfig
 BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .value.info = "list" ))
 
 # Constants {{{1

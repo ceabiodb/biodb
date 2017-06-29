@@ -1,10 +1,14 @@
 # vi: fdm=marker
 
-#' @include ChildObject.R
-
 # Class declaration {{{1
 ################################################################
 
+#' The mother abstract class of all database connectors.
+#'
+#' @import methods
+#' @include ChildObject.R
+#' @export BiodbConn
+#' @exportClass BiodbConn
 BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.id = "character", .content.type = "character", .base.url = "character", .base.url.index = "integer"))
 
 # Constructor {{{1

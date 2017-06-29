@@ -51,19 +51,19 @@ Convert a list of entries (\code{BiodbEntry} objects) into a data frame.}
 
 \item{\code{getCache()}}{:
 
-Returns the instance of the \code{BiodbCache} class.}
+Returns the single instance of the \code{BiodbCache} class.}
 
 \item{\code{getConfig()}}{:
 
-Returns the instance of the \code{BiodbConfig} class.}
+Returns the single instance of the \code{BiodbConfig} class.}
 
 \item{\code{getEntryFields()}}{:
 
-Returns the instance of the \code{BiodbEntryFields} class.}
+Returns the single instance of the \code{BiodbEntryFields} class.}
 
 \item{\code{getFactory()}}{:
 
-Returns the instance of the \code{BiodbFactory} class.}
+Returns the single instance of the \code{BiodbFactory} class.}
 
 \item{\code{getObservers()}}{:
 
@@ -82,5 +82,5 @@ mybiodb <- biodb::Biodb(logger = FALSE, observers = biodb::BiodbLogger(file = "f
 
 }
 \seealso{
-\code{\link{BiodbFactory}}
+\code{\link{BiodbFactory}}, \code{\link{BiodbCache}}, \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}}, \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}}.
 }

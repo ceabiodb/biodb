@@ -6,7 +6,7 @@
 \alias{BiodbFactory}
 \title{A class for constructing biodb objects.}
 \description{
-A class for constructing biodb objects.
+This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}. See section Fields for a list of the constructor's parameters.
 }
 \section{Methods}{
 
@@ -18,3 +18,6 @@ A class for constructing biodb objects.
 \item{\code{getEntry(class, id, drop = TRUE)}}{Create Entry from a database by id.}
 }}
 
+\seealso{
+\code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
+}

@@ -10,8 +10,12 @@ CACHE.FOLDERS <- c(CACHE.SHORT.TERM.FOLDER, CACHE.LONG.TERM.FOLDER)
 # Class declaration {{{1
 ################################################################
 
+#' A class for handling file caching.
+#'
 #' @import methods
 #' @include ChildObject.R
+#' @export BiodbCache
+#' @exportClass BiodbCache
 BiodbCache <- methods::setRefClass("BiodbCache", contains = 'ChildObject')
 
 # Constructor {{{1

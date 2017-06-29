@@ -9,3 +9,6 @@
 The mother abstract class of all observer classes.
 }
 
+\seealso{
+\code{\link{BiodbLogger}}.
+}
