@@ -9,6 +9,8 @@ Depends:
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
 Imports:
     methods,
     XML,

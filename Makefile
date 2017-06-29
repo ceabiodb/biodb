@@ -3,6 +3,12 @@ all:
 check:
 	@R -q -e "devtools::check('$(CURDIR)')"
 
+vignettes:
+	@R -q -e "devtools::build_vignettes('$(CURDIR)')"
+
+build:
+	@R -q -e "devtools::build('$(CURDIR)')"
+
 test:
 	@R -q -e "devtools::test('$(CURDIR)')"
 
@@ -15,4 +21,4 @@ win:
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
 
-.PHONY: all clean win test check
+.PHONY: all clean win test check vignettes

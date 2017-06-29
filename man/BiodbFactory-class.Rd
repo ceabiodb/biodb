@@ -5,13 +5,22 @@
 \alias{BiodbFactory-class}
 \alias{BiodbFactory}
 \title{A class for constructing biodb objects.}
+\arguments{
+\item{class}{The class of a database. Use already defined constants to provide this value, e.g.: \code{BIODB.CHEBI} or \code{BIODB.MASSBANK.EU}. See}
+
+\item{url}{}
+
+\item{token}{}
+}
 \description{
-This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}. See section Fields for a list of the constructor's parameters.
+This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{createConn(class, url = NA_character_, token = NA_character_)}}{Create connection to databases useful for metabolomics.}
+\item{\code{createConn(class, url = NA_character_, token = NA_character_)}}{:
+
+Create a connection to a database.}
 
 \item{\code{getConn(class)}}{Get connection to a database.}
 
