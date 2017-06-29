@@ -4,8 +4,8 @@
 \name{BiodbConfig-class}
 \alias{BiodbConfig-class}
 \alias{BiodbConfig}
-\title{Class for storing configuration values.}
+\title{A class for storing configuration values.}
 \description{
-Class for storing configuration values.
+A class for storing configuration values.
 }
 

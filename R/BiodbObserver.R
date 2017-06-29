@@ -5,6 +5,9 @@
 
 #' The mother abstract class of all observer classes.
 #'
+#' @seealso \code{\link{BiodbLogger}}.
+#'
+#' @import methods
 #' @export BiodbObserver
 #' @exportClass BiodbObserver
 BiodbObserver <- methods::setRefClass("BiodbObserver", fields = list())

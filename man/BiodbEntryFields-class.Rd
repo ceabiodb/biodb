@@ -4,7 +4,7 @@
 \name{BiodbEntryFields-class}
 \alias{BiodbEntryFields-class}
 \alias{BiodbEntryFields}
-\title{A class for handing description of all entry fields.}
+\title{A class for handling description of all entry fields.}
 \description{
 The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getEntryFields()} method.
 }
@@ -16,5 +16,5 @@ entry.field <- mybiodb$getEntryFields()$get('accession')
 
 }
 \seealso{
-\code{\link{BiodbEntryField}}.
+\code{\link{Biodb}}, \code{\link{BiodbEntryField}}.
 }

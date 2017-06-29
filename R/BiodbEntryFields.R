@@ -3,11 +3,11 @@
 # Class declaration {{{1
 ################################################################
 
-#' A class for handing description of all entry fields.
+#' A class for handling description of all entry fields.
 #'
 #' The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getEntryFields()} method.
 #'
-#' @seealso \code{\link{BiodbEntryField}}.
+#' @seealso \code{\link{Biodb}}, \code{\link{BiodbEntryField}}.
 #'
 #' @examples
 #' # Getting information about the accession field:
@@ -19,6 +19,7 @@
 #' @include Biodb.R
 #' @include ChildObject.R
 #' @include BiodbEntryField.R
+#' @export BiodbEntryFields
 #' @exportClass BiodbEntryFields
 BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list" ))
 

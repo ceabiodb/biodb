@@ -5,7 +5,17 @@
 
 #' A class for constructing biodb objects.
 #'
+#' This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
+#'
+#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
+#'
+#' @param class The class of a database. Use already defined constants to provide this value, e.g.: \code{BIODB.CHEBI} or \code{BIODB.MASSBANK.EU}. See
+#' @param url   
+#' @param token
+#'
+#' @import methods
 #' @include ChildObject.R
+#' @export BiodbFactory
 #' @exportClass BiodbFactory
 BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
 
@@ -24,7 +34,7 @@ BiodbFactory$methods( initialize = function(...) {
 ################################################################
 
 BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
-    " Create connection to databases useful for metabolomics."
+    ":\n\nCreate a connection to a database."
 
     # Has connection been already created?
 	if (class %in% names(.self$.conn))

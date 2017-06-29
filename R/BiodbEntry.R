@@ -1,10 +1,16 @@
 # vi: fdm=marker
 
-#' @include ChildObject.R
-
 # Entry abstract class {{{1
 ################################################################
 
+#' The mother abstract class of all database entry classes.
+#'
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbConn}}.
+#'
+#' @import methods
+#' @include ChildObject.R
+#' @export BiodbEntry
+#' @exportClass BiodbEntry
 BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .parsing.expr = 'ANY'))
 
 # Constructor {{{1
