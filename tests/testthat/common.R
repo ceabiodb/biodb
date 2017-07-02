@@ -25,15 +25,15 @@ DATABASES.ALL <- 'all'
 DATABASES.NONE <- 'none'
 
 env <- Sys.getenv()
-TEST.DATABASES <- biodb::BIODB.DATABASES
+TEST.DATABASES <- biodb::Biodb$new(logger = FALSE)$getDbsInfo()$getIds()
 if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
 	if (env[['DATABASES']] == DATABASES.NONE)
 		TEST.DATABASES <- character(0)
 	else if (env[['DATABASES']] == DATABASES.ALL)
-		TEST.DATABASES <- biodb::BIODB.DATABASES
+		TEST.DATABASES <- biodb::Biodb$new(logger = FALSE)$getDbsInfo()$getIds()
 	else {
 		TEST.DATABASES <- strsplit(env[['DATABASES']], ',')[[1]]
-		db.exists <- TEST.DATABASES %in% BIODB.DATABASES
+		db.exists <- vapply(TEST.DATABASES, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
 		if ( ! all(db.exists)) {
 			wrong.dbs <- TEST.DATABASES[ ! db.exists]
 			stop(paste('Unknown testing database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')

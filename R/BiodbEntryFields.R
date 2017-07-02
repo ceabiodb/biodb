@@ -159,9 +159,5 @@ BiodbEntryFields$methods( get = function(name) {
 ################################################################
 
 BiodbEntryFields$methods( getDatabaseIdField = function(database) {
-
-	if ( ! database %in% BIODB.DATABASES)
-		.self$message(MSG.ERROR, paste("Unknown database \"", database, "\"."))
-
-	return(.self$get(paste(database, 'id', sep = '.')))
+	return(.self$get(.self$getBiodb()$getDbsInfo()$get(database)$getIdFieldName()))
 })

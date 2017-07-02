@@ -68,3 +68,27 @@ BiodbDbsInfo$methods( .define = function(name, ...) {
 BiodbDbsInfo$methods( getIds = function() {
 	return(names(.self$.dbs))
 })
+
+# Is defined {{{1
+################################################################
+
+BiodbDbsInfo$methods( isDefined = function(name) {
+	return(name %in% names(.self$.dbs))
+})
+
+# Check is defined {{{1
+################################################################
+
+BiodbDbsInfo$methods( checkIsDefined = function(name) {
+	if ( ! .self$isDefined(name))
+		.self$message(MSG.ERROR, paste("Database \"", name, "\" is not defined.", sep = ''))
+})
+
+# Get {{{1
+################################################################
+
+BiodbDbsInfo$methods( get = function(name) {
+	.self$checkIsDefined(name)
+	db <- .self$.dbs[[name]]
+	return(db)
+})

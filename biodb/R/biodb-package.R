@@ -1,2 +1,0 @@
-#' @useDynLib biodb
-NULL

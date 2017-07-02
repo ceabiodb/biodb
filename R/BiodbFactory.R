@@ -41,8 +41,7 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 		.self$message(MSG.ERROR, paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
 
     # Check that class is known
-    if ( ! class %in% BIODB.DATABASES)
-		.self$message(MSG.ERROR, paste("Unknown connection class ", class, ".", sep = ''))
+    .self$getBiodb()$getDbsInfo()$checkIsDefined(class)
 
     # Get connection class name
     s <- class
@@ -104,26 +103,25 @@ BiodbFactory$methods( createEntry = function(class, content, drop = TRUE) {
 
 	entries <- list()
 
-    # Check that class is known
-    if ( ! class %in% BIODB.DATABASES)
-		.self$message(MSG.ERROR, paste("Unknown connection class ", class, ".", sep = ''))
+	# Check that class is known
+	.self$getBiodb()$getDbsInfo()$checkIsDefined(class)
 
-    # Get entry class name
-    s <- class
-    .self$message(MSG.DEBUG, paste("Create instance for class", class))
+	# Get entry class name
+	s <- class
+	.self$message(MSG.DEBUG, paste("Create instance for class", class))
 	indices <- as.integer(gregexpr('\\.[a-z]', class, perl = TRUE)[[1]])
-    indices <- indices + 1  # We are interested in the letter after the dot.
-    indices <- c(1, indices) # Add first letter.
-    .self$message(MSG.DEBUG, paste("Letters to put in uppercase:", paste(indices, collapse = ", ")))
+	indices <- indices + 1  # We are interested in the letter after the dot.
+	indices <- c(1, indices) # Add first letter.
+	.self$message(MSG.DEBUG, paste("Letters to put in uppercase:", paste(indices, collapse = ", ")))
 	for (i in indices)
 		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
-    .self$message(MSG.DEBUG, paste("Create instance for class", s))
-    s <- gsub('.', '', s, fixed = TRUE) # Remove dots
-    .self$message(MSG.DEBUG, paste("Create instance of class", s))
+	.self$message(MSG.DEBUG, paste("Create instance for class", s))
+	s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+	.self$message(MSG.DEBUG, paste("Create instance of class", s))
 	entry.class.name <- paste(s, 'Entry', sep = '')
 
-    # Get entry class
-    entry.class <- get(entry.class.name)
+	# Get entry class
+	entry.class <- get(entry.class.name)
 
 	# Get connection
 	conn <- .self$getConn(class)
