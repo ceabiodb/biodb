@@ -3,8 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-#'The mother abstract class of all KEGG connection classes.
-#'@export
+#' @include RemotedbConn.R
 KeggConn <- methods::setRefClass("KeggConn", contains = "RemotedbConn", fields = list(.db.name = "character", .db.abbrev = "character"))
 
 # Constructor {{{1
@@ -35,7 +34,7 @@ KeggConn$methods( .complete.entry.id = function(id) {
 # Get entry content url {{{1
 ################################################################
 
-KeggConn$methods( getEntryContentUrl = function(id) {
+KeggConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	return(paste(.self$.base.url, 'get/', .self$.complete.entry.id(id), sep = ''))
 })
 

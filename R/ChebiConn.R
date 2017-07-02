@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+#' @include RemotedbConn.R
+
 # Class declaration {{{1
 ################################################################
 
@@ -9,7 +11,15 @@ ChebiConn <- methods::setRefClass("ChebiConn", contains = "RemotedbConn")
 ################################################################
 
 ChebiConn$methods( initialize = function(...) {
-	callSuper(content.type = BIODB.HTML, ...)
+	callSuper(content.type = BIODB.XML, base.url = 'https://www.ebi.ac.uk/', ...)
+})
+
+# Get entry content url {{{1
+################################################################
+
+ChebiConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+	                  # TODO Return an URL request object with SOAP message embedded
+	return(paste(.self$.base.url, 'webservices/chebi/2.0/test/getCompleteEntity?chebiId=', id, sep = ''))
 })
 
 # Get entry content {{{1
@@ -21,17 +31,11 @@ ChebiConn$methods( getEntryContent = function(id) {
 	content <- rep(NA_character_, length(id))
 
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(get.entry.url(BIODB.CHEBI, x)), FUN.VALUE = '')
+	content <- vapply(id, function(x) .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(x)), FUN.VALUE = '')
 
 	return(content)
 })
 
-# Create entry {{{1
-################################################################
-
-ChebiConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createChebiEntryFromHtml(.self$getBiodb(), content, drop = drop))
-})
 
 # Get entry ids {{{1
 ################################################################

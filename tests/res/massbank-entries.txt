@@ -1,4 +1,0 @@
-accession   msdev                                                               msdevtype           mstype  msmode  msprecmz    msprecannot chromcolrt  keggcompoundid  chebiid pubchemcompid casid hmdbmetaboliteid chemspiderid
-'EA256108'  'LTQ Orbitrap XL Thermo Scientific'                                 LC-ESI-ITFT         MS2     pos     172.1332    [M+H]+      216 D00332  NA              CID:3446 60142-96-3 HMDB05015 3328
-'PR010173'  'Pegasus III TOF-MS system, Leco; GC 6890, Agilent Technologies'    GC-EI-TOF           MS      pos     NA          NA          406.552     C00049          17053 3351 56-84-8 NA NA
-'PR010001'  'Pegasus III TOF-MS system, Leco; GC 6890, Agilent Technologies'    GC-EI-TOF           MS      pos     NA          NA          407.323     NA              NA NA 10517-44-9 NA NA

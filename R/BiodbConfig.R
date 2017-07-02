@@ -3,38 +3,43 @@
 # Class declaration {{{1
 ################################################################
 
-#'Class for storing configuration values.
-#'@export
-BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "BiodbObject", fields = list( .biodb = "ANY", .values = "list", .env = "ANY", .value.info = "list" ))
+#' A class for storing configuration values.
+#'
+#' @import methods
+#' @include ChildObject.R
+#' @export BiodbConfig
+#' @exportClass BiodbConfig
+BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .value.info = "list" ))
 
 # Constants {{{1
 ################################################################
 
 # Keys
-CFG.CACHEDIR            <- 'cachedir'
-CFG.CHEMSPIDER.TOKEN    <- 'chemspider_token'
-CFG.DBDWNLD             <- 'dbdwnld'
-CFG.MASSBANK.URL        <- 'massbank_url'
-CFG.PEAKFOREST.TOKEN    <- 'peakforest_token'
-CFG.PEAKFOREST.URL      <- 'peakforest_url'
-CFG.USERAGENT           <- 'useragent'
+CFG.ALLOW.HUGE.DOWNLOADS    <- 'allow.huge.downloads'
+CFG.CACHE.DIRECTORY         <- 'cache.directory'
+CFG.CACHE.SYSTEM            <- 'cache.system'
+CFG.CACHE.ALL.REQUESTS      <- 'cache.all.requests'
+CFG.CACHE.READ.ONLY         <- 'cache.read.only'
+CFG.CHEMSPIDER.TOKEN        <- 'chemspider.token'
+CFG.COMPUTE.FIELDS          <- 'compute.fields'
+CFG.OFFLINE                 <- 'offline'
+CFG.PEAKFOREST.TOKEN        <- 'peakforest.token'
+CFG.PEAKFOREST.URL          <- 'peakforest.url'
+CFG.USERAGENT               <- 'useragent'
+CFG.USE.CACHE.SUBFOLDERS    <- 'cache.subfolders'
+CFG.SVN.BINARY.PATH         <- 'svn.binary.path'
+CFG.FORCE.C.LOCALE          <- 'force.c.locale'
 
 # Database URLs
-BIODB.MASSBANK.JP.URL  <- 'http://www.massbank.jp/'
-BIODB.MASSBANK.EU.URL  <- 'http://www.massbank.eu/'
-BIODB.MASSBANK.JP.WS.URL  <- paste(BIODB.MASSBANK.JP.URL, 'api/services/MassBankAPI/')
-BIODB.MASSBANK.EU.WS.URL  <- paste(BIODB.MASSBANK.EU.URL, 'api/services/MassBankAPI/')
 PEAKFOREST.WS.URL         <- 'https://rest.peakforest.org/'
 PEAKFOREST.WS.ALPHA.URL   <- 'https://peakforest-alpha.inra.fr/rest/'
 
 # Constructor {{{1
 ################################################################
 
-BiodbConfig$methods( initialize = function(biodb = NULL, ...) {
+BiodbConfig$methods( initialize = function(...) {
 
 	callSuper(...)
-
-	.biodb <<- biodb
 
 	.env <<- Sys.getenv()
 	.self$.initValueInfo()
@@ -49,7 +54,7 @@ BiodbConfig$methods( .getFromEnv = function(key) {
 	value <- NULL
 
 	# Look into ENV
-	envvar <- paste(c('BIODB', toupper(key)), collapse = '_')
+	envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
 	if (envvar %in% names(.self$.env))
 		value <- .self$.env[[envvar]]
 
@@ -69,16 +74,23 @@ BiodbConfig$methods( .initValueInfo = function() {
 	useragent.default <- if ('EMAIL' %in% names(.self$.env)) paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ') else NULL
 
 	# Define keys
-	.self$.newKey(CFG.CACHEDIR,         type = 'character', default = cachedir.default)
-	.self$.newKey(CFG.CHEMSPIDER.TOKEN, type = 'character')
-	.self$.newKey(CFG.DBDWNLD,          type = 'logical',   default = TRUE)
-	.self$.newKey(CFG.MASSBANK.URL,     type = 'character', default = BIODB.MASSBANK.EU.WS.URL)
-	.self$.newKey(CFG.PEAKFOREST.TOKEN, type = 'character')
-	.self$.newKey(CFG.PEAKFOREST.URL,   type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
-	.self$.newKey(CFG.USERAGENT,        type = 'character', default = useragent.default)
+	.self$.newKey(CFG.ALLOW.HUGE.DOWNLOADS,     type = 'logical',   default = TRUE)
+	.self$.newKey(CFG.CACHE.DIRECTORY,          type = 'character', default = cachedir.default)
+	.self$.newKey(CFG.CACHE.SYSTEM,             type = 'logical',   default = TRUE)
+	.self$.newKey(CFG.CACHE.ALL.REQUESTS,       type = 'logical',   default = TRUE)
+	.self$.newKey(CFG.CACHE.READ.ONLY,          type = 'logical',   default = FALSE)
+	.self$.newKey(CFG.CHEMSPIDER.TOKEN,         type = 'character')
+	.self$.newKey(CFG.COMPUTE.FIELDS,           type = 'logical',   default = TRUE)
+	.self$.newKey(CFG.OFFLINE,                  type = 'logical',   default = FALSE)
+	.self$.newKey(CFG.PEAKFOREST.TOKEN,         type = 'character')
+	.self$.newKey(CFG.PEAKFOREST.URL,           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
+	.self$.newKey(CFG.USERAGENT,                type = 'character', default = useragent.default)
+	.self$.newKey(CFG.USE.CACHE.SUBFOLDERS,     type = 'logical',   default = TRUE)
+	.self$.newKey(CFG.SVN.BINARY.PATH,          type = 'character', default = .self$.get.svn.binary.path())
+	.self$.newKey(CFG.FORCE.C.LOCALE,           type = 'logical',   default = TRUE)
 })
 
-# Initialize value information {{{1
+# New key {{{1
 ################################################################
 
 BiodbConfig$methods( .newKey = function(key, type, default = NULL) {
@@ -140,12 +152,6 @@ BiodbConfig$methods( .initValues = function() {
 	}
 })
 
-# Get biodb {{{1
-################################################################
-
-BiodbConfig$methods( getBiodb = function() {
-	return(.self$.biodb)
-})
 
 # Get type {{{1
 ################################################################
@@ -185,7 +191,7 @@ BiodbConfig$methods( isDefined = function(key) {
 	return(key %in% names(.self$.values))
 })
 
-# Enabled {{{1
+# Is enabled {{{1
 ################################################################
 
 BiodbConfig$methods( isEnabled = function(key) {
@@ -222,6 +228,7 @@ BiodbConfig$methods( set = function(key, value) {
 
 	.self$.checkKey(key)
 
+	.self$message(MSG.INFO, paste("Set ", key, " to ", value, ".", sep = ''))
 	.self$.values[[key]] <- as.vector(value, mode = .self$.getType(key))
 })
 
@@ -232,6 +239,7 @@ BiodbConfig$methods( enable = function(key) {
 
 	.self$.checkKey(key, type = 'logical')
 
+	.self$message(MSG.INFO, paste("Enable ", key, ".", sep = ''))
 	.self$.values[[key]] <- TRUE
 })
 
@@ -242,5 +250,31 @@ BiodbConfig$methods( disable = function(key) {
 
 	.self$.checkKey(key, type = 'logical')
 
+	.self$message(MSG.INFO, paste("Disable ", key, ".", sep = ''))
 	.self$.values[[key]] <- FALSE
+})
+
+# Get SVN binary path {{{1
+################################################################
+
+BiodbConfig$methods( .get.svn.binary.path = function() {
+
+	# Look in system PATH
+	svn_path <- Sys.which("svn")[[1]]
+	if (svn_path == '')
+		svn_path <- NULL
+
+	# On Windows, look in common locations
+	if (is.null(svn_path) && .Platform$OS.type == "windows") {
+		look_in <- c("C:/Program Files/Svn/bin/svn.exe", "C:/Program Files (x86)/Svn/bin/svn.exe")
+		found <- file.exists(look_in)
+		if (any(found))
+			svn_path <- look_in[found][1]
+	}
+
+	# Not found
+	if (is.null(svn_path))
+		.self$message(MSG.ERROR, "SVN does not seem to be installed on your system.")
+
+	return(svn_path)
 })

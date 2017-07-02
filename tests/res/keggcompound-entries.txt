@@ -1,2 +1,0 @@
-accession   name                            chebiid
-'C00751'    'Squalene'                      '15440'

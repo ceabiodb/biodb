@@ -1,6 +1,7 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
+
+# Class declaration {{{1
+################################################################
 
 UniprotConn <- methods::setRefClass("UniprotConn", contains = "RemotedbConn")
 
@@ -8,28 +9,47 @@ UniprotConn <- methods::setRefClass("UniprotConn", contains = "RemotedbConn")
 ################################################################
 
 UniprotConn$methods( initialize = function(...) {
-	callSuper(content.type = BIODB.XML, ...)
+	callSuper(content.type = BIODB.XML, base.url = 'http://www.uniprot.org/uniprot/', ...)
 })
 
-#####################
-# GET ENTRY CONTENT #
-#####################
+# Get entry content {{{1
+################################################################
 
-UniprotConn$methods( getEntryContent = function(ids) {
+UniprotConn$methods( getEntryContent = function(id) {
 
 	# Initialize return values
-	content <- rep(NA_character_, length(ids))
+	content <- rep(NA_character_, length(id))
 
+	# Get URLs
+	urls <- .self$getEntryContentUrl(id)
+	
 	# Request
-	content <- vapply(ids, function(x) .self$.get.url(get.entry.url(BIODB.UNIPROT, x, content.type = BIODB.XML)), FUN.VALUE = '')
+	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
 	return(content)
 })
 
-################
-# CREATE ENTRY #
-################
+# Create entry {{{1
+################################################################
 
 UniprotConn$methods( createEntry = function(content, drop = TRUE) {
 	return(createUniprotEntryFromXml(.self$getBiodb(), content, drop = drop))
+})
+
+# Get entry ids {{{1
+################################################################
+
+UniprotConn$methods( getEntryIds = function(max.results = NA_integer_) {
+	.self$message(MSG.CAUTION, "No method implemented for computing list of IDs.")
+	return(NULL)
+})
+
+# Do get entry content url {{{1
+################################################################
+
+UniprotConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+	                    
+	url <- paste0(.self$getBaseUrl(), id, '.xml')
+
+	return(url)
 })

@@ -2,20 +2,8 @@
 args <- commandArgs(trailingOnly = F)
 script.path <- sub("--file=","",args[grep("--file=",args)])
 
-library(jsonlite)
 library(batch)
-
-# Load biodb
-env <- Sys.getenv()
-.source.biodb <- '__SOURCE_BIODB' %in% names(env)
-if (.source.biodb) {
-	source(file.path(dirname(script.path), '..', 'BiodbFactory.R'), chdir = TRUE)
-} else {
-	library(biodb)
-}
-
-USER_AGENT <- 'msmssearch , alexis.delabriere@cea.fr'
-TOKEN <- '10omgahvttp9rm41agr60drmd6'
+library(biodb)
 
 ###PARAMETERS :
 # file : The path to the file containing the query spectra.
@@ -46,10 +34,6 @@ TOKEN <- '10omgahvttp9rm41agr60drmd6'
 #
 #
 
-# CHANGE TO FALSE TO USE COMMAND LINE
-TEST <- FALSE
-
-
 ###STATIC PARAMETER TO BE DETERMINED INTERNALLY
 # USER_AGENT : the user agent.
 # NPMIN : The minimal number of matched peak to determine the parameters.
@@ -58,62 +42,34 @@ TEST <- FALSE
 # INTEXP : The int exponent.
 # DIST : The matching function used.
 
-USER_AGENT="MSMSmatching ; alexis.delabriere@cea.fr"
 NPMIN <- 2
 DMZ <- 0.005
 MZEXP <- 2
 INTEXP <- 0.5
 DIST <- 'pbachtttarya'
 
-###RETURN PARAMETER
+searchMSMSPeakforest <- function(spec, precursor, mztol, ppm, mode) {
 
-RTYPE <- "JSON"
-
-
-searchMSMSPeakforest <- function(spec, precursor, mztol, ppm, mode){
 	###Putting the data.frame in form
 	spec <- spec[,c(1,2)]
 	colnames(spec) <- c("mz","intensity")
 	
-	biodb_obj <-  biodb:::Biodb$new(USER_AGENT)
-	biodb_obj$addObservers(biodb:::BiodbLogger$new())
+	biodb_obj <-  biodb:::Biodb$new()
 	fac <- biodb_obj$getFactory()
-	pfcon <- fac$createConn(biodb:::BIODB.PEAKFOREST,url="https://peakforest-alpha.inra.fr/rest/",token=TOKEN)
+	pfcon <- fac$createConn(biodb:::BIODB.PEAKFOREST.LCMS)
 	
-# if (.source.biodb) {
-# 	pfcon <- PeakforestConn$new(USER_AGENT,token = TOKEN,.debug=TRUE)
-# 	pfconPeakforestConn$.set.useragent(USER_AGENT)
-# } else {
-# 	pfcon <- biodb:::PeakforestConn$new(token = TOKEN,.debug=TRUE)
-# 	biodb:::PeakforestConn$.set.useragent(USER_AGENT)
-# }
-	res <- pfcon$msmsSearch(spec = spec, precursor = precursor, npmin = NPMIN, mztol=mztol, mode=mode,tolunit="plain",fun = DIST,params = list(ppm = ppm, dmz = DMZ, mzexp = MZEXP, intexp = INTEXP))
+	res <- pfcon$msmsSearch(spec = spec, precursor = precursor, npmin = NPMIN, mztol=mztol, mode=mode,tolunit=BIODB.MZTOLUNIT.PLAIN,fun = DIST,params = list(ppm = ppm, dmz = DMZ, mzexp = MZEXP, intexp = INTEXP))
 	return(res)
 }
-
 
 ####Parsing the command line arguments :
 
 listArguments = parseCommandArgs(evaluate=FALSE)
-print(listArguments)
-print(getwd())
-
-if(TEST){
-listArguments <- list()
-listArguments[['-file']] <- 'C:/Users/AD244905/Documents/tspec.txt'
-listArguments[['-precursor']] <- 254.1
-listArguments[['-mztol']] <- 0.2
-listArguments[['-ppm']] <- 200
-listArguments[['-mode']] <- 'neg'
-}
-
 
 if(is.null(listArguments[['-file']])) stop("file should be a character giving access to pointing to csv file with mass as first columns and intensity as second columns.")
 
 if(!file.exists(listArguments[['-file']])) stop(paste("file",listArguments[['-file']],"not found."))
 spec <- read.table(listArguments[['-file']],sep=" ",header=TRUE)
-
-
 
 if(is.null(listArguments[['-precursor']])) stop("precursor should be a real correspoding to the precursor mass.")
 prec <- as.numeric(listArguments[['-precursor']])
@@ -129,4 +85,4 @@ if(is.null(listArguments[['-mode']])) mode <- 'pos'
 mode <- listArguments[['-mode']]
 
 res <- searchMSMSPeakforest(spec,prec,mztol,ppm,mode)
-print(toJSON(res))
+print(jsonlite::toJSON(res))

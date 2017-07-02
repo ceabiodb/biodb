@@ -1,2 +1,0 @@
-accession       keggcompoundid  name                formula     averagemass monoisotopicmass    superclass
-HMDB00001       C01152          1-Methylhistidine   C7H11N3O2   169.1811    169.085126611       "Organic compounds"

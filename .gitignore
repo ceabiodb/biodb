@@ -4,7 +4,6 @@
 .RData
 .Rhistory
 cache
-man
 ..Rcheck
 src/*.rds
 test-pkg.output
@@ -12,3 +11,4 @@ test-pkg.output
 src-i386
 src-x64
 peaks.tsv
+.build.timestamp

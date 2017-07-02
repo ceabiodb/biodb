@@ -3,71 +3,80 @@
 # Class declaration {{{1
 ################################################################
 
-#'A class for constructing biodb objects.
-#'@export
-BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbObject', fields = list(
-														  .conn = "list",
-														  .chunk.size = "integer",
-														  .biodb = "ANY"))
+#' A class for constructing biodb objects.
+#'
+#' This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
+#'
+#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
+#'
+#' @param class The class of a database. Use already defined constants to provide this value, e.g.: \code{BIODB.CHEBI} or \code{BIODB.MASSBANK.EU}. See
+#' @param url   
+#' @param token
+#'
+#' @import methods
+#' @include ChildObject.R
+#' @export BiodbFactory
+#' @exportClass BiodbFactory
+BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbFactory$methods( initialize = function(biodb = NULL, ...) {
-
-	.biodb <<- biodb
-	.conn <<- list()
-	.chunk.size <<- NA_integer_
+BiodbFactory$methods( initialize = function(...) {
 
 	callSuper(...)
+
+	.conn <<- list()
+	.chunk.size <<- NA_integer_
 })
-
-# Get biodb {{{1
-################################################################
-
-BiodbFactory$methods( getBiodb = function() {
-	return(.self$.biodb)
-})
-
-# CONNECTIONS {{{1
 
 # Create conn {{{2
-BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
-    " Create connection to databases useful for metabolomics."
+################################################################
 
+BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
+    ":\n\nCreate a connection to a database."
+
+    # Has connection been already created?
 	if (class %in% names(.self$.conn))
-		stop(paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
+		.self$message(MSG.ERROR, paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
+
+    # Check that class is known
+    .self$getBiodb()$getDbsInfo()$checkIsDefined(class)
+
+    # Get connection class name
+    s <- class
+    .self$message(MSG.DEBUG, paste("Create instance for class", class))
+	indices <- as.integer(gregexpr('\\.[a-z]', class, perl = TRUE)[[1]])
+    indices <- indices + 1  # We are interested in the letter after the dot.
+    indices <- c(1, indices) # Add first letter.
+    .self$message(MSG.DEBUG, paste("Letters to put in uppercase:", paste(indices, collapse = ", ")))
+	for (i in indices)
+		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
+    .self$message(MSG.DEBUG, paste("Create instance for class", s))
+    s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+    .self$message(MSG.DEBUG, paste("Create instance of class", s))
+	conn.class.name <- paste(s, 'Conn', sep = '')
+
+    # Get connection class
+    conn.class <- get(conn.class.name)
 
 	# Create connection instance
-	conn <- switch(class,
-		            chebi           = ChebiConn$new(            biodb = .self$.biodb),
-		            keggcompound    = KeggcompoundConn$new(     biodb = .self$.biodb),
-		            pubchemcomp     = PubchemConn$new(          biodb = .self$.biodb, db = BIODB.PUBCHEMCOMP),
-		            pubchemsub      = PubchemConn$new(          biodb = .self$.biodb, db = BIODB.PUBCHEMSUB),
-		            hmdbmetabolite  = HmdbmetaboliteConn$new(   biodb = .self$.biodb),
-		            chemspider      = ChemspiderConn$new(       biodb = .self$.biodb, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.CHEMSPIDER.TOKEN) else token),
-		            enzyme          = EnzymeConn$new(           biodb = .self$.biodb),
-		            lipidmapsstructure = LipidmapsstructureConn$new(        biodb = .self$.biodb),
-		            mirbase         = MirbaseConn$new(          biodb = .self$.biodb),
-		            ncbigene        = NcbigeneConn$new(         biodb = .self$.biodb),
-		            ncbiccds        = NcbiccdsConn$new(         biodb = .self$.biodb),
-		            uniprot         = UniprotConn$new(          biodb = .self$.biodb),
-		            massbank        = MassbankConn$new(         biodb = .self$.biodb, url = if (is.na(url)) .self$getBiodb()$getConfig()$get(CFG.MASSBANK.URL) else url),
-					massfiledb      = MassFiledbConn$new(       biodb = .self$.biodb, file = url),
-					peakforestlcms  = PeakforestlcmsConn$new(       biodb = .self$.biodb, base.url = if (is.na(url)) .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.URL) else url, token = if (is.na(token)) .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.TOKEN) else token),
-		      	    NULL)
+    if (is.na(url))
+    	conn <- conn.class$new(id = class, parent = .self)
+    else
+    	conn <- conn.class$new(id = class, parent = .self, base.url = url)
 
-	# Unknown class
-	if (is.null(conn))
-		.self$message(paste("Unknown connection class ", class, ".", sep = ''))
+    # Set token
+    if ( ! is.na(token))
+	    conn$setToken(token)
 
-	# Register new class
+	# Register new class instance
 	.self$.conn[[class]] <- conn
 
 	return (.self$.conn[[class]])
 })
 
-# Get conn {{{2
+# Get conn {{{1
 ################################################################
 
 BiodbFactory$methods( getConn = function(class) {
@@ -79,41 +88,103 @@ BiodbFactory$methods( getConn = function(class) {
 	return (.self$.conn[[class]])
 })
 
-# ENTRIES {{{1
 
-# Set chunk size {{{2
+# Set chunk size {{{1
+################################################################
+
 BiodbFactory$methods( setChunkSize = function(size) {
 	.chunk.size <<- as.integer(size)
 })
 
-# Create entry {{{2
-BiodbFactory$methods( createEntry = function(class, id = NULL, content = NULL, drop = TRUE) {
-	"Create Entry from a database by id."
+# Create entry {{{1
+################################################################
 
-	is.null(id) && is.null(content) && stop("One of id or content must be set.")
-	! is.null(id) && ! is.null(content) && stop("id and content cannot be both set.")
+BiodbFactory$methods( createEntry = function(class, content, drop = TRUE) {
 
-	# Debug
-	.self$message(MSG.INFO, paste0("Creating ", if (is.null(id)) length(content) else length(id), " entries from ", if (is.null(id)) "contents" else paste("ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", ")), "..."))
+	entries <- list()
 
-	# Get content
-	if ( ! is.null(id))
-		content <- .self$getEntryContent(class, id)
+	# Check that class is known
+	.self$getBiodb()$getDbsInfo()$checkIsDefined(class)
+
+	# Get entry class name
+	s <- class
+	.self$message(MSG.DEBUG, paste("Create instance for class", class))
+	indices <- as.integer(gregexpr('\\.[a-z]', class, perl = TRUE)[[1]])
+	indices <- indices + 1  # We are interested in the letter after the dot.
+	indices <- c(1, indices) # Add first letter.
+	.self$message(MSG.DEBUG, paste("Letters to put in uppercase:", paste(indices, collapse = ", ")))
+	for (i in indices)
+		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
+	.self$message(MSG.DEBUG, paste("Create instance for class", s))
+	s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+	.self$message(MSG.DEBUG, paste("Create instance of class", s))
+	entry.class.name <- paste(s, 'Entry', sep = '')
+
+	# Get entry class
+	entry.class <- get(entry.class.name)
+
+	# Get connection
 	conn <- .self$getConn(class)
-	entry <- conn$createEntry(content = content, drop = drop)
 
-	return(entry)
+    # Loop on all contents
+	for (single.content in content) {
+
+		# Create empty entry instance
+    	entry <- entry.class$new(parent = conn)
+
+		# Parse content
+		if ( ! is.null(single.content) && ! is.na(single.content))
+			entry$parseContent(single.content)
+
+		entries <- c(entries, entry)
+	}
+
+	# Replace elements with no accession id by NULL
+	entries <- lapply(entries, function(x) if (is.na(x$getFieldValue(BIODB.ACCESSION))) NULL else x)
+
+	# If the input was a single element, then output a single object
+	if (drop && length(content) == 1)
+		entries <- entries[[1]]
+
+	return(entries)
 })
 
-# Get entry content {{{2
+# Get entry {{{1
+################################################################
+
+BiodbFactory$methods( getEntry = function(class, id, drop = TRUE) {
+	"Create Entry from a database by id."
+
+	# Debug
+	.self$message(MSG.INFO, paste("Creating", length(id), "entries from ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", "), "..."))
+
+	# Get contents
+	content <- .self$getEntryContent(class, id)
+
+	# Create entries
+	entries <- .self$createEntry(class, content = content, drop = drop)
+
+	return(entries)
+})
+
+# Get entry content {{{1
+################################################################
+
 BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
 	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
 
+	# Download full database if possible
+	if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(class), 'BiodbDownloadable')) {
+		.self$message(MSG.DEBUG, paste('Ask for whole database download of ', class, '.', sep = ''))
+		.self$getConn(class)$download()
+	}
+
 	# Initialize content
 	if (.self$getBiodb()$getCache()$isReadable()) {
-		content <- .self$getBiodb()$getCache()$loadFileContent(class, id, .self$getConn(class)$getEntryContentType())
+		# Load content from cache
+		content <- .self$getBiodb()$getCache()$loadFileContent(db = class, folder = CACHE.SHORT.TERM.FOLDER, names = id, ext = .self$getConn(class)$getEntryContentType())
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 	}
 	else {
@@ -132,11 +203,11 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " ", class, " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
 			.self$message(MSG.INFO, paste0(n.duplicates, " ", class, " entry ids, whose content needs to be fetched, are duplicates."))
-		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched for ", class, "."))
+		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched from ", class, " database."))
 	}
 
 	# Get contents
-	if (length(missing.ids) > 0) {
+	if (length(missing.ids) > 0 && ( ! methods::is(.self$getConn(class), 'BiodbDownloadable') || ! .self$getConn(class)$isDownloaded())) {
 
 		# Use connector to get missing contents
 		conn <- .self$getConn(class)
@@ -152,7 +223,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 			# Save to cache
 			if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, class, ch.missing.ids, .self$getConn(class)$getEntryContentType())
+				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, db = class, folder = CACHE.SHORT.TERM.FOLDER, names = ch.missing.ids, ext = .self$getConn(class)$getEntryContentType())
 
 			# Append
 			missing.contents <- c(missing.contents, ch.missing.contents)

@@ -1,57 +1,37 @@
-#####################
-# CLASS DECLARATION #
-#####################
+# vi: fdm=marker
 
-ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "BiodbEntry")
+#' @include XmlEntry.R
 
-###########
-# FACTORY #
-###########
+# Class declaration {{{1
+################################################################
 
-createChebiEntryFromHtml <- function(biodb, contents, drop = TRUE) {
+ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "XmlEntry")
 
-	entries <- list()
+# Constructor {{{1
+################################################################
 
-	# Define xpath expressions
-	xpath.expr <- character()
-#		xpath.expr[[BIODB.ACCESSION]] <- "//b[starts-with(., 'CHEBI:')]"
-	xpath.expr[[BIODB.INCHI]] <- "//td[starts-with(., 'InChI=')]"
-	xpath.expr[[BIODB.INCHIKEY]] <- "//td[text()='InChIKey']/../td[2]"
+ChebiEntry$methods( initialize = function(...) {
 
-	for (content in contents) {
+	callSuper(namespace = c(chebi = "http://www.ebi.ac.uk/webservices/chebi"), ...)
 
-		# Create instance
-		entry <- ChebiEntry$new(biodb)
+	.self$addParsingExpression(BIODB.SMILES, "//chebi:return/chebi:smiles")
+	.self$addParsingExpression(BIODB.INCHI, "//chebi:return/chebi:inchi")
+	.self$addParsingExpression(BIODB.INCHIKEY, "//chebi:return/chebi:inchiKey")
+	.self$addParsingExpression(BIODB.KEGG.COMPOUND.ID, "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data")
+	.self$addParsingExpression(BIODB.MASS, "//chebi:mass")
+	.self$addParsingExpression(BIODB.MONOISOTOPIC.MASS, "//chebi:monoisotopicMass")
+	.self$addParsingExpression(BIODB.CHARGE, "//chebi:charge")
+})
 
-		if ( ! is.null(content) && ! is.na(content)) {
-		
-			# Parse HTML
-			xml <-  XML::htmlTreeParse(content, asText = TRUE, useInternalNodes = TRUE)
+# Parse fields after {{{1
+################################################################
 
-			# Test generic xpath expressions
-			for (field in names(xpath.expr)) {
-				v <- XML::xpathSApply(xml, xpath.expr[[field]], XML::xmlValue)
-				if (length(v) > 0)
-					entry$setField(field, v)
-			}
-		
-			# Get accession
-			accession <- XML::xpathSApply(xml, "//b[starts-with(., 'CHEBI:')]", XML::xmlValue)
-			if (length(accession) > 0) {
-				accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
-				entry$setField(BIODB.ACCESSION, accession)
-			}
-		}
+ChebiEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
-		entries <- c(entries, entry)
+	# Get accession
+	accession <- XML::xpathSApply(parsed.content, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = .self$.namespace)
+	if (length(accession) > 0) {
+		accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
+		.self$setFieldValue(BIODB.ACCESSION, accession)
 	}
-
-	# Replace elements with no accession id by NULL
-	entries <- lapply(entries, function(x) if (is.na(x$getField(BIODB.ACCESSION))) NULL else x)
-
-	# If the input was a single element, then output a single object
-	if (drop && length(contents) == 1)
-		entries <- entries[[1]]
-
-	return(entries)
-}
+})

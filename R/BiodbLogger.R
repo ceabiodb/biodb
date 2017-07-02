@@ -3,8 +3,12 @@
 # Class declaration {{{1
 ################################################################
 
-#'A class for logging biodb messages.
-#'@export
+#' A class for logging biodb messages either to standard error or into a file.
+#'
+#' @import methods
+#' @include BiodbObserver.R
+#' @export BiodbLogger
+#' @exportClass BiodbLogger
 BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.verbose.level = 'integer', .debug.level = 'integer', .file = 'ANY'))
 
 # Constructor {{{1
@@ -12,13 +16,19 @@ BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', f
 
 BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.level = as.integer(1), file = NULL, mode = 'w', ...) {
 
+	callSuper(...)
+
 	.verbose.level <<- if ( ! is.null(verbose.level) && ! is.na(verbose.level)) verbose.level else as.integer(1)
 	.debug.level <<- if ( ! is.null(debug.level) && ! is.na(debug.level)) debug.level else as.integer(1)
-	.file <<- if ( ! is.null(file) && ! is.na(file)) file else stderr()
-	if (is.character(.file))
-		.file <<- file(.self$.file, open = mode)
 
-	callSuper(...)
+	# Set file
+	if (is.null(file) || is.na(file))
+		file <- stderr()
+	if (is.character(file))
+		file <- file(file, open = mode)
+	if ( ! all(class(file) %in% c('file', 'connection', 'terminal')))
+		.self$message(MSG.ERROR, paste('Unknown class "', class(file), '" for log file.', sep = ''))
+	.file <<- file
 })
 
 # Message {{{1

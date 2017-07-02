@@ -1,19 +1,21 @@
 # vi: fdm=marker
 
-# CLASS DECLARATION {{{1
+# Class declaration {{{1
 ################################################################
 
-BiodbObject <- methods::setRefClass("BiodbObject", fields = list( .observers = "ANY", .message.enabled = "logical"))
+BiodbObject <- methods::setRefClass("BiodbObject", fields = list(.message.enabled = "logical"))
 
-# CONSTRUCTOR {{{1
+# Constructor {{{1
 ################################################################
 
 BiodbObject$methods( initialize = function(...) {
-	.message.enabled <<- TRUE
+
 	callSuper(...)
+
+	.message.enabled <<- TRUE
 })
 
-# ABSTRACT METHOD {{{1
+# Abstract method {{{1
 ################################################################
 
 # This method is used to declare a method as abstract.
@@ -28,29 +30,117 @@ BiodbObject$methods( .abstract.method = function() {
 	.self$message(type = MSG.ERROR, paste("Method", method, "is not implemented in", class, "class."))
 })
 
+# Deprecated method {{{1
+################################################################
+
 # This method is used to declare a method as deprecated.
 BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {
 
 	class <- class(.self)
-	method <- sys.calls()[[length(sys.calls()) - 1]]
-	method <- as.character(method)
-	method <- method[[1]]
-	method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
+	call <- sys.call(-1)
+	call <- as.character(call)
+	call <- call[[1]]
+	calls <- strsplit(call, '$', fixed = TRUE)[[1]]
+	method <- calls[[length(calls)]]
 
-	msg <- paste("Method", method, "is now deprecated in", class, "class.")
+	msg <- paste("Method ", method, "() is now deprecated in ", class, " class.", sep = '')
 	if ( ! is.na(new.method))
-		msg <- paste(msg, " Please use now method", new.method, ".", sep = '.')
-	.self$message(type = MSG.CAUTION, msg)
+		msg <- paste(msg, " Please use now method ", new.method, ".", sep = '')
+	.self$message(MSG.CAUTION, msg)
 })
 
-# GET BIODB {{{1
+# Assert not NA {{{1
+################################################################
+
+BiodbObject$methods( .assert.not.na = function(param, msg.type = MSG.ERROR, sys.call.level = 0) {
+	if (any(is.na(param))) {
+		param.name <- as.character(sys.call(sys.call.level))[[2]]
+		.self$message(msg.type, paste(param.name, ' cannot be set to NA.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert not NULL {{{1
+################################################################
+
+BiodbObject$methods( .assert.not.null = function(param, msg.type = MSG.ERROR, sys.call.level = 0) {
+	if (is.null(param)) {
+		param.name <- as.character(sys.call(sys.call.level))[[2]]
+		.self$message(msg.type, paste(param.name, ' cannot be NULL.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert inferior {{{1
+################################################################
+
+BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = MSG.ERROR) {
+	if (any(param1 > param2)) {
+		param1.name <- as.character(sys.call(0))[[2]]
+		param2.name <- as.character(sys.call(0))[[3]]
+		.self$message(msg.type, paste(param1.name, ' (', param1, ') cannot be greater than ', param2.name, ' (', param2, ').', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert positive {{{1
+################################################################
+
+BiodbObject$methods( .assert.positive = function(param, msg.type = MSG.ERROR, na.allowed = TRUE, zero = TRUE) {
+
+	.self$.assert.not.null(param, msg.type = msg.type, sys.call.level = 1)
+	if ( ! na.allowed)
+		.self$.assert.not.na(param, msg.type = msg.type, sys.call.level = 1)
+
+	if (any(param[ ! is.na(param)] < 0) || ( ! zero && any(param[ ! is.na(param)] == 0))) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste(param.name, ' (', paste(param, collapse = ", "), ') cannot be negative', if (zero) '' else ' or equal to zero', '.', sep = ''))
+		return(FALSE)
+	}
+
+	return(TRUE)
+})
+
+# Assert length one {{{1
+################################################################
+
+BiodbObject$methods( .assert.length.one = function(param, msg.type = MSG.ERROR) {
+	if (length(param) != 1) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste('Length of ', param.name, ' (', length(param), ') must be one.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert in {{{1
+################################################################
+
+BiodbObject$methods( .assert.in = function(param, values, msg.type = MSG.ERROR) {
+	if ( ! is.na(param) && ! param %in% values) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste(param.name, ' cannot be set to ', param, '. Allowed values are: ', paste(values, collapse = ', '), '.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Get biodb {{{1
 ################################################################
 
 BiodbObject$methods( getBiodb = function() {
-	.self$.abstract.method()
+
+	if (is(.self, 'Biodb'))
+	    return(.self)
+
+	if (is.null(.self$getParent()))
+		.self$message(MSG.ERROR, "Object has no parent.")
+
+	return(.self$getParent()$getBiodb())
 })
-
-
 
 # MESSAGE {{{1
 ################################################################

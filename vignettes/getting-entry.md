@@ -1,0 +1,22 @@
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Accessing database entries by accession number}
+-->
+
+# Accessing database entries by accession number
+
+In this vignette, we will explain how to download and access entry information from databases.
+
+First you need to create an instance of the `Biodb` class:
+
+```r
+# Create a Biodb instance
+mybiodb <- biodb::Biodb$new()
+```
+
+Then you need to choose the database you want to access. For that you need to use a database ID in the form of a string. To get the list of available database IDs, just run:
+
+
+
+
+

@@ -1,0 +1,461 @@
+{
+  "liquidChromatography": {
+    "columnOther": ["Thermo Fischer Scientific"],
+    "columnCode": ["6dec4aa738bd7d9537225ab3bc9f928f"],
+    "methodProtocol": ["NA"],
+    "columnConstructorAString": ["Thermo Fischer Scientific"],
+    "columnName": ["Hypersil GOLD C18"],
+    "columnLength": [150],
+    "columnDiameter": [2.1],
+    "particuleSize": [1.9],
+    "columnTemperature": [25],
+    "lcMode": ["Gradient"],
+    "separationSolventA": ["H2O + 0.1% Formic Acid"],
+    "separationSolventB": ["ACN + 0.1% Formic Acid"],
+    "pHSolventA": {},
+    "pHSolventB": {},
+    "separationFlowRate": [500],
+    "separationFlowGradient": {},
+    "type": ["LC parameters"],
+    "id": [2566]
+  },
+  "rtMeOHmin": {},
+  "rtMeOHmax": {},
+  "massMin": {},
+  "massMax": {},
+  "massBankName": ["null; LC-UNKNOWN-NA; MS; NEGATIVE; "],
+  "analyzerMassIonization": {
+    "sprayGazFlow": [15],
+    "vaporizerGazFlow": [0],
+    "vaporizerTemperature": [0],
+    "sourceGazFlow": [275],
+    "ionTransferTemperature": [3500],
+    "desolvatationZone": {},
+    "ionization": ["UNKNOWN"],
+    "ionizationVoltage": {},
+    "type": ["analyzer mass ionization type"],
+    "id": [2569]
+  },
+  "RTmin": [0.94],
+  "analyzerMassSpectrometerDevice": {
+    "instrumentDetector": {},
+    "instrumentDetectionProtocol": ["x"],
+    "ionAnalyzerType": {},
+    "instrumentName": ["Orbitrap"],
+    "instrumentModel": ["LTQ-Orbitrap Discovery"],
+    "type": ["analyzer mass spectrometer device"],
+    "id": [2567]
+  },
+  "instrumentResolutionFWHM": {},
+  "RTmax": [0.94],
+  "massType": ["fullscan"],
+  "gc": [false],
+  "lc": [true],
+  "polarity": ["NEG"],
+  "resolution": ["high"],
+  "listOfCompounds": [
+    {
+      "parent": {},
+      "inChIKey": ["BGWGXPAPYGQALX-VRPWFDPXSA-N"],
+      "inChI": ["InChI=1S/C6H13O9P/c7-2-6(10)5(9)4(8)3(15-6)1-14-16(11,12)13/h3-5,7-10H,1-2H2,(H2,11,12,13)/t3-,4-,5+,6?/m1/s1"],
+      "PubChemCID": ["439160"],
+      "KEGG": {},
+      "subStructures": {},
+      "ChEBI": ["CHEBI:61553"],
+      "HMDB": ["HMDBnull"],
+      "mainName": {},
+      "formula": ["C6H13O9P"],
+      "monoisotopicMass": [260.0297],
+      "averageMass": [260.1358],
+      "names": [],
+      "logP": [-3.1028],
+      "isBioactive": {},
+      "canSmiles": ["OCC1(O)O[C@@H]([C@H]([C@@H]1O)O)COP(=O)(O)O"],
+      "putativeMatchs": {},
+      "pfID": ["PFc002075"],
+      "spectra": {},
+      "containSpectra": {},
+      "type": [101],
+      "id": [2075]
+    }
+  ],
+  "peaks": [
+    {
+      "theoricalMass": [484.9667],
+      "deltaPPM": [-1.8502],
+      "mz": [484.9658],
+      "ri": [0.11],
+      "attribution": ["[(M-2H+Na)+3(HCOONa)]-"],
+      "composition": ["C9 H14 Na4 O15 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [463.9881],
+      "deltaPPM": [-1.5674],
+      "mz": [463.9873],
+      "ri": [0.01],
+      "attribution": ["[(M-H)+3(HCOONa)]- (13C)"],
+      "composition": ["C8 13C H15 Na3 O15 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [542.0375],
+      "deltaPPM": [-2.8786],
+      "mz": [542.0359],
+      "ri": [0.09],
+      "attribution": ["[(2M-2H+Na)]- (13C)"],
+      "composition": ["C11 13C H24 Na O18 P2"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [462.9847],
+      "deltaPPM": [-1.6896],
+      "mz": [462.9839],
+      "ri": [0.21],
+      "attribution": ["[(M-H)+3(HCOONa)]-"],
+      "composition": ["C9 H15 Na3 O15 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [199.0013],
+      "deltaPPM": [-4.4578],
+      "mz": [199.0004],
+      "ri": [0.01],
+      "attribution": ["[(M-H)-(C2H4O2)]-"],
+      "composition": ["C4 H8 O7 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [416.9792],
+      "deltaPPM": [-1.7081],
+      "mz": [416.9785],
+      "ri": [0.37],
+      "attribution": ["[(M-2H+Na)+2(HCOONa)]-"],
+      "composition": ["C8 H13 Na3 O13 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [417.9826],
+      "deltaPPM": [-3.4863],
+      "mz": [417.9811],
+      "ri": [0.02],
+      "attribution": ["[(M-2H+Na)+2(HCOONa)]- (13C)"],
+      "composition": ["C7 13C H13 Na3 O13 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [190.9727],
+      "deltaPPM": [-4.4881],
+      "mz": [190.9718],
+      "ri": [0.01],
+      "attribution": ["[(M-2H+Na)-(C3H6O3)]-"],
+      "composition": ["C3 H5 Na O6 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [397.0015],
+      "deltaPPM": [-1.6403],
+      "mz": [397.0009],
+      "ri": [0.02],
+      "attribution": ["[(M-H)+2(HCOONa)]- (18O)"],
+      "composition": ["C8 H14 Na2 O12 18O P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [519.0522],
+      "deltaPPM": [-1.5611],
+      "mz": [519.0514],
+      "ri": [1.36],
+      "attribution": ["[(2M-H)]-"],
+      "composition": ["C12 H25 O18 P2"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [78.9591],
+      "deltaPPM": [-1.229],
+      "mz": [78.959],
+      "ri": [0.05],
+      "attribution": ["[(M-H)-(C6H10O5)-(H2O)]-"],
+      "composition": ["C0 H0 O3 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [168.9908],
+      "deltaPPM": [-2.7344],
+      "mz": [168.9903],
+      "ri": [0.29],
+      "attribution": ["[(M-H)-(C3H6O3)]-"],
+      "composition": ["C3 H6 O6 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [179.0561],
+      "deltaPPM": [-1.6425],
+      "mz": [179.0558],
+      "ri": [0.03],
+      "attribution": ["[(M-H)-(HPO3)]-"],
+      "composition": ["C6 H11 O6 P0"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [138.9802],
+      "deltaPPM": [-2.3534],
+      "mz": [138.9799],
+      "ri": [0.11],
+      "attribution": ["[(M-H)-(C4H8O4)]-"],
+      "composition": ["C2 H4 O5 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [143.035],
+      "deltaPPM": [-5.5516],
+      "mz": [143.0342],
+      "ri": [0],
+      "attribution": ["[(M-H)-(H3PO4)-(H2O)]-"],
+      "composition": ["C6 H7 O4 P0"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [328.0132],
+      "deltaPPM": [-2.6132],
+      "mz": [328.0124],
+      "ri": [0.59],
+      "attribution": ["[(M-H)+(HCOONa)]- (13C)"],
+      "composition": ["C6 13C H13 Na O11 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [161.0455],
+      "deltaPPM": [-1.0499],
+      "mz": [161.0454],
+      "ri": [0.03],
+      "attribution": ["[(M-H)-(H3PO4)]-"],
+      "composition": ["C6 H9 O5 P0"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [261.0267],
+      "deltaPPM": [-5.4827],
+      "mz": [261.0253],
+      "ri": [1.24],
+      "attribution": ["[(M-H)]- (18O)"],
+      "composition": ["C6 H12 O8 18O P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [262.03],
+      "deltaPPM": [-6.0533],
+      "mz": [262.0285],
+      "ri": [0.03],
+      "attribution": ["[(M-H)]- (13C) (18O)"],
+      "composition": ["C5 13C H12 O8 18O P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [281.0044],
+      "deltaPPM": [-3.0325],
+      "mz": [281.0035],
+      "ri": [0.8],
+      "attribution": ["[(M-2H+Na)]-"],
+      "composition": ["C6 H11 Na O9 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [282.0077],
+      "deltaPPM": [-1.3729],
+      "mz": [282.0074],
+      "ri": [0.02],
+      "attribution": ["[(M-2H+Na)]- (13C)"],
+      "composition": ["C5 13C H11 Na O9 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [520.0555],
+      "deltaPPM": [-1.4523],
+      "mz": [520.0548],
+      "ri": [0.16],
+      "attribution": ["[(2M-H)]- (13C)"],
+      "composition": ["C11 13C H25 O18 P2"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [327.0099],
+      "deltaPPM": [-2.82],
+      "mz": [327.009],
+      "ri": [11.53],
+      "attribution": ["[(M-H)+(HCOONa)]-"],
+      "composition": ["C7 H13 Na O11 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [329.0141],
+      "deltaPPM": [-3.0582],
+      "mz": [329.0131],
+      "ri": [0.12],
+      "attribution": ["[(M-H)+(HCOONa)]- (18O)"],
+      "composition": ["C7 H13 Na O10 18O P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [348.9918],
+      "deltaPPM": [-2.4848],
+      "mz": [348.9909],
+      "ri": [0.78],
+      "attribution": ["[(M-2H+Na)+(HCOONa)]-"],
+      "composition": ["C7 H12 Na2 O11 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [349.9952],
+      "deltaPPM": [-3.9206],
+      "mz": [349.9938],
+      "ri": [0.02],
+      "attribution": ["[(M-2H+Na)+(HCOONa)]- (13C)"],
+      "composition": ["C6 13C H12 Na2 O11 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [394.9973],
+      "deltaPPM": [-2.4487],
+      "mz": [394.9963],
+      "ri": [1.62],
+      "attribution": ["[(M-H)+2(HCOONa)]-"],
+      "composition": ["C8 H14 Na2 O13 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [396.0007],
+      "deltaPPM": [-2.8086],
+      "mz": [395.9995],
+      "ri": [0.1],
+      "attribution": ["[(M-H)+2(HCOONa)]- (13C)"],
+      "composition": ["C7 13C H14 Na2 O13 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [259.0224],
+      "deltaPPM": [-3.425],
+      "mz": [259.0216],
+      "ri": [100],
+      "attribution": ["[(M-H)]-"],
+      "composition": ["C6 H12 O9 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [260.0258],
+      "deltaPPM": [-4.2001],
+      "mz": [260.0247],
+      "ri": [6.41],
+      "attribution": ["[(M-H)]- (13C)"],
+      "composition": ["C5 13C H12 O9 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [316.9811],
+      "deltaPPM": [-2.8398],
+      "mz": [316.9802],
+      "ri": [0.3],
+      "attribution": ["[(M-H)+(NaCl)]-"],
+      "composition": ["C6 H12 Cl Na O9 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [89.0244],
+      "deltaPPM": [-0.8879],
+      "mz": [89.0243],
+      "ri": [0.28],
+      "attribution": ["[(M-H)-(C3H7O6P)]-"],
+      "composition": ["C3 H5 O3 P0"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [96.9696],
+      "deltaPPM": [-2.9087],
+      "mz": [96.9693],
+      "ri": [3.93],
+      "attribution": ["[(M-H)-(C6H10O5)]-"],
+      "composition": ["C0 H2 O4 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [226.9962],
+      "deltaPPM": [-1.7715],
+      "mz": [226.9958],
+      "ri": [0.02],
+      "attribution": ["[(M-H)-(CH3OH)]-"],
+      "composition": ["C5 H8 O8 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [229.0119],
+      "deltaPPM": [4.8813],
+      "mz": [229.013],
+      "ri": [0.01],
+      "attribution": ["[(M-H)-(CH2O)]-"],
+      "composition": ["C5 H10 O8 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [318.9781],
+      "deltaPPM": [-3.7939],
+      "mz": [318.9769],
+      "ri": [0.08],
+      "attribution": ["[(M-H)+(NaCl)]- (37Cl)"],
+      "composition": ["C6 H12 Cl0 37Cl Na O9 P"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [521.0589],
+      "deltaPPM": [-3.7429],
+      "mz": [521.0569],
+      "ri": [0.01],
+      "attribution": ["[(2M-H)]- (13C2)"],
+      "composition": ["C10 13C2 H25 O18 P2"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [541.0341],
+      "deltaPPM": [-1.6733],
+      "mz": [541.0332],
+      "ri": [0.91],
+      "attribution": ["[(2M-2H+Na)]-"],
+      "composition": ["C12 H24 Na O18 P2"],
+      "source": {}
+    },
+    {
+      "theoricalMass": [241.0119],
+      "deltaPPM": [-2.9963],
+      "mz": [241.0112],
+      "ri": [0.02],
+      "attribution": ["[(M-H)-(H2O)]-"],
+      "composition": ["C6 H10 O8 P"],
+      "source": {}
+    }
+  ],
+  "otherMetadata": {
+    "rawFileName": {},
+    "rawFileSize": {},
+    "authors": ["The MetabolomeIDF (Ile de France, Paris-Saclay) CEA"],
+    "acquisitionDate": {},
+    "ownership": ["The MetabolomeIDF (Ile de France, Paris-Saclay) CEA"],
+    "validator": ["The MetabolomeIDF (Ile de France, Paris-Saclay) CEA"],
+    "type": ["other"],
+    "id": [2568]
+  },
+  "pfID": ["PFs001000"],
+  "splash": ["splash10-0a4i-0091000000-6ee73d0c75deefdc3430"],
+  "sampleMixMetadata": {
+    "msSolvent": ["none"],
+    "msSolventMix": ["none"],
+    "compound2ConcentrationMap": {},
+    "type": ["sample cpd mix"],
+    "id": [2565]
+  },
+  "analyticalMatrixMetadata": {},
+  "type": ["MS"],
+  "label": ["reference"],
+  "sampleExtraDataMetadata": {},
+  "sample": ["single chemical compound"],
+  "matchingScore": [0],
+  "id": [1000]
+}
