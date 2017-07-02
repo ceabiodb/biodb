@@ -12,3 +12,9 @@ entry <- mybiodb$getFactory()$getEntry('chebi', id = '2528')
 ## ------------------------------------------------------------------------
 print(entry$getFieldValue('accession'))
 
+## ------------------------------------------------------------------------
+print(entry$getFieldNames())
+
+## ------------------------------------------------------------------------
+print(entry$getFieldsAsDataFrame())
+

@@ -137,11 +137,27 @@ mybiodb &lt;- biodb::Biodb$new()</code></pre>
 ## [10] &quot;mirbase.mature&quot;      &quot;ncbi.ccds&quot;           &quot;ncbi.gene&quot;          
 ## [13] &quot;peakforest.mass&quot;     &quot;peakforest.compound&quot; &quot;ncbi.pubchem.comp&quot;  
 ## [16] &quot;ncbi.pubchem.subst&quot;  &quot;uniprot&quot;</code></pre>
-<p>Here’s how to obtain an entry, knowing its accession number:</p>
+<p>To obtain an entry from a database you have to call the <code>getEntry()</code> method from the <code>BiodbFactory</code> class. The following example access the ChEBI database in order to retrieve the entry number 2528:</p>
 <pre class="r"><code># Request the entry 2528 in ChEBI
 entry &lt;- mybiodb$getFactory()$getEntry('chebi', id = '2528')</code></pre>
+<p>From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:</p>
 <pre class="r"><code>print(entry$getFieldValue('accession'))</code></pre>
 <pre><code>## [1] &quot;2528&quot;</code></pre>
+<p>We can have a list of all available fields for an entry:</p>
+<pre class="r"><code>print(entry$getFieldNames())</code></pre>
+<pre><code>## [1] &quot;smiles&quot;            &quot;inchi&quot;             &quot;inchikey&quot;         
+## [4] &quot;kegg.compound.id&quot;  &quot;mass&quot;              &quot;monoisotopic.mass&quot;
+## [7] &quot;charge&quot;            &quot;accession&quot;</code></pre>
+<p>You can get a data frame of the field values with the method <code>getFieldsAsDataFrame()</code>:</p>
+<pre class="r"><code>print(entry$getFieldsAsDataFrame())</code></pre>
+<pre><code>##                                                                                                          smiles
+## 1 CC(C)CC[C@@H](O)[C@](C)(O)[C@H]1CC[C@@]2(O)C3=CC(=O)[C@@H]4C[C@@H](O)[C@@H](O)C[C@]4(C)[C@H]3[C@H](O)C[C@]12C
+##                                                                                                                                                                                                                      inchi
+## 1 InChI=1S/C27H44O7/c1-14(2)6-7-22(32)26(5,33)21-8-9-27(34)16-11-17(28)15-10-18(29)19(30)12-24(15,3)23(16)20(31)13-25(21,27)4/h11,14-15,18-23,29-34H,6-10,12-13H2,1-5H3/t15-,18+,19-,20+,21-,22+,23+,24-,25+,26+,27+/m0/s1
+##                      inchikey kegg.compound.id    mass monoisotopic.mass
+## 1 LQGNCUXDDPRDJH-UKTRSHMFSA-N           C08811 480.635           480.309
+##   charge accession
+## 1      0      2528</code></pre>
 </div>
 
 

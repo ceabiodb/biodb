@@ -18,12 +18,23 @@ Then you need to choose the database you want to access. For that you need to us
 print(mybiodb$getDbsInfo()$getIds())
 ```
 
-Here's how to obtain an entry, knowing its accession number:
+To obtain an entry from a database you have to call the `getEntry()` method from the `BiodbFactory` class. The following example access the ChEBI database in order to retrieve the entry number 2528:
 ```{r}
 # Request the entry 2528 in ChEBI
 entry <- mybiodb$getFactory()$getEntry('chebi', id = '2528')
 ```
 
+From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:
 ```{r}
 print(entry$getFieldValue('accession'))
+```
+
+We can have a list of all available fields for an entry:
+```{r}
+print(entry$getFieldNames())
+```
+
+You can get a data frame of the field values with the method `getFieldsAsDataFrame()`:
+```{r}
+print(entry$getFieldsAsDataFrame())
 ```
