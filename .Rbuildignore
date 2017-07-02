@@ -1,7 +1,7 @@
 build.xml
 check-pkg
 test-pkg
-doc
+archdoc
 ext
 generate-doc
 test
