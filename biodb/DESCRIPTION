@@ -1,0 +1,46 @@
+Package: biodb
+Title: Biodb, a library for connecting to chemical and biological
+        databases
+Version: 1.0.0
+Authors@R: person("Pierrick", "Roger", email = "pierrick.rogermele@icloud.com", role = c("aut", "cre"))
+Description: The biodb library provides a way to connect to several chemical and
+    biological databases, and retrieve entries easily.
+Depends: R (>= 3.3.1)
+License: AGPL-3
+Encoding: UTF-8
+LazyData: true
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+Imports: methods, XML, stringr, plyr, jsonlite, bitops, RCurl, stats,
+        R.utils, digest
+NeedsCompilation: yes
+Author: Pierrick Roger
+Maintainer: Pierrick Roger <pierrick.rogermele@icloud.com>
+RoxygenNote: 6.0.1
+Collate: 'BiodbObject.R' 'Biodb.R' 'ChildObject.R' 'BiodbCache.R'
+        'BiodbConfig.R' 'BiodbConn.R' 'BiodbDbInfo.R' 'BiodbDbsInfo.R'
+        'BiodbDownloadable.R' 'BiodbEntry.R' 'biodb-common.R'
+        'BiodbEntryField.R' 'BiodbEntryFields.R' 'BiodbFactory.R'
+        'BiodbObserver.R' 'BiodbLogger.R' 'UrlRequestScheduler.R'
+        'RemotedbConn.R' 'ChebiConn.R' 'XmlEntry.R' 'ChebiEntry.R'
+        'CompounddbConn.R' 'ChemspiderConn.R' 'ChemspiderEntry.R'
+        'CsvEntry.R' 'ErrorReporter.R' 'ExpasyEnzymeConn.R'
+        'TxtEntry.R' 'ExpasyEnzymeEntry.R' 'HmdbMetaboliteConn.R'
+        'HmdbMetaboliteEntry.R' 'HtmlEntry.R' 'JsonEntry.R'
+        'KeggConn.R' 'KeggCompoundConn.R' 'KeggCompoundEntry.R'
+        'LipidmapsStructureConn.R' 'LipidmapsStructureEntry.R'
+        'MassdbConn.R' 'MassCsvFileConn.R' 'MassCsvFileEntry.R'
+        'MassbankConn.R' 'MassbankEntry.R' 'MassbankEuConn.R'
+        'MassbankEuEntry.R' 'MassbankJpConn.R' 'MassbankJpEntry.R'
+        'MirbaseConn.R' 'MirbaseMatureConn.R' 'MirbaseMatureEntry.R'
+        'NcbiConn.R' 'NcbiCcdsConn.R' 'NcbiCcdsEntry.R'
+        'NcbiEntrezConn.R' 'NcbiGeneConn.R' 'NcbiGeneEntry.R'
+        'NcbiPubchemConn.R' 'NcbiPubchemCompConn.R'
+        'NcbiPubchemEntry.R' 'NcbiPubchemCompEntry.R'
+        'NcbiPubchemSubstConn.R' 'NcbiPubchemSubstEntry.R'
+        'PeakforestConn.R' 'PeakforestCompoundConn.R'
+        'PeakforestCompoundEntry.R' 'PeakforestMassConn.R'
+        'PeakforestMassEntry.R' 'UniprotConn.R' 'UniprotEntry.R'
+        'WarningReporter.R' 'biodb-package.R' 'massdb-helper.R'
+        'spec-dist.R'
+Packaged: 2017-07-01 15:34:02 UTC; pierrick

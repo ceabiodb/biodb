@@ -3,8 +3,9 @@ all:
 check:
 	@R -q -e "devtools::check('$(CURDIR)')"
 
-vignettes:
-	@R -q -e "devtools::build_vignettes('$(CURDIR)')"
+#vignettes:
+#	@R -q -e "devtools::install_local('$(CURDIR)')" # Install package
+#	@R -q -e "devtools::build_vignettes('$(CURDIR)')" # Build vignettes for already installed package, not from local soures.
 
 build:
 	@R -q -e "devtools::build('$(CURDIR)')"

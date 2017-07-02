@@ -33,6 +33,8 @@ Collate:
     'BiodbCache.R'
     'BiodbConfig.R'
     'BiodbConn.R'
+    'BiodbDbInfo.R'
+    'BiodbDbsInfo.R'
     'BiodbDownloadable.R'
     'BiodbEntry.R'
     'biodb-common.R'
