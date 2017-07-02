@@ -40,25 +40,8 @@ BiodbFactory$methods( createConn = function(class, url = NA_character_, token = 
 	if (class %in% names(.self$.conn))
 		.self$message(MSG.ERROR, paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
 
-    # Check that class is known
-    .self$getBiodb()$getDbsInfo()$checkIsDefined(class)
-
-    # Get connection class name
-    s <- class
-    .self$message(MSG.DEBUG, paste("Create instance for class", class))
-	indices <- as.integer(gregexpr('\\.[a-z]', class, perl = TRUE)[[1]])
-    indices <- indices + 1  # We are interested in the letter after the dot.
-    indices <- c(1, indices) # Add first letter.
-    .self$message(MSG.DEBUG, paste("Letters to put in uppercase:", paste(indices, collapse = ", ")))
-	for (i in indices)
-		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
-    .self$message(MSG.DEBUG, paste("Create instance for class", s))
-    s <- gsub('.', '', s, fixed = TRUE) # Remove dots
-    .self$message(MSG.DEBUG, paste("Create instance of class", s))
-	conn.class.name <- paste(s, 'Conn', sep = '')
-
     # Get connection class
-    conn.class <- get(conn.class.name)
+    conn.class <- .self$getBiodb()$getDbsInfo()$get(class)$getClass()
 
 	# Create connection instance
     if (is.na(url))

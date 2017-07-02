@@ -28,3 +28,28 @@ BiodbDbInfo$methods( initialize = function(name, ...) {
 	.name <<- name
 
 })
+
+# Get class name {{{1
+################################################################
+
+BiodbDbInfo$methods( getClassName = function() {
+
+    # Get connection class name
+    s <- .self$.name
+	indices <- as.integer(gregexpr('\\.[a-z]', .self$.name, perl = TRUE)[[1]])
+    indices <- indices + 1  # We are interested in the letter after the dot.
+    indices <- c(1, indices) # Add first letter.
+	for (i in indices)
+		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
+    s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+	conn.class.name <- paste(s, 'Conn', sep = '')
+
+	return(conn.class.name)
+})
+
+# Get class {{{1
+################################################################
+
+BiodbDbInfo$methods( getClass = function() {
+	return(get(.self$getClassName()))
+})
