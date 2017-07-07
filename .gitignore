@@ -12,3 +12,4 @@ src-i386
 src-x64
 peaks.tsv
 .build.timestamp
+vignettes/*.md

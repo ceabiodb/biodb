@@ -34,7 +34,7 @@ We can have a list of all available fields for an entry:
 print(entry$getFieldNames())
 ```
 
-You can get a data frame of the field values with the method `getFieldsAsDataFrame()`:
+You can also get a data frame of the field values with the method `getFieldsAsDataFrame()`:
 ```{r}
 print(entry$getFieldsAsDataFrame())
 ```

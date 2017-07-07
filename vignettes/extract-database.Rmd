@@ -1,0 +1,82 @@
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Extracting database content into csv file}
+-->
+
+# Extracting database content into csv file
+
+It is possible to download whole or part of a database and export it into a csv file.
+
+Create an instance of the `Biodb` class:
+```{r}
+# Create a Biodb instance
+mybiodb <- biodb::Biodb$new()
+```
+
+## Retrieving an entire database whose entries contain only atomic values
+
+For this example, we will use the Lipidmaps Structure database.
+
+First, connect to the database:
+```{r}
+# Get database connector
+lipids <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+```
+
+Then get all entry IDs:
+```{r}
+# Get all IDs
+entry.ids <- lipids$getEntryIds()
+```
+
+Here we just get two entries, since retrieving them all would take too much time for this example:
+```{r}
+entries <- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = entry.ids[1:2])
+```
+
+Transform all entries into a single data frame:
+```{r}
+df <- mybiodb$entriesToDataframe(entries)
+print(df)
+```
+
+Export the data frame into a CSV file with R standard function:
+```{r}
+write.csv(df, file = 'lipidmaps-structure.csv')
+```
+
+## Retrieving part of a database whose entries contain non-atomic values
+
+We will take for this example the Massbank database, since each entry contains a peaks list stored into a data frame.
+
+First, connect to the database:
+```{r}
+# Get database connector
+massbank <- mybiodb$getFactory()$getConn('massbank.jp')
+```
+
+Get some entry IDs, searching by M/Z value:
+```{r}
+entry.ids <- massbank$searchMzTol(64, tol = 0.3, max.results = 2)
+```
+
+```{r}
+mybiodb$getConfig()$disable(biodb:::CFG.ALLOW.HUGE.DOWNLOADS)
+```
+
+Get all entries:
+```{r}
+entries <- mybiodb$getFactory()$getEntry('massbank.jp', id = entry.ids)
+```
+
+Transform all entries into a single data frame:
+```{r}
+df <- mybiodb$entriesToDataframe(entries, only.atomic = FALSE)
+print(df)
+```
+The option `only.atomic` controls if only atomic values are put inside the data frame. If set to `TRUE`, then each entry will occupy only one line inside the data frame. If set to `FALSE` and an entry contains a non-atomic value (vector or data frame), then instead of occupying one line in the data frame it will occupy several lines, its atomic values being copied as many time as there are values inside the non-atomic value.
+
+Export the data frame into a CSV file with R standard function:
+```{r}
+write.csv(df, file = 'massbank.csv')
+```
