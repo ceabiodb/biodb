@@ -205,7 +205,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 		}
 	}
 
-	return(entries.df)
+return(entries.df)
 })
 
 # DEPRECATED METHODS {{{1

@@ -9,9 +9,9 @@
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
 #'
-#' @param class The class of a database. Use already defined constants to provide this value, e.g.: \code{BIODB.CHEBI} or \code{BIODB.MASSBANK.EU}. See
-#' @param url   
-#' @param token
+#' @param dbid  The ID of a database. The list of IDs can be obtain from the class \code{\link{BiodbDbsInfo}}.
+#' @param url   An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
+#' @param token A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
 #'
 #' @import methods
 #' @include ChildObject.R
@@ -33,42 +33,42 @@ BiodbFactory$methods( initialize = function(...) {
 # Create conn {{{2
 ################################################################
 
-BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
+BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = NA_character_) {
     ":\n\nCreate a connection to a database."
 
-    # Has connection been already created?
-	if (class %in% names(.self$.conn))
-		.self$message(MSG.ERROR, paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
+    # Has a connection been already created for this database?
+	if (dbid %in% names(.self$.conn))
+		.self$message(MSG.ERROR, paste0('A connection of type ', dbid, ' already exists. Please use method getConn() to access it.'))
 
     # Get connection class
-    conn.class <- .self$getBiodb()$getDbsInfo()$get(class)$getClass()
+    conn.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getClass()
 
 	# Create connection instance
     if (is.na(url))
-    	conn <- conn.class$new(id = class, parent = .self)
+    	conn <- conn.class$new(id = dbid, parent = .self)
     else
-    	conn <- conn.class$new(id = class, parent = .self, base.url = url)
+    	conn <- conn.class$new(id = dbid, parent = .self, base.url = url)
 
     # Set token
     if ( ! is.na(token))
 	    conn$setToken(token)
 
-	# Register new class instance
-	.self$.conn[[class]] <- conn
+	# Register new dbid instance
+	.self$.conn[[dbid]] <- conn
 
-	return (.self$.conn[[class]])
+	return (.self$.conn[[dbid]])
 })
 
 # Get conn {{{1
 ################################################################
 
-BiodbFactory$methods( getConn = function(class) {
-	"Get connection to a database."
+BiodbFactory$methods( getConn = function(dbid) {
+	":\n\nGet connection to a database."
 
-	if ( ! class %in% names(.self$.conn))
-		.self$createConn(class)
+	if ( ! dbid %in% names(.self$.conn))
+		.self$createConn(dbid)
 
-	return (.self$.conn[[class]])
+	return (.self$.conn[[dbid]])
 })
 
 
@@ -76,6 +76,8 @@ BiodbFactory$methods( getConn = function(class) {
 ################################################################
 
 BiodbFactory$methods( setChunkSize = function(size) {
+	":\n\n"
+
 	.chunk.size <<- as.integer(size)
 })
 
