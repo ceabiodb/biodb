@@ -9,9 +9,13 @@
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
 #'
-#' @param class The class of a database. Use already defined constants to provide this value, e.g.: \code{BIODB.CHEBI} or \code{BIODB.MASSBANK.EU}. See
-#' @param url   
-#' @param token
+#' @param dbid  The ID of a database. The list of IDs can be obtain from the class \code{\link{BiodbDbsInfo}}.
+#' @param url              An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
+#' @param token            A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
+#' @param dwnld.chunk.size The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
+#' @param content          The content (as character vector) of one or more database entries.
+#' @param drop             If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.
+#' @param id                A character vector containing database entry IDs (accession numbers).
 #'
 #' @import methods
 #' @include ChildObject.R
@@ -33,81 +37,70 @@ BiodbFactory$methods( initialize = function(...) {
 # Create conn {{{2
 ################################################################
 
-BiodbFactory$methods( createConn = function(class, url = NA_character_, token = NA_character_) {
+BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = NA_character_) {
     ":\n\nCreate a connection to a database."
 
-    # Has connection been already created?
-	if (class %in% names(.self$.conn))
-		.self$message(MSG.ERROR, paste0('A connection of type ', class, ' already exists. Please use method getConn() to access it.'))
+    # Has a connection been already created for this database?
+	if (dbid %in% names(.self$.conn))
+		.self$message(MSG.ERROR, paste0('A connection of type ', dbid, ' already exists. Please use method getConn() to access it.'))
 
     # Get connection class
-    conn.class <- .self$getBiodb()$getDbsInfo()$get(class)$getClass()
+    conn.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getConnClass()
 
 	# Create connection instance
     if (is.na(url))
-    	conn <- conn.class$new(id = class, parent = .self)
+    	conn <- conn.class$new(id = dbid, parent = .self)
     else
-    	conn <- conn.class$new(id = class, parent = .self, base.url = url)
+    	conn <- conn.class$new(id = dbid, parent = .self, base.url = url)
 
     # Set token
     if ( ! is.na(token))
 	    conn$setToken(token)
 
-	# Register new class instance
-	.self$.conn[[class]] <- conn
+	# Register new dbid instance
+	.self$.conn[[dbid]] <- conn
 
-	return (.self$.conn[[class]])
+	return (.self$.conn[[dbid]])
 })
 
 # Get conn {{{1
 ################################################################
 
-BiodbFactory$methods( getConn = function(class) {
-	"Get connection to a database."
+BiodbFactory$methods( getConn = function(dbid) {
+	":\n\nGet the connection to a database."
 
-	if ( ! class %in% names(.self$.conn))
-		.self$createConn(class)
+	if ( ! dbid %in% names(.self$.conn))
+		.self$createConn(dbid)
 
-	return (.self$.conn[[class]])
+	return (.self$.conn[[dbid]])
 })
 
 
 # Set chunk size {{{1
 ################################################################
 
-BiodbFactory$methods( setChunkSize = function(size) {
-	.chunk.size <<- as.integer(size)
+BiodbFactory$methods( setDownloadChunkSize = function(dwnld.chunk.size) {
+	":\n\nSet the download chunk size."
+
+	.chunk.size <<- as.integer(dwnld.chunk.size)
 })
 
 # Create entry {{{1
 ################################################################
 
-BiodbFactory$methods( createEntry = function(class, content, drop = TRUE) {
+BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
+	":\n\nCreate database entry objects from string content."
 
 	entries <- list()
 
 	# Check that class is known
-	.self$getBiodb()$getDbsInfo()$checkIsDefined(class)
-
-	# Get entry class name
-	s <- class
-	.self$message(MSG.DEBUG, paste("Create instance for class", class))
-	indices <- as.integer(gregexpr('\\.[a-z]', class, perl = TRUE)[[1]])
-	indices <- indices + 1  # We are interested in the letter after the dot.
-	indices <- c(1, indices) # Add first letter.
-	.self$message(MSG.DEBUG, paste("Letters to put in uppercase:", paste(indices, collapse = ", ")))
-	for (i in indices)
-		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
-	.self$message(MSG.DEBUG, paste("Create instance for class", s))
-	s <- gsub('.', '', s, fixed = TRUE) # Remove dots
-	.self$message(MSG.DEBUG, paste("Create instance of class", s))
-	entry.class.name <- paste(s, 'Entry', sep = '')
+	.self$getBiodb()$getDbsInfo()$checkIsDefined(dbid)
 
 	# Get entry class
-	entry.class <- get(entry.class.name)
+    entry.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getEntryClass()
 
 	# Get connection
-	conn <- .self$getConn(class)
+	conn <- .self$getConn(dbid)
 
     # Loop on all contents
 	for (single.content in content) {
@@ -135,17 +128,17 @@ BiodbFactory$methods( createEntry = function(class, content, drop = TRUE) {
 # Get entry {{{1
 ################################################################
 
-BiodbFactory$methods( getEntry = function(class, id, drop = TRUE) {
-	"Create Entry from a database by id."
+BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
+	":\n\nCreate database entry objects from IDs (accession numbers)."
 
 	# Debug
 	.self$message(MSG.INFO, paste("Creating", length(id), "entries from ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", "), "..."))
 
 	# Get contents
-	content <- .self$getEntryContent(class, id)
+	content <- .self$getEntryContent(dbid, id)
 
 	# Create entries
-	entries <- .self$createEntry(class, content = content, drop = drop)
+	entries <- .self$createEntry(dbid, content = content, drop = drop)
 
 	return(entries)
 })
@@ -153,21 +146,22 @@ BiodbFactory$methods( getEntry = function(class, id, drop = TRUE) {
 # Get entry content {{{1
 ################################################################
 
-BiodbFactory$methods( getEntryContent = function(class, id) {
+BiodbFactory$methods( getEntryContent = function(dbid, id) {
+	":\n\nGet the contents of database entries from IDs (accession numbers)."
 
 	# Debug
-	.self$message(MSG.INFO, paste0("Get ", class, " entry content(s) for ", length(id)," id(s)..."))
+	.self$message(MSG.INFO, paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
 
 	# Download full database if possible
-	if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(class), 'BiodbDownloadable')) {
-		.self$message(MSG.DEBUG, paste('Ask for whole database download of ', class, '.', sep = ''))
-		.self$getConn(class)$download()
+	if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(dbid), 'BiodbDownloadable')) {
+		.self$message(MSG.DEBUG, paste('Ask for whole database download of ', dbid, '.', sep = ''))
+		.self$getConn(dbid)$download()
 	}
 
 	# Initialize content
 	if (.self$getBiodb()$getCache()$isReadable()) {
 		# Load content from cache
-		content <- .self$getBiodb()$getCache()$loadFileContent(db = class, folder = CACHE.SHORT.TERM.FOLDER, names = id, ext = .self$getConn(class)$getEntryContentType())
+		content <- .self$getBiodb()$getCache()$loadFileContent(db = dbid, folder = CACHE.SHORT.TERM.FOLDER, names = id, ext = .self$getConn(dbid)$getEntryContentType())
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 	}
 	else {
@@ -181,19 +175,19 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 	# Debug
 	if (any(is.na(id)))
-		.self$message(MSG.INFO, paste0(sum(is.na(id)), " ", class, " entry ids are NA."))
+		.self$message(MSG.INFO, paste0(sum(is.na(id)), " ", dbid, " entry ids are NA."))
 	if (.self$getBiodb()$getCache()$isReadable()) {
-		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " ", class, " entry content(s) loaded from cache."))
+		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " ", dbid, " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
-			.self$message(MSG.INFO, paste0(n.duplicates, " ", class, " entry ids, whose content needs to be fetched, are duplicates."))
-		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched from ", class, " database."))
+			.self$message(MSG.INFO, paste0(n.duplicates, " ", dbid, " entry ids, whose content needs to be fetched, are duplicates."))
+		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched from ", dbid, " database."))
 	}
 
 	# Get contents
-	if (length(missing.ids) > 0 && ( ! methods::is(.self$getConn(class), 'BiodbDownloadable') || ! .self$getConn(class)$isDownloaded())) {
+	if (length(missing.ids) > 0 && ( ! methods::is(.self$getConn(dbid), 'BiodbDownloadable') || ! .self$getConn(dbid)$isDownloaded())) {
 
 		# Use connector to get missing contents
-		conn <- .self$getConn(class)
+		conn <- .self$getConn(dbid)
 
 		# Divide list of missing ids in chunks (in order to save in cache regularly)
 		chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
@@ -206,7 +200,7 @@ BiodbFactory$methods( getEntryContent = function(class, id) {
 
 			# Save to cache
 			if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, db = class, folder = CACHE.SHORT.TERM.FOLDER, names = ch.missing.ids, ext = .self$getConn(class)$getEntryContentType())
+				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, db = dbid, folder = CACHE.SHORT.TERM.FOLDER, names = ch.missing.ids, ext = .self$getConn(dbid)$getEntryContentType())
 
 			# Append
 			missing.contents <- c(missing.contents, ch.missing.contents)

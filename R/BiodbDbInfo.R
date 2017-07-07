@@ -29,10 +29,10 @@ BiodbDbInfo$methods( initialize = function(name, ...) {
 
 })
 
-# Get class name {{{1
+# Get connection class name {{{1
 ################################################################
 
-BiodbDbInfo$methods( getClassName = function() {
+BiodbDbInfo$methods( getConnClassName = function() {
 
     # Get connection class name
     s <- .self$.name
@@ -47,9 +47,34 @@ BiodbDbInfo$methods( getClassName = function() {
 	return(conn.class.name)
 })
 
-# Get class {{{1
+# Get connection class {{{1
 ################################################################
 
-BiodbDbInfo$methods( getClass = function() {
-	return(get(.self$getClassName()))
+BiodbDbInfo$methods( getConnClass = function() {
+	return(get(.self$getConnClassName()))
+})
+
+# Get entry class name {{{1
+################################################################
+
+BiodbDbInfo$methods( getEntryClassName = function() {
+
+    # Get entry class name
+	s <- .self$.name
+	indices <- as.integer(gregexpr('\\.[a-z]', .self$.name, perl = TRUE)[[1]])
+	indices <- indices + 1  # We are interested in the letter after the dot.
+	indices <- c(1, indices) # Add first letter.
+	for (i in indices)
+		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
+	s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+	entry.class.name <- paste(s, 'Entry', sep = '')
+
+	return(entry.class.name)
+})
+
+# Get entry class {{{1
+################################################################
+
+BiodbDbInfo$methods( getEntryClass = function() {
+	return(get(.self$getEntryClassName()))
 })

@@ -6,11 +6,19 @@
 \alias{BiodbFactory}
 \title{A class for constructing biodb objects.}
 \arguments{
-\item{class}{The class of a database. Use already defined constants to provide this value, e.g.: \code{BIODB.CHEBI} or \code{BIODB.MASSBANK.EU}. See}
+\item{dbid}{The ID of a database. The list of IDs can be obtain from the class \code{\link{BiodbDbsInfo}}.}
 
-\item{url}{}
+\item{url}{An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.}
 
-\item{token}{}
+\item{token}{A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.}
+
+\item{dwnld.chunk.size}{The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.}
+
+\item{content}{The content (as character vector) of one or more database entries.}
+
+\item{drop}{If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.}
+
+\item{id}{A character vector containing database entry IDs (accession numbers).}
 }
 \description{
 This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
@@ -18,13 +26,29 @@ This class is responsible for the creation of database connectors and database e
 \section{Methods}{
 
 \describe{
-\item{\code{createConn(class, url = NA_character_, token = NA_character_)}}{:
+\item{\code{createConn(dbid, url = NA_character_, token = NA_character_)}}{:
 
 Create a connection to a database.}
 
-\item{\code{getConn(class)}}{Get connection to a database.}
+\item{\code{createEntry(dbid, content, drop = TRUE)}}{:
 
-\item{\code{getEntry(class, id, drop = TRUE)}}{Create Entry from a database by id.}
+Create database entry objects from string content.}
+
+\item{\code{getConn(dbid)}}{:
+
+Get the connection to a database.}
+
+\item{\code{getEntry(dbid, id, drop = TRUE)}}{:
+
+Create database entry objects from IDs (accession numbers).}
+
+\item{\code{getEntryContent(dbid, id)}}{:
+
+Get the contents of database entries from IDs (accession numbers).}
+
+\item{\code{setDownloadChunkSize(dwnld.chunk.size)}}{:
+
+Set the download chunk size.}
 }}
 
 \seealso{
