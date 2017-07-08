@@ -51,12 +51,33 @@ df <- mybiodb$entriesToDataframe(entries)
 write.csv(df, file = 'mirbase-mature.csv')
 ```
 
-### Search for LCMS spectra
+### Search for MS spectra
 
 ```r
+# Create a Biodb instance
+mybiodb <- biodb::Biodb$new()
+
+# Get connector to Massbank
+massbank <- mybiodb$getFactory()$getConn('massbank.jp')
+
+# Search for MS spectra
+spectra.ids <- massbank$searchMzTol(mz = 64, tol  = 0.3, ms.level = 1, max.results = 10)
 ```
 
 ### Search for MSMS spectra
+
+```r
+# Create a Biodb instance
+mybiodb <- biodb::Biodb$new()
+
+# Get connector to Massbank
+massbank <- mybiodb$getFactory()$getConn('massbank.jp')
+
+spectrum <- data.frame(peak.mz = c(64), peak.relative.intensity = c(100))
+
+# Search for MS spectra
+spectra.ids <- massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+```
 
 ## Installation
 

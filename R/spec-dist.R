@@ -86,7 +86,7 @@ cosine <-
 			 int2,
 			 mzexp = 2,
 			 intexp = 0.5,
-			 ppm,
+			 ppm = 3,
 			 dmz = 0.005) {
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		###Weigthed intensity
@@ -116,7 +116,7 @@ wcosine <-
 			 int2,
 			 mzexp = 2,
 			 intexp = 0.5,
-			 ppm,
+			 ppm = 3,
 			 dmz = 0.005,
 			 penality = c("rweigth")) {
 		penality <- match.arg(penality)
@@ -161,7 +161,7 @@ pkernel <-
 			 int2,
 			 mzexp = 2,
 			 intexp = 0.5,
-			 ppm,
+			 ppm = 3,
 			 ###here ppm is the sigma ofthe mass distribution.
 			 dmz = 0.005,
 			 penality = c("rweigth")) {
@@ -238,7 +238,7 @@ pbachtttarya <-
 			 int2,
 			 mzexp = 2,
 			 intexp = 0.5,
-			 ppm,
+			 ppm = 3,
 			 ###here ppm is the sigma ofthe mass distribution.
 			 dmz = 0.005,
 			 penality = c("rweigth")) {
