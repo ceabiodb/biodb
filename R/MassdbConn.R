@@ -141,19 +141,18 @@ MassdbConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms
 ### spec : the spec to match against the database.
 ### precursor : the mass/charge of the precursor to be looked for.
 ### mtol : the size of the windows arounf the precursor to be looked for.
-### ppm : the matching ppm tolerance.
 ### fun :  
 ### dmz : the mass tolerance is taken as the minium between this quantity and the ppm.
 ### npmin : the minimum number of peak to detect a match (2 recommended)
 
-MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
-											 ppm, fun = BIODB.MSMS.DIST.WCOSINE,
+MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, tol.unit = BIODB.MZTOLUNIT.PLAIN,
+											 fun = BIODB.MSMS.DIST.WCOSINE,
 											 params = list(), npmin=2, dmz = 0.001,
-											 mode = BIODB.MSMODE.POS, return.ids.only = TRUE){
+											 mode = BIODB.MSMODE.POS){
 
 	
 	# Get spectra IDs
-	ids <- .self$searchMzTol(mz = precursor, tol = mztol, tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, precursor = TRUE, ms.level = 2)
+	ids <- .self$searchMzTol(mz = precursor.mz, tol = mz.tol, tol.unit = tol.unit, ms.mode = mode, precursor = TRUE, ms.level = 2)
 
 	# Get spectra entries
 	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
@@ -166,27 +165,25 @@ MassdbConn$methods( msmsSearch = function(spec, precursor, mztol, tolunit,
 	peak.tables <-lapply(entries, function(x) x$getFieldsAsDataFrame(only.atomic = FALSE, fields = BIODB.PEAKS))
 
 	# TODO Import compareSpectra into biodb and put it inside massdb-helper.R or hide it as a private method.
-	res <- compareSpectra(spec, peak.tables, npmin = npmin, fun = fun, params = params)
+	res <- compareSpectra(spectrum, peak.tables, npmin = npmin, fun = fun, params = params)
 	
 	if(is.null(res)) return(NULL) # To decide at MassdbConn level: return empty list (or empty data frame) or NULL.
 	###Adiing the matched peaks and the smimlarity values to spectra.
 	
-	lret <-vector(length(entries),mode = "list")
-	vsimilarity <- numeric( length( entries ) )
-	vmatched <- vector( mode = "list", length( entries ) )
+#	lret <-vector(length(entries),mode = "list")
+#	vsimilarity <- numeric( length( entries ) )
+#	vmatched <- vector( mode = "list", length( entries ) )
 	
-	if( return.ids.only ){
-	    lret <- sapply( entries, function( x ) {
-	    	x$getFieldValue( BIODB.ACCESSION )
-	    })
-	}else{
-	    ###TODO implement three types of return.
-	    lret <-entries 
-	}
+#	if( return.ids.only ){
+    ids <- sapply( entries, function(x) x$getFieldValue(BIODB.ACCESSION))
+#	}else{
+#	    ###TODO implement three types of return.
+#	    lret <-entries 
+#	}
 	
 	###Reordering the list.
-	lret <- lret[ res$ord ]
+#	lret <- lret[ res$ord ]
 	
 
-	return( list(measure = res$similarity[ res$ord ], matchedpeaks = res$matched [ res$ord ], id = lret))
+	return( data.frame(measure = res[res[['ord']], 'similarity'], matchedpeaks = res[res[['ord']], 'matched'], id = ids[res[['ord']]]))
 })

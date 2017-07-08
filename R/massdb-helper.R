@@ -80,5 +80,5 @@ compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSI
 		osim <- order(sim, decreasing = decreasing)
 		matched <- sapply(vall, '[[', i = "matched", simplify = FALSE)
 		
-		return(list(ord = osim, matched = matched, similarity = sim))
+		return(data.frame(ord = osim, matched = matched, similarity = sim))
 }
