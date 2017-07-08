@@ -23,7 +23,7 @@ test.msmsSearch <- function(biodb, db.name) {
 		peaks <- spectrum.entry$getFieldValue(BIODB.PEAKS)
 
 		# Run MSMS search
-		result <- db$msmsSearch(peaks, precursor = mz, mztol = 0.1, tolunit = BIODB.MZTOLUNIT.PLAIN, mode = mode, npmin = 2, fun = 'pbachtttarya', params = list(ppm = 3, dmz = 0.005, mzexp = 2, intexp = 0.5))
+		result <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, tol.unit = BIODB.MZTOLUNIT.PLAIN, mode = mode, npmin = 2, fun = 'pbachtttarya', params = list(ppm = 3, dmz = 0.005, mzexp = 2, intexp = 0.5))
 
 		# Check results
 		expect_true( ! is.null(result))

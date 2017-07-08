@@ -66,7 +66,7 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 	.entry.fields <<- BiodbEntryFields$new(parent = .self)
 
 	# Force locale to C
-	if (.self$.config$isEnabled(CFG.FORCE.C.LOCALE))
+	if (.self$.config$isEnabled('force.c.locale'))
 		Sys.setlocale(locale = 'C')
 })
 

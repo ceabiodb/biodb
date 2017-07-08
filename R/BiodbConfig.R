@@ -14,22 +14,6 @@ BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fie
 # Constants {{{1
 ################################################################
 
-# Keys
-CFG.ALLOW.HUGE.DOWNLOADS    <- 'allow.huge.downloads'
-CFG.CACHE.DIRECTORY         <- 'cache.directory'
-CFG.CACHE.SYSTEM            <- 'cache.system'
-CFG.CACHE.ALL.REQUESTS      <- 'cache.all.requests'
-CFG.CACHE.READ.ONLY         <- 'cache.read.only'
-CFG.CHEMSPIDER.TOKEN        <- 'chemspider.token'
-CFG.COMPUTE.FIELDS          <- 'compute.fields'
-CFG.OFFLINE                 <- 'offline'
-CFG.PEAKFOREST.TOKEN        <- 'peakforest.token'
-CFG.PEAKFOREST.URL          <- 'peakforest.url'
-CFG.USERAGENT               <- 'useragent'
-CFG.USE.CACHE.SUBFOLDERS    <- 'cache.subfolders'
-CFG.SVN.BINARY.PATH         <- 'svn.binary.path'
-CFG.FORCE.C.LOCALE          <- 'force.c.locale'
-
 # Database URLs
 PEAKFOREST.WS.URL         <- 'https://rest.peakforest.org/'
 PEAKFOREST.WS.ALPHA.URL   <- 'https://peakforest-alpha.inra.fr/rest/'
@@ -74,20 +58,20 @@ BiodbConfig$methods( .initValueInfo = function() {
 	useragent.default <- if ('EMAIL' %in% names(.self$.env)) paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ') else NULL
 
 	# Define keys
-	.self$.newKey(CFG.ALLOW.HUGE.DOWNLOADS,     type = 'logical',   default = TRUE)
-	.self$.newKey(CFG.CACHE.DIRECTORY,          type = 'character', default = cachedir.default)
-	.self$.newKey(CFG.CACHE.SYSTEM,             type = 'logical',   default = TRUE)
-	.self$.newKey(CFG.CACHE.ALL.REQUESTS,       type = 'logical',   default = TRUE)
-	.self$.newKey(CFG.CACHE.READ.ONLY,          type = 'logical',   default = FALSE)
-	.self$.newKey(CFG.CHEMSPIDER.TOKEN,         type = 'character')
-	.self$.newKey(CFG.COMPUTE.FIELDS,           type = 'logical',   default = TRUE)
-	.self$.newKey(CFG.OFFLINE,                  type = 'logical',   default = FALSE)
-	.self$.newKey(CFG.PEAKFOREST.TOKEN,         type = 'character')
-	.self$.newKey(CFG.PEAKFOREST.URL,           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
-	.self$.newKey(CFG.USERAGENT,                type = 'character', default = useragent.default)
-	.self$.newKey(CFG.USE.CACHE.SUBFOLDERS,     type = 'logical',   default = TRUE)
-	.self$.newKey(CFG.SVN.BINARY.PATH,          type = 'character', default = .self$.get.svn.binary.path())
-	.self$.newKey(CFG.FORCE.C.LOCALE,           type = 'logical',   default = TRUE)
+	.self$.newKey('allow.huge.downloads',     type = 'logical',   default = TRUE)
+	.self$.newKey('cache.directory',          type = 'character', default = cachedir.default)
+	.self$.newKey('cache.system',             type = 'logical',   default = TRUE)
+	.self$.newKey('cache.all.requests',       type = 'logical',   default = TRUE)
+	.self$.newKey('cache.read.only',          type = 'logical',   default = FALSE)
+	.self$.newKey('chemspider.token',         type = 'character')
+	.self$.newKey('compute.fields',           type = 'logical',   default = TRUE)
+	.self$.newKey('offline',                  type = 'logical',   default = FALSE)
+	.self$.newKey('peakforest.token',         type = 'character')
+	.self$.newKey('peakforest.url',           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
+	.self$.newKey('useragent',                type = 'character', default = useragent.default)
+	.self$.newKey('cache.subfolders',     type = 'logical',   default = TRUE)
+	.self$.newKey('svn.binary.path',          type = 'character', default = .self$.get.svn.binary.path())
+	.self$.newKey('force.c.locale',           type = 'logical',   default = TRUE)
 })
 
 # New key {{{1

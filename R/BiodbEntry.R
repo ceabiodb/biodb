@@ -145,7 +145,7 @@ BiodbEntry$methods(	.compute.field = function(fields = NULL) {
 
 	success <- FALSE
 
-	if (.self$getBiodb()$getConfig()$isEnabled(CFG.COMPUTE.FIELDS)) {
+	if (.self$getBiodb()$getConfig()$isEnabled('compute.fields')) {
 
 		# Set of fields to compute
 		fields <- if (is.null(fields)) names(BIODB.FIELD.COMPUTING) else fields[fields %in% names(BIODB.FIELD.COMPUTING)]

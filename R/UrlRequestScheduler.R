@@ -58,7 +58,7 @@ UrlRequestScheduler$methods( .wait.as.needed = function() {
 ################################################################
 
 UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
-	opts <- RCurl::curlOptions(useragent = .self$getBiodb()$getConfig()$get(CFG.USERAGENT), timeout.ms = 60000, verbose = FALSE, .opts = opts)
+	opts <- RCurl::curlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'), timeout.ms = 60000, verbose = FALSE, .opts = opts)
 	return(opts)
 })
 
@@ -67,7 +67,7 @@ UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
 
 UrlRequestScheduler$methods( .check.offline.mode = function() {
 
-	if (.self$getBiodb()$getConfig()$isEnabled(CFG.OFFLINE))
+	if (.self$getBiodb()$getConfig()$isEnabled('offline'))
 		.self$message(MSG.ERROR, "Offline mode is enabled. All connections are forbidden.")
 })
 
@@ -121,7 +121,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	request.json <- jsonlite::serializeJSON(request)
 	request.json.str <- as.character(request.json)
 	request.key <- digest::digest(request.json.str, algo = 'md5')
-	if (.self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS) && .self$getBiodb()$getCache()$fileExists('request', folder = CACHE.SHORT.TERM.FOLDER, names = request.key, ext = 'content')) {
+	if (.self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExists('request', folder = CACHE.SHORT.TERM.FOLDER, names = request.key, ext = 'content')) {
 		.self$message(MSG.DEBUG, paste0("Loading content of ", method, " request from cache ..."))
 		content <- .self$getBiodb()$getCache()$loadFileContent('request', CACHE.SHORT.TERM.FOLDER, request.key, ext ='content', output.vector = TRUE)
 	}
@@ -142,7 +142,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 					.self$.wait.as.needed()
 
 					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
-					if (.self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS))
+					if (.self$getBiodb()$getConfig()$get('cache.all.requests'))
 						.self$getBiodb()$getCache()$saveContentToFile(content, method, CACHE.SHORT.TERM.FOLDER, request.key, 'content')
 				}
 
@@ -168,7 +168,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 		}
 
 		# Save content to cache
-		if ( ! is.na(content) && .self$getBiodb()$getConfig()$get(CFG.CACHE.ALL.REQUESTS)) {
+		if ( ! is.na(content) && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
 			.self$message(MSG.DEBUG, paste0("Saving content of ", method, " request to cache ..."))
 			.self$getBiodb()$getCache()$saveContentToFile(content, 'request', CACHE.SHORT.TERM.FOLDER, names = request.key, ext ='content')
 			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, 'request', CACHE.SHORT.TERM.FOLDER, names = request.key, ext ='desc')

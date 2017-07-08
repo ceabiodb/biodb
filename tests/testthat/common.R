@@ -75,7 +75,7 @@ create.biodb.instance <- function() {
 	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE.PATH, mode = 'a'))
 
 	# Set user agent
-	biodb$getConfig()$set(CFG.USERAGENT, USERAGENT)
+	biodb$getConfig()$set('useragent', USERAGENT)
 
 	return(biodb)
 }
@@ -102,29 +102,29 @@ set.mode <- function(biodb, mode) {
 
 	# Online
 	if (mode == MODE.ONLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, ONLINE.CACHE.DIR)
-		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$enable(CFG.ALLOW.HUGE.DOWNLOADS)
-		biodb$getConfig()$disable(CFG.OFFLINE)
-		biodb$getConfig()$enable(CFG.USE.CACHE.SUBFOLDERS)
+		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		biodb$getConfig()$disable('cache.read.only')
+		biodb$getConfig()$enable('allow.huge.downloads')
+		biodb$getConfig()$disable('offline')
+		biodb$getConfig()$enable('cache.subfolders')
 	}
 
 	# Quick online
 	else if (mode == MODE.QUICK.ONLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, ONLINE.CACHE.DIR)
-		biodb$getConfig()$disable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
-		biodb$getConfig()$disable(CFG.OFFLINE)
-		biodb$getConfig()$enable(CFG.USE.CACHE.SUBFOLDERS)
+		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		biodb$getConfig()$disable('cache.read.only')
+		biodb$getConfig()$disable('allow.huge.downloads')
+		biodb$getConfig()$disable('offline')
+		biodb$getConfig()$enable('cache.subfolders')
 	}
 
 	# Offline
 	else if (mode == MODE.OFFLINE) {
-		biodb$getConfig()$set(CFG.CACHE.DIRECTORY, OFFLINE.CACHE.DIR)
-		biodb$getConfig()$enable(CFG.CACHE.READ.ONLY)
-		biodb$getConfig()$disable(CFG.ALLOW.HUGE.DOWNLOADS)
-		biodb$getConfig()$enable(CFG.OFFLINE)
-		biodb$getConfig()$disable(CFG.USE.CACHE.SUBFOLDERS)
+		biodb$getConfig()$set('cache.directory', OFFLINE.CACHE.DIR)
+		biodb$getConfig()$enable('cache.read.only')
+		biodb$getConfig()$disable('allow.huge.downloads')
+		biodb$getConfig()$enable('offline')
+		biodb$getConfig()$disable('cache.subfolders')
 	}
 
 	# Unknown mode
