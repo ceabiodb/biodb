@@ -111,8 +111,27 @@ devtools::install_local('/your/path/to/biodb')
 
 ## Contributing
 
- TODO How to contribute: GitLab repos.
+If you wish to contribute to the *biodb* package, you first need to create an account under GitLab. You can then either to ask to become a contributor or fork the project and submit a merge request.
+
+Debugging, enhancement or creation of a database connector or an entry parser are of course most welcome.
 
 ### Running tests
 
- TODO How to run test with `make`.
+Under UNIX and UNIX like systems (macOS, Linux, ...) you can run `make test` to run the tests. You will need to have R accessible from command line, and also to have installed the R package `testthat`.
+
+The plain command `make test` will run the offline tests, which uses cache files recorded inside this repository under `tests/res/offline-cache`. All databases will be tested.
+
+If you wish to test only some databases, you can specify them inside the environment variable `DATABASES`:
+```bash
+DATABASES=massbank.jp,chebi,mirbase.mature make test
+```
+
+If you want to run online tests, use the environment variable `MODES` to specify it:
+```bash
+MODES=online make test
+```
+
+The value `quick.online` for `MODES` turns off download of whole databases if they have already been downloaded and are stored inside the cache system.
+The value `all` for `MODES` run tests in all modes: `online`, `quick.online` and `offline`.
+
+The two environment variables can be combined together.
