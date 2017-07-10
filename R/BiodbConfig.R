@@ -11,13 +11,6 @@
 #' @exportClass BiodbConfig
 BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .value.info = "list" ))
 
-# Constants {{{1
-################################################################
-
-# Database URLs
-PEAKFOREST.WS.URL         <- 'https://rest.peakforest.org/'
-PEAKFOREST.WS.ALPHA.URL   <- 'https://peakforest-alpha.inra.fr/rest/'
-
 # Constructor {{{1
 ################################################################
 
@@ -58,20 +51,18 @@ BiodbConfig$methods( .initValueInfo = function() {
 	useragent.default <- if ('EMAIL' %in% names(.self$.env)) paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ') else NULL
 
 	# Define keys
-	.self$.newKey('allow.huge.downloads',     type = 'logical',   default = TRUE)
-	.self$.newKey('cache.directory',          type = 'character', default = cachedir.default)
-	.self$.newKey('cache.system',             type = 'logical',   default = TRUE)
-	.self$.newKey('cache.all.requests',       type = 'logical',   default = TRUE)
-	.self$.newKey('cache.read.only',          type = 'logical',   default = FALSE)
-	.self$.newKey('chemspider.token',         type = 'character')
-	.self$.newKey('compute.fields',           type = 'logical',   default = TRUE)
-	.self$.newKey('offline',                  type = 'logical',   default = FALSE)
-	.self$.newKey('peakforest.token',         type = 'character')
-	.self$.newKey('peakforest.url',           type = 'character', default = PEAKFOREST.WS.ALPHA.URL)
-	.self$.newKey('useragent',                type = 'character', default = useragent.default)
-	.self$.newKey('cache.subfolders',     type = 'logical',   default = TRUE)
-	.self$.newKey('svn.binary.path',          type = 'character', default = .self$.get.svn.binary.path())
-	.self$.newKey('force.c.locale',           type = 'logical',   default = TRUE)
+	.self$.newKey('allow.huge.downloads',   type = 'logical',   default = TRUE)
+	.self$.newKey('cache.directory',        type = 'character', default = cachedir.default)
+	.self$.newKey('cache.system',           type = 'logical',   default = TRUE)
+	.self$.newKey('cache.all.requests',     type = 'logical',   default = TRUE)
+	.self$.newKey('cache.read.only',        type = 'logical',   default = FALSE)
+	.self$.newKey('chemspider.token',       type = 'character')
+	.self$.newKey('compute.fields',         type = 'logical',   default = TRUE)
+	.self$.newKey('offline',                type = 'logical',   default = FALSE)
+	.self$.newKey('useragent',              type = 'character', default = useragent.default)
+	.self$.newKey('cache.subfolders',       type = 'logical',   default = TRUE)
+	.self$.newKey('svn.binary.path',        type = 'character', default = .self$.get.svn.binary.path())
+	.self$.newKey('force.c.locale',         type = 'logical',   default = TRUE)
 })
 
 # New key {{{1

@@ -48,10 +48,11 @@ BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = N
     conn.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getConnClass()
 
 	# Create connection instance
-    if (is.na(url))
-    	conn <- conn.class$new(id = dbid, parent = .self)
-    else
-    	conn <- conn.class$new(id = dbid, parent = .self, base.url = url)
+	conn <- conn.class$new(id = dbid, parent = .self)
+
+    # Set URL
+    if ( ! is.na(url))
+	    conn$setBaseUrl(url)
 
     # Set token
     if ( ! is.na(token))

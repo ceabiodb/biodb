@@ -132,14 +132,7 @@ BiodbObject$methods( .assert.in = function(param, values, msg.type = MSG.ERROR) 
 ################################################################
 
 BiodbObject$methods( getBiodb = function() {
-
-	if (is(.self, 'Biodb'))
-	    return(.self)
-
-	if (is.null(.self$getParent()))
-		.self$message(MSG.ERROR, "Object has no parent.")
-
-	return(.self$getParent()$getBiodb())
+	.self$abstract.method()
 })
 
 # MESSAGE {{{1

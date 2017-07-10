@@ -140,6 +140,13 @@ Biodb$methods( getObservers = function() {
 	return(.self$.observers)
 })
 
+# Get biodb {{{1
+################################################################
+
+Biodb$methods( getBiodb = function() {
+	return(.self)
+})
+
 # Entries field to vector or list {{{1
 ################################################################
 

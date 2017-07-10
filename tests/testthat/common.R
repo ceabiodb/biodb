@@ -77,6 +77,13 @@ create.biodb.instance <- function() {
 	# Set user agent
 	biodb$getConfig()$set('useragent', USERAGENT)
 
+	# Set Peakforest URL and token
+	if ('BIODB_PEAKFOREST_ALPHA_TOKEN' %in% names(env))
+		for (db in c('peakforest.mass', 'peakforest.compound')) {
+			biodb$getDbsInfo()$get(db)$setBaseUrl('https://peakforest-alpha.inra.fr/rest/')
+			biodb$getDbsInfo()$get(db)$setToken(env[['BIODB_PEAKFOREST_ALPHA_TOKEN']])
+		}
+
 	return(biodb)
 }
 # Set test context {{{1

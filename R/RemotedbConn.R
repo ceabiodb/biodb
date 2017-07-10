@@ -16,6 +16,8 @@ RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_charact
 	callSuper(...)
 
 	# Set token
+	if (is.na(token))
+		token <- .self$getBiodb()$getDbsInfo()$get(.self$getId())$getToken()
 	.token <<- token
 
 	# Set scheduler
@@ -31,6 +33,13 @@ RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_charact
 
 RemotedbConn$methods( getToken = function() {
 	return(.self$.token)
+})
+
+# Set token {{{1
+################################################################
+
+RemotedbConn$methods( setToken = function(token) {
+	.token <<- token
 })
 
 # Get URL scheduler {{{1
