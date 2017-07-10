@@ -36,7 +36,6 @@ ChebiConn$methods( getEntryContent = function(id) {
 	return(content)
 })
 
-
 # Get entry ids {{{1
 ################################################################
 
