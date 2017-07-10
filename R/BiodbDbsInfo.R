@@ -44,22 +44,22 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 	.self$.define('ncbi.gene')
 	.self$.define('ncbi.pubchem.comp')
 	.self$.define('ncbi.pubchem.subst')
-	.self$.define('peakforest.mass')
-	.self$.define('peakforest.compound')
+	.self$.define('peakforest.mass',        base.url = 'https://rest.peakforest.org/')
+	.self$.define('peakforest.compound',    base.url = 'https://rest.peakforest.org/')
 	.self$.define('uniprot')
 })
 
 # Define {{{1
 ################################################################
 
-BiodbDbsInfo$methods( .define = function(name, ...) {
+BiodbDbsInfo$methods( .define = function(name, base.url = NA_character_, ...) {
 
 	# Is this database already defined?
 	if (name %in% names(.self$.dbs))
 		.self$message(MSG.ERROR, paste("Database \"", name, "\" has already been defined.", sep = ''))
 
 	# Define new field
-	.self$.dbs[[name]] <- BiodbDbInfo$new(parent = .self, name = name, ...)
+	.self$.dbs[[name]] <- BiodbDbInfo$new(parent = .self, name = name, base.url = base.url, ...)
 })
 
 # Get list of database IDs

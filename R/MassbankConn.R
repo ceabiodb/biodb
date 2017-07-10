@@ -182,7 +182,7 @@ MassbankConn$methods( .doDownload = function() {
 
 	# SVN export
 	.self$message(MSG.INFO, "Download whole MassBank database from SVN server.")
-	svn.cmd <- .self$getBiodb()$getConfig()$get(CFG.SVN.BINARY.PATH)
+	svn.cmd <- .self$getBiodb()$getConfig()$get('svn.binary.path')
 	system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', .self$getDownloadPath()))
 })
 

@@ -9,7 +9,7 @@
 #' @include ChildObject.R
 #' @export BiodbConn
 #' @exportClass BiodbConn
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.id = "character", .content.type = "character", .base.url = "character", .base.url.index = "integer"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.id = "character", .content.type = "character", .base.url = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -28,10 +28,9 @@ BiodbConn$methods( initialize = function(id = NA_character_, content.type = NA_c
 	.content.type <<- content.type
 
 	# Set base URL
-	if (is.null(base.url) || any(is.na(base.url)))
-		.self$message(MSG.ERROR, "You must specify a base URL for the database.")
-	.base.url <<- base.url
-	.base.url.index <<- 1L
+	if (is.na(base.url))
+		base.url <- .self$getBiodb()$getDbsInfo()$get(.self$getId())$getBaseUrl()
+	.self$.setBaseUrl(base.url)
 })
 
 # Get id {{{1
@@ -45,19 +44,18 @@ BiodbConn$methods( getId = function() {
 ################################################################
 
 BiodbConn$methods( getBaseUrl = function() {
-	return(.self$.base.url[[.self$.base.url.index]])
+	return(.self$.base.url)
 })
 
-# Set base url index {{{1
+# Set base url {{{1
 ################################################################
 
-BiodbConn$methods( .setBaseUrlIndex = function(index) {
-	.self$.assert.not.null(index)
-	.self$.assert.length.one(index)
-	.self$.assert.not.na(index)
-	.self$.assert.positive(index, zero = FALSE)
-	.self$.assert.inferior(index, length(.self$.base.url))
-	.base.url.index <<- index
+BiodbConn$methods( .setBaseUrl = function(base.url) {
+
+	if (is.null(base.url) || any(is.na(base.url)))
+		.self$message(MSG.ERROR, "Cannot set a NULL of NA URL to a database connector.")
+
+	.base.url <<- base.url
 })
 
 # Get entry content type {{{1

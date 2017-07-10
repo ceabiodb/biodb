@@ -31,7 +31,7 @@ BiodbCache$methods( initialize = function(...) {
 
 BiodbCache$methods( getDir = function() {
 
-	cachedir <- .self$getBiodb()$getConfig()$get(CFG.CACHE.DIRECTORY)
+	cachedir <- .self$getBiodb()$getConfig()$get('cache.directory')
 
 	# Create cache dir if needed
 	if ( ! is.na(cachedir) && ! file.exists(cachedir))
@@ -51,7 +51,7 @@ BiodbCache$methods( isReadable = function() {
 ################################################################
 
 BiodbCache$methods( isWritable = function() {
-	return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()) && ! .self$getBiodb()$getConfig()$get(CFG.CACHE.READ.ONLY))
+	return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()) && ! .self$getBiodb()$getConfig()$get('cache.read.only'))
 })
 
 # File exists {{{1
@@ -160,7 +160,7 @@ BiodbCache$methods( getFolderPath = function(folder) {
 		.self$message(MSG.ERROR, paste("Unknown cache folder \"", folder, "\".", sep = ''))
 
 	# Get folder path
-	if (.self$getBiodb()$getConfig()$isEnabled(CFG.USE.CACHE.SUBFOLDERS))
+	if (.self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
 		folder.path <- file.path(.self$getDir(), folder)
 	else
 		folder.path <- .self$getDir()

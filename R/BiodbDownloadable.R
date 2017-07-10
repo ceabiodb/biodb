@@ -50,7 +50,7 @@ BiodbDownloadable$methods( isExtracted = function() {
 BiodbDownloadable$methods( download = function() {
 
 	# Download
-	if ( ! .self$isDownloaded() && .self$getBiodb()$getConfig()$isEnabled(CFG.ALLOW.HUGE.DOWNLOADS) && ! .self$getBiodb()$getConfig()$get(CFG.OFFLINE)) {
+	if ( ! .self$isDownloaded() && .self$getBiodb()$getConfig()$isEnabled('allow.huge.downloads') && ! .self$getBiodb()$getConfig()$get('offline')) {
 
 		.self$message(MSG.INFO, paste("Download whole database of ", .self$getId(), ".", sep = ''))
 

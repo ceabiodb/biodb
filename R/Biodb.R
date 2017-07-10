@@ -66,7 +66,7 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 	.entry.fields <<- BiodbEntryFields$new(parent = .self)
 
 	# Force locale to C
-	if (.self$.config$isEnabled(CFG.FORCE.C.LOCALE))
+	if (.self$.config$isEnabled('force.c.locale'))
 		Sys.setlocale(locale = 'C')
 })
 
@@ -138,6 +138,13 @@ Biodb$methods( getObservers = function() {
 	":\n\nGet the list of registered observers."
 
 	return(.self$.observers)
+})
+
+# Get biodb {{{1
+################################################################
+
+Biodb$methods( getBiodb = function() {
+	return(.self)
 })
 
 # Entries field to vector or list {{{1

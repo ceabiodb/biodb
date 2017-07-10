@@ -28,3 +28,10 @@ ChildObject$methods( initialize = function(parent, ...) {
 ChildObject$methods( getParent = function() {
 	return(.self$.parent)
 })
+
+# Get biodb {{{1
+################################################################
+
+ChildObject$methods( getBiodb = function() {
+	return(.self$getParent()$getBiodb())
+})

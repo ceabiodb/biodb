@@ -11,7 +11,8 @@ PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbC
 
 PeakforestConn$methods( initialize = function(db.name, ...) {
 
-	callSuper(content.type = BIODB.JSON, base.url = .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.URL), token = .self$getBiodb()$getConfig()$get(CFG.PEAKFOREST.TOKEN), ...)
+	# Call mother class constructor
+	callSuper(content.type = BIODB.JSON, ...)
 
 	# Set db name
 	.db.name <<- db.name

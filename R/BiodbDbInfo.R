@@ -13,12 +13,12 @@
 #' @include ChildObject.R
 #' @export BiodbDbInfo
 #' @exportClass BiodbDbInfo
-BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .name = "character"))
+BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .name = "character", .base.url = "character", .token = "character"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbDbInfo$methods( initialize = function(name, ...) {
+BiodbDbInfo$methods( initialize = function(name, base.url = NA_character_, token = NA_character_, ...) {
 
 	callSuper(...)
 
@@ -27,6 +27,8 @@ BiodbDbInfo$methods( initialize = function(name, ...) {
 		.self$message(MSG.ERROR, "You cannot set an empty name for a database. Name was empty (either NULL or NA or empty string).")
 	.name <<- name
 
+	.base.url <<- base.url
+	.token <<- token
 })
 
 # Get connection class name {{{1
@@ -77,4 +79,32 @@ BiodbDbInfo$methods( getEntryClassName = function() {
 
 BiodbDbInfo$methods( getEntryClass = function() {
 	return(get(.self$getEntryClassName()))
+})
+
+# Get base url {{{1
+################################################################
+
+BiodbDbInfo$methods( getBaseUrl = function() {
+	return(.self$.base.url)
+})
+
+# Set base url {{{1
+################################################################
+
+BiodbDbInfo$methods( setBaseUrl = function(base.url) {
+	.base.url <<- base.url
+})
+
+# Get token {{{1
+################################################################
+
+BiodbDbInfo$methods( getToken = function() {
+	return(.self$.token)
+})
+
+# Set token {{{1
+################################################################
+
+BiodbDbInfo$methods( setToken = function(token) {
+	.token <<- token
 })
