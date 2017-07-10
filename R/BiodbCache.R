@@ -1,12 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-CACHE.SHORT.TERM.FOLDER <- 'shortterm'
-CACHE.LONG.TERM.FOLDER <- 'longterm'
-CACHE.FOLDERS <- c(CACHE.SHORT.TERM.FOLDER, CACHE.LONG.TERM.FOLDER)
-
 # Class declaration {{{1
 ################################################################
 
@@ -87,7 +80,7 @@ BiodbCache$methods( setMarker = function(db, folder, name) {
 BiodbCache$methods( getFilePaths = function(db, folder, names, ext) {
 
 	# Set file paths
-	filepaths <- file.path(.self$getFolderPath(folder), paste(db, '-', names, '.', ext, sep = ''))
+	filepaths <- file.path(.self$getSubFolderPath(folder), paste(db, '-', names, '.', ext, sep = ''))
 
 	# Set NA values
 	filepaths[is.na(names)] <- NA_character_
@@ -153,15 +146,17 @@ BiodbCache$methods( saveContentToFile = function(contents, db, folder, names, ex
 # Get folder path {{{1
 ################################################################
 
-BiodbCache$methods( getFolderPath = function(folder) {
+BiodbCache$methods( getSubFolderPath = function(subfolder) {
 
-	# Check folder
-	if ( ! folder %in% CACHE.FOLDERS)
+	cfg.subfolder.key <- paste(subfolder, 'cache', 'subfolder', sep = '.')
+
+	# Check subfolder
+	if ( ! .self$getBiodb()$getConfig()$isDefined(cfg.subfolder.key))
 		.self$message(MSG.ERROR, paste("Unknown cache folder \"", folder, "\".", sep = ''))
 
-	# Get folder path
+	# Get subfolder path
 	if (.self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
-		folder.path <- file.path(.self$getDir(), folder)
+		folder.path <- file.path(.self$getDir(), .self$getBiodb()$getConfig()$get(cfg.subfolder.key))
 	else
 		folder.path <- .self$getDir()
 
@@ -181,7 +176,7 @@ BiodbCache$methods( deleteFiles = function(db, folder, ext = NA_character_) {
 	if ( ! is.na(ext))
 		files <- paste(files, ext, sep = '.')
 
-	unlink(file.path(.self$getFolderPath(folder), files))
+	unlink(file.path(.self$getSubFolderPath(folder), files))
 })
 
 # List files {{{1
@@ -196,7 +191,7 @@ BiodbCache$methods( listFiles = function(db, folder, ext = NA_character_, extrac
 	pattern <- paste(pattern, '$', sep = '')
 
 	# List files
-	dir <- .self$getFolderPath(folder)
+	dir <- .self$getSubFolderPath(folder)
 	.self$message(MSG.DEBUG, paste("List files in", dir, "using pattern ", pattern))
 	files <- list.files(path = dir, pattern = pattern)
 

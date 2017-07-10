@@ -174,7 +174,7 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 	# Initialize content
 	if (.self$getBiodb()$getCache()$isReadable()) {
 		# Load content from cache
-		content <- .self$getBiodb()$getCache()$loadFileContent(db = dbid, folder = CACHE.SHORT.TERM.FOLDER, names = id, ext = .self$getConn(dbid)$getEntryContentType())
+		content <- .self$getBiodb()$getCache()$loadFileContent(db = dbid, folder = 'shortterm', names = id, ext = .self$getConn(dbid)$getEntryContentType())
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 	}
 	else {
@@ -213,7 +213,7 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 
 			# Save to cache
 			if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, db = dbid, folder = CACHE.SHORT.TERM.FOLDER, names = ch.missing.ids, ext = .self$getConn(dbid)$getEntryContentType())
+				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, db = dbid, folder = 'shortterm', names = ch.missing.ids, ext = .self$getConn(dbid)$getEntryContentType())
 
 			# Append
 			missing.contents <- c(missing.contents, ch.missing.contents)

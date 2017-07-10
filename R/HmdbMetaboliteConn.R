@@ -84,10 +84,10 @@ HmdbMetaboliteConn$methods( .doExtractDownload = function() {
 	Encoding(contents) <- "unknown" # Force encoding to 'unknown', since leaving it set to 'UTF-8' will produce outputs of the form '<U+2022>' for unicode characters. These tags '<U+XXXX>' will then be misinterpreted by XML parser when reading entry content, because there is no slash at the end of the tag.
 
 	# Delete existing cache files
-	.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+	.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = 'shortterm', ext = .self$getEntryContentType())
 
 	# Write all XML entries into files
-	.self$getBiodb()$getCache()$saveContentToFile(contents, db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
+	.self$getBiodb()$getCache()$saveContentToFile(contents, db = .self$getId(), folder = 'shortterm', names = ids, ext = .self$getEntryContentType())
 
 	# Remove extract directory
 	unlink(extract.dir, recursive = TRUE)
@@ -104,7 +104,7 @@ HmdbMetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = 'shortterm', ext = .self$getEntryContentType(), extract.names = TRUE)
 
 	# Filter out wrong IDs
 	ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
