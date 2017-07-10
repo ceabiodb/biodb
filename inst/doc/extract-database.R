@@ -28,7 +28,7 @@ massbank <- mybiodb$getFactory()$getConn('massbank.jp')
 entry.ids <- massbank$searchMzTol(64, tol = 0.3, max.results = 2)
 
 ## ------------------------------------------------------------------------
-mybiodb$getConfig()$disable(biodb:::CFG.ALLOW.HUGE.DOWNLOADS)
+mybiodb$getConfig()$disable('allow.huge.downloads')
 
 ## ------------------------------------------------------------------------
 entries <- mybiodb$getFactory()$getEntry('massbank.jp', id = entry.ids)

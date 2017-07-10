@@ -7,8 +7,6 @@
 #'
 #' This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
-#'
 #' @param dbid  The ID of a database. The list of IDs can be obtain from the class \code{\link{BiodbDbsInfo}}.
 #' @param url              An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
 #' @param token            A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
@@ -16,6 +14,21 @@
 #' @param content          The content (as character vector) of one or more database entries.
 #' @param drop             If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.
 #' @param id                A character vector containing database entry IDs (accession numbers).
+#'
+#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
+#'
+#' @examples
+#' # Create a Biodb instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Obtain the factory instance:
+#' factory <- mybiodb$getFactory()
+#'
+#' # Create a connection:
+#' conn <- factory$createConn('chebi')
+#'
+#' # Get a database entry:
+#' entry <- factory$getEntry('chebi', id = '2528')
 #'
 #' @import methods
 #' @include ChildObject.R
@@ -48,11 +61,10 @@ BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = N
     conn.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getConnClass()
 
 	# Create connection instance
-	conn <- conn.class$new(id = dbid, parent = .self)
-
-    # Set URL
-    if ( ! is.na(url))
-	    conn$setBaseUrl(url)
+    if (is.na(url))
+		conn <- conn.class$new(id = dbid, parent = .self)
+    else
+		conn <- conn.class$new(id = dbid, parent = .self, base.url = url)
 
     # Set token
     if ( ! is.na(token))
