@@ -1,0 +1,56 @@
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Configuring biodb}
+-->
+
+# Configuring biodb
+
+In this vignette, we will explain how to configure biodb behaviour.
+
+First you need to create an instance of the `Biodb` class:
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+
+Then get the configuration class:
+```{r}
+config <- mybiodb$getConfig()
+```
+
+Get all settable fields:
+```{r}
+print(config$getKeys())
+```
+
+Get description of a field:
+```{r}
+print(config$getDescription('cache.directory'))
+```
+
+Get a field value:
+```{r}
+print(config$get('cache.directory'))
+```
+
+Set a field value:
+```{r}
+config$set('cache.directory', '~/my.biodb.cache')
+```
+
+Get same field value again:
+```{r}
+print(config$get('cache.directory'))
+```
+
+Get field default value:
+```{r}
+print(config$getDefaultValue('cache.directory'))
+```
+
+If the value of a field is boolean, you can use the boolean methods instead of `get` and `set`:
+```{r}
+print(config$get('offline'))
+config$enable('offline')    # set to TRUE
+config$disable('offline')   # set to FALSE
+print(if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.')
+```

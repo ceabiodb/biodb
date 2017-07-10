@@ -61,7 +61,7 @@ entry.ids <- massbank$searchMzTol(64, tol = 0.3, max.results = 2)
 ```
 
 ```{r}
-mybiodb$getConfig()$disable(biodb:::CFG.ALLOW.HUGE.DOWNLOADS)
+mybiodb$getConfig()$disable('allow.huge.downloads')
 ```
 
 Get all entries:

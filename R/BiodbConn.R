@@ -40,20 +40,20 @@ BiodbConn$methods( getId = function() {
 	return(.self$.id)
 })
 
-# Get base url {{{1
+# Get base URL {{{1
 ################################################################
 
 BiodbConn$methods( getBaseUrl = function() {
 	return(.self$.base.url)
 })
 
-# Set base url {{{1
+# Set base URL {{{1
 ################################################################
 
 BiodbConn$methods( .setBaseUrl = function(base.url) {
 
 	if (is.null(base.url) || any(is.na(base.url)))
-		.self$message(MSG.ERROR, "Cannot set a NULL of NA URL to a database connector.")
+		.self$message(MSG.ERROR, "Cannot set a NULL or NA URL to a database connector.")
 
 	.base.url <<- base.url
 })

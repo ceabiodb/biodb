@@ -9,7 +9,6 @@ In this vignette, we will explain how to download and access entry information f
 
 First you need to create an instance of the `Biodb` class:
 ```{r}
-# Create a Biodb instance
 mybiodb <- biodb::Biodb$new()
 ```
 
@@ -20,7 +19,6 @@ print(mybiodb$getDbsInfo()$getIds())
 
 To obtain an entry from a database you have to call the `getEntry()` method from the `BiodbFactory` class. The following example access the ChEBI database in order to retrieve the entry number 2528:
 ```{r}
-# Request the entry 2528 in ChEBI
 entry <- mybiodb$getFactory()$getEntry('chebi', id = '2528')
 ```
 

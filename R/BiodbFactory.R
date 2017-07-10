@@ -27,6 +27,9 @@
 #' # Create a connection:
 #' conn <- factory$createConn('chebi')
 #'
+#' # Get a database entry:
+#' entry <- factory$getEntry('chebi', id = '2528')
+#'
 #' @import methods
 #' @include ChildObject.R
 #' @export BiodbFactory
@@ -58,11 +61,10 @@ BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = N
     conn.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getConnClass()
 
 	# Create connection instance
-	conn <- conn.class$new(id = dbid, parent = .self)
-
-    # Set URL
-    if ( ! is.na(url))
-	    conn$setBaseUrl(url)
+    if (is.na(url))
+		conn <- conn.class$new(id = dbid, parent = .self)
+    else
+		conn <- conn.class$new(id = dbid, parent = .self, base.url = url)
 
     # Set token
     if ( ! is.na(token))

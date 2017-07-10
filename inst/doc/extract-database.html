@@ -160,7 +160,7 @@ print(df)</code></pre>
 massbank &lt;- mybiodb$getFactory()$getConn('massbank.jp')</code></pre>
 <p>Get some entry IDs, searching by M/Z value:</p>
 <pre class="r"><code>entry.ids &lt;- massbank$searchMzTol(64, tol = 0.3, max.results = 2)</code></pre>
-<pre class="r"><code>mybiodb$getConfig()$disable(biodb:::CFG.ALLOW.HUGE.DOWNLOADS)</code></pre>
+<pre class="r"><code>mybiodb$getConfig()$disable('allow.huge.downloads')</code></pre>
 <p>Get all entries:</p>
 <pre class="r"><code>entries &lt;- mybiodb$getFactory()$getEntry('massbank.jp', id = entry.ids)</code></pre>
 <p>Transform all entries into a single data frame:</p>
