@@ -7,7 +7,7 @@
 #'
 #' This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
 #'
-#' @param dbid  The ID of a database. The list of IDs can be obtain from the class \code{\link{BiodbDbsInfo}}.
+#' @param dbid  The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.
 #' @param url              An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
 #' @param token            A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
 #' @param dwnld.chunk.size The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
@@ -174,7 +174,7 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 	# Initialize content
 	if (.self$getBiodb()$getCache()$isReadable()) {
 		# Load content from cache
-		content <- .self$getBiodb()$getCache()$loadFileContent(db = dbid, folder = CACHE.SHORT.TERM.FOLDER, names = id, ext = .self$getConn(dbid)$getEntryContentType())
+		content <- .self$getBiodb()$getCache()$loadFileContent(dbid = dbid, subfolder = 'shortterm', name = id, ext = .self$getConn(dbid)$getEntryContentType())
 		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 	}
 	else {
@@ -213,7 +213,7 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 
 			# Save to cache
 			if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, db = dbid, folder = CACHE.SHORT.TERM.FOLDER, names = ch.missing.ids, ext = .self$getConn(dbid)$getEntryContentType())
+				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, dbid = dbid, subfolder = 'shortterm', name = ch.missing.ids, ext = .self$getConn(dbid)$getEntryContentType())
 
 			# Append
 			missing.contents <- c(missing.contents, ch.missing.contents)

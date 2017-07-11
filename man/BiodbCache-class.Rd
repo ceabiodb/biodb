@@ -5,7 +5,87 @@
 \alias{BiodbCache-class}
 \alias{BiodbCache}
 \title{A class for handling file caching.}
-\description{
-A class for handling file caching.
-}
+\arguments{
+\item{dbid}{The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.}
 
+\item{subfolder}{The subfolder inside the cache system. Supported values are: 'shortterm' and 'longterm'. The 'shortterm' folder contains individual entry files. The 'longterm' folder contains zip files of whole databases.}
+
+\item{name}{The name of the file or the marker. Vector of characters. Length can be greater than one.}
+
+\item{ext}{The extension of the file, without the dot: 'html', 'xml', etc.}
+
+\item{output.vector}{Force output to be a \code{vector} instead of a \code{list}. Where the list contains a \code{NULL}, the \code{vector} will contain a \code{NA} value.}
+
+\item{content}{A \code{character vector} containing contents to save.}
+
+\item{extract.name}{Instead of returning the file paths, returns the list of names used the construct the file name: [cache_folder]/[subfolder]/[dbid]-[name].[ext].}
+}
+\description{
+This class manages a cache system for saving downloaded files and request results. It is designed for internal use, but you can still access some of the read-only methods if you wish.
+}
+\section{Methods}{
+
+\describe{
+\item{\code{deleteFiles(dbid, subfolder, ext = NA_character_)}}{:
+
+Delete files inside the cache system.}
+
+\item{\code{fileExist(dbid, subfolder, name, ext)}}{:
+
+Test if files exist in the cache.}
+
+\item{\code{getDir()}}{:
+
+Get the absolute path to the cache directory.}
+
+\item{\code{getFilePath(dbid, subfolder, name, ext)}}{:
+
+Get path of file in cache system.}
+
+\item{\code{getSubFolderPath(subfolder)}}{:
+
+Get the absolute path of a subfolder inside the cache system.}
+
+\item{\code{isReadable()}}{:
+
+Returns TRUE if the cache system is readable.}
+
+\item{\code{isWritable()}}{:
+
+Returns TRUE if the cache system is writable.}
+
+\item{\code{listFiles(dbid, subfolder, ext = NA_character_, extract.name = FALSE)}}{:
+
+List files present in the cache system.}
+
+\item{\code{loadFileContent(dbid, subfolder, name, ext, output.vector = FALSE)}}{:
+
+Load content of files from the cache.}
+
+\item{\code{markerExist(dbid, subfolder, name)}}{:
+
+Test if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly.}
+
+\item{\code{saveContentToFile(content, dbid, subfolder, name, ext)}}{:
+
+Save content to files into the cache.}
+
+\item{\code{setMarker(dbid, subfolder, name)}}{:
+
+Set a marker.}
+}}
+
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get the cache instance:
+cache <- mybiodb$getCache()
+
+# Get list of files inside the cache:
+files <- cache$listFiles('chebi', 'shortterm')
+
+# Delete files inside the cache:
+cache$deleteFiles('chebi', 'shortterm')
+
+}

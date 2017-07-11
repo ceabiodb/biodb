@@ -221,6 +221,8 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey('offline',                type = 'logical',   description = "All network accesses are blocked. This is mainly used for test purposes.", default = FALSE)
 	.self$.newKey('useragent',              type = 'character', description = "The user agent description string. This string is compulsory when connection to remote databases.", default = useragent.default)
 	.self$.newKey('cache.subfolders',       type = 'logical',   description = "Use subfolders shortterm and longterm in cache system, in order to divide the downloaded files. If a whole database is downloaded, the file(s) will be put in the longterm subfolders.", default = TRUE)
+	.self$.newKey('shortterm.cache.subfolder',  type = 'character',   description = "The name of the short term cache subfolder.", default = 'shortterm')
+	.self$.newKey('longterm.cache.subfolder',   type = 'character',   description = "The name of the long term cache subfolder.",  default = 'longterm')
 	.self$.newKey('svn.binary.path',        type = 'character', description = "The path to the SubVersion binary (svn).", default = .self$.get.svn.binary.path())
 	.self$.newKey('force.c.locale',         type = 'logical',   description = "Forcing current locale to 'C' is allowed.", default = TRUE)
 

@@ -199,8 +199,8 @@ MassbankConn$methods( .doExtractDownload = function() {
 	dup.ids <- duplicated(ids)
 	if (any(dup.ids))
 		.self$message(MSG.CAUTION, paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
-	cache.files <- .self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, names = ids, ext = .self$getEntryContentType())
-	.self$getBiodb()$getCache()$deleteFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType())
+	cache.files <- .self$getBiodb()$getCache()$getFilePath(dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
 	file.copy(svn.files, cache.files)
 })
 
@@ -244,7 +244,7 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(db = .self$getId(), folder = CACHE.SHORT.TERM.FOLDER, ext = .self$getEntryContentType(), extract.names = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.names = TRUE)
 
 	# Cut
 	if ( ! is.na(max.results) && max.results < length(ids))

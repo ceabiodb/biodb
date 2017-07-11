@@ -6,7 +6,7 @@
 \alias{BiodbFactory}
 \title{A class for constructing biodb objects.}
 \arguments{
-\item{dbid}{The ID of a database. The list of IDs can be obtain from the class \code{\link{BiodbDbsInfo}}.}
+\item{dbid}{The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.}
 
 \item{url}{An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.}
 
@@ -51,6 +51,20 @@ Get the contents of database entries from IDs (accession numbers).}
 Set the download chunk size.}
 }}
 
+\examples{
+# Create a Biodb instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Obtain the factory instance:
+factory <- mybiodb$getFactory()
+
+# Create a connection:
+conn <- factory$createConn('chebi')
+
+# Get a database entry:
+entry <- factory$getEntry('chebi', id = '2528')
+
+}
 \seealso{
 \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
 }
