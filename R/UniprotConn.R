@@ -15,13 +15,13 @@ UniprotConn$methods( initialize = function(...) {
 # Get entry content {{{1
 ################################################################
 
-UniprotConn$methods( getEntryContent = function(id) {
+UniprotConn$methods( getEntryContent = function(entry.id) {
 
 	# Initialize return values
-	content <- rep(NA_character_, length(id))
+	content <- rep(NA_character_, length(entry.id))
 
 	# Get URLs
-	urls <- .self$getEntryContentUrl(id)
+	urls <- .self$getEntryContentUrl(entry.id)
 	
 	# Request
 	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')

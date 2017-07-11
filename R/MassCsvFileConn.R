@@ -304,18 +304,18 @@ MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL)
 # Get entry content {{{1
 ################################################################
 
-MassCsvFileConn$methods( getEntryContent = function(id) {
+MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 
 	# Initialize return values
-	content <- rep(NA_character_, length(id))
+	content <- rep(NA_character_, length(entry.id))
 
 	# Get data frame
-	.self$message(MSG.DEBUG, paste("Entry id:", paste(id, collapse = ", ")))
-	df <- .self$.select(ids = id, uniq = TRUE, sort = TRUE)
+	.self$message(MSG.DEBUG, paste("Entry entry.id:", paste(entry.id, collapse = ", ")))
+	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
 
 	# For each id, take the sub data frame and convert it into string
 	df.ids <- df[[.self$.fields[[BIODB.ACCESSION]]]]
-	content <- vapply(id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
+	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
 
 	.self$message(MSG.DEBUG, paste("Entry content:", content))
 

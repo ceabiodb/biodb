@@ -93,13 +93,13 @@ MirbaseMatureConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Get entry content {{{1
 ################################################################
 
-MirbaseMatureConn$methods( getEntryContent = function(ids) {
+MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
 
 	# Download
 	.self$download()
 
 	# Load content from cache
-	content <- .self$getBiodb()$getCache()$loadFileContent(dbid = .self$getId(), subfolder = 'shortterm', name = id, ext = .self$getEntryContentType(), output.vector = TRUE)
+	content <- .self$getBiodb()$getCache()$loadFileContent(dbid = .self$getId(), subfolder = 'shortterm', name = entry.id, ext = .self$getEntryContentType(), output.vector = TRUE)
 
 	return(content)
 })

@@ -48,13 +48,13 @@ KeggConn$methods( getEntryPageUrl = function(id) {
 # Get entry content {{{1
 ################################################################
 
-KeggConn$methods( getEntryContent = function(id) {
+KeggConn$methods( getEntryContent = function(entry.id) {
 
 	# Initialize return values
-	content <- rep(NA_character_, length(id))
+	content <- rep(NA_character_, length(entry.id))
 
 	# Request
-	content <- vapply(id, function(x) .self$.get.url(.self$getEntryContentUrl(x)), FUN.VALUE = '')
+	content <- vapply(entry.id, function(x) .self$.get.url(.self$getEntryContentUrl(x)), FUN.VALUE = '')
 
 	return(content)
 })

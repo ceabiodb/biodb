@@ -25,13 +25,13 @@ ChebiConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 # Get entry content {{{1
 ################################################################
 
-ChebiConn$methods( getEntryContent = function(id) {
+ChebiConn$methods( getEntryContent = function(entry.id) {
 
 	# Initialize return values
-	content <- rep(NA_character_, length(id))
+	content <- rep(NA_character_, length(entry.id))
 
 	# Request
-	content <- vapply(id, function(x) .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(x)), FUN.VALUE = '')
+	content <- vapply(entry.id, function(x) .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(x)), FUN.VALUE = '')
 
 	return(content)
 })
