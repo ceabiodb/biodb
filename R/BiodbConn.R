@@ -15,7 +15,7 @@
 #' @param max.results   The maximum of elements to return from the method.
 #' @param count         If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.
 #'
-#' @seealso \code{\link\{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{MassdbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{MassdbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

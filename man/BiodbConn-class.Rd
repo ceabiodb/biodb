@@ -67,3 +67,6 @@ ids <- conn$getEntryIds(10)
 n <- conn$getNbEntries()
 
 }
+\seealso{
+\code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{MassdbConn}}.
+}

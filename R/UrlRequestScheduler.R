@@ -11,6 +11,10 @@ BIODB.POST <- 'POST'
 # Class declaration {{{1
 ################################################################
 
+#' @import methods
+#' @include ChildObject.R
+#' @export UrlRequestScheduler
+#' @exportClass UrlRequestScheduler
 UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
 
 # n: number of connections

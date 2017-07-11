@@ -1,11 +1,40 @@
 # vi: fdm=marker
 
-#' @include BiodbConn.R
-#' @include UrlRequestScheduler.R
-
 # Class declaration {{{1
 ################################################################
 
+#' The mother class of all remote database connectors.
+#'
+#' This is the super class of remote database connectors. It thus defines methods related to remote connection, like the definition of a token, and URL definitions. As with \code{\link{BiodbConn}} class, you won't need to use the constructor. Nevertheless we provide in the Fields section information about the constructor parameters, for eventual developers.
+#'
+#' @field scheduler An instance from the class \code{\link{UrlRequestScheduler.R}}.
+#' @field token An access token as a character string, required by some databases for all or part of their webservices.
+#'
+#' @param token         An access token as a character string, required by some databases for all or part of their webservices.
+#' @param entry.id      The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.
+#' @param concatenate   If set to \code{TRUE}, then try to build as few URLs as possible, sending requests with several identifiers at once.
+#' @param max.length    The maximum length of the URLs to return, in number of characters.
+#'
+#' @seealso \code{\link{BiodbConn}}, \code{\link{UrlRequestScheduler}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Get connector
+#' conn <- mybiodb$getFactory()$createConn('chemspider')
+#'
+#' # Get the picture URL of an entry
+#' picture.url <- conn$getEntryImageUrl('2')
+#'
+#' # Get the page URL of an entry
+#' page.url <- conn$getEntryPageUrl('2')
+#'
+#' @import methods
+#' @include BiodbConn.R
+#' @include UrlRequestScheduler.R
+#' @export RemotedbConn
+#' @exportClass RemotedbConn
 RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "ANY", .token = "character"))
 
 # Constructor {{{1
@@ -32,6 +61,8 @@ RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_charact
 ################################################################
 
 RemotedbConn$methods( getToken = function() {
+	":\n\nGet the token configured for this connector."
+
 	return(.self$.token)
 })
 
@@ -39,42 +70,16 @@ RemotedbConn$methods( getToken = function() {
 ################################################################
 
 RemotedbConn$methods( setToken = function(token) {
+	":\n\nSet a token for this connector."
+
 	.token <<- token
-})
-
-# Get URL scheduler {{{1
-################################################################
-
-RemotedbConn$methods( .getUrlScheduler = function() {
-	"!!! PRIVATE METHOD !!! Returns the URL scheduler.
-	returns: The URL scheduler."
-
-	return(.self$.scheduler)
-})
-
-# Get url {{{1
-################################################################
-
-RemotedbConn$methods( .get.url = function(url) {
-	.self$.deprecated.method(new.method = ".getUrlScheduler()$getUrl()")
-	return(.self$.scheduler$getUrl(url))
-})
-
-# Set user agent {{{1
-################################################################
-
-RemotedbConn$methods( .set.useragent = function(useragent) {
-	.scheduler$setUserAgent(useragent) # set agent
 })
 
 # Get entry content url {{{1
 ################################################################
 
 RemotedbConn$methods( getEntryContentUrl = function(entry.id, concatenate = TRUE, max.length = 0) {
-	"Get the contents of specified entry identifiers. 
-	id: A character vector containing the identifiers.
-	max.length: Maximum length of URL strings.
-	return: A character vector containing the URL strings. NULL if no identifier is given (empty vector)."
+	":\n\nGet the URL to use in order to get the contents of the specified entries."
 
 	# Copy code from get.entry.url
 	# 
@@ -130,6 +135,35 @@ RemotedbConn$methods( getEntryContentUrl = function(entry.id, concatenate = TRUE
 	return(urls)
 })
 
+# Get entry image url {{{1
+################################################################
+
+RemotedbConn$methods( getEntryImageUrl = function(entry.id) {
+	":\n\nGet the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry)."
+
+	.self$.abstract.method()
+})
+
+# Get entry page url {{{1
+################################################################
+
+RemotedbConn$methods( getEntryPageUrl = function(entry.id) {
+	":\n\nGet the URL to the page of the entry on the database web site."
+
+	.self$.abstract.method()
+})
+
+# PRIVATE METHODS {{{1
+################################################################
+
+# Get URL scheduler {{{2
+################################################################
+
+RemotedbConn$methods( .getUrlScheduler = function() {
+
+	return(.self$.scheduler)
+})
+
 # Do get entry content url {{{1
 ################################################################
 
@@ -141,16 +175,17 @@ RemotedbConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	.self$.abstract.method()
 })
 
-# Get entry image url {{{1
+# Get url {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryImageUrl = function(id) {
-	.self$.abstract.method()
+RemotedbConn$methods( .get.url = function(url) {
+	.self$.deprecated.method(new.method = ".getUrlScheduler()$getUrl()")
+	return(.self$.scheduler$getUrl(url))
 })
 
-# Get entry page url {{{1
+# Set user agent {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryPageUrl = function(id) {
-	.self$.abstract.method()
+RemotedbConn$methods( .set.useragent = function(useragent) {
+	.scheduler$setUserAgent(useragent) # set agent
 })

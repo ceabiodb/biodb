@@ -89,3 +89,6 @@ files <- cache$listFiles('chebi', 'shortterm')
 cache$deleteFiles('chebi', 'shortterm')
 
 }
+\seealso{
+\code{\link{Biodb}}.
+}
