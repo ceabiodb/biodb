@@ -7,7 +7,7 @@
 #'
 #' This class is responsible for storing configuration. You must go through the single instance of this class to create and set and get configuration values. To get the single instance of this class, call the \code{getConfig()} method of class \code{Biodb}.
 #'
-#' @seealso \code{\link\{Biodb}}.
+#' @seealso \code{\link{Biodb}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

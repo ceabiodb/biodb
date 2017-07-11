@@ -15,7 +15,7 @@
 #' @param content       A \code{character vector} containing contents to save.
 #' @param extract.name  Instead of returning the file paths, returns the list of names used the construct the file name: [cache_folder]/[subfolder]/[dbid]-[name].[ext].
 #'
-#' @seealso \code{\link\{Biodb}}.
+#' @seealso \code{\link{Biodb}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
