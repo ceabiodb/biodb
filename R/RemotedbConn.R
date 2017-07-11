@@ -70,7 +70,7 @@ RemotedbConn$methods( .set.useragent = function(useragent) {
 # Get entry content url {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryContentUrl = function(ids, concatenate = TRUE, max.length = 0) {
+RemotedbConn$methods( getEntryContentUrl = function(entry.id, concatenate = TRUE, max.length = 0) {
 	"Get the contents of specified entry identifiers. 
 	id: A character vector containing the identifiers.
 	max.length: Maximum length of URL strings.
@@ -81,19 +81,20 @@ RemotedbConn$methods( getEntryContentUrl = function(ids, concatenate = TRUE, max
 
 	urls <- character(0)
 
-	if (length(ids) > 0) {
+	if (length(entry.id) > 0) {
 
 		# Get full URL
 		.self$message(MSG.DEBUG, "Getting full URL.")
-		full.url <- .self$.doGetEntryContentUrl(ids, concatenate = concatenate)
+		full.url <- .self$.doGetEntryContentUrl(entry.id, concatenate = concatenate)
 
 		# No single URL for multiple IDs
-		if (length(ids) > 1 && length(full.url) > 1) {
+		if (length(entry.id) > 1 && length(full.url) > 1) {
 			.self$message(MSG.DEBUG, "Obtained more than one URL.")
 #  XXX We must comment out this test, because for PeakforestMass we must return two URLs for each ID (one for LCMS request, and one for LCMSMS request).
 #			if (length(full.url) != length(ids))
 #				.self$message(MSG.ERROR, paste(".doGetEntryContentUrl() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
-			urls <- full.url
+			
+			rls <- full.url
 		}
 
 		else if (max.length == 0 || nchar(full.url) <= max.length) {
@@ -108,19 +109,19 @@ RemotedbConn$methods( getEntryContentUrl = function(ids, concatenate = TRUE, max
 			start <- 1
 
 			# Loop as long as there are IDs
-			while (start <= length(ids)) {
+			while (start <= length(entry.id)) {
 				# Find max size URL
 				a <- start
-				b <- length(ids)
+				b <- length(entry.id)
 				while (a < b) {
 					m <- as.integer((a + b) / 2)
-					url <- .self$.doGetEntryContentUrl(ids[start:m])
+					url <- .self$.doGetEntryContentUrl(entry.id[start:m])
 					if (all(nchar(url) <= max.length) && m != a)
 						a <- m
 					else
 						b <- m
 				}
-				urls <- c(urls, .self$.doGetEntryContentUrl(ids[start:a]))
+				urls <- c(urls, .self$.doGetEntryContentUrl(entry.id[start:a]))
 				start <- a + 1
 			}
 		}

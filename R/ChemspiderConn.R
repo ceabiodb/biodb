@@ -21,10 +21,10 @@ ChemspiderConn$methods( initialize = function(...) {
 # Get entry content {{{1
 ################################################################
 
-ChemspiderConn$methods( getEntryContent = function(ids) {
+ChemspiderConn$methods( getEntryContent = function(entry.id) {
 
 	# Debug
-	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(ids)," id(s)..."))
+	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2083
 	concatenate <- TRUE
@@ -35,7 +35,7 @@ ChemspiderConn$methods( getEntryContent = function(ids) {
 		done <- TRUE
 
 		# Initialize return values
-		content <- rep(NA_character_, length(ids))
+		content <- rep(NA_character_, length(entry.id))
 
 		# Get request URLs
 		urls <- .self$getEntryContentUrl(ids, concatenate = concatenate, max.length = URL.MAX.LENGTH)

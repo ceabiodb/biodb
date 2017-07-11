@@ -41,10 +41,10 @@ NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
 # Get entry content {{{1
 ################################################################
 
-NcbiPubchemConn$methods( getEntryContent = function(ids) {
+NcbiPubchemConn$methods( getEntryContent = function(entry.id) {
 
 	# Debug
-	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(ids)," id(s)..."))
+	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2048
 	concatenate <- TRUE
@@ -55,10 +55,10 @@ NcbiPubchemConn$methods( getEntryContent = function(ids) {
 		done <- TRUE
 
 		# Initialize return values
-		content <- rep(NA_character_, length(ids))
+		content <- rep(NA_character_, length(entry.id))
 
 		# Get URL requests
-		url.requests <- .self$getEntryContentUrl(ids, concatenate = concatenate, max.length = URL.MAX.LENGTH)
+		url.requests <- .self$getEntryContentUrl(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
 
 		# Loop on all URLs
 		for (url in url.requests) {
@@ -84,7 +84,7 @@ NcbiPubchemConn$methods( getEntryContent = function(ids) {
 			returned.ids <- XML::xpathSApply(xml, paste0("//pcns:", .self$.id.xmltag), XML::xmlValue, namespaces = ns)
 
 			# Store contents
-			content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, paste0("//pcns:", .self$.entry.xmltag), namespaces = ns), XML::saveXML, FUN.VALUE = '')
+			content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, paste0("//pcns:", .self$.entry.xmltag), namespaces = ns), XML::saveXML, FUN.VALUE = '')
 		}
 	}
 

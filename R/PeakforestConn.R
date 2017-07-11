@@ -41,19 +41,19 @@ PeakforestConn$methods( .checkIfError = function(content) {
 # Get entry content {{{1
 ################################################################
 
-PeakforestConn$methods( getEntryContent = function(id) {
+PeakforestConn$methods( getEntryContent = function(entry.id) {
 	
 	# Initialize contents to return
-	content <- rep(NA_character_, length(id))
+	content <- rep(NA_character_, length(entry.id))
 
 	# Get URLs
-	urls <- .self$getEntryContentUrl(id, max.length = 2048)
+	urls <- .self$getEntryContentUrl(entry.id, max.length = 2048)
 
 	# Send request
 	jsonstr <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
 	# Get directly one JSON string for each ID
-	if (length(jsonstr) == length(id))
+	if (length(jsonstr) == length(entry.id))
 		content <- jsonstr
 
 	# Parse JSON
@@ -68,7 +68,7 @@ PeakforestConn$methods( getEntryContent = function(id) {
 			if ( ! is.null(json)) {
 				if (class(json) == 'list' && is.null(names(json))) {
 					json.ids <- vapply(json, function(x) as.character(x$id), FUN.VALUE = '')
-					content[id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
+					content[entry.id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
 				}
 #				else if (length(json) == 1) {
 #					content <- json
