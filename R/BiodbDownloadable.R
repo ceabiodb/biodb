@@ -27,7 +27,7 @@ BiodbDownloadable$methods( .setDownloadExt = function(ext) {
 
 BiodbDownloadable$methods( getDownloadPath = function() {
 	# TODO Massbank.eu needs to download again the db, since target name is different.
-	return(.self$getBiodb()$getCache()$getFilePaths(db = .self$getId(), folder = 'longterm', names = 'download', ext = .self$.ext))
+	return(.self$getBiodb()$getCache()$getFilePath(dbid = .self$getId(), subfolder = 'longterm', name = 'download', ext = .self$.ext))
 })
 
 # Is downloaded {{{1
@@ -41,7 +41,7 @@ BiodbDownloadable$methods( isDownloaded = function() {
 ################################################################
 
 BiodbDownloadable$methods( isExtracted = function() {
-	return(.self$getBiodb()$getCache()$markerExists(db = .self$getId(), folder = 'shortterm', name = 'extracted'))
+	return(.self$getBiodb()$getCache()$markerExist(dbid = .self$getId(), subfolder = 'shortterm', name = 'extracted'))
 })
 
 # Download {{{1
@@ -65,7 +65,7 @@ BiodbDownloadable$methods( download = function() {
 		.self$.doExtractDownload()
 
 		# Set marker
-		.self$getBiodb()$getCache()$setMarker(db = .self$getId(), folder = 'shortterm', name = 'extracted')
+		.self$getBiodb()$getCache()$setMarker(dbid = .self$getId(), subfolder = 'shortterm', name = 'extracted')
 	}
 })
 

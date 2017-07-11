@@ -121,9 +121,9 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	request.json <- jsonlite::serializeJSON(request)
 	request.json.str <- as.character(request.json)
 	request.key <- digest::digest(request.json.str, algo = 'md5')
-	if (.self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExists('request', folder = 'shortterm', names = request.key, ext = 'content')) {
+	if (.self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
 		.self$message(MSG.DEBUG, paste0("Loading content of ", method, " request from cache ..."))
-		content <- .self$getBiodb()$getCache()$loadFileContent('request', 'shortterm', request.key, ext ='content', output.vector = TRUE)
+		content <- .self$getBiodb()$getCache()$loadFileContent(dbid = 'request', subfolder = 'shortterm', name = request.key, ext ='content', output.vector = TRUE)
 	}
 
 	if (is.na(content)) {
@@ -143,7 +143,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
 					if (.self$getBiodb()$getConfig()$get('cache.all.requests'))
-						.self$getBiodb()$getCache()$saveContentToFile(content, method, 'shortterm', request.key, 'content')
+						.self$getBiodb()$getCache()$saveContentToFile(content, dbid = method, subfolder = 'shortterm', name = request.key, ext = 'content')
 				}
 
 				# POST method
@@ -170,8 +170,8 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 		# Save content to cache
 		if ( ! is.na(content) && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
 			.self$message(MSG.DEBUG, paste0("Saving content of ", method, " request to cache ..."))
-			.self$getBiodb()$getCache()$saveContentToFile(content, 'request', 'shortterm', names = request.key, ext ='content')
-			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, 'request', 'shortterm', names = request.key, ext ='desc')
+			.self$getBiodb()$getCache()$saveContentToFile(content, dbid = 'request', subfolder = 'shortterm', name = request.key, ext ='content')
+			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, dbid = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')
 		}
 	}
 

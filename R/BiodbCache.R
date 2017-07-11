@@ -5,6 +5,31 @@
 
 #' A class for handling file caching.
 #'
+#' This class manages a cache system for saving downloaded files and request results. It is designed for internal use, but you can still access some of the read-only methods if you wish.
+#'
+#' @param dbid          The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.
+#' @param subfolder     The subfolder inside the cache system. Supported values are: 'shortterm' and 'longterm'. The 'shortterm' folder contains individual entry files. The 'longterm' folder contains zip files of whole databases.
+#' @param name          The name of the file or the marker. Vector of characters. Length can be greater than one.
+#' @param ext           The extension of the file, without the dot: 'html', 'xml', etc.
+#' @param output.vector Force output to be a \code{vector} instead of a \code{list}. Where the list contains a \code{NULL}, the \code{vector} will contain a \code{NA} value.
+#' @param content       A \code{character vector} containing contents to save.
+#' @param extract.name  Instead of returning the file paths, returns the list of names used the construct the file name: [cache_folder]/[subfolder]/[dbid]-[name].[ext].
+#'
+#' @seealso \code{\link\{Biodb}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Get the cache instance:
+#' cache <- mybiodb$getCache()
+#'
+#' # Get list of files inside the cache:
+#' files <- cache$listFiles('chebi', 'shortterm')
+#'
+#' # Delete files inside the cache:
+#' cache$deleteFiles('chebi', 'shortterm')
+#'
 #' @import methods
 #' @include ChildObject.R
 #' @export BiodbCache
@@ -23,6 +48,7 @@ BiodbCache$methods( initialize = function(...) {
 ################################################################
 
 BiodbCache$methods( getDir = function() {
+	":\n\nGet the absolute path to the cache directory."
 
 	cachedir <- .self$getBiodb()$getConfig()$get('cache.directory')
 
@@ -37,6 +63,8 @@ BiodbCache$methods( getDir = function() {
 ################################################################
 
 BiodbCache$methods( isReadable = function() {
+	":\n\nReturns TRUE if the cache system is readable."
+
 	return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()))
 })
 
@@ -44,15 +72,18 @@ BiodbCache$methods( isReadable = function() {
 ################################################################
 
 BiodbCache$methods( isWritable = function() {
+	":\n\nReturns TRUE if the cache system is writable."
+
 	return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()) && ! .self$getBiodb()$getConfig()$get('cache.read.only'))
 })
 
 # File exists {{{1
 ################################################################
 
-BiodbCache$methods( fileExists = function(db, folder, names, ext) {
+BiodbCache$methods( fileExist = function(dbid, subfolder, name, ext) {
+	":\n\nTest if files exist in the cache."
 
-	exists <- file.exists(.self$getFilePaths(db, folder, names, ext))
+	exists <- file.exists(.self$getFilePath(dbid, subfolder, name, ext))
 
 	return(exists)
 })
@@ -60,16 +91,19 @@ BiodbCache$methods( fileExists = function(db, folder, names, ext) {
 # Marker exists {{{1
 ################################################################
 
-BiodbCache$methods( markerExists = function(db, folder, name) {
-	return(.self$fileExists(db = db, folder = folder, names = name, ext = 'marker'))
+BiodbCache$methods( markerExist = function(dbid, subfolder, name) {
+	":\n\nTest if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly."
+
+	return(.self$fileExist(dbid = dbid, subfolder = subfolder, name = name, ext = 'marker'))
 })
 
 # Set marker {{{1
 ################################################################
 
-BiodbCache$methods( setMarker = function(db, folder, name) {
+BiodbCache$methods( setMarker = function(dbid, subfolder, name) {
+	":\n\nSet a marker."
 
-	marker.path <- .self$getFilePaths(db = db, folder = folder, names = name, ext = 'marker')
+	marker.path <- .self$getFilePath(dbid = dbid, subfolder = subfolder, name = name, ext = 'marker')
 
 	writeChar('', marker.path)
 })
@@ -77,13 +111,14 @@ BiodbCache$methods( setMarker = function(db, folder, name) {
 # Get file paths {{{1
 ################################################################
 
-BiodbCache$methods( getFilePaths = function(db, folder, names, ext) {
+BiodbCache$methods( getFilePath = function(dbid, subfolder, name, ext) {
+	":\n\nGet path of file in cache system."
 
-	# Set file paths
-	filepaths <- file.path(.self$getSubFolderPath(folder), paste(db, '-', names, '.', ext, sep = ''))
+	# Set file path
+	filepaths <- file.path(.self$getSubFolderPath(subfolder), paste(dbid, '-', name, '.', ext, sep = ''))
 
 	# Set NA values
-	filepaths[is.na(names)] <- NA_character_
+	filepaths[is.na(name)] <- NA_character_
 
 	return(filepaths)
 })
@@ -91,7 +126,8 @@ BiodbCache$methods( getFilePaths = function(db, folder, names, ext) {
 # Load file content {{{1
 ################################################################
 
-BiodbCache$methods( loadFileContent = function(db, folder, names, ext, output.vector = FALSE) {
+BiodbCache$methods( loadFileContent = function(dbid, subfolder, name, ext, output.vector = FALSE) {
+	":\n\nLoad content of files from the cache."
 
 	if ( ! .self$isReadable())
 		.self$message(MSG.ERROR, paste("Attempt to read from non-readable cache \"", .self$getDir(), "\".", sep = ''))
@@ -99,7 +135,7 @@ BiodbCache$methods( loadFileContent = function(db, folder, names, ext, output.ve
 	content <- NULL
 
 	# Read contents from files
-	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, folder, names, ext)
+	file.paths <- .self$getBiodb()$getCache()$getFilePath(dbid, subfolder, name, ext)
 	.self$message(MSG.DEBUG, paste("Loading from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size, useBytes = TRUE) else NULL )} )
 
@@ -123,30 +159,32 @@ BiodbCache$methods( loadFileContent = function(db, folder, names, ext, output.ve
 # Save content into file {{{1
 ################################################################
 
-BiodbCache$methods( saveContentToFile = function(contents, db, folder, names, ext) {
+BiodbCache$methods( saveContentToFile = function(content, dbid, subfolder, name, ext) {
+	":\n\nSave content to files into the cache."
 
 	if ( ! .self$isWritable())
 		.self$message(MSG.ERROR, paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
 
 	# Get file paths
-	file.paths <- .self$getBiodb()$getCache()$getFilePaths(db, folder, names, ext)
+	file.paths <- .self$getFilePath(dbid, subfolder, name, ext)
 
-	# Check that we have the same number of contents and file paths
-	if (length(file.paths) != length(contents))
-		.self$message(MSG.ERROR, paste("The number of contents to save (", length(contents), ") is different from the number of paths (", length(file.paths), ").", sep = ''))
+	# Check that we have the same number of content and file paths
+	if (length(file.paths) != length(content))
+		.self$message(MSG.ERROR, paste("The number of content to save (", length(content), ") is different from the number of paths (", length(file.paths), ").", sep = ''))
 
 	# Replace NA values with 'NA' string
-	contents[is.na(contents)] <- 'NA'
+	content[is.na(content)] <- 'NA'
 
-	# Write contents to files
+	# Write content to files
 	.self$message(MSG.DEBUG, paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
-	mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, contents, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
+	mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, content, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
 })
 
 # Get folder path {{{1
 ################################################################
 
 BiodbCache$methods( getSubFolderPath = function(subfolder) {
+	":\n\nGet the absolute path of a subfolder inside the cache system."
 
 	cfg.subfolder.key <- paste(subfolder, 'cache', 'subfolder', sep = '.')
 
@@ -170,34 +208,36 @@ BiodbCache$methods( getSubFolderPath = function(subfolder) {
 # Delete files {{{1
 ################################################################
 
-BiodbCache$methods( deleteFiles = function(db, folder, ext = NA_character_) {
+BiodbCache$methods( deleteFiles = function(dbid, subfolder, ext = NA_character_) {
+	":\n\nDelete files inside the cache system."
 
-	files <- paste(db, '*',sep = '-')
+	files <- paste(dbid, '*',sep = '-')
 	if ( ! is.na(ext))
 		files <- paste(files, ext, sep = '.')
 
-	unlink(file.path(.self$getSubFolderPath(folder), files))
+	unlink(file.path(.self$getSubFolderPath(subfolder), files))
 })
 
 # List files {{{1
 ################################################################
 
-BiodbCache$methods( listFiles = function(db, folder, ext = NA_character_, extract.names = FALSE) {
+BiodbCache$methods( listFiles = function(dbid, subfolder, ext = NA_character_, extract.name = FALSE) {
+	":\n\nList files present in the cache system."
 
 	# Pattern
-	pattern <- paste('^', db, '-.*', sep = '')
+	pattern <- paste('^', dbid, '-.*', sep = '')
 	if ( ! is.na(ext))
 		pattern <- paste(pattern, ext, sep = '\\.')
 	pattern <- paste(pattern, '$', sep = '')
 
 	# List files
-	dir <- .self$getSubFolderPath(folder)
+	dir <- .self$getSubFolderPath(subfolder)
 	.self$message(MSG.DEBUG, paste("List files in", dir, "using pattern ", pattern))
 	files <- list.files(path = dir, pattern = pattern)
 
 	# Extract only the name part
-	if (extract.names) {
-		pattern <- paste('^', db, '-(.*)', sep = '')
+	if (extract.name) {
+		pattern <- paste('^', dbid, '-(.*)', sep = '')
 		if ( ! is.na(ext))
 			pattern <- paste(pattern, ext, sep = '\\.')
 		pattern <- paste(pattern, '$', sep = '')
