@@ -73,7 +73,7 @@ compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSI
 			return(NULL)
 
 		####spec is directly normalized.
-		vall <- sapply(libspec, calcDistance, spec1 = spec, params = params, fun = fun, simplify = FALSE)
+		vall <- sapply(libspec, calcDistance, spec1 = spec, npmin = npmin, params = params, fun = fun, simplify = FALSE)
 
 		####the list is ordered with the chosen metric.
 		sim <- vapply(vall,	'[[', i = "similarity", FUN.VALUE = ifelse(decreasing, 0, 1))
