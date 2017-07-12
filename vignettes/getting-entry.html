@@ -121,261 +121,41 @@ $(document).ready(function () {
 
 <!--
 %\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Extracting database content into csv file}
+%\VignetteIndexEntry{Accessing database entries by accession number}
 -->
-<div id="extracting-database-content-into-csv-file" class="section level1">
-<h1>Extracting database content into csv file</h1>
-<p>It is possible to download whole or part of a database and export it into a csv file.</p>
-<p>Create an instance of the <code>Biodb</code> class:</p>
+<div id="accessing-database-entries-by-accession-number" class="section level1">
+<h1>Accessing database entries by accession number</h1>
+<p>In this vignette, we will explain how to download and access entry information from databases.</p>
+<p>First you need to create an instance of the <code>Biodb</code> class:</p>
 <pre class="r"><code>mybiodb &lt;- biodb::Biodb$new()</code></pre>
-<div id="retrieving-an-entire-database-whose-entries-contain-only-atomic-values" class="section level2">
-<h2>Retrieving an entire database whose entries contain only atomic values</h2>
-<p>For this example, we will use the Lipidmaps Structure database.</p>
-<p>First, connect to the database:</p>
-<pre class="r"><code>lipids &lt;- mybiodb$getFactory()$getConn('lipidmaps.structure')</code></pre>
-<p>Then get all entry IDs:</p>
-<pre class="r"><code>entry.ids &lt;- lipids$getEntryIds()</code></pre>
-<p>Here we just get two entries, since retrieving them all would take too much time for this example:</p>
-<pre class="r"><code>entries &lt;- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = entry.ids[1:2])</code></pre>
-<p>Transform all entries into a single data frame:</p>
-<pre class="r"><code>df &lt;- mybiodb$entriesToDataframe(entries)
-print(df)</code></pre>
-<pre><code>##           synonyms    accession chebi.id   mass   formula
-## 1 Acetylenic acids LMFA00000001 10930192 626.49  C40H66O5
-## 2             &lt;NA&gt; LMFA00000002 42607281 275.17 C13H25NO5
-##                                 comp.iupac.name.syst            name
-## 1 2-methoxy-12-methyloctadec-17-en-5-ynoyl anhydride            &lt;NA&gt;
-## 2                    N-(3S-hydroxydecanoyl)-L-serine Serratamic acid</code></pre>
-<p>Export the data frame into a CSV file with R standard function:</p>
-<pre class="r"><code>write.csv(df, file = 'lipidmaps-structure.csv')</code></pre>
-</div>
-<div id="retrieving-part-of-a-database-whose-entries-contain-non-atomic-values" class="section level2">
-<h2>Retrieving part of a database whose entries contain non-atomic values</h2>
-<p>We will take for this example the Massbank database, since each entry contains a peaks list stored into a data frame.</p>
-<p>First, connect to the database:</p>
-<pre class="r"><code>massbank &lt;- mybiodb$getFactory()$getConn('massbank.jp')</code></pre>
-<p>Get some entry IDs, searching by M/Z value:</p>
-<pre class="r"><code>entry.ids &lt;- massbank$searchMzTol(64, mz.tol = 0.3, max.results = 2)</code></pre>
-<pre class="r"><code>mybiodb$getConfig()$disable('allow.huge.downloads')</code></pre>
-<p>Get all entries:</p>
-<pre class="r"><code>entries &lt;- mybiodb$getFactory()$getEntry('massbank.jp', id = entry.ids)</code></pre>
-<p>Transform all entries into a single data frame:</p>
-<pre class="r"><code>df &lt;- mybiodb$entriesToDataframe(entries, only.atomic = FALSE)
-print(df)</code></pre>
-<pre><code>##    accession                       msdev msdevtype mstype nbpeaks
-## 1   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 2   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 3   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 4   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 5   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 6   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 7   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 8   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 9   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 10  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 11  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 12  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 13  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 14  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 15  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 16  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 17  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 18  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 19  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 20  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 21  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 22  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 23  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 24  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 25  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 26  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 27  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 28  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 29  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-##    msprecannot                                                       inchi
-## 1       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 2       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 3       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 4       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 5       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 6       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 7       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 8       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 9       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 10      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 11      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 12      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 13      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 14      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 15      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 16      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 17      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 18      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 19      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 20      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 21      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 22      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 23      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 24      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 25      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 26      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 27      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 28      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 29      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-##    chebi.id kegg.compound.id    casid ncbi.pubchem.subst.id formula
-## 1     30754           C00108 118-92-3                  3408 C7H7NO2
-## 2     30754           C00108 118-92-3                  3408 C7H7NO2
-## 3     30754           C00108 118-92-3                  3408 C7H7NO2
-## 4     30754           C00108 118-92-3                  3408 C7H7NO2
-## 5     30754           C00108 118-92-3                  3408 C7H7NO2
-## 6     30754           C00108 118-92-3                  3408 C7H7NO2
-## 7     30754           C00108 118-92-3                  3408 C7H7NO2
-## 8     30754           C00108 118-92-3                  3408 C7H7NO2
-## 9     30754           C00108 118-92-3                  3408 C7H7NO2
-## 10    30089           C00033  64-19-7                  3335  C2H4O2
-## 11    30089           C00033  64-19-7                  3335  C2H4O2
-## 12    30089           C00033  64-19-7                  3335  C2H4O2
-## 13    30089           C00033  64-19-7                  3335  C2H4O2
-## 14    30089           C00033  64-19-7                  3335  C2H4O2
-## 15    30089           C00033  64-19-7                  3335  C2H4O2
-## 16    30089           C00033  64-19-7                  3335  C2H4O2
-## 17    30089           C00033  64-19-7                  3335  C2H4O2
-## 18    30089           C00033  64-19-7                  3335  C2H4O2
-## 19    30089           C00033  64-19-7                  3335  C2H4O2
-## 20    30089           C00033  64-19-7                  3335  C2H4O2
-## 21    30089           C00033  64-19-7                  3335  C2H4O2
-## 22    30089           C00033  64-19-7                  3335  C2H4O2
-## 23    30089           C00033  64-19-7                  3335  C2H4O2
-## 24    30089           C00033  64-19-7                  3335  C2H4O2
-## 25    30089           C00033  64-19-7                  3335  C2H4O2
-## 26    30089           C00033  64-19-7                  3335  C2H4O2
-## 27    30089           C00033  64-19-7                  3335  C2H4O2
-## 28    30089           C00033  64-19-7                  3335  C2H4O2
-## 29    30089           C00033  64-19-7                  3335  C2H4O2
-##                 smiles      mass msmode
-## 1  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 2  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 3  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 4  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 5  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 6  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 7  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 8  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 9  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 10             CC(O)=O  60.02113    neg
-## 11             CC(O)=O  60.02113    neg
-## 12             CC(O)=O  60.02113    neg
-## 13             CC(O)=O  60.02113    neg
-## 14             CC(O)=O  60.02113    neg
-## 15             CC(O)=O  60.02113    neg
-## 16             CC(O)=O  60.02113    neg
-## 17             CC(O)=O  60.02113    neg
-## 18             CC(O)=O  60.02113    neg
-## 19             CC(O)=O  60.02113    neg
-## 20             CC(O)=O  60.02113    neg
-## 21             CC(O)=O  60.02113    neg
-## 22             CC(O)=O  60.02113    neg
-## 23             CC(O)=O  60.02113    neg
-## 24             CC(O)=O  60.02113    neg
-## 25             CC(O)=O  60.02113    neg
-## 26             CC(O)=O  60.02113    neg
-## 27             CC(O)=O  60.02113    neg
-## 28             CC(O)=O  60.02113    neg
-## 29             CC(O)=O  60.02113    neg
-##                                                           synonyms
-## 1  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 2  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 3  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 4  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 5  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 6  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 7  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 8  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 9  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 10                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 11                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 12                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 13                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 14                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 15                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 16                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 17                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 18                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 19                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 20                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 21                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 22                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 23                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 24                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 25                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 26                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 27                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 28                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 29                   Glacial acetic acid;Ethanoic acid;Acetic acid
-##    msprecmz         name ms.level peak.mz peak.intensity
-## 1       136 Anthranilate        2    40.4        34653.5
-## 2       136 Anthranilate        2    50.4        84158.5
-## 3       136 Anthranilate        2    63.8        39604.0
-## 4       136 Anthranilate        2    65.0      1371288.5
-## 5       136 Anthranilate        2    66.2       207921.0
-## 6       136 Anthranilate        2    74.9       133663.5
-## 7       136 Anthranilate        2    90.2       193069.5
-## 8       136 Anthranilate        2    91.0        84158.5
-## 9       136 Anthranilate        2    92.2     19955465.5
-## 10       59      Acetate        2    32.0       113861.5
-## 11       59      Acetate        2    38.9        19802.0
-## 12       59      Acetate        2    39.9        64356.5
-## 13       59      Acetate        2    41.3       158416.0
-## 14       59      Acetate        2    41.9        99010.0
-## 15       59      Acetate        2    43.1        14851.5
-## 16       59      Acetate        2    43.8        34653.5
-## 17       59      Acetate        2    50.9        29703.0
-## 18       59      Acetate        2    52.2        69307.0
-## 19       59      Acetate        2    53.9        79208.0
-## 20       59      Acetate        2    55.1       123762.5
-## 21       59      Acetate        2    56.0       217822.0
-## 22       59      Acetate        2    56.4       292079.5
-## 23       59      Acetate        2    57.1       430693.5
-## 24       59      Acetate        2    57.9       930694.0
-## 25       59      Acetate        2    59.1      1148516.0
-## 26       59      Acetate        2    59.7       207921.0
-## 27       59      Acetate        2    60.4       108911.0
-## 28       59      Acetate        2    61.3        49505.0
-## 29       59      Acetate        2    64.2        39604.0
-##    peak.relative.intensity                    inchikey
-## 1                      0.2 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 2                      0.4 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 3                      0.2 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 4                      6.9 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 5                      1.0 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 6                      0.7 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 7                      1.0 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 8                      0.4 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 9                     99.9 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 10                     9.9 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 11                     1.7 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 12                     5.6 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 13                    13.8 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 14                     8.6 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 15                     1.3 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 16                     3.0 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 17                     2.6 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 18                     6.0 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 19                     6.9 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 20                    10.8 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 21                    18.9 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 22                    25.4 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 23                    37.5 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 24                    81.0 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 25                    99.9 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 26                    18.1 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 27                     9.5 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 28                     4.3 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 29                     3.4 QTBSBXVTEAMEQO-UHFFFAOYSA-M</code></pre>
-<p>The option <code>only.atomic</code> controls if only atomic values are put inside the data frame. If set to <code>TRUE</code>, then each entry will occupy only one line inside the data frame. If set to <code>FALSE</code> and an entry contains a non-atomic value (vector or data frame), then instead of occupying one line in the data frame it will occupy several lines, its atomic values being copied as many time as there are values inside the non-atomic value.</p>
-<p>Export the data frame into a CSV file with R standard function:</p>
-<pre class="r"><code>write.csv(df, file = 'massbank.csv')</code></pre>
-</div>
+<p>Then you need to choose the database you want to access. For that you need to use a database ID in the form of a string. To get the list of available database IDs, just run:</p>
+<pre class="r"><code>mybiodb$getDbsInfo()$getIds()</code></pre>
+<pre><code>##  [1] &quot;chebi&quot;               &quot;chemspider&quot;          &quot;expasy.enzyme&quot;      
+##  [4] &quot;hmdb.metabolite&quot;     &quot;kegg.compound&quot;       &quot;lipidmaps.structure&quot;
+##  [7] &quot;mass.csv.file&quot;       &quot;massbank.eu&quot;         &quot;massbank.jp&quot;        
+## [10] &quot;mirbase.mature&quot;      &quot;ncbi.ccds&quot;           &quot;ncbi.gene&quot;          
+## [13] &quot;ncbi.pubchem.comp&quot;   &quot;ncbi.pubchem.subst&quot;  &quot;peakforest.mass&quot;    
+## [16] &quot;peakforest.compound&quot; &quot;uniprot&quot;</code></pre>
+<p>To obtain an entry from a database you have to call the <code>getEntry()</code> method from the <code>BiodbFactory</code> class. The following example access the ChEBI database in order to retrieve the entry number 2528:</p>
+<pre class="r"><code>entry &lt;- mybiodb$getFactory()$getEntry('chebi', id = '2528')</code></pre>
+<p>From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:</p>
+<pre class="r"><code>entry$getFieldValue('accession')</code></pre>
+<pre><code>## [1] &quot;2528&quot;</code></pre>
+<p>We can have a list of all available fields for an entry:</p>
+<pre class="r"><code>entry$getFieldNames()</code></pre>
+<pre><code>## [1] &quot;smiles&quot;            &quot;inchi&quot;             &quot;inchikey&quot;         
+## [4] &quot;kegg.compound.id&quot;  &quot;mass&quot;              &quot;monoisotopic.mass&quot;
+## [7] &quot;charge&quot;            &quot;accession&quot;</code></pre>
+<p>You can also get a data frame of the field values with the method <code>getFieldsAsDataFrame()</code>:</p>
+<pre class="r"><code>entry$getFieldsAsDataFrame()</code></pre>
+<pre><code>##                                                                                                          smiles
+## 1 CC(C)CC[C@@H](O)[C@](C)(O)[C@H]1CC[C@@]2(O)C3=CC(=O)[C@@H]4C[C@@H](O)[C@@H](O)C[C@]4(C)[C@H]3[C@H](O)C[C@]12C
+##                                                                                                                                                                                                                      inchi
+## 1 InChI=1S/C27H44O7/c1-14(2)6-7-22(32)26(5,33)21-8-9-27(34)16-11-17(28)15-10-18(29)19(30)12-24(15,3)23(16)20(31)13-25(21,27)4/h11,14-15,18-23,29-34H,6-10,12-13H2,1-5H3/t15-,18+,19-,20+,21-,22+,23+,24-,25+,26+,27+/m0/s1
+##                      inchikey kegg.compound.id    mass monoisotopic.mass
+## 1 LQGNCUXDDPRDJH-UKTRSHMFSA-N           C08811 480.635           480.309
+##   charge accession
+## 1      0      2528</code></pre>
 </div>
 
 

@@ -162,13 +162,13 @@ MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol
 # Do search M/Z with tolerance {{{2
 ################################################################
 
-MassdbConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+MassdbConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 
-	if (tol.unit == BIODB.MZTOLUNIT.PPM)
-		tol <- tol * mz * 1e-6
+	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
+		mz.tol <- mz.tol * mz * 1e-6
 
-	mz.min <- mz - tol
-	mz.max <- mz + tol
+	mz.min <- mz - mz.tol
+	mz.max <- mz + mz.tol
 
 	return(.self$searchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })

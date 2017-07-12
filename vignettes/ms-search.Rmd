@@ -1,0 +1,40 @@
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Search MS dataabases}
+-->
+
+# Search MS dataabases
+
+Create an instance of the `Biodb` class:
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+
+For this vignette, we will use the Massbank database. There are two other mass databases in biodb: Peakforest and in-house database. However the in-house database requires a vignette for itself, while the access Peakforest is currently restricted to the partners of the [MetaboHUB](http://www.metabohub.fr/home.html) project.
+
+Create a connector to the MS database:
+```{r}
+conn <- mybiodb$getFactory()$createConn('massbank.jp')
+```
+
+## Getting M/Z values from the database
+
+This feature is mainly useful for biodb tests purposes.
+
+You can request a list of M/Z values from MS databases. Depending on the database, the list of M/Z values will be more or less exhaustive.
+
+Getting a list of M/Z values:
+```{r}
+conn$getMzValues(max.results = 10)
+```
+
+You can restrict to a certain MS mode, ask for the peak to be a precursor peak, or even ask for an MS level:
+```{r}
+conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'pos')
+```
+
+## Search for spectra containing a peak
+
+```{r}
+conn$searchMzRange(mz.min = 54, mz.max = 54.1, max.results = 5)
+```
