@@ -176,3 +176,31 @@ test.mass.csv.file.output.columns <- function(biodb) {
 	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
 }
 
+# Test peak table {{{1
+################################################################
+
+test.peak.table <- function(biodb, db.name) {
+
+	# Load reference entries
+	entries.desc <- load.ref.entries(db.name)
+
+	# Create entries
+	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
+	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
+
+	# Loop on entries
+	if ('nbpeaks' %in% colnames(entries.desc)) {
+
+		# Check that the registered number of peaks is correct
+		expect_equal(vapply(entries, function(e) e$getFieldValue('nbpeaks'), FUN.VALUE = 10), entries.desc[['nbpeaks']])
+
+		# Check that the peak table has this number of peaks
+		peak.tables <- lapply(entries, function(e) e$getFieldValue('peaks'))
+		expect_false(vapply(peak.tables, is.null, FUN.VALUE = TRUE))
+		expect_equal(entries.desc[['nbpeaks']], vapply(peak.tables, nrow, FUN.VALUE = 1))
+
+		# Check that the peak table contains the right columns
+		# TODO
+	}
+}

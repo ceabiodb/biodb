@@ -28,6 +28,7 @@ for (mode in TEST.MODES) {
 		test_that("Wrong entry gives NULL", test.wrong.entry(biodb, db.name))
 		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(biodb, db.name))
 		test_that("Entry fields have a correct value", test.entry.fields(biodb, db.name))
+		test_that("The peak table is correct.", test.peak.table(biodb, db.name))
 
 		# Get instance
 		db <- biodb$getFactory()$getConn(db.name)

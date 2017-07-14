@@ -124,9 +124,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	}
 
 	# Check number of peaks
-	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE))) {
+	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
 	   	 .self$message(MSG.CAUTION, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ' for entry ', .self$getFieldValue(BIODB.ACCESSION), ".", sep = ''))
-		.self$setFieldValue(BIODB.NB.PEAKS, nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
-	}
 
 })

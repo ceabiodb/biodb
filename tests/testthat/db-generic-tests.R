@@ -15,16 +15,16 @@ save.entries.as.json <- function(db, entries) {
 # Test entry fields {{{1
 ################################################################
 
-test.entry.fields <- function(biodb, db) {
+test.entry.fields <- function(biodb, db.name) {
 
 	# Load reference entries
-	entries.desc <- load.ref.entries(db)
+	entries.desc <- load.ref.entries(db.name)
 
 	# Create entries
-	entries <- biodb$getFactory()$getEntry(db, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
-	save.entries.as.json(db, entries)
+	save.entries.as.json(db.name, entries)
 
 	# Get data frame
 	entries.df <- biodb$entriesToDataframe(entries)
@@ -50,7 +50,7 @@ test.entry.fields <- function(biodb, db) {
 	if (length(not.tested.fields) > 0) {
 		not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
 		not.tested.fields <- sort(not.tested.fields)
-		biodb$message(MSG.CAUTION, paste("Fields \"", paste(not.tested.fields, collapse = ", "), "\" are not tested in database ", db, ".", sep = ''))
+		biodb$message(MSG.CAUTION, paste("Fields \"", paste(not.tested.fields, collapse = ", "), "\" are not tested in database ", db.name, ".", sep = ''))
 	}
 }
 
