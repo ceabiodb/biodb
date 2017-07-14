@@ -197,7 +197,7 @@ test.peak.table <- function(biodb, db.name) {
 
 		# Check that the peak table has this number of peaks
 		peak.tables <- lapply(entries, function(e) e$getFieldValue('peaks'))
-		expect_false(vapply(peak.tables, is.null, FUN.VALUE = TRUE))
+		expect_false(any(vapply(peak.tables, is.null, FUN.VALUE = TRUE)))
 		expect_equal(entries.desc[['nbpeaks']], vapply(peak.tables, nrow, FUN.VALUE = 1))
 
 		# Check that the peak table contains the right columns
