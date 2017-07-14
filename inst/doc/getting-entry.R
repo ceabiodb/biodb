@@ -2,17 +2,17 @@
 mybiodb <- biodb::Biodb$new()
 
 ## ------------------------------------------------------------------------
-print(mybiodb$getDbsInfo()$getIds())
+mybiodb$getDbsInfo()$getIds()
 
 ## ------------------------------------------------------------------------
 entry <- mybiodb$getFactory()$getEntry('chebi', id = '2528')
 
 ## ------------------------------------------------------------------------
-print(entry$getFieldValue('accession'))
+entry$getFieldValue('accession')
 
 ## ------------------------------------------------------------------------
-print(entry$getFieldNames())
+entry$getFieldNames()
 
 ## ------------------------------------------------------------------------
-print(entry$getFieldsAsDataFrame())
+entry$getFieldsAsDataFrame()
 

@@ -145,6 +145,55 @@ $(document).ready(function () {
 </div>
 <div id="search-for-spectra-containing-a-peak" class="section level2">
 <h2>Search for spectra containing a peak</h2>
+<pre class="r"><code>conn$searchMzRange(mz.min = 54, mz.max = 54.1, max.results = 5)</code></pre>
+<pre><code>## [1] &quot;KO000054&quot; &quot;KO000095&quot; &quot;KO000127&quot; &quot;KO000317&quot; &quot;KO000454&quot;</code></pre>
+</div>
+<div id="search-for-msms-spectra-by-spectrum-matching" class="section level2">
+<h2>Search for MSMS spectra by spectrum matching</h2>
+<pre class="r"><code># Define spectrum to match:
+spectrum &lt;- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
+
+# Search for match:
+massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)</code></pre>
+<pre><code>## $measure
+##  [1] 0.9261208 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [8] 0.0000000 0.0000000 0.0000000
+## 
+## $matchedpeaks
+## $matchedpeaks[[1]]
+## [1] 9 7
+## 
+## $matchedpeaks[[2]]
+## [1]  7 -1
+## 
+## $matchedpeaks[[3]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[4]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[5]]
+## [1] -1 12
+## 
+## $matchedpeaks[[6]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[7]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[8]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[9]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[10]]
+## [1] -1 -1
+## 
+## 
+## $id
+##  [1] &quot;KO002597&quot; &quot;KO002598&quot; &quot;KO002599&quot; &quot;KO003347&quot; &quot;KO003348&quot; &quot;KO003349&quot;
+##  [7] &quot;KO003350&quot; &quot;KO003351&quot; &quot;SM826601&quot; &quot;SM869701&quot;</code></pre>
 </div>
 </div>
 

@@ -129,7 +129,7 @@ $(document).ready(function () {
 <p>First you need to create an instance of the <code>Biodb</code> class:</p>
 <pre class="r"><code>mybiodb &lt;- biodb::Biodb$new()</code></pre>
 <p>Then you need to choose the database you want to access. For that you need to use a database ID in the form of a string. To get the list of available database IDs, just run:</p>
-<pre class="r"><code>print(mybiodb$getDbsInfo()$getIds())</code></pre>
+<pre class="r"><code>mybiodb$getDbsInfo()$getIds()</code></pre>
 <pre><code>##  [1] &quot;chebi&quot;               &quot;chemspider&quot;          &quot;expasy.enzyme&quot;      
 ##  [4] &quot;hmdb.metabolite&quot;     &quot;kegg.compound&quot;       &quot;lipidmaps.structure&quot;
 ##  [7] &quot;mass.csv.file&quot;       &quot;massbank.eu&quot;         &quot;massbank.jp&quot;        
@@ -139,15 +139,15 @@ $(document).ready(function () {
 <p>To obtain an entry from a database you have to call the <code>getEntry()</code> method from the <code>BiodbFactory</code> class. The following example access the ChEBI database in order to retrieve the entry number 2528:</p>
 <pre class="r"><code>entry &lt;- mybiodb$getFactory()$getEntry('chebi', id = '2528')</code></pre>
 <p>From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:</p>
-<pre class="r"><code>print(entry$getFieldValue('accession'))</code></pre>
+<pre class="r"><code>entry$getFieldValue('accession')</code></pre>
 <pre><code>## [1] &quot;2528&quot;</code></pre>
 <p>We can have a list of all available fields for an entry:</p>
-<pre class="r"><code>print(entry$getFieldNames())</code></pre>
+<pre class="r"><code>entry$getFieldNames()</code></pre>
 <pre><code>## [1] &quot;smiles&quot;            &quot;inchi&quot;             &quot;inchikey&quot;         
 ## [4] &quot;kegg.compound.id&quot;  &quot;mass&quot;              &quot;monoisotopic.mass&quot;
 ## [7] &quot;charge&quot;            &quot;accession&quot;</code></pre>
 <p>You can also get a data frame of the field values with the method <code>getFieldsAsDataFrame()</code>:</p>
-<pre class="r"><code>print(entry$getFieldsAsDataFrame())</code></pre>
+<pre class="r"><code>entry$getFieldsAsDataFrame()</code></pre>
 <pre><code>##                                                                                                          smiles
 ## 1 CC(C)CC[C@@H](O)[C@](C)(O)[C@H]1CC[C@@]2(O)C3=CC(=O)[C@@H]4C[C@@H](O)[C@@H](O)C[C@]4(C)[C@H]3[C@H](O)C[C@]12C
 ##                                                                                                                                                                                                                      inchi

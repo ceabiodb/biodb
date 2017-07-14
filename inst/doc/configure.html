@@ -131,7 +131,7 @@ $(document).ready(function () {
 <p>Then get the configuration class:</p>
 <pre class="r"><code>config &lt;- mybiodb$getConfig()</code></pre>
 <p>Get all settable fields:</p>
-<pre class="r"><code>print(config$getKeys())</code></pre>
+<pre class="r"><code>config$getKeys()</code></pre>
 <pre><code>##  [1] &quot;allow.huge.downloads&quot;      &quot;cache.directory&quot;          
 ##  [3] &quot;cache.system&quot;              &quot;cache.all.requests&quot;       
 ##  [5] &quot;cache.read.only&quot;           &quot;compute.fields&quot;           
@@ -140,25 +140,25 @@ $(document).ready(function () {
 ## [11] &quot;longterm.cache.subfolder&quot;  &quot;svn.binary.path&quot;          
 ## [13] &quot;force.c.locale&quot;            &quot;chemspider.token&quot;</code></pre>
 <p>Get description of a field:</p>
-<pre class="r"><code>print(config$getDescription('cache.directory'))</code></pre>
+<pre class="r"><code>config$getDescription('cache.directory')</code></pre>
 <pre><code>## [1] &quot;The directory in which cache files are stored.&quot;</code></pre>
 <p>Get a field value:</p>
-<pre class="r"><code>print(config$get('cache.directory'))</code></pre>
+<pre class="r"><code>config$get('cache.directory')</code></pre>
 <pre><code>## [1] &quot;/Users/pierrick/.biodb.cache&quot;</code></pre>
 <p>Set a field value:</p>
 <pre class="r"><code>config$set('cache.directory', '~/my.biodb.cache')</code></pre>
 <p>Get same field value again:</p>
-<pre class="r"><code>print(config$get('cache.directory'))</code></pre>
+<pre class="r"><code>config$get('cache.directory')</code></pre>
 <pre><code>## [1] &quot;~/my.biodb.cache&quot;</code></pre>
 <p>Get field default value:</p>
-<pre class="r"><code>print(config$getDefaultValue('cache.directory'))</code></pre>
+<pre class="r"><code>config$getDefaultValue('cache.directory')</code></pre>
 <pre><code>## [1] &quot;/Users/pierrick/.biodb.cache&quot;</code></pre>
 <p>If the value of a field is boolean, you can use the boolean methods instead of <code>get</code> and <code>set</code>:</p>
-<pre class="r"><code>print(config$get('offline'))</code></pre>
+<pre class="r"><code>config$get('offline')</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>config$enable('offline')    # set to TRUE
 config$disable('offline')   # set to FALSE
-print(if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.')</code></pre>
+if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.'</code></pre>
 <pre><code>## [1] &quot;Mode offline is OFF.&quot;</code></pre>
 </div>
 

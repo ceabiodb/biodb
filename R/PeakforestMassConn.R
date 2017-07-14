@@ -161,7 +161,7 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 
 # DEPRECATED
 # TODO rename this method and use it inside .doSearchMzRange using new params precursor and level.
-PeakforestMassConn$methods( .doSearchPrecTol = function(prec.mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = NA_character_) {
+PeakforestMassConn$methods( .doSearchPrecTol = function(prec.mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = NA_character_) {
 
 	# Set token
 	largs <- list(token = .self$getToken())
@@ -171,9 +171,9 @@ PeakforestMassConn$methods( .doSearchPrecTol = function(prec.mz, tol, tol.unit =
 			largs <- c(largs, mode = ms.mode)
 	
 	# Set tolerance
-	if (tol.unit == BIODB.MZTOLUNIT.PPM)
-		tol <- tol * prec.mz * 10 ^ -6
-	largs <- c(largs, precursorMassDelta = tol)
+	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
+		mz.tol <- mz.tol * prec.mz * 10 ^ -6
+	largs <- c(largs, precursorMassDelta = mz.tol)
 
 	strargs <- apply(rbind(names(largs),as.character(largs)),2,paste,collapse="=")
 	strargs <- paste(strargs,collapse = "&")

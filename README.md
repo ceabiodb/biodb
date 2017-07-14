@@ -73,7 +73,7 @@ mybiodb <- biodb::Biodb$new()
 # Get connector to Massbank
 massbank <- mybiodb$getFactory()$getConn('massbank.jp')
 
-spectrum <- data.frame(peak.mz = c(64), peak.relative.intensity = c(100))
+spectrum <- data.frame(mz = c(64), rel.int = c(100))
 
 # Search for MS spectra
 spectra.ids <- massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)

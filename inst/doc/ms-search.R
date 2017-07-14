@@ -10,3 +10,13 @@ conn$getMzValues(max.results = 10)
 ## ------------------------------------------------------------------------
 conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'pos')
 
+## ------------------------------------------------------------------------
+conn$searchMzRange(mz.min = 54, mz.max = 54.1, max.results = 5)
+
+## ------------------------------------------------------------------------
+# Define spectrum to match:
+spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
+
+# Search for match:
+massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+

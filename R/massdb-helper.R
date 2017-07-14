@@ -10,23 +10,30 @@ simplifySpectrum <- function(spec) {
 
 	# Get mz vals
 	mz.vals <- NULL
-	for (mzcol in c(BIODB.PEAK.MZ, BIODB.PEAK.MZTHEO, BIODB.PEAK.MZEXP))
-		if (mzcol %in% colnames(spec))
+	for (mzcol in c('mz', BIODB.PEAK.MZ, BIODB.PEAK.MZTHEO, BIODB.PEAK.MZEXP))
+		if (mzcol %in% colnames(spec)) {
 			mz.vals <- spec[, mzcol]
+			break
+		}
 	if (is.null(mz.vals))
 		stop("Cannot find MZ values.")
 
 	int.vals <- NULL
-	if (BIODB.PEAK.RELATIVE.INTENSITY %in% colnames(spec))
-		int.vals <- spec[, BIODB.PEAK.RELATIVE.INTENSITY]
-	else {
-		if (BIODB.PEAK.INTENSITY %in% colnames(spec)) {
-			int.vals <- spec[, BIODB.PEAK.INTENSITY,]
-			int.vals <- int.vals * 100 / max(int.vals)
+	for (int.col in c('rel.int', BIODB.PEAK.RELATIVE.INTENSITY))
+		if (int.col %in% colnames(spec)) {
+			int.vals <- spec[, int.col]
+			break
 		}
-		else
-			stop("Cannot find intensity values.")
+	if (is.null(int.vals)) {
+		for (int.col in c('int', BIODB.PEAK.INTENSITY))
+			if (int.col %in% colnames(spec)) {
+				int.vals <- spec[, int.col,]
+				int.vals <- int.vals * 100 / max(int.vals)
+				break
+			}
 	}
+	if (is.null(int.vals))
+		stop("Cannot find intensity values.")
 
 	spec <- data.frame(mz = mz.vals, int = int.vals)
 	colnames(spec) <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY)
@@ -65,7 +72,6 @@ calcDistance <-
 ###The returned sim list is not ordered
 compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSINE, params = list(), decreasing = TRUE) {
 
-		#fun <- match.arg(fun)
 		if (length(libspec) == 0)
 			return(NULL)
 
@@ -80,5 +86,5 @@ compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSI
 		osim <- order(sim, decreasing = decreasing)
 		matched <- sapply(vall, '[[', i = "matched", simplify = FALSE)
 		
-		return(data.frame(ord = osim, matched = matched, similarity = sim))
+		return(list(ord = osim, matched = matched, similarity = sim))
 }
