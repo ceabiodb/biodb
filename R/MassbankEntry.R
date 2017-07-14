@@ -27,7 +27,7 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.KEGG.COMPOUND.ID, "^CH\\$LINK: KEGG\\s+(.+)$")
 	.self$addParsingExpression(BIODB.CAS.ID, "^CH\\$LINK: CAS\\s+(.+)$")
 	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.COMP.ID, "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)")
-	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.SUBST.ID, "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)")
+	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.SUBST.ID, "^CH\\$LINK: PUBCHEM\\s+.*(SID:[0-9]+)")
 	.self$addParsingExpression(BIODB.HMDB.METABOLITE.ID, "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)")
 	.self$addParsingExpression(BIODB.FORMULA, "^CH\\$FORMULA:\\s+(.+)$")
 	.self$addParsingExpression(BIODB.SMILES, "^CH\\$SMILES:\\s+(.+)$")
