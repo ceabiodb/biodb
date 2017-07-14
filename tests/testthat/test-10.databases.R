@@ -53,6 +53,8 @@ for (mode in TEST.MODES) {
 					test_that("MassCsvFileConn methods are correct", test.basic.mass.csv.file(biodb))
 					test_that("M/Z match output contains all columns of database.", test.mass.csv.file.output.columns(biodb))
 				}
+				if (db.name == 'massbank.jp')
+					test_that("msmsSearch works with Massbank JP", test.msmsSearch.massbank.jp(biodb))
 			}
 		}
 	}

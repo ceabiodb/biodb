@@ -31,6 +31,16 @@ test.msmsSearch <- function(biodb, db.name) {
 	}
 }
 
+# Test MSMS search Massbank JP {{{1
+################################################################
+
+test.msmsSearch.massbank.jp <- function(biodb) {
+	mybiodb <- biodb::Biodb$new()
+	conn <- mybiodb$getFactory()$createConn('massbank.jp')
+	spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
+	conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+}
+
 # Test getMzValues() {{{1
 ################################################################
 

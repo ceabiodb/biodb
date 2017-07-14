@@ -7,6 +7,42 @@
 
 MassbankEntry <- methods::setRefClass("MassbankEntry", contains = "TxtEntry")
 
+# Is parsed content correct {{{1
+################################################################
+
+MassbankEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+
+	# Look for last line
+	g <- stringr::str_match(parsed.content, "^//$")
+	last.line.number <- which(! is.na(g[, 1]))
+
+	# Incorrect last line?
+	if (length(last.line.number) != 1 || last.line.number != length(parsed.content)) {
+
+		# Get accession number
+		g <- stringr::str_match(parsed.content, "^ACCESSION: (.+)$")
+		accession <- g[ ! is.na(g[,1]), 2, drop = FALSE]
+		if (length(accession) > 1)
+			accession <- accession[[1]]
+
+		# Too much last lines
+		if (length(last.line.number) > 1)
+			.self$message(MSG.CAUTION, paste("More than one last line found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ".", sep = ''))
+
+		# No last line
+		else if (length(last.line.number) == 0)
+			.self$message(MSG.CAUTION, paste("No last line symbol (\"//\") found in entry ", accession, ".", sep = ''))
+
+		# Last line symbol no at last line
+		else if (last.line.number != length(parsed.content))
+			.self$message(MSG.CAUTION, paste("Last line symbol (\"//\") found at line ", last.line.number, " in entry ", accession, " instead of last line.", sep = ''))
+
+		return(FALSE)
+	}
+
+	return(TRUE)
+})
+
 # Constructor {{{1
 ################################################################
 
