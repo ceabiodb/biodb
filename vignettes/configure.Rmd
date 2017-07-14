@@ -19,17 +19,17 @@ config <- mybiodb$getConfig()
 
 Get all settable fields:
 ```{r}
-print(config$getKeys())
+config$getKeys()
 ```
 
 Get description of a field:
 ```{r}
-print(config$getDescription('cache.directory'))
+config$getDescription('cache.directory')
 ```
 
 Get a field value:
 ```{r}
-print(config$get('cache.directory'))
+config$get('cache.directory')
 ```
 
 Set a field value:
@@ -39,18 +39,18 @@ config$set('cache.directory', '~/my.biodb.cache')
 
 Get same field value again:
 ```{r}
-print(config$get('cache.directory'))
+config$get('cache.directory')
 ```
 
 Get field default value:
 ```{r}
-print(config$getDefaultValue('cache.directory'))
+config$getDefaultValue('cache.directory')
 ```
 
 If the value of a field is boolean, you can use the boolean methods instead of `get` and `set`:
 ```{r}
-print(config$get('offline'))
+config$get('offline')
 config$enable('offline')    # set to TRUE
 config$disable('offline')   # set to FALSE
-print(if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.')
+if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.'
 ```

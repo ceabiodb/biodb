@@ -9,7 +9,6 @@ It is possible to download whole or part of a database and export it into a csv 
 
 Create an instance of the `Biodb` class:
 ```{r}
-# Create a Biodb instance
 mybiodb <- biodb::Biodb$new()
 ```
 
@@ -19,13 +18,11 @@ For this example, we will use the Lipidmaps Structure database.
 
 First, connect to the database:
 ```{r}
-# Get database connector
 lipids <- mybiodb$getFactory()$getConn('lipidmaps.structure')
 ```
 
 Then get all entry IDs:
 ```{r}
-# Get all IDs
 entry.ids <- lipids$getEntryIds()
 ```
 
@@ -51,13 +48,12 @@ We will take for this example the Massbank database, since each entry contains a
 
 First, connect to the database:
 ```{r}
-# Get database connector
 massbank <- mybiodb$getFactory()$getConn('massbank.jp')
 ```
 
 Get some entry IDs, searching by M/Z value:
 ```{r}
-entry.ids <- massbank$searchMzTol(64, tol = 0.3, max.results = 2)
+entry.ids <- massbank$searchMzTol(64, mz.tol = 0.3, max.results = 2)
 ```
 
 ```{r}

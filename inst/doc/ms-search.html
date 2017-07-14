@@ -121,41 +121,80 @@ $(document).ready(function () {
 
 <!--
 %\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Accessing database entries by accession number}
+%\VignetteIndexEntry{Search MS dataabases}
 -->
-<div id="accessing-database-entries-by-accession-number" class="section level1">
-<h1>Accessing database entries by accession number</h1>
-<p>In this vignette, we will explain how to download and access entry information from databases.</p>
-<p>First you need to create an instance of the <code>Biodb</code> class:</p>
+<div id="search-ms-dataabases" class="section level1">
+<h1>Search MS dataabases</h1>
+<p>Create an instance of the <code>Biodb</code> class:</p>
 <pre class="r"><code>mybiodb &lt;- biodb::Biodb$new()</code></pre>
-<p>Then you need to choose the database you want to access. For that you need to use a database ID in the form of a string. To get the list of available database IDs, just run:</p>
-<pre class="r"><code>mybiodb$getDbsInfo()$getIds()</code></pre>
-<pre><code>##  [1] &quot;chebi&quot;               &quot;chemspider&quot;          &quot;expasy.enzyme&quot;      
-##  [4] &quot;hmdb.metabolite&quot;     &quot;kegg.compound&quot;       &quot;lipidmaps.structure&quot;
-##  [7] &quot;mass.csv.file&quot;       &quot;massbank.eu&quot;         &quot;massbank.jp&quot;        
-## [10] &quot;mirbase.mature&quot;      &quot;ncbi.ccds&quot;           &quot;ncbi.gene&quot;          
-## [13] &quot;ncbi.pubchem.comp&quot;   &quot;ncbi.pubchem.subst&quot;  &quot;peakforest.mass&quot;    
-## [16] &quot;peakforest.compound&quot; &quot;uniprot&quot;</code></pre>
-<p>To obtain an entry from a database you have to call the <code>getEntry()</code> method from the <code>BiodbFactory</code> class. The following example access the ChEBI database in order to retrieve the entry number 2528:</p>
-<pre class="r"><code>entry &lt;- mybiodb$getFactory()$getEntry('chebi', id = '2528')</code></pre>
-<p>From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:</p>
-<pre class="r"><code>entry$getFieldValue('accession')</code></pre>
-<pre><code>## [1] &quot;2528&quot;</code></pre>
-<p>We can have a list of all available fields for an entry:</p>
-<pre class="r"><code>entry$getFieldNames()</code></pre>
-<pre><code>## [1] &quot;smiles&quot;            &quot;inchi&quot;             &quot;inchikey&quot;         
-## [4] &quot;kegg.compound.id&quot;  &quot;mass&quot;              &quot;monoisotopic.mass&quot;
-## [7] &quot;charge&quot;            &quot;accession&quot;</code></pre>
-<p>You can also get a data frame of the field values with the method <code>getFieldsAsDataFrame()</code>:</p>
-<pre class="r"><code>entry$getFieldsAsDataFrame()</code></pre>
-<pre><code>##                                                                                                          smiles
-## 1 CC(C)CC[C@@H](O)[C@](C)(O)[C@H]1CC[C@@]2(O)C3=CC(=O)[C@@H]4C[C@@H](O)[C@@H](O)C[C@]4(C)[C@H]3[C@H](O)C[C@]12C
-##                                                                                                                                                                                                                      inchi
-## 1 InChI=1S/C27H44O7/c1-14(2)6-7-22(32)26(5,33)21-8-9-27(34)16-11-17(28)15-10-18(29)19(30)12-24(15,3)23(16)20(31)13-25(21,27)4/h11,14-15,18-23,29-34H,6-10,12-13H2,1-5H3/t15-,18+,19-,20+,21-,22+,23+,24-,25+,26+,27+/m0/s1
-##                      inchikey kegg.compound.id    mass monoisotopic.mass
-## 1 LQGNCUXDDPRDJH-UKTRSHMFSA-N           C08811 480.635           480.309
-##   charge accession
-## 1      0      2528</code></pre>
+<p>For this vignette, we will use the Massbank database. There are two other mass databases in biodb: Peakforest and in-house database. However the in-house database requires a vignette for itself, while the access Peakforest is currently restricted to the partners of the <a href="http://www.metabohub.fr/home.html">MetaboHUB</a> project.</p>
+<p>Create a connector to the MS database:</p>
+<pre class="r"><code>conn &lt;- mybiodb$getFactory()$createConn('massbank.jp')</code></pre>
+<div id="getting-mz-values-from-the-database" class="section level2">
+<h2>Getting M/Z values from the database</h2>
+<p>This feature is mainly useful for biodb tests purposes.</p>
+<p>You can request a list of M/Z values from MS databases. Depending on the database, the list of M/Z values will be more or less exhaustive.</p>
+<p>Getting a list of M/Z values:</p>
+<pre class="r"><code>conn$getMzValues(max.results = 10)</code></pre>
+<pre><code>##  [1] 53.0389 54.0333 55.0178 60.0552 65.0382 66.0423 68.0490 78.0333
+##  [9] 79.0177 92.0498</code></pre>
+<p>You can restrict to a certain MS mode, ask for the peak to be a precursor peak, or even ask for an MS level:</p>
+<pre class="r"><code>conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'pos')</code></pre>
+<pre><code>##  [1] 285.0208 279.0910 311.0809 251.0597 215.0597 268.0750 281.0703
+##  [8] 265.0754 271.0318 254.0594</code></pre>
+</div>
+<div id="search-for-spectra-containing-a-peak" class="section level2">
+<h2>Search for spectra containing a peak</h2>
+<pre class="r"><code>conn$searchMzRange(mz.min = 54, mz.max = 54.1, max.results = 5)</code></pre>
+<pre><code>## [1] &quot;KO000054&quot; &quot;KO000095&quot; &quot;KO000127&quot; &quot;KO000317&quot; &quot;KO000454&quot;</code></pre>
+</div>
+<div id="search-for-msms-spectra-by-spectrum-matching" class="section level2">
+<h2>Search for MSMS spectra by spectrum matching</h2>
+<pre class="r"><code># Define spectrum to match:
+spectrum &lt;- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
+
+# Search for match:
+massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)</code></pre>
+<pre><code>## $measure
+##  [1] 0.9261208 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [8] 0.0000000 0.0000000 0.0000000
+## 
+## $matchedpeaks
+## $matchedpeaks[[1]]
+## [1] 9 7
+## 
+## $matchedpeaks[[2]]
+## [1]  7 -1
+## 
+## $matchedpeaks[[3]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[4]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[5]]
+## [1] -1 12
+## 
+## $matchedpeaks[[6]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[7]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[8]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[9]]
+## [1] -1 -1
+## 
+## $matchedpeaks[[10]]
+## [1] -1 -1
+## 
+## 
+## $id
+##  [1] &quot;KO002597&quot; &quot;KO002598&quot; &quot;KO002599&quot; &quot;KO003347&quot; &quot;KO003348&quot; &quot;KO003349&quot;
+##  [7] &quot;KO003350&quot; &quot;KO003351&quot; &quot;SM826601&quot; &quot;SM869701&quot;</code></pre>
+</div>
 </div>
 
 

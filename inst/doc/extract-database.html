@@ -127,17 +127,14 @@ $(document).ready(function () {
 <h1>Extracting database content into csv file</h1>
 <p>It is possible to download whole or part of a database and export it into a csv file.</p>
 <p>Create an instance of the <code>Biodb</code> class:</p>
-<pre class="r"><code># Create a Biodb instance
-mybiodb &lt;- biodb::Biodb$new()</code></pre>
+<pre class="r"><code>mybiodb &lt;- biodb::Biodb$new()</code></pre>
 <div id="retrieving-an-entire-database-whose-entries-contain-only-atomic-values" class="section level2">
 <h2>Retrieving an entire database whose entries contain only atomic values</h2>
 <p>For this example, we will use the Lipidmaps Structure database.</p>
 <p>First, connect to the database:</p>
-<pre class="r"><code># Get database connector
-lipids &lt;- mybiodb$getFactory()$getConn('lipidmaps.structure')</code></pre>
+<pre class="r"><code>lipids &lt;- mybiodb$getFactory()$getConn('lipidmaps.structure')</code></pre>
 <p>Then get all entry IDs:</p>
-<pre class="r"><code># Get all IDs
-entry.ids &lt;- lipids$getEntryIds()</code></pre>
+<pre class="r"><code>entry.ids &lt;- lipids$getEntryIds()</code></pre>
 <p>Here we just get two entries, since retrieving them all would take too much time for this example:</p>
 <pre class="r"><code>entries &lt;- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = entry.ids[1:2])</code></pre>
 <p>Transform all entries into a single data frame:</p>
@@ -156,10 +153,9 @@ print(df)</code></pre>
 <h2>Retrieving part of a database whose entries contain non-atomic values</h2>
 <p>We will take for this example the Massbank database, since each entry contains a peaks list stored into a data frame.</p>
 <p>First, connect to the database:</p>
-<pre class="r"><code># Get database connector
-massbank &lt;- mybiodb$getFactory()$getConn('massbank.jp')</code></pre>
+<pre class="r"><code>massbank &lt;- mybiodb$getFactory()$getConn('massbank.jp')</code></pre>
 <p>Get some entry IDs, searching by M/Z value:</p>
-<pre class="r"><code>entry.ids &lt;- massbank$searchMzTol(64, tol = 0.3, max.results = 2)</code></pre>
+<pre class="r"><code>entry.ids &lt;- massbank$searchMzTol(64, mz.tol = 0.3, max.results = 2)</code></pre>
 <pre class="r"><code>mybiodb$getConfig()$disable('allow.huge.downloads')</code></pre>
 <p>Get all entries:</p>
 <pre class="r"><code>entries &lt;- mybiodb$getFactory()$getEntry('massbank.jp', id = entry.ids)</code></pre>

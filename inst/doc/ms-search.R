@@ -2,17 +2,21 @@
 mybiodb <- biodb::Biodb$new()
 
 ## ------------------------------------------------------------------------
-mybiodb$getDbsInfo()$getIds()
+conn <- mybiodb$getFactory()$createConn('massbank.jp')
 
 ## ------------------------------------------------------------------------
-entry <- mybiodb$getFactory()$getEntry('chebi', id = '2528')
+conn$getMzValues(max.results = 10)
 
 ## ------------------------------------------------------------------------
-entry$getFieldValue('accession')
+conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'pos')
 
 ## ------------------------------------------------------------------------
-entry$getFieldNames()
+conn$searchMzRange(mz.min = 54, mz.max = 54.1, max.results = 5)
 
 ## ------------------------------------------------------------------------
-entry$getFieldsAsDataFrame()
+# Define spectrum to match:
+spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
+
+# Search for match:
+massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
 

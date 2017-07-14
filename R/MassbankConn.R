@@ -100,19 +100,19 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 # Do search M/Z with tolerance {{{1
 ################################################################
 
-MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 
 	returned.ids <- NULL
 
 	# Set tolerance
-	if (tol.unit == BIODB.MZTOLUNIT.PPM)
-		tol <- tol * mz * 1e-6
+	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
+		mz.tol <- mz.tol * mz * 1e-6
 
 	# Build request
 	max <- max.results
 	if ( ! is.na(max) && (precursor || ms.level > 0))
 		max <- max(10000, 10 * max)
-	xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', mz, '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
+	xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', mz, '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', mz.tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
 
 	# Send request
 	xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
@@ -131,7 +131,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 			# Filter on precursor
 			if (precursor) {
 				precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue(BIODB.MSPRECMZ, last = TRUE), FUN.VALUE = 1.0)
-				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - tol) & (precursor.mz <= mz + tol)
+				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
 				entries <- entries[precursor.matched]
 			}
 
@@ -157,8 +157,8 @@ MassbankConn$methods( .doSearchMzTol = function(mz, tol, tol.unit, min.rel.int, 
 
 MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 	mz <- (mz.min + mz.max) / 2
-	tol <- mz.max - mz
-	return(.self$searchMzTol(mz = mz, tol = tol, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+	mz.tol <- mz.max - mz
+	return(.self$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
 # Do get entry content url {{{1
@@ -244,7 +244,7 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.names = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
 
 	# Cut
 	if ( ! is.na(max.results) && max.results < length(ids))

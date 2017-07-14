@@ -78,7 +78,7 @@ MirbaseMatureConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.names = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
 
 	# Filter out wrong IDs
 	ids <- ids[grepl("^MIMAT[0-9]+$", ids, perl = TRUE)]
