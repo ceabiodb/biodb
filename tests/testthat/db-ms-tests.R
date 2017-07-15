@@ -14,7 +14,7 @@ test.msmsSearch <- function(biodb, db.name) {
 		mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
 
 		# Found corresponding spectrum
-		spectrum.id <- db$searchMzTol(mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2)
+		spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2)
 
 		# Get entry
 		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
@@ -23,7 +23,7 @@ test.msmsSearch <- function(biodb, db.name) {
 		peaks <- spectrum.entry$getFieldValue(BIODB.PEAKS)
 
 		# Run MSMS search
-		result <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, tol.unit = BIODB.MZTOLUNIT.PLAIN, mode = mode, npmin = 2, fun = 'pbachtttarya', params = list(ppm = 3, dmz = 0.005, mzexp = 2, intexp = 0.5))
+		result <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, npmin = 2, dist.fun = 'pbachtttarya', msms.mz.tol = 3, msms.mz.tol.min = 0.005)
 
 		# Check results
 		expect_true( ! is.null(result))
@@ -67,7 +67,7 @@ test.searchMzTol <- function(db) {
 
 	# Search
 	for (mz in mzs) {
-		ids <- db$searchMzTol(mz = mz, tol = 5, tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+		ids <- db$searchMzTol(mz = mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
 		expect_true(is.character(ids))
 		expect_true(length(ids) > 0)
 	}
@@ -96,7 +96,7 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 		expect_false(is.na(mz))
 
 		# Search for it
-		spectra.ids <- db$searchMzTol(mz = mz, tol = tol.ppm, tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)
+		spectra.ids <- db$searchMzTol(mz = mz, mz.tol = tol.ppm, mz.tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)
 		expect_gte(length(spectra.ids), 1)
 		expect_false(any(is.na(spectra.ids)))
 
@@ -175,7 +175,7 @@ test.mass.csv.file.output.columns <- function(biodb) {
 	expect_equal(length(mz), 1)
 
 	# Run a match
-	spectra.ids <- db$searchMzTol(mz, ms.level = 1, tol = 5, tol.unit = BIODB.MZTOLUNIT.PPM)
+	spectra.ids <- db$searchMzTol(mz, ms.level = 1, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM)
 
 	# Get data frame of results
 	entries <- biodb$getFactory()$getEntry(BIODB.MASS.CSV.FILE, spectra.ids)
