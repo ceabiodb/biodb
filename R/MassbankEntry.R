@@ -7,6 +7,37 @@
 
 MassbankEntry <- methods::setRefClass("MassbankEntry", contains = "TxtEntry")
 
+# Do parse content {{{1
+################################################################
+
+MassbankEntry$methods( .doParseContent = function(content) {
+
+	# Get lines of content
+	lines <- strsplit(content, "\r?\n")[[1]]
+
+	# Look for last line
+	g <- stringr::str_match(lines, "^//$")
+	last.line.number <- which(! is.na(g[, 1]))
+
+	# More than one last line marker?
+	if (length(last.line.number) > 1) {
+
+		# Get accession number
+		g <- stringr::str_match(lines, "^ACCESSION: (.+)$")
+		accession <- g[ ! is.na(g[,1]), 2, drop = FALSE]
+		if (length(accession) > 1)
+			accession <- accession[[1]]
+
+		# Message
+		.self$message(MSG.CAUTION, paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ". All lines after the first last line marker have been deleted.", sep = ''))
+
+		# Remove all lines after the first marker
+		lines <- lines[1:last.line.number[[1]]]
+	}
+
+	return(lines)
+})
+
 # Is parsed content correct {{{1
 ################################################################
 
@@ -27,7 +58,7 @@ MassbankEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 
 		# Too much last lines
 		if (length(last.line.number) > 1)
-			.self$message(MSG.CAUTION, paste("More than one last line found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ".", sep = ''))
+			.self$message(MSG.CAUTION, paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ".", sep = ''))
 
 		# No last line
 		else if (length(last.line.number) == 0)
