@@ -7,6 +7,73 @@
 
 MassbankEntry <- methods::setRefClass("MassbankEntry", contains = "TxtEntry")
 
+# Do parse content {{{1
+################################################################
+
+MassbankEntry$methods( .doParseContent = function(content) {
+
+	# Get lines of content
+	lines <- strsplit(content, "\r?\n")[[1]]
+
+	# Look for last line
+	g <- stringr::str_match(lines, "^//$")
+	last.line.number <- which(! is.na(g[, 1]))
+
+	# More than one last line marker?
+	if (length(last.line.number) > 1) {
+
+		# Get accession number
+		g <- stringr::str_match(lines, "^ACCESSION: (.+)$")
+		accession <- g[ ! is.na(g[,1]), 2, drop = FALSE]
+		if (length(accession) > 1)
+			accession <- accession[[1]]
+
+		# Message
+		.self$message(MSG.CAUTION, paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ". All lines after the first last line marker have been deleted.", sep = ''))
+
+		# Remove all lines after the first marker
+		lines <- lines[1:last.line.number[[1]]]
+	}
+
+	return(lines)
+})
+
+# Is parsed content correct {{{1
+################################################################
+
+MassbankEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+
+	# Look for last line
+	g <- stringr::str_match(parsed.content, "^//$")
+	last.line.number <- which(! is.na(g[, 1]))
+
+	# Incorrect last line?
+	if (length(last.line.number) != 1 || last.line.number != length(parsed.content)) {
+
+		# Get accession number
+		g <- stringr::str_match(parsed.content, "^ACCESSION: (.+)$")
+		accession <- g[ ! is.na(g[,1]), 2, drop = FALSE]
+		if (length(accession) > 1)
+			accession <- accession[[1]]
+
+		# Too much last lines
+		if (length(last.line.number) > 1)
+			.self$message(MSG.CAUTION, paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ".", sep = ''))
+
+		# No last line
+		else if (length(last.line.number) == 0)
+			.self$message(MSG.CAUTION, paste("No last line symbol (\"//\") found in entry ", accession, ".", sep = ''))
+
+		# Last line symbol no at last line
+		else if (last.line.number != length(parsed.content))
+			.self$message(MSG.CAUTION, paste("Last line symbol (\"//\") found at line ", last.line.number, " in entry ", accession, " instead of last line.", sep = ''))
+
+		return(FALSE)
+	}
+
+	return(TRUE)
+})
+
 # Constructor {{{1
 ################################################################
 
@@ -27,13 +94,114 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.KEGG.COMPOUND.ID, "^CH\\$LINK: KEGG\\s+(.+)$")
 	.self$addParsingExpression(BIODB.CAS.ID, "^CH\\$LINK: CAS\\s+(.+)$")
 	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.COMP.ID, "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)")
-	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.SUBST.ID, "^CH\\$LINK: PUBCHEM\\s+.*SID:([0-9]+)")
+	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.SUBST.ID, "^CH\\$LINK: PUBCHEM\\s+.*(SID:[0-9]+)")
 	.self$addParsingExpression(BIODB.HMDB.METABOLITE.ID, "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)")
 	.self$addParsingExpression(BIODB.FORMULA, "^CH\\$FORMULA:\\s+(.+)$")
 	.self$addParsingExpression(BIODB.SMILES, "^CH\\$SMILES:\\s+(.+)$")
 	.self$addParsingExpression(BIODB.MASS, "^CH\\$EXACT_MASS:\\s+(.+)$")
 	.self$addParsingExpression(BIODB.MSMODE, "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
 	.self$addParsingExpression(BIODB.SYNONYMS, "^CH\\$NAME:\\s+(.+)$")
+})
+
+# Parse peak info {{{1
+################################################################
+
+MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
+
+	# Parse peaks
+	g <- stringr::str_match(parsed.content, paste("^PK\\$", title, ": (.*)$", sep = ''))
+	peak.header.line.number <- which(! is.na(g[, 2]))
+	if (length(peak.header.line.number) == 0)
+		return() # No peaks
+	peaks <- data.frame(stringsAsFactors = FALSE)
+	peak.header <- g[peak.header.line.number, 2]
+	cols <- strsplit(peak.header, ' ')[[1]]
+
+	# Build parsing expression
+	regex <- '^'
+	col.desc <- list('m/z'                  = list(name = BIODB.PEAK.MZ, type = 'double', regex = '([0-9][0-9.]*)'),
+	                 'int.'                 = list(name = BIODB.PEAK.INTENSITY, type = 'double', regex = '([0-9][0-9.]*)'),
+	                 'rel.int.'             = list(name = BIODB.PEAK.RELATIVE.INTENSITY, type = 'integer', regex = '([0-9]+)'),
+	                 'struct.'              = list(name = 'struct.',                    type = 'integer',   regex = '([0-9]+)'),
+	                 'num'                  = list(name = 'num',                        type = 'integer',   regex = '([0-9]+)'),
+	                 'formula'              = list(name = BIODB.PEAK.FORMULA,           type = 'character', regex = '([^ ]+)'),
+	                 'tentative_formula'    = list(name = 'tentative.formula',          type = 'character', regex = '([^ ]+)'),
+	                 'formula_count'        = list(name = BIODB.PEAK.FORMULA.COUNT,     type = 'integer',   regex = '([0-9]+)'),
+	                 'error(ppm)'           = list(name = BIODB.PEAK.ERROR.PPM,         type = 'double',    regex = '([0-9][0-9.]*)'),
+	                 'mass'                 = list(name = BIODB.PEAK.MASS,              type = 'double',    regex = '([0-9][0-9.]*)')
+	                 )
+	for (c in cols) {
+		if (c %in% names(col.desc)) {
+			regex <- paste(regex, col.desc[[c]]$regex, sep = '\\s+')
+			peaks[col.desc[[c]]$name] <- vector(mode = col.desc[[c]]$type)
+		}
+		else {
+			regex <- paste(regex, '([^ ]+)', sep = '\\s+')
+			peaks[c] <- character()
+		}
+	}
+	regex <- paste(regex, '$', sep = '')
+
+	# Concatenate info spread on several lines
+	i <- peak.header.line.number + 1
+	while (i <= length(parsed.content)) {
+
+		# Annotation block?
+		if (length(grep('^  ', parsed.content[[i]])) == 0)
+			break # Not an peakation block => leave
+
+		# Is next line the suite of the current line?
+		while (i + 1 <= length(parsed.content) && length(grep('^    ', parsed.content[[i + 1]])) == 1) {
+			parsed.content[[i]] <- paste(parsed.content[[i]], parsed.content[[i + 1]], sep = '')
+			parsed.content <- if (i + 2 <= length(parsed.content)) parsed.content[c(1:i,i+2:length(parsed.content))] else parsed.content[c(1:i)]
+		}
+
+		# Next line
+		i <- i + 1
+	}
+
+	# Parse peaks
+	i <- 1
+	while ( peak.header.line.number + i <= length(parsed.content)) {
+
+		# Parse line
+		g <- stringr::str_match(parsed.content[[peak.header.line.number + i]], regex)
+		match <- ! is.na(g[1, 1])
+		if (match) {
+			for (j in seq(ncol(peaks)))
+				peaks[i, j] <- as.vector(g[1, j + 1], mode = class(peaks[[j]]))
+		}
+		else
+			break
+
+		# Next line
+		i <- i + 1
+	}
+
+	# Merge with existing peak info
+	if (.self$hasField(BIODB.PEAKS))
+		.self$setFieldValue(BIODB.PEAKS, merge(.self$getFieldValue(BIODB.PEAKS, compute = FALSE), peaks, all.x = TRUE))
+	else
+		# Set new peaks table
+		.self$setFieldValue(BIODB.PEAKS, peaks)
+
+	# Check number of peaks
+	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
+	   	 .self$message(MSG.CAUTION, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ' for entry ', .self$getFieldValue(BIODB.ACCESSION), ".", sep = ''))
+})
+
+# Parse peak table {{{1
+################################################################
+
+MassbankEntry$methods( .parsePeakTable = function(parsed.content) {
+	.self$.parsePeakInfo(parsed.content, title = 'PEAK')
+})
+
+# Parse annotation table {{{1
+################################################################
+
+MassbankEntry$methods( .parseAnnotationTable = function(parsed.content) {
+	.self$.parsePeakInfo(parsed.content, title = 'ANNOTATION')
 })
 
 # Parse fields after {{{1
@@ -90,43 +258,9 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		.self$setFieldValue(BIODB.MS.LEVEL, ms.level)
 	}
 	
-	# Annotations
-	g <- stringr::str_match(parsed.content, "^\\s+([0-9][0-9.]*) ([A-Za-z0-9+-\\[\\]]+) ([0-9]+) ([0-9][0-9.]*) (-?[0-9][0-9.]*)$")
-	results <- g[ ! is.na(g[,1]), , drop = FALSE]
-	if (nrow(results) > 0) {
-		peaks <- data.frame(mz = double(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
-		colnames(peaks) <- c(BIODB.PEAK.MZ, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM)
-		peaks[1:nrow(results), c(BIODB.PEAK.MZ, BIODB.PEAK.FORMULA, BIODB.PEAK.FORMULA.COUNT, BIODB.PEAK.MASS, BIODB.PEAK.ERROR.PPM)] <- list(as.double(results[,2]), results[,3], as.integer(results[,4]), as.double(results[,5]), as.double(results[,6]))
-		.self$setFieldValue(BIODB.PEAKS, peaks)
-	}
-
-	# Peaks
-	g <- stringr::str_match(parsed.content, "^\\s+([0-9][0-9.]*) ([0-9][0-9.]*) ([0-9]+)$")
-	results <- g[ ! is.na(g[,1]), , drop = FALSE]
-	if (nrow(results) > 0) {
-		peaks <- data.frame(mz = double(), int = double(), rel.int = integer(), stringsAsFactors = FALSE)
-		colnames(peaks) <- c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)
-		peaks[1:nrow(results), c(BIODB.PEAK.MZ, BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY)] <- list(as.double(results[,2]), as.double(results[,3]), as.integer(results[,4]))
-
-		# Set relative intensity on a percentage scale
-		if (any(peaks[[BIODB.PEAK.RELATIVE.INTENSITY]] > 100)) {
-			max <- max(peaks[[BIODB.PEAK.RELATIVE.INTENSITY]])
-			div <- 10 ^ ( ceiling(log(max)/log(10)) - 2 )
-			peaks[[BIODB.PEAK.RELATIVE.INTENSITY]] <- peaks[[BIODB.PEAK.RELATIVE.INTENSITY]] / div
-		}
-
-		# Merge with annotations
-		if (.self$hasField(BIODB.PEAKS))
-			peaks <- merge(.self$getFieldValue(BIODB.PEAKS, compute = FALSE), peaks)
-
-		# Set new peaks table
-		.self$setFieldValue(BIODB.PEAKS, peaks)
-	}
-
-	# Check number of peaks
-	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE))) {
-	   	 .self$message(MSG.CAUTION, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ' for entry ', .self$getFieldValue(BIODB.ACCESSION), ".", sep = ''))
-		.self$setFieldValue(BIODB.NB.PEAKS, nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
-	}
-
+	# Parsing of peak table
+	.self$.parsePeakTable(parsed.content)
+	
+	# Parsing of annotation table
+	.self$.parseAnnotationTable(parsed.content)
 })

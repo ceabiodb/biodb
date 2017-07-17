@@ -37,7 +37,7 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 	.self$.define('kegg.compound')
 	.self$.define('lipidmaps.structure')
 	.self$.define('mass.csv.file')
-	.self$.define('massbank.eu')
+#	.self$.define('massbank.eu') # Turn Off Massbank Europe, does not work very well when searching for spectra through API.
 	.self$.define('massbank.jp')
 	.self$.define('mirbase.mature')
 	.self$.define('ncbi.ccds')

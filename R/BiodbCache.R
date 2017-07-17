@@ -180,7 +180,7 @@ BiodbCache$methods( saveContentToFile = function(content, dbid, subfolder, name,
 	mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, content, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
 })
 
-# Get folder path {{{1
+# Get subfolder path {{{1
 ################################################################
 
 BiodbCache$methods( getSubFolderPath = function(subfolder) {
