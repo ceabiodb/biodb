@@ -112,7 +112,7 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	g <- stringr::str_match(parsed.content, paste("^PK\\$", title, ": (.*)$", sep = ''))
 	peak.header.line.number <- which(! is.na(g[, 2]))
 	if (length(peak.header.line.number) == 0)
-		return # No peaks
+		return() # No peaks
 	peaks <- data.frame(stringsAsFactors = FALSE)
 	peak.header <- g[peak.header.line.number, 2]
 	cols <- strsplit(peak.header, ' ')[[1]]
