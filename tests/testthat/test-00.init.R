@@ -28,7 +28,7 @@ if (file.exists(ONLINE.CACHE.DIR)) {
 	else if (MODE.ONLINE %in% TEST.MODES) {
 		biodb <- Biodb$new(logger = FALSE)
 		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
-		shortterm.folder <- biodb$getCache()$getFolderPath('shortterm')
+		shortterm.folder <- biodb$getCache()$getSubFolderPath('shortterm')
 		cat(paste('Delete short term cache folder \"', shortterm.folder, "\".\n", sep = ''))
 		unlink(shortterm.folder, recursive = TRUE)
 	}
