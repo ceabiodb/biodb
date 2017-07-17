@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="http://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:15960</chebiId><chebiAsciiName>O-acetylcarnitinium</chebiAsciiName><definition></definition><status>CHECKED</status><smiles>CC(=O)O[C@H](CC(O)=O)C[N+](C)(C)C</smiles><inchi>InChI=1S/C9H17NO4/c1-7(11)14-8(5-9(12)13)6-10(2,3)4/h8H,5-6H2,1-4H3/p+1/t8-/m1/s1</inchi><inchiKey>RDHQFKQIGNGIED-MRVPVSSYSA-O</inchiKey><charge>+1</charge><mass>204.24356</mass><monoisotopicMass>204.124</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:12711</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:7669</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:21936</SecondaryChEBIIds><Synonyms><data>O-Acetyl-L-carnitine</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>O-Acetylcarnitine</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>(2R)-2-(acetyloxy)-3-carboxy-N,N,N-trimethylpropan-1-aminium</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C9H18NO4</data><source>KEGG COMPOUND</source></Formulae><ChemicalStructures><structure>ChEBI
+
+
+ 14 13  0  0  1  0  0  0  0  0  2 V2000
+   12.5138  -33.1677    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5138  -34.4977    0.0000 N   0  3  0  0  0  0  0  0  0  0  0  0
+   11.3619  -32.5027    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3619  -35.1627    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.2102  -33.1677    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.2102  -34.4977    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3620  -31.1600    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9066  -33.1678   -0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0585  -35.1626   -0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9067  -34.4977   -0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.6880  -35.0360   -0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9713  -33.9720    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.7813  -35.1627    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.7933  -35.7960    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  3  1  1  0  0  0  0
+  4  2  1  0  0  0  0
+  5  3  1  0  0  0  0
+  6  4  1  0  0  0  0
+  6  5  1  1  0  0  0
+  7  3  2  0  0  0  0
+  9  6  1  0  0  0  0
+ 10  8  2  0  0  0  0
+ 10  9  1  0  0  0  0
+ 11 10  1  0  0  0  0
+ 12  2  1  0  0  0  0
+ 13  2  1  0  0  0  0
+ 14  2  1  0  0  0  0
+M  CHG  1   2   1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C02571</data><type>KEGG COMPOUND accession</type></DatabaseLinks><OntologyParents><chebiName>O-acetylcarnitine</chebiName><chebiId>CHEBI:73024</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>quaternary ammonium ion</chebiName><chebiId>CHEBI:35267</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>(R)-carnitinium</chebiName><chebiId>CHEBI:39547</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>O-acetylcarnitine</chebiName><chebiId>CHEBI:73024</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>
