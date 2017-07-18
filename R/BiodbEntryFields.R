@@ -114,8 +114,12 @@ BiodbEntryFields$methods( .initFields = function() {
 
 BiodbEntryFields$methods( .define = function(name, ...) {
 
+	# Check that name is in lower case
+	if (name != tolower(name))
+		.self$message(MSG.ERROR, paste("Field name \"", name, "\" must be in lower case.", sep = ''))
+
 	# Is field already defined?
-	if (name %in% names(.self$.fields))
+	if (.self$isDefined(name))
 		.self$message(MSG.ERROR, paste("Field \"", name, "\" has already been defined.", sep = ''))
 
 	# Define new field
@@ -126,7 +130,7 @@ BiodbEntryFields$methods( .define = function(name, ...) {
 ################################################################
 
 BiodbEntryFields$methods( isDefined = function(name) {
-	return(name %in% names(.self$.fields))
+	return(tolower(name) %in% names(.self$.fields))
 })
 
 # Check is defined {{{1
@@ -142,7 +146,7 @@ BiodbEntryFields$methods( checkIsDefined = function(name) {
 
 BiodbEntryFields$methods( get = function(name) {
 	.self$checkIsDefined(name)
-	field <- .self$.fields[[name]]
+	field <- .self$.fields[[tolower(name)]]
 	return(field)
 })
 

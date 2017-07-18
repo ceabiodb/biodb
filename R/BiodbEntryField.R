@@ -44,7 +44,7 @@ BiodbEntryField$methods( initialize = function(name, class = 'character', card =
 	# Set name
 	if ( is.null(name) || is.na(name) || nchar(name) == '')
 		.self$message(MSG.ERROR, "You cannot set an empty name for a field. Name was empty (either NULL or NA or empty string).")
-	.name <<- name
+	.name <<- tolower(name)
 
 	# Set class
 	if ( ! class %in% FIELD.CLASSES)
@@ -59,6 +59,15 @@ BiodbEntryField$methods( initialize = function(name, class = 'character', card =
 	# Set other fields
 	.allow.duplicates <<- allow.duplicates
 	.db.id <<- db.id
+})
+
+# Get name {{{1
+################################################################
+
+BiodbEntryField$methods( getName = function() {
+	":\n\n Get field's name."
+
+	return(.self$.name)
 })
 
 # Has card one {{{1
