@@ -121,260 +121,127 @@ $(document).ready(function () {
 
 <!--
 %\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Extracting database content into csv file}
+%\VignetteIndexEntry{Initializing biodb}
 -->
-<div id="extracting-database-content-into-csv-file" class="section level1">
-<h1>Extracting database content into csv file</h1>
-<p>It is possible to download whole or part of a database and export it into a csv file.</p>
-<p>Create an instance of the <code>Biodb</code> class:</p>
+<div id="initializing-biodb" class="section level1">
+<h1>Initializing biodb</h1>
+<p>First of all, before using <em>biodb</em>, you need to create an instance of the main class <code>Biodb</code>. This is done by calling the constructor of the class through the <code>new()</code> method. The OOP (Object Oriented Programming) system used in the <em>biodb</em> package is the <strong>R5</strong> system also called <strong>Reference Classes</strong>. In this system, the created objects are not copied, but their reference are copied. This means than when you pass an instance to a function, that function is able to modify the instance.</p>
+<p>To create an instance of the <code>Biodb</code> class, call the <code>new()</code> method:</p>
 <pre class="r"><code>mybiodb &lt;- biodb::Biodb$new()</code></pre>
-<div id="retrieving-an-entire-database-whose-entries-contain-only-atomic-values" class="section level2">
-<h2>Retrieving an entire database whose entries contain only atomic values</h2>
-<p>For this example, we will use the Lipidmaps Structure database.</p>
-<p>First, connect to the database:</p>
-<pre class="r"><code>lipids &lt;- mybiodb$getFactory()$getConn('lipidmaps.structure')</code></pre>
-<p>Then get all entry IDs:</p>
-<pre class="r"><code>entry.ids &lt;- lipids$getEntryIds()</code></pre>
-<p>Here we just get two entries, since retrieving them all would take too much time for this example:</p>
-<pre class="r"><code>entries &lt;- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = entry.ids[1:2])</code></pre>
-<p>Transform all entries into a single data frame:</p>
-<pre class="r"><code>df &lt;- mybiodb$entriesToDataframe(entries)
-print(df)</code></pre>
-<pre><code>##           synonyms    accession chebi.id   mass   formula
-## 1 Acetylenic acids LMFA00000001 10930192 626.49  C40H66O5
-## 2             &lt;NA&gt; LMFA00000002 42607281 275.17 C13H25NO5
-##                                 comp.iupac.name.syst            name
-## 1 2-methoxy-12-methyloctadec-17-en-5-ynoyl anhydride            &lt;NA&gt;
-## 2                    N-(3S-hydroxydecanoyl)-L-serine Serratamic acid</code></pre>
-<p>Export the data frame into a CSV file with R standard function:</p>
-<pre class="r"><code>write.csv(df, file = 'lipidmaps-structure.csv')</code></pre>
+<p>This is will create a <code>Biodb</code> instance and put its reference into the <code>mybiodb</code> variable. Calling <code>new()</code> without any argument configures the instance with the default values.</p>
+<div id="observers" class="section level2">
+<h2>Observers</h2>
+<p>By default, the <code>Biodb</code> instance will be configured with a console logger (instance of the class <code>BiodbLogger</code>), which will print all <em>biodb</em> messages to the console. You can disable this default logger by setting the <code>logger</code> argument to false:</p>
+<pre class="r"><code>mybiodb &lt;- biodb::Biodb$new(logger = FALSE)</code></pre>
+<p>In this case, only the normal R warnings and errors will be printed.</p>
+<div id="setting-your-own-instance-of-the-biodblogger-class" class="section level3">
+<h3>Setting your own instance of the <code>BiodbLogger</code> class</h3>
+<p>You can also set your own instance of <code>BiodbLogger</code>, using the <code>observers</code> argument:</p>
+<pre class="r"><code>mybiodb &lt;- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(verbose.level = as.integer(2)))</code></pre>
+<p>This will allow you to adjust the level of output you desire.</p>
+<p>You can also redirect the output of the logger to a file:</p>
+<pre class="r"><code>mybiodb &lt;- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(file = 'mybiodb.log'))</code></pre>
+<p>If you want both have the logger output written to the console and into a file, just define two instances of the <code>BiodbLogger</code> class:</p>
+<pre class="r"><code>mybiodb &lt;- biodb::Biodb$new(logger = FALSE, observers = list(biodb::BiodbLogger$new(), biodb::BiodbLogger$new(file = 'mybiodb2.log')))</code></pre>
+<p>See the documentation of the <code>BiodbLogger</code> class for more details.</p>
 </div>
-<div id="retrieving-part-of-a-database-whose-entries-contain-non-atomic-values" class="section level2">
-<h2>Retrieving part of a database whose entries contain non-atomic values</h2>
-<p>We will take for this example the Massbank database, since each entry contains a peaks list stored into a data frame.</p>
-<p>First, connect to the database:</p>
-<pre class="r"><code>massbank &lt;- mybiodb$getFactory()$getConn('massbank.jp')</code></pre>
-<p>Get some entry IDs, searching by M/Z value:</p>
-<pre class="r"><code>entry.ids &lt;- massbank$searchMzTol(64, mz.tol = 0.3, max.results = 2)</code></pre>
-<pre class="r"><code>mybiodb$getConfig()$disable('allow.huge.downloads')</code></pre>
-<p>Get all entries:</p>
-<pre class="r"><code>entries &lt;- mybiodb$getFactory()$getEntry('massbank.jp', id = entry.ids)</code></pre>
-<p>Transform all entries into a single data frame:</p>
-<pre class="r"><code>df &lt;- mybiodb$entriesToDataframe(entries, only.atomic = FALSE)
-print(df)</code></pre>
-<pre><code>##    accession                       msdev msdevtype mstype nbpeaks
-## 1   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 2   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 3   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 4   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 5   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 6   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 7   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 8   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 9   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 10  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 11  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 12  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 13  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 14  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 15  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 16  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 17  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 18  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 19  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 20  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 21  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 22  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 23  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 24  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 25  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 26  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 27  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 28  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 29  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-##    msprecannot                                                       inchi
-## 1       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 2       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 3       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 4       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 5       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 6       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 7       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 8       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 9       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
-## 10      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 11      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 12      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 13      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 14      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 15      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 16      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 17      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 18      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 19      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 20      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 21      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 22      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 23      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 24      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 25      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 26      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 27      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 28      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-## 29      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-##    chebi.id kegg.compound.id    casid ncbi.pubchem.subst.id formula
-## 1     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 2     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 3     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 4     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 5     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 6     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 7     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 8     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 9     30754           C00108 118-92-3              SID:3408 C7H7NO2
-## 10    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 11    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 12    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 13    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 14    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 15    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 16    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 17    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 18    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 19    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 20    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 21    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 22    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 23    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 24    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 25    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 26    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 27    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 28    30089           C00033  64-19-7              SID:3335  C2H4O2
-## 29    30089           C00033  64-19-7              SID:3335  C2H4O2
-##                 smiles      mass msmode
-## 1  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 2  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 3  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 4  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 5  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 6  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 7  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 8  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 9  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 10             CC(O)=O  60.02113    neg
-## 11             CC(O)=O  60.02113    neg
-## 12             CC(O)=O  60.02113    neg
-## 13             CC(O)=O  60.02113    neg
-## 14             CC(O)=O  60.02113    neg
-## 15             CC(O)=O  60.02113    neg
-## 16             CC(O)=O  60.02113    neg
-## 17             CC(O)=O  60.02113    neg
-## 18             CC(O)=O  60.02113    neg
-## 19             CC(O)=O  60.02113    neg
-## 20             CC(O)=O  60.02113    neg
-## 21             CC(O)=O  60.02113    neg
-## 22             CC(O)=O  60.02113    neg
-## 23             CC(O)=O  60.02113    neg
-## 24             CC(O)=O  60.02113    neg
-## 25             CC(O)=O  60.02113    neg
-## 26             CC(O)=O  60.02113    neg
-## 27             CC(O)=O  60.02113    neg
-## 28             CC(O)=O  60.02113    neg
-## 29             CC(O)=O  60.02113    neg
-##                                                           synonyms
-## 1  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 2  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 3  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 4  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 5  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 6  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 7  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 8  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 9  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
-## 10                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 11                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 12                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 13                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 14                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 15                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 16                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 17                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 18                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 19                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 20                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 21                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 22                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 23                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 24                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 25                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 26                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 27                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 28                   Glacial acetic acid;Ethanoic acid;Acetic acid
-## 29                   Glacial acetic acid;Ethanoic acid;Acetic acid
-##    msprecmz         name ms.level peak.mz peak.intensity
-## 1       136 Anthranilate        2    40.4        34653.5
-## 2       136 Anthranilate        2    50.4        84158.5
-## 3       136 Anthranilate        2    63.8        39604.0
-## 4       136 Anthranilate        2    65.0      1371288.5
-## 5       136 Anthranilate        2    66.2       207921.0
-## 6       136 Anthranilate        2    74.9       133663.5
-## 7       136 Anthranilate        2    90.2       193069.5
-## 8       136 Anthranilate        2    91.0        84158.5
-## 9       136 Anthranilate        2    92.2     19955465.5
-## 10       59      Acetate        2    32.0       113861.5
-## 11       59      Acetate        2    38.9        19802.0
-## 12       59      Acetate        2    39.9        64356.5
-## 13       59      Acetate        2    41.3       158416.0
-## 14       59      Acetate        2    41.9        99010.0
-## 15       59      Acetate        2    43.1        14851.5
-## 16       59      Acetate        2    43.8        34653.5
-## 17       59      Acetate        2    50.9        29703.0
-## 18       59      Acetate        2    52.2        69307.0
-## 19       59      Acetate        2    53.9        79208.0
-## 20       59      Acetate        2    55.1       123762.5
-## 21       59      Acetate        2    56.0       217822.0
-## 22       59      Acetate        2    56.4       292079.5
-## 23       59      Acetate        2    57.1       430693.5
-## 24       59      Acetate        2    57.9       930694.0
-## 25       59      Acetate        2    59.1      1148516.0
-## 26       59      Acetate        2    59.7       207921.0
-## 27       59      Acetate        2    60.4       108911.0
-## 28       59      Acetate        2    61.3        49505.0
-## 29       59      Acetate        2    64.2        39604.0
-##    peak.relative.intensity                    inchikey
-## 1                        2 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 2                        4 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 3                        2 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 4                       69 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 5                       10 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 6                        7 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 7                       10 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 8                        4 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 9                      999 RWZYAGGXGHYGMB-UHFFFAOYSA-N
-## 10                      99 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 11                      17 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 12                      56 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 13                     138 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 14                      86 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 15                      13 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 16                      30 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 17                      26 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 18                      60 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 19                      69 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 20                     108 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 21                     189 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 22                     254 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 23                     375 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 24                     810 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 25                     999 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 26                     181 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 27                      95 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 28                      43 QTBSBXVTEAMEQO-UHFFFAOYSA-M
-## 29                      34 QTBSBXVTEAMEQO-UHFFFAOYSA-M</code></pre>
-<p>The option <code>only.atomic</code> controls if only atomic values are put inside the data frame. If set to <code>TRUE</code>, then each entry will occupy only one line inside the data frame. If set to <code>FALSE</code> and an entry contains a non-atomic value (vector or data frame), then instead of occupying one line in the data frame it will occupy several lines, its atomic values being copied as many time as there are values inside the non-atomic value.</p>
-<p>Export the data frame into a CSV file with R standard function:</p>
-<pre class="r"><code>write.csv(df, file = 'massbank.csv')</code></pre>
+<div id="defining-your-own-observers" class="section level3">
+<h3>Defining your own observers</h3>
+<p>If you wish, you can also define your own observers that inherit from the <code>BiodbObserver</code> class, and set them through the <code>observers</code> argument.</p>
+</div>
+<div id="setting-observers-after-the-instance-has-been-created" class="section level3">
+<h3>Setting observers after the instance has been created</h3>
+<p>It is also possible to add an observer during the life of your <em>biodb</em> instance:</p>
+<pre class="r"><code>mybiodb$addObservers( list(biodb::BiodbLogger$new(), biodb::BiodbLogger$new(file = 'mybiodb3.log')))</code></pre>
+</div>
+<div id="getting-a-list-of-current-observers" class="section level3">
+<h3>Getting a list of current observers</h3>
+<p>Here is how to obtain a list of all observers currently defined:</p>
+<pre class="r"><code>mybiodb$getObservers()</code></pre>
+<pre><code>## [[1]]
+## Reference class object of class &quot;BiodbLogger&quot;
+## Field &quot;.verbose.level&quot;:
+## [1] 1
+## Field &quot;.debug.level&quot;:
+## [1] 1
+## Field &quot;.file&quot;:
+## A connection with                      
+## description &quot;stderr&quot;  
+## class       &quot;terminal&quot;
+## mode        &quot;w&quot;       
+## text        &quot;text&quot;    
+## opened      &quot;opened&quot;  
+## can read    &quot;no&quot;      
+## can write   &quot;yes&quot;     
+## 
+## [[2]]
+## Reference class object of class &quot;BiodbLogger&quot;
+## Field &quot;.verbose.level&quot;:
+## [1] 1
+## Field &quot;.debug.level&quot;:
+## [1] 1
+## Field &quot;.file&quot;:
+## A connection with                          
+## description &quot;mybiodb3.log&quot;
+## class       &quot;file&quot;        
+## mode        &quot;w&quot;           
+## text        &quot;text&quot;        
+## opened      &quot;opened&quot;      
+## can read    &quot;no&quot;          
+## can write   &quot;yes&quot;         
+## 
+## [[3]]
+## Reference class object of class &quot;BiodbLogger&quot;
+## Field &quot;.verbose.level&quot;:
+## [1] 1
+## Field &quot;.debug.level&quot;:
+## [1] 1
+## Field &quot;.file&quot;:
+## A connection with                      
+## description &quot;stderr&quot;  
+## class       &quot;terminal&quot;
+## mode        &quot;w&quot;       
+## text        &quot;text&quot;    
+## opened      &quot;opened&quot;  
+## can read    &quot;no&quot;      
+## can write   &quot;yes&quot;     
+## 
+## [[4]]
+## Reference class object of class &quot;BiodbLogger&quot;
+## Field &quot;.verbose.level&quot;:
+## [1] 1
+## Field &quot;.debug.level&quot;:
+## [1] 1
+## Field &quot;.file&quot;:
+## A connection with                          
+## description &quot;mybiodb2.log&quot;
+## class       &quot;file&quot;        
+## mode        &quot;w&quot;           
+## text        &quot;text&quot;        
+## opened      &quot;opened&quot;      
+## can read    &quot;no&quot;          
+## can write   &quot;yes&quot;         
+## 
+## [[5]]
+## Reference class object of class &quot;WarningReporter&quot;
+## 
+## [[6]]
+## Reference class object of class &quot;ErrorReporter&quot;</code></pre>
+</div>
+</div>
+<div id="the-singleton-classes" class="section level2">
+<h2>The singleton classes</h2>
+<p>Several singleton classes are defined in <em>biodb</em>. Their instances are all accessible from the <code>Biodb</code> instance you’ve created.</p>
+<p>To get the factory instance:</p>
+<pre class="r"><code>factory &lt;- mybiodb$getFactory()</code></pre>
+<p>To get the configuration instance:</p>
+<pre class="r"><code>config &lt;- mybiodb$getConfig()</code></pre>
+<p>To get the cache system instance:</p>
+<pre class="r"><code>cache &lt;- mybiodb$getCache()</code></pre>
+<p>To get the database information instance:</p>
+<pre class="r"><code>dbsinfo &lt;- mybiodb$getDbsInfo()</code></pre>
+<p>To get the entry fields instance:</p>
+<pre class="r"><code>entry.fields &lt;- mybiodb$getEntryFields()</code></pre>
 </div>
 </div>
 

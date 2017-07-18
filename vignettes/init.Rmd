@@ -1,0 +1,90 @@
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Initializing biodb}
+-->
+
+# Initializing biodb
+
+First of all, before using *biodb*, you need to create an instance of the main class `Biodb`. This is done by calling the constructor of the class through the `new()` method. The OOP (Object Oriented Programming) system used in the *biodb* package is the **R5** system also called **Reference Classes**. In this system, the created objects are not copied, but their reference are copied. This means than when you pass an instance to a function, that function is able to modify the instance.
+
+To create an instance of the `Biodb` class, call the `new()` method:
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+This is will create a `Biodb` instance and put its reference into the `mybiodb` variable. Calling `new()` without any argument configures the instance with the default values.
+
+## Observers
+
+By default, the `Biodb` instance will be configured with a console logger (instance of the class `BiodbLogger`), which will print all *biodb* messages to the console.
+You can disable this default logger by setting the `logger` argument to false:
+```{r}
+mybiodb <- biodb::Biodb$new(logger = FALSE)
+```
+In this case, only the normal R warnings and errors will be printed.
+
+### Setting your own instance of the `BiodbLogger` class
+
+You can also set your own instance of `BiodbLogger`, using the `observers` argument:
+```{r}
+mybiodb <- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(verbose.level = as.integer(2)))
+```
+This will allow you to adjust the level of output you desire.
+
+You can also redirect the output of the logger to a file:
+```{r}
+mybiodb <- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(file = 'mybiodb.log'))
+```
+
+If you want both have the logger output written to the console and into a file, just define two instances of the `BiodbLogger` class:
+```{r}
+mybiodb <- biodb::Biodb$new(logger = FALSE, observers = list(biodb::BiodbLogger$new(), biodb::BiodbLogger$new(file = 'mybiodb2.log')))
+```
+
+See the documentation of the `BiodbLogger` class for more details.
+
+### Defining your own observers
+
+If you wish, you can also define your own observers that inherit from the `BiodbObserver` class, and set them through the `observers` argument.
+
+### Setting observers after the instance has been created
+
+It is also possible to add an observer during the life of your *biodb* instance:
+```{r}
+mybiodb$addObservers( list(biodb::BiodbLogger$new(), biodb::BiodbLogger$new(file = 'mybiodb3.log')))
+```
+
+### Getting a list of current observers
+
+Here is how to obtain a list of all observers currently defined:
+```{r}
+mybiodb$getObservers()
+```
+
+## The singleton classes
+
+Several singleton classes are defined in *biodb*. Their instances are all accessible from the `Biodb` instance you've created.
+
+To get the factory instance:
+```{r}
+factory <- mybiodb$getFactory()
+```
+
+To get the configuration instance:
+```{r}
+config <- mybiodb$getConfig()
+```
+
+To get the cache system instance:
+```{r}
+cache <- mybiodb$getCache()
+```
+
+To get the database information instance:
+```{r}
+dbsinfo <- mybiodb$getDbsInfo()
+```
+
+To get the entry fields instance:
+```{r}
+entry.fields <- mybiodb$getEntryFields()
+```

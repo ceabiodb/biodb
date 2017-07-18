@@ -52,14 +52,14 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 # Define {{{1
 ################################################################
 
-BiodbDbsInfo$methods( .define = function(name, base.url = NA_character_, ...) {
+BiodbDbsInfo$methods( .define = function(name, ...) {
 
 	# Is this database already defined?
 	if (name %in% names(.self$.dbs))
 		.self$message(MSG.ERROR, paste("Database \"", name, "\" has already been defined.", sep = ''))
 
 	# Define new field
-	.self$.dbs[[name]] <- BiodbDbInfo$new(parent = .self, name = name, base.url = base.url, ...)
+	.self$.dbs[[name]] <- BiodbDbInfo$new(parent = .self, name = name, ...)
 })
 
 # Get list of database IDs
