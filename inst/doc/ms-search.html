@@ -136,10 +136,11 @@ $(document).ready(function () {
 <p>You can request a list of M/Z values from MS databases. Depending on the database, the list of M/Z values will be more or less exhaustive.</p>
 <p>Getting a list of M/Z values:</p>
 <pre class="r"><code>conn$getMzValues(max.results = 10)</code></pre>
-<pre><code>##  [1] &quot;108.0457&quot; &quot;109.0483&quot; &quot;110.0609&quot; &quot;120.0562&quot; &quot;130.0172&quot; &quot;132.0138&quot;
-##  [7] &quot;156.0118&quot; &quot;157.015&quot;  &quot;158.008&quot;  &quot;174.0228&quot;</code></pre>
+<pre><code>##  [1] 53.0389 54.0333 55.0178 60.0552 65.0382 66.0423 68.0490 78.0333
+##  [9] 79.0177 92.0498</code></pre>
 <p>You can restrict to a certain MS mode, ask for the peak to be a precursor peak, or even ask for an MS level:</p>
 <pre class="r"><code>conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'pos')</code></pre>
+<pre><code>## Warning: closing unused connection 5 (mybiodb.log)</code></pre>
 <pre><code>##  [1] 285.0208 279.0910 311.0809 251.0597 215.0597 268.0750 281.0703
 ##  [8] 265.0754 271.0318 254.0594</code></pre>
 </div>
@@ -156,14 +157,15 @@ spectrum &lt;- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
 # Search for match:
 conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)</code></pre>
 <pre><code>## $measure
-##  [1] 0 0 0 0 0 0 0 0 0 0
+##  [1] 0.9261208 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+##  [8] 0.0000000 0.0000000 0.0000000
 ## 
 ## $matchedpeaks
 ## $matchedpeaks[[1]]
-## [1] -1 -1
+## [1] 9 7
 ## 
 ## $matchedpeaks[[2]]
-## [1] -1 -1
+## [1]  7 -1
 ## 
 ## $matchedpeaks[[3]]
 ## [1] -1 -1
@@ -172,7 +174,7 @@ conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)</code></pre>
 ## [1] -1 -1
 ## 
 ## $matchedpeaks[[5]]
-## [1] -1 -1
+## [1] -1 12
 ## 
 ## $matchedpeaks[[6]]
 ## [1] -1 -1

@@ -132,10 +132,10 @@ $(document).ready(function () {
 <pre class="r"><code>mybiodb$getDbsInfo()$getIds()</code></pre>
 <pre><code>##  [1] &quot;chebi&quot;               &quot;chemspider&quot;          &quot;expasy.enzyme&quot;      
 ##  [4] &quot;hmdb.metabolite&quot;     &quot;kegg.compound&quot;       &quot;lipidmaps.structure&quot;
-##  [7] &quot;mass.csv.file&quot;       &quot;massbank.eu&quot;         &quot;massbank.jp&quot;        
-## [10] &quot;mirbase.mature&quot;      &quot;ncbi.ccds&quot;           &quot;ncbi.gene&quot;          
-## [13] &quot;ncbi.pubchem.comp&quot;   &quot;ncbi.pubchem.subst&quot;  &quot;peakforest.mass&quot;    
-## [16] &quot;peakforest.compound&quot; &quot;uniprot&quot;</code></pre>
+##  [7] &quot;mass.csv.file&quot;       &quot;massbank.jp&quot;         &quot;mirbase.mature&quot;     
+## [10] &quot;ncbi.ccds&quot;           &quot;ncbi.gene&quot;           &quot;ncbi.pubchem.comp&quot;  
+## [13] &quot;ncbi.pubchem.subst&quot;  &quot;peakforest.mass&quot;     &quot;peakforest.compound&quot;
+## [16] &quot;uniprot&quot;</code></pre>
 <p>To obtain an entry from a database you have to call the <code>getEntry()</code> method from the <code>BiodbFactory</code> class. The following example access the ChEBI database in order to retrieve the entry number 2528:</p>
 <pre class="r"><code>entry &lt;- mybiodb$getFactory()$getEntry('chebi', id = '2528')</code></pre>
 <p>From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:</p>
