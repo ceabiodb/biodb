@@ -67,5 +67,5 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	# Parse compound IDs
 	if ('listOfCompounds' %in% names(parsed.content))
 		for (c in parsed.content$listOfCompounds)
-			.self$appendFieldValue(BIODB.PEAKFOREST.COMPOUND.ID, c$id)
+			.self$appendFieldValue('peakforest.compound.id', c$id)
 })

@@ -99,7 +99,7 @@ RemotedbConn$methods( getEntryContentUrl = function(entry.id, concatenate = TRUE
 #			if (length(full.url) != length(ids))
 #				.self$message(MSG.ERROR, paste(".doGetEntryContentUrl() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
 			
-			rls <- full.url
+			urls <- full.url
 		}
 
 		else if (max.length == 0 || nchar(full.url) <= max.length) {

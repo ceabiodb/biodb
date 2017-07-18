@@ -97,8 +97,10 @@ test.entry.ids <- function(db) {
 	# Test getEntryIds()
 	max <- 100
 	ids <- db$getEntryIds(max.results = max)
-	expect_true(is.character(ids))
-	n <- length(ids)
-	expect_true(n >= 0 && n <= max)
+	if ( ! is.null(ids)) {
+		expect_true(is.character(ids))
+		n <- length(ids)
+		expect_true(n >= 0 && n <= max)
+	}
 }
 

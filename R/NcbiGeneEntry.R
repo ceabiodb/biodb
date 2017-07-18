@@ -15,7 +15,7 @@ NcbiGeneEntry$methods( initialize = function(...) {
 	callSuper(...)
 
 	.self$addParsingExpression(BIODB.ACCESSION, "//Gene-track_geneid")
-	.self$addParsingExpression(BIODB.UNIPROT.ID, "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str")
+	.self$addParsingExpression('uniprot.id', "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str")
 	.self$addParsingExpression(BIODB.LOCATION, "//Gene-ref_maploc")
 	.self$addParsingExpression(BIODB.PROTEIN.DESCRIPTION, "//Gene-ref_desc")
 	.self$addParsingExpression(BIODB.SYMBOL, "//Gene-ref_locus")
@@ -37,7 +37,7 @@ NcbiGeneEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	# CCDS ID
 	ccdsid <- .self$.find.ccds.id(parsed.content)
 	if ( ! is.na(ccdsid))
-		.self$setFieldValue(BIODB.NCBI.CCDS.ID, ccdsid)
+		.self$setFieldValue('ncbi.ccds.id', ccdsid)
 })
 
 # Find ccds id {{{1

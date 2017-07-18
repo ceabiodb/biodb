@@ -62,7 +62,7 @@ BiodbDbsInfo$methods( .define = function(name, ...) {
 	.self$.dbs[[name]] <- BiodbDbInfo$new(parent = .self, name = name, ...)
 })
 
-# Get list of database IDs
+# Get list of database IDs {{{1
 ################################################################
 
 BiodbDbsInfo$methods( getIds = function() {
@@ -91,4 +91,11 @@ BiodbDbsInfo$methods( get = function(name) {
 	.self$checkIsDefined(name)
 	db <- .self$.dbs[[name]]
 	return(db)
+})
+
+# Get all {{{1
+################################################################
+
+BiodbDbsInfo$methods( getAll = function() {
+	return(unname(.self$.dbs))
 })

@@ -33,12 +33,13 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 	while ( ! done) {
 
 		done <- TRUE
+			.self$message(MSG.INFO, 'ZAP')
 
 		# Initialize return values
 		content <- rep(NA_character_, length(entry.id))
 
 		# Get request URLs
-		urls <- .self$getEntryContentUrl(ids, concatenate = concatenate, max.length = URL.MAX.LENGTH)
+		urls <- .self$getEntryContentUrl(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
 
 		# Loop on all URLs
 		for (url in urls) {
@@ -62,7 +63,7 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 				xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
 				ns <- c(csns = "http://www.chemspider.com/")
 				returned.ids <- XML::xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", XML::xmlValue, namespaces = ns)
-				content[match(returned.ids, ids)] <- vapply(XML::getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), XML::saveXML, FUN.VALUE = '')
+				content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), XML::saveXML, FUN.VALUE = '')
 			}
 		}
 	}

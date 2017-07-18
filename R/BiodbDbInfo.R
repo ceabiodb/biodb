@@ -74,6 +74,15 @@ BiodbDbInfo$methods( getEntryClassName = function() {
 	return(entry.class.name)
 })
 
+# Get entry ID field {{{1
+################################################################
+
+BiodbDbInfo$methods( getEntryIdField = function() {
+	":\n\nReturn the name of the corresponding database ID field in entries."
+	
+	return(paste(.self$.name, 'id', sep = '.'))
+})
+
 # Get entry class {{{1
 ################################################################
 

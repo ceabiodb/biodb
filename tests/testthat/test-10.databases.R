@@ -28,7 +28,6 @@ for (mode in TEST.MODES) {
 		test_that("Wrong entry gives NULL", test.wrong.entry(biodb, db.name))
 		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(biodb, db.name))
 		test_that("Entry fields have a correct value", test.entry.fields(biodb, db.name))
-		test_that("The peak table is correct.", test.peak.table(biodb, db.name))
 
 		# Get instance
 		db <- biodb$getFactory()$getConn(db.name)
@@ -48,6 +47,7 @@ for (mode in TEST.MODES) {
 				test_that("We can match M/Z peaks", test.searchMzTol(db))
 				test_that("Search by precursor returns at least one match", test.searchMzTol.with.precursor(biodb, db.name))
 				test_that("MSMS search returns at least one match", test.msmsSearch(biodb, db.name))
+				test_that("The peak table is correct.", test.peak.table(biodb, db.name))
 
 				if (db.name == BIODB.MASS.CSV.FILE) {
 					test_that("MassCsvFileConn methods are correct", test.basic.mass.csv.file(biodb))

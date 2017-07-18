@@ -17,7 +17,7 @@ ChebiEntry$methods( initialize = function(...) {
 	.self$addParsingExpression(BIODB.SMILES, "//chebi:return/chebi:smiles")
 	.self$addParsingExpression(BIODB.INCHI, "//chebi:return/chebi:inchi")
 	.self$addParsingExpression(BIODB.INCHIKEY, "//chebi:return/chebi:inchiKey")
-	.self$addParsingExpression(BIODB.KEGG.COMPOUND.ID, "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data")
+	.self$addParsingExpression('kegg.compound.id', "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data")
 	.self$addParsingExpression(BIODB.MASS, "//chebi:mass")
 	.self$addParsingExpression(BIODB.MONOISOTOPIC.MASS, "//chebi:monoisotopicMass")
 	.self$addParsingExpression(BIODB.CHARGE, "//chebi:charge")

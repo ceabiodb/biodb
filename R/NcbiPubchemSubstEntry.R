@@ -14,5 +14,5 @@ NcbiPubchemSubstEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 	.self$addParsingExpression(BIODB.ACCESSION, "//PC-ID_id")
-	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.COMP.ID, "//PC-CompoundType_id_cid")
+	.self$addParsingExpression('ncbi.pubchem.comp.id', "//PC-CompoundType_id_cid")
 })
