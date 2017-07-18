@@ -15,10 +15,10 @@ PeakforestCompoundEntry$methods( initialize = function(...) {
 	callSuper(...)
 
 	.self$addParsingExpression(BIODB.ACCESSION, "id")
-	.self$addParsingExpression(BIODB.NCBI.PUBCHEM.COMP.ID, "PubChemCID")
-	.self$addParsingExpression(BIODB.CHEBI.ID, "ChEBI")
-	.self$addParsingExpression(BIODB.HMDB.METABOLITE.ID, "HMDB")
-	.self$addParsingExpression(BIODB.KEGG.COMPOUND.ID, "KEGG")
+	.self$addParsingExpression('ncbi.pubchem.comp.id', "PubChemCID")
+	.self$addParsingExpression('chebi.id', "ChEBI")
+	.self$addParsingExpression('hmdb.metabolite.id', "HMDB")
+	.self$addParsingExpression('kegg.compound.id', "KEGG")
 	.self$addParsingExpression(BIODB.FORMULA, "formula")
 	.self$addParsingExpression(BIODB.SMILES, "canSmiles")
 	.self$addParsingExpression(BIODB.AVERAGE.MASS, "averageMass")
@@ -34,19 +34,19 @@ PeakforestCompoundEntry$methods( initialize = function(...) {
 PeakforestCompoundEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# HMDB null
-	if (.self$hasField(BIODB.HMDB.METABOLITE.ID)) {
-		v <- .self$getFieldValue(BIODB.HMDB.METABOLITE.ID)
+	if (.self$hasField('hmdb.metabolite.id')) {
+		v <- .self$getFieldValue('hmdb.metabolite.id')
 		v <- v[v != 'HMDBnull']
 		if (length(v) > 0)
-			.self$setFieldValue(BIODB.HMDB.METABOLITE.ID, v)
+			.self$setFieldValue('hmdb.metabolite.id', v)
 		else
-			.self$removeField(BIODB.HMDB.METABOLITE.ID)
+			.self$removeField('hmdb.metabolite.id')
 	}
 
 	# ChEBI IDs
-	if (.self$hasField(BIODB.CHEBI.ID)) {
-		v <- .self$getFieldValue(BIODB.CHEBI.ID)
+	if (.self$hasField('chebi.id')) {
+		v <- .self$getFieldValue('chebi.id')
 		v <- sub('^CHEBI:', '', v)
-		.self$setFieldValue(BIODB.CHEBI.ID, v)
+		.self$setFieldValue('chebi.id', v)
 	}
 })

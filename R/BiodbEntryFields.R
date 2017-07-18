@@ -57,19 +57,10 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define(BIODB.COMPOUNDS,     class = 'object',   card = BIODB.CARD.MANY)
 	.self$.define(BIODB.COMPOUND.ID)
 
-	.self$.define(BIODB.CHEBI.ID)
-	.self$.define(BIODB.CHEMSPIDER.ID)
-	.self$.define(BIODB.EXPASY.ENZYME.ID)
-	.self$.define(BIODB.HMDB.METABOLITE.ID)
-	.self$.define(BIODB.KEGG.COMPOUND.ID)
-	.self$.define(BIODB.LIPIDMAPS.STRUCTURE.ID)
-	.self$.define(BIODB.NCBI.CCDS.ID)
-	.self$.define(BIODB.NCBI.GENE.ID)
-	.self$.define(BIODB.NCBI.PUBCHEM.COMP.ID,           card = BIODB.CARD.MANY)
-	.self$.define(BIODB.NCBI.PUBCHEM.SUBST.ID)
-	.self$.define(BIODB.PEAKFOREST.MASS.ID)
-	.self$.define(BIODB.PEAKFOREST.COMPOUND.ID, card = BIODB.CARD.MANY)
-	.self$.define(BIODB.UNIPROT.ID)
+	# Define database ID fields
+	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
+		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY)
+
 	.self$.define(BIODB.INCHI)
 	.self$.define(BIODB.INCHIKEY)
 

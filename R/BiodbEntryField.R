@@ -15,7 +15,10 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 
 #' A class for describing an entry field.
 #'
-#' This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used.
+#' This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
+#'
+#' @field name  The name of the field.
+#' @field db.id Set to \code{TRUE} if the field is a database ID.
 #'
 #' @seealso \code{\link{BiodbEntryFields}}.
 #'
@@ -29,12 +32,12 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical', .db.id = 'logical'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, ...) {
+BiodbEntryField$methods( initialize = function(name, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, db.id = FALSE, ...) {
 
 	callSuper(...)
 
@@ -55,6 +58,7 @@ BiodbEntryField$methods( initialize = function(name, class = 'character', card =
 
 	# Set other fields
 	.allow.duplicates <<- allow.duplicates
+	.db.id <<- db.id
 })
 
 # Has card one {{{1

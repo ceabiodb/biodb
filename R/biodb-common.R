@@ -20,9 +20,6 @@ for (db in BIODB.DATABASES) {
 
 	# Create constant for database name
 	assign(toupper(paste('biodb', db, sep = '.')), db)
-
-	# Create constant for database ID
-	assign(toupper(paste('biodb', db, 'id', sep = '.')), paste(db, 'id', sep = '.'))
 }
 
 ##########
