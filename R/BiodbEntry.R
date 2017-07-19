@@ -29,7 +29,8 @@ BiodbEntry$methods( initialize = function(...) {
 
 BiodbEntry$methods(	setFieldValue = function(field, value) {
 
-	field.def = .self$getBiodb()$getEntryFields()$get(field)
+	field.def <- .self$getBiodb()$getEntryFields()$get(field)
+	field <- field.def$getName()
 
 	# Remove duplicates
 	if ( ! field.def$allowsDuplicates() && is.vector(value))
@@ -105,11 +106,9 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 	val <- NULL
 	field <- tolower(field)
 
-	# Check field
-	.self$getBiodb()$getEntryFields()$checkIsDefined(field)
-
 	# Get field definition
 	field.def <- .self$getBiodb()$getEntryFields()$get(field)
+	field <- field.def$getName()
 
 	# Compute field value
 	if (compute && ! .self$hasField(field))

@@ -34,7 +34,7 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 				peaks[['peak.mz']] <- peaks[[mz.col]]
 
 	# Set peaks table in field
-	.self$setFieldValue(BIODB.PEAKS, peaks)
+	.self$setFieldValue('peaks', peaks)
 
 	# Set precursor
 	if ('peak.attr' %in% colnames(peaks)) {

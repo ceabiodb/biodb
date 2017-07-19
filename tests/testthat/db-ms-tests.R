@@ -100,10 +100,10 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 			expect_false(is.null(peaks))
 			expect_true(is.data.frame(peaks))
 			expect_gt(nrow(peaks), 0)
-			expect_true('PEAK.MZ' %in% colnames(peaks))
+			expect_true('peak.mz' %in% colnames(peaks))
 
 			# Check that precursor peak was matched
-			expect_true(any(abs(mz - peaks[['PEAK.MZ']] < mz * tol.ppm * 1e-6)))
+			expect_true(any(abs(mz - peaks[['peak.mz']] < mz * tol.ppm * 1e-6)))
 			expect_true(entry$hasField('MSPRECMZ'))
 			expect_true(abs(entry$getFieldValue('MSPRECMZ') - mz) < mz * tol.ppm * 1e-6)
 		}
@@ -123,10 +123,10 @@ test.basic.mass.csv.file <- function(biodb) {
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
-	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compoundid', 'msmode', 'chromcol', 'chromcolrt')])))
+	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compound.id', 'ms.mode', 'chrom.col', 'chrom.col.rt')])))
 
 	# Get a compound ID
-	compound.id <- df[df[['ms.level']] == 1, 'compoundid'][[1]]
+	compound.id <- df[df[['ms.level']] == 1, 'compound.id'][[1]]
 
 	# Test number of peaks
 	expect_gt(db$getNbPeaks(), 1)
@@ -185,7 +185,7 @@ test.peak.table <- function(biodb, db.name) {
 	entries.desc <- load.ref.entries(db.name)
 
 	# Create entries
-	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['ACCESSION']], drop = FALSE)
+	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['accession']], drop = FALSE)
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 

@@ -21,7 +21,7 @@
 #' @include BiodbEntryField.R
 #' @export BiodbEntryFields
 #' @exportClass BiodbEntryFields
-BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list" ))
+BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list", .aliasToName = "character" ))
 
 # Constructor {{{1
 ################################################################
@@ -31,6 +31,7 @@ BiodbEntryFields$methods( initialize = function(...) {
 	callSuper(...)
 
 	.fields <<- list()
+	.aliasToName <<- character(0)
 
 	.self$.initFields()
 })
@@ -68,7 +69,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('ms.level', class = 'integer')
 	.self$.define('msdevtype')
 	.self$.define('mstype')
-	.self$.define('msmode')
+	.self$.define('ms.mode', alias = 'msmode')
 	.self$.define('msprecmz',     class =  'double',    card = BIODB.CARD.MANY)
 	.self$.define('msprecannot')
 	.self$.define('formula')
@@ -123,14 +124,29 @@ BiodbEntryFields$methods( .define = function(name, ...) {
 		.self$message(MSG.ERROR, paste("Field \"", name, "\" has already been defined.", sep = ''))
 
 	# Define new field
-	.self$.fields[[name]] <- BiodbEntryField$new(parent = .self, name = name, ...)
+	field <- BiodbEntryField$new(parent = .self, name = name, ...)
+
+	# Store inside fields list
+	.self$.fields[[name]] <- field
+
+	# Define aliases
+	if (field$hasAliases())
+		for (alias in field$getAliases())
+			.self$.aliasToName[[alias]] <- name
+})
+
+# Is alias {{{1
+################################################################
+
+BiodbEntryFields$methods( isAlias = function(name) {
+	return(tolower(name) %in% names(.self$.aliasToName))
 })
 
 # Is defined {{{1
 ################################################################
 
 BiodbEntryFields$methods( isDefined = function(name) {
-	return(tolower(name) %in% names(.self$.fields))
+	return(tolower(name) %in% names(.self$.fields) || .self$isAlias(name))
 })
 
 # Check is defined {{{1
@@ -141,11 +157,25 @@ BiodbEntryFields$methods( checkIsDefined = function(name) {
 		.self$message(MSG.ERROR, paste("Field \"", name, "\" is not defined.", sep = ''))
 })
 
+# Get real name {{{1
+################################################################
+
+BiodbEntryFields$methods( getRealName = function(name) {
+	":\n\nIf name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown."
+
+	.self$checkIsDefined(name)
+
+	if ( ! tolower(name) %in% names(.self$.fields))
+		name <- .self$.aliasToName[[tolower(name)]]
+
+	return(name)
+})
+
 # Get {{{1
 ################################################################
 
 BiodbEntryFields$methods( get = function(name) {
-	.self$checkIsDefined(name)
+	name <- .self$getRealName(name)
 	field <- .self$.fields[[tolower(name)]]
 	return(field)
 })

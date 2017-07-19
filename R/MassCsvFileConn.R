@@ -10,7 +10,7 @@
 ################################################################
 
 # Default database fields
-.BIODB.DFT.DB.FIELDS <- c('accession', 'name', 'fullnames', 'compound.id', 'ms.level', 'msmode', 'peak.mzexp', 'peak.mztheo', 'peak.relative.intensity', 'peak.comp', 'peak.attr', 'chrom.col', 'chrom.col.rt', 'formula', 'mass', 'inchi', 'inchikey', 'chebi.id', 'hmdb.metabolite.id', 'kegg.compound.id', 'ncbi.pubchem.comp.id')
+.BIODB.DFT.DB.FIELDS <- c('accession', 'name', 'fullnames', 'compound.id', 'ms.level', 'ms.mode', 'peak.mzexp', 'peak.mztheo', 'peak.relative.intensity', 'peak.comp', 'peak.attr', 'chrom.col', 'chrom.col.rt', 'formula', 'mass', 'inchi', 'inchikey', 'chebi.id', 'hmdb.metabolite.id', 'kegg.compound.id', 'ncbi.pubchem.comp.id')
 names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
 
 # Class declaration {{{1
@@ -88,9 +88,11 @@ MassCsvFileConn$methods( setField = function(tag, colname) {
 	if (length(colname) == 1)
 		.self$.fields[[tag]] <- colname
 	else {
-		new.col <- paste(colname, collapse = ".")
-		.self$.db[[new.col]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
-		.self$.fields[[tag]] <- new.col
+		#new.col <- paste(colname, collapse = ".")
+		if (tag %in% names(.self$.db))
+			.self$message(MSG.ERROR, paste("Column \"", tag, "\" already exist in database file.", sep = ''))
+		.self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
+		.self$.fields[[tag]] <- tag
 	}
 
 	# Update data frame column names
@@ -155,10 +157,10 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 
 		# Check mode value
 		mode %in% names(.self$.ms.modes) || .self$message(MSG.ERROR, paste0("Unknown mode value '", mode, "'."))
-		.self$.check.fields('msmode')
+		.self$.check.fields('ms.mode')
 
 		# Filter on mode
-		db <- db[db[[.self$.fields[['msmode']]]] %in% .self$.ms.modes[[mode]], ]
+		db <- db[db[[.self$.fields[['ms.mode']]]] %in% .self$.ms.modes[[mode]], ]
 	}
 
 	# Filter db on ids

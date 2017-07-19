@@ -61,10 +61,14 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, clas
 		.self$message(MSG.CAUTION, paste("Missing description for entry field \"", name, "\".", sep = ''))
 	.description <<- description
 
+	# Set alias
+	if (length(alias) > 1 && any(is.na(alias)))
+		.self$message(MSG.ERROR, paste("One of the aliases of entry field \"", name, "\" is NA.", sep = ''))
+	.alias <<- alias
+
 	# Set other fields
 	.allow.duplicates <<- allow.duplicates
 	.db.id <<- db.id
-	.alias <<- alias
 })
 
 # Get name {{{1
@@ -83,6 +87,29 @@ BiodbEntryField$methods( getDescription = function() {
 	":\n\n Get field's description."
 
 	return(.self$.description)
+})
+
+# Has aliases {{{1
+################################################################
+
+BiodbEntryField$methods( hasAliases = function() {
+	":\n\n Returns TRUE if this entry field defines aliases."
+
+	return( ! any(is.na(.self$.alias)))
+})
+
+# Get aliases {{{1
+################################################################
+
+BiodbEntryField$methods( getAliases = function() {
+	":\n\n Returns the list of aliases if some are defined, otherwise returns NULL."
+
+	aliases <- NULL
+
+	if (.self$hasAliases())
+		aliases <- .self$.alias
+	
+	return(aliases)
 })
 
 # Has card one {{{1
