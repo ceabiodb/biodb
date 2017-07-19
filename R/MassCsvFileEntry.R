@@ -28,31 +28,31 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	peaks <- parsed.content[, colnames(parsed.content) %in% BIODB.PEAK.FIELDS]
 
 	# Add MZ column if missing
-	if ( ! BIODB.PEAK.MZ %in% colnames(peaks))
-		for (mz.col in c(BIODB.PEAK.MZTHEO, BIODB.PEAK.MZEXP))
+	if ( ! 'peak.mz' %in% colnames(peaks))
+		for (mz.col in c('peak.mztheo', 'peak.mzexp'))
 			if (mz.col %in% colnames(peaks))
-				peaks[[BIODB.PEAK.MZ]] <- peaks[[mz.col]]
+				peaks[['peak.mz']] <- peaks[[mz.col]]
 
 	# Set peaks table in field
 	.self$setFieldValue(BIODB.PEAKS, peaks)
 
 	# Set precursor
-	if (BIODB.PEAK.ATTR %in% colnames(peaks)) {
+	if ('peak.attr' %in% colnames(peaks)) {
 		precursors.attr <- .self$getParent()$.precursors
-		precursors <- peaks[[BIODB.PEAK.ATTR]] %in% precursors.attr
+		precursors <- peaks[['peak.attr']] %in% precursors.attr
 		if (sum(precursors) == 1)
-			.self$setFieldValue(BIODB.MSPRECMZ, peaks[precursors, BIODB.PEAK.MZ])
+			.self$setFieldValue('msprecmz', peaks[precursors, 'peak.mz'])
 		else if (sum(precursors) > 1) {
-			.self$message(MSG.CAUTION, paste("Found more than one precursor inside entry ", .self$getFieldValue(BIODB.ACCESSION, compute = FALSE), ': ', paste(peaks[precursors, BIODB.PEAK.ATTR], collapse = ", "), ". Trying to take the one with highest intensity.", sep = ''))
+			.self$message(MSG.CAUTION, paste("Found more than one precursor inside entry ", .self$getFieldValue('accession', compute = FALSE), ': ', paste(peaks[precursors, 'peak.attr'], collapse = ", "), ". Trying to take the one with highest intensity.", sep = ''))
 			strongest.precursor.mz <- NULL
-			for (int.col in c(BIODB.PEAK.INTENSITY, BIODB.PEAK.RELATIVE.INTENSITY))
+			for (int.col in c('peak.intensity', 'peak.relative.intensity'))
 				if (int.col %in% colnames(peaks))
-					strongest.precursor.mz <- peaks[precursors, BIODB.PEAK.MZ][[which(order(peaks[precursors, int.col], decreasing = TRUE) == 1)]]
+					strongest.precursor.mz <- peaks[precursors, 'peak.mz'][[which(order(peaks[precursors, int.col], decreasing = TRUE) == 1)]]
 			if (is.null(strongest.precursor.mz))
 				.self$message(MSG.CAUTION, 'No intensity information found for choosing the strongest precursor.')
 			else {
 				.self$message(MSG.INFO, paste('Found strongest precursor:', strongest.precursor.mz, '.'))
-				.self$setFieldValue(BIODB.MSPRECMZ, strongest.precursor.mz)
+				.self$setFieldValue('msprecmz', strongest.precursor.mz)
 			}
 		}
 	}

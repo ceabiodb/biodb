@@ -20,7 +20,7 @@ test.msmsSearch <- function(biodb, db.name) {
 		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
 
 		# Get peaks
-		peaks <- spectrum.entry$getFieldValue(BIODB.PEAKS)
+		peaks <- spectrum.entry$getFieldValue('PEAKS')
 
 		# Run MSMS search
 		result <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, npmin = 2, dist.fun = 'pbachtttarya', msms.mz.tol = 3, msms.mz.tol.min = 0.005)
@@ -94,18 +94,18 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 		for (spectra.id in spectra.ids) {
 			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
 			expect_false(is.null(entry))
-			expect_false(is.na(entry$getFieldValue(BIODB.MS.LEVEL)))
-			expect_equal(entry$getFieldValue(BIODB.MS.LEVEL), ms.level)
-			peaks <- entry$getFieldValue(BIODB.PEAKS)
+			expect_false(is.na(entry$getFieldValue('MS.LEVEL')))
+			expect_equal(entry$getFieldValue('MS.LEVEL'), ms.level)
+			peaks <- entry$getFieldValue('PEAKS')
 			expect_false(is.null(peaks))
 			expect_true(is.data.frame(peaks))
 			expect_gt(nrow(peaks), 0)
-			expect_true(BIODB.PEAK.MZ %in% colnames(peaks))
+			expect_true('PEAK.MZ' %in% colnames(peaks))
 
 			# Check that precursor peak was matched
-			expect_true(any(abs(mz - peaks[[BIODB.PEAK.MZ]] < mz * tol.ppm * 1e-6)))
-			expect_true(entry$hasField(BIODB.MSPRECMZ))
-			expect_true(abs(entry$getFieldValue(BIODB.MSPRECMZ) - mz) < mz * tol.ppm * 1e-6)
+			expect_true(any(abs(mz - peaks[['PEAK.MZ']] < mz * tol.ppm * 1e-6)))
+			expect_true(entry$hasField('MSPRECMZ'))
+			expect_true(abs(entry$getFieldValue('MSPRECMZ') - mz) < mz * tol.ppm * 1e-6)
 		}
 	}
 }
@@ -139,7 +139,7 @@ test.basic.mass.csv.file <- function(biodb) {
 	expect_gt(nrow(db$getChromCol()), 1)
 	expect_gt(nrow(db$getChromCol(compound.ids = compound.id)), 1)
 	expect_lte(nrow(db$getChromCol(compound.ids = compound.id)), nrow(db$getChromCol()))
-	expect_true(all(db$getChromCol(compound.ids = compound.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
+	expect_true(all(db$getChromCol(compound.ids = compound.id)[['id']] %in% db$getChromCol()[['id']]))
 
 	# Test mz values
 	expect_true(is.vector(db$getMzValues()))
@@ -185,7 +185,7 @@ test.peak.table <- function(biodb, db.name) {
 	entries.desc <- load.ref.entries(db.name)
 
 	# Create entries
-	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['ACCESSION']], drop = FALSE)
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 

@@ -10,7 +10,7 @@ simplifySpectrum <- function(spec) {
 
 	# Get mz vals
 	mz.vals <- NULL
-	for (mzcol in c('mz', BIODB.PEAK.MZ, BIODB.PEAK.MZTHEO, BIODB.PEAK.MZEXP))
+	for (mzcol in c('mz', 'peak.mz', 'peak.mztheo', 'peak.mzexp'))
 		if (mzcol %in% colnames(spec)) {
 			mz.vals <- spec[, mzcol]
 			break
@@ -19,13 +19,13 @@ simplifySpectrum <- function(spec) {
 		stop("Cannot find MZ values.")
 
 	int.vals <- NULL
-	for (int.col in c('rel.int', BIODB.PEAK.RELATIVE.INTENSITY))
+	for (int.col in c('rel.int', 'peak.relative.intensity'))
 		if (int.col %in% colnames(spec)) {
 			int.vals <- spec[, int.col]
 			break
 		}
 	if (is.null(int.vals)) {
-		for (int.col in c('int', BIODB.PEAK.INTENSITY))
+		for (int.col in c('int', 'peak.intensity'))
 			if (int.col %in% colnames(spec)) {
 				int.vals <- spec[, int.col,]
 				int.vals <- int.vals * 100 / max(int.vals)
@@ -36,7 +36,7 @@ simplifySpectrum <- function(spec) {
 		stop("Cannot find intensity values.")
 
 	spec <- data.frame(mz = mz.vals, int = int.vals)
-	colnames(spec) <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY)
+	colnames(spec) <- c('peak.mz', 'peak.relative.intensity')
 	return(spec)
 }
 
@@ -55,10 +55,10 @@ calcDistance <-
 		spec1 <- simplifySpectrum(spec1)
 		spec2 <- simplifySpectrum(spec2)
 		if(is.na(spec1)||is.na(spec2)) return(list(matched=numeric(0),similarity=0))
-		params$mz1 <- as.numeric(spec1[, BIODB.PEAK.MZ])
-		params$mz2 <- as.numeric(spec2[, BIODB.PEAK.MZ])
-		params$int1 <- as.numeric(spec1[, BIODB.PEAK.RELATIVE.INTENSITY])
-		params$int2 <- as.numeric(spec2[, BIODB.PEAK.RELATIVE.INTENSITY])
+		params$mz1 <- as.numeric(spec1[, 'peak.mz'])
+		params$mz2 <- as.numeric(spec2[, 'peak.mz'])
+		params$int1 <- as.numeric(spec1[, 'peak.relative.intensity'])
+		params$int2 <- as.numeric(spec2[, 'peak.relative.intensity'])
 		res <- do.call(fun, args = params)
 		if (sum(res$matched != -1) < npmin)
 			return(list(matched = res$matched, similarity = 0))

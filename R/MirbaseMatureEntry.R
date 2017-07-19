@@ -14,8 +14,8 @@ MirbaseMatureEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.self$addParsingExpression(BIODB.ACCESSION, "^>[^ ]+ *(MIMAT[0-9]+) .*$")
-	.self$addParsingExpression(BIODB.NAME, "^>([^ ]+) *MIMAT[0-9]+ .*$")
-	.self$addParsingExpression(BIODB.DESCRIPTION, "^>[^ ]+ *MIMAT[0-9]+ (.*)$")
-	.self$addParsingExpression(BIODB.SEQUENCE, "^([ACGU]+)$")
+	.self$addParsingExpression('ACCESSION', "^>[^ ]+ *(MIMAT[0-9]+) .*$")
+	.self$addParsingExpression('NAME', "^>([^ ]+) *MIMAT[0-9]+ .*$")
+	.self$addParsingExpression('DESCRIPTION', "^>[^ ]+ *MIMAT[0-9]+ (.*)$")
+	.self$addParsingExpression('SEQUENCE', "^([ACGU]+)$")
 })

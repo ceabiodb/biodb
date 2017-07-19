@@ -81,26 +81,26 @@ MassbankEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.self$addParsingExpression(BIODB.ACCESSION, "^ACCESSION: (.+)$")
-	.self$addParsingExpression(BIODB.MSDEV, "^AC\\$INSTRUMENT: (.+)$")
-	.self$addParsingExpression(BIODB.MSDEVTYPE, "^AC\\$INSTRUMENT_TYPE: (.+)$")
-	.self$addParsingExpression(BIODB.MSTYPE, "^AC\\$MASS_SPECTROMETRY: MS_TYPE (.+)$")
-	.self$addParsingExpression(BIODB.NB.PEAKS, "^PK\\$NUM_PEAK: ([0-9]+)$")
-	.self$addParsingExpression(BIODB.MSPRECANNOT, "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$")
-	.self$addParsingExpression(BIODB.INCHI, "^CH\\$IUPAC:\\s+(.+)$")
-	.self$addParsingExpression(BIODB.INCHIKEY, "^CH\\$LINK: INCHIKEY\\s+(.+)$")
+	.self$addParsingExpression('ACCESSION', "^ACCESSION: (.+)$")
+	.self$addParsingExpression('MSDEV', "^AC\\$INSTRUMENT: (.+)$")
+	.self$addParsingExpression('MSDEVTYPE', "^AC\\$INSTRUMENT_TYPE: (.+)$")
+	.self$addParsingExpression('MSTYPE', "^AC\\$MASS_SPECTROMETRY: MS_TYPE (.+)$")
+	.self$addParsingExpression('NB.PEAKS', "^PK\\$NUM_PEAK: ([0-9]+)$")
+	.self$addParsingExpression('MSPRECANNOT', "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$")
+	.self$addParsingExpression('INCHI', "^CH\\$IUPAC:\\s+(.+)$")
+	.self$addParsingExpression('INCHIKEY', "^CH\\$LINK: INCHIKEY\\s+(.+)$")
 	.self$addParsingExpression('chemspider.id', "^CH\\$LINK: CHEMSPIDER\\s+(.+)$")
 	.self$addParsingExpression('chebi.id', "^CH\\$LINK: CHEBI\\s+(.+)$")
 	.self$addParsingExpression('kegg.compound.id', "^CH\\$LINK: KEGG\\s+(.+)$")
-	.self$addParsingExpression(BIODB.CAS.ID, "^CH\\$LINK: CAS\\s+(.+)$")
+	.self$addParsingExpression('CAS.ID', "^CH\\$LINK: CAS\\s+(.+)$")
 	.self$addParsingExpression('ncbi.pubchem.comp.id', "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)")
 	.self$addParsingExpression('ncbi.pubchem.subst.id', "^CH\\$LINK: PUBCHEM\\s+.*(SID:[0-9]+)")
 	.self$addParsingExpression('hmdb.metabolite.id', "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)")
-	.self$addParsingExpression(BIODB.FORMULA, "^CH\\$FORMULA:\\s+(.+)$")
-	.self$addParsingExpression(BIODB.SMILES, "^CH\\$SMILES:\\s+(.+)$")
-	.self$addParsingExpression(BIODB.MASS, "^CH\\$EXACT_MASS:\\s+(.+)$")
-	.self$addParsingExpression(BIODB.MSMODE, "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
-	.self$addParsingExpression(BIODB.SYNONYMS, "^CH\\$NAME:\\s+(.+)$")
+	.self$addParsingExpression('FORMULA', "^CH\\$FORMULA:\\s+(.+)$")
+	.self$addParsingExpression('SMILES', "^CH\\$SMILES:\\s+(.+)$")
+	.self$addParsingExpression('MASS', "^CH\\$EXACT_MASS:\\s+(.+)$")
+	.self$addParsingExpression('MSMODE', "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
+	.self$addParsingExpression('SYNONYMS', "^CH\\$NAME:\\s+(.+)$")
 })
 
 # Parse peak info {{{1
@@ -119,16 +119,16 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 
 	# Build parsing expression
 	regex <- '^'
-	col.desc <- list('m/z'                  = list(name = BIODB.PEAK.MZ, type = 'double', regex = '([0-9][0-9.]*)'),
-	                 'int.'                 = list(name = BIODB.PEAK.INTENSITY, type = 'double', regex = '([0-9][0-9.]*)'),
-	                 'rel.int.'             = list(name = BIODB.PEAK.RELATIVE.INTENSITY, type = 'integer', regex = '([0-9]+)'),
+	col.desc <- list('m/z'                  = list(name = 'PEAK.MZ', type = 'double', regex = '([0-9][0-9.]*)'),
+	                 'int.'                 = list(name = 'PEAK.INTENSITY', type = 'double', regex = '([0-9][0-9.]*)'),
+	                 'rel.int.'             = list(name = 'PEAK.RELATIVE.INTENSITY', type = 'integer', regex = '([0-9]+)'),
 	                 'struct.'              = list(name = 'struct.',                    type = 'integer',   regex = '([0-9]+)'),
 	                 'num'                  = list(name = 'num',                        type = 'integer',   regex = '([0-9]+)'),
-	                 'formula'              = list(name = BIODB.PEAK.FORMULA,           type = 'character', regex = '([^ ]+)'),
+	                 'formula'              = list(name = 'PEAK.FORMULA',           type = 'character', regex = '([^ ]+)'),
 	                 'tentative_formula'    = list(name = 'tentative.formula',          type = 'character', regex = '([^ ]+)'),
-	                 'formula_count'        = list(name = BIODB.PEAK.FORMULA.COUNT,     type = 'integer',   regex = '([0-9]+)'),
-	                 'error(ppm)'           = list(name = BIODB.PEAK.ERROR.PPM,         type = 'double',    regex = '([0-9][0-9.]*)'),
-	                 'mass'                 = list(name = BIODB.PEAK.MASS,              type = 'double',    regex = '([0-9][0-9.]*)')
+	                 'formula_count'        = list(name = 'PEAK.FORMULA.COUNT',     type = 'integer',   regex = '([0-9]+)'),
+	                 'error(ppm)'           = list(name = 'PEAK.ERROR.PPM',         type = 'double',    regex = '([0-9][0-9.]*)'),
+	                 'mass'                 = list(name = 'PEAK.MASS',              type = 'double',    regex = '([0-9][0-9.]*)')
 	                 )
 	for (c in cols) {
 		if (c %in% names(col.desc)) {
@@ -179,15 +179,15 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	}
 
 	# Merge with existing peak info
-	if (.self$hasField(BIODB.PEAKS))
-		.self$setFieldValue(BIODB.PEAKS, merge(.self$getFieldValue(BIODB.PEAKS, compute = FALSE), peaks, all.x = TRUE))
+	if (.self$hasField('PEAKS'))
+		.self$setFieldValue('PEAKS', merge(.self$getFieldValue('PEAKS', compute = FALSE), peaks, all.x = TRUE))
 	else
 		# Set new peaks table
-		.self$setFieldValue(BIODB.PEAKS, peaks)
+		.self$setFieldValue('PEAKS', peaks)
 
 	# Check number of peaks
-	if (.self$hasField(BIODB.PEAKS) && .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE) != nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)))
-	   	 .self$message(MSG.CAUTION, paste("Found ", nrow(.self$getFieldValue(BIODB.PEAKS, compute = FALSE)), " peak(s) instead of ", .self$getFieldValue(BIODB.NB.PEAKS, compute = FALSE), ' for entry ', .self$getFieldValue(BIODB.ACCESSION), ".", sep = ''))
+	if (.self$hasField('PEAKS') && .self$getFieldValue('NB.PEAKS', compute = FALSE) != nrow(.self$getFieldValue('PEAKS', compute = FALSE)))
+	   	 .self$message(MSG.CAUTION, paste("Found ", nrow(.self$getFieldValue('PEAKS', compute = FALSE)), " peak(s) instead of ", .self$getFieldValue('NB.PEAKS', compute = FALSE), ' for entry ', .self$getFieldValue('ACCESSION'), ".", sep = ''))
 })
 
 # Parse peak table {{{1
@@ -214,7 +214,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	results <- g[ ! is.na(g[,1]), , drop = FALSE]
 	if (nrow(results) > 0) {
 		precursors <- strsplit(results[,2], '/', fixed = TRUE)[[1]]
-		.self$setFieldValue(BIODB.MSPRECMZ, precursors)
+		.self$setFieldValue('MSPRECMZ', precursors)
 	}
 
 	# Retention time
@@ -227,35 +227,35 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		rt <- as.numeric(results[,2])
 		if (unit == 'min')
 			rt <- 60 * rt
-		.self$setFieldValue(BIODB.CHROM.COL.RT, rt)
+		.self$setFieldValue('CHROM.COL.RT', rt)
 	}
 
 	# Name
-	if (.self$hasField(BIODB.SYNONYMS)) {
-		v <- .self$getFieldValue(BIODB.SYNONYMS, compute = FALSE)
+	if (.self$hasField('SYNONYMS')) {
+		v <- .self$getFieldValue('SYNONYMS', compute = FALSE)
 		if (length(v) > 0) {
-			.self$setFieldValue(BIODB.NAME, v[[1]])
+			.self$setFieldValue('NAME', v[[1]])
 			if (length(v) == 1)
-				.self$removeField(BIODB.SYNONYMS)
+				.self$removeField('SYNONYMS')
 			else
-				.self$setFieldValue(BIODB.SYNONYMS, v[2:length(v)])
+				.self$setFieldValue('SYNONYMS', v[2:length(v)])
 		}
 	}
 
 	# MS mode
-	if (.self$hasField(BIODB.MSMODE))
-		.self$setFieldValue(BIODB.MSMODE, if (.self$getFieldValue(BIODB.MSMODE, compute = FALSE) == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
+	if (.self$hasField('MSMODE'))
+		.self$setFieldValue('MSMODE', if (.self$getFieldValue('MSMODE', compute = FALSE) == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
 
 	# MS level
-	if (.self$hasField(BIODB.MSTYPE)) {
-		mstype = .self$getFieldValue(BIODB.MSTYPE)
+	if (.self$hasField('MSTYPE')) {
+		mstype = .self$getFieldValue('MSTYPE')
 		ms.level = strtoi(sub('^MS([0-9])$', '\\1', mstype, perl = TRUE))
 		if (is.na(ms.level) && mstype == 'MS')
 			ms.level = 1
 
 		if (is.na(ms.level)) 
-			.self$message(MSG.ERROR, paste("Impossible to parse MS level of Massbank entry ", .self$getFieldValue(BIODB.ACCESSION), ".", sep = ''))
-		.self$setFieldValue(BIODB.MS.LEVEL, ms.level)
+			.self$message(MSG.ERROR, paste("Impossible to parse MS level of Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep = ''))
+		.self$setFieldValue('MS.LEVEL', ms.level)
 	}
 	
 	# Parsing of peak table

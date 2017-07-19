@@ -52,26 +52,26 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 		entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
 
 		# Filter on mode
-		if ( ! is.null(ms.mode) && ! is.na(ms.mode) && entry$getFieldValue(BIODB.MSMODE) != ms.mode) {
-			.self$message(MSG.DEBUG, paste("Reject entry", id, "because MS mode is", entry$getFieldValue(BIODB.MSMODE)))
+		if ( ! is.null(ms.mode) && ! is.na(ms.mode) && entry$getFieldValue('msmode') != ms.mode) {
+			.self$message(MSG.DEBUG, paste("Reject entry", id, "because MS mode is", entry$getFieldValue('msmode')))
 			next
 		}
 
 		# Filter on ms.level
-		if ( ! is.null(ms.level) && ! is.na(ms.level) && ms.level > 0 && entry$getFieldValue(BIODB.MS.LEVEL) != ms.level) {
-			.self$message(MSG.DEBUG, paste("Reject entry", id, "because MS level is", entry$getFieldValue(BIODB.MS.LEVEL)))
+		if ( ! is.null(ms.level) && ! is.na(ms.level) && ms.level > 0 && entry$getFieldValue('ms.level') != ms.level) {
+			.self$message(MSG.DEBUG, paste("Reject entry", id, "because MS level is", entry$getFieldValue('ms.level')))
 			next
 		}
 
 		# Take mz values
 		new.mz <- NULL
 		if (precursor) {
-			if (entry$hasField(BIODB.MSPRECMZ))
-				new.mz <- entry$getFieldValue(BIODB.MSPRECMZ, last = TRUE)
+			if (entry$hasField('msprecmz'))
+				new.mz <- entry$getFieldValue('msprecmz', last = TRUE)
 		} else {
-			peaks <- entry$getFieldValue(BIODB.PEAKS)
-			if ( ! is.null(peaks) && nrow(peaks) > 0 && BIODB.PEAK.MZ %in% colnames(peaks))
-				new.mz <- peaks[[BIODB.PEAK.MZ]]
+			peaks <- entry$getfieldvalue('peaks')
+			if ( ! is.null(peaks) && nrow(peaks) > 0 && 'peak.mz' %in% colnames(peaks))
+				new.mz <- peaks[['peak.mz']]
 		}
 
 		# Add new M/Z values
@@ -130,18 +130,18 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 
 			# Filter on precursor
 			if (precursor) {
-				precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue(BIODB.MSPRECMZ, last = TRUE), FUN.VALUE = 1.0)
+				precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('MSPRECMZ', last = TRUE), FUN.VALUE = 1.0)
 				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
 				entries <- entries[precursor.matched]
 			}
 
 			# Filter on ms.level
 			if (ms.level > 0) {
-				ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue(BIODB.MS.LEVEL) == ms.level, FUN.VALUE = TRUE)
+				ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue('MS.LEVEL') == ms.level, FUN.VALUE = TRUE)
 				entries <- entries[ms.level.matched]
 			}
 
-			returned.ids <- vapply(entries, function(x) x$getFieldValue(BIODB.ACCESSION), FUN.VALUE = '')
+			returned.ids <- vapply(entries, function(x) x$getFieldValue('ACCESSION'), FUN.VALUE = '')
 		}
 	}
 

@@ -14,8 +14,8 @@ NcbiCcdsEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.self$addParsingExpression(BIODB.ACCESSION, list(path = "//input[@id='DATA']", attr = "value"))
-	.self$addParsingExpression(BIODB.SEQUENCE, "//b[starts-with(.,'Nucleotide Sequence')]/../tt")
+	.self$addParsingExpression('ACCESSION', list(path = "//input[@id='DATA']", attr = "value"))
+	.self$addParsingExpression('SEQUENCE', "//b[starts-with(.,'Nucleotide Sequence')]/../tt")
 })
 
 # Is parsed content correct {{{1

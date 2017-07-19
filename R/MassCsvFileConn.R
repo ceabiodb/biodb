@@ -10,7 +10,7 @@
 ################################################################
 
 # Default database fields
-.BIODB.DFT.DB.FIELDS <- c(BIODB.ACCESSION, BIODB.NAME, BIODB.FULLNAMES, BIODB.COMPOUND.ID, BIODB.MS.LEVEL, BIODB.MSMODE, BIODB.PEAK.MZEXP, BIODB.PEAK.MZTHEO, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.COMP, BIODB.PEAK.ATTR, BIODB.CHROM.COL, BIODB.CHROM.COL.RT, BIODB.FORMULA, BIODB.MASS, BIODB.INCHI, BIODB.INCHIKEY, 'chebi.id', 'hmdb.metabolite.id', 'kegg.compound.id', 'ncbi.pubchem.comp.id')
+.BIODB.DFT.DB.FIELDS <- c('accession', 'name', 'fullnames', 'compound.id', 'ms.level', 'msmode', 'peak.mzexp', 'peak.mztheo', 'peak.relative.intensity', 'peak.comp', 'peak.attr', 'chrom.col', 'chrom.col.rt', 'formula', 'mass', 'inchi', 'inchikey', 'chebi.id', 'hmdb.metabolite.id', 'kegg.compound.id', 'ncbi.pubchem.comp.id')
 names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
 
 # Class declaration {{{1
@@ -69,6 +69,8 @@ MassCsvFileConn$methods( .init.db = function() {
 ################################################################
 
 MassCsvFileConn$methods( setField = function(tag, colname) {
+
+	tag <- tolower(tag)
 
 	( ! is.null(tag) && ! is.na(tag)) || .self$message(MSG.ERROR, "No tag specified.")
 	( ! is.null(colname) && ! is.na(colname)) || .self$message(MSG.ERROR, "No column name specified.")
@@ -153,50 +155,50 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 
 		# Check mode value
 		mode %in% names(.self$.ms.modes) || .self$message(MSG.ERROR, paste0("Unknown mode value '", mode, "'."))
-		.self$.check.fields(BIODB.MSMODE)
+		.self$.check.fields('msmode')
 
 		# Filter on mode
-		db <- db[db[[.self$.fields[[BIODB.MSMODE]]]] %in% .self$.ms.modes[[mode]], ]
+		db <- db[db[[.self$.fields[['msmode']]]] %in% .self$.ms.modes[[mode]], ]
 	}
 
 	# Filter db on ids
 	if ( ! is.null(ids)) {
-		.self$.check.fields(BIODB.ACCESSION)
-		db <- db[db[[.self$.fields[[BIODB.ACCESSION]]]] %in% ids, ]
+		.self$.check.fields('accession')
+		db <- db[db[[.self$.fields[['accession']]]] %in% ids, ]
 	}
 
 	# Filter db on compound ids
 	if ( ! is.null(compound.ids)) {
-		.self$.check.fields(BIODB.COMPOUND.ID)
-		db <- db[db[[.self$.fields[[BIODB.COMPOUND.ID]]]] %in% compound.ids, ]
+		.self$.check.fields('compound.id')
+		db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, ]
 	}
 
 	# Filter on mz values
 	if ( ! is.na(mz.min)) {
-		.self$.check.fields(BIODB.PEAK.MZTHEO)
-		db <- db[db[[.self$.fields[[BIODB.PEAK.MZTHEO]]]] >= mz.min, ]
+		.self$.check.fields('peak.mztheo')
+		db <- db[db[[.self$.fields[['peak.mztheo']]]] >= mz.min, ]
 	}
 	if ( ! is.na(mz.max)) {
-		.self$.check.fields(BIODB.PEAK.MZTHEO)
-		db <- db[db[[.self$.fields[[BIODB.PEAK.MZTHEO]]]] <= mz.max, ]
+		.self$.check.fields('peak.mztheo')
+		db <- db[db[[.self$.fields[['peak.mztheo']]]] <= mz.max, ]
 	}
 
 	# Filter on relative intensity
 	if ( ! is.na(min.rel.int)) {
-		if (.self$.check.fields(BIODB.PEAK.RELATIVE.INTENSITY, fail = FALSE))
-			db <- db[db[[.self$.fields[[BIODB.PEAK.RELATIVE.INTENSITY]]]] >= min.rel.int, ]
+		if (.self$.check.fields('peak.relative.intensity', fail = false))
+			db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, ]
 	}
 
 	# Filter on precursors
 	if (precursor) {
-		if (.self$.check.fields(BIODB.PEAK.ATTR, fail = FALSE))
-			db <- db[db[[.self$.fields[[BIODB.PEAK.ATTR]]]] %in% .self$.precursors, ]
+		if (.self$.check.fields('peak.attr', fail = false))
+			db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, ]
 	}
 
 	# Filter on MS level
 	if (level > 0) {
-		if (.self$.check.fields(BIODB.MS.LEVEL, fail = FALSE))
-			db <- db[db[[.self$.fields[[BIODB.MS.LEVEL]]]] == level, ]
+		if (.self$.check.fields('ms.level', fail = false))
+			db <- db[db[[.self$.fields[['ms.level']]]] == level, ]
 	}
 
 	# Get subset of columns
@@ -231,7 +233,7 @@ MassCsvFileConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	ids <- NA_character_
 
-	ids <- as.character(.self$.select(cols =  BIODB.ACCESSION, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
+	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
 
 	return(ids)
 })
@@ -256,10 +258,10 @@ MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
 MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 
 	# Extract needed columns
-	db <- .self$.select(cols = c(BIODB.COMPOUND.ID, BIODB.CHROM.COL), compound.ids = compound.ids)
+	db <- .self$.select(cols = c('compound.id', 'chrom.col'), compound.ids = compound.ids)
 
 	# Get column names
-	cols <- db[[.self$.fields[[BIODB.CHROM.COL]]]]
+	cols <- db[[.self$.fields[['chrom.col']]]]
 
 	# Remove NA values
 	cols <- cols[ ! is.na(cols)]
@@ -272,7 +274,7 @@ MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 		chrom.cols <- data.frame(a = character(0), b = character(0))
 	else
 		chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
-	colnames(chrom.cols) <- c(BIODB.ID, BIODB.TITLE)
+	colnames(chrom.cols) <- c('id', 'title')
 
 	return(chrom.cols)
 })
@@ -284,7 +286,7 @@ MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
 	# Get mz values
-	mz <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = ms.level)
+	mz <- .self$.select(cols = 'peak.mztheo', mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = ms.level)
 
 	return(mz)
 })
@@ -296,7 +298,7 @@ MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precurs
 MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
 
 	# Get peaks
-	peaks <- .self$.select(cols = BIODB.PEAK.MZTHEO, mode = mode, compound.ids = compound.ids, drop = TRUE)
+	peaks <- .self$.select(cols = 'peak.mztheo', mode = mode, compound.ids = compound.ids, drop = TRUE)
 
 	return(length(peaks))
 })
@@ -314,7 +316,7 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
 
 	# For each id, take the sub data frame and convert it into string
-	df.ids <- df[[.self$.fields[[BIODB.ACCESSION]]]]
+	df.ids <- df[[.self$.fields[['accession']]]]
 	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
 
 	.self$message(MSG.DEBUG, paste("Entry content:", content))
@@ -326,5 +328,5 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 ################################################################
 
 MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-	return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode = ms.mode, max.rows = max.results, cols = BIODB.ACCESSION, drop = TRUE, uniq = TRUE, sort = TRUE, precursor = precursor, level = ms.level))
+	return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode = ms.mode, max.rows = max.results, cols = 'accession', drop = TRUE, uniq = TRUE, sort = TRUE, precursor = precursor, level = ms.level))
 })

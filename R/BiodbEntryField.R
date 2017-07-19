@@ -32,12 +32,12 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical', .db.id = 'logical'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, db.id = FALSE, ...) {
+BiodbEntryField$methods( initialize = function(name, alias = NA_character_, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, db.id = FALSE, description = NA_character_, ...) {
 
 	callSuper(...)
 
@@ -56,9 +56,15 @@ BiodbEntryField$methods( initialize = function(name, class = 'character', card =
 		.self$message(MSG.ERROR, paste("Unknown cardinality \"", card, "\" for field \"", name, "\".", sep = ''))
 	.cardinality <<- card
 
+	# Set description
+	if (is.null(description) || is.na(description))
+		.self$message(MSG.CAUTION, paste("Missing description for entry field \"", name, "\".", sep = ''))
+	.description <<- description
+
 	# Set other fields
 	.allow.duplicates <<- allow.duplicates
 	.db.id <<- db.id
+	.alias <<- alias
 })
 
 # Get name {{{1
@@ -68,6 +74,15 @@ BiodbEntryField$methods( getName = function() {
 	":\n\n Get field's name."
 
 	return(.self$.name)
+})
+
+# Get description {{{1
+################################################################
+
+BiodbEntryField$methods( getDescription = function() {
+	":\n\n Get field's description."
+
+	return(.self$.description)
 })
 
 # Has card one {{{1

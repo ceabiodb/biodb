@@ -130,14 +130,14 @@ MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol
 		return(list(measure = numeric(0), matchedpeaks = list(), id = character(0)))
 
 	# Get list of peak tables from spectra
-	peak.tables <-lapply(entries, function(x) x$getFieldsAsDataFrame(only.atomic = FALSE, fields = BIODB.PEAKS))
+	peak.tables <-lapply(entries, function(x) x$getFieldsAsDataFrame(only.atomic = FALSE, fields = 'PEAKS'))
 
 	# TODO Import compareSpectra into biodb and put it inside massdb-helper.R or hide it as a private method.
 	res <- compareSpectra(spectrum, peak.tables, npmin = npmin, fun = dist.fun, params = list(ppm = msms.mz.tol, dmz = msms.mz.tol.min))
 	
 	if(is.null(res)) return(NULL) # To decide at MassdbConn level: return empty list (or empty data frame) or NULL.
 	
-    ids <- sapply( entries, function(x) x$getFieldValue(BIODB.ACCESSION))
+    ids <- sapply( entries, function(x) x$getFieldValue('ACCESSION'))
 	
     results <- list(measure = res$similarity[res[['ord']]], matchedpeaks = res$matched[res[['ord']]], id = ids[res[['ord']]])
 	

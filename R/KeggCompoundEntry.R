@@ -14,9 +14,9 @@ KeggCompoundEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.self$addParsingExpression(BIODB.ACCESSION, "^ENTRY\\s+(\\S+)\\s+Compound")
-	.self$addParsingExpression(BIODB.NAME, "^NAME\\s+([^,;]+)")
-	.self$addParsingExpression(BIODB.FORMULA, "^FORMULA\\s+(\\S+)$")
-	.self$addParsingExpression(BIODB.MASS, "^EXACT_MASS\\s+(\\S+)$")
-	.self$addParsingExpression(BIODB.MOLECULAR.WEIGHT, "^MOL_WEIGHT\\s+(\\S+)$")
+	.self$addParsingExpression('ACCESSION', "^ENTRY\\s+(\\S+)\\s+Compound")
+	.self$addParsingExpression('NAME', "^NAME\\s+([^,;]+)")
+	.self$addParsingExpression('FORMULA', "^FORMULA\\s+(\\S+)$")
+	.self$addParsingExpression('MASS', "^EXACT_MASS\\s+(\\S+)$")
+	.self$addParsingExpression('MOLECULAR.WEIGHT', "^MOL_WEIGHT\\s+(\\S+)$")
 })

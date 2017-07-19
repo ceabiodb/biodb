@@ -14,12 +14,12 @@ NcbiGeneEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.self$addParsingExpression(BIODB.ACCESSION, "//Gene-track_geneid")
+	.self$addParsingExpression('ACCESSION', "//Gene-track_geneid")
 	.self$addParsingExpression('uniprot.id', "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str")
-	.self$addParsingExpression(BIODB.LOCATION, "//Gene-ref_maploc")
-	.self$addParsingExpression(BIODB.PROTEIN.DESCRIPTION, "//Gene-ref_desc")
-	.self$addParsingExpression(BIODB.SYMBOL, "//Gene-ref_locus")
-	.self$addParsingExpression(BIODB.SYNONYMS, "//Gene-ref_syn_E")
+	.self$addParsingExpression('LOCATION', "//Gene-ref_maploc")
+	.self$addParsingExpression('PROTEIN.DESCRIPTION', "//Gene-ref_desc")
+	.self$addParsingExpression('SYMBOL', "//Gene-ref_locus")
+	.self$addParsingExpression('SYNONYMS', "//Gene-ref_syn_E")
 })
 
 # Is parsed content correct {{{1

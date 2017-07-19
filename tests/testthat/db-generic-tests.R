@@ -8,7 +8,7 @@ save.entries.as.json <- function(db, entries) {
 	# Loop on all entries
 	for (e in entries) {
 		json <- e$getFieldsAsJson()
-		writeChar(json, file.path(OUTPUT.DIR, paste(db, '-entry-', e$getFieldValue(BIODB.ACCESSION), '.json', sep = '')))
+		writeChar(json, file.path(OUTPUT.DIR, paste(db, '-entry-', e$getFieldValue('ACCESSION'), '.json', sep = '')))
 	}
 }
 
@@ -21,7 +21,7 @@ test.entry.fields <- function(biodb, db.name) {
 	entries.desc <- load.ref.entries(db.name)
 
 	# Create entries
-	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['ACCESSION']], drop = FALSE)
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 	save.entries.as.json(db.name, entries)
@@ -73,7 +73,7 @@ test.wrong.entry.among.good.ones <- function(biodb, db) {
 	entries.desc <- load.ref.entries(db)
 
 	# Test a wrong accession number
-	entries <- biodb$getFactory()$getEntry(db, id = c('WRONGB', entries.desc[[BIODB.ACCESSION]]))
+	entries <- biodb$getFactory()$getEntry(db, id = c('WRONGB', entries.desc[['ACCESSION']]))
 	expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
 	expect_null(entries[[1]])
 	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))

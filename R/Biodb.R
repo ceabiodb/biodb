@@ -206,7 +206,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 			}
 			else if (null.to.na) {
 				e.df <- data.frame(accession <- NA_character_)
-				colnames(e.df) <- BIODB.ACCESSION
+				colnames(e.df) <- 'ACCESSION'
 				entries.df <- plyr::rbind.fill(entries.df, e.df)
 			}
 		}

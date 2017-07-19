@@ -14,16 +14,16 @@ UniprotEntry$methods( initialize = function(...) {
 
 	callSuper(namespace = c(uniprot = "http://uniprot.org/uniprot"), ...)
 
-	.self$addParsingExpression(BIODB.NAME, "/uniprot:uniprot/uniprot:entry/uniprot:name")
-	.self$addParsingExpression(BIODB.GENE.SYMBOLS, "//uniprot:gene/uniprot:name")
-	.self$addParsingExpression(BIODB.FULLNAMES, "//uniprot:protein//uniprot:fullName")
-	.self$addParsingExpression(BIODB.SEQUENCE, "//uniprot:entry/uniprot:sequence")
-	.self$addParsingExpression(BIODB.ACCESSION, "//uniprot:accession[1]")
+	.self$addParsingExpression('NAME', "/uniprot:uniprot/uniprot:entry/uniprot:name")
+	.self$addParsingExpression('GENE.SYMBOLS', "//uniprot:gene/uniprot:name")
+	.self$addParsingExpression('FULLNAMES', "//uniprot:protein//uniprot:fullName")
+	.self$addParsingExpression('SEQUENCE', "//uniprot:entry/uniprot:sequence")
+	.self$addParsingExpression('ACCESSION', "//uniprot:accession[1]")
 	.self$addParsingExpression('kegg.compound.id', list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id'))
 	.self$addParsingExpression('ncbi.gene.id', list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id'))
 	.self$addParsingExpression('expasy.enzyme.id', list(path = "//uniprot:dbReference[@type='EC']", attr = 'id'))
-	.self$addParsingExpression(BIODB.MASS, list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass'))
-	.self$addParsingExpression(BIODB.LENGTH, list(path = "//uniprot:entry/uniprot:sequence", attr = 'length'))
+	.self$addParsingExpression('MASS', list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass'))
+	.self$addParsingExpression('LENGTH', list(path = "//uniprot:entry/uniprot:sequence", attr = 'length'))
 })
 
 # Is content correct {{{1
@@ -39,6 +39,6 @@ UniprotEntry$methods( .isContentCorrect = function(content) {
 UniprotEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Remove new lines from sequence string
-	if (.self$hasField(BIODB.SEQUENCE))
-		.self$setField(BIODB.SEQUENCE, gsub("\\n", "", .self$getFieldValue(BIODB.SEQUENCE)))
+	if (.self$hasField('SEQUENCE'))
+		.self$setField('SEQUENCE', gsub("\\n", "", .self$getFieldValue('SEQUENCE')))
 })

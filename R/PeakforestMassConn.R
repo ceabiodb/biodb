@@ -79,21 +79,21 @@ PeakforestMassConn$methods( createReducedEntry = function(content , drop = TRUE)
 		
 		cnames <-
 			c(
-				BIODB.PEAK.MZ,
-				BIODB.PEAK.RELATIVE.INTENSITY,
-				BIODB.PEAK.FORMULA,
-				BIODB.PEAK.MZTHEO,
-				BIODB.PEAK.ERROR.PPM
+				'PEAK.MZ',
+				'PEAK.RELATIVE.INTENSITY',
+				'PEAK.FORMULA',
+				'PEAK.MZTHEO',
+				'PEAK.ERROR.PPM'
 			)
 		
 		entry <- BiodbEntry$new(parent = .self)
-		entry$setField(BIODB.ACCESSION, jsontree$id)
+		entry$setField('ACCESSION', jsontree$id)
 		
 		######################
 		# TREATING THE PEAKS #
 		######################
 		
-		entry$setField(BIODB.NB.PEAKS, length(jsontree$peaks))
+		entry$setField('NB.PEAKS', length(jsontree$peaks))
 		peaks <- data.frame(matrix(0, ncol = length(cnames), nrow = 0))
 		colnames(peaks) <- cnames
 		###Parsing peaks.
@@ -117,7 +117,7 @@ PeakforestMassConn$methods( createReducedEntry = function(content , drop = TRUE)
 			peaks <- as.data.frame(t(peaks))
 			colnames(peaks) <- cnames
 		}
-		entry$setField(BIODB.PEAKS, peaks)
+		entry$setField('PEAKS', peaks)
 		
 		entries[[i]] <- entry
 	}
@@ -186,6 +186,7 @@ PeakforestMassConn$methods( .doSearchPrecTol = function(prec.mz, mz.tol, mz.tol.
 
 	return(ids)
 })
+
 # Get chromatographic columns {{{1
 ################################################################
 
@@ -206,6 +207,7 @@ PeakforestMassConn$methods( getChromCol = function(compound.ids = NULL) {
 
 	return(cols)
 })
+
 # Get mz values {{{1
 ################################################################
 

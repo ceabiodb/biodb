@@ -14,19 +14,19 @@ PeakforestMassEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.self$addParsingExpression(BIODB.ACCESSION, "id")
-	.self$addParsingExpression(BIODB.MSMODE, "polarity")
-	.self$addParsingExpression(BIODB.MSDEV, c('analyzerMassSpectrometerDevice', 'instrumentName'))
-	.self$addParsingExpression(BIODB.MSDEVTYPE, c('analyzerMassSpectrometerDevice', 'ionAnalyzerType'))
-	.self$addParsingExpression(BIODB.MSTYPE, 'type')
-	.self$addParsingExpression(BIODB.CHROM.COL.NAME, c('liquidChromatography', 'columnName'))
-	.self$addParsingExpression(BIODB.CHROM.COL.ID, c('liquidChromatography', 'columnCode'))
-	.self$addParsingExpression(BIODB.CHROM.COL.CONSTRUCTOR, c('liquidChromatography', 'columnConstructorAString'))
-	.self$addParsingExpression(BIODB.CHROM.COL.LENGTH, c('liquidChromatography', 'columnLength'))
-	.self$addParsingExpression(BIODB.CHROM.COL.DIAMETER, c('liquidChromatography', 'columnDiameter'))
-	.self$addParsingExpression(BIODB.CHROM.COL.RT.MIN, 'RTmin')
-	.self$addParsingExpression(BIODB.CHROM.COL.RT.MAX, 'RTmax')
-	.self$addParsingExpression(BIODB.CHROM.COL.METHOD.PROTOCOL, c('liquidChromatography', 'methodProtocol'))
+	.self$addParsingExpression('ACCESSION', "id")
+	.self$addParsingExpression('MSMODE', "polarity")
+	.self$addParsingExpression('MSDEV', c('analyzerMassSpectrometerDevice', 'instrumentName'))
+	.self$addParsingExpression('MSDEVTYPE', c('analyzerMassSpectrometerDevice', 'ionAnalyzerType'))
+	.self$addParsingExpression('MSTYPE', 'type')
+	.self$addParsingExpression('CHROM.COL.NAME', c('liquidChromatography', 'columnName'))
+	.self$addParsingExpression('CHROM.COL.ID', c('liquidChromatography', 'columnCode'))
+	.self$addParsingExpression('CHROM.COL.CONSTRUCTOR', c('liquidChromatography', 'columnConstructorAString'))
+	.self$addParsingExpression('CHROM.COL.LENGTH', c('liquidChromatography', 'columnLength'))
+	.self$addParsingExpression('CHROM.COL.DIAMETER', c('liquidChromatography', 'columnDiameter'))
+	.self$addParsingExpression('CHROM.COL.RT.MIN', 'RTmin')
+	.self$addParsingExpression('CHROM.COL.RT.MAX', 'RTmax')
+	.self$addParsingExpression('CHROM.COL.METHOD.PROTOCOL', c('liquidChromatography', 'methodProtocol'))
 })
 
 # Parse fields after {{{1
@@ -59,9 +59,9 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		}
 
 		# Set right column names
-		colnames(peaks) <- c(BIODB.PEAK.MZ, BIODB.PEAK.RELATIVE.INTENSITY, BIODB.PEAK.ERROR.PPM, BIODB.PEAK.MASS, BIODB.PEAK.COMP, BIODB.PEAK.ATTR)
-		.self$setFieldValue(BIODB.PEAKS, peaks)
-		.self$setFieldValue(BIODB.NB.PEAKS, nrow(peaks))
+		colnames(peaks) <- c('PEAK.MZ', 'PEAK.RELATIVE.INTENSITY', 'PEAK.ERROR.PPM', 'PEAK.MASS', 'PEAK.COMP', 'PEAK.ATTR')
+		.self$setFieldValue('PEAKS', peaks)
+		.self$setFieldValue('NB.PEAKS', nrow(peaks))
 	}
 
 	# Parse compound IDs
