@@ -25,7 +25,7 @@ NcbiPubchemCompEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('COMP.IUPAC.NAME.CAS', "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='CAS-like Style']/../../..//PC-InfoData_value_sval")
 	.self$addParsingExpression('COMP.IUPAC.NAME.PREF', "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Preferred']/../../..//PC-InfoData_value_sval")
 	.self$addParsingExpression('COMP.IUPAC.NAME.TRAD', "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Traditional']/../../..//PC-InfoData_value_sval")
-	.self$addParsingExpression('COMP.LOGP', "//PC-Urn_label[text()='Log P']/../../..//PC-InfoData_value_fval")
+	.self$addParsingExpression('LOGP', "//PC-Urn_label[text()='Log P']/../../..//PC-InfoData_value_fval")
 	.self$addParsingExpression('SMILES.CANONICAL', "//PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Canonical']/../../..//PC-InfoData_value_sval")
 	.self$addParsingExpression('SMILES.ISOMERIC', "//PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Isomeric']/../../..//PC-InfoData_value_sval")
 })

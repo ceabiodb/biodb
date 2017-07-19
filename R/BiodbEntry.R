@@ -80,6 +80,11 @@ BiodbEntry$methods(	getFieldNames = function() {
 ################################################################
 
 BiodbEntry$methods(	hasField = function(field) {
+
+	# Get field definition
+	field.def <- .self$getBiodb()$getEntryFields()$get(field)
+	field <- field.def$getName()
+
 	return(tolower(field) %in% names(.self$.fields))
 })
 
