@@ -25,13 +25,13 @@ test.deprecated.methods <- function(biodb) {
 	ref.entries <- load.ref.entries(BIODB.CHEBI)
 
 	# Get first entry ID
-	entry.id <- ref.entries[1, 'ACCESSION']
+	entry.id <- ref.entries[1, 'accession']
 
 	# Get entry
 	entry <- biodb$getFactory()$getEntry(BIODB.CHEBI, entry.id)
 
 	# Use deprecated method getFieldCardinality
-	card <- entry$getFieldCardinality('NAME')
+	card <- entry$getFieldCardinality('name')
 
 	expect_equal(obs$msgs, c("Method getFieldCardinality() is now deprecated in ChebiEntry class. Please use now method BiodbEntryFields::hasCardOne() or BiodbEntryFields::hasCardMany().", "Method getCardinality() is now deprecated in BiodbEntryField class. Please use now method hasCardOne() or hasCardMany()."))
 }
