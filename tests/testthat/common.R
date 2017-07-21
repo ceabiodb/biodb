@@ -41,7 +41,7 @@ if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
 	}
 }
 
-# Define modes {{{1
+# Set testing modes {{{1
 ################################################################
 
 MODE.OFFLINE <- 'offline'
@@ -64,6 +64,16 @@ if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
 	}
 } else {
 	TEST.MODES <- DEFAULT.MODES
+}
+
+# Set test functions {{{1
+################################################################
+
+FUNCTION.ALL <- 'all'
+if ('FUNCTIONS' %in% names(env)) {
+	TEST.FUNCTIONS <- env[['FUNCTIONS']]
+} else {
+	TEST.FUNCTIONS <- FUNCTION.ALL
 }
 
 # Create Biodb instance {{{1
@@ -162,4 +172,12 @@ load.ref.entries <- function(db) {
 init.mass.csv.file.db <- function(biodb) {
 	db.instance <- biodb$getFactory()$createConn(BIODB.MASS.CSV.FILE, url = MASSFILEDB.URL)
 	db.instance$setField('accession', c('compound.id', 'ms.mode', 'chrom.col', 'chrom.col.rt'))
+}
+
+# Run database test {{{1
+################################################################
+
+run.db.test <- function(msg, fct, db) {
+	if (TEST.FUNCTIONS == FUNCTION.ALL || TEST.FUNCTIONS == fct)
+		test_that(msg, do.call(fct, list(db)))
 }

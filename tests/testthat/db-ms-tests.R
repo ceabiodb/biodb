@@ -3,9 +3,10 @@
 # Test msmsSearch {{{1
 ################################################################
 
-test.msmsSearch <- function(biodb, db.name) {
+test.msmsSearch <- function(db) {
 
-	db <- biodb$getFactory()$getConn(db.name)
+	biodb <- db$getBiodb()
+	db.name <- db$getId()
 
 	# Loop on modes
 	for (mode in BIODB.MSMODE.VALS) {
@@ -66,7 +67,10 @@ test.searchMzTol <- function(db) {
 # Test searchMzTol() with precursor {{{1
 ################################################################
 
-test.searchMzTol.with.precursor <- function(biodb, db.name) {
+test.searchMzTol.with.precursor <- function(db) {
+
+	biodb <- db$getBiodb()
+	db.name <- db$getId()
 
 	# Set some initial values to speed up test
 	db.values <- list(massbank.eu = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)))
@@ -113,13 +117,12 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 # Test basic mass.csv.file {{{1
 ################################################################
 
-test.basic.mass.csv.file <- function(biodb) {
+test.basic.mass.csv.file <- function(db) {
+
+	biodb <- db$getBiodb()
 
 	# Open file
 	df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
-
-	# Get database
-	db <- biodb$getFactory()$getConn(BIODB.MASS.CSV.FILE)
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
@@ -152,13 +155,12 @@ test.basic.mass.csv.file <- function(biodb) {
 # Test output columns {{{1
 ################################################################
 
-test.mass.csv.file.output.columns <- function(biodb) {
+test.mass.csv.file.output.columns <- function(db) {
+
+	biodb <- db$getBiodb()
 
 	# Open database file
 	db.df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
-
-	# Get database
-	db <- biodb$getFactory()$getConn(BIODB.MASS.CSV.FILE)
 
 	# Get M/Z value
 	mz <- db$getMzValues(max.results = 1, ms.level = 1)
@@ -179,7 +181,10 @@ test.mass.csv.file.output.columns <- function(biodb) {
 # Test peak table {{{1
 ################################################################
 
-test.peak.table <- function(biodb, db.name) {
+test.peak.table <- function(db) {
+
+	biodb <- db$getBiodb()
+	db.name <- db$getId()
 
 	# Load reference entries
 	entries.desc <- load.ref.entries(db.name)

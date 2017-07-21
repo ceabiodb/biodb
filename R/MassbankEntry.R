@@ -119,16 +119,16 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 
 	# Build parsing expression
 	regex <- '^'
-	col.desc <- list('m/z'                  = list(name = 'PEAK.MZ', type = 'double', regex = '([0-9][0-9.]*)'),
-	                 'int.'                 = list(name = 'PEAK.INTENSITY', type = 'double', regex = '([0-9][0-9.]*)'),
-	                 'rel.int.'             = list(name = 'PEAK.RELATIVE.INTENSITY', type = 'integer', regex = '([0-9]+)'),
+	col.desc <- list('m/z'                  = list(name = 'peak.mz', type = 'double', regex = '([0-9][0-9.]*)'),
+	                 'int.'                 = list(name = 'peak.intensity', type = 'double', regex = '([0-9][0-9.]*)'),
+	                 'rel.int.'             = list(name = 'peak.relative.intensity', type = 'integer', regex = '([0-9]+)'),
 	                 'struct.'              = list(name = 'struct.',                    type = 'integer',   regex = '([0-9]+)'),
 	                 'num'                  = list(name = 'num',                        type = 'integer',   regex = '([0-9]+)'),
-	                 'formula'              = list(name = 'PEAK.FORMULA',           type = 'character', regex = '([^ ]+)'),
+	                 'formula'              = list(name = 'peak.formula',           type = 'character', regex = '([^ ]+)'),
 	                 'tentative_formula'    = list(name = 'tentative.formula',          type = 'character', regex = '([^ ]+)'),
-	                 'formula_count'        = list(name = 'PEAK.FORMULA.COUNT',     type = 'integer',   regex = '([0-9]+)'),
-	                 'error(ppm)'           = list(name = 'PEAK.ERROR.PPM',         type = 'double',    regex = '([0-9][0-9.]*)'),
-	                 'mass'                 = list(name = 'PEAK.MASS',              type = 'double',    regex = '([0-9][0-9.]*)')
+	                 'formula_count'        = list(name = 'peak.formula.count',     type = 'integer',   regex = '([0-9]+)'),
+	                 'error(ppm)'           = list(name = 'peak.error.ppm',         type = 'double',    regex = '([0-9][0-9.]*)'),
+	                 'mass'                 = list(name = 'peak.mass',              type = 'double',    regex = '([0-9][0-9.]*)')
 	                 )
 	for (c in cols) {
 		if (c %in% names(col.desc)) {
