@@ -14,18 +14,18 @@ PeakforestCompoundEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.self$addParsingExpression(BIODB.ACCESSION, "id")
+	.self$addParsingExpression('ACCESSION', "id")
 	.self$addParsingExpression('ncbi.pubchem.comp.id', "PubChemCID")
 	.self$addParsingExpression('chebi.id', "ChEBI")
 	.self$addParsingExpression('hmdb.metabolite.id', "HMDB")
 	.self$addParsingExpression('kegg.compound.id', "KEGG")
-	.self$addParsingExpression(BIODB.FORMULA, "formula")
-	.self$addParsingExpression(BIODB.SMILES, "canSmiles")
-	.self$addParsingExpression(BIODB.AVERAGE.MASS, "averageMass")
-	.self$addParsingExpression(BIODB.MONOISOTOPIC.MASS, "monoisotopicMass")
-	.self$addParsingExpression(BIODB.INCHI, "inChI")
-	.self$addParsingExpression(BIODB.INCHIKEY, "inchiIKey")
-	.self$addParsingExpression(BIODB.NAME, "mainName")
+	.self$addParsingExpression('FORMULA', "formula")
+	.self$addParsingExpression('SMILES', "canSmiles")
+	.self$addParsingExpression('AVERAGE.MASS', "averageMass")
+	.self$addParsingExpression('MONOISOTOPIC.MASS', "monoisotopicMass")
+	.self$addParsingExpression('INCHI', "inChI")
+	.self$addParsingExpression('INCHIKEY', "inchiIKey")
+	.self$addParsingExpression('NAME', "mainName")
 })
 
 # Parse fields after {{{1

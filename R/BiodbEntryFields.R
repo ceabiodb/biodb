@@ -21,7 +21,7 @@
 #' @include BiodbEntryField.R
 #' @export BiodbEntryFields
 #' @exportClass BiodbEntryFields
-BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list" ))
+BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list", .aliasToName = "character" ))
 
 # Constructor {{{1
 ################################################################
@@ -31,6 +31,7 @@ BiodbEntryFields$methods( initialize = function(...) {
 	callSuper(...)
 
 	.fields <<- list()
+	.aliasToName <<- character(0)
 
 	.self$.initFields()
 })
@@ -39,74 +40,74 @@ BiodbEntryFields$methods( initialize = function(...) {
 ################################################################
 
 BiodbEntryFields$methods( .initFields = function() {
-	.self$.define(BIODB.ACCESSION)
-	.self$.define(BIODB.DESCRIPTION)
-	.self$.define(BIODB.NAME)
-	.self$.define(BIODB.COMP.IUPAC.NAME.ALLOWED)
-	.self$.define(BIODB.COMP.IUPAC.NAME.TRAD)
-	.self$.define(BIODB.COMP.IUPAC.NAME.SYST)
-	.self$.define(BIODB.COMP.IUPAC.NAME.PREF)
-	.self$.define(BIODB.COMP.IUPAC.NAME.CAS)
-	.self$.define(BIODB.COMP.LOGP, class = 'double')
-	.self$.define(BIODB.FULLNAMES,                         card = BIODB.CARD.MANY)
-	.self$.define(BIODB.SYNONYMS,                          card = BIODB.CARD.MANY)
-	.self$.define(BIODB.PROTEIN.DESCRIPTION)
-	.self$.define(BIODB.SYMBOL)
-	.self$.define(BIODB.GENE.SYMBOLS,                      card = BIODB.CARD.MANY)
-	.self$.define(BIODB.NB.COMPOUNDS,  class = 'integer')
-	.self$.define(BIODB.COMPOUNDS,     class = 'object',   card = BIODB.CARD.MANY)
-	.self$.define(BIODB.COMPOUND.ID)
+	.self$.define('accession',  description = 'Accession number of an entry.')
+	.self$.define('description')
+	.self$.define('name')
+	.self$.define('comp.iupac.name.allowed')
+	.self$.define('comp.iupac.name.trad')
+	.self$.define('comp.iupac.name.syst')
+	.self$.define('comp.iupac.name.pref')
+	.self$.define('comp.iupac.name.cas')
+	.self$.define('logp',       description = 'logP', class = 'double')
+	.self$.define('fullnames',                         card = BIODB.CARD.MANY)
+	.self$.define('synonyms',                          card = BIODB.CARD.MANY)
+	.self$.define('protdesc',   description = 'Protein description.')
+	.self$.define('symbol')
+	.self$.define('gene.symbols',  alias = 'genesymbols',                    card = BIODB.CARD.MANY)
+	.self$.define('nb.compounds',  alias = 'nbcompounds', class = 'integer')
+	.self$.define('compounds',     class = 'object',   card = BIODB.CARD.MANY)
+	.self$.define('compound.id', alias = 'compoundid')
 
 	# Define database ID fields
 	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
 		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY)
 
-	.self$.define(BIODB.INCHI)
-	.self$.define(BIODB.INCHIKEY)
+	.self$.define('inchi')
+	.self$.define('inchikey')
 
-	.self$.define(BIODB.MSDEV)
-	.self$.define(BIODB.MS.LEVEL, class = 'integer')
-	.self$.define(BIODB.MSDEVTYPE)
-	.self$.define(BIODB.MSTYPE)
-	.self$.define(BIODB.MSMODE)
-	.self$.define(BIODB.MSPRECMZ,     class =  'double',    card = BIODB.CARD.MANY)
-	.self$.define(BIODB.MSPRECANNOT)
-	.self$.define(BIODB.FORMULA)
-	.self$.define(BIODB.SUPER.CLASS)
-	.self$.define(BIODB.MASS,         class = 'double')
-	.self$.define(BIODB.AVERAGE.MASS, class = 'double')
-	.self$.define(BIODB.MONOISOTOPIC.MASS,    class = 'double')
-	.self$.define(BIODB.NOMINAL.MASS,         class = 'integer')
-	.self$.define(BIODB.MOLECULAR.WEIGHT,     class = 'double')
-	.self$.define(BIODB.SEQUENCE)
-	.self$.define(BIODB.LENGTH,               class = 'integer')
-	.self$.define(BIODB.LOCATION)
-	.self$.define(BIODB.NB.PEAKS,             class = 'integer')
-	.self$.define(BIODB.SMILES)
-	.self$.define(BIODB.SMILES.CANONICAL)
-	.self$.define(BIODB.SMILES.ISOMERIC)
-	.self$.define(BIODB.CATALYTIC.ACTIVITY,                        card = BIODB.CARD.MANY)
-	.self$.define(BIODB.COFACTOR,                                  card = BIODB.CARD.MANY)
-	.self$.define(BIODB.CHARGE,               class = 'integer')
-	.self$.define(BIODB.CAS.ID)
+	.self$.define('msdev')
+	.self$.define('ms.level', class = 'integer')
+	.self$.define('msdevtype')
+	.self$.define('mstype')
+	.self$.define('ms.mode', alias = 'msmode')
+	.self$.define('msprecmz',     class =  'double',    card = BIODB.CARD.MANY)
+	.self$.define('msprecannot')
+	.self$.define('formula')
+	.self$.define('super.class', alias = 'superclass')
+	.self$.define('mass',         class = 'double')
+	.self$.define('average.mass', class = 'double')
+	.self$.define('monoisotopic.mass',    class = 'double')
+	.self$.define('nominal.mass',         class = 'integer')
+	.self$.define('molecular.weight',     class = 'double')
+	.self$.define('sequence')
+	.self$.define('length',               class = 'integer')
+	.self$.define('location')
+	.self$.define('nb.peaks', alias = 'nbpeaks',            class = 'integer')
+	.self$.define('smiles')
+	.self$.define('smiles.canonical')
+	.self$.define('smiles.isomeric')
+	.self$.define('catalytic.activity',                        card = BIODB.CARD.MANY)
+	.self$.define('cofactor',                                  card = BIODB.CARD.MANY)
+	.self$.define('charge',               class = 'integer')
+	.self$.define('cas.id', alias = 'casid')
 
 	# MS Peaks
-	.self$.define(BIODB.PEAKS,                class = 'data.frame')
-	.self$.define(BIODB.PEAK.MZ,      class = 'double')
-	.self$.define(BIODB.PEAK.MZTHEO,  class = 'double')
-	.self$.define(BIODB.PEAK.MZEXP,   class = 'double')
+	.self$.define('peaks',                class = 'data.frame')
+	.self$.define('peak.mz',      class = 'double')
+	.self$.define('peak.mztheo',  class = 'double')
+	.self$.define('peak.mzexp',   class = 'double')
 
 	# Chromatographic column
-	.self$.define(BIODB.CHROM.COL)
-	.self$.define(BIODB.CHROM.COL.NAME)
-	.self$.define(BIODB.CHROM.COL.METHOD.PROTOCOL)
-	.self$.define(BIODB.CHROM.COL.ID)
-	.self$.define(BIODB.CHROM.COL.CONSTRUCTOR)
-	.self$.define(BIODB.CHROM.COL.LENGTH, class = "double")
-	.self$.define(BIODB.CHROM.COL.DIAMETER, class = "double")
-	.self$.define(BIODB.CHROM.COL.RT, class = 'double')
-	.self$.define(BIODB.CHROM.COL.RT.MIN, class = "double")
-	.self$.define(BIODB.CHROM.COL.RT.MAX, class = "double")
+	.self$.define('chrom.col', alias = 'compoundid')
+	.self$.define('chrom.col.name')
+	.self$.define('chrom.col.method.protocol')
+	.self$.define('chrom.col.id')
+	.self$.define('chrom.col.constructor')
+	.self$.define('chrom.col.length', class = "double")
+	.self$.define('chrom.col.diameter', class = "double")
+	.self$.define('chrom.col.rt', alias = 'chromcolrt', class = 'double')
+	.self$.define('chrom.col.rt.min', class = "double")
+	.self$.define('chrom.col.rt.max', class = "double")
 })
 
 # Define {{{1
@@ -114,19 +115,38 @@ BiodbEntryFields$methods( .initFields = function() {
 
 BiodbEntryFields$methods( .define = function(name, ...) {
 
+	# Check that name is in lower case
+	if (name != tolower(name))
+		.self$message(MSG.ERROR, paste("Field name \"", name, "\" must be in lower case.", sep = ''))
+
 	# Is field already defined?
-	if (name %in% names(.self$.fields))
+	if (.self$isDefined(name))
 		.self$message(MSG.ERROR, paste("Field \"", name, "\" has already been defined.", sep = ''))
 
 	# Define new field
-	.self$.fields[[name]] <- BiodbEntryField$new(parent = .self, name = name, ...)
+	field <- BiodbEntryField$new(parent = .self, name = name, ...)
+
+	# Store inside fields list
+	.self$.fields[[name]] <- field
+
+	# Define aliases
+	if (field$hasAliases())
+		for (alias in field$getAliases())
+			.self$.aliasToName[[alias]] <- name
+})
+
+# Is alias {{{1
+################################################################
+
+BiodbEntryFields$methods( isAlias = function(name) {
+	return(tolower(name) %in% names(.self$.aliasToName))
 })
 
 # Is defined {{{1
 ################################################################
 
 BiodbEntryFields$methods( isDefined = function(name) {
-	return(name %in% names(.self$.fields))
+	return(tolower(name) %in% names(.self$.fields) || .self$isAlias(name))
 })
 
 # Check is defined {{{1
@@ -137,12 +157,26 @@ BiodbEntryFields$methods( checkIsDefined = function(name) {
 		.self$message(MSG.ERROR, paste("Field \"", name, "\" is not defined.", sep = ''))
 })
 
+# Get real name {{{1
+################################################################
+
+BiodbEntryFields$methods( getRealName = function(name) {
+	":\n\nIf name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown."
+
+	.self$checkIsDefined(name)
+
+	if ( ! tolower(name) %in% names(.self$.fields))
+		name <- .self$.aliasToName[[tolower(name)]]
+
+	return(name)
+})
+
 # Get {{{1
 ################################################################
 
 BiodbEntryFields$methods( get = function(name) {
-	.self$checkIsDefined(name)
-	field <- .self$.fields[[name]]
+	name <- .self$getRealName(name)
+	field <- .self$.fields[[tolower(name)]]
 	return(field)
 })
 

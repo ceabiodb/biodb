@@ -3,9 +3,10 @@
 # Test msmsSearch {{{1
 ################################################################
 
-test.msmsSearch <- function(biodb, db.name) {
+test.msmsSearch <- function(db) {
 
-	db <- biodb$getFactory()$getConn(db.name)
+	biodb <- db$getBiodb()
+	db.name <- db$getId()
 
 	# Loop on modes
 	for (mode in BIODB.MSMODE.VALS) {
@@ -20,7 +21,7 @@ test.msmsSearch <- function(biodb, db.name) {
 		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
 
 		# Get peaks
-		peaks <- spectrum.entry$getFieldValue(BIODB.PEAKS)
+		peaks <- spectrum.entry$getFieldValue('PEAKS')
 
 		# Run MSMS search
 		result <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, npmin = 2, dist.fun = 'pbachtttarya', msms.mz.tol = 3, msms.mz.tol.min = 0.005)
@@ -66,7 +67,10 @@ test.searchMzTol <- function(db) {
 # Test searchMzTol() with precursor {{{1
 ################################################################
 
-test.searchMzTol.with.precursor <- function(biodb, db.name) {
+test.searchMzTol.with.precursor <- function(db) {
+
+	biodb <- db$getBiodb()
+	db.name <- db$getId()
 
 	# Set some initial values to speed up test
 	db.values <- list(massbank.eu = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)))
@@ -94,18 +98,18 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 		for (spectra.id in spectra.ids) {
 			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
 			expect_false(is.null(entry))
-			expect_false(is.na(entry$getFieldValue(BIODB.MS.LEVEL)))
-			expect_equal(entry$getFieldValue(BIODB.MS.LEVEL), ms.level)
-			peaks <- entry$getFieldValue(BIODB.PEAKS)
+			expect_false(is.na(entry$getFieldValue('MS.LEVEL')))
+			expect_equal(entry$getFieldValue('MS.LEVEL'), ms.level)
+			peaks <- entry$getFieldValue('PEAKS')
 			expect_false(is.null(peaks))
 			expect_true(is.data.frame(peaks))
 			expect_gt(nrow(peaks), 0)
-			expect_true(BIODB.PEAK.MZ %in% colnames(peaks))
+			expect_true('peak.mz' %in% colnames(peaks))
 
 			# Check that precursor peak was matched
-			expect_true(any(abs(mz - peaks[[BIODB.PEAK.MZ]] < mz * tol.ppm * 1e-6)))
-			expect_true(entry$hasField(BIODB.MSPRECMZ))
-			expect_true(abs(entry$getFieldValue(BIODB.MSPRECMZ) - mz) < mz * tol.ppm * 1e-6)
+			expect_true(any(abs(mz - peaks[['peak.mz']] < mz * tol.ppm * 1e-6)))
+			expect_true(entry$hasField('MSPRECMZ'))
+			expect_true(abs(entry$getFieldValue('MSPRECMZ') - mz) < mz * tol.ppm * 1e-6)
 		}
 	}
 }
@@ -113,20 +117,19 @@ test.searchMzTol.with.precursor <- function(biodb, db.name) {
 # Test basic mass.csv.file {{{1
 ################################################################
 
-test.basic.mass.csv.file <- function(biodb) {
+test.basic.mass.csv.file <- function(db) {
+
+	biodb <- db$getBiodb()
 
 	# Open file
 	df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
-	# Get database
-	db <- biodb$getFactory()$getConn(BIODB.MASS.CSV.FILE)
-
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
-	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compoundid', 'msmode', 'chromcol', 'chromcolrt')])))
+	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compound.id', 'ms.mode', 'chrom.col', 'chrom.col.rt')])))
 
 	# Get a compound ID
-	compound.id <- df[df[['ms.level']] == 1, 'compoundid'][[1]]
+	compound.id <- df[df[['ms.level']] == 1, 'compound.id'][[1]]
 
 	# Test number of peaks
 	expect_gt(db$getNbPeaks(), 1)
@@ -139,7 +142,7 @@ test.basic.mass.csv.file <- function(biodb) {
 	expect_gt(nrow(db$getChromCol()), 1)
 	expect_gt(nrow(db$getChromCol(compound.ids = compound.id)), 1)
 	expect_lte(nrow(db$getChromCol(compound.ids = compound.id)), nrow(db$getChromCol()))
-	expect_true(all(db$getChromCol(compound.ids = compound.id)[[BIODB.ID]] %in% db$getChromCol()[[BIODB.ID]]))
+	expect_true(all(db$getChromCol(compound.ids = compound.id)[['id']] %in% db$getChromCol()[['id']]))
 
 	# Test mz values
 	expect_true(is.vector(db$getMzValues()))
@@ -152,13 +155,12 @@ test.basic.mass.csv.file <- function(biodb) {
 # Test output columns {{{1
 ################################################################
 
-test.mass.csv.file.output.columns <- function(biodb) {
+test.mass.csv.file.output.columns <- function(db) {
+
+	biodb <- db$getBiodb()
 
 	# Open database file
 	db.df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
-
-	# Get database
-	db <- biodb$getFactory()$getConn(BIODB.MASS.CSV.FILE)
 
 	# Get M/Z value
 	mz <- db$getMzValues(max.results = 1, ms.level = 1)
@@ -179,13 +181,16 @@ test.mass.csv.file.output.columns <- function(biodb) {
 # Test peak table {{{1
 ################################################################
 
-test.peak.table <- function(biodb, db.name) {
+test.peak.table <- function(db) {
+
+	biodb <- db$getBiodb()
+	db.name <- db$getId()
 
 	# Load reference entries
 	entries.desc <- load.ref.entries(db.name)
 
 	# Create entries
-	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[[BIODB.ACCESSION]], drop = FALSE)
+	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['accession']], drop = FALSE)
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 

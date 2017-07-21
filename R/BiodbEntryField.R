@@ -32,19 +32,19 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical', .db.id = 'logical'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, db.id = FALSE, ...) {
+BiodbEntryField$methods( initialize = function(name, alias = NA_character_, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, db.id = FALSE, description = NA_character_, ...) {
 
 	callSuper(...)
 
 	# Set name
 	if ( is.null(name) || is.na(name) || nchar(name) == '')
 		.self$message(MSG.ERROR, "You cannot set an empty name for a field. Name was empty (either NULL or NA or empty string).")
-	.name <<- name
+	.name <<- tolower(name)
 
 	# Set class
 	if ( ! class %in% FIELD.CLASSES)
@@ -56,9 +56,60 @@ BiodbEntryField$methods( initialize = function(name, class = 'character', card =
 		.self$message(MSG.ERROR, paste("Unknown cardinality \"", card, "\" for field \"", name, "\".", sep = ''))
 	.cardinality <<- card
 
+	# Set description
+	if (is.null(description) || is.na(description))
+		.self$message(MSG.CAUTION, paste("Missing description for entry field \"", name, "\".", sep = ''))
+	.description <<- description
+
+	# Set alias
+	if (length(alias) > 1 && any(is.na(alias)))
+		.self$message(MSG.ERROR, paste("One of the aliases of entry field \"", name, "\" is NA.", sep = ''))
+	.alias <<- alias
+
 	# Set other fields
 	.allow.duplicates <<- allow.duplicates
 	.db.id <<- db.id
+})
+
+# Get name {{{1
+################################################################
+
+BiodbEntryField$methods( getName = function() {
+	":\n\n Get field's name."
+
+	return(.self$.name)
+})
+
+# Get description {{{1
+################################################################
+
+BiodbEntryField$methods( getDescription = function() {
+	":\n\n Get field's description."
+
+	return(.self$.description)
+})
+
+# Has aliases {{{1
+################################################################
+
+BiodbEntryField$methods( hasAliases = function() {
+	":\n\n Returns TRUE if this entry field defines aliases."
+
+	return( ! any(is.na(.self$.alias)))
+})
+
+# Get aliases {{{1
+################################################################
+
+BiodbEntryField$methods( getAliases = function() {
+	":\n\n Returns the list of aliases if some are defined, otherwise returns NULL."
+
+	aliases <- NULL
+
+	if (.self$hasAliases())
+		aliases <- .self$.alias
+	
+	return(aliases)
 })
 
 # Has card one {{{1

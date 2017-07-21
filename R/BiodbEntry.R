@@ -29,7 +29,8 @@ BiodbEntry$methods( initialize = function(...) {
 
 BiodbEntry$methods(	setFieldValue = function(field, value) {
 
-	field.def = .self$getBiodb()$getEntryFields()$get(field)
+	field.def <- .self$getBiodb()$getEntryFields()$get(field)
+	field <- field.def$getName()
 
 	# Remove duplicates
 	if ( ! field.def$allowsDuplicates() && is.vector(value))
@@ -55,7 +56,7 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 		value <- v
 	}
 
-	.self$.fields[[field]] <- value
+	.self$.fields[[field.def$getName()]] <- value
 })
 
 # Append field value {{{1
@@ -71,7 +72,7 @@ BiodbEntry$methods(	appendFieldValue = function(field, value) {
 # Get field names {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldNames = function(field) {
+BiodbEntry$methods(	getFieldNames = function() {
 	return(names(.self$.fields))
 })
 
@@ -79,7 +80,12 @@ BiodbEntry$methods(	getFieldNames = function(field) {
 ################################################################
 
 BiodbEntry$methods(	hasField = function(field) {
-	return(field %in% names(.self$.fields))
+
+	# Get field definition
+	field.def <- .self$getBiodb()$getEntryFields()$get(field)
+	field <- field.def$getName()
+
+	return(tolower(field) %in% names(.self$.fields))
 })
 
 # Remove field {{{1
@@ -87,14 +93,14 @@ BiodbEntry$methods(	hasField = function(field) {
 
 BiodbEntry$methods(	removeField = function(field) {
 	if (.self$hasField(field))
-		.fields <<- .self$.fields[names(.self$.fields) != field]
+		.fields <<- .self$.fields[names(.self$.fields) != tolower(field)]
 })
 
 # Field has basic class {{{1
 ################################################################
 
 BiodbEntry$methods(	fieldHasBasicClass = function(field) {
-	return(.self$getBiodb()$getEntryFields()$getField(field)$isVector())
+	return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
 })
 
 # Get field value {{{1
@@ -103,12 +109,11 @@ BiodbEntry$methods(	fieldHasBasicClass = function(field) {
 BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FALSE, last = FALSE) {
 
 	val <- NULL
-
-	# Check field
-	.self$getBiodb()$getEntryFields()$checkIsDefined(field)
+	field <- tolower(field)
 
 	# Get field definition
 	field.def <- .self$getBiodb()$getEntryFields()$get(field)
+	field <- field.def$getName()
 
 	# Compute field value
 	if (compute && ! .self$hasField(field))
@@ -144,6 +149,8 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 BiodbEntry$methods(	.compute.field = function(fields = NULL) {
 
 	success <- FALSE
+	if ( ! is.null(fields))
+		fields <- tolower(fields)
 
 	if (.self$getBiodb()$getConfig()$isEnabled('compute.fields')) {
 
@@ -192,6 +199,8 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	"Convert entry into a data frame."
 
 	df <- data.frame(stringsAsFactors = FALSE)
+	if ( ! is.null(fields))
+		fields <- tolower(fields)
 
 	# Compute fields
 	if (compute)
@@ -241,6 +250,8 @@ BiodbEntry$methods(	getFieldsAsJson = function(compute = TRUE) {
 ################################################################
 
 BiodbEntry$methods( addParsingExpression = function(field, expr) {
+
+	field <- tolower(field)
 
 	# Check that this field has no expression associated
 	if (field %in% names(.self$.parsing.expr))

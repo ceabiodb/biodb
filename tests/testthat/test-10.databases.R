@@ -24,34 +24,34 @@ for (mode in TEST.MODES) {
 	# Loop on test databases
 	for (db.name in TEST.DATABASES) {
 
-		set.test.context(biodb, paste("Running tests on database", db.name, "in", mode, "mode"))
-		test_that("Wrong entry gives NULL", test.wrong.entry(biodb, db.name))
-		test_that("One wrong entry does not block the retrieval of good ones", test.wrong.entry.among.good.ones(biodb, db.name))
-		test_that("Entry fields have a correct value", test.entry.fields(biodb, db.name))
-
 		# Get instance
 		db <- biodb$getFactory()$getConn(db.name)
 
+		set.test.context(biodb, paste("Running tests on database", db.name, "in", mode, "mode"))
+		run.db.test("Wrong entry gives NULL", 'test.wrong.entry', db)
+		run.db.test("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', db)
+		run.db.test("Entry fields have a correct value", 'test.entry.fields', db)
+
 		if ( ! methods::is(db, 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
 
-			test_that("Nb entries is positive", test.nb.entries(db))
-			test_that("We can get a list of entry ids", test.entry.ids(db))
+			run.db.test("Nb entries is positive", 'test.nb.entries', db)
+			run.db.test("We can get a list of entry ids", 'test.entry.ids', db)
 
 			# Test HMDB Metabolite number of entries
 			if (db.name == BIODB.HMDB.METABOLITE && mode == MODE.ONLINE)
-				test_that("HMDB metabolite returns enough entries ", test.hmdbmetabolite.nbentries(db))
+				run.db.test("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', db)
 
 			# Mass database testing
 			if (methods::is(db, 'MassdbConn')) {
-				test_that("We can retrieve a list of M/Z values", test.getMzValues(db))
-				test_that("We can match M/Z peaks", test.searchMzTol(db))
-				test_that("Search by precursor returns at least one match", test.searchMzTol.with.precursor(biodb, db.name))
-				test_that("MSMS search returns at least one match", test.msmsSearch(biodb, db.name))
-				test_that("The peak table is correct.", test.peak.table(biodb, db.name))
+				run.db.test("We can retrieve a list of M/Z values", 'test.getMzValues', db)
+				run.db.test("We can match M/Z peaks", 'test.searchMzTol',db)
+				run.db.test("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
+				run.db.test("MSMS search returns at least one match", 'test.msmsSearch', db)
+				run.db.test("The peak table is correct.", 'test.peak.table', db)
 
 				if (db.name == BIODB.MASS.CSV.FILE) {
-					test_that("MassCsvFileConn methods are correct", test.basic.mass.csv.file(biodb))
-					test_that("M/Z match output contains all columns of database.", test.mass.csv.file.output.columns(biodb))
+					run.db.test("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', db)
+					run.db.test("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', db)
 				}
 			}
 		}
