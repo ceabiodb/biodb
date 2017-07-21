@@ -69,7 +69,7 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 			if (entry$hasField('msprecmz'))
 				new.mz <- entry$getFieldValue('msprecmz', last = TRUE)
 		} else {
-			peaks <- entry$getfieldvalue('peaks')
+			peaks <- entry$getFieldValue('peaks')
 			if ( ! is.null(peaks) && nrow(peaks) > 0 && 'peak.mz' %in% colnames(peaks))
 				new.mz <- peaks[['peak.mz']]
 		}
