@@ -140,17 +140,61 @@ $(document).ready(function () {
 ##  [9] 79.0177 92.0498</code></pre>
 <p>You can restrict to a certain MS mode, ask for the peak to be a precursor peak, or even ask for an MS level:</p>
 <pre class="r"><code>conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'pos')</code></pre>
-<pre><code>## Warning: closing unused connection 5 (mybiodb.log)</code></pre>
+<pre><code>## Warning in .Internal(exists(x, envir, mode, inherits)): closing unused
+## connection 5 (mybiodb.log)</code></pre>
 <pre><code>##  [1] 285.0208 279.0910 311.0809 251.0597 215.0597 268.0750 281.0703
 ##  [8] 265.0754 271.0318 254.0594</code></pre>
 </div>
 <div id="search-for-spectra-containing-a-peak" class="section level2">
 <h2>Search for spectra containing a peak</h2>
+<p>Here is how to search for spectra that contain a certain M/Z value:</p>
 <pre class="r"><code>conn$searchMzRange(mz.min = 54, mz.max = 54.1, max.results = 5)</code></pre>
 <pre><code>## [1] &quot;KO000054&quot; &quot;KO000095&quot; &quot;KO000127&quot; &quot;KO000317&quot; &quot;KO000454&quot;</code></pre>
+<p>Another version is available that uses a tolerance instead of a range:</p>
+<pre class="r"><code>conn$searchMzTol(mz = 54, mz.tol = 0.1, mz.tol.unit = 'plain', max.results = 5)</code></pre>
+<pre><code>## [1] &quot;KO000046&quot; &quot;KO000054&quot; &quot;KO000060&quot; &quot;KO000061&quot; &quot;KO000094&quot;</code></pre>
+<p>You can also set <code>mz.tol.unit</code> to <code>'ppm'</code>.</p>
+<p>Both methods accept the following options:</p>
+<table>
+<colgroup>
+<col width="19%"></col>
+<col width="10%"></col>
+<col width="69%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ms.mode</code></td>
+<td><code>NA</code></td>
+<td>Set to <code>'pos'</code> or <code>'neg'</code> to get only spectra from a certain MS mode.</td>
+</tr>
+<tr class="even">
+<td><code>precursor</code></td>
+<td><code>FALSE</code></td>
+<td>When set to <code>TRUE</code>, the searched peak must be a precursor peak.</td>
+</tr>
+<tr class="odd">
+<td><code>ms.level</code></td>
+<td>0</td>
+<td>Set to an integer greater than 0 to get only spectra from this MS level.</td>
+</tr>
+<tr class="even">
+<td><code>min.rel.int</code></td>
+<td><code>NA</code></td>
+<td>The minimum of relative intensity required for the peak, in percentage from <code>0.0</code> to <code>100.0</code>.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="search-for-msms-spectra-by-spectrum-matching" class="section level2">
 <h2>Search for MSMS spectra by spectrum matching</h2>
+<p>You can search a match of your MSMS spectrum inside the MSMS spectra of the database:</p>
 <pre class="r"><code># Define spectrum to match:
 spectrum &lt;- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
 
@@ -195,6 +239,12 @@ conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)</code></pre>
 ## $id
 ##  [1] &quot;KO002597&quot; &quot;KO002598&quot; &quot;KO002599&quot; &quot;KO003347&quot; &quot;KO003348&quot; &quot;KO003349&quot;
 ##  [7] &quot;KO003350&quot; &quot;KO003351&quot; &quot;SM826601&quot; &quot;SM869701&quot;</code></pre>
+<p>The returned structure is a list containing three fields, each ordered from greatest matching score to lowest:</p>
+<ul>
+<li><code>measure</code>: The matching score.</li>
+<li><code>matchedpeaks</code>: Each column corresponds to a peak of the searched spectrum (from first to last peak). A <code>-1</code> means that the peak has not been matched. An integer N greater than <code>0</code> means that the peak has been matched with the Nth peak of the database spectrum.</li>
+<li><code>id</code>: Matched database spectra identifiers.</li>
+</ul>
 </div>
 </div>
 

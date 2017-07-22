@@ -162,36 +162,36 @@ print(df)</code></pre>
 <p>Transform all entries into a single data frame:</p>
 <pre class="r"><code>df &lt;- mybiodb$entriesToDataframe(entries, only.atomic = FALSE)
 print(df)</code></pre>
-<pre><code>##    accession                       msdev msdevtype mstype nbpeaks
-## 1   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 2   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 3   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 4   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 5   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 6   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 7   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 8   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 9   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2       9
-## 10  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 11  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 12  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 13  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 14  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 15  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 16  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 17  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 18  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 19  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 20  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 21  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 22  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 23  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 24  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 25  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 26  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 27  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 28  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
-## 29  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2      20
+<pre><code>##    accession                       msdev msdevtype mstype nb.peaks
+## 1   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 2   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 3   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 4   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 5   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 6   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 7   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 8   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 9   KO000017 API3000, Applied Biosystems LC-ESI-QQ    MS2        9
+## 10  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 11  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 12  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 13  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 14  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 15  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 16  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 17  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 18  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 19  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 20  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 21  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 22  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 23  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 24  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 25  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 26  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 27  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 28  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
+## 29  KO000046 API3000, Applied Biosystems LC-ESI-QQ    MS2       20
 ##    msprecannot                                                       inchi
 ## 1       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
 ## 2       [M-H]- InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)
@@ -222,7 +222,7 @@ print(df)</code></pre>
 ## 27      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
 ## 28      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
 ## 29      [M-H]-                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)
-##    chebi.id kegg.compound.id    casid ncbi.pubchem.subst.id formula
+##    chebi.id kegg.compound.id   cas.id ncbi.pubchem.subst.id formula
 ## 1     30754           C00108 118-92-3              SID:3408 C7H7NO2
 ## 2     30754           C00108 118-92-3              SID:3408 C7H7NO2
 ## 3     30754           C00108 118-92-3              SID:3408 C7H7NO2
@@ -252,36 +252,36 @@ print(df)</code></pre>
 ## 27    30089           C00033  64-19-7              SID:3335  C2H4O2
 ## 28    30089           C00033  64-19-7              SID:3335  C2H4O2
 ## 29    30089           C00033  64-19-7              SID:3335  C2H4O2
-##                 smiles      mass msmode
-## 1  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 2  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 3  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 4  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 5  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 6  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 7  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 8  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 9  OC(=O)c(c1)c(N)ccc1 137.04768    neg
-## 10             CC(O)=O  60.02113    neg
-## 11             CC(O)=O  60.02113    neg
-## 12             CC(O)=O  60.02113    neg
-## 13             CC(O)=O  60.02113    neg
-## 14             CC(O)=O  60.02113    neg
-## 15             CC(O)=O  60.02113    neg
-## 16             CC(O)=O  60.02113    neg
-## 17             CC(O)=O  60.02113    neg
-## 18             CC(O)=O  60.02113    neg
-## 19             CC(O)=O  60.02113    neg
-## 20             CC(O)=O  60.02113    neg
-## 21             CC(O)=O  60.02113    neg
-## 22             CC(O)=O  60.02113    neg
-## 23             CC(O)=O  60.02113    neg
-## 24             CC(O)=O  60.02113    neg
-## 25             CC(O)=O  60.02113    neg
-## 26             CC(O)=O  60.02113    neg
-## 27             CC(O)=O  60.02113    neg
-## 28             CC(O)=O  60.02113    neg
-## 29             CC(O)=O  60.02113    neg
+##                 smiles      mass ms.mode
+## 1  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 2  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 3  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 4  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 5  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 6  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 7  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 8  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 9  OC(=O)c(c1)c(N)ccc1 137.04768     neg
+## 10             CC(O)=O  60.02113     neg
+## 11             CC(O)=O  60.02113     neg
+## 12             CC(O)=O  60.02113     neg
+## 13             CC(O)=O  60.02113     neg
+## 14             CC(O)=O  60.02113     neg
+## 15             CC(O)=O  60.02113     neg
+## 16             CC(O)=O  60.02113     neg
+## 17             CC(O)=O  60.02113     neg
+## 18             CC(O)=O  60.02113     neg
+## 19             CC(O)=O  60.02113     neg
+## 20             CC(O)=O  60.02113     neg
+## 21             CC(O)=O  60.02113     neg
+## 22             CC(O)=O  60.02113     neg
+## 23             CC(O)=O  60.02113     neg
+## 24             CC(O)=O  60.02113     neg
+## 25             CC(O)=O  60.02113     neg
+## 26             CC(O)=O  60.02113     neg
+## 27             CC(O)=O  60.02113     neg
+## 28             CC(O)=O  60.02113     neg
+## 29             CC(O)=O  60.02113     neg
 ##                                                           synonyms
 ## 1  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
 ## 2  Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid

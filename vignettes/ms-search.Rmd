@@ -35,12 +35,29 @@ conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'po
 
 ## Search for spectra containing a peak
 
+Here is how to search for spectra that contain a certain M/Z value:
 ```{r}
 conn$searchMzRange(mz.min = 54, mz.max = 54.1, max.results = 5)
 ```
 
+Another version is available that uses a tolerance instead of a range:
+```{r}
+conn$searchMzTol(mz = 54, mz.tol = 0.1, mz.tol.unit = 'plain', max.results = 5)
+```
+You can also set `mz.tol.unit` to `'ppm'`.
+
+Both methods accept the following options:
+
+Option        | Default | Description
+------------- | ------- | --------------------------------------------------
+`ms.mode`     |   `NA`  | Set to `'pos'` or `'neg'` to get only spectra from a certain MS mode.
+`precursor`   | `FALSE` | When set to `TRUE`, the searched peak must be a precursor peak.
+`ms.level`    |    0    | Set to an integer greater than 0 to get only spectra from this MS level.
+`min.rel.int` |   `NA`  | The minimum of relative intensity required for the peak, in percentage from `0.0` to `100.0`.
+
 ## Search for MSMS spectra by spectrum matching
 
+You can search a match of your MSMS spectrum inside the MSMS spectra of the database:
 ```{r}
 # Define spectrum to match:
 spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
@@ -48,3 +65,8 @@ spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
 # Search for match:
 conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
 ```
+The returned structure is a list containing three fields, each ordered from greatest matching score to lowest:
+
+ * `measure`: The matching score.
+ * `matchedpeaks`: Each column corresponds to a peak of the searched spectrum (from first to last peak). A `-1` means that the peak has not been matched. An integer N greater than `0` means that the peak has been matched with the Nth peak of the database spectrum.
+ * `id`: Matched database spectra identifiers.
