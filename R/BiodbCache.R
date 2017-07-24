@@ -7,13 +7,13 @@
 #'
 #' This class manages a cache system for saving downloaded files and request results. It is designed for internal use, but you can still access some of the read-only methods if you wish.
 #'
-#' @param dbid          The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.
-#' @param subfolder     The subfolder inside the cache system. Supported values are: 'shortterm' and 'longterm'. The 'shortterm' folder contains individual entry files. The 'longterm' folder contains zip files of whole databases.
-#' @param name          The name of the file or the marker. Vector of characters. Length can be greater than one.
-#' @param ext           The extension of the file, without the dot: 'html', 'xml', etc.
-#' @param output.vector Force output to be a \code{vector} instead of a \code{list}. Where the list contains a \code{NULL}, the \code{vector} will contain a \code{NA} value.
 #' @param content       A \code{character vector} containing contents to save.
+#' @param dbid          The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.
+#' @param ext           The extension of the file, without the dot: 'html', 'xml', etc.
 #' @param extract.name  Instead of returning the file paths, returns the list of names used the construct the file name: [cache_folder]/[subfolder]/[dbid]-[name].[ext].
+#' @param name          The name of the file or the marker. Vector of characters. Length can be greater than one.
+#' @param output.vector Force output to be a \code{vector} instead of a \code{list}. Where the list contains a \code{NULL}, the \code{vector} will contain a \code{NA} value.
+#' @param subfolder     The subfolder inside the cache system. Supported values are: 'shortterm' and 'longterm'. The 'shortterm' folder contains individual entry files. The 'longterm' folder contains zip files of whole databases.
 #'
 #' @seealso \code{\link{Biodb}}.
 #'

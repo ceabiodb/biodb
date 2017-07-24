@@ -7,8 +7,8 @@
 #'
 #' This is the super class of remote database connectors. It thus defines methods related to remote connection, like the definition of a token, and URL definitions. As with \code{\link{BiodbConn}} class, you won't need to use the constructor. Nevertheless we provide in the Fields section information about the constructor parameters, for eventual developers.
 #'
-#' @field token         An access token as a character string, required by some databases for all or part of their webservices.
 #' @field scheduler     An instance from the class \code{\link{UrlRequestScheduler.R}}.
+#' @field token         An access token as a character string, required by some databases for all or part of their webservices.
 #'
 #' @param concatenate   If set to \code{TRUE}, then try to build as few URLs as possible, sending requests with several identifiers at once.
 #' @param entry.id      The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.

@@ -6,6 +6,10 @@
 \alias{MassdbConn}
 \title{The mother class of all Mass spectra databases.}
 \arguments{
+\item{compound.ids}{A list of compound identifiers (i.e.: accession numbers). Used to filter the output.}
+
+\item{dist.fun}{The distance function used to compute the distance betweem two mass spectra.}
+
 \item{max.results}{The maximum of elements returned by a method.}
 
 \item{min.rel.int}{The minimum relative intensity.}
@@ -14,35 +18,76 @@
 
 \item{ms.mode}{The MS mode. Set it to either \code{BIODB.MSMODE.NEG} or \code{BIODB.MSMODE.POS}.}
 
+\item{msms.mz.tol}{M/Z tolerance to apply while matching MSMS spectra. In PPM.}
+
+\item{msms.mz.tol.min}{Minimum of the M/Z tolerance (plain unit). If the M/Z tolerance computed with \code{msms.mz.tol} is lower than \code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.}
+
 \item{mz}{An M/Z value.}
 
 \item{mz.max}{The maximum allowed for searched M/Z values.}
 
 \item{mz.min}{The minimum allowed for searched M/Z values.}
 
-\item{plain.tol}{The M/Z tolerance in M/Z unit. Thus the searched mz must satisfy the folloing double inequality: mz - plain.tol <= mz <= mz + plain.tol.}
+\item{mz.tol}{The M/Z tolerance, whose unit is defined by \code{mz.tol.unit}.}
+
+\item{mz.tol.unit}{The unit of the M/Z tolerance. Set it to either \code{'ppm'} or \code{'plain'}.}
+
+\item{npmin}{The minimum number of peak to detect a match (2 is recommended).}
 
 \item{precursor}{If set to \code{TRUE}, then restrict the search to precursor peaks.}
 
-\item{tol}{An M/Z tolerance, whose unit is not defined.}
+\item{precursor.mz}{The M/Z value of the precursor peak of the mass spectrum.}
 
-\item{tol.unit}{The unit of the M/Z tolerance. Set it to either \code{BIODB.MZTOLUNIT.PPM} or \code{BIODB.MZTOLUNIT.PLAIN}.}
+\item{spectrum}{A template spectrum to match inside the database.}
 }
 \description{
-All Mass spectra databases inherit from this class.
+All Mass spectra databases inherit from this class. It thus defines methods specific to mass spectrometry.
 }
 \section{Methods}{
 
 \describe{
+\item{\code{getChromCol(compound.ids = NULL)}}{:
+
+Get a list of chromatographic columns contained in this database. You can filter on specific compounds using the compound.ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'.}
+
 \item{\code{getMzValues(ms.mode = NA_character_, max.results = NA_integer_,
-  precursor = FALSE, ms.level = 0)}}{Get a list of M/Z values contained inside the database.}
+  precursor = FALSE, ms.level = 0)}}{:
+
+Get a list of M/Z values contained inside the database.}
+
+\item{\code{getNbPeaks(mode = NULL, compound.ids = NULL)}}{:
+
+Returns the number of peaks contained in the database.}
+
+\item{\code{msmsSearch(spectrum, precursor.mz, mz.tol,
+  mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = BIODB.MSMODE.POS,
+  npmin = 2, dist.fun = BIODB.MSMS.DIST.WCOSINE, msms.mz.tol = 3,
+  msms.mz.tol.min = 0.005)}}{:
+
+Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search.}
 
 \item{\code{searchMzRange(mz.min, mz.max, min.rel.int = NA_real_,
   ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE,
-  ms.level = 0)}}{Find spectra in the given M/Z range. Returns a list of spectra IDs.}
+  ms.level = 0)}}{:
 
-\item{\code{searchMzTol(mz, tol, tol.unit = BIODB.MZTOLUNIT.PLAIN,
+Find spectra in the given M/Z range. Returns a list of spectra IDs.}
+
+\item{\code{searchMzTol(mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN,
   min.rel.int = NA_real_, ms.mode = NA_character_,
-  max.results = NA_integer_, precursor = FALSE, ms.level = 0)}}{Find spectra containg a peak around the given M/Z value. Returns a list of spectra IDs.}
+  max.results = NA_integer_, precursor = FALSE, ms.level = 0)}}{:
+
+Find spectra containg a peak around the given M/Z value. Returns a list of spectra IDs.}
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get connector
+conn <- mybiodb$getFactory()$createConn('massbank.jp')
+
+
+}
+\seealso{
+\code{\link{BiodbConn}}.
+}

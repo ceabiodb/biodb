@@ -7,13 +7,13 @@
 #'
 #' This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
 #'
-#' @param dbid  The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.
-#' @param url              An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
-#' @param token            A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
-#' @param dwnld.chunk.size The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
 #' @param content          The content (as character vector) of one or more database entries.
+#' @param dbid  The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.
 #' @param drop             If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.
+#' @param dwnld.chunk.size The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
 #' @param id                A character vector containing database entry IDs (accession numbers).
+#' @param token            A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
+#' @param url              An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
 #'

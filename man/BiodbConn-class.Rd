@@ -6,11 +6,11 @@
 \alias{BiodbConn}
 \title{The mother abstract class of all database connectors.}
 \arguments{
+\item{count}{If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.}
+
 \item{entry.id}{The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.}
 
 \item{max.results}{The maximum of elements to return from the method.}
-
-\item{count}{If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.}
 }
 \description{
 This is the super class of all connector classes. All methods defined here are thus common to all connector classes. Some connector classes inherit directly from this abstract class. Some others inherit from intermediate classes \code{\link{RemotedbConn}} and \code{\link{MassdbConn}}. As for all connector concrete classes, you won't have to create an instance of this class directly, but you will instead go through the factory class. However, if you plan to develop a new connector, you will have to call the constructor of this class. See section Fields for a list of the constructor's parameters.
@@ -18,11 +18,11 @@ This is the super class of all connector classes. All methods defined here are t
 \section{Fields}{
 
 \describe{
-\item{\code{dbid}}{The identifier of the connector.}
+\item{\code{base.url}}{The base URL of the database. Default values are defined inside \code{\link{BiodbDbsInfo}}.}
 
 \item{\code{content.type}}{The type of content handled by the connector for entries: XML, TXT, etc.}
 
-\item{\code{base.url}}{The base URL of the database. Default values are defined inside \code{\link{BiodbDbsInfo}}.}
+\item{\code{dbid}}{The identifier of the connector.}
 }}
 
 \section{Methods}{

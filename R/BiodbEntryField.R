@@ -17,8 +17,8 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #'
 #' This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 #'
-#' @field name  The name of the field.
 #' @field db.id Set to \code{TRUE} if the field is a database ID.
+#' @field name  The name of the field.
 #'
 #' @seealso \code{\link{BiodbEntryFields}}.
 #'

@@ -5,17 +5,103 @@
 \alias{BiodbEntry-class}
 \alias{BiodbEntry}
 \title{The mother abstract class of all database entry classes.}
+\arguments{
+\item{compute}{If set to \code{TRUE} and a field is not defined, try to compute it using internal defined computing rules. If set to \code{FALSE}, let the field undefined.}
+
+\item{content}{A character string containing definition for an entry and obtained from a database. The format can be: CSV, HTML, JSON, XML, or just text.}
+
+\item{field}{The nane of a field.}
+
+\item{fields}{Set to character vector of field names in order to restrict execution to this set of fields.}
+
+\item{flatten}{If set to \code{TRUE} and a field's value is a vector of more than one element, then export the field's value as a single string composed of the field's value concatenated and separated by the character defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the field contains only one value, changes nothing.}
+
+\item{last}{If set to \code{TRUE} and a field's value is a vector of more than one element, then export only the last value. If set to \code{FALSE}, changes nothing.}
+
+\item{only.atomic}{If set to \code{TRUE}, only export field's values that are atomic (i.e.: of type vector and length one).}
+
+\item{parsing.expr}{A parsing expression used to parse entry content string and obtain a field's value.}
+
+\item{value}{A field's value.}
+}
 \description{
-The mother abstract class of all database entry classes.
+An entry is an element of a database, identifiable by its accession number. Each contains a list of fields defined by a name and a value. The details of all fields that can be set into an entry are defined inside the class \code{BiodbEntryFields}. From this class are derived other abstract classes for different types of entry contents: \code{TxtEntry}, \code{XmlEntry}, \code{CsvEntry}, \code{JsonEntry} and \code{HtmlEntry}. Then concrete classes are derived for each database: \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no need to know this hierarchy; the knowledge of this class and its methods is sufficient.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{getFieldsAsDataFrame(only.atomic = TRUE, compute = TRUE, fields = NULL)}}{Convert entry into a data frame.}
+\item{\code{addParsingExpression(field, parsing.expr)}}{:
 
-\item{\code{getFieldsAsJson(compute = TRUE)}}{Convert entry into a JSON string.}
+Add a parsing expression for the specified field. The form of the parsing expression depends on the type of content and thus of the class inherited from BiodbEntry abstract class: CsvEntry, TxtEntry, XmlEntry, etc. This method is automatically called internally and should not be called by the user.}
+
+\item{\code{appendFieldValue(field, value)}}{:
+
+Append a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values.}
+
+\item{\code{getFieldNames()}}{:
+
+Get a list of all fields defined for this entry.}
+
+\item{\code{getFieldsAsDataFrame(only.atomic = TRUE, compute = TRUE, fields = NULL)}}{:
+
+Convert this entry into a data frame.}
+
+\item{\code{getFieldsAsJson(compute = TRUE)}}{:
+
+Convert entry into a JSON string.}
+
+\item{\code{getFieldValue(field, compute = TRUE, flatten = FALSE, last = FALSE)}}{:
+
+Get the value of the specified field.}
+
+\item{\code{getParsingExpressions()}}{:
+
+Return a list of all defined parsing expressions for this entry.}
+
+\item{\code{hasField(field)}}{:
+
+Returns TRUE if the specified field is defined in this entry.}
+
+\item{\code{parseContent(content)}}{:
+
+Parse content string and set values accordingly for this entry's fields. This method is called automatically and should be run directly by users.}
+
+\item{\code{removeField(field)}}{:
+
+Remove the specified field from this entry.}
+
+\item{\code{setFieldValue(field, value)}}{:
+
+Set the value of a field. If the field is not already set for this entry, then the field will be created. See BiodbEntryFields for a list of possible fields in biodb.}
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get an entry:
+entry <- mybiodb$getFactory()$getEntry('chebi', '1')
+
+# Get all defined fields:
+entry$getFieldNames()
+
+# Get a field value:
+smiles <- entry$getFieldValue('smiles')
+
+# Test if a field is defined:
+if (entry$hasField('charge'))
+  print(paste('The entry ', entry$getFieldValue('accession'), ' from ChEBI has a charge of ', entry$getFieldValue('charge'), '.', sep = ''))
+
+# Export an entry as a data frame:
+df <- entry$getFieldsAsDataFrame()
+
+# Even if you may not do it, you can set a field's value yourselves:
+entry$setFieldValue('mass', 1893.1883)
+
+# Or even add a new field:
+entry$setFieldValue('chemspider.id', '388394')
+
+}
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbConn}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntryFields}}.
 }

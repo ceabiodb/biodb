@@ -7,13 +7,13 @@
 #'
 #' This is the super class of all connector classes. All methods defined here are thus common to all connector classes. Some connector classes inherit directly from this abstract class. Some others inherit from intermediate classes \code{\link{RemotedbConn}} and \code{\link{MassdbConn}}. As for all connector concrete classes, you won't have to create an instance of this class directly, but you will instead go through the factory class. However, if you plan to develop a new connector, you will have to call the constructor of this class. See section Fields for a list of the constructor's parameters.
 #'
-#' @field dbid          The identifier of the connector.
-#' @field content.type  The type of content handled by the connector for entries: XML, TXT, etc.
 #' @field base.url      The base URL of the database. Default values are defined inside \code{\link{BiodbDbsInfo}}.
+#' @field content.type  The type of content handled by the connector for entries: XML, TXT, etc.
+#' @field dbid          The identifier of the connector.
 #'
+#' @param count         If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.
 #' @param entry.id      The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.
 #' @param max.results   The maximum of elements to return from the method.
-#' @param count         If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{MassdbConn}}.
 #'

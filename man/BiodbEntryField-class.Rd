@@ -6,14 +6,38 @@
 \alias{BiodbEntryField}
 \title{A class for describing an entry field.}
 \description{
-This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used.
+This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 }
+\section{Fields}{
+
+\describe{
+\item{\code{db.id}}{Set to \code{TRUE} if the field is a database ID.}
+
+\item{\code{name}}{The name of the field.}
+}}
+
 \section{Methods}{
 
 \describe{
 \item{\code{allowsDuplicates()}}{:
 
  Returns \code{TRUE} if this field allows duplicated values.}
+
+\item{\code{getAliases()}}{:
+
+ Returns the list of aliases if some are defined, otherwise returns NULL.}
+
+\item{\code{getDescription()}}{:
+
+ Get field's description.}
+
+\item{\code{getName()}}{:
+
+ Get field's name.}
+
+\item{\code{hasAliases()}}{:
+
+ Returns TRUE if this entry field defines aliases.}
 
 \item{\code{hasCardMany()}}{:
 

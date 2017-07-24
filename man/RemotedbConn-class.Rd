@@ -6,13 +6,13 @@
 \alias{RemotedbConn}
 \title{The mother class of all remote database connectors.}
 \arguments{
-\item{token}{An access token as a character string, required by some databases for all or part of their webservices.}
+\item{concatenate}{If set to \code{TRUE}, then try to build as few URLs as possible, sending requests with several identifiers at once.}
 
 \item{entry.id}{The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.}
 
-\item{concatenate}{If set to \code{TRUE}, then try to build as few URLs as possible, sending requests with several identifiers at once.}
-
 \item{max.length}{The maximum length of the URLs to return, in number of characters.}
+
+\item{token}{An access token as a character string, required by some databases for all or part of their webservices.}
 }
 \description{
 This is the super class of remote database connectors. It thus defines methods related to remote connection, like the definition of a token, and URL definitions. As with \code{\link{BiodbConn}} class, you won't need to use the constructor. Nevertheless we provide in the Fields section information about the constructor parameters, for eventual developers.

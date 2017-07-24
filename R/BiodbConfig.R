@@ -213,18 +213,19 @@ BiodbConfig$methods( .initValueInfo = function() {
 
 	# Define keys
 	.self$.newKey('allow.huge.downloads',   type = 'logical',   description = "Download of huge files like whole database data is allowed.", default = TRUE)
-	.self$.newKey('cache.directory',        type = 'character', description = "The directory in which cache files are stored.", default = cachedir.default)
-	.self$.newKey('cache.system',           type = 'logical',   description = "Cache system is ON.", default = TRUE)
 	.self$.newKey('cache.all.requests',     type = 'logical',   description = "All requests are cached. If disabled, only requests of entries by accession number are cached.", default = TRUE)
+	.self$.newKey('cache.directory',        type = 'character', description = "The directory in which cache files are stored.", default = cachedir.default)
 	.self$.newKey('cache.read.only',        type = 'logical',   description = "The cache system is not writable. This is mainly used for test purposes.", default = FALSE)
-	.self$.newKey('compute.fields',         type = 'logical',   description = "If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.", default = TRUE)
-	.self$.newKey('offline',                type = 'logical',   description = "All network accesses are blocked. This is mainly used for test purposes.", default = FALSE)
-	.self$.newKey('useragent',              type = 'character', description = "The user agent description string. This string is compulsory when connection to remote databases.", default = useragent.default)
 	.self$.newKey('cache.subfolders',       type = 'logical',   description = "Use subfolders shortterm and longterm in cache system, in order to divide the downloaded files. If a whole database is downloaded, the file(s) will be put in the longterm subfolders.", default = TRUE)
-	.self$.newKey('shortterm.cache.subfolder',  type = 'character',   description = "The name of the short term cache subfolder.", default = 'shortterm')
-	.self$.newKey('longterm.cache.subfolder',   type = 'character',   description = "The name of the long term cache subfolder.",  default = 'longterm')
-	.self$.newKey('svn.binary.path',        type = 'character', description = "The path to the SubVersion binary (svn).", default = .self$.get.svn.binary.path())
+	.self$.newKey('cache.system',           type = 'logical',   description = "Cache system is ON.", default = TRUE)
+	.self$.newKey('compute.fields',         type = 'logical',   description = "If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.", default = TRUE)
 	.self$.newKey('force.c.locale',         type = 'logical',   description = "Forcing current locale to 'C' is allowed.", default = TRUE)
+	.self$.newKey('longterm.cache.subfolder',   type = 'character',   description = "The name of the long term cache subfolder.",  default = 'longterm')
+	.self$.newKey('multival.field.sep',     type = 'character', description = "The character used as separator when concatenating multiple values of a field.",  default = ';')
+	.self$.newKey('offline',                type = 'logical',   description = "All network accesses are blocked. This is mainly used for test purposes.", default = FALSE)
+	.self$.newKey('shortterm.cache.subfolder',  type = 'character',   description = "The name of the short term cache subfolder.", default = 'shortterm')
+	.self$.newKey('svn.binary.path',        type = 'character', description = "The path to the SubVersion binary (svn).", default = .self$.get.svn.binary.path())
+	.self$.newKey('useragent',              type = 'character', description = "The user agent description string. This string is compulsory when connection to remote databases.", default = useragent.default)
 
 	# TODO Move into DbInfo
 	.self$.newKey('chemspider.token',       type = 'character')

@@ -5,7 +5,45 @@
 
 #' The mother abstract class of all database entry classes.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbConn}}.
+#' An entry is an element of a database, identifiable by its accession number. Each contains a list of fields defined by a name and a value. The details of all fields that can be set into an entry are defined inside the class \code{BiodbEntryFields}. From this class are derived other abstract classes for different types of entry contents: \code{TxtEntry}, \code{XmlEntry}, \code{CsvEntry}, \code{JsonEntry} and \code{HtmlEntry}. Then concrete classes are derived for each database: \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no need to know this hierarchy; the knowledge of this class and its methods is sufficient.
+#'
+#' @param compute       If set to \code{TRUE} and a field is not defined, try to compute it using internal defined computing rules. If set to \code{FALSE}, let the field undefined.
+#' @param content       A character string containing definition for an entry and obtained from a database. The format can be: CSV, HTML, JSON, XML, or just text.
+#' @param field         The nane of a field.
+#' @param fields        Set to character vector of field names in order to restrict execution to this set of fields.
+#' @param flatten       If set to \code{TRUE} and a field's value is a vector of more than one element, then export the field's value as a single string composed of the field's value concatenated and separated by the character defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the field contains only one value, changes nothing.
+#' @param last          If set to \code{TRUE} and a field's value is a vector of more than one element, then export only the last value. If set to \code{FALSE}, changes nothing.
+#' @param only.atomic   If set to \code{TRUE}, only export field's values that are atomic (i.e.: of type vector and length one).
+#' @param parsing.expr  A parsing expression used to parse entry content string and obtain a field's value.
+#' @param value         A field's value.
+#'
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntryFields}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Get an entry:
+#' entry <- mybiodb$getFactory()$getEntry('chebi', '1')
+#'
+#' # Get all defined fields:
+#' entry$getFieldNames()
+#'
+#' # Get a field value:
+#' smiles <- entry$getFieldValue('smiles')
+#'
+#' # Test if a field is defined:
+#' if (entry$hasField('charge'))
+#'   print(paste('The entry has a charge of ', entry$getFieldValue('charge'), '.', sep = ''))
+#'
+#' # Export an entry as a data frame:
+#' df <- entry$getFieldsAsDataFrame()
+#'
+#' # Even if you may not do it, you can set a field's value yourselves:
+#' entry$setFieldValue('mass', 1893.1883)
+#'
+#' # Or even add a new field:
+#' entry$setFieldValue('chemspider.id', '388394')
 #'
 #' @import methods
 #' @include ChildObject.R
@@ -28,6 +66,7 @@ BiodbEntry$methods( initialize = function(...) {
 ################################################################
 
 BiodbEntry$methods(	setFieldValue = function(field, value) {
+	":\n\nSet the value of a field. If the field is not already set for this entry, then the field will be created. See BiodbEntryFields for a list of possible fields in biodb."
 
 	field.def <- .self$getBiodb()$getEntryFields()$get(field)
 	field <- field.def$getName()
@@ -63,6 +102,8 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 ################################################################
 
 BiodbEntry$methods(	appendFieldValue = function(field, value) {
+	":\n\nAppend a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values."
+
 	if (.self$hasField(field))
 		.self$setFieldValue(field, c(.self$getFieldValue(field), value))
 	else
@@ -73,6 +114,8 @@ BiodbEntry$methods(	appendFieldValue = function(field, value) {
 ################################################################
 
 BiodbEntry$methods(	getFieldNames = function() {
+	":\n\nGet a list of all fields defined for this entry."
+
 	return(names(.self$.fields))
 })
 
@@ -80,6 +123,7 @@ BiodbEntry$methods(	getFieldNames = function() {
 ################################################################
 
 BiodbEntry$methods(	hasField = function(field) {
+	":\n\nReturns TRUE if the specified field is defined in this entry."
 
 	# Get field definition
 	field.def <- .self$getBiodb()$getEntryFields()$get(field)
@@ -92,21 +136,17 @@ BiodbEntry$methods(	hasField = function(field) {
 ################################################################
 
 BiodbEntry$methods(	removeField = function(field) {
+	":\n\nRemove the specified field from this entry."
+
 	if (.self$hasField(field))
 		.fields <<- .self$.fields[names(.self$.fields) != tolower(field)]
-})
-
-# Field has basic class {{{1
-################################################################
-
-BiodbEntry$methods(	fieldHasBasicClass = function(field) {
-	return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
 })
 
 # Get field value {{{1
 ################################################################
 
 BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FALSE, last = FALSE) {
+	":\n\nGet the value of the specified field."
 
 	val <- NULL
 	field <- tolower(field)
@@ -136,14 +176,115 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 			if (all(is.na(val)))
 				val <-  as.vector(NA, mode = field.def$getClass())
 			else
-				val <- paste(val, collapse = MULTIVAL.FIELD.SEP)
+				val <- paste(val, collapse = .self$getBiodb()$getConfig()$get('multival.field.sep'))
 		}
 	}
 
 	return(val)
 })
 
-# Compute field {{{1
+# Get fields as data frame {{{1
+################################################################
+
+BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL) {
+	":\n\nConvert this entry into a data frame."
+
+	df <- data.frame(stringsAsFactors = FALSE)
+	if ( ! is.null(fields))
+		fields <- tolower(fields)
+
+	# Compute fields
+	if (compute)
+		.self$.compute.field(fields)
+
+	# Set fields to get
+	fields <- if (is.null(fields)) names(.self$.fields) else fields[fields %in% names(.self$.fields)]
+
+	# Loop on fields
+	for (f in fields) {
+
+		# Ignore non atomic values
+		if (only.atomic && ! .self$getBiodb()$getEntryFields()$get(f)$isVector())
+			next
+
+		v <- .self$getFieldValue(f, flatten = TRUE)
+
+		# Transform vector into data frame
+		if (is.vector(v)) {
+			v <- as.data.frame(v, stringsAsFactors = FALSE)
+			colnames(v) <- f
+		}
+
+		# Merge value into data frame
+		if (is.data.frame(v) && nrow(v) > 0)
+			df <- if (nrow(df) == 0) v else merge(df, v)
+	}
+
+	return(df)
+})
+
+# Get fields as json {{{1
+################################################################
+
+BiodbEntry$methods(	getFieldsAsJson = function(compute = TRUE) {
+	":\n\nConvert entry into a JSON string."
+
+	# Compute fields
+	if (compute)
+		.self$.compute.field()
+
+	return(jsonlite::toJSON(.self$.fields, pretty = TRUE, digits = NA_integer_))
+})
+
+# Add Parsing expression {{{1
+################################################################
+
+BiodbEntry$methods( addParsingExpression = function(field, parsing.expr) {
+	":\n\nAdd a parsing expression for the specified field. The form of the parsing expression depends on the type of content and thus of the class inherited from BiodbEntry abstract class: CsvEntry, TxtEntry, XmlEntry, etc. This method is automatically called internally and should not be called by the user."
+
+	field <- tolower(field)
+
+	# Check that this field has no expression associated
+	if (field %in% names(.self$.parsing.expr))
+		.self$message(MSG.ERROR, paste("A parsing expression has already been defined for field", field))
+
+	# Register new parsing expression
+	.self$.parsing.expr[[field]] <- parsing.expr 
+})
+
+# Get parsing expressions {{{1
+################################################################
+
+BiodbEntry$methods( getParsingExpressions = function() {
+	":\n\nReturn a list of all defined parsing expressions for this entry."
+
+	return(.self$.parsing.expr)
+})
+
+# Parse content {{{1
+################################################################
+
+BiodbEntry$methods( parseContent = function(content) {
+	":\n\nParse content string and set values accordingly for this entry's fields. This method is called automatically and should be run directly by users."
+
+	if (.self$.isContentCorrect(content)) {
+
+		# Parse content
+		parsed.content <- .self$.doParseContent(content)
+
+		if (.self$.isParsedContentCorrect(parsed.content)) {
+
+			.self$.parseFieldsFromExpr(parsed.content)
+
+			.self$.parseFieldsAfter(parsed.content)
+		}
+	}
+})
+
+# PRIVATE METHODS {{{1
+################################################################
+
+# Compute field {{{2
 ################################################################
 
 BiodbEntry$methods(	.compute.field = function(fields = NULL) {
@@ -192,95 +333,8 @@ BiodbEntry$methods(	.compute.field = function(fields = NULL) {
 	return(success)
 })
 
-# Get fields as data frame {{{1
-################################################################
 
-BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL) {
-	"Convert entry into a data frame."
-
-	df <- data.frame(stringsAsFactors = FALSE)
-	if ( ! is.null(fields))
-		fields <- tolower(fields)
-
-	# Compute fields
-	if (compute)
-		.self$.compute.field(fields)
-
-	# Set fields to get
-	fields <- if (is.null(fields)) names(.self$.fields) else fields[fields %in% names(.self$.fields)]
-
-	# Loop on fields
-	for (f in fields) {
-
-		# Ignore non atomic values
-		if (only.atomic && ! .self$getBiodb()$getEntryFields()$get(f)$isVector())
-			next
-
-		v <- .self$getFieldValue(f, flatten = TRUE)
-
-		# Transform vector into data frame
-		if (is.vector(v)) {
-			v <- as.data.frame(v, stringsAsFactors = FALSE)
-			colnames(v) <- f
-		}
-
-		# Merge value into data frame
-		if (is.data.frame(v) && nrow(v) > 0)
-			df <- if (nrow(df) == 0) v else merge(df, v)
-	}
-
-	return(df)
-})
-
-# Get fields as json {{{1
-################################################################
-
-# TODO add a limiting option to get some of the fields.
-BiodbEntry$methods(	getFieldsAsJson = function(compute = TRUE) {
-	"Convert entry into a JSON string."
-
-	# Compute fields
-	if (compute)
-		.self$.compute.field()
-
-	return(jsonlite::toJSON(.self$.fields, pretty = TRUE, digits = NA_integer_))
-})
-
-# Add Parsing expression {{{1
-################################################################
-
-BiodbEntry$methods( addParsingExpression = function(field, expr) {
-
-	field <- tolower(field)
-
-	# Check that this field has no expression associated
-	if (field %in% names(.self$.parsing.expr))
-		.self$message(MSG.ERROR, paste("A parsing expression has already been defined for field", field))
-
-	# Register new parsing expression
-	.self$.parsing.expr[[field]] <- expr 
-})
-
-# Parse content {{{1
-################################################################
-
-BiodbEntry$methods( parseContent = function(content) {
-
-	if (.self$.isContentCorrect(content)) {
-
-		# Parse content
-		parsed.content <- .self$.doParseContent(content)
-
-		if (.self$.isParsedContentCorrect(parsed.content)) {
-
-			.self$.parseFieldsFromExpr(parsed.content)
-
-			.self$.parseFieldsAfter(parsed.content)
-		}
-	}
-})
-
-# Is content correct {{{1
+# Is content correct {{{2
 ################################################################
 
 BiodbEntry$methods( .isContentCorrect = function(content) {
@@ -291,28 +345,28 @@ BiodbEntry$methods( .isContentCorrect = function(content) {
 	return(correct)
 })
 
-# Do parse content {{{1
+# Do parse content {{{2
 ################################################################
 
 BiodbEntry$methods( .doParseContent = function(content) {
 	.self$.abstract.method()
 })
 
-# Is parsed content correct {{{1
+# Is parsed content correct {{{2
 ################################################################
 
 BiodbEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 	return(TRUE)
 })
 
-# Parse fields from expressions {{{1
+# Parse fields from expressions {{{2
 ################################################################
 
 BiodbEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 	.self$.abstract.method()
 })
 
-# Parse fields after {{{1
+# Parse fields after {{{2
 ################################################################
 
 BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
@@ -352,7 +406,17 @@ BiodbEntry$methods(	getFieldClass = function(field) {
 
 BiodbEntry$methods(	getFieldCardinality = function(field) {
 
-	.self$.deprecated.method('BiodbEntryFields::hasCardOne() or BiodbEntryFields::hasCardMany()')
+	.self$.deprecated.method('BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany()')
 
 	return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
+})
+
+# Field has basic class {{{2
+################################################################
+
+BiodbEntry$methods(	fieldHasBasicClass = function(field) {
+
+	.self$.deprecated.method('BiodbEntryField::isVector()')
+
+	return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
 })
