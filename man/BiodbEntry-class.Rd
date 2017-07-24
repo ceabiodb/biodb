@@ -90,7 +90,7 @@ smiles <- entry$getFieldValue('smiles')
 
 # Test if a field is defined:
 if (entry$hasField('charge'))
-  print(paste('The entry ', entry$getFieldValue('accession'), ' from ChEBI has a charge of ', entry$getFieldValue('charge'), '.', sep = ''))
+  print(paste('The entry has a charge of ', entry$getFieldValue('charge'), '.', sep = ''))
 
 # Export an entry as a data frame:
 df <- entry$getFieldsAsDataFrame()
