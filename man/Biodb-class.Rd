@@ -14,11 +14,11 @@
 
 \item{flatten}{If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character.}
 
+\item{null.to.na}{If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."}
+
 \item{observers}{Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.}
 
 \item{only.atomic}{Set to \code{TRUE} if you want only the fields of atomic type (\code{integer}, \code{numeric}, \code{logical} and \code{character}) inside the data frame.}
-
-\item{null.to.na}{If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."}
 }
 \description{
 In order to use the biodb package, you need first to create an instance of this class. See section Fields for a list of the constructor's parameters.

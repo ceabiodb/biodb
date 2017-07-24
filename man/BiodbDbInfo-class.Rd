@@ -8,6 +8,13 @@
 \description{
 This class is used by \code{\link{BiodbDbsInfo}} for storing database characteristics.
 }
+\section{Methods}{
+
+\describe{
+\item{\code{getEntryIdField()}}{:
+
+Return the name of the corresponding database ID field in entries.}
+}}
 
 \seealso{
 \code{\link{BiodbDbsInfo}}.

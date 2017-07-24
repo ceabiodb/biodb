@@ -8,6 +8,13 @@
 \description{
 The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getEntryFields()} method.
 }
+\section{Methods}{
+
+\describe{
+\item{\code{getRealName(name)}}{:
+
+If name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown.}
+}}
 
 \examples{
 # Getting information about the accession field:

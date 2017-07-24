@@ -14,9 +14,9 @@
 #' @param entries     A list of \code{BiodbEntry} objects.
 #' @param field       The name of a field.
 #' @param flatten     If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character. 
+#' @param null.to.na  If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."
 #' @param observers Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.
 #' @param only.atomic Set to \code{TRUE} if you want only the fields of atomic type (\code{integer}, \code{numeric}, \code{logical} and \code{character}) inside the data frame.
-#' @param null.to.na  If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbCache}}, \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}}, \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}}, \code{\link{BiodbDbsInfo}}.
 #'

@@ -6,19 +6,19 @@
 \alias{BiodbFactory}
 \title{A class for constructing biodb objects.}
 \arguments{
-\item{dbid}{The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.}
-
-\item{url}{An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.}
-
-\item{token}{A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.}
-
-\item{dwnld.chunk.size}{The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.}
-
 \item{content}{The content (as character vector) of one or more database entries.}
+
+\item{dbid}{The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.}
 
 \item{drop}{If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.}
 
+\item{dwnld.chunk.size}{The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.}
+
 \item{id}{A character vector containing database entry IDs (accession numbers).}
+
+\item{token}{A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.}
+
+\item{url}{An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.}
 }
 \description{
 This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
