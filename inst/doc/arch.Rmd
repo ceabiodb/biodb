@@ -1,0 +1,8 @@
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Architedture of biodb}
+-->
+
+# Architecture of biodb
+
+![UML class diagram](uml-class-diag.png)

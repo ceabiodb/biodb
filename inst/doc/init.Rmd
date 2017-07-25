@@ -5,8 +5,6 @@
 
 # Initializing biodb
 
-![marcie](Marcie_from_Peanuts.png)
-
 First of all, before using *biodb*, you need to create an instance of the main class `Biodb`. This is done by calling the constructor of the class through the `new()` method. The OOP (Object Oriented Programming) system used in the *biodb* package is the **R5** system also called **Reference Classes**. In this system, the created objects are not copied, but their reference are copied. This means than when you pass an instance to a function, that function is able to modify the instance.
 
 To create an instance of the `Biodb` class, call the `new()` method:
