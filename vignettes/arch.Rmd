@@ -5,3 +5,4 @@
 
 # Architecture of biodb
 
+![UML class diagram](uml-class-diag.png)

@@ -1,3 +1,5 @@
 *.R
 *.html
 *.csv
+*.png
+*.svg

@@ -1,0 +1,56 @@
+digraph biodb_uml_class_diag {
+
+	edge [dir = back, arrowtail = none]
+
+	BiodbObject [shape = box, group = BiodbObject]
+
+	subgraph BiodbObjectChildrenPoints {
+		rank = same
+		BiodbChildObjectMiddlePoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbObject]
+		ChildObjectPoint [shape = point, fixedsize = true, height = 0, width = 0, group = ChildObject]
+		BiodbPoint [shape = point, fixedsize = true, height = 0, width = 0, group = Biodb]
+	}
+
+	subgraph BiodbObjectChildren {
+		rank = same
+		ChildObject [shape = box, group = ChildObject]
+		Biodb [shape = box, group = Biodb]
+	}
+
+	BiodbObject -> BiodbChildObjectMiddlePoint [arrowtail = empty]
+	BiodbPoint -> BiodbChildObjectMiddlePoint
+	BiodbChildObjectMiddlePoint -> ChildObjectPoint
+	BiodbPoint -> Biodb
+	ChildObjectPoint -> ChildObject
+
+	subgraph ChildObjectChildrenPoints {
+		rank = same
+//		ChildObjectChildrenMiddlePoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbObject]
+		BiodbCacheChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbCache]
+		BiodbConfigChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbConfig]
+		BiodbDbsInfoChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbDbsInfo]
+		BiodbEntryFieldsChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbEntryFields]
+		BiodbFactoryChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbFactory]
+	}
+
+	subgraph ChildObjectChildren {
+		rank = same
+		BiodbCache [shape = box, group = BiodbCache]
+		BiodbConfig [shape = box, group = BiodbConfig]
+		BiodbDbsInfo [shape = box, group = BiodbDbsInfo]
+		BiodbEntryFields [shape = box, group = BiodbEntryFields]
+		BiodbFactory [shape = box, group = BiodbFactory]
+	}
+
+	ChildObject -> BiodbDbsInfoChildPoint [arrowtail = empty]
+	BiodbConfigChildPoint -> BiodbCacheChildPoint
+	BiodbCacheChildPoint -> BiodbDbsInfoChildPoint
+	BiodbDbsInfoChildPoint -> BiodbEntryFieldsChildPoint
+	BiodbEntryFieldsChildPoint -> BiodbFactoryChildPoint
+	BiodbCacheChildPoint -> BiodbCache
+	BiodbConfigChildPoint -> BiodbConfig
+	BiodbDbsInfoChildPoint -> BiodbDbsInfo
+	BiodbEntryFieldsChildPoint -> BiodbEntryFields
+	BiodbFactoryChildPoint -> BiodbFactory
+
+}
