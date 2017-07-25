@@ -132,13 +132,14 @@ $(document).ready(function () {
 <pre class="r"><code>config &lt;- mybiodb$getConfig()</code></pre>
 <p>Get all settable fields:</p>
 <pre class="r"><code>config$getKeys()</code></pre>
-<pre><code>##  [1] &quot;allow.huge.downloads&quot;      &quot;cache.directory&quot;          
-##  [3] &quot;cache.system&quot;              &quot;cache.all.requests&quot;       
-##  [5] &quot;cache.read.only&quot;           &quot;compute.fields&quot;           
-##  [7] &quot;offline&quot;                   &quot;useragent&quot;                
-##  [9] &quot;cache.subfolders&quot;          &quot;shortterm.cache.subfolder&quot;
-## [11] &quot;longterm.cache.subfolder&quot;  &quot;svn.binary.path&quot;          
-## [13] &quot;force.c.locale&quot;            &quot;chemspider.token&quot;</code></pre>
+<pre><code>##  [1] &quot;allow.huge.downloads&quot;      &quot;cache.all.requests&quot;       
+##  [3] &quot;cache.directory&quot;           &quot;cache.read.only&quot;          
+##  [5] &quot;cache.subfolders&quot;          &quot;cache.system&quot;             
+##  [7] &quot;compute.fields&quot;            &quot;force.c.locale&quot;           
+##  [9] &quot;longterm.cache.subfolder&quot;  &quot;multival.field.sep&quot;       
+## [11] &quot;offline&quot;                   &quot;shortterm.cache.subfolder&quot;
+## [13] &quot;svn.binary.path&quot;           &quot;useragent&quot;                
+## [15] &quot;chemspider.token&quot;</code></pre>
 <p>Get description of a field:</p>
 <pre class="r"><code>config$getDescription('cache.directory')</code></pre>
 <pre><code>## [1] &quot;The directory in which cache files are stored.&quot;</code></pre>

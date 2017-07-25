@@ -140,8 +140,6 @@ $(document).ready(function () {
 ##  [9] 79.0177 92.0498</code></pre>
 <p>You can restrict to a certain MS mode, ask for the peak to be a precursor peak, or even ask for an MS level:</p>
 <pre class="r"><code>conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'pos')</code></pre>
-<pre><code>## Warning in .Internal(exists(x, envir, mode, inherits)): closing unused
-## connection 5 (mybiodb.log)</code></pre>
 <pre><code>##  [1] 285.0208 279.0910 311.0809 251.0597 215.0597 268.0750 281.0703
 ##  [8] 265.0754 271.0318 254.0594</code></pre>
 </div>
@@ -152,6 +150,7 @@ $(document).ready(function () {
 <pre><code>## [1] &quot;KO000054&quot; &quot;KO000095&quot; &quot;KO000127&quot; &quot;KO000317&quot; &quot;KO000454&quot;</code></pre>
 <p>Another version is available that uses a tolerance instead of a range:</p>
 <pre class="r"><code>conn$searchMzTol(mz = 54, mz.tol = 0.1, mz.tol.unit = 'plain', max.results = 5)</code></pre>
+<pre><code>## Warning: closing unused connection 5 (mybiodb.log)</code></pre>
 <pre><code>## [1] &quot;KO000046&quot; &quot;KO000054&quot; &quot;KO000060&quot; &quot;KO000061&quot; &quot;KO000094&quot;</code></pre>
 <p>You can also set <code>mz.tol.unit</code> to <code>'ppm'</code>.</p>
 <p>Both methods accept the following options:</p>
