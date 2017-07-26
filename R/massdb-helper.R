@@ -70,21 +70,34 @@ calcDistance <-
 ################################################################
 
 ###The returned sim list is not ordered
-compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSINE, params = list(), decreasing = TRUE) {
+compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSINE, params = list()) {
 
-		if (length(libspec) == 0)
-			return(NULL)
+	res <- data.frame(score = numeric(0))
 
-		if (nrow(spec) == 0)
-			return(NULL)
+	# Add for peaks
+	if ( ! is.null(spec)) {
+		peak.cols <- paste('peak', seq(nrow(spec)), sep = '.')
+		for (p in peak.cols)
+			res[[p]] <- integer(0)
+	}
+
+	if ( ! is.null(libspec) && ! is.null(spec) && length(libspec) > 0 && nrow(spec) > 0) {
 
 		####spec is directly normalized.
 		vall <- sapply(libspec, calcDistance, spec1 = spec, npmin = npmin, params = params, fun = fun, simplify = FALSE)
 
 		####the list is ordered with the chosen metric.
-		sim <- vapply(vall,	'[[', i = "similarity", FUN.VALUE = ifelse(decreasing, 0, 1))
-		osim <- order(sim, decreasing = decreasing)
+		sim <- vapply(vall,	'[[', i = "similarity", FUN.VALUE = 1)
+#		osim <- order(sim, decreasing = decreasing)
 		matched <- sapply(vall, '[[', i = "matched", simplify = FALSE)
 		
-		return(list(ord = osim, matched = matched, similarity = sim))
+		res[1:length(sim), 'score'] <- sim
+#		res[['ord']] <- osim
+		for (i in seq(length(matched)))
+			res[i, peak.cols] <- matched[[i]]
+
+#		return(list(ord = osim, matched = matched, similarity = sim))
+	}
+
+	return(res)
 }

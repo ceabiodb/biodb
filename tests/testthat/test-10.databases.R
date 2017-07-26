@@ -32,13 +32,13 @@ for (mode in TEST.MODES) {
 		run.db.test("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', db)
 		run.db.test("Entry fields have a correct value", 'test.entry.fields', db)
 
-		if ( ! methods::is(db, 'RemotedbConn') || mode == MODE.ONLINE || mode == MODE.QUICK.ONLINE) {
+		if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 
 			run.db.test("Nb entries is positive", 'test.nb.entries', db)
 			run.db.test("We can get a list of entry ids", 'test.entry.ids', db)
 
 			# Test HMDB Metabolite number of entries
-			if (db.name == BIODB.HMDB.METABOLITE && mode == MODE.ONLINE)
+			if (db.name == BIODB.HMDB.METABOLITE && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 				run.db.test("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', db)
 
 			# Mass database testing
@@ -46,7 +46,11 @@ for (mode in TEST.MODES) {
 				run.db.test("We can retrieve a list of M/Z values", 'test.getMzValues', db)
 				run.db.test("We can match M/Z peaks", 'test.searchMzTol',db)
 				run.db.test("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
-				run.db.test("MSMS search returns at least one match", 'test.msmsSearch', db)
+				run.db.test("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
+				if (db.name == 'massbank.jp' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+					run.db.test('MSMS search works for massbank.', 'test.msmsSearch.massbank', db)
+				run.db.test('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
+				run.db.test('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
 				run.db.test("The peak table is correct.", 'test.peak.table', db)
 
 				if (db.name == BIODB.MASS.CSV.FILE) {

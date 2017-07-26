@@ -109,6 +109,24 @@ Then you install *biodb* using the `devtools` package:
 devtools::install_local('/your/path/to/biodb')
 ```
 
+## Access documentation
+
+Once in R, you can get documentation about main classes with the standard help function:
+```r
+?biodb::Biodb
+```
+Some of the classes you can get help about are: Biodb, BiodbFactory, BiodbConfig, BiodbCache, BiodbDbsInfo, BiodbEntryFields, BiodbObserver, BiodbConn, BiodbEntry, MassdbConn, RemotedbConn.
+
+Some vignettes are also available. To get a list of them run:
+```r
+vignette(package = 'biodb')
+```
+
+To open a vignette in a browser, use its name:
+```r
+vignette('init', package = 'biodb')
+```
+
 ## Contributing
 
 If you wish to contribute to the *biodb* package, you first need to create an account under GitLab. You can then either to ask to become a contributor or fork the project and submit a merge request.
