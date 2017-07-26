@@ -1,9 +1,9 @@
 # vi: fdm=marker
 
-# Test msmsSearch {{{1
+# Test msmsSearch self match {{{1
 ################################################################
 
-test.msmsSearch <- function(db) {
+test.msmsSearch.self.match <- function(db) {
 
 	biodb <- db$getBiodb()
 	db.name <- db$getId()
@@ -30,9 +30,60 @@ test.msmsSearch <- function(db) {
 		expect_true( ! is.null(result))
 		expect_true(is.data.frame(result))
 		expect_true(nrow(result) > 0)
-		cols <- c('ids', 'score', paste('peak', seq(nrow(peaks)), sep = '.'))
+		cols <- c('id', 'score', paste('peak', seq(nrow(peaks)), sep = '.'))
 		expect_true(all(cols %in% colnames(result)))
 	}
+}
+
+# Test msmsSearch massbank {{{1
+################################################################
+
+test.msmsSearch.massbank <- function(db) {
+
+	# Define spectrum to match:
+	spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
+
+	# Search for match:
+	result <- db$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+
+	expect_true( ! is.null(result))
+	expect_true(is.data.frame(result))
+	expect_true(nrow(result) > 0)
+	cols <- c('id', 'score', paste('peak', seq(nrow(spectrum)), sep = '.'))
+	expect_true(all(cols %in% colnames(result)))
+}
+
+# Test msmsSearch empty spectrum {{{1
+################################################################
+
+test.msmsSearch.empty.spectrum <- function(db) {
+
+	# Define spectrum to match:
+	spectrum <- data.frame(mz = numeric(0), rel.int = numeric(0))
+
+	# Search for match:
+	result <- db$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+
+	expect_true( ! is.null(result))
+	expect_true(is.data.frame(result))
+	expect_true(nrow(result) == 0)
+	cols <- c('id', 'score')
+	expect_true(all(cols %in% colnames(result)))
+}
+
+# Test msmsSearch null spectrum {{{1
+################################################################
+
+test.msmsSearch.null.spectrum <- function(db) {
+
+	# Search for match:
+	result <- db$msmsSearch(NULL, precursor.mz = 100, mz.tol = 0.3)
+
+	expect_true( ! is.null(result))
+	expect_true(is.data.frame(result))
+	expect_true(nrow(result) == 0)
+	cols <- c('id', 'score')
+	expect_true(all(cols %in% colnames(result)))
 }
 
 # Test getMzValues() {{{1

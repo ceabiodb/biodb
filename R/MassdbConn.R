@@ -119,28 +119,27 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = BIODB.MSMODE.POS, npmin = 2, dist.fun = BIODB.MSMS.DIST.WCOSINE, msms.mz.tol = 3, msms.mz.tol.min = 0.005) {
 	":\n\nSearch MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search."
 	
+	peak.tables <- list()
+
 	# Get spectra IDs
-	ids <- .self$searchMzTol(mz = precursor.mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = ms.mode, precursor = TRUE, ms.level = 2)
-
-	# Get spectra entries
-	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
-
-	# Found no spectra
-	if (length(entries) == 0)
-		return(list(measure = numeric(0), matchedpeaks = list(), id = character(0)))
+	ids <- character(0)
+	if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz))
+		ids <- .self$searchMzTol(mz = precursor.mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = ms.mode, precursor = TRUE, ms.level = 2)
 
 	# Get list of peak tables from spectra
-	peak.tables <-lapply(entries, function(x) x$getFieldsAsDataFrame(only.atomic = FALSE, fields = 'PEAKS'))
+	if (length(ids) > 0) {
+		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
+		peak.tables <-lapply(entries, function(x) x$getFieldsAsDataFrame(only.atomic = FALSE, fields = 'PEAKS'))
+	}
 
-	# TODO Import compareSpectra into biodb and put it inside massdb-helper.R or hide it as a private method.
+	# Compare spectrum against database spectra
 	res <- compareSpectra(spectrum, peak.tables, npmin = npmin, fun = dist.fun, params = list(ppm = msms.mz.tol, dmz = msms.mz.tol.min))
 	
 	#if(is.null(res)) return(NULL) # To decide at MassdbConn level: return empty list (or empty data frame) or NULL.
 	
-    ids <- sapply(entries, function(x) x$getFieldValue('ACCESSION'))
     cols <- colnames(res)
-    res[['ids']] <- ids
-    res <- res[, c('ids', cols)]
+    res[['id']] <- ids
+    res <- res[, c('id', cols)]
 	
     # Order rows
     res <- res[order(res[['score']], decreasing = TRUE), ]

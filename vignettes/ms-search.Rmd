@@ -65,8 +65,8 @@ spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
 # Search for match:
 conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
 ```
-The returned structure is a list containing three fields, each ordered from greatest matching score to lowest:
+A data frame, ordered from highest score to lowest, is returned. It contains the following columns:
 
- * `measure`: The matching score.
- * `matchedpeaks`: Each column corresponds to a peak of the searched spectrum (from first to last peak). A `-1` means that the peak has not been matched. An integer N greater than `0` means that the peak has been matched with the Nth peak of the database spectrum.
- * `id`: Matched database spectra identifiers.
+ * `id`: Database spectrum identifiers.
+ * `score`: The matching score.
+ * N columns `peak.#`: Each column corresponds to a peak of the searched spectrum (from first to last peak). A `-1` means that the peak has not been matched. An integer N greater than `0` means that the peak has been matched with the Nth peak of the database spectrum.
