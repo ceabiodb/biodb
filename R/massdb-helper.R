@@ -72,7 +72,7 @@ calcDistance <-
 ###The returned sim list is not ordered
 compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSINE, params = list()) {
 
-	res <- data.frame(score = numeric(0), ord = integer(0))
+	res <- data.frame(score = numeric(0))
 
 	# Add for peaks
 	if ( ! is.null(spec)) {
