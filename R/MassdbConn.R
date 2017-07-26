@@ -135,13 +135,19 @@ MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol
 	# TODO Import compareSpectra into biodb and put it inside massdb-helper.R or hide it as a private method.
 	res <- compareSpectra(spectrum, peak.tables, npmin = npmin, fun = dist.fun, params = list(ppm = msms.mz.tol, dmz = msms.mz.tol.min))
 	
-	if(is.null(res)) return(NULL) # To decide at MassdbConn level: return empty list (or empty data frame) or NULL.
+	#if(is.null(res)) return(NULL) # To decide at MassdbConn level: return empty list (or empty data frame) or NULL.
 	
-    ids <- sapply( entries, function(x) x$getFieldValue('ACCESSION'))
+    ids <- sapply(entries, function(x) x$getFieldValue('ACCESSION'))
+    cols <- colnames(res)
+    res[['ids']] <- ids
+    res <- res[, c('ids', cols)]
 	
-    results <- list(measure = res$similarity[res[['ord']]], matchedpeaks = res$matched[res[['ord']]], id = ids[res[['ord']]])
+    # Order rows
+    res <- res[order(res[['score']], decreasing = TRUE), ]
+
+#    results <- list(measure = res$similarity[res[['ord']]], matchedpeaks = res$matched[res[['ord']]], id = ids[res[['ord']]])
 	
-	return(results)
+	return(res)
 })
 
 # PRIVATE METHODS {{{1

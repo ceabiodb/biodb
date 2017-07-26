@@ -28,7 +28,10 @@ test.msmsSearch <- function(db) {
 
 		# Check results
 		expect_true( ! is.null(result))
-		expect_true(length(result$matchedpeaks) > 0)
+		expect_true(is.data.frame(result))
+		expect_true(nrow(result) > 0)
+		cols <- c('ids', 'score', paste('peak', seq(nrow(peaks)), sep = '.'))
+		expect_true(all(cols %in% colnames(result)))
 	}
 }
 
