@@ -28,7 +28,7 @@ digraph biodb_uml_class_diag {
 //		ChildObjectChildrenMiddlePoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbObject]
 		BiodbCacheChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbCache]
 		BiodbConfigChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbConfig]
-		BiodbDbsInfoChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbDbsInfo]
+		BiodbDbsInfoChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = ChildObject]
 		BiodbEntryFieldsChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbEntryFields]
 		BiodbFactoryChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbFactory]
 	}
@@ -37,14 +37,14 @@ digraph biodb_uml_class_diag {
 		rank = same
 		BiodbCache [shape = box, group = BiodbCache]
 		BiodbConfig [shape = box, group = BiodbConfig]
-		BiodbDbsInfo [shape = box, group = BiodbDbsInfo]
+		BiodbDbsInfo [shape = box, group = ChildObject]
 		BiodbEntryFields [shape = box, group = BiodbEntryFields]
 		BiodbFactory [shape = box, group = BiodbFactory]
 	}
 
 	ChildObject -> BiodbDbsInfoChildPoint [arrowtail = empty]
-	BiodbConfigChildPoint -> BiodbCacheChildPoint
-	BiodbCacheChildPoint -> BiodbDbsInfoChildPoint
+	BiodbCacheChildPoint -> BiodbConfigChildPoint
+	BiodbConfigChildPoint -> BiodbDbsInfoChildPoint
 	BiodbDbsInfoChildPoint -> BiodbEntryFieldsChildPoint
 	BiodbEntryFieldsChildPoint -> BiodbFactoryChildPoint
 	BiodbCacheChildPoint -> BiodbCache
@@ -53,4 +53,32 @@ digraph biodb_uml_class_diag {
 	BiodbEntryFieldsChildPoint -> BiodbEntryFields
 	BiodbFactoryChildPoint -> BiodbFactory
 
+	// Biodb associations
+
+	subgraph BiodbAssoc {
+		rank = same
+		BiodbAssocMiddlePoint [shape = point, fixedsize = true, height = 0, width = 0, group = Biodb]
+		BiodbCacheAssocPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbCache]
+		BiodbConfigAssocPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbConfig]
+		BiodbDbsInfoAssocPoint [shape = point, fixedsize = true, height = 0, width = 0, group = ChildObject]
+		BiodbEntryFieldsAssocPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbEntryFields]
+		BiodbFactoryAssocPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbFactory]
+	}
+
+	 {edge[style=invis]
+		     {BiodbCache BiodbConfig BiodbDbsInfo BiodbEntryFields BiodbFactory} -> {BiodbConfigAssocPoint BiodbCacheAssocPoint BiodbDbsInfoAssocPoint BiodbEntryFieldsAssocPoint BiodbFactoryAssocPoint}
+		       }
+
+	Biodb -> BiodbAssocMiddlePoint [arrowtail = diamond, taillabel = "parent, 1 "]
+	BiodbCache -> BiodbCacheAssocPoint [taillabel = "1"]
+	BiodbConfig -> BiodbConfigAssocPoint [taillabel = "1"]
+	BiodbDbsInfo -> BiodbDbsInfoAssocPoint [taillabel = "1"]
+	BiodbEntryFields -> BiodbEntryFieldsAssocPoint [taillabel = "1"]
+	BiodbFactory -> BiodbFactoryAssocPoint [taillabel = "1"]
+
+	BiodbAssocMiddlePoint -> BiodbCacheAssocPoint
+	BiodbCacheAssocPoint -> BiodbConfigAssocPoint
+	BiodbConfigAssocPoint -> BiodbDbsInfoAssocPoint
+	BiodbDbsInfoAssocPoint -> BiodbEntryFieldsAssocPoint
+	BiodbEntryFieldsAssocPoint -> BiodbFactoryAssocPoint
 }
