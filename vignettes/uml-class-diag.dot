@@ -32,6 +32,7 @@ digraph biodb_uml_class_diag {
 		BiodbEntryFieldsChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbEntryFields]
 		BiodbFactoryChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbFactory]
 		BiodbConnChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbConn]
+		BiodbEntryChildPoint [shape = point, fixedsize = true, height = 0, width = 0, group = BiodbEntry]
 	}
 
 	subgraph ChildObjectChildren {
@@ -42,6 +43,7 @@ digraph biodb_uml_class_diag {
 		BiodbEntryFields [shape = box, group = BiodbEntryFields]
 		BiodbFactory [shape = box, group = BiodbFactory]
 		BiodbConn [shape = box, group = BiodbConn]
+		BiodbEntry [shape = box, group = BiodbEntry]
 	}
 
 	ChildObject -> BiodbDbsInfoChildPoint [arrowtail = empty]
@@ -50,12 +52,14 @@ digraph biodb_uml_class_diag {
 	BiodbDbsInfoChildPoint -> BiodbEntryFieldsChildPoint
 	BiodbEntryFieldsChildPoint -> BiodbFactoryChildPoint
 	BiodbFactoryChildPoint -> BiodbConnChildPoint
+	BiodbConnChildPoint -> BiodbEntryChildPoint
 	BiodbCacheChildPoint -> BiodbCache
 	BiodbConfigChildPoint -> BiodbConfig
 	BiodbDbsInfoChildPoint -> BiodbDbsInfo
 	BiodbEntryFieldsChildPoint -> BiodbEntryFields
 	BiodbFactoryChildPoint -> BiodbFactory
 	BiodbConnChildPoint -> BiodbConn
+	BiodbEntryChildPoint -> BiodbEntry
 
 	// Biodb associations
 
@@ -88,4 +92,6 @@ digraph biodb_uml_class_diag {
 	BiodbDbsInfoAssocPoint -> BiodbEntryFieldsAssocPoint
 	BiodbEntryFieldsAssocPoint -> BiodbFactoryAssocPoint
 	BiodbFactoryAssocPoint -> BiodbConnAssocPoint
+
+	BiodbConn -> BiodbEntry [taillabel = "parent, 1", headlabel = "*"]
 }
