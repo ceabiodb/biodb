@@ -5,10 +5,55 @@
 
 # Architecture of biodb
 
-Class diagram as a PNG:
+The architecture is organised around the following classes:
 
-![UML class diagram](class.png)
+ * The central `Biodb` class.
+ * The singleton classes, attached to the `Biodb` class.
+ * The connection classes `*Conn`, responsible for connecting to databases.
+ * The entry classes `*Entry`, representing entries of the different databases.
+ * The observer classes.
 
-Class diagram as an SVG:
+You will find below a UML class diagram, helpful to visualise all classes and their relationships.
+
+## BiodbObject and ChildObject
+
+All classes in *biodb* inherit directly on indirectly from the `BiodbObject` class, at the exception of `UrlRequestScheduler` and the observer classes.
+
+The `BiodbObject` class contains mainly useful methods for:
+
+ * Sending messages.
+ * Assertions.
+ * Declaring methods as abstract in sub-classes.
+ * Declaring methods as deprecated in sub-classes.
+
+The `ChildObject` class defines a `parent` field, allowing a class that inherits from it to be the child of another a class.
+
+## Biodb
+
+The class (`Biodb`) is the central point of the *biodb* package. To use the *biodb* package, an instance of this class `Biodb` has to be created. You can created as many instances as you want at the same time, though there would not be much purpose; all instances will be independent of each other.
+
+From the instance of the class `Biodb`, you can access all singleton classes.
+
+## The singleton classes
+
+There are 5 singleton classes, each having each a distinct purpose:
+
+ * `BiodbConfig` is meant for managing all configuration information.
+ * `BiodbDbsInfo` stores database information.
+ * `BiodbEntryFields` stores entry fields information.
+ * `BiodbFactory` is responsible for instantiating connection and entry classes.
+ * `BiodbCache` handles the cache system.
+
+## The observers
+
+## The connection classes
+
+## The entry classes
+
+## The URL request scheduler
+
+## UML class diagram
+
+Here is a complete class diagram showing all classes and their relations.
 
 ![UML class diagram](class.svg)
