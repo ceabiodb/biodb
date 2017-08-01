@@ -231,9 +231,6 @@ hr {
 <pre><code class="r">conn$getMzValues(max.results = 10)
 </code></pre>
 
-<pre><code>## Warning: closing unused connection 5 (mybiodb.log)
-</code></pre>
-
 <pre><code>##  [1] 53.0389 54.0333 55.0178 60.0552 65.0382 66.0423 68.0490 78.0333
 ##  [9] 79.0177 92.0498
 </code></pre>
@@ -307,6 +304,9 @@ spectrum &lt;- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
 
 # Search for match:
 conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+</code></pre>
+
+<pre><code>## Warning: closing unused connection 5 (mybiodb.log)
 </code></pre>
 
 <pre><code>##          id     score peak.1 peak.2

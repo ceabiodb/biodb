@@ -5,4 +5,10 @@
 
 # Architecture of biodb
 
+Class diagram as a PNG:
+
 ![UML class diagram](class.png)
+
+Class diagram as an SVG:
+
+![UML class diagram](class.svg)

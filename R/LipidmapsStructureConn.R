@@ -3,7 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-LipidmapsStructureConn <- methods::setRefClass("LipidmapsstructureConn", contains = "RemotedbConn")
+LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn", contains = "RemotedbConn")
 
 # Constructor {{{1
 ################################################################
