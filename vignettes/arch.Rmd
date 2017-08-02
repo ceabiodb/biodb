@@ -46,11 +46,46 @@ There are 5 singleton classes, each having each a distinct purpose:
 
 ## The observers
 
+The observer classes are used to transmit messages. You can create your own observer if you wish by creating a new class that inherits from `BiodbObserver`.
+The observers are registered with the `Biodb` instance, either through the constructor or through the `addObservers()` method.
+
+There are three concrete observer classes defined in the *biodb* package:
+
+ * `BiodbLogger` logs messages either to standard error or to a file.
+ * `WarningReporter` emits a standard R warning if the message of this type.
+ * `ErrorReporter` emits a standard R error if the messages of this type.
+
+Both `WarningReporter` and `ErrorReporter` are always defined in each instance of `Biodb`.
+
 ## The connection classes
+
+The connection classes handle the retrieval of information from databases. Their main purpose is the retrieval of and the search for entries.
+
+`BiodbConn` class is the mother abstract class of all connection classes.
+`RemotedbConn` class defines features specific to remote databases, such as an instance of the `UrlRequestScheduler`.
+`MassdbConn` class defines methods for searching mass spectra databases.
+`CompunddbConn` class defines methods for searching compound databases.
+`BiodbDownloadable` interface defines methods for handling download of a database.
+
+All those classes are abstract.
+
+Generally, each connection concrete class inherits either directly from `BiodbConn` or from one or more of the other abstract classes. However, in order to factorize code, some intermediate abstract classes have been created: `PeakforestConn`, `NcbiConn`, etc.
+
+## The URL request scheduler
+
+The `UrlRequestScheduler` class is used inside the `RemotedbConn` class. For each instance of a concrete class that inherits from `RemotedbConn`, an instance of the `UrlRequestScheduler` class is defined. This instance is responsible for handling all URL requests, and especially to wait required time between two requests. Some databases define precisely what should be the frequency of the requests, and those specifications are defined in the instance of the `UrlRequestScheduler` class. Other databases do not define anything, however this does not mean one can send as many request as he wants; thus a default frequency of three requests per second is defined by default for a new instance of `UrlRequestScheduler` class.
 
 ## The entry classes
 
-## The URL request scheduler
+The entry classes represent entries in the database. `BiodbEntry` is the mother abstract class of all entry classes. It handle the field values of the entries, and organize the parsing of entries from the string content returned by the database.
+
+Different intermediate abstract classes have been created in order to ease parsing of the various type of contents returned by the different databases:
+
+ * `CsvEntry` handles CSV type content. The separator character can be chosen.
+ * `HtmlEntry` handles HTML parsing through XPath expressions.
+ * `JsonEntry` handles JSON parsing.
+ * `TxtEntry` handles generic text parsing through regular expressions.
+ * `XmlEntry` handles XML parsing through XPath expressions.
 
 ## UML class diagram
 
