@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="130cm" height="114cm" viewBox="-799 35 2585 2266" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="130cm" height="116cm" viewBox="-799 -18 2585 2304" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g id="Background">
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="401" y="131" width="61.6" height="28"/>
@@ -20,20 +20,20 @@
       <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="348.6" y="586.6">1</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="371.7" y="36.2" width="120.15" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="431.775" y="55.2">BiodbObject</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="665.374" y="30.6062" width="120.15" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="725.449" y="49.6062">BiodbObject</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="431.775,83.4434 431.775,105.6 431.8,105.6 431.8,129.993 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="439.775,83.4434 431.775,67.4434 423.775,83.4434 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="725.449,77.8496 725.449,102.803 431.8,102.803 431.8,129.993 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="733.449,77.8496 725.449,61.8496 717.449,77.8496 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="80.7" y="131" width="114.15" height="28"/>
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="137.775" y="150">ChildObject</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="431.775,83.4434 431.775,105.6 137.775,105.6 137.775,129.993 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="439.775,83.4434 431.775,67.4434 423.775,83.4434 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="725.449,77.8496 725.449,102.803 137.775,102.803 137.775,129.993 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="733.449,77.8496 725.449,61.8496 717.449,77.8496 "/>
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="137.775,178.243 137.775,589.8 215.7,589.8 "/>
@@ -60,12 +60,12 @@
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="293.55" y="412.666">BiodbEntryFields</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="749.089" y="677.066" width="107.15" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="802.664" y="696.066">BiodbConn</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="749.088" y="677.066" width="107.15" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="802.663" y="696.066">BiodbConn</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-330.115" y="815.727" width="109.95" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-275.14" y="834.727">BiodbEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-330.116" y="815.726" width="109.95" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-275.141" y="834.726">BiodbEntry</text>
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="137.775,177.236 137.775,206.4 212.693,206.4 "/>
@@ -84,11 +84,11 @@
       <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="145.775,178.243 137.775,162.243 129.775,178.243 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="137.775,177.236 137.775,691.066 749.089,691.066 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="137.775,177.236 137.775,691.066 749.088,691.066 "/>
       <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="145.775,177.236 137.775,161.236 129.775,177.236 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="137.775,177.236 137.775,196 -351.115,196 -351.115,829.727 -330.115,829.727 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="137.775,177.236 137.775,196 -351.116,196 -351.116,829.726 -330.116,829.726 "/>
       <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="145.775,177.236 137.775,161.236 129.775,177.236 "/>
     </g>
     <g>
@@ -124,12 +124,12 @@
       <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="334.6" y="530.734">1</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="749.089,709.538 749.089,767.896 -275.14,767.896 -275.14,815.727 "/>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="757.089,723.302 749.089,707.302 741.089,723.302 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="749.088,709.538 749.088,767.896 -275.141,767.896 -275.141,815.726 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="757.088,723.302 749.088,707.302 741.088,723.302 "/>
       <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="236.974" y="764.696"/>
-      <text xml:space="preserve" font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="760.089" y="717.066"> parent</text>
-      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="760.089" y="733.066">1</text>
-      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-271.14" y="811.727">*</text>
+      <text xml:space="preserve" font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="760.088" y="717.066"> parent</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="760.088" y="733.066">1</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-271.141" y="811.726">*</text>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="218" y="337" width="121.65" height="28"/>
@@ -141,8 +141,8 @@
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="1689.42" y="884">BiodbDownloadable</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="431.775,83.4434 431.775,465.104 1689.42,465.104 1689.42,849 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="439.775,83.4434 431.775,67.4434 423.775,83.4434 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="725.449,77.8426 725.449,122.875 1689.42,122.875 1689.42,849 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="733.449,77.8426 725.449,61.8426 717.449,77.8426 "/>
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="137.775,178.243 137.775,351 218,351 "/>
@@ -196,7 +196,7 @@
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="1183.7" y="892.2" width="174.55" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="1270.97" y="911.2">CompounddbConn</text>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="1270.98" y="911.2">CompounddbConn</text>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="728.7" y="842.2" width="147.75" height="28"/>
@@ -215,207 +215,202 @@
       <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="610.75,178.243 602.75,162.243 594.75,178.243 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="802.664,723.302 802.664,783.133 1432.78,783.133 1432.78,845.2 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="810.664,723.302 802.664,707.302 794.664,723.302 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="802.663,723.302 802.663,783.133 1432.78,783.133 1432.78,845.2 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="810.663,723.302 802.663,707.302 794.663,723.302 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="802.664,723.302 802.664,806.633 1270.97,806.633 1270.97,892.2 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="810.664,723.302 802.664,707.302 794.664,723.302 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="802.663,723.302 802.663,806.633 1270.98,806.633 1270.98,892.2 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="810.663,723.302 802.663,707.302 794.663,723.302 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="802.664,723.302 802.664,781.129 802.575,781.129 802.575,841.193 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="810.664,723.302 802.664,707.302 794.664,723.302 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="802.663,723.302 802.663,781.129 802.575,781.129 802.575,841.193 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="810.663,723.302 802.663,707.302 794.663,723.302 "/>
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="137.775,178.243 137.775,488.2 216.7,488.2 "/>
       <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="145.775,178.243 137.775,162.243 129.775,178.243 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="542.7" y="408.6" width="200.75" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="643.075" y="427.6">UrlRequestScheduler</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="966.428" y="864.492" width="200.75" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="1066.8" y="883.492">UrlRequestScheduler</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="856.239,677.066 856.239,561.337 643.075,561.337 643.075,444.313 "/>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="648.075,456.96 643.075,440.96 638.075,456.96 "/>
-      <text font-size="12.7998" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="749.657" y="561.337">&lt;&lt;use&gt;&gt;</text>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="215.7,611.8 1.767,611.8 1.767,829.726 -213.461,829.726 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-200.813,824.726 -216.813,829.726 -200.813,834.726 "/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="3.767" y="717.563">&lt;&lt;create&gt;&gt;</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="215.7,611.8 1.76732,611.8 1.76732,829.727 -213.46,829.727 "/>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-200.813,824.727 -216.813,829.727 -200.813,834.727 "/>
-      <text font-size="12.7998" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="3.76732" y="720.763">&lt;&lt;create&gt;&gt;</text>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="280.15,611.8 280.15,639.929 802.663,639.929 802.663,669.353 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="797.663,656.706 802.663,672.706 807.663,656.706 "/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="541.407" y="636.729">&lt;&lt;create&gt;&gt;</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="280.15,611.8 280.15,639.929 802.664,639.929 802.664,669.353 "/>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="797.664,656.706 802.664,672.706 807.664,656.706 "/>
-      <text font-size="12.7998" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="541.407" y="639.929">&lt;&lt;create&gt;&gt;</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-571.622" y="930.814" width="90.05" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-526.597" y="949.814">CsvEntry</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-571.623" y="930.813" width="90.05" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-526.598" y="949.813">CsvEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-456.622" y="927.814" width="101.55" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-405.847" y="946.814">HtmlEntry</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-456.623" y="927.813" width="101.55" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-405.848" y="946.813">HtmlEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-325.866" y="930.228" width="96.2" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-277.766" y="949.228">JsonEntry</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-325.866" y="930.227" width="96.2" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-277.766" y="949.227">JsonEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-173.81" y="926.584" width="87.2" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-130.21" y="945.584">TxtEntry</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-173.81" y="926.585" width="87.2" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-130.21" y="945.585">TxtEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="123.166" y="925.984" width="92.85" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="169.591" y="944.984">XmlEntry</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="123.166" y="925.985" width="92.85" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="169.591" y="944.985">XmlEntry</text>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.141,861.962 -275.141,894.766 -526.597,894.766 -526.597,929.807 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.141,861.962 -275.141,845.962 -283.141,861.962 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.14,861.963 -275.14,894.766 -526.598,894.766 -526.598,929.806 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.14,861.963 -275.14,845.963 -283.14,861.963 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.141,861.962 -275.141,893.266 -405.847,893.266 -405.847,926.807 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.141,861.962 -275.141,845.962 -283.141,861.962 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.14,861.963 -275.14,893.266 -405.848,893.266 -405.848,926.806 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.14,861.963 -275.14,845.963 -283.14,861.963 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.141,861.962 -275.141,894.473 -277.766,894.473 -277.766,929.221 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.141,861.962 -275.141,845.962 -283.141,861.962 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.14,861.963 -275.14,894.474 -277.766,894.474 -277.766,929.22 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.14,861.963 -275.14,845.963 -283.14,861.963 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.141,861.962 -275.141,892.651 -130.21,892.651 -130.21,925.577 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.141,861.962 -275.141,845.962 -283.141,861.962 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.14,861.963 -275.14,892.652 -130.21,892.652 -130.21,925.577 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.14,861.963 -275.14,845.963 -283.14,861.963 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.141,861.962 -275.141,892.351 169.591,892.351 169.591,924.977 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.141,861.962 -275.141,845.962 -283.141,861.962 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-275.14,861.963 -275.14,892.352 169.591,892.352 169.591,924.977 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-267.14,861.963 -275.14,845.963 -283.14,861.963 "/>
-    </g>
-    <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="210.178" y="990.257" width="109.3" height="28"/>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="210.178" y="990.256" width="109.3" height="28"/>
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="264.828" y="1009.26">ChebiEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.221 169.591,1004.26 210.178,1004.26 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.221 169.591,956.221 161.591,972.221 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.22 169.591,1004.26 210.178,1004.26 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.22 169.591,956.22 161.591,972.22 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="211.764" y="1036.5" width="165.65" height="28"/>
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="294.589" y="1055.5">ChemspiderEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.221 169.591,1050.5 211.764,1050.5 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.221 169.591,956.221 161.591,972.221 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.22 169.591,1050.5 211.764,1050.5 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.22 169.591,956.22 161.591,972.22 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-91.5325" y="988.245" width="191.4" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="4.16746" y="1007.24">ExpasyEnzymeEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-91.5326" y="988.244" width="191.4" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="4.1674" y="1007.24">ExpasyEnzymeEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-130.21,972.821 -130.21,1002.24 -91.5325,1002.24 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-122.21,972.821 -130.21,956.821 -138.21,972.821 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-130.21,972.82 -130.21,1002.24 -91.5326,1002.24 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-122.21,972.82 -130.21,956.82 -138.21,972.82 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="211.764" y="1084.5" width="208.45" height="28"/>
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="315.989" y="1103.5">HmdbMetaboliteEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.221 169.591,1098.5 211.764,1098.5 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.221 169.591,956.221 161.591,972.221 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.22 169.591,1098.5 211.764,1098.5 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.22 169.591,956.22 161.591,972.22 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-87.8757" y="1039.35" width="200.3" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="12.2743" y="1058.35">KeggCompoundEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-87.8756" y="1039.35" width="200.3" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="12.2744" y="1058.35">KeggCompoundEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-130.21,972.821 -130.21,1053.35 -87.8757,1053.35 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-122.21,972.821 -130.21,956.821 -138.21,972.821 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-130.21,972.82 -130.21,1053.35 -87.8756,1053.35 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-122.21,972.82 -130.21,956.82 -138.21,972.82 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-797.855" y="1021.23" width="236.6" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-679.555" y="1040.23">LipidmapsStructureEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-797.856" y="1021.23" width="236.6" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-679.556" y="1040.23">LipidmapsStructureEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-526.598,977.049 -526.598,1035.23 -561.255,1035.23 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-518.598,977.049 -526.598,961.049 -534.598,977.049 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-526.597,977.05 -526.597,1035.23 -561.256,1035.23 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-518.597,977.05 -526.597,961.05 -534.597,977.05 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-729.387" y="1071.13" width="168.55" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-645.112" y="1090.13">MassCsvFileEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-729.388" y="1071.13" width="168.55" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-645.113" y="1090.13">MassCsvFileEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-526.598,977.049 -526.598,1085.13 -560.837,1085.13 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-518.598,977.049 -526.598,961.049 -534.598,977.049 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-526.597,977.05 -526.597,1085.13 -560.838,1085.13 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-518.597,977.05 -526.597,961.05 -534.597,977.05 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-81.3904" y="1127.23" width="148.35" height="28"/>
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="-7.2154" y="1146.23">MassbankEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-130.21,972.821 -130.21,1141.23 -81.3904,1141.23 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-122.21,972.821 -130.21,956.821 -138.21,972.821 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-130.21,972.82 -130.21,1141.23 -81.3904,1141.23 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-122.21,972.82 -130.21,956.82 -138.21,972.82 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-221.118" y="1245.45" width="170.7" height="28"/>
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-135.768" y="1264.45">MassbankEuEntry</text>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-27.0473" y="1244.62" width="165.75" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="55.8277" y="1263.62">MassbankJpEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-27.0472" y="1244.62" width="165.75" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="55.8278" y="1263.62">MassbankJpEntry</text>
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-7.2154,1173.47 -7.2154,1208.34 -135.768,1208.34 -135.768,1245.45 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="0.784596,1173.47 -7.2154,1157.47 -15.2154,1173.47 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="0.7846,1173.47 -7.2154,1157.47 -15.2154,1173.47 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-7.2154,1173.47 -7.2154,1207.42 55.8277,1207.42 55.8277,1243.61 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="0.784596,1173.47 -7.2154,1157.47 -15.2154,1173.47 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-7.2154,1173.47 -7.2154,1207.42 55.8278,1207.42 55.8278,1243.61 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="0.7846,1173.47 -7.2154,1157.47 -15.2154,1173.47 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-84.7041" y="1083.62" width="194.75" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="12.6709" y="1102.62">MirbaseMatureEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-84.7042" y="1083.62" width="194.75" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="12.6708" y="1102.62">MirbaseMatureEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-130.21,972.821 -130.21,1097.62 -84.7041,1097.62 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-122.21,972.821 -130.21,956.821 -138.21,972.821 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-130.21,972.82 -130.21,1097.62 -84.7042,1097.62 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-122.21,972.82 -130.21,956.82 -138.21,972.82 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-475.77" y="1025.29" width="140.4" height="28"/>
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-405.57" y="1044.29">NcbiCcdsEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-405.848,974.049 -405.848,998.049 -405.57,998.049 -405.57,1024.28 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-397.848,974.049 -405.848,958.049 -413.848,974.049 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-405.847,974.05 -405.847,998.049 -405.57,998.049 -405.57,1024.28 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-397.847,974.05 -405.847,958.05 -413.847,974.05 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="213.279" y="1125.8" width="144.45" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="285.504" y="1144.8">NcbiGeneEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="213.278" y="1125.8" width="144.45" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="285.503" y="1144.8">NcbiGeneEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.221 169.591,1139.8 213.279,1139.8 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.221 169.591,956.221 161.591,972.221 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.22 169.591,1139.8 213.278,1139.8 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.22 169.591,956.22 161.591,972.22 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="215.279" y="1168.73" width="181.2" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="305.879" y="1187.73">NcbiPubchemEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="215.278" y="1168.73" width="181.2" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:italic;font-weight:700" x="305.878" y="1187.73">NcbiPubchemEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.221 169.591,1182.73 215.279,1182.73 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.221 169.591,956.221 161.591,972.221 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.22 169.591,1182.73 215.278,1182.73 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.22 169.591,956.22 161.591,972.22 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="334.972" y="1237.35" width="232.05" height="28"/>
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="450.997" y="1256.35">NcbiPubchemCompEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="305.879,1214.97 305.879,1251.35 334.972,1251.35 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="313.879,1214.97 305.879,1198.97 297.879,1214.97 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="305.878,1214.97 305.878,1251.35 334.972,1251.35 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="313.878,1214.97 305.878,1198.97 297.878,1214.97 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="339.965" y="1282.37" width="232.7" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="456.315" y="1301.37">NcbiPubchemSubstEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="339.964" y="1282.37" width="232.7" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="456.314" y="1301.37">NcbiPubchemSubstEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="305.879,1214.97 305.879,1296.37 339.965,1296.37 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="313.879,1214.97 305.879,1198.97 297.879,1214.97 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="305.878,1214.97 305.878,1296.37 339.964,1296.37 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="313.878,1214.97 305.878,1198.97 297.878,1214.97 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-552.736" y="1143.6" width="252.35" height="28"/>
@@ -430,16 +425,16 @@
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-400.015" y="1120.5">PeakforestMassEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-277.766,976.463 -277.766,1115.5 -299.04,1115.5 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-269.766,976.463 -277.766,960.463 -285.766,976.463 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="-277.766,976.464 -277.766,1115.5 -299.04,1115.5 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="-269.766,976.464 -277.766,960.464 -285.766,976.464 "/>
     </g>
     <g>
-      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="223.007" y="1332.03" width="126.25" height="28"/>
-      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="286.132" y="1351.03">UniprotEntry</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="223.006" y="1332.03" width="126.25" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="286.131" y="1351.03">UniprotEntry</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.221 169.591,1346.03 223.007,1346.03 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.221 169.591,956.221 161.591,972.221 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="169.591,972.22 169.591,1346.03 223.006,1346.03 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="177.591,972.22 169.591,956.22 161.591,972.22 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="868.124" y="925.2" width="106.5" height="28"/>
@@ -454,8 +449,8 @@
       <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="947.549" y="1002.2">ChemspiderConn</text>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="1270.97,938.436 1270.97,997.2 1028.97,997.2 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1278.97,938.436 1270.97,922.436 1262.97,938.436 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="1270.98,938.436 1270.98,997.2 1028.97,997.2 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1278.98,938.436 1270.98,922.436 1262.98,938.436 "/>
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="802.575,889.443 802.575,997.2 866.124,997.2 "/>
@@ -511,7 +506,7 @@
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="1432.78,891.436 1432.78,969.2 1482.12,969.2 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1440.78,891.436 1432.78,875.436 1424.78,891.436 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1440.78,891.436 1432.78,875.436 1424.77,891.436 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="866.124" y="1309.2" width="145.55" height="28"/>
@@ -523,7 +518,7 @@
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="1432.78,891.436 1432.78,1323.2 1011.67,1323.2 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1440.78,891.436 1432.78,875.436 1424.78,891.436 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1440.78,891.436 1432.78,875.436 1424.77,891.436 "/>
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="1689.42,911.236 1689.42,1323.2 1011.67,1323.2 "/>
@@ -634,8 +629,8 @@
       <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="958.849,1692.44 950.849,1676.44 942.849,1692.44 "/>
     </g>
     <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="1270.97,939.443 1270.97,1739.2 1233.67,1739.2 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1278.97,939.443 1270.97,923.443 1262.97,939.443 "/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="1270.98,939.443 1270.98,1739.2 1233.67,1739.2 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1278.98,939.443 1270.98,923.443 1262.98,939.443 "/>
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="802.575,888.436 802.575,1659.2 874.124,1659.2 "/>
@@ -651,7 +646,7 @@
     </g>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="1432.78,891.436 1432.78,1803.2 1189.27,1803.2 "/>
-      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1440.78,891.436 1432.78,875.436 1424.78,891.436 "/>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1440.78,891.436 1432.78,875.436 1424.77,891.436 "/>
     </g>
     <g>
       <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="868.124" y="1583.2" width="123.45" height="28"/>
@@ -664,11 +659,21 @@
     <g>
       <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="222.896,839.552 621.596,839.552 633.596,851.552 633.596,889.552 222.896,889.552 "/>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 1; stroke: #000000" points="621.596,839.552 621.596,851.552 633.596,851.552 "/>
-      <text font-size="12.7998" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="229.896" y="864.452">
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="229.896" y="864.452">
         <tspan x="229.896" y="864.452">Each &lt;dbname&gt;Entry instance is only associated with</tspan>
         <tspan x="229.896" y="880.452">the corresponding &lt;dbname&gt;Conn instance.</tspan>
       </text>
     </g>
     <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 10; stroke: #000000" x1="236.974" y1="767.896" x2="428.246" y2="839.552"/>
+    <text font-size="22.5778" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="407.97" y="3.21866">
+      <tspan x="407.97" y="3.21866">UML class diagram for R biodb package</tspan>
+    </text>
+    <g>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="901.622,856.2 928.439,856.2 928.439,878.492 966.428,878.492 "/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="876.45,856.2 890.45,851.4 904.45,856.2 890.45,861 "/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="930.439" y="864.146"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="908.45" y="853">1</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="962.428" y="875.292">1</text>
+    </g>
   </g>
 </svg>
