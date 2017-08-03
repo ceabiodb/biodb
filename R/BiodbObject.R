@@ -139,7 +139,7 @@ BiodbObject$methods( getBiodb = function() {
 ################################################################
 
 # Send a message to observers
-BiodbObject$methods( message = function(type, msg, level = 1) {
+BiodbObject$methods( message = function(type, msg) {
 
 	# Get biodb instance
 	biodb <- NULL
@@ -156,7 +156,7 @@ BiodbObject$methods( message = function(type, msg, level = 1) {
 	method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)[[1]]
 
 	if ( ! is.null(biodb))
-		lapply(biodb$getObservers(), function(x) x$message(type = type, msg = msg, class = class, method = method, level = level))
+		lapply(biodb$getObservers(), function(x) x$message(type = type, msg = msg, class = class, method = method))
 	else {
 		caller.info <- if (is.na(class)) '' else class
 		if (! is.na(method))
