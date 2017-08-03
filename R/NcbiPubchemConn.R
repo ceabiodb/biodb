@@ -44,7 +44,7 @@ NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
 NcbiPubchemConn$methods( getEntryContent = function(entry.id) {
 
 	# Debug
-	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
+	.self$message('info', paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2048
 	concatenate <- TRUE
@@ -68,7 +68,7 @@ NcbiPubchemConn$methods( getEntryContent = function(entry.id) {
 
 			if (is.na(xmlstr) || length(grep('PUGREST.BadRequest|PUGREST.NotFound', xmlstr)) > 0) {
 				if (concatenate) {
-					.self$message(MSG.CAUTION, "One of the IDs to retrieve is wrong.")
+					.self$message('caution', "One of the IDs to retrieve is wrong.")
 					concatenate <- FALSE
 					done <- FALSE
 					break

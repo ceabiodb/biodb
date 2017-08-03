@@ -117,11 +117,11 @@ BiodbEntryFields$methods( .define = function(name, ...) {
 
 	# Check that name is in lower case
 	if (name != tolower(name))
-		.self$message(MSG.ERROR, paste("Field name \"", name, "\" must be in lower case.", sep = ''))
+		.self$message('error', paste("Field name \"", name, "\" must be in lower case.", sep = ''))
 
 	# Is field already defined?
 	if (.self$isDefined(name))
-		.self$message(MSG.ERROR, paste("Field \"", name, "\" has already been defined.", sep = ''))
+		.self$message('error', paste("Field \"", name, "\" has already been defined.", sep = ''))
 
 	# Define new field
 	field <- BiodbEntryField$new(parent = .self, name = name, ...)
@@ -154,7 +154,7 @@ BiodbEntryFields$methods( isDefined = function(name) {
 
 BiodbEntryFields$methods( checkIsDefined = function(name) {
 	if ( ! .self$isDefined(name))
-		.self$message(MSG.ERROR, paste("Field \"", name, "\" is not defined.", sep = ''))
+		.self$message('error', paste("Field \"", name, "\" is not defined.", sep = ''))
 })
 
 # Get real name {{{1

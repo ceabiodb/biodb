@@ -27,24 +27,22 @@ BiodbLogger$methods( initialize = function(verbose.level = as.integer(1), debug.
 	if (is.character(file))
 		file <- file(file, open = mode)
 	if ( ! all(class(file) %in% c('file', 'connection', 'terminal')))
-		.self$message(MSG.ERROR, paste('Unknown class "', class(file), '" for log file.', sep = ''))
+		.self$message('error', paste('Unknown class "', class(file), '" for log file.', sep = ''))
 	.file <<- file
 })
 
 # Message {{{1
 ################################################################
 
-BiodbLogger$methods( message = function(type = MSG.INFO, msg, class = NA_character_, method = NA_character_, level = 1) {
+BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_, level = 1) {
 
-	# Check message type
-	if ( ! type %in% .MSG.TYPES)
-		.self$message(MSG.ERROR, paste0("Unknown message type ", type, "."))
+	.self$checkMessqgeType(type)
 
 	# Should message be output ?
 	output = TRUE
-	if (type == MSG.INFO && .self$.verbose.level < level)
+	if (type == 'info' && .self$.verbose.level < level)
 		output = FALSE
-	if (type == MSG.DEBUG && .self$.debug.level < level)
+	if (type == 'debug' && .self$.debug.level < level)
 		output = FALSE
 
 	# Output message

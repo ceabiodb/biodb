@@ -75,10 +75,10 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 	":\n\nFind spectra in the given M/Z range. Returns a list of spectra IDs."
 	
 	# Check arguments
-	if ( ! .self$.assert.not.na(mz.min, msg.type = MSG.WARNING)) return(NULL)
-	if ( ! .self$.assert.not.null(mz.max, msg.type = MSG.WARNING)) return(NULL)
-	if ( ! .self$.assert.not.na(mz.min, msg.type = MSG.WARNING)) return(NULL)
-	if ( ! .self$.assert.not.null(mz.max, msg.type = MSG.WARNING)) return(NULL)
+	if ( ! .self$.assert.not.na(mz.min, msg.type = 'warning')) return(NULL)
+	if ( ! .self$.assert.not.null(mz.max, msg.type = 'warning')) return(NULL)
+	if ( ! .self$.assert.not.na(mz.min, msg.type = 'warning')) return(NULL)
+	if ( ! .self$.assert.not.null(mz.max, msg.type = 'warning')) return(NULL)
 	.self$.assert.positive(mz.min)
 	.self$.assert.positive(mz.max)
 	.self$.assert.length.one(mz.min)
@@ -98,8 +98,8 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
 	":\n\nFind spectra containg a peak around the given M/Z value. Returns a list of spectra IDs."
 	
-	if ( ! .self$.assert.not.na(mz, msg.type = MSG.WARNING)) return(NULL)
-	if ( ! .self$.assert.not.null(mz, msg.type = MSG.WARNING)) return(NULL)
+	if ( ! .self$.assert.not.na(mz, msg.type = 'warning')) return(NULL)
+	if ( ! .self$.assert.not.null(mz, msg.type = 'warning')) return(NULL)
 	.self$.assert.positive(mz)
 	.self$.assert.length.one(mz)
 	.self$.assert.positive(mz.tol)

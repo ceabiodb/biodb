@@ -52,7 +52,7 @@ BiodbDownloadable$methods( download = function() {
 	# Download
 	if ( ! .self$isDownloaded() && .self$getBiodb()$getConfig()$isEnabled('allow.huge.downloads') && ! .self$getBiodb()$getConfig()$get('offline')) {
 
-		.self$message(MSG.INFO, paste("Download whole database of ", .self$getId(), ".", sep = ''))
+		.self$message('info', paste("Download whole database of ", .self$getId(), ".", sep = ''))
 
 		.self$.doDownload()
 	}
@@ -60,7 +60,7 @@ BiodbDownloadable$methods( download = function() {
 	# Extract
 	if (.self$isDownloaded() && ! .self$isExtracted()) {
 
-		.self$message(MSG.INFO, paste("Extract whole database of ", .self$getId(), ".", sep = ''))
+		.self$message('info', paste("Extract whole database of ", .self$getId(), ".", sep = ''))
 
 		.self$.doExtractDownload()
 

@@ -105,11 +105,11 @@ set.test.context <- function(biodb, text) {
 	context(text)
 
 	# Print banner in log file
-	biodb$message(MSG.INFO, "")
-	biodb$message(MSG.INFO, "****************************************************************")
-	biodb$message(MSG.INFO, paste("Test context", text, sep = " - "))
-	biodb$message(MSG.INFO, "****************************************************************")
-	biodb$message(MSG.INFO, "")
+	biodb$message('info', "")
+	biodb$message('info', "****************************************************************")
+	biodb$message('info', paste("Test context", text, sep = " - "))
+	biodb$message('info', "****************************************************************")
+	biodb$message('info', "")
 }
 
 # Set mode {{{1

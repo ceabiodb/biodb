@@ -19,7 +19,7 @@ PeakforestConn$methods( initialize = function(db.name, ...) {
 
 	# Check token
 	if (is.na(.self$getToken()))
-		.self$message(MSG.CAUTION, "Peakforest requires a token to function correctly.")
+		.self$message('caution', "Peakforest requires a token to function correctly.")
 })
 
 # Check if error {{{1
@@ -28,12 +28,12 @@ PeakforestConn$methods( initialize = function(db.name, ...) {
 PeakforestConn$methods( .checkIfError = function(content) {
 
 	if (length(grep('^<!DOCTYPE HTML ', content)) > 0) {
-		.self$message(MSG.DEBUG, paste("Peakforest returned error: ", content))
+		.self$message('debug', paste("Peakforest returned error: ", content))
 		return(TRUE)
 	}
 
 	if (length(grep('^<html>.*Apache Tomcat.*Error report', content)) > 0)
-		.self$message(MSG.ERROR, paste("Peakforest connection error: ", content))
+		.self$message('error', paste("Peakforest connection error: ", content))
 
 	return(FALSE)
 })

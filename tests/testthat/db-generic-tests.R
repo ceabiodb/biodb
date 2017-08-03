@@ -53,7 +53,7 @@ test.entry.fields <- function(db) {
 	if (length(not.tested.fields) > 0) {
 		not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
 		not.tested.fields <- sort(not.tested.fields)
-		biodb$message(MSG.CAUTION, paste("Fields \"", paste(not.tested.fields, collapse = ", "), "\" are not tested in database ", db.name, ".", sep = ''))
+		biodb$message('caution', paste("Fields \"", paste(not.tested.fields, collapse = ", "), "\" are not tested in database ", db.name, ".", sep = ''))
 	}
 }
 

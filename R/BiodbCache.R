@@ -130,20 +130,20 @@ BiodbCache$methods( loadFileContent = function(dbid, subfolder, name, ext, outpu
 	":\n\nLoad content of files from the cache."
 
 	if ( ! .self$isReadable())
-		.self$message(MSG.ERROR, paste("Attempt to read from non-readable cache \"", .self$getDir(), "\".", sep = ''))
+		.self$message('error', paste("Attempt to read from non-readable cache \"", .self$getDir(), "\".", sep = ''))
 
 	content <- NULL
 
 	# Read contents from files
 	file.paths <- .self$getBiodb()$getCache()$getFilePath(dbid, subfolder, name, ext)
-	.self$message(MSG.DEBUG, paste("Loading from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
+	.self$message('debug', paste("Loading from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size, useBytes = TRUE) else NULL )} )
 
 	# Check that the read content is not conflicting with the current locale
 	for (i in seq(content)) {
 		n <- tryCatch(nchar(content[[i]]), error = function(e) NULL)
 		if (is.null(n))
-			.self$message(MSG.ERROR, paste("Impossible to handle correctly the content of file \"", file.paths[[i]], "\". Your current locale might be conflicting with functions like `nchar` or `strsplit`. Please, set your locale to 'C' (`Sys.setlocale(locale = 'C')`), or enable option `` in biodb configuration.", sep = ''))
+			.self$message('error', paste("Impossible to handle correctly the content of file \"", file.paths[[i]], "\". Your current locale might be conflicting with functions like `nchar` or `strsplit`. Please, set your locale to 'C' (`Sys.setlocale(locale = 'C')`), or enable option `` in biodb configuration.", sep = ''))
 	}
 
 	# Set to NA
@@ -163,20 +163,20 @@ BiodbCache$methods( saveContentToFile = function(content, dbid, subfolder, name,
 	":\n\nSave content to files into the cache."
 
 	if ( ! .self$isWritable())
-		.self$message(MSG.ERROR, paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
+		.self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
 
 	# Get file paths
 	file.paths <- .self$getFilePath(dbid, subfolder, name, ext)
 
 	# Check that we have the same number of content and file paths
 	if (length(file.paths) != length(content))
-		.self$message(MSG.ERROR, paste("The number of content to save (", length(content), ") is different from the number of paths (", length(file.paths), ").", sep = ''))
+		.self$message('error', paste("The number of content to save (", length(content), ") is different from the number of paths (", length(file.paths), ").", sep = ''))
 
 	# Replace NA values with 'NA' string
 	content[is.na(content)] <- 'NA'
 
 	# Write content to files
-	.self$message(MSG.DEBUG, paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
+	.self$message('debug', paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
 	mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, content, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
 })
 
@@ -190,7 +190,7 @@ BiodbCache$methods( getSubFolderPath = function(subfolder) {
 
 	# Check subfolder
 	if ( ! .self$getBiodb()$getConfig()$isDefined(cfg.subfolder.key))
-		.self$message(MSG.ERROR, paste("Unknown cache folder \"", folder, "\".", sep = ''))
+		.self$message('error', paste("Unknown cache folder \"", folder, "\".", sep = ''))
 
 	# Get subfolder path
 	if (.self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
@@ -232,7 +232,7 @@ BiodbCache$methods( listFiles = function(dbid, subfolder, ext = NA_character_, e
 
 	# List files
 	dir <- .self$getSubFolderPath(subfolder)
-	.self$message(MSG.DEBUG, paste("List files in", dir, "using pattern ", pattern))
+	.self$message('debug', paste("List files in", dir, "using pattern ", pattern))
 	files <- list.files(path = dir, pattern = pattern)
 
 	# Extract only the name part

@@ -46,7 +46,7 @@ HmdbMetaboliteConn$methods( .doDownload = function() {
 
 	# Download
 	zip.url <- paste(.self$getBaseUrl(), "system/downloads/current/hmdb_metabolites.zip", sep = '')
-	.self$message(MSG.INFO, paste("Downloading \"", zip.url, "\"...", sep = ''))
+	.self$message('info', paste("Downloading \"", zip.url, "\"...", sep = ''))
 	.self$.getUrlScheduler()$downloadFile(url = zip.url, dest.file = .self$getDownloadPath())
 })
 
@@ -63,7 +63,7 @@ HmdbMetaboliteConn$methods( .doExtractDownload = function() {
 	files <- list.files(path = extract.dir)
 	xml.file <- NULL
 	if (length(files) == 0)
-		.self$message(MSG.ERROR, paste("No XML file found in zip file \"", .self$getDownloadPath(), "\".", sep = ''))
+		.self$message('error', paste("No XML file found in zip file \"", .self$getDownloadPath(), "\".", sep = ''))
 	else if (length(files) == 1)
 		xml.file <- file.path(extract.dir, files)
 	else {
@@ -71,13 +71,13 @@ HmdbMetaboliteConn$methods( .doExtractDownload = function() {
 			if (f %in% files)
 				xml.file <- file.path(extract.dir, f)
 		if (is.null(xml.file))
-			.self$message(MSG.ERROR, paste("More than one file found in zip file \"", .self$getDownloadPath(), "\":", paste(files, collapse = ", "), ".", sep = ''))
+			.self$message('error', paste("More than one file found in zip file \"", .self$getDownloadPath(), "\":", paste(files, collapse = ", "), ".", sep = ''))
 	}
 	xml <- XML::xmlInternalTreeParse(xml.file)
 
 	# Get IDs of all entries
 	ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = .self$.ns)
-	.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
+	.self$message('debug', paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
 
 	# Get contents of all entries
 	contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')

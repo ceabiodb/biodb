@@ -31,7 +31,7 @@ MirbaseMatureConn$methods( .doDownload = function() {
 
 	# Download
 	gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
-	.self$message(MSG.INFO, paste("Downloading \"", gz.url, "\"...", sep = ''))
+	.self$message('info', paste("Downloading \"", gz.url, "\"...", sep = ''))
 	.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = .self$getDownloadPath())
 })
 
@@ -52,7 +52,7 @@ MirbaseMatureConn$methods( .doExtractDownload = function() {
 
 	# Get all entry IDs
 	ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value = TRUE), perl = TRUE)
-	.self$message(MSG.DEBUG, paste("Found ", length(ids), " entries in file \"", .self$getDownloadPath(), "\".", sep = ''))
+	.self$message('debug', paste("Found ", length(ids), " entries in file \"", .self$getDownloadPath(), "\".", sep = ''))
 
 	if (length(ids) > 0) {
 		# Get contents

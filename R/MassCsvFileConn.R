@@ -27,7 +27,7 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 
 	# Check file
 	if ( ! file.exists(.self$getBaseUrl()))
-		.self$message(MSG.ERROR, paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
+		.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
 
 	# Set fields
 	.db <<- NULL
@@ -72,17 +72,17 @@ MassCsvFileConn$methods( setField = function(tag, colname) {
 
 	tag <- tolower(tag)
 
-	( ! is.null(tag) && ! is.na(tag)) || .self$message(MSG.ERROR, "No tag specified.")
-	( ! is.null(colname) && ! is.na(colname)) || .self$message(MSG.ERROR, "No column name specified.")
+	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
+	( ! is.null(colname) && ! is.na(colname)) || .self$message('error', "No column name specified.")
 
 	# Load database file
 	.self$.init.db()
 
 	# Check that this field tag is defined in the fields list
-	.self$isValidFieldTag(tag) || .self$message(MSG.ERROR, paste0("Database field tag \"", tag, "\" is not valid."))
+	.self$isValidFieldTag(tag) || .self$message('error', paste0("Database field tag \"", tag, "\" is not valid."))
 
 	# Check that columns are defined in database file
-	all(colname %in% names(.self$.db)) || .self$message(MSG.ERROR, paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
+	all(colname %in% names(.self$.db)) || .self$message('error', paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
 
 	# Set new definition
 	if (length(colname) == 1)
@@ -90,7 +90,7 @@ MassCsvFileConn$methods( setField = function(tag, colname) {
 	else {
 		#new.col <- paste(colname, collapse = ".")
 		if (tag %in% names(.self$.db))
-			.self$message(MSG.ERROR, paste("Column \"", tag, "\" already exist in database file.", sep = ''))
+			.self$message('error', paste("Column \"", tag, "\" already exist in database file.", sep = ''))
 		.self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
 		.self$.fields[[tag]] <- tag
 	}
@@ -125,7 +125,7 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 	# Check if fields are known
 	unknown.fields <- names(.self$.fields)[ ! fields %in% names(.self$.fields)]
 	if (length(unknown.fields) > 0)
-		.self$message(MSG.ERROR, paste0("Field(s) ", paste(fields, collapse = ", "), " is/are unknown."))
+		.self$message('error', paste0("Field(s) ", paste(fields, collapse = ", "), " is/are unknown."))
 
 	# Init db
 	.self$.init.db()
@@ -133,7 +133,7 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 	# Check if fields are defined in file database
 	undefined.fields <- colnames(.self$.db)[ ! .self$.fields[fields] %in% colnames(.self$.db)]
 	if (length(undefined.fields) > 0) {
-		.self$message(if (fail) MSG.ERROR else MSG.DEBUG, paste0("Column(s) ", paste(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database.")
+		.self$message(if (fail) 'error' else 'debug', paste0("Column(s) ", paste(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database.")
 		return(FALSE)
 	}
 
@@ -156,7 +156,7 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	if ( ! is.null(mode) && ! is.na(mode)) {
 
 		# Check mode value
-		mode %in% names(.self$.ms.modes) || .self$message(MSG.ERROR, paste0("Unknown mode value '", mode, "'."))
+		mode %in% names(.self$.ms.modes) || .self$message('error', paste0("Unknown mode value '", mode, "'."))
 		.self$.check.fields('ms.mode')
 
 		# Filter on mode
@@ -314,14 +314,14 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 	content <- rep(NA_character_, length(entry.id))
 
 	# Get data frame
-	.self$message(MSG.DEBUG, paste("Entry entry.id:", paste(entry.id, collapse = ", ")))
+	.self$message('debug', paste("Entry entry.id:", paste(entry.id, collapse = ", ")))
 	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
 
 	# For each id, take the sub data frame and convert it into string
 	df.ids <- df[[.self$.fields[['accession']]]]
 	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
 
-	.self$message(MSG.DEBUG, paste("Entry content:", content))
+	.self$message('debug', paste("Entry content:", content))
 
 	return(content)
 })

@@ -55,7 +55,7 @@ BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = N
 
     # Has a connection been already created for this database?
 	if (dbid %in% names(.self$.conn))
-		.self$message(MSG.ERROR, paste0('A connection of type ', dbid, ' already exists. Please use method getConn() to access it.'))
+		.self$message('error', paste0('A connection of type ', dbid, ' already exists. Please use method getConn() to access it.'))
 
     # Get connection class
     conn.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getConnClass()
@@ -145,7 +145,7 @@ BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
 	":\n\nCreate database entry objects from IDs (accession numbers)."
 
 	# Debug
-	.self$message(MSG.INFO, paste("Creating", length(id), "entries from ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", "), "..."))
+	.self$message('info', paste("Creating", length(id), "entries from ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", "), "..."))
 
 	# Get contents
 	content <- .self$getEntryContent(dbid, id)
@@ -163,11 +163,11 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 	":\n\nGet the contents of database entries from IDs (accession numbers)."
 
 	# Debug
-	.self$message(MSG.INFO, paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
+	.self$message('info', paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
 
 	# Download full database if possible
 	if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(dbid), 'BiodbDownloadable')) {
-		.self$message(MSG.DEBUG, paste('Ask for whole database download of ', dbid, '.', sep = ''))
+		.self$message('debug', paste('Ask for whole database download of ', dbid, '.', sep = ''))
 		.self$getConn(dbid)$download()
 	}
 
@@ -188,12 +188,12 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 
 	# Debug
 	if (any(is.na(id)))
-		.self$message(MSG.INFO, paste0(sum(is.na(id)), " ", dbid, " entry ids are NA."))
+		.self$message('info', paste0(sum(is.na(id)), " ", dbid, " entry ids are NA."))
 	if (.self$getBiodb()$getCache()$isReadable()) {
-		.self$message(MSG.INFO, paste0(sum( ! is.na(id)) - length(missing.ids), " ", dbid, " entry content(s) loaded from cache."))
+		.self$message('info', paste0(sum( ! is.na(id)) - length(missing.ids), " ", dbid, " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
-			.self$message(MSG.INFO, paste0(n.duplicates, " ", dbid, " entry ids, whose content needs to be fetched, are duplicates."))
-		.self$message(MSG.INFO, paste0(length(missing.ids), " entry content(s) need to be fetched from ", dbid, " database."))
+			.self$message('info', paste0(n.duplicates, " ", dbid, " entry ids, whose content needs to be fetched, are duplicates."))
+		.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", dbid, " database."))
 	}
 
 	# Get contents
@@ -220,7 +220,7 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 
 			# Debug
 			if (.self$getBiodb()$getCache()$isReadable())
-				.self$message(MSG.INFO, paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+				.self$message('info', paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
 		}
 
 		# Merge content and missing.contents

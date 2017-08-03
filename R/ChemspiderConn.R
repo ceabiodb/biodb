@@ -24,7 +24,7 @@ ChemspiderConn$methods( initialize = function(...) {
 ChemspiderConn$methods( getEntryContent = function(entry.id) {
 
 	# Debug
-	.self$message(MSG.INFO, paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
+	.self$message('info', paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
 
 	URL.MAX.LENGTH <- 2083
 	concatenate <- TRUE
@@ -33,7 +33,7 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 	while ( ! done) {
 
 		done <- TRUE
-			.self$message(MSG.INFO, 'ZAP')
+			.self$message('info', 'ZAP')
 
 		# Initialize return values
 		content <- rep(NA_character_, length(entry.id))
@@ -50,7 +50,7 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 			# Error : "Cannot convert WRONG to System.Int32.\r\nParameter name: type ---> Input string was not in a correct format.\r\n"
 			if (grepl('^Cannot convert .* to System\\.Int32\\.', xmlstr)) {
 				if (concatenate) {
-					.self$message(MSG.CAUTION, "One of the IDs to retrieve is wrong.")
+					.self$message('caution', "One of the IDs to retrieve is wrong.")
 					concatenate <- FALSE
 					done <- FALSE
 					break
@@ -128,16 +128,16 @@ ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
 		</soap:Envelope>', sep = '')
 
 	# Send request
-	.self$message(MSG.DEBUG, paste("XML REQUEST =", xml.request))
+	.self$message('debug', paste("XML REQUEST =", xml.request))
 	xml.results <- .self$.getUrlScheduler()$sendSoapRequest(paste(.self$getBaseUrl(), "MassSpecAPI.asmx", sep = ''), action = paste(.self$getBaseUrl(), "SearchByMassAsync", sep = ''), request = xml.request)
-	.self$message(MSG.DEBUG, paste("XML RESULTS =", xml.results))
+	.self$message('debug', paste("XML RESULTS =", xml.results))
 
 	# Parse XML
 	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
 
 	# Get transaction ID
 	id <- XML::xpathSApply(xml, "//chemspider:SearchByMassAsyncResult", XML::xmlValue, namespaces = .self$.ns)
-	.self$message(MSG.DEBUG, paste("Transaction ID = ", id, ".", sep = ''))
+	.self$message('debug', paste("Transaction ID = ", id, ".", sep = ''))
 
 	return(id)
 })
@@ -169,7 +169,7 @@ ChemspiderConn$methods( searchEntryByMass = function(mass, tol, max.results = NA
 ChemspiderConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	"This method is not correctly implemented. This is because ChemSpider API does not provide a service for obtaining the exact number of entries. As a consequence we use `searchEntryByMass()` method to search for entries. However, since looking for all entries this way makes ChemSpider fails with `System.OutOfMemoryException`, only a subset of the entries is retrieve. This method, implemented this way, is still useful for testing purposes."
 
-	.self$message(MSG.CAUTION, "Method using a last resort solution for its implementation. Returns only a small subset of ChemSpider entries.")
+	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of ChemSpider entries.")
 
 	return(.self$searchEntryByMass(100, 10, max.results = max.results))
 })

@@ -27,13 +27,13 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 	mz <- numeric(0)
 
 	if ( ! is.null(ms.mode) && ! is.na(ms.mode))
-		.self$message(MSG.DEBUG, paste("ms.mode", ms.mode, sep = ' = '))
+		.self$message('debug', paste("ms.mode", ms.mode, sep = ' = '))
 	if ( ! is.null(max.results) && ! is.na(max.results))
-		.self$message(MSG.DEBUG, paste("max.results", max.results, sep = ' = '))
+		.self$message('debug', paste("max.results", max.results, sep = ' = '))
 	if ( ! is.null(precursor) && ! is.na(precursor))
-		.self$message(MSG.DEBUG, paste("precursor", precursor, sep = ' = '))
+		.self$message('debug', paste("precursor", precursor, sep = ' = '))
 	if ( ! is.null(ms.level) && ! is.na(ms.level))
-		.self$message(MSG.DEBUG, paste("ms.level", ms.level, sep = ' = '))
+		.self$message('debug', paste("ms.level", ms.level, sep = ' = '))
 
 	# Download
 	.self$download()
@@ -46,20 +46,20 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 	for (id in spectra.ids) {
 
 		i <- i + 1
-		.self$message(MSG.DEBUG, paste("Processing entry", i, "/", length(spectra.ids), "..."))
+		.self$message('debug', paste("Processing entry", i, "/", length(spectra.ids), "..."))
 
 		# Get entry
 		entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
 
 		# Filter on mode
 		if ( ! is.null(ms.mode) && ! is.na(ms.mode) && entry$getFieldValue('msmode') != ms.mode) {
-			.self$message(MSG.DEBUG, paste("Reject entry", id, "because MS mode is", entry$getFieldValue('msmode')))
+			.self$message('debug', paste("Reject entry", id, "because MS mode is", entry$getFieldValue('msmode')))
 			next
 		}
 
 		# Filter on ms.level
 		if ( ! is.null(ms.level) && ! is.na(ms.level) && ms.level > 0 && entry$getFieldValue('ms.level') != ms.level) {
-			.self$message(MSG.DEBUG, paste("Reject entry", id, "because MS level is", entry$getFieldValue('ms.level')))
+			.self$message('debug', paste("Reject entry", id, "because MS level is", entry$getFieldValue('ms.level')))
 			next
 		}
 
@@ -78,12 +78,12 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 		if ( ! is.null(new.mz)) {
 			new.mz <- new.mz[ ! new.mz %in% mz]
 			if (length(new.mz) > 0) {
-				.self$message(MSG.DEBUG, paste("Add", length(new.mz), "new M/Z values."))
+				.self$message('debug', paste("Add", length(new.mz), "new M/Z values."))
 				mz <- c(mz, new.mz)
 			}
 		}
 
-		.self$message(MSG.DEBUG, paste(length(mz), "M/Z values have been found."))
+		.self$message('debug', paste(length(mz), "M/Z values have been found."))
 
 		# Stop if max reached
 		if ( ! is.null(max.results) && ! is.na(max.results) && length(mz) >= max.results)
@@ -181,7 +181,7 @@ MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 MassbankConn$methods( .doDownload = function() {
 
 	# SVN export
-	.self$message(MSG.INFO, "Download whole MassBank database from SVN server.")
+	.self$message('info', "Download whole MassBank database from SVN server.")
 	svn.cmd <- .self$getBiodb()$getConfig()$get('svn.binary.path')
 	system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', .self$getDownloadPath()))
 })
@@ -192,13 +192,13 @@ MassbankConn$methods( .doDownload = function() {
 MassbankConn$methods( .doExtractDownload = function() {
 
 	# Copy all exported files
-	.self$message(MSG.INFO, "Copy all MassBank record files from SVN local export directory into cache.")
+	.self$message('info', "Copy all MassBank record files from SVN local export directory into cache.")
 	svn.files <- Sys.glob(file.path(.self$getDownloadPath(), '*', '*.txt'))
-	.self$message(MSG.INFO, paste("Found ", length(svn.files), " record files in MassBank SVN local export directory."))
+	.self$message('info', paste("Found ", length(svn.files), " record files in MassBank SVN local export directory."))
 	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', svn.files)
 	dup.ids <- duplicated(ids)
 	if (any(dup.ids))
-		.self$message(MSG.CAUTION, paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
+		.self$message('caution', paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
 	cache.files <- .self$getBiodb()$getCache()$getFilePath(dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
 	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
 	file.copy(svn.files, cache.files)
@@ -212,7 +212,7 @@ MassbankConn$methods( getEntryContent = function(entry.id) {
 	# NOTE Method unused, since database is downloaded.
 
 	# Debug
-	.self$message(MSG.DEBUG, paste0("Get entry content(s) for ", length(entry.id)," entry.id(s)..."))
+	.self$message('debug', paste0("Get entry content(s) for ", length(entry.id)," entry.id(s)..."))
 
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))

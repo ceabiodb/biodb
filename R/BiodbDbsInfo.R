@@ -56,7 +56,7 @@ BiodbDbsInfo$methods( .define = function(name, ...) {
 
 	# Is this database already defined?
 	if (name %in% names(.self$.dbs))
-		.self$message(MSG.ERROR, paste("Database \"", name, "\" has already been defined.", sep = ''))
+		.self$message('error', paste("Database \"", name, "\" has already been defined.", sep = ''))
 
 	# Define new field
 	.self$.dbs[[name]] <- BiodbDbInfo$new(parent = .self, name = name, ...)
@@ -81,7 +81,7 @@ BiodbDbsInfo$methods( isDefined = function(name) {
 
 BiodbDbsInfo$methods( checkIsDefined = function(name) {
 	if ( ! .self$isDefined(name))
-		.self$message(MSG.ERROR, paste("Database \"", name, "\" is not defined.", sep = ''))
+		.self$message('error', paste("Database \"", name, "\" is not defined.", sep = ''))
 })
 
 # Get {{{1

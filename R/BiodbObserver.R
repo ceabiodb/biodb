@@ -12,19 +12,22 @@
 #' @exportClass BiodbObserver
 BiodbObserver <- methods::setRefClass("BiodbObserver", fields = list())
 
-# Constants {{{1
-################################################################
-
-MSG.INFO <- 'INFO'
-MSG.DEBUG <- 'DEBUG'
-MSG.CAUTION <- 'CAUTION'
-MSG.WARNING <- 'WARNING'
-MSG.ERROR <- 'ERROR'
-
-.MSG.TYPES <- c(MSG.ERROR, MSG.WARNING, MSG.CAUTION, MSG.DEBUG, MSG.INFO)
-
 # Message {{{1
 ################################################################
 
-BiodbObserver$methods( message = function(type = MSG.INFO, msg, class = NA_character_, method = NA_character_, level = 1) {
+BiodbObserver$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_, level = 1) {
+	.self$checkMessqgeType(type)
+})
+
+# Check message type {{{1
+################################################################
+
+BiodbObserver$methods( checkMessqgeType = function(type) {
+
+	# Define allowed types
+	allowed.types <- c('info', 'debug', 'caution', 'warning', 'error')
+
+	# Is type unknown?
+	if ( ! tolower(type) %in% allowed.types)
+		error(paste("Unknown message type \"", type, "\". Please use one of: ", paste(allowed.types, collapse = ', '), '.', sep = ''))
 })

@@ -47,9 +47,9 @@ BiodbConn$methods( initialize = function(dbid = NA_character_, content.type = NA
 
 	# Set content type
 	if (is.null(content.type) || is.na(content.type))
-		.self$message(MSG.ERROR, "Content type not defined.")
+		.self$message('error', "Content type not defined.")
 	if ( ! content.type %in% BIODB.CONTENT.TYPES)
-		.self$message(MSG.ERROR, paste("Unknown content type \"", content.type, "\"."))
+		.self$message('error', paste("Unknown content type \"", content.type, "\"."))
 	.content.type <<- content.type
 
 	# Set base URL
@@ -130,7 +130,7 @@ BiodbConn$methods( getNbEntries = function(count = FALSE) {
 BiodbConn$methods( .setBaseUrl = function(base.url) {
 
 	if (is.null(base.url) || any(is.na(base.url)))
-		.self$message(MSG.ERROR, "Cannot set a NULL or NA URL to a database connector.")
+		.self$message('error', "Cannot set a NULL or NA URL to a database connector.")
 
 	.base.url <<- base.url
 })
