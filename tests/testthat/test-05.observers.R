@@ -12,8 +12,8 @@ test.deprecated.methods <- function(biodb) {
 	TestObs$methods( initialize = function(...) {
 		msgs <<- character(0)
 	})
-	TestObs$methods( message = function(type = MSG.INFO, msg, class = NA_character_, method = NA_character_, level = 1) {
-		if (type == MSG.CAUTION)
+	TestObs$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_, level = 1) {
+		if (type == 'caution')
 			msgs <<- c(msgs, msg)
 	})
 	obs <- TestObs$new()

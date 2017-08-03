@@ -53,7 +53,7 @@ RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_charact
 	if (is.null(scheduler))
 		scheduler <- UrlRequestScheduler$new(n = 3, parent = .self)
 	if ( ! is(scheduler, "UrlRequestScheduler"))
-		.self$message(MSG.ERROR, "The scheduler instance must inherit from UrlRequestScheduler class.")
+		.self$message('error', "The scheduler instance must inherit from UrlRequestScheduler class.")
 	.scheduler <<- scheduler
 })
 
@@ -89,27 +89,27 @@ RemotedbConn$methods( getEntryContentUrl = function(entry.id, concatenate = TRUE
 	if (length(entry.id) > 0) {
 
 		# Get full URL
-		.self$message(MSG.DEBUG, "Getting full URL.")
+		.self$message('debug', "Getting full URL.")
 		full.url <- .self$.doGetEntryContentUrl(entry.id, concatenate = concatenate)
 
 		# No single URL for multiple IDs
 		if (length(entry.id) > 1 && length(full.url) > 1) {
-			.self$message(MSG.DEBUG, "Obtained more than one URL.")
+			.self$message('debug', "Obtained more than one URL.")
 #  XXX We must comment out this test, because for PeakforestMass we must return two URLs for each ID (one for LCMS request, and one for LCMSMS request).
 #			if (length(full.url) != length(ids))
-#				.self$message(MSG.ERROR, paste(".doGetEntryContentUrl() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
+#				.self$message('error', paste(".doGetEntryContentUrl() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
 			
 			urls <- full.url
 		}
 
 		else if (max.length == 0 || nchar(full.url) <= max.length) {
-			.self$message(MSG.DEBUG, paste("Keep single full URL \"", full.url, "\".", sep = ''))
+			.self$message('debug', paste("Keep single full URL \"", full.url, "\".", sep = ''))
 			urls <- full.url
 		}
 
 		# full.url is too big, we must split it
 		else {
-			.self$message(MSG.DEBUG, "Split full URL.")
+			.self$message('debug', "Split full URL.")
 
 			start <- 1
 

@@ -72,7 +72,7 @@ UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
 UrlRequestScheduler$methods( .check.offline.mode = function() {
 
 	if (.self$getBiodb()$getConfig()$isEnabled('offline'))
-		.self$message(MSG.ERROR, "Offline mode is enabled. All connections are forbidden.")
+		.self$message('error', "Offline mode is enabled. All connections are forbidden.")
 })
 
 # Send soap request {{{1
@@ -103,7 +103,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 	# Check method
 	if ( ! method %in% c(BIODB.GET, BIODB.POST))
-		.self$message(MSG.ERROR, paste('Unknown method "', method, '".', sep = ''))
+		.self$message('error', paste('Unknown method "', method, '".', sep = ''))
 
 	# Append params for GET method
 	if (method == BIODB.GET && length(params) > 0) {
@@ -115,7 +115,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	}
 
 	# Log URL
-	.self$message(MSG.DEBUG, paste0("Getting content of ", method, " URL request \"", url, "\" ..."))
+	.self$message('debug', paste0("Getting content of ", method, " URL request \"", url, "\" ..."))
 
 	content <- NA_character_
 
@@ -126,7 +126,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	request.json.str <- as.character(request.json)
 	request.key <- digest::digest(request.json.str, algo = 'md5')
 	if (.self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
-		.self$message(MSG.DEBUG, paste0("Loading content of ", method, " request from cache ..."))
+		.self$message('debug', paste0("Loading content of ", method, " request from cache ..."))
 		content <- .self$getBiodb()$getCache()$loadFileContent(dbid = 'request', subfolder = 'shortterm', name = request.key, ext ='content', output.vector = TRUE)
 	}
 
@@ -137,7 +137,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 				# GET method
 				if (method == BIODB.GET) {
-					.self$message(MSG.DEBUG, paste0("Sending ", method, " request ..."))
+					.self$message('debug', paste0("Sending ", method, " request ..."))
 
 					# Check if in offline mode
 					.self$.check.offline.mode()
@@ -152,7 +152,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 				# POST method
 				else {
-					.self$message(MSG.DEBUG, paste0("Sending ", method, " request ..."))
+					.self$message('debug', paste0("Sending ", method, " request ..."))
 
 					# Check if in offline mode
 					.self$.check.offline.mode()
@@ -164,8 +164,8 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 				}
 			},
 				error = function(e) {
-					.self$message(MSG.INFO, paste("Connection error \"", e$message, "\"", sep = ''))
-					.self$message(MSG.INFO, "Retrying connection to server...")
+					.self$message('info', paste("Connection error \"", e$message, "\"", sep = ''))
+					.self$message('info', "Retrying connection to server...")
 				} )
 			if ( ! is.na(content))
 				break
@@ -173,7 +173,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 
 		# Save content to cache
 		if ( ! is.na(content) && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
-			.self$message(MSG.DEBUG, paste0("Saving content of ", method, " request to cache ..."))
+			.self$message('debug', paste0("Saving content of ", method, " request to cache ..."))
 			.self$getBiodb()$getCache()$saveContentToFile(content, dbid = 'request', subfolder = 'shortterm', name = request.key, ext ='content')
 			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, dbid = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')
 		}

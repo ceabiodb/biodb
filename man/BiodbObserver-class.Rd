@@ -5,10 +5,34 @@
 \alias{BiodbObserver-class}
 \alias{BiodbObserver}
 \title{The mother abstract class of all observer classes.}
+\arguments{
+\item{type}{The type of a message. It must be one of: 'info', 'debug', 'caution', 'warning', 'error'.}
+
+\item{msg}{The text message to send.}
+
+\item{class}{The class of the object that called this message method.}
+
+\item{method}{The method of that called this message method.}
+}
 \description{
-The mother abstract class of all observer classes.
+This abstract class defines all the methods that can be used to send messages to the observers. You can define new observer classes by inherting from this class.
 }
 
+\examples{
+# Define a new observer class
+MyObsClass <- methods::setRefClass("MyObsClass", contains = 'BiodbObserver')
+
+# Define the message method
+MyObsClass$methods( message = function(type = 'info', msg,
+                                       class = NA_character_, method = NA_character_) {
+.self$checkMessqgeType(type)
+# print(paste(type, msg, sep = ': '))
+})
+
+# Create an instance and register an instance of the new observer class:
+mybiodb <- biodb::Biodb(observers = MyObsClass$new())
+
+}
 \seealso{
-\code{\link{BiodbLogger}}.
+\code{\link{BiodbLogger}}, \code{\link{WarningReporter}}, \code{\link{ErrorReporter}}.
 }

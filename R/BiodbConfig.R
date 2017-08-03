@@ -143,7 +143,7 @@ BiodbConfig$methods( set = function(key, value) {
 
 	.self$.checkKey(key)
 
-	.self$message(MSG.INFO, paste("Set ", key, " to ", value, ".", sep = ''))
+	.self$message('info', paste("Set ", key, " to ", value, ".", sep = ''))
 	.self$.values[[key]] <- as.vector(value, mode = .self$.getType(key))
 })
 
@@ -155,7 +155,7 @@ BiodbConfig$methods( enable = function(key) {
 
 	.self$.checkKey(key, type = 'logical')
 
-	.self$message(MSG.INFO, paste("Enable ", key, ".", sep = ''))
+	.self$message('info', paste("Enable ", key, ".", sep = ''))
 	.self$.values[[key]] <- TRUE
 })
 
@@ -167,7 +167,7 @@ BiodbConfig$methods( disable = function(key) {
 
 	.self$.checkKey(key, type = 'logical')
 
-	.self$message(MSG.INFO, paste("Disable ", key, ".", sep = ''))
+	.self$message('info', paste("Disable ", key, ".", sep = ''))
 	.self$.values[[key]] <- FALSE
 })
 
@@ -194,7 +194,7 @@ BiodbConfig$methods( .get.svn.binary.path = function() {
 
 	# Not found
 	if (is.null(svn_path))
-		.self$message(MSG.ERROR, "SVN does not seem to be installed on your system.")
+		.self$message('error', "SVN does not seem to be installed on your system.")
 
 	return(svn_path)
 })
@@ -253,11 +253,11 @@ BiodbConfig$methods( .newKey = function(key, type, default = NULL, description =
 
 	# Check key
 	if (is.null(key) || is.na(key) || ! is.character(key))
-		.self$message(MSG.ERROR, "Key is NULL, NA or not character type.")
+		.self$message('error', "Key is NULL, NA or not character type.")
 
 	# Check duplicated key
 	if (key %in% names(.self$.value.info))
-		.self$message(MSG.ERROR, paste("Key ", key, " has already been defined in configuration.", sep = ''))
+		.self$message('error', paste("Key ", key, " has already been defined in configuration.", sep = ''))
 
 	# Overwrite default value by env var, if defined
 	env.var.value <- .self$.getFromEnv(key)
@@ -292,15 +292,15 @@ BiodbConfig$methods( .checkKey = function(key, type = NA_character_) {
 
 	# Check key
 	if (is.null(key) || is.na(key) || ! is.character(key))
-		.self$message(MSG.ERROR, "Key is NULL, NA or not character type.")
+		.self$message('error', "Key is NULL, NA or not character type.")
 
 	# Test if valid key
 	if ( ! key %in% names(.self$.value.info))
-		.self$message(MSG.ERROR, paste("Unknown key ", key, ".", sep = ''))
+		.self$message('error', paste("Unknown key ", key, ".", sep = ''))
 
 	# Test type
 	if ( ! is.null(type) && ! is.na(type) && .self$.value.info[[key]][['type']] != type)
-		.self$message(MSG.ERROR, paste("Key ", key, " is not of type ", type, " but of type ", key.type, ".", sep = ''))
+		.self$message('error', paste("Key ", key, " is not of type ", type, " but of type ", key.type, ".", sep = ''))
 })
 
 # Get type {{{2

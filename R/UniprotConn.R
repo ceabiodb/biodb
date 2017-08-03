@@ -40,7 +40,7 @@ UniprotConn$methods( createEntry = function(content, drop = TRUE) {
 ################################################################
 
 UniprotConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	.self$message(MSG.CAUTION, "No method implemented for computing list of IDs.")
+	.self$message('caution', "No method implemented for computing list of IDs.")
 	return(NULL)
 })
 

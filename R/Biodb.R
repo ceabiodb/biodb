@@ -125,7 +125,7 @@ Biodb$methods( addObservers = function(observers) {
 	if ( ! is.list(observers)) observers <- list(observers)
 	is.obs <- vapply(observers, function(o) is(o, "BiodbObserver"), FUN.VALUE = TRUE)
 	if (any( ! is.obs))
-		.self$message(MSG.ERROR, "Observers must inherit from BiodbObserver class.")
+		.self$message('error', "Observers must inherit from BiodbObserver class.")
 
 	# Add observers to current list (insert at beginning)
 	.observers <<- if (is.null(.self$.observers)) observers else c(observers, .self$.observers)
@@ -183,23 +183,23 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 	":\n\nConvert a list of entries (\\code{BiodbEntry} objects) into a data frame."
 
 	if ( ! is.list(entries))
-		.self$message(MSG.ERROR, "Parameter 'entries' must be a list.")
+		.self$message('error', "Parameter 'entries' must be a list.")
 
 	entries.df <- NULL
 
 	if (length(entries) > 0) {
 
-		.self$message(MSG.DEBUG, paste(length(entries), "entrie(s) to convert in data frame."))
+		.self$message('debug', paste(length(entries), "entrie(s) to convert in data frame."))
 
 		# Check classes
 		if ( ! all(vapply(entries, function(x) is.null(x) || is(x, 'BiodbEntry'), FUN.VALUE = TRUE)))
-			.self$message(MSG.ERROR, "Some objects in the input list are not a subclass of BiodbEntry.")
+			.self$message('error', "Some objects in the input list are not a subclass of BiodbEntry.")
 
 		# Loop on all entries
 		n <- 0
 		for (e in entries) {
 			n <- n + 1
-			.self$message(MSG.DEBUG, paste("Processing entry", n, "/", length(entries), "..."))
+			.self$message('debug', paste("Processing entry", n, "/", length(entries), "..."))
 			if ( ! is.null(e)) {
 				e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic, compute = compute)
 				entries.df <- plyr::rbind.fill(entries.df, e.df)

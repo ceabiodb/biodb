@@ -43,27 +43,27 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, clas
 
 	# Set name
 	if ( is.null(name) || is.na(name) || nchar(name) == '')
-		.self$message(MSG.ERROR, "You cannot set an empty name for a field. Name was empty (either NULL or NA or empty string).")
+		.self$message('error', "You cannot set an empty name for a field. Name was empty (either NULL or NA or empty string).")
 	.name <<- tolower(name)
 
 	# Set class
 	if ( ! class %in% FIELD.CLASSES)
-		.self$message(MSG.ERROR, paste("Unknown class \"", class, "\" for field \"", name, "\".", sep = ''))
+		.self$message('error', paste("Unknown class \"", class, "\" for field \"", name, "\".", sep = ''))
 	.class <<- class
 
 	# Set cardinality
 	if ( ! card %in% FIELD.CARDINALITIES)
-		.self$message(MSG.ERROR, paste("Unknown cardinality \"", card, "\" for field \"", name, "\".", sep = ''))
+		.self$message('error', paste("Unknown cardinality \"", card, "\" for field \"", name, "\".", sep = ''))
 	.cardinality <<- card
 
 	# Set description
 	if (is.null(description) || is.na(description))
-		.self$message(MSG.CAUTION, paste("Missing description for entry field \"", name, "\".", sep = ''))
+		.self$message('caution', paste("Missing description for entry field \"", name, "\".", sep = ''))
 	.description <<- description
 
 	# Set alias
 	if (length(alias) > 1 && any(is.na(alias)))
-		.self$message(MSG.ERROR, paste("One of the aliases of entry field \"", name, "\" is NA.", sep = ''))
+		.self$message('error', paste("One of the aliases of entry field \"", name, "\" is NA.", sep = ''))
 	.alias <<- alias
 
 	# Set other fields

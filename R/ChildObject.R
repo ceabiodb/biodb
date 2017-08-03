@@ -16,9 +16,9 @@ ChildObject$methods( initialize = function(parent, ...) {
 
 	# Set parent
 	if (is.null(parent))
-		.self$message(MSG.ERROR, "Parent cannot be NULL.")
+		.self$message('error', "Parent cannot be NULL.")
 	if (! is(parent, 'BiodbObject'))
-		.self$message(MSG.ERROR, "Parent must inherit from BiodbObject.")
+		.self$message('error', "Parent must inherit from BiodbObject.")
 	.parent <<- parent
 })
 

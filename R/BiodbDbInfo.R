@@ -24,7 +24,7 @@ BiodbDbInfo$methods( initialize = function(name, base.url = NA_character_, token
 
 	# Set name
 	if ( is.null(name) || is.na(name) || nchar(name) == '')
-		.self$message(MSG.ERROR, "You cannot set an empty name for a database. Name was empty (either NULL or NA or empty string).")
+		.self$message('error', "You cannot set an empty name for a database. Name was empty (either NULL or NA or empty string).")
 	.name <<- name
 
 	.base.url <<- base.url

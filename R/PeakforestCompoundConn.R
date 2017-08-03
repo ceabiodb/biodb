@@ -22,7 +22,7 @@ PeakforestCompoundConn$methods( .doGetEntryContentUrl = function(id, concatenate
 
 	# Check token
 	if (is.na(.self$getToken()))
-		.self$message(MSG.ERROR, "Peakforest requires a token for this service.")
+		.self$message('error', "Peakforest requires a token for this service.")
 
 	url <- paste(.self$getBaseUrl(), 'compounds/', id,'?token=', .self$getToken(), sep = '')
 

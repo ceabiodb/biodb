@@ -29,7 +29,7 @@ MassbankEntry$methods( .doParseContent = function(content) {
 			accession <- accession[[1]]
 
 		# Message
-		.self$message(MSG.CAUTION, paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ". All lines after the first last line marker have been deleted.", sep = ''))
+		.self$message('caution', paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ". All lines after the first last line marker have been deleted.", sep = ''))
 
 		# Remove all lines after the first marker
 		lines <- lines[1:last.line.number[[1]]]
@@ -58,15 +58,15 @@ MassbankEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 
 		# Too much last lines
 		if (length(last.line.number) > 1)
-			.self$message(MSG.CAUTION, paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ".", sep = ''))
+			.self$message('caution', paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ".", sep = ''))
 
 		# No last line
 		else if (length(last.line.number) == 0)
-			.self$message(MSG.CAUTION, paste("No last line symbol (\"//\") found in entry ", accession, ".", sep = ''))
+			.self$message('caution', paste("No last line symbol (\"//\") found in entry ", accession, ".", sep = ''))
 
 		# Last line symbol no at last line
 		else if (last.line.number != length(parsed.content))
-			.self$message(MSG.CAUTION, paste("Last line symbol (\"//\") found at line ", last.line.number, " in entry ", accession, " instead of last line.", sep = ''))
+			.self$message('caution', paste("Last line symbol (\"//\") found at line ", last.line.number, " in entry ", accession, " instead of last line.", sep = ''))
 
 		return(FALSE)
 	}
@@ -187,7 +187,7 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 
 	# Check number of peaks
 	if (.self$hasField('PEAKS') && .self$getFieldValue('NB.PEAKS', compute = FALSE) != nrow(.self$getFieldValue('PEAKS', compute = FALSE)))
-	   	 .self$message(MSG.CAUTION, paste("Found ", nrow(.self$getFieldValue('PEAKS', compute = FALSE)), " peak(s) instead of ", .self$getFieldValue('NB.PEAKS', compute = FALSE), ' for entry ', .self$getFieldValue('ACCESSION'), ".", sep = ''))
+	   	 .self$message('caution', paste("Found ", nrow(.self$getFieldValue('PEAKS', compute = FALSE)), " peak(s) instead of ", .self$getFieldValue('NB.PEAKS', compute = FALSE), ' for entry ', .self$getFieldValue('ACCESSION'), ".", sep = ''))
 })
 
 # Parse peak table {{{1
@@ -223,7 +223,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	if (nrow(results) > 0) {
 		unit <- tolower(results[,3]) 
 		if ( ! unit %in% c('min', 'sec', 's'))
-			.self$message(MSG.WARNING, paste("Unknown unit", unit, " for retention time while parsing massbank entry."))
+			.self$message('warning', paste("Unknown unit", unit, " for retention time while parsing massbank entry."))
 		rt <- as.numeric(results[,2])
 		if (unit == 'min')
 			rt <- 60 * rt
@@ -254,7 +254,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 			ms.level = 1
 
 		if (is.na(ms.level)) 
-			.self$message(MSG.ERROR, paste("Impossible to parse MS level of Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep = ''))
+			.self$message('error', paste("Impossible to parse MS level of Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep = ''))
 		.self$setFieldValue('MS.LEVEL', ms.level)
 	}
 	

@@ -43,15 +43,15 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		if (sum(precursors) == 1)
 			.self$setFieldValue('msprecmz', peaks[precursors, 'peak.mz'])
 		else if (sum(precursors) > 1) {
-			.self$message(MSG.CAUTION, paste("Found more than one precursor inside entry ", .self$getFieldValue('accession', compute = FALSE), ': ', paste(peaks[precursors, 'peak.attr'], collapse = ", "), ". Trying to take the one with highest intensity.", sep = ''))
+			.self$message('caution', paste("Found more than one precursor inside entry ", .self$getFieldValue('accession', compute = FALSE), ': ', paste(peaks[precursors, 'peak.attr'], collapse = ", "), ". Trying to take the one with highest intensity.", sep = ''))
 			strongest.precursor.mz <- NULL
 			for (int.col in c('peak.intensity', 'peak.relative.intensity'))
 				if (int.col %in% colnames(peaks))
 					strongest.precursor.mz <- peaks[precursors, 'peak.mz'][[which(order(peaks[precursors, int.col], decreasing = TRUE) == 1)]]
 			if (is.null(strongest.precursor.mz))
-				.self$message(MSG.CAUTION, 'No intensity information found for choosing the strongest precursor.')
+				.self$message('caution', 'No intensity information found for choosing the strongest precursor.')
 			else {
-				.self$message(MSG.INFO, paste('Found strongest precursor:', strongest.precursor.mz, '.'))
+				.self$message('info', paste('Found strongest precursor:', strongest.precursor.mz, '.'))
 				.self$setFieldValue('msprecmz', strongest.precursor.mz)
 			}
 		}

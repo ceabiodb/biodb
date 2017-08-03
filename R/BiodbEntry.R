@@ -77,21 +77,21 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 
 	# Secific case to handle objects.
 	if (field.def$isObject() && !(isS4(value) & methods::is(value, "refClass")))
-	  .self$message(MSG.ERROR, paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
+	  .self$message('error', paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
 	
 	# Check cardinality
 	if (field.def$isDataFrame() && field.def$hasCardOne()) {
 		if (length(value) > 1)
-			.self$message(MSG.ERROR, paste0('Cannot set more that one value into single value field "', field, '".'))
+			.self$message('error', paste0('Cannot set more that one value into single value field "', field, '".'))
 		if (length(value) == 0)
-			.self$message(MSG.ERROR, paste0('Cannot set an empty vector into single value field "', field, '".'))
+			.self$message('error', paste0('Cannot set an empty vector into single value field "', field, '".'))
 	}
 
 	# Check value class
 	if (field.def$isVector()) {
 		v <- as.vector(value, mode = field.def$getClass())
 		if ( ! is.na(value) && is.na(v))
-			.self$message(MSG.CAUTION, paste("Unable to convert value \"", value, "\" into ", field.def$getClass(), " type.", sep = ''))
+			.self$message('caution', paste("Unable to convert value \"", value, "\" into ", field.def$getClass(), " type.", sep = ''))
 		value <- v
 	}
 
@@ -246,7 +246,7 @@ BiodbEntry$methods( addParsingExpression = function(field, parsing.expr) {
 
 	# Check that this field has no expression associated
 	if (field %in% names(.self$.parsing.expr))
-		.self$message(MSG.ERROR, paste("A parsing expression has already been defined for field", field))
+		.self$message('error', paste("A parsing expression has already been defined for field", field))
 
 	# Register new parsing expression
 	.self$.parsing.expr[[field]] <- parsing.expr 
@@ -316,7 +316,7 @@ BiodbEntry$methods(	.compute.field = function(fields = NULL) {
 				if ( ! is.na(db.id)) {
 
 					# Get value for this field in the database
-					.self$message(MSG.DEBUG, paste("Compute value for field \"", f, "\".", sep = '')) 
+					.self$message('debug', paste("Compute value for field \"", f, "\".", sep = '')) 
 					db.entry <- .self$getBiodb()$getFactory()$getEntry(db, id = db.id)
 
 					# Set found value

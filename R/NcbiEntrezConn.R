@@ -16,7 +16,7 @@ NcbiEntrezConn$methods( initialize = function(db.name = NA_character_, ...) {
 
 	# Set name
 	if (is.null(db.name) || is.na(db.name))
-		.self$message(MSG.ERROR, "You must set a name for this NCBI database.")
+		.self$message('error', "You must set a name for this NCBI database.")
 	.db.name <<- db.name
 })
 
@@ -25,7 +25,7 @@ NcbiEntrezConn$methods( initialize = function(db.name = NA_character_, ...) {
 
 NcbiEntrezConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
-	.self$message(MSG.CAUTION, "Method using a last resort solution for its implementation. Returns only a small subset of Ncbi entries.")
+	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of Ncbi entries.")
 
 	# Send request
 	xmlstr <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), 'esearch.fcgi?db=', .self$.db.name, '&term=e&retmax=', if (is.na(max.results)) 1000000 else max.results, sep = ''))
