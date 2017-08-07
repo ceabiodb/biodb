@@ -1,7 +1,5 @@
 # vi: fdm=marker
 
-#' @include ChildObject.R
-
 # CONSTANTS {{{1
 ################################################################
 
@@ -11,6 +9,7 @@ BIODB.POST <- 'POST'
 # Class declaration {{{1
 ################################################################
 
+#' 
 #' @import methods
 #' @include ChildObject.R
 #' @export UrlRequestScheduler
