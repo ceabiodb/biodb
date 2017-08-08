@@ -9,22 +9,27 @@ BIODB.POST <- 'POST'
 # Class declaration {{{1
 ################################################################
 
+#' Class for handling URL requests.
+#'
+#' This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{RemotedbConn}) creates an instance of \code{UrlRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
+#'
+#' @field n The number of connections allowed for each t seconds.
+#' @field t The number of seconds during which n connections are allowed.
 #' 
+#' @param
+#'
+#' @seealso
+#'
 #' @import methods
 #' @include ChildObject.R
 #' @export UrlRequestScheduler
 #' @exportClass UrlRequestScheduler
 UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
 
-# n: number of connections
-# t: time (in seconds)
-
-# The scheduler restrict the number of connections at n per t seconds.
-
 # Constructor {{{1
 ################################################################
 
-UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer = TRUE, ...) {
+UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
 
 	callSuper(...)
 
@@ -32,46 +37,9 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ssl.verifypeer 
 	.t <<- t
 	.time.of.last.request <<- -1
 	.nb.max.tries <<- 10L
-	.ssl.verifypeer <<- ssl.verifypeer
+	.ssl.verifypeer <<- TRUE
 	.huge.download.waiting.time <<- 60L # in seconds
 	.time.of.last.huge.dwnld.request <<- -1
-})
-
-# Wait as needed {{{1
-################################################################
-
-# Wait enough time between two requests.
-UrlRequestScheduler$methods( .wait.as.needed = function() {
-
-	# Compute minimum waiting time between two URL requests
-	waiting_time <- .self$.t / .self$.n
-
-	# Wait, if needed, before previous URL request and this new URL request.
-	if (.self$.time.of.last.request > 0) {
-		spent_time <- Sys.time() - .self$.time.of.last.request
-		if (spent_time < waiting_time)
-			Sys.sleep(waiting_time - spent_time)
-	}
-
-	# Store current time
-	.time.of.last.request <<- Sys.time()
-})
-
-# Get curl options {{{1
-################################################################
-
-UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
-	opts <- RCurl::curlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'), timeout.ms = 60000, verbose = FALSE, .opts = opts)
-	return(opts)
-})
-
-# Check offline mode {{{1
-################################################################
-
-UrlRequestScheduler$methods( .check.offline.mode = function() {
-
-	if (.self$getBiodb()$getConfig()$isEnabled('offline'))
-		.self$message('error', "Offline mode is enabled. All connections are forbidden.")
 })
 
 # Send soap request {{{1
@@ -181,7 +149,58 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 	return(content)
 })
 
-# Wait for huge download as needed {{{1
+# Download file {{{1
+################################################################
+
+UrlRequestScheduler$methods( downloadFile = function(url, dest.file) {
+
+	# Wait required time between two requests
+	.self$.wait.for.huge.dwnld.as.needed()
+
+	utils::download.file(url = url, destfile = dest.file, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
+})
+
+# Private methods {{{1
+################################################################
+
+# Wait as needed {{{2
+################################################################
+
+# Wait enough time between two requests.
+UrlRequestScheduler$methods( .wait.as.needed = function() {
+
+	# Compute minimum waiting time between two URL requests
+	waiting_time <- .self$.t / .self$.n
+
+	# Wait, if needed, before previous URL request and this new URL request.
+	if (.self$.time.of.last.request > 0) {
+		spent_time <- Sys.time() - .self$.time.of.last.request
+		if (spent_time < waiting_time)
+			Sys.sleep(waiting_time - spent_time)
+	}
+
+	# Store current time
+	.time.of.last.request <<- Sys.time()
+})
+
+# Get curl options {{{2
+################################################################
+
+UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
+	opts <- RCurl::curlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'), timeout.ms = 60000, verbose = FALSE, .opts = opts)
+	return(opts)
+})
+
+# Check offline mode {{{2
+################################################################
+
+UrlRequestScheduler$methods( .check.offline.mode = function() {
+
+	if (.self$getBiodb()$getConfig()$isEnabled('offline'))
+		.self$message('error', "Offline mode is enabled. All connections are forbidden.")
+})
+
+# Wait for huge download as needed {{{2
 ################################################################
 
 UrlRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
@@ -195,15 +214,4 @@ UrlRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
 
 	# Store current time
 	.time.of.last.huge.dwnld.request <<- Sys.time()
-})
-
-# Download file {{{1
-################################################################
-
-UrlRequestScheduler$methods( downloadFile = function(url, dest.file) {
-
-	# Wait required time between two requests
-	.self$.wait.for.huge.dwnld.as.needed()
-
-	utils::download.file(url = url, destfile = dest.file, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
 })
