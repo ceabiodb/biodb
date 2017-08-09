@@ -1,11 +1,6 @@
 # vi: fdm=marker
 
 # CONSTANTS {{{1
-################################################################
-
-BIODB.GET  <- 'GET'
-BIODB.POST <- 'POST'
-
 # Class declaration {{{1
 ################################################################
 
@@ -16,9 +11,15 @@ BIODB.POST <- 'POST'
 #' @field n The number of connections allowed for each t seconds.
 #' @field t The number of seconds during which n connections are allowed.
 #' 
-#' @param
+#' @param url           The URL to access, as a character string.
+#' @param soap.request  The XML SOAP request to send, as a character string. 
+#' @param soap.action   The SOAP action to contact, as a character string.
+#' @param params        The list of parameters to use with the URL.
+#' @param method        The method to use: either 'get' or 'post'.
+#' @param opts          The CURL options to use.
+#' @param dest.file     A path to a destination file.
 #'
-#' @seealso
+#' @seealso \code{\link{RemotedbConn}}.
 #'
 #' @import methods
 #' @include ChildObject.R
@@ -45,18 +46,19 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
 # Send soap request {{{1
 ################################################################
 
-UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = NA_character_) {
+UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_) {
+	":\n\nSend a SOAP request to a URL. Returns the string result."
 
 	.self$.check.offline.mode()
 
 	# Prepare request
 	header <- c(Accept = "text/xml", Accept = "multipart/*",  'Content-Type' = "text/xml; charset=utf-8")
-	if ( ! is.na(action))
-		header <- c(header, c(SOAPAction = action))
-	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = request))
+	if ( ! is.na(soap.action))
+		header <- c(header, c(SOAPAction = soap.action))
+	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = soap.request))
 
 	# Send request
-	results <- .self$getUrl(url, method = BIODB.POST, opts = opts)
+	results <- .self$getUrl(url, method = 'post', opts = opts)
 
 	return(results)
 })
@@ -64,16 +66,17 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, request, action = N
 # Get url {{{1
 ################################################################
 
-UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BIODB.GET, opts = .self$.get.curl.opts()) {
+UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts()) {
+	":\n\nSend a URL request, either with GET or POST method, and return result."
 
 	content <- NA_character_
 
 	# Check method
-	if ( ! method %in% c(BIODB.GET, BIODB.POST))
+	if ( ! method %in% c('get', 'post'))
 		.self$message('error', paste('Unknown method "', method, '".', sep = ''))
 
 	# Append params for GET method
-	if (method == BIODB.GET && length(params) > 0) {
+	if (method == 'get' && length(params) > 0) {
 		pn <- names(params)
 		params.lst <- vapply(seq(params), function(n) if (is.null(pn) || nchar(pn[[n]]) == 0) params[[n]] else paste(pn[[n]], params[[n]], sep = '='), FUN.VALUE = '')
 		params.str <- paste(params.lst, collapse = '&')
@@ -103,7 +106,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 			tryCatch({
 
 				# GET method
-				if (method == BIODB.GET) {
+				if (method == 'get') {
 					.self$message('debug', paste0("Sending ", method, " request ..."))
 
 					# Check if in offline mode
@@ -153,6 +156,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = BI
 ################################################################
 
 UrlRequestScheduler$methods( downloadFile = function(url, dest.file) {
+	":\n\nDownload the content of a URL and save it into the specified destination file."
 
 	# Wait required time between two requests
 	.self$.wait.for.huge.dwnld.as.needed()

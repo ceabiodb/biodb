@@ -129,7 +129,7 @@ ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
 
 	# Send request
 	.self$message('debug', paste("XML REQUEST =", xml.request))
-	xml.results <- .self$.getUrlScheduler()$sendSoapRequest(paste(.self$getBaseUrl(), "MassSpecAPI.asmx", sep = ''), action = paste(.self$getBaseUrl(), "SearchByMassAsync", sep = ''), request = xml.request)
+	xml.results <- .self$.getUrlScheduler()$sendSoapRequest(paste(.self$getBaseUrl(), "MassSpecAPI.asmx", sep = ''), soap.action = paste(.self$getBaseUrl(), "SearchByMassAsync", sep = ''), soap.request = xml.request)
 	.self$message('debug', paste("XML RESULTS =", xml.results))
 
 	# Parse XML

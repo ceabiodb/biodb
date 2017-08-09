@@ -135,7 +135,7 @@ BiodbObject$methods( getBiodb = function() {
 	.self$abstract.method()
 })
 
-# MESSAGE {{{1
+# Message {{{1
 ################################################################
 
 # Send a message to observers
