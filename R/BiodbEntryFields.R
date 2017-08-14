@@ -110,31 +110,6 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('chrom.col.rt.max', class = "double")
 })
 
-# Define {{{1
-################################################################
-
-BiodbEntryFields$methods( .define = function(name, ...) {
-
-	# Check that name is in lower case
-	if (name != tolower(name))
-		.self$message('error', paste("Field name \"", name, "\" must be in lower case.", sep = ''))
-
-	# Is field already defined?
-	if (.self$isDefined(name))
-		.self$message('error', paste("Field \"", name, "\" has already been defined.", sep = ''))
-
-	# Define new field
-	field <- BiodbEntryField$new(parent = .self, name = name, ...)
-
-	# Store inside fields list
-	.self$.fields[[name]] <- field
-
-	# Define aliases
-	if (field$hasAliases())
-		for (alias in field$getAliases())
-			.self$.aliasToName[[alias]] <- name
-})
-
 # Is alias {{{1
 ################################################################
 
@@ -185,4 +160,32 @@ BiodbEntryFields$methods( get = function(name) {
 
 BiodbEntryFields$methods( getDatabaseIdField = function(database) {
 	return(.self$get(.self$getBiodb()$getDbsInfo()$get(database)$getIdFieldName()))
+})
+
+# Private methods {{{1
+################################################################
+
+# Define {{{2
+################################################################
+
+BiodbEntryFields$methods( .define = function(name, ...) {
+
+	# Check that name is in lower case
+	if (name != tolower(name))
+		.self$message('error', paste("Field name \"", name, "\" must be in lower case.", sep = ''))
+
+	# Is field already defined?
+	if (.self$isDefined(name))
+		.self$message('error', paste("Field \"", name, "\" has already been defined.", sep = ''))
+
+	# Define new field
+	field <- BiodbEntryField$new(parent = .self, name = name, ...)
+
+	# Store inside fields list
+	.self$.fields[[name]] <- field
+
+	# Define aliases
+	if (field$hasAliases())
+		for (alias in field$getAliases())
+			.self$.aliasToName[[alias]] <- name
 })
