@@ -5,21 +5,52 @@
 \alias{BiodbEntryFields-class}
 \alias{BiodbEntryFields}
 \title{A class for handling description of all entry fields.}
+\arguments{
+\item{name}{The name or alias of a field.}
+
+\item{database}{The name of a database.}
+}
 \description{
 The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getEntryFields()} method.
 }
 \section{Methods}{
 
 \describe{
+\item{\code{checkIsDefined(name)}}{:
+
+Throws an error if name does not correspond to a defined field.}
+
+\item{\code{get(name)}}{:
+
+Returns the BiodbEntryField instance associated with name.}
+
+\item{\code{getDatabaseIdField(database)}}{:
+
+Returns the name of the field handling identifiers (i.e.: accession numbers) for this database.}
+
 \item{\code{getRealName(name)}}{:
 
 If name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown.}
+
+\item{\code{isAlias(name)}}{:
+
+Returns TRUE if name is an alias of a field.}
+
+\item{\code{isDefined(name)}}{:
+
+Returns TRUE if name corresponds to a defined field.}
 }}
 
 \examples{
 # Getting information about the accession field:
 mybiodb <- biodb::Biodb()
 entry.field <- mybiodb$getEntryFields()$get('accession')
+
+# Test if a name is an alias of a field
+mybiodb$getEntryFields()$isAlias('genesymbols')
+
+# Test if a name is associated with a defined field
+mybiodb$getEntryFields()$isDefined('chebi.id')
 
 }
 \seealso{

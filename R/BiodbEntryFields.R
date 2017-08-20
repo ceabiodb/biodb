@@ -9,10 +9,19 @@
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbEntryField}}.
 #'
+#' @param name      The name or alias of a field.
+#' @param database  The name of a database.
+#'
 #' @examples
 #' # Getting information about the accession field:
 #' mybiodb <- biodb::Biodb()
 #' entry.field <- mybiodb$getEntryFields()$get('accession')
+#'
+#' # Test if a name is an alias of a field
+#' mybiodb$getEntryFields()$isAlias('genesymbols')
+#'
+#' # Test if a name is associated with a defined field
+#' mybiodb$getEntryFields()$isDefined('chebi.id')
 #'
 #' @import methods
 #' @include biodb-common.R
@@ -36,7 +45,96 @@ BiodbEntryFields$methods( initialize = function(...) {
 	.self$.initFields()
 })
 
-# Init fields {{{1
+# Is alias {{{1
+################################################################
+
+BiodbEntryFields$methods( isAlias = function(name) {
+	":\n\nReturns TRUE if name is an alias of a field."
+
+	return(tolower(name) %in% names(.self$.aliasToName))
+})
+
+# Is defined {{{1
+################################################################
+
+BiodbEntryFields$methods( isDefined = function(name) {
+	":\n\nReturns TRUE if name corresponds to a defined field."
+	return(tolower(name) %in% names(.self$.fields) || .self$isAlias(name))
+})
+
+# Check is defined {{{1
+################################################################
+
+BiodbEntryFields$methods( checkIsDefined = function(name) {
+	":\n\nThrows an error if name does not correspond to a defined field."
+
+	if ( ! .self$isDefined(name))
+		.self$message('error', paste("Field \"", name, "\" is not defined.", sep = ''))
+})
+
+# Get real name {{{1
+################################################################
+
+BiodbEntryFields$methods( getRealName = function(name) {
+	":\n\nIf name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown."
+
+	.self$checkIsDefined(name)
+
+	if ( ! tolower(name) %in% names(.self$.fields))
+		name <- .self$.aliasToName[[tolower(name)]]
+
+	return(name)
+})
+
+# Get {{{1
+################################################################
+
+BiodbEntryFields$methods( get = function(name) {
+	":\n\nReturns the BiodbEntryField instance associated with name."
+
+	name <- .self$getRealName(name)
+	field <- .self$.fields[[tolower(name)]]
+	return(field)
+})
+
+# Get database id field {{{1
+################################################################
+
+BiodbEntryFields$methods( getDatabaseIdField = function(database) {
+	":\n\nReturns the name of the field handling identifiers (i.e.: accession numbers) for this database."
+
+	return(.self$get(.self$getBiodb()$getDbsInfo()$get(database)$getIdFieldName()))
+})
+
+# Private methods {{{1
+################################################################
+
+# Define {{{2
+################################################################
+
+BiodbEntryFields$methods( .define = function(name, ...) {
+
+	# Check that name is in lower case
+	if (name != tolower(name))
+		.self$message('error', paste("Field name \"", name, "\" must be in lower case.", sep = ''))
+
+	# Is field already defined?
+	if (.self$isDefined(name))
+		.self$message('error', paste("Field \"", name, "\" has already been defined.", sep = ''))
+
+	# Define new field
+	field <- BiodbEntryField$new(parent = .self, name = name, ...)
+
+	# Store inside fields list
+	.self$.fields[[name]] <- field
+
+	# Define aliases
+	if (field$hasAliases())
+		for (alias in field$getAliases())
+			.self$.aliasToName[[alias]] <- name
+})
+
+# Init fields {{{2
 ################################################################
 
 BiodbEntryFields$methods( .initFields = function() {
@@ -108,81 +206,4 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('chrom.col.rt', alias = 'chromcolrt', class = 'double')
 	.self$.define('chrom.col.rt.min', class = "double")
 	.self$.define('chrom.col.rt.max', class = "double")
-})
-
-# Define {{{1
-################################################################
-
-BiodbEntryFields$methods( .define = function(name, ...) {
-
-	# Check that name is in lower case
-	if (name != tolower(name))
-		.self$message('error', paste("Field name \"", name, "\" must be in lower case.", sep = ''))
-
-	# Is field already defined?
-	if (.self$isDefined(name))
-		.self$message('error', paste("Field \"", name, "\" has already been defined.", sep = ''))
-
-	# Define new field
-	field <- BiodbEntryField$new(parent = .self, name = name, ...)
-
-	# Store inside fields list
-	.self$.fields[[name]] <- field
-
-	# Define aliases
-	if (field$hasAliases())
-		for (alias in field$getAliases())
-			.self$.aliasToName[[alias]] <- name
-})
-
-# Is alias {{{1
-################################################################
-
-BiodbEntryFields$methods( isAlias = function(name) {
-	return(tolower(name) %in% names(.self$.aliasToName))
-})
-
-# Is defined {{{1
-################################################################
-
-BiodbEntryFields$methods( isDefined = function(name) {
-	return(tolower(name) %in% names(.self$.fields) || .self$isAlias(name))
-})
-
-# Check is defined {{{1
-################################################################
-
-BiodbEntryFields$methods( checkIsDefined = function(name) {
-	if ( ! .self$isDefined(name))
-		.self$message('error', paste("Field \"", name, "\" is not defined.", sep = ''))
-})
-
-# Get real name {{{1
-################################################################
-
-BiodbEntryFields$methods( getRealName = function(name) {
-	":\n\nIf name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown."
-
-	.self$checkIsDefined(name)
-
-	if ( ! tolower(name) %in% names(.self$.fields))
-		name <- .self$.aliasToName[[tolower(name)]]
-
-	return(name)
-})
-
-# Get {{{1
-################################################################
-
-BiodbEntryFields$methods( get = function(name) {
-	name <- .self$getRealName(name)
-	field <- .self$.fields[[tolower(name)]]
-	return(field)
-})
-
-# Get database id field {{{1
-################################################################
-
-BiodbEntryFields$methods( getDatabaseIdField = function(database) {
-	return(.self$get(.self$getBiodb()$getDbsInfo()$get(database)$getIdFieldName()))
 })
