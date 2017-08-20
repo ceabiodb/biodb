@@ -48,3 +48,6 @@ Send a URL request, either with GET or POST method, and return result.}
 Send a SOAP request to a URL. Returns the string result.}
 }}
 
+\seealso{
+\code{\link{RemotedbConn}}.
+}

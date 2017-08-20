@@ -17,15 +17,27 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #'
 #' This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 #'
-#' @field db.id Set to \code{TRUE} if the field is a database ID.
-#' @field name  The name of the field.
+#' @field db.id             Set to \code{TRUE} if the field is a database ID.
+#' @field name              The name of the field.
+#' @field alias             A character vector containing zero or more aliases for the field.
+#' @field class             The class of the field. One of: 'character', 'integer', 'double', 'logical', 'object', 'data.frame'.
+#' @field card              The cardinality of the field: either '1' or '*'.
+#' @field allow.duplicates  If set to \code{TRUE}, the field allows duplicated values.
+#' @field description       The description of the field.
 #'
 #' @seealso \code{\link{BiodbEntryFields}}.
 #'
 #' @examples
-#' #
+#' # Get the class of the InChI field.
 #' mybiodb <- biodb::Biodb()
 #' inchi.field.class <- mybiodb$getEntryFields()$get('inchi')$getClass()
+#'
+#' # Test the cardinality of a field
+#' card.one <- mybiodb$getEntryFields()$get('name')$hasCardOne()
+#' card.many <- mybiodb$getEntryFields()$get('name')$hasCardMany()
+#'
+#' # Get the description of a field
+#' desc <- mybiodb$getEntryFields()$get('inchi')$getDescription()
 #'
 #' @import methods
 #' @include biodb-common.R

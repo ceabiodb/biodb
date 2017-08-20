@@ -14,6 +14,16 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 \item{\code{db.id}}{Set to \code{TRUE} if the field is a database ID.}
 
 \item{\code{name}}{The name of the field.}
+
+\item{\code{alias}}{A character vector containing zero or more aliases for the field.}
+
+\item{\code{class}}{The class of the field. One of: 'character', 'integer', 'double', 'logical', 'object', 'data.frame'.}
+
+\item{\code{card}}{The cardinality of the field: either '1' or '*'.}
+
+\item{\code{allow.duplicates}}{If set to \code{TRUE}, the field allows duplicated values.}
+
+\item{\code{description}}{The description of the field.}
 }}
 
 \section{Methods}{
@@ -61,9 +71,16 @@ Returns \code{TRUE} if the field's type is vector (i.e.: character, integer, dou
 }}
 
 \examples{
-#
+# Get the class of the InChI field.
 mybiodb <- biodb::Biodb()
 inchi.field.class <- mybiodb$getEntryFields()$get('inchi')$getClass()
+
+# Test the cardinality of a field
+card.one <- mybiodb$getEntryFields()$get('name')$hasCardOne()
+card.many <- mybiodb$getEntryFields()$get('name')$hasCardMany()
+
+# Get the description of a field
+desc <- mybiodb$getEntryFields()$get('inchi')$getDescription()
 
 }
 \seealso{
