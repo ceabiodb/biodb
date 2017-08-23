@@ -5,10 +5,45 @@
 \alias{BiodbDbsInfo-class}
 \alias{BiodbDbsInfo}
 \title{A class for describing the available databases.}
-\description{
-A class for describing the available databases.
+\arguments{
+\item{db.id}{A database ID, as a character string.}
 }
+\description{
+The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getDbsInfo()} method.
+}
+\section{Methods}{
 
+\describe{
+\item{\code{checkIsDefined(db.id)}}{:
+
+Throws an error if the specified id does not correspond to a defined database.}
+
+\item{\code{get(db.id)}}{:
+
+Returns the BiodbDbInfo instance corresponding to the specified database ID.}
+
+\item{\code{getAll()}}{:
+
+Returns a list of all BiodbDbInfo instances.}
+
+\item{\code{getIds()}}{:
+
+Returns a character vector containing all the IDs of the defined databases.}
+
+\item{\code{isDefined(db.id)}}{:
+
+Returns TRUE if the specified id corresponds to a defined database.}
+}}
+
+\examples{
+# Getting the base URL of a database:
+mybiodb <- biodb::Biodb()
+chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getBaseUrl()
+
+# Setting a token:
+mybiodb$getDbsInfo()$get('chemspider')$setToken('my.chemspider.token')
+
+}
 \seealso{
 \code{\link{Biodb}}, \code{\link{BiodbDbInfo}}.
 }

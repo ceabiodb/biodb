@@ -5,15 +5,62 @@
 \alias{BiodbDbInfo-class}
 \alias{BiodbDbInfo}
 \title{A class for describing the characteristics of a database.}
-\description{
-This class is used by \code{\link{BiodbDbsInfo}} for storing database characteristics.
+\arguments{
+\item{base.url}{A base URL for the database.}
+
+\item{token}{An access token for the database.}
 }
+\description{
+This class is used by \code{\link{BiodbDbsInfo}} for storing database characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{id}}{The identifier of the database.}
+
+\item{\code{base.url}}{The main URL of the database.}
+
+\item{\code{token}}{An access token for the database.}
+}}
+
 \section{Methods}{
 
 \describe{
+\item{\code{getBaseUrl()}}{:
+
+Returns the base URL.}
+
+\item{\code{getConnClass()}}{:
+
+Returns the associated connection class.}
+
+\item{\code{getConnClassName()}}{:
+
+Returns the name of the associated connection class.}
+
+\item{\code{getEntryClass()}}{:
+
+Returns the associated entry class.}
+
+\item{\code{getEntryClassName()}}{:
+
+Returns the name of the associated entry class.}
+
 \item{\code{getEntryIdField()}}{:
 
 Return the name of the corresponding database ID field in entries.}
+
+\item{\code{getToken()}}{:
+
+Returns the access token.}
+
+\item{\code{setBaseUrl(base.url)}}{:
+
+Sets the base URL.}
+
+\item{\code{setToken(token)}}{:
+
+Sets the access token.}
 }}
 
 \seealso{
