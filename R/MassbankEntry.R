@@ -120,7 +120,7 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	# Build parsing expression
 	regex <- '^'
 	col.desc <- list('m/z'                  = list(name = 'peak.mz', type = 'double', regex = '([0-9][0-9.]*)'),
-	                 'int.'                 = list(name = 'peak.intensity', type = 'double', regex = '([0-9][0-9.]*)'),
+	                 'int.'                 = list(name = 'peak.intensity', type = 'double', regex = '([0-9][0-9.e]*)'),
 	                 'rel.int.'             = list(name = 'peak.relative.intensity', type = 'integer', regex = '([0-9]+)'),
 	                 'struct.'              = list(name = 'struct.',                    type = 'integer',   regex = '([0-9]+)'),
 	                 'num'                  = list(name = 'num',                        type = 'integer',   regex = '([0-9]+)'),
@@ -208,6 +208,16 @@ MassbankEntry$methods( .parseAnnotationTable = function(parsed.content) {
 ################################################################
 
 MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
+
+	# PubChem IDs when SID and CID are both specified in that order
+	g <- stringr::str_match(parsed.content, "^CH\\$LINK: PUBCHEM\\s+(SID:[0-9]+)\\s+(CID:[0-9]+)")
+	results <- g[ ! is.na(g[,1]), , drop = FALSE]
+	if (nrow(results) > 0) {
+		sid <- results[,2]
+		cid <- results[,3]
+		.self$setFieldValue('ncbi.pubchem.subst.id', sid)
+		.self$setFieldValue('ncbi.pubchem.comp.id', cid)
+	}
 
 	# List of precursors
 	g <- stringr::str_match(parsed.content, "^MS\\$FOCUSED_ION: PRECURSOR_M/Z ([0-9./]+)$")
