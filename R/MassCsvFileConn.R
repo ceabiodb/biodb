@@ -176,13 +176,16 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	}
 
 	# Filter on mz values
-	if ( ! is.na(mz.min)) {
+	if ((length(mz.min) > 0 || length(mz.max) > 0) && ! (length(mz.min) == 1 && is.na(mz.min) && is.na(mz.max))) {
+		if (length(mz.min) != length(mz.max))
+			.self$message(MSG.ERROR, paste("'mz.min' and 'mz.max' must have equal lengths. 'mz.min' has ", length(mz.min), " element(s), and 'mz.max' has ", length(mz.max), "element(s).", sep = ''))
+		if (any(is.na(mz.min) & is.na(mz.max)))
 		.self$.check.fields('peak.mztheo')
-		db <- db[db[[.self$.fields[['peak.mztheo']]]] >= mz.min, ]
-	}
-	if ( ! is.na(mz.max)) {
-		.self$.check.fields('peak.mztheo')
-		db <- db[db[[.self$.fields[['peak.mztheo']]]] <= mz.max, ]
+		f <- .self$.fields[['peak.mztheo']]
+		mz <- db[[f]]
+		s <- mapply(function(mzmin, mzmax) { (if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin) & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax) }, mz.min, mz.max)
+		s <- apply(s, 1, function(x) Reduce("|", x))
+		db <- db[s, ]
 	}
 
 	# Filter on relative intensity

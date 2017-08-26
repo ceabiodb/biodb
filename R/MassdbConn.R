@@ -81,8 +81,6 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 	if ( ! .self$.assert.not.null(mz.max, msg.type = 'warning')) return(NULL)
 	.self$.assert.positive(mz.min)
 	.self$.assert.positive(mz.max)
-	.self$.assert.length.one(mz.min)
-	.self$.assert.length.one(mz.max)
 	.self$.assert.inferior(mz.min, mz.max)
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)

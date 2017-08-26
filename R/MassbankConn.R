@@ -104,44 +104,57 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 
 	returned.ids <- NULL
 
-	# Set tolerance
-	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
-		mz.tol <- mz.tol * mz * 1e-6
+	# Multiple M/Z values and PPM tolerance
+	if (length(mz) > 1 && mz.tol.unit == BIODB.MZTOLUNIT.PPM) {
+		for (mz.single in mz)
+			returned.ids <- c(returned.ids, .self$.doSearchMzTol(mz = mz.single, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+		returned.ids <- returned.ids[ ! duplicated(returned.ids)]
+	}
 
-	# Build request
-	max <- max.results
-	if ( ! is.na(max) && (precursor || ms.level > 0))
-		max <- max(10000, 10 * max)
-	xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', mz, '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', mz.tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
+	# Single M/Z value or PLAIN tolerance
+	else {
 
-	# Send request
-	xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
+		# Set tolerance
+		if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
+			mz.tol <- mz.tol * mz * 1e-6
 
-	# Parse XML and get text
-	if ( ! is.na(xmlstr)) {
-		xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-		ns <- c(ax21 = "http://api.massbank/xsd")
-		returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
+		# Build request
+		max <- max.results
+		if ( ! is.na(max) && (precursor || ms.level > 0))
+			max <- max(10000, 10 * max)
+		xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', paste(mz, collapse = ','), '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', mz.tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
+		print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+		print(xml.request)
 
-		if (ms.level > 0 || precursor) {
+		# Send request
+		xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
 
-			# Get entries
-			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids, drop = FALSE)
+		# Parse XML and get text
+		if ( ! is.na(xmlstr)) {
+			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
+			ns <- c(ax21 = "http://api.massbank/xsd")
+			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
 
-			# Filter on precursor
-			if (precursor) {
-				precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('MSPRECMZ', last = TRUE), FUN.VALUE = 1.0)
-				precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
-				entries <- entries[precursor.matched]
+			if (ms.level > 0 || precursor) {
+
+				# Get entries
+				entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids, drop = FALSE)
+
+				# Filter on precursor
+				if (precursor) {
+					precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('MSPRECMZ', last = TRUE), FUN.VALUE = 1.0)
+					precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
+					entries <- entries[precursor.matched]
+				}
+
+				# Filter on ms.level
+				if (ms.level > 0) {
+					ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue('MS.LEVEL') == ms.level, FUN.VALUE = TRUE)
+					entries <- entries[ms.level.matched]
+				}
+
+				returned.ids <- vapply(entries, function(x) x$getFieldValue('ACCESSION'), FUN.VALUE = '')
 			}
-
-			# Filter on ms.level
-			if (ms.level > 0) {
-				ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue('MS.LEVEL') == ms.level, FUN.VALUE = TRUE)
-				entries <- entries[ms.level.matched]
-			}
-
-			returned.ids <- vapply(entries, function(x) x$getFieldValue('ACCESSION'), FUN.VALUE = '')
 		}
 	}
 
