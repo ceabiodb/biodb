@@ -118,6 +118,34 @@ test.searchMzTol <- function(db) {
 	}
 }
 
+# Test searchMzTol() with multiple M/Z values {{{1
+################################################################
+
+test.searchMzTol.multiple.mz <- function(db) {
+
+	# Get M/Z values from database
+	mode <- BIODB.MSMODE.POS
+	mzs <- db$getMzValues(ms.mode = mode, max.results = 10)
+	expect_true(is.double(mzs))
+	expect_true(length(mzs) >= 1)
+
+	# Search one M/Z at a time
+	all.ids <- character(0)
+	for (mz in mzs) {
+		ids <- db$searchMzTol(mz = mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+		expect_true(is.character(ids))
+		expect_true(length(ids) > 0)
+		all.ids <- c(all.ids, ids)
+	}
+	all.ids <- all.ids[ ! duplicated(all.ids)]
+
+	# Search all M/Z values at once
+	all.ids.2 <- db$searchMzTol(mz = mzs, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+
+	# List of IDs must be the same
+	expect_identical(all.ids, all.ids.2)
+}
+
 # Test searchMzTol() with precursor {{{1
 ################################################################
 

@@ -101,7 +101,6 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 	if ( ! .self$.assert.not.na(mz, msg.type = 'warning')) return(NULL)
 	if ( ! .self$.assert.not.null(mz, msg.type = 'warning')) return(NULL)
 	.self$.assert.positive(mz)
-	.self$.assert.length.one(mz)
 	.self$.assert.positive(mz.tol)
 	.self$.assert.length.one(mz.tol)
 	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
