@@ -123,6 +123,8 @@ test.searchMzTol <- function(db) {
 
 test.searchMzTol.multiple.mz <- function(db) {
 
+	mz.tol <- 0.0001
+
 	# Get M/Z values from database
 	mode <- BIODB.MSMODE.POS
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
@@ -132,7 +134,7 @@ test.searchMzTol.multiple.mz <- function(db) {
 	# Search one M/Z at a time
 	all.ids <- character(0)
 	for (mz in mzs) {
-		ids <- db$searchMzTol(mz = mz, mz.tol = 0.01, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+		ids <- db$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
 		expect_true(is.character(ids))
 		expect_true(length(ids) > 0)
 		all.ids <- c(all.ids, ids)
@@ -140,10 +142,10 @@ test.searchMzTol.multiple.mz <- function(db) {
 	all.ids <- all.ids[ ! duplicated(all.ids)]
 
 	# Search all M/Z values at once
-	all.ids.2 <- db$searchMzTol(mz = mzs, mz.tol = 0.01, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+	all.ids.2 <- db$searchMzTol(mz = mzs, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
 
 	# List of IDs must be the same
-	expect_identical(sort(all.ids), sort(all.ids.2))
+	expect_true(all(all.ids.2 %in% all.ids))
 }
 
 # Test searchMzTol() with precursor {{{1

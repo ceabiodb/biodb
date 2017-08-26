@@ -184,7 +184,7 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		f <- .self$.fields[['peak.mztheo']]
 		mz <- db[[f]]
 		s <- mapply(function(mzmin, mzmax) { (if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin) & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax) }, mz.min, mz.max)
-		s <- apply(s, 1, function(x) Reduce("|", x))
+		s <- apply(s, 1, function(x) Reduce("&", x))
 		db <- db[s, ]
 	}
 

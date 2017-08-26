@@ -45,7 +45,7 @@ for (mode in TEST.MODES) {
 			if (methods::is(db, 'MassdbConn')) {
 				run.db.test("We can retrieve a list of M/Z values", 'test.getMzValues', db)
 				run.db.test("We can match M/Z peaks", 'test.searchMzTol',db)
-				run.db.test("We can search for several M/Z values at once", 'test.searchMzTol.multiple.mz',db)
+				run.db.test("We can search for spectra containing several M/Z values", 'test.searchMzTol.multiple.mz',db)
 				run.db.test("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
 				run.db.test("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
 				if (db.name == 'massbank.jp' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
