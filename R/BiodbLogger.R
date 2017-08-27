@@ -60,6 +60,9 @@ BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character
 	caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
 	if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
 
+	# Set timestamp
+	timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
+
 	# Output message
-	cat(type, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
+	cat(toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
 })
