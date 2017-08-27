@@ -104,6 +104,8 @@ BiodbFactory$methods( setDownloadChunkSize = function(dwnld.chunk.size) {
 BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
 	":\n\nCreate database entry objects from string content."
 
+	.self$message('info', paste('Creating ', dbid, ' entries from ', length(content), ' content(s).', sep = ''))
+
 	entries <- list()
 
 	# Check that class is known
@@ -116,6 +118,7 @@ BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
 	conn <- .self$getConn(dbid)
 
     # Loop on all contents
+    .self$message('debug', paste('Parsing ', length(content), ' ', dbid, ' entries.', sep = ''))
 	for (single.content in content) {
 
 		# Create empty entry instance
@@ -129,6 +132,7 @@ BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
 	}
 
 	# Replace elements with no accession id by NULL
+    .self$message('debug', paste('Setting entries with no accession number to NULL.'))
 	entries <- lapply(entries, function(x) if (is.na(x$getFieldValue('ACCESSION'))) NULL else x)
 
 	# If the input was a single element, then output a single object
@@ -193,11 +197,12 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 		.self$message('info', paste0(sum( ! is.na(id)) - length(missing.ids), " ", dbid, " entry content(s) loaded from cache."))
 		if (n.duplicates > 0)
 			.self$message('info', paste0(n.duplicates, " ", dbid, " entry ids, whose content needs to be fetched, are duplicates."))
-		.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", dbid, " database."))
 	}
 
 	# Get contents
 	if (length(missing.ids) > 0 && ( ! methods::is(.self$getConn(dbid), 'BiodbDownloadable') || ! .self$getConn(dbid)$isDownloaded())) {
+
+		.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", dbid, " database."))
 
 		# Use connector to get missing contents
 		conn <- .self$getConn(dbid)

@@ -178,8 +178,11 @@ UrlRequestScheduler$methods( .wait.as.needed = function() {
 	# Wait, if needed, before previous URL request and this new URL request.
 	if (.self$.time.of.last.request > 0) {
 		spent_time <- Sys.time() - .self$.time.of.last.request
-		if (spent_time < waiting_time)
-			Sys.sleep(waiting_time - spent_time)
+		if (spent_time < waiting_time) {
+			sleep.time <- waiting_time - spent_time
+			.self$message('debug', paste('Wait ', sleep.time, '.', sep = ''))
+			Sys.sleep(sleep.time)
+		}
 	}
 
 	# Store current time

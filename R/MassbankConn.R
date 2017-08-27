@@ -123,14 +123,14 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 		if ( ! is.na(max) && (precursor || ms.level > 0))
 			max <- max(10000, 10 * max)
 		xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', paste(mz, collapse = ','), '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', mz.tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
-		print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-		print(xml.request)
 
 		# Send request
+		.self$message('debug', paste('Searching for M/Z values, with request: "', xml.request, '".', sep = ''))
 		xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
 
 		# Parse XML and get text
 		if ( ! is.na(xmlstr)) {
+			.self$message('debug', 'Parsing XML response to get IDs.')
 			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
 			ns <- c(ax21 = "http://api.massbank/xsd")
 			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
@@ -138,10 +138,12 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 			if (ms.level > 0 || precursor) {
 
 				# Get entries
+				.self$message('debug', 'Get entries')
 				entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids, drop = FALSE)
 
 				# Filter on precursor
 				if (precursor) {
+					.self$message('debug', paste('Filtering on precurssor ', precursor, '.', sep = ''))
 					precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('MSPRECMZ', last = TRUE), FUN.VALUE = 1.0)
 					precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
 					entries <- entries[precursor.matched]
@@ -149,18 +151,22 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 
 				# Filter on ms.level
 				if (ms.level > 0) {
+					.self$message('debug', paste('Filtering on MS level ', ms.level, '.', sep = ''))
 					ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue('MS.LEVEL') == ms.level, FUN.VALUE = TRUE)
 					entries <- entries[ms.level.matched]
 				}
 
+				.self$message('debug', 'Getting list of IDs.')
 				returned.ids <- vapply(entries, function(x) x$getFieldValue('ACCESSION'), FUN.VALUE = '')
 			}
 		}
 	}
 
 	# Cut
-	if ( ! is.na(max.results) && length(returned.ids) > max.results)
+	if ( ! is.na(max.results) && length(returned.ids) > max.results) {
+		.self$message('debug', 'Cut list of IDs to return.')
 		returned.ids <- returned.ids[1:max.results]
+	}
 
 	return(returned.ids)
 })
