@@ -34,7 +34,7 @@
 #' @include ChildObject.R
 #' @export BiodbFactory
 #' @exportClass BiodbFactory
-BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
+BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .entries = "list", .chunk.size = "integer"))
 
 # Constructor {{{1
 ################################################################
@@ -44,6 +44,7 @@ BiodbFactory$methods( initialize = function(...) {
 	callSuper(...)
 
 	.conn <<- list()
+	.entries <<- list()
 	.chunk.size <<- NA_integer_
 })
 
@@ -148,14 +149,32 @@ BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
 BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
 	":\n\nCreate database entry objects from IDs (accession numbers)."
 
-	# Debug
-	.self$message('info', paste("Creating", length(id), "entries from ids", paste(if (length(id) > 10) id[1:10] else id, collapse = ", "), "..."))
+	id <- as.character(id)
 
-	# Get contents
-	content <- .self$getEntryContent(dbid, id)
+	# What entries are missing from factory cache
+	missing.ids <- .self$.getMissingEntryIds(dbid, id)
 
-	# Create entries
-	entries <- .self$createEntry(dbid, content = content, drop = drop)
+	if (length(missing.ids) > 0) {
+
+		# Debug
+		.self$message('info', paste("Creating", length(missing.ids), "entries from ids", paste(if (length(missing.ids) > 10) missing.ids[1:10] else missing.ids, collapse = ", "), "..."))
+
+		# Get contents
+		content <- .self$getEntryContent(dbid, missing.ids)
+
+		# Create entries
+		new.entries <- .self$createEntry(dbid, content = content, drop = FALSE)
+
+		# Store entries
+		.self$.storeNewEntries(dbid, missing.ids, new.entries)
+	}
+
+	# Get entries
+	entries <- unname(.self$.getEntries(dbid, id))
+
+	# If the input was a single element, then output a single object
+	if (drop && length(id) == 1)
+		entries <- entries[[1]]
 
 	return(entries)
 })
@@ -165,6 +184,8 @@ BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
 
 BiodbFactory$methods( getEntryContent = function(dbid, id) {
 	":\n\nGet the contents of database entries from IDs (accession numbers)."
+
+	id <- as.character(id)
 
 	# Debug
 	.self$message('info', paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
@@ -233,4 +254,56 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 	}
 
 	return(content)
+})
+
+# Private methods {{{1
+################################################################
+
+# Create entries db slot {{{2
+################################################################
+
+BiodbFactory$methods( .createEntriesDbSlot = function(dbid) {
+
+	if ( ! dbid %in% names(.self$.entries))
+		.self$.entries[[dbid]] <- list()
+})
+
+# Get entries {{{2
+################################################################
+
+BiodbFactory$methods( .getEntries = function(dbid, ids) {
+
+	ids <- as.character(ids)
+
+	.self$.createEntriesDbSlot(dbid)
+
+	return(.self$.entries[[dbid]][ids])
+})
+
+# Store new entries {{{2
+################################################################
+
+BiodbFactory$methods( .storeNewEntries = function(dbid, ids, entries) {
+
+	ids <- as.character(ids)
+
+	.self$.createEntriesDbSlot(dbid)
+	
+	names(entries) <- ids
+
+	.self$.entries[[dbid]] <- c(.self$.entries[[dbid]], entries)
+})
+
+# Get missing entry IDs {{{2
+################################################################
+
+BiodbFactory$methods( .getMissingEntryIds = function(dbid, ids) {
+
+	ids <- as.character(ids)
+
+	.self$.createEntriesDbSlot(dbid)
+
+	missing.ids <- ids[ ! ids %in% names(.self$.entries[[dbid]])]
+
+	return(missing.ids)
 })
