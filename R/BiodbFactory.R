@@ -151,30 +151,27 @@ BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
 
 	id <- as.character(id)
 
-	# What entries are missing from factory cache
-	missing.ids <- .self$.getMissingEntryIds(dbid, id)
+	# Use factory cache
+	if (.self$getBiodb()$getConfig()$isEnabled('factory.cache')) {
+		# What entries are missing from factory cache
+		missing.ids <- .self$.getMissingEntryIds(dbid, id)
 
-	if (length(missing.ids) > 0) {
+		if (length(missing.ids) > 0) {
+			new.entries <- .self$.createNewEntries(dbid, missing.ids, drop = FALSE)
+			.self$.storeNewEntries(dbid, missing.ids, new.entries)
+		}
 
-		# Debug
-		.self$message('info', paste("Creating", length(missing.ids), "entries from ids", paste(if (length(missing.ids) > 10) missing.ids[1:10] else missing.ids, collapse = ", "), "..."))
+		# Get entries
+		entries <- unname(.self$.getEntries(dbid, id))
 
-		# Get contents
-		content <- .self$getEntryContent(dbid, missing.ids)
-
-		# Create entries
-		new.entries <- .self$createEntry(dbid, content = content, drop = FALSE)
-
-		# Store entries
-		.self$.storeNewEntries(dbid, missing.ids, new.entries)
+		# If the input was a single element, then output a single object
+		if (drop && length(id) == 1)
+			entries <- entries[[1]]
 	}
 
-	# Get entries
-	entries <- unname(.self$.getEntries(dbid, id))
-
-	# If the input was a single element, then output a single object
-	if (drop && length(id) == 1)
-		entries <- entries[[1]]
+	# Do not use factory cache and create new entries for all IDs
+	else
+		entries <- .self$.createNewEntries(dbid, id, drop = drop)
 
 	return(entries)
 })
@@ -258,6 +255,23 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 
 # Private methods {{{1
 ################################################################
+
+# Create new entries {{{2
+################################################################
+
+BiodbFactory$methods( .createNewEntries = function(dbid, ids, drop) {
+
+	# Debug
+	.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
+
+	# Get contents
+	content <- .self$getEntryContent(dbid, ids)
+
+	# Create entries
+	new.entries <- .self$createEntry(dbid, content = content, drop = drop)
+
+	return(new.entries)
+})
 
 # Create entries db slot {{{2
 ################################################################
