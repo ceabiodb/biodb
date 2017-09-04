@@ -20,7 +20,7 @@ DFT.MZ.FIELD <- 'mz'
 DFT.MZ.SEP <- "\t"
 DFT.MZ.TOL <- 0.01
 DFT.MZ.TOL.UNIT <- 'plain'
-DFT.OUTPUT.FILE <- 'peaks.tsv'
+DFT.OUTPUT.FILE <- '%d-%m-ms%l-tol%t-%u.tsv'
 DFT.OUTPUT.SEP <- "\t"
 DFT.MS.LEVEL <- 0
 
@@ -46,7 +46,7 @@ read.args <-  function() {
 		'mztol',            't',            1,  'numeric',      paste('The M/Z tolerance to use. Default is ', DFT.MZ.TOL, '.', sep = ''),
 		'mztolunit',        'u',            1,  'character',    paste('The M/Z tolerance unit to use. Default is ', DFT.MZ.TOL.UNIT, '.', sep = ''),
 		'max',              'm',            1,  'integer',      paste('The maximum number of entries to retrieve. Default is ', DFT.MAX, '.', sep = ''),
-		'output',           'o',            1,  'character',    paste('The path to the output file., Default is "', DFT.OUTPUT.FILE, '".', sep = ''),
+		'output',           'o',            1,  'character',    paste('The path to the output file. Replacement tags can be used: %d for the database name, %m for the maximum of entries, %l for the MS level, %t for the tolerance and %u for the tolerance unit. Default is "', DFT.OUTPUT.FILE, '".', sep = ''),
 		'outputsep',        'S',            1,  'character',    paste('The separator character used in the output file. Default is tabulation.', sep = '') 
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
@@ -166,6 +166,12 @@ spectra.entries <- biodb$getFactory()$getEntry('massbank.jp', entry.ids)
 # Write spectra peaks as CSV database
 cat("\n")
 cat('================================================================================')
-cat("Writing data frame.\n\n")
+filename <- opt$output
+filename <- sub('%d', opt$database, filename)
+filename <- sub('%m', opt$max, filename)
+filename <- sub('%l', opt$mslevel, filename)
+filename <- sub('%t', opt$mztol, filename)
+filename <- sub('%u', opt$mztolunit, filename)
+cat("Writing data frame into ", filename,".\n\n", sep = '')
 df <- biodb$entriesToDataframe(spectra.entries, only.atomic = FALSE, compute = FALSE)
-write.table(df, file = opt$output, sep = opt$outputsep, row.names = FALSE, col.names = TRUE)
+write.table(df, file = filename, sep = opt$outputsep, row.names = FALSE, col.names = TRUE)
