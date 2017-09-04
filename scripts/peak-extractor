@@ -15,7 +15,22 @@ SCRIPT.DIR <- dirname(SCRIPT.PATH)
 if ( ! R.utils::isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
 PROG.NAME <- sub('^.*/([^/]+)$', '\\1', commandArgs()[4], perl = TRUE)
 
-DFT.MAX.NB.ENTRIES <- 500
+DFT.MAX <- 500
+DFT.MZ.FIELD <- 'mz'
+DFT.MZ.SEP <- "\t"
+DFT.MZ.TOL <- 0.01
+DFT.MZ.TOL.UNIT <- 'plain'
+DFT.OUTPUT.FILE <- 'peaks.tsv'
+DFT.OUTPUT.SEP <- "\t"
+DFT.MS.LEVEL <- 0
+
+# Print help {{{1
+################################################################
+
+print.help <- function(spec) {
+	cat(getopt::getopt(spec, usage = TRUE, command = PROG.NAME))
+	q(status = 0)
+}
 
 # Read args {{{1
 ################################################################
@@ -23,22 +38,103 @@ DFT.MAX.NB.ENTRIES <- 500
 read.args <-  function() {
 	spec = c(
 		'database',         'd',            1,  'character',    'The database from which to extract the peaks.',
-		'max-nb-entries',   'n',            1,  'integer',      'The maximum number of entries to retrieve.',
-		'output',           'o',            1,  'character',    'The path to the output file.'
+		'help',             'h',            0,  'logical',      'Print this help.',
+		'mslevel',          'l',            1,  'integer',      paste('The wanted MS level. Set to 0 to get all MS levels. Default is ', DFT.MS.LEVEL, '.', sep = ''),
+		'mzfile',           'z',            1,  'character',    'A file containg M/Z values. A search for entries inside the database will be made for each M/Z value, using the provided tolerance. The entries returned by the search will be used to build the peak table.',
+		'mzfield',          'f',            1,  'character',    paste('The field/column in the M/Z file (option -z) where to find the M/Z values. Default is ', DFT.MZ.FIELD, '.', sep = ''),
+		'mzsep',            's',            1,  'character',    paste('The separator used inside the M/Z file. Default is tabulation.', sep = ''),
+		'mztol',            't',            1,  'numeric',      paste('The M/Z tolerance to use. Default is ', DFT.MZ.TOL, '.', sep = ''),
+		'mztolunit',        'u',            1,  'character',    paste('The M/Z tolerance unit to use. Default is ', DFT.MZ.TOL.UNIT, '.', sep = ''),
+		'max',              'm',            1,  'integer',      paste('The maximum number of entries to retrieve. Default is ', DFT.MAX, '.', sep = ''),
+		'output',           'o',            1,  'character',    paste('The path to the output file., Default is "', DFT.OUTPUT.FILE, '".', sep = ''),
+		'outputsep',        'S',            1,  'character',    paste('The separator character used in the output file. Default is tabulation.', sep = '') 
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
 	opt <- getopt::getopt(spec)
 
-	# Set default values
+	# Help
+	if ( ! is.null(opt$help))
+		print.help(spec)
 
- 	if (is.null(opt[['max-nb-entries']]))
-	     opt[['max-nb-entries']] <- DFT.MAX.NB.ENTRIES
+	# Set default values
+ 	if (is.null(opt[['mslevel']]))
+	     opt[['mslevel']] <- DFT.MS.LEVEL
+ 	if (is.null(opt[['mzfield']]))
+	     opt[['mzfield']] <- DFT.MZ.FIELD
+ 	if (is.null(opt[['mzsep']]))
+	     opt[['mzsep']] <- DFT.MZ.SEP
+ 	if (is.null(opt[['mztol']]))
+	     opt[['mztol']] <- DFT.MZ.TOL
+ 	if (is.null(opt[['mztolunit']]))
+	     opt[['mztolunit']] <- DFT.MZ.TOL.UNIT
+ 	if (is.null(opt[['max']]))
+	     opt[['max']] <- DFT.MAX
+ 	if (is.null(opt[['output']]))
+	     opt[['output']] <- DFT.OUTPUT.FILE
+ 	if (is.null(opt[['outputsep']]))
+	     opt[['outputsep']] <- DFT.OUTPUT.SEP
 
 	# Check arguments
 	if (is.null(opt$database)) stop("You must choose a database through -d option.")
-	if (is.null(opt$output)) stop("You must specify an output file through -o option.")
 
 	return(opt)
+}
+
+# Search for entry IDs {{{1
+################################################################
+
+search.for.entry.ids <- function(conn, file, sep, mz.field, tol, tolunit, max, ms.level) {
+
+	# Load file into data frame
+	df <- read.table(file, sep = sep, header = TRUE)
+
+	# Get M/Z values
+	mz.values <- df[[mz.field]]
+
+	# Get some Massbank MS spectra for each M/Z value
+	mz.to.spectra.ids <- list()
+	i <- 0
+	for (mz in mz.values) {
+
+		i <- i + 1
+		cat("\n")
+		cat('================================================================================')
+		cat('Processing M/Z value ', mz, ', #', i, '/', length(mz.values), ".\n\n", sep = '')
+
+		ids <- conn$searchMzTol(mz = mz, mz.tol = tol, mz.tol.unit = tolunit, max.results = max, ms.level = ms.level)
+
+		mz.to.spectra.ids[[as.character(mz)]] <- ids
+	}
+
+	# Make a list of spectra IDs, taking one ID from each M/Z value at a time
+	spectra.ids <- character(0)
+	while(length(mz.to.spectra.ids) > 0) {
+		for (mz in names(mz.to.spectra.ids)) {
+
+			# Get list of spectra IDs for this M/Z value
+			ids <- mz.to.spectra.ids[[mz]]
+
+			if (length(ids) == 0)
+				mz.to.spectra.ids <- mz.to.spectra.ids[names(mz.to.spectra.ids) != mz]
+			else {
+				# Take first ID
+				spectra.ids <- c(spectra.ids, ids[[1]])
+				if (length(ids) > 1)
+					mz.to.spectra.ids[[mz]] <- ids[2:length(ids)]
+				else
+					mz.to.spectra.ids <- mz.to.spectra.ids[names(mz.to.spectra.ids) != mz]
+			}
+		}
+	}
+
+	# Remove duplicates
+	spectra.ids <- spectra.ids[ ! duplicated(spectra.ids)]
+
+	# Cut
+	if ( ! is.na(max) && max > 0 && length(spectra.ids) > max)
+		spectra.ids <- spectra.ids[1:max]
+
+	return(spectra.ids)
 }
 
 # MAIN {{{1
@@ -47,51 +143,29 @@ read.args <-  function() {
 opt <- read.args()
 
 # Instantiate biodb
-# TODO Why Biodb is not found in namespace biodb? : biodb::Biodb$new() gives:
-# Error: 'Biodb' is not an exported object from 'namespace:biodb'
-biodb <- biodb:::Biodb$new()
-biodb$getConfig()$set(biodb:::CFG.USERAGENT, 'peak-extractor ; pierrick.roger@gmail.com')
-biodb$getConfig()$set(biodb:::CFG.CACHEDIR, file.path(SCRIPT.DIR, 'cache'))
-biodb$addObservers(biodb:::BiodbLogger$new())
+biodb <- biodb::Biodb()
+biodb$getConfig()$set('useragent', 'peak-extractor ; pierrick.rogermele@icloud.com')
+biodb$getConfig()$enable('factory.cache')
 
-# Get factory and connection
-fact <- biodb$getFactory()
-db.conn <- fact$getConn(opt$database)
+# Create database connection
+conn <- biodb$getFactory()$createConn(opt$database)
 
-# Get a bunch of IDs
-entry.ids <- db.conn$getEntryIds(max.results = opt[['max-nb-entries']])
-
-# Get all entries
-if ( ! is.null(entry.ids)) {
-	cat("Get all entry contents...\n")
-	entry.contents <- fact$getEntryContent(opt$database, id = entry.ids)
-
-	# Create data frame from entries
-	cat("Create data frame from entry contents...\n")
-	entries.df <- NULL
-	n <- 0
-	for (ec in entry.contents) {
-
-		n <- n + 1
-		cat(paste0("Processing entry n°", n, " / ", length(entry.contents), ". ", if (is.null(entries.df)) 0 else nrow(entries.df), " peaks found.\n"))
-
-		# Get entry
-		e <- fact$createEntry(opt$database, content = ec)
-
-		# Reject if not MS or MS1
-		if ( ! e$getField(biodb:::BIODB.MSTYPE) %in% c('MS', 'MS1')) {
-			cat(paste0("Entry n°", n, " (accession ", e$getField(biodb:::BIODB.ACCESSION), ")", " rejected because MS TYPE is ", e$getField(biodb:::BIODB.MSTYPE), ".\n"))
-			next
-		}
-
-		# Transform entry in data frame
-		e.df <- e$getFieldsAsDataFrame(only.atomic = FALSE)
-
-		# Append entry to final data frame
-		entries.df <- plyr::rbind.fill(entries.df, e.df)
-	}
-
-	# Export peaks data frame
-	if ( ! is.null(entries.df))
-		write.table(entries.df, file = opt$output, sep = "\t", row.names = FALSE)
+# Get entry IDs
+if (is.null(opt$mzfile)) {
+	entry.ids <- conn$getEntryIds(max.results = opt$max, ms.level = opt$mslevel)
+} else {
+	entry.ids <- search.for.entry.ids(conn = conn, file = opt$mzfile, sep = opt$mzsep, mz.field = opt$mzfield, tol = opt$mztol, tolunit = opt$mztolunit, max = opt$max, ms.level = opt$mslevel)
 }
+
+# Get entries
+cat("\n")
+cat('================================================================================')
+cat("Getting entries.\n\n")
+spectra.entries <- biodb$getFactory()$getEntry('massbank.jp', entry.ids)
+
+# Write spectra peaks as CSV database
+cat("\n")
+cat('================================================================================')
+cat("Writing data frame.\n\n")
+df <- biodb$entriesToDataframe(spectra.entries, only.atomic = FALSE, compute = FALSE)
+write.table(df, file = opt$output, sep = opt$outputsep, row.names = FALSE, col.names = TRUE)

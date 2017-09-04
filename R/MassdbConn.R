@@ -146,6 +146,15 @@ MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol
 	return(res)
 })
 
+# Get entry ids {{{1
+################################################################
+
+MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level = 0) {
+	":\n\nGet entry identifiers from the database."
+
+	.self$.abstract.method()
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 
@@ -170,7 +179,7 @@ MassdbConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.
 	.self$.abstract.method()
 })
 
-# Do get mz values {{{1
+# Do get mz values {{{2
 ################################################################
 
 MassdbConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
