@@ -47,7 +47,8 @@ read.args <-  function() {
 		'mztolunit',        'u',            1,  'character',    paste('The M/Z tolerance unit to use. Default is ', DFT.MZ.TOL.UNIT, '.', sep = ''),
 		'max',              'm',            1,  'integer',      paste('The maximum number of entries to retrieve. Default is ', DFT.MAX, '.', sep = ''),
 		'output',           'o',            1,  'character',    paste('The path to the output file. Replacement tags can be used: %d for the database name, %m for the maximum of entries, %l for the MS level, %t for the tolerance and %u for the tolerance unit. Default is "', DFT.OUTPUT.FILE, '".', sep = ''),
-		'outputsep',        'S',            1,  'character',    paste('The separator character used in the output file. Default is tabulation.', sep = '') 
+		'outputsep',        'S',            1,  'character',    paste('The separator character used in the output file. Default is tabulation.', sep = ''),
+		'restricttomz',     'x',            0,  'logical',      'Restrict output to M/Z values input from M/Z file (-z), within the specified tolerance.'
 		)
 	spec <- matrix(spec, byrow = TRUE, ncol = 5)
 	opt <- getopt::getopt(spec)
@@ -83,13 +84,7 @@ read.args <-  function() {
 # Search for entry IDs {{{1
 ################################################################
 
-search.for.entry.ids <- function(conn, file, sep, mz.field, tol, tolunit, max, ms.level) {
-
-	# Load file into data frame
-	df <- read.table(file, sep = sep, header = TRUE)
-
-	# Get M/Z values
-	mz.values <- df[[mz.field]]
+search.for.entry.ids <- function(conn, mz.values, tol, tolunit, max, ms.level) {
 
 	# Get some Massbank MS spectra for each M/Z value
 	mz.to.spectra.ids <- list()
@@ -137,6 +132,32 @@ search.for.entry.ids <- function(conn, file, sep, mz.field, tol, tolunit, max, m
 	return(spectra.ids)
 }
 
+# Restrict to M/Z input {{{1
+################################################################
+
+restrict.to.mz.input <- function(df, mz.values, tol, tolunit) {
+
+	print('********************************************************************************restrict.to.mz.input 01')
+	selected.lines <- logical(nrow(df))
+
+	for (mz in mz.values) {
+
+		# Set range
+		if (tolunit == 'ppm') {
+			mz.min <- mz * (1 - tol) * 1e-6
+			mz.max <- mz * (1 + tol) * 1e-6
+		} else {
+			mz.min <- mz - tol
+			mz.max <- mz + tol
+		}
+
+		# Filter data frame on range
+		selected.lines <- selected.lines | (df[['peak.mz']] >= mz.min & df[['peak.mz']] <= mz.max)
+	}
+
+	return(df[selected.lines,])
+}
+
 # MAIN {{{1
 ################################################################
 
@@ -154,7 +175,9 @@ conn <- biodb$getFactory()$createConn(opt$database)
 if (is.null(opt$mzfile)) {
 	entry.ids <- conn$getEntryIds(max.results = opt$max, ms.level = opt$mslevel)
 } else {
-	entry.ids <- search.for.entry.ids(conn = conn, file = opt$mzfile, sep = opt$mzsep, mz.field = opt$mzfield, tol = opt$mztol, tolunit = opt$mztolunit, max = opt$max, ms.level = opt$mslevel)
+	df <- read.table(opt$mzfile, sep = opt$mzsep, header = TRUE)
+	mz.values <- df[[opt$mzfield]]
+	entry.ids <- search.for.entry.ids(conn = conn, mz.values = mz.values, tol = opt$mztol, tolunit = opt$mztolunit, max = opt$max, ms.level = opt$mslevel)
 }
 
 # Get entries
@@ -174,4 +197,8 @@ filename <- sub('%t', opt$mztol, filename)
 filename <- sub('%u', opt$mztolunit, filename)
 cat("Writing data frame into ", filename,".\n\n", sep = '')
 df <- biodb$entriesToDataframe(spectra.entries, only.atomic = FALSE, compute = FALSE)
+
+if ( ! is.null(opt$mzfile) && ! is.null(opt$restricttomz))
+	df <- restrict.to.mz.input(df, mz.values = mz.values, tol = opt$mztol, tolunit = opt$mztolunit)
+
 write.table(df, file = filename, sep = opt$outputsep, row.names = FALSE, col.names = TRUE)
