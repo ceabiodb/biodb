@@ -15,7 +15,7 @@ SCRIPT.DIR <- dirname(SCRIPT.PATH)
 if ( ! R.utils::isAbsolutePath(SCRIPT.DIR)) SCRIPT.DIR <- file.path(getwd(), SCRIPT.DIR)
 PROG.NAME <- sub('^.*/([^/]+)$', '\\1', commandArgs()[4], perl = TRUE)
 
-DFT.MAX <- 500
+DFT.MAX <- 0
 DFT.MZ.FIELD <- 'mz'
 DFT.MZ.SEP <- "\t"
 DFT.MZ.TOL <- 0.01
@@ -45,7 +45,7 @@ read.args <-  function() {
 		'mzsep',            's',            1,  'character',    paste('The separator used inside the M/Z file. Default is tabulation.', sep = ''),
 		'mztol',            't',            1,  'numeric',      paste('The M/Z tolerance to use. Default is ', DFT.MZ.TOL, '.', sep = ''),
 		'mztolunit',        'u',            1,  'character',    paste('The M/Z tolerance unit to use. Default is ', DFT.MZ.TOL.UNIT, '.', sep = ''),
-		'max',              'm',            1,  'integer',      paste('The maximum number of entries to retrieve. Default is ', DFT.MAX, '.', sep = ''),
+		'max',              'm',            1,  'integer',      paste('The maximum number of entries to retrieve. Set it to 0 to get all entries. Default is ', DFT.MAX, '.', sep = ''),
 		'output',           'o',            1,  'character',    paste('The path to the output file. Replacement tags can be used: %d for the database name, %m for the maximum of entries, %l for the MS level, %t for the tolerance and %u for the tolerance unit. Default is "', DFT.OUTPUT.FILE, '".', sep = ''),
 		'outputsep',        'S',            1,  'character',    paste('The separator character used in the output file. Default is tabulation.', sep = ''),
 		'restricttomz',     'x',            0,  'logical',      'Restrict output to M/Z values input from M/Z file (-z), within the specified tolerance.'
