@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include RemotedbConn.R
+#' @include CompounddbConn.R
 
 # Class declaration {{{1
 ################################################################
 
-ChebiConn <- methods::setRefClass("ChebiConn", contains = "RemotedbConn")
+ChebiConn <- methods::setRefClass("ChebiConn", contains = "CompounddbConn")
 
 # Constructor {{{1
 ################################################################
@@ -58,4 +58,27 @@ ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	ids <- sub('CHEBI:', '', ids)
 
 	return(ids)
+})
+
+# Search compound {{{1
+################################################################
+
+CompounddbConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 1, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	id <- NULL
+	
+	# Search by name
+	if ( ! is.null(name)) {
+		# Build request
+		xml.request <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><SOAP-ENV:Body><tns:getLiteEntity xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\"><tns:search>1*</tns:search><tns:searchCategory>CHEBI ID</tns:searchCategory><tns:maximumResults>", max.results, "</tns:maximumResults><tns:stars></tns:stars></tns:getLiteEntity></SOAP-ENV:Body></SOAP-ENV:Envelope>")
+	}
+
+	# Search by mass
+	if ( ! is.null(mass)) {
+	}
+
+	if (is.null(id))
+		id <- character(0)
+
+	return(id)
 })

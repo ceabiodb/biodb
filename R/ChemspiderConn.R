@@ -142,23 +142,45 @@ ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
 	return(id)
 })
 
-# Search entry by mass {{{1
+# Search compound {{{1
 ################################################################
 
-ChemspiderConn$methods( searchEntryByMass = function(mass, tol, max.results = NA_integer_) {
+ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 1, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
-	# Send request
-	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = tol))
+	id <- NULL
 
-	# Parse XML
-	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
+	# Send request on mass
+	if ( ! is.null(mass)) {
+		if (mass.tol.unit == 'ppm')
+			range <- mass * mass.tol * 1.e-6
+		else
+			range <- mass.tol
+		xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = range))
 
-	# Get IDs
-	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = .self$.ns)
+		# Parse XML
+		xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
 
-	# Cut
-	if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))
-		id <- id[1:max.results]
+		# Get IDs
+		id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = .self$.ns)
+
+		# Cut
+		if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))
+			id <- id[1:max.results]
+	}
+
+	# Search by name
+	if ( ! is.null(name)) {
+
+		# TODO
+
+		# Merge with already found IDs
+		if ( ! is.null(id)) {
+			# TODO
+		}
+	}
+
+	if (is.null(id))
+		id <- character(0)
 
 	return(id)
 })
@@ -171,5 +193,5 @@ ChemspiderConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of ChemSpider entries.")
 
-	return(.self$searchEntryByMass(100, 10, max.results = max.results))
+	return(.self$searchCompound(mass = 100, mass.tol = 10, max.results = max.results))
 })
