@@ -21,6 +21,8 @@ ChebiEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('MASS', "//chebi:mass")
 	.self$addParsingExpression('MONOISOTOPIC.MASS', "//chebi:monoisotopicMass")
 	.self$addParsingExpression('CHARGE', "//chebi:charge")
+	.self$addParsingExpression('name', "//chebi:chebiAsciiName")
+	.self$addParsingExpression('synonyms', "//chebi:Synonyms/chebi:data")
 })
 
 # Parse fields after {{{1

@@ -3,6 +3,7 @@
 source('common.R')
 source('db-generic-tests.R')
 source('db-ms-tests.R')
+source('db-compound-tests.R')
 source('db-hmdb-tests.R')
 
 # MAIN {{{1
@@ -40,6 +41,11 @@ for (mode in TEST.MODES) {
 			# Test HMDB Metabolite number of entries
 			if (db.name == BIODB.HMDB.METABOLITE && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 				run.db.test("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', db)
+
+			# Compound database testing
+			if (methods::is(db, 'CompounddbConn')) {
+				run.db.test('We can search for a compound', 'test.searchCompound', db)
+			}
 
 			# Mass database testing
 			if (methods::is(db, 'MassdbConn')) {
