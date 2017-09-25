@@ -1,11 +1,12 @@
 # vi: fdm=marker
 
 #' @include CompounddbConn.R
+#' @include RemotedbConn.R
 
 # Class declaration {{{1
 ################################################################
 
-ChebiConn <- methods::setRefClass("ChebiConn", contains = "CompounddbConn")
+ChebiConn <- methods::setRefClass("ChebiConn", contains = c("CompounddbConn", "RemotedbConn"))
 
 # Constructor {{{1
 ################################################################
