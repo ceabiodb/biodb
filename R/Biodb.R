@@ -179,7 +179,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 # Entries to data frame {{{1
 ################################################################
 
-Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE, compute = TRUE) {
+Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE, compute = TRUE, fields = NULL, drop = FALSE) {
 	":\n\nConvert a list of entries (\\code{BiodbEntry} objects) into a data frame."
 
 	if ( ! is.list(entries))
@@ -201,7 +201,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 			n <- n + 1
 			.self$message('debug', paste("Processing entry", n, "/", length(entries), "..."))
 			if ( ! is.null(e)) {
-				e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic, compute = compute)
+				e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic, compute = compute, fields = fields)
 				entries.df <- plyr::rbind.fill(entries.df, e.df)
 			}
 			else if (null.to.na) {
@@ -212,7 +212,11 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 		}
 	}
 
-return(entries.df)
+	# Drop
+	if (drop && ! is.null(entries.df) && ncol(entries.df) == 1)
+		entries.df <- entries.df[[1]]
+
+	return(entries.df)
 })
 
 # DEPRECATED METHODS {{{1

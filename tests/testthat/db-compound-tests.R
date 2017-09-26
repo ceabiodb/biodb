@@ -16,10 +16,24 @@ test.searchCompound <- function(db) {
 	ids <- db$searchCompound(name = name)
 	expect_true( ! is.null(ids))
 	expect_true(length(ids) > 0)
+	expect_true(id %in% ids)
 
 	# Search by mass
-	mass <- entry$getFieldValue('mass')
+	mass <- entry$getFieldValue('monoisotopic.mass')
 	ids <- db$searchCompound(mass = mass)
 	expect_true( ! is.null(ids))
 	expect_true(length(ids) > 0)
+	expect_true(id %in% ids)
+
+	# Search by exact mass and name
+	ids <- db$searchCompound(name = name, mass = mass)
+	expect_true( ! is.null(ids))
+	expect_true(length(ids) > 0)
+	expect_true(id %in% ids)
+
+	# Search by slightly different mass and name
+	ids <- db$searchCompound(name = name, mass = mass - 0.1, mass.tol = 0.2)
+	expect_true( ! is.null(ids))
+	expect_true(length(ids) > 0)
+	expect_true(id %in% ids)
 }

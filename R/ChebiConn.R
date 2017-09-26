@@ -80,7 +80,8 @@ ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Search compound {{{1
 ################################################################
 
-ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 1, mass.tol.unit = 'plain', max.results = NA_integer_) {
+ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+	":\n\nSearch for compounds by name and/or by monoisotopic mass."
 
 	id <- NULL
 	
@@ -90,12 +91,29 @@ ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol 
 
 	# Search by mass
 	if ( ! is.null(mass)) {
-		mass.ids <- .self$ws.getLiteEntity(search = mass, search.category = "MASS", max.results = 0)
 
-		if (is.null(id))
-			id <- mass.ids
-		else
-			id <- id[id %in% mass.ids]
+		if (is.null(id)) {
+			.self$message('caution', 'ChEBI does not use any tolerance while searching for compounds by mass. Thus, only compounds matching exactly the specified mass will be matched.')
+			id <- .self$ws.getLiteEntity(search = mass, search.category = "MONOISOTOPIC MASS", max.results = 0)
+		}
+		else {
+			.self$message('caution', 'Since ChEBI does not use tolerance while searching for compounds by mass, we will do filtering by mass directly on results obtained from the search by name.')
+
+			if (mass.tol.unit == 'ppm') {
+				mass.min <- mass * (1 - mass.tol * 1e-6)
+				mass.max <- mass * (1 + mass.tol * 1e-6)
+			} else {
+				mass.min <- mass - mass.tol
+				mass.max <- mass + mass.tol
+			}
+
+			# Get masses of all entries
+			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id, drop = FALSE)
+			masses <- .self$getBiodb()$entriesToDataframe(entries, compute = FALSE, fields = 'monoisotopic.mass', drop = TRUE)
+
+			# Filter on mass
+			id <- id[(masses >= mass.min) & (masses <= mass.max)]
+		}
 	}
 
 	if (is.null(id))
