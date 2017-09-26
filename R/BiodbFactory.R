@@ -182,72 +182,77 @@ BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
 BiodbFactory$methods( getEntryContent = function(dbid, id) {
 	":\n\nGet the contents of database entries from IDs (accession numbers)."
 
-	id <- as.character(id)
+	content <- character(0)
 
-	# Debug
-	.self$message('info', paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
+	if ( ! is.null(id) && length(id) > 0) {
 
-	# Download full database if possible
-	if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(dbid), 'BiodbDownloadable')) {
-		.self$message('debug', paste('Ask for whole database download of ', dbid, '.', sep = ''))
-		.self$getConn(dbid)$download()
-	}
+		id <- as.character(id)
 
-	# Initialize content
-	if (.self$getBiodb()$getCache()$isReadable()) {
-		# Load content from cache
-		content <- .self$getBiodb()$getCache()$loadFileContent(dbid = dbid, subfolder = 'shortterm', name = id, ext = .self$getConn(dbid)$getEntryContentType())
-		missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
-	}
-	else {
-		content <- lapply(id, as.null)
-		missing.ids <- id
-	}
+		# Debug
+		.self$message('info', paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
 
-	# Remove duplicates
-	n.duplicates <- sum(duplicated(missing.ids))
-	missing.ids <- missing.ids[ ! duplicated(missing.ids)]
-
-	# Debug
-	if (any(is.na(id)))
-		.self$message('info', paste0(sum(is.na(id)), " ", dbid, " entry ids are NA."))
-	if (.self$getBiodb()$getCache()$isReadable()) {
-		.self$message('info', paste0(sum( ! is.na(id)) - length(missing.ids), " ", dbid, " entry content(s) loaded from cache."))
-		if (n.duplicates > 0)
-			.self$message('info', paste0(n.duplicates, " ", dbid, " entry ids, whose content needs to be fetched, are duplicates."))
-	}
-
-	# Get contents
-	if (length(missing.ids) > 0 && ( ! methods::is(.self$getConn(dbid), 'BiodbDownloadable') || ! .self$getConn(dbid)$isDownloaded())) {
-
-		.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", dbid, " database."))
-
-		# Use connector to get missing contents
-		conn <- .self$getConn(dbid)
-
-		# Divide list of missing ids in chunks (in order to save in cache regularly)
-		chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
-
-		# Loop on chunks
-		missing.contents <- NULL
-		for (ch.missing.ids in chunks.of.missing.ids) {
-
-			ch.missing.contents <- conn$getEntryContent(ch.missing.ids)
-
-			# Save to cache
-			if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-				.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, dbid = dbid, subfolder = 'shortterm', name = ch.missing.ids, ext = .self$getConn(dbid)$getEntryContentType())
-
-			# Append
-			missing.contents <- c(missing.contents, ch.missing.contents)
-
-			# Debug
-			if (.self$getBiodb()$getCache()$isReadable())
-				.self$message('info', paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+		# Download full database if possible
+		if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(dbid), 'BiodbDownloadable')) {
+			.self$message('debug', paste('Ask for whole database download of ', dbid, '.', sep = ''))
+			.self$getConn(dbid)$download()
 		}
 
-		# Merge content and missing.contents
-		content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.ids %in% x], FUN.VALUE = '')
+		# Initialize content
+		if (.self$getBiodb()$getCache()$isReadable()) {
+			# Load content from cache
+			content <- .self$getBiodb()$getCache()$loadFileContent(dbid = dbid, subfolder = 'shortterm', name = id, ext = .self$getConn(dbid)$getEntryContentType())
+			missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
+		}
+		else {
+			content <- lapply(id, as.null)
+			missing.ids <- id
+		}
+
+		# Remove duplicates
+		n.duplicates <- sum(duplicated(missing.ids))
+		missing.ids <- missing.ids[ ! duplicated(missing.ids)]
+
+		# Debug
+		if (any(is.na(id)))
+			.self$message('info', paste0(sum(is.na(id)), " ", dbid, " entry ids are NA."))
+		if (.self$getBiodb()$getCache()$isReadable()) {
+			.self$message('info', paste0(sum( ! is.na(id)) - length(missing.ids), " ", dbid, " entry content(s) loaded from cache."))
+			if (n.duplicates > 0)
+				.self$message('info', paste0(n.duplicates, " ", dbid, " entry ids, whose content needs to be fetched, are duplicates."))
+		}
+
+		# Get contents
+		if (length(missing.ids) > 0 && ( ! methods::is(.self$getConn(dbid), 'BiodbDownloadable') || ! .self$getConn(dbid)$isDownloaded())) {
+
+			.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", dbid, " database."))
+
+			# Use connector to get missing contents
+			conn <- .self$getConn(dbid)
+
+			# Divide list of missing ids in chunks (in order to save in cache regularly)
+			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
+
+			# Loop on chunks
+			missing.contents <- NULL
+			for (ch.missing.ids in chunks.of.missing.ids) {
+
+				ch.missing.contents <- conn$getEntryContent(ch.missing.ids)
+
+				# Save to cache
+				if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
+					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, dbid = dbid, subfolder = 'shortterm', name = ch.missing.ids, ext = .self$getConn(dbid)$getEntryContentType())
+
+				# Append
+				missing.contents <- c(missing.contents, ch.missing.contents)
+
+				# Debug
+				if (.self$getBiodb()$getCache()$isReadable())
+					.self$message('info', paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+			}
+
+			# Merge content and missing.contents
+			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.ids %in% x], FUN.VALUE = '')
+		}
 	}
 
 	return(content)

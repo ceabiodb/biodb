@@ -45,6 +45,9 @@ for (mode in TEST.MODES) {
 			# Compound database testing
 			if (methods::is(db, 'CompounddbConn')) {
 				run.db.test('We can search for a compound', 'test.searchCompound', db)
+				if (db.name == 'chebi') {
+					run.db.test("Test bug 20170926.01 for ChEBI.", 'test.chebi.searchCompound.bug.20170926.01', db)
+				}
 			}
 
 			# Mass database testing

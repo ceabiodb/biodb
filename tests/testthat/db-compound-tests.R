@@ -37,3 +37,13 @@ test.searchCompound <- function(db) {
 	expect_true(length(ids) > 0)
 	expect_true(id %in% ids)
 }
+
+# Test ChEBI searchCompound for bug 20170926.01
+################################################################
+
+test.chebi.searchCompound.bug.20170926.01 <- function(db) {
+
+	ids <- db$searchCompound(name = "(gamma)Glu-Leu/Ile", mass = 260.1362)
+	expect_true( ! is.null(ids))
+	expect_true(length(ids) == 0) # This name is not recognized by ChEBI
+}
