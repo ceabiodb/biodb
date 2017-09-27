@@ -65,7 +65,7 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.
 # Get url {{{1
 ################################################################
 
-UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts()) {
+UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = integer()) {
 	":\n\nSend a URL request, either with GET or POST method, and return result."
 
 	content <- NA_character_
@@ -114,7 +114,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 					# Wait required time between two requests
 					.self$.wait.as.needed()
 
-					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer)
+					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = encoding)
 					if (.self$getBiodb()$getConfig()$get('cache.all.requests'))
 						.self$getBiodb()$getCache()$saveContentToFile(content, dbid = method, subfolder = 'shortterm', name = request.key, ext = 'content')
 				}
@@ -129,7 +129,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 					# Wait required time between two requests
 					.self$.wait.as.needed()
 
-					content <- RCurl::postForm(url, .opts = opts, .params = params)
+					content <- RCurl::postForm(url, .opts = opts, .params = params, .encoding = encoding)
 				}
 			},
 				error = function(e) {

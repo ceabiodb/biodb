@@ -5,6 +5,7 @@ source('db-generic-tests.R')
 source('db-ms-tests.R')
 source('db-compound-tests.R')
 source('db-hmdb-tests.R')
+source('db-chebi-tests.R')
 
 # MAIN {{{1
 ################################################################
@@ -41,6 +42,10 @@ for (mode in TEST.MODES) {
 			# Test HMDB Metabolite number of entries
 			if (db.name == BIODB.HMDB.METABOLITE && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 				run.db.test("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', db)
+
+			# Test ChEBI
+			if (db.name == 'chebi' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+				run.db.test('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
 
 			# Compound database testing
 			if (methods::is(db, 'CompounddbConn')) {

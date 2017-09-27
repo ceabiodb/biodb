@@ -32,7 +32,7 @@ ChebiConn$methods( getEntryContent = function(entry.id) {
 	content <- rep(NA_character_, length(entry.id))
 
 	# Request
-	content <- vapply(entry.id, function(x) .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(x)), FUN.VALUE = '')
+	content <- vapply(entry.id, function(x) .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(x), encoding = 'UTF-8'), FUN.VALUE = '')
 
 	return(content)
 })
