@@ -142,8 +142,14 @@ BiodbCache$methods( loadFileContent = function(dbid, subfolder, name, ext, outpu
 	# Check that the read content is not conflicting with the current locale
 	for (i in seq(content)) {
 		n <- tryCatch(nchar(content[[i]]), error = function(e) NULL)
-		if (is.null(n))
-			.self$message('error', paste("Impossible to handle correctly the content of file \"", file.paths[[i]], "\". Your current locale might be conflicting with functions like `nchar` or `strsplit`. Please, set your locale to 'C' (`Sys.setlocale(locale = 'C')`), or enable option `` in biodb configuration.", sep = ''))
+		if (is.null(n)) {
+			.self$message('caution', paste("Error when reading content of file \"", file.paths[[i]], "\". The function `nchar` returned an error on the content. The file must be written in a unexpected encoding like latin-1.", sep = ''))
+			# The encoding may be wrong, try another one. Maybe LATIN-1
+			content[[i]] <- iconv(content[[i]], "iso8859-1")
+			n <- tryCatch(nchar(content[[i]]), error = function(e) NULL)
+			if (is.null(n))
+				.self$message('error', paste("Impossible to handle correctly the content of file \"", file.paths[[i]], "\". The encoding of this file is unknown.", sep = ''))
+		}
 	}
 
 	# Set to NA
