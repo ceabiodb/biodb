@@ -55,7 +55,7 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 	xml.request <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><SOAP-ENV:Body><tns:getLiteEntity xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\"><tns:search>", search, "</tns:search><tns:searchCategory>", search.category, "</tns:searchCategory><tns:maximumResults>", max.results, "</tns:maximumResults><tns:stars>", stars, "</tns:stars></tns:getLiteEntity></SOAP-ENV:Body></SOAP-ENV:Envelope>")
 
 	# Send request
-	xml.results <- .self$.getUrlScheduler()$sendSoapRequest('http://www.ebi.ac.uk:80/webservices/chebi/2.0/webservice', xml.request)
+	xml.results <- .self$.getUrlScheduler()$sendSoapRequest('http://www.ebi.ac.uk:80/webservices/chebi/2.0/webservice', xml.request, encoding = 'UTF-8')
 
 	# Set XML namespace
 	ns <- c(chebi = "http://www.ebi.ac.uk/webservices/chebi")

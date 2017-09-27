@@ -65,9 +65,8 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 	# Create entry fields
 	.entry.fields <<- BiodbEntryFields$new(parent = .self)
 
-	# Force locale to C
-	if (.self$.config$isEnabled('force.c.locale'))
-		Sys.setlocale(locale = 'C')
+	# Check locale
+	.self$.check.locale()
 })
 
 # Get configuration {{{1
@@ -217,6 +216,35 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 		entries.df <- entries.df[[1]]
 
 	return(entries.df)
+})
+
+# PRIVATE METHODS {{{1
+################################################################
+
+# Check locale {{{2
+################################################################
+
+Biodb$methods( .check.locale = function() {
+
+	# Get locale
+	locale <- Sys.getlocale()
+	locale.split <- strsplit(strsplit(Sys.getlocale(), ';')[[1]], '=')
+	if (length(locale.split) == 1)
+		LC_CTYPE <- locale.split[[1]][[1]]
+	else {
+		keys <- vapply(locale.split, function(x) x[[1]], FUN.VALUE = '')
+		locale.values <- vapply(locale.split, function(x) x[[2]], FUN.VALUE = '')
+		names(locale.values) <- keys
+		LC_CTYPE <- locale.values[['LC_CTYPE']]
+	}
+
+	# Check LC_CTYPE
+	if (length(grep('\\.utf-8$', tolower(LC_CTYPE))) == 0) {
+		if (.self$.config$isEnabled('force.locale'))
+			Sys.setlocale(locale = 'en_US.UTF-8') # Force locale
+		else
+			.self$message('warning', paste("LC_CTYPE field of locale is set to ", LC_CTYPE, ". It must be set to a UTF-8 locale like 'en_US.UTF-8'."))
+	}
 })
 
 # DEPRECATED METHODS {{{1

@@ -45,7 +45,7 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
 # Send soap request {{{1
 ################################################################
 
-UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_) {
+UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_, encoding = integer()) {
 	":\n\nSend a SOAP request to a URL. Returns the string result."
 
 	.self$.check.offline.mode()
@@ -57,7 +57,7 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.
 	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = soap.request))
 
 	# Send request
-	results <- .self$getUrl(url, method = 'post', opts = opts)
+	results <- .self$getUrl(url, method = 'post', opts = opts, encoding = encoding)
 
 	return(results)
 })
