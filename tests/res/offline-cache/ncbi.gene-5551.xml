@@ -22,11 +22,8 @@
           <Date_std>
             <Date-std>
               <Date-std_year>2017</Date-std_year>
-              <Date-std_month>2</Date-std_month>
-              <Date-std_day>5</Date-std_day>
-              <Date-std_hour>16</Date-std_hour>
-              <Date-std_minute>53</Date-std_minute>
-              <Date-std_second>0</Date-std_second>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>17</Date-std_day>
             </Date-std>
           </Date_std>
         </Date>
@@ -52,10 +49,6 @@
               </Dbtag_tag>
             </Dbtag>
           </Org-ref_db>
-          <Org-ref_syn>
-            <Org-ref_syn_E>humans</Org-ref_syn_E>
-            <Org-ref_syn_E>man</Org-ref_syn_E>
-          </Org-ref_syn>
           <Org-ref_orgname>
             <OrgName>
               <OrgName_name>
@@ -66,6 +59,7 @@
                   </BinomialOrgName>
                 </OrgName_name_binomial>
               </OrgName_name>
+              <OrgName_attrib>specified</OrgName_attrib>
               <OrgName_lineage>Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini; Catarrhini; Hominidae; Homo</OrgName_lineage>
               <OrgName_gcode>1</OrgName_gcode>
               <OrgName_mgcode>2</OrgName_mgcode>
@@ -124,8 +118,6 @@
       <Gene-ref_syn>
         <Gene-ref_syn_E>P1</Gene-ref_syn_E>
         <Gene-ref_syn_E>PFP</Gene-ref_syn_E>
-        <Gene-ref_syn_E>FLH2</Gene-ref_syn_E>
-        <Gene-ref_syn_E>PFN1</Gene-ref_syn_E>
         <Gene-ref_syn_E>HPLH2</Gene-ref_syn_E>
       </Gene-ref_syn>
     </Gene-ref>
@@ -134,13 +126,13 @@
     <Prot-ref>
       <Prot-ref_name>
         <Prot-ref_name_E>cytolysin</Prot-ref_name_E>
-        <Prot-ref_name_E>lymphocyte pore forming protein</Prot-ref_name_E>
+        <Prot-ref_name_E>lymphocyte pore-forming protein</Prot-ref_name_E>
         <Prot-ref_name_E>perforin 1 (pore forming protein)</Prot-ref_name_E>
       </Prot-ref_name>
       <Prot-ref_desc>perforin-1</Prot-ref_desc>
     </Prot-ref>
   </Entrezgene_prot>
-  <Entrezgene_summary>The protein encoded by this gene has structural and functional similarities to complement component 9 (C9). Like C9, this protein creates transmembrane tubules and is capable of lysing non-specifically a variety of target cells. This protein is one of the main cytolytic proteins of cytolytic granules, and it is known to be a key effector molecule for T-cell- and natural killer-cell-mediated cytolysis. Defects in this gene cause familial hemophagocytic lymphohistiocytosis type 2 (HPLH2), a rare and lethal autosomal recessive disorder of early childhood. Alternative splicing results in multiple transcript variants encoding the same protein. [provided by RefSeq, Jul 2008]</Entrezgene_summary>
+  <Entrezgene_summary>This gene encodes a protein with structural similarities to complement component C9 that is important in immunity. This protein forms membrane pores that allow the release of granzymes and subsequent cytolysis of target cells. Whether pore formation occurs in the plasma membrane of target cells or in an endosomal membrane inside target cells is subject to debate. Mutations in this gene are associated with a variety of human disease including diabetes, multiple sclerosis, lymphomas, autoimmune lymphoproliferative syndrome (ALPS), aplastic anemia, and familial hemophagocytic lymphohistiocytosis type 2 (FHL2), a rare and lethal autosomal recessive disorder of early childhood. [provided by RefSeq, Aug 2017]</Entrezgene_summary>
   <Entrezgene_location>
     <Maps>
       <Maps_display-str>10q22.1</Maps_display-str>
@@ -1216,6 +1208,32 @@
               <Gene-commentary_refs>
                 <Pub>
                   <Pub_pmid>
+                    <PubMedId>9756476</PubMedId>
+                  </Pub_pmid>
+                </Pub>
+              </Gene-commentary_refs>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>GO</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>51712</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>positive regulation of killing of cells of other organism</Other-source_anchor>
+                  <Other-source_post-text>evidence: IDA</Other-source_post-text>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
+            <Gene-commentary>
+              <Gene-commentary_type value="comment">254</Gene-commentary_type>
+              <Gene-commentary_refs>
+                <Pub>
+                  <Pub_pmid>
                     <PubMedId>20889983</PubMedId>
                   </Pub_pmid>
                 </Pub>
@@ -1262,6 +1280,32 @@
           <Gene-commentary_type value="comment">254</Gene-commentary_type>
           <Gene-commentary_label>Component</Gene-commentary_label>
           <Gene-commentary_comment>
+            <Gene-commentary>
+              <Gene-commentary_type value="comment">254</Gene-commentary_type>
+              <Gene-commentary_refs>
+                <Pub>
+                  <Pub_pmid>
+                    <PubMedId>9756476</PubMedId>
+                  </Pub_pmid>
+                </Pub>
+              </Gene-commentary_refs>
+              <Gene-commentary_source>
+                <Other-source>
+                  <Other-source_src>
+                    <Dbtag>
+                      <Dbtag_db>GO</Dbtag_db>
+                      <Dbtag_tag>
+                        <Object-id>
+                          <Object-id_id>44194</Object-id_id>
+                        </Object-id>
+                      </Dbtag_tag>
+                    </Dbtag>
+                  </Other-source_src>
+                  <Other-source_anchor>cytolytic granule</Other-source_anchor>
+                  <Other-source_post-text>evidence: IDA</Other-source_post-text>
+                </Other-source>
+              </Gene-commentary_source>
+            </Gene-commentary>
             <Gene-commentary>
               <Gene-commentary_type value="comment">254</Gene-commentary_type>
               <Gene-commentary_source>
@@ -1414,28 +1458,6 @@
       </Gene-commentary_comment>
     </Gene-commentary>
   </Entrezgene_properties>
-  <Entrezgene_homology>
-    <Gene-commentary>
-      <Gene-commentary_type value="comment">254</Gene-commentary_type>
-      <Gene-commentary_heading>Mouse, Rat</Gene-commentary_heading>
-      <Gene-commentary_source>
-        <Other-source>
-          <Other-source_src>
-            <Dbtag>
-              <Dbtag_db>HomoloGene</Dbtag_db>
-              <Dbtag_tag>
-                <Object-id>
-                  <Object-id_id>3698</Object-id_id>
-                </Object-id>
-              </Dbtag_tag>
-            </Dbtag>
-          </Other-source_src>
-          <Other-source_anchor>Map Viewer</Other-source_anchor>
-          <Other-source_url>https://www.ncbi.nlm.nih.gov/mapview/maps.cgi?taxid=9606&amp;chr=10&amp;MAPS=genes-r-org/rat-chr/human%3A10,genes-r-org/mouse-chr/human%3A10,genes-r-org/human-chr10&amp;query=e%3A5551[egene_id]+AND+gene[obj_type]&amp;QSTR=prf1&amp;cmd=focus&amp;fill=10</Other-source_url>
-        </Other-source>
-      </Gene-commentary_source>
-    </Gene-commentary>
-  </Entrezgene_homology>
   <Entrezgene_comments>
     <Gene-commentary>
       <Gene-commentary_type value="comment">254</Gene-commentary_type>
@@ -1520,6 +1542,31 @@
     <Gene-commentary>
       <Gene-commentary_type value="comment">254</Gene-commentary_type>
       <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>28757574</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27846431</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27781387</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27391055</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27271812</PubMedId>
+          </Pub_pmid>
+        </Pub>
         <Pub>
           <Pub_pmid>
             <PubMedId>26897841</PubMedId>
@@ -2347,6 +2394,11 @@
         </Pub>
         <Pub>
           <Pub_pmid>
+            <PubMedId>9756476</PubMedId>
+          </Pub_pmid>
+        </Pub>
+        <Pub>
+          <Pub_pmid>
             <PubMedId>9671507</PubMedId>
           </Pub_pmid>
         </Pub>
@@ -2686,7 +2738,7 @@
               <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
               <Gene-commentary_heading>mRNA Sequence</Gene-commentary_heading>
               <Gene-commentary_accession>NM_001083116</Gene-commentary_accession>
-              <Gene-commentary_version>1</Gene-commentary_version>
+              <Gene-commentary_version>2</Gene-commentary_version>
               <Gene-commentary_source>
                 <Other-source>
                   <Other-source_src>
@@ -2694,7 +2746,7 @@
                       <Dbtag_db>Nucleotide</Dbtag_db>
                       <Dbtag_tag>
                         <Object-id>
-                          <Object-id_id>133908620</Object-id_id>
+                          <Object-id_id>1238789357</Object-id_id>
                         </Object-id>
                       </Dbtag_tag>
                     </Dbtag>
@@ -2706,7 +2758,7 @@
                 <Seq-loc>
                   <Seq-loc_whole>
                     <Seq-id>
-                      <Seq-id_gi>133908620</Seq-id_gi>
+                      <Seq-id_gi>1238789357</Seq-id_gi>
                     </Seq-id>
                   </Seq-loc_whole>
                 </Seq-loc>
@@ -2813,7 +2865,7 @@
                               <Dbtag_db>Ensembl</Dbtag_db>
                               <Dbtag_tag>
                                 <Object-id>
-                                  <Object-id_str>ENSP00000398568</Object-id_str>
+                                  <Object-id_str>ENSP00000398568.1</Object-id_str>
                                 </Object-id>
                               </Dbtag_tag>
                             </Dbtag>
@@ -2880,7 +2932,7 @@
                   <Gene-commentary_comment>
                     <Gene-commentary>
                       <Gene-commentary_type value="comment">254</Gene-commentary_type>
-                      <Gene-commentary_text>Transcript Variant: This variant (2) differs in the 5&apos; UTR compared to variant 1. Variants 1 and 2 encode the same protein.</Gene-commentary_text>
+                      <Gene-commentary_text>Transcript Variant: This variant (2) differs in the 5&apos; UTR compared to variant 1. Both variants 1 and 2 encode the same protein.</Gene-commentary_text>
                     </Gene-commentary>
                   </Gene-commentary_comment>
                 </Gene-commentary>
@@ -2894,12 +2946,12 @@
                           <Dbtag_db>Nucleotide</Dbtag_db>
                           <Dbtag_tag>
                             <Object-id>
-                              <Object-id_str>BC047695,BQ654088,DA941244,X13224</Object-id_str>
+                              <Object-id_str>BC047695,BQ654088,DA941244,HY075867,X13224</Object-id_str>
                             </Object-id>
                           </Dbtag_tag>
                         </Dbtag>
                       </Other-source_src>
-                      <Other-source_anchor>BC047695,BQ654088,DA941244,X13224</Other-source_anchor>
+                      <Other-source_anchor>BC047695,BQ654088,DA941244,HY075867,X13224</Other-source_anchor>
                     </Other-source>
                   </Gene-commentary_source>
                 </Gene-commentary>
@@ -2913,7 +2965,7 @@
                           <Dbtag_db>Ensembl</Dbtag_db>
                           <Dbtag_tag>
                             <Object-id>
-                              <Object-id_str>ENST00000441259</Object-id_str>
+                              <Object-id_str>ENST00000441259.1</Object-id_str>
                             </Object-id>
                           </Dbtag_tag>
                         </Dbtag>
@@ -2927,7 +2979,7 @@
               <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
               <Gene-commentary_heading>mRNA Sequence</Gene-commentary_heading>
               <Gene-commentary_accession>NM_005041</Gene-commentary_accession>
-              <Gene-commentary_version>4</Gene-commentary_version>
+              <Gene-commentary_version>5</Gene-commentary_version>
               <Gene-commentary_source>
                 <Other-source>
                   <Other-source_src>
@@ -2935,7 +2987,7 @@
                       <Dbtag_db>Nucleotide</Dbtag_db>
                       <Dbtag_tag>
                         <Object-id>
-                          <Object-id_id>133908619</Object-id_id>
+                          <Object-id_id>1238789388</Object-id_id>
                         </Object-id>
                       </Dbtag_tag>
                     </Dbtag>
@@ -2947,7 +2999,7 @@
                 <Seq-loc>
                   <Seq-loc_whole>
                     <Seq-id>
-                      <Seq-id_gi>133908619</Seq-id_gi>
+                      <Seq-id_gi>1238789388</Seq-id_gi>
                     </Seq-id>
                   </Seq-loc_whole>
                 </Seq-loc>
@@ -3054,7 +3106,7 @@
                               <Dbtag_db>Ensembl</Dbtag_db>
                               <Dbtag_tag>
                                 <Object-id>
-                                  <Object-id_str>ENSP00000362305</Object-id_str>
+                                  <Object-id_str>ENSP00000362305.1</Object-id_str>
                                 </Object-id>
                               </Dbtag_tag>
                             </Dbtag>
@@ -3139,7 +3191,7 @@
                   <Gene-commentary_comment>
                     <Gene-commentary>
                       <Gene-commentary_type value="comment">254</Gene-commentary_type>
-                      <Gene-commentary_text>Transcript Variant: This variant (1) represents the shorter transcript.</Gene-commentary_text>
+                      <Gene-commentary_text>Transcript Variant: This variant (1) represents the shorter transcript. Both variants 1 and 2 encode the same protein.</Gene-commentary_text>
                     </Gene-commentary>
                   </Gene-commentary_comment>
                 </Gene-commentary>
@@ -3153,12 +3205,12 @@
                           <Dbtag_db>Nucleotide</Dbtag_db>
                           <Dbtag_tag>
                             <Object-id>
-                              <Object-id_str>BC047695,BQ654088,DA816891,X13224</Object-id_str>
+                              <Object-id_str>BC047695,BQ654088,DA816891,HY075867,X13224</Object-id_str>
                             </Object-id>
                           </Dbtag_tag>
                         </Dbtag>
                       </Other-source_src>
-                      <Other-source_anchor>BC047695,BQ654088,DA816891,X13224</Other-source_anchor>
+                      <Other-source_anchor>BC047695,BQ654088,DA816891,HY075867,X13224</Other-source_anchor>
                     </Other-source>
                   </Gene-commentary_source>
                 </Gene-commentary>
@@ -3172,25 +3224,7 @@
                           <Dbtag_db>Ensembl</Dbtag_db>
                           <Dbtag_tag>
                             <Object-id>
-                              <Object-id_str>ENST00000373209</Object-id_str>
-                            </Object-id>
-                          </Dbtag_tag>
-                        </Dbtag>
-                      </Other-source_src>
-                    </Other-source>
-                  </Gene-commentary_source>
-                </Gene-commentary>
-                <Gene-commentary>
-                  <Gene-commentary_type value="other">255</Gene-commentary_type>
-                  <Gene-commentary_heading>Related</Gene-commentary_heading>
-                  <Gene-commentary_source>
-                    <Other-source>
-                      <Other-source_src>
-                        <Dbtag>
-                          <Dbtag_db>Vega</Dbtag_db>
-                          <Dbtag_tag>
-                            <Object-id>
-                              <Object-id_str>OTTHUMT00000048517</Object-id_str>
+                              <Object-id_str>ENST00000373209.2</Object-id_str>
                             </Object-id>
                           </Dbtag_tag>
                         </Dbtag>
@@ -4281,6 +4315,42 @@
         <Gene-commentary>
           <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
           <Gene-commentary_heading>mRNA</Gene-commentary_heading>
+          <Gene-commentary_accession>HY075867</Gene-commentary_accession>
+          <Gene-commentary_version>1</Gene-commentary_version>
+          <Gene-commentary_source>
+            <Other-source>
+              <Other-source_src>
+                <Dbtag>
+                  <Dbtag_db>Nucleotide</Dbtag_db>
+                  <Dbtag_tag>
+                    <Object-id>
+                      <Object-id_id>389005727</Object-id_id>
+                    </Object-id>
+                  </Dbtag_tag>
+                </Dbtag>
+              </Other-source_src>
+              <Other-source_anchor>HY075867.1</Other-source_anchor>
+            </Other-source>
+          </Gene-commentary_source>
+          <Gene-commentary_seqs>
+            <Seq-loc>
+              <Seq-loc_whole>
+                <Seq-id>
+                  <Seq-id_gi>389005727</Seq-id_gi>
+                </Seq-id>
+              </Seq-loc_whole>
+            </Seq-loc>
+          </Gene-commentary_seqs>
+          <Gene-commentary_products>
+            <Gene-commentary>
+              <Gene-commentary_type value="peptide">8</Gene-commentary_type>
+              <Gene-commentary_text>None</Gene-commentary_text>
+            </Gene-commentary>
+          </Gene-commentary_products>
+        </Gene-commentary>
+        <Gene-commentary>
+          <Gene-commentary_type value="mRNA">3</Gene-commentary_type>
+          <Gene-commentary_heading>mRNA</Gene-commentary_heading>
           <Gene-commentary_accession>L40557</Gene-commentary_accession>
           <Gene-commentary_version>1</Gene-commentary_version>
           <Gene-commentary_source>
@@ -4687,6 +4757,162 @@
           </Gene-commentary_source>
         </Gene-commentary>
       </Gene-commentary_comment>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>A girl with neurological manifestations of familial hemophagocytic lymphohistiocytosis 2 had reduced perforin 1 expression and was found to be homozygous for a mutation in PRF1 at codon 637 in exon 3 (c.673C&gt;T p.Arg225Trp). Her non-consanguineous parents were both heterozygous carriers of this mutation.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27271812</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>9</Date-std_month>
+              <Date-std_day>16</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>59</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Mutation in PRF1 gene is associated with hemophagocytic lymphohistiocytosis.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27781387</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>7</Date-std_month>
+              <Date-std_day>22</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>41</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>Increased TIM3+CD8+T cells with lower perforin and granzyme B expression and higher CD95 expression in MDS patients were observed.</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27846431</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>24</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>6</Date-std_month>
+              <Date-std_day>24</Date-std_day>
+              <Date-std_hour>11</Date-std_hour>
+              <Date-std_minute>53</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
+    </Gene-commentary>
+    <Gene-commentary>
+      <Gene-commentary_type value="generif">18</Gene-commentary_type>
+      <Gene-commentary_text>ITP patients displayed an increased frequency of rare missense variations of the PRF1 gene</Gene-commentary_text>
+      <Gene-commentary_refs>
+        <Pub>
+          <Pub_pmid>
+            <PubMedId>27391055</PubMedId>
+          </Pub_pmid>
+        </Pub>
+      </Gene-commentary_refs>
+      <Gene-commentary_create-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>27</Date-std_day>
+              <Date-std_hour>10</Date-std_hour>
+              <Date-std_minute>2</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_create-date>
+      <Gene-commentary_update-date>
+        <Date>
+          <Date_std>
+            <Date-std>
+              <Date-std_year>2017</Date-std_year>
+              <Date-std_month>5</Date-std_month>
+              <Date-std_day>27</Date-std_day>
+              <Date-std_hour>12</Date-std_hour>
+              <Date-std_minute>1</Date-std_minute>
+              <Date-std_second>0</Date-std_second>
+            </Date-std>
+          </Date_std>
+        </Date>
+      </Gene-commentary_update-date>
     </Gene-commentary>
     <Gene-commentary>
       <Gene-commentary_type value="generif">18</Gene-commentary_type>
@@ -10700,10 +10926,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2017</Date-std_year>
-                  <Date-std_month>2</Date-std_month>
-                  <Date-std_day>5</Date-std_day>
-                  <Date-std_hour>16</Date-std_hour>
-                  <Date-std_minute>53</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>3</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>5</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10803,10 +11029,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2017</Date-std_year>
-                  <Date-std_month>2</Date-std_month>
-                  <Date-std_day>5</Date-std_day>
-                  <Date-std_hour>16</Date-std_hour>
-                  <Date-std_minute>53</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>3</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>5</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -10906,10 +11132,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2017</Date-std_year>
-                  <Date-std_month>2</Date-std_month>
-                  <Date-std_day>5</Date-std_day>
-                  <Date-std_hour>16</Date-std_hour>
-                  <Date-std_minute>53</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>3</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>5</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -11009,10 +11235,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2017</Date-std_year>
-                  <Date-std_month>2</Date-std_month>
-                  <Date-std_day>5</Date-std_day>
-                  <Date-std_hour>16</Date-std_hour>
-                  <Date-std_minute>53</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>3</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>5</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -11424,10 +11650,10 @@
               <Date_std>
                 <Date-std>
                   <Date-std_year>2017</Date-std_year>
-                  <Date-std_month>2</Date-std_month>
-                  <Date-std_day>5</Date-std_day>
-                  <Date-std_hour>16</Date-std_hour>
-                  <Date-std_minute>53</Date-std_minute>
+                  <Date-std_month>9</Date-std_month>
+                  <Date-std_day>3</Date-std_day>
+                  <Date-std_hour>14</Date-std_hour>
+                  <Date-std_minute>5</Date-std_minute>
                   <Date-std_second>0</Date-std_second>
                 </Date-std>
               </Date_std>
@@ -12698,4 +12924,3 @@
   </Entrezgene_xtra-properties>
 </Entrezgene>
 </Entrezgene-Set>
- 
