@@ -81,27 +81,18 @@ spectra.ids <- massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
 
 ## Installation
 
-### Install from GitLab
-
-GitLab is the repository used for current developments.
-
-Using packages `devtools`, `git2r` and `getPass`, you can install from GitLab repository:
-```r
-devtools::install_git("https://gitlab.com/proger/biodb.git", branch='develop', credentials=git2r::cred_user_pass ("your_login", getPass::getPass()))
-```
-
 ### Install from GitHub
 
 Using package `devtools` you can install Biodb directly from GitHub:
 ```r
-devtools::install_github('pierrickrogermele/biodb')
+devtools::install_github('pkrog/biodb')
 ```
 
 ### Install from local repository
 
-First, you need to clone the GitLab repos:
+First, you need to clone the GitHub repos:
 ```bash
-git clone https://gitlab.com/proger/biodb.git
+git clone https://github.com/pkrog/biodb.git
 ```
 
 Then you install *biodb* using the `devtools` package:
@@ -129,7 +120,7 @@ vignette('init', package = 'biodb')
 
 ## Contributing
 
-If you wish to contribute to the *biodb* package, you first need to create an account under GitLab. You can then either to ask to become a contributor or fork the project and submit a merge request.
+If you wish to contribute to the *biodb* package, you first need to create an account under GitHub. You can then either to ask to become a contributor or fork the project and submit a merge request.
 
 Debugging, enhancement or creation of a database connector or an entry parser are of course most welcome.
 
