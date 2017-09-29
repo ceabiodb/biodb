@@ -1,16 +1,14 @@
 notifications:
  email:
   recipients:
-   - pierrick.roger@gmail.com
+   - pk.roger@icloud.com
                            
 before_install:
- - sudo sed -i -e '$adeb http://mirrors.ebi.ac.uk/CRAN/bin/linux/ubuntu precise/' /etc/apt/sources.list
- - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
+    - sudo sed -i -e '$adeb http://cran.univ-paris1.fr/bin/linux/ubuntu precise/' /etc/apt/sources.list
+ - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
  - sudo apt-get update
- - sudo apt-get install -y ant
  - sudo apt-get install -y r-base
- - sudo apt-get install -y plantuml
- - sudo ant install.deps
+ - sudo R -e "install.packages(c('getopt', 'stringr', 'plyr', 'XML', 'jsonlite', 'bitops', 'stats', 'R.utils', 'digest', 'testthat', 'devtools'), lib='/usr/lib/R/library', dependencies = TRUE, repos='http://cran.univ-paris1.fr/')"
 
 script:
- - ant test
+ - make test
