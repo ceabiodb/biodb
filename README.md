@@ -1,6 +1,8 @@
 Biodb
 =====
 
+[![Build Status](https://travis-ci.org/pkrog/biodb.svg?branch=master)](https://travis-ci.org/pkrog/biodb)
+
 An R package for connecting to chemical and biological databases.
 
 With *biodb* you can:
