@@ -13,6 +13,7 @@ NcbiEntrezConn$methods( initialize = function(db.name = NA_character_, ...) {
 
 	# Call parent constructor
 	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', ...)
+	.self$.abstract.class('NcbiEntrezConn')
 
 	# Set name
 	if (is.null(db.name) || is.na(db.name))

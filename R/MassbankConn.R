@@ -15,6 +15,7 @@ MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn"
 MassbankConn$methods( initialize = function(...) {
 
 	callSuper(content.type = BIODB.TXT, ...)
+	.self$.abstract.class('MassbankConn')
 
 	.self$.setDownloadExt('svn')
 })

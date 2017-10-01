@@ -11,6 +11,7 @@ BiodbObject <- methods::setRefClass("BiodbObject", fields = list(.message.enable
 BiodbObject$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('BiodbObject')
 
 	.message.enabled <<- TRUE
 })

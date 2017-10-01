@@ -16,4 +16,5 @@ NcbiConn$methods( initialize = function(...) {
 
 	# Call parent constructor
 	callSuper(scheduler = scheduler, ...)
+	.self$.abstract.class('NcbiConn')
 })

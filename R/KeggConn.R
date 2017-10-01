@@ -12,6 +12,7 @@ KeggConn <- methods::setRefClass("KeggConn", contains = "RemotedbConn", fields =
 KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_character_, ...) {
 
 	callSuper(content.type = BIODB.TXT, base.url = 'http://rest.kegg.jp/', ...)
+	.self$.abstract.class('KeggConn')
 
 	# Set name
 	if (is.null(db.name) || is.na(db.name))
