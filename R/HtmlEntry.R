@@ -13,6 +13,7 @@ HtmlEntry <- methods::setRefClass("HtmlEntry", contains = "XmlEntry")
 HtmlEntry$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('HtmlEntry')
 })
 
 # Do parse content {{{1

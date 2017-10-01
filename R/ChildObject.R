@@ -13,6 +13,7 @@ ChildObject <- methods::setRefClass("ChildObject", contains = 'BiodbObject', fie
 ChildObject$methods( initialize = function(parent, ...) {
 
 	callSuper(...)
+	.self$.abstract.class('ChildObject')
 
 	# Set parent
 	if (is.null(parent))

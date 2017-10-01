@@ -13,6 +13,7 @@ JsonEntry <- methods::setRefClass("JsonEntry", contains = 'BiodbEntry')
 JsonEntry$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('JsonEntry')
 })
 
 # Do parse content {{{1

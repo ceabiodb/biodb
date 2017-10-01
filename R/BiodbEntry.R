@@ -57,6 +57,7 @@ BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", field
 BiodbEntry$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('BiodbEntry')
 
 	.fields <<- list()
 	.parsing.expr <<- list()

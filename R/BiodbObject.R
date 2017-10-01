@@ -11,8 +11,19 @@ BiodbObject <- methods::setRefClass("BiodbObject", fields = list(.message.enable
 BiodbObject$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('BiodbObject')
 
 	.message.enabled <<- TRUE
+})
+
+# Abstract class {{{1
+################################################################
+
+# This method is used to declare a class as abstract.
+BiodbObject$methods( .abstract.class = function(class) {
+
+	if (class == class(.self))
+		.self$message(type = 'error', paste('Class', class, 'is abstract and thus cannot be instantiated.'))
 })
 
 # Abstract method {{{1
