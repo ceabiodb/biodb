@@ -13,6 +13,7 @@ NcbiPubchemEntry <- methods::setRefClass("NcbiPubchemEntry", contains = "XmlEntr
 NcbiPubchemEntry$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('NcbiPubchemEntry')
 })
 
 # Is parsed content correct {{{1

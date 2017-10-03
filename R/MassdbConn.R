@@ -41,6 +41,16 @@
 #' @exportClass MassdbConn
 MassdbConn <- methods::setRefClass("MassdbConn", contains = "BiodbConn")
 
+
+# Constructor {{{1
+################################################################
+
+MassdbConn$methods( initialize = function(...) {
+
+	callSuper(...)
+	.self$.abstract.class('MassdbConn')
+})
+
 # Get chromatographic columns {{{1
 ################################################################
 

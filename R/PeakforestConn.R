@@ -13,6 +13,7 @@ PeakforestConn$methods( initialize = function(db.name, ...) {
 
 	# Call mother class constructor
 	callSuper(content.type = BIODB.JSON, ...)
+	.self$.abstract.class('PeakforestConn')
 
 	# Set db name
 	.db.name <<- db.name
