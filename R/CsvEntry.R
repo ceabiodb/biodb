@@ -13,6 +13,7 @@ CsvEntry <- methods::setRefClass("CsvEntry", contains = 'BiodbEntry', fields = l
 CsvEntry$methods( initialize = function(sep = ',', na.strings = 'NA', ...) {
 
 	callSuper(...)
+	.self$.abstract.class('CsvEntry')
 
 	.sep <<- sep
 	.na.strings <<- na.strings

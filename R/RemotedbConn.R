@@ -43,6 +43,7 @@ RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fie
 RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_character_, ...) {
 
 	callSuper(...)
+	.self$.abstract.class('RemotedbConn')
 
 	# Set token
 	if (is.na(token))

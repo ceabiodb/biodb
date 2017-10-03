@@ -21,6 +21,7 @@ BiodbDownloadable <- methods::setRefClass("BiodbDownloadable", contains = 'Biodb
 BiodbDownloadable$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('BiodbDownloadable')
 
 	.ext <<- NA_character_
 })

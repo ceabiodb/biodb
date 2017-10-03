@@ -2,30 +2,6 @@
 
 source('common.R')
 
-# Create test observer {{{1
-################################################################
-
-create.test.observer <- function(biodb) {
-
-	# Create test observer class
-	TestObs <- methods::setRefClass("TestObs", contains = "BiodbObserver", fields = list(msgs = 'character'))
-	TestObs$methods( initialize = function(...) {
-		msgs <<- character(0)
-	})
-	TestObs$methods( message = function(type, msg, class = NA_character_, method = NA_character_, level = 1) {
-		msgs <<- c(.self$msgs, msg)
-	})
-	TestObs$methods( lastMsg = function() {
-		return(.self$msgs[[length(.self$msgs)]])
-	})
-	obs <- TestObs$new()
-
-	# Set observer
-	biodb$addObservers(obs)
-
-	return(obs)
-}
-
 # Test assert.positive {{{1
 ################################################################
 

@@ -13,6 +13,7 @@ TxtEntry <- methods::setRefClass("TxtEntry", contains = 'BiodbEntry')
 TxtEntry$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('TxtEntry')
 })
 
 # Do parse content {{{1

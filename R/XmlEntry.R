@@ -13,6 +13,7 @@ XmlEntry <- methods::setRefClass("XmlEntry", contains = "BiodbEntry", fields = l
 XmlEntry$methods( initialize = function(namespace = NA_character_, ...) {
 
 	callSuper(...)
+	.self$.abstract.class('XmlEntry')
 
 	.namespace <<- namespace
 })

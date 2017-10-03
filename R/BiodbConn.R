@@ -42,6 +42,7 @@ BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields 
 BiodbConn$methods( initialize = function(dbid = NA_character_, content.type = NA_character_, base.url = NA_character_, ...) {
 
 	callSuper(...)
+	.self$.abstract.class('BiodbConn')
 
 	.dbid <<- dbid
 

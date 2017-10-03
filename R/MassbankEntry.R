@@ -80,6 +80,7 @@ MassbankEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 MassbankEntry$methods( initialize = function(...) {
 
 	callSuper(...)
+	.self$.abstract.class('MassbankEntry')
 
 	.self$addParsingExpression('ACCESSION', "^ACCESSION: (.+)$")
 	.self$addParsingExpression('MSDEV', "^AC\\$INSTRUMENT: (.+)$")

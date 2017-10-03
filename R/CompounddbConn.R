@@ -7,6 +7,15 @@
 
 CompounddbConn <- methods::setRefClass("CompounddbConn", contains = "BiodbConn")
 
+# Constructor {{{1
+################################################################
+
+CompounddbConn$methods( initialize = function(...) {
+
+	callSuper(...)
+	.self$.abstract.class('CompounddbConn')
+})
+
 # Search compound {{{1
 ################################################################
 
