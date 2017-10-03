@@ -12,8 +12,7 @@ NcbiEntrezConn <- methods::setRefClass("NcbiEntrezConn", contains = "NcbiConn", 
 NcbiEntrezConn$methods( initialize = function(db.name = NA_character_, ...) {
 
 	# Call parent constructor
-	# Scheduler: https://www.ncbi.nlm.nih.gov/books/NBK25497/
-	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', scheduler = UrlRequestScheduler$new(n = 3, parent = .self), ...)
+	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', ...)
 	.self$.abstract.class('NcbiEntrezConn')
 
 	# Set name

@@ -7,9 +7,11 @@
 #'
 #' This class is used by \code{\link{BiodbDbsInfo}} for storing database characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 #'
-#' @field id        The identifier of the database.
-#' @field base.url  The main URL of the database.
-#' @field token     An access token for the database.
+#' @field id            The identifier of the database.
+#' @field base.url      The main URL of the database.
+#' @field token         An access token for the database.
+#' @field scheduler.n   The N parameter for the scheduler. The N paramter is the number of request allowed for each bit of time (defined by the T parameter).
+#' @field scheduler.t   The T parameter for the scheduler. The bit of time, in seconds, during which a maximum of N (see scheduler.n) requests is allowed.
 #'
 #' @seealso \code{\link{BiodbDbsInfo}}.
 #'
@@ -20,12 +22,12 @@
 #' @include ChildObject.R
 #' @export BiodbDbInfo
 #' @exportClass BiodbDbInfo
-BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .token = "character"))
+BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, token = NA_character_, ...) {
+BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, token = NA_character_, scheduler.n = 1, scheduler.t = 1, ...) {
 
 	callSuper(...)
 
@@ -36,6 +38,8 @@ BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, token =
 
 	.base.url <<- base.url
 	.token <<- token
+	.scheduler.n <<- as.integer(scheduler.n)
+	.scheduler.t <<- as.integer(scheduler.t)
 })
 
 # Get connection class name {{{1
@@ -137,4 +141,40 @@ BiodbDbInfo$methods( setToken = function(token) {
 	":\n\nSets the access token."
 
 	.token <<- token
+})
+
+# Get scheduler N paramater {{{1
+################################################################
+
+BiodbDbInfo$methods( getSchedulerNParam = function() {
+	":\n\nReturns the N parameter for the scheduler."
+
+	return(.self$.scheduler.n)
+})
+
+# Set scheduler N paramater {{{1
+################################################################
+
+BiodbDbInfo$methods( setSchedulerNParam = function(n) {
+	":\n\nSets the N parameter for the scheduler."
+
+	.scheduler.n <<- as.integer(n)
+})
+
+# Get scheduler T paramater {{{1
+################################################################
+
+BiodbDbInfo$methods( getSchedulerTParam = function() {
+	":\n\nReturns the T parameter for the scheduler."
+
+	return(.self$.scheduler.t)
+})
+
+# Set scheduler T paramater {{{1
+################################################################
+
+BiodbDbInfo$methods( setSchedulerTParam = function(t) {
+	":\n\nSets the T parameter for the scheduler."
+
+	.scheduler.t <<- as.integer(t)
 })
