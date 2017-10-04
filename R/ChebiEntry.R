@@ -12,7 +12,7 @@ ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "XmlEntry")
 
 ChebiEntry$methods( initialize = function(...) {
 
-	callSuper(namespace = c(chebi = "http://www.ebi.ac.uk/webservices/chebi"), ...)
+	callSuper(namespace = c(chebi = "https://www.ebi.ac.uk/webservices/chebi"), ...)
 
 	.self$addParsingExpression('SMILES', "//chebi:return/chebi:smiles")
 	.self$addParsingExpression('INCHI', "//chebi:return/chebi:inchi")
@@ -32,7 +32,9 @@ ChebiEntry$methods( initialize = function(...) {
 ChebiEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Get accession
+	.self$message('debug', paste('Use namespace ', .self$.namespace, '.', sep = ''))
 	accession <- XML::xpathSApply(parsed.content, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = .self$.namespace)
+	.self$message('debug', paste('Found accession number ', accession, '.', sep = ''))
 	if (length(accession) > 0) {
 		accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
 		.self$setFieldValue('ACCESSION', accession)

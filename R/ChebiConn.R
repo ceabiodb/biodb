@@ -19,7 +19,6 @@ ChebiConn$methods( initialize = function(...) {
 ################################################################
 
 ChebiConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-	                  # TODO Return an URL request object with SOAP message embedded
 	return(paste(.self$.base.url, 'webservices/chebi/2.0/test/getCompleteEntity?chebiId=', id, sep = ''))
 })
 
@@ -51,11 +50,15 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 	.self$.assert.positive(max.results)
 	.self$.assert.in(stars, c('ALL', 'TWO ONLY', 'THREE ONLY'))
 
+	# Set request parameters
+	params <- c(search = gsub('[ /]', '+', search), searchCategory = gsub(' ', '+', search.category), maximumResults = max.results, starsCategory = gsub(' ', '+', stars))
+
 	# Build request
-	xml.request <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><SOAP-ENV:Body><tns:getLiteEntity xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\"><tns:search>", search, "</tns:search><tns:searchCategory>", search.category, "</tns:searchCategory><tns:maximumResults>", max.results, "</tns:maximumResults><tns:stars>", stars, "</tns:stars></tns:getLiteEntity></SOAP-ENV:Body></SOAP-ENV:Envelope>")
+	#xml.request <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><SOAP-ENV:Body><tns:getLiteEntity xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\"><tns:search>", search, "</tns:search><tns:searchCategory>", search.category, "</tns:searchCategory><tns:maximumResults>", max.results, "</tns:maximumResults><tns:stars>", stars, "</tns:stars></tns:getLiteEntity></SOAP-ENV:Body></SOAP-ENV:Envelope>")
 
 	# Send request
-	xml.results <- .self$.getUrlScheduler()$sendSoapRequest('http://www.ebi.ac.uk:80/webservices/chebi/2.0/webservice', xml.request, encoding = 'UTF-8')
+	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$.base.url, 'webservices/chebi/2.0/test/getLiteEntity', sep = ''), params = params, encoding = 'UTF-8')
+	#xml.results <- .self$.getUrlScheduler()$sendSoapRequest('http://www.ebi.ac.uk:80/webservices/chebi/2.0/webservice', xml.request, encoding = 'UTF-8')
 
 	# Set XML namespace
 	ns <- c(chebi = "http://www.ebi.ac.uk/webservices/chebi")

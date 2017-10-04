@@ -133,8 +133,12 @@ BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
 	}
 
 	# Replace elements with no accession id by NULL
-    .self$message('debug', paste('Setting entries with no accession number to NULL.'))
-	entries <- lapply(entries, function(x) if (is.na(x$getFieldValue('ACCESSION'))) NULL else x)
+    entries.without.accession <- vapply(entries, function(x) is.na(x$getFieldValue('ACCESSION')), FUN.VALUE = TRUE)
+    if (any(entries.without.accession)) {
+	    n <- sum(entries.without.accession)
+    	.self$message('debug', paste('Found', n, if (n > 1) 'entries' else 'entry', 'without an accession number. Set', if (n > 1) 'them' else 'it', 'to NULL.'))
+		entries[entries.without.accession] <- list(NULL)
+    }
 
 	# If the input was a single element, then output a single object
 	if (drop && length(content) == 1)
