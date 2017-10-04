@@ -11,8 +11,7 @@ NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = "RemotedbC
 NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
 
 	# Call parent constructor
-	# Scheduler: https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
-	callSuper(base.url = 'https://pubchem.ncbi.nlm.nih.gov/', scheduler = UrlRequestScheduler$new(n = 5, parent = .self), ...)
+	callSuper(base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ...)
 	.self$.abstract.class('NcbiPubchemConn')
 
 	.db.name <<- db.name

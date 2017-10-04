@@ -40,22 +40,20 @@ RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fie
 # Constructor {{{1
 ################################################################
 
-RemotedbConn$methods( initialize = function(scheduler = NULL, token = NA_character_, ...) {
+RemotedbConn$methods( initialize = function(token = NA_character_, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('RemotedbConn')
 
+	db.info <- .self$getBiodb()$getDbsInfo()$get(.self$getId())
+
 	# Set token
 	if (is.na(token))
-		token <- .self$getBiodb()$getDbsInfo()$get(.self$getId())$getToken()
+		token <- db.info$getToken()
 	.token <<- token
 
 	# Set scheduler
-	if (is.null(scheduler))
-		scheduler <- UrlRequestScheduler$new(n = 3, parent = .self)
-	if ( ! is(scheduler, "UrlRequestScheduler"))
-		.self$message('error', "The scheduler instance must inherit from UrlRequestScheduler class.")
-	.scheduler <<- scheduler
+	.scheduler <<- UrlRequestScheduler$new(n = db.info$getSchedulerNParam(), t = db.info$getSchedulerTParam(), parent = .self)
 })
 
 # Get token {{{1
