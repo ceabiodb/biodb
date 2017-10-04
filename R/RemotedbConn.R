@@ -45,15 +45,13 @@ RemotedbConn$methods( initialize = function(token = NA_character_, ...) {
 	callSuper(...)
 	.self$.abstract.class('RemotedbConn')
 
-	db.info <- .self$getBiodb()$getDbsInfo()$get(.self$getId())
-
 	# Set token
 	if (is.na(token))
-		token <- db.info$getToken()
+		token <- .self$getDbInfo()$getToken()
 	.token <<- token
 
 	# Set scheduler
-	.scheduler <<- UrlRequestScheduler$new(n = db.info$getSchedulerNParam(), t = db.info$getSchedulerTParam(), parent = .self)
+	.scheduler <<- UrlRequestScheduler$new(n = .self$getDbInfo()$getSchedulerNParam(), t = .self$getDbInfo()$getSchedulerTParam(), parent = .self)
 })
 
 # Get token {{{1

@@ -23,7 +23,7 @@ MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = "MassdbCon
 
 MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"", ...) {
 
-	callSuper(content.type = BIODB.TSV, ...)
+	callSuper(...)
 
 	# Check file
 	if ( ! file.exists(.self$getBaseUrl()))

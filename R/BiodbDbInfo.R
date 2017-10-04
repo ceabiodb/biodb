@@ -22,12 +22,12 @@
 #' @include ChildObject.R
 #' @export BiodbDbInfo
 #' @exportClass BiodbDbInfo
-BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer'))
+BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, token = NA_character_, scheduler.n = 1, scheduler.t = 1, ...) {
+BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, token = NA_character_, scheduler.n = 1, scheduler.t = 1, entry.content.type = NA_character_, ...) {
 
 	callSuper(...)
 
@@ -36,10 +36,26 @@ BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, token =
 		.self$message('error', "You cannot set an empty id for a database. The ID was empty (either NULL or NA or empty string).")
 	.id <<- id
 
+	# Set entry.content type
+	if (is.null(entry.content.type) || is.na(entry.content.type))
+		.self$message('error', "Content type not defined.")
+	if ( ! entry.content.type %in% c('html', 'txt', 'xml', 'csv', 'tsv', 'json'))
+		.self$message('error', paste("Unknown entry.content type \"", entry.content.type, "\"."))
+	.entry.content.type <<- entry.content.type
+
 	.base.url <<- base.url
 	.token <<- token
 	.scheduler.n <<- as.integer(scheduler.n)
 	.scheduler.t <<- as.integer(scheduler.t)
+})
+
+# Get entry content type {{{1
+################################################################
+
+BiodbDbInfo$methods( getEntryContentType = function() {
+	":\n\nReturns the entry content type."
+
+	return(.self$.entry.content.type)
 })
 
 # Get connection class name {{{1
