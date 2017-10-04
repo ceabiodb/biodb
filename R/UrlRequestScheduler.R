@@ -121,7 +121,11 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 
 				# POST method
 				else {
-					.self$message('debug', paste0("Sending ", method, " request ..."))
+					.self$message('debug', paste0("Sending ", method, " request..."))
+					if ('httpheader' %in% names(opts))
+						.self$message('debug', paste0(method, ' request header is "', paste(opts$httpheader, collapse = ', '), '".'))
+					if ('postfields' %in% names(opts))
+						.self$message('debug', paste0('"Request post content is "', paste(opts$postfields, collapse = ', '), '".'))
 
 					# Check if in offline mode
 					.self$.check.offline.mode()
