@@ -13,7 +13,7 @@ HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = c("R
 
 HmdbMetaboliteConn$methods( initialize = function(...) {
 
-	callSuper(content.type = BIODB.XML, base.url = "http://www.hmdb.ca/", ...)
+	callSuper(base.url = "http://www.hmdb.ca/", ...)
 
 	# Set XML namespace
 	.ns <<- c(hmdb = 'http://www.hmdb.ca')

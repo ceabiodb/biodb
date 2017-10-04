@@ -13,7 +13,7 @@ NcbiCcdsConn <- methods::setRefClass("NcbiCcdsConn", contains = "NcbiConn")
 NcbiCcdsConn$methods( initialize = function(...) {
 
 	# Call parent constructor
-	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', content.type = BIODB.HTML, ...)
+	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', ...)
 })
 
 # Get entry content {{{1

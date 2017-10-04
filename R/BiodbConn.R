@@ -8,7 +8,6 @@
 #' This is the super class of all connector classes. All methods defined here are thus common to all connector classes. Some connector classes inherit directly from this abstract class. Some others inherit from intermediate classes \code{\link{RemotedbConn}} and \code{\link{MassdbConn}}. As for all connector concrete classes, you won't have to create an instance of this class directly, but you will instead go through the factory class. However, if you plan to develop a new connector, you will have to call the constructor of this class. See section Fields for a list of the constructor's parameters.
 #'
 #' @field base.url      The base URL of the database. Default values are defined inside \code{\link{BiodbDbsInfo}}.
-#' @field content.type  The type of content handled by the connector for entries: XML, TXT, etc.
 #' @field dbid          The identifier of the connector.
 #'
 #' @param count         If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.
@@ -34,24 +33,17 @@
 #' @include ChildObject.R
 #' @export BiodbConn
 #' @exportClass BiodbConn
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.dbid = "character", .content.type = "character", .base.url = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.dbid = "character", .base.url = "character"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(dbid = NA_character_, content.type = NA_character_, base.url = NA_character_, ...) {
+BiodbConn$methods( initialize = function(dbid = NA_character_, base.url = NA_character_, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConn')
 
 	.dbid <<- dbid
-
-	# Set content type
-	if (is.null(content.type) || is.na(content.type))
-		.self$message('error', "Content type not defined.")
-	if ( ! content.type %in% BIODB.CONTENT.TYPES)
-		.self$message('error', paste("Unknown content type \"", content.type, "\"."))
-	.content.type <<- content.type
 
 	# Set base URL
 	if (is.na(base.url))
@@ -66,6 +58,17 @@ BiodbConn$methods( getId = function() {
 	":\n\nGet the identifier of this connector."
 
 	return(.self$.dbid)
+})
+
+# Get database info {{{1
+################################################################
+
+BiodbConn$methods( getDbInfo = function() {
+	":\n\nGet the database information associated with this connector."
+
+	db.info <- .self$getBiodb()$getDbsInfo()$get(.self$getId())
+
+	return(db.info)
 })
 
 # Get base URL {{{1
@@ -83,7 +86,7 @@ BiodbConn$methods( getBaseUrl = function() {
 BiodbConn$methods( getEntryContentType = function() {
 	":\n\nGet the base URL of the content type."
 
-	return(.self$.content.type) 
+	return(.self$getDbInfo()$getEntryContentType()) 
 })
 
 # Get entry content {{{1

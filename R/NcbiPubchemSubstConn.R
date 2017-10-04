@@ -9,7 +9,7 @@ NcbiPubchemSubstConn <- methods::setRefClass("NcbiPubchemSubstConn", contains = 
 ################################################################
 
 NcbiPubchemSubstConn$methods( initialize = function(...) {
-	callSuper(content.type = BIODB.XML, db.name = 'substance', id.xmltag = 'PC-ID_id', entry.xmltag = 'PC-Substance', id.urlfield = 'sid', ...)
+	callSuper(db.name = 'substance', id.xmltag = 'PC-ID_id', entry.xmltag = 'PC-Substance', id.urlfield = 'sid', ...)
 })
 
 # Create entry {{{1

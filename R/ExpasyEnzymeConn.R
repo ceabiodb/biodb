@@ -10,7 +10,7 @@ ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = "Remoted
 
 ExpasyEnzymeConn$methods( initialize = function(...) {
 
-	callSuper(content.type = BIODB.TXT, base.url = "http://enzyme.expasy.org/", ...)
+	callSuper(base.url = "http://enzyme.expasy.org/", ...)
 })
 
 # Get entry content {{{1

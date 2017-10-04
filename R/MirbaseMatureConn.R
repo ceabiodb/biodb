@@ -12,7 +12,7 @@ MirbaseMatureConn <- methods::setRefClass("MirbaseMatureConn", contains = c("Mir
 ################################################################
 
 MirbaseMatureConn$methods( initialize = function(...) {
-	callSuper(content.type = BIODB.TXT, ...)
+	callSuper(...)
 
 	.self$.setDownloadExt('gz')
 })
