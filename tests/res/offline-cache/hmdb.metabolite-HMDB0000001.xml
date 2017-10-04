@@ -1,9 +1,10 @@
 <metabolite>
   <version>3.6</version>
   <creation_date>2005-11-16 15:48:42 UTC</creation_date>
-  <update_date>2017-03-02 21:25:33 UTC</update_date>
-  <accession>HMDB00001</accession>
+  <update_date>2017-08-16 03:09:05 UTC</update_date>
+  <accession>HMDB0000001</accession>
   <secondary_accessions>
+    <accession>HMDB00001</accession>
     <accession>HMDB04935</accession>
     <accession>HMDB06703</accession>
     <accession>HMDB06704</accession>
@@ -236,6 +237,30 @@
     <spectrum>
       <type>Specdb::MsMs</type>
       <spectrum_id>3</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::MsMs</type>
+      <spectrum_id>255159</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::MsMs</type>
+      <spectrum_id>255160</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::MsMs</type>
+      <spectrum_id>255161</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::MsMs</type>
+      <spectrum_id>275100</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::MsMs</type>
+      <spectrum_id>275101</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::MsMs</type>
+      <spectrum_id>275102</spectrum_id>
     </spectrum>
     <spectrum>
       <type>Specdb::NmrTwoD</type>

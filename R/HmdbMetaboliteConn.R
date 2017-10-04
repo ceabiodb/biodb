@@ -45,6 +45,7 @@ HmdbMetaboliteConn$methods( getEntryContent = function(entry.id) {
 HmdbMetaboliteConn$methods( .doDownload = function() {
 
 	# Download
+	.self$message('info', "Downloading HMDB metabolite database...")
 	zip.url <- paste(.self$getBaseUrl(), "system/downloads/current/hmdb_metabolites.zip", sep = '')
 	.self$message('info', paste("Downloading \"", zip.url, "\"...", sep = ''))
 	.self$.getUrlScheduler()$downloadFile(url = zip.url, dest.file = .self$getDownloadPath())
@@ -54,6 +55,8 @@ HmdbMetaboliteConn$methods( .doDownload = function() {
 ################################################################
 
 HmdbMetaboliteConn$methods( .doExtractDownload = function() {
+
+	.self$message('info', "Extracting content of downloaded HMDB metabolite database...")
 
 	# Expand zip
 	extract.dir <- tempfile(.self$getId())

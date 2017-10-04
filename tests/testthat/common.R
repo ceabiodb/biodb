@@ -10,7 +10,7 @@ REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
 ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
 LOG.FILE.PATH <- file.path(TEST.DIR, 'test.log')
-USERAGENT <- 'biodb.test ; pierrick.rogermele@icloud.com'
+USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 
