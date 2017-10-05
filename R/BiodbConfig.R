@@ -92,15 +92,25 @@ BiodbConfig$methods( getDefaultValue = function(key) {
 	return(default)
 })
 
+# Has key {{{1
+################################################################
+
+BiodbConfig$methods( hasKey = function(key) {
+	":\n\nTest if a key exists."
+
+	return(.self$.checkKey(key, fail = FALSE))
+})
+
 # Defined {{{1
 ################################################################
 
-BiodbConfig$methods( isDefined = function(key) {
+BiodbConfig$methods( isDefined = function(key, fail = TRUE) {
 	":\n\nTest if a key is defined."
 
-	.self$.checkKey(key)
-
-	return(key %in% names(.self$.values))
+	if (.self$.checkKey(key, fail = fail))
+		return(key %in% names(.self$.values))
+	
+	return(FALSE)
 })
 
 # Is enabled {{{1
@@ -289,19 +299,33 @@ BiodbConfig$methods( .initValues = function() {
 # Check key {{{2
 ################################################################
 
-BiodbConfig$methods( .checkKey = function(key, type = NA_character_) {
+BiodbConfig$methods( .checkKey = function(key, type = NA_character_, fail= TRUE) {
 
 	# Check key
-	if (is.null(key) || is.na(key) || ! is.character(key))
-		.self$message('error', "Key is NULL, NA or not character type.")
+	if (is.null(key) || is.na(key) || ! is.character(key)) {
+		if (fail)
+			.self$message('error', "Key is NULL, NA or not character type.")
+		else
+			return(FALSE)
+	}
 
 	# Test if valid key
-	if ( ! key %in% names(.self$.value.info))
-		.self$message('error', paste("Unknown key ", key, ".", sep = ''))
+	if ( ! key %in% names(.self$.value.info)) {
+		if (fail)
+			.self$message('error', paste("Unknown key ", key, ".", sep = ''))
+		else
+			return(FALSE)
+	}
 
 	# Test type
-	if ( ! is.null(type) && ! is.na(type) && .self$.value.info[[key]][['type']] != type)
-		.self$message('error', paste("Key ", key, " is not of type ", type, " but of type ", key.type, ".", sep = ''))
+	if ( ! is.null(type) && ! is.na(type) && .self$.value.info[[key]][['type']] != type) {
+		if (fail)
+			.self$message('error', paste("Key ", key, " is not of type ", type, " but of type ", key.type, ".", sep = ''))
+		else
+			return(FALSE)
+	}
+
+	return(TRUE)
 })
 
 # Get type {{{2
