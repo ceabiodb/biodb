@@ -61,7 +61,7 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 	#xml.results <- .self$.getUrlScheduler()$sendSoapRequest('http://www.ebi.ac.uk:80/webservices/chebi/2.0/webservice', xml.request, encoding = 'UTF-8')
 
 	# Set XML namespace
-	ns <- c(chebi = "http://www.ebi.ac.uk/webservices/chebi")
+	ns <- c(chebi = "https://www.ebi.ac.uk/webservices/chebi")
 
 	# Parse XML
 	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
