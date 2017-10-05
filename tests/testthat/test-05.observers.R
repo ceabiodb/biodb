@@ -22,13 +22,13 @@ test.deprecated.methods <- function(biodb) {
 	biodb$addObservers(obs)
 
 	# Load reference entries
-	ref.entries <- load.ref.entries(BIODB.CHEBI)
+	ref.entries <- load.ref.entries('chebi')
 
 	# Get first entry ID
 	entry.id <- ref.entries[1, 'accession']
 
 	# Get entry
-	entry <- biodb$getFactory()$getEntry(BIODB.CHEBI, entry.id)
+	entry <- biodb$getFactory()$getEntry('chebi', entry.id)
 
 	# Use deprecated method getFieldCardinality
 	card <- entry$getFieldCardinality('name')
