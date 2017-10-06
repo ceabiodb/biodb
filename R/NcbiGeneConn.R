@@ -35,7 +35,7 @@ NcbiGeneConn$methods( getEntryContent = function(entry.id) {
 
 NcbiGeneConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
-	url <- paste0('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id=', id, '&rettype=xml&retmode=text')
+	url <- paste0(file.path(.self$getWsUrl(), 'efetch.fcgi', fsep = '/'), '?db=', .self$.db.name, '&id=', id, '&rettype=xml&retmode=text')
 
 	return(url)
 })

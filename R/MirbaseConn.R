@@ -9,7 +9,7 @@ MirbaseConn <- methods::setRefClass("MirbaseConn", contains = "RemotedbConn")
 ################################################################
 
 MirbaseConn$methods( initialize = function(...) {
-	callSuper(base.url = "http://www.mirbase.org/", ...)
+	callSuper(...)
 	.self$.abstract.class('MirbaseConn')
 })
 

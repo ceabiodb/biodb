@@ -13,10 +13,7 @@ HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = c("R
 
 HmdbMetaboliteConn$methods( initialize = function(...) {
 
-	callSuper(base.url = "http://www.hmdb.ca/", ...)
-
-	# Set XML namespace
-	.ns <<- c(hmdb = 'http://www.hmdb.ca')
+	callSuper(...)
 
 	.self$.setDownloadExt('zip')
 })
@@ -79,11 +76,11 @@ HmdbMetaboliteConn$methods( .doExtractDownload = function() {
 	xml <- XML::xmlInternalTreeParse(xml.file)
 
 	# Get IDs of all entries
-	ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = .self$.ns)
+	ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = c(hmdb = .self$getDbInfo()$getXmlNs()))
 	.self$message('debug', paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
 
 	# Get contents of all entries
-	contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')
+	contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = c(hmdb = .self$getDbInfo()$getXmlNs())), XML::saveXML, FUN.VALUE = '')
 	Encoding(contents) <- "unknown" # Force encoding to 'unknown', since leaving it set to 'UTF-8' will produce outputs of the form '<U+2022>' for unicode characters. These tags '<U+XXXX>' will then be misinterpreted by XML parser when reading entry content, because there is no slash at the end of the tag.
 
 	# Delete existing cache files

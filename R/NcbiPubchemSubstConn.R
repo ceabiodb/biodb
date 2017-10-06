@@ -12,13 +12,6 @@ NcbiPubchemSubstConn$methods( initialize = function(...) {
 	callSuper(db.name = 'substance', id.xmltag = 'PC-ID_id', entry.xmltag = 'PC-Substance', id.urlfield = 'sid', ...)
 })
 
-# Create entry {{{1
-################################################################
-
-NcbiPubchemSubstConn$methods( createEntry = function(content, drop = TRUE) {
-	return(createNcbiPubchemSubstanceFromXml(.self$getBiodb(), content, drop = drop))
-})
-
 # Get entry ids {{{1
 ################################################################
 
