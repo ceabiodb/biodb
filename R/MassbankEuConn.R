@@ -12,10 +12,3 @@ MASSBANK.EU.URL  <- 'http://massbank.eu/'
 
 MassbankEuConn <- methods::setRefClass("MassbankEuConn", contains = 'MassbankConn')
 
-# Constructor {{{1
-################################################################0
-
-MassbankEuConn$methods( initialize = function(...) {
-
-	callSuper(base.url = MASSBANK.EU.URL, ...)
-})
