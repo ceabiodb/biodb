@@ -11,7 +11,7 @@ NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = "RemotedbC
 NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
 
 	# Call parent constructor
-	callSuper(base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ...)
+	callSuper(...)
 	.self$.abstract.class('NcbiPubchemConn')
 
 	.db.name <<- db.name
@@ -26,9 +26,9 @@ NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag,
 NcbiPubchemConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 	if (concatenate)
-		url <- paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/', .self$.db.name, '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML')
+		url <- paste0(file.path(.self$getWsUrl(), .self$.db.name, fsep = '/'), '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML')
 	else
-		url <- paste0('https://pubchem.ncbi.nlm.nih.gov/rest/pug/', .self$.db.name, '/', .self$.id.urlfield, '/', id, '/XML')
+		url <- paste0(file.path(.self$getWsUrl(), .self$.db.name, fsep = '/'),'/', .self$.id.urlfield, '/', id, '/XML')
 
 	return(url)
 })

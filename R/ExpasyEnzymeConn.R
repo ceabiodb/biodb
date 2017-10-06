@@ -5,13 +5,6 @@
 
 ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = "RemotedbConn")
 
-# Constructor {{{1
-################################################################
-
-ExpasyEnzymeConn$methods( initialize = function(...) {
-
-	callSuper(base.url = "http://enzyme.expasy.org/", ...)
-})
 
 # Get entry content {{{1
 ################################################################

@@ -25,10 +25,6 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 
 	callSuper(...)
 
-	# Check file
-	if ( ! file.exists(.self$getBaseUrl()))
-		.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
-
 	# Set fields
 	.db <<- NULL
 	.db.orig.colnames <<- NA_character_
@@ -56,6 +52,10 @@ MassCsvFileConn$methods( isValidFieldTag = function(tag) {
 MassCsvFileConn$methods( .init.db = function() {
 
 	if (is.null(.self$.db)) {
+
+		# Check file
+		if ( ! file.exists(.self$getBaseUrl()))
+			.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
 
 		# Load database
 		.db <<- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)

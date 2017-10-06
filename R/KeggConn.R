@@ -11,7 +11,7 @@ KeggConn <- methods::setRefClass("KeggConn", contains = "RemotedbConn", fields =
 
 KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_character_, ...) {
 
-	callSuper(base.url = 'http://rest.kegg.jp/', ...)
+	callSuper(...)
 	.self$.abstract.class('KeggConn')
 
 	# Set name
@@ -36,7 +36,7 @@ KeggConn$methods( .complete.entry.id = function(id) {
 ################################################################
 
 KeggConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-	return(paste(.self$.base.url, 'get/', .self$.complete.entry.id(id), sep = ''))
+	return(paste(.self$getBaseUrl(), 'get/', .self$.complete.entry.id(id), sep = ''))
 })
 
 # Get entry page url {{{1
@@ -66,7 +66,7 @@ KeggConn$methods( getEntryContent = function(entry.id) {
 KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Get IDs
-	ids <- .self$.get.url(paste(.self$.base.url, 'list/', .self$.db.name, sep = ''))
+	ids <- .self$.get.url(paste(.self$getBaseUrl(), 'list/', .self$.db.name, sep = ''))
 
 	# Extract IDs
 	ids <- strsplit(ids, "\n")[[1]]

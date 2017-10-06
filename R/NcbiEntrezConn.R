@@ -12,7 +12,7 @@ NcbiEntrezConn <- methods::setRefClass("NcbiEntrezConn", contains = "NcbiConn", 
 NcbiEntrezConn$methods( initialize = function(db.name = NA_character_, ...) {
 
 	# Call parent constructor
-	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', ...)
+	callSuper(...)
 	.self$.abstract.class('NcbiEntrezConn')
 
 	# Set name
@@ -29,7 +29,7 @@ NcbiEntrezConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of Ncbi entries.")
 
 	# Send request
-	xmlstr <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), 'esearch.fcgi?db=', .self$.db.name, '&term=e&retmax=', if (is.na(max.results)) 1000000 else max.results, sep = ''))
+	xmlstr <- .self$.getUrlScheduler()$getUrl(paste(file.path(.self$getWsUrl(), 'esearch.fcgi', fsep = '/'), '?db=', .self$.db.name, '&term=e&retmax=', if (is.na(max.results)) 1000000 else max.results, sep = ''))
 
 	# Parse XML
 	xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
@@ -48,7 +48,7 @@ NcbiEntrezConn$methods( getNbEntries = function(count = FALSE) {
 	n <- NA_integer_
 
 	# Send request
-	xmlstr <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), 'einfo.fcgi?db=', .self$.db.name, '&version=2.0', sep = ''))
+	xmlstr <- .self$.getUrlScheduler()$getUrl(paste(file.path(.self$getWsUrl(), 'einfo.fcgi', fsep = '/'), '?db=', .self$.db.name, '&version=2.0', sep = ''))
 
 	# Parse XML
 	xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)

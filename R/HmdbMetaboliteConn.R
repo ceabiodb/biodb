@@ -13,10 +13,7 @@ HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = c("R
 
 HmdbMetaboliteConn$methods( initialize = function(...) {
 
-	callSuper(base.url = "http://www.hmdb.ca/", ...)
-
-	# Set XML namespace
-	.ns <<- c(hmdb = 'http://www.hmdb.ca')
+	callSuper(...)
 
 	.self$.setDownloadExt('zip')
 })
@@ -62,7 +59,7 @@ HmdbMetaboliteConn$methods( .doExtractDownload = function() {
 	extract.dir <- tempfile(.self$getId())
 	utils::unzip(.self$getDownloadPath(), exdir = extract.dir)
 	
-	# Load extracted XML file
+	# Search for extracted XML file
 	files <- list.files(path = extract.dir)
 	xml.file <- NULL
 	if (length(files) == 0)
@@ -76,15 +73,27 @@ HmdbMetaboliteConn$methods( .doExtractDownload = function() {
 		if (is.null(xml.file))
 			.self$message('error', paste("More than one file found in zip file \"", .self$getDownloadPath(), "\":", paste(files, collapse = ", "), ".", sep = ''))
 	}
-	xml <- XML::xmlInternalTreeParse(xml.file)
 
-	# Get IDs of all entries
-	ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = .self$.ns)
-	.self$message('debug', paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
+	if (TRUE) {
+		# Split XML file
+		xml <- readChar(xml.file, file.info(xml.file)$size, useBytes = TRUE)
+		contents <- strsplit(xml, '<metabolite>')[[1]]
+		contents <- contents[2:length(contents)] # Remove first one (XML header and <hmdb> tag, not a metabolite
+		contents <- vapply(contents, function(s) paste0('<metabolite>', s), FUN.VALUE = '') # Put back <metabolite> tag.
+		contents[length(contents)] <- sub('</hmdb>', '', contents[length(contents)]) # Remove HMDB end tag.
+		ids <- stringr::str_match(contents, '<accession>(HMDB[0-9]+)</accession>')[, 2]
+	} else {
+		# Load extracted XML file
+		xml <- XML::xmlInternalTreeParse(xml.file)
 
-	# Get contents of all entries
-	contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = .self$.ns), XML::saveXML, FUN.VALUE = '')
-	Encoding(contents) <- "unknown" # Force encoding to 'unknown', since leaving it set to 'UTF-8' will produce outputs of the form '<U+2022>' for unicode characters. These tags '<U+XXXX>' will then be misinterpreted by XML parser when reading entry content, because there is no slash at the end of the tag.
+		# Get IDs of all entries
+		ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = c(hmdb = .self$getDbInfo()$getXmlNs()))
+		.self$message('debug', paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
+
+		# Get contents of all entries
+		contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = c(hmdb = .self$getDbInfo()$getXmlNs())), XML::saveXML, FUN.VALUE = '')
+		Encoding(contents) <- "unknown" # Force encoding to 'unknown', since leaving it set to 'UTF-8' will produce outputs of the form '<U+2022>' for unicode characters. These tags '<U+XXXX>' will then be misinterpreted by XML parser when reading entry content, because there is no slash at the end of the tag.
+	}
 
 	# Delete existing cache files
 	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())

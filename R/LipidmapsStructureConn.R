@@ -5,14 +5,6 @@
 
 LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn", contains = "RemotedbConn")
 
-# Constructor {{{1
-################################################################
-
-LipidmapsStructureConn$methods( initialize = function(...) {
-	# If you write a script to automate calls to LMSD, please be kind and do not hit our server more often than once per 20 seconds. We may have to kill scripts that hit our server more frequently.
-	callSuper(base.url = 'http://www.lipidmaps.org/data/', ...)
-})
-
 # Get entry content url {{{1
 ################################################################
 

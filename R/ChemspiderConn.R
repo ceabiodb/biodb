@@ -5,18 +5,7 @@
 # Class declaration {{{1
 ################################################################
 
-ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("RemotedbConn", "CompounddbConn"), fields = list(.ns = "character"))
-
-# Constructor {{{1
-################################################################
-
-ChemspiderConn$methods( initialize = function(...) {
-
-	callSuper(base.url = "http://www.chemspider.com/", token = .self$getBiodb()$getConfig()$get('chemspider.token'), ...)
-
-	# Set XML namespace
-	.ns <<- c(chemspider = "http://www.chemspider.com/")
-})
+ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("RemotedbConn", "CompounddbConn"))
 
 # Get entry content {{{1
 ################################################################
@@ -61,9 +50,8 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 			# Parse XML and get included XML
 			if ( ! is.na(xmlstr)) {
 				xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-				ns <- c(csns = "http://www.chemspider.com/")
-				returned.ids <- XML::xpathSApply(xml, "//csns:ExtendedCompoundInfo/csns:CSID", XML::xmlValue, namespaces = ns)
-				content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, "//csns:ExtendedCompoundInfo", namespaces = ns), XML::saveXML, FUN.VALUE = '')
+				returned.ids <- XML::xpathSApply(xml, "//ns:ExtendedCompoundInfo/ns:CSID", XML::xmlValue, namespaces = c(ns = .self$getDbInfo()$getXmlNs()))
+				content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, "//ns:ExtendedCompoundInfo", namespaces = c(ns = .self$getDbInfo()$getXmlNs())), XML::saveXML, FUN.VALUE = '')
 			}
 		}
 	}
@@ -136,7 +124,7 @@ ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
 	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
 
 	# Get transaction ID
-	id <- XML::xpathSApply(xml, "//chemspider:SearchByMassAsyncResult", XML::xmlValue, namespaces = .self$.ns)
+	id <- XML::xpathSApply(xml, "//chemspider:SearchByMassAsyncResult", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
 	.self$message('debug', paste("Transaction ID = ", id, ".", sep = ''))
 
 	return(id)
@@ -161,7 +149,7 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 		xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
 
 		# Get IDs
-		id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = .self$.ns)
+		id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
 
 		# Cut
 		if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))

@@ -7,7 +7,6 @@
 #'
 #' This is the super class of all connector classes. All methods defined here are thus common to all connector classes. Some connector classes inherit directly from this abstract class. Some others inherit from intermediate classes \code{\link{RemotedbConn}} and \code{\link{MassdbConn}}. As for all connector concrete classes, you won't have to create an instance of this class directly, but you will instead go through the factory class. However, if you plan to develop a new connector, you will have to call the constructor of this class. See section Fields for a list of the constructor's parameters.
 #'
-#' @field base.url      The base URL of the database. Default values are defined inside \code{\link{BiodbDbsInfo}}.
 #' @field dbid          The identifier of the connector.
 #'
 #' @param count         If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.
@@ -33,22 +32,17 @@
 #' @include ChildObject.R
 #' @export BiodbConn
 #' @exportClass BiodbConn
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.dbid = "character", .base.url = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.dbid = "character"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(dbid = NA_character_, base.url = NA_character_, ...) {
+BiodbConn$methods( initialize = function(dbid = NA_character_, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConn')
 
 	.dbid <<- dbid
-
-	# Set base URL
-	if (is.na(base.url))
-		base.url <- .self$getBiodb()$getDbsInfo()$get(.self$getId())$getBaseUrl()
-	.self$.setBaseUrl(base.url)
 })
 
 # Get id {{{1
@@ -77,7 +71,16 @@ BiodbConn$methods( getDbInfo = function() {
 BiodbConn$methods( getBaseUrl = function() {
 	":\n\nGet the base URL of this connector."
 
-	return(.self$.base.url)
+	return(.self$getDbInfo()$getBaseUrl()) 
+})
+
+# Get web service URL {{{1
+################################################################
+
+BiodbConn$methods( getWsUrl = function() {
+	":\n\nGet the web service URL of this connector."
+
+	return(.self$getDbInfo()$getWsUrl()) 
 })
 
 # Get entry content type {{{1
@@ -136,5 +139,5 @@ BiodbConn$methods( .setBaseUrl = function(base.url) {
 	if (is.null(base.url) || any(is.na(base.url)))
 		.self$message('error', "Cannot set a NULL or NA URL to a database connector.")
 
-	.base.url <<- base.url
+	.self$getDbInfo()$setBaseUrl(base.url)
 })

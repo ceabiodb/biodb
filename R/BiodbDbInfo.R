@@ -9,6 +9,8 @@
 #'
 #' @field id            The identifier of the database.
 #' @field base.url      The main URL of the database.
+#' @field ws.url        The web services URL of the database.
+#' @field xml.ns        The XML namespace used by the database.
 #' @field token         An access token for the database.
 #' @field scheduler.n   The N parameter for the scheduler. The N paramter is the number of request allowed for each bit of time (defined by the T parameter).
 #' @field scheduler.t   The T parameter for the scheduler. The bit of time, in seconds, during which a maximum of N (see scheduler.n) requests is allowed.
@@ -16,20 +18,23 @@
 #' @seealso \code{\link{BiodbDbsInfo}}.
 #'
 #' @param base.url  A base URL for the database.
+#' @param ws.url    A web service URL for the database.
+#' @field xml.ns    The XML namespace used by the database.
 #' @param token     An access token for the database.
 #'
 #' @import methods
 #' @include ChildObject.R
 #' @export BiodbDbInfo
 #' @exportClass BiodbDbInfo
-BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character'))
+BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character', .xml.ns = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, token = NA_character_, scheduler.n = 1, scheduler.t = 1, entry.content.type = NA_character_, ...) {
+BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, ws.url = NA_character_, scheduler.n = 1, scheduler.t = 1, entry.content.type = NA_character_, xml.ns = NA_character_, ...) {
 
 	callSuper(...)
+	config <- .self$getBiodb()$getConfig()
 
 	# Set id
 	if ( is.null(id) || is.na(id) || nchar(id) == '')
@@ -44,7 +49,10 @@ BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, token =
 	.entry.content.type <<- entry.content.type
 
 	.base.url <<- base.url
-	.token <<- token
+	.ws.url <<- ws.url
+	.xml.ns <<- xml.ns
+	token.key <- paste(id, 'token', sep = '.')
+	.token <<- if (config$isDefined(token.key, fail = FALSE)) config$get(token.key) else NA_character_
 	.scheduler.n <<- as.integer(scheduler.n)
 	.scheduler.t <<- as.integer(scheduler.t)
 })
@@ -123,7 +131,7 @@ BiodbDbInfo$methods( getEntryIdField = function() {
 	return(paste(.self$.id, 'id', sep = '.'))
 })
 
-# Get base url {{{1
+# Get base URL {{{1
 ################################################################
 
 BiodbDbInfo$methods( getBaseUrl = function() {
@@ -132,13 +140,48 @@ BiodbDbInfo$methods( getBaseUrl = function() {
 	return(.self$.base.url)
 })
 
-# Set base url {{{1
+# Set base URL {{{1
 ################################################################
 
 BiodbDbInfo$methods( setBaseUrl = function(base.url) {
 	":\n\nSets the base URL."
 
 	.base.url <<- base.url
+})
+# Get web sevices URL {{{1
+################################################################
+
+BiodbDbInfo$methods( getWsUrl = function() {
+	":\n\nReturns the web sevices URL."
+
+	return(.self$.ws.url)
+})
+
+# Set web sevices URL {{{1
+################################################################
+
+BiodbDbInfo$methods( setWsUrl = function(ws.url) {
+	":\n\nSets the web sevices URL."
+
+	.ws.url <<- ws.url
+})
+
+# Get XML namespace {{{1
+################################################################
+
+BiodbDbInfo$methods( getXmlNs = function() {
+	":\n\nReturns the XML namespace."
+
+	return(.self$.xml.ns)
+})
+
+# Set XML namespace {{{1
+################################################################
+
+BiodbDbInfo$methods( setXmlNs = function(xml.ns) {
+	":\n\nSets the XML namespace."
+
+	.xml.ns <<- xml.ns
 })
 
 # Get token {{{1

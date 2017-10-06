@@ -13,7 +13,7 @@ NcbiCcdsConn <- methods::setRefClass("NcbiCcdsConn", contains = "NcbiConn")
 NcbiCcdsConn$methods( initialize = function(...) {
 
 	# Call parent constructor
-	callSuper(base.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', ...)
+	callSuper(...)
 })
 
 # Get entry content {{{1
@@ -52,7 +52,7 @@ NcbiCcdsConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 NcbiCcdsConn$methods( getEntryPageUrl = function(id) {
 
-	url <- paste0('https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=', id)
+	url <- paste0(file.path(.self$getBaseUrl(), 'CcdsBrowse.cgi', fsep = '/'), '?REQUEST=CCDS&GO=MainBrowse&DATA=', id)
 
 	return(url)
 })

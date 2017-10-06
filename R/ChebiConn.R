@@ -8,18 +8,11 @@
 
 ChebiConn <- methods::setRefClass("ChebiConn", contains = c("RemotedbConn", "CompounddbConn"))
 
-# Constructor {{{1
-################################################################
-
-ChebiConn$methods( initialize = function(...) {
-	callSuper(base.url = 'https://www.ebi.ac.uk/', ...)
-})
-
 # Get entry content url {{{1
 ################################################################
 
 ChebiConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-	return(paste(.self$.base.url, 'webservices/chebi/2.0/test/getCompleteEntity?chebiId=', id, sep = ''))
+	return(paste(file.path(.self$getWsUrl(), 'getCompleteEntity', fsep = '/'), '?chebiId=', id, sep = ''))
 })
 
 # Get entry content {{{1
@@ -57,17 +50,14 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 	#xml.request <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><SOAP-ENV:Body><tns:getLiteEntity xmlns:tns=\"http://www.ebi.ac.uk/webservices/chebi\"><tns:search>", search, "</tns:search><tns:searchCategory>", search.category, "</tns:searchCategory><tns:maximumResults>", max.results, "</tns:maximumResults><tns:stars>", stars, "</tns:stars></tns:getLiteEntity></SOAP-ENV:Body></SOAP-ENV:Envelope>")
 
 	# Send request
-	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$.base.url, 'webservices/chebi/2.0/test/getLiteEntity', sep = ''), params = params, encoding = 'UTF-8')
+	xml.results <- .self$.getUrlScheduler()$getUrl(file.path(.self$getWsUrl(), 'getLiteEntity', fsep = '/'), params = params, encoding = 'UTF-8')
 	#xml.results <- .self$.getUrlScheduler()$sendSoapRequest('http://www.ebi.ac.uk:80/webservices/chebi/2.0/webservice', xml.request, encoding = 'UTF-8')
-
-	# Set XML namespace
-	ns <- c(chebi = "https://www.ebi.ac.uk/webservices/chebi")
 
 	# Parse XML
 	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
 
 	# Get elements
-	ids <- XML::xpathSApply(xml, "//chebi:chebiId", XML::xmlValue, namespaces = ns)
+	ids <- XML::xpathSApply(xml, "//ns:chebiId", XML::xmlValue, namespaces = c(ns = .self$getDbInfo()$getXmlNs()))
 	ids <- sub('CHEBI:', '', ids)
 
 	return(ids)

@@ -7,9 +7,6 @@
 #'
 #' This is the super class of remote database connectors. It thus defines methods related to remote connection, like the definition of a token, and URL definitions. As with \code{\link{BiodbConn}} class, you won't need to use the constructor. Nevertheless we provide in the Fields section information about the constructor parameters, for eventual developers.
 #'
-#' @field scheduler     An instance from the class \code{\link{UrlRequestScheduler.R}}.
-#' @field token         An access token as a character string, required by some databases for all or part of their webservices.
-#'
 #' @param concatenate   If set to \code{TRUE}, then try to build as few URLs as possible, sending requests with several identifiers at once.
 #' @param entry.id      The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.
 #' @param max.length    The maximum length of the URLs to return, in number of characters.
@@ -35,20 +32,15 @@
 #' @include UrlRequestScheduler.R
 #' @export RemotedbConn
 #' @exportClass RemotedbConn
-RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "ANY", .token = "character"))
+RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "ANY"))
 
 # Constructor {{{1
 ################################################################
 
-RemotedbConn$methods( initialize = function(token = NA_character_, ...) {
+RemotedbConn$methods( initialize = function(...) {
 
 	callSuper(...)
 	.self$.abstract.class('RemotedbConn')
-
-	# Set token
-	if (is.na(token))
-		token <- .self$getDbInfo()$getToken()
-	.token <<- token
 
 	# Set scheduler
 	.scheduler <<- UrlRequestScheduler$new(n = .self$getDbInfo()$getSchedulerNParam(), t = .self$getDbInfo()$getSchedulerTParam(), parent = .self)
@@ -60,7 +52,7 @@ RemotedbConn$methods( initialize = function(token = NA_character_, ...) {
 RemotedbConn$methods( getToken = function() {
 	":\n\nGet the token configured for this connector."
 
-	return(.self$.token)
+	return(.self$getDbInfo()$getToken())
 })
 
 # Set token {{{1
@@ -69,7 +61,7 @@ RemotedbConn$methods( getToken = function() {
 RemotedbConn$methods( setToken = function(token) {
 	":\n\nSet a token for this connector."
 
-	.token <<- token
+	.self$getDbInfo()$setToken(token)
 })
 
 # Get entry content url {{{1

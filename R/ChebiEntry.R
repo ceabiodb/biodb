@@ -12,7 +12,7 @@ ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "XmlEntry")
 
 ChebiEntry$methods( initialize = function(...) {
 
-	callSuper(namespace = c(chebi = "https://www.ebi.ac.uk/webservices/chebi"), ...)
+	callSuper(namespace = c(chebi = .self$getParent()$getDbInfo()$getXmlNs()), ...)
 
 	.self$addParsingExpression('SMILES', "//chebi:return/chebi:smiles")
 	.self$addParsingExpression('INCHI', "//chebi:return/chebi:inchi")
