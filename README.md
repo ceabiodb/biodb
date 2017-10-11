@@ -16,6 +16,10 @@ With *biodb* you can:
  * Search for MSMS spectra.
  * Export any database into a CSV file.
 
+## License
+
+This software is licensed under the GNU AGPLv3 license.
+
 ## Examples
 
 In this section, you can find some of the possibilities offered by the *biodb* package.
