@@ -150,18 +150,62 @@ set.mode <- function(biodb, mode) {
 	}
 }
 
+# List reference entries {{{1
+################################################################
+
+list.ref.entries <- function(db) {
+
+	# List json files
+	files <- Sys.glob(file.path(RES.DIR, paste('entry', db, '*.json', sep = '-')))
+
+	# Extract ids
+	ids <- sub(paste('^.*/entry', db, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)
+
+	return(ids)
+}
+
+# Load ref entry {{{1
+################################################################
+
+load.ref.entry <- function(db, id) {
+
+	# Entry file
+	file <- file.path(RES.DIR, paste('entry-', db, '-', id, '.json', sep = ''))
+
+	# Load JSON
+	entry <- jsonlite::read_json(file)
+
+	return(entry)
+}
+
 # Load reference entries {{{1
 ################################################################
 
 load.ref.entries <- function(db) {
 
-	# Define reference file
-	entries.file <- file.path(RES.DIR, paste0(db, '-entries.txt'))
-	expect_true(file.exists(entries.file), info = paste0("Cannot find file \"", entries.file, "\"."))
+	# List json files
+	entry.json.files <- Sys.glob(file.path(RES.DIR, paste('entry', db, '*.json', sep = '-')))
 
-	# Load reference contents from file
-	entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
-	expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
+	if (length(entry.json.files) > 0) {
+		entries.desc <- NULL
+		for (f in entry.json.files) {
+			entry <- jsonlite::read_json(f)
+			if (is.null(entries.desc))
+				entries.desc <- as.data.frame(entry, stringsAsFactor = FALSE)
+			else
+				entries.desc <- rbind(entries.desc, as.data.frame(entry, stringsAsFactor = FALSE))
+		}
+	}
+	else {
+
+		# Define reference file
+		entries.file <- file.path(RES.DIR, paste0(db, '-entries.txt'))
+		expect_true(file.exists(entries.file), info = paste0("Cannot find file \"", entries.file, "\"."))
+
+		# Load reference contents from file
+		entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
+		expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
+	}
 
 	return(entries.desc)
 }
