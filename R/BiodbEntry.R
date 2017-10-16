@@ -280,6 +280,19 @@ BiodbEntry$methods( parseContent = function(content) {
 			.self$.parseFieldsAfter(parsed.content)
 		}
 	}
+
+	# Make sure the database id field is set to the same value as the accession field
+	dbid.field <- .self$getParent()$getDbInfo()$getEntryIdField()
+	if (.self$hasField(dbid.field) && .self$hasField('accession')) {
+		if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
+			.self$message('error', paste('Value of accession field ("', .self$getFieldValue('accession'), '") is different from value of ', dbid.field, ' field ("', .self$getFieldValue(dbid.field), '").', sep = ''))
+	}
+	else {
+		if (.self$hasField(dbid.field))
+			.self$setFieldValue('accession', .self$getFieldValue(dbid.field))
+		else
+			.self$setFieldValue(dbid.field, .self$getFieldValue('accession'))
+	}
 })
 
 # PRIVATE METHODS {{{1
