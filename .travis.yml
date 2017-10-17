@@ -10,5 +10,10 @@ before_install:
  - sudo apt-get install -y r-base
  - sudo R -e "install.packages(c('getopt', 'stringr', 'plyr', 'XML', 'jsonlite', 'bitops', 'stats', 'R.utils', 'digest', 'testthat', 'devtools'), lib='/usr/lib/R/library', dependencies = TRUE, repos='http://cran.univ-paris1.fr/')"
 
+branches:
+  only:
+    - master
+    - develop
+ 
 script:
  - make test
