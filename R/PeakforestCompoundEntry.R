@@ -23,9 +23,9 @@ PeakforestCompoundEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('SMILES', "canSmiles")
 	.self$addParsingExpression('AVERAGE.MASS', "averageMass")
 	.self$addParsingExpression('MONOISOTOPIC.MASS', "monoisotopicMass")
-	.self$addParsingExpression('INCHI', "inChI")
-	.self$addParsingExpression('INCHIKEY', "inchiIKey")
-	.self$addParsingExpression('NAME', "mainName")
+	.self$addParsingExpression('inchi', "inChI")
+	.self$addParsingExpression('inchikey', "inChIKey")
+	.self$addParsingExpression('name', "mainName")
 })
 
 # Parse fields after {{{1
