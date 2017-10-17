@@ -21,7 +21,6 @@ JsonEntry$methods( initialize = function(...) {
 
 JsonEntry$methods( .doParseContent = function(content) {
 
-
 	# Parse JSON
 	json <- jsonlite::fromJSON(content, simplifyDataFrame = FALSE)	
 
