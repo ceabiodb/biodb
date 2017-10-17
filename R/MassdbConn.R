@@ -41,7 +41,6 @@
 #' @exportClass MassdbConn
 MassdbConn <- methods::setRefClass("MassdbConn", contains = "BiodbConn")
 
-
 # Constructor {{{1
 ################################################################
 
