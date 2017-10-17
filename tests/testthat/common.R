@@ -191,7 +191,7 @@ load.ref.entries <- function(db) {
 		for (f in entry.json.files) {
 			entry <- jsonlite::read_json(f)
 			entry.df <- as.data.frame(entry, stringsAsFactors = FALSE)
-			entries.desc <- rbind(entries.desc, entry.df)
+			entries.desc <- plyr::rbind.fill(entries.desc, entry.df)
 		}
 	}
 	else {
