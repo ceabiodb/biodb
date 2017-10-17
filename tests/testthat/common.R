@@ -190,10 +190,8 @@ load.ref.entries <- function(db) {
 		entries.desc <- NULL
 		for (f in entry.json.files) {
 			entry <- jsonlite::read_json(f)
-			if (is.null(entries.desc))
-				entries.desc <- as.data.frame(entry, stringsAsFactor = FALSE)
-			else
-				entries.desc <- rbind(entries.desc, as.data.frame(entry, stringsAsFactor = FALSE))
+			entry.df <- as.data.frame(entry, stringsAsFactors = FALSE)
+			entries.desc <- rbind(entries.desc, entry.df)
 		}
 	}
 	else {
