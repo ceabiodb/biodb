@@ -278,7 +278,7 @@ test.peak.table <- function(db) {
 	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
 	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 
-	# Loop on entries
+	# Check number of peaks
 	if ('nbpeaks' %in% colnames(entries.desc)) {
 
 		# Check that the registered number of peaks is correct

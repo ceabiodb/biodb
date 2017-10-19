@@ -1,2 +1,0 @@
-accession ncbi.pubchem.comp.id
-3         449639

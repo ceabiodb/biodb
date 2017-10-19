@@ -1,3 +1,0 @@
-accession   name     formula       mass     molecular.weight
-C00751      Squalene C30H50        410.3913 410.718
-C00005      NADPH    C21H30N7O17P3 745.0911 745.4209

@@ -1,0 +1,12 @@
+{
+	"accession": "2",
+	"formula": "C_{7}H_{8}O_{4}",
+	"name": "2,3-dihydroxy-2,3-dihydrobenzoic acid",
+	"smiles": "C1=CC(C(C(=C1)C(=O)O)O)O", 
+	"inchi": "InChI=1/C7H8O4/c8-5-3-1-2-4(6(5)9)7(10)11/h1-3,5-6,8-9H,(H,10,11)",
+	"inchikey": "INCSWYKICIYAHB-UHFFFAOYAY",
+	"average.mass": 156.136,
+	"monoisotopic.mass": 156.042252,
+	"molecular.weight": 156.13602,
+	"nominal.mass": 156
+}

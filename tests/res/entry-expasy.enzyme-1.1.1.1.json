@@ -1,0 +1,7 @@
+{
+	"accession": "1.1.1.1",
+	"name": "Alcohol dehydrogenase",
+    "synonyms": "Aldehyde reductase",
+    "cofactor": "Zn(2+) or Fe cation",
+    "catalytic.activity": "(1) An alcohol + NAD(+) = an aldehyde or ketone + NADH;(2) A secondary alcohol + NAD(+) = a ketone + NADH"
+}

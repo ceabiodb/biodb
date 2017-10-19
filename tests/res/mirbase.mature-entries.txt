@@ -1,3 +1,0 @@
-accession       name            sequence                description
-MIMAT0000433    hsa-miR-142-5p  CAUAAAGUAGAAAGCACUACU   "Homo sapiens miR-142-5p"
-MIMAT0000434    hsa-miR-142-3p  UGUAGUGUUUCCUACUUUAUGGA "Homo sapiens miR-142-3p"
