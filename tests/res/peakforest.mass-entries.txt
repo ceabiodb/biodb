@@ -1,3 +1,0 @@
-accession   mstype msdev          nb.peaks peakforest.compound.id
-75          MS     "QTOF Bruker"  1        1839
-1000        MS     "Orbitrap"     39       2075 

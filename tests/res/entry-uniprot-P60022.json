@@ -1,0 +1,12 @@
+{
+  "accession": "P60022",
+  "name": "DEFB1_HUMAN",
+  "length": 68,
+  "mass": 7420,
+  "expasy.enzyme.id": null,
+  "gene.symbols": "DEFB1;BD1;HBD1",
+  "kegg.compound.id": "hsa:1672",
+  "ncbi.gene.id": 1672,
+  "fullnames": "Beta-defensin 1;Defensin, beta 1",
+  "sequence": "MRTSYLLLFTLCLLLSEMASGGNFLTGLGHRSDHYNCVSSGGQCLYSACPIFTKIQGTCYRGKAKCCK"
+}

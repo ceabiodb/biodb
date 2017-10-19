@@ -1,2 +1,0 @@
-accession       name            comp.iupac.name.syst        formula     mass    kegg.compound.id  hmdb.metabolite.id chebi.id ncbi.pubchem.comp.id synonyms
-LMFA08040013    Palmitoyl-EA    N-hexadecanoyl-ethanolamine C18H37NO2   299.28  NA                HMDB02100          4671     XPR7013              "Palmitoyl ethanolamide;palmitoylethanolamide;Anandamide (16:0);N-palmitoyl ethanolamine"

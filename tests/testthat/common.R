@@ -183,26 +183,25 @@ load.ref.entry <- function(db, id) {
 
 load.ref.entries <- function(db) {
 
-	# List json files
+	entries.desc <- NULL
+
+	# List JSON files
 	entry.json.files <- Sys.glob(file.path(RES.DIR, paste('entry', db, '*.json', sep = '-')))
 
-	if (length(entry.json.files) > 0) {
-		entries.desc <- NULL
-		for (f in entry.json.files) {
-			entry <- jsonlite::read_json(f)
-			entry.df <- as.data.frame(entry, stringsAsFactors = FALSE)
-			entries.desc <- plyr::rbind.fill(entries.desc, entry.df)
-		}
-	}
-	else {
+	# Loop on all JSON files
+	for (f in entry.json.files) {
 
-		# Define reference file
-		entries.file <- file.path(RES.DIR, paste0(db, '-entries.txt'))
-		expect_true(file.exists(entries.file), info = paste0("Cannot find file \"", entries.file, "\"."))
+		# Load entry from JSON
+		entry <- jsonlite::read_json(f)
 
-		# Load reference contents from file
-		entries.desc <- read.table(entries.file, stringsAsFactors = FALSE, header = TRUE)
-		expect_true(nrow(entries.desc) > 0, info = paste0("No reference entries found in file \"", entries.file, "\" in test.entry.fields()."))
+		# Replace NULL values by NA
+		entry <- lapply(entry, function(x) if (is.null(x)) NA else x)
+
+		# Convert to data frame
+		entry.df <- as.data.frame(entry, stringsAsFactors = FALSE)
+
+		# Append entry to main data frame
+		entries.desc <- plyr::rbind.fill(entries.desc, entry.df)
 	}
 
 	return(entries.desc)
