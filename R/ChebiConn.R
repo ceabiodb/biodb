@@ -1,11 +1,10 @@
 # vi: fdm=marker
 
-#' @include CompounddbConn.R
-#' @include RemotedbConn.R
-
 # Class declaration {{{1
 ################################################################
 
+#' @include CompounddbConn.R
+#' @include RemotedbConn.R
 ChebiConn <- methods::setRefClass("ChebiConn", contains = c("RemotedbConn", "CompounddbConn"))
 
 # Get entry content url {{{1

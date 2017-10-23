@@ -3,8 +3,9 @@
 # Class declaration {{{1
 ################################################################
 
-ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = "RemotedbConn")
-
+#' @include CompounddbConn.R
+#' @include RemotedbConn.R
+ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = c("RemotedbConn", "CompounddbConn"))
 
 # Get entry content {{{1
 ################################################################
