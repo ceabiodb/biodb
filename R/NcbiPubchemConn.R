@@ -3,7 +3,9 @@
 # Class declaration {{{1
 ################################################################
 
-NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = "RemotedbConn", fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
+#' @include CompounddbConn.R
+#' @include RemotedbConn.R
+NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = c("RemotedbConn", "CompounddbConn"), fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
 
 # Constructor {{{1
 ################################################################

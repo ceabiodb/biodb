@@ -3,7 +3,9 @@
 # Class declaration {{{1
 ################################################################
 
-UniprotConn <- methods::setRefClass("UniprotConn", contains = "RemotedbConn")
+#' @include CompounddbConn.R
+#' @include RemotedbConn.R
+UniprotConn <- methods::setRefClass("UniprotConn", contains = c("RemotedbConn", "CompounddbConn"))
 
 # Constructor {{{1
 ################################################################
