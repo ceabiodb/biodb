@@ -14,6 +14,15 @@ UniprotConn$methods( initialize = function(...) {
 	callSuper(...)
 })
 
+# Query entries {{{1
+################################################################
+
+UniprotConn$methods( queryEntries = function() {
+	"Direct query to the database for searching for queries. See http://www.uniprot.org/help/api_queries for details."
+
+	"http://www.uniprot.org/uniprot/?query=&columns=id&format=tab&limit=10"
+})
+
 # Get entry content {{{1
 ################################################################
 
