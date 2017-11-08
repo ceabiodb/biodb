@@ -6,6 +6,7 @@ source('db-ms-tests.R')
 source('db-compound-tests.R')
 source('db-hmdb-tests.R')
 source('db-chebi-tests.R')
+source('db-uniprot-tests.R')
 
 # MAIN {{{1
 ################################################################
@@ -46,6 +47,10 @@ for (mode in TEST.MODES) {
 			# Test ChEBI
 			if (db.name == 'chebi' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 				run.db.test('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
+
+			# Test Uniprot
+			if (db.name == 'uniprot' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+				run.db.test('Uniprot entries query works fine.', 'test.uniprot.ws.query', db)
 
 			# Compound database testing
 			if (methods::is(db, 'CompounddbConn')) {
