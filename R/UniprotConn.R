@@ -73,8 +73,15 @@ UniprotConn$methods( getEntryContent = function(entry.id) {
 ################################################################
 
 UniprotConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	.self$message('caution', "No method implemented for computing list of IDs.")
-	return(NULL)
+
+	ids <- NULL
+
+	ids.str <- .self$ws.query(columns = 'id', limit = max.results, format = 'tab')
+	readtc <- textConnection(ids.str, "r", local = TRUE)
+	df <- read.table(readtc, sep = "\t", header = TRUE)
+	ids <- as.character(df[[1]])
+
+	return(ids)
 })
 
 # Do get entry content url {{{1
