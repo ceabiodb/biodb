@@ -19,31 +19,31 @@ test.searchCompound <- function(db) {
 	expect_true(id %in% ids)
 
 	# Search by mass
-	mass <- entry$getFieldValue('monoisotopic.mass')
-	ids <- db$searchCompound(mass = mass)
-	expect_true( ! is.null(ids))
-	expect_true(length(ids) > 0)
-	expect_true(id %in% ids)
+	mass <- NA
+	if (entry$hasField('monoisotopic.mass'))
+		mass <- entry$getFieldValue('monoisotopic.mass')
+	else if (entry$hasField('mass'))
+		mass <- entry$getFieldValue('mass')
+	if ( ! is.na(mass)) {
+		ids <- db$searchCompound(mass = mass)
+		expect_true( ! is.null(ids))
+		expect_true(length(ids) > 0)
+		expect_true(id %in% ids)
+	}
 
 	# Search by exact mass and name
-	ids <- db$searchCompound(name = name, mass = mass)
-	expect_true( ! is.null(ids))
-	expect_true(length(ids) > 0)
-	expect_true(id %in% ids)
+	if ( ! is.na(mass)) {
+		ids <- db$searchCompound(name = name, mass = mass)
+		expect_true( ! is.null(ids))
+		expect_true(length(ids) > 0)
+		expect_true(id %in% ids)
+	}
 
 	# Search by slightly different mass and name
-	ids <- db$searchCompound(name = name, mass = mass - 0.1, mass.tol = 0.2)
-	expect_true( ! is.null(ids))
-	expect_true(length(ids) > 0)
-	expect_true(id %in% ids)
-}
-
-# Test ChEBI searchCompound for bug 20170926.01
-################################################################
-
-test.chebi.searchCompound.bug.20170926.01 <- function(db) {
-
-	ids <- db$searchCompound(name = "(gamma)Glu-Leu/Ile", mass = 260.1362)
-	expect_true( ! is.null(ids))
-	expect_true(length(ids) > 0)
+	if ( ! is.na(mass)) {
+		ids <- db$searchCompound(name = name, mass = mass - 0.1, mass.tol = 0.2)
+		expect_true( ! is.null(ids))
+		expect_true(length(ids) > 0)
+		expect_true(id %in% ids)
+	}
 }

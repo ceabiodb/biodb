@@ -3,7 +3,9 @@
 # Class declaration {{{1
 ################################################################
 
-MirbaseConn <- methods::setRefClass("MirbaseConn", contains = "RemotedbConn")
+#' @include CompounddbConn.R
+#' @include RemotedbConn.R
+MirbaseConn <- methods::setRefClass("MirbaseConn", contains = c("RemotedbConn", "CompounddbConn"))
 
 # Constructor {{{1
 ################################################################

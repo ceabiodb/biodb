@@ -8,6 +8,8 @@
 \arguments{
 \item{base.url}{A base URL for the database.}
 
+\item{ws.url}{A web service URL for the database.}
+
 \item{token}{An access token for the database.}
 }
 \description{
@@ -20,7 +22,17 @@ This class is used by \code{\link{BiodbDbsInfo}} for storing database characteri
 
 \item{\code{base.url}}{The main URL of the database.}
 
+\item{\code{ws.url}}{The web services URL of the database.}
+
+\item{\code{xml.ns}}{The XML namespace used by the database.}
+
 \item{\code{token}}{An access token for the database.}
+
+\item{\code{scheduler.n}}{The N parameter for the scheduler. The N paramter is the number of request allowed for each bit of time (defined by the T parameter).}
+
+\item{\code{scheduler.t}}{The T parameter for the scheduler. The bit of time, in seconds, during which a maximum of N (see scheduler.n) requests is allowed.}
+
+\item{\code{xml.ns}}{The XML namespace used by the database.}
 }}
 
 \section{Methods}{
@@ -46,21 +58,57 @@ Returns the associated entry class.}
 
 Returns the name of the associated entry class.}
 
+\item{\code{getEntryContentType()}}{:
+
+Returns the entry content type.}
+
 \item{\code{getEntryIdField()}}{:
 
 Return the name of the corresponding database ID field in entries.}
+
+\item{\code{getSchedulerNParam()}}{:
+
+Returns the N parameter for the scheduler.}
+
+\item{\code{getSchedulerTParam()}}{:
+
+Returns the T parameter for the scheduler.}
 
 \item{\code{getToken()}}{:
 
 Returns the access token.}
 
+\item{\code{getWsUrl()}}{:
+
+Returns the web sevices URL.}
+
+\item{\code{getXmlNs()}}{:
+
+Returns the XML namespace.}
+
 \item{\code{setBaseUrl(base.url)}}{:
 
 Sets the base URL.}
 
+\item{\code{setSchedulerNParam(n)}}{:
+
+Sets the N parameter for the scheduler.}
+
+\item{\code{setSchedulerTParam(t)}}{:
+
+Sets the T parameter for the scheduler.}
+
 \item{\code{setToken(token)}}{:
 
 Sets the access token.}
+
+\item{\code{setWsUrl(ws.url)}}{:
+
+Sets the web sevices URL.}
+
+\item{\code{setXmlNs(xml.ns)}}{:
+
+Sets the XML namespace.}
 }}
 
 \seealso{

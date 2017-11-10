@@ -3,7 +3,9 @@
 # Class declaration {{{1
 ################################################################
 
-LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn", contains = "RemotedbConn")
+#' @include CompounddbConn.R
+#' @include RemotedbConn.R
+LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn", contains = c("RemotedbConn", "CompounddbConn"))
 
 # Get entry content url {{{1
 ################################################################

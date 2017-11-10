@@ -4,7 +4,8 @@
 ################################################################
 
 #' @include KeggConn.R
-KeggCompoundConn <- methods::setRefClass("KeggCompoundConn", contains = "KeggConn")
+#' @include CompounddbConn.R
+KeggCompoundConn <- methods::setRefClass("KeggCompoundConn", contains = c("KeggConn", "CompounddbConn"))
 
 # Constructor {{{1
 ################################################################
