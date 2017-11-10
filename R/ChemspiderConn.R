@@ -1,10 +1,10 @@
 # vi: fdm=marker
 
-#' @include CompounddbConn.R
-
 # Class declaration {{{1
 ################################################################
 
+#' @include CompounddbConn.R
+#' @include RemotedbConn.R
 ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("RemotedbConn", "CompounddbConn"))
 
 # Get entry content {{{1

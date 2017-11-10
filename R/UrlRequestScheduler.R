@@ -83,6 +83,9 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 		params <- list()
 	}
 
+	# Encode URL
+	url <- URLencode(url)
+
 	# Log URL
 	.self$message('debug', paste0("Getting content of ", method, " URL request \"", url, "\" ..."))
 

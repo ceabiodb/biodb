@@ -39,11 +39,12 @@ This class handles GET and POST requests, as well as file downloading. Each remo
 Download the content of a URL and save it into the specified destination file.}
 
 \item{\code{getUrl(url, params = list(), method = "get",
-  opts = .self$.get.curl.opts())}}{:
+  opts = .self$.get.curl.opts(), encoding = integer())}}{:
 
 Send a URL request, either with GET or POST method, and return result.}
 
-\item{\code{sendSoapRequest(url, soap.request, soap.action = NA_character_)}}{:
+\item{\code{sendSoapRequest(url, soap.request, soap.action = NA_character_,
+  encoding = integer())}}{:
 
 Send a SOAP request to a URL. Returns the string result.}
 }}

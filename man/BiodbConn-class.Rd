@@ -18,10 +18,6 @@ This is the super class of all connector classes. All methods defined here are t
 \section{Fields}{
 
 \describe{
-\item{\code{base.url}}{The base URL of the database. Default values are defined inside \code{\link{BiodbDbsInfo}}.}
-
-\item{\code{content.type}}{The type of content handled by the connector for entries: XML, TXT, etc.}
-
 \item{\code{dbid}}{The identifier of the connector.}
 }}
 
@@ -31,6 +27,10 @@ This is the super class of all connector classes. All methods defined here are t
 \item{\code{getBaseUrl()}}{:
 
 Get the base URL of this connector.}
+
+\item{\code{getDbInfo()}}{:
+
+Get the database information associated with this connector.}
 
 \item{\code{getEntryContent(entry.id)}}{:
 
@@ -51,6 +51,10 @@ Get the identifier of this connector.}
 \item{\code{getNbEntries(count = FALSE)}}{:
 
 Get the number of entries contained in this database.}
+
+\item{\code{getWsUrl()}}{:
+
+Get the web service URL of this connector.}
 }}
 
 \examples{

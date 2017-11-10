@@ -1,12 +1,12 @@
 # vi: fdm=marker
 
-#' @include RemotedbConn.R
-#' @include BiodbDownloadable.R
-
 # Class declaration {{{1
 ################################################################
 
-HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = c("RemotedbConn", 'BiodbDownloadable'), fields = list(.ns = "character"))
+#' @include RemotedbConn.R
+#' @include CompounddbConn.R
+#' @include BiodbDownloadable.R
+HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = c("RemotedbConn", "CompounddbConn", 'BiodbDownloadable'), fields = list(.ns = "character"))
 
 # Constructor {{{1
 ################################################################

@@ -35,7 +35,11 @@ Get the description of a key.}
 
 Get the list of available keys.}
 
-\item{\code{isDefined(key)}}{:
+\item{\code{hasKey(key)}}{:
+
+Test if a key exists.}
+
+\item{\code{isDefined(key, fail = TRUE)}}{:
 
 Test if a key is defined.}
 
