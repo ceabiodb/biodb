@@ -49,8 +49,11 @@ for (mode in TEST.MODES) {
 				run.db.test('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
 
 			# Test Uniprot
-			if (db.name == 'uniprot' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
-				run.db.test('Uniprot entries query works fine.', 'test.uniprot.ws.query', db)
+			if (db.name == 'uniprot' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+				run.db.test('Uniprot entries query works fine with an empty query.', 'test.uniprot.ws.query.empty', db)
+				run.db.test('Uniprot entries query works fine with multiple columns', 'test.uniprot.ws.query.multiple.columns', db)
+				run.db.test('Uniprot entries query works fine with a query by name.', 'test.uniprot.ws.query.by.name', db)
+			}
 
 			# Compound database testing
 			if (methods::is(db, 'CompounddbConn')) {

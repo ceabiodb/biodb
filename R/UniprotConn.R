@@ -7,9 +7,21 @@
 #'
 #' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
 #'
+#' @param query     The query to send to the database.
 #' @param columns   The field columns to retrieve from the database.
+#' @param format    The return format.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Get Uniprot connector
+#' uniprot <- mybiodb$getFactory()$createConn('uniprot')
+#'
+#' # Access web service query
+#' result <- uniprot$ws.query(query = 'name:"prion protein"', columns = c('id', 'entry name'), format = 'txt', limit = 10)
 #'
 #' @include CompounddbConn.R
 #' @include RemotedbConn.R
@@ -28,7 +40,7 @@ UniprotConn$methods( initialize = function(...) {
 ################################################################
 
 UniprotConn$methods( ws.query = function(query = '', columns = NA, format = NA, limit = NA) {
-	"Direct query to the database for searching for queries. See http://www.uniprot.org/help/api_queries for details."
+	"Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details."
 
 	params = list()
 
