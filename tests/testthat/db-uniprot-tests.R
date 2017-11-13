@@ -44,3 +44,12 @@ test.uniprot.ws.query.multiple.columns <- function(db) {
 	expect_true(identical(colnames(df), c('Entry', 'Entry.name')))
 	expect_true(nrow(df) == n)
 }
+
+# Run Uniprot tests {{{1
+################################################################
+
+run.uniprot.tests <- function(db) {
+	run.db.test('Uniprot entries query works fine with an empty query.', 'test.uniprot.ws.query.empty', db)
+	run.db.test('Uniprot entries query works fine with multiple columns', 'test.uniprot.ws.query.multiple.columns', db)
+	run.db.test('Uniprot entries query works fine with a query by name.', 'test.uniprot.ws.query.by.name', db)
+}

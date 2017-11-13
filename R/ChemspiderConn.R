@@ -7,11 +7,15 @@
 #'
 #' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
 #'
-#' @param mass
-#' @param query
-#' @param range
+#' @param mass  The mass to search for.
+#' @param query The query to send to the database.
+#' @param range The range of the searched mass.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
 #'
 #' @include CompounddbConn.R
 #' @include RemotedbConn.R
