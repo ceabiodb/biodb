@@ -7,9 +7,9 @@
 #'
 #' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
 #'
-#' @param query     The query to send to the database.
 #' @param columns   The field columns to retrieve from the database.
 #' @param format    The return format.
+#' @param query     The query to send to the database.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
 #'
