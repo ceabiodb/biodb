@@ -4,8 +4,9 @@ source('common.R')
 source('db-generic-tests.R')
 source('db-ms-tests.R')
 source('db-compound-tests.R')
-source('db-hmdb-tests.R')
 source('db-chebi-tests.R')
+source('db-chemspider-tests.R')
+source('db-hmdb-tests.R')
 source('db-uniprot-tests.R')
 
 # MAIN {{{1
@@ -48,12 +49,13 @@ for (mode in TEST.MODES) {
 			if (db.name == 'chebi' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 				run.db.test('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
 
+			# Test ChemSpider
+			if (db.name == 'chemspider' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+				run.chemspider.tests(db)
+
 			# Test Uniprot
-			if (db.name == 'uniprot' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-				run.db.test('Uniprot entries query works fine with an empty query.', 'test.uniprot.ws.query.empty', db)
-				run.db.test('Uniprot entries query works fine with multiple columns', 'test.uniprot.ws.query.multiple.columns', db)
-				run.db.test('Uniprot entries query works fine with a query by name.', 'test.uniprot.ws.query.by.name', db)
-			}
+			if (db.name == 'uniprot' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+				run.uniprot.tests(db)
 
 			# Compound database testing
 			if (methods::is(db, 'CompounddbConn')) {
