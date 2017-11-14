@@ -179,6 +179,28 @@ ChemspiderConn$methods( ws.SearchByMass2.ids = function(...) {
 
 ChemspiderConn$methods( ws.SimpleSearch = function(query = NA) {
 	"Direct query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details."
+
+	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "Search.asmx/SimpleSearch", sep = ''), params = c(query = query, token = .self$getToken()))
+
+	return(xml.results)
+})
+
+# Web service SimpleSearch IDs {{{1
+################################################################
+
+ChemspiderConn$methods( ws.SimpleSearch.ids = function(...) {
+	"Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector."
+
+	results <- .self$ws.SimpleSearch(...)
+
+	# Parse XML
+	xml <-  XML::xmlInternalTreeParse(results, asText = TRUE)
+
+	# Get IDs
+	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfInt/chemspider:int", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+	id <- as.character(id)
+
+	return(id)
 })
 
 # Search compound {{{1
@@ -204,12 +226,13 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 	# Search by name
 	if ( ! is.null(name)) {
 
-		# TODO
+		name.id <- .self$ws.SimpleSearch.ids(query = name)
 
 		# Merge with already found IDs
-		if ( ! is.null(id)) {
-			# TODO
-		}
+		if (is.null(id))
+			id <- name.id
+		else
+			id <- id[id %in% name.id]
 	}
 
 	if (is.null(id))
