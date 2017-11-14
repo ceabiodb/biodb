@@ -4,7 +4,15 @@
 ################################################################
 
 test.chemspider.ws.SearchByMass2 <- function(db) {
-	db$ws.SearchByMass2(mass = , range = )
+
+	results <- db$ws.SearchByMass2(mass = 96, range = 0.01)
+	print(results)
+	expect_true(nchar(results) > 0)
+
+	ids <- db$ws.SearchByMass2.ids(mass = 96, range = 0.01)
+	print(ids)
+	expect_true(is.character(ids))
+	expect_true(length(ids) > 0)
 }
 
 # Run ChemSpider tests {{{1
