@@ -9,7 +9,7 @@
 #'
 #' @param mass  The mass to search for.
 #' @param query The query to send to the database.
-#' @param range The range of the searched mass.
+#' @param range The range of the searched mass. Plain range, Dalton unit. The mass searched are between (mass - range) and (mass + range).
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
 #'
@@ -157,6 +157,23 @@ ChemspiderConn$methods( ws.SearchByMass2 = function(mass = NA, range = NA) {
 	return(xml.results)
 })
 
+# Web service SearchByMass2 IDs {{{1
+################################################################
+
+ChemspiderConn$methods( ws.SearchByMass2.ids = function(...) {
+	"Calls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector."
+
+	results <- .self$ws.SearchByMass2(...)
+
+	# Parse XML
+	xml <-  XML::xmlInternalTreeParse(results, asText = TRUE)
+
+	# Get IDs
+	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+
+	return(id)
+})
+
 # Web service SimpleSearch {{{1
 ################################################################
 
@@ -177,13 +194,7 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 			range <- mass * mass.tol * 1.e-6
 		else
 			range <- mass.tol
-		xml.results <- .self$ws.SearchByMass2(mass = mass, range = range)
-
-		# Parse XML
-		xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
-
-		# Get IDs
-		id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+		id <- .self$ws.SearchByMass2.ids(mass = mass, range = range)
 
 		# Cut
 		if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))
