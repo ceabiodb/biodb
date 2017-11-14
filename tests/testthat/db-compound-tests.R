@@ -47,3 +47,10 @@ test.searchCompound <- function(db) {
 		expect_true(id %in% ids)
 	}
 }
+
+# Run Compound DB tests {{{1
+################################################################
+
+run.compound.db.tests <- function(db) {
+	run.db.test('We can search for a compound', 'test.searchCompound', db)
+}

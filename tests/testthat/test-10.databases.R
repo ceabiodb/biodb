@@ -7,6 +7,8 @@ source('db-compound-tests.R')
 source('db-chebi-tests.R')
 source('db-chemspider-tests.R')
 source('db-hmdb-tests.R')
+source('db-mass.csv.file-tests.R')
+source('db-massbank-tests.R')
 source('db-uniprot-tests.R')
 
 # MAIN {{{1
@@ -38,51 +40,21 @@ for (mode in TEST.MODES) {
 
 		if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 
-			run.db.test("Nb entries is positive", 'test.nb.entries', db)
-			run.db.test("We can get a list of entry ids", 'test.entry.ids', db)
-
-			# Test HMDB Metabolite number of entries
-			if (db.name == BIODB.HMDB.METABOLITE && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
-				run.db.test("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', db)
-
-			# Test ChEBI
-			if (db.name == 'chebi' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
-				run.db.test('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
-
-			# Test ChemSpider
-			if (db.name == 'chemspider' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
-				run.chemspider.tests(db)
-
-			# Test Uniprot
-			if (db.name == 'uniprot' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
-				run.uniprot.tests(db)
+			# Generic tests
+			run.db.generic.tests(db)
 
 			# Compound database testing
-			if (methods::is(db, 'CompounddbConn')) {
-				run.db.test('We can search for a compound', 'test.searchCompound', db)
-				if (db.name == 'chebi') {
-					run.db.test("Test bug 20170926.01 for ChEBI.", 'test.chebi.searchCompound.bug.20170926.01', db)
-				}
-			}
+			if (methods::is(db, 'CompounddbConn'))
+				run.compound.db.tests(db)
 
 			# Mass database testing
-			if (methods::is(db, 'MassdbConn')) {
-				run.db.test("We can retrieve a list of M/Z values", 'test.getMzValues', db)
-				run.db.test("We can match M/Z peaks", 'test.searchMzTol',db)
-				run.db.test("We can search for spectra containing several M/Z values", 'test.searchMzTol.multiple.mz',db)
-				run.db.test("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
-				run.db.test("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
-				if (db.name == 'massbank.jp' && mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
-					run.db.test('MSMS search works for massbank.', 'test.msmsSearch.massbank', db)
-				run.db.test('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
-				run.db.test('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
-				run.db.test("The peak table is correct.", 'test.peak.table', db)
+			if (methods::is(db, 'MassdbConn'))
+				run.mass.db.tests(db)
 
-				if (db.name == BIODB.MASS.CSV.FILE) {
-					run.db.test("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', db)
-					run.db.test("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', db)
-				}
-			}
+			# Specific tests
+			fct <- paste('run', db.name, 'tests', sep = '.')
+			if (exists(fct))
+				do.call(fct, list(db, mode))
 		}
 	}
 }
