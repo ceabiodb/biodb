@@ -3,8 +3,24 @@
 # Class declaration {{{1
 ################################################################
 
+#' The connector class to ChemSpider database.
+#'
+#' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+#'
+#' @param mass  The mass to search for.
+#' @param query The query to send to the database.
+#' @param range The range of the searched mass. Plain range, Dalton unit. The mass searched are between (mass - range) and (mass + range).
+#'
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
 #' @include CompounddbConn.R
 #' @include RemotedbConn.R
+#' @export ChemspiderConn
+#' @exportClass ChemspiderConn
 ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("RemotedbConn", "CompounddbConn"))
 
 # Get entry content {{{1
@@ -94,38 +110,95 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 	return(url)
 })
 
-# Send search mass request {{{1
+## Send search mass request {{{1
+#################################################################
+#
+#ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
+#	"!!! PRIVATE METHOD !!! Send a \"search mass\" request, and get the ID of the open transaction.
+#	mass:   The mass to search.
+#	range:  ???
+#	return: The transaction ID."
+#
+#	# Build request
+#	xml.request <- paste('<?xml version="1.0" encoding="utf-8"?>
+#		<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+#			<soap:Body>
+#				<SearchByMassAsync xmlns="http://www.chemspider.com/">
+#					<mass>', mass, '</mass>
+#					<range>', range, '</range>
+#					<token>', .self$getToken(), '</token>
+#				</SearchByMassAsync>
+#			</soap:Body>
+#		</soap:Envelope>', sep = '')
+#
+#	# Send request
+#	.self$message('debug', paste("XML REQUEST =", xml.request))
+#	xml.results <- .self$.getUrlScheduler()$sendSoapRequest(paste(.self$getBaseUrl(), "MassSpecAPI.asmx", sep = ''), soap.action = paste(.self$getBaseUrl(), "SearchByMassAsync", sep = ''), soap.request = xml.request)
+#	.self$message('debug', paste("XML RESULTS =", xml.results))
+#
+#	# Parse XML
+#	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
+#
+#	# Get transaction ID
+#	id <- XML::xpathSApply(xml, "//chemspider:SearchByMassAsyncResult", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+#	.self$message('debug', paste("Transaction ID = ", id, ".", sep = ''))
+#
+#	return(id)
+#})
+
+# Web service SearchByMass2 {{{1
 ################################################################
 
-ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
-	"!!! PRIVATE METHOD !!! Send a \"search mass\" request, and get the ID of the open transaction.
-	mass:   The mass to search.
-	range:  ???
-	return: The transaction ID."
+ChemspiderConn$methods( ws.SearchByMass2 = function(mass = NA, range = NA) {
+	"Direct query to the database for searching for compounds by mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details."
 
-	# Build request
-	xml.request <- paste('<?xml version="1.0" encoding="utf-8"?>
-		<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-			<soap:Body>
-				<SearchByMassAsync xmlns="http://www.chemspider.com/">
-					<mass>', mass, '</mass>
-					<range>', range, '</range>
-					<token>', .self$getToken(), '</token>
-				</SearchByMassAsync>
-			</soap:Body>
-		</soap:Envelope>', sep = '')
+	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = range))
 
-	# Send request
-	.self$message('debug', paste("XML REQUEST =", xml.request))
-	xml.results <- .self$.getUrlScheduler()$sendSoapRequest(paste(.self$getBaseUrl(), "MassSpecAPI.asmx", sep = ''), soap.action = paste(.self$getBaseUrl(), "SearchByMassAsync", sep = ''), soap.request = xml.request)
-	.self$message('debug', paste("XML RESULTS =", xml.results))
+	return(xml.results)
+})
+
+# Web service SearchByMass2 IDs {{{1
+################################################################
+
+ChemspiderConn$methods( ws.SearchByMass2.ids = function(...) {
+	"Calls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector."
+
+	results <- .self$ws.SearchByMass2(...)
 
 	# Parse XML
-	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
+	xml <-  XML::xmlInternalTreeParse(results, asText = TRUE)
 
-	# Get transaction ID
-	id <- XML::xpathSApply(xml, "//chemspider:SearchByMassAsyncResult", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
-	.self$message('debug', paste("Transaction ID = ", id, ".", sep = ''))
+	# Get IDs
+	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+
+	return(id)
+})
+
+# Web service SimpleSearch {{{1
+################################################################
+
+ChemspiderConn$methods( ws.SimpleSearch = function(query = NA) {
+	"Direct query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details."
+
+	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "Search.asmx/SimpleSearch", sep = ''), params = c(query = query, token = .self$getToken()))
+
+	return(xml.results)
+})
+
+# Web service SimpleSearch IDs {{{1
+################################################################
+
+ChemspiderConn$methods( ws.SimpleSearch.ids = function(...) {
+	"Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector."
+
+	results <- .self$ws.SimpleSearch(...)
+
+	# Parse XML
+	xml <-  XML::xmlInternalTreeParse(results, asText = TRUE)
+
+	# Get IDs
+	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfInt/chemspider:int", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+	id <- as.character(id)
 
 	return(id)
 })
@@ -143,13 +216,7 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 			range <- mass * mass.tol * 1.e-6
 		else
 			range <- mass.tol
-		xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = range))
-
-		# Parse XML
-		xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
-
-		# Get IDs
-		id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+		id <- .self$ws.SearchByMass2.ids(mass = mass, range = range)
 
 		# Cut
 		if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))
@@ -159,12 +226,13 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 	# Search by name
 	if ( ! is.null(name)) {
 
-		# TODO
+		name.id <- .self$ws.SimpleSearch.ids(query = name)
 
 		# Merge with already found IDs
-		if ( ! is.null(id)) {
-			# TODO
-		}
+		if (is.null(id))
+			id <- name.id
+		else
+			id <- id[id %in% name.id]
 	}
 
 	if (is.null(id))
