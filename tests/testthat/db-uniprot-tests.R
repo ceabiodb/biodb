@@ -48,8 +48,10 @@ test.uniprot.ws.query.multiple.columns <- function(db) {
 # Run Uniprot tests {{{1
 ################################################################
 
-run.uniprot.tests <- function(db) {
-	run.db.test('Uniprot entries query works fine with an empty query.', 'test.uniprot.ws.query.empty', db)
-	run.db.test('Uniprot entries query works fine with multiple columns', 'test.uniprot.ws.query.multiple.columns', db)
-	run.db.test('Uniprot entries query works fine with a query by name.', 'test.uniprot.ws.query.by.name', db)
+run.uniprot.tests <- function(db, mode) {
+	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+		run.db.test('Uniprot entries query works fine with an empty query.', 'test.uniprot.ws.query.empty', db)
+		run.db.test('Uniprot entries query works fine with multiple columns', 'test.uniprot.ws.query.multiple.columns', db)
+		run.db.test('Uniprot entries query works fine with a query by name.', 'test.uniprot.ws.query.by.name', db)
+	}
 }

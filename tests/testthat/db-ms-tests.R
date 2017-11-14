@@ -35,24 +35,6 @@ test.msmsSearch.self.match <- function(db) {
 	}
 }
 
-# Test msmsSearch massbank {{{1
-################################################################
-
-test.msmsSearch.massbank <- function(db) {
-
-	# Define spectrum to match:
-	spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
-
-	# Search for match:
-	result <- db$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
-
-	expect_true( ! is.null(result))
-	expect_true(is.data.frame(result))
-	expect_true(nrow(result) > 0)
-	cols <- c('id', 'score', paste('peak', seq(nrow(spectrum)), sep = '.'))
-	expect_true(all(cols %in% colnames(result)))
-}
-
 # Test msmsSearch empty spectrum {{{1
 ################################################################
 
@@ -292,4 +274,18 @@ test.peak.table <- function(db) {
 		# Check that the peak table contains the right columns
 		# TODO
 	}
+}
+
+# Run Mass DB tests {{{1
+################################################################
+
+run.mass.db.tests <- function(db) {
+	run.db.test("We can retrieve a list of M/Z values", 'test.getMzValues', db)
+	run.db.test("We can match M/Z peaks", 'test.searchMzTol',db)
+	run.db.test("We can search for spectra containing several M/Z values", 'test.searchMzTol.multiple.mz',db)
+	run.db.test("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
+	run.db.test("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
+	run.db.test('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
+	run.db.test('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
+	run.db.test("The peak table is correct.", 'test.peak.table', db)
 }

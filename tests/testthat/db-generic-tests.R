@@ -116,3 +116,10 @@ test.entry.ids <- function(db) {
 	}
 }
 
+# Run db generic tests {{{1
+################################################################
+
+run.db.generic.tests <- function(db) {
+	run.db.test("Nb entries is positive", 'test.nb.entries', db)
+	run.db.test("We can get a list of entry ids", 'test.entry.ids', db)
+}
