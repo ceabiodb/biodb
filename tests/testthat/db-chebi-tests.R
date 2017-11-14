@@ -20,3 +20,13 @@ test.chebi.searchCompound.bug.20170926.01 <- function(db) {
 	expect_true( ! is.null(ids))
 	expect_true(length(ids) > 0)
 }
+
+# Run ChEBI tests {{{1
+################################################################
+
+run.chebi.tests <- function(db, mode) {
+	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+		run.db.test('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
+		run.db.test("Test bug 20170926.01 for ChEBI.", 'test.chebi.searchCompound.bug.20170926.01', db)
+	}
+}

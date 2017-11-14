@@ -35,24 +35,6 @@ test.msmsSearch.self.match <- function(db) {
 	}
 }
 
-# Test msmsSearch massbank {{{1
-################################################################
-
-test.msmsSearch.massbank <- function(db) {
-
-	# Define spectrum to match:
-	spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
-
-	# Search for match:
-	result <- db$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
-
-	expect_true( ! is.null(result))
-	expect_true(is.data.frame(result))
-	expect_true(nrow(result) > 0)
-	cols <- c('id', 'score', paste('peak', seq(nrow(spectrum)), sep = '.'))
-	expect_true(all(cols %in% colnames(result)))
-}
-
 # Test msmsSearch empty spectrum {{{1
 ################################################################
 
@@ -198,70 +180,6 @@ test.searchMzTol.with.precursor <- function(db) {
 	}
 }
 
-# Test basic mass.csv.file {{{1
-################################################################
-
-test.basic.mass.csv.file <- function(db) {
-
-	biodb <- db$getBiodb()
-
-	# Open file
-	df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
-
-	# Test number of entries
-	expect_gt(db$getNbEntries(), 1)
-	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compound.id', 'ms.mode', 'chrom.col', 'chrom.col.rt')])))
-
-	# Get a compound ID
-	compound.id <- df[df[['ms.level']] == 1, 'compound.id'][[1]]
-
-	# Test number of peaks
-	expect_gt(db$getNbPeaks(), 1)
-	expect_gt(db$getNbPeaks(mode = BIODB.MSMODE.NEG), 1)
-	expect_gt(db$getNbPeaks(mode = BIODB.MSMODE.POS), 1)
-	expect_equal(db$getNbPeaks(), nrow(df))
-	expect_gt(db$getNbPeaks(compound.ids = compound.id), 1)
-
-	# Test chrom cols
-	expect_gt(nrow(db$getChromCol()), 1)
-	expect_gt(nrow(db$getChromCol(compound.ids = compound.id)), 1)
-	expect_lte(nrow(db$getChromCol(compound.ids = compound.id)), nrow(db$getChromCol()))
-	expect_true(all(db$getChromCol(compound.ids = compound.id)[['id']] %in% db$getChromCol()[['id']]))
-
-	# Test mz values
-	expect_true(is.vector(db$getMzValues()))
-	expect_gt(length(db$getMzValues()), 1)
-	expect_error(db$getMzValues('wrong.mode.value'), silent = TRUE)
-	expect_gt(length(db$getMzValues(BIODB.MSMODE.NEG)), 1)
-	expect_gt(length(db$getMzValues(BIODB.MSMODE.POS)), 1)
-}
-
-# Test output columns {{{1
-################################################################
-
-test.mass.csv.file.output.columns <- function(db) {
-
-	biodb <- db$getBiodb()
-
-	# Open database file
-	db.df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
-
-	# Get M/Z value
-	mz <- db$getMzValues(max.results = 1, ms.level = 1)
-	expect_equal(length(mz), 1)
-
-	# Run a match
-	spectra.ids <- db$searchMzTol(mz, ms.level = 1, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM)
-
-	# Get data frame of results
-	entries <- biodb$getFactory()$getEntry(BIODB.MASS.CSV.FILE, spectra.ids)
-	entries.df <- biodb$entriesToDataframe(entries, only.atomic = FALSE)
-
-	# Check that all columns of database file are found in entries data frame
-	# NOTE this supposes that the columns of the database file are named according to biodb conventions.
-	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
-}
-
 # Test peak table {{{1
 ################################################################
 
@@ -292,4 +210,18 @@ test.peak.table <- function(db) {
 		# Check that the peak table contains the right columns
 		# TODO
 	}
+}
+
+# Run Mass DB tests {{{1
+################################################################
+
+run.mass.db.tests <- function(db) {
+	run.db.test("We can retrieve a list of M/Z values", 'test.getMzValues', db)
+	run.db.test("We can match M/Z peaks", 'test.searchMzTol',db)
+	run.db.test("We can search for spectra containing several M/Z values", 'test.searchMzTol.multiple.mz',db)
+	run.db.test("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
+	run.db.test("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
+	run.db.test('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
+	run.db.test('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
+	run.db.test("The peak table is correct.", 'test.peak.table', db)
 }
