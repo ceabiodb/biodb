@@ -192,23 +192,31 @@ BiodbCache$methods( saveContentToFile = function(content, dbid, subfolder, name,
 BiodbCache$methods( getSubFolderPath = function(subfolder) {
 	":\n\nGet the absolute path of a subfolder inside the cache system."
 
-	cfg.subfolder.key <- paste(subfolder, 'cache', 'subfolder', sep = '.')
-
-	# Check subfolder
-	if ( ! .self$getBiodb()$getConfig()$isDefined(cfg.subfolder.key))
-		.self$message('error', paste("Unknown cache folder \"", folder, "\".", sep = ''))
-
-	# Get subfolder path
-	if (.self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
-		folder.path <- file.path(.self$getDir(), .self$getBiodb()$getConfig()$get(cfg.subfolder.key))
-	else
-		folder.path <- .self$getDir()
+	folder.path <- .self$.get.subfolder.path(subfolder)
 
 	# Create folder if needed
 	if ( ! is.na(folder.path) && ! file.exists(folder.path))
 		dir.create(folder.path)
 
 	return(folder.path)
+})
+
+# Erase folder {{{1
+################################################################
+
+BiodbCache$methods( eraseFolder = function(subfolder = NA_character_) {
+
+	# Erase whole cache				    
+	if (is.na(subfolder) || ! .self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
+		folder.to.erase <- .self$getDir()
+
+ 	# Erase subfolder
+	else
+		folder.to.erase <- .self$.get.subfolder.path(subfolder)
+
+	# Erase
+	.self$message('info', paste("Erasing cache folder ", folder.to.erase, ".", sep = ''))
+	unlink(folder.to.erase, recursive = TRUE)
 })
 
 # Delete files {{{1
@@ -251,6 +259,24 @@ BiodbCache$methods( listFiles = function(dbid, subfolder, ext = NA_character_, e
 	}
 
 	return(files)
+})
+
+# PRIVATE METHODS {{{1
+################################################################
+
+BiodbCache$methods( .get.subfolder.path = function(subfolder) {
+
+	cfg.subfolder.key <- paste(subfolder, 'cache', 'subfolder', sep = '.')
+
+	# Check subfolder
+	if ( ! .self$getBiodb()$getConfig()$isDefined(cfg.subfolder.key))
+		.self$message('error', paste("Unknown cache folder \"", folder, "\".", sep = ''))
+
+	# Get subfolder path
+	if (.self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
+		folder.path <- file.path(.self$getDir(), .self$getBiodb()$getConfig()$get(cfg.subfolder.key))
+	else
+		folder.path <- .self$getDir()
 })
 
 # DEPRECATED METHODS {{{1
