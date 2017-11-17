@@ -20,17 +20,16 @@ if (file.exists(ONLINE.CACHE.DIR)) {
 
 	# Erase whole cache
 	if ('MODES' %in% names(env) && env[['MODES']] == MODE.FULL) {
-		cat(paste('Delete whole cache directory \"', ONLINE.CACHE.DIR, "\".\n", sep = ''))
-		unlink(ONLINE.CACHE.DIR, recursive = TRUE)
+		biodb <- Biodb$new(logger = FALSE)
+		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		biodb$getCache()$eraseFolder()
 	}
 
 	# Erase only short term cache
 	else if (MODE.ONLINE %in% TEST.MODES) {
 		biodb <- Biodb$new(logger = FALSE)
 		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
-		shortterm.folder <- biodb$getCache()$getSubFolderPath('shortterm')
-		cat(paste('Delete short term cache folder \"', shortterm.folder, "\".\n", sep = ''))
-		unlink(shortterm.folder, recursive = TRUE)
+		biodb$getCache()$eraseFolder('shortterm')
 	}
 }
 
