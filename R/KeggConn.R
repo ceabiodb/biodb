@@ -79,3 +79,16 @@ KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	return(ids)
 })
+
+# Web service find {{{1
+################################################################
+
+KeggConn$methods( ws.find = function(query) {
+	":\n\nSearch for entries."
+
+	url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', query)
+
+	result <- .self$.getUrlScheduler()$getUrl(url, params = params)
+
+	return(result)
+})

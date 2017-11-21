@@ -40,7 +40,7 @@ UniprotConn$methods( initialize = function(...) {
 ################################################################
 
 UniprotConn$methods( ws.query = function(query = '', columns = NA, format = NA, limit = NA) {
-	"Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details."
+	":\n\nDirect query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details."
 
 	params = list()
 
