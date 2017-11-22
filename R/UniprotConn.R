@@ -40,7 +40,7 @@ UniprotConn$methods( initialize = function(...) {
 ################################################################
 
 UniprotConn$methods( ws.query = function(query = '', columns = NA, format = NA, limit = NA) {
-	"Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details."
+	":\n\nDirect query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details."
 
 	params = list()
 
@@ -65,7 +65,7 @@ UniprotConn$methods( ws.query = function(query = '', columns = NA, format = NA, 
 ################################################################
 
 UniprotConn$methods( ws.query.ids = function(...) {
-	"Calls ws.query() but only for getting IDs. Returns the IDs as a character vector."
+	":\n\nCalls ws.query() but only for getting IDs. Returns the IDs as a character vector."
 
 	results <- .self$ws.query(columns = 'id', format = 'tab', ...)
 	readtc <- textConnection(results, "r", local = TRUE)
