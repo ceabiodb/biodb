@@ -26,9 +26,13 @@ Get the content of an entry.}
 
 Get entry identifiers from the database.}
 
-\item{\code{ws.query(query = "", columns = NA, format = NA, limit = NA)}}{Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details.}
+\item{\code{ws.query(query = "", columns = NA, format = NA, limit = NA)}}{:
 
-\item{\code{ws.query.ids(...)}}{Calls ws.query() but only for getting IDs. Returns the IDs as a character vector.}
+Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details.}
+
+\item{\code{ws.query.ids(...)}}{:
+
+Calls ws.query() but only for getting IDs. Returns the IDs as a character vector.}
 }}
 
 \examples{
@@ -39,7 +43,9 @@ mybiodb <- biodb::Biodb()
 uniprot <- mybiodb$getFactory()$createConn('uniprot')
 
 # Access web service query
-result <- uniprot$ws.query(query = 'name:"prion protein"', columns = c('id', 'entry name'), format = 'txt', limit = 10)
+result <- uniprot$ws.query(query = 'name:"prion protein"',
+                           columns = c('id', 'entry name'),
+                           format = 'txt', limit = 10)
 
 }
 \seealso{

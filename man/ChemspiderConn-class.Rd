@@ -6,7 +6,11 @@
 \alias{ChemspiderConn}
 \title{The connector class to ChemSpider database.}
 \arguments{
-\item{range}{}
+\item{mass}{The mass to search for.}
+
+\item{query}{The query to send to the database.}
+
+\item{range}{The range of the searched mass. Plain range, Dalton unit. The mass searched are between (mass - range) and (mass + range).}
 }
 \description{
 This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
@@ -31,8 +35,19 @@ Get the URL to a picture of the entry (e.g.: a picture of the molecule in case o
 Get the URL to the page of the entry on the database web site.}
 
 \item{\code{ws.SearchByMass2(mass = NA, range = NA)}}{Direct query to the database for searching for compounds by mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details.}
+
+\item{\code{ws.SearchByMass2.ids(...)}}{Calls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector.}
+
+\item{\code{ws.SimpleSearch(query = NA)}}{Direct query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details.}
+
+\item{\code{ws.SimpleSearch.ids(...)}}{Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector.}
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+}
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
 }

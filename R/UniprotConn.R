@@ -21,7 +21,9 @@
 #' uniprot <- mybiodb$getFactory()$createConn('uniprot')
 #'
 #' # Access web service query
-#' result <- uniprot$ws.query(query = 'name:"prion protein"', columns = c('id', 'entry name'), format = 'txt', limit = 10)
+#' result <- uniprot$ws.query(query = 'name:"prion protein"',
+#'                            columns = c('id', 'entry name'),
+#'                            format = 'txt', limit = 10)
 #'
 #' @include CompounddbConn.R
 #' @include RemotedbConn.R
