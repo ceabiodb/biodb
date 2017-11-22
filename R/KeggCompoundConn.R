@@ -30,9 +30,19 @@ KeggCompoundConn$methods( initialize = function(...) {
 # Web service find exact mass {{{1
 ################################################################
 
-KeggCompoundConn$methods( ws.find.exact.mass = function(mass) {
+KeggCompoundConn$methods( ws.find.exact.mass = function(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_) {
+	":\n\nSearch for entries by mass."
 
-	url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/')
+	if ( ! is.na(mass))
+		url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', mass, '/exact_mass', sep ='')
+	else if ( ! is.na(mass.min) && ! is.na(mass.max))
+		url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', mass.min, '-', mass.max, '/exact_mass', sep = '')
+	else
+		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
+
+	result <- .self$.getUrlScheduler()$getUrl(url)
+
+	return(result)
 })
 
 # Search compound {{{1
