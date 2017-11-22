@@ -3,7 +3,27 @@
 # Class declaration {{{1
 ################################################################
 
+#' The connector abstract class to KEGG databases.
+#'
+#' This is the mother class of all KEGG connectors. It defines code common to all KEGG connectors.
+#'
+#' @param query The query to send to the database web service.
+#'
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector to a KEGG database
+#' conn <- mybiodb$getFactory()$createConn('kegg.compound')
+#' 
+#' # Search for an entry
+#' conn$ws.find.df('NADPH')
+#'
 #' @include RemotedbConn.R
+#' @export KeggConn
+#' @exportClass KeggConn
 KeggConn <- methods::setRefClass("KeggConn", contains = "RemotedbConn", fields = list(.db.name = "character", .db.abbrev = "character"))
 
 # Constructor {{{1
@@ -97,7 +117,7 @@ KeggConn$methods( ws.find = function(query) {
 ################################################################
 
 KeggConn$methods( ws.find.df = function(...) {
-	":\n\nCalls ws.find() but returns a data frame."
+	":\n\nCalls ws.find() and returns a data frame."
 
 	results <- .self$ws.find(...)
 
