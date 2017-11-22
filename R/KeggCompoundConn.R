@@ -63,7 +63,7 @@ KeggCompoundConn$methods( ws.find.exact.mass.df = function(...) {
 	results <- .self$ws.find.exact.mass(...)
 
 	readtc <- textConnection(results, "r", local = TRUE)
-	df <- read.table(readtc, sep = "\t", quote = '')
+	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
 
 	return(df)
 })
@@ -106,7 +106,7 @@ KeggCompoundConn$methods( ws.find.molecular.weight.df = function(...) {
 	results <- .self$ws.find.molecular.weight(...)
 
 	readtc <- textConnection(results, "r", local = TRUE)
-	df <- read.table(readtc, sep = "\t", quote = '')
+	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
 
 	return(df)
 })
@@ -126,4 +126,35 @@ KeggCompoundConn$methods( ws.find.molecular.weight.ids = function(...) {
 ################################################################
 
 KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Search by name
+	if ( ! is.null(name) && ! is.na(name)) {
+		ids <- .self$ws.find.ids(name)
+		ids <- sub('^cpd:', '', ids)
+	}
+
+	# Search by mass
+	if ( ! is.null(mass) && ! is.na(mass)) {
+
+		if (mass.tol.unit == 'ppm') {
+			mass.min <- mass * (1 - mass.tol * 1e-6)
+			mass.max <- mass * (1 + mass.tol * 1e-6)
+		} else {
+			mass.min <- mass - mass.tol
+			mass.max <- mass + mass.tol
+		}
+
+		mass.ids <- .self$ws.find.molecular.weight.ids(mass.min = mass.min, mass.max = mass.max)
+		if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
+			mass.ids <- sub('^cpd:', '', mass.ids)
+			if (is.null(ids))
+				ids <- mass.ids
+			else
+				ids <- ids[ids %in% mass.ids]
+		}
+	}
+
+	return(ids)
 })
