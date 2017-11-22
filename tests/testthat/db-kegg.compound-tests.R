@@ -27,6 +27,7 @@ test.kegg.compound.ws.find <- function(db) {
 
 test.kegg.compound.ws.find.exact.mass <- function(db) {
 
+	# Test single mass
 	results <- db$ws.find.exact.mass(mass = 174.05)
 	expect_true( ! is.null(results))
 	expect_true( ! is.na(results))
@@ -34,6 +35,57 @@ test.kegg.compound.ws.find.exact.mass <- function(db) {
 	readtc <- textConnection(results, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", quote = '')
 	expect_true(nrow(df) > 1)
+
+	# Test data frame
+	df.2 <- db$ws.find.exact.mass.df(mass = 174.05)
+	expect_true(identical(df, df.2))
+
+	# Test IDs
+	ids <- db$ws.find.exact.mass.ids(mass = 174.05)
+	expect_true( ! is.null(ids))
+	expect_true( ! is.na(ids))
+	expect_true(is.character(ids))
+	expect_true(identical(df[[1]], ids))
+
+	# Test mass range
+	ids <- db$ws.find.exact.mass.ids(mass.min = 174, mass.max = 174.35)
+	expect_true( ! is.null(ids))
+	expect_true( ! is.na(ids))
+	expect_true(is.character(ids))
+	expect_true(length(ids) > 1)
+}
+
+# Test KEGG Compound ws.find.molecular.weight {{{1
+################################################################
+
+test.kegg.compound.ws.find.molecular.weight <- function(db) {
+
+	# Test single mass
+	results <- db$ws.find.molecular.weight(mass = 300)
+	expect_true( ! is.null(results))
+	expect_true( ! is.na(results))
+	expect_true(is.character(results))
+	readtc <- textConnection(results, "r", local = TRUE)
+	df <- read.table(readtc, sep = "\t", quote = '')
+	expect_true(nrow(df) > 1)
+
+	# Test data frame
+	df.2 <- db$ws.find.molecular.weight.df(mass = 300)
+	expect_true(identical(df, df.2))
+
+	# Test IDs
+	ids <- db$ws.find.molecular.weight.ids(mass = 300)
+	expect_true( ! is.null(ids))
+	expect_true( ! is.na(ids))
+	expect_true(is.character(ids))
+	expect_true(identical(df[[1]], ids))
+
+	# Test mass range
+	ids <- db$ws.find.molecular.weight.ids(mass.min = 300, mass.max = 310)
+	expect_true( ! is.null(ids))
+	expect_true( ! is.na(ids))
+	expect_true(is.character(ids))
+	expect_true(length(ids) > 1)
 }
 
 # Run KEGG Compound tests {{{1
@@ -43,5 +95,6 @@ run.kegg.compound.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		run.db.test('Test', 'test.kegg.compound.ws.find', db)
 		run.db.test('Test', 'test.kegg.compound.ws.find.exact.mass', db)
+		run.db.test('Test', 'test.kegg.compound.ws.find.molecular.weight', db)
 	}
 }
