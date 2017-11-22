@@ -86,9 +86,34 @@ KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 KeggConn$methods( ws.find = function(query) {
 	":\n\nSearch for entries."
 
-	url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', query)
+	url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', query, sep = '')
 
-	result <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	result <- .self$.getUrlScheduler()$getUrl(url)
 
 	return(result)
+})
+
+# Web service find DF {{{1
+################################################################
+
+KeggConn$methods( ws.find.df = function(...) {
+	":\n\nCalls ws.find() but returns a data frame."
+
+	results <- .self$ws.find(...)
+
+	readtc <- textConnection(results, "r", local = TRUE)
+	df <- read.table(readtc, sep = "\t", quote = '')
+
+	return(df)
+})
+
+# Web service find IDs {{{1
+################################################################
+
+KeggConn$methods( ws.find.ids = function(...) {
+	":\n\nCalls ws.find() but only for getting IDs. Returns the IDs as a character vector."
+
+	df <- .self$ws.find.df(...)
+
+	return(df[[1]])
 })
