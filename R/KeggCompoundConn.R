@@ -20,8 +20,11 @@
 #' # Create a connector to KEGG Compound
 #' conn <- mybiodb$getFactory()$createConn('kegg.compound')
 #'
-#' # Search for compounds with exact mass
+#' # Search for compounds by exact mass
 #' conn$ws.find.exact.mass.df(mass = 174.05)
+#'
+#' # Search for compounds by molecular weight 
+#' conn$ws.find.molecular.weight.df(mass = 300)
 #'
 #' @include KeggConn.R
 #' @include CompounddbConn.R
@@ -40,7 +43,7 @@ KeggCompoundConn$methods( initialize = function(...) {
 ################################################################
 
 KeggCompoundConn$methods( ws.find.exact.mass = function(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_) {
-	":\n\nSearch for entries by mass."
+	":\n\nSearch for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
 	if ( ! is.na(mass))
 		url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', mass, '/exact_mass', sep ='')
@@ -83,7 +86,7 @@ KeggCompoundConn$methods( ws.find.exact.mass.ids = function(...) {
 ################################################################
 
 KeggCompoundConn$methods( ws.find.molecular.weight = function(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_) {
-	":\n\nSearch for entries by molecular mass."
+	":\n\nSearch for entries by molecular mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
 	if ( ! is.na(mass))
 		url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', mass, '/mol_weight', sep ='')
