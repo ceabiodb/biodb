@@ -104,7 +104,7 @@ KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 ################################################################
 
 KeggConn$methods( ws.find = function(query) {
-	":\n\nSearch for entries."
+	":\n\nSearch for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
 	url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', query, sep = '')
 
