@@ -7,9 +7,9 @@
 #'
 #' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
 #'
-#' @param mass
-#' @param mass.min
-#' @param mass.max
+#' @param mass      Single mass.
+#' @param mass.min  Minimal mass.
+#' @param mass.max  Maximal mass.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{CompounddbConn}}.
 #'

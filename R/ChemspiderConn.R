@@ -150,7 +150,7 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 ################################################################
 
 ChemspiderConn$methods( ws.SearchByMass2 = function(mass = NA, range = NA) {
-	"Direct query to the database for searching for compounds by mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details."
+	":\n\nDirect query to the database for searching for compounds by mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details."
 
 	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = range))
 
@@ -161,7 +161,7 @@ ChemspiderConn$methods( ws.SearchByMass2 = function(mass = NA, range = NA) {
 ################################################################
 
 ChemspiderConn$methods( ws.SearchByMass2.ids = function(...) {
-	"Calls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector."
+	":\n\nCalls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector."
 
 	results <- .self$ws.SearchByMass2(...)
 
@@ -178,7 +178,7 @@ ChemspiderConn$methods( ws.SearchByMass2.ids = function(...) {
 ################################################################
 
 ChemspiderConn$methods( ws.SimpleSearch = function(query = NA) {
-	"Direct query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details."
+	":\n\nDirect query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details."
 
 	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "Search.asmx/SimpleSearch", sep = ''), params = c(query = query, token = .self$getToken()))
 
@@ -189,7 +189,7 @@ ChemspiderConn$methods( ws.SimpleSearch = function(query = NA) {
 ################################################################
 
 ChemspiderConn$methods( ws.SimpleSearch.ids = function(...) {
-	"Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector."
+	":\n\nCalls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector."
 
 	results <- .self$ws.SimpleSearch(...)
 
