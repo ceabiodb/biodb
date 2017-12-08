@@ -20,6 +20,27 @@ With *biodb* you can:
 
 This software is licensed under the GNU AGPLv3 license.
 
+## Installation
+
+### Install from GitHub
+
+Using package `devtools` you can install Biodb directly from GitHub:
+```r
+devtools::install_github('pkrog/biodb')
+```
+
+### Install from local repository
+
+First, you need to clone the GitHub repos:
+```bash
+git clone -b master https://github.com/pkrog/biodb.git
+```
+
+Then you install *biodb* using the `devtools` package:
+```r
+devtools::install_local('/your/path/to/biodb')
+```
+
 ## Examples
 
 In this section, you can find some of the possibilities offered by the *biodb* package.
@@ -83,27 +104,6 @@ spectrum <- data.frame(mz = c(64), rel.int = c(100))
 
 # Search for MS spectra
 spectra.ids <- massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
-```
-
-## Installation
-
-### Install from GitHub
-
-Using package `devtools` you can install Biodb directly from GitHub:
-```r
-devtools::install_github('pkrog/biodb')
-```
-
-### Install from local repository
-
-First, you need to clone the GitHub repos:
-```bash
-git clone https://github.com/pkrog/biodb.git
-```
-
-Then you install *biodb* using the `devtools` package:
-```r
-devtools::install_local('/your/path/to/biodb')
 ```
 
 ## Access documentation
