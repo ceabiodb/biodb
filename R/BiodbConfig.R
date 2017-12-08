@@ -189,24 +189,20 @@ BiodbConfig$methods( disable = function(key) {
 
 BiodbConfig$methods( .get.svn.binary.path = function() {
 
+	svn.path <- ''
+
 	# Look in system PATH
-	svn_path <- Sys.which("svn")[[1]]
-	if (svn_path == '')
-		svn_path <- NULL
+	svn.path <- Sys.which("svn")[[1]]
 
 	# On Windows, look in common locations
-	if (is.null(svn_path) && .Platform$OS.type == "windows") {
+	if (is.null(svn.path) && .Platform$OS.type == "windows") {
 		look_in <- c("C:/Program Files/Svn/bin/svn.exe", "C:/Program Files (x86)/Svn/bin/svn.exe")
 		found <- file.exists(look_in)
 		if (any(found))
-			svn_path <- look_in[found][1]
+			svn.path <- look_in[found][1]
 	}
 
-	# Not found
-	if (is.null(svn_path))
-		.self$message('error', "SVN does not seem to be installed on your system.")
-
-	return(svn_path)
+	return(svn.path)
 })
 
 # Initialize value information {{{2

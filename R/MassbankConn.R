@@ -203,7 +203,10 @@ MassbankConn$methods( .doDownload = function() {
 	# SVN export
 	.self$message('info', "Download whole MassBank database from SVN server.")
 	svn.cmd <- .self$getBiodb()$getConfig()$get('svn.binary.path')
-	system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', .self$getDownloadPath()))
+	if (file.exists(svn.cmd))
+		system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', .self$getDownloadPath()))
+	else
+		.self$message('caution', "SVN does not seem to be installed on your system. Biodb is not able to download whole Massbank database. Please install SVN and set .")
 })
 
 # Do extract download {{{1
