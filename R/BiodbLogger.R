@@ -23,7 +23,7 @@
 #' @include BiodbObserver.R
 #' @export BiodbLogger
 #' @exportClass BiodbLogger
-BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY'))
+BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY', .exclude = 'character'))
 
 # Constructor {{{1
 ################################################################
@@ -46,6 +46,32 @@ BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', ...) {
 
 	# Set member field
 	.file <<- file
+
+	# Exclude DEBUG messages
+	.exclude <<- character(0)
+	.self$excludeMsgType('debug')
+})
+
+# Exclude message type {{{1
+################################################################
+
+BiodbLogger$methods( excludeMsgType = function(type) {
+
+	.self$checkMessqgeType(type)
+
+	if ( ! type %in% .self$.exclude)
+		.self$.exclude <- c(.self$.exclude, type)
+})
+
+# Include message type {{{1
+################################################################
+
+BiodbLogger$methods( includeMsgType = function(type) {
+
+	.self$checkMessqgeType(type)
+
+	if (type %in% .self$.exclude)
+		.self$.exclude <- .self$.exclude[ ! .self$.exclude %in% type]
 })
 
 # Message {{{1
@@ -55,14 +81,17 @@ BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character
 
 	.self$checkMessqgeType(type)
 
-	# Set caller information
-	caller.info <- if (is.na(class)) '' else class
-	caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
-	if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
+	if ( ! type %in% .self$.exclude) {
 
-	# Set timestamp
-	timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
+		# Set caller information
+		caller.info <- if (is.na(class)) '' else class
+		caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
+		if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
 
-	# Output message
-	cat(toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
+		# Set timestamp
+		timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
+
+		# Output message
+		cat(toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
+	}
 })
