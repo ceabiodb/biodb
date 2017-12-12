@@ -17,3 +17,5 @@ branches:
  
 script:
  - make test
+ - make install
+ - make test-examples

@@ -1,3 +1,5 @@
+EXAMPLES=chebi-retrieve.R mirbase-tocsv.R massbank.jp-ms-search.R
+
 all:
 
 check:
@@ -19,9 +21,14 @@ windows-test:
 	echo "Sending request for testing on Windows platform..."
 	@R -q -e "devtools::build_win('$(CURDIR)')"
 
-bare-test:
+test-examples:
+	echo "Testing examples..."
+	for ex in $(EXAMPLES) ; do Rscript examples/$$ex || exit 1 ; done
+
+test-examples-in-docker:
 	echo "Testing on a bare Linux system (no SVN or UNZIP installed)..."
-	docker build -t biodb-bare-test dockers/bare-test
+	docker build -t biodb-bare-r dockers/bare-r
+	for ex in $(EXAMPLES) ; do docker run -v $(PWD)/examples:/examples biodb-bare-r /examples/$$ex || exit 1 ; done
 
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
