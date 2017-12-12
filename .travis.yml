@@ -17,5 +17,5 @@ branches:
  
 script:
  - make test
- - make install
+ - sudo make install
  - make test-examples
