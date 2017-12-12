@@ -3,8 +3,10 @@ check-pkg
 test-pkg
 archdoc
 ext
+examples
 generate-doc
 test
 .travis.yml
 scripts
 Makefile
+dockers

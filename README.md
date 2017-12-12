@@ -43,68 +43,10 @@ devtools::install_local('/your/path/to/biodb')
 
 ## Examples
 
-In this section, you can find some of the possibilities offered by the *biodb* package.
-More examples, explained and detailed, can be found in the package's vignettes.
-
-### Retrieve some entries from a database
-
-```r
-# Create a Biodb instance
-mybiodb <- biodb::Biodb$new()
-
-# Request entries from ChEBI, using accession numbers
-entries <- mybiodb$getFactory()$getEntry('chebi', id = c('2528', '17053', '15440'))
-
-# Get the SMILES of those entries 
-smiles <- vapply(entries, function(e) e$getFieldValue('smiles'), FUN.VALUE = '')
-```
-
-### Exporting a database into a CSV file
-
-```r
-# Create a Biodb instance
-mybiodb <- biodb::Biodb$new()
-
-# Get all entry IDs of Mirbase Mature.
-entry.ids <- mybiodb$getFactory()$getConn('mirbase.mature')$getEntryIds()
-
-# Get all Mirbase entries
-entries <- mybiodb$getFactory()$getEntry('mirbase.mature', id = entry.ids)
-
-# Transform all entries into a single data frame
-df <- mybiodb$entriesToDataframe(entries)
-
-# Export the data frame into a CSV file with R standard function
-write.csv(df, file = 'mirbase-mature.csv')
-```
-
-### Search for MS spectra
-
-```r
-# Create a Biodb instance
-mybiodb <- biodb::Biodb$new()
-
-# Get connector to Massbank
-massbank <- mybiodb$getFactory()$getConn('massbank.jp')
-
-# Search for MS spectra
-spectra.ids <- massbank$searchMzTol(mz = 64, tol  = 0.3, ms.level = 1, max.results = 10)
-```
-
-### Search for MSMS spectra
-
-```r
-# Create a Biodb instance
-mybiodb <- biodb::Biodb$new()
-
-# Get connector to Massbank
-massbank <- mybiodb$getFactory()$getConn('massbank.jp')
-
-spectrum <- data.frame(mz = c(64), rel.int = c(100))
-
-# Search for MS spectra
-spectra.ids <- massbank$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
-```
+ * [Retrieving some entries from ChEBI database](examples/chebi-retrieve.R).
+ * [Exporting some entries of miRBase Mature into a CSV file](examples/mirbase-tocsv.R).
+ * [Search for MS spectra in Massbank Japan](examples/massbank.jp-ms-search.R).
+ * [Search for MSMS spectra in Massbank Japan](examples/massbank.jp-msms-search.R).
 
 ## Access documentation
 
