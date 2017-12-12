@@ -34,13 +34,21 @@ Get the URL to a picture of the entry (e.g.: a picture of the molecule in case o
 
 Get the URL to the page of the entry on the database web site.}
 
-\item{\code{ws.SearchByMass2(mass = NA, range = NA)}}{Direct query to the database for searching for compounds by mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details.}
+\item{\code{ws.SearchByMass2(mass = NA, range = NA)}}{:
 
-\item{\code{ws.SearchByMass2.ids(...)}}{Calls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector.}
+Direct query to the database for searching for compounds by mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details.}
 
-\item{\code{ws.SimpleSearch(query = NA)}}{Direct query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details.}
+\item{\code{ws.SearchByMass2.ids(...)}}{:
 
-\item{\code{ws.SimpleSearch.ids(...)}}{Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector.}
+Calls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector.}
+
+\item{\code{ws.SimpleSearch(query = NA)}}{:
+
+Direct query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details.}
+
+\item{\code{ws.SimpleSearch.ids(...)}}{:
+
+Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector.}
 }}
 
 \examples{
