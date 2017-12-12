@@ -1,5 +1,3 @@
-EXAMPLES=chebi-retrieve.R mirbase-tocsv.R massbank.jp-ms-search.R
-
 all:
 
 check:
@@ -23,12 +21,12 @@ windows-test:
 
 test-examples:
 	echo "Testing examples..."
-	for ex in $(EXAMPLES) ; do Rscript examples/$$ex || exit 1 ; done
+	for ex in examples/*.R ; do Rscript $$ex || exit 1 ; done
 
 test-examples-in-docker:
 	echo "Testing on a bare Linux system (no SVN or UNZIP installed)..."
 	docker build -t biodb-bare-r dockers/bare-r
-	for ex in $(EXAMPLES) ; do docker run -v $(PWD)/examples:/examples biodb-bare-r /examples/$$ex || exit 1 ; done
+	for ex in examples/*.R ; do docker run -v $(PWD)/examples:/examples biodb-bare-r /$$ex || exit 1 ; done
 
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
