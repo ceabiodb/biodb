@@ -47,6 +47,7 @@ devtools::install_local('/your/path/to/biodb')
  * [Exporting some entries of miRBase Mature into a CSV file](examples/mirbase-tocsv.R).
  * [Search for MS spectra in Massbank Japan](examples/massbank.jp-ms-search.R).
  * [Search for MSMS spectra in Massbank Japan](examples/massbank.jp-msms-search.R).
+ * [Integrating data from different databases](examples/integrating-different-dbs.R).
 
 ## Access documentation
 
