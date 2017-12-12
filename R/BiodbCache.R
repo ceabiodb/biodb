@@ -143,7 +143,7 @@ BiodbCache$methods( loadFileContent = function(dbid, subfolder, name, ext, outpu
 	for (i in seq(content)) {
 		n <- tryCatch(nchar(content[[i]]), error = function(e) NULL)
 		if (is.null(n)) {
-			.self$message('caution', paste("Error when reading content of file \"", file.paths[[i]], "\". The function `nchar` returned an error on the content. The file must be written in a unexpected encoding like latin-1.", sep = ''))
+			.self$message('caution', paste("Error when reading content of file \"", file.paths[[i]], "\". The function `nchar` returned an error on the content. The file may be written in a unexpected encodingi. Trying latin-1...", sep = ''))
 			# The encoding may be wrong, try another one. Maybe LATIN-1
 			content[[i]] <- iconv(content[[i]], "iso8859-1")
 			n <- tryCatch(nchar(content[[i]]), error = function(e) NULL)
