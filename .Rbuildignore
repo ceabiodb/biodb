@@ -1,4 +1,4 @@
-build.xml
+build\.xml
 check-pkg
 test-pkg
 archdoc
@@ -6,7 +6,9 @@ ext
 examples
 generate-doc
 test
-.travis.yml
+\.travis\.yml
 scripts
 Makefile
 dockers
+.*\.dockerfile
+.*\.csv
