@@ -93,23 +93,23 @@ BiodbDbsInfo$methods( getAll = function() {
 ################################################################
 
 BiodbDbsInfo$methods( .initDbsInfo = function() {
-	.self$.define('chebi',                  scheduler.n = 3, entry.content.type = 'xml', base.url = 'https://www.ebi.ac.uk/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/', xml.ns = "https://www.ebi.ac.uk/webservices/chebi")
-	.self$.define('chemspider',             scheduler.n = 3, entry.content.type = 'xml', base.url = "http://www.chemspider.com/", xml.ns = "http://www.chemspider.com/")
-	.self$.define('expasy.enzyme',          scheduler.n = 3, entry.content.type = 'txt', base.url = "http://enzyme.expasy.org/")
-	.self$.define('hmdb.metabolite',        scheduler.n = 3, entry.content.type = 'xml', base.url = "http://www.hmdb.ca/",       xml.ns = 'http://www.hmdb.ca')
-	.self$.define('kegg.compound',          scheduler.n = 3, entry.content.type = 'txt', base.url = 'http://rest.kegg.jp/')
-	.self$.define('lipidmaps.structure',    scheduler.n = 1, scheduler.t = 20, entry.content.type = 'csv', base.url = 'http://www.lipidmaps.org/data/') # About access frequency, see http://www.lipidmaps.org/data/structure/programmaticaccess.html
-	.self$.define('mass.csv.file',                           entry.content.type = 'tsv')
-#	.self$.define('massbank.eu') # Turn Off Massbank Europe, does not work very well when searching for spectra through API.
-	.self$.define('massbank.jp',            scheduler.n = 3, entry.content.type = 'txt', base.url = 'http://www.massbank.jp/')
-	.self$.define('mirbase.mature',         scheduler.n = 3, entry.content.type = 'txt', base.url = "http://www.mirbase.org/")
-	.self$.define('ncbi.ccds',              scheduler.n = 3, entry.content.type = 'html', base.url = 'https://www.ncbi.nlm.nih.gov/CCDS/')
-	.self$.define('ncbi.gene',              scheduler.n = 3, entry.content.type = 'xml', base.url = 'https://www.ncbi.nlm.nih.gov/', ws.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/') # About access frequency, see https://www.ncbi.nlm.nih.gov/books/NBK25497/
-	.self$.define('ncbi.pubchem.comp',      scheduler.n = 5, entry.content.type = 'xml', base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/') # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
-	.self$.define('ncbi.pubchem.subst',     scheduler.n = 5, entry.content.type = 'xml', base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/') # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
-	.self$.define('peakforest.mass',        scheduler.n = 3, entry.content.type = 'json', base.url = 'https://rest.peakforest.org/')
-	.self$.define('peakforest.compound',    scheduler.n = 3, entry.content.type = 'json', base.url = 'https://rest.peakforest.org/')
-	.self$.define('uniprot',                                 entry.content.type = 'xml', base.url = 'http://www.uniprot.org/uniprot/', xml.ns = "http://uniprot.org/uniprot")
+	.self$.define('chebi',                  name = 'ChEBI',         scheduler.n = 3, entry.content.type = 'xml', base.url = 'https://www.ebi.ac.uk/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/', xml.ns = "https://www.ebi.ac.uk/webservices/chebi")
+	.self$.define('chemspider',             name = 'ChemSpider',    scheduler.n = 3, entry.content.type = 'xml', base.url = "http://www.chemspider.com/", xml.ns = "http://www.chemspider.com/")
+	.self$.define('expasy.enzyme',          name = 'ExPASy ENZYME', scheduler.n = 3, entry.content.type = 'txt', base.url = "http://enzyme.expasy.org/")
+	.self$.define('hmdb.metabolite',        name = 'HMDB Metabolites', scheduler.n = 3, entry.content.type = 'xml', base.url = "http://www.hmdb.ca/",       xml.ns = 'http://www.hmdb.ca')
+	.self$.define('kegg.compound',          name = 'KEGG Compound', scheduler.n = 3, entry.content.type = 'txt', base.url = 'http://rest.kegg.jp/')
+	.self$.define('lipidmaps.structure',    name = 'LIPID MAPS Structure', scheduler.n = 1, scheduler.t = 20, entry.content.type = 'csv', base.url = 'http://www.lipidmaps.org/data/') # About access frequency, see http://www.lipidmaps.org/data/structure/programmaticaccess.html
+	.self$.define('mass.csv.file',          name = 'Mass CSV File',                  entry.content.type = 'tsv')
+#	.self$.define('massbank.eu') # Turn Off name = '', Massbank Europe, does not work very well when searching for spectra through API.
+	.self$.define('massbank.jp',            name = 'MassBank Japan', scheduler.n = 3, entry.content.type = 'txt', base.url = 'http://www.massbank.jp/')
+	.self$.define('mirbase.mature',         name = 'miRBase Mature', scheduler.n = 3, entry.content.type = 'txt', base.url = "http://www.mirbase.org/")
+	.self$.define('ncbi.ccds',              name = 'NCBI CCDS', scheduler.n = 3, entry.content.type = 'html', base.url = 'https://www.ncbi.nlm.nih.gov/CCDS/')
+	.self$.define('ncbi.gene',              name = 'NCBI Gene', scheduler.n = 3, entry.content.type = 'xml', base.url = 'https://www.ncbi.nlm.nih.gov/', ws.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/') # About access frequency, see https://www.ncbi.nlm.nih.gov/books/NBK25497/
+	.self$.define('ncbi.pubchem.comp',      name = 'PubChem Compound', scheduler.n = 5, entry.content.type = 'xml', base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/') # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
+	.self$.define('ncbi.pubchem.subst',     name = 'PubChem Substance', scheduler.n = 5, entry.content.type = 'xml', base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/') # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
+	.self$.define('peakforest.mass',        name = 'PeakForest Mass', scheduler.n = 3, entry.content.type = 'json', base.url = 'https://rest.peakforest.org/')
+	.self$.define('peakforest.compound',    name = 'PeakForest Compound', scheduler.n = 3, entry.content.type = 'json', base.url = 'https://rest.peakforest.org/')
+	.self$.define('uniprot',                name = 'UniProt',                  entry.content.type = 'xml', base.url = 'http://www.uniprot.org/uniprot/', xml.ns = "http://uniprot.org/uniprot")
 })
 
 # Define {{{2

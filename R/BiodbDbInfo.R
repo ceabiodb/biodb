@@ -26,12 +26,12 @@
 #' @include ChildObject.R
 #' @export BiodbDbInfo
 #' @exportClass BiodbDbInfo
-BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character', .xml.ns = 'character'))
+BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, ws.url = NA_character_, scheduler.n = 1, scheduler.t = 1, entry.content.type = NA_character_, xml.ns = NA_character_, ...) {
+BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, ws.url = NA_character_, scheduler.n = 1, scheduler.t = 1, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, ...) {
 
 	callSuper(...)
 	config <- .self$getBiodb()$getConfig()
@@ -48,6 +48,7 @@ BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, ws.url 
 		.self$message('error', paste("Unknown entry.content type \"", entry.content.type, "\"."))
 	.entry.content.type <<- entry.content.type
 
+	.name <<- name
 	.base.url <<- base.url
 	.ws.url <<- ws.url
 	.xml.ns <<- xml.ns
@@ -55,6 +56,15 @@ BiodbDbInfo$methods( initialize = function(id, base.url = NA_character_, ws.url 
 	.token <<- if (config$isDefined(token.key, fail = FALSE)) config$get(token.key) else NA_character_
 	.scheduler.n <<- as.integer(scheduler.n)
 	.scheduler.t <<- as.integer(scheduler.t)
+})
+
+# Get name {{{1
+################################################################
+
+BiodbDbInfo$methods( getName = function() {
+	":\n\nReturns the full database name."
+
+	return(.self$.name)
 })
 
 # Get entry content type {{{1
