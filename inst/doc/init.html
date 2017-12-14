@@ -229,14 +229,7 @@ You can disable this default logger by setting the <code>logger</code> argument 
 
 <h3>Setting your own instance of the <code>BiodbLogger</code> class</h3>
 
-<p>You can also set your own instance of <code>BiodbLogger</code>, using the <code>observers</code> argument:</p>
-
-<pre><code class="r">mybiodb &lt;- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(verbose.level = as.integer(2)))
-</code></pre>
-
-<p>This will allow you to adjust the level of output you desire.</p>
-
-<p>You can also redirect the output of the logger to a file:</p>
+<p>You can also set your own instance of <code>BiodbLogger</code>, using the <code>observers</code> argument, in order for instance to redirect the output to a file:</p>
 
 <pre><code class="r">mybiodb &lt;- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(file = &#39;mybiodb.log&#39;))
 </code></pre>
@@ -268,10 +261,6 @@ You can disable this default logger by setting the <code>logger</code> argument 
 
 <pre><code>## [[1]]
 ## Reference class object of class &quot;BiodbLogger&quot;
-## Field &quot;.verbose.level&quot;:
-## [1] 1
-## Field &quot;.debug.level&quot;:
-## [1] 1
 ## Field &quot;.file&quot;:
 ## A connection with                      
 ## description &quot;stderr&quot;  
@@ -281,13 +270,11 @@ You can disable this default logger by setting the <code>logger</code> argument 
 ## opened      &quot;opened&quot;  
 ## can read    &quot;no&quot;      
 ## can write   &quot;yes&quot;     
+## Field &quot;.exclude&quot;:
+## [1] &quot;debug&quot;
 ## 
 ## [[2]]
 ## Reference class object of class &quot;BiodbLogger&quot;
-## Field &quot;.verbose.level&quot;:
-## [1] 1
-## Field &quot;.debug.level&quot;:
-## [1] 1
 ## Field &quot;.file&quot;:
 ## A connection with                          
 ## description &quot;mybiodb3.log&quot;
@@ -297,13 +284,11 @@ You can disable this default logger by setting the <code>logger</code> argument 
 ## opened      &quot;opened&quot;      
 ## can read    &quot;no&quot;          
 ## can write   &quot;yes&quot;         
+## Field &quot;.exclude&quot;:
+## [1] &quot;debug&quot;
 ## 
 ## [[3]]
 ## Reference class object of class &quot;BiodbLogger&quot;
-## Field &quot;.verbose.level&quot;:
-## [1] 1
-## Field &quot;.debug.level&quot;:
-## [1] 1
 ## Field &quot;.file&quot;:
 ## A connection with                      
 ## description &quot;stderr&quot;  
@@ -313,13 +298,11 @@ You can disable this default logger by setting the <code>logger</code> argument 
 ## opened      &quot;opened&quot;  
 ## can read    &quot;no&quot;      
 ## can write   &quot;yes&quot;     
+## Field &quot;.exclude&quot;:
+## [1] &quot;debug&quot;
 ## 
 ## [[4]]
 ## Reference class object of class &quot;BiodbLogger&quot;
-## Field &quot;.verbose.level&quot;:
-## [1] 1
-## Field &quot;.debug.level&quot;:
-## [1] 1
 ## Field &quot;.file&quot;:
 ## A connection with                          
 ## description &quot;mybiodb2.log&quot;
@@ -329,6 +312,8 @@ You can disable this default logger by setting the <code>logger</code> argument 
 ## opened      &quot;opened&quot;      
 ## can read    &quot;no&quot;          
 ## can write   &quot;yes&quot;         
+## Field &quot;.exclude&quot;:
+## [1] &quot;debug&quot;
 ## 
 ## [[5]]
 ## Reference class object of class &quot;WarningReporter&quot;

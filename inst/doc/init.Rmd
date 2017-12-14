@@ -24,13 +24,7 @@ In this case, only the normal R warnings and errors will be printed.
 
 ### Setting your own instance of the `BiodbLogger` class
 
-You can also set your own instance of `BiodbLogger`, using the `observers` argument:
-```{r}
-mybiodb <- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(verbose.level = as.integer(2)))
-```
-This will allow you to adjust the level of output you desire.
-
-You can also redirect the output of the logger to a file:
+You can also set your own instance of `BiodbLogger`, using the `observers` argument, in order for instance to redirect the output to a file:
 ```{r}
 mybiodb <- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(file = 'mybiodb.log'))
 ```
