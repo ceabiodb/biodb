@@ -5,9 +5,6 @@ mybiodb <- biodb::Biodb$new()
 mybiodb <- biodb::Biodb$new(logger = FALSE)
 
 ## ------------------------------------------------------------------------
-mybiodb <- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(verbose.level = as.integer(2)))
-
-## ------------------------------------------------------------------------
 mybiodb <- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(file = 'mybiodb.log'))
 
 ## ------------------------------------------------------------------------

@@ -5,7 +5,7 @@ mybiodb <- biodb::Biodb$new()
 mybiodb$getDbsInfo()$getIds()
 
 ## ------------------------------------------------------------------------
-entry <- mybiodb$getFactory()$getEntry('chebi', id = '2528')
+entry <- mybiodb$getFactory()$getEntry('kegg.compound', id = 'C00005')
 
 ## ------------------------------------------------------------------------
 entry$getFieldValue('accession')
