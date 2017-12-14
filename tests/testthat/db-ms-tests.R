@@ -15,23 +15,27 @@ test.msmsSearch.self.match <- function(db) {
 		mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
 
 		# Found corresponding spectrum
-		spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2)
+		spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
 
 		# Get entry
 		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
 
 		# Get peaks
 		peaks <- spectrum.entry$getFieldValue('PEAKS')
+		int.col <- if ('peak.intensity' %in% names(peaks)) 'peak.intensity' else 'peak.relative.intensity'
+		peaks <- peaks[order(peaks[[int.col]], decreasing = TRUE), ]
+		peaks <- peaks[1:2, ]
 
 		# Run MSMS search
-		result <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, npmin = 2, dist.fun = 'pbachtttarya', msms.mz.tol = 3, msms.mz.tol.min = 0.005)
+		results <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, npmin = 2, dist.fun = 'pbachtttarya', msms.mz.tol = 3, msms.mz.tol.min = 0.005)
 
 		# Check results
-		expect_true( ! is.null(result))
-		expect_true(is.data.frame(result))
-		expect_true(nrow(result) > 0)
+		expect_true( ! is.null(results))
+		expect_true(is.data.frame(results))
+		expect_true(nrow(results) > 0)
 		cols <- c('id', 'score', paste('peak', seq(nrow(peaks)), sep = '.'))
-		expect_true(all(cols %in% colnames(result)))
+		expect_true(all(cols %in% colnames(results)))
+		expect_true(spectrum.id %in% results[['id']])
 	}
 }
 

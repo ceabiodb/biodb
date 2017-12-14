@@ -300,26 +300,24 @@ hr {
 <p>You can search a match of your MSMS spectrum inside the MSMS spectra of the database:</p>
 
 <pre><code class="r"># Define spectrum to match:
-spectrum &lt;- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
+#spectrum &lt;- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
+spectrum &lt;- data.frame(mz = c(156.0124, 252.0446), rel.int = c(999, 158))
 
 # Search for match:
-conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+#conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+conn$msmsSearch(spectrum, precursor.mz = 252.0448, mz.tol = 0.1, mz.tol.unit = &#39;plain&#39;, ms.mode = &#39;neg&#39;)
 </code></pre>
 
-<pre><code>## Warning: closing unused connection 5 (mybiodb.log)
-</code></pre>
-
-<pre><code>##          id     score peak.1 peak.2
-## 1  KO002597 0.9261208      9      7
-## 2  KO002598 0.0000000      7     -1
-## 3  KO002599 0.0000000     -1     -1
-## 4  KO003347 0.0000000     -1     -1
-## 5  KO003348 0.0000000     -1     12
-## 6  KO003349 0.0000000     -1     -1
-## 7  KO003350 0.0000000     -1     -1
-## 8  KO003351 0.0000000     -1     -1
-## 9  SM826601 0.0000000     -1     -1
-## 10 SM869701 0.0000000     -1     -1
+<pre><code>##         id     score peak.1 peak.2
+## 5 EA029858 0.7585298      1      2
+## 3 EA029852 0.7584199      1      2
+## 4 EA029853 0.7458349      1      2
+## 2 TUE00675 0.7406529      3      4
+## 1 AU101851 0.0000000     -1     -1
+## 6 EQ328851 0.0000000     -1     -1
+## 7 EQ328852 0.0000000     -1     -1
+## 8 EQ328853 0.0000000     -1     -1
+## 9 EQ328854 0.0000000     -1     -1
 </code></pre>
 
 <p>A data frame, ordered from highest score to lowest, is returned. It contains the following columns:</p>

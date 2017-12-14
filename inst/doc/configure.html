@@ -228,11 +228,11 @@ hr {
 <pre><code>##  [1] &quot;allow.huge.downloads&quot;      &quot;cache.all.requests&quot;       
 ##  [3] &quot;cache.directory&quot;           &quot;cache.read.only&quot;          
 ##  [5] &quot;cache.subfolders&quot;          &quot;cache.system&quot;             
-##  [7] &quot;compute.fields&quot;            &quot;force.c.locale&quot;           
-##  [9] &quot;longterm.cache.subfolder&quot;  &quot;multival.field.sep&quot;       
-## [11] &quot;offline&quot;                   &quot;shortterm.cache.subfolder&quot;
-## [13] &quot;svn.binary.path&quot;           &quot;useragent&quot;                
-## [15] &quot;chemspider.token&quot;
+##  [7] &quot;factory.cache&quot;             &quot;compute.fields&quot;           
+##  [9] &quot;force.locale&quot;              &quot;longterm.cache.subfolder&quot; 
+## [11] &quot;multival.field.sep&quot;        &quot;offline&quot;                  
+## [13] &quot;shortterm.cache.subfolder&quot; &quot;svn.binary.path&quot;          
+## [15] &quot;useragent&quot;                 &quot;chemspider.token&quot;
 </code></pre>
 
 <p>Get description of a field:</p>
@@ -248,7 +248,7 @@ hr {
 <pre><code class="r">config$get(&#39;cache.directory&#39;)
 </code></pre>
 
-<pre><code>## [1] &quot;/home/pierrick/.biodb.cache&quot;
+<pre><code>## [1] &quot;/Users/pierrick/.biodb.cache&quot;
 </code></pre>
 
 <p>Set a field value:</p>
@@ -269,7 +269,7 @@ hr {
 <pre><code class="r">config$getDefaultValue(&#39;cache.directory&#39;)
 </code></pre>
 
-<pre><code>## [1] &quot;/home/pierrick/.biodb.cache&quot;
+<pre><code>## [1] &quot;/Users/pierrick/.biodb.cache&quot;
 </code></pre>
 
 <p>If the value of a field is boolean, you can use the boolean methods instead of <code>get</code> and <code>set</code>:</p>
