@@ -145,8 +145,8 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 				# Filter on precursor
 				if (precursor) {
 					.self$message('debug', paste('Filtering on precurssor ', precursor, '.', sep = ''))
-					precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('MSPRECMZ', last = TRUE), FUN.VALUE = 1.0)
-					precursor.matched <- ! is.na(precursor.mz) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
+					precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('msprecmz', last = TRUE), FUN.VALUE = 1.0)
+					precursor.matched <- (! is.na(precursor.mz)) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
 					entries <- entries[precursor.matched]
 				}
 

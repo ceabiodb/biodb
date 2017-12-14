@@ -17,9 +17,9 @@ Then you need to choose the database you want to access. For that you need to us
 mybiodb$getDbsInfo()$getIds()
 ```
 
-To obtain an entry from a database you have to call the `getEntry()` method from the `BiodbFactory` class. The following example access the ChEBI database in order to retrieve the entry number 2528:
+To obtain an entry from a database you have to call the `getEntry()` method from the `BiodbFactory` class. The following example access the KEGG Compound database in order to retrieve the entry number 2:
 ```{r}
-entry <- mybiodb$getFactory()$getEntry('chebi', id = '2528')
+entry <- mybiodb$getFactory()$getEntry('kegg.compound', id = 'C00005')
 ```
 
 From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:
