@@ -2,7 +2,7 @@
 # DATABASES #
 #############
 
-BIODB.DATABASES <- sort(c('chebi', 'chemspider', 'expasy.enzyme', 'hmdb.metabolite', 'kegg.compound', 'lipidmaps.structure', 'massbank.eu', 'massbank.jp', 'mass.csv.file', 'mirbase.mature', 'ncbi.ccds', 'ncbi.gene', 'peakforest.mass', 'peakforest.compound', 'ncbi.pubchem.comp', 'ncbi.pubchem.subst', 'uniprot'))
+BIODB.DATABASES <- sort(c('chebi', 'chemspider', 'expasy.enzyme', 'hmdb.metabolites', 'kegg.compound', 'lipidmaps.structure', 'massbank.eu', 'massbank.jp', 'mass.csv.file', 'mirbase.mature', 'ncbi.ccds', 'ncbi.gene', 'peakforest.mass', 'peakforest.compound', 'ncbi.pubchem.comp', 'ncbi.pubchem.subst', 'uniprot'))
 for (db in BIODB.DATABASES) {
 
 	# Create constant for database name

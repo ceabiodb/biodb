@@ -1,7 +1,7 @@
 <metabolite>
-  <version>3.6</version>
+  <version>4.0</version>
   <creation_date>2005-11-16 15:48:42 UTC</creation_date>
-  <update_date>2017-08-16 03:09:05 UTC</update_date>
+  <update_date>2017-12-07 01:05:49 UTC</update_date>
   <accession>HMDB0000001</accession>
   <secondary_accessions>
     <accession>HMDB00001</accession>
@@ -10,7 +10,7 @@
     <accession>HMDB06704</accession>
   </secondary_accessions>
   <name>1-Methylhistidine</name>
-  <description>One-methylhistidine (1-MHis) is derived mainly from the anserine of dietary flesh sources, especially poultry. The enzyme, carnosinase, splits anserine into b-alanine and 1-MHis. High levels of 1-MHis tend to inhibit the enzyme carnosinase and increase anserine levels. Conversely, genetic variants with deficient carnosinase activity in plasma show increased 1-MHis excretions when they consume a high meat diet. Reduced serum carnosinase activity is also found in patients with Parkinson's disease and multiple sclerosis and patients following a cerebrovascular accident. Vitamin E deficiency can lead to 1-methylhistidinuria from increased oxidative effects in skeletal muscle.</description>
+  <description>One-methylhistidine (1-MHis) is derived mainly from the anserine of dietary flesh sources, especially poultry. The enzyme, carnosinase, splits anserine into b-alanine and 1-MHis. High levels of 1-MHis tend to inhibit the enzyme carnosinase and increase anserine levels. Conversely, genetic variants with deficient carnosinase activity in plasma show increased 1-MHis excretions when they consume a high meat diet. Reduced serum carnosinase activity is also found in patients with Parkinson's disease and multiple sclerosis and patients following a cerebrovascular accident. Vitamin E deficiency can lead to 1-methylhistidinuria from increased oxidative effects in skeletal muscle. 1-Methylhistidine is a biomarker for the consumption of meat, especially red meat.</description>
   <synonyms>
     <synonym>1 Methylhistidine</synonym>
     <synonym>1-Methyl histidine</synonym>
@@ -28,16 +28,16 @@
   <iupac_name>(2S)-2-amino-3-(1-methyl-1H-imidazol-4-yl)propanoic acid</iupac_name>
   <traditional_iupac>1 methylhistidine</traditional_iupac>
   <cas_registry_number>332-80-9</cas_registry_number>
-  <smiles>CN1C=NC(C[C@H](N)C(O)=O)=C1</smiles>
+  <smiles>[H][C@](N)(CC1=CN(C)C=N1)C(O)=O</smiles>
   <inchi>InChI=1S/C7H11N3O2/c1-10-3-5(9-4-10)2-6(8)7(11)12/h3-4,6H,2,8H2,1H3,(H,11,12)/t6-/m0/s1</inchi>
   <inchikey>BRMWTNUJHUMWMS-LURJTMIESA-N</inchikey>
   <taxonomy>
-    <description>This compound belongs to the class of chemical entities known as histidine and derivatives. These are compounds containing cysteine or a derivative thereof resulting from reaction of cysteine at the amino group or the carboxy group, or from the replacement of any hydrogen of glycine by a heteroatom.</description>
+    <description>This compound belongs to the class of organic compounds known as histidine and derivatives. These are compounds containing cysteine or a derivative thereof resulting from reaction of cysteine at the amino group or the carboxy group, or from the replacement of any hydrogen of glycine by a heteroatom.</description>
     <direct_parent>Histidine and derivatives</direct_parent>
-    <kingdom>Chemical entities</kingdom>
-    <super_class>Organic compounds</super_class>
-    <class>Organic acids and derivatives</class>
-    <sub_class>Carboxylic acids and derivatives</sub_class>
+    <kingdom>Organic compounds</kingdom>
+    <super_class>Organic acids and derivatives</super_class>
+    <class>Carboxylic acids and derivatives</class>
+    <sub_class>Amino acids, peptides, and analogues</sub_class>
     <molecular_framework>Aromatic heteromonocyclic compounds</molecular_framework>
     <alternative_parents>
       <alternative_parent>Amino acids</alternative_parent>
@@ -154,7 +154,7 @@
     </property>
     <property>
       <kind>smiles</kind>
-      <value>CN1C=NC(C[C@H](N)C(O)=O)=C1</value>
+      <value>[H][C@](N)(CC1=CN(C)C=N1)C(O)=O</value>
       <source>ChemAxon</source>
     </property>
     <property>
@@ -223,6 +223,22 @@
       <spectrum_id>1755</spectrum_id>
     </spectrum>
     <spectrum>
+      <type>Specdb::CMs</type>
+      <spectrum_id>7663</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::CMs</type>
+      <spectrum_id>30940</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::CMs</type>
+      <spectrum_id>30941</spectrum_id>
+    </spectrum>
+    <spectrum>
+      <type>Specdb::CMs</type>
+      <spectrum_id>37237</spectrum_id>
+    </spectrum>
+    <spectrum>
       <type>Specdb::NmrOneD</type>
       <spectrum_id>1022</spectrum_id>
     </spectrum>
@@ -283,6 +299,11 @@
       <name>Histidine Metabolism</name>
       <smpdb_id>SMP00044</smpdb_id>
       <kegg_map_id>map00340</kegg_map_id>
+    </pathway>
+    <pathway>
+      <name>Histidinemia</name>
+      <smpdb_id>SMP00191</smpdb_id>
+      <kegg_map_id/>
     </pathway>
   </pathways>
   <normal_concentrations>
@@ -500,6 +521,21 @@
     </concentration>
     <concentration>
       <biofluid>Urine</biofluid>
+      <concentration_value>46.0833 +/- 53.432</concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Female</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Blacks - Omnivores. From Exposome Explorer.</comment>
+      <references>
+        <reference>
+          <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
+          <pubmed_id>11052553</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
       <concentration_value>11-16 </concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -509,6 +545,111 @@
         <reference>
           <reference_text>Husek P, Svagera Z, Hanzlikova D, Rimnacova L, Zahradnickova H, Opekarova I, Simek P: Profiling of urinary amino-carboxylic metabolites by in-situ heptafluorobutyl chloroformate mediated sample preparation and gas chromatography-mass spectrometry. J Chromatogr A. 2016 Apr 22;1443:211-32. doi: 10.1016/j.chroma.2016.03.019. Epub  2016 Mar 10.</reference_text>
           <pubmed_id>27012787</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value>45.473 +/- 41.617</concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Male</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Blacks - Omnivores. From Exposome Explorer.</comment>
+      <references>
+        <reference>
+          <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
+          <pubmed_id>11052553</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value>15.919 +/- 19.503</concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Female</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Blacks - Vegetarians. From Exposome Explorer.</comment>
+      <references>
+        <reference>
+          <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
+          <pubmed_id>11052553</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value>4.635</concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Male</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Blacks - Vegetarians. From Exposome Explorer.</comment>
+      <references>
+        <reference>
+          <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
+          <pubmed_id>11052553</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value>33.624 +/- 36.360</concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Female</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Whites - Omnivores. From Exposome Explorer.</comment>
+      <references>
+        <reference>
+          <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
+          <pubmed_id>11052553</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value>28.0954 +/- 31.826</concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Male</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Whites - Omnivores. From Exposome Explorer.</comment>
+      <references>
+        <reference>
+          <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
+          <pubmed_id>11052553</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value>2.340 +/- 5.0764</concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Female</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Whites - Vegetarians. From Exposome Explorer.</comment>
+      <references>
+        <reference>
+          <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
+          <pubmed_id>11052553</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value>1.334 +/- 2.759</concentration_value>
+      <concentration_units>umol/mmol creatinine</concentration_units>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Male</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Whites - Vegetarians. From Exposome Explorer.</comment>
+      <references>
+        <reference>
+          <reference_text>Myint T, Fraser GE, Lindsted KD, Knutsen SF, Hubbard RW, Bennett HW: Urinary 1-methylhistidine is a marker of meat consumption in Black and in White California Seventh-day Adventists. Am J Epidemiol. 2000 Oct 15;152(8):752-5.</reference_text>
+          <pubmed_id>11052553</pubmed_id>
         </reference>
       </references>
     </concentration>
@@ -653,8 +794,110 @@
         </reference>
       </references>
     </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value/>
+      <concentration_units/>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Male</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Under omnivorous diet</comment>
+      <references>
+        <reference>
+          <reference_text>Stella C, Beckwith-Hall B, Cloarec O, Holmes E, Lindon JC, Powell J, van der Ouderaa F, Bingham S, Cross AJ, Nicholson JK: Susceptibility of human metabolic phenotypes to dietary modulation. J Proteome Res. 2006 Oct;5(10):2780-8.</reference_text>
+          <pubmed_id>17022649</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value/>
+      <concentration_units/>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Both</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>With fish (Salmon) consumption</comment>
+      <references>
+        <reference>
+          <reference_text>Lloyd AJ, Beckmann M, Fave G, Mathers JC, Draper J: Proline betaine and its biotransformation products in fasting urine samples are potential biomarkers of habitual citrus fruit consumption. Br J Nutr. 2011 Sep;106(6):812-24. doi: 10.1017/S0007114511001164. Epub 2011 May  9.</reference_text>
+          <pubmed_id>21736852</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Urine</biofluid>
+      <concentration_value/>
+      <concentration_units/>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Both</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Healthy condition not specified, assume it is healthy</comment>
+      <references>
+        <reference>
+          <reference_text>Lloyd AJ, Beckmann M, Haldar S, Seal C, Brandt K, Draper J: Data-driven strategy for the discovery of potential urinary biomarkers of habitual dietary exposure. Am J Clin Nutr. 2013 Feb;97(2):377-89. doi: 10.3945/ajcn.112.048033. Epub 2012 Dec 26.</reference_text>
+          <pubmed_id>23269817</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
   </normal_concentrations>
   <abnormal_concentrations>
+    <concentration>
+      <biofluid>Blood</biofluid>
+      <concentration_value>51.2 +/- 17.6 </concentration_value>
+      <concentration_units>uM</concentration_units>
+      <patient_age>Adult (&gt;18 years old)</patient_age>
+      <patient_sex>Female</patient_sex>
+      <patient_information>Pregnancy with fetuses with trisomy 18</patient_information>
+      <comment>Pregnancies between 11 weeks and 13 weeks 6 daysâ€™ gestation with fetuses with trisomy 18</comment>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Chelliah A, Mandal R, Dong E, Kruger M, Wishart DS, Nicolaides K: Metabolomic analysis for first-trimester trisomy 18 detection. Am J Obstet Gynecol. 2013 Jul;209(1):65.e1-9. doi: 10.1016/j.ajog.2013.03.028. Epub 2013 Mar 25.</reference_text>
+          <pubmed_id>23535240</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Blood</biofluid>
+      <concentration_value>43.4 +/- 22.3 </concentration_value>
+      <concentration_units>uM</concentration_units>
+      <patient_age>Adult (&gt;18 years old)</patient_age>
+      <patient_sex>Female</patient_sex>
+      <patient_information>Pregnancy</patient_information>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Chelliah A, Mandal R, Dong E, Kruger M, Wishart DS, Nicolaides K: Metabolomic analysis for first-trimester trisomy 18 detection. Am J Obstet Gynecol. 2013 Jul;209(1):65.e1-9. doi: 10.1016/j.ajog.2013.03.028. Epub 2013 Mar 25.</reference_text>
+          <pubmed_id>23535240</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Blood</biofluid>
+      <concentration_value>50.7 (12.9) </concentration_value>
+      <concentration_units>uM</concentration_units>
+      <patient_age>Adult (&gt;18 years old)</patient_age>
+      <patient_sex>Female</patient_sex>
+      <patient_information>Early preeclampsia</patient_information>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: Metabolomics and first-trimester prediction of early-onset preeclampsia. J Matern Fetal Neonatal Med. 2012 Oct;25(10):1840-7. doi: 10.3109/14767058.2012.680254. Epub 2012 Apr 28.</reference_text>
+          <pubmed_id>22494326</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Blood</biofluid>
+      <concentration_value>50.0 (14.6) </concentration_value>
+      <concentration_units>uM</concentration_units>
+      <patient_age>Adult (&gt;18 years old)</patient_age>
+      <patient_sex>Female</patient_sex>
+      <patient_information>Pregnancy</patient_information>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: Metabolomics and first-trimester prediction of early-onset preeclampsia. J Matern Fetal Neonatal Med. 2012 Oct;25(10):1840-7. doi: 10.3109/14767058.2012.680254. Epub 2012 Apr 28.</reference_text>
+          <pubmed_id>22494326</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
     <concentration>
       <biofluid>Blood</biofluid>
       <concentration_value>28.8 +/- 18.2</concentration_value>
@@ -687,6 +930,34 @@
     </concentration>
     <concentration>
       <biofluid>Blood</biofluid>
+      <concentration_value>70.3 (40.0) </concentration_value>
+      <concentration_units>uM</concentration_units>
+      <patient_age>Adult (&gt;18 years old)</patient_age>
+      <patient_sex>Female</patient_sex>
+      <patient_information>Late-onset preeclampsia</patient_information>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: First-trimester metabolomic detection of late-onset preeclampsia. Am J Obstet Gynecol. 2013 Jan;208(1):58.e1-7. doi: 10.1016/j.ajog.2012.11.003. Epub 2012 Nov 13.</reference_text>
+          <pubmed_id>23159745</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Blood</biofluid>
+      <concentration_value>38.9 (20.3) </concentration_value>
+      <concentration_units>uM</concentration_units>
+      <patient_age>Adult (&gt;18 years old)</patient_age>
+      <patient_sex>Female</patient_sex>
+      <patient_information>Pregnancy</patient_information>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: First-trimester metabolomic detection of late-onset preeclampsia. Am J Obstet Gynecol. 2013 Jan;208(1):58.e1-7. doi: 10.1016/j.ajog.2012.11.003. Epub 2012 Nov 13.</reference_text>
+          <pubmed_id>23159745</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Blood</biofluid>
       <concentration_value>10.66 +/- 2.68</concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Elderly (&gt;65 years old)</patient_age>
@@ -697,6 +968,34 @@
         <reference>
           <reference_text>Fonteh AN, Harrington RJ, Tsai A, Liao P, Harrington MG: Free amino acid and dipeptide changes in the body fluids from Alzheimer's disease subjects. Amino Acids. 2007 Feb;32(2):213-24. Epub 2006 Oct 10.</reference_text>
           <pubmed_id>17031479</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Blood</biofluid>
+      <concentration_value>40.4 (12.3) </concentration_value>
+      <concentration_units>uM</concentration_units>
+      <patient_age>Adult (&gt;18 years old)</patient_age>
+      <patient_sex>Female</patient_sex>
+      <patient_information>Down syndrome pregnancy</patient_information>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: Metabolomic analysis for first-trimester Down syndrome prediction. Am J Obstet Gynecol. 2013 May;208(5):371.e1-8. doi: 10.1016/j.ajog.2012.12.035. Epub 2013 Jan 8.</reference_text>
+          <pubmed_id>23313728</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biofluid>Blood</biofluid>
+      <concentration_value>32.7 (13.7) </concentration_value>
+      <concentration_units>uM</concentration_units>
+      <patient_age>Adult (&gt;18 years old)</patient_age>
+      <patient_sex>Female</patient_sex>
+      <patient_information>Pregnancy</patient_information>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: Metabolomic analysis for first-trimester Down syndrome prediction. Am J Obstet Gynecol. 2013 May;208(5):371.e1-8. doi: 10.1016/j.ajog.2012.12.035. Epub 2013 Jan 8.</reference_text>
+          <pubmed_id>23313728</pubmed_id>
         </reference>
       </references>
     </concentration>
@@ -1109,19 +1408,19 @@
       </references>
     </disease>
   </diseases>
-  <drugbank_id/>
+  <drugbank_id></drugbank_id>
   <drugbank_metabolite_id/>
   <phenol_explorer_compound_id/>
   <phenol_explorer_metabolite_id/>
   <foodb_id>FDB012119</foodb_id>
-  <knapsack_id/>
+  <knapsack_id></knapsack_id>
   <chemspider_id>83153</chemspider_id>
   <kegg_id>C01152</kegg_id>
   <biocyc_id>CPD-1823</biocyc_id>
-  <bigg_id/>
-  <wikipidia/>
+  <bigg_id></bigg_id>
+  <wikipidia></wikipidia>
   <nugowiki>1</nugowiki>
-  <metagene/>
+  <metagene></metagene>
   <metlin_id>3741</metlin_id>
   <pubchem_compound_id>92105</pubchem_compound_id>
   <het_id>HIC</het_id>
