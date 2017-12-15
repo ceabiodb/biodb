@@ -5,7 +5,7 @@ mybiodb <- biodb::Biodb$new()
 mb <- mybiodb$getFactory()$createConn('massbank.jp')
 
 # Search entries containing one peak
-ids <- mb$searchMzTol(mz = 132, mz.tol = 0.1, max.results = 3, ms.mode = 'neg', ms.level = 2)
+ids <- mb$getEntryIds(max.results = 3, ms.level = 1)
 entries <- mybiodb$getFactory()$getEntry('massbank.jp', ids)
 
 # Convert to data frame
