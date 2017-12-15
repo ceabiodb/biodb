@@ -206,7 +206,7 @@ MassbankConn$methods( .doDownload = function() {
 	if (file.exists(svn.cmd))
 		system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', .self$getDownloadPath()))
 	else
-		.self$message('caution', "SVN does not seem to be installed on your system. Biodb is not able to download whole Massbank database. Please install SVN and make sure it is accessible in the PATH or set the environment variable BIODB_SVN_BINARY_PATH to the path of the SVN executable.")
+		.self$message('caution', "SVN does not seem to be installed on your system. As a consequence, Biodb is not able to download whole Massbank database. Please install SVN and make sure it is accessible in the PATH or set the environment variable BIODB_SVN_BINARY_PATH to the path of the SVN executable. If you are under Windows you may try SlikSVN at https://sliksvn.com/download/.")
 })
 
 # Do extract download {{{1
