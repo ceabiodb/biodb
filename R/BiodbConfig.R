@@ -196,7 +196,7 @@ BiodbConfig$methods( .get.svn.binary.path = function() {
 
 	# On Windows, look in common locations
 	if (is.null(svn.path) && .Platform$OS.type == "windows") {
-		look_in <- c("C:/Program Files/Svn/bin/svn.exe", "C:/Program Files (x86)/Svn/bin/svn.exe")
+		look_in <- c("C:/Program Files/Svn/bin/svn.exe", "C:/Program Files (x86)/Svn/bin/svn.exe", "C:/Program Files/SlikSvn/bin/svn.exe")
 		found <- file.exists(look_in)
 		if (any(found))
 			svn.path <- look_in[found][1]
