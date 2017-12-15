@@ -21,12 +21,12 @@ win:
 
 ex:
 	echo "Testing examples..."
-	for ex in examples/*.R ; do Rscript $$ex > $$ex.output || exit 1 ; done
+	for ex in examples/*.R ; do echo "Running $$ex..." ; Rscript $$ex >$$ex.output 2>$$ex.err || exit 1 ; done
 
-exdock:
+exdock: clean
 	echo "Testing on a bare Linux system (no SVN or UNZIP installed)..."
 	docker build -t biodb-bare-r -f bare-r.dockerfile .
-	for ex in examples/*.R ; do docker run -v $(PWD)/examples:/examples biodb-bare-r /$$ex || exit 1 ; done
+	for ex in examples/*.R ; do echo "Running $$ex..." ; docker run -v $(PWD)/examples:/examples biodb-bare-r /$$ex >$$ex-docker.output 2>$$ex-docker.err || exit 1 ; done
 
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
