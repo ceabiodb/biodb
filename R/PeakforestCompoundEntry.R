@@ -17,7 +17,7 @@ PeakforestCompoundEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('ACCESSION', "id")
 	.self$addParsingExpression('ncbi.pubchem.comp.id', "PubChemCID")
 	.self$addParsingExpression('chebi.id', "ChEBI")
-	.self$addParsingExpression('hmdb.metabolite.id', "HMDB")
+	.self$addParsingExpression('hmdb.metabolites.id', "HMDB")
 	.self$addParsingExpression('kegg.compound.id', "KEGG")
 	.self$addParsingExpression('FORMULA', "formula")
 	.self$addParsingExpression('SMILES', "canSmiles")
@@ -34,13 +34,13 @@ PeakforestCompoundEntry$methods( initialize = function(...) {
 PeakforestCompoundEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# HMDB null
-	if (.self$hasField('hmdb.metabolite.id')) {
-		v <- .self$getFieldValue('hmdb.metabolite.id')
+	if (.self$hasField('hmdb.metabolites.id')) {
+		v <- .self$getFieldValue('hmdb.metabolites.id')
 		v <- v[v != 'HMDBnull']
 		if (length(v) > 0)
-			.self$setFieldValue('hmdb.metabolite.id', v)
+			.self$setFieldValue('hmdb.metabolites.id', v)
 		else
-			.self$removeField('hmdb.metabolite.id')
+			.self$removeField('hmdb.metabolites.id')
 	}
 
 	# ChEBI IDs

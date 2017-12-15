@@ -96,7 +96,7 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('CAS.ID', "^CH\\$LINK: CAS\\s+(.+)$")
 	.self$addParsingExpression('ncbi.pubchem.comp.id', "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)")
 	.self$addParsingExpression('ncbi.pubchem.subst.id', "^CH\\$LINK: PUBCHEM\\s+.*(SID:[0-9]+)")
-	.self$addParsingExpression('hmdb.metabolite.id', "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)")
+	.self$addParsingExpression('hmdb.metabolites.id', "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)")
 	.self$addParsingExpression('FORMULA', "^CH\\$FORMULA:\\s+(.+)$")
 	.self$addParsingExpression('SMILES', "^CH\\$SMILES:\\s+(.+)$")
 	.self$addParsingExpression('MASS', "^CH\\$EXACT_MASS:\\s+(.+)$")

@@ -18,7 +18,7 @@ LipidmapsStructureEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('SYNONYMS', 'SYNONYMS')
 	.self$addParsingExpression('ACCESSION', 'LM_ID')
 	.self$addParsingExpression('kegg.compound.id', 'KEGG_ID')
-	.self$addParsingExpression('hmdb.metabolite.id', 'HMDBID')
+	.self$addParsingExpression('hmdb.metabolites.id', 'HMDBID')
 	.self$addParsingExpression('chebi.id', 'CHEBI_ID')
 	.self$addParsingExpression('ncbi.pubchem.comp.id', 'PUBCHEM_COMPOUND_ID')
 	.self$addParsingExpression('MASS', 'MASS')

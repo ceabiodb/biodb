@@ -12,7 +12,7 @@ test.hmdbmetabolite.nbentries <- function(db) {
 # Run HMDB tests {{{1
 ################################################################
 
-run.hmdb.metabolite.tests <- function(db, mode) {
+run.hmdb.metabolites.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		run.db.test("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', db)
 }

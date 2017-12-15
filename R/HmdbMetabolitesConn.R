@@ -6,12 +6,12 @@
 #' @include RemotedbConn.R
 #' @include CompounddbConn.R
 #' @include BiodbDownloadable.R
-HmdbMetaboliteConn <- methods::setRefClass("HmdbMetaboliteConn", contains = c("RemotedbConn", "CompounddbConn", 'BiodbDownloadable'), fields = list(.ns = "character"))
+HmdbMetabolitesConn <- methods::setRefClass("HmdbMetabolitesConn", contains = c("RemotedbConn", "CompounddbConn", 'BiodbDownloadable'), fields = list(.ns = "character"))
 
 # Constructor {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( initialize = function(...) {
+HmdbMetabolitesConn$methods( initialize = function(...) {
 
 	callSuper(...)
 
@@ -21,7 +21,7 @@ HmdbMetaboliteConn$methods( initialize = function(...) {
 # Get entry content {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( getEntryContent = function(entry.id) {
+HmdbMetabolitesConn$methods( getEntryContent = function(entry.id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))
@@ -39,7 +39,7 @@ HmdbMetaboliteConn$methods( getEntryContent = function(entry.id) {
 # Do download {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( .doDownload = function() {
+HmdbMetabolitesConn$methods( .doDownload = function() {
 
 	# Download
 	.self$message('info', "Downloading HMDB metabolite database...")
@@ -51,7 +51,7 @@ HmdbMetaboliteConn$methods( .doDownload = function() {
 # Do extract download {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( .doExtractDownload = function() {
+HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 
 	.self$message('info', "Extracting content of downloaded HMDB metabolite database...")
 
@@ -108,7 +108,7 @@ HmdbMetaboliteConn$methods( .doExtractDownload = function() {
 # Get entry ids {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
+HmdbMetabolitesConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	ids <- NULL
 
@@ -131,7 +131,7 @@ HmdbMetaboliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Get nb entries {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( getNbEntries = function(count = FALSE) {
+HmdbMetabolitesConn$methods( getNbEntries = function(count = FALSE) {
 
 	n <- NA_integer_
 
@@ -145,7 +145,7 @@ HmdbMetaboliteConn$methods( getNbEntries = function(count = FALSE) {
 # Do get entry content url {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+HmdbMetabolitesConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 	url <- paste0(.self$getBaseUrl(), 'metabolites/', id, '.xml')
 
@@ -155,7 +155,7 @@ HmdbMetaboliteConn$methods( .doGetEntryContentUrl = function(id, concatenate = T
 # Get entry page url {{{1
 ################################################################
 
-HmdbMetaboliteConn$methods( getEntryPageUrl = function(id) {
+HmdbMetabolitesConn$methods( getEntryPageUrl = function(id) {
 
 	url <- paste0(.self$getBaseUrl(), 'metabolites/', id)
 
