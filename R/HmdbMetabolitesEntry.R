@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################
 
-HmdbMetaboliteEntry <- methods::setRefClass("HmdbMetaboliteEntry", contains = "XmlEntry")
+HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry", contains = "XmlEntry")
 
 # Constructor {{{1
 ################################################################
 
-HmdbMetaboliteEntry$methods( initialize = function(...) {
+HmdbMetabolitesEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 
@@ -36,14 +36,14 @@ HmdbMetaboliteEntry$methods( initialize = function(...) {
 # Is parsed content correct {{{1
 ################################################################
 
-HmdbMetaboliteEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+HmdbMetabolitesEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 	return(length(XML::getNodeSet(parsed.content, "//error")) == 0)
 })
 
 # Parse fields after {{{1
 ################################################################
 
-HmdbMetaboliteEntry$methods( .parseFieldsAfter = function(parsed.content) {
+HmdbMetabolitesEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Correct InChIKey
 	if (.self$hasField('INCHIKEY'))
