@@ -21,7 +21,7 @@ win:
 
 ex:
 	echo "Testing examples..."
-	for ex in examples/*.R ; do Rscript $$ex || exit 1 ; done
+	for ex in examples/*.R ; do Rscript $$ex > $$ex.output || exit 1 ; done
 
 exdock:
 	echo "Testing on a bare Linux system (no SVN or UNZIP installed)..."
