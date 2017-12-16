@@ -48,6 +48,9 @@ devtools::install_local('/your/path/to/biodb')
  * [Search for MS spectra in Massbank Japan](examples/massbank.jp-ms-search.R).
  * [Search for MSMS spectra in Massbank Japan](examples/massbank.jp-msms-search.R).
  * [Integrating data from different databases](examples/integrating-different-dbs.R).
+ * [Checking a table of database IDs](examples/checking-ids.R).
+ * [Seach for compounds in KEGG Compound database](examples/kegg.compound-search.R).
+ * [Extract spectra from Massbank to build a custom peak table](examples/massbank.jp-extract.R).
 
 ## Access documentation
 
