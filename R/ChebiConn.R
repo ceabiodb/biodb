@@ -32,6 +32,7 @@ ChebiConn$methods( getEntryContent = function(entry.id) {
 ################################################################
 
 ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 'ALL', max.results = 10, stars = 'ALL') {
+	":\n\nCalls getLiteEntity web service and returns the XML returned."
 
 	# Check parameters
 	.self$.assert.not.null(search)

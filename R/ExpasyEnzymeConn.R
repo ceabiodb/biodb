@@ -24,13 +24,32 @@ ExpasyEnzymeConn$methods( getEntryContent = function(entry.id) {
 	return(content)
 })
 
+# Web service enzyme-search-de {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( ws.enzymeSearchDE = function(de, biodb.ids = FALSE) {
+
+	# Send request
+	html.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "cgi-bin/enzyme/enzyme-search-de", sep = ''), params = de)
+
+	# Parse biodb IDs
+	if (biodb.ids) {
+
+		ids <- .self$.parseWsReturnedHtml(html.results)
+
+		return(ids)
+	}
+
+	return(html.results)
+})
+
 # Get entry ids {{{1
 ################################################################
 
 ExpasyEnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Send request
-	html.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "enzyme-bycomment.html", sep = ''), params = c('e'))
+	html.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "enzyme-bycomment.html", sep = ''), params = 'e')
 
 	# Parse HTML
 	xml <-  XML::htmlTreeParse(html.results, asText = TRUE, useInternalNodes = TRUE)
@@ -53,4 +72,18 @@ ExpasyEnzymeConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRU
 	url <- paste0(.self$getBaseUrl(), 'EC/', id, '.txt')
 
 	return(url)
+})
+
+# Parse HTML returned by web services {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( .parseWsReturnedHtml = function(html.results) {
+
+	# Parse HTML
+	xml <-  XML::htmlTreeParse(html.results, asText = TRUE, useInternalNodes = TRUE)
+
+	# Get ids
+	ids <- XML::xpathSApply(xml, "//a[starts-with(@href,'/EC/')]", XML::xmlValue)
+
+	return(ids)
 })

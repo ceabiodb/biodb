@@ -7,6 +7,7 @@ source('db-compound-tests.R')
 
 source('db-chebi-tests.R')
 source('db-chemspider-tests.R')
+source('db-expasy.enzyme-tests.R')
 source('db-hmdb-tests.R')
 source('db-kegg.compound-tests.R')
 source('db-mass.csv.file-tests.R')
