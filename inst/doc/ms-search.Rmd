@@ -60,11 +60,9 @@ Option        | Default | Description
 You can search a match of your MSMS spectrum inside the MSMS spectra of the database:
 ```{r}
 # Define spectrum to match:
-#spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
 spectrum <- data.frame(mz = c(156.0124, 252.0446), rel.int = c(999, 158))
 
 # Search for match:
-#conn$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
 conn$msmsSearch(spectrum, precursor.mz = 252.0448, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = 'neg')
 ```
 A data frame, ordered from highest score to lowest, is returned. It contains the following columns:
