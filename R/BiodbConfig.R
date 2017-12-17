@@ -234,8 +234,9 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey('svn.binary.path',        type = 'character', description = "The path to the SubVersion binary (svn).", default = .self$.get.svn.binary.path())
 	.self$.newKey('useragent',              type = 'character', description = "The user agent description string. This string is compulsory when connection to remote databases.", default = useragent.default)
 
-	# TODO Move into DbInfo
 	.self$.newKey('chemspider.token',       type = 'character')
+	.self$.newKey('peakforest.mass.token',       type = 'character')
+	.self$.newKey('peakforest.compound.token',       type = 'character')
 })
 
 # Get from env {{{2
