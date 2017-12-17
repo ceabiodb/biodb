@@ -66,6 +66,10 @@ Returns the entry content type.}
 
 Return the name of the corresponding database ID field in entries.}
 
+\item{\code{getName()}}{:
+
+Returns the full database name.}
+
 \item{\code{getSchedulerNParam()}}{:
 
 Returns the N parameter for the scheduler.}
