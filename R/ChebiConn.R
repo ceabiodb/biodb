@@ -65,6 +65,8 @@ ChebiConn$methods( ws.getLiteEntity.ids = function(...) {
 	# Get elements
 	ids <- XML::xpathSApply(xml, "//ns:chebiId", XML::xmlValue, namespaces = c(ns = .self$getDbInfo()$getXmlNs()))
 	ids <- sub('CHEBI:', '', ids)
+	if (length(grep("^[0-9]+$", ids)) != length(ids))
+		.self$message('error', paste("Impossible to parse XML to get entry IDs:\n", xml.results))
 
 	return(ids)
 })
@@ -73,7 +75,7 @@ ChebiConn$methods( ws.getLiteEntity.ids = function(...) {
 ################################################################
 
 ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	return(.self$ws.getLiteEntity(search = '1*', search.category = 'CHEBI ID', max.results = max.results))
+	return(.self$ws.getLiteEntity.ids(search = '1*', search.category = 'CHEBI ID', max.results = max.results))
 })
 
 # Search compound {{{1
@@ -82,18 +84,18 @@ ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
 ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 	":\n\nSearch for compounds by name and/or by monoisotopic mass."
 
-	id <- NULL
+	ids <- NULL
 	
 	# Search by name
 	if ( ! is.null(name))
-		id <- .self$ws.getLiteEntity(search = name, search.category = "ALL NAMES", max.results = 0)
+		ids <- .self$ws.getLiteEntity.ids(search = name, search.category = "ALL NAMES", max.results = 0)
 
 	# Search by mass
 	if ( ! is.null(mass)) {
 
-		if (is.null(id)) {
+		if (is.null(ids)) {
 			.self$message('caution', 'ChEBI does not use any tolerance while searching for compounds by mass. Thus, only compounds matching exactly the specified mass will be matched.')
-			id <- .self$ws.getLiteEntity(search = mass, search.category = "MONOISOTOPIC MASS", max.results = 0)
+			ids <- .self$ws.getLiteEntity.ids(search = mass, search.category = "MONOISOTOPIC MASS", max.results = 0)
 		}
 		else {
 			.self$message('caution', 'Since ChEBI does not use tolerance while searching for compounds by mass, we will do filtering by mass directly on results obtained from the search by name.')
@@ -107,20 +109,20 @@ ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol 
 			}
 
 			# Get masses of all entries
-			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id, drop = FALSE)
+			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
 			masses <- .self$getBiodb()$entriesToDataframe(entries, compute = FALSE, fields = 'monoisotopic.mass', drop = TRUE)
 
 			# Filter on mass
-			id <- id[(masses >= mass.min) & (masses <= mass.max)]
+			ids <- ids[(masses >= mass.min) & (masses <= mass.max)]
 		}
 	}
 
-	if (is.null(id))
-		id <- character(0)
+	if (is.null(ids))
+		ids <- character(0)
 
 	# Cut
-	if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))
-		id <- id[1:max.results]
+	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+		ids <- ids[1:max.results]
 
-	return(id)
+	return(ids)
 })
