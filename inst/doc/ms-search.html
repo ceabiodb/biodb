@@ -323,21 +323,21 @@ $(document).ready(function () {
 <p>You can request a list of M/Z values from MS databases. Depending on the database, the list of M/Z values will be more or less exhaustive.</p>
 <p>Getting a list of M/Z values:</p>
 <pre class="r"><code>conn$getMzValues(max.results = 10)</code></pre>
-<pre><code>##  [1] 148.0752 191.1173 191.1565 191.1792 191.2088 191.2447 683.3516
-##  [8] 683.4942 683.5849 684.3588</code></pre>
+<pre><code>##  [1] 53.0389 54.0333 55.0178 60.0552 65.0382 66.0423 68.0490 78.0333
+##  [9] 79.0177 92.0498</code></pre>
 <p>You can restrict to a certain MS mode, ask for the peak to be a precursor peak, or even ask for an MS level:</p>
 <pre class="r"><code>conn$getMzValues(max.results = 10, ms.level = 2, precursor = TRUE, ms.mode = 'pos')</code></pre>
-<pre><code>##  [1] 191.1179 683.3538 383.1867 367.1917 308.1493 260.0918 332.1857
-##  [8] 258.1125 624.4623 467.2768</code></pre>
+<pre><code>##  [1] 285.0208 279.0910 311.0809 251.0597 215.0597 268.0750 281.0703
+##  [8] 265.0754 271.0318 254.0594</code></pre>
 </section>
 <section id="search-for-spectra-containing-a-peak" class="level2">
 <h2>Search for spectra containing a peak</h2>
 <p>Here is how to search for spectra that contain a certain M/Z value:</p>
 <pre class="r"><code>conn$searchMzRange(mz.min = 54, mz.max = 54.1, max.results = 5)</code></pre>
-<pre><code>## [1] &quot;KO000054&quot; &quot;KO000095&quot; &quot;KO000127&quot; &quot;KO000317&quot; &quot;KO000454&quot;</code></pre>
+<pre><code>## list()</code></pre>
 <p>Another version is available that uses a tolerance instead of a range:</p>
 <pre class="r"><code>conn$searchMzTol(mz = 54, mz.tol = 0.1, mz.tol.unit = 'plain', max.results = 5)</code></pre>
-<pre><code>## [1] &quot;KO000046&quot; &quot;KO000054&quot; &quot;KO000060&quot; &quot;KO000061&quot; &quot;KO000094&quot;</code></pre>
+<pre><code>## list()</code></pre>
 <p>You can also set <code>mz.tol.unit</code> to <code>'ppm'</code>.</p>
 <p>Both methods accept the following options:</p>
 <table>
@@ -385,8 +385,16 @@ spectrum &lt;- data.frame(mz = c(156.0124, 252.0446), rel.int = c(999, 158))
 
 # Search for match:
 conn$msmsSearch(spectrum, precursor.mz = 252.0448, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = 'neg')</code></pre>
-<pre><code>## [1] id     score  peak.1 peak.2
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<pre><code>##         id     score peak.1 peak.2
+## 5 EA029858 0.7585298      1      2
+## 3 EA029852 0.7584199      1      2
+## 4 EA029853 0.7458349      1      2
+## 2 TUE00675 0.7406529      3      4
+## 1 AU101851 0.0000000     -1     -1
+## 6 EQ328851 0.0000000     -1     -1
+## 7 EQ328852 0.0000000     -1     -1
+## 8 EQ328853 0.0000000     -1     -1
+## 9 EQ328854 0.0000000     -1     -1</code></pre>
 <p>A data frame, ordered from highest score to lowest, is returned. It contains the following columns:</p>
 <ul>
 <li><code>id</code>: Database spectrum identifiers.</li>
