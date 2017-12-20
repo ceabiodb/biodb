@@ -140,7 +140,8 @@ UniprotConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.to
 			mass.max <- mass + mass.tol
 		}
 
- 		# Uniprot does not accept mass in floating numbers
+		# Uniprot does not accept mass in floating numbers
+		# TODO send CAUTION message if mass.min or mass.max is a floating number.
 		mass.min <- as.integer(mass.min)
 		mass.max <- as.integer(mass.max)
 
