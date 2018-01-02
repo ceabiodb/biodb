@@ -89,6 +89,27 @@ ExpasyEnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	return(ids)
 })
 
+# Search compound {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Search for name
+	if ( ! is.null(name))
+		ids <- .self$ws.enzymeByName(name, biodb.ids = TRUE)
+
+	# Search by mass
+	if ( ! is.null(monoisotopic.mass))
+		.self$message('caution', 'Search by monoisotopic mass is not available in Expasy Enzyme database.')
+	if ( ! is.null(molecular.mass)) {
+		.self$message('caution', 'Search by molecular mass using links to UniProt KB is not yet available in Expasy Enzyme database.')
+	}
+
+	return(ids)
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 
