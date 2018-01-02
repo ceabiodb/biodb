@@ -11,15 +11,11 @@
   "msdevtype": "LC-ESI-IT",
   "mstype": "MS2",
   "ms.mode": "pos",
-  "msprecmz": 204,
+  "ms.level": 2,
+  "msprecmz": 204.0,
   "msprecannot": "[M+H]+",
-  "chrom.col.rt": null,
   "smiles": "CC(=O)O[C@@H](CC(O)=O)C[N+1](C)(C)C",
   "kegg.compound.id": "C02571",
-  "chebi.id": 15960,
-  "ncbi.pubchem.comp.id": null,
-  "ncbi.pubchem.subst.id": "SID:5567",
-  "cas.id": null,
-  "hmdb.metabolites.id": null,
-  "chemspider.id": null
+  "chebi.id": "15960",
+  "ncbi.pubchem.subst.id": "SID:5567"
 }

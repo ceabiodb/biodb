@@ -1,8 +1,7 @@
 {
-  "accession": 2075,
-  "ncbi.pubchem.comp.id": 439160,
-  "chebi.id": 61553,
-  "hmdb.metabolites.id": null,
+  "accession": "2075",
+  "ncbi.pubchem.comp.id": "439160",
+  "chebi.id": "61553",
   "formula": "C6H13O9P",
   "smiles": "OCC1(O)O[C@@H]([C@H]([C@@H]1O)O)COP(=O)(O)O",
   "average.mass": 260.135781,
