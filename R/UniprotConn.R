@@ -118,7 +118,7 @@ UniprotConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 # Search compound {{{1
 ################################################################
 
-UniprotConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+UniprotConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	query <- ''
 
@@ -130,14 +130,16 @@ UniprotConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.to
 	}
 
 	# Search for mass
-	if ( ! is.null(mass) && ! is.na(mass)) {
+	if ( ! is.null(monoisotopic.mass))
+		.self$message('caution', 'Search by monoisotopic mass is not available in Uniprot database.')
+	if ( ! is.null(molecular.mass) && ! is.na(molecular.mass)) {
 
 		if (mass.tol.unit == 'ppm') {
-			mass.min <- mass * (1 - mass.tol * 1e-6)
-			mass.max <- mass * (1 + mass.tol * 1e-6)
+			mass.min <- molecular.mass * (1 - mass.tol * 1e-6)
+			mass.max <- molecular.mass * (1 + mass.tol * 1e-6)
 		} else {
-			mass.min <- mass - mass.tol
-			mass.max <- mass + mass.tol
+			mass.min <- molecular.mass - mass.tol
+			mass.max <- molecular.mass + mass.tol
 		}
 
  		# Uniprot does not accept mass in floating numbers

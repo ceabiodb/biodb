@@ -128,7 +128,7 @@ KeggCompoundConn$methods( ws.find.molecular.weight.ids = function(...) {
 # Search compound {{{1
 ################################################################
 
-KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+KeggCompoundConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	ids <- NULL
 
@@ -139,8 +139,9 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 	}
 
 	# Search by mass
-	if ( ! is.null(mass) && ! is.na(mass)) {
+	if ( ! is.null(molecular.mass) || ! is.null(monoisotopic.mass)) {
 
+		mass <- if (is.null(molecular.mass)) monoisotopic.mass else molecular.mass
 		if (mass.tol.unit == 'ppm') {
 			mass.min <- mass * (1 - mass.tol * 1e-6)
 			mass.max <- mass * (1 + mass.tol * 1e-6)
@@ -149,7 +150,10 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 			mass.max <- mass + mass.tol
 		}
 
-		mass.ids <- .self$ws.find.molecular.weight.ids(mass.min = mass.min, mass.max = mass.max)
+		if (is.null(monoisotopic.mass))
+			mass.ids <- .self$ws.find.molecular.weight.ids(mass.min = mass.min, mass.max = mass.max)
+		else
+			mass.ids <- .self$ws.find.exact.mass.ids(mass.min = mass.min, mass.max = mass.max)
 		if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
 			mass.ids <- sub('^cpd:', '', mass.ids)
 			if (is.null(ids))
