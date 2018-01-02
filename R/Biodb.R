@@ -247,6 +247,16 @@ Biodb$methods( saveEntriesAsJson = function(entries, files, compute = TRUE) {
 	return(json)
 })
 
+# Compute fields {{{1
+################################################################
+
+Biodb$methods( computeFields = function(entries) {
+	":\n\nCompute missing fields in entries."
+
+	# Loop on all entries
+	for (e in entries)
+		e$computeFields()
+})
 # PRIVATE METHODS {{{1
 ################################################################
 

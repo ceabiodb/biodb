@@ -7,6 +7,7 @@ test.entry.fields <- function(db) {
 
 	biodb <- db$getBiodb()
 	db.name <- db$getId()
+	db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
 	# Get IDs of reference entries
 	ref.ids <- list.ref.entries(db.name)
@@ -14,6 +15,9 @@ test.entry.fields <- function(db) {
 	# Create entries
 	entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
 	expect_equal(length(entries), length(ref.ids), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", length(ref.ids), "."))
+
+	# Compute fields
+	biodb$computeFields(entries)
 
 	# Save downloaded entries as JSON
 	json.files <- file.path(OUTPUT.DIR, paste(db.name, '-entry-', ref.ids, '.json', sep = ''))
@@ -32,18 +36,26 @@ test.entry.fields <- function(db) {
 		expect_false(is.null(e), info = paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
 
 		# Check IDs
-		expect_equal(id, e$getFieldValue('accession'), info = paste0('Loaded entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
+		expect_true(e$hasField('accession'), info = paste0(db.name, ' entry ', id, ' has no accession number.'))
+		expect_true(e$hasField(db.id.field), info = paste0(db.name, ' entry ', id, ' has no field ', db.id.field, '.'))
+		expect_equal(id, e$getFieldValue('accession'), info = paste0(db.name, ' entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
+		expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info = paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
 
 		# Load reference entry
 		ref.entry <- load.ref.entry(db.name, id)
 
-		# Loop on fields
+		# Loop on all reference fields
 		for (f in names(ref.entry)) {
 			expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
 			expect_equal(typeof(e$getFieldValue(f)), typeof(ref.entry[[f]]), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(e$getFieldValue(f)), ') is different in reference entry (', typeof(ref.entry[[f]]), ').'))
 			expect_equal(length(e$getFieldValue(f)), length(ref.entry[[f]]), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(e$getFieldValue(f)), ') is different in reference entry (', length(ref.entry[[f]]), ').'))
 			expect_identical(e$getFieldValue(f), ref.entry[[f]], info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(e$getFieldValue(f), collapse = ', '), ') is different in reference entry (', paste(ref.entry[[f]], collapse = ', '), ').'))
 		}
+
+		# Loop on all fields of loaded entry
+		for (f in e$getFieldNames())
+			if ( ! f %in% c(db.id.field, 'peaks'))
+				expect_true(any(biodb$getEntryFields()$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its values is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
 
 		# Store all encountered fields
 		entry.fields <- c(entry.fields, e$getFieldNames())

@@ -17,6 +17,6 @@ KeggCompoundEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('ACCESSION', "^ENTRY\\s+(\\S+)\\s+Compound")
 	.self$addParsingExpression('NAME', "^NAME\\s+([^,;]+)")
 	.self$addParsingExpression('FORMULA', "^FORMULA\\s+(\\S+)$")
-	.self$addParsingExpression('MASS', "^EXACT_MASS\\s+(\\S+)$")
+	.self$addParsingExpression('exact.mass', "^EXACT_MASS\\s+(\\S+)$")
 	.self$addParsingExpression('MOLECULAR.WEIGHT', "^MOL_WEIGHT\\s+(\\S+)$")
 })

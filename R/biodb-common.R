@@ -37,6 +37,7 @@ BIODB.FIELD.COMPUTING <- list()
 BIODB.FIELD.COMPUTING[['inchi']]      <- c('chebi')
 BIODB.FIELD.COMPUTING[['inchikey']]   <- c('chebi')
 BIODB.FIELD.COMPUTING[['sequence']]   <- c('ncbi.ccds')
+BIODB.FIELD.COMPUTING[['molecular.mass']]   <- c('uniprot', 'chebi')
 
 ####################
 # PEAKS DATA FRAME #

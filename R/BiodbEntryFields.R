@@ -175,7 +175,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('charge',             description = 'Charge.',               class = 'integer')
 
 	.self$.define('average.mass',       description = 'Average mass.', class = 'double')
-	.self$.define('monoisotopic.mass',  description = 'Monoisotopic mass.',    class = 'double')
+	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double')
 	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer')
 	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double')
 

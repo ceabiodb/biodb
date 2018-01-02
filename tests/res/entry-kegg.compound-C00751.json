@@ -2,6 +2,6 @@
 	"accession": "C00751",
 	"name": "Squalene",
 	"formula": "C30H50",
-	"mass": 410.3913,
+	"exact.mass": 410.3913,
 	"molecular.weight": 410.718
 }

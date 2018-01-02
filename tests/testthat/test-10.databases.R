@@ -51,11 +51,8 @@ for (mode in TEST.MODES) {
 
 			# Specific tests
 			fct <- paste('run', db.name, 'tests', sep = '.')
-			if (exists(fct)) {
-				print(paste('-------------------------------- ZOP 30', fct))
+			if (exists(fct))
 				do.call(fct, list(db, mode))
-				print(paste('-------------------------------- ZOP 40', fct))
-			}
 		}
 	}
 }
