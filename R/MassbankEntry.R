@@ -99,7 +99,7 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('hmdb.metabolites.id', "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)")
 	.self$addParsingExpression('FORMULA', "^CH\\$FORMULA:\\s+(.+)$")
 	.self$addParsingExpression('SMILES', "^CH\\$SMILES:\\s+(.+)$")
-	.self$addParsingExpression('MASS', "^CH\\$EXACT_MASS:\\s+(.+)$")
+	.self$addParsingExpression('exact.mass', "^CH\\$EXACT_MASS:\\s+(.+)$")
 	.self$addParsingExpression('MSMODE', "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
 	.self$addParsingExpression('SYNONYMS', "^CH\\$NAME:\\s+(.+)$")
 })

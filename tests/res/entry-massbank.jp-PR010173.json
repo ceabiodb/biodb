@@ -1,7 +1,8 @@
 {
   "accession": "PR010173",
   "name": "L-Aspartic acid",
-  "mass": 133.03751,
+  "exact.mass": 133.03751,
+  "molecular.mass": 133.1027,
   "formula": "C4H7NO4",
   "nb.peaks": 111,
   "inchikey": "CKLJMWTZIZZHCS-REOHCLBHSA-N",

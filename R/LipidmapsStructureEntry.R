@@ -21,7 +21,7 @@ LipidmapsStructureEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('hmdb.metabolites.id', 'HMDBID')
 	.self$addParsingExpression('chebi.id', 'CHEBI_ID')
 	.self$addParsingExpression('ncbi.pubchem.comp.id', 'PUBCHEM_COMPOUND_ID')
-	.self$addParsingExpression('MASS', 'MASS')
+	.self$addParsingExpression('exact.mass', 'MASS')
 	.self$addParsingExpression('FORMULA', 'FORMULA')
 	.self$addParsingExpression('COMP.IUPAC.NAME.SYST', 'SYSTEMATIC_NAME')
 })

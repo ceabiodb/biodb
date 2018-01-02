@@ -1,7 +1,8 @@
 {
   "accession": "PR020137",
   "name": "Gibberellin A1",
-  "mass": 348.15729,
+  "exact.mass": 348.15729,
+  "molecular.mass": 348.3903,
   "formula": "C19H24O6",
   "nb.peaks": 83,
   "inchikey": "JLJLRLWOEMWYQK-OBDJNFEBSA-N",
