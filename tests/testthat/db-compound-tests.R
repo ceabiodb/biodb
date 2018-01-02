@@ -51,6 +51,8 @@ test.searchCompound <- function(db) {
 # Run Compound DB tests {{{1
 ################################################################
 
-run.compound.db.tests <- function(db) {
-	run.db.test('We can search for a compound', 'test.searchCompound', db)
+run.compound.db.tests <- function(db, mode) {
+	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+		if (methods::is(db, 'CompounddbConn'))
+			run.db.test('We can search for a compound', 'test.searchCompound', db)
 }

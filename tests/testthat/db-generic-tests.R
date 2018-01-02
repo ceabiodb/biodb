@@ -1,17 +1,5 @@
 # vi: fdm=marker
 
-# Save entries as JSON {{{1
-################################################################
-
-save.entries.as.json <- function(db, entries) {
-
-	# Loop on all entries
-	for (e in entries) {
-		json <- e$getFieldsAsJson()
-		writeChar(json, file.path(OUTPUT.DIR, paste(db, '-entry-', e$getFieldValue('accession'), '.json', sep = '')))
-	}
-}
-
 # Test entry fields {{{1
 ################################################################
 
@@ -20,41 +8,53 @@ test.entry.fields <- function(db) {
 	biodb <- db$getBiodb()
 	db.name <- db$getId()
 
-	# Load reference entries
-	entries.desc <- load.ref.entries(db.name)
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db.name)
 
 	# Create entries
-	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['accession']], drop = FALSE)
-	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
-	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
-	save.entries.as.json(db.name, entries)
+	entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
+	expect_equal(length(entries), length(ref.ids), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", length(ref.ids), "."))
 
-	# Get data frame
-	entries.df <- biodb$entriesToDataframe(entries)
-	expect_equal(nrow(entries.df), length(entries), info = paste0("Error while converting entries into a data frame. Wrong number of rows: ", nrow(entries.df), " instead of ", length(entries), "."))
+	# Save downloaded entries as JSON
+	json.files <- file.path(OUTPUT.DIR, paste(db.name, '-entry-', ref.ids, '.json', sep = ''))
+	biodb$saveEntriesAsJson(entries, json.files)
 
-	# Test fields of entries
-	for (f in colnames(entries.desc)) {
-		entries.desc[[f]] <- as.vector(entries.desc[[f]], mode = biodb$getEntryFields()$get(f)$getClass())
-		e.values <- biodb$entriesFieldToVctOrLst(entries, f, flatten = TRUE)
-		expect_equal(e.values, entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entry objects."))
-		if (f %in% names(entries.df))
-			expect_equal(entries.df[[f]], entries.desc[[f]], info = paste0("Error with field \"", f, "\" in entries data frame"))
-		else
-			expect_true(all(is.na(entries.desc[[f]])), info = paste("Cannot find field \"", f, "\" in \"entries.df\".", sep = ''))
+	# Loop on all entries
+	entry.fields <- character(0)
+	ref.entry.fields <- character(0)
+	for (i in seq_along(ref.ids)) {
+
+		# Get ID
+		id <- ref.ids[[i]]
+
+		# Get entry
+		e <- entries[[i]]
+		expect_false(is.null(e), info = paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
+
+		# Check IDs
+		expect_equal(id, e$getFieldValue('accession'), info = paste0('Loaded entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
+
+		# Load reference entry
+		ref.entry <- load.ref.entry(db.name, id)
+
+		# Loop on fields
+		for (f in names(ref.entry)) {
+			expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
+			expect_equal(typeof(e$getFieldValue(f)), typeof(ref.entry[[f]]), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(e$getFieldValue(f)), ') is different in reference entry (', typeof(ref.entry[[f]]), ').'))
+			expect_equal(length(e$getFieldValue(f)), length(ref.entry[[f]]), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(e$getFieldValue(f)), ') is different in reference entry (', length(ref.entry[[f]]), ').'))
+			expect_identical(e$getFieldValue(f), ref.entry[[f]], info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(e$getFieldValue(f), collapse = ', '), ') is different in reference entry (', paste(ref.entry[[f]], collapse = ', '), ').'))
+		}
+
+		# Store all encountered fields
+		entry.fields <- c(entry.fields, e$getFieldNames())
+		ref.entry.fields <- c(ref.entry.fields, names(ref.entry))
 	}
-	
-	# Print message about fields that were not tested
-	not.tested.fields <- character(0)
-	for (e in entries) {
-		e.fields <- e$getFieldNames()
-		not.tested.fields <- c(not.tested.fields, e.fields[ ! e.fields %in% colnames(entries.desc)])
-	}
-	if (length(not.tested.fields) > 0) {
-		not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
-		not.tested.fields <- sort(not.tested.fields)
-		biodb$message('caution', paste("Fields \"", paste(not.tested.fields, collapse = ", "), "\" are not tested in database ", db.name, ".", sep = ''))
-	}
+
+	# Search for untested fields and send a Biodb CAUTION message
+	not.tested.fields <- entry.fields[ ! entry.fields %in% ref.entry.fields]
+	not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
+	for (f in not.tested.fields)
+		biodb$message('caution', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
 }
 
 # Test wrong entry {{{1
@@ -119,7 +119,13 @@ test.entry.ids <- function(db) {
 # Run db generic tests {{{1
 ################################################################
 
-run.db.generic.tests <- function(db) {
-	run.db.test("Nb entries is positive", 'test.nb.entries', db)
-	run.db.test("We can get a list of entry ids", 'test.entry.ids', db)
+run.db.generic.tests <- function(db, mode) {
+
+	run.db.test("Wrong entry gives NULL", 'test.wrong.entry', db)
+	run.db.test("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', db)
+	run.db.test("Entry fields have a correct value", 'test.entry.fields', db)
+	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+		run.db.test("Nb entries is positive", 'test.nb.entries', db)
+		run.db.test("We can get a list of entry ids", 'test.entry.ids', db)
+	}
 }

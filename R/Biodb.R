@@ -13,6 +13,7 @@
 #' @param compute     If set to \code{TRUE} and an entry has not the field defined, then try to compute the field values.
 #' @param entries     A list of \code{BiodbEntry} objects.
 #' @param field       The name of a field.
+#' @param files       A list of file paths.
 #' @param flatten     If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character. 
 #' @param null.to.na  If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."
 #' @param observers Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.
@@ -216,6 +217,34 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 		entries.df <- entries.df[[1]]
 
 	return(entries.df)
+})
+
+# Entries to JSON {{{1
+################################################################
+
+Biodb$methods( entriesToJson = function(entries, compute = TRUE) {
+	":\n\nConvert a list of BiodbEntry objects into JSON. Returns a vector of characters."
+
+	json <- vapply(entries, function(e) e$getFieldsAsJson(compute = compute), FUN.VALUE = '')
+
+	return(json)
+})
+
+# Save entries as JSON {{{1
+################################################################
+
+Biodb$methods( saveEntriesAsJson = function(entries, files, compute = TRUE) {
+	":\n\nSave a list of entries in JSON format."
+
+	.self$.assert.equal.length(entries, files)
+
+	# Save
+	for (i in seq_along(entries)) {
+		json <- entries[[i]]$getFieldsAsJson(compute = compute)
+		writeChar(json, files[[i]])
+	}
+
+	return(json)
 })
 
 # PRIVATE METHODS {{{1

@@ -22,7 +22,7 @@ UniprotEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('kegg.compound.id', list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id'))
 	.self$addParsingExpression('ncbi.gene.id', list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id'))
 	.self$addParsingExpression('expasy.enzyme.id', list(path = "//uniprot:dbReference[@type='EC']", attr = 'id'))
-	.self$addParsingExpression('MASS', list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass'))
+	.self$addParsingExpression('molecular.mass', list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass'))
 	.self$addParsingExpression('LENGTH', list(path = "//uniprot:entry/uniprot:sequence", attr = 'length'))
 })
 
