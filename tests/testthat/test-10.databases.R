@@ -47,12 +47,9 @@ for (mode in TEST.MODES) {
 		# Mass database testing
 		run.mass.db.tests(db, mode)
 
-		if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-
-			# Specific tests
-			fct <- paste('run', db.name, 'tests', sep = '.')
-			if (exists(fct))
-				do.call(fct, list(db, mode))
-		}
+		# Specific tests
+		fct <- paste('run', db.name, 'tests', sep = '.')
+		if (exists(fct))
+			do.call(fct, list(db, mode))
 	}
 }
