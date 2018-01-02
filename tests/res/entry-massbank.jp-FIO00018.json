@@ -1,7 +1,8 @@
 {
   "accession": "FIO00018",
   "name": "Biotin",
-  "mass": 244.08816,
+  "exact.mass": 244.08816,
+  "molecular.mass": 244.31172,
   "formula": "C10H16N2O3S",
   "nb.peaks": 53,
   "inchikey": "YBJHBAHKTGYVGT-ZKWXMUAHSA-N",

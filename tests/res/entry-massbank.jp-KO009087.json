@@ -1,7 +1,8 @@
 {
   "accession": "KO009087",
   "name": "O-Acetylcarnitine",
-  "mass": 204.12358,
+  "exact.mass": 204.12358,
+  "molecular.mass": 204.24356,
   "formula": "C9H18NO4",
   "nb.peaks": 40,
   "inchikey": "RDHQFKQIGNGIED-MRVPVSSYSA-O",
