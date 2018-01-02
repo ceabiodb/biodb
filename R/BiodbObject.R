@@ -99,6 +99,19 @@ BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = 'err
 	return(TRUE)
 })
 
+# Assert equal length {{{1
+################################################################
+
+BiodbObject$methods( .assert.equal.length = function(param1, param2, msg.type = 'error') {
+	if (length(param1) != length(param2)) {
+		param1.name <- as.character(sys.call(0))[[2]]
+		param2.name <- as.character(sys.call(0))[[3]]
+		.self$message(msg.type, paste(param1.name, ' (length ', length(param1), ') has not the same length as ', param2.name, ' (length ', length(param2), ').', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
 # Assert positive {{{1
 ################################################################
 

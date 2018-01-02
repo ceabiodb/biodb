@@ -2,11 +2,8 @@
   "accession": "P10480",
   "name": "GCAT_AERHY",
   "length": 335,
-  "mass": 37067,
+  "mass": 37067.0,
   "expasy.enzyme.id": "2.3.1.43",
-  "gene.symbols": null,
-  "kegg.compound.id": null,
-  "ncbi.gene.id": null,
-  "fullnames": "Phosphatidylcholine-sterol acyltransferase;Glycerophospholipid-cholesterol acyltransferase",
+  "fullnames": ["Phosphatidylcholine-sterol acyltransferase", "Glycerophospholipid-cholesterol acyltransferase"],
   "sequence": "MKKWFVCLLGLVALTVQAADSRPAFSRIVMFGDSLSDTGKMYSKMRGYLPSSPPYYEGRFSNGPVWLEQLTNEFPGLTIANEAEGGPTAVAYNKISWNPKYQVINNLDYEVTQFLQKDSFKPDDLVILWVGANDYLAYGWNTEQDAKRVRDAISDAANRMVLNGAKEILLFNLPDLGQNPSARSQKVVEAASHVSAYHNQLLLNLARQLAPTGMVKLFEIDKQFAEMLRDPQNFGLSDTENACYGGSYVWKPFASRSASTDSQLSAFNPQERLAIAGNPLLAQAVASPMAARSASTLNCEGKMFWDQVHPTTVVHAALSEPAATFIESQYEFLAH"
 }
