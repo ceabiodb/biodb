@@ -18,7 +18,7 @@ With *biodb* you can:
 
 ## License
 
-This software is licensed under the GNU AGPLv3 license.
+This software is licensed under the GNU Affero General Public License version 3 (AGPL-3.0).
 
 ## Installation
 
