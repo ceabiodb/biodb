@@ -171,11 +171,19 @@ load.ref.entry <- function(db, id) {
 
 	# Entry file
 	file <- file.path(RES.DIR, paste('entry-', db, '-', id, '.json', sep = ''))
+	expect_true(file.exists(file), info = paste0('Cannot find file "', file, '" for ', db, ' reference entry', id, '.'))
 
 	# Load JSON
-	entry <- jsonlite::read_json(file)
+	json <- jsonlite::fromJSON(file)
 
-	return(entry)
+	# Set NA values
+	for (n in names(json))
+		if (length(json[[n]]) == 1) {
+			if (json[[n]] == 'NA_character_')
+				json[[n]] <- NA_character_
+		}
+
+	return(json)
 }
 
 # Load reference entries {{{1

@@ -150,7 +150,7 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 ################################################################
 
 ChemspiderConn$methods( ws.SearchByMass2 = function(mass = NA, range = NA) {
-	":\n\nDirect query to the database for searching for compounds by mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details."
+	":\n\nDirect query to the database for searching for compounds by monoisotopic mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details."
 
 	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = range))
 
@@ -206,17 +206,19 @@ ChemspiderConn$methods( ws.SimpleSearch.ids = function(...) {
 # Search compound {{{1
 ################################################################
 
-ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.tol = 1, mass.tol.unit = 'plain', max.results = NA_integer_) {
+ChemspiderConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 1, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	id <- NULL
 
 	# Send request on mass
-	if ( ! is.null(mass)) {
+	if ( ! is.null(molecular.mass))
+		.self$message('caution', 'Search by molecular mass is not available in ChemSpider database.')
+	if ( ! is.null(monoisotopic.mass)) {
 		if (mass.tol.unit == 'ppm')
-			range <- mass * mass.tol * 1.e-6
+			range <- molecular.mass * mass.tol * 1.e-6
 		else
 			range <- mass.tol
-		id <- .self$ws.SearchByMass2.ids(mass = mass, range = range)
+		id <- .self$ws.SearchByMass2.ids(mass = molecular.mass, range = range)
 
 		# Cut
 		if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))

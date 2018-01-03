@@ -1,6 +1,6 @@
 {
-  "accession": 2,
-  "mass": 204.124,
+  "accession": "2",
+  "exact.mass": 204.124,
   "molecular.weight": 204.246,
   "formula": "C9H18NO4+",
   "logp": -0.3,

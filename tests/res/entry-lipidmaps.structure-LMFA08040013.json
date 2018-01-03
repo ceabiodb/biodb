@@ -3,9 +3,8 @@
   "name": "Palmitoyl-EA",
   "comp.iupac.name.syst": "N-hexadecanoyl-ethanolamine",
   "formula": "C18H37NO2",
-  "mass": 299.28,
-  "kegg.compound.id": null,
+  "exact.mass": 299.28,
   "hmdb.metabolites.id": "HMDB02100",
   "ncbi.pubchem.comp.id": "XPR7013",
-  "synonyms": "Palmitoyl ethanolamide;palmitoylethanolamide;Anandamide (16:0);N-palmitoyl ethanolamine"
+  "synonyms": ["Palmitoyl ethanolamide", "palmitoylethanolamide", "Anandamide (16:0)", "N-palmitoyl ethanolamine"]
 }

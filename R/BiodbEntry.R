@@ -295,13 +295,10 @@ BiodbEntry$methods( parseContent = function(content) {
 	}
 })
 
-# PRIVATE METHODS {{{1
+# Compute fields {{{1
 ################################################################
 
-# Compute field {{{2
-################################################################
-
-BiodbEntry$methods(	.compute.field = function(fields = NULL) {
+BiodbEntry$methods(	computeFields = function(fields = NULL) {
 
 	success <- FALSE
 	if ( ! is.null(fields))
@@ -347,6 +344,8 @@ BiodbEntry$methods(	.compute.field = function(fields = NULL) {
 	return(success)
 })
 
+# PRIVATE METHODS {{{1
+################################################################
 
 # Is content correct {{{2
 ################################################################
@@ -433,4 +432,14 @@ BiodbEntry$methods(	fieldHasBasicClass = function(field) {
 	.self$.deprecated.method('BiodbEntryField::isVector()')
 
 	return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
+})
+
+# Compute field {{{2
+################################################################
+
+BiodbEntry$methods(	.compute.field = function(fields = NULL) {
+
+	.self$.deprecated.method('BiodbEntry::computeFields()')
+
+	return(.self$computeFields(fields = fields))
 })

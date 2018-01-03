@@ -1,4 +1,4 @@
-peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.attr	chrom.col	chrom.col.rt	formula	mass	fullnames	accession
+peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.attr	chrom.col	chrom.col.rt	formula	molecular.mass	fullnames	accession
 50	P5	1	pos	50.049475	P92Z5W412 O0	[(M+2H)-(H2O)-(HCOOH)]++	colpp	0.79	J114L6M62O3	162.10044	Abracadabrine	P5.pos.colpp.0.79
 50	P5	1	pos	146.100509	U513P92ZW413 O2	[(M+H)-(H2O)]+ (13C)	colpp	0.79	J114L6M62O3	162.10044	Abracadabrine	P5.pos.colpp.0.79
 50	P5	1	pos	348.193462	U1113P94ZW428 Na O6	[(2M+Na)]+ (13C)	colpp	0.79	J114L6M62O3	162.10044	Abracadabrine	P5.pos.colpp.0.79
