@@ -2,6 +2,6 @@
 	"accession": "C00005",
 	"name": "NADPH",
 	"formula": "C21H30N7O17P3",
-	"mass": 745.0911,
+	"exact.mass": 745.0911,
 	"molecular.weight": 745.4209
 }

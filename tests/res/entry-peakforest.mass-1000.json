@@ -1,7 +1,16 @@
 {
-  "accession": 1000,
+  "accession": "1000",
   "mstype": "MS",
   "msdev": "Orbitrap",
   "nb.peaks": 39,
-  "peakforest.compound.id": 2075
+  "peakforest.compound.id": "2075",
+  "chrom.col.name": "Hypersil GOLD C18",
+  "chrom.col.id": "6dec4aa738bd7d9537225ab3bc9f928f",
+  "chrom.col.constructor": "Thermo Fischer Scientific",
+  "chrom.col.length": 150.0,
+  "chrom.col.diameter": 2.1,
+  "chrom.col.rt.min": 0.94,
+  "chrom.col.rt.max": 0.94,
+  "chrom.col.method.protocol": "NA_character_",
+  "ms.mode": "NEG"
 }

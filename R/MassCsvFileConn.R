@@ -10,7 +10,7 @@
 ################################################################
 
 # Default database fields
-.BIODB.DFT.DB.FIELDS <- c('accession', 'name', 'fullnames', 'compound.id', 'ms.level', 'ms.mode', 'peak.mzexp', 'peak.mztheo', 'peak.relative.intensity', 'peak.comp', 'peak.attr', 'chrom.col', 'chrom.col.rt', 'formula', 'mass', 'inchi', 'inchikey', 'chebi.id', 'hmdb.metabolites.id', 'kegg.compound.id', 'ncbi.pubchem.comp.id')
+.BIODB.DFT.DB.FIELDS <- c('accession', 'name', 'fullnames', 'compound.id', 'ms.level', 'ms.mode', 'peak.mzexp', 'peak.mztheo', 'peak.relative.intensity', 'peak.comp', 'peak.attr', 'chrom.col', 'chrom.col.rt', 'formula', 'molecular.mass', 'inchi', 'inchikey', 'chebi.id', 'hmdb.metabolites.id', 'kegg.compound.id', 'ncbi.pubchem.comp.id')
 names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
 
 # Class declaration {{{1

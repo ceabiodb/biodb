@@ -124,6 +124,20 @@ BiodbEntryField$methods( getAliases = function() {
 	return(aliases)
 })
 
+# Get all names {{{1
+################################################################
+
+BiodbEntryField$methods( getAllNames = function() {
+	":\n\n Returns the list of all names (main name and aliases)."
+
+	aliases <- .self$getAliases()
+	names <- .self$getName()
+	if ( ! is.null(aliases))
+		names <- c(names, aliases)
+	
+	return(names)
+})
+
 # Has card one {{{1
 ################################################################
 

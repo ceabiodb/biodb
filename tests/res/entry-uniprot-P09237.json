@@ -2,11 +2,11 @@
   "accession": "P09237",
   "name": "MMP7_HUMAN",
   "length": 267,
-  "mass": 29677,
+  "mass": 29677.0,
   "expasy.enzyme.id": "3.4.24.23",
-  "gene.symbols": "MMP7;MPSL1;PUMP1",
+  "gene.symbols": ["MMP7", "MPSL1", "PUMP1"],
   "kegg.compound.id": "hsa:4316",
-  "ncbi.gene.id": 4316,
-  "fullnames": "Matrilysin;Matrin;Matrix metalloproteinase-7;Pump-1 protease;Uterine metalloproteinase",
+  "ncbi.gene.id": "4316",
+  "fullnames": ["Matrilysin", "Matrin", "Matrix metalloproteinase-7", "Pump-1 protease", "Uterine metalloproteinase"],
   "sequence": "MRLTVLCAVCLLPGSLALPLPQEAGGMSELQWEQAQDYLKRFYLYDSETKNANSLEAKLKEMQKFFGLPITGMLNSRVIEIMQKPRCGVPDVAEYSLFPNSPKWTSKVVTYRIVSYTRDLPHITVDRLVSKALNMWGKEIPLHFRKVVWGTADIMIGFARGAHGDSYPFDGPGNTLAHAFAPGTGLGGDAHFDEDERWTDGSSLGINFLYAATHELGHSLGMGHSSDPNAVMYPTYGNGDPQNFKLSQDDIKGIQKLYGKRSNSRKK"
 }

@@ -1,16 +1,11 @@
 {
-  "accession": 65124,
-  "mass": 226.059,
+  "accession": "65124",
+  "exact.mass": 226.059,
   "molecular.weight": 226.188,
   "formula": "C9H10N2O5",
-  "logp": -2,
+  "logp": -2.0,
   "smiles.canonical": "C1=CC(=C(C=C1CC(C(=O)O)N)[N+](=O)[O-])O",
   "smiles.isomeric": "C1=CC(=C(C=C1C[C@@H](C(=O)O)N)[N+](=O)[O-])O",
-  "comp.iupac.name.allowed": null,
-  "comp.iupac.name.cas": null,
-  "comp.iupac.name.pref": null,
-  "comp.iupac.name.trad": null,
-  "comp.iupac.name.syst": null,
   "inchikey": "FBTSQILOGYXGMD-LURJTMIESA-N",
   "inchi": "InChI=1S/C9H10N2O5/c10-6(9(13)14)3-5-1-2-8(12)7(4-5)11(15)16/h1-2,4,6,12H,3,10H2,(H,13,14)/t6-/m0/s1"
 }

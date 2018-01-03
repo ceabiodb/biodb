@@ -1,7 +1,16 @@
 {
-  "accession": 75,
+  "accession": "75",
   "mstype": "MS",
   "msdev": "QTOF Bruker",
   "nb.peaks": 1,
-  "peakforest.compound.id": 1839
+  "peakforest.compound.id": "1839",
+  "ms.mode": "POS",
+  "chrom.col.name": "Acquity UPLC HSS T3",
+  "chrom.col.id": "c1e02f0336be9db3450502612d6bcf43",
+  "chrom.col.constructor": "Waters",
+  "chrom.col.length": 150.0,
+  "chrom.col.diameter": 2.1,
+  "chrom.col.rt.min": 0.8,
+  "chrom.col.rt.max": 0.8,
+  "chrom.col.method.protocol": "CF_PLASMA METHOD 1_POS (API-MS PROCEDURE_CLERMONT FERRAND)"
 }

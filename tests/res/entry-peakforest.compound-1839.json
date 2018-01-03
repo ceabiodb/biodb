@@ -1,7 +1,7 @@
 {
-  "accession": 1839,
-  "ncbi.pubchem.comp.id": 67678,
-  "chebi.id": 16283,
+  "accession": "1839",
+  "ncbi.pubchem.comp.id": "67678",
+  "chebi.id": "16283",
   "hmdb.metabolites.id": "HMDB00192",
   "formula": "C6H12N2O4S2",
   "smiles": "N[C@H](C(=O)O)CSSC[C@@H](C(=O)O)N",

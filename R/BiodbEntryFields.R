@@ -173,11 +173,11 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('catalytic.activity', description = 'Catalytic activity.',                        card = BIODB.CARD.MANY)
 	.self$.define('cofactor',           description = 'Cofactor.',                                  card = BIODB.CARD.MANY)
 	.self$.define('charge',             description = 'Charge.',               class = 'integer')
-	.self$.define('mass',               description = 'Nass.',         class = 'double')
-	.self$.define('average.mass',       description = 'Average mass.', class = 'double')
-	.self$.define('monoisotopic.mass',  description = 'Monoisotopic mass.',    class = 'double')
+
+	.self$.define('average.mass',  description = 'Average mass.',    class = 'double')
+	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double')
 	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer')
-	.self$.define('molecular.weight',   description = 'Molecular weight or molecular mass.',     class = 'double')
+	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double')
 
 	.self$.define('super.class',        description = 'Super class.', alias = 'superclass')
 	.self$.define('sequence',           description = 'Gene or protein sequence.')
