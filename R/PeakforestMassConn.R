@@ -213,18 +213,55 @@ PeakforestMassConn$methods( getChromCol = function(compound.ids = NULL) {
 
 PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
-	                           # TODO Ask Nils to add some filtering on precursor and MS level
-	# Set URL
-	url <- paste(.self$getBaseUrl(), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
-	if ( ! is.na(ms.mode))
-		url <- paste(url, '&mode=', if (ms.mode == BIODB.MSMODE.POS) 'positive' else 'negative', sep ='')
+	mz <- NULL
 
-	# Get MZ values
-	json.str <- .self$.getUrlScheduler()$getUrl(url)
-	.self$.checkIfError(json.str)
+	if (ms.level > 0 || precusor) {
 
-	# Parse JSON
-	mz <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
+		# Get all IDs
+		ids <- .self$getEntryIds()
+		print('-------------------------------- PeakforestMassConn::.doGetMzValues 10')
+		print(length(ids))
+
+		# Loop on all IDs
+		for (id in ids) {
+		print('-------------------------------- PeakforestMassConn::.doGetMzValues 11')
+
+			print(id)
+			entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
+
+			if (ms.level > 0 && ( ! entry$hasField('ms.level') || entry$getFieldValue('ms.level') != ms.level))
+				next
+			print(ms.level)
+			print(entry$getFieldValue('ms.level'))
+
+			if (precursor) {
+				if (entry$hasField('msprecmz'))
+					mz <- c(mz, entry$getFieldValue('msprecmz'))
+			}
+			else {
+				if (entry$hasField('peaks'))
+					mz <- c(mz, entry$getFieldValue('peaks')[['PEAK.MZ']])
+			}
+			print(length(mz))
+
+			if ( ! is.na(max.results) && length(mz) > max.results)
+				break
+		}
+	}
+
+	else {
+		# Set URL
+		url <- paste(.self$getBaseUrl(), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
+		if ( ! is.na(ms.mode))
+			url <- paste(url, '&mode=', if (ms.mode == BIODB.MSMODE.POS) 'positive' else 'negative', sep ='')
+
+		# Get MZ values
+		json.str <- .self$.getUrlScheduler()$getUrl(url)
+		.self$.checkIfError(json.str)
+
+		# Parse JSON
+		mz <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
+	}
 
 	# Apply cut-off
 	if ( ! is.na(max.results) && length(mz) > max.results)
