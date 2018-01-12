@@ -68,4 +68,12 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	if ('listOfCompounds' %in% names(parsed.content))
 		for (c in parsed.content$listOfCompounds)
 			.self$appendFieldValue('peakforest.compound.id', c$id)
+
+	# Set MS level
+	if (.self$hasField('mstype')) {
+		if (.self$getFieldValue('mstype') == 'MS')
+			.self$setFieldValue('ms.level', 1)
+		else
+			.self$message('caution', paste('Unknown MS type "', mstype,'" for Peakforest entry "', .self$getFieldValue('accession'), '".', sep = ''))
+	}
 })
