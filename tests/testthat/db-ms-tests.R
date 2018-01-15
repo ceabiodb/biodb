@@ -143,7 +143,7 @@ test.searchMzTol.with.precursor <- function(db) {
 	db.name <- db$getId()
 
 	# Set some initial values to speed up test
-	db.values <- list(massbank.eu = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)))
+	db.values <- list(massbank.jp = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)))
 
 	db <- biodb$getFactory()$getConn(db.name)
 	tol.ppm <- 5
@@ -156,6 +156,7 @@ test.searchMzTol.with.precursor <- function(db) {
 			mz <- db.values[[db.name]][[ms.level]]$mz
 		else
 			mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
+		expect_false(is.null(mz))
 		expect_length(mz, 1)
 		expect_false(is.na(mz))
 

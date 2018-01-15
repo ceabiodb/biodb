@@ -76,4 +76,12 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		else
 			.self$message('caution', paste('Unknown MS type "', mstype,'" for Peakforest entry "', .self$getFieldValue('accession'), '".', sep = ''))
 	}
+
+	# Get precursor
+	if (.self$hasField('peaks')) {
+		print(.self$getFieldValue('peaks'))
+		prec <- .self$getFieldValue('peaks')[['PEAK.ATTR']] %in% c('[M+H]+', '[M-H]-')
+		if (any(prec))
+			.self$setFieldValue('msprecmz', .self$getFieldValue('peaks')[prec, 'PEAK.MZ'])
+	}
 })
