@@ -224,15 +224,16 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 
 		# Loop on all IDs
 		for (id in ids) {
-		print('-------------------------------- PeakforestMassConn::.doGetMzValues 11')
+			print('-------------------------------- PeakforestMassConn::.doGetMzValues 11')
 
 			print(id)
 			entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
+			print(entry$getFieldValue('ms.level'))
+			print(ms.level)
 
 			if (ms.level > 0 && ( ! entry$hasField('ms.level') || entry$getFieldValue('ms.level') != ms.level))
 				next
-			print(ms.level)
-			print(entry$getFieldValue('ms.level'))
+			print('-------------------------------- PeakforestMassConn::.doGetMzValues 14')
 
 			if (precursor) {
 				if (entry$hasField('msprecmz'))
