@@ -59,9 +59,9 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		}
 
 		# Set right column names
-		colnames(peaks) <- c('PEAK.MZ', 'PEAK.RELATIVE.INTENSITY', 'PEAK.ERROR.PPM', 'PEAK.MASS', 'PEAK.COMP', 'PEAK.ATTR')
-		.self$setFieldValue('PEAKS', peaks)
-		.self$setFieldValue('NB.PEAKS', nrow(peaks))
+		colnames(peaks) <- c('peak.mz', 'peak.relative.intensity', 'peak.error.ppm', 'peak.mass', 'peak.comp', 'peak.attr')
+		.self$setFieldValue('peaks', peaks)
+		.self$setFieldValue('nb.peaks', nrow(peaks))
 	}
 
 	# Parse compound IDs
@@ -79,9 +79,8 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Get precursor
 	if (.self$hasField('peaks')) {
-		print(.self$getFieldValue('peaks'))
-		prec <- .self$getFieldValue('peaks')[['PEAK.ATTR']] %in% c('[M+H]+', '[M-H]-')
+		prec <- .self$getFieldValue('peaks')[['peak.attr']] %in% c('[M+H]+', '[M-H]-')
 		if (any(prec))
-			.self$setFieldValue('msprecmz', .self$getFieldValue('peaks')[prec, 'PEAK.MZ'])
+			.self$setFieldValue('msprecmz', .self$getFieldValue('peaks')[prec, 'peak.mz'])
 	}
 })
