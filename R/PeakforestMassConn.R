@@ -215,25 +215,18 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 
 	mz <- NULL
 
-	if (ms.level > 0 || precusor) {
+	if (ms.level > 0 || precursor) {
 
 		# Get all IDs
 		ids <- .self$getEntryIds()
-		print('-------------------------------- PeakforestMassConn::.doGetMzValues 10')
-		print(length(ids))
 
 		# Loop on all IDs
 		for (id in ids) {
-			print('-------------------------------- PeakforestMassConn::.doGetMzValues 11')
 
-			print(id)
 			entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
-			print(entry$getFieldValue('ms.level'))
-			print(ms.level)
 
 			if (ms.level > 0 && ( ! entry$hasField('ms.level') || entry$getFieldValue('ms.level') != ms.level))
 				next
-			print('-------------------------------- PeakforestMassConn::.doGetMzValues 14')
 
 			if (precursor) {
 				if (entry$hasField('msprecmz'))
@@ -243,7 +236,6 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 				if (entry$hasField('peaks'))
 					mz <- c(mz, entry$getFieldValue('peaks')[['PEAK.MZ']])
 			}
-			print(length(mz))
 
 			if ( ! is.na(max.results) && length(mz) > max.results)
 				break

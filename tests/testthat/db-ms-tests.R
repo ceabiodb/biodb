@@ -169,9 +169,9 @@ test.searchMzTol.with.precursor <- function(db) {
 		for (spectra.id in spectra.ids) {
 			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
 			expect_false(is.null(entry))
-			expect_false(is.na(entry$getFieldValue('MS.LEVEL')))
-			expect_equal(entry$getFieldValue('MS.LEVEL'), ms.level)
-			peaks <- entry$getFieldValue('PEAKS')
+			expect_false(is.na(entry$getFieldValue('ms.level')))
+			expect_equal(entry$getFieldValue('ms.level'), ms.level)
+			peaks <- entry$getFieldValue('peaks')
 			expect_false(is.null(peaks))
 			expect_true(is.data.frame(peaks))
 			expect_gt(nrow(peaks), 0)
@@ -179,8 +179,8 @@ test.searchMzTol.with.precursor <- function(db) {
 
 			# Check that precursor peak was matched
 			expect_true(any(abs(mz - peaks[['peak.mz']] < mz * tol.ppm * 1e-6)))
-			expect_true(entry$hasField('MSPRECMZ'))
-			expect_true(abs(entry$getFieldValue('MSPRECMZ') - mz) < mz * tol.ppm * 1e-6)
+			expect_true(entry$hasField('msprecmz'))
+			expect_true(abs(entry$getFieldValue('msprecmz') - mz) < mz * tol.ppm * 1e-6)
 		}
 	}
 }
