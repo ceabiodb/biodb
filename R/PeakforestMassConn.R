@@ -315,7 +315,7 @@ PeakforestMassConn$methods( .peaksGetRange = function(spectra.type, mz.min, mz.m
 	url <- paste0(.self$getBaseUrl(), "spectra/", spectra.type, "/peaks/get-range/", mz.min, "/", mz.max)
 	param <- c(token = .self$getToken())
 	if ( ! is.na(mode))
-		param <- c(mode = mode)
+		param <- c(param, mode = mode)
 
 	# Send request
 	results <- .self$.getUrlScheduler()$getUrl(url, param = param)
