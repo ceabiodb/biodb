@@ -8,14 +8,26 @@ test.msmsSearch.self.match <- function(db) {
 	biodb <- db$getBiodb()
 	db.name <- db$getId()
 
+	# Set some initial values to speed up test
+	db.values <- list(peakforest.mass = list(NEG = NULL, POS = list(spectrum.id = '3828', mz = 117.1)))
+
 	# Loop on modes
 	for (mode in BIODB.MSMODE.VALS) {
 
-		# Get one mz value
-		mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
+		# Get M/Z value and spectrum ID to be tested
+		if (db.name %in% names(db.values)) {
+			if ( ! mode %in% names(db.values[[db.name]]))
+				next
+			mz <- db.values[[db.name]]$mz
+			spectrum.id <- db.values[[db.name]]$spectrum.id
+		}
+		else {
+			# Search for one M/Z value
+			mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
 
-		# Found corresponding spectrum
-		spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
+			# Find corresponding spectrum
+			spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
+		}
 
 		# Get entry
 		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
