@@ -54,26 +54,26 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 	jsonstr <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
 
 	# Get directly one JSON string for each ID
-	if (length(jsonstr) == length(entry.id))
-		content <- jsonstr
+	if (length(jsonstr) == length(entry.id)) {
+		first_json = jsonlite::fromJSON(jsonstr[[1]], simplifyDataFrame = FALSE)
+		if ( ! is.null(first_json) && class(first_json) == 'list' && ! is.null(names(first_json))) {
+			content <- jsonstr
+			return(content)
+		}
+	}
 
-	# Parse JSON
-	else {
-		for (single.jsonstr in jsonstr) {
+	# Parse all JSON strings
+	for (single.jsonstr in jsonstr) {
 
-			if (.self$.checkIfError(single.jsonstr))
-				break
+		if (.self$.checkIfError(single.jsonstr))
+			break
 
-			json <- jsonlite::fromJSON(single.jsonstr, simplifyDataFrame = FALSE)
+		json <- jsonlite::fromJSON(single.jsonstr, simplifyDataFrame = FALSE)
 
-			if ( ! is.null(json)) {
-				if (class(json) == 'list' && is.null(names(json))) {
-					json.ids <- vapply(json, function(x) as.character(x$id), FUN.VALUE = '')
-					content[entry.id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
-				}
-#				else if (length(json) == 1) {
-#					content <- json
-#				}
+		if ( ! is.null(json)) {
+			if (class(json) == 'list' && is.null(names(json))) {
+				json.ids <- vapply(json, function(x) as.character(x$id), FUN.VALUE = '')
+				content[entry.id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
 			}
 		}
 	}

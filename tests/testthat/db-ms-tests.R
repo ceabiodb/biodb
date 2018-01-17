@@ -143,7 +143,8 @@ test.searchMzTol.with.precursor <- function(db) {
 	db.name <- db$getId()
 
 	# Set some initial values to speed up test
-	db.values <- list(massbank.jp = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)))
+	db.values <- list(massbank.jp = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)),
+	                  peakforest.mass = list('2' = list(mz = 117.1)))
 
 	db <- biodb$getFactory()$getConn(db.name)
 	tol.ppm <- 5
@@ -152,8 +153,8 @@ test.searchMzTol.with.precursor <- function(db) {
 	for (ms.level in c(1, 2)) {
 
 		# Get an M/Z value of a precursor
-		if (db.name %in% names(db.values))
-			mz <- db.values[[db.name]][[ms.level]]$mz
+		if (db.name %in% names(db.values) && as.character(ms.level) %in% names(db.values[[db.name]]))
+			mz <- db.values[[db.name]][[as.character(ms.level)]]$mz
 		else
 			mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
 		expect_false(is.null(mz))
@@ -178,7 +179,6 @@ test.searchMzTol.with.precursor <- function(db) {
 			expect_true('peak.mz' %in% colnames(peaks))
 
 			# Check that precursor peak was matched
-			expect_true(any(abs(mz - peaks[['peak.mz']] < mz * tol.ppm * 1e-6)))
 			expect_true(entry$hasField('msprecmz'))
 			expect_true(abs(entry$getFieldValue('msprecmz') - mz) < mz * tol.ppm * 1e-6)
 		}
