@@ -81,8 +81,12 @@ if ('FUNCTIONS' %in% names(env)) {
 
 create.biodb.instance <- function() {
 
+	# Create logger
+	logger = BiodbLogger$new(file = LOG.FILE.PATH, mode = 'a')
+	logger$includeMsgType('debug')
+
 	# Create instance
-	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE.PATH, mode = 'a'))
+	biodb <- Biodb$new(logger = FALSE, observers = logger)
 
 	# Set user agent
 	biodb$getConfig()$set('useragent', USERAGENT)

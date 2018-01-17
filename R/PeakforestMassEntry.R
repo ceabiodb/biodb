@@ -19,6 +19,7 @@ PeakforestMassEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('MSDEV', c('analyzerMassSpectrometerDevice', 'instrumentName'))
 	.self$addParsingExpression('MSDEVTYPE', c('analyzerMassSpectrometerDevice', 'ionAnalyzerType'))
 	.self$addParsingExpression('MSTYPE', 'type')
+	.self$addParsingExpression('msprecmz', 'parentIonMZ')
 	.self$addParsingExpression('CHROM.COL.NAME', c('liquidChromatography', 'columnName'))
 	.self$addParsingExpression('CHROM.COL.ID', c('liquidChromatography', 'columnCode'))
 	.self$addParsingExpression('CHROM.COL.CONSTRUCTOR', c('liquidChromatography', 'columnConstructorAString'))
@@ -70,15 +71,17 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 			.self$appendFieldValue('peakforest.compound.id', c$id)
 
 	# Set MS level
-	if (.self$hasField('mstype')) {
-		if (.self$getFieldValue('mstype') == 'MS')
-			.self$setFieldValue('ms.level', 1)
+	if ('fragmentationLevelString' %in% names(parsed.content)) {
+		if (parsed.content$fragmentationLevelString == 'MS2')
+			.self$setFieldValue('ms.level', 2)
 		else
-			.self$message('caution', paste('Unknown MS type "', mstype,'" for Peakforest entry "', .self$getFieldValue('accession'), '".', sep = ''))
+			.self$message('caution', paste('Unknown MS type "', parsed.content$fragmentationLevelString,'" for Peakforest entry "', .self$getFieldValue('accession'), '".', sep = ''))
 	}
+	else
+		.self$setFieldValue('ms.level', 1)
 
 	# Get precursor
-	if (.self$hasField('peaks')) {
+	if ( ! .self$hasField('msprecmz') && .self$hasField('peaks')) {
 		prec <- .self$getFieldValue('peaks')[['peak.attr']] %in% c('[M+H]+', '[M-H]-')
 		if (any(prec))
 			.self$setFieldValue('msprecmz', .self$getFieldValue('peaks')[prec, 'peak.mz'])
