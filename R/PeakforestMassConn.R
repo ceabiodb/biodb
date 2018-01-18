@@ -173,27 +173,46 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 	ids <- NULL
 	mode <- if ( ! is.na(ms.mode)) (if (ms.mode == 'neg') 'NEG' else 'POS') else NA_character_
 	if (ms.level == 0 || ms.level == 1)
-		ids <- .self$wsLcmsPeaksGetRange(mz.min, mz.max, mode = mode, biodb.ids = TRUE)
+		ids <- .self$wsLcmsPeaksGetRange(mz.min[[1]], mz.max[[1]], mode = mode, biodb.ids = TRUE)
 	if (ms.level == 0 || ms.level == 2) {
 		if (precursor)
 			ids <- c(ids, .self$wsLcmsmsFromPrecursor((mz.min + mz.max) / 2, (mz.max - mz.min) / 2, mode = mode, biodb.ids = TRUE))
 		else
-			ids <- c(ids, .self$wsLcmsmsPeaksGetRange(mz.min, mz.max, mode = mode, biodb.ids = TRUE))
+			ids <- c(ids, .self$wsLcmsmsPeaksGetRange(mz.min[[1]], mz.max[[1]], mode = mode, biodb.ids = TRUE))
 	}
 
 	# Filtering
-	if ( length(ids) > 0 && ( ! is.na(min.rel.int) || precursor)) {
+	if ( length(ids) > 0 && ( length(mz.min) > 1 || ! is.na(min.rel.int) || precursor)) {
 
-		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
 
 		# Filter on precursor
-		if (precursor) {
+		if (precursor && ms.level %in% c(0, 1))
 			entries <- lapply(entries, function(e) if (is.null(e) || ! e$hasField('msprecmz') || e$getFieldValue('msprecmz') < mz.min || e$getFieldValue('msprecmz') > mz.max) NULL else e)
-		}
 
-		# Filter on intensity
-		if ( ! is.na(min.rel.int))
-			entries <- lapply(entries, function(e) if (is.null(e) || ! e$hasField('peaks') || any(e$hasField('peaks')[e$hasField('peaks')['peak.mz'] >= mz.min & e$hasField('peaks')['peak.mz'] <= mz.max, 'peak.relative.intensity'] < min.rel.int)) NULL else e)
+		# Filter on M/Z ranges when there are more than one range, and also on intensity
+		if (length(mz.min) > 1 || ! is.na(min.rel.int)) {
+			filtered.entries <- NULL
+			for (e in entries) {
+
+				good.entry <- FALSE
+				if (! is.null(e) && e$hasField('peaks')) {
+					peaks <- e$getFieldValue('peaks')
+					good.entry <- TRUE
+					for (i in seq_along(mz.min)) {
+						in.range <- (peaks[['peak.mz']] >= mz.min[[i]] & peaks[['peak.mz']] <= mz.max[[i]])
+						if ( ! any(in.range) || ( ! is.na(min.rel.int) && ! any(peaks[in.range, 'peak.relative.intensity'] >= min.rel.int))) {
+							good.entry <- FALSE
+							break
+						}
+					}
+				}
+
+				# Append entry to list
+				filtered.entries <- c(filtered.entries, if (good.entry) e else list(NULL))
+			}
+			entries <- filtered.entries
+		}
 
 		# Select entries
 		ids <- ids[ ! vapply(entries, is.null, FUN.VALUE = TRUE)]
