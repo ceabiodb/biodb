@@ -95,6 +95,8 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
 	.self$.assert.positive(max.results)
 	.self$.assert.positive(ms.level)
+	if (length(mz.min) != length(mz.max))
+		.self$message('error', 'mz.min and mz.max must have the same length in searchMzRange().')
 
 	return(.self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })

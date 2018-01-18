@@ -19,6 +19,7 @@ PeakforestMassEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('MSDEV', c('analyzerMassSpectrometerDevice', 'instrumentName'))
 	.self$addParsingExpression('MSDEVTYPE', c('analyzerMassSpectrometerDevice', 'ionAnalyzerType'))
 	.self$addParsingExpression('MSTYPE', 'type')
+	.self$addParsingExpression('msprecmz', 'parentIonMZ')
 	.self$addParsingExpression('CHROM.COL.NAME', c('liquidChromatography', 'columnName'))
 	.self$addParsingExpression('CHROM.COL.ID', c('liquidChromatography', 'columnCode'))
 	.self$addParsingExpression('CHROM.COL.CONSTRUCTOR', c('liquidChromatography', 'columnConstructorAString'))
@@ -59,13 +60,30 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		}
 
 		# Set right column names
-		colnames(peaks) <- c('PEAK.MZ', 'PEAK.RELATIVE.INTENSITY', 'PEAK.ERROR.PPM', 'PEAK.MASS', 'PEAK.COMP', 'PEAK.ATTR')
-		.self$setFieldValue('PEAKS', peaks)
-		.self$setFieldValue('NB.PEAKS', nrow(peaks))
+		colnames(peaks) <- c('peak.mz', 'peak.relative.intensity', 'peak.error.ppm', 'peak.mass', 'peak.comp', 'peak.attr')
+		.self$setFieldValue('peaks', peaks)
+		.self$setFieldValue('nb.peaks', nrow(peaks))
 	}
 
 	# Parse compound IDs
 	if ('listOfCompounds' %in% names(parsed.content))
 		for (c in parsed.content$listOfCompounds)
 			.self$appendFieldValue('peakforest.compound.id', c$id)
+
+	# Set MS level
+	if ('fragmentationLevelString' %in% names(parsed.content)) {
+		if (parsed.content$fragmentationLevelString == 'MS2')
+			.self$setFieldValue('ms.level', 2)
+		else
+			.self$message('caution', paste('Unknown MS type "', parsed.content$fragmentationLevelString,'" for Peakforest entry "', .self$getFieldValue('accession'), '".', sep = ''))
+	}
+	else
+		.self$setFieldValue('ms.level', 1)
+
+	# Get precursor
+	if ( ! .self$hasField('msprecmz') && .self$hasField('peaks')) {
+		prec <- .self$getFieldValue('peaks')[['peak.attr']] %in% c('[M+H]+', '[M-H]-')
+		if (any(prec))
+			.self$setFieldValue('msprecmz', .self$getFieldValue('peaks')[prec, 'peak.mz'])
+	}
 })

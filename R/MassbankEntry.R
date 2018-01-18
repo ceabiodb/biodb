@@ -225,7 +225,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	results <- g[ ! is.na(g[,1]), , drop = FALSE]
 	if (nrow(results) > 0) {
 		precursors <- strsplit(results[,2], '/', fixed = TRUE)[[1]]
-		.self$setFieldValue('MSPRECMZ', precursors)
+		.self$setFieldValue('msprecmz', precursors)
 	}
 
 	# Retention time
@@ -238,7 +238,7 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		rt <- as.numeric(results[,2])
 		if (unit == 'min')
 			rt <- 60 * rt
-		.self$setFieldValue('CHROM.COL.RT', rt)
+		.self$setFieldValue('chrom.col.rt', rt)
 	}
 
 	# Name

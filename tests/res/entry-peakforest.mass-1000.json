@@ -12,5 +12,6 @@
   "chrom.col.rt.min": 0.94,
   "chrom.col.rt.max": 0.94,
   "chrom.col.method.protocol": "NA_character_",
-  "ms.mode": "NEG"
+  "ms.mode": "NEG",
+  "ms.level": 1
 }

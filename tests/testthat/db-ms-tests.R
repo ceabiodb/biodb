@@ -8,14 +8,26 @@ test.msmsSearch.self.match <- function(db) {
 	biodb <- db$getBiodb()
 	db.name <- db$getId()
 
+	# Set some initial values to speed up test
+	db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)))
+
 	# Loop on modes
 	for (mode in BIODB.MSMODE.VALS) {
 
-		# Get one mz value
-		mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
+		# Get M/Z value and spectrum ID to be tested
+		if (db.name %in% names(db.values)) {
+			if ( ! mode %in% names(db.values[[db.name]]) || is.null(db.values[[db.name]][[mode]]))
+				next
+			mz <- db.values[[db.name]][[mode]]$mz
+			spectrum.id <- db.values[[db.name]][[mode]]$spectrum.id
+		}
+		else {
+			# Search for one M/Z value
+			mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
 
-		# Found corresponding spectrum
-		spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
+			# Find corresponding spectrum
+			spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
+		}
 
 		# Get entry
 		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
@@ -143,7 +155,8 @@ test.searchMzTol.with.precursor <- function(db) {
 	db.name <- db$getId()
 
 	# Set some initial values to speed up test
-	db.values <- list(massbank.eu = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)))
+	db.values <- list(massbank.jp = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)),
+	                  peakforest.mass = list('2' = list(mz = 117.1)))
 
 	db <- biodb$getFactory()$getConn(db.name)
 	tol.ppm <- 5
@@ -152,10 +165,11 @@ test.searchMzTol.with.precursor <- function(db) {
 	for (ms.level in c(1, 2)) {
 
 		# Get an M/Z value of a precursor
-		if (db.name %in% names(db.values))
-			mz <- db.values[[db.name]][[ms.level]]$mz
+		if (db.name %in% names(db.values) && as.character(ms.level) %in% names(db.values[[db.name]]))
+			mz <- db.values[[db.name]][[as.character(ms.level)]]$mz
 		else
 			mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
+		expect_false(is.null(mz))
 		expect_length(mz, 1)
 		expect_false(is.na(mz))
 
@@ -168,18 +182,17 @@ test.searchMzTol.with.precursor <- function(db) {
 		for (spectra.id in spectra.ids) {
 			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
 			expect_false(is.null(entry))
-			expect_false(is.na(entry$getFieldValue('MS.LEVEL')))
-			expect_equal(entry$getFieldValue('MS.LEVEL'), ms.level)
-			peaks <- entry$getFieldValue('PEAKS')
+			expect_false(is.na(entry$getFieldValue('ms.level')))
+			expect_equal(entry$getFieldValue('ms.level'), ms.level)
+			peaks <- entry$getFieldValue('peaks')
 			expect_false(is.null(peaks))
 			expect_true(is.data.frame(peaks))
 			expect_gt(nrow(peaks), 0)
 			expect_true('peak.mz' %in% colnames(peaks))
 
 			# Check that precursor peak was matched
-			expect_true(any(abs(mz - peaks[['peak.mz']] < mz * tol.ppm * 1e-6)))
-			expect_true(entry$hasField('MSPRECMZ'))
-			expect_true(abs(entry$getFieldValue('MSPRECMZ') - mz) < mz * tol.ppm * 1e-6)
+			expect_true(entry$hasField('msprecmz'))
+			expect_true(abs(entry$getFieldValue('msprecmz') - mz) < mz * tol.ppm * 1e-6)
 		}
 	}
 }

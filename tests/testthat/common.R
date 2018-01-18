@@ -81,18 +81,23 @@ if ('FUNCTIONS' %in% names(env)) {
 
 create.biodb.instance <- function() {
 
+	# Create logger
+	logger = BiodbLogger$new(file = LOG.FILE.PATH, mode = 'a')
+	logger$includeMsgType('debug')
+
 	# Create instance
-	biodb <- Biodb$new(logger = FALSE, observers = BiodbLogger$new(file = LOG.FILE.PATH, mode = 'a'))
+	biodb <- Biodb$new(logger = FALSE, observers = logger)
 
 	# Set user agent
 	biodb$getConfig()$set('useragent', USERAGENT)
 
 	# Set Peakforest URL and token
-	if ('BIODB_PEAKFOREST_ALPHA_TOKEN' %in% names(env))
-		for (db in c('peakforest.mass', 'peakforest.compound')) {
-			biodb$getDbsInfo()$get(db)$setBaseUrl('https://peakforest-alpha.inra.fr/rest/')
+	if ('BIODB_TEST_PEAKFOREST_TOKEN' %in% names(env))
+		for (db in c('peakforest.mass', 'peakforest.compound'))
 			biodb$getDbsInfo()$get(db)$setToken(env[['BIODB_PEAKFOREST_ALPHA_TOKEN']])
-		}
+	if ('BIODB_TEST_PEAKFOREST_URL' %in% names(env))
+		for (db in c('peakforest.mass', 'peakforest.compound'))
+			biodb$getDbsInfo()$get(db)$setBaseUrl(env[['BIODB_TEST_PEAKFOREST_URL']])
 
 	return(biodb)
 }
