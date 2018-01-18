@@ -175,7 +175,7 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 	if (ms.level == 0 || ms.level == 1)
 		ids <- .self$wsLcmsPeaksGetRange(mz.min[[1]], mz.max[[1]], mode = mode, biodb.ids = TRUE)
 	if (ms.level == 0 || ms.level == 2) {
-		if (precursor)
+		if (precursor && length(mz.min == 1))
 			ids <- c(ids, .self$wsLcmsmsFromPrecursor((mz.min + mz.max) / 2, (mz.max - mz.min) / 2, mode = mode, biodb.ids = TRUE))
 		else
 			ids <- c(ids, .self$wsLcmsmsPeaksGetRange(mz.min[[1]], mz.max[[1]], mode = mode, biodb.ids = TRUE))
@@ -187,8 +187,8 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
 
 		# Filter on precursor
-		if (precursor && ms.level %in% c(0, 1))
-			entries <- lapply(entries, function(e) if (is.null(e) || ! e$hasField('msprecmz') || e$getFieldValue('msprecmz') < mz.min || e$getFieldValue('msprecmz') > mz.max) NULL else e)
+		if (precursor && (ms.level %in% c(0, 1) || length(mz.min > 1)))
+			entries <- lapply(entries, function(e) if (is.null(e) || ! e$hasField('msprecmz') || ! any(e$getFieldValue('msprecmz') <= mz.max[e$getFieldValue('msprecmz') >= mz.min])) NULL else e)
 
 		# Filter on M/Z ranges when there are more than one range, and also on intensity
 		if (length(mz.min) > 1 || ! is.na(min.rel.int)) {
