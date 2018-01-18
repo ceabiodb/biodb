@@ -5,6 +5,8 @@
   "nb.peaks": 1,
   "peakforest.compound.id": "1839",
   "ms.mode": "POS",
+  "ms.level": 1,
+  "msprecmz": 241.031,
   "chrom.col.name": "Acquity UPLC HSS T3",
   "chrom.col.id": "c1e02f0336be9db3450502612d6bcf43",
   "chrom.col.constructor": "Waters",
