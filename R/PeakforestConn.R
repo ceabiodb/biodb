@@ -74,7 +74,7 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 			if (class(json) == 'list' && is.null(names(json))) {
 				null <- vapply(json, is.null, FUN.VALUE = TRUE)
 				json.ids <- vapply(json[ ! null], function(x) as.character(x$id), FUN.VALUE = '')
-				content[entry.id %in% json.ids] <- vapply(json, function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
+				content[entry.id %in% json.ids] <- vapply(json[ ! null], function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
 			}
 		}
 	}
