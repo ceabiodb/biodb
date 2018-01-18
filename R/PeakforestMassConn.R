@@ -152,7 +152,7 @@ PeakforestMassConn$methods( wsLcmsmsFromPrecursor = function(prec.mz, precursorM
 	url <- paste0(.self$getBaseUrl(), "spectra/lcmsms/from-precursor/", prec.mz)
 	param <- c(token = .self$getToken(), precursorMassDelta = precursorMassDelta)
 	if ( ! is.na(mode))
-		param <- c(mode = mode)
+		param <- c(param, mode = mode)
 
 	# Send request
 	results <- .self$.getUrlScheduler()$getUrl(url, param = param)

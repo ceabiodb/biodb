@@ -9,17 +9,17 @@ test.msmsSearch.self.match <- function(db) {
 	db.name <- db$getId()
 
 	# Set some initial values to speed up test
-	db.values <- list(peakforest.mass = list(NEG = NULL, POS = list(spectrum.id = '3828', mz = 117.1)))
+	db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)))
 
 	# Loop on modes
 	for (mode in BIODB.MSMODE.VALS) {
 
 		# Get M/Z value and spectrum ID to be tested
 		if (db.name %in% names(db.values)) {
-			if ( ! mode %in% names(db.values[[db.name]]))
+			if ( ! mode %in% names(db.values[[db.name]]) || is.null(db.values[[db.name]][[mode]]))
 				next
-			mz <- db.values[[db.name]]$mz
-			spectrum.id <- db.values[[db.name]]$spectrum.id
+			mz <- db.values[[db.name]][[mode]]$mz
+			spectrum.id <- db.values[[db.name]][[mode]]$spectrum.id
 		}
 		else {
 			# Search for one M/Z value
