@@ -5,10 +5,8 @@
 
 test.basic.mass.csv.file <- function(db) {
 
-	biodb <- db$getBiodb()
-
 	# Open file
-	df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
+	df <- read.table(db$getBaseUrl(), sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
@@ -46,7 +44,7 @@ test.mass.csv.file.output.columns <- function(db) {
 	biodb <- db$getBiodb()
 
 	# Open database file
-	db.df <- read.table(MASSFILEDB.URL, sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
+	db.df <- read.table(db$getBaseUrl(), sep = "\t", header = TRUE, quote = '"', stringsAsFactors = FALSE, row.names = NULL)
 
 	# Get M/Z value
 	mz <- db$getMzValues(max.results = 1, ms.level = 1)
@@ -64,10 +62,39 @@ test.mass.csv.file.output.columns <- function(db) {
 	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
 }
 
+# Test getField {{{1
+################################################################
+
+test.getField <- function(db) {
+	col.name <- db$getField(tag = 'ms.mode')
+	expect_is(col.name, 'character')
+	expect_true(nchar(col.name) > 0)
+}
+
+# Test setField {{{1
+################################################################
+
+test.undefined.fields <- function(db) {
+	expect_error(db$setField(tag = 'invalid.tag.name', colname = 'something'), regexp = '^.* Database field tag "invalid.tag.name" is not valid.$')
+	expect_error(db$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* One or more columns among wrong.col.name are not defined in database file.$')
+}
+
+# Test undefined fields {{{1
+################################################################
+
+test.undefined.fields <- function(db) {
+	new.biodb <- create.biodb.instance()
+	conn <- new.biodb$getFactory()$createConn(db$getId(), url = db$getBaseUrl())
+	chrom.cols <- conn$getChromCol()
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
 run.mass.csv.file.tests <- function(db, mode) {
+	run.db.test('Test that setField() method works correctly.', 'test.setField', db)
+	run.db.test('Test that getField() method works correctly.', 'test.getField', db)
+	run.db.test('Test that we detect undefined fields', 'test.undefined.fields', db)
 	run.db.test("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', db)
 	run.db.test("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', db)
 }

@@ -65,6 +65,24 @@ MassCsvFileConn$methods( .init.db = function() {
 	}
 })
 
+# Get field {{{1
+################################################################
+
+MassCsvFileConn$methods( getField = function(tag) {
+
+	tag <- tolower(tag)
+
+	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
+
+	# Load database file
+	.self$.init.db()
+
+	# Check that this field tag is defined in the fields list
+	.self$isValidFieldTag(tag) || .self$message('error', paste0("Database field tag \"", tag, "\" is not valid."))
+
+	return(.self$.fields[[tag]])
+})
+
 # Set field {{{1
 ################################################################
 
