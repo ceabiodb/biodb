@@ -59,7 +59,7 @@ BiodbCache$methods( getDir = function() {
 	return(cachedir)
 })
 
-# Is cache reading enabled {{{1
+# Is readable {{{1
 ################################################################
 
 BiodbCache$methods( isReadable = function() {
@@ -68,7 +68,7 @@ BiodbCache$methods( isReadable = function() {
 	return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()))
 })
 
-# Is cache writing enabled {{{1
+# Is writable {{{1
 ################################################################
 
 BiodbCache$methods( isWritable = function() {
@@ -259,6 +259,15 @@ BiodbCache$methods( listFiles = function(dbid, subfolder, ext = NA_character_, e
 	}
 
 	return(files)
+})
+
+# Show {{{1
+################################################################
+
+BiodbCache$methods( show = function() {
+	cat("Biodb cache system instance.\n")
+	cat("  The cache is ", (if (.self$isReadable()) "" else "not "), "readable.\n", sep = '')
+	cat("  The cache is ", (if (.self$isWritable()) "" else "not "), "writable.\n", sep = '')
 })
 
 # PRIVATE METHODS {{{1

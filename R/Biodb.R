@@ -264,6 +264,7 @@ Biodb$methods( computeFields = function(entries) {
 Biodb$methods( show = function() {
 	cat("Biodb instance.\n")
 })
+
 # PRIVATE METHODS {{{1
 ################################################################
 
