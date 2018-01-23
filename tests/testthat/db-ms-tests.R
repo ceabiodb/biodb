@@ -234,9 +234,8 @@ test.peak.table <- function(db) {
 
 test.getChromCol <- function(db) {
 	chrom.col <- db$getChromCol()
-	expect_false(is.null(chrom.col))
-	expect_true(is.data.frame(chrom.col))
-	expect_true(is.null(row.names(chrom.col)))
+	expect_is(chrom.col, 'data.frame')
+	expect_identical(names(chrom.col), c('id', 'title'))
 }
 
 # Run Mass DB tests {{{1

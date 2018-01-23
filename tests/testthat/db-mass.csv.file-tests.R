@@ -62,7 +62,7 @@ test.mass.csv.file.output.columns <- function(db) {
 	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
 }
 
-# Test getField {{{1
+# Test getField {{{
 ################################################################
 
 test.getField <- function(db) {
@@ -74,7 +74,7 @@ test.getField <- function(db) {
 # Test setField {{{1
 ################################################################
 
-test.undefined.fields <- function(db) {
+test.setField <- function(db) {
 	expect_error(db$setField(tag = 'invalid.tag.name', colname = 'something'), regexp = '^.* Database field tag "invalid.tag.name" is not valid.$')
 	expect_error(db$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* One or more columns among wrong.col.name are not defined in database file.$')
 }
@@ -84,8 +84,8 @@ test.undefined.fields <- function(db) {
 
 test.undefined.fields <- function(db) {
 	new.biodb <- create.biodb.instance()
-	conn <- new.biodb$getFactory()$createConn(db$getId(), url = db$getBaseUrl())
-	chrom.cols <- conn$getChromCol()
+	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.HEADER.URL)
+	expect_error(conn$getChromCol(), regexp = '^.* Column.* is/are undefined in file database\\.$')
 }
 
 # Run Mass CSV File tests {{{1

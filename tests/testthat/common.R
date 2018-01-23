@@ -13,6 +13,7 @@ LOG.FILE.PATH <- file.path(TEST.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
+MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
 
 # Create output directory
 if ( ! file.exists(OUTPUT.DIR))
@@ -71,7 +72,7 @@ if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
 
 FUNCTION.ALL <- 'all'
 if ('FUNCTIONS' %in% names(env)) {
-	TEST.FUNCTIONS <- env[['FUNCTIONS']]
+	TEST.FUNCTIONS <- strsplit(env[['FUNCTIONS']], ',')[[1]]
 } else {
 	TEST.FUNCTIONS <- FUNCTION.ALL
 }
@@ -232,7 +233,7 @@ init.mass.csv.file.db <- function(biodb) {
 ################################################################
 
 run.db.test <- function(msg, fct, db) {
-	if (TEST.FUNCTIONS == FUNCTION.ALL || TEST.FUNCTIONS == fct)
+	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS)
 		test_that(msg, do.call(fct, list(db)))
 }
 

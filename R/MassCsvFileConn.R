@@ -151,7 +151,7 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 	# Check if fields are defined in file database
 	undefined.fields <- colnames(.self$.db)[ ! .self$.fields[fields] %in% colnames(.self$.db)]
 	if (length(undefined.fields) > 0) {
-		.self$message(if (fail) 'error' else 'debug', paste0("Column(s) ", paste(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database.")
+		.self$message(if (fail) 'error' else 'debug', paste0("Column(s) ", paste(.self$.fields[fields], collapse = ", "), " is/are undefined in file database."))
 		return(FALSE)
 	}
 
@@ -297,7 +297,7 @@ MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 		chrom.cols <- data.frame(a = character(0), b = character(0))
 	else
 		chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
-	colnames(chrom.cols) <- c('id', 'title')
+	names(chrom.cols) <- c('id', 'title')
 
 	return(chrom.cols)
 })
