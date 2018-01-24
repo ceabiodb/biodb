@@ -6,13 +6,6 @@
 # In the provided file, each line represents an MS peak measure.
 # The file contains molecule and spectrum information. Each spectrum has an accession id.
 
-# Constants {{{1
-################################################################
-
-# Default database fields
-.BIODB.DFT.DB.FIELDS <- c('accession', 'name', 'fullnames', 'compound.id', 'ms.level', 'ms.mode', 'peak.mzexp', 'peak.mztheo', 'peak.relative.intensity', 'peak.comp', 'peak.attr', 'chrom.col', 'chrom.col.rt', 'formula', 'molecular.mass', 'inchi', 'inchikey', 'chebi.id', 'hmdb.metabolites.id', 'kegg.compound.id', 'ncbi.pubchem.comp.id')
-names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
-
 # Class declaration {{{1
 ################################################################
 
@@ -57,7 +50,8 @@ MassCsvFileConn$methods( .init.db = function() {
 		.db.orig.colnames <<- names(.self$.db)
 
 		# Set fields
-		.fields <<- .BIODB.DFT.DB.FIELDS[names(.self$.db) %in% .BIODB.DFT.DB.FIELDS]
+		for (field in names(.self$.db))
+			.self$setField(field, field, ignore.if.missing = TRUE)
 	}
 })
 
@@ -93,30 +87,31 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 	# Load database file
 	.self$.init.db()
 
-	# Check that this is a correct field
-	if ( ! (.self$getBiodb()$getEntryFields()$isDefined(tag) || tag %in% BIODB.PEAK.FIELDS))
-		.self$message('error', paste0("Database field \"", tag, "\" is not valid."))
-
-	# Set new definition
-	if (all(colname %in% names(.self$.db))) {
-
-		# One column used, only
-		if (length(colname) == 1) {
-			.self$.fields[[tag]] <- colname
-		}
-
-		# Use several column to join together
-		else {
-			if (tag %in% names(.self$.db))
-				.self$message('error', paste("Column \"", tag, "\" already exist in database file.", sep = ''))
-			.self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
-			.self$.fields[[tag]] <- tag
-		}
+	# Check that this is a correct field name
+	if ( ! (.self$getBiodb()$getEntryFields()$isDefined(tag) || tag %in% BIODB.PEAK.FIELDS)) {
+		if ( ! ignore.if.missing)
+			.self$message('error', paste0("Database field \"", tag, "\" is not valid."))
+		return()
 	}
 
 	# Fail if column names are not found in file
-	else
+	if ( ! all(colname %in% names(.self$.db))) {
 		.self$message((if (ignore.if.missing) 'caution' else 'error'), paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
+		return()
+	}
+
+	# One column used, only
+	if (length(colname) == 1) {
+		.self$.fields[[tag]] <- colname
+	}
+
+	# Use several column to join together
+	else {
+		if (tag %in% names(.self$.db))
+			.self$message('error', paste("Column \"", tag, "\" already exist in database file.", sep = ''))
+		.self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
+		.self$.fields[[tag]] <- tag
+	}
 })
 
 # Set field multiple value separator {{{1

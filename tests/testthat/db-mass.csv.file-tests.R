@@ -95,7 +95,7 @@ test.setField <- function(db) {
 test.undefined.fields <- function(db) {
 	new.biodb <- create.biodb.instance()
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.HEADER.URL)
-	expect_error(conn$getChromCol(), regexp = '^.* Column.* is/are undefined in file database\\.$')
+	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are unknown\\.$')
 }
 
 # Run Mass CSV File tests {{{1
