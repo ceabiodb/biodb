@@ -39,13 +39,6 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	.precursors <<- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+", "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
 })
 
-# Is valid field tag {{{1
-################################################################
-
-MassCsvFileConn$methods( isValidFieldTag = function(tag) {
-	return (tag %in% names(.self$.fields))
-})
-
 # Init db {{{1
 ################################################################
 
@@ -81,7 +74,8 @@ MassCsvFileConn$methods( getField = function(tag) {
 	.self$.init.db()
 
 	# Check that this field tag is defined in the fields list
-	.self$isValidFieldTag(tag) || .self$message('error', paste0("Database field tag \"", tag, "\" is not valid."))
+	if ( ! tag %in% names(.self$.fields))
+		.self$message('error', paste0("Database field tag \"", tag, "\" is not valid."))
 
 	return(.self$.fields[[tag]])
 })
@@ -99,8 +93,9 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 	# Load database file
 	.self$.init.db()
 
-	# Check that this field tag is defined in the fields list
-	.self$isValidFieldTag(tag) || .self$message('error', paste0("Database field tag \"", tag, "\" is not valid."))
+	# Check that this is a correct field
+	if ( ! (.self$getBiodb()$getEntryFields()$isDefined(tag) || tag %in% BIODB.PEAK.FIELDS))
+		.self$message('error', paste0("Database field \"", tag, "\" is not valid."))
 
 	# Set new definition
 	if (all(colname %in% names(.self$.db))) {
