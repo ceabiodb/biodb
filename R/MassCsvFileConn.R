@@ -96,7 +96,7 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 
 	# Fail if column names are not found in file
 	if ( ! all(colname %in% names(.self$.db))) {
-		.self$message((if (ignore.if.missing) 'caution' else 'error'), paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
+		.self$message((if (ignore.if.missing) 'caution' else 'error'), paste0("Column(s) ", paste(colname, collapse = ", "), " is/are not defined in database file."))
 		return()
 	}
 
