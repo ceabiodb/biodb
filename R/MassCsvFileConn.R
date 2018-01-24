@@ -30,7 +30,7 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	.db.orig.colnames <<- NA_character_
 	.file.sep <<- file.sep
 	.file.quote <<- file.quote
-	.fields <<- .BIODB.DFT.DB.FIELDS
+	.fields <<- character()
 	.field.multval.sep <<- ';'
 	.ms.modes <<- BIODB.MSMODE.VALS
 	names(.self$.ms.modes) <- BIODB.MSMODE.VALS
@@ -61,7 +61,10 @@ MassCsvFileConn$methods( .init.db = function() {
 		.db <<- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
 
 		# Save column names
-		.db.orig.colnames <<- colnames(.self$.db)
+		.db.orig.colnames <<- names(.self$.db)
+
+		# Set fields
+		.fields <<- .BIODB.DFT.DB.FIELDS[names(.self$.db) %in% .BIODB.DFT.DB.FIELDS]
 	}
 })
 
@@ -86,7 +89,7 @@ MassCsvFileConn$methods( getField = function(tag) {
 # Set field {{{1
 ################################################################
 
-MassCsvFileConn$methods( setField = function(tag, colname) {
+MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = FALSE) {
 
 	tag <- tolower(tag)
 
@@ -99,23 +102,26 @@ MassCsvFileConn$methods( setField = function(tag, colname) {
 	# Check that this field tag is defined in the fields list
 	.self$isValidFieldTag(tag) || .self$message('error', paste0("Database field tag \"", tag, "\" is not valid."))
 
-	# Check that columns are defined in database file
-	all(colname %in% names(.self$.db)) || .self$message('error', paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
-
 	# Set new definition
-	if (length(colname) == 1)
-		.self$.fields[[tag]] <- colname
-	else {
-		#new.col <- paste(colname, collapse = ".")
-		if (tag %in% names(.self$.db))
-			.self$message('error', paste("Column \"", tag, "\" already exist in database file.", sep = ''))
-		.self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
-		.self$.fields[[tag]] <- tag
+	if (all(colname %in% names(.self$.db))) {
+
+		# One column used, only
+		if (length(colname) == 1) {
+			.self$.fields[[tag]] <- colname
+		}
+
+		# Use several column to join together
+		else {
+			if (tag %in% names(.self$.db))
+				.self$message('error', paste("Column \"", tag, "\" already exist in database file.", sep = ''))
+			.self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
+			.self$.fields[[tag]] <- tag
+		}
 	}
 
-	# Update data frame column names
-	# XXX Why just update here and not init.db()?
-#	colnames(.self$.db) <- vapply(.self$.db.orig.colnames, function(c) if (c %in% .self$.fields) names(.self$.fields)[.self$.fields %in% c] else c, FUN.VALUE = '')
+	# Fail if column names are not found in file
+	else
+		.self$message((if (ignore.if.missing) 'caution' else 'error'), paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
 })
 
 # Set field multiple value separator {{{1
@@ -281,7 +287,7 @@ MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
 MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
 
 	# Extract needed columns
-	db <- .self$.select(cols = c('compound.id', 'chrom.col'), compound.ids = compound.ids)
+	db <- .self$.select(cols = 'chrom.col', compound.ids = compound.ids)
 
 	# Get column names
 	cols <- db[[.self$.fields[['chrom.col']]]]

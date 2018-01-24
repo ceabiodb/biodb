@@ -77,6 +77,9 @@ test.getField <- function(db) {
 test.setField <- function(db) {
 	expect_error(db$setField(tag = 'invalid.tag.name', colname = 'something'), regexp = '^.* Database field tag "invalid.tag.name" is not valid.$')
 	expect_error(db$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* One or more columns among wrong.col.name are not defined in database file.$')
+
+	# Ignore if column name is not found in file
+	db$setField(tag = 'ms.mode', colname = 'wrong.col.name', ignore.if.missing = TRUE)
 }
 
 # Test undefined fields {{{1
