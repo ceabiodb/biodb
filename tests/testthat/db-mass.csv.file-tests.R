@@ -77,9 +77,9 @@ test.getField <- function(db) {
 test.setField <- function(db) {
 
 	expect_error(db$setField(tag = 'invalid.tag.name', colname = 'something'), regexp = '^.* Database field "invalid.tag.name" is not valid.$')
-	expect_error(db$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* One or more columns among wrong.col.name are not defined in database file.$')
+	expect_error(db$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* Column.* is/are not defined in database file.$')
 
-	biodb.2 <- biodb::Biodb$new()
+	biodb.2 <- biodb::Biodb$new(logger = FALSE)
 	mydb <- biodb.2$getFactory()$createConn(db$getId(), url = db$getBaseUrl())
 
 	# Ignore if column name is not found in file
