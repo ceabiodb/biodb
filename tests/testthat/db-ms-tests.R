@@ -238,6 +238,20 @@ test.getChromCol <- function(db) {
 	expect_identical(names(chrom.col), c('id', 'title'))
 }
 
+# Test matchMsPeaks {{{1
+################################################################
+
+test.matchMsPeaks <- function(db) {
+
+	mzs <- db$getMzValues(ms.mode = 'neg', max.results = 3)
+
+	results <- db$matchMsPeaks(mzs, mz.tol = 0.1, max.results = 2)
+	expect_is(results, 'data.frame')
+	expect_true(nrow(results) > 1)
+	expect_true('accession' %in% names(results))
+	expect_true('peak.mz' %in% names(results))
+}
+
 # Run Mass DB tests {{{1
 ################################################################
 
@@ -253,5 +267,6 @@ run.mass.db.tests <- function(db, mode) {
 			run.db.test('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
 			run.db.test('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
 			run.db.test("The peak table is correct.", 'test.peak.table', db)
+			run.db.test("We can search for several M/Z values, separately.", 'test.matchMsPeaks', db)
 		}
 }

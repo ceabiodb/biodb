@@ -121,6 +121,46 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 	return(.self$.doSearchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
+# Match MS peaks {{{1
+################################################################
+
+MassdbConn$methods ( matchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
+	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
+
+	if ( ! .self$.assert.not.na(mzs, msg.type = 'warning')) return(NULL)
+	if ( ! .self$.assert.not.null(mzs, msg.type = 'warning')) return(NULL)
+	.self$.assert.positive(mzs)
+	.self$.assert.positive(mz.tol)
+	.self$.assert.length.one(mz.tol)
+	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
+	.self$.assert.positive(min.rel.int)
+	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
+	.self$.assert.positive(max.results)
+
+	results <- NULL
+
+	# Loop on the list of M/Z values
+	for (mz in mzs) {
+
+		# Search for spectra
+		ids <- .self$searchMzTol(mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = 1)
+
+		# Get entries
+		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+
+		# Convert to data frame
+		df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
+		
+		# Select lines with right M/Z values
+		mz.range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
+		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
+
+		results <- rbind(results, df)
+	}
+
+	return(results)
+})
+
 # MS-MS search {{{1
 ################################################################
 
@@ -169,10 +209,7 @@ MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level =
 # PRIVATE METHODS {{{1
 ################################################################
 
-# Do search M/Z with tolerance {{{2
-################################################################
-
-MassdbConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+MassdbConn$methods( .mztolToRange = function(mz, mz.tol, mz.tol.unit) {
 
 	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
 		mz.tol <- mz.tol * mz * 1e-6
@@ -180,7 +217,17 @@ MassdbConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.i
 	mz.min <- mz - mz.tol
 	mz.max <- mz + mz.tol
 
-	return(.self$searchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+	return(list(min = mz.min, max = mz.max))
+})
+
+# Do search M/Z with tolerance {{{2
+################################################################
+
+MassdbConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+
+	range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
+
+	return(.self$searchMzRange(mz.min = range$min, mz.max = range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
 # Do search M/Z range {{{2
