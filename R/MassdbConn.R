@@ -155,7 +155,7 @@ MassdbConn$methods ( matchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZ
 		mz.range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
 		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
 
-		results <- rbind(results, df)
+		results <- plyr::rbind.fill(results, df)
 	}
 
 	return(results)
