@@ -247,6 +247,14 @@ test.searchMsPeaks <- function(db) {
 
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
 
+	# Get only one result per M/Z value
+	results <- db$searchMsPeaks(mzs, mz.tol = 0.1, max.results = 1, ms.mode = mode)
+	expect_is(results, 'data.frame')
+	expect_true(nrow(results) >= 1)
+	expect_true('accession' %in% names(results))
+	expect_true('peak.mz' %in% names(results))
+
+	# Get 2 results per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = 0.1, max.results = 2, ms.mode = mode)
 	expect_is(results, 'data.frame')
 	expect_true(nrow(results) > 1)

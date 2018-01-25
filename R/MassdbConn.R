@@ -146,7 +146,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		ids <- .self$searchMzTol(mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = 1)
 
 		# Get entries
-		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
 
 		# Convert to data frame
 		df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
