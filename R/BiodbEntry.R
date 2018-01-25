@@ -92,7 +92,7 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	if (field.def$isVector()) {
 		v <- as.vector(value, mode = field.def$getClass())
 		if ( ! is.na(value) && is.na(v))
-			.self$message('caution', paste("Unable to convert value \"", value, "\" into ", field.def$getClass(), " type.", sep = ''))
+			.self$message('caution', paste("Unable to convert value \"", value, "\" into ", field.def$getClass(), " type for field \"", field, "\".", sep = ''))
 		value <- v
 	}
 
