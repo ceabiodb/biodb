@@ -16,21 +16,18 @@ cat(paste('Running tests on database(s) ', paste(TEST.DATABASES, collapse = ', '
 # Remove cache folder {{{1
 ################################################################
 
-if (file.exists(ONLINE.CACHE.DIR)) {
+# Erase whole cache
+if ('MODES' %in% names(env) && env[['MODES']] == MODE.FULL) {
+	biodb <- Biodb$new(logger = FALSE)
+	#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+	biodb$getCache()$eraseFolder()
+}
 
-	# Erase whole cache
-	if ('MODES' %in% names(env) && env[['MODES']] == MODE.FULL) {
-		biodb <- Biodb$new(logger = FALSE)
-		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
-		biodb$getCache()$eraseFolder()
-	}
-
-	# Erase only short term cache
-	else if (MODE.ONLINE %in% TEST.MODES) {
-		biodb <- Biodb$new(logger = FALSE)
-		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
-		biodb$getCache()$eraseFolder('shortterm')
-	}
+# Erase only short term cache
+else if (MODE.ONLINE %in% TEST.MODES) {
+	biodb <- Biodb$new(logger = FALSE)
+	#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+	biodb$getCache()$eraseFolder('shortterm')
 }
 
 # Remove log file {{{1

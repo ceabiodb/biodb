@@ -8,7 +8,7 @@ OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
-ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
+#ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
 LOG.FILE.PATH <- file.path(TEST.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
@@ -125,7 +125,7 @@ set.mode <- function(biodb, mode) {
 
 	# Online
 	if (mode == MODE.ONLINE) {
-		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable('cache.read.only')
 		biodb$getConfig()$enable('allow.huge.downloads')
 		biodb$getConfig()$disable('offline')
@@ -134,7 +134,7 @@ set.mode <- function(biodb, mode) {
 
 	# Quick online
 	else if (mode == MODE.QUICK.ONLINE) {
-		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable('cache.read.only')
 		biodb$getConfig()$disable('allow.huge.downloads')
 		biodb$getConfig()$disable('offline')

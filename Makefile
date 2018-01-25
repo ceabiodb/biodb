@@ -1,32 +1,31 @@
 all:
 
 check:
-	@R -q -e "devtools::check('$(CURDIR)')"
+	R -q -e "devtools::check('$(CURDIR)')"
 
 vignettes: install
-	@R -q -e "devtools::clean_vignettes('$(CURDIR)')"
-	@R -q -e "devtools::build_vignettes('$(CURDIR)')" # Build vignettes for already installed package, not from local soures.
+	R -q -e "devtools::clean_vignettes('$(CURDIR)')"
+	R -q -e "devtools::build_vignettes('$(CURDIR)')" # Build vignettes for already installed package, not from local soures.
 
 build:
-	@R -q -e "devtools::build('$(CURDIR)')"
+	R -q -e "devtools::build('$(CURDIR)')"
 
 test:
-	@R -q -e "devtools::test('$(CURDIR)')"
+	R -q -e "devtools::test('$(CURDIR)')"
 
 install: uninstall install.local list.classes
 
 install.local:
-	@R --slave -e "devtools::install_local('$(CURDIR)')"
+	R --slave -e "devtools::install_local('$(CURDIR)')"
 
 list.classes:
-	@R --slave -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\\n", sep = ""), sep = "\\n")'
+	R --slave -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\\n", sep = ""), sep = "\\n")'
 
 uninstall:
-	@R --slave -e "try(devtools::uninstall('$(CURDIR)'), silent = TRUE)"
+	R --slave -e "try(devtools::uninstall('$(CURDIR)'), silent = TRUE)"
 
 win:
-	echo "Sending request for testing on Windows platform..."
-	@R -q -e "devtools::build_win('$(CURDIR)')"
+	R -q -e "devtools::build_win('$(CURDIR)')"
 
 ex:
 	echo "Testing examples..."
