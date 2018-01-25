@@ -62,23 +62,28 @@ test.mass.csv.file.output.columns <- function(db) {
 	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
 }
 
-# Test getField {{{
+# Test fields {{{1
 ################################################################
 
-test.getField <- function(db) {
+test.fields <- function(db) {
+
+	# Get fields
 	col.name <- db$getField(tag = 'ms.mode')
 	expect_is(col.name, 'character')
 	expect_true(nchar(col.name) > 0)
-}
 
-# Test setField {{{1
-################################################################
+	# Test if has field
+	expect_true(db$hasField('accession'))
+	expect_false(db$hasField('blabla'))
 
-test.setField <- function(db) {
+	# Add new field
+	db$addField('blabla', 1)
 
+	# Set wrong fields
 	expect_error(db$setField(tag = 'invalid.tag.name', colname = 'something'), regexp = '^.* Database field "invalid.tag.name" is not valid.$')
 	expect_error(db$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* Column.* is/are not defined in database file.$')
 
+	# Create new connector to same file db
 	biodb.2 <- biodb::Biodb$new(logger = FALSE)
 	mydb <- biodb.2$getFactory()$createConn(db$getId(), url = db$getBaseUrl())
 
@@ -102,8 +107,7 @@ test.undefined.fields <- function(db) {
 ################################################################
 
 run.mass.csv.file.tests <- function(db, mode) {
-	run.db.test('Test that setField() method works correctly.', 'test.setField', db)
-	run.db.test('Test that getField() method works correctly.', 'test.getField', db)
+	run.db.test('Test fields manipulation works correctly.', 'test.fields', db)
 	run.db.test('Test that we detect undefined fields', 'test.undefined.fields', db)
 	run.db.test("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', db)
 	run.db.test("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', db)

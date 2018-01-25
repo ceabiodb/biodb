@@ -55,6 +55,44 @@ MassCsvFileConn$methods( .init.db = function() {
 	}
 })
 
+# Has field {{{1
+################################################################
+
+MassCsvFileConn$methods( hasField = function(tag) {
+
+	tag <- tolower(tag)
+
+	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
+
+	# Load database file
+	.self$.init.db()
+
+	return(tag %in% names(.self$.fields))
+})
+
+# Add field {{{1
+################################################################
+
+MassCsvFileConn$methods( addField = function(tag, value) {
+
+	tag <- tolower(tag)
+
+	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
+
+	# Load database file
+	.self$.init.db()
+
+	# Field already defined?
+	if (tag %in% names(.self$.fields))
+		.self$message('error', paste0("Database field \"", tag, "\" is already defined."))
+	if (tag %in% names(.self$.db))
+		.self$message('error', paste0("Database column \"", tag, "\" is already defined."))
+
+	# Add new field
+	.self$.db[[tag]] <- value
+	.self$.fields[[tag]] <- tag
+})
+
 # Get field {{{1
 ################################################################
 
@@ -69,7 +107,7 @@ MassCsvFileConn$methods( getField = function(tag) {
 
 	# Check that this field tag is defined in the fields list
 	if ( ! tag %in% names(.self$.fields))
-		.self$message('error', paste0("Database field tag \"", tag, "\" is not valid."))
+		.self$message('error', paste0("Database field tag \"", tag, "\" is not defined."))
 
 	return(.self$.fields[[tag]])
 })
