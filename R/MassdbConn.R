@@ -121,10 +121,10 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 	return(.self$.doSearchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
-# Match MS peaks {{{1
+# Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( matchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	if ( ! .self$.assert.not.na(mzs, msg.type = 'warning')) return(NULL)
