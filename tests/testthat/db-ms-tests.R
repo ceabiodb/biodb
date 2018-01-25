@@ -243,9 +243,11 @@ test.getChromCol <- function(db) {
 
 test.matchMsPeaks <- function(db) {
 
-	mzs <- db$getMzValues(ms.mode = 'neg', max.results = 3)
+	mode <- 'neg'
 
-	results <- db$matchMsPeaks(mzs, mz.tol = 0.1, max.results = 2)
+	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
+
+	results <- db$matchMsPeaks(mzs, mz.tol = 0.1, max.results = 2, ms.mode = mode)
 	expect_is(results, 'data.frame')
 	expect_true(nrow(results) > 1)
 	expect_true('accession' %in% names(results))
