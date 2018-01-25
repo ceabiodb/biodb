@@ -132,7 +132,7 @@ BiodbConfig$methods( isEnabled = function(key) {
 ################################################################
 
 BiodbConfig$methods( get = function(key) {
-	":\n\nGet a the value of a key."
+	":\n\nGet the value of a key."
 
 	.self$.checkKey(key)
 
@@ -179,6 +179,18 @@ BiodbConfig$methods( disable = function(key) {
 
 	.self$message('info', paste("Disable ", key, ".", sep = ''))
 	.self$.values[[key]] <- FALSE
+})
+
+# Show {{{1
+################################################################
+
+BiodbConfig$methods( show = function() {
+	cat("Biodb configuration instance.\n")
+	cat("  Values:\n")
+
+	# Loop on all keys
+	for (key in sort(.self$getKeys()))
+		cat("    ", key, ": ", .self$get(key), "\n")
 })
 
 # PRIVATE METHODS {{{1

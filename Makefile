@@ -13,8 +13,16 @@ build:
 test:
 	@R -q -e "devtools::test('$(CURDIR)')"
 
-install:
-	@R -q -e "try(devtools::uninstall('$(CURDIR)'), silent = TRUE) ; devtools::install_local('$(CURDIR)') ; library(biodb) ; cat('***** Exported methods and classes: ', paste(ls('package:biodb'), collapse = ', '), \".\\\\n\", sep = '')"
+install: uninstall install.local list.classes
+
+install.local:
+	@R --slave -e "devtools::install_local('$(CURDIR)')"
+
+list.classes:
+	@R --slave -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\\n", sep = ""), sep = "\\n")'
+
+uninstall:
+	@R --slave -e "try(devtools::uninstall('$(CURDIR)'), silent = TRUE)"
 
 win:
 	echo "Sending request for testing on Windows platform..."
@@ -33,4 +41,4 @@ clean:
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/cache tests/test.log tests/output
 
-.PHONY: all clean win test check vignettes ex exdock
+.PHONY: all clean win test check vignettes ex exdock install uninstall

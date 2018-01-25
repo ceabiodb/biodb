@@ -385,6 +385,13 @@ BiodbEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
 })
 
+# Show {{{1
+################################################################
+
+BiodbEntry$methods( show = function() {
+	cat("Biodb", .self$getParent()$getDbInfo()$getName(), "entry instance.\n")
+})
+
 # DEPRECATED METHODS {{{1
 ################################################################
 
