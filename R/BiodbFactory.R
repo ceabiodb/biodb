@@ -278,14 +278,19 @@ BiodbFactory$methods( show = function() {
 
 BiodbFactory$methods( .createNewEntries = function(dbid, ids, drop) {
 
-	# Debug
-	.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
+	new.entries <- list()
 
-	# Get contents
-	content <- .self$getEntryContent(dbid, ids)
+	if (length(ids) > 0) {
 
-	# Create entries
-	new.entries <- .self$createEntry(dbid, content = content, drop = drop)
+		# Debug
+		.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
+
+		# Get contents
+		content <- .self$getEntryContent(dbid, ids)
+
+		# Create entries
+		new.entries <- .self$createEntry(dbid, content = content, drop = drop)
+	}
 
 	return(new.entries)
 })
