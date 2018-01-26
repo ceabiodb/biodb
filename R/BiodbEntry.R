@@ -158,7 +158,7 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 
 	# Compute field value
 	if (compute && ! .self$hasField(field))
-		.self$.compute.field(field)
+		.self$computeFields(field)
 
 	# Get value
 	if (.self$hasField(field))
@@ -196,7 +196,7 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 
 	# Compute fields
 	if (compute)
-		.self$.compute.field(fields)
+		.self$computeFields(fields)
 
 	# Set fields to get
 	fields <- if (is.null(fields)) names(.self$.fields) else fields[fields %in% names(.self$.fields)]
@@ -232,7 +232,7 @@ BiodbEntry$methods(	getFieldsAsJson = function(compute = TRUE) {
 
 	# Compute fields
 	if (compute)
-		.self$.compute.field()
+		.self$computeFields()
 
 	return(jsonlite::toJSON(.self$.fields, pretty = TRUE, digits = NA_integer_))
 })
