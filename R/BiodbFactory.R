@@ -261,6 +261,13 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 	return(content)
 })
 
+# Show {{{1
+################################################################
+
+BiodbFactory$methods( show = function() {
+	cat("Biodb factory instance.\n")
+})
+
 # Private methods {{{1
 ################################################################
 

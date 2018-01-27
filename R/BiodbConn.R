@@ -128,6 +128,13 @@ BiodbConn$methods( getNbEntries = function(count = FALSE) {
 	return(n)
 })
 
+# Show {{{1
+################################################################
+
+BiodbConn$methods( show = function() {
+	cat("Biodb", .self$getDbInfo()$getName(), "connector instance.\n")
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 

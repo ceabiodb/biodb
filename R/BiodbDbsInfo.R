@@ -86,6 +86,13 @@ BiodbDbsInfo$methods( getAll = function() {
 	return(unname(.self$.dbs))
 })
 
+# Show {{{1
+################################################################
+
+BiodbDbsInfo$methods( show = function() {
+	cat("Biodb databases information instance.\n")
+})
+
 # Private methods {{{1
 ################################################################
 
