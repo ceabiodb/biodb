@@ -106,6 +106,13 @@ BiodbEntryFields$methods( getDatabaseIdField = function(database) {
 	return(.self$get(.self$getBiodb()$getDbsInfo()$get(database)$getIdFieldName()))
 })
 
+# Show {{{1
+################################################################
+
+BiodbEntryFields$methods( show = function() {
+	cat("Biodb entry fields information instance.\n")
+})
+
 # Private methods {{{1
 ################################################################
 
