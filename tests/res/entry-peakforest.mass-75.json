@@ -4,7 +4,7 @@
   "msdev": "QTOF Bruker",
   "nb.peaks": 1,
   "peakforest.compound.id": "1839",
-  "ms.mode": "POS",
+  "ms.mode": "pos",
   "ms.level": 1,
   "msprecmz": 241.031,
   "chrom.col.name": "Acquity UPLC HSS T3",
