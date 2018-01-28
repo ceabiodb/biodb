@@ -195,7 +195,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('ms.level',           description = 'Mass spectrum level.', class = 'integer')
 	.self$.define('msdevtype',          description = 'Mass spectrometer device type.')
 	.self$.define('mstype',             description = 'Mass spectrometry type.')
-	.self$.define('ms.mode',            description = 'Mass spectrometry mode.', alias = 'msmode')
+	.self$.define('ms.mode',            description = 'Mass spectrometry mode.', alias = 'msmode', allowed.values = list(neg = c('-', 'negative'), pos = c('+', 'positive')), lower.case = TRUE)
 	.self$.define('msprecmz',           description = 'MS precursor M/Z value.',  class =  'double',    card = BIODB.CARD.MANY)
 	.self$.define('msprecannot',        description = 'MS precursor annotation.')
 	.self$.define('nb.peaks',           description = 'Number of MS peaks.', alias = 'nbpeaks',            class = 'integer')
