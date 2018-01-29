@@ -24,6 +24,7 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' @field card              The cardinality of the field: either '1' or '*'.
 #' @field allow.duplicates  If set to \code{TRUE}, the field allows duplicated values.
 #' @field description       The description of the field.
+#' @field allowed.values    The values authorized for the field.
 #'
 #' @seealso \code{\link{BiodbEntryFields}}.
 #'
@@ -44,12 +45,12 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, alias = NA_character_, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, db.id = FALSE, description = NA_character_, ...) {
+BiodbEntryField$methods( initialize = function(name, alias = NA_character_, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, ...) {
 
 	callSuper(...)
 
@@ -78,9 +79,25 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, clas
 		.self$message('error', paste("One of the aliases of entry field \"", name, "\" is NA.", sep = ''))
 	.alias <<- alias
 
+	# Set allowed values
+	if ( ! is.null(allowed.values)) {
+		if ( ! is.vector(allowed.values, mode = 'numeric') && ! is.vector(allowed.values, mode = 'character') && ! is.vector(allowed.values, mode = 'list'))
+			.self$message('error', 'Allowed values must be either a list, a numeric vector or a character vector.')
+
+		# For a list check that all values are character vectors
+		if (is.vector(allowed.values, mode = 'list')) {
+			if (is.null(names(allowed.values)))
+				.self$message('error', 'When allowed values are specified as a list, names must be set.')
+			if ( ! all(vapply(allowed.values, function(x) is.vector(x, 'character'), FUN.VALUE = TRUE)))
+				.self$message('error', 'When allowed values are specified as a list, all values must be characters.')
+		}
+	}
+	.allowed.values <<- allowed.values
+
 	# Set other fields
 	.allow.duplicates <<- allow.duplicates
 	.db.id <<- db.id
+	.lower.case <<- lower.case
 })
 
 # Get name {{{1
@@ -136,6 +153,62 @@ BiodbEntryField$methods( getAllNames = function() {
 		names <- c(names, aliases)
 	
 	return(names)
+})
+
+# Is enumerated {{{2
+################################################################
+
+BiodbEntryField$methods( isEnumerated = function() {
+	return( ! is.null(.self$.allowed.values))
+})
+
+# Correct value {{{1
+################################################################
+
+BiodbEntryField$methods( correctValue = function(value) {
+
+	# Lower case
+	if (.self$.lower.case)
+		value <- tolower(value)
+
+	# Enumerated type
+	if (.self$isEnumerated() && class(.self$.allowed.values) == 'list') {
+		for (n in names(.self$.allowed.values))
+			if (value %in% .self$.allowed.values[[n]]) {
+				value <- n
+				break
+			}
+	}
+
+	return(value)
+})
+
+# Get allowed values {{{1
+################################################################
+
+BiodbEntryField$methods( getAllowedValues = function() {
+
+	values <- NULL
+	if ( ! is.null(.self$.allowed.values)) {
+		values <- unlist(.self$.allowed.values)
+		if ( ! is.null(names(.self$.allowed.values)))
+			values <- c(values, names(.self$.allowed.values))
+		names(values) <- NULL
+	}
+
+	return(values)
+})
+
+# Check value {{{1
+################################################################
+
+BiodbEntryField$methods( checkValue = function(value) {
+
+	if (.self$.lower.case)
+		value <- tolower(value)
+
+	if (.self$isEnumerated() && ! value %in% .self$getAllowedValues())
+		.self$message('error', paste('Value ', value, ' is not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse = ', '), '.', sep = ''))
 })
 
 # Has card one {{{1
