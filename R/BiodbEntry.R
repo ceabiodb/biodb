@@ -76,7 +76,7 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	if ( ! field.def$allowsDuplicates() && is.vector(value))
 		value <- value[ ! duplicated(value)]
 
-	# Secific case to handle objects.
+	# Specific case to handle objects.
 	if (field.def$isObject() && !(isS4(value) & methods::is(value, "refClass")))
 	  .self$message('error', paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
 	
@@ -96,6 +96,13 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 		value <- v
 	}
 
+	# Check value
+	field.def$checkValue(value)
+
+	# Correct value
+	value <- field.def$correctValue(value)
+
+	# Set value
 	.self$.fields[[field.def$getName()]] <- value
 })
 
