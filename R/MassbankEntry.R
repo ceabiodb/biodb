@@ -253,10 +253,6 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		}
 	}
 
-	# MS mode
-	if (.self$hasField('MSMODE'))
-		.self$setFieldValue('MSMODE', if (.self$getFieldValue('MSMODE', compute = FALSE) == 'POSITIVE') BIODB.MSMODE.POS else BIODB.MSMODE.NEG)
-
 	# MS level
 	if (.self$hasField('MSTYPE')) {
 		mstype = .self$getFieldValue('MSTYPE')
