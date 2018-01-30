@@ -234,10 +234,10 @@ test.peak.table <- function(db) {
 
 test.msmsSearch.no.ids <- function(db) {
 	tspec <- data.frame(mz = 1, int = 10000)
-	ids <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos",msms.mz.tol = 10,msms.mz.tol.min = 0.01,npmin = 2)
-	print('-------------------------------- test.msmsSearch.no.ids 01')
-	print(ids)
-	expect_null(ids)
+	results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos",msms.mz.tol = 10,msms.mz.tol.min = 0.01,npmin = 2)
+	expect_is(results, 'data.frame')
+	expect_equal(nrow(results), 0)
+	expect_true(all(c('id', 'score') %in% names(results)))
 }
 
 # Run Mass DB tests {{{1
