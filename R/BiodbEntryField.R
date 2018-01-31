@@ -173,6 +173,8 @@ BiodbEntryField$methods( correctValue = function(value) {
 
 	# Enumerated type
 	if (.self$isEnumerated() && class(.self$.allowed.values) == 'list') {
+		if (length(value) > 1)
+			.self$message('error', paste('You cannot set multiple values (', paste(value, collapse = ', '), ') for enumerated field ', .self$getName(), '.', sep = '.'))
 		for (n in names(.self$.allowed.values))
 			if (value %in% .self$.allowed.values[[n]]) {
 				value <- n
