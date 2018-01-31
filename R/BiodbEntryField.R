@@ -207,8 +207,9 @@ BiodbEntryField$methods( checkValue = function(value) {
 	if (.self$.lower.case)
 		value <- tolower(value)
 
-	if (.self$isEnumerated() && ! value %in% .self$getAllowedValues())
-		.self$message('error', paste('Value ', value, ' is not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse = ', '), '.', sep = ''))
+	bad.values <- value[ ! value %in% .self$getAllowedValues()]
+	if (.self$isEnumerated() && length(bad.values) > 0)
+		.self$message('error', paste('Value(s) ', paste(bad.values, collapse = ', '), ' is/are not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse = ', '), '.', sep = ''))
 })
 
 # Has card one {{{1
