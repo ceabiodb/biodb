@@ -170,7 +170,7 @@ PeakforestMassConn$methods( wsLcmsmsFromPrecursor = function(prec.mz, precursorM
 PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 	
 	# Search for spectra with this M/Z value
-	ids <- NULL
+	ids <- character()
 	mode <- if ( ! is.na(ms.mode)) (if (ms.mode == 'neg') 'NEG' else 'POS') else NA_character_
 	if (ms.level == 0 || ms.level == 1)
 		ids <- .self$wsLcmsPeaksGetRange(mz.min[[1]], mz.max[[1]], mode = mode, biodb.ids = TRUE)
