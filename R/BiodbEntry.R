@@ -83,7 +83,7 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	# Check cardinality
 	if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
 		if (length(value) > 1)
-			.self$message('error', paste0('Cannot set more that one value into single value field "', field, '".'))
+			.self$message('error', paste0('Cannot set more that one value (', paste(value, collapse = ', '), ') into single value field "', field, '".'))
 		if (length(value) == 0)
 			.self$message('error', paste0('Cannot set an empty vector into single value field "', field, '".'))
 	}
