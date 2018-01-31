@@ -217,7 +217,7 @@ BiodbEntryField$methods( checkValue = function(value) {
 BiodbEntryField$methods( hasCardOne = function() {
 	":\n\n Returns \\code{TRUE} if the cardinality of this field is one."
 
-	return(.self$.cardinality == BIODB.CARD.MANY)
+	return(.self$.cardinality == BIODB.CARD.ONE)
 })
 
 # Has card many {{{1
