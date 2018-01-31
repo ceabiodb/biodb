@@ -81,7 +81,7 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	  .self$message('error', paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
 	
 	# Check cardinality
-	if (field.def$isDataFrame() && field.def$hasCardOne()) {
+	if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
 		if (length(value) > 1)
 			.self$message('error', paste0('Cannot set more that one value into single value field "', field, '".'))
 		if (length(value) == 0)
