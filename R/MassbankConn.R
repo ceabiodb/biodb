@@ -103,7 +103,7 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 
 MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 
-	returned.ids <- NULL
+	returned.ids <- character()
 
 	# Multiple M/Z values and PPM tolerance
 	if (length(mz) > 1 && mz.tol.unit == BIODB.MZTOLUNIT.PPM) {

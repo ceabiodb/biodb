@@ -105,7 +105,7 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 ################################################################
 
 MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
-	":\n\nFind spectra containg a peak around the given M/Z value. Returns a list of spectra IDs."
+	":\n\nFind spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs."
 	
 	if ( ! .self$.assert.not.na(mz, msg.type = 'warning')) return(NULL)
 	if ( ! .self$.assert.not.null(mz, msg.type = 'warning')) return(NULL)
@@ -170,14 +170,14 @@ MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol
 	peak.tables <- list()
 
 	# Get spectra IDs
-	ids <- character(0)
+	ids <- character()
 	if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz))
 		ids <- .self$searchMzTol(mz = precursor.mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = ms.mode, precursor = TRUE, ms.level = 2)
 
 	# Get list of peak tables from spectra
 	if (length(ids) > 0) {
 		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
-		peak.tables <-lapply(entries, function(x) x$getFieldsAsDataFrame(only.atomic = FALSE, fields = 'PEAKS'))
+		peak.tables <- lapply(entries, function(x) x$getFieldsAsDataFrame(only.atomic = FALSE, fields = 'PEAKS'))
 	}
 
 	# Compare spectrum against database spectra

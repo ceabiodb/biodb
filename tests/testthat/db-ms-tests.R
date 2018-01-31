@@ -262,6 +262,17 @@ test.searchMsPeaks <- function(db) {
 	expect_true('peak.mz' %in% names(results))
 }
 
+# Test msmsSearch whe no IDs are found {{{1
+################################################################
+
+test.msmsSearch.no.ids <- function(db) {
+	tspec <- data.frame(mz = 1, int = 10000)
+	results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos",msms.mz.tol = 10,msms.mz.tol.min = 0.01,npmin = 2)
+	expect_is(results, 'data.frame')
+	expect_equal(nrow(results), 0)
+	expect_true(all(c('id', 'score') %in% names(results)))
+}
+
 # Run Mass DB tests {{{1
 ################################################################
 
@@ -278,5 +289,6 @@ run.mass.db.tests <- function(db, mode) {
 			run.db.test('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
 			run.db.test("The peak table is correct.", 'test.peak.table', db)
 			run.db.test("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
+			run.db.test('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', db)
 		}
 }
