@@ -230,14 +230,24 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 
 	# Filter on mz values
 	if ((length(mz.min) > 0 || length(mz.max) > 0) && ! (length(mz.min) == 1 && is.na(mz.min) && is.na(mz.max))) {
+		.self$message('debug', paste('Filtering on M/Z range [', mz.min, ', ', mz.max, '].', sep = ''))
 		if (length(mz.min) != length(mz.max))
 			.self$message(MSG.ERROR, paste("'mz.min' and 'mz.max' must have equal lengths. 'mz.min' has ", length(mz.min), " element(s), and 'mz.max' has ", length(mz.max), "element(s).", sep = ''))
 		if (any(is.na(mz.min) & is.na(mz.max)))
 		.self$.check.fields('peak.mztheo')
 		f <- .self$.fields[['peak.mztheo']]
 		mz <- db[[f]]
+		.self$message('debug', paste(length(mz), 'M/Z values to filter.'))
+
+		# For all couples in vectors mz.min and mz.max, verify which M/Z values in mz are in the range. For each couple of mz.min/mz.max we get a vector of booleans the same length as mz.
+		.self$message('debug', paste('mz.min = ', paste(mz.min, collapse = ', '), '.', sep = ''))
+		.self$message('debug', paste('mz.max = ', paste(mz.max, collapse = ', '), '.', sep = ''))
 		s <- mapply(function(mzmin, mzmax) { (if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin) & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax) }, mz.min, mz.max)
-		s <- apply(s, 1, function(x) Reduce("&", x))
+
+		# Now we select the M/Z values that are in all ranges listed in mz.min/mz.max.
+		if (is.matrix(s))
+			s <- apply(s, 1, function(x) Reduce("&", x))
+
 		db <- db[s, ]
 	}
 
