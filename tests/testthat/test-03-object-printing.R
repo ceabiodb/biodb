@@ -51,7 +51,7 @@ test.BiodbEntry.show <- function() {
 test.BiodbConn.show <- function() {
 	biodb <- Biodb$new(logger = FALSE)
 	set.mode(biodb, MODE.OFFLINE)
-	expect_output(biodb$getFactory()$createConn('chebi')$show(), regexp = '^Biodb .* connector instance\\.$')
+	expect_output(biodb$getFactory()$createConn('chebi')$show(), regexp = '^Biodb .* connector instance, using URL .*\\.$')
 }
 
 # Test BiodbDbsInfo show {{{1
