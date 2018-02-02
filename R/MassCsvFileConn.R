@@ -46,25 +46,6 @@ MassCsvFileConn$methods( isValidFieldTag = function(tag) {
 	return (tag %in% names(.self$.fields))
 })
 
-# Init db {{{1
-################################################################
-
-MassCsvFileConn$methods( .init.db = function() {
-
-	if (is.null(.self$.db)) {
-
-		# Check file
-		if ( ! file.exists(.self$getBaseUrl()))
-			.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
-
-		# Load database
-		.db <<- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
-
-		# Save column names
-		.db.orig.colnames <<- colnames(.self$.db)
-	}
-})
-
 # Set field {{{1
 ################################################################
 
@@ -114,7 +95,115 @@ MassCsvFileConn$methods( setMsMode = function(mode, value) {
 	.self$.ms.modes[[mode]] <- value
 })
 
-# Check fields {{{1
+# Get entry ids {{{1
+################################################################
+
+MassCsvFileConn$methods( getEntryIds = function(max.results = NA_integer_) {
+
+	ids <- NA_character_
+
+	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
+
+	return(ids)
+})
+
+# Get nb entries {{{1
+################################################################
+
+MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
+
+	n <- NA_integer_
+
+	ids <- .self$getEntryIds()
+	if ( ! is.null(ids))
+		n <- length(ids)
+
+	return(n)
+})
+
+# Get chromatographic columns {{{1
+################################################################
+
+MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
+
+	# Extract needed columns
+	db <- .self$.select(cols = c('compound.id', 'chrom.col'), compound.ids = compound.ids)
+
+	# Get column names
+	cols <- db[[.self$.fields[['chrom.col']]]]
+
+	# Remove NA values
+	cols <- cols[ ! is.na(cols)]
+
+	# Remove duplicates
+	cols <- cols[ ! duplicated(cols)]
+
+	# Make data frame
+	if (is.null(cols))
+		chrom.cols <- data.frame(a = character(0), b = character(0))
+	else
+		chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
+	colnames(chrom.cols) <- c('id', 'title')
+
+	return(chrom.cols)
+})
+
+# Get nb peaks {{{1
+################################################################
+
+# Inherited from MassdbConn.
+MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
+
+	# Get peaks
+	peaks <- .self$.select(cols = 'peak.mztheo', mode = mode, compound.ids = compound.ids, drop = TRUE)
+
+	return(length(peaks))
+})
+
+# Get entry content {{{1
+################################################################
+
+MassCsvFileConn$methods( getEntryContent = function(entry.id) {
+
+	# Initialize return values
+	content <- rep(NA_character_, length(entry.id))
+
+	# Get data frame
+	.self$message('debug', paste("Entry entry.id:", paste(entry.id, collapse = ", ")))
+	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
+
+	# For each id, take the sub data frame and convert it into string
+	df.ids <- df[[.self$.fields[['accession']]]]
+	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
+
+	.self$message('debug', paste("Entry content:", content))
+
+	return(content)
+})
+
+# PRIVATE METHODS {{{1
+################################################################
+
+# Init db {{{2
+################################################################
+
+MassCsvFileConn$methods( .init.db = function() {
+
+	if (is.null(.self$.db)) {
+
+		# Check file
+		if ( ! file.exists(.self$getBaseUrl()))
+			.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
+
+		# Load database
+		.db <<- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
+
+		# Save column names
+		.db.orig.colnames <<- colnames(.self$.db)
+	}
+})
+
+# Check fields {{{2
 ################################################################
 
 MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
@@ -140,7 +229,7 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 	return(TRUE)
 })
 
-# Select {{{1
+# Select {{{2
 ################################################################
 
 # Select data from database
@@ -231,60 +320,14 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	return(db)
 })
 
-# Get entry ids {{{1
+# Do search M/Z range {{{2
 ################################################################
 
-MassCsvFileConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids <- NA_character_
-
-	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
-
-	return(ids)
+MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+	return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode = ms.mode, max.rows = max.results, cols = 'accession', drop = TRUE, uniq = TRUE, sort = TRUE, precursor = precursor, level = ms.level))
 })
 
-# Get nb entries {{{1
-################################################################
-
-MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
-
-	n <- NA_integer_
-
-	ids <- .self$getEntryIds()
-	if ( ! is.null(ids))
-		n <- length(ids)
-
-	return(n)
-})
-
-# Get chromatographic columns {{{1
-################################################################
-
-MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
-
-	# Extract needed columns
-	db <- .self$.select(cols = c('compound.id', 'chrom.col'), compound.ids = compound.ids)
-
-	# Get column names
-	cols <- db[[.self$.fields[['chrom.col']]]]
-
-	# Remove NA values
-	cols <- cols[ ! is.na(cols)]
-
-	# Remove duplicates
-	cols <- cols[ ! duplicated(cols)]
-
-	# Make data frame
-	if (is.null(cols))
-		chrom.cols <- data.frame(a = character(0), b = character(0))
-	else
-		chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
-	colnames(chrom.cols) <- c('id', 'title')
-
-	return(chrom.cols)
-})
-
-# Get mz values {{{1
+# Do get mz values {{{2
 ################################################################
 
 # Inherited from MassdbConn.
@@ -294,44 +337,4 @@ MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precurs
 	mz <- .self$.select(cols = 'peak.mztheo', mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = ms.level)
 
 	return(mz)
-})
-
-# Get nb peaks {{{1
-################################################################
-
-# Inherited from MassdbConn.
-MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
-
-	# Get peaks
-	peaks <- .self$.select(cols = 'peak.mztheo', mode = mode, compound.ids = compound.ids, drop = TRUE)
-
-	return(length(peaks))
-})
-
-# Get entry content {{{1
-################################################################
-
-MassCsvFileConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Get data frame
-	.self$message('debug', paste("Entry entry.id:", paste(entry.id, collapse = ", ")))
-	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
-
-	# For each id, take the sub data frame and convert it into string
-	df.ids <- df[[.self$.fields[['accession']]]]
-	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
-
-	.self$message('debug', paste("Entry content:", content))
-
-	return(content)
-})
-
-# Do search M/Z range {{{1
-################################################################
-
-MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-	return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode = ms.mode, max.rows = max.results, cols = 'accession', drop = TRUE, uniq = TRUE, sort = TRUE, precursor = precursor, level = ms.level))
 })
