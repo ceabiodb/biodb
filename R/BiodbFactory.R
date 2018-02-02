@@ -48,7 +48,7 @@ BiodbFactory$methods( initialize = function(...) {
 	.chunk.size <<- NA_integer_
 })
 
-# Create conn {{{2
+# Create conn {{{1
 ################################################################
 
 BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = NA_character_) {

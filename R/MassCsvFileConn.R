@@ -181,6 +181,27 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 	return(content)
 })
 
+# Set database {{{1
+################################################################
+
+MassCsvFileConn$methods( setDb = function(db) {
+	":\n\nSet the database directly from a data frame. You must not have set the database previously with the URL parameter."
+
+	# Already set
+	if ( ! is.null(.self$.db))
+		.self$message('error', 'Database has already been set.')
+
+	# Not data frame
+	if ( ! is.data.frame(db))
+		.self$message('error', 'The database object must be a data frame.')
+
+	# Set data frame as database
+	.db <<- db
+
+	# Save column names
+	.db.orig.colnames <<- colnames(.self$.db)
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 
@@ -196,10 +217,10 @@ MassCsvFileConn$methods( .init.db = function() {
 			.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
 
 		# Load database
-		.db <<- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
+		db <- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
 
-		# Save column names
-		.db.orig.colnames <<- colnames(.self$.db)
+		# Set database
+		.self$setDb(db)
 	}
 })
 
