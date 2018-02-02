@@ -8,11 +8,12 @@ OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
-ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
+#ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
 LOG.FILE.PATH <- file.path(TEST.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
+MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
 
 # Create output directory
 if ( ! file.exists(OUTPUT.DIR))
@@ -71,7 +72,7 @@ if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
 
 FUNCTION.ALL <- 'all'
 if ('FUNCTIONS' %in% names(env)) {
-	TEST.FUNCTIONS <- env[['FUNCTIONS']]
+	TEST.FUNCTIONS <- strsplit(env[['FUNCTIONS']], ',')[[1]]
 } else {
 	TEST.FUNCTIONS <- FUNCTION.ALL
 }
@@ -124,7 +125,7 @@ set.mode <- function(biodb, mode) {
 
 	# Online
 	if (mode == MODE.ONLINE) {
-		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable('cache.read.only')
 		biodb$getConfig()$enable('allow.huge.downloads')
 		biodb$getConfig()$disable('offline')
@@ -133,7 +134,7 @@ set.mode <- function(biodb, mode) {
 
 	# Quick online
 	else if (mode == MODE.QUICK.ONLINE) {
-		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable('cache.read.only')
 		biodb$getConfig()$disable('allow.huge.downloads')
 		biodb$getConfig()$disable('offline')
@@ -224,7 +225,7 @@ load.ref.entries <- function(db) {
 ################################################################
 
 init.mass.csv.file.db <- function(biodb) {
-	db.instance <- biodb$getFactory()$createConn(BIODB.MASS.CSV.FILE, url = MASSFILEDB.URL)
+	db.instance <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.URL)
 	db.instance$setField('accession', c('compound.id', 'ms.mode', 'chrom.col', 'chrom.col.rt'))
 }
 
@@ -232,7 +233,7 @@ init.mass.csv.file.db <- function(biodb) {
 ################################################################
 
 run.db.test.that <- function(msg, fct, db) {
-	if (TEST.FUNCTIONS == FUNCTION.ALL || TEST.FUNCTIONS == fct)
+	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS)
 		test_that(msg, do.call(fct, list(db)))
 }
 

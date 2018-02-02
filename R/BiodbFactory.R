@@ -104,44 +104,46 @@ BiodbFactory$methods( setDownloadChunkSize = function(dwnld.chunk.size) {
 BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
 	":\n\nCreate database entry objects from string content."
 
-	.self$message('info', paste('Creating ', dbid, ' entries from ', length(content), ' content(s).', sep = ''))
-
 	entries <- list()
 
-	# Check that class is known
-	.self$getBiodb()$getDbsInfo()$checkIsDefined(dbid)
+	if (length(content) > 0) {
+		.self$message('info', paste('Creating ', dbid, ' entries from ', length(content), ' content(s).', sep = ''))
 
-	# Get entry class
-    entry.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getEntryClass()
+		# Check that class is known
+		.self$getBiodb()$getDbsInfo()$checkIsDefined(dbid)
 
-	# Get connection
-	conn <- .self$getConn(dbid)
+		# Get entry class
+    	entry.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getEntryClass()
 
-    # Loop on all contents
-    .self$message('debug', paste('Parsing ', length(content), ' ', dbid, ' entries.', sep = ''))
-	for (single.content in content) {
+		# Get connection
+		conn <- .self$getConn(dbid)
 
-		# Create empty entry instance
-    	entry <- entry.class$new(parent = conn)
+    	# Loop on all contents
+    	.self$message('debug', paste('Parsing ', length(content), ' ', dbid, ' entries.', sep = ''))
+		for (single.content in content) {
 
-		# Parse content
-		if ( ! is.null(single.content) && ! is.na(single.content))
-			entry$parseContent(single.content)
+			# Create empty entry instance
+    		entry <- entry.class$new(parent = conn)
 
-		entries <- c(entries, entry)
+			# Parse content
+			if ( ! is.null(single.content) && ! is.na(single.content))
+				entry$parseContent(single.content)
+
+			entries <- c(entries, entry)
+		}
+
+		# Replace elements with no accession id by NULL
+    	entries.without.accession <- vapply(entries, function(x) is.na(x$getFieldValue('ACCESSION')), FUN.VALUE = TRUE)
+    	if (any(entries.without.accession)) {
+	    	n <- sum(entries.without.accession)
+    		.self$message('debug', paste('Found', n, if (n > 1) 'entries' else 'entry', 'without an accession number. Set', if (n > 1) 'them' else 'it', 'to NULL.'))
+			entries[entries.without.accession] <- list(NULL)
+    	}
+
+		# If the input was a single element, then output a single object
+		if (drop && length(content) == 1)
+			entries <- entries[[1]]
 	}
-
-	# Replace elements with no accession id by NULL
-    entries.without.accession <- vapply(entries, function(x) is.na(x$getFieldValue('ACCESSION')), FUN.VALUE = TRUE)
-    if (any(entries.without.accession)) {
-	    n <- sum(entries.without.accession)
-    	.self$message('debug', paste('Found', n, if (n > 1) 'entries' else 'entry', 'without an accession number. Set', if (n > 1) 'them' else 'it', 'to NULL.'))
-		entries[entries.without.accession] <- list(NULL)
-    }
-
-	# If the input was a single element, then output a single object
-	if (drop && length(content) == 1)
-		entries <- entries[[1]]
 
 	return(entries)
 })
@@ -276,14 +278,19 @@ BiodbFactory$methods( show = function() {
 
 BiodbFactory$methods( .createNewEntries = function(dbid, ids, drop) {
 
-	# Debug
-	.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
+	new.entries <- list()
 
-	# Get contents
-	content <- .self$getEntryContent(dbid, ids)
+	if (length(ids) > 0) {
 
-	# Create entries
-	new.entries <- .self$createEntry(dbid, content = content, drop = drop)
+		# Debug
+		.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
+
+		# Get contents
+		content <- .self$getEntryContent(dbid, ids)
+
+		# Create entries
+		new.entries <- .self$createEntry(dbid, content = content, drop = drop)
+	}
 
 	return(new.entries)
 })

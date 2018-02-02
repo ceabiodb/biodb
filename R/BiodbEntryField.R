@@ -173,6 +173,8 @@ BiodbEntryField$methods( correctValue = function(value) {
 
 	# Enumerated type
 	if (.self$isEnumerated() && class(.self$.allowed.values) == 'list') {
+		if (length(value) > 1)
+			.self$message('error', paste('You cannot set multiple values (', paste(value, collapse = ', '), ') for enumerated field ', .self$getName(), '.', sep = ''))
 		for (n in names(.self$.allowed.values))
 			if (value %in% .self$.allowed.values[[n]]) {
 				value <- n
@@ -207,8 +209,9 @@ BiodbEntryField$methods( checkValue = function(value) {
 	if (.self$.lower.case)
 		value <- tolower(value)
 
-	if (.self$isEnumerated() && ! value %in% .self$getAllowedValues())
-		.self$message('error', paste('Value ', value, ' is not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse = ', '), '.', sep = ''))
+	bad.values <- value[ ! value %in% .self$getAllowedValues()]
+	if (.self$isEnumerated() && length(bad.values) > 0)
+		.self$message('error', paste('Value(s) ', paste(bad.values, collapse = ', '), ' is/are not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse = ', '), '.', sep = ''))
 })
 
 # Has card one {{{1
