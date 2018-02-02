@@ -23,5 +23,5 @@ test.msmsSearch.massbank <- function(db) {
 
 run.massbank.jp.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
-		run.db.test('MSMS search works for massbank.', 'test.msmsSearch.massbank', db)
+		run.db.test.that('MSMS search works for massbank.', 'test.msmsSearch.massbank', db)
 }

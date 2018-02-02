@@ -64,10 +64,32 @@ test.mass.csv.file.output.columns <- function(db) {
 	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
 }
 
+# Test setting database with a data frame {{{1
+################################################################
+
+test.mass.csv.file.data.frame <- function(db) {
+
+	# Define database data frame
+	df <- data.frame(accession = 'ZAP', mz = 12, mode = '+')
+
+	# New biodb instance
+	new.biodb <- biodb::Biodb$new()
+	conn <- new.biodb$getFactory()$createConn('mass.csv.file')
+
+	# Set fields
+	conn$setField('accession', 'accession')
+	conn$setField('ms.mode', 'mode')
+	conn$setField('peak.mztheo', 'mz')
+
+	# Set database
+	expect_silent(conn$setDb(df))
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
 run.mass.csv.file.tests <- function(db, mode) {
-	run.db.test("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', db)
-	run.db.test("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', db)
+	run.db.test.that("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', db)
+	run.db.test.that("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', db)
+	run.db.test.that('Setting database with a data frame works.', 'test.mass.csv.file.data.frame', db)
 }
