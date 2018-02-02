@@ -140,21 +140,27 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 	results <- NULL
 
 	# Loop on the list of M/Z values
+	.self$message('debug', 'Looping all M/Z values.')
 	for (mz in mzs) {
 
 		# Search for spectra
+		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
 		ids <- .self$searchMzTol(mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = 1)
 
 		# Get entries
+		.self$message('debug', 'Getting entries from spetrac IDs.')
 		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
 
 		# Convert to data frame
+		.self$message('debug', 'Converting list of entries to data frame.')
 		df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
 		
 		# Select lines with right M/Z values
 		mz.range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
+		.self$message('debug', paste("Filtering entries data frame on M/Z range [", mz.range$min, ', ', mz.range$max, '].', sep = ''))
 		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
 
+		.self$message('debug', 'Merging data frame of matchings into results data frame.')
 		results <- plyr::rbind.fill(results, df)
 	}
 
