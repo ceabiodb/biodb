@@ -93,8 +93,8 @@ test.kegg.compound.ws.find.molecular.weight <- function(db) {
 
 run.kegg.compound.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test('Test', 'test.kegg.compound.ws.find', db)
-		run.db.test('Test', 'test.kegg.compound.ws.find.exact.mass', db)
-		run.db.test('Test', 'test.kegg.compound.ws.find.molecular.weight', db)
+		run.db.test.that('Test', 'test.kegg.compound.ws.find', db)
+		run.db.test.that('Test', 'test.kegg.compound.ws.find.exact.mass', db)
+		run.db.test.that('Test', 'test.kegg.compound.ws.find.molecular.weight', db)
 	}
 }

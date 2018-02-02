@@ -26,7 +26,7 @@ test.chebi.searchCompound.bug.20170926.01 <- function(db) {
 
 run.chebi.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
-		run.db.test("Test bug 20170926.01 for ChEBI.", 'test.chebi.searchCompound.bug.20170926.01', db)
+		run.db.test.that('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
+		run.db.test.that("Test bug 20170926.01 for ChEBI.", 'test.chebi.searchCompound.bug.20170926.01', db)
 	}
 }

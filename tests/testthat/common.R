@@ -228,10 +228,10 @@ init.mass.csv.file.db <- function(biodb) {
 	db.instance$setField('accession', c('compound.id', 'ms.mode', 'chrom.col', 'chrom.col.rt'))
 }
 
-# Run database test {{{1
+# Run database test that {{{1
 ################################################################
 
-run.db.test <- function(msg, fct, db) {
+run.db.test.that <- function(msg, fct, db) {
 	if (TEST.FUNCTIONS == FUNCTION.ALL || TEST.FUNCTIONS == fct)
 		test_that(msg, do.call(fct, list(db)))
 }

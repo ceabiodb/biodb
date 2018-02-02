@@ -246,14 +246,14 @@ test.msmsSearch.no.ids <- function(db) {
 run.mass.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'MassdbConn')) {
-			run.db.test("We can retrieve a list of M/Z values", 'test.getMzValues', db)
-			run.db.test("We can match M/Z peaks", 'test.searchMzTol',db)
-			run.db.test("We can search for spectra containing several M/Z values", 'test.searchMzTol.multiple.mz',db)
-			run.db.test("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
-			run.db.test("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
-			run.db.test('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
-			run.db.test('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
-			run.db.test("The peak table is correct.", 'test.peak.table', db)
-			run.db.test('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', db)
+			run.db.test.that("We can retrieve a list of M/Z values", 'test.getMzValues', db)
+			run.db.test.that("We can match M/Z peaks", 'test.searchMzTol',db)
+			run.db.test.that("We can search for spectra containing several M/Z values", 'test.searchMzTol.multiple.mz',db)
+			run.db.test.that("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
+			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
+			run.db.test.that('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
+			run.db.test.that('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
+			run.db.test.that("The peak table is correct.", 'test.peak.table', db)
+			run.db.test.that('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', db)
 		}
 }
