@@ -277,7 +277,7 @@ MassCsvFileConn$methods( .init.db = function() {
 			.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
 
 		# Load database
-		db <- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE)
+		db <- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE, fill = FALSE)
 
 		# Set database
 		.self$setDb(db)

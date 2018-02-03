@@ -131,6 +131,15 @@ test.undefined.fields <- function(db) {
 	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are unknown\\.$')
 }
 
+# Test wrong nb cols {{{1
+################################################################
+
+test.mass.csv.file.wrong.nb.cols <- function(db) {
+	new.biodb <- create.biodb.instance()
+	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.NB.COLS.URL)
+	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -140,4 +149,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', db)
 	run.db.test.that("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', db)
 	run.db.test.that('Setting database with a data frame works.', 'test.mass.csv.file.data.frame', db)
+	run.db.test.that('Failure occurs when loading database file with a line containing wrong number of values.', 'test.mass.csv.file.wrong.nb.cols', db)
 }
