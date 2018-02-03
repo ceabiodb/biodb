@@ -14,6 +14,7 @@ USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
+MASSFILEDB.WRONG.NB.COLS.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_nb_cols.tsv')
 
 # Create output directory
 if ( ! file.exists(OUTPUT.DIR))
