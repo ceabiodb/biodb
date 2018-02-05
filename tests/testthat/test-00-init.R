@@ -19,21 +19,24 @@ cat(paste('Running tests on database(s) ', paste(TEST.DATABASES, collapse = ', '
 # Erase whole cache
 if ('MODES' %in% names(env) && env[['MODES']] == MODE.FULL) {
 	biodb <- Biodb$new(logger = FALSE)
-	#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+	cat(paste('Delete whole cache folder ', biodb$getConfig()$get('cache.directory'), ".\n", sep = ''))
 	biodb$getCache()$eraseFolder()
 }
 
 # Erase only short term cache
 if (MODE.ONLINE %in% TEST.MODES) {
 	biodb <- Biodb$new(logger = FALSE)
-	#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+	cat(paste('Delete short term cache folder ', biodb$getCache()$getSubFolderPath('shortterm'), ".\n", sep = ''))
 	biodb$getCache()$eraseFolder('shortterm')
 }
+
+biodb <- Biodb$new(logger = FALSE)
+cat(paste('Using cache folder ', biodb$getConfig()$get('cache.directory'), ".\n", sep = ''))
 
 # Remove log file {{{1
 ################################################################
 
 if (file.exists(LOG.FILE.PATH)) {
-	cat(paste('Delete log file \"', LOG.FILE.PATH, "\".\n", sep = ''))
+	cat(paste('Delete log file ', LOG.FILE.PATH, ".\n", sep = ''))
 	unlink(LOG.FILE.PATH)
 }
