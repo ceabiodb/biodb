@@ -21,11 +21,11 @@ test.msmsSearch.massbank <- function(db) {
 # Test issue 150 InchiKEY computing loop in Massbank {{{1
 ################################################################
 
-test.issue150.inchikey_computing_loop_in_massbank <- function(db) {
+test.issue150.inchikey.computing.loop.in.massbank <- function(db) {
 
 	entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), 'KO002985', drop = TRUE)
-	entry$getFieldValue("inchikey", compute = FALSE)
-	entry$getFieldValue("inchikey")
+	expect_true(is.na(entry$getFieldValue("inchikey", compute = FALSE)))
+	expect_true(is.na(entry$getFieldValue("inchikey", compute = TRUE)))
 }
 
 # Run Massbank Japan tests {{{1
@@ -34,6 +34,6 @@ test.issue150.inchikey_computing_loop_in_massbank <- function(db) {
 run.massbank.jp.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		run.db.test.that('MSMS search works for Massbank.', 'test.msmsSearch.massbank', db)
-		run.db.test.that('The computing of inchikey field in a Massbank entry does not loop indefinitely.', 'test.issue150.inchikey_computing_loop_in_massbank', db)
+		run.db.test.that('The computing of inchikey field in a Massbank entry does not loop indefinitely.', 'test.issue150.inchikey.computing.loop.in.massbank', db)
 	}
 }

@@ -15,7 +15,7 @@ MassbankEntry$methods( .doParseContent = function(content) {
 	# Get lines of content
 	lines <- strsplit(content, "\r?\n")[[1]]
 
-	# Look for last line
+	# Look for last line marker
 	g <- stringr::str_match(lines, "^//$")
 	last.line.number <- which(! is.na(g[, 1]))
 
@@ -43,12 +43,12 @@ MassbankEntry$methods( .doParseContent = function(content) {
 
 MassbankEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 
-	# Look for last line
+	# Look for last line marker
 	g <- stringr::str_match(parsed.content, "^//$")
 	last.line.number <- which(! is.na(g[, 1]))
 
-	# Incorrect last line?
-	if (length(last.line.number) != 1 || last.line.number != length(parsed.content)) {
+	# Incorrect last line marker?
+	if (length(last.line.number) > 1 || (length(last.line.number) == 1 && last.line.number != length(parsed.content))) {
 
 		# Get accession number
 		g <- stringr::str_match(parsed.content, "^ACCESSION: (.+)$")

@@ -326,6 +326,10 @@ BiodbEntry$methods(	computeFields = function(fields = NULL) {
 			# Loop on all databases where we can look for a value
 			for (db in BIODB.FIELD.COMPUTING[[f]]) {
 
+				# Database is itself
+				if (db == .self$getParent()$getId())
+					next
+
 				# Have we a reference for this database?
 				db.id.field <- paste(db, 'id', sep = '.')
 				if ( ! .self$hasField(db.id.field))
@@ -339,7 +343,7 @@ BiodbEntry$methods(	computeFields = function(fields = NULL) {
 
 					# Set found value
 					if ( ! is.null(db.entry)) {
-						.self$setFieldValue(f, db.entry$getFieldValue(f))
+						.self$setFieldValue(f, db.entry$getFieldValue(f, compute = FALSE))
 						success <- TRUE
 						break
 					}
