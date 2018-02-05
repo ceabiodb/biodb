@@ -133,11 +133,11 @@ test.entry.ids <- function(db) {
 
 run.db.generic.tests <- function(db, mode) {
 
-	run.db.test("Wrong entry gives NULL", 'test.wrong.entry', db)
-	run.db.test("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', db)
-	run.db.test("Entry fields have a correct value", 'test.entry.fields', db)
+	run.db.test.that("Wrong entry gives NULL", 'test.wrong.entry', db)
+	run.db.test.that("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', db)
+	run.db.test.that("Entry fields have a correct value", 'test.entry.fields', db)
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test("Nb entries is positive", 'test.nb.entries', db)
-		run.db.test("We can get a list of entry ids", 'test.entry.ids', db)
+		run.db.test.that("Nb entries is positive", 'test.nb.entries', db)
+		run.db.test.that("We can get a list of entry ids", 'test.entry.ids', db)
 	}
 }

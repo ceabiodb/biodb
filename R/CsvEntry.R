@@ -52,14 +52,17 @@ CsvEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 			v <- parsed.content[[.self$.parsing.expr[[field]]]]
 
 			# Is value considered NA?
- 			if ( ! is.na(.self$.na.strings) && all(v %in% .self$.na.strings))
-				v <- NA
+ 			if ( ! is.na(.self$.na.strings))
+				v[v %in% .self$.na.strings] <- NA
+
+			# Remove NA values
+			v <- v[ ! is.na(v)]
 
 			# Remove duplicated values
 			v <- v[ ! duplicated(v)]
 
 			# Set value
-			if ( ! is.na(v))
+			if (length(v) > 0 && any( ! is.na(v)))
 				.self$setFieldValue(field, v)
 		}
 	}
