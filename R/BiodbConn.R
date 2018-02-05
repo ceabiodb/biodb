@@ -135,6 +135,19 @@ BiodbConn$methods( show = function() {
 	cat("Biodb ", .self$getDbInfo()$getName(), " connector instance, using URL \"", .self$getBaseUrl(), "\".\n", sep = '')
 })
 
+# Check database {{{1
+################################################################
+
+BiodbConn$methods( checkDb = function() {
+	":\n\nCheck that the database is correct by trying to load all entries."
+
+	# Get IDs
+	ids <- .self$getEntryIds()
+
+	# Get entries
+	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 

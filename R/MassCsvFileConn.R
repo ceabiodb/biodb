@@ -123,10 +123,6 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 		return()
 	}
 
-	# Accession field set first?
-#	if (tag != 'accession' && ! 'accession' %in% names(.self$.fields))
-#		.self$message('error', 'Please define first the accession field.')
-
 	# One column used, only
 	if (length(colname) == 1) {
 		.self$.fields[[tag]] <- colname

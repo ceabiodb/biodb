@@ -157,10 +157,10 @@ test.field.card.one <- function(db) {
 	conn$setDb(df)
 
 	# Set fields
-	expect_error(conn$setField('peak.mztheo', 'mz'), regexp = '^blabla$') # Should throw an error because the accession field must be set first.
 	conn$setField('accession', 'ids')
-	expect_error(conn$setField('ms.mode', 'mode'), regexp = '^blabla$')
+	conn$setField('ms.mode', 'mode')
 	conn$setField('peak.mztheo', 'mz')
+	expect_error(conn$checkDb(), regexp = '^.*Cannot set more that one value .* into single value field "ms.mode".$')
 }
 
 # Run Mass CSV File tests {{{1
