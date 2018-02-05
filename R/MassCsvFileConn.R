@@ -123,6 +123,10 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 		return()
 	}
 
+	# Accession field set first?
+#	if (tag != 'accession' && ! 'accession' %in% names(.self$.fields))
+#		.self$message('error', 'Please define first the accession field.')
+
 	# One column used, only
 	if (length(colname) == 1) {
 		.self$.fields[[tag]] <- colname
@@ -130,8 +134,6 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 
 	# Use several column to join together
 	else {
-		if (tag %in% names(.self$.db))
-			.self$message('error', paste("Column \"", tag, "\" already exist in database file.", sep = ''))
 		.self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
 		.self$.fields[[tag]] <- tag
 	}
