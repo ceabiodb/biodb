@@ -134,10 +134,33 @@ test.undefined.fields <- function(db) {
 # Test wrong nb cols {{{1
 ################################################################
 
-test.mass.csv.file.wrong.nb.cols <- function(db) {
+test.wrong.nb.cols <- function(db) {
 	new.biodb <- create.biodb.instance()
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.NB.COLS.URL)
 	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
+}
+
+# Test field card one {{{1
+################################################################
+
+test.field.card.one <- function(db) {
+
+	# Define database data frame
+	ids <- c('ZAP', 'ZAP')
+	mzs <- c(12, 14)
+	modes <- c('+', '-')
+	df <- data.frame(ids = ids, mz = mzs, mode = modes)
+
+	# Create connector
+	new.biodb <- create.biodb.instance()
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(df)
+
+	# Set fields
+	expect_error(conn$setField('peak.mztheo', 'mz'), regexp = '^blabla$') # Should throw an error because the accession field must be set first.
+	conn$setField('accession', 'ids')
+	expect_error(conn$setField('ms.mode', 'mode'), regexp = '^blabla$')
+	conn$setField('peak.mztheo', 'mz')
 }
 
 # Run Mass CSV File tests {{{1
@@ -149,5 +172,6 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', db)
 	run.db.test.that("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', db)
 	run.db.test.that('Setting database with a data frame works.', 'test.mass.csv.file.data.frame', db)
-	run.db.test.that('Failure occurs when loading database file with a line containing wrong number of values.', 'test.mass.csv.file.wrong.nb.cols', db)
+	run.db.test.that('Failure occurs when loading database file with a line containing wrong number of values.', 'test.wrong.nb.cols', db)
+	run.db.test.that('Failure occurs when a field with a cardinality of one has several values for the same accession number.', 'test.field.card.one', db)
 }
