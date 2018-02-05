@@ -31,7 +31,7 @@ test.chemspider.ws.SimpleSearch <- function(db) {
 
 run.chemspider.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test('ChemSpider web service search by mass works fine.', 'test.chemspider.ws.SearchByMass2', db)
-		run.db.test('ChemSpider web service simple search works fine.', 'test.chemspider.ws.SimpleSearch', db)
+		run.db.test.that('ChemSpider web service search by mass works fine.', 'test.chemspider.ws.SearchByMass2', db)
+		run.db.test.that('ChemSpider web service simple search works fine.', 'test.chemspider.ws.SimpleSearch', db)
 	}
 }

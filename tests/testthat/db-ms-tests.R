@@ -229,6 +229,39 @@ test.peak.table <- function(db) {
 	}
 }
 
+# Test getChromCol {{{1
+################################################################
+
+test.getChromCol <- function(db) {
+	chrom.col <- db$getChromCol()
+	expect_is(chrom.col, 'data.frame')
+	expect_identical(names(chrom.col), c('id', 'title'))
+}
+
+# Test searchMsPeaks {{{1
+################################################################
+
+test.searchMsPeaks <- function(db) {
+
+	mode <- 'neg'
+
+	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
+
+	# Get only one result per M/Z value
+	results <- db$searchMsPeaks(mzs, mz.tol = 0.1, max.results = 1, ms.mode = mode)
+	expect_is(results, 'data.frame')
+	expect_true(nrow(results) >= 1)
+	expect_true('accession' %in% names(results))
+	expect_true('peak.mz' %in% names(results))
+
+	# Get 2 results per M/Z value
+	results <- db$searchMsPeaks(mzs, mz.tol = 0.1, max.results = 2, ms.mode = mode)
+	expect_is(results, 'data.frame')
+	expect_true(nrow(results) > 1)
+	expect_true('accession' %in% names(results))
+	expect_true('peak.mz' %in% names(results))
+}
+
 # Test msmsSearch whe no IDs are found {{{1
 ################################################################
 
@@ -246,14 +279,16 @@ test.msmsSearch.no.ids <- function(db) {
 run.mass.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'MassdbConn')) {
-			run.db.test("We can retrieve a list of M/Z values", 'test.getMzValues', db)
-			run.db.test("We can match M/Z peaks", 'test.searchMzTol',db)
-			run.db.test("We can search for spectra containing several M/Z values", 'test.searchMzTol.multiple.mz',db)
-			run.db.test("Search by precursor returns at least one match", 'test.searchMzTol.with.precursor', db)
-			run.db.test("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
-			run.db.test('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
-			run.db.test('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
-			run.db.test("The peak table is correct.", 'test.peak.table', db)
-			run.db.test('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', db)
+			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
+			run.db.test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', db)
+			run.db.test.that("We can match M/Z peaks.", 'test.searchMzTol',db)
+			run.db.test.that("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',db)
+			run.db.test.that("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', db)
+			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
+			run.db.test.that('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
+			run.db.test.that('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
+			run.db.test.that("The peak table is correct.", 'test.peak.table', db)
+			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
+			run.db.test.that('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', db)
 		}
 }

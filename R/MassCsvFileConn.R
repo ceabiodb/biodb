@@ -6,13 +6,6 @@
 # In the provided file, each line represents an MS peak measure.
 # The file contains molecule and spectrum information. Each spectrum has an accession id.
 
-# Constants {{{1
-################################################################
-
-# Default database fields
-.BIODB.DFT.DB.FIELDS <- c('accession', 'name', 'fullnames', 'compound.id', 'ms.level', 'ms.mode', 'peak.mzexp', 'peak.mztheo', 'peak.relative.intensity', 'peak.comp', 'peak.attr', 'chrom.col', 'chrom.col.rt', 'formula', 'molecular.mass', 'inchi', 'inchikey', 'chebi.id', 'hmdb.metabolites.id', 'kegg.compound.id', 'ncbi.pubchem.comp.id')
-names(.BIODB.DFT.DB.FIELDS) <- .BIODB.DFT.DB.FIELDS
-
 # Class declaration {{{1
 ################################################################
 
@@ -30,7 +23,7 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	.db.orig.colnames <<- NA_character_
 	.file.sep <<- file.sep
 	.file.quote <<- file.quote
-	.fields <<- .BIODB.DFT.DB.FIELDS
+	.fields <<- character()
 	.field.multval.sep <<- ';'
 	.ms.modes <<- BIODB.MSMODE.VALS
 	names(.self$.ms.modes) <- BIODB.MSMODE.VALS
@@ -46,29 +39,67 @@ MassCsvFileConn$methods( isValidFieldTag = function(tag) {
 	return (tag %in% names(.self$.fields))
 })
 
-# Init db {{{1
+# Has field {{{1
 ################################################################
 
-MassCsvFileConn$methods( .init.db = function() {
+MassCsvFileConn$methods( hasField = function(tag) {
 
-	if (is.null(.self$.db)) {
+	tag <- tolower(tag)
 
-		# Check file
-		if ( ! file.exists(.self$getBaseUrl()))
-			.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
+	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
 
-		# Load database
-		.db <<- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL)
+	# Load database file
+	.self$.init.db()
 
-		# Save column names
-		.db.orig.colnames <<- colnames(.self$.db)
-	}
+	return(tag %in% names(.self$.fields))
+})
+
+# Add field {{{1
+################################################################
+
+MassCsvFileConn$methods( addField = function(tag, value) {
+
+	tag <- tolower(tag)
+
+	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
+
+	# Load database file
+	.self$.init.db()
+
+	# Field already defined?
+	if (tag %in% names(.self$.fields))
+		.self$message('error', paste0("Database field \"", tag, "\" is already defined."))
+	if (tag %in% names(.self$.db))
+		.self$message('error', paste0("Database column \"", tag, "\" is already defined."))
+
+	# Add new field
+	.self$.db[[tag]] <- value
+	.self$.fields[[tag]] <- tag
+})
+
+# Get field {{{1
+################################################################
+
+MassCsvFileConn$methods( getField = function(tag) {
+
+	tag <- tolower(tag)
+
+	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
+
+	# Load database file
+	.self$.init.db()
+
+	# Check that this field tag is defined in the fields list
+	if ( ! tag %in% names(.self$.fields))
+		.self$message('error', paste0("Database field tag \"", tag, "\" is not defined."))
+
+	return(.self$.fields[[tag]])
 })
 
 # Set field {{{1
 ################################################################
 
-MassCsvFileConn$methods( setField = function(tag, colname) {
+MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = FALSE) {
 
 	tag <- tolower(tag)
 
@@ -78,26 +109,30 @@ MassCsvFileConn$methods( setField = function(tag, colname) {
 	# Load database file
 	.self$.init.db()
 
-	# Check that this field tag is defined in the fields list
-	.self$isValidFieldTag(tag) || .self$message('error', paste0("Database field tag \"", tag, "\" is not valid."))
+	# Check that this is a correct field name
+	if ( ! (.self$getBiodb()$getEntryFields()$isDefined(tag) || tag %in% BIODB.PEAK.FIELDS)) {
+		if ( ! ignore.if.missing)
+			.self$message('error', paste0("Database field \"", tag, "\" is not valid."))
+		return()
+	}
 
-	# Check that columns are defined in database file
-	all(colname %in% names(.self$.db)) || .self$message('error', paste0("One or more columns among ", paste(colname, collapse = ", "), " are not defined in database file."))
+	# Fail if column names are not found in file
+	if ( ! all(colname %in% names(.self$.db))) {
+		undefined.cols <- colname[ ! colname %in% names(.self$.db)]
+		.self$message((if (ignore.if.missing) 'caution' else 'error'), paste0("Column(s) ", paste(undefined.cols, collapse = ", "), " is/are not defined in database file."))
+		return()
+	}
 
-	# Set new definition
-	if (length(colname) == 1)
+	# One column used, only
+	if (length(colname) == 1) {
 		.self$.fields[[tag]] <- colname
+	}
+
+	# Use several column to join together
 	else {
-		#new.col <- paste(colname, collapse = ".")
-		if (tag %in% names(.self$.db))
-			.self$message('error', paste("Column \"", tag, "\" already exist in database file.", sep = ''))
 		.self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
 		.self$.fields[[tag]] <- tag
 	}
-
-	# Update data frame column names
-	# XXX Why just update here and not init.db()?
-#	colnames(.self$.db) <- vapply(.self$.db.orig.colnames, function(c) if (c %in% .self$.fields) names(.self$.fields)[.self$.fields %in% c] else c, FUN.VALUE = '')
 })
 
 # Set field multiple value separator {{{1
@@ -114,7 +149,140 @@ MassCsvFileConn$methods( setMsMode = function(mode, value) {
 	.self$.ms.modes[[mode]] <- value
 })
 
-# Check fields {{{1
+# Get entry ids {{{1
+################################################################
+
+MassCsvFileConn$methods( getEntryIds = function(max.results = NA_integer_) {
+
+	ids <- NA_character_
+
+	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
+
+	return(ids)
+})
+
+# Get nb entries {{{1
+################################################################
+
+MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
+
+	n <- NA_integer_
+
+	ids <- .self$getEntryIds()
+	if ( ! is.null(ids))
+		n <- length(ids)
+
+	return(n)
+})
+
+# Get chromatographic columns {{{1
+################################################################
+
+MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
+
+	# Extract needed columns
+	db <- .self$.select(cols = 'chrom.col', compound.ids = compound.ids)
+
+	# Get column names
+	cols <- db[[.self$.fields[['chrom.col']]]]
+
+	# Remove NA values
+	cols <- cols[ ! is.na(cols)]
+
+	# Remove duplicates
+	cols <- cols[ ! duplicated(cols)]
+
+	# Make data frame
+	if (is.null(cols))
+		chrom.cols <- data.frame(a = character(0), b = character(0))
+	else
+		chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
+	names(chrom.cols) <- c('id', 'title')
+
+	return(chrom.cols)
+})
+
+# Get nb peaks {{{1
+################################################################
+
+# Inherited from MassdbConn.
+MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
+
+	# Get peaks
+	peaks <- .self$.select(cols = 'peak.mztheo', mode = mode, compound.ids = compound.ids, drop = TRUE)
+
+	return(length(peaks))
+})
+
+# Get entry content {{{1
+################################################################
+
+MassCsvFileConn$methods( getEntryContent = function(entry.id) {
+
+	# Initialize return values
+	content <- rep(NA_character_, length(entry.id))
+
+	# Get data frame
+	.self$message('debug', paste("Entry entry.id:", paste(entry.id, collapse = ", ")))
+	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
+
+	# For each id, take the sub data frame and convert it into string
+	df.ids <- df[[.self$.fields[['accession']]]]
+	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
+
+	.self$message('debug', paste("Entry content:", content))
+
+	return(content)
+})
+
+# Set database {{{1
+################################################################
+
+MassCsvFileConn$methods( setDb = function(db) {
+	":\n\nSet the database directly from a data frame. You must not have set the database previously with the URL parameter."
+
+	# Already set
+	if ( ! is.null(.self$.db))
+		.self$message('error', 'Database has already been set.')
+
+	# Not data frame
+	if ( ! is.data.frame(db))
+		.self$message('error', 'The database object must be a data frame.')
+
+	# Set data frame as database
+	.db <<- db
+
+	# Set fields
+	for (field in names(.self$.db))
+		.self$setField(field, field, ignore.if.missing = TRUE)
+
+	# Save column names
+	.db.orig.colnames <<- colnames(.self$.db)
+})
+
+# PRIVATE METHODS {{{1
+################################################################
+
+# Init db {{{2
+################################################################
+
+MassCsvFileConn$methods( .init.db = function() {
+
+	if (is.null(.self$.db)) {
+
+		# Check file
+		if ( ! file.exists(.self$getBaseUrl()))
+			.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
+
+		# Load database
+		db <- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE, fill = FALSE)
+
+		# Set database
+		.self$setDb(db)
+	}
+})
+
+# Check fields {{{2
 ################################################################
 
 MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
@@ -133,14 +301,14 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 	# Check if fields are defined in file database
 	undefined.fields <- colnames(.self$.db)[ ! .self$.fields[fields] %in% colnames(.self$.db)]
 	if (length(undefined.fields) > 0) {
-		.self$message(if (fail) 'error' else 'debug', paste0("Column(s) ", paste(.self$.fields[fields]), collapse = ", "), " is/are undefined in file database.")
+		.self$message(if (fail) 'error' else 'debug', paste0("Column(s) ", paste(.self$.fields[fields], collapse = ", "), " is/are undefined in file database."))
 		return(FALSE)
 	}
 
 	return(TRUE)
 })
 
-# Select {{{1
+# Select {{{2
 ################################################################
 
 # Select data from database
@@ -177,14 +345,24 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 
 	# Filter on mz values
 	if ((length(mz.min) > 0 || length(mz.max) > 0) && ! (length(mz.min) == 1 && is.na(mz.min) && is.na(mz.max))) {
+		.self$message('debug', paste('Filtering on M/Z range [', mz.min, ', ', mz.max, '].', sep = ''))
 		if (length(mz.min) != length(mz.max))
 			.self$message(MSG.ERROR, paste("'mz.min' and 'mz.max' must have equal lengths. 'mz.min' has ", length(mz.min), " element(s), and 'mz.max' has ", length(mz.max), "element(s).", sep = ''))
 		if (any(is.na(mz.min) & is.na(mz.max)))
 		.self$.check.fields('peak.mztheo')
 		f <- .self$.fields[['peak.mztheo']]
 		mz <- db[[f]]
+		.self$message('debug', paste(length(mz), 'M/Z values to filter.'))
+
+		# For all couples in vectors mz.min and mz.max, verify which M/Z values in mz are in the range. For each couple of mz.min/mz.max we get a vector of booleans the same length as mz.
+		.self$message('debug', paste('mz.min = ', paste(mz.min, collapse = ', '), '.', sep = ''))
+		.self$message('debug', paste('mz.max = ', paste(mz.max, collapse = ', '), '.', sep = ''))
 		s <- mapply(function(mzmin, mzmax) { (if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin) & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax) }, mz.min, mz.max)
-		s <- apply(s, 1, function(x) Reduce("&", x))
+
+		# Now we select the M/Z values that are in all ranges listed in mz.min/mz.max.
+		if (is.matrix(s))
+			s <- apply(s, 1, function(x) Reduce("&", x))
+
 		db <- db[s, ]
 	}
 
@@ -231,60 +409,14 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	return(db)
 })
 
-# Get entry ids {{{1
+# Do search M/Z range {{{2
 ################################################################
 
-MassCsvFileConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids <- NA_character_
-
-	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
-
-	return(ids)
+MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+	return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode = ms.mode, max.rows = max.results, cols = 'accession', drop = TRUE, uniq = TRUE, sort = TRUE, precursor = precursor, level = ms.level))
 })
 
-# Get nb entries {{{1
-################################################################
-
-MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
-
-	n <- NA_integer_
-
-	ids <- .self$getEntryIds()
-	if ( ! is.null(ids))
-		n <- length(ids)
-
-	return(n)
-})
-
-# Get chromatographic columns {{{1
-################################################################
-
-MassCsvFileConn$methods( getChromCol = function(compound.ids = NULL) {
-
-	# Extract needed columns
-	db <- .self$.select(cols = c('compound.id', 'chrom.col'), compound.ids = compound.ids)
-
-	# Get column names
-	cols <- db[[.self$.fields[['chrom.col']]]]
-
-	# Remove NA values
-	cols <- cols[ ! is.na(cols)]
-
-	# Remove duplicates
-	cols <- cols[ ! duplicated(cols)]
-
-	# Make data frame
-	if (is.null(cols))
-		chrom.cols <- data.frame(a = character(0), b = character(0))
-	else
-		chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
-	colnames(chrom.cols) <- c('id', 'title')
-
-	return(chrom.cols)
-})
-
-# Get mz values {{{1
+# Do get mz values {{{2
 ################################################################
 
 # Inherited from MassdbConn.
@@ -294,44 +426,4 @@ MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precurs
 	mz <- .self$.select(cols = 'peak.mztheo', mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = ms.level)
 
 	return(mz)
-})
-
-# Get nb peaks {{{1
-################################################################
-
-# Inherited from MassdbConn.
-MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
-
-	# Get peaks
-	peaks <- .self$.select(cols = 'peak.mztheo', mode = mode, compound.ids = compound.ids, drop = TRUE)
-
-	return(length(peaks))
-})
-
-# Get entry content {{{1
-################################################################
-
-MassCsvFileConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Get data frame
-	.self$message('debug', paste("Entry entry.id:", paste(entry.id, collapse = ", ")))
-	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
-
-	# For each id, take the sub data frame and convert it into string
-	df.ids <- df[[.self$.fields[['accession']]]]
-	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
-
-	.self$message('debug', paste("Entry content:", content))
-
-	return(content)
-})
-
-# Do search M/Z range {{{1
-################################################################
-
-MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-	return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode = ms.mode, max.rows = max.results, cols = 'accession', drop = TRUE, uniq = TRUE, sort = TRUE, precursor = precursor, level = ms.level))
 })

@@ -27,7 +27,7 @@ test.ws.enzymeByComment <- function(db) {
 
 run.expasy.enzyme.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test('Calls to enzyme-byname ExPASy Enzyme web service work fine.', 'test.ws.enzymeByName', db)
-		run.db.test('Calls to enzyme-bycomment ExPASy Enzyme web service work fine.', 'test.ws.enzymeByComment', db)
+		run.db.test.that('Calls to enzyme-byname ExPASy Enzyme web service work fine.', 'test.ws.enzymeByName', db)
+		run.db.test.that('Calls to enzyme-bycomment ExPASy Enzyme web service work fine.', 'test.ws.enzymeByComment', db)
 	}
 }
