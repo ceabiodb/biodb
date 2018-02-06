@@ -279,6 +279,9 @@ test.msmsSearch.no.ids <- function(db) {
 run.mass.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'MassdbConn')) {
+
+			set.test.context(db$getBiodb(), paste("Running mass spectrometry tests on database", db$getId(), "in", mode, "mode"))
+
 			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
 			run.db.test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', db)
 			run.db.test.that("We can match M/Z peaks.", 'test.searchMzTol',db)
