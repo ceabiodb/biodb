@@ -58,6 +58,7 @@ MassCsvFileConn$methods( hasField = function(tag) {
 ################################################################
 
 MassCsvFileConn$methods( addField = function(tag, value) {
+	":\n\nAdd a new field (column) to the database (data frame)."
 
 	tag <- tolower(tag)
 
@@ -73,6 +74,7 @@ MassCsvFileConn$methods( addField = function(tag, value) {
 		.self$message('error', paste0("Database column \"", tag, "\" is already defined."))
 
 	# Add new field
+	.self$message('debug', paste('Adding new field ', tag, ' with value ', paste(value, collapse = ', '), '.', sep = ''))
 	.self$.db[[tag]] <- value
 	.self$.fields[[tag]] <- tag
 })
@@ -181,10 +183,10 @@ MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
 MassCsvFileConn$methods( getChromCol = function(ids = NULL) {
 
 	# Extract needed columns
-	db <- .self$.select(cols = 'chrom.col', ids = ids)
+	db <- .self$.select(cols = 'chrom.col.name', ids = ids)
 
 	# Get column names
-	cols <- db[[.self$.fields[['chrom.col']]]]
+	cols <- db[[.self$.fields[['chrom.col.name']]]]
 
 	# Remove NA values
 	cols <- cols[ ! is.na(cols)]

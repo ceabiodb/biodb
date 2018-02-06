@@ -1,1 +1,1 @@
-peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.attr	chrom.col	chrom.col.rt	formula	molecular.mass	fullnames	accession
+peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.attr	chrom.col.name	chrom.rt	formula	molecular.mass	fullnames	accession	chrom.rt.unit

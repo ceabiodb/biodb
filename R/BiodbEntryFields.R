@@ -207,8 +207,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('peak.mzexp',         description = 'Peak experimental M/Z.',   class = 'double')
 
 	# Chromatographic column
-	.self$.define('chrom.col',                  description = 'Chromatographic column.', alias = 'compoundid')
-	.self$.define('chrom.col.name',             description = 'Chromatographic column name.')
+	.self$.define('chrom.col.name',             description = 'Chromatographic column name.', alias = 'chrom.col')
 	.self$.define('chrom.col.method.protocol',  description = 'Chromatographic method protocol.')
 	.self$.define('chrom.col.id',               description = 'Chromatographic column ID.')
 	.self$.define('chrom.col.constructor',      description = 'Chromatographic column constructor.')
