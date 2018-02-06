@@ -3,8 +3,9 @@
   "compound.id": "A10",
   "ms.level": 1,
   "ms.mode": "pos",
-  "chrom.col": "colzz",
-  "chrom.col.rt": 5.69,
+  "chrom.col.name": "colzz",
+  "chrom.rt": 5.69,
+  "chrom.rt.unit": "s",
   "formula": "J114L6M62O2",
   "mass": 146.10553,
   "fullnames": "Blablaine"

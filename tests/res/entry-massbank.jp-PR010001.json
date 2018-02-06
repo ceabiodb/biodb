@@ -10,7 +10,8 @@
   "mstype": "MS",
   "ms.mode": "pos",
   "ms.level": 1,
-  "chrom.col.rt": 407.323,
+  "chrom.rt": 407.323,
+  "chrom.rt.unit": "s",
   "smiles": "NCCCN",
   "cas.id": "10517-44-9"
 }

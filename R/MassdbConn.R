@@ -7,7 +7,7 @@
 #'
 #' All Mass spectra databases inherit from this class. It thus defines methods specific to mass spectrometry.
 #'
-#' @param compound.ids  A list of compound identifiers (i.e.: accession numbers). Used to filter the output. 
+#' @param ids           A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.
 #' @param dist.fun      The distance function used to compute the distance betweem two mass spectra.
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity.
@@ -53,8 +53,8 @@ MassdbConn$methods( initialize = function(...) {
 # Get chromatographic columns {{{1
 ################################################################
 
-MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
-	":\n\nGet a list of chromatographic columns contained in this database. You can filter on specific compounds using the compound.ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'."
+MassdbConn$methods( getChromCol = function(ids = NULL) {
+	":\n\nGet a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'."
 
 	.self$.abstract.method()
 })
@@ -71,7 +71,7 @@ MassdbConn$methods( getMzValues = function(ms.mode = NA_character_, max.results 
 # Get nb peaks {{{1
 ################################################################
 
-MassdbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
+MassdbConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
 	":\n\nReturns the number of peaks contained in the database."
 
 	.self$.abstract.method()
@@ -170,15 +170,18 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 # MS-MS search {{{1
 ################################################################
 
-MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = BIODB.MSMODE.POS, npmin = 2, dist.fun = BIODB.MSMS.DIST.WCOSINE, msms.mz.tol = 3, msms.mz.tol.min = 0.005) {
+MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol.unit = 'plain', ms.mode, npmin = 2, dist.fun = BIODB.MSMS.DIST.WCOSINE, msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_) {
 	":\n\nSearch MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search."
 	
 	peak.tables <- list()
 
 	# Get spectra IDs
 	ids <- character()
-	if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz))
-		ids <- .self$searchMzTol(mz = precursor.mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = ms.mode, precursor = TRUE, ms.level = 2)
+	if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz)) {
+		if ( ! is.na(max.results))
+			.self$message('caution', paste('Applying max.results =', max.results,'on call to searchMzTol(). This may results in no matches, while there exist matching spectra inside the database.'))
+		ids <- .self$searchMzTol(mz = precursor.mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = ms.mode, precursor = TRUE, ms.level = 2, max.results = max.results)
+	}
 
 	# Get list of peak tables from spectra
 	if (length(ids) > 0) {

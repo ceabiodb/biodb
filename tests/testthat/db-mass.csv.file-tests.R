@@ -10,23 +10,23 @@ test.basic.mass.csv.file <- function(db) {
 
 	# Test number of entries
 	expect_gt(db$getNbEntries(), 1)
-	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compound.id', 'ms.mode', 'chrom.col', 'chrom.col.rt')])))
+	expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt')])))
 
-	# Get a compound ID
-	compound.id <- df[df[['ms.level']] == 1, 'compound.id'][[1]]
+	# Get an entry ID
+	id <- df[df[['ms.level']] == 1, 'accession'][[1]]
 
 	# Test number of peaks
 	expect_gt(db$getNbPeaks(), 1)
 	expect_gt(db$getNbPeaks(mode = BIODB.MSMODE.NEG), 1)
 	expect_gt(db$getNbPeaks(mode = BIODB.MSMODE.POS), 1)
 	expect_equal(db$getNbPeaks(), nrow(df))
-	expect_gt(db$getNbPeaks(compound.ids = compound.id), 1)
+	expect_gt(db$getNbPeaks(ids = id), 1)
 
 	# Test chrom cols
 	expect_gt(nrow(db$getChromCol()), 1)
-	expect_gt(nrow(db$getChromCol(compound.ids = compound.id)), 1)
-	expect_lte(nrow(db$getChromCol(compound.ids = compound.id)), nrow(db$getChromCol()))
-	expect_true(all(db$getChromCol(compound.ids = compound.id)[['id']] %in% db$getChromCol()[['id']]))
+	expect_gt(nrow(db$getChromCol(ids = id)), 1)
+	expect_lte(nrow(db$getChromCol(ids = id)), nrow(db$getChromCol()))
+	expect_true(all(db$getChromCol(ids = id)[['id']] %in% db$getChromCol()[['id']]))
 
 	# Test mz values
 	expect_true(is.vector(db$getMzValues()))
@@ -95,31 +95,31 @@ test.mass.csv.file.data.frame <- function(db) {
 
 test.fields <- function(db) {
 
+	# Create new connector to same file db
+	biodb.2 <- biodb::Biodb$new(logger = FALSE)
+	db2 <- init.mass.csv.file.db(biodb.2)
+
 	# Get fields
-	col.name <- db$getField(tag = 'ms.mode')
+	col.name <- db2$getField('ms.mode')
 	expect_is(col.name, 'character')
 	expect_true(nchar(col.name) > 0)
 
 	# Test if has field
-	expect_true(db$hasField('accession'))
-	expect_false(db$hasField('blabla'))
+	expect_true(db2$hasField('accession'))
+	expect_false(db2$hasField('blabla'))
 
 	# Add new field
-	db$addField('blabla', 1)
+	db2$addField('blabla', 1)
 
 	# Set wrong fields
-	expect_error(db$setField(tag = 'invalid.tag.name', colname = 'something'), regexp = '^.* Database field "invalid.tag.name" is not valid.$')
-	expect_error(db$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* Column.* is/are not defined in database file.$')
-
-	# Create new connector to same file db
-	biodb.2 <- biodb::Biodb$new(logger = FALSE)
-	mydb <- biodb.2$getFactory()$createConn(db$getId(), url = db$getBaseUrl())
+	expect_error(db2$setField(tag = 'invalid.tag.name', colname = 'something'), regexp = '^.* Database field "invalid.tag.name" is not valid.$')
+	expect_error(db2$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* Column.* is/are not defined in database file.$')
 
 	# Ignore if column name is not found in file
-	mydb$setField(tag = 'ms.mode', colname = 'wrong.col.name', ignore.if.missing = TRUE)
+	db2$setField(tag = 'ms.mode', colname = 'wrong.col.name', ignore.if.missing = TRUE)
 
 	# Try to set accession field
-	mydb$setField('accession', 'compound.id')
+	db2$setField('accession', 'compound.id')
 }
 
 # Test undefined fields {{{1
