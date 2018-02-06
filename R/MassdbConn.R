@@ -7,7 +7,7 @@
 #'
 #' All Mass spectra databases inherit from this class. It thus defines methods specific to mass spectrometry.
 #'
-#' @param compound.ids  A list of compound identifiers (i.e.: accession numbers). Used to filter the output. 
+#' @param ids           A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.
 #' @param dist.fun      The distance function used to compute the distance betweem two mass spectra.
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity.
@@ -53,8 +53,8 @@ MassdbConn$methods( initialize = function(...) {
 # Get chromatographic columns {{{1
 ################################################################
 
-MassdbConn$methods( getChromCol = function(compound.ids = NULL) {
-	":\n\nGet a list of chromatographic columns contained in this database. You can filter on specific compounds using the compound.ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'."
+MassdbConn$methods( getChromCol = function(ids = NULL) {
+	":\n\nGet a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'."
 
 	.self$.abstract.method()
 })
@@ -71,7 +71,7 @@ MassdbConn$methods( getMzValues = function(ms.mode = NA_character_, max.results 
 # Get nb peaks {{{1
 ################################################################
 
-MassdbConn$methods( getNbPeaks = function(mode = NULL, compound.ids = NULL) {
+MassdbConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
 	":\n\nReturns the number of peaks contained in the database."
 
 	.self$.abstract.method()

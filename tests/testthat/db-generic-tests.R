@@ -100,6 +100,38 @@ test.wrong.entry.among.good.ones <- function(db) {
 	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
 }
 
+# Test peak table {{{1
+################################################################
+
+test.peak.table <- function(db) {
+
+	biodb <- db$getBiodb()
+	db.name <- db$getId()
+
+	# Load reference entries
+	entries.desc <- load.ref.entries(db.name)
+
+	# Create entries
+	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['accession']], drop = FALSE)
+	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
+	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
+
+	# Check number of peaks
+	if ('nbpeaks' %in% colnames(entries.desc)) {
+
+		# Check that the registered number of peaks is correct
+		expect_equal(vapply(entries, function(e) e$getFieldValue('nbpeaks'), FUN.VALUE = 10), entries.desc[['nbpeaks']])
+
+		# Check that the peak table has this number of peaks
+		peak.tables <- lapply(entries, function(e) e$getFieldValue('peaks'))
+		expect_false(any(vapply(peak.tables, is.null, FUN.VALUE = TRUE)))
+		expect_equal(entries.desc[['nbpeaks']], vapply(peak.tables, nrow, FUN.VALUE = 1))
+
+		# Check that the peak table contains the right columns
+		# TODO
+	}
+}
+
 # Test nb entries {{{1
 ################################################################
 
@@ -125,6 +157,22 @@ test.entry.ids <- function(db) {
 	}
 }
 
+# Test RT unit {{{1
+################################################################
+
+test.rt.unit <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Create entries
+	entries <- db$getBiodb()$getFactory()$getEntry(db$getId(), id = ref.ids, drop = FALSE)
+
+	# Loop on all entries
+	for (e in entries)
+		expect_true( ! e$hasField('chrom.rt') || e$hasField('chrom.rt.unit'), 'If an entry defines a retention time, it must also defines the unit.')
+}
+
 # Run db generic tests {{{1
 ################################################################
 
@@ -135,6 +183,8 @@ run.db.generic.tests <- function(db, mode) {
 	run.db.test.that("Wrong entry gives NULL", 'test.wrong.entry', db)
 	run.db.test.that("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', db)
 	run.db.test.that("Entry fields have a correct value", 'test.entry.fields', db)
+	run.db.test.that("The peak table is correct.", 'test.peak.table', db)
+	run.db.test.that("RT unit is defined when there is an RT value.", 'test.rt.unit', db)
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		run.db.test.that("Nb entries is positive", 'test.nb.entries', db)
 		run.db.test.that("We can get a list of entry ids", 'test.entry.ids', db)
