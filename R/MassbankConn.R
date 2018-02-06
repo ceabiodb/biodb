@@ -295,3 +295,40 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level
 MassbankConn$methods( getNbEntries = function(count = FALSE) {
 	return(length(.self$getEntryIds()))
 })
+
+# Get chromatographic columns {{{1
+################################################################
+
+MassbankConn$methods( getChromCol = function(ids = NULL) {
+
+	if (is.null(ids))
+		ids <- .self$getEntryIds()
+
+	# Get entries
+	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+
+	# Get data frame
+	cols <- .self$getBiodb()$entriesToDataframe(entries, fields = c('chrom.col.id', 'chrom.col.name'))
+	if (is.null(cols))
+		cols <- data.frame(chrom.col.id = character(), chrom.col.name = character())
+
+	# Remove NA values
+	cols <- cols[ ! is.na(cols$chrom.col.name), , drop = FALSE]
+
+	# Set IDs
+	if ('chrom.col.id' %in% names(cols)) {
+		no.ids <- is.na(cols$chrom.col.id)
+		if (any(no.ids))
+			cols[no.ids, 'chrom.col.id'] <- cols[no.ids, 'chrom.col.name']
+	}
+	else
+		cols[['chrom.col.id']] <- cols$chrom.col.name
+
+	# Remove duplicates
+	cols <- cols[ ! duplicated(cols), ]
+
+	# Rename columns
+	names(cols) <- c('id', 'title')
+
+	return(cols)
+})
