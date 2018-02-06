@@ -45,12 +45,12 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .allow.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, alias = NA_character_, class = 'character', card = BIODB.CARD.ONE, allow.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, ...) {
+BiodbEntryField$methods( initialize = function(name, alias = NA_character_, class = 'character', card = BIODB.CARD.ONE, forbids.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, ...) {
 
 	callSuper(...)
 
@@ -94,10 +94,16 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, clas
 	}
 	.allowed.values <<- allowed.values
 
+	# Case insensitive
+	if (case.insensitive && class != 'character')
+		.self$message('error', 'Only character fields can be case insensitive.')
+	.case.insensitive <<- case.insensitive
+
 	# Set other fields
-	.allow.duplicates <<- allow.duplicates
+	.forbids.duplicates <<- forbids.duplicates
 	.db.id <<- db.id
 	.lower.case <<- lower.case
+
 })
 
 # Get name {{{1
@@ -232,13 +238,22 @@ BiodbEntryField$methods( hasCardMany = function() {
 	return(.self$.cardinality == BIODB.CARD.MANY)
 })
 
-# Allows duplicates {{{1
+# Forbids duplicates {{{1
 ################################################################
 
-BiodbEntryField$methods( allowsDuplicates = function() {
-	":\n\n Returns \\code{TRUE} if this field allows duplicated values."
+BiodbEntryField$methods( forbidsDuplicates = function() {
+	":\n\n Returns \\code{TRUE} if this field forbids duplicated values."
 
-	return(.self$.allow.duplicates)
+	return(.self$.forbids.duplicates)
+})
+
+# Is case insensitive {{{1
+################################################################
+
+BiodbEntryField$methods( isCaseInsensitive = function() {
+	":\n\n Returns \\code{TRUE} if this field is case insensitive."
+
+	return(.self$.case.insensitive)
 })
 
 # Get class {{{1

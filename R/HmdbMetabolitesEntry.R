@@ -24,7 +24,6 @@ HmdbMetabolitesEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('SUPER.CLASS', "//super_class")
 	.self$addParsingExpression('AVERAGE.MASS', "//average_molecular_weight")
 	.self$addParsingExpression('MONOISOTOPIC.MASS', "//monisotopic_molecular_weight")
-	.self$addParsingExpression('SYNONYMS', "//synonym")
 	.self$addParsingExpression('COMP.IUPAC.NAME.SYST', "//iupac_name")
 	.self$addParsingExpression('COMP.IUPAC.NAME.TRAD', "//traditional_iupac")
 	.self$addParsingExpression('CAS.ID', "//cas_registry_number")
@@ -48,4 +47,9 @@ HmdbMetabolitesEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	# Correct InChIKey
 	if (.self$hasField('INCHIKEY'))
 		.self$setFieldValue('INCHIKEY', sub('^InChIKey=', '', .self$getFieldValue('INCHIKEY'), perl = TRUE))
+
+	# Synonyms
+	synonyms <- XML::xpathSApply(parsed.content, "//synonym", XML::xmlValue)
+	if (length(synonyms) > 0)
+		.self$appendFieldValue('name', synonyms)
 })

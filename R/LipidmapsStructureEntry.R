@@ -15,7 +15,6 @@ LipidmapsStructureEntry$methods( initialize = function(...) {
 	callSuper(na.strings = '-', ...)
 
 	.self$addParsingExpression('NAME', 'COMMON_NAME')
-	.self$addParsingExpression('SYNONYMS', 'SYNONYMS')
 	.self$addParsingExpression('ACCESSION', 'LM_ID')
 	.self$addParsingExpression('kegg.compound.id', 'KEGG_ID')
 	.self$addParsingExpression('hmdb.metabolites.id', 'HMDBID')
@@ -44,5 +43,12 @@ LipidmapsStructureEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		v <- sub('^ +', '', v, perl = TRUE)
 		v <- sub(' +$', '', v, perl = TRUE)
 		.self$setFieldValue('SYNONYMS', v)
+	}
+
+	# Synonyms
+	if ('SYNONYMS' %in% names(parsed.content)) {
+		v <- parsed.content[['SYNONYMS']]
+		v <- strsplit(v, ' *; *')[[1]]
+		.self$appendFieldValue('name', v)
 	}
 })
