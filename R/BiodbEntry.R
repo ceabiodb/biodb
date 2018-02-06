@@ -72,21 +72,9 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	field.def <- .self$getBiodb()$getEntryFields()$get(field)
 	field <- field.def$getName()
 
-	# Remove duplicates
-	if ( ! field.def$allowsDuplicates() && is.vector(value))
-		value <- value[ ! duplicated(value)]
-
 	# Specific case to handle objects.
 	if (field.def$isObject() && !(isS4(value) & methods::is(value, "refClass")))
 	  .self$message('error', paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
-	
-	# Check cardinality
-	if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
-		if (length(value) > 1)
-			.self$message('error', paste0('Cannot set more that one value (', paste(value, collapse = ', '), ') into single value field "', field, '".'))
-		if (length(value) == 0)
-			.self$message('error', paste0('Cannot set an empty vector into single value field "', field, '".'))
-	}
 
 	# Check value class
 	if (field.def$isVector()) {
@@ -101,6 +89,18 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 
 	# Correct value
 	value <- field.def$correctValue(value)
+
+	# Remove duplicates
+	if (field.def$forbidsDuplicates())
+		value <- value[ ! duplicated(if (field.def$isCaseInsensitive()) tolower(value) else value)]
+
+	# Check cardinality
+	if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
+		if (length(value) > 1)
+			.self$message('error', paste0('Cannot set more that one value (', paste(value, collapse = ', '), ') into single value field "', field, '".'))
+		if (length(value) == 0)
+			.self$message('error', paste0('Cannot set an empty vector into single value field "', field, '".'))
+	}
 
 	# Set value
 	.self$.fields[[field.def$getName()]] <- value
