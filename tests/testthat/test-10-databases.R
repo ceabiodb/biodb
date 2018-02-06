@@ -36,8 +36,6 @@ for (mode in TEST.MODES) {
 		# Get instance
 		db <- biodb$getFactory()$getConn(db.name)
 
-		set.test.context(biodb, paste("Running tests on database", db.name, "in", mode, "mode"))
-
 		# Generic tests
 		run.db.generic.tests(db, mode)
 
@@ -49,7 +47,9 @@ for (mode in TEST.MODES) {
 
 		# Specific tests
 		fct <- paste('run', db.name, 'tests', sep = '.')
-		if (exists(fct))
+		if (exists(fct)) {
+			set.test.context(biodb, paste("Running specific tests on database", db.name, "in", mode, "mode"))
 			do.call(fct, list(db, mode))
+		}
 	}
 }
