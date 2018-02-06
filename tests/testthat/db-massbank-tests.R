@@ -9,7 +9,7 @@ test.msmsSearch.massbank <- function(db) {
 	spectrum <- data.frame(mz = c(100.100, 83.100), rel.int = c(100, 10))
 
 	# Search for match:
-	result <- db$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
+	result <- db$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3, ms.mode = 'neg', max.results = 3)
 
 	expect_true( ! is.null(result))
 	expect_true(is.data.frame(result))
