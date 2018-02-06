@@ -9,14 +9,15 @@ test.msmsSearch.self.match <- function(db) {
 	db.name <- db$getId()
 
 	# Set some initial values to speed up test
-	db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)))
+	db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)),
+	                  massbank.jp = list(neg = list(spectrum.id = 'PR100504', mz = 193.0354), pos = list(spectrum.id = 'AU106501', mz = 316.075)))
 
 	# Loop on modes
-	for (mode in BIODB.MSMODE.VALS) {
+	for (mode in c('neg', 'pos')) {
 
 		# Get M/Z value and spectrum ID to be tested
-		if (db.name %in% names(db.values)) {
-			if ( ! mode %in% names(db.values[[db.name]]) || is.null(db.values[[db.name]][[mode]]))
+		if (db.name %in% names(db.values) && mode %in% names(db.values[[db.name]])) {
+			if (is.null(db.values[[db.name]][[mode]]))
 				next
 			mz <- db.values[[db.name]][[mode]]$mz
 			spectrum.id <- db.values[[db.name]][[mode]]$spectrum.id
@@ -26,14 +27,14 @@ test.msmsSearch.self.match <- function(db) {
 			mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
 
 			# Find corresponding spectrum
-			spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
+			spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = 'ppm', ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
 		}
 
 		# Get entry
 		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
 
 		# Get peaks
-		peaks <- spectrum.entry$getFieldValue('PEAKS')
+		peaks <- spectrum.entry$getFieldValue('peaks')
 		int.col <- if ('peak.intensity' %in% names(peaks)) 'peak.intensity' else 'peak.relative.intensity'
 		peaks <- peaks[order(peaks[[int.col]], decreasing = TRUE), ]
 		peaks <- peaks[1:2, ]
