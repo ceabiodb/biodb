@@ -41,6 +41,7 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 
 	# Get list of spectra
 	spectra.ids <- .self$getEntryIds()
+	.self$message('debug', paste(length(spectra.ids), "spectra to process."))
 
 	# Loop in all spectra
 	i <- 0
@@ -66,13 +67,13 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 
 		# Take mz values
 		new.mz <- NULL
-		if (precursor) {
-			if (entry$hasField('msprecmz'))
-				new.mz <- entry$getFieldValue('msprecmz', last = TRUE)
-		} else {
-			peaks <- entry$getFieldValue('peaks')
-			if ( ! is.null(peaks) && nrow(peaks) > 0 && 'peak.mz' %in% colnames(peaks))
-				new.mz <- peaks[['peak.mz']]
+		peaks <- entry$getFieldValue('peaks')
+		if ( ! is.null(peaks) && nrow(peaks) > 0 && 'peak.mz' %in% colnames(peaks)) {
+			new.mz <- peaks$peak.mz
+			if (precursor && entry$hasField('msprecmz')) {
+				prec.mz <- entry$getFieldValue('msprecmz', last = TRUE)
+				new.mz <- if (prec.mz %in% new.mz) prec.mz else NULL
+			}
 		}
 
 		# Add new M/Z values
@@ -106,7 +107,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 	returned.ids <- character()
 
 	# Multiple M/Z values and PPM tolerance
-	if (length(mz) > 1 && mz.tol.unit == BIODB.MZTOLUNIT.PPM) {
+	if (length(mz) > 1 && mz.tol.unit == 'ppm') {
 		for (mz.single in mz)
 			returned.ids <- c(returned.ids, .self$.doSearchMzTol(mz = mz.single, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 		returned.ids <- returned.ids[ ! duplicated(returned.ids)]
@@ -135,6 +136,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
 			ns <- c(ax21 = "http://api.massbank/xsd")
 			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
+			.self$message('debug', paste('Found spectra ', paste(returned.ids, collapse = ', '), '.', sep = ''))
 
 			if (ms.level > 0 || precursor) {
 
@@ -148,6 +150,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 					precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('msprecmz', last = TRUE), FUN.VALUE = 1.0)
 					precursor.matched <- (! is.na(precursor.mz)) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
 					entries <- entries[precursor.matched]
+					.self$message('debug', paste(length(entries), 'entrie(s) left.'))
 				}
 
 				# Filter on ms.level
@@ -155,10 +158,12 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 					.self$message('debug', paste('Filtering on MS level ', ms.level, '.', sep = ''))
 					ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue('MS.LEVEL') == ms.level, FUN.VALUE = TRUE)
 					entries <- entries[ms.level.matched]
+					.self$message('debug', paste(length(entries), 'entrie(s) left.'))
 				}
 
 				.self$message('debug', 'Getting list of IDs.')
 				returned.ids <- vapply(entries, function(x) x$getFieldValue('ACCESSION'), FUN.VALUE = '')
+				.self$message('debug', paste('Remaining spectra are ', paste(returned.ids, collapse = ', '), '.', sep = ''))
 			}
 		}
 	}
@@ -294,4 +299,41 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level
 
 MassbankConn$methods( getNbEntries = function(count = FALSE) {
 	return(length(.self$getEntryIds()))
+})
+
+# Get chromatographic columns {{{1
+################################################################
+
+MassbankConn$methods( getChromCol = function(ids = NULL) {
+
+	if (is.null(ids))
+		ids <- .self$getEntryIds()
+
+	# Get entries
+	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+
+	# Get data frame
+	cols <- .self$getBiodb()$entriesToDataframe(entries, fields = c('chrom.col.id', 'chrom.col.name'))
+	if (is.null(cols))
+		cols <- data.frame(chrom.col.id = character(), chrom.col.name = character())
+
+	# Remove NA values
+	cols <- cols[ ! is.na(cols$chrom.col.name), , drop = FALSE]
+
+	# Set IDs
+	if ('chrom.col.id' %in% names(cols)) {
+		no.ids <- is.na(cols$chrom.col.id)
+		if (any(no.ids))
+			cols[no.ids, 'chrom.col.id'] <- cols[no.ids, 'chrom.col.name']
+	}
+	else
+		cols[['chrom.col.id']] <- cols$chrom.col.name
+
+	# Remove duplicates
+	cols <- cols[ ! duplicated(cols), ]
+
+	# Rename columns
+	names(cols) <- c('id', 'title')
+
+	return(cols)
 })

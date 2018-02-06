@@ -15,7 +15,7 @@ MassbankEntry$methods( .doParseContent = function(content) {
 	# Get lines of content
 	lines <- strsplit(content, "\r?\n")[[1]]
 
-	# Look for last line
+	# Look for last line marker
 	g <- stringr::str_match(lines, "^//$")
 	last.line.number <- which(! is.na(g[, 1]))
 
@@ -43,12 +43,12 @@ MassbankEntry$methods( .doParseContent = function(content) {
 
 MassbankEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 
-	# Look for last line
+	# Look for last line marker
 	g <- stringr::str_match(parsed.content, "^//$")
 	last.line.number <- which(! is.na(g[, 1]))
 
-	# Incorrect last line?
-	if (length(last.line.number) != 1 || last.line.number != length(parsed.content)) {
+	# Incorrect last line marker?
+	if (length(last.line.number) > 1 || (length(last.line.number) == 1 && last.line.number != length(parsed.content))) {
 
 		# Get accession number
 		g <- stringr::str_match(parsed.content, "^ACCESSION: (.+)$")
@@ -102,6 +102,10 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('exact.mass', "^CH\\$EXACT_MASS:\\s+(.+)$")
 	.self$addParsingExpression('MSMODE', "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
 	.self$addParsingExpression('SYNONYMS', "^CH\\$NAME:\\s+(.+)$")
+	.self$addParsingExpression('chrom.col.name', "^AC\\$CHROMATOGRAPHY: COLUMN_NAME\\s+(.+)$")
+	.self$addParsingExpression('chrom.solvent', "^AC\\$CHROMATOGRAPHY: SOLVENT\\s+(.+)$")
+	.self$addParsingExpression('chrom.flow.rate', "^AC\\$CHROMATOGRAPHY: FLOW_RATE\\s+(.+)$")
+	.self$addParsingExpression('chrom.flow.gradient', "^AC\\$CHROMATOGRAPHY: FLOW_GRADIENT\\s+(.+)$")
 })
 
 # Parse peak info {{{1
@@ -236,9 +240,8 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		if ( ! unit %in% c('min', 'sec', 's'))
 			.self$message('warning', paste("Unknown unit", unit, " for retention time while parsing massbank entry."))
 		rt <- as.numeric(results[,2])
-		if (unit == 'min')
-			rt <- 60 * rt
-		.self$setFieldValue('chrom.col.rt', rt)
+		.self$setFieldValue('chrom.rt.unit', if (unit == 'min') 'min' else 's')
+		.self$setFieldValue('chrom.rt', rt)
 	}
 
 	# Name

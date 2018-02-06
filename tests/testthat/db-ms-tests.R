@@ -9,14 +9,15 @@ test.msmsSearch.self.match <- function(db) {
 	db.name <- db$getId()
 
 	# Set some initial values to speed up test
-	db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)))
+	db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)),
+	                  massbank.jp = list(neg = list(spectrum.id = 'PR100504', mz = 193.0354), pos = list(spectrum.id = 'AU106501', mz = 316.075)))
 
 	# Loop on modes
-	for (mode in BIODB.MSMODE.VALS) {
+	for (mode in c('neg', 'pos')) {
 
 		# Get M/Z value and spectrum ID to be tested
-		if (db.name %in% names(db.values)) {
-			if ( ! mode %in% names(db.values[[db.name]]) || is.null(db.values[[db.name]][[mode]]))
+		if (db.name %in% names(db.values) && mode %in% names(db.values[[db.name]])) {
+			if (is.null(db.values[[db.name]][[mode]]))
 				next
 			mz <- db.values[[db.name]][[mode]]$mz
 			spectrum.id <- db.values[[db.name]][[mode]]$spectrum.id
@@ -26,14 +27,14 @@ test.msmsSearch.self.match <- function(db) {
 			mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
 
 			# Find corresponding spectrum
-			spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM, ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
+			spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = 'ppm', ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
 		}
 
 		# Get entry
 		spectrum.entry <- biodb$getFactory()$getEntry(db.name, spectrum.id)
 
 		# Get peaks
-		peaks <- spectrum.entry$getFieldValue('PEAKS')
+		peaks <- spectrum.entry$getFieldValue('peaks')
 		int.col <- if ('peak.intensity' %in% names(peaks)) 'peak.intensity' else 'peak.relative.intensity'
 		peaks <- peaks[order(peaks[[int.col]], decreasing = TRUE), ]
 		peaks <- peaks[1:2, ]
@@ -197,43 +198,12 @@ test.searchMzTol.with.precursor <- function(db) {
 	}
 }
 
-# Test peak table {{{1
-################################################################
-
-test.peak.table <- function(db) {
-
-	biodb <- db$getBiodb()
-	db.name <- db$getId()
-
-	# Load reference entries
-	entries.desc <- load.ref.entries(db.name)
-
-	# Create entries
-	entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['accession']], drop = FALSE)
-	expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
-	expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
-
-	# Check number of peaks
-	if ('nbpeaks' %in% colnames(entries.desc)) {
-
-		# Check that the registered number of peaks is correct
-		expect_equal(vapply(entries, function(e) e$getFieldValue('nbpeaks'), FUN.VALUE = 10), entries.desc[['nbpeaks']])
-
-		# Check that the peak table has this number of peaks
-		peak.tables <- lapply(entries, function(e) e$getFieldValue('peaks'))
-		expect_false(any(vapply(peak.tables, is.null, FUN.VALUE = TRUE)))
-		expect_equal(entries.desc[['nbpeaks']], vapply(peak.tables, nrow, FUN.VALUE = 1))
-
-		# Check that the peak table contains the right columns
-		# TODO
-	}
-}
 
 # Test getChromCol {{{1
 ################################################################
 
 test.getChromCol <- function(db) {
-	chrom.col <- db$getChromCol()
+	chrom.col <- db$getChromCol(ids = list.ref.entries(db$getId()))
 	expect_is(chrom.col, 'data.frame')
 	expect_identical(names(chrom.col), c('id', 'title'))
 }
@@ -279,16 +249,21 @@ test.msmsSearch.no.ids <- function(db) {
 run.mass.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'MassdbConn')) {
-			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
+
+			set.test.context(db$getBiodb(), paste("Running M/Z search generic tests on database", db$getId(), "in", mode, "mode"))
 			run.db.test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', db)
 			run.db.test.that("We can match M/Z peaks.", 'test.searchMzTol',db)
 			run.db.test.that("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',db)
 			run.db.test.that("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', db)
+
+			set.test.context(db$getBiodb(), paste("Running LCMS generic tests on database", db$getId(), "in", mode, "mode"))
+			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
+			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
+
+			set.test.context(db$getBiodb(), paste("Running MSMS generic tests on database", db$getId(), "in", mode, "mode"))
 			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
 			run.db.test.that('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
 			run.db.test.that('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
-			run.db.test.that("The peak table is correct.", 'test.peak.table', db)
-			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
 			run.db.test.that('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', db)
 		}
 }
