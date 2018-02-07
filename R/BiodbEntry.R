@@ -91,7 +91,7 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	value <- field.def$correctValue(value)
 
 	# Remove duplicates
-	if (field.def$forbidsDuplicates())
+	if (field.def$forbidsDuplicates() || (field.def$isVector() && field.def$hasCardOne()))
 		value <- value[ ! duplicated(if (field.def$isCaseInsensitive()) tolower(value) else value)]
 
 	# Check cardinality
