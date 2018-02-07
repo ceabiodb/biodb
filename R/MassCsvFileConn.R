@@ -125,6 +125,8 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 		return()
 	}
 
+	.self$message('debug', paste('Set field ', tag, ' to column(s) ', paste(colname, collapse = ', '), '.', sep = ''))
+	              
 	# One column used, only
 	if (length(colname) == 1) {
 		.self$.fields[[tag]] <- colname
