@@ -34,8 +34,12 @@ NcbiGeneConn$methods( getEntryContent = function(entry.id) {
 ################################################################
 
 NcbiGeneConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+	return(paste0(file.path(.self$getWsUrl(), 'efetch.fcgi', fsep = '/'), '?db=', .self$.db.name, '&id=', id, '&rettype=xml&retmode=text'))
+})
 
-	url <- paste0(file.path(.self$getWsUrl(), 'efetch.fcgi', fsep = '/'), '?db=', .self$.db.name, '&id=', id, '&rettype=xml&retmode=text')
+# Get entry page url {{{1
+################################################################
 
-	return(url)
+NcbiGeneConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), .self$.db.name, '/?term=', id))
 })
