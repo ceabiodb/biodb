@@ -1,10 +1,9 @@
 {
   "accession": "Q31611",
-  "name": "Q31611_HUMAN",
+  "name": ["Q31611_HUMAN", "B2 microglobulin", "HLA class I histocompatibility antigen, alpha chain G"],
   "length": 246,
   "mass": 27680.0,
   "gene.symbols": ["HLA-G2.2", "HLA-G"],
   "ncbi.gene.id": "3135",
-  "fullnames": ["B2 microglobulin", "HLA class I histocompatibility antigen, alpha chain G"],
   "sequence": "MVVMAPRTLFLLLSGALTLTETWAGSHSMRYFSAAVSRPGRGEPRFIAMGYVDDTQFVRFDSDSACPRMEPRAPWVEQEGPEYWEEETRNTKAHAQTDRMNLQTLRGYYNQSEANPPKTHVTHHPVFDYEATLRCWALGFYPAEIILTWQRDGEDQTQDVELVETRPAGDGTFQKWAAVVVPSGEEQRYTCHVQHEGLPEPLMLRWKQSSLPTIPIMGIVAGLVVLAAVVTGAAVAAVLWRKKSSD"
 }
