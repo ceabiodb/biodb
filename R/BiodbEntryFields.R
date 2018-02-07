@@ -149,7 +149,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('accession',      description = 'The accession number of the entry.')
 	# Define database ID fields
 	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
-		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'))
+		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE)
 	.self$.define('compound.id', alias = 'compoundid', description = 'The compound ID.')
 	.self$.define('cas.id',             description = '', alias = 'casid')
 
