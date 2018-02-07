@@ -182,10 +182,10 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer')
 	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double')
 
-	.self$.define('super.class',        description = 'Super class.', alias = 'superclass')
+	.self$.define('comp.super.class',        description = 'Compound super class.', alias = c('superclass', 'super.class'))
 	.self$.define('sequence',           description = 'Gene or protein sequence.')
-	.self$.define('length',             description = 'Sequence length.',               class = 'integer')
-	.self$.define('location',           description = 'Sequence location.')
+	.self$.define('seq.length',             description = 'Sequence length.',               class = 'integer', alias = 'length')
+	.self$.define('seq.location',           description = 'Sequence location.', alias = 'location')
 
 	.self$.define('msdev',              description = 'Mass spectrometer device.')
 	.self$.define('ms.level',           description = 'Mass spectrum level.', class = 'integer')
