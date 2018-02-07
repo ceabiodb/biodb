@@ -22,7 +22,6 @@ ChebiEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('MONOISOTOPIC.MASS', "//chebi:monoisotopicMass")
 	.self$addParsingExpression('CHARGE', "//chebi:charge")
 	.self$addParsingExpression('name', "//chebi:chebiAsciiName")
-	.self$addParsingExpression('synonyms', "//chebi:Synonyms/chebi:data")
 	.self$addParsingExpression('formula', "//chebi:Formulae/chebi:data")
 })
 
@@ -39,4 +38,9 @@ ChebiEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
 		.self$setFieldValue('ACCESSION', accession)
 	}
+
+	# Get synonyms
+	synonyms <- XML::xpathSApply(parsed.content, "//chebi:Synonyms/chebi:data", XML::xmlValue, namespaces = .self$.namespace)
+	if (length(synonyms) > 0)
+		.self$appendFieldValue('name', synonyms)
 })

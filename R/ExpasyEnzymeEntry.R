@@ -16,7 +16,6 @@ ExpasyEnzymeEntry$methods( initialize = function(...) {
 
 	.self$addParsingExpression('ACCESSION', "^ID\\s+([0-9.]+)$")
 	.self$addParsingExpression('NAME', "^DE\\s+(.+?)\\.?$")
-	.self$addParsingExpression('SYNONYMS', "^AN\\s+(.+?)\\.?$") # Alternate names
 	.self$addParsingExpression('CATALYTIC.ACTIVITY', "^CA\\s+(.+?)\\.?$")
 	.self$addParsingExpression('COFACTOR', "^CF\\s+(.+?)\\.?$")
 })
@@ -29,4 +28,10 @@ ExpasyEnzymeEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	# Cofactors may be listed on a single line, separated by a semicolon.
 	if (.self$hasField('COFACTOR'))
 		.self$setFieldValue('COFACTOR', unlist(strsplit(.self$getFieldValue('COFACTOR'), ' *; *')))
+
+	# Synonyms
+	g <- stringr::str_match(parsed.content, "^AN\\s+(.+?)\\.?$")
+	results <- g[ ! is.na(g[,1]), , drop = FALSE]
+	if (nrow(results) > 0)
+		.self$appendFieldValue('name', results[,2])
 })

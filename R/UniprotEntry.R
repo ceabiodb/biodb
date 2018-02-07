@@ -16,7 +16,6 @@ UniprotEntry$methods( initialize = function(...) {
 
 	.self$addParsingExpression('NAME', "/uniprot:uniprot/uniprot:entry/uniprot:name")
 	.self$addParsingExpression('GENE.SYMBOLS', "//uniprot:gene/uniprot:name")
-	.self$addParsingExpression('FULLNAMES', "//uniprot:protein//uniprot:fullName")
 	.self$addParsingExpression('SEQUENCE', "//uniprot:entry/uniprot:sequence")
 	.self$addParsingExpression('ACCESSION', "//uniprot:accession[1]")
 	.self$addParsingExpression('kegg.compound.id', list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id'))
@@ -41,4 +40,9 @@ UniprotEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	# Remove new lines from sequence string
 	if (.self$hasField('SEQUENCE'))
 		.self$setField('SEQUENCE', gsub("\\n", "", .self$getFieldValue('SEQUENCE')))
+
+	# Get synonyms
+	synonyms <- XML::xpathSApply(parsed.content, "//uniprot:protein//uniprot:fullName", XML::xmlValue, namespaces = .self$.namespace)
+	if (length(synonyms) > 0)
+		.self$appendFieldValue('name', synonyms)
 })

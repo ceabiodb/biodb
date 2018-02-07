@@ -236,8 +236,13 @@ init.mass.csv.file.db <- function(biodb) {
 ################################################################
 
 run.db.test.that <- function(msg, fct, db) {
-	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS)
+	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
+		db$message('info', '')
+		db$message('info', paste('Running test function', fct))
+		db$message('info', '----------------------------------------------------------------')
+		db$message('info', '')
 		test_that(msg, do.call(fct, list(db)))
+	}
 }
 
 # Create test observer {{{1
