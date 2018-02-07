@@ -83,6 +83,7 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$.abstract.class('MassbankEntry')
 
 	.self$addParsingExpression('ACCESSION', "^ACCESSION: (.+)$")
+	.self$addParsingExpression('name', "^CH\\$NAME:\\s+(.+)$")
 	.self$addParsingExpression('MSDEV', "^AC\\$INSTRUMENT: (.+)$")
 	.self$addParsingExpression('MSDEVTYPE', "^AC\\$INSTRUMENT_TYPE: (.+)$")
 	.self$addParsingExpression('MSTYPE', "^AC\\$MASS_SPECTROMETRY: MS_TYPE (.+)$")
@@ -101,7 +102,6 @@ MassbankEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('SMILES', "^CH\\$SMILES:\\s+(.+)$")
 	.self$addParsingExpression('exact.mass', "^CH\\$EXACT_MASS:\\s+(.+)$")
 	.self$addParsingExpression('MSMODE', "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$")
-	.self$addParsingExpression('SYNONYMS', "^CH\\$NAME:\\s+(.+)$")
 	.self$addParsingExpression('chrom.col.name', "^AC\\$CHROMATOGRAPHY: COLUMN_NAME\\s+(.+)$")
 	.self$addParsingExpression('chrom.solvent', "^AC\\$CHROMATOGRAPHY: SOLVENT\\s+(.+)$")
 	.self$addParsingExpression('chrom.flow.rate', "^AC\\$CHROMATOGRAPHY: FLOW_RATE\\s+(.+)$")
@@ -242,18 +242,6 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		rt <- as.numeric(results[,2])
 		.self$setFieldValue('chrom.rt.unit', if (unit == 'min') 'min' else 's')
 		.self$setFieldValue('chrom.rt', rt)
-	}
-
-	# Name
-	if (.self$hasField('SYNONYMS')) {
-		v <- .self$getFieldValue('SYNONYMS', compute = FALSE)
-		if (length(v) > 0) {
-			.self$setFieldValue('NAME', v[[1]])
-			if (length(v) == 1)
-				.self$removeField('SYNONYMS')
-			else
-				.self$setFieldValue('SYNONYMS', v[2:length(v)])
-		}
 	}
 
 	# MS level

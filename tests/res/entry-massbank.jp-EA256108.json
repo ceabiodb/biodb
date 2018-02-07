@@ -1,12 +1,11 @@
 {
   "accession": "EA256108",
-  "name": "Gabapentin",
+  "name": ["Gabapentin", "1-(Aminomethyl)cyclohexaneacetic acid", "2-[1-(aminomethyl)cyclohexyl]acetic acid"],
   "exact.mass": 171.1259,
   "formula": "C9H17NO2",
   "nb.peaks": 4,
   "inchikey": "UGJMXCAKCUNAIE-UHFFFAOYSA-N",
   "inchi": "InChI=1S/C9H17NO2/c10-7-9(6-8(11)12)4-2-1-3-5-9/h1-7,10H2,(H,11,12)",
-  "synonyms": ["1-(Aminomethyl)cyclohexaneacetic acid", "2-[1-(aminomethyl)cyclohexyl]acetic acid"],
   "msdev": "LTQ Orbitrap XL Thermo Scientific",
   "msdevtype": "LC-ESI-ITFT",
   "mstype": "MS2",
