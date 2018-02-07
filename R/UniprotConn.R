@@ -115,6 +115,13 @@ UniprotConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	return(url)
 })
 
+# Get entry page url {{{1
+################################################################
+
+UniprotConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), id))
+})
+
 # Search compound {{{1
 ################################################################
 

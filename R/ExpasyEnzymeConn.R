@@ -110,6 +110,13 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, molecular.mass 
 	return(ids)
 })
 
+# Get entry page url {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 
