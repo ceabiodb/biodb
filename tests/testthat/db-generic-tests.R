@@ -173,6 +173,40 @@ test.rt.unit <- function(db) {
 		expect_true( ! e$hasField('chrom.rt') || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
 }
 
+# Test entry page URL {{{1
+################################################################
+
+test.entry.page.url <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Get URLs
+	urls <- db$getEntryPageUrl(ref.ids)
+
+	# Check
+	expect_is(urls, 'character')
+	expect_length(urls, length(ref.ids))
+	expect_false(any(is.na(urls)))
+}
+
+# Test entry page URL download {{{1
+################################################################
+
+test.entry.page.url.download <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Get URL
+	url <- db$getEntryPageUrl(ref.ids[[1]])
+
+	# Try downloading
+	content <- RCurl::getURL(url)
+	expect_true( ! is.na(content))
+	expect_true(nchar(content) > 0)
+}
+
 # Run db generic tests {{{1
 ################################################################
 
@@ -186,7 +220,12 @@ run.db.generic.tests <- function(db, mode) {
 	run.db.test.that("The peak table is correct.", 'test.peak.table', db)
 	run.db.test.that("RT unit is defined when there is an RT value.", 'test.rt.unit', db)
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test.that("Nb entries is positive", 'test.nb.entries', db)
-		run.db.test.that("We can get a list of entry ids", 'test.entry.ids', db)
+		run.db.test.that("Nb entries is positive.", 'test.nb.entries', db)
+		run.db.test.that("We can get a list of entry ids.", 'test.entry.ids', db)
+	}
+	if (methods::is(db, 'RemotedbConn')) {
+		run.db.test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', db)
+		if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+			run.db.test.that("The entry page URL can be downloaded.", 'test.entry.page.url.download', db)
 	}
 }

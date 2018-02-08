@@ -337,3 +337,10 @@ MassbankConn$methods( getChromCol = function(ids = NULL) {
 
 	return(cols)
 })
+
+# Get entry page url {{{1
+################################################################
+
+MassbankConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'jsp/FwdRecord.jsp?id=', id))
+})

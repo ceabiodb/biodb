@@ -94,10 +94,7 @@ ChemspiderConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE)
 ################################################################
 
 ChemspiderConn$methods( getEntryPageUrl = function(id) {
-
-	url <- paste0(.self$getBaseUrl(), 'Chemical-Structure.', id, '.html')
-
-	return(url)
+	return(paste0(.self$getBaseUrl(), 'Chemical-Structure.', id, '.html'))
 })
 
 # Get entry image url {{{1
