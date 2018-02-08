@@ -14,6 +14,13 @@ ChebiConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	return(paste(file.path(.self$getWsUrl(), 'getCompleteEntity', fsep = '/'), '?chebiId=', id, sep = ''))
 })
 
+# Get entry page url {{{1
+################################################################
+
+ChebiConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'searchId.do?chebiId=', id))
+})
+
 # Get entry content {{{1
 ################################################################
 
