@@ -8,8 +8,6 @@ OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
-#ONLINE.CACHE.DIR <- file.path(TEST.DIR, 'cache')
-LOG.FILE.PATH <- file.path(TEST.DIR, 'test.log')
 USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
@@ -83,8 +81,17 @@ if ('FUNCTIONS' %in% names(env)) {
 
 create.biodb.instance <- function() {
 
+	# Find free log file name
+	log.index <- 0
+	while (TRUE) {
+		log.file.path <- file.path(TEST.DIR, paste0('test', if (log.index == 0) '' else log.index, '.log'))
+		if ( ! file.exists(log.file.path))
+			break
+		log.index <- log.index + 1
+	}
+
 	# Create logger
-	logger = BiodbLogger$new(file = LOG.FILE.PATH, mode = 'a')
+	logger = BiodbLogger$new(file = log.file.path, mode = 'a')
 	logger$includeMsgType('debug')
 
 	# Create instance

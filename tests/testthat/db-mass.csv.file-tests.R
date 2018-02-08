@@ -129,6 +129,7 @@ test.undefined.fields <- function(db) {
 	new.biodb <- create.biodb.instance()
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.HEADER.URL)
 	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are unknown\\.$')
+	new.biodb$terminate()
 }
 
 # Test wrong nb cols {{{1
@@ -138,6 +139,7 @@ test.wrong.nb.cols <- function(db) {
 	new.biodb <- create.biodb.instance()
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.NB.COLS.URL)
 	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
+	new.biodb$terminate()
 }
 
 # Test field card one {{{1
@@ -161,6 +163,8 @@ test.field.card.one <- function(db) {
 	conn$setField('ms.mode', 'mode')
 	conn$setField('peak.mztheo', 'mz')
 	expect_error(conn$checkDb(), regexp = '^.*You cannot set multiple values .* for enumerated field ms.mode.$')
+
+	new.biodb$terminate()
 }
 
 # Run Mass CSV File tests {{{1
