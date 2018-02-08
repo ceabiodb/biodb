@@ -51,8 +51,5 @@ NcbiCcdsConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 ################################################################
 
 NcbiCcdsConn$methods( getEntryPageUrl = function(id) {
-
-	url <- paste0(file.path(.self$getBaseUrl(), 'CcdsBrowse.cgi', fsep = '/'), '?REQUEST=CCDS&GO=MainBrowse&DATA=', id)
-
-	return(url)
+	return(paste0(file.path(.self$getBaseUrl(), 'CcdsBrowse.cgi', fsep = '/'), '?REQUEST=CCDS&GO=MainBrowse&DATA=', id))
 })
