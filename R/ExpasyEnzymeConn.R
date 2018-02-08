@@ -114,7 +114,7 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, molecular.mass 
 ################################################################
 
 ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
-	return(rep(NA_character_, length(id)))
+	return(paste0(.self$getBaseUrl(), 'cgi-bin/enzyme/enzyme-search-ec?', sub('^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$', 'field1=\\1&field2=\\2&field3=\\3&field4=\\4', id)))
 })
 
 # PRIVATE METHODS {{{1
