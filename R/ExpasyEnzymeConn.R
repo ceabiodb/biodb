@@ -110,6 +110,13 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, molecular.mass 
 	return(ids)
 })
 
+# Get entry page url {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'cgi-bin/enzyme/enzyme-search-ec?', sub('^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$', 'field1=\\1&field2=\\2&field3=\\3&field4=\\4', id)))
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 
