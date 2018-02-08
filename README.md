@@ -104,11 +104,9 @@ The two environment variables can be combined together.
 | ChEBI            | <http://www.ebi.ac.uk/chebi/> | Hastings, J., de Matos, P., Dekker, A., Ennis, M., Harsha, B., Kale, N., Muthukrishnan, V., Owen, G., Turner, S., Williams, M., and Steinbeck, C. (2013) The ChEBI reference database and ontology for biologically relevant chemistry: enhancements for 2013. Nucleic Acids Res. <http://dx.doi.org/10.1093/nar/gks1146>.
 | ChemSpider       | <http://www.chemspider.com>   | Harry E. Pence and Antony Williams. ChemSpider: An Online Chemical Information Resource. Journal of Chemical Education 2010 87 (11), 1123-1124. <http://dx.doi.org/10.1021/ed100697w>.
 | Expasy Enzyme    | <https://enzyme.expasy.org>   | Bairoch A. The ENZYME database in 2000. Nucleic Acids Res 28:304-305(2000). <https://enzyme.expasy.org/data/enz00.pdf>.
-| ---------------- | ----------------------------- | ----------------------------------------------------------------
 | HMDB             | <http://www.hmdb.ca>          | Wishart DS, Tzur D, Knox C, et al., HMDB: the Human Metabolome Database. Nucleic Acids Res. 2007 Jan;35(Database issue):D521-6. <https://doi.org/10.1093/nar/gkl923>.
-|                  |                               | Wishart DS, Knox C, Guo AC, et al., HMDB: a knowledgebase for the human metabolome. Nucleic Acids Res. 2009 37(Database issue):D603-610. <https://doi.org/10.1093/nar/gkn810>.
-|                  |                               | Wishart DS, Jewison T, Guo AC, Wilson M, Knox C, et al., HMDB 3.0 — The Human Metabolome Database in 2013. Nucleic Acids Res. 2013. Jan 1;41(D1):D801-7. <https://doi.org/10.1093/nar/gks1065>.
-| ---------------- | ----------------------------- | ----------------------------------------------------------------
+Wishart DS, Knox C, Guo AC, et al., HMDB: a knowledgebase for the human metabolome. Nucleic Acids Res. 2009 37(Database issue):D603-610. <https://doi.org/10.1093/nar/gkn810>.
+Wishart DS, Jewison T, Guo AC, Wilson M, Knox C, et al., HMDB 3.0 — The Human Metabolome Database in 2013. Nucleic Acids Res. 2013. Jan 1;41(D1):D801-7. <https://doi.org/10.1093/nar/gks1065>.
 | KEGG Compound |
 | Lipidmaps Structure |
 | Massbank JP
