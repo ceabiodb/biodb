@@ -33,10 +33,8 @@ if (MODE.ONLINE %in% TEST.MODES) {
 biodb <- Biodb$new(logger = FALSE)
 cat(paste('Using cache folder ', biodb$getConfig()$get('cache.directory'), ".\n", sep = ''))
 
-# Remove log file {{{1
+# Remove all log files {{{1
 ################################################################
 
-if (file.exists(LOG.FILE.PATH)) {
-	cat(paste('Delete log file ', LOG.FILE.PATH, ".\n", sep = ''))
-	unlink(LOG.FILE.PATH)
-}
+log.files <- Sys.glob(file.path(TEST.DIR, '*.log'))
+unlink(log.files)

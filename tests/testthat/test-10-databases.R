@@ -53,3 +53,6 @@ for (mode in TEST.MODES) {
 		}
 	}
 }
+
+# Terminate Biodb
+biodb$terminate()

@@ -33,6 +33,12 @@
 #' @exportClass BiodbObserver
 BiodbObserver <- methods::setRefClass("BiodbObserver", fields = list())
 
+# Terminate {{{1
+################################################################
+
+BiodbObserver$methods( terminate = function() {
+})
+
 # Message {{{1
 ################################################################
 
