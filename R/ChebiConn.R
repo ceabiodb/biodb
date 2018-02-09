@@ -46,7 +46,7 @@ ChebiConn$methods( getEntryContent = function(entry.id) {
 ################################################################
 
 ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 'ALL', max.results = 10, stars = 'ALL') {
-	":\n\nCalls getLiteEntity web service and returns the XML result. See http://www.ebi.ac.uk/chebi/webServices.do."
+	":\n\nCalls getLiteEntity web service and returns the XML result. See http://www.ebi.ac.uk/chebi/webServices.do. Be careful when search by mass (search.category = 'MASS' or 'MONOISOTOPIC MASS', since the searched is made in text mode, thus the number must be exactly written as it stored in database eventually padded with 0 in order to have exactly 5 digits after the decimal. An easy solution is to use wildcards to search a mass: '410;.718*'."
 
 	# Check parameters
 	.self$.assert.not.null(search)
@@ -111,7 +111,7 @@ ChebiConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL,
 
 		if (is.null(ids)) {
 			.self$message('caution', 'ChEBI does not use any tolerance while searching for compounds by mass. Thus, only compounds matching exactly the specified mass will be matched.')
-			ids <- .self$ws.getLiteEntity.ids(search = mass, search.category = (if (is.null(monoisotopic.mass)) "MASS" else "MONOISOTOPIC MASS"), max.results = 0)
+			ids <- .self$ws.getLiteEntity.ids(search = paste0(mass, '*'), search.category = (if (is.null(monoisotopic.mass)) "MASS" else "MONOISOTOPIC MASS"), max.results = 0)
 		}
 		else {
 			.self$message('caution', 'Since ChEBI does not use tolerance while searching for compounds by mass, we will do filtering by mass directly on results obtained from the search by name.')

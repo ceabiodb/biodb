@@ -200,7 +200,7 @@ ChemspiderConn$methods( ws.SimpleSearch.ids = function(...) {
 # Search compound {{{1
 ################################################################
 
-ChemspiderConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 1, mass.tol.unit = 'plain', max.results = NA_integer_) {
+ChemspiderConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	id <- NULL
 
@@ -209,14 +209,10 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, molecular.mass = 
 		.self$message('caution', 'Search by molecular mass is not available in ChemSpider database.')
 	if ( ! is.null(monoisotopic.mass)) {
 		if (mass.tol.unit == 'ppm')
-			range <- molecular.mass * mass.tol * 1.e-6
+			range <- monoisotopic.mass * mass.tol * 1.e-6
 		else
 			range <- mass.tol
-		id <- .self$ws.SearchByMass2.ids(mass = molecular.mass, range = range)
-
-		# Cut
-		if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))
-			id <- id[1:max.results]
+		id <- .self$ws.SearchByMass2.ids(mass = monoisotopic.mass, range = range)
 	}
 
 	# Search by name
@@ -231,8 +227,9 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, molecular.mass = 
 			id <- id[id %in% name.id]
 	}
 
-	if (is.null(id))
-		id <- character(0)
+	# Cut
+	if ( ! is.null(id) && ! is.na(max.results) && max.results > 0 && max.results < length(id))
+		id <- id[1:max.results]
 
 	return(id)
 })
@@ -245,5 +242,12 @@ ChemspiderConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of ChemSpider entries.")
 
-	return(.self$searchCompound(mass = 100, mass.tol = 10, max.results = max.results))
+	ids <- NULL
+
+	if (max.results < 10)
+		ids <- .self$searchCompound(monoisotopic.mass = 100, mass.tol = 0.01, max.results = max.results)
+	else
+		ids <- .self$searchCompound(monoisotopic.mass = 100, mass.tol = 10, max.results = max.results)
+
+	return(ids)
 })

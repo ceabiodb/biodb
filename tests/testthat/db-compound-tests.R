@@ -5,14 +5,21 @@
 
 test.searchCompound <- function(db) {
 
+	# Not searchable databases
+	not.searchable <- list(molecular.mass = c('chemspider', 'expasy.enzyme'), monoisotopic.mass = c('expasy.enzyme'))
+
 	# Get an entry
-	id <- db$getEntryIds(max.result = 1)
+	id <- list.ref.entries(db$getId())[[1]]
 	expect_true( ! is.null(id))
-	entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), id)
+	expect_length(id, 1)
+	entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), id, drop = TRUE)
 	expect_true( ! is.null(entry))
 
 	# Search by name
 	name <- entry$getFieldValue('name')
+	expect_is(name, 'character')
+	expect_gt(length(name), 0)
+	name <- name[[1]]
 	ids <- db$searchCompound(name = name)
 	expect_true( ! is.null(ids))
 	expect_true(length(ids) > 0)
@@ -20,6 +27,7 @@ test.searchCompound <- function(db) {
 
 	# Search by mass
 	for (field in c('monoisotopic.mass', 'molecular.mass')) {
+
 		molecular.mass <- NULL
 		monoisotopic.mass <- NULL
 		if (field == 'monoisotopic.mass' && entry$hasField('monoisotopic.mass'))
@@ -27,22 +35,29 @@ test.searchCompound <- function(db) {
 		else if (field == 'molecular.mass' && entry$hasField('molecular.mass'))
 			molecular.mass <- entry$getFieldValue('molecular.mass')
 		if ( ! is.null(monoisotopic.mass) || ! is.null(molecular.mass)) {
+
+			# Search by mass
 			ids <- db$searchCompound(monoisotopic.mass = monoisotopic.mass, molecular.mass = molecular.mass)
+			if (db$getId() %in% not.searchable[[field]])
+				expect_null(ids)
+			else {
+				expect_true( ! is.null(ids))
+				expect_true(length(ids) > 0)
+				expect_true(id %in% ids)
+			}
+
+			# Search by mass and name
+			ids <- db$searchCompound(name = name, monoisotopic.mass = monoisotopic.mass, molecular.mass = molecular.mass)
 			expect_true( ! is.null(ids))
 			expect_true(length(ids) > 0)
 			expect_true(id %in% ids)
 
-			# Search by exact mass and name
-			ids <- db$searchCompound(name = name, monoisotopic.mass = monoisotopic.mass, molecular.mass = molecular.mass)
-			expect_true( ! is.null(ids))
-			expect_true(length(ids) > 0)
-
 			# Search by name and slightly different mass
 			if (is.null(molecular.mass))
-				monoisotopic.mass <- monoisotopic.mass - 0.1
+				monoisotopic.mass <- monoisotopic.mass - 0.01
 			else
-				molecular.mass <- molecular.mass - 0.1
-			ids <- db$searchCompound(name = name, monoisotopic.mass = monoisotopic.mass, molecular.mass = molecular.mass, mass.tol = 0.2)
+				molecular.mass <- molecular.mass - 0.01
+			ids <- db$searchCompound(name = name, monoisotopic.mass = monoisotopic.mass, molecular.mass = molecular.mass, mass.tol = 0.02)
 			expect_true( ! is.null(ids))
 			expect_true(length(ids) > 0)
 			expect_true(id %in% ids)
