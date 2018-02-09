@@ -53,3 +53,10 @@ NcbiCcdsConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 NcbiCcdsConn$methods( getEntryPageUrl = function(id) {
 	return(paste0(file.path(.self$getBaseUrl(), 'CcdsBrowse.cgi', fsep = '/'), '?REQUEST=CCDS&GO=MainBrowse&DATA=', id))
 })
+
+# Get entry image url {{{1
+################################################################
+
+NcbiCcdsConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})

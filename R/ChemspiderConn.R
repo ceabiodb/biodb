@@ -101,10 +101,7 @@ ChemspiderConn$methods( getEntryPageUrl = function(id) {
 ################################################################
 
 ChemspiderConn$methods( getEntryImageUrl = function(id) {
-
-	url <- paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = '')
-
-	return(url)
+	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
 })
 
 ## Send search mass request {{{1

@@ -344,3 +344,10 @@ MassbankConn$methods( getChromCol = function(ids = NULL) {
 MassbankConn$methods( getEntryPageUrl = function(id) {
 	return(paste0(.self$getBaseUrl(), 'jsp/FwdRecord.jsp?id=', id))
 })
+
+# Get entry image url {{{1
+################################################################
+
+MassbankConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})

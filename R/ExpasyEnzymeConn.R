@@ -117,6 +117,13 @@ ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
 	return(paste0(.self$getBaseUrl(), 'cgi-bin/enzyme/enzyme-search-ec?', sub('^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$', 'field1=\\1&field2=\\2&field3=\\3&field4=\\4', id)))
 })
 
+# Get entry image url {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 

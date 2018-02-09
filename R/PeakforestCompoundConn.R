@@ -35,3 +35,10 @@ PeakforestCompoundConn$methods( .doGetEntryContentUrl = function(id, concatenate
 PeakforestCompoundConn$methods( getEntryPageUrl = function(id) {
 	return(paste('https://peakforest.org/home?PFc=', id))
 })
+
+# Get entry image url {{{1
+################################################################
+
+PeakforestCompoundConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})

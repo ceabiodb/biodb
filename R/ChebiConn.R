@@ -21,6 +21,13 @@ ChebiConn$methods( getEntryPageUrl = function(id) {
 	return(paste0(.self$getBaseUrl(), 'searchId.do?chebiId=', id))
 })
 
+# Get entry image url {{{1
+################################################################
+
+ChebiConn$methods( getEntryImageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'displayImage.do?defaultImage=true&imageIndex=0&chebiId=', id, '&dimensions=400'))
+})
+
 # Get entry content {{{1
 ################################################################
 

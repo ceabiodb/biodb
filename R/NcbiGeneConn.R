@@ -43,3 +43,10 @@ NcbiGeneConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 NcbiGeneConn$methods( getEntryPageUrl = function(id) {
 	return(paste0(.self$getBaseUrl(), .self$.db.name, '/?term=', id))
 })
+
+# Get entry image url {{{1
+################################################################
+
+NcbiGeneConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})

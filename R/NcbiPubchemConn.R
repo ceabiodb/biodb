@@ -39,7 +39,14 @@ NcbiPubchemConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE
 ################################################################
 
 NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
-	return(paste0('http://pubchem.ncbi.nlm.nih.gov/', .self$.db.name, '/', id))
+	return(paste0(.self$getBaseUrl(), .self$.db.name, '/', id))
+})
+
+# Get entry image url {{{1
+################################################################
+
+NcbiPubchemConn$methods( getEntryImageUrl = function(id) {
+	return(paste(.self$getBaseUrl(), 'image/imgsrv.fcgi?', .self$.id.urlfield, '=', id, '&t=l', sep = ''))
 })
 
 # Get entry content {{{1
