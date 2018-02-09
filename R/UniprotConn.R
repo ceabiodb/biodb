@@ -122,6 +122,13 @@ UniprotConn$methods( getEntryPageUrl = function(id) {
 	return(paste0(.self$getBaseUrl(), id))
 })
 
+# Get entry image url {{{1
+################################################################
+
+UniprotConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # Search compound {{{1
 ################################################################
 
