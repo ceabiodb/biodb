@@ -188,7 +188,7 @@ The two environment variables can be combined together.
 
 <https://peakforest.org/>
 
- * PeakForest [Internet]. INRA / MetaboHUB ; 2017 – [cited 2018 Feb 08]. Available from: <https://peakforest.org/>.
+ * PeakForest [Internet], a spectral data portal for Metabolomics community - storing, curating and annotation services for metabolic profiles of biological matrix. INRA / MetaboHUB ; 2017 – [cited 2018 Feb 08]. Available from: <https://peakforest.org/>.
 
 ### Uniprot
 
