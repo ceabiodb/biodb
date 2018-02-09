@@ -107,6 +107,8 @@ ChebiConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL,
 	# Search by mass
 	if ( ! is.null(monoisotopic.mass) || ! is.null(molecular.mass)) {
 
+		mass <- if (is.null(monoisotopic.mass)) molecular.mass else monoisotopic.mass
+
 		if (is.null(ids)) {
 			.self$message('caution', 'ChEBI does not use any tolerance while searching for compounds by mass. Thus, only compounds matching exactly the specified mass will be matched.')
 			ids <- .self$ws.getLiteEntity.ids(search = mass, search.category = (if (is.null(monoisotopic.mass)) "MASS" else "MONOISOTOPIC MASS"), max.results = 0)
@@ -124,7 +126,7 @@ ChebiConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL,
 
 			# Get masses of all entries
 			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
-			masses <- .self$getBiodb()$entriesToDataframe(entries, compute = FALSE, fields = 'monoisotopic.mass', drop = TRUE)
+			masses <- .self$getBiodb()$entriesToDataframe(entries, compute = FALSE, fields = (if (is.null(molecular.mass)) 'monoisotopic.mass' else 'molecular.mass'), drop = TRUE)
 
 			# Filter on mass
 			ids <- ids[(masses >= mass.min) & (masses <= mass.max)]

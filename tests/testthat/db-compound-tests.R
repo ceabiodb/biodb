@@ -19,32 +19,34 @@ test.searchCompound <- function(db) {
 	expect_true(id %in% ids)
 
 	# Search by mass
-	mass <- NA
-	if (entry$hasField('monoisotopic.mass'))
-		mass <- entry$getFieldValue('monoisotopic.mass')
-	else if (entry$hasField('mass'))
-		mass <- entry$getFieldValue('mass')
-	if ( ! is.na(mass)) {
-		ids <- db$searchCompound(mass = mass)
-		expect_true( ! is.null(ids))
-		expect_true(length(ids) > 0)
-		expect_true(id %in% ids)
-	}
+	for (field in c('monoisotopic.mass', 'molecular.mass')) {
+		molecular.mass <- NULL
+		monoisotopic.mass <- NULL
+		if (field == 'monoisotopic.mass' && entry$hasField('monoisotopic.mass'))
+			monoisotopic.mass <- entry$getFieldValue('monoisotopic.mass')
+		else if (field == 'molecular.mass' && entry$hasField('molecular.mass'))
+			molecular.mass <- entry$getFieldValue('molecular.mass')
+		if ( ! is.null(monoisotopic.mass) || ! is.null(molecular.mass)) {
+			ids <- db$searchCompound(monoisotopic.mass = monoisotopic.mass, molecular.mass = molecular.mass)
+			expect_true( ! is.null(ids))
+			expect_true(length(ids) > 0)
+			expect_true(id %in% ids)
 
-	# Search by exact mass and name
-	if ( ! is.na(mass)) {
-		ids <- db$searchCompound(name = name, mass = mass)
-		expect_true( ! is.null(ids))
-		expect_true(length(ids) > 0)
-		expect_true(id %in% ids)
-	}
+			# Search by exact mass and name
+			ids <- db$searchCompound(name = name, monoisotopic.mass = monoisotopic.mass, molecular.mass = molecular.mass)
+			expect_true( ! is.null(ids))
+			expect_true(length(ids) > 0)
 
-	# Search by slightly different mass and name
-	if ( ! is.na(mass)) {
-		ids <- db$searchCompound(name = name, mass = mass - 0.1, mass.tol = 0.2)
-		expect_true( ! is.null(ids))
-		expect_true(length(ids) > 0)
-		expect_true(id %in% ids)
+			# Search by name and slightly different mass
+			if (is.null(molecular.mass))
+				monoisotopic.mass <- monoisotopic.mass - 0.1
+			else
+				molecular.mass <- molecular.mass - 0.1
+			ids <- db$searchCompound(name = name, monoisotopic.mass = monoisotopic.mass, molecular.mass = molecular.mass, mass.tol = 0.2)
+			expect_true( ! is.null(ids))
+			expect_true(length(ids) > 0)
+			expect_true(id %in% ids)
+		}
 	}
 }
 
