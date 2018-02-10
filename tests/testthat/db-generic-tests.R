@@ -148,13 +148,16 @@ test.nb.entries <- function(db) {
 
 test.entry.ids <- function(db) {
 
+	dbs.not.implementing <- c('ncbi.pubchem.comp', 'ncbi.pubchem.subst', 'ncbi.ccds')
+
 	# Test getEntryIds()
 	max <- 100
 	ids <- db$getEntryIds(max.results = max)
-	if ( ! is.null(ids)) {
-		expect_true(is.character(ids))
-		n <- length(ids)
-		expect_true(n >= 0 && n <= max)
+	if (db$getId() %in% dbs.not.implementing)
+		expect_null(ids)
+	else {
+		expect_is(ids, 'character')
+		expect_true(length(ids) <= max)
 	}
 }
 
