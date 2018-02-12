@@ -3,9 +3,8 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include CompounddbConn.R
-#' @include RemotedbConn.R
-NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = c("RemotedbConn", "CompounddbConn"), fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
+#' @include NcbiEntrezConn.R
+NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = "NcbiEntrezConn", fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
 
 # Constructor {{{1
 ################################################################
@@ -39,7 +38,11 @@ NcbiPubchemConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE
 ################################################################
 
 NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), .self$.db.name, '/', id))
+	.self$message('debug', paste('Getting URL pages for IDs ', paste(id, collapse = ', '), '.', sep = ''))
+	urls <- paste0(.self$getBaseUrl(), .self$.db.name, '/', id)
+	.self$message('debug', paste(urls, collapse = ', '))
+
+	return(urls)
 })
 
 # Get entry image url {{{1
@@ -100,14 +103,4 @@ NcbiPubchemConn$methods( getEntryContent = function(entry.id) {
 	}
 
 	return(content)
-})
-
-# Get compound image url {{{1
-################################################################
-
-NcbiPubchemConn$methods( getCompoundImageUrl = function(id) {
-
-	url <- paste0('http://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?', .self$.id.urlfield, '=', id, '&t=l')
-
-	return(url)
 })

@@ -10,38 +10,14 @@ NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = "NcbiEntrezConn"
 
 NcbiGeneConn$methods( initialize = function(...) {
 
-	callSuper(db.name = 'gene', ...)
-})
-
-# Get entry content {{{1
-################################################################
-
-NcbiGeneConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Get URLs
-	urls <- .self$getEntryContentUrl(entry.id)
-
-	# Request
-	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
-
-	return(content)
-})
-
-# Do get entry content url {{{1
-################################################################
-
-NcbiGeneConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-	return(paste0(file.path(.self$getWsUrl(), 'efetch.fcgi', fsep = '/'), '?db=', .self$.db.name, '&id=', id, '&rettype=xml&retmode=text'))
+	callSuper(db.entrez.name = 'gene', ...)
 })
 
 # Get entry page url {{{1
 ################################################################
 
 NcbiGeneConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), .self$.db.name, '/?term=', id))
+	return(paste0(.self$getBaseUrl(), .self$.db.entrez.name, '/?term=', id))
 })
 
 # Get entry image url {{{1
