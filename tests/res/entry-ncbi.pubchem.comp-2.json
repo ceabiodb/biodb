@@ -11,6 +11,7 @@
   "comp.iupac.name.pref": "(2-acetyloxy-3-carboxypropyl)-trimethylazanium",
   "comp.iupac.name.trad": "(2-acetoxy-3-carboxy-propyl)-trimethyl-ammonium",
   "comp.iupac.name.syst": "(2-acetyloxy-4-oxidanyl-4-oxidanylidene-butyl)-trimethyl-azanium",
+  "name": ["(2-acetyloxy-3-carboxypropyl)-trimethylazanium", "(2-acetoxy-3-carboxy-propyl)-trimethyl-ammonium", "(2-acetyloxy-4-oxidanyl-4-oxidanylidene-butyl)-trimethyl-azanium", "(2-acetyloxy-3-carboxypropyl)-trimethylammonium"],
   "inchikey": "RDHQFKQIGNGIED-UHFFFAOYSA-O",
   "inchi": "InChI=1S/C9H17NO4/c1-7(11)14-8(5-9(12)13)6-10(2,3)4/h8H,5-6H2,1-4H3/p+1"
 }

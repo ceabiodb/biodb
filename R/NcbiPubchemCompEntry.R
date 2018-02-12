@@ -29,3 +29,17 @@ NcbiPubchemCompEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('SMILES.CANONICAL', "//PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Canonical']/../../..//PC-InfoData_value_sval")
 	.self$addParsingExpression('SMILES.ISOMERIC', "//PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Isomeric']/../../..//PC-InfoData_value_sval")
 })
+
+# Parse fields after {{{1
+################################################################
+
+NcbiPubchemCompEntry$methods( .parseFieldsAfter = function(parsed.content) {
+
+	# Set names
+	names <- character()
+	for (f in c('COMP.IUPAC.NAME.PREF', 'COMP.IUPAC.NAME.ALLOWED', 'COMP.IUPAC.NAME.TRAD', 'COMP.IUPAC.NAME.SYST', 'COMP.IUPAC.NAME.CAS'))
+		if (.self$hasField(f))
+			names <- c(names, .self$getFieldValue(f, compute = FALSE))
+	if (length(names) > 0)
+		.self$setFieldValue('name', names)
+})
