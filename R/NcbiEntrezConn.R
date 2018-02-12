@@ -48,12 +48,15 @@ NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmod
 # Web service esearch {{{1
 ################################################################
 
-NcbiEntrezConn$methods( ws.esearch = function(term, retmax = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
+NcbiEntrezConn$methods( ws.esearch = function(term, field = NA_character_, retmax = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
 	":\n\nCalls Entrez esearch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch."
 
+	
 	# Build request
 	url <- paste('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', 'esearch.fcgi', sep = '')
 	params <- c(db = .self$.db.entrez.name, term = term)
+	if ( ! is.na(field))
+		params <- c(params, field = field)
 	if ( ! is.na(retmax))
 		params <- c(params, retmax = retmax)
 
