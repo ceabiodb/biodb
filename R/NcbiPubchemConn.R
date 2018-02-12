@@ -4,7 +4,8 @@
 ################################################################
 
 #' @include NcbiEntrezConn.R
-NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = "NcbiEntrezConn", fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
+#' @include CompounddbConn.R
+NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains = c('NcbiEntrezConn', 'CompounddbConn'), fields = list(.db.name = 'character', .id.xmltag = 'character', .entry.xmltag = 'character', .id.urlfield = 'character'))
 
 # Constructor {{{1
 ################################################################
