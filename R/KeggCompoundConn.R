@@ -46,9 +46,9 @@ KeggCompoundConn$methods( ws.find.exact.mass = function(mass = NA_real_, mass.mi
 	":\n\nSearch for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
 	if ( ! is.na(mass))
-		url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', mass, '/exact_mass', sep ='')
+		url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', mass, '/exact_mass', sep ='')
 	else if ( ! is.na(mass.min) && ! is.na(mass.max))
-		url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', mass.min, '-', mass.max, '/exact_mass', sep = '')
+		url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', mass.min, '-', mass.max, '/exact_mass', sep = '')
 	else
 		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
 
@@ -89,9 +89,9 @@ KeggCompoundConn$methods( ws.find.molecular.weight = function(mass = NA_real_, m
 	":\n\nSearch for entries by molecular mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
 	if ( ! is.na(mass))
-		url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', mass, '/mol_weight', sep ='')
+		url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', mass, '/mol_weight', sep ='')
 	else if ( ! is.na(mass.min) && ! is.na(mass.max))
-		url <- paste(.self$getBaseUrl(), 'find/', .self$.db.name, '/', mass.min, '-', mass.max, '/mol_weight', sep = '')
+		url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', mass.min, '-', mass.max, '/mol_weight', sep = '')
 	else
 		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
 
@@ -168,4 +168,11 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, molecular.mass 
 		ids <- ids[1:max.results]
 
 	return(ids)
+})
+
+# Get entry image url {{{1
+################################################################
+
+KeggCompoundConn$methods( getEntryImageUrl = function(id) {
+	return(paste(.self$getBaseUrl(), 'Fig/compound/', id, '.gif', sep = ''))
 })

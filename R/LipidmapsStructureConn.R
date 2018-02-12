@@ -21,6 +21,13 @@ LipidmapsStructureConn$methods( getEntryPageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), '?LMID=', id, sep = ''))
 })
 
+# Get entry image url {{{1
+################################################################
+
+LipidmapsStructureConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # Get entry content {{{1
 ################################################################
 
