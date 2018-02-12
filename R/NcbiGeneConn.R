@@ -3,7 +3,9 @@
 # Class declaration {{{1
 ################################################################
 
-NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = "NcbiEntrezConn")
+#' @include NcbiEntrezConn.R
+#' @include CompounddbConn.R
+NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = c('NcbiEntrezConn', 'CompounddbConn'))
 
 # Constructor {{{1
 ################################################################
