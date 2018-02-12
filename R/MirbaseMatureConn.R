@@ -24,6 +24,13 @@ MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'cgi-bin/mature.pl?mature_acc=', id, sep = ''))
 })
 
+# Get entry image url {{{1
+################################################################
+
+MirbaseMatureConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # Do download {{{1
 ################################################################
 

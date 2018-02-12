@@ -44,6 +44,13 @@ PeakforestMassConn$methods( getEntryPageUrl = function(id) {
 	return(paste('https://peakforest.org/home?PFs=', id))
 })
 
+# Get entry image url {{{1
+################################################################
+
+PeakforestMassConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # Create reduced entry {{{1
 ################################################################
 

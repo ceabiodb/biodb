@@ -190,6 +190,22 @@ test.entry.page.url <- function(db) {
 	expect_false(any(is.na(urls)))
 }
 
+# Test entry image URL {{{1
+################################################################
+
+test.entry.image.url <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Get URLs
+	urls <- db$getEntryImageUrl(ref.ids)
+
+	# Check
+	expect_is(urls, 'character')
+	expect_length(urls, length(ref.ids))
+}
+
 # Test entry page URL download {{{1
 ################################################################
 
@@ -205,6 +221,25 @@ test.entry.page.url.download <- function(db) {
 	content <- RCurl::getURL(url)
 	expect_true( ! is.na(content))
 	expect_true(nchar(content) > 0)
+}
+
+# Test entry image URL download {{{1
+################################################################
+
+test.entry.image.url.download <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Get URL
+	url <- db$getEntryImageUrl(ref.ids[[1]])
+	expect_is(url, 'character')
+
+	# Try downloading
+	if ( ! is.na(url)) {
+		content <- RCurl::getBinaryURL(url)
+		expect_is(content, 'raw')
+	}
 }
 
 # Run db generic tests {{{1
@@ -225,7 +260,10 @@ run.db.generic.tests <- function(db, mode) {
 	}
 	if (methods::is(db, 'RemotedbConn')) {
 		run.db.test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', db)
-		if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+		run.db.test.that("We can get a URL pointing to the entry image.", 'test.entry.image.url', db)
+		if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 			run.db.test.that("The entry page URL can be downloaded.", 'test.entry.page.url.download', db)
+			run.db.test.that("The entry image URL can be downloaded.", 'test.entry.image.url.download', db)
+		}
 	}
 }

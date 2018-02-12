@@ -156,8 +156,12 @@ HmdbMetabolitesConn$methods( .doGetEntryContentUrl = function(id, concatenate = 
 ################################################################
 
 HmdbMetabolitesConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'metabolites/', id))
+})
 
-	url <- paste0(.self$getBaseUrl(), 'metabolites/', id)
+# Get entry image url {{{1
+################################################################
 
-	return(url)
+HmdbMetabolitesConn$methods( getEntryImageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'structures/', id, '/image.png'))
 })
