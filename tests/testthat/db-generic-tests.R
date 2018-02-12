@@ -148,7 +148,7 @@ test.nb.entries <- function(db) {
 
 test.entry.ids <- function(db) {
 
-	dbs.not.implementing <- c('ncbi.pubchem.comp', 'ncbi.pubchem.subst', 'ncbi.ccds')
+	dbs.not.implementing <- c('ncbi.ccds')
 
 	# Test getEntryIds()
 	max <- 100
