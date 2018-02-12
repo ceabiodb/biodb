@@ -17,7 +17,7 @@ NcbiGeneEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('ACCESSION', "//Gene-track_geneid")
 	.self$addParsingExpression('uniprot.id', "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str")
 	.self$addParsingExpression('LOCATION', "//Gene-ref_maploc")
-	.self$addParsingExpression('protdesc', "//Gene-ref_desc")
+	.self$addParsingExpression('description', "//Gene-ref_desc")
 	.self$addParsingExpression('SYMBOL', "//Gene-ref_locus")
 	.self$addParsingExpression('SYNONYMS', "//Gene-ref_syn_E")
 })
