@@ -94,7 +94,8 @@ test.wrong.entry.among.good.ones <- function(db) {
 	entries.desc <- load.ref.entries(db.name)
 
 	# Test a wrong accession number
-	entries <- biodb$getFactory()$getEntry(db.name, id = c('WRONGB', entries.desc[['accession']]))
+	ids <- c('WRONGB', entries.desc[['accession']])
+	entries <- biodb$getFactory()$getEntry(db.name, id = ids)
 	expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
 	expect_null(entries[[1]])
 	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
@@ -147,13 +148,16 @@ test.nb.entries <- function(db) {
 
 test.entry.ids <- function(db) {
 
+	dbs.not.implementing <- c('ncbi.ccds')
+
 	# Test getEntryIds()
 	max <- 100
 	ids <- db$getEntryIds(max.results = max)
-	if ( ! is.null(ids)) {
-		expect_true(is.character(ids))
-		n <- length(ids)
-		expect_true(n >= 0 && n <= max)
+	if (db$getId() %in% dbs.not.implementing)
+		expect_null(ids)
+	else {
+		expect_is(ids, 'character')
+		expect_true(length(ids) <= max)
 	}
 }
 
