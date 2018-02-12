@@ -20,6 +20,7 @@ test.searchCompound <- function(db) {
 	expect_is(name, 'character')
 	expect_gt(length(name), 0)
 	name <- name[[1]]
+	expect_true( ! is.na(name))
 	ids <- db$searchCompound(name = name)
 	expect_true( ! is.null(ids))
 	expect_true(length(ids) > 0)
