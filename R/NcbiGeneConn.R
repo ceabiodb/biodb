@@ -12,14 +12,14 @@ NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = c('NcbiEntrezCon
 
 NcbiGeneConn$methods( initialize = function(...) {
 
-	callSuper(db.entrez.name = 'gene', ...)
+	callSuper(entrez.name = 'gene', entrez.tag = 'Entrezgene', entrez.id.tag = 'Gene-track_geneid', ...)
 })
 
 # Get entry page url {{{1
 ################################################################
 
 NcbiGeneConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), .self$.db.entrez.name, '/?term=', id))
+	return(paste0(.self$getBaseUrl(), .self$.entrez.name, '/?term=', id))
 })
 
 # Get entry image url {{{1
