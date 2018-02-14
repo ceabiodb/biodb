@@ -1,6 +1,6 @@
 # vi: fdm=marker
 
-# INITIALIZATION OF TESTS
+context('Initialize tests.')
 
 source('common.R')
 

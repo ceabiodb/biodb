@@ -1,8 +1,10 @@
 # vi: fdm=marker
 
+context("Test abstract declarations")
+
 source('common.R')
 
-# Test abstract class declaration {{{2
+# Test abstract class declaration {{{1
 ################################################################
 
 test.abstract.class.declaration <- function(biodb, obs) {
@@ -15,6 +17,5 @@ test.abstract.class.declaration <- function(biodb, obs) {
 
 biodb <- Biodb$new(logger = FALSE)
 obs <- create.test.observer(biodb)
-set.test.context(biodb, "Test abstract declarations")
 set.mode(biodb, MODE.OFFLINE)
 test_that("An abstract class cannot be instantiated.", test.abstract.class.declaration(biodb, obs))
