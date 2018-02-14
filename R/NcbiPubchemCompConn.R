@@ -11,7 +11,7 @@ NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains = c(
 ################################################################
 
 NcbiPubchemCompConn$methods( initialize = function(...) {
-	callSuper(db.name = 'compound', id.xmltag = 'PC-CompoundType_id_cid', entry.xmltag = 'PC-Compound', id.urlfield = 'cid', db.entrez.name = 'pccompound', ...)
+	callSuper(db.name = 'compound', id.xmltag = 'PC-CompoundType_id_cid', entry.xmltag = 'PC-Compound', id.urlfield = 'cid', entrez.name = 'pccompound', ...)
 })
 
 # Search compound {{{1
@@ -36,7 +36,7 @@ NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, mass = NULL,
 
 		else {
 
-			pubchem.mass.field <- if (mass.field == 'monoisotopic.mass') 'MolecularWeight' else 'MonoisotopicMass'
+			pubchem.mass.field <- if (mass.field == 'monoisotopic.mass') 'MonoisotopicMass' else 'MolecularWeight'
 
 			if (mass.tol.unit == 'ppm') {
 				mass.min <- mass * (1 - mass.tol * 1e-6)

@@ -21,14 +21,10 @@ NcbiEntrezConn$methods( initialize = function(entrez.name = NA_character_, entre
 	.entrez.name <<- entrez.name
 
 	# Set tag
-	if (is.null(entrez.tag) || is.na(entrez.tag))
-		.self$message('error', "You must set an Entrez tag for this NCBI database.")
-	.entrez.tag <<- entrez.tag
+	.entrez.tag <<- if (is.null(entrez.tag)) NA_character_ else entrez.tag
 
 	# Set ID tag
-	if (is.null(entrez.id.tag) || is.na(entrez.id.tag))
-		.self$message('error', "You must set an Entrez ID tag for this NCBI database.")
-	.entrez.id.tag <<- entrez.id.tag
+	.entrez.id.tag <<- if (is.null(entrez.id.tag)) NA_character_ else entrez.id.tag
 })
 
 # Web service efetch {{{1

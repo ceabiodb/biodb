@@ -57,7 +57,7 @@ test.searchCompound <- function(db) {
 			# Search by name and slightly different mass
 			mass <- mass + 0.01
 			ids <- db$searchCompound(name = name, mass = mass, mass.field = field, mass.tol = 0.02)
-			msg <- paste0('While searching for entry ', id, ' by mass with mass ', mass, ' field ', field, ' and by name ', name, '.')
+			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
 			expect_true( ! is.null(ids), msg)
 			expect_true(length(ids) > 0, msg)
 			expect_true(id %in% ids, msg)
