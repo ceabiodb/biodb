@@ -55,10 +55,16 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 
 	# Get directly one JSON string for each ID
 	if (length(jsonstr) == length(entry.id)) {
-		first_json = jsonlite::fromJSON(jsonstr[[1]], simplifyDataFrame = FALSE)
-		if ( ! is.null(first_json) && class(first_json) == 'list' && ! is.null(names(first_json))) {
+		for (i in seq_along(jsonstr)) {
+			json = jsonlite::fromJSON(jsonstr[[i]], simplifyDataFrame = FALSE)
+			if (is.null(json))
+				next
+			if (class(json) == 'list' && ! is.null(names(json))) {
 			content <- jsonstr
 			return(content)
+			}
+			else
+				break
 		}
 	}
 
