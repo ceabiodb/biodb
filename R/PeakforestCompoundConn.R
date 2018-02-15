@@ -42,3 +42,16 @@ PeakforestCompoundConn$methods( getEntryPageUrl = function(id) {
 PeakforestCompoundConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
+
+# Search compound {{{1
+################################################################
+
+CompounddbConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Search by name
+	if ( ! is.null(name))
+
+	return(ids)
+})

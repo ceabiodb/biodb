@@ -127,3 +127,32 @@ PeakforestConn$methods( getNbEntries = function(count = FALSE) {
 
 	return(n)
 })
+
+# Web service search {{{1
+################################################################
+
+PeakforestConn$methods( ws.search = function(term, max = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
+
+	# Build URL
+	url <- paste(.self$getBaseUrl(), 'search/', .self$.db.name, '/', term, sep = '')
+	params <- c(token = .self$getToken())
+	if ( ! is.na(max))
+		params <- c(params, max = max)
+
+	# Send request
+	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+
+	# Parse results
+	if (biodb.parse || biodb.ids)
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+	# Extract IDs
+	if (biodb.ids) {
+		if ('compoundNames' %in% names(results))
+			results <- vapply(results$compoundNames, function(x) as.character(x$compound$id), FUN.VALUE = '')
+		else
+			.self$message('error', 'Could find "compoundNames" field inside returned JSON.')
+	}
+
+	return(results)
+})
