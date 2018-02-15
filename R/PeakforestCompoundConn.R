@@ -46,12 +46,17 @@ PeakforestCompoundConn$methods( getEntryImageUrl = function(id) {
 # Search compound {{{1
 ################################################################
 
-CompounddbConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+PeakforestCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	ids <- NULL
 
 	# Search by name
 	if ( ! is.null(name))
+		ids <- .self$ws.search(name, biodb.ids = TRUE)
+
+	# Search by mass
+	if ( ! is.null(mass.field)) {
+	}
 
 	return(ids)
 })
