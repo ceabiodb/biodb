@@ -111,19 +111,28 @@ MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
 	return(content)
 })
 
-# Find by name {{{1
+# Web service query {{{1
 ################################################################
 
-MirbaseMatureConn$methods( findByName = function(name) {
+MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', biodb.parse = FALSE, biodb.ids = FALSE) {
 
-	# Get HTML
-	htmlstr <- .self$.get.url('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = name, submit = 'Search'))
+	# Build request
+	url <- paste0(.self$getBaseUrl(), 'cgi-bin/query.pl')
+	params <- c(terms = terms, submit = submit)
+
+	# Send request
+	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
 
 	# Parse HTML
-	xml <-  XML::htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
+	if (biodb.parse || biodb.ids)
+		results <-  XML::htmlTreeParse(results, asText = TRUE, useInternalNodes = TRUE)
 
-	# Get accession number
-	acc <- unlist(XML::xpathSApply(xml, "//a[starts-with(.,'MIMAT')]", XML::xmlValue))
+	# Get IDs
+	if (biodb.ids) {
+		results <- unlist(XML::xpathSApply(results, "//a[starts-with(.,'MIMAT')]", XML::xmlValue))
+		if (is.null(results))
+			results <- character()
+	}
 
-	return(acc)
+	return(results)
 })
