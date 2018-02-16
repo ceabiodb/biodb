@@ -24,6 +24,10 @@ This is the super class of all connector classes. All methods defined here are t
 \section{Methods}{
 
 \describe{
+\item{\code{checkDb()}}{:
+
+Check that the database is correct by trying to load all entries.}
+
 \item{\code{getBaseUrl()}}{:
 
 Get the base URL of this connector.}
