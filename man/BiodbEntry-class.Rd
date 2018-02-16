@@ -54,6 +54,10 @@ Convert entry into a JSON string.}
 
 Get the value of the specified field.}
 
+\item{\code{getName()}}{:
+
+Get a short text describing the entry instance.}
+
 \item{\code{getParsingExpressions()}}{:
 
 Return a list of all defined parsing expressions for this entry.}
