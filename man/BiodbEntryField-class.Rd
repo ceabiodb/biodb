@@ -24,18 +24,24 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 \item{\code{allow.duplicates}}{If set to \code{TRUE}, the field allows duplicated values.}
 
 \item{\code{description}}{The description of the field.}
+
+\item{\code{allowed.values}}{The values authorized for the field.}
 }}
 
 \section{Methods}{
 
 \describe{
-\item{\code{allowsDuplicates()}}{:
+\item{\code{forbidsDuplicates()}}{:
 
- Returns \code{TRUE} if this field allows duplicated values.}
+ Returns \code{TRUE} if this field forbids duplicated values.}
 
 \item{\code{getAliases()}}{:
 
  Returns the list of aliases if some are defined, otherwise returns NULL.}
+
+\item{\code{getAllNames()}}{:
+
+ Returns the list of all names (main name and aliases).}
 
 \item{\code{getDescription()}}{:
 
@@ -44,6 +50,10 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 \item{\code{getName()}}{:
 
  Get field's name.}
+
+\item{\code{getType()}}{:
+
+ Get field's type.}
 
 \item{\code{hasAliases()}}{:
 
@@ -56,6 +66,10 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 \item{\code{hasCardOne()}}{:
 
  Returns \code{TRUE} if the cardinality of this field is one.}
+
+\item{\code{isCaseInsensitive()}}{:
+
+ Returns \code{TRUE} if this field is case insensitive.}
 
 \item{\code{isDataFrame()}}{:
 
