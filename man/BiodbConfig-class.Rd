@@ -21,7 +21,7 @@ Set a boolean key to TRUE.}
 
 \item{\code{get(key)}}{:
 
-Get a the value of a key.}
+Get the value of a key.}
 
 \item{\code{getDefaultValue(key)}}{:
 

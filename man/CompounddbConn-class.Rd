@@ -8,7 +8,9 @@
 \arguments{
 \item{name}{The name of a compound.}
 
-\item{mass}{The searched molecular mass.}
+\item{mass}{The searched mass.}
+
+\item{mass.field}{The mass field to use for the search. For instance: 'molecular.mass', 'monoisotopic.mass', 'average.mass'.}
 
 \item{mass.tol}{The tolerance on the molecular mass.}
 
@@ -19,6 +21,14 @@
 \description{
 This interface must be inherited by all compound databases. It declares method headers specific to compound databases.
 }
+\section{Methods}{
+
+\describe{
+\item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
+
+Search for compounds by name and/or by mass.}
+}}
 
 \examples{
 # Create an instance with default settings:
