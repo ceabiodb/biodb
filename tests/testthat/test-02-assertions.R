@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+context("Test assertions")
+
 source('common.R')
 
 # Test assert.positive {{{1
@@ -89,7 +91,6 @@ test.searchMzTol.assert <- function(biodb, obs) {
 
 biodb <- Biodb$new(logger = FALSE)
 obs <- create.test.observer(biodb)
-set.test.context(biodb, "Test assertions")
 set.mode(biodb, MODE.OFFLINE)
 test_that("Assertion of positive number works correctly", test.assert.positive(biodb, obs))
 test_that("Assertion of enumerate works correctly", test.assert.in(biodb, obs))

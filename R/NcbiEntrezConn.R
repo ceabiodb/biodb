@@ -24,16 +24,20 @@ NcbiEntrezConn$methods( initialize = function(db.entrez.name = NA_character_, ..
 # Web service efetch {{{1
 ################################################################
 
-NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmode = NA_character_, biodb.parse = FALSE) {
+NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmode = NA_character_, biodb.parse = FALSE, biodb.url = FALSE) {
 	":\n\nCalls Entrez efetch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch."
 
 	# Build request
 	url <- paste('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', 'efetch.fcgi', sep = '')
-	params <- c(db = .self$.db.entrez.name, id = id)
+	params <- c(db = .self$.db.entrez.name, id = paste(id, collapse = ','))
 	if ( ! is.na(rettype))
 		params <- c(params, rettype = rettype)
 	if ( ! is.na(retmode))
 		params <- c(params, retmode = retmode)
+
+	# Returns URL
+	if (biodb.url)
+		return(.self$.getUrlScheduler()$getUrlString(url, params))
 
 	# Send request
 	results <- .self$.getUrlScheduler()$getUrl(url, params)
@@ -123,13 +127,16 @@ NcbiEntrezConn$methods( getNbEntries = function(count = FALSE) {
 ################################################################
 
 NcbiEntrezConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-	return(.self$ws.efetch(id, retmode = 'xml'))
+
+	urls <- .self$ws.efetch(id, retmode = 'xml', biodb.url = TRUE)
 })
 
 # Get entry content {{{1
 ################################################################
 
 NcbiEntrezConn$methods( getEntryContent = function(entry.id) {
+
+# TODO move to NcbiGene or define tag name in .entrez.tag or make entrez.tag table that converts from db.entrez.name into entrez.tag? Parse content returned, and split it for each <Entrezgene> tag, but recopy header with <EntrezGene-Set>.
 
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))

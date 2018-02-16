@@ -17,7 +17,7 @@ NcbiPubchemCompConn$methods( initialize = function(...) {
 # Search compound {{{1
 ################################################################
 
-NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 	":\n\nSearch for compounds by name and/or by mass."
 
 	term <- character()
@@ -27,25 +27,32 @@ NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, molecular.ma
 		term <- paste0('"', name, '"', '[IUPACName]')
 
 	# Search by mass
-	if ( ! is.null(monoisotopic.mass) || ! is.null(molecular.mass)) {
+	if ( ! is.null(mass) && ! is.null(mass.field)) {
 
-		mass <- if (is.null(monoisotopic.mass)) molecular.mass else monoisotopic.mass
-		mass.field <- if (is.null(monoisotopic.mass)) 'MolecularWeight' else 'MonoisotopicMass'
+		mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
 
-		if (mass.tol.unit == 'ppm') {
-			mass.min <- mass * (1 - mass.tol * 1e-6)
-			mass.max <- mass * (1 + mass.tol * 1e-6)
-		} else {
-			mass.min <- mass - mass.tol
-			mass.max <- mass + mass.tol
+		if ( ! mass.field %in% c('monoisotopic.mass' ,'molecular.mass'))
+			.self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+
+		else {
+
+			pubchem.mass.field <- if (mass.field == 'monoisotopic.mass') 'MolecularWeight' else 'MonoisotopicMass'
+
+			if (mass.tol.unit == 'ppm') {
+				mass.min <- mass * (1 - mass.tol * 1e-6)
+				mass.max <- mass * (1 + mass.tol * 1e-6)
+			} else {
+				mass.min <- mass - mass.tol
+				mass.max <- mass + mass.tol
+			}
+
+			mass.term <- paste0(mass.min, ':', mass.max, '[', pubchem.mass.field, ']')
+
+			if (length(term) > 0)
+				term <- paste(term, 'AND', mass.term)
+			else
+				term <- mass.term
 		}
-
-		mass.term <- paste0(mass.min, ':', mass.max, '[', mass.field, ']')
-
-		if (length(term) > 0)
-			term <- paste(term, 'AND', mass.term)
-		else
-			term <- mass.term
 	}
 
 	# Set retmax

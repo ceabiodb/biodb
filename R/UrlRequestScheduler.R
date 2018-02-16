@@ -62,6 +62,17 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.
 	return(results)
 })
 
+# Get URL string {{{1
+################################################################
+
+UrlRequestScheduler$methods( getUrlString = function(url, params = list()) {
+	pn <- names(params)
+	params.lst <- vapply(seq(params), function(n) if (is.null(pn) || nchar(pn[[n]]) == 0) params[[n]] else paste(pn[[n]], params[[n]], sep = '='), FUN.VALUE = '')
+	params.str <- paste(params.lst, collapse = '&')
+	url <- paste(url, params.str, sep = '?')
+	return(url)
+})
+
 # Get url {{{1
 ################################################################
 
@@ -76,10 +87,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 
 	# Append params for GET method
 	if (method == 'get' && length(params) > 0) {
-		pn <- names(params)
-		params.lst <- vapply(seq(params), function(n) if (is.null(pn) || nchar(pn[[n]]) == 0) params[[n]] else paste(pn[[n]], params[[n]], sep = '='), FUN.VALUE = '')
-		params.str <- paste(params.lst, collapse = '&')
-		url <- paste(url, params.str, sep = '?')
+		url <- .self$getUrlString(url, params)
 		params <- list()
 	}
 
