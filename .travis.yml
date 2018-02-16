@@ -19,4 +19,9 @@ branches:
     - /^release\/.*$/
  
 script:
- - make test && make check && sudo make install && make ex && [ -n "$(git branch | egrep '^\* (release|master)')" ] && MODES=online make test
+ - if [ -z "$(git branch | egrep '^\* (release|master)')" ] ; then echo YES ; else echo NO ; fi
+ - if [ -z "$(git branch | egrep '^\* (release|master)')" ] ; then result=YES ; else result=NO ; fi
+ - echo RESULT=$result
+ - make test && make check && sudo make install && make ex 
+ - echo RETURN=$?
+ - [ -z "$(git branch | egrep '^\* (release|master)')" ] || MODES=online make test
