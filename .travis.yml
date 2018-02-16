@@ -19,7 +19,8 @@ branches:
     - /^release\/.*$/
  
 script:
- - make test
- - make check
- - sudo make install
- - make ex
+ - make test # Run offline tests for all databases
+ - [ -z "$(git branch | egrep '^\* (release|master)')" ] || MODES=online make test # Run online test only for master and release branches
+ - make check # Check R package
+ - sudo make install # Install R package
+ - make ex # Run examples
