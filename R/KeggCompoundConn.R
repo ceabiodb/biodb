@@ -128,7 +128,7 @@ KeggCompoundConn$methods( ws.find.molecular.weight.ids = function(...) {
 # Search compound {{{1
 ################################################################
 
-KeggCompoundConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	ids <- NULL
 
@@ -139,27 +139,35 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, molecular.mass 
 	}
 
 	# Search by mass
-	if ( ! is.null(molecular.mass) || ! is.null(monoisotopic.mass)) {
+	if ( ! is.null(mass) && ! is.null(mass.field)) {
 
-		mass <- if (is.null(molecular.mass)) monoisotopic.mass else molecular.mass
-		if (mass.tol.unit == 'ppm') {
-			mass.min <- mass * (1 - mass.tol * 1e-6)
-			mass.max <- mass * (1 + mass.tol * 1e-6)
-		} else {
-			mass.min <- mass - mass.tol
-			mass.max <- mass + mass.tol
-		}
+		mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
 
-		if (is.null(monoisotopic.mass))
-			mass.ids <- .self$ws.find.molecular.weight.ids(mass.min = mass.min, mass.max = mass.max)
-		else
-			mass.ids <- .self$ws.find.exact.mass.ids(mass.min = mass.min, mass.max = mass.max)
-		if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
-			mass.ids <- sub('^cpd:', '', mass.ids)
-			if (is.null(ids))
-				ids <- mass.ids
+		if ( ! mass.field %in% c('monoisotopic.mass' ,'molecular.mass'))
+			.self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+
+		else {
+
+			if (mass.tol.unit == 'ppm') {
+				mass.min <- mass * (1 - mass.tol * 1e-6)
+				mass.max <- mass * (1 + mass.tol * 1e-6)
+			} else {
+				mass.min <- mass - mass.tol
+				mass.max <- mass + mass.tol
+			}
+
+			if (mass.field == 'monoisotopic.mass')
+				mass.ids <- .self$ws.find.exact.mass.ids(mass.min = mass.min, mass.max = mass.max)
 			else
-				ids <- ids[ids %in% mass.ids]
+				mass.ids <- .self$ws.find.molecular.weight.ids(mass.min = mass.min, mass.max = mass.max)
+			.self$message('debug', paste('Got entry IDs ', paste(mass.ids, collapse = ', '), '.')) 
+			if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
+				mass.ids <- sub('^cpd:', '', mass.ids)
+				if (is.null(ids))
+					ids <- mass.ids
+				else
+					ids <- ids[ids %in% mass.ids]
+			}
 		}
 	}
 

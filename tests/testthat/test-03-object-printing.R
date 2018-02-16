@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+context("Test object information printing")
+
 source('common.R')
 
 # Test BiodbCache show {{{1
@@ -73,7 +75,6 @@ test.BiodbEntryFields.show <- function() {
 # MAIN {{{1
 ################################################################
 
-context("Test object information printing")
 test_that("Biodb show method returns correct information.", test.Biodb.show())
 test_that("BiodbCache show method returns correct information.", test.BiodbCache.show())
 test_that("BiodbConfig show method returns correct information.", test.BiodbConfig.show())

@@ -14,6 +14,9 @@ ChebiEntry$methods( initialize = function(...) {
 
 	callSuper(namespace = c(chebi = .self$getParent()$getDbInfo()$getXmlNs()), ...)
 
+#	.self$addParsingExpression('accession', "replace(//chebi:return/chebi:chebiId,'^CHEBI:([0-9]+)$','$1')")
+#	.self$addParsingExpression('accession', "substring(//chebi:return/chebi:chebiId,7)")
+	.self$addParsingExpression('accession', "substring-after(//chebi:return/chebi:chebiId,'CHEBI:')")
 	.self$addParsingExpression('SMILES', "//chebi:return/chebi:smiles")
 	.self$addParsingExpression('INCHI', "//chebi:return/chebi:inchi")
 	.self$addParsingExpression('INCHIKEY', "//chebi:return/chebi:inchiKey")
@@ -21,8 +24,8 @@ ChebiEntry$methods( initialize = function(...) {
 	.self$addParsingExpression('MASS', "//chebi:mass")
 	.self$addParsingExpression('MONOISOTOPIC.MASS', "//chebi:monoisotopicMass")
 	.self$addParsingExpression('CHARGE', "//chebi:charge")
-	.self$addParsingExpression('name', "//chebi:chebiAsciiName")
-	.self$addParsingExpression('formula', "//chebi:Formulae/chebi:data")
+	.self$addParsingExpression('name', c("//chebi:chebiAsciiName", "//chebi:Synonyms/chebi:data"))
+	.self$addParsingExpression('formula', c("//chebi:Formulae/chebi:source[text()='ChEBI']/../chebi:data", "(//chebi:Formulae/chebi:data)[1]"))
 })
 
 # Parse fields after {{{1
@@ -30,17 +33,17 @@ ChebiEntry$methods( initialize = function(...) {
 
 ChebiEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
-	# Get accession
-	.self$message('debug', paste('Use namespace ', .self$.namespace, '.', sep = ''))
-	accession <- XML::xpathSApply(parsed.content, "//chebi:return/chebi:chebiId", XML::xmlValue, namespaces = .self$.namespace)
-	.self$message('debug', paste('Found accession number ', accession, '.', sep = ''))
-	if (length(accession) > 0) {
-		accession <- sub('^CHEBI:([0-9]+)$', '\\1', accession, perl = TRUE)
-		.self$setFieldValue('ACCESSION', accession)
-	}
+#	# Check that we do not have a better formula (there may be several formulae defined).
+#	formulae <- XML::xpathSApply(parsed.content, "//chebi:Formulae/chebi:data", XML::xmlValue, namespaces = .self$.namespace)
+#	if (length(formulae) > 1) {
+#		# Try to get the ChEBI formula
+#		formula <- XML::xpathSApply(parsed.content, "//chebi:Formulae/chebi:source[text()='ChEBI']/../chebi:data", XML::xmlValue, namespaces = .self$.namespace)
+#		if (length(formula) > 0)
+#			.self$setFieldValue('formula', formula)
+#	}
 
 	# Get synonyms
-	synonyms <- XML::xpathSApply(parsed.content, "//chebi:Synonyms/chebi:data", XML::xmlValue, namespaces = .self$.namespace)
-	if (length(synonyms) > 0)
-		.self$appendFieldValue('name', synonyms)
+#	synonyms <- XML::xpathSApply(parsed.content, "//chebi:Synonyms/chebi:data", XML::xmlValue, namespaces = .self$.namespace)
+#	if (length(synonyms) > 0)
+#		.self$appendFieldValue('name', synonyms)
 })
