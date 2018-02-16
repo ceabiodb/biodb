@@ -42,7 +42,6 @@ LipidmapsStructureConn$methods( getEntryContent = function(entry.id) {
 	return(content)
 })
 
-
 # Get entry ids {{{1
 ################################################################
 
@@ -62,4 +61,10 @@ LipidmapsStructureConn$methods( getEntryIds = function(max.results = NA_integer_
 		ids <- ids[1:max.results]
 
 	return(ids)
+})
+
+# Web service LMSDRecord {{{1
+################################################################
+
+LipidmapsStructureConn$methods( ws.LMSDRecord = function(mode, lmid, output.type = 'CSV', output.quote = 'No') {
 })
