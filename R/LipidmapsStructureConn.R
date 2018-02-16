@@ -10,8 +10,8 @@ LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn", contain
 # Get entry content url {{{1
 ################################################################
 
-LipidmapsStructureConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-	return(paste(.self$getBaseUrl(), 'LMSDRecord.php', '?Mode=File&LMID=', id, '&OutputType=CSV&OutputQuote=No', sep = ''))
+LipidmapsStructureConn$methods( .doGetEntryContentUrl = function(ids, concatenate = TRUE) {
+	return(vapply(ids, function(id) .self$ws.LMSDRecord(mode = 'File', lmid = id, biodb.url = TRUE), FUN.VALUE = ''))
 })
 
 # Get entry page url {{{1
@@ -66,5 +66,18 @@ LipidmapsStructureConn$methods( getEntryIds = function(max.results = NA_integer_
 # Web service LMSDRecord {{{1
 ################################################################
 
-LipidmapsStructureConn$methods( ws.LMSDRecord = function(mode, lmid, output.type = 'CSV', output.quote = 'No') {
+LipidmapsStructureConn$methods( ws.LMSDRecord = function(mode, lmid, output.type = 'CSV', output.quote = 'No', biodb.url = FALSE) {
+
+	# Build request
+	url <- paste0(.self$getBaseUrl(), 'LMSDRecord.php')
+	params <- c(Mode = mode, LMID = lmid, OutputType = output.type, OutputQuote = output.quote)
+
+	# Returns URL
+	if (biodb.url)
+		return(.self$.getUrlScheduler()$getUrlString(url, params))
+
+	# Send request
+	results <- .self$.getUrlScheduler()$getUrl(url, params)
+
+	return(results)
 })
