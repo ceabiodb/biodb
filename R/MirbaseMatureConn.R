@@ -136,3 +136,21 @@ MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', biodb.p
 
 	return(results)
 })
+
+# Search compound {{{1
+################################################################
+
+MirbaseMatureConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Search by name
+	if ( ! is.null(name))
+		ids <- .self$ws.query(terms = name, biodb.ids = TRUE)
+
+	# Search by mass
+	if ( ! is.null(mass.field))
+		.self$message('caution', 'Searching by mass is not possible.')
+
+	return(ids)
+})
