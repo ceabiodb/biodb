@@ -16,12 +16,6 @@ branches:
   only:
     - master
     - develop
-    - /^release\/.*$/
+    - /^release[/].*$/
  
-script:
- - if [ -z "$(git branch | egrep '^\* (release|master)')" ] ; then echo YES ; else echo NO ; fi
- - if [ -z "$(git branch | egrep '^\* (release|master)')" ] ; then result=YES ; else result=NO ; fi
- - echo RESULT=$result
- - make test && make check && sudo make install && make ex 
- - echo RETURN=$?
- - [ -z "$(git branch | egrep '^\* (release|master)')" ] || MODES=online make test
+script: ./scripts/run-tests.sh
