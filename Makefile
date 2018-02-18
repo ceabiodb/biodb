@@ -1,7 +1,7 @@
 all:
 
 check:
-	R -q -e "devtools::check('$(CURDIR)', cran = FALSE)"
+	R -q -e "devtools::check('$(CURDIR)')"
 
 vignettes: install
 	R -q -e "devtools::clean_vignettes('$(CURDIR)')"
