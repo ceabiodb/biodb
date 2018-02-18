@@ -10,7 +10,7 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests:
-	royxgen2 (>= 5.0.0),
+	devtools,
 	testthat,
 	knitr,
 	rmarkdown,
