@@ -16,8 +16,6 @@ test.lipidmaps.structure.ws.LMSDRecord <- function(db) {
 
 	# Parse results successfully
 	results <- db$ws.LMSDRecord(lmid = 'LMFA08040013', mode = 'File', output.type = 'CSV', biodb.parse = TRUE)
-	print(results)
-	results <- db$ws.LMSDRecord(lmid = 'LMFA08040013', mode = 'File', output.type = 'CSV', biodb.parse = TRUE)
 	expect_is(results, 'data.frame')
 	expect_equal(nrow(results), 1)
 }

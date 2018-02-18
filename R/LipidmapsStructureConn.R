@@ -134,7 +134,7 @@ LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NA_character_, o
 				sep <- if (is.na(output.delimiter) || output.delimiter == 'Comma') ',' else ';'
 			header <- (is.na(output.column.header) || output.column.header == 'Yes')
 			quote <- if (is.na(output.quote) || output.quote == 'No') '' else '"'
-			results <- read.table(text = results, sep = sep, header = header, comment.char = '', stringsAsFactors = FALSE, quote = quote)
+			results <- read.table(text = results, sep = sep, header = header, comment.char = '', stringsAsFactors = FALSE, quote = quote, fill = TRUE)
 		}
 	}
 
@@ -194,19 +194,9 @@ LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NA_charact
 				sep <- if (is.na(output.delimiter) || output.delimiter == 'Comma') ',' else ';'
 			header <- (is.na(output.column.header) || output.column.header == 'Yes')
 			quote <- if (is.na(output.quote) || output.quote == 'No') '' else '"'
-			results <- read.table(text = results, sep = sep, header = header, comment.char = '', stringsAsFactors = FALSE, quote = quote)
+			results <- read.table(text = results, sep = sep, header = header, comment.char = '', stringsAsFactors = FALSE, quote = quote, fill = TRUE)
 		}
 	}
-
-	return(results)
-})
-
-# PRIVATE METHODS {{{1
-################################################################
-
-LipidmapsStructureConn$methods( .parse.returned.csv = function(results, output.type = NA_character_, output.delimiter = NA_character_, output.quote = NA_character_, output.column.header = NA_character_) {
-print('-------------------------------- LipidmapsStructureConn::.parse.returned.csv 01')
-
 
 	return(results)
 })
