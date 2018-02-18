@@ -20,5 +20,7 @@ branches:
     - master
     - develop
     - /^release[/].*$/
- 
-script: ./scripts/run-tests.sh
+
+script:
+    - make check
+    - make test && MODES=online make test && sudo make install && make ex
