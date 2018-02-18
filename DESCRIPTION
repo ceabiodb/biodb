@@ -16,6 +16,7 @@ Suggests:
 	rmarkdown,
 VignetteBuilder: knitr
 Imports:
+	roxygen2,
     methods,
     XML,
     stringr,
