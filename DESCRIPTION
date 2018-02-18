@@ -10,8 +10,8 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests:
-	testthat,
 	royxgen2 (>= 5.0.0),
+	testthat,
 	knitr,
 	rmarkdown,
 VignetteBuilder: knitr
