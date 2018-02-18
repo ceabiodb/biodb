@@ -10,9 +10,7 @@ test.lipidmaps.structure.ws.LMSDRecord <- function(db) {
 	expect_length(results, 1)
 
 	# No parsing possible (output.type not selected)
-	results <- db$ws.LMSDRecord(lmid = 'LMFA08040013', mode = 'File', biodb.parse = TRUE)
-	expect_is(results, 'character')
-	expect_length(results, 1)
+	expect_error(db$ws.LMSDRecord(lmid = 'LMFA08040013', mode = 'File', biodb.parse = TRUE), regexp = '^.*Only TSV and CSV output types are parsable\\.$')
 
 	# Parse results successfully
 	results <- db$ws.LMSDRecord(lmid = 'LMFA08040013', mode = 'File', output.type = 'CSV', biodb.parse = TRUE)

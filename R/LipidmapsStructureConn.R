@@ -66,55 +66,55 @@ LipidmapsStructureConn$methods( getEntryIds = function(max.results = NA_integer_
 # Web service LMSDSearch {{{1
 ################################################################
 
-LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NA_character_, output.mode = NA_character_, output.type = NA_character_, output.delimiter = NA_character_, output.quote = NA_character_, output.column.header = NA_character_, lmid = NA_character_, name = NA_character_, formula = NA_character_, search.type = NA_character_, smiles.string = NA_character_, exact.mass = NA_real_, exact.mass.offset = NA_real_, core.class = NA_character_, main.class = NA_character_, sub.class = NA_character_, biodb.url = FALSE, biodb.parse = FALSE, biodb.ids = FALSE) {
+LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NULL, output.mode = NULL, output.type = NULL, output.delimiter = NULL, output.quote = NULL, output.column.header = NULL, lmid = NULL, name = NULL, formula = NULL, search.type = NULL, smiles.string = NULL, exact.mass = NA_real_, exact.mass.offset = NA_real_, core.class = NULL, main.class = NULL, sub.class = NULL, biodb.url = FALSE, biodb.parse = FALSE, biodb.ids = FALSE) {
 	":\n\nCalls LMSDSearch web service. See http://www.lipidmaps.org/data/structure/programmaticaccess.html."
 
 	# Check parameters
-	if ( ! is.na(mode) && ! mode %in% c('ProcessStrSearch', 'ProcessTextSearch', 'ProcessTextOntologySearch'))
+	if ( ! is.null(mode) && ! mode %in% c('ProcessStrSearch', 'ProcessTextSearch', 'ProcessTextOntologySearch'))
 		.self$message('error', paste0('Unknown value "', output.mode, '" for output.mode parameter.'))
-	if ( ! is.na(output.mode) && ! output.mode %in% c('File'))
+	if ( ! is.null(output.mode) && ! output.mode %in% c('File'))
 		.self$message('error', paste0('Unknown value "', output.mode, '" for output.mode parameter.'))
-	if ( ! is.na(output.type) && ! output.type %in% c('TSV', 'CSV', 'SDF'))
+	if ( ! is.null(output.type) && ! output.type %in% c('TSV', 'CSV', 'SDF'))
 		.self$message('error', paste0('Unknown value "', output.type, '" for output.type parameter.'))
-	if ( ! is.na(output.delimiter) && ! output.delimiter %in% c('Tab', 'Comma', 'Semicolon'))
+	if ( ! is.null(output.delimiter) && ! output.delimiter %in% c('Tab', 'Comma', 'Semicolon'))
 		.self$message('error', paste0('Unknown value "', output.delimiter, '" for output.delimiter parameter.'))
-	if ( ! is.na(output.quote) && ! output.quote %in% c('Yes', 'No'))
+	if ( ! is.null(output.quote) && ! output.quote %in% c('Yes', 'No'))
 		.self$message('error', paste0('Unknown value "', output.quote, '" for output.quote parameter.'))
-	if ( ! is.na(output.column.header) && ! output.column.header %in% c('Yes', 'No'))
+	if ( ! is.null(output.column.header) && ! output.column.header %in% c('Yes', 'No'))
 		.self$message('error', paste0('Unknown value "', output.column.header, '" for output.column.header parameter.'))
 
 	# Build request
 	url <- paste0(.self$getBaseUrl(), 'structure/LMSDSearch.php')
 	params <- c(Mode = mode)
-	if ( ! is.na(output.mode))
+	if ( ! is.null(output.mode))
 		params <- c(params, OutputMode = output.mode)
-	if ( ! is.na(output.type))
+	if ( ! is.null(output.type))
 		params <- c(params, OutputType = output.type)
-	if ( ! is.na(output.delimiter))
+	if ( ! is.null(output.delimiter))
 		params <- c(params, OutputDelimiter = output.delimiter)
-	if ( ! is.na(output.quote))
+	if ( ! is.null(output.quote))
 		params <- c(params, OutputQuote = output.quote)
-	if ( ! is.na(output.column.header))
+	if ( ! is.null(output.column.header))
 		params <- c(params, OutputColumnHeader = output.column.header)
-	if ( ! is.na(lmid))
+	if ( ! is.null(lmid))
 		params <- c(params, LMID = lmid)
-	if ( ! is.na(name))
+	if ( ! is.null(name))
 		params <- c(params, Name = name)
-	if ( ! is.na(formula))
+	if ( ! is.null(formula))
 		params <- c(params, Formula = formula)
-	if ( ! is.na(search.type))
+	if ( ! is.null(search.type))
 		params <- c(params, SearchType = search.type)
-	if ( ! is.na(smiles.string))
+	if ( ! is.null(smiles.string))
 		params <- c(params, SMILESString = smiles.string)
-	if ( ! is.na(exact.mass))
+	if ( ! is.null(exact.mass))
 		params <- c(params, ExactMass = exact.mass)
-	if ( ! is.na(exact.mass.offset))
+	if ( ! is.null(exact.mass.offset))
 		params <- c(params, ExactMassOffSet = exact.mass.offset)
-	if ( ! is.na(core.class))
+	if ( ! is.null(core.class))
 		params <- c(params, CoreClass = core.class)
-	if ( ! is.na(main.class))
+	if ( ! is.null(main.class))
 		params <- c(params, MainClass = main.class)
-	if ( ! is.na(sub.class))
+	if ( ! is.null(sub.class))
 		params <- c(params, SubClass = sub.class)
 
 	# Returns URL
@@ -127,13 +127,13 @@ LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NA_character_, o
 	# Parse
 	if ((biodb.parse || biodb.ids) && output.mode == 'File') {
 		# Mode must be set or HTML will be output
-		if (is.na(output.type) || output.type %in% c('TSV', 'CSV')) {
-			if (is.na(output.type) || output.type == 'TSV')
+		if (is.null(output.type) || output.type %in% c('TSV', 'CSV')) {
+			if (is.null(output.type) || output.type == 'TSV')
 				sep <- "\t"
 			else
-				sep <- if (is.na(output.delimiter) || output.delimiter == 'Comma') ',' else ';'
-			header <- (is.na(output.column.header) || output.column.header == 'Yes')
-			quote <- if (is.na(output.quote) || output.quote == 'No') '' else '"'
+				sep <- if (is.null(output.delimiter) || output.delimiter == 'Comma') ',' else ';'
+			header <- (is.null(output.column.header) || output.column.header == 'Yes')
+			quote <- if (is.null(output.quote) || output.quote == 'No') '' else '"'
 			results <- read.table(text = results, sep = sep, header = header, comment.char = '', stringsAsFactors = FALSE, quote = quote, fill = TRUE)
 		}
 	}
@@ -148,33 +148,33 @@ LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NA_character_, o
 # Web service LMSDRecord {{{1
 ################################################################
 
-LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NA_character_, output.type = NA_character_, output.delimiter = NA_character_, output.quote = NA_character_, output.column.header = NA_character_, biodb.url = FALSE, biodb.parse = FALSE) {
+LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NULL, output.type = NULL, output.delimiter = NULL, output.quote = NULL, output.column.header = NULL, biodb.url = FALSE, biodb.parse = FALSE) {
 	":\n\nCalls LMSDRecord web service. See http://www.lipidmaps.org/data/structure/programmaticaccess.html."
 
 	# Check parameters
-	if ( ! is.na(mode) && ! mode %in% c('File', 'Download'))
+	if ( ! is.null(mode) && ! mode %in% c('File', 'Download'))
 		.self$message('error', paste0('Unknown value "', mode, '" for mode parameter.'))
-	if ( ! is.na(output.type) && ! output.type %in% c('TSV', 'CSV', 'SDF', 'MDLMOL'))
+	if ( ! is.null(output.type) && ! output.type %in% c('TSV', 'CSV', 'SDF', 'MDLMOL'))
 		.self$message('error', paste0('Unknown value "', output.type, '" for output.type parameter.'))
-	if ( ! is.na(output.delimiter) && ! output.delimiter %in% c('Tab', 'Comma', 'Semicolon'))
+	if ( ! is.null(output.delimiter) && ! output.delimiter %in% c('Tab', 'Comma', 'Semicolon'))
 		.self$message('error', paste0('Unknown value "', output.delimiter, '" for output.delimiter parameter.'))
-	if ( ! is.na(output.quote) && ! output.quote %in% c('Yes', 'No'))
+	if ( ! is.null(output.quote) && ! output.quote %in% c('Yes', 'No'))
 		.self$message('error', paste0('Unknown value "', output.quote, '" for output.quote parameter.'))
-	if ( ! is.na(output.column.header) && ! output.column.header %in% c('Yes', 'No'))
+	if ( ! is.null(output.column.header) && ! output.column.header %in% c('Yes', 'No'))
 		.self$message('error', paste0('Unknown value "', output.column.header, '" for output.column.header parameter.'))
 
 	# Build request
 	url <- paste0(.self$getBaseUrl(), 'LMSDRecord.php')
 	params <- c(LMID = lmid)
-	if ( ! is.na(mode))
+	if ( ! is.null(mode))
 		params <- c(params, Mode = mode)
-	if ( ! is.na(output.type))
+	if ( ! is.null(output.type))
 		params <- c(params, OutputType = output.type)
-	if ( ! is.na(output.delimiter))
+	if ( ! is.null(output.delimiter))
 		params <- c(params, OutputDelimiter = output.delimiter)
-	if ( ! is.na(output.quote))
+	if ( ! is.null(output.quote))
 		params <- c(params, OutputQuote = output.quote)
-	if ( ! is.na(output.column.header))
+	if ( ! is.null(output.column.header))
 		params <- c(params, OutputColumnHeader = output.column.header)
 
 	# Returns URL
@@ -187,16 +187,48 @@ LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NA_charact
 	# Parse
 	if (biodb.parse && mode %in% c('File', 'Download')) {
 		# Mode must be set or HTML will be output
-		if (output.type %in% c('TSV', 'CSV')) {
+		if ( ! is.null(output.type) && output.type %in% c('TSV', 'CSV')) {
 			if (output.type == 'TSV')
 				sep <- "\t"
 			else
-				sep <- if (is.na(output.delimiter) || output.delimiter == 'Comma') ',' else ';'
-			header <- (is.na(output.column.header) || output.column.header == 'Yes')
-			quote <- if (is.na(output.quote) || output.quote == 'No') '' else '"'
+				sep <- if (is.null(output.delimiter) || output.delimiter == 'Comma') ',' else ';'
+			header <- (is.null(output.column.header) || output.column.header == 'Yes')
+			quote <- if (is.null(output.quote) || output.quote == 'No') '' else '"'
 			results <- read.table(text = results, sep = sep, header = header, comment.char = '', stringsAsFactors = FALSE, quote = quote, fill = TRUE)
 		}
+		else
+			.self$message('error', 'Only TSV and CSV output types are parsable.')
 	}
 
 	return(results)
+})
+
+# Search compound {{{1
+################################################################
+
+LipidmapsStructureConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	exact.mass <- NULL
+	exact.mass.offset <- NULL
+
+	# Mass search
+	if ( ! is.null(mass) && ! is.null(mass.field)) {
+
+		mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
+
+		if (mass.field != 'monoisotopic.mass')
+			.self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+		else {
+			exact.mass <- mass
+			if (mass.tol.unit == 'ppm')
+				exact.mass.offset <- mass * mass.tol * 1e-6
+			else
+				exact.mass.offset <- mass.tol
+		}
+	}
+
+	# Search
+	ids <- .self$ws.LMSDSearch(mode = 'ProcessStrSearch', output.mode = 'File', name = name, exact.mass = exact.mass, exact.mass.offset = exact.mass.offset, biodb.ids = TRUE)
+
+	return(ids)
 })
