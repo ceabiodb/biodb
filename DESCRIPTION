@@ -10,13 +10,13 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests:
+	roxygen2,
 	devtools,
 	testthat,
 	knitr,
-	rmarkdown,
+	rmarkdown
 VignetteBuilder: knitr
 Imports:
-	roxygen2,
     methods,
     XML,
     stringr,
