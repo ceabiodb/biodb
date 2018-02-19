@@ -11,7 +11,7 @@ LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn", contain
 ################################################################
 
 LipidmapsStructureConn$methods( .doGetEntryContentUrl = function(ids, concatenate = TRUE) {
-	return(vapply(ids, function(id) .self$ws.LMSDRecord(lmid = id, output.type = 'CSV', biodb.url = TRUE), FUN.VALUE = ''))
+	return(vapply(ids, function(id) .self$ws.LMSDRecord(lmid = id, mode = 'File', output.type = 'CSV', biodb.url = TRUE), FUN.VALUE = ''))
 })
 
 # Get entry page url {{{1
@@ -47,14 +47,8 @@ LipidmapsStructureConn$methods( getEntryContent = function(entry.id) {
 
 LipidmapsStructureConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
-	# Retrieve all entries
-	result.txt <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), 'structure/LMSDSearch.php?Mode=ProcessStrSearch&OutputMode=File', sep = ''))
-
-	# Convert into data frame
-	result.df <- read.table(text = result.txt, sep = "\t", header = TRUE, comment.char = '', stringsAsFactors = FALSE, quote = '')
-
-	# Extract IDs
-	ids <- result.df[['LM_ID']]
+	# Retrieve all IDs
+	ids <- .self$ws.LMSDSearch(mode = 'ProcessStrSearch', output.mode = 'File', biodb.ids = TRUE)
 
 	# Cut
 	if ( ! is.na(max.results) && length(ids) > max.results)
