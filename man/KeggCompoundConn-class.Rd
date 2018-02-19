@@ -18,6 +18,15 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \section{Methods}{
 
 \describe{
+\item{\code{getEntryImageUrl(entry.id)}}{:
+
+Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+
+\item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
+
+Search for compounds by name and/or by mass.}
+
 \item{\code{ws.find.exact.mass(mass = NA_real_, mass.min = NA_real_,
   mass.max = NA_real_)}}{:
 

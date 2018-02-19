@@ -11,7 +11,7 @@ build:
 	R -q -e "devtools::build('$(CURDIR)')"
 
 test:
-	R -q -e "devtools::test('$(CURDIR)')"
+	R -q -e "devtools::test('$(CURDIR)', reporter = c('progress', 'fail'))"
 
 install: uninstall install.local list.classes
 

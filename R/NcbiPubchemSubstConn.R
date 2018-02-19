@@ -9,5 +9,5 @@ NcbiPubchemSubstConn <- methods::setRefClass("NcbiPubchemSubstConn", contains = 
 ################################################################
 
 NcbiPubchemSubstConn$methods( initialize = function(...) {
-	callSuper(db.name = 'substance', id.xmltag = 'PC-ID_id', entry.xmltag = 'PC-Substance', id.urlfield = 'sid', db.entrez.name = 'pcsubstance', ...)
+	callSuper(db.name = 'substance', id.xmltag = 'PC-ID_id', entry.xmltag = 'PC-Substance', id.urlfield = 'sid', entrez.name = 'pcsubstance', ...)
 })
