@@ -6,9 +6,6 @@ notifications:
   recipients:
    - pk.roger@icloud.com
 
-before_install:
-    - sudo apt-get install -y subversion # For Massbank.
-
 branches:
   only:
     - master
