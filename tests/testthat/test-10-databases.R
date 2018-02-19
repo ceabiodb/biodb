@@ -14,6 +14,7 @@ source('db-hmdb-tests.R')
 source('db-kegg.compound-tests.R')
 source('db-mass.csv.file-tests.R')
 source('db-massbank-tests.R')
+source('db-mirbase-tests.R')
 source('db-uniprot-tests.R')
 
 # MAIN {{{1
