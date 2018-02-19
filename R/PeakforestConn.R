@@ -55,10 +55,16 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 
 	# Get directly one JSON string for each ID
 	if (length(jsonstr) == length(entry.id)) {
-		first_json = jsonlite::fromJSON(jsonstr[[1]], simplifyDataFrame = FALSE)
-		if ( ! is.null(first_json) && class(first_json) == 'list' && ! is.null(names(first_json))) {
+		for (i in seq_along(jsonstr)) {
+			json = jsonlite::fromJSON(jsonstr[[i]], simplifyDataFrame = FALSE)
+			if (is.null(json))
+				next
+			if (class(json) == 'list' && ! is.null(names(json))) {
 			content <- jsonstr
 			return(content)
+			}
+			else
+				break
 		}
 	}
 
@@ -87,19 +93,8 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 
 PeakforestConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
-	# Build URL
-	url <- paste(.self$getBaseUrl(), .self$.db.name, '/all/ids?token=', .self$getToken(), sep = '')
-
-	# Send request
-	json.str <- .self$.getUrlScheduler()$getUrl(url)
-	.self$.checkIfError(json.str)
-
-	# Parse JSON
-	json <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
-
-	# Get IDs
-	ids <- json
-	ids <- as.character(ids)
+	# Get all IDs
+	ids <- .self$ws.all.ids(biodb.ids = TRUE)
 
 	# Cut
 	if ( ! is.na(max.results) && max.results > 1 && max.results < length(ids))
@@ -112,12 +107,78 @@ PeakforestConn$methods( getEntryIds = function(max.results = NA_integer_) {
 ################################################################
 
 PeakforestConn$methods( getNbEntries = function(count = FALSE) {
+	return(.self$ws.all.count(biodb.parse = TRUE))
+})
+
+# Web service search {{{1
+################################################################
+
+PeakforestConn$methods( ws.search = function(term, max = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
 
 	# Build URL
-	url <- paste(.self$getBaseUrl(), .self$.db.name, '/all/count?token=', .self$getToken(), sep = '')
+	url <- paste(.self$getBaseUrl(), 'search/', .self$.db.name, '/', term, sep = '')
+	params <- c(token = .self$getToken())
+	if ( ! is.na(max))
+		params <- c(params, max = max)
 
 	# Send request
-	n <- as.integer(.self$.getUrlScheduler()$getUrl(url))
+	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
 
-	return(n)
+	# Parse results
+	if (biodb.parse || biodb.ids)
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+	# Extract IDs
+	if (biodb.ids) {
+		if ('compoundNames' %in% names(results))
+			results <- vapply(results$compoundNames, function(x) as.character(x$compound$id), FUN.VALUE = '')
+		else
+			.self$message('error', 'Could find "compoundNames" field inside returned JSON.')
+	}
+
+	return(results)
+})
+
+# Web service all.count {{{1
+################################################################
+
+PeakforestConn$methods( ws.all.count = function(biodb.parse = FALSE) {
+
+	# Build URL
+	url <- paste(.self$getBaseUrl(), .self$.db.name, '/', 'all/count', sep = '')
+	params <- c(token = .self$getToken())
+
+	# Send request
+	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+
+	# Parse integer
+	if (biodb.parse)
+		results <- as.integer(results)
+
+	return(results)
+})
+
+# Web service all.ids {{{1
+
+################################################################
+
+PeakforestConn$methods( ws.all.ids = function(biodb.parse = FALSE,  biodb.ids = FALSE) {
+
+	# Build URL
+	url <- paste(.self$getBaseUrl(), .self$.db.name, '/', 'all/ids', sep = '')
+	params <- c(token = .self$getToken())
+
+	# Send request
+	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	.self$.checkIfError(results)
+
+	# Parse JSON
+	if (biodb.parse || biodb.ids)
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+	# extract IDs
+	if (biodb.ids)
+		results <- as.character(results)
+
+	return(results)
 })
