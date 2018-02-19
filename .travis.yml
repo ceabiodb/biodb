@@ -1,22 +1,20 @@
+language: r
+cache: packages
+
 notifications:
  email:
   recipients:
    - pk.roger@icloud.com
-                           
+
 before_install:
- - sudo sed -i -e '$adeb http://cran.univ-paris1.fr/bin/linux/ubuntu trusty/' /etc/apt/sources.list
- - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
- - sudo apt-get update
- - sudo apt-get install -y r-base
- - sudo R -e "install.packages(c('getopt', 'stringr', 'plyr', 'XML', 'jsonlite', 'bitops', 'stats', 'R.utils', 'digest', 'testthat', 'devtools'), lib='/usr/lib/R/library', dependencies = TRUE, repos='http://cran.univ-paris1.fr/')"
+    - sudo apt-get install -y subversion # For Massbank.
 
 branches:
   only:
     - master
     - develop
- 
+    - /^release[/].*$/
+
 script:
- - make test
- - make check
- - sudo make install
- - make ex
+    - make check
+    - make test && MODES=online make test && sudo make install && make ex

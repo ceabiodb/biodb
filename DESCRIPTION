@@ -9,7 +9,12 @@ Depends:
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
-Suggests: knitr, rmarkdown
+Suggests:
+	roxygen2,
+	devtools,
+	testthat,
+	knitr,
+	rmarkdown
 VignetteBuilder: knitr
 Imports:
     methods,
