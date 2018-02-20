@@ -12,8 +12,11 @@ source('db-chemspider-tests.R')
 source('db-expasy.enzyme-tests.R')
 source('db-hmdb-tests.R')
 source('db-kegg.compound-tests.R')
+source('db-lipidmaps-tests.R')
 source('db-mass.csv.file-tests.R')
 source('db-massbank-tests.R')
+source('db-mirbase-tests.R')
+source('db-peakforest-tests.R')
 source('db-uniprot-tests.R')
 
 # MAIN {{{1
