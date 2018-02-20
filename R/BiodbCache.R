@@ -136,8 +136,13 @@ BiodbCache$methods( loadFileContent = function(dbid, subfolder, name, ext, outpu
 
 	# Read contents from files
 	file.paths <- .self$getBiodb()$getCache()$getFilePath(dbid, subfolder, name, ext)
-	.self$message('debug', paste("Loading from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
+	.self$message('debug', paste("Trying to load from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size, useBytes = TRUE) else NULL )} )
+	files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE = T)]
+	if (length(files.read) == 0)
+		.self$message('debug', "No files loaded from cache.")
+	else
+		.self$message('debug', paste("Loaded from cache \"", paste(if (length(files.read) > 10) c(files.read[1:10], '...') else files.read, collapse = ", ") ,"\".", sep = ''))
 
 	# Check that the read content is not conflicting with the current locale
 	for (i in seq(content)) {

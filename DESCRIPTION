@@ -12,7 +12,7 @@ LazyData: true
 Suggests:
 	roxygen2,
 	devtools,
-	testthat,
+	testthat (>= 2.0.0),
 	knitr,
 	rmarkdown
 VignetteBuilder: knitr
