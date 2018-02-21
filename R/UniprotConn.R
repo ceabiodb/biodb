@@ -115,10 +115,24 @@ UniprotConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	return(url)
 })
 
+# Get entry page url {{{1
+################################################################
+
+UniprotConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), id))
+})
+
+# Get entry image url {{{1
+################################################################
+
+UniprotConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # Search compound {{{1
 ################################################################
 
-UniprotConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+UniprotConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	query <- ''
 
@@ -130,31 +144,38 @@ UniprotConn$methods( searchCompound = function(name = NULL, molecular.mass = NUL
 	}
 
 	# Search for mass
-	if ( ! is.null(monoisotopic.mass))
-		.self$message('caution', 'Search by monoisotopic mass is not available in Uniprot database.')
-	if ( ! is.null(molecular.mass) && ! is.na(molecular.mass)) {
+	if ( ! is.null(mass) && ! is.null(mass.field)) {
 
-		if (mass.tol.unit == 'ppm') {
-			mass.min <- molecular.mass * (1 - mass.tol * 1e-6)
-			mass.max <- molecular.mass * (1 + mass.tol * 1e-6)
-		} else {
-			mass.min <- molecular.mass - mass.tol
-			mass.max <- molecular.mass + mass.tol
+		mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
+
+		if (mass.field != 'molecular.mass')
+			.self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+
+		else {
+
+			if (mass.tol.unit == 'ppm') {
+				mass.min <- mass * (1 - mass.tol * 1e-6)
+				mass.max <- mass * (1 + mass.tol * 1e-6)
+			} else {
+				mass.min <- mass - mass.tol
+				mass.max <- mass + mass.tol
+			}
+
+			# Uniprot does not accept mass in floating numbers
+			uniprot.mass.min <- as.integer(mass.min)
+			uniprot.mass.max <- as.integer(mass.max)
+			if (uniprot.mass.min != mass.min || uniprot.mass.max != mass.max)
+				.self$message('caution', paste0('Uniprot requires integers for mass range. Range [', mass.min, ', ', mass.max, '] will be converted into [', uniprot.mass.min, ', ', uniprot.mass.max, '].'))
+
+			mass.query <- paste0('mass:[', uniprot.mass.min, ' TO ', uniprot.mass.max, ']')
+
+			if (nchar(query) > 0) {
+				query <- paste0('(', query, ')')
+				query <- paste(query, mass.query, sep = ' AND ')
+			}
+			else
+				query <- mass.query
 		}
-
-		# Uniprot does not accept mass in floating numbers
-		# TODO send CAUTION message if mass.min or mass.max is a floating number.
-		mass.min <- as.integer(mass.min)
-		mass.max <- as.integer(mass.max)
-
-		mass.query <- paste0('mass:[', mass.min, ' TO ', mass.max, ']')
-
-		if (nchar(query) > 0) {
-			query <- paste0('(', query, ')')
-			query <- paste(query, mass.query, sep = ' AND ')
-		}
-		else
-			query <- mass.query
 	}
 
 	# Send query

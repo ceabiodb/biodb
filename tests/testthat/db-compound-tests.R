@@ -5,51 +5,66 @@
 
 test.searchCompound <- function(db) {
 
-	search.not.implemented <- c('hmdb.metabolites')
+	# Not searchable databases
+	not.searchable <- list(name = c('hmdb.metabolites'), molecular.mass = c('chemspider', 'expasy.enzyme', 'ncbi.gene'), monoisotopic.mass = c('expasy.enzyme', 'ncbi.gene'), average.mass = c('chemspider'), nominal.mass = c('chemspider'))
 
 	# Get an entry
-	id <- db$getEntryIds(max.result = 1)
+	id <- list.ref.entries(db$getId())[[1]]
 	expect_true( ! is.null(id))
-	entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), id)
+	expect_length(id, 1)
+	entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), id, drop = TRUE)
 	expect_true( ! is.null(entry))
 
 	# Search by name
 	name <- entry$getFieldValue('name')
+	expect_is(name, 'character')
+	expect_gt(length(name), 0)
+	name <- name[[1]]
+	expect_true( ! is.na(name))
 	ids <- db$searchCompound(name = name)
-	if (db$getId() %in% search.not.implemented)
+	if (db$getId() %in% not.searchable$name)
 		expect_null(ids)
 	else {
-		expect_true( ! is.null(ids))
-		expect_true(length(ids) > 0)
-		expect_true(id %in% ids)
+		msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
+		expect_true( ! is.null(ids), msg)
+		expect_true(length(ids) > 0, msg)
+		expect_true(id %in% ids, msg)
 
-		# Search by mass
-		mass <- NA
-		if (entry$hasField('monoisotopic.mass'))
-			mass <- entry$getFieldValue('monoisotopic.mass')
-		else if (entry$hasField('mass'))
-			mass <- entry$getFieldValue('mass')
-		if ( ! is.na(mass)) {
-			ids <- db$searchCompound(mass = mass)
-			expect_true( ! is.null(ids))
-			expect_true(length(ids) > 0)
-			expect_true(id %in% ids)
-		}
+		# Loop on all entry fields
+		for (field in entry$getFieldNames()) {
 
-		# Search by exact mass and name
-		if ( ! is.na(mass)) {
-			ids <- db$searchCompound(name = name, mass = mass)
-			expect_true( ! is.null(ids))
-			expect_true(length(ids) > 0)
-			expect_true(id %in% ids)
-		}
+			# If this is a mass field
+			field.type <- db$getBiodb()$getEntryFields()$get(field)$getType()
+			if ( ! is.na(field.type) && field.type == 'mass') {
 
-		# Search by slightly different mass and name
-		if ( ! is.na(mass)) {
-			ids <- db$searchCompound(name = name, mass = mass - 0.1, mass.tol = 0.2)
-			expect_true( ! is.null(ids))
-			expect_true(length(ids) > 0)
-			expect_true(id %in% ids)
+				mass <- entry$getFieldValue(field)
+
+				# Search by mass
+				ids <- db$searchCompound(mass = mass, mass.field = field)
+				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, '.')
+				if (db$getId() %in% not.searchable[[field]])
+					expect_null(ids, msg)
+				else {
+					expect_true( ! is.null(ids), msg)
+					expect_true(length(ids) > 0, msg)
+					expect_true(id %in% ids, msg)
+				}
+
+				# Search by mass and name
+				ids <- db$searchCompound(name = name, mass = mass, mass.field = field)
+				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+				expect_true( ! is.null(ids), msg)
+				expect_true(length(ids) > 0, msg)
+				expect_true(id %in% ids, msg)
+
+				# Search by name and slightly different mass
+				mass <- mass + 0.01
+				ids <- db$searchCompound(name = name, mass = mass, mass.field = field, mass.tol = 0.02)
+				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+				expect_true( ! is.null(ids), msg)
+				expect_true(length(ids) > 0, msg)
+				expect_true(id %in% ids, msg)
+			}
 		}
 	}
 }

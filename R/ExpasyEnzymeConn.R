@@ -92,7 +92,7 @@ ExpasyEnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Search compound {{{1
 ################################################################
 
-ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	ids <- NULL
 
@@ -101,13 +101,24 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, molecular.mass 
 		ids <- .self$ws.enzymeByName(name, biodb.ids = TRUE)
 
 	# Search by mass
-	if ( ! is.null(monoisotopic.mass))
-		.self$message('caution', 'Search by monoisotopic mass is not available in Expasy Enzyme database.')
-	if ( ! is.null(molecular.mass)) {
-		.self$message('caution', 'Search by molecular mass using links to UniProt KB is not yet available in Expasy Enzyme database.')
-	}
+	if ( ! is.null(mass.field))
+		.self$message('caution', paste0('Mass search is not handled.'))
 
 	return(ids)
+})
+
+# Get entry page url {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'cgi-bin/enzyme/enzyme-search-ec?', sub('^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$', 'field1=\\1&field2=\\2&field3=\\3&field4=\\4', id)))
+})
+
+# Get entry image url {{{1
+################################################################
+
+ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
 })
 
 # PRIVATE METHODS {{{1

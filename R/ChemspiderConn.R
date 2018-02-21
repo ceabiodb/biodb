@@ -94,20 +94,14 @@ ChemspiderConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE)
 ################################################################
 
 ChemspiderConn$methods( getEntryPageUrl = function(id) {
-
-	url <- paste0(.self$getBaseUrl(), 'Chemical-Structure.', id, '.html')
-
-	return(url)
+	return(paste0(.self$getBaseUrl(), 'Chemical-Structure.', id, '.html'))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 ChemspiderConn$methods( getEntryImageUrl = function(id) {
-
-	url <- paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = '')
-
-	return(url)
+	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
 })
 
 ## Send search mass request {{{1
@@ -179,7 +173,6 @@ ChemspiderConn$methods( ws.SearchByMass2.ids = function(...) {
 
 ChemspiderConn$methods( ws.SimpleSearch = function(query = NA) {
 	":\n\nDirect query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details."
-
 	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "Search.asmx/SimpleSearch", sep = ''), params = c(query = query, token = .self$getToken()))
 
 	return(xml.results)
@@ -206,23 +199,22 @@ ChemspiderConn$methods( ws.SimpleSearch.ids = function(...) {
 # Search compound {{{1
 ################################################################
 
-ChemspiderConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 1, mass.tol.unit = 'plain', max.results = NA_integer_) {
+ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
-	id <- NULL
+	ids <- NULL
 
 	# Send request on mass
-	if ( ! is.null(molecular.mass))
-		.self$message('caution', 'Search by molecular mass is not available in ChemSpider database.')
-	if ( ! is.null(monoisotopic.mass)) {
-		if (mass.tol.unit == 'ppm')
-			range <- molecular.mass * mass.tol * 1.e-6
+	if ( ! is.null(mass) && ! is.null(mass.field)) {
+		mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
+		if (mass.field == 'monoisotopic.mass') {
+			if (mass.tol.unit == 'ppm')
+				range <- mass * mass.tol * 1.e-6
+			else
+				range <- mass.tol
+			ids <- .self$ws.SearchByMass2.ids(mass = mass, range = range)
+		}
 		else
-			range <- mass.tol
-		id <- .self$ws.SearchByMass2.ids(mass = molecular.mass, range = range)
-
-		# Cut
-		if ( ! is.na(max.results) && max.results > 0 && max.results < length(id))
-			id <- id[1:max.results]
+			.self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
 	}
 
 	# Search by name
@@ -231,16 +223,17 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, molecular.mass = 
 		name.id <- .self$ws.SimpleSearch.ids(query = name)
 
 		# Merge with already found IDs
-		if (is.null(id))
-			id <- name.id
+		if (is.null(ids))
+			ids <- name.id
 		else
-			id <- id[id %in% name.id]
+			ids <- ids[ids %in% name.id]
 	}
 
-	if (is.null(id))
-		id <- character(0)
+	# Cut
+	if ( ! is.null(ids) && ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+		ids <- ids[1:max.results]
 
-	return(id)
+	return(ids)
 })
 
 # Get entry ids {{{1
@@ -251,5 +244,13 @@ ChemspiderConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of ChemSpider entries.")
 
-	return(.self$searchCompound(mass = 100, mass.tol = 10, max.results = max.results))
+	ids <- NULL
+
+	if ( ! is.na(max.results))
+		mass.tol <- if (max.results <= 100) 0.01 else (0.01 * max.results / 100)
+	else
+		mass.tol <- 10
+	ids <- .self$searchCompound(mass = 100, mass.field = 'monoisotopic.mass', mass.tol = mass.tol, max.results = max.results)
+
+	return(ids)
 })

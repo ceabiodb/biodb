@@ -52,6 +52,14 @@ BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', ...) {
 	.self$excludeMsgType('debug')
 })
 
+# Terminate {{{1
+################################################################
+
+BiodbLogger$methods( terminate = function() {
+	if ( ! is.null(.self$.file) && class(.self$.file)[[1]] != 'terminal')
+		close(.self$.file)
+})
+
 # Exclude message type {{{1
 ################################################################
 

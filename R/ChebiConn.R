@@ -14,6 +14,20 @@ ChebiConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	return(paste(file.path(.self$getWsUrl(), 'getCompleteEntity', fsep = '/'), '?chebiId=', id, sep = ''))
 })
 
+# Get entry page url {{{1
+################################################################
+
+ChebiConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'searchId.do?chebiId=', id))
+})
+
+# Get entry image url {{{1
+################################################################
+
+ChebiConn$methods( getEntryImageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'displayImage.do?defaultImage=true&imageIndex=0&chebiId=', id, '&dimensions=400'))
+})
+
 # Get entry content {{{1
 ################################################################
 
@@ -32,7 +46,7 @@ ChebiConn$methods( getEntryContent = function(entry.id) {
 ################################################################
 
 ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 'ALL', max.results = 10, stars = 'ALL') {
-	":\n\nCalls getLiteEntity web service and returns the XML result. See http://www.ebi.ac.uk/chebi/webServices.do."
+	":\n\nCalls getLiteEntity web service and returns the XML result. See http://www.ebi.ac.uk/chebi/webServices.do. Be careful when search by mass (search.category = 'MASS' or 'MONOISOTOPIC MASS', since the searched is made in text mode, thus the number must be exactly written as it stored in database eventually padded with 0 in order to have exactly 5 digits after the decimal. An easy solution is to use wildcards to search a mass: '410;.718*'."
 
 	# Check parameters
 	.self$.assert.not.null(search)
@@ -82,7 +96,7 @@ ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Search compound {{{1
 ################################################################
 
-ChebiConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 
 	ids <- NULL
 	
@@ -91,15 +105,16 @@ ChebiConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL,
 		ids <- .self$ws.getLiteEntity.ids(search = name, search.category = "ALL NAMES", max.results = 0)
 
 	# Search by mass
-	if ( ! is.null(monoisotopic.mass) || ! is.null(molecular.mass)) {
+	if ( ! is.null(mass) && ! is.null(mass.field)) {
 
-		if (is.null(ids)) {
-			.self$message('caution', 'ChEBI does not use any tolerance while searching for compounds by mass. Thus, only compounds matching exactly the specified mass will be matched.')
-			ids <- .self$ws.getLiteEntity.ids(search = mass, search.category = (if (is.null(monoisotopic.mass)) "MASS" else "MONOISOTOPIC MASS"), max.results = 0)
-		}
+		mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
+
+		if ( ! mass.field %in% c('monoisotopic.mass' ,'molecular.mass'))
+			.self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+
 		else {
-			.self$message('caution', 'Since ChEBI does not use tolerance while searching for compounds by mass, we will do filtering by mass directly on results obtained from the search by name.')
 
+			# Compute mass range
 			if (mass.tol.unit == 'ppm') {
 				mass.min <- mass * (1 - mass.tol * 1e-6)
 				mass.max <- mass * (1 + mass.tol * 1e-6)
@@ -108,12 +123,30 @@ ChebiConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL,
 				mass.max <- mass + mass.tol
 			}
 
-			# Get masses of all entries
-			entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
-			masses <- .self$getBiodb()$entriesToDataframe(entries, compute = FALSE, fields = 'monoisotopic.mass', drop = TRUE)
+			# Search for masses
+			if (is.null(ids)) {
 
-			# Filter on mass
-			ids <- ids[(masses >= mass.min) & (masses <= mass.max)]
+				# Set search category
+				search.category <- if (mass.field == 'monoisotopic.mass') 'MASS' else 'MONOISOTOPIC MASS'
+
+				# Search for all masses in the range
+				for (integer.mass in seq(as.integer(mass.min), as.integer(mass.max)))
+					ids <- c(ids, .self$ws.getLiteEntity.ids(search = paste0(integer.mass, '*'), search.category = search.category, max.results = 0))
+
+				# Remove duplicates
+				ids <- ids[ ! duplicated(ids)]
+			}
+			
+			# Filtering on mass range
+			if ( ! is.null(ids)) {
+
+				# Get masses of all entries
+				entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
+				masses <- .self$getBiodb()$entriesToDataframe(entries, compute = FALSE, fields = mass.field, drop = TRUE)
+
+				# Filter on mass
+				ids <- ids[(masses >= mass.min) & (masses <= mass.max)]
+			}
 		}
 	}
 
