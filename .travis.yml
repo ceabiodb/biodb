@@ -6,6 +6,12 @@ notifications:
   recipients:
    - pk.roger@icloud.com
 
+env:
+    - MODES=offline
+    - MODES=online
+    - MODES=quick.online
+    - DATABASES=mass.csv.file MODES=online
+
 branches:
   only:
     - master
@@ -13,6 +19,5 @@ branches:
     - /^release[/].*$/
 
 script:
-    - DATABASES=mass.csv.file MODES=online make test
     - make check
-    - make test && MODES=online make test && sudo make install && make ex
+    - make test && sudo make install && make ex
