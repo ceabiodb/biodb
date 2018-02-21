@@ -161,3 +161,15 @@ HmdbMetabolitesConn$methods( getEntryPageUrl = function(id) {
 
 	return(url)
 })
+
+# Search compound {{{1
+################################################################
+
+HmdbMetabolitesConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	ids <- NULL
+
+	.self$message('caution', 'HMDB is not searchable. HMDB only provides an HTML interface for searching, giving results split across several pages. It is unpractical to use from a program. Since HMDB is downloaded entirely, a solution using an internal database will be implemented in the future.')
+
+	return(ids)
+})
