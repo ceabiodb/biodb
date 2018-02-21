@@ -149,11 +149,12 @@ BiodbConfig$methods( get = function(key) {
 ################################################################
 
 BiodbConfig$methods( set = function(key, value) {
-	":\n\nSet a the value of a key."
+	":\n\nSet the value of a key."
 
 	.self$.checkKey(key)
 
-	.self$message('info', paste("Set ", key, " to ", value, ".", sep = ''))
+	displayed.value <- if (is.character(value)) paste0('"', value, '"') else value
+	.self$message('info', paste("Set ", key, ' to ', displayed.value, '.', sep = ''))
 	.self$.values[[key]] <- as.vector(value, mode = .self$.getType(key))
 })
 
