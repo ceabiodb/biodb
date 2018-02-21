@@ -97,6 +97,15 @@ BiodbEntryFields$methods( get = function(name) {
 	return(field)
 })
 
+# Get field names {{{1
+################################################################
+
+BiodbEntryFields$methods( getFieldNames = function() {
+	":\n\nReturns the main names of all fields."
+
+	return(names(.self$.fields))
+})
+
 # Get database id field {{{1
 ################################################################
 
@@ -149,27 +158,23 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('accession',      description = 'The accession number of the entry.')
 	# Define database ID fields
 	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
-		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'))
+		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE)
 	.self$.define('compound.id', alias = 'compoundid', description = 'The compound ID.')
 	.self$.define('cas.id',             description = '', alias = 'casid')
 
-	.self$.define('description',    description = 'The decription of the entry.')
-	.self$.define('protdesc',   description = 'Protein description.')
+	.self$.define('description',    description = 'The decription of the entry.', alias = 'protdesc')
 
-	.self$.define('name',           description = 'The name of the entry.')
+	.self$.define('name',       description = 'The name of the entry.',     card = BIODB.CARD.MANY, alias = c('fullnames', 'synonyms'), case.insensitive = TRUE, forbids.duplicates = TRUE)
 	.self$.define('comp.iupac.name.allowed',    description = 'IUPAC allowed name')
 	.self$.define('comp.iupac.name.trad',       description = 'IUPAC traditional name')
 	.self$.define('comp.iupac.name.syst',       description = 'IUPAC systematic name')
 	.self$.define('comp.iupac.name.pref',       description = 'IUPAC preferred name')
 	.self$.define('comp.iupac.name.cas',        description = 'IUPAC CAS name')
-	.self$.define('fullnames',  description = 'List of names.',     card = BIODB.CARD.MANY)
-	.self$.define('synonyms',   description = 'List of synonyms.',  card = BIODB.CARD.MANY)
-	.self$.define('symbol',     description = 'A symbol (short name) used to name the entry.')
-	.self$.define('gene.symbols',  alias = 'genesymbols', description = 'A list of gene symbols.', card = BIODB.CARD.MANY)
+	.self$.define('gene.symbol',  alias = c('gene.symbols', 'symbol', 'genesymbols'), description = 'A list of gene symbols.', card = BIODB.CARD.MANY, case.insensitive = TRUE, forbids.duplicates = TRUE)
 
 	.self$.define('logp',       description = 'logP',               class = 'double')
 	.self$.define('nb.compounds',  alias = 'nbcompounds', description = 'Number of associated compounds.', class = 'integer')
-	.self$.define('compounds',     class = 'object',        description = 'List of associated compounds.', card = BIODB.CARD.MANY)
+#	.self$.define('compounds',     class = 'object',        description = 'List of associated compounds.', card = BIODB.CARD.MANY)
 
 	.self$.define('formula',            description = 'Empirical molecular formula.')
 	.self$.define('inchi',      description = 'International Chemical Identifier (InChI).')
@@ -181,15 +186,15 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('cofactor',           description = 'Cofactor.',                                  card = BIODB.CARD.MANY)
 	.self$.define('charge',             description = 'Charge.',               class = 'integer')
 
-	.self$.define('average.mass',  description = 'Average mass.',    class = 'double')
-	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double')
-	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer')
-	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double')
+	.self$.define('average.mass',  description = 'Average mass.',    class = 'double', type = 'mass')
+	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double', type = 'mass')
+	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer', type = 'mass')
+	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double', type = 'mass')
 
-	.self$.define('super.class',        description = 'Super class.', alias = 'superclass')
+	.self$.define('comp.super.class',        description = 'Compound super class.', alias = c('superclass', 'super.class'))
 	.self$.define('sequence',           description = 'Gene or protein sequence.')
-	.self$.define('length',             description = 'Sequence length.',               class = 'integer')
-	.self$.define('location',           description = 'Sequence location.')
+	.self$.define('seq.length',             description = 'Sequence length.',               class = 'integer', alias = 'length')
+	.self$.define('seq.location',           description = 'Sequence location.', alias = 'location')
 
 	.self$.define('msdev',              description = 'Mass spectrometer device.')
 	.self$.define('ms.level',           description = 'Mass spectrum level.', class = 'integer')

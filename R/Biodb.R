@@ -70,6 +70,14 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 	.self$.check.locale()
 })
 
+# Terminate {{{1
+################################################################
+
+Biodb$methods( terminate = function(logger = TRUE, observers = NULL, ...) {
+	for (obs in .self$.observers)
+		obs$terminate()
+})
+
 # Get configuration {{{1
 ################################################################
 

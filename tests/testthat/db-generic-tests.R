@@ -94,7 +94,8 @@ test.wrong.entry.among.good.ones <- function(db) {
 	entries.desc <- load.ref.entries(db.name)
 
 	# Test a wrong accession number
-	entries <- biodb$getFactory()$getEntry(db.name, id = c('WRONGB', entries.desc[['accession']]))
+	ids <- c('WRONGB', entries.desc[['accession']])
+	entries <- biodb$getFactory()$getEntry(db.name, id = ids)
 	expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
 	expect_null(entries[[1]])
 	expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
@@ -147,13 +148,16 @@ test.nb.entries <- function(db) {
 
 test.entry.ids <- function(db) {
 
+	dbs.not.implementing <- c('ncbi.ccds')
+
 	# Test getEntryIds()
 	max <- 100
 	ids <- db$getEntryIds(max.results = max)
-	if ( ! is.null(ids)) {
-		expect_true(is.character(ids))
-		n <- length(ids)
-		expect_true(n >= 0 && n <= max)
+	if (db$getId() %in% dbs.not.implementing)
+		expect_null(ids)
+	else {
+		expect_is(ids, 'character')
+		expect_true(length(ids) <= max)
 	}
 }
 
@@ -173,6 +177,75 @@ test.rt.unit <- function(db) {
 		expect_true( ! e$hasField('chrom.rt') || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
 }
 
+# Test entry page URL {{{1
+################################################################
+
+test.entry.page.url <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Get URLs
+	urls <- db$getEntryPageUrl(ref.ids)
+
+	# Check
+	expect_is(urls, 'character')
+	expect_length(urls, length(ref.ids))
+	expect_false(any(is.na(urls)))
+}
+
+# Test entry image URL {{{1
+################################################################
+
+test.entry.image.url <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Get URLs
+	urls <- db$getEntryImageUrl(ref.ids)
+
+	# Check
+	expect_is(urls, 'character')
+	expect_length(urls, length(ref.ids))
+}
+
+# Test entry page URL download {{{1
+################################################################
+
+test.entry.page.url.download <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Get URL
+	url <- db$getEntryPageUrl(ref.ids[[1]])
+
+	# Try downloading
+	content <- RCurl::getURL(url)
+	expect_true( ! is.na(content))
+	expect_true(nchar(content) > 0)
+}
+
+# Test entry image URL download {{{1
+################################################################
+
+test.entry.image.url.download <- function(db) {
+
+	# Get IDs of reference entries
+	ref.ids <- list.ref.entries(db$getId())
+
+	# Get URL
+	url <- db$getEntryImageUrl(ref.ids[[1]])
+	expect_is(url, 'character')
+
+	# Try downloading
+	if ( ! is.na(url)) {
+		content <- RCurl::getBinaryURL(url)
+		expect_is(content, 'raw')
+	}
+}
+
 # Run db generic tests {{{1
 ################################################################
 
@@ -186,7 +259,15 @@ run.db.generic.tests <- function(db, mode) {
 	run.db.test.that("The peak table is correct.", 'test.peak.table', db)
 	run.db.test.that("RT unit is defined when there is an RT value.", 'test.rt.unit', db)
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test.that("Nb entries is positive", 'test.nb.entries', db)
-		run.db.test.that("We can get a list of entry ids", 'test.entry.ids', db)
+		run.db.test.that("Nb entries is positive.", 'test.nb.entries', db)
+		run.db.test.that("We can get a list of entry ids.", 'test.entry.ids', db)
+	}
+	if (methods::is(db, 'RemotedbConn')) {
+		run.db.test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', db)
+		run.db.test.that("We can get a URL pointing to the entry image.", 'test.entry.image.url', db)
+		if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+			run.db.test.that("The entry page URL can be downloaded.", 'test.entry.page.url.download', db)
+			run.db.test.that("The entry image URL can be downloaded.", 'test.entry.image.url.download', db)
+		}
 	}
 }

@@ -24,6 +24,13 @@ MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'cgi-bin/mature.pl?mature_acc=', id, sep = ''))
 })
 
+# Get entry image url {{{1
+################################################################
+
+MirbaseMatureConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # Do download {{{1
 ################################################################
 
@@ -104,19 +111,46 @@ MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
 	return(content)
 })
 
-# Find by name {{{1
+# Web service query {{{1
 ################################################################
 
-MirbaseMatureConn$methods( findByName = function(name) {
+MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', biodb.parse = FALSE, biodb.ids = FALSE) {
 
-	# Get HTML
-	htmlstr <- .self$.get.url('http://www.mirbase.org/cgi-bin/query.pl', params = c(terms = name, submit = 'Search'))
+	# Build request
+	url <- paste0(.self$getBaseUrl(), 'cgi-bin/query.pl')
+	params <- c(terms = terms, submit = submit)
+
+	# Send request
+	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
 
 	# Parse HTML
-	xml <-  XML::htmlTreeParse(htmlstr, asText = TRUE, useInternalNodes = TRUE)
+	if (biodb.parse || biodb.ids)
+		results <-  XML::htmlTreeParse(results, asText = TRUE, useInternalNodes = TRUE)
 
-	# Get accession number
-	acc <- unlist(XML::xpathSApply(xml, "//a[starts-with(.,'MIMAT')]", XML::xmlValue))
+	# Get IDs
+	if (biodb.ids) {
+		results <- unlist(XML::xpathSApply(results, "//a[starts-with(.,'MIMAT')]", XML::xmlValue))
+		if (is.null(results))
+			results <- character()
+	}
 
-	return(acc)
+	return(results)
+})
+
+# Search compound {{{1
+################################################################
+
+MirbaseMatureConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Search by name
+	if ( ! is.null(name))
+		ids <- .self$ws.query(terms = name, biodb.ids = TRUE)
+
+	# Search by mass
+	if ( ! is.null(mass.field))
+		.self$message('caution', 'Searching by mass is not possible.')
+
+	return(ids)
 })

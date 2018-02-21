@@ -44,6 +44,13 @@ PeakforestMassConn$methods( getEntryPageUrl = function(id) {
 	return(paste('https://peakforest.org/home?PFs=', id))
 })
 
+# Get entry image url {{{1
+################################################################
+
+PeakforestMassConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
+
 # Create reduced entry {{{1
 ################################################################
 
@@ -228,20 +235,38 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 # Get chromatographic columns {{{1
 ################################################################
 
-PeakforestMassConn$methods( getChromCol = function(compound.ids = NULL) {
+PeakforestMassConn$methods( getChromCol = function(ids = NULL) {
 
 	# Set URL
 	url <- paste(.self$getBaseUrl(), 'metadata/lc/list-code-columns?token=', .self$getToken(), sep = '')
-	if ( ! is.null(compound.ids))
-		url <- paste(url, '&molids=', paste(compound.ids, collapse = ','), sep = '')
 
 	# Send request
-	wscols <- .self$.getUrlScheduler$getUrl(url)
+	wscols <- .self$.getUrlScheduler()$getUrl(url)
 
 	# Build data frame
 	cols <- data.frame(id = character(), title = character())
-	for(id in names(wscols))
-		cols <- rbind(cols, data.frame(id = id, title = wscols[[id]]$name, stringsAsFactors = FALSE))
+	for(id in names(wscols)) {
+		col <- wscols[[id]]
+
+		# Make title
+		title <- ""
+		col.fields = list(constructor = '', name = '', length = 'L', diameter = 'diam', flow_rate = 'FR', particule_size = 'PS')
+		for (field in names(col.fields))
+			if (field %in% names(col))
+				title <- if (nchar(title) == 0) paste(col.fields[[field]], col[[field]]) else paste(title, col.fields[[field]], col[[field]])
+
+		# Add col to data frame
+		cols <- rbind(cols, data.frame(id = id, title = title, stringsAsFactors = FALSE))
+	}
+
+	# Restrict to set of spectra
+	if ( ! is.null(ids)) {
+		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+		selected.cols <- .self$getBiodb()$entriesToDataframe(entries, fields = 'chrom.col.id', drop = TRUE)
+
+		# Filter cols data frame
+		cols <- cols[cols$id %in% selected.cols, ]
+	}
 
 	return(cols)
 })

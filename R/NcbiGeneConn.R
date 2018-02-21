@@ -3,39 +3,60 @@
 # Class declaration {{{1
 ################################################################
 
-NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = "NcbiEntrezConn")
+#' @include NcbiEntrezConn.R
+#' @include CompounddbConn.R
+NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = c('NcbiEntrezConn', 'CompounddbConn'))
 
 # Constructor {{{1
 ################################################################
 
 NcbiGeneConn$methods( initialize = function(...) {
 
-	callSuper(db.name = 'gene', ...)
+	callSuper(entrez.name = 'gene', entrez.tag = 'Entrezgene', entrez.id.tag = 'Gene-track_geneid', ...)
 })
 
-# Get entry content {{{1
+# Get entry page url {{{1
 ################################################################
 
-NcbiGeneConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Get URLs
-	urls <- .self$getEntryContentUrl(entry.id)
-
-	# Request
-	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
-
-	return(content)
+NcbiGeneConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), .self$.entrez.name, '/?term=', id))
 })
 
-# Do get entry content url {{{1
+# Get entry image url {{{1
 ################################################################
 
-NcbiGeneConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+NcbiGeneConn$methods( getEntryImageUrl = function(id) {
+	return(rep(NA_character_, length(id)))
+})
 
-	url <- paste0(file.path(.self$getWsUrl(), 'efetch.fcgi', fsep = '/'), '?db=', .self$.db.name, '&id=', id, '&rettype=xml&retmode=text')
+# Search compound {{{1
+################################################################
 
-	return(url)
+NcbiGeneConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+	":\n\nSearch for compounds by name and/or by mass."
+
+	ids <- NULL
+
+	# Search by name
+	if ( ! is.null(name))
+		term <- paste0('"', name, '"', '[Gene Name]')
+
+	# Search by mass
+	if ( ! is.null(mass.field))
+		.self$message('caution', 'Search by mass is not possible.')
+
+	# Set retmax
+	if (is.na(max.results)) {
+		xml <- .self$ws.esearch(term = term, retmax = 0, biodb.parse = TRUE)
+		retmax <- as.integer(XML::xpathSApply(xml, "/eSearchResult/Count", XML::xmlValue))
+		if (length(retmax) == 0)
+			retmax = NA_integer_
+	}
+	else
+		retmax <- max.results
+
+	# Send request
+	ids <- .self$ws.esearch(term = term, retmax = retmax, biodb.ids = TRUE)
+
+	return(ids)
 })

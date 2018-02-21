@@ -1,8 +1,7 @@
 {
 	"accession": "15440",
 	"chebi.id": "15440",
-	"name": "squalene",
-	"synonyms": ["(all-E)-2,6,10,15,19,23-hexamethyl-2,6,10,14,18,22-tetracosahexaene", "Spinacene", "Squalene", "squalene", "Supraene"],
+	"name": ["squalene", "(all-E)-2,6,10,15,19,23-hexamethyl-2,6,10,14,18,22-tetracosahexaene", "Spinacene", "Supraene"],
 	"formula": "C30H50",
 	"mass": 410.71800,
 	"monoisotopic.mass": 410.391,

@@ -48,8 +48,7 @@ TxtEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 		results <- g[ ! is.na(g[,1]), , drop = FALSE]
 
 		# Any match ?
-		if (nrow(results) > 0) {
+		if (nrow(results) > 0)
 			.self$setFieldValue(field, results[,2])
-		}
 	}
 })
