@@ -121,11 +121,17 @@ BiodbConfig$methods( isEnabled = function(key) {
 
 	.self$.checkKey(key, type = 'logical')
 
+	value <- FALSE
+
 	# Defined ?
 	if (isDefined(key))
-		return(.self$.values[[key]])
+		value <- .self$.values[[key]]
+	else
+		.self$message('debug', paste0('Config key ', key, ' is not defined.'))
 
-	return(FALSE)
+	.self$message('debug', paste0('Config key ', key, ' is ', (if (value) 'enabled' else 'disabled'), '.'))
+
+	return(value)
 })
 
 # Get {{{1
@@ -139,8 +145,12 @@ BiodbConfig$methods( get = function(key) {
 	# Is value defined ?
 	if (.self$isDefined(key))
 		value <- .self$.values[[key]]
-	else
+	else {
+		.self$message('debug', paste0('Config key ', key, ' is not defined.'))
 		value <- as.vector(NA, mode = .self$.getType(key))
+	}
+
+	.self$message('debug', paste0('Config key ', key, ' value is ', (if (is.character(value)) paste0('"', value, '"') else value), '.'))
 
 	return(value)
 })
@@ -149,11 +159,12 @@ BiodbConfig$methods( get = function(key) {
 ################################################################
 
 BiodbConfig$methods( set = function(key, value) {
-	":\n\nSet a the value of a key."
+	":\n\nSet the value of a key."
 
 	.self$.checkKey(key)
 
-	.self$message('info', paste("Set ", key, " to ", value, ".", sep = ''))
+	displayed.value <- if (is.character(value)) paste0('"', value, '"') else value
+	.self$message('info', paste("Set ", key, ' to ', displayed.value, '.', sep = ''))
 	.self$.values[[key]] <- as.vector(value, mode = .self$.getType(key))
 })
 
