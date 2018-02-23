@@ -275,7 +275,7 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level
 	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
 
 	# Filter on MS level
-	if (ms.level > 0) {
+	if ( ! is.na(ms.level) && ms.level > 0) {
 		new.ids <- character(0)
 		for (id in ids) {
  			entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
@@ -288,7 +288,7 @@ MassbankConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level
 	}
 
 	# Cut
-	if ( ! is.na(max.results) && max.results < length(ids))
+	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
 		ids <- ids[1:max.results]
 
 	return(ids)
