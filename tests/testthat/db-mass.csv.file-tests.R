@@ -128,7 +128,7 @@ test.fields <- function(db) {
 test.undefined.fields <- function(db) {
 	new.biodb <- create.biodb.instance()
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.HEADER.URL)
-	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are unknown\\.$')
+	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are undefined in file database\\.$')
 	new.biodb$terminate()
 }
 
