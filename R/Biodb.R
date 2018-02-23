@@ -205,18 +205,26 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 
 		# Loop on all entries
 		n <- 0
+		df.list <- NULL
 		for (e in entries) {
+
 			n <- n + 1
 			.self$message('debug', paste("Processing entry", n, "/", length(entries), "..."))
-			if ( ! is.null(e)) {
+
+			e.df <- NULL
+			if ( ! is.null(e))
 				e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic, compute = compute, fields = fields)
-				entries.df <- plyr::rbind.fill(entries.df, e.df)
-			}
-			else if (null.to.na) {
-				e.df <- data.frame(accession <- NA_character_)
-				colnames(e.df) <- 'ACCESSION'
-				entries.df <- plyr::rbind.fill(entries.df, e.df)
-			}
+			else if (null.to.na)
+				e.df <- data.frame(ACCESSION = NA_character_)
+
+			if ( ! is.null(e.df))
+				df.list <- c(df.list, list(e.df))
+		}
+
+		# Build data frame of all entries
+		if ( ! is.null(df.list)) {
+			.self$message('info', paste("Merging entries into a single data frame..."))
+			entries.df <- plyr::rbind.fill(df.list)
 		}
 	}
 
