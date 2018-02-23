@@ -409,7 +409,7 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		db <- db[order(db[[1]]), , drop = FALSE]
 
 	# Cut
-	if ( ! is.na(max.rows) && nrow(db) > max.rows)
+	if ( ! is.na(max.rows) && max.rows > 0 && nrow(db) > max.rows)
 		db <- db[1:max.rows, , drop = FALSE]
 
 	# Drop
