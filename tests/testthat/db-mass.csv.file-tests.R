@@ -167,6 +167,31 @@ test.field.card.one <- function(db) {
 	new.biodb$terminate()
 }
 
+# Test getMzValues() without peak.attr field {{{1
+################################################################
+
+test.getMzValues.without.peak.attr <- function(db) {
+
+	df <- rbind(data.frame(),
+            	list(accession = 'BML80005', ms.mode = 'pos', ms.level = 1, peak.mztheo = 219.1127765, peak.intensity = 373076,  peak.relative.intensity = 999),
+            	stringsAsFactors = FALSE)
+
+	# Create connector
+	new.biodb <- create.biodb.instance()
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(df)
+
+	# Get M/Z values
+	mzs <- conn$getMzValues(max.results = 10)
+	expect_is(mzs, 'numeric')
+	expect_length(mzs, 1)
+
+	# Get M/Z values filtering on precursor
+	mzs <- conn$getMzValues(max.results = 10, precursor = TRUE, ms.mode = 'pos')
+	expect_is(mzs, 'numeric')
+	expect_length(mzs, 0)
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -178,4 +203,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('Setting database with a data frame works.', 'test.mass.csv.file.data.frame', db)
 	run.db.test.that('Failure occurs when loading database file with a line containing wrong number of values.', 'test.wrong.nb.cols', db)
 	run.db.test.that('Failure occurs when a field with a cardinality of one has several values for the same accession number.', 'test.field.card.one', db)
+	run.db.test.that('We can search for precursor M/Z values without peak.attr column defined.', 'test.getMzValues.without.peak.attr', db)
 }
