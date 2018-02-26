@@ -26,5 +26,5 @@ config$getDefaultValue('cache.directory')
 config$get('offline')
 config$enable('offline')    # set to TRUE
 config$disable('offline')   # set to FALSE
-if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.'
+if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
 
