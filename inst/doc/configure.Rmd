@@ -17,6 +17,8 @@ Then get the configuration class:
 config <- mybiodb$getConfig()
 ```
 
+## Getting and setting a value
+
 Get all settable fields:
 ```{r}
 config$getKeys()
@@ -52,5 +54,5 @@ If the value of a field is boolean, you can use the boolean methods instead of `
 config$get('offline')
 config$enable('offline')    # set to TRUE
 config$disable('offline')   # set to FALSE
-if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.'
+if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
 ```
