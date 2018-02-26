@@ -97,7 +97,7 @@ PeakforestConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	ids <- .self$ws.all.ids(biodb.ids = TRUE)
 
 	# Cut
-	if ( ! is.na(max.results) && max.results > 1 && max.results < length(ids))
+	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
 		ids <- ids[1:max.results]
 
 	return(ids)

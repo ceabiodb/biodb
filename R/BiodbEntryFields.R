@@ -210,6 +210,9 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('peak.mz',            description = 'Peak M/Z.',      class = 'double')
 	.self$.define('peak.mztheo',        description = 'Peak theoretical M/Z.',  class = 'double')
 	.self$.define('peak.mzexp',         description = 'Peak experimental M/Z.',   class = 'double')
+	.self$.define('peak.attr',          description = 'Peak attribution.')
+	.self$.define('peak.relative.intensity',          description = 'Peak relative intensity.')
+	.self$.define('peak.intensity',          description = 'Peak intensity.')
 
 	# Chromatographic column
 	.self$.define('chrom.col.name',             description = 'Chromatographic column name.', alias = 'chrom.col')
