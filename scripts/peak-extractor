@@ -1,11 +1,6 @@
 #!/usr/bin/env Rscript
 # vi: ft=R fdm=marker
 
-for (lib in c('methods', 'plyr', 'biodb', 'getopt', 'R.utils')) {
-	library(lib, character.only = TRUE, warn.conflicts = FALSE, quietly = TRUE, verbose = FALSE)
-	detach(paste('package', lib, sep = ':'), character.only = TRUE, unload = TRUE)
-}
-
 # Constants {{{1
 ################################################################
 
@@ -38,6 +33,7 @@ print.help <- function(spec) {
 read.args <-  function() {
 	spec = c(
 		'database',         'd',            1,  'character',    'The database from which to extract the peaks.',
+		'debug',            'g',            0,  'logical',      'Enable debug messages.',
 		'help',             'h',            0,  'logical',      'Print this help.',
 		'mslevel',          'l',            1,  'integer',      paste('The wanted MS level. Set to 0 to get all MS levels. Default is ', DFT.MS.LEVEL, '.', sep = ''),
 		'mzfile',           'z',            1,  'character',    'A file containg M/Z values. A search for entries inside the database will be made for each M/Z value, using the provided tolerance. The entries returned by the search will be used to build the peak table.',
@@ -164,7 +160,10 @@ restrict.to.mz.input <- function(df, mz.values, tol, tolunit) {
 opt <- read.args()
 
 # Instantiate biodb
-biodb <- biodb::Biodb()
+logger = biodb::BiodbLogger()
+if ( ! is.null(opt$debug))
+	logger$includeMsgType('debug')
+biodb <- biodb::Biodb(logger = FALSE, observers = logger)
 biodb$getConfig()$set('useragent', 'peak-extractor ; pierrick.rogermele@icloud.com')
 biodb$getConfig()$enable('factory.cache')
 
@@ -184,7 +183,20 @@ if (is.null(opt$mzfile)) {
 cat("\n")
 cat('================================================================================')
 cat("Getting entries.\n\n")
-spectra.entries <- biodb$getFactory()$getEntry('massbank.jp', entry.ids)
+spectra.entries <- biodb$getFactory()$getEntry('massbank.jp', entry.ids, drop = FALSE)
+
+# Convert to data frame
+cat("\n")
+cat('================================================================================')
+cat("Converting entries to data frame.\n\n")
+df <- biodb$entriesToDataframe(spectra.entries, only.atomic = FALSE, compute = FALSE)
+
+# Restrict to M/Z input
+cat("\n")
+cat('================================================================================')
+cat("Restricting output to list of M/Z values given in input file.\n\n")
+if ( ! is.null(opt$mzfile) && ! is.null(opt$restricttomz))
+	df <- restrict.to.mz.input(df, mz.values = mz.values, tol = opt$mztol, tolunit = opt$mztolunit)
 
 # Write spectra peaks as CSV database
 cat("\n")
@@ -196,9 +208,4 @@ filename <- sub('%l', opt$mslevel, filename)
 filename <- sub('%t', opt$mztol, filename)
 filename <- sub('%u', opt$mztolunit, filename)
 cat("Writing data frame into ", filename,".\n\n", sep = '')
-df <- biodb$entriesToDataframe(spectra.entries, only.atomic = FALSE, compute = FALSE)
-
-if ( ! is.null(opt$mzfile) && ! is.null(opt$restricttomz))
-	df <- restrict.to.mz.input(df, mz.values = mz.values, tol = opt$mztol, tolunit = opt$mztolunit)
-
 write.table(df, file = filename, sep = opt$outputsep, row.names = FALSE, col.names = TRUE)
