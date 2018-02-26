@@ -20,4 +20,4 @@ branches:
 
 script:
     - make check
-    - make test && sudo make install && make ex
+    - make test && make install && make ex
