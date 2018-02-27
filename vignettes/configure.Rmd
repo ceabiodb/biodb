@@ -3,10 +3,7 @@ title: "Configuring biodb"
 author: "Pierrick Roger"
 output:
   BiocStyle::html_document:
-#    toc_float: true    # TOC implies enabling a theme.
-    theme: null         # A theme uses around 700KB.
-#    highlight: null     # Highlighting uses around 60KB.
-#    mathjax: null
+    theme: null
 package: biodb
 abstract: |
   How to configure biodb package.

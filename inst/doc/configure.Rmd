@@ -1,25 +1,45 @@
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Configuring biodb}
--->
+---
+title: "Configuring biodb"
+author: "Pierrick Roger"
+output:
+  BiocStyle::html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to configure biodb package.
+vignette: |
+  %\VignetteIndexEntry{Configuring biodb}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-# Configuring biodb
+# Introduction
 
 In this vignette, we will explain how to configure biodb behaviour.
 
-First you need to create an instance of the `Biodb` class:
+When you create an instance of the `Biodb` class:
 ```{r}
-mybiodb <- biodb::Biodb$new()
+mybiodb <- biodb::Biodb()
 ```
+You get, by default (i.e.: when not setting `info = FALSE`), a list of configuration setting.
 
-Then get the configuration class:
+This configuration setting can be modified either directly inside R with the `BiodbConfig` class or beforehand by setting environment variables.
+
+# BiodbConfig instance
+
+The main way to tune *biodb* to your needs is to use the `BiodbConfig` single instance, accessible through the `biodb` instance:
 ```{r}
 config <- mybiodb$getConfig()
 ```
 
-## Getting and setting a value
+If you look at the config instance, you will get a list of keys with their current values:
+```{r}
+config
+```
 
-Get all settable fields:
+# Keys information and value
+
+Get all available configuration keys:
 ```{r}
 config$getKeys()
 ```
@@ -34,25 +54,42 @@ Get a field value:
 config$get('cache.directory')
 ```
 
+If the field is boolean, you can use the following method instead:
+```{r}
+if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
+```
+
+To get a complete of all configuration keys and their description, call:
+```{r}
+config$listKeys()
+```
+
+# Setting a value
+
 Set a field value:
 ```{r}
 config$set('cache.directory', '~/my.biodb.cache')
+config$get('cache.directory') # See modifications
 ```
 
-Get same field value again:
+If the field is boolean, you can use the following methods instead:
 ```{r}
-config$get('cache.directory')
+config$enable('offline')    # set to TRUE
+config$disable('offline')   # set to FALSE
 ```
+
+# Default values
 
 Get field default value:
 ```{r}
 config$getDefaultValue('cache.directory')
 ```
 
-If the value of a field is boolean, you can use the boolean methods instead of `get` and `set`:
+# Environment variables
+
+Environment variables can be used to overwrite default values.
+
+To get the name of the environment variable associated with a particular key, call the following method:
 ```{r}
-config$get('offline')
-config$enable('offline')    # set to TRUE
-config$disable('offline')   # set to FALSE
-if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
+config$getAssocEnvVar('cache.directory')
 ```
