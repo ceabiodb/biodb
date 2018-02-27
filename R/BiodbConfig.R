@@ -45,7 +45,7 @@ BiodbConfig$methods( initialize = function(...) {
 	callSuper(...)
 
 	.env <<- Sys.getenv()
-	.self$.initValueInfo()
+	.self$..definedKeys()
 	.self$.initValues()
 })
 
@@ -228,10 +228,10 @@ BiodbConfig$methods( .get.svn.binary.path = function() {
 	return(svn.path)
 })
 
-# Initialize value information {{{2
+# Define keys {{{2
 ################################################################
 
-BiodbConfig$methods( .initValueInfo = function() {
+BiodbConfig$methods( ..definedKeys = function() {
 
 	.value.info <<- list()
 
@@ -260,6 +260,21 @@ BiodbConfig$methods( .initValueInfo = function() {
 	.self$.newKey('chemspider.token',       type = 'character')
 	.self$.newKey('peakforest.mass.token',       type = 'character')
 	.self$.newKey('peakforest.compound.token',       type = 'character')
+})
+
+# Get associated environment variable {{{1
+################################################################
+
+BiodbConfig$methods( getAssocEnvVar = function(key) {
+	":\n\nReturns the environment variable associated with this configuration key."
+
+	# Check key
+	.self$.checkKey(key)
+
+	# Build env var
+	env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
+
+	return(env.var)
 })
 
 # Get from env {{{2
