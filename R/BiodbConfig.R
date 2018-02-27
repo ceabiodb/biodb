@@ -35,7 +35,7 @@
 #' @include ChildObject.R
 #' @export BiodbConfig
 #' @exportClass BiodbConfig
-BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .value.info = "list" ))
+BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .keys = "list" ))
 
 # Constructor {{{1
 ################################################################
@@ -45,7 +45,7 @@ BiodbConfig$methods( initialize = function(...) {
 	callSuper(...)
 
 	.env <<- Sys.getenv()
-	.self$..definedKeys()
+	.self$.defineKeys()
 	.self$.initValues()
 })
 
@@ -55,7 +55,7 @@ BiodbConfig$methods( initialize = function(...) {
 BiodbConfig$methods( getKeys = function() {
 	":\n\nGet the list of available keys."
 
-	return(names(.self$.value.info))
+	return(names(.self$.keys))
 })
 
 # Get description {{{1
@@ -69,8 +69,8 @@ BiodbConfig$methods( getDescription = function(key) {
 	.self$.checkKey(key)
 
 	# Get default value
-	if ('description' %in% names(.self$.value.info[[key]]))
-		description <- .self$.value.info[[key]][['description']]
+	if ('description' %in% names(.self$.keys[[key]]))
+		description <- .self$.keys[[key]][['description']]
 
 	return(description)
 })
@@ -86,8 +86,8 @@ BiodbConfig$methods( getDefaultValue = function(key) {
 	.self$.checkKey(key)
 
 	# Get default value
-	if ('default' %in% names(.self$.value.info[[key]]))
-		default <- .self$.value.info[[key]][['default']]
+	if ('default' %in% names(.self$.keys[[key]]))
+		default <- .self$.keys[[key]][['default']]
 
 	return(default)
 })
@@ -204,6 +204,37 @@ BiodbConfig$methods( show = function() {
 		cat("    ", key, ": ", .self$get(key), "\n")
 })
 
+# List keys {{{1
+################################################################
+
+BiodbConfig$methods( listKeys = function() {
+
+	# Fields to extract
+	field2title <- c(type = "Type", default = "Default value", description = "Description")
+
+	# Build data frame
+	df <- data.frame(Key = names(.self$.keys), stringsAsFactors = FALSE)
+	for (field in names(field2title))
+		df[[field2title[[field]]]] <- vapply(.self$.keys, function(k) if ( ! field %in% names(k) || is.null(k[[field]])) '' else as.character(k[[field]]), FUN.VALUE = '')
+
+	return(df)
+})
+
+# Get associated environment variable {{{1
+################################################################
+
+BiodbConfig$methods( getAssocEnvVar = function(key) {
+	":\n\nReturns the environment variable associated with this configuration key."
+
+	# Check key
+	.self$.checkKey(key)
+
+	# Build env var
+	env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
+
+	return(env.var)
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 
@@ -231,9 +262,9 @@ BiodbConfig$methods( .get.svn.binary.path = function() {
 # Define keys {{{2
 ################################################################
 
-BiodbConfig$methods( ..definedKeys = function() {
+BiodbConfig$methods( .defineKeys = function() {
 
-	.value.info <<- list()
+	.keys <<- list()
 
 
 	# Define default values
@@ -262,21 +293,6 @@ BiodbConfig$methods( ..definedKeys = function() {
 	.self$.newKey('peakforest.compound.token',       type = 'character')
 })
 
-# Get associated environment variable {{{1
-################################################################
-
-BiodbConfig$methods( getAssocEnvVar = function(key) {
-	":\n\nReturns the environment variable associated with this configuration key."
-
-	# Check key
-	.self$.checkKey(key)
-
-	# Build env var
-	env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
-
-	return(env.var)
-})
-
 # Get from env {{{2
 ################################################################
 
@@ -302,7 +318,7 @@ BiodbConfig$methods( .newKey = function(key, type, default = NULL, description =
 		.self$message('error', "Key is NULL, NA or not character type.")
 
 	# Check duplicated key
-	if (key %in% names(.self$.value.info))
+	if (key %in% names(.self$.keys))
 		.self$message('error', paste("Key ", key, " has already been defined in configuration.", sep = ''))
 
 	# Overwrite default value by env var, if defined
@@ -311,7 +327,7 @@ BiodbConfig$methods( .newKey = function(key, type, default = NULL, description =
 		default <- env.var.value
 
 	# Define new key
-	.self$.value.info[[key]] <- list(type = type, default = default, description = description)
+	.self$.keys[[key]] <- list(type = type, default = default, description = description)
 })
 
 # Initialize values {{{2
@@ -345,7 +361,7 @@ BiodbConfig$methods( .checkKey = function(key, type = NA_character_, fail= TRUE)
 	}
 
 	# Test if valid key
-	if ( ! key %in% names(.self$.value.info)) {
+	if ( ! key %in% names(.self$.keys)) {
 		if (fail)
 			.self$message('error', paste("Unknown key ", key, ".", sep = ''))
 		else
@@ -353,7 +369,7 @@ BiodbConfig$methods( .checkKey = function(key, type = NA_character_, fail= TRUE)
 	}
 
 	# Test type
-	if ( ! is.null(type) && ! is.na(type) && .self$.value.info[[key]][['type']] != type) {
+	if ( ! is.null(type) && ! is.na(type) && .self$.keys[[key]][['type']] != type) {
 		if (fail)
 			.self$message('error', paste("Key ", key, " is not of type ", type, " but of type ", key.type, ".", sep = ''))
 		else
@@ -370,6 +386,6 @@ BiodbConfig$methods( .getType = function(key) {
 
 	.self$.checkKey(key)
 
-	return(.self$.value.info[[key]][['type']])
+	return(.self$.keys[[key]][['type']])
 })
 
