@@ -292,21 +292,6 @@ BiodbConfig$methods( .defineKeys = function() {
 	.self$.newKey('peakforest.compound.token',  type = 'character', description = 'The token to access PeakForest Compound database.')
 })
 
-# Get associated environment variable {{{1
-################################################################
-
-BiodbConfig$methods( getAssocEnvVar = function(key) {
-	":\n\nReturns the environment variable associated with this configuration key."
-
-	# Check key
-	.self$.checkKey(key)
-
-	# Build env var
-	env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
-
-	return(env.var)
-})
-
 # Get from env {{{2
 ################################################################
 
