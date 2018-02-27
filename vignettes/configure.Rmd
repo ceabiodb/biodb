@@ -44,33 +44,42 @@ Get a field value:
 config$get('cache.directory')
 ```
 
+If the field is boolean, you can use the following method instead:
+```{r}
+if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
+```
+
+To get a complete of all configuration keys and their description, call:
+```{r}
+config$listKeys()
+```
+
 ## Setting a value
-
-## Default values
-
-## Environment variables
-
-## Getting and setting a value
 
 Set a field value:
 ```{r}
 config$set('cache.directory', '~/my.biodb.cache')
+config$get('cache.directory') # See modifications
 ```
 
-Get same field value again:
+If the field is boolean, you can use the following methods instead:
 ```{r}
-config$get('cache.directory')
+config$enable('offline')    # set to TRUE
+config$disable('offline')   # set to FALSE
 ```
+
+## Default values
 
 Get field default value:
 ```{r}
 config$getDefaultValue('cache.directory')
 ```
 
-If the value of a field is boolean, you can use the boolean methods instead of `get` and `set`:
+## Environment variables
+
+Environment variables can be used to overwrite default values.
+
+To get the name of the environment variable associated with a particular key, call the following method:
 ```{r}
-config$get('offline')
-config$enable('offline')    # set to TRUE
-config$disable('offline')   # set to FALSE
-if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
+config$getAssocEnvVar('cache.directory')
 ```
