@@ -7,19 +7,29 @@
 
 In this vignette, we will explain how to configure biodb behaviour.
 
-First you need to create an instance of the `Biodb` class:
+When you create an instance of the `Biodb` class:
 ```{r}
-mybiodb <- biodb::Biodb$new()
+mybiodb <- biodb::Biodb()
 ```
+You get, by default (i.e.: when not setting `info = FALSE`), a list of configuration setting.
 
-Then get the configuration class:
+This configuration setting can be modified either directly inside R with the `BiodbConfig` class or beforehand by setting environment variables.
+
+## BiodbConfig instance
+
+The main way to tune *biodb* to your needs is to use the `BiodbConfig` single instance, accessible through the `biodb` instance:
 ```{r}
 config <- mybiodb$getConfig()
 ```
 
-## Getting and setting a value
+If you look at the config instance, you will get a list of keys with their current values:
+```{r}
+config
+```
 
-Get all settable fields:
+## Keys information and value
+
+Get all available configuration keys:
 ```{r}
 config$getKeys()
 ```
@@ -33,6 +43,14 @@ Get a field value:
 ```{r}
 config$get('cache.directory')
 ```
+
+## Setting a value
+
+## Default values
+
+## Environment variables
+
+## Getting and setting a value
 
 Set a field value:
 ```{r}

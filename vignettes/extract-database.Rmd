@@ -1,9 +1,9 @@
 <!--
 %\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Extracting database content into csv file}
+%\VignetteIndexEntry{Extracting database content into data frame and CSV file}
 -->
 
-# Extracting database content into csv file
+# Extracting database content into a data frame and a CSV file
 
 It is possible to download whole or part of a database and export it into a csv file.
 
