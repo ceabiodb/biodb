@@ -1,9 +1,19 @@
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Extracting database content into data frame and CSV file}
--->
+---
+title: "Database extraction"
+author: "Pierrick Roger"
+output:
+  BiocStyle::html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to extract a database content into a data frame or a CSV file.
+vignette: |
+  %\VignetteIndexEntry{Database extraction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-# Extracting database content into a data frame and a CSV file
+# Introduction
 
 It is possible to download whole or part of a database and export it into a csv file.
 
@@ -12,7 +22,7 @@ Create an instance of the `Biodb` class:
 mybiodb <- biodb::Biodb$new()
 ```
 
-## Retrieving an entire database whose entries contain only atomic values
+# Retrieving an entire database whose entries contain only atomic values
 
 For this example, we will use the Lipidmaps Structure database.
 
@@ -42,7 +52,7 @@ Export the data frame into a CSV file with R standard function:
 write.csv(df, file = 'lipidmaps-structure.csv')
 ```
 
-## Retrieving part of a database whose entries contain non-atomic values
+# Retrieving part of a database whose entries contain non-atomic values
 
 We will take for this example the Massbank database, since each entry contains a peaks list stored into a data frame.
 
