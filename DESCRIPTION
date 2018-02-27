@@ -9,13 +9,14 @@ Depends:
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
+VignetteBuilder: knitr
 Suggests:
 	roxygen2,
 	devtools,
 	testthat (>= 2.0.0),
+	BiocStyle,
 	knitr,
 	rmarkdown
-VignetteBuilder: knitr
 Imports:
     methods,
     XML,
