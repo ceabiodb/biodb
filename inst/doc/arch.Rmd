@@ -2,7 +2,7 @@
 title: "Architedture of biodb"
 author: "Pierrick Roger"
 output:
-  BiocStyle::html_document:
+  html_document:
     theme: null
 package: biodb
 abstract: |

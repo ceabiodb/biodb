@@ -1,5 +1,5 @@
 ## ------------------------------------------------------------------------
-mybiodb <- biodb::Biodb$new()
+mybiodb <- biodb::Biodb()
 
 ## ------------------------------------------------------------------------
 lipids <- mybiodb$getFactory()$getConn('lipidmaps.structure')
