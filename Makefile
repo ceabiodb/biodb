@@ -1,6 +1,8 @@
 all:
 
+check: BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 check:
+	$(RM) -r $(BIODB_CACHE_DIRECTORY)
 	R -q -e "devtools::check('$(CURDIR)')"
 
 vignettes:
@@ -40,5 +42,6 @@ exdock: clean
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/cache tests/test.log tests/output
+	$(RM) -r $(HOME)/.biodb.dev.*.cache
 
 .PHONY: all clean win test check vignettes ex exdock install uninstall
