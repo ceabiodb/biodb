@@ -1,7 +1,17 @@
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Initializing biodb}
--->
+---
+title: "Initializing biod"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  The software architecture of the biodb package.
+vignette: |
+  %\VignetteIndexEntry{Initializing biod}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 # Initializing biodb
 

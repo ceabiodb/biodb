@@ -1,7 +1,17 @@
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Search MS dataabases}
--->
+---
+title: "Search MS dataabases"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  The software architecture of the biodb package.
+vignette: |
+  %\VignetteIndexEntry{Search MS dataabases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 # Search MS dataabases
 
