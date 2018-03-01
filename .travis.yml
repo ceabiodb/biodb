@@ -10,7 +10,6 @@ env:
     - MODES=offline
     - MODES=online
     - MODES=quick.online
-    - DATABASES=mass.csv.file MODES=online
 
 branches:
   only:
