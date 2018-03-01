@@ -1,8 +1,11 @@
 ## ------------------------------------------------------------------------
-mybiodb <- biodb::Biodb$new()
+mybiodb <- biodb::Biodb()
 
 ## ------------------------------------------------------------------------
 config <- mybiodb$getConfig()
+
+## ------------------------------------------------------------------------
+config
 
 ## ------------------------------------------------------------------------
 config$getKeys()
@@ -14,17 +17,22 @@ config$getDescription('cache.directory')
 config$get('cache.directory')
 
 ## ------------------------------------------------------------------------
-config$set('cache.directory', '~/my.biodb.cache')
+if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
 
 ## ------------------------------------------------------------------------
-config$get('cache.directory')
+config$listKeys()
+
+## ------------------------------------------------------------------------
+config$set('cache.directory', '~/my.biodb.cache')
+config$get('cache.directory') # See modifications
+
+## ------------------------------------------------------------------------
+config$enable('offline')    # set to TRUE
+config$disable('offline')   # set to FALSE
 
 ## ------------------------------------------------------------------------
 config$getDefaultValue('cache.directory')
 
 ## ------------------------------------------------------------------------
-config$get('offline')
-config$enable('offline')    # set to TRUE
-config$disable('offline')   # set to FALSE
-if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
+config$getAssocEnvVar('cache.directory')
 

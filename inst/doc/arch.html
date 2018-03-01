@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Architecture of biodb</title>
+<title>Introduction</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -163,12 +163,7 @@ hr {
 </head>
 
 <body>
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Architedture of biodb}
--->
-
-<h1>Architecture of biodb</h1>
+<h1>Introduction</h1>
 
 <p>The architecture is organised around the following classes:</p>
 
@@ -182,7 +177,7 @@ hr {
 
 <p>You will find below a UML class diagram, helpful to visualise all classes and their relationships.</p>
 
-<h2>BiodbObject and ChildObject</h2>
+<h1>BiodbObject and ChildObject</h1>
 
 <p>All classes in <em>biodb</em> inherit directly on indirectly from the <code>BiodbObject</code> class, at the exception of <code>UrlRequestScheduler</code> and the observer classes.</p>
 
@@ -197,13 +192,13 @@ hr {
 
 <p>The <code>ChildObject</code> class defines a <code>parent</code> field, allowing a class that inherits from it to be the child of another a class.</p>
 
-<h2>Biodb</h2>
+<h1>Biodb</h1>
 
 <p>The class (<code>Biodb</code>) is the central point of the <em>biodb</em> package. To use the <em>biodb</em> package, an instance of this class <code>Biodb</code> has to be created. You can created as many instances as you want at the same time, though there would not be much purpose; all instances will be independent of each other.</p>
 
 <p>From the instance of the class <code>Biodb</code>, you can access all singleton classes.</p>
 
-<h2>The singleton classes</h2>
+<h1>The singleton classes</h1>
 
 <p>There are 5 singleton classes, each having each a distinct purpose:</p>
 
@@ -215,7 +210,7 @@ hr {
 <li><code>BiodbCache</code> handles the cache system.</li>
 </ul>
 
-<h2>The observers</h2>
+<h1>The observers</h1>
 
 <p>The observer classes are used to transmit messages. You can create your own observer if you wish by creating a new class that inherits from <code>BiodbObserver</code>.
 The observers are registered with the <code>Biodb</code> instance, either through the constructor or through the <code>addObservers()</code> method.</p>
@@ -230,7 +225,7 @@ The observers are registered with the <code>Biodb</code> instance, either throug
 
 <p>Both <code>WarningReporter</code> and <code>ErrorReporter</code> are always defined in each instance of <code>Biodb</code>.</p>
 
-<h2>The connection classes</h2>
+<h1>The connection classes</h1>
 
 <p>The connection classes handle the retrieval of information from databases. Their main purpose is the retrieval of and the search for entries.</p>
 
@@ -244,11 +239,11 @@ The observers are registered with the <code>Biodb</code> instance, either throug
 
 <p>Generally, each connection concrete class inherits either directly from <code>BiodbConn</code> or from one or more of the other abstract classes. However, in order to factorize code, some intermediate abstract classes have been created: <code>PeakforestConn</code>, <code>NcbiConn</code>, etc.</p>
 
-<h2>The URL request scheduler</h2>
+<h1>The URL request scheduler</h1>
 
 <p>The <code>UrlRequestScheduler</code> class is used inside the <code>RemotedbConn</code> class. For each instance of a concrete class that inherits from <code>RemotedbConn</code>, an instance of the <code>UrlRequestScheduler</code> class is defined. This instance is responsible for handling all URL requests, and especially to wait required time between two requests. Some databases define precisely what should be the frequency of the requests, and those specifications are defined in the instance of the <code>UrlRequestScheduler</code> class. Other databases do not define anything, however this does not mean one can send as many request as he wants; thus a default frequency of three requests per second is defined by default for a new instance of <code>UrlRequestScheduler</code> class.</p>
 
-<h2>The entry classes</h2>
+<h1>The entry classes</h1>
 
 <p>The entry classes represent entries in the database. <code>BiodbEntry</code> is the mother abstract class of all entry classes. It handle the field values of the entries, and organize the parsing of entries from the string content returned by the database.</p>
 
@@ -262,7 +257,7 @@ The observers are registered with the <code>Biodb</code> instance, either throug
 <li><code>XmlEntry</code> handles XML parsing through XPath expressions.</li>
 </ul>
 
-<h2>UML class diagram</h2>
+<h1>UML class diagram</h1>
 
 <p>Here is a complete class diagram showing all classes and their relations.</p>
 

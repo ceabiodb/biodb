@@ -1,7 +1,7 @@
 Package: biodb
 Title: Biodb, a library for connecting to chemical and biological databases
 Version: 1.0.0
-Authors@R: person("Pierrick", "Roger", email = "pierrick.rogermele@icloud.com", role = c("aut", "cre"))
+Authors@R: person("Pierrick", "Roger", email = "pk.roger@icloud.com", role = c("aut", "cre"))
 Description: The biodb library provides a way to connect to several chemical and
     biological databases, and retrieve entries easily.
 Depends:
@@ -9,13 +9,13 @@ Depends:
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
+VignetteBuilder: knitr
 Suggests:
 	roxygen2,
 	devtools,
 	testthat (>= 2.0.0),
 	knitr,
 	rmarkdown
-VignetteBuilder: knitr
 Imports:
     methods,
     XML,
@@ -29,7 +29,7 @@ Imports:
     digest
 NeedsCompilation: yes
 Author: Pierrick Roger
-Maintainer: Pierrick Roger <pierrick.rogermele@icloud.com>
+Maintainer: Pierrick Roger <pk.roger@icloud.com>
 RoxygenNote: 6.0.1
 Collate: 
     'BiodbObject.R'
