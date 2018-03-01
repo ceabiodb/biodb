@@ -14,7 +14,6 @@ Suggests:
 	roxygen2,
 	devtools,
 	testthat (>= 2.0.0),
-	BiocStyle,
 	knitr,
 	rmarkdown
 Imports:

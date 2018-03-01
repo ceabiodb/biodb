@@ -2,7 +2,7 @@
 title: "Database extraction"
 author: "Pierrick Roger"
 output:
-  BiocStyle::html_document:
+  html_document:
     theme: null
 package: biodb
 abstract: |
@@ -19,7 +19,7 @@ It is possible to download whole or part of a database and export it into a csv 
 
 Create an instance of the `Biodb` class:
 ```{r}
-mybiodb <- biodb::Biodb$new()
+mybiodb <- biodb::Biodb()
 ```
 
 # Retrieving an entire database whose entries contain only atomic values
