@@ -246,14 +246,14 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# MS level
 	if (.self$hasField('MSTYPE')) {
-		mstype = .self$getFieldValue('MSTYPE')
-		ms.level = strtoi(sub('^MS([0-9])$', '\\1', mstype, perl = TRUE))
+		mstype <- .self$getFieldValue('MSTYPE')
+		ms.level <- strtoi(sub('^MS([0-9])$', '\\1', mstype, perl = TRUE))
 		if (is.na(ms.level) && mstype == 'MS')
-			ms.level = 1
+			ms.level <- 1
 
 		if (is.na(ms.level)) 
 			.self$message('error', paste("Impossible to parse MS level of Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep = ''))
-		.self$setFieldValue('MS.LEVEL', ms.level)
+		.self$setFieldValue('ms.level', ms.level)
 	}
 	
 	# Parsing of peak table
@@ -261,4 +261,9 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	
 	# Parsing of annotation table
 	.self$.parseAnnotationTable(parsed.content)
+
+	# Check essential fields
+	for (field in c('ms.level'))
+		if ( ! .self$hasField(field))
+			.self$message('caution', paste("Massbank entry ", .self$getFieldValue('ACCESSION'), " has no field ", field, ".", sep = ''))
 })
