@@ -201,18 +201,13 @@ hr {
 </head>
 
 <body>
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Initializing biodb}
--->
-
 <h1>Initializing biodb</h1>
 
 <p>First of all, before using <em>biodb</em>, you need to create an instance of the main class <code>Biodb</code>. This is done by calling the constructor of the class through the <code>new()</code> method. The OOP (Object Oriented Programming) system used in the <em>biodb</em> package is the <strong>R5</strong> system also called <strong>Reference Classes</strong>. In this system, the created objects are not copied, but their reference are copied. This means than when you pass an instance to a function, that function is able to modify the instance.</p>
 
-<p>To create an instance of the <code>Biodb</code> class, call the <code>new()</code> method:</p>
+<p>To create an instance of the <code>Biodb</code> class, call the constructor method:</p>
 
-<pre><code class="r">mybiodb &lt;- biodb::Biodb$new()
+<pre><code class="r">mybiodb &lt;- biodb::Biodb()
 </code></pre>
 
 <p>This is will create a <code>Biodb</code> instance and put its reference into the <code>mybiodb</code> variable. Calling <code>new()</code> without any argument configures the instance with the default values.</p>

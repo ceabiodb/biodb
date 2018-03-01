@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Introduction</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Introduction</h1>
+
+<p>It is possible to download whole or part of a database and export it into a csv file.</p>
+
+<p>Create an instance of the <code>Biodb</code> class:</p>
+
+<pre><code class="r">mybiodb &lt;- biodb::Biodb()
+</code></pre>
+
+<h1>Retrieving an entire database whose entries contain only atomic values</h1>
+
+<p>For this example, we will use the Lipidmaps Structure database.</p>
+
+<p>First, connect to the database:</p>
+
+<pre><code class="r">lipids &lt;- mybiodb$getFactory()$getConn(&#39;lipidmaps.structure&#39;)
+</code></pre>
+
+<p>Then get all entry IDs:</p>
+
+<pre><code class="r">entry.ids &lt;- lipids$getEntryIds()
+</code></pre>
+
+<p>Here we just get two entries, since retrieving them all would take too much time for this example:</p>
+
+<pre><code class="r">entries &lt;- mybiodb$getFactory()$getEntry(&#39;lipidmaps.structure&#39;, id = entry.ids[1:2])
+</code></pre>
+
+<p>Transform all entries into a single data frame:</p>
+
+<pre><code class="r">df &lt;- mybiodb$entriesToDataframe(entries)
+print(df)
+</code></pre>
+
+<pre><code>##      accession monoisotopic.mass   formula
+## 1 LMFA00000001            626.49  C40H66O5
+## 2 LMFA00000002            275.17 C13H25NO5
+##                                 comp.iupac.name.syst             name
+## 1 2-methoxy-12-methyloctadec-17-en-5-ynoyl anhydride Acetylenic acids
+## 2                    N-(3S-hydroxydecanoyl)-L-serine  Serratamic acid
+##   lipidmaps.structure.id
+## 1           LMFA00000001
+## 2           LMFA00000002
+</code></pre>
+
+<p>Export the data frame into a CSV file with R standard function:</p>
+
+<pre><code class="r">write.csv(df, file = &#39;lipidmaps-structure.csv&#39;)
+</code></pre>
+
+<h1>Retrieving part of a database whose entries contain non-atomic values</h1>
+
+<p>We will take for this example the Massbank database, since each entry contains a peaks list stored into a data frame.</p>
+
+<p>First, connect to the database:</p>
+
+<pre><code class="r">massbank &lt;- mybiodb$getFactory()$getConn(&#39;massbank.jp&#39;)
+</code></pre>
+
+<p>Get some entry IDs, searching by M/Z value:</p>
+
+<pre><code class="r">entry.ids &lt;- massbank$searchMzTol(64, mz.tol = 0.3, max.results = 2)
+</code></pre>
+
+<pre><code class="r">mybiodb$getConfig()$disable(&#39;allow.huge.downloads&#39;)
+</code></pre>
+
+<p>Get all entries:</p>
+
+<pre><code class="r">entries &lt;- mybiodb$getFactory()$getEntry(&#39;massbank.jp&#39;, id = entry.ids)
+</code></pre>
+
+<p>Transform all entries into a single data frame:</p>
+
+<pre><code class="r">df &lt;- mybiodb$entriesToDataframe(entries, only.atomic = FALSE)
+print(df)
+</code></pre>
+
+<pre><code>##    accession
+## 1   KO000017
+## 2   KO000017
+## 3   KO000017
+## 4   KO000017
+## 5   KO000017
+## 6   KO000017
+## 7   KO000017
+## 8   KO000017
+## 9   KO000017
+## 10  KO000046
+## 11  KO000046
+## 12  KO000046
+## 13  KO000046
+## 14  KO000046
+## 15  KO000046
+## 16  KO000046
+## 17  KO000046
+## 18  KO000046
+## 19  KO000046
+## 20  KO000046
+## 21  KO000046
+## 22  KO000046
+## 23  KO000046
+## 24  KO000046
+## 25  KO000046
+## 26  KO000046
+## 27  KO000046
+## 28  KO000046
+## 29  KO000046
+##                                                                            name
+## 1  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 2  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 3  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 4  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 5  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 6  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 7  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 8  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 9  Anthranilate;Anthranilic acid;2-Aminobenzoate;Vitamin L1;o-Aminobenzoic acid
+## 10                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 11                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 12                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 13                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 14                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 15                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 16                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 17                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 18                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 19                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 20                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 21                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 22                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 23                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 24                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 25                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 26                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 27                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 28                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+## 29                        Acetate;Glacial acetic acid;Ethanoic acid;Acetic acid
+##                          msdev msdevtype mstype nb.peaks msprecannot
+## 1  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 2  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 3  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 4  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 5  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 6  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 7  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 8  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 9  API3000, Applied Biosystems LC-ESI-QQ    MS2        9      [M-H]-
+## 10 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 11 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 12 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 13 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 14 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 15 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 16 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 17 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 18 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 19 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 20 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 21 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 22 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 23 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 24 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 25 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 26 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 27 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 28 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+## 29 API3000, Applied Biosystems LC-ESI-QQ    MS2       20      [M-H]-
+##                                                          inchi chebi.id
+## 1  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 2  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 3  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 4  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 5  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 6  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 7  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 8  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 9  InChI=1S/C7H7NO2/c8-6-4-2-1-3-5(6)7(9)10/h1-4H,8H2,(H,9,10)    30754
+## 10                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 11                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 12                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 13                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 14                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 15                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 16                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 17                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 18                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 19                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 20                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 21                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 22                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 23                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 24                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 25                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 26                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 27                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 28                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+## 29                       InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)    30089
+##    kegg.compound.id   cas.id ncbi.pubchem.subst.id formula
+## 1            C00108 118-92-3              SID:3408 C7H7NO2
+## 2            C00108 118-92-3              SID:3408 C7H7NO2
+## 3            C00108 118-92-3              SID:3408 C7H7NO2
+## 4            C00108 118-92-3              SID:3408 C7H7NO2
+## 5            C00108 118-92-3              SID:3408 C7H7NO2
+## 6            C00108 118-92-3              SID:3408 C7H7NO2
+## 7            C00108 118-92-3              SID:3408 C7H7NO2
+## 8            C00108 118-92-3              SID:3408 C7H7NO2
+## 9            C00108 118-92-3              SID:3408 C7H7NO2
+## 10           C00033  64-19-7              SID:3335  C2H4O2
+## 11           C00033  64-19-7              SID:3335  C2H4O2
+## 12           C00033  64-19-7              SID:3335  C2H4O2
+## 13           C00033  64-19-7              SID:3335  C2H4O2
+## 14           C00033  64-19-7              SID:3335  C2H4O2
+## 15           C00033  64-19-7              SID:3335  C2H4O2
+## 16           C00033  64-19-7              SID:3335  C2H4O2
+## 17           C00033  64-19-7              SID:3335  C2H4O2
+## 18           C00033  64-19-7              SID:3335  C2H4O2
+## 19           C00033  64-19-7              SID:3335  C2H4O2
+## 20           C00033  64-19-7              SID:3335  C2H4O2
+## 21           C00033  64-19-7              SID:3335  C2H4O2
+## 22           C00033  64-19-7              SID:3335  C2H4O2
+## 23           C00033  64-19-7              SID:3335  C2H4O2
+## 24           C00033  64-19-7              SID:3335  C2H4O2
+## 25           C00033  64-19-7              SID:3335  C2H4O2
+## 26           C00033  64-19-7              SID:3335  C2H4O2
+## 27           C00033  64-19-7              SID:3335  C2H4O2
+## 28           C00033  64-19-7              SID:3335  C2H4O2
+## 29           C00033  64-19-7              SID:3335  C2H4O2
+##                 smiles monoisotopic.mass ms.mode msprecmz ms.level peak.mz
+## 1  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    40.4
+## 2  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    50.4
+## 3  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    63.8
+## 4  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    65.0
+## 5  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    66.2
+## 6  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    74.9
+## 7  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    90.2
+## 8  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    91.0
+## 9  OC(=O)c(c1)c(N)ccc1         137.04768     neg      136        2    92.2
+## 10             CC(O)=O          60.02113     neg       59        2    32.0
+## 11             CC(O)=O          60.02113     neg       59        2    38.9
+## 12             CC(O)=O          60.02113     neg       59        2    39.9
+## 13             CC(O)=O          60.02113     neg       59        2    41.3
+## 14             CC(O)=O          60.02113     neg       59        2    41.9
+## 15             CC(O)=O          60.02113     neg       59        2    43.1
+## 16             CC(O)=O          60.02113     neg       59        2    43.8
+## 17             CC(O)=O          60.02113     neg       59        2    50.9
+## 18             CC(O)=O          60.02113     neg       59        2    52.2
+## 19             CC(O)=O          60.02113     neg       59        2    53.9
+## 20             CC(O)=O          60.02113     neg       59        2    55.1
+## 21             CC(O)=O          60.02113     neg       59        2    56.0
+## 22             CC(O)=O          60.02113     neg       59        2    56.4
+## 23             CC(O)=O          60.02113     neg       59        2    57.1
+## 24             CC(O)=O          60.02113     neg       59        2    57.9
+## 25             CC(O)=O          60.02113     neg       59        2    59.1
+## 26             CC(O)=O          60.02113     neg       59        2    59.7
+## 27             CC(O)=O          60.02113     neg       59        2    60.4
+## 28             CC(O)=O          60.02113     neg       59        2    61.3
+## 29             CC(O)=O          60.02113     neg       59        2    64.2
+##    peak.intensity peak.relative.intensity massbank.jp.id
+## 1         34653.5                       2       KO000017
+## 2         84158.5                       4       KO000017
+## 3         39604.0                       2       KO000017
+## 4       1371288.5                      69       KO000017
+## 5        207921.0                      10       KO000017
+## 6        133663.5                       7       KO000017
+## 7        193069.5                      10       KO000017
+## 8         84158.5                       4       KO000017
+## 9      19955465.5                     999       KO000017
+## 10       113861.5                      99       KO000046
+## 11        19802.0                      17       KO000046
+## 12        64356.5                      56       KO000046
+## 13       158416.0                     138       KO000046
+## 14        99010.0                      86       KO000046
+## 15        14851.5                      13       KO000046
+## 16        34653.5                      30       KO000046
+## 17        29703.0                      26       KO000046
+## 18        69307.0                      60       KO000046
+## 19        79208.0                      69       KO000046
+## 20       123762.5                     108       KO000046
+## 21       217822.0                     189       KO000046
+## 22       292079.5                     254       KO000046
+## 23       430693.5                     375       KO000046
+## 24       930694.0                     810       KO000046
+## 25      1148516.0                     999       KO000046
+## 26       207921.0                     181       KO000046
+## 27       108911.0                      95       KO000046
+## 28        49505.0                      43       KO000046
+## 29        39604.0                      34       KO000046
+##                       inchikey molecular.mass
+## 1  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 2  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 3  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 4  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 5  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 6  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 7  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 8  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 9  RWZYAGGXGHYGMB-UHFFFAOYSA-N      137.13600
+## 10 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 11 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 12 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 13 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 14 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 15 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 16 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 17 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 18 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 19 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 20 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 21 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 22 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 23 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 24 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 25 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 26 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 27 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 28 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+## 29 QTBSBXVTEAMEQO-UHFFFAOYSA-M       59.04402
+</code></pre>
+
+<p>The option <code>only.atomic</code> controls if only atomic values are put inside the data frame. If set to <code>TRUE</code>, then each entry will occupy only one line inside the data frame. If set to <code>FALSE</code> and an entry contains a non-atomic value (vector or data frame), then instead of occupying one line in the data frame it will occupy several lines, its atomic values being copied as many time as there are values inside the non-atomic value.</p>
+
+<p>Export the data frame into a CSV file with R standard function:</p>
+
+<pre><code class="r">write.csv(df, file = &#39;massbank.csv&#39;)
+</code></pre>
+
+</body>
+
+</html>

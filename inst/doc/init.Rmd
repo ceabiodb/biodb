@@ -1,15 +1,25 @@
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Initializing biodb}
--->
+---
+title: "Initializing biod"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  The software architecture of the biodb package.
+vignette: |
+  %\VignetteIndexEntry{Initializing biod}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 # Initializing biodb
 
 First of all, before using *biodb*, you need to create an instance of the main class `Biodb`. This is done by calling the constructor of the class through the `new()` method. The OOP (Object Oriented Programming) system used in the *biodb* package is the **R5** system also called **Reference Classes**. In this system, the created objects are not copied, but their reference are copied. This means than when you pass an instance to a function, that function is able to modify the instance.
 
-To create an instance of the `Biodb` class, call the `new()` method:
+To create an instance of the `Biodb` class, call the constructor method:
 ```{r}
-mybiodb <- biodb::Biodb$new()
+mybiodb <- biodb::Biodb()
 ```
 This is will create a `Biodb` instance and put its reference into the `mybiodb` variable. Calling `new()` without any argument configures the instance with the default values.
 

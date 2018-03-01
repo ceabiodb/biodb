@@ -3,9 +3,10 @@ all:
 check:
 	R -q -e "devtools::check('$(CURDIR)')"
 
-vignettes: install
+vignettes:
+	@echo Build vignettes for already installed package, not from local soures.
 	R -q -e "devtools::clean_vignettes('$(CURDIR)')"
-	R -q -e "devtools::build_vignettes('$(CURDIR)')" # Build vignettes for already installed package, not from local soures.
+	R -q -e "devtools::build_vignettes('$(CURDIR)')"
 
 build:
 	R -q -e "devtools::build('$(CURDIR)')"

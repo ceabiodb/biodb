@@ -1,9 +1,17 @@
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Accessing database entries by accession number}
--->
-
-# Accessing database entries by accession number
+---
+title: "Accessing database entries by accession number"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  The software architecture of the biodb package.
+vignette: |
+  %\VignetteIndexEntry{Accessing database entries by accession number}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 In this vignette, we will explain how to download and access entry information from databases.
 

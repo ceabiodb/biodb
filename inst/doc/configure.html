@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Configuring biodb</title>
+<title>Introduction</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,28 +201,56 @@ hr {
 </head>
 
 <body>
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Configuring biodb}
--->
-
-<h1>Configuring biodb</h1>
+<h1>Introduction</h1>
 
 <p>In this vignette, we will explain how to configure biodb behaviour.</p>
 
-<p>First you need to create an instance of the <code>Biodb</code> class:</p>
+<p>When you create an instance of the <code>Biodb</code> class:</p>
 
-<pre><code class="r">mybiodb &lt;- biodb::Biodb$new()
+<pre><code class="r">mybiodb &lt;- biodb::Biodb()
 </code></pre>
 
-<p>Then get the configuration class:</p>
+<p>You get, by default (i.e.: when not setting <code>info = FALSE</code>), a list of configuration setting.</p>
+
+<p>This configuration setting can be modified either directly inside R with the <code>BiodbConfig</code> class or beforehand by setting environment variables.</p>
+
+<h1>BiodbConfig instance</h1>
+
+<p>The main way to tune <em>biodb</em> to your needs is to use the <code>BiodbConfig</code> single instance, accessible through the <code>biodb</code> instance:</p>
 
 <pre><code class="r">config &lt;- mybiodb$getConfig()
 </code></pre>
 
-<h2>Getting and setting a value</h2>
+<p>If you look at the config instance, you will get a list of keys with their current values:</p>
 
-<p>Get all settable fields:</p>
+<pre><code class="r">config
+</code></pre>
+
+<pre><code>## Biodb configuration instance.
+##   Values:
+##      allow.huge.downloads :  TRUE 
+##      cache.all.requests :  TRUE 
+##      cache.directory :  /Users/pierrick/.biodb.cache 
+##      cache.read.only :  FALSE 
+##      cache.subfolders :  TRUE 
+##      cache.system :  TRUE 
+##      chemspider.token :  744de16c-481a-489d-8803-48e9d35e7440 
+##      compute.fields :  TRUE 
+##      factory.cache :  FALSE 
+##      force.locale :  TRUE 
+##      longterm.cache.subfolder :  longterm 
+##      multival.field.sep :  ; 
+##      offline :  FALSE 
+##      peakforest.compound.token :  67eul9gu6fdde6efr27p5k7grt 
+##      peakforest.mass.token :  67eul9gu6fdde6efr27p5k7grt 
+##      shortterm.cache.subfolder :  shortterm 
+##      svn.binary.path :  /usr/bin/svn 
+##      useragent :  NA
+</code></pre>
+
+<h1>Keys information and value</h1>
+
+<p>Get all available configuration keys:</p>
 
 <pre><code class="r">config$getKeys()
 </code></pre>
@@ -254,18 +282,96 @@ hr {
 <pre><code>## [1] &quot;/Users/pierrick/.biodb.cache&quot;
 </code></pre>
 
+<p>If the field is boolean, you can use the following method instead:</p>
+
+<pre><code class="r">if (config$isEnabled(&#39;offline&#39;)) &#39;Biodb is running offline.&#39; else &#39;Biodb is running online.&#39;
+</code></pre>
+
+<pre><code>## [1] &quot;Biodb is running online.&quot;
+</code></pre>
+
+<p>To get a complete of all configuration keys and their description, call:</p>
+
+<pre><code class="r">config$listKeys()
+</code></pre>
+
+<pre><code>##                          Key      Type
+## 1       allow.huge.downloads   logical
+## 2         cache.all.requests   logical
+## 3            cache.directory character
+## 4            cache.read.only   logical
+## 5           cache.subfolders   logical
+## 6               cache.system   logical
+## 7              factory.cache   logical
+## 8             compute.fields   logical
+## 9               force.locale   logical
+## 10  longterm.cache.subfolder character
+## 11        multival.field.sep character
+## 12                   offline   logical
+## 13 shortterm.cache.subfolder character
+## 14           svn.binary.path character
+## 15                 useragent character
+## 16          chemspider.token character
+## 17     peakforest.mass.token character
+## 18 peakforest.compound.token character
+##                           Default value
+## 1                                  TRUE
+## 2                                  TRUE
+## 3          /Users/pierrick/.biodb.cache
+## 4                                 FALSE
+## 5                                  TRUE
+## 6                                  TRUE
+## 7                                 FALSE
+## 8                                  TRUE
+## 9                                  TRUE
+## 10                             longterm
+## 11                                    ;
+## 12                                FALSE
+## 13                            shortterm
+## 14                         /usr/bin/svn
+## 15                                     
+## 16 744de16c-481a-489d-8803-48e9d35e7440
+## 17           67eul9gu6fdde6efr27p5k7grt
+## 18           67eul9gu6fdde6efr27p5k7grt
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Description
+## 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Download of huge files like whole database data is allowed.
+## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       All requests are cached. If disabled, only requests of entries by accession number are cached.
+## 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       The directory in which cache files are stored.
+## 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             The cache system is not writable. This is mainly used for test purposes.
+## 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Use subfolders shortterm and longterm in cache system, in order to divide the downloaded files. If a whole database is downloaded, the file(s) will be put in the longterm subfolders.
+## 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Cache system is ON.
+## 7  Factory cache system is ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the sames entries are requested several times, avoiding the parsing process.
+## 8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field&#39;s value.
+## 9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Forcing current locale is allowed.
+## 10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          The name of the long term cache subfolder.
+## 11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      The character used as separator when concatenating multiple values of a field.
+## 12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            All network accesses are blocked. This is mainly used for test purposes.
+## 13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         The name of the short term cache subfolder.
+## 14                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            The path to the SubVersion binary (svn).
+## 15                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   The user agent description string. This string is compulsory when connection to remote databases.
+## 16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            The token to access ChemSpider database.
+## 17                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       The token to access PeakForest Mass database.
+## 18                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   The token to access PeakForest Compound database.
+</code></pre>
+
+<h1>Setting a value</h1>
+
 <p>Set a field value:</p>
 
 <pre><code class="r">config$set(&#39;cache.directory&#39;, &#39;~/my.biodb.cache&#39;)
-</code></pre>
-
-<p>Get same field value again:</p>
-
-<pre><code class="r">config$get(&#39;cache.directory&#39;)
+config$get(&#39;cache.directory&#39;) # See modifications
 </code></pre>
 
 <pre><code>## [1] &quot;~/my.biodb.cache&quot;
 </code></pre>
+
+<p>If the field is boolean, you can use the following methods instead:</p>
+
+<pre><code class="r">config$enable(&#39;offline&#39;)    # set to TRUE
+config$disable(&#39;offline&#39;)   # set to FALSE
+</code></pre>
+
+<h1>Default values</h1>
 
 <p>Get field default value:</p>
 
@@ -275,20 +381,16 @@ hr {
 <pre><code>## [1] &quot;/Users/pierrick/.biodb.cache&quot;
 </code></pre>
 
-<p>If the value of a field is boolean, you can use the boolean methods instead of <code>get</code> and <code>set</code>:</p>
+<h1>Environment variables</h1>
 
-<pre><code class="r">config$get(&#39;offline&#39;)
+<p>Environment variables can be used to overwrite default values.</p>
+
+<p>To get the name of the environment variable associated with a particular key, call the following method:</p>
+
+<pre><code class="r">config$getAssocEnvVar(&#39;cache.directory&#39;)
 </code></pre>
 
-<pre><code>## [1] FALSE
-</code></pre>
-
-<pre><code class="r">config$enable(&#39;offline&#39;)    # set to TRUE
-config$disable(&#39;offline&#39;)   # set to FALSE
-if (config$isEnabled(&#39;offline&#39;)) &#39;Biodb is running offline.&#39; else &#39;Biodb is running online.&#39;
-</code></pre>
-
-<pre><code>## [1] &quot;Biodb is running online.&quot;
+<pre><code>## [1] &quot;BIODB_CACHE_DIRECTORY&quot;
 </code></pre>
 
 </body>
