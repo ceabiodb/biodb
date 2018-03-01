@@ -23,6 +23,10 @@ Set a boolean key to TRUE.}
 
 Get the value of a key.}
 
+\item{\code{getAssocEnvVar(key)}}{:
+
+Returns the environment variable associated with this configuration key.}
+
 \item{\code{getDefaultValue(key)}}{:
 
 Get the default value of a key.}
@@ -49,7 +53,7 @@ Test if a boolean key is set to TRUE.}
 
 \item{\code{set(key, value)}}{:
 
-Set a the value of a key.}
+Set the value of a key.}
 }}
 
 \examples{
