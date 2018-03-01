@@ -124,7 +124,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 		max <- max.results
 		if ( ! is.na(max) && (precursor || ms.level > 0))
 			max <- max(10000, 10 * max)
-		xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', paste(mz, collapse = ','), '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else min.rel.int, '</tns:relativeIntensity><tns:tolerance>', mz.tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
+		xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', paste(mz, collapse = ','), '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else (min.rel.int * 999 %/% 100), '</tns:relativeIntensity><tns:tolerance>', mz.tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == BIODB.MSMODE.NEG) 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
 
 		# Send request
 		.self$message('debug', paste('Searching for M/Z values, with request: "', xml.request, '".', sep = ''))
