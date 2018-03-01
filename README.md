@@ -26,7 +26,7 @@ This software is licensed under the GNU Affero General Public License version 3 
 
 Using package `devtools` you can install Biodb directly from GitHub:
 ```r
-devtools::install_github('pkrog/biodb')
+devtools::install_github('pkrog/biodb', dependencies = TRUE, build_vignettes = FALSE)
 ```
 
 ### Install from local repository
@@ -38,7 +38,7 @@ git clone -b master https://github.com/pkrog/biodb.git
 
 Then you install *biodb* using the `devtools` package:
 ```r
-devtools::install_local('/your/path/to/biodb')
+devtools::install_local('/your/path/to/biodb', dependencies = TRUE, build_vignettes = FALSE)
 ```
 
 ## Examples
