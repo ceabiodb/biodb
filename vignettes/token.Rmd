@@ -1,14 +1,14 @@
 ---
-title: "How to use a token for accessing a database"
+title: "Using an access token"
 author: "Pierrick Roger"
 output:
   html_document:
     theme: null
 package: biodb
 abstract: |
-  The software architecture of the biodb package.
+  How to use a token for accessing a database.
 vignette: |
-  %\VignetteIndexEntry{How to use a token for accessing a database}
+  %\VignetteIndexEntry{Using an access token}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
