@@ -6,7 +6,7 @@ output:
     theme: null
 package: biodb
 abstract: |
-  The software architecture of the biodb package.
+  How to retrieve entries from databases.
 vignette: |
   %\VignetteIndexEntry{Accessing database entries by accession number}
   %\VignetteEngine{knitr::rmarkdown}
