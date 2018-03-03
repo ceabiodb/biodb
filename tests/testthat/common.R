@@ -36,9 +36,20 @@ if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
 		db.exists <- vapply(TEST.DATABASES, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
 		if ( ! all(db.exists)) {
 			wrong.dbs <- TEST.DATABASES[ ! db.exists]
-			stop(paste('Unknown testing database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+			stop(paste('Unknown database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
 		}
 	}
+}
+
+# Remove databases to test
+if ('DONT_TEST_DBS' %in% names(env) && nchar(env[['DONT_TEST_DBS']]) > 0) {
+	DONT.TEST.DBS <- strsplit(env[['DONT_TEST_DBS']], ',')[[1]]
+	db.exists <- vapply(DONT.TEST.DBS, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
+	if ( ! all(db.exists)) {
+		wrong.dbs <- DONT.TEST.DBS[ ! db.exists]
+		stop(paste('Unknown database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+	}
+	TEST.DATABASES <- TEST.DATABASES[ ! TEST.DATABASES %in% DONT.TEST.DBS]
 }
 
 # Set testing modes {{{1
