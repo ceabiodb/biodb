@@ -250,8 +250,13 @@ test.entry.image.url.download <- function(db) {
 ################################################################
 
 test.nothing <- function(db) {
+	print('----------------------------------------------------------------')
 	biodb <- db$getBiodb()
 	db.name <- db$getId()
+	print(db.name)
+	print('----------------------------------------------------------------')
+	entry <- biodb$getFactory()$getEntry(db.name, id = 'WRONGA')
+	print(entry)
 }
 
 run.db.generic.tests <- function(db, mode) {
