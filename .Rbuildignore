@@ -6,3 +6,4 @@
 ^dockers$
 ^.*\.dockerfile$
 ^.*\.csv$
+^travis-tests$

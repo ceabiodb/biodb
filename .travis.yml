@@ -7,9 +7,9 @@ notifications:
    - pk.roger@icloud.com
 
 env:
-    - MODES=offline
-    - MODES=online
-    - MODES=quick.online
+    - CHECK=yes EXAMPLES=yes MODES=offline
+    - CHECK=no  EXAMPLES=no  MODES=online
+    - CHECK=no  EXAMPLES=no  MODES=quick.online
 
 branches:
   only:
@@ -18,5 +18,4 @@ branches:
     - /^release[/].*$/
 
 script:
-    - make check
-    - make test && make install && make ex
+    - ./travis-tests
