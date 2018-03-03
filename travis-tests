@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -ev
+
+# Check
+if [[ $CHECK == yes ]] ; then
+	make check
+fi
+
+# Test
+make test
+
+# Examples
+if [[ $EXAMPLES == yes ]] ; then
+	make install
+	make ex
+fi
