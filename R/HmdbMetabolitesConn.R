@@ -57,7 +57,10 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 
 	# Expand zip
 	extract.dir <- tempfile(.self$getId())
-	utils::unzip(.self$getDownloadPath(), exdir = extract.dir)
+	zip.path <- .self$getDownloadPath()
+	.self$message('debug', paste("Unzipping ", zip.path, "...", sep = ''))
+	utils::unzip(zip.path, exdir = extract.dir)
+	.self$message('debug', paste("Unzipped ", zip.path, ".", sep  = ''))
 	
 	# Search for extracted XML file
 	files <- list.files(path = extract.dir)
