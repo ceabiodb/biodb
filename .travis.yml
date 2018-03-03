@@ -8,7 +8,7 @@ notifications:
 
 env:
 #    - CHECK=yes EXAMPLES=yes MODES=offline
-    - CHECK=no  EXAMPLES=no  DATABASES=hmdb.metabolites  FUNCTIONS=test.entry.fields MODES=online
+    - CHECK=no  EXAMPLES=no  DATABASES=hmdb.metabolites  FUNCTIONS=test.nothing MODES=online
 #    - CHECK=no  EXAMPLES=no                 DONT_TEST_DBS=hmdb.metabolites  MODES=online
 #    - CHECK=no  EXAMPLES=no  MODES=quick.online
 
