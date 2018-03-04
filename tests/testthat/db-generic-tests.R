@@ -230,29 +230,10 @@ test.entry.image.url.download <- function(db) {
 # Run db generic tests {{{1
 ################################################################
 
-test.nothing <- function(db) {
-	print('----------------------------------------------------------------')
-	biodb <- db$getBiodb()
-	db.name <- db$getId()
-	print(db.name)
-	print('----------------------------------------------------------------')
-#	logger <- BiodbLogger$new(file = stdout())
-#	logger$includeMsgType('debug')
-	print('----------------------------------------------------------------')
-#	biodb$addObservers(logger)
-	print('----------------------------------------------------------------')
-	entry <- biodb$getFactory()$getEntry(db.name, id = 'HMDB0000001')
-	print(entry)
-	print('----------------------------------------------------------------')
-	entry <- biodb$getFactory()$getEntry(db.name, id = 'WRONGA')
-	print(entry)
-}
-
 run.db.generic.tests <- function(db, mode) {
 
 	set.test.context(db$getBiodb(), paste("Running generic tests on database", db$getId(), "in", mode, "mode"))
 
-	run.db.test.that("Does nothing", 'test.nothing', db)
 	run.db.test.that("Wrong entry gives NULL", 'test.wrong.entry', db)
 	run.db.test.that("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', db)
 	run.db.test.that("Entry fields have a correct value", 'test.entry.fields', db)
