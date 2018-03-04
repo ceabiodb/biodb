@@ -81,21 +81,62 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 	.self$message('debug', paste("Found XML file ", xml.file, " in ZIP file.", sep  = ''))
 
 	if (TRUE) {
-		# Split XML file
-		.self$message('debug', "Load XML file.")
-		xml <- readChar(xml.file, file.info(xml.file)$size, useBytes = TRUE)
-		.self$message('debug', paste("XML string has", nchar(xml), "characters."))
-		.self$message('debug', paste("XML string first 100 characters are", substr(xml, 1, 100), ".", sep = '"'))
-		.self$message('debug', "Split XML string on <metabolite> tags.")
-		contents <- strsplit(xml, '<metabolite>')[[1]]
-		.self$message('debug', "Remove first element.")
-		contents <- contents[2:length(contents)] # Remove first one (XML header and <hmdb> tag, not a metabolite
-		.self$message('debug', "Put back <metabolite> tag.")
-		contents <- vapply(contents, function(s) paste0('<metabolite>', s), FUN.VALUE = '') # Put back <metabolite> tag.
-		.self$message('debug', "Remove last </hmdb> tag.")
-		contents[length(contents)] <- sub('</hmdb>', '', contents[length(contents)]) # Remove HMDB end tag.
-		.self$message('debug', 'Get IDs of entries.')
-		ids <- stringr::str_match(contents, '<accession>(HMDB[0-9]+)</accession>')[, 2]
+
+		# Delete existing cache files
+		.self$message('debug', 'Delete existing entry files in cache system.')
+		.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
+
+		# Extract entries from XML file
+		.self$message('debug', "Extract entries from XML file.")
+		chunk.size <- 2**16
+		xml <- ''
+		xml.chunks <- character()
+		done.reading <- FALSE
+		.self$message('debug', paste("Read XML file by chunk of", chunk.size, "characters."))
+		file.conn <- file(xml.file, open = 'r')
+		nb.entries.found <- 0
+		while ( ! done.reading) {
+			chunk <- readChar(file.conn, chunk.size)
+			done.reading <- (nchar(chunk) < chunk.size)
+			.self$message('debug', paste0("Total nb entries found is ", nb.entries.found, ".")) 
+			.self$message('debug', paste0("Look for entries (<metabolite>...</metabolite>) inside current XML string of ", sum(nchar(c(xml.chunks, chunk))), " characters."))
+			if (length(grep('</metabolite>', chunk)) > 0 || (length(xml.chunks) > 0 && length(grep('</metabolite>', paste0(xml.chunks[[length(xml.chunks)]], chunk))) > 0)) {
+				xml <- paste(c(xml.chunks, chunk), collapse = '')
+				match <- stringr::str_match(xml, stringr::regex('^(.*)(<metabolite>.*</metabolite>)(.*)$', dotall = TRUE))
+				if (is.na(match[1, 1]))
+					.self$message('error', 'Cannot find matching <metabolite> tag in HMDB XML entries file.')
+
+				xml.chunks <- match[1, 4]
+				metabolites <- match[1, 3]
+			    .self$message('debug', paste0("Extract individual XML of entries from XML file."))
+				metabolites <- stringr::str_extract_all(metabolites, stringr::regex('<metabolite>.*?</metabolite>', dotall = TRUE))[[1]]
+			    .self$message('debug', paste0("Read ", length(metabolites), " metabolites from XML file."))
+			    nb.entries.found <- nb.entries.found + length(metabolites)
+
+			    .self$message('debug', "Extract IDs from entries.")
+				ids <- stringr::str_match(metabolites, '<accession>(HMDB[0-9]+)</accession>')[, 2]
+
+				# Write all XML entries into files
+				.self$message('debug', paste0('Write entries ', paste(ids, collapse = ', '), ' into files in cache system.'))
+				.self$getBiodb()$getCache()$saveContentToFile(metabolites, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+			}
+			else
+				xml.chunks <- c(xml.chunks, chunk)
+		}
+		close(file.conn)
+#		xml <- readChar(xml.file, file.info(xml.file)$size, useBytes = TRUE)
+#		.self$message('debug', paste("XML string has", nchar(xml), "characters."))
+#		.self$message('debug', paste('XML string first 100 characters are "', substr(xml, 1, 100), '".', sep = ''))
+#		.self$message('debug', "Split XML string on <metabolite> tags.")
+#		contents <- strsplit(xml, '<metabolite>')[[1]]
+#		.self$message('debug', "Remove first element.")
+#		contents <- contents[2:length(contents)] # Remove first one (XML header and <hmdb> tag, not a metabolite
+#		.self$message('debug', "Put back <metabolite> tag.")
+#		contents <- vapply(contents, function(s) paste0('<metabolite>', s), FUN.VALUE = '') # Put back <metabolite> tag.
+#		.self$message('debug', "Remove last </hmdb> tag.")
+#		contents[length(contents)] <- sub('</hmdb>', '', contents[length(contents)]) # Remove HMDB end tag.
+#		.self$message('debug', 'Get IDs of entries.')
+#		ids <- stringr::str_match(contents, '<accession>(HMDB[0-9]+)</accession>')[, 2]
 	} else {
 		# Load extracted XML file
 		xml <- XML::xmlInternalTreeParse(xml.file)
@@ -109,13 +150,9 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		Encoding(contents) <- "unknown" # Force encoding to 'unknown', since leaving it set to 'UTF-8' will produce outputs of the form '<U+2022>' for unicode characters. These tags '<U+XXXX>' will then be misinterpreted by XML parser when reading entry content, because there is no slash at the end of the tag.
 	}
 
-	# Delete existing cache files
-	.self$message('debug', 'Delete existing entry files in cache system.')
-	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
-
-	# Write all XML entries into files
-	.self$message('debug', 'Write all entries into files in cache system.')
-	.self$getBiodb()$getCache()$saveContentToFile(contents, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+#	# Write all XML entries into files
+#	.self$message('debug', 'Write all entries into files in cache system.')
+#	.self$getBiodb()$getCache()$saveContentToFile(contents, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
 
 	# Remove extract directory
 	.self$message('debug', 'Delete extract directory.')
