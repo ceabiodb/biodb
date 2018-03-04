@@ -86,8 +86,11 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		xml <- readChar(xml.file, file.info(xml.file)$size, useBytes = TRUE)
 		.self$message('debug', "Split XML file on <metabolite> tags.")
 		contents <- strsplit(xml, '<metabolite>')[[1]]
+		.self$message('debug', "Remove first element.")
 		contents <- contents[2:length(contents)] # Remove first one (XML header and <hmdb> tag, not a metabolite
+		.self$message('debug', "Put back <metabolite> tag.")
 		contents <- vapply(contents, function(s) paste0('<metabolite>', s), FUN.VALUE = '') # Put back <metabolite> tag.
+		.self$message('debug', "Remove last </hmdb> tag.")
 		contents[length(contents)] <- sub('</hmdb>', '', contents[length(contents)]) # Remove HMDB end tag.
 		.self$message('debug', 'Get IDs of entries.')
 		ids <- stringr::str_match(contents, '<accession>(HMDB[0-9]+)</accession>')[, 2]
