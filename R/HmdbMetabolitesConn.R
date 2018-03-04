@@ -84,7 +84,9 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		# Split XML file
 		.self$message('debug', "Load XML file.")
 		xml <- readChar(xml.file, file.info(xml.file)$size, useBytes = TRUE)
-		.self$message('debug', "Split XML file on <metabolite> tags.")
+		.self$message('debug', paste("XML string has", nchar(xml), "characters."))
+		.self$message('debug', paste("XML string first 100 characters are", substr(xml, 1, 100), ".", sep = '"'))
+		.self$message('debug', "Split XML string on <metabolite> tags.")
 		contents <- strsplit(xml, '<metabolite>')[[1]]
 		.self$message('debug', "Remove first element.")
 		contents <- contents[2:length(contents)] # Remove first one (XML header and <hmdb> tag, not a metabolite
