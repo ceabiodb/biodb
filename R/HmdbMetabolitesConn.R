@@ -89,7 +89,8 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		# Extract entries from XML file
 		.self$message('debug', "Extract entries from XML file.")
 		chunk.size <- 2**16
-		xml <- ''
+		total.bytes <- file.info(xml.file)$size
+		bytes.read <- as.integer(0)
 		xml.chunks <- character()
 		done.reading <- FALSE
 		.self$message('debug', paste("Read XML file by chunk of", chunk.size, "characters."))
@@ -97,9 +98,10 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		nb.entries.found <- 0
 		while ( ! done.reading) {
 			chunk <- readChar(file.conn, chunk.size)
+			bytes.read <- bytes.read + nchar(chunk, type = 'bytes')
+			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', bytes.read, total.bytes))
 			done.reading <- (nchar(chunk) < chunk.size)
 			.self$message('debug', paste0("Total nb entries found is ", nb.entries.found, ".")) 
-			.self$message('debug', paste0("Look for entries (<metabolite>...</metabolite>) inside current XML string of ", sum(nchar(c(xml.chunks, chunk))), " characters."))
 			if (length(grep('</metabolite>', chunk)) > 0 || (length(xml.chunks) > 0 && length(grep('</metabolite>', paste0(xml.chunks[[length(xml.chunks)]], chunk))) > 0)) {
 				xml <- paste(c(xml.chunks, chunk), collapse = '')
 				match <- stringr::str_match(xml, stringr::regex('^(.*)(<metabolite>.*</metabolite>)(.*)$', dotall = TRUE))
@@ -108,16 +110,12 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 
 				xml.chunks <- match[1, 4]
 				metabolites <- match[1, 3]
-			    .self$message('debug', paste0("Extract individual XML of entries from XML file."))
 				metabolites <- stringr::str_extract_all(metabolites, stringr::regex('<metabolite>.*?</metabolite>', dotall = TRUE))[[1]]
-			    .self$message('debug', paste0("Read ", length(metabolites), " metabolites from XML file."))
 			    nb.entries.found <- nb.entries.found + length(metabolites)
 
-			    .self$message('debug', "Extract IDs from entries.")
 				ids <- stringr::str_match(metabolites, '<accession>(HMDB[0-9]+)</accession>')[, 2]
 
 				# Write all XML entries into files
-				.self$message('debug', paste0('Write entries ', paste(ids, collapse = ', '), ' into files in cache system.'))
 				.self$getBiodb()$getCache()$saveContentToFile(metabolites, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
 			}
 			else

@@ -87,6 +87,31 @@ if ('FUNCTIONS' %in% names(env)) {
 	TEST.FUNCTIONS <- FUNCTION.ALL
 }
 
+# Test observer {{{1
+################################################################
+
+TestObserver <- methods::setRefClass('TestObserver', contains = 'BiodbObserver', fields = list(.last.index = 'integer'))
+
+TestObserver$methods( initialize = function(...) {
+
+	callSuper(...)
+
+	.last.index <<- as.integer(0)
+})
+
+TestObserver$methods( progress = function(type = 'info', msg, index, total) {
+
+	.self$checkMessqgeType(type)
+
+	expect_gt(index, .self$.last.index)
+	expect_lte(index, total)
+
+	if (index == total)
+		.last.index <<- as.integer(0)
+	else
+		.last.index <<- as.integer(index)
+})
+
 # Create Biodb instance {{{1
 ################################################################
 
@@ -102,11 +127,14 @@ create.biodb.instance <- function() {
 	}
 
 	# Create logger
-	logger = BiodbLogger$new(file = log.file.path, mode = 'a')
+	logger <- BiodbLogger(file = log.file.path, mode = 'a')
 	logger$includeMsgType('debug')
 
+	# Create test observer
+	test.observer <- TestObserver()
+
 	# Create instance
-	biodb <- Biodb$new(logger = FALSE, observers = logger)
+	biodb <- Biodb$new(logger = FALSE, observers = c(test.observer, logger))
 
 	# Set user agent
 	biodb$getConfig()$set('useragent', USERAGENT)
