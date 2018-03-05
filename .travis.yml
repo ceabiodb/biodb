@@ -12,7 +12,8 @@ env:
     - MODES=offline
     - MODES=online DATABASES=hmdb.metabolites
     - MODES=online DATABASES=massbank.jp
-    - MODES=online DONT_TEST_DBS=hmdb.metabolites,massbank.jp
+    - MODES=online DATABASES=peakforest.mass
+    - MODES=online DONT_TEST_DBS=hmdb.metabolites,massbank.jp,peakforest.mass
     - MODES=quick.online
 
 branches:
