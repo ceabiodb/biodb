@@ -46,6 +46,13 @@ BiodbObserver$methods( message = function(type = 'info', msg, class = NA_charact
 	.self$checkMessqgeType(type)
 })
 
+# Info progress {{{1
+################################################################
+
+BiodbObserver$methods( progress = function(type = 'info', msg, index, total) {
+	.self$checkMessqgeType(type)
+})
+
 # Check message type {{{1
 ################################################################
 
