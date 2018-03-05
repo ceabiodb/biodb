@@ -154,7 +154,7 @@ test.entry.ids <- function(db) {
 	# Test getEntryIds()
 	max <- 100
 	ids <- db$getEntryIds(max.results = max)
-	if (db$getId() %in% dbs.not.implementing)
+	if (db$getId() %in% dbs.not.implementing || (db$getId() == 'hmdb.metabolites' && ! db$isDownloaded()))
 		expect_null(ids)
 	else {
 		expect_is(ids, 'character')
