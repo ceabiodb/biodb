@@ -73,6 +73,7 @@ test.searchCompound <- function(db) {
 ################################################################
 
 run.compound.db.tests <- function(db, mode) {
+
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'CompounddbConn')) {
 			

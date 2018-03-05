@@ -38,7 +38,7 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
 	.time.of.last.request <<- -1
 	.nb.max.tries <<- 10L
 	.ssl.verifypeer <<- TRUE
-	.huge.download.waiting.time <<- 60L # in seconds
+	.huge.download.waiting.time <<- 60L # In seconds. Waiting time between two huge downloads should be higher than for requests (.time.of.last.request).
 	.time.of.last.huge.dwnld.request <<- -1
 })
 
@@ -73,7 +73,7 @@ UrlRequestScheduler$methods( getUrlString = function(url, params = list()) {
 	return(url)
 })
 
-# Get url {{{1
+# Get URL {{{1
 ################################################################
 
 UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = integer()) {
@@ -229,8 +229,8 @@ UrlRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
 	# Wait, if needed, before previous URL request and this new URL request.
 	if (.self$.time.of.last.huge.dwnld.request > 0) {
 		spent_time <- Sys.time() - .self$.time.of.last.huge.dwnld.request
-		if (spent_time < .huge.dwnld.waiting.time)
-			Sys.sleep(.huge.dwnld.waiting.time - spent_time)
+		if (spent_time < .self$.huge.download.waiting.time)
+			Sys.sleep(.self$.huge.download.waiting.time - spent_time)
 	}
 
 	# Store current time

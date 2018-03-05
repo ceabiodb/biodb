@@ -31,6 +31,13 @@ MirbaseMatureConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
 
+# Requires download {{{1
+################################################################
+
+MirbaseMatureConn$methods( requiresDownload = function() {
+	return(TRUE)
+})
+
 # Do download {{{1
 ################################################################
 
