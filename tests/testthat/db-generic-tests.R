@@ -175,7 +175,7 @@ test.rt.unit <- function(db) {
 
 	# Loop on all entries
 	for (e in entries)
-		expect_true( ! e$hasField('chrom.rt') || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
+		expect_true( ( ! e$hasField('chrom.rt') && ! e$hasField('chrom.rt.min') && ! e$hasField('chrom.rt.max')) || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
 }
 
 # Test entry page URL {{{1
