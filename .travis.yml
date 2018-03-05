@@ -8,7 +8,6 @@ notifications:
 
 env:
     - CHECK=yes
-    - EXAMPLES=yes
     - MODES=offline
     - MODES=online DATABASES=hmdb.metabolites
     - MODES=online DATABASES=massbank.jp

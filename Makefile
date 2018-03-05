@@ -30,18 +30,9 @@ uninstall:
 win:
 	R -q -e "devtools::build_win('$(CURDIR)')"
 
-ex:
-	echo "Testing examples..."
-	for ex in examples/*.R ; do echo "Running $$ex..." ; Rscript $$ex >$$ex.output 2>$$ex.err || exit 1 ; done
-
-exdock: clean
-	echo "Testing on a bare Linux system (no SVN or UNZIP installed)..."
-	docker build -t biodb-bare-r -f bare-r.dockerfile .
-	for ex in examples/*.R ; do echo "Running $$ex..." ; docker run -v $(PWD)/examples:/examples biodb-bare-r /$$ex >$$ex-docker.output 2>$$ex-docker.err || exit 1 ; done
-
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/cache tests/test.log tests/output
 	$(RM) -r $(HOME)/.biodb.dev.*.cache
 
-.PHONY: all clean win test check vignettes ex exdock install uninstall
+.PHONY: all clean win test check vignettes install uninstall
