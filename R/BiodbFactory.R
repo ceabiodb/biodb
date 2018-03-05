@@ -198,7 +198,7 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 		# Debug
 		.self$message('info', paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
 
-		# Download full database if possible
+		# Download full database if possible and allowed or if required
 		if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(dbid), 'BiodbDownloadable')) {
 			.self$message('debug', paste('Ask for whole database download of ', dbid, '.', sep = ''))
 			.self$getConn(dbid)$download()

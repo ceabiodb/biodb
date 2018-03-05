@@ -39,6 +39,13 @@ BiodbDownloadable$methods( getDownloadPath = function() {
 	return(path)
 })
 
+# Requires download {{{1
+################################################################
+
+BiodbDownloadable$methods( requiresDownload = function() {
+	return(FALSE)
+})
+
 # Is downloaded {{{1
 ################################################################
 
@@ -68,7 +75,7 @@ BiodbDownloadable$methods( download = function() {
 	":\n\nDownload the database containt locally."
 
 	# Download
-	if ( ! .self$isDownloaded() && .self$getBiodb()$getConfig()$isEnabled('allow.huge.downloads') && ! .self$getBiodb()$getConfig()$isEnabled('offline')) {
+	if ( ! .self$isDownloaded() && (.self$getBiodb()$getConfig()$isEnabled('allow.huge.downloads') || .self$requiresDownload()) && ! .self$getBiodb()$getConfig()$isEnabled('offline')) {
 
 		.self$message('info', paste("Download whole database of ", .self$getId(), ".", sep = ''))
 
