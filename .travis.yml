@@ -7,10 +7,13 @@ notifications:
    - pk.roger@icloud.com
 
 env:
-    - CHECK=yes EXAMPLES=yes MODES=offline
-    - CHECK=no  EXAMPLES=no  DATABASES=hmdb.metabolites                                 MODES=online
-    - CHECK=no  EXAMPLES=no                             DONT_TEST_DBS=hmdb.metabolites  MODES=online
-    - CHECK=no  EXAMPLES=no  MODES=quick.online
+    - CHECK=yes
+    - EXAMPLES=yes
+    - MODES=offline
+    - MODES=online DATABASES=hmdb.metabolites
+    - MODES=online DATABASES=massbank.jp
+    - MODES=online DONT_TEST_DBS=hmdb.metabolites,massbank.jp
+    - MODES=quick.online
 
 branches:
   only:
