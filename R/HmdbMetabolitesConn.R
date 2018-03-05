@@ -80,80 +80,63 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		.self$message('error', "No XML file found in ZIP file.")
 	.self$message('debug', paste("Found XML file ", xml.file, " in ZIP file.", sep  = ''))
 
-	if (TRUE) {
+	# Delete existing cache files
+	.self$message('debug', 'Delete existing entry files in cache system.')
+	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
 
-		# Delete existing cache files
-		.self$message('debug', 'Delete existing entry files in cache system.')
-		.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
+	# Open file
+	file.conn <- file(xml.file, open = 'r')
 
-		# Extract entries from XML file
-		.self$message('debug', "Extract entries from XML file.")
-		chunk.size <- 2**16
-		total.bytes <- file.info(xml.file)$size
-		bytes.read <- as.integer(0)
-		last.msg.bytes.index <- as.integer(0)
-		xml.chunks <- character()
-		done.reading <- FALSE
-		.self$message('debug', paste("Read XML file by chunk of", chunk.size, "characters."))
-		file.conn <- file(xml.file, open = 'r')
-		nb.entries.found <- 0
-		while ( ! done.reading) {
-			chunk <- readChar(file.conn, chunk.size)
-			bytes.read <- bytes.read + nchar(chunk, type = 'bytes')
-			if (bytes.read - last.msg.bytes.index > total.bytes %/% 100) {
-				lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', bytes.read, total.bytes))
-				last.msg.bytes.index <- bytes.read
-			}
-			done.reading <- (nchar(chunk) < chunk.size)
-			if (length(grep('</metabolite>', chunk)) > 0 || (length(xml.chunks) > 0 && length(grep('</metabolite>', paste0(xml.chunks[[length(xml.chunks)]], chunk))) > 0)) {
-				xml <- paste(c(xml.chunks, chunk), collapse = '')
-				match <- stringr::str_match(xml, stringr::regex('^(.*)(<metabolite>.*</metabolite>)(.*)$', dotall = TRUE))
-				if (is.na(match[1, 1]))
-					.self$message('error', 'Cannot find matching <metabolite> tag in HMDB XML entries file.')
+	# Extract entries from XML file
+	.self$message('debug', "Extract entries from XML file.")
+	chunk.size <- 2**16
+	total.bytes <- file.info(xml.file)$size
+	bytes.read <- as.integer(0)
+	last.msg.bytes.index <- as.integer(0)
+	xml.chunks <- character()
+	.self$message('debug', paste("Read XML file by chunk of", chunk.size, "characters."))
+	done.reading <- FALSE
+	while ( ! done.reading) {
 
-				xml.chunks <- match[1, 4]
-				metabolites <- match[1, 3]
-				metabolites <- stringr::str_extract_all(metabolites, stringr::regex('<metabolite>.*?</metabolite>', dotall = TRUE))[[1]]
-			    nb.entries.found <- nb.entries.found + length(metabolites)
+		# Read chunk from file
+		chunk <- readChar(file.conn, chunk.size)
+		done.reading <- (nchar(chunk) < chunk.size)
 
-				ids <- stringr::str_match(metabolites, '<accession>(HMDB[0-9]+)</accession>')[, 2]
-
-				# Write all XML entries into files
-				.self$getBiodb()$getCache()$saveContentToFile(metabolites, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
-			}
-			else
-				xml.chunks <- c(xml.chunks, chunk)
+		# Send progress message
+		bytes.read <- bytes.read + nchar(chunk, type = 'bytes')
+		if (bytes.read - last.msg.bytes.index > total.bytes %/% 100) {
+			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', bytes.read, total.bytes))
+			last.msg.bytes.index <- bytes.read
 		}
-		close(file.conn)
-#		xml <- readChar(xml.file, file.info(xml.file)$size, useBytes = TRUE)
-#		.self$message('debug', paste("XML string has", nchar(xml), "characters."))
-#		.self$message('debug', paste('XML string first 100 characters are "', substr(xml, 1, 100), '".', sep = ''))
-#		.self$message('debug', "Split XML string on <metabolite> tags.")
-#		contents <- strsplit(xml, '<metabolite>')[[1]]
-#		.self$message('debug', "Remove first element.")
-#		contents <- contents[2:length(contents)] # Remove first one (XML header and <hmdb> tag, not a metabolite
-#		.self$message('debug', "Put back <metabolite> tag.")
-#		contents <- vapply(contents, function(s) paste0('<metabolite>', s), FUN.VALUE = '') # Put back <metabolite> tag.
-#		.self$message('debug', "Remove last </hmdb> tag.")
-#		contents[length(contents)] <- sub('</hmdb>', '', contents[length(contents)]) # Remove HMDB end tag.
-#		.self$message('debug', 'Get IDs of entries.')
-#		ids <- stringr::str_match(contents, '<accession>(HMDB[0-9]+)</accession>')[, 2]
-	} else {
-		# Load extracted XML file
-		xml <- XML::xmlInternalTreeParse(xml.file)
 
-		# Get IDs of all entries
-		ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = c(hmdb = .self$getDbInfo()$getXmlNs()))
-		.self$message('debug', paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
+		# Is there a complete entry XML (<metabolite>...</metabolite>) in the loaded chunks?
+		if (length(grep('</metabolite>', chunk)) > 0 || (length(xml.chunks) > 0 && length(grep('</metabolite>', paste0(xml.chunks[[length(xml.chunks)]], chunk))) > 0)) {
 
-		# Get contents of all entries
-		contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = c(hmdb = .self$getDbInfo()$getXmlNs())), XML::saveXML, FUN.VALUE = '')
-		Encoding(contents) <- "unknown" # Force encoding to 'unknown', since leaving it set to 'UTF-8' will produce outputs of the form '<U+2022>' for unicode characters. These tags '<U+XXXX>' will then be misinterpreted by XML parser when reading entry content, because there is no slash at the end of the tag.
+			# Paste all chunks together
+			xml <- paste(c(xml.chunks, chunk), collapse = '')
+
+			# Search entry definitions
+			match <- stringr::str_match(xml, stringr::regex('^(.*?)(<metabolite>.*</metabolite>)(.*)$', dotall = TRUE))
+			if (is.na(match[1, 1]))
+				.self$message('error', 'Cannot find matching <metabolite> tag in HMDB XML entries file.')
+			metabolites <- match[1, 3]
+			xml.chunks <- match[1, 4]
+
+			# Get all metabolites definition
+			metabolites <- stringr::str_extract_all(metabolites, stringr::regex('<metabolite>.*?</metabolite>', dotall = TRUE))[[1]]
+
+			# Get IDs
+			ids <- stringr::str_match(metabolites, '<accession>(HMDB[0-9]+)</accession>')[, 2]
+
+			# Write all XML entries into files
+			.self$getBiodb()$getCache()$saveContentToFile(metabolites, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+		}
+		else
+			xml.chunks <- c(xml.chunks, chunk)
 	}
 
-#	# Write all XML entries into files
-#	.self$message('debug', 'Write all entries into files in cache system.')
-#	.self$getBiodb()$getCache()$saveContentToFile(contents, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+	# Close file
+	close(file.conn)
 
 	# Remove extract directory
 	.self$message('debug', 'Delete extract directory.')
