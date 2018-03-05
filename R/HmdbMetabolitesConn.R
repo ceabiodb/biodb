@@ -153,15 +153,17 @@ HmdbMetabolitesConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	# Download
 	.self$download()
 
-	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+	if (.self$isDownloaded()) {
+		# Get IDs from cache
+		ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
 
-	# Filter out wrong IDs
-	ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
+		# Filter out wrong IDs
+		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
 
-	# Cut
-	if ( ! is.na(max.results) && max.results < length(ids))
-		ids <- ids[1:max.results]
+		# Cut
+		if ( ! is.na(max.results) && max.results < length(ids))
+			ids <- ids[1:max.results]
+	}
 
 	return(ids)
 })
