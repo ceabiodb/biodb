@@ -11,9 +11,3 @@ fi
 if [[ -n $MODES ]] ; then
 	make test
 fi
-
-# Examples
-if [[ $EXAMPLES == yes ]] ; then
-	make install
-	make ex
-fi
