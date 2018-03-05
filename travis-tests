@@ -8,7 +8,9 @@ if [[ $CHECK == yes ]] ; then
 fi
 
 # Test
-make test
+if [[ -n $MODES ]] ; then
+	make test
+fi
 
 # Examples
 if [[ $EXAMPLES == yes ]] ; then
