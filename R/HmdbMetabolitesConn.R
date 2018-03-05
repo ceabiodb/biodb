@@ -91,6 +91,7 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		chunk.size <- 2**16
 		total.bytes <- file.info(xml.file)$size
 		bytes.read <- as.integer(0)
+		last.msg.bytes.index <- as.integer(0)
 		xml.chunks <- character()
 		done.reading <- FALSE
 		.self$message('debug', paste("Read XML file by chunk of", chunk.size, "characters."))
@@ -99,9 +100,11 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		while ( ! done.reading) {
 			chunk <- readChar(file.conn, chunk.size)
 			bytes.read <- bytes.read + nchar(chunk, type = 'bytes')
-			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', bytes.read, total.bytes))
+			if (bytes.read - last.msg.bytes.index > total.bytes %/% 100) {
+				lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', bytes.read, total.bytes))
+				last.msg.bytes.index <- bytes.read
+			}
 			done.reading <- (nchar(chunk) < chunk.size)
-			.self$message('debug', paste0("Total nb entries found is ", nb.entries.found, ".")) 
 			if (length(grep('</metabolite>', chunk)) > 0 || (length(xml.chunks) > 0 && length(grep('</metabolite>', paste0(xml.chunks[[length(xml.chunks)]], chunk))) > 0)) {
 				xml <- paste(c(xml.chunks, chunk), collapse = '')
 				match <- stringr::str_match(xml, stringr::regex('^(.*)(<metabolite>.*</metabolite>)(.*)$', dotall = TRUE))
