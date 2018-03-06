@@ -10,6 +10,9 @@ vignettes:
 	R -q -e "devtools::clean_vignettes('$(CURDIR)')"
 	R -q -e "devtools::build_vignettes('$(CURDIR)')"
 
+install.deps:
+	R -q -e "devtools::install_dev_deps('$(CURDIR)')"
+
 build:
 	R -q -e "devtools::build('$(CURDIR)')"
 
