@@ -12,7 +12,7 @@
 
 \item{max.results}{The maximum of elements returned by a method.}
 
-\item{min.rel.int}{The minimum relative intensity.}
+\item{min.rel.int}{The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).}
 
 \item{ms.level}{The MS level to which you want to restrict your search. \code{0} means that you want to serach in all levels.}
 
