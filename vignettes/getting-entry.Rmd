@@ -13,6 +13,8 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
+# Introduction
+
 In this vignette, we will explain how to download and access entry information from databases.
 
 First you need to create an instance of the `Biodb` class:
@@ -20,16 +22,20 @@ First you need to create an instance of the `Biodb` class:
 mybiodb <- biodb::Biodb$new()
 ```
 
-Then you need to choose the database you want to access. For that you need to use a database ID in the form of a string. To get the list of available database IDs, just run:
+# Getting list of available databases
+
+A database ID is required for choosing which database to access. To get the list of available database IDs, just run:
 ```{r}
 mybiodb$getDbsInfo()$getIds()
 ```
 
+# Getting an entry from the database
 To obtain an entry from a database you have to call the `getEntry()` method from the `BiodbFactory` class. The following example access the KEGG Compound database in order to retrieve the entry number 2:
 ```{r}
 entry <- mybiodb$getFactory()$getEntry('kegg.compound', id = 'C00005')
 ```
 
+# Accessing entry fields
 From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:
 ```{r}
 entry$getFieldValue('accession')
