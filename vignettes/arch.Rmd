@@ -101,4 +101,4 @@ Different intermediate abstract classes have been created in order to ease parsi
 
 Here is a complete class diagram showing all classes and their relations.
 
-![UML class diagram](class.svg)
+![UML class diagram](class.png)
