@@ -1,7 +1,17 @@
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{How to use a token for accessing a database}
--->
+---
+title: "Using an access token"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to use a token for accessing a database.
+vignette: |
+  %\VignetteIndexEntry{Using an access token}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 # Setting your token
 

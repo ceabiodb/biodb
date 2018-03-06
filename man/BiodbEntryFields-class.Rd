@@ -28,6 +28,10 @@ Returns the BiodbEntryField instance associated with name.}
 
 Returns the name of the field handling identifiers (i.e.: accession numbers) for this database.}
 
+\item{\code{getFieldNames()}}{:
+
+Returns the main names of all fields.}
+
 \item{\code{getRealName(name)}}{:
 
 If name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown.}

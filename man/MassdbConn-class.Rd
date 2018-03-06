@@ -6,13 +6,13 @@
 \alias{MassdbConn}
 \title{The mother class of all Mass spectra databases.}
 \arguments{
-\item{compound.ids}{A list of compound identifiers (i.e.: accession numbers). Used to filter the output.}
+\item{ids}{A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.}
 
 \item{dist.fun}{The distance function used to compute the distance betweem two mass spectra.}
 
 \item{max.results}{The maximum of elements returned by a method.}
 
-\item{min.rel.int}{The minimum relative intensity.}
+\item{min.rel.int}{The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).}
 
 \item{ms.level}{The MS level to which you want to restrict your search. \code{0} means that you want to serach in all levels.}
 
@@ -46,9 +46,9 @@ All Mass spectra databases inherit from this class. It thus defines methods spec
 \section{Methods}{
 
 \describe{
-\item{\code{getChromCol(compound.ids = NULL)}}{:
+\item{\code{getChromCol(ids = NULL)}}{:
 
-Get a list of chromatographic columns contained in this database. You can filter on specific compounds using the compound.ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'.}
+Get a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'.}
 
 \item{\code{getEntryIds(max.results = NA_integer_)}}{:
 
@@ -59,16 +59,21 @@ Get entry identifiers from the database.}
 
 Get a list of M/Z values contained inside the database.}
 
-\item{\code{getNbPeaks(mode = NULL, compound.ids = NULL)}}{:
+\item{\code{getNbPeaks(mode = NULL, ids = NULL)}}{:
 
 Returns the number of peaks contained in the database.}
 
-\item{\code{msmsSearch(spectrum, precursor.mz, mz.tol,
-  mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = BIODB.MSMODE.POS,
+\item{\code{msmsSearch(spectrum, precursor.mz, mz.tol, mz.tol.unit = "plain", ms.mode,
   npmin = 2, dist.fun = BIODB.MSMS.DIST.WCOSINE, msms.mz.tol = 3,
-  msms.mz.tol.min = 0.005)}}{:
+  msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{:
 
 Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search.}
+
+\item{\code{searchMsPeaks(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN,
+  min.rel.int = NA_real_, ms.mode = NA_character_,
+  max.results = NA_integer_)}}{:
+
+For each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value.}
 
 \item{\code{searchMzRange(mz.min, mz.max, min.rel.int = NA_real_,
   ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE,
@@ -80,7 +85,7 @@ Find spectra in the given M/Z range. Returns a list of spectra IDs.}
   min.rel.int = NA_real_, ms.mode = NA_character_,
   max.results = NA_integer_, precursor = FALSE, ms.level = 0)}}{:
 
-Find spectra containg a peak around the given M/Z value. Returns a list of spectra IDs.}
+Find spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs.}
 }}
 
 \examples{

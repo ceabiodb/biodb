@@ -1,9 +1,19 @@
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Architedture of biodb}
--->
+---
+title: "Architedture of biodb"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  The software architecture of the biodb package.
+vignette: |
+  %\VignetteIndexEntry{Architedture of biodb}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-# Architecture of biodb
+# Introduction
 
 The architecture is organised around the following classes:
 
@@ -15,7 +25,7 @@ The architecture is organised around the following classes:
 
 You will find below a UML class diagram, helpful to visualise all classes and their relationships.
 
-## BiodbObject and ChildObject
+# BiodbObject and ChildObject
 
 All classes in *biodb* inherit directly on indirectly from the `BiodbObject` class, at the exception of `UrlRequestScheduler` and the observer classes.
 
@@ -28,13 +38,13 @@ The `BiodbObject` class contains mainly useful methods for:
 
 The `ChildObject` class defines a `parent` field, allowing a class that inherits from it to be the child of another a class.
 
-## Biodb
+# Biodb
 
 The class (`Biodb`) is the central point of the *biodb* package. To use the *biodb* package, an instance of this class `Biodb` has to be created. You can created as many instances as you want at the same time, though there would not be much purpose; all instances will be independent of each other.
 
 From the instance of the class `Biodb`, you can access all singleton classes.
 
-## The singleton classes
+# The singleton classes
 
 There are 5 singleton classes, each having each a distinct purpose:
 
@@ -44,7 +54,7 @@ There are 5 singleton classes, each having each a distinct purpose:
  * `BiodbFactory` is responsible for instantiating connection and entry classes.
  * `BiodbCache` handles the cache system.
 
-## The observers
+# The observers
 
 The observer classes are used to transmit messages. You can create your own observer if you wish by creating a new class that inherits from `BiodbObserver`.
 The observers are registered with the `Biodb` instance, either through the constructor or through the `addObservers()` method.
@@ -57,7 +67,7 @@ There are three concrete observer classes defined in the *biodb* package:
 
 Both `WarningReporter` and `ErrorReporter` are always defined in each instance of `Biodb`.
 
-## The connection classes
+# The connection classes
 
 The connection classes handle the retrieval of information from databases. Their main purpose is the retrieval of and the search for entries.
 
@@ -71,11 +81,11 @@ All those classes are abstract.
 
 Generally, each connection concrete class inherits either directly from `BiodbConn` or from one or more of the other abstract classes. However, in order to factorize code, some intermediate abstract classes have been created: `PeakforestConn`, `NcbiConn`, etc.
 
-## The URL request scheduler
+# The URL request scheduler
 
 The `UrlRequestScheduler` class is used inside the `RemotedbConn` class. For each instance of a concrete class that inherits from `RemotedbConn`, an instance of the `UrlRequestScheduler` class is defined. This instance is responsible for handling all URL requests, and especially to wait required time between two requests. Some databases define precisely what should be the frequency of the requests, and those specifications are defined in the instance of the `UrlRequestScheduler` class. Other databases do not define anything, however this does not mean one can send as many request as he wants; thus a default frequency of three requests per second is defined by default for a new instance of `UrlRequestScheduler` class.
 
-## The entry classes
+# The entry classes
 
 The entry classes represent entries in the database. `BiodbEntry` is the mother abstract class of all entry classes. It handle the field values of the entries, and organize the parsing of entries from the string content returned by the database.
 
@@ -87,8 +97,8 @@ Different intermediate abstract classes have been created in order to ease parsi
  * `TxtEntry` handles generic text parsing through regular expressions.
  * `XmlEntry` handles XML parsing through XPath expressions.
 
-## UML class diagram
+# UML class diagram
 
 Here is a complete class diagram showing all classes and their relations.
 
-![UML class diagram](class.svg)
+![UML class diagram](class.png)

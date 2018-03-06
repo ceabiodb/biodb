@@ -103,3 +103,10 @@ BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character
 		cat(toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
 	}
 })
+
+# Info progress {{{1
+################################################################
+
+BiodbLogger$methods( progress = function(type = 'info', msg, index, total) {
+	.self$message(type, paste(msg, index, '/', total))
+})

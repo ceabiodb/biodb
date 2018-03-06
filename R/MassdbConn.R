@@ -10,7 +10,7 @@
 #' @param ids           A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.
 #' @param dist.fun      The distance function used to compute the distance betweem two mass spectra.
 #' @param max.results   The maximum of elements returned by a method.
-#' @param min.rel.int   The minimum relative intensity.
+#' @param min.rel.int   The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).
 #' @param ms.level      The MS level to which you want to restrict your search. \code{0} means that you want to serach in all levels.
 #' @param ms.mode       The MS mode. Set it to either \code{BIODB.MSMODE.NEG} or \code{BIODB.MSMODE.POS}.
 #' @param msms.mz.tol       M/Z tolerance to apply while matching MSMS spectra. In PPM.

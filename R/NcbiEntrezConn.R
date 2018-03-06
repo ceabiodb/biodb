@@ -4,36 +4,46 @@
 ################################################################
 
 #' @include NcbiConn.R
-NcbiEntrezConn <- methods::setRefClass("NcbiEntrezConn", contains = "NcbiConn", fields = list(.db.entrez.name = "character"))
+NcbiEntrezConn <- methods::setRefClass("NcbiEntrezConn", contains = "NcbiConn", fields = list(.entrez.name = "character", .entrez.tag = 'character', .entrez.id.tag = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-NcbiEntrezConn$methods( initialize = function(db.entrez.name = NA_character_, ...) {
+NcbiEntrezConn$methods( initialize = function(entrez.name = NA_character_, entrez.tag = NA_character_, entrez.id.tag = NA_character_, ...) {
 
 	# Call parent constructor
 	callSuper(...)
 	.self$.abstract.class('NcbiEntrezConn')
 
 	# Set name
-	if (is.null(db.entrez.name) || is.na(db.entrez.name))
-		.self$message('error', "You must set a name for this NCBI database.")
-	.db.entrez.name <<- db.entrez.name
+	if (is.null(entrez.name) || is.na(entrez.name))
+		.self$message('error', "You must set an Entrez name for this NCBI database.")
+	.entrez.name <<- entrez.name
+
+	# Set tag
+	.entrez.tag <<- if (is.null(entrez.tag)) NA_character_ else entrez.tag
+
+	# Set ID tag
+	.entrez.id.tag <<- if (is.null(entrez.id.tag)) NA_character_ else entrez.id.tag
 })
 
 # Web service efetch {{{1
 ################################################################
 
-NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmode = NA_character_, biodb.parse = FALSE) {
+NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmode = NA_character_, biodb.parse = FALSE, biodb.url = FALSE) {
 	":\n\nCalls Entrez efetch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch."
 
 	# Build request
 	url <- paste('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', 'efetch.fcgi', sep = '')
-	params <- c(db = .self$.db.entrez.name, id = id)
+	params <- c(db = .self$.entrez.name, id = paste(id, collapse = ','))
 	if ( ! is.na(rettype))
 		params <- c(params, rettype = rettype)
 	if ( ! is.na(retmode))
 		params <- c(params, retmode = retmode)
+
+	# Returns URL
+	if (biodb.url)
+		return(.self$.getUrlScheduler()$getUrlString(url, params))
 
 	# Send request
 	results <- .self$.getUrlScheduler()$getUrl(url, params)
@@ -54,7 +64,7 @@ NcbiEntrezConn$methods( ws.esearch = function(term, field = NA_character_, retma
 	
 	# Build request
 	url <- paste('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', 'esearch.fcgi', sep = '')
-	params <- c(db = .self$.db.entrez.name, term = term)
+	params <- c(db = .self$.entrez.name, term = term)
 	if ( ! is.na(field))
 		params <- c(params, field = field)
 	if ( ! is.na(retmax))
@@ -82,7 +92,7 @@ NcbiEntrezConn$methods( ws.einfo = function(biodb.parse = FALSE) {
 
 	# Build request
 	url <- paste('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', 'einfo.fcgi', sep = '')
-	params <- c(db = .self$.db.entrez.name, version = '2.0')
+	params <- c(db = .self$.entrez.name, version = '2.0')
 
 	# Send request
 	results <- .self$.getUrlScheduler()$getUrl(url, params)
@@ -123,7 +133,13 @@ NcbiEntrezConn$methods( getNbEntries = function(count = FALSE) {
 ################################################################
 
 NcbiEntrezConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-	return(.self$ws.efetch(id, retmode = 'xml'))
+
+	if (concatenate)
+		urls <- .self$ws.efetch(id, retmode = 'xml', biodb.url = TRUE)
+	else
+		urls <- vapply(id, function(single.id) .self$ws.efetch(single.id, retmode = 'xml', biodb.url = TRUE), FUN.VALUE = '')
+
+	return(urls)
 })
 
 # Get entry content {{{1
@@ -131,14 +147,49 @@ NcbiEntrezConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE)
 
 NcbiEntrezConn$methods( getEntryContent = function(entry.id) {
 
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
+	# Debug
+	.self$message('info', paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
 
-	# Get URLs
-	urls <- .self$getEntryContentUrl(entry.id)
+	URL.MAX.LENGTH <- 2048
+	concatenate <- TRUE
+	done <- FALSE
 
-	# Request
-	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
+	while ( ! done) {
+
+		done <- TRUE
+
+		# Initialize return values
+		content <- rep(NA_character_, length(entry.id))
+
+		# Get URL requests
+		url.requests <- .self$getEntryContentUrl(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
+
+		# Loop on all URLs
+		for (url in url.requests) {
+
+			# Send request
+			xmlstr <- .self$.getUrlScheduler()$getUrl(url)
+
+			if (is.na(xmlstr) || length(grep('<ERROR>', xmlstr)) > 0) {
+				if (concatenate) {
+					.self$message('caution', "Something went wrong while downloading several entries at once.")
+					concatenate <- FALSE
+					done <- FALSE
+					break
+				}
+				next
+			}
+
+			# Parse XML
+			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
+
+			# Get returned IDs
+			returned.ids <- XML::xpathSApply(xml, paste0("//", .self$.entrez.id.tag), XML::xmlValue)
+
+			# Store contents
+			content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, paste0("//", .self$.entrez.tag)), XML::saveXML, FUN.VALUE = '')
+		}
+	}
 
 	return(content)
 })

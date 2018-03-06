@@ -97,6 +97,15 @@ BiodbEntryFields$methods( get = function(name) {
 	return(field)
 })
 
+# Get field names {{{1
+################################################################
+
+BiodbEntryFields$methods( getFieldNames = function() {
+	":\n\nReturns the main names of all fields."
+
+	return(names(.self$.fields))
+})
+
 # Get database id field {{{1
 ################################################################
 
@@ -177,10 +186,10 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('cofactor',           description = 'Cofactor.',                                  card = BIODB.CARD.MANY)
 	.self$.define('charge',             description = 'Charge.',               class = 'integer')
 
-	.self$.define('average.mass',  description = 'Average mass.',    class = 'double')
-	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double')
-	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer')
-	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double')
+	.self$.define('average.mass',  description = 'Average mass.',    class = 'double', type = 'mass')
+	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double', type = 'mass')
+	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer', type = 'mass')
+	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double', type = 'mass')
 
 	.self$.define('comp.super.class',        description = 'Compound super class.', alias = c('superclass', 'super.class'))
 	.self$.define('sequence',           description = 'Gene or protein sequence.')
@@ -201,6 +210,9 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('peak.mz',            description = 'Peak M/Z.',      class = 'double')
 	.self$.define('peak.mztheo',        description = 'Peak theoretical M/Z.',  class = 'double')
 	.self$.define('peak.mzexp',         description = 'Peak experimental M/Z.',   class = 'double')
+	.self$.define('peak.attr',          description = 'Peak attribution.')
+	.self$.define('peak.relative.intensity',          description = 'Peak relative intensity, in percentage (from 0 to 100).')
+	.self$.define('peak.intensity',          description = 'Peak intensity.')
 
 	# Chromatographic column
 	.self$.define('chrom.col.name',             description = 'Chromatographic column name.', alias = 'chrom.col')

@@ -126,7 +126,7 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	regex <- '^'
 	col.desc <- list('m/z'                  = list(name = 'peak.mz', type = 'double', regex = '([0-9][0-9.]*)'),
 	                 'int.'                 = list(name = 'peak.intensity', type = 'double', regex = '([0-9][0-9.e]*)'),
-	                 'rel.int.'             = list(name = 'peak.relative.intensity', type = 'integer', regex = '([0-9]+)'),
+	                 'rel.int.'             = list(name = 'peak.relative.intensity', type = 'double', regex = '([0-9]+)'),
 	                 'struct.'              = list(name = 'struct.',                    type = 'integer',   regex = '([0-9]+)'),
 	                 'num'                  = list(name = 'num',                        type = 'integer',   regex = '([0-9]+)'),
 	                 'formula'              = list(name = 'peak.formula',           type = 'character', regex = '([^ ]+)'),
@@ -193,6 +193,21 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	# Check number of peaks
 	if (.self$hasField('PEAKS') && .self$getFieldValue('NB.PEAKS', compute = FALSE) != nrow(.self$getFieldValue('PEAKS', compute = FALSE)))
 	   	 .self$message('caution', paste("Found ", nrow(.self$getFieldValue('PEAKS', compute = FALSE)), " peak(s) instead of ", .self$getFieldValue('NB.PEAKS', compute = FALSE), ' for entry ', .self$getFieldValue('ACCESSION'), ".", sep = ''))
+
+	# Scale relative intensity to percentage
+	if (.self$hasField('peaks')) {
+		peaks <- .self$getFieldValue('peaks', compute = FALSE)
+		if ('peak.relative.intensity' %in% names(.self$getFieldValue('PEAKS'))) {
+
+			# Check that at least one peak have 999 as relative intensity
+			if ( ! any(peaks[['peak.relative.intensity']] == 999))
+				.self$message('caution', paste("No peak has a relative intensity of 999 inside Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep = ''))
+
+			# Scale to percentage
+			peaks[['peak.relative.intensity']] <- peaks[['peak.relative.intensity']] * 100 / 999
+			.self$setFieldValue('peaks', peaks)
+		}
+	}
 })
 
 # Parse peak table {{{1
@@ -246,14 +261,14 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# MS level
 	if (.self$hasField('MSTYPE')) {
-		mstype = .self$getFieldValue('MSTYPE')
-		ms.level = strtoi(sub('^MS([0-9])$', '\\1', mstype, perl = TRUE))
+		mstype <- .self$getFieldValue('MSTYPE')
+		ms.level <- strtoi(sub('^MS([0-9])$', '\\1', mstype, perl = TRUE))
 		if (is.na(ms.level) && mstype == 'MS')
-			ms.level = 1
+			ms.level <- 1
 
 		if (is.na(ms.level)) 
 			.self$message('error', paste("Impossible to parse MS level of Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep = ''))
-		.self$setFieldValue('MS.LEVEL', ms.level)
+		.self$setFieldValue('ms.level', ms.level)
 	}
 	
 	# Parsing of peak table
@@ -261,4 +276,9 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	
 	# Parsing of annotation table
 	.self$.parseAnnotationTable(parsed.content)
+
+	# Check essential fields
+	for (field in c('ms.level'))
+		if ( ! .self$hasField(field))
+			.self$message('caution', paste("Massbank entry ", .self$getFieldValue('ACCESSION'), " has no field ", field, ".", sep = ''))
 })

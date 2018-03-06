@@ -36,9 +36,20 @@ if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
 		db.exists <- vapply(TEST.DATABASES, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
 		if ( ! all(db.exists)) {
 			wrong.dbs <- TEST.DATABASES[ ! db.exists]
-			stop(paste('Unknown testing database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+			stop(paste('Unknown database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
 		}
 	}
+}
+
+# Remove databases to test
+if ('DONT_TEST_DBS' %in% names(env) && nchar(env[['DONT_TEST_DBS']]) > 0) {
+	DONT.TEST.DBS <- strsplit(env[['DONT_TEST_DBS']], ',')[[1]]
+	db.exists <- vapply(DONT.TEST.DBS, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
+	if ( ! all(db.exists)) {
+		wrong.dbs <- DONT.TEST.DBS[ ! db.exists]
+		stop(paste('Unknown database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+	}
+	TEST.DATABASES <- TEST.DATABASES[ ! TEST.DATABASES %in% DONT.TEST.DBS]
 }
 
 # Set testing modes {{{1
@@ -76,6 +87,31 @@ if ('FUNCTIONS' %in% names(env)) {
 	TEST.FUNCTIONS <- FUNCTION.ALL
 }
 
+# Test observer {{{1
+################################################################
+
+TestObserver <- methods::setRefClass('TestObserver', contains = 'BiodbObserver', fields = list(.last.index = 'integer'))
+
+TestObserver$methods( initialize = function(...) {
+
+	callSuper(...)
+
+	.last.index <<- as.integer(0)
+})
+
+TestObserver$methods( progress = function(type = 'info', msg, index, total) {
+
+	.self$checkMessqgeType(type)
+
+	expect_gt(index, .self$.last.index)
+	expect_lte(index, total)
+
+	if (index == total)
+		.last.index <<- as.integer(0)
+	else
+		.last.index <<- as.integer(index)
+})
+
 # Create Biodb instance {{{1
 ################################################################
 
@@ -91,11 +127,14 @@ create.biodb.instance <- function() {
 	}
 
 	# Create logger
-	logger = BiodbLogger$new(file = log.file.path, mode = 'a')
+	logger <- BiodbLogger(file = log.file.path, mode = 'a')
 	logger$includeMsgType('debug')
 
+	# Create test observer
+	test.observer <- TestObserver()
+
 	# Create instance
-	biodb <- Biodb$new(logger = FALSE, observers = logger)
+	biodb <- Biodb$new(logger = FALSE, observers = c(test.observer, logger))
 
 	# Set user agent
 	biodb$getConfig()$set('useragent', USERAGENT)

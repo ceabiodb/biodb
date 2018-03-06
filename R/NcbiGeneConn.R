@@ -12,14 +12,14 @@ NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = c('NcbiEntrezCon
 
 NcbiGeneConn$methods( initialize = function(...) {
 
-	callSuper(db.entrez.name = 'gene', ...)
+	callSuper(entrez.name = 'gene', entrez.tag = 'Entrezgene', entrez.id.tag = 'Gene-track_geneid', ...)
 })
 
 # Get entry page url {{{1
 ################################################################
 
 NcbiGeneConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), .self$.db.entrez.name, '/?term=', id))
+	return(paste0(.self$getBaseUrl(), .self$.entrez.name, '/?term=', id))
 })
 
 # Get entry image url {{{1
@@ -32,7 +32,7 @@ NcbiGeneConn$methods( getEntryImageUrl = function(id) {
 # Search compound {{{1
 ################################################################
 
-NcbiGeneConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+NcbiGeneConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 	":\n\nSearch for compounds by name and/or by mass."
 
 	ids <- NULL
@@ -42,7 +42,7 @@ NcbiGeneConn$methods( searchCompound = function(name = NULL, molecular.mass = NU
 		term <- paste0('"', name, '"', '[Gene Name]')
 
 	# Search by mass
-	if ( ! is.null(monoisotopic.mass) || ! is.null(molecular.mass))
+	if ( ! is.null(mass.field))
 		.self$message('caution', 'Search by mass is not possible.')
 
 	# Set retmax

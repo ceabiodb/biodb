@@ -133,7 +133,9 @@ BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
 		}
 
 		# Replace elements with no accession id by NULL
-    	entries.without.accession <- vapply(entries, function(x) is.na(x$getFieldValue('ACCESSION')), FUN.VALUE = TRUE)
+		accessions <- vapply(entries, function(x) x$getFieldValue('accession'),  FUN.VALUE = '')
+    	entries.without.accession <- vapply(accessions, function(a) (is.na(a) || length(grep('^\\s*$', a)) > 0), FUN.VALUE = TRUE)
+		.self$message('debug', paste0('Accession numbers: ', paste(accessions, collapse = ', '), '.', sep = ''))
     	if (any(entries.without.accession)) {
 	    	n <- sum(entries.without.accession)
     		.self$message('debug', paste('Found', n, if (n > 1) 'entries' else 'entry', 'without an accession number. Set', if (n > 1) 'them' else 'it', 'to NULL.'))
@@ -196,7 +198,7 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 		# Debug
 		.self$message('info', paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
 
-		# Download full database if possible
+		# Download full database if possible and allowed or if required
 		if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(dbid), 'BiodbDownloadable')) {
 			.self$message('debug', paste('Ask for whole database download of ', dbid, '.', sep = ''))
 			.self$getConn(dbid)$download()
