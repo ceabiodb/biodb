@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+context('Starting database tests.')
+
 source('common.R')
 source('db-generic-tests.R')
 source('db-ms-tests.R')
@@ -10,8 +12,11 @@ source('db-chemspider-tests.R')
 source('db-expasy.enzyme-tests.R')
 source('db-hmdb-tests.R')
 source('db-kegg.compound-tests.R')
+source('db-lipidmaps-tests.R')
 source('db-mass.csv.file-tests.R')
 source('db-massbank-tests.R')
+source('db-mirbase-tests.R')
+source('db-peakforest-tests.R')
 source('db-uniprot-tests.R')
 
 # MAIN {{{1
@@ -19,6 +24,7 @@ source('db-uniprot-tests.R')
 
 # Create biodb instance
 biodb <- create.biodb.instance()
+expect_is(biodb, 'Biodb')
 
 # Initialize MassCsvFile
 if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES)
@@ -35,6 +41,7 @@ for (mode in TEST.MODES) {
 
 		# Get instance
 		db <- biodb$getFactory()$getConn(db.name)
+		expect_is(db, 'BiodbConn')
 
 		# Generic tests
 		run.db.generic.tests(db, mode)

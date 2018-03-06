@@ -48,7 +48,9 @@ LipidmapsStructureEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	# Synonyms
 	if ('SYNONYMS' %in% names(parsed.content)) {
 		v <- parsed.content[['SYNONYMS']]
-		v <- strsplit(v, ' *; *')[[1]]
-		.self$appendFieldValue('name', v)
+		if ( ! is.na(v)) {
+			v <- strsplit(v, ' *; *')[[1]]
+			.self$appendFieldValue('name', v)
+		}
 	}
 })

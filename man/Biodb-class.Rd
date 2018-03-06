@@ -12,6 +12,8 @@
 
 \item{field}{The name of a field.}
 
+\item{files}{A list of file paths.}
+
 \item{flatten}{If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character.}
 
 \item{null.to.na}{If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."}
@@ -38,6 +40,10 @@ In order to use the biodb package, you need first to create an instance of this 
 
 Add new observers. Observers will be called each time an event occurs. This is the way used in biodb to get feedback about what is going inside biodb code.}
 
+\item{\code{computeFields(entries)}}{:
+
+Compute missing fields in entries.}
+
 \item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{:
 
 Extract the value of a field from a list of entries.
@@ -48,6 +54,10 @@ Returns either a vector or a list depending on the type of the field.}
   compute = TRUE, fields = NULL, drop = FALSE)}}{:
 
 Convert a list of entries (\code{BiodbEntry} objects) into a data frame.}
+
+\item{\code{entriesToJson(entries, compute = TRUE)}}{:
+
+Convert a list of BiodbEntry objects into JSON. Returns a vector of characters.}
 
 \item{\code{getCache()}}{:
 
@@ -72,6 +82,10 @@ Returns the single instance of the \code{BiodbFactory} class.}
 \item{\code{getObservers()}}{:
 
 Get the list of registered observers.}
+
+\item{\code{saveEntriesAsJson(entries, files, compute = TRUE)}}{:
+
+Save a list of entries in JSON format.}
 }}
 
 \examples{

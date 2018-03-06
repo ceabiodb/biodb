@@ -34,9 +34,14 @@ Get the URL to a picture of the entry (e.g.: a picture of the molecule in case o
 
 Get the URL to the page of the entry on the database web site.}
 
+\item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
+
+Search for compounds by name and/or by mass.}
+
 \item{\code{ws.SearchByMass2(mass = NA, range = NA)}}{:
 
-Direct query to the database for searching for compounds by mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details.}
+Direct query to the database for searching for compounds by monoisotopic mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details.}
 
 \item{\code{ws.SearchByMass2.ids(...)}}{:
 

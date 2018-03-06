@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -ev
+
+# Check
+if [[ $CHECK == yes ]] ; then
+	make check
+fi
+
+# Test
+if [[ -n $MODES ]] ; then
+	make test
+fi

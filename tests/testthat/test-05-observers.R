@@ -1,5 +1,7 @@
 # vi: fdm=marker
 
+context("Test observers")
+
 source('common.R')
 
 # Test deprecated methods {{{1
@@ -40,6 +42,5 @@ test.deprecated.methods <- function(biodb) {
 ################################################################
 
 biodb <- Biodb$new(logger = FALSE)
-set.test.context(biodb, "Test observers")
 set.mode(biodb, MODE.OFFLINE)
 test_that("Deprecated methods send correct message.", test.deprecated.methods(biodb))

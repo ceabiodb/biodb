@@ -49,7 +49,7 @@
 #' @include ChildObject.R
 #' @export BiodbEntry
 #' @exportClass BiodbEntry
-BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .parsing.expr = 'ANY'))
+BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .parsing.expr = 'list'))
 
 # Constructor {{{1
 ################################################################
@@ -97,9 +97,9 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	# Check cardinality
 	if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
 		if (length(value) > 1)
-			.self$message('error', paste0('Cannot set more that one value (', paste(value, collapse = ', '), ') into single value field "', field, '".'))
+			.self$message('error', paste0('Cannot set more that one value (', paste(value, collapse = ', '), ') into single value field "', field, '" for entry ', .self$getName(), '.'))
 		if (length(value) == 0)
-			.self$message('error', paste0('Cannot set an empty vector into single value field "', field, '".'))
+			.self$message('error', paste0('Cannot set an empty vector into single value field "', field, '" for entry ', .self$getName(), '.'))
 	}
 
 	# Set value
@@ -355,6 +355,26 @@ BiodbEntry$methods(	computeFields = function(fields = NULL) {
 	return(success)
 })
 
+# Show {{{1
+################################################################
+
+BiodbEntry$methods( show = function() {
+	":\n\nDisplay short information about an instance."
+
+	cat("Biodb", .self$getParent()$getDbInfo()$getName(), "entry instance.\n")
+})
+
+# Get name {{{1
+################################################################
+
+BiodbEntry$methods( getName = function() {
+	":\n\nGet a short text describing the entry instance."
+
+	name <- paste(.self$getParent()$getDbInfo()$getName(), .self$getFieldValue('accession'))
+
+	return(name)
+})
+
 # PRIVATE METHODS {{{1
 ################################################################
 
@@ -394,13 +414,6 @@ BiodbEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 ################################################################
 
 BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
-})
-
-# Show {{{1
-################################################################
-
-BiodbEntry$methods( show = function() {
-	cat("Biodb", .self$getParent()$getDbInfo()$getName(), "entry instance.\n")
 })
 
 # DEPRECATED METHODS {{{1

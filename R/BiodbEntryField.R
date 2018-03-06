@@ -45,12 +45,12 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .type = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, alias = NA_character_, class = 'character', card = BIODB.CARD.ONE, forbids.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, ...) {
+BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type = NA_character_, class = 'character', card = BIODB.CARD.ONE, forbids.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, ...) {
 
 	callSuper(...)
 
@@ -58,6 +58,11 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, clas
 	if ( is.null(name) || is.na(name) || nchar(name) == '')
 		.self$message('error', "You cannot set an empty name for a field. Name was empty (either NULL or NA or empty string).")
 	.name <<- tolower(name)
+
+	# Set type
+	if ( ! is.na(type) && ! type %in% c('mass', 'name'))
+		.self$message('error', paste("Unknown type \"", type, "\" for field \"", name, "\".", sep = ''))
+	.type <<- type
 
 	# Set class
 	if ( ! class %in% FIELD.CLASSES)
@@ -113,6 +118,15 @@ BiodbEntryField$methods( getName = function() {
 	":\n\n Get field's name."
 
 	return(.self$.name)
+})
+
+# Get type {{{1
+################################################################
+
+BiodbEntryField$methods( getType = function() {
+	":\n\n Get field's type."
+
+	return(.self$.type)
 })
 
 # Get description {{{1

@@ -32,8 +32,18 @@ BiodbDownloadable$methods( initialize = function(...) {
 BiodbDownloadable$methods( getDownloadPath = function() {
 	":\n\nGet the path where the downloaded containt is written."
 
-	# TODO Massbank.eu needs to download again the db, since target name is different.
-	return(.self$getBiodb()$getCache()$getFilePath(dbid = .self$getId(), subfolder = 'longterm', name = 'download', ext = .self$.ext))
+	path <- .self$getBiodb()$getCache()$getFilePath(dbid = .self$getId(), subfolder = 'longterm', name = 'download', ext = .self$.ext)
+
+	.self$message('debug', paste0('Download path of ', .self$getId(), ' is "', path, '".'))
+
+	return(path)
+})
+
+# Requires download {{{1
+################################################################
+
+BiodbDownloadable$methods( requiresDownload = function() {
+	return(FALSE)
 })
 
 # Is downloaded {{{1
@@ -42,7 +52,11 @@ BiodbDownloadable$methods( getDownloadPath = function() {
 BiodbDownloadable$methods( isDownloaded = function() {
 	":\n\nReturns TRUE if the database containt has already been downloaded."
 
-	return(file.exists(.self$getDownloadPath()))
+	already.downloaded <- file.exists(.self$getDownloadPath())
+
+	.self$message('debug', paste0('Database ', .self$getId(), ' has ', (if (already.downloaded) 'already' else 'not yet'), ' been downloaded.'))
+
+	return(already.downloaded)
 })
 
 # Is extracted {{{1
@@ -61,7 +75,7 @@ BiodbDownloadable$methods( download = function() {
 	":\n\nDownload the database containt locally."
 
 	# Download
-	if ( ! .self$isDownloaded() && .self$getBiodb()$getConfig()$isEnabled('allow.huge.downloads') && ! .self$getBiodb()$getConfig()$get('offline')) {
+	if ( ! .self$isDownloaded() && (.self$getBiodb()$getConfig()$isEnabled('allow.huge.downloads') || .self$requiresDownload()) && ! .self$getBiodb()$getConfig()$isEnabled('offline')) {
 
 		.self$message('info', paste("Download whole database of ", .self$getId(), ".", sep = ''))
 

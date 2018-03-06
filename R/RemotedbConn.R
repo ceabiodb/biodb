@@ -153,7 +153,7 @@ RemotedbConn$methods( .getUrlScheduler = function() {
 	return(.self$.scheduler)
 })
 
-# Do get entry content url {{{1
+# Do get entry content url {{{2
 ################################################################
 
 RemotedbConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
@@ -164,17 +164,20 @@ RemotedbConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	.self$.abstract.method()
 })
 
-# Get url {{{1
+# Set user agent {{{2
+################################################################
+
+RemotedbConn$methods( .set.useragent = function(useragent) {
+	.scheduler$setUserAgent(useragent) # set agent
+})
+
+# DEPRECATED METHODS {{{1
+################################################################
+
+# Get url {{{2
 ################################################################
 
 RemotedbConn$methods( .get.url = function(url) {
 	.self$.deprecated.method(new.method = ".getUrlScheduler()$getUrl()")
 	return(.self$.scheduler$getUrl(url))
-})
-
-# Set user agent {{{1
-################################################################
-
-RemotedbConn$methods( .set.useragent = function(useragent) {
-	.scheduler$setUserAgent(useragent) # set agent
 })

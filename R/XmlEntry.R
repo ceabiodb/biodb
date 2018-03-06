@@ -40,14 +40,37 @@ XmlEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 	# Loop on all parsing expressions
 	for (field in names(.self$.parsing.expr)) {
 
-		# Parse value
-		if (is.character(.self$.parsing.expr[[field]]))
-			v <- XML::xpathSApply(parsed.content, .self$.parsing.expr[[field]], XML::xmlValue, namespaces = ns)
+		# Expression using only path
+		if (is.character(.self$.parsing.expr[[field]])) {
+
+			field.single.value <- .self$getBiodb()$getEntryFields()$get(field)$hasCardOne()
+			value <- NULL
+
+			# Loop on all expressions
+			for (expr in .self$.parsing.expr[[field]]) {
+
+				# Parse
+				v <- XML::xpathSApply(parsed.content, expr, XML::xmlValue, namespaces = ns)
+
+				# The field accepts only one value
+				if (field.single.value) {
+					value <- v
+					if (length(value) > 0)
+						break
+				}
+
+				# The field accepts more than one value
+				else
+					value <- c(value, v)
+			}
+		}
+
+		# Expression using path and attribute
 		else
-			v <- XML::xpathSApply(parsed.content, .self$.parsing.expr[[field]]$path, XML::xmlGetAttr, .self$.parsing.expr[[field]]$attr, namespaces = ns)
+			value <- XML::xpathSApply(parsed.content, .self$.parsing.expr[[field]]$path, XML::xmlGetAttr, .self$.parsing.expr[[field]]$attr, namespaces = ns)
 
 		# Set value
-		if (length(v) > 0)
-			.self$setFieldValue(field, v)
+		if (length(value) > 0)
+			.self$setFieldValue(field, value)
 	}
 })

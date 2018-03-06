@@ -291,11 +291,11 @@ MassCsvFileConn$methods( .init.db = function() {
 
 MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 
-	if (length(fields) ==0 || (length(fields) == 1 && is.na(fields)))
+	if (length(fields) == 0 || (length(fields) == 1 && is.na(fields)))
 		return
 
 	# Check if fields are known
-	unknown.fields <- names(.self$.fields)[ ! fields %in% names(.self$.fields)]
+	unknown.fields <- fields[ ! vapply(fields, function(f) .self$getBiodb()$getEntryFields()$isDefined(f), FUN.VALUE = FALSE)]
 	if (length(unknown.fields) > 0)
 		.self$message('error', paste0("Field(s) ", paste(fields, collapse = ", "), " is/are unknown."))
 
@@ -303,9 +303,9 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 	.self$.init.db()
 
 	# Check if fields are defined in file database
-	undefined.fields <- colnames(.self$.db)[ ! .self$.fields[fields] %in% colnames(.self$.db)]
+	undefined.fields <- fields[ ! fields %in% names(.self$.fields)]
 	if (length(undefined.fields) > 0) {
-		.self$message(if (fail) 'error' else 'debug', paste0("Column(s) ", paste(.self$.fields[fields], collapse = ", "), " is/are undefined in file database."))
+		.self$message((if (fail) 'error' else 'debug'), paste0("Field(s) ", paste(undefined.fields, collapse = ", "), " is/are undefined in file database."))
 		return(FALSE)
 	}
 
@@ -372,20 +372,26 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 
 	# Filter on relative intensity
 	if ( ! is.na(min.rel.int)) {
-		if (.self$.check.fields('peak.relative.intensity', fail = false))
+		if (.self$.check.fields('peak.relative.intensity', fail = FALSE))
 			db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, ]
+		else
+			db <- db[integer(),]
 	}
 
 	# Filter on precursors
 	if (precursor) {
-		if (.self$.check.fields('peak.attr', fail = false))
+		if (.self$.check.fields('peak.attr', fail = FALSE))
 			db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, ]
+		else
+			db <- db[integer(),]
 	}
 
 	# Filter on MS level
 	if (level > 0) {
-		if (.self$.check.fields('ms.level', fail = false))
+		if (.self$.check.fields('ms.level', fail = FALSE))
 			db <- db[db[[.self$.fields[['ms.level']]]] == level, ]
+		else
+			db <- db[integer(),]
 	}
 
 	# Get subset of columns
@@ -403,7 +409,7 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		db <- db[order(db[[1]]), , drop = FALSE]
 
 	# Cut
-	if ( ! is.na(max.rows) && nrow(db) > max.rows)
+	if ( ! is.na(max.rows) && max.rows > 0 && nrow(db) > max.rows)
 		db <- db[1:max.rows, , drop = FALSE]
 
 	# Drop

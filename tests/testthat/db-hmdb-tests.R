@@ -6,7 +6,12 @@
 test.hmdbmetabolite.nbentries <- function(db) {
 
 	# Check number of entries
-	expect_gt(db$getNbEntries(count = TRUE), 4000)
+	n <- db$getNbEntries(count = TRUE)
+	expect_is(n, 'integer')
+	if (db$isDownloaded())
+		expect_gt(n, 4000)
+	else
+		expect_true(is.na(n))
 }
 
 # Run HMDB tests {{{1

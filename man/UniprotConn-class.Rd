@@ -26,6 +26,19 @@ Get the content of an entry.}
 
 Get entry identifiers from the database.}
 
+\item{\code{getEntryImageUrl(entry.id)}}{:
+
+Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Get the URL to the page of the entry on the database web site.}
+
+\item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
+
+Search for compounds by name and/or by mass.}
+
 \item{\code{ws.query(query = "", columns = NA, format = NA, limit = NA)}}{:
 
 Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details.}

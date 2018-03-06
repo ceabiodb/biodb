@@ -57,7 +57,10 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 
 	# Expand zip
 	extract.dir <- tempfile(.self$getId())
-	utils::unzip(.self$getDownloadPath(), exdir = extract.dir)
+	zip.path <- .self$getDownloadPath()
+	.self$message('debug', paste("Unzipping ", zip.path, "...", sep = ''))
+	utils::unzip(zip.path, exdir = extract.dir)
+	.self$message('debug', paste("Unzipped ", zip.path, ".", sep  = ''))
 	
 	# Search for extracted XML file
 	files <- list.files(path = extract.dir)
@@ -73,35 +76,70 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 		if (is.null(xml.file))
 			.self$message('error', paste("More than one file found in zip file \"", .self$getDownloadPath(), "\":", paste(files, collapse = ", "), ".", sep = ''))
 	}
-
-	if (TRUE) {
-		# Split XML file
-		xml <- readChar(xml.file, file.info(xml.file)$size, useBytes = TRUE)
-		contents <- strsplit(xml, '<metabolite>')[[1]]
-		contents <- contents[2:length(contents)] # Remove first one (XML header and <hmdb> tag, not a metabolite
-		contents <- vapply(contents, function(s) paste0('<metabolite>', s), FUN.VALUE = '') # Put back <metabolite> tag.
-		contents[length(contents)] <- sub('</hmdb>', '', contents[length(contents)]) # Remove HMDB end tag.
-		ids <- stringr::str_match(contents, '<accession>(HMDB[0-9]+)</accession>')[, 2]
-	} else {
-		# Load extracted XML file
-		xml <- XML::xmlInternalTreeParse(xml.file)
-
-		# Get IDs of all entries
-		ids <- XML::xpathSApply(xml, "//hmdb:metabolite/hmdb:accession", XML::xmlValue, namespaces = c(hmdb = .self$getDbInfo()$getXmlNs()))
-		.self$message('debug', paste("Found ", length(ids), " entries in file \"", xml.file, "\".", sep = ''))
-
-		# Get contents of all entries
-		contents <- vapply(XML::getNodeSet(xml, "//hmdb:metabolite", namespaces = c(hmdb = .self$getDbInfo()$getXmlNs())), XML::saveXML, FUN.VALUE = '')
-		Encoding(contents) <- "unknown" # Force encoding to 'unknown', since leaving it set to 'UTF-8' will produce outputs of the form '<U+2022>' for unicode characters. These tags '<U+XXXX>' will then be misinterpreted by XML parser when reading entry content, because there is no slash at the end of the tag.
-	}
+	if (is.null(xml.file))
+		.self$message('error', "No XML file found in ZIP file.")
+	.self$message('debug', paste("Found XML file ", xml.file, " in ZIP file.", sep  = ''))
 
 	# Delete existing cache files
+	.self$message('debug', 'Delete existing entry files in cache system.')
 	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
 
-	# Write all XML entries into files
-	.self$getBiodb()$getCache()$saveContentToFile(contents, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+	# Open file
+	file.conn <- file(xml.file, open = 'r')
+
+	# Extract entries from XML file
+	.self$message('debug', "Extract entries from XML file.")
+	chunk.size <- 2**16
+	total.bytes <- file.info(xml.file)$size
+	bytes.read <- as.integer(0)
+	last.msg.bytes.index <- as.integer(0)
+	xml.chunks <- character()
+	.self$message('debug', paste("Read XML file by chunk of", chunk.size, "characters."))
+	done.reading <- FALSE
+	while ( ! done.reading) {
+
+		# Read chunk from file
+		chunk <- readChar(file.conn, chunk.size)
+		done.reading <- (nchar(chunk) < chunk.size)
+
+		# Send progress message
+		bytes.read <- bytes.read + nchar(chunk, type = 'bytes')
+		if (bytes.read - last.msg.bytes.index > total.bytes %/% 100) {
+			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', bytes.read, total.bytes))
+			last.msg.bytes.index <- bytes.read
+		}
+
+		# Is there a complete entry XML (<metabolite>...</metabolite>) in the loaded chunks?
+		if (length(grep('</metabolite>', chunk)) > 0 || (length(xml.chunks) > 0 && length(grep('</metabolite>', paste0(xml.chunks[[length(xml.chunks)]], chunk))) > 0)) {
+
+			# Paste all chunks together
+			xml <- paste(c(xml.chunks, chunk), collapse = '')
+
+			# Search entry definitions
+			match <- stringr::str_match(xml, stringr::regex('^(.*?)(<metabolite>.*</metabolite>)(.*)$', dotall = TRUE))
+			if (is.na(match[1, 1]))
+				.self$message('error', 'Cannot find matching <metabolite> tag in HMDB XML entries file.')
+			metabolites <- match[1, 3]
+			xml.chunks <- match[1, 4]
+
+			# Get all metabolites definition
+			metabolites <- stringr::str_extract_all(metabolites, stringr::regex('<metabolite>.*?</metabolite>', dotall = TRUE))[[1]]
+
+			# Get IDs
+			ids <- stringr::str_match(metabolites, '<accession>(HMDB[0-9]+)</accession>')[, 2]
+
+			# Write all XML entries into files
+			.self$getBiodb()$getCache()$saveContentToFile(metabolites, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+		}
+		else
+			xml.chunks <- c(xml.chunks, chunk)
+	}
+
+	# Close file
+	close(file.conn)
 
 	# Remove extract directory
+	.self$message('debug', 'Delete extract directory.')
 	unlink(extract.dir, recursive = TRUE)
 })
 
@@ -115,15 +153,17 @@ HmdbMetabolitesConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	# Download
 	.self$download()
 
-	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+	if (.self$isDownloaded()) {
+		# Get IDs from cache
+		ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
 
-	# Filter out wrong IDs
-	ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
+		# Filter out wrong IDs
+		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
 
-	# Cut
-	if ( ! is.na(max.results) && max.results < length(ids))
-		ids <- ids[1:max.results]
+		# Cut
+		if ( ! is.na(max.results) && max.results < length(ids))
+			ids <- ids[1:max.results]
+	}
 
 	return(ids)
 })
@@ -164,4 +204,16 @@ HmdbMetabolitesConn$methods( getEntryPageUrl = function(id) {
 
 HmdbMetabolitesConn$methods( getEntryImageUrl = function(id) {
 	return(paste0(.self$getBaseUrl(), 'structures/', id, '/image.png'))
+})
+
+# Search compound {{{1
+################################################################
+
+HmdbMetabolitesConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+
+	ids <- NULL
+
+	.self$message('caution', 'HMDB is not searchable. HMDB only provides an HTML interface for searching, giving results split across several pages. It is unpractical to use from a program. Since HMDB is downloaded entirely, a solution using an internal database will be implemented in the future.')
+
+	return(ids)
 })

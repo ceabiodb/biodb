@@ -1,22 +1,28 @@
 all:
 
+check: BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 check:
+	$(RM) -r $(BIODB_CACHE_DIRECTORY)
 	R -q -e "devtools::check('$(CURDIR)')"
 
-vignettes: install
+vignettes:
+	@echo Build vignettes for already installed package, not from local soures.
 	R -q -e "devtools::clean_vignettes('$(CURDIR)')"
-	R -q -e "devtools::build_vignettes('$(CURDIR)')" # Build vignettes for already installed package, not from local soures.
+	R -q -e "devtools::build_vignettes('$(CURDIR)')"
+
+install.deps:
+	R -q -e "devtools::install_dev_deps('$(CURDIR)')"
 
 build:
 	R -q -e "devtools::build('$(CURDIR)')"
 
 test:
-	R -q -e "devtools::test('$(CURDIR)')"
+	R -q -e "devtools::test('$(CURDIR)', reporter = c('progress', 'fail'))"
 
 install: uninstall install.local list.classes
 
 install.local:
-	R --slave -e "devtools::install_local('$(CURDIR)')"
+	R --slave -e "devtools::install_local('$(CURDIR)', dependencies = TRUE)"
 
 list.classes:
 	R --slave -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\\n", sep = ""), sep = "\\n")'
@@ -27,17 +33,9 @@ uninstall:
 win:
 	R -q -e "devtools::build_win('$(CURDIR)')"
 
-ex:
-	echo "Testing examples..."
-	for ex in examples/*.R ; do echo "Running $$ex..." ; Rscript $$ex >$$ex.output 2>$$ex.err || exit 1 ; done
-
-exdock: clean
-	echo "Testing on a bare Linux system (no SVN or UNZIP installed)..."
-	docker build -t biodb-bare-r -f bare-r.dockerfile .
-	for ex in examples/*.R ; do echo "Running $$ex..." ; docker run -v $(PWD)/examples:/examples biodb-bare-r /$$ex >$$ex-docker.output 2>$$ex-docker.err || exit 1 ; done
-
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/cache tests/test.log tests/output
+	$(RM) -r $(HOME)/.biodb.dev.*.cache
 
-.PHONY: all clean win test check vignettes ex exdock install uninstall
+.PHONY: all clean win test check vignettes install uninstall
