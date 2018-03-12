@@ -7,3 +7,4 @@
 ^.*\.dockerfile$
 ^.*\.csv$
 ^travis-tests$
+^LICENSE$
