@@ -16,9 +16,49 @@ With *biodb* you can:
  * Search for MSMS spectra.
  * Export any database into a CSV file.
 
-## License
+Version 1.0 of the library gives access to the following databases:
 
-This software is licensed under the GNU Affero General Public License version 3 (AGPL-3.0).
+ * ChEBI.
+ * ChemSpider.
+ * ExPASy ENZYME.
+ * HMDB Metabolites.
+ * KEGG Compound.
+ * LIPID MAPS Structure.
+ * Mass CSV File (an in-house database stored inside a CSV file).
+ * MassBank Japan.
+ * miRBase Mature.
+ * NCBI CCDS.
+ * NCBI Gene.
+ * PubChem Compound.
+ * PubChem Substance.
+ * PeakForest Mass.
+ * PeakForest Compound.
+ * UniProt.
+
+Here are some of the fields accessible through the retrieved entries:
+
+ * Chemical formula.
+ * InChI.
+ * InChI Key.
+ * SMILES.
+ * Common names and IUPAC names.
+ * Charge.
+ * Average mass.
+ * Monoisotopic mass.
+ * Molecular mass.
+ * Sequence.
+ * MS device.
+ * MS Level.
+ * MS mode.
+ * MS precursor M/Z.
+ * MS precursor annotation.
+ * Peak table (containing M/Z, intensity, relative intensity, attribution, composition).
+ * Chromatographic column name.
+ * Chromatographic column length.
+ * Chromatographic column diameter.
+ * Chromatographic solvent.
+ * Chromatographic retention time.
+ * Chromatographic retention time unit.
 
 ## Installation
 
@@ -43,7 +83,7 @@ devtools::install_local('/your/path/to/biodb', dependencies = TRUE, build_vignet
 
 ## Documentation
 
-Documentation is available on the [Wiki](https://github.com/pkrog/biodb/wiki) page.
+Documentation is available on the [Wiki](https://github.com/pkrog/biodb/wiki) page. You will find there all the R vignettes, but without the output of code snippets.
 
 Once in R, you can get documentation about main classes with the standard help function:
 ```r
@@ -51,7 +91,7 @@ Once in R, you can get documentation about main classes with the standard help f
 ```
 Some of the classes you can get help about are: Biodb, BiodbFactory, BiodbConfig, BiodbCache, BiodbDbsInfo, BiodbEntryFields, BiodbObserver, BiodbConn, BiodbEntry, MassdbConn, RemotedbConn.
 
-Some vignettes are also available. To get a list of them run:
+Several vignettes are also available. To get a list of them run:
 ```r
 vignette(package = 'biodb')
 ```
