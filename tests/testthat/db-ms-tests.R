@@ -242,11 +242,17 @@ test.searchMsPeaks.rt <- function(db) {
 
 	# Get reference entries
 	ids <- list.ref.entries(db$getId())
-	entries <- db$getBiodb()$getFactory()$getEntry(db$getId(), ids)
+	entry <- db$getBiodb()$getFactory()$getEntry(db$getId()[[1]], ids)
 
-	# Loop on all ref entries
-	for (entry in entries) {
-	}
+	# Get peak table
+	peaks <- entry$getFieldValue('peaks')
+	mz <- peaks[1, 'peak.mz']
+
+	# Search for MZ/RT
+	peaks <- db$searchMsPeaks(biggest.mz, mz.tol = 0, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), chrom.col = entry$getFieldValue('chrom.col.name'), rt = entry$getFieldValue('chrom.rt'), rt.unit = entry$getFieldValue('chrom.rt.unit'))
+	print('-------------------------------- test.searchMsPeaks.rt')
+	print(peaks)
+	print('--------------------------------')
 }
 
 # Test msmsSearch whe no IDs are found {{{1
@@ -254,7 +260,7 @@ test.searchMsPeaks.rt <- function(db) {
 
 test.msmsSearch.no.ids <- function(db) {
 	tspec <- data.frame(mz = 1, int = 10000)
-	results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos",msms.mz.tol = 10,msms.mz.tol.min = 0.01,npmin = 2)
+	results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos", msms.mz.tol = 10, msms.mz.tol.min = 0.01, npmin = 2)
 	expect_is(results, 'data.frame')
 	expect_equal(nrow(results), 0)
 	expect_true(all(c('id', 'score') %in% names(results)))
