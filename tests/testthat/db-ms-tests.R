@@ -221,7 +221,7 @@ test.searchMsPeaks <- function(db) {
 	# Get only one result per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 1, ms.mode = mode)
 	expect_is(results, 'data.frame')
-	expect_true(nrow(results) >= 1)
+	expect_true(nrow(results) >= length(mzs))
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
  	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
@@ -229,10 +229,24 @@ test.searchMsPeaks <- function(db) {
 	# Get 2 results per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
 	expect_is(results, 'data.frame')
-	expect_true(nrow(results) > 1)
+	expect_true(nrow(results) >  length(mzs))
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
  	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+}
+
+# Test searchMsPeaks by M/Z and RT {{{1
+################################################################
+
+test.searchMsPeaks.rt <- function(db) {
+
+	# Get reference entries
+	ids <- list.ref.entries(db$getId())
+	entries <- db$getBiodb()$getFactory()$getEntry(db$getId(), ids)
+
+	# Loop on all ref entries
+	for (entry in entries) {
+	}
 }
 
 # Test msmsSearch whe no IDs are found {{{1
@@ -262,6 +276,7 @@ run.mass.db.tests <- function(db, mode) {
 			set.test.context(db$getBiodb(), paste("Running LCMS generic tests on database", db$getId(), "in", mode, "mode"))
 			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
 			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
+			run.db.test.that("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', db)
 
 			set.test.context(db$getBiodb(), paste("Running MSMS generic tests on database", db$getId(), "in", mode, "mode"))
 			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
