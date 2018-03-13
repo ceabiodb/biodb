@@ -8,7 +8,7 @@
 #' All Mass spectra databases inherit from this class. It thus defines methods specific to mass spectrometry.
 #'
 #' @param ids           A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.
-#' @param chrom.col     Chromatographic columns on which to match the retention time.
+#' @param chrom.col.ids IDs of chromatographic columns on which to match the retention time.
 #' @param dist.fun      The distance function used to compute the distance betweem two mass spectra.
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).
@@ -26,6 +26,8 @@
 #' @param precursor.mz  The M/Z value of the precursor peak of the mass spectrum.
 #' @param spectrum      A template spectrum to match inside the database.
 #' @param rts           Retention times to match.
+#' @param rt.unit       The unit for submitted retention times. Either 's' or 'min'.
+#' @param rt.tol        The plain tolerance for retention times.
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
@@ -126,15 +128,31 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col = NA_character_, rts = NA_character_, rt.unit = 's') {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_character_, rt.unit = 's', rt.tol = NA_real_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
+	# Check M/Z values
 	if ( ! .self$.assert.not.na(mzs, msg.type = 'warning')) return(NULL)
 	if ( ! .self$.assert.not.null(mzs, msg.type = 'warning')) return(NULL)
+	.self$.assert.is(mzs, 'numeric')
 	.self$.assert.positive(mzs)
 	.self$.assert.positive(mz.tol)
 	.self$.assert.length.one(mz.tol)
 	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
+
+	# Check RT values
+	if ( ! is.null(rts) && ! all(is.na(rts))) {
+		.self$.assert.is(rts, 'numeric')
+		.self$.assert.equal.length(mzs, rts)
+		.self$.assert.positive(rts)
+		.self$.assert.not.null(chrom.col.ids)
+		.self$.assert.not.na(chrom.col.ids)
+		.self$.assert.is(chrom.col.ids, 'character')
+		.self$.assert.in(rt.unit, c('s', 'min'))
+		.self$.assert.length.one(rt.unit)
+	}
+
+	# Check other parameters
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
 	.self$.assert.positive(max.results)
@@ -143,7 +161,9 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 
 	# Loop on the list of M/Z values
 	.self$message('debug', 'Looping all M/Z values.')
-	for (mz in mzs) {
+	for (i in seq_along(mzs)) {
+		mz <- mzs[[i]]
+		rt <- rts[[i]]
 
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
@@ -156,6 +176,29 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		# Convert to data frame
 		.self$message('debug', 'Converting list of entries to data frame.')
 		df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
+
+		# Select rows with matching RT values
+		if  ( ! all(is.na(chrom.col.ids))) {
+			.self$message('debug', 'Filtering peaks list on RT values.')
+
+			# Filtering on chromatographic columns
+			df <- df[df$chrom.col.id %in% chrom.col.ids, ]
+
+			# Check unit and convert if necessary
+			if ( ! 'chrom.rt.unit' %in% names(df))
+				.self$message('error', 'No RT unit specified in entries, impossible to match retention times.')
+			
+			# Filtering on retention time
+			if ('chrom.rt' %in% names(df)) {
+				rt.vals <- .self$.convert.rt(df$chrom.rt, df$chrom.rt.unit, rt.unit)
+				df <- df[(rt.vals - rt.tol <= rt) & (rt.vals + rt.tol >= rt), ]
+			} else if (all(c('chrom.rt.min', 'chrom.rt.max') %in% names(df))) {
+				rt.min.vals <- .self$.convert.rt(df$chrom.rt.min, df$chrom.rt.unit, rt.unit)
+				rt.max.vals <- .self$.convert.rt(df$chrom.rt.max, df$chrom.rt.unit, rt.unit)
+				df <- df[rt.min.vals - rt.tol <= rt & rt.max.vals + rt.tol >= rt, ]
+			} else
+				.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
+		}
 		
 		# Select lines with right M/Z values
 		mz.range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
@@ -253,4 +296,30 @@ MassdbConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.
 
 MassdbConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 	.self$.abstract.method()
+})
+
+# Convert RT values {{{2
+
+################################################################
+
+MassdbConn$methods( .convert.rt = function(rts, units, wanted.unit) {
+
+	# RT values with wrong unit
+	rts.wrong <- units != wanted.unit
+
+	# Convert any RT value using wrong unit
+	if (any(rts.wrong)) {
+		if ('s' %in% units[rts.wrong]) {
+			if (wanted.unit != 'min')
+				.self$message('error', 'Error when converting retention times values. Was expecting "min" for target unit.')
+			rts[rts.wrong] <- rts[rts.wrong] / 60
+		}
+		if ('min' %in% units[rts.wrong]) {
+			if (wanted.unit != 's')
+				.self$message('error', 'Error when converting retention times values. Was expecting "s" for target unit.')
+			rts[rts.wrong] <- rts[rts.wrong] * 60
+		}
+	}
+
+	return(rts)
 })

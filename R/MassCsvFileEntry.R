@@ -33,6 +33,12 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 			if (mz.col %in% colnames(peaks))
 				peaks[['peak.mz']] <- peaks[[mz.col]]
 
+	# Chromatographic column id and name
+	if (.self$hasField('chrom.col.name') && ! .self$hasField('chrom.col.id'))
+		.self$setFieldValue('chrom.col.id', .self$getFieldValue('chrom.col.name'))
+	if ( ! .self$hasField('chrom.col.name') && .self$hasField('chrom.col.id'))
+		.self$setFieldValue('chrom.col.name', .self$getFieldValue('chrom.col.id'))
+
 	# Set peaks table in field
 	.self$setFieldValue('peaks', peaks)
 

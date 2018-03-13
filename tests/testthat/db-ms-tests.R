@@ -244,12 +244,23 @@ test.searchMsPeaks.rt <- function(db) {
 	ids <- list.ref.entries(db$getId())
 	entry <- db$getBiodb()$getFactory()$getEntry(db$getId()[[1]], ids)
 
+	# Set retention time info
+	rts <- entry$getFieldValue('chrom.rt')
+	expect_is(rts, 'numeric')
+	expect_false(is.na(rts))
+	chrom.col.ids <- entry$getFieldValue('chrom.col.id')
+	expect_is(chrom.col.ids, 'character')
+	expect_false(is.na(chrom.col.ids))
+	rt.unit <- entry$getFieldValue('chrom.rt.unit')
+	expect_is(rt.unit, 'character')
+	expect_false(is.na(rt.unit))
+
 	# Get peak table
 	peaks <- entry$getFieldValue('peaks')
 	mzs <- peaks[1, 'peak.mz']
 
 	# Search for MZ/RT
-	peaks <- db$searchMsPeaks(mzs = mzs, rts = rts, mz.tol = 0, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), chrom.col = entry$getFieldValue('chrom.col.name'), rt = entry$getFieldValue('chrom.rt'), rt.unit = entry$getFieldValue('chrom.rt.unit'))
+	peaks <- db$searchMsPeaks(mzs = mzs, chrom.col.ids = chrom.col.ids, rts = rts, rt.tol = 0, mz.tol = 0, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'))
 	print('-------------------------------- test.searchMsPeaks.rt')
 	print(peaks)
 	print('--------------------------------')
