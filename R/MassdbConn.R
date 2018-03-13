@@ -141,7 +141,8 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
 
 	# Check RT values
-	if ( ! is.null(rts) && ! all(is.na(rts))) {
+	match.rt <- ! is.null(rts) && ! all(is.na(rts))
+	if (match.rt) {
 		.self$.assert.is(rts, 'numeric')
 		.self$.assert.equal.length(mzs, rts)
 		.self$.assert.positive(rts)
@@ -163,7 +164,6 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 	.self$message('debug', 'Looping all M/Z values.')
 	for (i in seq_along(mzs)) {
 		mz <- mzs[[i]]
-		rt <- rts[[i]]
 
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
@@ -178,7 +178,10 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
 
 		# Select rows with matching RT values
-		if  ( ! all(is.na(chrom.col.ids))) {
+		if  (match.rt) {
+
+			rt <- rts[[i]]
+
 			.self$message('debug', 'Filtering peaks list on RT values.')
 
 			# Filtering on chromatographic columns
