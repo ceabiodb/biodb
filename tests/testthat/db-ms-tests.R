@@ -246,10 +246,10 @@ test.searchMsPeaks.rt <- function(db) {
 
 	# Get peak table
 	peaks <- entry$getFieldValue('peaks')
-	mz <- peaks[1, 'peak.mz']
+	mzs <- peaks[1, 'peak.mz']
 
 	# Search for MZ/RT
-	peaks <- db$searchMsPeaks(biggest.mz, mz.tol = 0, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), chrom.col = entry$getFieldValue('chrom.col.name'), rt = entry$getFieldValue('chrom.rt'), rt.unit = entry$getFieldValue('chrom.rt.unit'))
+	peaks <- db$searchMsPeaks(mzs = mzs, rts = rts, mz.tol = 0, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), chrom.col = entry$getFieldValue('chrom.col.name'), rt = entry$getFieldValue('chrom.rt'), rt.unit = entry$getFieldValue('chrom.rt.unit'))
 	print('-------------------------------- test.searchMsPeaks.rt')
 	print(peaks)
 	print('--------------------------------')

@@ -8,6 +8,7 @@
 #' All Mass spectra databases inherit from this class. It thus defines methods specific to mass spectrometry.
 #'
 #' @param ids           A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.
+#' @param chrom.col     Chromatographic columns on which to match the retention time.
 #' @param dist.fun      The distance function used to compute the distance betweem two mass spectra.
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).
@@ -24,6 +25,7 @@
 #' @param precursor     If set to \code{TRUE}, then restrict the search to precursor peaks.
 #' @param precursor.mz  The M/Z value of the precursor peak of the mass spectrum.
 #' @param spectrum      A template spectrum to match inside the database.
+#' @param rts           Retention times to match.
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
@@ -124,7 +126,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col = NA_character_, rts = NA_character_, rt.unit = 's') {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	if ( ! .self$.assert.not.na(mzs, msg.type = 'warning')) return(NULL)
