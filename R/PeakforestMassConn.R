@@ -41,7 +41,7 @@ PeakforestMassConn$methods( .doGetEntryContentUrl = function(id, concatenate = T
 ################################################################
 
 PeakforestMassConn$methods( getEntryPageUrl = function(id) {
-	return(paste('https://peakforest.org/home?PFs=', id))
+	return(paste('https://metabohub.peakforest.org/webapp/home?PFs=', id))
 })
 
 # Get entry image url {{{1
