@@ -90,13 +90,13 @@ if ('FUNCTIONS' %in% names(env)) {
 # Test observer {{{1
 ################################################################
 
-TestObserver <- methods::setRefClass('TestObserver', contains = 'BiodbObserver', fields = list(.last.index = 'integer'))
+TestObserver <- methods::setRefClass('TestObserver', contains = 'BiodbObserver', fields = list(.last.index = 'numeric'))
 
 TestObserver$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.last.index <<- as.integer(0)
+	.last.index <<- 0
 })
 
 TestObserver$methods( progress = function(type = 'info', msg, index, total) {
@@ -107,9 +107,9 @@ TestObserver$methods( progress = function(type = 'info', msg, index, total) {
 	expect_lte(index, total)
 
 	if (index == total)
-		.last.index <<- as.integer(0)
+		.last.index <<- 0
 	else
-		.last.index <<- as.integer(index)
+		.last.index <<- index
 })
 
 # Create Biodb instance {{{1
