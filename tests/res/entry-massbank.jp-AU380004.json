@@ -15,6 +15,7 @@
   "msprecmz": 364.0737,
   "msprecannot": "[M+H]+",
   "chrom.col.name": "Acclaim RSLC C18 2.2um, 2.1x100mm, Thermo",
+  "chrom.col.id": "Acclaim RSLC C18 2.2um, 2.1x100mm, Thermo",
   "chrom.solvent": ["A 90:10 water:methanol with 0.01% formic acid and 5mM ammonium formate", "B methanol with 0.01% formic acid and 5mM ammonium formate"],
   "chrom.flow.rate": "200 uL/min at 0-3 min, 400 uL/min at 14 min, 480 uL/min at 16-19 min, 200 uL/min at 19.1-20 min",
   "chrom.flow.gradient": "99/1 at 0-1 min, 61/39 at 3 min, 0.1/99.9 at 14-16 min, 99/1 at 16.1-20 min",

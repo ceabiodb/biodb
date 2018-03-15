@@ -1,0 +1,44 @@
+peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.attr	chrom.col.name	chrom.rt	formula	molecular.mass	name	chrom.rt.unit	accession
+50	A10	1	pos	112.07569	P9Z6W410 O	[(M+H)-(H2O)-(NH3)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	294.221687	U1113P94ZW429 O4	[(2M+H)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	145.097154	P92Z6W413 O2	[(M+H)-(H2)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	75.063395	U413P92Z2W416 O2	[(M+2H)]++ (13C2)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	337.182222	P94Z12W427 Na2 O4	[(2M-H+2Na)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	51.0573	P92Z5W414 O0	[(M+2H)-(HCOOH)]++	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	251.032367	U6H13 Cl0 37Cl N2 Na3 O2	[(M-H+2Na)+(NaCl)]+ (37Cl)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	130.105594	U513P92ZW413 O	[(M+H)-(H2O)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	73.08413	U313P9ZW410 O0	[(M+H)-(J15L2M6O2)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	316.203632	U1113P94ZW428 Na O4	[(2M+Na)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	113.059706	P90Z6W49 O2	[(M+H)-2(NH3)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	130.086255	P9Z6W412 O2	[(M+H)-(NH3)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	74.5617175	U513P92ZW416 O2	[(M+2H)]++ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	104.070605	P9Z4W410 O2	[(M+H)-(J15L2M6)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	293.218332	P94Z12W429 O4	[(2M+H)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	94.5733145	P93Z8W419 O2	[(M+2H)+(CH3CN)]++	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	338.185577	U1113P94ZW427 Na2 O4	[(2M-H+2Na)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	418.126145	U1113C H26 Cl N4 Na4 O4	[(2M-2H+3Na)+(NaCl)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	51.5558175	P9Z5W414 15N O0	[(M+2H)-(HCOOH)]++ (15N)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	169.094749	P92Z6W414 Na O2	[(M+Na)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	359.164167	P94Z12W426 Na3 O4	[(2M-2H+3Na)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	315.200277	P94Z12W428 Na O4	[(2M+Na)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	107.08961	U313P9ZW412 O2	[(M+H)-(J13L2M6)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	95.074992	U713P93ZW419 O2	[(M+2H)+(CH3CN)]++ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	170.091784	P9Z6W414 15N Na O2	[(M+Na)]+ (15N)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	106.086255	P9Z4W412 O2	[(M+H)-(J13L2M6)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	74.5585575	P9Z6W416 15N O2	[(M+2H)]++ (15N)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	170.098104	U513P92ZW414 Na O2	[(M+Na)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	74.06004	P92Z6W416 O2	[(M+2H)]++	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	74.096425	P9Z4W412 O0	[(M+H)-(J13L2M6O2)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	75.062162	P92Z6W416 O 18O	[(M+2H)]++ (18O)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	51.5589775	U413P92ZW414 O0	[(M+2H)-(HCOOH)]++ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	192.080049	U513P92ZW413 Na2 O2	[(M-H+2Na)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	191.076694	P92Z6W413 Na2 O2	[(M-H+2Na)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	118.086255	P9Z5W412 O2	[(M+H)-(J13LM6)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	147.112804	P92Z6W415 O2	[(M+H)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	148.109839	P9Z6W415 15N O2	[(M+H)]+ (15N)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	131.08961	U513P9ZW412 O2	[(M+H)-(NH3)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	116.070605	P9Z5W410 O2	[(M+H)-(J15LM6)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	126.05255	P9Z4W49 Na O2	[(M+Na)-(J15L2M6)]+	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+50	A10	1	pos	85.08413	U413P9ZW410 O0	[(M+H)-(NH3)-(HCOOH)]+ (13C)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+100	A10	1	pos	149.117048	P92Z6W415 O 18O	[(M+H)]+ (18O)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
+100	A10	1	pos	171.098993	P92Z6W414 Na O 18O	[(M+Na)]+ (18O)	somecol	8.97	J114L6M62O2	146.10553	Blablaine	min	A10.pos.somecol.8.97
