@@ -242,10 +242,13 @@ test.searchMsPeaks.rt <- function(db) {
 
 	# Get reference entries
 	ids <- list.ref.entries(db$getId())
-	entry <- db$getBiodb()$getFactory()$getEntry(db$getId()[[1]], ids)
+	entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), ids[[1]])
 
 	# Set retention time info
-	rts <- entry$getFieldValue('chrom.rt')
+	if (entry$hasField('chrom.rt'))
+		rts <- entry$getFieldValue('chrom.rt')
+	else if (entry$hasField('chrom.rt.min') && entry$hasField('chrom.rt.max'))
+		rts <- (entry$getFieldValue('chrom.rt.min') + entry$getFieldValue('chrom.rt.max')) / 2
 	expect_is(rts, 'numeric')
 	expect_false(is.na(rts))
 	chrom.col.ids <- entry$getFieldValue('chrom.col.id')
