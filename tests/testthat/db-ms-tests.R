@@ -260,10 +260,13 @@ test.searchMsPeaks.rt <- function(db) {
 	mzs <- peaks[1, 'peak.mz']
 
 	# Search for MZ/RT
-	peaks <- db$searchMsPeaks(mzs = mzs, chrom.col.ids = chrom.col.ids, rts = rts, rt.tol = 0, mz.tol = 0, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'))
-	print('-------------------------------- test.searchMsPeaks.rt')
-	print(peaks)
-	print('--------------------------------')
+	mz.tol <- 0
+	rt.tol <- 0
+	peaks <- db$searchMsPeaks(mzs = mzs, chrom.col.ids = chrom.col.ids, rts = rts, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'))
+	expect_is(peaks, 'data.frame')
+	expect_true(nrow(peaks) > 0)
+	expect_true(all((peaks$peak.mz >= mzs - mz.tol) & (peaks$peak.mz <= mzs + mz.tol)))
+	expect_true(all((peaks$chrom.rt >= rts - rt.tol) & (peaks$chrom.rt <= rts + rt.tol)))
 }
 
 # Test msmsSearch whe no IDs are found {{{1

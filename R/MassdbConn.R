@@ -161,21 +161,17 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 	results <- NULL
 
 	# Loop on the list of M/Z values
-	.self$message('debug', 'Looping all M/Z values.')
+	.self$message('debug', 'Looping on all M/Z values.')
 	for (i in seq_along(mzs)) {
 		mz <- mzs[[i]]
 
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
-		ids <- .self$searchMzTol(mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = ms.level)
+		ids <- .self$searchMzTol(mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level)
 
 		# Get entries
 		.self$message('debug', 'Getting entries from spectra IDs.')
 		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
-
-		# Convert to data frame
-		.self$message('debug', 'Converting list of entries to data frame.')
-		df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
 
 		# Select rows with matching RT values
 		if  (match.rt) {
@@ -185,23 +181,38 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 			.self$message('debug', 'Filtering peaks list on RT values.')
 
 			# Filtering on chromatographic columns
-			df <- df[df$chrom.col.id %in% chrom.col.ids, ]
+			entries <- entries[vapply(entries, function(e) e$getFieldValue('chrom.col.id') %in% chrom.col.ids, FUN.VALUE = TRUE)]
 
 			# Check unit and convert if necessary
-			if ( ! 'chrom.rt.unit' %in% names(df))
-				.self$message('error', 'No RT unit specified in entries, impossible to match retention times.')
+			no.chrom.rt.unit <- ! vapply(entries, function(e) e$hasField('chrom.rt.unit'), FUN.VALUE = TRUE)
+			if (any(no.chrom.rt.unit))
+				.self$message('error', paste0('No RT unit specified in entries ', paste(vapply(entries[no.chrom.rt.unit], function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), ', impossible to match retention times.'))
 			
 			# Filtering on retention time
-			if ('chrom.rt' %in% names(df)) {
-				rt.vals <- .self$.convert.rt(df$chrom.rt, df$chrom.rt.unit, rt.unit)
-				df <- df[(rt.vals - rt.tol <= rt) & (rt.vals + rt.tol >= rt), ]
-			} else if (all(c('chrom.rt.min', 'chrom.rt.max') %in% names(df))) {
-				rt.min.vals <- .self$.convert.rt(df$chrom.rt.min, df$chrom.rt.unit, rt.unit)
-				rt.max.vals <- .self$.convert.rt(df$chrom.rt.max, df$chrom.rt.unit, rt.unit)
-				df <- df[rt.min.vals - rt.tol <= rt & rt.max.vals + rt.tol >= rt, ]
-			} else
-				.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
+			tmp <- list()
+			for (e in entries) {
+				if (e$hasField('chrom.rt')) {
+					rt.val <- .self$.convert.rt(e$getFieldValue('chrom.rt'), e$getFieldValue('chrom.rt.unit'), rt.unit)
+					if ((rt.val - rt.tol <= rt) && (rt.val + rt.tol >= rt))
+						tmp <- c(tmp, e)
+				} else if (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max')) {
+					rt.min.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), e$getFieldValue('chrom.rt.unit'), rt.unit)
+					rt.max.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), e$getFieldValue('chrom.rt.unit'), rt.unit)
+					if (rt.min.val - rt.tol <= rt && rt.max.val + rt.tol >= rt)
+						tmp <- c(tmp, e)
+				} else
+					.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
+			}
+			entries <- tmp
 		}
+
+		# Cut
+		if ( ! is.na(max.results) && length(entries) > max.results)
+			entries <- entries[1:max.results]
+
+		# Convert to data frame
+		.self$message('debug', 'Converting list of entries to data frame.')
+		df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
 		
 		# Select lines with right M/Z values
 		mz.range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
