@@ -33,7 +33,7 @@ PeakforestCompoundConn$methods( .doGetEntryContentUrl = function(id, concatenate
 ################################################################
 
 PeakforestCompoundConn$methods( getEntryPageUrl = function(id) {
-	return(paste('https://peakforest.org/home?PFc=', id))
+	return(paste('https://metabohub.peakforest.org/webapp/home?PFc=', id))
 })
 
 # Get entry image url {{{1

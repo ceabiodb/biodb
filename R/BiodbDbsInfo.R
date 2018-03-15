@@ -114,8 +114,8 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 	.self$.define('ncbi.gene',              name = 'NCBI Gene', scheduler.n = 3, entry.content.type = 'xml', base.url = 'https://www.ncbi.nlm.nih.gov/', ws.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/') # About access frequency, see https://www.ncbi.nlm.nih.gov/books/NBK25497/
 	.self$.define('ncbi.pubchem.comp',      name = 'PubChem Compound', scheduler.n = 5, entry.content.type = 'xml', base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/') # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
 	.self$.define('ncbi.pubchem.subst',     name = 'PubChem Substance', scheduler.n = 5, entry.content.type = 'xml', base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/') # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
-	.self$.define('peakforest.mass',        name = 'PeakForest Mass', scheduler.n = 3, entry.content.type = 'json', base.url = 'https://rest.peakforest.org/')
-	.self$.define('peakforest.compound',    name = 'PeakForest Compound', scheduler.n = 3, entry.content.type = 'json', base.url = 'https://rest.peakforest.org/')
+	.self$.define('peakforest.mass',        name = 'PeakForest Mass', scheduler.n = 3, entry.content.type = 'json', base.url = 'https://metabohub.peakforest.org/rest/')
+	.self$.define('peakforest.compound',    name = 'PeakForest Compound', scheduler.n = 3, entry.content.type = 'json', base.url = 'https://metabohub.peakforest.org/rest/')
 	.self$.define('uniprot',                name = 'UniProt',                  entry.content.type = 'xml', base.url = 'http://www.uniprot.org/uniprot/', xml.ns = "http://uniprot.org/uniprot")
 })
 
