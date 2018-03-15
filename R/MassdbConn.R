@@ -128,7 +128,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_character_, rt.unit = 's', rt.tol = NA_real_) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_character_, rt.unit = NA_character_, rt.tol = NA_real_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	# Check M/Z values
@@ -149,6 +149,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		.self$.assert.not.null(chrom.col.ids)
 		.self$.assert.not.na(chrom.col.ids)
 		.self$.assert.is(chrom.col.ids, 'character')
+		.self$.assert.not.na(rt.unit)
 		.self$.assert.in(rt.unit, c('s', 'min'))
 		.self$.assert.length.one(rt.unit)
 	}

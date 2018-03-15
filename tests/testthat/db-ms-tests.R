@@ -262,7 +262,7 @@ test.searchMsPeaks.rt <- function(db) {
 	# Search for MZ/RT
 	mz.tol <- 0
 	rt.tol <- 0
-	peaks <- db$searchMsPeaks(mzs = mzs, chrom.col.ids = chrom.col.ids, rts = rts, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'))
+	peaks <- db$searchMsPeaks(mzs = mzs, chrom.col.ids = chrom.col.ids, rts = rts, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
 	expect_is(peaks, 'data.frame')
 	expect_true(nrow(peaks) > 0)
 	expect_true(all((peaks$peak.mz >= mzs - mz.tol) & (peaks$peak.mz <= mzs + mz.tol)))
