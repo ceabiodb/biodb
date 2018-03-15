@@ -142,6 +142,7 @@ BiodbObject$methods( .assert.length.one = function(param, msg.type = 'error') {
 	return(TRUE)
 })
 
+
 # Assert in {{{1
 ################################################################
 
@@ -149,6 +150,18 @@ BiodbObject$methods( .assert.in = function(param, values, msg.type = 'error') {
 	if ( ! is.na(param) && ! param %in% values) {
 		param.name <- as.character(sys.call(0))[[2]]
 		.self$message(msg.type, paste(param.name, ' cannot be set to ', param, '. Allowed values are: ', paste(values, collapse = ', '), '.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
+# Assert is {{{1
+################################################################
+
+BiodbObject$methods( .assert.is = function(param, type, msg.type = 'error') {
+	if ( ! is.null(param) && class(param) != type) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste(param.name, ' is not of type ', type, ' but of type ', class(param), '.', sep = ''))
 		return(FALSE)
 	}
 	return(TRUE)

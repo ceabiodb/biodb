@@ -361,7 +361,8 @@ BiodbEntry$methods(	computeFields = function(fields = NULL) {
 BiodbEntry$methods( show = function() {
 	":\n\nDisplay short information about an instance."
 
-	cat("Biodb", .self$getParent()$getDbInfo()$getName(), "entry instance.\n")
+	accession <- .self$getFieldValue('accession', compute = FALSE)
+	cat("Biodb", .self$getParent()$getDbInfo()$getName(), "entry instance ", (if (is.na(accession)) 'ID unknown' else accession), ".\n")
 })
 
 # Get name {{{1

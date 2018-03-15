@@ -247,6 +247,10 @@ MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		.self$setFieldValue('msprecmz', precursors)
 	}
 
+	# Chromatographic column id
+	if (.self$hasField('chrom.col.name'))
+		.self$setFieldValue('chrom.col.id', .self$getFieldValue('chrom.col.name'))
+
 	# Retention time
 	g <- stringr::str_match(parsed.content, "^AC\\$CHROMATOGRAPHY: RETENTION_TIME\\s+([0-9.]+)\\s+([minsec]+)\\s*.*$")
 	results <- g[ ! is.na(g[,1]), , drop = FALSE]

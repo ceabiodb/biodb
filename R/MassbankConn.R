@@ -320,15 +320,6 @@ MassbankConn$methods( getChromCol = function(ids = NULL) {
 	# Remove NA values
 	cols <- cols[ ! is.na(cols$chrom.col.name), , drop = FALSE]
 
-	# Set IDs
-	if ('chrom.col.id' %in% names(cols)) {
-		no.ids <- is.na(cols$chrom.col.id)
-		if (any(no.ids))
-			cols[no.ids, 'chrom.col.id'] <- cols[no.ids, 'chrom.col.name']
-	}
-	else
-		cols[['chrom.col.id']] <- cols$chrom.col.name
-
 	# Remove duplicates
 	cols <- cols[ ! duplicated(cols), ]
 
