@@ -214,22 +214,25 @@ test.getChromCol <- function(db) {
 test.searchMsPeaks <- function(db) {
 
 	mode <- 'neg'
+	tol <- 0.1
 
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
 
 	# Get only one result per M/Z value
-	results <- db$searchMsPeaks(mzs, mz.tol = 0.1, max.results = 1, ms.mode = mode)
+	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 1, ms.mode = mode)
 	expect_is(results, 'data.frame')
 	expect_true(nrow(results) >= 1)
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
+ 	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
 
 	# Get 2 results per M/Z value
-	results <- db$searchMsPeaks(mzs, mz.tol = 0.1, max.results = 2, ms.mode = mode)
+	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
 	expect_is(results, 'data.frame')
 	expect_true(nrow(results) > 1)
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
+ 	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
 }
 
 # Test msmsSearch whe no IDs are found {{{1

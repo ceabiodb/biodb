@@ -91,8 +91,8 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 	.self$message('debug', "Extract entries from XML file.")
 	chunk.size <- 2**16
 	total.bytes <- file.info(xml.file)$size
-	bytes.read <- as.integer(0)
-	last.msg.bytes.index <- as.integer(0)
+	bytes.read <- 0
+	last.msg.bytes.index <- 0
 	xml.chunks <- character()
 	.self$message('debug', paste("Read XML file by chunk of", chunk.size, "characters."))
 	done.reading <- FALSE
