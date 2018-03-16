@@ -9,5 +9,6 @@
   "chrom.rt.unit": "min",
   "formula": "J114L6M62O2",
   "mass": 146.10553,
-  "fullnames": "Blablaine"
+  "fullnames": "Blablaine",
+  "msprecmz": 148.116159
 }

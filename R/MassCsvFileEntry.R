@@ -44,7 +44,7 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Set precursor
 	if ('peak.attr' %in% colnames(peaks)) {
-		precursors.attr <- .self$getParent()$.precursors
+		precursors.attr <- .self$getParent()$getPrecursorFormulae()
 		precursors <- peaks[['peak.attr']] %in% precursors.attr
 		if (sum(precursors) == 1)
 			.self$setFieldValue('msprecmz', peaks[precursors, 'peak.mz'])

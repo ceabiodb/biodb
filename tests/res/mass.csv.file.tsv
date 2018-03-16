@@ -22,7 +22,7 @@
 50	A10	1	"pos"	84.080775	"P9Z5W410 O0"	"[(M+H)-(NH3)-(HCOOH)]+"	"colzz3"	4.54	"J114L6M62O2"	146.10553	"Blablaine"	min
 50	A10	1	"pos"	84.080775	"P9Z5W410 O0"	"[(M+H)-(NH3)-(HCOOH)]+"	"colpp"	0.89	"J114L6M62O2"	146.10553	"Blablaine"	min
 50	A10	1	"pos"	148.116159	"U513P92ZW415 O2"	"[(M+H)]+ (13C)"	"hcoltt"	0.8	"J114L6M62O2"	146.10553	"Blablaine"	min
-50	A10	1	"pos"	148.116159	"U513P92ZW415 O2"	"[(M+H)]+ (13C)"	"colzz"	5.69	"J114L6M62O2"	146.10553	"Blablaine"	min
+50	A10	1	"pos"	148.116159	"U513P92ZW415 O2"	"[(M+H)]+"	"colzz"	5.69	"J114L6M62O2"	146.10553	"Blablaine"	min
 50	A10	1	"pos"	145.097154	"P92Z6W413 O2"	"[(M+H)-(H2)]+"	"somecol"	8.97	"J114L6M62O2"	146.10553	"Blablaine"	min
 50	A10	1	"pos"	148.116159	"U513P92ZW415 O2"	"[(M+H)]+ (13C)"	"colpp"	0.89	"J114L6M62O2"	146.10553	"Blablaine"	min
 50	A10	1	"pos"	70.065125	"P9Z4W48 O0"	"[(M+H)-(J17L2M6O2)]+"	"hcoltt"	0.8	"J114L6M62O2"	146.10553	"Blablaine"	min
