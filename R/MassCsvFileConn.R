@@ -35,6 +35,22 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 # Is valid field tag {{{1
 ################################################################
 
+MassCsvFileConn$methods( getPrecursorFormulae = function() {
+	":\n\nReturns the list of formulae used to recognize precursors."
+	return (.self$.precursors)
+})
+
+# Is a precursor formula {{{1
+################################################################
+
+MassCsvFileConn$methods( isAPrecursorFormula = function(formula) {
+	":\n\nReturns TRUE of the submitted formula is considered a precursor."
+	return (formula %in% .self$.precursors)
+})
+
+# Is valid field tag {{{1
+################################################################
+
 MassCsvFileConn$methods( isValidFieldTag = function(tag) {
 	return (tag %in% names(.self$.fields))
 })
