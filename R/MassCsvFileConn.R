@@ -32,7 +32,7 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	.precursors <<- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+", "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
 })
 
-# Is valid field tag {{{1
+# Get precursor formulae {{{1
 ################################################################
 
 MassCsvFileConn$methods( getPrecursorFormulae = function() {
@@ -46,6 +46,17 @@ MassCsvFileConn$methods( getPrecursorFormulae = function() {
 MassCsvFileConn$methods( isAPrecursorFormula = function(formula) {
 	":\n\nReturns TRUE of the submitted formula is considered a precursor."
 	return (formula %in% .self$.precursors)
+})
+
+# Add precursor formulae {{{1
+################################################################
+
+MassCsvFileConn$methods( addPrecursorFormulae = function(formulae) {
+	":\n\nAdd new formulae to the list of formulae used to recognize precursors."
+	if ( ! all(formulae %in% .self$.precursors)) {
+		formulae <- formulae[ ! formulae %in% .self$.precursors]
+		.precursors <<- c(.self$.precursors, formulae)
+	}
 })
 
 # Is valid field tag {{{1
