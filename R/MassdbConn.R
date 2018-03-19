@@ -27,7 +27,8 @@
 #' @param spectrum      A template spectrum to match inside the database.
 #' @param rts           Retention times to match.
 #' @param rt.unit       The unit for submitted retention times. Either 's' or 'min'.
-#' @param rt.tol        The plain tolerance for retention times.
+#' @param rt.tol        The plain tolerance for retention times: rt - rt.tol <= input.rt <= rt + rt.tol.
+#' @param rt.tol.exp    A special exponent tolerance for retention times: rt - rt.tol - rt ** rt.tol.exp <= input.rt <= rt + rt.tol + rt ** rt.tol.exp.
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
@@ -128,7 +129,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_character_, rt.unit = NA_character_, rt.tol = NA_real_) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_character_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	# Check M/Z values
@@ -194,15 +195,27 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 			for (e in entries) {
 				if (e$hasField('chrom.rt')) {
 					rt.val <- .self$.convert.rt(e$getFieldValue('chrom.rt'), e$getFieldValue('chrom.rt.unit'), rt.unit)
-					if ((rt.val - rt.tol <= rt) && (rt.val + rt.tol >= rt))
-						tmp <- c(tmp, e)
+					rt.min.val <- rt.val
+					rt.max.val <- rt.val
 				} else if (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max')) {
 					rt.min.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), e$getFieldValue('chrom.rt.unit'), rt.unit)
 					rt.max.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), e$getFieldValue('chrom.rt.unit'), rt.unit)
-					if (rt.min.val - rt.tol <= rt && rt.max.val + rt.tol >= rt)
-						tmp <- c(tmp, e)
 				} else
 					.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
+
+				# Apply tolerances
+				if ( ! is.na(rt.tol.exp)) {
+					rt.min.val <- rt.min.val ** rt.tol.exp
+					rt.max.val <- rt.max.val ** rt.tol.exp
+				}
+				if ( ! is.na(rt.tol)) {
+					rt.min.val <- rt.min.val - rt.tol
+					rt.max.val <- rt.max.val + rt.tol
+				}
+
+				# Test and possibly keep entry
+				if ((rt.min.val <= rt) && (rt.max.val >= rt))
+					tmp <- c(tmp, e)
 			}
 			entries <- tmp
 		}
