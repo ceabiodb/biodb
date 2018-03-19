@@ -90,6 +90,25 @@ test.mass.csv.file.data.frame <- function(db) {
 	expect_identical(ids, conn$getEntryIds())
 }
 
+# Test old col names {{{1
+################################################################
+
+test.mass.csv.file.old.col.names <- function(db) {
+
+	# Define data frame
+	df <- data.frame(compoundid = 'A10', msmode = 'POS', mztheo = 112.07569, peakcomp = 'P9Z6W410', peakattr = '[(M+H)-(H2O)-(NH3)]+', chromcol = 'colAA', chromcolrt = 94.8, compoundcomp = 'J114L6M62O2', compoundmass = 146.10553, fullnames = 'Blablaine')
+
+	# New biodb instance
+	new.biodb <- biodb::Biodb$new(logger = FALSE)
+	conn <- new.biodb$getFactory()$createConn('mass.csv.file')
+
+	# Set database
+	conn$setDb(df)
+
+	# Get chrom cols
+	cols <- conn$getChromCol()
+}
+
 # Test fields {{{1
 ################################################################
 
@@ -204,4 +223,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('Failure occurs when loading database file with a line containing wrong number of values.', 'test.wrong.nb.cols', db)
 	run.db.test.that('Failure occurs when a field with a cardinality of one has several values for the same accession number.', 'test.field.card.one', db)
 	run.db.test.that('We can search for precursor M/Z values without peak.attr column defined.', 'test.getMzValues.without.peak.attr', db)
+	run.db.test.that('Old column names are still recognized.', 'test.mass.csv.file.old.col.names', db)
 }
