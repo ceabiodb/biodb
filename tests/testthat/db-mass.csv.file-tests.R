@@ -107,6 +107,7 @@ test.mass.csv.file.old.col.names <- function(db) {
 
 	# Get chrom cols
 	cols <- conn$getChromCol()
+	expect_is(cols, "data.frame")
 }
 
 # Test fields {{{1
