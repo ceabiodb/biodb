@@ -233,14 +233,17 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		# Convert to data frame
 		.self$message('debug', 'Converting list of entries to data frame.')
 		df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
+		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
 		
 		# Select lines with right M/Z values
 		mz.range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
 		.self$message('debug', paste("Filtering entries data frame on M/Z range [", mz.range$min, ', ', mz.range$max, '].', sep = ''))
 		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
+		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
 
 		.self$message('debug', 'Merging data frame of matchings into results data frame.')
 		results <- plyr::rbind.fill(results, df)
+		.self$message('debug', paste('Total results data frame contains', nrow(results), 'rows.'))
 	}
 
 	return(results)
