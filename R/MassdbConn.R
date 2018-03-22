@@ -129,7 +129,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_character_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	# Check M/Z values
@@ -170,6 +170,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
 		ids <- .self$searchMzTol(mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level)
+		.self$message('debug', paste0('Found ', length(ids), ' spectra:', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
 
 		# Get entries
 		.self$message('debug', 'Getting entries from spectra IDs.')
@@ -184,6 +185,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 
 			# Filtering on chromatographic columns
 			entries <- entries[vapply(entries, function(e) e$getFieldValue('chrom.col.id') %in% chrom.col.ids, FUN.VALUE = TRUE)]
+			.self$message('debug', paste0(length(entries), ' spectra remaining after chrom col filtering:', paste(vapply((if (length(entries) <= 10) entries else entries[1:10]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
 
 			# Check unit and convert if necessary
 			no.chrom.rt.unit <- ! vapply(entries, function(e) e$hasField('chrom.rt.unit'), FUN.VALUE = TRUE)
@@ -218,11 +220,14 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 					tmp <- c(tmp, e)
 			}
 			entries <- tmp
+			.self$message('debug', paste0(length(entries), ' spectra remaining after retention time filtering:', paste(vapply((if (length(entries) <= 10) entries else entries[1:10]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
 		}
 
 		# Cut
-		if ( ! is.na(max.results) && length(entries) > max.results)
+		if ( ! is.na(max.results) && length(entries) > max.results) {
+			.self$message('debug', paste('Cutting data frame', max.results, 'rows.'))
 			entries <- entries[1:max.results]
+		}
 
 		# Convert to data frame
 		.self$message('debug', 'Converting list of entries to data frame.')
