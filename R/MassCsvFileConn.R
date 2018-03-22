@@ -139,11 +139,14 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 	.self$.init.db()
 
 	# Check that this is a correct field name
-	if ( ! (.self$getBiodb()$getEntryFields()$isDefined(tag) || tag %in% BIODB.PEAK.FIELDS)) {
+	if ( ! .self$getBiodb()$getEntryFields()$isDefined(tag)) {
 		if ( ! ignore.if.missing)
 			.self$message('error', paste0("Database field \"", tag, "\" is not valid."))
 		return()
 	}
+
+	# Set real name (i.e.: official name) for field
+	tag <- .self$getBiodb()$getEntryFields()$getRealName(tag)
 
 	# Fail if column names are not found in file
 	if ( ! all(colname %in% names(.self$.db))) {
@@ -285,8 +288,7 @@ MassCsvFileConn$methods( setDb = function(db) {
 
 	# Set fields
 	for (field in names(.self$.db))
-		if (.self$getBiodb()$getEntryFields()$isDefined(field))
-			.self$setField(.self$getBiodb()$getEntryFields()$getRealName(field), field, ignore.if.missing = TRUE)
+		.self$setField(field, field, ignore.if.missing = TRUE)
 
 	# Save column names
 	.db.orig.colnames <<- colnames(.self$.db)
