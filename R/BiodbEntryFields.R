@@ -213,6 +213,10 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('peak.attr',          description = 'Peak attribution.')
 	.self$.define('peak.relative.intensity',          description = 'Peak relative intensity, in percentage (from 0 to 100).')
 	.self$.define('peak.intensity',          description = 'Peak intensity.')
+	.self$.define('peak.formula',            description = 'Peak formula.')
+	.self$.define('peak.comp',            description = 'Peak comp.')
+	.self$.define('peak.mass',            description = 'Peak mass.', class = 'double')
+	.self$.define('peak.error.ppm',            description = 'Peak error in PPM.', class = 'double')
 
 	# Chromatographic column
 	.self$.define('chrom.col.name',             description = 'Chromatographic column name.', alias = c('chrom.col', 'chromcol'))
