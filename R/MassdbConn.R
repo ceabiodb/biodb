@@ -216,6 +216,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 				}
 
 				# Test and possibly keep entry
+				.self$message('debug', paste0('Testing if RT value ', rt, ' of entry ', e$getFieldValue('accession'), ' is in range [', rt.min.val, ';', rt.max.val, '].'))
 				if ((rt.min.val <= rt) && (rt.max.val >= rt))
 					tmp <- c(tmp, e)
 			}
