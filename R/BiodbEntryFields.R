@@ -215,7 +215,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('peak.intensity',          description = 'Peak intensity.')
 
 	# Chromatographic column
-	.self$.define('chrom.col.name',             description = 'Chromatographic column name.', alias = 'chrom.col')
+	.self$.define('chrom.col.name',             description = 'Chromatographic column name.', alias = c('chrom.col', 'chromcol'))
 	.self$.define('chrom.col.method.protocol',  description = 'Chromatographic method protocol.')
 	.self$.define('chrom.col.id',               description = 'Chromatographic column ID.')
 	.self$.define('chrom.col.constructor',      description = 'Chromatographic column constructor.')

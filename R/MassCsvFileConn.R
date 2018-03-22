@@ -285,7 +285,8 @@ MassCsvFileConn$methods( setDb = function(db) {
 
 	# Set fields
 	for (field in names(.self$.db))
-		.self$setField(field, field, ignore.if.missing = TRUE)
+		if (.self$getBiodb()$getEntryFields()$isDefined(field))
+			.self$setField(.self$getBiodb()$getEntryFields()$getRealName(field), field, ignore.if.missing = TRUE)
 
 	# Save column names
 	.db.orig.colnames <<- colnames(.self$.db)
