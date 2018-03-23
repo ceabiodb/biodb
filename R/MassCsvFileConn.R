@@ -261,10 +261,10 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
 
 	# For each id, take the sub data frame and convert it into string
-	df.ids <- df[[.self$.fields[['accession']]]]
-	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
+	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(.self$.select(ids = x), file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
 
-	.self$message('debug', paste("Entry content:", content))
+	if (length(content) > 0)
+		.self$message('debug', paste("Content of first entry:", content[[1]]))
 
 	return(content)
 })

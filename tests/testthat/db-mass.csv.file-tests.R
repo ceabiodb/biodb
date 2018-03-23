@@ -212,6 +212,44 @@ test.getMzValues.without.peak.attr <- function(db) {
 	expect_length(mzs, 0)
 }
 
+# Test col names of entry peaks table {{{1
+################################################################
+
+test.mass.csv.file.entry.peaks.table.col.names <- function(db) {
+
+	# Define db data frame
+	id <- 'BML80005'
+	df <- rbind(data.frame(),
+            	list(accession = id, mode = 'pos', mztheo = 219.1127765, peakcomp = 'CHON', peakattr = '[(M+H)-(H2O)-(NH3)]+', int = 373076,  relint = 999),
+            	stringsAsFactors = FALSE)
+
+	# Create connector
+	new.biodb <- create.biodb.instance()
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(df)
+	conn$setField('ms.mode', 'mode')
+	conn$setField('peak.mztheo', 'mztheo')
+	conn$setField('peak.attr', 'peakattr')
+	conn$setField('peak.comp', 'peakcomp')
+	conn$setField('peak.intensity', 'int')
+	conn$setField('peak.relative.intensity', 'relint')
+
+	# Get entry and peaks
+	entry <- new.biodb$getFactory()$getEntry(db$getId(), id)
+	expect_is(entry, 'MassCsvFileEntry')
+	expect_true(entry$hasField('peaks'))
+	peaks <- entry$getFieldValue('peaks')
+	expect_is(peaks, 'data.frame')
+	expect_equal(nrow(peaks), 1)
+	expect_gte(ncol(peaks), 1)
+
+	# Check that colnames of peaks table are all valid field names or aliases
+	expect_true(all(vapply(names(peaks), function(field) new.biodb$getEntryFields()$isDefined(field), FUN.VALUE = FALSE)))
+
+	# Check that colnames of peaks table are all official field names (not aliases)
+	expect_true(all(vapply(names(peaks), function(field) new.biodb$getEntryFields()$get(field)$getName() == field, FUN.VALUE = FALSE)))
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -225,4 +263,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('Failure occurs when a field with a cardinality of one has several values for the same accession number.', 'test.field.card.one', db)
 	run.db.test.that('We can search for precursor M/Z values without peak.attr column defined.', 'test.getMzValues.without.peak.attr', db)
 	run.db.test.that('Old column names are still recognized.', 'test.mass.csv.file.old.col.names', db)
+	run.db.test.that('Peaks table of entry has official field names.', 'test.mass.csv.file.entry.peaks.table.col.names', db)
 }
