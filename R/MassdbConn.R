@@ -229,6 +229,8 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 			.self$message('debug', paste('Cutting data frame', max.results, 'rows.'))
 			entries <- entries[1:max.results]
 		}
+		if (length(entries) > 0)
+			.self$message('debug', paste('Field names of first entry:', paste(entries[[1]]$getFieldNames(), collapse = ', ')))
 
 		# Convert to data frame
 		.self$message('debug', 'Converting list of entries to data frame.')
