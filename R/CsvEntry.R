@@ -25,7 +25,7 @@ CsvEntry$methods( initialize = function(sep = ',', na.strings = 'NA', ...) {
 
 CsvEntry$methods( .doParseContent = function(content) {
 
-	df <- read.table(text = content, header = TRUE, row.names = NULL, sep = .self$.sep, quote = '', stringsAsFactors = FALSE, na.strings = .self$.na.strings, fill = TRUE)
+	df <- read.table(text = content, header = TRUE, row.names = NULL, sep = .self$.sep, quote = '', stringsAsFactors = FALSE, na.strings = .self$.na.strings, fill = TRUE, check.names = FALSE, comment.char = '')
 
 	return(df)
 })
