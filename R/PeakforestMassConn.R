@@ -241,7 +241,8 @@ PeakforestMassConn$methods( getChromCol = function(ids = NULL) {
 	url <- paste(.self$getBaseUrl(), 'metadata/lc/list-code-columns?token=', .self$getToken(), sep = '')
 
 	# Send request
-	wscols <- .self$.getUrlScheduler()$getUrl(url)
+	json.str <- .self$.getUrlScheduler()$getUrl(url)
+	wscols <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
 
 	# Build data frame
 	cols <- data.frame(id = character(), title = character())
@@ -258,6 +259,7 @@ PeakforestMassConn$methods( getChromCol = function(ids = NULL) {
 		# Add col to data frame
 		cols <- rbind(cols, data.frame(id = id, title = title, stringsAsFactors = FALSE))
 	}
+	.self$message('debug', paste('Found', nrow(cols), 'chromatographic columns.'))
 
 	# Restrict to set of spectra
 	if ( ! is.null(ids)) {
@@ -266,6 +268,8 @@ PeakforestMassConn$methods( getChromCol = function(ids = NULL) {
 
 		# Filter cols data frame
 		cols <- cols[cols$id %in% selected.cols, ]
+
+		.self$message('debug', paste('Restricted set of chromatographic columns to', nrow(cols), 'after filtering on spectra IDs.'))
 	}
 
 	return(cols)
