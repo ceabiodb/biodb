@@ -206,6 +206,7 @@ test.getChromCol <- function(db) {
 	chrom.col <- db$getChromCol(ids = list.ref.entries(db$getId()))
 	expect_is(chrom.col, 'data.frame')
 	expect_identical(names(chrom.col), c('id', 'title'))
+	expect_gt(nrow(chrom.col), 0)
 }
 
 # Test searchMsPeaks {{{1
