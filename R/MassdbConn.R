@@ -25,10 +25,10 @@
 #' @param precursor     If set to \code{TRUE}, then restrict the search to precursor peaks.
 #' @param precursor.mz  The M/Z value of the precursor peak of the mass spectrum.
 #' @param spectrum      A template spectrum to match inside the database.
-#' @param rts           Retention times to match.
+#' @param rts           Retention times to match. Unit is specified by rt.unit parameter.
 #' @param rt.unit       The unit for submitted retention times. Either 's' or 'min'.
-#' @param rt.tol        The plain tolerance for retention times: rt - rt.tol <= input.rt <= rt + rt.tol.
-#' @param rt.tol.exp    A special exponent tolerance for retention times: rt - rt.tol - rt ** rt.tol.exp <= input.rt <= rt + rt.tol + rt ** rt.tol.exp.
+#' @param rt.tol        The plain tolerance for retention times: rt - rt.tol <= input.rt <= rt + rt.tol. Unit is the same as rts, and is specified by rt.unit parameter.
+#' @param rt.tol.exp    A special exponent tolerance for retention times: rt - rt.tol - rt ** rt.tol.exp <= input.rt <= rt + rt.tol + rt ** rt.tol.exp. This exponent is applied on the RT value in seconds.
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
@@ -160,6 +160,12 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
 	.self$.assert.positive(max.results)
 
+	# Convert input RT values in seconds
+	if (rt.unit != 's') {
+		rts <- .self$.convert.rt(rts, rep(rt.unit, length(rts)), rep('s', length(rts)))
+		rt.tol <- .self$.convert.rt(rt.tol, rt.unit, 's')
+	}
+
 	results <- NULL
 
 	# Loop on the list of M/Z values
@@ -185,23 +191,29 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 
 			# Filtering on chromatographic columns
 			entries <- entries[vapply(entries, function(e) e$getFieldValue('chrom.col.id') %in% chrom.col.ids, FUN.VALUE = TRUE)]
-			.self$message('debug', paste0(length(entries), ' spectra remaining after chrom col filtering:', paste(vapply((if (length(entries) <= 10) entries else entries[1:10]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
+			.self$message('debug', paste0(length(entries), ' spectra remaining after chrom col filtering: ', paste(vapply((if (length(entries) <= 10) entries else entries[1:10]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
 
-			# Check unit and convert if necessary
+			# Filter out entries with no RT values or no RT unit
+			has.chrom.rt.values <- vapply(entries, function(e) {e$hasField('chrom.rt') || (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max'))}, FUN.VALUE = TRUE)
+			entries <- entries[has.chrom.rt.values]
+			if (sum( ! has.chrom.rt.values) > 0)
+				.self$message('debug', paste('Filtered out', sum( ! has.chrom.rt.values), 'entries having no RT values.'))
 			no.chrom.rt.unit <- ! vapply(entries, function(e) e$hasField('chrom.rt.unit'), FUN.VALUE = TRUE)
 			if (any(no.chrom.rt.unit))
-				.self$message('error', paste0('No RT unit specified in entries ', paste(vapply(entries[no.chrom.rt.unit], function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), ', impossible to match retention times.'))
+				.self$message('caution', paste0('No RT unit specified in entries ', paste(vapply(entries[no.chrom.rt.unit], function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), ', impossible to match retention times.'))
 			
 			# Filtering on retention time
 			tmp <- list()
 			for (e in entries) {
+
+				# Get RT min and max for this entry
 				if (e$hasField('chrom.rt')) {
-					rt.val <- .self$.convert.rt(e$getFieldValue('chrom.rt'), e$getFieldValue('chrom.rt.unit'), rt.unit)
+					rt.val <- .self$.convert.rt(e$getFieldValue('chrom.rt'), e$getFieldValue('chrom.rt.unit'), 's')
 					rt.min.val <- rt.val
 					rt.max.val <- rt.val
 				} else if (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max')) {
-					rt.min.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), e$getFieldValue('chrom.rt.unit'), rt.unit)
-					rt.max.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), e$getFieldValue('chrom.rt.unit'), rt.unit)
+					rt.min.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), e$getFieldValue('chrom.rt.unit'), 's')
+					rt.max.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), e$getFieldValue('chrom.rt.unit'), 's')
 				} else
 					.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
 
@@ -216,7 +228,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 				}
 
 				# Test and possibly keep entry
-				.self$message('debug', paste0('Testing if RT value ', rt, ' of entry ', e$getFieldValue('accession'), ' is in range [', rt.min.val, ';', rt.max.val, '].'))
+				.self$message('debug', paste0('Testing if RT value ', rt, ' (s) of entry ', e$getFieldValue('accession'), ' is in range [', rt.min.val, ';', rt.max.val, '] (s).'))
 				if ((rt.min.val <= rt) && (rt.max.val >= rt))
 					tmp <- c(tmp, e)
 			}
