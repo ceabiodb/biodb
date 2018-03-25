@@ -153,18 +153,18 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		.self$.assert.not.na(rt.unit)
 		.self$.assert.in(rt.unit, c('s', 'min'))
 		.self$.assert.length.one(rt.unit)
+
+		# Convert input RT values in seconds
+		if (rt.unit != 's') {
+			rts <- .self$.convert.rt(rts, rep(rt.unit, length(rts)), rep('s', length(rts)))
+			rt.tol <- .self$.convert.rt(rt.tol, rt.unit, 's')
+		}
 	}
 
 	# Check other parameters
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
 	.self$.assert.positive(max.results)
-
-	# Convert input RT values in seconds
-	if (rt.unit != 's') {
-		rts <- .self$.convert.rt(rts, rep(rt.unit, length(rts)), rep('s', length(rts)))
-		rt.tol <- .self$.convert.rt(rt.tol, rt.unit, 's')
-	}
 
 	results <- NULL
 
