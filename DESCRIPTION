@@ -17,16 +17,19 @@ Suggests:
 	knitr,
 	rmarkdown
 Imports:
-    methods,
-    XML,
-    stringr,
-    plyr,
-    jsonlite,
-    bitops,
-    RCurl,
-    stats,
-    R.utils,
-    digest
+	Rcpp,
+	methods,
+	XML,
+	stringr,
+	plyr,
+	jsonlite,
+	bitops,
+	RCurl,
+	stats,
+	R.utils,
+	digest
+LinkingTo:
+	Rcpp
 NeedsCompilation: yes
 Author: Pierrick Roger
 Maintainer: Pierrick Roger <pk.roger@icloud.com>

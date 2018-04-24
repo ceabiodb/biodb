@@ -1,0 +1,14 @@
+peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.attr	chrom.col.name	chrom.rt	formula	molecular.mass	name	chrom.rt.unit	accession
+50	A10	1	pos	112.07569	P9Z6W410 O	[(M+H)-(H2O)-(NH3)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	72.080775	P9Z4W410 O0	[(M+H)-(J15L2M6O2)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	84.080775	P9Z5W410 O0	[(M+H)-(NH3)-(HCOOH)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	70.065125	P9Z4W48 O0	[(M+H)-(J17L2M6O2)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	58.065125	P9Z3W48 O0	[(M+H)-(C3H7O2N)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	102.054955	P9Z4W48 O2	[(M+H)-(J17L2M6)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	101.107324	P92Z5W413 O0	[(M+H)-(HCOOH)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	148.116159	U513P92ZW415 O2	[(M+H)]+ (13C)	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	294.221687	U1113P94ZW429 O4	[(2M+H)]+ (13C)	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	360.167522	U1113P94ZW426 Na3 O4	[(2M-2H+3Na)]+ (13C)	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	74.096425	P9Z4W412 O0	[(M+H)-(J13L2M6O2)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	111.091674	P92Z6W411 O0	[(M+H)-2(H2O)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54
+50	A10	1	pos	417.12279	U12H26 Cl N4 Na4 O4	[(2M-2H+3Na)+(NaCl)]+	colzz3	4.54	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz3.4.54

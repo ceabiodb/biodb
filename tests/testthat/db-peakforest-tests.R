@@ -51,6 +51,37 @@ test.peakforest.compound.ws.all.ids <- function(db) {
 	expect_true(length(results) > 0)
 }
 
+# Test RT match with different units {{{1
+################################################################
+
+test.peakforest.mass.rt.match.with.different.units <- function(db) {
+
+	# Search for peaks using RT in seconds
+	mzs <- 118
+	mz.tol <- 0.1
+	rts <- 53
+	rt.unit <- 's'
+	rt.tol <- 30
+	rt.tol.exp <- 0.8
+	chrom.col.ids <- db$getChromCol()$id
+	peaks.sec <- db$searchMsPeaks(mzs = mzs, mz.tol = mz.tol, rts = rts, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+	expect_is(peaks.sec, 'data.frame')
+	expect_gt(nrow(peaks.sec), 0)
+
+	# Search for peaks using RT in minutes
+	rts <- rts / 60
+	rt.unit <- 'min'
+	rt.tol <- rt.tol / 60
+	peaks.min <- db$searchMsPeaks(mzs = mzs, mz.tol = mz.tol, rts = rts, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+	expect_is(peaks.min, 'data.frame')
+	expect_gt(nrow(peaks.min), 0)
+
+	# Test that results are identical
+	expect_equal(nrow(peaks.sec), nrow(peaks.min))
+	cols <- c('accession')
+	expect_identical(peaks.sec[cols], peaks.min[cols])
+}
+
 # Run PeakForest Compound tests {{{1
 ################################################################
 
@@ -59,5 +90,14 @@ run.peakforest.compound.tests <- function(db, mode) {
 		run.db.test.that('Web service "search" works.', 'test.peakforest.compound.ws.search', db)
 		run.db.test.that('Web service "all.count" works.', 'test.peakforest.compound.ws.all.count', db)
 		run.db.test.that('Web service "all.ids" works.', 'test.peakforest.compound.ws.all.ids', db)
+	}
+}
+
+# Run PeakForest Mass tests {{{1
+################################################################
+
+run.peakforest.mass.tests <- function(db, mode) {
+	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+		run.db.test.that('Test if RT match gives same result with minutes and seconds in input.', 'test.peakforest.mass.rt.match.with.different.units', db)
 	}
 }

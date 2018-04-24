@@ -19,6 +19,7 @@
   "ncbi.pubchem.comp.id": "3420",
   "cas.id": "58-85-5",
   "chrom.col.name": "Waters Atlantis C18 3um 2.1x150mm",
+  "chrom.col.id": "Waters Atlantis C18 3um 2.1x150mm",
   "chrom.flow.rate": "200ul/min",
   "chrom.flow.gradient": "1-100% B in 10min",
   "chrom.solvent": "0.1% formic acid in water (A) and methanol (B)"

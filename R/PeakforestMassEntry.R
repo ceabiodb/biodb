@@ -65,6 +65,10 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		.self$setFieldValue('nb.peaks', nrow(peaks))
 	}
 
+	# Set retention time unit
+	if (.self$hasField('chrom.rt.min') || .self$hasField('chrom.rt.max'))
+		.self$setField('chrom.rt.unit', 'min')
+
 	# Parse compound IDs
 	if ('listOfCompounds' %in% names(parsed.content))
 		for (c in parsed.content$listOfCompounds)

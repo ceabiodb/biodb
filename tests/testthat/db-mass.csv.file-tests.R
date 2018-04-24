@@ -90,6 +90,26 @@ test.mass.csv.file.data.frame <- function(db) {
 	expect_identical(ids, conn$getEntryIds())
 }
 
+# Test old col names {{{1
+################################################################
+
+test.mass.csv.file.old.col.names <- function(db) {
+
+	# Define data frame
+	df <- data.frame(compoundid = 'A10', msmode = 'POS', mztheo = 112.07569, peakcomp = 'P9Z6W410', peakattr = '[(M+H)-(H2O)-(NH3)]+', chromcol = 'colAA', chromcolrt = 94.8, compoundcomp = 'J114L6M62O2', compoundmass = 146.10553, fullnames = 'Blablaine')
+
+	# New biodb instance
+	new.biodb <- biodb::Biodb$new(logger = FALSE)
+	conn <- new.biodb$getFactory()$createConn('mass.csv.file')
+
+	# Set database
+	conn$setDb(df)
+
+	# Get chrom cols
+	cols <- conn$getChromCol()
+	expect_is(cols, "data.frame")
+}
+
 # Test fields {{{1
 ################################################################
 
@@ -192,6 +212,44 @@ test.getMzValues.without.peak.attr <- function(db) {
 	expect_length(mzs, 0)
 }
 
+# Test col names of entry peaks table {{{1
+################################################################
+
+test.mass.csv.file.entry.peaks.table.col.names <- function(db) {
+
+	# Define db data frame
+	id <- 'BML80005'
+	df <- rbind(data.frame(),
+            	list(accession = id, mode = 'pos', mztheo = 219.1127765, peakcomp = 'CHON', peakattr = '[(M+H)-(H2O)-(NH3)]+', int = 373076,  relint = 999),
+            	stringsAsFactors = FALSE)
+
+	# Create connector
+	new.biodb <- create.biodb.instance()
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(df)
+	conn$setField('ms.mode', 'mode')
+	conn$setField('peak.mztheo', 'mztheo')
+	conn$setField('peak.attr', 'peakattr')
+	conn$setField('peak.comp', 'peakcomp')
+	conn$setField('peak.intensity', 'int')
+	conn$setField('peak.relative.intensity', 'relint')
+
+	# Get entry and peaks
+	entry <- new.biodb$getFactory()$getEntry(db$getId(), id)
+	expect_is(entry, 'MassCsvFileEntry')
+	expect_true(entry$hasField('peaks'))
+	peaks <- entry$getFieldValue('peaks')
+	expect_is(peaks, 'data.frame')
+	expect_equal(nrow(peaks), 1)
+	expect_gte(ncol(peaks), 1)
+
+	# Check that colnames of peaks table are all valid field names or aliases
+	expect_true(all(vapply(names(peaks), function(field) new.biodb$getEntryFields()$isDefined(field), FUN.VALUE = FALSE)))
+
+	# Check that colnames of peaks table are all official field names (not aliases)
+	expect_true(all(vapply(names(peaks), function(field) new.biodb$getEntryFields()$get(field)$getName() == field, FUN.VALUE = FALSE)))
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -204,4 +262,6 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('Failure occurs when loading database file with a line containing wrong number of values.', 'test.wrong.nb.cols', db)
 	run.db.test.that('Failure occurs when a field with a cardinality of one has several values for the same accession number.', 'test.field.card.one', db)
 	run.db.test.that('We can search for precursor M/Z values without peak.attr column defined.', 'test.getMzValues.without.peak.attr', db)
+	run.db.test.that('Old column names are still recognized.', 'test.mass.csv.file.old.col.names', db)
+	run.db.test.that('Peaks table of entry has official field names.', 'test.mass.csv.file.entry.peaks.table.col.names', db)
 }

@@ -1,0 +1,42 @@
+peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.attr	chrom.col.name	chrom.rt	formula	molecular.mass	name	chrom.rt.unit	accession
+50	34	1	pos	190.163109	U813P92ZW421 O2	[(M+H)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	96.085637	P92Z9W422 O 18O	[(M+2H)]++ (18O)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	131.08961	U513P9ZW412 O2	[(M+H)-(NC3H9)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	95.5851925	U813P92ZW422 O2	[(M+2H)]++ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	95.5820325	P9Z9W422 15N O2	[(M+2H)]++ (15N)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	188.147459	U813P92ZW419 O2	[(M+H)-(H2)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	118.5879325	U913P92ZW424 O4	[(M+2H)+(HCOOH)]++ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	187.144104	P92Z9W419 O2	[(M+H)-(H2)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	102.127725	P9Z6W416 O0	[(M+H)-(J15L3M6O2)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	212.145054	U813P92ZW420 Na O2	[(M+Na)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	192.167353	U813P92ZW421 O 18O	[(M+H)]+ (13C) (18O)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	84.080775	P9Z5W410 O0	[(M+H)-(NC3H9)-(HCOOH)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	112.07569	P9Z6W410 O	[(M+H)-(NC3H9)-(H2O)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	100.112075	P9Z6W414 O0	[(M+H)-(C3H7O2N)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	247.118377	U9H21 Cl N2 Na O2	[(M+H)+(NaCl)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	191.166464	U713P92Z2W421 O2	[(M+H)]+ (13C2)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	269.100322	U9H20 Cl N2 Na2 O2	[(M+Na)+(NaCl)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	72.080775	P92Z8W420 O0	[(M+2H)-(HCOOH)]++	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	211.141699	P92Z9W420 Na O2	[(M+Na)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	189.159754	P92Z9W421 O2	[(M+H)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	171.149189	P92Z9W419 O	[(M+H)-(H2O)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	270.103677	U813C H20 Cl N2 Na2 O2	[(M+Na)+(NaCl)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	191.163998	P92Z9W421 O 18O	[(M+H)]+ (18O)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	130.086255	P9Z6W412 O2	[(M+H)-(NC3H9)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	95.083515	P92Z9W422 O2	[(M+2H)]++	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	152.0682	P9Z6W411 Na O2	[(M+Na)-(NC3H9)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	378.315587	U1713P94ZW441 O4	[(2M+H)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	377.312232	P94Z18W441 O4	[(2M+H)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	72.5792925	P9Z8W420 15N O0	[(M+2H)-(HCOOH)]++ (15N)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	271.097372	U9H20 Cl0 37Cl N2 Na2 O2	[(M+Na)+(NaCl)]+ (37Cl)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	73.08413	U613P92Z2W420 O0	[(M+2H)-(HCOOH)]++ (13C2)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	190.156789	P9Z9W421 15N O2	[(M+H)]+ (15N)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	379.318942	U1613P94Z2W441 O4	[(2M+H)]+ (13C2)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	143.154274	P92Z8W419 O0	[(M+H)-(HCOOH)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	72.5824525	U713P92ZW420 O0	[(M+2H)-(HCOOH)]++ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	249.115427	U9H21 Cl0 37Cl N2 Na O2	[(M+H)+(NaCl)]+ (37Cl)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	172.152544	U813P92ZW419 O	[(M+H)-(H2O)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	248.121732	U813C H21 Cl N2 Na O2	[(M+H)+(NaCl)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	400.297532	U1713P94ZW440 Na O4	[(2M+Na)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	399.294177	P94Z18W440 Na O4	[(2M+Na)]+	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46
+50	34	1	pos	85.08413	U413P9ZW410 O0	[(M+H)-(NC3H9)-(HCOOH)]+ (13C)	colzz	9.46	J120L9M62O2	188.15248	Chazamine	min	34.pos.colzz.9.46

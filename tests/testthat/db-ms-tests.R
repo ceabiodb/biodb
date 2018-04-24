@@ -206,6 +206,7 @@ test.getChromCol <- function(db) {
 	chrom.col <- db$getChromCol(ids = list.ref.entries(db$getId()))
 	expect_is(chrom.col, 'data.frame')
 	expect_identical(names(chrom.col), c('id', 'title'))
+	expect_gt(nrow(chrom.col), 0)
 }
 
 # Test searchMsPeaks {{{1
@@ -221,7 +222,7 @@ test.searchMsPeaks <- function(db) {
 	# Get only one result per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 1, ms.mode = mode)
 	expect_is(results, 'data.frame')
-	expect_true(nrow(results) >= 1)
+	expect_true(nrow(results) >= length(mzs))
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
  	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
@@ -229,10 +230,47 @@ test.searchMsPeaks <- function(db) {
 	# Get 2 results per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
 	expect_is(results, 'data.frame')
-	expect_true(nrow(results) > 1)
+	expect_true(nrow(results) >  length(mzs))
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
  	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+}
+
+# Test searchMsPeaks by M/Z and RT {{{1
+################################################################
+
+test.searchMsPeaks.rt <- function(db) {
+
+	# Get reference entries
+	ids <- list.ref.entries(db$getId())
+	entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), ids[[1]])
+
+	# Set retention time info
+	if (entry$hasField('chrom.rt'))
+		rts <- entry$getFieldValue('chrom.rt')
+	else if (entry$hasField('chrom.rt.min') && entry$hasField('chrom.rt.max'))
+		rts <- (entry$getFieldValue('chrom.rt.min') + entry$getFieldValue('chrom.rt.max')) / 2
+	expect_is(rts, 'numeric')
+	expect_false(is.na(rts))
+	chrom.col.ids <- entry$getFieldValue('chrom.col.id')
+	expect_is(chrom.col.ids, 'character')
+	expect_false(is.na(chrom.col.ids))
+	rt.unit <- entry$getFieldValue('chrom.rt.unit')
+	expect_is(rt.unit, 'character')
+	expect_false(is.na(rt.unit))
+
+	# Get peak table
+	peaks <- entry$getFieldValue('peaks')
+	mzs <- peaks[1, 'peak.mz']
+
+	# Search for MZ/RT
+	mz.tol <- 0
+	rt.tol <- 0
+	peaks <- db$searchMsPeaks(mzs = mzs, chrom.col.ids = chrom.col.ids, rts = rts, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
+	expect_is(peaks, 'data.frame')
+	expect_true(nrow(peaks) > 0)
+	expect_true(all((peaks$peak.mz >= mzs - mz.tol) & (peaks$peak.mz <= mzs + mz.tol)))
+	expect_true(all((peaks$chrom.rt >= rts - rt.tol) & (peaks$chrom.rt <= rts + rt.tol)))
 }
 
 # Test msmsSearch whe no IDs are found {{{1
@@ -240,7 +278,7 @@ test.searchMsPeaks <- function(db) {
 
 test.msmsSearch.no.ids <- function(db) {
 	tspec <- data.frame(mz = 1, int = 10000)
-	results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos",msms.mz.tol = 10,msms.mz.tol.min = 0.01,npmin = 2)
+	results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos", msms.mz.tol = 10, msms.mz.tol.min = 0.01, npmin = 2)
 	expect_is(results, 'data.frame')
 	expect_equal(nrow(results), 0)
 	expect_true(all(c('id', 'score') %in% names(results)))
@@ -262,6 +300,7 @@ run.mass.db.tests <- function(db, mode) {
 			set.test.context(db$getBiodb(), paste("Running LCMS generic tests on database", db$getId(), "in", mode, "mode"))
 			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
 			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
+			run.db.test.that("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', db)
 
 			set.test.context(db$getBiodb(), paste("Running MSMS generic tests on database", db$getId(), "in", mode, "mode"))
 			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
