@@ -156,7 +156,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 		}
 
 		# Save content to cache
-		if ( ! is.na(content) && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
+		if ( ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
 			.self$message('debug', paste0("Saving content of ", method, " request to cache ..."))
 			.self$getBiodb()$getCache()$saveContentToFile(content, dbid = 'request', subfolder = 'shortterm', name = request.key, ext ='content')
 			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, dbid = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')

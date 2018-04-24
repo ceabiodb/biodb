@@ -2,7 +2,7 @@ peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.
 50	A10	1	pos	112.07569	P9Z6W410 O	[(M+H)-(H2O)-(NH3)]+	colzz	5.69	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz.5.69
 50	A10	1	pos	145.097154	P92Z6W413 O2	[(M+H)-(H2)]+	colzz	5.69	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz.5.69
 50	A10	1	pos	84.080775	P9Z5W410 O0	[(M+H)-(NH3)-(HCOOH)]+	colzz	5.69	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz.5.69
-50	A10	1	pos	148.116159	U513P92ZW415 O2	[(M+H)]+	colzz	5.69	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz.5.69
+50	A10	1	pos	148.116159	U513P92ZW415 O2	[(M+H)]+ (13C)	colzz	5.69	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz.5.69
 50	A10	1	pos	70.065125	P9Z4W48 O0	[(M+H)-(J17L2M6O2)]+	colzz	5.69	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz.5.69
 50	A10	1	pos	58.065125	P9Z3W48 O0	[(M+H)-(C3H7O2N)]+	colzz	5.69	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz.5.69
 50	A10	1	pos	102.054955	P9Z4W48 O2	[(M+H)-(J17L2M6)]+	colzz	5.69	J114L6M62O2	146.10553	Blablaine	min	A10.pos.colzz.5.69

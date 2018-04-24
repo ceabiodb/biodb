@@ -32,6 +32,33 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	.precursors <<- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+", "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
 })
 
+# Get precursor formulae {{{1
+################################################################
+
+MassCsvFileConn$methods( getPrecursorFormulae = function() {
+	":\n\nReturns the list of formulae used to recognize precursors."
+	return (.self$.precursors)
+})
+
+# Is a precursor formula {{{1
+################################################################
+
+MassCsvFileConn$methods( isAPrecursorFormula = function(formula) {
+	":\n\nReturns TRUE of the submitted formula is considered a precursor."
+	return (formula %in% .self$.precursors)
+})
+
+# Add precursor formulae {{{1
+################################################################
+
+MassCsvFileConn$methods( addPrecursorFormulae = function(formulae) {
+	":\n\nAdd new formulae to the list of formulae used to recognize precursors."
+	if ( ! all(formulae %in% .self$.precursors)) {
+		formulae <- formulae[ ! formulae %in% .self$.precursors]
+		.precursors <<- c(.self$.precursors, formulae)
+	}
+})
+
 # Is valid field tag {{{1
 ################################################################
 
@@ -112,11 +139,14 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 	.self$.init.db()
 
 	# Check that this is a correct field name
-	if ( ! (.self$getBiodb()$getEntryFields()$isDefined(tag) || tag %in% BIODB.PEAK.FIELDS)) {
+	if ( ! .self$getBiodb()$getEntryFields()$isDefined(tag)) {
 		if ( ! ignore.if.missing)
 			.self$message('error', paste0("Database field \"", tag, "\" is not valid."))
 		return()
 	}
+
+	# Set real name (i.e.: official name) for field
+	tag <- .self$getBiodb()$getEntryFields()$getRealName(tag)
 
 	# Fail if column names are not found in file
 	if ( ! all(colname %in% names(.self$.db))) {
@@ -231,10 +261,10 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
 
 	# For each id, take the sub data frame and convert it into string
-	df.ids <- df[[.self$.fields[['accession']]]]
-	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(df[df.ids == x, ], file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
+	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(.self$.select(ids = x), file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
 
-	.self$message('debug', paste("Entry content:", content))
+	if (length(content) > 0)
+		.self$message('debug', paste("Content of first entry:", content[[1]]))
 
 	return(content)
 })

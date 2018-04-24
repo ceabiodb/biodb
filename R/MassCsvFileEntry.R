@@ -25,7 +25,12 @@ MassCsvFileEntry$methods( initialize = function(...) {
 MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
 	# Make peak table
-	peaks <- parsed.content[, colnames(parsed.content) %in% BIODB.PEAK.FIELDS]
+	peak.cols <- NULL
+	for (field in names(.self$getParent()$.fields))
+		if (field %in% BIODB.PEAK.FIELDS && .self$getParent()$.fields[[field]] %in% colnames(parsed.content))
+			peak.cols <- c(peak.cols, field)
+	peaks <- parsed.content[, .self$getParent()$.fields[peak.cols]]
+	names(peaks) <- peak.cols
 
 	# Add MZ column if missing
 	if ( ! 'peak.mz' %in% colnames(peaks))
@@ -36,9 +41,15 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	# Set peaks table in field
 	.self$setFieldValue('peaks', peaks)
 
+	# Chromatographic column id and name
+	if (.self$hasField('chrom.col.name') && ! .self$hasField('chrom.col.id'))
+		.self$setFieldValue('chrom.col.id', .self$getFieldValue('chrom.col.name'))
+	if ( ! .self$hasField('chrom.col.name') && .self$hasField('chrom.col.id'))
+		.self$setFieldValue('chrom.col.name', .self$getFieldValue('chrom.col.id'))
+
 	# Set precursor
 	if ('peak.attr' %in% colnames(peaks)) {
-		precursors.attr <- .self$getParent()$.precursors
+		precursors.attr <- .self$getParent()$getPrecursorFormulae()
 		precursors <- peaks[['peak.attr']] %in% precursors.attr
 		if (sum(precursors) == 1)
 			.self$setFieldValue('msprecmz', peaks[precursors, 'peak.mz'])

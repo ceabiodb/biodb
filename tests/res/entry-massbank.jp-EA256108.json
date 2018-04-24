@@ -16,6 +16,7 @@
   "chrom.rt": 3.6,
   "chrom.rt.unit": "min",
   "chrom.col.name": "XBridge C18 3.5um, 2.1x50mm, Waters",
+  "chrom.col.id": "XBridge C18 3.5um, 2.1x50mm, Waters",
   "chrom.solvent": ["A water with 0.1% formic acid", "B methanol with 0.1% formic acid"],
   "chrom.flow.rate": "200 ul/min",
   "chrom.flow.gradient": "90/10 at 0 min, 50/50 at 4 min, 5/95 at 17 min, 5/95 at 25 min, 90/10 at 25.1 min, 90/10 at 30 min",
