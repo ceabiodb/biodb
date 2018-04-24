@@ -33,6 +33,9 @@ uninstall:
 win:
 	R -q -e "devtools::build_win('$(CURDIR)')"
 
+conda_install_%: clean
+	docker build -t biodb.$@ -f tests/dockerfiles/$@.dockerfile .
+
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/cache tests/test.log tests/output
