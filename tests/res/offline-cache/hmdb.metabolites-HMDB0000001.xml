@@ -1,10 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <metabolite>
   <version>4.0</version>
   <creation_date>2005-11-16 15:48:42 UTC</creation_date>
-  <update_date>2017-12-07 01:05:49 UTC</update_date>
+  <update_date>2018-04-16 17:00:02 UTC</update_date>
   <accession>HMDB0000001</accession>
+  <status>quantified</status>
   <secondary_accessions>
     <accession>HMDB00001</accession>
+    <accession>HMDB0004935</accession>
+    <accession>HMDB0006703</accession>
+    <accession>HMDB0006704</accession>
     <accession>HMDB04935</accession>
     <accession>HMDB06703</accession>
     <accession>HMDB06704</accession>
@@ -12,15 +17,19 @@
   <name>1-Methylhistidine</name>
   <description>One-methylhistidine (1-MHis) is derived mainly from the anserine of dietary flesh sources, especially poultry. The enzyme, carnosinase, splits anserine into b-alanine and 1-MHis. High levels of 1-MHis tend to inhibit the enzyme carnosinase and increase anserine levels. Conversely, genetic variants with deficient carnosinase activity in plasma show increased 1-MHis excretions when they consume a high meat diet. Reduced serum carnosinase activity is also found in patients with Parkinson's disease and multiple sclerosis and patients following a cerebrovascular accident. Vitamin E deficiency can lead to 1-methylhistidinuria from increased oxidative effects in skeletal muscle. 1-Methylhistidine is a biomarker for the consumption of meat, especially red meat.</description>
   <synonyms>
+    <synonym>(2S)-2-amino-3-(1-Methyl-1H-imidazol-4-yl)propanoic acid</synonym>
+    <synonym>1-Methylhistidine</synonym>
+    <synonym>Pi-methylhistidine</synonym>
+    <synonym>(2S)-2-amino-3-(1-Methyl-1H-imidazol-4-yl)propanoate</synonym>
     <synonym>1 Methylhistidine</synonym>
     <synonym>1-Methyl histidine</synonym>
-    <synonym>1-Methyl-Histidine</synonym>
+    <synonym>1-Methyl-histidine</synonym>
     <synonym>1-Methyl-L-histidine</synonym>
     <synonym>1-MHis</synonym>
     <synonym>1-N-Methyl-L-histidine</synonym>
     <synonym>L-1-Methylhistidine</synonym>
     <synonym>N1-Methyl-L-histidine</synonym>
-    <synonym>Pi-methylhistidine</synonym>
+    <synonym>1-Methylhistidine dihydrochloride</synonym>
   </synonyms>
   <chemical_formula>C7H11N3O2</chemical_formula>
   <average_molecular_weight>169.1811</average_molecular_weight>
@@ -28,7 +37,7 @@
   <iupac_name>(2S)-2-amino-3-(1-methyl-1H-imidazol-4-yl)propanoic acid</iupac_name>
   <traditional_iupac>1 methylhistidine</traditional_iupac>
   <cas_registry_number>332-80-9</cas_registry_number>
-  <smiles>[H][C@](N)(CC1=CN(C)C=N1)C(O)=O</smiles>
+  <smiles>CN1C=NC(C[C@H](N)C(O)=O)=C1</smiles>
   <inchi>InChI=1S/C7H11N3O2/c1-10-3-5(9-4-10)2-6(8)7(11)12/h3-4,6H,2,8H2,1H3,(H,11,12)/t6-/m0/s1</inchi>
   <inchikey>BRMWTNUJHUMWMS-LURJTMIESA-N</inchikey>
   <taxonomy>
@@ -83,20 +92,263 @@
       <substituent>Primary aliphatic amine</substituent>
       <substituent>Primary amine</substituent>
     </substituents>
+    <external_descriptors>
+      <external_descriptor>L-histidine derivative</external_descriptor>
+      <external_descriptor>non-proteinogenic L-alpha-amino acid</external_descriptor>
+    </external_descriptors>
   </taxonomy>
   <ontology>
-    <status>quantified</status>
-    <origins>
-      <origin>Endogenous</origin>
-    </origins>
-    <biofunctions>
-      <biofunction>Protein synthesis, amino acid biosynthesis</biofunction>
-    </biofunctions>
-    <applications>
-    </applications>
-    <cellular_locations>
-      <cellular_location>Cytoplasm</cellular_location>
-    </cellular_locations>
+    <root>
+      <term>Physiological effect</term>
+      <definition>The effect on an organism physiology, resulting from its exposure to a chemical.</definition>
+      <parent_id/>
+      <level>1</level>
+      <type>parent</type>
+      <descendants>
+        <descendant>
+          <term>Health effect</term>
+          <definition>A health condition or observation associated with a stimuli or with a biological activity of a chemical.</definition>
+          <parent_id>7693</parent_id>
+          <level>2</level>
+          <type>parent</type>
+          <descendants>
+            <descendant>
+              <term>Health condition</term>
+              <definition>A health effect that consists on short or long-term disease, condition, disorder, syndrome or constant abnormality.</definition>
+              <parent_id>7694</parent_id>
+              <level>3</level>
+              <type>parent</type>
+              <descendants>
+                <descendant>
+                  <term>Kidney disease</term>
+                  <definition>A urinary system disease that is located in the kidney. (do).</definition>
+                  <parent_id>7695</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+                <descendant>
+                  <term>Diabetes mellitus type 2</term>
+                  <definition/>
+                  <parent_id>7695</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+                <descendant>
+                  <term>Metabolism and nutrition disorders</term>
+                  <definition>A group of disorders, inherited or not, that result in a metabolic malfunction.</definition>
+                  <parent_id>7695</parent_id>
+                  <level>4</level>
+                  <type>parent</type>
+                  <descendants>
+                    <descendant>
+                      <term>Obesity</term>
+                      <definition>A disorder characterized by having a high amount of body fat. (nci ctcae).</definition>
+                      <parent_id>7708</parent_id>
+                      <level>5</level>
+                      <type>child</type>
+                    </descendant>
+                  </descendants>
+                </descendant>
+              </descendants>
+            </descendant>
+          </descendants>
+        </descendant>
+      </descendants>
+    </root>
+    <root>
+      <term>Disposition</term>
+      <definition>A concept that describes the origin of a chemical, its location within an organism, or its route of exposure.</definition>
+      <parent_id/>
+      <level>1</level>
+      <type>parent</type>
+      <descendants>
+        <descendant>
+          <term>Source</term>
+          <definition>Natural or synthetic origin of a chemical.</definition>
+          <parent_id>7724</parent_id>
+          <level>2</level>
+          <type>parent</type>
+          <descendants>
+            <descendant>
+              <term>Endogenous</term>
+              <definition/>
+              <parent_id>7735</parent_id>
+              <level>3</level>
+              <type>child</type>
+            </descendant>
+          </descendants>
+        </descendant>
+        <descendant>
+          <term>Biological location</term>
+          <definition>The physiological origin within an organism, including anatomical compnents, biofluids and excreta.</definition>
+          <parent_id>7724</parent_id>
+          <level>2</level>
+          <type>parent</type>
+          <descendants>
+            <descendant>
+              <term>Tissue and substructures</term>
+              <definition>An anatomical organizational level including multiple cells yet not comprising a complete organ .</definition>
+              <parent_id>7725</parent_id>
+              <level>3</level>
+              <type>parent</type>
+              <descendants>
+                <descendant>
+                  <term>Muscle</term>
+                  <definition>A fibrous soft tissue with the ability to contract to produce force and motion. (nci).</definition>
+                  <parent_id>7729</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+                <descendant>
+                  <term>Skeletal muscle</term>
+                  <definition>Striated muscles that are under voluntary control of the organism. they are connected at either or both ends to a bone and are utilized for locomotion and other movements. (nci).</definition>
+                  <parent_id>7729</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+              </descendants>
+            </descendant>
+            <descendant>
+              <term>Biofluid and excreta</term>
+              <definition>A liquid, semi-solid or solid material originating in the body.</definition>
+              <parent_id>7725</parent_id>
+              <level>3</level>
+              <type>parent</type>
+              <descendants>
+                <descendant>
+                  <term>Saliva</term>
+                  <definition>The watery fluid in the mouth made by the salivary glands. saliva moistens food to help digestion and it helps protect the mouth against infections. (nci).</definition>
+                  <parent_id>7731</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+                <descendant>
+                  <term>Feces</term>
+                  <definition>The material discharged from the bowel during defecation. It consists of undigested food, intestinal mucus, epithelial cells, and bacteria.</definition>
+                  <parent_id>7731</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+                <descendant>
+                  <term>Urine</term>
+                  <definition>Excretion in liquid state processed by the kidney.</definition>
+                  <parent_id>7731</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+                <descendant>
+                  <term>Blood</term>
+                  <definition>A liquid tissue with the primary function of transporting oxygen and carbon dioxide (nci). it supplies the tissues with nutrients, removes waste products, and contains various components of the immune system defending the body against infection.</definition>
+                  <parent_id>7731</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+                <descendant>
+                  <term>Cerebrospinal fluid</term>
+                  <definition>The fluid that is contained within the brain ventricles, the subarachnoid space and the central canal of the spinal cord. (nci).</definition>
+                  <parent_id>7731</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+              </descendants>
+            </descendant>
+            <descendant>
+              <term>Subcellular</term>
+              <definition>An anatomical organizational level including a component within a biological cell .</definition>
+              <parent_id>7725</parent_id>
+              <level>3</level>
+              <type>parent</type>
+              <descendants>
+                <descendant>
+                  <term>Cytoplasm</term>
+                  <definition>The portion of the cell contained within the plasma membrane but excluding the nucleus.</definition>
+                  <parent_id>7730</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+              </descendants>
+            </descendant>
+          </descendants>
+        </descendant>
+      </descendants>
+    </root>
+    <root>
+      <term>Process</term>
+      <definition>Biological or chemical events, or a series thereof, leading to a known function or end-product.</definition>
+      <parent_id/>
+      <level>1</level>
+      <type>parent</type>
+      <descendants>
+        <descendant>
+          <term>Naturally occurring process</term>
+          <definition>Naturally-occurring molecular events or a series thereof, leading to a known function or end-product.</definition>
+          <parent_id>7659</parent_id>
+          <level>2</level>
+          <type>parent</type>
+          <descendants>
+            <descendant>
+              <term>Biological process</term>
+              <definition>Biological or chemical events or a series thereof, leading to a known function or end-product within an organism.</definition>
+              <parent_id>7660</parent_id>
+              <level>3</level>
+              <type>parent</type>
+              <descendants>
+                <descendant>
+                  <term>Biochemical pathway</term>
+                  <definition>A linked series of chemical reactions that occur in a defined order within or between organism cells, and lead to a known function or end product.</definition>
+                  <parent_id>7661</parent_id>
+                  <level>4</level>
+                  <type>parent</type>
+                  <descendants>
+                    <descendant>
+                      <term>Histidine Metabolism</term>
+                      <definition> after reaching several years of age, humans begin to synthesize it (most likely in the intestinal micrflora) and it thus becomes a non-essential amino acid. humans can obtain histidine through the breakdown of carnosine (a dipeptide containing histidine and beta-alanine) via the action of carnosine dipeptidase.</definition>
+                      <parent_id>7662</parent_id>
+                      <level>5</level>
+                      <type>child</type>
+                    </descendant>
+                  </descendants>
+                </descendant>
+              </descendants>
+            </descendant>
+          </descendants>
+        </descendant>
+      </descendants>
+    </root>
+    <root>
+      <term>Role</term>
+      <definition>The purpose or function assumed by a chemical, either naturally or as intended by humans .</definition>
+      <parent_id/>
+      <level>1</level>
+      <type>parent</type>
+      <descendants>
+        <descendant>
+          <term>Industrial application</term>
+          <definition>The assumed function of a chemical utilized by human.</definition>
+          <parent_id>7671</parent_id>
+          <level>2</level>
+          <type>parent</type>
+          <descendants>
+            <descendant>
+              <term>Pharmaceutical industry</term>
+              <definition>A pharmacologic activity for which a chemical substance is utilized owing to its biological role.</definition>
+              <parent_id>7678</parent_id>
+              <level>3</level>
+              <type>parent</type>
+              <descendants>
+                <descendant>
+                  <term>Pharmaceutical</term>
+                  <definition/>
+                  <parent_id>7679</parent_id>
+                  <level>4</level>
+                  <type>child</type>
+                </descendant>
+              </descendants>
+            </descendant>
+          </descendants>
+        </descendant>
+      </descendants>
+    </root>
   </ontology>
   <state>Solid</state>
   <experimental_properties>
@@ -107,16 +359,6 @@
     </property>
   </experimental_properties>
   <predicted_properties>
-    <property>
-      <kind>logp</kind>
-      <value>-2.95</value>
-      <source>ALOGPS</source>
-    </property>
-    <property>
-      <kind>logs</kind>
-      <value>-1.39</value>
-      <source>ALOGPS</source>
-    </property>
     <property>
       <kind>solubility</kind>
       <value>6.93 g/L</value>
@@ -154,7 +396,7 @@
     </property>
     <property>
       <kind>smiles</kind>
-      <value>[H][C@](N)(CC1=CN(C)C=N1)C(O)=O</value>
+      <value>CN1C=NC(C[C@H](N)C(O)=O)=C1</value>
       <source>ChemAxon</source>
     </property>
     <property>
@@ -210,6 +452,36 @@
     <property>
       <kind>formal_charge</kind>
       <value>0</value>
+      <source>ChemAxon</source>
+    </property>
+    <property>
+      <kind>number_of_rings</kind>
+      <value>1</value>
+      <source>ChemAxon</source>
+    </property>
+    <property>
+      <kind>bioavailability</kind>
+      <value>1</value>
+      <source>ChemAxon</source>
+    </property>
+    <property>
+      <kind>rule_of_five</kind>
+      <value>Yes</value>
+      <source>ChemAxon</source>
+    </property>
+    <property>
+      <kind>ghose_filter</kind>
+      <value>Yes</value>
+      <source>ChemAxon</source>
+    </property>
+    <property>
+      <kind>veber_rule</kind>
+      <value>Yes</value>
+      <source>ChemAxon</source>
+    </property>
+    <property>
+      <kind>mddr_like_rule</kind>
+      <value>Yes</value>
       <source>ChemAxon</source>
     </property>
   </predicted_properties>
@@ -283,13 +555,16 @@
       <spectrum_id>915</spectrum_id>
     </spectrum>
   </spectra>
-  <biofluid_locations>
-    <biofluid>Blood</biofluid>
-    <biofluid>Cerebrospinal Fluid (CSF)</biofluid>
-    <biofluid>Feces</biofluid>
-    <biofluid>Saliva</biofluid>
-    <biofluid>Urine</biofluid>
-  </biofluid_locations>
+  <cellular_locations>
+    <cellular>Cytoplasm</cellular>
+  </cellular_locations>
+  <biospecimen_locations>
+    <biospecimen>Blood</biospecimen>
+    <biospecimen>Cerebrospinal Fluid (CSF)</biospecimen>
+    <biospecimen>Feces</biospecimen>
+    <biospecimen>Saliva</biospecimen>
+    <biospecimen>Urine</biospecimen>
+  </biospecimen_locations>
   <tissue_locations>
     <tissue>Muscle</tissue>
     <tissue>Skeletal Muscle</tissue>
@@ -308,7 +583,7 @@
   </pathways>
   <normal_concentrations>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>7.7 +/- 1.9</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -322,7 +597,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>14.4 +/- 2.3</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -336,7 +611,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>19.6 +/- 2.6</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -350,7 +625,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>12.7 +/- 2.9</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -364,7 +639,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>20.2 +/- 4.0</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -378,7 +653,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>9.1 +/- 7.2</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Children (1-13 years old)</subject_age>
@@ -392,7 +667,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>4.0 +/- 8.0</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -406,7 +681,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Cerebrospinal Fluid (CSF)</biofluid>
+      <biospecimen>Cerebrospinal Fluid (CSF)</biospecimen>
       <concentration_value>4.0 +/- 1.74</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -420,7 +695,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Feces</biofluid>
+      <biospecimen>Feces</biospecimen>
       <concentration_value/>
       <concentration_units/>
       <subject_age>Not Specified</subject_age>
@@ -435,7 +710,22 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Saliva</biofluid>
+      <biospecimen>Feces</biospecimen>
+      <concentration_value/>
+      <concentration_units/>
+      <subject_age>Adult (&gt;18 years old)</subject_age>
+      <subject_sex>Both</subject_sex>
+      <subject_condition>Normal</subject_condition>
+      <comment>Lyophilized feces samples (n=18) were used in the study.  Instrument: LC-MS. Technology specification: UPLC-MS/MS in multiple conditions; authentic standards (metabolon).</comment>
+      <references>
+        <reference>
+          <reference_text>Loftfield E, Vogtmann E, Sampson JN, Moore SC, Nelson H, Knight R, Chia N, Sinha R: Comparison of Collection Methods for Fecal Samples for Discovery Metabolomics in Epidemiologic Studies. Cancer Epidemiol Biomarkers Prev. 2016 Nov;25(11):1483-1490. doi: 10.1158/1055-9965.EPI-16-0409. Epub 2016 Aug 19.</reference_text>
+          <pubmed_id>27543620</pubmed_id>
+        </reference>
+      </references>
+    </concentration>
+    <concentration>
+      <biospecimen>Saliva</biospecimen>
       <concentration_value>26.34</concentration_value>
       <concentration_units>uM</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -449,7 +739,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>10-17 </concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -463,7 +753,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value/>
       <concentration_units/>
       <subject_age/>
@@ -477,7 +767,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>17.74-153.77</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -491,7 +781,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>8.3 (2.4-28.4)</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -506,7 +796,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>15.9 +/- 19.5 </concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -520,7 +810,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>46.0833 +/- 53.432</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -535,7 +825,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>11-16 </concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -549,7 +839,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>45.473 +/- 41.617</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -564,7 +854,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>15.919 +/- 19.503</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -579,7 +869,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>4.635</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -594,7 +884,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>33.624 +/- 36.360</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -609,7 +899,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>28.0954 +/- 31.826</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -624,7 +914,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>2.340 +/- 5.0764</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -639,7 +929,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>1.334 +/- 2.759</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -654,7 +944,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>30.0 +/- 43.0</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -668,7 +958,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>4.6 +/- 2.7</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -682,7 +972,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>2.3 +/- 5.1</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -696,7 +986,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>46.1 +/- 53.5</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -710,7 +1000,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>15.9 +/- 19.5</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -724,7 +1014,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>28.1 +/- 31.8</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -738,7 +1028,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>1.3 +/- 2.76</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -752,7 +1042,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>45.5 +/- 41.6</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -766,7 +1056,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>33.6 +/- 36.4</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -780,7 +1070,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>21.329 +/- 12.971</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <subject_age>Children (1 - 13 years old)</subject_age>
@@ -795,7 +1085,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value/>
       <concentration_units/>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -810,7 +1100,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value/>
       <concentration_units/>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -825,7 +1115,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value/>
       <concentration_units/>
       <subject_age>Adult (&gt;18 years old)</subject_age>
@@ -842,7 +1132,7 @@
   </normal_concentrations>
   <abnormal_concentrations>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>51.2 +/- 17.6 </concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -857,7 +1147,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>43.4 +/- 22.3 </concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -871,7 +1161,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>50.7 (12.9) </concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -885,7 +1175,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>50.0 (14.6) </concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -899,7 +1189,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>28.8 +/- 18.2</concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -914,7 +1204,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>83.1 +/- 21.7</concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -929,7 +1219,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>70.3 (40.0) </concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -943,7 +1233,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>38.9 (20.3) </concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -957,7 +1247,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>10.66 +/- 2.68</concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Elderly (&gt;65 years old)</patient_age>
@@ -972,7 +1262,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>40.4 (12.3) </concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -986,7 +1276,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Blood</biofluid>
+      <biospecimen>Blood</biospecimen>
       <concentration_value>32.7 (13.7) </concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -1000,7 +1290,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Cerebrospinal Fluid (CSF)</biofluid>
+      <biospecimen>Cerebrospinal Fluid (CSF)</biospecimen>
       <concentration_value>2.6 +/- 1.13</concentration_value>
       <concentration_units>uM</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -1014,7 +1304,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>10.9 +/- 10.1</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -1028,7 +1318,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>17.5 +/- 25.7</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -1042,7 +1332,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>15.7 +/- 4.04</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -1057,7 +1347,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>18.299 +/- 16.521</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <patient_age>Children (1 - 13 years old)</patient_age>
@@ -1072,7 +1362,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>40 +/- 2.6</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -1086,7 +1376,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>31 +/- 11</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
@@ -1100,7 +1390,7 @@
       </references>
     </concentration>
     <concentration>
-      <biofluid>Urine</biofluid>
+      <biospecimen>Urine</biospecimen>
       <concentration_value>50.3 +/- 9.9</concentration_value>
       <concentration_units>umol/mmol creatinine</concentration_units>
       <patient_age>Adult (&gt;18 years old)</patient_age>
