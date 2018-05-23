@@ -206,12 +206,29 @@ MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 MassbankConn$methods( .doDownload = function() {
 
 	# SVN export
-	.self$message('info', "Download whole MassBank database from SVN server.")
+	svn.address <- 'http://www.massbank.jp/SVN/OpenData/record/'
+	.self$message('info', paste0("Download whole MassBank database from SVN server ", svn.address, "."))
 	svn.cmd <- .self$getBiodb()$getConfig()$get('svn.binary.path')
-	if (file.exists(svn.cmd))
-		system2(svn.cmd, c('export', '--force', '--quiet', 'http://www.massbank.jp/SVN/OpenData/record/', .self$getDownloadPath()))
+	if (file.exists(svn.cmd)) {
+
+		# Create temporary files for SVN output
+		file.stdout <- tempfile('biodb.svn.stdout')
+		file.stderr <- tempfile('biodb.svn.stderr')
+
+		ret <- system2(svn.cmd, c('export', svn.address, .self$getDownloadPath()), stdout = file.stdout, stderr = file.stderr)
+
+		# An error occured
+		if (ret != 0) {
+			stdout.lines <- readLines(file.stdout)
+			stderr.lines <- readLines(file.stderr)
+			.self$message('warning', paste0("SVN was not able to retrieve repository at ", svn.address, ". Standard output was: ", paste(stdout.lines, collapse = "."), ". Standard error was: ", paste(stderr.lines, collapse = ". "), "."))
+		}
+
+		# Remove temporary files
+		unlink(c(file.stdout, file.stderr))
+	}
 	else
-		.self$message('caution', "SVN does not seem to be installed on your system. As a consequence, Biodb is not able to download whole Massbank database. Please install SVN and make sure it is accessible in the PATH or set the environment variable BIODB_SVN_BINARY_PATH to the path of the SVN executable. If you are under Windows you may try SlikSVN at https://sliksvn.com/download/.")
+		.self$message('warning', "SVN does not seem to be installed on your system. As a consequence, Biodb is not able to download whole Massbank database. Please install SVN and make sure it is accessible in the PATH or set the environment variable BIODB_SVN_BINARY_PATH to the path of the SVN executable. If you are under Windows you may try SlikSVN at https://sliksvn.com/download/.")
 })
 
 # Do extract download {{{1
