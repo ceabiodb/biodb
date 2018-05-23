@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
-<entry dataset="TrEMBL" created="1996-11-01" modified="2016-11-30" version="140">
+<entry dataset="TrEMBL" created="1996-11-01" modified="2018-04-25" version="150">
 <accession>Q31611</accession>
 <name>Q31611_HUMAN</name>
 <protein>
@@ -12,8 +12,8 @@
 </submittedName>
 </protein>
 <gene>
-<name type="primary" evidence="6">HLA-G2.2</name>
-<name type="synonym" evidence="7 8">HLA-G</name>
+<name type="primary" evidence="7 8">HLA-G</name>
+<name type="synonym" evidence="6">HLA-G2.2</name>
 </gene>
 <organism evidence="6">
 <name type="scientific">Homo sapiens</name>
@@ -51,7 +51,7 @@
 <tissue evidence="6">Placenta</tissue>
 </source>
 </reference>
-<reference key="2" evidence="8 10">
+<reference key="2" evidence="10">
 <citation type="journal article" date="2003" name="Nature" volume="425" first="805" last="811">
 <title>The DNA sequence and analysis of human chromosome 6.</title>
 <authorList>
@@ -233,6 +233,138 @@
 <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
 </reference>
 <reference key="3" evidence="8">
+<citation type="journal article" date="2005" name="Nature" volume="434" first="724" last="731">
+<title>Generation and annotation of the DNA sequences of human chromosomes 2 and 4.</title>
+<authorList>
+<person name="Hillier L.W."/>
+<person name="Graves T.A."/>
+<person name="Fulton R.S."/>
+<person name="Fulton L.A."/>
+<person name="Pepin K.H."/>
+<person name="Minx P."/>
+<person name="Wagner-McPherson C."/>
+<person name="Layman D."/>
+<person name="Wylie K."/>
+<person name="Sekhon M."/>
+<person name="Becker M.C."/>
+<person name="Fewell G.A."/>
+<person name="Delehaunty K.D."/>
+<person name="Miner T.L."/>
+<person name="Nash W.E."/>
+<person name="Kremitzki C."/>
+<person name="Oddy L."/>
+<person name="Du H."/>
+<person name="Sun H."/>
+<person name="Bradshaw-Cordum H."/>
+<person name="Ali J."/>
+<person name="Carter J."/>
+<person name="Cordes M."/>
+<person name="Harris A."/>
+<person name="Isak A."/>
+<person name="van Brunt A."/>
+<person name="Nguyen C."/>
+<person name="Du F."/>
+<person name="Courtney L."/>
+<person name="Kalicki J."/>
+<person name="Ozersky P."/>
+<person name="Abbott S."/>
+<person name="Armstrong J."/>
+<person name="Belter E.A."/>
+<person name="Caruso L."/>
+<person name="Cedroni M."/>
+<person name="Cotton M."/>
+<person name="Davidson T."/>
+<person name="Desai A."/>
+<person name="Elliott G."/>
+<person name="Erb T."/>
+<person name="Fronick C."/>
+<person name="Gaige T."/>
+<person name="Haakenson W."/>
+<person name="Haglund K."/>
+<person name="Holmes A."/>
+<person name="Harkins R."/>
+<person name="Kim K."/>
+<person name="Kruchowski S.S."/>
+<person name="Strong C.M."/>
+<person name="Grewal N."/>
+<person name="Goyea E."/>
+<person name="Hou S."/>
+<person name="Levy A."/>
+<person name="Martinka S."/>
+<person name="Mead K."/>
+<person name="McLellan M.D."/>
+<person name="Meyer R."/>
+<person name="Randall-Maher J."/>
+<person name="Tomlinson C."/>
+<person name="Dauphin-Kohlberg S."/>
+<person name="Kozlowicz-Reilly A."/>
+<person name="Shah N."/>
+<person name="Swearengen-Shahid S."/>
+<person name="Snider J."/>
+<person name="Strong J.T."/>
+<person name="Thompson J."/>
+<person name="Yoakum M."/>
+<person name="Leonard S."/>
+<person name="Pearman C."/>
+<person name="Trani L."/>
+<person name="Radionenko M."/>
+<person name="Waligorski J.E."/>
+<person name="Wang C."/>
+<person name="Rock S.M."/>
+<person name="Tin-Wollam A.-M."/>
+<person name="Maupin R."/>
+<person name="Latreille P."/>
+<person name="Wendl M.C."/>
+<person name="Yang S.-P."/>
+<person name="Pohl C."/>
+<person name="Wallis J.W."/>
+<person name="Spieth J."/>
+<person name="Bieri T.A."/>
+<person name="Berkowicz N."/>
+<person name="Nelson J.O."/>
+<person name="Osborne J."/>
+<person name="Ding L."/>
+<person name="Meyer R."/>
+<person name="Sabo A."/>
+<person name="Shotland Y."/>
+<person name="Sinha P."/>
+<person name="Wohldmann P.E."/>
+<person name="Cook L.L."/>
+<person name="Hickenbotham M.T."/>
+<person name="Eldred J."/>
+<person name="Williams D."/>
+<person name="Jones T.A."/>
+<person name="She X."/>
+<person name="Ciccarelli F.D."/>
+<person name="Izaurralde E."/>
+<person name="Taylor J."/>
+<person name="Schmutz J."/>
+<person name="Myers R.M."/>
+<person name="Cox D.R."/>
+<person name="Huang X."/>
+<person name="McPherson J.D."/>
+<person name="Mardis E.R."/>
+<person name="Clifton S.W."/>
+<person name="Warren W.C."/>
+<person name="Chinwalla A.T."/>
+<person name="Eddy S.R."/>
+<person name="Marra M.A."/>
+<person name="Ovcharenko I."/>
+<person name="Furey T.S."/>
+<person name="Miller W."/>
+<person name="Eichler E.E."/>
+<person name="Bork P."/>
+<person name="Suyama M."/>
+<person name="Torrents D."/>
+<person name="Waterston R.H."/>
+<person name="Wilson R.K."/>
+</authorList>
+<dbReference type="PubMed" id="15815621"/>
+<dbReference type="DOI" id="10.1038/nature03466"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+</reference>
+<reference key="4" evidence="8">
 <citation type="submission" date="2012-02" db="UniProtKB">
 <authorList>
 <consortium name="Ensembl"/>
@@ -240,7 +372,7 @@
 </citation>
 <scope>IDENTIFICATION</scope>
 </reference>
-<reference key="4" evidence="9">
+<reference key="5" evidence="9">
 <citation type="submission" date="2015-06" db="UniProtKB">
 <authorList>
 <consortium name="Ensembl"/>
@@ -295,11 +427,9 @@
 <property type="nucleotide sequence ID" value="XM_017010818.1"/>
 </dbReference>
 <dbReference type="UniGene" id="Hs.512152"/>
-<dbReference type="ProteinModelPortal" id="Q31611"/>
 <dbReference type="SMR" id="Q31611"/>
 <dbReference type="MaxQB" id="Q31611"/>
 <dbReference type="PeptideAtlas" id="Q31611"/>
-<dbReference type="PRIDE" id="Q31611"/>
 <dbReference type="Ensembl" id="ENST00000376818">
 <property type="protein sequence ID" value="ENSP00000366014"/>
 <property type="gene ID" value="ENSG00000204632"/>
@@ -361,16 +491,11 @@
 <property type="organism name" value="human"/>
 </dbReference>
 <dbReference type="CTD" id="3135"/>
+<dbReference type="EuPathDB" id="HostDB:ENSG00000204632.11"/>
 <dbReference type="HGNC" id="HGNC:4964">
 <property type="gene designation" value="HLA-G"/>
 </dbReference>
 <dbReference type="OpenTargets" id="ENSG00000204632"/>
-<dbReference type="OpenTargets" id="ENSG00000206506"/>
-<dbReference type="OpenTargets" id="ENSG00000230413"/>
-<dbReference type="OpenTargets" id="ENSG00000233095"/>
-<dbReference type="OpenTargets" id="ENSG00000235346"/>
-<dbReference type="OpenTargets" id="ENSG00000235680"/>
-<dbReference type="OpenTargets" id="ENSG00000237216"/>
 <dbReference type="GeneTree" id="ENSGT00760000118960"/>
 <dbReference type="HOVERGEN" id="HBG016709"/>
 <dbReference type="ChiTaRS" id="HLA-G">
@@ -381,9 +506,6 @@
 <property type="component" value="Chromosome 6"/>
 </dbReference>
 <dbReference type="Bgee" id="ENSG00000204632"/>
-<dbReference type="ExpressionAtlas" id="Q31611">
-<property type="expression patterns" value="baseline and differential"/>
-</dbReference>
 <dbReference type="GO" id="GO:0016021">
 <property type="term" value="C:integral component of membrane"/>
 <property type="evidence" value="ECO:0000501"/>
@@ -409,6 +531,9 @@
 </dbReference>
 <dbReference type="InterPro" id="IPR011161">
 <property type="entry name" value="MHC_I-like_Ag-recog"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR037055">
+<property type="entry name" value="MHC_I-like_Ag-recog_sf"/>
 </dbReference>
 <dbReference type="InterPro" id="IPR011162">
 <property type="entry name" value="MHC_I/II-like_Ag-recog"/>
@@ -451,7 +576,7 @@
 <end position="24"/>
 </location>
 </feature>
-<feature type="chain" id="PRO_5007701807" evidence="4">
+<feature type="chain" id="PRO_5014104453" evidence="4">
 <location>
 <begin position="25"/>
 <end position="246"/>
@@ -463,7 +588,7 @@
 <end position="240"/>
 </location>
 </feature>
-<feature type="domain" description="Ig-like (immunoglobulin-like)" evidence="5">
+<feature type="domain" description="Ig-like" evidence="5">
 <location>
 <begin position="117"/>
 <end position="195"/>
@@ -528,7 +653,7 @@ RKKSSD
 </sequence>
 </entry>
 <copyright>
-Copyrighted by the UniProt Consortium, see http://www.uniprot.org/terms
+Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
 Distributed under the Creative Commons Attribution-NoDerivs License
 </copyright>
 </uniprot>
