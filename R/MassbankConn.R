@@ -221,14 +221,14 @@ MassbankConn$methods( .doDownload = function() {
 		if (ret != 0) {
 			stdout.lines <- readLines(file.stdout)
 			stderr.lines <- readLines(file.stderr)
-			.self$message('caution', paste0("SVN was not able to retrieve repository at ", svn.address, ". Standard output was: ", paste(stdout.lines, collapse = "."), ". Standard error was: ", paste(stderr.lines, collapse = ". "), "."))
+			.self$message('warning', paste0("SVN was not able to retrieve repository at ", svn.address, ". Standard output was: ", paste(stdout.lines, collapse = "."), ". Standard error was: ", paste(stderr.lines, collapse = ". "), "."))
 		}
 
 		# Remove temporary files
 		unlink(c(file.stdout, file.stderr))
 	}
 	else
-		.self$message('caution', "SVN does not seem to be installed on your system. As a consequence, Biodb is not able to download whole Massbank database. Please install SVN and make sure it is accessible in the PATH or set the environment variable BIODB_SVN_BINARY_PATH to the path of the SVN executable. If you are under Windows you may try SlikSVN at https://sliksvn.com/download/.")
+		.self$message('warning', "SVN does not seem to be installed on your system. As a consequence, Biodb is not able to download whole Massbank database. Please install SVN and make sure it is accessible in the PATH or set the environment variable BIODB_SVN_BINARY_PATH to the path of the SVN executable. If you are under Windows you may try SlikSVN at https://sliksvn.com/download/.")
 })
 
 # Do extract download {{{1
