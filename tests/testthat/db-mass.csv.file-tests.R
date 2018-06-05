@@ -187,6 +187,7 @@ test.field.card.one <- function(db) {
 	conn$setField('peak.mztheo', 'mz')
 	expect_error(conn$checkDb(), regexp = '^.* Cannot set more that one value .* into single value field .*\\.$')
 
+	# Terminate biodb instance
 	new.biodb$terminate()
 }
 
@@ -214,8 +215,8 @@ test.getMzValues.without.peak.attr <- function(db) {
 	mzs <- conn$getMzValues(max.results = 10, precursor = TRUE, ms.mode = 'pos')
 	expect_is(mzs, 'numeric')
 	expect_length(mzs, 0)
-	
-	# Close Biodb instance
+
+	# Terminate biodb instance
 	new.biodb$terminate()
 }
 
@@ -383,7 +384,8 @@ test.mass.csv.file.ms.mode.values <- function(db) {
 	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'zzz')
 	expect_is(results, 'data.frame')
 
-	# Close Biodb instance
+
+	# Terminate biodb instance
 	new.biodb$terminate()
 }
 
