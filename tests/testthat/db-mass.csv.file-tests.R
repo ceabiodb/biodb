@@ -250,6 +250,52 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(db) {
 	expect_true(all(vapply(names(peaks), function(field) new.biodb$getEntryFields()$get(field)$getName() == field, FUN.VALUE = FALSE)))
 }
 
+# Test M/Z matching limits {{{1
+################################################################
+
+test.mass.csv.file.mz.matching.limits <- function(db) {
+
+	# Define db data frame
+	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+
+	# Create connector
+	new.biodb <- create.biodb.instance()
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(db.df)
+
+	# Compute mz.min and mz.max
+	mz.shift <- 0
+	mz.tol <- 5
+	mz.tol.unit <- 'ppm'
+	mz <- db.df[['peak.mztheo']]
+	mz.sup <- mz / ( 1 + ( - mz.shift - mz.tol) * 1e-6)
+	mz.sup <- mz.sup - 1e-8 # Adjustment needed, due to computing differences.
+	mz.inf <- mz / ( 1 +  ( - mz.shift + mz.tol) * 1e-6)
+
+	# Search
+	results <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+	expect_is(results, 'data.frame')
+	results <- conn$searchMsPeaks(mz.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+	expect_is(results, 'data.frame')
+	results <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+	expect_null(results)
+	results <- conn$searchMsPeaks(mz.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+	expect_is(results, 'data.frame')
+	results <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+	expect_null(results)
+}
+
+# Test RT matching limits {{{1
+################################################################
+
+test.mass.csv.file.rt.matching.limits <- function(db) {
+
+	# Define db data frame
+	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', chrom.col.id = "col1", chrom.rt = 5.69, chrom.rt.unit = 'min', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+
+	expect_true(F)
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -264,4 +310,6 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('We can search for precursor M/Z values without peak.attr column defined.', 'test.getMzValues.without.peak.attr', db)
 	run.db.test.that('Old column names are still recognized.', 'test.mass.csv.file.old.col.names', db)
 	run.db.test.that('Peaks table of entry has official field names.', 'test.mass.csv.file.entry.peaks.table.col.names', db)
+	run.db.test.that('M/Z matching limits (mz.min and mz.max) are respected.', 'test.mass.csv.file.mz.matching.limits', db)
+	run.db.test.that('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', db)
 }

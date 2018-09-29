@@ -104,10 +104,14 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type
 		.self$message('error', 'Only character fields can be case insensitive.')
 	.case.insensitive <<- case.insensitive
 
+	# Lower case
+	if (lower.case && class != 'character')
+		.self$message('error', 'Only character fields can be forced to lower case.')
+	.lower.case <<- lower.case
+
 	# Set other fields
 	.forbids.duplicates <<- forbids.duplicates
 	.db.id <<- db.id
-	.lower.case <<- lower.case
 
 })
 
@@ -187,22 +191,26 @@ BiodbEntryField$methods( isEnumerated = function() {
 
 BiodbEntryField$methods( correctValue = function(value) {
 
+	# Correct type
+	if (.self$isVector() && .self$getClass() != class(value))
+		value <- as.vector(value, mode = .self$getClass())
+
 	# Lower case
 	if (.self$.lower.case)
 		value <- tolower(value)
 
 	# Enumerated type
-	if (.self$isEnumerated() && class(.self$.allowed.values) == 'list') {
-		if (length(value) > 1)
-			.self$message('error', paste('You cannot set multiple values (', paste(value, collapse = ', '), ') for enumerated field ', .self$getName(), '.', sep = ''))
-		for (n in names(.self$.allowed.values))
-			if (value %in% .self$.allowed.values[[n]]) {
-				value <- n
-				break
-			}
-	}
+	if (.self$isEnumerated() && class(.self$.allowed.values) == 'list')
+		value <- vapply(value, function(v) { match <- vapply(.self$.allowed.values, function(a) v %in% a, FUN.VALUE = TRUE) ; if (any(match)) names(.self$.allowed.values)[match] else v }, FUN.VALUE = as.vector(0, mode = .self$getClass()))
 
 	return(value)
+})
+
+# Is enumerate {{{1
+################################################################
+
+BiodbEntryField$methods( isEnumerate = function() {
+	return( ! is.null(.self$.allowed.values))
 })
 
 # Get allowed values {{{1
@@ -231,7 +239,7 @@ BiodbEntryField$methods( checkValue = function(value) {
 
 	bad.values <- value[ ! value %in% .self$getAllowedValues()]
 	if (.self$isEnumerated() && length(bad.values) > 0)
-		.self$message('error', paste('Value(s) ', paste(bad.values, collapse = ', '), ' is/are not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse = ', '), '.', sep = ''))
+		.self$message('error', paste('Value(s) ', paste(bad.values[ ! duplicated(bad.values)], collapse = ', '), ' is/are not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse = ', '), '.', sep = ''))
 })
 
 # Has card one {{{1
