@@ -273,6 +273,8 @@ test.mass.csv.file.mz.matching.limits <- function(db) {
 	mz.inf <- mz / ( 1 +  ( - mz.shift + mz.tol) * 1e-6)
 
 	# Search
+	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+	expect_is(results, 'data.frame')
 	results <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
 	expect_is(results, 'data.frame')
 	results <- conn$searchMsPeaks(mz.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
@@ -293,7 +295,41 @@ test.mass.csv.file.rt.matching.limits <- function(db) {
 	# Define db data frame
 	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', chrom.col.id = "col1", chrom.rt = 5.69, chrom.rt.unit = 'min', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
 
-	expect_true(F)
+	# Create connector
+	new.biodb <- create.biodb.instance()
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(db.df)
+
+	# M/Z matching values
+	mz.shift <- 0
+	mz.tol <- 5
+	mz.tol.unit <- 'ppm'
+	mz <- db.df[['peak.mztheo']]
+
+	# RT matching values
+	x <- 5.0
+	y <- 0.8
+	col.id <-db.df[['chrom.col.id']]
+	rt <- db.df[['chrom.rt']]
+	rt.unit <- db.df[['chrom.rt.unit']]
+	if (rt.unit == 'min')
+		x <- x / 60.0
+	rt.sup <- uniroot(function(x) x * 60 - 5.0 - (x * 60) ^ 0.8 - 5.69 * 60, c(0,20))$root
+	rt.inf <- uniroot(function(x) x * 60 + 5.0 + (x * 60) ^ 0.8 - 5.69 * 60, c(0,20))$root
+
+	# Search
+	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results, 'data.frame')
+	results <- conn$searchMsPeaks((rt.inf + rt.sup) / 2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results, 'data.frame')
+	results <- conn$searchMsPeaks(rt.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results, 'data.frame')
+	results <- conn$searchMsPeaks(rt.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_null(results)
+	results <- conn$searchMsPeaks(rt.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results, 'data.frame')
+	results <- conn$searchMsPeaks(rt.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_null(results)
 }
 
 # Run Mass CSV File tests {{{1
