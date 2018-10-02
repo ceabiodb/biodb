@@ -129,7 +129,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	# Check M/Z values
@@ -139,6 +139,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift, mz.tol, mz.tol.unit
 	.self$.assert.positive(mzs)
 	.self$.assert.positive(mz.tol)
 	.self$.assert.length.one(mz.tol)
+	.self$.assert.length.one(mz.shift)
 	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
 
 	# Check RT values
@@ -320,12 +321,12 @@ MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level =
 MassdbConn$methods( .mztolToRange = function(mz, mz.shift, mz.tol, mz.tol.unit) {
 
 	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM) {
-		mz.min <- mz + mz * ( - mz.shift - mz.tol) * 1e-6
-		mz.max <- mz + mz * ( - mz.shift + mz.tol) * 1e-6
+		mz.min <- mz + mz * ( mz.shift - mz.tol) * 1e-6
+		mz.max <- mz + mz * ( mz.shift + mz.tol) * 1e-6
 	}
 	else {
-		mz.min <- mz - mz.shift - mz.tol
-		mz.max <- mz - mz.shift + mz.tol
+		mz.min <- mz + mz.shift - mz.tol
+		mz.max <- mz + mz.shift + mz.tol
 	}
 
 
@@ -337,7 +338,7 @@ MassdbConn$methods( .mztolToRange = function(mz, mz.shift, mz.tol, mz.tol.unit) 
 
 MassdbConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 
-	range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
+	range <- .self$.mztolToRange(mz = mz, mz.shift = 0.0, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 
 	return(.self$searchMzRange(mz.min = range$min, mz.max = range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })

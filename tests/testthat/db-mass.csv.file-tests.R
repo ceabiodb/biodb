@@ -263,28 +263,30 @@ test.mass.csv.file.mz.matching.limits <- function(db) {
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(db.df)
 
-	# Compute mz.min and mz.max
-	mz.shift <- 0
-	mz.tol <- 5
-	mz.tol.unit <- 'ppm'
-	mz <- db.df[['peak.mztheo']]
-	mz.sup <- mz / ( 1 + ( - mz.shift - mz.tol) * 1e-6)
-	mz.sup <- mz.sup - 1e-8 # Adjustment needed, due to computing differences.
-	mz.inf <- mz / ( 1 +  ( - mz.shift + mz.tol) * 1e-6)
+	# Try different values of M/Z shift
+	for (mz.shift in c(0, -2)) {
+		mz.tol <- 5
+		# Compute mz.min and mz.max
+		mz.tol.unit <- 'ppm'
+		mz <- db.df[['peak.mztheo']]
+		mz.sup <- mz / ( 1 + ( mz.shift - mz.tol) * 1e-6)
+		mz.sup <- mz.sup - 1e-8 # Adjustment needed, due to computing differences.
+		mz.inf <- mz / ( 1 +  ( mz.shift + mz.tol) * 1e-6)
 
-	# Search
-	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks(mz.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-	expect_null(results)
-	results <- conn$searchMsPeaks(mz.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-	expect_null(results)
+		# Search
+		results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results, 'data.frame')
+		results <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results, 'data.frame')
+		results <- conn$searchMsPeaks(mz.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results, 'data.frame')
+		results <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_null(results)
+		results <- conn$searchMsPeaks(mz.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results, 'data.frame')
+		results <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_null(results)
+	}
 }
 
 # Test RT matching limits {{{1
