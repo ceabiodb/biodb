@@ -185,7 +185,7 @@ test.field.card.one <- function(db) {
 	conn$setField('accession', 'ids')
 	conn$setField('ms.mode', 'mode')
 	conn$setField('peak.mztheo', 'mz')
-	expect_error(conn$checkDb(), regexp = '^.*You cannot set multiple values .* for enumerated field ms.mode.$')
+	expect_error(conn$checkDb(), regexp = '^.* Cannot set more that one value .* into single value field .*\\.$')
 
 	new.biodb$terminate()
 }
