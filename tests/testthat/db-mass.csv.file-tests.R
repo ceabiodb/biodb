@@ -147,6 +147,7 @@ test.fields <- function(db) {
 
 test.undefined.fields <- function(db) {
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.HEADER.URL)
 	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are undefined in file database\\.$')
 	new.biodb$terminate()
@@ -157,6 +158,7 @@ test.undefined.fields <- function(db) {
 
 test.wrong.nb.cols <- function(db) {
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.NB.COLS.URL)
 	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
 	new.biodb$terminate()
@@ -175,6 +177,7 @@ test.field.card.one <- function(db) {
 
 	# Create connector
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(df)
 
@@ -198,6 +201,7 @@ test.getMzValues.without.peak.attr <- function(db) {
 
 	# Create connector
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(df)
 
@@ -210,6 +214,9 @@ test.getMzValues.without.peak.attr <- function(db) {
 	mzs <- conn$getMzValues(max.results = 10, precursor = TRUE, ms.mode = 'pos')
 	expect_is(mzs, 'numeric')
 	expect_length(mzs, 0)
+	
+	# Close Biodb instance
+	new.biodb$terminate()
 }
 
 # Test col names of entry peaks table {{{1
@@ -225,6 +232,7 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(db) {
 
 	# Create connector
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(df)
 	conn$setField('ms.mode', 'mode')
@@ -248,6 +256,9 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(db) {
 
 	# Check that colnames of peaks table are all official field names (not aliases)
 	expect_true(all(vapply(names(peaks), function(field) new.biodb$getEntryFields()$get(field)$getName() == field, FUN.VALUE = FALSE)))
+	
+	# Close Biodb instance
+	new.biodb$terminate()
 }
 
 # Test M/Z matching limits {{{1
@@ -260,6 +271,7 @@ test.mass.csv.file.mz.matching.limits <- function(db) {
 
 	# Create connector
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(db.df)
 
@@ -287,6 +299,9 @@ test.mass.csv.file.mz.matching.limits <- function(db) {
 		results <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
 		expect_null(results)
 	}
+	
+	# Close Biodb instance
+	new.biodb$terminate()
 }
 
 # Test RT matching limits {{{1
@@ -299,6 +314,7 @@ test.mass.csv.file.rt.matching.limits <- function(db) {
 
 	# Create connector
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(db.df)
 
@@ -313,25 +329,27 @@ test.mass.csv.file.rt.matching.limits <- function(db) {
 	y <- 0.8
 	col.id <-db.df[['chrom.col.id']]
 	rt <- db.df[['chrom.rt']]
-	rt.unit <- db.df[['chrom.rt.unit']]
-	if (rt.unit == 'min')
-		x <- x / 60.0
-	rt.sup <- uniroot(function(x) x * 60 - 5.0 - (x * 60) ^ 0.8 - 5.69 * 60, c(0,20))$root
-	rt.inf <- uniroot(function(x) x * 60 + 5.0 + (x * 60) ^ 0.8 - 5.69 * 60, c(0,20))$root
+	rt.sec <- if (db.df[['chrom.rt.unit']] == 'min') rt * 60 else rt
+	rt.unit <- 's'
+	rt.sup <- uniroot(function(rt) rt - x - (rt) ^ y - rt.sec, c(0,1000))$root
+	rt.inf <- uniroot(function(rt) rt + x + (rt) ^ y - rt.sec, c(0,1000))$root
 
 	# Search
-	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
-	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks((rt.inf + rt.sup) / 2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
-	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks(rt.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
-	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks(rt.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
-	expect_null(results)
-	results <- conn$searchMsPeaks(rt.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
-	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks(rt.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
-	expect_null(results)
+	results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sec, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results1, 'data.frame')
+	results2 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = (rt.inf + rt.sup) / 2, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results2, 'data.frame')
+	results3 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.inf, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results3, 'data.frame')
+	results4 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_null(results4)
+	results5 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sup, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results5, 'data.frame')
+	results6 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_null(results6)
+	
+	# Close Biodb instance
+	new.biodb$terminate()
 }
 
 # Run Mass CSV File tests {{{1

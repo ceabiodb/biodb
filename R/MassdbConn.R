@@ -187,6 +187,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
 
 		# Select rows with matching RT values
+		
 		if  (match.rt) {
 
 			rt <- rts[[i]]
@@ -210,30 +211,33 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 			tmp <- list()
 			for (e in entries) {
 
-				# Get RT min and max for this entry
+				# Get RT min and max for this column, in seconds
 				if (e$hasField('chrom.rt')) {
-					rt.val <- .self$.convert.rt(e$getFieldValue('chrom.rt'), e$getFieldValue('chrom.rt.unit'), 's')
-					rt.min.val <- rt.val
-					rt.max.val <- rt.val
+					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt'), e$getFieldValue('chrom.rt.unit'), 's')
+					rt.col.max <- rt.col.min
 				} else if (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max')) {
-					rt.min.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), e$getFieldValue('chrom.rt.unit'), 's')
-					rt.max.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), e$getFieldValue('chrom.rt.unit'), 's')
+					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), e$getFieldValue('chrom.rt.unit'), 's')
+					rt.col.max <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), e$getFieldValue('chrom.rt.unit'), 's')
 				} else
 					.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
 
-				# Apply tolerances
-				if ( ! is.na(rt.tol.exp)) {
-					rt.min.val <- rt.min.val ** rt.tol.exp
-					rt.max.val <- rt.max.val ** rt.tol.exp
-				}
+				# Compute RT range for this input, in seconds
+				rt.sec <- .self$.convert.rt(rt, rt.unit, 's')
+				rt.min <- rt.sec
+				rt.max <- rt.sec
 				if ( ! is.na(rt.tol)) {
-					rt.min.val <- rt.min.val - rt.tol
-					rt.max.val <- rt.max.val + rt.tol
+					rt.tol.sec <- .self$.convert.rt(rt.tol, rt.unit, 's')
+					rt.min <- rt.min - rt.tol.sec
+					rt.max <- rt.max + rt.tol.sec
+				}
+				if ( ! is.na(rt.tol.exp)) {
+					rt.min <- rt.min - rt.sec ** rt.tol.exp
+					rt.max <- rt.max + rt.sec ** rt.tol.exp
 				}
 
 				# Test and possibly keep entry
-				.self$message('debug', paste0('Testing if RT value ', rt, ' (s) of entry ', e$getFieldValue('accession'), ' is in range [', rt.min.val, ';', rt.max.val, '] (s).'))
-				if ((rt.min.val <= rt) && (rt.max.val >= rt))
+				.self$message('debug', paste0('Testing if RT value ', rt, ' (', rt.unit, ') is in range [', rt.col.min, ';', rt.col.max, '] (s) of database entry ', e$getFieldValue('accession'), '. Used range (after applying tolerances) for RT value is [', rt.min, ', ', rt.max, '] (s).'))
+				if ((rt.max >= rt.col.min) && (rt.min <= rt.col.max))
 					tmp <- c(tmp, e)
 			}
 			entries <- tmp
