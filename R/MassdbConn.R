@@ -155,11 +155,11 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 		.self$.assert.in(rt.unit, c('s', 'min'))
 		.self$.assert.length.one(rt.unit)
 
-		# Convert input RT values in seconds
-		if (rt.unit != 's') {
-			rts <- .self$.convert.rt(rts, rep(rt.unit, length(rts)), rep('s', length(rts)))
-			rt.tol <- .self$.convert.rt(rt.tol, rt.unit, 's')
-		}
+#		# Convert input RT values in seconds
+#		if (rt.unit != 's') {
+#			rts <- .self$.convert.rt(rts, rep(rt.unit, length(rts)), rep('s', length(rts)))
+#			rt.tol <- .self$.convert.rt(rt.tol, rt.unit, 's')
+#		}
 	}
 
 	# Check other parameters
@@ -212,12 +212,13 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 			for (e in entries) {
 
 				# Get RT min and max for this column, in seconds
+				rt.col.unit <- e$getFieldValue('chrom.rt.unit')
 				if (e$hasField('chrom.rt')) {
-					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt'), e$getFieldValue('chrom.rt.unit'), 's')
+					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt'), rt.col.unit, 's')
 					rt.col.max <- rt.col.min
 				} else if (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max')) {
-					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), e$getFieldValue('chrom.rt.unit'), 's')
-					rt.col.max <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), e$getFieldValue('chrom.rt.unit'), 's')
+					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), rt.col.unit, 's')
+					rt.col.max <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), rt.col.unit, 's')
 				} else
 					.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
 
@@ -236,7 +237,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 				}
 
 				# Test and possibly keep entry
-				.self$message('debug', paste0('Testing if RT value ', rt, ' (', rt.unit, ') is in range [', rt.col.min, ';', rt.col.max, '] (s) of database entry ', e$getFieldValue('accession'), '. Used range (after applying tolerances) for RT value is [', rt.min, ', ', rt.max, '] (s).'))
+				.self$message('debug', paste0('Testing if RT value ', rt, ' (', rt.unit, ') is in range [', rt.col.min, ';', rt.col.max, '] (', rt.col.unit, ') of database entry ', e$getFieldValue('accession'), '. Used range (after applying tolerances) for RT value is [', rt.min, ', ', rt.max, '] (s).'))
 				if ((rt.max >= rt.col.min) && (rt.min <= rt.col.max))
 					tmp <- c(tmp, e)
 			}
