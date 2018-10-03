@@ -147,6 +147,7 @@ test.fields <- function(db) {
 
 test.undefined.fields <- function(db) {
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.HEADER.URL)
 	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are undefined in file database\\.$')
 	new.biodb$terminate()
@@ -157,6 +158,7 @@ test.undefined.fields <- function(db) {
 
 test.wrong.nb.cols <- function(db) {
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId(), url = MASSFILEDB.WRONG.NB.COLS.URL)
 	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
 	new.biodb$terminate()
@@ -175,6 +177,7 @@ test.field.card.one <- function(db) {
 
 	# Create connector
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(df)
 
@@ -182,7 +185,7 @@ test.field.card.one <- function(db) {
 	conn$setField('accession', 'ids')
 	conn$setField('ms.mode', 'mode')
 	conn$setField('peak.mztheo', 'mz')
-	expect_error(conn$checkDb(), regexp = '^.*You cannot set multiple values .* for enumerated field ms.mode.$')
+	expect_error(conn$checkDb(), regexp = '^.* Cannot set more that one value .* into single value field .*\\.$')
 
 	new.biodb$terminate()
 }
@@ -198,6 +201,7 @@ test.getMzValues.without.peak.attr <- function(db) {
 
 	# Create connector
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(df)
 
@@ -210,6 +214,9 @@ test.getMzValues.without.peak.attr <- function(db) {
 	mzs <- conn$getMzValues(max.results = 10, precursor = TRUE, ms.mode = 'pos')
 	expect_is(mzs, 'numeric')
 	expect_length(mzs, 0)
+	
+	# Close Biodb instance
+	new.biodb$terminate()
 }
 
 # Test col names of entry peaks table {{{1
@@ -225,6 +232,7 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(db) {
 
 	# Create connector
 	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
 	conn <- new.biodb$getFactory()$createConn(db$getId())
 	conn$setDb(df)
 	conn$setField('ms.mode', 'mode')
@@ -248,6 +256,100 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(db) {
 
 	# Check that colnames of peaks table are all official field names (not aliases)
 	expect_true(all(vapply(names(peaks), function(field) new.biodb$getEntryFields()$get(field)$getName() == field, FUN.VALUE = FALSE)))
+	
+	# Close Biodb instance
+	new.biodb$terminate()
+}
+
+# Test M/Z matching limits {{{1
+################################################################
+
+test.mass.csv.file.mz.matching.limits <- function(db) {
+
+	# Define db data frame
+	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+
+	# Create connector
+	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(db.df)
+
+	# Try different values of M/Z shift
+	for (mz.shift in c(0, -2)) {
+		mz.tol <- 5
+		# Compute mz.min and mz.max
+		mz.tol.unit <- 'ppm'
+		mz <- db.df[['peak.mztheo']]
+		mz.sup <- mz / ( 1 + ( mz.shift - mz.tol) * 1e-6)
+		mz.sup <- mz.sup - 1e-8 # Adjustment needed, due to computing differences.
+		mz.inf <- mz / ( 1 +  ( mz.shift + mz.tol) * 1e-6)
+
+		# Search
+		results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results, 'data.frame')
+		results <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results, 'data.frame')
+		results <- conn$searchMsPeaks(mz.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results, 'data.frame')
+		results <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_null(results)
+		results <- conn$searchMsPeaks(mz.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results, 'data.frame')
+		results <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_null(results)
+	}
+	
+	# Close Biodb instance
+	new.biodb$terminate()
+}
+
+# Test RT matching limits {{{1
+################################################################
+
+test.mass.csv.file.rt.matching.limits <- function(db) {
+
+	# Define db data frame
+	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', chrom.col.id = "col1", chrom.rt = 5.69, chrom.rt.unit = 'min', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+
+	# Create connector
+	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(db.df)
+
+	# M/Z matching values
+	mz.shift <- 0
+	mz.tol <- 5
+	mz.tol.unit <- 'ppm'
+	mz <- db.df[['peak.mztheo']]
+
+	# RT matching values
+	x <- 5.0
+	y <- 0.8
+	col.id <-db.df[['chrom.col.id']]
+	rt <- db.df[['chrom.rt']]
+	rt.sec <- if (db.df[['chrom.rt.unit']] == 'min') rt * 60 else rt
+	rt.unit <- 's'
+	rt.sup <- uniroot(function(rt) rt - x - (rt) ^ y - rt.sec, c(0,1000))$root
+	rt.inf <- uniroot(function(rt) rt + x + (rt) ^ y - rt.sec, c(0,1000))$root
+
+	# Search
+	results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sec, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results1, 'data.frame')
+	results2 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = (rt.inf + rt.sup) / 2, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results2, 'data.frame')
+	results3 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.inf, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results3, 'data.frame')
+	results4 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_null(results4)
+	results5 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sup, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_is(results5, 'data.frame')
+	results6 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	expect_null(results6)
+	
+	# Close Biodb instance
+	new.biodb$terminate()
 }
 
 # Run Mass CSV File tests {{{1
@@ -264,4 +366,6 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('We can search for precursor M/Z values without peak.attr column defined.', 'test.getMzValues.without.peak.attr', db)
 	run.db.test.that('Old column names are still recognized.', 'test.mass.csv.file.old.col.names', db)
 	run.db.test.that('Peaks table of entry has official field names.', 'test.mass.csv.file.entry.peaks.table.col.names', db)
+	run.db.test.that('M/Z matching limits (mz.min and mz.max) are respected.', 'test.mass.csv.file.mz.matching.limits', db)
+	run.db.test.that('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', db)
 }
