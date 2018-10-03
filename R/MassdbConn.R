@@ -154,12 +154,6 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 		.self$.assert.not.na(rt.unit)
 		.self$.assert.in(rt.unit, c('s', 'min'))
 		.self$.assert.length.one(rt.unit)
-
-#		# Convert input RT values in seconds
-#		if (rt.unit != 's') {
-#			rts <- .self$.convert.rt(rts, rep(rt.unit, length(rts)), rep('s', length(rts)))
-#			rt.tol <- .self$.convert.rt(rt.tol, rt.unit, 's')
-#		}
 	}
 
 	# Check other parameters
