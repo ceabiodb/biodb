@@ -129,7 +129,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	# Check M/Z values
@@ -139,6 +139,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 	.self$.assert.positive(mzs)
 	.self$.assert.positive(mz.tol)
 	.self$.assert.length.one(mz.tol)
+	.self$.assert.length.one(mz.shift)
 	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
 
 	# Check RT values
@@ -153,17 +154,11 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		.self$.assert.not.na(rt.unit)
 		.self$.assert.in(rt.unit, c('s', 'min'))
 		.self$.assert.length.one(rt.unit)
-
-		# Convert input RT values in seconds
-		if (rt.unit != 's') {
-			rts <- .self$.convert.rt(rts, rep(rt.unit, length(rts)), rep('s', length(rts)))
-			rt.tol <- .self$.convert.rt(rt.tol, rt.unit, 's')
-		}
 	}
 
 	# Check other parameters
 	.self$.assert.positive(min.rel.int)
-	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
+	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
 	.self$.assert.positive(max.results)
 
 	results <- NULL
@@ -173,9 +168,12 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 	for (i in seq_along(mzs)) {
 		mz <- mzs[[i]]
 
+		# Compute M/Z range
+		mz.range <- .self$.mztolToRange(mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
-		ids <- .self$searchMzTol(mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level)
+		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level)
 		.self$message('debug', paste0('Found ', length(ids), ' spectra:', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
 
 		# Get entries
@@ -183,6 +181,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
 
 		# Select rows with matching RT values
+		
 		if  (match.rt) {
 
 			rt <- rts[[i]]
@@ -206,30 +205,34 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 			tmp <- list()
 			for (e in entries) {
 
-				# Get RT min and max for this entry
+				# Get RT min and max for this column, in seconds
+				rt.col.unit <- e$getFieldValue('chrom.rt.unit')
 				if (e$hasField('chrom.rt')) {
-					rt.val <- .self$.convert.rt(e$getFieldValue('chrom.rt'), e$getFieldValue('chrom.rt.unit'), 's')
-					rt.min.val <- rt.val
-					rt.max.val <- rt.val
+					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt'), rt.col.unit, 's')
+					rt.col.max <- rt.col.min
 				} else if (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max')) {
-					rt.min.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), e$getFieldValue('chrom.rt.unit'), 's')
-					rt.max.val <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), e$getFieldValue('chrom.rt.unit'), 's')
+					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), rt.col.unit, 's')
+					rt.col.max <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), rt.col.unit, 's')
 				} else
 					.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
 
-				# Apply tolerances
-				if ( ! is.na(rt.tol.exp)) {
-					rt.min.val <- rt.min.val ** rt.tol.exp
-					rt.max.val <- rt.max.val ** rt.tol.exp
-				}
+				# Compute RT range for this input, in seconds
+				rt.sec <- .self$.convert.rt(rt, rt.unit, 's')
+				rt.min <- rt.sec
+				rt.max <- rt.sec
 				if ( ! is.na(rt.tol)) {
-					rt.min.val <- rt.min.val - rt.tol
-					rt.max.val <- rt.max.val + rt.tol
+					rt.tol.sec <- .self$.convert.rt(rt.tol, rt.unit, 's')
+					rt.min <- rt.min - rt.tol.sec
+					rt.max <- rt.max + rt.tol.sec
+				}
+				if ( ! is.na(rt.tol.exp)) {
+					rt.min <- rt.min - rt.sec ** rt.tol.exp
+					rt.max <- rt.max + rt.sec ** rt.tol.exp
 				}
 
 				# Test and possibly keep entry
-				.self$message('debug', paste0('Testing if RT value ', rt, ' (s) of entry ', e$getFieldValue('accession'), ' is in range [', rt.min.val, ';', rt.max.val, '] (s).'))
-				if ((rt.min.val <= rt) && (rt.max.val >= rt))
+				.self$message('debug', paste0('Testing if RT value ', rt, ' (', rt.unit, ') is in range [', rt.col.min, ';', rt.col.max, '] (', rt.col.unit, ') of database entry ', e$getFieldValue('accession'), '. Used range (after applying tolerances) for RT value is [', rt.min, ', ', rt.max, '] (s).'))
+				if ((rt.max >= rt.col.min) && (rt.min <= rt.col.max))
 					tmp <- c(tmp, e)
 			}
 			entries <- tmp
@@ -250,7 +253,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.tol, mz.tol.unit = BIODB.M
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
 		
 		# Select lines with right M/Z values
-		mz.range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
+		mz.range <- .self$.mztolToRange(mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 		.self$message('debug', paste("Filtering entries data frame on M/Z range [", mz.range$min, ', ', mz.range$max, '].', sep = ''))
 		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
@@ -314,13 +317,17 @@ MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level =
 # PRIVATE METHODS {{{1
 ################################################################
 
-MassdbConn$methods( .mztolToRange = function(mz, mz.tol, mz.tol.unit) {
+MassdbConn$methods( .mztolToRange = function(mz, mz.shift, mz.tol, mz.tol.unit) {
 
-	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
-		mz.tol <- mz.tol * mz * 1e-6
+	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM) {
+		mz.min <- mz + mz * ( mz.shift - mz.tol) * 1e-6
+		mz.max <- mz + mz * ( mz.shift + mz.tol) * 1e-6
+	}
+	else {
+		mz.min <- mz + mz.shift - mz.tol
+		mz.max <- mz + mz.shift + mz.tol
+	}
 
-	mz.min <- mz - mz.tol
-	mz.max <- mz + mz.tol
 
 	return(list(min = mz.min, max = mz.max))
 })
@@ -330,7 +337,7 @@ MassdbConn$methods( .mztolToRange = function(mz, mz.tol, mz.tol.unit) {
 
 MassdbConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 
-	range <- .self$.mztolToRange(mz, mz.tol, mz.tol.unit)
+	range <- .self$.mztolToRange(mz = mz, mz.shift = 0.0, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 
 	return(.self$searchMzRange(mz.min = range$min, mz.max = range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })

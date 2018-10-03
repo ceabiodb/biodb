@@ -159,6 +159,18 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 	              
 	# One column used, only
 	if (length(colname) == 1) {
+
+		# Check values
+		if (.self$getBiodb()$getEntryFields()$isDefined(tag)) {
+			entry.field <- .self$getBiodb()$getEntryFields()$get(tag)
+			if (entry.field$isEnumerate()) {
+				entry.field$checkValue(.self$.db[[colname]])
+				.self$.db[[colname]] <- entry.field$correctValue(.self$.db[[colname]])
+			}
+		}
+
+
+		# Set field
 		.self$.fields[[tag]] <- colname
 	}
 
@@ -396,6 +408,8 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		# Now we select the M/Z values that are in all ranges listed in mz.min/mz.max.
 		if (is.matrix(s))
 			s <- apply(s, 1, function(x) Reduce("&", x))
+		else if (is.list(s))
+			s <- unlist(s)
 
 		db <- db[s, ]
 	}
