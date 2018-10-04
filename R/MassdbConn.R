@@ -27,8 +27,8 @@
 #' @param spectrum      A template spectrum to match inside the database.
 #' @param rts           Retention times to match. Unit is specified by rt.unit parameter.
 #' @param rt.unit       The unit for submitted retention times. Either 's' or 'min'.
-#' @param rt.tol        The plain tolerance for retention times: rt - rt.tol <= input.rt <= rt + rt.tol. Unit is the same as rts, and is specified by rt.unit parameter.
-#' @param rt.tol.exp    A special exponent tolerance for retention times: rt - rt.tol - rt ** rt.tol.exp <= input.rt <= rt + rt.tol + rt ** rt.tol.exp. This exponent is applied on the RT value in seconds.
+#' @param rt.tol        The plain tolerance (in seconds) for retention times: input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp    A special exponent tolerance for retention times: input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt ** rt.tol.exp. This exponent is applied on the RT value in seconds. If both rt.tol and rt.tol.exp are set, the inequality expression becomes:  input.rt - rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol + input.rt ** rt.tol.exp.
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
@@ -129,7 +129,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	# Check M/Z values
@@ -141,6 +141,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 	.self$.assert.length.one(mz.tol)
 	.self$.assert.length.one(mz.shift)
 	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
+	.self$.assert.is(precursor, 'logical')
 
 	# Check RT values
 	match.rt <- ! is.null(rts) && ! all(is.na(rts))
@@ -173,7 +174,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
-		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level)
+		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level, precursor = precursor)
 		.self$message('debug', paste0('Found ', length(ids), ' spectra:', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
 
 		# Get entries
@@ -220,18 +221,22 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 				rt.sec <- .self$.convert.rt(rt, rt.unit, 's')
 				rt.min <- rt.sec
 				rt.max <- rt.sec
+				.self$message('debug', paste0('At step 1, RT range is [', rt.min, ', ', rt.max, '] (s).'))
 				if ( ! is.na(rt.tol)) {
-					rt.tol.sec <- .self$.convert.rt(rt.tol, rt.unit, 's')
-					rt.min <- rt.min - rt.tol.sec
-					rt.max <- rt.max + rt.tol.sec
+					.self$message('debug', paste0('RT tol is ', rt.tol, ' (s).'))
+					rt.min <- rt.min - rt.tol
+					rt.max <- rt.max + rt.tol
 				}
+				.self$message('debug', paste0('At step 2, RT range is [', rt.min, ', ', rt.max, '] (s).'))
 				if ( ! is.na(rt.tol.exp)) {
+					.self$message('debug', paste0('RT tol exp is ', rt.tol.exp, '.'))
 					rt.min <- rt.min - rt.sec ** rt.tol.exp
 					rt.max <- rt.max + rt.sec ** rt.tol.exp
 				}
+				.self$message('debug', paste0('At step 3, RT range is [', rt.min, ', ', rt.max, '] (s).'))
 
 				# Test and possibly keep entry
-				.self$message('debug', paste0('Testing if RT value ', rt, ' (', rt.unit, ') is in range [', rt.col.min, ';', rt.col.max, '] (', rt.col.unit, ') of database entry ', e$getFieldValue('accession'), '. Used range (after applying tolerances) for RT value is [', rt.min, ', ', rt.max, '] (s).'))
+				.self$message('debug', paste0('Testing if RT value ', rt, ' (', rt.unit, ') is in range [', rt.col.min, ';', rt.col.max, '] (s) of database entry ', e$getFieldValue('accession'), '. Used range (after applying tolerances) for RT value is [', rt.min, ', ', rt.max, '] (s).'))
 				if ((rt.max >= rt.col.min) && (rt.min <= rt.col.max))
 					tmp <- c(tmp, e)
 			}
