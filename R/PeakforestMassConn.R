@@ -316,7 +316,7 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 		# Set URL
 		url <- paste(.self$getBaseUrl(), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
 		if ( ! is.na(ms.mode))
-			url <- paste(url, '&mode=', if (ms.mode == BIODB.MSMODE.POS) 'positive' else 'negative', sep ='')
+			url <- paste(url, '&mode=', if (ms.mode == 'pos') 'positive' else 'negative', sep ='')
 
 		# Get MZ values
 		json.str <- .self$.getUrlScheduler()$getUrl(url)

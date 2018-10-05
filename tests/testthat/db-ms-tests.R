@@ -90,7 +90,7 @@ test.msmsSearch.null.spectrum <- function(db) {
 
 test.getMzValues <- function(db) {
 	max <- 10
-	for (mode in c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)) {
+	for (mode in c('neg', 'pos')) {
 		mz <- db$getMzValues(ms.mode = mode, max.results = max)
 		expect_true(is.double(mz))
 		n <- length(mz)
@@ -104,7 +104,7 @@ test.getMzValues <- function(db) {
 test.searchMzTol <- function(db) {
 
 	# Get M/Z values from database
-	mode <- BIODB.MSMODE.POS
+	mode <-'pos' 
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
 	expect_true(is.double(mzs))
 	expect_true(length(mzs) >= 1)
@@ -125,7 +125,7 @@ test.searchMzTol.multiple.mz <- function(db) {
 	mz.tol <- 0.0001
 
 	# Get M/Z values from database
-	mode <- BIODB.MSMODE.POS
+	mode <- 'pos'
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
 	expect_true(is.double(mzs))
 	expect_true(length(mzs) >= 1)

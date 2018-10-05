@@ -13,7 +13,7 @@
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).
 #' @param ms.level      The MS level to which you want to restrict your search. \code{0} means that you want to serach in all levels.
-#' @param ms.mode       The MS mode. Set it to either \code{BIODB.MSMODE.NEG} or \code{BIODB.MSMODE.POS}.
+#' @param ms.mode       The MS mode. Set it to either \code{'neg'} or \code{'pos'}.
 #' @param msms.mz.tol       M/Z tolerance to apply while matching MSMS spectra. In PPM.
 #' @param msms.mz.tol.min   Minimum of the M/Z tolerance (plain unit). If the M/Z tolerance computed with \code{msms.mz.tol} is lower than \code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.
 #' @param mz            An M/Z value.
@@ -97,7 +97,8 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 	.self$.assert.positive(mz.max)
 	.self$.assert.inferior(mz.min, mz.max)
 	.self$.assert.positive(min.rel.int)
-	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
+	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
+	ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
 	.self$.assert.positive(max.results)
 	.self$.assert.positive(ms.level)
 	if (length(mz.min) != length(mz.max))
@@ -119,7 +120,8 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 	.self$.assert.length.one(mz.tol)
 	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
 	.self$.assert.positive(min.rel.int)
-	.self$.assert.in(ms.mode, BIODB.MSMODE.VALS)
+	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
+	ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
 	.self$.assert.positive(max.results)
 	.self$.assert.positive(ms.level)
 
@@ -160,6 +162,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 	# Check other parameters
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
+	ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
 	.self$.assert.positive(max.results)
 
 	results <- NULL
