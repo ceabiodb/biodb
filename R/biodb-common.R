@@ -9,10 +9,9 @@ for (db in BIODB.DATABASES) {
 	assign(toupper(paste('biodb', db, sep = '.')), db)
 }
 
-# Mode values
+# DEPRECATED Mode values
 BIODB.MSMODE.NEG <- 'neg'
 BIODB.MSMODE.POS <- 'pos'
-BIODB.MSMODE.VALS <- c(BIODB.MSMODE.NEG, BIODB.MSMODE.POS)
 
 # Tolerance values
 BIODB.TOL <- 'mztol'

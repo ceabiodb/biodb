@@ -9,7 +9,7 @@
 # Class declaration {{{1
 ################################################################
 
-MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = "MassdbConn", fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .ms.modes = "character", .precursors = "character"))
+MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = "MassdbConn", fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -25,8 +25,6 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	.file.quote <<- file.quote
 	.fields <<- character()
 	.field.multval.sep <<- ';'
-	.ms.modes <<- BIODB.MSMODE.VALS
-	names(.self$.ms.modes) <- BIODB.MSMODE.VALS
 
 	# Precursors
 	.precursors <<- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+", "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
@@ -188,12 +186,6 @@ MassCsvFileConn$methods( setFieldMultValSep = function(sep) {
 	.field.multval.sep <<- sep
 })
 
-# Set ms modes {{{1
-################################################################
-
-MassCsvFileConn$methods( setMsMode = function(mode, value) {
-	.self$.ms.modes[[mode]] <- value
-})
 
 # Get entry ids {{{1
 ################################################################
@@ -370,11 +362,12 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	if ( ! is.null(mode) && ! is.na(mode)) {
 
 		# Check mode value
-		mode %in% names(.self$.ms.modes) || .self$message('error', paste0("Unknown mode value '", mode, "'."))
+		ms.mode.field <- .self$getBiodb()$getEntryFields()$get('ms.mode')
+		ms.mode.field$checkValue(mode)
 		.self$.check.fields('ms.mode')
 
 		# Filter on mode
-		db <- db[db[[.self$.fields[['ms.mode']]]] %in% .self$.ms.modes[[mode]], ]
+		db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), ]
 	}
 
 	# Filter db on ids
