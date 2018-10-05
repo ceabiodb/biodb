@@ -270,8 +270,13 @@ BiodbEntryField$methods( addAllowedValue = function(key, value) {
 		.self$message('error', paste0('Field "', .self$.name, '" doesn\'t use key "', key, '" for its allowed values.'))
 
 	# Check that value is not already used
-	if (value %in% .self$getAllowedValues())
-		.self$message('error', paste0('Field "', .self$.name, '" already uses value "', value, '" for its allowed values.'))
+	if (value %in% .self$getAllowedValues()) {
+		current.key <- .self$correctValue(value)
+		if (current.key != key)
+			.self$message('error', paste0('Field "', .self$.name, '" already uses value "', value, '" for its allowed values, but with key "', current.key, '" instead of key "', key, '".'))
+		else
+			.self$message('info', paste0('Field "', .self$.name, '" already uses value "', value, '" for its allowed values, with key "', key, '".'))
+	}
 
 	# Add new value
 	.self$.allowed.values[[key]] <- c(.self$.allowed.values[[key]], value)

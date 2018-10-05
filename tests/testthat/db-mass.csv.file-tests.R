@@ -365,7 +365,8 @@ test.mass.csv.file.ms.mode.values <- function(db) {
 	new.biodb$getConfig()$disable('cache.system')
 
 	# Add new MS mode value
-	expect_error(new.biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'POS'))
+	new.biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'POS')
+	expect_error(new.biodb$getEntryFields()$get('ms.mode')$addAllowedValue('neg', 'POS'))
 	new.biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'ZZZ')
 
 	# Create connector
