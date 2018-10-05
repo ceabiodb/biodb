@@ -191,17 +191,20 @@ BiodbEntryField$methods( isEnumerated = function() {
 
 BiodbEntryField$methods( correctValue = function(value) {
 
-	# Correct type
-	if (.self$isVector() && .self$getClass() != class(value))
-		value <- as.vector(value, mode = .self$getClass())
+	if ( ! is.null(value) && ! is.na(value)) {
 
-	# Lower case
-	if (.self$.lower.case)
-		value <- tolower(value)
+		# Correct type
+		if (.self$isVector() && .self$getClass() != class(value))
+			value <- as.vector(value, mode = .self$getClass())
 
-	# Enumerated type
-	if (.self$isEnumerated() && class(.self$.allowed.values) == 'list')
-		value <- vapply(value, function(v) { for (a in names(.self$.allowed.values)) if (v == a || v %in% .self$.allowed.values[[a]]) return(a) ; return(v) }, FUN.VALUE = as.vector(0, mode = .self$getClass()), USE.NAMES = FALSE)
+		# Lower case
+		if (.self$.lower.case)
+			value <- tolower(value)
+
+		# Enumerated type
+		if (.self$isEnumerated() && class(.self$.allowed.values) == 'list')
+			value <- vapply(value, function(v) { for (a in names(.self$.allowed.values)) if (v == a || v %in% .self$.allowed.values[[a]]) return(a) ; return(v) }, FUN.VALUE = as.vector(0, mode = .self$getClass()), USE.NAMES = FALSE)
+	}
 
 	return(value)
 })
@@ -216,17 +219,67 @@ BiodbEntryField$methods( isEnumerate = function() {
 # Get allowed values {{{1
 ################################################################
 
-BiodbEntryField$methods( getAllowedValues = function() {
+BiodbEntryField$methods( getAllowedValues = function(value = NULL) {
 
 	values <- NULL
 	if ( ! is.null(.self$.allowed.values)) {
-		values <- unlist(.self$.allowed.values)
-		if ( ! is.null(names(.self$.allowed.values)))
-			values <- c(values, names(.self$.allowed.values))
-		names(values) <- NULL
+
+		# Take all values
+		if (is.null(value)) {
+			values <- unlist(.self$.allowed.values)
+			if ( ! is.null(names(.self$.allowed.values)))
+				values <- c(values, names(.self$.allowed.values))
+			names(values) <- NULL
+
+		# Get all allowed values for just one specific value (i.e.: get synonyms)
+		} else {
+
+			# Find value in keys
+			if ( ! is.null(names(.self$.allowed.values)) && value %in% names(.self$.allowed.values))
+				values <- c(value, unlist(.self$.allowed.values[[value]]))
+
+			# Search value in values
+			else {
+				for (i in seq_along(.self$.allowed.values))
+					if (value %in% .self$.allowed.values[[i]]) {
+						values <- unlist(.self$.allowed.values[[i]])
+						if ( ! is.null(names(.self$.allowed.values)))
+							values <- c(names(.self$.allowed.values)[[i]], values)
+						break
+					}
+			}
+		}
 	}
 
 	return(values)
+})
+
+# Add allowed value {{{1
+################################################################
+
+BiodbEntryField$methods( addAllowedValue = function(key, value) {
+
+	key <- tolower(key)
+	if (.self$.lower.case)
+		value <- tolower(value)
+
+	# Check that key exists
+	if (is.null(names(.self$.allowed.values)))
+		.self$message('error', paste0('Field "', .self$.name, '" doesn\'t use keys for its allowed values.'))
+	if ( ! key %in% names(.self$.allowed.values))
+		.self$message('error', paste0('Field "', .self$.name, '" doesn\'t use key "', key, '" for its allowed values.'))
+
+	# Check that value is not already used
+	if (value %in% .self$getAllowedValues()) {
+		current.key <- .self$correctValue(value)
+		if (current.key != key)
+			.self$message('error', paste0('Field "', .self$.name, '" already uses value "', value, '" for its allowed values, but with key "', current.key, '" instead of key "', key, '".'))
+		else
+			.self$message('info', paste0('Field "', .self$.name, '" already uses value "', value, '" for its allowed values, with key "', key, '".'))
+	}
+
+	# Add new value
+	.self$.allowed.values[[key]] <- c(.self$.allowed.values[[key]], value)
 })
 
 # Check value {{{1

@@ -17,8 +17,8 @@ test.basic.mass.csv.file <- function(db) {
 
 	# Test number of peaks
 	expect_gt(db$getNbPeaks(), 1)
-	expect_gt(db$getNbPeaks(mode = BIODB.MSMODE.NEG), 1)
-	expect_gt(db$getNbPeaks(mode = BIODB.MSMODE.POS), 1)
+	expect_gt(db$getNbPeaks(mode = 'neg'), 1)
+	expect_gt(db$getNbPeaks(mode = 'pos'), 1)
 	expect_equal(db$getNbPeaks(), nrow(df))
 	expect_gt(db$getNbPeaks(ids = id), 1)
 
@@ -32,8 +32,8 @@ test.basic.mass.csv.file <- function(db) {
 	expect_true(is.vector(db$getMzValues()))
 	expect_gt(length(db$getMzValues()), 1)
 	expect_error(db$getMzValues('wrong.mode.value'), silent = TRUE)
-	expect_gt(length(db$getMzValues(BIODB.MSMODE.NEG)), 1)
-	expect_gt(length(db$getMzValues(BIODB.MSMODE.POS)), 1)
+	expect_gt(length(db$getMzValues('neg')), 1)
+	expect_gt(length(db$getMzValues('pos')), 1)
 }
 
 # Test output columns {{{1
@@ -352,6 +352,41 @@ test.mass.csv.file.rt.matching.limits <- function(db) {
 	new.biodb$terminate()
 }
 
+# Test MS mode values {{{1
+################################################################
+
+test.mass.csv.file.ms.mode.values <- function(db) {
+
+	# Define db data frame
+	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'ZZZ', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+
+	# Create new Biodb instance
+	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
+
+	# Add new MS mode value
+	new.biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'POS')
+	expect_error(new.biodb$getEntryFields()$get('ms.mode')$addAllowedValue('neg', 'POS'))
+	new.biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'ZZZ')
+
+	# Create connector
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(db.df)
+	
+	# Try M/Z matching
+	mz.shift <- 0
+	mz.tol <- 5
+	mz.tol.unit <- 'ppm'
+	mz <- db.df[['peak.mztheo']]
+	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+	expect_is(results, 'data.frame')
+	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'zzz')
+	expect_is(results, 'data.frame')
+
+	# Close Biodb instance
+	new.biodb$terminate()
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -368,4 +403,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('Peaks table of entry has official field names.', 'test.mass.csv.file.entry.peaks.table.col.names', db)
 	run.db.test.that('M/Z matching limits (mz.min and mz.max) are respected.', 'test.mass.csv.file.mz.matching.limits', db)
 	run.db.test.that('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', db)
+	run.db.test.that('We can set additional values for MS mode.', 'test.mass.csv.file.ms.mode.values', db)
 }
