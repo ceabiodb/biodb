@@ -23,12 +23,12 @@
 #' @include BiodbObserver.R
 #' @export BiodbLogger
 #' @exportClass BiodbLogger
-BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY', .exclude = 'character'))
+BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY', .exclude = 'character', .close.file = 'logical'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', ...) {
+BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', close.file = TRUE, ...) {
 
 	callSuper(...)
 
@@ -46,6 +46,7 @@ BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', ...) {
 
 	# Set member field
 	.file <<- file
+	.close.file <<- close.file
 
 	# Exclude DEBUG messages
 	.exclude <<- character(0)
@@ -56,7 +57,7 @@ BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', ...) {
 ################################################################
 
 BiodbLogger$methods( terminate = function() {
-	if ( ! is.null(.self$.file) && class(.self$.file)[[1]] != 'terminal')
+	if ( .self$.close.file && ! is.null(.self$.file) && class(.self$.file)[[1]] != 'terminal')
 		close(.self$.file)
 })
 
