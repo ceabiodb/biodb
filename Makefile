@@ -38,7 +38,7 @@ conda_install_%: clean
 
 clean:
 	$(RM) src/*.o src/*.so src/*.dll
-	$(RM) -r tests/cache tests/test.log tests/output
+	$(RM) -r tests/cache tests/test.log tests/output tests/test\ *.log
 	$(RM) -r $(HOME)/.biodb.dev.*.cache
 
 .PHONY: all clean win test check vignettes install uninstall

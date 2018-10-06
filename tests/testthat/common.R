@@ -14,11 +14,6 @@ MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
 MASSFILEDB.WRONG.NB.COLS.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_nb_cols.tsv')
 
-# Global variables {{{1
-################################################################
-
-LOG.FD <- NULL
-
 # Create output directory {{{1
 ################################################################
 
@@ -124,20 +119,8 @@ TestObserver$methods( progress = function(type = 'info', msg, index, total) {
 
 get.log.file.descriptor <- function() {
 
-	if (is.null(LOG.FD)) {
-
-		# Find free log file name
-		log.index <- 0
-		while (TRUE) {
-			log.file.path <- file.path(TEST.DIR, paste0('test ', Sys.time(), if (log.index == 0) '' else paste0(' ', log.index), '.log'))
-			if ( ! file.exists(log.file.path))
-				break
-			log.index <- log.index + 1
-		}
-
-		# Open file
-		LOG.FD <- file(log.file.path, open = 'w')
-	}
+	if ( ! exists('LOG.FD'))
+		assign("LOG.FD", file(file.path(TEST.DIR, 'test.log'), open = 'w'), pos = .GlobalEnv)
 
 	return(LOG.FD)
 }
@@ -148,7 +131,7 @@ get.log.file.descriptor <- function() {
 create.biodb.instance <- function() {
 
 	# Create logger
-	logger <- BiodbLogger(file = get.log.file.descriptor())
+	logger <- BiodbLogger(file = get.log.file.descriptor(), close.file = FALSE)
 	logger$includeMsgType('debug')
 
 	# Create test observer
@@ -304,7 +287,7 @@ init.mass.csv.file.db <- function(biodb) {
 run.db.test.that <- function(msg, fct, db) {
 	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
 		db$message('info', '')
-		db$message('info', paste('Running test function', fct))
+		db$message('info', paste('Running test function', fct, 'with database', db$getId()))
 		db$message('info', '----------------------------------------------------------------')
 		db$message('info', '')
 		test_that(msg, do.call(fct, list(db)))
