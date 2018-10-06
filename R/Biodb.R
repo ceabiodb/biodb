@@ -68,12 +68,15 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 
 	# Check locale
 	.self$.check.locale()
+
+	.self$message('info', 'Created successfully new Biodb instance.')
 })
 
 # Terminate {{{1
 ################################################################
 
 Biodb$methods( terminate = function(logger = TRUE, observers = NULL, ...) {
+	.self$message('info', 'Closing Biodb instance.')
 	for (obs in .self$.observers)
 		obs$terminate()
 })
