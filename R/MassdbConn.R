@@ -167,6 +167,16 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 
 	results <- NULL
 
+	# TODO Step 1 matching of entries, possibly with precursors
+	# Get all IDs of entries if precursor is on. Use precuror.rt.tol?
+
+	# TODO Maybe not those steps:
+	# TODO Step 2 filtering on RT values. How? Each RT is linked to an M/Z value.
+
+	# TODO Step 3 conversion to data frame
+
+	# TODO Step 4 filtering on M/Z values, again.
+
 	# Loop on the list of M/Z values
 	.self$message('debug', 'Looping on all M/Z values.')
 	for (i in seq_along(mzs)) {
@@ -179,6 +189,8 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
 		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level, precursor = precursor)
 		.self$message('debug', paste0('Found ', length(ids), ' spectra:', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
+
+		# TODO Filter out IDs that were not found in step 1.
 
 		# Get entries
 		.self$message('debug', 'Getting entries from spectra IDs.')

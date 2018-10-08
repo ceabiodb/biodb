@@ -384,6 +384,47 @@ test.mass.csv.file.ms.mode.values <- function(db) {
 	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'zzz')
 	expect_is(results, 'data.frame')
 
+	# Terminate biodb instance
+	new.biodb$terminate()
+}
+
+# Test precursor match {{{1
+################################################################
+
+test.mass.csv.file.precursor.match <- function(db) {
+
+	# Define db data frame
+	db.df <- rbind(
+				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
+				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 54, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 69, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 54, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
+				   stringsAsFactors = FALSE)
+
+	# TODO matching of precursor :
+	# 1. (A) get entries whose precursor peak is found in input M/Z-RT table. For M/Z use normal shift and precision. For RT use special precursor.rt.tol value.
+	# 2. do normal searchMsPeaks() but filter out entries which are not in list (A).
+
+	# Create new Biodb instance
+	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
+
+	# Create connector
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(db.df)
+
+	# Input
+	mz <- c(54, 112)
+
+	# Search
+	results <- conn$searchMsPeaks(mz, mz.tol = 0.1, precursor = TRUE)
+	print('-------------------------------- test.mass.csv.file.precursor.match 20')
+	print(results)
+	print('-------------------------------- test.mass.csv.file.precursor.match 21')
+	expect_is(results, 'data.frame')
+	expect_equal(nrow(results), 2)
+	expect_true(all(results[['accession']] == 'A2'))
 
 	# Terminate biodb instance
 	new.biodb$terminate()
@@ -406,4 +447,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('M/Z matching limits (mz.min and mz.max) are respected.', 'test.mass.csv.file.mz.matching.limits', db)
 	run.db.test.that('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', db)
 	run.db.test.that('We can set additional values for MS mode.', 'test.mass.csv.file.ms.mode.values', db)
+	run.db.test.that('Precursor match works.', 'test.mass.csv.file.precursor.match', db)
 }
