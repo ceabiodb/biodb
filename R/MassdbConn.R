@@ -16,16 +16,16 @@
 #' @param ms.mode       The MS mode. Set it to either \code{'neg'} or \code{'pos'}.
 #' @param msms.mz.tol       M/Z tolerance to apply while matching MSMS spectra. In PPM.
 #' @param msms.mz.tol.min   Minimum of the M/Z tolerance (plain unit). If the M/Z tolerance computed with \code{msms.mz.tol} is lower than \code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.
-#' @param mz            An M/Z value.
-#' @param mz.max        The maximum allowed for searched M/Z values.
-#' @param mz.min        The minimum allowed for searched M/Z values.
+#' @param mz            A vector of M/Z values to match.
+#' @param mz.max        A vector of maximum M/Z values to match. Goes with mz.min, and mut have the same length.
+#' @param mz.min        A vector of minimum M/Z values to match. Goes with mz.max, and mut have the same length.
 #' @param mz.tol        The M/Z tolerance, whose unit is defined by \code{mz.tol.unit}.
 #' @param mz.tol.unit   The unit of the M/Z tolerance. Set it to either \code{'ppm'} or \code{'plain'}.
 #' @param npmin         The minimum number of peak to detect a match (2 is recommended).
 #' @param precursor     If set to \code{TRUE}, then restrict the search to precursor peaks.
 #' @param precursor.mz  The M/Z value of the precursor peak of the mass spectrum.
 #' @param spectrum      A template spectrum to match inside the database.
-#' @param rts           Retention times to match. Unit is specified by rt.unit parameter.
+#' @param rt            A vector of retention times to match. Unit is specified by rt.unit parameter.
 #' @param rt.unit       The unit for submitted retention times. Either 's' or 'min'.
 #' @param rt.tol        The plain tolerance (in seconds) for retention times: input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
 #' @param rt.tol.exp    A special exponent tolerance for retention times: input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt ** rt.tol.exp. This exponent is applied on the RT value in seconds. If both rt.tol and rt.tol.exp are set, the inequality expression becomes:  input.rt - rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol + input.rt ** rt.tol.exp.
@@ -82,6 +82,21 @@ MassdbConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
 	.self$.abstract.method()
 })
 
+# Search MS entries {{{1
+################################################################
+
+MassdbConn$methods( searchMsEntries = function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, 
+                                               rt, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, chrom.col.ids = NA_character_,
+                                               precursor = FALSE, precursor.rt.tol = NA_real_,
+											   min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0) {
+	":\n\nSearch for entries (i.e.: spectra) that contains a peak around the given M/Z value. Entries can also be filtered on RT values. You can input either a list of M/Z values through mz argument and set a tolerance with mz.tol argument, or two lists of minimum and maximum M/Z values through mz.min and mz.max arguments.  Returns a character vector of spectra IDs."
+	
+	# Check arguments
+	check.param <- .self$.checkSearchMsParam(mz.min = mz.min, mz.max = mz.max, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+	if (is.null(check.param))
+		return(NULL)
+})
+
 # Search by M/Z within range {{{1
 ################################################################
 
@@ -131,7 +146,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE) {
+MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 
 	# Check M/Z values
@@ -146,7 +161,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 	.self$.assert.is(precursor, 'logical')
 
 	# Check RT values
-	match.rt <- ! is.null(rts) && ! all(is.na(rts))
+	match.rt <- .self$.assert.not.null(rts, msg.type = 'warning') && .self$.assert.not.na(rts, msg.type = 'warning')
 	if (match.rt) {
 		.self$.assert.is(rts, 'numeric')
 		.self$.assert.equal.length(mzs, rts)
@@ -169,6 +184,10 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 
 	# TODO Step 1 matching of entries, possibly with precursors
 	# Get all IDs of entries if precursor is on. Use precuror.rt.tol?
+	precursor.match.ids <- NULL
+	if (precursor)
+		precursor.match.ids <- .self$searchMzRange(..., precursor = precursor)
+		# Attention, each RT value is linked to one particular MZ value. We can't match RT values on a list of IDs obtained from the whole MZ list.
 
 	# TODO Maybe not those steps:
 	# TODO Step 2 filtering on RT values. How? Each RT is linked to an M/Z value.
@@ -187,7 +206,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
-		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level, precursor = precursor)
+		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level)
 		.self$message('debug', paste0('Found ', length(ids), ' spectra:', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
 
 		# TODO Filter out IDs that were not found in step 1.
@@ -400,4 +419,94 @@ MassdbConn$methods( .convert.rt = function(rts, units, wanted.unit) {
 	}
 
 	return(rts)
+})
+
+# Check M/Z min/max parameters {{{2
+################################################################
+
+MassdbConn$methods( .checkMzTolParam = function(mz.min, mz.max) {
+
+	use.min.max <- .self$.assert.not.na(mz.min, msg.type = 'warning') && .self$.assert.not.null(mz.max, msg.type = 'warning') && .self$.assert.not.na(mz.min, msg.type = 'warning') && .self$.assert.not.null(mz.max, msg.type = 'warning')
+	
+	if (use.min.max) {
+		.self$.assert.positive(mz.min)
+		.self$.assert.positive(mz.max)
+		.self$.assert.inferior(mz.min, mz.max)
+		if (length(mz.min) != length(mz.max))
+		.self$message('error', 'mz.min and mz.max must have the same length in searchMzRange().')
+	}
+
+	return(use.min.max)
+})
+
+# Check M/Z tolerance parameters {{{2
+################################################################
+
+MassdbConn$methods( .checkMzTolParam = function(mz, mz.shift, mz.tol, mz.tol.unit) {
+
+	use.tol <- .self$.assert.not.null(mz, msg.type = 'warning') && .self$.assert.not.na(mz, msg.type = 'warning')
+
+	if (use.tol) {
+		.self$.assert.positive(mz)
+		.self$.assert.positive(mz.tol)
+		.self$.assert.length.one(mz.tol)
+		.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
+	}
+
+	return(use.tol)
+})
+
+# Check M/Z parmaters {{{1
+################################################################
+
+MassdbConn$methods( .checkMzTolParam = function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit) {
+
+	use.tol <- .self$.checkMzsTolParam(mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+	use.min.max <- .self$.checkMzTolParam(mz.min = mz.min, mz.max = mz.max)
+
+	if (use.tol && use.min.max)
+		.self$message('error', "You cannot set both mz and (mz.min, mz.max). Please choose one of those these two schemes to input M/Z values.")
+
+	return(list(use.tol = use.tol, use.min.max = use.min.max))
+})
+
+# Check RT parameters {{{1
+################################################################
+
+MassdbConn$methods( .checkRtParam = function(rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids) {
+
+	match.rt <- .self$.assert.not.null(rt, msg.type = 'warning') && .self$.assert.not.na(rt, msg.type = 'warning')
+
+	if (match.rt) {
+		.self$.assert.is(rts, 'numeric')
+		.self$.assert.equal.length(mzs, rts)
+		.self$.assert.positive(rts)
+		.self$.assert.not.null(chrom.col.ids)
+		.self$.assert.not.na(chrom.col.ids)
+		.self$.assert.is(chrom.col.ids, 'character')
+		.self$.assert.not.na(rt.unit)
+		.self$.assert.in(rt.unit, c('s', 'min'))
+		.self$.assert.length.one(rt.unit)
+	}
+
+	return(match.rt)
+})
+
+# Check searchMs params {{{1
+################################################################
+
+MassdbConn$methods( .checkSearchMsParam = function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, min.rel.int, ms.mode, max.results, ms.level) {
+
+	mz.match <- .self$.checkMzTolParam(mz.min = mz.min, mz.max = mz.max, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+	match.rt <- .self$.checkRtParam(rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+	if ( ! mz.match$use.tol && ! mz.match$use.min.max)
+		return(NULL)
+
+	.self$.assert.positive(min.rel.int)
+	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
+	ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
+	.self$.assert.positive(max.results)
+	.self$.assert.positive(ms.level)
+
+	return(list(use.mz.tol = mz.match$use.tol, use.mz.min.max = mz.match$use.min.max, use.rt.match = match.rt))
 })

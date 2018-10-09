@@ -393,18 +393,22 @@ test.mass.csv.file.ms.mode.values <- function(db) {
 
 test.mass.csv.file.precursor.match <- function(db) {
 
+	# Set retention time values
+	prec.112.rt <- 5.69
+	prec.108.rt <- 8.75
+	precursor.rt.tol <- 1
+	rt.tol <- 5
+	rt.tol.exp <- 0.8
+
 	# Define db data frame
 	db.df <- rbind(
-				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
-				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 54, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
-				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
-				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 69, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
-				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 54, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'),
+				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 54, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 69, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 54, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'B3', ms.mode = 'pos', peak.mztheo = 108, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.108.rt, chrom.rt.unit = 'min'),
 				   stringsAsFactors = FALSE)
-
-	# TODO matching of precursor :
-	# 1. (A) get entries whose precursor peak is found in input M/Z-RT table. For M/Z use normal shift and precision. For RT use special precursor.rt.tol value.
-	# 2. do normal searchMsPeaks() but filter out entries which are not in list (A).
 
 	# Create new Biodb instance
 	new.biodb <- create.biodb.instance()
@@ -415,16 +419,26 @@ test.mass.csv.file.precursor.match <- function(db) {
 	conn$setDb(db.df)
 
 	# Input
-	mz <- c(54, 112)
+	mzs <- c(54,          112,         108)
+	rts <- c(prec.112.rt, prec.112.rt, prec.108.rt + precursor.rt.tol + 1e-6)
 
-	# Search
-	results <- conn$searchMsPeaks(mz, mz.tol = 0.1, precursor = TRUE)
+	# M/Z Search
+	results <- conn$searchMsPeaks(mzs, mz.tol = 0.1, precursor = TRUE)
 	print('-------------------------------- test.mass.csv.file.precursor.match 20')
 	print(results)
 	print('-------------------------------- test.mass.csv.file.precursor.match 21')
 	expect_is(results, 'data.frame')
-	expect_equal(nrow(results), 2)
-	expect_true(all(results[['accession']] == 'A2'))
+	expect_equal(nrow(results), 3)
+	expect_true(all(results[['accession']] %in% c('A2', 'B3')))
+
+	# With precursor RT tolerance
+	results2 <- conn$searchMsPeaks(mzs = mzs, rts = rts, mz.tol = 0.1, precursor = TRUE, precursor.rt.tol = precursor.rt.tol, chrom.col.ids = 'col1', rt.tol = rt.tol , rt.tol.exp = rt.tol.exp, rt.unit = 'min')
+	print('-------------------------------- test.mass.csv.file.precursor.match 30')
+	print(results2)
+	print('-------------------------------- test.mass.csv.file.precursor.match 31')
+	expect_is(results2, 'data.frame')
+	expect_equal(nrow(results2), 2)
+	expect_true(all(results2[['accession']] == 'A2'))
 
 	# Terminate biodb instance
 	new.biodb$terminate()
