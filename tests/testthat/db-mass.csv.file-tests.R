@@ -403,10 +403,10 @@ test.mass.csv.file.precursor.match <- function(db) {
 	# Define db data frame
 	db.df <- rbind(
 				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
-				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 54, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 54,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
 				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
-				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 69, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
-				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 54, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 69,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 54,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
 				   data.frame(accession = 'B3', ms.mode = 'pos', peak.mztheo = 108, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.108.rt, chrom.rt.unit = 'min'),
 				   stringsAsFactors = FALSE)
 
@@ -419,11 +419,11 @@ test.mass.csv.file.precursor.match <- function(db) {
 	conn$setDb(db.df)
 
 	# Input
-	mzs <- c(54,          112,         108)
-	rts <- c(prec.112.rt, prec.112.rt, prec.108.rt + precursor.rt.tol + 1e-6)
+	mz <- c(54,          112,         108)
+	rt <- c(prec.112.rt, prec.112.rt, prec.108.rt + precursor.rt.tol + 1e-6)
 
 	# M/Z Search
-	results <- conn$searchMsPeaks(mzs, mz.tol = 0.1, precursor = TRUE)
+	results <- conn$searchMsPeaks(mz = mz, mz.tol = 0.1, precursor = TRUE)
 	print('-------------------------------- test.mass.csv.file.precursor.match 20')
 	print(results)
 	print('-------------------------------- test.mass.csv.file.precursor.match 21')
@@ -432,7 +432,7 @@ test.mass.csv.file.precursor.match <- function(db) {
 	expect_true(all(results[['accession']] %in% c('A2', 'B3')))
 
 	# With precursor RT tolerance
-	results2 <- conn$searchMsPeaks(mzs = mzs, rts = rts, mz.tol = 0.1, precursor = TRUE, precursor.rt.tol = precursor.rt.tol, chrom.col.ids = 'col1', rt.tol = rt.tol , rt.tol.exp = rt.tol.exp, rt.unit = 'min')
+	results2 <- conn$searchMsPeaks(mz = mz, rt = rt, mz.tol = 0.1, precursor = TRUE, precursor.rt.tol = precursor.rt.tol, chrom.col.ids = 'col1', rt.tol = rt.tol , rt.tol.exp = rt.tol.exp, rt.unit = 'min')
 	print('-------------------------------- test.mass.csv.file.precursor.match 30')
 	print(results2)
 	print('-------------------------------- test.mass.csv.file.precursor.match 31')

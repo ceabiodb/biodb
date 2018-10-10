@@ -10,6 +10,7 @@
 #' @param ids           A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.
 #' @param chrom.col.ids IDs of chromatographic columns on which to match the retention time.
 #' @param dist.fun      The distance function used to compute the distance betweem two mass spectra.
+#' @param entry.ids     A list of entry IDs (vector of characters).
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).
 #' @param ms.level      The MS level to which you want to restrict your search. \code{0} means that you want to serach in all levels.
@@ -82,201 +83,153 @@ MassdbConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
 	.self$.abstract.method()
 })
 
+# Filter entries on retention time {{{1
+################################################################
+
+MassdbConn$methods( filterEntriesOnRt = function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids) {
+	":\n\nFilter a list of entries on retention time values."
+
+	match.rt <- .self$.checkRtParam(rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+
+	if (match.rt) {	
+
+		# Get entries
+		.self$message('debug', 'Getting entries from spectra IDs.')
+		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), entry.ids, drop = FALSE)
+
+		# Filter on chromatographic columns
+		entries <- entries[vapply(entries, function(e) e$getFieldValue('chrom.col.id') %in% chrom.col.ids, FUN.VALUE = TRUE)]
+		.self$message('debug', paste0(length(entries), ' spectra remaining after chrom col filtering: ', paste(vapply((if (length(entries) <= 10) entries else entries[1:10]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
+
+		# Filter out entries with no RT values or no RT unit
+		has.chrom.rt.values <- vapply(entries, function(e) {e$hasField('chrom.rt') || (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max'))}, FUN.VALUE = TRUE)
+		entries <- entries[has.chrom.rt.values]
+		if (sum( ! has.chrom.rt.values) > 0)
+			.self$message('debug', paste('Filtered out', sum( ! has.chrom.rt.values), 'entries having no RT values.'))
+		no.chrom.rt.unit <- ! vapply(entries, function(e) e$hasField('chrom.rt.unit'), FUN.VALUE = TRUE)
+		if (any(no.chrom.rt.unit))
+			.self$message('caution', paste0('No RT unit specified in entries ', paste(vapply(entries[no.chrom.rt.unit], function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), ', impossible to match retention times.'))
+
+		# Compute RT range for this input, in seconds
+		rt.range <- .self$.computeRtRange(rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp)
+
+		# Loop on all entries
+		entry.id <- character()
+		for (e in entries) {
+
+			# Get RT min and max for this column, in seconds
+			col.rt.range <- .self$.computeChromColRtRange(e)
+
+			# Test and possibly keep entry
+			.self$message('debug', paste0('Testing if RT value ', rt, ' (', rt.unit, ') is in range [', col.rt.range$min, ';', col.rt.range$max, '] (s) of database entry ', e$getFieldValue('accession'), '. Used range (after applying tolerances) for RT value is [', rt.range$min, ', ', rt.range$max, '] (s).'))
+			if ((rt.range$max >= col.rt.range$min) && (rt.range$min <= col.rt.range$max))
+				entry.ids <- c(entry.ids, e$getFieldValue('accession'))
+		}
+
+		.self$message('debug', paste0(length(entry.ids), ' spectra remaining after retention time filtering:', paste((if (length(entry.ids) <= 10) entry.ids else entry.ids[1:10]), collapse = ', '), '.'))
+	}
+
+	return(entry.ids)
+})
+
 # Search MS entries {{{1
 ################################################################
 
-MassdbConn$methods( searchMsEntries = function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, 
-                                               rt, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, chrom.col.ids = NA_character_,
-                                               precursor = FALSE, precursor.rt.tol = NA_real_,
+MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz = NULL, mz.shift = 0.0, mz.tol = NA_real_, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, 
+                                               rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, chrom.col.ids = NA_character_,
+                                               precursor = FALSE,
 											   min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0) {
 	":\n\nSearch for entries (i.e.: spectra) that contains a peak around the given M/Z value. Entries can also be filtered on RT values. You can input either a list of M/Z values through mz argument and set a tolerance with mz.tol argument, or two lists of minimum and maximum M/Z values through mz.min and mz.max arguments.  Returns a character vector of spectra IDs."
 	
 	# Check arguments
-	check.param <- .self$.checkSearchMsParam(mz.min = mz.min, mz.max = mz.max, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+	check.param <- .self$.checkSearchMsParam(mz.min = mz.min, mz.max = mz.max, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = ms.level)
 	if (is.null(check.param))
 		return(NULL)
-})
 
-# Search by M/Z within range {{{1
-################################################################
+	if (check.param$use.rt.match) {
+		# Search for one M/Z at a time
+		for (i in seq_along(mz)) {
 
-MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
-	":\n\nFind spectra in the given M/Z range. Returns a list of spectra IDs."
-	
-	# Check arguments
-	if ( ! .self$.assert.not.na(mz.min, msg.type = 'warning')) return(NULL)
-	if ( ! .self$.assert.not.null(mz.max, msg.type = 'warning')) return(NULL)
-	if ( ! .self$.assert.not.na(mz.min, msg.type = 'warning')) return(NULL)
-	if ( ! .self$.assert.not.null(mz.max, msg.type = 'warning')) return(NULL)
-	.self$.assert.positive(mz.min)
-	.self$.assert.positive(mz.max)
-	.self$.assert.inferior(mz.min, mz.max)
-	.self$.assert.positive(min.rel.int)
-	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
-	ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
-	.self$.assert.positive(max.results)
-	.self$.assert.positive(ms.level)
-	if (length(mz.min) != length(mz.max))
-		.self$message('error', 'mz.min and mz.max must have the same length in searchMzRange().')
+			# Search for this M/Z value
+			if (check.param$use.mz.min.max)
+				mz.ids <- .self$.doSearchMzRange(mz.min = mz.min[[i]], mz.max = mz.max[[i]], min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = NA_integer_, precursor = precursor, ms.level = ms.level)
+			else
+				mz.ids <- .self$.doSearchMzTol(mz = mz[[i]], mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = NA_integer_, precursor = precursor, ms.level = ms.level)
 
-	return(.self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
-})
+			# Filter on RT value
+			rt.ids <- .self$filterEntriesOnRt(mz.ids, rt = rt[[i]], rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
 
-# Search by M/Z within tolerance {{{1
-################################################################
+			ids <- c(ids, rt.ids)
+		}
+	}
 
-MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
-	":\n\nFind spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs."
-	
-	if ( ! .self$.assert.not.na(mz, msg.type = 'warning')) return(NULL)
-	if ( ! .self$.assert.not.null(mz, msg.type = 'warning')) return(NULL)
-	.self$.assert.positive(mz)
-	.self$.assert.positive(mz.tol)
-	.self$.assert.length.one(mz.tol)
-	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
-	.self$.assert.positive(min.rel.int)
-	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
-	ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
-	.self$.assert.positive(max.results)
-	.self$.assert.positive(ms.level)
+	else {
+		# Search for all M/Z values
+		if (check.param$use.mz.min.max)
+			ids <- .self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
+		else
+			ids <- .self$.doSearchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
+	}
 
-	return(.self$.doSearchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+	# Remove duplicates
+	ids <- ids[ ! duplicated(ids)]
+
+	# Cut
+	if ( ! is.na(max.results) && length(ids) > max.results)
+		ids <- ids[1:max.results]
+
+	return(ids)
 })
 
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rts = NA_real_, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_) {
+MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
-
-	# Check M/Z values
-	if ( ! .self$.assert.not.na(mzs, msg.type = 'warning')) return(NULL)
-	if ( ! .self$.assert.not.null(mzs, msg.type = 'warning')) return(NULL)
-	.self$.assert.is(mzs, 'numeric')
-	.self$.assert.positive(mzs)
-	.self$.assert.positive(mz.tol)
-	.self$.assert.length.one(mz.tol)
-	.self$.assert.length.one(mz.shift)
-	.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
-	.self$.assert.is(precursor, 'logical')
-
-	# Check RT values
-	match.rt <- .self$.assert.not.null(rts, msg.type = 'warning') && .self$.assert.not.na(rts, msg.type = 'warning')
-	if (match.rt) {
-		.self$.assert.is(rts, 'numeric')
-		.self$.assert.equal.length(mzs, rts)
-		.self$.assert.positive(rts)
-		.self$.assert.not.null(chrom.col.ids)
-		.self$.assert.not.na(chrom.col.ids)
-		.self$.assert.is(chrom.col.ids, 'character')
-		.self$.assert.not.na(rt.unit)
-		.self$.assert.in(rt.unit, c('s', 'min'))
-		.self$.assert.length.one(rt.unit)
-	}
-
-	# Check other parameters
-	.self$.assert.positive(min.rel.int)
-	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
-	ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
-	.self$.assert.positive(max.results)
+	
+	# Check arguments
+	check.param <- .self$.checkSearchMsParam(mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = ms.level)
+	if (is.null(check.param))
+		return(NULL)
+	print('-------------------------------- MassdbConn::searchMsPeaks 10')
 
 	results <- NULL
 
-	# TODO Step 1 matching of entries, possibly with precursors
-	# Get all IDs of entries if precursor is on. Use precuror.rt.tol?
+	# Step 1 matching of entries, possibly with precursors
 	precursor.match.ids <- NULL
-	if (precursor)
-		precursor.match.ids <- .self$searchMzRange(..., precursor = precursor)
-		# Attention, each RT value is linked to one particular MZ value. We can't match RT values on a list of IDs obtained from the whole MZ list.
-
-	# TODO Maybe not those steps:
-	# TODO Step 2 filtering on RT values. How? Each RT is linked to an M/Z value.
-
-	# TODO Step 3 conversion to data frame
-
-	# TODO Step 4 filtering on M/Z values, again.
+	print('-------------------------------- MassdbConn::searchMsPeaks 11')
+	if (precursor) {
+		precursor.match.ids <- .self$searchMsEntries(mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit,
+		                                             rt = rt, rt.tol = precursor.rt.tol, chrom.col.ids = chrom.col.ids,
+		                                             precursor = precursor,
+		                                             min.rel.int = min.rel.int, ms.mode = ms.mode, ms.level = ms.level)
+	}
+	print('-------------------------------- MassdbConn::searchMsPeaks 15')
 
 	# Loop on the list of M/Z values
 	.self$message('debug', 'Looping on all M/Z values.')
-	for (i in seq_along(mzs)) {
-		mz <- mzs[[i]]
+	print('-------------------------------- MassdbConn::searchMsPeaks 20')
+	for (i in seq_along(mz)) {
 
 		# Compute M/Z range
-		mz.range <- .self$.mztolToRange(mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+		mz.range <- .self$.convertMzTolToRange(mz = mz[[i]], mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
-		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (match.rt) NA_integer_ else max.results, ms.level = ms.level)
+		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (check.param$use.rt.match) NA_integer_ else max.results, ms.level = ms.level)
 		.self$message('debug', paste0('Found ', length(ids), ' spectra:', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
 
-		# TODO Filter out IDs that were not found in step 1.
+		# Filter out IDs that were not found in step 1.
+		if ( ! is.null(precursor.match.ids))
+			ids <- ids[ids %in% precursor.match.ids]
+		
+		# Filter on RT value
+		if  (check.param$use.rt.match)
+			ids <- .self$filterEntriesOnRt(ids, rt = rt[[i]], rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
 
 		# Get entries
 		.self$message('debug', 'Getting entries from spectra IDs.')
 		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
-
-		# Select rows with matching RT values
-		
-		if  (match.rt) {
-
-			rt <- rts[[i]]
-
-			.self$message('debug', 'Filtering peaks list on RT values.')
-
-			# Filtering on chromatographic columns
-			entries <- entries[vapply(entries, function(e) e$getFieldValue('chrom.col.id') %in% chrom.col.ids, FUN.VALUE = TRUE)]
-			.self$message('debug', paste0(length(entries), ' spectra remaining after chrom col filtering: ', paste(vapply((if (length(entries) <= 10) entries else entries[1:10]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
-
-			# Filter out entries with no RT values or no RT unit
-			has.chrom.rt.values <- vapply(entries, function(e) {e$hasField('chrom.rt') || (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max'))}, FUN.VALUE = TRUE)
-			entries <- entries[has.chrom.rt.values]
-			if (sum( ! has.chrom.rt.values) > 0)
-				.self$message('debug', paste('Filtered out', sum( ! has.chrom.rt.values), 'entries having no RT values.'))
-			no.chrom.rt.unit <- ! vapply(entries, function(e) e$hasField('chrom.rt.unit'), FUN.VALUE = TRUE)
-			if (any(no.chrom.rt.unit))
-				.self$message('caution', paste0('No RT unit specified in entries ', paste(vapply(entries[no.chrom.rt.unit], function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), ', impossible to match retention times.'))
-			
-			# Filtering on retention time
-			tmp <- list()
-			for (e in entries) {
-
-				# Get RT min and max for this column, in seconds
-				rt.col.unit <- e$getFieldValue('chrom.rt.unit')
-				if (e$hasField('chrom.rt')) {
-					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt'), rt.col.unit, 's')
-					rt.col.max <- rt.col.min
-				} else if (e$hasField('chrom.rt.min') && e$hasField('chrom.rt.max')) {
-					rt.col.min <- .self$.convert.rt(e$getFieldValue('chrom.rt.min'), rt.col.unit, 's')
-					rt.col.max <- .self$.convert.rt(e$getFieldValue('chrom.rt.max'), rt.col.unit, 's')
-				} else
-					.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
-
-				# Compute RT range for this input, in seconds
-				rt.sec <- .self$.convert.rt(rt, rt.unit, 's')
-				rt.min <- rt.sec
-				rt.max <- rt.sec
-				.self$message('debug', paste0('At step 1, RT range is [', rt.min, ', ', rt.max, '] (s).'))
-				if ( ! is.na(rt.tol)) {
-					.self$message('debug', paste0('RT tol is ', rt.tol, ' (s).'))
-					rt.min <- rt.min - rt.tol
-					rt.max <- rt.max + rt.tol
-				}
-				.self$message('debug', paste0('At step 2, RT range is [', rt.min, ', ', rt.max, '] (s).'))
-				if ( ! is.na(rt.tol.exp)) {
-					.self$message('debug', paste0('RT tol exp is ', rt.tol.exp, '.'))
-					rt.min <- rt.min - rt.sec ** rt.tol.exp
-					rt.max <- rt.max + rt.sec ** rt.tol.exp
-				}
-				.self$message('debug', paste0('At step 3, RT range is [', rt.min, ', ', rt.max, '] (s).'))
-
-				# Test and possibly keep entry
-				.self$message('debug', paste0('Testing if RT value ', rt, ' (', rt.unit, ') is in range [', rt.col.min, ';', rt.col.max, '] (s) of database entry ', e$getFieldValue('accession'), '. Used range (after applying tolerances) for RT value is [', rt.min, ', ', rt.max, '] (s).'))
-				if ((rt.max >= rt.col.min) && (rt.min <= rt.col.max))
-					tmp <- c(tmp, e)
-			}
-			entries <- tmp
-			.self$message('debug', paste0(length(entries), ' spectra remaining after retention time filtering:', paste(vapply((if (length(entries) <= 10) entries else entries[1:10]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
-		}
 
 		# Cut
 		if ( ! is.na(max.results) && length(entries) > max.results) {
@@ -292,7 +245,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
 		
 		# Select lines with right M/Z values
-		mz.range <- .self$.mztolToRange(mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+		mz.range <- .self$.convertMzTolToRange(mz = mz[[i]], mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 		.self$message('debug', paste("Filtering entries data frame on M/Z range [", mz.range$min, ', ', mz.range$max, '].', sep = ''))
 		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
@@ -301,6 +254,7 @@ MassdbConn$methods ( searchMsPeaks = function(mzs, mz.shift = 0.0, mz.tol, mz.to
 		results <- plyr::rbind.fill(results, df)
 		.self$message('debug', paste('Total results data frame contains', nrow(results), 'rows.'))
 	}
+	print('-------------------------------- MassdbConn::searchMsPeaks 100')
 
 	return(results)
 })
@@ -353,10 +307,37 @@ MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level =
 	.self$.abstract.method()
 })
 
+# DEPRECATED METHODS {{{1
+################################################################
+
+# Search by M/Z within range {{{2
+################################################################
+
+MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
+	":\n\nFind spectra in the given M/Z range. Returns a list of spectra IDs."
+
+	.self$.deprecated.method('MassdbConn::searchMsEntries()')
+
+	return(.self$searchMsEntries(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+})
+
+# Search by M/Z within tolerance {{{2
+################################################################
+
+MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
+	":\n\nFind spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs."
+
+	.self$.deprecated.method('MassdbConn::searchMsEntries()')
+	
+	return(.self$searchMsEntries(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+})
 # PRIVATE METHODS {{{1
 ################################################################
 
-MassdbConn$methods( .mztolToRange = function(mz, mz.shift, mz.tol, mz.tol.unit) {
+# Convert M/Z tolerance to range {{{2
+################################################################
+
+MassdbConn$methods( .convertMzTolToRange = function(mz, mz.shift, mz.tol, mz.tol.unit) {
 
 	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM) {
 		mz.min <- mz + mz * ( mz.shift - mz.tol) * 1e-6
@@ -376,7 +357,7 @@ MassdbConn$methods( .mztolToRange = function(mz, mz.shift, mz.tol, mz.tol.unit) 
 
 MassdbConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 
-	range <- .self$.mztolToRange(mz = mz, mz.shift = 0.0, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+	range <- .self$.convertMzTolToRange(mz = mz, mz.shift = 0.0, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 
 	return(.self$searchMzRange(mz.min = range$min, mz.max = range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
@@ -399,22 +380,22 @@ MassdbConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, m
 
 ################################################################
 
-MassdbConn$methods( .convert.rt = function(rts, units, wanted.unit) {
+MassdbConn$methods( .convert.rt = function(rt, units, wanted.unit) {
 
 	# RT values with wrong unit
-	rts.wrong <- units != wanted.unit
+	rt.wrong <- units != wanted.unit
 
 	# Convert any RT value using wrong unit
-	if (any(rts.wrong)) {
-		if ('s' %in% units[rts.wrong]) {
+	if (any(rt.wrong)) {
+		if ('s' %in% units[rt.wrong]) {
 			if (wanted.unit != 'min')
 				.self$message('error', 'Error when converting retention times values. Was expecting "min" for target unit.')
-			rts[rts.wrong] <- rts[rts.wrong] / 60
+			rt[rt.wrong] <- rt[rt.wrong] / 60
 		}
-		if ('min' %in% units[rts.wrong]) {
+		if ('min' %in% units[rt.wrong]) {
 			if (wanted.unit != 's')
 				.self$message('error', 'Error when converting retention times values. Was expecting "s" for target unit.')
-			rts[rts.wrong] <- rts[rts.wrong] * 60
+			rt[rt.wrong] <- rt[rt.wrong] * 60
 		}
 	}
 
@@ -424,16 +405,18 @@ MassdbConn$methods( .convert.rt = function(rts, units, wanted.unit) {
 # Check M/Z min/max parameters {{{2
 ################################################################
 
-MassdbConn$methods( .checkMzTolParam = function(mz.min, mz.max) {
+MassdbConn$methods( .checkMzMinMaxParam = function(mz.min, mz.max) {
 
-	use.min.max <- .self$.assert.not.na(mz.min, msg.type = 'warning') && .self$.assert.not.null(mz.max, msg.type = 'warning') && .self$.assert.not.na(mz.min, msg.type = 'warning') && .self$.assert.not.null(mz.max, msg.type = 'warning')
+	use.min.max <- ! is.null(mz.min) && ! is.null(mz.max)
 	
 	if (use.min.max) {
+		.self$.assert.is(mz.min, c('numeric', 'integer'))
+		.self$.assert.is(mz.max, c('numeric', 'integer'))
 		.self$.assert.positive(mz.min)
 		.self$.assert.positive(mz.max)
 		.self$.assert.inferior(mz.min, mz.max)
 		if (length(mz.min) != length(mz.max))
-		.self$message('error', 'mz.min and mz.max must have the same length in searchMzRange().')
+			.self$message('error', 'mz.min and mz.max must have the same length.')
 	}
 
 	return(use.min.max)
@@ -444,9 +427,10 @@ MassdbConn$methods( .checkMzTolParam = function(mz.min, mz.max) {
 
 MassdbConn$methods( .checkMzTolParam = function(mz, mz.shift, mz.tol, mz.tol.unit) {
 
-	use.tol <- .self$.assert.not.null(mz, msg.type = 'warning') && .self$.assert.not.na(mz, msg.type = 'warning')
+	use.tol <- ! is.null(mz)
 
 	if (use.tol) {
+		.self$.assert.is(mz, c('numeric', 'integer'))
 		.self$.assert.positive(mz)
 		.self$.assert.positive(mz.tol)
 		.self$.assert.length.one(mz.tol)
@@ -456,13 +440,13 @@ MassdbConn$methods( .checkMzTolParam = function(mz, mz.shift, mz.tol, mz.tol.uni
 	return(use.tol)
 })
 
-# Check M/Z parmaters {{{1
+# Check M/Z parmaters {{{2
 ################################################################
 
-MassdbConn$methods( .checkMzTolParam = function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit) {
+MassdbConn$methods( .checkMzParam = function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit) {
 
-	use.tol <- .self$.checkMzsTolParam(mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
-	use.min.max <- .self$.checkMzTolParam(mz.min = mz.min, mz.max = mz.max)
+	use.tol <- .self$.checkMzTolParam(mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+	use.min.max <- .self$.checkMzMinMaxParam(mz.min = mz.min, mz.max = mz.max)
 
 	if (use.tol && use.min.max)
 		.self$message('error', "You cannot set both mz and (mz.min, mz.max). Please choose one of those these two schemes to input M/Z values.")
@@ -470,17 +454,18 @@ MassdbConn$methods( .checkMzTolParam = function(mz.min, mz.max, mz, mz.shift, mz
 	return(list(use.tol = use.tol, use.min.max = use.min.max))
 })
 
-# Check RT parameters {{{1
+# Check RT parameters {{{2
 ################################################################
 
 MassdbConn$methods( .checkRtParam = function(rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids) {
 
-	match.rt <- .self$.assert.not.null(rt, msg.type = 'warning') && .self$.assert.not.na(rt, msg.type = 'warning')
+	match.rt <- ! is.null(rt)
 
 	if (match.rt) {
-		.self$.assert.is(rts, 'numeric')
-		.self$.assert.equal.length(mzs, rts)
-		.self$.assert.positive(rts)
+		.self$.assert.is(rt, c('numeric', 'integer'))
+		.self$.assert.positive(rt)
+		.self$.assert.positive(rt.tol)
+		.self$.assert.positive(rt.tol.exp)
 		.self$.assert.not.null(chrom.col.ids)
 		.self$.assert.not.na(chrom.col.ids)
 		.self$.assert.is(chrom.col.ids, 'character')
@@ -492,15 +477,25 @@ MassdbConn$methods( .checkRtParam = function(rt, rt.unit, rt.tol, rt.tol.exp, ch
 	return(match.rt)
 })
 
-# Check searchMs params {{{1
+# Check searchMs params {{{2
 ################################################################
 
 MassdbConn$methods( .checkSearchMsParam = function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, min.rel.int, ms.mode, max.results, ms.level) {
 
-	mz.match <- .self$.checkMzTolParam(mz.min = mz.min, mz.max = mz.max, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+	mz.match <- .self$.checkMzParam(mz.min = mz.min, mz.max = mz.max, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 	match.rt <- .self$.checkRtParam(rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+	print('-------------------------------- MassdbConn::.checkSearchMsParam 10')
+	print(mz.match)
+	print('-------------------------------- MassdbConn::.checkSearchMsParam 11')
+	print(match.rt)
+	print('-------------------------------- MassdbConn::.checkSearchMsParam 12')
 	if ( ! mz.match$use.tol && ! mz.match$use.min.max)
 		return(NULL)
+	print('-------------------------------- MassdbConn::.checkSearchMsParam 13')
+	if (mz.match$use.tol && match.rt && length(mz) != length(rt))
+		.self$message('error', 'mz and rt must have the same length.')
+	if (mz.match$use.min.max && match.rt && length(mz.min) != length(rt))
+		.self$message('error', 'mz.min, mz.max and rt must have the same length.')
 
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
@@ -509,4 +504,47 @@ MassdbConn$methods( .checkSearchMsParam = function(mz.min, mz.max, mz, mz.shift,
 	.self$.assert.positive(ms.level)
 
 	return(list(use.mz.tol = mz.match$use.tol, use.mz.min.max = mz.match$use.min.max, use.rt.match = match.rt))
+})
+
+# Compute chrom col RT range {{{2
+################################################################
+
+MassdbConn$methods( .computeChromColRtRange = function(entry) {
+
+	rt.col.unit <- entry$getFieldValue('chrom.rt.unit')
+	if (entry$hasField('chrom.rt')) {
+		rt.col.min <- .self$.convert.rt(entry$getFieldValue('chrom.rt'), rt.col.unit, 's')
+		rt.col.max <- rt.col.min
+	} else if (entry$hasField('chrom.rt.min') && entry$hasField('chrom.rt.max')) {
+		rt.col.min <- .self$.convert.rt(entry$getFieldValue('chrom.rt.min'), rt.col.unit, 's')
+		rt.col.max <- .self$.convert.rt(entry$getFieldValue('chrom.rt.max'), rt.col.unit, 's')
+	} else
+		.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
+
+	return(c(min = rt.col.min, max = rt.col.max))
+})
+
+# Compute RT range {{{2
+################################################################
+
+MassdbConn$methods( .computeRtRange = function(rt, rt.unit, rt.tol, rt.tol.exp) {
+
+	rt.sec <- .self$.convert.rt(rt, rt.unit, 's')
+	rt.min <- rt.sec
+	rt.max <- rt.sec
+	.self$message('debug', paste0('At step 1, RT range is [', rt.min, ', ', rt.max, '] (s).'))
+	if ( ! is.na(rt.tol)) {
+		.self$message('debug', paste0('RT tol is ', rt.tol, ' (s).'))
+		rt.min <- rt.min - rt.tol
+		rt.max <- rt.max + rt.tol
+	}
+	.self$message('debug', paste0('At step 2, RT range is [', rt.min, ', ', rt.max, '] (s).'))
+	if ( ! is.na(rt.tol.exp)) {
+		.self$message('debug', paste0('RT tol exp is ', rt.tol.exp, '.'))
+		rt.min <- rt.min - rt.sec ** rt.tol.exp
+		rt.max <- rt.max + rt.sec ** rt.tol.exp
+	}
+	.self$message('debug', paste0('At step 3, RT range is [', rt.min, ', ', rt.max, '] (s).'))
+
+	return(c(min = rt.min, max = rt.max))
 })

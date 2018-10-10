@@ -75,15 +75,15 @@ test.assert.length.one <- function(biodb, obs) {
 	expect_equal(obs$lastMsg(), "Length of myvar (2) must be one.")
 }
 
-# Test searchMzTol assert {{{1
+# Test searchMsEntries assert {{{1
 ################################################################
 
-test.searchMzTol.assert <- function(biodb, obs) {
+test.searchMsEntries.assert <- function(biodb, obs) {
 
 	conn <- biodb$getFactory()$createConn('massbank.jp')
 
-	expect_error(ids <- conn$searchMzTol(mz = 10, mz.tol = 0.01, mz.tol.unit = 'plain', max.results = 1, ms.level = NULL))
-	expect_equal(obs$lastMsg(), "ms.level cannot be NULL.")
+	expect_error(ids <- conn$searchMsEntries(mz = 10, mz.tol = 0.01, mz.tol.unit = 'plain', max.results = 1, ms.level = -1))
+	expect_equal(obs$lastMsg(), "ms.level (-1) cannot be negative.")
 }
 
 # MAIN {{{1
@@ -98,4 +98,4 @@ test_that("Assertion of non NA value works correctly", test.assert.not.na(biodb,
 test_that("Assertion of non NULL value works correctly", test.assert.not.null(biodb, obs))
 test_that("Assertion of inferior relationship works correctly", test.assert.inferior(biodb, obs))
 test_that("Assertion of a single element works correctly", test.assert.length.one(biodb, obs))
-test_that('Assertion called from searchMzTol display the right variable name', test.searchMzTol.assert(biodb, obs))
+test_that('Assertion called from searchMsEntries display the right variable name', test.searchMsEntries.assert(biodb, obs))
