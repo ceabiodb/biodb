@@ -146,7 +146,11 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 	if (is.null(check.param))
 		return(NULL)
 
+	ids <- character()
+
+	print('-------------------------------- MassdbConn::searchMsEntries 02')
 	if (check.param$use.rt.match) {
+	print('-------------------------------- MassdbConn::searchMsEntries 03')
 		# Search for one M/Z at a time
 		for (i in seq_along(mz)) {
 
@@ -164,6 +168,7 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 	}
 
 	else {
+	print('-------------------------------- MassdbConn::searchMsEntries 10')
 		# Search for all M/Z values
 		if (check.param$use.mz.min.max)
 			ids <- .self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
@@ -171,12 +176,18 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 			ids <- .self$.doSearchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
 	}
 
+	print('-------------------------------- MassdbConn::searchMsEntries 20')
+	print(ids)
 	# Remove duplicates
 	ids <- ids[ ! duplicated(ids)]
 
+	print('-------------------------------- MassdbConn::searchMsEntries 21')
+	print(ids)
 	# Cut
 	if ( ! is.na(max.results) && length(ids) > max.results)
 		ids <- ids[1:max.results]
+	print('-------------------------------- MassdbConn::searchMsEntries 22')
+	print(ids)
 
 	return(ids)
 })
@@ -200,7 +211,7 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 	print('-------------------------------- MassdbConn::searchMsPeaks 11')
 	if (precursor) {
 		precursor.match.ids <- .self$searchMsEntries(mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit,
-		                                             rt = rt, rt.tol = precursor.rt.tol, chrom.col.ids = chrom.col.ids,
+		                                             rt = rt, rt.unit = rt.unit, rt.tol = precursor.rt.tol, chrom.col.ids = chrom.col.ids,
 		                                             precursor = precursor,
 		                                             min.rel.int = min.rel.int, ms.mode = ms.mode, ms.level = ms.level)
 	}
@@ -236,8 +247,18 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 			.self$message('debug', paste('Cutting data frame', max.results, 'rows.'))
 			entries <- entries[1:max.results]
 		}
-		if (length(entries) > 0)
-			.self$message('debug', paste('Field names of first entry:', paste(entries[[1]]$getFieldNames(), collapse = ', ')))
+		if (length(entries) > 0) {
+			non.null.entries <- ! vapply(entries, is.null, FUN.VALUE = TRUE)
+	print('-------------------------------- MassdbConn::searchMsPeaks 30')
+			print(non.null.entries)
+			if (any(non.null.entries)) {
+				first.non.null.entry <- which(non.null.entries)[[1]]
+	print('-------------------------------- MassdbConn::searchMsPeaks 31')
+				print(first.non.null.entry)
+	print('-------------------------------- MassdbConn::searchMsPeaks 32')
+				.self$message('debug', paste('Field names of first non null entry:', paste(entries[[first.non.null.entry]]$getFieldNames(), collapse = ', ')))
+			}
+		}
 
 		# Convert to data frame
 		.self$message('debug', 'Converting list of entries to data frame.')
@@ -250,6 +271,13 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
 
+		# Inserting M/Z and RT info at the beginning of the data frame
+		info.df <- data.frame(mz = mz[[i]])
+		if (check.param$use.rt.match)
+			info.df[['rt']] <- rt[[i]]
+		df <- cbind(info.df, df)
+
+		# Appending to main results data frame
 		.self$message('debug', 'Merging data frame of matchings into results data frame.')
 		results <- plyr::rbind.fill(results, df)
 		.self$message('debug', paste('Total results data frame contains', nrow(results), 'rows.'))
@@ -399,7 +427,7 @@ MassdbConn$methods( .convert.rt = function(rt, units, wanted.unit) {
 		}
 	}
 
-	return(rts)
+	return(rt)
 })
 
 # Check M/Z min/max parameters {{{2
@@ -484,14 +512,8 @@ MassdbConn$methods( .checkSearchMsParam = function(mz.min, mz.max, mz, mz.shift,
 
 	mz.match <- .self$.checkMzParam(mz.min = mz.min, mz.max = mz.max, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 	match.rt <- .self$.checkRtParam(rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
-	print('-------------------------------- MassdbConn::.checkSearchMsParam 10')
-	print(mz.match)
-	print('-------------------------------- MassdbConn::.checkSearchMsParam 11')
-	print(match.rt)
-	print('-------------------------------- MassdbConn::.checkSearchMsParam 12')
 	if ( ! mz.match$use.tol && ! mz.match$use.min.max)
 		return(NULL)
-	print('-------------------------------- MassdbConn::.checkSearchMsParam 13')
 	if (mz.match$use.tol && match.rt && length(mz) != length(rt))
 		.self$message('error', 'mz and rt must have the same length.')
 	if (mz.match$use.min.max && match.rt && length(mz.min) != length(rt))
@@ -521,7 +543,7 @@ MassdbConn$methods( .computeChromColRtRange = function(entry) {
 	} else
 		.self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
 
-	return(c(min = rt.col.min, max = rt.col.max))
+	return(list(min = rt.col.min, max = rt.col.max))
 })
 
 # Compute RT range {{{2
@@ -546,5 +568,5 @@ MassdbConn$methods( .computeRtRange = function(rt, rt.unit, rt.tol, rt.tol.exp) 
 	}
 	.self$message('debug', paste0('At step 3, RT range is [', rt.min, ', ', rt.max, '] (s).'))
 
-	return(c(min = rt.min, max = rt.max))
+	return(list(min = rt.min, max = rt.max))
 })

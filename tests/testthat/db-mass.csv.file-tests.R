@@ -70,8 +70,8 @@ test.mass.csv.file.data.frame <- function(db) {
 
 	# Define database data frame
 	ids <- 'ZAP'
-	mzs <- 12
-	df <- data.frame(accession = ids, mz = mzs, mode = '+')
+	mz <- 12
+	df <- data.frame(accession = ids, mz = mz, mode = '+')
 
 	# New biodb instance
 	new.biodb <- biodb::Biodb$new(logger = FALSE)
@@ -86,7 +86,7 @@ test.mass.csv.file.data.frame <- function(db) {
 	conn$setField('peak.mztheo', 'mz')
 
 	# Get M/Z values
-	expect_identical(mzs, conn$getMzValues())
+	expect_identical(mz, conn$getMzValues())
 	expect_identical(ids, conn$getEntryIds())
 }
 
@@ -336,17 +336,17 @@ test.mass.csv.file.rt.matching.limits <- function(db) {
 	rt.inf <- uniroot(function(rt) rt + x + (rt) ^ y - rt.sec, c(0,1000))$root
 
 	# Search
-	results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sec, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sec, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_is(results1, 'data.frame')
-	results2 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = (rt.inf + rt.sup) / 2, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results2 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = (rt.inf + rt.sup) / 2, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_is(results2, 'data.frame')
-	results3 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.inf, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results3 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.inf, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_is(results3, 'data.frame')
-	results4 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results4 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_null(results4)
-	results5 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sup, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results5 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sup, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_is(results5, 'data.frame')
-	results6 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results6 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_null(results6)
 	
 	# Close Biodb instance
@@ -423,6 +423,7 @@ test.mass.csv.file.precursor.match <- function(db) {
 	rt <- c(prec.112.rt, prec.112.rt, prec.108.rt + precursor.rt.tol + 1e-6)
 
 	# M/Z Search
+	print('-------------------------------- test.mass.csv.file.precursor.match 10')
 	results <- conn$searchMsPeaks(mz = mz, mz.tol = 0.1, precursor = TRUE)
 	print('-------------------------------- test.mass.csv.file.precursor.match 20')
 	print(results)
@@ -430,6 +431,7 @@ test.mass.csv.file.precursor.match <- function(db) {
 	expect_is(results, 'data.frame')
 	expect_equal(nrow(results), 3)
 	expect_true(all(results[['accession']] %in% c('A2', 'B3')))
+	print('-------------------------------- test.mass.csv.file.precursor.match 22')
 
 	# With precursor RT tolerance
 	results2 <- conn$searchMsPeaks(mz = mz, rt = rt, mz.tol = 0.1, precursor = TRUE, precursor.rt.tol = precursor.rt.tol, chrom.col.ids = 'col1', rt.tol = rt.tol , rt.tol.exp = rt.tol.exp, rt.unit = 'min')
