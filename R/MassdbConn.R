@@ -114,7 +114,7 @@ MassdbConn$methods( filterEntriesOnRt = function(entry.ids, rt, rt.unit, rt.tol,
 		rt.range <- .self$.computeRtRange(rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp)
 
 		# Loop on all entries
-		entry.id <- character()
+		entry.ids <- character()
 		for (e in entries) {
 
 			# Get RT min and max for this column, in seconds
@@ -148,9 +148,7 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 
 	ids <- character()
 
-	print('-------------------------------- MassdbConn::searchMsEntries 02')
 	if (check.param$use.rt.match) {
-	print('-------------------------------- MassdbConn::searchMsEntries 03')
 		# Search for one M/Z at a time
 		for (i in seq_along(mz)) {
 
@@ -168,7 +166,6 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 	}
 
 	else {
-	print('-------------------------------- MassdbConn::searchMsEntries 10')
 		# Search for all M/Z values
 		if (check.param$use.mz.min.max)
 			ids <- .self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
@@ -176,18 +173,12 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 			ids <- .self$.doSearchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
 	}
 
-	print('-------------------------------- MassdbConn::searchMsEntries 20')
-	print(ids)
 	# Remove duplicates
 	ids <- ids[ ! duplicated(ids)]
 
-	print('-------------------------------- MassdbConn::searchMsEntries 21')
-	print(ids)
 	# Cut
 	if ( ! is.na(max.results) && length(ids) > max.results)
 		ids <- ids[1:max.results]
-	print('-------------------------------- MassdbConn::searchMsEntries 22')
-	print(ids)
 
 	return(ids)
 })
@@ -202,24 +193,20 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 	check.param <- .self$.checkSearchMsParam(mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = ms.level)
 	if (is.null(check.param))
 		return(NULL)
-	print('-------------------------------- MassdbConn::searchMsPeaks 10')
 
 	results <- NULL
 
 	# Step 1 matching of entries, possibly with precursors
 	precursor.match.ids <- NULL
-	print('-------------------------------- MassdbConn::searchMsPeaks 11')
 	if (precursor) {
 		precursor.match.ids <- .self$searchMsEntries(mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit,
 		                                             rt = rt, rt.unit = rt.unit, rt.tol = precursor.rt.tol, chrom.col.ids = chrom.col.ids,
 		                                             precursor = precursor,
 		                                             min.rel.int = min.rel.int, ms.mode = ms.mode, ms.level = ms.level)
 	}
-	print('-------------------------------- MassdbConn::searchMsPeaks 15')
 
 	# Loop on the list of M/Z values
 	.self$message('debug', 'Looping on all M/Z values.')
-	print('-------------------------------- MassdbConn::searchMsPeaks 20')
 	for (i in seq_along(mz)) {
 
 		# Compute M/Z range
@@ -247,18 +234,16 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 			.self$message('debug', paste('Cutting data frame', max.results, 'rows.'))
 			entries <- entries[1:max.results]
 		}
-		if (length(entries) > 0) {
-			non.null.entries <- ! vapply(entries, is.null, FUN.VALUE = TRUE)
-	print('-------------------------------- MassdbConn::searchMsPeaks 30')
-			print(non.null.entries)
-			if (any(non.null.entries)) {
-				first.non.null.entry <- which(non.null.entries)[[1]]
-	print('-------------------------------- MassdbConn::searchMsPeaks 31')
-				print(first.non.null.entry)
-	print('-------------------------------- MassdbConn::searchMsPeaks 32')
-				.self$message('debug', paste('Field names of first non null entry:', paste(entries[[first.non.null.entry]]$getFieldNames(), collapse = ', ')))
-			}
-		}
+
+		# Remove NULL entries
+		null.entries <- vapply(entries, is.null, FUN.VALUE = TRUE)
+		if (any(null.entries))
+			.self$message('debug', 'One of the entries is NULL.')
+		entries <- entries[ ! null.entries]
+
+		# Display first entry
+		if (length(entries) > 0)
+				.self$message('debug', paste('Field names of entry:', paste(entries[[1]]$getFieldNames(), collapse = ', ')))
 
 		# Convert to data frame
 		.self$message('debug', 'Converting list of entries to data frame.')
@@ -275,14 +260,13 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		info.df <- data.frame(mz = mz[[i]])
 		if (check.param$use.rt.match)
 			info.df[['rt']] <- rt[[i]]
-		df <- cbind(info.df, df)
+		df <- if (is.null(df)) info.df else cbind(info.df, df)
 
 		# Appending to main results data frame
 		.self$message('debug', 'Merging data frame of matchings into results data frame.')
 		results <- plyr::rbind.fill(results, df)
 		.self$message('debug', paste('Total results data frame contains', nrow(results), 'rows.'))
 	}
-	print('-------------------------------- MassdbConn::searchMsPeaks 100')
 
 	return(results)
 })

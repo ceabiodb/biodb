@@ -358,9 +358,6 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	# Get db
 	db <- .self$.db
 
-	print('-------------------------------- MassCsvFileConn::.select 01')
-	print(nrow(db))
-	print('-------------------------------- MassCsvFileConn::.select 02')
 	# Filter db on mode
 	if ( ! is.null(mode) && ! is.na(mode)) {
 
@@ -373,27 +370,18 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), ]
 	}
 
-	print('-------------------------------- MassCsvFileConn::.select 10')
-	print(nrow(db))
-	print('-------------------------------- MassCsvFileConn::.select 11')
 	# Filter db on ids
 	if ( ! is.null(ids)) {
 		.self$.check.fields('accession')
 		db <- db[db[[.self$.fields[['accession']]]] %in% ids, ]
 	}
 
-	print('-------------------------------- MassCsvFileConn::.select 20')
-	print(nrow(db))
-	print('-------------------------------- MassCsvFileConn::.select 21')
 	# Filter db on compound ids
 	if ( ! is.null(compound.ids)) {
 		.self$.check.fields('compound.id')
 		db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, ]
 	}
 
-	print('-------------------------------- MassCsvFileConn::.select 30')
-	print(nrow(db))
-	print('-------------------------------- MassCsvFileConn::.select 31')
 	# Filter on mz values
 	if ((length(mz.min) > 0 || length(mz.max) > 0) && ! (length(mz.min) == 1 && is.na(mz.min) && is.na(mz.max))) {
 		.self$message('debug', paste('Filtering on M/Z range [', mz.min, ', ', mz.max, '].', sep = ''))
@@ -403,12 +391,6 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		.self$.check.fields('peak.mztheo')
 		f <- .self$.fields[['peak.mztheo']]
 		mz <- db[[f]]
-	print('-------------------------------- MassCsvFileConn::.select 32')
-		print(mz)
-	print('-------------------------------- MassCsvFileConn::.select 33')
-	print(mz.min)
-	print(mz.max)
-	print('-------------------------------- MassCsvFileConn::.select 34')
 		.self$message('debug', paste(length(mz), 'M/Z values to filter.'))
 
 		# For all couples in vectors mz.min and mz.max, verify which M/Z values in mz are in the range. For each couple of mz.min/mz.max we get a vector of booleans the same length as mz.
@@ -416,23 +398,15 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		.self$message('debug', paste('mz.max = ', paste(mz.max, collapse = ', '), '.', sep = ''))
 		s <- mapply(function(mzmin, mzmax) { (if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin) & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax) }, mz.min, mz.max)
 
-	print('-------------------------------- MassCsvFileConn::.select 37')
-	print(s)
 		# Now we select the M/Z values that are in at least one of the M/Z ranges.
 		if (is.matrix(s))
 			s <- apply(s, 1, function(x) Reduce("|", x))
 		else if (is.list(s))
 			s <- unlist(s)
 
-	print('-------------------------------- MassCsvFileConn::.select 38')
-	print(s)
-	print('-------------------------------- MassCsvFileConn::.select 39')
 		db <- db[s, ]
 	}
 
-	print('-------------------------------- MassCsvFileConn::.select 40')
-	print(nrow(db))
-	print('-------------------------------- MassCsvFileConn::.select 41')
 	# Filter on relative intensity
 	if ( ! is.na(min.rel.int)) {
 		if (.self$.check.fields('peak.relative.intensity', fail = FALSE))
@@ -442,18 +416,12 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	}
 
 	# Filter on precursors
-	print('-------------------------------- MassCsvFileConn::.select 100')
-	print(nrow(db))
-	print('-------------------------------- MassCsvFileConn::.select 101')
 	if (precursor) {
 		if (.self$.check.fields('peak.attr', fail = FALSE))
 			db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, ]
 		else
 			db <- db[integer(),]
 	}
-	print('-------------------------------- MassCsvFileConn::.select 102')
-	print(nrow(db))
-	print('-------------------------------- MassCsvFileConn::.select 103')
 
 	# Filter on MS level
 	if (level > 0) {
@@ -492,14 +460,6 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 ################################################################
 
 MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-	print('-------------------------------- MassCsvFileConn::.doSearchMzRange 01')
-	print(mz.min)
-	print(mz.max)
-	print(ms.mode)
-	print(max.results)
-	print(precursor)
-	print(ms.level)
-	print('-------------------------------- MassCsvFileConn::.doSearchMzRange 02')
 	return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode = ms.mode, max.rows = max.results, cols = 'accession', drop = TRUE, uniq = TRUE, sort = TRUE, precursor = precursor, level = ms.level))
 })
 

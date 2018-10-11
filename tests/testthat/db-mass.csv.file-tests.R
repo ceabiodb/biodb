@@ -423,24 +423,16 @@ test.mass.csv.file.precursor.match <- function(db) {
 	rt <- c(prec.112.rt, prec.112.rt, prec.108.rt + precursor.rt.tol + 1e-6)
 
 	# M/Z Search
-	print('-------------------------------- test.mass.csv.file.precursor.match 10')
 	results <- conn$searchMsPeaks(mz = mz, mz.tol = 0.1, precursor = TRUE)
-	print('-------------------------------- test.mass.csv.file.precursor.match 20')
-	print(results)
-	print('-------------------------------- test.mass.csv.file.precursor.match 21')
 	expect_is(results, 'data.frame')
 	expect_equal(nrow(results), 3)
 	expect_true(all(results[['accession']] %in% c('A2', 'B3')))
-	print('-------------------------------- test.mass.csv.file.precursor.match 22')
 
 	# With precursor RT tolerance
 	results2 <- conn$searchMsPeaks(mz = mz, rt = rt, mz.tol = 0.1, precursor = TRUE, precursor.rt.tol = precursor.rt.tol, chrom.col.ids = 'col1', rt.tol = rt.tol , rt.tol.exp = rt.tol.exp, rt.unit = 'min')
-	print('-------------------------------- test.mass.csv.file.precursor.match 30')
-	print(results2)
-	print('-------------------------------- test.mass.csv.file.precursor.match 31')
 	expect_is(results2, 'data.frame')
-	expect_equal(nrow(results2), 2)
-	expect_true(all(results2[['accession']] == 'A2'))
+	expect_equal(nrow(results2), 3)
+	expect_identical(results2[['accession']], c('A2', 'A2', NA_character_))
 
 	# Terminate biodb instance
 	new.biodb$terminate()
