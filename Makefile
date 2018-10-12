@@ -1,6 +1,6 @@
+export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 all:
 
-check: BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 check:
 	$(RM) -r $(BIODB_CACHE_DIRECTORY)
 	R -q -e "devtools::check('$(CURDIR)')"
