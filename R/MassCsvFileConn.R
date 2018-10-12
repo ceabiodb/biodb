@@ -46,6 +46,15 @@ MassCsvFileConn$methods( isAPrecursorFormula = function(formula) {
 	return (formula %in% .self$.precursors)
 })
 
+# Set precursor formulae {{{1
+################################################################
+
+MassCsvFileConn$methods( setPrecursorFormulae = function(formulae) {
+	":\n\nReplace current formulae by this new list of formulae."
+	.self$.assert.is(formulae, 'character')
+	.precursors <<- formulae[ ! duplicated(formulae)]
+})
+
 # Add precursor formulae {{{1
 ################################################################
 
