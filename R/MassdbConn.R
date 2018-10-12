@@ -186,7 +186,7 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_) {
+MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_, insert.mz.rt.values = TRUE) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 	
 	# Check arguments
@@ -257,10 +257,12 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
 
 		# Inserting M/Z and RT info at the beginning of the data frame
-		info.df <- data.frame(mz = mz[[i]])
-		if (check.param$use.rt.match)
-			info.df[['rt']] <- rt[[i]]
-		df <- if (is.null(df)) info.df else cbind(info.df, df)
+		if (insert.mz.rt.values) {
+			info.df <- data.frame(mz = mz[[i]])
+			if (check.param$use.rt.match)
+				info.df[['rt']] <- rt[[i]]
+			df <- if (is.null(df)) info.df else cbind(info.df, df)
+		}
 
 		# Appending to main results data frame
 		.self$message('debug', 'Merging data frame of matchings into results data frame.')
