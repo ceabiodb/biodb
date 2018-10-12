@@ -46,6 +46,15 @@ MassCsvFileConn$methods( isAPrecursorFormula = function(formula) {
 	return (formula %in% .self$.precursors)
 })
 
+# Set precursor formulae {{{1
+################################################################
+
+MassCsvFileConn$methods( setPrecursorFormulae = function(formulae) {
+	":\n\nReplace current formulae by this new list of formulae."
+	.self$.assert.is(formulae, 'character')
+	.precursors <<- formulae[ ! duplicated(formulae)]
+})
+
 # Add precursor formulae {{{1
 ################################################################
 
@@ -398,9 +407,9 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		.self$message('debug', paste('mz.max = ', paste(mz.max, collapse = ', '), '.', sep = ''))
 		s <- mapply(function(mzmin, mzmax) { (if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin) & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax) }, mz.min, mz.max)
 
-		# Now we select the M/Z values that are in all ranges listed in mz.min/mz.max.
+		# Now we select the M/Z values that are in at least one of the M/Z ranges.
 		if (is.matrix(s))
-			s <- apply(s, 1, function(x) Reduce("&", x))
+			s <- apply(s, 1, function(x) Reduce("|", x))
 		else if (is.list(s))
 			s <- unlist(s)
 

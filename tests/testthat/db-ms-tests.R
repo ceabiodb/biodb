@@ -247,11 +247,11 @@ test.searchMsPeaks.rt <- function(db) {
 
 	# Set retention time info
 	if (entry$hasField('chrom.rt'))
-		rts <- entry$getFieldValue('chrom.rt')
+		rt <- entry$getFieldValue('chrom.rt')
 	else if (entry$hasField('chrom.rt.min') && entry$hasField('chrom.rt.max'))
-		rts <- (entry$getFieldValue('chrom.rt.min') + entry$getFieldValue('chrom.rt.max')) / 2
-	expect_is(rts, 'numeric')
-	expect_false(is.na(rts))
+		rt <- (entry$getFieldValue('chrom.rt.min') + entry$getFieldValue('chrom.rt.max')) / 2
+	expect_is(rt, 'numeric')
+	expect_false(is.na(rt))
 	chrom.col.ids <- entry$getFieldValue('chrom.col.id')
 	expect_is(chrom.col.ids, 'character')
 	expect_false(is.na(chrom.col.ids))
@@ -261,16 +261,16 @@ test.searchMsPeaks.rt <- function(db) {
 
 	# Get peak table
 	peaks <- entry$getFieldValue('peaks')
-	mzs <- peaks[1, 'peak.mz']
+	mz <- peaks[1, 'peak.mz']
 
 	# Search for MZ/RT
 	mz.tol <- 0
 	rt.tol <- 0
-	peaks <- db$searchMsPeaks(mzs = mzs, chrom.col.ids = chrom.col.ids, rts = rts, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
+	peaks <- db$searchMsPeaks(mz = mz, chrom.col.ids = chrom.col.ids, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
 	expect_is(peaks, 'data.frame')
 	expect_true(nrow(peaks) > 0)
-	expect_true(all((peaks$peak.mz >= mzs - mz.tol) & (peaks$peak.mz <= mzs + mz.tol)))
-	expect_true(all((peaks$chrom.rt >= rts - rt.tol) & (peaks$chrom.rt <= rts + rt.tol)))
+	expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
+	expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
 }
 
 # Test msmsSearch whe no IDs are found {{{1

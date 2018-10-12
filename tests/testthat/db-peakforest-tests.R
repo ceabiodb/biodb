@@ -57,22 +57,22 @@ test.peakforest.compound.ws.all.ids <- function(db) {
 test.peakforest.mass.rt.match.with.different.units <- function(db) {
 
 	# Search for peaks using RT in seconds
-	mzs <- 118
+	mz <- 118
 	mz.tol <- 0.1
-	rts <- 53
+	rt <- 53
 	rt.unit <- 's'
 	rt.tol <- 30
 	rt.tol.exp <- 0.8
 	chrom.col.ids <- db$getChromCol()$id
-	peaks.sec <- db$searchMsPeaks(mzs = mzs, mz.tol = mz.tol, rts = rts, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+	peaks.sec <- db$searchMsPeaks(mz = mz, mz.tol = mz.tol, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
 	expect_is(peaks.sec, 'data.frame')
 	expect_gt(nrow(peaks.sec), 0)
 
 	# Search for peaks using RT in minutes
-	rts <- rts / 60
+	rt <- rt / 60
 	rt.unit <- 'min'
 	rt.tol <- rt.tol / 60
-	peaks.min <- db$searchMsPeaks(mzs = mzs, mz.tol = mz.tol, rts = rts, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+	peaks.min <- db$searchMsPeaks(mz = mz, mz.tol = mz.tol, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
 	expect_is(peaks.min, 'data.frame')
 	expect_gt(nrow(peaks.min), 0)
 

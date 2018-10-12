@@ -70,8 +70,8 @@ test.mass.csv.file.data.frame <- function(db) {
 
 	# Define database data frame
 	ids <- 'ZAP'
-	mzs <- 12
-	df <- data.frame(accession = ids, mz = mzs, mode = '+')
+	mz <- 12
+	df <- data.frame(accession = ids, mz = mz, mode = '+')
 
 	# New biodb instance
 	new.biodb <- biodb::Biodb$new(logger = FALSE)
@@ -86,7 +86,7 @@ test.mass.csv.file.data.frame <- function(db) {
 	conn$setField('peak.mztheo', 'mz')
 
 	# Get M/Z values
-	expect_identical(mzs, conn$getMzValues())
+	expect_identical(mz, conn$getMzValues())
 	expect_identical(ids, conn$getEntryIds())
 }
 
@@ -287,18 +287,24 @@ test.mass.csv.file.mz.matching.limits <- function(db) {
 		mz.inf <- mz / ( 1 +  ( mz.shift + mz.tol) * 1e-6)
 
 		# Search
-		results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_is(results, 'data.frame')
-		results <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_is(results, 'data.frame')
-		results <- conn$searchMsPeaks(mz.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_is(results, 'data.frame')
-		results <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_null(results)
-		results <- conn$searchMsPeaks(mz.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_is(results, 'data.frame')
-		results <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_null(results)
+		results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results1, 'data.frame')
+		results2 <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results2, 'data.frame')
+		results3 <- conn$searchMsPeaks(mz.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results3, 'data.frame')
+		results4 <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', insert.mz.rt.values = FALSE)
+		expect_null(results4)
+		results4.1 <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', insert.mz.rt.values = TRUE)
+		expect_is(results4.1, 'data.frame')
+		expect_identical(colnames(results4.1), 'mz')
+		results5 <- conn$searchMsPeaks(mz.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+		expect_is(results5, 'data.frame')
+		results6 <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', insert.mz.rt.values = FALSE)
+		expect_null(results6)
+		results6.1 <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', insert.mz.rt.values = TRUE)
+		expect_is(results6.1, 'data.frame')
+		expect_identical(colnames(results6.1), 'mz')
 	}
 	
 	# Close Biodb instance
@@ -336,18 +342,24 @@ test.mass.csv.file.rt.matching.limits <- function(db) {
 	rt.inf <- uniroot(function(rt) rt + x + (rt) ^ y - rt.sec, c(0,1000))$root
 
 	# Search
-	results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sec, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sec, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_is(results1, 'data.frame')
-	results2 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = (rt.inf + rt.sup) / 2, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results2 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = (rt.inf + rt.sup) / 2, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_is(results2, 'data.frame')
-	results3 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.inf, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results3 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.inf, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_is(results3, 'data.frame')
-	results4 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results4 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y, insert.mz.rt.values = FALSE)
 	expect_null(results4)
-	results5 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sup, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results4.1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y, insert.mz.rt.values = TRUE)
+	expect_is(results4.1, 'data.frame')
+	expect_identical(colnames(results4.1), c('mz', 'rt'))
+	results5 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sup, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
 	expect_is(results5, 'data.frame')
-	results6 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rts = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results6 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y, insert.mz.rt.values = FALSE)
 	expect_null(results6)
+	results6.1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y, insert.mz.rt.values = TRUE)
+	expect_is(results6.1, 'data.frame')
+	expect_identical(colnames(results6.1), c('mz', 'rt'))
 	
 	# Close Biodb instance
 	new.biodb$terminate()
@@ -384,6 +396,55 @@ test.mass.csv.file.ms.mode.values <- function(db) {
 	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'zzz')
 	expect_is(results, 'data.frame')
 
+	# Terminate biodb instance
+	new.biodb$terminate()
+}
+
+# Test precursor match {{{1
+################################################################
+
+test.mass.csv.file.precursor.match <- function(db) {
+
+	# Set retention time values
+	prec.112.rt <- 5.69
+	prec.108.rt <- 8.75
+	precursor.rt.tol <- 1
+	rt.tol <- 5
+	rt.tol.exp <- 0.8
+
+	# Define db data frame
+	db.df <- rbind(
+				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 54,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 69,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 54,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
+				   data.frame(accession = 'B3', ms.mode = 'pos', peak.mztheo = 108, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.108.rt, chrom.rt.unit = 'min'),
+				   stringsAsFactors = FALSE)
+
+	# Create new Biodb instance
+	new.biodb <- create.biodb.instance()
+	new.biodb$getConfig()$disable('cache.system')
+
+	# Create connector
+	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn$setDb(db.df)
+
+	# Input
+	mz <- c(54,          112,         108)
+	rt <- c(prec.112.rt, prec.112.rt, prec.108.rt + precursor.rt.tol + 1e-6)
+
+	# M/Z Search
+	results <- conn$searchMsPeaks(mz = mz, mz.tol = 0.1, precursor = TRUE)
+	expect_is(results, 'data.frame')
+	expect_equal(nrow(results), 3)
+	expect_true(all(results[['accession']] %in% c('A2', 'B3')))
+
+	# With precursor RT tolerance
+	results2 <- conn$searchMsPeaks(mz = mz, rt = rt, mz.tol = 0.1, precursor = TRUE, precursor.rt.tol = precursor.rt.tol, chrom.col.ids = 'col1', rt.tol = rt.tol , rt.tol.exp = rt.tol.exp, rt.unit = 'min')
+	expect_is(results2, 'data.frame')
+	expect_equal(nrow(results2), 3)
+	expect_identical(results2[['accession']], c('A2', 'A2', NA_character_))
 
 	# Terminate biodb instance
 	new.biodb$terminate()
@@ -406,4 +467,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.db.test.that('M/Z matching limits (mz.min and mz.max) are respected.', 'test.mass.csv.file.mz.matching.limits', db)
 	run.db.test.that('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', db)
 	run.db.test.that('We can set additional values for MS mode.', 'test.mass.csv.file.ms.mode.values', db)
+	run.db.test.that('Precursor match works.', 'test.mass.csv.file.precursor.match', db)
 }
