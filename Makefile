@@ -1,4 +1,7 @@
 export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
+PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
+GIT_VERSION=$(shell git tag --points-at | sed 's/^v\([0-9.]*\)[a-z]*$$/\1/')
+
 all:
 
 check:
@@ -16,7 +19,10 @@ install.deps:
 build:
 	R -q -e "devtools::build('$(CURDIR)')"
 
-test:
+check.version:
+	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
+
+test: check.version
 	R -q -e "devtools::test('$(CURDIR)', reporter = c('progress', 'fail'))"
 
 install: uninstall install.local list.classes
