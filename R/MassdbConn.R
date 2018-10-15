@@ -196,13 +196,14 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 
 	results <- NULL
 
-	# Step 1 matching of entries, possibly with precursors
+	# Step 1 matching of entries with matched precursor
 	precursor.match.ids <- NULL
 	if (precursor) {
 		precursor.match.ids <- .self$searchMsEntries(mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit,
 		                                             rt = rt, rt.unit = rt.unit, rt.tol = precursor.rt.tol, chrom.col.ids = chrom.col.ids,
 		                                             precursor = precursor,
 		                                             min.rel.int = min.rel.int, ms.mode = ms.mode, ms.level = ms.level)
+		.self$message('debug', paste0('Found ', length(precursor.match.ids), ' spectra with matched precursor: ', paste((if (length(precursor.match.ids) <= 10) precursor.match.ids else precursor.match.ids[1:10]), collapse = ', '), '.'))
 	}
 
 	# Loop on the list of M/Z values
@@ -215,11 +216,13 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
 		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (check.param$use.rt.match) NA_integer_ else max.results, ms.level = ms.level)
-		.self$message('debug', paste0('Found ', length(ids), ' spectra:', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
+		.self$message('debug', paste0('Found ', length(ids), ' spectra: ', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
 
 		# Filter out IDs that were not found in step 1.
-		if ( ! is.null(precursor.match.ids))
+		if ( ! is.null(precursor.match.ids)) {
 			ids <- ids[ids %in% precursor.match.ids]
+			.self$message('debug', paste0('After filtering on IDs with precursor match, we have ', length(ids), ' spectra: ', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
+		}
 		
 		# Filter on RT value
 		if  (check.param$use.rt.match)
