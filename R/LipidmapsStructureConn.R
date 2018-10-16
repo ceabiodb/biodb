@@ -201,6 +201,8 @@ LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NULL, outp
 ################################################################
 
 LipidmapsStructureConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+		
+	.self$.checkMassField(mass = mass, mass.field = mass.field)
 
 	exact.mass <- NULL
 	exact.mass.offset <- NULL

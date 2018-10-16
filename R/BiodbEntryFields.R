@@ -100,10 +100,21 @@ BiodbEntryFields$methods( get = function(name) {
 # Get field names {{{1
 ################################################################
 
-BiodbEntryFields$methods( getFieldNames = function() {
+BiodbEntryFields$methods( getFieldNames = function(type = NULL) {
 	":\n\nReturns the main names of all fields."
 
-	return(names(.self$.fields))
+	# Filter by type
+	if ( ! is.null(type)) {
+		fields <- character()
+		for (n in names(.self$.fields))
+			if (.self$.fields[[n]]$getType() %in% type)
+				fields <- c(fields, n)
+	}
+
+	else
+		fields <- names(.self$.fields)
+
+	return(sort(fields))
 })
 
 # Get database id field {{{1

@@ -18,7 +18,8 @@ NcbiPubchemCompConn$methods( initialize = function(...) {
 ################################################################
 
 NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
-	":\n\nSearch for compounds by name and/or by mass."
+		
+	.self$.checkMassField(mass = mass, mass.field = mass.field)
 
 	term <- character()
 

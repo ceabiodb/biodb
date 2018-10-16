@@ -69,6 +69,13 @@ test.searchCompound <- function(db) {
 	}
 }
 
+# Test searchCompound() no mass.field {{{1
+################################################################
+
+test.searchCompound.no.mass.field <- function(db) {
+	expect_error(db$searchCompound(mass = 45))
+}
+
 # Run Compound DB tests {{{1
 ################################################################
 
@@ -79,6 +86,7 @@ run.compound.db.tests <- function(db, mode) {
 			
 			set.test.context(db$getBiodb(), paste("Running compound tests on database", db$getId(), "in", mode, "mode"))
 
+			run.db.test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', db)
 			run.db.test.that('We can search for a compound', 'test.searchCompound', db)
 		}
 }
