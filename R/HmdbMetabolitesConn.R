@@ -210,6 +210,8 @@ HmdbMetabolitesConn$methods( getEntryImageUrl = function(id) {
 ################################################################
 
 HmdbMetabolitesConn$methods( searchCompound = function(name = NULL, molecular.mass = NULL, monoisotopic.mass = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+		
+	.self$.checkMassField(mass = mass, mass.field = mass.field)
 
 	ids <- NULL
 

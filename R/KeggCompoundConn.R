@@ -129,6 +129,8 @@ KeggCompoundConn$methods( ws.find.molecular.weight.ids = function(...) {
 ################################################################
 
 KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+		
+	.self$.checkMassField(mass = mass, mass.field = mass.field)
 
 	ids <- NULL
 
@@ -139,7 +141,7 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 	}
 
 	# Search by mass
-	if ( ! is.null(mass) && ! is.null(mass.field)) {
+	if ( ! is.null(mass)) {
 
 		mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
 
