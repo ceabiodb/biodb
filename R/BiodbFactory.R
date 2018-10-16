@@ -60,6 +60,7 @@ BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = N
 
     # Get connection class
     conn.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getConnClass()
+    .self$message('debug', paste0('Creating new connector for database class ', dbid, '.'))
 
 	# Create connection instance
 	conn <- conn.class$new(dbid = dbid, parent = .self)

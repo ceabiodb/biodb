@@ -44,7 +44,23 @@ CompounddbConn$methods( initialize = function(...) {
 ################################################################
 
 CompounddbConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
-	":\n\nSearch for compounds by name and/or by mass."
+	":\n\nSearch for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)"
 
 	.self$.abstract.method()
+})
+
+# PRIVATE {{{1
+################################################################
+
+# Check mass field {{{2
+################################################################
+
+CompounddbConn$methods( .checkMassField = function(mass, mass.field) {
+
+	if ( ! is.null(mass)) {
+		.self$.assert.is(mass, c('integer', 'numeric'))
+		.self$.assert.not.null(mass.field)
+		.self$.assert.is(mass.field, 'character')
+		.self$.assert.in(mass.field, .self$getBiodb()$getEntryFields()$getFieldNames(type = 'mass'))
+	}
 })

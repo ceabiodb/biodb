@@ -97,6 +97,8 @@ ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
 ################################################################
 
 ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+		
+	.self$.checkMassField(mass = mass, mass.field = mass.field)
 
 	ids <- NULL
 	

@@ -133,6 +133,8 @@ UniprotConn$methods( getEntryImageUrl = function(id) {
 ################################################################
 
 UniprotConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+		
+	.self$.checkMassField(mass = mass, mass.field = mass.field)
 
 	query <- ''
 
