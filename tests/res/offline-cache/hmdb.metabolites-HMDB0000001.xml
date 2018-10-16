@@ -2,7 +2,7 @@
 <metabolite>
   <version>4.0</version>
   <creation_date>2005-11-16 15:48:42 UTC</creation_date>
-  <update_date>2018-04-16 17:00:02 UTC</update_date>
+  <update_date>2018-05-20 20:24:02 UTC</update_date>
   <accession>HMDB0000001</accession>
   <status>quantified</status>
   <secondary_accessions>
@@ -15,6 +15,7 @@
     <accession>HMDB06704</accession>
   </secondary_accessions>
   <name>1-Methylhistidine</name>
+  <cs_description>1-Methylhistidine, also known as 1-mhis, belongs to the class of organic compounds known as histidine and derivatives. Histidine and derivatives are compounds containing cysteine or a derivative thereof resulting from reaction of cysteine at the amino group or the carboxy group, or from the replacement of any hydrogen of glycine by a heteroatom. 1-Methylhistidine has been found in human muscle and skeletal muscle tissues, and has also been detected in most biofluids, including cerebrospinal fluid, saliva, blood, and feces. Within the cell, 1-methylhistidine is primarily located in the cytoplasm. 1-Methylhistidine participates in a number of enzymatic reactions. In particular, 1-Methylhistidine and Beta-alanine can be converted into anserine; which is catalyzed by the enzyme carnosine synthase 1. In addition, Beta-Alanine and 1-methylhistidine can be biosynthesized from anserine; which is mediated by the enzyme cytosolic non-specific dipeptidase. In humans, 1-methylhistidine is involved in the histidine metabolism pathway. 1-Methylhistidine is also involved in the metabolic disorder called the histidinemia pathway.</cs_description>
   <description>One-methylhistidine (1-MHis) is derived mainly from the anserine of dietary flesh sources, especially poultry. The enzyme, carnosinase, splits anserine into b-alanine and 1-MHis. High levels of 1-MHis tend to inhibit the enzyme carnosinase and increase anserine levels. Conversely, genetic variants with deficient carnosinase activity in plasma show increased 1-MHis excretions when they consume a high meat diet. Reduced serum carnosinase activity is also found in patients with Parkinson's disease and multiple sclerosis and patients following a cerebrovascular accident. Vitamin E deficiency can lead to 1-methylhistidinuria from increased oxidative effects in skeletal muscle. 1-Methylhistidine is a biomarker for the consumption of meat, especially red meat.</description>
   <synonyms>
     <synonym>(2S)-2-amino-3-(1-Methyl-1H-imidazol-4-yl)propanoic acid</synonym>
@@ -111,6 +112,8 @@
           <parent_id>7693</parent_id>
           <level>2</level>
           <type>parent</type>
+          <synonyms>
+          </synonyms>
           <descendants>
             <descendant>
               <term>Health condition</term>
@@ -118,6 +121,8 @@
               <parent_id>7694</parent_id>
               <level>3</level>
               <type>parent</type>
+              <synonyms>
+              </synonyms>
               <descendants>
                 <descendant>
                   <term>Kidney disease</term>
@@ -125,6 +130,10 @@
                   <parent_id>7695</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                    <synonym>Renal disease</synonym>
+                    <synonym>Nephropathy</synonym>
+                  </synonyms>
                 </descendant>
                 <descendant>
                   <term>Diabetes mellitus type 2</term>
@@ -132,6 +141,11 @@
                   <parent_id>7695</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                    <synonym>Non-insulin-dependent diabetes mellitus</synonym>
+                    <synonym>Niddm</synonym>
+                    <synonym>Adult-onset diabetes</synonym>
+                  </synonyms>
                 </descendant>
                 <descendant>
                   <term>Metabolism and nutrition disorders</term>
@@ -139,6 +153,8 @@
                   <parent_id>7695</parent_id>
                   <level>4</level>
                   <type>parent</type>
+                  <synonyms>
+                  </synonyms>
                   <descendants>
                     <descendant>
                       <term>Obesity</term>
@@ -146,6 +162,8 @@
                       <parent_id>7708</parent_id>
                       <level>5</level>
                       <type>child</type>
+                      <synonyms>
+                      </synonyms>
                     </descendant>
                   </descendants>
                 </descendant>
@@ -168,6 +186,8 @@
           <parent_id>7724</parent_id>
           <level>2</level>
           <type>parent</type>
+          <synonyms>
+          </synonyms>
           <descendants>
             <descendant>
               <term>Endogenous</term>
@@ -175,6 +195,8 @@
               <parent_id>7735</parent_id>
               <level>3</level>
               <type>child</type>
+              <synonyms>
+              </synonyms>
             </descendant>
           </descendants>
         </descendant>
@@ -184,6 +206,8 @@
           <parent_id>7724</parent_id>
           <level>2</level>
           <type>parent</type>
+          <synonyms>
+          </synonyms>
           <descendants>
             <descendant>
               <term>Tissue and substructures</term>
@@ -191,6 +215,8 @@
               <parent_id>7725</parent_id>
               <level>3</level>
               <type>parent</type>
+              <synonyms>
+              </synonyms>
               <descendants>
                 <descendant>
                   <term>Muscle</term>
@@ -198,6 +224,8 @@
                   <parent_id>7729</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                  </synonyms>
                 </descendant>
                 <descendant>
                   <term>Skeletal muscle</term>
@@ -205,6 +233,9 @@
                   <parent_id>7729</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                    <synonym>Striated muscle</synonym>
+                  </synonyms>
                 </descendant>
               </descendants>
             </descendant>
@@ -214,6 +245,8 @@
               <parent_id>7725</parent_id>
               <level>3</level>
               <type>parent</type>
+              <synonyms>
+              </synonyms>
               <descendants>
                 <descendant>
                   <term>Saliva</term>
@@ -221,6 +254,8 @@
                   <parent_id>7731</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                  </synonyms>
                 </descendant>
                 <descendant>
                   <term>Feces</term>
@@ -228,6 +263,12 @@
                   <parent_id>7731</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                    <synonym>Fecal</synonym>
+                    <synonym>Stool</synonym>
+                    <synonym>Faecal</synonym>
+                    <synonym>Faeces</synonym>
+                  </synonyms>
                 </descendant>
                 <descendant>
                   <term>Urine</term>
@@ -235,6 +276,8 @@
                   <parent_id>7731</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                  </synonyms>
                 </descendant>
                 <descendant>
                   <term>Blood</term>
@@ -242,6 +285,8 @@
                   <parent_id>7731</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                  </synonyms>
                 </descendant>
                 <descendant>
                   <term>Cerebrospinal fluid</term>
@@ -249,6 +294,9 @@
                   <parent_id>7731</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                    <synonym>Csf</synonym>
+                  </synonyms>
                 </descendant>
               </descendants>
             </descendant>
@@ -258,6 +306,8 @@
               <parent_id>7725</parent_id>
               <level>3</level>
               <type>parent</type>
+              <synonyms>
+              </synonyms>
               <descendants>
                 <descendant>
                   <term>Cytoplasm</term>
@@ -265,6 +315,9 @@
                   <parent_id>7730</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                    <synonym>Cytoplasma</synonym>
+                  </synonyms>
                 </descendant>
               </descendants>
             </descendant>
@@ -285,6 +338,8 @@
           <parent_id>7659</parent_id>
           <level>2</level>
           <type>parent</type>
+          <synonyms>
+          </synonyms>
           <descendants>
             <descendant>
               <term>Biological process</term>
@@ -292,6 +347,8 @@
               <parent_id>7660</parent_id>
               <level>3</level>
               <type>parent</type>
+              <synonyms>
+              </synonyms>
               <descendants>
                 <descendant>
                   <term>Biochemical pathway</term>
@@ -299,6 +356,8 @@
                   <parent_id>7661</parent_id>
                   <level>4</level>
                   <type>parent</type>
+                  <synonyms>
+                  </synonyms>
                   <descendants>
                     <descendant>
                       <term>Histidine Metabolism</term>
@@ -306,6 +365,8 @@
                       <parent_id>7662</parent_id>
                       <level>5</level>
                       <type>child</type>
+                      <synonyms>
+                      </synonyms>
                     </descendant>
                   </descendants>
                 </descendant>
@@ -328,6 +389,8 @@
           <parent_id>7671</parent_id>
           <level>2</level>
           <type>parent</type>
+          <synonyms>
+          </synonyms>
           <descendants>
             <descendant>
               <term>Pharmaceutical industry</term>
@@ -335,6 +398,8 @@
               <parent_id>7678</parent_id>
               <level>3</level>
               <type>parent</type>
+              <synonyms>
+              </synonyms>
               <descendants>
                 <descendant>
                   <term>Pharmaceutical</term>
@@ -342,6 +407,8 @@
                   <parent_id>7679</parent_id>
                   <level>4</level>
                   <type>child</type>
+                  <synonyms>
+                  </synonyms>
                 </descendant>
               </descendants>
             </descendant>
@@ -1458,6 +1525,10 @@
           <pubmed_id>15361288</pubmed_id>
         </reference>
         <reference>
+          <reference_text>Reichman ME, Judd JT, Longcope C, Schatzkin A, Clevidence BA, Nair PP, Campbell WS, Taylor PR: Effects of alcohol consumption on plasma and urinary hormone concentrations in premenopausal women. J Natl Cancer Inst. 1993 May 5;85(9):722-7.</reference_text>
+          <pubmed_id>8478958</pubmed_id>
+        </reference>
+        <reference>
           <reference_text>Abe T, Tohgi H, Isobe C, Murata T, Sato C: Remarkable increase in the concentration of 8-hydroxyguanosine in cerebrospinal fluid from patients with Alzheimer's disease. J Neurosci Res. 2002 Nov 1;70(3):447-50.</reference_text>
           <pubmed_id>12391605</pubmed_id>
         </reference>
@@ -1472,6 +1543,104 @@
         <reference>
           <reference_text>Kristensen MO, Gulmann NC, Christensen JE, Ostergaard K, Rasmussen K: Serum cobalamin and methylmalonic acid in Alzheimer dementia. Acta Neurol Scand. 1993 Jun;87(6):475-81.</reference_text>
           <pubmed_id>8356878</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Hozumi I, Hasegawa T, Honda A, Ozawa K, Hayashi Y, Hashimoto K, Yamada M, Koumura A, Sakurai T, Kimura A, Tanaka Y, Satoh M, Inuzuka T: Patterns of levels of biological metals in CSF differ among neurodegenerative diseases. J Neurol Sci. 2011 Apr 15;303(1-2):95-9. doi: 10.1016/j.jns.2011.01.003. Epub 2011 Feb 2.</reference_text>
+          <pubmed_id>21292280</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Motawaj M, Peoc'h K, Callebert J, Arrang JM: CSF levels of the histamine metabolite tele-methylhistamine are only slightly decreased in Alzheimer's disease. J Alzheimers Dis. 2010;22(3):861-71. doi: 10.3233/JAD-2010-100381.</reference_text>
+          <pubmed_id>20858978</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Linnebank M, Popp J, Smulders Y, Smith D, Semmler A, Farkas M, Kulic L, Cvetanovska G, Blom H, Stoffel-Wagner B, Kolsch H, Weller M, Jessen F: S-adenosylmethionine is decreased in the cerebrospinal fluid of patients with Alzheimer's disease. Neurodegener Dis. 2010;7(6):373-8. doi: 10.1159/000309657. Epub 2010 Jun 3.</reference_text>
+          <pubmed_id>20523031</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Smach MA, Jacob N, Golmard JL, Charfeddine B, Lammouchi T, Ben Othman L, Dridi H, Bennamou S, Limem K: Folate and homocysteine in the cerebrospinal fluid of patients with Alzheimer's disease or dementia: a case control study. Eur Neurol. 2011;65(5):270-8. doi: 10.1159/000326301. Epub 2011 Apr 8.</reference_text>
+          <pubmed_id>21474939</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Rosler N, Wichart I, Jellinger KA: Clinical significance of neurobiochemical profiles in the lumbar cerebrospinal fluid of Alzheimer's disease patients. J Neural Transm (Vienna). 2001;108(2):231-46.</reference_text>
+          <pubmed_id>11314776</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Sunderland T, Berrettini WH, Molchan SE, Lawlor BA, Martinez RA, Vitiello B, Tariot PN, Cohen RM: Reduced cerebrospinal fluid dynorphin A1-8 in Alzheimer's disease. Biol Psychiatry. 1991 Jul 1;30(1):81-7.</reference_text>
+          <pubmed_id>1716470</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Tsuruoka M, Hara J, Hirayama A, Sugimoto M, Soga T, Shankle WR, Tomita M: Capillary electrophoresis-mass spectrometry-based metabolome analysis of serum and saliva from neurodegenerative dementia patients. Electrophoresis. 2013 Oct;34(19):2865-72. doi: 10.1002/elps.201300019. Epub 2013  Sep 6.</reference_text>
+          <pubmed_id>23857558</pubmed_id>
+        </reference>
+      </references>
+    </disease>
+    <disease>
+      <name>Pregnancy</name>
+      <omim_id/>
+      <references>
+        <reference>
+          <reference_text>Andreolini F, Borra C, Caccamo F, Di Corcia A, Nicoletti I, Samperi R, Improta F: Estriol and its conjugates in late pregnancy determined by extraction with Carbopack B and liquid chromatography with fluorometric detection. Clin Chem. 1985 Oct;31(10):1698-702.</reference_text>
+          <pubmed_id>2994907</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Ball P, Emons G, Haupt O, Hoppen HO, Knuppen R: Radioimmunoassay of 2-hydroxyestrone. Steroids. 1978 Feb;31(2):249-58.</reference_text>
+          <pubmed_id>663967</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Ribar S, Mesaric M, Sedic M: Sphingoid bases as possible diagnostic parameters. Croat Med J. 2003 Apr;44(2):165-70.</reference_text>
+          <pubmed_id>12698507</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Khan HA, Sobki SH, Alhomida AS: Fluctuations in fasting blood glucose and serum fructosamine in pregnant women monitored on successive antenatal visits. Clin Exp Med. 2006 Oct;6(3):134-7.</reference_text>
+          <pubmed_id>17061063</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Yang XL, Wu XR: The dynamic changes of several reproductive hormones during termination of early pregnancy by RU486 in combination with PG-05 in Chinese women. Adv Contracept. 1988 Dec;4(4):319-26.</reference_text>
+          <pubmed_id>3252730</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Yang YJ, Lee J, Choi MH, Chung BC: Direct determination of estriol 3- and 16-glucuronides in pregnancy urine by column-switching liquid chromatography with electrospray tandem mass spectrometry. Biomed Chromatogr. 2003 Jun;17(4):219-25.</reference_text>
+          <pubmed_id>12833386</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Huang PC, Kuo PL, Guo YL, Liao PC, Lee CC: Associations between urinary phthalate monoesters and thyroid hormones in pregnant women. Hum Reprod. 2007 Oct;22(10):2715-22. Epub 2007 Aug 17.</reference_text>
+          <pubmed_id>17704099</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Mikkelsen TB, Osler M, Olsen SF: Validity of protein, retinol, folic acid and n-3 fatty acid intakes estimated from the food-frequency questionnaire used in the Danish National Birth Cohort. Public Health Nutr. 2006 Sep;9(6):771-8.</reference_text>
+          <pubmed_id>16925883</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Shiraishi M, Haruna M, Matsuzaki M, Murayama R, Sasaki S, Murashima S: Validity and reproducibility of folate and vitamin B(12) intakes estimated from a self-administered diet history questionnaire in Japanese pregnant women. Nutr J. 2012 Mar 15;11:15. doi: 10.1186/1475-2891-11-15.</reference_text>
+          <pubmed_id>22420377</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Brantsaeter AL, Haugen M, Julshamn K, Alexander J, Meltzer HM: Evaluation of urinary iodine excretion as a biomarker for intake of milk and dairy products in pregnant women in the Norwegian Mother and Child Cohort Study (MoBa). Eur J Clin Nutr. 2009 Mar;63(3):347-54. Epub 2007 Dec 5.</reference_text>
+          <pubmed_id>18059417</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: Metabolomics and first-trimester prediction of early-onset preeclampsia. J Matern Fetal Neonatal Med. 2012 Oct;25(10):1840-7. doi: 10.3109/14767058.2012.680254. Epub 2012 Apr 28.</reference_text>
+          <pubmed_id>22494326</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: First-trimester metabolomic detection of late-onset preeclampsia. Am J Obstet Gynecol. 2013 Jan;208(1):58.e1-7. doi: 10.1016/j.ajog.2012.11.003. Epub 2012 Nov 13.</reference_text>
+          <pubmed_id>23159745</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: Metabolomic analysis for first-trimester Down syndrome prediction. Am J Obstet Gynecol. 2013 May;208(5):371.e1-8. doi: 10.1016/j.ajog.2012.12.035. Epub 2013 Jan 8.</reference_text>
+          <pubmed_id>23313728</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Chelliah A, Mandal R, Dong E, Kruger M, Wishart DS, Nicolaides K: Metabolomic analysis for first-trimester trisomy 18 detection. Am J Obstet Gynecol. 2013 Jul;209(1):65.e1-9. doi: 10.1016/j.ajog.2013.03.028. Epub 2013 Mar 25.</reference_text>
+          <pubmed_id>23535240</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Bahado-Singh RO, Ertl R, Mandal R, Bjorndahl TC, Syngelaki A, Han B, Dong E, Liu PB, Alpay-Savasan Z, Wishart DS, Nicolaides KH: Metabolomic prediction of fetal congenital heart defect in the first trimester. Am J Obstet Gynecol. 2014 Sep;211(3):240.e1-240.e14. doi: 10.1016/j.ajog.2014.03.056. Epub 2014 Apr 1.</reference_text>
+          <pubmed_id>24704061</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>The Merck Manual, 17th ed. Mark H. Beers, MD, Robert Berkow, MD, eds. Whitehouse Station, NJ: Merck Research Labs, 1999.</reference_text>
+          <pubmed_id/>
         </reference>
       </references>
     </disease>
@@ -1510,6 +1679,10 @@
         <reference>
           <reference_text>McLellan AC, Phillips SA, Thornalley PJ: Fluorimetric assay of D-lactate. Anal Biochem. 1992 Oct;206(1):12-6.</reference_text>
           <pubmed_id>1456422</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Noroozi M, Burns J, Crozier A, Kelly IE, Lean ME: Prediction of dietary flavonol consumption from fasting plasma concentration or urinary excretion. Eur J Clin Nutr. 2000 Feb;54(2):143-9.</reference_text>
+          <pubmed_id>10694785</pubmed_id>
         </reference>
         <reference>
           <reference_text>Wahl HG, Hoffmann A, Luft D, Liebich HM: Analysis of volatile organic compounds in human urine by headspace gas chromatography-mass spectrometry with a multipurpose sampler. J Chromatogr A. 1999 Jun 25;847(1-2):117-25.</reference_text>
@@ -1580,8 +1753,27 @@
           <pubmed_id>18760976</pubmed_id>
         </reference>
         <reference>
+          <reference_text>Paroni R, Ceriotti F, Galanello R, Battista Leoni G, Panico A, Scurati E, Paleari R, Chemello L, Quaino V, Scaldaferri L, Lapolla A, Mosca A: Performance characteristics and clinical utility of an enzymatic method for the measurement of glycated albumin in plasma. Clin Biochem. 2007 Dec;40(18):1398-405. Epub 2007 Aug 10.</reference_text>
+          <pubmed_id>17919531</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Salek RM, Maguire ML, Bentley E, Rubtsov DV, Hough T, Cheeseman M, Nunez D, Sweatman BC, Haselden JN, Cox RD, Connor SC, Griffin JL: A metabolomic comparison of urinary changes in type 2 diabetes in mouse, rat, and human. Physiol Genomics. 2007 Apr 24;29(2):99-108. Epub 2006 Dec 26.</reference_text>
+          <pubmed_id>17190852</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Galli E, Marchini M, Saba A, Berti S, Tonacchera M, Vitti P, Scanlan TS, Iervasi G, Zucchi R: Detection of 3-iodothyronamine in human patients: a preliminary study. J Clin Endocrinol Metab. 2012 Jan;97(1):E69-74. doi: 10.1210/jc.2011-1115. Epub 2011 Oct 26.</reference_text>
+          <pubmed_id>22031514</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Llorach R, Urpi-Sarda M, Tulipani S, Garcia-Aloy M, Monagas M, Andres-Lacueva C: Metabolomic fingerprint in patients at high risk of cardiovascular disease by cocoa intervention. Mol Nutr Food Res. 2013 Jun;57(6):962-73. doi: 10.1002/mnfr.201200736. Epub 2013  May 2.</reference_text>
+          <pubmed_id>23637065</pubmed_id>
+        </reference>
+        <reference>
           <reference_text>World Health Organisation Department of Noncommunicable Disease Surveillance (1999). "Definition, Diagnosis and Classification of Diabetes Mellitus and its Complications"</reference_text>
           <pubmed_id/>
+        </reference>
+        <reference>
+          <reference_text>Rosa Va ́zquez-Fresno et al. An NMR metabolomics approach reveals a combined-biomarkers model in a wine interventional trial with validation in free-living individuals of the PREDIMED study.  Metabolomics (2015) 11:797- 806: https://link.springer.com/content/pdf/10.1007/s11306-014-0735-x.pdf</reference_text>
         </reference>
       </references>
     </disease>
@@ -1666,7 +1858,61 @@
           <pubmed_id>17073580</pubmed_id>
         </reference>
         <reference>
+          <reference_text>Paroni R, Ceriotti F, Galanello R, Battista Leoni G, Panico A, Scurati E, Paleari R, Chemello L, Quaino V, Scaldaferri L, Lapolla A, Mosca A: Performance characteristics and clinical utility of an enzymatic method for the measurement of glycated albumin in plasma. Clin Biochem. 2007 Dec;40(18):1398-405. Epub 2007 Aug 10.</reference_text>
+          <pubmed_id>17919531</pubmed_id>
+        </reference>
+        <reference>
           <reference_text>Nieren- und Hochdruckkrankheiten (1978), 7(2), 62-74 (translated from German Kidney and Hypertension). </reference_text>
+          <pubmed_id/>
+        </reference>
+      </references>
+    </disease>
+    <disease>
+      <name>Maple syrup urine disease</name>
+      <omim_id>248600</omim_id>
+      <references>
+        <reference>
+          <reference_text>Shigematsu Y, Kikuchi K, Momoi T, Sudo M, Kikawa Y, Nosaka K, Kuriyama M, Haruki S, Sanada K, Hamano N, et al.: Organic acids and branched-chain amino acids in body fluids before and after multiple exchange transfusions in maple syrup urine disease. J Inherit Metab Dis. 1983;6(4):183-9.</reference_text>
+          <pubmed_id>6422161</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Deng C, Shang C, Hu Y, Zhang X: Rapid diagnosis of phenylketonuria and other aminoacidemias by quantitative analysis of amino acids in neonatal blood spots by gas chromatography-mass spectrometry. J Chromatogr B Analyt Technol Biomed Life Sci. 2002 Jul 25;775(1):115-20.</reference_text>
+          <pubmed_id>12101068</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Schadewaldt P, Bodner-Leidecker A, Hammen HW, Wendel U: Significance of L-alloisoleucine in plasma for diagnosis of maple syrup urine disease. Clin Chem. 1999 Oct;45(10):1734-40.</reference_text>
+          <pubmed_id>10508118</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Schadewaldt P, Hammen HW, Ott AC, Wendel U: Renal clearance of branched-chain L-amino and 2-oxo acids in maple syrup urine disease. J Inherit Metab Dis. 1999 Aug;22(6):706-22.</reference_text>
+          <pubmed_id>10472531</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Kumps A, Duez P, Mardens Y: Metabolic, nutritional, iatrogenic, and artifactual sources of urinary organic acids: a comprehensive table. Clin Chem. 2002 May;48(5):708-17.</reference_text>
+          <pubmed_id>11978597</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Gronwald W, Klein MS, Kaspar H, Fagerer SR, Nurnberger N, Dettmer K, Bertsch T, Oefner PJ: Urinary metabolite quantification employing 2D NMR spectroscopy. Anal Chem. 2008 Dec 1;80(23):9288-97. doi: 10.1021/ac801627c.</reference_text>
+          <pubmed_id>19551947</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Podebrad F, Heil M, Reichert S, Mosandl A, Sewell AC, Bohles H: 4,5-dimethyl-3-hydroxy-2[5H]-furanone (sotolone)--the odour of maple syrup urine disease. J Inherit Metab Dis. 1999 Apr;22(2):107-14.</reference_text>
+          <pubmed_id>10234605</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Yunus ZM, Kamaludin DA, Mamat M, Choy YS, Ngu L: Clinical and biochemical profiles of maple syrup urine disease in malaysian children. JIMD Rep. 2012;5:99-107. doi: 10.1007/8904_2011_105. Epub 2011 Dec 11.</reference_text>
+          <pubmed_id>23430924</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Barschak AG, Marchesan C, Sitta A, Deon M, Giugliani R, Wajner M, Vargas CR: Maple syrup urine disease in treated patients: biochemical and oxidative stress profiles. Clin Biochem. 2008 Mar;41(4-5):317-24. Epub 2007 Dec 5.</reference_text>
+          <pubmed_id>18088602</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Peritoneal dialysis in maple-syrup-urine disease: Studies on branched-chain amino and keto acids. Eur J Pediatr (1980) 134: 57. https://doi.org/10.1007/BF00442404</reference_text>
+          <pubmed_id/>
+        </reference>
+        <reference>
+          <reference_text>MetaGene: Metabolic &amp; Genetic Information Center (MIC: http://www.metagene.de)</reference_text>
           <pubmed_id/>
         </reference>
       </references>
@@ -1694,6 +1940,90 @@
         <reference>
           <reference_text>Driskell JA, Chrisley BM, Reynolds LK, Moak SW: Plasma B6 vitamer and plasma and urinary 4-pyridoxic acid concentrations of middle-aged obese black women. J Chromatogr. 1991 Aug 23;568(2):333-40.</reference_text>
           <pubmed_id>1783639</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Haro C, Montes-Borrego M, Rangel-Zuniga OA, Alcala-Diaz JF, Gomez-Delgado F, Perez-Martinez P, Delgado-Lista J, Quintana-Navarro GM, Tinahones FJ, Landa BB, Lopez-Miranda J, Camargo A, Perez-Jimenez F: Two Healthy Diets Modulate Gut Microbial Community Improving Insulin Sensitivity in a Human Obese Population. J Clin Endocrinol Metab. 2016 Jan;101(1):233-42. doi: 10.1210/jc.2015-3351. Epub  2015 Oct 27.</reference_text>
+          <pubmed_id>26505825</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Vioque J, Weinbrenner T, Asensio L, Castello A, Young IS, Fletcher A: Plasma concentrations of carotenoids and vitamin C are better correlated with dietary intake in normal weight than overweight and obese elderly subjects. Br J Nutr. 2007 May;97(5):977-86.</reference_text>
+          <pubmed_id>17408529</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Burrows TL, Warren JM, Colyvas K, Garg ML, Collins CE: Validation of overweight children's fruit and vegetable intake using plasma carotenoids. Obesity (Silver Spring). 2009 Jan;17(1):162-8. doi: 10.1038/oby.2008.495. Epub 2008 Nov 6.</reference_text>
+          <pubmed_id>18997681</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Reinehr T, Wolters B, Knop C, Lass N, Hellmuth C, Harder U, Peissner W, Wahl S, Grallert H, Adamski J, Illig T, Prehn C, Yu Z, Wang-Sattler R, Koletzko B: Changes in the serum metabolite profile in obese children with weight loss. Eur J Nutr. 2015 Mar;54(2):173-81. doi: 10.1007/s00394-014-0698-8. Epub 2014 Apr  17.</reference_text>
+          <pubmed_id>24740590</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Wahl S, Yu Z, Kleber M, Singmann P, Holzapfel C, He Y, Mittelstrass K, Polonikov A, Prehn C, Romisch-Margl W, Adamski J, Suhre K, Grallert H, Illig T, Wang-Sattler R, Reinehr T: Childhood obesity is associated with changes in the serum metabolite profile. Obes Facts. 2012;5(5):660-70. doi: 10.1159/000343204. Epub 2012 Oct 4.</reference_text>
+          <pubmed_id>23108202</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Cho K, Moon JS, Kang JH, Jang HB, Lee HJ, Park SI, Yu KS, Cho JY: Combined untargeted and targeted metabolomic profiling reveals urinary biomarkers for discriminating obese from normal-weight adolescents. Pediatr Obes. 2017 Apr;12(2):93-101. doi: 10.1111/ijpo.12114. Epub 2016 Feb 22.</reference_text>
+          <pubmed_id>26910390</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Metabolomics reveals determinants of weight loss during lifestyle intervention in obese children</reference_text>
+          <pubmed_id/>
+        </reference>
+      </references>
+    </disease>
+    <disease>
+      <name>Propionic acidemia</name>
+      <omim_id>606054</omim_id>
+      <references>
+        <reference>
+          <reference_text>Scholl-Burgi S, Haberlandt E, Gotwald T, Albrecht U, Baumgartner Sigl S, Rauchenzauner M, Rostasy K, Karall D: Stroke-like episodes in propionic acidemia caused by central focal metabolic decompensation. Neuropediatrics. 2009 Apr;40(2):76-81. doi: 10.1055/s-0029-1231065. Epub 2009 Oct 6.</reference_text>
+          <pubmed_id>19809936</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Gronwald W, Klein MS, Kaspar H, Fagerer SR, Nurnberger N, Dettmer K, Bertsch T, Oefner PJ: Urinary metabolite quantification employing 2D NMR spectroscopy. Anal Chem. 2008 Dec 1;80(23):9288-97. doi: 10.1021/ac801627c.</reference_text>
+          <pubmed_id>19551947</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Thompson GN, Chalmers RA, Walter JH, Bresson JL, Lyonnet SL, Reed PJ, Saudubray JM, Leonard JV, Halliday D: The use of metronidazole in management of methylmalonic and propionic acidaemias. Eur J Pediatr. 1990 Aug;149(11):792-6.</reference_text>
+          <pubmed_id>2226555</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>Riemersma M, Hazebroek MR, Helderman-van den Enden ATJM, Salomons GS, Ferdinandusse S, Brouwers MCGJ, van der Ploeg L, Heymans S, Glatz JFC, van den Wijngaard A, Krapels IPC, Bierau J, Brunner HG: Propionic acidemia as a cause of adult-onset dilated cardiomyopathy. Eur J Hum Genet. 2017 Nov;25(11):1195-1201. doi: 10.1038/ejhg.2017.127. Epub 2017 Aug 30.</reference_text>
+          <pubmed_id>28853722</pubmed_id>
+        </reference>
+        <reference>
+          <reference_text>MetaGene: Metabolic &amp; Genetic Information Center (MIC: http://www.metagene.de)</reference_text>
+          <pubmed_id/>
+        </reference>
+      </references>
+    </disease>
+    <disease>
+      <name>Eosinophilic esophagitis</name>
+      <omim_id>610247</omim_id>
+      <references>
+        <reference>
+          <reference_text>Mordechai, Hien, and David S. Wishart</reference_text>
+          <pubmed_id/>
+        </reference>
+      </references>
+    </disease>
+    <disease>
+      <name>Early preeclampsia</name>
+      <omim_id></omim_id>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: Metabolomics and first-trimester prediction of early-onset preeclampsia. J Matern Fetal Neonatal Med. 2012 Oct;25(10):1840-7. doi: 10.3109/14767058.2012.680254. Epub 2012 Apr 28.</reference_text>
+          <pubmed_id>22494326</pubmed_id>
+        </reference>
+      </references>
+    </disease>
+    <disease>
+      <name>Late-onset preeclampsia</name>
+      <omim_id></omim_id>
+      <references>
+        <reference>
+          <reference_text>Bahado-Singh RO, Akolekar R, Mandal R, Dong E, Xia J, Kruger M, Wishart DS, Nicolaides K: First-trimester metabolomic detection of late-onset preeclampsia. Am J Obstet Gynecol. 2013 Jan;208(1):58.e1-7. doi: 10.1016/j.ajog.2012.11.003. Epub 2012 Nov 13.</reference_text>
+          <pubmed_id>23159745</pubmed_id>
         </reference>
       </references>
     </disease>
