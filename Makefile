@@ -1,6 +1,6 @@
 export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
-GIT_VERSION=$(shell git tag --points-at | sed 's/^v\([0-9.]*\)[a-z]*$$/\1/')
+GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
 
 all:
 
