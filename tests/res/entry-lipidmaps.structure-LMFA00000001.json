@@ -1,6 +1,6 @@
 {
   "accession": "LMFA00000001",
-  "name": "Acetylenic acids",
+  "name": ["2-methoxy-12-methyloctadec-17-en-5-ynoyl anhydride", "Acetylenic acids"],
   "comp.iupac.name.syst": "2-methoxy-12-methyloctadec-17-en-5-ynoyl anhydride",
   "formula": "C40H66O5",
   "exact.mass": 626.49
