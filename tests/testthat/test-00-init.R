@@ -17,7 +17,7 @@ cat(paste('Running tests on database(s) ', paste(TEST.DATABASES, collapse = ', '
 ################################################################
 
 # Erase whole cache
-if ('MODES' %in% names(env) && env[['MODES']] == MODE.FULL) {
+if ('MODES' %in% names(ENV) && ENV[['MODES']] == MODE.FULL) {
 	biodb <- Biodb$new(logger = FALSE)
 	cat(paste('Delete whole cache folder ', biodb$getConfig()$get('cache.directory'), ".\n", sep = ''))
 	biodb$getCache()$eraseFolder()

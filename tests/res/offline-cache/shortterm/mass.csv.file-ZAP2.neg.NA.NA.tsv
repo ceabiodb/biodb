@@ -1,3 +1,0 @@
-peak.relative.intensity	compound.id	ms.level	ms.mode	peak.mztheo	peak.comp	peak.attr	chrom.col.name	chrom.rt	formula	molecular.mass	name	chrom.rt.unit	accession
-50	ZAP2	2	neg	22.34451	P9W4R32	[(M-H)-(H2O)]-	NA	NA	Q14L6M62Y2	132.10553	Zapataine	min	ZAP2.neg.NA.NA
-100	ZAP2	2	neg	45.34551	P9Y6R48	[(M-H)]-	NA	NA	Q14L6M62Y2	132.10553	Zapataine	min	ZAP2.neg.NA.NA

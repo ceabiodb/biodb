@@ -3,11 +3,14 @@
 # Constants {{{1
 ################################################################
 
+ENV <- Sys.getenv()
+
 TEST.DIR <- file.path(getwd(), '..')
 OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
+ONLINE.CACHE.DIR <- ENV[['BIODB_CACHE_DIRECTORY']]
 USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
@@ -26,15 +29,14 @@ if ( ! file.exists(OUTPUT.DIR))
 DATABASES.ALL <- 'all'
 DATABASES.NONE <- 'none'
 
-env <- Sys.getenv()
 TEST.DATABASES <- biodb::Biodb$new(logger = FALSE)$getDbsInfo()$getIds()
-if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
-	if (env[['DATABASES']] == DATABASES.NONE)
+if ('DATABASES' %in% names(ENV) && nchar(ENV[['DATABASES']]) > 0) {
+	if (ENV[['DATABASES']] == DATABASES.NONE)
 		TEST.DATABASES <- character(0)
-	else if (env[['DATABASES']] == DATABASES.ALL)
+	else if (ENV[['DATABASES']] == DATABASES.ALL)
 		TEST.DATABASES <- biodb::Biodb$new(logger = FALSE)$getDbsInfo()$getIds()
 	else {
-		TEST.DATABASES <- strsplit(env[['DATABASES']], ',')[[1]]
+		TEST.DATABASES <- strsplit(ENV[['DATABASES']], ',')[[1]]
 		db.exists <- vapply(TEST.DATABASES, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
 		if ( ! all(db.exists)) {
 			wrong.dbs <- TEST.DATABASES[ ! db.exists]
@@ -44,8 +46,8 @@ if ('DATABASES' %in% names(env) && nchar(env[['DATABASES']]) > 0) {
 }
 
 # Remove databases to test
-if ('DONT_TEST_DBS' %in% names(env) && nchar(env[['DONT_TEST_DBS']]) > 0) {
-	DONT.TEST.DBS <- strsplit(env[['DONT_TEST_DBS']], ',')[[1]]
+if ('DONT_TEST_DBS' %in% names(ENV) && nchar(ENV[['DONT_TEST_DBS']]) > 0) {
+	DONT.TEST.DBS <- strsplit(ENV[['DONT_TEST_DBS']], ',')[[1]]
 	db.exists <- vapply(DONT.TEST.DBS, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
 	if ( ! all(db.exists)) {
 		wrong.dbs <- DONT.TEST.DBS[ ! db.exists]
@@ -64,11 +66,11 @@ MODE.ALL <- 'all'
 MODE.FULL <- 'full'
 DEFAULT.MODES <- MODE.OFFLINE
 ALLOWED.MODES <- c(MODE.ONLINE, MODE.QUICK.ONLINE, MODE.OFFLINE)
-if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
-	if (env[['MODES']] %in% c(MODE.ALL, MODE.FULL))
+if ('MODES' %in% names(ENV) && nchar(ENV[['MODES']]) > 0) {
+	if (ENV[['MODES']] %in% c(MODE.ALL, MODE.FULL))
 		TEST.MODES <- ALLOWED.MODES
 	else {
-		TEST.MODES <- strsplit(env[['MODES']], ',')[[1]]
+		TEST.MODES <- strsplit(ENV[['MODES']], ',')[[1]]
 		mode.exists <- TEST.MODES %in% ALLOWED.MODES
 		if ( ! all(mode.exists)) {
 			wrong.modes <- TEST.MODES[ ! mode.exists]
@@ -83,8 +85,8 @@ if ('MODES' %in% names(env) && nchar(env[['MODES']]) > 0) {
 ################################################################
 
 FUNCTION.ALL <- 'all'
-if ('FUNCTIONS' %in% names(env)) {
-	TEST.FUNCTIONS <- strsplit(env[['FUNCTIONS']], ',')[[1]]
+if ('FUNCTIONS' %in% names(ENV)) {
+	TEST.FUNCTIONS <- strsplit(ENV[['FUNCTIONS']], ',')[[1]]
 } else {
 	TEST.FUNCTIONS <- FUNCTION.ALL
 }
@@ -144,12 +146,12 @@ create.biodb.instance <- function() {
 	biodb$getConfig()$set('useragent', USERAGENT)
 
 	# Set Peakforest URL and token
-	if ('BIODB_TEST_PEAKFOREST_TOKEN' %in% names(env))
+	if ('BIODB_TEST_PEAKFOREST_TOKEN' %in% names(ENV))
 		for (db in c('peakforest.mass', 'peakforest.compound'))
-			biodb$getDbsInfo()$get(db)$setToken(env[['BIODB_PEAKFOREST_ALPHA_TOKEN']])
-	if ('BIODB_TEST_PEAKFOREST_URL' %in% names(env))
+			biodb$getDbsInfo()$get(db)$setToken(ENV[['BIODB_PEAKFOREST_ALPHA_TOKEN']])
+	if ('BIODB_TEST_PEAKFOREST_URL' %in% names(ENV))
 		for (db in c('peakforest.mass', 'peakforest.compound'))
-			biodb$getDbsInfo()$get(db)$setBaseUrl(env[['BIODB_TEST_PEAKFOREST_URL']])
+			biodb$getDbsInfo()$get(db)$setBaseUrl(ENV[['BIODB_TEST_PEAKFOREST_URL']])
 
 	return(biodb)
 }
@@ -176,7 +178,7 @@ set.mode <- function(biodb, mode) {
 
 	# Online
 	if (mode == MODE.ONLINE) {
-		#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable('cache.read.only')
 		biodb$getConfig()$enable('allow.huge.downloads')
 		biodb$getConfig()$disable('offline')
@@ -185,7 +187,7 @@ set.mode <- function(biodb, mode) {
 
 	# Quick online
 	else if (mode == MODE.QUICK.ONLINE) {
-		#biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
+		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable('cache.read.only')
 		biodb$getConfig()$disable('allow.huge.downloads')
 		biodb$getConfig()$disable('offline')
