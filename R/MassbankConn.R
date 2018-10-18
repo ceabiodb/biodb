@@ -235,18 +235,11 @@ MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, m
 	return(.self$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
-# Do get entry content url {{{1
+# Requires download {{{1
 ################################################################
 
-MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-
-	                  # TODO Return an URL request object with SOAP message embedded
-	if (concatenate)
-		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', paste(id, collapse = ','), sep = '')
-	else
-		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', id, sep = '')
-
-	return(url)
+MassbankConn$methods( requiresDownload = function() {
+	return(TRUE)
 })
 
 # Do download {{{1
@@ -267,11 +260,14 @@ MassbankConn$methods( .doExtractDownload = function() {
 
 	# Extract
 	extracted.dir <- tempfile(.self$getId())
+	print('-------------------------------- MassbankConn::.doExtractDownload 10')
+	print(extracted.dir)
+	print('-------------------------------- MassbankConn::.doExtractDownload 11')
 	untar(tarfile = .self$getDownloadPath(), exdir = extracted.dir) 
 
 	# Copy all exported files
 	.self$message('info', "Copy all extracted MassBank record files into cache.")
-	record.files <- Sys.glob(file.path(extracted.dir, '*', '*.txt'))
+	record.files <- Sys.glob(file.path(extracted.dir, 'MassBank-data-master', '*', '*.txt'))
 	.self$message('info', paste("Found ", length(record.files), " record files in MassBank GitHub archive."))
 	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', record.files)
 	dup.ids <- duplicated(ids)
@@ -280,6 +276,9 @@ MassbankConn$methods( .doExtractDownload = function() {
 	cache.files <- .self$getBiodb()$getCache()$getFilePath(dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
 	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
 	file.copy(record.files, cache.files)
+
+	# Delete extracted dir
+	# TODO
 })
 
 # Get entry content {{{1
