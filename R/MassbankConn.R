@@ -15,9 +15,8 @@ MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn"
 MassbankConn$methods( initialize = function(...) {
 
 	callSuper(...)
-	.self$.abstract.class('MassbankConn')
 
-	.self$.setDownloadExt('svn')
+	.self$.setDownloadExt('tar.gz')
 })
 
 # Do get mz values {{{1
@@ -205,30 +204,10 @@ MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 MassbankConn$methods( .doDownload = function() {
 
-	# SVN export
-	svn.address <- 'http://www.massbank.jp/SVN/OpenData/record/'
-	.self$message('info', paste0("Download whole MassBank database from SVN server ", svn.address, "."))
-	svn.cmd <- .self$getBiodb()$getConfig()$get('svn.binary.path')
-	if (file.exists(svn.cmd)) {
-
-		# Create temporary files for SVN output
-		file.stdout <- tempfile('biodb.svn.stdout')
-		file.stderr <- tempfile('biodb.svn.stderr')
-
-		ret <- system2(svn.cmd, c('export', svn.address, .self$getDownloadPath()), stdout = file.stdout, stderr = file.stderr)
-
-		# An error occured
-		if (ret != 0) {
-			stdout.lines <- readLines(file.stdout)
-			stderr.lines <- readLines(file.stderr)
-			.self$message('warning', paste0("SVN was not able to retrieve repository at ", svn.address, ". Standard output was: ", paste(stdout.lines, collapse = "."), ". Standard error was: ", paste(stderr.lines, collapse = ". "), "."))
-		}
-
-		# Remove temporary files
-		unlink(c(file.stdout, file.stderr))
-	}
-	else
-		.self$message('warning', "SVN does not seem to be installed on your system. As a consequence, Biodb is not able to download whole Massbank database. Please install SVN and make sure it is accessible in the PATH or set the environment variable BIODB_SVN_BINARY_PATH to the path of the SVN executable. If you are under Windows you may try SlikSVN at https://sliksvn.com/download/.")
+	# Download tar.gz
+	tar.gz.url <- 'https://github.com/MassBank/MassBank-data/archive/master.tar.gz'
+	.self$message('info', paste0("Downloading \"", tar.gz.url, "\"..."))
+	.self$.getUrlScheduler()$downloadFile(url = tar.gz.url, dest.file = .self$getDownloadPath())
 })
 
 # Do extract download {{{1
@@ -236,17 +215,21 @@ MassbankConn$methods( .doDownload = function() {
 
 MassbankConn$methods( .doExtractDownload = function() {
 
+	# Extract
+	extracted.dir <- tempfile(.self$getId())
+	untar(tarfile = .self$getDownloadPath(), exdir = extracted.dir) 
+
 	# Copy all exported files
-	.self$message('info', "Copy all MassBank record files from SVN local export directory into cache.")
-	svn.files <- Sys.glob(file.path(.self$getDownloadPath(), '*', '*.txt'))
-	.self$message('info', paste("Found ", length(svn.files), " record files in MassBank SVN local export directory."))
-	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', svn.files)
+	.self$message('info', "Copy all extracted MassBank record files into cache.")
+	record.files <- Sys.glob(file.path(extracted.dir, '*', '*.txt'))
+	.self$message('info', paste("Found ", length(record.files), " record files in MassBank GitHub archive."))
+	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', record.files)
 	dup.ids <- duplicated(ids)
 	if (any(dup.ids))
 		.self$message('caution', paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
 	cache.files <- .self$getBiodb()$getCache()$getFilePath(dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
 	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
-	file.copy(svn.files, cache.files)
+	file.copy(record.files, cache.files)
 })
 
 # Get entry content {{{1
@@ -350,7 +333,9 @@ MassbankConn$methods( getChromCol = function(ids = NULL) {
 ################################################################
 
 MassbankConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'jsp/FwdRecord.jsp?id=', id))
+	url <- paste0(.self$getBaseUrl(), 'MassBank/jsp/RecordDisplay.jsp?id=', id, '&dsn=')
+	.self$message('debug', paste0('Build entry page URL "', url, '".'))
+	return(url)
 })
 
 # Get entry image url {{{1

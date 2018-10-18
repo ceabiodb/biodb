@@ -93,7 +93,7 @@ Find spectra containg a peak around the given M/Z value. Returns a character vec
 mybiodb <- biodb::Biodb()
 
 # Get connector
-conn <- mybiodb$getFactory()$createConn('massbank.jp')
+conn <- mybiodb$getFactory()$createConn('massbank')
 
 
 }

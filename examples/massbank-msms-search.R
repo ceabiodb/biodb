@@ -2,7 +2,7 @@
 mybiodb <- biodb::Biodb$new()
 
 # Get connector to Massbank
-massbank <- mybiodb$getFactory()$getConn('massbank.jp')
+massbank <- mybiodb$getFactory()$getConn('massbank')
 
 # Create spectrum to search for
 spectrum <- data.frame(mz = c(156.0124, 252.0446), rel.int = c(999, 158))

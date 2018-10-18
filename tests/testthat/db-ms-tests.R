@@ -10,7 +10,7 @@ test.msmsSearch.self.match <- function(db) {
 
 	# Set some initial values to speed up test
 	db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)),
-	                  massbank.jp = list(neg = list(spectrum.id = 'PR100504', mz = 193.0354), pos = list(spectrum.id = 'AU106501', mz = 316.075)))
+	                  massbank = list(neg = list(spectrum.id = 'PR100504', mz = 193.0354), pos = list(spectrum.id = 'AU106501', mz = 316.075)))
 
 	# Loop on modes
 	for (mode in c('neg', 'pos')) {
@@ -156,7 +156,7 @@ test.searchMzTol.with.precursor <- function(db) {
 	db.name <- db$getId()
 
 	# Set some initial values to speed up test
-	db.values <- list(massbank.jp = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)),
+	db.values <- list(massbank = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)),
 	                  peakforest.mass = list('2' = list(mz = 117.1)))
 
 	db <- biodb$getFactory()$getConn(db.name)
