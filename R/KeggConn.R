@@ -63,7 +63,7 @@ KeggConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 ################################################################
 
 KeggConn$methods( getEntryPageUrl = function(id) {
-	return(paste('http://www.genome.jp/dbget-bin/www_bget?', .self$.complete.entry.id(id), sep = ''))
+	return(paste('https://www.genome.jp/dbget-bin/www_bget?', .self$.complete.entry.id(id), sep = ''))
 })
 
 # Get entry content {{{1
