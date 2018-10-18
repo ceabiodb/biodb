@@ -4,6 +4,56 @@
 #' @include MassdbConn.R
 #' @include BiodbDownloadable.R
 
+# Prefix -> Dns conversion table {{{1
+################################################################
+
+.PREFIX2DNS <- character()
+.PREFIX2DNS[['AC']] <- 'AAFC'
+.PREFIX2DNS[['AU']] <- 'UOA'
+.PREFIX2DNS[['BML']] <- 'WSU'
+.PREFIX2DNS[['BS']] <- 'BS'
+.PREFIX2DNS[['BSU']] <- 'Boise'
+.PREFIX2DNS[['CA']] <- 'Kyoto'
+.PREFIX2DNS[['CE']] <- 'MPI'
+.PREFIX2DNS[['CO']] <- 'Uconn'
+.PREFIX2DNS[['EA']] <- 'Eawag'
+.PREFIX2DNS[['EQ']] <- 'Eawag'
+.PREFIX2DNS[['ET']] <- 'Eawag_Addn'
+.PREFIX2DNS[['FFF']] <- 'PFOS'
+.PREFIX2DNS[['FIO']] <- 'Fiocruz'
+.PREFIX2DNS[['FU']] <- 'Fukuyama'
+.PREFIX2DNS[['GLS']] <- 'GLS'
+#.PREFIX2DNS[['HB']] <- ''
+.PREFIX2DNS[['JEL']] <- 'JEOL'
+.PREFIX2DNS[['JP']] <- 'Funatsu'
+.PREFIX2DNS[['KNA']] <- 'NAIST'
+.PREFIX2DNS[['KO']] <- 'Keio'
+.PREFIX2DNS[['KZ']] <- 'Kazusa'
+.PREFIX2DNS[['LIT']] <- 'Lit_Specs'
+.PREFIX2DNS[['MCH']] <- 'OsakaM'
+.PREFIX2DNS[['ML']] <- 'MetaboLights'
+.PREFIX2DNS[['MSJ']] <- 'MSSJ'
+.PREFIX2DNS[['MT']] <- 'Metabolon'
+.PREFIX2DNS[['NA']] <- 'NATOXAQ'
+.PREFIX2DNS[['NU']] <- 'Nihon'
+.PREFIX2DNS[['OUF']] <- 'OsakaU'
+.PREFIX2DNS[['PB']] <- 'IPB'
+.PREFIX2DNS[['PR']] <- 'RIKEN'
+.PREFIX2DNS[['RP']] <- 'BGC_Munich'
+# CASMI2012 ?
+.PREFIX2DNS[['SM']] <- 'CASMI2016'
+.PREFIX2DNS[['TT']] <- 'Tottori'
+.PREFIX2DNS[['TUE']] <- 'EAC_Tuebingen'
+.PREFIX2DNS[['TY']] <- 'Toyama'
+.PREFIX2DNS[['UA']] <- 'UFZ'
+.PREFIX2DNS[['UF']] <- 'UFZ'
+.PREFIX2DNS[['UN']] <- 'UFZ'
+.PREFIX2DNS[['UO']] <- 'Sangyo'
+.PREFIX2DNS[['UP']] <- 'UFZ'
+.PREFIX2DNS[['UPA']] <- 'UPAO'
+.PREFIX2DNS[['UT']] <- 'CHUBU'
+#.PREFIX2DNS[['WA']] <- ''
+
 # Class declaration {{{1
 ################################################################
 
@@ -329,11 +379,27 @@ MassbankConn$methods( getChromCol = function(ids = NULL) {
 	return(cols)
 })
 
+# Get dns from id {{{1
+################################################################
+
+MassbankConn$methods( getDns = function(id) {
+
+	dns <- vapply(id, function(x) {
+		prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', id, perl = TRUE)
+		if (prefix %in% names(.PREFIX2DNS))
+			.PREFIX2DNS[[prefix]]
+		else
+			NA_character_
+		}, FUN.VALUE = '')
+
+	return(dns)
+})
+
 # Get entry page url {{{1
 ################################################################
 
 MassbankConn$methods( getEntryPageUrl = function(id) {
-	url <- paste0(.self$getBaseUrl(), 'MassBank/jsp/RecordDisplay.jsp?id=', id, '&dsn=')
+	url <- paste0(.self$getBaseUrl(), 'MassBank/jsp/RecordDisplay.jsp?id=', id, '&dsn=', .self$getDns(id))
 	.self$message('debug', paste0('Build entry page URL "', url, '".'))
 	return(url)
 })
