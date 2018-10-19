@@ -260,9 +260,6 @@ MassbankConn$methods( .doExtractDownload = function() {
 
 	# Extract
 	extracted.dir <- tempfile(.self$getId())
-	print('-------------------------------- MassbankConn::.doExtractDownload 10')
-	print(extracted.dir)
-	print('-------------------------------- MassbankConn::.doExtractDownload 11')
 	untar(tarfile = .self$getDownloadPath(), exdir = extracted.dir) 
 
 	# Copy all exported files
@@ -278,7 +275,7 @@ MassbankConn$methods( .doExtractDownload = function() {
 	file.copy(record.files, cache.files)
 
 	# Delete extracted dir
-	# TODO
+	unlink(extracted.dir, recursive = TRUE)
 })
 
 # Get entry content {{{1
@@ -384,12 +381,12 @@ MassbankConn$methods( getChromCol = function(ids = NULL) {
 MassbankConn$methods( getDns = function(id) {
 
 	dns <- vapply(id, function(x) {
-		prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', id, perl = TRUE)
+		prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', x, perl = TRUE)
 		if (prefix %in% names(.PREFIX2DNS))
 			.PREFIX2DNS[[prefix]]
 		else
 			NA_character_
-		}, FUN.VALUE = '')
+		}, FUN.VALUE = '', USE.NAMES = FALSE)
 
 	return(dns)
 })
