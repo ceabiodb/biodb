@@ -25,7 +25,7 @@ Version 1.0 of the library gives access to the following databases:
  * KEGG Compound.
  * LIPID MAPS Structure.
  * Mass CSV File (an in-house database stored inside a CSV file).
- * MassBank Japan.
+ * MassBank.
  * miRBase Mature.
  * NCBI CCDS.
  * NCBI Gene.
@@ -115,7 +115,7 @@ The plain command `make test` will run the offline tests, which uses cache files
 
 If you wish to test only some databases, you can specify them inside the environment variable `DATABASES`:
 ```bash
-DATABASES=massbank.jp,chebi,mirbase.mature make test
+DATABASES=massbank,chebi,mirbase.mature make test
 ```
 
 If you want to run online tests, use the environment variable `MODES` to specify it:
@@ -182,7 +182,7 @@ The two environment variables can be combined together.
 
 ### Massbank
 
-<http://www.massbank.jp>
+<http://www.massbank.eu>
 
  * Hisayuki Horai, Masanori Arita, Shigehiko Kanaya, Yoshito Nihei, Tasuku Ikeda, Kazuhiro Suwa, Yuya Ojima, Kenichi Tanaka, Satoshi Tanaka, Ken Aoshima, Yoshiya Oda, Yuji Kakazu, Miyako Kusano, Takayuki Tohge, Fumio Matsuda, Yuji Sawada, Masami Yokota Hirai, Hiroki Nakanishi, Kazutaka Ikeda, Naoshige Akimoto, Takashi Maoka, Hiroki Takahashi, Takeshi Ara, Nozomu Sakurai, Hideyuki Suzuki, Daisuke Shibata, Steffen Neumann, Takashi Iida, Ken Tanaka, Kimito Funatsu, Fumito Matsuura, Tomoyoshi Soga, Ryo Taguchi, Kazuki Saito, Takaaki Nishioka. 2010. MassBank: a public repository for sharing mass spectral data for life sciences. Journal of Mass Spectrometry, <http://dx.doi.org/10.1002/jms.1777>.
 

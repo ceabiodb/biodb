@@ -23,7 +23,7 @@ test.mirbase.mature.ws.query <- function(db) {
 	expect_true(length(results) > 0)
 }
 
-# Run Massbank Japan tests {{{1
+# Run Mirbase Mature tests {{{1
 ################################################################
 
 run.mirbase.mature.tests <- function(db, mode) {

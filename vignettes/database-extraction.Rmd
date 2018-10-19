@@ -58,7 +58,7 @@ We will take for this example the Massbank database, since each entry contains a
 
 First, connect to the database:
 ```{r}
-massbank <- mybiodb$getFactory()$getConn('massbank.jp')
+massbank <- mybiodb$getFactory()$getConn('massbank')
 ```
 
 Get some entry IDs, searching by M/Z value:
@@ -72,7 +72,7 @@ mybiodb$getConfig()$disable('allow.huge.downloads')
 
 Get all entries:
 ```{r}
-entries <- mybiodb$getFactory()$getEntry('massbank.jp', id = entry.ids)
+entries <- mybiodb$getFactory()$getEntry('massbank', id = entry.ids)
 ```
 
 Transform all entries into a single data frame:

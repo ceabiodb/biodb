@@ -9,11 +9,11 @@ notifications:
 env:
     - CHECK=yes
     - DATABASES=hmdb.metabolites MODES=offline,quick.online,online
-    - DATABASES=massbank.jp MODES=offline,quick.online,online
+    - DATABASES=massbank MODES=offline,quick.online,online
     - DATABASES=peakforest.mass MODES=offline,quick.online,online
-    - MODES=offline DONT_TEST_DBS=hmdb.metabolites,massbank.jp,peakforest.mass
-    - MODES=online DONT_TEST_DBS=hmdb.metabolites,massbank.jp,peakforest.mass
-    - MODES=quick.online DONT_TEST_DBS=hmdb.metabolites,massbank.jp,peakforest.mass
+    - MODES=offline DONT_TEST_DBS=hmdb.metabolites,massbank,peakforest.mass
+    - MODES=online DONT_TEST_DBS=hmdb.metabolites,massbank,peakforest.mass
+    - MODES=quick.online DONT_TEST_DBS=hmdb.metabolites,massbank,peakforest.mass
 
 branches:
   only:

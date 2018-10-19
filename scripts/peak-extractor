@@ -183,7 +183,7 @@ if (is.null(opt$mzfile)) {
 cat("\n")
 cat('================================================================================')
 cat("Getting entries.\n\n")
-spectra.entries <- biodb$getFactory()$getEntry('massbank.jp', entry.ids, drop = FALSE)
+spectra.entries <- biodb$getFactory()$getEntry('massbank', entry.ids, drop = FALSE)
 
 # Convert to data frame
 cat("\n")
