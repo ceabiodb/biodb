@@ -38,7 +38,7 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Get connector
-#' conn <- mybiodb$getFactory()$createConn('massbank.jp')
+#' conn <- mybiodb$getFactory()$createConn('massbank')
 #'
 #'
 #' @import methods

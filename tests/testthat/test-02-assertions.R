@@ -80,7 +80,7 @@ test.assert.length.one <- function(biodb, obs) {
 
 test.searchMsEntries.assert <- function(biodb, obs) {
 
-	conn <- biodb$getFactory()$createConn('massbank.jp')
+	conn <- biodb$getFactory()$createConn('massbank')
 
 	expect_error(ids <- conn$searchMsEntries(mz = 10, mz.tol = 0.01, mz.tol.unit = 'plain', max.results = 1, ms.level = -1))
 	expect_equal(obs$lastMsg(), "ms.level (-1) cannot be negative.")

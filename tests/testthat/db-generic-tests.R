@@ -226,6 +226,7 @@ test.entry.page.url.download <- function(db) {
 	content <- RCurl::getURL(url)
 	expect_true( ! is.na(content))
 	expect_true(nchar(content) > 0)
+	expect_length(grep('<title>.*Not Found</title>', content), 0)
 }
 
 # Test entry image URL download {{{1

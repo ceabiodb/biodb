@@ -21,7 +21,7 @@ mybiodb <- biodb::Biodb$new()
 ```
 
 For this vignette, we will use an in-house database, built from a data frame. There are two other mass databases in biodb: Peakforest and Massbank database. However the Massbank database requires to download and extract the whole database first, which takes several minutes, while the access to Peakforest is currently restricted to the partners of the [MetaboHUB](http://www.metabohub.fr/home.html) project.
-We will then use a small custom database, built from Massbank Japan using the *biodb* script **peak-extractor**, specially for the purpose of our examples.
+We will then use a small custom database, built from Massbank using the *biodb* script **peak-extractor**, specially for the purpose of our examples.
 
 Create the database data frame:
 ```{r}

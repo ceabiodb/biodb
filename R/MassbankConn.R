@@ -4,6 +4,56 @@
 #' @include MassdbConn.R
 #' @include BiodbDownloadable.R
 
+# Prefix -> Dns conversion table {{{1
+################################################################
+
+.PREFIX2DNS <- character()
+.PREFIX2DNS[['AC']] <- 'AAFC'
+.PREFIX2DNS[['AU']] <- 'UOA'
+.PREFIX2DNS[['BML']] <- 'WSU'
+.PREFIX2DNS[['BS']] <- 'BS'
+.PREFIX2DNS[['BSU']] <- 'Boise'
+.PREFIX2DNS[['CA']] <- 'Kyoto'
+.PREFIX2DNS[['CE']] <- 'MPI'
+.PREFIX2DNS[['CO']] <- 'Uconn'
+.PREFIX2DNS[['EA']] <- 'Eawag'
+.PREFIX2DNS[['EQ']] <- 'Eawag'
+.PREFIX2DNS[['ET']] <- 'Eawag_Addn'
+.PREFIX2DNS[['FFF']] <- 'PFOS'
+.PREFIX2DNS[['FIO']] <- 'Fiocruz'
+.PREFIX2DNS[['FU']] <- 'Fukuyama'
+.PREFIX2DNS[['GLS']] <- 'GLS'
+#.PREFIX2DNS[['HB']] <- ''
+.PREFIX2DNS[['JEL']] <- 'JEOL'
+.PREFIX2DNS[['JP']] <- 'Funatsu'
+.PREFIX2DNS[['KNA']] <- 'NAIST'
+.PREFIX2DNS[['KO']] <- 'Keio'
+.PREFIX2DNS[['KZ']] <- 'Kazusa'
+.PREFIX2DNS[['LIT']] <- 'Lit_Specs'
+.PREFIX2DNS[['MCH']] <- 'OsakaM'
+.PREFIX2DNS[['ML']] <- 'MetaboLights'
+.PREFIX2DNS[['MSJ']] <- 'MSSJ'
+.PREFIX2DNS[['MT']] <- 'Metabolon'
+.PREFIX2DNS[['NA']] <- 'NATOXAQ'
+.PREFIX2DNS[['NU']] <- 'Nihon'
+.PREFIX2DNS[['OUF']] <- 'OsakaU'
+.PREFIX2DNS[['PB']] <- 'IPB'
+.PREFIX2DNS[['PR']] <- 'RIKEN'
+.PREFIX2DNS[['RP']] <- 'BGC_Munich'
+# CASMI2012 ?
+.PREFIX2DNS[['SM']] <- 'CASMI2016'
+.PREFIX2DNS[['TT']] <- 'Tottori'
+.PREFIX2DNS[['TUE']] <- 'EAC_Tuebingen'
+.PREFIX2DNS[['TY']] <- 'Toyama'
+.PREFIX2DNS[['UA']] <- 'UFZ'
+.PREFIX2DNS[['UF']] <- 'UFZ'
+.PREFIX2DNS[['UN']] <- 'UFZ'
+.PREFIX2DNS[['UO']] <- 'Sangyo'
+.PREFIX2DNS[['UP']] <- 'UFZ'
+.PREFIX2DNS[['UPA']] <- 'UPAO'
+.PREFIX2DNS[['UT']] <- 'CHUBU'
+#.PREFIX2DNS[['WA']] <- ''
+
 # Class declaration {{{1
 ################################################################
 
@@ -15,9 +65,8 @@ MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn"
 MassbankConn$methods( initialize = function(...) {
 
 	callSuper(...)
-	.self$.abstract.class('MassbankConn')
 
-	.self$.setDownloadExt('svn')
+	.self$.setDownloadExt('tar.gz')
 })
 
 # Do get mz values {{{1
@@ -186,18 +235,11 @@ MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, m
 	return(.self$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
-# Do get entry content url {{{1
+# Requires download {{{1
 ################################################################
 
-MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-
-	                  # TODO Return an URL request object with SOAP message embedded
-	if (concatenate)
-		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', paste(id, collapse = ','), sep = '')
-	else
-		url <- paste(.self$getBaseUrl(), 'getRecordInfo?ids=', id, sep = '')
-
-	return(url)
+MassbankConn$methods( requiresDownload = function() {
+	return(TRUE)
 })
 
 # Do download {{{1
@@ -205,30 +247,10 @@ MassbankConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 
 MassbankConn$methods( .doDownload = function() {
 
-	# SVN export
-	svn.address <- 'http://www.massbank.jp/SVN/OpenData/record/'
-	.self$message('info', paste0("Download whole MassBank database from SVN server ", svn.address, "."))
-	svn.cmd <- .self$getBiodb()$getConfig()$get('svn.binary.path')
-	if (file.exists(svn.cmd)) {
-
-		# Create temporary files for SVN output
-		file.stdout <- tempfile('biodb.svn.stdout')
-		file.stderr <- tempfile('biodb.svn.stderr')
-
-		ret <- system2(svn.cmd, c('export', svn.address, .self$getDownloadPath()), stdout = file.stdout, stderr = file.stderr)
-
-		# An error occured
-		if (ret != 0) {
-			stdout.lines <- readLines(file.stdout)
-			stderr.lines <- readLines(file.stderr)
-			.self$message('warning', paste0("SVN was not able to retrieve repository at ", svn.address, ". Standard output was: ", paste(stdout.lines, collapse = "."), ". Standard error was: ", paste(stderr.lines, collapse = ". "), "."))
-		}
-
-		# Remove temporary files
-		unlink(c(file.stdout, file.stderr))
-	}
-	else
-		.self$message('warning', "SVN does not seem to be installed on your system. As a consequence, Biodb is not able to download whole Massbank database. Please install SVN and make sure it is accessible in the PATH or set the environment variable BIODB_SVN_BINARY_PATH to the path of the SVN executable. If you are under Windows you may try SlikSVN at https://sliksvn.com/download/.")
+	# Download tar.gz
+	tar.gz.url <- 'https://github.com/MassBank/MassBank-data/archive/master.tar.gz'
+	.self$message('info', paste0("Downloading \"", tar.gz.url, "\"..."))
+	.self$.getUrlScheduler()$downloadFile(url = tar.gz.url, dest.file = .self$getDownloadPath())
 })
 
 # Do extract download {{{1
@@ -236,17 +258,24 @@ MassbankConn$methods( .doDownload = function() {
 
 MassbankConn$methods( .doExtractDownload = function() {
 
+	# Extract
+	extracted.dir <- tempfile(.self$getId())
+	untar(tarfile = .self$getDownloadPath(), exdir = extracted.dir) 
+
 	# Copy all exported files
-	.self$message('info', "Copy all MassBank record files from SVN local export directory into cache.")
-	svn.files <- Sys.glob(file.path(.self$getDownloadPath(), '*', '*.txt'))
-	.self$message('info', paste("Found ", length(svn.files), " record files in MassBank SVN local export directory."))
-	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', svn.files)
+	.self$message('info', "Copy all extracted MassBank record files into cache.")
+	record.files <- Sys.glob(file.path(extracted.dir, 'MassBank-data-master', '*', '*.txt'))
+	.self$message('info', paste("Found ", length(record.files), " record files in MassBank GitHub archive."))
+	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', record.files)
 	dup.ids <- duplicated(ids)
 	if (any(dup.ids))
 		.self$message('caution', paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
 	cache.files <- .self$getBiodb()$getCache()$getFilePath(dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
 	.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
-	file.copy(svn.files, cache.files)
+	file.copy(record.files, cache.files)
+
+	# Delete extracted dir
+	unlink(extracted.dir, recursive = TRUE)
 })
 
 # Get entry content {{{1
@@ -346,11 +375,29 @@ MassbankConn$methods( getChromCol = function(ids = NULL) {
 	return(cols)
 })
 
+# Get dns from id {{{1
+################################################################
+
+MassbankConn$methods( getDns = function(id) {
+
+	dns <- vapply(id, function(x) {
+		prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', x, perl = TRUE)
+		if (prefix %in% names(.PREFIX2DNS))
+			.PREFIX2DNS[[prefix]]
+		else
+			NA_character_
+		}, FUN.VALUE = '', USE.NAMES = FALSE)
+
+	return(dns)
+})
+
 # Get entry page url {{{1
 ################################################################
 
 MassbankConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'jsp/FwdRecord.jsp?id=', id))
+	url <- paste0(.self$getBaseUrl(), 'MassBank/jsp/RecordDisplay.jsp?id=', id, '&dsn=', .self$getDns(id))
+	.self$message('debug', paste0('Build entry page URL "', url, '".'))
+	return(url)
 })
 
 # Get entry image url {{{1
