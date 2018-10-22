@@ -7,7 +7,7 @@
 #'
 #' This is the super class of all connector classes. All methods defined here are thus common to all connector classes. Some connector classes inherit directly from this abstract class. Some others inherit from intermediate classes \code{\link{RemotedbConn}} and \code{\link{MassdbConn}}. As for all connector concrete classes, you won't have to create an instance of this class directly, but you will instead go through the factory class. However, if you plan to develop a new connector, you will have to call the constructor of this class. See section Fields for a list of the constructor's parameters. Concrete classes may have direct web services methods or other specific methods implemented, in which case they will be described inside the documentation of the concrete class. Please refer to the documentation of each concrete class for more information. The database direct web services methods will be named "ws.*".
 #'
-#' @field dbid          The identifier of the connector.
+#' @field id            The identifier of the connector.
 #'
 #' @param count         If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.
 #' @param entry.id      The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.
@@ -32,17 +32,22 @@
 #' @include ChildObject.R
 #' @export BiodbConn
 #' @exportClass BiodbConn
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.dbid = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.id = "character", .dbinfo = "any"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(dbid = NA_character_, ...) {
+BiodbConn$methods( initialize = function(id = NA_character_, dbinfo = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConn')
 
-	.dbid <<- dbid
+	.self$.assert.is(dbinfo, "BiodbDbInfo")
+	.self$.assert.is(id, "character")
+	.id <<- id
+	.dbinfo <<- dbinfo
+    # TODO Another scheme would be to copy the db.info field values into fields of the connector instance.
+	# TODO Yet another solution would be to get the BiodbDbInfo instance directly by contacting the BiodbDbsInfo instance and using a database type given by parameters by the factory.
 })
 
 # Get id {{{1
@@ -51,7 +56,7 @@ BiodbConn$methods( initialize = function(dbid = NA_character_, ...) {
 BiodbConn$methods( getId = function() {
 	":\n\nGet the identifier of this connector."
 
-	return(.self$.dbid)
+	return(.self$.id)
 })
 
 # Get database info {{{1
@@ -60,9 +65,7 @@ BiodbConn$methods( getId = function() {
 BiodbConn$methods( getDbInfo = function() {
 	":\n\nGet the database information associated with this connector."
 
-	db.info <- .self$getBiodb()$getDbsInfo()$get(.self$getId())
-
-	return(db.info)
+	return(.self$.dbinfo)
 })
 
 # Get base URL {{{1

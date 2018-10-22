@@ -7,13 +7,14 @@
 #'
 #' This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
 #'
-#' @param content          The content (as character vector) of one or more database entries.
-#' @param dbid  The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.
-#' @param drop             If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.
+#' @param content   The content (as character vector) of one or more database entries.
+#' @param db.type   The type of a database. The list of types can be obtained from the class \code{\link{BiodbDbsInfo}}.
+#' @param conn.id   The identifier of a database connector.
+#' @param drop      If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.
 #' @param dwnld.chunk.size The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
-#' @param id                A character vector containing database entry IDs (accession numbers).
-#' @param token            A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
-#' @param url              An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
+#' @param id        A character vector containing database entry IDs (accession numbers).
+#' @param token     A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
+#' @param url       An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
 #'
@@ -51,19 +52,30 @@ BiodbFactory$methods( initialize = function(...) {
 # Create conn {{{1
 ################################################################
 
-BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = NA_character_) {
+BiodbFactory$methods( createConn = function(db.type, url = NA_character_, token = NA_character_) {
     ":\n\nCreate a connection to a database."
 
     # Has a connection been already created for this database?
-	if (dbid %in% names(.self$.conn))
-		.self$message('error', paste0('A connection of type ', dbid, ' already exists. Please use method getConn() to access it.'))
+	if (db.type %in% names(.self$.conn))
+		.self$message('error', paste0('A connection of type ', db.type, ' already exists. Please use method getConn() to access it.'))
+
+	# Get database info
+	db.info <- .self$getBiodb()$getDbsInfo()$get(db.type)
+	# TODO make a copy of this instance. !!! Not possible to make a copy in RC.
 
     # Get connection class
-    conn.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getConnClass()
-    .self$message('debug', paste0('Creating new connector for database class ', dbid, '.'))
+    conn.class <- .self$getBiodb()$getDbsInfo()$get(db.type)$getConnClass()
+    .self$message('debug', paste0('Creating new connector for database class ', db.type, '.'))
+
+    # Choose a connector ID
+    suffix <- if ( ! is.na(url)) url else 
+    conn.id <- paste(db.type, suffix, sep = '.') # TODO
+
+	# Test if connector ID is already used
+    # TODO
 
 	# Create connection instance
-	conn <- conn.class$new(dbid = dbid, parent = .self)
+	conn <- conn.class$new(id = conn.id, dbinfo = db.info, parent = .self)
     if ( ! is.na(url))
     	conn$getDbInfo()$setBaseUrl(url)
 
@@ -71,10 +83,10 @@ BiodbFactory$methods( createConn = function(dbid, url = NA_character_, token = N
     if ( ! is.na(token))
 	    conn$setToken(token)
 
-	# Register new dbid instance
-	.self$.conn[[dbid]] <- conn
+	# Register new instance
+	.self$.conn[[conn.id]] <- conn
 
-	return (.self$.conn[[dbid]])
+	return (.self$.conn[[conn.id]])
 })
 
 # Get conn {{{1
