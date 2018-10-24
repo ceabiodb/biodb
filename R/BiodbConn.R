@@ -46,8 +46,6 @@ BiodbConn$methods( initialize = function(id = NA_character_, dbinfo = NULL, ...)
 	.self$.assert.is(id, "character")
 	.id <<- id
 	.dbinfo <<- dbinfo
-    # TODO Another scheme would be to copy the db.info field values into fields of the connector instance.
-	# TODO Yet another solution would be to get the BiodbDbInfo instance directly by contacting the BiodbDbsInfo instance and using a database type given by parameters by the factory.
 })
 
 # Get id {{{1
