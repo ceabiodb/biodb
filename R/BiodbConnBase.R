@@ -98,6 +98,13 @@ BiodbConnBase$methods( getEntryContentType = function() {
 	return(.self$.entry.content.type)
 })
 
+# Get database class {{{1
+################################################################
+
+BiodbConnBase$methods( getDbClass = function() {
+	return(.self$.db.class)
+})
+
 # Get connection class name {{{1
 ################################################################
 

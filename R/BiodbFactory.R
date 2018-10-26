@@ -8,7 +8,7 @@
 #' This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
 #'
 #' @param content   The content (as character vector) of one or more database entries.
-#' @param db.type   The type of a database. The list of types can be obtained from the class \code{\link{BiodbDbsInfo}}.
+#' @param db.class  The type of a database. The list of types can be obtained from the class \code{\link{BiodbDbsInfo}}.
 #' @param conn.id   The identifier of a database connector.
 #' @param drop      If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.
 #' @param dwnld.chunk.size The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
@@ -52,28 +52,30 @@ BiodbFactory$methods( initialize = function(...) {
 # Create conn {{{1
 ################################################################
 
-BiodbFactory$methods( createConn = function(db.type, url = NA_character_, token = NA_character_) {
+BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token = NA_character_) {
     ":\n\nCreate a connection to a database."
 
     # Has a connection been already created for this database?
-	if (db.type %in% names(.self$.conn))
-		.self$message('error', paste0('A connection of type ', db.type, ' already exists. Please use method getConn() to access it.'))
+	if (db.class %in% names(.self$.conn))
+		.self$message('error', paste0('A connection of type ', db.class, ' already exists. Please use method getConn() to access it.'))
 
 	# Get database info
-	db.info <- .self$getBiodb()$getDbsInfo()$get(db.type)
+	db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
 
     # Get connection class
-    conn.class <- .self$getBiodb()$getDbsInfo()$get(db.type)$getConnClass()
-    .self$message('debug', paste0('Creating new connector for database class ', db.type, '.'))
+    conn.class <- db.info$getConnClass()
+    .self$message('debug', paste0('Creating new connector for database class ', db.class, '.'))
 
     # Choose a connector ID
     # TODO
 #    suffix <- if ( ! is.na(url)) url else 
-#    conn.id <- paste(db.type, suffix, sep = '.') # TODO
-    conn.id <- db.type
+#    conn.id <- paste(db.class, suffix, sep = '.') # TODO
+    conn.id <- db.class
 
 	# Test if connector ID is already used
     # TODO
+	if (conn.id %in% names(.self$.conn))
+		.self$message('error', paste0('A connector with ID "', conn.id, '" already exists.'))
 
 	# Create connection instance
 	conn <- conn.class$new(id = conn.id, other = db.info, parent = .self)
@@ -93,13 +95,35 @@ BiodbFactory$methods( createConn = function(db.type, url = NA_character_, token 
 # Get conn {{{1
 ################################################################
 
-BiodbFactory$methods( getConn = function(dbid) {
-	":\n\nGet the connection to a database."
+BiodbFactory$methods( getConn = function(conn.id) {
+	":\n\nGet the instance of connector database corresponding to the submitted ID or database class."
 
-	if ( ! dbid %in% names(.self$.conn))
-		.self$createConn(dbid)
+	.self$.assert.not.null(conn.id)
+	.self$.assert.is(conn.id, 'character')
 
-	return (.self$.conn[[dbid]])
+	conn <- NULL
+
+	# Get connector from ID
+	if (conn.id %in% names(.self$.conn))
+		conn <- .self$.conn[[conn.id]]
+
+	# Does conn.id look like a database class?
+	if (is.null(conn) && .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
+
+		# Try to find connectors that are of this class
+		for (c in .self$.conn)
+			if (c$getDbClass() == db.class)
+				conn <- c(conn, c)
+
+		# Create connector
+		# TODO unless conn.id is a database class that must not be created with default values like mass.csv.file, which requires a URL.
+		conn <- .self$createConn(conn.id)
+	}
+
+	if (is.null(conn))
+		.self$message('error', paste0('Cannot find connector instance "', conn.id, '".'))
+
+	return(conn)
 })
 
 
@@ -115,25 +139,23 @@ BiodbFactory$methods( setDownloadChunkSize = function(dwnld.chunk.size) {
 # Create entry {{{1
 ################################################################
 
-BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
-	":\n\nCreate database entry objects from string content."
+BiodbFactory$methods( createEntry = function(conn.id, content, drop = TRUE) {
+	":\n\nCreate database entry objects from string content, for the specified connector."
 
 	entries <- list()
 
 	if (length(content) > 0) {
-		.self$message('info', paste('Creating ', dbid, ' entries from ', length(content), ' content(s).', sep = ''))
-
-		# Check that class is known
-		.self$getBiodb()$getDbsInfo()$checkIsDefined(dbid)
-
-		# Get entry class
-    	entry.class <- .self$getBiodb()$getDbsInfo()$get(dbid)$getEntryClass()
 
 		# Get connection
-		conn <- .self$getConn(dbid)
+		conn <- .self$getConn(conn.id)
+
+		.self$message('info', paste('Creating ', conn$getName(), ' entries from ', length(content), ' content(s).', sep = ''))
+
+		# Get entry class
+    	entry.class <- conn$getEntryClass()
 
     	# Loop on all contents
-    	.self$message('debug', paste('Parsing ', length(content), ' ', dbid, ' entries.', sep = ''))
+    	.self$message('debug', paste('Parsing ', length(content), ' ', conn.id, ' entries.', sep = ''))
 		for (single.content in content) {
 
 			# Create empty entry instance
@@ -167,23 +189,23 @@ BiodbFactory$methods( createEntry = function(dbid, content, drop = TRUE) {
 # Get entry {{{1
 ################################################################
 
-BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
-	":\n\nCreate database entry objects from IDs (accession numbers)."
+BiodbFactory$methods( getEntry = function(conn.id, id, drop = TRUE) {
+	":\n\nCreate database entry objects from IDs (accession numbers), for the specified connector."
 
 	id <- as.character(id)
 
 	# Use factory cache
 	if (.self$getBiodb()$getConfig()$isEnabled('factory.cache')) {
 		# What entries are missing from factory cache
-		missing.ids <- .self$.getMissingEntryIds(dbid, id)
+		missing.ids <- .self$.getMissingEntryIds(conn.id, id)
 
 		if (length(missing.ids) > 0) {
-			new.entries <- .self$.createNewEntries(dbid, missing.ids, drop = FALSE)
-			.self$.storeNewEntries(dbid, missing.ids, new.entries)
+			new.entries <- .self$.createNewEntries(conn.id, missing.ids, drop = FALSE)
+			.self$.storeNewEntries(conn.id, missing.ids, new.entries)
 		}
 
 		# Get entries
-		entries <- unname(.self$.getEntries(dbid, id))
+		entries <- unname(.self$.getEntries(conn.id, id))
 
 		# If the input was a single element, then output a single object
 		if (drop && length(id) == 1)
@@ -192,7 +214,7 @@ BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
 
 	# Do not use factory cache and create new entries for all IDs
 	else
-		entries <- .self$.createNewEntries(dbid, id, drop = drop)
+		entries <- .self$.createNewEntries(conn.id, id, drop = drop)
 
 	return(entries)
 })
@@ -200,7 +222,7 @@ BiodbFactory$methods( getEntry = function(dbid, id, drop = TRUE) {
 # Get entry content {{{1
 ################################################################
 
-BiodbFactory$methods( getEntryContent = function(dbid, id) {
+BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 	":\n\nGet the contents of database entries from IDs (accession numbers)."
 
 	content <- character(0)
@@ -209,19 +231,22 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 
 		id <- as.character(id)
 
+		# Get connector instance
+		conn <- .self$getConn(conn.id)
+
 		# Debug
-		.self$message('info', paste0("Get ", dbid, " entry content(s) for ", length(id)," id(s)..."))
+		.self$message('info', paste0("Get ", conn$getName(), " entry content(s) for ", length(id)," id(s)..."))
 
 		# Download full database if possible and allowed or if required
-		if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self$getConn(dbid), 'BiodbDownloadable')) {
-			.self$message('debug', paste('Ask for whole database download of ', dbid, '.', sep = ''))
-			.self$getConn(dbid)$download()
+		if (.self$getBiodb()$getCache()$isWritable() && methods::is(conn, 'BiodbDownloadable')) {
+			.self$message('debug', paste('Ask for whole database download of ', conn$getName(), '.', sep = ''))
+			conn$download()
 		}
 
 		# Initialize content
 		if (.self$getBiodb()$getCache()$isReadable()) {
 			# Load content from cache
-			content <- .self$getBiodb()$getCache()$loadFileContent(dbid = dbid, subfolder = 'shortterm', name = id, ext = .self$getConn(dbid)$getEntryContentType())
+			content <- .self$getBiodb()$getCache()$loadFileContent(conn.id = conn.id, subfolder = 'shortterm', name = id, ext = conn$getEntryContentType())
 			missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 		}
 		else {
@@ -235,20 +260,17 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 
 		# Debug
 		if (any(is.na(id)))
-			.self$message('info', paste0(sum(is.na(id)), " ", dbid, " entry ids are NA."))
+			.self$message('info', paste0(sum(is.na(id)), " ", conn$getName(), " entry ids are NA."))
 		if (.self$getBiodb()$getCache()$isReadable()) {
-			.self$message('info', paste0(sum( ! is.na(id)) - length(missing.ids), " ", dbid, " entry content(s) loaded from cache."))
+			.self$message('info', paste0(sum( ! is.na(id)) - length(missing.ids), " ", conn$getName(), " entry content(s) loaded from cache."))
 			if (n.duplicates > 0)
-				.self$message('info', paste0(n.duplicates, " ", dbid, " entry ids, whose content needs to be fetched, are duplicates."))
+				.self$message('info', paste0(n.duplicates, " ", conn$getName(), " entry ids, whose content needs to be fetched, are duplicates."))
 		}
 
 		# Get contents
-		if (length(missing.ids) > 0 && ( ! methods::is(.self$getConn(dbid), 'BiodbDownloadable') || ! .self$getConn(dbid)$isDownloaded())) {
+		if (length(missing.ids) > 0 && ( ! methods::is(conn, 'BiodbDownloadable') || ! conn$isDownloaded())) {
 
-			.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", dbid, " database."))
-
-			# Use connector to get missing contents
-			conn <- .self$getConn(dbid)
+			.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getName(), " database."))
 
 			# Divide list of missing ids in chunks (in order to save in cache regularly)
 			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
@@ -261,7 +283,7 @@ BiodbFactory$methods( getEntryContent = function(dbid, id) {
 
 				# Save to cache
 				if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, dbid = dbid, subfolder = 'shortterm', name = ch.missing.ids, ext = .self$getConn(dbid)$getEntryContentType())
+					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, conn.id = conn.id, subfolder = 'shortterm', name = ch.missing.ids, ext = conn$getEntryContentType())
 
 				# Append
 				missing.contents <- c(missing.contents, ch.missing.contents)
@@ -292,7 +314,7 @@ BiodbFactory$methods( show = function() {
 # Create new entries {{{2
 ################################################################
 
-BiodbFactory$methods( .createNewEntries = function(dbid, ids, drop) {
+BiodbFactory$methods( .createNewEntries = function(conn.id, ids, drop) {
 
 	new.entries <- list()
 
@@ -302,10 +324,10 @@ BiodbFactory$methods( .createNewEntries = function(dbid, ids, drop) {
 		.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
 
 		# Get contents
-		content <- .self$getEntryContent(dbid, ids)
+		content <- .self$getEntryContent(conn.id, ids)
 
 		# Create entries
-		new.entries <- .self$createEntry(dbid, content = content, drop = drop)
+		new.entries <- .self$createEntry(conn.id, content = content, drop = drop)
 	}
 
 	return(new.entries)
@@ -314,48 +336,48 @@ BiodbFactory$methods( .createNewEntries = function(dbid, ids, drop) {
 # Create entries db slot {{{2
 ################################################################
 
-BiodbFactory$methods( .createEntriesDbSlot = function(dbid) {
+BiodbFactory$methods( .createEntriesDbSlot = function(conn.id) {
 
-	if ( ! dbid %in% names(.self$.entries))
-		.self$.entries[[dbid]] <- list()
+	if ( ! conn.id %in% names(.self$.entries))
+		.self$.entries[[conn.id]] <- list()
 })
 
 # Get entries {{{2
 ################################################################
 
-BiodbFactory$methods( .getEntries = function(dbid, ids) {
+BiodbFactory$methods( .getEntries = function(conn.id, ids) {
 
 	ids <- as.character(ids)
 
-	.self$.createEntriesDbSlot(dbid)
+	.self$.createEntriesDbSlot(conn.id)
 
-	return(.self$.entries[[dbid]][ids])
+	return(.self$.entries[[conn.id]][ids])
 })
 
 # Store new entries {{{2
 ################################################################
 
-BiodbFactory$methods( .storeNewEntries = function(dbid, ids, entries) {
+BiodbFactory$methods( .storeNewEntries = function(conn.id, ids, entries) {
 
 	ids <- as.character(ids)
 
-	.self$.createEntriesDbSlot(dbid)
+	.self$.createEntriesDbSlot(conn.id)
 	
 	names(entries) <- ids
 
-	.self$.entries[[dbid]] <- c(.self$.entries[[dbid]], entries)
+	.self$.entries[[conn.id]] <- c(.self$.entries[[conn.id]], entries)
 })
 
 # Get missing entry IDs {{{2
 ################################################################
 
-BiodbFactory$methods( .getMissingEntryIds = function(dbid, ids) {
+BiodbFactory$methods( .getMissingEntryIds = function(conn.id, ids) {
 
 	ids <- as.character(ids)
 
-	.self$.createEntriesDbSlot(dbid)
+	.self$.createEntriesDbSlot(conn.id)
 
-	missing.ids <- ids[ ! ids %in% names(.self$.entries[[dbid]])]
+	missing.ids <- ids[ ! ids %in% names(.self$.entries[[conn.id]])]
 
 	return(missing.ids)
 })

@@ -159,7 +159,6 @@ test.searchMzTol.with.precursor <- function(db) {
 	db.values <- list(massbank = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)),
 	                  peakforest.mass = list('2' = list(mz = 117.1)))
 
-	db <- biodb$getFactory()$getConn(db.name)
 	tol.ppm <- 5
 
 	# Loop on levels
