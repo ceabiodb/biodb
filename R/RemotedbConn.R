@@ -10,7 +10,6 @@
 #' @param concatenate   If set to \code{TRUE}, then try to build as few URLs as possible, sending requests with several identifiers at once.
 #' @param entry.id      The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.
 #' @param max.length    The maximum length of the URLs to return, in number of characters.
-#' @param token         An access token as a character string, required by some databases for all or part of their webservices.
 #'
 #' @seealso \code{\link{BiodbConn}}, \code{\link{UrlRequestScheduler}}.
 #'
@@ -43,25 +42,7 @@ RemotedbConn$methods( initialize = function(...) {
 	.self$.abstract.class('RemotedbConn')
 
 	# Set scheduler
-	.scheduler <<- UrlRequestScheduler$new(n = .self$getDbInfo()$getSchedulerNParam(), t = .self$getDbInfo()$getSchedulerTParam(), parent = .self)
-})
-
-# Get token {{{1
-################################################################
-
-RemotedbConn$methods( getToken = function() {
-	":\n\nGet the token configured for this connector."
-
-	return(.self$getDbInfo()$getToken())
-})
-
-# Set token {{{1
-################################################################
-
-RemotedbConn$methods( setToken = function(token) {
-	":\n\nSet a token for this connector."
-
-	.self$getDbInfo()$setToken(token)
+	.scheduler <<- UrlRequestScheduler$new(n = .self$getSchedulerNParam(), t = .self$getSchedulerTParam(), parent = .self)
 })
 
 # Get entry content url {{{1

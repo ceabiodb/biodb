@@ -29,23 +29,21 @@
 #' n <- conn$getNbEntries()
 #'
 #' @import methods
-#' @include ChildObject.R
+#' @include BiodbConnBase.R
 #' @export BiodbConn
 #' @exportClass BiodbConn
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "ChildObject", fields = list(.id = "character", .dbinfo = "any"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbConnBase", fields = list(.id = "character"))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConn$methods( initialize = function(id = NA_character_, dbinfo = NULL, ...) {
+BiodbConn$methods( initialize = function(id = NA_character_, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConn')
 
-	.self$.assert.is(dbinfo, "BiodbDbInfo")
 	.self$.assert.is(id, "character")
 	.id <<- id
-	.dbinfo <<- dbinfo
 })
 
 # Get id {{{1
@@ -55,42 +53,6 @@ BiodbConn$methods( getId = function() {
 	":\n\nGet the identifier of this connector."
 
 	return(.self$.id)
-})
-
-# Get database info {{{1
-################################################################
-
-BiodbConn$methods( getDbInfo = function() {
-	":\n\nGet the database information associated with this connector."
-
-	return(.self$.dbinfo)
-})
-
-# Get base URL {{{1
-################################################################
-
-BiodbConn$methods( getBaseUrl = function() {
-	":\n\nGet the base URL of this connector."
-
-	return(.self$getDbInfo()$getBaseUrl()) 
-})
-
-# Get web service URL {{{1
-################################################################
-
-BiodbConn$methods( getWsUrl = function() {
-	":\n\nGet the web service URL of this connector."
-
-	return(.self$getDbInfo()$getWsUrl()) 
-})
-
-# Get entry content type {{{1
-################################################################
-
-BiodbConn$methods( getEntryContentType = function() {
-	":\n\nGet the base URL of the content type."
-
-	return(.self$getDbInfo()$getEntryContentType()) 
 })
 
 # Get entry content {{{1
@@ -133,7 +95,7 @@ BiodbConn$methods( getNbEntries = function(count = FALSE) {
 ################################################################
 
 BiodbConn$methods( show = function() {
-	cat("Biodb ", .self$getDbInfo()$getName(), " connector instance, using URL \"", .self$getBaseUrl(), "\".\n", sep = '')
+	cat("Biodb ", .self$getName(), " connector instance, using URL \"", .self$getBaseUrl(), "\".\n", sep = '')
 })
 
 # Check database {{{1
@@ -149,16 +111,3 @@ BiodbConn$methods( checkDb = function() {
 	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
 })
 
-# PRIVATE METHODS {{{1
-################################################################
-
-# Set base URL {{{2
-################################################################
-
-BiodbConn$methods( .setBaseUrl = function(base.url) {
-
-	if (is.null(base.url) || any(is.na(base.url)))
-		.self$message('error', "Cannot set a NULL or NA URL to a database connector.")
-
-	.self$getDbInfo()$setBaseUrl(base.url)
-})

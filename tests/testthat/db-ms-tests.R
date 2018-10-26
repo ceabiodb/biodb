@@ -108,9 +108,6 @@ test.searchMzTol <- function(db) {
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
 	expect_true(is.double(mzs))
 	expect_true(length(mzs) >= 1)
-	print('-------------------------------- test.searchMzTol 10')
-	print(mzs)
-	print('-------------------------------- test.searchMzTol 11')
 
 	# Search
 	for (mz in mzs) {

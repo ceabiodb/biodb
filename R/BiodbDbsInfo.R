@@ -128,5 +128,5 @@ BiodbDbsInfo$methods( .define = function(id, ...) {
 		.self$message('error', paste("Database \"", id, "\" has already been defined.", sep = ''))
 
 	# Define new field
-	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, id = id, ...)
+	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, ...)
 })

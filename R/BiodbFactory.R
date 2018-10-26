@@ -61,23 +61,24 @@ BiodbFactory$methods( createConn = function(db.type, url = NA_character_, token 
 
 	# Get database info
 	db.info <- .self$getBiodb()$getDbsInfo()$get(db.type)
-	# TODO make a copy of this instance. !!! Not possible to make a copy in RC.
 
     # Get connection class
     conn.class <- .self$getBiodb()$getDbsInfo()$get(db.type)$getConnClass()
     .self$message('debug', paste0('Creating new connector for database class ', db.type, '.'))
 
     # Choose a connector ID
-    suffix <- if ( ! is.na(url)) url else 
-    conn.id <- paste(db.type, suffix, sep = '.') # TODO
+    # TODO
+#    suffix <- if ( ! is.na(url)) url else 
+#    conn.id <- paste(db.type, suffix, sep = '.') # TODO
+    conn.id <- db.type
 
 	# Test if connector ID is already used
     # TODO
 
 	# Create connection instance
-	conn <- conn.class$new(id = conn.id, dbinfo = db.info, parent = .self)
+	conn <- conn.class$new(id = conn.id, other = db.info, parent = .self)
     if ( ! is.na(url))
-    	conn$getDbInfo()$setBaseUrl(url)
+    	conn$setBaseUrl(url)
 
     # Set token
     if ( ! is.na(token))

@@ -78,7 +78,7 @@ ChebiConn$methods( ws.getLiteEntity.ids = function(...) {
 	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
 
 	# Get elements
-	ids <- XML::xpathSApply(xml, "//ns:chebiId", XML::xmlValue, namespaces = c(ns = .self$getDbInfo()$getXmlNs()))
+	ids <- XML::xpathSApply(xml, "//ns:chebiId", XML::xmlValue, namespaces = c(ns = .self$getXmlNs()))
 	ids <- sub('CHEBI:', '', ids)
 	if (length(grep("^[0-9]+$", ids)) != length(ids))
 		.self$message('error', paste("Impossible to parse XML to get entry IDs:\n", xml.results))

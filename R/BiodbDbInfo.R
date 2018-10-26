@@ -10,7 +10,7 @@
 #' @seealso \code{\link{BiodbDbsInfo}}, \code{\link{BiodbConnBase}}.
 #'
 #' @import methods
-#' @include ChildObject.R
+#' @include BiodbConnBase.R
 #' @export BiodbDbInfo
 #' @exportClass BiodbDbInfo
 BiodbDbInfo <- methods::setRefClass("BiodbDbInfo", contains =  "BiodbConnBase")

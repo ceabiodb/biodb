@@ -12,7 +12,7 @@ ChebiEntry <- methods::setRefClass("ChebiEntry", contains = "XmlEntry")
 
 ChebiEntry$methods( initialize = function(...) {
 
-	callSuper(namespace = c(chebi = .self$getParent()$getDbInfo()$getXmlNs()), ...)
+	callSuper(namespace = c(chebi = .self$getParent()$getXmlNs()), ...)
 
 #	.self$addParsingExpression('accession', "replace(//chebi:return/chebi:chebiId,'^CHEBI:([0-9]+)$','$1')")
 #	.self$addParsingExpression('accession', "substring(//chebi:return/chebi:chebiId,7)")

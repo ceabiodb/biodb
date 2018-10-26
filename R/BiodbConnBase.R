@@ -7,7 +7,7 @@
 #'
 #' This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 #'
-#' @field id            The identifier of the database.
+#' @field db.class      The class of the database (\code{"massbank", "hmdb.metabolies", ...}).
 #' @field base.url      The main URL of the database.
 #' @field ws.url        The web services URL of the database.
 #' @field xml.ns        The XML namespace used by the database.
@@ -28,36 +28,54 @@
 #' @include ChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .id = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character'))
+BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConnBase$methods( initialize = function(id, base.url = NA_character_, ws.url = NA_character_, scheduler.n = 1, scheduler.t = 1, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, ...) {
+BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base.url = NA_character_, ws.url = NA_character_, scheduler.n = 1, scheduler.t = 1, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, token = NA_character_, ...) {
 
 	callSuper(...)
-	.self$.abstract.class('BiodbConn')
+	.self$.abstract.class('BiodbConnBase')
 
-	config <- .self$getBiodb()$getConfig()
+	# Take parameter values from other object instance
+	if ( ! is.null(other)) {
+		.self$.assert.inherits.from(other, "BiodbConnBase")
+		for (param in c('db.class', 'base.url', 'ws.url', 'scheduler.n', 'scheduler.t', 'entry.content.type', 'xml.ns', 'name'))
+			if (is.null(get(param)) || is.na(get(param)))
+				assign(param, other[[paste0('.', param)]])
+	}
 
-	# Set id
-	if ( is.null(id) || is.na(id) || nchar(id) == '')
-		.self$message('error', "You cannot set an empty id for a database. The ID was empty (either NULL or NA or empty string).")
-	.id <<- id
+	# Set database class
+	.self$.assert.not.null(db.class)
+	.self$.assert.not.na(db.class)
+	.self$.assert.is(db.class, 'character')
+	.db.class <<- db.class
 
 	# Set entry.content type
-	if (is.null(entry.content.type) || is.na(entry.content.type))
-		.self$message('error', "Content type not defined.")
-	if ( ! entry.content.type %in% c('html', 'txt', 'xml', 'csv', 'tsv', 'json'))
-		.self$message('error', paste("Unknown entry.content type \"", entry.content.type, "\"."))
+	.self$.assert.not.null(entry.content.type)
+	.self$.assert.not.na(entry.content.type)
+	.self$.assert.is(entry.content.type, 'character')
+	.self$.assert.in(entry.content.type, c('html', 'txt', 'xml', 'csv', 'tsv', 'json'))
 	.entry.content.type <<- entry.content.type
 
+	# Other parameters
+	.self$.assert.is(name, 'character')
+	.self$.assert.is(base.url, 'character')
+	.self$.assert.is(ws.url, 'character')
+	.self$.assert.is(xml.ns, 'character')
+	.self$.assert.is(token, 'character')
+	.self$.assert.is(scheduler.n, c('integer', 'numeric'))
+	.self$.assert.is(scheduler.t, c('integer', 'numeric'))
 	.name <<- name
 	.base.url <<- base.url
 	.ws.url <<- ws.url
 	.xml.ns <<- xml.ns
-	token.key <- paste(id, 'token', sep = '.')
-	.token <<- if (config$isDefined(token.key, fail = FALSE)) config$get(token.key) else NA_character_
+	if (is.na(token)) {
+		config <- .self$getBiodb()$getConfig()
+		token.key <- paste(db.class, 'token', sep = '.')
+		.token <<- if (config$isDefined(token.key, fail = FALSE)) config$get(token.key) else NA_character_
+	}
 	.scheduler.n <<- as.integer(scheduler.n)
 	.scheduler.t <<- as.integer(scheduler.t)
 })
@@ -87,16 +105,16 @@ BiodbConnBase$methods( getConnClassName = function() {
 	":\n\nReturns the name of the associated connection class."
 
     # Get connection class name
-    s <- .self$.id
-	indices <- as.integer(gregexpr('\\.[a-z]', .self$.id, perl = TRUE)[[1]])
+    s <- .self$.db.class
+	indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class, perl = TRUE)[[1]])
     indices <- indices + 1  # We are interested in the letter after the dot.
     indices <- c(1, indices) # Add first letter.
 	for (i in indices)
 		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
     s <- gsub('.', '', s, fixed = TRUE) # Remove dots
-	conn.class.id <- paste(s, 'Conn', sep = '')
+	conn.class.name <- paste(s, 'Conn', sep = '')
 
-	return(conn.class.id)
+	return(conn.class.name)
 })
 
 # Get connection class {{{1
@@ -115,16 +133,16 @@ BiodbConnBase$methods( getEntryClassName = function() {
 	":\n\nReturns the name of the associated entry class."
 
     # Get entry class name
-	s <- .self$.id
-	indices <- as.integer(gregexpr('\\.[a-z]', .self$.id, perl = TRUE)[[1]])
+	s <- .self$.db.class
+	indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class, perl = TRUE)[[1]])
 	indices <- indices + 1  # We are interested in the letter after the dot.
 	indices <- c(1, indices) # Add first letter.
 	for (i in indices)
 		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
 	s <- gsub('.', '', s, fixed = TRUE) # Remove dots
-	entry.class.id <- paste(s, 'Entry', sep = '')
+	entry.class.name <- paste(s, 'Entry', sep = '')
 
-	return(entry.class.id)
+	return(entry.class.name)
 })
 
 # Get entry class {{{1
@@ -142,7 +160,7 @@ BiodbConnBase$methods( getEntryClass = function() {
 BiodbConnBase$methods( getEntryIdField = function() {
 	":\n\nReturn the name of the corresponding database ID field in entries."
 	
-	return(paste(.self$.id, 'id', sep = '.'))
+	return(paste(.self$.db.class, 'id', sep = '.'))
 })
 
 # Get base URL {{{1
