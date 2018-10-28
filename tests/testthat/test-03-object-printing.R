@@ -44,6 +44,9 @@ test.BiodbEntry.show <- function() {
 	set.mode(biodb, MODE.OFFLINE)
 	ids <- list.ref.entries('chebi')
 	entry <- biodb$getFactory()$getEntry('chebi', ids[[1]])
+	print('-------------------------------- test.BiodbEntry.show 10')
+	print(entry)
+	print('-------------------------------- test.BiodbEntry.show 11')
 	expect_output(entry$show(), regexp = '^Biodb .* entry instance .*\\.$')
 }
 

@@ -61,7 +61,7 @@ for (mode in TEST.MODES) {
 		# Specific tests
 		fct <- paste('run', db.name, 'tests', sep = '.')
 		if (exists(fct)) {
-			set.test.context(biodb, paste("Running specific tests on database", db.name, "in", mode, "mode"))
+			set.test.context(biodb, paste("Running specific tests on database", conn$getName(), "in", mode, "mode"))
 			do.call(fct, list(conn, mode))
 		}
 	}

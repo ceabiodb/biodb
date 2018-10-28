@@ -62,29 +62,28 @@ BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token
 	# Get database info
 	db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
 
+	# Set parameters
+    if ( ! is.na(url))
+    	db.info$setBaseUrl(url)
+    if ( ! is.na(token))
+	    db.info$setToken(token)
+
     # Get connection class
     conn.class <- db.info$getConnClass()
     .self$message('debug', paste0('Creating new connector for database class ', db.class, '.'))
 
-    # Choose a connector ID
-    # TODO
-#    suffix <- if ( ! is.na(url)) url else 
-#    conn.id <- paste(db.class, suffix, sep = '.') # TODO
-    conn.id <- db.class
+    # Create a connector ID
+    key.str <- db.info$getBaseUrl()
+    if ( ! is.na(db.info$getToken()))
+	    key.str <- paste(key.str, db.info$getToken())
+	conn.id <- paste(db.class, digest::digest(key.str, algo = 'md5'), sep = '.')
 
 	# Test if connector ID is already used
-    # TODO
 	if (conn.id %in% names(.self$.conn))
 		.self$message('error', paste0('A connector with ID "', conn.id, '" already exists.'))
 
 	# Create connection instance
 	conn <- conn.class$new(id = conn.id, other = db.info, parent = .self)
-    if ( ! is.na(url))
-    	conn$setBaseUrl(url)
-
-    # Set token
-    if ( ! is.na(token))
-	    conn$setToken(token)
 
 	# Register new instance
 	.self$.conn[[conn.id]] <- conn
@@ -112,12 +111,12 @@ BiodbFactory$methods( getConn = function(conn.id) {
 
 		# Try to find connectors that are of this class
 		for (c in .self$.conn)
-			if (c$getDbClass() == db.class)
+			if (c$getDbClass() == conn.id)
 				conn <- c(conn, c)
 
 		# Create connector
-		# TODO unless conn.id is a database class that must not be created with default values like mass.csv.file, which requires a URL.
-		conn <- .self$createConn(conn.id)
+		if  (is.null(conn))
+			conn <- .self$createConn(conn.id)
 	}
 
 	if (is.null(conn))
@@ -146,7 +145,7 @@ BiodbFactory$methods( createEntry = function(conn.id, content, drop = TRUE) {
 
 	if (length(content) > 0) {
 
-		# Get connection
+		# Get connector
 		conn <- .self$getConn(conn.id)
 
 		.self$message('info', paste('Creating ', conn$getName(), ' entries from ', length(content), ' content(s).', sep = ''))
@@ -155,7 +154,7 @@ BiodbFactory$methods( createEntry = function(conn.id, content, drop = TRUE) {
     	entry.class <- conn$getEntryClass()
 
     	# Loop on all contents
-    	.self$message('debug', paste('Parsing ', length(content), ' ', conn.id, ' entries.', sep = ''))
+    	.self$message('debug', paste('Parsing ', length(content), ' ', conn$getName(), ' entries.', sep = ''))
 		for (single.content in content) {
 
 			# Create empty entry instance
@@ -194,18 +193,26 @@ BiodbFactory$methods( getEntry = function(conn.id, id, drop = TRUE) {
 
 	id <- as.character(id)
 
+	print('-------------------------------- BiodbFactory::getEntry 01')
+	print(conn.id)
+	print('-------------------------------- BiodbFactory::getEntry 02')
+	# Get connector
+	conn <- .self$getConn(conn.id)
+
+	print(conn)
+	print('-------------------------------- BiodbFactory::getEntry 03')
 	# Use factory cache
 	if (.self$getBiodb()$getConfig()$isEnabled('factory.cache')) {
 		# What entries are missing from factory cache
-		missing.ids <- .self$.getMissingEntryIds(conn.id, id)
+		missing.ids <- .self$.getMissingEntryIds(conn$getId(), id)
 
 		if (length(missing.ids) > 0) {
-			new.entries <- .self$.createNewEntries(conn.id, missing.ids, drop = FALSE)
-			.self$.storeNewEntries(conn.id, missing.ids, new.entries)
+			new.entries <- .self$.createNewEntries(conn$getId(), missing.ids, drop = FALSE)
+			.self$.storeNewEntries(conn$getId(), missing.ids, new.entries)
 		}
 
 		# Get entries
-		entries <- unname(.self$.getEntries(conn.id, id))
+		entries <- unname(.self$.getEntries(conn$getId(), id))
 
 		# If the input was a single element, then output a single object
 		if (drop && length(id) == 1)
@@ -214,7 +221,7 @@ BiodbFactory$methods( getEntry = function(conn.id, id, drop = TRUE) {
 
 	# Do not use factory cache and create new entries for all IDs
 	else
-		entries <- .self$.createNewEntries(conn.id, id, drop = drop)
+		entries <- .self$.createNewEntries(conn$getId(), id, drop = drop)
 
 	return(entries)
 })
@@ -246,7 +253,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 		# Initialize content
 		if (.self$getBiodb()$getCache()$isReadable()) {
 			# Load content from cache
-			content <- .self$getBiodb()$getCache()$loadFileContent(conn.id = conn.id, subfolder = 'shortterm', name = id, ext = conn$getEntryContentType())
+			content <- .self$getBiodb()$getCache()$loadFileContent(conn.id = conn$getId(), subfolder = 'shortterm', name = id, ext = conn$getEntryContentType())
 			missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 		}
 		else {
@@ -283,7 +290,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 
 				# Save to cache
 				if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, conn.id = conn.id, subfolder = 'shortterm', name = ch.missing.ids, ext = conn$getEntryContentType())
+					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, conn.id = conn$getId(), subfolder = 'shortterm', name = ch.missing.ids, ext = conn$getEntryContentType())
 
 				# Append
 				missing.contents <- c(missing.contents, ch.missing.contents)
@@ -320,14 +327,17 @@ BiodbFactory$methods( .createNewEntries = function(conn.id, ids, drop) {
 
 	if (length(ids) > 0) {
 
+		# Get connector
+		conn <- .self$getConn(conn.id)
+
 		# Debug
 		.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
 
 		# Get contents
-		content <- .self$getEntryContent(conn.id, ids)
+		content <- .self$getEntryContent(conn$getId(), ids)
 
 		# Create entries
-		new.entries <- .self$createEntry(conn.id, content = content, drop = drop)
+		new.entries <- .self$createEntry(conn$getId(), content = content, drop = drop)
 	}
 
 	return(new.entries)

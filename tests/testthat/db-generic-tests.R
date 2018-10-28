@@ -251,25 +251,25 @@ test.entry.image.url.download <- function(db) {
 # Run db generic tests {{{1
 ################################################################
 
-run.db.generic.tests <- function(db, mode) {
+run.db.generic.tests <- function(conn, mode) {
 
-	set.test.context(db$getBiodb(), paste("Running generic tests on database", db$getId(), "in", mode, "mode"))
+	set.test.context(db$getBiodb(), paste("Running generic tests on database", conn$getName(), "in", mode, "mode"))
 
-	run.db.test.that("Wrong entry gives NULL", 'test.wrong.entry', db)
-	run.db.test.that("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', db)
-	run.db.test.that("Entry fields have a correct value", 'test.entry.fields', db)
-	run.db.test.that("The peak table is correct.", 'test.peak.table', db)
-	run.db.test.that("RT unit is defined when there is an RT value.", 'test.rt.unit', db)
-	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test.that("Nb entries is positive.", 'test.nb.entries', db)
-		run.db.test.that("We can get a list of entry ids.", 'test.entry.ids', db)
+	run.db.test.that("Wrong entry gives NULL", 'test.wrong.entry', conn)
+	run.db.test.that("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', conn)
+	run.db.test.that("Entry fields have a correct value", 'test.entry.fields', conn)
+	run.db.test.that("The peak table is correct.", 'test.peak.table', conn)
+	run.db.test.that("RT unit is defined when there is an RT value.", 'test.rt.unit', conn)
+	if ( ! methods::is(conn, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+		run.db.test.that("Nb entries is positive.", 'test.nb.entries', conn)
+		run.db.test.that("We can get a list of entry ids.", 'test.entry.ids', conn)
 	}
-	if (methods::is(db, 'RemotedbConn')) {
-		run.db.test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', db)
-		run.db.test.that("We can get a URL pointing to the entry image.", 'test.entry.image.url', db)
+	if (methods::is(conn, 'RemotedbConn')) {
+		run.db.test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', conn)
+		run.db.test.that("We can get a URL pointing to the entry image.", 'test.entry.image.url', conn)
 		if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-			run.db.test.that("The entry page URL can be downloaded.", 'test.entry.page.url.download', db)
-			run.db.test.that("The entry image URL can be downloaded.", 'test.entry.image.url.download', db)
+			run.db.test.that("The entry page URL can be downloaded.", 'test.entry.page.url.download', conn)
+			run.db.test.that("The entry image URL can be downloaded.", 'test.entry.image.url.download', conn)
 		}
 	}
 }
