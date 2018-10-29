@@ -10,6 +10,7 @@ source('common.R')
 test.BiodbCache.show <- function() {
 	biodb <- Biodb$new(logger = FALSE)
 	expect_output(biodb$getCache()$show(), regexp = '^Biodb cache .* instance\\..*$')
+	biodb$terminate()
 }
 
 # Test BiodbConfig show {{{1
@@ -18,6 +19,7 @@ test.BiodbCache.show <- function() {
 test.BiodbConfig.show <- function() {
 	biodb <- Biodb$new(logger = FALSE)
 	expect_output(biodb$getConfig()$show(), regexp = '^Biodb config.* instance\\..*Values:.*$')
+	biodb$terminate()
 }
 
 # Test Biodb show {{{1
@@ -26,6 +28,7 @@ test.BiodbConfig.show <- function() {
 test.Biodb.show <- function() {
 	biodb <- Biodb$new(logger = FALSE)
 	expect_output(biodb$show(), regexp = '^Biodb instance\\.$')
+	biodb$terminate()
 }
 
 # Test BiodbFactory show {{{1
@@ -34,6 +37,7 @@ test.Biodb.show <- function() {
 test.BiodbFactory.show <- function() {
 	biodb <- Biodb$new(logger = FALSE)
 	expect_output(biodb$getFactory()$show(), regexp = '^Biodb factory instance\\.$')
+	biodb$terminate()
 }
 
 # Test BiodbEntry show {{{1
@@ -48,6 +52,7 @@ test.BiodbEntry.show <- function() {
 	print(entry)
 	print('-------------------------------- test.BiodbEntry.show 11')
 	expect_output(entry$show(), regexp = '^Biodb .* entry instance .*\\.$')
+	biodb$terminate()
 }
 
 # Test BiodbConn show {{{1
@@ -57,6 +62,7 @@ test.BiodbConn.show <- function() {
 	biodb <- Biodb$new(logger = FALSE)
 	set.mode(biodb, MODE.OFFLINE)
 	expect_output(biodb$getFactory()$createConn('chebi')$show(), regexp = '^Biodb .* connector instance, using URL .*\\.$')
+	biodb$terminate()
 }
 
 # Test BiodbDbsInfo show {{{1
@@ -65,6 +71,7 @@ test.BiodbConn.show <- function() {
 test.BiodbDbsInfo.show <- function() {
 	biodb <- Biodb$new(logger = FALSE)
 	expect_output(biodb$getDbsInfo()$show(), regexp = '^Biodb databases information instance\\.$')
+	biodb$terminate()
 }
 
 # Test BiodbEntryFields show {{{1
@@ -73,6 +80,7 @@ test.BiodbDbsInfo.show <- function() {
 test.BiodbEntryFields.show <- function() {
 	biodb <- Biodb$new(logger = FALSE)
 	expect_output(biodb$getEntryFields()$show(), regexp = '^Biodb entry fields information instance\\.$')
+	biodb$terminate()
 }
 
 # MAIN {{{1

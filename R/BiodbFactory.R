@@ -52,12 +52,11 @@ BiodbFactory$methods( initialize = function(...) {
 # Create conn {{{1
 ################################################################
 
-BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token = NA_character_) {
+BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token = NA_character_, fail.if.exists = TRUE) {
     ":\n\nCreate a connection to a database."
 
-    # Has a connection been already created for this database?
-	if (db.class %in% names(.self$.conn))
-		.self$message('error', paste0('A connection of type ', db.class, ' already exists. Please use method getConn() to access it.'))
+    # Check if an identical connector already exists
+    .self$.checkConnExists(db.class = db.class, url = url, token = token, error = fail.if.exists)
 
 	# Get database info
 	db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
@@ -68,21 +67,23 @@ BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token
     if ( ! is.na(token))
 	    db.info$setToken(token)
 
-    # Get connection class
+    # Get connector class
     conn.class <- db.info$getConnClass()
     .self$message('debug', paste0('Creating new connector for database class ', db.class, '.'))
 
     # Create a connector ID
-    key.str <- db.info$getBaseUrl()
-    if ( ! is.na(db.info$getToken()))
-	    key.str <- paste(key.str, db.info$getToken())
-	conn.id <- paste(db.class, digest::digest(key.str, algo = 'md5'), sep = '.')
+    conn.id <- db.class
+    i <- 0
+    while (conn.id %in% names(.self$.conn)) {
+	    i <- i + 1
+	    conn.id <- paste(db.class, i, sep = '.')
+	}
 
 	# Test if connector ID is already used
 	if (conn.id %in% names(.self$.conn))
 		.self$message('error', paste0('A connector with ID "', conn.id, '" already exists.'))
 
-	# Create connection instance
+	# Create connector instance
 	conn <- conn.class$new(id = conn.id, other = db.info, parent = .self)
 
 	# Register new instance
@@ -390,4 +391,22 @@ BiodbFactory$methods( .getMissingEntryIds = function(conn.id, ids) {
 	missing.ids <- ids[ ! ids %in% names(.self$.entries[[conn.id]])]
 
 	return(missing.ids)
+})
+
+# Check if a connector already exists {{{2
+################################################################
+
+BiodbFactory$methods( .checkConnExists = function(db.class, url, token, error) {
+
+	print('-------------------------------- BiodbFactory::.checkConnExists 01')
+	print(db.class)
+	# Loop on all connectors
+	for (conn in .self$.conn)
+		if (conn$getDbClass() == db.class) {
+	print('-------------------------------- BiodbFactory::.checkConnExists 03')
+			same.url <- is.na(url) || normalizePath(conn$getBaseUrl(), mustWork = FALSE) == normalizePath(url, mustWork = FALSE)
+			same.token <- is.na(token) || conn$getToken() == token 
+			if (same.url && same.token)
+				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', db.class, ' with the same URL (', conn$getBaseUrl(), ')', if ( ! is.na(conn$getToken())) paste0(' and the same token'), '.'))
+		}
 })

@@ -99,3 +99,4 @@ test_that("Assertion of non NULL value works correctly", test.assert.not.null(bi
 test_that("Assertion of inferior relationship works correctly", test.assert.inferior(biodb, obs))
 test_that("Assertion of a single element works correctly", test.assert.length.one(biodb, obs))
 test_that('Assertion called from searchMsEntries display the right variable name', test.searchMsEntries.assert(biodb, obs))
+biodb$terminate()
