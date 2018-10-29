@@ -55,17 +55,23 @@ BiodbFactory$methods( initialize = function(...) {
 BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token = NA_character_, fail.if.exists = TRUE) {
     ":\n\nCreate a connection to a database."
 
-    # Check if an identical connector already exists
-    .self$.checkConnExists(db.class = db.class, url = url, token = token, error = fail.if.exists)
-
 	# Get database info
 	db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
+    print('-------------------------------- BiodbFactory:createConn 4')
+    print(url)
+    print('-------------------------------- BiodbFactory:createConn 5')
+    print(db.info$getBaseUrl())
 
 	# Set parameters
     if ( ! is.na(url))
     	db.info$setBaseUrl(url)
     if ( ! is.na(token))
 	    db.info$setToken(token)
+    print('-------------------------------- BiodbFactory:createConn 10')
+    print(db.info$getBaseUrl())
+
+    # Check if an identical connector already exists
+    .self$.checkConnExists(db.info, error = fail.if.exists)
 
     # Get connector class
     conn.class <- db.info$getConnClass()
@@ -391,14 +397,17 @@ BiodbFactory$methods( .getMissingEntryIds = function(conn.id, ids) {
 # Check if a connector already exists {{{2
 ################################################################
 
-BiodbFactory$methods( .checkConnExists = function(db.class, url, token, error) {
+BiodbFactory$methods( .checkConnExists = function(new.conn, error) {
 
 	# Loop on all connectors
 	for (conn in .self$.conn)
-		if (conn$getDbClass() == db.class) {
-			same.url <- is.na(url) || normalizePath(conn$getBaseUrl(), mustWork = FALSE) == normalizePath(url, mustWork = FALSE)
-			same.token <- is.na(token) || conn$getToken() == token 
-			if (same.url && same.token)
-				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', db.class, ' with the same URL (', conn$getBaseUrl(), ')', if ( ! is.na(conn$getToken())) paste0(' and the same token'), '.'))
+		if (conn$getDbClass() == new.conn$getDbClass()) {
+			print('-------------------------------- BiodbFactory::.checkConnExists 10')
+			print(conn$getBaseUrl())
+			print(new.conn$getBaseUrl())
+			same.url <- if (is.na(conn$getBaseUrl()) || is.na(new.conn$getBaseUrl())) FALSE else normalizePath(conn$getBaseUrl(), mustWork = FALSE) == normalizePath(new.conn$getBaseUrl(), mustWork = FALSE)
+			same.token <- if (is.na(conn$getToken()) || is.na(new.conn$getToken())) FALSE else conn$getToken() == new.conn$getToken()
+			if (same.url && (is.na(new.conn$getToken()) || same.token))
+				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', conn$getBaseUrl(), ')', if ( ! is.na(conn$getToken())) paste0(' and the same token'), '.'))
 		}
 })

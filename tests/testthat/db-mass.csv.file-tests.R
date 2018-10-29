@@ -405,6 +405,8 @@ test.mass.csv.file.ms.mode.values <- function(db) {
 
 test.mass.csv.file.precursor.match <- function(db) {
 
+	biodb <- db$getBiodb()
+
 	# Set retention time values
 	prec.112.rt <- 5.69
 	prec.108.rt <- 8.75
@@ -422,12 +424,8 @@ test.mass.csv.file.precursor.match <- function(db) {
 				   data.frame(accession = 'B3', ms.mode = 'pos', peak.mztheo = 108, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.108.rt, chrom.rt.unit = 'min'),
 				   stringsAsFactors = FALSE)
 
-	# Create new Biodb instance
-	new.biodb <- create.biodb.instance()
-	new.biodb$getConfig()$disable('cache.system')
-
 	# Create connector
-	conn <- new.biodb$getFactory()$createConn(db$getId())
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(db.df)
 
 	# Input
@@ -445,9 +443,6 @@ test.mass.csv.file.precursor.match <- function(db) {
 	expect_is(results2, 'data.frame')
 	expect_equal(nrow(results2), 3)
 	expect_identical(results2[['accession']], c('A2', 'A2', NA_character_))
-
-	# Terminate biodb instance
-	new.biodb$terminate()
 }
 
 # Run Mass CSV File tests {{{1
