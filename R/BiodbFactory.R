@@ -194,14 +194,9 @@ BiodbFactory$methods( getEntry = function(conn.id, id, drop = TRUE) {
 
 	id <- as.character(id)
 
-	print('-------------------------------- BiodbFactory::getEntry 01')
-	print(conn.id)
-	print('-------------------------------- BiodbFactory::getEntry 02')
 	# Get connector
 	conn <- .self$getConn(conn.id)
 
-	print(conn)
-	print('-------------------------------- BiodbFactory::getEntry 03')
 	# Use factory cache
 	if (.self$getBiodb()$getConfig()$isEnabled('factory.cache')) {
 		# What entries are missing from factory cache
@@ -398,12 +393,9 @@ BiodbFactory$methods( .getMissingEntryIds = function(conn.id, ids) {
 
 BiodbFactory$methods( .checkConnExists = function(db.class, url, token, error) {
 
-	print('-------------------------------- BiodbFactory::.checkConnExists 01')
-	print(db.class)
 	# Loop on all connectors
 	for (conn in .self$.conn)
 		if (conn$getDbClass() == db.class) {
-	print('-------------------------------- BiodbFactory::.checkConnExists 03')
 			same.url <- is.na(url) || normalizePath(conn$getBaseUrl(), mustWork = FALSE) == normalizePath(url, mustWork = FALSE)
 			same.token <- is.na(token) || conn$getToken() == token 
 			if (same.url && same.token)

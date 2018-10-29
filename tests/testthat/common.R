@@ -302,15 +302,21 @@ run.db.test.that <- function(msg, fct, db) {
 create.test.observer <- function(biodb) {
 
 	# Create test observer class
-	TestObs <- methods::setRefClass("TestObs", contains = "BiodbObserver", fields = list(msgs = 'character'))
+	TestObs <- methods::setRefClass("TestObs", contains = "BiodbObserver", fields = list(msgs = 'character', msgs.by.type = 'list'))
 	TestObs$methods( initialize = function(...) {
 		msgs <<- character()
+		msgs.by.type <<- list()
 	})
 	TestObs$methods( message = function(type, msg, class = NA_character_, method = NA_character_, level = 1) {
 		msgs <<- c(.self$msgs, msg)
+		.self$msgs.by.type[[type]] <- c(.self$msgs.by.type[[type]], msg)
 	})
 	TestObs$methods( lastMsg = function() {
 		return(.self$msgs[[length(.self$msgs)]])
+	})
+	TestObs$methods( getLastMsgByType = function(type) {
+		m <- .self$msgs.by.type[[type]]
+		return(m[[length(m)]])
 	})
 	TestObs$methods( clearMessages = function() {
 		msgs <<- character()
