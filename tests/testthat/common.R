@@ -283,13 +283,25 @@ init.mass.csv.file.db <- function(biodb) {
 	return(db.instance)
 }
 
+# Run test that on biodb {{{1
+################################################################
+
+run.test.that.on.biodb <- function(msg, fct, biodb) {
+	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
+		biodb$message('info', '')
+		biodb$message('info', paste('Running test function ', fct, '.'))
+		biodb$message('info', '----------------------------------------------------------------')
+		biodb$message('info', '')
+		test_that(msg, do.call(fct, list(biodb)))
+	}
+}
 # Run database test that {{{1
 ################################################################
 
 run.db.test.that <- function(msg, fct, db) {
 	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
 		db$message('info', '')
-		db$message('info', paste('Running test function', fct, 'with database', db$getId()))
+		db$message('info', paste('Running test function ', fct, ' with database ', db$getId(), '.'))
 		db$message('info', '----------------------------------------------------------------')
 		db$message('info', '')
 		test_that(msg, do.call(fct, list(db)))
@@ -302,15 +314,21 @@ run.db.test.that <- function(msg, fct, db) {
 create.test.observer <- function(biodb) {
 
 	# Create test observer class
-	TestObs <- methods::setRefClass("TestObs", contains = "BiodbObserver", fields = list(msgs = 'character'))
+	TestObs <- methods::setRefClass("TestObs", contains = "BiodbObserver", fields = list(msgs = 'character', msgs.by.type = 'list'))
 	TestObs$methods( initialize = function(...) {
 		msgs <<- character()
+		msgs.by.type <<- list()
 	})
 	TestObs$methods( message = function(type, msg, class = NA_character_, method = NA_character_, level = 1) {
 		msgs <<- c(.self$msgs, msg)
+		.self$msgs.by.type[[type]] <- c(.self$msgs.by.type[[type]], msg)
 	})
 	TestObs$methods( lastMsg = function() {
 		return(.self$msgs[[length(.self$msgs)]])
+	})
+	TestObs$methods( getLastMsgByType = function(type) {
+		m <- .self$msgs.by.type[[type]]
+		return(m[[length(m)]])
 	})
 	TestObs$methods( clearMessages = function() {
 		msgs <<- character()

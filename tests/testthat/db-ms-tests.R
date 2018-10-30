@@ -108,9 +108,6 @@ test.searchMzTol <- function(db) {
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
 	expect_true(is.double(mzs))
 	expect_true(length(mzs) >= 1)
-	print('-------------------------------- test.searchMzTol 10')
-	print(mzs)
-	print('-------------------------------- test.searchMzTol 11')
 
 	# Search
 	for (mz in mzs) {
@@ -162,7 +159,6 @@ test.searchMzTol.with.precursor <- function(db) {
 	db.values <- list(massbank = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)),
 	                  peakforest.mass = list('2' = list(mz = 117.1)))
 
-	db <- biodb$getFactory()$getConn(db.name)
 	tol.ppm <- 5
 
 	# Loop on levels
@@ -294,18 +290,18 @@ run.mass.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'MassdbConn')) {
 
-			set.test.context(db$getBiodb(), paste("Running M/Z search generic tests on database", db$getId(), "in", mode, "mode"))
+			set.test.context(db$getBiodb(), paste("Running M/Z search generic tests on database", db$getName(), "in", mode, "mode"))
 			run.db.test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', db)
 			run.db.test.that("We can match M/Z peaks.", 'test.searchMzTol',db)
 			run.db.test.that("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',db)
 			run.db.test.that("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', db)
 
-			set.test.context(db$getBiodb(), paste("Running LCMS generic tests on database", db$getId(), "in", mode, "mode"))
+			set.test.context(db$getBiodb(), paste("Running LCMS generic tests on database", db$getName(), "in", mode, "mode"))
 			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
 			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
 			run.db.test.that("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', db)
 
-			set.test.context(db$getBiodb(), paste("Running MSMS generic tests on database", db$getId(), "in", mode, "mode"))
+			set.test.context(db$getBiodb(), paste("Running MSMS generic tests on database", db$getName(), "in", mode, "mode"))
 			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
 			run.db.test.that('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
 			run.db.test.that('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)

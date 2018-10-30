@@ -22,3 +22,4 @@ test.listKeys <- function(biodb) {
 biodb <- Biodb$new(logger = FALSE)
 set.mode(biodb, MODE.OFFLINE)
 test_that("Keys are listed correctly.", test.listKeys(biodb))
+biodb$terminate()
