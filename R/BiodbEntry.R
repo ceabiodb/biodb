@@ -289,7 +289,7 @@ BiodbEntry$methods( parseContent = function(content) {
 	}
 
 	# Make sure the database id field is set to the same value as the accession field
-	dbid.field <- .self$getParent()$getDbInfo()$getEntryIdField()
+	dbid.field <- .self$getParent()$getEntryIdField()
 	if (.self$hasField(dbid.field) && .self$hasField('accession')) {
 		if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
 			.self$message('error', paste('Value of accession field ("', .self$getFieldValue('accession'), '") is different from value of ', dbid.field, ' field ("', .self$getFieldValue(dbid.field), '").', sep = ''))
@@ -362,7 +362,7 @@ BiodbEntry$methods( show = function() {
 	":\n\nDisplay short information about an instance."
 
 	accession <- .self$getFieldValue('accession', compute = FALSE)
-	cat("Biodb", .self$getParent()$getDbInfo()$getName(), "entry instance ", (if (is.na(accession)) 'ID unknown' else accession), ".\n")
+	cat("Biodb", .self$getParent()$getName(), "entry instance ", (if (is.na(accession)) 'ID unknown' else accession), ".\n")
 })
 
 # Get name {{{1
@@ -371,7 +371,7 @@ BiodbEntry$methods( show = function() {
 BiodbEntry$methods( getName = function() {
 	":\n\nGet a short text describing the entry instance."
 
-	name <- paste(.self$getParent()$getDbInfo()$getName(), .self$getFieldValue('accession'))
+	name <- paste(.self$getParent()$getName(), .self$getFieldValue('accession'))
 
 	return(name)
 })

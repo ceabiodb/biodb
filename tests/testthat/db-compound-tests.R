@@ -84,7 +84,7 @@ run.compound.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'CompounddbConn')) {
 			
-			set.test.context(db$getBiodb(), paste("Running compound tests on database", db$getId(), "in", mode, "mode"))
+			set.test.context(db$getBiodb(), paste("Running compound tests on database", db$getName(), "in", mode, "mode"))
 
 			run.db.test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', db)
 			run.db.test.that('We can search for a compound', 'test.searchCompound', db)

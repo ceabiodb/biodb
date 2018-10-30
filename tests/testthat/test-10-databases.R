@@ -26,9 +26,16 @@ source('db-uniprot-tests.R')
 biodb <- create.biodb.instance()
 expect_is(biodb, 'Biodb')
 
-# Initialize MassCsvFile
-if (BIODB.MASS.CSV.FILE %in% TEST.DATABASES)
-	init.mass.csv.file.db(biodb)
+# Initialize database connectors
+connectors <- list()
+for (db.name in TEST.DATABASES) {
+	if (db.name == BIODB.MASS.CSV.FILE)
+		conn <- init.mass.csv.file.db(biodb)
+	else
+		conn <- biodb$getFactory()$createConn(db.name)
+	expect_is(conn, 'BiodbConn')
+	connectors[[db.name]] <- conn
+}
 
 # Loop on test modes
 for (mode in TEST.MODES) {
@@ -40,23 +47,22 @@ for (mode in TEST.MODES) {
 	for (db.name in TEST.DATABASES) {
 
 		# Get instance
-		db <- biodb$getFactory()$getConn(db.name)
-		expect_is(db, 'BiodbConn')
+		conn <- connectors[[db.name]]
 
 		# Generic tests
-		run.db.generic.tests(db, mode)
+		run.db.generic.tests(conn, mode)
 
 		# Compound database testing
-		run.compound.db.tests(db, mode)
+		run.compound.db.tests(conn, mode)
 
 		# Mass database testing
-		run.mass.db.tests(db, mode)
+		run.mass.db.tests(conn, mode)
 
 		# Specific tests
 		fct <- paste('run', db.name, 'tests', sep = '.')
 		if (exists(fct)) {
-			set.test.context(biodb, paste("Running specific tests on database", db.name, "in", mode, "mode"))
-			do.call(fct, list(db, mode))
+			set.test.context(biodb, paste("Running specific tests on database", conn$getName(), "in", mode, "mode"))
+			do.call(fct, list(conn, mode))
 		}
 	}
 }

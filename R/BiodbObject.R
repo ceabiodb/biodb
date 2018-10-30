@@ -167,6 +167,18 @@ BiodbObject$methods( .assert.is = function(param, type, msg.type = 'error') {
 	return(TRUE)
 })
 
+# Assert inherits from {{{1
+################################################################
+
+BiodbObject$methods( .assert.inherits.from = function(param, super.class, msg.type = 'error') {
+	if ( ! is.null(param) && ! is(param, super.class)) {
+		param.name <- as.character(sys.call(0))[[2]]
+		.self$message(msg.type, paste(param.name, ' does not inherit from ', super.class, '.', sep = ''))
+		return(FALSE)
+	}
+	return(TRUE)
+})
+
 # Get biodb {{{1
 ################################################################
 

@@ -73,8 +73,8 @@ MirbaseMatureConn$methods( .doExtractDownload = function() {
 		contents <- paste(lines[seq(1, 2*length(ids), 2)], lines[seq(2, 2*length(ids), 2)], sep = "\n")
 
 		# Write all entries into files
-		.self$getBiodb()$getCache()$deleteFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
-		.self$getBiodb()$getCache()$saveContentToFile(contents, dbid = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+		.self$getBiodb()$getCache()$deleteFiles(conn.id = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
+		.self$getBiodb()$getCache()$saveContentToFile(contents, conn.id = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
 	}
 
 	# Remove extract directory
@@ -92,7 +92,7 @@ MirbaseMatureConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(dbid = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(conn.id = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
 
 	# Filter out wrong IDs
 	ids <- ids[grepl("^MIMAT[0-9]+$", ids, perl = TRUE)]
@@ -113,7 +113,7 @@ MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
 	.self$download()
 
 	# Load content from cache
-	content <- .self$getBiodb()$getCache()$loadFileContent(dbid = .self$getId(), subfolder = 'shortterm', name = entry.id, ext = .self$getEntryContentType(), output.vector = TRUE)
+	content <- .self$getBiodb()$getCache()$loadFileContent(conn.id = .self$getId(), subfolder = 'shortterm', name = entry.id, ext = .self$getEntryContentType(), output.vector = TRUE)
 
 	return(content)
 })

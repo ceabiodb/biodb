@@ -66,8 +66,8 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 			# Parse XML and get included XML
 			if ( ! is.na(xmlstr)) {
 				xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-				returned.ids <- XML::xpathSApply(xml, "//ns:ExtendedCompoundInfo/ns:CSID", XML::xmlValue, namespaces = c(ns = .self$getDbInfo()$getXmlNs()))
-				content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, "//ns:ExtendedCompoundInfo", namespaces = c(ns = .self$getDbInfo()$getXmlNs())), XML::saveXML, FUN.VALUE = '')
+				returned.ids <- XML::xpathSApply(xml, "//ns:ExtendedCompoundInfo/ns:CSID", XML::xmlValue, namespaces = c(ns = .self$getXmlNs()))
+				content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, "//ns:ExtendedCompoundInfo", namespaces = c(ns = .self$getXmlNs())), XML::saveXML, FUN.VALUE = '')
 			}
 		}
 	}
@@ -134,7 +134,7 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 #	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
 #
 #	# Get transaction ID
-#	id <- XML::xpathSApply(xml, "//chemspider:SearchByMassAsyncResult", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+#	id <- XML::xpathSApply(xml, "//chemspider:SearchByMassAsyncResult", XML::xmlValue, namespaces = c(chemspider = .self$getXmlNs()))
 #	.self$message('debug', paste("Transaction ID = ", id, ".", sep = ''))
 #
 #	return(id)
@@ -163,7 +163,7 @@ ChemspiderConn$methods( ws.SearchByMass2.ids = function(...) {
 	xml <-  XML::xmlInternalTreeParse(results, asText = TRUE)
 
 	# Get IDs
-	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = c(chemspider = .self$getXmlNs()))
 
 	return(id)
 })
@@ -190,7 +190,7 @@ ChemspiderConn$methods( ws.SimpleSearch.ids = function(...) {
 	xml <-  XML::xmlInternalTreeParse(results, asText = TRUE)
 
 	# Get IDs
-	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfInt/chemspider:int", XML::xmlValue, namespaces = c(chemspider = .self$getDbInfo()$getXmlNs()))
+	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfInt/chemspider:int", XML::xmlValue, namespaces = c(chemspider = .self$getXmlNs()))
 	id <- as.character(id)
 
 	return(id)

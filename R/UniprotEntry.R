@@ -12,7 +12,7 @@ UniprotEntry <- methods::setRefClass("UniprotEntry", contains = "XmlEntry")
 
 UniprotEntry$methods( initialize = function(...) {
 
-	callSuper(namespace = c(uniprot = .self$getParent()$getDbInfo()$getXmlNs()), ...)
+	callSuper(namespace = c(uniprot = .self$getParent()$getXmlNs()), ...)
 
 	.self$addParsingExpression('NAME', "/uniprot:uniprot/uniprot:entry/uniprot:name")
 	.self$addParsingExpression('GENE.SYMBOLS', "//uniprot:gene/uniprot:name")
