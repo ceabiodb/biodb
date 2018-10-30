@@ -283,13 +283,25 @@ init.mass.csv.file.db <- function(biodb) {
 	return(db.instance)
 }
 
+# Run test that on biodb {{{1
+################################################################
+
+run.test.that.on.biodb <- function(msg, fct, biodb) {
+	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
+		biodb$message('info', '')
+		biodb$message('info', paste('Running test function ', fct, '.'))
+		biodb$message('info', '----------------------------------------------------------------')
+		biodb$message('info', '')
+		test_that(msg, do.call(fct, list(biodb)))
+	}
+}
 # Run database test that {{{1
 ################################################################
 
 run.db.test.that <- function(msg, fct, db) {
 	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
 		db$message('info', '')
-		db$message('info', paste('Running test function', fct, 'with database', db$getId()))
+		db$message('info', paste('Running test function ', fct, ' with database ', db$getId(), '.'))
 		db$message('info', '----------------------------------------------------------------')
 		db$message('info', '')
 		test_that(msg, do.call(fct, list(db)))
