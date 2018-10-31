@@ -12,7 +12,7 @@ LipidmapsStructureEntry <- methods::setRefClass("LipidmapsStructureEntry", conta
 
 LipidmapsStructureEntry$methods( initialize = function(...) {
 
-	callSuper(na.strings = '-', ...)
+	callSuper(na.strings = c('', '-'), ...)
 
 	.self$addParsingExpression('NAME', 'COMMON_NAME')
 	.self$addParsingExpression('ACCESSION', 'LM_ID')

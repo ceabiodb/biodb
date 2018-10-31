@@ -261,6 +261,7 @@ test.searchMsPeaks.rt <- function(db) {
 	# Get peak table
 	peaks <- entry$getFieldValue('peaks')
 	mz <- peaks[1, 'peak.mz']
+	expect_is(mz, 'numeric')
 
 	# Search for MZ/RT
 	mz.tol <- 0
