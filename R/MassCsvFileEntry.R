@@ -30,7 +30,9 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		if (field %in% BIODB.PEAK.FIELDS && .self$getParent()$.fields[[field]] %in% colnames(parsed.content))
 			peak.cols <- c(peak.cols, field)
 	peaks <- parsed.content[, .self$getParent()$.fields[peak.cols]]
-	names(peaks) <- peak.cols
+	colnames(peaks) <- peak.cols # Rename columns
+	for (c in colnames(peaks)) # Force class of columns
+		peaks[[c]] <- as.vector(peaks[[c]], mode = .self$getBiodb()$getEntryFields()$get(c)$getClass())
 
 	# Add MZ column if missing
 	if ( ! 'peak.mz' %in% colnames(peaks))

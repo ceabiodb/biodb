@@ -25,7 +25,19 @@ CsvEntry$methods( initialize = function(sep = ',', na.strings = 'NA', ...) {
 
 CsvEntry$methods( .doParseContent = function(content) {
 
-	df <- read.table(text = content, header = TRUE, row.names = NULL, sep = .self$.sep, quote = '', stringsAsFactors = FALSE, na.strings = .self$.na.strings, fill = TRUE, check.names = FALSE, comment.char = '')
+	# Read all CSV file, including header line, into a data frame. The header line will then be the first line. This is to avoid first column to be intrepretated as row names by read.table in case the header line contains one less field than the second line.
+	df <- read.table(text = content, header = FALSE, row.names = NULL, sep = .self$.sep, quote = '', stringsAsFactors = FALSE, na.strings = .self$.na.strings, fill = TRUE, check.names = FALSE, comment.char = '')
+
+	# Now name the columns
+	if (nrow(df) >= 1) {
+
+		# Remove unnamed columns
+		df <- df[, ! is.na(df[1, ])]
+
+		# Set colnames
+		colnames(df) <- df[1, ]
+		df <- df[seq(nrow(df)) != 1, ]
+	}
 
 	return(df)
 })
@@ -52,7 +64,7 @@ CsvEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 			v <- parsed.content[[.self$.parsing.expr[[field]]]]
 
 			# Is value considered NA?
- 			if ( ! is.na(.self$.na.strings))
+ 			if ( ! is.null(.self$.na.strings) && length(.self$.na.strings >= 1) && ! all(is.na(.self$.na.strings)))
 				v[v %in% .self$.na.strings] <- NA
 
 			# Remove NA values
