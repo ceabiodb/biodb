@@ -1,9 +1,5 @@
 # vi: fdm=marker
 
-context("Test assertions")
-
-source('common.R')
-
 # Test assert.positive {{{1
 ################################################################
 
@@ -86,17 +82,18 @@ test.searchMsEntries.assert <- function(biodb, obs) {
 	expect_equal(obs$lastMsg(), "ms.level (-1) cannot be negative.")
 }
 
-# MAIN {{{1
+# Run assertions tests {{{1
 ################################################################
 
-biodb <- Biodb$new(logger = FALSE)
-obs <- create.test.observer(biodb)
-set.mode(biodb, MODE.OFFLINE)
-test_that("Assertion of positive number works correctly", test.assert.positive(biodb, obs))
-test_that("Assertion of enumerate works correctly", test.assert.in(biodb, obs))
-test_that("Assertion of non NA value works correctly", test.assert.not.na(biodb, obs))
-test_that("Assertion of non NULL value works correctly", test.assert.not.null(biodb, obs))
-test_that("Assertion of inferior relationship works correctly", test.assert.inferior(biodb, obs))
-test_that("Assertion of a single element works correctly", test.assert.length.one(biodb, obs))
-test_that('Assertion called from searchMsEntries display the right variable name', test.searchMsEntries.assert(biodb, obs))
-biodb$terminate()
+run.assertions.tests <- function(biodb, obs) {
+
+	set.test.context(biodb, "Test assertions")
+
+	run.test.that.on.biodb.and.obs("Assertion of positive number works correctly", 'test.assert.positive', biodb, obs)
+	run.test.that.on.biodb.and.obs("Assertion of enumerate works correctly", 'test.assert.in', biodb, obs)
+	run.test.that.on.biodb.and.obs("Assertion of non NA value works correctly", 'test.assert.not.na', biodb, obs)
+	run.test.that.on.biodb.and.obs("Assertion of non NULL value works correctly", 'test.assert.not.null', biodb, obs)
+	run.test.that.on.biodb.and.obs("Assertion of inferior relationship works correctly", 'test.assert.inferior', biodb, obs)
+	run.test.that.on.biodb.and.obs("Assertion of a single element works correctly", 'test.assert.length.one', biodb, obs)
+	run.test.that.on.biodb.and.obs('Assertion called from searchMsEntries display the right variable name', 'test.searchMsEntries.assert', biodb, obs)
+}
