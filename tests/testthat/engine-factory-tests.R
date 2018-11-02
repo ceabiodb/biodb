@@ -1,9 +1,5 @@
 # vi: fdm=marker
 
-context("Test factory")
-
-source('common.R')
-
 # Test connector already exists {{{1
 ################################################################
 
@@ -23,6 +19,7 @@ test.connectorAlreadyExists <- function(biodb, obs) {
 	expect_match(obs$getLastMsgByType('caution'), "A connector \\(mass\\.csv\\.file\\) already exists for database mass\\.csv\\.file with the same URL ", , perl = TRUE)
 
 	# Test with ChEBI
+	biodb$getFactory()$deleteConn(db.class = 'chebi')
 	conn.chebi <- biodb$getFactory()$createConn('chebi')
 	testthat::expect_error(biodb$getFactory()$createConn('chebi'))
 	expect_match(obs$lastMsg(), "^A connector \\(chebi\\) already exists for database chebi with the same URL .*$", perl = TRUE)
@@ -31,11 +28,12 @@ test.connectorAlreadyExists <- function(biodb, obs) {
 	expect_match(obs$getLastMsgByType('caution'), "^A connector \\(chebi\\) already exists for database chebi with the same URL .*$", perl = TRUE)
 }
 
-# MAIN {{{1
+# Run factory tests {{{1
 ################################################################
 
-biodb <- Biodb$new(logger = FALSE)
-obs <- create.test.observer(biodb)
-set.mode(biodb, MODE.OFFLINE)
-test_that("We detect when an identical connector already exists.", test.connectorAlreadyExists(biodb, obs))
-biodb$terminate()
+run.factory.tests <- function(biodb, obs) {
+
+	set.test.context(biodb, "Test factory")
+
+	run.test.that.on.biodb.and.obs("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb, obs)
+}

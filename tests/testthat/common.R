@@ -31,9 +31,9 @@ DATABASES.NONE <- 'none'
 
 TEST.DATABASES <- biodb::Biodb$new(logger = FALSE)$getDbsInfo()$getIds()
 if ('DATABASES' %in% names(ENV) && nchar(ENV[['DATABASES']]) > 0) {
-	if (ENV[['DATABASES']] == DATABASES.NONE)
+	if (tolower(ENV[['DATABASES']]) == DATABASES.NONE)
 		TEST.DATABASES <- character(0)
-	else if (ENV[['DATABASES']] == DATABASES.ALL)
+	else if (tolower(ENV[['DATABASES']]) == DATABASES.ALL)
 		TEST.DATABASES <- biodb::Biodb$new(logger = FALSE)$getDbsInfo()$getIds()
 	else {
 		TEST.DATABASES <- strsplit(ENV[['DATABASES']], ',')[[1]]
@@ -283,6 +283,19 @@ init.mass.csv.file.db <- function(biodb) {
 	return(db.instance)
 }
 
+# Run test that on biodb and observer {{{1
+################################################################
+
+run.test.that.on.biodb.and.obs <- function(msg, fct, biodb, obs) {
+	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
+		biodb$message('info', '')
+		biodb$message('info', paste('Running test function ', fct, '.'))
+		biodb$message('info', '----------------------------------------------------------------')
+		biodb$message('info', '')
+		test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
+	}
+}
+
 # Run test that on biodb {{{1
 ################################################################
 
@@ -295,6 +308,7 @@ run.test.that.on.biodb <- function(msg, fct, biodb) {
 		test_that(msg, do.call(fct, list(biodb)))
 	}
 }
+
 # Run database test that {{{1
 ################################################################
 
@@ -330,8 +344,12 @@ create.test.observer <- function(biodb) {
 		m <- .self$msgs.by.type[[type]]
 		return(m[[length(m)]])
 	})
+	TestObs$methods( getMsgsByType = function(type) {
+		return(.self$msgs.by.type[[type]])
+	})
 	TestObs$methods( clearMessages = function() {
 		msgs <<- character()
+		msgs.by.type <<- list()
 	})
 	obs <- TestObs$new()
 

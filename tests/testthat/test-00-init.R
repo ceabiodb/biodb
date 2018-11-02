@@ -4,15 +4,6 @@ context('Initialize tests.')
 
 source('common.R')
 
-# Display information {{{1
-################################################################
-
-# Print modes info
-cat(paste('Running tests in ', paste(TEST.MODES, collapse = ', '), " mode(s).\n", sep = ''))
-
-# Print databases info
-cat(paste('Running tests on database(s) ', paste(TEST.DATABASES, collapse = ', '), ".\n", sep = ''))
-
 # Remove cache folder {{{1
 ################################################################
 
@@ -31,7 +22,6 @@ if (MODE.ONLINE %in% TEST.MODES) {
 }
 
 biodb <- Biodb$new(logger = FALSE)
-cat(paste('Using cache folder ', biodb$getConfig()$get('cache.directory'), ".\n", sep = ''))
 
 # Remove all log files {{{1
 ################################################################

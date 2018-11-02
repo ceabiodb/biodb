@@ -1,9 +1,5 @@
 # vi: fdm=marker
 
-context("Test configuration")
-
-source('common.R')
-
 # Test listKeys {{{1
 ################################################################
 
@@ -16,10 +12,12 @@ test.listKeys <- function(biodb) {
 	expect_false(any(is.na(keys$Description)))
 }
 
-# MAIN {{{1
+# Run config tests {{{1
 ################################################################
 
-biodb <- Biodb$new(logger = FALSE)
-set.mode(biodb, MODE.OFFLINE)
-test_that("Keys are listed correctly.", test.listKeys(biodb))
-biodb$terminate()
+run.config.tests <- function(biodb) {
+
+	set.test.context(biodb, "Test configuration")
+
+	run.test.that.on.biodb("Keys are listed correctly.", 'test.listKeys', biodb)
+}

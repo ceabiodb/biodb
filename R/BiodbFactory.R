@@ -49,7 +49,7 @@ BiodbFactory$methods( initialize = function(...) {
 	.chunk.size <<- NA_integer_
 })
 
-# Create conn {{{1
+# Create connector {{{1
 ################################################################
 
 BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token = NA_character_, fail.if.exists = TRUE) {
@@ -82,7 +82,42 @@ BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token
 	return (.self$.conn[[conn.id]])
 })
 
-# Get conn {{{1
+# Delete connector {{{1
+################################################################
+
+BiodbFactory$methods( deleteConn = function(conn.id = NULL, db.class = NULL) {
+    ":\n\nDelete existing connectors."
+
+	# Remove one connector
+    if ( ! is.null(conn.id)) {
+		.self$.assert.is(conn.id, 'character')
+
+		if ( ! conn.id %in% names(.self$.conn))
+			.self$message('caution', paste0('Connector "', conn.id, '" is unknown.'))
+		else {
+			.conn <<- .self$.conn[names(.self$.conn) != conn.id]
+			.self$message('info', paste0('Connector "', conn.id, '" deleted.'))
+		}
+	}
+
+    # Remove all connectors of a database class
+    else if ( ! is.null(db.class)) {
+		.self$.assert.is(db.class, 'character')
+
+		n <- 0
+		for (c in .self$.conn)
+			if (c$getDbClass() == db.class) {
+				.self$deleteConn(conn.id = c$getId())
+				n <- n + 1
+			}
+		if (n == 0)
+			.self$message('info', paste0('No connectors of type "', db.class, '" to delete.'))
+		else
+			.self$message('info', paste0(n, ' connector(s) of type "', db.class, '" deleted.'))
+	}
+})
+
+# Get connector {{{1
 ################################################################
 
 BiodbFactory$methods( getConn = function(conn.id) {
