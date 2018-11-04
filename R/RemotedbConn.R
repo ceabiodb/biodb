@@ -11,7 +11,7 @@
 #' @param entry.id      The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.
 #' @param max.length    The maximum length of the URLs to return, in number of characters.
 #'
-#' @seealso \code{\link{BiodbConn}}, \code{\link{UrlRequestScheduler}}.
+#' @seealso \code{\link{BiodbConn}}, \code{\link{BiodbRequestScheduler}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -28,10 +28,10 @@
 #'
 #' @import methods
 #' @include BiodbConn.R
-#' @include UrlRequestScheduler.R
+#' @include BiodbRequestScheduler.R
 #' @export RemotedbConn
 #' @exportClass RemotedbConn
-RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn", fields = list(.scheduler = "ANY"))
+RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn")
 
 # Constructor {{{1
 ################################################################
@@ -41,8 +41,8 @@ RemotedbConn$methods( initialize = function(...) {
 	callSuper(...)
 	.self$.abstract.class('RemotedbConn')
 
-	# Set scheduler
-	.scheduler <<- UrlRequestScheduler$new(n = .self$getSchedulerNParam(), t = .self$getSchedulerTParam(), parent = .self)
+    # Register with request scheduler
+	.self$getBiodb()$getRequestScheduler()$register(conn)
 })
 
 # Get entry content url {{{1
@@ -126,34 +126,29 @@ RemotedbConn$methods( getEntryPageUrl = function(entry.id) {
 # PRIVATE METHODS {{{1
 ################################################################
 
-# Get URL scheduler {{{2
+# Set request scheduler rules {{{2
 ################################################################
 
-RemotedbConn$methods( .getUrlScheduler = function() {
-
-	return(.self$.scheduler)
+RemotedbConn$methods( .setRequestSchedulerRules = function() {
 })
 
 # Do get entry content url {{{2
 ################################################################
 
 RemotedbConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-	"Get the contents of specified entry identifiers. 
-	id: A character vector containing the identifiers.
-	return: A character vector containing the entry contents. NULL if no identifier is given (empty vector)."
-
 	.self$.abstract.method()
-})
-
-# Set user agent {{{2
-################################################################
-
-RemotedbConn$methods( .set.useragent = function(useragent) {
-	.scheduler$setUserAgent(useragent) # set agent
 })
 
 # DEPRECATED METHODS {{{1
 ################################################################
+
+# Get URL scheduler {{{2
+################################################################
+
+RemotedbConn$methods( .getUrlScheduler = function() {
+	.self$.deprecated.method(new.method = "getBiodb()$getRequestScheduler()$getUrl()")
+	return(.self$getBiodb()$getRequestScheduler())
+})
 
 # Get url {{{2
 ################################################################

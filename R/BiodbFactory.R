@@ -79,7 +79,7 @@ BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token
 	# Register new instance
 	.self$.conn[[conn.id]] <- conn
 
-	return (.self$.conn[[conn.id]])
+	return (conn)
 })
 
 # Delete connector {{{1

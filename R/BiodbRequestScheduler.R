@@ -5,7 +5,7 @@
 
 #' Class for handling URL requests.
 #'
-#' This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{RemotedbConn}) creates an instance of \code{UrlRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
+#' This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{RemotedbConn}) creates an instance of \code{BiodbRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
 #'
 #' @field n The number of connections allowed for each t seconds.
 #' @field t The number of seconds during which n connections are allowed.
@@ -22,14 +22,14 @@
 #'
 #' @import methods
 #' @include ChildObject.R
-#' @export UrlRequestScheduler
-#' @exportClass UrlRequestScheduler
-UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
+#' @export BiodbRequestScheduler
+#' @exportClass BiodbRequestScheduler
+BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
 
 # Constructor {{{1
 ################################################################
 
-UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
+BiodbRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
 
 	callSuper(...)
 
@@ -45,7 +45,7 @@ UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
 # Send soap request {{{1
 ################################################################
 
-UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_, encoding = integer()) {
+BiodbRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_, encoding = integer()) {
 	":\n\nSend a SOAP request to a URL. Returns the string result."
 
 	.self$.check.offline.mode()
@@ -65,7 +65,9 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.
 # Get URL string {{{1
 ################################################################
 
-UrlRequestScheduler$methods( getUrlString = function(url, params = list()) {
+BiodbRequestScheduler$methods( getUrlString = function(url, params = list()) {
+	":\n\nBuild a URL string, using a base URL and parameters to be passed."
+
 	pn <- names(params)
 	params.lst <- vapply(seq(params), function(n) if (is.null(pn) || nchar(pn[[n]]) == 0) params[[n]] else paste(pn[[n]], params[[n]], sep = '='), FUN.VALUE = '')
 	params.str <- paste(params.lst, collapse = '&')
@@ -76,7 +78,7 @@ UrlRequestScheduler$methods( getUrlString = function(url, params = list()) {
 # Get URL {{{1
 ################################################################
 
-UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = integer()) {
+BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = integer()) {
 	":\n\nSend a URL request, either with GET or POST method, and return result."
 
 	content <- NA_character_
@@ -169,7 +171,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 # Download file {{{1
 ################################################################
 
-UrlRequestScheduler$methods( downloadFile = function(url, dest.file) {
+BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 	":\n\nDownload the content of a URL and save it into the specified destination file."
 
 	# Wait required time between two requests
@@ -185,7 +187,7 @@ UrlRequestScheduler$methods( downloadFile = function(url, dest.file) {
 ################################################################
 
 # Wait enough time between two requests.
-UrlRequestScheduler$methods( .wait.as.needed = function() {
+BiodbRequestScheduler$methods( .wait.as.needed = function() {
 
 	# Compute minimum waiting time between two URL requests
 	waiting_time <- .self$.t / .self$.n
@@ -207,7 +209,7 @@ UrlRequestScheduler$methods( .wait.as.needed = function() {
 # Get curl options {{{2
 ################################################################
 
-UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
+BiodbRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
 	opts <- RCurl::curlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'), timeout.ms = 60000, verbose = FALSE, .opts = opts)
 	return(opts)
 })
@@ -215,7 +217,7 @@ UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
 # Check offline mode {{{2
 ################################################################
 
-UrlRequestScheduler$methods( .check.offline.mode = function() {
+BiodbRequestScheduler$methods( .check.offline.mode = function() {
 
 	if (.self$getBiodb()$getConfig()$isEnabled('offline'))
 		.self$message('error', "Offline mode is enabled. All connections are forbidden.")
@@ -224,7 +226,7 @@ UrlRequestScheduler$methods( .check.offline.mode = function() {
 # Wait for huge download as needed {{{2
 ################################################################
 
-UrlRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
+BiodbRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
 
 	# Wait, if needed, before previous URL request and this new URL request.
 	if (.self$.time.of.last.huge.dwnld.request > 0) {
