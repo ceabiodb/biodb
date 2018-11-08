@@ -79,9 +79,16 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 ################################################################
 
 Biodb$methods( terminate = function(logger = TRUE, observers = NULL, ...) {
+	":\n\nClose \\code{Biodb} instance."
+
 	.self$message('info', 'Closing Biodb instance.')
+
+	# Terminate observers
 	for (obs in .self$.observers)
 		obs$terminate()
+
+	# Terminate factory
+	.self$.factory$.terminate()
 })
 
 # Get configuration {{{1

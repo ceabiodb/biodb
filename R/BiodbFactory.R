@@ -427,3 +427,13 @@ BiodbFactory$methods( .checkConnExists = function(new.conn, error) {
 				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', conn$getBaseUrl(), ')', if ( ! is.na(conn$getToken())) paste0(' and the same token'), '.'))
 		}
 })
+
+# Terminate {{{2
+################################################################
+
+BiodbFactory$methods( .terminate = function() {
+
+	# Loop on all connectors
+	for (conn in .self$.conn)
+		conn$.terminate()
+})

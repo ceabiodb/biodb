@@ -59,17 +59,19 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	.self$.assert.in(entry.content.type, c('html', 'txt', 'xml', 'csv', 'tsv', 'json'))
 	.entry.content.type <<- entry.content.type
 
-	# Other parameters
-	.self$.assert.is(name, 'character')
+	# URLs
 	.self$.assert.is(base.url, 'character')
 	.self$.assert.is(ws.url, 'character')
+	.base.url <<- base.url
+	.ws.url <<- ws.url
+
+	# Other parameters
+	.self$.assert.is(name, 'character')
 	.self$.assert.is(xml.ns, 'character')
 	.self$.assert.is(token, 'character')
 	.self$.assert.is(scheduler.n, c('integer', 'numeric'))
 	.self$.assert.is(scheduler.t, c('integer', 'numeric'))
 	.name <<- name
-	.base.url <<- base.url
-	.ws.url <<- ws.url
 	.xml.ns <<- xml.ns
 	if (is.na(token)) {
 		config <- .self$getBiodb()$getConfig()
@@ -168,6 +170,21 @@ BiodbConnBase$methods( getEntryIdField = function() {
 	":\n\nReturn the name of the corresponding database ID field in entries."
 	
 	return(paste(.self$.db.class, 'id', sep = '.'))
+})
+
+# Get URLs {{{1
+################################################################
+
+BiodbConnBase$methods( getUrls = function() {
+	":\n\nReturns the URLs."
+
+	urls <- character()
+	if ( ! is.null(.self$.base.url) && ! is.na(.self$.base.url))
+		urls <- c(urls, .self$.base.url)
+	if ( ! is.null(.self$.ws.url) && ! is.na(.self$.ws.url))
+		urls <- c(urls, .self$.ws.url)
+
+	return(urls)
 })
 
 # Get base URL {{{1
@@ -275,4 +292,10 @@ BiodbConnBase$methods( setSchedulerTParam = function(t) {
 	":\n\nSets the T parameter for the scheduler."
 
 	.scheduler.t <<- as.integer(t)
+})
+
+# Private methods {{{1
+################################################################
+
+BiodbConnBase$methods( .terminate = function() {
 })

@@ -42,7 +42,7 @@ RemotedbConn$methods( initialize = function(...) {
 	.self$.abstract.class('RemotedbConn')
 
     # Register with request scheduler
-	.self$getBiodb()$getRequestScheduler()$register(conn)
+	.self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
 })
 
 # Get entry content url {{{1
@@ -123,7 +123,7 @@ RemotedbConn$methods( getEntryPageUrl = function(entry.id) {
 	.self$.abstract.method()
 })
 
-# PRIVATE METHODS {{{1
+# Private methods {{{1
 ################################################################
 
 # Set request scheduler rules {{{2
@@ -137,6 +137,15 @@ RemotedbConn$methods( .setRequestSchedulerRules = function() {
 
 RemotedbConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	.self$.abstract.method()
+})
+
+# Terminate {{{2
+################################################################
+
+RemotedbConn$methods( .terminate = function() {
+
+    # Unregister from the request scheduler
+	.self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)
 })
 
 # DEPRECATED METHODS {{{1

@@ -7,9 +7,6 @@
 #'
 #' This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{RemotedbConn}) creates an instance of \code{BiodbRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
 #'
-#' @field n The number of connections allowed for each t seconds.
-#' @field t The number of seconds during which n connections are allowed.
-#' 
 #' @param url           The URL to access, as a character string.
 #' @param soap.request  The XML SOAP request to send, as a character string. 
 #' @param soap.action   The SOAP action to contact, as a character string.
@@ -18,13 +15,13 @@
 #' @param opts          The CURL options to use.
 #' @param dest.file     A path to a destination file.
 #'
-#' @seealso \code{\link{RemotedbConn}}.
+#' @seealso \code{\link{RemotedbConn}}, \code{\link{BiodbRequestSchedulerRule}}.
 #'
 #' @import methods
 #' @include ChildObject.R
 #' @export BiodbRequestScheduler
 #' @exportClass BiodbRequestScheduler
-BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
+BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = "ChildObject", fields = list(.ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY", .conn.ids = "character", .rules = "list"))
 
 # Constructor {{{1
 ################################################################
@@ -33,9 +30,8 @@ BiodbRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
 
 	callSuper(...)
 
-	.n <<- n
-	.t <<- t
-	.time.of.last.request <<- -1
+	.conn.ids <<- character()
+	.rules <<- list()
 	.nb.max.tries <<- 10L
 	.ssl.verifypeer <<- TRUE
 	.huge.download.waiting.time <<- 60L # In seconds. Waiting time between two huge downloads should be higher than for requests (.time.of.last.request).
@@ -183,29 +179,6 @@ BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 # Private methods {{{1
 ################################################################
 
-# Wait as needed {{{2
-################################################################
-
-# Wait enough time between two requests.
-BiodbRequestScheduler$methods( .wait.as.needed = function() {
-
-	# Compute minimum waiting time between two URL requests
-	waiting_time <- .self$.t / .self$.n
-
-	# Wait, if needed, before previous URL request and this new URL request.
-	if (.self$.time.of.last.request > 0) {
-		spent_time <- Sys.time() - .self$.time.of.last.request
-		if (spent_time < waiting_time) {
-			sleep.time <- waiting_time - spent_time
-			.self$message('debug', paste('Wait ', sleep.time, '.', sep = ''))
-			Sys.sleep(sleep.time)
-		}
-	}
-
-	# Store current time
-	.time.of.last.request <<- Sys.time()
-})
-
 # Get curl options {{{2
 ################################################################
 
@@ -237,4 +210,94 @@ BiodbRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
 
 	# Store current time
 	.time.of.last.huge.dwnld.request <<- Sys.time()
+})
+
+# Register connector {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .registerConnector = function(conn) {
+
+	if ( ! conn$getId() %in% .self$.conn.ids) {
+		.conn.ids <<- c(.self$.conn.ids, conn$getId())
+
+		# Register as observer
+		conn$registerObserver(.self)
+
+		# Update rules
+		.self$.updateRules()
+	}
+})
+
+# Unregister connector {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
+
+	if (conn$getId() %in% .self$.conn.ids) {
+		.conn.ids <<- .self$.conn.ids[.self$.conn.ids == conn$getId()]
+
+		# Unregister as observer
+		conn$unregisterObserver(.self)
+
+		# Update rules
+		.self$.updateRules()
+	}
+})
+
+# Find rule {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .findRule = function(url) {
+
+	rule <- NULL
+
+	# Look for rules with similar URL
+	similar.urls <- vapply(.self$.rules, function(r) r$urlIsSimilar(url), FUN.VALUE = T)
+	if (sum(similar.urls) > 1)
+		.self$message('error', paste0('Found more than one rule for url "', url, '": ', paste(names(.self$.rules)[similar.urls], collapse = ', ')))
+	if (any(similar.urls))
+		rule <- .self$.rules[[which(similar.urls)]]
+
+	return(rule)
+})
+
+# Update rules {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .updateRules = function(conn) {
+
+	# Loop on all connectors
+	for (conn.id in .self$.conn.ids) {
+
+		# Get connector
+		conn <- .self$getBiodb()$getFactory()$getConn(conn.id)
+
+		# Get timings
+		n <- conn$getSchedulerNParam()
+		t <- conn$getSchedulerTParam()
+
+		# Loop on all urls
+		for (url in conn$getUrls()) {
+
+			# Check a rule already exists
+			rule <- .self$.findRule(url)
+			if (is.null(rule))
+				rule <- BiodbRequestSchedulerRule$new(parent = .self, url = url, n = n, t = t)
+			else {
+
+				# Remove found rule
+				.self.rules[[rule$url]] <- NULL
+
+				# Update rule
+				if (nchar(rule$getUrl()) > nchar(url))
+					rule$setUrl(url)
+				if ((abs(rule$getT() / rule$getN() - t / n) < 0.1 && rule$getN() > n) # equivalent rule
+				    || rule$getT() / rule$getN() > t / n)
+					rule$setFrequence(n = n, t = t)
+			}
+
+			# Set rule
+			.self$.rules[[rule$url]] <- rule
+		}
+	}
 })
