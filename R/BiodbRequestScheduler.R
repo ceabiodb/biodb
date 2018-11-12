@@ -21,7 +21,7 @@
 #' @include ChildObject.R
 #' @export BiodbRequestScheduler
 #' @exportClass BiodbRequestScheduler
-BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = "ChildObject", fields = list(.ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY", .conn.ids = "character", .rules = "list"))
+BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = "ChildObject", fields = list(.ssl.verifypeer = "logical", .nb.max.tries = "integer", .conn.ids = "character", .rules = "list"))
 
 # Constructor {{{1
 ################################################################
@@ -34,8 +34,6 @@ BiodbRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
 	.rules <<- list()
 	.nb.max.tries <<- 10L
 	.ssl.verifypeer <<- TRUE
-	.huge.download.waiting.time <<- 60L # In seconds. Waiting time between two huge downloads should be higher than for requests (.time.of.last.request).
-	.time.of.last.huge.dwnld.request <<- -1
 })
 
 # Send soap request {{{1
@@ -79,6 +77,11 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 
 	content <- NA_character_
 
+	# Get rule
+	rule <- .self$.findRule(url)
+	if (is.null(rule))
+		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
+
 	# Check method
 	if ( ! method %in% c('get', 'post'))
 		.self$message('error', paste('Unknown method "', method, '".', sep = ''))
@@ -121,7 +124,7 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 					.self$.check.offline.mode()
 
 					# Wait required time between two requests
-					.self$.wait.as.needed()
+					rule$wait.as.needed()
 
 					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = encoding)
 					if (.self$getBiodb()$getConfig()$get('cache.all.requests'))
@@ -140,7 +143,7 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 					.self$.check.offline.mode()
 
 					# Wait required time between two requests
-					.self$.wait.as.needed()
+					rule$wait.as.needed()
 
 					content <- RCurl::postForm(url, .opts = opts, .params = params, .encoding = encoding)
 				}
@@ -170,8 +173,13 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 	":\n\nDownload the content of a URL and save it into the specified destination file."
 
+	# Get rule
+	rule <- .self$.findRule(url)
+	if (is.null(rule))
+		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
+
 	# Wait required time between two requests
-	.self$.wait.for.huge.dwnld.as.needed()
+	rule$wait.as.needed()
 
 	utils::download.file(url = url, destfile = dest.file, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
 })
@@ -196,21 +204,21 @@ BiodbRequestScheduler$methods( .check.offline.mode = function() {
 		.self$message('error', "Offline mode is enabled. All connections are forbidden.")
 })
 
-# Wait for huge download as needed {{{2
-################################################################
-
-BiodbRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
-
-	# Wait, if needed, before previous URL request and this new URL request.
-	if (.self$.time.of.last.huge.dwnld.request > 0) {
-		spent_time <- Sys.time() - .self$.time.of.last.huge.dwnld.request
-		if (spent_time < .self$.huge.download.waiting.time)
-			Sys.sleep(.self$.huge.download.waiting.time - spent_time)
-	}
-
-	# Store current time
-	.time.of.last.huge.dwnld.request <<- Sys.time()
-})
+## Wait for huge download as needed {{{2
+#################################################################
+#
+#BiodbRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
+#
+#	# Wait, if needed, before previous URL request and this new URL request.
+#	if (.self$.time.of.last.huge.dwnld.request > 0) {
+#		spent_time <- Sys.time() - .self$.time.of.last.huge.dwnld.request
+#		if (spent_time < .self$.huge.download.waiting.time)
+#			Sys.sleep(.self$.huge.download.waiting.time - spent_time)
+#	}
+#
+#	# Store current time
+#	.time.of.last.huge.dwnld.request <<- Sys.time()
+#})
 
 # Register connector {{{2
 ################################################################
