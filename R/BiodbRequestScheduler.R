@@ -229,7 +229,7 @@ BiodbRequestScheduler$methods( .registerConnector = function(conn) {
 		.conn.ids <<- c(.self$.conn.ids, conn$getId())
 
 		# Register as observer
-		conn$registerObserver(.self)
+		conn$.registerObserver(.self)
 
 		# Update rules
 		.self$.updateRules()
@@ -245,7 +245,7 @@ BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
 		.conn.ids <<- .self$.conn.ids[.self$.conn.ids == conn$getId()]
 
 		# Unregister as observer
-		conn$unregisterObserver(.self)
+		conn$.unregisterObserver(.self)
 
 		# Update rules
 		.self$.updateRules()
@@ -284,10 +284,10 @@ BiodbRequestScheduler$methods( .updateRules = function(conn) {
 		n <- conn$getSchedulerNParam()
 		t <- conn$getSchedulerTParam()
 
-		# Loop on all urls
+		# Loop on all URLs
 		for (url in conn$getUrls()) {
 
-			# Check a rule already exists
+			# Check if a rule already exists
 			rule <- .self$.findRule(url)
 			if (is.null(rule))
 				rule <- BiodbRequestSchedulerRule$new(parent = .self, url = url, n = n, t = t)
@@ -301,7 +301,7 @@ BiodbRequestScheduler$methods( .updateRules = function(conn) {
 					rule$setUrl(url)
 				if ((abs(rule$getT() / rule$getN() - t / n) < 0.1 && rule$getN() > n) # equivalent rule
 				    || rule$getT() / rule$getN() > t / n)
-					rule$setFrequence(n = n, t = t)
+					rule$setFrequency(n = n, t = t)
 			}
 
 			# Set rule

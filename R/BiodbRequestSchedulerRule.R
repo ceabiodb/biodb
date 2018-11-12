@@ -76,11 +76,23 @@ BiodbRequestScheduler$methods( getT = function() {
 # Set frequence {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( setFrequence = function(n, t) {
+BiodbRequestScheduler$methods( setFrequency = function(n, t) {
 	.self$.assert.is(n, 'integer')
 	.self$.assert.is(t, 'numeric')
 	.self$.assert.positive(n)
 	.self$.assert.positive(t)
+
+	# Update last time and index
+	if (length(.self$.last.time) <= n) {
+		.last.time <<- .self$.last.time[((.self$.n.index - (seq(.self$.n) - 1)) %% .self$.n)]
+		.n.index <<- length(.self$.last.time)
+	}
+	else {
+		.last.time <<- .self$.last.time[((.self$.n.index - (seq(n) - 1)) %% .self$.n)]
+		.n.index <<- n
+	}
+
+	# Update frequency
 	.n <<- n
 	.t <<- t
 })

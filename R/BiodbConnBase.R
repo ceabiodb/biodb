@@ -28,7 +28,7 @@
 #' @include ChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character'))
+BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character', .observers = 'list'))
 
 # Constructor {{{1
 ################################################################
@@ -80,6 +80,7 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	}
 	.scheduler.n <<- as.integer(scheduler.n)
 	.scheduler.t <<- as.integer(scheduler.t)
+	.observers <<- list()
 })
 
 # Get name {{{1
@@ -203,6 +204,10 @@ BiodbConnBase$methods( setBaseUrl = function(base.url) {
 	":\n\nSets the base URL."
 
 	.base.url <<- base.url
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connUrlsUpdated()
 })
 # Get web sevices URL {{{1
 ################################################################
@@ -220,6 +225,10 @@ BiodbConnBase$methods( setWsUrl = function(ws.url) {
 	":\n\nSets the web sevices URL."
 
 	.ws.url <<- ws.url
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connUrlsUpdated()
 })
 
 # Get XML namespace {{{1
@@ -274,6 +283,10 @@ BiodbConnBase$methods( setSchedulerNParam = function(n) {
 	":\n\nSets the N parameter for the scheduler."
 
 	.scheduler.n <<- as.integer(n)
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connSchedulerFrequencyUpdated()
 })
 
 # Get scheduler T paramater {{{1
@@ -292,10 +305,56 @@ BiodbConnBase$methods( setSchedulerTParam = function(t) {
 	":\n\nSets the T parameter for the scheduler."
 
 	.scheduler.t <<- as.integer(t)
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connSchedulerFrequencyUpdated()
 })
 
 # Private methods {{{1
 ################################################################
 
+# Terminate {{{2
+################################################################
+
 BiodbConnBase$methods( .terminate = function() {
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connTerminating()
+})
+
+# Register observer {{{2
+################################################################
+
+BiodbConnBase$methods( .registerObserver = function(obs) {
+
+	.self$.assert.is(obs, 'BiodbConnObserver')
+
+	# Is this observer already registered?
+	if (any(vapply(.self$.observers, function(x) identical(x, obs), FUN.VALUE = TRUE)))
+		.self$message('caution', "Observer is already registered.")
+
+	# Register this new observer
+	else
+		.observers <<- c(.self$.observers, obs)
+})
+
+# Unregister observer {{{2
+################################################################
+
+BiodbConnBase$methods( .unregisterObserver = function(obs) {
+
+	.self$.assert.is(obs, 'BiodbConnObserver')
+
+	# Search for observer
+	found.obs <- vapply(.self$.observers, function(x) identical(x, obs), FUN.VALUE = TRUE)
+
+	# Not found
+	if ( ! any(found.obs))
+		.self$message('caution', 'Unknown observer to unregister.')
+
+	# Unregister observer
+	else
+		.observers <<- .self$.observers[ ! found.obs ]
 })
