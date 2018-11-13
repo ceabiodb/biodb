@@ -187,6 +187,28 @@ BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 # Private methods {{{1
 ################################################################
 
+# Connector observer {{{2
+################################################################
+
+# Terminating {{{3
+################################################################
+
+BiodbRequestScheduler$methods( connTerminating = function(conn) {
+	.self$.unregisterConnector(conn)
+})
+
+# URLs updated {{{3
+################################################################
+
+BiodbRequestScheduler$methods( connUrlsUpdated = function(conn) {
+})
+
+# Scheduler frequency updated {{{3
+################################################################
+
+BiodbRequestScheduler$methods( connSchedulerFrequencyUpdated = function(conn) {
+})
+
 # Get curl options {{{2
 ################################################################
 
@@ -204,21 +226,6 @@ BiodbRequestScheduler$methods( .check.offline.mode = function() {
 		.self$message('error', "Offline mode is enabled. All connections are forbidden.")
 })
 
-## Wait for huge download as needed {{{2
-#################################################################
-#
-#BiodbRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
-#
-#	# Wait, if needed, before previous URL request and this new URL request.
-#	if (.self$.time.of.last.huge.dwnld.request > 0) {
-#		spent_time <- Sys.time() - .self$.time.of.last.huge.dwnld.request
-#		if (spent_time < .self$.huge.download.waiting.time)
-#			Sys.sleep(.self$.huge.download.waiting.time - spent_time)
-#	}
-#
-#	# Store current time
-#	.time.of.last.huge.dwnld.request <<- Sys.time()
-#})
 
 # Register connector {{{2
 ################################################################

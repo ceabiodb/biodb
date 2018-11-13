@@ -207,7 +207,7 @@ BiodbConnBase$methods( setBaseUrl = function(base.url) {
 
 	# Notify observers
 	for (obs in .self$.observers)
-		obs$connUrlsUpdated()
+		obs$connUrlsUpdated(.self)
 })
 # Get web sevices URL {{{1
 ################################################################
@@ -228,7 +228,7 @@ BiodbConnBase$methods( setWsUrl = function(ws.url) {
 
 	# Notify observers
 	for (obs in .self$.observers)
-		obs$connUrlsUpdated()
+		obs$connUrlsUpdated(.self)
 })
 
 # Get XML namespace {{{1
@@ -286,7 +286,7 @@ BiodbConnBase$methods( setSchedulerNParam = function(n) {
 
 	# Notify observers
 	for (obs in .self$.observers)
-		obs$connSchedulerFrequencyUpdated()
+		obs$connSchedulerFrequencyUpdated(.self)
 })
 
 # Get scheduler T paramater {{{1
@@ -308,7 +308,7 @@ BiodbConnBase$methods( setSchedulerTParam = function(t) {
 
 	# Notify observers
 	for (obs in .self$.observers)
-		obs$connSchedulerFrequencyUpdated()
+		obs$connSchedulerFrequencyUpdated(.self)
 })
 
 # Private methods {{{1
@@ -321,7 +321,7 @@ BiodbConnBase$methods( .terminate = function() {
 
 	# Notify observers
 	for (obs in .self$.observers)
-		obs$connTerminating()
+		obs$connTerminating(.self)
 })
 
 # Register observer {{{2

@@ -17,17 +17,17 @@ BiodbConnObserver <- methods::setRefClass("BiodbConnObserver", fields = list())
 # Terminating {{{1
 ################################################################
 
-BiodbConnObserver$methods( connTerminating = function() {
+BiodbConnObserver$methods( connTerminating = function(conn) {
 })
 
 # URLs updated {{{1
 ################################################################
 
-BiodbConnObserver$methods( connUrlsUpdated = function() {
+BiodbConnObserver$methods( connUrlsUpdated = function(conn) {
 })
 
 # Scheduler frequency updated {{{1
 ################################################################
 
-BiodbConnObserver$methods( connSchedulerFrequencyUpdated = function() {
+BiodbConnObserver$methods( connSchedulerFrequencyUpdated = function(conn) {
 })
