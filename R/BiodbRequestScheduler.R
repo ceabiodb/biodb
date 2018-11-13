@@ -187,7 +187,7 @@ BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 # Private methods {{{1
 ################################################################
 
-# Connector observer {{{2
+# Connector observer methods {{{2
 ################################################################
 
 # Terminating {{{3
