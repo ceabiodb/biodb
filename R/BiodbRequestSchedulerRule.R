@@ -25,7 +25,7 @@ BiodbRequestSchedulerRule$methods( initialize = function(host, n, t, conn, ...) 
 
 	callSuper(...)
 
-	.self$.assert.is(conn, 'BiodbConn')
+	.self$.assert.inherits.from(conn, 'BiodbConn')
 	.self$.assert.is(host, 'character')
 	.host <<- host
 	.last.time <- list()
@@ -37,30 +37,30 @@ BiodbRequestSchedulerRule$methods( initialize = function(host, n, t, conn, ...) 
 # Get hostname {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( getHost = function() {
+BiodbRequestSchedulerRule$methods( getHost = function() {
 	return(.self$.host)
 })
 
 # Get N {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( getN = function() {
+BiodbRequestSchedulerRule$methods( getN = function() {
 	return(.self$.n)
 })
 
 # Get T {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( getT = function() {
+BiodbRequestSchedulerRule$methods( getT = function() {
 	return(.self$.t)
 })
 
 # Set frequency {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( setFrequency = function(n, t) {
+BiodbRequestSchedulerRule$methods( setFrequency = function(n, t) {
 	.self$.assert.is(n, 'integer')
-	.self$.assert.is(t, 'numeric')
+	.self$.assert.is(t, c('integer', 'numeric'))
 	.self$.assert.positive(n)
 	.self$.assert.positive(t)
 
@@ -82,46 +82,40 @@ BiodbRequestScheduler$methods( setFrequency = function(n, t) {
 # Get connector {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( getConnectors = function() {
+BiodbRequestSchedulerRule$methods( getConnectors = function() {
 	return(.self$.conn)
 })
 
 # Add connector {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( addConnector = function(conn, host) {
-	.self$.assert.is(conn, 'BiodbConn')
+BiodbRequestSchedulerRule$methods( addConnector = function(conn) {
+	.self$.assert.inherits.from(conn, 'BiodbConn')
 
 	# Connector already listed?
 	if (any(vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE = TRUE)))
-		.self$message('caution', paste0('Connector "', conn$getId(), '" is already listed in rule "' .self$.host, '".'))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" is already listed in rule "', .self$.host, '".'))
 
 	# Add connector
 	else {
 
-		# Update frequency
-		t <- conn$getSchedulerTParam()
-		n <- conn$getSchedulerNParam()
-		if ((abs(.self$getT() / .self$getN() - t / n) < 0.1 && .self$getN() > n) # equivalent rule
-			|| .self$getT() / .self() > t / n) {
-			.self$message('debug', paste0('Replacing rule frequency ', .self$getN(),' / ', .self$getT(),' by ', n, ' / ', t, ', for connector "', conn$getId(), '"'))
-			.self$setFrequency(n = n, t = t)
-		}
-
 		.conn <<- c(.self$.conn, conn)
+
+		# Update frequency
+		.self$recomputeFrequency()
 	}
 })
 
 # Remove connector {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( removeConnector = function(conn) {
-	.self$.assert.is(conn, 'BiodbConn')
+BiodbRequestSchedulerRule$methods( removeConnector = function(conn) {
+	.self$.assert.inherits.from(conn, 'BiodbConn')
 
 	# Connector already listed?
-	found.conn <- vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE = TRUE))
+	found.conn <- vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE = TRUE)
 	if ( ! any(found.conn))
-		.self$message('caution', paste0('Connector "', conn$getId(), '" is not listed in rule "' .self$.host, '".'))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" is not listed in rule "', .self$.host, '".'))
 
 	# Remove connector
 	else {
@@ -135,13 +129,29 @@ BiodbRequestScheduler$methods( removeConnector = function(conn) {
 # Recompute frequency {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( recomputeFrequency = function() {
+BiodbRequestSchedulerRule$methods( recomputeFrequency = function() {
+
+	t <- NULL
+	n <- NULL
+
+	# Loop on all connectors
+	for (conn in .self$.conn) {
+		t.conn <- conn$getSchedulerTParam()
+		n.conn <- conn$getSchedulerNParam()
+		if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 0.1 && n > n.conn) || t / n > t.conn / n.conn)) {
+			t <- t.conn
+			n <- n.conn
+		}
+	}
+
+	# Set frequency
+	.self$setFrequency(n = n, t = t)
 })
 
 # Wait as needed {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( wait.as.needed = function() {
+BiodbRequestSchedulerRule$methods( wait.as.needed = function() {
 
 	# Do we need to wait?
 	if (length(.self$.last.time) == .self$.n) {

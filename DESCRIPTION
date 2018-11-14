@@ -43,6 +43,7 @@ Collate:
     'BiodbConfig.R'
     'BiodbConnBase.R'
     'BiodbConn.R'
+    'BiodbConnObserver.R'
     'BiodbDbInfo.R'
     'BiodbDbsInfo.R'
     'BiodbDownloadable.R'

@@ -15,15 +15,14 @@
 #' @param opts          The CURL options to use.
 #' @param dest.file     A path to a destination file.
 #'
-#' @seealso \code{\link{RemotedbConn}}, \code{\link{BiodbRequestSchedulerRule}}.
+#' @seealso \code{\link{RemotedbConn}}, \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
 #'
 #' @import methods
 #' @include ChildObject.R
+#' @include BiodbConnObserver.R
 #' @export BiodbRequestScheduler
 #' @exportClass BiodbRequestScheduler
-BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = "ChildObject", fields = list(.ssl.verifypeer = "logical", .nb.max.tries = "integer", .host2rule = "list", .connid2rules = "list"))
-
-# XXX TODO FIXME replace url by hostname
+BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = c("ChildObject", "BiodbConnObserver"), fields = list(.ssl.verifypeer = "logical", .nb.max.tries = "integer", .host2rule = "list", .connid2rules = "list"))
 
 # Constructor {{{1
 ################################################################

@@ -329,7 +329,7 @@ BiodbConnBase$methods( .terminate = function() {
 
 BiodbConnBase$methods( .registerObserver = function(obs) {
 
-	.self$.assert.is(obs, 'BiodbConnObserver')
+	.self$.assert.inherits.from(obs, 'BiodbConnObserver')
 
 	# Is this observer already registered?
 	if (any(vapply(.self$.observers, function(x) identical(x, obs), FUN.VALUE = TRUE)))
@@ -345,7 +345,7 @@ BiodbConnBase$methods( .registerObserver = function(obs) {
 
 BiodbConnBase$methods( .unregisterObserver = function(obs) {
 
-	.self$.assert.is(obs, 'BiodbConnObserver')
+	.self$.assert.inherits.from(obs, 'BiodbConnObserver')
 
 	# Search for observer
 	found.obs <- vapply(.self$.observers, function(x) identical(x, obs), FUN.VALUE = TRUE)
