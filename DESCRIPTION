@@ -27,7 +27,8 @@ Imports:
 	RCurl,
 	stats,
 	R.utils,
-	digest
+	digest,
+	urltools
 LinkingTo:
 	Rcpp
 NeedsCompilation: yes

@@ -21,17 +21,19 @@
 #' @include ChildObject.R
 #' @export BiodbRequestScheduler
 #' @exportClass BiodbRequestScheduler
-BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = "ChildObject", fields = list(.ssl.verifypeer = "logical", .nb.max.tries = "integer", .conn.ids = "character", .rules = "list"))
+BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = "ChildObject", fields = list(.ssl.verifypeer = "logical", .nb.max.tries = "integer", .host2rule = "list", .connid2rules = "list"))
+
+# XXX TODO FIXME replace url by hostname
 
 # Constructor {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
+BiodbRequestScheduler$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.conn.ids <<- character()
-	.rules <<- list()
+	.connid2rules <<- list()
+	.host2rule <<- list()
 	.nb.max.tries <<- 10L
 	.ssl.verifypeer <<- TRUE
 })
@@ -201,12 +203,24 @@ BiodbRequestScheduler$methods( connTerminating = function(conn) {
 ################################################################
 
 BiodbRequestScheduler$methods( connUrlsUpdated = function(conn) {
+	.self$.unregisterConnector(conn)
+	.self$.registerConnector(conn)
 })
 
 # Scheduler frequency updated {{{3
 ################################################################
 
 BiodbRequestScheduler$methods( connSchedulerFrequencyUpdated = function(conn) {
+
+	# Is connector not registered?
+	if ( ! conn$getId() %in% names(.self$.connid2rules))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" has never been registered.'))
+
+	# Update frequency
+	else {
+		for (rule in .self$.connid2rules[[conn$getId()]])
+			rule$recomputeFrequency()
+	}
 })
 
 # Get curl options {{{2
@@ -232,14 +246,17 @@ BiodbRequestScheduler$methods( .check.offline.mode = function() {
 
 BiodbRequestScheduler$methods( .registerConnector = function(conn) {
 
-	if ( ! conn$getId() %in% .self$.conn.ids) {
-		.conn.ids <<- c(.self$.conn.ids, conn$getId())
+	# Is connector already registered?
+	if (conn$getId() %in% names(.self$.connid2rules))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" has already been registered.'))
 
+	# Add connector
+	else {
 		# Register as observer
 		conn$.registerObserver(.self)
 
-		# Update rules
-		.self$.updateRules()
+		# Add connector
+		.self$.addConnectorRules(conn)
 	}
 })
 
@@ -248,71 +265,80 @@ BiodbRequestScheduler$methods( .registerConnector = function(conn) {
 
 BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
 
-	if (conn$getId() %in% .self$.conn.ids) {
-		.conn.ids <<- .self$.conn.ids[.self$.conn.ids == conn$getId()]
+	# Is connector not registered?
+	if ( ! conn$getId() %in% names(.self$.connid2rules))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" has never been registered.'))
 
+	# Unregister connector
+	else {
 		# Unregister as observer
 		conn$.unregisterObserver(.self)
 
-		# Update rules
-		.self$.updateRules()
+		# Remove connector
+		.self$.removeConnectorRules(conn)
 	}
+})
+
+# Unregister connector {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
 })
 
 # Find rule {{{2
 ################################################################
 
 BiodbRequestScheduler$methods( .findRule = function(url) {
-
-	rule <- NULL
-
-	# Look for rules with similar URL
-	similar.urls <- vapply(.self$.rules, function(r) r$urlIsSimilar(url), FUN.VALUE = T)
-	if (sum(similar.urls) > 1)
-		.self$message('error', paste0('Found more than one rule for url "', url, '": ', paste(names(.self$.rules)[similar.urls], collapse = ', ')))
-	if (any(similar.urls))
-		rule <- .self$.rules[[which(similar.urls)]]
-
-	return(rule)
+	return(.self$.host2rule[[urltools::domain(url)]])
 })
 
-# Update rules {{{2
+# Add connector rules {{{2
 ################################################################
 
-BiodbRequestScheduler$methods( .updateRules = function(conn) {
+BiodbRequestScheduler$methods( .addConnectorRules = function(conn) {
 
-	# Loop on all connectors
-	for (conn.id in .self$.conn.ids) {
+	.self$.connid2rules[[conn$getId()]] <- list()
 
-		# Get connector
-		conn <- .self$getBiodb()$getFactory()$getConn(conn.id)
+	# Loop on all connector URLs
+	for (url in conn$getUrls()) {
 
-		# Get timings
-		n <- conn$getSchedulerNParam()
-		t <- conn$getSchedulerTParam()
+		# Check if a rule already exists
+		rule <- .self$.findRule(url)
 
-		# Loop on all URLs
-		for (url in conn$getUrls()) {
-
-			# Check if a rule already exists
-			rule <- .self$.findRule(url)
-			if (is.null(rule))
-				rule <- BiodbRequestSchedulerRule$new(parent = .self, url = url, n = n, t = t)
-			else {
-
-				# Remove found rule
-				.self.rules[[rule$url]] <- NULL
-
-				# Update rule
-				if (nchar(rule$getUrl()) > nchar(url))
-					rule$setUrl(url)
-				if ((abs(rule$getT() / rule$getN() - t / n) < 0.1 && rule$getN() > n) # equivalent rule
-				    || rule$getT() / rule$getN() > t / n)
-					rule$setFrequency(n = n, t = t)
-			}
-
-			# Set rule
-			.self$.rules[[rule$url]] <- rule
+		# No rule exists => create new one
+		if (is.null(rule)) {
+			host <- urltools::domain(url)
+			.self$message('debug', paste0('Create new rule for URL "', host,'" of connector "', conn$getId(), '"'))
+			rule <- BiodbRequestSchedulerRule$new(parent = .self, host = host, conn = conn)
+			.self$.host2rule[[rule$getHost()]] <- rule
 		}
+
+		# A rule with the same already exists, add connector to it
+		else
+			rule$addConnector(conn)
+
+		# Add rule
+		.self$.connid2rules[[conn$getId()]] <- c(.self$.connid2rules[[conn$getId()]], rule)
 	}
+})
+
+# Remove connector rules {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .removeConnectorRules = function(conn) {
+
+	# Get rules
+	rules <- .self$.connid2rules[[conn$getId()]]
+
+	# Loop on connector rules
+	for (rule in rules) {
+
+		if (length(rule$getConnectors()) == 1)
+			.self$.host2rule[[rule$getHost()]] <- NULL
+		else
+			rule$removeConnector(conn)
+	}
+	
+	# Remove connector
+	.self$.connid2rules[[conn$getId()]] <- NULL
 })

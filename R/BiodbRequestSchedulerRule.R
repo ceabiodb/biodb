@@ -16,47 +16,29 @@
 #' @include ChildObject.R
 #' @export BiodbRequestSchedulerRule
 #' @exportClass BiodbRequestSchedulerRule
-BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule", contains = "ChildObject", fields = list(.url = "character", .n = "integer", .t = "numeric", .last.time = "list", .n.index = 'integer'))
+BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule", contains = "ChildObject", fields = list(.host = "character", .n = "integer", .t = "numeric", .last.time = "list", .n.index = 'integer', .conn = 'list'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbRequestSchedulerRule$methods( initialize = function(url, n, t, ...) {
+BiodbRequestSchedulerRule$methods( initialize = function(host, n, t, conn, ...) {
 
 	callSuper(...)
 
-	.self$setUrl(url)
-	.self$setFrequence(n = n, t = t)
+	.self$.assert.is(conn, 'BiodbConn')
+	.self$.assert.is(host, 'character')
+	.host <<- host
 	.last.time <- list()
 	.n.index <- 0
+	.conn <- list(conn)
+	.self$setFrequency(n = conn$getSchedulerNParam(), t = conn$getSchedulerTParam())
 })
 
-# Get URL {{{1
+# Get hostname {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( getUrl = function() {
-	return(.self$.url)
-})
-
-# Set URL {{{1
-################################################################
-
-BiodbRequestScheduler$methods( setUrl = function(url) {
-	.self$.assert.is(url, 'character')
-	.url <<- url
-})
-
-# URL is similar {{{1
-################################################################
-
-BiodbRequestScheduler$methods( urlIsSimilar = function(url) {
-
-	if (length(url) > length(.self$.url))
-		similar <- substr(url, 1, length(.self$.url)) == .self$.url
-	else
-		similar <- substr(.self$.url, 1, length(url)) == url
-
-	return(similar)
+BiodbRequestScheduler$methods( getHost = function() {
+	return(.self$.host)
 })
 
 # Get N {{{1
@@ -73,7 +55,7 @@ BiodbRequestScheduler$methods( getT = function() {
 	return(.self$.t)
 })
 
-# Set frequence {{{1
+# Set frequency {{{1
 ################################################################
 
 BiodbRequestScheduler$methods( setFrequency = function(n, t) {
@@ -95,6 +77,65 @@ BiodbRequestScheduler$methods( setFrequency = function(n, t) {
 	# Update frequency
 	.n <<- n
 	.t <<- t
+})
+
+# Get connector {{{1
+################################################################
+
+BiodbRequestScheduler$methods( getConnectors = function() {
+	return(.self$.conn)
+})
+
+# Add connector {{{1
+################################################################
+
+BiodbRequestScheduler$methods( addConnector = function(conn, host) {
+	.self$.assert.is(conn, 'BiodbConn')
+
+	# Connector already listed?
+	if (any(vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE = TRUE)))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" is already listed in rule "' .self$.host, '".'))
+
+	# Add connector
+	else {
+
+		# Update frequency
+		t <- conn$getSchedulerTParam()
+		n <- conn$getSchedulerNParam()
+		if ((abs(.self$getT() / .self$getN() - t / n) < 0.1 && .self$getN() > n) # equivalent rule
+			|| .self$getT() / .self() > t / n) {
+			.self$message('debug', paste0('Replacing rule frequency ', .self$getN(),' / ', .self$getT(),' by ', n, ' / ', t, ', for connector "', conn$getId(), '"'))
+			.self$setFrequency(n = n, t = t)
+		}
+
+		.conn <<- c(.self$.conn, conn)
+	}
+})
+
+# Remove connector {{{1
+################################################################
+
+BiodbRequestScheduler$methods( removeConnector = function(conn) {
+	.self$.assert.is(conn, 'BiodbConn')
+
+	# Connector already listed?
+	found.conn <- vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE = TRUE))
+	if ( ! any(found.conn))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" is not listed in rule "' .self$.host, '".'))
+
+	# Remove connector
+	else {
+
+		# Update frequency
+
+		.conn <<- .self$.conn[ ! found.conn]
+	}
+})
+
+# Recompute frequency {{{1
+################################################################
+
+BiodbRequestScheduler$methods( recomputeFrequency = function() {
 })
 
 # Wait as needed {{{1
