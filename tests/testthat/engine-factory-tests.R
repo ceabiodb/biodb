@@ -33,6 +33,8 @@ test.connectorAlreadyExists <- function(biodb, obs) {
 
 test.connectorDeletion <- function(biodb, obs) {
 
+	biodb$getFactory()$deleteAllConnectors()
+
 	# Create more than one connector
 	chebi.1 <- biodb$getFactory()$createConn('chebi')
 	chebi.2 <- biodb$getFactory()$createConn('chebi', fail.if.exists = FALSE)
@@ -45,6 +47,19 @@ test.connectorDeletion <- function(biodb, obs) {
 	testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
 }
 
+# Test connector default values {{{1
+################################################################
+
+test.connectorDefaultValues <- function(biodb, obs) {
+
+	biodb$getFactory()$deleteAllConnectors()
+	chebi <- biodb$getFactory()$createConn('chebi')
+	chebi.info <- biodb$getDbsInfo()$get('chebi')
+	testthat::expect_equal(chebi.info$getBaseUrl(), chebi$getBaseUrl())
+	testthat::expect_equal(chebi.info$getSchedulerNParam(), chebi$getSchedulerNParam())
+	testthat::expect_equal(chebi.info$getSchedulerTParam(), chebi$getSchedulerTParam())
+}
+
 # Run factory tests {{{1
 ################################################################
 
@@ -53,5 +68,6 @@ run.factory.tests <- function(biodb, obs) {
 	set.test.context(biodb, "Test factory")
 
 	run.test.that.on.biodb.and.obs("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb, obs)
+	run.test.that.on.biodb.and.obs("A newly created connector get the default values.", 'test.connectorDefaultValues', biodb, obs)
 	run.test.that.on.biodb.and.obs("Connectors are deleted.", 'test.connectorDeletion', biodb, obs)
 }

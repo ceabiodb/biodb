@@ -121,12 +121,12 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 # Define {{{2
 ################################################################
 
-BiodbDbsInfo$methods( .define = function(id, ...) {
+BiodbDbsInfo$methods( .define = function(id, scheduler.n = 1, scheduler.t = 1, ...) {
 
 	# Is this database already defined?
 	if (id %in% names(.self$.dbs))
 		.self$message('error', paste("Database \"", id, "\" has already been defined.", sep = ''))
 
 	# Define new field
-	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, ...)
+	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, scheduler.n = scheduler.n, scheduler.t = scheduler.t, ...)
 })
