@@ -278,12 +278,6 @@ BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
 	}
 })
 
-# Unregister connector {{{2
-################################################################
-
-BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
-})
-
 # Find rule {{{2
 ################################################################
 
@@ -312,13 +306,29 @@ BiodbRequestScheduler$methods( .addConnectorRules = function(conn) {
 			.self$.host2rule[[rule$getHost()]] <- rule
 		}
 
-		# A rule with the same already exists, add connector to it
+		# A rule with the same host already exists, add connector to it
 		else
 			rule$addConnector(conn)
 
 		# Add rule
-		.self$.connid2rules[[conn$getId()]] <- c(.self$.connid2rules[[conn$getId()]], rule)
+		if ( ! any(vapply(.self$.connid2rules[[conn$getId()]], function(x) identical(rule, x), FUN.VALUE = TRUE)))
+			.self$.connid2rules[[conn$getId()]] <- c(.self$.connid2rules[[conn$getId()]], rule)
 	}
+})
+
+# Get all rules {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .getAllRules = function() {
+	return(.self$.host2rule)
+})
+
+# Get connector rules {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .getConnectorRules = function(conn) {
+	.self$.assert.not.null(conn)
+	return(.self$.connid2rules[[conn$getId()]])
 })
 
 # Remove connector rules {{{2
