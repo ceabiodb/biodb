@@ -38,22 +38,13 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
 
-	print('-------------------------------- BiodbConnBase::initialize 01')
-	print(scheduler.n)
-	print(scheduler.t)
 	# Take parameter values from other object instance
 	if ( ! is.null(other)) {
-	print('-------------------------------- BiodbConnBase::initialize 02')
-	print(other$.scheduler.n)
-	print(other$.scheduler.t)
 		.self$.assert.inherits.from(other, "BiodbConnBase")
 		for (param in c('db.class', 'base.url', 'ws.url', 'scheduler.n', 'scheduler.t', 'entry.content.type', 'xml.ns', 'name'))
 			if (is.null(get(param)) || is.na(get(param)))
 				assign(param, other[[paste0('.', param)]])
 	}
-	print('-------------------------------- BiodbConnBase::initialize 10')
-	print(scheduler.n)
-	print(scheduler.t)
 
 	# Set database class
 	.self$.assert.not.null(db.class)
@@ -78,8 +69,6 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	.self$.assert.is(name, 'character')
 	.self$.assert.is(xml.ns, 'character')
 	.self$.assert.is(token, 'character')
-	.self$.assert.is(scheduler.n, c('integer', 'numeric'))
-	.self$.assert.is(scheduler.t, c('integer', 'numeric'))
 	.name <<- name
 	.xml.ns <<- xml.ns
 	if (is.na(token)) {
@@ -87,8 +76,8 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 		token.key <- paste(db.class, 'token', sep = '.')
 		.token <<- if (config$isDefined(token.key, fail = FALSE)) config$get(token.key) else NA_character_
 	}
-	.scheduler.n <<- as.integer(scheduler.n)
-	.scheduler.t <<- as.numeric(scheduler.t)
+	.self$setSchedulerTParam(scheduler.t)
+	.self$setSchedulerNParam(scheduler.n)
 	.observers <<- list()
 })
 
@@ -291,6 +280,7 @@ BiodbConnBase$methods( getSchedulerNParam = function() {
 BiodbConnBase$methods( setSchedulerNParam = function(n) {
 	":\n\nSets the N parameter for the scheduler."
 
+	.self$.assert.is(n, c('integer', 'numeric'))
 	.scheduler.n <<- as.integer(n)
 
 	# Notify observers
@@ -313,7 +303,8 @@ BiodbConnBase$methods( getSchedulerTParam = function() {
 BiodbConnBase$methods( setSchedulerTParam = function(t) {
 	":\n\nSets the T parameter for the scheduler."
 
-	.scheduler.t <<- as.integer(t)
+	.self$.assert.is(t, c('integer', 'numeric'))
+	.scheduler.t <<- as.numeric(t)
 
 	# Notify observers
 	for (obs in .self$.observers)

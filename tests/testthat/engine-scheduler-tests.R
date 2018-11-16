@@ -38,11 +38,6 @@ test.schedulerRuleFrequency <- function(biodb, obs) {
 
 	# Get ChEBI connector
 	chebi <- biodb$getFactory()$getConn('chebi')
-	print('-------------------------------- test.schedulerRuleFrequency 01')
-	print(chebi)
-	print(chebi$getSchedulerNParam())
-	print(chebi$getSchedulerTParam())
-	print('-------------------------------- test.schedulerRuleFrequency 02')
 	chebi$setSchedulerNParam(3)
 	chebi$setSchedulerTParam(1)
 
@@ -64,16 +59,12 @@ test.schedulerRuleFrequency <- function(biodb, obs) {
 
 	# Change frequency of second connector
 	n <- rule$getN()
-	print('-------------------------------- 10')
 	chebi.2$setSchedulerNParam(n + 1)
 	testthat::expect_equal(rule$getN(), n)
-	print('-------------------------------- 11')
 	chebi.2$setSchedulerNParam(n - 1)
 	testthat::expect_equal(rule$getN(), n - 1)
-	print('-------------------------------- 12')
 	chebi.2$setSchedulerNParam(n)
 	testthat::expect_equal(rule$getN(), n)
-	print('-------------------------------- 13')
 	t <- rule$getT()
 	chebi.2$setSchedulerTParam(t + 0.5)
 	testthat::expect_equal(rule$getT(), t + 0.5)

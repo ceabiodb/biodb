@@ -138,7 +138,7 @@ BiodbRequestSchedulerRule$methods( recomputeFrequency = function() {
 	for (conn in .self$.conn) {
 		t.conn <- conn$getSchedulerTParam()
 		n.conn <- conn$getSchedulerNParam()
-		if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 0.1 && n > n.conn) || t / n > t.conn / n.conn)) {
+		if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 1e-6 && n.conn < n) || t.conn / n.conn > t / n)) {
 			t <- t.conn
 			n <- n.conn
 		}
