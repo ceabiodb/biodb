@@ -65,13 +65,15 @@ BiodbRequestSchedulerRule$methods( setFrequency = function(n, t) {
 	.self$.assert.positive(t)
 
 	# Update last time and index
-	if (length(.self$.last.time) <= n) {
-		.last.time <<- .self$.last.time[((.self$.n.index - (seq(.self$.n) - 1)) %% .self$.n)]
-		.n.index <<- length(.self$.last.time)
-	}
-	else {
-		.last.time <<- .self$.last.time[((.self$.n.index - (seq(n) - 1)) %% .self$.n)]
-		.n.index <<- n
+	if (length(.self$.last.time) >= 1) {
+		if (length(.self$.last.time) <= n) {
+			.last.time <<- .self$.last.time[seq(from = .self$.n.index - 1, to = .self$.n.index - length(.self$.last.time)) %% .self$.n + 1]
+			.n.index <<- length(.self$.last.time)
+		}
+		else {
+			.last.time <<- .self$.last.time[seq(from = .self$.n.index - 1, to = .self$.n.index - n) %% .self$.n + 1]
+			.n.index <<- n
+		}
 	}
 
 	# Update frequency
@@ -148,34 +150,67 @@ BiodbRequestSchedulerRule$methods( recomputeFrequency = function() {
 	.self$setFrequency(n = n, t = t)
 })
 
-# Wait as needed {{{1
+# Compute sleep time {{{1
 ################################################################
 
-BiodbRequestSchedulerRule$methods( wait.as.needed = function() {
+BiodbRequestSchedulerRule$methods( computeSleepTime = function(cur.time = NULL) {
+
+	sleep.time <- 0
+
+	if (is.null(cur.time))
+		cur.time <-Sys.time()
 
 	# Do we need to wait?
 	if (length(.self$.last.time) == .self$.n) {
 
 		# Look at all "last" times starting from most recent one
 		n <- 0
-		for (i in ((.self$.n.index - (seq(.self$.n) - 1)) %% .self$.n))
-			if (difftime(.self$.last.time[[n]], t, units = 'secs') < .self$.t)
+		last.time.indices <- seq(from = .self$.n.index - 1, to = .self$.n.index - .self$.n) %% .self$.n + 1
+		for (i in last.time.indices)
+			if (difftime(.self$.last.time[[i]], cur.time, units = 'secs') < .self$.t)
 				n <- n + 1
 			else
 				break
 
-		# Wait
+		# Compute sleep time
 		if (n == .self$.n) {
-			n.oldest <- (.self$.n.index + 1) %% .self$.n
-			sleep.time <- .self$.t - difftime(Sys.time(), .self$.last.time[[n.oldest]], units = 'secs')
-			.self$message('debug', paste('Wait ', sleep.time, ' second(s).', sep = ''))
-			Sys.sleep(max(0, sleep.time))
+			n.oldest <- .self$.n.index %% .self$.n + 1
+			sleep.time <- .self$.t - difftime(cur.time, .self$.last.time[[n.oldest]], units = 'secs')
+			sleep.time <- max(0, sleep.time)
 		}
 	}
 
+	return(sleep.time)
+})
+
+# Store current time {{{1
+################################################################
+
+BiodbRequestSchedulerRule$methods( storeCurrentTime = function(cur.time = NULL) {
+
+	if (is.null(cur.time))
+		cur.time <-Sys.time()
+
+	.n.index <<- as.integer(if (.self$.n.index == .self$.n) 1 else .self$.n.index + 1)
+	.self$.last.time[[.self$.n.index]] <- cur.time
+})
+
+# Wait as needed {{{1
+################################################################
+
+BiodbRequestSchedulerRule$methods( wait.as.needed = function() {
+
+	# Compute sleep time
+	sleep.time <- .self$computeSleepTime()
+
+	# Sleep if needed
+	if (sleep.time > 0) {
+		.self$message('debug', paste('Wait ', sleep.time, ' second(s).', sep = ''))
+		Sys.sleep(sleep.time)
+	}
+
 	# Store current time
-	.n.index <<- (.self$.n.index + 1) %% n
-	.self$.last.time[[.self$.n.index]] <- Sys.time()
+	.self$storeCurrentTime()
 })
 # Show {{{1
 ################################################################
