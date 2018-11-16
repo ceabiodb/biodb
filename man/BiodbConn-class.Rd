@@ -18,7 +18,7 @@ This is the super class of all connector classes. All methods defined here are t
 \section{Fields}{
 
 \describe{
-\item{\code{dbid}}{The identifier of the connector.}
+\item{\code{id}}{The identifier of the connector.}
 }}
 
 \section{Methods}{
@@ -28,21 +28,9 @@ This is the super class of all connector classes. All methods defined here are t
 
 Check that the database is correct by trying to load all entries.}
 
-\item{\code{getBaseUrl()}}{:
-
-Get the base URL of this connector.}
-
-\item{\code{getDbInfo()}}{:
-
-Get the database information associated with this connector.}
-
 \item{\code{getEntryContent(entry.id)}}{:
 
 Get the content of an entry.}
-
-\item{\code{getEntryContentType()}}{:
-
-Get the base URL of the content type.}
 
 \item{\code{getEntryIds(max.results = NA_integer_)}}{:
 
@@ -55,10 +43,6 @@ Get the identifier of this connector.}
 \item{\code{getNbEntries(count = FALSE)}}{:
 
 Get the number of entries contained in this database.}
-
-\item{\code{getWsUrl()}}{:
-
-Get the web service URL of this connector.}
 }}
 
 \examples{

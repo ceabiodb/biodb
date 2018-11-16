@@ -10,7 +10,7 @@
 #' @seealso \code{\link{BiodbConn}}.
 #'
 #' @import methods
-#' @export BiodbConnObservber
+#' @export BiodbConnObserver
 #' @exportClass BiodbConnObserver
 BiodbConnObserver <- methods::setRefClass("BiodbConnObserver", fields = list())
 

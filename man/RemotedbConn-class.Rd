@@ -11,8 +11,6 @@
 \item{entry.id}{The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.}
 
 \item{max.length}{The maximum length of the URLs to return, in number of characters.}
-
-\item{token}{An access token as a character string, required by some databases for all or part of their webservices.}
 }
 \description{
 This is the super class of remote database connectors. It thus defines methods related to remote connection, like the definition of a token, and URL definitions. As with \code{\link{BiodbConn}} class, you won't need to use the constructor. Nevertheless we provide in the Fields section information about the constructor parameters, for eventual developers.
@@ -31,14 +29,6 @@ Get the URL to a picture of the entry (e.g.: a picture of the molecule in case o
 \item{\code{getEntryPageUrl(entry.id)}}{:
 
 Get the URL to the page of the entry on the database web site.}
-
-\item{\code{getToken()}}{:
-
-Get the token configured for this connector.}
-
-\item{\code{setToken(token)}}{:
-
-Set a token for this connector.}
 }}
 
 \examples{
@@ -56,5 +46,5 @@ page.url <- conn$getEntryPageUrl('2')
 
 }
 \seealso{
-\code{\link{BiodbConn}}, \code{\link{UrlRequestScheduler}}.
+\code{\link{BiodbConn}}, \code{\link{BiodbRequestScheduler}}.
 }

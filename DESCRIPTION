@@ -34,7 +34,7 @@ LinkingTo:
 NeedsCompilation: yes
 Author: Pierrick Roger
 Maintainer: Pierrick Roger <pk.roger@icloud.com>
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Collate: 
     'BiodbObject.R'
     'Biodb.R'
