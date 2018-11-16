@@ -84,7 +84,6 @@ run.scheduler.tests <- function(biodb, obs) {
 	set.test.context(biodb, "Test request scheduler")
 
 	# TODO do some tests offline:
-	# 2. Test that frequency are updated correctly if another connector is created with different n and t (or same n and t).
 	# 3. Test waiting time of scheduler. How? Write a method that returns the time to wait and test that.
 
 	run.test.that.on.biodb.and.obs("Right rule is created.", 'test.schedulerRightRule', biodb, obs)
