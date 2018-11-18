@@ -73,7 +73,7 @@ BiodbRequestScheduler$methods( getUrlString = function(url, params = list()) {
 # Get URL {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = integer()) {
+BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = NA_character_) {
 	":\n\nSend a URL request, either with GET or POST method, and return result."
 
 	content <- NA_character_
@@ -127,7 +127,7 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 					# Wait required time between two requests
 					rule$wait.as.needed()
 
-					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = encoding)
+					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = if (is.na(encoding)) integer() else encoding)
 					if (.self$getBiodb()$getConfig()$get('cache.all.requests'))
 						.self$getBiodb()$getCache()$saveContentToFile(content, conn.id = method, subfolder = 'shortterm', name = request.key, ext = 'content')
 				}

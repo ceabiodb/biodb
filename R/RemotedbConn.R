@@ -45,6 +45,14 @@ RemotedbConn$methods( initialize = function(...) {
 	.self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
 })
 
+# Get entry content {{{1
+################################################################
+
+RemotedbConn$methods( getEntryContent = function(entry.id) {
+	# Default implementation
+	return(.self$.doGetEntryContentOneByOne(entry.id))
+})
+
 # Get entry content url {{{1
 ################################################################
 
@@ -137,6 +145,26 @@ RemotedbConn$methods( .setRequestSchedulerRules = function() {
 
 RemotedbConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
 	.self$.abstract.method()
+})
+
+# Do get entry content one by one {{{2
+################################################################
+
+RemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
+
+	# Initialize return values
+	content <- rep(NA_character_, length(entry.id))
+
+	# Get URLs
+	urls <- .self$getEntryContentUrl(entry.id, concatenate = FALSE)
+	
+	# Send requests
+	for (i in seq_along(urls)) {
+		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', i, length(urls)))
+		content[[i]] <- .self$getBiodb()$getRequestScheduler()$getUrl(urls[[i]], encoding = .self$getPropertyValue('entry.content.encoding'))
+	}
+
+	return(content)
 })
 
 # Terminate {{{2

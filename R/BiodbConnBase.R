@@ -28,12 +28,12 @@
 #' @include ChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'numeric', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character', .observers = 'list'))
+BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'numeric', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character', .observers = 'list', .prop.def = 'list', .prop = 'list'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base.url = NA_character_, ws.url = NA_character_, scheduler.n = NA_integer_, scheduler.t = NA_real_, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, token = NA_character_, ...) {
+BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base.url = NA_character_, ws.url = NA_character_, scheduler.n = NA_integer_, scheduler.t = NA_real_, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, token = NA_character_, properties = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
@@ -79,6 +79,8 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	.self$setSchedulerTParam(scheduler.t)
 	.self$setSchedulerNParam(scheduler.n)
 	.observers <<- list()
+
+	.self$.defineProperties(properties)
 })
 
 # Get name {{{1
@@ -311,6 +313,33 @@ BiodbConnBase$methods( setSchedulerTParam = function(t) {
 		obs$connSchedulerFrequencyUpdated(.self)
 })
 
+# Get property value {{{1
+################################################################
+
+BiodbConnBase$methods( getPropertyValue = function(name) {
+
+	value <- NULL
+
+	if ( ! name %in% names(.self$.prop.def))
+		.self$message('error', paste0('Unknown base connector property "', name, '".'))
+
+	if (name %in% names(.self$.prop))
+		value <- .self$.prop[[name]]
+
+	return(value)
+})
+
+# Set property value {{{1
+################################################################
+
+BiodbConnBase$methods( setPropertyValue = function(name, value) {
+
+	if ( ! name %in% names(.self$.prop.def))
+		.self$message('error', paste0('Unknown base connector property "', name, '".'))
+
+	.self$.prop[[name]] <- as.vector(value, mode = .self$.prop.def[[name]]$class)
+})
+
 # Private methods {{{1
 ################################################################
 
@@ -357,4 +386,46 @@ BiodbConnBase$methods( .unregisterObserver = function(obs) {
 	# Unregister observer
 	else
 		.observers <<- .self$.observers[ ! found.obs ]
+})
+
+# Define properties {{{1
+################################################################
+
+BiodbConnBase$methods( .defineProperties = function(properties) {
+
+	.prop.def <<- list()
+
+	# Select subset of properties
+	if ( ! is.null(properties)) {
+
+		# Get full list of property definitions
+		full.prop.def <- .self$.getFullPropDefList()
+
+		# Check submitted properties
+		unknown.properties <- names(properties)[ ! names(properties) %in% names(full.prop.def)]
+		if (length(unknown.properties) > 0)
+			.self$message('error', paste0('Unknown base connector properties: ', paste(unknown.properties, collapse = ', ')))
+
+		# Subset list of properties
+		.prop.def <<- full.prop.def[names(properties)]
+
+		# Reset default values
+		for (p in names(properties))
+			.self$.prop.def[[p]]$default <- as.vector(properties[[p]], mode = .self$.prop.def[[p]]$class)
+	}
+
+	# Set default values
+	.prop <<- list()
+	for (p in names(.self$.prop.def))
+		.self$.prop[[p]] <- .self$.prop.def[[p]]$default
+})
+
+# Get full list of property definitions {{{1
+################################################################
+
+BiodbConnBase$methods( .getFullPropDefList = function() {
+
+	prop.def <- list(entry.content.encoding = list(class = 'character', default = NA_character_))
+
+	return(prop.def)
 })
