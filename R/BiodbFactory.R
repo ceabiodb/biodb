@@ -79,7 +79,7 @@ BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token
 	# Register new instance
 	.self$.conn[[conn.id]] <- conn
 
-	return (.self$.conn[[conn.id]])
+	return (conn)
 })
 
 # Delete connector {{{1
@@ -95,7 +95,8 @@ BiodbFactory$methods( deleteConn = function(conn.id = NULL, db.class = NULL) {
 		if ( ! conn.id %in% names(.self$.conn))
 			.self$message('caution', paste0('Connector "', conn.id, '" is unknown.'))
 		else {
-			.conn <<- .self$.conn[names(.self$.conn) != conn.id]
+			.self$.conn[[conn.id]]$.terminate()
+			.self$.conn[[conn.id]] <- NULL
 			.self$message('info', paste0('Connector "', conn.id, '" deleted.'))
 		}
 	}
@@ -115,6 +116,29 @@ BiodbFactory$methods( deleteConn = function(conn.id = NULL, db.class = NULL) {
 		else
 			.self$message('info', paste0(n, ' connector(s) of type "', db.class, '" deleted.'))
 	}
+})
+
+# Get all connectors {{{1
+################################################################
+
+BiodbFactory$methods( getAllConnectors = function() {
+    ":\n\nReturns a list of all created connectors."
+
+	return(.self$.conn)
+})
+
+# Delete all connectors {{{1
+################################################################
+
+BiodbFactory$methods( deleteAllConnectors = function() {
+    ":\n\nDelete all connectors."
+
+	# Get all connectors
+	connectors <- .self$.conn
+
+	# Loop on all connectors
+	for (conn in connectors)
+		.self$deleteConn(conn.id = conn$getId())
 })
 
 # Get connector {{{1
@@ -426,4 +450,11 @@ BiodbFactory$methods( .checkConnExists = function(new.conn, error) {
 			if (same.url && (is.na(new.conn$getToken()) || same.token))
 				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', conn$getBaseUrl(), ')', if ( ! is.na(conn$getToken())) paste0(' and the same token'), '.'))
 		}
+})
+
+# Terminate {{{2
+################################################################
+
+BiodbFactory$methods( .terminate = function() {
+	.self$deleteAllConnectors()
 })

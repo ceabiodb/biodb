@@ -28,7 +28,7 @@ Returns the BiodbEntryField instance associated with name.}
 
 Returns the name of the field handling identifiers (i.e.: accession numbers) for this database.}
 
-\item{\code{getFieldNames()}}{:
+\item{\code{getFieldNames(type = NULL)}}{:
 
 Returns the main names of all fields.}
 

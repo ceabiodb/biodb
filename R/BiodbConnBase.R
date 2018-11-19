@@ -28,12 +28,12 @@
 #' @include ChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'integer', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character'))
+BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'numeric', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character', .observers = 'list', .prop.def = 'list', .prop = 'list'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base.url = NA_character_, ws.url = NA_character_, scheduler.n = 1, scheduler.t = 1, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, token = NA_character_, ...) {
+BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base.url = NA_character_, ws.url = NA_character_, scheduler.n = NA_integer_, scheduler.t = NA_real_, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, token = NA_character_, properties = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
@@ -59,25 +59,34 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	.self$.assert.in(entry.content.type, c('html', 'txt', 'xml', 'csv', 'tsv', 'json'))
 	.entry.content.type <<- entry.content.type
 
-	# Other parameters
-	.self$.assert.is(name, 'character')
+	# URLs
 	.self$.assert.is(base.url, 'character')
 	.self$.assert.is(ws.url, 'character')
-	.self$.assert.is(xml.ns, 'character')
-	.self$.assert.is(token, 'character')
-	.self$.assert.is(scheduler.n, c('integer', 'numeric'))
-	.self$.assert.is(scheduler.t, c('integer', 'numeric'))
-	.name <<- name
 	.base.url <<- base.url
 	.ws.url <<- ws.url
+
+	# Other parameters
+	.self$.assert.is(name, 'character')
+	.self$.assert.is(xml.ns, 'character')
+	.self$.assert.is(token, 'character')
+	.name <<- name
 	.xml.ns <<- xml.ns
 	if (is.na(token)) {
 		config <- .self$getBiodb()$getConfig()
 		token.key <- paste(db.class, 'token', sep = '.')
 		.token <<- if (config$isDefined(token.key, fail = FALSE)) config$get(token.key) else NA_character_
 	}
-	.scheduler.n <<- as.integer(scheduler.n)
-	.scheduler.t <<- as.integer(scheduler.t)
+	.self$setSchedulerTParam(scheduler.t)
+	.self$setSchedulerNParam(scheduler.n)
+	.observers <<- list()
+
+	# Set properties
+	if (is.null(other))
+		.self$.defineProperties(properties)
+	else {
+		.prop.def <<- other$.prop.def
+		.prop <<- other$.prop
+	}
 })
 
 # Get name {{{1
@@ -170,6 +179,21 @@ BiodbConnBase$methods( getEntryIdField = function() {
 	return(paste(.self$.db.class, 'id', sep = '.'))
 })
 
+# Get URLs {{{1
+################################################################
+
+BiodbConnBase$methods( getUrls = function() {
+	":\n\nReturns the URLs."
+
+	urls <- character()
+	if ( ! is.null(.self$.base.url) && ! is.na(.self$.base.url))
+		urls <- c(urls, .self$.base.url)
+	if ( ! is.null(.self$.ws.url) && ! is.na(.self$.ws.url))
+		urls <- c(urls, .self$.ws.url)
+
+	return(urls)
+})
+
 # Get base URL {{{1
 ################################################################
 
@@ -186,6 +210,10 @@ BiodbConnBase$methods( setBaseUrl = function(base.url) {
 	":\n\nSets the base URL."
 
 	.base.url <<- base.url
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connUrlsUpdated(.self)
 })
 # Get web sevices URL {{{1
 ################################################################
@@ -203,6 +231,10 @@ BiodbConnBase$methods( setWsUrl = function(ws.url) {
 	":\n\nSets the web sevices URL."
 
 	.ws.url <<- ws.url
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connUrlsUpdated(.self)
 })
 
 # Get XML namespace {{{1
@@ -256,7 +288,12 @@ BiodbConnBase$methods( getSchedulerNParam = function() {
 BiodbConnBase$methods( setSchedulerNParam = function(n) {
 	":\n\nSets the N parameter for the scheduler."
 
+	.self$.assert.is(n, c('integer', 'numeric'))
 	.scheduler.n <<- as.integer(n)
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connSchedulerFrequencyUpdated(.self)
 })
 
 # Get scheduler T paramater {{{1
@@ -274,5 +311,128 @@ BiodbConnBase$methods( getSchedulerTParam = function() {
 BiodbConnBase$methods( setSchedulerTParam = function(t) {
 	":\n\nSets the T parameter for the scheduler."
 
-	.scheduler.t <<- as.integer(t)
+	.self$.assert.is(t, c('integer', 'numeric'))
+	.scheduler.t <<- as.numeric(t)
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connSchedulerFrequencyUpdated(.self)
+})
+
+# Get property value {{{1
+################################################################
+
+BiodbConnBase$methods( getPropertyValue = function(name) {
+
+	if ( ! name %in% names(.self$.prop.def))
+		.self$message('error', paste0('Unknown property "', name, '" for database ', .self$.db.class, '.'))
+
+	if (name %in% names(.self$.prop))
+		value <- .self$.prop[[name]]
+
+	return(value)
+})
+
+# Set property value {{{1
+################################################################
+
+BiodbConnBase$methods( setPropertyValue = function(name, value) {
+
+	if ( ! name %in% names(.self$.prop.def))
+		.self$message('error', paste0('Unknown property "', name, '" for database ', .self$.db.class, '.'))
+
+	.self$.prop[[name]] <- as.vector(value, mode = .self$.prop.def[[name]]$class)
+})
+
+# Private methods {{{1
+################################################################
+
+# Terminate {{{2
+################################################################
+
+BiodbConnBase$methods( .terminate = function() {
+
+	# Notify observers
+	for (obs in .self$.observers)
+		obs$connTerminating(.self)
+})
+
+# Register observer {{{2
+################################################################
+
+BiodbConnBase$methods( .registerObserver = function(obs) {
+
+	.self$.assert.inherits.from(obs, 'BiodbConnObserver')
+
+	# Is this observer already registered?
+	if (any(vapply(.self$.observers, function(x) identical(x, obs), FUN.VALUE = TRUE)))
+		.self$message('caution', "Observer is already registered.")
+
+	# Register this new observer
+	else
+		.observers <<- c(.self$.observers, obs)
+})
+
+# Unregister observer {{{2
+################################################################
+
+BiodbConnBase$methods( .unregisterObserver = function(obs) {
+
+	.self$.assert.inherits.from(obs, 'BiodbConnObserver')
+
+	# Search for observer
+	found.obs <- vapply(.self$.observers, function(x) identical(x, obs), FUN.VALUE = TRUE)
+
+	# Not found
+	if ( ! any(found.obs))
+		.self$message('caution', 'Unknown observer to unregister.')
+
+	# Unregister observer
+	else
+		.observers <<- .self$.observers[ ! found.obs ]
+})
+
+# Define properties {{{1
+################################################################
+
+BiodbConnBase$methods( .defineProperties = function(properties) {
+
+	# Set list of property definitions
+	.prop.def <<- .self$.getFullPropDefList()
+
+	# Select subset of properties
+	if ( ! is.null(properties)) {
+
+		# Check submitted properties
+		unknown.properties <- names(properties)[ ! names(properties) %in% names(.self$.prop.def)]
+		if (length(unknown.properties) > 0)
+			.self$message('error', paste0('Unknown properties: ', paste(unknown.properties, collapse = ', '), ' for database ',.self$.db.class, '.'))
+
+		# Reset default values
+		for (p in names(properties))
+			.self$.prop.def[[p]]$default <- as.vector(properties[[p]], mode = .self$.prop.def[[p]]$class)
+	}
+
+	# Reset property values
+	.self$.resetPropertyValues()
+})
+
+# Reset propertyValues {{{1
+################################################################
+
+BiodbConnBase$methods( .resetPropertyValues = function() {
+
+	.prop <<- list()
+	for (p in names(.self$.prop.def))
+		.self$setPropertyValue(p, .self$.prop.def[[p]]$default)
+})
+
+# Get full list of property definitions {{{1
+################################################################
+
+BiodbConnBase$methods( .getFullPropDefList = function() {
+
+	prop.def <- list(entry.content.encoding = list(class = 'character', default = NA_character_))
+
+	return(prop.def)
 })

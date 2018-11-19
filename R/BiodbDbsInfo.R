@@ -100,7 +100,7 @@ BiodbDbsInfo$methods( show = function() {
 ################################################################
 
 BiodbDbsInfo$methods( .initDbsInfo = function() {
-	.self$.define('chebi',                  name = 'ChEBI',         scheduler.n = 3, entry.content.type = 'xml', base.url = 'https://www.ebi.ac.uk/chebi/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/', xml.ns = "https://www.ebi.ac.uk/webservices/chebi")
+	.self$.define('chebi',                  name = 'ChEBI',         scheduler.n = 3, entry.content.type = 'xml', base.url = 'https://www.ebi.ac.uk/chebi/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/', xml.ns = "https://www.ebi.ac.uk/webservices/chebi", properties = list(entry.content.encoding = 'UTF-8'))
 	.self$.define('chemspider',             name = 'ChemSpider',    scheduler.n = 3, entry.content.type = 'xml', base.url = "http://www.chemspider.com/", xml.ns = "http://www.chemspider.com/")
 	.self$.define('expasy.enzyme',          name = 'ExPASy ENZYME', scheduler.n = 3, entry.content.type = 'txt', base.url = "https://enzyme.expasy.org/")
 	.self$.define('hmdb.metabolites',       name = 'HMDB Metabolites', scheduler.n = 3, entry.content.type = 'xml', base.url = "http://www.hmdb.ca/",       xml.ns = 'http://www.hmdb.ca')
@@ -121,12 +121,12 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 # Define {{{2
 ################################################################
 
-BiodbDbsInfo$methods( .define = function(id, ...) {
+BiodbDbsInfo$methods( .define = function(id, scheduler.n = 1, scheduler.t = 1, ...) {
 
 	# Is this database already defined?
 	if (id %in% names(.self$.dbs))
 		.self$message('error', paste("Database \"", id, "\" has already been defined.", sep = ''))
 
 	# Define new field
-	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, ...)
+	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, scheduler.n = scheduler.n, scheduler.t = scheduler.t, ...)
 })

@@ -5,11 +5,8 @@
 
 #' Class for handling URL requests.
 #'
-#' This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{RemotedbConn}) creates an instance of \code{UrlRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
+#' This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{RemotedbConn}) creates an instance of \code{BiodbRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
 #'
-#' @field n The number of connections allowed for each t seconds.
-#' @field t The number of seconds during which n connections are allowed.
-#' 
 #' @param url           The URL to access, as a character string.
 #' @param soap.request  The XML SOAP request to send, as a character string. 
 #' @param soap.action   The SOAP action to contact, as a character string.
@@ -18,34 +15,32 @@
 #' @param opts          The CURL options to use.
 #' @param dest.file     A path to a destination file.
 #'
-#' @seealso \code{\link{RemotedbConn}}.
+#' @seealso \code{\link{RemotedbConn}}, \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
 #'
 #' @import methods
 #' @include ChildObject.R
-#' @export UrlRequestScheduler
-#' @exportClass UrlRequestScheduler
-UrlRequestScheduler <- methods::setRefClass("UrlRequestScheduler", contains = "ChildObject", fields = list(.n = "numeric", .t = "numeric", .time.of.last.request = "ANY", .ssl.verifypeer = "logical", .nb.max.tries = "integer", .huge.download.waiting.time = "integer", .time.of.last.huge.dwnld.request = "ANY"))
+#' @include BiodbConnObserver.R
+#' @export BiodbRequestScheduler
+#' @exportClass BiodbRequestScheduler
+BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains = c("ChildObject", "BiodbConnObserver"), fields = list(.ssl.verifypeer = "logical", .nb.max.tries = "integer", .host2rule = "list", .connid2rules = "list"))
 
 # Constructor {{{1
 ################################################################
 
-UrlRequestScheduler$methods( initialize = function(n = 1, t = 1, ...) {
+BiodbRequestScheduler$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.n <<- n
-	.t <<- t
-	.time.of.last.request <<- -1
+	.connid2rules <<- list()
+	.host2rule <<- list()
 	.nb.max.tries <<- 10L
 	.ssl.verifypeer <<- TRUE
-	.huge.download.waiting.time <<- 60L # In seconds. Waiting time between two huge downloads should be higher than for requests (.time.of.last.request).
-	.time.of.last.huge.dwnld.request <<- -1
 })
 
 # Send soap request {{{1
 ################################################################
 
-UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_, encoding = integer()) {
+BiodbRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_, encoding = integer()) {
 	":\n\nSend a SOAP request to a URL. Returns the string result."
 
 	.self$.check.offline.mode()
@@ -65,7 +60,9 @@ UrlRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.
 # Get URL string {{{1
 ################################################################
 
-UrlRequestScheduler$methods( getUrlString = function(url, params = list()) {
+BiodbRequestScheduler$methods( getUrlString = function(url, params = list()) {
+	":\n\nBuild a URL string, using a base URL and parameters to be passed."
+
 	pn <- names(params)
 	params.lst <- vapply(seq(params), function(n) if (is.null(pn) || nchar(pn[[n]]) == 0) params[[n]] else paste(pn[[n]], params[[n]], sep = '='), FUN.VALUE = '')
 	params.str <- paste(params.lst, collapse = '&')
@@ -76,10 +73,15 @@ UrlRequestScheduler$methods( getUrlString = function(url, params = list()) {
 # Get URL {{{1
 ################################################################
 
-UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = integer()) {
+BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = NA_character_) {
 	":\n\nSend a URL request, either with GET or POST method, and return result."
 
 	content <- NA_character_
+
+	# Get rule
+	rule <- .self$.findRule(url)
+	if (is.null(rule))
+		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
 
 	# Check method
 	if ( ! method %in% c('get', 'post'))
@@ -123,9 +125,9 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 					.self$.check.offline.mode()
 
 					# Wait required time between two requests
-					.self$.wait.as.needed()
+					rule$wait.as.needed()
 
-					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = encoding)
+					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = if (is.na(encoding)) integer() else encoding)
 					if (.self$getBiodb()$getConfig()$get('cache.all.requests'))
 						.self$getBiodb()$getCache()$saveContentToFile(content, conn.id = method, subfolder = 'shortterm', name = request.key, ext = 'content')
 				}
@@ -142,7 +144,7 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 					.self$.check.offline.mode()
 
 					# Wait required time between two requests
-					.self$.wait.as.needed()
+					rule$wait.as.needed()
 
 					content <- RCurl::postForm(url, .opts = opts, .params = params, .encoding = encoding)
 				}
@@ -169,11 +171,16 @@ UrlRequestScheduler$methods( getUrl = function(url, params = list(), method = 'g
 # Download file {{{1
 ################################################################
 
-UrlRequestScheduler$methods( downloadFile = function(url, dest.file) {
+BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 	":\n\nDownload the content of a URL and save it into the specified destination file."
 
+	# Get rule
+	rule <- .self$.findRule(url)
+	if (is.null(rule))
+		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
+
 	# Wait required time between two requests
-	.self$.wait.for.huge.dwnld.as.needed()
+	rule$wait.as.needed()
 
 	utils::download.file(url = url, destfile = dest.file, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
 })
@@ -181,33 +188,44 @@ UrlRequestScheduler$methods( downloadFile = function(url, dest.file) {
 # Private methods {{{1
 ################################################################
 
-# Wait as needed {{{2
+# Connector observer methods {{{2
 ################################################################
 
-# Wait enough time between two requests.
-UrlRequestScheduler$methods( .wait.as.needed = function() {
+# Terminating {{{3
+################################################################
 
-	# Compute minimum waiting time between two URL requests
-	waiting_time <- .self$.t / .self$.n
+BiodbRequestScheduler$methods( connTerminating = function(conn) {
+	.self$.unregisterConnector(conn)
+})
 
-	# Wait, if needed, before previous URL request and this new URL request.
-	if (.self$.time.of.last.request > 0) {
-		spent_time <- Sys.time() - .self$.time.of.last.request
-		if (spent_time < waiting_time) {
-			sleep.time <- waiting_time - spent_time
-			.self$message('debug', paste('Wait ', sleep.time, '.', sep = ''))
-			Sys.sleep(sleep.time)
-		}
+# URLs updated {{{3
+################################################################
+
+BiodbRequestScheduler$methods( connUrlsUpdated = function(conn) {
+	.self$.unregisterConnector(conn)
+	.self$.registerConnector(conn)
+})
+
+# Scheduler frequency updated {{{3
+################################################################
+
+BiodbRequestScheduler$methods( connSchedulerFrequencyUpdated = function(conn) {
+
+	# Is connector not registered?
+	if ( ! conn$getId() %in% names(.self$.connid2rules))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" has never been registered.'))
+
+	# Update frequency
+	else {
+		for (rule in .self$.connid2rules[[conn$getId()]])
+			rule$recomputeFrequency()
 	}
-
-	# Store current time
-	.time.of.last.request <<- Sys.time()
 })
 
 # Get curl options {{{2
 ################################################################
 
-UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
+BiodbRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
 	opts <- RCurl::curlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'), timeout.ms = 60000, verbose = FALSE, .opts = opts)
 	return(opts)
 })
@@ -215,24 +233,121 @@ UrlRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
 # Check offline mode {{{2
 ################################################################
 
-UrlRequestScheduler$methods( .check.offline.mode = function() {
+BiodbRequestScheduler$methods( .check.offline.mode = function() {
 
 	if (.self$getBiodb()$getConfig()$isEnabled('offline'))
 		.self$message('error', "Offline mode is enabled. All connections are forbidden.")
 })
 
-# Wait for huge download as needed {{{2
+
+# Register connector {{{2
 ################################################################
 
-UrlRequestScheduler$methods( .wait.for.huge.dwnld.as.needed = function() {
+BiodbRequestScheduler$methods( .registerConnector = function(conn) {
 
-	# Wait, if needed, before previous URL request and this new URL request.
-	if (.self$.time.of.last.huge.dwnld.request > 0) {
-		spent_time <- Sys.time() - .self$.time.of.last.huge.dwnld.request
-		if (spent_time < .self$.huge.download.waiting.time)
-			Sys.sleep(.self$.huge.download.waiting.time - spent_time)
+	# Is connector already registered?
+	if (conn$getId() %in% names(.self$.connid2rules))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" has already been registered.'))
+
+	# Add connector
+	else {
+		# Register as observer
+		conn$.registerObserver(.self)
+
+		# Add connector
+		.self$.addConnectorRules(conn)
 	}
+})
 
-	# Store current time
-	.time.of.last.huge.dwnld.request <<- Sys.time()
+# Unregister connector {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
+
+	# Is connector not registered?
+	if ( ! conn$getId() %in% names(.self$.connid2rules))
+		.self$message('caution', paste0('Connector "', conn$getId(), '" has never been registered.'))
+
+	# Unregister connector
+	else {
+		# Unregister as observer
+		conn$.unregisterObserver(.self)
+
+		# Remove connector
+		.self$.removeConnectorRules(conn)
+	}
+})
+
+# Find rule {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .findRule = function(url) {
+	return(.self$.host2rule[[urltools::domain(url)]])
+})
+
+# Add connector rules {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .addConnectorRules = function(conn) {
+
+	.self$.connid2rules[[conn$getId()]] <- list()
+
+	# Loop on all connector URLs
+	for (url in conn$getUrls()) {
+
+		# Check if a rule already exists
+		rule <- .self$.findRule(url)
+
+		# No rule exists => create new one
+		if (is.null(rule)) {
+			host <- urltools::domain(url)
+			.self$message('debug', paste0('Create new rule for URL "', host,'" of connector "', conn$getId(), '"'))
+			rule <- BiodbRequestSchedulerRule$new(parent = .self, host = host, conn = conn)
+			.self$.host2rule[[rule$getHost()]] <- rule
+		}
+
+		# A rule with the same host already exists, add connector to it
+		else
+			rule$addConnector(conn)
+
+		# Add rule
+		if ( ! any(vapply(.self$.connid2rules[[conn$getId()]], function(x) identical(rule, x), FUN.VALUE = TRUE)))
+			.self$.connid2rules[[conn$getId()]] <- c(.self$.connid2rules[[conn$getId()]], rule)
+	}
+})
+
+# Get all rules {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .getAllRules = function() {
+	return(.self$.host2rule)
+})
+
+# Get connector rules {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .getConnectorRules = function(conn) {
+	.self$.assert.not.null(conn)
+	return(.self$.connid2rules[[conn$getId()]])
+})
+
+# Remove connector rules {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .removeConnectorRules = function(conn) {
+
+	# Get rules
+	rules <- .self$.connid2rules[[conn$getId()]]
+
+	# Loop on connector rules
+	for (rule in rules) {
+
+		if (length(rule$getConnectors()) == 1)
+			.self$.host2rule[[rule$getHost()]] <- NULL
+		else
+			rule$removeConnector(conn)
+	}
+	
+	# Remove connector
+	.self$.connid2rules[[conn$getId()]] <- NULL
 })

@@ -25,7 +25,7 @@ Get the URL to a picture of the entry (e.g.: a picture of the molecule in case o
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
   mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
 
-Search for compounds by name and/or by mass.}
+Search for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)}
 
 \item{\code{ws.find.exact.mass(mass = NA_real_, mass.min = NA_real_,
   mass.max = NA_real_)}}{:

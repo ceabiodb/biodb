@@ -83,9 +83,17 @@ Returns the single instance of the \code{BiodbFactory} class.}
 
 Get the list of registered observers.}
 
+\item{\code{getRequestScheduler()}}{:
+
+Returns the single instance of the \code{BiodbRequestScheduler} class.}
+
 \item{\code{saveEntriesAsJson(entries, files, compute = TRUE)}}{:
 
 Save a list of entries in JSON format.}
+
+\item{\code{terminate(logger = TRUE, observers = NULL, ...)}}{:
+
+Close \code{Biodb} instance.}
 }}
 
 \examples{

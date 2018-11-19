@@ -35,7 +35,7 @@
 #' @include BiodbObject.R
 #' @export Biodb
 #' @exportClass Biodb
-Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY", .entry.fields = "ANY", .dbsinfo = "ANY" ))
+Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY", .entry.fields = "ANY", .dbsinfo = "ANY", .request.scheduler = "ANY"))
 
 # Constructor {{{1
 ################################################################
@@ -66,6 +66,9 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 	# Create entry fields
 	.entry.fields <<- BiodbEntryFields$new(parent = .self)
 
+	# Create scheduler
+	.request.scheduler <<- BiodbRequestScheduler$new(parent = .self)
+
 	# Check locale
 	.self$.check.locale()
 
@@ -76,9 +79,16 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 ################################################################
 
 Biodb$methods( terminate = function(logger = TRUE, observers = NULL, ...) {
+	":\n\nClose \\code{Biodb} instance."
+
 	.self$message('info', 'Closing Biodb instance.')
+
+	# Terminate observers
 	for (obs in .self$.observers)
 		obs$terminate()
+
+	# Terminate factory
+	.self$.factory$.terminate()
 })
 
 # Get configuration {{{1
@@ -124,6 +134,15 @@ Biodb$methods( getFactory = function() {
 	":\n\nReturns the single instance of the \\code{BiodbFactory} class."
 
 	return(.self$.factory)
+})
+
+# Get request scheduler {{{1
+################################################################
+
+Biodb$methods( getRequestScheduler = function() {
+	":\n\nReturns the single instance of the \\code{BiodbRequestScheduler} class."
+
+	return(.self$.request.scheduler)
 })
 
 # Add observers {{{1
