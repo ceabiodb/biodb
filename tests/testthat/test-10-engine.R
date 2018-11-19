@@ -10,6 +10,7 @@ source('engine-config-tests.R')
 source('engine-factory-tests.R')
 source('engine-object-printing-tests.R')
 source('engine-observers-tests.R')
+source('engine-scheduler-tests.R')
 
 # MAIN {{{1
 ################################################################
@@ -27,6 +28,7 @@ run.object.printing.tests(biodb)
 run.observers.tests(biodb, obs)
 run.config.tests(biodb)
 run.factory.tests(biodb, obs)
+run.scheduler.tests(biodb, obs)
 
 # Terminate Biodb
 biodb$terminate()

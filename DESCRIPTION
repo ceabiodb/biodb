@@ -27,13 +27,14 @@ Imports:
 	RCurl,
 	stats,
 	R.utils,
-	digest
+	digest,
+	urltools
 LinkingTo:
 	Rcpp
 NeedsCompilation: yes
 Author: Pierrick Roger
 Maintainer: Pierrick Roger <pk.roger@icloud.com>
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Collate: 
     'BiodbObject.R'
     'Biodb.R'
@@ -42,6 +43,7 @@ Collate:
     'BiodbConfig.R'
     'BiodbConnBase.R'
     'BiodbConn.R'
+    'BiodbConnObserver.R'
     'BiodbDbInfo.R'
     'BiodbDbsInfo.R'
     'BiodbDownloadable.R'
@@ -52,7 +54,8 @@ Collate:
     'BiodbFactory.R'
     'BiodbObserver.R'
     'BiodbLogger.R'
-    'UrlRequestScheduler.R'
+    'BiodbRequestScheduler.R'
+    'BiodbRequestSchedulerRule.R'
     'RemotedbConn.R'
     'CompounddbConn.R'
     'ChebiConn.R'

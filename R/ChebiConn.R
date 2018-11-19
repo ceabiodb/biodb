@@ -28,19 +28,6 @@ ChebiConn$methods( getEntryImageUrl = function(id) {
 	return(paste0(.self$getBaseUrl(), 'displayImage.do?defaultImage=true&imageIndex=0&chebiId=', id, '&dimensions=400'))
 })
 
-# Get entry content {{{1
-################################################################
-
-ChebiConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Request
-	content <- vapply(entry.id, function(x) .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(x), encoding = 'UTF-8'), FUN.VALUE = '')
-
-	return(content)
-})
 
 # Web service getLiteEntity {{{1
 ################################################################

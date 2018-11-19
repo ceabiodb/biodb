@@ -126,10 +126,6 @@ BiodbConfig$methods( isEnabled = function(key) {
 	# Defined ?
 	if (isDefined(key))
 		value <- .self$.values[[key]]
-	else
-		.self$message('debug', paste0('Config key ', key, ' is not defined.'))
-
-	.self$message('debug', paste0('Config key ', key, ' is ', (if (value) 'enabled' else 'disabled'), '.'))
 
 	return(value)
 })
@@ -145,12 +141,8 @@ BiodbConfig$methods( get = function(key) {
 	# Is value defined ?
 	if (.self$isDefined(key))
 		value <- .self$.values[[key]]
-	else {
-		.self$message('debug', paste0('Config key ', key, ' is not defined.'))
+	else
 		value <- as.vector(NA, mode = .self$.getType(key))
-	}
-
-	.self$message('debug', paste0('Config key ', key, ' value is ', (if (is.character(value)) paste0('"', value, '"') else value), '.'))
 
 	return(value)
 })

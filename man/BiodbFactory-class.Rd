@@ -8,7 +8,9 @@
 \arguments{
 \item{content}{The content (as character vector) of one or more database entries.}
 
-\item{dbid}{The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.}
+\item{db.class}{The type of a database. The list of types can be obtained from the class \code{\link{BiodbDbsInfo}}.}
+
+\item{conn.id}{The identifier of a database connector.}
 
 \item{drop}{If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.}
 
@@ -26,23 +28,36 @@ This class is responsible for the creation of database connectors and database e
 \section{Methods}{
 
 \describe{
-\item{\code{createConn(dbid, url = NA_character_, token = NA_character_)}}{:
+\item{\code{createConn(db.class, url = NA_character_, token = NA_character_,
+  fail.if.exists = TRUE)}}{:
 
 Create a connection to a database.}
 
-\item{\code{createEntry(dbid, content, drop = TRUE)}}{:
+\item{\code{createEntry(conn.id, content, drop = TRUE)}}{:
 
-Create database entry objects from string content.}
+Create database entry objects from string content, for the specified connector.}
 
-\item{\code{getConn(dbid)}}{:
+\item{\code{deleteAllConnectors()}}{:
 
-Get the connection to a database.}
+Delete all connectors.}
 
-\item{\code{getEntry(dbid, id, drop = TRUE)}}{:
+\item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{:
 
-Create database entry objects from IDs (accession numbers).}
+Delete existing connectors.}
 
-\item{\code{getEntryContent(dbid, id)}}{:
+\item{\code{getAllConnectors()}}{:
+
+Returns a list of all created connectors.}
+
+\item{\code{getConn(conn.id)}}{:
+
+Get the instance of connector database corresponding to the submitted ID or database class.}
+
+\item{\code{getEntry(conn.id, id, drop = TRUE)}}{:
+
+Create database entry objects from IDs (accession numbers), for the specified connector.}
+
+\item{\code{getEntryContent(conn.id, id)}}{:
 
 Get the contents of database entries from IDs (accession numbers).}
 

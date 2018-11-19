@@ -17,7 +17,6 @@ if ('MODES' %in% names(ENV) && ENV[['MODES']] == MODE.FULL) {
 # Erase only short term cache
 if (MODE.ONLINE %in% TEST.MODES) {
 	biodb <- Biodb$new(logger = FALSE)
-	cat(paste('Delete short term cache folder ', biodb$getCache()$getSubFolderPath('shortterm'), ".\n", sep = ''))
 	biodb$getCache()$eraseFolder('shortterm')
 }
 

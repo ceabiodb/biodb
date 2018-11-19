@@ -22,8 +22,9 @@ test.searchCompound <- function(db) {
 	name <- name[[1]]
 	expect_true( ! is.na(name))
 	ids <- db$searchCompound(name = name)
-	if (db$getId() %in% not.searchable$name)
+	if (db$getId() %in% not.searchable$name) {
 		expect_null(ids)
+	}
 	else {
 		msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
 		expect_true( ! is.null(ids), msg)
