@@ -28,19 +28,6 @@ ChebiConn$methods( getEntryImageUrl = function(id) {
 	return(paste0(.self$getBaseUrl(), 'displayImage.do?defaultImage=true&imageIndex=0&chebiId=', id, '&dimensions=400'))
 })
 
-# Get entry content {{{1
-################################################################
-
-ChebiConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Request
-	content <- vapply(entry.id, function(x) .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(x), encoding = 'UTF-8'), FUN.VALUE = '')
-
-	return(content)
-})
 
 # Web service getLiteEntity {{{1
 ################################################################
@@ -98,21 +85,17 @@ ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 		
-	print('-------------------------------- ChebiConn::searchCompound 01')
 	.self$.checkMassField(mass = mass, mass.field = mass.field)
 
 	ids <- NULL
 	
 	# Search by name
-	print('-------------------------------- ChebiConn::searchCompound 02')
 	if ( ! is.null(name))
 		ids <- .self$ws.getLiteEntity.ids(search = name, search.category = "ALL NAMES", max.results = 0)
 
-	print('-------------------------------- ChebiConn::searchCompound 03')
 	# Search by mass
 	if ( ! is.null(mass) && ! is.null(mass.field)) {
 
-	print('-------------------------------- ChebiConn::searchCompound 10')
 		mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
 
 		if ( ! mass.field %in% c('monoisotopic.mass' ,'molecular.mass'))
@@ -120,7 +103,6 @@ ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.fiel
 
 		else {
 
-	print('-------------------------------- ChebiConn::searchCompound 20')
 			# Compute mass range
 			if (mass.tol.unit == 'ppm') {
 				mass.min <- mass * (1 - mass.tol * 1e-6)
@@ -132,7 +114,6 @@ ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.fiel
 
 			# Search for masses
 			if (is.null(ids)) {
-	print('-------------------------------- ChebiConn::searchCompound 30')
 
 				# Set search category
 				search.category <- if (mass.field == 'monoisotopic.mass') 'MASS' else 'MONOISOTOPIC MASS'
@@ -147,33 +128,23 @@ ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.fiel
 			
 			# Filtering on mass range
 			if ( ! is.null(ids)) {
-	print('-------------------------------- ChebiConn::searchCompound 40')
 
-	print(ids)
 				# Get masses of all entries
 				entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
-	print('-------------------------------- ChebiConn::searchCompound 41')
 				masses <- .self$getBiodb()$entriesToDataframe(entries, compute = FALSE, fields = mass.field, drop = TRUE)
-	print('-------------------------------- ChebiConn::searchCompound 42')
 
 				# Filter on mass
 				ids <- ids[(masses >= mass.min) & (masses <= mass.max)]
-	print('-------------------------------- ChebiConn::searchCompound 49')
 			}
-	print('-------------------------------- ChebiConn::searchCompound 50')
 		}
-	print('-------------------------------- ChebiConn::searchCompound 51')
 	}
-	print('-------------------------------- ChebiConn::searchCompound 60')
 
 	if (is.null(ids))
 		ids <- character(0)
 
-	print('-------------------------------- ChebiConn::searchCompound 70')
 	# Cut
 	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
 		ids <- ids[1:max.results]
-	print('-------------------------------- ChebiConn::searchCompound 80')
 
 	return(ids)
 })

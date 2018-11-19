@@ -158,10 +158,12 @@ RemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
 	# Get URLs
 	urls <- .self$getEntryContentUrl(entry.id, concatenate = FALSE)
 	
+	# Get encoding
+	encoding <- .self$getPropertyValue('entry.content.encoding')
 	# Send requests
 	for (i in seq_along(urls)) {
 		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', i, length(urls)))
-		content[[i]] <- .self$getBiodb()$getRequestScheduler()$getUrl(urls[[i]], encoding = .self$getPropertyValue('entry.content.encoding'))
+		content[[i]] <- .self$getBiodb()$getRequestScheduler()$getUrl(urls[[i]], encoding = encoding)
 	}
 
 	return(content)

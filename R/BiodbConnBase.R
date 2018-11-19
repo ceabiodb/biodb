@@ -80,7 +80,13 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	.self$setSchedulerNParam(scheduler.n)
 	.observers <<- list()
 
-	.self$.defineProperties(properties)
+	# Set properties
+	if (is.null(other))
+		.self$.defineProperties(properties)
+	else {
+		.prop.def <<- other$.prop.def
+		.prop <<- other$.prop
+	}
 })
 
 # Get name {{{1
@@ -318,10 +324,8 @@ BiodbConnBase$methods( setSchedulerTParam = function(t) {
 
 BiodbConnBase$methods( getPropertyValue = function(name) {
 
-	value <- NULL
-
 	if ( ! name %in% names(.self$.prop.def))
-		.self$message('error', paste0('Unknown base connector property "', name, '".'))
+		.self$message('error', paste0('Unknown property "', name, '" for database ', .self$.db.class, '.'))
 
 	if (name %in% names(.self$.prop))
 		value <- .self$.prop[[name]]
@@ -335,7 +339,7 @@ BiodbConnBase$methods( getPropertyValue = function(name) {
 BiodbConnBase$methods( setPropertyValue = function(name, value) {
 
 	if ( ! name %in% names(.self$.prop.def))
-		.self$message('error', paste0('Unknown base connector property "', name, '".'))
+		.self$message('error', paste0('Unknown property "', name, '" for database ', .self$.db.class, '.'))
 
 	.self$.prop[[name]] <- as.vector(value, mode = .self$.prop.def[[name]]$class)
 })
@@ -393,31 +397,34 @@ BiodbConnBase$methods( .unregisterObserver = function(obs) {
 
 BiodbConnBase$methods( .defineProperties = function(properties) {
 
-	.prop.def <<- list()
+	# Set list of property definitions
+	.prop.def <<- .self$.getFullPropDefList()
 
 	# Select subset of properties
 	if ( ! is.null(properties)) {
 
-		# Get full list of property definitions
-		full.prop.def <- .self$.getFullPropDefList()
-
 		# Check submitted properties
-		unknown.properties <- names(properties)[ ! names(properties) %in% names(full.prop.def)]
+		unknown.properties <- names(properties)[ ! names(properties) %in% names(.self$.prop.def)]
 		if (length(unknown.properties) > 0)
-			.self$message('error', paste0('Unknown base connector properties: ', paste(unknown.properties, collapse = ', ')))
-
-		# Subset list of properties
-		.prop.def <<- full.prop.def[names(properties)]
+			.self$message('error', paste0('Unknown properties: ', paste(unknown.properties, collapse = ', '), ' for database ',.self$.db.class, '.'))
 
 		# Reset default values
 		for (p in names(properties))
 			.self$.prop.def[[p]]$default <- as.vector(properties[[p]], mode = .self$.prop.def[[p]]$class)
 	}
 
-	# Set default values
+	# Reset property values
+	.self$.resetPropertyValues()
+})
+
+# Reset propertyValues {{{1
+################################################################
+
+BiodbConnBase$methods( .resetPropertyValues = function() {
+
 	.prop <<- list()
 	for (p in names(.self$.prop.def))
-		.self$.prop[[p]] <- .self$.prop.def[[p]]$default
+		.self$setPropertyValue(p, .self$.prop.def[[p]]$default)
 })
 
 # Get full list of property definitions {{{1
