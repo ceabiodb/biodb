@@ -185,7 +185,7 @@ RemotedbConn$methods( .terminate = function() {
 ################################################################
 
 RemotedbConn$methods( .getUrlScheduler = function() {
-	.self$.deprecated.method(new.method = "getBiodb()$getRequestScheduler()$getUrl()")
+	.self$.deprecated.method(new.method = "getBiodb()$getRequestScheduler()")
 	return(.self$getBiodb()$getRequestScheduler())
 })
 
@@ -193,6 +193,6 @@ RemotedbConn$methods( .getUrlScheduler = function() {
 ################################################################
 
 RemotedbConn$methods( .get.url = function(url) {
-	.self$.deprecated.method(new.method = ".getUrlScheduler()$getUrl()")
-	return(.self$.scheduler$getUrl(url))
+	.self$.deprecated.method(new.method = "getBiodb()$getRequestScheduler()$getUrl()")
+	return(.self$getBiodb()$getRequestScheduler()$getUrl(url))
 })
