@@ -28,19 +28,6 @@ LipidmapsStructureConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
 
-# Get entry content {{{1
-################################################################
-
-LipidmapsStructureConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Request
-	content <- vapply(entry.id, function(x) .self$.getUrlScheduler()$getUrl(.self$getEntryContentUrl(x)), FUN.VALUE = '')
-
-	return(content)
-})
 
 # Get entry ids {{{1
 ################################################################

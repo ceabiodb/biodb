@@ -17,22 +17,6 @@
 #' @exportClass ExpasyEnzymeConn
 ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = c("RemotedbConn", "CompounddbConn"))
 
-# Get entry content {{{1
-################################################################
-
-ExpasyEnzymeConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Get URLs
-	urls <- .self$getEntryContentUrl(entry.id)
-
-	# Request
-	content <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
-
-	return(content)
-})
 
 # Web service enzyme-byname {{{1
 ################################################################

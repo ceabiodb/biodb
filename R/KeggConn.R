@@ -66,19 +66,6 @@ KeggConn$methods( getEntryPageUrl = function(id) {
 	return(paste('https://www.genome.jp/dbget-bin/www_bget?', .self$.complete.entry.id(id), sep = ''))
 })
 
-# Get entry content {{{1
-################################################################
-
-KeggConn$methods( getEntryContent = function(entry.id) {
-
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
-
-	# Request
-	content <- vapply(entry.id, function(x) .self$.get.url(.self$getEntryContentUrl(x)), FUN.VALUE = '')
-
-	return(content)
-})
 
 # Get entry ids {{{1
 ################################################################
