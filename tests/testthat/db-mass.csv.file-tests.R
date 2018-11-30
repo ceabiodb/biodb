@@ -403,6 +403,40 @@ test.mass.csv.file.precursor.match <- function(biodb) {
 	expect_identical(results2[['accession']], c('A2', 'A2', NA_character_))
 }
 
+# Test database writing {{{1
+################################################################
+
+test.mass.csv.file.writing <- function(biodb) {
+
+	entry.id <- 'BML80005'
+	df <- rbind(data.frame(),
+            	list(accession = entry.id, ms.mode = 'pos', ms.level = 1, peak.mztheo = 219.1127765, peak.intensity = 373076,  peak.relative.intensity = 999),
+            	stringsAsFactors = FALSE)
+
+	# Create connector
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(df)
+	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
+	df.1 <- biodb$entriesToDataframe(list(entry))
+	testthat::expect_is(entry, 'BiodbEntry')
+	testthat::expect_error(conn$write())
+	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.writing-db.tsv')
+	conn$setBaseUrl(db.file)
+	conn$allowWriting()
+	conn$write()
+
+	# Load database file into another connector
+	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = db.file)) # Same URL as the first connector
+	biodb$getFactory()$deleteConn(conn$getId())
+	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
+	entry.2 <- biodb$getFactory()$getEntry(conn.2$getId(), 'BML80005')
+	testthat::expect_is(entry.2, 'BiodbEntry')
+
+	# Compare entries
+	df.2 <- biodb$entriesToDataframe(list(entry.2))
+	testthat::expect_identical(df.1, df.2)
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -424,4 +458,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.test.that.on.biodb('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', biodb)
 	run.test.that.on.biodb('We can set additional values for MS mode.', 'test.mass.csv.file.ms.mode.values', biodb)
 	run.test.that.on.biodb('Precursor match works.', 'test.mass.csv.file.precursor.match', biodb)
+	run.test.that.on.biodb('Database writing works.', 'test.mass.csv.file.writing', biodb)
 }

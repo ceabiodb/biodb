@@ -2,6 +2,7 @@
 
 #' @include biodb-common.R
 #' @include MassdbConn.R 
+#' @include BiodbWritable.R 
 
 # In the provided file, each line represents an MS peak measure.
 # The file contains molecule and spectrum information. Each spectrum has an accession id.
@@ -9,7 +10,7 @@
 # Class declaration {{{1
 ################################################################
 
-MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = "MassdbConn", fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character"))
+MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = c("MassdbConn", 'BiodbWritable'), fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -288,27 +289,35 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 MassCsvFileConn$methods( setDb = function(db) {
 	":\n\nSet the database directly from a data frame. You must not have set the database previously with the URL parameter."
 
-	# Already set
-	if ( ! is.null(.self$.db))
-		.self$message('error', 'Database has already been set.')
+	# URL point to an existing file?
+	url <- .self$getBaseUrl()
+	if ( ! is.null(url) && ! is.na(url) && file.exists(url))
+		.self$message('error', 'Cannot set this data frame as database. A URL that points to an existing file has already been set for the connector.')
 
-	# Not data frame
-	if ( ! is.data.frame(db))
-		.self$message('error', 'The database object must be a data frame.')
-
-	# Set data frame as database
-	.db <<- db
-
-	# Set fields
-	for (field in names(.self$.db))
-		.self$setField(field, field, ignore.if.missing = TRUE)
-
-	# Save column names
-	.db.orig.colnames <<- colnames(.self$.db)
+	.self$.doSetDb(db)
 })
 
-# PRIVATE METHODS {{{1
+# Private methods {{{1
 ################################################################
+
+# Writable methods {{{2
+################################################################
+
+# Do add new entry {{{3
+################################################################
+
+MassCsvFileConn$methods( .doAddEntry = function(entry) {
+
+# TODO Write a test for writing a MassCsvFile database.
+})
+
+# Do write {{{3
+################################################################
+
+MassCsvFileConn$methods( .doWrite = function() {
+
+# TODO Write a test for writing a MassCsvFile database. Create a db from dataframe then save it to a file. Reload it from the file and compare.
+})
 
 # Init db {{{2
 ################################################################
@@ -325,7 +334,7 @@ MassCsvFileConn$methods( .init.db = function() {
 		db <- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE, fill = FALSE)
 
 		# Set database
-		.self$setDb(db)
+		.self$.doSetDb(db)
 	}
 })
 
@@ -482,4 +491,41 @@ MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precurs
 	mz <- .self$.select(cols = 'peak.mztheo', mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = ms.level)
 
 	return(mz)
+})
+
+# Do set database data frame {{{1
+################################################################
+
+MassCsvFileConn$methods( .doSetDb = function(db) {
+
+	# Already set?
+	if ( ! is.null(.self$.db))
+		.self$message('error', 'Database has already been set.')
+
+	# Not a data frame
+	if ( ! is.data.frame(db))
+		.self$message('error', 'The database object must be a data frame.')
+
+	# Set data frame as database
+	.db <<- db
+
+	# Set fields
+	for (field in names(.self$.db))
+		.self$setField(field, field, ignore.if.missing = TRUE)
+
+	# Save column names
+	.db.orig.colnames <<- colnames(.self$.db)
+})
+
+# Check setting of URL {{{1
+################################################################
+
+MassCsvFileConn$methods( .checkSettingOfUrl = function(key, value) {
+
+	# Setting of base URL
+	if (key == 'base.url') {
+		url <- .self$getBaseUrl()
+		if ( ! is.null(.self$.db) && ! is.null(url) && ! is.na(url) && file.exists(url))
+			.self$message('error', paste0('You cannot overwrite base URL. A URL has already been set ("', url, '") that points to a valid file that has already been loaded in memory.'))
+	}
 })

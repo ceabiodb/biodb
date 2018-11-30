@@ -209,6 +209,8 @@ BiodbConnBase$methods( getBaseUrl = function() {
 BiodbConnBase$methods( setBaseUrl = function(base.url) {
 	":\n\nSets the base URL."
 
+	.self$.checkSettingOfUrl('base.url', base.url)
+
 	.base.url <<- base.url
 
 	# Notify observers
@@ -435,4 +437,11 @@ BiodbConnBase$methods( .getFullPropDefList = function() {
 	prop.def <- list(entry.content.encoding = list(class = 'character', default = NA_character_))
 
 	return(prop.def)
+})
+
+# Check setting of URL {{{1
+################################################################
+
+BiodbConnBase$methods( .checkSettingOfUrl = function(key, value) {
+	# Accept setting by default
 })
