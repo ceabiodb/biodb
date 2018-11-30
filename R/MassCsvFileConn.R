@@ -315,8 +315,12 @@ MassCsvFileConn$methods( .doAddEntry = function(entry) {
 ################################################################
 
 MassCsvFileConn$methods( .doWrite = function() {
+	
+	# Get all entries
 
-# TODO Write a test for writing a MassCsvFile database. Create a db from dataframe then save it to a file. Reload it from the file and compare.
+	# Get data frame of all entries
+
+	# Write data frame
 })
 
 # Init db {{{2

@@ -248,6 +248,7 @@ BiodbFactory$methods( getEntry = function(conn.id, id, drop = TRUE) {
 
 	# Use factory cache
 	if (.self$getBiodb()$getConfig()$isEnabled('factory.cache')) {
+
 		# What entries are missing from factory cache
 		missing.ids <- .self$.getMissingEntryIds(conn$getId(), id)
 
