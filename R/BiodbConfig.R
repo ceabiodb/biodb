@@ -188,12 +188,15 @@ BiodbConfig$methods( disable = function(key) {
 ################################################################
 
 BiodbConfig$methods( show = function() {
+	":\n\nPrint containt of this object in a human readable format."
+
 	cat("Biodb configuration instance.\n")
 	cat("  Values:\n")
 
 	# Loop on all keys
 	for (key in sort(.self$getKeys()))
-		cat("    ", key, ": ", .self$get(key), "\n")
+		if ( ! .self$.isDeprecated(key))
+			cat("    ", key, ": ", .self$get(key), "\n")
 })
 
 # List keys {{{1
@@ -270,7 +273,7 @@ BiodbConfig$methods( .defineKeys = function() {
 	.self$.newKey('cache.read.only',            type = 'logical',   description = "The cache system is not writable. This is mainly used for test purposes.", default = FALSE)
 	.self$.newKey('cache.subfolders',           type = 'logical',   description = "Use subfolders shortterm and longterm in cache system, in order to divide the downloaded files. If a whole database is downloaded, the file(s) will be put in the longterm subfolders.", default = TRUE)
 	.self$.newKey('cache.system',               type = 'logical',   description = "Cache system is ON.", default = TRUE)
-	.self$.newKey('factory.cache',              type = 'logical',   description = "Factory cache system is ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the sames entries are requested several times, avoiding the parsing process.", default = FALSE)
+	.self$.newKey('factory.cache',              type = 'logical',   description = "Factory cache system is ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the same entries are requested several times, avoiding the parsing process.", default = FALSE, deprecated = "The cache is now always enabled. Thus all entries returned are referenced inside the cache and will be returned when needed.")
 	.self$.newKey('compute.fields',             type = 'logical',   description = "If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.", default = TRUE)
 	.self$.newKey('force.locale',               type = 'logical',   description = "Forcing current locale is allowed.", default = TRUE)
 	.self$.newKey('longterm.cache.subfolder',   type = 'character', description = "The name of the long term cache subfolder.",  default = 'longterm')
@@ -302,7 +305,7 @@ BiodbConfig$methods( .getFromEnv = function(key) {
 # New key {{{2
 ################################################################
 
-BiodbConfig$methods( .newKey = function(key, type, default = NULL, description = NA_character_) {
+BiodbConfig$methods( .newKey = function(key, type, default = NULL, description = NA_character_, deprecated = NULL) {
 
 	# Check key
 	if (is.null(key) || is.na(key) || ! is.character(key))
@@ -319,6 +322,9 @@ BiodbConfig$methods( .newKey = function(key, type, default = NULL, description =
 
 	# Define new key
 	.self$.keys[[key]] <- list(type = type, default = default, description = description)
+
+	if ( ! is.null(deprecated))
+		.self$.keys[[key]][['deprecated']] <- deprecated
 })
 
 # Initialize values {{{2
@@ -330,6 +336,10 @@ BiodbConfig$methods( .initValues = function() {
 
 	# Loop on all keys
 	for (key in .self$getKeys()) {
+		
+		if (.self$.isDeprecated(key))
+			next
+
 		default <- .self$getDefaultValue(key)
 
 		# Set default value if not null
@@ -341,7 +351,7 @@ BiodbConfig$methods( .initValues = function() {
 # Check key {{{2
 ################################################################
 
-BiodbConfig$methods( .checkKey = function(key, type = NA_character_, fail= TRUE) {
+BiodbConfig$methods( .checkKey = function(key, type = NA_character_, fail = TRUE, test.deprecated = TRUE) {
 
 	# Check key
 	if (is.null(key) || is.na(key) || ! is.character(key)) {
@@ -351,13 +361,17 @@ BiodbConfig$methods( .checkKey = function(key, type = NA_character_, fail= TRUE)
 			return(FALSE)
 	}
 
-	# Test if valid key
+	# Fail if invalid key
 	if ( ! key %in% names(.self$.keys)) {
 		if (fail)
 			.self$message('error', paste("Unknown key ", key, ".", sep = ''))
 		else
 			return(FALSE)
 	}
+
+	# Fail if deprecated
+	if (.self$.isDeprecated(key))
+		.self$message('error', paste("Key ", key, " is deprecated. ", .self$.keys[[key]][['deprecated']], sep = ''))
 
 	# Test type
 	if ( ! is.null(type) && ! is.na(type) && .self$.keys[[key]][['type']] != type) {
@@ -380,3 +394,10 @@ BiodbConfig$methods( .getType = function(key) {
 	return(.self$.keys[[key]][['type']])
 })
 
+
+# Is deprecated {{{1
+################################################################
+
+BiodbConfig$methods( .isDeprecated = function(key) {
+	return('deprecated' %in% names(.self$.keys[[key]]))
+})

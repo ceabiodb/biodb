@@ -81,17 +81,14 @@ BiodbWritable$methods( addEntry = function(entry) {
 BiodbWritable$methods( write = function() {
 	":\n\nWrite the database. All modifications made to the database since the last time write() was called will be saved."
 
-	print('-------------------------------- BiodbWritable::write 01')
 	.self$.checkWritingIsAllowed()
-	print('-------------------------------- BiodbWritable::write 02')
 	.self$.doWrite()
-	print('-------------------------------- BiodbWritable::write 03')
 })
 
 # Private methods {{{1
 ################################################################
 
-# Check that writing is allowed {{{1
+# Check that writing is allowed {{{2
 ################################################################
 
 BiodbWritable$methods( .checkWritingIsAllowed = function() {

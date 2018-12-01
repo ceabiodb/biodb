@@ -317,10 +317,13 @@ MassCsvFileConn$methods( .doAddEntry = function(entry) {
 MassCsvFileConn$methods( .doWrite = function() {
 	
 	# Get all entries
+	entries <- .self$getBiodb()$getFactory()$getAllCacheEntries(.self$getId())
 
 	# Get data frame of all entries
+	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
 
 	# Write data frame
+	write.table(df, file = .self$getBaseUrl(), row.names = FALSE, sep = "\t", quote = FALSE)
 })
 
 # Init db {{{2
@@ -497,7 +500,7 @@ MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precurs
 	return(mz)
 })
 
-# Do set database data frame {{{1
+# Do set database data frame {{{2
 ################################################################
 
 MassCsvFileConn$methods( .doSetDb = function(db) {
@@ -521,7 +524,7 @@ MassCsvFileConn$methods( .doSetDb = function(db) {
 	.db.orig.colnames <<- colnames(.self$.db)
 })
 
-# Check setting of URL {{{1
+# Check setting of URL {{{2
 ################################################################
 
 MassCsvFileConn$methods( .checkSettingOfUrl = function(key, value) {

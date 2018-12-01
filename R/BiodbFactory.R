@@ -93,12 +93,12 @@ BiodbFactory$methods( deleteConn = function(conn.id = NULL, db.class = NULL) {
 		.self$.assert.is(conn.id, 'character')
 
 		if ( ! conn.id %in% names(.self$.conn))
-			.self$message('caution', paste0('Connector "', conn.id, '" is unknown.'))
-		else {
-			.self$.conn[[conn.id]]$.terminate()
-			.self$.conn[[conn.id]] <- NULL
-			.self$message('info', paste0('Connector "', conn.id, '" deleted.'))
-		}
+			.self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
+
+		.self$deleteAllCacheEntries(conn.id)
+		.self$.conn[[conn.id]]$.terminate()
+		.self$.conn[[conn.id]] <- NULL
+		.self$message('info', paste0('Connector "', conn.id, '" deleted.'))
 	}
 
     # Remove all connectors of a database class
@@ -185,56 +185,6 @@ BiodbFactory$methods( setDownloadChunkSize = function(dwnld.chunk.size) {
 	.chunk.size <<- as.integer(dwnld.chunk.size)
 })
 
-# Create entry {{{1
-################################################################
-
-BiodbFactory$methods( createEntry = function(conn.id, content, drop = TRUE) {
-	":\n\nCreate database entry objects from string content, for the specified connector."
-
-	entries <- list()
-
-	if (length(content) > 0) {
-
-		# Get connector
-		conn <- .self$getConn(conn.id)
-
-		.self$message('info', paste('Creating ', conn$getName(), ' entries from ', length(content), ' content(s).', sep = ''))
-
-		# Get entry class
-    	entry.class <- conn$getEntryClass()
-
-    	# Loop on all contents
-    	.self$message('debug', paste('Parsing ', length(content), ' ', conn$getName(), ' entries.', sep = ''))
-		for (single.content in content) {
-
-			# Create empty entry instance
-    		entry <- entry.class$new(parent = conn)
-
-			# Parse content
-			if ( ! is.null(single.content) && ! is.na(single.content))
-				entry$parseContent(single.content)
-
-			entries <- c(entries, entry)
-		}
-
-		# Replace elements with no accession id by NULL
-		accessions <- vapply(entries, function(x) x$getFieldValue('accession'),  FUN.VALUE = '')
-    	entries.without.accession <- vapply(accessions, function(a) (is.na(a) || length(grep('^\\s*$', a)) > 0), FUN.VALUE = TRUE)
-		.self$message('debug', paste0('Accession numbers: ', paste(accessions, collapse = ', '), '.', sep = ''))
-    	if (any(entries.without.accession)) {
-	    	n <- sum(entries.without.accession)
-    		.self$message('debug', paste('Found', n, if (n > 1) 'entries' else 'entry', 'without an accession number. Set', if (n > 1) 'them' else 'it', 'to NULL.'))
-			entries[entries.without.accession] <- list(NULL)
-    	}
-
-		# If the input was a single element, then output a single object
-		if (drop && length(content) == 1)
-			entries <- entries[[1]]
-	}
-
-	return(entries)
-})
-
 # Get entry {{{1
 ################################################################
 
@@ -246,30 +196,52 @@ BiodbFactory$methods( getEntry = function(conn.id, id, drop = TRUE) {
 	# Get connector
 	conn <- .self$getConn(conn.id)
 
-	# Use factory cache
-	if (.self$getBiodb()$getConfig()$isEnabled('factory.cache')) {
+	# What entries are missing from factory cache?
+	missing.ids <- .self$.getMissingEntryIds(conn$getId(), id)
 
-		# What entries are missing from factory cache
-		missing.ids <- .self$.getMissingEntryIds(conn$getId(), id)
+	if (length(missing.ids) > 0)
+		new.entries <- .self$.createNewEntries(conn$getId(), missing.ids, drop = FALSE)
 
-		if (length(missing.ids) > 0) {
-			new.entries <- .self$.createNewEntries(conn$getId(), missing.ids, drop = FALSE)
-			.self$.storeNewEntries(conn$getId(), missing.ids, new.entries)
-		}
+	# Get entries
+	entries <- unname(.self$.getEntries(conn$getId(), id))
 
-		# Get entries
-		entries <- unname(.self$.getEntries(conn$getId(), id))
-
-		# If the input was a single element, then output a single object
-		if (drop && length(id) == 1)
-			entries <- entries[[1]]
-	}
-
-	# Do not use factory cache and create new entries for all IDs
-	else
-		entries <- .self$.createNewEntries(conn$getId(), id, drop = drop)
+	# If the input was a single element, then output a single object
+	if (drop && length(id) == 1)
+		entries <- entries[[1]]
 
 	return(entries)
+})
+
+# Get all cache entries {{{1
+################################################################
+
+BiodbFactory$methods( getAllCacheEntries = function(conn.id) {
+	":\n\nGet all entries of a connector from the cache."
+
+	.self$.assert.not.null(conn.id)
+
+	if ( ! conn.id %in% names(.self$.conn))
+		.self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
+
+	if (conn.id %in% names(.self$.entries))
+		return(.self$.entries[[conn.id]])
+
+	return(NULL)
+})
+
+# Delete all cache entries {{{1
+################################################################
+
+BiodbFactory$methods( deleteAllCacheEntries = function(conn.id) {
+	":\n\nDelete all entries of a connector from the cache."
+
+	.self$.assert.not.null(conn.id)
+
+	if ( ! conn.id %in% names(.self$.conn))
+		.self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
+
+	if (conn.id %in% names(.self$.entries))
+		.self$.entries[[conn.id]] <- NULL
 })
 
 # Get entry content {{{1
@@ -383,7 +355,10 @@ BiodbFactory$methods( .createNewEntries = function(conn.id, ids, drop) {
 		content <- .self$getEntryContent(conn$getId(), ids)
 
 		# Create entries
-		new.entries <- .self$createEntry(conn$getId(), content = content, drop = drop)
+		new.entries <- .self$.createEntryFromContent(conn$getId(), content = content, drop = drop)
+
+		# Store new entries in cache
+		.self$.storeNewEntries(conn$getId(), ids, new.entries)
 	}
 
 	return(new.entries)
@@ -459,3 +434,53 @@ BiodbFactory$methods( .checkConnExists = function(new.conn, error) {
 BiodbFactory$methods( .terminate = function() {
 	.self$deleteAllConnectors()
 })
+
+# Create entry from content {{{2
+################################################################
+
+BiodbFactory$methods( .createEntryFromContent = function(conn.id, content, drop = TRUE) {
+
+	entries <- list()
+
+	if (length(content) > 0) {
+
+		# Get connector
+		conn <- .self$getConn(conn.id)
+
+		.self$message('info', paste('Creating ', conn$getName(), ' entries from ', length(content), ' content(s).', sep = ''))
+
+		# Get entry class
+    	entry.class <- conn$getEntryClass()
+
+    	# Loop on all contents
+    	.self$message('debug', paste('Parsing ', length(content), ' ', conn$getName(), ' entries.', sep = ''))
+		for (single.content in content) {
+
+			# Create empty entry instance
+    		entry <- entry.class$new(parent = conn)
+
+			# Parse content
+			if ( ! is.null(single.content) && ! is.na(single.content))
+				entry$parseContent(single.content)
+
+			entries <- c(entries, entry)
+		}
+
+		# Replace elements with no accession id by NULL
+		accessions <- vapply(entries, function(x) x$getFieldValue('accession'),  FUN.VALUE = '')
+    	entries.without.accession <- vapply(accessions, function(a) (is.na(a) || length(grep('^\\s*$', a)) > 0), FUN.VALUE = TRUE)
+		.self$message('debug', paste0('Accession numbers: ', paste(accessions, collapse = ', '), '.', sep = ''))
+    	if (any(entries.without.accession)) {
+	    	n <- sum(entries.without.accession)
+    		.self$message('debug', paste('Found', n, if (n > 1) 'entries' else 'entry', 'without an accession number. Set', if (n > 1) 'them' else 'it', 'to NULL.'))
+			entries[entries.without.accession] <- list(NULL)
+    	}
+
+		# If the input was a single element, then output a single object
+		if (drop && length(content) == 1)
+			entries <- entries[[1]]
+	}
+
+	return(entries)
+})
+
