@@ -437,6 +437,12 @@ test.mass.csv.file.writing <- function(biodb) {
 	testthat::expect_identical(df.1, df.2)
 }
 
+# Test add new entry {{{1
+################################################################
+
+test.mass.csv.file.add.new.entry <- function(biodb) {
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -459,4 +465,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.test.that.on.biodb('We can set additional values for MS mode.', 'test.mass.csv.file.ms.mode.values', biodb)
 	run.test.that.on.biodb('Precursor match works.', 'test.mass.csv.file.precursor.match', biodb)
 	run.test.that.on.biodb('Database writing works.', 'test.mass.csv.file.writing', biodb)
+	run.test.that.on.biodb('Adding a new entry to the database works.', 'test.mass.csv.file.add.new.entry', biodb)
 }
