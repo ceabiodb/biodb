@@ -10,7 +10,7 @@
 # Class declaration {{{1
 ################################################################
 
-MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = c("MassdbConn", 'BiodbWritable'), fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character"))
+MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = c("MassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -300,7 +300,7 @@ MassCsvFileConn$methods( setDb = function(db) {
 # Private methods {{{1
 ################################################################
 
-# Writable methods {{{2
+# Editable methods {{{2
 ################################################################
 
 # Do add new entry {{{3
@@ -310,6 +310,9 @@ MassCsvFileConn$methods( .doAddEntry = function(entry) {
 
 # TODO Write a test for writing a MassCsvFile database.
 })
+
+# Writable methods {{{2
+################################################################
 
 # Do write {{{3
 ################################################################

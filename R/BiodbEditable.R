@@ -1,0 +1,105 @@
+# vi: fdm=marker
+
+#' An abstract class (more like an interface) to model an editable database.
+#'
+#' A database class that implements this interface allows the addition of new entries, the removal of entries and the modification of entries. If you want your modifications to be persistent, the database class must also be writable (see interface \code{BiodbWritable}), you must call the method \code{write} on the connector.
+#'
+#' @param entry An entry instance.
+#'
+#' @seealso \code{\link{BiodbWritable}}.
+#'
+#' @import methods
+#' @include BiodbObject.R
+#' @export BiodbEditable
+#' @exportClass BiodbEditable
+BiodbEditable <- methods::setRefClass("BiodbEditable", contains = 'BiodbObject', fields = list(.editing.allowed = 'logical'))
+
+# Constructor {{{1
+################################################################
+
+BiodbEditable$methods( initialize = function(...) {
+
+	callSuper(...)
+	.self$.abstract.class('BiodbEditable')
+
+	# This constructor is never called, because this class is used as an interface (i.e.: it is declared in the "contains" field of another class, in second position or greater. Only the constructor of the first declared "contained" class is called.).
+})
+
+# Editing is allowed {{{1
+################################################################
+
+BiodbEditable$methods( editingIsAllowed = function() {
+	":\n\nReturns TRUE if editing is allowed for this database."
+	
+	.self$.initEditable()
+
+	return(.self$.editing.allowed)
+})
+
+# Allow editing {{{1
+################################################################
+
+BiodbEditable$methods( allowEditing = function() {
+	":\n\nAllow editing for this database."
+
+	.self$setEditingAllowed(TRUE)
+})
+
+# Disallow editing {{{1
+################################################################
+
+BiodbEditable$methods( disallowEditing = function() {
+	":\n\nDisallow editing for this database."
+	
+	.self$setEditingAllowed(FALSE)
+})
+
+# Set editing allowed {{{1
+################################################################
+
+BiodbEditable$methods( setEditingAllowed = function(allow) {
+	":\n\nAllow or disallow editing for this database."
+	
+	.self$.assert.is(allow, 'logical')
+	.editing.allowed <<- allow
+})
+
+# Add new entry {{{1
+################################################################
+
+BiodbEditable$methods( addEntry = function(entry) {
+	":\n\nAdd a new entry to the database. The entry instance you pass as parameter will be copied."
+
+	.self$.checkEditingIsAllowed()
+	.self$.doAddEntry(entry)
+})
+
+# Private methods {{{1
+################################################################
+
+# Init parameters {{{2
+################################################################
+
+BiodbEditable$methods( .initEditable = function() {
+	if (length(.self$.editing.allowed) == 0)
+		.self$setEditingAllowed(FALSE)
+})
+
+# Check that editing is allowed {{{2
+################################################################
+
+BiodbEditable$methods( .checkEditingIsAllowed = function() {
+	
+	.self$.initEditable()
+	
+	if ( ! .self$.editing.allowed)
+		.self$message('error', 'Editing is not enabled for this database. However this database type is editable. Please call allowEditing() method to enable editing.')
+})
+
+# Do add new entry {{{2
+################################################################
+
+BiodbEditable$methods( .doAddEntry = function(entry) {
+	.self$.abstract.method()
+})
+

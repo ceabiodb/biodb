@@ -441,6 +441,28 @@ test.mass.csv.file.writing <- function(biodb) {
 ################################################################
 
 test.mass.csv.file.add.new.entry <- function(biodb) {
+
+	entry.id <- 'BML80005'
+	df <- rbind(data.frame(),
+            	list(accession = entry.id, ms.mode = 'pos', ms.level = 1, peak.mztheo = 219.1127765, peak.intensity = 373076,  peak.relative.intensity = 999),
+            	stringsAsFactors = FALSE)
+
+	# Create connector
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(df)
+	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
+
+	# Create new connector
+	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.add.new.entry-db.tsv')
+	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = db.file))
+	conn$addEntry(entry)
+	entry.2 <- biodb$getFactory()$getEntry(conn.2$getId(), 'BML80005')
+	testthat::expect_true(entry.2$isNew())
+
+	# Compare entries
+	df.1 <- biodb$entriesToDataframe(list(entry))
+	df.2 <- biodb$entriesToDataframe(list(entry.2))
+	testthat::expect_identical(df.1, df.2)
 }
 
 # Run Mass CSV File tests {{{1

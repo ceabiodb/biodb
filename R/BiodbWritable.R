@@ -65,16 +65,6 @@ BiodbWritable$methods( setWritingAllowed = function(allow) {
 	.writing.allowed <<- allow
 })
 
-# Add new entry {{{1
-################################################################
-
-BiodbWritable$methods( addEntry = function(entry) {
-	":\n\nAdd a new entry to the database. The entry instance you pass as parameter will be copied."
-
-	.self$.checkWritingIsAllowed()
-	.self$.doAddEntry(entry)
-})
-
 # Write {{{1
 ################################################################
 
@@ -97,13 +87,6 @@ BiodbWritable$methods( .checkWritingIsAllowed = function() {
 	
 	if ( ! .self$.writing.allowed)
 		.self$message('error', 'Writing is not enabled for this database. However this database type is writable. Please call allowWriting() method to enable writing.')
-})
-
-# Do add new entry {{{2
-################################################################
-
-BiodbWritable$methods( .doAddEntry = function(entry) {
-	.self$.abstract.method()
 })
 
 # Do write {{{2
