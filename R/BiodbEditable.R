@@ -67,11 +67,34 @@ BiodbEditable$methods( setEditingAllowed = function(allow) {
 # Add new entry {{{1
 ################################################################
 
-BiodbEditable$methods( addEntry = function(entry) {
-	":\n\nAdd a new entry to the database. The entry instance you pass as parameter will be copied."
+BiodbEditable$methods( addNewEntry = function(entry) {
+	":\n\nAdd a new entry to the database. The passed entry must have been previously created from scratch using BiodbFactory::createNewEntry() or cloned from an existing entry using BiodbEntry::clone()."
 
 	.self$.checkEditingIsAllowed()
-	.self$.doAddEntry(entry)
+
+	# XXX The new entry is previously created using BiodbEntry::clone() or using BiodbFactory::createNewEntry(). The new entry is not attached to a connector but to the factory.
+
+	# Is already part of a connector instance?
+	if (entry$parentIsAConnector())
+		.self$message('error', )
+
+	# No accession number?
+	if ( ! entry$hasField('accession'))
+		.self$message('error', )
+	id <- entry$getFieldValue('accession')
+	if (is.na(id))
+		.self$message('error', )
+
+	# Accession number is already used?
+	e <- .self$getEntry(id)
+	if ( ! is.null(e))
+		.self$message('error', )
+
+	# Flag entry as new
+	entry$.setAsNew(TRUE)
+
+	# Add entry to list
+	.self$.addEntry(entry)
 })
 
 # Private methods {{{1
