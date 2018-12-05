@@ -120,17 +120,24 @@ BiodbConnBase$methods( getDbClass = function() {
 BiodbConnBase$methods( getConnClassName = function() {
 	":\n\nReturns the name of the associated connection class."
 
-    # Get connection class name
-    s <- .self$.db.class
-	indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class, perl = TRUE)[[1]])
-    indices <- indices + 1  # We are interested in the letter after the dot.
-    indices <- c(1, indices) # Add first letter.
-	for (i in indices)
-		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
-    s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+	# Get connection class name
+	s <- .self$.getClassNamePrefix()
 	conn.class.name <- paste(s, 'Conn', sep = '')
 
 	return(conn.class.name)
+})
+
+# Get entry class name {{{1
+################################################################
+
+BiodbConnBase$methods( getEntryClassName = function() {
+	":\n\nReturns the name of the associated entry class."
+
+	# Get entry class name
+	s <- .self$.getClassNamePrefix()
+	entry.class.name <- paste(s, 'Entry', sep = '')
+
+	return(entry.class.name)
 })
 
 # Get connection class {{{1
@@ -140,6 +147,15 @@ BiodbConnBase$methods( getConnClass = function() {
 	":\n\nReturns the associated connection class."
 
 	return(get(.self$getConnClassName()))
+})
+
+# Get entry class {{{1
+################################################################
+
+BiodbConnBase$methods( getEntryClass = function() {
+	":\n\nReturns the associated entry class."
+
+	return(get(.self$getEntryClassName()))
 })
 
 # Get entry class name {{{1
@@ -394,7 +410,7 @@ BiodbConnBase$methods( .unregisterObserver = function(obs) {
 		.observers <<- .self$.observers[ ! found.obs ]
 })
 
-# Define properties {{{1
+# Define properties {{{2
 ################################################################
 
 BiodbConnBase$methods( .defineProperties = function(properties) {
@@ -419,7 +435,7 @@ BiodbConnBase$methods( .defineProperties = function(properties) {
 	.self$.resetPropertyValues()
 })
 
-# Reset propertyValues {{{1
+# Reset propertyValues {{{2
 ################################################################
 
 BiodbConnBase$methods( .resetPropertyValues = function() {
@@ -429,7 +445,7 @@ BiodbConnBase$methods( .resetPropertyValues = function() {
 		.self$setPropertyValue(p, .self$.prop.def[[p]]$default)
 })
 
-# Get full list of property definitions {{{1
+# Get full list of property definitions {{{2
 ################################################################
 
 BiodbConnBase$methods( .getFullPropDefList = function() {
@@ -439,9 +455,25 @@ BiodbConnBase$methods( .getFullPropDefList = function() {
 	return(prop.def)
 })
 
-# Check setting of URL {{{1
+# Check setting of URL {{{2
 ################################################################
 
 BiodbConnBase$methods( .checkSettingOfUrl = function(key, value) {
 	# Accept setting by default
+})
+
+# {{{2
+################################################################
+
+BiodbConnBase$methods( .getClassNamePrefix = function() {
+
+	s <- .self$.db.class
+	indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class, perl = TRUE)[[1]])
+	indices <- indices + 1  # We are interested in the letter after the dot.
+	indices <- c(1, indices) # Add first letter.
+	for (i in indices)
+		s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
+	s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+
+	return(s)
 })

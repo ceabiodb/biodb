@@ -72,29 +72,27 @@ BiodbEditable$methods( addNewEntry = function(entry) {
 
 	.self$.checkEditingIsAllowed()
 
-	# XXX The new entry is previously created using BiodbEntry::clone() or using BiodbFactory::createNewEntry(). The new entry is not attached to a connector but to the factory.
-
 	# Is already part of a connector instance?
 	if (entry$parentIsAConnector())
-		.self$message('error', )
+		.self$message('error', 'Impossible to add entry as a new entry. The passed entry is already part of a connector.')
 
 	# No accession number?
 	if ( ! entry$hasField('accession'))
-		.self$message('error', )
+		.self$message('error', 'Impossible to add entry as a new entry. The passed entry has no accession number.')
 	id <- entry$getFieldValue('accession')
 	if (is.na(id))
-		.self$message('error', )
+		.self$message('error', 'Impossible to add entry as a new entry. The passed entry has an accession number set to NA.')
 
 	# Accession number is already used?
 	e <- .self$getEntry(id)
 	if ( ! is.null(e))
-		.self$message('error', )
+		.self$message('error', 'Impossible to add entry as a new entry. The accession number of the passed entry is already used in the connector.')
 
 	# Flag entry as new
 	entry$.setAsNew(TRUE)
 
 	# Add entry to list
-	.self$.addEntry(entry)
+	.self$.addEntriesToCache(id, list(entry))
 })
 
 # Private methods {{{1

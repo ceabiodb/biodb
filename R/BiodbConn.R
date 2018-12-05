@@ -32,7 +32,7 @@
 #' @include BiodbConnBase.R
 #' @export BiodbConn
 #' @exportClass BiodbConn
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbConnBase", fields = list(.id = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbConnBase", fields = list(.id = "character", .entries = "list"))
 
 # Constructor {{{1
 ################################################################
@@ -45,6 +45,7 @@ BiodbConn$methods( initialize = function(id = NA_character_, ...) {
 	.self$.assert.is(id, "character")
 	.self$.assert.not.null(.self$.base.url)
 	.id <<- id
+	.entries <<- list()
 })
 
 # Get id {{{1
@@ -112,3 +113,57 @@ BiodbConn$methods( checkDb = function() {
 	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
 })
 
+# Get all cache entries {{{1
+################################################################
+
+BiodbConn$methods( getAllCacheEntries = function() {
+	":\n\nGet all entries from the cache."
+
+	return(.self$.entries)
+})
+
+# Delete all cache entries {{{1
+################################################################
+
+BiodbConn$methods( deleteAllCacheEntries = function() {
+	":\n\nDelete all entries from the cache."
+
+	.entries <<- list()
+})
+
+# Private methods {{{1
+################################################################
+
+# Add entries to cache {{{2
+################################################################
+
+BiodbConn$methods( .addEntriesToCache = function(ids, entries) {
+
+	ids <- as.character(ids)
+	
+	names(entries) <- ids
+
+	.self$.entries <- c(.self$.entries, entries)
+})
+
+# Get entries from cache {{{2
+################################################################
+
+BiodbConn$methods( .getEntriesFromCache = function(ids) {
+
+	ids <- as.character(ids)
+
+	return(.self$.entries[ids])
+})
+
+# Get entries missing from cache {{{2
+################################################################
+
+BiodbConn$methods( .getEntryMissingFromCache = function(ids) {
+
+	ids <- as.character(ids)
+
+	missing.ids <- ids[ ! ids %in% names(.self$.entries)]
+
+	return(missing.ids)
+})

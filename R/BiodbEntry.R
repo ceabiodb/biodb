@@ -49,7 +49,7 @@
 #' @include ChildObject.R
 #' @export BiodbEntry
 #' @exportClass BiodbEntry
-BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .parsing.expr = 'list'))
+BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .parsing.expr = 'list', .new = 'logical'))
 
 # Constructor {{{1
 ################################################################
@@ -61,6 +61,69 @@ BiodbEntry$methods( initialize = function(...) {
 
 	.fields <<- list()
 	.parsing.expr <<- list()
+	.new <<- FALSE
+})
+
+# Parent is connector {{{1
+################################################################
+
+BiodbEntry$methods( parentIsAConnector = function() {
+	":\n\nReturn TRUE if this entry belongs to a connector."
+
+	return(is(.self$getParent(), "BiodbConn"))
+})
+
+# Clone {{{1
+################################################################
+
+BiodbEntry$methods( clone = function() {
+	":\n\nClone this entry."
+
+	# Create new entry
+	clone <- .self$getBiodb()$getFactory()$createNewEntry(db.class = .self$getDbClass())
+
+	# Copy fields
+	clone$.fields <- .self$.fields
+
+	return(clone)
+})
+
+# Is new {{{1
+################################################################
+
+BiodbEntry$methods( isNew = function() {
+	":\n\nReturn TRUE if this entry was newly created."
+
+	return(.self$.new)
+})
+
+# Get database class {{{1
+################################################################
+
+BiodbEntry$methods( getDbClass = function() {
+	":\n\nReturns name of the database class associated with this entry."
+
+	# Get class name
+	s <- class(.self)
+
+	# Get connection class name
+	indices <- as.integer(gregexpr('[A-Z]', s, perl = TRUE)[[1]])
+
+	# Add dots
+	last.word <- TRUE
+	for (i in rev(indices))
+		if (last.word) {
+			# We cut last word which should be "Entry"
+			s <- substring(s, 1, i - 1)
+			last.word <- FALSE
+		}
+		else if (i != 1)
+			s <- paste(substring(s, 1, i - 1), '.', substring(s, i), sep = '')
+
+	# Set to lowercase
+	s <- tolower(s)
+
+	return(s)
 })
 
 # Set field value {{{1
@@ -376,8 +439,15 @@ BiodbEntry$methods( getName = function() {
 	return(name)
 })
 
-# PRIVATE METHODS {{{1
+# Private methods {{{1
 ################################################################
+
+# Set as new {{{2
+################################################################
+
+BiodbEntry$methods( .setAsNew = function(new) {
+	.new <<- new
+})
 
 # Is content correct {{{2
 ################################################################
@@ -417,7 +487,7 @@ BiodbEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
 })
 
-# DEPRECATED METHODS {{{1
+# Deprecated methods {{{1
 ################################################################
 
 # Get Field {{{2

@@ -73,6 +73,10 @@ BiodbWritable$methods( write = function() {
 
 	.self$.checkWritingIsAllowed()
 	.self$.doWrite()
+
+	# Unset "new" flag for all entries
+	for (e in .self$.entries)
+		e$.setAsNew(FALSE)
 })
 
 # Private methods {{{1

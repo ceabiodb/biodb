@@ -35,7 +35,7 @@
 #' @include ChildObject.R
 #' @export BiodbFactory
 #' @exportClass BiodbFactory
-BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .entries = "list", .chunk.size = "integer"))
+BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
 
 # Constructor {{{1
 ################################################################
@@ -45,7 +45,6 @@ BiodbFactory$methods( initialize = function(...) {
 	callSuper(...)
 
 	.conn <<- list()
-	.entries <<- list()
 	.chunk.size <<- NA_integer_
 })
 
@@ -196,20 +195,38 @@ BiodbFactory$methods( getEntry = function(conn.id, id, drop = TRUE) {
 	# Get connector
 	conn <- .self$getConn(conn.id)
 
-	# What entries are missing from factory cache?
-	missing.ids <- .self$.getMissingEntryIds(conn$getId(), id)
+	# What entries are missing from cache?
+	missing.ids <- conn$.getEntryMissingFromCache(id)
 
 	if (length(missing.ids) > 0)
-		new.entries <- .self$.createNewEntries(conn$getId(), missing.ids, drop = FALSE)
+		new.entries <- .self$.loadEntries(conn$getId(), missing.ids, drop = FALSE)
 
 	# Get entries
-	entries <- unname(.self$.getEntries(conn$getId(), id))
+	entries <- unname(conn$.getEntriesFromCache(id))
 
 	# If the input was a single element, then output a single object
 	if (drop && length(id) == 1)
 		entries <- entries[[1]]
 
 	return(entries)
+})
+
+# Create new entry {{{1
+################################################################
+
+BiodbFactory$methods( createNewEntry = function(db.class) {
+	":\n\nCreate a new entry from scratch. This entry is not stored in cache."
+
+	# Get database info
+	db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
+
+    # Get entry class
+    entry.class <- db.info$getEntryClass()
+
+    # Create entry instance
+	entry <- entry.class$new(parent = .self)
+
+	return(entry)
 })
 
 # Get all cache entries {{{1
@@ -223,10 +240,7 @@ BiodbFactory$methods( getAllCacheEntries = function(conn.id) {
 	if ( ! conn.id %in% names(.self$.conn))
 		.self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
 
-	if (conn.id %in% names(.self$.entries))
-		return(.self$.entries[[conn.id]])
-
-	return(NULL)
+	return(.self$.conn[[conn.id]]$getAllCacheEntries())
 })
 
 # Delete all cache entries {{{1
@@ -240,8 +254,7 @@ BiodbFactory$methods( deleteAllCacheEntries = function(conn.id) {
 	if ( ! conn.id %in% names(.self$.conn))
 		.self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
 
-	if (conn.id %in% names(.self$.entries))
-		.self$.entries[[conn.id]] <- NULL
+	.self$.conn[[conn.id]]$deleteAllCacheEntries()
 })
 
 # Get entry content {{{1
@@ -339,7 +352,7 @@ BiodbFactory$methods( show = function() {
 # Create new entries {{{2
 ################################################################
 
-BiodbFactory$methods( .createNewEntries = function(conn.id, ids, drop) {
+BiodbFactory$methods( .loadEntries = function(conn.id, ids, drop) {
 
 	new.entries <- list()
 
@@ -358,59 +371,10 @@ BiodbFactory$methods( .createNewEntries = function(conn.id, ids, drop) {
 		new.entries <- .self$.createEntryFromContent(conn$getId(), content = content, drop = drop)
 
 		# Store new entries in cache
-		.self$.storeNewEntries(conn$getId(), ids, new.entries)
+		conn$.addEntriesToCache(ids, new.entries)
 	}
 
 	return(new.entries)
-})
-
-# Create entries db slot {{{2
-################################################################
-
-BiodbFactory$methods( .createEntriesDbSlot = function(conn.id) {
-
-	if ( ! conn.id %in% names(.self$.entries))
-		.self$.entries[[conn.id]] <- list()
-})
-
-# Get entries {{{2
-################################################################
-
-BiodbFactory$methods( .getEntries = function(conn.id, ids) {
-
-	ids <- as.character(ids)
-
-	.self$.createEntriesDbSlot(conn.id)
-
-	return(.self$.entries[[conn.id]][ids])
-})
-
-# Store new entries {{{2
-################################################################
-
-BiodbFactory$methods( .storeNewEntries = function(conn.id, ids, entries) {
-
-	ids <- as.character(ids)
-
-	.self$.createEntriesDbSlot(conn.id)
-	
-	names(entries) <- ids
-
-	.self$.entries[[conn.id]] <- c(.self$.entries[[conn.id]], entries)
-})
-
-# Get missing entry IDs {{{2
-################################################################
-
-BiodbFactory$methods( .getMissingEntryIds = function(conn.id, ids) {
-
-	ids <- as.character(ids)
-
-	.self$.createEntriesDbSlot(conn.id)
-
-	missing.ids <- ids[ ! ids %in% names(.self$.entries[[conn.id]])]
-
-	return(missing.ids)
 })
 
 # Check if a connector already exists {{{2

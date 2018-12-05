@@ -454,10 +454,17 @@ test.mass.csv.file.add.new.entry <- function(biodb) {
 
 	# Create new connector
 	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.add.new.entry-db.tsv')
-	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = db.file))
-	conn$addEntry(entry)
-	entry.2 <- biodb$getFactory()$getEntry(conn.2$getId(), 'BML80005')
+	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
+	entry.2 <- entry$clone()
+	testthat::expect_false(entry.2$parentIsAConnector())
+	testthat::expect_error(conn$addNewEntry(entry.2))
+	conn.2$allowEditing()
+	conn$addNewEntry(entry.2)
+	testthat::expect_true(entry.2$parentIsAConnector())
+	testthat::expect_error(conn$addNewEntry(entry.2))
 	testthat::expect_true(entry.2$isNew())
+	conn.2$write()
+	testthat::expect_false(entry.2$isNew())
 
 	# Compare entries
 	df.1 <- biodb$entriesToDataframe(list(entry))
