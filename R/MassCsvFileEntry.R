@@ -14,6 +14,7 @@ MassCsvFileEntry$methods( initialize = function(...) {
 
 	callSuper(sep = "\t", ...)
 
+	# TODO Make it dynamic (returned from a function)
 	for (field in names(.self$getParent()$.fields))
 		if ( ! field %in% BIODB.PEAK.FIELDS)
 			.self$addParsingExpression(field, .self$getParent()$.fields[[field]])

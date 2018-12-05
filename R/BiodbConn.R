@@ -167,3 +167,12 @@ BiodbConn$methods( .getEntryMissingFromCache = function(ids) {
 
 	return(missing.ids)
 })
+
+# Get parsing expressions {{{1
+################################################################
+
+BiodbConn$methods( .getParsingExpressions = function() {
+	":\n\nReturn the parsing expressions needed for parsing an entry content."
+
+	.self$.abstract.method()
+})

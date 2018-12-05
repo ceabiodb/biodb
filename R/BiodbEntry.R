@@ -14,7 +14,6 @@
 #' @param flatten       If set to \code{TRUE} and a field's value is a vector of more than one element, then export the field's value as a single string composed of the field's value concatenated and separated by the character defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the field contains only one value, changes nothing.
 #' @param last          If set to \code{TRUE} and a field's value is a vector of more than one element, then export only the last value. If set to \code{FALSE}, changes nothing.
 #' @param only.atomic   If set to \code{TRUE}, only export field's values that are atomic (i.e.: of type vector and length one).
-#' @param parsing.expr  A parsing expression used to parse entry content string and obtain a field's value.
 #' @param value         A field's value.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntryFields}}.
@@ -49,7 +48,7 @@
 #' @include ChildObject.R
 #' @export BiodbEntry
 #' @exportClass BiodbEntry
-BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .parsing.expr = 'list', .new = 'logical'))
+BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .new = 'logical'))
 
 # Constructor {{{1
 ################################################################
@@ -60,7 +59,6 @@ BiodbEntry$methods( initialize = function(...) {
 	.self$.abstract.class('BiodbEntry')
 
 	.fields <<- list()
-	.parsing.expr <<- list()
 	.new <<- FALSE
 })
 
@@ -329,7 +327,12 @@ BiodbEntry$methods( addParsingExpression = function(field, parsing.expr) {
 BiodbEntry$methods( getParsingExpressions = function() {
 	":\n\nReturn a list of all defined parsing expressions for this entry."
 
-	return(.self$.parsing.expr)
+	expr <- NULL
+
+	if (.self$parentIsAConnector())
+		expr <- .self$getParent()$getParsingExpressions()
+
+	return(expr)
 })
 
 # Parse content {{{1
@@ -338,6 +341,11 @@ BiodbEntry$methods( getParsingExpressions = function() {
 BiodbEntry$methods( parseContent = function(content) {
 	":\n\nParse content string and set values accordingly for this entry's fields. This method is called automatically and should be run directly by users."
 
+	# No connector?
+	if ( ! entry$parentIsAConnector())
+		.self$message('error', 'Impossible to parse content for this entry, because its parent is not a connector.')
+
+	# Parse
 	if (.self$.isContentCorrect(content)) {
 
 		# Parse content
@@ -352,6 +360,7 @@ BiodbEntry$methods( parseContent = function(content) {
 	}
 
 	# Make sure the database id field is set to the same value as the accession field
+	# TODO Factorize this test in a separate method.
 	dbid.field <- .self$getParent()$getEntryIdField()
 	if (.self$hasField(dbid.field) && .self$hasField('accession')) {
 		if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
@@ -485,6 +494,12 @@ BiodbEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 ################################################################
 
 BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
+})
+
+# Check database ID field {{{2
+################################################################
+
+BiodbEntry$methods( .checkDbIdField = function() {
 })
 
 # Deprecated methods {{{1

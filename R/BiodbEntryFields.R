@@ -218,16 +218,16 @@ BiodbEntryFields$methods( .initFields = function() {
 
 	# MS Peaks
 	.self$.define('peaks',              description = 'Peaks table.',                class = 'data.frame')
-	.self$.define('peak.mz',            description = 'Peak M/Z.',      class = 'double')
-	.self$.define('peak.mztheo',        description = 'Peak theoretical M/Z.',  class = 'double')
-	.self$.define('peak.mzexp',         description = 'Peak experimental M/Z.',   class = 'double')
-	.self$.define('peak.attr',          description = 'Peak attribution.')
-	.self$.define('peak.relative.intensity',          description = 'Peak relative intensity, in percentage (from 0 to 100).', class = 'double')
-	.self$.define('peak.intensity',          description = 'Peak intensity.', class = 'double')
-	.self$.define('peak.formula',            description = 'Peak formula.')
-	.self$.define('peak.comp',            description = 'Peak comp.')
-	.self$.define('peak.mass',            description = 'Peak mass.', class = 'double')
-	.self$.define('peak.error.ppm',            description = 'Peak error in PPM.', class = 'double')
+	.self$.define('peak.mz',            description = 'Peak M/Z.',      class = 'double', group = 'peak')
+	.self$.define('peak.mztheo',        description = 'Peak theoretical M/Z.',  class = 'double', group = 'peak')
+	.self$.define('peak.mzexp',         description = 'Peak experimental M/Z.',   class = 'double', group = 'peak')
+	.self$.define('peak.attr',          description = 'Peak attribution.', group = 'peak')
+	.self$.define('peak.relative.intensity',          description = 'Peak relative intensity, in percentage (from 0 to 100).', class = 'double', group = 'peak')
+	.self$.define('peak.intensity',          description = 'Peak intensity.', class = 'double', group = 'peak')
+	.self$.define('peak.formula',            description = 'Peak formula.', group = 'peak')
+	.self$.define('peak.comp',            description = 'Peak comp.', group = 'peak')
+	.self$.define('peak.mass',            description = 'Peak mass.', class = 'double', group = 'peak')
+	.self$.define('peak.error.ppm',            description = 'Peak error in PPM.', class = 'double', group = 'peak')
 
 	# Chromatographic column
 	.self$.define('chrom.col.name',             description = 'Chromatographic column name.', alias = c('chrom.col', 'chromcol'))
