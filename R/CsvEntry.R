@@ -54,14 +54,17 @@ CsvEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 
 CsvEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 
+	# Get parsing expressions
+	parsing.expr <- .self$getParent()$.getParsingExpressions()
+
 	# Loop on all expressions
-	for (field in names(.self$.parsing.expr)) {
+	for (field in names(parsing.expr)) {
 
 		# Is field in columns?
-		if (.self$.parsing.expr[[field]] %in% names(parsed.content)) {
+		if (parsing.expr[[field]] %in% names(parsed.content)) {
 
 			# Get value
-			v <- parsed.content[[.self$.parsing.expr[[field]]]]
+			v <- parsed.content[[parsing.expr[[field]]]]
 
 			# Is value considered NA?
  			if ( ! is.null(.self$.na.strings) && length(.self$.na.strings >= 1) && ! all(is.na(.self$.na.strings)))

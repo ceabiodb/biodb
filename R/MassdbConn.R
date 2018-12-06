@@ -324,7 +324,7 @@ MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level =
 	.self$.abstract.method()
 })
 
-# DEPRECATED METHODS {{{1
+# Deprecated methods {{{1
 ################################################################
 
 # Search by M/Z within range {{{2
@@ -348,7 +348,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 	
 	return(.self$searchMsEntries(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
-# PRIVATE METHODS {{{1
+# Private methods {{{1
 ################################################################
 
 # Convert M/Z tolerance to range {{{2

@@ -57,6 +57,15 @@ BiodbConn$methods( getId = function() {
 	return(.self$.id)
 })
 
+# Get entry {{{1
+################################################################
+
+BiodbConn$methods( getEntry = function(id, drop = TRUE) {
+	":\n\nReturn the entry corresponding to this ID. You can pass a vector of IDs, and you will get a list of entries."
+
+	return(.self$getBiodb()$getFactory()$getEntry(.self$getId(), id = id, drop = drop))
+})
+
 # Get entry content {{{1
 ################################################################
 
@@ -168,11 +177,9 @@ BiodbConn$methods( .getEntryMissingFromCache = function(ids) {
 	return(missing.ids)
 })
 
-# Get parsing expressions {{{1
+# Get parsing expressions {{{2
 ################################################################
 
 BiodbConn$methods( .getParsingExpressions = function() {
-	":\n\nReturn the parsing expressions needed for parsing an entry content."
-
 	.self$.abstract.method()
 })

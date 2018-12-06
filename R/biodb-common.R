@@ -37,15 +37,3 @@ BIODB.FIELD.COMPUTING[['inchi']]      <- c('chebi')
 BIODB.FIELD.COMPUTING[['inchikey']]   <- c('chebi')
 BIODB.FIELD.COMPUTING[['sequence']]   <- c('ncbi.ccds')
 BIODB.FIELD.COMPUTING[['molecular.mass']]   <- c('chebi')
-
-####################
-# PEAKS DATA FRAME #
-####################
-
-# Peak fields
-
-BIODB.PEAK.FIELDS <- c('peak.mz', 'peak.intensity', 'peak.relative.intensity', 'peak.formula', 'peak.formula.count', 'peak.mass', 'peak.error.ppm', 'peak.mzexp', 'peak.mztheo', 'peak.comp', 'peak.attr')
-
-# Example
-BIODB.PEAK.DF.EXAMPLE <- data.frame(mz = double(), int = double(), rel.int = integer(), formula = character(), formula.count <- integer(), mass = double(), error = double(), stringsAsFactors = FALSE)
-colnames(BIODB.PEAK.DF.EXAMPLE) <- c('peak.mz', 'peak.intensity', 'peak.relative.intensity', 'peak.formula', 'peak.formula.count', 'peak.mass', 'peak.error.ppm')

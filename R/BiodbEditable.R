@@ -93,6 +93,7 @@ BiodbEditable$methods( addNewEntry = function(entry) {
 
 	# Add entry to list
 	.self$.addEntriesToCache(id, list(entry))
+	# TODO make sure new entries are added to memory data frame for MassCsvFileConn
 })
 
 # Private methods {{{1
@@ -115,12 +116,5 @@ BiodbEditable$methods( .checkEditingIsAllowed = function() {
 	
 	if ( ! .self$.editing.allowed)
 		.self$message('error', 'Editing is not enabled for this database. However this database type is editable. Please call allowEditing() method to enable editing.')
-})
-
-# Do add new entry {{{2
-################################################################
-
-BiodbEditable$methods( .doAddEntry = function(entry) {
-	.self$.abstract.method()
 })
 

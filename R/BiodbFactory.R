@@ -332,7 +332,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 			}
 
 			# Merge content and missing.contents
-			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.ids %in% x], FUN.VALUE = '')
+			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.ids == x], FUN.VALUE = '')
 		}
 	}
 

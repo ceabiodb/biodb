@@ -13,9 +13,4 @@ MirbaseMatureEntry <- methods::setRefClass("MirbaseMatureEntry", contains = "Txt
 MirbaseMatureEntry$methods( initialize = function(...) {
 
 	callSuper(...)
-
-	.self$addParsingExpression('ACCESSION', "^>[^ ]+ *(MIMAT[0-9]+) .*$")
-	.self$addParsingExpression('NAME', "^>([^ ]+) *MIMAT[0-9]+ .*$")
-	.self$addParsingExpression('DESCRIPTION', "^>[^ ]+ *MIMAT[0-9]+ (.*)$")
-	.self$addParsingExpression('SEQUENCE', "^([ACGU]+)$")
 })

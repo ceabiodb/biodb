@@ -1,5 +1,20 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.BIODB.CHEBI.PARSING.EXPR <- list(
+	'accession'         = "substring-after(//ns:return/ns:chebiId,'CHEBI:')",
+	'smiles'            = "//ns:return/ns:smiles",
+	'inchi'             = "//ns:return/ns:inchi",
+	'inchikey'          = "//ns:return/ns:inchiKey",
+	'kegg.compound.id'  = "//ns:DatabaseLinks/ns:type[text()='KEGG COMPOUND accession']/../ns:data",
+	'mass'              = "//ns:mass",
+	'monoisotopic.mass' = "//ns:monoisotopicMass",
+	'charge'            = "//ns:charge",
+	'name'              = c("//ns:chebiAsciiName", "//ns:Synonyms/ns:data"),
+	'formula'           = c("//ns:Formulae/ns:source[text()='ChEBI']/../ns:data", "(//ns:Formulae/ns:data)[1]"))
+
 # Class declaration {{{1
 ################################################################
 
@@ -147,4 +162,14 @@ ChebiConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.fiel
 		ids <- ids[1:max.results]
 
 	return(ids)
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+ChebiConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.CHEBI.PARSING.EXPR)
 })

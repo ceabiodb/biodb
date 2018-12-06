@@ -1,5 +1,27 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.BIODB.HMDB.METABOLITES.PARSING.EXPR <- list(
+	'accession'             = "/metabolite/accession",
+	'kegg.compound.id'      = "//kegg_id",
+	'chebi.id'              = "//chebi_id",
+	'chemspider.id'         = "//chemspider_id",
+	'ncbi.pubchem.comp.id'  = "//pubchem_compound_id",
+	'name'                  = "/metabolite/name",
+	'formula'               = "/metabolite/chemical_formula",
+	'super.class'           = "//super_class",
+	'average.mass'          = "//average_molecular_weight",
+	'monoisotopic.mass'     = "//monisotopic_molecular_weight",
+	'comp.iupac.name.syst'  = "//iupac_name",
+	'comp.iupac.name.trad'  = "//traditional_iupac",
+	'cas.id'                = "//cas_registry_number",
+	'smiles'                = "//smiles",
+	'inchi'                 = "//inchi",
+	'inchikey'              = "//inchikey"
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -202,4 +224,14 @@ HmdbMetabolitesConn$methods( searchCompound = function(name = NULL, mass = NULL,
 	.self$message('caution', 'HMDB is not searchable. HMDB only provides an HTML interface for searching, giving results split across several pages. It is unpractical to use from a program. Since HMDB is downloaded entirely, a solution using an internal database will be implemented in the future.')
 
 	return(ids)
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+HmdbMetabolitesConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.HMDB.METABOLITES.PARSING.EXPR)
 })

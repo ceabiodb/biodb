@@ -13,11 +13,6 @@ MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry", contains = 'CsvEntr
 MassCsvFileEntry$methods( initialize = function(...) {
 
 	callSuper(sep = "\t", ...)
-
-	# TODO Make it dynamic (returned from a function)
-	for (field in names(.self$getParent()$.fields))
-		if ( ! field %in% BIODB.PEAK.FIELDS)
-			.self$addParsingExpression(field, .self$getParent()$.fields[[field]])
 })
 
 # Parse fields after {{{1
@@ -25,11 +20,15 @@ MassCsvFileEntry$methods( initialize = function(...) {
 
 MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
+	entry.fields <- .self$getBiodb()$getEntryFields()
+
 	# Make peak table
 	peak.cols <- NULL
-	for (field in names(.self$getParent()$.fields))
-		if (field %in% BIODB.PEAK.FIELDS && .self$getParent()$.fields[[field]] %in% colnames(parsed.content))
+	for (field in names(.self$getParent()$.fields)) {
+		f <- entry.fields$get(field)
+		if ( ! is.null(f) && ! is.na(f$getGroup()) && f$getGroup() == 'peak' && .self$getParent()$.fields[[field]] %in% colnames(parsed.content))
 			peak.cols <- c(peak.cols, field)
+	}
 	peaks <- parsed.content[, .self$getParent()$.fields[peak.cols]]
 	colnames(peaks) <- peak.cols # Rename columns
 	for (c in colnames(peaks)) # Force class of columns

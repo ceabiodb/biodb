@@ -32,14 +32,17 @@ JsonEntry$methods( .doParseContent = function(content) {
 
 JsonEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 
+	# Get parsing expressions
+	parsing.expr <- .self$getParent()$.getParsingExpressions()
+
 	# Set fields
-	for (field in names(.self$.parsing.expr)) {
+	for (field in names(parsing.expr)) {
 
 		x <- parsed.content
 
 		# Go along path
 		found.value <- TRUE
-		for (t in .self$.parsing.expr[[field]])
+		for (t in parsing.expr[[field]])
 			if (t %in% names(x))
 				x <- x[[t]]
 			else {

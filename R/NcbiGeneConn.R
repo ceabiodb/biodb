@@ -1,5 +1,17 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.BIODB.NCBI.GENE.PARSING.EXPR <- list(
+	'accession'     = "//Gene-track_geneid",
+	'uniprot.id'    = "//Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str",
+	'location'      = "//Gene-ref_maploc",
+	'description'   = "//Gene-ref_desc",
+	'symbol'        = "//Gene-ref_locus",
+	'synonyms'      = "//Gene-ref_syn_E"
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -60,4 +72,14 @@ NcbiGeneConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.f
 	ids <- .self$ws.esearch(term = term, retmax = retmax, biodb.ids = TRUE)
 
 	return(ids)
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+NcbiGeneConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.NCBI.GENE.PARSING.EXPR)
 })

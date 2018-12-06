@@ -305,35 +305,7 @@ BiodbEntry$methods(	getFieldsAsJson = function(compute = TRUE) {
 	return(jsonlite::toJSON(.self$.fields, pretty = TRUE, digits = NA_integer_))
 })
 
-# Add Parsing expression {{{1
-################################################################
 
-BiodbEntry$methods( addParsingExpression = function(field, parsing.expr) {
-	":\n\nAdd a parsing expression for the specified field. The form of the parsing expression depends on the type of content and thus of the class inherited from BiodbEntry abstract class: CsvEntry, TxtEntry, XmlEntry, etc. This method is automatically called internally and should not be called by the user."
-
-	field <- tolower(field)
-
-	# Check that this field has no expression associated
-	if (field %in% names(.self$.parsing.expr))
-		.self$message('error', paste("A parsing expression has already been defined for field", field))
-
-	# Register new parsing expression
-	.self$.parsing.expr[[field]] <- parsing.expr 
-})
-
-# Get parsing expressions {{{1
-################################################################
-
-BiodbEntry$methods( getParsingExpressions = function() {
-	":\n\nReturn a list of all defined parsing expressions for this entry."
-
-	expr <- NULL
-
-	if (.self$parentIsAConnector())
-		expr <- .self$getParent()$getParsingExpressions()
-
-	return(expr)
-})
 
 # Parse content {{{1
 ################################################################
@@ -342,7 +314,7 @@ BiodbEntry$methods( parseContent = function(content) {
 	":\n\nParse content string and set values accordingly for this entry's fields. This method is called automatically and should be run directly by users."
 
 	# No connector?
-	if ( ! entry$parentIsAConnector())
+	if ( ! .self$parentIsAConnector())
 		.self$message('error', 'Impossible to parse content for this entry, because its parent is not a connector.')
 
 	# Parse

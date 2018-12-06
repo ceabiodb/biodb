@@ -1,5 +1,16 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.BIODB.KEGG.COMPOUND.PARSING.EXPR <- list(
+	'accession'         = "^ENTRY\\s+(\\S+)\\s+Compound",
+	'name'              = "^NAME\\s+([^,;]+)",
+	'formula'           = "^FORMULA\\s+(\\S+)$",
+	'exact.mass'        = "^EXACT_MASS\\s+(\\S+)$",
+	'molecular.weight'  = "^MOL_WEIGHT\\s+(\\S+)$"
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -185,4 +196,14 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 
 KeggCompoundConn$methods( getEntryImageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'Fig/compound/', id, '.gif', sep = ''))
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+KeggCompoundConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.KEGG.COMPOUND.PARSING.EXPR)
 })
