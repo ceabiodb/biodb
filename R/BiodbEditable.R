@@ -91,6 +91,9 @@ BiodbEditable$methods( addNewEntry = function(entry) {
 	# Flag entry as new
 	entry$.setAsNew(TRUE)
 
+	# Set the connector as its parent
+	entry$.setParent(.self)
+
 	# Add entry to list
 	.self$.addEntriesToCache(id, list(entry))
 	# TODO make sure new entries are added to memory data frame for MassCsvFileConn

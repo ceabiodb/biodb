@@ -179,9 +179,15 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 		# Check values
 		if (.self$getBiodb()$getEntryFields()$isDefined(tag)) {
 			entry.field <- .self$getBiodb()$getEntryFields()$get(tag)
+
+			# Check values of enumerate type
 			if (entry.field$isEnumerate()) {
+				print('-------------------------------- ZAPOTO')
+				print(.self$.db)
 				entry.field$checkValue(.self$.db[[colname]])
+				print('-------------------------------- VROOM')
 				.self$.db[[colname]] <- entry.field$correctValue(.self$.db[[colname]])
+				print('-------------------------------- PLOUF')
 			}
 		}
 
@@ -310,23 +316,6 @@ MassCsvFileConn$methods( setDb = function(db) {
 
 # Private methods {{{1
 ################################################################
-
-# Editable methods {{{2
-################################################################
-
-# Do add new entry {{{3
-################################################################
-
-MassCsvFileConn$methods( .doAddNewEntry = function(entry) {
-
-	                        # TODO Remove this method
-# TODO Write a test for writing a MassCsvFile database.
-
-# Add new entry to cache list of entries
-
-# Add new entry to internal data frame too
-	# TODO make sure new entries are added to memory data frame for MassCsvFileConn
-})
 
 # Writable methods {{{2
 ################################################################

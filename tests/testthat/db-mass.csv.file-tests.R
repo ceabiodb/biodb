@@ -463,6 +463,7 @@ test.mass.csv.file.add.new.entry <- function(biodb) {
 	testthat::expect_true(entry.2$parentIsAConnector())
 	testthat::expect_error(conn.2$addNewEntry(entry.2))
 	testthat::expect_true(entry.2$isNew())
+	conn.2$allowWriting()
 	conn.2$write()
 	testthat::expect_false(entry.2$isNew())
 
