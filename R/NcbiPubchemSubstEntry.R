@@ -11,8 +11,5 @@ NcbiPubchemSubstEntry <- methods::setRefClass("NcbiPubchemSubstEntry", contains 
 ################################################################
 
 NcbiPubchemSubstEntry$methods( initialize = function(...) {
-
 	callSuper(...)
-	.self$addParsingExpression('ACCESSION', "//PC-ID_id")
-	.self$addParsingExpression('ncbi.pubchem.comp.id', "//PC-CompoundType_id_cid")
 })

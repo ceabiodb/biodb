@@ -1,5 +1,25 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.BIODB.PEAKFOREST.MASS.PARSING.EXPR <- list(
+	'accession'                 = "id",
+	'msmode'                    = "polarity",
+	'msdev'                     = c('analyzerMassSpectrometerDevice', 'instrumentName'),
+	'msdevtype'                 = c('analyzerMassSpectrometerDevice', 'ionAnalyzerType'),
+	'mstype'                    = 'type',
+	'msprecmz'                  = 'parentIonMZ',
+	'chrom.col.name'            = c('liquidChromatography', 'columnName'),
+	'chrom.col.id'              = c('liquidChromatography', 'columnCode'),
+	'chrom.col.constructor'     = c('liquidChromatography', 'columnConstructorAString'),
+	'chrom.col.length'          = c('liquidChromatography', 'columnLength'),
+	'chrom.col.diameter'        = c('liquidChromatography', 'columnDiameter'),
+	'chrom.col.rt.min'          = 'RTmin',
+	'chrom.col.rt.max'          = 'RTmax',
+	'chrom.col.method.protocol' = c('liquidChromatography', 'methodProtocol')
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -275,7 +295,7 @@ PeakforestMassConn$methods( getChromCol = function(ids = NULL) {
 	return(cols)
 })
 
-# PRIVATE METHODS {{{1
+# Private methods {{{1
 ################################################################
 
 # Get mz values {{{2
@@ -373,4 +393,14 @@ PeakforestMassConn$methods( .peaksGetRange = function(spectra.type, mz.min, mz.m
 		results <- .self$.parseIDsFromJson(results)
 
 	return(results)
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+PeakforestMassConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.PEAKFOREST.MASS.PARSING.EXPR)
 })
