@@ -128,7 +128,13 @@ BiodbConn$methods( checkDb = function() {
 BiodbConn$methods( getAllCacheEntries = function() {
 	":\n\nGet all entries from the cache."
 
-	return(.self$.entries)
+	# Remove NULL entries
+	entries <- .self$.entries[ ! vapply(.self$.entries, is.null, FUN.VALUE = TRUE)]
+
+	# Remove names
+	names(entries) <- NULL
+
+	return(entries)
 })
 
 # Delete all cache entries {{{1
@@ -152,7 +158,13 @@ BiodbConn$methods( .addEntriesToCache = function(ids, entries) {
 	
 	names(entries) <- ids
 
-	.self$.entries <- c(.self$.entries, entries)
+	# Update known entries
+	known.ids <- ids[ids %in% names(.self$.entries)] 
+	.self$.entries[known.ids] <- entries[ids %in% known.ids]
+
+	# Add new entries
+	new.ids <- ids[ ! ids %in% names(.self$.entries)]
+	.self$.entries <- c(.self$.entries, entries[ids %in% new.ids])
 })
 
 # Get entries from cache {{{2

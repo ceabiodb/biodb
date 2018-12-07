@@ -182,12 +182,8 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 
 			# Check values of enumerate type
 			if (entry.field$isEnumerate()) {
-				print('-------------------------------- ZAPOTO')
-				print(.self$.db)
 				entry.field$checkValue(.self$.db[[colname]])
-				print('-------------------------------- VROOM')
 				.self$.db[[colname]] <- entry.field$correctValue(.self$.db[[colname]])
-				print('-------------------------------- PLOUF')
 			}
 		}
 
