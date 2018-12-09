@@ -54,7 +54,6 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 	while ( ! done) {
 
 		done <- TRUE
-			.self$message('info', 'ZAP')
 
 		# Initialize return values
 		content <- rep(NA_character_, length(entry.id))
