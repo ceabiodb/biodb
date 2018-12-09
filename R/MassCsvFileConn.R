@@ -561,18 +561,19 @@ MassCsvFileConn$methods( .getParsingExpressions = function() {
 		.parsing.expr <<- list()
 		entry.fields <- .self$getBiodb()$getEntryFields()
 
-		# Loop on all entry fields
-		for (field in entry.fields$getFieldNames()) {
-			f <- entry.fields$get(field)
-			if (is.na(f$getGroup()) || f$getGroup() != 'peak')
-				.self$.parsing.expr[[field]] <- field
-		}
-
 		# Loop on all fields defined in database
 		for (field in names(.self$.fields)) {
 			f <- entry.fields$get(field)
 			if (is.null(f) || is.na(f$getGroup()) || f$getGroup() != 'peak')
 				.self$.parsing.expr[[field]] <- .self$.fields[[field]]
+		}
+
+		# Loop on all entry fields
+		for (field in entry.fields$getFieldNames())
+			if ( ! field %in% names(.self$.fields)) {
+			f <- entry.fields$get(field)
+			if (is.na(f$getGroup()) || f$getGroup() != 'peak')
+				.self$.parsing.expr[[field]] <- field
 		}
 
 	}
