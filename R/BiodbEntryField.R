@@ -193,22 +193,15 @@ BiodbEntryField$methods( getAllNames = function() {
 	return(names)
 })
 
-# Is enumerated {{{2
-################################################################
-
-BiodbEntryField$methods( isEnumerated = function() {
-	return( ! is.null(.self$.allowed.values))
-})
-
 # Correct value {{{1
 ################################################################
 
 BiodbEntryField$methods( correctValue = function(value) {
 
-	if ( ! is.null(value) && ! is.na(value)) {
+	if (.self$isVector() && ! is.null(value) && ! is.na(value)) {
 
 		# Correct type
-		if (.self$isVector() && .self$getClass() != class(value))
+		if (.self$getClass() != class(value))
 			value <- as.vector(value, mode = .self$getClass())
 
 		# Lower case
@@ -216,7 +209,7 @@ BiodbEntryField$methods( correctValue = function(value) {
 			value <- tolower(value)
 
 		# Enumerated type
-		if (.self$isEnumerated() && class(.self$.allowed.values) == 'list')
+		if (.self$isEnumerate() && class(.self$.allowed.values) == 'list')
 			value <- vapply(value, function(v) { for (a in names(.self$.allowed.values)) if (v == a || v %in% .self$.allowed.values[[a]]) return(a) ; return(v) }, FUN.VALUE = as.vector(0, mode = .self$getClass()), USE.NAMES = FALSE)
 	}
 
@@ -305,7 +298,7 @@ BiodbEntryField$methods( checkValue = function(value) {
 		value <- tolower(value)
 
 	bad.values <- value[ ! value %in% .self$getAllowedValues()]
-	if (.self$isEnumerated() && length(bad.values) > 0)
+	if (.self$isEnumerate() && length(bad.values) > 0)
 		.self$message('error', paste('Value(s) ', paste(bad.values[ ! duplicated(bad.values)], collapse = ', '), ' is/are not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse = ', '), '.', sep = ''))
 })
 
@@ -372,7 +365,7 @@ BiodbEntryField$methods( isDataFrame = function() {
 	return(.self$.class == 'data.frame')
 })
 
-# Is vector {{{1
+# Is vector {{{1 
 ################################################################
 
 BiodbEntryField$methods( isVector = function() {
