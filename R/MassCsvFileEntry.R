@@ -23,8 +23,6 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 	entry.fields <- .self$getBiodb()$getEntryFields()
 
 	# Make peak table
-	print('-------------------------------- MassCsvFileEntry::.parseFieldsAfter 01')
-	print(parsed.content)
 	peaks <- NULL
 	for (field in entry.fields$getFieldNames()) {
 
@@ -52,16 +50,12 @@ MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
 			}
 		}
 	}
-	print('-------------------------------- MassCsvFileEntry::.parseFieldsAfter 10')
-	print(peaks)
 
 	# Add MZ column if missing
 	if ( ! is.null(peaks) && ! 'peak.mz' %in% colnames(peaks))
 		for (mz.col in c('peak.mztheo', 'peak.mzexp'))
 			if (mz.col %in% colnames(peaks))
 				peaks[['peak.mz']] <- peaks[[mz.col]]
-	print('-------------------------------- MassCsvFileEntry::.parseFieldsAfter 11')
-	print(peaks)
 
 	# Set peaks table in field
 	if ( ! is.null(peaks))

@@ -308,7 +308,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 		# Get contents
 		if (length(missing.ids) > 0 && ( ! methods::is(conn, 'BiodbDownloadable') || ! conn$isDownloaded())) {
 
-			.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getName(), " database."))
+			.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getName(), " database \"", conn$getBaseUrl(), "\"."))
 
 			# Divide list of missing ids in chunks (in order to save in cache regularly)
 			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
