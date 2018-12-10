@@ -11,23 +11,7 @@ PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry", contains = "J
 ################################################################
 
 PeakforestMassEntry$methods( initialize = function(...) {
-
 	callSuper(...)
-
-	.self$addParsingExpression('ACCESSION', "id")
-	.self$addParsingExpression('MSMODE', "polarity")
-	.self$addParsingExpression('MSDEV', c('analyzerMassSpectrometerDevice', 'instrumentName'))
-	.self$addParsingExpression('MSDEVTYPE', c('analyzerMassSpectrometerDevice', 'ionAnalyzerType'))
-	.self$addParsingExpression('MSTYPE', 'type')
-	.self$addParsingExpression('msprecmz', 'parentIonMZ')
-	.self$addParsingExpression('CHROM.COL.NAME', c('liquidChromatography', 'columnName'))
-	.self$addParsingExpression('CHROM.COL.ID', c('liquidChromatography', 'columnCode'))
-	.self$addParsingExpression('CHROM.COL.CONSTRUCTOR', c('liquidChromatography', 'columnConstructorAString'))
-	.self$addParsingExpression('CHROM.COL.LENGTH', c('liquidChromatography', 'columnLength'))
-	.self$addParsingExpression('CHROM.COL.DIAMETER', c('liquidChromatography', 'columnDiameter'))
-	.self$addParsingExpression('CHROM.COL.RT.MIN', 'RTmin')
-	.self$addParsingExpression('CHROM.COL.RT.MAX', 'RTmax')
-	.self$addParsingExpression('CHROM.COL.METHOD.PROTOCOL', c('liquidChromatography', 'methodProtocol'))
 })
 
 # Parse fields after {{{1

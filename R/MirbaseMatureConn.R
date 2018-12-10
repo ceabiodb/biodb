@@ -3,6 +3,16 @@
 #' @include MirbaseConn.R
 #' @include BiodbDownloadable.R
 
+# Constants {{{1
+################################################################
+
+.BIODB.MIRBASE.MATURE.PARSING.EXPR <- list(
+	'accession'     = "^>[^ ]+ *(MIMAT[0-9]+) .*$",
+	'name'          = "^>([^ ]+) *MIMAT[0-9]+ .*$",
+	'description'   = "^>[^ ]+ *MIMAT[0-9]+ (.*)$",
+	'sequence'      = "^([ACGU]+)$"
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -162,4 +172,14 @@ MirbaseMatureConn$methods( searchCompound = function(name = NULL, mass = NULL, m
 		.self$message('caution', 'Searching by mass is not possible.')
 
 	return(ids)
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+MirbaseMatureConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.MIRBASE.MATURE.PARSING.EXPR)
 })

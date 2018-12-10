@@ -14,13 +14,7 @@ ChildObject$methods( initialize = function(parent, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('ChildObject')
-
-	# Set parent
-	if (is.null(parent))
-		.self$message('error', "Parent cannot be NULL.")
-	if ( ! is(parent, 'BiodbObject'))
-		.self$message('error', "Parent must inherit from BiodbObject.")
-	.parent <<- parent
+	.self$.setParent(parent)
 })
 
 # Get parent {{{1
@@ -35,4 +29,16 @@ ChildObject$methods( getParent = function() {
 
 ChildObject$methods( getBiodb = function() {
 	return(.self$getParent()$getBiodb())
+})
+
+# Private methods {{{1
+################################################################
+
+ChildObject$methods( .setParent = function(parent) {
+
+	if (is.null(parent))
+		.self$message('error', "Parent cannot be NULL.")
+	if ( ! is(parent, 'BiodbObject'))
+		.self$message('error', "Parent must inherit from BiodbObject.")
+	.parent <<- parent
 })

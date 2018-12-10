@@ -1,5 +1,21 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.BIODB.CHEMSPIDER.PARSING.EXPR <- list(
+	'accession'         = "//CSID",
+	'formula'           = "//MF",
+	'name'              = "//CommonName",
+	'average.mass'      = "//AverageMass",
+	'monoisotopic.mass' = "//MonoisotopicMass",
+	'nominal.mass'      = "//NominalMass",
+	'molecular.weight'  = "//MolecularWeight",
+	'inchi'             = "//InChI",
+	'inchikey'          = "//InChIKey",
+	'smiles'            = "//SMILES"
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -38,7 +54,6 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 	while ( ! done) {
 
 		done <- TRUE
-			.self$message('info', 'ZAP')
 
 		# Initialize return values
 		content <- rep(NA_character_, length(entry.id))
@@ -104,7 +119,7 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
 })
 
-## Send search mass request {{{1
+# Send search mass request {{{1
 #################################################################
 #
 #ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
@@ -255,4 +270,14 @@ ChemspiderConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	ids <- .self$searchCompound(mass = 100, mass.field = 'monoisotopic.mass', mass.tol = mass.tol, max.results = max.results)
 
 	return(ids)
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+ChemspiderConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.CHEMSPIDER.PARSING.EXPR)
 })

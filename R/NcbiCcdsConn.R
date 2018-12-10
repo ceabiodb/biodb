@@ -2,6 +2,14 @@
 
 #' @include NcbiConn.R
 
+# Constants {{{1
+################################################################
+
+.BIODB.NCBI.CCDS.PARSING.EXPR <- list(
+	'accession' = list(path = "//input[@id='DATA']", attr = "value"),
+	'sequence'  = "//b[starts-with(.,'Nucleotide Sequence')]/../tt"
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -43,4 +51,14 @@ NcbiCcdsConn$methods( getEntryPageUrl = function(id) {
 
 NcbiCcdsConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+NcbiCcdsConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.NCBI.CCDS.PARSING.EXPR)
 })

@@ -2,6 +2,7 @@
 
 #' @include biodb-common.R
 #' @include MassdbConn.R 
+#' @include BiodbWritable.R 
 
 # In the provided file, each line represents an MS peak measure.
 # The file contains molecule and spectrum information. Each spectrum has an accession id.
@@ -9,7 +10,7 @@
 # Class declaration {{{1
 ################################################################
 
-MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = "MassdbConn", fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character"))
+MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = c("MassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character", .parsing.expr = 'list'))
 
 # Constructor {{{1
 ################################################################
@@ -25,6 +26,7 @@ MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"
 	.file.quote <<- file.quote
 	.fields <<- character()
 	.field.multval.sep <<- ';'
+	.parsing.expr <<- list()
 
 	# Precursors
 	.precursors <<- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+", "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
@@ -60,6 +62,9 @@ MassCsvFileConn$methods( setPrecursorFormulae = function(formulae) {
 
 MassCsvFileConn$methods( addPrecursorFormulae = function(formulae) {
 	":\n\nAdd new formulae to the list of formulae used to recognize precursors."
+
+	.self$.check.parsing.has.began()
+
 	if ( ! all(formulae %in% .self$.precursors)) {
 		formulae <- formulae[ ! formulae %in% .self$.precursors]
 		.precursors <<- c(.self$.precursors, formulae)
@@ -93,6 +98,8 @@ MassCsvFileConn$methods( hasField = function(tag) {
 
 MassCsvFileConn$methods( addField = function(tag, value) {
 	":\n\nAdd a new field (column) to the database (data frame)."
+
+	.self$.check.parsing.has.began()
 
 	tag <- tolower(tag)
 
@@ -137,6 +144,8 @@ MassCsvFileConn$methods( getField = function(tag) {
 
 MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = FALSE) {
 
+	.self$.check.parsing.has.began()
+
 	tag <- tolower(tag)
 
 	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
@@ -170,6 +179,8 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 		# Check values
 		if (.self$getBiodb()$getEntryFields()$isDefined(tag)) {
 			entry.field <- .self$getBiodb()$getEntryFields()$get(tag)
+
+			# Check values of enumerate type
 			if (entry.field$isEnumerate()) {
 				entry.field$checkValue(.self$.db[[colname]])
 				.self$.db[[colname]] <- entry.field$correctValue(.self$.db[[colname]])
@@ -192,6 +203,9 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 ################################################################
 
 MassCsvFileConn$methods( setFieldMultValSep = function(sep) {
+
+	.self$.check.parsing.has.began()
+
 	.field.multval.sep <<- sep
 })
 
@@ -274,7 +288,7 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 	df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
 
 	# For each id, take the sub data frame and convert it into string
-	content <- vapply(entry.id, function(x) if (is.na(x)) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(.self$.select(ids = x), file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") }, FUN.VALUE = '')
+	content <- vapply(entry.id, function(x) { if (is.na(x)) NA_character_ else { x.df <- .self$.select(ids = x) ; if (nrow(x.df) == 0) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(x.df, file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") } } }, FUN.VALUE = '')
 
 	if (length(content) > 0)
 		.self$message('debug', paste("Content of first entry:", content[[1]]))
@@ -288,27 +302,34 @@ MassCsvFileConn$methods( getEntryContent = function(entry.id) {
 MassCsvFileConn$methods( setDb = function(db) {
 	":\n\nSet the database directly from a data frame. You must not have set the database previously with the URL parameter."
 
-	# Already set
-	if ( ! is.null(.self$.db))
-		.self$message('error', 'Database has already been set.')
+	# URL point to an existing file?
+	url <- .self$getBaseUrl()
+	if ( ! is.null(url) && ! is.na(url) && file.exists(url))
+		.self$message('error', 'Cannot set this data frame as database. A URL that points to an existing file has already been set for the connector.')
 
-	# Not data frame
-	if ( ! is.data.frame(db))
-		.self$message('error', 'The database object must be a data frame.')
-
-	# Set data frame as database
-	.db <<- db
-
-	# Set fields
-	for (field in names(.self$.db))
-		.self$setField(field, field, ignore.if.missing = TRUE)
-
-	# Save column names
-	.db.orig.colnames <<- colnames(.self$.db)
+	.self$.doSetDb(db)
 })
 
-# PRIVATE METHODS {{{1
+# Private methods {{{1
 ################################################################
+
+# Writable methods {{{2
+################################################################
+
+# Do write {{{3
+################################################################
+
+MassCsvFileConn$methods( .doWrite = function() {
+	
+	# Get all entries
+	entries <- .self$getBiodb()$getFactory()$getAllCacheEntries(.self$getId())
+
+	# Get data frame of all entries
+	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
+
+	# Write data frame
+	write.table(df, file = .self$getBaseUrl(), row.names = FALSE, sep = "\t", quote = FALSE)
+})
 
 # Init db {{{2
 ################################################################
@@ -318,14 +339,24 @@ MassCsvFileConn$methods( .init.db = function() {
 	if (is.null(.self$.db)) {
 
 		# Check file
-		if ( ! file.exists(.self$getBaseUrl()))
-			.self$message('error', paste("Cannot locate the file database \"", .self$getBaseUrl() ,"\".", sep = ''))
+		file <- .self$getBaseUrl()
+		if ( ! is.null(file) && ! is.na(file) && ! file.exists(file))
+			.self$message('info', paste("Cannot locate the file database \"", file, "\".", sep = ''))
+
+		# No file to load
+		if (is.null(file) || is.na(file) || ! file.exists(file)) {
+			.self$message('info', "Creating empty database.")
+			db <- data.frame(accession = character(), stringsAsFactors = FALSE)
+		}
 
 		# Load database
-		db <- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE, fill = FALSE)
+		else {
+			.self$message('info', paste("Loading file database \"", file, "\".", sep = ''))
+			db <- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE, fill = FALSE)
+		}
 
 		# Set database
-		.self$setDb(db)
+		.self$.doSetDb(db)
 	}
 })
 
@@ -376,19 +407,19 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		.self$.check.fields('ms.mode')
 
 		# Filter on mode
-		db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), ]
+		db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), , drop = FALSE]
 	}
 
 	# Filter db on ids
 	if ( ! is.null(ids)) {
 		.self$.check.fields('accession')
-		db <- db[db[[.self$.fields[['accession']]]] %in% ids, ]
+		db <- db[db[[.self$.fields[['accession']]]] %in% ids, , drop = FALSE]
 	}
 
 	# Filter db on compound ids
 	if ( ! is.null(compound.ids)) {
 		.self$.check.fields('compound.id')
-		db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, ]
+		db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, , drop = FALSE]
 	}
 
 	# Filter on mz values
@@ -413,31 +444,31 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 		else if (is.list(s))
 			s <- unlist(s)
 
-		db <- db[s, ]
+		db <- db[s, , drop = FALSE]
 	}
 
 	# Filter on relative intensity
 	if ( ! is.na(min.rel.int)) {
 		if (.self$.check.fields('peak.relative.intensity', fail = FALSE))
-			db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, ]
+			db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, , drop = FALSE]
 		else
-			db <- db[integer(),]
+			db <- db[integer(), , drop = FALSE]
 	}
 
 	# Filter on precursors
 	if (precursor) {
 		if (.self$.check.fields('peak.attr', fail = FALSE))
-			db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, ]
+			db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, , drop = FALSE]
 		else
-			db <- db[integer(),]
+			db <- db[integer(), , drop = FALSE]
 	}
 
 	# Filter on MS level
 	if (level > 0) {
 		if (.self$.check.fields('ms.level', fail = FALSE))
-			db <- db[db[[.self$.fields[['ms.level']]]] == level, ]
+			db <- db[db[[.self$.fields[['ms.level']]]] == level, , drop = FALSE]
 		else
-			db <- db[integer(),]
+			db <- db[integer(), , drop = FALSE]
 	}
 
 	# Get subset of columns
@@ -482,4 +513,80 @@ MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precurs
 	mz <- .self$.select(cols = 'peak.mztheo', mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = ms.level)
 
 	return(mz)
+})
+
+# Do set database data frame {{{2
+################################################################
+
+MassCsvFileConn$methods( .doSetDb = function(db) {
+
+	# Already set?
+	if ( ! is.null(.self$.db))
+		.self$message('error', 'Database has already been set.')
+
+	# Not a data frame
+	if ( ! is.data.frame(db))
+		.self$message('error', 'The database object must be a data frame.')
+
+	# Set data frame as database
+	.db <<- db
+
+	# Set fields
+	for (field in names(.self$.db))
+		.self$setField(field, field, ignore.if.missing = TRUE)
+
+	# Save column names
+	.db.orig.colnames <<- colnames(.self$.db)
+})
+
+# Check setting of URL {{{2
+################################################################
+
+MassCsvFileConn$methods( .checkSettingOfUrl = function(key, value) {
+
+	# Setting of base URL
+	if (key == 'base.url') {
+		url <- .self$getBaseUrl()
+		if ( ! is.null(.self$.db) && ! is.null(url) && ! is.na(url) && file.exists(url))
+			.self$message('error', paste0('You cannot overwrite base URL. A URL has already been set ("', url, '") that points to a valid file that has already been loaded in memory.'))
+	}
+})
+
+# Get parsing expressions {{{2
+################################################################
+
+MassCsvFileConn$methods( .getParsingExpressions = function() {
+
+	if (length(.self$.parsing.expr) == 0) {
+		.parsing.expr <<- list()
+		entry.fields <- .self$getBiodb()$getEntryFields()
+
+		# Loop on all fields defined in database
+		for (field in names(.self$.fields)) {
+			f <- entry.fields$get(field)
+			if (is.null(f) || is.na(f$getGroup()) || f$getGroup() != 'peak')
+				.self$.parsing.expr[[field]] <- .self$.fields[[field]]
+		}
+
+		# Loop on all entry fields
+		for (field in entry.fields$getFieldNames())
+			if ( ! field %in% names(.self$.fields)) {
+			f <- entry.fields$get(field)
+			if (is.na(f$getGroup()) || f$getGroup() != 'peak')
+				.self$.parsing.expr[[field]] <- field
+		}
+
+	}
+
+	return(.self$.parsing.expr)
+})
+
+# Check if parsing has began {{{2
+################################################################
+
+MassCsvFileConn$methods( .check.parsing.has.began = function() {
+
+	# Parsing has began?
+	if (length(.self$.parsing.expr) > 0)
+		.self$message('error', 'Action impossible, parsing of entries has already began.')
 })

@@ -11,21 +11,7 @@ PeakforestCompoundEntry <- methods::setRefClass("PeakforestCompoundEntry", conta
 ################################################################
 
 PeakforestCompoundEntry$methods( initialize = function(...) {
-
 	callSuper(...)
-
-	.self$addParsingExpression('ACCESSION', "id")
-	.self$addParsingExpression('ncbi.pubchem.comp.id', "PubChemCID")
-	.self$addParsingExpression('chebi.id', "ChEBI")
-	.self$addParsingExpression('hmdb.metabolites.id', "HMDB")
-	.self$addParsingExpression('kegg.compound.id', "KEGG")
-	.self$addParsingExpression('FORMULA', "formula")
-	.self$addParsingExpression('SMILES', "canSmiles")
-	.self$addParsingExpression('AVERAGE.MASS', "averageMass")
-	.self$addParsingExpression('MONOISOTOPIC.MASS', "monoisotopicMass")
-	.self$addParsingExpression('inchi', "inChI")
-	.self$addParsingExpression('inchikey', "inChIKey")
-	.self$addParsingExpression('name', "mainName")
 })
 
 # Parse fields after {{{1
