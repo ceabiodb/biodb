@@ -56,6 +56,8 @@ test.mass.csv.file.output.columns <- function(db) {
 	# Get data frame of results
 	entries <- biodb$getFactory()$getEntry(db$getId(), spectra.ids)
 	entries.df <- biodb$entriesToDataframe(entries, only.atomic = FALSE)
+	print('-------------------------------- test.mass.csv.file.output.columns 10')
+	print(entries.df)
 
 	# Check that all columns of database file are found in entries data frame
 	# NOTE this supposes that the columns of the database file are named according to biodb conventions.
@@ -74,6 +76,7 @@ test.mass.csv.file.data.frame <- function(biodb) {
 	df <- data.frame(accession = ids, mz = mz, mode = '+')
 
 	# New biodb instance
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 
 	# Set database
@@ -98,6 +101,7 @@ test.mass.csv.file.old.col.names <- function(biodb) {
 	df <- data.frame(compoundid = 'A10', msmode = 'POS', mztheo = 112.07569, peakcomp = 'P9Z6W410', peakattr = '[(M+H)-(H2O)-(NH3)]+', chromcol = 'colAA', chromcolrt = 94.8, compoundcomp = 'J114L6M62O2', compoundmass = 146.10553, fullnames = 'Blablaine')
 
 	# New connector instance
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 
 	# Set database
@@ -114,6 +118,7 @@ test.mass.csv.file.old.col.names <- function(biodb) {
 test.fields <- function(biodb) {
 
 	# Create new connector to same file db
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.URL, fail.if.exists = FALSE)
 	conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
 
@@ -144,6 +149,7 @@ test.fields <- function(biodb) {
 ################################################################
 
 test.undefined.fields <- function(biodb) {
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.WRONG.HEADER.URL)
 	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are undefined in file database\\.$')
 }
@@ -152,6 +158,7 @@ test.undefined.fields <- function(biodb) {
 ################################################################
 
 test.wrong.nb.cols <- function(biodb) {
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.WRONG.NB.COLS.URL)
 	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
 }
@@ -168,6 +175,7 @@ test.field.card.one <- function(biodb) {
 	df <- data.frame(ids = ids, mz = mzs, mode = modes)
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(df)
 
@@ -188,6 +196,7 @@ test.getMzValues.without.peak.attr <- function(biodb) {
             	stringsAsFactors = FALSE)
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(df)
 
@@ -214,6 +223,7 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(biodb) {
             	stringsAsFactors = FALSE)
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(df)
 	conn$setField('ms.mode', 'mode')
@@ -248,6 +258,7 @@ test.mass.csv.file.mz.matching.limits <- function(biodb) {
 	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(db.df)
 
@@ -292,6 +303,7 @@ test.mass.csv.file.rt.matching.limits <- function(biodb) {
 	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', chrom.col.id = "col1", chrom.rt = 5.69, chrom.rt.unit = 'min', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(db.df)
 
@@ -346,6 +358,7 @@ test.mass.csv.file.ms.mode.values <- function(biodb) {
 	biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'ZZZ')
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(db.df)
 	
@@ -383,6 +396,7 @@ test.mass.csv.file.precursor.match <- function(biodb) {
 				   stringsAsFactors = FALSE)
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(db.df)
 
@@ -414,11 +428,14 @@ test.mass.csv.file.writing <- function(biodb) {
             	stringsAsFactors = FALSE)
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	print('-------------------------------- test.mass.csv.file.writing 10')
+	print(conn$getId())
 	conn$setDb(df)
 	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
 	testthat::expect_is(entry, 'BiodbEntry')
-	df.1 <- biodb$entriesToDataframe(list(entry))
+	df.1 <- biodb$entriesToDataframe(list(entry), only.atomic = FALSE, sort.cols = TRUE)
 	testthat::expect_error(conn$write())
 	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.writing-db.tsv')
 	conn$setBaseUrl(db.file)
@@ -428,12 +445,20 @@ test.mass.csv.file.writing <- function(biodb) {
 	# Load database file into another connector
 	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = db.file)) # Same URL as the first connector
 	biodb$getFactory()$deleteConn(conn$getId())
+	print('-------------------------------- test.mass.csv.file.writing 39')
+	print(db.file)
 	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
+	print('-------------------------------- test.mass.csv.file.writing 40')
+	print(conn.2$getId())
 	entry.2 <- biodb$getFactory()$getEntry(conn.2$getId(), 'BML80005')
 	testthat::expect_is(entry.2, 'BiodbEntry')
 
 	# Compare entries
-	df.2 <- biodb$entriesToDataframe(list(entry.2))
+	df.2 <- biodb$entriesToDataframe(list(entry.2), only.atomic = FALSE, sort.cols = TRUE)
+	print('-------------------------------- test.mass.csv.file.writing 100')
+	print(df.1)
+	print('-------------------------------- test.mass.csv.file.writing 101')
+	print(df.2)
 	testthat::expect_identical(df.1, df.2)
 }
 
@@ -448,6 +473,7 @@ test.mass.csv.file.add.new.entry <- function(biodb) {
             	stringsAsFactors = FALSE)
 
 	# Create connector
+	biodb$getFactory()$deleteAllConnectors()
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(df)
 	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
