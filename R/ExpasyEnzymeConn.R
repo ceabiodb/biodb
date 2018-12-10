@@ -1,5 +1,15 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.BIODB.EXPAZY.ENZYME.PARSING.EXPR <- list(
+	'accession'             = "^ID\\s+([0-9.]+)$",
+	'name'                  = "^DE\\s+(.+?)\\.?$",
+	'catalytic.activity'    = "^CA\\s+(.+?)\\.?$",
+	'cofactor'              = "^CF\\s+(.+?)\\.?$"
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -16,7 +26,6 @@
 #' @export ExpasyEnzymeConn
 #' @exportClass ExpasyEnzymeConn
 ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = c("RemotedbConn", "CompounddbConn"))
-
 
 # Web service enzyme-byname {{{1
 ################################################################
@@ -107,7 +116,7 @@ ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
 
-# PRIVATE METHODS {{{1
+# Private methods {{{1
 ################################################################
 
 # Do get entry content url {{{2
@@ -132,4 +141,11 @@ ExpasyEnzymeConn$methods( .parseWsReturnedHtml = function(html.results) {
 	ids <- XML::xpathSApply(xml, "//a[starts-with(@href,'/EC/')]", XML::xmlValue)
 
 	return(ids)
+})
+
+# Get parsing expressions {{{2
+################################################################
+
+ExpasyEnzymeConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.EXPAZY.ENZYME.PARSING.EXPR)
 })

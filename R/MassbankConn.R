@@ -4,55 +4,89 @@
 #' @include MassdbConn.R
 #' @include BiodbDownloadable.R
 
-# Prefix -> Dns conversion table {{{1
+# Constants {{{1
 ################################################################
 
-.PREFIX2DNS <- character()
-.PREFIX2DNS[['AC']] <- 'AAFC'
-.PREFIX2DNS[['AU']] <- 'UOA'
-.PREFIX2DNS[['BML']] <- 'WSU'
-.PREFIX2DNS[['BS']] <- 'BS'
-.PREFIX2DNS[['BSU']] <- 'Boise'
-.PREFIX2DNS[['CA']] <- 'Kyoto'
-.PREFIX2DNS[['CE']] <- 'MPI'
-.PREFIX2DNS[['CO']] <- 'Uconn'
-.PREFIX2DNS[['EA']] <- 'Eawag'
-.PREFIX2DNS[['EQ']] <- 'Eawag'
-.PREFIX2DNS[['ET']] <- 'Eawag_Addn'
-.PREFIX2DNS[['FFF']] <- 'PFOS'
-.PREFIX2DNS[['FIO']] <- 'Fiocruz'
-.PREFIX2DNS[['FU']] <- 'Fukuyama'
-.PREFIX2DNS[['GLS']] <- 'GLS'
-#.PREFIX2DNS[['HB']] <- ''
-.PREFIX2DNS[['JEL']] <- 'JEOL'
-.PREFIX2DNS[['JP']] <- 'Funatsu'
-.PREFIX2DNS[['KNA']] <- 'NAIST'
-.PREFIX2DNS[['KO']] <- 'Keio'
-.PREFIX2DNS[['KZ']] <- 'Kazusa'
-.PREFIX2DNS[['LIT']] <- 'Lit_Specs'
-.PREFIX2DNS[['MCH']] <- 'OsakaM'
-.PREFIX2DNS[['ML']] <- 'MetaboLights'
-.PREFIX2DNS[['MSJ']] <- 'MSSJ'
-.PREFIX2DNS[['MT']] <- 'Metabolon'
-.PREFIX2DNS[['NA']] <- 'NATOXAQ'
-.PREFIX2DNS[['NU']] <- 'Nihon'
-.PREFIX2DNS[['OUF']] <- 'OsakaU'
-.PREFIX2DNS[['PB']] <- 'IPB'
-.PREFIX2DNS[['PR']] <- 'RIKEN'
-.PREFIX2DNS[['RP']] <- 'BGC_Munich'
-# CASMI2012 ?
-.PREFIX2DNS[['SM']] <- 'CASMI2016'
-.PREFIX2DNS[['TT']] <- 'Tottori'
-.PREFIX2DNS[['TUE']] <- 'EAC_Tuebingen'
-.PREFIX2DNS[['TY']] <- 'Toyama'
-.PREFIX2DNS[['UA']] <- 'UFZ'
-.PREFIX2DNS[['UF']] <- 'UFZ'
-.PREFIX2DNS[['UN']] <- 'UFZ'
-.PREFIX2DNS[['UO']] <- 'Sangyo'
-.PREFIX2DNS[['UP']] <- 'UFZ'
-.PREFIX2DNS[['UPA']] <- 'UPAO'
-.PREFIX2DNS[['UT']] <- 'CHUBU'
-#.PREFIX2DNS[['WA']] <- ''
+# Parsing expressions {{{2
+################################################################
+
+.BIODB.MASSBANK.PARSING.EXPR <- list(
+	'accession'             = "^ACCESSION: (.+)$",
+	'name'                  = "^CH\\$NAME:\\s+(.+)$",
+	'msdev'                 = "^AC\\$INSTRUMENT: (.+)$",
+	'msdevtype'             = "^AC\\$INSTRUMENT_TYPE: (.+)$",
+	'mstype'                = "^AC\\$MASS_SPECTROMETRY: MS_TYPE (.+)$",
+	'nb.peaks'              = "^PK\\$NUM_PEAK: ([0-9]+)$",
+	'msprecannot'           = "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$",
+	'inchi'                 = "^CH\\$IUPAC:\\s+(.+)$",
+	'inchikey'              = "^CH\\$LINK: INCHIKEY\\s+(.+)$",
+	'chemspider.id'         = "^CH\\$LINK: CHEMSPIDER\\s+(.+)$",
+	'chebi.id'              = "^CH\\$LINK: CHEBI\\s+(.+)$",
+	'kegg.compound.id'      = "^CH\\$LINK: KEGG\\s+(.+)$",
+	'cas.id'                = "^CH\\$LINK: CAS\\s+(.+)$",
+	'ncbi.pubchem.comp.id'  = "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)",
+	'ncbi.pubchem.subst.id' = "^CH\\$LINK: PUBCHEM\\s+.*(SID:[0-9]+)",
+	'hmdb.metabolites.id'   = "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)",
+	'formula'               = "^CH\\$FORMULA:\\s+(.+)$",
+	'smiles'                = "^CH\\$SMILES:\\s+(.+)$",
+	'exact.mass'            = "^CH\\$EXACT_MASS:\\s+(.+)$",
+	'msmode'                = "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$",
+	'chrom.col.name'        = "^AC\\$CHROMATOGRAPHY: COLUMN_NAME\\s+(.+)$",
+	'chrom.solvent'         = "^AC\\$CHROMATOGRAPHY: SOLVENT\\s+(.+)$",
+	'chrom.flow.rate'       = "^AC\\$CHROMATOGRAPHY: FLOW_RATE\\s+(.+)$",
+	'chrom.flow.gradient'   = "^AC\\$CHROMATOGRAPHY: FLOW_GRADIENT\\s+(.+)$"
+)
+
+# Prefix -> Dns conversion table {{{2
+################################################################
+
+.BIODB.MASSBANK.PREFIX2DNS <- list(
+	'AC'  = 'AAFC',
+	'AU'  = 'UOA',
+	'BML' = 'WSU',
+	'BS'  = 'BS',
+	'BSU' = 'Boise',
+	'CA'  = 'Kyoto',
+	'CE'  = 'MPI',
+	'CO'  = 'Uconn',
+	'EA'  = 'Eawag',
+	'EQ'  = 'Eawag',
+	'ET'  = 'Eawag_Addn',
+	'FFF' = 'PFOS',
+	'FIO' = 'Fiocruz',
+	'FU'  = 'Fukuyama',
+	'GLS' = 'GLS',
+	'HB'  = '',
+	'JEL' = 'JEOL',
+	'JP'  = 'Funatsu',
+	'KNA' = 'NAIST',
+	'KO'  = 'Keio',
+	'KZ'  = 'Kazusa',
+	'LIT' = 'Lit_Specs',
+	'MCH' = 'OsakaM',
+	'ML'  = 'MetaboLights',
+	'MSJ' = 'MSSJ',
+	'MT'  = 'Metabolon',
+	'NA'  = 'NATOXAQ',
+	'NU'  = 'Nihon',
+	'OUF' = 'OsakaU',
+	'PB'  = 'IPB',
+	'PR'  = 'RIKEN',
+	'RP'  = 'BGC_Munich',
+#	 CASMI2012 ?
+	'SM'  = 'CASMI2016',
+	'TT'  = 'Tottori',
+	'TUE' = 'EAC_Tuebingen',
+	'TY'  = 'Toyama',
+	'UA'  = 'UFZ',
+	'UF'  = 'UFZ',
+	'UN'  = 'UFZ',
+	'UO'  = 'Sangyo',
+	'UP'  = 'UFZ',
+	'UPA' = 'UPAO',
+	'UT'  = 'CHUBU'
+	#WA = ''
+)
 
 # Class declaration {{{1
 ################################################################
@@ -242,42 +276,6 @@ MassbankConn$methods( requiresDownload = function() {
 	return(TRUE)
 })
 
-# Do download {{{1
-################################################################
-
-MassbankConn$methods( .doDownload = function() {
-
-	# Download tar.gz
-	tar.gz.url <- 'https://github.com/MassBank/MassBank-data/archive/master.tar.gz'
-	.self$message('info', paste0("Downloading \"", tar.gz.url, "\"..."))
-	.self$.getUrlScheduler()$downloadFile(url = tar.gz.url, dest.file = .self$getDownloadPath())
-})
-
-# Do extract download {{{1
-################################################################
-
-MassbankConn$methods( .doExtractDownload = function() {
-
-	# Extract
-	extracted.dir <- tempfile(.self$getId())
-	untar(tarfile = .self$getDownloadPath(), exdir = extracted.dir) 
-
-	# Copy all exported files
-	.self$message('info', "Copy all extracted MassBank record files into cache.")
-	record.files <- Sys.glob(file.path(extracted.dir, 'MassBank-data-master', '*', '*.txt'))
-	.self$message('info', paste("Found ", length(record.files), " record files in MassBank GitHub archive."))
-	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', record.files)
-	dup.ids <- duplicated(ids)
-	if (any(dup.ids))
-		.self$message('caution', paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
-	cache.files <- .self$getBiodb()$getCache()$getFilePath(conn.id = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
-	.self$getBiodb()$getCache()$deleteFiles(conn.id = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
-	file.copy(record.files, cache.files)
-
-	# Delete extracted dir
-	unlink(extracted.dir, recursive = TRUE)
-})
-
 # Get entry content {{{1
 ################################################################
 
@@ -382,8 +380,8 @@ MassbankConn$methods( getDns = function(id) {
 
 	dns <- vapply(id, function(x) {
 		prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', x, perl = TRUE)
-		if (prefix %in% names(.PREFIX2DNS))
-			.PREFIX2DNS[[prefix]]
+		if (prefix %in% names(.BIODB.MASSBANK.PREFIX2DNS))
+			.BIODB.MASSBANK.PREFIX2DNS[[prefix]]
 		else
 			NA_character_
 		}, FUN.VALUE = '', USE.NAMES = FALSE)
@@ -406,3 +404,50 @@ MassbankConn$methods( getEntryPageUrl = function(id) {
 MassbankConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+MassbankConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.MASSBANK.PARSING.EXPR)
+})
+
+# Do download {{{2
+################################################################
+
+MassbankConn$methods( .doDownload = function() {
+
+	# Download tar.gz
+	tar.gz.url <- 'https://github.com/MassBank/MassBank-data/archive/master.tar.gz'
+	.self$message('info', paste0("Downloading \"", tar.gz.url, "\"..."))
+	.self$.getUrlScheduler()$downloadFile(url = tar.gz.url, dest.file = .self$getDownloadPath())
+})
+
+# Do extract download {{{2
+################################################################
+
+MassbankConn$methods( .doExtractDownload = function() {
+
+	# Extract
+	extracted.dir <- tempfile(.self$getId())
+	untar(tarfile = .self$getDownloadPath(), exdir = extracted.dir) 
+
+	# Copy all exported files
+	.self$message('info', "Copy all extracted MassBank record files into cache.")
+	record.files <- Sys.glob(file.path(extracted.dir, 'MassBank-data-master', '*', '*.txt'))
+	.self$message('info', paste("Found ", length(record.files), " record files in MassBank GitHub archive."))
+	ids <- sub('^.*/([^/]*)\\.txt$', '\\1', record.files)
+	dup.ids <- duplicated(ids)
+	if (any(dup.ids))
+		.self$message('caution', paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
+	cache.files <- .self$getBiodb()$getCache()$getFilePath(conn.id = .self$getId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+	.self$getBiodb()$getCache()$deleteFiles(conn.id = .self$getId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
+	file.copy(record.files, cache.files)
+
+	# Delete extracted dir
+	unlink(extracted.dir, recursive = TRUE)
+})
+

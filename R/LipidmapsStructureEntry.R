@@ -13,16 +13,6 @@ LipidmapsStructureEntry <- methods::setRefClass("LipidmapsStructureEntry", conta
 LipidmapsStructureEntry$methods( initialize = function(...) {
 
 	callSuper(na.strings = c('', '-'), ...)
-
-	.self$addParsingExpression('NAME', 'COMMON_NAME')
-	.self$addParsingExpression('ACCESSION', 'LM_ID')
-	.self$addParsingExpression('kegg.compound.id', 'KEGG_ID')
-	.self$addParsingExpression('hmdb.metabolites.id', 'HMDBID')
-	.self$addParsingExpression('chebi.id', 'CHEBI_ID')
-	.self$addParsingExpression('ncbi.pubchem.comp.id', 'PUBCHEM_COMPOUND_ID')
-	.self$addParsingExpression('exact.mass', 'MASS')
-	.self$addParsingExpression('FORMULA', 'FORMULA')
-	.self$addParsingExpression('COMP.IUPAC.NAME.SYST', 'SYSTEMATIC_NAME')
 })
 
 # Is content correct {{{1

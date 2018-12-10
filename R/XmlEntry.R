@@ -5,17 +5,15 @@
 # Class declaration {{{1
 ################################################################
 
-XmlEntry <- methods::setRefClass("XmlEntry", contains = "BiodbEntry", fields = list(.namespace = "character"))
+XmlEntry <- methods::setRefClass("XmlEntry", contains = "BiodbEntry", fields = list())
 
 # Constructor {{{1
 ################################################################
 
-XmlEntry$methods( initialize = function(namespace = NA_character_, ...) {
+XmlEntry$methods( initialize = function(...) {
 
 	callSuper(...)
 	.self$.abstract.class('XmlEntry')
-
-	.namespace <<- namespace
 })
 
 # Do parse content {{{1
@@ -34,20 +32,24 @@ XmlEntry$methods( .doParseContent = function(content) {
 
 XmlEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 
+	# Get parsing expressions
+	parsing.expr <- .self$getParent()$.getParsingExpressions()
+
 	# Set namespace
-	ns <- if (is.na(.self$.namespace)) XML::xmlNamespaceDefinitions(parsed.content, simplify = TRUE) else .self$.namespace
+	xml.ns <- .self$getParent()$getXmlNs()
+	ns <- if (is.null(xml.ns) || is.na(xml.ns)) XML::xmlNamespaceDefinitions(parsed.content, simplify = TRUE) else c(ns = xml.ns)
 
 	# Loop on all parsing expressions
-	for (field in names(.self$.parsing.expr)) {
+	for (field in names(parsing.expr)) {
 
 		# Expression using only path
-		if (is.character(.self$.parsing.expr[[field]])) {
+		if (is.character(parsing.expr[[field]])) {
 
 			field.single.value <- .self$getBiodb()$getEntryFields()$get(field)$hasCardOne()
 			value <- NULL
 
 			# Loop on all expressions
-			for (expr in .self$.parsing.expr[[field]]) {
+			for (expr in parsing.expr[[field]]) {
 
 				# Parse
 				v <- XML::xpathSApply(parsed.content, expr, XML::xmlValue, namespaces = ns)
@@ -67,7 +69,7 @@ XmlEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 
 		# Expression using path and attribute
 		else
-			value <- XML::xpathSApply(parsed.content, .self$.parsing.expr[[field]]$path, XML::xmlGetAttr, .self$.parsing.expr[[field]]$attr, namespaces = ns)
+			value <- XML::xpathSApply(parsed.content, parsing.expr[[field]]$path, XML::xmlGetAttr, parsing.expr[[field]]$attr, namespaces = ns)
 
 		# Set value
 		if (length(value) > 0)

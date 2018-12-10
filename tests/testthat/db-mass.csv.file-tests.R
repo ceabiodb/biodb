@@ -146,6 +146,7 @@ test.fields <- function(biodb) {
 test.undefined.fields <- function(biodb) {
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.WRONG.HEADER.URL)
 	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are undefined in file database\\.$')
+	biodb$getFactory()$deleteConn(conn$getId())
 }
 
 # Test wrong nb cols {{{1
@@ -154,6 +155,7 @@ test.undefined.fields <- function(biodb) {
 test.wrong.nb.cols <- function(biodb) {
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.WRONG.NB.COLS.URL)
 	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
+	biodb$getFactory()$deleteConn(conn$getId())
 }
 
 # Test field card one {{{1
@@ -403,6 +405,91 @@ test.mass.csv.file.precursor.match <- function(biodb) {
 	expect_identical(results2[['accession']], c('A2', 'A2', NA_character_))
 }
 
+# Test database writing {{{1
+################################################################
+
+test.mass.csv.file.writing <- function(biodb) {
+
+	entry.id <- 'BML80005'
+	df <- rbind(data.frame(),
+            	list(accession = entry.id, ms.mode = 'pos', ms.level = 1, peak.mztheo = 219.1127765, peak.intensity = 373076,  peak.relative.intensity = 999),
+            	stringsAsFactors = FALSE)
+
+	# Create connector
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(df)
+	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
+	testthat::expect_is(entry, 'BiodbEntry')
+	df.1 <- biodb$entriesToDataframe(list(entry), only.atomic = FALSE, sort.cols = TRUE)
+	testthat::expect_error(conn$write())
+	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.writing-db.tsv')
+	conn$setBaseUrl(db.file)
+	conn$allowWriting()
+	conn$write()
+
+	# Load database file into another connector
+	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = db.file)) # Same URL as the first connector
+	biodb$getFactory()$deleteConn(conn$getId())
+	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
+	entry.2 <- biodb$getFactory()$getEntry(conn.2$getId(), 'BML80005')
+	testthat::expect_is(entry.2, 'BiodbEntry')
+
+	# Compare entries
+	df.2 <- biodb$entriesToDataframe(list(entry.2), only.atomic = FALSE, sort.cols = TRUE)
+	testthat::expect_identical(df.1, df.2)
+
+	# Delete connector
+	biodb$getFactory()$deleteConn(conn.2$getId())
+}
+
+# Test add new entry {{{1
+################################################################
+
+test.mass.csv.file.add.new.entry <- function(biodb) {
+
+	entry.id <- 'BML80005'
+	df <- rbind(data.frame(),
+            	list(accession = entry.id, ms.mode = 'pos', ms.level = 1, peak.mztheo = 219.1127765, peak.intensity = 373076,  peak.relative.intensity = 999),
+            	stringsAsFactors = FALSE)
+
+	# Create connector
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(df)
+	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
+
+	# Create new connector
+	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.add.new.entry-db.tsv')
+	if (file.exists(db.file))
+		unlink(db.file)
+	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
+	testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+	testthat::expect_null(conn.2$getEntry('BML80005'))
+	testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+	entry.2 <- entry$clone()
+	testthat::expect_false(entry.2$parentIsAConnector())
+	testthat::expect_error(conn.2$addNewEntry(entry.2))
+	testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+	conn.2$allowEditing()
+	conn.2$addNewEntry(entry.2)
+	testthat::expect_length(conn.2$getAllCacheEntries(), 1)
+	testthat::expect_true(entry.2$parentIsAConnector())
+	testthat::expect_error(conn.2$addNewEntry(entry.2))
+	testthat::expect_length(conn.2$getAllCacheEntries(), 1)
+	testthat::expect_true(entry.2$isNew())
+	conn.2$allowWriting()
+	conn.2$write()
+	testthat::expect_false(entry.2$isNew())
+
+	# Compare entries
+	df.1 <- biodb$entriesToDataframe(list(entry))
+	df.2 <- biodb$entriesToDataframe(list(entry.2))
+	testthat::expect_identical(df.1, df.2)
+
+	# Delete connectors
+	biodb$getFactory()$deleteConn(conn$getId())
+	biodb$getFactory()$deleteConn(conn.2$getId())
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -424,4 +511,6 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.test.that.on.biodb('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', biodb)
 	run.test.that.on.biodb('We can set additional values for MS mode.', 'test.mass.csv.file.ms.mode.values', biodb)
 	run.test.that.on.biodb('Precursor match works.', 'test.mass.csv.file.precursor.match', biodb)
+	run.test.that.on.biodb('Database writing works.', 'test.mass.csv.file.writing', biodb)
+	run.test.that.on.biodb('Adding a new entry to the database works.', 'test.mass.csv.file.add.new.entry', biodb)
 }

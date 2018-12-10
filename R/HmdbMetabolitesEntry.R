@@ -13,23 +13,6 @@ HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry", contains = 
 HmdbMetabolitesEntry$methods( initialize = function(...) {
 
 	callSuper(...)
-
-	.self$addParsingExpression('ACCESSION', "/metabolite/accession")
-	.self$addParsingExpression('kegg.compound.id', "//kegg_id")
-	.self$addParsingExpression('chebi.id', "//chebi_id")
-	.self$addParsingExpression('chemspider.id', "//chemspider_id")
-	.self$addParsingExpression('ncbi.pubchem.comp.id', "//pubchem_compound_id")
-	.self$addParsingExpression('NAME', "/metabolite/name")
-	.self$addParsingExpression('FORMULA', "/metabolite/chemical_formula")
-	.self$addParsingExpression('SUPER.CLASS', "//super_class")
-	.self$addParsingExpression('AVERAGE.MASS', "//average_molecular_weight")
-	.self$addParsingExpression('MONOISOTOPIC.MASS', "//monisotopic_molecular_weight")
-	.self$addParsingExpression('COMP.IUPAC.NAME.SYST', "//iupac_name")
-	.self$addParsingExpression('COMP.IUPAC.NAME.TRAD', "//traditional_iupac")
-	.self$addParsingExpression('CAS.ID', "//cas_registry_number")
-	.self$addParsingExpression('SMILES', "//smiles")
-	.self$addParsingExpression('INCHI', "//inchi")
-	.self$addParsingExpression('INCHIKEY', "//inchikey")
 })
 
 # Is parsed content correct {{{1

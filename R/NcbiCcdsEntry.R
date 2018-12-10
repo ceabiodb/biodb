@@ -13,9 +13,6 @@ NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains = "HtmlEntry")
 NcbiCcdsEntry$methods( initialize = function(...) {
 
 	callSuper(...)
-
-	.self$addParsingExpression('ACCESSION', list(path = "//input[@id='DATA']", attr = "value"))
-	.self$addParsingExpression('SEQUENCE', "//b[starts-with(.,'Nucleotide Sequence')]/../tt")
 })
 
 # Is parsed content correct {{{1

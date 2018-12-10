@@ -13,11 +13,6 @@ ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'TxtEn
 ExpasyEnzymeEntry$methods( initialize = function(...) {
 
 	callSuper(...)
-
-	.self$addParsingExpression('ACCESSION', "^ID\\s+([0-9.]+)$")
-	.self$addParsingExpression('NAME', "^DE\\s+(.+?)\\.?$")
-	.self$addParsingExpression('CATALYTIC.ACTIVITY', "^CA\\s+(.+?)\\.?$")
-	.self$addParsingExpression('COFACTOR', "^CF\\s+(.+?)\\.?$")
 })
 
 # Parse fields after {{{1

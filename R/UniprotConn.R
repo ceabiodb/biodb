@@ -1,5 +1,20 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.BIODB.UNIPROT.PARSING.EXPR <- list(
+	'name'              = "/ns:uniprot/ns:entry/ns:name",
+	'gene.symbols'      = "//ns:gene/ns:name",
+	'sequence'          = "//ns:entry/ns:sequence",
+	'accession'         = "//ns:accession[1]",
+	'kegg.compound.id'  = list(path = "//ns:dbReference[@type='KEGG']", attr = 'id'),
+	'ncbi.gene.id'      = list(path = "//ns:dbReference[@type='GeneID']", attr = 'id'),
+	'expasy.enzyme.id'  = list(path = "//ns:dbReference[@type='EC']", attr = 'id'),
+	'molecular.mass'    = list(path = "//ns:entry/ns:sequence", attr = 'mass'),
+	'length'            = list(path = "//ns:entry/ns:sequence", attr = 'length')
+)
+
 # Class declaration {{{1
 ################################################################
 
@@ -167,4 +182,14 @@ UniprotConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.fi
 	ids <- .self$ws.query.ids(query = query, limit = max.results)
 
 	return(ids)
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+UniprotConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.UNIPROT.PARSING.EXPR)
 })

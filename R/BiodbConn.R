@@ -32,7 +32,7 @@
 #' @include BiodbConnBase.R
 #' @export BiodbConn
 #' @exportClass BiodbConn
-BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbConnBase", fields = list(.id = "character"))
+BiodbConn <- methods::setRefClass("BiodbConn", contains = "BiodbConnBase", fields = list(.id = "character", .entries = "list"))
 
 # Constructor {{{1
 ################################################################
@@ -45,6 +45,7 @@ BiodbConn$methods( initialize = function(id = NA_character_, ...) {
 	.self$.assert.is(id, "character")
 	.self$.assert.not.null(.self$.base.url)
 	.id <<- id
+	.entries <<- list()
 })
 
 # Get id {{{1
@@ -54,6 +55,15 @@ BiodbConn$methods( getId = function() {
 	":\n\nGet the identifier of this connector."
 
 	return(.self$.id)
+})
+
+# Get entry {{{1
+################################################################
+
+BiodbConn$methods( getEntry = function(id, drop = TRUE) {
+	":\n\nReturn the entry corresponding to this ID. You can pass a vector of IDs, and you will get a list of entries."
+
+	return(.self$getBiodb()$getFactory()$getEntry(.self$getId(), id = id, drop = drop))
 })
 
 # Get entry content {{{1
@@ -112,3 +122,76 @@ BiodbConn$methods( checkDb = function() {
 	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
 })
 
+# Get all cache entries {{{1
+################################################################
+
+BiodbConn$methods( getAllCacheEntries = function() {
+	":\n\nGet all entries from the cache."
+
+	# Remove NULL entries
+	entries <- .self$.entries[ ! vapply(.self$.entries, is.null, FUN.VALUE = TRUE)]
+
+	# Remove names
+	names(entries) <- NULL
+
+	return(entries)
+})
+
+# Delete all cache entries {{{1
+################################################################
+
+BiodbConn$methods( deleteAllCacheEntries = function() {
+	":\n\nDelete all entries from the cache."
+
+	.entries <<- list()
+})
+
+# Private methods {{{1
+################################################################
+
+# Add entries to cache {{{2
+################################################################
+
+BiodbConn$methods( .addEntriesToCache = function(ids, entries) {
+
+	ids <- as.character(ids)
+	
+	names(entries) <- ids
+
+	# Update known entries
+	known.ids <- ids[ids %in% names(.self$.entries)] 
+	.self$.entries[known.ids] <- entries[ids %in% known.ids]
+
+	# Add new entries
+	new.ids <- ids[ ! ids %in% names(.self$.entries)]
+	.self$.entries <- c(.self$.entries, entries[ids %in% new.ids])
+})
+
+# Get entries from cache {{{2
+################################################################
+
+BiodbConn$methods( .getEntriesFromCache = function(ids) {
+
+	ids <- as.character(ids)
+
+	return(.self$.entries[ids])
+})
+
+# Get entries missing from cache {{{2
+################################################################
+
+BiodbConn$methods( .getEntryMissingFromCache = function(ids) {
+
+	ids <- as.character(ids)
+
+	missing.ids <- ids[ ! ids %in% names(.self$.entries)]
+
+	return(missing.ids)
+})
+
+# Get parsing expressions {{{2
+################################################################
+
+BiodbConn$methods( .getParsingExpressions = function() {
+	.self$.abstract.method()
+})

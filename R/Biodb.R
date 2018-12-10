@@ -209,7 +209,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 # Entries to data frame {{{1
 ################################################################
 
-Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE, compute = TRUE, fields = NULL, drop = FALSE) {
+Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE, compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE) {
 	":\n\nConvert a list of entries (\\code{BiodbEntry} objects) into a data frame."
 
 	if ( ! is.list(entries))
@@ -249,6 +249,10 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 			entries.df <- plyr::rbind.fill(df.list)
 		}
 	}
+
+	# Sort columns
+	if (sort.cols)
+		entries.df <- entries.df[sort(colnames(entries.df))]
 
 	# Drop
 	if (drop && ! is.null(entries.df) && ncol(entries.df) == 1)
