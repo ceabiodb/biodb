@@ -1,13 +1,111 @@
 #!/bin/bash
+# vi: fdm=marker
 
-set -ev
+# Get out of order databases {{{1
+################################################################
+
+get_ooo_dbs() {
+
+	dbs=$(grep '| *❌' README.md | sed 's/^.*| *\([^| ]*\) *| *❌.*$/\1/')
+
+	echo $dbs
+}
+
+# Update databases to process {{{1
+################################################################
+
+update_dbs_to_process() {
+	local ooo_dbs=$1
+	local IFS=,
+
+	# Update databases to test
+	if [[ -n $DATABASES ]] ; then
+		new_db_list=()
+		for db in $DATABASES ; do
+			if [[ $ooo_dbs =~ (^|,)$db($|,) ]] ; then
+				echo "***** Database \"$db\" is out of order, and will not be tested."
+			else
+				new_db_list+=($db)
+			fi
+			if [[ ${#new_db_list[@]} == 0 ]] ; then
+				export DATABASES=
+			else
+				export DATABASES="${new_db_list[@]}"
+			fi
+		done
+
+	# Update databases to exclude
+	elif [[ -n $DONT_TEST_DBS ]] ; then
+		for db in $ooo_dbs ; do
+			if [[ ! $DONT_TEST_DBS =~ (^|,)$db($|,) ]] ; then
+				echo "***** Database \"$db\" is out of order, and will not be tested."
+				export DONT_TEST_DBS=$DONT_TEST_DBS,$db
+			fi
+		done
+
+	# Build list of databases to exclude
+	else
+
+		for db in $ooo_dbs ; do
+			echo "***** Database \"$db\" is out of order, and will not be tested."
+		done
+		export DONT_TEST_DBS=$ooo_dbs
+	fi
+}
+
+# Run tests {{{1
+################################################################
+
+run_tests() {
+
+	if [[ -z $DATABASES && -z $DONT_TEST_DBS ]] ; then
+		echo "Nothing to test. Exiting."
+	else
+	 	echo -n "Testing package"
+
+		# Databases to test
+		if [[ -n $DATABASES ]] ; then
+			echo -n " on database(s) $DATABASES"
+		else
+			echo -n " on all databases"
+		fi
+
+		# Exclude databases
+		if [[ -n $DONT_TEST_DBS ]] ; then
+			echo -n " except on database(s) $DONT_TEST_DBS"
+		fi
+
+		# Mode
+		echo " in mode $MODES."
+
+		make test
+	fi
+}
+
+# Main {{{1
+################################################################
 
 # Check
 if [[ $CHECK == yes ]] ; then
+	echo "Checking package..."
 	make check
 fi
 
 # Test
 if [[ -n $MODES ]] ; then
-	make test
+
+	if [[ -n $DATABASES && -n $DONT_TEST_DBS ]] ; then
+		echo "Error, both DATABASES and DONT_TEST_DBS env vars are defined." >&2
+		exit 1
+	fi
+
+	# Get out of order databases
+	ooo_dbs=$(get_ooo_dbs | tr ' ' ',')
+	echo ooo_dbs=$ooo_dbs
+
+	# Update list of databases to process
+	update_dbs_to_process $ooo_dbs
+
+	# Run tests
+	run_tests
 fi
