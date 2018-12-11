@@ -71,7 +71,6 @@ test.peakforest.mass.rt.match.with.different.units <- function(db) {
 	# Search for peaks using RT in minutes
 	rt <- rt / 60
 	rt.unit <- 'min'
-	rt.tol <- rt.tol / 60
 	peaks.min <- db$searchMsPeaks(mz = mz, mz.tol = mz.tol, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
 	expect_is(peaks.min, 'data.frame')
 	expect_gt(nrow(peaks.min), 0)

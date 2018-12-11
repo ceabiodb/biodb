@@ -21,7 +21,7 @@ miRBase Mature       | mirbase.mature      |   ❌   | [#261](https://github.com
 NCBI CCDS            | ncbi.ccds           |   ✅   |
 NCBI Gene            | ncbi.gene           |   ✅   |
 PeakForest Compound  | peakforest.compound |   ❌   | [#262](https://github.com/pkrog/biodb/issues/262) |            | Tests failure.
-PeakForest Mass      | peakforest.mass     |   ❌   | [#264](https://github.com/pkrog/biodb/issues/264) |            | Tests failure.
+PeakForest Mass      | peakforest.mass     |   ✅   |                                                   |            |
 PubChem Compound     | ncbi.pubchem.comp   |   ✅   |
 PubChem Substance    | ncbi.pubchem.subst  |   ✅   |
 UniProt              | uniprot             |   ❌   | [#263](https://github.com/pkrog/biodb/issues/263) |            | Tests failure.
