@@ -1,13 +1,203 @@
 #!/bin/bash
+# vi: fdm=marker
 
-set -ev
+# Constants {{{1
+################################################################
+
+YES=yes
+
+# Global variables {{{1
+################################################################
+
+DEBUG=0
+DRY_RUN=
+
+# Print help {{{1
+################################################################
+
+function print_help {
+	echo "Usage: travis-tests [options]"
+	echo
+	echo "This script is used to run tests on Travis-CI.org."
+	echo "The following environment variables are used:"
+	echo "  CHECK: If set yo \"yes\", then a check of the package will be run using \"devtools::check()\"."
+	echo "  MODE: The mode in which to test the database connectors. Either \"online\" or \"offline\"."
+	echo "  DBS: A comma separated list of databases to test. By default all database connectors are tested."
+	echo "  EXCLUDE_DBS: A comma separated list of database connectors to exclude from testing."
+	echo "See file \".travis.yml\"."
+	echo
+	echo "Options:"
+	echo "   -g, --debug          Debug mode."
+	echo "   -h, --help           Print this help message."
+	echo "   -n, --dry-run        Do not run anything."
+}
+
+# Error {{{1
+################################################################
+
+error() {
+
+	local msg="$1"
+
+	echo "ERROR: $msg" >&2
+
+	exit 1
+}
+
+# Print debug msg {{{1
+################################################################
+
+function print_debug_msg {
+
+	local dbglvl=$1
+	local dbgmsg=$2
+
+	[[ $DEBUG -ge $dbglvl ]] && echo "[DEBUG] $dbgmsg" >&2
+}
+
+# Read args {{{1
+################################################################
+
+function read_args {
+
+	local args="$*" # save arguments for debugging purpose
+	
+	# Read options
+	while true ; do
+		case $1 in
+			-n|--dry-run)       DRY_RUN=$YES ;;
+			-g|--debug)         DEBUG=$((DEBUG + 1)) ;;
+			-h|--help)          print_help ; exit 0 ;;
+			-) error "Illegal option $1." ;;
+			--) error "Illegal option $1." ;;
+			--*) error "Illegal option $1." ;;
+			-?) error "Unknown option $1." ;;
+			-[^-]*) split_opt=$(echo $1 | sed 's/^-//' | sed 's/\([a-zA-Z]\)/ -\1/g') ; set -- $1$split_opt "${@:2}" ;;
+			*) break
+		esac
+		shift
+	done
+	shift $((OPTIND - 1))
+
+	# Remaining arguments?
+	[[ -z "$*" ]] || error "Remaining arguments (\"$*\") are not allowed."
+
+	# Debug
+	print_debug_msg 1 "Arguments are : $args"
+	print_debug_msg 1 "Env var CHECK : $CHECK"
+	print_debug_msg 1 "Env var MODE : $MODE"
+	print_debug_msg 1 "Env var DBS : $DBS"
+	print_debug_msg 1 "Env var EXCLUDE_DBS : $EXCLUDE_DBS"
+}
+# Get out of order databases {{{1
+################################################################
+
+get_ooo_dbs() {
+
+	dbs=$(grep '| *❌' README.md | sed 's/^.*| *\([^| ]*\) *| *❌.*$/\1/')
+
+	echo $dbs
+}
+
+# Exclude out of order databases {{{1
+################################################################
+
+exclude_ooo_dbs() {
+
+	# Get out of order databases
+	local ooo_dbs=$(get_ooo_dbs | tr ' ' ',')
+
+	# Change separator
+	local IFS=,
+
+	# Update databases to test
+	if [[ -n $DBS ]] ; then
+		new_db_list=()
+		for db in $DBS ; do
+			if [[ $ooo_dbs =~ (^|,)$db($|,) ]] ; then
+				echo "***** Database \"$db\" is out of order, and will not be tested."
+			else
+				new_db_list+=($db)
+			fi
+			if [[ ${#new_db_list[@]} == 0 ]] ; then
+				DBS=none
+			else
+				DBS="${new_db_list[@]}"
+			fi
+		done
+
+	# Update databases to exclude
+	elif [[ -n $EXCLUDE_DBS ]] ; then
+		for db in $ooo_dbs ; do
+			if [[ ! $EXCLUDE_DBS =~ (^|,)$db($|,) ]] ; then
+				echo "***** Database \"$db\" is out of order, and will not be tested."
+				EXCLUDE_DBS=$EXCLUDE_DBS,$db
+			fi
+		done
+
+	# Build list of databases to exclude
+	else
+
+		for db in $ooo_dbs ; do
+			echo "***** Database \"$db\" is out of order, and will not be tested."
+		done
+		EXCLUDE_DBS=$ooo_dbs
+	fi
+}
+
+# Run tests {{{1
+################################################################
+
+run_tests() {
+
+	if [[ $DBS == none ]] ; then
+		echo "Nothing to test. Exiting."
+	else
+	 	echo -n "Testing package"
+
+		# Databases to test
+		if [[ -n $DBS ]] ; then
+			echo -n " on database(s) $DBS"
+			export DATABASES=$DBS
+		else
+			echo -n " on all databases"
+		fi
+
+		# Exclude databases
+		if [[ -n $EXCLUDE_DBS ]] ; then
+			echo -n " except on database(s) $EXCLUDE_DBS"
+			export DONT_TEST_DBS=$EXCLUDE_DBS
+		fi
+
+		# Mode
+		echo " in mode $MODE."
+		export MODES=$MODE
+
+		[[ $DRY_RUN == $YES ]] || make test
+	fi
+}
+
+# Main {{{1
+################################################################
+
+read_args "$@"
 
 # Check
 if [[ $CHECK == yes ]] ; then
+	echo "Checking package..."
 	make check
 fi
 
 # Test
-if [[ -n $MODES ]] ; then
-	make test
+if [[ -n $MODE ]] ; then
+
+	[[ $MODE == online || $MODE == offline ]] || error "MODE env var must be set either to online or offline."
+
+	[[ -n $DBS && -n $EXCLUDE_DBS ]] && error "Error, both DBS ($DBS) and EXCLUDE_DBS ($EXCLUDE_DBS) env vars are defined."
+
+	# Exclude out of order databases
+	[[ $MODE == offline ]] || exclude_ooo_dbs
+
+	# Run tests
+	run_tests
 fi
