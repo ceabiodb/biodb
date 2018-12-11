@@ -5,17 +5,26 @@ Biodb
 
 An R package for connecting to chemical and biological databases.
 
-Databases connection status:
+## Databases connection status
 
-In `README.md` file, add the following table:
-
-## Databases status
-
-Database     | Key        | Status | Related issue                                     | Explanations
------------- | ---------- | :---:  | ------------------------------------------------- | ---------------------
-ChEBI        | chebi      |   ✅
-Massbank     | massbank   |   ❌   | [#30](https://github.com/pkrog/biodb/issues/30)   |  The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.
-ChemSpider   | chemspider |   ❌   | [#259](https://github.com/pkrog/biodb/issues/259) | API broken: "XML content does not seem to be XML: Unauthorized web service usage. Please request access to this service."
+Database             | Key                 | Status | Related issue                                     | Related PR | Explanations
+------------         | ----------          | :---:  | ------------------------------------------------- | ---------- | ---------------------
+ChEBI                | chebi               |   ✅   |
+ChemSpider           | chemspider          |   ❌   | [#259](https://github.com/pkrog/biodb/issues/259) |            | API broken: "XML content does not seem to be XML: Unauthorized web service usage. Please request access to this service."
+ExPASy ENZYME        | expasy.enzyme       |   ✅   |
+HMDB Metabolites     | hmdb.metabolites    |   ✅   |
+KEGG Compound        | kegg.compound       |   ✅   |
+LIPID MAPS Structure | lipidmaps.structure |   ✅   |
+Mass CSV File        | mass.csv.file       |   ✅   |
+Massbank             | massbank            |   ❌   | [#30](https://github.com/pkrog/biodb/issues/30)   |            | The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.
+miRBase Mature       | mirbase.mature      |   ❌   | [#261](https://github.com/pkrog/biodb/issues/261) |            | Tests failure.
+NCBI CCDS            | ncbi.ccds           |   ✅   |
+NCBI Gene            | ncbi.gene           |   ✅   |
+PeakForest Compound  | peakforest.compound |   ❌   |
+PeakForest Mass      | peakforest.mass     |   ✅   | [#262](https://github.com/pkrog/biodb/issues/262) |            | Tests failure.
+PubChem Compound     | ncbi.pubchem.comp   |   ✅   |
+PubChem Substance    | ncbi.pubchem.subst  |   ✅   |
+UniProt              | uniprot             |   ❌   | [#263](https://github.com/pkrog/biodb/issues/263) |            | Tests failure.
 
 **Legend**:
  * ✅ Database is working fine with Biodb connector.

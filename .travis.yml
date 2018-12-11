@@ -8,11 +8,11 @@ notifications:
 
 env:
     - CHECK=yes
-    - DATABASES=hmdb.metabolites MODES=offline,online
-    - DATABASES=massbank MODES=offline,online
-    - DATABASES=peakforest.mass MODES=offline,online
-    - MODES=offline DONT_TEST_DBS=hmdb.metabolites,massbank,peakforest.mass
-    - MODES=online DONT_TEST_DBS=hmdb.metabolites,massbank,peakforest.mass
+    - MODE=offline
+    - MODE=online DBS=hmdb.metabolites
+    - MODE=online DBS=massbank
+    - MODE=online DBS=peakforest.mass
+    - MODE=online EXCLUDE_DBS=hmdb.metabolites,massbank,peakforest.mass
 
 branches:
   only:
