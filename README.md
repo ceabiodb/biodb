@@ -12,7 +12,7 @@ Database               | Key                 | Status | Related issue           
 ChEBI                  | chebi               |   ✅   |
 ChemSpider             | chemspider          |   ❌   | [#259](https://github.com/pkrog/biodb/issues/259) |            | API broken: "XML content does not seem to be XML: Unauthorized web service usage. Please request access to this service."
 ExPASy ENZYME          | expasy.enzyme       |   ✅   |
-HMDB Metabolites       | hmdb.metabolites    |   ❌   | [#265](https://github.com/pkrog/biodb/issues/265) |            | Tests failure.
+HMDB Metabolites       | hmdb.metabolites    |   ✅   |                                                   |            |               
 KEGG Compound          | kegg.compound       |   ✅   |
 LIPID MAPS Structure   | lipidmaps.structure |   ✅   |
 Mass CSV File          | mass.csv.file       |   ✅   |
