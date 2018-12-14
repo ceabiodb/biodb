@@ -6,7 +6,7 @@
 test.searchCompound <- function(db) {
 
 	# Not searchable databases
-	not.searchable <- list(name = c('hmdb.metabolites'), molecular.mass = c('chemspider', 'expasy.enzyme', 'ncbi.gene'), monoisotopic.mass = c('expasy.enzyme', 'ncbi.gene'), average.mass = c('chemspider'), nominal.mass = c('chemspider'))
+	not.searchable <- list(name = c('hmdb.metabolites'), molecular.mass = c('chemspider', 'expasy.enzyme', 'ncbi.gene', 'peakforest.compound'), monoisotopic.mass = c('expasy.enzyme', 'ncbi.gene'), average.mass = c('chemspider'), nominal.mass = c('chemspider', 'peakforest.compound'))
 
 	# Get an entry
 	id <- list.ref.entries(db$getId())[[1]]
