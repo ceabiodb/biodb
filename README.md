@@ -28,7 +28,7 @@ UniProt              | uniprot             |   ❌   | [#263](https://github.com
 
 **Legend**:
  * ✅ Database is working fine with Biodb connector.
- * ❌ Biodb database connector is broken. See issue and explanations.
+ * ❌ Biodb database connector is broken. This means that Travis-CI tests are disabled for this connector, until a fix is implemented. See "Related issue", "Related PR" and "Explanations" columns in table, for more details.
 
 ## Introduction
 
@@ -88,6 +88,10 @@ Here are some of the fields accessible through the retrieved entries:
  * Chromatographic retention time unit.
 
 ## Installation
+
+**biodb** is part of [bioconda](https://github.com/orgs/bioconda/dashboard), so you can install it using conda. This means also that is possible to install it automatically in Galaxy, for a tool, if the conda system is enabled.
+
+**biodb** is also installable directly from GitHub, or from a local repository. See below for details.
 
 ### Install from GitHub
 
