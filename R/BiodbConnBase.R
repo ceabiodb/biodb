@@ -68,14 +68,16 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	# Other parameters
 	.self$.assert.is(name, 'character')
 	.self$.assert.is(xml.ns, 'character')
-	.self$.assert.is(token, 'character')
 	.name <<- name
 	.xml.ns <<- xml.ns
+	.self$.assert.is(token, 'character')
 	if (is.na(token)) {
 		config <- .self$getBiodb()$getConfig()
 		token.key <- paste(db.class, 'token', sep = '.')
-		.token <<- if (config$isDefined(token.key, fail = FALSE)) config$get(token.key) else NA_character_
+		if (config$isDefined(token.key, fail = FALSE))
+			token <- config$get(token.key)
 	}
+	.token <<- token
 	.self$setSchedulerTParam(scheduler.t)
 	.self$setSchedulerNParam(scheduler.n)
 	.observers <<- list()
