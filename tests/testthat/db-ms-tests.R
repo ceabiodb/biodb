@@ -197,6 +197,21 @@ test.searchMzTol.with.precursor <- function(db) {
 	}
 }
 
+#  Test searchMzTol() with precursor and multiple inputs
+
+test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
+
+	# Input values
+	mz <- c(82.04819461, 83.01343941)
+	mz.tol <- 5
+	mz.tol.unit <- 'ppm'
+	ms.level <- 0
+	ms.mode <- 'pos'
+
+	# Search
+	ids <- db$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.level = ms.level, ms.mode = ms.mode, precursor = TRUE)
+	testthat::expect_is(ids, 'character')
+}
 
 # Test getChromCol {{{1
 ################################################################
@@ -296,6 +311,7 @@ run.mass.db.tests <- function(db, mode) {
 			run.db.test.that("We can match M/Z peaks.", 'test.searchMzTol',db)
 			run.db.test.that("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',db)
 			run.db.test.that("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', db)
+			run.db.test.that("Search by precursor with multiple mz inputs does not fail.", 'test.searchMzTol.with.precursor.and.multiple.inputs', db)
 
 			set.test.context(db$getBiodb(), paste("Running LCMS generic tests on database", db$getName(), "in", mode, "mode"))
 			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
