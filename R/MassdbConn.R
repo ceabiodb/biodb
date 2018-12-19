@@ -214,7 +214,7 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		mz.range <- .self$.convertMzTolToRange(mz = mz[[i]], mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 
 		# Search for spectra
-		.self$message('debug', paste('Searching for spectra that contains M/Z value ', mz, '.', sep = ''))
+		.self$message('debug', paste('Searching for spectra that contains M/Z value in range [', mz.range$min, ', ', mz.range$max, '].', sep = ''))
 		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (check.param$use.rt.match) NA_integer_ else max.results, ms.level = ms.level)
 		.self$message('debug', paste0('Found ', length(ids), ' spectra: ', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
 
