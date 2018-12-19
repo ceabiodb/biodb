@@ -182,93 +182,6 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 	return(mz)
 })
 
-# Do search M/Z with tolerance {{{1
-################################################################
-
-MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-
-	returned.ids <- character()
-
-	# Multiple M/Z values and PPM tolerance
-	if (length(mz) > 1 && mz.tol.unit == 'ppm') {
-		for (mz.single in mz)
-			returned.ids <- c(returned.ids, .self$.doSearchMzTol(mz = mz.single, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
-		returned.ids <- returned.ids[ ! duplicated(returned.ids)]
-	}
-
-	# Single M/Z value or PLAIN tolerance
-	else {
-
-		# Set tolerance
-		if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
-			mz.tol <- mz.tol * mz * 1e-6
-
-		# Build request
-		max <- max.results
-		if ( ! is.na(max) && (precursor || ms.level > 0))
-			max <- max(10000, 10 * max)
-		xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', paste(mz, collapse = ','), '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else (min.rel.int * 999 %/% 100), '</tns:relativeIntensity><tns:tolerance>', mz.tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == 'neg') 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
-
-		# Send request
-		.self$message('debug', paste('Searching for M/Z values, with request: "', xml.request, '".', sep = ''))
-		xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
-
-		# Parse XML and get text
-		if ( ! is.na(xmlstr)) {
-			.self$message('debug', 'Parsing XML response to get IDs.')
-			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-			ns <- c(ax21 = "http://api.massbank/xsd")
-			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
-			.self$message('debug', paste('Found spectra ', paste(returned.ids, collapse = ', '), '.', sep = ''))
-
-			if (ms.level > 0 || precursor) {
-
-				# Get entries
-				.self$message('debug', 'Get entries')
-				entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids, drop = FALSE)
-
-				# Filter on precursor
-				if (precursor) {
-					.self$message('debug', paste('Filtering on precurssor ', precursor, '.', sep = ''))
-					precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('msprecmz', last = TRUE), FUN.VALUE = 1.0)
-					precursor.matched <- (! is.na(precursor.mz)) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
-					entries <- entries[precursor.matched]
-					.self$message('debug', paste(length(entries), 'entrie(s) left.'))
-				}
-
-				# Filter on ms.level
-				if (ms.level > 0) {
-					.self$message('debug', paste('Filtering on MS level ', ms.level, '.', sep = ''))
-					ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue('MS.LEVEL') == ms.level, FUN.VALUE = TRUE)
-					entries <- entries[ms.level.matched]
-					.self$message('debug', paste(length(entries), 'entrie(s) left.'))
-				}
-
-				.self$message('debug', 'Getting list of IDs.')
-				returned.ids <- vapply(entries, function(x) x$getFieldValue('ACCESSION'), FUN.VALUE = '')
-				.self$message('debug', paste('Remaining spectra are ', paste(returned.ids, collapse = ', '), '.', sep = ''))
-			}
-		}
-	}
-
-	# Cut
-	if ( ! is.na(max.results) && length(returned.ids) > max.results) {
-		.self$message('debug', 'Cut list of IDs to return.')
-		returned.ids <- returned.ids[1:max.results]
-	}
-
-	return(returned.ids)
-})
-
-# Do search M/Z range {{{1
-################################################################
-
-MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-	mz <- (mz.min + mz.max) / 2
-	mz.tol <- mz.max - mz
-	return(.self$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
-})
-
 # Requires download {{{1
 ################################################################
 
@@ -449,5 +362,92 @@ MassbankConn$methods( .doExtractDownload = function() {
 
 	# Delete extracted dir
 	unlink(extracted.dir, recursive = TRUE)
+})
+
+# Do search M/Z range {{{1
+################################################################
+
+MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+	mz <- (mz.min + mz.max) / 2
+	mz.tol <- mz.max - mz
+	return(.self$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+})
+
+# Do search M/Z with tolerance {{{1
+################################################################
+
+MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+
+	returned.ids <- character()
+
+	# Multiple M/Z values and PPM tolerance
+	if (length(mz) > 1 && mz.tol.unit == 'ppm') {
+		for (mz.single in mz)
+			returned.ids <- c(returned.ids, .self$.doSearchMzTol(mz = mz.single, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+		returned.ids <- returned.ids[ ! duplicated(returned.ids)]
+	}
+
+	# Single M/Z value or PLAIN tolerance
+	else {
+
+		# Set tolerance
+		if (mz.tol.unit == BIODB.MZTOLUNIT.PPM)
+			mz.tol <- mz.tol * mz * 1e-6
+
+		# Build request
+		max <- max.results
+		if ( ! is.na(max) && (precursor || ms.level > 0))
+			max <- max(10000, 10 * max)
+		xml.request <- paste('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:searchPeak><tns:mzs>', paste(mz, collapse = ','), '</tns:mzs><tns:relativeIntensity>', if (is.na(min.rel.int)) 0 else (min.rel.int * 999 %/% 100), '</tns:relativeIntensity><tns:tolerance>', mz.tol, '</tns:tolerance><tns:instrumentTypes>all</tns:instrumentTypes><tns:ionMode>', if (is.na(ms.mode)) 'Both' else ( if (ms.mode == 'neg') 'Negative' else 'Positive'),'</tns:ionMode><tns:maxNumResults>', if (is.na(max)) 0 else max, '</tns:maxNumResults></tns:searchPeak></SOAP-ENV:Body></SOAP-ENV:Envelope>', sep = '')
+
+		# Send request
+		.self$message('debug', paste('Searching for M/Z values, with request: "', xml.request, '".', sep = ''))
+		xmlstr <- .self$.scheduler$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
+
+		# Parse XML and get text
+		if ( ! is.na(xmlstr)) {
+			.self$message('debug', 'Parsing XML response to get IDs.')
+			xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
+			ns <- c(ax21 = "http://api.massbank/xsd")
+			returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue, namespaces = ns)
+			.self$message('debug', paste('Found spectra ', paste(returned.ids, collapse = ', '), '.', sep = ''))
+
+			if (ms.level > 0 || precursor) {
+
+				# Get entries
+				.self$message('debug', 'Get entries')
+				entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), returned.ids, drop = FALSE)
+
+				# Filter on precursor
+				if (precursor) {
+					.self$message('debug', paste('Filtering on precurssor ', precursor, '.', sep = ''))
+					precursor.mz <- vapply(entries, function(x) if (is.null(x)) NA_real_ else x$getFieldValue('msprecmz', last = TRUE), FUN.VALUE = 1.0)
+					precursor.matched <- (! is.na(precursor.mz)) & (precursor.mz >= mz - mz.tol) & (precursor.mz <= mz + mz.tol)
+					entries <- entries[precursor.matched]
+					.self$message('debug', paste(length(entries), 'entrie(s) left.'))
+				}
+
+				# Filter on ms.level
+				if (ms.level > 0) {
+					.self$message('debug', paste('Filtering on MS level ', ms.level, '.', sep = ''))
+					ms.level.matched <- vapply(entries, function(x) if (is.null(x)) FALSE else x$getFieldValue('MS.LEVEL') == ms.level, FUN.VALUE = TRUE)
+					entries <- entries[ms.level.matched]
+					.self$message('debug', paste(length(entries), 'entrie(s) left.'))
+				}
+
+				.self$message('debug', 'Getting list of IDs.')
+				returned.ids <- vapply(entries, function(x) x$getFieldValue('ACCESSION'), FUN.VALUE = '')
+				.self$message('debug', paste('Remaining spectra are ', paste(returned.ids, collapse = ', '), '.', sep = ''))
+			}
+		}
+	}
+
+	# Cut
+	if ( ! is.na(max.results) && length(returned.ids) > max.results) {
+		.self$message('debug', 'Cut list of IDs to return.')
+		returned.ids <- returned.ids[1:max.results]
+	}
+
+	return(returned.ids)
 })
 

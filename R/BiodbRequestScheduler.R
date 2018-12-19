@@ -282,7 +282,11 @@ BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
 ################################################################
 
 BiodbRequestScheduler$methods( .findRule = function(url) {
-	return(.self$.host2rule[[urltools::domain(url)]])
+	.self$.assert.not.null(url)
+	.self$.assert.length.one(url)
+	.self$.assert.not.na(url)
+	domain <- urltools::domain(url)
+	return(.self$.host2rule[[domain]])
 })
 
 # Add connector rules {{{2
