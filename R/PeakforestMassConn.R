@@ -191,67 +191,6 @@ PeakforestMassConn$methods( wsLcmsmsFromPrecursor = function(prec.mz, precursorM
 	return(results)
 })
 
-# Do search M/Z range {{{1
-################################################################
-
-PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-	
-	# Search for spectra with this M/Z value
-	ids <- character()
-	mode <- if ( ! is.na(ms.mode)) (if (ms.mode == 'neg') 'NEG' else 'POS') else NA_character_
-	if (ms.level == 0 || ms.level == 1)
-		ids <- .self$wsLcmsPeaksGetRange(mz.min[[1]], mz.max[[1]], mode = mode, biodb.ids = TRUE)
-	if (ms.level == 0 || ms.level == 2) {
-		if (precursor && length(mz.min == 1))
-			ids <- c(ids, .self$wsLcmsmsFromPrecursor((mz.min + mz.max) / 2, (mz.max - mz.min) / 2, mode = mode, biodb.ids = TRUE))
-		else
-			ids <- c(ids, .self$wsLcmsmsPeaksGetRange(mz.min[[1]], mz.max[[1]], mode = mode, biodb.ids = TRUE))
-	}
-
-	# Filtering
-	if ( length(ids) > 0 && ( length(mz.min) > 1 || ! is.na(min.rel.int) || precursor)) {
-
-		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
-
-		# Filter on precursor
-		if (precursor && (ms.level %in% c(0, 1) || length(mz.min > 1)))
-			entries <- lapply(entries, function(e) if (is.null(e) || ! e$hasField('msprecmz') || ! any(e$getFieldValue('msprecmz') <= mz.max[e$getFieldValue('msprecmz') >= mz.min])) NULL else e)
-
-		# Filter on M/Z ranges when there are more than one range, and also on intensity
-		if (length(mz.min) > 1 || ! is.na(min.rel.int)) {
-			filtered.entries <- NULL
-			for (e in entries) {
-
-				good.entry <- FALSE
-				if (! is.null(e) && e$hasField('peaks')) {
-					peaks <- e$getFieldValue('peaks')
-					good.entry <- TRUE
-					for (i in seq_along(mz.min)) {
-						in.range <- (peaks[['peak.mz']] >= mz.min[[i]] & peaks[['peak.mz']] <= mz.max[[i]])
-						if ( ! any(in.range) || ( ! is.na(min.rel.int) && ! any(peaks[in.range, 'peak.relative.intensity'] >= min.rel.int))) {
-							good.entry <- FALSE
-							break
-						}
-					}
-				}
-
-				# Append entry to list
-				filtered.entries <- c(filtered.entries, if (good.entry) e else list(NULL))
-			}
-			entries <- filtered.entries
-		}
-
-		# Select entries
-		ids <- ids[ ! vapply(entries, is.null, FUN.VALUE = TRUE)]
-	}
-
-	# Cut
-	if ( ! is.na(max.results) && length(ids) > max.results)
-		ids <- ids[1:max.results]
-
-	return(ids)
-})
-
 # Get chromatographic columns {{{1
 ################################################################
 
@@ -395,12 +334,80 @@ PeakforestMassConn$methods( .peaksGetRange = function(spectra.type, mz.min, mz.m
 	return(results)
 })
 
-# Private methods {{{1
-################################################################
-
 # Get parsing expressions {{{2
 ################################################################
 
 PeakforestMassConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.PEAKFOREST.MASS.PARSING.EXPR)
+})
+
+# Do search M/Z range {{{1
+################################################################
+
+PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+
+	ids <- character()
+
+	# Multiple M/Z ranges
+	if (length(mz.min) > 1) {
+		for (i in seq_along(mz.min))
+			ids <- c(ids, .self$.doSearchMzRange(mz.min = mz.min[[i]], mz.max = mz.max[[i]], min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
+		ids <- ids[ ! duplicated(ids)]
+	}
+	
+	# Single M/Z range
+	else {
+		mode <- if ( ! is.na(ms.mode)) (if (ms.mode == 'neg') 'NEG' else 'POS') else NA_character_
+		if (ms.level == 0 || ms.level == 1)
+			ids <- .self$wsLcmsPeaksGetRange(mz.min, mz.max, mode = mode, biodb.ids = TRUE)
+		if (ms.level == 0 || ms.level == 2) {
+			if (precursor)
+				ids <- c(ids, .self$wsLcmsmsFromPrecursor((mz.min + mz.max) / 2, (mz.max - mz.min) / 2, mode = mode, biodb.ids = TRUE))
+			else
+				ids <- c(ids, .self$wsLcmsmsPeaksGetRange(mz.min, mz.max, mode = mode, biodb.ids = TRUE))
+		}
+	}
+
+	# Filtering
+	if ( length(ids) > 0 && ( length(mz.min) > 1 || ! is.na(min.rel.int) || precursor)) {
+
+		entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop = FALSE)
+
+		# Filter on precursor
+		if (precursor && (ms.level %in% c(0, 1) || length(mz.min > 1)))
+			entries <- lapply(entries, function(e) if ( ! is.null(e) && e$hasField('msprecmz') && any(e$getFieldValue('msprecmz') <= mz.max & e$getFieldValue('msprecmz') >= mz.min)) e else NULL)
+
+		# Filter on M/Z ranges when there are more than one range, and also on intensity
+		if (length(mz.min) > 1 || ! is.na(min.rel.int)) {
+			filtered.entries <- NULL
+			for (e in entries) {
+
+				good.entry <- FALSE
+				if (! is.null(e) && e$hasField('peaks')) {
+					peaks <- e$getFieldValue('peaks')
+					good.entry <- TRUE
+					for (i in seq_along(mz.min)) {
+						in.range <- (peaks[['peak.mz']] >= mz.min[[i]] & peaks[['peak.mz']] <= mz.max[[i]])
+						if ( ! any(in.range) || ( ! is.na(min.rel.int) && ! any(peaks[in.range, 'peak.relative.intensity'] >= min.rel.int))) {
+							good.entry <- FALSE
+							break
+						}
+					}
+				}
+
+				# Append entry to list
+				filtered.entries <- c(filtered.entries, if (good.entry) e else list(NULL))
+			}
+			entries <- filtered.entries
+		}
+
+		# Select entries
+		ids <- ids[ ! vapply(entries, is.null, FUN.VALUE = TRUE)]
+	}
+
+	# Cut
+	if ( ! is.na(max.results) && length(ids) > max.results)
+		ids <- ids[1:max.results]
+
+	return(ids)
 })
