@@ -81,6 +81,20 @@ test.peakforest.mass.rt.match.with.different.units <- function(db) {
 	expect_identical(peaks.sec[cols], peaks.min[cols])
 }
 
+# Test PeakForest Mass token init {{{1
+################################################################
+
+test.peakforest.mass.token.init <- function(biodb) {
+
+	token <- 'ABCDEFGHIJKL'
+	conn <- biodb$getFactory()$createConn('peakforest.mass', token = token, fail.if.exists = FALSE)
+	testthat::expect_is(conn, 'PeakforestMassConn')
+	testthat::expect_is(conn$getToken(), 'character')
+	testthat::expect_length(conn$getToken(), 1)
+	testthat::expect_equal(conn$getToken(), token)
+	biodb$getFactory()$deleteConn(conn$getId())
+}
+
 # Run PeakForest Compound tests {{{1
 ################################################################
 
@@ -96,6 +110,9 @@ run.peakforest.compound.tests <- function(db, mode) {
 ################################################################
 
 run.peakforest.mass.tests <- function(db, mode) {
+
+	run.test.that.on.biodb('Test token init.', 'test.peakforest.mass.token.init', db$getBiodb())
+
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		run.db.test.that('Test if RT match gives same result with minutes and seconds in input.', 'test.peakforest.mass.rt.match.with.different.units', db)
 	}
