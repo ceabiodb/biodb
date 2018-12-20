@@ -42,50 +42,51 @@
 
 .BIODB.MASSBANK.PREFIX2DNS <- list(
 	'AC'  = 'AAFC',
-	'AU'  = 'UOA',
-	'BML' = 'WSU',
+	'AU'  = 'Athens_Univ',
+	'BML' = 'Washington_State_Univ',
 	'BS'  = 'BS',
-	'BSU' = 'Boise',
-	'CA'  = 'Kyoto',
-	'CE'  = 'MPI',
+	'BSU' = 'Boise_State_Univ',
+	'CA'  = 'Kyoto_Univ',
+	'CE'  = 'MPI_for_Chemical_Ecology',
 	'CO'  = 'Uconn',
 	'EA'  = 'Eawag',
 	'EQ'  = 'Eawag',
-	'ET'  = 'Eawag_Addn',
-	'FFF' = 'PFOS',
+	'ET'  = 'Eawag_Additional_Specs',
+	'FFF' = 'PFOS_research_group',
 	'FIO' = 'Fiocruz',
 	'FU'  = 'Fukuyama',
-	'GLS' = 'GLS',
-	'HB'  = '',
-	'JEL' = 'JEOL',
-	'JP'  = 'Funatsu',
+	'GLS' = 'GL_Sciences_Inc',
+	'HB'  = 'HBM4EU',
+	'JEL' = 'JEOL_Ltd',
+	'JP'  = 'Fac_Eng_Univ_Tokyo',
 	'KNA' = 'NAIST',
-	'KO'  = 'Keio',
+	'KO'  = 'Keio_Univ',
 	'KZ'  = 'Kazusa',
-	'LIT' = 'Lit_Specs',
-	'MCH' = 'OsakaM',
+	'KW'  = 'KWR'
+	'LIT' = 'Literature_Specs',
+	'MCH' = 'Osaka_MCHRI',
 	'ML'  = 'MetaboLights',
 	'MSJ' = 'MSSJ',
 	'MT'  = 'Metabolon',
-	'NA'  = 'NATOXAQ',
-	'NU'  = 'Nihon',
-	'OUF' = 'OsakaU',
-	'PB'  = 'IPB',
+	'NA'  = 'NaToxAq',
+	'NU'  = 'Nihon_Univ',
+	'OUF' = 'Osaka_Univ',
+	'PB'  = 'IPB_Halle',
 	'PR'  = 'RIKEN',
 	'RP'  = 'BGC_Munich',
-#	 CASMI2012 ?
+    'SM'  = 'CASMI2012',
 	'SM'  = 'CASMI2016',
-	'TT'  = 'Tottori',
-	'TUE' = 'EAC_Tuebingen',
-	'TY'  = 'Toyama',
+	'TT'  = 'Tottori_Univ',
+	'TUE' = 'Env_Anal_Chem_U_Tuebingen',
+	'TY'  = 'Univ_Toyama',
 	'UA'  = 'UFZ',
 	'UF'  = 'UFZ',
 	'UN'  = 'UFZ',
 	'UO'  = 'Sangyo',
 	'UP'  = 'UFZ',
-	'UPA' = 'UPAO',
-	'UT'  = 'CHUBU'
-	#WA = ''
+	'UPA' = 'Univ_Connecticut',
+	'UT'  = 'Chubu_Univ'
+	'WA'  = 'Waters'
 )
 
 # Class declaration {{{1
@@ -306,7 +307,7 @@ MassbankConn$methods( getDns = function(id) {
 ################################################################
 
 MassbankConn$methods( getEntryPageUrl = function(id) {
-	url <- paste0(.self$getBaseUrl(), 'MassBank/jsp/RecordDisplay.jsp?id=', id, '&dsn=', .self$getDns(id))
+	url <- paste0(.self$getBaseUrl(), 'MassBank/RecordDisplay.jsp?id=', id, '&dsn=', .self$getDns(id))
 	.self$message('debug', paste0('Build entry page URL "', url, '".'))
 	return(url)
 })
