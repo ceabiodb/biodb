@@ -21,10 +21,10 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Get the connector of a compound database
-#' uniprot <- mybiodb$getFactory()$createConn('uniprot')
+#' conn <- mybiodb$getFactory()$createConn('chebi')
 #'
 #' # Search for compounds
-#' uniprot$searchCompound(name = 'prion protein', max.results = 10)
+#' conn$searchCompound(name = 'prion protein', max.results = 10)
 #'
 #' @include BiodbConn.R
 #' @export CompounddbConn

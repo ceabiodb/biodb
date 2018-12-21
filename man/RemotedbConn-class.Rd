@@ -18,6 +18,10 @@ This is the super class of remote database connectors. It thus defines methods r
 \section{Methods}{
 
 \describe{
+\item{\code{getEntryContent(entry.id)}}{:
+
+Get the content of an entry.}
+
 \item{\code{getEntryContentUrl(entry.id, concatenate = TRUE, max.length = 0)}}{:
 
 Get the URL to use in order to get the contents of the specified entries.}
