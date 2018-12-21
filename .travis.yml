@@ -2,7 +2,8 @@ language: r
 cache: packages
 
 r:
-    - 3.3
+    - oldrel
+    - release
 
 notifications:
  email:
