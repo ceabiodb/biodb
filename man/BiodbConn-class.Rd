@@ -28,6 +28,18 @@ This is the super class of all connector classes. All methods defined here are t
 
 Check that the database is correct by trying to load all entries.}
 
+\item{\code{deleteAllCacheEntries()}}{:
+
+Delete all entries from the cache.}
+
+\item{\code{getAllCacheEntries()}}{:
+
+Get all entries from the cache.}
+
+\item{\code{getEntry(id, drop = TRUE)}}{:
+
+Return the entry corresponding to this ID. You can pass a vector of IDs, and you will get a list of entries.}
+
 \item{\code{getEntryContent(entry.id)}}{:
 
 Get the content of an entry.}

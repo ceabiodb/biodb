@@ -47,6 +47,10 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 
  Get field's description.}
 
+\item{\code{getGroup()}}{:
+
+ Get field's group.}
+
 \item{\code{getName()}}{:
 
  Get field's name.}

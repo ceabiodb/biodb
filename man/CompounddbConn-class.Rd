@@ -35,10 +35,10 @@ Search for compounds by name and/or by mass. For searching by mass, you must ind
 mybiodb <- biodb::Biodb()
 
 # Get the connector of a compound database
-uniprot <- mybiodb$getFactory()$createConn('uniprot')
+conn <- mybiodb$getFactory()$createConn('chebi')
 
 # Search for compounds
-uniprot$searchCompound(name = 'prion protein', max.results = 10)
+conn$searchCompound(name = 'prion protein', max.results = 10)
 
 }
 \seealso{

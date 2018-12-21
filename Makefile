@@ -6,7 +6,7 @@ all:
 
 check:
 	$(RM) -r $(BIODB_CACHE_DIRECTORY)
-	R -q -e "devtools::check('$(CURDIR)')"
+	R -q -e "results <- devtools::check('$(CURDIR)') ; if (any(vapply(results, length, FUN.VALUE = 1) > 0)) quit(status = 1)"
 
 vignettes:
 	@echo Build vignettes for already installed package, not from local soures.
