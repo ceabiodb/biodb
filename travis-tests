@@ -173,7 +173,7 @@ run_tests() {
 		echo " in mode $MODE."
 		export MODES=$MODE
 
-		[[ $DRY_RUN == $YES ]] || make test
+		[[ $DRY_RUN == $YES ]] || make test || return 1
 	fi
 }
 
@@ -185,7 +185,7 @@ read_args "$@"
 # Check
 if [[ $CHECK == yes ]] ; then
 	echo "Checking package..."
-	make check
+	make check || exit 1
 fi
 
 # Test
@@ -199,5 +199,5 @@ if [[ -n $MODE ]] ; then
 	[[ $MODE == offline ]] || exclude_ooo_dbs
 
 	# Run tests
-	run_tests
+	run_tests || exit 1
 fi
