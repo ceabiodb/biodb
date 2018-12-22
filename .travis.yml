@@ -3,16 +3,16 @@ cache: packages
 
 r:
     #    - oldrel
-    #    - release
-    - devel
+   - release
+    #    - devel
 
 notifications:
  email:
   recipients:
    - pk.roger@icloud.com
 
-env:
-    - CHECK=yes
+     #env:
+     #    - CHECK=yes
       #    - MODE=offline
       #    - MODE=online DBS=hmdb.metabolites
       #    - MODE=online DBS=massbank
@@ -26,5 +26,5 @@ branches:
     - /^release[/].*$/
     - /^testing[/]travis-.*$/
 
-script:
-    - ./travis-tests
+      #script:
+      #    - ./travis-tests
