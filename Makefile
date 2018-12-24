@@ -1,7 +1,7 @@
 export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
-ZIPPED_PKG=$(CURDIR)/../biodb_$(PKG_VERSION).tar.gz
+ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
 
 all:
 
@@ -29,8 +29,10 @@ build: devtools.build
 devtools.build:
 	R -q -e "devtools::build('$(CURDIR)')"
 
-r.build: doc clean
-	R CMD build $(CURDIR)
+r.build: doc $(ZIPPED_PKG)
+
+$(ZIPPED_PKG):
+	cd "$(dir $(CURDIR))" && R CMD build "$(notdir $(CURDIR))" && mv "$(ZIPPED_PKG)" "$(CURDIR)"
 
 check.version:
 	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
