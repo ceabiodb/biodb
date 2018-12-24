@@ -1,12 +1,17 @@
 export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
+ZIPPED_PKG=$(CURDIR)/../biodb_$(PKG_VERSION).tar.gz
 
 all:
 
-check:
-	$(RM) -r $(BIODB_CACHE_DIRECTORY)
-	R -q -e "results <- devtools::check('$(CURDIR)') ; if (any(vapply(results, length, FUN.VALUE = 1) > 0)) quit(status = 1)"
+check: devtools.check
+
+devtools.check: clean.cache
+	R -q -e "results <- devtools::check('$(CURDIR)') ; if (length(results$$errors) > 0 || length(results$$warnings) > 0 || length(results$$notes) > 0) quit(status = 1)"
+
+r.check: clean.cache r.build
+	R CMD check --as-cran $(ZIPPED_PKG)
 
 vignettes:
 	@echo Build vignettes for already installed package, not from local soures.
@@ -16,8 +21,16 @@ vignettes:
 install.deps:
 	R -q -e "devtools::install_dev_deps('$(CURDIR)')"
 
-build:
+doc:
+	R -q -e "devtools::document('$(CURDIR)')"
+
+build: devtools.build
+
+devtools.build:
 	R -q -e "devtools::build('$(CURDIR)')"
+
+r.build: doc clean
+	R CMD build $(CURDIR)
 
 check.version:
 	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
@@ -42,9 +55,14 @@ win:
 conda_install_%: clean
 	docker build -t biodb.$@ -f tests/dockerfiles/$@.dockerfile .
 
-clean:
+clean: clean.cache clean.build
 	$(RM) src/*.o src/*.so src/*.dll
-	$(RM) -r tests/cache tests/test.log tests/output tests/test\ *.log
-	$(RM) -r $(HOME)/.biodb.dev.*.cache
+	$(RM) -r tests/test.log tests/output tests/test\ *.log
 
-.PHONY: all clean win test check vignettes install uninstall
+clean.build:
+	$(RM) biodb_*.tar.gz
+
+clean.cache:
+	$(RM) -r $(BIODB_CACHE_DIRECTORY)
+
+.PHONY: all clean win test check vignettes install uninstall devtools.check r.check devtools.build r.build clean.build clean.cache doc
