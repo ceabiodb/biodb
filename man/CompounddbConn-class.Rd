@@ -40,6 +40,9 @@ conn <- mybiodb$getFactory()$createConn('chebi')
 # Search for compounds
 conn$searchCompound(name = 'prion protein', max.results = 10)
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbConn}}.

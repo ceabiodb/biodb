@@ -40,6 +40,9 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' # Get the description of a field
 #' desc <- mybiodb$getEntryFields()$get('inchi')$getDescription()
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include biodb-common.R
 #' @include ChildObject.R

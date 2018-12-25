@@ -100,6 +100,9 @@ card.many <- mybiodb$getEntryFields()$get('name')$hasCardMany()
 # Get the description of a field
 desc <- mybiodb$getEntryFields()$get('inchi')$getDescription()
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbEntryFields}}.

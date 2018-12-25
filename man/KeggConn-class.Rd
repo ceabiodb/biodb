@@ -45,6 +45,9 @@ conn <- mybiodb$getFactory()$createConn('kegg.compound')
 # Search for an entry
 conn$ws.find.df('NADPH')
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}.

@@ -56,6 +56,9 @@ result <- uniprot$ws.query(query = 'name:"prion protein"',
                            columns = c('id', 'entry name'),
                            format = 'txt', limit = 10)
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.

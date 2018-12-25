@@ -23,6 +23,9 @@
 #' # Test if a name is associated with a defined field
 #' mybiodb$getEntryFields()$isDefined('chebi.id')
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include biodb-common.R
 #' @include Biodb.R

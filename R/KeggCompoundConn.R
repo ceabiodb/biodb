@@ -37,6 +37,9 @@
 #' # Search for compounds by molecular weight 
 #' conn$ws.find.molecular.weight.df(mass = 300)
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include KeggConn.R
 #' @include CompounddbConn.R
 #' @export KeggCompoundConn

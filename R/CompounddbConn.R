@@ -26,6 +26,9 @@
 #' # Search for compounds
 #' conn$searchCompound(name = 'prion protein', max.results = 10)
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbConn.R
 #' @export CompounddbConn
 #' @exportClass CompounddbConn

@@ -111,6 +111,9 @@ entry$setFieldValue('mass', 1893.1883)
 # Or even add a new field:
 entry$setFieldValue('chemspider.id', '388394')
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntryFields}}.

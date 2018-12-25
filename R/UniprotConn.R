@@ -40,6 +40,9 @@
 #'                            columns = c('id', 'entry name'),
 #'                            format = 'txt', limit = 10)
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include CompounddbConn.R
 #' @include RemotedbConn.R
 #' @export UniprotConn

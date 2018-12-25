@@ -87,6 +87,9 @@ conn <- factory$createConn('chebi')
 # Get a database entry:
 entry <- factory$getEntry('chebi', id = '2528')
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.

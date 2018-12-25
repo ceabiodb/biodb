@@ -48,6 +48,9 @@ picture.url <- conn$getEntryImageUrl('2')
 # Get the page URL of an entry
 page.url <- conn$getEntryPageUrl('2')
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbConn}}, \code{\link{BiodbRequestScheduler}}.

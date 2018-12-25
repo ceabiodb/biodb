@@ -21,6 +21,9 @@
 #' # Search for an entry
 #' conn$ws.find.df('NADPH')
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include RemotedbConn.R
 #' @export KeggConn
 #' @exportClass KeggConn

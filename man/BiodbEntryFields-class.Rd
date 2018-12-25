@@ -56,6 +56,9 @@ mybiodb$getEntryFields()$isAlias('genesymbols')
 # Test if a name is associated with a defined field
 mybiodb$getEntryFields()$isDefined('chebi.id')
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{Biodb}}, \code{\link{BiodbEntryField}}.

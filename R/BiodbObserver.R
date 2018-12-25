@@ -28,6 +28,9 @@
 #' # Create an instance and register an instance of the new observer class:
 #' mybiodb <- biodb::Biodb(observers = MyObsClass$new())
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @export BiodbObserver
 #' @exportClass BiodbObserver

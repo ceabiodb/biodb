@@ -70,6 +70,9 @@ ids <- conn$getEntryIds(10)
 # Get number of entries contained in the database:
 n <- conn$getNbEntries()
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{MassdbConn}}.

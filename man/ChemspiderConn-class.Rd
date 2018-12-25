@@ -56,6 +56,9 @@ Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character
 # Create an instance with default settings:
 mybiodb <- biodb::Biodb()
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.

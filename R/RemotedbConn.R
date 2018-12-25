@@ -26,6 +26,9 @@
 #' # Get the page URL of an entry
 #' page.url <- conn$getEntryPageUrl('2')
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include BiodbConn.R
 #' @include BiodbRequestScheduler.R
