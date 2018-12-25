@@ -185,7 +185,7 @@ read_args "$@"
 # Check
 if [[ $CHECK == yes ]] ; then
 	echo "Checking package..."
-	make r.check || exit 1
+	make check || exit 1
 	# Use `R CMD check` instead of `devtools::test()` because the later failed once Travis-CI:
 	#   Warning in config_val_to_logical(check_incoming) :
 	#     cannot coerce ‘FALSE false’ to logical
