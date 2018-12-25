@@ -2,9 +2,9 @@ language: r
 cache: packages
 
 r:
-    #    - oldrel
+   - oldrel
    - release
-    #    - devel
+   - devel
 
 notifications:
  email:
