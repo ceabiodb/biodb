@@ -13,11 +13,11 @@ notifications:
 
 env:
     - CHECK=yes
-      #    - MODE=offline
-      #    - MODE=online DBS=hmdb.metabolites
-      #    - MODE=online DBS=massbank
-      #    - MODE=online DBS=peakforest.mass
-      #    - MODE=online EXCLUDE_DBS=hmdb.metabolites,massbank,peakforest.mass
+    - MODE=offline
+    - MODE=online DBS=hmdb.metabolites
+    - MODE=online DBS=massbank
+    - MODE=online DBS=peakforest.mass
+    - MODE=online EXCLUDE_DBS=hmdb.metabolites,massbank,peakforest.mass
 
 branches:
   only:
