@@ -90,6 +90,7 @@ UniprotConn$methods( ws.query.ids = function(...) {
 	results <- .self$ws.query(columns = 'id', format = 'tab', ...)
 	readtc <- textConnection(results, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", header = TRUE)
+	close(readtc)
 	ids <- as.character(df[[1]])
 
 	return(ids)

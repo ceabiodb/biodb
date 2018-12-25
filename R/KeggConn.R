@@ -113,6 +113,7 @@ KeggConn$methods( ws.find.df = function(...) {
 
 	readtc <- textConnection(results, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+	close(readtc)
 
 	return(df)
 })

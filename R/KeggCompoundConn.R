@@ -81,6 +81,7 @@ KeggCompoundConn$methods( ws.find.exact.mass.df = function(...) {
 
 	readtc <- textConnection(results, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+	close(readtc)
 
 	return(df)
 })
@@ -124,6 +125,7 @@ KeggCompoundConn$methods( ws.find.molecular.weight.df = function(...) {
 
 	readtc <- textConnection(results, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+	close(readtc)
 
 	return(df)
 })
