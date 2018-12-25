@@ -8,3 +8,5 @@
 ^.*\.csv$
 ^travis-tests$
 ^LICENSE$
+^biodb_.*\.tar\.gz$
+^biodb\.Rcheck$

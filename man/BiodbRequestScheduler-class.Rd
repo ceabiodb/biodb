@@ -31,7 +31,7 @@ This class handles GET and POST requests, as well as file downloading. Each remo
 Download the content of a URL and save it into the specified destination file.}
 
 \item{\code{getUrl(url, params = list(), method = "get",
-  opts = .self$.get.curl.opts(), encoding = integer())}}{:
+  opts = .self$.get.curl.opts(), encoding = NA_character_)}}{:
 
 Send a URL request, either with GET or POST method, and return result.}
 

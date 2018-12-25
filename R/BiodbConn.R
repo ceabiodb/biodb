@@ -28,6 +28,9 @@
 #' # Get number of entries contained in the database:
 #' n <- conn$getNbEntries()
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include BiodbConnBase.R
 #' @export BiodbConn

@@ -19,6 +19,9 @@
 #' # Setting a token:
 #' mybiodb$getDbsInfo()$get('chemspider')$setToken('my.chemspider.token')
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include ChildObject.R
 #' @include BiodbDbInfo.R

@@ -32,6 +32,9 @@ MyObsClass$methods( message = function(type = 'info', msg,
 # Create an instance and register an instance of the new observer class:
 mybiodb <- biodb::Biodb(observers = MyObsClass$new())
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbLogger}}, \code{\link{WarningReporter}}, \code{\link{ErrorReporter}}.

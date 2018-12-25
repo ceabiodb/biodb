@@ -19,3 +19,4 @@ examples/*.err
 inst
 biodb_*.tgz
 biodb_*.tar.gz
+biodb.Rcheck

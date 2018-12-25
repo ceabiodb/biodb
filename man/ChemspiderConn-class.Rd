@@ -18,10 +18,6 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryContent(entry.id)}}{:
-
-Get the content of an entry.}
-
 \item{\code{getEntryIds(max.results = NA_integer_)}}{:
 
 Get entry identifiers from the database.}
@@ -59,6 +55,9 @@ Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character
 \examples{
 # Create an instance with default settings:
 mybiodb <- biodb::Biodb()
+
+# Terminate instance.
+mybiodb$terminate()
 
 }
 \seealso{

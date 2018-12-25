@@ -44,6 +44,9 @@
 #' # Or even add a new field:
 #' entry$setFieldValue('chemspider.id', '388394')
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include ChildObject.R
 #' @export BiodbEntry

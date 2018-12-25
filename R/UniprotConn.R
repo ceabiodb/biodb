@@ -40,6 +40,9 @@
 #'                            columns = c('id', 'entry name'),
 #'                            format = 'txt', limit = 10)
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include CompounddbConn.R
 #' @include RemotedbConn.R
 #' @export UniprotConn
@@ -87,6 +90,7 @@ UniprotConn$methods( ws.query.ids = function(...) {
 	results <- .self$ws.query(columns = 'id', format = 'tab', ...)
 	readtc <- textConnection(results, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", header = TRUE)
+	close(readtc)
 	ids <- as.character(df[[1]])
 
 	return(ids)

@@ -123,6 +123,8 @@ mybiodb <- biodb::Biodb()
 # Get connector
 conn <- mybiodb$getFactory()$createConn('massbank')
 
+# Terminate instance.
+mybiodb$terminate()
 
 }
 \seealso{

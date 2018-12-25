@@ -33,6 +33,9 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include CompounddbConn.R
 #' @include RemotedbConn.R
 #' @export ChemspiderConn

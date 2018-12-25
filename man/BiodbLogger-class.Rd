@@ -19,10 +19,16 @@ This class implements a logger for the biodb package. When creating an instance 
 
 \examples{
 # Create a biodb instance with a file log
-biodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = "myfile.log"))
+mybiodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = "myfile.log"))
+
+# Terminate instance.
+mybiodb$terminate()
 
 # Create a biodb instance with logging to standard output
-biodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = stdout()))
+mybiodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = stdout()))
+
+# Terminate instance.
+mybiodb$terminate()
 
 }
 \seealso{

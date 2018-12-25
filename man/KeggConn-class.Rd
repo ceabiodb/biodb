@@ -14,10 +14,6 @@ This is the mother class of all KEGG connectors. It defines code common to all K
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryContent(entry.id)}}{:
-
-Get the content of an entry.}
-
 \item{\code{getEntryIds(max.results = NA_integer_)}}{:
 
 Get entry identifiers from the database.}
@@ -48,6 +44,9 @@ conn <- mybiodb$getFactory()$createConn('kegg.compound')
 
 # Search for an entry
 conn$ws.find.df('NADPH')
+
+# Terminate instance.
+mybiodb$terminate()
 
 }
 \seealso{

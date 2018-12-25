@@ -51,7 +51,7 @@ Extract the value of a field from a list of entries.
 Returns either a vector or a list depending on the type of the field.}
 
 \item{\code{entriesToDataframe(entries, only.atomic = TRUE, null.to.na = TRUE,
-  compute = TRUE, fields = NULL, drop = FALSE)}}{:
+  compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE)}}{:
 
 Convert a list of entries (\code{BiodbEntry} objects) into a data frame.}
 
@@ -100,11 +100,20 @@ Close \code{Biodb} instance.}
 # Create an instance with default settings:
 mybiodb <- biodb::Biodb()
 
+# Terminate instance.
+mybiodb$terminate()
+
 # Create an instance without the default logger:
 mybiodb <- biodb::Biodb(logger = FALSE)
 
+# Terminate instance.
+mybiodb$terminate()
+
 # Create an instance with a file logger
 mybiodb <- biodb::Biodb(logger = FALSE, observers = biodb::BiodbLogger(file = "file.log"))
+
+# Terminate instance.
+mybiodb$terminate()
 
 }
 \seealso{
