@@ -43,6 +43,9 @@ chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getBaseUrl()
 # Setting a token:
 mybiodb$getDbsInfo()$get('chemspider')$setToken('my.chemspider.token')
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{Biodb}}, \code{\link{BiodbDbInfo}}.

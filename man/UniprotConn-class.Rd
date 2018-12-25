@@ -18,10 +18,6 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryContent(entry.id)}}{:
-
-Get the content of an entry.}
-
 \item{\code{getEntryIds(max.results = NA_integer_)}}{:
 
 Get entry identifiers from the database.}
@@ -59,6 +55,9 @@ uniprot <- mybiodb$getFactory()$createConn('uniprot')
 result <- uniprot$ws.query(query = 'name:"prion protein"',
                            columns = c('id', 'entry name'),
                            format = 'txt', limit = 10)
+
+# Terminate instance.
+mybiodb$terminate()
 
 }
 \seealso{

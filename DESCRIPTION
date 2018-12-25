@@ -1,11 +1,11 @@
 Package: biodb
-Title: Biodb, a library for connecting to chemical and biological databases
+Title: Biodb, a Library for Connecting to Chemical and Biological Databases
 Version: 1.2.0
 Authors@R: person("Pierrick", "Roger", email = "pk.roger@icloud.com", role = c("aut", "cre"))
 Description: The biodb library provides a way to connect to several chemical and
     biological databases, and retrieve entries easily.
 Depends:
-    R (>= 3.3.1)
+    R (>= 3.3)
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
@@ -23,18 +23,14 @@ Imports:
 	stringr,
 	plyr,
 	jsonlite,
-	bitops,
 	RCurl,
 	stats,
 	R.utils,
-	digest,
-	urltools
+	digest
 LinkingTo:
 	Rcpp
 NeedsCompilation: yes
-Author: Pierrick Roger
-Maintainer: Pierrick Roger <pk.roger@icloud.com>
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Collate: 
     'BiodbObject.R'
     'Biodb.R'

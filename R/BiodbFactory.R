@@ -31,6 +31,9 @@
 #' # Get a database entry:
 #' entry <- factory$getEntry('chebi', id = '2528')
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include ChildObject.R
 #' @export BiodbFactory

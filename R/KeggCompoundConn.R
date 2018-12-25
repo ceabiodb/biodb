@@ -37,6 +37,9 @@
 #' # Search for compounds by molecular weight 
 #' conn$ws.find.molecular.weight.df(mass = 300)
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include KeggConn.R
 #' @include CompounddbConn.R
 #' @export KeggCompoundConn
@@ -78,6 +81,7 @@ KeggCompoundConn$methods( ws.find.exact.mass.df = function(...) {
 
 	readtc <- textConnection(results, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+	close(readtc)
 
 	return(df)
 })
@@ -121,6 +125,7 @@ KeggCompoundConn$methods( ws.find.molecular.weight.df = function(...) {
 
 	readtc <- textConnection(results, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+	close(readtc)
 
 	return(df)
 })

@@ -33,9 +33,13 @@ This class is responsible for the creation of database connectors and database e
 
 Create a connection to a database.}
 
-\item{\code{createEntry(conn.id, content, drop = TRUE)}}{:
+\item{\code{createNewEntry(db.class)}}{:
 
-Create database entry objects from string content, for the specified connector.}
+Create a new entry from scratch. This entry is not stored in cache.}
+
+\item{\code{deleteAllCacheEntries(conn.id)}}{:
+
+Delete all entries of a connector from the cache.}
 
 \item{\code{deleteAllConnectors()}}{:
 
@@ -44,6 +48,10 @@ Delete all connectors.}
 \item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{:
 
 Delete existing connectors.}
+
+\item{\code{getAllCacheEntries(conn.id)}}{:
+
+Get all entries of a connector from the cache.}
 
 \item{\code{getAllConnectors()}}{:
 
@@ -78,6 +86,9 @@ conn <- factory$createConn('chebi')
 
 # Get a database entry:
 entry <- factory$getEntry('chebi', id = '2528')
+
+# Terminate instance.
+mybiodb$terminate()
 
 }
 \seealso{

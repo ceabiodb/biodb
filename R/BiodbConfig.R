@@ -31,6 +31,9 @@
 #' config$disable('offline')   # set to FALSE
 #' print(if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.')
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include ChildObject.R
 #' @export BiodbConfig

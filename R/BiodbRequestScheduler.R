@@ -278,6 +278,16 @@ BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
 	}
 })
 
+# Extract domain from URL {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .extractDomainfromUrl = function(url) {
+
+	domain <- sub('^.+://([^/]+)(/.*)?$', '\\1', url, perl = TRUE)
+
+	return(domain)
+})
+
 # Find rule {{{2
 ################################################################
 
@@ -285,7 +295,7 @@ BiodbRequestScheduler$methods( .findRule = function(url) {
 	.self$.assert.not.null(url)
 	.self$.assert.length.one(url)
 	.self$.assert.not.na(url)
-	domain <- urltools::domain(url)
+	domain <- .self$.extractDomainfromUrl(url)
 	return(.self$.host2rule[[domain]])
 })
 
@@ -304,7 +314,7 @@ BiodbRequestScheduler$methods( .addConnectorRules = function(conn) {
 
 		# No rule exists => create new one
 		if (is.null(rule)) {
-			host <- urltools::domain(url)
+			host <- .self$.extractDomainfromUrl(url)
 			.self$message('debug', paste0('Create new rule for URL "', host,'" of connector "', conn$getId(), '"'))
 			rule <- BiodbRequestSchedulerRule$new(parent = .self, host = host, conn = conn)
 			.self$.host2rule[[rule$getHost()]] <- rule

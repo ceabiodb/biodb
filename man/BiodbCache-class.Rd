@@ -88,6 +88,9 @@ files <- cache$listFiles('chebi', 'shortterm')
 # Delete files inside the cache:
 cache$deleteFiles('chebi', 'shortterm')
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{Biodb}}.

@@ -30,6 +30,9 @@
 #' # Delete files inside the cache:
 #' cache$deleteFiles('chebi', 'shortterm')
 #'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @import methods
 #' @include ChildObject.R
 #' @export BiodbCache

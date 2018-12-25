@@ -67,6 +67,9 @@ conn$ws.find.exact.mass.df(mass = 174.05)
 # Search for compounds by molecular weight 
 conn$ws.find.molecular.weight.df(mass = 300)
 
+# Terminate instance.
+mybiodb$terminate()
+
 }
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{CompounddbConn}}.

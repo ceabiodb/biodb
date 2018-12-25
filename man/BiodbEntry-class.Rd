@@ -20,8 +20,6 @@
 
 \item{only.atomic}{If set to \code{TRUE}, only export field's values that are atomic (i.e.: of type vector and length one).}
 
-\item{parsing.expr}{A parsing expression used to parse entry content string and obtain a field's value.}
-
 \item{value}{A field's value.}
 }
 \description{
@@ -30,13 +28,17 @@ An entry is an element of a database, identifiable by its accession number. Each
 \section{Methods}{
 
 \describe{
-\item{\code{addParsingExpression(field, parsing.expr)}}{:
-
-Add a parsing expression for the specified field. The form of the parsing expression depends on the type of content and thus of the class inherited from BiodbEntry abstract class: CsvEntry, TxtEntry, XmlEntry, etc. This method is automatically called internally and should not be called by the user.}
-
 \item{\code{appendFieldValue(field, value)}}{:
 
 Append a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values.}
+
+\item{\code{clone()}}{:
+
+Clone this entry.}
+
+\item{\code{getDbClass()}}{:
+
+Returns name of the database class associated with this entry.}
 
 \item{\code{getFieldNames()}}{:
 
@@ -58,13 +60,17 @@ Get the value of the specified field.}
 
 Get a short text describing the entry instance.}
 
-\item{\code{getParsingExpressions()}}{:
-
-Return a list of all defined parsing expressions for this entry.}
-
 \item{\code{hasField(field)}}{:
 
 Returns TRUE if the specified field is defined in this entry.}
+
+\item{\code{isNew()}}{:
+
+Return TRUE if this entry was newly created.}
+
+\item{\code{parentIsAConnector()}}{:
+
+Return TRUE if this entry belongs to a connector.}
 
 \item{\code{parseContent(content)}}{:
 
@@ -104,6 +110,9 @@ entry$setFieldValue('mass', 1893.1883)
 
 # Or even add a new field:
 entry$setFieldValue('chemspider.id', '388394')
+
+# Terminate instance.
+mybiodb$terminate()
 
 }
 \seealso{
