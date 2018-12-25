@@ -18,6 +18,12 @@ all:
 
 check: $(ZIPPED_PKG) clean.cache
 	R CMD check --as-cran "$<"
+	# Use `R CMD check` instead of `devtools::test()` because the later failed once Travis-CI:
+	#   Warning in config_val_to_logical(check_incoming) :
+	#     cannot coerce ‘FALSE false’ to logical
+	#   Error in if (check_incoming) check_CRAN_incoming(!check_incoming_remote) : 
+	#     missing value where TRUE/FALSE needed
+	#   Execution halted
 
 check.version:
 	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
