@@ -31,4 +31,4 @@ script:
       
 after_script:
     - pwd
-    - cat biodb/tests/test.log
+    - ls *
