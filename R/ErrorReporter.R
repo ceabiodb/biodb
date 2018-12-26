@@ -20,7 +20,7 @@ ErrorReporter <- methods::setRefClass("ErrorReporter", contains = 'BiodbObserver
 
 ErrorReporter$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
 
-	.self$checkMessqgeType(type)
+	.self$checkMessageType(type)
 
 	# Raise error
 	if (type == 'error') {
