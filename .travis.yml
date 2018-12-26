@@ -28,3 +28,6 @@ branches:
 
 script:
     - ./travis-tests
+      
+after_script:
+    - cat tests/test.log
