@@ -30,4 +30,5 @@ script:
     - ./travis-tests
       
 after_script:
-    - cat tests/test.log
+    - pwd
+    - cat biodb/tests/test.log
