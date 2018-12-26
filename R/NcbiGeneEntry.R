@@ -41,7 +41,7 @@ NcbiGeneEntry$methods( .find.ccds.id = function(parsed.content) {
 	# 1) Get all CCDS tags.
 	ccds_elements <- XML::getNodeSet(parsed.content, "//Dbtag_db[text()='CCDS']/..//Object-id_str")
 
-	# 2) If all CCDS are the same, go to point 4.
+	# 2) If all CCDS are the same, go to point 3.
 	ccds <- NA_character_
 	for (e in ccds_elements) {
 		current_ccds <- XML::xmlValue(e)

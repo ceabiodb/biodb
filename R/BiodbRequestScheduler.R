@@ -115,44 +115,42 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 	if (is.na(content)) {
 		# Run query
 		for (i in seq(.self$.nb.max.tries)) {
-			tryCatch({
 
-				# GET method
-				if (method == 'get') {
-					.self$message('debug', paste0("Sending ", method, " request ..."))
+			content <- tryCatch({
 
-					# Check if in offline mode
-					.self$.check.offline.mode()
+				.self$message('debug', paste0("Sending ", method, " request ..."))
 
-					# Wait required time between two requests
-					rule$wait.as.needed()
+				if (method == 'post' && 'httpheader' %in% names(opts))
+					.self$message('debug', paste0(method, ' request header is "', paste(opts$httpheader, collapse = ', '), '".'))
+				if (method == 'post' && 'postfields' %in% names(opts))
+					.self$message('debug', paste0('"Request post content is "', paste(opts$postfields, collapse = ', '), '".'))
 
+				# Check if in offline mode
+				.self$.check.offline.mode()
+
+				# Wait required time between two requests
+				rule$wait.as.needed()
+
+				if (method == 'get')
 					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = if (is.na(encoding)) integer() else encoding)
-					if (.self$getBiodb()$getConfig()$get('cache.all.requests'))
-						.self$getBiodb()$getCache()$saveContentToFile(content, conn.id = method, subfolder = 'shortterm', name = request.key, ext = 'content')
-				}
-
-				# POST method
-				else {
-					.self$message('debug', paste0("Sending ", method, " request..."))
-					if ('httpheader' %in% names(opts))
-						.self$message('debug', paste0(method, ' request header is "', paste(opts$httpheader, collapse = ', '), '".'))
-					if ('postfields' %in% names(opts))
-						.self$message('debug', paste0('"Request post content is "', paste(opts$postfields, collapse = ', '), '".'))
-
-					# Check if in offline mode
-					.self$.check.offline.mode()
-
-					# Wait required time between two requests
-					rule$wait.as.needed()
-
+				else
 					content <- RCurl::postForm(url, .opts = opts, .params = params, .encoding = encoding)
+
+				# Check content
+				if (length(grep('The proxy server could not handle the request', content)) > 0) {
+					.self$message('debug', 'Found proxy error message in content.')
+					stop("Error between the proxy and the main server.") # This happens sometime with NCBI CCDS server.
 				}
+
+				content
 			},
-				error = function(e) {
-					.self$message('info', paste("Connection error \"", e$message, "\"", sep = ''))
-					.self$message('info', "Retrying connection to server...")
-				} )
+			error = function(e) {
+				.self$message('info', paste("Connection error \"", e$message, "\"", sep = ''))
+				.self$message('info', "Retrying connection to server...")
+				return(NA_character_)
+			} )
+
+			# Leave the loop
 			if ( ! is.na(content))
 				break
 		}

@@ -20,7 +20,7 @@ WarningReporter <- methods::setRefClass("WarningReporter", contains = 'BiodbObse
 
 WarningReporter$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
 
-	.self$checkMessqgeType(type)
+	.self$checkMessageType(type)
 
 	# Raise warning
 	if (type == 'warning') {

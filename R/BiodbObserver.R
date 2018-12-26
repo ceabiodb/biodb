@@ -21,7 +21,7 @@
 #' # Define the message method
 #' MyObsClass$methods( message = function(type = 'info', msg,
 #'                                        class = NA_character_, method = NA_character_) {
-#' .self$checkMessqgeType(type)
+#' .self$checkMessageType(type)
 #' # print(paste(type, msg, sep = ': '))
 #' })
 #'
@@ -46,20 +46,20 @@ BiodbObserver$methods( terminate = function() {
 ################################################################
 
 BiodbObserver$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
-	.self$checkMessqgeType(type)
+	.self$checkMessageType(type)
 })
 
 # Info progress {{{1
 ################################################################
 
 BiodbObserver$methods( progress = function(type = 'info', msg, index, total) {
-	.self$checkMessqgeType(type)
+	.self$checkMessageType(type)
 })
 
 # Check message type {{{1
 ################################################################
 
-BiodbObserver$methods( checkMessqgeType = function(type) {
+BiodbObserver$methods( checkMessageType = function(type) {
 
 	# Define allowed types
 	allowed.types <- c('info', 'debug', 'caution', 'warning', 'error')

@@ -105,7 +105,7 @@ TestObserver$methods( initialize = function(...) {
 
 TestObserver$methods( progress = function(type = 'info', msg, index, total) {
 
-	.self$checkMessqgeType(type)
+	.self$checkMessageType(type)
 
 	expect_gt(index, .self$.last.index)
 	expect_lte(index, total)

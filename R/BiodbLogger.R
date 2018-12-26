@@ -72,7 +72,7 @@ BiodbLogger$methods( terminate = function() {
 
 BiodbLogger$methods( excludeMsgType = function(type) {
 
-	.self$checkMessqgeType(type)
+	.self$checkMessageType(type)
 
 	if ( ! type %in% .self$.exclude)
 		.self$.exclude <- c(.self$.exclude, type)
@@ -83,7 +83,7 @@ BiodbLogger$methods( excludeMsgType = function(type) {
 
 BiodbLogger$methods( includeMsgType = function(type) {
 
-	.self$checkMessqgeType(type)
+	.self$checkMessageType(type)
 
 	if (type %in% .self$.exclude)
 		.self$.exclude <- .self$.exclude[ ! .self$.exclude %in% type]
@@ -94,7 +94,7 @@ BiodbLogger$methods( includeMsgType = function(type) {
 
 BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
 
-	.self$checkMessqgeType(type)
+	.self$checkMessageType(type)
 
 	if ( ! type %in% .self$.exclude) {
 
