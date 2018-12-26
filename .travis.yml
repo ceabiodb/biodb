@@ -30,4 +30,4 @@ script:
     - ./travis-tests
       
 after_script:
-    - cat tests/test.log
+    - if [ -f tests/test.log ] ; then cat tests/test.log ; fi
