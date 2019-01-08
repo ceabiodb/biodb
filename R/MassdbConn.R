@@ -23,8 +23,12 @@
 #' @param mz.tol        The M/Z tolerance, whose unit is defined by \code{mz.tol.unit}.
 #' @param mz.tol.unit   The unit of the M/Z tolerance. Set it to either \code{'ppm'} or \code{'plain'}.
 #' @param npmin         The minimum number of peak to detect a match (2 is recommended).
+#' @param output.mz     The output of M/Z values wanted, when collapsing results data frame.
+#' @param output.rt     The output of RT values wanted, when collapsing results data frame.
 #' @param precursor     If set to \code{TRUE}, then restrict the search to precursor peaks.
 #' @param precursor.mz  The M/Z value of the precursor peak of the mass spectrum.
+#' @param results.df    Results data frame.
+#' @param sep           The separator used to concatenate values, when collapsing results data frame.
 #' @param spectrum      A template spectrum to match inside the database.
 #' @param rt            A vector of retention times to match. Unit is specified by rt.unit parameter.
 #' @param rt.unit       The unit for submitted retention times. Either 's' or 'min'.
@@ -324,6 +328,49 @@ MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level =
 	":\n\nGet entry identifiers from the database."
 
 	.self$.abstract.method()
+})
+
+# Collapse results data frame {{{1
+################################################################
+
+MassdbConn$methods( collapseResultsDataFrame = function(results.df, output.mz, output.rt = NULL, sep = '|') {
+	":\n\nCollapse rows of a results data frame, by outputing a data frame with only one row for each MZ/RT value."
+
+	.self$.assert.is(results.df, 'data.frame')
+	if ( ! 'mz' %in% colnames(results.df))
+		.self$message('error', 'Data frame must contain a column named "mz".')
+	if ( ! is.null(output.rt) && ! 'rt' %in% colnames(results.df))
+		.self$message('error', 'Data frame must contain a column named "rt".')
+	.self$.assert.is(output.mz, c('integer', 'numeric'))
+	if ( ! is.null(output.rt)) {
+		.self$.assert.is(output.rt, c('integer', 'numeric'))
+		.self$.assert.equal.length(output.mz, output.rt)
+	}
+	.self$.assert.is(sep, 'character')
+
+	results.df.collapsed <- NULL
+
+	for (i in seq_along(output.mz)) {
+
+		lines <- results.df[['mz']] == output.mz[[i]]
+		if ( ! is.null(output.rt))
+			lines <- lines & (results.df[['rt']] == output.rt[[i]])
+
+		lines.df <- results.df[lines, , drop = FALSE]
+
+		if (nrow(lines.df) == 1)
+			one.line <- lines.df
+		else {
+			df.one.row <- lines.df[1, ]
+			for (col in names(lines.df))
+				if ( ! col %in% c('mz', 'rt'))
+					df.one.row[[col]] <- paste(lines.df[[col]], collapse = sep)
+			one.line <- df.one.row
+		}
+		results.df.collapsed <- rbind(results.df.collapsed, one.line)
+	}
+
+	return(results.df.collapsed)
 })
 
 # Deprecated methods {{{1
