@@ -175,18 +175,23 @@ PeakforestMassConn$methods( wsLcmsmsPeaksGetRange = function(mz.min, mz.max, mod
 
 PeakforestMassConn$methods( wsLcmsmsFromPrecursor = function(prec.mz, precursorMassDelta, mode = NA_character_, biodb.ids = FALSE) {
 
-	# Build request
-	url <- paste0(.self$getBaseUrl(), "spectra/lcmsms/from-precursor/", prec.mz)
-	param <- c(token = .self$getToken(), precursorMassDelta = precursorMassDelta)
-	if ( ! is.na(mode))
-		param <- c(param, mode = mode)
+	results <- character()
 
-	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, param = param)
+	if ( ! is.null(prec.mz) && ! is.na(prec.mz)) {
 
-	# Parse IDs
-	if (biodb.ids)
-		results <- .self$.parseIDsFromJson(results)
+		# Build request
+		url <- paste0(.self$getBaseUrl(), "spectra/lcmsms/from-precursor/", prec.mz)
+		param <- c(token = .self$getToken(), precursorMassDelta = precursorMassDelta)
+		if ( ! is.na(mode))
+			param <- c(param, mode = mode)
+
+		# Send request
+		results <- .self$.getUrlScheduler()$getUrl(url, param = param)
+
+		# Parse IDs
+		if (biodb.ids)
+			results <- .self$.parseIDsFromJson(results)
+	}
 
 	return(results)
 })
@@ -318,18 +323,23 @@ PeakforestMassConn$methods( .parseIDsFromJson = function(json, json.is.parsed = 
 
 PeakforestMassConn$methods( .peaksGetRange = function(spectra.type, mz.min, mz.max, mode = NA_character_, biodb.ids = FALSE) {
 	                           
-	# Build request
-	url <- paste0(.self$getBaseUrl(), "spectra/", spectra.type, "/peaks/get-range/", mz.min, "/", mz.max)
-	param <- c(token = .self$getToken())
-	if ( ! is.na(mode))
-		param <- c(param, mode = mode)
+	results <- character()
 
-	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, param = param)
+	if ( ! is.null(mz.min) && ! is.null(mz.max) && ! is.na(mz.min) && ! is.na(mz.max)) {
 
-	# Parse IDs
-	if (biodb.ids)
-		results <- .self$.parseIDsFromJson(results)
+		# Build request
+		url <- paste0(.self$getBaseUrl(), "spectra/", spectra.type, "/peaks/get-range/", mz.min, "/", mz.max)
+		param <- c(token = .self$getToken())
+		if ( ! is.na(mode))
+			param <- c(param, mode = mode)
+
+		# Send request
+		results <- .self$.getUrlScheduler()$getUrl(url, param = param)
+
+		# Parse IDs
+		if (biodb.ids)
+			results <- .self$.parseIDsFromJson(results)
+	}
 
 	return(results)
 })

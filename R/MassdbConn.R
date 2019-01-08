@@ -188,7 +188,7 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_, insert.mz.rt.values = TRUE) {
+MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol.unit = 'plain', min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_, insert.mz.rt.values = TRUE) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 	
 	# Check arguments
@@ -358,7 +358,7 @@ MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOL
 
 MassdbConn$methods( .convertMzTolToRange = function(mz, mz.shift, mz.tol, mz.tol.unit) {
 
-	if (mz.tol.unit == BIODB.MZTOLUNIT.PPM) {
+	if (mz.tol.unit == 'ppm') {
 		mz.min <- mz + mz * ( mz.shift - mz.tol) * 1e-6
 		mz.max <- mz + mz * ( mz.shift + mz.tol) * 1e-6
 	}
@@ -433,9 +433,8 @@ MassdbConn$methods( .checkMzMinMaxParam = function(mz.min, mz.max) {
 		.self$.assert.is(mz.max, c('numeric', 'integer'))
 		.self$.assert.positive(mz.min)
 		.self$.assert.positive(mz.max)
+		.self$.assert.equal.length(mz.min, mz.max)
 		.self$.assert.inferior(mz.min, mz.max)
-		if (length(mz.min) != length(mz.max))
-			.self$message('error', 'mz.min and mz.max must have the same length.')
 	}
 
 	return(use.min.max)

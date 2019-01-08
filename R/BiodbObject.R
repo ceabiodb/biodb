@@ -89,13 +89,23 @@ BiodbObject$methods( .assert.not.null = function(param, msg.type = 'error', sys.
 # Assert inferior {{{1
 ################################################################
 
-BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = 'error') {
+BiodbObject$methods( .assert.inferior = function(param1, param2, msg.type = 'error', na.allowed = TRUE) {
+
+	# Remove NA values
+	if (na.allowed) {
+		nas <- is.na(param1) | is.na(param2)
+		param1 <- param1[ ! nas]
+		param2 <- param2[ ! nas]
+	}
+
+	# Compare
 	if (any(param1 > param2)) {
 		param1.name <- as.character(sys.call(0))[[2]]
 		param2.name <- as.character(sys.call(0))[[3]]
 		.self$message(msg.type, paste(param1.name, ' (', param1, ') cannot be greater than ', param2.name, ' (', param2, ').', sep = ''))
 		return(FALSE)
 	}
+
 	return(TRUE)
 })
 
