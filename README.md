@@ -7,24 +7,24 @@ An R package for connecting to chemical and biological databases.
 
 ## Databases connection status
 
-Database             | Key                 | Status | Related issue                                     | Related PR | Explanations
-------------         | ----------          | :---:  | ------------------------------------------------- | ---------- | ---------------------
-ChEBI                | chebi               |   ✅   |
-ChemSpider           | chemspider          |   ❌   | [#259](https://github.com/pkrog/biodb/issues/259) |            | API broken: "XML content does not seem to be XML: Unauthorized web service usage. Please request access to this service."
-ExPASy ENZYME        | expasy.enzyme       |   ✅   |
-HMDB Metabolites     | hmdb.metabolites    |   ❌   | [#265](https://github.com/pkrog/biodb/issues/265) |            | Tests failure.
-KEGG Compound        | kegg.compound       |   ✅   |
-LIPID MAPS Structure | lipidmaps.structure |   ✅   |
-Mass CSV File        | mass.csv.file       |   ✅   |
-Massbank             | massbank            |   ❌   | [#30](https://github.com/pkrog/biodb/issues/30)   |            | The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.
-miRBase Mature       | mirbase.mature      |   ❌   | [#261](https://github.com/pkrog/biodb/issues/261) |            | Tests failure.
-NCBI CCDS            | ncbi.ccds           |   ✅   |
-NCBI Gene            | ncbi.gene           |   ✅   |
-PeakForest Compound  | peakforest.compound |   ✅   |                                                   |            |
-PeakForest Mass      | peakforest.mass     |   ✅   |                                                   |            |
-PubChem Compound     | ncbi.pubchem.comp   |   ✅   |
-PubChem Substance    | ncbi.pubchem.subst  |   ✅   |
-UniProt              | uniprot             |   ❌   | [#263](https://github.com/pkrog/biodb/issues/263) |            | Tests failure.
+Database               | Key                 | Status | Related issue                                     | Related PR | Explanations
+------------           | ----------          | :---:  | ------------------------------------------------- | ---------- | ---------------------
+ChEBI                  | chebi               |   ✅   |
+ChemSpider             | chemspider          |   ❌   | [#259](https://github.com/pkrog/biodb/issues/259) |            | API broken: "XML content does not seem to be XML: Unauthorized web service usage. Please request access to this service."
+ExPASy ENZYME          | expasy.enzyme       |   ✅   |
+HMDB Metabolites       | hmdb.metabolites    |   ❌   | [#265](https://github.com/pkrog/biodb/issues/265) |            | Tests failure.
+KEGG Compound          | kegg.compound       |   ✅   |
+LIPID MAPS Structure   | lipidmaps.structure |   ✅   |
+Mass CSV File          | mass.csv.file       |   ✅   |
+Massbank               | massbank            |   ❌   | [#30](https://github.com/pkrog/biodb/issues/30)   |            | The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.
+miRBase Mature         | mirbase.mature      |   ❌   | [#261](https://github.com/pkrog/biodb/issues/261) |            | Tests failure.
+NCBI CCDS              | ncbi.ccds           |   ✅   |
+NCBI Gene              | ncbi.gene           |   ✅   |
+NCBI PubChem Compound  | ncbi.pubchem.comp   |   ❌   | [#275](https://github.com/pkrog/biodb/issues/275) |            | Tests failure.
+NCBI PubChem Substance | ncbi.pubchem.subst  |   ✅   |
+PeakForest Compound    | peakforest.compound |   ✅   |                                                   |            |
+PeakForest Mass        | peakforest.mass     |   ✅   |                                                   |            |
+UniProt                | uniprot             |   ❌   | [#263](https://github.com/pkrog/biodb/issues/263) |            | Tests failure.
 
 **Legend**:
  * ✅ Database is working fine with Biodb connector.
