@@ -117,6 +117,42 @@ test.searchMzTol <- function(db) {
 	}
 }
 
+# Test searchMsEntries() with N/A value in input {{{1
+################################################################
+
+test.searchMsEntries.with.NA.value <- function(db) {
+
+	ids <- db$searchMsEntries(mz = NA_real_, mz.tol = 5.0, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = 'pos')
+	testthat::expect_is(ids, 'character')
+	testthat::expect_length(ids, 0)
+}
+
+# Test searchMsPeaks() with N/A value {{{1
+################################################################
+
+test.searchMsPeaks.with.NA.value <- function(db) {
+
+	# With only one single N/A value
+	peaks <- db$searchMsPeaks(mz = NA_real_, mz.tol = 5.0, mz.tol.unit = 'plain')
+	testthat::expect_is(peaks, 'data.frame')
+	testthat::expect_equal(nrow(peaks), 1)
+	testthat::expect_equal(ncol(peaks), 1)
+	testthat::expect_equal(colnames(peaks), 'mz')
+	testthat::expect_true(is.na(peaks[['mz']]))
+
+	# With one N/A value and one real value
+	mode <- 'neg'
+	tol <- 0.1
+	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
+	mzs <- c(mzs, NA_real_)
+	peaks <- db$searchMsPeaks(mz = mzs, mz.tol = tol, mz.tol.unit = 'plain', ms.mode = mode,  max.results = 1)
+	testthat::expect_is(peaks, 'data.frame')
+	testthat::expect_equal(nrow(peaks), length(mzs))
+	testthat::expect_true(ncol(peaks) > 1)
+	testthat::expect_true(! all(is.na(peaks[1:(length(mzs) - 1), ])))
+	testthat::expect_true(all(is.na(peaks[length(mzs), ])))
+}
+
 # Test searchMzTol() with multiple M/Z values {{{1
 ################################################################
 
@@ -299,6 +335,27 @@ test.msmsSearch.no.ids <- function(db) {
 	expect_true(all(c('id', 'score') %in% names(results)))
 }
 
+# Test convertMzTolToRange() {{{1
+################################################################
+
+test.convertMzTolToRange <- function(db) {
+
+	# Test plain unit
+	range <- db$.convertMzTolToRange(1.0, 0.0, 0.0, 'plain')
+	testthat::expect_is(range, 'list')
+	testthat::expect_identical(range, list(min = 1.0, max = 1.0))
+
+	# Test ppm unit
+	range <- db$.convertMzTolToRange(1.0, 0.0, 0.0, 'ppm')
+	testthat::expect_is(range, 'list')
+	testthat::expect_identical(range, list(min = 1.0, max = 1.0))
+
+	# Test NA value
+	range <- db$.convertMzTolToRange(NA_real_, 0.0, 0.0, 'ppm')
+	testthat::expect_is(range, 'list')
+	testthat::expect_identical(range, list(min = NA_real_, max = NA_real_))
+}
+
 # Run Mass DB tests {{{1
 ################################################################
 
@@ -306,19 +363,22 @@ run.mass.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'MassdbConn')) {
 
-			set.test.context(db$getBiodb(), paste("Running M/Z search generic tests on database", db$getName(), "in", mode, "mode"))
+			set.test.context(db$getBiodb(), paste("Running MS generic tests on database", db$getName(), "in", mode, "mode"))
+
+			run.db.test.that("M/Z tolerance values are converted correctly to M/Z range.", 'test.convertMzTolToRange', db)
+
 			run.db.test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', db)
 			run.db.test.that("We can match M/Z peaks.", 'test.searchMzTol',db)
 			run.db.test.that("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',db)
 			run.db.test.that("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', db)
 			run.db.test.that("Search by precursor with multiple mz inputs does not fail.", 'test.searchMzTol.with.precursor.and.multiple.inputs', db)
+			run.db.test.that("Search for N/A value returns an empty list.", 'test.searchMsEntries.with.NA.value', db)
+			run.db.test.that("Search for peaks with N/A value returns no match.", 'test.searchMsPeaks.with.NA.value', db)
 
-			set.test.context(db$getBiodb(), paste("Running LCMS generic tests on database", db$getName(), "in", mode, "mode"))
 			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
 			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
 			run.db.test.that("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', db)
 
-			set.test.context(db$getBiodb(), paste("Running MSMS generic tests on database", db$getName(), "in", mode, "mode"))
 			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
 			run.db.test.that('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
 			run.db.test.that('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
