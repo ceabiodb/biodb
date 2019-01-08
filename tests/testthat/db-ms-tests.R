@@ -284,6 +284,11 @@ test.searchMsPeaks <- function(db) {
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
  	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+
+	# Get collapsed data frame
+	collapsed.results <- db$collapseResultsDataFrame(results, output.mz = mzs)
+	expect_is(collapsed.results, 'data.frame')
+	expect_equal(nrow(collapsed.results), length(mzs))
 }
 
 # Test searchMsPeaks by M/Z and RT {{{1
