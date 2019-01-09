@@ -76,7 +76,7 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 				comp.f <- fields[[f]]
 				if (comp.f %in% names(comp)) {
 					v <- comp[[comp.f]]
-					if ( ! is.null(v) && ! is.list(v)) {
+					if ( ! is.null(v) && ! is.list(v) && v != 'HMDBnull') {
 						.self$setFieldValue(f, comp[[comp.f]])
 					}
 				}
