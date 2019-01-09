@@ -71,6 +71,7 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 			               'monoisotopic.mass' = 'monoisotopicMass',
 			               'average.mass' = 'averageMass',
 			               'smiles' = 'canSmiles',
+			               'logp' = 'logP',
 			               'name' = 'mainName')
 			for (f in names(fields)) {
 				comp.f <- fields[[f]]

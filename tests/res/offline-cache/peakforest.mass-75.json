@@ -40,14 +40,15 @@
   "analyzerMassSpectrometerDevice": {
     "instrumentDetector": {},
     "instrumentDetectionProtocol": {},
-    "ionAnalyzerType": {},
     "instrumentName": ["QTOF Bruker"],
+    "ionAnalyzerType": {},
     "instrumentModel": ["Impact II"],
     "type": ["analyzer mass spectrometer device"],
     "id": [248]
   },
   "instrumentResolutionFWHM": ["15000"],
   "RTmax": [0.8],
+  "curationLvl": ["no curation"],
   "massType": ["fullscan"],
   "gc": [false],
   "lc": [true],
@@ -60,18 +61,22 @@
       "inChI": ["InChI=1S/C6H12N2O4S2/c7-3(5(9)10)1-13-14-2-4(8)6(11)12/h3-4H,1-2,7-8H2,(H,9,10)(H,11,12)/t3-,4-/m0/s1"],
       "PubChemCID": ["67678"],
       "KEGG": {},
-      "subStructures": {},
-      "ChEBI": ["CHEBI:16283"],
+      "networksIDs": {},
       "HMDB": ["HMDB00192"],
-      "mainName": {},
+      "upacName": {},
+      "ChEBI": ["CHEBI:16283"],
       "formula": ["C6H12N2O4S2"],
-      "monoisotopicMass": [240.0238],
-      "averageMass": [240.3005],
       "names": [],
+      "iupacName": ["(2R)-2-amino-3-[[(2R)-2-amino-3-hydroxy-3-oxo-propyl]disulfanyl]propanoic acid"],
+      "curationAsStars": [3],
       "logP": [0.5922],
       "isBioactive": {},
+      "monoisotopicMass": [240.023848874],
+      "averageMass": [240.30048],
       "canSmiles": ["N[C@H](C(=O)O)CSSC[C@@H](C(=O)O)N"],
+      "mainName": {},
       "putativeMatchs": {},
+      "curation": ["structural_and_manual_curation"],
       "pfID": ["PFc001839"],
       "spectra": {},
       "containSpectra": {},
@@ -79,10 +84,12 @@
       "id": [1839]
     }
   ],
+  "pfID": ["PFs000075"],
   "peaks": [
     {
-      "theoricalMass": [241.0311],
-      "deltaPPM": [-0.5178],
+      "theoricalMass": [241.0311248],
+      "deltaPPM": [-0.517775453622644],
+      "rdbEquiv": {},
       "mz": [241.031],
       "ri": [100],
       "attribution": ["[M+H]+"],
@@ -100,7 +107,6 @@
     "type": ["other"],
     "id": [249]
   },
-  "pfID": ["PFs000075"],
   "splash": ["splash10-0006-0090000000-9fe86fc1af3412af16cf"],
   "sampleMixMetadata": {
     "msSolvent": ["ACN/H2O (1/1, V/V)"],
@@ -109,11 +115,12 @@
     "type": ["sample cpd mix"],
     "id": [246]
   },
+  "standardizedMatrixMetadata": {},
   "analyticalMatrixMetadata": {},
-  "type": ["MS"],
-  "label": ["reference"],
-  "sampleExtraDataMetadata": {},
   "sample": ["single chemical compound"],
   "matchingScore": [0],
+  "sampleExtraDataMetadata": {},
+  "type": ["MS"],
+  "label": ["reference"],
   "id": [75]
 }
