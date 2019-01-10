@@ -13,6 +13,7 @@
   "hmdb.metabolites.id": "HMDB00192",
   "monoisotopic.mass": 240.023848874,
   "average.mass": 240.30048,
+  "molecular.mass": 240.30256,
   "logp": 0.5922,
   "ms.mode": "pos",
   "ms.level": 1,

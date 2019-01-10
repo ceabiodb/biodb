@@ -49,6 +49,9 @@ for (mode in TEST.MODES) {
 		# Get instance
 		conn <- connectors[[db.name]]
 
+		# Delete cache entries
+		biodb$getFactory()$deleteAllCacheEntries(conn$getId())
+
 		# Generic tests
 		run.db.generic.tests(conn, mode)
 
