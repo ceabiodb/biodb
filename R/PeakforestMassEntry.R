@@ -74,11 +74,17 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 			               'logp' = 'logP',
 			               'name' = 'mainName')
 			for (f in names(fields)) {
+				print('--------------------------------')
+				print(f)
 				comp.f <- fields[[f]]
 				if (comp.f %in% names(comp)) {
 					v <- comp[[comp.f]]
-					if ( ! is.null(v) && ! is.list(v) && v != 'HMDBnull') {
-						.self$setFieldValue(f, comp[[comp.f]])
+					if (f == 'hmdb.metabolites.id' && v == 'HMDBnull')
+						v <- NULL
+					if ( ! is.null(v) && ! is.list(v)) {
+						if (f == 'chebi.id')
+							v <- sub('^CHEBI:', '', v)
+						.self$setFieldValue(f, v)
 					}
 				}
 			}
