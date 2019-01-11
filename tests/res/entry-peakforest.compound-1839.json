@@ -9,6 +9,7 @@
   "monoisotopic.mass": 240.023848874,
   "molecular.mass": 240.30256,
   "name": "L-Cystine",
+  "logp": 0.5922,
   "inchikey": "LEVWYRKDKASIDU-IMJSIDKUSA-N",
   "inchi": "InChI=1S/C6H12N2O4S2/c7-3(5(9)10)1-13-14-2-4(8)6(11)12/h3-4H,1-2,7-8H2,(H,9,10)(H,11,12)/t3-,4-/m0/s1"
 }

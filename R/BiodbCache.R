@@ -117,6 +117,9 @@ BiodbCache$methods( setMarker = function(conn.id, subfolder, name) {
 BiodbCache$methods( getFilePath = function(conn.id, subfolder, name, ext) {
 	":\n\nGet path of file in cache system."
 
+	# Replace unwanted characters
+	name <- gsub('[^A-Za-z0-9._-]', '_', name)
+
 	# Set file path
 	filepaths <- file.path(.self$getSubFolderPath(subfolder), paste(conn.id, '-', name, '.', ext, sep = ''))
 

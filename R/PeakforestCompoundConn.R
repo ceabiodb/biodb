@@ -15,7 +15,8 @@
 	'monoisotopic.mass'     = "monoisotopicMass",
 	'inchi'                 = "inChI",
 	'inchikey'              = "inChIKey",
-	'name'                  = "mainName"
+	'name'                  = "mainName",
+	'logp'                  = "logP"
 )
 
 # Class declaration {{{1
