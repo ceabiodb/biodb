@@ -70,7 +70,7 @@ BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token
 	}
 	else {
 		# Create a connector ID
-		conn.id <- db.class
+		conn.id <- paste(db.class, openssl::md5(if (is.na(url)) db.info$getUrl('base.url') else url), sep = '-')
 		i <- 0
 		while (conn.id %in% names(.self$.conn)) {
 	    	i <- i + 1
@@ -177,7 +177,7 @@ BiodbFactory$methods( getConn = function(conn.id) {
 
 		# Create connector
 		if  (is.null(conn))
-			conn <- .self$createConn(conn.id)
+			conn <- .self$createConn(db.class = conn.id, conn.id = conn.id)
 	}
 
 	if (is.null(conn))

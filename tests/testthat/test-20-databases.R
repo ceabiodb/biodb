@@ -32,7 +32,7 @@ for (db.name in TEST.DATABASES) {
 	if (db.name == BIODB.MASS.CSV.FILE)
 		conn <- init.mass.csv.file.db(biodb)
 	else
-		conn <- biodb$getFactory()$createConn(db.name)
+		conn <- biodb$getFactory()$createConn(db.name, conn.id = db.name)
 	expect_is(conn, 'BiodbConn')
 	connectors[[db.name]] <- conn
 }

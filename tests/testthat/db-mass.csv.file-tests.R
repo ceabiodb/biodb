@@ -490,6 +490,12 @@ test.mass.csv.file.add.new.entry <- function(biodb) {
 	biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
+# Test cache confusion {{{1
+################################################################
+
+test.mass.csv.file.cache.confusion <- function(biodb) {
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -513,4 +519,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.test.that.on.biodb('Precursor match works.', 'test.mass.csv.file.precursor.match', biodb)
 	run.test.that.on.biodb('Database writing works.', 'test.mass.csv.file.writing', biodb)
 	run.test.that.on.biodb('Adding a new entry to the database works.', 'test.mass.csv.file.add.new.entry', biodb)
+	run.test.that.on.biodb('Two different databases do not use the same cache files.', 'test.mass.csv.file.cache.confusion', biodb)
 }
