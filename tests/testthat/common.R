@@ -278,7 +278,7 @@ load.ref.entries <- function(db) {
 ################################################################
 
 init.mass.csv.file.db <- function(biodb) {
-	db.instance <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.URL)
+	db.instance <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.URL, conn.id = 'mass.csv.file')
 	db.instance$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
 	return(db.instance)
 }
