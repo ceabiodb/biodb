@@ -74,8 +74,6 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 			               'logp' = 'logP',
 			               'name' = 'mainName')
 			for (f in names(fields)) {
-				print('--------------------------------')
-				print(f)
 				comp.f <- fields[[f]]
 				if (comp.f %in% names(comp)) {
 					v <- comp[[comp.f]]
