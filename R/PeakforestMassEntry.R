@@ -54,9 +54,40 @@ PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		.self$setField('chrom.rt.unit', 'min')
 
 	# Parse compound IDs
-	if ('listOfCompounds' %in% names(parsed.content))
+	if ('listOfCompounds' %in% names(parsed.content)) {
 		for (c in parsed.content$listOfCompounds)
 			.self$appendFieldValue('peakforest.compound.id', c$id)
+
+		# In case only one compound is listed, parse all compound fields.
+		if (length(parsed.content$listOfCompounds) == 1) {
+			comp <- parsed.content$listOfCompounds[[1]]
+			fields <- list('inchikey' = 'inChIKey',
+			               'inchi' = 'inChI',
+			               'ncbi.pubchem.comp.id' = 'PubChemCID',
+			               'kegg.compound.id' = 'KEGG',
+			               'chebi.id' = 'ChEBI',
+			               'hmdb.metabolites.id' = 'HMDB',
+			               'formula' = 'formula',
+			               'monoisotopic.mass' = 'monoisotopicMass',
+			               'average.mass' = 'averageMass',
+			               'smiles' = 'canSmiles',
+			               'logp' = 'logP',
+			               'name' = 'mainName')
+			for (f in names(fields)) {
+				comp.f <- fields[[f]]
+				if (comp.f %in% names(comp)) {
+					v <- comp[[comp.f]]
+					if (f == 'hmdb.metabolites.id' && v == 'HMDBnull')
+						v <- NULL
+					if ( ! is.null(v) && ! is.list(v)) {
+						if (f == 'chebi.id')
+							v <- sub('^CHEBI:', '', v)
+						.self$setFieldValue(f, v)
+					}
+				}
+			}
+		}
+	}
 
 	# Set MS level
 	if ('fragmentationLevelString' %in% names(parsed.content)) {
