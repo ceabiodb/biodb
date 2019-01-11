@@ -54,21 +54,28 @@ BiodbFactory$methods( initialize = function(...) {
 # Create connector {{{1
 ################################################################
 
-BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token = NA_character_, fail.if.exists = TRUE) {
+BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token = NA_character_, fail.if.exists = TRUE, conn.id = NULL) {
     ":\n\nCreate a connection to a database."
 
 	# Get database info
 	db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
 
-    # Get connector class
-    conn.class <- db.info$getConnClass()
+	# Get connector class
+	conn.class <- db.info$getConnClass()
 
-    # Create a connector ID
-    conn.id <- db.class
-    i <- 0
-    while (conn.id %in% names(.self$.conn)) {
-	    i <- i + 1
-	    conn.id <- paste(db.class, i, sep = '.')
+	# Set connector ID
+	if ( ! is.null(conn.id)) {
+		if (conn.id %in% names(.self$.conn))
+			.self$message('error', paste0('Connector ID "', conn.id, '" is already used.'))
+	}
+	else {
+		# Create a connector ID
+		conn.id <- db.class
+		i <- 0
+		while (conn.id %in% names(.self$.conn)) {
+	    	i <- i + 1
+	    	conn.id <- paste(db.class, i, sep = '.')
+		}
 	}
 
 	# Create connector instance
