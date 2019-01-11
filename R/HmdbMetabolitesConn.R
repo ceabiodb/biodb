@@ -42,7 +42,95 @@ HmdbMetabolitesConn$methods( initialize = function(...) {
 
 
 
-# Do download {{{1
+# Get entry ids {{{1
+################################################################
+
+HmdbMetabolitesConn$methods( getEntryIds = function(max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Download
+	.self$download()
+
+	if (.self$isDownloaded()) {
+
+		# Get IDs from cache
+		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+
+		# Filter out wrong IDs
+		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
+
+		# Cut
+		if ( ! is.na(max.results) && max.results < length(ids))
+			ids <- ids[1:max.results]
+	}
+
+	return(ids)
+})
+
+# Do get entry content url {{{2
+################################################################
+
+HmdbMetabolitesConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+
+	url <- paste0(.self$getBaseUrl(), 'metabolites/', id, '.xml')
+
+	return(url)
+})
+# Get nb entries {{{1
+################################################################
+
+HmdbMetabolitesConn$methods( getNbEntries = function(count = FALSE) {
+
+	n <- NA_integer_
+
+	ids <- .self$getEntryIds()
+	if ( ! is.null(ids))
+		n <- length(ids)
+
+	return(n)
+})
+
+
+# Get entry page url {{{1
+################################################################
+
+HmdbMetabolitesConn$methods( getEntryPageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'metabolites/', id))
+})
+
+# Get entry image url {{{1
+################################################################
+
+HmdbMetabolitesConn$methods( getEntryImageUrl = function(id) {
+	return(paste0(.self$getBaseUrl(), 'structures/', id, '/image.png'))
+})
+
+# Search compound {{{1
+################################################################
+
+HmdbMetabolitesConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+		
+	.self$.checkMassField(mass = mass, mass.field = mass.field)
+
+	ids <- NULL
+
+	.self$message('caution', 'HMDB is not searchable. HMDB only provides an HTML interface for searching, giving results split across several pages. It is unpractical to use from a program. Since HMDB is downloaded entirely, a solution using an internal database will be implemented in the future.')
+
+	return(ids)
+})
+
+# Private methods {{{1
+################################################################
+
+# Get parsing expressions {{{2
+################################################################
+
+HmdbMetabolitesConn$methods( .getParsingExpressions = function() {
+	return(.BIODB.HMDB.METABOLITES.PARSING.EXPR)
+})
+
+# Do download {{{2
 ################################################################
 
 HmdbMetabolitesConn$methods( .doDownload = function() {
@@ -54,7 +142,7 @@ HmdbMetabolitesConn$methods( .doDownload = function() {
 	.self$.getUrlScheduler()$downloadFile(url = zip.url, dest.file = .self$getDownloadPath())
 })
 
-# Do extract download {{{1
+# Do extract download {{{2
 ################################################################
 
 HmdbMetabolitesConn$methods( .doExtractDownload = function() {
@@ -110,7 +198,7 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 
 		# Send progress message
 		bytes.read <- bytes.read + nchar(chunk, type = 'bytes')
-		if (bytes.read - last.msg.bytes.index > total.bytes %/% 100) {
+		if (bytes.read - last.msg.bytes.index > total.bytes %/% 100 || bytes.read == total.bytes) {
 			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', bytes.read, total.bytes))
 			last.msg.bytes.index <- bytes.read
 		}
@@ -147,91 +235,4 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 	# Remove extract directory
 	.self$message('debug', 'Delete extract directory.')
 	unlink(extract.dir, recursive = TRUE)
-})
-
-# Get entry ids {{{1
-################################################################
-
-HmdbMetabolitesConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids <- NULL
-
-	# Download
-	.self$download()
-
-	if (.self$isDownloaded()) {
-		# Get IDs from cache
-		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
-
-		# Filter out wrong IDs
-		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
-
-		# Cut
-		if ( ! is.na(max.results) && max.results < length(ids))
-			ids <- ids[1:max.results]
-	}
-
-	return(ids)
-})
-
-# Get nb entries {{{1
-################################################################
-
-HmdbMetabolitesConn$methods( getNbEntries = function(count = FALSE) {
-
-	n <- NA_integer_
-
-	ids <- .self$getEntryIds()
-	if ( ! is.null(ids))
-		n <- length(ids)
-
-	return(n)
-})
-
-# Do get entry content url {{{1
-################################################################
-
-HmdbMetabolitesConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-
-	url <- paste0(.self$getBaseUrl(), 'metabolites/', id, '.xml')
-
-	return(url)
-})
-
-# Get entry page url {{{1
-################################################################
-
-HmdbMetabolitesConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'metabolites/', id))
-})
-
-# Get entry image url {{{1
-################################################################
-
-HmdbMetabolitesConn$methods( getEntryImageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'structures/', id, '/image.png'))
-})
-
-# Search compound {{{1
-################################################################
-
-HmdbMetabolitesConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
-		
-	.self$.checkMassField(mass = mass, mass.field = mass.field)
-
-	ids <- NULL
-
-	.self$message('caution', 'HMDB is not searchable. HMDB only provides an HTML interface for searching, giving results split across several pages. It is unpractical to use from a program. Since HMDB is downloaded entirely, a solution using an internal database will be implemented in the future.')
-
-	return(ids)
-})
-
-# Private methods {{{1
-################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-HmdbMetabolitesConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.HMDB.METABOLITES.PARSING.EXPR)
 })
