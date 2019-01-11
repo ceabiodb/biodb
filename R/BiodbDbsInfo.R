@@ -118,7 +118,7 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 	.self$.define('ncbi.pubchem.subst',     name = 'PubChem Substance', scheduler.n = 5, entry.content.type = 'xml', urls = c(base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/')) # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
 	.self$.define('peakforest.mass',        name = 'PeakForest Mass', scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = 'https://metabohub.peakforest.org/rest/'))
 	.self$.define('peakforest.compound',    name = 'PeakForest Compound', scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = 'https://metabohub.peakforest.org/rest/'))
-	.self$.define('uniprot',                name = 'UniProt',                  entry.content.type = 'xml', urls = c(base.url = 'http://www.uniprot.org/uniprot/', xml.ns = "http://uniprot.org/uniprot"))
+	.self$.define('uniprot',                name = 'UniProt',                  entry.content.type = 'xml', urls = c(base.url = 'http://www.uniprot.org/uniprot/'), xml.ns = "http://uniprot.org/uniprot")
 })
 
 # Define {{{2
