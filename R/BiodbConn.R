@@ -46,7 +46,6 @@ BiodbConn$methods( initialize = function(id = NA_character_, ...) {
 	.self$.abstract.class('BiodbConn')
 
 	.self$.assert.is(id, "character")
-	.self$.assert.not.null(.self$.base.url)
 	.id <<- id
 	.entries <<- list()
 })

@@ -37,62 +37,10 @@
 	'chrom.flow.gradient'   = "^AC\\$CHROMATOGRAPHY: FLOW_GRADIENT\\s+(.+)$"
 )
 
-# Prefix -> Dns conversion table {{{2
-################################################################
-
-.BIODB.MASSBANK.PREFIX2DNS <- list(
-	'AC'  = 'AAFC',
-	'AU'  = 'Athens_Univ',
-	'BML' = 'Washington_State_Univ',
-	'BS'  = 'BS',
-	'BSU' = 'Boise_State_Univ',
-	'CA'  = 'Kyoto_Univ',
-	'CE'  = 'MPI_for_Chemical_Ecology',
-	'CO'  = 'Uconn',
-	'EA'  = 'Eawag',
-	'EQ'  = 'Eawag',
-	'ET'  = 'Eawag_Additional_Specs',
-	'FFF' = 'PFOS_research_group',
-	'FIO' = 'Fiocruz',
-	'FU'  = 'Fukuyama',
-	'GLS' = 'GL_Sciences_Inc',
-	'HB'  = 'HBM4EU',
-	'JEL' = 'JEOL_Ltd',
-	'JP'  = 'Fac_Eng_Univ_Tokyo',
-	'KNA' = 'NAIST',
-	'KO'  = 'Keio_Univ',
-	'KZ'  = 'Kazusa',
-	'KW'  = 'KWR',
-	'LIT' = 'Literature_Specs',
-	'MCH' = 'Osaka_MCHRI',
-	'ML'  = 'MetaboLights',
-	'MSJ' = 'MSSJ',
-	'MT'  = 'Metabolon',
-	'NA'  = 'NaToxAq',
-	'NU'  = 'Nihon_Univ',
-	'OUF' = 'Osaka_Univ',
-	'PB'  = 'IPB_Halle',
-	'PR'  = 'RIKEN',
-	'RP'  = 'BGC_Munich',
-    'SM'  = 'CASMI2012',
-	'SM'  = 'CASMI2016',
-	'TT'  = 'Tottori_Univ',
-	'TUE' = 'Env_Anal_Chem_U_Tuebingen',
-	'TY'  = 'Univ_Toyama',
-	'UA'  = 'UFZ',
-	'UF'  = 'UFZ',
-	'UN'  = 'UFZ',
-	'UO'  = 'Sangyo',
-	'UP'  = 'UFZ',
-	'UPA' = 'Univ_Connecticut',
-	'UT'  = 'Chubu_Univ',
-	'WA'  = 'Waters'
-)
-
 # Class declaration {{{1
 ################################################################
 
-MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn", 'BiodbDownloadable'))
+MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn", 'BiodbDownloadable'), fields = list(.prefix2dns = 'list'))
 
 # Constructor {{{1
 ################################################################0
@@ -101,6 +49,7 @@ MassbankConn$methods( initialize = function(...) {
 
 	callSuper(...)
 
+	.prefix2dns <<- list()
 	.self$.setDownloadExt('tar.gz')
 })
 
@@ -292,10 +241,14 @@ MassbankConn$methods( getChromCol = function(ids = NULL) {
 
 MassbankConn$methods( getDns = function(id) {
 
+	# Download prefixes file, parse it and build list
+	if (length(.self$.prefix2dns) == 0)
+		.self$.loadPrefixes()
+
 	dns <- vapply(id, function(x) {
 		prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', x, perl = TRUE)
-		if (prefix %in% names(.BIODB.MASSBANK.PREFIX2DNS))
-			.BIODB.MASSBANK.PREFIX2DNS[[prefix]]
+		if (prefix %in% names(.self$.prefix2dns))
+			.self$.prefix2dns[[prefix]]
 		else
 			NA_character_
 		}, FUN.VALUE = '', USE.NAMES = FALSE)
@@ -335,8 +288,11 @@ MassbankConn$methods( .getParsingExpressions = function() {
 MassbankConn$methods( .doDownload = function() {
 
 	# Download tar.gz
-	tar.gz.url <- 'https://github.com/MassBank/MassBank-data/archive/master.tar.gz'
+	tar.gz.url <- .self$getUrl('db.tar.url')
 	.self$message('info', paste0("Downloading \"", tar.gz.url, "\"..."))
+	scheduler <- .self$.getUrlScheduler()
+	path <- .self$getDownloadPath()
+	scheduler$downloadFile(url = tar.gz.url, dest.file = path)
 	.self$.getUrlScheduler()$downloadFile(url = tar.gz.url, dest.file = .self$getDownloadPath())
 })
 
@@ -365,7 +321,7 @@ MassbankConn$methods( .doExtractDownload = function() {
 	unlink(extracted.dir, recursive = TRUE)
 })
 
-# Do search M/Z range {{{1
+# Do search M/Z range {{{2
 ################################################################
 
 MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
@@ -374,7 +330,7 @@ MassbankConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, m
 	return(.self$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level))
 })
 
-# Do search M/Z with tolerance {{{1
+# Do search M/Z with tolerance {{{2
 ################################################################
 
 MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
@@ -452,3 +408,31 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 	return(returned.ids)
 })
 
+# Load prefixes {{{1
+################################################################
+
+MassbankConn$methods( .loadPrefixes = function() {
+
+	# Get prefixes file content
+	prefixes.file.url <- .self$getUrl('prefixes.file.url')
+	prefixes.md <- .self$getBiodb()$getRequestScheduler()$getUrl(prefixes.file.url)
+
+	# Split in lines
+	lines <- strsplit(prefixes.md, "\n")[[1]]
+
+	# Skip header lines
+	lines <- lines[3:length(lines)]
+
+	# Parse databases and prefixes
+	results <- stringr::str_match_all(lines, '^\\| *([^ ]+) +\\|[^|]+\\|[^|]+\\| *([A-Z ,]+) *\\|.*$')
+	dbs <- vapply(results, function(x) x[1,2], FUN.VALUE='')
+	prefixes <- lapply(results, function(x) stringr::str_match_all(x[1,3], '([A-Z]+)')[[1]][,1])
+
+	# Loop on all databases
+	for (i in seq_along(dbs)) {
+
+		# Loop on prefixes
+		for (p in prefixes[[i]])
+			.self$.prefix2dns[[p]] <- dbs[[i]]
+	}
+})
