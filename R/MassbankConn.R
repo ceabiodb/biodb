@@ -62,7 +62,7 @@
 	'KNA' = 'NAIST',
 	'KO'  = 'Keio_Univ',
 	'KZ'  = 'Kazusa',
-	'KW'  = 'KWR'
+	'KW'  = 'KWR',
 	'LIT' = 'Literature_Specs',
 	'MCH' = 'Osaka_MCHRI',
 	'ML'  = 'MetaboLights',
@@ -85,7 +85,7 @@
 	'UO'  = 'Sangyo',
 	'UP'  = 'UFZ',
 	'UPA' = 'Univ_Connecticut',
-	'UT'  = 'Chubu_Univ'
+	'UT'  = 'Chubu_Univ',
 	'WA'  = 'Waters'
 )
 
