@@ -80,8 +80,6 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 
 	# Get rule
 	rule <- .self$.findRule(url)
-#	if (is.null(rule))
-#		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
 
 	# Check method
 	if ( ! method %in% c('get', 'post'))
@@ -109,7 +107,7 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 	request.key <- digest::digest(request.json.str, algo = 'md5')
 	if (.self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
 		.self$message('debug', paste0("Loading content of ", method, " request from cache ..."))
-		content <- .self$getBiodb()$getCache()$loadFileContent(conn.id = 'request', subfolder = 'shortterm', name = request.key, ext ='content', output.vector = TRUE)
+		content <- .self$getBiodb()$getCache()$loadFileContent('request', subfolder = 'shortterm', name = request.key, ext ='content', output.vector = TRUE)
 	}
 
 	if (is.na(content)) {
@@ -158,8 +156,8 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 		# Save content to cache
 		if ( ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
 			.self$message('debug', paste0("Saving content of ", method, " request to cache ..."))
-			.self$getBiodb()$getCache()$saveContentToFile(content, conn.id = 'request', subfolder = 'shortterm', name = request.key, ext ='content')
-			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, conn.id = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')
+			.self$getBiodb()$getCache()$saveContentToFile(content, cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='content')
+			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')
 		}
 	}
 

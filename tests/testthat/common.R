@@ -278,9 +278,25 @@ load.ref.entries <- function(db) {
 ################################################################
 
 init.mass.csv.file.db <- function(biodb) {
-	db.instance <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.URL, conn.id = 'mass.csv.file')
+	db.instance <- get.default.db(biodb, 'mass.csv.file')
+	db.instance$setUrl('base.url', MASSFILEDB.URL)
 	db.instance$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
 	return(db.instance)
+}
+
+# Get default db {{{1
+################################################################
+
+get.default.db <- function(biodb, class.db) {
+
+	db <- NULL
+
+	if (biodb$getFactory()$connExists(class.db))
+		db <- biodb$getFactory()$getConn(class.db)
+	else
+		db <- biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
+
+	return(db)
 }
 
 # Run test that on biodb and observer {{{1

@@ -8,7 +8,7 @@
 #' This class manages a cache system for saving downloaded files and request results. It is designed for internal use, but you can still access some of the read-only methods if you wish.
 #'
 #' @param content       A \code{character vector} containing contents to save.
-#' @param conn.id       The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.
+#' @param cache.id      An ID to use in the cache.
 #' @param ext           The extension of the file, without the dot: 'html', 'xml', etc.
 #' @param extract.name  Instead of returning the file paths, returns the list of names used to construct the file name: [cache_folder]/[subfolder]/[connid]-[name].[ext].
 #' @param name          The name of the file or the marker. Vector of characters. Length can be greater than one.
@@ -21,14 +21,17 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Get a connector instance:
+#' conn <- mybiodb$getFactory()$createConn('chebi')
+#'
 #' # Get the cache instance:
 #' cache <- mybiodb$getCache()
 #'
 #' # Get list of files inside the cache:
-#' files <- cache$listFiles('chebi', 'shortterm')
+#' files <- cache$listFiles(conn$getCacheId(), 'shortterm')
 #'
 #' # Delete files inside the cache:
-#' cache$deleteFiles('chebi', 'shortterm')
+#' cache$deleteFiles(conn$getCacheId(), 'shortterm')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -83,10 +86,10 @@ BiodbCache$methods( isWritable = function() {
 # File exists {{{1
 ################################################################
 
-BiodbCache$methods( fileExist = function(conn.id, subfolder, name, ext) {
+BiodbCache$methods( fileExist = function(cache.id, subfolder, name, ext) {
 	":\n\nTest if files exist in the cache."
 
-	exists <- file.exists(.self$getFilePath(conn.id, subfolder, name, ext))
+	exists <- file.exists(.self$getFilePath(cache.id, subfolder, name, ext))
 
 	return(exists)
 })
@@ -94,19 +97,19 @@ BiodbCache$methods( fileExist = function(conn.id, subfolder, name, ext) {
 # Marker exists {{{1
 ################################################################
 
-BiodbCache$methods( markerExist = function(conn.id, subfolder, name) {
+BiodbCache$methods( markerExist = function(cache.id, subfolder, name) {
 	":\n\nTest if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly."
 
-	return(.self$fileExist(conn.id = conn.id, subfolder = subfolder, name = name, ext = 'marker'))
+	return(.self$fileExist(cache.id = cache.id, subfolder = subfolder, name = name, ext = 'marker'))
 })
 
 # Set marker {{{1
 ################################################################
 
-BiodbCache$methods( setMarker = function(conn.id, subfolder, name) {
+BiodbCache$methods( setMarker = function(cache.id, subfolder, name) {
 	":\n\nSet a marker."
 
-	marker.path <- .self$getFilePath(conn.id = conn.id, subfolder = subfolder, name = name, ext = 'marker')
+	marker.path <- .self$getFilePath(cache.id = cache.id, subfolder = subfolder, name = name, ext = 'marker')
 
 	writeChar('', marker.path)
 })
@@ -114,14 +117,14 @@ BiodbCache$methods( setMarker = function(conn.id, subfolder, name) {
 # Get file paths {{{1
 ################################################################
 
-BiodbCache$methods( getFilePath = function(conn.id, subfolder, name, ext) {
+BiodbCache$methods( getFilePath = function(cache.id, subfolder, name, ext) {
 	":\n\nGet path of file in cache system."
 
 	# Replace unwanted characters
 	name <- gsub('[^A-Za-z0-9._-]', '_', name)
 
 	# Set file path
-	filepaths <- file.path(.self$getSubFolderPath(subfolder), paste(conn.id, '-', name, '.', ext, sep = ''))
+	filepaths <- file.path(.self$getSubFolderPath(subfolder), paste(cache.id, '-', name, '.', ext, sep = ''))
 
 	# Set NA values
 	filepaths[is.na(name)] <- NA_character_
@@ -132,7 +135,7 @@ BiodbCache$methods( getFilePath = function(conn.id, subfolder, name, ext) {
 # Load file content {{{1
 ################################################################
 
-BiodbCache$methods( loadFileContent = function(conn.id, subfolder, name, ext, output.vector = FALSE) {
+BiodbCache$methods( loadFileContent = function(cache.id, subfolder, name, ext, output.vector = FALSE) {
 	":\n\nLoad content of files from the cache."
 
 	if ( ! .self$isReadable())
@@ -141,7 +144,7 @@ BiodbCache$methods( loadFileContent = function(conn.id, subfolder, name, ext, ou
 	content <- NULL
 
 	# Read contents from files
-	file.paths <- .self$getFilePath(conn.id, subfolder, name, ext)
+	file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
 	.self$message('debug', paste("Trying to load from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size, useBytes = TRUE) else NULL )} )
 	files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE = T)]
@@ -176,14 +179,14 @@ BiodbCache$methods( loadFileContent = function(conn.id, subfolder, name, ext, ou
 # Save content into file {{{1
 ################################################################
 
-BiodbCache$methods( saveContentToFile = function(content, conn.id, subfolder, name, ext) {
+BiodbCache$methods( saveContentToFile = function(content, cache.id, subfolder, name, ext) {
 	":\n\nSave content to files into the cache."
 
 	if ( ! .self$isWritable())
 		.self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
 
 	# Get file paths
-	file.paths <- .self$getFilePath(conn.id, subfolder, name, ext)
+	file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
 
 	# Check that we have the same number of content and file paths
 	if (length(file.paths) != length(content))
@@ -233,10 +236,10 @@ BiodbCache$methods( eraseFolder = function(subfolder = NA_character_) {
 # Delete files {{{1
 ################################################################
 
-BiodbCache$methods( deleteFiles = function(conn.id, subfolder, ext = NA_character_) {
+BiodbCache$methods( deleteFiles = function(cache.id, subfolder, ext = NA_character_) {
 	":\n\nDelete files inside the cache system."
 
-	files <- paste(conn.id, '*',sep = '-')
+	files <- paste(cache.id, '*',sep = '-')
 	if ( ! is.na(ext))
 		files <- paste(files, ext, sep = '.')
 
@@ -246,11 +249,11 @@ BiodbCache$methods( deleteFiles = function(conn.id, subfolder, ext = NA_characte
 # List files {{{1
 ################################################################
 
-BiodbCache$methods( listFiles = function(conn.id, subfolder, ext = NA_character_, extract.name = FALSE) {
+BiodbCache$methods( listFiles = function(cache.id, subfolder, ext = NA_character_, extract.name = FALSE) {
 	":\n\nList files present in the cache system."
 
 	# Pattern
-	pattern <- paste('^', conn.id, '-.*', sep = '')
+	pattern <- paste('^', cache.id, '-.*', sep = '')
 	if ( ! is.na(ext))
 		pattern <- paste(pattern, ext, sep = '\\.')
 	pattern <- paste(pattern, '$', sep = '')
@@ -262,7 +265,7 @@ BiodbCache$methods( listFiles = function(conn.id, subfolder, ext = NA_character_
 
 	# Extract only the name part
 	if (extract.name) {
-		pattern <- paste('^', conn.id, '-(.*)', sep = '')
+		pattern <- paste('^', cache.id, '-(.*)', sep = '')
 		if ( ! is.na(ext))
 			pattern <- paste(pattern, ext, sep = '\\.')
 		pattern <- paste(pattern, '$', sep = '')
