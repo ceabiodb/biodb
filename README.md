@@ -159,6 +159,149 @@ The value `all` for `MODES` run tests in all modes: `online`, `quick.online` and
 
 The two environment variables can be combined together.
 
+## Changelog
+
+### Version 1.2.0
+
+ * Update list of MassBank prefixes and fix deep link url. (#271)
+ * Integrate compound information into Peakforest mass search result. (#279)
+ * Create method collapseResultsDataFrame(). (#278)
+ * Correct search with an N/A value for M/Z. (#277)
+ * Disable tests on NCBI PubChem comp. (#276)
+ * Check for error between proxy and server.
+ * Remove urltools dependency. (#273)
+ * Correct PeakForest MZ search with multiple ranges. (#270)
+ * Correct Peakforest compound search compound failure. (#268)
+ * Correct PeakForest Mass RT test. (#267)
+ * Introduce exclusion of tests on Travis-CI for out of order databases. (#266)
+ * Allow writing of MassCsvFile database. (#256)
+ * Now there is only one single URL scheduler. (#253)
+ * Allow multiple connector instantiations of the same database class. (#248)
+ * Use GitHub as source for Massbank data. (#243)
+ * Correct URL for KEGG Compound entry page. (#242)
+ * lipidmaps.structure test ref entries update. (#240)
+ * Check mass.field in searchCompound(). (#239)
+ * Update HMDB0000001 entry for testing. (#238)
+
+### Version 1.1.3
+
+ * Allow setting of new names for MS mode. (#236)
+
+### Version 1.1.2
+
+ * Modify parameters of searchMsPeaks().
+
+### Version 1.1.1
+
+ * Fix RT matching. (#235)
+
+### Version 1.1.0
+
+ * Improve error message on SVN failure. (#226)
+ * Update uniprot test files. (#227)
+ * Update HMDB test ref files. (#225)
+ * Correct convertion of RT input into seconds.
+ * Test and correct RT match.
+ * Correct PeakForest chrom col list.
+ * No comment chars while parsing entry CSV file.
+ * Correct test of cache system activation in URL scheduler.
+ * Correct parsing of peaks table in MassCsvFile.
+ * Add MS peak fields definitions.
+ * Implement RT tol exp. (#221)
+ * Handle msprecmz field in mass.csv.file. (#219)
+ * Handle RT unit. (#217)
+ * Hotfix/peakforest new url. (#215)
+ * Create LICENSE.
+
+### Version 1.0.2
+
+ * Hotfix/cpp build. (#224)
+
+### Version 1.0.1
+
+ * Hotfix/peakforest new url. (#215)
+
+### Version 1.0
+
+ * Split Travis-CI tests for databases.
+ * Always allow download of Mirbase.
+ * Hotfix/massbank relative intensity (#205)
+ * Test presence of MS level field in Massbank entry.
+ * Implement listKeys() method in config class.
+ * Reduce size of vignettes HTML files.
+ * Update email in package description.
+ * Correct regexp in Rbuildignore.
+ * Correct Lipidmaps parsing of synonyms.
+ * Add missing entry fields for MassCsvFile.
+ * Correct max.results param in getEntryIds().
+ * Implement web service LMSDRecord  in Lipidmaps.
+ * Implement searchCompound() for Mirbase.
+ * Implement ws.search for PeakForest.
+ * Implement searchCompound() for NcbiGene.
+ * Implement searchCompound() for Pubchem Comp.
+ * Update test ref files of several databases.
+ * Update expasy enzyme URL.
+ * Implement getEntryImageUrl() for all databases.
+ * Close connections to log files.
+ * Implement missing getEntryPageUrl() methods.
+ * Merge name and fullnames in Uniprot.
+ * Implement getChromCol() for Massbank.
+ * Speed up msmsSearch() test.
+ * Set database from data frame in MassCsvFile.
+ * Forbid vector for enumerated value.
+ * Correct msmsSearch when no IDs are found.
+ * Implement enumerated type for entry fields.
+ * Correct handle of NAs in CSV entry,
+ * Implement searchMsPeaks.
+ * Write missing show() methods.
+ * Speed up Peakforest MSMS test.
+ * Implement enzyme-search-de web service.
+
+### Version 0.9
+
+An alpha version.
+
+ * Create token vignette.
+ * Update lipidmaps.structure test ref files.
+ * Update enzyme test ref files.
+ * ChEBI searchCompound corrections.
+ * Add new examples to README.
+ * Add descriptions to all fields.
+ * Improve massbank examples.
+ * Improve CAUTION message displayed when encountering a cache file with bad encoding.
+ * Ignore CSV file output when running examples.
+ * Exclude DEBUG messages by default in Logger class.
+ * Remove failure when SVN default path isn't found.
+ * Add class diagram pictures.
+ * Complete searchCompound() example.
+ * Add link detail for KEGG web services doc.
+ * Implement searchCompound() for KEGG Compound.
+ * Write and test new web services for exact mass and molecular mass for Kegg Compound.
+ * KeggConn::ws.find works.
+ * Add method for erasing whole cache or cache subfolder.
+ * Implement searchCompound in ChemSpider.
+ * Implement and test ChemSpider web service for searching by mass.
+ * Implement searchCompounds() for Uniprot.
+ * Encode URL before sending request.
+ * Implement getEntryIds() for Uniprot.
+ * Write Uniprot query method.
+ * Replace all ref test tables by JSON files, for all tested databases.
+ * Add license.
+ * Decrease memory usage of HMDB metabolite zip extraction by not using XML library.
+ * Move all URLs info to DbsInfo.
+ * Correct XML namespace in getLiteEntity ChEBI web service. Solves #91.
+ * Update test reference files for ChEBI.
+ * Replace SOAP call by REST for getLiteEntity service in ChEBI.
+ * Add debug messages for POST messages.
+ * Move content-type into DbInfo class.
+ * Move scheduler parameters into BiodbDbsInfo.
+ * Increase Pubchem scheduler frequency to 5 request per second.
+ * Declare abstract classes.
+
+### Version 0.6
+
+A beta version.
+
 ## Citations
 
 ### ChEBI
