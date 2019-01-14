@@ -3,7 +3,7 @@
   "name": ["O-Acetylcarnitine", "O-Acetyl-L-carnitine"],
   "exact.mass": 204.12358,
   "molecular.mass": 204.24356,
-  "formula": "C9H18NO4",
+  "formula": "[C9H18NO4]+",
   "nb.peaks": 40,
   "inchikey": "RDHQFKQIGNGIED-MRVPVSSYSA-O",
   "inchi": "InChI=1S/C9H17NO4/c1-7(11)14-8(5-9(12)13)6-10(2,3)4/h8H,5-6H2,1-4H3/p+1/t8-/m0/s1",
