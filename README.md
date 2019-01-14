@@ -161,6 +161,10 @@ The two environment variables can be combined together.
 
 ## Changelog
 
+### Version 1.2.1
+
+No change, use a new version number in order to avoid confusion in conda.
+
 ### Version 1.2.0
 
  * Update list of MassBank prefixes and fix deep link url. (#271)
