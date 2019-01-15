@@ -8,18 +8,16 @@
 #' This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 #'
 #' @field db.class      The class of the database (\code{"massbank", "hmdb.metabolies", ...}).
-#' @field base.url      The main URL of the database.
-#' @field ws.url        The web services URL of the database.
+#' @field urls          The URLs of the database.
 #' @field xml.ns        The XML namespace used by the database.
 #' @field token         An access token for the database.
 #' @field scheduler.n   The N parameter for the scheduler. The N paramter is the number of request allowed for each bit of time (defined by the T parameter).
 #' @field scheduler.t   The T parameter for the scheduler. The bit of time, in seconds, during which a maximum of N (see scheduler.n) requests is allowed.
 #'
-#' @param base.url  A base URL for the database.
+#' @param url       A URL for the database.
 #' @param n         The scheduler "number of requests parameter.
 #' @param t         The scheduler "time" parameter, in seconds.
 #' @param token     An access token for the database.
-#' @param ws.url    A web service URL for the database.
 #' @param xml.ns    The XML namespace used by the database.
 #'
 #' @seealso \code{\link{BiodbDbsInfo}}, \code{\link{BiodbConn}}.
@@ -28,12 +26,12 @@
 #' @include ChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .base.url = "character", .ws.url = 'character', .token = "character", .scheduler.n = 'integer', .scheduler.t = 'numeric', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character', .observers = 'list', .prop.def = 'list', .prop = 'list'))
+BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject", fields = list( .db.class = "character", .urls = "character", .token = "character", .scheduler.n = 'integer', .scheduler.t = 'numeric', .entry.content.type = 'character', .xml.ns = 'character', .name = 'character', .observers = 'list', .prop.def = 'list', .prop = 'list'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base.url = NA_character_, ws.url = NA_character_, scheduler.n = NA_integer_, scheduler.t = NA_real_, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, token = NA_character_, properties = NULL, ...) {
+BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, urls = NULL, scheduler.n = NA_integer_, scheduler.t = NA_real_, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, token = NA_character_, properties = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
@@ -41,7 +39,7 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	# Take parameter values from other object instance
 	if ( ! is.null(other)) {
 		.self$.assert.inherits.from(other, "BiodbConnBase")
-		for (param in c('db.class', 'base.url', 'ws.url', 'scheduler.n', 'scheduler.t', 'entry.content.type', 'xml.ns', 'name'))
+		for (param in c('db.class', 'urls', 'scheduler.n', 'scheduler.t', 'entry.content.type', 'xml.ns', 'name'))
 			if (is.null(get(param)) || is.na(get(param)))
 				assign(param, other[[paste0('.', param)]])
 	}
@@ -60,10 +58,8 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, base
 	.entry.content.type <<- entry.content.type
 
 	# URLs
-	.self$.assert.is(base.url, 'character')
-	.self$.assert.is(ws.url, 'character')
-	.base.url <<- base.url
-	.ws.url <<- ws.url
+	.self$.assert.is(urls, 'character')
+	.urls <<- urls
 
 	# Other parameters
 	.self$.assert.is(name, 'character')
@@ -203,54 +199,32 @@ BiodbConnBase$methods( getEntryIdField = function() {
 BiodbConnBase$methods( getUrls = function() {
 	":\n\nReturns the URLs."
 
-	urls <- character()
-	if ( ! is.null(.self$.base.url) && ! is.na(.self$.base.url))
-		urls <- c(urls, .self$.base.url)
-	if ( ! is.null(.self$.ws.url) && ! is.na(.self$.ws.url))
-		urls <- c(urls, .self$.ws.url)
-
-	return(urls)
+	return(.self$.urls)
 })
 
-# Get base URL {{{1
+# Get a URL {{{1
 ################################################################
 
-BiodbConnBase$methods( getBaseUrl = function() {
-	":\n\nReturns the base URL."
+BiodbConnBase$methods( getUrl = function(name) {
+	":\n\nReturns a URL."
 
-	return(.self$.base.url)
+	url <- NA_character_
+
+	if (name %in% names(.self$.urls))
+		url <- .self$.urls[[name]]
+
+	return(url)
 })
 
-# Set base URL {{{1
+# Set a URL {{{1
 ################################################################
 
-BiodbConnBase$methods( setBaseUrl = function(base.url) {
-	":\n\nSets the base URL."
+BiodbConnBase$methods( setUrl = function(name, url) {
+	":\n\nReturns a URL."
 
-	.self$.checkSettingOfUrl('base.url', base.url)
+	.self$.checkSettingOfUrl(name, url)
 
-	.base.url <<- base.url
-
-	# Notify observers
-	for (obs in .self$.observers)
-		obs$connUrlsUpdated(.self)
-})
-# Get web sevices URL {{{1
-################################################################
-
-BiodbConnBase$methods( getWsUrl = function() {
-	":\n\nReturns the web sevices URL."
-
-	return(.self$.ws.url)
-})
-
-# Set web sevices URL {{{1
-################################################################
-
-BiodbConnBase$methods( setWsUrl = function(ws.url) {
-	":\n\nSets the web sevices URL."
-
-	.ws.url <<- ws.url
+	.self$.urls[[name]] <- url
 
 	# Notify observers
 	for (obs in .self$.observers)
@@ -362,6 +336,53 @@ BiodbConnBase$methods( setPropertyValue = function(name, value) {
 		.self$message('error', paste0('Unknown property "', name, '" for database ', .self$.db.class, '.'))
 
 	.self$.prop[[name]] <- as.vector(value, mode = .self$.prop.def[[name]]$class)
+})
+
+# Deprecated methods {{{1
+################################################################
+
+# Get base URL {{{2
+################################################################
+
+BiodbConnBase$methods( getBaseUrl = function() {
+	":\n\nReturns the base URL."
+
+	.self$.deprecated.method("getUrl()")
+
+	return(.self$getUrl('base.url'))
+})
+
+# Set base URL {{{2
+################################################################
+
+BiodbConnBase$methods( setBaseUrl = function(url) {
+	":\n\nSets the base URL."
+
+	.self$.deprecated.method("setUrl()")
+
+	.self$setUrl('base.url', url)
+})
+
+# Get web sevices URL {{{2
+################################################################
+
+BiodbConnBase$methods( getWsUrl = function() {
+	":\n\nReturns the web sevices URL."
+
+	.self$.deprecated.method("getUrl()")
+
+	return(.self$getUrl('ws.url'))
+})
+
+# Set web sevices URL {{{2
+################################################################
+
+BiodbConnBase$methods( setWsUrl = function(ws.url) {
+	":\n\nSets the web sevices URL."
+
+	.self$.deprecated.method("setUrl()")
+
+	.self$setUrl('ws.url', ws.url)
 })
 
 # Private methods {{{1
