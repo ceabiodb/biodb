@@ -33,7 +33,7 @@ test.BiodbFactory.show <- function(biodb) {
 
 test.BiodbEntry.show <- function(biodb) {
 	ids <- list.ref.entries('chebi')
-	entry <- biodb$getFactory()$getEntry('chebi', ids[[1]])
+	entry <- get.default.db(biodb, 'chebi')$getEntry(ids[[1]])
 	expect_output(entry$show(), regexp = '^Biodb .* entry instance .*\\.$')
 }
 
