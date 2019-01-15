@@ -80,8 +80,8 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 
 	# Get rule
 	rule <- .self$.findRule(url)
-	if (is.null(rule))
-		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
+#	if (is.null(rule))
+#		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
 
 	# Check method
 	if ( ! method %in% c('get', 'post'))
@@ -174,8 +174,8 @@ BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 
 	# Get rule
 	rule <- .self$.findRule(url)
-	if (is.null(rule))
-		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
+#	if (is.null(rule))
+#		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
 
 	# Wait required time between two requests
 	rule$wait.as.needed()
@@ -289,11 +289,16 @@ BiodbRequestScheduler$methods( .extractDomainfromUrl = function(url) {
 # Find rule {{{2
 ################################################################
 
-BiodbRequestScheduler$methods( .findRule = function(url) {
+BiodbRequestScheduler$methods( .findRule = function(url, fail = TRUE) {
 	.self$.assert.not.null(url)
 	.self$.assert.length.one(url)
 	.self$.assert.not.na(url)
 	domain <- .self$.extractDomainfromUrl(url)
+
+	# Rule does not exist
+	if (fail && ! domain %in% names(.self$.host2rule))
+		.self$message('error', paste0('No rule exists for domain "', domain, '".'))
+
 	return(.self$.host2rule[[domain]])
 })
 
@@ -308,7 +313,7 @@ BiodbRequestScheduler$methods( .addConnectorRules = function(conn) {
 	for (url in conn$getUrls()) {
 
 		# Check if a rule already exists
-		rule <- .self$.findRule(url)
+		rule <- .self$.findRule(url, fail = FALSE)
 
 		# No rule exists => create new one
 		if (is.null(rule)) {
