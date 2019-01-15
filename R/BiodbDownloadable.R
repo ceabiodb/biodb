@@ -32,7 +32,7 @@ BiodbDownloadable$methods( initialize = function(...) {
 BiodbDownloadable$methods( getDownloadPath = function() {
 	":\n\nGet the path where the downloaded containt is written."
 
-	path <- .self$getBiodb()$getCache()$getFilePath(conn.id = .self$getId(), subfolder = 'longterm', name = 'download', ext = .self$.ext)
+	path <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), subfolder = 'longterm', name = 'download', ext = .self$.ext)
 
 	.self$message('debug', paste0('Download path of ', .self$getId(), ' is "', path, '".'))
 
@@ -65,7 +65,7 @@ BiodbDownloadable$methods( isDownloaded = function() {
 BiodbDownloadable$methods( isExtracted = function() {
 	":\n\nReturns TRUE of the downloaded database containt has been extracted."
 
-	return(.self$getBiodb()$getCache()$markerExist(conn.id = .self$getId(), subfolder = 'shortterm', name = 'extracted'))
+	return(.self$getBiodb()$getCache()$markerExist(.self$getCacheId(), subfolder = 'shortterm', name = 'extracted'))
 })
 
 # Download {{{1
@@ -90,7 +90,7 @@ BiodbDownloadable$methods( download = function() {
 		.self$.doExtractDownload()
 
 		# Set marker
-		.self$getBiodb()$getCache()$setMarker(conn.id = .self$getId(), subfolder = 'shortterm', name = 'extracted')
+		.self$getBiodb()$getCache()$setMarker(.self$getCacheId(), subfolder = 'shortterm', name = 'extracted')
 	}
 })
 

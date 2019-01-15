@@ -181,7 +181,7 @@ RemotedbConn$methods( .terminate = function() {
 	.self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)
 })
 
-# DEPRECATED METHODS {{{1
+# Deprecated methods {{{1
 ################################################################
 
 # Get URL scheduler {{{2

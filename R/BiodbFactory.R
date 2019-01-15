@@ -54,27 +54,34 @@ BiodbFactory$methods( initialize = function(...) {
 # Create connector {{{1
 ################################################################
 
-BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token = NA_character_, fail.if.exists = TRUE) {
+BiodbFactory$methods( createConn = function(db.class, url = NULL, token = NA_character_, fail.if.exists = TRUE, conn.id = NULL, cache.id = NULL) {
     ":\n\nCreate a connection to a database."
 
 	# Get database info
 	db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
 
-    # Get connector class
-    conn.class <- db.info$getConnClass()
+	# Get connector class
+	conn.class <- db.info$getConnClass()
 
-    # Create a connector ID
-    conn.id <- db.class
-    i <- 0
-    while (conn.id %in% names(.self$.conn)) {
-	    i <- i + 1
-	    conn.id <- paste(db.class, i, sep = '.')
+	# Set connector ID
+	if ( ! is.null(conn.id)) {
+		if (conn.id %in% names(.self$.conn))
+			.self$message('error', paste0('Connector ID "', conn.id, '" is already used.'))
+	}
+	else {
+		# Create a connector ID
+		conn.id <- db.class
+		i <- 0
+		while (conn.id %in% names(.self$.conn)) {
+	    	i <- i + 1
+	    	conn.id <- paste(db.class, i, sep = '.')
+		}
 	}
 
 	# Create connector instance
-    .self$message('debug', paste0('Creating new connector for database class ', db.class, (if (is.na(url)) '' else paste0(', with base URL "', url, '"')), '.'))
-	conn <- conn.class$new(id = conn.id, other = db.info, token = token, parent = .self)
-    if ( ! is.na(url))
+    .self$message('debug', paste0('Creating new connector for database class ', db.class, (if (is.null(url) || is.na(url)) '' else paste0(', with base URL "', url, '"')), '.'))
+	conn <- conn.class$new(id = conn.id, cache.id = cache.id, other = db.info, token = token, parent = .self)
+    if ( ! is.null(url) && ! is.na(url))
 	    conn$setUrl('base.url', url)
 
     # Check if an identical connector already exists
@@ -84,6 +91,15 @@ BiodbFactory$methods( createConn = function(db.class, url = NA_character_, token
 	.self$.conn[[conn.id]] <- conn
 
 	return (conn)
+})
+
+# Connector exists {{{1
+################################################################
+
+BiodbFactory$methods( connExists = function(conn.id) {
+    ":\n\nReturns TRUE if a connector with this ID exists."
+
+	return(conn.id %in% names(.self$.conn))
 })
 
 # Delete connector {{{1
@@ -170,7 +186,7 @@ BiodbFactory$methods( getConn = function(conn.id) {
 
 		# Create connector
 		if  (is.null(conn))
-			conn <- .self$createConn(conn.id)
+			conn <- .self$createConn(db.class = conn.id)
 	}
 
 	if (is.null(conn))
@@ -289,7 +305,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 		# Initialize content
 		if (.self$getBiodb()$getCache()$isReadable()) {
 			# Load content from cache
-			content <- .self$getBiodb()$getCache()$loadFileContent(conn.id = conn$getId(), subfolder = 'shortterm', name = id, ext = conn$getEntryContentType())
+			content <- .self$getBiodb()$getCache()$loadFileContent(conn$getCacheId(), subfolder = 'shortterm', name = id, ext = conn$getEntryContentType())
 			missing.ids <- id[vapply(content, is.null, FUN.VALUE = TRUE)]
 		}
 		else {
@@ -326,7 +342,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 
 				# Save to cache
 				if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
-					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, conn.id = conn$getId(), subfolder = 'shortterm', name = ch.missing.ids, ext = conn$getEntryContentType())
+					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, cache.id = conn$getCacheId(), subfolder = 'shortterm', name = ch.missing.ids, ext = conn$getEntryContentType())
 
 				# Append
 				missing.contents <- c(missing.contents, ch.missing.contents)
