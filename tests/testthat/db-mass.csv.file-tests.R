@@ -496,6 +496,64 @@ test.mass.csv.file.add.new.entry <- function(biodb) {
 test.mass.csv.file.cache.confusion <- function(biodb) {
 }
 
+# Test NA value in LCMS input {{{1
+################################################################
+
+test.mass.csv.file.searchMsPeaks.with.NA.value <- function(biodb) {
+
+	# Database dataframe
+	db.df <- rbind(
+		data.frame(accession = 'A10', ms.mode = "POS", peak.mztheo = 112.07569),
+		data.frame(accession = 'A10', ms.mode = "POS", peak.mztheo = 112.07569),
+		data.frame(accession = 'A10', ms.mode = "POS", peak.mztheo = 112.07569),
+		data.frame(accession = 'A10', ms.mode = "POS", peak.mztheo = 112.07569),
+		data.frame(accession = 'A10', ms.mode = "POS", peak.mztheo = 112.07569),
+		data.frame(accession = 'A10', ms.mode = "POS", peak.mztheo = 191.076694),
+		data.frame(accession = 'A10', ms.mode = "POS", peak.mztheo = 191.076694),
+            	stringsAsFactors = FALSE)
+
+	# Input M/Z values
+	input.mz <- c(
+		80.04959021,
+		82.04819461,
+		83.01343941,
+		84.05585475,
+		87.05536392,
+		89.50682004,
+		90.97680734,
+		NA_real_,
+		94.57331384,
+		97.07602789,
+		99.5429594,
+		101.0708987,
+		102.066292,
+		NA_real_,
+		104.0034256,
+		104.5317528,
+		105.4460999,
+		105.7271343,
+		106.0231437,
+		106.2399954,
+		106.5116177,
+		106.7629705,
+		NA_real_,
+		107.2424051,
+		107.4569385,
+		107.6884734,
+		107.9272908,
+		108.1575604,
+		109.0777249,
+		NA_real_)
+
+	# Create connector
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(db.df)
+
+	# Search for peaks
+	peaks <- conn$searchMsPeaks(mz = input.mz, mz.tol = 5.0, mz.tol.unit = 'plain')
+	print(peaks)
+}
+
 # Run Mass CSV File tests {{{1
 ################################################################
 
@@ -520,4 +578,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.test.that.on.biodb('Database writing works.', 'test.mass.csv.file.writing', biodb)
 	run.test.that.on.biodb('Adding a new entry to the database works.', 'test.mass.csv.file.add.new.entry', biodb)
 	run.test.that.on.biodb('Two different databases do not use the same cache files.', 'test.mass.csv.file.cache.confusion', biodb)
+	run.test.that.on.biodb('Search for peaks with N/A value in MassCsvFile returns no match.', 'test.mass.csv.file.searchMsPeaks.with.NA.value', biodb)
 }
