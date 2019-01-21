@@ -250,7 +250,7 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
 	testthat::expect_is(ids, 'character')
 }
 
-# Test getChromCol {{{1
+# Test getChromCol() {{{1
 ################################################################
 
 test.getChromCol <- function(db) {
@@ -260,14 +260,13 @@ test.getChromCol <- function(db) {
 	expect_gt(nrow(chrom.col), 0)
 }
 
-# Test searchMsPeaks {{{1
+# Test searchMsPeaks() {{{1
 ################################################################
 
 test.searchMsPeaks <- function(db) {
 
 	mode <- 'neg'
 	tol <- 0.1
-
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
 
 	# Test with empty list in input
@@ -287,7 +286,7 @@ test.searchMsPeaks <- function(db) {
 	expect_true(nrow(results) >= length(mzs))
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
- 	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
 
 	# Get 2 results per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
@@ -295,12 +294,28 @@ test.searchMsPeaks <- function(db) {
 	expect_true(nrow(results) >  length(mzs))
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
- 	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+}
+
+# Test collapseResultsDataFrame() {{{1
+################################################################
+
+test.collapseResultsDataFrame <- function(db) {
+
+	mode <- 'neg'
+	tol <- 0.1
+	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
+
+	# Get 2 results per M/Z value
+	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
+	expect_is(results, 'data.frame')
+	expect_true(nrow(results) >  length(mzs))
 
 	# Get collapsed data frame
-	collapsed.results <- db$collapseResultsDataFrame(results, output.mz = mzs)
+	collapsed.results <- db$collapseResultsDataFrame(results)
 	expect_is(collapsed.results, 'data.frame')
 	expect_equal(nrow(collapsed.results), length(mzs))
+	expect_identical(collapsed.results[['mz']], mzs)
 }
 
 # Test searchMsPeaks by M/Z and RT {{{1
@@ -341,7 +356,7 @@ test.searchMsPeaks.rt <- function(db) {
 	expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
 }
 
-# Test msmsSearch whe no IDs are found {{{1
+# Test msmsSearch when no IDs are found {{{1
 ################################################################
 
 test.msmsSearch.no.ids <- function(db) {
@@ -394,6 +409,7 @@ run.mass.db.tests <- function(db, mode) {
 
 			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
 			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
+			run.db.test.that("We can collapse the results from searchMsPeaks().", 'test.collapseResultsDataFrame', db)
 			run.db.test.that("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', db)
 
 			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)

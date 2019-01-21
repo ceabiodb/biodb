@@ -25,8 +25,6 @@
 #' @param mz.tol        The M/Z tolerance, whose unit is defined by \code{mz.tol.unit}.
 #' @param mz.tol.unit   The unit of the M/Z tolerance. Set it to either \code{'ppm'} or \code{'plain'}.
 #' @param npmin         The minimum number of peak to detect a match (2 is recommended).
-#' @param output.mz     The output of M/Z values wanted, when collapsing results data frame.
-#' @param output.rt     The output of RT values wanted, when collapsing results data frame.
 #' @param precursor     If set to \code{TRUE}, then restrict the search to precursor peaks.
 #' @param precursor.mz  The M/Z value of the precursor peak of the mass spectrum.
 #' @param results.df    Results data frame.
@@ -340,41 +338,42 @@ MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level =
 # Collapse results data frame {{{1
 ################################################################
 
-MassdbConn$methods( collapseResultsDataFrame = function(results.df, output.mz, output.rt = NULL, sep = '|') {
+MassdbConn$methods( collapseResultsDataFrame = function(results.df, sep = '|') {
 	":\n\nCollapse rows of a results data frame, by outputing a data frame with only one row for each MZ/RT value."
 
 	.self$.assert.is(results.df, 'data.frame')
 	if ( ! 'mz' %in% colnames(results.df))
 		.self$message('error', 'Data frame must contain a column named "mz".')
-	if ( ! is.null(output.rt) && ! 'rt' %in% colnames(results.df))
-		.self$message('error', 'Data frame must contain a column named "rt".')
-	.self$.assert.is(output.mz, c('integer', 'numeric'))
-	if ( ! is.null(output.rt)) {
-		.self$.assert.is(output.rt, c('integer', 'numeric'))
-		.self$.assert.equal.length(output.mz, output.rt)
-	}
+	rt.col <- 'rt' %in% colnames(results.df)
 	.self$.assert.is(sep, 'character')
 
 	results.df.collapsed <- NULL
 
-	for (i in seq_along(output.mz)) {
+	# Get duplicated rows
+	cols <- c('mz')
+	if (rt.col)
+		cols <- c(cols, 'rt')
+	dup.row <- ( ! is.na(results.df[['mz']])) & duplicated(results.df[, cols])
 
-		lines <- results.df[['mz']] == output.mz[[i]]
-		if ( ! is.null(output.rt))
-			lines <- lines & (results.df[['rt']] == output.rt[[i]])
+	# Loop on all rows
+	i <- 1
+	while (i <= length(dup.row)) {
 
-		lines.df <- results.df[lines, , drop = FALSE]
+		# Find end of block
+		j <- i
+		while (j < length(dup.row) && dup.row[[j + 1]])
+			j <- j + 1
 
-		if (nrow(lines.df) == 1)
-			one.line <- lines.df
-		else {
-			df.one.row <- lines.df[1, ]
-			for (col in names(lines.df))
-				if ( ! col %in% c('mz', 'rt'))
-					df.one.row[[col]] <- paste(lines.df[[col]], collapse = sep)
-			one.line <- df.one.row
-		}
+		# Collapse gathered lines
+		one.line <- results.df[i, , drop = FALSE]
+		if (j > i)
+			for (col in colnames(results.df)[ ! colnames(results.df) %in% c('mz', 'rt')])
+				one.line[[col]] <- paste(results.df[i:j, col], collapse = sep)
+
+		# Append collapsed line to output data frame
 		results.df.collapsed <- rbind(results.df.collapsed, one.line)
+
+		i <- j + 1
 	}
 
 	return(results.df.collapsed)
