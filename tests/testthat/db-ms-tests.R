@@ -150,8 +150,8 @@ test.searchMsPeaks.with.NA.value <- function(db) {
 	testthat::expect_true(nrow(peaks) >= length(mzs))
 	testthat::expect_true(nrow(peaks) <= 2 * length(mzs))
 	testthat::expect_true(ncol(peaks) > 1)
-	testthat::expect_true(! all(is.na(peaks[1:(length(mzs) - 1), ])))
-	testthat::expect_true(all(is.na(peaks[length(mzs), ])))
+	testthat::expect_true(! all(is.na(peaks[1:(nrow(peaks) - 1), ])))
+	testthat::expect_true(all(is.na(peaks[nrow(peaks), ])))
 }
 
 # Test searchMzTol() with multiple M/Z values {{{1
