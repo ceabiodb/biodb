@@ -11,6 +11,8 @@
 #' @param chrom.col.ids IDs of chromatographic columns on which to match the retention time.
 #' @param dist.fun      The distance function used to compute the distance betweem two mass spectra.
 #' @param entry.ids     A list of entry IDs (vector of characters).
+#' @param insert.mz.rt.values   Insert M/Z values and RT values given as input in beginning of result data frame.
+#' @param prefix.on.result.cols Add prefix on column names of result data frame.
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).
 #' @param ms.level      The MS level to which you want to restrict your search. \code{0} means that you want to serach in all levels.
@@ -192,7 +194,7 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol.unit = 'plain', min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_, insert.mz.rt.values = TRUE, compute = TRUE) {
+MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol.unit = 'plain', min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_, insert.mz.rt.values = TRUE, prefix.on.result.cols = NULL, compute = TRUE) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
 	
 	# Check arguments
@@ -264,6 +266,11 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		.self$message('debug', paste("Filtering entries data frame on M/Z range [", mz.range$min, ', ', mz.range$max, '].', sep = ''))
 		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
+
+		# Add prefix on column names
+		if ( ! is.null(df) && ! is.null(prefix.on.result.cols) && ! is.na(prefix.on.result.cols)) {
+			colnames(df) <- paste0(prefix.on.result.cols, colnames(df))
+		}
 
 		# Inserting M/Z and RT info at the beginning of the data frame
 		if (insert.mz.rt.values) {
