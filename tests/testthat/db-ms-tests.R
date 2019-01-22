@@ -377,6 +377,13 @@ test.searchMsPeaks.rt <- function(db) {
 	expect_true(nrow(peaks) > 0)
 	expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
 	expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
+
+	# Search for MZ/RT without chrom.col.ids
+	peaks <- db$searchMsPeaks(mz = mz, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
+	expect_is(peaks, 'data.frame')
+	expect_true(nrow(peaks) > 0)
+	expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
+	expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
 }
 
 # Test msmsSearch when no IDs are found {{{1
