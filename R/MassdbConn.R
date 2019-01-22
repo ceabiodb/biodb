@@ -11,7 +11,8 @@
 #' @param chrom.col.ids IDs of chromatographic columns on which to match the retention time.
 #' @param dist.fun      The distance function used to compute the distance betweem two mass spectra.
 #' @param entry.ids     A list of entry IDs (vector of characters).
-#' @param insert.mz.rt.values   Insert M/Z values and RT values given as input in beginning of result data frame.
+#' @param input.df      A data frame taken as input for searchMsPeaks(). It must contain a columns 'mz', and optionaly an 'rt' column.
+#' @param insert.input.values   Insert input values at the beginning of the result data frame.
 #' @param prefix.on.result.cols Add prefix on column names of result data frame.
 #' @param max.results   The maximum of elements returned by a method.
 #' @param min.rel.int   The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).
@@ -192,21 +193,22 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 # Search MS peaks {{{1
 ################################################################
 
-MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol.unit = 'plain', min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_, insert.mz.rt.values = TRUE, prefix.on.result.cols = NULL, compute = TRUE) {
+MassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, mz.shift = 0.0, mz.tol, mz.tol.unit = 'plain', min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0, max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_, insert.input.values = TRUE, prefix.on.result.cols = NULL, compute = TRUE) {
 	":\n\nFor each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value."
-	
+
 	# Check arguments
-	check.param <- .self$.checkSearchMsParam(mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = ms.level)
+	check.param <- .self$.checkSearchMsParam(input.df = input.df, mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, ms.level = ms.level)
 	if (is.null(check.param))
 		return(NULL)
+	input.df <- check.param$input.df
 
 	results <- NULL
 
 	# Step 1 matching of entries with matched precursor
 	precursor.match.ids <- NULL
 	if (precursor) {
-		precursor.match.ids <- .self$searchMsEntries(mz.min = NULL, mz.max = NULL, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit,
-		                                             rt = rt, rt.unit = rt.unit, rt.tol = precursor.rt.tol, chrom.col.ids = chrom.col.ids,
+		precursor.match.ids <- .self$searchMsEntries(mz.min = NULL, mz.max = NULL, mz = input.df[['mz']], mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit,
+		                                             rt = input.df[['rt']], rt.unit = rt.unit, rt.tol = precursor.rt.tol, chrom.col.ids = chrom.col.ids,
 		                                             precursor = precursor,
 		                                             min.rel.int = min.rel.int, ms.mode = ms.mode, ms.level = ms.level)
 		.self$message('debug', paste0('Found ', length(precursor.match.ids), ' spectra with matched precursor: ', paste((if (length(precursor.match.ids) <= 10) precursor.match.ids else precursor.match.ids[1:10]), collapse = ', '), '.'))
@@ -214,10 +216,10 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 
 	# Loop on the list of M/Z values
 	.self$message('debug', 'Looping on all M/Z values.')
-	for (i in seq_along(mz)) {
+	for (i in seq_along(input.df[['mz']])) {
 
 		# Compute M/Z range
-		mz.range <- .self$.convertMzTolToRange(mz = mz[[i]], mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+		mz.range <- .self$.convertMzTolToRange(mz = input.df[i, 'mz'], mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value in range [', mz.range$min, ', ', mz.range$max, '].', sep = ''))
@@ -232,7 +234,7 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		
 		# Filter on RT value
 		if  (check.param$use.rt.match)
-			ids <- .self$filterEntriesOnRt(ids, rt = rt[[i]], rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
+			ids <- .self$filterEntriesOnRt(ids, rt = input.df[i, 'rt'], rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
 
 		# Get entries
 		.self$message('debug', 'Getting entries from spectra IDs.')
@@ -260,7 +262,7 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
 		
 		# Select lines with right M/Z values
-		mz.range <- .self$.convertMzTolToRange(mz = mz[[i]], mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
+		mz.range <- .self$.convertMzTolToRange(mz = input.df[i, 'mz'], mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 		.self$message('debug', paste("Filtering entries data frame on M/Z range [", mz.range$min, ', ', mz.range$max, '].', sep = ''))
 		df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
 		.self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
@@ -271,12 +273,8 @@ MassdbConn$methods ( searchMsPeaks = function(mz, mz.shift = 0.0, mz.tol, mz.tol
 		}
 
 		# Inserting M/Z and RT info at the beginning of the data frame
-		if (insert.mz.rt.values) {
-			info.df <- data.frame(mz = mz[[i]])
-			if (check.param$use.rt.match)
-				info.df[['rt']] <- rt[[i]]
-			df <- if (is.null(df)) info.df else cbind(info.df, df)
-		}
+		if (insert.input.values)
+			df <- if (is.null(df)) input.df[i, , drop = FALSE] else cbind(input.df[i, , drop = FALSE], df, row.names = NULL, stringsAsFactors = FALSE)
 
 		# Appending to main results data frame
 		.self$message('debug', 'Merging data frame of matchings into results data frame.')
@@ -551,7 +549,17 @@ MassdbConn$methods( .checkRtParam = function(rt, rt.unit, rt.tol, rt.tol.exp, ch
 # Check searchMs params {{{2
 ################################################################
 
-MassdbConn$methods( .checkSearchMsParam = function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, min.rel.int, ms.mode, max.results, ms.level) {
+MassdbConn$methods( .checkSearchMsParam = function(input.df = NULL, mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, min.rel.int, ms.mode, max.results, ms.level) {
+
+	# Set M/Z and RT input values
+	if ( ! is.null(input.df)) {
+		if (is.vector(input.df))
+			input.df <- data.frame(mz = input.df)
+		.self$.assert.is(input.df, 'data.frame')
+		for (v in c('mz', 'mz.min', 'mz.max', 'rt'))
+			if (is.null(get(v)) && v %in% colnames(input.df))
+				assign(v, input.df[[v]])
+	}
 
 	mz.match <- .self$.checkMzParam(mz.min = mz.min, mz.max = mz.max, mz = mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit)
 	match.rt <- .self$.checkRtParam(rt = rt, rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids)
@@ -562,13 +570,28 @@ MassdbConn$methods( .checkSearchMsParam = function(mz.min, mz.max, mz, mz.shift,
 	if (mz.match$use.min.max && match.rt && length(mz.min) != length(rt))
 		.self$message('error', 'mz.min, mz.max and rt must have the same length.')
 
+	# Set input data frame
+	for (v in c('mz', 'mz.min', 'mz.max', 'rt')) {
+		if ( ! is.null(get(v))) {
+			if (is.null(input.df)) {
+				input.df <- data.frame(x = get(v))
+				colnames(input.df) <- v
+			} else {
+				if (nrow(input.df) != length(get(v)))
+					.self$message('error', paste0('input.df (length ', nrow(input.df), '), and ', v, ' (length ', length(get(v)),') must have the same length.'))
+				else
+					input.df[[v]] <- get(v)
+			}
+		}
+	}
+
 	.self$.assert.positive(min.rel.int)
 	.self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
 	ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
 	.self$.assert.positive(max.results)
 	.self$.assert.positive(ms.level)
 
-	return(list(use.mz.tol = mz.match$use.tol, use.mz.min.max = mz.match$use.min.max, use.rt.match = match.rt))
+	return(list(use.mz.tol = mz.match$use.tol, use.mz.min.max = mz.match$use.min.max, use.rt.match = match.rt, input.df = input.df))
 })
 
 # Compute chrom col RT range {{{2

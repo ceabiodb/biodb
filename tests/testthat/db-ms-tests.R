@@ -295,6 +295,29 @@ test.searchMsPeaks <- function(db) {
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
 	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+
+	# Test insert.input.values
+	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+	expect_is(results, 'data.frame')
+	expect_true('mz' %in% colnames(results))
+	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+	expect_is(results, 'data.frame')
+	expect_true('mz' %in% colnames(results))
+	some.col = rep('xxx', length(mzs))
+	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs, some.col = some.col, stringsAsFactors = FALSE), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+	expect_is(results, 'data.frame')
+	expect_true('mz' %in% colnames(results))
+	expect_true('some.col' %in% colnames(results))
+	expect_is(results[['some.col']], 'character')
+	expect_true(all(results[['some.col']] == some.col[[1]]))
+
+	# Test insert.input.values with prefix.on.result.cols
+	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs, some.col = some.col, stringsAsFactors = FALSE), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE, prefix.on.result.cols = 'myprefix.')
+	expect_is(results, 'data.frame')
+	expect_true('mz' %in% colnames(results))
+	expect_true('some.col' %in% colnames(results))
+	expect_is(results[['some.col']], 'character')
+	expect_true(all(results[['some.col']] == some.col[[1]]))
 }
 
 # Test collapseResultsDataFrame() {{{1
