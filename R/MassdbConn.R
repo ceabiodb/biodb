@@ -272,6 +272,10 @@ MassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, mz.shi
 			colnames(df) <- paste0(prefix.on.result.cols, colnames(df))
 		}
 
+		# Sort columns
+		if ( ! is.null(df))
+			df <- df[, sort(colnames(df)), drop = FALSE]
+
 		# Inserting M/Z and RT info at the beginning of the data frame
 		if (insert.input.values)
 			df <- if (is.null(df)) input.df[i, , drop = FALSE] else cbind(input.df[i, , drop = FALSE], df, row.names = NULL, stringsAsFactors = FALSE)
