@@ -352,7 +352,7 @@ BiodbEntry$methods( parseContent = function(content) {
 # Compute fields {{{1
 ################################################################
 
-BiodbEntry$methods(	computeFields = function(fields = NULL) {
+BiodbEntry$methods( computeFields = function(fields = NULL) {
 
 	success <- FALSE
 	if ( ! is.null(fields))

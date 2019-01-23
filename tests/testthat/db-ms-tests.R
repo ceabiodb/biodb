@@ -295,6 +295,29 @@ test.searchMsPeaks <- function(db) {
 	expect_true('accession' %in% names(results))
 	expect_true('peak.mz' %in% names(results))
 	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+
+	# Test insert.input.values
+	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+	expect_is(results, 'data.frame')
+	expect_true('mz' %in% colnames(results))
+	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+	expect_is(results, 'data.frame')
+	expect_true('mz' %in% colnames(results))
+	some.col = rep('xxx', length(mzs))
+	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs, some.col = some.col, stringsAsFactors = FALSE), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+	expect_is(results, 'data.frame')
+	expect_true('mz' %in% colnames(results))
+	expect_true('some.col' %in% colnames(results))
+	expect_is(results[['some.col']], 'character')
+	expect_true(all(results[['some.col']] == some.col[[1]]))
+
+	# Test insert.input.values with prefix.on.result.cols
+	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs, some.col = some.col, stringsAsFactors = FALSE), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE, prefix.on.result.cols = 'myprefix.')
+	expect_is(results, 'data.frame')
+	expect_true('mz' %in% colnames(results))
+	expect_true('some.col' %in% colnames(results))
+	expect_is(results[['some.col']], 'character')
+	expect_true(all(results[['some.col']] == some.col[[1]]))
 }
 
 # Test collapseResultsDataFrame() {{{1
@@ -350,6 +373,13 @@ test.searchMsPeaks.rt <- function(db) {
 	mz.tol <- 0
 	rt.tol <- 0
 	peaks <- db$searchMsPeaks(mz = mz, chrom.col.ids = chrom.col.ids, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
+	expect_is(peaks, 'data.frame')
+	expect_true(nrow(peaks) > 0)
+	expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
+	expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
+
+	# Search for MZ/RT without chrom.col.ids
+	peaks <- db$searchMsPeaks(mz = mz, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
 	expect_is(peaks, 'data.frame')
 	expect_true(nrow(peaks) > 0)
 	expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))

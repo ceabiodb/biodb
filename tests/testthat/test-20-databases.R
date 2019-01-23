@@ -26,10 +26,11 @@ source('db-uniprot-tests.R')
 biodb <- create.biodb.instance()
 expect_is(biodb, 'Biodb')
 
-# Initialize database connectors
+# Initialize all database connectors
+#   We need to create all connectors now, because they must be set with the proper cache ID. Connectors like ChEBI, even if not tested directly, may be tested through computed fields from other connectors.
 connectors <- list()
-for (db.name in TEST.DATABASES) {
-	if (db.name == BIODB.MASS.CSV.FILE)
+for (db.name in biodb$getDbsInfo()$getIds()) {
+	if (db.name == 'mass.csv.file')
 		conn <- init.mass.csv.file.db(biodb)
 	else
 		conn <- biodb$getFactory()$createConn(db.name)
