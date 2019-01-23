@@ -381,9 +381,10 @@ MassdbConn$methods( collapseResultsDataFrame = function(results.df, mz.col = 'mz
 		# Collapse gathered lines
 		one.line <- results.df[i, , drop = FALSE]
 		if (j > i)
-			for (col in colnames(results.df))
-				if ((is.na(one.line[[col]]) && ! all(is.na(results.df[i:j, col]))) || ( ( ! is.na(one.line[[col]])) && any(results.df[i:j, col] != one.line[[col]])))
+			for (col in colnames(results.df)) {
+				if (( ! all(is.na(results.df[i:j, col])) && any(is.na(results.df[i:j, col]))) || ( ( ! is.na(one.line[[col]])) && any(results.df[i:j, col] != one.line[[col]])))
 					one.line[[col]] <- paste(results.df[i:j, col], collapse = sep)
+			}
 
 		# Append collapsed line to output data frame
 		results.df.collapsed <- rbind(results.df.collapsed, one.line)
