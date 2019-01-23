@@ -208,6 +208,7 @@ MassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, mz.shi
 	input.df <- check.param$input.df
 
 	results <- NULL
+	result.columns <- character()
 
 	# Step 1 matching of entries with matched precursor
 	precursor.match.ids <- NULL
@@ -277,9 +278,9 @@ MassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, mz.shi
 			colnames(df) <- paste0(prefix.on.result.cols, colnames(df))
 		}
 
-		# Sort columns
+		# Register result columns
 		if ( ! is.null(df))
-			df <- df[, sort(colnames(df)), drop = FALSE]
+			result.columns <- c(result.columns, colnames(df)[ ! colnames(df) %in% result.columns])
 
 		# Inserting M/Z and RT info at the beginning of the data frame
 		if (insert.input.values)
@@ -289,6 +290,12 @@ MassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, mz.shi
 		.self$message('debug', 'Merging data frame of matchings into results data frame.')
 		results <- plyr::rbind.fill(results, df)
 		.self$message('debug', paste('Total results data frame contains', nrow(results), 'rows.'))
+	}
+
+	# Sort result columns. We sort at the end of the processing, because result data frames may contain different number of column, depending on the presence of NA values.
+	if ( ! is.null(results)) {
+		input.cols <- colnames(results)[ ! colnames(results) %in% result.columns]
+		results <- results[, c(input.cols, sort(result.columns)), drop = FALSE]
 	}
 
 	return(results)

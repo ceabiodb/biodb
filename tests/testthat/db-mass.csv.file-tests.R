@@ -241,6 +241,27 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(biodb) {
 	expect_true(all(vapply(names(peaks), function(field) biodb$getEntryFields()$get(field)$getName() == field, FUN.VALUE = FALSE)))
 }
 
+# Test column sorting in searchMsPeaks() {{{1
+################################################################
+
+test.mass.csv.file.searchMsPeaks.column.sorting <- function(biodb) {
+
+	# Define db data frame
+	db.df <- rbind(data.frame(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', inchi = 'InChI=1S/C7H8N4O3/c1-10-4-3(8-6(10)13)5(12)11(2)7(14)9-4/h1-2H3,(H,8,13)(H,9,14)', inchikey = 'NA'),
+	               data.frame(accession = 'C2', ms.mode = 'POS', peak.mztheo = 208.8274, peak.comp = 'Y2Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "T114L6M62O2", molecular.mass = 146.10553, name = 'Sloopaine', inchi = 'InChI=1S/C7H8N4O3/c1-10-4-3(8-6(10)13)5(12)11(2)7(14)9-4/h1-2H3,(H,8,13)(H,9,14)', inchikey = 'FRYVQXCDSBCDAU-AKDOOQIZSA-N'),
+	               stringsAsFactors = FALSE)
+
+	# Create connector
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(db.df)
+
+	# Search
+	results <- conn$searchMsPeaks(db.df[['peak.mztheo']], mz.tol = 10, insert.input.values = FALSE)
+	expect_is(results, 'data.frame')
+	expected.cols <- sort(c(colnames(db.df), 'peak.mz', 'mass.csv.file.id'))
+	expect_identical(expected.cols, colnames(results))
+}
+
 # Test M/Z matching limits {{{1
 ################################################################
 
@@ -520,4 +541,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.test.that.on.biodb('Database writing works.', 'test.mass.csv.file.writing', biodb)
 	run.test.that.on.biodb('Adding a new entry to the database works.', 'test.mass.csv.file.add.new.entry', biodb)
 	run.test.that.on.biodb('Two different databases do not use the same cache files.', 'test.mass.csv.file.cache.confusion', biodb)
+	run.test.that.on.biodb('Sorting of columns of result frame works well in searchMsPeaks().', 'test.mass.csv.file.searchMsPeaks.column.sorting', biodb)
 }
