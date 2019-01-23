@@ -349,8 +349,8 @@ MassdbConn$methods( collapseResultsDataFrame = function(results.df, mz.col = 'mz
 	":\n\nCollapse rows of a results data frame, by outputing a data frame with only one row for each MZ/RT value."
 
 	.self$.assert.is(results.df, 'data.frame')
-	if ( ! 'mz' %in% colnames(results.df))
-		.self$message('error', 'Data frame must contain a column named "mz".')
+	if ( ! mz.col %in% colnames(results.df))
+		.self$message('error', paste0('Data frame must contain a M/Z column named "', mz.col, '".'))
 	use.rt <- rt.col %in% colnames(results.df)
 	.self$.assert.is(sep, 'character')
 
