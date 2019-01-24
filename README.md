@@ -161,6 +161,11 @@ The two environment variables can be combined together.
 
 ## Changelog
 
+### Version 1.2.2
+
+ * Accept a data frame as input in searchMsPeaks(). (#287)
+ * Fix issue with NA values in input in searchMsPeaks(). (#286)
+
 ### Version 1.2.1
 
 No change, use a new version number in order to avoid confusion in conda.
