@@ -202,7 +202,7 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 	.self$message('debug', 'Delete existing entry files in cache system.')
 	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
 
-	# Open file
+	# Open file in binary mode
 	file.conn <- file(xml.file, open = 'rb')
 
 	# Extract entries from XML file

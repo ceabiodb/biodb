@@ -12,12 +12,12 @@ notifications:
    - pk.roger@icloud.com
 
 env:
-    #  - CHECK=yes
-    #    - MODE=offline
-    - MODE=online DBS=hmdb.metabolites FUNCTIONS=test.wrong.entry
-      #    - MODE=online DBS=massbank
-      #    - MODE=online DBS=peakforest.mass
-      #    - MODE=online EXCLUDE_DBS=hmdb.metabolites,massbank,peakforest.mass
+    - CHECK=yes
+    - TESTTHAT_REPORTER=summary MODE=offline
+    - TESTTHAT_REPORTER=summary MODE=online DBS=hmdb.metabolites FUNCTIONS=test.wrong.entry
+    - TESTTHAT_REPORTER=summary MODE=online DBS=massbank
+    - TESTTHAT_REPORTER=summary MODE=online DBS=peakforest.mass
+    - TESTTHAT_REPORTER=summary MODE=online EXCLUDE_DBS=hmdb.metabolites,massbank,peakforest.mass
 
 branches:
   only:
@@ -29,5 +29,5 @@ branches:
 script:
     - ./travis-tests
       
-      #after_script:
-      #    - if [ -f tests/test.log ] ; then cat tests/test.log ; fi
+#after_script:
+#    - if [ -f tests/test.log ] ; then cat tests/test.log ; fi
