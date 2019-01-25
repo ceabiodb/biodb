@@ -32,7 +32,7 @@ check.version:
 
 test: check.version
 #	R -q -e "devtools::test('$(CURDIR)', reporter = c('progress', 'fail'))"
-	R -q -e "devtools::test('$(CURDIR)', reporter = c('stop', 'fail'))"
+	R -q -e "devtools::test('$(CURDIR)', reporter = c('stop', 'summary', 'fail'))"
 
 win:
 	R -q -e "devtools::build_win('$(CURDIR)')"
