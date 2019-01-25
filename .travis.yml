@@ -29,5 +29,5 @@ branches:
 script:
     - ./travis-tests
       
-after_script:
-    - if [ -f tests/test.log ] ; then cat tests/test.log ; fi
+      #after_script:
+      #    - if [ -f tests/test.log ] ; then cat tests/test.log ; fi
