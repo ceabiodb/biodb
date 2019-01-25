@@ -107,8 +107,8 @@ TestObserver$methods( progress = function(type = 'info', msg, index, total) {
 
 	.self$checkMessageType(type)
 
-	expect_gt(index, .self$.last.index)
-	expect_lte(index, total)
+	testthat::expect_gt(index, .self$.last.index)
+	testthat::expect_lte(index, total)
 
 	if (index == total)
 		.last.index <<- 0

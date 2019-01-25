@@ -6,6 +6,9 @@
 ifndef BIODB_CACHE_DIRECTORY
 export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 endif
+ifndef TESTTHAT_REPORTER
+TESTTHAT_REPORTER=progress
+endif
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
 ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
@@ -31,7 +34,7 @@ check.version:
 	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
 
 test: check.version
-	R -q -e "devtools::test('$(CURDIR)', reporter = c('progress', 'fail'))"
+	R -q -e "devtools::test('$(CURDIR)', reporter = c('$(TESTTHAT_REPORTER)', 'fail'))"
 
 win:
 	R -q -e "devtools::build_win('$(CURDIR)')"
