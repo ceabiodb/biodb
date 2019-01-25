@@ -31,7 +31,8 @@ check.version:
 	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
 
 test: check.version
-	R -q -e "devtools::test('$(CURDIR)', reporter = c('progress', 'fail'))"
+#	R -q -e "devtools::test('$(CURDIR)', reporter = c('progress', 'fail'))"
+	R -q -e "devtools::test('$(CURDIR)')
 
 win:
 	R -q -e "devtools::build_win('$(CURDIR)')"
