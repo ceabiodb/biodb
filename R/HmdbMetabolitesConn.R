@@ -40,13 +40,6 @@ HmdbMetabolitesConn$methods( initialize = function(...) {
 	.self$.setDownloadExt('zip')
 })
 
-
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> Correct call to progress method in HMDB.
 # Get entry ids {{{1
 ################################################################
 
@@ -58,10 +51,7 @@ HmdbMetabolitesConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	.self$download()
 
 	if (.self$isDownloaded()) {
-<<<<<<< HEAD
 
-=======
->>>>>>> Correct call to progress method in HMDB.
 		# Get IDs from cache
 		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
 
@@ -76,18 +66,6 @@ HmdbMetabolitesConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	return(ids)
 })
 
-<<<<<<< HEAD
-# Do get entry content url {{{2
-################################################################
-
-HmdbMetabolitesConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
-
-	url <- paste0(.self$getBaseUrl(), 'metabolites/', id, '.xml')
-
-	return(url)
-})
-=======
->>>>>>> Correct call to progress method in HMDB.
 # Get nb entries {{{1
 ################################################################
 
@@ -102,10 +80,6 @@ HmdbMetabolitesConn$methods( getNbEntries = function(count = FALSE) {
 	return(n)
 })
 
-<<<<<<< HEAD
-
-=======
->>>>>>> Correct call to progress method in HMDB.
 # Get entry page url {{{1
 ################################################################
 
