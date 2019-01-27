@@ -520,7 +520,7 @@ test.mass.csv.file.cache.confusion <- function(biodb) {
 
 	# Create data frame for new file db A
 
-	# Open a connector to with data frame and set URL to file db A
+	# Open a connector to data frame and set URL to file db A
 
 	# Save database
 
