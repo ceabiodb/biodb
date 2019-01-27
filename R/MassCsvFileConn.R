@@ -320,9 +320,13 @@ MassCsvFileConn$methods( setDb = function(db) {
 ################################################################
 
 MassCsvFileConn$methods( .doWrite = function() {
-	
-	# Get all entries
-	entries <- .self$getBiodb()$getFactory()$getAllCacheEntries(.self$getId())
+
+	# Make sure all entries are loaded into cache.
+	entry.ids <- .self$getEntryIds()
+	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), entry.ids)
+
+	# Get all entries: the ones loaded from the database file and the ones created in memory (and not saved).
+	entries <- .self$getAllCacheEntries()
 
 	# Get data frame of all entries
 	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)

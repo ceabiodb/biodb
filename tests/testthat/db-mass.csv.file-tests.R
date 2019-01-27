@@ -439,18 +439,20 @@ test.mass.csv.file.writing <- function(biodb) {
 	# Create connector
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(df)
-	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
-	testthat::expect_is(entry, 'BiodbEntry')
-	df.1 <- biodb$entriesToDataframe(list(entry), only.atomic = FALSE, sort.cols = TRUE)
 	testthat::expect_error(conn$write())
 	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.writing-db.tsv')
 	conn$setBaseUrl(db.file)
 	conn$allowWriting()
 	conn$write()
+	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
+	testthat::expect_is(entry, 'BiodbEntry')
+	df.1 <- biodb$entriesToDataframe(list(entry), only.atomic = FALSE, sort.cols = TRUE)
 
-	# Load database file into another connector
+	# Test that we cannot create another connector with the same URL
 	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = db.file)) # Same URL as the first connector
 	biodb$getFactory()$deleteConn(conn$getId())
+
+	# Load database file into another connector
 	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
 	entry.2 <- biodb$getFactory()$getEntry(conn.2$getId(), 'BML80005')
 	testthat::expect_is(entry.2, 'BiodbEntry')
@@ -515,6 +517,24 @@ test.mass.csv.file.add.new.entry <- function(biodb) {
 ################################################################
 
 test.mass.csv.file.cache.confusion <- function(biodb) {
+
+	# Create data frame for new file db A
+
+	# Open a connector to with data frame and set URL to file db A
+
+	# Save database
+
+	# Get entry with ID K
+
+	# Close connector
+
+	# Open a connector to a file db B that does not exist
+
+	# Get entry with the same ID K
+
+	# Check that no entry is returned
+
+	# Close connector to file db B
 }
 
 # Run Mass CSV File tests {{{1
