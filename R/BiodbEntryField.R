@@ -63,7 +63,7 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type
 	.name <<- tolower(name)
 
 	# Set type
-	if ( ! is.na(type) && ! type %in% c('mass', 'name'))
+	if ( ! is.na(type) && ! type %in% c('mass', 'name', 'id'))
 		.self$message('error', paste("Unknown type \"", type, "\" for field \"", name, "\".", sep = ''))
 	.type <<- type
 

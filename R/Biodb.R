@@ -44,7 +44,7 @@
 #' @include BiodbObject.R
 #' @export Biodb
 #' @exportClass Biodb
-Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY", .entry.fields = "ANY", .dbsinfo = "ANY", .request.scheduler = "ANY"))
+Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY", .entry.fields = "ANY", .dbsinfo = "ANY", .request.scheduler = "ANY", .entry.id.field.to.db.name = 'list'))
 
 # Constructor {{{1
 ################################################################
@@ -77,6 +77,9 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 
 	# Create scheduler
 	.request.scheduler <<- BiodbRequestScheduler$new(parent = .self)
+
+	# Initialize other fields
+	.entry.id.field.to.db.name <<- list()
 
 	# Check locale
 	.self$.check.locale()
@@ -184,6 +187,21 @@ Biodb$methods( getObservers = function() {
 
 Biodb$methods( getBiodb = function() {
 	return(.self)
+})
+
+# Convert entry id field to database name {{{1
+################################################################
+
+Biodb$methods( convertEntryIdFieldToDbClass = function(entry.id.field) {
+
+	db.name <- NULL
+
+	# Does it end with '.id'?
+	m <- stringr::str_match(entry.id.field, '^(.*)\\.id$')[1, 2]
+	if ( ! is.na(m) && .self$getDbsInfo()$isDefined(m))
+		db.name <- m
+
+	return(db.name)
 })
 
 # Entries field to vector or list {{{1

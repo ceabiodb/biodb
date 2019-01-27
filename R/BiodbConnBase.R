@@ -112,11 +112,11 @@ BiodbConnBase$methods( getDbClass = function() {
 	return(.self$.db.class)
 })
 
-# Get connection class name {{{1
+# Get connector class name {{{1
 ################################################################
 
 BiodbConnBase$methods( getConnClassName = function() {
-	":\n\nReturns the name of the associated connection class."
+	":\n\nReturns the name of the associated connector OOP class."
 
 	# Get connection class name
 	s <- .self$.getClassNamePrefix()
@@ -138,11 +138,11 @@ BiodbConnBase$methods( getEntryClassName = function() {
 	return(entry.class.name)
 })
 
-# Get connection class {{{1
+# Get connector class {{{1
 ################################################################
 
 BiodbConnBase$methods( getConnClass = function() {
-	":\n\nReturns the associated connection class."
+	":\n\nReturns the associated connector OOP class."
 
 	return(get(.self$getConnClassName()))
 })
