@@ -172,18 +172,18 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('accession',      description = 'The accession number of the entry.')
 	# Define database ID fields
 	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
-		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE)
-	.self$.define('compound.id', alias = 'compoundid', description = 'The compound ID.')
-	.self$.define('cas.id',             description = '', alias = 'casid')
+		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
+	.self$.define('compound.id', alias = 'compoundid', description = 'The compound ID.', type = 'id')
+	.self$.define('cas.id',             description = '', alias = 'casid', type = 'id')
 
 	.self$.define('description',    description = 'The decription of the entry.', alias = 'protdesc')
 
-	.self$.define('name',       description = 'The name of the entry.',     card = BIODB.CARD.MANY, alias = c('fullnames', 'synonyms'), case.insensitive = TRUE, forbids.duplicates = TRUE)
-	.self$.define('comp.iupac.name.allowed',    description = 'IUPAC allowed name')
-	.self$.define('comp.iupac.name.trad',       description = 'IUPAC traditional name')
-	.self$.define('comp.iupac.name.syst',       description = 'IUPAC systematic name')
-	.self$.define('comp.iupac.name.pref',       description = 'IUPAC preferred name')
-	.self$.define('comp.iupac.name.cas',        description = 'IUPAC CAS name')
+	.self$.define('name',       description = 'The name of the entry.',     card = BIODB.CARD.MANY, alias = c('fullnames', 'synonyms'), case.insensitive = TRUE, forbids.duplicates = TRUE, type = 'name')
+	.self$.define('comp.iupac.name.allowed',    description = 'IUPAC allowed name', type = 'name')
+	.self$.define('comp.iupac.name.trad',       description = 'IUPAC traditional name', type = 'name')
+	.self$.define('comp.iupac.name.syst',       description = 'IUPAC systematic name', type = 'name')
+	.self$.define('comp.iupac.name.pref',       description = 'IUPAC preferred name', type = 'name')
+	.self$.define('comp.iupac.name.cas',        description = 'IUPAC CAS name', type = 'name')
 	.self$.define('gene.symbol',  alias = c('gene.symbols', 'symbol', 'genesymbols'), description = 'A list of gene symbols.', card = BIODB.CARD.MANY, case.insensitive = TRUE, forbids.duplicates = TRUE)
 
 	.self$.define('logp',       description = 'logP',               class = 'double')
