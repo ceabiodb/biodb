@@ -123,7 +123,7 @@ run.scheduler.tests <- function(biodb, obs) {
 
 	set.test.context(biodb, "Test request scheduler")
 
-	run.test.that.on.biodb.and.obs("Right rule is created.", 'test.schedulerRightRule', biodb, obs)
-	run.test.that.on.biodb.and.obs("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb, obs)
-	run.test.that.on.biodb.and.obs("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb, obs)
+	run.test.that.on.biodb.and.obs("Right rule is created.", 'test.schedulerRightRule', biodb = biodb, obs = obs)
+	run.test.that.on.biodb.and.obs("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb, obs = obs)
+	run.test.that.on.biodb.and.obs("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb, obs = obs)
 }

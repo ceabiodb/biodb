@@ -80,14 +80,14 @@ test.searchCompound.no.mass.field <- function(db) {
 # Run Compound DB tests {{{1
 ################################################################
 
-run.compound.db.tests <- function(db, mode) {
+run.compound.db.tests <- function(conn, mode) {
 
-	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
-		if (methods::is(db, 'CompounddbConn')) {
+	if ( ! methods::is(conn, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+		if (methods::is(conn, 'CompounddbConn')) {
 			
-			set.test.context(db$getBiodb(), paste("Running compound tests on database", db$getName(), "in", mode, "mode"))
+			set.test.context(conn$getBiodb(), paste("Running compound tests on database", conn$getName(), "in", mode, "mode"))
 
-			run.db.test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', db)
-			run.db.test.that('We can search for a compound', 'test.searchCompound', db)
+			test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)
+			test.that('We can search for a compound', 'test.searchCompound', conn = conn)
 		}
 }

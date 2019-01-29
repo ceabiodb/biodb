@@ -427,24 +427,24 @@ run.mass.db.tests <- function(db, mode) {
 
 			set.test.context(db$getBiodb(), paste("Running MS generic tests on database", db$getName(), "in", mode, "mode"))
 
-			run.db.test.that("M/Z tolerance values are converted correctly to M/Z range.", 'test.convertMzTolToRange', db)
+			test.that("M/Z tolerance values are converted correctly to M/Z range.", 'test.convertMzTolToRange', conn = db)
 
-			run.db.test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', db)
-			run.db.test.that("We can match M/Z peaks.", 'test.searchMzTol',db)
-			run.db.test.that("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',db)
-			run.db.test.that("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', db)
-			run.db.test.that("Search by precursor with multiple mz inputs does not fail.", 'test.searchMzTol.with.precursor.and.multiple.inputs', db)
-			run.db.test.that("Search for N/A value returns an empty list.", 'test.searchMsEntries.with.NA.value', db)
-			run.db.test.that("Search for peaks with N/A value returns no match.", 'test.searchMsPeaks.with.NA.value', db)
+			test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', conn = db)
+			test.that("We can match M/Z peaks.", 'test.searchMzTol',conn = db)
+			test.that("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',conn = db)
+			test.that("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', conn = db)
+			test.that("Search by precursor with multiple mz inputs does not fail.", 'test.searchMzTol.with.precursor.and.multiple.inputs', conn = db)
+			test.that("Search for N/A value returns an empty list.", 'test.searchMsEntries.with.NA.value', conn = db)
+			test.that("Search for peaks with N/A value returns no match.", 'test.searchMsPeaks.with.NA.value', conn = db)
 
-			run.db.test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', db)
-			run.db.test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', db)
-			run.db.test.that("We can collapse the results from searchMsPeaks().", 'test.collapseResultsDataFrame', db)
-			run.db.test.that("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', db)
+			test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', conn = db)
+			test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', conn = db)
+			test.that("We can collapse the results from searchMsPeaks().", 'test.collapseResultsDataFrame', conn = db)
+			test.that("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', conn = db)
 
-			run.db.test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', db)
-			run.db.test.that('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', db)
-			run.db.test.that('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', db)
-			run.db.test.that('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', db)
+			test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', conn = db)
+			test.that('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', conn = db)
+			test.that('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', conn = db)
+			test.that('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', conn = db)
 		}
 }

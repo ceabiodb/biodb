@@ -299,6 +299,34 @@ get.default.db <- function(biodb, class.db) {
 	return(db)
 }
 
+# Run test_that method {{{1
+################################################################
+
+test.that  <- function(msg, fct, biodb = NULL, obs = NULL, conn = NULL) {
+
+	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
+
+		# Send message to logger
+		biodb.instance <- if (is.null(conn)) biodb else conn$getBiodb()
+		if (is.null(biodb.instance))
+			stop("You must at least set the biodb parameter in order to send message to logger.")
+		biodb.instance$message('info', '')
+		biodb.instance$message('info', paste('Running test function ', fct, ' ("', msg, '").'))
+		biodb.instance$message('info', '----------------------------------------------------------------')
+		biodb.instance$message('info', '')
+
+		# Call test function
+		if ( ! is.null(biodb) && ! is.null(obs))
+			test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
+		else if ( ! is.null(biodb))
+			test_that(msg, do.call(fct, list(biodb)))
+		else if ( ! is.null(db))
+			test_that(msg, do.call(fct, list(conn)))
+		else
+			stop(paste0('Do not know how to call test function "', fct, '".'))
+	}
+}
+
 # Run test that on biodb and observer {{{1
 ################################################################
 

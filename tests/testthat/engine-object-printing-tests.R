@@ -70,12 +70,12 @@ run.object.printing.tests <- function(biodb) {
 
 	set.test.context(biodb, "Test object information printing")
 
-	run.test.that.on.biodb("Biodb show method returns correct information.", 'test.Biodb.show', biodb)
-	run.test.that.on.biodb("BiodbCache show method returns correct information.", 'test.BiodbCache.show', biodb)
-	run.test.that.on.biodb("BiodbConfig show method returns correct information.", 'test.BiodbConfig.show', biodb)
-	run.test.that.on.biodb("BiodbFactory show method returns correct information.", 'test.BiodbFactory.show', biodb)
-	run.test.that.on.biodb("BiodbEntry show method returns correct information.", 'test.BiodbEntry.show', biodb)
-	run.test.that.on.biodb("BiodbConn show method returns correct information.", 'test.BiodbConn.show', biodb)
-	run.test.that.on.biodb("BiodbDbsInfo show method returns correct information.", 'test.BiodbDbsInfo.show', biodb)
-	run.test.that.on.biodb("BiodbEntryFields show method returns correct information.", 'test.BiodbEntryFields.show', biodb)
+	test.that("Biodb show method returns correct information.", 'test.Biodb.show', biodb = biodb)
+	test.that("BiodbCache show method returns correct information.", 'test.BiodbCache.show', biodb = biodb)
+	test.that("BiodbConfig show method returns correct information.", 'test.BiodbConfig.show', biodb = biodb)
+	test.that("BiodbFactory show method returns correct information.", 'test.BiodbFactory.show', biodb = biodb)
+	test.that("BiodbEntry show method returns correct information.", 'test.BiodbEntry.show', biodb = biodb)
+	test.that("BiodbConn show method returns correct information.", 'test.BiodbConn.show', biodb = biodb)
+	test.that("BiodbDbsInfo show method returns correct information.", 'test.BiodbDbsInfo.show', biodb = biodb)
+	test.that("BiodbEntryFields show method returns correct information.", 'test.BiodbEntryFields.show', biodb = biodb)
 }
