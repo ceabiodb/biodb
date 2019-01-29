@@ -327,45 +327,6 @@ test.that  <- function(msg, fct, biodb = NULL, obs = NULL, conn = NULL) {
 	}
 }
 
-# Run test that on biodb and observer {{{1
-################################################################
-
-run.test.that.on.biodb.and.obs <- function(msg, fct, biodb, obs) {
-	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
-		biodb$message('info', '')
-		biodb$message('info', paste('Running test function ', fct, ' ("', msg, '").'))
-		biodb$message('info', '----------------------------------------------------------------')
-		biodb$message('info', '')
-		test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
-	}
-}
-
-# Run test that on biodb {{{1
-################################################################
-
-run.test.that.on.biodb <- function(msg, fct, biodb) {
-	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
-		biodb$message('info', '')
-		biodb$message('info', paste('Running test function ', fct, ' ("', msg, '").'))
-		biodb$message('info', '----------------------------------------------------------------')
-		biodb$message('info', '')
-		test_that(msg, do.call(fct, list(biodb)))
-	}
-}
-
-# Run database test that {{{1
-################################################################
-
-run.db.test.that <- function(msg, fct, db) {
-	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
-		db$message('info', '')
-		db$message('info', paste('Running test function ', fct, ' ("', msg, '") with database ', db$getId(), '.'))
-		db$message('info', '----------------------------------------------------------------')
-		db$message('info', '')
-		test_that(msg, do.call(fct, list(db)))
-	}
-}
-
 # Create test observer {{{1
 ################################################################
 

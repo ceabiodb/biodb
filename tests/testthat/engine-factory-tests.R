@@ -67,7 +67,7 @@ run.factory.tests <- function(biodb, obs) {
 
 	set.test.context(biodb, "Test factory")
 
-	run.test.that.on.biodb.and.obs("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb = biodb, obs = obs)
-	run.test.that.on.biodb.and.obs("A newly created connector get the default values.", 'test.connectorDefaultValues', biodb = biodb, obs = obs)
-	run.test.that.on.biodb.and.obs("Connectors are deleted.", 'test.connectorDeletion', biodb = biodb, obs = obs)
+	test.that("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb = biodb, obs = obs)
+	test.that("A newly created connector get the default values.", 'test.connectorDefaultValues', biodb = biodb, obs = obs)
+	test.that("Connectors are deleted.", 'test.connectorDeletion', biodb = biodb, obs = obs)
 }
