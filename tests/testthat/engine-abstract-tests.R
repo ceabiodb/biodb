@@ -15,5 +15,5 @@ run.abstract.tests <- function(biodb, obs) {
 
 	set.test.context(biodb, "Test abstract declarations")
 
-	run.test.that.on.biodb.and.obs("An abstract class cannot be instantiated.", 'test.abstract.class.declaration', biodb, obs)
+	test.that("An abstract class cannot be instantiated.", 'test.abstract.class.declaration', biodb = biodb, obs = obs)
 }

@@ -19,5 +19,5 @@ run.config.tests <- function(biodb) {
 
 	set.test.context(biodb, "Test configuration")
 
-	run.test.that.on.biodb("Keys are listed correctly.", 'test.listKeys', biodb)
+	test.that("Keys are listed correctly.", 'test.listKeys', biodb = biodb)
 }

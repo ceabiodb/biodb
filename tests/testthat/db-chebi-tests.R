@@ -14,8 +14,8 @@ test.chebi.encoding.issue.in.xml <- function(db) {
 # Run ChEBI tests {{{1
 ################################################################
 
-run.chebi.tests <- function(db, mode) {
+run.chebi.tests <- function(conn, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test.that('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', db)
+		test.that('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', conn = conn)
 	}
 }
