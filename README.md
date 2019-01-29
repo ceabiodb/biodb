@@ -12,7 +12,7 @@ In this table, you will find a list of all online databases accessible through b
 Database               | Key                 | Status | Online tests | Related issue                                     | Related PR | Explanations
 ------------           | ----------          | :---:  | :----------: | ------------------------------------------------- | ---------- | ---------------------
 ChEBI                  | chebi               |   ✅   |
-ChemSpider             | chemspider          |   ❌   |     off      | [#259](https://github.com/pkrog/biodb/issues/259) |            | Online tests are not run because ChemSpider free plan has a limit of 1000 requests per month. The status is broken because of an issue with the API: "XML content does not seem to be XML: Unauthorized web service usage. Please request access to this service."
+ChemSpider             | chemspider          |   ✅   |     off      |                                                   |            | Online tests are not run because ChemSpider free plan has a limit of 1000 requests per month.
 ExPASy ENZYME          | expasy.enzyme       |   ✅   |
 HMDB Metabolites       | hmdb.metabolites    |   ✅   |              |                                                   |            |               
 KEGG Compound          | kegg.compound       |   ✅   |
