@@ -439,18 +439,20 @@ test.mass.csv.file.writing <- function(biodb) {
 	# Create connector
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(df)
-	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
-	testthat::expect_is(entry, 'BiodbEntry')
-	df.1 <- biodb$entriesToDataframe(list(entry), only.atomic = FALSE, sort.cols = TRUE)
 	testthat::expect_error(conn$write())
 	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.writing-db.tsv')
 	conn$setBaseUrl(db.file)
 	conn$allowWriting()
 	conn$write()
+	entry <- biodb$getFactory()$getEntry(conn$getId(), 'BML80005')
+	testthat::expect_is(entry, 'BiodbEntry')
+	df.1 <- biodb$entriesToDataframe(list(entry), only.atomic = FALSE, sort.cols = TRUE)
 
-	# Load database file into another connector
+	# Test that we cannot create another connector with the same URL
 	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = db.file)) # Same URL as the first connector
 	biodb$getFactory()$deleteConn(conn$getId())
+
+	# Load database file into another connector
 	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
 	entry.2 <- biodb$getFactory()$getEntry(conn.2$getId(), 'BML80005')
 	testthat::expect_is(entry.2, 'BiodbEntry')
@@ -511,10 +513,80 @@ test.mass.csv.file.add.new.entry <- function(biodb) {
 	biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
+# Test cache ID {{{1
+################################################################
+
+test.mass.csv.file.cache.id <- function(biodb) {
+
+	# Open a connector with no URL
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+
+	# Test that cache ID is NULL (in memory database)
+	testthat::expect_null(conn$getCacheId())
+
+	# Set URL
+	db.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.cache.id_db.tsv')
+	conn$setUrl('base.url', db.file)
+
+	# Test that cache ID is not NULL
+	testthat::expect_is(conn$getCacheId(), 'character')
+	testthat::expect_true(nchar(conn$getCacheId()) > 0)
+	cache.id <- conn$getCacheId()
+
+	# Close the connector
+	biodb$getFactory()$deleteConn(conn$getId())
+
+	# Open a connector to the same URL
+	conn <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
+
+	# Test that we get the same cache ID
+	testthat::expect_equal(conn$getCacheId(), cache.id)
+
+	# Close the connector
+	biodb$getFactory()$deleteConn(conn$getId())
+}
+
 # Test cache confusion {{{1
 ################################################################
 
 test.mass.csv.file.cache.confusion <- function(biodb) {
+
+	# Create data frame for new file db A
+	entry.id <- 'K'
+	df <- rbind(data.frame(accession = entry.id, ms.mode = 'pos', ms.level = 1, peak.mztheo = 219.1127765, peak.intensity = 373076,  peak.relative.intensity = 999),
+	            stringsAsFactors = FALSE)
+
+	# Open a connector to data frame and set URL to file db A
+	db.A.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.cache.confusion_db_A.tsv')
+	if (file.exists(db.A.file))
+		unlink(db.A.file)
+	conn <- biodb$getFactory()$createConn('mass.csv.file', url = db.A.file)
+	conn$setDb(df)
+
+	# Save database
+	conn$allowWriting()
+	conn$write()
+
+	# Get entry with ID K
+	entry <- conn$getEntry(entry.id)
+
+	# Close connector
+	biodb$getFactory()$deleteConn(conn$getId())
+
+	# Open a connector to a file db B that does not exist
+	db.B.file <- file.path(OUTPUT.DIR, 'test.mass.csv.file.cache.confusion_db_B.tsv')
+	if (file.exists(db.B.file))
+		unlink(db.B.file)
+	conn <- biodb$getFactory()$createConn('mass.csv.file', url = db.B.file)
+
+	# Get entry with the same ID K
+	entry <- conn$getEntry(entry.id)
+
+	# Check that no entry is returned
+	testthat::expect_null(entry)
+
+	# Close connector to file db B
+	biodb$getFactory()$deleteConn(conn$getId())
 }
 
 # Run Mass CSV File tests {{{1
@@ -542,4 +614,5 @@ run.mass.csv.file.tests <- function(db, mode) {
 	run.test.that.on.biodb('Adding a new entry to the database works.', 'test.mass.csv.file.add.new.entry', biodb)
 	run.test.that.on.biodb('Two different databases do not use the same cache files.', 'test.mass.csv.file.cache.confusion', biodb)
 	run.test.that.on.biodb('Sorting of columns of result frame works well in searchMsPeaks().', 'test.mass.csv.file.searchMsPeaks.column.sorting', biodb)
+	run.test.that.on.biodb('Cache ID is set correctly.', 'test.mass.csv.file.cache.id', biodb)
 }
