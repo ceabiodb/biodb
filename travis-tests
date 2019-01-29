@@ -96,16 +96,25 @@ get_ooo_dbs() {
 
 	dbs=$(grep '| *❌' README.md | sed 's/^.*| *\([^| ]*\) *| *❌.*$/\1/')
 
-	echo $dbs
+	echo "$dbs"
 }
 
-# Exclude out of order databases {{{1
+# Get databases with online tests off {{{1
 ################################################################
 
-exclude_ooo_dbs() {
+get_dbs_with_online_tests_off() {
 
-	# Get out of order databases
-	local ooo_dbs=$(get_ooo_dbs | tr ' ' ',')
+	dbs=$(grep '| *off *|' README.md | sed 's/^.*| *\([^| ]*\) *| off* *|.*$/\1/')
+
+	echo "$dbs"
+}
+
+# Exclude databases {{{1
+################################################################
+
+exclude_dbs() {
+
+	dbs_to_exclude="$1"
 
 	# Change separator
 	local IFS=,
@@ -196,7 +205,10 @@ if [[ -n $MODE ]] ; then
 	[[ -n $DBS && -n $EXCLUDE_DBS ]] && error "Error, both DBS ($DBS) and EXCLUDE_DBS ($EXCLUDE_DBS) env vars are defined."
 
 	# Exclude out of order databases
-	[[ $MODE == offline ]] || exclude_ooo_dbs
+	[[ $MODE == offline ]] || exclude_dbs "$(get_ooo_dbs | tr ' ' ',')"
+
+	# Exclude databases that have online tests turned off
+	[[ $MODE == offline ]] || exclude_dbs "$(get_dbs_with_online_tests_off | tr ' ' ',')"
 
 	# Run tests
 	run_tests || exit 1
