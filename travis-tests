@@ -44,6 +44,16 @@ error() {
 	exit 1
 }
 
+# Info {{{1
+################################################################
+
+info() {
+
+	local msg="$1"
+
+	echo "[INFO] $msg"
+}
+
 # Print debug msg {{{1
 ################################################################
 
@@ -94,7 +104,9 @@ function read_args {
 
 get_ooo_dbs() {
 
-	dbs=$(grep '| *❌' README.md | sed 's/^.*| *\([^| ]*\) *| *❌.*$/\1/')
+	local dbs=$(grep '| *❌' README.md | sed 's/^.*| *\([^| ]*\) *| *❌.*$/\1/' | tr "\n" "," | sed 's/,$//')
+
+	print_debug_msg 1 "OOO DBS : $dbs"
 
 	echo "$dbs"
 }
@@ -104,7 +116,9 @@ get_ooo_dbs() {
 
 get_dbs_with_online_tests_off() {
 
-	dbs=$(grep '| *off *|' README.md | sed 's/^.*| *\([^| ]*\) *| off* *|.*$/\1/')
+	local dbs=$(grep '| *off *|' README.md | sed 's/^.*| *\([^| ]*\) *|[^|]*| *off *|.*$/\1/' | tr "\n" "," | sed 's/,$//')
+
+	print_debug_msg 1 "DBS WITH ONLINE TESTS OFF : $dbs"
 
 	echo "$dbs"
 }
@@ -114,7 +128,7 @@ get_dbs_with_online_tests_off() {
 
 exclude_dbs() {
 
-	dbs_to_exclude="$1"
+	local dbs_to_exclude="$1"
 
 	# Change separator
 	local IFS=,
@@ -123,8 +137,8 @@ exclude_dbs() {
 	if [[ -n $DBS ]] ; then
 		new_db_list=()
 		for db in $DBS ; do
-			if [[ $ooo_dbs =~ (^|,)$db($|,) ]] ; then
-				echo "***** Database \"$db\" is out of order, and will not be tested."
+			if [[ $dbs_to_exclude =~ (^|,)$db($|,) ]] ; then
+				info "Database \"$db\" is excluded, and will not be tested."
 			else
 				new_db_list+=($db)
 			fi
@@ -137,9 +151,9 @@ exclude_dbs() {
 
 	# Update databases to exclude
 	elif [[ -n $EXCLUDE_DBS ]] ; then
-		for db in $ooo_dbs ; do
+		for db in $dbs_to_exclude ; do
 			if [[ ! $EXCLUDE_DBS =~ (^|,)$db($|,) ]] ; then
-				echo "***** Database \"$db\" is out of order, and will not be tested."
+				info "Database \"$db\" is excluded, and will not be tested."
 				EXCLUDE_DBS=$EXCLUDE_DBS,$db
 			fi
 		done
@@ -147,10 +161,10 @@ exclude_dbs() {
 	# Build list of databases to exclude
 	else
 
-		for db in $ooo_dbs ; do
-			echo "***** Database \"$db\" is out of order, and will not be tested."
+		for db in $dbs_to_exclude ; do
+			info "Database \"$db\" is excluded, and will not be tested."
 		done
-		EXCLUDE_DBS=$ooo_dbs
+		EXCLUDE_DBS=$dbs_to_exclude
 	fi
 }
 
@@ -160,28 +174,29 @@ exclude_dbs() {
 run_tests() {
 
 	if [[ $DBS == none ]] ; then
-		echo "Nothing to test. Exiting."
+		info "Nothing to test. Exiting."
 	else
-	 	echo -n "Testing package"
+	 	msg="Testing package"
 
 		# Databases to test
 		if [[ -n $DBS ]] ; then
-			echo -n " on database(s) $DBS"
+			msg="$msg on database(s) $DBS"
 			export DATABASES=$DBS
 		else
-			echo -n " on all databases"
+			msg="$msg on all databases"
 		fi
 
 		# Exclude databases
 		if [[ -n $EXCLUDE_DBS ]] ; then
-			echo -n " except on database(s) $EXCLUDE_DBS"
+			msg="$msg except on database(s) $EXCLUDE_DBS"
 			export DONT_TEST_DBS=$EXCLUDE_DBS
 		fi
 
 		# Mode
-		echo " in mode $MODE."
+		msg="$msg in mode $MODE."
 		export MODES=$MODE
 
+		info "$msg"
 		[[ $DRY_RUN == $YES ]] || make test || return 1
 	fi
 }
