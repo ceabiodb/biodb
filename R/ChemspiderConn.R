@@ -122,42 +122,6 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
 })
 
-# Send search mass request {{{1
-#################################################################
-#
-#ChemspiderConn$methods( .send.search.mass.request = function(mass, range) {
-#	"!!! PRIVATE METHOD !!! Send a \"search mass\" request, and get the ID of the open transaction.
-#	mass:   The mass to search.
-#	range:  ???
-#	return: The transaction ID."
-#
-#	# Build request
-#	xml.request <- paste('<?xml version="1.0" encoding="utf-8"?>
-#		<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-#			<soap:Body>
-#				<SearchByMassAsync xmlns="http://www.chemspider.com/">
-#					<mass>', mass, '</mass>
-#					<range>', range, '</range>
-#					<token>', .self$getToken(), '</token>
-#				</SearchByMassAsync>
-#			</soap:Body>
-#		</soap:Envelope>', sep = '')
-#
-#	# Send request
-#	.self$message('debug', paste("XML REQUEST =", xml.request))
-#	xml.results <- .self$.getUrlScheduler()$sendSoapRequest(paste(.self$getBaseUrl(), "MassSpecAPI.asmx", sep = ''), soap.action = paste(.self$getBaseUrl(), "SearchByMassAsync", sep = ''), soap.request = xml.request)
-#	.self$message('debug', paste("XML RESULTS =", xml.results))
-#
-#	# Parse XML
-#	xml <-  XML::xmlInternalTreeParse(xml.results, asText = TRUE)
-#
-#	# Get transaction ID
-#	id <- XML::xpathSApply(xml, "//chemspider:SearchByMassAsyncResult", XML::xmlValue, namespaces = c(chemspider = .self$getXmlNs()))
-#	.self$message('debug', paste("Transaction ID = ", id, ".", sep = ''))
-#
-#	return(id)
-#})
-
 # Web service SearchByMass2 {{{1
 ################################################################
 
