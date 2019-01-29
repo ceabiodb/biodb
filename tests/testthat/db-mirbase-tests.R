@@ -28,6 +28,6 @@ test.mirbase.mature.ws.query <- function(db) {
 
 run.mirbase.mature.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test.that('', 'test.mirbase.mature.ws.query', db)
+		test.that('', 'test.mirbase.mature.ws.query', conn = db)
 	}
 }

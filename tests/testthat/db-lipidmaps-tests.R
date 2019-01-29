@@ -50,7 +50,7 @@ test.lipidmaps.structure.ws.LMSDSearch <- function(db) {
 
 run.lipidmaps.structure.tests <- function(db, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		run.db.test.that("Test web service ws.LMSDRecord.", 'test.lipidmaps.structure.ws.LMSDRecord', db)
-		run.db.test.that("Test web service ws.LMSDSearch.", 'test.lipidmaps.structure.ws.LMSDSearch', db)
+		test.that("Test web service ws.LMSDRecord.", 'test.lipidmaps.structure.ws.LMSDRecord', conn = db)
+		test.that("Test web service ws.LMSDSearch.", 'test.lipidmaps.structure.ws.LMSDSearch', conn = db)
 	}
 }

@@ -21,5 +21,5 @@ run.biodb.tests <- function(biodb, obs) {
 
 	set.test.context(biodb, "Test Biodb class")
 
-	run.test.that.on.biodb.and.obs("convertEntryIdFieldToDbClass() works correctly.", 'test.convertEntryIdFieldToDbClass', biodb, obs)
+	test.that("convertEntryIdFieldToDbClass() works correctly.", 'test.convertEntryIdFieldToDbClass', biodb = biodb, obs = obs)
 }

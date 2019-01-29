@@ -299,42 +299,31 @@ get.default.db <- function(biodb, class.db) {
 	return(db)
 }
 
-# Run test that on biodb and observer {{{1
+# Run test_that method {{{1
 ################################################################
 
-run.test.that.on.biodb.and.obs <- function(msg, fct, biodb, obs) {
+test.that  <- function(msg, fct, biodb = NULL, obs = NULL, conn = NULL) {
+
 	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
-		biodb$message('info', '')
-		biodb$message('info', paste('Running test function ', fct, ' ("', msg, '").'))
-		biodb$message('info', '----------------------------------------------------------------')
-		biodb$message('info', '')
-		test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
-	}
-}
 
-# Run test that on biodb {{{1
-################################################################
+		# Send message to logger
+		biodb.instance <- if (is.null(conn)) biodb else conn$getBiodb()
+		if (is.null(biodb.instance))
+			stop("You must at least set the biodb parameter in order to send message to logger.")
+		biodb.instance$message('info', '')
+		biodb.instance$message('info', paste('Running test function ', fct, ' ("', msg, '").'))
+		biodb.instance$message('info', '----------------------------------------------------------------')
+		biodb.instance$message('info', '')
 
-run.test.that.on.biodb <- function(msg, fct, biodb) {
-	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
-		biodb$message('info', '')
-		biodb$message('info', paste('Running test function ', fct, ' ("', msg, '").'))
-		biodb$message('info', '----------------------------------------------------------------')
-		biodb$message('info', '')
-		test_that(msg, do.call(fct, list(biodb)))
-	}
-}
-
-# Run database test that {{{1
-################################################################
-
-run.db.test.that <- function(msg, fct, db) {
-	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
-		db$message('info', '')
-		db$message('info', paste('Running test function ', fct, ' ("', msg, '") with database ', db$getId(), '.'))
-		db$message('info', '----------------------------------------------------------------')
-		db$message('info', '')
-		test_that(msg, do.call(fct, list(db)))
+		# Call test function
+		if ( ! is.null(biodb) && ! is.null(obs))
+			test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
+		else if ( ! is.null(biodb))
+			test_that(msg, do.call(fct, list(biodb)))
+		else if ( ! is.null(db))
+			test_that(msg, do.call(fct, list(conn)))
+		else
+			stop(paste0('Do not know how to call test function "', fct, '".'))
 	}
 }
 
