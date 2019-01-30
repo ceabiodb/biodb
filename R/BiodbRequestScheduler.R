@@ -43,16 +43,13 @@ BiodbRequestScheduler$methods( initialize = function(...) {
 BiodbRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_, encoding = integer()) {
 	":\n\nSend a SOAP request to a URL. Returns the string result."
 
-	.self$.check.offline.mode()
-
 	# Prepare request
 	header <- c(Accept = "text/xml", Accept = "multipart/*",  'Content-Type' = "text/xml; charset=utf-8")
 	if ( ! is.na(soap.action))
-		header <- c(header, c(SOAPAction = soap.action))
-	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = soap.request))
+		header <- c(header, SOAPAction = soap.action)
 
 	# Send request
-	results <- .self$getUrl(url, method = 'post', opts = opts, encoding = encoding)
+	results <- .self$getUrl(url, method = 'post', header = header, body = soap.request, encoding = encoding)
 
 	return(results)
 })
@@ -73,10 +70,22 @@ BiodbRequestScheduler$methods( getUrlString = function(url, params = list()) {
 # Get URL {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = NA_character_) {
+BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = c('get', 'post'), header = NULL, body = NULL, encoding = integer()) {
 	":\n\nSend a URL request, either with GET or POST method, and return result."
 
+	.self$.assert.not.null(encoding)
+	.self$.assert.not.na(encoding)
+	method <- match.arg(method)
+
 	content <- NA_character_
+
+	# Set options
+	opts <- list()
+	if ( ! is.null(header))
+		opts$httpheader <- header
+	if ( ! is.null(body))
+		opts$postfields <- body
+	opts <- .self$.get.curl.opts(opts)
 
 	# Get rule
 	rule <- .self$.findRule(url)
@@ -130,7 +139,7 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 				rule$wait.as.needed()
 
 				if (method == 'get')
-					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = if (is.na(encoding)) integer() else encoding)
+					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = encoding)
 				else
 					content <- RCurl::postForm(url, .opts = opts, .params = params, .encoding = encoding)
 

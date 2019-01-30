@@ -122,6 +122,97 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
 })
 
+# Web service filter-mass-post {{{1
+################################################################
+
+ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('plain', 'parsed', 'queryid', 'results', 'ids')) {
+
+	retfmt <- match.arg(retfmt)
+
+	# Set URL
+	url <- paste0(.self$getUrl('ws.url'), 'filter/mass')
+
+	# Set header
+	header <- c('Content-Type' = "", apikey = .self$getToken())
+
+	# Set body
+	body <- paste0("{\n", '\t"mass": ', mass, "\n",'\t"range": ', range, "\n}")
+
+	# Send request
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'post', header = header, body = body)
+
+	# Error
+	if (is.null(results) || is.na(results))
+		return(NULL)
+
+	# Parse JSON
+	if (retfmt != 'plain') {
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+		# Get results
+		if (retfmt %in% c('results', 'ids')) {
+
+			# Wait for query result to be ready
+			while (TRUE) {
+				status <- .self$ws.filterQueryIdStatusGet(queryid, retfmt = 'status')
+				if (is.null(status))
+					return(NULL)
+			}
+
+			# Get results
+			results <- .self$ws.filterQueryIdResultsGet(queryid, retfmt = (if (retfmt == 'ids') 'ids' else 'plain'))
+		}
+	}
+
+	return(results)
+}
+
+# Web service filter-queryId-status-get {{{1
+################################################################
+
+ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c('plain', 'parsed', 'status')) {
+
+	retfmt <- match.arg(retfmt)
+
+	# Set URL
+	url <- paste0(.self$getUrl('ws.url'), 'filter/', queryid, '/status')
+
+	# Set header
+	header <- c('Content-Type' = "", apikey = .self$getToken())
+
+	# Send request
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'get', header = header)
+
+	# Convert to logical
+	if (retfmt == 'logical')
+		results <- (results == 'Complete')
+
+	return(results)
+}
+
+# Web service filter-queryId-results-get {{{1
+################################################################
+
+ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, retfmt = c('plain', 'parsed', 'ids')) {
+
+	retfmt <- match.arg(retfmt)
+
+	# Set URL
+	url <- paste0(.self$getUrl('ws.url'), 'filter/', queryid, '/results')
+
+	# Set header
+	header <- c('Content-Type' = "", apikey = .self$getToken())
+
+	# Send request
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'get', header = header)
+
+	# Parse IDs
+	if (retfmt == 'ids') {
+	}
+
+	return(results)
+}
+
 # Web service SearchByMass2 {{{1
 ################################################################
 
