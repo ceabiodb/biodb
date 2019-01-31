@@ -114,7 +114,7 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 	request.json <- jsonlite::serializeJSON(request)
 	request.json.str <- as.character(request.json)
 	request.key <- digest::digest(request.json.str, algo = 'md5')
-	if (.self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
+	if (.self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
 		.self$message('debug', paste0("Loading content of ", method, " request from cache ..."))
 		content <- .self$getBiodb()$getCache()$loadFileContent('request', subfolder = 'shortterm', name = request.key, ext ='content', output.vector = TRUE)
 	}
@@ -128,7 +128,7 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 				.self$message('debug', paste0("Sending ", method, " request ..."))
 
 				if (method == 'post' && 'httpheader' %in% names(opts))
-					.self$message('debug', paste0(method, ' request header is "', paste(opts$httpheader, collapse = ', '), '".'))
+					.self$message('debug', paste0(method, ' request header is "', paste(vapply(names(opts$httpheader), function(k) paste(k, opts$httpheader[[k]], sep = '='), FUN.VALUE = ''), collapse = ', '), '".'))
 				if (method == 'post' && 'postfields' %in% names(opts))
 					.self$message('debug', paste0('"Request post content is "', paste(opts$postfields, collapse = ', '), '".'))
 

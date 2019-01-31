@@ -23,9 +23,10 @@
 #'
 #' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
 #'
-#' @param mass  The mass to search for.
-#' @param query The query to send to the database.
-#' @param range The range of the searched mass. Plain range, Dalton unit. The mass searched are between (mass - range) and (mass + range).
+#' @param mass   The mass to search for.
+#' @param query  The query to send to the database.
+#' @param range  The range of the searched mass. Plain range, Dalton unit. The mass searched are between (mass - range) and (mass + range).
+#' @param retfmt The wanted returned format, in a web service method ("ws.*" methods).
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
 #'
@@ -125,7 +126,8 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 # Web service filter-mass-post {{{1
 ################################################################
 
-ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('plain', 'parsed', 'queryid', 'results', 'ids')) {
+ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('plain', 'parsed', 'queryid', 'ids')) {
+	":\n\nAccess the filter-mass-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/mass."
 
 	retfmt <- match.arg(retfmt)
 
@@ -136,7 +138,7 @@ ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('pl
 	header <- c('Content-Type' = "", apikey = .self$getToken())
 
 	# Set body
-	body <- paste0("{\n", '\t"mass": ', mass, "\n",'\t"range": ', range, "\n}")
+	body <- paste0("{\n", '\t"mass": ', mass, ",\n",'\t"range": ', range, "\n}")
 
 	# Send request
 	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'post', header = header, body = body)
@@ -147,30 +149,51 @@ ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('pl
 
 	# Parse JSON
 	if (retfmt != 'plain') {
+
 		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
 
+		if (retfmt == 'queryid')
+			results <- results$queryId
+
 		# Get results
-		if (retfmt %in% c('results', 'ids')) {
+		else if (retfmt == 'ids') {
 
 			# Wait for query result to be ready
 			while (TRUE) {
-				status <- .self$ws.filterQueryIdStatusGet(queryid, retfmt = 'status')
+				status <- .self$ws.filterQueryIdStatusGet(results$queryId, retfmt = 'status')
 				if (is.null(status))
 					return(NULL)
+
+				if (status == 'Complete')
+					break
 			}
 
 			# Get results
-			results <- .self$ws.filterQueryIdResultsGet(queryid, retfmt = (if (retfmt == 'ids') 'ids' else 'plain'))
+			ids <- NULL
+			while (TRUE) {
+
+				res <- .self$ws.filterQueryIdResultsGet(results$queryId, retfmt = 'parsed')
+				ids <- c(ids, res$results)
+
+				if ( ! res$limitedToMaxAllowed)
+					break
+			}
+			results <- as.character(ids)
 		}
 	}
 
 	return(results)
-}
+})
 
 # Web service filter-queryId-status-get {{{1
 ################################################################
 
 ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c('plain', 'parsed', 'status')) {
+	":\n\nAccess the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/%7BqueryId%7D/status."
+
+	.self$.assert.not.null(queryid)
+	.self$.assert.not.na(queryid)
+	.self$.assert.is(queryid, 'character')
 
 	retfmt <- match.arg(retfmt)
 
@@ -183,35 +206,61 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c
 	# Send request
 	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'get', header = header)
 
-	# Convert to logical
-	if (retfmt == 'logical')
-		results <- (results == 'Complete')
+	# Parse JSON
+	if (retfmt != 'plain') {
+
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+		# Get status
+		if (retfmt == 'status')
+			results <- results$status
+	}
 
 	return(results)
-}
+})
 
 # Web service filter-queryId-results-get {{{1
 ################################################################
 
-ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, retfmt = c('plain', 'parsed', 'ids')) {
+ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0L, count = 0L, retfmt = c('plain', 'parsed', 'ids')) {
+	":\n\nAccess the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/%7BqueryId%7D/results,"
+
+	.self$.assert.not.null(queryid)
+	.self$.assert.not.na(queryid)
+	.self$.assert.is(queryid, 'character')
+	.self$.assert.number(start, negative = FALSE, float.allowed = FALSE)
+	.self$.assert.number(count, negative = FALSE, float.allowed = FALSE)
 
 	retfmt <- match.arg(retfmt)
 
 	# Set URL
 	url <- paste0(.self$getUrl('ws.url'), 'filter/', queryid, '/results')
 
+	# Set params
+	params <- list()
+	if (start > 0)
+		params <- c(params, start = start)
+	if (count > 0)
+		params <- c(params, count = count)
+
 	# Set header
 	header <- c('Content-Type' = "", apikey = .self$getToken())
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'get', header = header)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'get', header = header, params = params)
 
-	# Parse IDs
-	if (retfmt == 'ids') {
+	# Parse JSON
+	if (retfmt != 'plain') {
+
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+		# Parse IDs
+		if (retfmt == 'ids')
+			results <- results$rsults
 	}
 
 	return(results)
-}
+})
 
 # Web service SearchByMass2 {{{1
 ################################################################

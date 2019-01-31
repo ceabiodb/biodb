@@ -63,24 +63,33 @@ BiodbObject$methods( .deprecated.method = function(new.method = NA_character_) {
 # Assert not NA {{{1
 ################################################################
 
-BiodbObject$methods( .assert.not.na = function(param, msg.type = 'error', sys.call.level = 0, param.name = '') {
+BiodbObject$methods( .assert.not.na = function(param, msg.type = 'error', sys.call.level = 0, param.name = NULL) {
+
 	if (any(is.na(param))) {
-		if (nchar(param.name) == 0)
+
+		if (is.null(param.name))
 			param.name <- as.character(sys.call(sys.call.level))[[2]]
+
 		.self$message(msg.type, paste(param.name, ' cannot be set to NA.', sep = ''))
+
 		return(FALSE)
 	}
+
 	return(TRUE)
 })
 
 # Assert not NULL {{{1
 ################################################################
 
-BiodbObject$methods( .assert.not.null = function(param, msg.type = 'error', sys.call.level = 0, param.name = '') {
+BiodbObject$methods( .assert.not.null = function(param, msg.type = 'error', sys.call.level = 0, param.name = NULL) {
+
 	if (is.null(param)) {
-		if (nchar(param.name) == 0)
+
+		if (is.null(param.name))
 			param.name <- as.character(sys.call(sys.call.level))[[2]]
+
 		.self$message(msg.type, paste(param.name, ' cannot be NULL.', sep = ''))
+
 		return(FALSE)
 	}
 	return(TRUE)
@@ -125,9 +134,11 @@ BiodbObject$methods( .assert.equal.length = function(param1, param2, msg.type = 
 # Assert positive {{{1
 ################################################################
 
-BiodbObject$methods( .assert.positive = function(param, msg.type = 'error', na.allowed = TRUE, zero = TRUE) {
+BiodbObject$methods( .assert.positive = function(param, na.allowed = TRUE, zero = TRUE, sys.call.level = 0, msg.type = 'error', param.name = NULL) {
 
-	param.name <- as.character(sys.call(0))[[2]]
+	if (is.null(param.name))
+		param.name <- as.character(sys.call(sys.call.level))[[2]]
+
 	.self$.assert.not.null(param, msg.type = msg.type, param.name = param.name)
 	if ( ! na.allowed)
 		.self$.assert.not.na(param, msg.type = msg.type, param.name = param.name)
@@ -143,10 +154,15 @@ BiodbObject$methods( .assert.positive = function(param, msg.type = 'error', na.a
 # Assert length one {{{1
 ################################################################
 
-BiodbObject$methods( .assert.length.one = function(param, msg.type = 'error') {
+BiodbObject$methods( .assert.length.one = function(param, sys.call.level = 0, msg.type = 'error', param.name = NULL) {
+
 	if (length(param) != 1) {
-		param.name <- as.character(sys.call(0))[[2]]
+
+		if (is.null(param.name))
+			param.name <- as.character(sys.call(sys.call.level))[[2]]
+
 		.self$message(msg.type, paste('Length of ', param.name, ' (', length(param), ') must be one.', sep = ''))
+
 		return(FALSE)
 	}
 	return(TRUE)
@@ -168,12 +184,18 @@ BiodbObject$methods( .assert.in = function(param, values, msg.type = 'error') {
 # Assert is {{{1
 ################################################################
 
-BiodbObject$methods( .assert.is = function(param, type, msg.type = 'error') {
+BiodbObject$methods( .assert.is = function(param, type, sys.call.level = 0, msg.type = 'error', param.name = NULL) {
+
 	if ( ! is.null(param) && ! class(param) %in% type) {
-		param.name <- as.character(sys.call(0))[[2]]
+
+		if (is.null(param.name))
+			param.name <- as.character(sys.call(sys.call.level))[[2]]
+
 		.self$message(msg.type, paste(param.name, ' is not of type ', type, ' but of type ', class(param), '.', sep = ''))
+
 		return(FALSE)
 	}
+
 	return(TRUE)
 })
 
@@ -187,6 +209,36 @@ BiodbObject$methods( .assert.inherits.from = function(param, super.class, msg.ty
 		return(FALSE)
 	}
 	return(TRUE)
+})
+
+# Assert number {{{1
+################################################################
+
+BiodbObject$methods( .assert.number = function(param, length.one = TRUE, null.allowed = FALSE, na.allowed = FALSE, zero = TRUE, negative = TRUE, sys.call.level = 0, integer.allowed = TRUE, float.allowed = TRUE) {
+
+	param.name <- as.character(sys.call(sys.call.level))[[2]]
+
+	if ( ! null.allowed)
+		.self$.assert.not.null(param, param.name = param.name)
+
+	if ( ! is.null(param)) {
+
+		if ( ! na.allowed)
+			.self$.assert.not.na(param, param.name = param.name)
+
+		types <- character()
+		if (integer.allowed)
+			types <- c(types, 'integer')
+		if (float.allowed)
+			types <- c(types, 'numeric')
+		.self$.assert.is(param, types, param.name = param.name)
+
+		if (length.one)
+			.self$.assert.length.one(param, param.name = param.name)
+
+		if ( ! negative)
+			.self$.assert.positive(param, na.allowed = na.allowed, zero = zero, param.name = param.name)
+	}
 })
 
 # Get biodb {{{1

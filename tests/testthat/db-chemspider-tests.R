@@ -26,6 +26,16 @@ test.chemspider.ws.SimpleSearch <- function(db) {
 	expect_true(length(ids) > 0)
 }
 
+# Test ChemSpider ws.filterMassPost {{{1
+################################################################
+
+test.chemspider.ws.filterMassPost <- function(conn) {
+
+	results <- conn$ws.filterMassPost(mass = 100, range = 1, retfmt = 'ids')
+	testthat::expect_is(results, 'character')
+	testthat::expect_true(length(results) > 0)
+}
+
 # Run ChemSpider tests {{{1
 ################################################################
 
@@ -33,5 +43,6 @@ run.chemspider.tests <- function(conn, mode) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		test.that('ChemSpider web service search by mass works fine.', 'test.chemspider.ws.SearchByMass2', conn = conn)
 		test.that('ChemSpider web service simple search works fine.', 'test.chemspider.ws.SimpleSearch', conn = conn)
+		test.that('ChemSpider web service filter-mass-post works fine.', 'test.chemspider.ws.filterMassPost', conn = conn)
 	}
 }
