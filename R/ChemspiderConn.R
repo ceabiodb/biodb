@@ -126,6 +126,35 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 # Web service filter-mass-post {{{1
 ################################################################
 
+ChemspiderConn$methods( ws.filterNamePost = function(name, retfmt = c('plain', 'parsed', 'queryid', 'ids')) {
+	":\n\nAccess the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/name."
+
+	retfmt <- match.arg(retfmt)
+
+	# Set URL
+	url <- paste0(.self$getUrl('ws.url'), 'filter/name')
+
+	# Set header
+	header <- c('Content-Type' = "", apikey = .self$getToken())
+
+	# Set body
+	body <- paste0("{\n", '\t"name": "', name, '"', "\n}")
+
+	# Send request
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'post', header = header, body = body)
+
+	# Error
+	if (is.null(results) || is.na(results))
+		results <- NULL
+	else
+		results <- .self$.retrieveQuery(results = results, retfmt = retfmt)
+
+	return(results)
+})
+
+# Web service filter-mass-post {{{1
+################################################################
+
 ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('plain', 'parsed', 'queryid', 'ids')) {
 	":\n\nAccess the filter-mass-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/mass."
 
@@ -145,42 +174,9 @@ ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('pl
 
 	# Error
 	if (is.null(results) || is.na(results))
-		return(NULL)
-
-	# Parse JSON
-	if (retfmt != 'plain') {
-
-		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
-
-		if (retfmt == 'queryid')
-			results <- results$queryId
-
-		# Get results
-		else if (retfmt == 'ids') {
-
-			# Wait for query result to be ready
-			while (TRUE) {
-				status <- .self$ws.filterQueryIdStatusGet(results$queryId, retfmt = 'status')
-				if (is.null(status))
-					return(NULL)
-
-				if (status == 'Complete')
-					break
-			}
-
-			# Get results
-			ids <- NULL
-			while (TRUE) {
-
-				res <- .self$ws.filterQueryIdResultsGet(results$queryId, retfmt = 'parsed')
-				ids <- c(ids, res$results)
-
-				if ( ! res$limitedToMaxAllowed)
-					break
-			}
-			results <- as.character(ids)
-		}
-	}
+		results <- NULL
+	else
+		results <- .self$.retrieveQuery(results = results, retfmt = retfmt)
 
 	return(results)
 })
@@ -262,62 +258,6 @@ ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0
 	return(results)
 })
 
-# Web service SearchByMass2 {{{1
-################################################################
-
-ChemspiderConn$methods( ws.SearchByMass2 = function(mass = NA, range = NA) {
-	":\n\nDirect query to the database for searching for compounds by monoisotopic mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details."
-
-	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "MassSpecAPI.asmx/SearchByMass2", sep = ''), params = c(mass = mass, range = range))
-
-	return(xml.results)
-})
-
-# Web service SearchByMass2 IDs {{{1
-################################################################
-
-ChemspiderConn$methods( ws.SearchByMass2.ids = function(...) {
-	":\n\nCalls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector."
-
-	results <- .self$ws.SearchByMass2(...)
-
-	# Parse XML
-	xml <-  XML::xmlInternalTreeParse(results, asText = TRUE)
-
-	# Get IDs
-	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfString/chemspider:string", XML::xmlValue, namespaces = c(chemspider = .self$getXmlNs()))
-
-	return(id)
-})
-
-# Web service SimpleSearch {{{1
-################################################################
-
-ChemspiderConn$methods( ws.SimpleSearch = function(query = NA) {
-	":\n\nDirect query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details."
-	xml.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "Search.asmx/SimpleSearch", sep = ''), params = c(query = query, token = .self$getToken()))
-
-	return(xml.results)
-})
-
-# Web service SimpleSearch IDs {{{1
-################################################################
-
-ChemspiderConn$methods( ws.SimpleSearch.ids = function(...) {
-	":\n\nCalls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector."
-
-	results <- .self$ws.SimpleSearch(...)
-
-	# Parse XML
-	xml <-  XML::xmlInternalTreeParse(results, asText = TRUE)
-
-	# Get IDs
-	id <- XML::xpathSApply(xml, "/chemspider:ArrayOfInt/chemspider:int", XML::xmlValue, namespaces = c(chemspider = .self$getXmlNs()))
-	id <- as.character(id)
-
-	return(id)
-})
-
 # Search compound {{{1
 ################################################################
 
@@ -335,7 +275,7 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 				range <- mass * mass.tol * 1.e-6
 			else
 				range <- mass.tol
-			ids <- .self$ws.SearchByMass2.ids(mass = mass, range = range)
+			ids <- .self$ws.filterMassPost(mass = mass, range = range, retfmt = 'ids')
 		}
 		else
 			.self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
@@ -344,7 +284,7 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 	# Search by name
 	if ( ! is.null(name)) {
 
-		name.id <- .self$ws.SimpleSearch.ids(query = name)
+		name.id <- .self$ws.filterNamePost(name, retfmt = 'ids')
 
 		# Merge with already found IDs
 		if (is.null(ids))
@@ -387,4 +327,47 @@ ChemspiderConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 ChemspiderConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.CHEMSPIDER.PARSING.EXPR)
+})
+
+# Retrieve query {{{2
+################################################################
+
+ChemspiderConn$methods( .retrieveQuery = function(results, retfmt) {
+
+	# Parse JSON
+	if (retfmt != 'plain') {
+
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+		if (retfmt == 'queryid')
+			results <- results$queryId
+
+		# Get results
+		else if (retfmt == 'ids') {
+
+			# Wait for query result to be ready
+			while (TRUE) {
+				status <- .self$ws.filterQueryIdStatusGet(results$queryId, retfmt = 'status')
+				if (is.null(status))
+					return(NULL)
+
+				if (status == 'Complete')
+					break
+			}
+
+			# Get results
+			ids <- NULL
+			while (TRUE) {
+
+				res <- .self$ws.filterQueryIdResultsGet(results$queryId, retfmt = 'parsed')
+				ids <- c(ids, res$results)
+
+				if ( ! res$limitedToMaxAllowed)
+					break
+			}
+			results <- as.character(ids)
+		}
+	}
+
+	return(results)
 })
