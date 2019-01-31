@@ -123,7 +123,7 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
 })
 
-# Web service filter-mass-post {{{1
+# Web service filter-name-post {{{1
 ################################################################
 
 ChemspiderConn$methods( ws.filterNamePost = function(name, retfmt = c('plain', 'parsed', 'queryid', 'ids', 'request')) {
@@ -214,7 +214,7 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c
 # Web service filter-queryId-results-get {{{1
 ################################################################
 
-ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0L, count = 0L, retfmt = c('plain', 'parsed', 'ids')) {
+ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0L, count = 0L, retfmt = c('plain', 'parsed', 'ids', 'request')) {
 	":\n\nAccess the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/%7BqueryId%7D/results,"
 
 	.self$.assert.not.null(queryid)
