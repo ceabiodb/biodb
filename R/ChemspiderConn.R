@@ -126,22 +126,20 @@ ChemspiderConn$methods( getEntryImageUrl = function(id) {
 # Web service filter-mass-post {{{1
 ################################################################
 
-ChemspiderConn$methods( ws.filterNamePost = function(name, retfmt = c('plain', 'parsed', 'queryid', 'ids')) {
+ChemspiderConn$methods( ws.filterNamePost = function(name, retfmt = c('plain', 'parsed', 'queryid', 'ids', 'request')) {
 	":\n\nAccess the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/name."
 
 	retfmt <- match.arg(retfmt)
 
-	# Set URL
-	url <- paste0(.self$getUrl('ws.url'), 'filter/name')
-
-	# Set header
+	# Build request
 	header <- c('Content-Type' = "", apikey = .self$getToken())
-
-	# Set body
 	body <- paste0("{\n", '\t"name": "', name, '"', "\n}")
+	request <- BiodbRequest(method = 'post', url = BiodbUrl(paste0(.self$getUrl('ws.url'), 'filter/name')), header = header, body = body)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'post', header = header, body = body)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
 	# Error
 	if (is.null(results) || is.na(results))
@@ -155,22 +153,20 @@ ChemspiderConn$methods( ws.filterNamePost = function(name, retfmt = c('plain', '
 # Web service filter-mass-post {{{1
 ################################################################
 
-ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('plain', 'parsed', 'queryid', 'ids')) {
+ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('plain', 'parsed', 'queryid', 'ids', 'request')) {
 	":\n\nAccess the filter-mass-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/mass."
 
 	retfmt <- match.arg(retfmt)
 
-	# Set URL
-	url <- paste0(.self$getUrl('ws.url'), 'filter/mass')
-
-	# Set header
+	# Build request
 	header <- c('Content-Type' = "", apikey = .self$getToken())
-
-	# Set body
 	body <- paste0("{\n", '\t"mass": ', mass, ",\n",'\t"range": ', range, "\n}")
+	request <- BiodbRequest(method = 'post', url = BiodbUrl(paste0(.self$getUrl('ws.url'), 'filter/mass')), header = header, body = body)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'post', header = header, body = body)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
 	# Error
 	if (is.null(results) || is.na(results))
@@ -184,7 +180,7 @@ ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('pl
 # Web service filter-queryId-status-get {{{1
 ################################################################
 
-ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c('plain', 'parsed', 'status')) {
+ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c('plain', 'parsed', 'status', 'request')) {
 	":\n\nAccess the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/%7BqueryId%7D/status."
 
 	.self$.assert.not.null(queryid)
@@ -194,13 +190,13 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c
 	retfmt <- match.arg(retfmt)
 
 	# Set URL
-	url <- paste0(.self$getUrl('ws.url'), 'filter/', queryid, '/status')
-
-	# Set header
 	header <- c('Content-Type' = "", apikey = .self$getToken())
+	request <- BiodbRequest(method = 'get', url = BiodbUrl(paste0(.self$getUrl('ws.url'), 'filter/', queryid, '/status')), header = header)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'get', header = header)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
 	# Parse JSON
 	if (retfmt != 'plain') {
@@ -229,21 +225,19 @@ ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0
 
 	retfmt <- match.arg(retfmt)
 
-	# Set URL
-	url <- paste0(.self$getUrl('ws.url'), 'filter/', queryid, '/results')
-
-	# Set params
-	params <- list()
+	# Build request
+	url <- BiodbUrl(paste0(.self$getUrl('ws.url'), 'filter/', queryid, '/results'))
 	if (start > 0)
-		params <- c(params, start = start)
+		url$setParam('start', start)
 	if (count > 0)
-		params <- c(params, count = count)
-
-	# Set header
+		url$setParam('count', count)
 	header <- c('Content-Type' = "", apikey = .self$getToken())
+	request <- BiodbRequest(method = 'get', url = url, header = header)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url = url, method = 'get', header = header, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
 	# Parse JSON
 	if (retfmt != 'plain') {

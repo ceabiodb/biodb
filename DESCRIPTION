@@ -33,6 +33,8 @@ LinkingTo:
 NeedsCompilation: yes
 RoxygenNote: 6.1.1
 Collate: 
+    'BiodbUrl.R'
+    'BiodbRequest.R'
     'BiodbObject.R'
     'Biodb.R'
     'ChildObject.R'
