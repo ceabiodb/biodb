@@ -48,47 +48,28 @@ ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("RemotedbC
 
 ChemspiderConn$methods( getEntryContent = function(entry.id) {
 
-	# Debug
-	.self$message('info', paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
+	# Initialize return values
+	content <- rep(NA_character_, length(entry.id))
 
-	URL.MAX.LENGTH <- 2083
-	concatenate <- TRUE
-	done <- FALSE
+	# Get requests
+	requests <- .self$getEntryContentRequest(entry.id, concatenate = TRUE)
 
-	while ( ! done) {
+	# Loop on all requests
+	for (request in requests) {
 
-		done <- TRUE
+		# Send request
+		results <- .self$getBiodb()$getRequestScheduler(request)
 
-		# Initialize return values
-		content <- rep(NA_character_, length(entry.id))
+		# Parse results
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
 
-		# Get request URLs
-		urls <- .self$getEntryContentRequest(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
+		# Multiple records
+		records <- if ('records' %in% names(results)) results[['records']] else list(results)
 
-		# Loop on all URLs
-		for (url in urls) {
-
-			# Send request
-			xmlstr <- .self$.getUrlScheduler()$getUrl(url)
-
-			# Error : "Cannot convert WRONG to System.Int32.\r\nParameter name: type ---> Input string was not in a correct format.\r\n"
-			if (grepl('^Cannot convert .* to System\\.Int32\\.', xmlstr)) {
-				if (concatenate) {
-					.self$message('caution', "One of the IDs to retrieve is wrong.")
-					concatenate <- FALSE
-					done <- FALSE
-					break
-				}
-				next
-			}
-
-			# Parse XML and get included XML
-			if ( ! is.na(xmlstr)) {
-				xml <-  XML::xmlInternalTreeParse(xmlstr, asText = TRUE)
-				returned.ids <- XML::xpathSApply(xml, "//ns:ExtendedCompoundInfo/ns:CSID", XML::xmlValue, namespaces = c(ns = .self$getXmlNs()))
-				content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, "//ns:ExtendedCompoundInfo", namespaces = c(ns = .self$getXmlNs())), XML::saveXML, FUN.VALUE = '')
-			}
-		}
+		# Store record contents
+		for (record in records)
+			if ('id' %in% names(record))
+				content[entry.id == record$id] <- jsonlite::toJSON(record, pretty = TRUE, digits = NA_integer_)
 	}
 
 	return(content)
@@ -100,13 +81,21 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 
 ChemspiderConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
-	token.param <- if (is.na(.self$getToken())) '' else paste('&token', .self$getToken(), sep = '=')
-	if (concatenate)
-		url <- paste0(.self$getBaseUrl(), 'MassSpecAPI.asmx/GetExtendedCompoundInfoArray?', paste(paste0('CSIDs=', id), collapse = '&'), token.param)
-	else
-		url <- paste0(.self$getBaseUrl(), 'MassSpecAPI.asmx/GetExtendedCompoundInfoArray?CSIDs=', id, token.param)
+	# Use batch requests
+	if (concatenate) {
 
-	return(url)
+		# Divide IDs into group of max 100
+		id.chunks <- split(id, ceiling(seq_along(id) / 100))
+
+		# Create requests
+		requests <- lapply(id.chunks, function(x) .self$ws.recordsBatchPost(x, retfmt = 'request'))
+	}
+
+	# One request for each ID
+	else
+		requests <- lapply(id, function(x) .self$ws.recordsRecordidDetailsGet(x, retfmt = 'request'))
+
+	return(requests)
 })
 
 # Get entry page url {{{1
@@ -121,6 +110,83 @@ ChemspiderConn$methods( getEntryPageUrl = function(id) {
 
 ChemspiderConn$methods( getEntryImageUrl = function(id) {
 	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
+})
+
+# Get all record fields {{{1
+################################################################
+
+ChemspiderConn$methods( getAllRecordFields = function() {
+	":\n\nReturns the complete list of all record fields provided by ChemSpider."
+
+	return(c('SMILES', 'Formula', 'InChI', 'InChIKey', 'StdInChI', 'StdInChIKey', 'AverageMass', 'MolecularWeight', 'MonoisotopicMass', 'NominalMass', 'CommonName', 'ReferenceCount', 'DataSourceCount', 'PubMedCount', 'RSCCount', 'Mol2D', 'Mol3D'))
+})
+
+# Web service records-recordId-details-get {{{1
+################################################################
+
+ChemspiderConn$methods( ws.recordsRecordidDetailsGet = function(recordid, fields = NULL, retfmt = c('plain', 'parsed', 'request')) {
+	":\n\nAccess the records-recordId-details-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/records/%7BrecordId%7D/details."
+
+	retfmt <- match.arg(retfmt)
+
+	# Convert ID to integer
+	recordid <- suppressWarnings(as.integer(recordid))
+
+	# Get fields to retrieve
+	if (is.null(fields))
+		fields <- paste(.self$getAllRecordFields(), collapse = ',')
+
+	# Build request
+	header <- c('Content-Type' = "", apikey = .self$getToken())
+	request <- BiodbRequest(method = 'post', url = BiodbUrl(paste0(.self$getUrl('ws.url'), 'records/', recordid, '/details'), params = c(fields = fields)), header = header)
+	if (retfmt == 'request')
+		return(request)
+
+	# Send request
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+
+	# Error
+	if (is.null(results) || is.na(results))
+		results <- NULL
+	else if (retfmt == 'parsed')
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+	return(results)
+})
+
+# Web service records-batch-post {{{1
+################################################################
+
+ChemspiderConn$methods( ws.recordsBatchPost = function(recordids, fields = NULL, retfmt = c('plain', 'parsed', 'request')) {
+	":\n\nAccess the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/records/batch."
+
+	retfmt <- match.arg(retfmt)
+
+	# Convert IDs to integer
+	recordids <- suppressWarnings(as.integer(recordids))
+	recordids <- recordids[ ! is.na(recordids)]
+
+	# Get fields to retrieve
+	if (is.null(fields))
+		fields <- .self$getAllRecordFields()
+
+	# Build request
+	header <- c('Content-Type' = "", apikey = .self$getToken())
+	body <- paste0('{"recordIds": [', paste(recordids, collapse = ','), '], fields": [', paste(vapply(fields, function(x) paste0('"', x, '"'), FUN.VALUE = ''), collapse = ',') ,']}')
+	request <- BiodbRequest(method = 'post', url = BiodbUrl(paste0(.self$getUrl('ws.url'), 'records/batch')), header = header, body = body)
+	if (retfmt == 'request')
+		return(request)
+
+	# Send request
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+
+	# Error
+	if (is.null(results) || is.na(results))
+		results <- NULL
+	else if (retfmt == 'parsed')
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+	return(results)
 })
 
 # Web service filter-name-post {{{1

@@ -70,23 +70,11 @@ RemotedbConn$methods( getEntryContentRequest = function(entry.id, concatenate = 
 	if (length(entry.id) > 0) {
 
 		# Get full URL
-		.self$message('debug', "Getting full URL.")
 		full.url <- .self$.doGetEntryContentRequest(entry.id, concatenate = concatenate)
 
 		# No single URL for multiple IDs
-		if (length(entry.id) > 1 && length(full.url) > 1) {
-			.self$message('debug', "Obtained more than one URL.")
-#  XXX We must comment out this test, because for PeakforestMass we must return two URLs for each ID (one for LCMS request, and one for LCMSMS request).
-#			if (length(full.url) != length(ids))
-#				.self$message('error', paste(".doGetEntryContentRequest() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
-			
+		if ((length(entry.id) > 1 && length(full.url) > 1) || max.length == 0 || nchar(full.url) <= max.length)
 			urls <- full.url
-		}
-
-		else if (max.length == 0 || nchar(full.url) <= max.length) {
-			.self$message('debug', paste("Keep single full URL \"", full.url, "\".", sep = ''))
-			urls <- full.url
-		}
 
 		# full.url is too big, we must split it
 		else {
@@ -158,16 +146,21 @@ RemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))
 
-	# Get URLs
-	urls <- .self$getEntryContentRequest(entry.id, concatenate = FALSE)
+	# Get requests
+	requests <- .self$getEntryContentRequest(entry.id, concatenate = FALSE)
 	
 	# Get encoding
 	encoding <- .self$getPropertyValue('entry.content.encoding')
 
+	# If requests is a vector of characters, then the method is using the old scheme.
+	# We now convert the requests to the new scheme, using class BiodbRequest.
+	if (is.character(requests))
+		requests <- lapply(requests, BiodbRequest(method = 'get', url = BiodbUrl(requests), encoding = encoding))
+
 	# Send requests
-	for (i in seq_along(urls)) {
-		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', i, length(urls)))
-		content[[i]] <- .self$getBiodb()$getRequestScheduler()$getUrl(urls[[i]], encoding = encoding)
+	for (i in seq_along(requests)) {
+		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', i, length(requests)))
+		content[[i]] <- .self$getBiodb()$getRequestScheduler()$sendRequest(requests[[i]], encoding = encoding)
 	}
 
 	return(content)

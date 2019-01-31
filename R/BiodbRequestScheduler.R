@@ -352,6 +352,8 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 
 	.self$.deprecated.method("BiodbRequestScheduler::sendRequest()")
 
+	method <- match.arg(method)
+
 	request <- BiodbRequest(url = BiodbUrl(url = url, params = params), method = method, header = header, body = body, encoding = encoding)
 
 	return(.self$sendRequest(request))
