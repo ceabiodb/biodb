@@ -56,10 +56,10 @@ RemotedbConn$methods( getEntryContent = function(entry.id) {
 	return(.self$.doGetEntryContentOneByOne(entry.id))
 })
 
-# Get entry content url {{{1
+# Get entry content request {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryContentUrl = function(entry.id, concatenate = TRUE, max.length = 0) {
+RemotedbConn$methods( getEntryContentRequest = function(entry.id, concatenate = TRUE, max.length = 0) {
 	":\n\nGet the URL to use in order to get the contents of the specified entries."
 
 	# Copy code from get.entry.url
@@ -71,14 +71,14 @@ RemotedbConn$methods( getEntryContentUrl = function(entry.id, concatenate = TRUE
 
 		# Get full URL
 		.self$message('debug', "Getting full URL.")
-		full.url <- .self$.doGetEntryContentUrl(entry.id, concatenate = concatenate)
+		full.url <- .self$.doGetEntryContentRequest(entry.id, concatenate = concatenate)
 
 		# No single URL for multiple IDs
 		if (length(entry.id) > 1 && length(full.url) > 1) {
 			.self$message('debug', "Obtained more than one URL.")
 #  XXX We must comment out this test, because for PeakforestMass we must return two URLs for each ID (one for LCMS request, and one for LCMSMS request).
 #			if (length(full.url) != length(ids))
-#				.self$message('error', paste(".doGetEntryContentUrl() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
+#				.self$message('error', paste(".doGetEntryContentRequest() does not concatenate IDs to form a single URL. However it returns only ", length(full.url), " URLs for ", length(ids), " IDs. It should return the same number of URLs than IDs.", sep = ''))
 			
 			urls <- full.url
 		}
@@ -101,13 +101,13 @@ RemotedbConn$methods( getEntryContentUrl = function(entry.id, concatenate = TRUE
 				b <- length(entry.id)
 				while (a < b) {
 					m <- as.integer((a + b) / 2)
-					url <- .self$.doGetEntryContentUrl(entry.id[start:m])
+					url <- .self$.doGetEntryContentRequest(entry.id[start:m])
 					if (all(nchar(url) <= max.length) && m != a)
 						a <- m
 					else
 						b <- m
 				}
-				urls <- c(urls, .self$.doGetEntryContentUrl(entry.id[start:a]))
+				urls <- c(urls, .self$.doGetEntryContentRequest(entry.id[start:a]))
 				start <- a + 1
 			}
 		}
@@ -143,10 +143,10 @@ RemotedbConn$methods( getEntryPageUrl = function(entry.id) {
 RemotedbConn$methods( .setRequestSchedulerRules = function() {
 })
 
-# Do get entry content url {{{2
+# Do get entry content request {{{2
 ################################################################
 
-RemotedbConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+RemotedbConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 	.self$.abstract.method()
 })
 
@@ -159,7 +159,7 @@ RemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
 	content <- rep(NA_character_, length(entry.id))
 
 	# Get URLs
-	urls <- .self$getEntryContentUrl(entry.id, concatenate = FALSE)
+	urls <- .self$getEntryContentRequest(entry.id, concatenate = FALSE)
 	
 	# Get encoding
 	encoding <- .self$getPropertyValue('entry.content.encoding')

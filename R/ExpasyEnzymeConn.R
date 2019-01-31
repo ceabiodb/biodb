@@ -119,10 +119,10 @@ ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
 # Private methods {{{1
 ################################################################
 
-# Do get entry content url {{{2
+# Do get entry content request {{{2
 ################################################################
 
-ExpasyEnzymeConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+ExpasyEnzymeConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	url <- paste0(.self$getBaseUrl(), 'EC/', id, '.txt')
 

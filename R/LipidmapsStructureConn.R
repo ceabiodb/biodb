@@ -22,10 +22,10 @@
 #' @include RemotedbConn.R
 LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn", contains = c("RemotedbConn", "CompounddbConn"))
 
-# Get entry content url {{{1
+# Get entry content request {{{1
 ################################################################
 
-LipidmapsStructureConn$methods( .doGetEntryContentUrl = function(ids, concatenate = TRUE) {
+LipidmapsStructureConn$methods( .doGetEntryContentRequest = function(ids, concatenate = TRUE) {
 	return(vapply(ids, function(id) .self$ws.LMSDRecord(lmid = id, mode = 'File', output.type = 'CSV', biodb.url = TRUE), FUN.VALUE = ''))
 })
 

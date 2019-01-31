@@ -35,10 +35,10 @@ PeakforestMassConn$methods( initialize = function(...) {
 	callSuper(db.name = 'spectra/lcms', ...)
 })
 
-# Get entry content url {{{1
+# Get entry content request {{{1
 ################################################################
 
-PeakforestMassConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+PeakforestMassConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	# Check token
 	if (is.na(.self$getToken()))

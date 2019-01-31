@@ -63,7 +63,7 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 		content <- rep(NA_character_, length(entry.id))
 
 		# Get request URLs
-		urls <- .self$getEntryContentUrl(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
+		urls <- .self$getEntryContentRequest(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
 
 		# Loop on all URLs
 		for (url in urls) {
@@ -95,10 +95,10 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 })
 
 
-# Do get entry content url {{{1
+# Do get entry content request {{{1
 ################################################################
 
-ChemspiderConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+ChemspiderConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	token.param <- if (is.na(.self$getToken())) '' else paste('&token', .self$getToken(), sep = '=')
 	if (concatenate)

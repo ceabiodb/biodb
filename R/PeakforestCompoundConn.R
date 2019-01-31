@@ -34,10 +34,10 @@ PeakforestCompoundConn$methods( initialize = function(...) {
 	callSuper(db.name = 'compounds', ...)
 })
 
-# Get entry content url {{{1
+# Get entry content request {{{1
 ################################################################
 
-PeakforestCompoundConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+PeakforestCompoundConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	# Check token
 	if (is.na(.self$getToken()))
