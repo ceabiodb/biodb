@@ -32,10 +32,10 @@ NcbiCcdsConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	return(NULL)
 })
 
-# Do get entry content url {{{1
+# Do get entry content request {{{1
 ################################################################
 
-NcbiCcdsConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+NcbiCcdsConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 	return(.self$getEntryPageUrl(id))
 })
 

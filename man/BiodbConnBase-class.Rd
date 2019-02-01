@@ -6,15 +6,13 @@
 \alias{BiodbConnBase}
 \title{Base class of \code{BiodbConn} for encapsulating all needed information for database access.}
 \arguments{
-\item{base.url}{A base URL for the database.}
+\item{url}{A URL for the database.}
 
 \item{n}{The scheduler "number of requests parameter.}
 
 \item{t}{The scheduler "time" parameter, in seconds.}
 
 \item{token}{An access token for the database.}
-
-\item{ws.url}{A web service URL for the database.}
 
 \item{xml.ns}{The XML namespace used by the database.}
 }
@@ -26,9 +24,7 @@ This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The construc
 \describe{
 \item{\code{db.class}}{The class of the database (\code{"massbank", "hmdb.metabolies", ...}).}
 
-\item{\code{base.url}}{The main URL of the database.}
-
-\item{\code{ws.url}}{The web services URL of the database.}
+\item{\code{urls}}{The URLs of the database.}
 
 \item{\code{xml.ns}}{The XML namespace used by the database.}
 
@@ -48,11 +44,11 @@ Returns the base URL.}
 
 \item{\code{getConnClass()}}{:
 
-Returns the associated connection class.}
+Returns the associated connector OOP class.}
 
 \item{\code{getConnClassName()}}{:
 
-Returns the name of the associated connection class.}
+Returns the name of the associated connector OOP class.}
 
 \item{\code{getEntryClass()}}{:
 
@@ -86,6 +82,10 @@ Returns the T parameter for the scheduler.}
 
 Returns the access token.}
 
+\item{\code{getUrl(name)}}{:
+
+Returns a URL.}
+
 \item{\code{getUrls()}}{:
 
 Returns the URLs.}
@@ -98,7 +98,7 @@ Returns the web sevices URL.}
 
 Returns the XML namespace.}
 
-\item{\code{setBaseUrl(base.url)}}{:
+\item{\code{setBaseUrl(url)}}{:
 
 Sets the base URL.}
 
@@ -113,6 +113,10 @@ Sets the T parameter for the scheduler.}
 \item{\code{setToken(token)}}{:
 
 Sets the access token.}
+
+\item{\code{setUrl(name, url)}}{:
+
+Returns a URL.}
 
 \item{\code{setWsUrl(ws.url)}}{:
 

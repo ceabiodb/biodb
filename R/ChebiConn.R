@@ -22,10 +22,10 @@
 #' @include RemotedbConn.R
 ChebiConn <- methods::setRefClass("ChebiConn", contains = c("RemotedbConn", "CompounddbConn"))
 
-# Get entry content url {{{1
+# Get entry content request {{{1
 ################################################################
 
-ChebiConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+ChebiConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 	return(paste(file.path(.self$getWsUrl(), 'getCompleteEntity', fsep = '/'), '?chebiId=', id, sep = ''))
 })
 

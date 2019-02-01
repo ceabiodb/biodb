@@ -6,13 +6,21 @@
 \alias{MassdbConn}
 \title{The mother class of all Mass spectra databases.}
 \arguments{
-\item{ids}{A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.}
-
 \item{chrom.col.ids}{IDs of chromatographic columns on which to match the retention time.}
 
 \item{dist.fun}{The distance function used to compute the distance betweem two mass spectra.}
 
 \item{entry.ids}{A list of entry IDs (vector of characters).}
+
+\item{ids}{A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.}
+
+\item{input.df}{A data frame taken as input for searchMsPeaks(). It must contain a columns 'mz', and optionaly an 'rt' column.}
+
+\item{input.df.colnames}{Names of the columns in the input data frame.}
+
+\item{insert.input.values}{Insert input values at the beginning of the result data frame.}
+
+\item{prefix.on.result.cols}{Add prefix on column names of result data frame.}
 
 \item{max.results}{The maximum of elements returned by a method.}
 
@@ -28,6 +36,8 @@
 
 \item{mz}{A vector of M/Z values to match.}
 
+\item{mz.col}{The name of the M/Z column in the results data frame.}
+
 \item{mz.max}{A vector of maximum M/Z values to match. Goes with mz.min, and mut have the same length.}
 
 \item{mz.min}{A vector of minimum M/Z values to match. Goes with mz.max, and mut have the same length.}
@@ -42,15 +52,21 @@
 
 \item{precursor.mz}{The M/Z value of the precursor peak of the mass spectrum.}
 
-\item{spectrum}{A template spectrum to match inside the database.}
+\item{results.df}{Results data frame.}
 
 \item{rt}{A vector of retention times to match. Unit is specified by rt.unit parameter.}
 
-\item{rt.unit}{The unit for submitted retention times. Either 's' or 'min'.}
+\item{rt.col}{The name of the RT column in the results data frame.}
 
 \item{rt.tol}{The plain tolerance (in seconds) for retention times: input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
 
 \item{rt.tol.exp}{A special exponent tolerance for retention times: input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt ** rt.tol.exp. This exponent is applied on the RT value in seconds. If both rt.tol and rt.tol.exp are set, the inequality expression becomes:  input.rt - rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol + input.rt ** rt.tol.exp.}
+
+\item{rt.unit}{The unit for submitted retention times. Either 's' or 'min'.}
+
+\item{sep}{The separator used to concatenate values, when collapsing results data frame.}
+
+\item{spectrum}{A template spectrum to match inside the database.}
 }
 \description{
 All Mass spectra databases inherit from this class. It thus defines methods specific to mass spectrometry.
@@ -58,7 +74,13 @@ All Mass spectra databases inherit from this class. It thus defines methods spec
 \section{Methods}{
 
 \describe{
-\item{\code{filterEntriesOnRt(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids)}}{:
+\item{\code{collapseResultsDataFrame(results.df, mz.col = "mz", rt.col = "rt",
+  sep = "|")}}{:
+
+Collapse rows of a results data frame, by outputing a data frame with only one row for each MZ/RT value.}
+
+\item{\code{filterEntriesOnRt(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
+  match.rt)}}{:
 
 Filter a list of entries on retention time values.}
 
@@ -88,18 +110,19 @@ Search MSMS spectra matching a template spectrum. The mz.tol parameter is applie
 \item{\code{searchMsEntries(mz.min = NULL, mz.max = NULL, mz = NULL, mz.shift = 0,
   mz.tol = NA_real_, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, rt = NULL,
   rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_,
-  chrom.col.ids = NA_character_, precursor = FALSE,
-  min.rel.int = NA_real_, ms.mode = NA_character_,
-  max.results = NA_integer_, ms.level = 0)}}{:
+  chrom.col.ids = NULL, precursor = FALSE, min.rel.int = NA_real_,
+  ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0)}}{:
 
 Search for entries (i.e.: spectra) that contains a peak around the given M/Z value. Entries can also be filtered on RT values. You can input either a list of M/Z values through mz argument and set a tolerance with mz.tol argument, or two lists of minimum and maximum M/Z values through mz.min and mz.max arguments.  Returns a character vector of spectra IDs.}
 
-\item{\code{searchMsPeaks(mz, mz.shift = 0, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN,
-  min.rel.int = NA_real_, ms.mode = NA_character_, ms.level = 0,
-  max.results = NA_integer_, chrom.col.ids = NA_character_, rt = NULL,
-  rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_,
-  precursor = FALSE, precursor.rt.tol = NA_real_,
-  insert.mz.rt.values = TRUE)}}{:
+\item{\code{searchMsPeaks(input.df = NULL, mz = NULL, mz.shift = 0, mz.tol,
+  mz.tol.unit = "plain", min.rel.int = NA_real_, ms.mode = NA_character_,
+  ms.level = 0, max.results = NA_integer_, chrom.col.ids = NULL,
+  rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_,
+  rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_,
+  insert.input.values = TRUE, prefix.on.result.cols = NULL,
+  compute = TRUE, input.df.colnames = c(mz = "mz", rt = "rt"),
+  match.rt = FALSE)}}{:
 
 For each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value.}
 

@@ -413,12 +413,14 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 
 MassbankConn$methods( .loadPrefixes = function() {
 
+
 	# Get prefixes file content
-	prefixes.file.url <- .self$getUrl('prefixes.file.url')
-	prefixes.md <- .self$getBiodb()$getRequestScheduler()$getUrl(prefixes.file.url)
+	prefixes.filepath <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), subfolder = 'longterm', name = 'prefixes', ext = 'md')
+	if ( ! file.exists(prefixes.filepath))
+		.self$getBiodb()$getRequestScheduler()$downloadFile(url = .self$getUrl('prefixes.file.url'), dest.file = prefixes.filepath)
 
 	# Split in lines
-	lines <- strsplit(prefixes.md, "\n")[[1]]
+	lines <- readLines(prefixes.filepath)
 
 	# Skip header lines
 	lines <- lines[3:length(lines)]

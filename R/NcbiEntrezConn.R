@@ -129,10 +129,10 @@ NcbiEntrezConn$methods( getNbEntries = function(count = FALSE) {
 	return(n)
 })
 
-# Do get entry content url {{{1
+# Do get entry content request {{{1
 ################################################################
 
-NcbiEntrezConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+NcbiEntrezConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	if (concatenate)
 		urls <- .self$ws.efetch(id, retmode = 'xml', biodb.url = TRUE)
@@ -162,7 +162,7 @@ NcbiEntrezConn$methods( getEntryContent = function(entry.id) {
 		content <- rep(NA_character_, length(entry.id))
 
 		# Get URL requests
-		url.requests <- .self$getEntryContentUrl(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
+		url.requests <- .self$getEntryContentRequest(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
 
 		# Loop on all URLs
 		for (url in url.requests) {

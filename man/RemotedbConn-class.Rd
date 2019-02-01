@@ -22,7 +22,7 @@ This is the super class of remote database connectors. It thus defines methods r
 
 Get the content of an entry.}
 
-\item{\code{getEntryContentUrl(entry.id, concatenate = TRUE, max.length = 0)}}{:
+\item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{:
 
 Get the URL to use in order to get the contents of the specified entries.}
 

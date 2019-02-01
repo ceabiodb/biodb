@@ -8,7 +8,7 @@
 \arguments{
 \item{content}{A \code{character vector} containing contents to save.}
 
-\item{conn.id}{The ID of a database. The list of IDs can be obtained from the class \code{\link{BiodbDbsInfo}}.}
+\item{cache.id}{An ID to use in the cache.}
 
 \item{ext}{The extension of the file, without the dot: 'html', 'xml', etc.}
 
@@ -26,11 +26,11 @@ This class manages a cache system for saving downloaded files and request result
 \section{Methods}{
 
 \describe{
-\item{\code{deleteFiles(conn.id, subfolder, ext = NA_character_)}}{:
+\item{\code{deleteFiles(cache.id, subfolder, ext = NA_character_)}}{:
 
 Delete files inside the cache system.}
 
-\item{\code{fileExist(conn.id, subfolder, name, ext)}}{:
+\item{\code{fileExist(cache.id, subfolder, name, ext)}}{:
 
 Test if files exist in the cache.}
 
@@ -38,7 +38,7 @@ Test if files exist in the cache.}
 
 Get the absolute path to the cache directory.}
 
-\item{\code{getFilePath(conn.id, subfolder, name, ext)}}{:
+\item{\code{getFilePath(cache.id, subfolder, name, ext)}}{:
 
 Get path of file in cache system.}
 
@@ -54,23 +54,23 @@ Returns TRUE if the cache system is readable.}
 
 Returns TRUE if the cache system is writable.}
 
-\item{\code{listFiles(conn.id, subfolder, ext = NA_character_, extract.name = FALSE)}}{:
+\item{\code{listFiles(cache.id, subfolder, ext = NA_character_, extract.name = FALSE)}}{:
 
 List files present in the cache system.}
 
-\item{\code{loadFileContent(conn.id, subfolder, name, ext, output.vector = FALSE)}}{:
+\item{\code{loadFileContent(cache.id, subfolder, name, ext, output.vector = FALSE)}}{:
 
 Load content of files from the cache.}
 
-\item{\code{markerExist(conn.id, subfolder, name)}}{:
+\item{\code{markerExist(cache.id, subfolder, name)}}{:
 
 Test if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly.}
 
-\item{\code{saveContentToFile(content, conn.id, subfolder, name, ext)}}{:
+\item{\code{saveContentToFile(content, cache.id, subfolder, name, ext)}}{:
 
 Save content to files into the cache.}
 
-\item{\code{setMarker(conn.id, subfolder, name)}}{:
+\item{\code{setMarker(cache.id, subfolder, name)}}{:
 
 Set a marker.}
 }}
@@ -79,14 +79,17 @@ Set a marker.}
 # Create an instance with default settings:
 mybiodb <- biodb::Biodb()
 
+# Get a connector instance:
+conn <- mybiodb$getFactory()$createConn('chebi')
+
 # Get the cache instance:
 cache <- mybiodb$getCache()
 
 # Get list of files inside the cache:
-files <- cache$listFiles('chebi', 'shortterm')
+files <- cache$listFiles(conn$getCacheId(), 'shortterm')
 
 # Delete files inside the cache:
-cache$deleteFiles('chebi', 'shortterm')
+cache$deleteFiles(conn$getCacheId(), 'shortterm')
 
 # Terminate instance.
 mybiodb$terminate()
