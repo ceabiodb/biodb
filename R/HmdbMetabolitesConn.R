@@ -118,10 +118,10 @@ HmdbMetabolitesConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.HMDB.METABOLITES.PARSING.EXPR)
 })
 
-# Do get entry content url {{{2
+# Do get entry content request {{{2
 ################################################################
 
-HmdbMetabolitesConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+HmdbMetabolitesConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	url <- paste0(.self$getBaseUrl(), 'metabolites/', id, '.xml')
 

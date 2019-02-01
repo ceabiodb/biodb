@@ -21,10 +21,10 @@ NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag,
 	.id.urlfield <<- id.urlfield
 })
 
-# Do get entry content url {{{1
+# Do get entry content request {{{1
 ################################################################
 
-NcbiPubchemConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+NcbiPubchemConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	if (concatenate)
 		url <- paste0(file.path(.self$getWsUrl(), .self$.db.name, fsep = '/'), '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML')
@@ -72,7 +72,7 @@ NcbiPubchemConn$methods( getEntryContent = function(entry.id) {
 		content <- rep(NA_character_, length(entry.id))
 
 		# Get URL requests
-		url.requests <- .self$getEntryContentUrl(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
+		url.requests <- .self$getEntryContentRequest(entry.id, concatenate = concatenate, max.length = URL.MAX.LENGTH)
 
 		# Loop on all URLs
 		for (url in url.requests) {

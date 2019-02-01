@@ -3,7 +3,7 @@
 # Class declaration {{{1
 ################################################################
 
-#' Class for handling URL requests.
+#' Class for handling requests.
 #'
 #' This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{RemotedbConn}) creates an instance of \code{BiodbRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
 #'
@@ -43,72 +43,40 @@ BiodbRequestScheduler$methods( initialize = function(...) {
 BiodbRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soap.action = NA_character_, encoding = integer()) {
 	":\n\nSend a SOAP request to a URL. Returns the string result."
 
-	.self$.check.offline.mode()
-
 	# Prepare request
 	header <- c(Accept = "text/xml", Accept = "multipart/*",  'Content-Type' = "text/xml; charset=utf-8")
 	if ( ! is.na(soap.action))
-		header <- c(header, c(SOAPAction = soap.action))
-	opts <- .self$.get.curl.opts(list(httpheader = header, postfields = soap.request))
+		header <- c(header, SOAPAction = soap.action)
 
 	# Send request
-	results <- .self$getUrl(url, method = 'post', opts = opts, encoding = encoding)
+	results <- .self$getUrl(url, method = 'post', header = header, body = soap.request, encoding = encoding)
 
 	return(results)
 })
 
-# Get URL string {{{1
+# Send request {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( getUrlString = function(url, params = list()) {
-	":\n\nBuild a URL string, using a base URL and parameters to be passed."
-
-	pn <- names(params)
-	params.lst <- vapply(seq(params), function(n) if (is.null(pn) || nchar(pn[[n]]) == 0) params[[n]] else paste(pn[[n]], params[[n]], sep = '='), FUN.VALUE = '')
-	params.str <- paste(params.lst, collapse = '&')
-	url <- paste(url, params.str, sep = '?')
-	return(url)
-})
-
-# Get URL {{{1
-################################################################
-
-BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 'get', opts = .self$.get.curl.opts(), encoding = NA_character_) {
-	":\n\nSend a URL request, either with GET or POST method, and return result."
+BiodbRequestScheduler$methods( sendRequest = function(request, cache = TRUE) {
+	":\n\nSend a request, and return content result."
 
 	content <- NA_character_
 
 	# Get rule
-	rule <- .self$.findRule(url)
-
-	# Check method
-	if ( ! method %in% c('get', 'post'))
-		.self$message('error', paste('Unknown method "', method, '".', sep = ''))
-
-	# Append params for GET method
-	if (method == 'get' && length(params) > 0) {
-		url <- .self$getUrlString(url, params)
-		params <- list()
-	}
-
-	# Encode URL
-	url <- URLencode(url)
+	rule <- .self$.findRule(request$getUrl())
 
 	# Log URL
-	.self$message('debug', paste0("Getting content of ", method, " URL request \"", url, "\" ..."))
-
-	content <- NA_character_
+	.self$message('debug', paste0("Getting content of ", request$getMethod(), " URL request \"", request$getUrl()$toString(encode = FALSE), "\"."))
 
 	# Try to get query result from cache
-	# Key built from method + url + params + opts
-	request <- list(url = url, params = params, opts = opts)
-	request.json <- jsonlite::serializeJSON(request)
-	request.json.str <- as.character(request.json)
-	request.key <- digest::digest(request.json.str, algo = 'md5')
-	if (.self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
-		.self$message('debug', paste0("Loading content of ", method, " request from cache ..."))
+	request.key <- request$getUniqueKey()
+	if (cache && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
+		.self$message('debug', "Loading content of request from cache.")
 		content <- .self$getBiodb()$getCache()$loadFileContent('request', subfolder = 'shortterm', name = request.key, ext ='content', output.vector = TRUE)
 	}
+
+	# Check if in offline mode
+	.self$.check.offline.mode()
 
 	if (is.na(content)) {
 		# Run query
@@ -116,23 +84,17 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 
 			content <- tryCatch({
 
-				.self$message('debug', paste0("Sending ", method, " request ..."))
-
-				if (method == 'post' && 'httpheader' %in% names(opts))
-					.self$message('debug', paste0(method, ' request header is "', paste(opts$httpheader, collapse = ', '), '".'))
-				if (method == 'post' && 'postfields' %in% names(opts))
-					.self$message('debug', paste0('"Request post content is "', paste(opts$postfields, collapse = ', '), '".'))
-
-				# Check if in offline mode
-				.self$.check.offline.mode()
+				.self$message('debug', paste0('Request header is: "', request$getHeaderAsSingleString(), '".'))
+				.self$message('debug', paste0('Request body is "', paste(request$getBody(), collapse = ', '), '".'))
 
 				# Wait required time between two requests
 				rule$wait.as.needed()
 
-				if (method == 'get')
-					content <- RCurl::getURL(url, .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = if (is.na(encoding)) integer() else encoding)
+				opts <- request$getCurlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'))
+				if (request$getMethod() == 'get')
+					content <- RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding())
 				else
-					content <- RCurl::postForm(url, .opts = opts, .params = params, .encoding = encoding)
+					content <- RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding())
 
 				# Check content
 				if (length(grep('The proxy server could not handle the request', content)) > 0) {
@@ -154,10 +116,10 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 		}
 
 		# Save content to cache
-		if ( ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
-			.self$message('debug', paste0("Saving content of ", method, " request to cache ..."))
+		if (cache && ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
+			.self$message('debug', "Saving content of request to cache.")
 			.self$getBiodb()$getCache()$saveContentToFile(content, cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='content')
-			.self$getBiodb()$getCache()$saveContentToFile(request.json.str, cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')
+			.self$getBiodb()$getCache()$saveContentToFile(request$toString(), cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')
 		}
 	}
 
@@ -218,13 +180,6 @@ BiodbRequestScheduler$methods( connSchedulerFrequencyUpdated = function(conn) {
 	}
 })
 
-# Get curl options {{{2
-################################################################
-
-BiodbRequestScheduler$methods( .get.curl.opts = function(opts = list()) {
-	opts <- RCurl::curlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'), timeout.ms = 60000, verbose = FALSE, .opts = opts)
-	return(opts)
-})
 
 # Check offline mode {{{2
 ################################################################
@@ -274,24 +229,20 @@ BiodbRequestScheduler$methods( .unregisterConnector = function(conn) {
 	}
 })
 
-# Extract domain from URL {{{2
-################################################################
-
-BiodbRequestScheduler$methods( .extractDomainfromUrl = function(url) {
-
-	domain <- sub('^.+://([^/]+)(/.*)?$', '\\1', url, perl = TRUE)
-
-	return(domain)
-})
 
 # Find rule {{{2
 ################################################################
 
 BiodbRequestScheduler$methods( .findRule = function(url, fail = TRUE) {
+
 	.self$.assert.not.null(url)
-	.self$.assert.length.one(url)
-	.self$.assert.not.na(url)
-	domain <- .self$.extractDomainfromUrl(url)
+	if ( ! is(url, 'BiodbUrl')) {
+		.self$.assert.length.one(url)
+		.self$.assert.not.na(url)
+		domain <- .self$.extractDomainfromUrl(url)
+	}
+	else
+		domain <- url$getDomain()
 
 	# Rule does not exist
 	if (fail && ! domain %in% names(.self$.host2rule))
@@ -365,4 +316,45 @@ BiodbRequestScheduler$methods( .removeConnectorRules = function(conn) {
 	
 	# Remove connector
 	.self$.connid2rules[[conn$getId()]] <- NULL
+})
+
+# Deprecated methods {{{1
+################################################################
+
+# Extract domain from URL {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .extractDomainfromUrl = function(url) {
+
+	.self$.deprecated.method("BiodbUrl::getDomain()")
+
+	return(BiodbUrl(url)$getDomain())
+})
+
+# Get URL string {{{2
+################################################################
+
+BiodbRequestScheduler$methods( getUrlString = function(url, params = list()) {
+	":\n\nBuild a URL string, using a base URL and parameters to be passed."
+
+	.self$.deprecated.method("BiodbUrl::toString()")
+
+	url <- BiodbUrl(url = url, params = params)$toString(encode = FALSE)
+
+	return(url)
+})
+
+# Get URL {{{2
+################################################################
+
+BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = c('get', 'post'), header = character(), body = character(), encoding = integer()) {
+	":\n\nSend a URL request, either with GET or POST method, and return result."
+
+	.self$.deprecated.method("BiodbRequestScheduler::sendRequest()")
+
+	method <- match.arg(method)
+
+	request <- BiodbRequest(url = BiodbUrl(url = url, params = params), method = method, header = header, body = body, encoding = encoding)
+
+	return(.self$sendRequest(request))
 })

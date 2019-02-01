@@ -107,10 +107,10 @@ UniprotConn$methods( getEntryIds = function(max.results = NA_integer_) {
 	return(ids)
 })
 
-# Do get entry content url {{{1
+# Do get entry content request {{{1
 ################################################################
 
-UniprotConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+UniprotConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 	                    
 	url <- paste0(.self$getBaseUrl(), id, '.xml')
 

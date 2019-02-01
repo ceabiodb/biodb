@@ -55,10 +55,10 @@ KeggConn$methods( .complete.entry.id = function(id) {
 	return(paste(.self$.db.abbrev, id, sep = ':'))
 })
 
-# Get entry content url {{{1
+# Get entry content request {{{1
 ################################################################
 
-KeggConn$methods( .doGetEntryContentUrl = function(id, concatenate = TRUE) {
+KeggConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 	return(paste(.self$getWsUrl(), 'get/', .self$.complete.entry.id(id), sep = ''))
 })
 

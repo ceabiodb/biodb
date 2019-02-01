@@ -189,7 +189,7 @@ set.mode <- function(biodb, mode) {
 	else if (mode == MODE.QUICK.ONLINE) {
 		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
 		biodb$getConfig()$disable('cache.read.only')
-		biodb$getConfig()$disable('allow.huge.downloads')
+		biodb$getConfig()$enable('allow.huge.downloads')
 		biodb$getConfig()$disable('offline')
 		biodb$getConfig()$enable('cache.subfolders')
 	}

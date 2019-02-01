@@ -19,6 +19,8 @@ This is the super class of all connector classes. All methods defined here are t
 
 \describe{
 \item{\code{id}}{The identifier of the connector.}
+
+\item{\code{cache.id}}{The identifier used in the disk cache.}
 }}
 
 \section{Methods}{
@@ -30,11 +32,15 @@ Check that the database is correct by trying to load all entries.}
 
 \item{\code{deleteAllCacheEntries()}}{:
 
-Delete all entries from the cache.}
+Delete all entries from the memory cache.}
 
 \item{\code{getAllCacheEntries()}}{:
 
-Get all entries from the cache.}
+Get all entries from the memory cache.}
+
+\item{\code{getCacheId()}}{:
+
+Returns the ID used by this connector in the disk cache.}
 
 \item{\code{getEntry(id, drop = TRUE)}}{:
 
