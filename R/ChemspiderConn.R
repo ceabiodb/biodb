@@ -128,7 +128,7 @@ ChemspiderConn$methods( getAllRecordFields = function() {
 ################################################################
 
 ChemspiderConn$methods( ws.recordsRecordidDetailsGet = function(recordid, fields = NULL, retfmt = c('plain', 'parsed', 'request')) {
-	":\n\nAccess the records-recordId-details-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/records/%7BrecordId%7D/details."
+	":\n\nAccess the records-recordId-details-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details."
 
 	retfmt <- match.arg(retfmt)
 
@@ -250,7 +250,7 @@ ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('pl
 ################################################################
 
 ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c('plain', 'parsed', 'status', 'request')) {
-	":\n\nAccess the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/%7BqueryId%7D/status."
+	":\n\nAccess the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status."
 
 	.self$.assert.not.null(queryid)
 	.self$.assert.not.na(queryid)
@@ -284,7 +284,7 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c
 ################################################################
 
 ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0L, count = 0L, retfmt = c('plain', 'parsed', 'ids', 'request')) {
-	":\n\nAccess the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/%7BqueryId%7D/results,"
+	":\n\nAccess the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results,"
 
 	.self$.assert.not.null(queryid)
 	.self$.assert.not.na(queryid)

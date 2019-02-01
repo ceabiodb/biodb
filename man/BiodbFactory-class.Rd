@@ -28,8 +28,12 @@ This class is responsible for the creation of database connectors and database e
 \section{Methods}{
 
 \describe{
-\item{\code{createConn(db.class, url = NA_character_, token = NA_character_,
-  fail.if.exists = TRUE)}}{:
+\item{\code{connExists(conn.id)}}{:
+
+Returns TRUE if a connector with this ID exists.}
+
+\item{\code{createConn(db.class, url = NULL, token = NA_character_,
+  fail.if.exists = TRUE, conn.id = NULL, cache.id = NULL)}}{:
 
 Create a connection to a database.}
 

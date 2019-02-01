@@ -155,12 +155,12 @@ RemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
 	# If requests is a vector of characters, then the method is using the old scheme.
 	# We now convert the requests to the new scheme, using class BiodbRequest.
 	if (is.character(requests))
-		requests <- lapply(requests, BiodbRequest(method = 'get', url = BiodbUrl(requests), encoding = encoding))
+		requests <- lapply(requests, function(x) BiodbRequest(method = 'get', url = BiodbUrl(x), encoding = encoding))
 
 	# Send requests
 	for (i in seq_along(requests)) {
 		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', i, length(requests)))
-		content[[i]] <- .self$getBiodb()$getRequestScheduler()$sendRequest(requests[[i]], encoding = encoding)
+		content[[i]] <- .self$getBiodb()$getRequestScheduler()$sendRequest(requests[[i]])
 	}
 
 	return(content)

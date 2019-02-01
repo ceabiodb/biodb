@@ -12,6 +12,7 @@
 #' @seealso \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbUrl}}.
 #'
 #' @import methods
+#' @include BiodbUrl.R
 #' @export BiodbRequest
 #' @exportClass BiodbRequest
 BiodbRequest <- methods::setRefClass("BiodbRequest", fields = list(.url = 'BiodbUrl', .method = 'character', .header = 'character', .body = 'character', .encoding = 'ANY'))

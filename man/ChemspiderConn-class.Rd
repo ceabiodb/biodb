@@ -11,6 +11,8 @@
 \item{query}{The query to send to the database.}
 
 \item{range}{The range of the searched mass. Plain range, Dalton unit. The mass searched are between (mass - range) and (mass + range).}
+
+\item{retfmt}{The wanted returned format, in a web service method ("ws.*" methods).}
 }
 \description{
 This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
@@ -18,6 +20,10 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \section{Methods}{
 
 \describe{
+\item{\code{getAllRecordFields()}}{:
+
+Returns the complete list of all record fields provided by ChemSpider.}
+
 \item{\code{getEntryIds(max.results = NA_integer_)}}{:
 
 Get entry identifiers from the database.}
@@ -35,21 +41,35 @@ Get the URL to the page of the entry on the database web site.}
 
 Search for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)}
 
-\item{\code{ws.SearchByMass2(mass = NA, range = NA)}}{:
+\item{\code{ws.filterMassPost(mass, range, retfmt = c("plain", "parsed", "queryid", "ids",
+  "request"))}}{:
 
-Direct query to the database for searching for compounds by monoisotopic mass. See http://www.chemspider.com/MassSpecAPI.asmx?op=SearchByMass2 for details.}
+Access the filter-mass-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/mass.}
 
-\item{\code{ws.SearchByMass2.ids(...)}}{:
+\item{\code{ws.filterNamePost(name, retfmt = c("plain", "parsed", "queryid", "ids",
+  "request"))}}{:
 
-Calls ws.SearchByMass2() but only for getting IDs. Returns the IDs as a character vector.}
+Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/name.}
 
-\item{\code{ws.SimpleSearch(query = NA)}}{:
+\item{\code{ws.filterQueryIdResultsGet(queryid, start = 0L, count = 0L,
+  retfmt = c("plain", "parsed", "ids", "request"))}}{:
 
-Direct query to the database for searching for compounds by name, SMILES, InChI, InChIKey, etc.. See http://www.chemspider.com/Search.asmx?op=SimpleSearch for details.}
+Access the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results,}
 
-\item{\code{ws.SimpleSearch.ids(...)}}{:
+\item{\code{ws.filterQueryIdStatusGet(queryid, retfmt = c("plain", "parsed", "status",
+  "request"))}}{:
 
-Calls ws.SimpleSearch() but only for getting IDs. Returns the IDs as a character vector.}
+Access the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.}
+
+\item{\code{ws.recordsBatchPost(recordids, fields = NULL, retfmt = c("plain", "parsed",
+  "request"))}}{:
+
+Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/records/batch.}
+
+\item{\code{ws.recordsRecordidDetailsGet(recordid, fields = NULL, retfmt = c("plain",
+  "parsed", "request"))}}{:
+
+Access the records-recordId-details-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details.}
 }}
 
 \examples{

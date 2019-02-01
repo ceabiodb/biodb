@@ -4,7 +4,7 @@
 \name{BiodbRequestScheduler-class}
 \alias{BiodbRequestScheduler-class}
 \alias{BiodbRequestScheduler}
-\title{Class for handling URL requests.}
+\title{Class for handling requests.}
 \arguments{
 \item{url}{The URL to access, as a character string.}
 
@@ -30,14 +30,18 @@ This class handles GET and POST requests, as well as file downloading. Each remo
 
 Download the content of a URL and save it into the specified destination file.}
 
-\item{\code{getUrl(url, params = list(), method = "get",
-  opts = .self$.get.curl.opts(), encoding = NA_character_)}}{:
+\item{\code{getUrl(url, params = list(), method = c("get", "post"),
+  header = character(), body = character(), encoding = integer())}}{:
 
 Send a URL request, either with GET or POST method, and return result.}
 
 \item{\code{getUrlString(url, params = list())}}{:
 
 Build a URL string, using a base URL and parameters to be passed.}
+
+\item{\code{sendRequest(request, cache = TRUE)}}{:
+
+Send a request, and return content result.}
 
 \item{\code{sendSoapRequest(url, soap.request, soap.action = NA_character_,
   encoding = integer())}}{:

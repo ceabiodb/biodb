@@ -25,7 +25,7 @@ MyObsClass <- methods::setRefClass("MyObsClass", contains = 'BiodbObserver')
 # Define the message method
 MyObsClass$methods( message = function(type = 'info', msg,
                                        class = NA_character_, method = NA_character_) {
-.self$checkMessqgeType(type)
+.self$checkMessageType(type)
 # print(paste(type, msg, sep = ': '))
 })
 
