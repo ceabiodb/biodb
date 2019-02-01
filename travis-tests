@@ -194,7 +194,11 @@ run_tests() {
 
 		# Mode
 		msg="$msg in mode $MODE."
-		export MODES=$MODE
+		if [[ $MODE == online ]]
+			export MODES=quick.online
+		else
+			export MODES=$MODE
+		fi
 
 		info "$msg"
 		[[ $DRY_RUN == $YES ]] || make test || return 1
