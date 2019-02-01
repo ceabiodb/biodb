@@ -239,10 +239,9 @@ BiodbRequestScheduler$methods( .findRule = function(url, fail = TRUE) {
 	if ( ! is(url, 'BiodbUrl')) {
 		.self$.assert.length.one(url)
 		.self$.assert.not.na(url)
-		domain <- .self$.extractDomainfromUrl(url)
+		url <- BiodbUrl(url =url)
 	}
-	else
-		domain <- url$getDomain()
+	domain <- url$getDomain()
 
 	# Rule does not exist
 	if (fail && ! domain %in% names(.self$.host2rule))
@@ -266,7 +265,7 @@ BiodbRequestScheduler$methods( .addConnectorRules = function(conn) {
 
 		# No rule exists => create new one
 		if (is.null(rule)) {
-			host <- .self$.extractDomainfromUrl(url)
+			host <- BiodbUrl(url =url)$getDomain()
 			.self$message('debug', paste0('Create new rule for URL "', host,'" of connector "', conn$getId(), '"'))
 			rule <- BiodbRequestSchedulerRule$new(parent = .self, host = host, conn = conn)
 			.self$.host2rule[[rule$getHost()]] <- rule
@@ -320,16 +319,6 @@ BiodbRequestScheduler$methods( .removeConnectorRules = function(conn) {
 
 # Deprecated methods {{{1
 ################################################################
-
-# Extract domain from URL {{{2
-################################################################
-
-BiodbRequestScheduler$methods( .extractDomainfromUrl = function(url) {
-
-	.self$.deprecated.method("BiodbUrl::getDomain()")
-
-	return(BiodbUrl(url)$getDomain())
-})
 
 # Get URL string {{{2
 ################################################################

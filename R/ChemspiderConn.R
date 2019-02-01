@@ -105,14 +105,14 @@ ChemspiderConn$methods( .doGetEntryContentRequest = function(id, concatenate = T
 ################################################################
 
 ChemspiderConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'Chemical-Structure.', id, '.html'))
+	return(paste0(.self$getUrl('base.url'), 'Chemical-Structure.', id, '.html'))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 ChemspiderConn$methods( getEntryImageUrl = function(id) {
-	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
+	return(paste(.self$getUrl('base.url'), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
 })
 
 # Get all record fields {{{1

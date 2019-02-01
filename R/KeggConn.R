@@ -76,7 +76,7 @@ KeggConn$methods( getEntryPageUrl = function(id) {
 KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Get IDs
-	ids <- .self$.get.url(paste(.self$getWsUrl(), 'list/', .self$.db.name, sep = ''))
+	ids <- .self$getBiodb()$getRequestScheduler()$getUrl(paste(.self$getWsUrl(), 'list/', .self$.db.name, sep = ''))
 
 	# Extract IDs
 	ids <- strsplit(ids, "\n")[[1]]
@@ -98,7 +98,7 @@ KeggConn$methods( ws.find = function(query) {
 
 	url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', query, sep = '')
 
-	result <- .self$.getUrlScheduler()$getUrl(url)
+	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 
 	return(result)
 })

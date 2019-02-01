@@ -43,7 +43,7 @@ PeakforestCompoundConn$methods( .doGetEntryContentRequest = function(id, concate
 	if (is.na(.self$getToken()))
 		.self$message('error', "Peakforest requires a token for this service.")
 
-	url <- paste(.self$getBaseUrl(), 'compounds/', id,'?token=', .self$getToken(), sep = '')
+	url <- paste(.self$getUrl('base.url'), 'compounds/', id,'?token=', .self$getToken(), sep = '')
 
 	return(url)
 })
@@ -72,13 +72,13 @@ PeakforestCompoundConn$methods( ws.search.compounds.mass = function(field, mass,
 		.self$message('error', paste0('Unknown mass field "', field, '".'))
 
 	# Build request
-	url <- paste0(.self$getBaseUrl(), 'search/compounds/', field, '/', mass, '/', delta)
+	url <- paste0(.self$getUrl('base.url'), 'search/compounds/', field, '/', mass, '/', delta)
 	params <- c(token = .self$getToken())
 	if ( ! is.na(max))
 		params <- c(params, max = max)
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
 
 	# Parse results
 	if (biodb.parse || biodb.ids)

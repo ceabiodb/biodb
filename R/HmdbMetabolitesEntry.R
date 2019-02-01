@@ -27,6 +27,13 @@ HmdbMetabolitesEntry$methods( .isParsedContentCorrect = function(parsed.content)
 
 HmdbMetabolitesEntry$methods( .parseFieldsAfter = function(parsed.content) {
 
+	# Remove fields with empty string
+	for (f in .self$getFieldNames()) {
+		v <- .self$getFieldValue(f)
+		if (is.character(v) && ! is.na(v) && v == '')
+			.self$removeField(f)
+	}
+
 	# Correct InChIKey
 	if (.self$hasField('INCHIKEY'))
 		.self$setFieldValue('INCHIKEY', sub('^InChIKey=', '', .self$getFieldValue('INCHIKEY'), perl = TRUE))

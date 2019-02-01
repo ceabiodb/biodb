@@ -31,7 +31,7 @@ NcbiGeneConn$methods( initialize = function(...) {
 ################################################################
 
 NcbiGeneConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), .self$.entrez.name, '/?term=', id))
+	return(paste0(.self$getUrl('base.url'), .self$.entrez.name, '/?term=', id))
 })
 
 # Get entry image url {{{1
