@@ -4,16 +4,16 @@
 ################################################################
 
 .BIODB.CHEMSPIDER.PARSING.EXPR <- list(
-	'accession'         = "//CSID",
-	'formula'           = "//MF",
-	'name'              = "//CommonName",
-	'average.mass'      = "//AverageMass",
-	'monoisotopic.mass' = "//MonoisotopicMass",
-	'nominal.mass'      = "//NominalMass",
-	'molecular.weight'  = "//MolecularWeight",
-	'inchi'             = "//InChI",
-	'inchikey'          = "//InChIKey",
-	'smiles'            = "//SMILES"
+	'accession'         = "id",
+	'formula'           = "formula",
+	'name'              = "commonName",
+	'average.mass'      = "averageMass",
+	'monoisotopic.mass' = "monoisotopicMass",
+	'nominal.mass'      = "nominalMass",
+	'molecular.weight'  = "molecularWeight",
+	'inchi'             = "inchi",
+	'inchikey'          = "inchiKey",
+	'smiles'            = "smiles"
 )
 
 # Class declaration {{{1
@@ -58,18 +58,21 @@ ChemspiderConn$methods( getEntryContent = function(entry.id) {
 	for (request in requests) {
 
 		# Send request
-		results <- .self$getBiodb()$getRequestScheduler(request)
+		results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-		# Parse results
-		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+		if ( ! is.null(results) && ! is.na(results)) {
 
-		# Multiple records
-		records <- if ('records' %in% names(results)) results[['records']] else list(results)
+			# Parse results
+			results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
 
-		# Store record contents
-		for (record in records)
-			if ('id' %in% names(record))
-				content[entry.id == record$id] <- jsonlite::toJSON(record, pretty = TRUE, digits = NA_integer_)
+			# Multiple records
+			records <- if ('records' %in% names(results)) results[['records']] else list(results)
+
+			# Store record contents
+			for (record in records)
+				if ('id' %in% names(record))
+					content[entry.id == record$id] <- jsonlite::toJSON(record, pretty = TRUE, digits = NA_integer_)
+		}
 	}
 
 	return(content)
@@ -138,7 +141,7 @@ ChemspiderConn$methods( ws.recordsRecordidDetailsGet = function(recordid, fields
 
 	# Build request
 	header <- c('Content-Type' = "", apikey = .self$getToken())
-	request <- BiodbRequest(method = 'post', url = BiodbUrl(paste0(.self$getUrl('ws.url'), 'records/', recordid, '/details'), params = c(fields = fields)), header = header)
+	request <- BiodbRequest(method = 'get', url = BiodbUrl(paste0(.self$getUrl('ws.url'), 'records/', recordid, '/details'), params = c(fields = fields)), header = header)
 	if (retfmt == 'request')
 		return(request)
 
@@ -172,7 +175,7 @@ ChemspiderConn$methods( ws.recordsBatchPost = function(recordids, fields = NULL,
 
 	# Build request
 	header <- c('Content-Type' = "", apikey = .self$getToken())
-	body <- paste0('{"recordIds": [', paste(recordids, collapse = ','), '], fields": [', paste(vapply(fields, function(x) paste0('"', x, '"'), FUN.VALUE = ''), collapse = ',') ,']}')
+	body <- paste0('{"recordIds": [', paste(recordids, collapse = ','), '], "fields": [', paste(vapply(fields, function(x) paste0('"', x, '"'), FUN.VALUE = ''), collapse = ',') ,']}')
 	request <- BiodbRequest(method = 'post', url = BiodbUrl(paste0(.self$getUrl('ws.url'), 'records/batch')), header = header, body = body)
 	if (retfmt == 'request')
 		return(request)
@@ -262,7 +265,7 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c
 		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request, cache = FALSE)
 
 	# Parse JSON
 	if (retfmt != 'plain') {
@@ -312,7 +315,7 @@ ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0
 
 		# Parse IDs
 		if (retfmt == 'ids')
-			results <- results$rsults
+			results <- results$results
 	}
 
 	return(results)

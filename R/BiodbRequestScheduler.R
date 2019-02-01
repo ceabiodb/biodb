@@ -57,7 +57,7 @@ BiodbRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soa
 # Send request {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( sendRequest = function(request) {
+BiodbRequestScheduler$methods( sendRequest = function(request, cache = TRUE) {
 	":\n\nSend a request, and return content result."
 
 	content <- NA_character_
@@ -70,7 +70,7 @@ BiodbRequestScheduler$methods( sendRequest = function(request) {
 
 	# Try to get query result from cache
 	request.key <- request$getUniqueKey()
-	if (.self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
+	if (cache && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
 		.self$message('debug', "Loading content of request from cache.")
 		content <- .self$getBiodb()$getCache()$loadFileContent('request', subfolder = 'shortterm', name = request.key, ext ='content', output.vector = TRUE)
 	}
@@ -116,7 +116,7 @@ BiodbRequestScheduler$methods( sendRequest = function(request) {
 		}
 
 		# Save content to cache
-		if ( ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
+		if (cache && ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
 			.self$message('debug', "Saving content of request to cache.")
 			.self$getBiodb()$getCache()$saveContentToFile(content, cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='content')
 			.self$getBiodb()$getCache()$saveContentToFile(request$toString(), cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')

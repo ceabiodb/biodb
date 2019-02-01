@@ -104,7 +104,7 @@ BiodbDbsInfo$methods( show = function() {
 
 BiodbDbsInfo$methods( .initDbsInfo = function() {
 	.self$.define('chebi',                  name = 'ChEBI',         scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = 'https://www.ebi.ac.uk/chebi/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/'), xml.ns = "https://www.ebi.ac.uk/webservices/chebi", properties = list(entry.content.encoding = 'UTF-8'))
-	.self$.define('chemspider',             name = 'ChemSpider',    scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = "http://www.chemspider.com/", ws.url = "https://api.rsc.org/compounds/v1/"), xml.ns = "http://www.chemspider.com/")
+	.self$.define('chemspider',             name = 'ChemSpider',    scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = "http://www.chemspider.com/", ws.url = "https://api.rsc.org/compounds/v1/"), xml.ns = "http://www.chemspider.com/")
 	.self$.define('expasy.enzyme',          name = 'ExPASy ENZYME', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = "https://enzyme.expasy.org/"))
 	.self$.define('hmdb.metabolites',       name = 'HMDB Metabolites', scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = "http://www.hmdb.ca/"),       xml.ns = 'http://www.hmdb.ca')
 	.self$.define('kegg.compound',          name = 'KEGG Compound', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/'))
