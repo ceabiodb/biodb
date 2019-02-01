@@ -194,7 +194,7 @@ run_tests() {
 
 		# Mode
 		msg="$msg in mode $MODE."
-		if [[ $MODE == online ]]
+		if [[ $MODE == online ]] ; then
 			export MODES=quick.online
 		else
 			export MODES=$MODE
