@@ -1,5 +1,14 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.HTTP.STATUS.OK <- 200
+.HTTP.STATUS.NOT.FOUND <- 404
+.HTTP.STATUS.REQUEST.TIMEOUT <- 408
+.HTTP.STATUS.INTERNAL.SERVER.ERROR <- 500
+.HTTP.STATUS.SERVICE.UNAVAILABLE <- 503
+
 # Class declaration {{{1
 ################################################################
 
@@ -80,7 +89,7 @@ BiodbRequestScheduler$methods( sendRequest = function(request, cache.read = TRUE
 
 	if (is.na(content)) {
 
-		content <- .self$.doSendRequest()
+		content <- .self$.doSendRequest(request = request, rule = rule)
 
 		# Save content to cache
 		if ( ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
@@ -284,6 +293,74 @@ BiodbRequestScheduler$methods( .removeConnectorRules = function(conn) {
 	.self$.connid2rules[[conn$getId()]] <- NULL
 })
 
+# Do send request {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
+
+	content <- NA_character_
+
+	# Create HTTP header object (to receive HTTP information from server).
+	header <- RCurl::basicHeaderGatherer()
+
+	# Enter query loop
+	i <- 0
+	while (i < .self$.nb.max.tries && is.na(content)) {
+
+		# Increment try number
+		i <- i + 1
+
+		# Print debug information about header and body
+		.self$message('debug', paste0('Request header is: "', request$getHeaderAsSingleString(), '".'))
+		.self$message('debug', paste0('Request body is "', paste(request$getBody(), collapse = ', '), '".'))
+
+		# Wait required time between two requests
+		rule$wait.as.needed()
+
+		# Build options
+		opts <- request$getCurlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'))
+
+		# Send request
+		if (request$getMethod() == 'get')
+			content <- RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding(), headerfunction = header$update)
+		else
+			content <- RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding(), headerfunction = header$update)
+
+		# Get header information sent by server
+		hdr <- as.list(header$value())
+		hdr$status <- as.integer(hdr$status)
+
+		if (hdr$status %in% c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT, .HTTP.STATUS.INTERNAL.SERVER.ERROR, .HTTP.STATUS.SERVICE.UNAVAILABLE)) {
+			msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+			if ('Retry-After' %in% names(hdr))
+				msg <- paste0(msg, " Retry after ", hdr[['Retry-After']], ".")
+			msg <- paste0(msg, " Retrying connection to server...")
+			.self$message('info', msg)
+			next
+		}
+
+		# HTTP error
+		if (hdr$status != .HTTP.STATUS.OK) {
+			msg <- paste0("Unrecoverable HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+			if ('Retry-After' %in% names(hdr))
+				msg <- paste0(msg, " Retry after ", hdr[['Retry-After']], ".")
+			.self$message('info', msg)
+			content <- NA_character_
+			break
+		}
+
+		# Proxy server error
+		if (length(grep('The proxy server could not handle the request', content)) > 0) {
+			.self$message('debug', 'Found proxy error message in content.')
+			.self$info("Error between the proxy and the main server.") # This happens sometime with NCBI CCDS server.
+			content <- NA_character_
+			break
+		}
+	}
+
+	return(content)
+})
+
 # Deprecated methods {{{1
 ################################################################
 
@@ -315,51 +392,3 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 	return(.self$sendRequest(request))
 })
 
-# Do send request {{{2
-################################################################
-
-BiodbRequestScheduler$methods( .doSendRequest = function(request) {
-
-		# Create HTTP header object
-		header <- RCurl::basicHeaderGatherer()
-
-		# Run query
-		for (i in seq(.self$.nb.max.tries)) {
-
-			# Try to get content
-			content <- tryCatch({
-
-				.self$message('debug', paste0('Request header is: "', request$getHeaderAsSingleString(), '".'))
-				.self$message('debug', paste0('Request body is "', paste(request$getBody(), collapse = ', '), '".'))
-
-				# Wait required time between two requests
-				rule$wait.as.needed()
-
-				opts <- request$getCurlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'))
-				if (request$getMethod() == 'get')
-					content <- RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding(), headerfunction = header$update)
-				else
-					content <- RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding(), headerfunction = header$update)
-
-				# Check content
-				if (length(grep('The proxy server could not handle the request', content)) > 0) {
-					.self$message('debug', 'Found proxy error message in content.')
-					stop("Error between the proxy and the main server.") # This happens sometime with NCBI CCDS server.
-				}
-
-				content
-			},
-			error = function(e) {
-				print('-------------------------------- CONNECTION ERROR')
-				print(class(e))
-				print(e)
-				.self$message('info', paste("Connection error \"", e$message, "\"", sep = ''))
-				.self$message('info', "Retrying connection to server...")
-				return(NA_character_)
-			} )
-
-			# Leave the loop
-			if ( ! is.na(content))
-				break
-		}
-})
