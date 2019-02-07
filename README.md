@@ -21,7 +21,7 @@ Massbank               | massbank            |   ❌   |              | [#30](ht
 miRBase Mature         | mirbase.mature      |   ❌   |              | [#261](https://github.com/pkrog/biodb/issues/261) |            | Tests failure.
 NCBI CCDS              | ncbi.ccds           |   ✅   |
 NCBI Gene              | ncbi.gene           |   ✅   |
-NCBI PubChem Compound  | ncbi.pubchem.comp   |   ❌   |              | [#275](https://github.com/pkrog/biodb/issues/275) |            | Tests failure.
+NCBI PubChem Compound  | ncbi.pubchem.comp   |   ✅   |              |                                                   |            | 
 NCBI PubChem Substance | ncbi.pubchem.subst  |   ✅   |
 PeakForest Compound    | peakforest.compound |   ✅   |              |                                                   |            |
 PeakForest Mass        | peakforest.mass     |   ✅   |              |                                                   |            |
