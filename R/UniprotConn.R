@@ -65,7 +65,7 @@ UniprotConn$methods( ws.query = function(query = '', columns = NA, format = NA, 
 	params = list()
 
 	# Set URL
-	url <- .self$getBaseUrl()
+	url <- .self$getUrl('base.url')
 
 	# Set other parameters
 	params[['query']] <- query
@@ -76,7 +76,7 @@ UniprotConn$methods( ws.query = function(query = '', columns = NA, format = NA, 
 	if ( ! is.null(limit) && ! is.na(limit))
 		params[['limit']] <- limit
 
-	result <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
 
 	return(result)
 })
@@ -112,7 +112,7 @@ UniprotConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 UniprotConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 	                    
-	url <- paste0(.self$getBaseUrl(), id, '.xml')
+	url <- paste0(.self$getUrl('base.url'), id, '.xml')
 
 	return(url)
 })
@@ -121,7 +121,7 @@ UniprotConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE
 ################################################################
 
 UniprotConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), id))
+	return(paste0(.self$getUrl('base.url'), id))
 })
 
 # Get entry image url {{{1

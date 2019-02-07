@@ -43,10 +43,10 @@ NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmod
 
 	# Returns URL
 	if (biodb.url)
-		return(.self$.getUrlScheduler()$getUrlString(url, params))
+		return(.self$getBiodb()$getRequestScheduler()$getUrlString(url, params))
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params)
 
 	# Parse XML
 	if (biodb.parse && retmode == 'xml')
@@ -71,7 +71,7 @@ NcbiEntrezConn$methods( ws.esearch = function(term, field = NA_character_, retma
 		params <- c(params, retmax = retmax)
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
 
 	# Parse XML
 	if (biodb.parse || biodb.ids)
@@ -95,7 +95,7 @@ NcbiEntrezConn$methods( ws.einfo = function(biodb.parse = FALSE) {
 	params <- c(db = .self$.entrez.name, version = '2.0')
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params)
 
 	# Parse XML
 	if (biodb.parse)
@@ -168,7 +168,7 @@ NcbiEntrezConn$methods( getEntryContent = function(entry.id) {
 		for (url in url.requests) {
 
 			# Send request
-			xmlstr <- .self$.getUrlScheduler()$getUrl(url)
+			xmlstr <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 
 			if (is.na(xmlstr) || length(grep('<ERROR>', xmlstr)) > 0) {
 				if (concatenate) {

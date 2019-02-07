@@ -156,7 +156,7 @@ MassbankConn$methods( getEntryContent = function(entry.id) {
 	xml.request <- paste0('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:getRecordInfo>', paste(paste('<tns:entry.ids>', entry.id, '</tns:entry.ids>', sep = ''), collapse = ''), '</tns:getRecordInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>')
 
 	# Send request
-	xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
+	xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(paste0(.self$getUrl('base.url'), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
 
 	# Parse XML and get text
 	if ( ! is.na(xmlstr)) {
@@ -260,7 +260,7 @@ MassbankConn$methods( getDns = function(id) {
 ################################################################
 
 MassbankConn$methods( getEntryPageUrl = function(id) {
-	url <- paste0(.self$getBaseUrl(), 'MassBank/RecordDisplay.jsp?id=', id, '&dsn=', .self$getDns(id))
+	url <- paste0(.self$getUrl('base.url'), 'MassBank/RecordDisplay.jsp?id=', id, '&dsn=', .self$getDns(id))
 	.self$message('debug', paste0('Build entry page URL "', url, '".'))
 	return(url)
 })
@@ -290,10 +290,10 @@ MassbankConn$methods( .doDownload = function() {
 	# Download tar.gz
 	tar.gz.url <- .self$getUrl('db.tar.url')
 	.self$message('info', paste0("Downloading \"", tar.gz.url, "\"..."))
-	scheduler <- .self$.getUrlScheduler()
+	scheduler <- .self$getBiodb()$getRequestScheduler()
 	path <- .self$getDownloadPath()
 	scheduler$downloadFile(url = tar.gz.url, dest.file = path)
-	.self$.getUrlScheduler()$downloadFile(url = tar.gz.url, dest.file = .self$getDownloadPath())
+	.self$getBiodb()$getRequestScheduler()$downloadFile(url = tar.gz.url, dest.file = .self$getDownloadPath())
 })
 
 # Do extract download {{{2
@@ -359,7 +359,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 
 		# Send request
 		.self$message('debug', paste('Searching for M/Z values, with request: "', xml.request, '".', sep = ''))
-		xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(paste0(.self$getBaseUrl(), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
+		xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(paste0(.self$getUrl('base.url'), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
 
 		# Parse XML and get text
 		if ( ! is.na(xmlstr)) {

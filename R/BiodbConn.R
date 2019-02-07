@@ -110,7 +110,7 @@ BiodbConn$methods( getNbEntries = function(count = FALSE) {
 ################################################################
 
 BiodbConn$methods( show = function() {
-	cat("Biodb ", .self$getName(), " connector instance, using URL \"", .self$getBaseUrl(), "\".\n", sep = '')
+	cat("Biodb ", .self$getName(), " connector instance, using URL \"", .self$getUrl('base.url'), "\".\n", sep = '')
 })
 
 # Check database {{{1

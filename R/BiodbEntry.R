@@ -509,7 +509,7 @@ BiodbEntry$methods(	getFieldClass = function(field) {
 # Get field cardinality {{{2
 ################################################################
 
-BiodbEntry$methods(	getFieldCardinality = function(field) {
+BiodbEntry$methods( getFieldCardinality = function(field) {
 
 	.self$.deprecated.method('BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany()')
 

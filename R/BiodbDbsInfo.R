@@ -14,7 +14,7 @@
 #' @examples
 #' # Getting the base URL of a database:
 #' mybiodb <- biodb::Biodb()
-#' chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getBaseUrl()
+#' chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getUrl('base.url')
 #'
 #' # Setting a token:
 #' mybiodb$getDbsInfo()$get('chemspider')$setToken('my.chemspider.token')

@@ -33,7 +33,7 @@ LipidmapsStructureConn$methods( .doGetEntryContentRequest = function(ids, concat
 ################################################################
 
 LipidmapsStructureConn$methods( getEntryPageUrl = function(id) {
-	return(paste(.self$getBaseUrl(), '?LMID=', id, sep = ''))
+	return(paste(.self$getUrl('base.url'), '?LMID=', id, sep = ''))
 })
 
 # Get entry image url {{{1
@@ -80,7 +80,7 @@ LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NULL, output.mod
 		.self$message('error', paste0('Unknown value "', output.column.header, '" for output.column.header parameter.'))
 
 	# Build request
-	url <- paste0(.self$getBaseUrl(), 'structure/LMSDSearch.php')
+	url <- paste0(.self$getUrl('base.url'), 'structure/LMSDSearch.php')
 	params <- c(Mode = mode)
 	if ( ! is.null(output.mode))
 		params <- c(params, OutputMode = output.mode)
@@ -115,10 +115,10 @@ LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NULL, output.mod
 
 	# Returns URL
 	if (biodb.url)
-		return(.self$.getUrlScheduler()$getUrlString(url, params))
+		return(.self$getBiodb()$getRequestScheduler()$getUrlString(url, params))
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params)
 
 	# Parse
 	if ((biodb.parse || biodb.ids) && output.mode == 'File') {
@@ -160,7 +160,7 @@ LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NULL, outp
 		.self$message('error', paste0('Unknown value "', output.column.header, '" for output.column.header parameter.'))
 
 	# Build request
-	url <- paste0(.self$getBaseUrl(), 'LMSDRecord.php')
+	url <- paste0(.self$getUrl('base.url'), 'LMSDRecord.php')
 	params <- c(LMID = lmid)
 	if ( ! is.null(mode))
 		params <- c(params, Mode = mode)
@@ -175,10 +175,10 @@ LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NULL, outp
 
 	# Returns URL
 	if (biodb.url)
-		return(.self$.getUrlScheduler()$getUrlString(url, params))
+		return(.self$getBiodb()$getRequestScheduler()$getUrlString(url, params))
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params)
 
 	# Parse
 	if (biodb.parse && mode %in% c('File', 'Download')) {

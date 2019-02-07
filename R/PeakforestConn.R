@@ -51,7 +51,7 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 	urls <- .self$getEntryContentRequest(entry.id, max.length = 2048)
 
 	# Send request
-	jsonstr <- vapply(urls, function(url) .self$.getUrlScheduler()$getUrl(url), FUN.VALUE = '')
+	jsonstr <- vapply(urls, function(url) .self$getBiodb()$getRequestScheduler()$getUrl(url), FUN.VALUE = '')
 
 	# Get directly one JSON string for each ID
 	if (length(jsonstr) == length(entry.id)) {
@@ -116,13 +116,13 @@ PeakforestConn$methods( getNbEntries = function(count = FALSE) {
 PeakforestConn$methods( ws.search = function(term, max = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
 
 	# Build URL
-	url <- paste(.self$getBaseUrl(), 'search/', .self$.db.name, '/', term, sep = '')
+	url <- paste(.self$getUrl('base.url'), 'search/', .self$.db.name, '/', term, sep = '')
 	params <- c(token = .self$getToken())
 	if ( ! is.na(max))
 		params <- c(params, max = max)
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
 
 	# Parse results
 	if (biodb.parse || biodb.ids)
@@ -145,11 +145,11 @@ PeakforestConn$methods( ws.search = function(term, max = NA_integer_, biodb.pars
 PeakforestConn$methods( ws.all.count = function(biodb.parse = FALSE) {
 
 	# Build URL
-	url <- paste(.self$getBaseUrl(), .self$.db.name, '/', 'all/count', sep = '')
+	url <- paste(.self$getUrl('base.url'), .self$.db.name, '/', 'all/count', sep = '')
 	params <- c(token = .self$getToken())
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
 
 	# Parse integer
 	if (biodb.parse)
@@ -165,11 +165,11 @@ PeakforestConn$methods( ws.all.count = function(biodb.parse = FALSE) {
 PeakforestConn$methods( ws.all.ids = function(biodb.parse = FALSE,  biodb.ids = FALSE) {
 
 	# Build URL
-	url <- paste(.self$getBaseUrl(), .self$.db.name, '/', 'all/ids', sep = '')
+	url <- paste(.self$getUrl('base.url'), .self$.db.name, '/', 'all/ids', sep = '')
 	params <- c(token = .self$getToken())
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
 	.self$.checkIfError(results)
 
 	# Parse JSON

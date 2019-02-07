@@ -46,12 +46,12 @@ PeakforestMassConn$methods( .doGetEntryContentRequest = function(id, concatenate
 
 	# IDs are unique between LCMS and LCMSMS. Hence no confusion possible, and ID used in LCMS is not used in LCMSMS.
 	if (concatenate) {
-		url <- paste(.self$getBaseUrl(), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
-		url <- c(url, paste(.self$getBaseUrl(), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
+		url <- paste(.self$getUrl('base.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
+		url <- c(url, paste(.self$getUrl('base.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
 	}
 	else {
-		url <- paste(.self$getBaseUrl(), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
-		url <- c(url, paste(.self$getBaseUrl(), 'spectra/lcmsms/ids/', id,'?token=', .self$getToken(), sep = ''))
+		url <- paste(.self$getUrl('base.url'), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
+		url <- c(url, paste(.self$getUrl('base.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getToken(), sep = ''))
 	}
 
 	return(url)
@@ -180,13 +180,13 @@ PeakforestMassConn$methods( wsLcmsmsFromPrecursor = function(prec.mz, precursorM
 	if ( ! is.null(prec.mz) && ! is.na(prec.mz)) {
 
 		# Build request
-		url <- paste0(.self$getBaseUrl(), "spectra/lcmsms/from-precursor/", prec.mz)
+		url <- paste0(.self$getUrl('base.url'), "spectra/lcmsms/from-precursor/", prec.mz)
 		param <- c(token = .self$getToken(), precursorMassDelta = precursorMassDelta)
 		if ( ! is.na(mode))
 			param <- c(param, mode = mode)
 
 		# Send request
-		results <- .self$.getUrlScheduler()$getUrl(url, param = param)
+		results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, param = param)
 
 		# Parse IDs
 		if (biodb.ids)
@@ -202,10 +202,10 @@ PeakforestMassConn$methods( wsLcmsmsFromPrecursor = function(prec.mz, precursorM
 PeakforestMassConn$methods( getChromCol = function(ids = NULL) {
 
 	# Set URL
-	url <- paste(.self$getBaseUrl(), 'metadata/lc/list-code-columns?token=', .self$getToken(), sep = '')
+	url <- paste(.self$getUrl('base.url'), 'metadata/lc/list-code-columns?token=', .self$getToken(), sep = '')
 
 	# Send request
-	json.str <- .self$.getUrlScheduler()$getUrl(url)
+	json.str <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 	wscols <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
 
 	# Build data frame
@@ -278,12 +278,12 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 
 	else {
 		# Set URL
-		url <- paste(.self$getBaseUrl(), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
+		url <- paste(.self$getUrl('base.url'), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
 		if ( ! is.na(ms.mode))
 			url <- paste(url, '&mode=', if (ms.mode == 'pos') 'positive' else 'negative', sep ='')
 
 		# Get MZ values
-		json.str <- .self$.getUrlScheduler()$getUrl(url)
+		json.str <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 		.self$.checkIfError(json.str)
 
 		# Parse JSON
@@ -328,13 +328,13 @@ PeakforestMassConn$methods( .peaksGetRange = function(spectra.type, mz.min, mz.m
 	if ( ! is.null(mz.min) && ! is.null(mz.max) && ! is.na(mz.min) && ! is.na(mz.max)) {
 
 		# Build request
-		url <- paste0(.self$getBaseUrl(), "spectra/", spectra.type, "/peaks/get-range/", mz.min, "/", mz.max)
+		url <- paste0(.self$getUrl('base.url'), "spectra/", spectra.type, "/peaks/get-range/", mz.min, "/", mz.max)
 		param <- c(token = .self$getToken())
 		if ( ! is.na(mode))
 			param <- c(param, mode = mode)
 
 		# Send request
-		results <- .self$.getUrlScheduler()$getUrl(url, param = param)
+		results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, param = param)
 
 		# Parse IDs
 		if (biodb.ids)

@@ -105,14 +105,14 @@ ChemspiderConn$methods( .doGetEntryContentRequest = function(id, concatenate = T
 ################################################################
 
 ChemspiderConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'Chemical-Structure.', id, '.html'))
+	return(paste0(.self$getUrl('base.url'), 'Chemical-Structure.', id, '.html'))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 ChemspiderConn$methods( getEntryImageUrl = function(id) {
-	return(paste(.self$getBaseUrl(), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
+	return(paste(.self$getUrl('base.url'), 'ImagesHandler.ashx?w=300&h=300&id=', id, sep = ''))
 })
 
 # Get all record fields {{{1
@@ -249,7 +249,7 @@ ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('pl
 # Web service filter-queryId-status-get {{{1
 ################################################################
 
-ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c('plain', 'parsed', 'status', 'request')) {
+ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c('plain', 'parsed', 'status', 'request'), cache.read = FALSE) {
 	":\n\nAccess the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status."
 
 	.self$.assert.not.null(queryid)
@@ -265,7 +265,7 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c
 		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request, cache = FALSE)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request, cache.read = cache.read)
 
 	# Parse JSON
 	if (retfmt != 'plain') {
@@ -409,17 +409,20 @@ ChemspiderConn$methods( .retrieveQuery = function(results, retfmt) {
 		else if (retfmt == 'ids') {
 
 			# Wait for query result to be ready
+			cache.read <- TRUE
 			while (TRUE) {
-				status <- .self$ws.filterQueryIdStatusGet(results$queryId, retfmt = 'status')
+				status <- .self$ws.filterQueryIdStatusGet(results$queryId, retfmt = 'status', cache.read = cache.read)
 				if (is.null(status))
 					return(NULL)
 
 				if (status == 'Complete')
 					break
+
+				cache.read <- FALSE
 			}
 
 			# Get results
-			ids <- NULL
+			ids <- integer()
 			while (TRUE) {
 
 				res <- .self$ws.filterQueryIdResultsGet(results$queryId, retfmt = 'parsed')
