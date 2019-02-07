@@ -34,7 +34,7 @@ ExpasyEnzymeConn$methods( ws.enzymeByName = function(name, biodb.ids = FALSE) {
 	":\n\nCalls enzyme-byname web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-byname.html."
 
 	# Send request
-	html.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "enzyme-byname.html", sep = ''), params = name)
+	html.results <- .self$getBiodb()$getRequestScheduler()$getUrl(paste(.self$getUrl('base.url'), "enzyme-byname.html", sep = ''), params = name)
 
 	# Parse biodb IDs
 	if (biodb.ids) {
@@ -54,7 +54,7 @@ ExpasyEnzymeConn$methods( ws.enzymeByComment = function(comment, biodb.ids = FAL
 	":\n\nCalls enzyme-bycomment web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-bycomment.html."
 
 	# Send request
-	html.results <- .self$.getUrlScheduler()$getUrl(paste(.self$getBaseUrl(), "enzyme-bycomment.html", sep = ''), params = comment)
+	html.results <- .self$getBiodb()$getRequestScheduler()$getUrl(paste(.self$getUrl('base.url'), "enzyme-bycomment.html", sep = ''), params = comment)
 
 	# Parse biodb IDs
 	if (biodb.ids) {
@@ -106,7 +106,7 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 ################################################################
 
 ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'cgi-bin/enzyme/enzyme-search-ec?', sub('^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$', 'field1=\\1&field2=\\2&field3=\\3&field4=\\4', id)))
+	return(paste0(.self$getUrl('base.url'), 'cgi-bin/enzyme/enzyme-search-ec?', sub('^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$', 'field1=\\1&field2=\\2&field3=\\3&field4=\\4', id)))
 })
 
 # Get entry image url {{{1
@@ -124,7 +124,7 @@ ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
 
 ExpasyEnzymeConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
-	url <- paste0(.self$getBaseUrl(), 'EC/', id, '.txt')
+	url <- paste0(.self$getUrl('base.url'), 'EC/', id, '.txt')
 
 	return(url)
 })

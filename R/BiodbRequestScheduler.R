@@ -1,5 +1,14 @@
 # vi: fdm=marker
 
+# Constants {{{1
+################################################################
+
+.HTTP.STATUS.OK <- 200
+.HTTP.STATUS.NOT.FOUND <- 404
+.HTTP.STATUS.REQUEST.TIMEOUT <- 408
+.HTTP.STATUS.INTERNAL.SERVER.ERROR <- 500
+.HTTP.STATUS.SERVICE.UNAVAILABLE <- 503
+
 # Class declaration {{{1
 ################################################################
 
@@ -57,7 +66,7 @@ BiodbRequestScheduler$methods( sendSoapRequest = function(url, soap.request, soa
 # Send request {{{1
 ################################################################
 
-BiodbRequestScheduler$methods( sendRequest = function(request, cache = TRUE) {
+BiodbRequestScheduler$methods( sendRequest = function(request, cache.read = TRUE) {
 	":\n\nSend a request, and return content result."
 
 	content <- NA_character_
@@ -70,7 +79,7 @@ BiodbRequestScheduler$methods( sendRequest = function(request, cache = TRUE) {
 
 	# Try to get query result from cache
 	request.key <- request$getUniqueKey()
-	if (cache && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
+	if (cache.read && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder = 'shortterm', name = request.key, ext = 'content')) {
 		.self$message('debug', "Loading content of request from cache.")
 		content <- .self$getBiodb()$getCache()$loadFileContent('request', subfolder = 'shortterm', name = request.key, ext ='content', output.vector = TRUE)
 	}
@@ -79,44 +88,11 @@ BiodbRequestScheduler$methods( sendRequest = function(request, cache = TRUE) {
 	.self$.check.offline.mode()
 
 	if (is.na(content)) {
-		# Run query
-		for (i in seq(.self$.nb.max.tries)) {
 
-			content <- tryCatch({
-
-				.self$message('debug', paste0('Request header is: "', request$getHeaderAsSingleString(), '".'))
-				.self$message('debug', paste0('Request body is "', paste(request$getBody(), collapse = ', '), '".'))
-
-				# Wait required time between two requests
-				rule$wait.as.needed()
-
-				opts <- request$getCurlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'))
-				if (request$getMethod() == 'get')
-					content <- RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding())
-				else
-					content <- RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding())
-
-				# Check content
-				if (length(grep('The proxy server could not handle the request', content)) > 0) {
-					.self$message('debug', 'Found proxy error message in content.')
-					stop("Error between the proxy and the main server.") # This happens sometime with NCBI CCDS server.
-				}
-
-				content
-			},
-			error = function(e) {
-				.self$message('info', paste("Connection error \"", e$message, "\"", sep = ''))
-				.self$message('info', "Retrying connection to server...")
-				return(NA_character_)
-			} )
-
-			# Leave the loop
-			if ( ! is.na(content))
-				break
-		}
+		content <- .self$.doSendRequest(request = request, rule = rule)
 
 		# Save content to cache
-		if (cache && ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
+		if ( ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
 			.self$message('debug', "Saving content of request to cache.")
 			.self$getBiodb()$getCache()$saveContentToFile(content, cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='content')
 			.self$getBiodb()$getCache()$saveContentToFile(request$toString(), cache.id = 'request', subfolder = 'shortterm', name = request.key, ext ='desc')
@@ -239,10 +215,9 @@ BiodbRequestScheduler$methods( .findRule = function(url, fail = TRUE) {
 	if ( ! is(url, 'BiodbUrl')) {
 		.self$.assert.length.one(url)
 		.self$.assert.not.na(url)
-		domain <- .self$.extractDomainfromUrl(url)
+		url <- BiodbUrl(url =url)
 	}
-	else
-		domain <- url$getDomain()
+	domain <- url$getDomain()
 
 	# Rule does not exist
 	if (fail && ! domain %in% names(.self$.host2rule))
@@ -266,7 +241,7 @@ BiodbRequestScheduler$methods( .addConnectorRules = function(conn) {
 
 		# No rule exists => create new one
 		if (is.null(rule)) {
-			host <- .self$.extractDomainfromUrl(url)
+			host <- BiodbUrl(url =url)$getDomain()
 			.self$message('debug', paste0('Create new rule for URL "', host,'" of connector "', conn$getId(), '"'))
 			rule <- BiodbRequestSchedulerRule$new(parent = .self, host = host, conn = conn)
 			.self$.host2rule[[rule$getHost()]] <- rule
@@ -318,18 +293,76 @@ BiodbRequestScheduler$methods( .removeConnectorRules = function(conn) {
 	.self$.connid2rules[[conn$getId()]] <- NULL
 })
 
+# Do send request {{{2
+################################################################
+
+BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
+
+	content <- NA_character_
+
+	# Create HTTP header object (to receive HTTP information from server).
+	header <- RCurl::basicHeaderGatherer()
+
+	# Enter query loop
+	i <- 0
+	while (i < .self$.nb.max.tries && is.na(content)) {
+
+		# Increment try number
+		i <- i + 1
+
+		# Print debug information about header and body
+		.self$message('debug', paste0('Request header is: "', request$getHeaderAsSingleString(), '".'))
+		.self$message('debug', paste0('Request body is "', paste(request$getBody(), collapse = ', '), '".'))
+
+		# Wait required time between two requests
+		rule$wait.as.needed()
+
+		# Build options
+		opts <- request$getCurlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'))
+
+		# Send request
+		if (request$getMethod() == 'get')
+			content <- RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding(), headerfunction = header$update)
+		else
+			content <- RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding(), headerfunction = header$update)
+
+		# Get header information sent by server
+		hdr <- as.list(header$value())
+		hdr$status <- as.integer(hdr$status)
+
+		if (hdr$status %in% c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT, .HTTP.STATUS.INTERNAL.SERVER.ERROR, .HTTP.STATUS.SERVICE.UNAVAILABLE)) {
+			msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+			if ('Retry-After' %in% names(hdr))
+				msg <- paste0(msg, " Retry after ", hdr[['Retry-After']], ".")
+			msg <- paste0(msg, " Retrying connection to server...")
+			.self$message('info', msg)
+			next
+		}
+
+		# HTTP error
+		if (hdr$status != .HTTP.STATUS.OK) {
+			msg <- paste0("Unrecoverable HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+			if ('Retry-After' %in% names(hdr))
+				msg <- paste0(msg, " Retry after ", hdr[['Retry-After']], ".")
+			.self$message('info', msg)
+			content <- NA_character_
+			break
+		}
+
+		# Proxy server error
+		if (length(grep('The proxy server could not handle the request', content)) > 0) {
+			.self$message('debug', 'Found proxy error message in content.')
+			.self$info("Error between the proxy and the main server.") # This happens sometime with NCBI CCDS server.
+			content <- NA_character_
+			break
+		}
+	}
+
+	return(content)
+})
+
 # Deprecated methods {{{1
 ################################################################
-
-# Extract domain from URL {{{2
-################################################################
-
-BiodbRequestScheduler$methods( .extractDomainfromUrl = function(url) {
-
-	.self$.deprecated.method("BiodbUrl::getDomain()")
-
-	return(BiodbUrl(url)$getDomain())
-})
 
 # Get URL string {{{2
 ################################################################
@@ -358,3 +391,4 @@ BiodbRequestScheduler$methods( getUrl = function(url, params = list(), method = 
 
 	return(.self$sendRequest(request))
 })
+

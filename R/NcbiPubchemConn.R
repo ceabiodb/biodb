@@ -39,7 +39,7 @@ NcbiPubchemConn$methods( .doGetEntryContentRequest = function(id, concatenate = 
 
 NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
 	.self$message('debug', paste('Getting URL pages for IDs ', paste(id, collapse = ', '), '.', sep = ''))
-	urls <- paste0(.self$getBaseUrl(), .self$.db.name, '/', id)
+	urls <- paste0(.self$getUrl('base.url'), .self$.db.name, '/', id)
 	.self$message('debug', paste(urls, collapse = ', '))
 
 	return(urls)
@@ -49,7 +49,7 @@ NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
 ################################################################
 
 NcbiPubchemConn$methods( getEntryImageUrl = function(id) {
-	return(paste(.self$getBaseUrl(), 'image/imgsrv.fcgi?', .self$.id.urlfield, '=', id, '&t=l', sep = ''))
+	return(paste(.self$getUrl('base.url'), 'image/imgsrv.fcgi?', .self$.id.urlfield, '=', id, '&t=l', sep = ''))
 })
 
 # Get entry content {{{1
@@ -78,7 +78,7 @@ NcbiPubchemConn$methods( getEntryContent = function(entry.id) {
 		for (url in url.requests) {
 
 			# Send request
-			xmlstr <- .self$.getUrlScheduler()$getUrl(url)
+			xmlstr <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 
 			if (is.na(xmlstr) || length(grep('PUGREST.BadRequest|PUGREST.NotFound', xmlstr)) > 0) {
 				if (concatenate) {

@@ -303,7 +303,7 @@ MassCsvFileConn$methods( setDb = function(db) {
 	":\n\nSet the database directly from a data frame. You must not have set the database previously with the URL parameter."
 
 	# URL point to an existing file?
-	url <- .self$getBaseUrl()
+	url <- .self$getUrl('base.url')
 	if ( ! is.null(url) && ! is.na(url) && file.exists(url))
 		.self$message('error', 'Cannot set this data frame as database. A URL that points to an existing file has already been set for the connector.')
 
@@ -332,7 +332,7 @@ MassCsvFileConn$methods( .doWrite = function() {
 	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
 
 	# Write data frame
-	write.table(df, file = .self$getBaseUrl(), row.names = FALSE, sep = "\t", quote = FALSE)
+	write.table(df, file = .self$getUrl('base.url'), row.names = FALSE, sep = "\t", quote = FALSE)
 })
 
 # Init db {{{2
@@ -343,7 +343,7 @@ MassCsvFileConn$methods( .init.db = function() {
 	if (is.null(.self$.db)) {
 
 		# Check file
-		file <- .self$getBaseUrl()
+		file <- .self$getUrl('base.url')
 		if ( ! is.null(file) && ! is.na(file) && ! file.exists(file))
 			.self$message('info', paste("Cannot locate the file database \"", file, "\".", sep = ''))
 
@@ -356,7 +356,7 @@ MassCsvFileConn$methods( .init.db = function() {
 		# Load database
 		else {
 			.self$message('info', paste("Loading file database \"", file, "\".", sep = ''))
-			db <- read.table(.self$getBaseUrl(), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE, fill = FALSE)
+			db <- read.table(.self$getUrl('base.url'), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE, fill = FALSE)
 		}
 
 		# Set database
@@ -550,7 +550,7 @@ MassCsvFileConn$methods( .checkSettingOfUrl = function(key, value) {
 
 	# Setting of base URL
 	if (key == 'base.url') {
-		url <- .self$getBaseUrl()
+		url <- .self$getUrl('base.url')
 		if ( ! is.null(.self$.db) && ! is.null(url) && ! is.na(url) && file.exists(url))
 			.self$message('error', paste0('You cannot overwrite base URL. A URL has already been set ("', url, '") that points to a valid file that has already been loaded in memory.'))
 	}

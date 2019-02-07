@@ -33,14 +33,14 @@ ChebiConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) 
 ################################################################
 
 ChebiConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'searchId.do?chebiId=', id))
+	return(paste0(.self$getUrl('base.url'), 'searchId.do?chebiId=', id))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 ChebiConn$methods( getEntryImageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'displayImage.do?defaultImage=true&imageIndex=0&chebiId=', id, '&dimensions=400'))
+	return(paste0(.self$getUrl('base.url'), 'displayImage.do?defaultImage=true&imageIndex=0&chebiId=', id, '&dimensions=400'))
 })
 
 
@@ -63,7 +63,7 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 	params <- c(search = gsub('[ /]', '+', search), searchCategory = gsub(' ', '+', search.category), maximumResults = max.results, starsCategory = gsub(' ', '+', stars))
 
 	# Send request
-	xml.results <- .self$.getUrlScheduler()$getUrl(file.path(.self$getWsUrl(), 'getLiteEntity', fsep = '/'), params = params, encoding = 'UTF-8')
+	xml.results <- .self$getBiodb()$getRequestScheduler()$getUrl(file.path(.self$getWsUrl(), 'getLiteEntity', fsep = '/'), params = params, encoding = 'UTF-8')
 
 	return(xml.results)
 })

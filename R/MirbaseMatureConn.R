@@ -31,7 +31,7 @@ MirbaseMatureConn$methods( initialize = function(...) {
 ################################################################
 
 MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
-	return(paste(.self$getBaseUrl(), 'cgi-bin/mature.pl?mature_acc=', id, sep = ''))
+	return(paste(.self$getUrl('base.url'), 'cgi-bin/mature.pl?mature_acc=', id, sep = ''))
 })
 
 # Get entry image url {{{1
@@ -56,7 +56,7 @@ MirbaseMatureConn$methods( .doDownload = function() {
 	# Download
 	gz.url <- 'ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz'
 	.self$message('info', paste("Downloading \"", gz.url, "\"...", sep = ''))
-	.self$.getUrlScheduler()$downloadFile(url = gz.url, dest.file = .self$getDownloadPath())
+	.self$getBiodb()$getRequestScheduler()$downloadFile(url = gz.url, dest.file = .self$getDownloadPath())
 })
 
 # Do extract download {{{1
@@ -134,11 +134,11 @@ MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
 MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', biodb.parse = FALSE, biodb.ids = FALSE) {
 
 	# Build request
-	url <- paste0(.self$getBaseUrl(), 'cgi-bin/query.pl')
+	url <- paste0(.self$getUrl('base.url'), 'cgi-bin/query.pl')
 	params <- c(terms = terms, submit = submit)
 
 	# Send request
-	results <- .self$.getUrlScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
 
 	# Parse HTML
 	if (biodb.parse || biodb.ids)

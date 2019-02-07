@@ -329,7 +329,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 		# Get contents
 		if (length(missing.ids) > 0 && ( ! methods::is(conn, 'BiodbDownloadable') || ! conn$isDownloaded())) {
 
-			.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getName(), " database \"", conn$getBaseUrl(), "\"."))
+			.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getName(), " database \"", conn$getUrl('base.url'), "\"."))
 
 			# Divide list of missing ids in chunks (in order to save in cache regularly)
 			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
@@ -406,10 +406,10 @@ BiodbFactory$methods( .checkConnExists = function(new.conn, error) {
 	# Loop on all connectors
 	for (conn in .self$.conn)
 		if (conn$getDbClass() == new.conn$getDbClass()) {
-			same.url <- if (is.na(conn$getBaseUrl()) || is.na(new.conn$getBaseUrl())) FALSE else normalizePath(conn$getBaseUrl(), mustWork = FALSE) == normalizePath(new.conn$getBaseUrl(), mustWork = FALSE)
+			same.url <- if (is.na(conn$getUrl('base.url')) || is.na(new.conn$getUrl('base.url'))) FALSE else normalizePath(conn$getUrl('base.url'), mustWork = FALSE) == normalizePath(new.conn$getUrl('base.url'), mustWork = FALSE)
 			same.token <- if (is.na(conn$getToken()) || is.na(new.conn$getToken())) FALSE else conn$getToken() == new.conn$getToken()
 			if (same.url && (is.na(new.conn$getToken()) || same.token))
-				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', conn$getBaseUrl(), ')', if ( ! is.na(conn$getToken())) paste0(' and the same token'), '.'))
+				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', conn$getUrl('base.url'), ')', if ( ! is.na(conn$getToken())) paste0(' and the same token'), '.'))
 		}
 })
 

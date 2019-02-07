@@ -84,14 +84,14 @@ HmdbMetabolitesConn$methods( getNbEntries = function(count = FALSE) {
 ################################################################
 
 HmdbMetabolitesConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'metabolites/', id))
+	return(paste0(.self$getUrl('base.url'), 'metabolites/', id))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 HmdbMetabolitesConn$methods( getEntryImageUrl = function(id) {
-	return(paste0(.self$getBaseUrl(), 'structures/', id, '/image.png'))
+	return(paste0(.self$getUrl('base.url'), 'structures/', id, '/image.png'))
 })
 
 # Search compound {{{1
@@ -123,7 +123,7 @@ HmdbMetabolitesConn$methods( .getParsingExpressions = function() {
 
 HmdbMetabolitesConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
-	url <- paste0(.self$getBaseUrl(), 'metabolites/', id, '.xml')
+	url <- paste0(.self$getUrl('base.url'), 'metabolites/', id, '.xml')
 
 	return(url)
 })
@@ -135,9 +135,9 @@ HmdbMetabolitesConn$methods( .doDownload = function() {
 
 	# Download
 	.self$message('info', "Downloading HMDB metabolite database...")
-	zip.url <- paste(.self$getBaseUrl(), "system/downloads/current/hmdb_metabolites.zip", sep = '')
+	zip.url <- paste(.self$getUrl('base.url'), "system/downloads/current/hmdb_metabolites.zip", sep = '')
 	.self$message('info', paste("Downloading \"", zip.url, "\"...", sep = ''))
-	.self$.getUrlScheduler()$downloadFile(url = zip.url, dest.file = .self$getDownloadPath())
+	.self$getBiodb()$getRequestScheduler()$downloadFile(url = zip.url, dest.file = .self$getDownloadPath())
 })
 
 # Do extract download {{{2

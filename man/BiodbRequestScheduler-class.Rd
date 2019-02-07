@@ -39,7 +39,7 @@ Send a URL request, either with GET or POST method, and return result.}
 
 Build a URL string, using a base URL and parameters to be passed.}
 
-\item{\code{sendRequest(request, cache = TRUE)}}{:
+\item{\code{sendRequest(request, cache.read = TRUE)}}{:
 
 Send a request, and return content result.}
 

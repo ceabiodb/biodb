@@ -66,7 +66,7 @@ KeggCompoundConn$methods( ws.find.exact.mass = function(mass = NA_real_, mass.mi
 	else
 		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
 
-	result <- .self$.getUrlScheduler()$getUrl(url)
+	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 
 	return(result)
 })
@@ -110,7 +110,7 @@ KeggCompoundConn$methods( ws.find.molecular.weight = function(mass = NA_real_, m
 	else
 		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
 
-	result <- .self$.getUrlScheduler()$getUrl(url)
+	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 
 	return(result)
 })
@@ -200,7 +200,7 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 ################################################################
 
 KeggCompoundConn$methods( getEntryImageUrl = function(id) {
-	return(paste(.self$getBaseUrl(), 'Fig/compound/', id, '.gif', sep = ''))
+	return(paste(.self$getUrl('base.url'), 'Fig/compound/', id, '.gif', sep = ''))
 })
 
 # Private methods {{{1
