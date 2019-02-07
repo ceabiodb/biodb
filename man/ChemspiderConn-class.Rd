@@ -57,7 +57,7 @@ Access the filter-name-post ChemSpider web service. See https://developer.rsc.or
 Access the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results,}
 
 \item{\code{ws.filterQueryIdStatusGet(queryid, retfmt = c("plain", "parsed", "status",
-  "request"))}}{:
+  "request"), cache.read = FALSE)}}{:
 
 Access the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.}
 

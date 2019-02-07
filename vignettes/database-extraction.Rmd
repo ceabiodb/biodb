@@ -22,67 +22,61 @@ Create an instance of the `Biodb` class:
 mybiodb <- biodb::Biodb()
 ```
 
-# Retrieving an entire database whose entries contain only atomic values
+# Building an MS database from a data frame
 
-For this example, we will use the Lipidmaps Structure database.
-
-First, connect to the database:
+Here, for the sake of argument, we build a database using a data frame.
 ```{r}
-lipids <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+db.df <- rbind(data.frame(accession = "PR010001", smiles = "NCCCN",                      mass = 74.0844,   ms.mode = "pos", peak.mz = 73,  peak.intensity = 999, formula = "C3H10N2",  name = "1,3-Diaminopropane"                    ),
+               data.frame(accession = "PR010001", smiles = "NCCCN",                      mass = 74.0844,   ms.mode = "pos", peak.mz = 86,  peak.intensity = 407, formula = "C3H10N2",  name = "1,3-Diaminopropane"                    ),
+               data.frame(accession = "PR010001", smiles = "NCCCN",                      mass = 74.0844,   ms.mode = "pos", peak.mz = 174, peak.intensity = 481, formula = "C3H10N2",  name = "1,3-Diaminopropane"                    ),
+               data.frame(accession = "PR010002", smiles = "OCC(O)(C1)OCC(O)(CO)O1",     mass = 180.06339, ms.mode = "pos", peak.mz = 73,  peak.intensity = 999, formula = "C6H12O6",  name = "1,3-Dihydroxyacetone dimer"            ),
+               data.frame(accession = "PR010003", smiles = "OC(=O)CC(O)(CC(O)=O)C(O)=O", mass = 192.027,   ms.mode = "pos", peak.mz = 73,  peak.intensity = 999, formula = "C6H8O7",   name = "Citric acid"                           ),
+               data.frame(accession = "PR010004", smiles = "COc(c1)c(O)ccc(C=CC(O)=O)1", mass = 194.05791, ms.mode = "pos", peak.mz = 73,  peak.intensity = 999, formula = "C10H10O4", name = "trans-4-Hydroxy-3-methoxycinnamate"    ),
+               data.frame(accession = "PR010006", smiles = "CNC[C@H](O)c(c1)cc(O)cc1",   mass = 167.09463, ms.mode = "pos", peak.mz = 73,  peak.intensity = 751, formula = "C9H13NO2", name = "(R)-(-)-Phenylephrine"                 ),
+               data.frame(accession = "PR010006", smiles = "CNC[C@H](O)c(c1)cc(O)cc1",   mass = 167.09463, ms.mode = "pos", peak.mz = 116, peak.intensity = 999, formula = "C9H13NO2", name = "(R)-(-)-Phenylephrine"                 ),
+               data.frame(accession = "PR010007", smiles = "OC(=O)C(N)(C1)C1",           mass = 101.04768, ms.mode = "pos", peak.mz = 73,  peak.intensity = 999, formula = "C4H7NO2",  name = "1-Aminocyclopropane-1-carboxylic acid" ),
+               data.frame(accession = "PR010007", smiles = "OC(=O)C(N)(C1)C1",           mass = 101.04768, ms.mode = "pos", peak.mz = 147, peak.intensity = 533, formula = "C4H7NO2",  name = "1-Aminocyclopropane-1-carboxylic acid" ),
+               data.frame(accession = "PR010008", smiles = "OC(=O)Cc(c1)ccc(O)c1",       mass = 152.04734, ms.mode = "pos", peak.mz = 73,  peak.intensity = 999, formula = "C8H8O3",   name = "4-Hydroxyphenylacetic acid"            ),
+               stringsAsFactors = FALSE)
+```
+Those data were extracted from MassBank.
+
+We create the connector from the data frame, and will use this connector for all subsequent examples.
+```{r}
+conn <- mybiodb$getFactory()$createConn('mass.csv.file')
+conn$setDb(db.df)
 ```
 
-Then get all entry IDs:
+# Converting an entire database into a data frame
+
+First, we get all entry IDs:
 ```{r}
-entry.ids <- lipids$getEntryIds()
+entry.ids <- conn$getEntryIds()
 ```
 
-Here we just get two entries, since retrieving them all would take too much time for this example:
+Then, we get entry objects:
 ```{r}
-entries <- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = entry.ids[1:2])
-```
-
-Transform all entries into a single data frame:
-```{r}
-df <- mybiodb$entriesToDataframe(entries)
-print(df)
-```
-
-Export the data frame into a CSV file with R standard function:
-```{r}
-write.csv(df, file = 'lipidmaps-structure.csv')
-```
-
-# Retrieving part of a database whose entries contain non-atomic values
-
-We will take for this example the Massbank database, since each entry contains a peaks list stored into a data frame.
-
-First, connect to the database:
-```{r}
-massbank <- mybiodb$getFactory()$getConn('massbank')
-```
-
-Get some entry IDs, searching by M/Z value:
-```{r}
-entry.ids <- massbank$searchMzTol(64, mz.tol = 0.3, max.results = 2)
-```
-
-```{r}
-mybiodb$getConfig()$disable('allow.huge.downloads')
-```
-
-Get all entries:
-```{r}
-entries <- mybiodb$getFactory()$getEntry('massbank', id = entry.ids)
+entries <- conn$getEntry(entry.ids)
 ```
 
 Transform all entries into a single data frame:
 ```{r}
-df <- mybiodb$entriesToDataframe(entries, only.atomic = FALSE)
-print(df)
+mybiodb$entriesToDataframe(entries)
+```
+
+# Converting a database into a data frame, exporting also non-atomic values
+
+In the preceding example, you have probably noticed that not all data were exported. The data frame columns `peak.mz` and `peak.intensity` were omitted. This is because these columns contain multiple values for the same entry. The values exported previously were single for each entry.
+
+Now we will export the same entries, but with the non-atomic values (i.e.: the ones that have multiple values for an entry, here `peak.mz` and `peak.intensity`):
+```{r}
+mybiodb$entriesToDataframe(entries, only.atomic = FALSE)
 ```
 The option `only.atomic` controls if only atomic values are put inside the data frame. If set to `TRUE`, then each entry will occupy only one line inside the data frame. If set to `FALSE` and an entry contains a non-atomic value (vector or data frame), then instead of occupying one line in the data frame it will occupy several lines, its atomic values being copied as many time as there are values inside the non-atomic value.
 
-Export the data frame into a CSV file with R standard function:
+# Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
 ```{r}
-write.csv(df, file = 'massbank.csv')
+mybiodb$terminate()
 ```
