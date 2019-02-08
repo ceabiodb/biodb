@@ -116,6 +116,36 @@ test.schedulerSleepTime <- function(biodb, obs) {
 	testthat::expect_true(abs(rule$computeSleepTime(cur.time + t) - t / 10) < 1e-6)
 }
 
+# Test BiodbUrl {{{1
+################################################################
+
+test.BiodbUrl <- function(biodb) {
+
+	# Simple URL
+	url <- BiodbUrl(url = 'https://www.somesite.fr/')
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/')
+
+	# With a parameter in a character vector
+	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt'))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')
+
+	# With a parameter in a numeric vector
+	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c(limit = 2))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?limit=2')
+
+	# With two parameters in a character vector
+	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt', limit = '2'))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt&limit=2')
+
+	# With a parameter in a list
+	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = list(format = 'txt'))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')
+
+	# With two parameters in a list
+	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = list(format = 'txt', limit = 2))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt&limit=2')
+}
+
 # Run scheduler tests {{{1
 ################################################################
 
@@ -123,6 +153,7 @@ run.scheduler.tests <- function(biodb, obs) {
 
 	set.test.context(biodb, "Test request scheduler")
 
+	test.that("BiodbUrl works fine.", 'test.BiodbUrl', biodb = biodb)
 	test.that("Right rule is created.", 'test.schedulerRightRule', biodb = biodb, obs = obs)
 	test.that("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb, obs = obs)
 	test.that("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb, obs = obs)

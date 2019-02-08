@@ -12,7 +12,7 @@ test.searchCompound <- function(db) {
 	id <- list.ref.entries(db$getId())[[1]]
 	expect_true( ! is.null(id))
 	expect_length(id, 1)
-	entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), id, drop = TRUE)
+	entry <- db$getEntry(id, drop = TRUE)
 	expect_true( ! is.null(entry))
 
 	# Search by name
