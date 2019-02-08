@@ -5,9 +5,9 @@ cache:
         - $BIODB_CACHE_DIRECTORY
 
 r:
-   - oldrel
-   - release
-   - devel
+    - oldrel
+    - release
+    - devel
 
 notifications:
  email:
@@ -20,7 +20,7 @@ env:
     - DBS=hmdb.metabolites MODE=online TESTTHAT_REPORTER=summary
     - DBS=massbank MODE=online TESTTHAT_REPORTER=summary
     - DBS=peakforest.mass MODE=online TESTTHAT_REPORTER=summary
-    - EXCLUDE_DBS=mirbase.mature,hmdb.metabolites,massbank,peakforest.mass MODE=online TESTTHAT_REPORTER=summary
+    - EXCLUDE_DBS=hmdb.metabolites,massbank,peakforest.mass MODE=online TESTTHAT_REPORTER=summary
 
 branches:
   only:
