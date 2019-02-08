@@ -109,14 +109,19 @@ BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 	":\n\nDownload the content of a URL and save it into the specified destination file."
 
 	# Get rule
+	print('-------------------------------- BiodbRequestScheduler::downloadFile 01')
 	rule <- .self$.findRule(url)
+	print('-------------------------------- BiodbRequestScheduler::downloadFile 02')
+	print(rule)
 #	if (is.null(rule))
 #		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
 
 	# Wait required time between two requests
 	rule$wait.as.needed()
+	print('-------------------------------- BiodbRequestScheduler::downloadFile 03')
 
 	utils::download.file(url = url, destfile = dest.file, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
+	print('-------------------------------- BiodbRequestScheduler::downloadFile 04')
 })
 
 # Private methods {{{1
