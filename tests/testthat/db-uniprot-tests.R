@@ -11,7 +11,7 @@ test.uniprot.ws.query.empty <- function(db) {
 	expect_true(nchar(result) > 0)
 	readtc <- textConnection(result, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", header = TRUE)
-	expect_true(colnames(df) == c('Entry'))
+	expect_true(colnames(df) == 'Entry')
 	expect_true(nrow(df) == n)
 }
 
@@ -26,7 +26,7 @@ test.uniprot.ws.query.by.name <- function(db) {
 	expect_true(nchar(result) > 0)
 	readtc <- textConnection(result, "r", local = TRUE)
 	df <- read.table(readtc, sep = "\t", header = TRUE)
-	expect_true(colnames(df) == c('Entry'))
+	expect_true(colnames(df) == 'Entry')
 	expect_true(nrow(df) == n)
 }
 
@@ -35,14 +35,10 @@ test.uniprot.ws.query.by.name <- function(db) {
 
 test.uniprot.ws.query.multiple.columns <- function(db) {
 	n <- 2
-	result <- db$ws.query(columns = c('id', 'entry name'), format = 'tab', limit = n)
-	expect_true( ! is.null(result))
-	expect_true( ! is.na(result))
-	expect_true(nchar(result) > 0)
-	readtc <- textConnection(result, "r", local = TRUE)
-	df <- read.table(readtc, sep = "\t", header = TRUE)
-	expect_true(identical(colnames(df), c('Entry', 'Entry.name')))
-	expect_true(nrow(df) == n)
+	results <- db$ws.query(columns = c('id', 'entry name'), format = 'tab', limit = n, retfmt = 'parsed')
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_true(all(c('Entry', 'Entry name') %in% colnames(results)))
+	testthat::expect_true(nrow(results) == n)
 }
 
 # Run Uniprot tests {{{1

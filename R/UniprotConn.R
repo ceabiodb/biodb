@@ -59,50 +59,62 @@ UniprotConn$methods( initialize = function(...) {
 # Web service query {{{1
 ################################################################
 
-UniprotConn$methods( ws.query = function(query = '', columns = NA, format = NA, limit = NA) {
+UniprotConn$methods( ws.query = function(query = '', columns = NULL, format = NULL, limit = NULL, retfmt = c('plain', 'parsed', 'ids', 'request')) {
 	":\n\nDirect query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details."
 
-	params = list()
+	retfmt <- match.arg(retfmt)
 
-	# Set URL
-	url <- .self$getUrl('base.url')
+	# Set parameters for retrieving IDs
+	if (retfmt == 'ids') {
+		columns <- 'id'
+		format <- 'tab'
+	}
 
-	# Set other parameters
-	params[['query']] <- query
-	if ( ! is.null(columns) && ! is.na(columns))
-		params[['columns']] <- paste(columns, collapse = ',')
-	if ( ! is.null(format) && ! is.na(format))
-		params[['format']] <- format
+	# Set columns
+	if (is.null(columns) || is.na(columns))
+		columns <- c("citation", "clusters", "comments", "domains", "domain", "ec", "id", "entry name", "existence", "families", "features", "genes", "go", "go-id", "interactor", "keywords", "last-modified", "length", "organism", "organism-id", "pathway", "protein names", "reviewed", "sequence", "3d", "version", "virus hosts")
+
+	# Set format
+	if (is.null(format) || is.na(format))
+		format <- 'tab'
+
+	# Build request
+	params <- list(query = query, columns = columns, format = format)
 	if ( ! is.null(limit) && ! is.na(limit))
 		params[['limit']] <- limit
+	url <- BiodbUrl(url = .self$getUrl('base.url'), params = params)
+	request <- BiodbRequest(method = 'get', url = url)
 
-	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
+	# Return request
+	if (retfmt == 'request')
+		return(request)
 
-	return(result)
+	# Send request
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+
+	# Parse
+	if (retfmt != 'plain') {
+
+		# Parse data frame
+		readtc <- textConnection(results, "r", local = TRUE)
+		df <- read.table(readtc, sep = "\t", header = TRUE, check.names = FALSE)
+		close(readtc)
+		results <- df
+
+		# Get IDs
+		if (retfmt == 'ids')
+			results <- as.character(results[[1]])
+	}
+
+	return(results)
 })
-
-# Web service query IDs {{{1
-################################################################
-
-UniprotConn$methods( ws.query.ids = function(...) {
-	":\n\nCalls ws.query() but only for getting IDs. Returns the IDs as a character vector."
-
-	results <- .self$ws.query(columns = 'id', format = 'tab', ...)
-	readtc <- textConnection(results, "r", local = TRUE)
-	df <- read.table(readtc, sep = "\t", header = TRUE)
-	close(readtc)
-	ids <- as.character(df[[1]])
-
-	return(ids)
-})
-
 
 # Get entry ids {{{1
 ################################################################
 
 UniprotConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
-	ids <- .self$ws.query.ids(limit = max.results)
+	ids <- .self$ws.query(limit = max.results, retfmt = 'ids')
 
 	return(ids)
 })
@@ -183,7 +195,7 @@ UniprotConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.fi
 	}
 
 	# Send query
-	ids <- .self$ws.query.ids(query = query, limit = max.results)
+	ids <- .self$ws.query(query = query, limit = max.results, retfmt = 'ids')
 
 	return(ids)
 })
