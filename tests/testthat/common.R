@@ -140,7 +140,7 @@ create.biodb.instance <- function() {
 	test.observer <- TestObserver()
 
 	# Create instance
-	biodb <- Biodb$new(logger = TRUE, observers = c(test.observer, logger))
+	biodb <- Biodb$new(logger = FALSE, observers = c(test.observer, logger))
 
 	# Set user agent
 	biodb$getConfig()$set('useragent', USERAGENT)

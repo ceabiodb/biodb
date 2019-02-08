@@ -200,30 +200,17 @@ BiodbRequestSchedulerRule$methods( storeCurrentTime = function(cur.time = NULL) 
 
 BiodbRequestSchedulerRule$methods( wait.as.needed = function() {
 
-	print('-------------------------------- BiodbRequestSchedulerRule::wait.as.needed 01')
 	# Compute sleep time
 	sleep.time <- .self$computeSleepTime()
-	print('-------------------------------- BiodbRequestSchedulerRule::wait.as.needed 02')
-	# Compute sleep time
 
 	# Sleep if needed
 	if (sleep.time > 0) {
-	print('-------------------------------- BiodbRequestSchedulerRule::wait.as.needed 02.1')
-	# Compute sleep time
 		.self$message('debug', paste('Wait ', sleep.time, ' second(s).', sep = ''))
-	print('-------------------------------- BiodbRequestSchedulerRule::wait.as.needed 02.2')
-	# Compute sleep time
 		Sys.sleep(sleep.time)
-	print('-------------------------------- BiodbRequestSchedulerRule::wait.as.needed 02.3')
-	# Compute sleep time
 	}
-	print('-------------------------------- BiodbRequestSchedulerRule::wait.as.needed 03')
-	# Compute sleep time
 
 	# Store current time
 	.self$storeCurrentTime()
-	print('-------------------------------- BiodbRequestSchedulerRule::wait.as.needed 04')
-	# Compute sleep time
 })
 # Show {{{1
 ################################################################
