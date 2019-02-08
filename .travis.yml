@@ -6,8 +6,8 @@ cache:
 
 r:
    - oldrel
-   - release
-   - devel
+     #   - release
+     #   - devel
 
 notifications:
  email:
