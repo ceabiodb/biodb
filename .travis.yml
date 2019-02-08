@@ -31,7 +31,7 @@ branches:
     - /^testing[/]travis-.*$/
 
 script:
-    - curl -o mature.fa.gz "ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz"
+    - curl --verbose -o mature.fa.gz "ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz"
     - ./travis-tests
       
 after_script:
