@@ -25,7 +25,7 @@ NCBI PubChem Compound  | ncbi.pubchem.comp   |   ❌   |              | [#275](h
 NCBI PubChem Substance | ncbi.pubchem.subst  |   ✅   |
 PeakForest Compound    | peakforest.compound |   ✅   |              |                                                   |            |
 PeakForest Mass        | peakforest.mass     |   ✅   |              |                                                   |            |
-UniProt                | uniprot             |   ❌   |              | [#263](https://github.com/pkrog/biodb/issues/263) |            | Tests failure.
+UniProt                | uniprot             |   ✅   |              |                                                   |            | 
 
 **Legend**:
  * ✅ Database is working fine with Biodb connector.
