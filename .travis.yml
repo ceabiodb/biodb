@@ -5,9 +5,9 @@ cache:
         - $BIODB_CACHE_DIRECTORY
 
 r:
-   - oldrel
-   - release
-   - devel
+    - oldrel
+    - release
+    - devel
 
 notifications:
  email:

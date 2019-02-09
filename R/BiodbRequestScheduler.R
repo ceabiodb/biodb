@@ -110,8 +110,6 @@ BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 
 	# Get rule
 	rule <- .self$.findRule(url)
-#	if (is.null(rule))
-#		.self$message('caution', paste0('Cannot find any rule for URL "', url,'".'))
 
 	# Wait required time between two requests
 	rule$wait.as.needed()

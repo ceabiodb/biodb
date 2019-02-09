@@ -18,7 +18,7 @@ HMDB Metabolites       | hmdb.metabolites    |   ✅   |              |         
 KEGG Compound          | kegg.compound       |   ✅   |
 LIPID MAPS Structure   | lipidmaps.structure |   ✅   |
 Massbank               | massbank            |   ❌   |              | [#30](https://github.com/pkrog/biodb/issues/30)   |            | The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.
-miRBase Mature         | mirbase.mature      |   ❌   |              | [#261](https://github.com/pkrog/biodb/issues/261) |            | Tests failure.
+miRBase Mature         | mirbase.mature      |   ✅   |     off      |                                                   |            | Online tests are off because miRBase Mature needs download of the whole database through FTP, and FTP is not possible from inside Travis-CI.
 NCBI CCDS              | ncbi.ccds           |   ✅   |
 NCBI Gene              | ncbi.gene           |   ✅   |
 NCBI PubChem Compound  | ncbi.pubchem.comp   |   ✅   |              |                                                   |            | 
