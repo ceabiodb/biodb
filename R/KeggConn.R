@@ -59,7 +59,7 @@ KeggConn$methods( .complete.entry.id = function(id) {
 ################################################################
 
 KeggConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-	return(paste(.self$getWsUrl(), 'get/', .self$.complete.entry.id(id), sep = ''))
+	return(paste(.self$getUrl('ws.url'), 'get/', .self$.complete.entry.id(id), sep = ''))
 })
 
 # Get entry page url {{{1
@@ -76,7 +76,7 @@ KeggConn$methods( getEntryPageUrl = function(id) {
 KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Get IDs
-	ids <- .self$getBiodb()$getRequestScheduler()$getUrl(paste(.self$getWsUrl(), 'list/', .self$.db.name, sep = ''))
+	ids <- .self$getBiodb()$getRequestScheduler()$getUrl(paste(.self$getUrl('ws.url'), 'list/', .self$.db.name, sep = ''))
 
 	# Extract IDs
 	ids <- strsplit(ids, "\n")[[1]]
@@ -96,7 +96,7 @@ KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 KeggConn$methods( ws.find = function(query) {
 	":\n\nSearch for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
-	url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', query, sep = '')
+	url <- paste(.self$getUrl('ws.url'), 'find/', .self$.db.name, '/', query, sep = '')
 
 	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 

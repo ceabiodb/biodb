@@ -37,18 +37,18 @@ test.kegg.compound.ws.find.exact.mass <- function(db) {
 	expect_true(nrow(df) > 1)
 
 	# Test data frame
-	df.2 <- db$ws.find.exact.mass.df(mass = 174.05)
+	df.2 <- db$ws.find.exact.mass(mass = 174.05, retfmt = 'parsed')
 	expect_true(identical(df, df.2))
 
 	# Test IDs
-	ids <- db$ws.find.exact.mass.ids(mass = 174.05)
+	ids <- db$ws.find.exact.mass(mass = 174.05, retfmt = 'ids')
 	expect_true( ! is.null(ids))
 	expect_true( all(! is.na(ids)))
 	expect_true(is.character(ids))
 	expect_true(identical(df[[1]], ids))
 
 	# Test mass range
-	ids <- db$ws.find.exact.mass.ids(mass.min = 174, mass.max = 174.35)
+	ids <- db$ws.find.exact.mass(mass.min = 174, mass.max = 174.35, retfmt = 'ids')
 	expect_true( ! is.null(ids))
 	expect_true( all(! is.na(ids)))
 	expect_true(is.character(ids))
@@ -70,18 +70,18 @@ test.kegg.compound.ws.find.molecular.weight <- function(db) {
 	expect_true(nrow(df) > 1)
 
 	# Test data frame
-	df.2 <- db$ws.find.molecular.weight.df(mass = 300)
+	df.2 <- db$ws.find.molecular.weight(mass = 300, retfmt = 'parsed')
 	expect_true(identical(df, df.2))
 
 	# Test IDs
-	ids <- db$ws.find.molecular.weight.ids(mass = 300)
+	ids <- db$ws.find.molecular.weight(mass = 300, retfmt = 'ids')
 	expect_true( ! is.null(ids))
 	expect_true( all(! is.na(ids)))
 	expect_true(is.character(ids))
 	expect_true(identical(df[[1]], ids))
 
 	# Test mass range
-	ids <- db$ws.find.molecular.weight.ids(mass.min = 300, mass.max = 310)
+	ids <- db$ws.find.molecular.weight(mass.min = 300, mass.max = 310, retfmt = 'ids')
 	expect_true( ! is.null(ids))
 	expect_true( all(! is.na(ids)))
 	expect_true(is.character(ids))
