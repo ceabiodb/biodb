@@ -4,15 +4,15 @@
 ################################################################
 
 .BIODB.UNIPROT.PARSING.EXPR <- list(
-	'name'              = "/ns:uniprot/ns:entry/ns:name",
-	'gene.symbols'      = "//ns:gene/ns:name",
-	'sequence'          = "//ns:entry/ns:sequence",
-	'accession'         = "//ns:accession[1]",
-	'kegg.compound.id'  = list(path = "//ns:dbReference[@type='KEGG']", attr = 'id'),
-	'ncbi.gene.id'      = list(path = "//ns:dbReference[@type='GeneID']", attr = 'id'),
-	'expasy.enzyme.id'  = list(path = "//ns:dbReference[@type='EC']", attr = 'id'),
-	'molecular.mass'    = list(path = "//ns:entry/ns:sequence", attr = 'mass'),
-	'length'            = list(path = "//ns:entry/ns:sequence", attr = 'length')
+	'name'              = "/uniprot:uniprot/uniprot:entry/uniprot:name",
+	'gene.symbols'      = "//uniprot:gene/uniprot:name",
+	'sequence'          = "//uniprot:entry/uniprot:sequence",
+	'accession'         = "//uniprot:accession[1]",
+	'kegg.compound.id'  = list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id'),
+	'ncbi.gene.id'      = list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id'),
+	'expasy.enzyme.id'  = list(path = "//uniprot:dbReference[@type='EC']", attr = 'id'),
+	'molecular.mass'    = list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass'),
+	'length'            = list(path = "//uniprot:entry/uniprot:sequence", attr = 'length')
 )
 
 # Class declaration {{{1

@@ -31,7 +31,7 @@ UniprotEntry$methods( .parseFieldsAfter = function(parsed.content) {
 		.self$setField('SEQUENCE', gsub("\\n", "", .self$getFieldValue('SEQUENCE')))
 
 	# Get synonyms
-	synonyms <- XML::xpathSApply(parsed.content, "//ns:protein//ns:fullName", XML::xmlValue, namespaces = c(ns = .self$getParent()$getXmlNs()))
+	synonyms <- XML::xpathSApply(parsed.content, "//uniprot:protein//uniprot:fullName", XML::xmlValue, namespaces = .self$getParent()$getXmlNs())
 	if (length(synonyms) > 0)
 		.self$appendFieldValue('name', synonyms)
 })

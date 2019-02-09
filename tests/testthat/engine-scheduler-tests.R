@@ -125,6 +125,10 @@ test.BiodbUrl <- function(biodb) {
 	url <- BiodbUrl(url = 'https://www.somesite.fr/')
 	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/')
 
+	# With an unnamed parameter in a character vector
+	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c('rerun'))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?rerun')
+
 	# With a parameter in a character vector
 	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt'))
 	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')

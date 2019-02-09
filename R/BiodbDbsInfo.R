@@ -103,10 +103,10 @@ BiodbDbsInfo$methods( show = function() {
 ################################################################
 
 BiodbDbsInfo$methods( .initDbsInfo = function() {
-	.self$.define('chebi',                  name = 'ChEBI',         scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = 'https://www.ebi.ac.uk/chebi/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/'), xml.ns = "https://www.ebi.ac.uk/webservices/chebi", properties = list(entry.content.encoding = 'UTF-8'))
-	.self$.define('chemspider',             name = 'ChemSpider',    scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = "http://www.chemspider.com/", ws.url = "https://api.rsc.org/compounds/v1/"), xml.ns = "http://www.chemspider.com/")
+	.self$.define('chebi',                  name = 'ChEBI',         scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = 'https://www.ebi.ac.uk/chebi/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/'), xml.ns = c(chebi = "https://www.ebi.ac.uk/webservices/chebi", xsd = "http://www.w3.org/2001/XMLSchema"), properties = list(entry.content.encoding = 'UTF-8'))
+	.self$.define('chemspider',             name = 'ChemSpider',    scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = "http://www.chemspider.com/", ws.url = "https://api.rsc.org/compounds/v1/"))
 	.self$.define('expasy.enzyme',          name = 'ExPASy ENZYME', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = "https://enzyme.expasy.org/"))
-	.self$.define('hmdb.metabolites',       name = 'HMDB Metabolites', scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = "http://www.hmdb.ca/"),       xml.ns = 'http://www.hmdb.ca')
+	.self$.define('hmdb.metabolites',       name = 'HMDB Metabolites', scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = "http://www.hmdb.ca/"))
 	.self$.define('kegg.compound',          name = 'KEGG Compound', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/'))
 	.self$.define('lipidmaps.structure',    name = 'LIPID MAPS Structure', scheduler.n = 1, scheduler.t = 20, entry.content.type = 'csv', urls = c(base.url = 'http://www.lipidmaps.org/data/')) # About access frequency, see http://www.lipidmaps.org/data/structure/programmaticaccess.html
 	.self$.define('mass.csv.file',          name = 'Mass CSV File',                  entry.content.type = 'tsv', urls = character())
@@ -118,7 +118,7 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 	.self$.define('ncbi.pubchem.subst',     name = 'PubChem Substance', scheduler.n = 5, entry.content.type = 'xml', urls = c(base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/')) # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
 	.self$.define('peakforest.mass',        name = 'PeakForest Mass', scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = 'https://metabohub.peakforest.org/rest/'))
 	.self$.define('peakforest.compound',    name = 'PeakForest Compound', scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = 'https://metabohub.peakforest.org/rest/'))
-	.self$.define('uniprot',                name = 'UniProt',                  entry.content.type = 'xml', urls = c(base.url = 'https://www.uniprot.org/uniprot/'), xml.ns = "http://uniprot.org/uniprot")
+	.self$.define('uniprot',                name = 'UniProt',                  entry.content.type = 'xml', urls = c(base.url = 'https://www.uniprot.org/uniprot/'), xml.ns = c(uniprot = "http://uniprot.org/uniprot"))
 })
 
 # Define {{{2
