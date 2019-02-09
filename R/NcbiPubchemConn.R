@@ -27,9 +27,9 @@ NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag,
 NcbiPubchemConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	if (concatenate)
-		url <- paste0(file.path(.self$getWsUrl(), .self$.db.name, fsep = '/'), '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML')
+		url <- paste0(file.path(.self$getUrl('ws.url'), .self$.db.name, fsep = '/'), '/', .self$.id.urlfield, '/', paste(id, collapse = ','), '/XML')
 	else
-		url <- paste0(file.path(.self$getWsUrl(), .self$.db.name, fsep = '/'),'/', .self$.id.urlfield, '/', id, '/XML')
+		url <- paste0(file.path(.self$getUrl('ws.url'), .self$.db.name, fsep = '/'),'/', .self$.id.urlfield, '/', id, '/XML')
 
 	return(url)
 })
