@@ -425,8 +425,6 @@ run.mass.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'MassdbConn')) {
 
-			set.test.context(db$getBiodb(), paste("Running MS generic tests on database", db$getName(), "in", mode, "mode"))
-
 			test.that("M/Z tolerance values are converted correctly to M/Z range.", 'test.convertMzTolToRange', conn = db)
 
 			test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', conn = db)

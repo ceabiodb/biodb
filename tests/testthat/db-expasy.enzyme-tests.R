@@ -5,7 +5,7 @@
 
 test.ws.enzymeByName <- function(db) {
 
-	ids <- db$ws.enzymeByName("Alcohol", biodb.ids = TRUE)
+	ids <- db$ws.enzymeByName("Alcohol", retfmt = 'ids')
 
 	expect_gt(length(ids), 0)
 	expect_equal(length(grep('^[0-9.]*$', ids)), length(ids))
@@ -16,7 +16,7 @@ test.ws.enzymeByName <- function(db) {
 
 test.ws.enzymeByComment <- function(db) {
 
-	ids <- db$ws.enzymeByComment("best", biodb.ids = TRUE)
+	ids <- db$ws.enzymeByComment("best", retfmt = 'ids')
 
 	expect_gt(length(ids), 0)
 	expect_equal(length(grep('^[0-9.]*$', ids)), length(ids))

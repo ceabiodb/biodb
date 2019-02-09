@@ -253,8 +253,6 @@ test.entry.image.url.download <- function(db) {
 
 run.db.generic.tests <- function(conn, mode) {
 
-	set.test.context(conn$getBiodb(), paste("Running generic tests on database", conn$getName(), "in", mode, "mode"))
-
 	test.that("Wrong entry gives NULL", 'test.wrong.entry', conn = conn)
 	test.that("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', conn = conn)
 	test.that("Entry fields have a correct value", 'test.entry.fields', conn = conn)
