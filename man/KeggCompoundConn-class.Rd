@@ -28,30 +28,14 @@ Get the URL to a picture of the entry (e.g.: a picture of the molecule in case o
 Search for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)}
 
 \item{\code{ws.find.exact.mass(mass = NA_real_, mass.min = NA_real_,
-  mass.max = NA_real_)}}{:
+  mass.max = NA_real_, retfmt = c("plain", "request", "parsed", "ids"))}}{:
 
 Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
 
-\item{\code{ws.find.exact.mass.df(...)}}{:
-
-Calls ws.find.exact.mass() and returns a data frame.}
-
-\item{\code{ws.find.exact.mass.ids(...)}}{:
-
-Calls ws.find.exact.mass() but only for getting IDs. Returns the IDs as a character vector.}
-
 \item{\code{ws.find.molecular.weight(mass = NA_real_, mass.min = NA_real_,
-  mass.max = NA_real_)}}{:
+  mass.max = NA_real_, retfmt = c("plain", "request", "parsed", "ids"))}}{:
 
 Search for entries by molecular mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
-
-\item{\code{ws.find.molecular.weight.df(...)}}{:
-
-Calls ws.find.molecular.weight() and returns a data frame.}
-
-\item{\code{ws.find.molecular.weight.ids(...)}}{:
-
-Calls ws.find.molecular.weight() but only for getting IDs. Returns the IDs as a character vector.}
 }}
 
 \examples{
@@ -62,10 +46,10 @@ mybiodb <- biodb::Biodb()
 conn <- mybiodb$getFactory()$createConn('kegg.compound')
 
 # Search for compounds by exact mass
-conn$ws.find.exact.mass.df(mass = 174.05)
+conn$ws.find.exact.mass(mass = 174.05, retfmt = 'parsed')
 
 # Search for compounds by molecular weight 
-conn$ws.find.molecular.weight.df(mass = 300)
+conn$ws.find.molecular.weight(mass = 300, retfmt = 'parsed')
 
 # Terminate instance.
 mybiodb$terminate()

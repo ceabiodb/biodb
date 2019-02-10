@@ -19,7 +19,7 @@
 #' conn <- mybiodb$getFactory()$createConn('kegg.compound')
 #' 
 #' # Search for an entry
-#' conn$ws.find.df('NADPH')
+#' conn$ws.find('NADPH', retfmt = 'parsed')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -59,16 +59,41 @@ KeggConn$methods( .complete.entry.id = function(id) {
 ################################################################
 
 KeggConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-	return(paste(.self$getWsUrl(), 'get/', .self$.complete.entry.id(id), sep = ''))
+	return(BiodbUrl(url = c(.self$getUrl('ws.url'), 'get', .self$.complete.entry.id(id)))$toString())
 })
 
 # Get entry page url {{{1
 ################################################################
 
 KeggConn$methods( getEntryPageUrl = function(id) {
-	return(paste('https://www.genome.jp/dbget-bin/www_bget?', .self$.complete.entry.id(id), sep = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('entry.page.url'), 'www_bget'), params = .self$.complete.entry.id(id))$toString(), FUN.VALUE = ''))
 })
 
+# Web service list {{{1
+################################################################
+
+KeggConn$methods( ws.list = function(retfmt = c('plain', 'request', 'ids')) {
+	":\n\nGet lis of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
+
+	retfmt = match.arg(retfmt)
+
+	# Build request
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'list', .self$.db.name))
+	request <- BiodbRequest(url = url)
+	if (retfmt == 'request')
+		return(request)
+
+	# Send request
+	results = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+
+	# Extract IDs
+	if (retfmt == 'ids') {
+		results <- strsplit(results, "\n")[[1]]
+		results <- sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', results, perl = TRUE)
+	}
+
+	return(results)
+})
 
 # Get entry ids {{{1
 ################################################################
@@ -76,12 +101,7 @@ KeggConn$methods( getEntryPageUrl = function(id) {
 KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Get IDs
-	ids <- .self$getBiodb()$getRequestScheduler()$getUrl(paste(.self$getWsUrl(), 'list/', .self$.db.name, sep = ''))
-
-	# Extract IDs
-	ids <- strsplit(ids, "\n")[[1]]
-	#ids <- sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', ids, perl = TRUE)
-	ids <- sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', ids, perl = TRUE)
+	ids <- .self$ws.list(retfmt = 'ids')
 
 	# Cut results
 	if ( ! is.na(max.results) && max.results > 0)
@@ -93,38 +113,32 @@ KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 # Web service find {{{1
 ################################################################
 
-KeggConn$methods( ws.find = function(query) {
+KeggConn$methods( ws.find = function(query, retfmt = c('plain', 'request', 'parsed', 'ids')) {
 	":\n\nSearch for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
-	url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', query, sep = '')
+	retfmt = match.arg(retfmt)
 
-	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
+	# Build request
+	url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, query))
+	request <- BiodbRequest(url = url)
+	if (retfmt == 'request')
+		return(request)
 
-	return(result)
-})
+	# Send request
+	results = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-# Web service find DF {{{1
-################################################################
+	# Parse
+	if (retfmt != 'plain') {
 
-KeggConn$methods( ws.find.df = function(...) {
-	":\n\nCalls ws.find() and returns a data frame."
+		# Parse data frame
+		readtc <- textConnection(results, "r", local = TRUE)
+		df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+		close(readtc)
+		results <- df
 
-	results <- .self$ws.find(...)
+		if (retfmt == 'ids')
+			results <- results[[1]]
+	}
 
-	readtc <- textConnection(results, "r", local = TRUE)
-	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
-	close(readtc)
-
-	return(df)
-})
-
-# Web service find IDs {{{1
-################################################################
-
-KeggConn$methods( ws.find.ids = function(...) {
-	":\n\nCalls ws.find() but only for getting IDs. Returns the IDs as a character vector."
-
-	df <- .self$ws.find.df(...)
-
-	return(df[[1]])
+	return(results)
 })

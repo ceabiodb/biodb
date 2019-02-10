@@ -3,12 +3,20 @@
 # Global variables {{{1
 ################################################################
 
+# Set cache folder
 ifndef BIODB_CACHE_DIRECTORY
 export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 endif
+
+# Set reporter
 ifndef TESTTHAT_REPORTER
+ifdef VIM
+TESTTHAT_REPORTER=summary
+else
 TESTTHAT_REPORTER=progress
 endif
+endif
+
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
 ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz

@@ -164,15 +164,15 @@ test.searchMzTol.multiple.mz <- function(db) {
 	# Get M/Z values from database
 	mode <- 'pos'
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
-	expect_true(is.double(mzs))
-	expect_true(length(mzs) >= 1)
+	testthat::expect_is(mzs, 'numeric')
+	testthat::expect_true(length(mzs) >= 1)
 
 	# Search one M/Z at a time
 	all.ids <- character(0)
 	for (mz in mzs) {
 		ids <- db$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
-		expect_true(is.character(ids))
-		expect_true(length(ids) > 0)
+		testthat::expect_is(ids, 'character')
+		testthat::expect_true(length(ids) > 0)
 		all.ids <- c(all.ids, ids)
 	}
 	all.ids <- all.ids[ ! duplicated(all.ids)]
@@ -181,7 +181,7 @@ test.searchMzTol.multiple.mz <- function(db) {
 	all.ids.2 <- db$searchMzTol(mz = mzs, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
 
 	# List of IDs must be the same
-	expect_true(all(all.ids.2 %in% all.ids))
+	testthat::expect_true(all(all.ids.2 %in% all.ids))
 }
 
 # Test searchMzTol() with precursor {{{1
@@ -424,8 +424,6 @@ test.convertMzTolToRange <- function(db) {
 run.mass.db.tests <- function(db, mode) {
 	if ( ! methods::is(db, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
 		if (methods::is(db, 'MassdbConn')) {
-
-			set.test.context(db$getBiodb(), paste("Running MS generic tests on database", db$getName(), "in", mode, "mode"))
 
 			test.that("M/Z tolerance values are converted correctly to M/Z range.", 'test.convertMzTolToRange', conn = db)
 

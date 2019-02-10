@@ -1,7 +1,5 @@
 # vi: fdm=marker
 
-context('Starting engine tests.')
-
 source('common.R')
 
 source('engine-abstract-tests.R')

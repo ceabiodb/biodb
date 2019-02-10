@@ -32,10 +32,10 @@
 #' conn <- mybiodb$getFactory()$createConn('kegg.compound')
 #'
 #' # Search for compounds by exact mass
-#' conn$ws.find.exact.mass.df(mass = 174.05)
+#' conn$ws.find.exact.mass(mass = 174.05, retfmt = 'parsed')
 #'
 #' # Search for compounds by molecular weight 
-#' conn$ws.find.molecular.weight.df(mass = 300)
+#' conn$ws.find.molecular.weight(mass = 300, retfmt = 'parsed')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -56,89 +56,79 @@ KeggCompoundConn$methods( initialize = function(...) {
 # Web service find exact mass {{{1
 ################################################################
 
-KeggCompoundConn$methods( ws.find.exact.mass = function(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_) {
+KeggCompoundConn$methods( ws.find.exact.mass = function(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_, retfmt = c('plain', 'request', 'parsed', 'ids')) {
 	":\n\nSearch for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
+	retfmt = match.arg(retfmt)
+
+	# Build request
 	if ( ! is.na(mass))
-		url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', mass, '/exact_mass', sep ='')
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, mass, 'exact_mass'))$toString()
 	else if ( ! is.na(mass.min) && ! is.na(mass.max))
-		url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', mass.min, '-', mass.max, '/exact_mass', sep = '')
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, paste(mass.min, mass.max, sep = '-'), 'exact_mass'))$toString()
 	else
 		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = url))
+	if (retfmt == 'request')
+		return(request)
 
-	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
+	# Send request
+	results = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	return(result)
-})
+	# Parse results
+	if (retfmt != 'plain') {
 
-# Web service find exact mass DF {{{1
-################################################################
+		# Parse
+		readtc = textConnection(results, "r", local = TRUE)
+		df = read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+		close(readtc)
+		results = df
 
-KeggCompoundConn$methods( ws.find.exact.mass.df = function(...) {
-	":\n\nCalls ws.find.exact.mass() and returns a data frame."
+		# Get IDs
+		if (retfmt == 'ids')
+			results = df[[1]]
+	}
 
-	results <- .self$ws.find.exact.mass(...)
-
-	readtc <- textConnection(results, "r", local = TRUE)
-	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
-	close(readtc)
-
-	return(df)
-})
-
-# Web service find exact mass IDs {{{1
-################################################################
-
-KeggCompoundConn$methods( ws.find.exact.mass.ids = function(...) {
-	":\n\nCalls ws.find.exact.mass() but only for getting IDs. Returns the IDs as a character vector."
-
-	df <- .self$ws.find.exact.mass.df(...)
-
-	return(df[[1]])
+	return(results)
 })
 
 # Web service find molecural weight {{{1
 ################################################################
 
-KeggCompoundConn$methods( ws.find.molecular.weight = function(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_) {
+KeggCompoundConn$methods( ws.find.molecular.weight = function(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_, retfmt = c('plain', 'request', 'parsed', 'ids')) {
 	":\n\nSearch for entries by molecular mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
+	retfmt = match.arg(retfmt)
+
+	# Build request
 	if ( ! is.na(mass))
-		url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', mass, '/mol_weight', sep ='')
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, mass, 'mol_weight'))$toString()
 	else if ( ! is.na(mass.min) && ! is.na(mass.max))
-		url <- paste(.self$getWsUrl(), 'find/', .self$.db.name, '/', mass.min, '-', mass.max, '/mol_weight', sep = '')
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, paste(mass.min, mass.max, sep = '-'), 'mol_weight'))$toString()
 	else
 		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = url))
+	if (retfmt == 'request')
+		return(request)
 
-	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
+	# Send request
+	results = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	return(result)
-})
+	# Parse results
+	if (retfmt != 'plain') {
 
-# Web service find molecular weight DF {{{1
-################################################################
+		# Parse
+		readtc = textConnection(results, "r", local = TRUE)
+		df = read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+		close(readtc)
+		results = df
 
-KeggCompoundConn$methods( ws.find.molecular.weight.df = function(...) {
-	":\n\nCalls ws.find.molecular.weight() and returns a data frame."
+		# Get IDs
+		if (retfmt == 'ids')
+			results = df[[1]]
+	}
 
-	results <- .self$ws.find.molecular.weight(...)
-
-	readtc <- textConnection(results, "r", local = TRUE)
-	df <- read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
-	close(readtc)
-
-	return(df)
-})
-
-# Web service find molecular weight IDs {{{1
-################################################################
-
-KeggCompoundConn$methods( ws.find.molecular.weight.ids = function(...) {
-	":\n\nCalls ws.find.molecular.weight() but only for getting IDs. Returns the IDs as a character vector."
-
-	df <- .self$ws.find.molecular.weight.df(...)
-
-	return(df[[1]])
+	return(results)
 })
 
 # Search compound {{{1
@@ -152,7 +142,7 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 
 	# Search by name
 	if ( ! is.null(name) && ! is.na(name)) {
-		ids <- .self$ws.find.ids(name)
+		ids <- .self$ws.find(name, retfmt = 'ids')
 		ids <- sub('^cpd:', '', ids)
 	}
 
@@ -175,9 +165,9 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 			}
 
 			if (mass.field == 'monoisotopic.mass')
-				mass.ids <- .self$ws.find.exact.mass.ids(mass.min = mass.min, mass.max = mass.max)
+				mass.ids = .self$ws.find.exact.mass(mass.min = mass.min, mass.max = mass.max, retfmt = 'ids')
 			else
-				mass.ids <- .self$ws.find.molecular.weight.ids(mass.min = mass.min, mass.max = mass.max)
+				mass.ids = .self$ws.find.molecular.weight(mass.min = mass.min, mass.max = mass.max, retfmt = 'ids')
 			.self$message('debug', paste('Got entry IDs ', paste(mass.ids, collapse = ', '), '.')) 
 			if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
 				mass.ids <- sub('^cpd:', '', mass.ids)
@@ -200,7 +190,7 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 ################################################################
 
 KeggCompoundConn$methods( getEntryImageUrl = function(id) {
-	return(paste(.self$getUrl('base.url'), 'Fig/compound/', id, '.gif', sep = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'Fig', 'compound', paste(x, 'gif', sep = '.')))$toString(), FUN.VALUE = ''))
 })
 
 # Private methods {{{1

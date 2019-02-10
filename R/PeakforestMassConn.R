@@ -46,12 +46,12 @@ PeakforestMassConn$methods( .doGetEntryContentRequest = function(id, concatenate
 
 	# IDs are unique between LCMS and LCMSMS. Hence no confusion possible, and ID used in LCMS is not used in LCMSMS.
 	if (concatenate) {
-		url <- paste(.self$getUrl('base.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
-		url <- c(url, paste(.self$getUrl('base.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
+		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
+		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
 	}
 	else {
-		url <- paste(.self$getUrl('base.url'), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
-		url <- c(url, paste(.self$getUrl('base.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getToken(), sep = ''))
+		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
+		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getToken(), sep = ''))
 	}
 
 	return(url)
@@ -61,7 +61,7 @@ PeakforestMassConn$methods( .doGetEntryContentRequest = function(id, concatenate
 ################################################################
 
 PeakforestMassConn$methods( getEntryPageUrl = function(id) {
-	return(paste('https://metabohub.peakforest.org/webapp/home?PFs=', id))
+	return(vapply(id, function(x) BiodbUrl(url = .self$getUrl('base.url'), params = list(PFs = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -71,126 +71,108 @@ PeakforestMassConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
 
-# Create reduced entry {{{1
+# Peaks get range {{{2
 ################################################################
 
-PeakforestMassConn$methods( createReducedEntry = function(content , drop = TRUE){
-	entries <- vector(length(content), mode = "list")
-	jsonfields <- character()
-	
-	###Checking that it's a list.
-	if (length(content) == 1) {
-		if (startsWith(content[[1]], "<html>")) {
-			return(NULL)
-		} else{
-			content <- jsonlite::fromJSON(content[[1]], simplifyDataFrame=FALSE)
-			
-		}
+PeakforestMassConn$methods( ws.peaks.get.range = function(type = c('lcms', 'lcmsms'), mz.min, mz.max, mode = NA_character_, retfmt = c('plain', 'request', 'parsed', 'ids')) {
+
+	type = match.arg(type)
+	retfmt = match.arg(retfmt)
+
+	results = character()
+
+	if ( ! is.null(mz.min) && ! is.null(mz.max) && ! is.na(mz.min) && ! is.na(mz.max)) {
+
+		# Build request
+		params = c(token = .self$getToken())
+		if ( ! is.na(mode))
+			params = c(params, mode = mode)
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), "spectra", type, "peaks", "get-range", mz.min, mz.max), params = params)
+		request = BiodbRequest(method = 'get', url = url)
+		if (retfmt == 'request')
+			return(request)
+
+		# Send request
+		results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+
+		# Parse
+		results <- .self$.parseResults(results, retfmt = retfmt)
 	}
-	if(length(content)==0){
-		return(list())
-	}
-	
-	for (i in seq_along(content)) {
-		single.content <- content[[i]]
-		jsontree <- NULL
-		if (typeof(single.content) == "character") {
-			if (startsWith(single.content, "<html>") | single.content == "null") {
-				entries[[i]] <- NULL
-				next
-			}
-			jsontree <- jsonlite::fromJSON(single.content, simplifyDataFrame=FALSE)
-		} else{
-			jsontree <- content
-		}
-		
-		
-		cnames <-
-			c(
-				'PEAK.MZ',
-				'PEAK.RELATIVE.INTENSITY',
-				'PEAK.FORMULA',
-				'PEAK.MZTHEO',
-				'PEAK.ERROR.PPM'
-			)
-		
-		entry <- BiodbEntry$new(parent = .self)
-		entry$setField('ACCESSION', jsontree$id)
-		
-		######################
-		# TREATING THE PEAKS #
-		######################
-		
-		entry$setField('NB.PEAKS', length(jsontree$peaks))
-		peaks <- data.frame(matrix(0, ncol = length(cnames), nrow = 0))
-		colnames(peaks) <- cnames
-		###Parsing peaks.
-		if (length(jsontree$peaks) != 0) {
-			peaks <- sapply(jsontree$peaks, function(x) {
-				return(
-					list(
-						as.double(x$mz),
-						as.integer(x$ri),
-						as.character(x$composition),
-						as.double(x$theoricalMass),
-						as.double(x$deltaPPM)
-					)
-				)
-			})
-			###Removing all whitespaces from the formule.
-			peaks[3, ] <- vapply(peaks[3, ], function(x) {
-				gsub(" ", "", trimws(x))
-			}, FUN.VALUE = NA_character_)
-			
-			peaks <- as.data.frame(t(peaks))
-			colnames(peaks) <- cnames
-		}
-		entry$setField('PEAKS', peaks)
-		
-		entries[[i]] <- entry
-	}
-	
-	if (drop && length(content) == 1)
-		entries <- entries[[1]]
-	
-	return(entries)
-})
 
-# Webservice lcms/peaks/get-range {{{1
-################################################################
-
-PeakforestMassConn$methods( wsLcmsPeaksGetRange = function(mz.min, mz.max, mode = NA_character_, biodb.ids = FALSE) {
-	return(.self$.peaksGetRange('lcms', mz.min = mz.min, mz.max = mz.max, mode = mode, biodb.ids = biodb.ids))
-})
-
-# Webservice lcmsms/peaks/get-range {{{1
-################################################################
-
-PeakforestMassConn$methods( wsLcmsmsPeaksGetRange = function(mz.min, mz.max, mode = NA_character_, biodb.ids = FALSE) {
-	return(.self$.peaksGetRange('lcmsms', mz.min = mz.min, mz.max = mz.max, mode = mode, biodb.ids = biodb.ids))
+	return(results)
 })
 
 # Webservice lcmsms/from-precursor
 ################################################################
 
-PeakforestMassConn$methods( wsLcmsmsFromPrecursor = function(prec.mz, precursorMassDelta, mode = NA_character_, biodb.ids = FALSE) {
+PeakforestMassConn$methods( ws.lcmsms.from.precursor = function(prec.mz, precursorMassDelta, mode = NA_character_, retfmt = c('plain', 'request', 'parsed', 'ids')) {
+
+	retfmt = match.arg(retfmt)
 
 	results <- character()
 
 	if ( ! is.null(prec.mz) && ! is.na(prec.mz)) {
 
 		# Build request
-		url <- paste0(.self$getUrl('base.url'), "spectra/lcmsms/from-precursor/", prec.mz)
-		param <- c(token = .self$getToken(), precursorMassDelta = precursorMassDelta)
+		params <- c(token = .self$getToken(), precursorMassDelta = precursorMassDelta)
 		if ( ! is.na(mode))
-			param <- c(param, mode = mode)
+			params <- c(params, mode = mode)
+		url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'spectra', 'lcmsms', 'from-precursor', prec.mz), params = params)
+		request = BiodbRequest(method = 'get', url = url)
+		if (retfmt == 'request')
+			return(request)
 
 		# Send request
-		results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, param = param)
+		results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-		# Parse IDs
-		if (biodb.ids)
-			results <- .self$.parseIDsFromJson(results)
+		# Parse
+		results <- .self$.parseResults(results, retfmt = retfmt)
+	}
+
+	return(results)
+})
+
+# Web service list-code-columns {{{1
+################################################################
+
+PeakforestMassConn$methods( ws.list.code.columns = function(retfmt = c('plain', 'request', 'parsed', 'data.frame')) {
+
+	retfmt = match.arg(retfmt)
+
+	# Build request
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'metadata', 'lc', 'list-code-columns'), params = list(token = .self$getToken()))
+	request = BiodbRequest(method = 'get', url = url)
+	if (retfmt == 'request')
+		return(request)
+
+	# Send request
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+
+	# Parse
+	if (retfmt != 'plain') {
+
+		# Parse results
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+
+		# Build data frame
+		if (retfmt == 'data.frame') {
+			cols <- data.frame(id = character(), title = character())
+			for(id in names(results)) {
+				col <- results[[id]]
+
+				# Make title
+				title <- ""
+				col.fields = list(constructor = '', name = '', length = 'L', diameter = 'diam', flow_rate = 'FR', particule_size = 'PS')
+				for (field in names(col.fields))
+					if (field %in% names(col))
+						title <- if (nchar(title) == 0) paste(col.fields[[field]], col[[field]]) else paste(title, col.fields[[field]], col[[field]])
+
+				# Add col to data frame
+				cols <- rbind(cols, data.frame(id = id, title = title, stringsAsFactors = FALSE))
+			}
+			.self$message('debug', paste('Found', nrow(cols), 'chromatographic columns.'))
+			results = cols
+		}
 	}
 
 	return(results)
@@ -201,29 +183,7 @@ PeakforestMassConn$methods( wsLcmsmsFromPrecursor = function(prec.mz, precursorM
 
 PeakforestMassConn$methods( getChromCol = function(ids = NULL) {
 
-	# Set URL
-	url <- paste(.self$getUrl('base.url'), 'metadata/lc/list-code-columns?token=', .self$getToken(), sep = '')
-
-	# Send request
-	json.str <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
-	wscols <- jsonlite::fromJSON(json.str, simplifyDataFrame = FALSE)
-
-	# Build data frame
-	cols <- data.frame(id = character(), title = character())
-	for(id in names(wscols)) {
-		col <- wscols[[id]]
-
-		# Make title
-		title <- ""
-		col.fields = list(constructor = '', name = '', length = 'L', diameter = 'diam', flow_rate = 'FR', particule_size = 'PS')
-		for (field in names(col.fields))
-			if (field %in% names(col))
-				title <- if (nchar(title) == 0) paste(col.fields[[field]], col[[field]]) else paste(title, col.fields[[field]], col[[field]])
-
-		# Add col to data frame
-		cols <- rbind(cols, data.frame(id = id, title = title, stringsAsFactors = FALSE))
-	}
-	.self$message('debug', paste('Found', nrow(cols), 'chromatographic columns.'))
+	cols <- .self$ws.list.code.columns(retfmt = 'data.frame')
 
 	# Restrict to set of spectra
 	if ( ! is.null(ids)) {
@@ -278,7 +238,7 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 
 	else {
 		# Set URL
-		url <- paste(.self$getUrl('base.url'), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
+		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
 		if ( ! is.na(ms.mode))
 			url <- paste(url, '&mode=', if (ms.mode == 'pos') 'positive' else 'negative', sep ='')
 
@@ -300,49 +260,31 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 # Parse IDs from JSON {{{2
 ################################################################
 
-PeakforestMassConn$methods( .parseIDsFromJson = function(json, json.is.parsed = FALSE) {
+PeakforestMassConn$methods( .parseResults = function(results, retfmt) {
 
-	ids <- NULL
+	if (retfmt != 'plain') {
 
-	if ( ! json.is.parsed)
-		json <- jsonlite::fromJSON(json, simplifyDataFrame = FALSE)
+		# Parse
+		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
 
-	if(length(json) > 0) {
+		if(retfmt == 'ids') {
 
-		ids <- vapply(json, function(x) if ('id' %in% names(x)) x$id else (if ('source' %in% names(x) && ! is.null(x$source) && 'id' %in% names(x$source)) x$source$id else NA_integer_), FUN.VALUE = 1)
-		ids <- ids[ ! is.na(ids)] # Remove NA values (some returned matches have no source information).
-		ids <- unlist(ids)
-		ids <- as.character(ids)
-	}
+			if (length(results) == 0)
+				results = character()
 
-	return(ids)
-})
-
-# Peaks get range {{{2
-################################################################
-
-PeakforestMassConn$methods( .peaksGetRange = function(spectra.type, mz.min, mz.max, mode = NA_character_, biodb.ids = FALSE) {
-	                           
-	results <- character()
-
-	if ( ! is.null(mz.min) && ! is.null(mz.max) && ! is.na(mz.min) && ! is.na(mz.max)) {
-
-		# Build request
-		url <- paste0(.self$getUrl('base.url'), "spectra/", spectra.type, "/peaks/get-range/", mz.min, "/", mz.max)
-		param <- c(token = .self$getToken())
-		if ( ! is.na(mode))
-			param <- c(param, mode = mode)
-
-		# Send request
-		results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, param = param)
-
-		# Parse IDs
-		if (biodb.ids)
-			results <- .self$.parseIDsFromJson(results)
+			# Extract IDs
+			else {
+				ids <- vapply(results, function(x) if ('id' %in% names(x)) x$id else (if ('source' %in% names(x) && ! is.null(x$source) && 'id' %in% names(x$source)) x$source$id else NA_integer_), FUN.VALUE = 1)
+				ids <- ids[ ! is.na(ids)] # Remove NA values (some returned matches have no source information).
+				ids <- unlist(ids)
+				results <- as.character(ids)
+			}
+		}
 	}
 
 	return(results)
 })
+
 
 # Get parsing expressions {{{2
 ################################################################
@@ -369,12 +311,12 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 	else {
 		mode <- if ( ! is.na(ms.mode)) (if (ms.mode == 'neg') 'NEG' else 'POS') else NA_character_
 		if (ms.level == 0 || ms.level == 1)
-			ids <- .self$wsLcmsPeaksGetRange(mz.min, mz.max, mode = mode, biodb.ids = TRUE)
+			ids <- .self$ws.peaks.get.range('lcms', mz.min, mz.max, mode = mode, retfmt = 'ids')
 		if (ms.level == 0 || ms.level == 2) {
 			if (precursor)
-				ids <- c(ids, .self$wsLcmsmsFromPrecursor((mz.min + mz.max) / 2, (mz.max - mz.min) / 2, mode = mode, biodb.ids = TRUE))
+				ids <- c(ids, .self$ws.lcmsms.from.precursor((mz.min + mz.max) / 2, (mz.max - mz.min) / 2, mode = mode, retfmt = 'ids'))
 			else
-				ids <- c(ids, .self$wsLcmsmsPeaksGetRange(mz.min, mz.max, mode = mode, biodb.ids = TRUE))
+				ids <- c(ids, .self$ws.peaks.get.range('lcmsms', mz.min, mz.max, mode = mode, retfmt = 'ids'))
 		}
 	}
 

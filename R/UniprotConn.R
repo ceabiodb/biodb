@@ -4,15 +4,15 @@
 ################################################################
 
 .BIODB.UNIPROT.PARSING.EXPR <- list(
-	'name'              = "/ns:uniprot/ns:entry/ns:name",
-	'gene.symbols'      = "//ns:gene/ns:name",
-	'sequence'          = "//ns:entry/ns:sequence",
-	'accession'         = "//ns:accession[1]",
-	'kegg.compound.id'  = list(path = "//ns:dbReference[@type='KEGG']", attr = 'id'),
-	'ncbi.gene.id'      = list(path = "//ns:dbReference[@type='GeneID']", attr = 'id'),
-	'expasy.enzyme.id'  = list(path = "//ns:dbReference[@type='EC']", attr = 'id'),
-	'molecular.mass'    = list(path = "//ns:entry/ns:sequence", attr = 'mass'),
-	'length'            = list(path = "//ns:entry/ns:sequence", attr = 'length')
+	'name'              = "/uniprot:uniprot/uniprot:entry/uniprot:name",
+	'gene.symbols'      = "//uniprot:gene/uniprot:name",
+	'sequence'          = "//uniprot:entry/uniprot:sequence",
+	'accession'         = "//uniprot:accession[1]",
+	'kegg.compound.id'  = list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id'),
+	'ncbi.gene.id'      = list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id'),
+	'expasy.enzyme.id'  = list(path = "//uniprot:dbReference[@type='EC']", attr = 'id'),
+	'molecular.mass'    = list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass'),
+	'length'            = list(path = "//uniprot:entry/uniprot:sequence", attr = 'length')
 )
 
 # Class declaration {{{1
@@ -82,7 +82,7 @@ UniprotConn$methods( ws.query = function(query = '', columns = NULL, format = NU
 	params <- list(query = query, columns = columns, format = format)
 	if ( ! is.null(limit) && ! is.na(limit))
 		params[['limit']] <- limit
-	url <- BiodbUrl(url = .self$getUrl('base.url'), params = params)
+	url <- BiodbUrl(url = c(.self$getUrl('base.url'), ''), params = params)
 	request <- BiodbRequest(method = 'get', url = url)
 
 	# Return request
@@ -133,7 +133,7 @@ UniprotConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE
 ################################################################
 
 UniprotConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getUrl('base.url'), id))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), id))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1

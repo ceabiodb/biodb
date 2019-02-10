@@ -13,12 +13,12 @@ test.peakforest.compound.ws.search <- function(db) {
 	expect_true(nchar(results) > 0)
 
 	# Get parsed JSON
-	results <- db$ws.search('acid', max = 2, biodb.parse = TRUE)
+	results <- db$ws.search('acid', max = 2, retfmt = 'parsed')
 	expect_is(results, 'list')
 	expect_length(results, 2)
 
 	# Get parsed JSON
-	results <- db$ws.search('acid', max = 2, biodb.ids = TRUE)
+	results <- db$ws.search('acid', max = 2, retfmt = 'ids')
 	expect_is(results, 'character')
 	expect_length(results, 2)
 }
@@ -30,7 +30,7 @@ test.peakforest.compound.ws.all.count <- function(db) {
 	results <- db$ws.all.count()
 	expect_is(results, 'character')
 	expect_length(results, 1)
-	results <- db$ws.all.count(biodb.parse = TRUE)
+	results <- db$ws.all.count(retfmt = 'parsed')
 	expect_is(results, 'integer')
 	expect_length(results, 1)
 	expect_gt(results, 0)
@@ -43,10 +43,10 @@ test.peakforest.compound.ws.all.ids <- function(db) {
 	results <- db$ws.all.ids()
 	expect_is(results, 'character')
 	expect_length(results, 1)
-	results <- db$ws.all.ids(biodb.parse = TRUE)
+	results <- db$ws.all.ids(retfmt = 'parsed')
 	expect_is(results, 'integer')
 	expect_true(length(results) > 0)
-	results <- db$ws.all.ids(biodb.ids = TRUE)
+	results <- db$ws.all.ids(retfmt = 'ids')
 	expect_is(results, 'character')
 	expect_true(length(results) > 0)
 }
