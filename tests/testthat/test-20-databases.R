@@ -1,7 +1,5 @@
 # vi: fdm=marker
 
-context('Starting database tests.')
-
 source('common.R')
 source('db-generic-tests.R')
 source('db-ms-tests.R')
@@ -38,14 +36,16 @@ for (db.name in biodb$getDbsInfo()$getIds()) {
 	connectors[[db.name]] <- conn
 }
 
-# Loop on test modes
-for (mode in TEST.MODES) {
+# Loop on test databases
+for (db.name in TEST.DATABASES) {
 
-	# Configure mode
-	set.mode(biodb, mode)
+	set.test.context(biodb, paste0("Test ", db.name, "."))
 
-	# Loop on test databases
-	for (db.name in TEST.DATABASES) {
+	# Loop on test modes
+	for (mode in TEST.MODES) {
+
+		# Configure mode
+		set.mode(biodb, mode)
 
 		# Get instance
 		conn <- connectors[[db.name]]
@@ -64,10 +64,8 @@ for (mode in TEST.MODES) {
 
 		# Specific tests
 		fct <- paste('run', db.name, 'tests', sep = '.')
-		if (exists(fct)) {
-			set.test.context(biodb, paste("Running specific tests on database", conn$getName(), "in", mode, "mode"))
+		if (exists(fct))
 			do.call(fct, list(conn, mode))
-		}
 	}
 }
 

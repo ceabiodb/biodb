@@ -78,7 +78,7 @@ NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, mass = NULL,
 
 	# Set retmax
 	if (is.na(max.results)) {
-		xml <- .self$ws.esearch(term = term, retmax = 0, biodb.parse = TRUE)
+		xml <- .self$ws.esearch(term = term, retmax = 0, retfmt = 'parsed')
 		retmax <- as.integer(XML::xpathSApply(xml, "/eSearchResult/Count", XML::xmlValue))
 		if (length(retmax) == 0)
 			retmax = NA_integer_
@@ -87,7 +87,7 @@ NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, mass = NULL,
 		retmax <- max.results
 
 	# Send request
-	ids <- .self$ws.esearch(term = term, retmax = retmax, biodb.ids = TRUE)
+	ids <- .self$ws.esearch(term = term, retmax = retmax, retfmt = 'ids')
 
 	return(ids)
 })

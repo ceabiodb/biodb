@@ -30,41 +30,45 @@ ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = c("Remot
 # Web service enzyme-byname {{{1
 ################################################################
 
-ExpasyEnzymeConn$methods( ws.enzymeByName = function(name, biodb.ids = FALSE) {
+ExpasyEnzymeConn$methods( ws.enzymeByName = function(name, retfmt = c('plain', 'request', 'parsed', 'ids')) {
 	":\n\nCalls enzyme-byname web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-byname.html."
 
+	retfmt = match.arg(retfmt)
+
+	# Build request
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('base.url'), "enzyme-byname.html"), params = name))
+	if (retfmt == 'request')
+		return(request)
+
 	# Send request
-	html.results <- .self$getBiodb()$getRequestScheduler()$getUrl(paste(.self$getUrl('base.url'), "enzyme-byname.html", sep = ''), params = name)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	# Parse biodb IDs
-	if (biodb.ids) {
+	# Parse HTML
+	results <- .self$.parseWsReturnedHtml(results = results, retfmt = retfmt)
 
-		ids <- .self$.parseWsReturnedHtml(html.results)
-
-		return(ids)
-	}
-
-	return(html.results)
+	return(results)
 })
 
 # Web service enzyme-bycomment {{{1
 ################################################################
 
-ExpasyEnzymeConn$methods( ws.enzymeByComment = function(comment, biodb.ids = FALSE) {
+ExpasyEnzymeConn$methods( ws.enzymeByComment = function(comment, retfmt = c('plain', 'request', 'parsed', 'ids')) {
 	":\n\nCalls enzyme-bycomment web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-bycomment.html."
 
+	retfmt = match.arg(retfmt)
+
+	# Build request
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('base.url'), "enzyme-bycomment.html"), params = comment))
+	if (retfmt == 'request')
+		return(request)
+
 	# Send request
-	html.results <- .self$getBiodb()$getRequestScheduler()$getUrl(paste(.self$getUrl('base.url'), "enzyme-bycomment.html", sep = ''), params = comment)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	# Parse biodb IDs
-	if (biodb.ids) {
+	# Parse HTML
+	results <- .self$.parseWsReturnedHtml(results = results, retfmt = retfmt)
 
-		ids <- .self$.parseWsReturnedHtml(html.results)
-
-		return(ids)
-	}
-
-	return(html.results)
+	return(results)
 })
 
 # Get entry ids {{{1
@@ -73,7 +77,7 @@ ExpasyEnzymeConn$methods( ws.enzymeByComment = function(comment, biodb.ids = FAL
 ExpasyEnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Send request
-	ids <- .self$ws.enzymeByComment('e', biodb.ids = TRUE)
+	ids <- .self$ws.enzymeByComment('e', retfmt = 'ids')
 
 	# Cut results
 	if ( ! is.na(max.results) && length(ids) > max.results)
@@ -93,7 +97,7 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 
 	# Search for name
 	if ( ! is.null(name))
-		ids <- .self$ws.enzymeByName(name, biodb.ids = TRUE)
+		ids <- .self$ws.enzymeByName(name, retfmt = 'ids')
 
 	# Search by mass
 	if ( ! is.null(mass.field))
@@ -106,7 +110,22 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 ################################################################
 
 ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getUrl('base.url'), 'cgi-bin/enzyme/enzyme-search-ec?', sub('^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$', 'field1=\\1&field2=\\2&field3=\\3&field4=\\4', id)))
+
+	urls = rep(NA_character_, length(id))
+
+	# Loop on all IDs
+	i = 0
+	for (x in id) {
+
+		i = i + 1
+
+		# Get four fields of ID
+		fields = strsplit(x, '\\.')[[1]]
+		if (length(fields) == 4)
+			urls[[i]] = BiodbUrl(url = c(.self$getUrl('base.url'), 'cgi-bin', 'enzyme', 'enzyme-search-ec'), params = list(field1 = fields[[1]], field2 = fields[[2]], field3 = fields[[3]], field4 = fields[[4]]))$toString()
+	}
+
+	return(urls)
 })
 
 # Get entry image url {{{1
@@ -124,7 +143,7 @@ ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
 
 ExpasyEnzymeConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
-	url <- paste0(.self$getUrl('base.url'), 'EC/', id, '.txt')
+	url <- BiodbUrl(url = c(.self$getUrl('base.url'), 'EC', paste(id, 'txt', sep = '.')))$toString()
 
 	return(url)
 })
@@ -132,15 +151,19 @@ ExpasyEnzymeConn$methods( .doGetEntryContentRequest = function(id, concatenate =
 # Parse HTML returned by web services {{{2
 ################################################################
 
-ExpasyEnzymeConn$methods( .parseWsReturnedHtml = function(html.results) {
+ExpasyEnzymeConn$methods( .parseWsReturnedHtml = function(results, retfmt) {
 
-	# Parse HTML
-	xml <-  XML::htmlTreeParse(html.results, asText = TRUE, useInternalNodes = TRUE)
+	if (retfmt %in% c('parsed', 'ids')) {
 
-	# Get ids
-	ids <- XML::xpathSApply(xml, "//a[starts-with(@href,'/EC/')]", XML::xmlValue)
+		# Parse HTML
+		results <-  XML::htmlTreeParse(results, asText = TRUE, useInternalNodes = TRUE)
 
-	return(ids)
+		# Get ids
+		if (retfmt == 'ids')
+			results <- XML::xpathSApply(results, "//a[starts-with(@href,'/EC/')]", XML::xmlValue)
+	}
+
+	return(results)
 })
 
 # Get parsing expressions {{{2

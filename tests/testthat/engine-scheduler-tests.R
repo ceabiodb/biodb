@@ -122,8 +122,22 @@ test.schedulerSleepTime <- function(biodb, obs) {
 test.BiodbUrl <- function(biodb) {
 
 	# Simple URL
+	url <- BiodbUrl(url = 'https://www.somesite.fr')
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr')
 	url <- BiodbUrl(url = 'https://www.somesite.fr/')
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr')
+	url <- BiodbUrl(url = c('https://www.somesite.fr', ''))
 	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/')
+
+	# URL in multiple parts
+	url <- BiodbUrl(url = c('https://www.somesite.fr/', 'some', 'page'))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/some/page')
+	url <- BiodbUrl(url = c('https://www.somesite.fr//', 'some', '/page/'))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/some/page')
+
+	# With an unnamed parameter in a character vector
+	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c('rerun'))
+	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?rerun')
 
 	# With a parameter in a character vector
 	url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt'))

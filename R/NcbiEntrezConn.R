@@ -30,26 +30,27 @@ NcbiEntrezConn$methods( initialize = function(entrez.name = NA_character_, entre
 # Web service efetch {{{1
 ################################################################
 
-NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmode = NA_character_, biodb.parse = FALSE, biodb.url = FALSE) {
+NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmode = NA_character_, retfmt = c('plain', 'parsed', 'request')) {
 	":\n\nCalls Entrez efetch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch."
 
+	retfmt = match.arg(retfmt)
+
 	# Build request
-	url <- paste('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', 'efetch.fcgi', sep = '')
 	params <- c(db = .self$.entrez.name, id = paste(id, collapse = ','))
 	if ( ! is.na(rettype))
 		params <- c(params, rettype = rettype)
 	if ( ! is.na(retmode))
 		params <- c(params, retmode = retmode)
-
-	# Returns URL
-	if (biodb.url)
-		return(.self$getBiodb()$getRequestScheduler()$getUrlString(url, params))
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'efetch.fcgi'), params = params)
+	request = BiodbRequest(method = 'get', url = url)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params)
+	results = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	# Parse XML
-	if (biodb.parse && retmode == 'xml')
+	# Parse
+	if (retfmt == 'parsed' && retmode == 'xml')
 		results <-  XML::xmlInternalTreeParse(results, asText = TRUE)
 
 	return(results)
@@ -58,28 +59,35 @@ NcbiEntrezConn$methods( ws.efetch = function(id, rettype = NA_character_, retmod
 # Web service esearch {{{1
 ################################################################
 
-NcbiEntrezConn$methods( ws.esearch = function(term, field = NA_character_, retmax = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
+NcbiEntrezConn$methods( ws.esearch = function(term, field = NA_character_, retmax = NA_integer_, retfmt = c('plain', 'parsed', 'request', 'ids')) {
 	":\n\nCalls Entrez esearch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch."
 
-	
+	retfmt = match.arg(retfmt)
+
 	# Build request
-	url <- paste('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', 'esearch.fcgi', sep = '')
 	params <- c(db = .self$.entrez.name, term = term)
 	if ( ! is.na(field))
 		params <- c(params, field = field)
 	if ( ! is.na(retmax))
 		params <- c(params, retmax = retmax)
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'esearch.fcgi'), params = params)
+	request = BiodbRequest(method = 'get', url = url)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
+	results = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	# Parse XML
-	if (biodb.parse || biodb.ids)
+	# Parse results
+	if (retfmt != 'plain') {
+
+		# Parse XML
 		results <-  XML::xmlInternalTreeParse(results, asText = TRUE)
 
-	# Get IDs
-	if (biodb.ids)
-		results <- XML::xpathSApply(results, "//IdList/Id", XML::xmlValue)
+		# Get IDs
+		if (retfmt == 'ids')
+			results <- XML::xpathSApply(results, "//IdList/Id", XML::xmlValue)
+	}
 
 	return(results)
 })
@@ -87,18 +95,23 @@ NcbiEntrezConn$methods( ws.esearch = function(term, field = NA_character_, retma
 # Web service einfo {{{1
 ################################################################
 
-NcbiEntrezConn$methods( ws.einfo = function(biodb.parse = FALSE) {
+NcbiEntrezConn$methods( ws.einfo = function(retfmt = c('plain', 'request', 'parsed')) {
 	":\n\nCalls Entrez einfo web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EInfo."
 
+	retfmt = match.arg(retfmt)
+
 	# Build request
-	url <- paste('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', 'einfo.fcgi', sep = '')
 	params <- c(db = .self$.entrez.name, version = '2.0')
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'einfo.fcgi'), params = params)
+	request = BiodbRequest(method = 'get', url = url)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params)
+	results = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
 	# Parse XML
-	if (biodb.parse)
+	if (retfmt == 'parsed')
 		results <-  XML::xmlInternalTreeParse(results, asText = TRUE)
 
 	return(results)
@@ -111,7 +124,7 @@ NcbiEntrezConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of Ncbi entries.")
 
-	return(.self$ws.esearch(term = 'e', retmax = if (is.na(max.results)) 1000000 else max.results, biodb.ids = TRUE))
+	return(.self$ws.esearch(term = 'e', retmax = if (is.na(max.results)) 1000000 else max.results, retfmt = 'ids'))
 })
 
 # Get nb entries {{{1
@@ -120,7 +133,7 @@ NcbiEntrezConn$methods( getEntryIds = function(max.results = NA_integer_) {
 NcbiEntrezConn$methods( getNbEntries = function(count = FALSE) {
 
 	# Send request
-	xml <- .self$ws.einfo(biodb.parse = TRUE)
+	xml <- .self$ws.einfo(retfmt = 'parsed')
 
 	# Get number of elements
 	n <- XML::xpathSApply(xml, "//Count", XML::xmlValue)
@@ -135,9 +148,9 @@ NcbiEntrezConn$methods( getNbEntries = function(count = FALSE) {
 NcbiEntrezConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	if (concatenate)
-		urls <- .self$ws.efetch(id, retmode = 'xml', biodb.url = TRUE)
+		urls <- .self$ws.efetch(id, retmode = 'xml', retfmt = 'request')$getUrl()$toString()
 	else
-		urls <- vapply(id, function(single.id) .self$ws.efetch(single.id, retmode = 'xml', biodb.url = TRUE), FUN.VALUE = '')
+		urls <- vapply(id, function(single.id) .self$ws.efetch(single.id, retmode = 'xml', retfmt = 'request')$getUrl()$toString(), FUN.VALUE = '')
 
 	return(urls)
 })

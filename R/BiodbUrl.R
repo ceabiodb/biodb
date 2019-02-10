@@ -22,6 +22,7 @@ BiodbUrl <- methods::setRefClass("BiodbUrl", fields = list(.url = 'character', .
 
 BiodbUrl$methods( initialize = function(url = character(), params = character()) {
 
+	# Set URL
 	.url <<- url
 
 	# Set parameters
@@ -40,7 +41,7 @@ BiodbUrl$methods( initialize = function(url = character(), params = character())
 
 BiodbUrl$methods( getDomain = function() {
 
-	domain <- sub('^.+://([^/]+)(/.*)?$', '\\1', .self$.url, perl = TRUE)
+	domain <- sub('^.+://([^/]+)(/.*)?$', '\\1', .self$.url[[1]], perl = TRUE)
 
 	return(domain)
 })
@@ -64,7 +65,9 @@ BiodbUrl$methods( setParam = function(key, value) {
 
 BiodbUrl$methods( toString = function(encode = TRUE) {
 
-	url <- .self$.url
+	# Build URL
+	url = gsub('^/*([^/].*[^/])/*$', '\\1', .self$.url) # Remove '/' at start and end of each element
+	url = paste(url, collapse = '/') # Concatenate elements together
 
 	# Add parameters to URL
 	if (length(.self$.params) > 0) {
@@ -75,7 +78,7 @@ BiodbUrl$methods( toString = function(encode = TRUE) {
 		params.str <- paste(kv.list, collapse = '&')
 
 		# Concatenate URL with parameters
-		url <- paste(.self$.url, params.str, sep = '?')
+		url <- paste(url, params.str, sep = '?')
 	}
 
 	if (encode)
