@@ -22,17 +22,13 @@ Get entry identifiers from the database.}
 
 Get the URL to the page of the entry on the database web site.}
 
-\item{\code{ws.find(query)}}{:
+\item{\code{ws.find(query, retfmt = c("plain", "request", "parsed", "ids"))}}{:
 
 Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
 
-\item{\code{ws.find.df(...)}}{:
+\item{\code{ws.list(retfmt = c("plain", "request", "ids"))}}{:
 
-Calls ws.find() and returns a data frame.}
-
-\item{\code{ws.find.ids(...)}}{:
-
-Calls ws.find() but only for getting IDs. Returns the IDs as a character vector.}
+Get lis of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
 }}
 
 \examples{
@@ -43,7 +39,7 @@ mybiodb <- biodb::Biodb()
 conn <- mybiodb$getFactory()$createConn('kegg.compound')
 
 # Search for an entry
-conn$ws.find.df('NADPH')
+conn$ws.find('NADPH', retfmt = 'parsed')
 
 # Terminate instance.
 mybiodb$terminate()

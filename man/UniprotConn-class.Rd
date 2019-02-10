@@ -35,13 +35,10 @@ Get the URL to the page of the entry on the database web site.}
 
 Search for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)}
 
-\item{\code{ws.query(query = "", columns = NA, format = NA, limit = NA)}}{:
+\item{\code{ws.query(query = "", columns = NULL, format = NULL, limit = NULL,
+  retfmt = c("plain", "parsed", "ids", "request"))}}{:
 
 Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details.}
-
-\item{\code{ws.query.ids(...)}}{:
-
-Calls ws.query() but only for getting IDs. Returns the IDs as a character vector.}
 }}
 
 \examples{

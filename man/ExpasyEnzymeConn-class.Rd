@@ -35,11 +35,11 @@ Get the URL to the page of the entry on the database web site.}
 
 Search for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)}
 
-\item{\code{ws.enzymeByComment(comment, biodb.ids = FALSE)}}{:
+\item{\code{ws.enzymeByComment(comment, retfmt = c("plain", "request", "parsed", "ids"))}}{:
 
 Calls enzyme-bycomment web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-bycomment.html.}
 
-\item{\code{ws.enzymeByName(name, biodb.ids = FALSE)}}{:
+\item{\code{ws.enzymeByName(name, retfmt = c("plain", "request", "parsed", "ids"))}}{:
 
 Calls enzyme-byname web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-byname.html.}
 }}

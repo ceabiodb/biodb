@@ -105,7 +105,7 @@ ChemspiderConn$methods( .doGetEntryContentRequest = function(id, concatenate = T
 ################################################################
 
 ChemspiderConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), paste('Chemical-Structure', x, 'html', sep = '.')))$toString()))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), paste('Chemical-Structure', x, 'html', sep = '.')))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
