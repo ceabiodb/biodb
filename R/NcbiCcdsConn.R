@@ -43,7 +43,7 @@ NcbiCcdsConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRU
 ################################################################
 
 NcbiCcdsConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(file.path(.self$getUrl('base.url'), 'CcdsBrowse.cgi', fsep = '/'), '?REQUEST=CCDS&GO=MainBrowse&DATA=', id))
+	return(vapply(id, function(x) BiodbUrl(url = file.path(.self$getUrl('base.url'), 'CcdsBrowse.cgi', fsep = '/'), params = list(REQUEST = 'CCDS', GO = 'MainBrowse', DATA = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1

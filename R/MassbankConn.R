@@ -260,9 +260,7 @@ MassbankConn$methods( getDns = function(id) {
 ################################################################
 
 MassbankConn$methods( getEntryPageUrl = function(id) {
-	url <- paste0(.self$getUrl('base.url'), 'MassBank/RecordDisplay.jsp?id=', id, '&dsn=', .self$getDns(id))
-	.self$message('debug', paste0('Build entry page URL "', url, '".'))
-	return(url)
+	return(vapply(id, function(x) BiodbUrl(url = file.path(.self$getUrl('base.url'), 'MassBank', 'RecordDisplay.jsp', fsep = '/'), params = list(id = x, dsn = .self$getDns(x)))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1

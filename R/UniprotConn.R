@@ -133,7 +133,7 @@ UniprotConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE
 ################################################################
 
 UniprotConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getUrl('base.url'), id))
+	return(file.path(.self$getUrl('base.url'), id, fsep = '/'))
 })
 
 # Get entry image url {{{1

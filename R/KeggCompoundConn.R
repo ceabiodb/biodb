@@ -190,7 +190,7 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 ################################################################
 
 KeggCompoundConn$methods( getEntryImageUrl = function(id) {
-	return(paste(.self$getUrl('base.url'), 'Fig/compound/', id, '.gif', sep = ''))
+	return(file.path(.self$getUrl('base.url'), 'Fig', 'compound', paste(id, 'gif', sep = '.'), fsep = '/'))
 })
 
 # Private methods {{{1

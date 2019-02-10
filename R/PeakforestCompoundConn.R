@@ -43,16 +43,14 @@ PeakforestCompoundConn$methods( .doGetEntryContentRequest = function(id, concate
 	if (is.na(.self$getToken()))
 		.self$message('error', "Peakforest requires a token for this service.")
 
-	url <- paste(.self$getUrl('base.url'), 'compounds/', id,'?token=', .self$getToken(), sep = '')
-
-	return(url)
+	return(vapply(id, function(x) BiodbUrl(url = file.path(.self$getUrl('ws.url'), 'compounds', id, fsep = '/'), params = list(token = .self$getToken()))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry page url {{{1
 ################################################################
 
 PeakforestCompoundConn$methods( getEntryPageUrl = function(id) {
-	return(paste('https://metabohub.peakforest.org/webapp/home?PFc=', id))
+	return(vapply(id, function(x) BiodbUrl(url = .self$getUrl('base.url'), params = list(PFc = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -72,7 +70,7 @@ PeakforestCompoundConn$methods( ws.search.compounds.mass = function(field, mass,
 		.self$message('error', paste0('Unknown mass field "', field, '".'))
 
 	# Build request
-	url <- paste0(.self$getUrl('base.url'), 'search/compounds/', field, '/', mass, '/', delta)
+	url <- paste0(.self$getUrl('ws.url'), 'search/compounds/', field, '/', mass, '/', delta)
 	params <- c(token = .self$getToken())
 	if ( ! is.na(max))
 		params <- c(params, max = max)

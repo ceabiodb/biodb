@@ -116,7 +116,7 @@ PeakforestConn$methods( getNbEntries = function(count = FALSE) {
 PeakforestConn$methods( ws.search = function(term, max = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
 
 	# Build URL
-	url <- paste(.self$getUrl('base.url'), 'search/', .self$.db.name, '/', term, sep = '')
+	url <- paste(.self$getUrl('ws.url'), 'search/', .self$.db.name, '/', term, sep = '')
 	params <- c(token = .self$getToken())
 	if ( ! is.na(max))
 		params <- c(params, max = max)
@@ -145,7 +145,7 @@ PeakforestConn$methods( ws.search = function(term, max = NA_integer_, biodb.pars
 PeakforestConn$methods( ws.all.count = function(biodb.parse = FALSE) {
 
 	# Build URL
-	url <- paste(.self$getUrl('base.url'), .self$.db.name, '/', 'all/count', sep = '')
+	url <- paste(.self$getUrl('ws.url'), .self$.db.name, '/', 'all/count', sep = '')
 	params <- c(token = .self$getToken())
 
 	# Send request
@@ -165,7 +165,7 @@ PeakforestConn$methods( ws.all.count = function(biodb.parse = FALSE) {
 PeakforestConn$methods( ws.all.ids = function(biodb.parse = FALSE,  biodb.ids = FALSE) {
 
 	# Build URL
-	url <- paste(.self$getUrl('base.url'), .self$.db.name, '/', 'all/ids', sep = '')
+	url <- paste(.self$getUrl('ws.url'), .self$.db.name, '/', 'all/ids', sep = '')
 	params <- c(token = .self$getToken())
 
 	# Send request

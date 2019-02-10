@@ -31,7 +31,7 @@ MirbaseMatureConn$methods( initialize = function(...) {
 ################################################################
 
 MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
-	return(paste(.self$getUrl('base.url'), 'cgi-bin/mature.pl?mature_acc=', id, sep = ''))
+	return(vapply(id, function(x) BiodbUrl(url = file.path(.self$getUrl('base.url'), 'cgi-bin', 'mature.pl', fsep = '/'), params = list(mature_acc = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1

@@ -38,18 +38,32 @@ NcbiPubchemConn$methods( .doGetEntryContentRequest = function(id, concatenate = 
 ################################################################
 
 NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
-	.self$message('debug', paste('Getting URL pages for IDs ', paste(id, collapse = ', '), '.', sep = ''))
-	urls <- paste0(.self$getUrl('base.url'), .self$.db.name, '/', id)
-	.self$message('debug', paste(urls, collapse = ', '))
-
-	return(urls)
+	return(file.path(.self$getUrl('base.url'), .self$.db.name, id, fsep = '/'))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 NcbiPubchemConn$methods( getEntryImageUrl = function(id) {
-	return(paste(.self$getUrl('base.url'), 'image/imgsrv.fcgi?', .self$.id.urlfield, '=', id, '&t=l', sep = ''))
+
+	urls <- rep(NA_character_, length(id))
+
+	# Loop on all IDs
+	i = 0
+	for(x in id) {
+
+		i = i + 1
+
+		# Set params
+		params = list()
+		params[[.self$.id.urlfield]] = x
+		params$t = 'l'
+
+		# Build URL
+		urls[[i]] = BiodbUrl(url = file.path(.self$getUrl('base.url'), 'image', 'imgsrv.fcgi', fsep = '/'), params = params)$toString()
+	}
+
+	return(urls)
 })
 
 # Get entry content {{{1
