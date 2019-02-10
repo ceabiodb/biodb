@@ -88,7 +88,6 @@ LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NULL, output.mod
 		.self$message('error', paste0('Unknown value "', output.column.header, '" for output.column.header parameter.'))
 
 	# Build request
-	url = file.path(.self$getUrl('base.url'), 'structure', 'LMSDSearch.php', fsep = '/')
 	params = list(Mode = mode)
 	if ( ! is.null(output.mode))
 		params = c(params, OutputMode = output.mode)
@@ -120,7 +119,7 @@ LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NULL, output.mod
 		params = c(params, MainClass = main.class)
 	if ( ! is.null(sub.class))
 		params = c(params, SubClass = sub.class)
-	request = BiodbRequest(method = 'get', url = BiodbUrl(url = url, params = params))
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('base.url'), 'structure', 'LMSDSearch.php'), params = params))
 	if (retfmt == 'request')
 		return(request)
 

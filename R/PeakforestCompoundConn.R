@@ -43,7 +43,7 @@ PeakforestCompoundConn$methods( .doGetEntryContentRequest = function(id, concate
 	if (is.na(.self$getToken()))
 		.self$message('error', "Peakforest requires a token for this service.")
 
-	return(vapply(id, function(x) BiodbUrl(url = file.path(.self$getUrl('ws.url'), 'compounds', id, fsep = '/'), params = list(token = .self$getToken()))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'compounds', id), params = list(token = .self$getToken()))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry page url {{{1

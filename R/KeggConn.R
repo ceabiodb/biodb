@@ -59,14 +59,14 @@ KeggConn$methods( .complete.entry.id = function(id) {
 ################################################################
 
 KeggConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-	return(file.path(.self$getUrl('ws.url'), 'get', .self$.complete.entry.id(id), fsep = '/'))
+	return(BiodbUrl(url = c(.self$getUrl('ws.url'), 'get', .self$.complete.entry.id(id)))$toString())
 })
 
 # Get entry page url {{{1
 ################################################################
 
 KeggConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = file.path(.self$getUrl('entry.page.url'), 'www_bget', fsep = '/'), params = .self$.complete.entry.id(id))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('entry.page.url'), 'www_bget'), params = .self$.complete.entry.id(id))$toString(), FUN.VALUE = ''))
 })
 
 
@@ -76,7 +76,7 @@ KeggConn$methods( getEntryPageUrl = function(id) {
 KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Get IDs
-	ids <- .self$getBiodb()$getRequestScheduler()$getUrl(file.path(.self$getUrl('ws.url'), 'list', .self$.db.name, fsep = '/'))
+	ids <- .self$getBiodb()$getRequestScheduler()$sendRequest(BiodbRequest(url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'list', .self$.db.name))))
 
 	# Extract IDs
 	ids <- strsplit(ids, "\n")[[1]]
@@ -95,7 +95,7 @@ KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
 KeggConn$methods( ws.find = function(query) {
 	":\n\nSearch for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
-	url <- file.path(.self$getUrl('ws.url'), 'find', .self$.db.name, query, fsep = '/')
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, query))$toString()
 
 	result <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 

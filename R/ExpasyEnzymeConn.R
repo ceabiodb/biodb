@@ -36,7 +36,7 @@ ExpasyEnzymeConn$methods( ws.enzymeByName = function(name, retfmt = c('plain', '
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	request = BiodbRequest(method = 'get', url = BiodbUrl(url = paste0(.self$getUrl('base.url'), "enzyme-byname.html"), params = name))
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('base.url'), "enzyme-byname.html"), params = name))
 	if (retfmt == 'request')
 		return(request)
 
@@ -58,7 +58,7 @@ ExpasyEnzymeConn$methods( ws.enzymeByComment = function(comment, retfmt = c('pla
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	request = BiodbRequest(method = 'get', url = BiodbUrl(url = paste0(.self$getUrl('base.url'), "enzyme-bycomment.html"), params = comment))
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('base.url'), "enzyme-bycomment.html"), params = comment))
 	if (retfmt == 'request')
 		return(request)
 
@@ -110,7 +110,22 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 ################################################################
 
 ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getUrl('base.url'), 'cgi-bin/enzyme/enzyme-search-ec?', sub('^(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)$', 'field1=\\1&field2=\\2&field3=\\3&field4=\\4', id)))
+
+	urls = rep(NA_character_, length(id))
+
+	# Loop on all IDs
+	i = 0
+	for (x in id) {
+
+		i = i + 1
+
+		# Get four fields of ID
+		fields = strsplit(x, '\\.')[[1]]
+		if (length(fields) == 4)
+			urls[[i]] = BiodbUrl(url = c(.self$getUrl('base.url'), 'cgi-bin', 'enzyme', 'enzyme-search-ec'), params = list(field1 = fields[[1]], field2 = fields[[2]], field3 = fields[[3]], field4 = fields[[4]]))$toString()
+	}
+
+	return(urls)
 })
 
 # Get entry image url {{{1
@@ -128,7 +143,7 @@ ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
 
 ExpasyEnzymeConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
-	url <- paste0(.self$getUrl('base.url'), 'EC/', id, '.txt')
+	url <- BiodbUrl(url = c(.self$getUrl('base.url'), 'EC', paste(id, 'txt', sep = '.')))$toString()
 
 	return(url)
 })

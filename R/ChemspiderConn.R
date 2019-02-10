@@ -105,14 +105,14 @@ ChemspiderConn$methods( .doGetEntryContentRequest = function(id, concatenate = T
 ################################################################
 
 ChemspiderConn$methods( getEntryPageUrl = function(id) {
-	return(file.path(.self$getUrl('base.url'), paste('Chemical-Structure', id, 'html', sep = '.'), fsep = '/'))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), paste('Chemical-Structure', x, 'html', sep = '.')))$toString()))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 ChemspiderConn$methods( getEntryImageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = file.path(.self$getUrl('base.url'), 'ImagesHandler.ashx', fsep = '/'), params = list(w = 300, h = 300, id = x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'ImagesHandler.ashx'), params = list(w = 300, h = 300, id = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get all record fields {{{1
@@ -141,7 +141,7 @@ ChemspiderConn$methods( ws.recordsRecordidDetailsGet = function(recordid, fields
 
 	# Build request
 	header <- c('Content-Type' = "", apikey = .self$getToken())
-	request <- BiodbRequest(method = 'get', url = BiodbUrl(file.path(.self$getUrl('ws.url'), 'records', recordid, 'details', fsep = '/'), params = c(fields = fields)), header = header)
+	request <- BiodbRequest(method = 'get', url = BiodbUrl(c(.self$getUrl('ws.url'), 'records', recordid, 'details'), params = c(fields = fields)), header = header)
 	if (retfmt == 'request')
 		return(request)
 
@@ -176,7 +176,7 @@ ChemspiderConn$methods( ws.recordsBatchPost = function(recordids, fields = NULL,
 	# Build request
 	header <- c('Content-Type' = "", apikey = .self$getToken())
 	body <- paste0('{"recordIds": [', paste(recordids, collapse = ','), '], "fields": [', paste(vapply(fields, function(x) paste0('"', x, '"'), FUN.VALUE = ''), collapse = ',') ,']}')
-	request <- BiodbRequest(method = 'post', url = BiodbUrl(file.path(.self$getUrl('ws.url'), 'records', 'batch', fsep = '/')), header = header, body = body)
+	request <- BiodbRequest(method = 'post', url = BiodbUrl(c(.self$getUrl('ws.url'), 'records', 'batch')), header = header, body = body)
 	if (retfmt == 'request')
 		return(request)
 
@@ -203,7 +203,7 @@ ChemspiderConn$methods( ws.filterNamePost = function(name, retfmt = c('plain', '
 	# Build request
 	header <- c('Content-Type' = "", apikey = .self$getToken())
 	body <- paste0("{\n", '\t"name": "', name, '"', "\n}")
-	request <- BiodbRequest(method = 'post', url = BiodbUrl(file.path(.self$getUrl('ws.url'), 'filter', 'name', fsep = '/')), header = header, body = body)
+	request <- BiodbRequest(method = 'post', url = BiodbUrl(c(.self$getUrl('ws.url'), 'filter', 'name')), header = header, body = body)
 	if (retfmt == 'request')
 		return(request)
 
@@ -230,7 +230,7 @@ ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('pl
 	# Build request
 	header <- c('Content-Type' = "", apikey = .self$getToken())
 	body <- paste0("{\n", '\t"mass": ', mass, ",\n",'\t"range": ', range, "\n}")
-	request <- BiodbRequest(method = 'post', url = BiodbUrl(file.path(.self$getUrl('ws.url'), 'filter', 'mass', fsep = '/')), header = header, body = body)
+	request <- BiodbRequest(method = 'post', url = BiodbUrl(c(.self$getUrl('ws.url'), 'filter', 'mass')), header = header, body = body)
 	if (retfmt == 'request')
 		return(request)
 
@@ -260,7 +260,7 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c
 
 	# Set URL
 	header <- c('Content-Type' = "", apikey = .self$getToken())
-	request <- BiodbRequest(method = 'get', url = BiodbUrl(file.path(.self$getUrl('ws.url'), 'filter', queryid, 'status', fsep = '/')), header = header)
+	request <- BiodbRequest(method = 'get', url = BiodbUrl(c(.self$getUrl('ws.url'), 'filter', queryid, 'status')), header = header)
 	if (retfmt == 'request')
 		return(request)
 
@@ -295,7 +295,7 @@ ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0
 	retfmt <- match.arg(retfmt)
 
 	# Build request
-	url <- BiodbUrl(file.path(.self$getUrl('ws.url'), 'filter', queryid, 'results', fsep = '/'))
+	url <- BiodbUrl(c(.self$getUrl('ws.url'), 'filter', queryid, 'results'))
 	if (start > 0)
 		url$setParam('start', start)
 	if (count > 0)

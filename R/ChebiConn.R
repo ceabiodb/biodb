@@ -36,21 +36,21 @@ ChebiConn$methods( initialize = function(...) {
 ################################################################
 
 ChebiConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-	return(paste(file.path(.self$getUrl('ws.url'), 'test/getCompleteEntity', fsep = '/'), '?chebiId=', id, sep = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'test', 'getCompleteEntity'), params = list(chebiId = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry page url {{{1
 ################################################################
 
 ChebiConn$methods( getEntryPageUrl = function(id) {
-	return(paste0(.self$getUrl('base.url'), 'searchId.do?chebiId=', id))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'searchId.do'), params = list(chebiId = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 ChebiConn$methods( getEntryImageUrl = function(id) {
-	return(paste0(.self$getUrl('base.url'), 'displayImage.do?defaultImage=true&imageIndex=0&chebiId=', id, '&dimensions=400'))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'displayImage.do'), params = list(defaultImage = 'true', imageIndex = 0, chebiId = x, dimensions = 400))$toString(), FUN.VALUE = ''))
 })
 
 
@@ -62,7 +62,7 @@ ChebiConn$methods( ws.wsdl = function(retfmt = c('plain', 'parsed', 'request')) 
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	request = BiodbRequest(method = 'get', url = BiodbUrl(url = paste0(.self$getUrl('ws.url'), 'webservice'), params = 'wsdl'))
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'webservice'), params = 'wsdl'))
 	if (retfmt == 'request')
 		return(request)
 
@@ -97,7 +97,7 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 
 	# Build request
 	params <- c(search = gsub('[ /]', '+', search), searchCategory = gsub(' ', '+', search.category), maximumResults = max.results, starsCategory = gsub(' ', '+', stars))
-	request = BiodbRequest(method = 'get', url = BiodbUrl(url = file.path(.self$getUrl('ws.url'), 'test/getLiteEntity', fsep = '/'), params = params), encoding = 'UTF-8')
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'test/getLiteEntity'), params = params), encoding = 'UTF-8')
 	if (retfmt == 'request')
 		return(request)
 

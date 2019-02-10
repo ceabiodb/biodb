@@ -63,9 +63,9 @@ KeggCompoundConn$methods( ws.find.exact.mass = function(mass = NA_real_, mass.mi
 
 	# Build request
 	if ( ! is.na(mass))
-		url = file.path(.self$getUrl('ws.url'), 'find', .self$.db.name, mass, 'exact_mass', fsep ='/')
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, mass, 'exact_mass'))$toString()
 	else if ( ! is.na(mass.min) && ! is.na(mass.max))
-		url = file.path(.self$getUrl('ws.url'), 'find', .self$.db.name, paste(mass.min, mass.max, sep = '-'), 'exact_mass', fsep = '/')
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, paste(mass.min, mass.max, sep = '-'), 'exact_mass'))$toString()
 	else
 		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
 	request = BiodbRequest(method = 'get', url = BiodbUrl(url = url))
@@ -102,9 +102,9 @@ KeggCompoundConn$methods( ws.find.molecular.weight = function(mass = NA_real_, m
 
 	# Build request
 	if ( ! is.na(mass))
-		url = file.path(.self$getUrl('ws.url'), 'find', .self$.db.name, mass, 'mol_weight', fsep ='/')
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, mass, 'mol_weight'))$toString()
 	else if ( ! is.na(mass.min) && ! is.na(mass.max))
-		url = file.path(.self$getUrl('ws.url'), 'find', .self$.db.name, paste(mass.min, mass.max, sep = '-'), 'mol_weight', fsep = '/')
+		url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, paste(mass.min, mass.max, sep = '-'), 'mol_weight'))$toString()
 	else
 		.self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
 	request = BiodbRequest(method = 'get', url = BiodbUrl(url = url))
@@ -190,7 +190,7 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 ################################################################
 
 KeggCompoundConn$methods( getEntryImageUrl = function(id) {
-	return(file.path(.self$getUrl('base.url'), 'Fig', 'compound', paste(id, 'gif', sep = '.'), fsep = '/'))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'Fig', 'compound', paste(x, 'gif', sep = '.')))$toString(), FUN.VALUE = ''))
 })
 
 # Private methods {{{1

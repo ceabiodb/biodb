@@ -260,7 +260,7 @@ MassbankConn$methods( getDns = function(id) {
 ################################################################
 
 MassbankConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = file.path(.self$getUrl('base.url'), 'MassBank', 'RecordDisplay.jsp', fsep = '/'), params = list(id = x, dsn = .self$getDns(x)))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'MassBank', 'RecordDisplay.jsp'), params = list(id = x, dsn = .self$getDns(x)))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
