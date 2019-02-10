@@ -132,24 +132,33 @@ MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
 # Web service query {{{1
 ################################################################
 
-MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', biodb.parse = FALSE, biodb.ids = FALSE) {
+MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', retfmt = c('plain', 'request', 'parsed', 'ids')) {
+	":\n\nSend request to web service query."
+
+	retfmt = match.arg(retfmt)
 
 	# Build request
-	url <- paste0(.self$getUrl('base.url'), 'cgi-bin/query.pl')
-	params <- c(terms = terms, submit = submit)
+	params = list(terms = terms, submit = submit)
+	url = BiodbUrl(url = c(.self$getUrl('base.url'), 'cgi-bin', 'query.pl'), params = params)
+	request = BiodbRequest(url = url)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
+	results = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	# Parse HTML
-	if (biodb.parse || biodb.ids)
+	# Parse results
+	if (retfmt != 'plain') {
+
+		# Parse HTML
 		results <-  XML::htmlTreeParse(results, asText = TRUE, useInternalNodes = TRUE)
 
-	# Get IDs
-	if (biodb.ids) {
-		results <- unlist(XML::xpathSApply(results, "//a[starts-with(.,'MIMAT')]", XML::xmlValue))
-		if (is.null(results))
-			results <- character()
+		# Get IDs
+		if (retfmt == 'ids') {
+			results <- unlist(XML::xpathSApply(results, "//a[starts-with(.,'MIMAT')]", XML::xmlValue))
+			if (is.null(results))
+				results <- character()
+		}
 	}
 
 	return(results)
@@ -166,7 +175,7 @@ MirbaseMatureConn$methods( searchCompound = function(name = NULL, mass = NULL, m
 
 	# Search by name
 	if ( ! is.null(name))
-		ids <- .self$ws.query(terms = name, biodb.ids = TRUE)
+		ids <- .self$ws.query(terms = name, retfmt = 'ids')
 
 	# Search by mass
 	if ( ! is.null(mass.field))

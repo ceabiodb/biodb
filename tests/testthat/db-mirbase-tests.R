@@ -9,15 +9,15 @@ test.mirbase.mature.ws.query <- function(db) {
 	expect_is(results, 'character')
 	expect_length(results, 1)
 
-	results <- db$ws.query('onc', biodb.parse = TRUE)
+	results <- db$ws.query('onc', retfmt = 'parsed')
 	expect_is(results, 'HTMLInternalDocument')
 
-	results <- db$ws.query('onc', biodb.ids = TRUE)
+	results <- db$ws.query('onc', retfmt = 'ids')
 	expect_is(results, 'character')
 	expect_false(any(is.na(results)))
 	expect_length(results, 0)
 
-	results <- db$ws.query('hsa', biodb.ids = TRUE)
+	results <- db$ws.query('hsa', retfmt = 'ids')
 	expect_is(results, 'character')
 	expect_false(any(is.na(results)))
 	expect_true(length(results) > 0)
