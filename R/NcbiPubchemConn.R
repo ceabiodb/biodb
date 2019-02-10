@@ -27,9 +27,9 @@ NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag,
 NcbiPubchemConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	if (concatenate)
-		url = BiodbUrl(url = c(.self$getUrl('ws.url'), .self$.db.name, .self$.id.urlfield, paste(id, collapse = ','), 'XML'))$toString()
+		url = BiodbUrl(url = c(.self$getUrl('ws2.url'), .self$.db.name, .self$.id.urlfield, paste(id, collapse = ','), 'XML'))$toString()
 	else
-		url <- vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), .self$.db.name, .self$.id.urlfield, x, 'XML'))$toString(), FUN.VALUE = '')
+		url <- vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws2.url'), .self$.db.name, .self$.id.urlfield, x, 'XML'))$toString(), FUN.VALUE = '')
 
 	return(url)
 })
