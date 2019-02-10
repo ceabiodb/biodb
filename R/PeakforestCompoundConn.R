@@ -63,31 +63,39 @@ PeakforestCompoundConn$methods( getEntryImageUrl = function(id) {
 # Web service search.compounds.mass {{{1
 ################################################################
 
-PeakforestCompoundConn$methods( ws.search.compounds.mass = function(field, mass, delta, max = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
+PeakforestCompoundConn$methods( ws.search.compounds.mass = function(field, mass, delta, max = NA_integer_, retfmt = c('plain', 'request', 'parsed', 'ids')) {
+
+	retfmt = match.arg(retfmt)
 
 	# Check mass field
 	if ( ! field %in% c('monoisotopicmass', 'averagemass'))
 		.self$message('error', paste0('Unknown mass field "', field, '".'))
 
 	# Build request
-	url <- paste0(.self$getUrl('ws.url'), 'search/compounds/', field, '/', mass, '/', delta)
 	params <- c(token = .self$getToken())
 	if ( ! is.na(max))
 		params <- c(params, max = max)
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'search', 'compounds', field, mass, delta), params = params)
+	request = BiodbRequest(method = 'get', url = url)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	# Parse results
-	if (biodb.parse || biodb.ids)
+	# Parse
+	if (retfmt != 'plain') {
+
+		# Parse results
 		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
 
-	# Extract IDs
-	if (biodb.ids) {
-		if ('compounds' %in% names(results))
-			results <- vapply(results$compounds, function(x) as.character(x$id), FUN.VALUE = '')
-		else
-			.self$message('error', 'Could find "compounds" field inside returned JSON.')
+		# Extract IDs
+		if (retfmt == 'ids') {
+			if ('compounds' %in% names(results))
+				results <- vapply(results$compounds, function(x) as.character(x$id), FUN.VALUE = '')
+			else
+				.self$message('error', 'Could find "compounds" field inside returned JSON.')
+		}
 	}
 
 	return(results)
@@ -114,7 +122,7 @@ PeakforestCompoundConn$methods( searchCompound = function(name = NULL, mass = NU
 	# Search by name
 	if ( ! is.null(name)) {
 		max <- if (search.mass) NA_integer_ else max.results
-		ids <- .self$ws.search(name, max = max, biodb.ids = TRUE)
+		ids <- .self$ws.search(name, max = max, retfmt = 'ids')
 	}
 
 	# Search by mass
@@ -125,7 +133,7 @@ PeakforestCompoundConn$methods( searchCompound = function(name = NULL, mass = NU
 			delta <- mass.tol
 		field <- if (mass.field == 'monoisotopic.mass') 'monoisotopicmass' else 'averagemass'
 		max <- if (is.null(name)) max.results else NA_integer_
-		mass.ids <- .self$ws.search.compounds.mass(field = field, mass = mass, delta = delta, max = max, biodb.ids = TRUE)
+		mass.ids <- .self$ws.search.compounds.mass(field = field, mass = mass, delta = delta, max = max, retfmt = 'ids')
 		if ( ! is.null(ids))
 			ids <- ids[ids %in% mass.ids]
 		else

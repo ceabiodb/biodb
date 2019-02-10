@@ -94,7 +94,7 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 PeakforestConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Get all IDs
-	ids <- .self$ws.all.ids(biodb.ids = TRUE)
+	ids <- .self$ws.all.ids(retfmt = 'ids')
 
 	# Cut
 	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
@@ -107,33 +107,41 @@ PeakforestConn$methods( getEntryIds = function(max.results = NA_integer_) {
 ################################################################
 
 PeakforestConn$methods( getNbEntries = function(count = FALSE) {
-	return(.self$ws.all.count(biodb.parse = TRUE))
+	return(.self$ws.all.count(retfmt = 'parsed'))
 })
 
 # Web service search {{{1
 ################################################################
 
-PeakforestConn$methods( ws.search = function(term, max = NA_integer_, biodb.parse = FALSE, biodb.ids = FALSE) {
+PeakforestConn$methods( ws.search = function(term, max = NA_integer_, retfmt = c('plain', 'request', 'parsed', 'ids')) {
 
-	# Build URL
-	url <- paste(.self$getUrl('ws.url'), 'search/', .self$.db.name, '/', term, sep = '')
+	retfmt = match.arg(retfmt)
+
+	# Build request
 	params <- c(token = .self$getToken())
 	if ( ! is.na(max))
 		params <- c(params, max = max)
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'search', .self$.db.name, term), params = params)
+	request = BiodbRequest(method = 'get', url = url)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	# Parse results
-	if (biodb.parse || biodb.ids)
+	# Parse
+	if (retfmt != 'plain') {
+
+		# Parse results
 		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
 
-	# Extract IDs
-	if (biodb.ids) {
-		if ('compoundNames' %in% names(results))
-			results <- vapply(results$compoundNames, function(x) as.character(x$compound$id), FUN.VALUE = '')
-		else
-			.self$message('error', 'Could find "compoundNames" field inside returned JSON.')
+		# Extract IDs
+		if (retfmt == 'ids') {
+			if ('compoundNames' %in% names(results))
+				results <- vapply(results$compoundNames, function(x) as.character(x$compound$id), FUN.VALUE = '')
+			else
+				.self$message('error', 'Could find "compoundNames" field inside returned JSON.')
+		}
 	}
 
 	return(results)
@@ -142,43 +150,58 @@ PeakforestConn$methods( ws.search = function(term, max = NA_integer_, biodb.pars
 # Web service all.count {{{1
 ################################################################
 
-PeakforestConn$methods( ws.all.count = function(biodb.parse = FALSE) {
+PeakforestConn$methods( ws.all.count = function(retfmt = c('plain', 'request', 'parsed')) {
 
-	# Build URL
-	url <- paste(.self$getUrl('ws.url'), .self$.db.name, '/', 'all/count', sep = '')
+	retfmt = match.arg(retfmt)
+
+	# Build request
 	params <- c(token = .self$getToken())
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), .self$.db.name, 'all', 'count'), params = params)
+	request = BiodbRequest(method = 'get', url = url)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
-	# Parse integer
-	if (biodb.parse)
+	# Parse
+	if (retfmt != 'plain') {
+
+		# Parse integer
 		results <- as.integer(results)
+	}
 
 	return(results)
 })
 
 # Web service all.ids {{{1
-
 ################################################################
 
-PeakforestConn$methods( ws.all.ids = function(biodb.parse = FALSE,  biodb.ids = FALSE) {
+PeakforestConn$methods( ws.all.ids = function(retfmt = c('plain', 'request', 'parsed', 'ids')) {
 
-	# Build URL
-	url <- paste(.self$getUrl('ws.url'), .self$.db.name, '/', 'all/ids', sep = '')
+	retfmt = match.arg(retfmt)
+
+	# Build request
 	params <- c(token = .self$getToken())
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), .self$.db.name, 'all', 'ids'), params = params)
+	request = BiodbRequest(method = 'get', url = url)
+	if (retfmt == 'request')
+		return(request)
 
 	# Send request
-	results <- .self$getBiodb()$getRequestScheduler()$getUrl(url, params = params)
+	results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
 	.self$.checkIfError(results)
 
-	# Parse JSON
-	if (biodb.parse || biodb.ids)
+	# Parse
+	if (retfmt != 'plain') {
+
+		# Parse JSON
 		results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
 
-	# extract IDs
-	if (biodb.ids)
-		results <- as.character(results)
+		# extract IDs
+		if (retfmt == 'ids')
+			results <- as.character(results)
+	}
 
 	return(results)
 })
