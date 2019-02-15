@@ -18,7 +18,7 @@ test.BiodbConfig.show <- function(biodb) {
 ################################################################
 
 test.Biodb.show <- function(biodb) {
-	expect_output(biodb$show(), regexp = '^Biodb instance\\.$')
+	expect_output(biodb$show(), regexp = '^Biodb instance, version [0-9]*\\.[0-9]*\\.[0-9]*\\.$')
 }
 
 # Test BiodbFactory show {{{1
