@@ -60,6 +60,9 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 	if ( ! is.null(observers))
 		.self$addObservers(observers)
 
+	# Print package version
+	.self$message('info', paste0('This is biodb version ', packageVersion('biodb'), '.'))
+
 	# Create configuration instance
 	.config <<- BiodbConfig$new(parent = .self)
 
@@ -331,7 +334,7 @@ Biodb$methods( computeFields = function(entries) {
 ################################################################
 
 Biodb$methods( show = function() {
-	cat("Biodb instance.\n")
+	cat("Biodb instance, version ", as.character(packageVersion('biodb')), ".\n", sep = '')
 })
 
 # PRIVATE METHODS {{{1
