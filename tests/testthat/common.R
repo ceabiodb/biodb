@@ -274,37 +274,25 @@ load.ref.entries <- function(db) {
 	return(entries.desc)
 }
 
-# Initialize MassCsvFile db {{{1
-################################################################
-
-init.mass.csv.file.db <- function(biodb) {
-	db.instance <- get.default.db(biodb, 'mass.csv.file')
-	db.instance$setUrl('base.url', MASSFILEDB.URL)
-	db.instance$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
-	return(db.instance)
-}
-
-# Initialize MassSqlite db {{{1
-################################################################
-
-init.mass.sqlite.db = function(biodb) {
-	db.instance = get.default.db(biodb, 'mass.sqlite')
-	# TODO How to init an SQLite db?
-}
 
 # Get default connector {{{1
 ################################################################
 
 get.default.db = function(biodb, class.db) {
 
-	db <- NULL
-
 	if (biodb$getFactory()$connExists(class.db))
-		db <- biodb$getFactory()$getConn(class.db)
+		conn = biodb$getFactory()$getConn(class.db)
 	else
-		db <- biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
+		conn = biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
 
-	return(db)
+	if (class.db == 'mass.csv.file') {
+		conn$setUrl('base.url', MASSFILEDB.URL)
+		conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
+	}
+	else if (class.db == 'mass.sqlite') {
+	}
+
+	return(conn)
 }
 
 # Run test_that method {{{1
