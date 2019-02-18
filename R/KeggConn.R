@@ -59,7 +59,7 @@ KeggConn$methods( .complete.entry.id = function(id) {
 ################################################################
 
 KeggConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-	return(BiodbUrl(url = c(.self$getUrl('ws.url'), 'get', .self$.complete.entry.id(id)))$toString())
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'get', x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry page url {{{1
