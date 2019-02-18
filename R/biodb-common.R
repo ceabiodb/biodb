@@ -2,13 +2,6 @@
 # DATABASES #
 #############
 
-BIODB.DATABASES <- sort(c('chebi', 'chemspider', 'expasy.enzyme', 'hmdb.metabolites', 'kegg.compound', 'lipidmaps.structure', 'massbank', 'mass.csv.file', 'mirbase.mature', 'ncbi.ccds', 'ncbi.gene', 'peakforest.mass', 'peakforest.compound', 'ncbi.pubchem.comp', 'ncbi.pubchem.subst', 'uniprot'))
-for (db in BIODB.DATABASES) {
-
-	# Create constant for database name
-	assign(toupper(paste('biodb', db, sep = '.')), db)
-}
-
 # DEPRECATED Mode values
 BIODB.MSMODE.NEG <- 'neg'
 BIODB.MSMODE.POS <- 'pos'

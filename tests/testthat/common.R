@@ -328,7 +328,7 @@ test.that  <- function(msg, fct, biodb = NULL, obs = NULL, conn = NULL) {
 			test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
 		else if ( ! is.null(biodb))
 			test_that(msg, do.call(fct, list(biodb)))
-		else if ( ! is.null(db))
+		else if ( ! is.null(conn))
 			test_that(msg, do.call(fct, list(conn)))
 		else
 			stop(paste0('Do not know how to call test function "', fct, '".'))
