@@ -26,7 +26,7 @@ LipidmapsStructureConn = methods::setRefClass("LipidmapsStructureConn", contains
 ################################################################
 
 LipidmapsStructureConn$methods( .doGetEntryContentRequest = function(ids, concatenate = TRUE) {
-	return(vapply(ids, function(id) .self$ws.LMSDRecord(lmid = id, mode = 'File', output.type = 'CSV', retfmt = 'request'), FUN.VALUE = ''))
+	return(vapply(ids, function(id) .self$ws.LMSDRecord(lmid = id, mode = 'File', output.type = 'CSV', retfmt = 'request')$getUrl()$toString(), FUN.VALUE = ''))
 })
 
 # Get entry page url {{{1
