@@ -96,7 +96,6 @@ BiodbEditable$methods( addNewEntry = function(entry) {
 
 	# Add entry to list
 	.self$.addEntriesToCache(id, list(entry))
-	# TODO make sure new entries are added to memory data frame for MassCsvFileConn
 })
 
 # Private methods {{{1

@@ -27,7 +27,8 @@ Imports:
 	stats,
 	R.utils,
 	digest,
-	openssl
+	openssl,
+	RSQLite
 LinkingTo:
 	Rcpp
 NeedsCompilation: yes
@@ -81,6 +82,7 @@ Collate:
     'MassdbConn.R'
     'MassCsvFileConn.R'
     'MassCsvFileEntry.R'
+    'MassSqliteConn.R'
     'MassbankConn.R'
     'MassbankEntry.R'
     'MirbaseConn.R'

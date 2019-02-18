@@ -207,7 +207,7 @@ BiodbEntry$methods( hasField = function(field) {
 # Remove field {{{1
 ################################################################
 
-BiodbEntry$methods(	removeField = function(field) {
+BiodbEntry$methods( removeField = function(field) {
 	":\n\nRemove the specified field from this entry."
 
 	if (.self$hasField(field))
@@ -217,7 +217,7 @@ BiodbEntry$methods(	removeField = function(field) {
 # Get field value {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FALSE, last = FALSE) {
+BiodbEntry$methods( getFieldValue = function(field, compute = TRUE, flatten = FALSE, last = FALSE) {
 	":\n\nGet the value of the specified field."
 
 	val <- NULL
@@ -361,9 +361,10 @@ BiodbEntry$methods( computeFields = function(fields = NULL) {
 	if (.self$getBiodb()$getConfig()$isEnabled('compute.fields')) {
 
 		# Set of fields to compute
-		fields <- if (is.null(fields)) names(BIODB.FIELD.COMPUTING) else fields[fields %in% names(BIODB.FIELD.COMPUTING)]
+		if (is.null(fields))
+			fields <- .self$getBiodb()$getEntryFields()$getFieldNames()
 
-		# Loop on all fields to compute
+		# Loop on all fields
 		for(f in fields) {
 
 			# Skip this field if we already have a value for it
@@ -371,7 +372,7 @@ BiodbEntry$methods( computeFields = function(fields = NULL) {
 				next
 
 			# Loop on all databases where we can look for a value
-			for (db in BIODB.FIELD.COMPUTING[[f]]) {
+			for (db in .self$getBiodb()$getEntryFields()$get(f)$getComputableFrom()) {
 
 				# Database is itself
 				if (db == .self$getParent()$getId())

@@ -284,10 +284,18 @@ init.mass.csv.file.db <- function(biodb) {
 	return(db.instance)
 }
 
-# Get default db {{{1
+# Initialize MassSqlite db {{{1
 ################################################################
 
-get.default.db <- function(biodb, class.db) {
+init.mass.sqlite.db = function(biodb) {
+	db.instance = get.default.db(biodb, 'mass.sqlite')
+	# TODO How to init an SQLite db?
+}
+
+# Get default connector {{{1
+################################################################
+
+get.default.db = function(biodb, class.db) {
 
 	db <- NULL
 
