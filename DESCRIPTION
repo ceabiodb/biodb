@@ -47,7 +47,6 @@ Collate:
     'BiodbDownloadable.R'
     'BiodbEditable.R'
     'BiodbEntry.R'
-    'biodb-common.R'
     'BiodbEntryField.R'
     'BiodbEntryFields.R'
     'BiodbFactory.R'

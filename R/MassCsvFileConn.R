@@ -4,7 +4,6 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include biodb-common.R
 #' @include MassdbConn.R 
 #' @include BiodbEditable.R 
 #' @include BiodbWritable.R 

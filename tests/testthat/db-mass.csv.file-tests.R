@@ -51,7 +51,7 @@ test.mass.csv.file.output.columns <- function(db) {
 	expect_equal(length(mz), 1)
 
 	# Run a match
-	spectra.ids <- db$searchMzTol(mz, ms.level = 1, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PPM)
+	spectra.ids <- db$searchMzTol(mz, ms.level = 1, mz.tol = 5, mz.tol.unit = 'ppm')
 
 	# Get data frame of results
 	entries <- biodb$getFactory()$getEntry(db$getId(), spectra.ids)

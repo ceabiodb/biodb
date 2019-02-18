@@ -3,7 +3,6 @@
 
 #' Class for handling a Mass spectrometry database in SQLite format.
 #'
-#' @include biodb-common.R
 #' @include MassdbConn.R 
 #' @include BiodbEditable.R 
 #' @include BiodbWritable.R 

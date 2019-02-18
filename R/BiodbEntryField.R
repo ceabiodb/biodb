@@ -44,7 +44,6 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include biodb-common.R
 #' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField

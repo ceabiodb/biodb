@@ -147,7 +147,7 @@ MassdbConn$methods( filterEntriesOnRt = function(entry.ids, rt, rt.unit, rt.tol,
 # Search MS entries {{{1
 ################################################################
 
-MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz = NULL, mz.shift = 0.0, mz.tol = NA_real_, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, 
+MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz = NULL, mz.shift = 0.0, mz.tol = NA_real_, mz.tol.unit = 'plain', 
                                                rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_, chrom.col.ids = NULL,
                                                precursor = FALSE,
 											   min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0) {
@@ -304,10 +304,11 @@ MassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, mz.shi
 # MS-MS search {{{1
 ################################################################
 
-MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol.unit = 'plain', ms.mode, npmin = 2, dist.fun = BIODB.MSMS.DIST.WCOSINE, msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_) {
+MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol.unit = 'plain', ms.mode, npmin = 2, dist.fun = c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_) {
 	":\n\nSearch MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search."
 	
-	peak.tables <- list()
+	peak.tables = list()
+	dist.fun = match.arg(dist.fun)
 
 	# Get spectra IDs
 	ids <- character()
@@ -412,7 +413,7 @@ MassdbConn$methods( searchMzRange = function(mz.min, mz.max, min.rel.int = NA_re
 # Search by M/Z within tolerance {{{2
 ################################################################
 
-MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
+MassdbConn$methods( searchMzTol = function(mz, mz.tol, mz.tol.unit = 'plain', min.rel.int = NA_real_, ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE, ms.level = 0) {
 	":\n\nFind spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs."
 
 	.self$.deprecated.method('MassdbConn::searchMsEntries()')
@@ -521,7 +522,7 @@ MassdbConn$methods( .checkMzTolParam = function(mz, mz.shift, mz.tol, mz.tol.uni
 		.self$.assert.positive(mz)
 		.self$.assert.positive(mz.tol)
 		.self$.assert.length.one(mz.tol)
-		.self$.assert.in(mz.tol.unit, BIODB.MZTOLUNIT.VALS)
+		.self$.assert.in(mz.tol.unit, c('ppm', 'plain'))
 	}
 
 	return(use.tol)

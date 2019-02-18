@@ -40,7 +40,7 @@ test.msmsSearch.self.match <- function(db) {
 		peaks <- peaks[1:2, ]
 
 		# Run MSMS search
-		results <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, ms.mode = mode, npmin = 2, dist.fun = 'pbachtttarya', msms.mz.tol = 3, msms.mz.tol.min = 0.005)
+		results <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = mode, npmin = 2, dist.fun = 'pbachtttarya', msms.mz.tol = 3, msms.mz.tol.min = 0.005)
 
 		# Check results
 		expect_true( ! is.null(results))
@@ -111,7 +111,7 @@ test.searchMzTol <- function(db) {
 
 	# Search
 	for (mz in mzs) {
-		ids <- db$searchMzTol(mz = mz, mz.tol = 5, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+		ids <- db$searchMzTol(mz = mz, mz.tol = 5, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = mode)
 		expect_true(is.character(ids))
 		expect_true(length(ids) > 0)
 	}
@@ -170,7 +170,7 @@ test.searchMzTol.multiple.mz <- function(db) {
 	# Search one M/Z at a time
 	all.ids <- character(0)
 	for (mz in mzs) {
-		ids <- db$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+		ids <- db$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = mode)
 		testthat::expect_is(ids, 'character')
 		testthat::expect_true(length(ids) > 0)
 		all.ids <- c(all.ids, ids)
@@ -178,7 +178,7 @@ test.searchMzTol.multiple.mz <- function(db) {
 	all.ids <- all.ids[ ! duplicated(all.ids)]
 
 	# Search all M/Z values at once
-	all.ids.2 <- db$searchMzTol(mz = mzs, mz.tol = mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, min.rel.int = 0, ms.mode = mode)
+	all.ids.2 <- db$searchMzTol(mz = mzs, mz.tol = mz.tol, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = mode)
 
 	# List of IDs must be the same
 	testthat::expect_true(all(all.ids.2 %in% all.ids))
@@ -211,7 +211,7 @@ test.searchMzTol.with.precursor <- function(db) {
 		expect_false(is.na(mz))
 
 		# Search for it
-		spectra.ids <- db$searchMzTol(mz = mz, mz.tol = tol.ppm, mz.tol.unit = BIODB.MZTOLUNIT.PPM, precursor = TRUE, ms.level = ms.level)
+		spectra.ids <- db$searchMzTol(mz = mz, mz.tol = tol.ppm, mz.tol.unit = 'ppm', precursor = TRUE, ms.level = ms.level)
 		expect_gte(length(spectra.ids), 1)
 		expect_false(any(is.na(spectra.ids)))
 

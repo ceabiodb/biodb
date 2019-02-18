@@ -27,7 +27,6 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include biodb-common.R
 #' @include Biodb.R
 #' @include ChildObject.R
 #' @include BiodbEntryField.R
