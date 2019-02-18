@@ -24,15 +24,6 @@ source('db-uniprot-tests.R')
 biodb <- create.biodb.instance()
 expect_is(biodb, 'Biodb')
 
-# Initialize all database connectors
-# We need to create all connectors now, because they must be set with the proper cache ID. Connectors like ChEBI, even if not tested directly, may be used through computed fields from other connectors. Proper cache ID is required for offline tests.
-connectors <- list()
-for (db.name in biodb$getDbsInfo()$getIds()) {
-	conn <- get.default.db(biodb, db.name)
-	expect_is(conn, 'BiodbConn')
-	connectors[[db.name]] <- conn
-}
-
 # Loop on test databases
 for (db.name in TEST.DATABASES) {
 
@@ -41,17 +32,12 @@ for (db.name in TEST.DATABASES) {
 	# Loop on test modes
 	for (mode in TEST.MODES) {
 
-# TODO call get.default.db() HERE:
-		# 2. call get.default.db() and pass it `mode`
-		# 3. get.default.db() will set cache.id = class.db only if mode is offline
-		# 4. get.default.db() will also instantiate databases that are inside getComputableFrom() if mode is offline.
-		# 5. Rename get.default.db() in create.conn.for.generic.tests(). For that remove use of get.default.db() in other tests, and replace the connector used (ChEBI or Massbank) with a MassCsvFile instance.
-
 		# Configure mode
 		set.mode(biodb, mode)
 
 		# Get instance
-		conn <- connectors[[db.name]]
+		conn <- create.conn.for.generic.tests(biodb = biodb, class.db = db.name, mode = mode)
+		expect_is(conn, 'BiodbConn')
 
 		# Delete cache entries
 		biodb$getFactory()$deleteAllCacheEntries(conn$getId())

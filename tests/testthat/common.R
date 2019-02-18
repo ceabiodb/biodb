@@ -278,18 +278,36 @@ load.ref.entries <- function(db) {
 # Get default connector {{{1
 ################################################################
 
-get.default.db = function(biodb, class.db) {
+create.conn.for.generic.tests = function(biodb, class.db, mode) {
 
+	# Get connector
 	if (biodb$getFactory()$connExists(class.db))
 		conn = biodb$getFactory()$getConn(class.db)
-	else
-		conn = biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
 
-	if (class.db == 'mass.csv.file') {
-		conn$setUrl('base.url', MASSFILEDB.URL)
-		conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
-	}
-	else if (class.db == 'mass.sqlite') {
+	# Create connector
+	else {
+		if (mode == 'offline')
+			conn = biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
+		else
+			conn = biodb$getFactory()$createConn(class.db)
+
+		# Set parameters for local connectors
+		if (class.db == 'mass.csv.file') {
+			conn$setUrl('base.url', MASSFILEDB.URL)
+			conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
+		}
+		else if (class.db == 'mass.sqlite') {
+		}
+
+		# Create needed additional connectors for computing missing fields
+		if (mode == 'offline') {
+
+			# Loop on all fields
+			for (field in biodb$getEntryFields()$getFieldNames())
+				for (computing.db in biodb$getEntryFields()$get(field)$getComputableFrom())
+					if (computing.db != class.db)
+						c = create.conn.for.generic.tests(biodb = biodb, class.db = computing.db, mode = mode)
+		}
 	}
 
 	return(conn)
