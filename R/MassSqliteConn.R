@@ -1,5 +1,11 @@
 # vi: fdm=marker
 
+# TODO Create BiodbSqlConn class.
+# TODO Rename MassdbConn into BiodbMassConn.
+
+# Class declaration {{{1
+################################################################
+
 #' Class for handling a Mass spectrometry database in SQLite format.
 #'
 #' @include MassdbConn.R 
@@ -27,7 +33,32 @@ MassSqliteConn$methods( getEntryContent = function(entry.id) {
 
 	.self$.init.db()
 
-	# TODO
+	# Loop on all entry IDs
+	i = 0
+	for (accession in entry.id) {
+
+		i = i + 1
+		entry = list()
+
+		# Loop on all other tables
+		for (table in DBI::dbListTables(.self$.db)) {
+
+			# Get field info
+			field = .self$getBiodb()$getEntryFields()$get(table)
+
+			# Get data frame
+			df = DBI::dbGetQuery(.self$.db, paste0("select * from ", table, " where accession = '", accession, "';"))
+
+			# Set value
+			if (table == 'entries')
+				entry = c(entry, as.list(df))
+			else
+				entry[[table]] = df[, colnames(df)[colnames(df) != 'accession'], drop = field$hasCardMany()]
+		}
+
+		# Set content
+		content[[i]] = jsonlite::toJSON(entry, pretty = TRUE, digits = NA_integer_)
+	}
 
 	return(content)
 })

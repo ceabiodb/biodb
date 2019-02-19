@@ -61,7 +61,10 @@ CsvEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 	for (field in names(parsing.expr)) {
 
 		# Is field in columns?
-		if (parsing.expr[[field]] %in% names(parsed.content)) {
+		if (parsing.expr[[field]] %in% colnames(parsed.content)) {
+
+			# Get field definition
+			field.def = .self$getBiodb()$getEntryFields()$get(field)
 
 			# Get value
 			v <- parsed.content[[parsing.expr[[field]]]]
@@ -75,6 +78,10 @@ CsvEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 
 			# Remove duplicated values
 			v <- v[ ! duplicated(v)]
+
+			# Split
+			if (field.def$hasCardMany() && length(v) == 1)
+				v = strsplit(v, .self$getBiodb()$getConfig()$get('multival.field.sep'))[[1]]
 
 			# Set value
 			if (length(v) > 0 && any( ! is.na(v)))

@@ -258,7 +258,7 @@ BiodbEntry$methods( getFieldValue = function(field, compute = TRUE, flatten = FA
 # Get fields as data frame {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL, flatten = TRUE, only.card.one = FALSE) {
+BiodbEntry$methods( getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL, flatten = TRUE, only.card.one = FALSE) {
 	":\n\nConvert this entry into a data frame."
 
 	df <- data.frame(stringsAsFactors = FALSE)
