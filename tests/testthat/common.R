@@ -17,6 +17,8 @@ MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
 MASSFILEDB.WRONG.NB.COLS.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_nb_cols.tsv')
 
+MASS.SQLITE.URL = file.path(OUTPUT.DIR, 'mass.sqlite.file.sqlite')
+
 # Create output directory {{{1
 ################################################################
 
@@ -297,6 +299,16 @@ create.conn.for.generic.tests = function(biodb, class.db, mode) {
 			conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
 		}
 		else if (class.db == 'mass.sqlite') {
+			conn$setUrl('base.url', MASS.SQLITE.URL)
+			conn$allowEditing()
+			conn$allowWriting()
+
+			mass.csv.file.conn = create.conn.for.generic.tests(biodb = biodb, class.db = 'mass.csv.file',  mode = mode)
+			ids = mass.csv.file.conn$getEntryIds()
+			entries = mass.csv.file.conn$getEntry(ids)
+			for (entry in entries)
+				conn$addNewEntry(entry$clone(class.db))
+			conn$write()
 		}
 
 		# Create needed additional connectors for computing missing fields

@@ -396,6 +396,15 @@ BiodbConnBase$methods( .terminate = function() {
 	# Notify observers
 	for (obs in .self$.observers)
 		obs$connTerminating(.self)
+
+	# Do terminate (do specific job for the connector)
+	.self$.doTerminate()
+})
+
+# Do terminate {{{2
+################################################################
+
+BiodbConnBase$methods( .doTerminate = function() {
 })
 
 # Register observer {{{2

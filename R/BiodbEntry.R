@@ -77,11 +77,11 @@ BiodbEntry$methods( parentIsAConnector = function() {
 # Clone {{{1
 ################################################################
 
-BiodbEntry$methods( clone = function() {
+BiodbEntry$methods( clone = function(db.class = NULL) {
 	":\n\nClone this entry."
 
 	# Create new entry
-	clone <- .self$getBiodb()$getFactory()$createNewEntry(db.class = .self$getDbClass())
+	clone <- .self$getBiodb()$getFactory()$createNewEntry(db.class = if (is.null(db.class)) .self$getDbClass() else db.class)
 
 	# Copy fields
 	clone$.fields <- .self$.fields
