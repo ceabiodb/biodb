@@ -5,7 +5,7 @@
 #' @include MassdbConn.R 
 #' @include BiodbEditable.R 
 #' @include BiodbWritable.R 
-MassSqliteConn <- methods::setRefClass('MassSqliteConn', contains = c("MassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.db = "ANY", .tables = "character"))
+MassSqliteConn <- methods::setRefClass('MassSqliteConn', contains = c("MassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.db = "ANY"))
 
 # Constructor {{{1
 ################################################################
@@ -15,7 +15,6 @@ MassSqliteConn$methods( initialize = function(...) {
 	callSuper(...)
 
 	.db <<- NULL
-	.tables <<- character()
 })
 
 # Get entry content {{{1
@@ -46,71 +45,46 @@ MassSqliteConn$methods( .doWrite = function() {
 
 	.self$.init.db()
 
-	# Loop on all new entries
-	for (entry in .self$getAllCacheEntries())
-		if (entry$isNew()) {
+	# Get new entries
+	cached.entries = .self$getAllCacheEntries()
+	new.entries = cached.entries[vapply(cached.entries, function(x) x$isNew(), FUN.VALUE = TRUE)]
 
-			# Start transaction
-			DBI::dbBegin(.self$.db)
+	if (length(new.entries) > 0) {
 
-			single.value.fields = list()
+		# Start transaction
+		DBI::dbBegin(.self$.db)
+
+		# Write into main table
+		df = .self$getBiodb()$entriesToDataframe(new.entries, only.card.one = TRUE)
+		DBI::dbWriteTable(conn = .self$.db, name = 'entries', value = df, append = TRUE)
+
+		# Loop on all new entries and write other fields to separate tables
+		for (entry in new.entries) {
 
 			# Loop on all fields
 			for (field.name in entry$getFieldNames()) {
 
 				field = .self$getBiodb()$getEntryFields()$get(field.name)
-				accession = entry$getFieldValue('accession')
-				value = entry$getFieldValue(field.name)
 
 				# Write data frame field
-				if (field$getType() == 'data.frame')
-					.self$.write.data.frame.field(accession, name = field.name, value = value)
+				if (field$getClass() == 'data.frame')
+					DBI::dbWriteTable(conn = .self$.db, name = field.name, value = cbind(accession = entry$getFieldValue('accession'), entry$getFieldValue(field.name)), append = TRUE)
 
 				# Write multiple values field
-				else if (field$hasCardOne())
-					.self$.write.multiple.values.field(accession, name = field.name, value = value)
-
-				# Write single value field
-				else
-					single.value.fields[[field.name]] = value
+				else if (field$hasCardMany()) {
+					values = list(accession = entry$getFieldValue('accession'))
+					values[[field.name]] = entry$getFieldValue(field.name)
+					DBI::dbWriteTable(conn = .self$.db, name = field.name, value = as.data.frame(values), append = TRUE)
+				}
 			}
-
-			.self$.write.single.value.fields(single.value.fields)
-
-			# Commit transaction
-			DBI::dbCommit(.self$.db)
-
-			# Unset "new" flag
-			entry$.setAsNew(FALSE)
 		}
-})
 
-# Write single value fields {{{2
-################################################################
+		# Commit transaction
+		DBI::dbCommit(.self$.db)
 
-MassSqliteConn$methods( .write.single.value.fields = function(fields) {
-
-	# Make sure table exists
-	.self$.create.table('entries')
-
-	# Make sure columns exist
-	for (col in names(fields))
-		.self$.create.column(table = 'entries', name = col, type = class(fields[[col]]))
-
-	# Add row
-	.self$.insert.values(table = 'entries', values)
-})
-
-# Insert values {{{2
-################################################################
-
-MassSqliteConn$methods( .insert.values = function(table, columns, values) {
-
-	# Build query
-	cols = paste(columns, collapse = ', ')
-	vals = paste(values, collapse = ', ')
-	query = paste0('insert into entries (', cols, ') values (', vals, ');')
-	DBI::dbSendQuery(.self$.db, query)
+		# Unset "new" flag
+		lapply(new.entries, function(x) x$.setAsNew(FALSE))
+	}
 })
 
 # Init db {{{2
@@ -120,22 +94,6 @@ MassSqliteConn$methods( .init.db = function() {
 
 	if (is.null(.self$.db))
 		.db <<-  DBI::dbConnect(RSQLite::SQLite(), dbname = .self$getUrl('base.url'))
-})
-
-# Create table {{{2
-################################################################
-
-MassSqliteConn$methods( .create.table = function(name) {
-
-	# Get list of existing tables
-	if (is.null(.self$.tables))
-		.tables <<- DBI::dbListTables(.self$.db)
-
-	# Create tables
-	if ( ! name %in% .self$.tables) {
-		DBI::sqlCreateTable(.self$.db, table = name, fields = c(accession = 'text'), row.names = FALSE)
-		.table <<- c(.self$.tables, name)
-	}
 })
 
 # Do terminate {{{2

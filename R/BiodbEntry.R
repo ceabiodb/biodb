@@ -258,7 +258,7 @@ BiodbEntry$methods( getFieldValue = function(field, compute = TRUE, flatten = FA
 # Get fields as data frame {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL) {
+BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL, flatten = TRUE, only.card.one = FALSE) {
 	":\n\nConvert this entry into a data frame."
 
 	df <- data.frame(stringsAsFactors = FALSE)
@@ -275,11 +275,17 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	# Loop on fields
 	for (f in fields) {
 
+		field.def = .self$getBiodb()$getEntryFields()$get(f)
+
 		# Ignore non atomic values
-		if (only.atomic && ! .self$getBiodb()$getEntryFields()$get(f)$isVector())
+		if (only.atomic && ! field.def$isVector())
 			next
 
-		v <- .self$getFieldValue(f, flatten = TRUE)
+		# Ignore field with cardinality > one
+		if (only.card.one && ! field.def$hasCardOne())
+			next
+
+		v <- .self$getFieldValue(f, flatten = flatten)
 
 		# Transform vector into data frame
 		if (is.vector(v)) {
