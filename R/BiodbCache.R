@@ -146,7 +146,7 @@ BiodbCache$methods( loadFileContent = function(cache.id, subfolder, name, ext, o
 	# Read contents from files
 	file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
 	.self$message('debug', paste("Trying to load from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
-	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else ( if (file.exists(x)) readChar(x, file.info(x)$size, useBytes = TRUE) else NULL )} )
+	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else if ( ! file.exists(x)) NULL else if (ext == 'RData') { load(x) ; c} else readChar(x, file.info(x)$size, useBytes = TRUE)} )
 	files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE = T)]
 	if (length(files.read) == 0)
 		.self$message('debug', "No files loaded from cache.")
@@ -193,11 +193,15 @@ BiodbCache$methods( saveContentToFile = function(content, cache.id, subfolder, n
 		.self$message('error', paste("The number of content to save (", length(content), ") is different from the number of paths (", length(file.paths), ").", sep = ''))
 
 	# Replace NA values with 'NA' string
-	content[is.na(content)] <- 'NA'
+	if (ext != 'RData')
+		content[is.na(content)] <- 'NA'
 
 	# Write content to files
 	.self$message('debug', paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
-	mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, content, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
+	if (ext == 'RData')
+		mapply(function(c, f) { save(c, file = f) }, content, file.paths)
+	else
+		mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, content, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
 })
 
 # Get subfolder path {{{1

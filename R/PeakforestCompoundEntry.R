@@ -14,10 +14,10 @@ PeakforestCompoundEntry$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-PeakforestCompoundEntry$methods( .parseFieldsAfter = function(parsed.content) {
+PeakforestCompoundEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# HMDB null
 	if (.self$hasField('hmdb.metabolites.id')) {

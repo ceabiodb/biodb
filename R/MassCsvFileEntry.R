@@ -15,10 +15,10 @@ MassCsvFileEntry$methods( initialize = function(...) {
 	callSuper(sep = "\t", ...)
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-MassCsvFileEntry$methods( .parseFieldsAfter = function(parsed.content) {
+MassCsvFileEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	entry.fields <- .self$getBiodb()$getEntryFields()
 

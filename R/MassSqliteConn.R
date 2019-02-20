@@ -23,6 +23,27 @@ MassSqliteConn$methods( initialize = function(...) {
 	.db <<- NULL
 })
 
+# Get entry ids {{{1
+################################################################
+
+MassSqliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
+
+	ids = integer()
+
+	.self$.init.db()
+
+	# Build query
+	query = "select accession from entries"
+	if ( ! is.null(max.results) && ! is.na(max.results) && is.integer(max.results))
+		query = paste0(query, ' limit ', max.results)
+
+	# Run query
+	df = DBI::dbGetQuery(.self$.db, query)
+	ids = df[[1]]
+
+	return(ids)
+})
+
 # Get entry content {{{1
 ################################################################
 
@@ -43,17 +64,14 @@ MassSqliteConn$methods( getEntryContent = function(entry.id) {
 		# Loop on all other tables
 		for (table in DBI::dbListTables(.self$.db)) {
 
-			# Get field info
-			field = .self$getBiodb()$getEntryFields()$get(table)
-
 			# Get data frame
-			df = DBI::dbGetQuery(.self$.db, paste0("select * from ", table, " where accession = '", accession, "';"))
+			df = DBI::dbGetQuery(.self$.db, paste0("select * from '", table, "' where accession = '", accession, "';"))
 
 			# Set value
 			if (table == 'entries')
 				entry = c(entry, as.list(df))
 			else
-				entry[[table]] = df[, colnames(df)[colnames(df) != 'accession'], drop = field$hasCardMany()]
+				entry[[table]] = df[, colnames(df)[colnames(df) != 'accession'], drop = .self$getBiodb()$getEntryFields()$get(table)$hasCardMany()]
 		}
 
 		# Set content

@@ -54,7 +54,7 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, urls
 	.self$.assert.not.null(entry.content.type)
 	.self$.assert.not.na(entry.content.type)
 	.self$.assert.is(entry.content.type, 'character')
-	.self$.assert.in(entry.content.type, c('html', 'txt', 'xml', 'csv', 'tsv', 'json'))
+	.self$.assert.in(entry.content.type, c('html', 'txt', 'xml', 'csv', 'tsv', 'json', 'list'))
 	.entry.content.type <<- entry.content.type
 
 	# URLs
@@ -103,6 +103,20 @@ BiodbConnBase$methods( getEntryContentType = function() {
 	":\n\nReturns the entry content type."
 
 	return(.self$.entry.content.type)
+})
+
+# Get entry file extension {{{1
+################################################################
+
+BiodbConnBase$methods( getEntryFileExt = function() {
+	":\n\nReturns the entry file extension."
+
+	if (.self$.entry.content.type == 'list')
+		ext = 'RData'
+	else
+		ext = .self$.entry.content.type
+
+	return(ext)
 })
 
 # Get database class {{{1

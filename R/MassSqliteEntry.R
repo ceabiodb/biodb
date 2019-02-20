@@ -3,5 +3,5 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include JsonEntry.R
-MassSqliteEntry <- methods::setRefClass("MassSqliteEntry", contains = "JsonEntry")
+#' @include BiodbEntryList.R
+MassSqliteEntry <- methods::setRefClass("MassSqliteEntry", contains = "BiodbEntryList")

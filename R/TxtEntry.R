@@ -27,10 +27,10 @@ TxtEntry$methods( .doParseContent = function(content) {
 	return(lines)
 })
 
-# Parse fields from expressions {{{1
+# Parse fields step 1 {{{1
 ################################################################
 
-TxtEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
+TxtEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
 	parsing.expr <- .self$getParent()$.getParsingExpressions()

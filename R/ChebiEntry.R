@@ -15,10 +15,10 @@ ChebiEntry$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-ChebiEntry$methods( .parseFieldsAfter = function(parsed.content) {
+ChebiEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 #	# Check that we do not have a better formula (there may be several formulae defined).
 #	formulae <- XML::xpathSApply(parsed.content, "//chebi:Formulae/chebi:data", XML::xmlValue, namespaces = .self$.namespace)

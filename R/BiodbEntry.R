@@ -334,9 +334,9 @@ BiodbEntry$methods( parseContent = function(content) {
 
 		if (.self$.isParsedContentCorrect(parsed.content)) {
 
-			.self$.parseFieldsFromExpr(parsed.content)
+			.self$.parseFieldsStep1(parsed.content)
 
-			.self$.parseFieldsAfter(parsed.content)
+			.self$.parseFieldsStep2(parsed.content)
 		}
 	}
 
@@ -465,17 +465,17 @@ BiodbEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 	return(TRUE)
 })
 
-# Parse fields from expressions {{{2
+# Parse fields step 1 {{{2
 ################################################################
 
-BiodbEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
+BiodbEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 	.self$.abstract.method()
 })
 
-# Parse fields after {{{2
+# Parse fields step 2 {{{2
 ################################################################
 
-BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
+BiodbEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 })
 
 # Check database ID field {{{2

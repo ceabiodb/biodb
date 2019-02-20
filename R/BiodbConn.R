@@ -219,5 +219,4 @@ BiodbConn$methods( .getEntryMissingFromCache = function(ids) {
 ################################################################
 
 BiodbConn$methods( .getParsingExpressions = function() {
-	.self$.abstract.method()
 })

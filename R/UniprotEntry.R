@@ -21,10 +21,10 @@ UniprotEntry$methods( .isContentCorrect = function(content) {
 	return( ! grepl("^<!DOCTYPE html ", content, perl = TRUE))
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-UniprotEntry$methods( .parseFieldsAfter = function(parsed.content) {
+UniprotEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Remove new lines from sequence string
 	if (.self$hasField('SEQUENCE'))
