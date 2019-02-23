@@ -8,4 +8,15 @@
 \description{
 Class for handling a Mass spectrometry database in SQLite format.
 }
+\section{Methods}{
+
+\describe{
+\item{\code{getEntryContent(entry.id)}}{:
+
+Get the content of an entry.}
+
+\item{\code{getEntryIds(max.results = NA_integer_, ms.level = 0)}}{:
+
+Get entry identifiers from the database.}
+}}
 

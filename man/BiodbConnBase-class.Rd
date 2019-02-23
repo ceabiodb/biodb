@@ -62,6 +62,10 @@ Returns the name of the associated entry class.}
 
 Returns the entry content type.}
 
+\item{\code{getEntryFileExt()}}{:
+
+Returns the entry file extension.}
+
 \item{\code{getEntryIdField()}}{:
 
 Return the name of the corresponding database ID field in entries.}

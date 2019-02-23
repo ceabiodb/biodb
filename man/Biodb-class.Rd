@@ -51,7 +51,8 @@ Extract the value of a field from a list of entries.
 Returns either a vector or a list depending on the type of the field.}
 
 \item{\code{entriesToDataframe(entries, only.atomic = TRUE, null.to.na = TRUE,
-  compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE)}}{:
+  compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE,
+  flatten = TRUE, only.card.one = FALSE)}}{:
 
 Convert a list of entries (\code{BiodbEntry} objects) into a data frame.}
 

@@ -32,7 +32,7 @@ An entry is an element of a database, identifiable by its accession number. Each
 
 Append a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values.}
 
-\item{\code{clone()}}{:
+\item{\code{clone(db.class = NULL)}}{:
 
 Clone this entry.}
 
@@ -44,7 +44,8 @@ Returns name of the database class associated with this entry.}
 
 Get a list of all fields defined for this entry.}
 
-\item{\code{getFieldsAsDataFrame(only.atomic = TRUE, compute = TRUE, fields = NULL)}}{:
+\item{\code{getFieldsAsDataFrame(only.atomic = TRUE, compute = TRUE, fields = NULL,
+  flatten = TRUE, only.card.one = FALSE)}}{:
 
 Convert this entry into a data frame.}
 
