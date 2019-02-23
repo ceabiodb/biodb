@@ -284,7 +284,7 @@ BiodbFactory$methods( deleteAllCacheEntries = function(conn.id) {
 BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 	":\n\nGet the contents of database entries from IDs (accession numbers)."
 
-	content <- character(0)
+	content <- list()
 
 	if ( ! is.null(id) && length(id) > 0) {
 
@@ -353,7 +353,8 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 			}
 
 			# Merge content and missing.contents
-			content[id %in% missing.ids] <- vapply(id[id %in% missing.ids], function(x) missing.contents[missing.ids == x], FUN.VALUE = '')
+			missing.contents = as.list(missing.contents)
+			content[id %in% missing.ids] = missing.contents[vapply(id[id %in% missing.ids], function(x) which(missing.ids == x), FUN.VALUE = as.integer(1))]
 		}
 	}
 
@@ -386,7 +387,7 @@ BiodbFactory$methods( .loadEntries = function(conn.id, ids, drop) {
 		.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
 
 		# Get contents
-		content <- .self$getEntryContent(conn$getId(), ids)
+		content = .self$getEntryContent(conn$getId(), ids)
 
 		# Create entries
 		new.entries <- .self$.createEntryFromContent(conn$getId(), content = content, drop = drop)
@@ -445,8 +446,7 @@ BiodbFactory$methods( .createEntryFromContent = function(conn.id, content, drop 
     		entry <- entry.class$new(parent = conn)
 
 			# Parse content
-			if ( ! is.null(single.content) && ! is.na(single.content))
-				entry$parseContent(single.content)
+			entry$parseContent(single.content)
 
 			entries <- c(entries, entry)
 		}

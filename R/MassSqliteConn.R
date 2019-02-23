@@ -50,7 +50,7 @@ MassSqliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 MassSqliteConn$methods( getEntryContent = function(entry.id) {
 	
 	# Initialize contents to return
-	content <- rep(NA_character_, length(entry.id))
+	content = list()
 
 	.self$.init.db()
 
@@ -75,7 +75,7 @@ MassSqliteConn$methods( getEntryContent = function(entry.id) {
 		}
 
 		# Set content
-		content[[i]] = jsonlite::toJSON(entry, pretty = TRUE, digits = NA_integer_)
+		content[[i]] = entry
 	}
 
 	return(content)

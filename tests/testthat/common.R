@@ -218,6 +218,8 @@ list.ref.entries <- function(db) {
 
 	# List json files
 	files <- Sys.glob(file.path(RES.DIR, paste('entry', db, '*.json', sep = '-')))
+	if (length(files) == 0)
+		stop(paste0("No JSON reference files for database ", db, "."))
 
 	# Extract ids
 	ids <- sub(paste('^.*/entry', db, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)

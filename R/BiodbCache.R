@@ -224,7 +224,7 @@ BiodbCache$methods( getSubFolderPath = function(subfolder) {
 
 BiodbCache$methods( eraseFolder = function(subfolder = NA_character_) {
 
-	# Erase whole cache				    
+	# Erase whole cache
 	if (is.na(subfolder) || ! .self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
 		folder.to.erase <- .self$getDir()
 
@@ -237,11 +237,30 @@ BiodbCache$methods( eraseFolder = function(subfolder = NA_character_) {
 	unlink(folder.to.erase, recursive = TRUE)
 })
 
+# Delete file {{{1
+################################################################
+
+BiodbCache$methods( deleteFile = function(cache.id, subfolder, name, ext) {
+	":\n\nDelete one file inside the cache system."
+
+	if ( ! .self$isWritable())
+		.self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
+
+	# Get file paths
+	file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
+
+	# Delete files
+	lapply(file.paths, unlink)
+})
+
 # Delete files {{{1
 ################################################################
 
 BiodbCache$methods( deleteFiles = function(cache.id, subfolder, ext = NA_character_) {
 	":\n\nDelete files inside the cache system."
+
+	if ( ! .self$isWritable())
+		.self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
 
 	files <- paste(cache.id, '*',sep = '-')
 	if ( ! is.na(ext))

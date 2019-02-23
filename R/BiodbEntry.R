@@ -350,7 +350,7 @@ BiodbEntry$methods( parseContent = function(content) {
 	else {
 		if (.self$hasField(dbid.field))
 			.self$setFieldValue('accession', .self$getFieldValue(dbid.field))
-		else
+		else if (.self$hasField('accession'))
 			.self$setFieldValue(dbid.field, .self$getFieldValue('accession'))
 	}
 })
@@ -445,7 +445,7 @@ BiodbEntry$methods( .setAsNew = function(new) {
 
 BiodbEntry$methods( .isContentCorrect = function(content) {
 
-	correct <- ! is.null(content) && ! is.na(content) && content != ''
+	correct <- ! is.null(content) && ((is.list(content) && length(content) > 0) || (is.character(content) && ! is.na(content) && content != ''))
 	# NOTE `nchar(content)` may give "invalid multibyte string, element 1" on some strings.
 
 	return(correct)

@@ -14,7 +14,7 @@ test.entry.fields <- function(db) {
 
 	# Create entries
 	entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
-	expect_equal(length(entries), length(ref.ids), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", length(ref.ids), "."))
+	testthat::expect_equal(length(entries), length(ref.ids), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", length(ref.ids), "."))
 
 	# Compute fields
 	biodb$computeFields(entries)
