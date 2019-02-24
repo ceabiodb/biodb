@@ -34,8 +34,8 @@ MassSqliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	# Build query
 	query = "select accession from entries"
-	if ( ! is.null(max.results) && ! is.na(max.results) && is.integer(max.results))
-		query = paste0(query, ' limit ', max.results)
+	if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
+		query = paste0(query, ' limit ', as.integer(max.results))
 
 	# Run query
 	df = DBI::dbGetQuery(.self$.db, query)
