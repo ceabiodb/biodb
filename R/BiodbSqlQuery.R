@@ -17,14 +17,14 @@
 #' @import methods
 #' @export BiodbSqlQuery
 #' @exportClass BiodbSqlQuery
-BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery", fields = list(.table = 'character', .fields = 'character', .distinct = 'logical', .join = 'list', .where = 'list', .limit = 'integer'))
+BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery", fields = list(.table = 'character', .fields = 'list', .distinct = 'logical', .join = 'list', .where = 'list', .limit = 'integer'))
 
 # Constructor {{{1
 ################################################################
 
 BiodbSqlQuery$methods( initialize = function() {
 	.table <<- character()
-	.fields <<- character()
+	.fields <<- list()
 	.distinct <<- FALSE
 	.join <<- list()
 	.where <<- list()
@@ -43,10 +43,10 @@ BiodbSqlQuery$methods( setTable = function(table) {
 # Add  {{{1
 ################################################################
 
-BiodbSqlQuery$methods( setFields = function(fields) {
+BiodbSqlQuery$methods( addField = function(table = NULL, field) {
 	":\n\nSet the fields."
 
-	.fields <<- fields
+	.fields <<- c(.self$.fields, list(list(table = table, field = field)))
 })
 
 # Set distinct {{{1
@@ -131,6 +131,18 @@ BiodbSqlQuery$methods( getWhere = function() {
 	return(where)
 })
 
+# Get fields {{{1
+################################################################
+
+BiodbSqlQuery$methods( getFields = function() {
+
+	fields = vapply(.self$.fields, function(x) { field = (if (x$field == '*') x$field else paste0('`', x$field, '`')) ; if (is.null(x$table)) field else paste0('`', x$table, '`.', field) }, FUN.VALUE = '')
+
+	fields = paste(fields, collapse = ', ')
+
+	return(fields)
+})
+
 # To string {{{1
 ################################################################
 
@@ -144,7 +156,7 @@ BiodbSqlQuery$methods( toString = function() {
 		query = c(query, 'distinct')
 
 	# Set fields
-	query = c(query, paste(vapply(.self$.fields, function(x) paste0('`', x, '`'), FUN.VALUE = ''), collapse = ', '))
+	query = c(query, .self$getFields())
 
 	# Set table
 	query = c(query, 'from', paste0('`', .self$.table, '`'))

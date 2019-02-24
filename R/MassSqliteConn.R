@@ -198,7 +198,7 @@ MassSqliteConn$methods( .doGetMzValues = function(ms.mode, max.results, precurso
 
 		# Build query
 		query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
-		query$setFields(mzcol)
+		query$addField(field = mzcol)
 		if ( ! is.null(max.results) && ! is.na(max.results))
 			query$setLimit(max.results)
 		.self$message('debug', paste0('Run query "', query$toString(), '".'))
@@ -254,7 +254,7 @@ MassSqliteConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int,
 
 		# Build query
 		query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
-		query$setFields('accession')
+		query$addField(table = 'peaks', field = 'accession')
 		if ( ! is.null(mz.min) && ! is.na(mz.min) && (is.numeric(mz.min) || is.integer(mz.min)))
 			query$addWhere(table1 = 'peaks', field1 = mzcol, op = '>=', value2 = mz.min)
 		if ( ! is.null(mz.max) && ! is.na(mz.max) && (is.numeric(mz.max) || is.integer(mz.max)))
