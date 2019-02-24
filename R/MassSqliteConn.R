@@ -162,6 +162,23 @@ MassSqliteConn$methods( .doTerminate = function() {
 	}
 })
 
+# Find right M/Z field {{{2
+################################################################
+
+MassSqliteConn$methods( .findMzField = function() {
+
+	mzcol = NULL
+
+	peak.fields = DBI::dbListFields(.self$.db, 'peaks')
+	for (c in c('peak.mztheo', 'peak.mz', 'peak.mzexp'))
+		if (c %in% peak.fields) {
+			mzcol = c
+			break
+		}
+
+	return(mzcol)
+})
+
 # Do get mz values {{{2
 ################################################################
 
@@ -177,44 +194,81 @@ MassSqliteConn$methods( .doGetMzValues = function(ms.mode, max.results, precurso
 
 	if ('peaks' %in% tables) {
 
-		# Found M/Z right column
-		mzcol = NULL
-		peak.fields = DBI::dbListFields(.self$.db, 'peaks')
-		for (c in c('peak.mztheo', 'peak.mz', 'peak.mzexp'))
-			if (c %in% peak.fields) {
-				mzcol = c
-				break
-			}
+		mzcol = .self$.findMzField()
 
 		# Build query
-		join = character()
-		where = character()
-		if (precursor) {
-			join = c(join, 'msprecmz')
-			where = c(where, paste0('msprecmz.msprecmz = `', mzcol, '`'))
-		}
-		if ( ! is.null(ms.level) && ! is.na(ms.level) && (is.numeric(ms.level) || is.integer(ms.level)) && ms.level > 0) {
-			join = c(join, 'entries')
-			where = c(where, paste0('entries.`ms.level` = ', ms.level))
-		}
-		if ( ! is.null(ms.mode) && ! is.na(ms.mode) && is.character(ms.mode)) {
-			join = c(join, 'entries')
-			where = c(where, paste0('entries.`ms.mode` = "', ms.mode, '"'))
-		}
-		query = paste0("select distinct `", mzcol, "` from peaks")
-		if (length(join) > 0)
-			query = paste(query, paste(vapply(join[ ! duplicated(join)], function(table) paste0('join ', table, ' on ', table, '.accession = peaks.accession'), FUN.VALUE = ''), collapse = ' '))
-		if (length(where) > 0)
-			query = paste(query, paste0('where ', paste(where, collapse = ' and ')))
-		if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
-			query = paste0(query, ' limit ', as.integer(max.results))
-		query = paste0(query, ';')
-		.self$message('debug', paste0('Send query "', query, '".'))
+		query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
+		query$setFields(mzcol)
+		if ( ! is.null(max.results) && ! is.na(max.results))
+			query$setLimit(max.results)
+		.self$message('debug', paste0('Run query "', query$toString(), '".'))
 
 		# Run query
-		df = DBI::dbGetQuery(.self$.db, query)
+		df = DBI::dbGetQuery(.self$.db, query$toString())
 		mz = df[[1]]
 	}
 
 	return(mz)
+})
+
+# Create MS query object {{{1
+################################################################
+
+MassSqliteConn$methods( .createMsQuery = function(mzcol, ms.mode = NULL, ms.level = 0, precursor =  FALSE) {
+
+	query = BiodbSqlQuery()
+	query$setTable('peaks')
+	query$setDistinct(TRUE)
+
+	if (precursor) {
+		query$addJoin(table1 = 'msprecmz', field1 = 'accession', table2 = 'peaks', field2 = 'accession')
+		query$addWhere(table1 = 'msprecmz', field1 = 'msprecmz', op = '=', table2 = 'peaks', field2 = mzcol)
+	}
+	if ( ! is.null(ms.level) && ! is.na(ms.level) && (is.numeric(ms.level) || is.integer(ms.level)) && ms.level > 0) {
+		query$addJoin(table1 = 'entries', field1 = 'accession', table2 = 'peaks', field2 = 'accession')
+		query$addWhere(table1 = 'entries', field1 = 'ms.level', op = '=', value2 = ms.level)
+	}
+	if ( ! is.null(ms.mode) && ! is.na(ms.mode) && is.character(ms.mode)) {
+		query$addJoin(table1 = 'entries', field1 = 'accession', table2 = 'peaks', field2 = 'accession')
+		query$addWhere(table1 = 'entries', field1 = 'ms.mode', op = '=', value2 = ms.mode)
+	}
+
+	return(query)
+})
+
+# Do search M/Z range {{{2
+################################################################
+
+MassSqliteConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+
+	ids = character()
+
+	.self$.init.db()
+
+	# List tables
+	tables = DBI::dbListTables(.self$.db)
+
+	if ('peaks' %in% tables) {
+
+		mzcol = .self$.findMzField()
+
+		# Build query
+		query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
+		query$setFields('accession')
+		if ( ! is.null(mz.min) && ! is.na(mz.min) && (is.numeric(mz.min) || is.integer(mz.min)))
+			query$addWhere(table1 = 'peaks', field1 = mzcol, op = '>=', value2 = mz.min)
+		if ( ! is.null(mz.max) && ! is.na(mz.max) && (is.numeric(mz.max) || is.integer(mz.max)))
+			query$addWhere(table1 = 'peaks', field1 = mzcol, op = '<=', value2 = mz.max)
+		if ( 'peak.relative.intensity' %in% DBI::dbListFields(.self$.db, 'peaks') && ! is.null(min.rel.int) && ! is.na(min.rel.int) && (is.numeric(min.rel.int) || is.integer(min.rel.int)))
+			query$addWhere(table1 = 'peaks', field1 = 'peak.relative.intensity', op = '>=', value2 = min.rel.int)
+		if ( ! is.null(max.results) && ! is.na(max.results))
+			query$setLimit(max.results)
+		.self$message('debug', paste0('Run query "', query$toString(), '".'))
+
+		# Run query
+		df = DBI::dbGetQuery(.self$.db, query$toString())
+		ids = df[[1]]
+	}
+
+	return(ids)
 })
