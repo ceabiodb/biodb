@@ -32,14 +32,20 @@ MassSqliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	.self$.init.db()
 
-	# Build query
-	query = "select accession from entries"
-	if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
-		query = paste0(query, ' limit ', as.integer(max.results))
+	# List tables
+	tables = DBI::dbListTables(.self$.db)
 
-	# Run query
-	df = DBI::dbGetQuery(.self$.db, query)
-	ids = df[[1]]
+	if ('entries' %in% tables) {
+
+		# Build query
+		query = "select accession from entries"
+		if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
+			query = paste0(query, ' limit ', as.integer(max.results))
+
+		# Run query
+		df = DBI::dbGetQuery(.self$.db, query)
+		ids = df[[1]]
+	}
 
 	return(ids)
 })
@@ -65,7 +71,7 @@ MassSqliteConn$methods( getEntryContent = function(entry.id) {
 		for (table in DBI::dbListTables(.self$.db)) {
 
 			# Get data frame
-			df = DBI::dbGetQuery(.self$.db, paste0("select * from '", table, "' where accession = '", accession, "';"))
+			df = DBI::dbGetQuery(.self$.db, paste0("select * from `", table, "` where accession = '", accession, "';"))
 
 			# Set value
 			if (table == 'entries')
@@ -154,4 +160,61 @@ MassSqliteConn$methods( .doTerminate = function() {
 		DBI::dbDisconnect(.self$.db)
 		.db <<- NULL
 	}
+})
+
+# Do get mz values {{{2
+################################################################
+
+# Inherited from MassdbConn.
+MassSqliteConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
+
+	mz = numeric()
+
+	.self$.init.db()
+
+	# List tables
+	tables = DBI::dbListTables(.self$.db)
+
+	if ('peaks' %in% tables) {
+
+		# Found M/Z right column
+		mzcol = NULL
+		peak.fields = DBI::dbListFields(.self$.db, 'peaks')
+		for (c in c('peak.mztheo', 'peak.mz', 'peak.mzexp'))
+			if (c %in% peak.fields) {
+				mzcol = c
+				break
+			}
+
+		# Build query
+		join = character()
+		where = character()
+		if (precursor) {
+			join = c(join, 'msprecmz')
+			where = c(where, paste0('msprecmz.msprecmz = `', mzcol, '`'))
+		}
+		if ( ! is.null(ms.level) && ! is.na(ms.level) && (is.numeric(ms.level) || is.integer(ms.level)) && ms.level > 0) {
+			join = c(join, 'entries')
+			where = c(where, paste0('entries.`ms.level` = ', ms.level))
+		}
+		if ( ! is.null(ms.mode) && ! is.na(ms.mode) && is.character(ms.mode)) {
+			join = c(join, 'entries')
+			where = c(where, paste0('entries.`ms.mode` = "', ms.mode, '"'))
+		}
+		query = paste0("select distinct `", mzcol, "` from peaks")
+		if (length(join) > 0)
+			query = paste(query, paste(vapply(join[ ! duplicated(join)], function(table) paste0('join ', table, ' on ', table, '.accession = peaks.accession'), FUN.VALUE = ''), collapse = ' '))
+		if (length(where) > 0)
+			query = paste(query, paste0('where ', paste(where, collapse = ' and ')))
+		if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
+			query = paste0(query, ' limit ', as.integer(max.results))
+		query = paste0(query, ';')
+		.self$message('debug', paste0('Send query "', query, '".'))
+
+		# Run query
+		df = DBI::dbGetQuery(.self$.db, query)
+		mz = df[[1]]
+	}
+
+	return(mz)
 })
