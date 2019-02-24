@@ -302,15 +302,19 @@ create.conn.for.generic.tests = function(biodb, class.db, mode) {
 		}
 		else if (class.db == 'mass.sqlite') {
 			conn$setUrl('base.url', MASS.SQLITE.URL)
-			conn$allowEditing()
-			conn$allowWriting()
 
-			mass.csv.file.conn = create.conn.for.generic.tests(biodb = biodb, class.db = 'mass.csv.file',  mode = mode)
-			ids = mass.csv.file.conn$getEntryIds()
-			entries = mass.csv.file.conn$getEntry(ids)
-			for (entry in entries)
-				conn$addNewEntry(entry$clone(class.db))
-			conn$write()
+			# Create SQLite database file
+			if ( ! file.exists(MASS.SQLITE.URL)) {
+				conn$allowEditing()
+				conn$allowWriting()
+
+				mass.csv.file.conn = create.conn.for.generic.tests(biodb = biodb, class.db = 'mass.csv.file',  mode = mode)
+				ids = mass.csv.file.conn$getEntryIds()
+				entries = mass.csv.file.conn$getEntry(ids)
+				for (entry in entries)
+					conn$addNewEntry(entry$clone(class.db))
+				conn$write()
+			}
 		}
 
 		# Create needed additional connectors for computing missing fields
