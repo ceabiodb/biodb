@@ -142,6 +142,8 @@ BiodbEntry$methods( setFieldValue = function(field, value) {
 
 	# Check value class
 	if (field.def$isVector()) {
+		if (length(value) == 0)
+			.self$message('error', paste0('Cannot set an empty value into field "', field, '".'))
 		v <- as.vector(value, mode = field.def$getClass())
 		if ( ! all(is.na(value)) && all(is.na(v)))
 			.self$message('caution', paste("Unable to convert value(s) \"", paste(value, collapse = ', '), "\" into ", field.def$getClass(), " type for field \"", field, "\".", sep = ''))

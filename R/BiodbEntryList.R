@@ -29,6 +29,15 @@ BiodbEntryList$methods( .isParsedContentCorrect = function(parsed.content) {
 BiodbEntryList$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Loop on all field names
-	for (field.name in names(parsed.content))
-		.self$setFieldValue(field.name, parsed.content[[field.name]])
+	for (field.name in names(parsed.content)) {
+		# Get value
+		value = parsed.content[[field.name]]
+
+		# Skip empty vector
+		if (is.vector(value) && length(value) == 0)
+			next
+
+		# Set value
+		.self$setFieldValue(field.name, value)
+	}
 })
