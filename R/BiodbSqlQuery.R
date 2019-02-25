@@ -1,6 +1,9 @@
 # vi: fdm=marker
 
-# Class declaration {{{1
+# SQL Query class {{{1
+################################################################
+
+# Class declaration {{{2
 ################################################################
 
 #' Class SQL Query.
@@ -17,9 +20,9 @@
 #' @import methods
 #' @export BiodbSqlQuery
 #' @exportClass BiodbSqlQuery
-BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery", fields = list(.table = 'character', .fields = 'list', .distinct = 'logical', .join = 'list', .where = 'list', .limit = 'integer'))
+BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery", fields = list(.table = 'character', .fields = 'list', .distinct = 'logical', .join = 'list', .where = 'ANY', .limit = 'integer'))
 
-# Constructor {{{1
+# Constructor {{{2
 ################################################################
 
 BiodbSqlQuery$methods( initialize = function() {
@@ -27,11 +30,11 @@ BiodbSqlQuery$methods( initialize = function() {
 	.fields <<- list()
 	.distinct <<- FALSE
 	.join <<- list()
-	.where <<- list()
+	.where <<- NULL
 	.limit <<- as.integer(0)
 })
 
-# Add table {{{1
+# Add table {{{2
 ################################################################
 
 BiodbSqlQuery$methods( setTable = function(table) {
@@ -40,7 +43,7 @@ BiodbSqlQuery$methods( setTable = function(table) {
 	.table <<- table
 })
 
-# Add  {{{1
+# Add  {{{2
 ################################################################
 
 BiodbSqlQuery$methods( addField = function(table = NULL, field) {
@@ -49,7 +52,7 @@ BiodbSqlQuery$methods( addField = function(table = NULL, field) {
 	.fields <<- c(.self$.fields, list(list(table = table, field = field)))
 })
 
-# Set distinct {{{1
+# Set distinct {{{2
 ################################################################
 
 BiodbSqlQuery$methods( setDistinct = function(distinct) {
@@ -58,7 +61,7 @@ BiodbSqlQuery$methods( setDistinct = function(distinct) {
 	.distinct <<- as.logical(distinct)
 })
 
-# Set limit {{{1
+# Set limit {{{2
 ################################################################
 
 BiodbSqlQuery$methods( setLimit = function(limit) {
@@ -67,7 +70,7 @@ BiodbSqlQuery$methods( setLimit = function(limit) {
 	.limit <<- as.integer(limit)
 })
 
-# Add join {{{1
+# Add join {{{2
 ################################################################
 
 BiodbSqlQuery$methods( addJoin = function(table1, field1, table2, field2) {
@@ -81,16 +84,16 @@ BiodbSqlQuery$methods( addJoin = function(table1, field1, table2, field2) {
 		.join <<- c(.self$.join, list(list(table1 = table1, field1 = field1, table2 = table2, field2 = field2)))
 })
 
-# Add where {{{1
+# Set where {{{2
 ################################################################
 
-BiodbSqlQuery$methods( addWhere = function(op, table1, field1, table2 = NULL, field2 = NULL, value2 = NULL) {
-	":\n\nAdd a condition for the where statement."
+BiodbSqlQuery$methods( setWhere = function(expr) {
+	":\n\nSet  the where clause."
 
-	.where <<- c(.self$.where, list(list(table1 = table1, field1 = field1, table2 = table2, field2 = field2, value2 = value2, op = op)))
+	.where <<- expr
 })
 
-# Get join {{{1
+# Get join {{{2
 ################################################################
 
 BiodbSqlQuery$methods( getJoin = function() {
@@ -103,35 +106,14 @@ BiodbSqlQuery$methods( getJoin = function() {
 	return(join)
 })
 
-# Get where {{{1
+# Get where {{{2
 ################################################################
 
 BiodbSqlQuery$methods( getWhere = function() {
-
-	where = 'where'
-
-	i = 0
-	for (w in .self$.where) {
-		i = i + 1
-		if (i > 1)
-			where = c(where, 'and')
-
-		# Set left member
-		left.member = paste0('`', w$table1, '`.`', w$field1, '`')
-
-		# Set right member
-		if ( ! is.null(w$value2))
-			right.member = if (is.character(w$value2)) paste0('"', w$value2, '"') else w$value2
-		else
-			right.member = paste0('`', w$table2, '`.`', w$field2, '`')
-
-		where = c(where, left.member, w$op, right.member)
-	}
-
-	return(where)
+	return(.self$.where)
 })
 
-# Get fields {{{1
+# Get fields {{{2
 ################################################################
 
 BiodbSqlQuery$methods( getFields = function() {
@@ -143,7 +125,7 @@ BiodbSqlQuery$methods( getFields = function() {
 	return(fields)
 })
 
-# To string {{{1
+# To string {{{2
 ################################################################
 
 BiodbSqlQuery$methods( toString = function() {
@@ -165,7 +147,8 @@ BiodbSqlQuery$methods( toString = function() {
 	query = c(query, .self$getJoin())
 
 	# Set where clause
-	query = c(query, .self$getWhere())
+	if ( ! is.null(.self$.where))
+		query = c(query, 'where', .self$.where$toString())
 
 	# Set limit
 	if (.self$.limit > 0)
@@ -178,4 +161,134 @@ BiodbSqlQuery$methods( toString = function() {
 	query = paste0(query, ';')
 
 	return(query)
+})
+
+# SQL expression {{{1
+################################################################
+
+# Class declaration {{{2
+################################################################
+
+BiodbSqlExpr = methods::setRefClass("BiodbSqlExpr", fields = list())
+
+# Constructor {{{2
+################################################################
+
+BiodbSqlExpr$methods( initialize = function() {
+})
+
+# To string {{{2
+################################################################
+
+BiodbSqlExpr$methods( toString = function() {
+	stop("This method is abstract.")
+})
+
+# SQL logical operator {{{1
+################################################################
+
+# Class declaration {{{2
+################################################################
+
+BiodbSqlLogicalOp <- methods::setRefClass("BiodbSqlLogicalOp", contains = 'BiodbSqlExpr', fields = list(.op = 'character', .expr = 'list'))
+
+# Constructor {{{2
+################################################################
+
+BiodbSqlLogicalOp$methods( initialize = function(op) {
+	.op <<- op
+	.expr <<- list()
+})
+
+# Add expression {{{2
+################################################################
+
+BiodbSqlLogicalOp$methods( addExpr = function(expr) {
+	.expr <<- c(.self$.expr, expr)
+})
+
+# To string {{{2
+################################################################
+
+BiodbSqlLogicalOp$methods( toString = function() {
+	s = vapply(.self$.expr, function(e) e$toString(), FUN.VALUE = '')
+	s = s[vapply(s, function(x) nchar(x) > 0, FUN.VALUE = TRUE)]
+	s = paste(s, collapse = paste0(' ', .self$.op, ' '))
+	if (nchar(s) > 0)
+		s = paste0('(', s, ')')
+	return(s)
+})
+
+# SQL binary operator {{{1
+################################################################
+
+# Class declaration {{{2
+################################################################
+
+BiodbSqlBinaryOp <- methods::setRefClass("BiodbSqlBinaryOp", contains = "BiodbSqlExpr", fields = list(.op = 'character', .lexpr = 'BiodbSqlExpr', .rexpr = 'BiodbSqlExpr'))
+
+# Constructor {{{2
+################################################################
+
+BiodbSqlBinaryOp$methods( initialize = function(lexpr, op, rexpr) {
+	.op <<- op
+	.lexpr <<- lexpr
+	.rexpr <<- rexpr
+})
+
+# To string {{{2
+################################################################
+
+BiodbSqlBinaryOp$methods( toString = function() {
+	s = paste0('(', .self$.lexpr$toString(), ' ', .self$.op, ' ' , .self$.rexpr$toString(), ')')
+	return(s)
+})
+
+# SQL value {{{1
+################################################################
+
+# Class declaration {{{2
+################################################################
+
+BiodbSqlValue <- methods::setRefClass("BiodbSqlValue", contains = "BiodbSqlExpr", fields = list(.value = 'ANY'))
+
+# Constructor {{{2
+################################################################
+
+BiodbSqlValue$methods( initialize = function(value) {
+	.value <<- value
+})
+
+# To string {{{2
+################################################################
+
+BiodbSqlValue$methods( toString = function() {
+	s = if (is.character(.self$.value)) paste0('"', .self$.value, '"') else paste(.self$.value)
+	return(s)
+})
+
+# SQL field {{{1
+################################################################
+
+# Class declaration {{{2
+################################################################
+
+BiodbSqlField <- methods::setRefClass("BiodbSqlField", contains = "BiodbSqlExpr", fields = list(.table = 'character', .field = 'character'))
+
+# Constructor {{{2
+################################################################
+
+BiodbSqlField$methods( initialize = function(table = NA_character_, field) {
+	.table <<- table
+	.field <<- field
+})
+
+# To string {{{2
+################################################################
+
+BiodbSqlField$methods( toString = function() {
+	s = paste0('`', .self$.field, '`')
+	if ( ! is.na(.self$.table))
+		s = paste0('`', .self$.table, '`.', s)
+	return(s)
 })

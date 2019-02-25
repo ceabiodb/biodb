@@ -219,18 +219,19 @@ MassSqliteConn$methods( .createMsQuery = function(mzcol, ms.mode = NULL, ms.leve
 	query = BiodbSqlQuery()
 	query$setTable('peaks')
 	query$setDistinct(TRUE)
+	query$setWhere(BiodbSqlLogicalOp(op = 'and'))
 
 	if (precursor) {
 		query$addJoin(table1 = 'msprecmz', field1 = 'accession', table2 = 'peaks', field2 = 'accession')
-		query$addWhere(table1 = 'msprecmz', field1 = 'msprecmz', op = '=', table2 = 'peaks', field2 = mzcol)
+		query$getWhere()$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'msprecmz', field = 'msprecmz'), op = '=', rexpr = BiodbSqlField(table = 'peaks', field = mzcol)))
 	}
 	if ( ! is.null(ms.level) && ! is.na(ms.level) && (is.numeric(ms.level) || is.integer(ms.level)) && ms.level > 0) {
 		query$addJoin(table1 = 'entries', field1 = 'accession', table2 = 'peaks', field2 = 'accession')
-		query$addWhere(table1 = 'entries', field1 = 'ms.level', op = '=', value2 = ms.level)
+		query$getWhere()$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'entries', field = 'ms.level'), op = '=', rexpr = BiodbSqlValue(ms.level)))
 	}
 	if ( ! is.null(ms.mode) && ! is.na(ms.mode) && is.character(ms.mode)) {
 		query$addJoin(table1 = 'entries', field1 = 'accession', table2 = 'peaks', field2 = 'accession')
-		query$addWhere(table1 = 'entries', field1 = 'ms.mode', op = '=', value2 = ms.mode)
+		query$getWhere()$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'entries', field = 'ms.mode'), op = '=', rexpr = BiodbSqlValue(ms.mode)))
 	}
 
 	return(query)
@@ -255,12 +256,18 @@ MassSqliteConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int,
 		# Build query
 		query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
 		query$addField(table = 'peaks', field = 'accession')
-		if ( ! is.null(mz.min) && ! is.na(mz.min) && (is.numeric(mz.min) || is.integer(mz.min)))
-			query$addWhere(table1 = 'peaks', field1 = mzcol, op = '>=', value2 = mz.min)
-		if ( ! is.null(mz.max) && ! is.na(mz.max) && (is.numeric(mz.max) || is.integer(mz.max)))
-			query$addWhere(table1 = 'peaks', field1 = mzcol, op = '<=', value2 = mz.max)
+		mz.range.or = BiodbSqlLogicalOp('or')
+		for (i in seq_along(mz.min)) {
+			and = BiodbSqlLogicalOp('and')
+			if ( ! is.null(mz.min) && ! is.na(mz.min) && (is.numeric(mz.min) || is.integer(mz.min)))
+				and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '>=', rexpr = BiodbSqlValue(mz.min)))
+			if ( ! is.null(mz.max) && ! is.na(mz.max) && (is.numeric(mz.max) || is.integer(mz.max)))
+				and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '<=', rexpr = BiodbSqlValue(mz.max)))
+			mz.range.or$addExpr(and)
+		}
+		query$getWhere()$addExpr(mz.range.or)
 		if ( 'peak.relative.intensity' %in% DBI::dbListFields(.self$.db, 'peaks') && ! is.null(min.rel.int) && ! is.na(min.rel.int) && (is.numeric(min.rel.int) || is.integer(min.rel.int)))
-			query$addWhere(table1 = 'peaks', field1 = 'peak.relative.intensity', op = '>=', value2 = min.rel.int)
+			query$getWhere()$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = 'peak.relative.intensity'), op = '>=', rexpr = BiodbSqlValue(min.rel.int)))
 		if ( ! is.null(max.results) && ! is.na(max.results))
 			query$setLimit(max.results)
 		.self$message('debug', paste0('Run query "', query$toString(), '".'))

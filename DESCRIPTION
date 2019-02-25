@@ -57,6 +57,7 @@ Collate:
     'BiodbRequest.R'
     'BiodbRequestScheduler.R'
     'BiodbRequestSchedulerRule.R'
+    'BiodbSqlQuery.R'
     'BiodbWritable.R'
     'RemotedbConn.R'
     'CompounddbConn.R'
