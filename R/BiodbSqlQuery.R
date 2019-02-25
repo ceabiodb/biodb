@@ -266,7 +266,43 @@ BiodbSqlValue$methods( initialize = function(value) {
 ################################################################
 
 BiodbSqlValue$methods( toString = function() {
-	s = if (is.character(.self$.value)) paste0('"', .self$.value, '"') else paste(.self$.value)
+
+	# Quote strings
+	if (is.character(.self$.value))
+		s = paste0('"', .self$.value, '"')
+	else
+		s = as.character(.self$.value)
+
+	return(s)
+})
+
+# SQL list of values {{{1
+################################################################
+
+# Class declaration {{{2
+################################################################
+
+BiodbSqlList <- methods::setRefClass("BiodbSqlList", contains = "BiodbSqlExpr", fields = list(.values = 'ANY'))
+
+# Constructor {{{2
+################################################################
+
+BiodbSqlList$methods( initialize = function(values) {
+	.values <<- values
+})
+
+# To string {{{2
+################################################################
+
+BiodbSqlList$methods( toString = function() {
+
+	# Quote strings
+	if (is.character(.self$.values))
+		s = vapply(.self$.values, function(v) paste0('"', v, '"'), FUN.VALUE = '')
+
+	# Collapse and convert to string
+	s = paste0('(', paste(s, collapse = ', '), ')')
+
 	return(s)
 })
 

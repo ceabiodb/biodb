@@ -87,6 +87,41 @@ MassSqliteConn$methods( getEntryContent = function(entry.id) {
 	return(content)
 })
 
+# Get chromatographic columns {{{1
+################################################################
+
+MassSqliteConn$methods( getChromCol = function(ids = NULL) {
+
+	chrom.cols <- data.frame(id = character(0), title = character(0))
+
+	.self$.init.db()
+	tables = DBI::dbListTables(.self$.db)
+
+	if ('entries' %in% tables) {
+
+		fields = DBI::dbListFields(.self$.db, 'entries')
+		fields.to.get = c('chrom.col.id', 'chrom.col.name')
+
+		if (all(fields.to.get %in% fields)) {
+			query = BiodbSqlQuery()
+			query$setTable('entries')
+			query$setDistinct(TRUE)
+			for (field in fields.to.get)
+				query$addField(field = field)
+
+			# Filter on spectra IDs
+			if ( ! is.null(ids))
+				query$setWhere(BiodbSqlBinaryOp(op = 'in', lexpr = BiodbSqlField(field = 'accession'), rexpr = BiodbSqlList(ids)))
+
+			# Run query
+			chrom.cols = DBI::dbGetQuery(.self$.db, query$toString())
+			names(chrom.cols) = c('id', 'title')
+		}
+	}
+
+	return(chrom.cols)
+})
+
 # Private methods {{{1
 ################################################################
 
