@@ -89,7 +89,8 @@ BiodbEditable$methods( addNewEntry = function(entry) {
 		.self$message('error', 'Impossible to add entry as a new entry. The accession number of the passed entry is already used in the connector.')
 
 	# Remove entry from non-volatile cache
-	.self$getBiodb()$getCache()$deleteFile(.self$getCacheId(), subfolder = 'shortterm', name = id, ext = .self$getEntryFileExt())
+	if (.self$getBiodb()$getCache()$isWritable())
+		.self$getBiodb()$getCache()$deleteFile(.self$getCacheId(), subfolder = 'shortterm', name = id, ext = .self$getEntryFileExt())
 
 	# Flag entry as new
 	entry$.setAsNew(TRUE)
