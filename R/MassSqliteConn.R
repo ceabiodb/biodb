@@ -257,12 +257,12 @@ MassSqliteConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int,
 		query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
 		query$addField(table = 'peaks', field = 'accession')
 		mz.range.or = BiodbSqlLogicalOp('or')
-		for (i in seq_along(mz.min)) {
+		for (i in seq_along(if (is.null(mz.max)) mz.min else mz.max)) {
 			and = BiodbSqlLogicalOp('and')
-			if ( ! is.null(mz.min) && ! is.na(mz.min) && (is.numeric(mz.min) || is.integer(mz.min)))
-				and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '>=', rexpr = BiodbSqlValue(mz.min)))
-			if ( ! is.null(mz.max) && ! is.na(mz.max) && (is.numeric(mz.max) || is.integer(mz.max)))
-				and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '<=', rexpr = BiodbSqlValue(mz.max)))
+			if ( ! is.null(mz.min) && ! is.na(mz.min[[i]]))
+				and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '>=', rexpr = BiodbSqlValue(as.numeric(mz.min[[i]]))))
+			if ( ! is.null(mz.max) && ! is.na(mz.max[[i]]))
+				and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '<=', rexpr = BiodbSqlValue(as.numeric(mz.max[[i]]))))
 			mz.range.or$addExpr(and)
 		}
 		query$getWhere()$addExpr(mz.range.or)

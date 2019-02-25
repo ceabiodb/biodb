@@ -147,8 +147,11 @@ BiodbSqlQuery$methods( toString = function() {
 	query = c(query, .self$getJoin())
 
 	# Set where clause
-	if ( ! is.null(.self$.where))
-		query = c(query, 'where', .self$.where$toString())
+	if ( ! is.null(.self$.where)) {
+		where = .self$.where$toString()
+		if (nchar(where) > 0)
+			query = c(query, 'where', where)
+	}
 
 	# Set limit
 	if (.self$.limit > 0)

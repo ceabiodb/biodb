@@ -160,29 +160,32 @@ MassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL, mz 
 
 	ids <- character()
 
-	if (check.param$use.rt.match) {
-		# Search for one M/Z at a time
-		for (i in seq_along(mz)) {
+	if ((check.param$use.mz.min.max && ! all(is.na(mz.min) & is.na(mz.max))) || (check.param$use.mz.tol && ! all(is.na(mz)))) {
 
-			# Search for this M/Z value
-			if (check.param$use.mz.min.max)
-				mz.ids <- .self$.doSearchMzRange(mz.min = mz.min[[i]], mz.max = mz.max[[i]], min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = NA_integer_, precursor = precursor, ms.level = ms.level)
-			else
-				mz.ids <- .self$.doSearchMzTol(mz = mz[[i]], mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = NA_integer_, precursor = precursor, ms.level = ms.level)
+		if (check.param$use.rt.match) {
+			# Search for one M/Z at a time
+			for (i in seq_along(rt)) {
 
-			# Filter on RT value
-			rt.ids <- .self$filterEntriesOnRt(mz.ids, rt = rt[[i]], rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids, match.rt = check.param$use.rt.match)
+				# Search for this M/Z value
+				if (check.param$use.mz.min.max)
+					mz.ids <- .self$.doSearchMzRange(mz.min = mz.min[[i]], mz.max = mz.max[[i]], min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = NA_integer_, precursor = precursor, ms.level = ms.level)
+				else
+					mz.ids <- .self$.doSearchMzTol(mz = mz[[i]], mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = NA_integer_, precursor = precursor, ms.level = ms.level)
 
-			ids <- c(ids, rt.ids)
+				# Filter on RT value
+				rt.ids <- .self$filterEntriesOnRt(mz.ids, rt = rt[[i]], rt.unit = rt.unit, rt.tol = rt.tol, rt.tol.exp = rt.tol.exp, chrom.col.ids = chrom.col.ids, match.rt = check.param$use.rt.match)
+
+				ids <- c(ids, rt.ids)
+			}
 		}
-	}
 
-	else {
-		# Search for all M/Z values
-		if (check.param$use.mz.min.max)
-			ids <- .self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
-		else
-			ids <- .self$.doSearchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
+		else {
+			# Search for all M/Z values
+			if (check.param$use.mz.min.max)
+				ids <- .self$.doSearchMzRange(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
+			else
+				ids <- .self$.doSearchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = max.results, precursor = precursor, ms.level = ms.level)
+		}
 	}
 
 	# Remove duplicates
