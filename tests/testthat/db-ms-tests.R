@@ -142,7 +142,7 @@ test.searchMsPeaks.with.NA.value <- function(db) {
 
 	# With one N/A value and one real value
 	mode <- 'neg'
-	tol <- 0.1
+	tol <- 0
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
 	mzs <- c(mzs, NA_real_)
 	peaks <- db$searchMsPeaks(mz = mzs, mz.tol = tol, mz.tol.unit = 'plain', ms.mode = mode,  max.results = 2)
