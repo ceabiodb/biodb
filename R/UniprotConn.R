@@ -71,7 +71,7 @@ UniprotConn$methods( ws.query = function(query = '', columns = NULL, format = NU
 	}
 
 	# Set columns
-	if (is.null(columns) || is.na(columns))
+	if (is.null(columns) || all(is.na(columns)))
 		columns <- c("citation", "clusters", "comments", "domains", "domain", "ec", "id", "entry name", "existence", "families", "features", "genes", "go", "go-id", "interactor", "keywords", "last-modified", "length", "organism", "organism-id", "pathway", "protein names", "reviewed", "sequence", "3d", "version", "virus hosts")
 
 	# Set format

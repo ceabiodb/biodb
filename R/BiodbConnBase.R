@@ -31,7 +31,7 @@ BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "ChildObject"
 # Constructor {{{1
 ################################################################
 
-BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, urls = NULL, scheduler.n = NA_integer_, scheduler.t = NA_real_, entry.content.type = NA_character_, xml.ns = NA_character_, name = NA_character_, token = NA_character_, properties = NULL, ...) {
+BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, urls = NULL, scheduler.n = NA_integer_, scheduler.t = NA_real_, entry.content.type = NA_character_, xml.ns = NULL, name = NA_character_, token = NA_character_, properties = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
@@ -65,7 +65,7 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, urls
 	.self$.assert.is(name, 'character')
 	.self$.assert.is(xml.ns, 'character')
 	.name <<- name
-	.xml.ns <<- xml.ns
+	.xml.ns <<- if (is.null(xml.ns)) character() else xml.ns
 	.self$.assert.is(token, 'character')
 	if (is.na(token)) {
 		config <- .self$getBiodb()$getConfig()
