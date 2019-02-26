@@ -26,6 +26,7 @@ branches:
   only:
     - master
     - develop
+    - /^.*_merging/
     - /^release[/].*$/
     - /^testing[/]travis-.*$/
 
