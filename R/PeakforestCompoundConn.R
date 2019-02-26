@@ -34,18 +34,6 @@ PeakforestCompoundConn$methods( initialize = function(...) {
 	callSuper(db.name = 'compounds', ...)
 })
 
-# Get entry content request {{{1
-################################################################
-
-PeakforestCompoundConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-
-	# Check token
-	if (is.na(.self$getToken()))
-		.self$message('error', "Peakforest requires a token for this service.")
-
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'compounds', id), params = list(token = .self$getToken()))$toString(), FUN.VALUE = ''))
-})
-
 # Get entry page url {{{1
 ################################################################
 
@@ -155,4 +143,16 @@ PeakforestCompoundConn$methods( searchCompound = function(name = NULL, mass = NU
 
 PeakforestCompoundConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.PEAKFOREST.COMPOUND.PARSING.EXPR)
+})
+
+# Get entry content request {{{2
+################################################################
+
+PeakforestCompoundConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
+
+	# Check token
+	if (is.na(.self$getToken()))
+		.self$message('error', "Peakforest requires a token for this service.")
+
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'compounds', x), params = list(token = .self$getToken()))$toString(), FUN.VALUE = ''))
 })
