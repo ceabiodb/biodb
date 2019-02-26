@@ -41,7 +41,7 @@ test.searchCompound <- function(db) {
 				mass <- entry$getFieldValue(field)
 
 				# Search by mass
-				ids <- db$searchCompound(mass = mass, mass.field = field)
+				ids <- db$searchCompound(mass = mass, mass.tol = 0, mass.field = field)
 				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, '.')
 				if (db$getId() %in% not.searchable[[field]])
 					expect_null(ids, msg)
@@ -52,15 +52,16 @@ test.searchCompound <- function(db) {
 				}
 
 				# Search by mass and name
-				ids <- db$searchCompound(name = name, mass = mass, mass.field = field)
+				ids <- db$searchCompound(name = name, mass = mass, mass.tol = 0, mass.field = field)
 				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
 				expect_true( ! is.null(ids), msg)
 				expect_true(length(ids) > 0, msg)
 				expect_true(id %in% ids, msg)
 
 				# Search by name and slightly different mass
-				mass <- mass + 0.01
-				ids <- db$searchCompound(name = name, mass = mass, mass.field = field, mass.tol = 0.02)
+				mass.diff = 0.00001
+				mass <- mass + mass.diff
+				ids <- db$searchCompound(name = name, mass = mass, mass.field = field, mass.tol = mass.diff)
 				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
 				expect_true( ! is.null(ids), msg)
 				expect_true(length(ids) > 0, msg)
