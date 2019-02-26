@@ -5,7 +5,7 @@
 	"inchikey": "PGZUMBJQJWIWGJ-ONAKXNSWSA-N",
 	"kegg.compound.id": "C08093",
 	"molecular.mass": 410.3997,
-	"monoisotopic.mass": 410.182,
+	"monoisotopic.mass": 410.1818,
 	"charge": 0,
 	"name": ["oseltamivir phosphate", "(3R-(3alpha,4beta,5alpha))-Ethyl 4-(acetylamino)-5-amino-3-(1-ethylpropoxy)-1-cyclohexene-1-carboxylate phosphate (1:1)", "Ethyl (3R,4R,5S)-4-acetamido-5-amino-3-(1-ethylpropoxy)-1-cyclohexene-1-carboxylate phosphate (1:1)", "Tamiflu"],
 	"formula": "C16H31N2O8P"
