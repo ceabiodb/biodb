@@ -143,9 +143,9 @@ ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
 
 ExpasyEnzymeConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
-	url <- BiodbUrl(url = c(.self$getUrl('base.url'), 'EC', paste(id, 'txt', sep = '.')))$toString()
+	urls <- vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'EC', paste(x, 'txt', sep = '.')))$toString(), FUN.VALUE = '')
 
-	return(url)
+	return(urls)
 })
 
 # Parse HTML returned by web services {{{2
