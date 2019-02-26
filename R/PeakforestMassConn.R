@@ -35,28 +35,6 @@ PeakforestMassConn$methods( initialize = function(...) {
 	callSuper(db.name = 'spectra/lcms', ...)
 })
 
-# Get entry content request {{{1
-################################################################
-
-PeakforestMassConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-
-	# Check token
-	if (is.na(.self$getToken()))
-		.self$message('error', "Peakforest requires a token for this service.")
-
-	# IDs are unique between LCMS and LCMSMS. Hence no confusion possible, and ID used in LCMS is not used in LCMSMS.
-	if (concatenate) {
-		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
-		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
-	}
-	else {
-		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
-		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getToken(), sep = ''))
-	}
-
-	return(url)
-})
-
 # Get entry page url {{{1
 ################################################################
 
@@ -293,7 +271,7 @@ PeakforestMassConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.PEAKFOREST.MASS.PARSING.EXPR)
 })
 
-# Do search M/Z range {{{1
+# Do search M/Z range {{{2
 ################################################################
 
 PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
@@ -363,3 +341,26 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 
 	return(ids)
 })
+
+# Do get entry content request {{{2
+################################################################
+
+PeakforestMassConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
+
+	# Check token
+	if (is.na(.self$getToken()))
+		.self$message('error', "Peakforest requires a token for this service.")
+
+	# IDs are unique between LCMS and LCMSMS. Hence no confusion possible, and ID used in LCMS is not used in LCMSMS.
+	if (concatenate) {
+		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
+		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
+	}
+	else {
+		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
+		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getToken(), sep = ''))
+	}
+
+	return(url)
+})
+
