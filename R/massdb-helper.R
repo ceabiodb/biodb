@@ -54,7 +54,8 @@ calcDistance <-
 		#SPec are always notmlized in pourcentage toa voir issues;
 		spec1 <- simplifySpectrum(spec1)
 		spec2 <- simplifySpectrum(spec2)
-		if(is.na(spec1)||is.na(spec2)) return(list(matched=numeric(0),similarity=0))
+		if(any(is.na(spec1)) || any(is.na(spec2)))
+			return(list(matched=numeric(0),similarity=0))
 		params$mz1 <- as.numeric(spec1[, 'peak.mz'])
 		params$mz2 <- as.numeric(spec2[, 'peak.mz'])
 		params$int1 <- as.numeric(spec1[, 'peak.relative.intensity'])
