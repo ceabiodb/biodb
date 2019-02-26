@@ -4,7 +4,7 @@
 	"name": "Ajugasterone C",
 	"formula": "C27H44O7",
 	"mass": 480.635,
-	"monoisotopic.mass": 480.309,
+	"monoisotopic.mass": 480.3087,
 	"charge": 0,
 	"kegg.compound.id": "C08811",
 	"smiles": "CC(C)CC[C@@H](O)[C@](C)(O)[C@H]1CC[C@@]2(O)C3=CC(=O)[C@@H]4C[C@@H](O)[C@@H](O)C[C@]4(C)[C@H]3[C@H](O)C[C@]12C",
