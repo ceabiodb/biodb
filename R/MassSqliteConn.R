@@ -32,19 +32,22 @@ MassSqliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 
 	.self$.init.db()
 
-	# List tables
-	tables = DBI::dbListTables(.self$.db)
+	if ( ! is.null(.self$.db)) {
 
-	if ('entries' %in% tables) {
+		# List tables
+		tables = DBI::dbListTables(.self$.db)
 
-		# Build query
-		query = "select accession from entries"
-		if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
-			query = paste0(query, ' limit ', as.integer(max.results))
+		if ('entries' %in% tables) {
 
-		# Run query
-		df = DBI::dbGetQuery(.self$.db, query)
-		ids = df[[1]]
+			# Build query
+			query = "select accession from entries"
+			if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
+				query = paste0(query, ' limit ', as.integer(max.results))
+
+			# Run query
+			df = DBI::dbGetQuery(.self$.db, query)
+			ids = df[[1]]
+		}
 	}
 
 	return(ids)
@@ -60,28 +63,31 @@ MassSqliteConn$methods( getEntryContent = function(entry.id) {
 
 	.self$.init.db()
 
-	# Loop on all entry IDs
-	i = 0
-	for (accession in entry.id) {
+	if ( ! is.null(.self$.db)) {
 
-		i = i + 1
-		entry = list()
+		# Loop on all entry IDs
+		i = 0
+		for (accession in entry.id) {
 
-		# Loop on all other tables
-		for (table in DBI::dbListTables(.self$.db)) {
+			i = i + 1
+			entry = list()
 
-			# Get data frame
-			df = DBI::dbGetQuery(.self$.db, paste0("select * from `", table, "` where accession = '", accession, "';"))
+			# Loop on all other tables
+			for (table in DBI::dbListTables(.self$.db)) {
 
-			# Set value
-			if (table == 'entries')
-				entry = c(entry, as.list(df))
-			else
-				entry[[table]] = df[, colnames(df)[colnames(df) != 'accession'], drop = .self$getBiodb()$getEntryFields()$get(table)$hasCardMany()]
+				# Get data frame
+				df = DBI::dbGetQuery(.self$.db, paste0("select * from `", table, "` where accession = '", accession, "';"))
+
+				# Set value
+				if (table == 'entries')
+					entry = c(entry, as.list(df))
+				else
+					entry[[table]] = df[, colnames(df)[colnames(df) != 'accession'], drop = .self$getBiodb()$getEntryFields()$get(table)$hasCardMany()]
+			}
+
+			# Set content
+			content[[i]] = entry
 		}
-
-		# Set content
-		content[[i]] = entry
 	}
 
 	return(content)
@@ -95,27 +101,31 @@ MassSqliteConn$methods( getChromCol = function(ids = NULL) {
 	chrom.cols <- data.frame(id = character(0), title = character(0))
 
 	.self$.init.db()
-	tables = DBI::dbListTables(.self$.db)
 
-	if ('entries' %in% tables) {
+	if ( ! is.null(.self$.db)) {
 
-		fields = DBI::dbListFields(.self$.db, 'entries')
-		fields.to.get = c('chrom.col.id', 'chrom.col.name')
+		tables = DBI::dbListTables(.self$.db)
 
-		if (all(fields.to.get %in% fields)) {
-			query = BiodbSqlQuery()
-			query$setTable('entries')
-			query$setDistinct(TRUE)
-			for (field in fields.to.get)
-				query$addField(field = field)
+		if ('entries' %in% tables) {
 
-			# Filter on spectra IDs
-			if ( ! is.null(ids))
-				query$setWhere(BiodbSqlBinaryOp(op = 'in', lexpr = BiodbSqlField(field = 'accession'), rexpr = BiodbSqlList(ids)))
+			fields = DBI::dbListFields(.self$.db, 'entries')
+			fields.to.get = c('chrom.col.id', 'chrom.col.name')
 
-			# Run query
-			chrom.cols = DBI::dbGetQuery(.self$.db, query$toString())
-			names(chrom.cols) = c('id', 'title')
+			if (all(fields.to.get %in% fields)) {
+				query = BiodbSqlQuery()
+				query$setTable('entries')
+				query$setDistinct(TRUE)
+				for (field in fields.to.get)
+					query$addField(field = field)
+
+				# Filter on spectra IDs
+				if ( ! is.null(ids))
+					query$setWhere(BiodbSqlBinaryOp(op = 'in', lexpr = BiodbSqlField(field = 'accession'), rexpr = BiodbSqlList(ids)))
+
+				# Run query
+				chrom.cols = DBI::dbGetQuery(.self$.db, query$toString())
+				names(chrom.cols) = c('id', 'title')
+			}
 		}
 	}
 
@@ -135,45 +145,48 @@ MassSqliteConn$methods( .doWrite = function() {
 
 	.self$.init.db()
 
-	# Get new entries
-	cached.entries = .self$getAllCacheEntries()
-	new.entries = cached.entries[vapply(cached.entries, function(x) x$isNew(), FUN.VALUE = TRUE)]
+	if ( ! is.null(.self$.db)) {
 
-	if (length(new.entries) > 0) {
+		# Get new entries
+		cached.entries = .self$getAllCacheEntries()
+		new.entries = cached.entries[vapply(cached.entries, function(x) x$isNew(), FUN.VALUE = TRUE)]
 
-		# Start transaction
-		DBI::dbBegin(.self$.db)
+		if (length(new.entries) > 0) {
 
-		# Write into main table
-		df = .self$getBiodb()$entriesToDataframe(new.entries, only.card.one = TRUE)
-		DBI::dbWriteTable(conn = .self$.db, name = 'entries', value = df, append = TRUE)
+			# Start transaction
+			DBI::dbBegin(.self$.db)
 
-		# Loop on all new entries and write other fields to separate tables
-		for (entry in new.entries) {
+			# Write into main table
+			df = .self$getBiodb()$entriesToDataframe(new.entries, only.card.one = TRUE)
+			DBI::dbWriteTable(conn = .self$.db, name = 'entries', value = df, append = TRUE)
 
-			# Loop on all fields
-			for (field.name in entry$getFieldNames()) {
+			# Loop on all new entries and write other fields to separate tables
+			for (entry in new.entries) {
 
-				field = .self$getBiodb()$getEntryFields()$get(field.name)
+				# Loop on all fields
+				for (field.name in entry$getFieldNames()) {
 
-				# Write data frame field
-				if (field$getClass() == 'data.frame')
-					DBI::dbWriteTable(conn = .self$.db, name = field.name, value = cbind(accession = entry$getFieldValue('accession'), entry$getFieldValue(field.name)), append = TRUE)
+					field = .self$getBiodb()$getEntryFields()$get(field.name)
 
-				# Write multiple values field
-				else if (field$hasCardMany()) {
-					values = list(accession = entry$getFieldValue('accession'))
-					values[[field.name]] = entry$getFieldValue(field.name)
-					DBI::dbWriteTable(conn = .self$.db, name = field.name, value = as.data.frame(values), append = TRUE)
+					# Write data frame field
+					if (field$getClass() == 'data.frame')
+						DBI::dbWriteTable(conn = .self$.db, name = field.name, value = cbind(accession = entry$getFieldValue('accession'), entry$getFieldValue(field.name)), append = TRUE)
+
+					# Write multiple values field
+					else if (field$hasCardMany()) {
+						values = list(accession = entry$getFieldValue('accession'))
+						values[[field.name]] = entry$getFieldValue(field.name)
+						DBI::dbWriteTable(conn = .self$.db, name = field.name, value = as.data.frame(values), append = TRUE)
+					}
 				}
 			}
+
+			# Commit transaction
+			DBI::dbCommit(.self$.db)
+
+			# Unset "new" flag
+			lapply(new.entries, function(x) x$.setAsNew(FALSE))
 		}
-
-		# Commit transaction
-		DBI::dbCommit(.self$.db)
-
-		# Unset "new" flag
-		lapply(new.entries, function(x) x$.setAsNew(FALSE))
 	}
 })
 
@@ -182,7 +195,7 @@ MassSqliteConn$methods( .doWrite = function() {
 
 MassSqliteConn$methods( .init.db = function() {
 
-	if (is.null(.self$.db))
+	if (is.null(.self$.db) && ! is.null(.self$getUrl('base.url')) && ! is.na(.self$getUrl('base.url')))
 		.db <<-  DBI::dbConnect(RSQLite::SQLite(), dbname = .self$getUrl('base.url'))
 })
 
@@ -224,23 +237,26 @@ MassSqliteConn$methods( .doGetMzValues = function(ms.mode, max.results, precurso
 
 	.self$.init.db()
 
-	# List tables
-	tables = DBI::dbListTables(.self$.db)
+	if ( ! is.null(.self$.db)) {
 
-	if ('peaks' %in% tables) {
+		# List tables
+		tables = DBI::dbListTables(.self$.db)
 
-		mzcol = .self$.findMzField()
+		if ('peaks' %in% tables) {
 
-		# Build query
-		query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
-		query$addField(field = mzcol)
-		if ( ! is.null(max.results) && ! is.na(max.results))
-			query$setLimit(max.results)
-		.self$message('debug', paste0('Run query "', query$toString(), '".'))
+			mzcol = .self$.findMzField()
 
-		# Run query
-		df = DBI::dbGetQuery(.self$.db, query$toString())
-		mz = df[[1]]
+			# Build query
+			query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
+			query$addField(field = mzcol)
+			if ( ! is.null(max.results) && ! is.na(max.results))
+				query$setLimit(max.results)
+			.self$message('debug', paste0('Run query "', query$toString(), '".'))
+
+			# Run query
+			df = DBI::dbGetQuery(.self$.db, query$toString())
+			mz = df[[1]]
+		}
 	}
 
 	return(mz)
@@ -281,35 +297,38 @@ MassSqliteConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int,
 
 	.self$.init.db()
 
-	# List tables
-	tables = DBI::dbListTables(.self$.db)
+	if ( ! is.null(.self$.db)) {
 
-	if ('peaks' %in% tables) {
+		# List tables
+		tables = DBI::dbListTables(.self$.db)
 
-		mzcol = .self$.findMzField()
+		if ('peaks' %in% tables) {
 
-		# Build query
-		query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
-		query$addField(table = 'peaks', field = 'accession')
-		mz.range.or = BiodbSqlLogicalOp('or')
-		for (i in seq_along(if (is.null(mz.max)) mz.min else mz.max)) {
-			and = BiodbSqlLogicalOp('and')
-			if ( ! is.null(mz.min) && ! is.na(mz.min[[i]]))
-				and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '>=', rexpr = BiodbSqlValue(as.numeric(mz.min[[i]]))))
-			if ( ! is.null(mz.max) && ! is.na(mz.max[[i]]))
-				and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '<=', rexpr = BiodbSqlValue(as.numeric(mz.max[[i]]))))
-			mz.range.or$addExpr(and)
+			mzcol = .self$.findMzField()
+
+			# Build query
+			query = .self$.createMsQuery(mzcol = mzcol, ms.mode = ms.mode, ms.level = ms.level, precursor = precursor)
+			query$addField(table = 'peaks', field = 'accession')
+			mz.range.or = BiodbSqlLogicalOp('or')
+			for (i in seq_along(if (is.null(mz.max)) mz.min else mz.max)) {
+				and = BiodbSqlLogicalOp('and')
+				if ( ! is.null(mz.min) && ! is.na(mz.min[[i]]))
+					and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '>=', rexpr = BiodbSqlValue(as.numeric(mz.min[[i]]))))
+				if ( ! is.null(mz.max) && ! is.na(mz.max[[i]]))
+					and$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = mzcol), op = '<=', rexpr = BiodbSqlValue(as.numeric(mz.max[[i]]))))
+				mz.range.or$addExpr(and)
+			}
+			query$getWhere()$addExpr(mz.range.or)
+			if ( 'peak.relative.intensity' %in% DBI::dbListFields(.self$.db, 'peaks') && ! is.null(min.rel.int) && ! is.na(min.rel.int) && (is.numeric(min.rel.int) || is.integer(min.rel.int)))
+				query$getWhere()$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = 'peak.relative.intensity'), op = '>=', rexpr = BiodbSqlValue(min.rel.int)))
+			if ( ! is.null(max.results) && ! is.na(max.results))
+				query$setLimit(max.results)
+			.self$message('debug', paste0('Run query "', query$toString(), '".'))
+
+			# Run query
+			df = DBI::dbGetQuery(.self$.db, query$toString())
+			ids = df[[1]]
 		}
-		query$getWhere()$addExpr(mz.range.or)
-		if ( 'peak.relative.intensity' %in% DBI::dbListFields(.self$.db, 'peaks') && ! is.null(min.rel.int) && ! is.na(min.rel.int) && (is.numeric(min.rel.int) || is.integer(min.rel.int)))
-			query$getWhere()$addExpr(BiodbSqlBinaryOp(lexpr = BiodbSqlField(table = 'peaks', field = 'peak.relative.intensity'), op = '>=', rexpr = BiodbSqlValue(min.rel.int)))
-		if ( ! is.null(max.results) && ! is.na(max.results))
-			query$setLimit(max.results)
-		.self$message('debug', paste0('Run query "', query$toString(), '".'))
-
-		# Run query
-		df = DBI::dbGetQuery(.self$.db, query$toString())
-		ids = df[[1]]
 	}
 
 	return(ids)

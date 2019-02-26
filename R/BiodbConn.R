@@ -106,6 +106,24 @@ BiodbConn$methods( getNbEntries = function(count = FALSE) {
 	return(n)
 })
 
+# Is editable {{{1
+################################################################
+
+BiodbConn$methods( isEditable = function() {
+	":\n\nReturns TRUE if the database is editable (i.e.: the connector class implements the interface BiodbEditable). If this connector is editable, then you can call allowEditing() to enable editing."
+
+	return(methods::is(.self, 'BiodbEditable'))
+})
+
+# Is writable {{{1
+################################################################
+
+BiodbConn$methods( isWritable = function() {
+	":\n\nReturns TRUE if the database is writable (i.e.: the connector class implements the interface BiodbWritable). If this connector is writable, then you can call allowWriting() to enable writing."
+
+	return(methods::is(.self, 'BiodbWritable'))
+})
+
 # Show {{{1
 ################################################################
 

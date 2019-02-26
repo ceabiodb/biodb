@@ -89,6 +89,15 @@ BiodbEntry$methods( clone = function(db.class = NULL) {
 	return(clone)
 })
 
+# Get ID {{{1
+################################################################
+
+BiodbEntry$methods( getId = function() {
+	":\n\nReturns the entry ID, which is the value if the \"accession\" field."
+
+	return(.self$getFieldValue('accession'))
+})
+
 # Is new {{{1
 ################################################################
 
@@ -383,7 +392,7 @@ BiodbEntry$methods( computeFields = function(fields = NULL) {
 			for (db in .self$getBiodb()$getEntryFields()$get(f)$getComputableFrom()) {
 
 				# Database is itself
-				if (db == .self$getParent()$getId())
+				if ( ! methods::is(.self$getParent(), 'BiodbConn') || db == .self$getParent()$getId())
 					next
 
 				# Have we a reference for this database?
