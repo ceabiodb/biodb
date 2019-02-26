@@ -1,8 +1,8 @@
 language: r
 cache:
     packages: true
-    directories:
-        - $BIODB_CACHE_DIRECTORY
+    #    directories:
+    #        - $BIODB_CACHE_DIRECTORY
 
 r:
     - oldrel
@@ -26,6 +26,7 @@ branches:
   only:
     - master
     - develop
+    - /^.*_merging/
     - /^release[/].*$/
     - /^testing[/]travis-.*$/
 
