@@ -170,7 +170,7 @@ test.rt.unit <- function(db) {
 	# Get IDs of reference entries
 	ref.ids <- list.ref.entries(db$getId())
 
-	# Create entries
+	# Get entries
 	entries <- db$getBiodb()$getFactory()$getEntry(db$getId(), id = ref.ids, drop = FALSE)
 
 	# Loop on all entries
