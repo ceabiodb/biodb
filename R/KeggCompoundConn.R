@@ -79,14 +79,18 @@ KeggCompoundConn$methods( ws.find.exact.mass = function(mass = NA_real_, mass.mi
 	if (retfmt != 'plain') {
 
 		# Parse
-		readtc = textConnection(results, "r", local = TRUE)
-		df = read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
-		close(readtc)
-		results = df
+		if (length(grep('^[[:space:]]*$', results, perl = TRUE)) == 0) {
+			readtc = textConnection(results, "r", local = TRUE)
+			df = read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+			close(readtc)
+			results = df
+		} else {
+			results = data.frame()
+		}
 
 		# Get IDs
 		if (retfmt == 'ids')
-			results = df[[1]]
+			results = if (ncol(results) > 0) results[[1]] else character()
 	}
 
 	return(results)
@@ -118,14 +122,18 @@ KeggCompoundConn$methods( ws.find.molecular.weight = function(mass = NA_real_, m
 	if (retfmt != 'plain') {
 
 		# Parse
-		readtc = textConnection(results, "r", local = TRUE)
-		df = read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
-		close(readtc)
-		results = df
+		if (length(grep('^[[:space:]]*$', results, perl = TRUE)) == 0) {
+			readtc = textConnection(results, "r", local = TRUE)
+			df = read.table(readtc, sep = "\t", quote = '', stringsAsFactors = FALSE)
+			close(readtc)
+			results = df
+		} else {
+			results = data.frame()
+		}
 
 		# Get IDs
 		if (retfmt == 'ids')
-			results = df[[1]]
+			results = if (ncol(results) > 0) results[[1]] else character()
 	}
 
 	return(results)
