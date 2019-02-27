@@ -37,7 +37,7 @@ XmlEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
 
 	# Set namespace
 	xml.ns <- .self$getParent()$getXmlNs()
-	ns <- if (is.null(xml.ns) || is.na(xml.ns)) XML::xmlNamespaceDefinitions(parsed.content, simplify = TRUE) else xml.ns
+	ns <- if (is.null(xml.ns) || length(xml.ns) == 0 || all(is.na(xml.ns))) XML::xmlNamespaceDefinitions(parsed.content, simplify = TRUE) else xml.ns
 
 	# Loop on all parsing expressions
 	for (field in names(parsing.expr)) {

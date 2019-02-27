@@ -201,7 +201,7 @@ BiodbEntryField$methods( getAllNames = function() {
 
 BiodbEntryField$methods( correctValue = function(value) {
 
-	if (.self$isVector() && ! is.null(value) && ! is.na(value)) {
+	if (.self$isVector() && ! is.null(value) && ! (length(value) == 1 && is.na(value))) {
 
 		# Correct type
 		if (.self$getClass() != class(value))
