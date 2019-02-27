@@ -173,9 +173,7 @@ BiodbConn$methods( deleteAllCacheEntries = function() {
 
 BiodbConn$methods( getCacheId = function() {
 	":\n\nReturns the ID used by this connector in the disk cache."
-# TODO
-# 5. use getCacheId() to know if caching is allowed. If cache ID is NULL of NA then no caching is allowed.
-# 7. In tests, remove use of conn.id, and replace it with use of cache.id.
+
 	id <- NULL
 
 	if ( ! is.null(.self$.cache.id) && ! is.na(.self$.cache.id)) {

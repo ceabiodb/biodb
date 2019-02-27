@@ -303,7 +303,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 		}
 
 		# Initialize content
-		if (.self$getBiodb()$getCache()$isReadable()) {
+		if (.self$getBiodb()$getCache()$isReadable() && ! is.null(conn$getCacheId())) {
 			# Load content from cache
 			content = .self$getBiodb()$getCache()$loadFileContent(conn$getCacheId(), subfolder = 'shortterm', name = id, ext = conn$getEntryFileExt())
 			missing.ids = id[vapply(content, is.null, FUN.VALUE = TRUE)]

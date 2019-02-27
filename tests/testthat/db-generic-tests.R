@@ -338,7 +338,6 @@ run.db.generic.tests = function(conn, mode) {
 	}
 	if (conn$isEditable() && conn$isWritable()) {
 		test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
-		test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
 		test.that('Database writing works.', 'test.db.writing', conn = conn)
 	}
 }

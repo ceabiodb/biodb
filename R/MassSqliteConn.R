@@ -59,7 +59,7 @@ MassSqliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
 MassSqliteConn$methods( getEntryContent = function(entry.id) {
 	
 	# Initialize contents to return
-	content = list()
+	content = rep(list(NULL), length(entry.id))
 
 	.self$.init.db()
 
