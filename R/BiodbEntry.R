@@ -130,7 +130,7 @@ BiodbEntry$methods( getDbClass = function() {
 # Set field value {{{1
 ################################################################
 
-BiodbEntry$methods(	setFieldValue = function(field, value) {
+BiodbEntry$methods( setFieldValue = function(field, value) {
 	":\n\nSet the value of a field. If the field is not already set for this entry, then the field will be created. See BiodbEntryFields for a list of possible fields in biodb."
 
 	field.def <- .self$getBiodb()$getEntryFields()$get(field)
@@ -143,8 +143,8 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 	# Check value class
 	if (field.def$isVector()) {
 		v <- as.vector(value, mode = field.def$getClass())
-		if ( ! is.na(value) && is.na(v))
-			.self$message('caution', paste("Unable to convert value \"", value, "\" into ", field.def$getClass(), " type for field \"", field, "\".", sep = ''))
+		if ( ! all(is.na(value)) && all(is.na(v)))
+			.self$message('caution', paste("Unable to convert value(s) \"", paste(value, collapse = ', '), "\" into ", field.def$getClass(), " type for field \"", field, "\".", sep = ''))
 		value <- v
 	}
 
@@ -173,7 +173,7 @@ BiodbEntry$methods(	setFieldValue = function(field, value) {
 # Append field value {{{1
 ################################################################
 
-BiodbEntry$methods(	appendFieldValue = function(field, value) {
+BiodbEntry$methods( appendFieldValue = function(field, value) {
 	":\n\nAppend a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values."
 
 	if (.self$hasField(field))
@@ -185,7 +185,7 @@ BiodbEntry$methods(	appendFieldValue = function(field, value) {
 # Get field names {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldNames = function() {
+BiodbEntry$methods( getFieldNames = function() {
 	":\n\nGet a list of all fields defined for this entry."
 
 	return(names(.self$.fields))
@@ -194,7 +194,7 @@ BiodbEntry$methods(	getFieldNames = function() {
 # Has field {{{1
 ################################################################
 
-BiodbEntry$methods(	hasField = function(field) {
+BiodbEntry$methods( hasField = function(field) {
 	":\n\nReturns TRUE if the specified field is defined in this entry."
 
 	# Get field definition

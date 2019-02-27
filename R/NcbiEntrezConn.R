@@ -68,7 +68,7 @@ NcbiEntrezConn$methods( ws.esearch = function(term, field = NA_character_, retma
 	params <- c(db = .self$.entrez.name, term = term)
 	if ( ! is.na(field))
 		params <- c(params, field = field)
-	if ( ! is.na(retmax))
+	if ( ! is.null(retmax) && ! is.na(retmax) && retmax > 0)
 		params <- c(params, retmax = retmax)
 	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'esearch.fcgi'), params = params)
 	request = BiodbRequest(method = 'get', url = url)
