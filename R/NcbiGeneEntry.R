@@ -22,10 +22,10 @@ NcbiGeneEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 	return(length(XML::getNodeSet(parsed.content, "//Error")) == 0 && length(XML::getNodeSet(parsed.content, "//ERROR")) == 0)
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-NcbiGeneEntry$methods( .parseFieldsAfter = function(parsed.content) {
+NcbiGeneEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# CCDS ID
 	ccdsid <- .self$.find.ccds.id(parsed.content)

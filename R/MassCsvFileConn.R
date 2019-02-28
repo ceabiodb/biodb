@@ -1,29 +1,26 @@
 # vi: fdm=marker
 
-#' @include biodb-common.R
-#' @include MassdbConn.R 
-#' @include BiodbWritable.R 
-
-# In the provided file, each line represents an MS peak measure.
-# The file contains molecule and spectrum information. Each spectrum has an accession id.
 
 # Class declaration {{{1
 ################################################################
 
+#' @include MassdbConn.R 
+#' @include BiodbEditable.R 
+#' @include BiodbWritable.R 
 MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = c("MassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character", .parsing.expr = 'list'))
 
 # Constructor {{{1
 ################################################################
 
-MassCsvFileConn$methods( initialize = function(file.sep = "\t", file.quote = "\"", ...) {
+MassCsvFileConn$methods( initialize = function(...) {
 
 	callSuper(...)
 
 	# Set fields
 	.db <<- NULL
 	.db.orig.colnames <<- NA_character_
-	.file.sep <<- file.sep
-	.file.quote <<- file.quote
+	.file.sep <<- "\t"
+	.file.quote <<- "\""
 	.fields <<- character()
 	.field.multval.sep <<- ';'
 	.parsing.expr <<- list()

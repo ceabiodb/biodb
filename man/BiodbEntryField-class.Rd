@@ -43,6 +43,10 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 
  Returns the list of all names (main name and aliases).}
 
+\item{\code{getComputableFrom()}}{:
+
+ Returns the list of databases where to find this field's value.}
+
 \item{\code{getDescription()}}{:
 
  Get field's description.}

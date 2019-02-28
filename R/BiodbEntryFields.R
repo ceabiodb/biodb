@@ -27,7 +27,6 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include biodb-common.R
 #' @include Biodb.R
 #' @include ChildObject.R
 #' @include BiodbEntryField.R
@@ -191,8 +190,8 @@ BiodbEntryFields$methods( .initFields = function() {
 #	.self$.define('compounds',     class = 'object',        description = 'List of associated compounds.', card = BIODB.CARD.MANY)
 
 	.self$.define('formula',            description = 'Empirical molecular formula.')
-	.self$.define('inchi',      description = 'International Chemical Identifier (InChI).')
-	.self$.define('inchikey',   description = 'Hash key of the International Chemical Identifier (InChIKey).')
+	.self$.define('inchi',      description = 'International Chemical Identifier (InChI).', computable.from = 'chebi')
+	.self$.define('inchikey',   description = 'Hash key of the International Chemical Identifier (InChIKey).', computable.from = 'chebi')
 	.self$.define('smiles',             description = 'SMILES.')
 	.self$.define('smiles.canonical',   description = 'SMILES canonical.')
 	.self$.define('smiles.isomeric',    description = 'SMILES isomeric.')
@@ -203,10 +202,10 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('average.mass',  description = 'Average mass.',    class = 'double', type = 'mass')
 	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double', type = 'mass')
 	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer', type = 'mass')
-	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double', type = 'mass')
+	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double', type = 'mass', computable.from = 'chebi')
 
 	.self$.define('comp.super.class',        description = 'Compound super class.', alias = c('superclass', 'super.class'))
-	.self$.define('sequence',           description = 'Gene or protein sequence.')
+	.self$.define('sequence',           description = 'Gene or protein sequence.', computable.from = 'ncbi.ccds')
 	.self$.define('seq.length',             description = 'Sequence length.',               class = 'integer', alias = 'length')
 	.self$.define('seq.location',           description = 'Sequence location.', alias = 'location')
 

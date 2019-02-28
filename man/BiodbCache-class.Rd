@@ -26,6 +26,10 @@ This class manages a cache system for saving downloaded files and request result
 \section{Methods}{
 
 \describe{
+\item{\code{deleteFile(cache.id, subfolder, name, ext)}}{:
+
+Delete one file inside the cache system.}
+
 \item{\code{deleteFiles(cache.id, subfolder, ext = NA_character_)}}{:
 
 Delete files inside the cache system.}

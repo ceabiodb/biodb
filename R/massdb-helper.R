@@ -71,7 +71,7 @@ calcDistance <-
 ################################################################
 
 ###The returned sim list is not ordered
-compareSpectra <- function(spec, libspec, npmin = 2, fun = BIODB.MSMS.DIST.WCOSINE, params = list()) {
+compareSpectra <- function(spec, libspec, npmin = 2, fun = "wcosine", params = list()) {
 
 	res <- data.frame(score = numeric(0))
 

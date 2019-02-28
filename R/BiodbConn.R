@@ -106,6 +106,24 @@ BiodbConn$methods( getNbEntries = function(count = FALSE) {
 	return(n)
 })
 
+# Is editable {{{1
+################################################################
+
+BiodbConn$methods( isEditable = function() {
+	":\n\nReturns TRUE if the database is editable (i.e.: the connector class implements the interface BiodbEditable). If this connector is editable, then you can call allowEditing() to enable editing."
+
+	return(methods::is(.self, 'BiodbEditable'))
+})
+
+# Is writable {{{1
+################################################################
+
+BiodbConn$methods( isWritable = function() {
+	":\n\nReturns TRUE if the database is writable (i.e.: the connector class implements the interface BiodbWritable). If this connector is writable, then you can call allowWriting() to enable writing."
+
+	return(methods::is(.self, 'BiodbWritable'))
+})
+
 # Show {{{1
 ################################################################
 
@@ -155,9 +173,7 @@ BiodbConn$methods( deleteAllCacheEntries = function() {
 
 BiodbConn$methods( getCacheId = function() {
 	":\n\nReturns the ID used by this connector in the disk cache."
-# TODO
-# 5. use getCacheId() to know if caching is allowed. If cache ID is NULL of NA then no caching is allowed.
-# 7. In tests, remove use of conn.id, and replace it with use of cache.id.
+
 	id <- NULL
 
 	if ( ! is.null(.self$.cache.id) && ! is.na(.self$.cache.id)) {
@@ -219,5 +235,4 @@ BiodbConn$methods( .getEntryMissingFromCache = function(ids) {
 ################################################################
 
 BiodbConn$methods( .getParsingExpressions = function() {
-	.self$.abstract.method()
 })

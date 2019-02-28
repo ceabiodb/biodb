@@ -14,10 +14,10 @@ NcbiPubchemCompEntry$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-NcbiPubchemCompEntry$methods( .parseFieldsAfter = function(parsed.content) {
+NcbiPubchemCompEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Set names
 	names <- character()

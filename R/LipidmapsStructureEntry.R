@@ -22,10 +22,10 @@ LipidmapsStructureEntry$methods( .isContentCorrect = function(content) {
 	return( ! grepl("No record found", content))
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-LipidmapsStructureEntry$methods( .parseFieldsAfter = function(parsed.content) {
+LipidmapsStructureEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Set synonyms 
 	if (.self$hasField('SYNONYMS')) {

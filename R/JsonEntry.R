@@ -27,10 +27,10 @@ JsonEntry$methods( .doParseContent = function(content) {
 	return(json)
 })
 
-# Parse fields from expressions {{{1
+# Parse fields step 1 {{{1
 ################################################################
 
-JsonEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
+JsonEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
 	parsing.expr <- .self$getParent()$.getParsingExpressions()

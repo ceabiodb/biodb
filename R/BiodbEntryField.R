@@ -44,16 +44,15 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include biodb-common.R
 #' @include ChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .type = 'character', .group = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .type = 'character', .group = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical', .computable.from = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type = NA_character_, group = NA_character_, class = 'character', card = BIODB.CARD.ONE, forbids.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, ...) {
+BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type = NA_character_, group = NA_character_, class = 'character', card = BIODB.CARD.ONE, forbids.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, computable.from = NULL, ...) {
 
 	callSuper(...)
 
@@ -117,10 +116,12 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type
 		.self$message('error', 'Only character fields can be forced to lower case.')
 	.lower.case <<- lower.case
 
+	# Computable from
+	.computable.from <<- if (is.null(computable.from)) character() else computable.from
+
 	# Set other fields
 	.forbids.duplicates <<- forbids.duplicates
 	.db.id <<- db.id
-
 })
 
 # Get name {{{1
@@ -194,6 +195,15 @@ BiodbEntryField$methods( getAllNames = function() {
 		names <- c(names, aliases)
 	
 	return(names)
+})
+
+# Get computable from {{{1
+################################################################
+
+BiodbEntryField$methods( getComputableFrom = function() {
+	":\n\n Returns the list of databases where to find this field's value."
+
+	return(.self$.computable.from)
 })
 
 # Correct value {{{1

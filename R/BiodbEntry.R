@@ -77,16 +77,25 @@ BiodbEntry$methods( parentIsAConnector = function() {
 # Clone {{{1
 ################################################################
 
-BiodbEntry$methods( clone = function() {
+BiodbEntry$methods( clone = function(db.class = NULL) {
 	":\n\nClone this entry."
 
 	# Create new entry
-	clone <- .self$getBiodb()$getFactory()$createNewEntry(db.class = .self$getDbClass())
+	clone <- .self$getBiodb()$getFactory()$createNewEntry(db.class = if (is.null(db.class)) .self$getDbClass() else db.class)
 
 	# Copy fields
 	clone$.fields <- .self$.fields
 
 	return(clone)
+})
+
+# Get ID {{{1
+################################################################
+
+BiodbEntry$methods( getId = function() {
+	":\n\nReturns the entry ID, which is the value if the \"accession\" field."
+
+	return(.self$getFieldValue('accession'))
 })
 
 # Is new {{{1
@@ -142,6 +151,8 @@ BiodbEntry$methods( setFieldValue = function(field, value) {
 
 	# Check value class
 	if (field.def$isVector()) {
+		if (length(value) == 0)
+			.self$message('error', paste0('Cannot set an empty value into field "', field, '".'))
 		v <- as.vector(value, mode = field.def$getClass())
 		if ( ! all(is.na(value)) && all(is.na(v)))
 			.self$message('caution', paste("Unable to convert value(s) \"", paste(value, collapse = ', '), "\" into ", field.def$getClass(), " type for field \"", field, "\".", sep = ''))
@@ -207,7 +218,7 @@ BiodbEntry$methods( hasField = function(field) {
 # Remove field {{{1
 ################################################################
 
-BiodbEntry$methods(	removeField = function(field) {
+BiodbEntry$methods( removeField = function(field) {
 	":\n\nRemove the specified field from this entry."
 
 	if (.self$hasField(field))
@@ -217,7 +228,7 @@ BiodbEntry$methods(	removeField = function(field) {
 # Get field value {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FALSE, last = FALSE) {
+BiodbEntry$methods( getFieldValue = function(field, compute = TRUE, flatten = FALSE, last = FALSE) {
 	":\n\nGet the value of the specified field."
 
 	val <- NULL
@@ -258,7 +269,7 @@ BiodbEntry$methods(	getFieldValue = function(field, compute = TRUE, flatten = FA
 # Get fields as data frame {{{1
 ################################################################
 
-BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL) {
+BiodbEntry$methods( getFieldsAsDataFrame = function(only.atomic = TRUE, compute = TRUE, fields = NULL, flatten = TRUE, only.card.one = FALSE) {
 	":\n\nConvert this entry into a data frame."
 
 	df <- data.frame(stringsAsFactors = FALSE)
@@ -275,11 +286,17 @@ BiodbEntry$methods(	getFieldsAsDataFrame = function(only.atomic = TRUE, compute 
 	# Loop on fields
 	for (f in fields) {
 
+		field.def = .self$getBiodb()$getEntryFields()$get(f)
+
 		# Ignore non atomic values
-		if (only.atomic && ! .self$getBiodb()$getEntryFields()$get(f)$isVector())
+		if (only.atomic && ! field.def$isVector())
 			next
 
-		v <- .self$getFieldValue(f, flatten = TRUE)
+		# Ignore field with cardinality > one
+		if (only.card.one && ! field.def$hasCardOne())
+			next
+
+		v <- .self$getFieldValue(f, flatten = flatten)
 
 		# Transform vector into data frame
 		if (is.vector(v)) {
@@ -328,9 +345,9 @@ BiodbEntry$methods( parseContent = function(content) {
 
 		if (.self$.isParsedContentCorrect(parsed.content)) {
 
-			.self$.parseFieldsFromExpr(parsed.content)
+			.self$.parseFieldsStep1(parsed.content)
 
-			.self$.parseFieldsAfter(parsed.content)
+			.self$.parseFieldsStep2(parsed.content)
 		}
 	}
 
@@ -344,7 +361,7 @@ BiodbEntry$methods( parseContent = function(content) {
 	else {
 		if (.self$hasField(dbid.field))
 			.self$setFieldValue('accession', .self$getFieldValue(dbid.field))
-		else
+		else if (.self$hasField('accession'))
 			.self$setFieldValue(dbid.field, .self$getFieldValue('accession'))
 	}
 })
@@ -361,9 +378,10 @@ BiodbEntry$methods( computeFields = function(fields = NULL) {
 	if (.self$getBiodb()$getConfig()$isEnabled('compute.fields')) {
 
 		# Set of fields to compute
-		fields <- if (is.null(fields)) names(BIODB.FIELD.COMPUTING) else fields[fields %in% names(BIODB.FIELD.COMPUTING)]
+		if (is.null(fields))
+			fields <- .self$getBiodb()$getEntryFields()$getFieldNames()
 
-		# Loop on all fields to compute
+		# Loop on all fields
 		for(f in fields) {
 
 			# Skip this field if we already have a value for it
@@ -371,10 +389,10 @@ BiodbEntry$methods( computeFields = function(fields = NULL) {
 				next
 
 			# Loop on all databases where we can look for a value
-			for (db in BIODB.FIELD.COMPUTING[[f]]) {
+			for (db in .self$getBiodb()$getEntryFields()$get(f)$getComputableFrom()) {
 
 				# Database is itself
-				if (db == .self$getParent()$getId())
+				if ( ! methods::is(.self$getParent(), 'BiodbConn') || db == .self$getParent()$getId())
 					next
 
 				# Have we a reference for this database?
@@ -438,7 +456,7 @@ BiodbEntry$methods( .setAsNew = function(new) {
 
 BiodbEntry$methods( .isContentCorrect = function(content) {
 
-	correct <- ! is.null(content) && ! is.na(content) && content != ''
+	correct <- ! is.null(content) && ((is.list(content) && length(content) > 0) || (is.character(content) && ! is.na(content) && content != ''))
 	# NOTE `nchar(content)` may give "invalid multibyte string, element 1" on some strings.
 
 	return(correct)
@@ -458,17 +476,17 @@ BiodbEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 	return(TRUE)
 })
 
-# Parse fields from expressions {{{2
+# Parse fields step 1 {{{2
 ################################################################
 
-BiodbEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
+BiodbEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 	.self$.abstract.method()
 })
 
-# Parse fields after {{{2
+# Parse fields step 2 {{{2
 ################################################################
 
-BiodbEntry$methods( .parseFieldsAfter = function(parsed.content) {
+BiodbEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 })
 
 # Check database ID field {{{2

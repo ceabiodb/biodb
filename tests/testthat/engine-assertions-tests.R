@@ -76,10 +76,17 @@ test.assert.length.one <- function(biodb, obs) {
 
 test.searchMsEntries.assert <- function(biodb, obs) {
 
-	conn <- get.default.db(biodb, 'massbank')
+	# Create database and connector
+	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(db.df)
 
+	# Call searchMsEntries() with wrong ms.level
 	expect_error(ids <- conn$searchMsEntries(mz = 10, mz.tol = 0.01, mz.tol.unit = 'plain', max.results = 1, ms.level = -1))
 	expect_equal(obs$lastMsg(), "ms.level (-1) cannot be negative.")
+
+	# Destroy connector
+	biodb$getFactory()$deleteConn(conn$getId())
 }
 
 # Run assertions tests {{{1

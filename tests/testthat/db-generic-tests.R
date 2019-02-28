@@ -14,7 +14,7 @@ test.entry.fields <- function(db) {
 
 	# Create entries
 	entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
-	expect_equal(length(entries), length(ref.ids), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", length(ref.ids), "."))
+	testthat::expect_equal(length(entries), length(ref.ids), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", length(ref.ids), "."))
 
 	# Compute fields
 	biodb$computeFields(entries)
@@ -170,7 +170,7 @@ test.rt.unit <- function(db) {
 	# Get IDs of reference entries
 	ref.ids <- list.ref.entries(db$getId())
 
-	# Create entries
+	# Get entries
 	entries <- db$getBiodb()$getFactory()$getEntry(db$getId(), id = ref.ids, drop = FALSE)
 
 	# Loop on all entries
@@ -248,10 +248,76 @@ test.entry.image.url.download <- function(db) {
 	}
 }
 
+# Test create connector with same URL {{{1
+################################################################
+
+test.create.conn.with.same.url = function(conn) {
+	testthat::expect_error(conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = conn$getUrl('base.url')))
+}
+
+# Test database writing {{{1
+################################################################
+
+test.db.writing = function(conn) {
+
+	biodb = conn$getBiodb()
+
+	# Get one entry
+	entry = conn$getEntry(conn$getEntryIds(1))
+
+	# Set database file
+	db.file <- file.path(OUTPUT.DIR, paste('test.db.writing', conn$getDbClass(), 'db', sep = '.'))
+	if (file.exists(db.file))
+		unlink(db.file)
+
+	# Create new database
+	conn.2 = biodb$getFactory()$createConn(conn$getDbClass())
+	testthat::expect_error(conn.2$write())
+
+	# Clone entry
+	testthat::expect_true(entry$parentIsAConnector())
+	entry.2 = entry$clone()
+	testthat::expect_false(entry.2$parentIsAConnector())
+
+	# Compare entries
+	df.1 <- biodb$entriesToDataframe(list(entry), only.atomic = FALSE, sort.cols = TRUE)
+	df.2 <- biodb$entriesToDataframe(list(entry.2), only.atomic = FALSE, sort.cols = TRUE)
+	testthat::expect_identical(df.1, df.2)
+
+	# Add new entry
+	testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+	testthat::expect_null(conn.2$getEntry(entry$getId()))
+	testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+	testthat::expect_error(conn.2$addNewEntry(entry.2))
+	testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+	conn.2$allowEditing()
+	conn.2$addNewEntry(entry.2)
+	testthat::expect_length(conn.2$getAllCacheEntries(), 1)
+	testthat::expect_true(entry.2$parentIsAConnector())
+	testthat::expect_error(conn.2$addNewEntry(entry.2))
+	testthat::expect_length(conn.2$getAllCacheEntries(), 1)
+
+	# Write database
+	testthat::expect_true(entry.2$isNew())
+	testthat::expect_error(conn.2$write())
+	conn.2$setUrl('base.url', db.file)
+	testthat::expect_error(conn.2$write())
+	conn.2$allowWriting()
+	conn.2$write()
+	testthat::expect_false(entry.2$isNew())
+
+	# Reload database file
+	biodb$getFactory()$deleteConn(conn.2$getId())
+	conn.3 = biodb$getFactory()$createConn(conn$getDbClass(), url = db.file)
+	entry.3 = conn.3$getEntry(entry$getId())
+	testthat::expect_is(entry.3, 'BiodbEntry')
+	biodb$getFactory()$deleteConn(conn.3$getId())
+}
+
 # Run db generic tests {{{1
 ################################################################
 
-run.db.generic.tests <- function(conn, mode) {
+run.db.generic.tests = function(conn, mode) {
 
 	test.that("Wrong entry gives NULL", 'test.wrong.entry', conn = conn)
 	test.that("One wrong entry does not block the retrieval of good ones", 'test.wrong.entry.among.good.ones', conn = conn)
@@ -269,5 +335,9 @@ run.db.generic.tests <- function(conn, mode) {
 			test.that("The entry page URL can be downloaded.", 'test.entry.page.url.download', conn = conn)
 			test.that("The entry image URL can be downloaded.", 'test.entry.image.url.download', conn = conn)
 		}
+	}
+	if (conn$isEditable() && conn$isWritable()) {
+		test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
+		test.that('Database writing works.', 'test.db.writing', conn = conn)
 	}
 }

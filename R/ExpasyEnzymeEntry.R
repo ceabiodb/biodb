@@ -15,10 +15,10 @@ ExpasyEnzymeEntry$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-ExpasyEnzymeEntry$methods( .parseFieldsAfter = function(parsed.content) {
+ExpasyEnzymeEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Cofactors may be listed on a single line, separated by a semicolon.
 	if (.self$hasField('COFACTOR'))
