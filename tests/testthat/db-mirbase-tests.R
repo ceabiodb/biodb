@@ -26,8 +26,8 @@ test.mirbase.mature.ws.query <- function(db) {
 # Run Mirbase Mature tests {{{1
 ################################################################
 
-run.mirbase.mature.tests <- function(db, mode) {
+run.mirbase.mature.tests <- function(conn, mode, obs) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		test.that('', 'test.mirbase.mature.ws.query', conn = db)
+		test.that('', 'test.mirbase.mature.ws.query', conn = conn)
 	}
 }

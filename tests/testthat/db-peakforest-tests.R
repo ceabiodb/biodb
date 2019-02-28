@@ -109,11 +109,11 @@ run.peakforest.compound.tests <- function(db, mode) {
 # Run PeakForest Mass tests {{{1
 ################################################################
 
-run.peakforest.mass.tests <- function(db, mode) {
+run.peakforest.mass.tests <- function(conn, mode, obs) {
 
 	test.that('Test token init.', 'test.peakforest.mass.token.init', biodb = db$getBiodb())
 
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		test.that('Test if RT match gives same result with minutes and seconds in input.', 'test.peakforest.mass.rt.match.with.different.units', conn = db)
+		test.that('Test if RT match gives same result with minutes and seconds in input.', 'test.peakforest.mass.rt.match.with.different.units', conn = conn)
 	}
 }

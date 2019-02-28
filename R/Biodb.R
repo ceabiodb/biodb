@@ -330,6 +330,34 @@ Biodb$methods( computeFields = function(entries) {
 		e$computeFields()
 })
 
+# Copy database {{{1
+################################################################
+
+Biodb$methods( copyDb = function(conn.from, conn.to) {
+	":\n\nCopy all entries of a database into another database. The connector of the destination database must be editable."
+	
+	# Get all entry IDs of "from" database
+	ids = conn.from$getEntryIds()
+
+	# Get entries
+	entries = conn.from$getEntry(ids)
+
+	# Loop on all entries
+	i = 0
+	for (entry in entries) {
+
+		# Clone entry
+		clone = entry$clone(conn.to$getDbClass())
+
+		# Add new entry
+		conn.to$addNewEntry(clone)
+
+		i = i + 1
+		if (i %% (length(ids) %/% 100) == 0 || i == length(ids))
+			lapply(.self$getObservers(), function(x) x$progress(type = 'info', msg = 'Copying entries.', i, length(ids)))
+	}
+})
+
 # Show {{{1
 ################################################################
 

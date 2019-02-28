@@ -440,6 +440,7 @@ BiodbFactory$methods( .createEntryFromContent = function(conn.id, content, drop 
 
     	# Loop on all contents
     	.self$message('debug', paste('Parsing ', length(content), ' ', conn$getName(), ' entries.', sep = ''))
+		# TODO URGENT print progress message
 		for (single.content in content) {
 
 			# Create empty entry instance
