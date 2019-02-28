@@ -27,7 +27,8 @@ Imports:
 	stats,
 	R.utils,
 	digest,
-	openssl
+	openssl,
+	RSQLite
 LinkingTo:
 	Rcpp
 NeedsCompilation: yes
@@ -46,9 +47,9 @@ Collate:
     'BiodbDownloadable.R'
     'BiodbEditable.R'
     'BiodbEntry.R'
-    'biodb-common.R'
     'BiodbEntryField.R'
     'BiodbEntryFields.R'
+    'BiodbEntryList.R'
     'BiodbFactory.R'
     'BiodbObserver.R'
     'BiodbLogger.R'
@@ -56,6 +57,7 @@ Collate:
     'BiodbRequest.R'
     'BiodbRequestScheduler.R'
     'BiodbRequestSchedulerRule.R'
+    'BiodbSqlQuery.R'
     'BiodbWritable.R'
     'RemotedbConn.R'
     'CompounddbConn.R'
@@ -81,6 +83,8 @@ Collate:
     'MassdbConn.R'
     'MassCsvFileConn.R'
     'MassCsvFileEntry.R'
+    'MassSqliteConn.R'
+    'MassSqliteEntry.R'
     'MassbankConn.R'
     'MassbankEntry.R'
     'MirbaseConn.R'

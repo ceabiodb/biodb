@@ -102,13 +102,13 @@ Get a list of M/Z values contained inside the database.}
 Returns the number of peaks contained in the database.}
 
 \item{\code{msmsSearch(spectrum, precursor.mz, mz.tol, mz.tol.unit = "plain", ms.mode,
-  npmin = 2, dist.fun = BIODB.MSMS.DIST.WCOSINE, msms.mz.tol = 3,
-  msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{:
+  npmin = 2, dist.fun = c("wcosine", "cosine", "pkernel", "pbachtttarya"),
+  msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{:
 
 Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search.}
 
 \item{\code{searchMsEntries(mz.min = NULL, mz.max = NULL, mz = NULL, mz.shift = 0,
-  mz.tol = NA_real_, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN, rt = NULL,
+  mz.tol = NA_real_, mz.tol.unit = "plain", rt = NULL,
   rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_,
   chrom.col.ids = NULL, precursor = FALSE, min.rel.int = NA_real_,
   ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0)}}{:
@@ -132,9 +132,9 @@ For each M/Z value, search for matching MS spectra and return the matching peaks
 
 Find spectra in the given M/Z range. Returns a list of spectra IDs.}
 
-\item{\code{searchMzTol(mz, mz.tol, mz.tol.unit = BIODB.MZTOLUNIT.PLAIN,
-  min.rel.int = NA_real_, ms.mode = NA_character_,
-  max.results = NA_integer_, precursor = FALSE, ms.level = 0)}}{:
+\item{\code{searchMzTol(mz, mz.tol, mz.tol.unit = "plain", min.rel.int = NA_real_,
+  ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE,
+  ms.level = 0)}}{:
 
 Find spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs.}
 }}

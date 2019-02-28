@@ -22,10 +22,10 @@ HmdbMetabolitesEntry$methods( .isParsedContentCorrect = function(parsed.content)
 	return(length(XML::getNodeSet(parsed.content, "//error")) == 0)
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-HmdbMetabolitesEntry$methods( .parseFieldsAfter = function(parsed.content) {
+HmdbMetabolitesEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Remove fields with empty string
 	for (f in .self$getFieldNames()) {

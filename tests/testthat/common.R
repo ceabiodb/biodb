@@ -17,6 +17,8 @@ MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
 MASSFILEDB.WRONG.NB.COLS.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_nb_cols.tsv')
 
+MASS.SQLITE.URL = file.path(OUTPUT.DIR, 'mass.sqlite.file.sqlite')
+
 # Create output directory {{{1
 ################################################################
 
@@ -216,6 +218,8 @@ list.ref.entries <- function(db) {
 
 	# List json files
 	files <- Sys.glob(file.path(RES.DIR, paste('entry', db, '*.json', sep = '-')))
+	if (length(files) == 0)
+		stop(paste0("No JSON reference files for database ", db, "."))
 
 	# Extract ids
 	ids <- sub(paste('^.*/entry', db, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)
@@ -274,29 +278,57 @@ load.ref.entries <- function(db) {
 	return(entries.desc)
 }
 
-# Initialize MassCsvFile db {{{1
+
+# Get default connector {{{1
 ################################################################
 
-init.mass.csv.file.db <- function(biodb) {
-	db.instance <- get.default.db(biodb, 'mass.csv.file')
-	db.instance$setUrl('base.url', MASSFILEDB.URL)
-	db.instance$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
-	return(db.instance)
-}
+create.conn.for.generic.tests = function(biodb, class.db, mode) {
 
-# Get default db {{{1
-################################################################
-
-get.default.db <- function(biodb, class.db) {
-
-	db <- NULL
-
+	# Get connector
 	if (biodb$getFactory()$connExists(class.db))
-		db <- biodb$getFactory()$getConn(class.db)
-	else
-		db <- biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
+		conn = biodb$getFactory()$getConn(class.db)
 
-	return(db)
+	# Create connector
+	else {
+		if (mode == 'offline')
+			conn = biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
+		else
+			conn = biodb$getFactory()$createConn(class.db)
+
+		# Set parameters for local connectors
+		if (class.db == 'mass.csv.file') {
+			conn$setUrl('base.url', MASSFILEDB.URL)
+			conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
+		}
+		else if (class.db == 'mass.sqlite') {
+			conn$setUrl('base.url', MASS.SQLITE.URL)
+
+			# Create SQLite database file
+			if ( ! file.exists(MASS.SQLITE.URL)) {
+				conn$allowEditing()
+				conn$allowWriting()
+
+				mass.csv.file.conn = create.conn.for.generic.tests(biodb = biodb, class.db = 'mass.csv.file',  mode = mode)
+				ids = mass.csv.file.conn$getEntryIds()
+				entries = mass.csv.file.conn$getEntry(ids)
+				for (entry in entries)
+					conn$addNewEntry(entry$clone(class.db))
+				conn$write()
+			}
+		}
+
+		# Create needed additional connectors for computing missing fields
+		if (mode == 'offline') {
+
+			# Loop on all fields
+			for (field in biodb$getEntryFields()$getFieldNames())
+				for (computing.db in biodb$getEntryFields()$get(field)$getComputableFrom())
+					if (computing.db != class.db)
+						c = create.conn.for.generic.tests(biodb = biodb, class.db = computing.db, mode = mode)
+		}
+	}
+
+	return(conn)
 }
 
 # Run test_that method {{{1
@@ -320,7 +352,7 @@ test.that  <- function(msg, fct, biodb = NULL, obs = NULL, conn = NULL) {
 			test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
 		else if ( ! is.null(biodb))
 			test_that(msg, do.call(fct, list(biodb)))
-		else if ( ! is.null(db))
+		else if ( ! is.null(conn))
 			test_that(msg, do.call(fct, list(conn)))
 		else
 			stop(paste0('Do not know how to call test function "', fct, '".'))

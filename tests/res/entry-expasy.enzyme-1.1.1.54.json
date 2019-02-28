@@ -1,6 +1,6 @@
 {
 	"accession": "1.1.1.54",
-  	"name": "Allyl-alcohol dehydrogenase",
-   	"catalytic.activity": "Allyl alcohol + NADP(+) = acrolein + NADPH"
+	"name": "Allyl-alcohol dehydrogenase",
+	"catalytic.activity": "Allyl alcohol + NADP(+) = acrolein + NADPH"
 }
 

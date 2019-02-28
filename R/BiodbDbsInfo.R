@@ -109,7 +109,8 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 	.self$.define('hmdb.metabolites',       name = 'HMDB Metabolites', scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = "http://www.hmdb.ca/"))
 	.self$.define('kegg.compound',          name = 'KEGG Compound', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
 	.self$.define('lipidmaps.structure',    name = 'LIPID MAPS Structure', scheduler.n = 1, scheduler.t = 20, entry.content.type = 'csv', urls = c(base.url = 'http://www.lipidmaps.org/data/')) # About access frequency, see http://www.lipidmaps.org/data/structure/programmaticaccess.html
-	.self$.define('mass.csv.file',          name = 'Mass CSV File',                  entry.content.type = 'tsv', urls = character())
+	.self$.define('mass.csv.file',          name = 'Mass CSV File',                entry.content.type = 'tsv', urls = character())
+	.self$.define('mass.sqlite',            name = 'Mass SQLite',                  entry.content.type = 'list', urls = character())
 	.self$.define('massbank',               name = 'MassBank', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'https://massbank.eu/', db.tar.url = 'https://github.com/MassBank/MassBank-data/archive/master.tar.gz', prefixes.file.url = 'https://raw.githubusercontent.com/MassBank/MassBank-data/master/List_of_Contributors_Prefixes_and_Projects.md'))
 	.self$.define('mirbase.mature',         name = 'miRBase Mature', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = "http://www.mirbase.org/", ftp.url = "ftp://mirbase.org/pub/mirbase/CURRENT/"))
 	.self$.define('ncbi.ccds',              name = 'NCBI CCDS', scheduler.n = 3, entry.content.type = 'html', urls = c(base.url = 'https://www.ncbi.nlm.nih.gov/CCDS/', ws.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'))

@@ -27,10 +27,10 @@ XmlEntry$methods( .doParseContent = function(content) {
 	return(xml)
 })
 
-# Parse fields from expressions {{{1
+# Parse fields step 1 {{{1
 ################################################################
 
-XmlEntry$methods( .parseFieldsFromExpr = function(parsed.content) {
+XmlEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
 	parsing.expr <- .self$getParent()$.getParsingExpressions()

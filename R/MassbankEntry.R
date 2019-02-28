@@ -198,10 +198,10 @@ MassbankEntry$methods( .parseAnnotationTable = function(parsed.content) {
 	.self$.parsePeakInfo(parsed.content, title = 'ANNOTATION')
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-MassbankEntry$methods( .parseFieldsAfter = function(parsed.content) {
+MassbankEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# PubChem IDs when SID and CID are both specified in that order
 	g <- stringr::str_match(parsed.content, "^CH\\$LINK: PUBCHEM\\s+(SID:[0-9]+)\\s+(CID:[0-9]+)")

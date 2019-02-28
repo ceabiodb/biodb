@@ -239,7 +239,7 @@ Biodb$methods( entriesFieldToVctOrLst = function(entries, field, flatten = FALSE
 # Entries to data frame {{{1
 ################################################################
 
-Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE, compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE) {
+Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.to.na = TRUE, compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE, flatten = TRUE, only.card.one = FALSE) {
 	":\n\nConvert a list of entries (\\code{BiodbEntry} objects) into a data frame."
 
 	if ( ! is.list(entries))
@@ -265,7 +265,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 
 			e.df <- NULL
 			if ( ! is.null(e))
-				e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic, compute = compute, fields = fields)
+				e.df <- e$getFieldsAsDataFrame(only.atomic = only.atomic, compute = compute, fields = fields, flatten = flatten, only.card.one = only.card.one)
 			else if (null.to.na)
 				e.df <- data.frame(ACCESSION = NA_character_)
 

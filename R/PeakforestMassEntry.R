@@ -14,10 +14,10 @@ PeakforestMassEntry$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-# Parse fields after {{{1
+# Parse fields step 2 {{{1
 ################################################################
 
-PeakforestMassEntry$methods( .parseFieldsAfter = function(parsed.content) {
+PeakforestMassEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Set peaks
 	if ('peaks' %in% names(parsed.content) && length(parsed.content$peaks) > 0) {

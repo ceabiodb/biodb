@@ -398,7 +398,7 @@ BiodbConfig$methods( .getType = function(key) {
 })
 
 
-# Is deprecated {{{1
+# Is deprecated {{{2
 ################################################################
 
 BiodbConfig$methods( .isDeprecated = function(key) {

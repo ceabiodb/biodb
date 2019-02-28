@@ -24,18 +24,6 @@ source('db-uniprot-tests.R')
 biodb <- create.biodb.instance()
 expect_is(biodb, 'Biodb')
 
-# Initialize all database connectors
-#   We need to create all connectors now, because they must be set with the proper cache ID. Connectors like ChEBI, even if not tested directly, may be tested through computed fields from other connectors.
-connectors <- list()
-for (db.name in biodb$getDbsInfo()$getIds()) {
-	if (db.name == 'mass.csv.file')
-		conn <- init.mass.csv.file.db(biodb)
-	else
-		conn <- get.default.db(biodb, db.name)
-	expect_is(conn, 'BiodbConn')
-	connectors[[db.name]] <- conn
-}
-
 # Loop on test databases
 for (db.name in TEST.DATABASES) {
 
@@ -48,7 +36,8 @@ for (db.name in TEST.DATABASES) {
 		set.mode(biodb, mode)
 
 		# Get instance
-		conn <- connectors[[db.name]]
+		conn <- create.conn.for.generic.tests(biodb = biodb, class.db = db.name, mode = mode)
+		expect_is(conn, 'BiodbConn')
 
 		# Delete cache entries
 		biodb$getFactory()$deleteAllCacheEntries(conn$getId())
