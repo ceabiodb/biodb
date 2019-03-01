@@ -305,12 +305,14 @@ create.conn.for.generic.tests = function(biodb, class.db, mode) {
 
 			# Create SQLite database file
 			if ( ! file.exists(MASS.SQLITE.URL)) {
-				conn$allowEditing()
-				conn$allowWriting()
 
 				mass.csv.file.conn = create.conn.for.generic.tests(biodb = biodb, class.db = 'mass.csv.file',  mode = mode)
+				conn$allowEditing()
 				biodb$copyDb(conn.from = mass.csv.file.conn, conn.to = conn)
+				conn$allowWriting()
 				conn$write()
+				conn$disallowWriting()
+				conn$disallowEditing()
 			}
 		}
 

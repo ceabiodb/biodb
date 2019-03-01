@@ -87,9 +87,6 @@ MassbankEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 
 MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 
-	print('-------------------------------- 100')
-	print(.self$getFieldValue('accession'))
-	print('-------------------------------- 101')
 	# Parse peaks
 	g <- stringr::str_match(parsed.content, paste("^PK\\$", title, ": (.*)$", sep = ''))
 	peak.header.line.number <- which(! is.na(g[, 2]))
@@ -143,7 +140,6 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	}
 
 	# Parse peaks
-	print('-------------------------------- 100')
 	i <- 1
 	while ( peak.header.line.number + i <= length(parsed.content)) {
 
@@ -163,43 +159,28 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 		# Next line
 		i <- i + 1
 	}
-	print('-------------------------------- 110')
-
-	# Merge with existing peak info
-	if (.self$hasField('PEAKS'))
-		.self$setFieldValue('PEAKS', merge(.self$getFieldValue('PEAKS', compute = FALSE), peaks, all.x = TRUE))
-	else
-		# Set new peaks table
-		.self$setFieldValue('PEAKS', peaks)
-	print('-------------------------------- 120')
-
-	# Check number of peaks
-	if (.self$hasField('PEAKS') && .self$getFieldValue('NB.PEAKS', compute = FALSE) != nrow(.self$getFieldValue('PEAKS', compute = FALSE)))
-	   	 .self$message('caution', paste("Found ", nrow(.self$getFieldValue('PEAKS', compute = FALSE)), " peak(s) instead of ", .self$getFieldValue('NB.PEAKS', compute = FALSE), ' for entry ', .self$getFieldValue('ACCESSION'), ".", sep = ''))
-	print('-------------------------------- 130')
 
 	# Scale relative intensity to percentage
-	if (.self$hasField('peaks')) {
-	print('-------------------------------- 131')
-		peaks <- .self$getFieldValue('peaks', compute = FALSE)
-	print('-------------------------------- 131.1')
-	print(peaks)
-		if ('peak.relative.intensity' %in% names(peaks)) {
-	print('-------------------------------- 132')
+	if ('peak.relative.intensity' %in% names(peaks)) {
 
-			# Check that at least one peak have 999 as relative intensity
-	print(peaks[['peak.relative.intensity']])
-			if ( ! any(peaks[['peak.relative.intensity']] == 999))
-				.self$message('caution', paste("No peak has a relative intensity of 999 inside Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep = ''))
-	print('-------------------------------- 133')
+		# Check that at least one peak have 999 as relative intensity
+		if (all(peaks[['peak.relative.intensity']] != 999))
+			.self$message('caution', paste("No peak has a relative intensity of 999 inside Massbank entry ", .self$getFieldValue('accession'), ".", sep = ''))
 
-			# Scale to percentage
-			peaks[['peak.relative.intensity']] = peaks[['peak.relative.intensity']] * 100 / 999
-	print('-------------------------------- 134')
-			.self$setFieldValue('peaks', peaks)
-		}
+		# Scale to percentage
+		peaks[['peak.relative.intensity']] = peaks[['peak.relative.intensity']] * 100 / 999
 	}
-	print('-------------------------------- 150')
+
+	# Check number of peaks
+	if (.self$hasField('nb.peaks') && .self$getFieldValue('nb.peaks', compute = FALSE) != nrow(peaks))
+	   	 .self$message('caution', paste("Found ", nrow(peaks), " peak(s) instead of ", .self$getFieldValue('nb.peaks', compute = FALSE), ' for entry ', .self$getFieldValue('accession'), ".", sep = ''))
+
+	# Merge with existing peak info
+	if (.self$hasField('peaks'))
+		peaks = merge(.self$getFieldValue('peaks', compute = FALSE), peaks, all.x = TRUE)
+
+	# Set new peaks table
+	.self$setFieldValue('peaks', peaks)
 })
 
 # Parse peak table {{{1
