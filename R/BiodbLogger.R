@@ -29,7 +29,7 @@
 #' @include BiodbObserver.R
 #' @export BiodbLogger
 #' @exportClass BiodbLogger
-BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY', .exclude = 'character', .close.file = 'logical', .lastime.progress = 'list', .progress.laptime = 'integer'))
+BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY', .exclude = 'character', .close.file = 'logical', .lastime.progress = 'list', .progress.laptime = 'integer', .progress.initial.time = 'list'))
 
 # Constructor {{{1
 ################################################################
@@ -54,6 +54,7 @@ BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', close.fi
 	.file <<- file
 	.close.file <<- close.file
 	.lastime.progress <<- list()
+	.progress.initial.time <<- list()
 	.progress.laptime <<- as.integer(10) # In seconds
 
 	# Exclude DEBUG messages
@@ -119,9 +120,11 @@ BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character
 BiodbLogger$methods( progress = function(type = 'info', msg, index, total, first) {
 
 	if (first || ! msg %in% names(.self$.lastime.progress))
-		.self$.lastime.progress[[msg]] = Sys.time()
+		.self$.lastime.progress[[msg]] = .self$.progress.initial.time[[msg]] = Sys.time()
+
 	else if (Sys.time() - .self$.lastime.progress[[msg]] > .self$.progress.laptime) {
-		.self$message(type, paste(msg, index, '/', total, ' (', (100 * index %/% total), '%).'))
+		eta = Sys.time() + (total - index) * (Sys.time() - .self$.progress.initial.time[[msg]]) / index
+		.self$message(type, paste0(msg, index, '/', total, ' (', ((100 * index) %/% total), '%, ETA: ', eta, ').'))
 		.self$.lastime.progress[[msg]] = Sys.time()
 	}
 })
