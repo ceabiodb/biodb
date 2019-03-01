@@ -110,7 +110,7 @@ BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character
 		timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
 
 		# Output message
-		cat(toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
+		cat('BIODB.', toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
 	}
 })
 
