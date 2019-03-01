@@ -124,7 +124,7 @@ BiodbLogger$methods( progress = function(type = 'info', msg, index, total, first
 
 	else if (Sys.time() - .self$.lastime.progress[[msg]] > .self$.progress.laptime) {
 		eta = Sys.time() + (total - index) * (Sys.time() - .self$.progress.initial.time[[msg]]) / index
-		.self$message(type, paste0(msg, index, '/', total, ' (', ((100 * index) %/% total), '%, ETA: ', eta, ').'))
+		.self$message(type, paste0(msg, ' ', index, ' / ', total, ' (', ((100 * index) %/% total), '%, ETA: ', eta, ').'))
 		.self$.lastime.progress[[msg]] = Sys.time()
 	}
 })
