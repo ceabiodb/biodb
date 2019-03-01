@@ -310,13 +310,12 @@ MassCsvFileConn$methods( setDb = function(db) {
 # Private methods {{{1
 ################################################################
 
-# Writable methods {{{2
-################################################################
-
-# Do write {{{3
+# Do write {{{2
 ################################################################
 
 MassCsvFileConn$methods( .doWrite = function() {
+
+	.self$message('info', paste0('Write all entries into "', .self$getUrl('base.url'), '".'))
 
 	# Make sure all entries are loaded into cache.
 	entry.ids <- .self$getEntryIds()

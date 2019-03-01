@@ -105,17 +105,17 @@ TestObserver$methods( initialize = function(...) {
 	.last.index <<- 0
 })
 
-TestObserver$methods( progress = function(type = 'info', msg, index, total) {
+TestObserver$methods( progress = function(type = 'info', msg, index, total, first) {
 
 	.self$checkMessageType(type)
+
+	if (first)
+		.last.index <<- 0
 
 	testthat::expect_gt(index, .self$.last.index)
 	testthat::expect_lte(index, total)
 
-	if (index == total)
-		.last.index <<- 0
-	else
-		.last.index <<- index
+	.last.index <<- index
 })
 
 # Get log file descriptor {{{1
@@ -366,33 +366,33 @@ test.that  <- function(msg, fct, biodb = NULL, obs = NULL, conn = NULL) {
 create.test.observer <- function(biodb) {
 
 	# Create test observer class
-	TestObs <- methods::setRefClass("TestObs", contains = "BiodbObserver", fields = list(msgs = 'character', msgs.by.type = 'list'))
+	TestObs <- methods::setRefClass("TestObs", contains = "BiodbObserver", fields = list(.msgs = 'character', .msgs.by.type = 'list'))
 	TestObs$methods( initialize = function(...) {
-		msgs <<- character()
-		msgs.by.type <<- list()
+		.msgs <<- character()
+		.msgs.by.type <<- list()
 	})
 	TestObs$methods( message = function(type, msg, class = NA_character_, method = NA_character_, level = 1) {
-		msgs <<- c(.self$msgs, msg)
-		.self$msgs.by.type[[type]] <- c(.self$msgs.by.type[[type]], msg)
+		.msgs <<- c(.self$.msgs, msg)
+		.self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
 	})
 	TestObs$methods( hasMsgs = function(type = NULL) {
 
 		f = FALSE
 
 		if (is.null(type))
-			f = (length(.self$msg) > 0)
+			f = (length(.self$.msg) > 0)
 		else
-			f = if (type %in% names(.self$msgs.by.type)) (length(.self$msgs.by.type[[type]])) else FALSE
+			f = if (type %in% names(.self$.msgs.by.type)) (length(.self$.msgs.by.type[[type]])) else FALSE
 
 		return(f)
 	})
 	TestObs$methods( lastMsg = function() {
-		return(.self$msgs[[length(.self$msgs)]])
+		return(.self$.msgs[[length(.self$.msgs)]])
 	})
 	TestObs$methods( getLastMsgByType = function(type) {
 		m = NULL
-		if (type %in% names(.self$msgs.by.type)) {
-			m = .self$msgs.by.type[[type]]
+		if (type %in% names(.self$.msgs.by.type)) {
+			m = .self$.msgs.by.type[[type]]
 			m = m[[length(m)]] 
 		}
 		return(m)
@@ -400,14 +400,14 @@ create.test.observer <- function(biodb) {
 	TestObs$methods( getMsgsByType = function(type) {
 		msgs = character()
 
-		if ( ! is.null(type) && type %in% names(.self$msgs.by.type))
-			msgs = .self$msgs.by.type[[type]]
+		if ( ! is.null(type) && type %in% names(.self$.msgs.by.type))
+			msgs = .self$.msgs.by.type[[type]]
 
 		return(msgs)
 	})
 	TestObs$methods( clearMessages = function() {
-		msgs <<- character()
-		msgs.by.type <<- list()
+		.msgs <<- character()
+		.msgs.by.type <<- list()
 	})
 	obs <- TestObs$new()
 

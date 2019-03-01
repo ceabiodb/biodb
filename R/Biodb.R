@@ -352,9 +352,9 @@ Biodb$methods( copyDb = function(conn.from, conn.to) {
 		# Add new entry
 		conn.to$addNewEntry(clone)
 
+		# Send progress message
 		i = i + 1
-		if (i %% (length(ids) %/% 100) == 0 || i == length(ids))
-			lapply(.self$getObservers(), function(x) x$progress(type = 'info', msg = 'Copying entries.', i, length(ids)))
+		lapply(.self$getObservers(), function(x) x$progress(type = 'info', msg = 'Copying entries.', index = i, total = length(ids), first = (i == 1)))
 	}
 })
 

@@ -172,7 +172,7 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	}
 
 	# Check number of peaks
-	if (.self$hasField('nb.peaks') && .self$getFieldValue('nb.peaks', compute = FALSE) != nrow(peaks))
+	if (title == 'PEAK' && .self$hasField('nb.peaks') && .self$getFieldValue('nb.peaks', compute = FALSE) != nrow(peaks))
 	   	 .self$message('caution', paste("Found ", nrow(peaks), " peak(s) instead of ", .self$getFieldValue('nb.peaks', compute = FALSE), ' for entry ', .self$getFieldValue('accession'), ".", sep = ''))
 
 	# Merge with existing peak info

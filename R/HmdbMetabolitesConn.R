@@ -183,12 +183,13 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 	.self$message('debug', "Extract entries from XML file.")
 	chunk.size <- 2**16
 	total.bytes <- file.info(xml.file)$size
-	bytes.read <- 0
-	last.msg.bytes.index <- 0
-	xml.chunks <- character()
+	bytes.read = 0
+	xml.chunks = character()
 	.self$message('debug', paste("Read XML file by chunk of", chunk.size, "characters."))
-	done.reading <- FALSE
+	done.reading = FALSE
 	while ( ! done.reading) {
+
+		first = (bytes.read == 0)
 
 		# Read chunk from file
 		chunk <- readChar(file.conn, chunk.size)
@@ -196,10 +197,7 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 
 		# Send progress message
 		bytes.read <- bytes.read + nchar(chunk, type = 'bytes')
-		if (bytes.read - last.msg.bytes.index > total.bytes %/% 100 || bytes.read == total.bytes) {
-			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', bytes.read, total.bytes))
-			last.msg.bytes.index <- bytes.read
-		}
+		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Reading all HMDB metabolites from XML file.', index = bytes.read, total = total.bytes, first = first))
 
 		# Is there a complete entry XML (<metabolite>...</metabolite>) in the loaded chunks?
 		if (length(grep('</metabolite>', chunk)) > 0 || (length(xml.chunks) > 0 && length(grep('</metabolite>', paste0(xml.chunks[[length(xml.chunks)]], chunk))) > 0)) {

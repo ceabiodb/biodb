@@ -135,10 +135,7 @@ MassSqliteConn$methods( getChromCol = function(ids = NULL) {
 # Private methods {{{1
 ################################################################
 
-# Writable methods {{{2
-################################################################
-
-# Do write {{{3
+# Do write {{{2
 ################################################################
 
 MassSqliteConn$methods( .doWrite = function() {
@@ -147,21 +144,24 @@ MassSqliteConn$methods( .doWrite = function() {
 
 	if ( ! is.null(.self$.db)) {
 
+		.self$message('info', paste0('Write all new entries into "', .self$getUrl('base.url'), '".'))
+
 		# Get new entries
 		cached.entries = .self$getAllCacheEntries()
 		new.entries = cached.entries[vapply(cached.entries, function(x) x$isNew(), FUN.VALUE = TRUE)]
 
 		if (length(new.entries) > 0) {
 
-			# Start transaction
-			DBI::dbBegin(.self$.db)
-
-			# Write into main table
-			df = .self$getBiodb()$entriesToDataframe(new.entries, only.card.one = TRUE)
-			DBI::dbWriteTable(conn = .self$.db, name = 'entries', value = df, append = TRUE)
-
 			# Loop on all new entries and write other fields to separate tables
+			i = 0
 			for (entry in new.entries) {
+
+				# Start transaction
+				DBI::dbBegin(.self$.db)
+
+				# Write into main table
+				df = .self$getBiodb()$entriesToDataframe(list(entry), only.card.one = TRUE)
+				DBI::dbWriteTable(conn = .self$.db, name = 'entries', value = df, append = TRUE)
 
 				# Loop on all fields
 				for (field.name in entry$getFieldNames()) {
@@ -179,13 +179,17 @@ MassSqliteConn$methods( .doWrite = function() {
 						DBI::dbWriteTable(conn = .self$.db, name = field.name, value = as.data.frame(values), append = TRUE)
 					}
 				}
+
+				# Commit transaction
+				DBI::dbCommit(.self$.db)
+
+				# Unset "new" flag
+				entry$.setAsNew(FALSE)
+
+				# Send progress message
+				i = i + 1
+				lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Writing entries.', index = i, total = length(new.entries), first = (i == 1)))
 			}
-
-			# Commit transaction
-			DBI::dbCommit(.self$.db)
-
-			# Unset "new" flag
-			lapply(new.entries, function(x) x$.setAsNew(FALSE))
 		}
 	}
 })
@@ -262,7 +266,7 @@ MassSqliteConn$methods( .doGetMzValues = function(ms.mode, max.results, precurso
 	return(mz)
 })
 
-# Create MS query object {{{1
+# Create MS query object {{{2
 ################################################################
 
 MassSqliteConn$methods( .createMsQuery = function(mzcol, ms.mode = NULL, ms.level = 0, precursor =  FALSE) {
