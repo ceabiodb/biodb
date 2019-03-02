@@ -255,6 +255,41 @@ test.create.conn.with.same.url = function(conn) {
 	testthat::expect_error(conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = conn$getUrl('base.url')))
 }
 
+# Test database writing with column addition {{{1
+################################################################
+
+test.db.writing.with.col.add = function(conn) {
+
+	# Get data frame of all entries
+	ids = conn$getEntryIds()
+	entries = conn$getEntry(ids)
+	entries.df = conn$getBiodb()$entriesToDataframe(entries, compute = FALSE, only.card.one = TRUE)
+
+	# Get a list of all fields currently used in connector
+	current.fields = colnames(entries.df)
+
+	# Choose a field that is not used inside the connector
+	fields.def = conn$getBiodb()$getEntryFields()
+	for (field.name in fields.def$getFieldNames()) {
+		field = fields.def$get(field.name)
+		if (field$hasCardOne() && field$isVector() && ! field.name %in% current.fields)
+			break
+	}
+
+	# Create a new entry having one new field that does not exist in any other entry (so in the case of SQL the table will have to be altered to add new columns)
+	new.entry = entries[[1]]$clone()
+	new.entry$setFieldValue('accession', 'anewentry')
+	new.entry$setFieldValue(field$getName(), 0)
+
+	# Add and write the new entry
+	conn$allowEditing()
+	conn$addNewEntry(new.entry)
+	conn$disallowEditing()
+	conn$allowWriting()
+	conn$write()
+	conn$disallowWriting()
+}
+
 # Test database writing {{{1
 ################################################################
 
@@ -339,5 +374,6 @@ run.db.generic.tests = function(conn, mode) {
 	if (conn$isEditable() && conn$isWritable()) {
 		test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
 		test.that('Database writing works.', 'test.db.writing', conn = conn)
+		test.that('We can write entries having new fields.', 'test.db.writing.with.col.add', conn = conn)
 	}
 }

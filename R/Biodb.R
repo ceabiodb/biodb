@@ -256,12 +256,13 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 			.self$message('error', "Some objects in the input list are not a subclass of BiodbEntry.")
 
 		# Loop on all entries
-		n <- 0
+		i = 0
 		df.list <- NULL
 		for (e in entries) {
 
-			n <- n + 1
-			.self$message('debug', paste("Processing entry", n, "/", length(entries), "..."))
+			# Send progress message
+			i = i + 1
+			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Converting entries to data frame.', index = i, total = length(entries), first = (i == 1)))
 
 			e.df <- NULL
 			if ( ! is.null(e))
@@ -275,7 +276,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 
 		# Build data frame of all entries
 		if ( ! is.null(df.list)) {
-			.self$message('info', paste("Merging entries into a single data frame..."))
+			.self$message('debug', paste("Merging data frames with a single entry each into a single data frame with all entries."))
 			entries.df <- plyr::rbind.fill(df.list)
 		}
 	}

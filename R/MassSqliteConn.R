@@ -161,7 +161,7 @@ MassSqliteConn$methods( .doWrite = function() {
 
 				# Write into main table
 				df = .self$getBiodb()$entriesToDataframe(list(entry), only.card.one = TRUE)
-				DBI::dbWriteTable(conn = .self$.db, name = 'entries', value = df, append = TRUE)
+				.self$.appendToTable(table = 'entries', values = df)
 
 				# Loop on all fields
 				for (field.name in entry$getFieldNames()) {
@@ -170,7 +170,7 @@ MassSqliteConn$methods( .doWrite = function() {
 
 					# Write data frame field
 					if (field$getClass() == 'data.frame')
-						DBI::dbWriteTable(conn = .self$.db, name = field.name, value = cbind(accession = entry$getFieldValue('accession'), entry$getFieldValue(field.name)), append = TRUE)
+						.self$.appendToTable(table = field.name, values = cbind(accession = entry$getFieldValue('accession'), entry$getFieldValue(field.name)))
 
 					# Write multiple values field
 					else if (field$hasCardMany()) {
@@ -336,4 +336,29 @@ MassSqliteConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int,
 	}
 
 	return(ids)
+})
+
+# Append to table {{{1
+################################################################
+
+MassSqliteConn$methods( .appendToTable = function(table, values) {
+
+	# Append to existing table
+	if (table %in% DBI::dbListTables(.self$.db)) {
+
+		# Create new columns
+		current.fields = DBI::dbListFields(.self$.db, name = table)
+		new.fields = colnames(values)[ ! colnames(values) %in% current.fields]
+		for (field in new.fields) {
+			query = paste0('alter table ', DBI::dbQuoteIdentifier(DBI::ANSI(), table), ' add ', DBI::dbQuoteIdentifier(DBI::ANSI(), field), ' ', DBI::dbDataType(.self$.db, values[[field]]), ';')
+			result = DBI::dbSendQuery(.self$.db, query)
+			DBI::dbClearResult(result)
+		}
+
+		# Append to table
+		DBI::dbWriteTable(conn = .self$.db, name = table, value = values, append = TRUE)
+
+	# Create table
+	} else
+		DBI::dbWriteTable(conn = .self$.db, name = table, value = values)
 })
