@@ -23,36 +23,6 @@ MassSqliteConn$methods( initialize = function(...) {
 	.db <<- NULL
 })
 
-# Get entry ids {{{1
-################################################################
-
-MassSqliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids = integer()
-
-	.self$.init.db()
-
-	if ( ! is.null(.self$.db)) {
-
-		# List tables
-		tables = DBI::dbListTables(.self$.db)
-
-		if ('entries' %in% tables) {
-
-			# Build query
-			query = "select accession from entries"
-			if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
-				query = paste0(query, ' limit ', as.integer(max.results))
-
-			# Run query
-			df = DBI::dbGetQuery(.self$.db, query)
-			ids = df[[1]]
-		}
-	}
-
-	return(ids)
-})
-
 # Get entry content {{{1
 ################################################################
 
@@ -338,7 +308,7 @@ MassSqliteConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int,
 	return(ids)
 })
 
-# Append to table {{{1
+# Append to table {{{2
 ################################################################
 
 MassSqliteConn$methods( .appendToTable = function(table, values) {
@@ -362,3 +332,34 @@ MassSqliteConn$methods( .appendToTable = function(table, values) {
 	} else
 		DBI::dbWriteTable(conn = .self$.db, name = table, value = values)
 })
+
+# Get entry ids {{{2
+################################################################
+
+MassSqliteConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	ids = integer()
+
+	.self$.init.db()
+
+	if ( ! is.null(.self$.db)) {
+
+		# List tables
+		tables = DBI::dbListTables(.self$.db)
+
+		if ('entries' %in% tables) {
+
+			# Build query
+			query = "select accession from entries"
+			if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
+				query = paste0(query, ' limit ', as.integer(max.results))
+
+			# Run query
+			df = DBI::dbGetQuery(.self$.db, query)
+			ids = df[[1]]
+		}
+	}
+
+	return(ids)
+})
+

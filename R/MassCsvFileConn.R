@@ -207,18 +207,6 @@ MassCsvFileConn$methods( setFieldMultValSep = function(sep) {
 })
 
 
-# Get entry ids {{{1
-################################################################
-
-MassCsvFileConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids <- NA_character_
-
-	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
-
-	return(ids)
-})
-
 # Get nb entries {{{1
 ################################################################
 
@@ -597,3 +585,16 @@ MassCsvFileConn$methods( .check.parsing.has.began = function() {
 	if (length(.self$.parsing.expr) > 0)
 		.self$message('error', 'Action impossible, parsing of entries has already began.')
 })
+
+# Get entry ids {{{2
+################################################################
+
+MassCsvFileConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	ids <- NA_character_
+
+	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
+
+	return(ids)
+})
+

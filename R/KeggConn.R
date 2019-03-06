@@ -95,21 +95,6 @@ KeggConn$methods( ws.list = function(retfmt = c('plain', 'request', 'ids')) {
 	return(results)
 })
 
-# Get entry ids {{{1
-################################################################
-
-KeggConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	# Get IDs
-	ids <- .self$ws.list(retfmt = 'ids')
-
-	# Cut results
-	if ( ! is.na(max.results) && max.results > 0)
-		ids <- ids[1:max.results]
-
-	return(ids)
-})
-
 # Web service find {{{1
 ################################################################
 
@@ -142,3 +127,18 @@ KeggConn$methods( ws.find = function(query, retfmt = c('plain', 'request', 'pars
 
 	return(results)
 })
+
+# Private methods {{{1
+################################################################
+
+# Get entry ids {{{2
+################################################################
+
+KeggConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	# Get IDs
+	ids <- .self$ws.list(retfmt = 'ids')
+
+	return(ids)
+})
+

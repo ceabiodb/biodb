@@ -255,45 +255,61 @@ test.create.conn.with.same.url = function(conn) {
 	testthat::expect_error(conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = conn$getUrl('base.url')))
 }
 
+# Test database edition {{{1
+################################################################
+
+test.db.editing = function(conn) {
+
+	# Get one entry from connector
+	id = conn$getEntryIds(1)
+	entry = conn$getEntry(id)
+	testthat::expect_is(entry, 'BiodbEntry')
+
+	# Create other connector
+	conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass())
+	conn.2$allowEditing()
+	conn.2$addNewEntry(entry$clone())
+
+	# Test methods
+	id = conn.2$getEntryIds()
+	testthat::expect_length(id, 1)
+	testthat::expect_equal(id, entry$getFieldValue('accession'))
+
+	# Delete connector
+	conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
+}
+
 # Test database writing with column addition {{{1
 ################################################################
 
 test.db.writing.with.col.add = function(conn) {
 
-	print('-------------------------------- test.db.writing.with.col.add 1')
 	# Set database file
 	db.file <- file.path(OUTPUT.DIR, paste('test.db.writing.with.col.add', conn$getDbClass(), 'db', sep = '.'))
 	if (file.exists(db.file))
 		unlink(db.file)
 
-	print('-------------------------------- test.db.writing.with.col.add 2')
 	# Get one entry from connector
-	ids = conn$getEntryIds()
-	entry = conn$getEntry(ids[[1]])
+	id = conn$getEntryIds(1)
+	entry = conn$getEntry(id)
+	testthat::expect_is(entry, 'BiodbEntry')
 
-	print('-------------------------------- test.db.writing.with.col.add 3')
 	# Create other connector
 	conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = db.file)
 	conn.2$allowEditing()
 	conn.2$addNewEntry(entry$clone())
 	conn.2$allowWriting()
 
-	print('-------------------------------- test.db.writing.with.col.add 4')
 	# Get data frame of all entries
-	ids = conn.2$getEntryIds()
-	testthat::expect_is(ids, 'character')
-	testthat::expect_length(ids, 1)
-	testthat::expect_equal(ids, entry$getFieldValue('accession'))
-	print('-------------------------------- test.db.writing.with.col.add 4.1')
-	print(ids)
-	entries = conn.2$getEntry(ids)
+	id = conn.2$getEntryIds()
+	testthat::expect_length(id, 1)
+	testthat::expect_equal(id, entry$getFieldValue('accession'))
+	entries = conn.2$getEntry(id, drop = FALSE)
 	entries.df = conn.2$getBiodb()$entriesToDataframe(entries, compute = FALSE, only.card.one = TRUE)
 
-	print('-------------------------------- test.db.writing.with.col.add 5')
 	# Get a list of all fields currently used in connector
 	current.fields = colnames(entries.df)
 
-	print('-------------------------------- test.db.writing.with.col.add 6')
 	# Choose a field that is not used inside the connector
 	fields.def = conn.2$getBiodb()$getEntryFields()
 	for (field.name in fields.def$getFieldNames()) {
@@ -302,20 +318,14 @@ test.db.writing.with.col.add = function(conn) {
 			break
 	}
 
-	print('-------------------------------- test.db.writing.with.col.add 7')
-	print(entries)
 	# Create a new entry having one new field that does not exist in any other entry (so in the case of SQL the table will have to be altered to add new columns)
 	new.entry = entries[[1]]$clone()
 	new.entry$setFieldValue('accession', 'anewentry')
 	new.entry$setFieldValue(field$getName(), 0)
 
-	print('-------------------------------- test.db.writing.with.col.add 8')
 	# Add and write the new entry
 	conn.2$addNewEntry(new.entry)
-	print('-------------------------------- test.db.writing.with.col.add 10')
-	print(conn)
 	conn.2$write()
-	print('-------------------------------- test.db.writing.with.col.add 11')
 	conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
 }
 
@@ -434,10 +444,13 @@ run.db.generic.tests = function(conn, mode) {
 			test.that("The entry image URL can be downloaded.", 'test.entry.image.url.download', conn = conn)
 		}
 	}
-	if (conn$isEditable() && conn$isWritable()) {
-		test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
-		test.that('Database writing works.', 'test.db.writing', conn = conn)
-		test.that('We can write entries having new fields.', 'test.db.writing.with.col.add', conn = conn)
-		test.that('Database copy works.', 'test.db.copy', conn = conn)
+	if (conn$isEditable()) {
+		test.that('We can edit a database.', 'test.db.editing', conn = conn)
+		if (conn$isWritable()) {
+			test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
+			test.that('Database writing works.', 'test.db.writing', conn = conn)
+			test.that('We can write entries having new fields.', 'test.db.writing.with.col.add', conn = conn)
+			test.that('Database copy works.', 'test.db.copy', conn = conn)
+		}
 	}
 }
