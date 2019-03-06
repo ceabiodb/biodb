@@ -149,17 +149,11 @@ test.nb.entries <- function(db) {
 
 test.entry.ids <- function(db) {
 
-	dbs.not.implementing <- c('ncbi.ccds')
-
 	# Test getEntryIds()
 	max <- 100
 	ids <- db$getEntryIds(max.results = max)
-	if (db$getId() %in% dbs.not.implementing || (db$getId() == 'hmdb.metabolites' && ! db$isDownloaded()))
-		expect_null(ids)
-	else {
-		expect_is(ids, 'character')
-		expect_true(length(ids) <= max)
-	}
+	expect_is(ids, 'character')
+	expect_true(length(ids) <= max)
 }
 
 # Test RT unit {{{1
