@@ -344,14 +344,6 @@ MassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol
 	return(res)
 })
 
-# Get entry ids {{{1
-################################################################
-
-MassdbConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level = 0) {
-	":\n\nGet entry identifiers from the database."
-
-	.self$.abstract.method()
-})
 
 # Collapse results data frame {{{1
 ################################################################

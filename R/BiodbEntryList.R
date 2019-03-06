@@ -30,11 +30,12 @@ BiodbEntryList$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Loop on all field names
 	for (field.name in names(parsed.content)) {
+
 		# Get value
 		value = parsed.content[[field.name]]
 
-		# Skip empty vector
-		if (is.vector(value) && length(value) == 0)
+		# Skip empty vector or NA value
+		if (is.vector(value) && (length(value) == 0 || all(is.na(value))))
 			next
 
 		# Set value

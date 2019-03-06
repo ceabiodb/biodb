@@ -40,32 +40,6 @@ HmdbMetabolitesConn$methods( initialize = function(...) {
 	.self$.setDownloadExt('zip')
 })
 
-# Get entry ids {{{1
-################################################################
-
-HmdbMetabolitesConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids <- NULL
-
-	# Download
-	.self$download()
-
-	if (.self$isDownloaded()) {
-
-		# Get IDs from cache
-		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
-
-		# Filter out wrong IDs
-		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
-
-		# Cut
-		if ( ! is.na(max.results) && max.results < length(ids))
-			ids <- ids[1:max.results]
-	}
-
-	return(ids)
-})
-
 # Get nb entries {{{1
 ################################################################
 
@@ -232,3 +206,26 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 	.self$message('debug', 'Delete extract directory.')
 	unlink(extract.dir, recursive = TRUE)
 })
+
+# Get entry ids {{{2
+################################################################
+
+HmdbMetabolitesConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Download
+	.self$download()
+
+	if (.self$isDownloaded()) {
+
+		# Get IDs from cache
+		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+
+		# Filter out wrong IDs
+		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
+	}
+
+	return(ids)
+})
+
