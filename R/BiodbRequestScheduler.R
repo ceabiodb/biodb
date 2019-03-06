@@ -319,10 +319,29 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 		opts <- request$getCurlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'))
 
 		# Send request
-		if (request$getMethod() == 'get')
-			content <- RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding(), headerfunction = header$update)
-		else
-			content <- RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding(), headerfunction = header$update)
+		retry = TRUE
+		curl.error = NULL
+		content = tryCatch(expr = {
+				if (request$getMethod() == 'get')
+					RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding(), headerfunction = header$update)
+				else
+					RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding(), headerfunction = header$update)
+				},
+			PEER_FAILED_VERIFICATION = function(err) { curl.error = err },
+			GenericCurlError = function(err) { curl.error = err },
+			finally = function(err) { retry = FALSE ; curl.error = err })
+
+		# Log error
+		if ( ! is.null(curl.error)) {
+			msg = paste0("RCurl error: ", curl.error)
+			if (retry)
+				msg = paste0(msg, " Retrying connection to server...")
+			.self$message('info', msg)
+			if (retry)
+				next
+			else
+				break
+		}
 
 		# Get header information sent by server
 		hdr <- as.list(header$value())
