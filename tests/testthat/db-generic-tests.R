@@ -260,34 +260,63 @@ test.create.conn.with.same.url = function(conn) {
 
 test.db.writing.with.col.add = function(conn) {
 
-	# Get data frame of all entries
-	ids = conn$getEntryIds()
-	entries = conn$getEntry(ids)
-	entries.df = conn$getBiodb()$entriesToDataframe(entries, compute = FALSE, only.card.one = TRUE)
+	print('-------------------------------- test.db.writing.with.col.add 1')
+	# Set database file
+	db.file <- file.path(OUTPUT.DIR, paste('test.db.writing.with.col.add', conn$getDbClass(), 'db', sep = '.'))
+	if (file.exists(db.file))
+		unlink(db.file)
 
+	print('-------------------------------- test.db.writing.with.col.add 2')
+	# Get one entry from connector
+	ids = conn$getEntryIds()
+	entry = conn$getEntry(ids[[1]])
+
+	print('-------------------------------- test.db.writing.with.col.add 3')
+	# Create other connector
+	conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = db.file)
+	conn.2$allowEditing()
+	conn.2$addNewEntry(entry$clone())
+	conn.2$allowWriting()
+
+	print('-------------------------------- test.db.writing.with.col.add 4')
+	# Get data frame of all entries
+	ids = conn.2$getEntryIds()
+	testthat::expect_is(ids, 'character')
+	testthat::expect_length(ids, 1)
+	testthat::expect_equal(ids, entry$getFieldValue('accession'))
+	print('-------------------------------- test.db.writing.with.col.add 4.1')
+	print(ids)
+	entries = conn.2$getEntry(ids)
+	entries.df = conn.2$getBiodb()$entriesToDataframe(entries, compute = FALSE, only.card.one = TRUE)
+
+	print('-------------------------------- test.db.writing.with.col.add 5')
 	# Get a list of all fields currently used in connector
 	current.fields = colnames(entries.df)
 
+	print('-------------------------------- test.db.writing.with.col.add 6')
 	# Choose a field that is not used inside the connector
-	fields.def = conn$getBiodb()$getEntryFields()
+	fields.def = conn.2$getBiodb()$getEntryFields()
 	for (field.name in fields.def$getFieldNames()) {
 		field = fields.def$get(field.name)
 		if (field$hasCardOne() && field$isVector() && ! field.name %in% current.fields)
 			break
 	}
 
+	print('-------------------------------- test.db.writing.with.col.add 7')
+	print(entries)
 	# Create a new entry having one new field that does not exist in any other entry (so in the case of SQL the table will have to be altered to add new columns)
 	new.entry = entries[[1]]$clone()
 	new.entry$setFieldValue('accession', 'anewentry')
 	new.entry$setFieldValue(field$getName(), 0)
 
+	print('-------------------------------- test.db.writing.with.col.add 8')
 	# Add and write the new entry
-	conn$allowEditing()
-	conn$addNewEntry(new.entry)
-	conn$disallowEditing()
-	conn$allowWriting()
-	conn$write()
-	conn$disallowWriting()
+	conn.2$addNewEntry(new.entry)
+	print('-------------------------------- test.db.writing.with.col.add 10')
+	print(conn)
+	conn.2$write()
+	print('-------------------------------- test.db.writing.with.col.add 11')
+	conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
 }
 
 # Test database writing {{{1
@@ -349,6 +378,40 @@ test.db.writing = function(conn) {
 	biodb$getFactory()$deleteConn(conn.3$getId())
 }
 
+# Test database copy {{{1
+################################################################
+
+test.db.copy = function(conn) {
+
+	biodb = conn$getBiodb()
+
+	# Set database file
+	db.file <- file.path(OUTPUT.DIR, paste('test.db.copy', conn$getDbClass(), 'db', sep = '.'))
+	if (file.exists(db.file))
+		unlink(db.file)
+
+	# Create new connector
+	conn.2 = biodb$getFactory()$createConn(conn$getDbClass(), url = db.file)
+
+	# Copy database
+	conn.2$allowEditing()
+	conn.2$allowWriting()
+	biodb$copyDb(conn.from = conn, conn.t = conn.2)
+
+	# Compare
+	ids.1 = conn$getEntryIds()
+	ids.2 = conn.2$getEntryIds()
+	testthat::expect_identical(ids.1, ids.2)
+	entries.1 = conn$getEntry(ids.1)
+	entries.2 = conn.2$getEntry(ids.2)
+	df.1 = biodb$entriesToDataframe(entries.1, only.atomic = FALSE, compute = FALSE)
+	df.2 = biodb$entriesToDataframe(entries.2, only.atomic = FALSE, compute = FALSE)
+	testthat::expect_identical(df.1, df.2)
+
+	# Delete connector
+	biodb$getFactory()$deleteConn(conn.2$getId())
+}
+
 # Run db generic tests {{{1
 ################################################################
 
@@ -375,5 +438,6 @@ run.db.generic.tests = function(conn, mode) {
 		test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
 		test.that('Database writing works.', 'test.db.writing', conn = conn)
 		test.that('We can write entries having new fields.', 'test.db.writing.with.col.add', conn = conn)
+		test.that('Database copy works.', 'test.db.copy', conn = conn)
 	}
 }
