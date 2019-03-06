@@ -79,14 +79,19 @@ BiodbEditable$methods( addNewEntry = function(entry) {
 	# No accession number?
 	if ( ! entry$hasField('accession'))
 		.self$message('error', 'Impossible to add entry as a new entry. The passed entry has no accession number.')
-	id <- entry$getFieldValue('accession')
+	id = entry$getFieldValue('accession')
 	if (is.na(id))
 		.self$message('error', 'Impossible to add entry as a new entry. The passed entry has an accession number set to NA.')
 
 	# Accession number is already used?
-	e <- .self$getEntry(id)
+	e = .self$getEntry(id)
 	if ( ! is.null(e))
 		.self$message('error', 'Impossible to add entry as a new entry. The accession number of the passed entry is already used in the connector.')
+
+	# Make sure ID field is equal to accession
+	id.field = .self$getEntryIdField()
+	if ( ! entry$hasField(id.field) || entry$getFieldValue(id.field) != id)
+		entry$setFieldValue(id.field, id)
 
 	# Remove entry from non-volatile cache
 	if (.self$getBiodb()$getCache()$isWritable())

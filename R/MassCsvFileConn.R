@@ -303,27 +303,20 @@ MassCsvFileConn$methods( setDb = function(db) {
 
 MassCsvFileConn$methods( .doWrite = function() {
 
-	print('-------------------------------- MassCsvFileConn::.doWrite 1')
 	.self$message('info', paste0('Write all entries into "', .self$getUrl('base.url'), '".'))
 
-	print('-------------------------------- MassCsvFileConn::.doWrite 2')
 	# Make sure all entries are loaded into cache.
 	entry.ids <- .self$getEntryIds()
-	print('-------------------------------- MassCsvFileConn::.doWrite 3')
 	entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), entry.ids)
-	print('-------------------------------- MassCsvFileConn::.doWrite 4')
 
 	# Get all entries: the ones loaded from the database file and the ones created in memory (and not saved).
 	entries <- .self$getAllCacheEntries()
-	print('-------------------------------- MassCsvFileConn::.doWrite 5')
 
 	# Get data frame of all entries
 	df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
-	print('-------------------------------- MassCsvFileConn::.doWrite 6')
 
 	# Write data frame
 	write.table(df, file = .self$getUrl('base.url'), row.names = FALSE, sep = "\t", quote = FALSE)
-	print('-------------------------------- MassCsvFileConn::.doWrite 7')
 })
 
 # Init db {{{2
