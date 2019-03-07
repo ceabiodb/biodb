@@ -229,12 +229,13 @@ test.searchMzTol.with.precursor <- function(db) {
 
 			# Check that precursor peak was matched
 			expect_true(entry$hasField('msprecmz'))
-			expect_true(abs(entry$getFieldValue('msprecmz') - mz) < mz * tol.ppm * 1e-6)
+			expect_true(any(abs(entry$getFieldValue('msprecmz') - mz) < mz * tol.ppm * 1e-6))
 		}
 	}
 }
 
-#  Test searchMzTol() with precursor and multiple inputs
+#  Test searchMzTol() with precursor and multiple inputs {{{1
+################################################################
 
 test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
 

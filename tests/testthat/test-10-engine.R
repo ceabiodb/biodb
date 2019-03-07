@@ -28,7 +28,7 @@ run.observers.tests(biodb, obs)
 run.config.tests(biodb)
 run.biodb.tests(biodb, obs)
 run.factory.tests(biodb, obs)
-run.scheduler.tests(biodb, obs)
+run.scheduler.tests(biodb)
 
 # Terminate Biodb
 biodb$terminate()

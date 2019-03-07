@@ -23,6 +23,7 @@ source('db-uniprot-tests.R')
 # Create biodb instance
 biodb <- create.biodb.instance()
 expect_is(biodb, 'Biodb')
+obs <- create.test.observer(biodb)
 
 # Loop on test databases
 for (db.name in TEST.DATABASES) {
@@ -54,7 +55,7 @@ for (db.name in TEST.DATABASES) {
 		# Specific tests
 		fct <- paste('run', db.name, 'tests', sep = '.')
 		if (exists(fct))
-			do.call(fct, list(conn, mode))
+			do.call(fct, list(conn = conn, mode = mode, obs = obs))
 	}
 }
 

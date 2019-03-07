@@ -103,7 +103,7 @@ test.kegg.compound.ws.find.molecular.weight <- function(db) {
 # Run KEGG Compound tests {{{1
 ################################################################
 
-run.kegg.compound.tests <- function(conn, mode) {
+run.kegg.compound.tests <- function(conn, mode, obs) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		test.that('Test', 'test.kegg.compound.ws.list', conn = conn)
 		test.that('Test', 'test.kegg.compound.ws.find', conn = conn)

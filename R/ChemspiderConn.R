@@ -363,25 +363,6 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 	return(ids)
 })
 
-# Get entry ids {{{1
-################################################################
-
-ChemspiderConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	"This method is not correctly implemented. This is because ChemSpider API does not provide a service for obtaining the exact number of entries. As a consequence we use `searchEntryByMass()` method to search for entries. However, since looking for all entries this way makes ChemSpider fails with `System.OutOfMemoryException`, only a subset of the entries is retrieve. This method, implemented this way, is still useful for testing purposes."
-
-	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of ChemSpider entries.")
-
-	ids <- NULL
-
-	if ( ! is.na(max.results))
-		mass.tol <- if (max.results <= 100) 0.01 else (0.01 * max.results / 100)
-	else
-		mass.tol <- 10
-	ids <- .self$searchCompound(mass = 100, mass.field = 'monoisotopic.mass', mass.tol = mass.tol, max.results = max.results)
-
-	return(ids)
-})
-
 # Private methods {{{1
 ################################################################
 
@@ -437,3 +418,22 @@ ChemspiderConn$methods( .retrieveQuery = function(results, retfmt) {
 
 	return(results)
 })
+
+# Get entry ids {{{2
+################################################################
+
+ChemspiderConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of ChemSpider entries. This is because ChemSpider API does not provide a service for obtaining the exact number of entries.")
+
+	ids <- NULL
+
+	if ( ! is.na(max.results))
+		mass.tol <- if (max.results <= 100) 0.01 else (0.01 * max.results / 100)
+	else
+		mass.tol <- 10
+	ids <- .self$searchCompound(mass = 100, mass.field = 'monoisotopic.mass', mass.tol = mass.tol, max.results = max.results)
+
+	return(ids)
+})
+

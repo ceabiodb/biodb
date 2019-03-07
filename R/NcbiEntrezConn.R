@@ -117,16 +117,6 @@ NcbiEntrezConn$methods( ws.einfo = function(retfmt = c('plain', 'request', 'pars
 	return(results)
 })
 
-# Get entry ids {{{1
-################################################################
-
-NcbiEntrezConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of Ncbi entries.")
-
-	return(.self$ws.esearch(term = 'e', retmax = if (is.na(max.results)) 1000000 else max.results, retfmt = 'ids'))
-})
-
 # Get nb entries {{{1
 ################################################################
 
@@ -206,3 +196,17 @@ NcbiEntrezConn$methods( getEntryContent = function(entry.id) {
 
 	return(content)
 })
+
+# Private methods {{{1
+################################################################
+
+# Get entry ids {{{2
+################################################################
+
+NcbiEntrezConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	.self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of Ncbi entries.")
+
+	return(.self$ws.esearch(term = 'e', retmax = if (is.na(max.results)) 1000000 else max.results, retfmt = 'ids'))
+})
+

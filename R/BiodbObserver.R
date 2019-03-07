@@ -52,7 +52,7 @@ BiodbObserver$methods( message = function(type = 'info', msg, class = NA_charact
 # Info progress {{{1
 ################################################################
 
-BiodbObserver$methods( progress = function(type = 'info', msg, index, total) {
+BiodbObserver$methods( progress = function(type = 'info', msg, index, total, first) {
 	.self$checkMessageType(type)
 })
 
@@ -66,5 +66,5 @@ BiodbObserver$methods( checkMessageType = function(type) {
 
 	# Is type unknown?
 	if ( ! tolower(type) %in% allowed.types)
-		error(paste("Unknown message type \"", type, "\". Please use one of: ", paste(allowed.types, collapse = ', '), '.', sep = ''))
+		stop(paste("Unknown message type \"", type, "\". Please use one of: ", paste(allowed.types, collapse = ', '), '.', sep = ''))
 })

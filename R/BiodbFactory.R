@@ -294,7 +294,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 		conn <- .self$getConn(conn.id)
 
 		# Debug
-		.self$message('info', paste0("Get ", conn$getName(), " entry content(s) for ", length(id)," id(s)..."))
+		.self$message('debug', paste0("Get ", conn$getName(), " entry content(s) for ", length(id)," id(s)..."))
 
 		# Download full database if possible and allowed or if required
 		if (.self$getBiodb()$getCache()$isWritable() && methods::is(conn, 'BiodbDownloadable')) {
@@ -319,17 +319,17 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 
 		# Debug
 		if (any(is.na(id)))
-			.self$message('info', paste0(sum(is.na(id)), " ", conn$getName(), " entry ids are NA."))
+			.self$message('debug', paste0(sum(is.na(id)), " ", conn$getName(), " entry ids are NA."))
 		if (.self$getBiodb()$getCache()$isReadable()) {
-			.self$message('info', paste0(sum( ! is.na(id)) - length(missing.ids), " ", conn$getName(), " entry content(s) loaded from cache."))
+			.self$message('debug', paste0(sum( ! is.na(id)) - length(missing.ids), " ", conn$getName(), " entry content(s) loaded from cache."))
 			if (n.duplicates > 0)
-				.self$message('info', paste0(n.duplicates, " ", conn$getName(), " entry ids, whose content needs to be fetched, are duplicates."))
+				.self$message('debug', paste0(n.duplicates, " ", conn$getName(), " entry ids, whose content needs to be fetched, are duplicates."))
 		}
 
 		# Get contents
 		if (length(missing.ids) > 0 && ( ! methods::is(conn, 'BiodbDownloadable') || ! conn$isDownloaded())) {
 
-			.self$message('info', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getName(), " database \"", conn$getUrl('base.url'), "\"."))
+			.self$message('debug', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getName(), " database \"", conn$getUrl('base.url'), "\"."))
 
 			# Divide list of missing ids in chunks (in order to save in cache regularly)
 			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
@@ -349,7 +349,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 
 				# Debug
 				if (.self$getBiodb()$getCache()$isReadable())
-					.self$message('info', paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+					.self$message('debug', paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
 			}
 
 			# Merge content and missing.contents
@@ -384,7 +384,7 @@ BiodbFactory$methods( .loadEntries = function(conn.id, ids, drop) {
 		conn <- .self$getConn(conn.id)
 
 		# Debug
-		.self$message('info', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
+		.self$message('debug', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
 
 		# Get contents
 		content = .self$getEntryContent(conn$getId(), ids)
@@ -433,13 +433,14 @@ BiodbFactory$methods( .createEntryFromContent = function(conn.id, content, drop 
 		# Get connector
 		conn <- .self$getConn(conn.id)
 
-		.self$message('info', paste('Creating ', conn$getName(), ' entries from ', length(content), ' content(s).', sep = ''))
+		.self$message('debug', paste('Creating ', conn$getName(), ' entries from ', length(content), ' content(s).', sep = ''))
 
 		# Get entry class
     	entry.class <- conn$getEntryClass()
 
     	# Loop on all contents
     	.self$message('debug', paste('Parsing ', length(content), ' ', conn$getName(), ' entries.', sep = ''))
+		i = 0
 		for (single.content in content) {
 
 			# Create empty entry instance
@@ -449,6 +450,10 @@ BiodbFactory$methods( .createEntryFromContent = function(conn.id, content, drop 
 			entry$parseContent(single.content)
 
 			entries <- c(entries, entry)
+
+			# Send progress message
+			i = i + 1
+			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', index = i, total = length(content), first = (i == 1)))
 		}
 
 		# Replace elements with no accession id by NULL

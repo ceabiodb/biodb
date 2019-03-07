@@ -83,10 +83,27 @@ BiodbConn$methods( getEntryContent = function(entry.id) {
 # Get entry ids {{{1
 ################################################################
 
-BiodbConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	":\n\nGet entry identifiers from the database."
+BiodbConn$methods( getEntryIds = function(max.results = NA_integer_, ...) {
+	":\n\nGet entry identifiers from the database. More arguments can be given, depending on implementation in specific databases. For mass databases (the ones derived from BiodbMassdbConn class, the ms.level argument can be set."
 
-	.self$.abstract.method()
+	ids = character()
+
+	# Get IDs volatile cache
+	not.null = ! vapply(.self$.entries, is.null, FUN.VALUE = T)
+	ids = names(.self$.entries[not.null])
+
+	# Get IDs from database
+	if (is.null(max.results) || is.na(max.results) || length(ids) < max.results) {
+		db.ids = .self$.doGetEntryIds(max.results, ...)
+		if ( ! is.null(db.ids))
+			ids = c(ids, db.ids[ ! db.ids %in% ids])
+	}
+
+	# Cut
+	if ( ! is.null(max.results) && ! is.na(max.results) && max.results > 0 && length(ids) > max.results)
+		ids <- ids[1:max.results]
+
+	return(ids)
 })
 
 # Get nb entries {{{1
@@ -190,6 +207,13 @@ BiodbConn$methods( getCacheId = function() {
 
 # Private methods {{{1
 ################################################################
+
+# Do get entry ids {{{2
+################################################################
+
+BiodbConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+	.self$.abstract.method()
+})
 
 # Add entries to cache {{{2
 ################################################################

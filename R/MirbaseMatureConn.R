@@ -92,29 +92,6 @@ MirbaseMatureConn$methods( .doExtractDownload = function() {
 	unlink(extracted.file)
 })
 
-# Get entry ids {{{1
-################################################################
-
-MirbaseMatureConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids <- NULL
-
-	# Download
-	.self$download()
-
-	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
-
-	# Filter out wrong IDs
-	ids <- ids[grepl("^MIMAT[0-9]+$", ids, perl = TRUE)]
-
-	# Cut
-	if ( ! is.na(max.results) && max.results < length(ids))
-		ids <- ids[1:max.results]
-
-	return(ids)
-})
-
 # Get entry content {{{1
 ################################################################
 
@@ -193,3 +170,23 @@ MirbaseMatureConn$methods( searchCompound = function(name = NULL, mass = NULL, m
 MirbaseMatureConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.MIRBASE.MATURE.PARSING.EXPR)
 })
+
+# Get entry ids {{{2
+################################################################
+
+MirbaseMatureConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Download
+	.self$download()
+
+	# Get IDs from cache
+	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+
+	# Filter out wrong IDs
+	ids <- ids[grepl("^MIMAT[0-9]+$", ids, perl = TRUE)]
+
+	return(ids)
+})
+

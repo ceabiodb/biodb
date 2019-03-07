@@ -23,36 +23,6 @@ MassSqliteConn$methods( initialize = function(...) {
 	.db <<- NULL
 })
 
-# Get entry ids {{{1
-################################################################
-
-MassSqliteConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids = integer()
-
-	.self$.init.db()
-
-	if ( ! is.null(.self$.db)) {
-
-		# List tables
-		tables = DBI::dbListTables(.self$.db)
-
-		if ('entries' %in% tables) {
-
-			# Build query
-			query = "select accession from entries"
-			if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
-				query = paste0(query, ' limit ', as.integer(max.results))
-
-			# Run query
-			df = DBI::dbGetQuery(.self$.db, query)
-			ids = df[[1]]
-		}
-	}
-
-	return(ids)
-})
-
 # Get entry content {{{1
 ################################################################
 
@@ -135,10 +105,7 @@ MassSqliteConn$methods( getChromCol = function(ids = NULL) {
 # Private methods {{{1
 ################################################################
 
-# Writable methods {{{2
-################################################################
-
-# Do write {{{3
+# Do write {{{2
 ################################################################
 
 MassSqliteConn$methods( .doWrite = function() {
@@ -147,21 +114,24 @@ MassSqliteConn$methods( .doWrite = function() {
 
 	if ( ! is.null(.self$.db)) {
 
+		.self$message('info', paste0('Write all new entries into "', .self$getUrl('base.url'), '".'))
+
 		# Get new entries
 		cached.entries = .self$getAllCacheEntries()
 		new.entries = cached.entries[vapply(cached.entries, function(x) x$isNew(), FUN.VALUE = TRUE)]
 
 		if (length(new.entries) > 0) {
 
-			# Start transaction
-			DBI::dbBegin(.self$.db)
-
-			# Write into main table
-			df = .self$getBiodb()$entriesToDataframe(new.entries, only.card.one = TRUE)
-			DBI::dbWriteTable(conn = .self$.db, name = 'entries', value = df, append = TRUE)
-
 			# Loop on all new entries and write other fields to separate tables
+			i = 0
 			for (entry in new.entries) {
+
+				# Start transaction
+				DBI::dbBegin(.self$.db)
+
+				# Write into main table
+				df = .self$getBiodb()$entriesToDataframe(list(entry), only.card.one = TRUE)
+				.self$.appendToTable(table = 'entries', values = df)
 
 				# Loop on all fields
 				for (field.name in entry$getFieldNames()) {
@@ -170,7 +140,7 @@ MassSqliteConn$methods( .doWrite = function() {
 
 					# Write data frame field
 					if (field$getClass() == 'data.frame')
-						DBI::dbWriteTable(conn = .self$.db, name = field.name, value = cbind(accession = entry$getFieldValue('accession'), entry$getFieldValue(field.name)), append = TRUE)
+						.self$.appendToTable(table = field.name, values = cbind(accession = entry$getFieldValue('accession'), entry$getFieldValue(field.name)))
 
 					# Write multiple values field
 					else if (field$hasCardMany()) {
@@ -179,13 +149,17 @@ MassSqliteConn$methods( .doWrite = function() {
 						DBI::dbWriteTable(conn = .self$.db, name = field.name, value = as.data.frame(values), append = TRUE)
 					}
 				}
+
+				# Commit transaction
+				DBI::dbCommit(.self$.db)
+
+				# Unset "new" flag
+				entry$.setAsNew(FALSE)
+
+				# Send progress message
+				i = i + 1
+				lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Writing entries.', index = i, total = length(new.entries), first = (i == 1)))
 			}
-
-			# Commit transaction
-			DBI::dbCommit(.self$.db)
-
-			# Unset "new" flag
-			lapply(new.entries, function(x) x$.setAsNew(FALSE))
 		}
 	}
 })
@@ -262,7 +236,7 @@ MassSqliteConn$methods( .doGetMzValues = function(ms.mode, max.results, precurso
 	return(mz)
 })
 
-# Create MS query object {{{1
+# Create MS query object {{{2
 ################################################################
 
 MassSqliteConn$methods( .createMsQuery = function(mzcol, ms.mode = NULL, ms.level = 0, precursor =  FALSE) {
@@ -333,3 +307,59 @@ MassSqliteConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int,
 
 	return(ids)
 })
+
+# Append to table {{{2
+################################################################
+
+MassSqliteConn$methods( .appendToTable = function(table, values) {
+
+	# Append to existing table
+	if (table %in% DBI::dbListTables(.self$.db)) {
+
+		# Create new columns
+		current.fields = DBI::dbListFields(.self$.db, name = table)
+		new.fields = colnames(values)[ ! colnames(values) %in% current.fields]
+		for (field in new.fields) {
+			query = paste0('alter table ', DBI::dbQuoteIdentifier(DBI::ANSI(), table), ' add ', DBI::dbQuoteIdentifier(DBI::ANSI(), field), ' ', DBI::dbDataType(.self$.db, values[[field]]), ';')
+			result = DBI::dbSendQuery(.self$.db, query)
+			DBI::dbClearResult(result)
+		}
+
+		# Append to table
+		DBI::dbWriteTable(conn = .self$.db, name = table, value = values, append = TRUE)
+
+	# Create table
+	} else
+		DBI::dbWriteTable(conn = .self$.db, name = table, value = values)
+})
+
+# Get entry ids {{{2
+################################################################
+
+MassSqliteConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	ids = integer()
+
+	.self$.init.db()
+
+	if ( ! is.null(.self$.db)) {
+
+		# List tables
+		tables = DBI::dbListTables(.self$.db)
+
+		if ('entries' %in% tables) {
+
+			# Build query
+			query = "select accession from entries"
+			if ( ! is.null(max.results) && ! is.na(max.results) && (is.numeric(max.results) || is.integer(max.results)))
+				query = paste0(query, ' limit ', as.integer(max.results))
+
+			# Run query
+			df = DBI::dbGetQuery(.self$.db, query)
+			ids = df[[1]]
+		}
+	}
+
+	return(ids)
+})
+

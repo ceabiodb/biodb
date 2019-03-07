@@ -207,18 +207,6 @@ MassCsvFileConn$methods( setFieldMultValSep = function(sep) {
 })
 
 
-# Get entry ids {{{1
-################################################################
-
-MassCsvFileConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids <- NA_character_
-
-	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
-
-	return(ids)
-})
-
 # Get nb entries {{{1
 ################################################################
 
@@ -310,13 +298,12 @@ MassCsvFileConn$methods( setDb = function(db) {
 # Private methods {{{1
 ################################################################
 
-# Writable methods {{{2
-################################################################
-
-# Do write {{{3
+# Do write {{{2
 ################################################################
 
 MassCsvFileConn$methods( .doWrite = function() {
+
+	.self$message('info', paste0('Write all entries into "', .self$getUrl('base.url'), '".'))
 
 	# Make sure all entries are loaded into cache.
 	entry.ids <- .self$getEntryIds()
@@ -591,3 +578,16 @@ MassCsvFileConn$methods( .check.parsing.has.began = function() {
 	if (length(.self$.parsing.expr) > 0)
 		.self$message('error', 'Action impossible, parsing of entries has already began.')
 })
+
+# Get entry ids {{{2
+################################################################
+
+MassCsvFileConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	ids <- NA_character_
+
+	ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
+
+	return(ids)
+})
+

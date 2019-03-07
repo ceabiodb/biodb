@@ -149,17 +149,11 @@ test.nb.entries <- function(db) {
 
 test.entry.ids <- function(db) {
 
-	dbs.not.implementing <- c('ncbi.ccds')
-
 	# Test getEntryIds()
 	max <- 100
 	ids <- db$getEntryIds(max.results = max)
-	if (db$getId() %in% dbs.not.implementing || (db$getId() == 'hmdb.metabolites' && ! db$isDownloaded()))
-		expect_null(ids)
-	else {
-		expect_is(ids, 'character')
-		expect_true(length(ids) <= max)
-	}
+	expect_is(ids, 'character')
+	expect_true(length(ids) <= max)
 }
 
 # Test RT unit {{{1
@@ -255,6 +249,80 @@ test.create.conn.with.same.url = function(conn) {
 	testthat::expect_error(conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = conn$getUrl('base.url')))
 }
 
+# Test database edition {{{1
+################################################################
+
+test.db.editing = function(conn) {
+
+	# Get one entry from connector
+	id = conn$getEntryIds(1)
+	entry = conn$getEntry(id)
+	testthat::expect_is(entry, 'BiodbEntry')
+
+	# Create other connector
+	conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass())
+	conn.2$allowEditing()
+	conn.2$addNewEntry(entry$clone())
+
+	# Test methods
+	id = conn.2$getEntryIds()
+	testthat::expect_length(id, 1)
+	testthat::expect_equal(id, entry$getFieldValue('accession'))
+
+	# Delete connector
+	conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
+}
+
+# Test database writing with column addition {{{1
+################################################################
+
+test.db.writing.with.col.add = function(conn) {
+
+	# Set database file
+	db.file <- file.path(OUTPUT.DIR, paste('test.db.writing.with.col.add', conn$getDbClass(), 'db', sep = '.'))
+	if (file.exists(db.file))
+		unlink(db.file)
+
+	# Get one entry from connector
+	id = conn$getEntryIds(1)
+	entry = conn$getEntry(id)
+	testthat::expect_is(entry, 'BiodbEntry')
+
+	# Create other connector
+	conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = db.file)
+	conn.2$allowEditing()
+	conn.2$addNewEntry(entry$clone())
+	conn.2$allowWriting()
+
+	# Get data frame of all entries
+	id = conn.2$getEntryIds()
+	testthat::expect_length(id, 1)
+	testthat::expect_equal(id, entry$getFieldValue('accession'))
+	entries = conn.2$getEntry(id, drop = FALSE)
+	entries.df = conn.2$getBiodb()$entriesToDataframe(entries, compute = FALSE, only.card.one = TRUE)
+
+	# Get a list of all fields currently used in connector
+	current.fields = colnames(entries.df)
+
+	# Choose a field that is not used inside the connector
+	fields.def = conn.2$getBiodb()$getEntryFields()
+	for (field.name in fields.def$getFieldNames()) {
+		field = fields.def$get(field.name)
+		if (field$hasCardOne() && field$isVector() && ! field.name %in% current.fields)
+			break
+	}
+
+	# Create a new entry having one new field that does not exist in any other entry (so in the case of SQL the table will have to be altered to add new columns)
+	new.entry = entries[[1]]$clone()
+	new.entry$setFieldValue('accession', 'anewentry')
+	new.entry$setFieldValue(field$getName(), 0)
+
+	# Add and write the new entry
+	conn.2$addNewEntry(new.entry)
+	conn.2$write()
+	conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
+}
+
 # Test database writing {{{1
 ################################################################
 
@@ -314,6 +382,40 @@ test.db.writing = function(conn) {
 	biodb$getFactory()$deleteConn(conn.3$getId())
 }
 
+# Test database copy {{{1
+################################################################
+
+test.db.copy = function(conn) {
+
+	biodb = conn$getBiodb()
+
+	# Set database file
+	db.file <- file.path(OUTPUT.DIR, paste('test.db.copy', conn$getDbClass(), 'db', sep = '.'))
+	if (file.exists(db.file))
+		unlink(db.file)
+
+	# Create new connector
+	conn.2 = biodb$getFactory()$createConn(conn$getDbClass(), url = db.file)
+
+	# Copy database
+	conn.2$allowEditing()
+	conn.2$allowWriting()
+	biodb$copyDb(conn.from = conn, conn.t = conn.2)
+
+	# Compare
+	ids.1 = conn$getEntryIds()
+	ids.2 = conn.2$getEntryIds()
+	testthat::expect_identical(ids.1, ids.2)
+	entries.1 = conn$getEntry(ids.1)
+	entries.2 = conn.2$getEntry(ids.2)
+	df.1 = biodb$entriesToDataframe(entries.1, only.atomic = FALSE, compute = FALSE)
+	df.2 = biodb$entriesToDataframe(entries.2, only.atomic = FALSE, compute = FALSE)
+	testthat::expect_identical(df.1, df.2)
+
+	# Delete connector
+	biodb$getFactory()$deleteConn(conn.2$getId())
+}
+
 # Run db generic tests {{{1
 ################################################################
 
@@ -336,8 +438,13 @@ run.db.generic.tests = function(conn, mode) {
 			test.that("The entry image URL can be downloaded.", 'test.entry.image.url.download', conn = conn)
 		}
 	}
-	if (conn$isEditable() && conn$isWritable()) {
-		test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
-		test.that('Database writing works.', 'test.db.writing', conn = conn)
+	if (conn$isEditable()) {
+		test.that('We can edit a database.', 'test.db.editing', conn = conn)
+		if (conn$isWritable()) {
+			test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
+			test.that('Database writing works.', 'test.db.writing', conn = conn)
+			test.that('We can write entries having new fields.', 'test.db.writing.with.col.add', conn = conn)
+			test.that('Database copy works.', 'test.db.copy', conn = conn)
+		}
 	}
 }
