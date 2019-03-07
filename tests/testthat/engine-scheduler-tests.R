@@ -3,7 +3,7 @@
 # Test right rule {{{1
 ################################################################
 
-test.schedulerRightRule <- function(biodb, obs) {
+test.schedulerRightRule <- function(biodb) {
 
 	# Delete all connectors
 	biodb$getFactory()$deleteAllConnectors()
@@ -28,7 +28,7 @@ test.schedulerRightRule <- function(biodb, obs) {
 # Test rule frequency {{{1
 ################################################################
 
-test.schedulerRuleFrequency <- function(biodb, obs) {
+test.schedulerRuleFrequency <- function(biodb) {
 
 	# Delete all connectors
 	biodb$getFactory()$deleteAllConnectors()
@@ -79,7 +79,7 @@ test.schedulerRuleFrequency <- function(biodb, obs) {
 # Test scheduler sleep time {{{1
 ################################################################
 
-test.schedulerSleepTime <- function(biodb, obs) {
+test.schedulerSleepTime <- function(biodb) {
 
 	n <- 3
 	t <- 1.0
@@ -163,12 +163,12 @@ test.BiodbUrl <- function(biodb) {
 # Run scheduler tests {{{1
 ################################################################
 
-run.scheduler.tests <- function(biodb, obs) {
+run.scheduler.tests <- function(biodb) {
 
 	set.test.context(biodb, "Test request scheduler")
 
 	test.that("BiodbUrl works fine.", 'test.BiodbUrl', biodb = biodb)
-	test.that("Right rule is created.", 'test.schedulerRightRule', biodb = biodb, obs = obs)
-	test.that("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb, obs = obs)
-	test.that("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb, obs = obs)
+	test.that("Right rule is created.", 'test.schedulerRightRule', biodb = biodb)
+	test.that("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb)
+	test.that("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb)
 }

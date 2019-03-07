@@ -256,12 +256,13 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 			.self$message('error', "Some objects in the input list are not a subclass of BiodbEntry.")
 
 		# Loop on all entries
-		n <- 0
+		i = 0
 		df.list <- NULL
 		for (e in entries) {
 
-			n <- n + 1
-			.self$message('debug', paste("Processing entry", n, "/", length(entries), "..."))
+			# Send progress message
+			i = i + 1
+			lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Converting entries to data frame.', index = i, total = length(entries), first = (i == 1)))
 
 			e.df <- NULL
 			if ( ! is.null(e))
@@ -275,7 +276,7 @@ Biodb$methods( entriesToDataframe = function(entries, only.atomic = TRUE, null.t
 
 		# Build data frame of all entries
 		if ( ! is.null(df.list)) {
-			.self$message('info', paste("Merging entries into a single data frame..."))
+			.self$message('debug', paste("Merging data frames with a single entry each into a single data frame with all entries."))
 			entries.df <- plyr::rbind.fill(df.list)
 		}
 	}
@@ -328,6 +329,34 @@ Biodb$methods( computeFields = function(entries) {
 	# Loop on all entries
 	for (e in entries)
 		e$computeFields()
+})
+
+# Copy database {{{1
+################################################################
+
+Biodb$methods( copyDb = function(conn.from, conn.to) {
+	":\n\nCopy all entries of a database into another database. The connector of the destination database must be editable."
+	
+	# Get all entry IDs of "from" database
+	ids = conn.from$getEntryIds()
+
+	# Get entries
+	entries = conn.from$getEntry(ids)
+
+	# Loop on all entries
+	i = 0
+	for (entry in entries) {
+
+		# Clone entry
+		clone = entry$clone(conn.to$getDbClass())
+
+		# Add new entry
+		conn.to$addNewEntry(clone)
+
+		# Send progress message
+		i = i + 1
+		lapply(.self$getObservers(), function(x) x$progress(type = 'info', msg = 'Copying entries.', index = i, total = length(ids), first = (i == 1)))
+	}
 })
 
 # Show {{{1

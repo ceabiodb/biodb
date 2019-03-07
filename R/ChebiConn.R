@@ -121,13 +121,6 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 	return(results)
 })
 
-# Get entry ids {{{1
-################################################################
-
-ChebiConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	return(.self$ws.getLiteEntity(search = '1*', search.category = 'CHEBI ID', max.results = max.results, retfmt = 'ids'))
-})
-
 # Search compound {{{1
 ################################################################
 
@@ -223,3 +216,10 @@ ChebiConn$methods( .parseWebServiceValues = function() {
 ChebiConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.CHEBI.PARSING.EXPR)
 })
+# Get entry ids {{{2
+################################################################
+
+ChebiConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+	return(.self$ws.getLiteEntity(search = '1*', search.category = 'CHEBI ID', max.results = max.results, retfmt = 'ids'))
+})
+

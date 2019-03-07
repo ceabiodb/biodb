@@ -44,21 +44,6 @@ LipidmapsStructureConn$methods( getEntryImageUrl = function(id) {
 })
 
 
-# Get entry ids {{{1
-################################################################
-
-LipidmapsStructureConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	# Retrieve all IDs
-	ids = .self$ws.LMSDSearch(mode = 'ProcessStrSearch', output.mode = 'File', retfmt = 'ids')
-
-	# Cut
-	if ( ! is.na(max.results) && length(ids) > max.results)
-		ids = ids[1:max.results]
-
-	return(ids)
-})
-
 # Web service LMSDSearch {{{1
 ################################################################
 
@@ -251,3 +236,15 @@ LipidmapsStructureConn$methods( searchCompound = function(name = NULL, mass = NU
 LipidmapsStructureConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.LIPIDMAPS.STRUCTURE.PARSING.EXPR)
 })
+
+# Get entry ids {{{2
+################################################################
+
+LipidmapsStructureConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	# Retrieve all IDs
+	ids = .self$ws.LMSDSearch(mode = 'ProcessStrSearch', output.mode = 'File', retfmt = 'ids')
+
+	return(ids)
+})
+

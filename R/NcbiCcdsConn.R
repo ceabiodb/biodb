@@ -25,13 +25,6 @@ NcbiCcdsConn$methods( initialize = function(...) {
 })
 
 
-# Get entry ids {{{1
-################################################################
-
-NcbiCcdsConn$methods( getEntryIds = function(max.results = NA_integer_) {
-	return(NULL)
-})
-
 # Do get entry content request {{{1
 ################################################################
 
@@ -62,3 +55,11 @@ NcbiCcdsConn$methods( getEntryImageUrl = function(id) {
 NcbiCcdsConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.NCBI.CCDS.PARSING.EXPR)
 })
+
+# Get entry ids {{{2
+################################################################
+
+NcbiCcdsConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+	return(NULL)
+})
+

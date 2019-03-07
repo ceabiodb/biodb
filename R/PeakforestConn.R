@@ -88,21 +88,6 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 	return(content)
 })
 
-# Get entry ids {{{1
-################################################################
-
-PeakforestConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	# Get all IDs
-	ids <- .self$ws.all.ids(retfmt = 'ids')
-
-	# Cut
-	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
-		ids <- ids[1:max.results]
-
-	return(ids)
-})
-
 # Get nb entries {{{1
 ################################################################
 
@@ -205,3 +190,18 @@ PeakforestConn$methods( ws.all.ids = function(retfmt = c('plain', 'request', 'pa
 
 	return(results)
 })
+
+# Private methods {{{1
+################################################################
+
+# Get entry ids {{{2
+################################################################
+
+PeakforestConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	# Get all IDs
+	ids <- .self$ws.all.ids(retfmt = 'ids')
+
+	return(ids)
+})
+

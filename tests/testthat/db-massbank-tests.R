@@ -28,12 +28,33 @@ test.issue150.inchikey.computing.loop.in.massbank <- function(db) {
 	expect_true(is.na(entry$getFieldValue("inchikey", compute = TRUE)))
 }
 
-# Run Massbank Japan tests {{{1
+# Test massbank relative intensity {{{1
 ################################################################
 
-run.massbank.tests <- function(db, mode) {
+test.massbank.relative.intensity = function(conn, obs) {
+
+	# Delete volatile cache entries
+	conn$deleteAllCacheEntries()
+
+	# Get reference entries
+	ref.ids = list.ref.entries(conn$getDbClass())
+
+	# Loop on all ref entry IDs
+	for (id in ref.ids) {
+		obs$clearMessages()
+		entry = conn$getEntry(id)
+		grep_msg = grep('^No peak has a relative intensity of 999 inside Massbank entry .*$', obs$getMsgsByType('caution'))
+		testthat::expect_true(length(grep_msg) == 0, info = paste0('No peak with relative intensity of 999 was found in Massbank entry ', id, '.'))
+	}
+}
+
+# Run Massbank tests {{{1
+################################################################
+
+run.massbank.tests <- function(conn, mode, obs) {
+	test.that('Relative intensity is parsed correctly.', 'test.massbank.relative.intensity', conn = conn, obs = obs)
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
-		test.that('MSMS search works for Massbank.', 'test.msmsSearch.massbank', conn = db)
-		test.that('The computing of inchikey field in a Massbank entry does not loop indefinitely.', 'test.issue150.inchikey.computing.loop.in.massbank', conn = db)
+		test.that('MSMS search works for Massbank.', 'test.msmsSearch.massbank', conn = conn)
+		test.that('The computing of inchikey field in a Massbank entry does not loop indefinitely.', 'test.issue150.inchikey.computing.loop.in.massbank', conn = conn)
 	}
 }

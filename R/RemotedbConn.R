@@ -159,7 +159,7 @@ RemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
 
 	# Send requests
 	for (i in seq_along(requests)) {
-		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', i, length(requests)))
+		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', index = i, total = length(requests), first = (i == 1)))
 		content[[i]] <- .self$getBiodb()$getRequestScheduler()$sendRequest(requests[[i]])
 	}
 

@@ -106,7 +106,7 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	                 'formula'              = list(name = 'peak.formula',           type = 'character', regex = '([^ ]+)'),
 	                 'tentative_formula'    = list(name = 'tentative.formula',          type = 'character', regex = '([^ ]+)'),
 	                 'formula_count'        = list(name = 'peak.formula.count',     type = 'integer',   regex = '([0-9]+)'),
-	                 'error(ppm)'           = list(name = 'peak.error.ppm',         type = 'double',    regex = '([0-9][0-9.]*)'),
+	                 'error(ppm)'           = list(name = 'peak.error.ppm',         type = 'double',    regex = '(-?[0-9][0-9.]*)'),
 	                 'mass'                 = list(name = 'peak.mass',              type = 'double',    regex = '([0-9][0-9.]*)')
 	                 )
 	for (c in cols) {
@@ -119,7 +119,7 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 			peaks[c] <- character()
 		}
 	}
-	regex <- paste(regex, '$', sep = '')
+	regex <- paste(regex, '\\s*$', sep = '')
 
 	# Concatenate info spread on several lines
 	i <- peak.header.line.number + 1
@@ -144,12 +144,15 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 	while ( peak.header.line.number + i <= length(parsed.content)) {
 
 		# Parse line
-		g <- stringr::str_match(parsed.content[[peak.header.line.number + i]], regex)
+		line = parsed.content[[peak.header.line.number + i]]
+		g <- stringr::str_match(line, regex)
 		match <- ! is.na(g[1, 1])
 		if (match) {
 			for (j in seq(ncol(peaks)))
 				peaks[i, j] <- as.vector(g[1, j + 1], mode = class(peaks[[j]]))
 		}
+		else if (substring(line, 1, 2) == '  ')
+			.self$message('caution', paste0('Impossible to parse peak line: "', line, '" with regex "', regex, '".'))
 		else
 			break
 
@@ -157,31 +160,27 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 		i <- i + 1
 	}
 
-	# Merge with existing peak info
-	if (.self$hasField('PEAKS'))
-		.self$setFieldValue('PEAKS', merge(.self$getFieldValue('PEAKS', compute = FALSE), peaks, all.x = TRUE))
-	else
-		# Set new peaks table
-		.self$setFieldValue('PEAKS', peaks)
+	# Scale relative intensity to percentage
+	if ('peak.relative.intensity' %in% names(peaks)) {
+
+		# Check that at least one peak have 999 as relative intensity
+		if (all(peaks[['peak.relative.intensity']] != 999))
+			.self$message('caution', paste("No peak has a relative intensity of 999 inside Massbank entry ", .self$getFieldValue('accession'), ".", sep = ''))
+
+		# Scale to percentage
+		peaks[['peak.relative.intensity']] = peaks[['peak.relative.intensity']] * 100 / 999
+	}
 
 	# Check number of peaks
-	if (.self$hasField('PEAKS') && .self$getFieldValue('NB.PEAKS', compute = FALSE) != nrow(.self$getFieldValue('PEAKS', compute = FALSE)))
-	   	 .self$message('caution', paste("Found ", nrow(.self$getFieldValue('PEAKS', compute = FALSE)), " peak(s) instead of ", .self$getFieldValue('NB.PEAKS', compute = FALSE), ' for entry ', .self$getFieldValue('ACCESSION'), ".", sep = ''))
+	if (title == 'PEAK' && .self$hasField('nb.peaks') && .self$getFieldValue('nb.peaks', compute = FALSE) != nrow(peaks))
+	   	 .self$message('caution', paste("Found ", nrow(peaks), " peak(s) instead of ", .self$getFieldValue('nb.peaks', compute = FALSE), ' for entry ', .self$getFieldValue('accession'), ".", sep = ''))
 
-	# Scale relative intensity to percentage
-	if (.self$hasField('peaks')) {
-		peaks <- .self$getFieldValue('peaks', compute = FALSE)
-		if ('peak.relative.intensity' %in% names(.self$getFieldValue('PEAKS'))) {
+	# Merge with existing peak info
+	if (.self$hasField('peaks'))
+		peaks = merge(.self$getFieldValue('peaks', compute = FALSE), peaks, all.x = TRUE)
 
-			# Check that at least one peak have 999 as relative intensity
-			if ( ! any(peaks[['peak.relative.intensity']] == 999))
-				.self$message('caution', paste("No peak has a relative intensity of 999 inside Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep = ''))
-
-			# Scale to percentage
-			peaks[['peak.relative.intensity']] <- peaks[['peak.relative.intensity']] * 100 / 999
-			.self$setFieldValue('peaks', peaks)
-		}
-	}
+	# Set new peaks table
+	.self$setFieldValue('peaks', peaks)
 })
 
 # Parse peak table {{{1

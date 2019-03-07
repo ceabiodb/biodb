@@ -109,16 +109,6 @@ UniprotConn$methods( ws.query = function(query = '', columns = NULL, format = NU
 	return(results)
 })
 
-# Get entry ids {{{1
-################################################################
-
-UniprotConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	ids <- .self$ws.query(limit = max.results, retfmt = 'ids')
-
-	return(ids)
-})
-
 # Do get entry content request {{{1
 ################################################################
 
@@ -209,3 +199,14 @@ UniprotConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.fi
 UniprotConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.UNIPROT.PARSING.EXPR)
 })
+
+# Get entry ids {{{2
+################################################################
+
+UniprotConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	ids <- .self$ws.query(limit = max.results, retfmt = 'ids')
+
+	return(ids)
+})
+

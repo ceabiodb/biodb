@@ -506,12 +506,12 @@ test.mass.csv.file.cache.confusion <- function(biodb) {
 # Run Mass CSV File tests {{{1
 ################################################################
 
-run.mass.csv.file.tests <- function(db, mode) {
+run.mass.csv.file.tests <- function(conn, mode, obs) {
 
-	test.that("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', conn = db)
-	test.that("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', conn = db)
+	test.that("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', conn = conn)
+	test.that("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', conn = conn)
 
-	biodb <- db$getBiodb()
+	biodb <- conn$getBiodb()
 	test.that('Test fields manipulation works correctly.', 'test.fields', biodb = biodb)
 	test.that('Test that we detect undefined fields', 'test.undefined.fields', biodb = biodb)
 	test.that('Setting database with a data frame works.', 'test.mass.csv.file.data.frame', biodb = biodb)

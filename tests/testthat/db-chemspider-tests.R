@@ -92,7 +92,7 @@ test.chemspider.ws.recordsBatchPost <- function(conn) {
 # Run ChemSpider tests {{{1
 ################################################################
 
-run.chemspider.tests <- function(conn, mode) {
+run.chemspider.tests <- function(conn, mode, obs) {
 	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		test.that('ChemSpider web service filter-name-post works fine.', 'test.chemspider.ws.filterNamePost', conn = conn)
 		test.that('ChemSpider web service filter-mass-post works fine.', 'test.chemspider.ws.filterMassPost', conn = conn)

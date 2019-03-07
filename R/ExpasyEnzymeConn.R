@@ -71,21 +71,6 @@ ExpasyEnzymeConn$methods( ws.enzymeByComment = function(comment, retfmt = c('pla
 	return(results)
 })
 
-# Get entry ids {{{1
-################################################################
-
-ExpasyEnzymeConn$methods( getEntryIds = function(max.results = NA_integer_) {
-
-	# Send request
-	ids <- .self$ws.enzymeByComment('e', retfmt = 'ids')
-
-	# Cut results
-	if ( ! is.na(max.results) && length(ids) > max.results)
-		ids <- ids[1:max.results]
-
-	return(ids)
-})
-
 # Search compound {{{1
 ################################################################
 
@@ -172,3 +157,15 @@ ExpasyEnzymeConn$methods( .parseWsReturnedHtml = function(results, retfmt) {
 ExpasyEnzymeConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.EXPAZY.ENZYME.PARSING.EXPR)
 })
+
+# Get entry ids {{{2
+################################################################
+
+ExpasyEnzymeConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+
+	# Send request
+	ids <- .self$ws.enzymeByComment('e', retfmt = 'ids')
+
+	return(ids)
+})
+

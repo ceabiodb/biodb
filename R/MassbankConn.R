@@ -170,37 +170,6 @@ MassbankConn$methods( getEntryContent = function(entry.id) {
 	return(content)
 })
 
-# Get entry ids {{{1
-################################################################
-
-MassbankConn$methods( getEntryIds = function(max.results = NA_integer_, ms.level = 0) {
-
-	# Download
-	.self$download()
-
-	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
-
-	# Filter on MS level
-	if ( ! is.na(ms.level) && ms.level > 0) {
-		new.ids <- character(0)
-		for (id in ids) {
- 			entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
-			if (entry$getFieldValue('ms.level') == ms.level)
-				new.ids <- c(new.ids, id)
-			if ( ! is.na(max.results) && length(new.ids) >= max.results)
-				break
-		}
-		ids <- new.ids
-	}
-
-	# Cut
-	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
-		ids <- ids[1:max.results]
-
-	return(ids)
-})
-
 # Get nb entries {{{1
 ################################################################
 
@@ -406,7 +375,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 	return(returned.ids)
 })
 
-# Load prefixes {{{1
+# Load prefixes {{{2
 ################################################################
 
 MassbankConn$methods( .loadPrefixes = function() {
@@ -436,3 +405,31 @@ MassbankConn$methods( .loadPrefixes = function() {
 			.self$.prefix2dns[[p]] <- dbs[[i]]
 	}
 })
+
+# Get entry ids {{{2
+################################################################
+
+MassbankConn$methods( .doGetEntryIds = function(max.results = NA_integer_, ms.level = 0) {
+
+	# Download
+	.self$download()
+
+	# Get IDs from cache
+	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+
+	# Filter on MS level
+	if ( ! is.na(ms.level) && ms.level > 0) {
+		new.ids <- character(0)
+		for (id in ids) {
+ 			entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
+			if (entry$getFieldValue('ms.level') == ms.level)
+				new.ids <- c(new.ids, id)
+			if ( ! is.na(max.results) && length(new.ids) >= max.results)
+				break
+		}
+		ids <- new.ids
+	}
+
+	return(ids)
+})
+
