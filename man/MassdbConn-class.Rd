@@ -88,10 +88,6 @@ Filter a list of entries on retention time values.}
 
 Get a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'.}
 
-\item{\code{getEntryIds(max.results = NA_integer_)}}{:
-
-Get entry identifiers from the database.}
-
 \item{\code{getMzValues(ms.mode = NA_character_, max.results = NA_integer_,
   precursor = FALSE, ms.level = 0)}}{:
 
