@@ -18,10 +18,6 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryIds(max.results = NA_integer_)}}{:
-
-Get entry identifiers from the database.}
-
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
 Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}

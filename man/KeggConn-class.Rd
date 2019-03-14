@@ -14,10 +14,6 @@ This is the mother class of all KEGG connectors. It defines code common to all K
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryIds(max.results = NA_integer_)}}{:
-
-Get entry identifiers from the database.}
-
 \item{\code{getEntryPageUrl(entry.id)}}{:
 
 Get the URL to the page of the entry on the database web site.}
