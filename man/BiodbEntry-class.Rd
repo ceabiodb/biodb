@@ -57,6 +57,10 @@ Convert entry into a JSON string.}
 
 Get the value of the specified field.}
 
+\item{\code{getId()}}{:
+
+Returns the entry ID, which is the value if the "accession" field.}
+
 \item{\code{getName()}}{:
 
 Get a short text describing the entry instance.}

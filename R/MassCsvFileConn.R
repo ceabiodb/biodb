@@ -145,8 +145,10 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 
 	tag <- tolower(tag)
 
-	( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
-	( ! is.null(colname) && ! is.na(colname)) || .self$message('error', "No column name specified.")
+	.self$.assert.not.null(tag)
+	.self$.assert.not.na(tag)
+	.self$.assert.not.null(colname)
+	.self$.assert.not.na(colname)
 
 	# Load database file
 	.self$.init.db()

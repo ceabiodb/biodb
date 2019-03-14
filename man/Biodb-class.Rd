@@ -44,6 +44,10 @@ Add new observers. Observers will be called each time an event occurs. This is t
 
 Compute missing fields in entries.}
 
+\item{\code{copyDb(conn.from, conn.to)}}{:
+
+Copy all entries of a database into another database. The connector of the destination database must be editable.}
+
 \item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{:
 
 Extract the value of a field from a list of entries.

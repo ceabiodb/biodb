@@ -50,9 +50,9 @@ Return the entry corresponding to this ID. You can pass a vector of IDs, and you
 
 Get the content of an entry.}
 
-\item{\code{getEntryIds(max.results = NA_integer_)}}{:
+\item{\code{getEntryIds(max.results = NA_integer_, ...)}}{:
 
-Get entry identifiers from the database.}
+Get entry identifiers from the database. More arguments can be given, depending on implementation in specific databases. For mass databases (the ones derived from BiodbMassdbConn class, the ms.level argument can be set.}
 
 \item{\code{getId()}}{:
 
@@ -61,6 +61,14 @@ Get the identifier of this connector.}
 \item{\code{getNbEntries(count = FALSE)}}{:
 
 Get the number of entries contained in this database.}
+
+\item{\code{isEditable()}}{:
+
+Returns TRUE if the database is editable (i.e.: the connector class implements the interface BiodbEditable). If this connector is editable, then you can call allowEditing() to enable editing.}
+
+\item{\code{isWritable()}}{:
+
+Returns TRUE if the database is writable (i.e.: the connector class implements the interface BiodbWritable). If this connector is writable, then you can call allowWriting() to enable writing.}
 }}
 
 \examples{
