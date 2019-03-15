@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include TxtEntry.R
+#' @include BiodbTxtEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-KeggCompoundEntry <- methods::setRefClass("KeggCompoundEntry", contains = 'TxtEntry')
+KeggCompoundEntry <- methods::setRefClass("KeggCompoundEntry", contains = 'BiodbTxtEntry')
 
 # Constructor {{{1
 ################################################################

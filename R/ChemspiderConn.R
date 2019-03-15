@@ -28,7 +28,7 @@
 #' @param range  The range of the searched mass. Plain range, Dalton unit. The mass searched are between (mass - range) and (mass + range).
 #' @param retfmt The wanted returned format, in a web service method ("ws.*" methods).
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbCompounddbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -37,11 +37,11 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @include CompounddbConn.R
-#' @include RemotedbConn.R
+#' @include BiodbCompounddbConn.R
+#' @include BiodbRemotedbConn.R
 #' @export ChemspiderConn
 #' @exportClass ChemspiderConn
-ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("RemotedbConn", "CompounddbConn"))
+ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"))
 
 # Get entry content {{{1
 ################################################################

@@ -1,7 +1,7 @@
 # vi: fdm=marker
 
-#' @include RemotedbConn.R
-#' @include MassdbConn.R
+#' @include BiodbRemotedbConn.R
+#' @include BiodbMassdbConn.R
 #' @include BiodbDownloadable.R
 
 # Constants {{{1
@@ -40,7 +40,7 @@
 # Class declaration {{{1
 ################################################################
 
-MassbankConn <- methods::setRefClass("MassbankConn", contains = c("RemotedbConn", "MassdbConn", 'BiodbDownloadable'), fields = list(.prefix2dns = 'list'))
+MassbankConn <- methods::setRefClass("MassbankConn", contains = c("BiodbRemotedbConn", "BiodbMassdbConn", 'BiodbDownloadable'), fields = list(.prefix2dns = 'list'))
 
 # Constructor {{{1
 ################################################################0

@@ -13,10 +13,10 @@
 #' @seealso \code{\link{BiodbRequestScheduler}}.
 #'
 #' @import methods
-#' @include ChildObject.R
+#' @include BiodbChildObject.R
 #' @export BiodbRequestSchedulerRule
 #' @exportClass BiodbRequestSchedulerRule
-BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule", contains = "ChildObject", fields = list(.host = "character", .n = "integer", .t = "numeric", .last.time = "list", .n.index = 'integer', .conn = 'list'))
+BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule", contains = "BiodbChildObject", fields = list(.host = "character", .n = "integer", .t = "numeric", .last.time = "list", .n.index = 'integer', .conn = 'list'))
 
 # Constructor {{{1
 ################################################################

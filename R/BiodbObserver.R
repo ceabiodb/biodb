@@ -12,7 +12,7 @@
 #' @param class     The class of the object that called this message method.
 #' @param method    The method of that called this message method.
 #'
-#' @seealso \code{\link{BiodbLogger}}, \code{\link{WarningReporter}}, \code{\link{ErrorReporter}}.
+#' @seealso \code{\link{BiodbLogger}}, \code{\link{BiodbWarningReporter}}, \code{\link{BiodbErrorReporter}}.
 #'
 #' @examples
 #' # Define a new observer class

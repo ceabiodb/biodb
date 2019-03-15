@@ -18,9 +18,9 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include CompounddbConn.R
-#' @include RemotedbConn.R
-LipidmapsStructureConn = methods::setRefClass("LipidmapsStructureConn", contains = c("RemotedbConn", "CompounddbConn"))
+#' @include BiodbCompounddbConn.R
+#' @include BiodbRemotedbConn.R
+LipidmapsStructureConn = methods::setRefClass("LipidmapsStructureConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"))
 
 # Get entry content request {{{1
 ################################################################

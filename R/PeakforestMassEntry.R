@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include JsonEntry.R
+#' @include BiodbJsonEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry", contains = "JsonEntry")
+PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry", contains = "BiodbJsonEntry")
 
 # Constructor {{{1
 ################################################################

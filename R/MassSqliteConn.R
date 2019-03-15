@@ -1,17 +1,17 @@
 # vi: fdm=marker
 
 # TODO Create BiodbSqlConn class.
-# TODO Rename MassdbConn into BiodbMassConn.
+# TODO Rename BiodbMassdbConn into BiodbMassConn.
 
 # Class declaration {{{1
 ################################################################
 
 #' Class for handling a Mass spectrometry database in SQLite format.
 #'
-#' @include MassdbConn.R 
+#' @include BiodbMassdbConn.R 
 #' @include BiodbEditable.R 
 #' @include BiodbWritable.R 
-MassSqliteConn <- methods::setRefClass('MassSqliteConn', contains = c("MassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.db = "ANY"))
+MassSqliteConn <- methods::setRefClass('MassSqliteConn', contains = c("BiodbMassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.db = "ANY"))
 
 # Constructor {{{1
 ################################################################
@@ -204,7 +204,7 @@ MassSqliteConn$methods( .findMzField = function() {
 # Do get mz values {{{2
 ################################################################
 
-# Inherited from MassdbConn.
+# Inherited from BiodbMassdbConn.
 MassSqliteConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
 	mz = numeric()

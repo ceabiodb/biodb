@@ -4,10 +4,10 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include MassdbConn.R 
+#' @include BiodbMassdbConn.R 
 #' @include BiodbEditable.R 
 #' @include BiodbWritable.R 
-MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = c("MassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character", .parsing.expr = 'list'))
+MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = c("BiodbMassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character", .parsing.expr = 'list'))
 
 # Constructor {{{1
 ################################################################
@@ -253,7 +253,7 @@ MassCsvFileConn$methods( getChromCol = function(ids = NULL) {
 # Get nb peaks {{{1
 ################################################################
 
-# Inherited from MassdbConn.
+# Inherited from BiodbMassdbConn.
 MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
 
 	# Get peaks
@@ -496,7 +496,7 @@ MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int
 # Do get mz values {{{2
 ################################################################
 
-# Inherited from MassdbConn.
+# Inherited from BiodbMassdbConn.
 MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
 
 	# Get mz values

@@ -3,8 +3,8 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include RemotedbConn.R
-NcbiConn <- methods::setRefClass("NcbiConn", contains = "RemotedbConn")
+#' @include BiodbRemotedbConn.R
+NcbiConn <- methods::setRefClass("NcbiConn", contains = "BiodbRemotedbConn")
 
 # Constructor {{{1
 ################################################################

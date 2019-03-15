@@ -3,8 +3,8 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include RemotedbConn.R
-PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("RemotedbConn"), fields = list(.db.name = 'character'))
+#' @include BiodbRemotedbConn.R
+PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("BiodbRemotedbConn"), fields = list(.db.name = 'character'))
 
 # Constructor {{{1
 ################################################################

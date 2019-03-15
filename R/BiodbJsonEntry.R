@@ -5,21 +5,21 @@
 # Class declaration {{{1
 ################################################################
 
-JsonEntry <- methods::setRefClass("JsonEntry", contains = 'BiodbEntry')
+BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry", contains = 'BiodbEntry')
 
 # Constructor {{{1
 ################################################################
 
-JsonEntry$methods( initialize = function(...) {
+BiodbJsonEntry$methods( initialize = function(...) {
 
 	callSuper(...)
-	.self$.abstract.class('JsonEntry')
+	.self$.abstract.class('BiodbJsonEntry')
 })
 
 # Do parse content {{{1
 ################################################################
 
-JsonEntry$methods( .doParseContent = function(content) {
+BiodbJsonEntry$methods( .doParseContent = function(content) {
 
 	# Parse JSON
 	json <- jsonlite::fromJSON(content, simplifyDataFrame = FALSE)	
@@ -30,7 +30,7 @@ JsonEntry$methods( .doParseContent = function(content) {
 # Parse fields step 1 {{{1
 ################################################################
 
-JsonEntry$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbJsonEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
 	parsing.expr <- .self$getParent()$.getParsingExpressions()

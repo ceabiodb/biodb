@@ -5,21 +5,21 @@
 # Class declaration {{{1
 ################################################################
 
-XmlEntry <- methods::setRefClass("XmlEntry", contains = "BiodbEntry", fields = list())
+BiodbXmlEntry <- methods::setRefClass("BiodbXmlEntry", contains = "BiodbEntry", fields = list())
 
 # Constructor {{{1
 ################################################################
 
-XmlEntry$methods( initialize = function(...) {
+BiodbXmlEntry$methods( initialize = function(...) {
 
 	callSuper(...)
-	.self$.abstract.class('XmlEntry')
+	.self$.abstract.class('BiodbXmlEntry')
 })
 
 # Do parse content {{{1
 ################################################################
 
-XmlEntry$methods( .doParseContent = function(content) {
+BiodbXmlEntry$methods( .doParseContent = function(content) {
 
 	# Parse XML
 	xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
@@ -30,7 +30,7 @@ XmlEntry$methods( .doParseContent = function(content) {
 # Parse fields step 1 {{{1
 ################################################################
 
-XmlEntry$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbXmlEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
 	parsing.expr <- .self$getParent()$.getParsingExpressions()

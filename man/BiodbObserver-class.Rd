@@ -37,5 +37,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbLogger}}, \code{\link{WarningReporter}}, \code{\link{ErrorReporter}}.
+\code{\link{BiodbLogger}}, \code{\link{BiodbWarningReporter}}, \code{\link{BiodbErrorReporter}}.
 }

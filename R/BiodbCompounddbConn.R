@@ -30,23 +30,23 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbConn.R
-#' @export CompounddbConn
-#' @exportClass CompounddbConn
-CompounddbConn <- methods::setRefClass("CompounddbConn", contains = "BiodbConn")
+#' @export BiodbCompounddbConn
+#' @exportClass BiodbCompounddbConn
+BiodbCompounddbConn <- methods::setRefClass("BiodbCompounddbConn", contains = "BiodbConn")
 
 # Constructor {{{1
 ################################################################
 
-CompounddbConn$methods( initialize = function(...) {
+BiodbCompounddbConn$methods( initialize = function(...) {
 
 	callSuper(...)
-	.self$.abstract.class('CompounddbConn')
+	.self$.abstract.class('BiodbCompounddbConn')
 })
 
 # Search compound {{{1
 ################################################################
 
-CompounddbConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+BiodbCompounddbConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
 	":\n\nSearch for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)"
 
 	.self$.abstract.method()
@@ -58,7 +58,7 @@ CompounddbConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 # Check mass field {{{2
 ################################################################
 
-CompounddbConn$methods( .checkMassField = function(mass, mass.field) {
+BiodbCompounddbConn$methods( .checkMassField = function(mass, mass.field) {
 
 	if ( ! is.null(mass)) {
 		.self$.assert.is(mass, c('integer', 'numeric'))
