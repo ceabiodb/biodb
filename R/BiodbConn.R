@@ -141,6 +141,33 @@ BiodbConn$methods( isWritable = function() {
 	return(methods::is(.self, 'BiodbWritable'))
 })
 
+# Is a remote database {{{1
+################################################################
+
+BiodbConn$methods( isRemotedb = function() {
+	":\n\nReturns TRUE if the database is a remote database (i.e.: the connector class inherits from BiodbRemotedbConn class)."
+
+	return(methods::is(.self, 'BiodbRemotedbConn'))
+})
+
+# Is a compound database {{{1
+################################################################
+
+BiodbConn$methods( isCompounddb = function() {
+	":\n\nReturns TRUE if the database is a compound database (i.e.: the connector class inherits from BiodbCompounddbConn class)."
+
+	return(methods::is(.self, 'BiodbCompounddbConn'))
+})
+
+# Is a mass database {{{1
+################################################################
+
+BiodbConn$methods( isMassdb = function() {
+	":\n\nReturns TRUE if the database is a mass database (i.e.: the connector class inherits from BiodbMassdbConn class)."
+
+	return(methods::is(.self, 'BiodbMassdbConn'))
+})
+
 # Show {{{1
 ################################################################
 
