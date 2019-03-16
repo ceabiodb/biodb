@@ -1,25 +1,25 @@
 # vi: fdm=marker
 
-#' @include XmlEntry.R
+#' @include BiodbXmlEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-HtmlEntry <- methods::setRefClass("HtmlEntry", contains = "XmlEntry")
+BiodbHtmlEntry <- methods::setRefClass("BiodbHtmlEntry", contains = "BiodbXmlEntry")
 
 # Constructor {{{1
 ################################################################
 
-HtmlEntry$methods( initialize = function(...) {
+BiodbHtmlEntry$methods( initialize = function(...) {
 
 	callSuper(...)
-	.self$.abstract.class('HtmlEntry')
+	.self$.abstract.class('BiodbHtmlEntry')
 })
 
 # Do parse content {{{1
 ################################################################
 
-HtmlEntry$methods( .doParseContent = function(content) {
+BiodbHtmlEntry$methods( .doParseContent = function(content) {
 
 	# Parse XML
 	xml <-  XML::htmlTreeParse(content, asText = TRUE, useInternalNodes = TRUE)

@@ -21,7 +21,7 @@
 \item{dest.file}{A path to a destination file.}
 }
 \description{
-This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{RemotedbConn}) creates an instance of \code{BiodbRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
+This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{BiodbRemotedbConn}) creates an instance of \code{BiodbRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
 }
 \section{Methods}{
 
@@ -50,5 +50,5 @@ Send a SOAP request to a URL. Returns the string result.}
 }}
 
 \seealso{
-\code{\link{RemotedbConn}}, \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
+\code{\link{BiodbRemotedbConn}}, \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
 }

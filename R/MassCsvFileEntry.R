@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include CsvEntry.R
+#' @include BiodbCsvEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry", contains = 'CsvEntry')
+MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry", contains = 'BiodbCsvEntry')
 
 # Constructor {{{1
 ################################################################

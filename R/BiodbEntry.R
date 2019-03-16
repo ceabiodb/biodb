@@ -5,7 +5,7 @@
 
 #' The mother abstract class of all database entry classes.
 #'
-#' An entry is an element of a database, identifiable by its accession number. Each contains a list of fields defined by a name and a value. The details of all fields that can be set into an entry are defined inside the class \code{BiodbEntryFields}. From this class are derived other abstract classes for different types of entry contents: \code{TxtEntry}, \code{XmlEntry}, \code{CsvEntry}, \code{JsonEntry} and \code{HtmlEntry}. Then concrete classes are derived for each database: \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no need to know this hierarchy; the knowledge of this class and its methods is sufficient.
+#' An entry is an element of a database, identifiable by its accession number. Each contains a list of fields defined by a name and a value. The details of all fields that can be set into an entry are defined inside the class \code{BiodbEntryFields}. From this class are derived other abstract classes for different types of entry contents: \code{BiodbTxtEntry}, \code{BiodbXmlEntry}, \code{BiodbCsvEntry}, \code{BiodbJsonEntry} and \code{BiodbHtmlEntry}. Then concrete classes are derived for each database: \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no need to know this hierarchy; the knowledge of this class and its methods is sufficient.
 #'
 #' @param compute       If set to \code{TRUE} and a field is not defined, try to compute it using internal defined computing rules. If set to \code{FALSE}, let the field undefined.
 #' @param content       A character string containing definition for an entry and obtained from a database. The format can be: CSV, HTML, JSON, XML, or just text.
@@ -48,10 +48,10 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include ChildObject.R
+#' @include BiodbChildObject.R
 #' @export BiodbEntry
 #' @exportClass BiodbEntry
-BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "ChildObject", fields = list(.fields ='list', .new = 'logical'))
+BiodbEntry <- methods::setRefClass("BiodbEntry", contains = "BiodbChildObject", fields = list(.fields ='list', .new = 'logical'))
 
 # Constructor {{{1
 ################################################################

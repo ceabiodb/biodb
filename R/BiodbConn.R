@@ -5,7 +5,7 @@
 
 #' The mother abstract class of all database connectors.
 #'
-#' This is the super class of all connector classes. All methods defined here are thus common to all connector classes. Some connector classes inherit directly from this abstract class. Some others inherit from intermediate classes \code{\link{RemotedbConn}} and \code{\link{MassdbConn}}. As for all connector concrete classes, you won't have to create an instance of this class directly, but you will instead go through the factory class. However, if you plan to develop a new connector, you will have to call the constructor of this class. See section Fields for a list of the constructor's parameters. Concrete classes may have direct web services methods or other specific methods implemented, in which case they will be described inside the documentation of the concrete class. Please refer to the documentation of each concrete class for more information. The database direct web services methods will be named "ws.*".
+#' This is the super class of all connector classes. All methods defined here are thus common to all connector classes. Some connector classes inherit directly from this abstract class. Some others inherit from intermediate classes \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}. As for all connector concrete classes, you won't have to create an instance of this class directly, but you will instead go through the factory class. However, if you plan to develop a new connector, you will have to call the constructor of this class. See section Fields for a list of the constructor's parameters. Concrete classes may have direct web services methods or other specific methods implemented, in which case they will be described inside the documentation of the concrete class. Please refer to the documentation of each concrete class for more information. The database direct web services methods will be named "ws.*".
 #'
 #' @field id            The identifier of the connector.
 #' @field cache.id      The identifier used in the disk cache.
@@ -14,7 +14,7 @@
 #' @param entry.id      The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.
 #' @param max.results   The maximum of elements to return from the method.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{MassdbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbMassdbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -84,7 +84,7 @@ BiodbConn$methods( getEntryContent = function(entry.id) {
 ################################################################
 
 BiodbConn$methods( getEntryIds = function(max.results = NA_integer_, ...) {
-	":\n\nGet entry identifiers from the database. More arguments can be given, depending on implementation in specific databases. For mass databases (the ones derived from BiodbMassdbConn class, the ms.level argument can be set."
+	":\n\nGet entry identifiers from the database. More arguments can be given, depending on implementation in specific databases. For mass databases (the ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be set."
 
 	ids = character()
 
@@ -139,6 +139,33 @@ BiodbConn$methods( isWritable = function() {
 	":\n\nReturns TRUE if the database is writable (i.e.: the connector class implements the interface BiodbWritable). If this connector is writable, then you can call allowWriting() to enable writing."
 
 	return(methods::is(.self, 'BiodbWritable'))
+})
+
+# Is a remote database {{{1
+################################################################
+
+BiodbConn$methods( isRemotedb = function() {
+	":\n\nReturns TRUE if the database is a remote database (i.e.: the connector class inherits from BiodbRemotedbConn class)."
+
+	return(methods::is(.self, 'BiodbRemotedbConn'))
+})
+
+# Is a compound database {{{1
+################################################################
+
+BiodbConn$methods( isCompounddb = function() {
+	":\n\nReturns TRUE if the database is a compound database (i.e.: the connector class inherits from BiodbCompounddbConn class)."
+
+	return(methods::is(.self, 'BiodbCompounddbConn'))
+})
+
+# Is a mass database {{{1
+################################################################
+
+BiodbConn$methods( isMassdb = function() {
+	":\n\nReturns TRUE if the database is a mass database (i.e.: the connector class inherits from BiodbMassdbConn class)."
+
+	return(methods::is(.self, 'BiodbMassdbConn'))
 })
 
 # Show {{{1

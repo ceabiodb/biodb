@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include CsvEntry.R
+#' @include BiodbCsvEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-LipidmapsStructureEntry <- methods::setRefClass("LipidmapsStructureEntry", contains = 'CsvEntry')
+LipidmapsStructureEntry <- methods::setRefClass("LipidmapsStructureEntry", contains = 'BiodbCsvEntry')
 
 # Constructor {{{1
 ################################################################

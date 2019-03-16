@@ -5,36 +5,36 @@
 # Class declaration {{{1
 ################################################################
 
-ChildObject <- methods::setRefClass("ChildObject", contains = 'BiodbObject', fields = list( .parent = "ANY" ))
+BiodbChildObject <- methods::setRefClass("BiodbChildObject", contains = 'BiodbObject', fields = list( .parent = "ANY" ))
 
 # Constructor {{{1
 ################################################################
 
-ChildObject$methods( initialize = function(parent, ...) {
+BiodbChildObject$methods( initialize = function(parent, ...) {
 
 	callSuper(...)
-	.self$.abstract.class('ChildObject')
+	.self$.abstract.class('BiodbChildObject')
 	.self$.setParent(parent)
 })
 
 # Get parent {{{1
 ################################################################
 
-ChildObject$methods( getParent = function() {
+BiodbChildObject$methods( getParent = function() {
 	return(.self$.parent)
 })
 
 # Get biodb {{{1
 ################################################################
 
-ChildObject$methods( getBiodb = function() {
+BiodbChildObject$methods( getBiodb = function() {
 	return(.self$getParent()$getBiodb())
 })
 
 # Private methods {{{1
 ################################################################
 
-ChildObject$methods( .setParent = function(parent) {
+BiodbChildObject$methods( .setParent = function(parent) {
 
 	if (is.null(parent))
 		.self$message('error', "Parent cannot be NULL.")

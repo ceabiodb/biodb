@@ -18,9 +18,9 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include CompounddbConn.R
-#' @include RemotedbConn.R
-ChebiConn <- methods::setRefClass("ChebiConn", contains = c("RemotedbConn", "CompounddbConn"), fields = list(.ws.values = 'list'))
+#' @include BiodbCompounddbConn.R
+#' @include BiodbRemotedbConn.R
+ChebiConn <- methods::setRefClass("ChebiConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"), fields = list(.ws.values = 'list'))
 
 # Constructor {{{1
 ################################################################

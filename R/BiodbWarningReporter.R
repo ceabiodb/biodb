@@ -11,14 +11,14 @@
 #'
 #' @import methods
 #' @include BiodbObserver.R
-#' @export WarningReporter
-#' @exportClass WarningReporter
-WarningReporter <- methods::setRefClass("WarningReporter", contains = 'BiodbObserver')
+#' @export BiodbWarningReporter
+#' @exportClass BiodbWarningReporter
+BiodbWarningReporter <- methods::setRefClass("BiodbWarningReporter", contains = 'BiodbObserver')
 
 # MESSAGE {{{1
 ################################################################
 
-WarningReporter$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
+BiodbWarningReporter$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
 
 	.self$checkMessageType(type)
 

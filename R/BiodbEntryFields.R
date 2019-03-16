@@ -28,11 +28,11 @@
 #'
 #' @import methods
 #' @include Biodb.R
-#' @include ChildObject.R
+#' @include BiodbChildObject.R
 #' @include BiodbEntryField.R
 #' @export BiodbEntryFields
 #' @exportClass BiodbEntryFields
-BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "ChildObject", fields = list( .fields = "list", .aliasToName = "character" ))
+BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "BiodbChildObject", fields = list( .fields = "list", .aliasToName = "character" ))
 
 # Constructor {{{1
 ################################################################

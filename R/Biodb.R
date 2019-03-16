@@ -54,7 +54,7 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 	callSuper(...)
 
 	# Set observers
-	.observers <<- list(WarningReporter$new(), ErrorReporter$new())
+	.observers <<- list(BiodbWarningReporter$new(), BiodbErrorReporter$new())
 	if (logger)
 		.self$addObservers(BiodbLogger$new())
 	if ( ! is.null(observers))

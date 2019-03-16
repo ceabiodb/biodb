@@ -4,15 +4,15 @@
 ################################################################
 
 #' @include BiodbEntry.R
-CsvEntry <- methods::setRefClass("CsvEntry", contains = 'BiodbEntry', fields = list( .sep = 'character', .na.strings = 'character'))
+BiodbCsvEntry <- methods::setRefClass("BiodbCsvEntry", contains = 'BiodbEntry', fields = list( .sep = 'character', .na.strings = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-CsvEntry$methods( initialize = function(sep = ',', na.strings = 'NA', ...) {
+BiodbCsvEntry$methods( initialize = function(sep = ',', na.strings = 'NA', ...) {
 
 	callSuper(...)
-	.self$.abstract.class('CsvEntry')
+	.self$.abstract.class('BiodbCsvEntry')
 
 	.sep <<- sep
 	.na.strings <<- na.strings
@@ -24,7 +24,7 @@ CsvEntry$methods( initialize = function(sep = ',', na.strings = 'NA', ...) {
 # Do parse content {{{2
 ################################################################
 
-CsvEntry$methods( .doParseContent = function(content) {
+BiodbCsvEntry$methods( .doParseContent = function(content) {
 
 	# Read all CSV file, including header line, into a data frame. The header line will then be the first line. This is to avoid first column to be intrepretated as row names by read.table in case the header line contains one less field than the second line.
 	df <- read.table(text = content, header = FALSE, row.names = NULL, sep = .self$.sep, quote = '', stringsAsFactors = FALSE, na.strings = .self$.na.strings, fill = TRUE, check.names = FALSE, comment.char = '')
@@ -46,14 +46,14 @@ CsvEntry$methods( .doParseContent = function(content) {
 # Is parsed content correct {{{2
 ################################################################
 
-CsvEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+BiodbCsvEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 	return(nrow(parsed.content) > 0)
 })
 
 # Parse fields step 1 {{{2
 ################################################################
 
-CsvEntry$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbCsvEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
 	parsing.expr <- .self$getParent()$.getParsingExpressions()

@@ -22,7 +22,7 @@
 #' @param mass.min  Minimal mass.
 #' @param mass.max  Maximal mass.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{CompounddbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -41,10 +41,10 @@
 #' mybiodb$terminate()
 #'
 #' @include KeggConn.R
-#' @include CompounddbConn.R
+#' @include BiodbCompounddbConn.R
 #' @export KeggCompoundConn
 #' @exportClass KeggCompoundConn
-KeggCompoundConn <- methods::setRefClass("KeggCompoundConn", contains = c("KeggConn", "CompounddbConn"))
+KeggCompoundConn <- methods::setRefClass("KeggCompoundConn", contains = c("KeggConn", "BiodbCompounddbConn"))
 
 # Constructor {{{1
 ################################################################

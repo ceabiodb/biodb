@@ -37,10 +37,10 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include ChildObject.R
+#' @include BiodbChildObject.R
 #' @export BiodbCache
 #' @exportClass BiodbCache
-BiodbCache <- methods::setRefClass("BiodbCache", contains = 'ChildObject')
+BiodbCache <- methods::setRefClass("BiodbCache", contains = 'BiodbChildObject')
 
 # Constructor {{{1
 ################################################################

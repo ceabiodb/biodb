@@ -26,7 +26,7 @@
 #' @param format    The return format.
 #' @param query     The query to send to the database.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}, \code{\link{CompounddbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbCompounddbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -43,11 +43,11 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @include CompounddbConn.R
-#' @include RemotedbConn.R
+#' @include BiodbCompounddbConn.R
+#' @include BiodbRemotedbConn.R
 #' @export UniprotConn
 #' @exportClass UniprotConn
-UniprotConn <- methods::setRefClass("UniprotConn", contains = c("RemotedbConn", "CompounddbConn"))
+UniprotConn <- methods::setRefClass("UniprotConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"))
 
 # Constructor {{{1
 ################################################################

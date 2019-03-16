@@ -24,8 +24,8 @@
 ################################################################
 
 #' @include NcbiPubchemConn.R
-#' @include CompounddbConn.R
-NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains = c("NcbiPubchemConn", 'CompounddbConn'))
+#' @include BiodbCompounddbConn.R
+NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains = c("NcbiPubchemConn", 'BiodbCompounddbConn'))
 
 # Constructor {{{1
 ################################################################

@@ -9,7 +9,7 @@
 #'
 #' @param query The query to send to the database web service.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{RemotedbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -24,10 +24,10 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @include RemotedbConn.R
+#' @include BiodbRemotedbConn.R
 #' @export KeggConn
 #' @exportClass KeggConn
-KeggConn <- methods::setRefClass("KeggConn", contains = "RemotedbConn", fields = list(.db.name = "character", .db.abbrev = "character"))
+KeggConn <- methods::setRefClass("KeggConn", contains = "BiodbRemotedbConn", fields = list(.db.name = "character", .db.abbrev = "character"))
 
 # Constructor {{{1
 ################################################################
