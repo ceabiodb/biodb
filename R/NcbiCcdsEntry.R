@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include HtmlEntry.R
+#' @include BiodbHtmlEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains = "HtmlEntry")
+NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains = "BiodbHtmlEntry")
 
 # Constructor {{{1
 ################################################################

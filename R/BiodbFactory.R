@@ -35,10 +35,10 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include ChildObject.R
+#' @include BiodbChildObject.R
 #' @export BiodbFactory
 #' @exportClass BiodbFactory
-BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'ChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
+BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
 
 # Constructor {{{1
 ################################################################

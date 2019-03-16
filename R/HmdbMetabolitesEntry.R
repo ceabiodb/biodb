@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include XmlEntry.R
+#' @include BiodbXmlEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry", contains = "XmlEntry")
+HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry", contains = "BiodbXmlEntry")
 
 # Constructor {{{1
 ################################################################

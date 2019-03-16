@@ -44,10 +44,10 @@ FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include ChildObject.R
+#' @include BiodbChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "ChildObject", fields = list( .name = 'character', .type = 'character', .group = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical', .computable.from = 'character'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "BiodbChildObject", fields = list( .name = 'character', .type = 'character', .group = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical', .computable.from = 'character'))
 
 # Constructor {{{1
 ################################################################

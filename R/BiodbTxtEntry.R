@@ -5,21 +5,21 @@
 # Class declaration {{{1
 ################################################################
 
-TxtEntry <- methods::setRefClass("TxtEntry", contains = 'BiodbEntry')
+BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry", contains = 'BiodbEntry')
 
 # Constructor {{{1
 ################################################################
 
-TxtEntry$methods( initialize = function(...) {
+BiodbTxtEntry$methods( initialize = function(...) {
 
 	callSuper(...)
-	.self$.abstract.class('TxtEntry')
+	.self$.abstract.class('BiodbTxtEntry')
 })
 
 # Do parse content {{{1
 ################################################################
 
-TxtEntry$methods( .doParseContent = function(content) {
+BiodbTxtEntry$methods( .doParseContent = function(content) {
 
 	# Get lines of content
 	lines <- strsplit(content, "\r?\n")[[1]]
@@ -30,7 +30,7 @@ TxtEntry$methods( .doParseContent = function(content) {
 # Parse fields step 1 {{{1
 ################################################################
 
-TxtEntry$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbTxtEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
 	parsing.expr <- .self$getParent()$.getParsingExpressions()

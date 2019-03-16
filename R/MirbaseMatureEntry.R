@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include TxtEntry.R
+#' @include BiodbTxtEntry.R
 
 # class declaration {{{1
 ################################################################
 
-MirbaseMatureEntry <- methods::setRefClass("MirbaseMatureEntry", contains = "TxtEntry")
+MirbaseMatureEntry <- methods::setRefClass("MirbaseMatureEntry", contains = "BiodbTxtEntry")
 
 # Constructor {{{1
 ################################################################

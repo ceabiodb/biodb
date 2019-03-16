@@ -32,17 +32,17 @@
 #' @import methods
 #' @include BiodbConn.R
 #' @include BiodbRequestScheduler.R
-#' @export RemotedbConn
-#' @exportClass RemotedbConn
-RemotedbConn <- methods::setRefClass("RemotedbConn", contains = "BiodbConn")
+#' @export BiodbRemotedbConn
+#' @exportClass BiodbRemotedbConn
+BiodbRemotedbConn <- methods::setRefClass("BiodbRemotedbConn", contains = "BiodbConn")
 
 # Constructor {{{1
 ################################################################
 
-RemotedbConn$methods( initialize = function(...) {
+BiodbRemotedbConn$methods( initialize = function(...) {
 
 	callSuper(...)
-	.self$.abstract.class('RemotedbConn')
+	.self$.abstract.class('BiodbRemotedbConn')
 
     # Register with request scheduler
 	.self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
@@ -51,7 +51,7 @@ RemotedbConn$methods( initialize = function(...) {
 # Get entry content {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryContent = function(entry.id) {
+BiodbRemotedbConn$methods( getEntryContent = function(entry.id) {
 	# Default implementation
 	return(.self$.doGetEntryContentOneByOne(entry.id))
 })
@@ -59,7 +59,7 @@ RemotedbConn$methods( getEntryContent = function(entry.id) {
 # Get entry content request {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryContentRequest = function(entry.id, concatenate = TRUE, max.length = 0) {
+BiodbRemotedbConn$methods( getEntryContentRequest = function(entry.id, concatenate = TRUE, max.length = 0) {
 	":\n\nGet the URL to use in order to get the contents of the specified entries."
 
 	# Copy code from get.entry.url
@@ -107,7 +107,7 @@ RemotedbConn$methods( getEntryContentRequest = function(entry.id, concatenate = 
 # Get entry image url {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryImageUrl = function(entry.id) {
+BiodbRemotedbConn$methods( getEntryImageUrl = function(entry.id) {
 	":\n\nGet the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry)."
 
 	.self$.abstract.method()
@@ -116,7 +116,7 @@ RemotedbConn$methods( getEntryImageUrl = function(entry.id) {
 # Get entry page url {{{1
 ################################################################
 
-RemotedbConn$methods( getEntryPageUrl = function(entry.id) {
+BiodbRemotedbConn$methods( getEntryPageUrl = function(entry.id) {
 	":\n\nGet the URL to the page of the entry on the database web site."
 
 	.self$.abstract.method()
@@ -128,20 +128,20 @@ RemotedbConn$methods( getEntryPageUrl = function(entry.id) {
 # Set request scheduler rules {{{2
 ################################################################
 
-RemotedbConn$methods( .setRequestSchedulerRules = function() {
+BiodbRemotedbConn$methods( .setRequestSchedulerRules = function() {
 })
 
 # Do get entry content request {{{2
 ################################################################
 
-RemotedbConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
+BiodbRemotedbConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 	.self$.abstract.method()
 })
 
 # Do get entry content one by one {{{2
 ################################################################
 
-RemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
+BiodbRemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))
@@ -169,7 +169,7 @@ RemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
 # Terminate {{{2
 ################################################################
 
-RemotedbConn$methods( .terminate = function() {
+BiodbRemotedbConn$methods( .terminate = function() {
 
     # Unregister from the request scheduler
 	.self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)

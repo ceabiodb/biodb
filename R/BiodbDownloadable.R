@@ -7,7 +7,7 @@
 #'
 #' The class must be inherited by any remote database class that allows download of its whole content. The hidden/private method \code{.doDownload()} must be implemented by the database class.
 #'
-#' @seealso \code{\link{RemotedbConn}}.
+#' @seealso \code{\link{BiodbRemotedbConn}}.
 #'
 #' @import methods
 #' @include BiodbObject.R

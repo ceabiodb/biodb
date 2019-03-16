@@ -21,11 +21,11 @@
 #' @param comment   The comment to search for.
 #' @param biodb.ids If set to \code{TRUE}, the method will return the entry IDs as a vector of characters, instead of the raw result page.
 #'
-#' @include CompounddbConn.R
-#' @include RemotedbConn.R
+#' @include BiodbCompounddbConn.R
+#' @include BiodbRemotedbConn.R
 #' @export ExpasyEnzymeConn
 #' @exportClass ExpasyEnzymeConn
-ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = c("RemotedbConn", "CompounddbConn"))
+ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"))
 
 # Web service enzyme-byname {{{1
 ################################################################

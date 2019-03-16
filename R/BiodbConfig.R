@@ -35,10 +35,10 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include ChildObject.R
+#' @include BiodbChildObject.R
 #' @export BiodbConfig
 #' @exportClass BiodbConfig
-BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "ChildObject", fields = list( .values = "list", .env = "ANY", .keys = "list" ))
+BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "BiodbChildObject", fields = list( .values = "list", .env = "ANY", .keys = "list" ))
 
 # Constructor {{{1
 ################################################################

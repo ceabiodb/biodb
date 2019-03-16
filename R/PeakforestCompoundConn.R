@@ -23,8 +23,8 @@
 ################################################################
 
 #' @include PeakforestConn.R
-#' @include CompounddbConn.R
-PeakforestCompoundConn <- methods::setRefClass("PeakforestCompoundConn", contains = c("PeakforestConn", "CompounddbConn"))
+#' @include BiodbCompounddbConn.R
+PeakforestCompoundConn <- methods::setRefClass("PeakforestCompoundConn", contains = c("PeakforestConn", "BiodbCompounddbConn"))
 
 # Constructor {{{1
 ################################################################

@@ -25,10 +25,10 @@
 # Class declaration {{{1
 ################################################################
 
-#' @include RemotedbConn.R
-#' @include CompounddbConn.R
+#' @include BiodbRemotedbConn.R
+#' @include BiodbCompounddbConn.R
 #' @include BiodbDownloadable.R
-HmdbMetabolitesConn <- methods::setRefClass("HmdbMetabolitesConn", contains = c("RemotedbConn", "CompounddbConn", 'BiodbDownloadable'), fields = list(.ns = "character"))
+HmdbMetabolitesConn <- methods::setRefClass("HmdbMetabolitesConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn", 'BiodbDownloadable'), fields = list(.ns = "character"))
 
 # Constructor {{{1
 ################################################################

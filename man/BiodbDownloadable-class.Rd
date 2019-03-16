@@ -29,5 +29,5 @@ Returns TRUE of the downloaded database containt has been extracted.}
 }}
 
 \seealso{
-\code{\link{RemotedbConn}}.
+\code{\link{BiodbRemotedbConn}}.
 }

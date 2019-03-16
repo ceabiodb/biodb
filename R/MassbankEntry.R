@@ -1,11 +1,11 @@
 # vi: fdm=marker
 
-#' @include TxtEntry.R
+#' @include BiodbTxtEntry.R
 
 # Class declaration {{{1
 ################################################################
 
-MassbankEntry <- methods::setRefClass("MassbankEntry", contains = "TxtEntry")
+MassbankEntry <- methods::setRefClass("MassbankEntry", contains = "BiodbTxtEntry")
 
 # Constructor {{{1
 ################################################################

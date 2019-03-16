@@ -426,11 +426,11 @@ run.db.generic.tests = function(conn, mode) {
 	test.that("Entry fields have a correct value", 'test.entry.fields', conn = conn)
 	test.that("The peak table is correct.", 'test.peak.table', conn = conn)
 	test.that("RT unit is defined when there is an RT value.", 'test.rt.unit', conn = conn)
-	if ( ! methods::is(conn, 'RemotedbConn') || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+	if ( ! conn$isRemotedb() || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		test.that("Nb entries is positive.", 'test.nb.entries', conn = conn)
 		test.that("We can get a list of entry ids.", 'test.entry.ids', conn = conn)
 	}
-	if (methods::is(conn, 'RemotedbConn')) {
+	if (conn$isRemotedb()) {
 		test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', conn = conn)
 		test.that("We can get a URL pointing to the entry image.", 'test.entry.image.url', conn = conn)
 		if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
