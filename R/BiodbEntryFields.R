@@ -176,7 +176,6 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('cas.id',             description = 'CAS ID',           card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'casid')
 	.self$.define('kegg.reaction.id',   description = 'KEGG Reaction ID', card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
 	.self$.define('kegg.pathway.id',    description = 'KEGG Pathway ID',  card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
-	.self$.define('kegg.enzyme.id',     description = 'KEGG Enzyme ID',   card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
 
 	.self$.define('description',    description = 'The decription of the entry.', alias = 'protdesc')
 

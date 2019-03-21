@@ -88,6 +88,10 @@ ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 	if ( ! is.null(mass.field))
 		.self$message('caution', paste0('Mass search is not handled.'))
 
+	# Cut
+	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+		ids <- ids[1:max.results]
+
 	return(ids)
 })
 
