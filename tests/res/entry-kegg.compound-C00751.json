@@ -3,5 +3,12 @@
 	"name": ["Squalene", "Spinacene", "Supraene"],
 	"formula": "C30H50",
 	"exact.mass": 410.3913,
-	"molecular.weight": 410.718
+	"molecular.weight": 410.718,
+	"cas.id": "111-02-4",
+	"ncbi.pubchem.comp.id": "4013",
+	"chebi.id": "15440",
+	"lipidmaps.structure.id": "LMPR0106010002",
+	"kegg.pathway.id": ["map00100", "map00909", "map01060", "map01062", "map01066", "map01070", "map01100", "map01110", "map01130"],
+	"kegg.enzyme.id": ["1.3.1.96", "1.14.14.17", "1.17.8.1", "2.1.1.262", "2.5.1.21", "4.2.1.123", "4.2.1.129", "5.4.99.17", "5.4.99.37"],
+	"kegg.reaction.id": ["R02872", "R02873", "R02874", "R02875", "R02876", "R06223", "R07322", "R07323", "R08535", "R09712", "R10167", "R10169", "R11401"]
 }

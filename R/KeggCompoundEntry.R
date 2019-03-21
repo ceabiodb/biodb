@@ -38,7 +38,7 @@ KeggCompoundEntry$methods( .parseMultilinesField = function(field, tag, parsed.c
 		if ( ! is.na(g[1, 1])) {
 			s = g[1, 2]
 			if ( ! is.na(split.char))
-				s = strsplit(s, split.char)[[1]]
+				s = strsplit(s, paste0(split.char, "+"), perl = TRUE)[[1]]
 			s = sub(paste0('[', strip.chars, ']+$'), '', sub(paste0('^[', strip.chars, ']+'), '', s))
 			value = c(value, s)
 			in.tag = TRUE
@@ -57,4 +57,8 @@ KeggCompoundEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Name
 	.self$.parseMultilinesField(field = 'name', tag = 'NAME', parsed.content = parsed.content, strip.chars = ' ;', split.char = NA_character_)
+
+	# Other KEGG IDs
+	.self$.parseMultilinesField(field = 'kegg.reaction.id', tag = 'REACTION', parsed.content = parsed.content)
+	.self$.parseMultilinesField(field = 'kegg.enzyme.id',   tag = 'ENZYME', parsed.content = parsed.content)
 })
