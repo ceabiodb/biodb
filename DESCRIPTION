@@ -83,6 +83,8 @@ Collate:
     'KeggCompoundEntry.R'
     'KeggEnzymeConn.R'
     'KeggEnzymeEntry.R'
+    'KeggPathwayConn.R'
+    'KeggPathwayEntry.R'
     'LipidmapsStructureConn.R'
     'LipidmapsStructureEntry.R'
     'MassCsvFileConn.R'
