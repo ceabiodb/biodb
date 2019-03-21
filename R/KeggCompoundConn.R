@@ -4,10 +4,14 @@
 ################################################################
 
 .BIODB.KEGG.COMPOUND.PARSING.EXPR <- list(
-	'accession'         = "^ENTRY\\s+(\\S+)\\s+Compound",
-	'formula'           = "^FORMULA\\s+(\\S+)$",
-	'exact.mass'        = "^EXACT_MASS\\s+(\\S+)$",
-	'molecular.weight'  = "^MOL_WEIGHT\\s+(\\S+)$"
+	'accession'              = "^ENTRY\\s+(\\S+)\\s+Compound",
+	'formula'                = "^FORMULA\\s+(\\S+)$",
+	'exact.mass'             = "^EXACT_MASS\\s+(\\S+)$",
+	'molecular.weight'       = "^MOL_WEIGHT\\s+(\\S+)$",
+	'cas.id'                 = "^[DBLINKS ]+ CAS:\\s+(\\S+)$",
+	'ncbi.pubchem.comp.id'   = "^[DBLINKS ]+ PubChem:\\s+(\\S+)$",
+	'chebi.id'               = "^[DBLINKS ]+ ChEBI:\\s+(\\S+)$",
+	'lipidmaps.structure.id' = "^[DBLINKS ]+ LIPIDMAPS:\\s+(\\S+)$"
 )
 
 # Class declaration {{{1

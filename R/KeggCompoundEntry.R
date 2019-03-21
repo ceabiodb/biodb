@@ -15,12 +15,12 @@ KeggCompoundEntry$methods( initialize = function(...) {
 	callSuper(...)
 })
 
-# Parse multilines field {{{1
+# Get tag lines {{{1
 ################################################################
 
-KeggCompoundEntry$methods( .parseMultilinesField = function(field, tag, parsed.content, strip.chars = ' ', split.char = ' ') {
+KeggCompoundEntry$methods( .getTagLines = function(tag, parsed.content) {
 
-	value = character()
+	lines = character()
 
 	# Loop on all lines of parsed content
 	in.tag = FALSE
@@ -34,16 +34,30 @@ KeggCompoundEntry$methods( .parseMultilinesField = function(field, tag, parsed.c
 		if (is.na(g[1, 1]) && in.tag)
 			break
 
-		# Parse
+		# Store line
 		if ( ! is.na(g[1, 1])) {
 			s = g[1, 2]
-			if ( ! is.na(split.char))
-				s = strsplit(s, paste0(split.char, "+"), perl = TRUE)[[1]]
-			s = sub(paste0('[', strip.chars, ']+$'), '', sub(paste0('^[', strip.chars, ']+'), '', s))
-			value = c(value, s)
+			lines = c(lines, s)
 			in.tag = TRUE
 		}
 	}
+
+	return(lines)
+})
+
+# Parse multilines field {{{1
+################################################################
+
+KeggCompoundEntry$methods( .parseMultilinesField = function(field, tag, parsed.content, strip.chars = ' ', split.char = ' ') {
+
+	# Get tag lines
+	lines = .self$.getTagLines(tag = tag, parsed.content = parsed.content)
+
+	# Split on character
+	if ( ! is.na(split.char))
+		lines = unlist(strsplit(lines, paste0(split.char, "+"), perl = TRUE))
+
+	value = sub(paste0('[', strip.chars, ']+$'), '', sub(paste0('^[', strip.chars, ']+'), '', lines))
 
 	# Set field value
 	if (length(value) > 0)
@@ -61,4 +75,11 @@ KeggCompoundEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 	# Other KEGG IDs
 	.self$.parseMultilinesField(field = 'kegg.reaction.id', tag = 'REACTION', parsed.content = parsed.content)
 	.self$.parseMultilinesField(field = 'kegg.enzyme.id',   tag = 'ENZYME', parsed.content = parsed.content)
+
+	# Pathway
+	pathway.ids = .self$.getTagLines(tag = 'PATHWAY', parsed.content = parsed.content)
+	if (length(pathway.ids) > 0) {
+		pathway.ids = sub('^\\s*(map[0-9]+)\\s+.*$', '\\1', pathway.ids)
+		.self$setFieldValue('kegg.pathway.id', pathway.ids)
+	}
 })
