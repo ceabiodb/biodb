@@ -1,6 +1,6 @@
 {
 	"accession": "C00751",
-	"name": "Squalene",
+	"name": ["Squalene", "Spinacene", "Supraene"],
 	"formula": "C30H50",
 	"exact.mass": 410.3913,
 	"molecular.weight": 410.718

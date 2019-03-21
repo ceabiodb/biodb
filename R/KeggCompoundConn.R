@@ -5,7 +5,6 @@
 
 .BIODB.KEGG.COMPOUND.PARSING.EXPR <- list(
 	'accession'         = "^ENTRY\\s+(\\S+)\\s+Compound",
-	'name'              = "^NAME\\s+([^,;]+)",
 	'formula'           = "^FORMULA\\s+(\\S+)$",
 	'exact.mass'        = "^EXACT_MASS\\s+(\\S+)$",
 	'molecular.weight'  = "^MOL_WEIGHT\\s+(\\S+)$"

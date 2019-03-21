@@ -172,8 +172,11 @@ BiodbEntryFields$methods( .initFields = function() {
 	# Define database ID fields
 	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
 		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
-	.self$.define('compound.id', alias = 'compoundid', description = 'The compound ID.', type = 'id')
-	.self$.define('cas.id',             description = '', alias = 'casid', type = 'id')
+	.self$.define('compound.id',        description = 'The compound ID.', card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'compoundid')
+	.self$.define('cas.id',             description = 'CAS ID',           card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'casid')
+	.self$.define('kegg.reaction.id',   description = 'KEGG Reaction ID', card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
+	.self$.define('kegg.pathway.id',    description = 'KEGG Pathway ID',  card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
+	.self$.define('kegg.enzyme.id',     description = 'KEGG Enzyme ID',   card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
 
 	.self$.define('description',    description = 'The decription of the entry.', alias = 'protdesc')
 

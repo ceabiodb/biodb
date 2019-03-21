@@ -1,6 +1,6 @@
 {
 	"accession": "C00005",
-	"name": "NADPH",
+	"name": ["NADPH", "TPNH", "Reduced nicotinamide adenine dinucleotide phosphate"],
 	"formula": "C21H30N7O17P3",
 	"exact.mass": 745.0911,
 	"molecular.weight": 745.4209
