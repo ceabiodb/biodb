@@ -17,6 +17,7 @@ ExPASy ENZYME          | expasy.enzyme       |   ✅   |
 HMDB Metabolites       | hmdb.metabolites    |   ✅   |              |                                                   |            |               
 KEGG Compound          | kegg.compound       |   ✅   |
 KEGG Enzyme            | kegg.enzyme         |   ✅   |
+KEGG Module            | kegg.module         |   ✅   |
 KEGG Pathway           | kegg.pathway        |   ✅   |
 LIPID MAPS Structure   | lipidmaps.structure |   ✅   |
 Massbank               | massbank            |   ❌   |              | [#30](https://github.com/pkrog/biodb/issues/30)   |            | The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.

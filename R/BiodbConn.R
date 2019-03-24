@@ -141,6 +141,24 @@ BiodbConn$methods( isWritable = function() {
 	return(methods::is(.self, 'BiodbWritable'))
 })
 
+# Is searchable {{{1
+################################################################
+
+BiodbConn$methods( isSearchable = function() {
+	":\n\nReturns TRUE if the database is searchable (i.e.: the connector class implements the interface BiodbSearchable)."
+
+	return(methods::is(.self, 'BiodbSearchable'))
+})
+
+# Is downloadable {{{1
+################################################################
+
+BiodbConn$methods( isDownloadable = function() {
+	":\n\nReturns TRUE if the database is downloadable (i.e.: the connector class implements the interface BiodbDownloadable)."
+
+	return(methods::is(.self, 'BiodbDownloadable'))
+})
+
 # Is a remote database {{{1
 ################################################################
 

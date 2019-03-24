@@ -9,7 +9,7 @@
 #'
 #' @param query The query to send to the database web service.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable.R}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -25,9 +25,10 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbRemotedbConn.R
+#' @include BiodbSearchable.R
 #' @export KeggConn
 #' @exportClass KeggConn
-KeggConn <- methods::setRefClass("KeggConn", contains = "BiodbRemotedbConn", fields = list(.db.name = "character", .db.abbrev = "character"))
+KeggConn <- methods::setRefClass("KeggConn", contains = c("BiodbRemotedbConn", "BiodbSearchable"), fields = list(.db.name = "character", .db.abbrev = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -126,6 +127,26 @@ KeggConn$methods( ws.find = function(query, retfmt = c('plain', 'request', 'pars
 	}
 
 	return(results)
+})
+
+# Search by name {{{1
+################################################################
+
+KeggConn$methods( searchByName = function(name, max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Search by name
+	if ( ! is.null(name) && ! is.na(name)) {
+		ids <- .self$ws.find(name, retfmt = 'ids')
+		ids <- sub('^[^:]*:', '', ids)
+	}
+
+	# Cut
+	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+		ids <- ids[1:max.results]
+
+	return(ids)
 })
 
 # Private methods {{{1

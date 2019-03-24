@@ -416,6 +416,33 @@ test.db.copy = function(conn) {
 	biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
+# Test searchByName() {{{1
+################################################################
+
+test.searchByName = function(conn) {
+
+	# Get an entry
+	id <- list.ref.entries(conn$getId())[[1]]
+	testthat::expect_true( ! is.null(id))
+	testthat::expect_length(id, 1)
+	entry <- conn$getEntry(id, drop = TRUE)
+	testthat::expect_true( ! is.null(entry))
+
+	# Search by name
+	name <- entry$getFieldValue('name')
+	testthat::expect_is(name, 'character')
+	testthat::expect_gt(length(name), 0)
+	name <- name[[1]]
+	testthat::expect_true( ! is.na(name))
+	ids <- conn$searchByName(name = name)
+
+	# Test
+	msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
+	testthat::expect_true( ! is.null(ids), msg)
+	testthat::expect_true(length(ids) > 0, msg)
+	testthat::expect_true(id %in% ids, msg)
+}
+
 # Run db generic tests {{{1
 ################################################################
 
@@ -429,6 +456,8 @@ run.db.generic.tests = function(conn, mode) {
 	if ( ! conn$isRemotedb() || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		test.that("Nb entries is positive.", 'test.nb.entries', conn = conn)
 		test.that("We can get a list of entry ids.", 'test.entry.ids', conn = conn)
+		if (conn$isSearchable())
+			test.that("We can search for an entry by name.", 'test.searchByName', conn = conn)
 	}
 	if (conn$isRemotedb()) {
 		test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', conn = conn)
