@@ -1,8 +1,5 @@
 # vi: fdm=marker
 
-#' @include MirbaseConn.R
-#' @include BiodbDownloadable.R
-
 # Constants {{{1
 ################################################################
 
@@ -16,7 +13,10 @@
 # Class declaration {{{1
 ################################################################
 
-MirbaseMatureConn <- methods::setRefClass("MirbaseMatureConn", contains = c("MirbaseConn", "BiodbDownloadable"))
+#' @include MirbaseConn.R
+#' @include BiodbDownloadable.R
+#' @include BiodbSearchable.R
+MirbaseMatureConn <- methods::setRefClass("MirbaseMatureConn", contains = c("MirbaseConn", "BiodbDownloadable", "BiodbSearchable"))
 
 # Constructor {{{1
 ################################################################
@@ -141,22 +141,20 @@ MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', retfmt 
 	return(results)
 })
 
-# Search compound {{{1
+# Search by name {{{1
 ################################################################
 
-MirbaseMatureConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+MirbaseMatureConn$methods( searchByName = function(name, max.results = NA_integer_) {
 		
-	.self$.checkMassField(mass = mass, mass.field = mass.field)
-
 	ids <- NULL
 
 	# Search by name
 	if ( ! is.null(name))
 		ids <- .self$ws.query(terms = name, retfmt = 'ids')
 
-	# Search by mass
-	if ( ! is.null(mass.field))
-		.self$message('caution', 'Searching by mass is not possible.')
+	# Cut
+	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+		ids <- ids[1:max.results]
 
 	return(ids)
 })

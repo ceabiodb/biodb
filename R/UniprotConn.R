@@ -45,9 +45,10 @@
 #'
 #' @include BiodbCompounddbConn.R
 #' @include BiodbRemotedbConn.R
+#' @include BiodbSearchable.R
 #' @export UniprotConn
 #' @exportClass UniprotConn
-UniprotConn <- methods::setRefClass("UniprotConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"))
+UniprotConn <- methods::setRefClass("UniprotConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn", 'BiodbSearchable'))
 
 # Constructor {{{1
 ################################################################
@@ -131,6 +132,13 @@ UniprotConn$methods( getEntryPageUrl = function(id) {
 
 UniprotConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
+})
+
+# Search by name {{{1
+################################################################
+
+UniprotConn$methods( searchByName = function(name, max.results = NA_integer_) {
+	return(.self$searchCompound(name = name, max.results = max.results))
 })
 
 # Search compound {{{1

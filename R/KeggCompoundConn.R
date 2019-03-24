@@ -152,10 +152,8 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 	ids <- NULL
 
 	# Search by name
-	if ( ! is.null(name) && ! is.na(name)) {
-		ids <- .self$ws.find(name, retfmt = 'ids')
-		ids <- sub('^cpd:', '', ids)
-	}
+	if ( ! is.null(name) && ! is.na(name))
+		ids = .self$searchByName(name)
 
 	# Search by mass
 	if ( ! is.null(mass)) {
