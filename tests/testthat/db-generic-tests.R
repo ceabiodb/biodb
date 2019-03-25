@@ -46,6 +46,11 @@ test.entry.fields <- function(db) {
 
 		# Loop on all reference fields
 		for (f in names(ref.entry)) {
+			v = ref.entry[[f]]
+			if (is.data.frame(v))
+				v = as.data.frame(v, stringsAsFactors = FALSE)
+
+			# Check value
 			expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
 			expect_equal(typeof(e$getFieldValue(f)), typeof(ref.entry[[f]]), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(e$getFieldValue(f)), ') is different in reference entry (', typeof(ref.entry[[f]]), ').'))
 			expect_equal(length(e$getFieldValue(f)), length(ref.entry[[f]]), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(e$getFieldValue(f)), ') is different in reference entry (', length(ref.entry[[f]]), ').'))
