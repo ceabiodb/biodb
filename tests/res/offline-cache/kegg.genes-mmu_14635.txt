@@ -1,0 +1,69 @@
+ENTRY       14635             CDS       T01002
+NAME        Galk1, AA409894, GALK, Gk, Glk, Glk1
+DEFINITION  (RefSeq) galactokinase 1
+ORTHOLOGY   K00849  galactokinase [EC:2.7.1.6]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00052  Galactose metabolism
+            mmu00520  Amino sugar and nucleotide sugar metabolism
+            mmu01100  Metabolic pathways
+MODULE      mmu_M00554  Nucleotide sugar biosynthesis, galactose => UDP-galactose
+            mmu_M00632  Galactose degradation, Leloir pathway, galactose => alpha-D-glucose-1P
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00052 Galactose metabolism
+                14635 (Galk1)
+               00520 Amino sugar and nucleotide sugar metabolism
+                14635 (Galk1)
+             09180 Brite Hierarchies
+              09183 Protein families: signaling and cellular processes
+               04147 Exosome [BR:mmu04147]
+                14635 (Galk1)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.7  Transferring phosphorus-containing groups
+               2.7.1  Phosphotransferases with an alcohol group as acceptor
+                2.7.1.6  galactokinase
+                 14635 (Galk1)
+            Exosome [BR:mmu04147]
+             Exosomal proteins
+              Exosomal proteins of other body fluids (saliva and urine)
+               14635 (Galk1)
+POSITION    11 E2; 11 80.91 cM
+MOTIF       Pfam: GalKase_gal_bdg GHMP_kinases_C GHMP_kinases_N
+DBLINKS     NCBI-GeneID: 14635
+            NCBI-ProteinID: NP_058601
+            MGI: 95730
+            Ensembl: ENSMUSG00000020766
+            Vega: OTTMUSG00000003691
+            UniProt: Q9R0N0 Q9CXZ9
+AASEQ       392
+            MAAWRPPRVEELLAEARRAFMEEFGAEPELAVSAPGRVNLIGEHTDYNQGLVLPMALELV
+            TVMVGSPRTDGLVSLLTTSKDADEPQRLQFPLPSAQWSLEPGIPQWANYVKGVIQHYPAS
+            PLVGFSAVVVSSVPLGGGLSSSASLEVATYTFIQQLCPDSGAIAARAQVCQRAEHSFAGV
+            PCGIMDQLIALLGQKGYALLIDCRSLETSLVPLSDPKLAVLITNSNVRHSLGSSEYPVRR
+            RQCEEVAQALGKESLREVRMEELEAGRELMSKEGFRRARHVVSEIRRTAQAAAAMSRGDY
+            KAFGRLMVESHYSLRDDYEVSCPELDQLVEAALSVPGVYGSRMTGGGFGGCTVTLLEASV
+            APLVIDHIQEQYSGTATFYLSQAADGAQVLSL
+NTSEQ       1179
+            atggctgcttggagaccgccccgggtcgaggagctgctggccgaggcccgccgggccttc
+            atggaggagtttggagccgagccggagctggcagtgtcggcgccgggccgcgtcaacctc
+            atcggggagcacacggactacaaccagggcctggtgctgcccatggcactggagctcgtg
+            accgtgatggttggcagcccccggacagatgggcttgtttctcttctcaccacttccaaa
+            gatgcagacgagccccaaagactgcagttcccactgccctcagcccagtggtccttggag
+            cctggaatcccacagtgggccaattatgtcaagggagtgattcaacattacccagcttcc
+            ccgctcgttggcttcagtgcagtggtggtcagctcagtgcccctggggggtgggctttcc
+            agctcagcgtctctggaagtggccacgtacaccttcatccagcagctctgcccagactcg
+            ggggcaatagctgcccgggcccaggtgtgtcaacgggctgagcacagcttcgcaggggtg
+            ccctgtggcatcatggaccaactcatcgcgctgctggggcagaaaggctatgcactactc
+            attgactgcaggtccctggaaacaagcctggtgccactgtcagaccccaagctggccgtg
+            ctcatcaccaactccaatgtccgccattccctgggctccagcgagtacccggttcgtcgg
+            cgacagtgtgaagaagtggcccaggccctgggcaaggagagccttcgagaggtgcggatg
+            gaggagcttgaggcgggcagggagctaatgagcaaggagggcttccggcgggcccggcat
+            gtggtaagcgagatccggagaacagcccaggcagcagctgctatgagccgaggagactac
+            aaggcctttgggcgtctcatggtggagagtcactactcactcagggatgactatgaggtc
+            agctgccctgagctggatcaattggttgaggccgcgctctctgtgcctggggtttatggc
+            agtcgcatgacaggtggtggctttggtggctgcaccgtcacattgctggaggcctctgtt
+            gcccctcttgtcatagatcatatacaggagcagtacagtgggacagccaccttctacctc
+            tctcaagctgccgatggagcccaggtgctgagcttgtga
+///

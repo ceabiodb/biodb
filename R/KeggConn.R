@@ -44,8 +44,6 @@ KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_
 	.db.name <<- db.name
 
 	# Set abbreviation
-	if (is.null(db.abbrev) || is.na(db.abbrev))
-		.self$message('error', "You must set an abbreviation for this KEGG database.")
 	.db.abbrev <<- db.abbrev
 })
 
@@ -147,7 +145,8 @@ KeggConn$methods( searchByName = function(name, max.results = NA_integer_) {
 	# Search by name
 	if ( ! is.null(name) && ! is.na(name)) {
 		ids <- .self$ws.find(name, retfmt = 'ids')
-		ids <- sub('^[^:]*:', '', ids)
+		if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+			ids <- sub('^[^:]*:', '', ids)
 	}
 
 	# Cut

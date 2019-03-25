@@ -84,6 +84,8 @@ Collate:
     'KeggCompoundEntry.R'
     'KeggEnzymeConn.R'
     'KeggEnzymeEntry.R'
+    'KeggGenesConn.R'
+    'KeggGenesEntry.R'
     'KeggModuleConn.R'
     'KeggModuleEntry.R'
     'KeggPathwayConn.R'

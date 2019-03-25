@@ -17,6 +17,7 @@ ExPASy ENZYME          | expasy.enzyme       |   ✅   |
 HMDB Metabolites       | hmdb.metabolites    |   ✅   |              |                                                   |            |               
 KEGG Compound          | kegg.compound       |   ✅   |
 KEGG Enzyme            | kegg.enzyme         |   ✅   |
+KEGG Genes             | kegg.genes          |   ✅   |
 KEGG Module            | kegg.module         |   ✅   |
 KEGG Pathway           | kegg.pathway        |   ✅   |
 KEGG Reaction          | kegg.reaction       |   ✅   |

@@ -6,13 +6,13 @@
 .BIODB.UNIPROT.PARSING.EXPR <- list(
 	'name'              = "/uniprot:uniprot/uniprot:entry/uniprot:name",
 	'gene.symbols'      = "//uniprot:gene/uniprot:name",
-	'sequence'          = "//uniprot:entry/uniprot:sequence",
+	'nt.seq'            = "//uniprot:entry/uniprot:sequence",
 	'accession'         = "//uniprot:accession[1]",
 	'kegg.compound.id'  = list(path = "//uniprot:dbReference[@type='KEGG']", attr = 'id'),
 	'ncbi.gene.id'      = list(path = "//uniprot:dbReference[@type='GeneID']", attr = 'id'),
 	'expasy.enzyme.id'  = list(path = "//uniprot:dbReference[@type='EC']", attr = 'id'),
 	'molecular.mass'    = list(path = "//uniprot:entry/uniprot:sequence", attr = 'mass'),
-	'length'            = list(path = "//uniprot:entry/uniprot:sequence", attr = 'length')
+	'nt.seq.length'     = list(path = "//uniprot:entry/uniprot:sequence", attr = 'length')
 )
 
 # Class declaration {{{1

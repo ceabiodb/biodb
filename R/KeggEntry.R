@@ -64,3 +64,13 @@ KeggEntry$methods( .parseMultilinesField = function(field, tag, parsed.content, 
 		.self$setFieldValue(field, value)
 })
 
+# Parse module IDs {{{1
+################################################################
+
+KeggEntry$methods( .parseModuleIds = function(parsed.content) {
+	module.ids = .self$.getTagLines(tag = 'MODULE', parsed.content = parsed.content)
+	if (length(module.ids) > 0) {
+		module.ids = sub('^\\s*[A-Za-z_]*(M[0-9]+)\\s+.*$', '\\1', module.ids)
+		.self$setFieldValue('kegg.module.id', module.ids)
+	}
+})
