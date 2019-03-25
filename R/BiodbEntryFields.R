@@ -174,7 +174,7 @@ BiodbEntryFields$methods( .initFields = function() {
 		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
 	.self$.define('compound.id',        description = 'The compound ID.', card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'compoundid')
 	.self$.define('cas.id',             description = 'CAS ID',           card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'casid')
-	.self$.define('kegg.reaction.id',   description = 'KEGG Reaction ID', card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
+	.self$.define('kegg.genes.id',      description = 'KEGG Genes ID',           card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
 
 	.self$.define('description',    description = 'The decription of the entry.', alias = 'protdesc')
 

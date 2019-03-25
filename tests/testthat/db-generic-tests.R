@@ -47,14 +47,18 @@ test.entry.fields <- function(db) {
 		# Loop on all reference fields
 		for (f in names(ref.entry)) {
 			v = ref.entry[[f]]
+			w = e$getFieldValue(f)
 			if (is.data.frame(v))
 				v = as.data.frame(v, stringsAsFactors = FALSE)
 
 			# Check value
 			expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
-			expect_equal(typeof(e$getFieldValue(f)), typeof(ref.entry[[f]]), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(e$getFieldValue(f)), ') is different in reference entry (', typeof(ref.entry[[f]]), ').'))
-			expect_equal(length(e$getFieldValue(f)), length(ref.entry[[f]]), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(e$getFieldValue(f)), ') is different in reference entry (', length(ref.entry[[f]]), ').'))
-			expect_identical(e$getFieldValue(f), ref.entry[[f]], info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(e$getFieldValue(f), collapse = ', '), ') is different in reference entry (', paste(ref.entry[[f]], collapse = ', '), ').'))
+			expect_equal(typeof(w), typeof(v), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
+			expect_equal(length(w), length(v), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
+			if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
+				expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(w, collapse = ', '), ') is different in reference entry (', paste(v, collapse = ', '), ').'))
+			else
+				expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' is different in reference entry. Non equal values are: ', paste(vapply(which(v != w), function(i) paste(w[[i]], '!=', v[[i]]), FUN.VALUE = ''), collapse = ', '), '.'))
 		}
 
 		# Loop on all fields of loaded entry

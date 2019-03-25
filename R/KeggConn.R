@@ -53,7 +53,11 @@ KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_
 ################################################################
 
 KeggConn$methods( .complete.entry.id = function(id) {
-	return(paste(.self$.db.abbrev, id, sep = ':'))
+
+	if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+		id = paste(.self$.db.abbrev, id, sep = ':')
+
+	return(id)
 })
 
 # Get entry content request {{{1
@@ -74,7 +78,7 @@ KeggConn$methods( getEntryPageUrl = function(id) {
 ################################################################
 
 KeggConn$methods( ws.list = function(retfmt = c('plain', 'request', 'ids')) {
-	":\n\nGet lis of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
+	":\n\nGet list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
 	retfmt = match.arg(retfmt)
 
@@ -89,8 +93,12 @@ KeggConn$methods( ws.list = function(retfmt = c('plain', 'request', 'ids')) {
 
 	# Extract IDs
 	if (retfmt == 'ids') {
-		results <- strsplit(results, "\n")[[1]]
-		results <- sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', results, perl = TRUE)
+		results = strsplit(results, "\n")[[1]]
+		
+		if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+			results = sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', results, perl = TRUE)
+		else
+			results = sub('^([^\\s]+)\\s.*$', '\\1', results, perl = TRUE)
 	}
 
 	return(results)

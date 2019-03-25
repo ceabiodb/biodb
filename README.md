@@ -19,6 +19,7 @@ KEGG Compound          | kegg.compound       |   ✅   |
 KEGG Enzyme            | kegg.enzyme         |   ✅   |
 KEGG Module            | kegg.module         |   ✅   |
 KEGG Pathway           | kegg.pathway        |   ✅   |
+KEGG Reaction          | kegg.reaction       |   ✅   |
 LIPID MAPS Structure   | lipidmaps.structure |   ✅   |
 Massbank               | massbank            |   ❌   |              | [#30](https://github.com/pkrog/biodb/issues/30)   |            | The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.
 miRBase Mature         | mirbase.mature      |   ✅   |     off      |                                                   |            | Online tests are off because miRBase Mature needs download of the whole database through FTP, and FTP is not possible from inside Travis-CI.

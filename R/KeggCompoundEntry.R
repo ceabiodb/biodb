@@ -30,7 +30,7 @@ KeggCompoundEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 	# Pathway
 	pathway.ids = .self$.getTagLines(tag = 'PATHWAY', parsed.content = parsed.content)
 	if (length(pathway.ids) > 0) {
-		pathway.ids = sub('^\\s*(map[0-9]+)\\s+.*$', '\\1', pathway.ids)
+		pathway.ids = sub('^\\s*([^ ]+)\\s+.*$', '\\1', pathway.ids)
 		.self$setFieldValue('kegg.pathway.id', pathway.ids)
 	}
 })
