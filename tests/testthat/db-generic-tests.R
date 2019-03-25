@@ -63,7 +63,7 @@ test.entry.fields <- function(db) {
 	}
 
 	# Search for untested fields and send a Biodb CAUTION message
-	not.tested.fields <- entry.fields[ ! entry.fields %in% ref.entry.fields]
+	not.tested.fields <- entry.fields[ ! entry.fields %in% c(ref.entry.fields, db.id.field)]
 	not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
 	for (f in not.tested.fields)
 		biodb$message('caution', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
