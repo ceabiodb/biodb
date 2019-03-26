@@ -108,6 +108,11 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 	.self$.define('expasy.enzyme',          name = 'ExPASy ENZYME', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = "https://enzyme.expasy.org/"))
 	.self$.define('hmdb.metabolites',       name = 'HMDB Metabolites', scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = "http://www.hmdb.ca/"))
 	.self$.define('kegg.compound',          name = 'KEGG Compound', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
+	.self$.define('kegg.enzyme',            name = 'KEGG Enzyme', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
+	.self$.define('kegg.genes',            name = 'KEGG Genes', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
+	.self$.define('kegg.module',            name = 'KEGG Module', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
+	.self$.define('kegg.pathway',           name = 'KEGG Pathway', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
+	.self$.define('kegg.reaction',          name = 'KEGG Reaction', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'http://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
 	.self$.define('lipidmaps.structure',    name = 'LIPID MAPS Structure', scheduler.n = 1, scheduler.t = 20, entry.content.type = 'csv', urls = c(base.url = 'http://www.lipidmaps.org/data/')) # About access frequency, see http://www.lipidmaps.org/data/structure/programmaticaccess.html
 	.self$.define('mass.csv.file',          name = 'Mass CSV File',                entry.content.type = 'tsv', urls = character())
 	.self$.define('mass.sqlite',            name = 'Mass SQLite',                  entry.content.type = 'list', urls = character())

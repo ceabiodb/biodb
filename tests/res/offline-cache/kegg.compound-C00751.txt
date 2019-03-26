@@ -5,8 +5,8 @@ NAME        Squalene;
 FORMULA     C30H50
 EXACT_MASS  410.3913
 MOL_WEIGHT  410.718
-REACTION    R02872 R02873 R02874 R02875 R02876 R06223 R07322 R07323 
-            R08535 R09712 R10167 R10169 R11401
+REACTION    R02872 R02874 R02875 R02876 R06223 R07322 R07323 R08535 
+            R09712 R10167 R10169 R11401
 PATHWAY     map00100  Steroid biosynthesis
             map00909  Sesquiterpenoid and triterpenoid biosynthesis
             map01060  Biosynthesis of plant secondary metabolites
@@ -30,7 +30,7 @@ BRITE       Lipids [BR:br08002]
               Triterpenoids (C30)
                Liner triterpenes
                 C00751  Squalene
-            Pharmaceutical additives [BR:br08316]
+            Pharmaceutical additives in Japan [BR:br08316]
              Base
               C00751  [508064] Squalene
              Flexibilizer
@@ -44,6 +44,7 @@ BRITE       Lipids [BR:br08002]
 DBLINKS     CAS: 111-02-4
             PubChem: 4013
             ChEBI: 15440
+            ChEMBL: CHEMBL458402
             LIPIDMAPS: LMPR0106010002
             LipidBank: SST0122
             KNApSAcK: C00003755
@@ -112,4 +113,3 @@ BOND        29
             28   14  29 1
             29   18  30 1
 ///
-

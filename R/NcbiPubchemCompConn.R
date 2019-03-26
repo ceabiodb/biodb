@@ -24,14 +24,22 @@
 ################################################################
 
 #' @include NcbiPubchemConn.R
+#' @include BiodbSearchable.R
 #' @include BiodbCompounddbConn.R
-NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains = c("NcbiPubchemConn", 'BiodbCompounddbConn'))
+NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains = c("NcbiPubchemConn", 'BiodbCompounddbConn', 'BiodbSearchable'))
 
 # Constructor {{{1
 ################################################################
 
 NcbiPubchemCompConn$methods( initialize = function(...) {
 	callSuper(db.name = 'compound', id.xmltag = 'PC-CompoundType_id_cid', entry.xmltag = 'PC-Compound', id.urlfield = 'cid', entrez.name = 'pccompound', ...)
+})
+
+# Search by name {{{1
+################################################################
+
+NcbiPubchemCompConn$methods( searchByName = function(name, max.results = NA_integer_) {
+	return(.self$searchCompound(name = name, max.results = max.results))
 })
 
 # Search compound {{{1

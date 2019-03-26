@@ -172,8 +172,8 @@ BiodbEntryFields$methods( .initFields = function() {
 	# Define database ID fields
 	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
 		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
-	.self$.define('compound.id', alias = 'compoundid', description = 'The compound ID.', type = 'id')
-	.self$.define('cas.id',             description = '', alias = 'casid', type = 'id')
+	.self$.define('compound.id',        description = 'The compound ID.', card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'compoundid')
+	.self$.define('cas.id',             description = 'CAS ID',           card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'casid')
 
 	.self$.define('description',    description = 'The decription of the entry.', alias = 'protdesc')
 
@@ -204,10 +204,14 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer', type = 'mass')
 	.self$.define('molecular.mass',     alias = c('mass', 'molecular.weight'), description = 'Molecular mass (also called molecular weight), in Dalton.',     class = 'double', type = 'mass', computable.from = 'chebi')
 
-	.self$.define('comp.super.class',        description = 'Compound super class.', alias = c('superclass', 'super.class'))
-	.self$.define('sequence',           description = 'Gene or protein sequence.', computable.from = 'ncbi.ccds')
-	.self$.define('seq.length',             description = 'Sequence length.',               class = 'integer', alias = 'length')
-	.self$.define('seq.location',           description = 'Sequence location.', alias = 'location')
+	.self$.define('organism',           description = 'The biological organism to which this entry belongs.')
+	.self$.define('kegg.organism.code', description = 'The 3-4 characters organism code used un KEGG.')
+	.self$.define('comp.super.class',   description = 'Compound super class.', alias = c('superclass', 'super.class'))
+	.self$.define('aa.seq',             description = 'Amino acids sequence.', computable.from = 'ncbi.ccds', alias = 'sequence')
+	.self$.define('aa.seq.length',      description = 'Length of the amino acids sequence.', class = 'integer', alias = c('seq.length', 'length'))
+	.self$.define('aa.seq.location',    description = 'Location of the amino acids sequence.', alias = c('seq.location', 'location'))
+	.self$.define('nt.seq.length',      description = 'Length of the nucleotids sequence.', class = 'integer')
+	.self$.define('nt.seq',             description = 'Nucleotids sequence.')
 
 	.self$.define('msdev',              description = 'Mass spectrometer device.')
 	.self$.define('ms.level',           description = 'Mass spectrum level.', class = 'integer')

@@ -324,8 +324,18 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 		content = tryCatch(expr = {
 				if (request$getMethod() == 'get')
 					RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding(), headerfunction = header$update)
-				else
+				else {
+					print('-------------------------------- BiodbRequestScheduler::.doSendRequest 50')
+					print(request$getUrl()$toString())
+					print('-------------------------------- BiodbRequestScheduler::.doSendRequest 51')
+					print(opts)
+					print('-------------------------------- BiodbRequestScheduler::.doSendRequest 52')
+					print(request$getEncoding())
+					print('-------------------------------- BiodbRequestScheduler::.doSendRequest 53')
+					print(header$update)
+					print('-------------------------------- BiodbRequestScheduler::.doSendRequest 54')
 					RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding(), headerfunction = header$update)
+				}
 				},
 			PEER_FAILED_VERIFICATION = function(err) { curl.error = err },
 			GenericCurlError = function(err) { curl.error = err },

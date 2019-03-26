@@ -48,10 +48,10 @@ BiodbTxtEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 		g <- stringr::str_match(parsed.content, parsing.expr[[field]])
 
 		# Get positive results
-		results <- g[ ! is.na(g[,1]), , drop = FALSE]
+		results <- g[ ! is.na(g[, 1]), , drop = FALSE]
 
 		# Any match ?
 		if (nrow(results) > 0)
-			.self$setFieldValue(field, results[,2])
+			.self$setFieldValue(field, results[, 2])
 	}
 })

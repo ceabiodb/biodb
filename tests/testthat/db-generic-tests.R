@@ -46,10 +46,19 @@ test.entry.fields <- function(db) {
 
 		# Loop on all reference fields
 		for (f in names(ref.entry)) {
+			v = ref.entry[[f]]
+			w = e$getFieldValue(f)
+			if (is.data.frame(v))
+				v = as.data.frame(v, stringsAsFactors = FALSE)
+
+			# Check value
 			expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
-			expect_equal(typeof(e$getFieldValue(f)), typeof(ref.entry[[f]]), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(e$getFieldValue(f)), ') is different in reference entry (', typeof(ref.entry[[f]]), ').'))
-			expect_equal(length(e$getFieldValue(f)), length(ref.entry[[f]]), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(e$getFieldValue(f)), ') is different in reference entry (', length(ref.entry[[f]]), ').'))
-			expect_identical(e$getFieldValue(f), ref.entry[[f]], info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(e$getFieldValue(f), collapse = ', '), ') is different in reference entry (', paste(ref.entry[[f]], collapse = ', '), ').'))
+			expect_equal(typeof(w), typeof(v), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
+			expect_equal(length(w), length(v), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
+			if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
+				expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(w, collapse = ', '), ') is different in reference entry (', paste(v, collapse = ', '), ').'))
+			else
+				expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' is different in reference entry. Non equal values are: ', paste(vapply(which(v != w), function(i) paste(w[[i]], '!=', v[[i]]), FUN.VALUE = ''), collapse = ', '), '.'))
 		}
 
 		# Loop on all fields of loaded entry
@@ -63,7 +72,7 @@ test.entry.fields <- function(db) {
 	}
 
 	# Search for untested fields and send a Biodb CAUTION message
-	not.tested.fields <- entry.fields[ ! entry.fields %in% ref.entry.fields]
+	not.tested.fields <- entry.fields[ ! entry.fields %in% c(ref.entry.fields, db.id.field)]
 	not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
 	for (f in not.tested.fields)
 		biodb$message('caution', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
@@ -416,6 +425,33 @@ test.db.copy = function(conn) {
 	biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
+# Test searchByName() {{{1
+################################################################
+
+test.searchByName = function(conn) {
+
+	# Get an entry
+	id <- list.ref.entries(conn$getId())[[1]]
+	testthat::expect_true( ! is.null(id))
+	testthat::expect_length(id, 1)
+	entry <- conn$getEntry(id, drop = TRUE)
+	testthat::expect_true( ! is.null(entry))
+
+	# Search by name
+	name <- entry$getFieldValue('name')
+	testthat::expect_is(name, 'character')
+	testthat::expect_gt(length(name), 0)
+	name <- name[[1]]
+	testthat::expect_true( ! is.na(name))
+	ids <- conn$searchByName(name = name)
+
+	# Test
+	msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
+	testthat::expect_true( ! is.null(ids), msg)
+	testthat::expect_true(length(ids) > 0, msg)
+	testthat::expect_true(id %in% ids, msg)
+}
+
 # Run db generic tests {{{1
 ################################################################
 
@@ -429,6 +465,8 @@ run.db.generic.tests = function(conn, mode) {
 	if ( ! conn$isRemotedb() || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
 		test.that("Nb entries is positive.", 'test.nb.entries', conn = conn)
 		test.that("We can get a list of entry ids.", 'test.entry.ids', conn = conn)
+		if (conn$isSearchable())
+			test.that("We can search for an entry by name.", 'test.searchByName', conn = conn)
 	}
 	if (conn$isRemotedb()) {
 		test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', conn = conn)

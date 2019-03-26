@@ -21,11 +21,10 @@
 #' @param comment   The comment to search for.
 #' @param biodb.ids If set to \code{TRUE}, the method will return the entry IDs as a vector of characters, instead of the raw result page.
 #'
-#' @include BiodbCompounddbConn.R
 #' @include BiodbRemotedbConn.R
 #' @export ExpasyEnzymeConn
 #' @exportClass ExpasyEnzymeConn
-ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"))
+ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains = c("BiodbRemotedbConn"))
 
 # Web service enzyme-byname {{{1
 ################################################################
@@ -69,26 +68,6 @@ ExpasyEnzymeConn$methods( ws.enzymeByComment = function(comment, retfmt = c('pla
 	results <- .self$.parseWsReturnedHtml(results = results, retfmt = retfmt)
 
 	return(results)
-})
-
-# Search compound {{{1
-################################################################
-
-ExpasyEnzymeConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
-		
-	.self$.checkMassField(mass = mass, mass.field = mass.field)
-
-	ids <- NULL
-
-	# Search for name
-	if ( ! is.null(name))
-		ids <- .self$ws.enzymeByName(name, retfmt = 'ids')
-
-	# Search by mass
-	if ( ! is.null(mass.field))
-		.self$message('caution', paste0('Mass search is not handled.'))
-
-	return(ids)
 })
 
 # Get entry page url {{{1

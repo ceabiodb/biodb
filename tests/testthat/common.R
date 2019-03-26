@@ -224,6 +224,9 @@ list.ref.entries <- function(db) {
 	# Extract ids
 	ids <- sub(paste('^.*/entry', db, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)
 
+	# Replace encoded special characters
+	ids = gsub('%3a', ':', ids)
+
 	return(ids)
 }
 
@@ -231,6 +234,9 @@ list.ref.entries <- function(db) {
 ################################################################
 
 load.ref.entry <- function(db, id) {
+
+	# Replace forbidden characters
+	id = gsub(':', '%3a', id)
 
 	# Entry file
 	file <- file.path(RES.DIR, paste('entry-', db, '-', id, '.json', sep = ''))

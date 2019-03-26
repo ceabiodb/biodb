@@ -8,7 +8,93 @@
   "chrom.rt": 5.69,
   "chrom.rt.unit": "min",
   "formula": "J114L6M62O2",
-  "mass": 146.10553,
-  "fullnames": "Blablaine",
-  "msprecmz": 148.116159
+  "molecular.mass": 146.10553,
+  "name": "Blablaine",
+  "msprecmz": 148.116159,
+  "peaks": [
+    {
+      "peak.attr": "[(M+H)-(H2O)-(NH3)]+",
+      "peak.comp": "P9Z6W410 O",
+      "peak.mztheo": 112.07569,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 112.07569
+    },
+    {
+      "peak.attr": "[(M+H)-(H2)]+",
+      "peak.comp": "P92Z6W413 O2",
+      "peak.mztheo": 145.097154,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 145.097154
+    },
+    {
+      "peak.attr": "[(M+H)-(NH3)-(HCOOH)]+",
+      "peak.comp": "P9Z5W410 O0",
+      "peak.mztheo": 84.080775,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 84.080775
+    },
+    {
+      "peak.attr": "[(M+H)]+",
+      "peak.comp": "U513P92ZW415 O2",
+      "peak.mztheo": 148.116159,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 148.116159
+    },
+    {
+      "peak.attr": "[(M+H)-(J17L2M6O2)]+",
+      "peak.comp": "P9Z4W48 O0",
+      "peak.mztheo": 70.065125,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 70.065125
+    },
+    {
+      "peak.attr": "[(M+H)-(C3H7O2N)]+",
+      "peak.comp": "P9Z3W48 O0",
+      "peak.mztheo": 58.065125,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 58.065125
+    },
+    {
+      "peak.attr": "[(M+H)-(J17L2M6)]+",
+      "peak.comp": "P9Z4W48 O2",
+      "peak.mztheo": 102.054955,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 102.054955
+    },
+    {
+      "peak.attr": "[(M+H)-(HCOOH)]+",
+      "peak.comp": "P92Z5W413 O0",
+      "peak.mztheo": 101.107324,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 101.107324
+    },
+    {
+      "peak.attr": "[(2M-2H+3Na)]+ (13C)",
+      "peak.comp": "U1113P94ZW426 Na3 O4",
+      "peak.mztheo": 360.167522,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 360.167522
+    },
+    {
+      "peak.attr": "[(2M+H)]+ (13C)",
+      "peak.comp": "U1113P94ZW429 O4",
+      "peak.mztheo": 294.221687,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 294.221687
+    },
+    {
+      "peak.attr": "[(M+H)-2(H2O)]+",
+      "peak.comp": "P92Z6W411 O0",
+      "peak.mztheo": 111.091674,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 111.091674
+    },
+    {
+      "peak.attr": "[(M+H)-(H2O)]+",
+      "peak.comp": "P92Z6W413 O",
+      "peak.mztheo": 129.102239,
+      "peak.relative.intensity": 50.0,
+      "peak.mz": 129.102239
+    }
+  ]
 }
