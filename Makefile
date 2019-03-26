@@ -29,6 +29,7 @@ all:
 # Check and test {{{1
 ################################################################
 
+check: BIODB_CACHE_DIRECTORY=$(PWD)/biodb.check.cache
 check: $(ZIPPED_PKG) clean.cache
 	R CMD check --as-cran "$<"
 # Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:

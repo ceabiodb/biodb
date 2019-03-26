@@ -1,237 +1,106 @@
-<!doctype html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:16474</chebiId><chebiAsciiName>NADPH</chebiAsciiName><definition>NADPH is the reduced form of NADP+; used in anabolic reactions, such as lipid and nucleic acid synthesis, which require NADPH as a reducing agent.</definition><status>CHECKED</status><smiles>NC(=O)C1=CN(C=CC1)[C@@H]1O[C@H](COP(O)(=O)OP(O)(=O)OC[C@H]2O[C@H]([C@H](OP(O)(O)=O)[C@@H]2O)n2cnc3c(N)ncnc23)[C@@H](O)[C@H]1O</smiles><inchi>InChI=1S/C21H30N7O17P3/c22-17-12-19(25-7-24-17)28(8-26-12)21-16(44-46(33,34)35)14(30)11(43-21)6-41-48(38,39)45-47(36,37)40-5-10-13(29)15(31)20(42-10)27-3-1-2-9(4-27)18(23)32/h1,3-4,7-8,10-11,13-16,20-21,29-31H,2,5-6H2,(H2,23,32)(H,36,37)(H,38,39)(H2,22,24,25)(H2,33,34,35)/t10-,11-,13-,14-,15-,16-,20-,21-/m1/s1</inchi><inchiKey>ACFIXJIJDZMPPO-NNYOXOHSSA-N</inchiKey><charge>0</charge><mass>745.42116</mass><monoisotopicMass>745.09110</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:44286</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:7425</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:13399</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:13400</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:21904</SecondaryChEBIIds><Synonyms><data>dihydronicotinamide-adenine dinucleotide phosphate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>NADPH</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>NADPH DIHYDRO-NICOTINAMIDE-ADENINE-DINUCLEOTIDE PHOSPHATE</data><type>SYNONYM</type><source>PDBeChem</source></Synonyms><Synonyms><data>Reduced nicotinamide adenine dinucleotide phosphate</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>reduced nicotinamide-adenine dinucleotide phosphate</data><type>SYNONYM</type><source>CBN</source></Synonyms><Synonyms><data>TPNH</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>2'-O-phosphonoadenosine 5'-{3-[1-(3-carbamoyl-1,4-dihydropyridin-1-yl)-1,4-anhydro-D-ribitol-5-yl] dihydrogen diphosphate}</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C21H30N7O17P3</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>53-57-6</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>77911</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><Citations><data>16884311</data><type>PubMed citation</type><source>ChEMBL</source></Citations><Citations><data>17371809</data><type>PubMed citation</type><source>ChEMBL</source></Citations><Citations><data>8627598</data><type>PubMed citation</type><source>ChEMBL</source></Citations><ChemicalStructures><structure>
+  Marvin  03260711422D          
 
-    <!-- Use the .htaccess and remove these lines to avoid edge case issues.
- More info: h5bp.com/b/378 -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
-
-    <title>Server error &lt; EMBL-EBI</title>
-    <meta name="description" content="EMBL-EBI"><!-- Describe what this page is about -->
-    <meta name="keywords" content="bioinformatics, europe, institute"><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
-    <meta name="author" content="EMBL-EBI"><!-- Your [project-name] here -->
-
-    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
-
-    <!-- CSS: implied media=all -->
-    <!-- CSS concatenated and minified via ant build script-->
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css">
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen">
-
-    <!-- you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this -->
-    <!-- also inform ES so we can host your colour palette file -->
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen">
-
-    <!-- for production the above can be replaced with -->
-    <!--
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
-    -->
-
-    
-    <!-- end CSS-->
-
-        
-    <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-
-    <!-- Full build -->
-    <!-- <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.minified.2.1.6.js"></script> -->
-
-    <!-- custom build (lacks most of the "advanced" HTML5 support -->
-    <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
-
-</head>
-
-<body class="level1 page-error"><!-- add any of your classes or IDs -->
-<div id="skip-to">
-    <ul>
-        <li><a href="#content">Skip to main content</a></li>
-        <li><a href="#local-nav">Skip to local navigation</a></li>
-        <li><a href="#global-nav">Skip to EBI global navigation menu</a></li>
-        <li><a href="#global-nav-expanded">Skip to expanded EBI global navigation menu (includes all sub-sections)</a></li>
-    </ul>
-</div>
-
-<div id="wrapper" class="container_24">
-    <header>
-                                <div id="global-masthead" class="masthead grid_24">
-            <!--This has to be one line and no newline characters-->
-            <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"></a>
-
-            <nav>
-                <ul id="global-nav">
-                    <!-- set active class as appropriate -->
-                                        <li id="services" class=" first "><a href="//www.ebi.ac.uk/services" title="Services">Services</a></li>
-                                        <li id="research" class=""><a href="//www.ebi.ac.uk/research" title="Research">Research</a></li>
-                                        <li id="training" class=""><a href="//www.ebi.ac.uk/training" title="Training">Training</a></li>
-                                        <li id="industry" class=""><a href="//www.ebi.ac.uk/industry" title="Industry">Industry</a></li>
-                                        <li id="about" class=" last"><a href="//www.ebi.ac.uk/about" title="About us">About us</a></li>
-                                    </ul>
-            </nav>
-
-        </div>
-                                <div id="local-masthead" class="masthead grid_24 nomenu">
-
-            <!-- local-title -->
-            <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
-
-        <div class="" id="local-title">
-                                                                    <h1><a href="/" title="Back to Server error homepage">Server error</a></h1>
-                                            </div>
-
-        <!-- /local-title -->
-
-        
-        
-
-</div>
-</header>
-
-<div id="content" role="main" class="grid_24 clearfix">
-        <!-- Example layout containers -->
-    <section>
-        <section class="grid_24">
-          			                        										
-              
-    
-  <div class="content">
-    <div>
-
-  
-      
-  
-  <div class="content">
-    <div>
-    <div>
-          <div>
-<h2 class="alert">Something has gone wrong with our web server</h2>
-<p>Our web server says this is a <span class="alert">500 internal server error</span>: the request cannot be carried out by the server.<br />
-This problem means that the service you are trying to access is currently unavailable. We're very sorry.</p>
-<p>Please try again but if it keeps happening, you can <a fix="h-" href="//www.ebi.ac.uk/support">contact us</a> and we will try to help you.</p>
-</div>
-      </div>
-</div>
-  </div>
-
-  
-  
-</div>
-  </div>
-
-
-    
-  <div class="content">
-    <form id="ebi_search" action="/ebisearch/search.ebi">
-  <fieldset><legend><span>Explore the EBI:</span></legend>
-    <input id="query" title="EB-eye Search" tabindex="1" type="text" name="query" value="" size="35" maxlength="2048" style="width: 80%" /><input id="search_submit" class="submit" tabindex="2" type="submit" value="Search" name="submit" /><input id="allebi" type="hidden" name="db" value="allebi" checked="checked" /><input type="hidden" name="requestFrom" value="ebi_error" /><div>
-     <p id="example">Examples: <a href="/ebisearch/search.ebi?db=allebi&amp;requestFrom=ebi_error&amp;query=blast">blast</a>, <a href="/ebisearch/search.ebi?db=allebi&amp;query=keratin&amp;requestFrom=ebi_error">keratin</a>, <a href="/ebisearch/search.ebi?db=allebi&amp;query=bfl1&amp;requestFrom=ebi_error">bfl1</a>...</p>
-    </div>
-  </fieldset></form>  </div>
-
-										
-      										
-		</section>    </section>
-
-        <!-- End example layout containers -->
-
-</div>
-
-<footer>
-
-    <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
-        <!--
-        <div id="local-footer" class="grid_24 clearfix">
-      <p>How to reference this page: ...</p>
-    </div>
-        -->
-        <!-- End optional local footer -->
-        
-    <div id="global-footer" class="grid_24">
-
-        <nav id="global-nav-expanded">
-
-            <div class="grid_4 alpha">
-                <h3 class="embl-ebi"><a href="//www.ebi.ac.uk/" title="EMBL-EBI">EMBL-EBI</a></h3>
-            </div>
-
-            <div class="grid_4">
-                <h3 class="services"><a href="//www.ebi.ac.uk/services">Services</a></h3>
-            </div>
-
-            <div class="grid_4">
-                <h3 class="research"><a href="//www.ebi.ac.uk/research">Research</a></h3>
-            </div>
-
-            <div class="grid_4">
-                <h3 class="training"><a href="//www.ebi.ac.uk/training">Training</a></h3>
-            </div>
-
-            <div class="grid_4">
-                <h3 class="industry"><a href="//www.ebi.ac.uk/industry">Industry</a></h3>
-            </div>
-
-            <div class="grid_4 omega">
-                <h3 class="about"><a href="//www.ebi.ac.uk/about">About us</a></h3>
-            </div>
-
-        </nav>
-
-        <section id="ebi-footer-meta">
-            <p class="address">EMBL-EBI, Wellcome Trust Genome Campus, Hinxton, Cambridgeshire, CB10 1SD, UK &nbsp; &nbsp; +44 (0)1223 49 44 44</p>
-            <p class="legal">Copyright &copy; EMBL-EBI 2013 | EBI is an Outstation of the <a href="http://www.embl.org">European Molecular Biology Laboratory</a> | <a href="/about/privacy">Privacy</a> | <a href="/about/cookies">Cookies</a> | <a href="/about/terms-of-use">Terms of use</a></p>
-        </section>
-
-    </div>
-        
-</footer>
-</div> <!--! end of #wrapper -->
-
-
-<!-- JavaScript at the bottom for fast page loading -->
-
-<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-<!--
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/libs/jquery-1.6.2.min.js"><\/script>')</script>
--->
-
-
-<!-- Your custom JavaScript file can go here... change names accordingly -->
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
-<!-- end scripts-->
-
-<!-- Google Analytics details... -->
-<!-- Change UA-XXXXX-X to be your site's ID -->
-<!--
-<script>
-  window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-  Modernizr.load({
-    load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-  });
-</script>
--->
-
-
-<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
-chromium.org/developers/how-tos/chrome-frame-getting-started -->
-<!--[if lt IE 7 ]>
-<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-<![endif]-->
-
-
-</body>
-</html>
+ 48 52  0  0  1  0            999 V2000
+    3.8896    2.0140    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6742    2.2689    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6347    1.2294    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    3.4047    2.6814    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6742    3.0939    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3887    1.8564    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8500    0.9744    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1196    0.5619    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    3.8896    3.3489    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3887    3.5064    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1032    2.2689    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8500    0.1494    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    3.6347   -0.1055    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    6.1032    3.0939    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3887    4.3314    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1826   -0.3355    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8896   -0.8901    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    0.0001    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -0.0001    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0964   -0.4850    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8500   -0.1494    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -3.0216    0.6575    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5645   -0.5619    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -3.8420    0.7438    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -4.1776   -0.0099    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -3.6507   -1.3824    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2545    1.4582    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.9846   -0.1814    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8420    2.1727    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.0795    1.4582    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2545    2.8872    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.4920    2.1727    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.0795    2.8872    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8420    3.6017    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2545    4.3161    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0170    3.6017    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -1.2374    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7144   -1.2375    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7144   -0.4125    0.0000 P   0  0  3  0  0  0  0  0  0  0  0  0
+   -0.7145    0.4124    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -0.4125    0.0000 P   0  0  3  0  0  0  0  0  0  0  0  0
+    0.7144    0.4125    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9446    0.5619    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9446   -0.8670    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1821   -0.1526    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3571   -0.1526    0.0000 P   0  0  3  0  0  0  0  0  0  0  0  0
+    5.7696   -0.8670    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  3  1  1  1  0  0  0
+  1  4  1  0  0  0  0
+  2  5  2  0  0  0  0
+  2  6  1  0  0  0  0
+  3  7  1  0  0  0  0
+  3  8  1  0  0  0  0
+  4  9  2  0  0  0  0
+  5 10  1  0  0  0  0
+  6 11  2  0  0  0  0
+  7 12  1  0  0  0  0
+  8 13  1  0  0  0  0
+  8 44  1  6  0  0  0
+ 10 14  2  0  0  0  0
+ 10 15  1  0  0  0  0
+ 12 16  1  1  0  0  0
+ 13 17  1  6  0  0  0
+ 16 18  1  0  0  0  0
+ 19 20  1  0  0  0  0
+ 21 20  1  6  0  0  0
+ 21 22  1  0  0  0  0
+ 21 23  1  0  0  0  0
+ 22 24  1  0  0  0  0
+ 23 25  1  0  0  0  0
+ 23 26  1  1  0  0  0
+ 24 27  1  6  0  0  0
+ 25 28  1  1  0  0  0
+ 27 29  1  0  0  0  0
+ 27 30  1  0  0  0  0
+ 29 31  2  0  0  0  0
+ 30 32  2  0  0  0  0
+ 31 33  1  0  0  0  0
+ 31 34  1  0  0  0  0
+ 34 35  2  0  0  0  0
+ 34 36  1  0  0  0  0
+  5  9  1  0  0  0  0
+ 11 14  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 24 25  1  0  0  0  0
+ 32 33  1  0  0  0  0
+ 18 42  1  0  0  0  0
+ 42 37  1  0  0  0  0
+ 37 40  1  0  0  0  0
+ 42 38  2  0  0  0  0
+ 40 19  1  0  0  0  0
+ 40 39  2  0  0  0  0
+ 40 41  1  0  0  0  0
+ 42 43  1  0  0  0  0
+ 44 47  1  0  0  0  0
+ 47 45  2  0  0  0  0
+ 47 46  1  0  0  0  0
+ 47 48  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00005</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>C00019545</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>ECMDB04111</data><type>ECMDB accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0000221</data><type>HMDB accession</type></DatabaseLinks><DatabaseLinks><data>MOL000028</data><type>COMe accession</type></DatabaseLinks><DatabaseLinks><data>NDP</data><type>PDBeChem accession</type></DatabaseLinks><DatabaseLinks><data>YMDB00426</data><type>YMDB accession</type></DatabaseLinks><OntologyParents><chebiName>NADPH(4-)</chebiName><chebiId>CHEBI:57783</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>NAD(P)H</chebiName><chebiId>CHEBI:13392</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>fundamental metabolite</chebiName><chebiId>CHEBI:78675</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>NADP</chebiName><chebiId>CHEBI:25523</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>(S)-NADPHX</chebiName><chebiId>CHEBI:64084</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>(R)-NADPHX</chebiName><chebiId>CHEBI:64085</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>NADPH(4-)</chebiName><chebiId>CHEBI:57783</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>19425150</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Escherichia coli</speciesText><speciesAccession>NCBI:562</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>21988831</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>blood</componentText><componentAccession>UBERON:0000178</componentAccession><SourceType>Article</SourceType><SourceAccession>Geigy Scientific Tables, 8th Rev edition, pp. 165-177. Edited by C. Lentner, West Cadwell, N.J.: Medical education Div., Ciba-Geigy Corp., Basel, Switzerland c1981-1992.</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS127</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>
