@@ -19,7 +19,10 @@ In this vignette, we will explain how to download and access entry information f
 
 First you need to create an instance of the `Biodb` class:
 ```{r}
+	logger <- biodb::BiodbLogger()
+	logger$includeMsgType('debug')
 mybiodb <- biodb::Biodb$new()
+	mybiodb <- Biodb$new(logger = FALSE, observers = c(logger))
 ```
 
 # Getting list of available databases
