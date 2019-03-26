@@ -19,8 +19,9 @@
 ################################################################
 
 #' @include BiodbCompounddbConn.R
+#' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
-ChebiConn <- methods::setRefClass("ChebiConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"), fields = list(.ws.values = 'list'))
+ChebiConn <- methods::setRefClass("ChebiConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"), fields = list(.ws.values = 'list'))
 
 # Constructor {{{1
 ################################################################
@@ -119,6 +120,13 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 	}
 
 	return(results)
+})
+
+# Search by name {{{1
+################################################################
+
+ChebiConn$methods( searchByName = function(name, max.results = NA_integer_) {
+	return(.self$searchCompound(name = name, max.results = max.results))
 })
 
 # Search compound {{{1

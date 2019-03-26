@@ -19,8 +19,9 @@
 ################################################################
 
 #' @include BiodbCompounddbConn.R
+#' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
-LipidmapsStructureConn = methods::setRefClass("LipidmapsStructureConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"))
+LipidmapsStructureConn = methods::setRefClass("LipidmapsStructureConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"))
 
 # Get entry content request {{{1
 ################################################################
@@ -193,6 +194,14 @@ LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NULL, outp
 	}
 
 	return(results)
+})
+
+
+# Search by name {{{1
+################################################################
+
+LipidmapsStructureConn$methods( searchByName = function(name, max.results = NA_integer_) {
+	return(.self$searchCompound(name = name, max.results = max.results))
 })
 
 # Search compound {{{1

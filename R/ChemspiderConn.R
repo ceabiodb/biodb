@@ -38,10 +38,11 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbCompounddbConn.R
+#' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
 #' @export ChemspiderConn
 #' @exportClass ChemspiderConn
-ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn"))
+ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"))
 
 # Get entry content {{{1
 ################################################################
@@ -319,6 +320,13 @@ ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0
 	}
 
 	return(results)
+})
+
+# Search by name {{{1
+################################################################
+
+ChemspiderConn$methods( searchByName = function(name, max.results = NA_integer_) {
+	return(.self$searchCompound(name = name, max.results = max.results))
 })
 
 # Search compound {{{1

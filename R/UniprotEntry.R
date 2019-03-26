@@ -27,8 +27,8 @@ UniprotEntry$methods( .isContentCorrect = function(content) {
 UniprotEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Remove new lines from sequence string
-	if (.self$hasField('SEQUENCE'))
-		.self$setField('SEQUENCE', gsub("\\n", "", .self$getFieldValue('SEQUENCE')))
+	if (.self$hasField('nt.seq'))
+		.self$setField('nt.seq', gsub("\\n", "", .self$getFieldValue('nt.seq')))
 
 	# Get synonyms
 	synonyms <- XML::xpathSApply(parsed.content, "//uniprot:protein//uniprot:fullName", XML::xmlValue, namespaces = .self$getParent()$getXmlNs())

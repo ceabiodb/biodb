@@ -9,7 +9,7 @@
 #'
 #' @param query The query to send to the database web service.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable.R}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -25,9 +25,10 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbRemotedbConn.R
+#' @include BiodbSearchable.R
 #' @export KeggConn
 #' @exportClass KeggConn
-KeggConn <- methods::setRefClass("KeggConn", contains = "BiodbRemotedbConn", fields = list(.db.name = "character", .db.abbrev = "character"))
+KeggConn <- methods::setRefClass("KeggConn", contains = c("BiodbRemotedbConn", "BiodbSearchable"), fields = list(.db.name = "character", .db.abbrev = "character"))
 
 # Constructor {{{1
 ################################################################
@@ -43,8 +44,6 @@ KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_
 	.db.name <<- db.name
 
 	# Set abbreviation
-	if (is.null(db.abbrev) || is.na(db.abbrev))
-		.self$message('error', "You must set an abbreviation for this KEGG database.")
 	.db.abbrev <<- db.abbrev
 })
 
@@ -52,7 +51,11 @@ KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_
 ################################################################
 
 KeggConn$methods( .complete.entry.id = function(id) {
-	return(paste(.self$.db.abbrev, id, sep = ':'))
+
+	if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+		id = paste(.self$.db.abbrev, id, sep = ':')
+
+	return(id)
 })
 
 # Get entry content request {{{1
@@ -73,7 +76,7 @@ KeggConn$methods( getEntryPageUrl = function(id) {
 ################################################################
 
 KeggConn$methods( ws.list = function(retfmt = c('plain', 'request', 'ids')) {
-	":\n\nGet lis of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
+	":\n\nGet list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
 	retfmt = match.arg(retfmt)
 
@@ -88,8 +91,12 @@ KeggConn$methods( ws.list = function(retfmt = c('plain', 'request', 'ids')) {
 
 	# Extract IDs
 	if (retfmt == 'ids') {
-		results <- strsplit(results, "\n")[[1]]
-		results <- sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', results, perl = TRUE)
+		results = strsplit(results, "\n")[[1]]
+		
+		if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+			results = sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', results, perl = TRUE)
+		else
+			results = sub('^([^\\s]+)\\s.*$', '\\1', results, perl = TRUE)
 	}
 
 	return(results)
@@ -126,6 +133,27 @@ KeggConn$methods( ws.find = function(query, retfmt = c('plain', 'request', 'pars
 	}
 
 	return(results)
+})
+
+# Search by name {{{1
+################################################################
+
+KeggConn$methods( searchByName = function(name, max.results = NA_integer_) {
+
+	ids <- NULL
+
+	# Search by name
+	if ( ! is.null(name) && ! is.na(name)) {
+		ids <- .self$ws.find(name, retfmt = 'ids')
+		if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+			ids <- sub('^[^:]*:', '', ids)
+	}
+
+	# Cut
+	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+		ids <- ids[1:max.results]
+
+	return(ids)
 })
 
 # Private methods {{{1
