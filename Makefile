@@ -8,7 +8,7 @@ ifndef BIODB_CACHE_DIRECTORY
 export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
 endif
 
-# Set reporter
+# Set testthat reporter
 ifndef TESTTHAT_REPORTER
 ifdef VIM
 TESTTHAT_REPORTER=summary
