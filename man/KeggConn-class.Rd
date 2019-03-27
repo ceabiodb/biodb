@@ -24,7 +24,7 @@ Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
 
 \item{\code{ws.list(retfmt = c("plain", "request", "ids"))}}{:
 
-Get lis of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
+Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
 }}
 
 \examples{
@@ -42,5 +42,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable.R}}.
 }

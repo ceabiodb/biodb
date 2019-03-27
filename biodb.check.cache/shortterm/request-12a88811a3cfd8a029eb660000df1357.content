@@ -1,0 +1,725 @@
+ID   A0A0T6YKY4_9RHIZ        Unreviewed;       294 AA.
+AC   A0A0T6YKY4;
+DT   17-FEB-2016, integrated into UniProtKB/TrEMBL.
+DT   17-FEB-2016, sequence version 1.
+DT   28-FEB-2018, entry version 14.
+DE   SubName: Full=Prion protein {ECO:0000313|EMBL:KSV74862.1};
+GN   ORFNames=N185_17840 {ECO:0000313|EMBL:KSV74862.1};
+OS   Sinorhizobium sp. GW3.
+OC   Bacteria; Proteobacteria; Alphaproteobacteria; Rhizobiales;
+OC   Rhizobiaceae; Sinorhizobium/Ensifer group; Sinorhizobium.
+OX   NCBI_TaxID=647869 {ECO:0000313|EMBL:KSV74862.1, ECO:0000313|Proteomes:UP000053486};
+RN   [1] {ECO:0000313|EMBL:KSV74862.1, ECO:0000313|Proteomes:UP000053486}
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=GW3 {ECO:0000313|EMBL:KSV74862.1,
+RC   ECO:0000313|Proteomes:UP000053486};
+RA   Pilkington S.;
+RL   Submitted (JUL-2013) to the EMBL/GenBank/DDBJ databases.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane
+CC       {ECO:0000256|RuleBase:RU363032}; Multi-pass membrane protein
+CC       {ECO:0000256|RuleBase:RU363032}.
+CC   -!- SIMILARITY: Belongs to the binding-protein-dependent transport
+CC       system permease family. {ECO:0000256|RuleBase:RU363032}.
+CC   -!- CAUTION: The sequence shown here is derived from an
+CC       EMBL/GenBank/DDBJ whole genome shotgun (WGS) entry which is
+CC       preliminary data. {ECO:0000313|EMBL:KSV74862.1}.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   EMBL; AUSY01000021; KSV74862.1; -; Genomic_DNA.
+DR   RefSeq; WP_029742707.1; NZ_AUSY01000021.1.
+DR   EnsemblBacteria; KSV74862; KSV74862; N185_17840.
+DR   GeneID; 29522917; -.
+DR   PATRIC; fig|647869.3.peg.1862; -.
+DR   Proteomes; UP000053486; Unassembled WGS sequence.
+DR   GO; GO:0016021; C:integral component of membrane; IEA:UniProtKB-KW.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0055085; P:transmembrane transport; IEA:InterPro.
+DR   CDD; cd06261; TM_PBP2; 1.
+DR   Gene3D; 1.10.3720.10; -; 1.
+DR   InterPro; IPR000515; MetI-like.
+DR   InterPro; IPR035906; MetI-like_sf.
+DR   Pfam; PF00528; BPD_transp_1; 1.
+DR   SUPFAM; SSF161098; SSF161098; 1.
+DR   PROSITE; PS50928; ABC_TM1; 1.
+PE   3: Inferred from homology;
+KW   Amyloid {ECO:0000313|EMBL:KSV74862.1};
+KW   Complete proteome {ECO:0000313|Proteomes:UP000053486};
+KW   Membrane {ECO:0000256|RuleBase:RU363032,
+KW   ECO:0000256|SAAS:SAAS00819286}; Prion {ECO:0000313|EMBL:KSV74862.1};
+KW   Transmembrane {ECO:0000256|RuleBase:RU363032,
+KW   ECO:0000256|SAAS:SAAS00819286};
+KW   Transmembrane helix {ECO:0000256|RuleBase:RU363032,
+KW   ECO:0000256|SAAS:SAAS00819286};
+KW   Transport {ECO:0000256|RuleBase:RU363032}.
+FT   TRANSMEM     12     34       Helical. {ECO:0000256|RuleBase:RU363032}.
+FT   TRANSMEM     41     60       Helical. {ECO:0000256|RuleBase:RU363032}.
+FT   TRANSMEM     66     85       Helical. {ECO:0000256|RuleBase:RU363032}.
+FT   TRANSMEM     92    113       Helical. {ECO:0000256|RuleBase:RU363032}.
+FT   TRANSMEM    133    158       Helical. {ECO:0000256|RuleBase:RU363032}.
+FT   TRANSMEM    212    232       Helical. {ECO:0000256|RuleBase:RU363032}.
+FT   DOMAIN       86    265       ABC transmembrane type-1.
+FT                                {ECO:0000259|PROSITE:PS50928}.
+SQ   SEQUENCE   294 AA;  31187 MW;  D0F7A692CEBCDA5E CRC64;
+     MTFDIGDGVD SAVNYILDNF APLLDLIAAA IGTVTNSIQA ALLAAPLALG LAIFVLLSLW
+     RVGFGFAVFT ALSLMLVEHM GLWSAMMETL SLVIASTLVA MLIGLPLGIA MARSDRVAAS
+     VRPMLDLMQT MPAFVYLIPA AMFFGLGAVP GTIATVIFSM PPVVRLTNLG IRQVHVEFIE
+     AGNAFGCTAW QLLVKVQLPN AMPSIMAGIN QTIMLSLSMV VIASMIGAGG IGNTVLTGIQ
+     RLDVGTGFEG GLAVVILAVI LDRITQSFGK ERASPWRVLF RRRQEQPRTS PVTA
+//
+ID   Q9I9C0_TRASC            Unreviewed;       270 AA.
+AC   Q9I9C0;
+DT   01-OCT-2000, integrated into UniProtKB/TrEMBL.
+DT   01-OCT-2000, sequence version 1.
+DT   16-JAN-2019, entry version 101.
+DE   SubName: Full=Prion protein {ECO:0000313|EMBL:CAB81568.1};
+GN   Name=prnp {ECO:0000313|EMBL:CAB81568.1};
+OS   Trachemys scripta (Red-eared slider turtle) (Pseudemys scripta).
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Archelosauria; Testudines; Cryptodira; Durocryptodira; Testudinoidea;
+OC   Emydidae; Trachemys.
+OX   NCBI_TaxID=34903 {ECO:0000313|EMBL:CAB81568.1};
+RN   [1] {ECO:0000313|EMBL:CAB81568.1}
+RP   NUCLEOTIDE SEQUENCE.
+RC   TISSUE=Liver {ECO:0000313|EMBL:CAB81568.1};
+RX   PubMed=10708751; DOI=10.1016/S0014-5793(00)01232-1;
+RA   Simonic T., Duga S., Strumbo B., Asselta R., Ceciliani F., Ronchi S.;
+RT   "cDNA cloning of turtle prion protein.";
+RL   FEBS Lett. 469:33-38(2000).
+RN   [2] {ECO:0000213|PDB:1U5L}
+RP   STRUCTURE BY NMR OF 143-248.
+RX   PubMed=15647366; DOI=10.1073/pnas.0408939102;
+RA   Calzolai L., Lysek D.A., Perez D.R., Guntert P., Wuthrich K.;
+RT   "Prion protein NMR structures of chickens, turtles, and frogs.";
+RL   Proc. Natl. Acad. Sci. U.S.A. 102:651-655(2005).
+CC   -!- SUBUNIT: Monomer and homodimer. Has a tendency to aggregate into
+CC       amyloid fibrils containing a cross-beta spine, formed by a steric
+CC       zipper of superposed beta-strands. Soluble oligomers may represent
+CC       an intermediate stage on the path to fibril formation. Copper
+CC       binding may promote oligomerization.
+CC       {ECO:0000256|SAAS:SAAS00537365}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane
+CC       {ECO:0000256|SAAS:SAAS00541856}; Lipid-anchor, GPI-anchor
+CC       {ECO:0000256|SAAS:SAAS00541856}.
+CC   -!- SIMILARITY: Belongs to the prion family.
+CC       {ECO:0000256|SAAS:SAAS00541861}.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   EMBL; AJ245488; CAB81568.1; -; mRNA.
+DR   PDB; 1U5L; NMR; -; A=143-248.
+DR   PDBsum; 1U5L; -.
+DR   ProteinModelPortal; Q9I9C0; -.
+DR   SMR; Q9I9C0; -.
+DR   HOVERGEN; HBG008260; -.
+DR   EvolutionaryTrace; Q9I9C0; -.
+DR   GO; GO:0016021; C:integral component of membrane; IEA:UniProtKB-KW.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0046872; F:metal ion binding; IEA:UniProtKB-KW.
+DR   GO; GO:0051260; P:protein homooligomerization; IEA:InterPro.
+DR   Gene3D; 1.10.790.10; -; 1.
+DR   InterPro; IPR000817; Prion.
+DR   InterPro; IPR036924; Prion/Doppel_b-ribbon_dom_sf.
+DR   InterPro; IPR022416; Prion/Doppel_prot_b-ribbon_dom.
+DR   InterPro; IPR025860; Prion_N_dom.
+DR   PANTHER; PTHR10502:SF134; PTHR10502:SF134; 1.
+DR   Pfam; PF00377; Prion; 1.
+DR   Pfam; PF11587; Prion_bPrPp; 1.
+DR   SMART; SM00157; PRP; 1.
+DR   SUPFAM; SSF54098; SSF54098; 1.
+DR   PROSITE; PS00291; PRION_1; 1.
+PE   1: Evidence at protein level;
+KW   3D-structure {ECO:0000213|PDB:1U5L};
+KW   Amyloid {ECO:0000313|EMBL:CAB81568.1};
+KW   Cell membrane {ECO:0000256|SAAS:SAAS00017656};
+KW   Copper {ECO:0000256|SAAS:SAAS00944119};
+KW   Disulfide bond {ECO:0000256|SAAS:SAAS00017659};
+KW   Membrane {ECO:0000256|SAAS:SAAS00017656, ECO:0000256|SAM:Phobius};
+KW   Metal-binding {ECO:0000256|SAAS:SAAS00944118};
+KW   Prion {ECO:0000313|EMBL:CAB81568.1};
+KW   Repeat {ECO:0000256|SAAS:SAAS00007072};
+KW   Signal {ECO:0000256|SAM:SignalP};
+KW   Transmembrane {ECO:0000256|SAM:Phobius};
+KW   Transmembrane helix {ECO:0000256|SAM:Phobius}.
+FT   SIGNAL        1     24       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        25    270       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5004331393.
+FT   TRANSMEM    133    153       Helical. {ECO:0000256|SAM:Phobius}.
+FT   TRANSMEM    251    269       Helical. {ECO:0000256|SAM:Phobius}.
+FT   DOMAIN      135    150       Prion/Doppel_prot_b-ribbon_dom.
+FT                                {ECO:0000259|PROSITE:PS00291}.
+SQ   SEQUENCE   270 AA;  30149 MW;  E37DCB9F6F885850 CRC64;
+     MGRYRLTCWI VVLLVVMWSD VSFSKKGKGK GGGGGNTGSN RNPNYPSNPG YPQNPGYPRN
+     PSYPHNPAYP PNPAYPPNPG YPHNPSYPRN PSYPQNPGYP GGGGQHYNPA GGGTNFKNQK
+     PWKPDKPKTN MKAMAGAAAA GAVVGGLGGY ALGSAMSGMR MNFDRPEERQ WWNENSNRYP
+     NQVYYKEYND RSVPEGRFVR DCLNNTVTEY KIDPNENQNV TQVEVRVMKQ VIQEMCMQQY
+     QQYQLASGVK LLSDPSLMLI IMLVIFFVMH
+//
+ID   Q9I9F2_COTCO            Unreviewed;       266 AA.
+AC   Q9I9F2;
+DT   01-OCT-2000, integrated into UniProtKB/TrEMBL.
+DT   01-OCT-2000, sequence version 1.
+DT   10-OCT-2018, entry version 80.
+DE   SubName: Full=Prion protein {ECO:0000313|EMBL:AAF73437.1};
+GN   Name=PrP {ECO:0000313|EMBL:AAF73437.1};
+OS   Coturnix coturnix (Common quail) (Tetrao coturnix).
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Archelosauria; Archosauria; Dinosauria; Saurischia; Theropoda;
+OC   Coelurosauria; Aves; Neognathae; Galloanserae; Galliformes;
+OC   Phasianidae; Perdicinae; Coturnix.
+OX   NCBI_TaxID=9091 {ECO:0000313|EMBL:AAF73437.1};
+RN   [1] {ECO:0000313|EMBL:AAF73437.1}
+RP   NUCLEOTIDE SEQUENCE.
+RA   Zhang L., Wang Q., Fan B., Li N.;
+RT   "Molecular Cloning of Prion Genes in Quail and Pigeon.";
+RL   Submitted (APR-2000) to the EMBL/GenBank/DDBJ databases.
+CC   -!- SUBUNIT: Monomer and homodimer. Has a tendency to aggregate into
+CC       amyloid fibrils containing a cross-beta spine, formed by a steric
+CC       zipper of superposed beta-strands. Soluble oligomers may represent
+CC       an intermediate stage on the path to fibril formation. Copper
+CC       binding may promote oligomerization.
+CC       {ECO:0000256|SAAS:SAAS00537365}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane
+CC       {ECO:0000256|SAAS:SAAS00541856}; Lipid-anchor, GPI-anchor
+CC       {ECO:0000256|SAAS:SAAS00541856}.
+CC   -!- SIMILARITY: Belongs to the prion family.
+CC       {ECO:0000256|SAAS:SAAS00541861}.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   EMBL; AF256082; AAF73437.1; -; Genomic_DNA.
+DR   ProteinModelPortal; Q9I9F2; -.
+DR   HOVERGEN; HBG008260; -.
+DR   GO; GO:0005604; C:basement membrane; ISS:AgBase.
+DR   GO; GO:0005623; C:cell; ISS:AgBase.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0043083; C:synaptic cleft; ISS:AgBase.
+DR   GO; GO:0046872; F:metal ion binding; IEA:UniProtKB-KW.
+DR   GO; GO:0010628; P:positive regulation of gene expression; ISS:AgBase.
+DR   GO; GO:0050731; P:positive regulation of peptidyl-tyrosine phosphorylation; ISS:AgBase.
+DR   GO; GO:0010870; P:positive regulation of receptor biosynthetic process; ISS:AgBase.
+DR   GO; GO:0051260; P:protein homooligomerization; IEA:InterPro.
+DR   GO; GO:0098737; P:protein insertion into plasma membrane; ISS:AgBase.
+DR   Gene3D; 1.10.790.10; -; 1.
+DR   InterPro; IPR000817; Prion.
+DR   InterPro; IPR036924; Prion/Doppel_b-ribbon_dom_sf.
+DR   InterPro; IPR022416; Prion/Doppel_prot_b-ribbon_dom.
+DR   InterPro; IPR025860; Prion_N_dom.
+DR   PANTHER; PTHR10502:SF134; PTHR10502:SF134; 1.
+DR   Pfam; PF00377; Prion; 1.
+DR   Pfam; PF11587; Prion_bPrPp; 1.
+DR   SMART; SM00157; PRP; 1.
+DR   SUPFAM; SSF54098; SSF54098; 1.
+DR   PROSITE; PS00291; PRION_1; 1.
+DR   PROSITE; PS00706; PRION_2; 1.
+PE   3: Inferred from homology;
+KW   Amyloid {ECO:0000313|EMBL:AAF73437.1};
+KW   Cell membrane {ECO:0000256|SAAS:SAAS00017656};
+KW   Copper {ECO:0000256|SAAS:SAAS00944119};
+KW   Disulfide bond {ECO:0000256|SAAS:SAAS00017659};
+KW   Membrane {ECO:0000256|SAAS:SAAS00017656};
+KW   Metal-binding {ECO:0000256|SAAS:SAAS00944118};
+KW   Prion {ECO:0000313|EMBL:AAF73437.1};
+KW   Repeat {ECO:0000256|SAAS:SAAS00007072};
+KW   Signal {ECO:0000256|SAM:SignalP}.
+FT   SIGNAL        1     24       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        25    266       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5004327221.
+FT   DOMAIN      120    135       Prion/Doppel_prot_b-ribbon_dom.
+FT                                {ECO:0000259|PROSITE:PS00291}.
+FT   DOMAIN      217    235       Prion/Doppel_prot_b-ribbon_dom.
+FT                                {ECO:0000259|PROSITE:PS00706}.
+SQ   SEQUENCE   266 AA;  29151 MW;  F5C859D331802DB0 CRC64;
+     MARLLTTCCL LALLLAACTD VALSKKGKGK PSGGGWGAGS HRQPSYPRQP GYPHNPGYPH
+     NPGYPHNPGY PHNPGYPQNP GYPHNPGYPG WGQGYNPSSG GSYHNQKPWK PPKTNFKHVA
+     GAAAAGAVVG GLGGYAMGRV MSGMSYRFDS PDEYRWWNEN SARYPNRVYY RDYSSPVSQD
+     VFVADCFNIT VTEYSIGPAA KKNTSEAVPA ANQTDVEMEN KVVTKVIREM CVQQYREYRL
+     ASGIQLHPAD TWLAVLLLLT TLFAMH
+//
+ID   A0A3B4BAX5_9GOBI        Unreviewed;       397 AA.
+AC   A0A3B4BAX5;
+DT   05-DEC-2018, integrated into UniProtKB/TrEMBL.
+DT   05-DEC-2018, sequence version 1.
+DT   13-FEB-2019, entry version 3.
+DE   SubName: Full=Prion protein b {ECO:0000313|Ensembl:ENSPMGP00000026678};
+OS   Periophthalmus magnuspinnatus.
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Actinopterygii; Neopterygii; Teleostei; Neoteleostei; Acanthomorphata;
+OC   Gobiaria; Gobiiformes; Gobioidei; Gobiidae; Oxudercinae;
+OC   Periophthalmus.
+OX   NCBI_TaxID=409849 {ECO:0000313|Ensembl:ENSPMGP00000026678, ECO:0000313|Proteomes:UP000261520};
+RN   [1] {ECO:0000313|Proteomes:UP000261520}
+RP   NUCLEOTIDE SEQUENCE.
+RA   Bian C.;
+RL   Submitted (DEC-2013) to the EMBL/GenBank/DDBJ databases.
+RN   [2] {ECO:0000313|Ensembl:ENSPMGP00000026678}
+RP   NUCLEOTIDE SEQUENCE.
+RA   Schubert J.;
+RL   Submitted (DEC-2013) to the EMBL/GenBank/DDBJ databases.
+RN   [3] {ECO:0000313|Ensembl:ENSPMGP00000026678, ECO:0000313|Proteomes:UP000261520}
+RP   NUCLEOTIDE SEQUENCE.
+RX   PubMed=25463417;
+RA   You X., Bian C., Zan Q., Xu X., Liu X., Chen J., Wang J., Qiu Y.,
+RA   Li W., Zhang X., Sun Y., Chen S., Hong W., Li Y., Cheng S., Fan G.,
+RA   Shi C., Liang J., Tom Tang Y., Yang C., Ruan Z., Bai J., Peng C.,
+RA   Mu Q., Lu J., Fan M., Yang S., Huang Z., Jiang X., Fang X., Zhang G.,
+RA   Zhang Y., Polgar G., Yu H., Li J., Liu Z., Zhang G., Ravi V.,
+RA   Coon S.L., Wang J., Yang H., Venkatesh B., Wang J., Shi Q.;
+RT   "Mudskipper genomes provide insights into the terrestrial adaptation
+RT   of amphibious fishes.";
+RL   Nat. Commun. 5:5594-5594(2014).
+RN   [4] {ECO:0000313|Ensembl:ENSPMGP00000026678}
+RP   IDENTIFICATION.
+RG   Ensembl;
+RL   Submitted (OCT-2018) to UniProtKB.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   Ensembl; ENSPMGT00000028414; ENSPMGP00000026678; ENSPMGG00000021521.
+DR   GeneTree; ENSGT00530000064873; -.
+DR   Proteomes; UP000261520; Whole Genome Shotgun Assembly.
+DR   GO; GO:0016021; C:integral component of membrane; IEA:UniProtKB-KW.
+DR   GO; GO:0051260; P:protein homooligomerization; IEA:InterPro.
+DR   Gene3D; 1.10.790.10; -; 1.
+DR   InterPro; IPR036924; Prion/Doppel_b-ribbon_dom_sf.
+DR   SUPFAM; SSF54098; SSF54098; 1.
+PE   4: Predicted;
+KW   Complete proteome {ECO:0000313|Proteomes:UP000261520};
+KW   Membrane {ECO:0000256|SAM:Phobius};
+KW   Reference proteome {ECO:0000313|Proteomes:UP000261520};
+KW   Signal {ECO:0000256|SAM:SignalP};
+KW   Transmembrane {ECO:0000256|SAM:Phobius};
+KW   Transmembrane helix {ECO:0000256|SAM:Phobius}.
+FT   SIGNAL        1     26       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        27    397       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5017346259.
+FT   TRANSMEM    231    250       Helical. {ECO:0000256|SAM:Phobius}.
+FT   TRANSMEM    374    396       Helical. {ECO:0000256|SAM:Phobius}.
+SQ   SEQUENCE   397 AA;  42551 MW;  1B9C45A3112DF6FD CRC64;
+     MMGWLSGTVL ISLLTMGLLY FDGTLAKKGG GFGGGKKPSS SSNRLGSTKP SNSQPGNYPR
+     QPQPPNRNPN PYPAGGSYPQ PGAGNTNPGG YPRQNPGGNP AGGYPAAGGY PNQPGRGNYP
+     NQNPAGGYPA AGAGGYPAAG GYPNTGWGGG YPVRGGNTGQ GWGAPGSYPG GYPGGGMGGY
+     PNWNPNNKIL SPRYGVGSYG GYGNGGSPFA RSAMNQGFMP KVESKGFAKK AMLAAGVGAM
+     AGMAVGYGLG RFPRPHFNFR SHEEENYYNN YMYRRYGTQS TDQKDYGRDY EYKPPPRAES
+     YDKFMDKCMN RTDLLKDQVK SEVDDEDKDT VSIEEIGYPL LIEQMKARRC VEMYMAYSEQ
+     FLQKRAEPQI QNKGSLLCIS QLFTSVVILL SSMFLLQ
+//
+ID   A0A3B3ZHD6_9GOBI        Unreviewed;       493 AA.
+AC   A0A3B3ZHD6;
+DT   05-DEC-2018, integrated into UniProtKB/TrEMBL.
+DT   05-DEC-2018, sequence version 1.
+DT   13-FEB-2019, entry version 3.
+DE   SubName: Full=Prion protein, related sequence 3 {ECO:0000313|Ensembl:ENSPMGP00000003974};
+OS   Periophthalmus magnuspinnatus.
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Actinopterygii; Neopterygii; Teleostei; Neoteleostei; Acanthomorphata;
+OC   Gobiaria; Gobiiformes; Gobioidei; Gobiidae; Oxudercinae;
+OC   Periophthalmus.
+OX   NCBI_TaxID=409849 {ECO:0000313|Ensembl:ENSPMGP00000003974, ECO:0000313|Proteomes:UP000261520};
+RN   [1] {ECO:0000313|Proteomes:UP000261520}
+RP   NUCLEOTIDE SEQUENCE.
+RA   Bian C.;
+RL   Submitted (DEC-2013) to the EMBL/GenBank/DDBJ databases.
+RN   [2] {ECO:0000313|Ensembl:ENSPMGP00000003974}
+RP   NUCLEOTIDE SEQUENCE.
+RA   Schubert J.;
+RL   Submitted (DEC-2013) to the EMBL/GenBank/DDBJ databases.
+RN   [3] {ECO:0000313|Ensembl:ENSPMGP00000003974, ECO:0000313|Proteomes:UP000261520}
+RP   NUCLEOTIDE SEQUENCE.
+RX   PubMed=25463417;
+RA   You X., Bian C., Zan Q., Xu X., Liu X., Chen J., Wang J., Qiu Y.,
+RA   Li W., Zhang X., Sun Y., Chen S., Hong W., Li Y., Cheng S., Fan G.,
+RA   Shi C., Liang J., Tom Tang Y., Yang C., Ruan Z., Bai J., Peng C.,
+RA   Mu Q., Lu J., Fan M., Yang S., Huang Z., Jiang X., Fang X., Zhang G.,
+RA   Zhang Y., Polgar G., Yu H., Li J., Liu Z., Zhang G., Ravi V.,
+RA   Coon S.L., Wang J., Yang H., Venkatesh B., Wang J., Shi Q.;
+RT   "Mudskipper genomes provide insights into the terrestrial adaptation
+RT   of amphibious fishes.";
+RL   Nat. Commun. 5:5594-5594(2014).
+RN   [4] {ECO:0000313|Ensembl:ENSPMGP00000003974}
+RP   IDENTIFICATION.
+RG   Ensembl;
+RL   Submitted (OCT-2018) to UniProtKB.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   Ensembl; ENSPMGT00000004220; ENSPMGP00000003974; ENSPMGG00000003396.
+DR   GeneTree; ENSGT00530000064873; -.
+DR   Proteomes; UP000261520; Whole Genome Shotgun Assembly.
+DR   GO; GO:0016021; C:integral component of membrane; IEA:UniProtKB-KW.
+DR   GO; GO:0051260; P:protein homooligomerization; IEA:InterPro.
+DR   Gene3D; 1.10.790.10; -; 1.
+DR   InterPro; IPR036924; Prion/Doppel_b-ribbon_dom_sf.
+DR   SUPFAM; SSF54098; SSF54098; 1.
+PE   4: Predicted;
+KW   Complete proteome {ECO:0000313|Proteomes:UP000261520};
+KW   Membrane {ECO:0000256|SAM:Phobius};
+KW   Reference proteome {ECO:0000313|Proteomes:UP000261520};
+KW   Signal {ECO:0000256|SAM:SignalP};
+KW   Transmembrane {ECO:0000256|SAM:Phobius};
+KW   Transmembrane helix {ECO:0000256|SAM:Phobius}.
+FT   SIGNAL        1     21       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        22    493       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5017363202.
+FT   TRANSMEM    471    492       Helical. {ECO:0000256|SAM:Phobius}.
+SQ   SEQUENCE   493 AA;  52254 MW;  7F8BEDEE4D7832F1 CRC64;
+     MKLTVFLCLA IVLVNFHIIQ AKKKESLLDK LFNKNKNSKP KPNSNQFNQR GSVHKQNTPG
+     SPYNPRPQQP APGHPAQGGY PGQGGYPAQG GYPAQGGYPA QGGYPAQGGY PAQGGYPAQG
+     GHPPQGGYPG QGGYPAQGGY PAHGGYPGQG GYPAQGGYPA QGGYPGQGGY PGQGGYPGQG
+     YGTYGSYGGT GGHGGGYPGT YINQNPNNHI LSPHYGGSFG YGGYAPGGGS PFARSAQAMG
+     YVPSEKSKGF GRNAVMAAAG GAVAGMALGY GLGRFPRPHF HFHSPEEEYY YNYYMYKRYG
+     VRSTDANDFS RDYSYKAPPE SYDTFMNTCM KRKDLLPTPK KSKPTTTKSP TTTTTSTTTT
+     TTTVTPSHPN NITATANHSS TLPTTSASPK PFEATHGPTP GVPAAMAVRN TAEDEDDDTV
+     SVVEIGYPAL IEQLKVRRCL ELYIVHSEKY LRKNTTPRPR GGGQLQTGSH WIIFVLTTSI
+     VIIMNGQVSL LLH
+//
+ID   A0A1A8CI08_9TELE        Unreviewed;       157 AA.
+AC   A0A1A8CI08;
+DT   05-OCT-2016, integrated into UniProtKB/TrEMBL.
+DT   05-OCT-2016, sequence version 1.
+DT   02-NOV-2016, entry version 2.
+DE   SubName: Full=Shadow of prion protein 2 {ECO:0000313|EMBL:SBP78390.1};
+GN   Name=SPRN2 {ECO:0000313|EMBL:SBP78390.1};
+OS   Nothobranchius kadleci.
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Actinopterygii; Neopterygii; Teleostei; Neoteleostei; Acanthomorphata;
+OC   Ovalentaria; Atherinomorphae; Cyprinodontiformes; Nothobranchiidae;
+OC   Nothobranchius.
+OX   NCBI_TaxID=1051664 {ECO:0000313|EMBL:SBP78390.1};
+RN   [1] {ECO:0000313|EMBL:SBP78390.1}
+RP   NUCLEOTIDE SEQUENCE.
+RC   TISSUE=Brain {ECO:0000313|EMBL:SBP78390.1};
+RA   Lavstsen T., Jespersen J.S.;
+RL   Submitted (MAY-2016) to the EMBL/GenBank/DDBJ databases.
+RN   [2] {ECO:0000313|EMBL:SBP78390.1}
+RP   NUCLEOTIDE SEQUENCE.
+RC   TISSUE=Brain {ECO:0000313|EMBL:SBP78390.1};
+RA   Reichwald K., Felder M., Petzold A., Koch P., Groth M., Platzer M.;
+RT   "The genome of a short-lived fish provides insights into sex
+RT   chromosome evolution and the genetic control of aging.";
+RL   Submitted (JUN-2016) to the EMBL/GenBank/DDBJ databases.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   EMBL; HADZ01014449; SBP78390.1; -; Transcribed_RNA.
+PE   4: Predicted;
+KW   Amyloid {ECO:0000313|EMBL:SBP78390.1};
+KW   Prion {ECO:0000313|EMBL:SBP78390.1}; Signal {ECO:0000256|SAM:SignalP}.
+FT   SIGNAL        1     35       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        36    157       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5008367659.
+SQ   SEQUENCE   157 AA;  16594 MW;  E232BB830F1CDEE7 CRC64;
+     MFCYVCSSLM AAQQRILSLW LLLLLLAALC PAADSKRGGS SKASGKSDGE KASPSHGRGL
+     SKQGLKWAGA AAAGMLGGTG TGYGLGFFGK SKHKTGKHKT TASEQHQQAH DQEAQRNPNQ
+     SVWSAFVKGA APAKSSNHFL TFGHVLAFLT AAWMREF
+//
+ID   U3JBX2_FICAL            Unreviewed;       231 AA.
+AC   U3JBX2;
+DT   13-NOV-2013, integrated into UniProtKB/TrEMBL.
+DT   13-NOV-2013, sequence version 1.
+DT   16-JAN-2019, entry version 43.
+DE   SubName: Full=Prion protein {ECO:0000313|Ensembl:ENSFALP00000000276};
+GN   Name=PRNP {ECO:0000313|Ensembl:ENSFALP00000000276};
+OS   Ficedula albicollis (Collared flycatcher) (Muscicapa albicollis).
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Archelosauria; Archosauria; Dinosauria; Saurischia; Theropoda;
+OC   Coelurosauria; Aves; Neognathae; Passeriformes; Muscicapidae;
+OC   Ficedula.
+OX   NCBI_TaxID=59894 {ECO:0000313|Ensembl:ENSFALP00000000276, ECO:0000313|Proteomes:UP000016665};
+RN   [1] {ECO:0000313|Ensembl:ENSFALP00000000276}
+RP   IDENTIFICATION.
+RG   Ensembl;
+RL   Submitted (SEP-2013) to UniProtKB.
+CC   -!- SUBUNIT: Monomer and homodimer. Has a tendency to aggregate into
+CC       amyloid fibrils containing a cross-beta spine, formed by a steric
+CC       zipper of superposed beta-strands. Soluble oligomers may represent
+CC       an intermediate stage on the path to fibril formation. Copper
+CC       binding may promote oligomerization.
+CC       {ECO:0000256|SAAS:SAAS00590412}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane
+CC       {ECO:0000256|SAAS:SAAS00541856}; Lipid-anchor, GPI-anchor
+CC       {ECO:0000256|SAAS:SAAS00541856}.
+CC   -!- SIMILARITY: Belongs to the prion family.
+CC       {ECO:0000256|SAAS:SAAS00541861}.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   EMBL; AGTO01021793; -; NOT_ANNOTATED_CDS; Genomic_DNA.
+DR   Ensembl; ENSFALT00000000279; ENSFALP00000000276; ENSFALG00000000268.
+DR   GeneTree; ENSGT00510000049083; -.
+DR   OMA; HNPGYPH; -.
+DR   Proteomes; UP000016665; Unplaced.
+DR   GO; GO:0009986; C:cell surface; IEA:Ensembl.
+DR   GO; GO:0005829; C:cytosol; IEA:Ensembl.
+DR   GO; GO:0030425; C:dendrite; IEA:Ensembl.
+DR   GO; GO:0005783; C:endoplasmic reticulum; IEA:Ensembl.
+DR   GO; GO:0005794; C:Golgi apparatus; IEA:Ensembl.
+DR   GO; GO:0016234; C:inclusion body; IEA:Ensembl.
+DR   GO; GO:0045121; C:membrane raft; IEA:Ensembl.
+DR   GO; GO:0031965; C:nuclear membrane; IEA:Ensembl.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0001540; F:amyloid-beta binding; IEA:Ensembl.
+DR   GO; GO:1903135; F:cupric ion binding; IEA:Ensembl.
+DR   GO; GO:1903136; F:cuprous ion binding; IEA:Ensembl.
+DR   GO; GO:0005539; F:glycosaminoglycan binding; IEA:Ensembl.
+DR   GO; GO:0042802; F:identical protein binding; IEA:Ensembl.
+DR   GO; GO:0008017; F:microtubule binding; IEA:Ensembl.
+DR   GO; GO:0002020; F:protease binding; IEA:Ensembl.
+DR   GO; GO:0044877; F:protein-containing complex binding; IEA:Ensembl.
+DR   GO; GO:0038023; F:signaling receptor activity; IEA:Ensembl.
+DR   GO; GO:0031802; F:type 5 metabotropic glutamate receptor binding; IEA:Ensembl.
+DR   GO; GO:0032147; P:activation of protein kinase activity; IEA:Ensembl.
+DR   GO; GO:0035584; P:calcium-mediated signaling using intracellular calcium source; IEA:Ensembl.
+DR   GO; GO:1904646; P:cellular response to amyloid-beta; IEA:Ensembl.
+DR   GO; GO:0071280; P:cellular response to copper ion; IEA:Ensembl.
+DR   GO; GO:0035690; P:cellular response to drug; IEA:Ensembl.
+DR   GO; GO:0007611; P:learning or memory; IEA:Ensembl.
+DR   GO; GO:0090647; P:modulation of age-related behavioral decline; IEA:Ensembl.
+DR   GO; GO:0046007; P:negative regulation of activated T cell proliferation; IEA:Ensembl.
+DR   GO; GO:1902430; P:negative regulation of amyloid-beta formation; IEA:Ensembl.
+DR   GO; GO:0043066; P:negative regulation of apoptotic process; IEA:Ensembl.
+DR   GO; GO:0070885; P:negative regulation of calcineurin-NFAT signaling cascade; IEA:Ensembl.
+DR   GO; GO:1902951; P:negative regulation of dendritic spine maintenance; IEA:Ensembl.
+DR   GO; GO:0043433; P:negative regulation of DNA-binding transcription factor activity; IEA:Ensembl.
+DR   GO; GO:0032689; P:negative regulation of interferon-gamma production; IEA:Ensembl.
+DR   GO; GO:0032700; P:negative regulation of interleukin-17 production; IEA:Ensembl.
+DR   GO; GO:0032703; P:negative regulation of interleukin-2 production; IEA:Ensembl.
+DR   GO; GO:0001933; P:negative regulation of protein phosphorylation; IEA:Ensembl.
+DR   GO; GO:0050860; P:negative regulation of T cell receptor signaling pathway; IEA:Ensembl.
+DR   GO; GO:1990535; P:neuron projection maintenance; IEA:Ensembl.
+DR   GO; GO:0043525; P:positive regulation of neuron apoptotic process; IEA:Ensembl.
+DR   GO; GO:1903078; P:positive regulation of protein localization to plasma membrane; IEA:Ensembl.
+DR   GO; GO:0090314; P:positive regulation of protein targeting to membrane; IEA:Ensembl.
+DR   GO; GO:0061098; P:positive regulation of protein tyrosine kinase activity; IEA:Ensembl.
+DR   GO; GO:0031648; P:protein destabilization; IEA:Ensembl.
+DR   GO; GO:0051260; P:protein homooligomerization; IEA:Ensembl.
+DR   GO; GO:1905664; P:regulation of calcium ion import across plasma membrane; IEA:Ensembl.
+DR   GO; GO:1900449; P:regulation of glutamate receptor signaling pathway; IEA:Ensembl.
+DR   GO; GO:1902938; P:regulation of intracellular calcium activated chloride channel activity; IEA:Ensembl.
+DR   GO; GO:1901379; P:regulation of potassium ion transmembrane transport; IEA:Ensembl.
+DR   GO; GO:0006979; P:response to oxidative stress; IEA:Ensembl.
+DR   Gene3D; 1.10.790.10; -; 1.
+DR   InterPro; IPR000817; Prion.
+DR   InterPro; IPR036924; Prion/Doppel_b-ribbon_dom_sf.
+DR   InterPro; IPR022416; Prion/Doppel_prot_b-ribbon_dom.
+DR   PANTHER; PTHR10502:SF134; PTHR10502:SF134; 1.
+DR   Pfam; PF00377; Prion; 1.
+DR   SMART; SM00157; PRP; 1.
+DR   SUPFAM; SSF54098; SSF54098; 1.
+PE   3: Inferred from homology;
+KW   Cell membrane {ECO:0000256|SAAS:SAAS00017656};
+KW   Complete proteome {ECO:0000313|Proteomes:UP000016665};
+KW   Copper {ECO:0000256|SAAS:SAAS00944119};
+KW   Disulfide bond {ECO:0000256|SAAS:SAAS00017659};
+KW   Membrane {ECO:0000256|SAAS:SAAS00017656};
+KW   Metal-binding {ECO:0000256|SAAS:SAAS00944118};
+KW   Reference proteome {ECO:0000313|Proteomes:UP000016665};
+KW   Repeat {ECO:0000256|SAAS:SAAS00129909};
+KW   Signal {ECO:0000256|SAM:SignalP}.
+FT   SIGNAL        1     25       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        26    231       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5004644375.
+FT   DOMAIN      104    230       Prion/Doppel_prot_b-ribbon_dom.
+FT                                {ECO:0000259|Pfam:PF00377}.
+SQ   SEQUENCE   231 AA;  25333 MW;  651714F74943DEA7 CRC64;
+     MARLLGTRCL LLLLLLGVCT DIARAKKGKG KPGWGGGSHR QPSYPPGYPH NPGYPGWGQG
+     YNPSSGGSYH QKPWKAPKPK PSFKGAAAGA VVGGLGGYAM GRVMSGMHYR FDSPDEYRWW
+     NENAARYPNQ VYYRDYRDQR GPVPQDVFVA DCFNITVTEH NIGPAAKRNA SEAGAAVNQT
+     EAELEARVVT KVIREMCIQQ YQEYRLGSGM RPHLADASLA ALLLLVLFAL H
+//
+ID   A0A3B4B690_9GOBI        Unreviewed;       155 AA.
+AC   A0A3B4B690;
+DT   05-DEC-2018, integrated into UniProtKB/TrEMBL.
+DT   05-DEC-2018, sequence version 1.
+DT   13-FEB-2019, entry version 3.
+DE   SubName: Full=Shadow of prion protein {ECO:0000313|Ensembl:ENSPMGP00000025207};
+OS   Periophthalmus magnuspinnatus.
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Actinopterygii; Neopterygii; Teleostei; Neoteleostei; Acanthomorphata;
+OC   Gobiaria; Gobiiformes; Gobioidei; Gobiidae; Oxudercinae;
+OC   Periophthalmus.
+OX   NCBI_TaxID=409849 {ECO:0000313|Ensembl:ENSPMGP00000025207, ECO:0000313|Proteomes:UP000261520};
+RN   [1] {ECO:0000313|Ensembl:ENSPMGP00000025207}
+RP   NUCLEOTIDE SEQUENCE.
+RA   Schubert J.;
+RL   Submitted (DEC-2013) to the EMBL/GenBank/DDBJ databases.
+RN   [2] {ECO:0000313|Proteomes:UP000261520}
+RP   NUCLEOTIDE SEQUENCE.
+RA   Bian C.;
+RL   Submitted (DEC-2013) to the EMBL/GenBank/DDBJ databases.
+RN   [3] {ECO:0000313|Ensembl:ENSPMGP00000025207, ECO:0000313|Proteomes:UP000261520}
+RP   NUCLEOTIDE SEQUENCE.
+RX   PubMed=25463417;
+RA   You X., Bian C., Zan Q., Xu X., Liu X., Chen J., Wang J., Qiu Y.,
+RA   Li W., Zhang X., Sun Y., Chen S., Hong W., Li Y., Cheng S., Fan G.,
+RA   Shi C., Liang J., Tom Tang Y., Yang C., Ruan Z., Bai J., Peng C.,
+RA   Mu Q., Lu J., Fan M., Yang S., Huang Z., Jiang X., Fang X., Zhang G.,
+RA   Zhang Y., Polgar G., Yu H., Li J., Liu Z., Zhang G., Ravi V.,
+RA   Coon S.L., Wang J., Yang H., Venkatesh B., Wang J., Shi Q.;
+RT   "Mudskipper genomes provide insights into the terrestrial adaptation
+RT   of amphibious fishes.";
+RL   Nat. Commun. 5:5594-5594(2014).
+RN   [4] {ECO:0000313|Ensembl:ENSPMGP00000025207}
+RP   IDENTIFICATION.
+RG   Ensembl;
+RL   Submitted (OCT-2018) to UniProtKB.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   Ensembl; ENSPMGT00000026848; ENSPMGP00000025207; ENSPMGG00000020363.
+DR   GeneTree; ENSGT00730000112146; -.
+DR   Proteomes; UP000261520; Whole Genome Shotgun Assembly.
+DR   GO; GO:0031225; C:anchored component of membrane; IEA:InterPro.
+DR   InterPro; IPR029238; Shadoo.
+DR   PANTHER; PTHR28552; PTHR28552; 1.
+PE   4: Predicted;
+KW   Complete proteome {ECO:0000313|Proteomes:UP000261520};
+KW   Reference proteome {ECO:0000313|Proteomes:UP000261520};
+KW   Signal {ECO:0000256|SAM:SignalP}.
+FT   SIGNAL        1     27       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        28    155       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5017382275.
+SQ   SEQUENCE   155 AA;  16375 MW;  157667C62532D83F CRC64;
+     MFGMNQLAAT CWICLLFCAF LCDPVLSKGG RGGSRGSSRG SPSRSSTSGS YRAGGPFGGT
+     RSRFRAAGRS SPVRVAAAAA AGAAVALTAD GWYASAYRRS KADSSEEELD YYNRTNYFDA
+     QLSGSCKSAY SLPQMVSFVV AALFTLNRFF HGTAL
+//
+ID   A0A1A8D841_9TELE        Unreviewed;       465 AA.
+AC   A0A1A8D841;
+DT   05-OCT-2016, integrated into UniProtKB/TrEMBL.
+DT   05-OCT-2016, sequence version 1.
+DT   25-OCT-2017, entry version 4.
+DE   SubName: Full=Prion protein b {ECO:0000313|EMBL:SBQ30435.1};
+GN   Name=PRNPB {ECO:0000313|EMBL:SBQ30435.1};
+OS   Nothobranchius kadleci.
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Actinopterygii; Neopterygii; Teleostei; Neoteleostei; Acanthomorphata;
+OC   Ovalentaria; Atherinomorphae; Cyprinodontiformes; Nothobranchiidae;
+OC   Nothobranchius.
+OX   NCBI_TaxID=1051664 {ECO:0000313|EMBL:SBQ30435.1};
+RN   [1] {ECO:0000313|EMBL:SBQ30435.1}
+RP   NUCLEOTIDE SEQUENCE.
+RC   TISSUE=Brain {ECO:0000313|EMBL:SBQ30435.1};
+RA   Lavstsen T., Jespersen J.S.;
+RL   Submitted (MAY-2016) to the EMBL/GenBank/DDBJ databases.
+RN   [2] {ECO:0000313|EMBL:SBQ30435.1}
+RP   NUCLEOTIDE SEQUENCE.
+RC   TISSUE=Brain {ECO:0000313|EMBL:SBQ30435.1};
+RA   Reichwald K., Felder M., Petzold A., Koch P., Groth M., Platzer M.;
+RT   "The genome of a short-lived fish provides insights into sex
+RT   chromosome evolution and the genetic control of aging.";
+RL   Submitted (JUN-2016) to the EMBL/GenBank/DDBJ databases.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   EMBL; HAEA01001955; SBQ30435.1; -; Transcribed_RNA.
+DR   GO; GO:0016020; C:membrane; IEA:InterPro.
+DR   GO; GO:0051260; P:protein homooligomerization; IEA:InterPro.
+DR   Gene3D; 1.10.790.10; -; 1.
+DR   InterPro; IPR036924; Prion/Doppel_b-ribbon_dom_sf.
+DR   SUPFAM; SSF54098; SSF54098; 1.
+PE   4: Predicted;
+KW   Amyloid {ECO:0000313|EMBL:SBQ30435.1};
+KW   Prion {ECO:0000313|EMBL:SBQ30435.1}; Signal {ECO:0000256|SAM:SignalP}.
+FT   SIGNAL        1     28       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        29    465       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5008368223.
+SQ   SEQUENCE   465 AA;  49792 MW;  E62BB6687A5B7192 CRC64;
+     MAMLGRLCEM GLLSLLILSL LNPDFTWAKK GGGSSGGRSK TSSSSKWGTQ SKPSNSQPGN
+     YPRQPQSPNN PYPAGGSYPH PGTGNTNPGG YPRQNPSYPN QNPGGYPAGG YPAGGGYPNQ
+     NPGRGNYPNQ NPPAGGYPAG GGYPNQNPGR GGYPNQYPAG GYPNQYPAGG SYPNQYPARN
+     FPNQYPAAGG YPNQYPPRGG GNPGGYPYQY PGGGYPVRTG NTGPGWGAPG ANPGGYPGGG
+     IGGYPNWNPN NKILSPRFGG GGYGYGGYGM GGSPFSRSVQ SMGYQPKSTG FAKKAMLAAG
+     VGAVAGMAVG YGLGRFPRPH FNFRNPEEEY YYNNYMYRRY GTQSTDEKDY RRDYEYKPPP
+     RAESYESFMK RCMNSTEASS SPAPKSGAEE DDDTVSIEEI GYPALIDQVK SRRCVEKYMV
+     YSEQFLQERK FEQQTQPSGS SPASFAVMQL FTSCFVLLSS MLLLQ
+//
+ID   Q9I8G1_ANAPL            Unreviewed;       272 AA.
+AC   Q9I8G1;
+DT   01-OCT-2000, integrated into UniProtKB/TrEMBL.
+DT   01-OCT-2000, sequence version 1.
+DT   10-OCT-2018, entry version 84.
+DE   SubName: Full=Prion protein {ECO:0000313|EMBL:AAF82604.1};
+GN   Name=PrP {ECO:0000313|EMBL:AAF82604.1};
+OS   Anas platyrhynchos (Mallard) (Anas boschas).
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Archelosauria; Archosauria; Dinosauria; Saurischia; Theropoda;
+OC   Coelurosauria; Aves; Neognathae; Galloanserae; Anseriformes; Anatidae;
+OC   Anatinae; Anas.
+OX   NCBI_TaxID=8839 {ECO:0000313|EMBL:AAF82604.1};
+RN   [1] {ECO:0000313|EMBL:AAF82604.1}
+RP   NUCLEOTIDE SEQUENCE.
+RC   TISSUE=Blood {ECO:0000313|EMBL:AAF82604.1};
+RA   Wang Q., Li N., Zhang L., Lian Z.;
+RT   "Molecular cloning of duck prion gene.";
+RL   Submitted (JUN-2000) to the EMBL/GenBank/DDBJ databases.
+CC   -!- SUBUNIT: Monomer and homodimer. Has a tendency to aggregate into
+CC       amyloid fibrils containing a cross-beta spine, formed by a steric
+CC       zipper of superposed beta-strands. Soluble oligomers may represent
+CC       an intermediate stage on the path to fibril formation. Copper
+CC       binding may promote oligomerization.
+CC       {ECO:0000256|SAAS:SAAS00537365}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane
+CC       {ECO:0000256|SAAS:SAAS00541856}; Lipid-anchor, GPI-anchor
+CC       {ECO:0000256|SAAS:SAAS00541856}.
+CC   -!- SIMILARITY: Belongs to the prion family.
+CC       {ECO:0000256|SAAS:SAAS00541861}.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   -----------------------------------------------------------------------
+DR   EMBL; AF283319; AAF82604.1; -; Genomic_DNA.
+DR   ProteinModelPortal; Q9I8G1; -.
+DR   HOVERGEN; HBG008260; -.
+DR   GO; GO:0005604; C:basement membrane; ISS:AgBase.
+DR   GO; GO:0005623; C:cell; ISS:AgBase.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0043083; C:synaptic cleft; ISS:AgBase.
+DR   GO; GO:0046872; F:metal ion binding; IEA:UniProtKB-KW.
+DR   GO; GO:0010628; P:positive regulation of gene expression; ISS:AgBase.
+DR   GO; GO:0050731; P:positive regulation of peptidyl-tyrosine phosphorylation; ISS:AgBase.
+DR   GO; GO:0010870; P:positive regulation of receptor biosynthetic process; ISS:AgBase.
+DR   GO; GO:0051260; P:protein homooligomerization; IEA:InterPro.
+DR   GO; GO:0098737; P:protein insertion into plasma membrane; ISS:AgBase.
+DR   Gene3D; 1.10.790.10; -; 1.
+DR   InterPro; IPR000817; Prion.
+DR   InterPro; IPR036924; Prion/Doppel_b-ribbon_dom_sf.
+DR   InterPro; IPR022416; Prion/Doppel_prot_b-ribbon_dom.
+DR   InterPro; IPR025860; Prion_N_dom.
+DR   PANTHER; PTHR10502:SF134; PTHR10502:SF134; 1.
+DR   Pfam; PF00377; Prion; 1.
+DR   Pfam; PF11587; Prion_bPrPp; 1.
+DR   SMART; SM00157; PRP; 1.
+DR   SUPFAM; SSF54098; SSF54098; 1.
+DR   PROSITE; PS00291; PRION_1; 1.
+PE   3: Inferred from homology;
+KW   Amyloid {ECO:0000313|EMBL:AAF82604.1};
+KW   Cell membrane {ECO:0000256|SAAS:SAAS00017656};
+KW   Copper {ECO:0000256|SAAS:SAAS00944119};
+KW   Disulfide bond {ECO:0000256|SAAS:SAAS00017659};
+KW   Membrane {ECO:0000256|SAAS:SAAS00017656};
+KW   Metal-binding {ECO:0000256|SAAS:SAAS00944118};
+KW   Prion {ECO:0000313|EMBL:AAF82604.1};
+KW   Repeat {ECO:0000256|SAAS:SAAS00007072};
+KW   Signal {ECO:0000256|SAM:SignalP}.
+FT   SIGNAL        1     24       {ECO:0000256|SAM:SignalP}.
+FT   CHAIN        25    272       {ECO:0000256|SAM:SignalP}.
+FT                                /FTId=PRO_5004327138.
+FT   DOMAIN      126    141       Prion/Doppel_prot_b-ribbon_dom.
+FT                                {ECO:0000259|PROSITE:PS00291}.
+SQ   SEQUENCE   272 AA;  29813 MW;  6C7C5F0AE5FD5F13 CRC64;
+     MARLLTTCCL LALLLAACTD VALSKKGKGK PSGGGWGAGS HRQPSYPRQP GYRHNPGYPH
+     NPGYPHNPGY PHNPGYPHNP GYPQNPGYPH NPGYPGWGQG YNPSSGGSYH NQKPWKPPKT
+     NFKHVAGAAA AGAVVGGLGG YAMGRVMSGM SYRFDSPDEY RWWNENSARY PNRVYYRDYS
+     SPVSQDVFVA DCFNITVTEY SIGPAAKKNT SEAVPAANQT DVETENKVVT KVIREVCVQQ
+     YREYRLASGI QLHPADTWLA VLLLLTTLFA MH
+//
