@@ -1,0 +1,63 @@
+ENTRY       20810             CDS       T01002
+NAME        Srm, AA407669, SpdST, SpdSy
+DEFINITION  (RefSeq) spermidine synthase
+ORTHOLOGY   K00797  spermidine synthase [EC:2.5.1.16]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00270  Cysteine and methionine metabolism
+            mmu00330  Arginine and proline metabolism
+            mmu00410  beta-Alanine metabolism
+            mmu00480  Glutathione metabolism
+            mmu01100  Metabolic pathways
+MODULE      mmu_M00034  Methionine salvage pathway
+            mmu_M00133  Polyamine biosynthesis, arginine => agmatine => putrescine => spermidine
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00270 Cysteine and methionine metabolism
+                20810 (Srm)
+               00330 Arginine and proline metabolism
+                20810 (Srm)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                20810 (Srm)
+               00480 Glutathione metabolism
+                20810 (Srm)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.5  Transferring alkyl or aryl groups, other than methyl groups
+               2.5.1  Transferring alkyl or aryl groups, other than methyl groups (only sub-subclass identified to date)
+                2.5.1.16  spermidine synthase
+                 20810 (Srm)
+POSITION    4; 4 E2
+MOTIF       Pfam: Spermine_synth Spermine_synt_N Methyltransf_31 Methyltransf_25
+DBLINKS     NCBI-GeneID: 20810
+            NCBI-ProteinID: NP_033298
+            MGI: 102690
+            Ensembl: ENSMUSG00000006442
+            Vega: OTTMUSG00000010928
+            UniProt: Q64674 Q543H0
+AASEQ       302
+            MEPGPDGPAAPGPAAIREGWFRETCSLWPGQALSLQVEQLLHHRRSRYQDILVFRSKTYG
+            NVLVLDGVIQCTERDEFSYQEMIANLPLCSHPNPRKVLIIGGGDGGVLREVVKHPSVESV
+            VQCEIDEDVIEVSKKFLPGMAVGFSSSKLTLHVGDGFEFMKQNQDAFDVIITDSSDPMGP
+            AESLFKESYYQLMKTALKEDGILCCQGECQWLHLDLIKEMRHFCKSLFPVVDYAYCSIPT
+            YPSGQIGFMLCSKNPSTNFREPVQQLTQAQVEQMQLKYYNSDMHRAAFVLPEFTRKALND
+            IS
+NTSEQ       909
+            atggagcctggccccgacggcccagccgcgcccggccccgccgccatccgtgagggctgg
+            ttccgagagacctgcagcctgtggcccggccaggccctgtcgctgcaagtggagcagctg
+            cttcaccaccggcgatcgcggtaccaagacatcctcgtcttccgcagtaaaacctacggc
+            aacgtgctggttctggatggcgtcatccagtgtactgagagggatgagttctcctaccag
+            gagatgatcgccaacctgccgctctgcagccaccccaacccgcggaaggtgctgatcatc
+            gggggtggagatgggggcgtcctacgggaagtggtgaagcacccctctgtggagtcggtg
+            gtccagtgcgagattgatgaggatgtcattgaagtctctaagaagttcctgcctggcatg
+            gccgttggcttctccagctcaaagctgactctccacgtgggcgatggctttgagttcatg
+            aaacagaaccaagatgcctttgacgtcatcatcaccgactcctcagaccccatgggccct
+            gctgagagcctcttcaaggagtcctattaccagctcatgaagacagcactcaaagaagat
+            ggcatcctgtgctgccagggtgagtgccagtggctgcacctggacctcatcaaggagatg
+            aggcacttctgcaaatctctcttccccgtggtggactacgcctactgtagcattcctacc
+            tatcccagcggccagatcggcttcatgctgtgtagcaaaaacccgagcaccaacttccgg
+            gagccagtgcagcagttgacacaggcccaggtggagcagatgcagctgaaatactataac
+            tcggacatgcaccgtgccgccttcgtactgcccgagttcacccggaaggccctcaatgac
+            ataagctga
+///

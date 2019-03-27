@@ -1,0 +1,388 @@
+ENTRY       EC 1.4.3.3                  Enzyme
+NAME        D-amino-acid oxidase;
+            ophio-amino-acid oxidase;
+            L-amino acid:O2 oxidoreductase;
+            new yellow enzyme
+CLASS       Oxidoreductases;
+            Acting on the CH-NH2 group of donors;
+            With oxygen as acceptor
+SYSNAME     D-amino-acid:oxygen oxidoreductase (deaminating)
+REACTION    a D-amino acid + H2O + O2 = a 2-oxo carboxylate + NH3 + H2O2 [RN:R01340]
+ALL_REAC    R01340 > R02457 R02894 R02923 R05861 R07400;
+            (other) R00366 R04221 R06124
+SUBSTRATE   D-amino acid [CPD:C00405];
+            H2O [CPD:C00001];
+            O2 [CPD:C00007]
+PRODUCT     2-oxo carboxylate [CPD:C00161];
+            NH3 [CPD:C00014];
+            H2O2 [CPD:C00027]
+COMMENT     A flavoprotein (FAD). Wide specificity for D-amino acids. Also acts on glycine.
+HISTORY     EC 1.4.3.3 created 1961
+REFERENCE   1  [PMID:14314378]
+  AUTHORS   DIXON M, KLEPPE K.
+  TITLE     D-AMINO ACID OXIDASE. I. DISSOCIATION AND RECOMBINATION OF THE HOLOENZYME.
+  JOURNAL   Biochim Biophys Acta 96:357-67 (1965)
+            DOI:10.1016/0005-2787(65)90556-3
+REFERENCE   2
+  AUTHORS   Dixon, M. and Kleppe, K.
+  TITLE     D-Amino acid oxidase. II. Specificity, competitive inhibition and reaction sequence.
+  JOURNAL   Biochim Biophys Acta 96:368-382 (1965)
+REFERENCE   3  [PMID:14314379]
+  AUTHORS   DIXON M, KLEPPE K.
+  TITLE     D-AMINO ACID OXIDASE. 3. EFFECT OF PH.
+  JOURNAL   Biochim Biophys Acta 96:383-9 (1965)
+            DOI:10.1016/0005-2787(65)90558-7
+REFERENCE   4  [PMID:13767909]
+  AUTHORS   MASSEY V, PALMER G, BENNETT R.
+  TITLE     The purification and some properties of D-amino acid oxidase.
+  JOURNAL   Biochim Biophys Acta 48:1-9 (1961)
+            DOI:10.1016/0006-3002(61)90508-X
+REFERENCE   5
+  AUTHORS   Meister, A. and Wellner, D.
+  TITLE     Flavoprotein amino acid oxidase.
+  JOURNAL   In: Boyer, P.D., Lardy, H. and Myrback, K. (Eds.), The Enzymes, 2nd ed., vol. 7, Academic Press, New York, 1963, p. 609-648.
+PATHWAY     ec00260  Glycine, serine and threonine metabolism
+            ec00311  Penicillin and cephalosporin biosynthesis
+            ec00330  Arginine and proline metabolism
+            ec00472  D-Arginine and D-ornithine metabolism
+            ec01100  Metabolic pathways
+            ec01130  Biosynthesis of antibiotics
+ORTHOLOGY   K00273  D-amino-acid oxidase
+GENES       HSA: 1610(DAO)
+            PTR: 743881(DAO)
+            PPS: 100989465(DAO)
+            GGO: 101127462(DAO)
+            PON: 100171568(DAO)
+            NLE: 100584283(DAO)
+            MCC: 706373(DAO)
+            MCF: 102146162(DAO)
+            CSAB: 103239076(DAO)
+            RRO: 104660225(DAO)
+            RBB: 108534390(DAO)
+            CJC: 100414426(DAO)
+            SBQ: 101033399(DAO)
+            MMU: 13142(Dao)
+            RNO: 114027(Dao)
+            CGE: 100689280(Dao)
+            NGI: 103746689(Dao)
+            HGL: 101715888(Dao)
+            CCAN: 109688605(Dao)
+            OCU: 100008977(DAO)
+            TUP: 102484475(DAO)
+            CFA: 486317(DAO)
+            AML: 100477150(DAO)
+            UMR: 103678301(DAO)
+            ORO: 101364868(DAO)
+            FCA: 101087429(DAO)
+            PTG: 102965053(DAO)
+            AJU: 106978240(DAO)
+            BTA: 615334(DAO)
+            BOM: 102288350(DAO)
+            BIU: 109571467(DAO)
+            PHD: 102329366(DAO)
+            CHX: 102179224(DAO)
+            OAS: 101115829(DAO)
+            SSC: 397134(DAO)
+            CFR: 102513211(DAO)
+            CDK: 105105351(DAO)
+            BACU: 103017643(DAO)
+            LVE: 103091527(DAO)
+            OOR: 101271460(DAO)
+            ECB: 100059819(DAO)
+            EPZ: 103551429(DAO)
+            EAI: 106848086(DAO)
+            MYB: 102240841(DAO)
+            MYD: 102759757(DAO)
+            HAI: 109386138(DAO)
+            RSS: 109461325(DAO)
+            PALE: 102889021(DAO)
+            LAV: 100658336(DAO)
+            TMU: 101352892
+            MDO: 100024682(DAO)
+            SHR: 100929799(DAO)
+            OAA: 100082667(DAO)
+            GGA: 101751055(DAO)
+            MGP: 100538439(DAO)
+            CJO: 107321301(DAO)
+            ACYG: 106031397(DAO)
+            TGU: 100227661(DAO)
+            SCAN: 103818128(DAO)
+            GFR: 102034289(DAO)
+            FAB: 101819437(DAO)
+            PHI: 102104947(DAO)
+            PMAJ: 107211508(DAO)
+            CCAE: 111936441(DAO)
+            CCW: 104688662(DAO)
+            FPG: 101911513(DAO)
+            FCH: 102057845(DAO)
+            CLV: 102098809
+            EGZ: 104123874(DAO)
+            NNI: 104019201(DAO)
+            ACUN: 113486029(DAO)
+            ASN: 102368994(DAO)
+            AMJ: 102564813(DAO)
+            PSS: 102462192(DAO)
+            CMY: 102942158(DAO)
+            CPIC: 101943950(DAO)
+            ACS: 100557335(dao)
+            PVT: 110083399(DAO)
+            PBI: 103066152(DAO)
+            PMUR: 107287290(DAO)
+            GJA: 107112177(DAO)
+            XLA: 735104(dao.L)
+            XTR: 100036595(dao)
+            NPR: 108790561(DAO)
+            DRE: 402994(dao.3) 405800(dao.2) 619259(dao.1)
+            SRX: 107741224
+            SANH: 107654625
+            SGH: 107597279
+            CCAR: 109090353
+            IPU: 108256012(dao)
+            PHYP: 113542437(dao)
+            AMEX: 103023242(dao)
+            EEE: 113576941(dao)
+            TRU: 101077517(dao)
+            TNG: GSTEN00029509G001
+            LCO: 104937256(dao)
+            NCC: 104962061(dao)
+            MZE: 101486371(dao)
+            OLA: 101166138(dao)
+            XMA: 102218661(dao)
+            PRET: 103470317(dao)
+            NFU: 107393981(dao)
+            KMR: 108234641(dao)
+            CSEM: 103397332(dao)
+            LCF: 108878198(dao)
+            SDU: 111230126(dao)
+            HCQ: 109511661(dao)
+            BPEC: 110169884(dao)
+            MALB: 109956898(dao)
+            SASA: 100306742(dao)
+            OTW: 112262833(dao)
+            SALP: 111957687(dao)
+            ELS: 105025596(dao)
+            SFM: 108932590(dao)
+            PKI: 111854868(dao)
+            LCM: 102345246(DAO)
+            CMK: 103184038(dao)
+            BFO: BRAFLDRAFT_115405 BRAFLDRAFT_233542
+            DME: Dmel_CG11236(CG11236)
+            DPO: Dpse_GA10855
+            DAN: Dana_GF15429
+            DER: 6542841
+            DPE: 6593724
+            DSE: Dsec_GM16217
+            DSI: Dsimw501_GD23432(Dsim_GD23432)
+            DWI: 6644163
+            DYA: Dyak_GE14132
+            DGR: Dgri_GH13713
+            DMO: Dmoj_GI23973
+            DVI: Dvir_GJ21247
+            MDE: 101888461
+            AGA: AgaP_AGAP001098 AgaP_AGAP001116
+            AAG: 5569995
+            CQU: CpipJ_CPIJ002817 CpipJ_CPIJ007272 CpipJ_CPIJ007273
+            BIM: 105681513
+            BTER: 105666640
+            SOC: 105202771
+            MPHA: 105837236
+            AEC: 105145415
+            ACEP: 105618099
+            PBAR: 105423584
+            HST: 105192340
+            CFO: 105259382
+            LHU: 105672919
+            PCF: 106785987
+            NVI: 100118424 100123164
+            TCA: 663711
+            DPA: 109541460
+            NVL: 108567539
+            BMOR: 101737245
+            DPL: KGM_215078
+            PMAC: 106714654
+            PRAP: 111003257
+            HAW: 110378852
+            PXY: 105398389
+            ZNE: 110829339
+            DPX: DAPPUDRAFT_213708
+            ISC: IscW_ISCW004359
+            CEL: CELE_Y69A2AR.5(daao-1)
+            CBR: CBG13882
+            CRG: 105322199 105346483
+            MYI: 110445951
+            OBI: 106873074
+            LAK: 106171871
+            NVE: NEMVE_v1g190461
+            HMG: 101234772
+            TAD: TRIADDRAFT_60526 TRIADDRAFT_64116
+            VCN: VOLCADRAFT_69505
+            CVR: CHLNCDRAFT_144079
+            CME: CYME_CMM177C
+            KLA: KLLA0_A08492g
+            KMX: KLMA_10437(DAO1)
+            LTH: KLTH0H13090g
+            VPO: Kpol_1018p120
+            ZRO: ZYRO0B01892g
+            TPF: TPHA_0A02240(TPHA0A02240)
+            DHA: DEHA2B06754g
+            PIC: PICST_57912(DAO1)
+            PGU: PGUG_00766
+            SPAA: SPAPADRAFT_58036
+            LEL: LELG_01575
+            CAL: CAALFM_C103670CA(DAO1)
+            CTP: CTRG_04578
+            CDU: CD36_03420 CD36_50460
+            YLI: YALI0F31427g
+            CLU: CLUG_00102
+            CLUS: A9F13_07g03487 A9F13_20g00220
+            CAUR: QG37_07357
+            SLB: AWJ20_2748
+            NCR: NCU06558
+            MGR: MGG_08011
+            FOX: FOXG_08416
+            NHE: NECHADRAFT_102418 NECHADRAFT_92259
+            MAW: MAC_01437
+            MAJ: MAA_07041
+            SSL: SS1G_08525
+            ANI: AN0174.2
+            AFM: AFUA_5G11290 AFUA_5G13940 AFUA_6G10230
+            ANG: ANI_1_320014(An01g02430)
+            AFV: AFLA_132490
+            ACT: ACLA_014370
+            NFI: NFIA_075980
+            CIM: CIMG_09124
+            CPW: CPC735_015460
+            PBL: PAAG_02361
+            PBN: PADG_05502
+            URE: UREG_05175
+            AJE: HCAG_00881
+            BZE: COCCADRAFT_22330
+            TML: GSTUM_00002749001
+            SPO: SPCC1450.07c
+            PPL: POSPLDRAFT_101343
+            CCI: CC1G_15725
+            UMA: UMAG_05703
+            MGL: MGL_4170
+            MBR: MONBRDRAFT_15811
+            DDI: DDB_G0273291(ddo-2) DDB_G0273783(ddo-1)
+            TPS: THAPSDRAFT_1310
+            PSOJ: PHYSODRAFT_319218
+            BGL: bglu_2p0550
+            MSD: MYSTI_03625
+            SUR: STAUR_2892
+            SCL: sce5330(aao)
+            PUB: SAR11_0547
+            MTU: Rv1905c(aao)
+            MTV: RVBD_1905c
+            MTC: MT1956
+            MRA: MRA_1916(aao)
+            MTF: TBFG_11934
+            MTB: TBMG_02087
+            MTK: TBSG_02098
+            MTZ: TBXG_002069
+            MTG: MRGA327_11755
+            MTI: MRGA423_11870
+            MTE: CCDC5079_1761
+            MTUR: CFBS_1999(aao)
+            MTL: CCDC5180_1738
+            MTO: MTCTRI2_1938(aao)
+            MTD: UDA_1905c(aao)
+            MTN: ERDMAN_2097(aao)
+            MTJ: J112_10150
+            MTUB: MT7199_1932
+            MTUC: J113_13175
+            MTUE: J114_10155
+            MTX: M943_09900
+            MTUH: I917_13495
+            MTUL: TBHG_01861
+            MTUT: HKBT1_1996(aao)
+            MTUU: HKBT2_2004(aao)
+            MTQ: HKBS1_2000(aao)
+            MBB: BCG_1944c(aao)
+            MBT: JTY_1928(aao)
+            MBM: BCGMEX_1925c(aao)
+            MBK: K60_019970
+            MBX: BCGT_1736
+            MAF: MAF_19280(aao)
+            MCE: MCAN_19211(aao)
+            MCQ: BN44_40175(aao)
+            MCV: BN43_31054(aao)
+            MCX: BN42_30196(aao)
+            MCZ: BN45_50176(aao)
+            MLE: ML2011(aao)
+            MLB: MLBr02011(aao)
+            MPA: MAP_1629c(aao)
+            MAO: MAP4_2210
+            MAV: MAV_2796
+            MIT: OCO_26270
+            MIA: OCU_26140
+            MID: MIP_03675
+            MYO: OEM_24760
+            MIR: OCQ_24850
+            MUL: MUL_1659(aao_1) MUL_2926(aao)
+            MMI: MMAR_2477(aao_1) MMAR_2801(aao)
+            MMM: W7S_12760
+            MLI: MULP_02569(aao)
+            MKN: MKAN_00885
+            NBR: O3I_030390
+            TPR: Tpau_3499
+            SCO: SCO6740(SC5F2A.23c)
+            SALB: XNR_0297
+            SMA: SAVERM_1672(dao)
+            SGR: SGR_986
+            SCB: SCAB_13211
+            SSX: SACTE_5903
+            SCT: SCAT_2906 SCAT_4156 SCAT_p0271
+            SCY: SCATT_28970 SCATT_41430 SCATT_p14710
+            SFA: Sfla_0667
+            SBH: SBI_02634
+            SHY: SHJG_7634
+            SHO: SHJGH_7395
+            SDV: BN159_1680(aao)
+            SALS: SLNWT_0394
+            STRP: F750_6201
+            SFI: SFUL_3187 SFUL_6509
+            SCI: B446_30745
+            SALU: DC74_6759
+            SLV: SLIV_04815
+            SGU: SGLAU_28175
+            SVT: SVTN_33545
+            STRE: GZL_02007
+            SCW: TU94_28925
+            SAMB: SAM23877_6390(aao)
+            AAI: AARI_18930(dao)
+            IVA: Isova_0185
+            NCA: Noca_1780
+            KFL: Kfla_2239 Kfla_5015
+            GOB: Gobs_3505
+            SEN: SACE_0979(aao)
+            AMD: AMED_2680
+            AMN: RAM_13625
+            AMM: AMES_2653
+            AMZ: B737_2654
+            AOI: AORI_2663
+            AJA: AJAP_25505
+            AMI: Amir_4180
+            SESP: BN6_43740
+            KAL: KALB_8361
+            MAU: Micau_2018
+            MIL: ML5_2110 ML5_2125
+            AMS: AMIS_14610
+            ASE: ACPL_1689(aao)
+            ACTN: L083_3882 L083_4810
+            AFS: AFR_24570
+            SNA: Snas_1168
+            RXY: Rxyl_0526
+            RRD: RradSPS_2517
+            PMB: A9601_19131
+            PMC: P9515_18941
+            PMF: P9303_30031
+            PMG: P9301_18941
+            PME: NATL1_21851
+            CTM: Cabther_A1449
+DBLINKS     ExplorEnz - The Enzyme Database: 1.4.3.3
+            IUBMB Enzyme Nomenclature: 1.4.3.3
+            ExPASy - ENZYME nomenclature database: 1.4.3.3
+            BRENDA, the Enzyme Database: 1.4.3.3
+            CAS: 9000-88-8
+///

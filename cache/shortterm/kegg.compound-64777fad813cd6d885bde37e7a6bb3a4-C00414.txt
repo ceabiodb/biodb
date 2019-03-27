@@ -1,0 +1,44 @@
+ENTRY       C00414                      Compound
+NAME        Cyclohexanone
+FORMULA     C6H10O
+EXACT_MASS  98.0732
+MOL_WEIGHT  98.143
+REACTION    R02229 R02231 R02232 R02233 R02234
+PATHWAY     map00930  Caprolactam degradation
+            map01120  Microbial metabolism in diverse environments
+            map01220  Degradation of aromatic compounds
+ENZYME      1.1.1.163       1.1.1.245       1.3.99.14       1.4.3.12        
+            1.14.13.22      4.1.3.35
+BRITE       Carcinogens [BR:br08008]
+             Group 3: Not classifiable as to its carcinogenicity to humans
+              Compounds
+               C00414  Cyclohexanone
+            Pharmaceutical additives in Japan [BR:br08316]
+             Solubilization agent
+              C00414  [101626] Cyclohexanone
+             Solvent
+              C00414  [101626] Cyclohexanone
+DBLINKS     CAS: 108-94-1
+            PubChem: 3704
+            ChEBI: 17854
+            ChEMBL: CHEMBL18850
+            PDB-CCD: CYH
+            3DMET: B00106
+            NIKKAJI: J2.872J
+ATOM        7
+            1   C5x C    26.4600  -19.1589
+            2   C1x C    25.2482  -19.8614
+            3   C1x C    27.6718  -19.8614
+            4   O5x O    26.4658  -17.7599
+            5   C1x C    25.2482  -21.2606
+            6   C1x C    27.6718  -21.2606
+            7   C1x C    26.4600  -21.9630
+BOND        7
+            1     1   2 1
+            2     1   3 1
+            3     1   4 2
+            4     2   5 1
+            5     3   6 1
+            6     5   7 1
+            7     6   7 1
+///

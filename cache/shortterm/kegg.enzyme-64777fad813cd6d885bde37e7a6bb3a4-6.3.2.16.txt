@@ -1,0 +1,32 @@
+ENTRY       EC 6.3.2.16                 Enzyme
+NAME        D-alanine---alanyl-poly(glycerolphosphate) ligase;
+            D-alanyl-alanyl-poly(glycerolphosphate) synthetase;
+            D-alanine:membrane-acceptor ligase;
+            D-alanylalanylpoly(phosphoglycerol) synthetase;
+            D-alanyl-poly(phosphoglycerol) synthetase;
+            D-alanine-membrane acceptor-ligase
+CLASS       Ligases;
+            Forming carbon-nitrogen bonds;
+            Acid-D-amino-acid ligases (peptide synthases)
+SYSNAME     D-alanine:alanyl-poly(glycerolphosphate) ligase (ADP-forming)
+REACTION    ATP + D-alanine + alanyl-poly(glycerolphosphate) = ADP + phosphate + D-alanyl-alanyl-poly(glycerolphosphate) [RN:R04369]
+ALL_REAC    R04369
+SUBSTRATE   ATP [CPD:C00002];
+            D-alanine [CPD:C00133];
+            alanyl-poly(glycerolphosphate) [CPD:C03999]
+PRODUCT     ADP [CPD:C00008];
+            phosphate [CPD:C00009];
+            D-alanyl-alanyl-poly(glycerolphosphate) [CPD:C04457]
+COMMENT     Involved in the synthesis of teichoic acids.
+HISTORY     EC 6.3.2.16 created 1976
+REFERENCE   1  [PMID:4399593]
+  AUTHORS   Reusch VM Jr, Neuhaus FC.
+  TITLE     D-Alanine: membrane acceptor ligase from Lactobacillus casei.
+  JOURNAL   J Biol Chem 246:6136-43 (1971)
+PATHWAY     ec00473  D-Alanine metabolism
+DBLINKS     ExplorEnz - The Enzyme Database: 6.3.2.16
+            IUBMB Enzyme Nomenclature: 6.3.2.16
+            ExPASy - ENZYME nomenclature database: 6.3.2.16
+            BRENDA, the Enzyme Database: 6.3.2.16
+            CAS: 9046-58-6
+///

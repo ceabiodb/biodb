@@ -1,0 +1,27 @@
+ENTRY       EC 2.6.1.47                 Enzyme
+NAME        alanine---oxomalonate transaminase;
+            alanine-oxomalonate aminotransferase;
+            L-alanine-ketomalonate transaminase;
+            alanine-ketomalonate (mesoxalate) transaminase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     L-alanine:oxomalonate aminotransferase
+REACTION    L-alanine + oxomalonate = pyruvate + aminomalonate [RN:R02970]
+ALL_REAC    R02970
+SUBSTRATE   L-alanine [CPD:C00041];
+            oxomalonate [CPD:C00830]
+PRODUCT     pyruvate [CPD:C00022];
+            aminomalonate [CPD:C00872]
+COMMENT     A pyridoxal-phosphate protein.
+HISTORY     EC 2.6.1.47 created 1972
+REFERENCE   1  [PMID:13504217]
+  AUTHORS   NAGAYAMA H, MURAMATSU M, SHIMURA K.
+  TITLE     Enzymatic formation of aminomalonic acid from ketomalonic acid.
+  JOURNAL   Nature 181:417-8 (1958)
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.47
+            IUBMB Enzyme Nomenclature: 2.6.1.47
+            ExPASy - ENZYME nomenclature database: 2.6.1.47
+            BRENDA, the Enzyme Database: 2.6.1.47
+            CAS: 37277-96-6
+///

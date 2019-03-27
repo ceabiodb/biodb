@@ -1,0 +1,104 @@
+ENTRY       EC 2.1.1.156                Enzyme
+NAME        glycine/sarcosine N-methyltransferase;
+            ApGSMT;
+            glycine-sarcosine methyltransferase;
+            GSMT;
+            GMT;
+            glycine sarcosine N-methyltransferase;
+            S-adenosyl-L-methionine:sarcosine N-methyltransferase
+CLASS       Transferases;
+            Transferring one-carbon groups;
+            Methyltransferases
+SYSNAME     S-adenosyl-L-methionine:glycine(or sarcosine) N-methyltransferase [sarcosine(or N,N-dimethylglycine)-forming]
+REACTION    2 S-adenosyl-L-methionine + glycine = 2 S-adenosyl-L-homocysteine + N,N-dimethylglycine (overall reaction) [RN:R10060];
+            (1a) S-adenosyl-L-methionine + glycine = S-adenosyl-L-homocysteine + sarcosine [RN:R00367];
+            (1b) S-adenosyl-L-methionine + sarcosine = S-adenosyl-L-homocysteine + N,N-dimethylglycine [RN:R07243]
+ALL_REAC    R00367 R07243 R10060
+SUBSTRATE   S-adenosyl-L-methionine [CPD:C00019];
+            glycine [CPD:C00037];
+            sarcosine [CPD:C00213]
+PRODUCT     S-adenosyl-L-homocysteine [CPD:C00021];
+            N,N-dimethylglycine [CPD:C01026];
+            sarcosine [CPD:C00213]
+COMMENT     Cells of the oxygen-evolving halotolerant cyanobacterium Aphanocthece halophytica synthesize betaine from glycine by a three-step methylation process. This is the first enzyme and it leads to the formation of either sarcosine or N,N-dimethylglycine, which is further methylated to yield betaine (N,N,N-trimethylglycine) by the action of EC 2.1.1.157, sarcosine/dimethylglycine N-methyltransferase. Differs from EC 2.1.1.20, glycine N-methyltransferase, as it can further methylate the product of the first reaction. Acetate, dimethylglycine and S-adenosyl-L-homocysteine can inhibit the reaction [3].
+HISTORY     EC 2.1.1.156 created 2005
+REFERENCE   1  [PMID:10896953]
+  AUTHORS   Nyyssola A, Kerovuo J, Kaukinen P, von Weymarn N, Reinikainen T.
+  TITLE     Extreme halophiles synthesize betaine from glycine by methylation.
+  JOURNAL   J Biol Chem 275:22196-201 (2000)
+            DOI:10.1074/jbc.M910111199
+  SEQUENCE  [ag:AAF87202 AAF87204]
+REFERENCE   2  [PMID:11319079]
+  AUTHORS   Nyyssola A, Reinikainen T, Leisola M.
+  TITLE     Characterization of glycine sarcosine N-methyltransferase and sarcosine dimethylglycine N-methyltransferase.
+  JOURNAL   Appl Environ Microbiol 67:2044-50 (2001)
+            DOI:10.1128/AEM.67.5.2044-2050.2001
+  SEQUENCE  [ag:AAF87202]
+REFERENCE   3  [PMID:12466265]
+  AUTHORS   Waditee R, Tanaka Y, Aoki K, Hibino T, Jikuya H, Takano J, Takabe T, Takabe T.
+  TITLE     Isolation and functional characterization of N-methyltransferases that catalyze betaine synthesis from glycine in a halotolerant photosynthetic organism Aphanothece halophytica.
+  JOURNAL   J Biol Chem 278:4932-42 (2003)
+            DOI:10.1074/jbc.M210970200
+  SEQUENCE  [ag:BAC56939]
+PATHWAY     ec00260  Glycine, serine and threonine metabolism
+ORTHOLOGY   K18896  glycine/sarcosine N-methyltransferase
+GENES       PFS: PFLU_2095
+            PFW: PF1751_v1c19160
+            PFF: PFLUOLIPICF727140
+            PFX: A7318_08950
+            PTV: AA957_04385
+            PAZO: AYR47_17170
+            TIG: THII_1900 THII_1901
+            TMB: Thimo_1798 Thimo_2027
+            MPUR: MARPU_03465
+            TEE: Tel_06780
+            HHA: Hhal_1068 Hhal_1678
+            HHC: M911_05560 M911_09985
+            TGR: Tgr7_1181
+            TKM: TK90_0179
+            TNI: TVNIR_0234
+            TTI: THITH_16330
+            TVR: TVD_00875
+            EBS: ECTOBSL9_2257 ECTOBSL9_2476
+            SALN: SALB1_0939
+            TTC: FOKN1_2395
+            HOH: Hoch_6748
+            PLA: Plav_2856
+            FIL: BN1229_v1_3116
+            FIY: BN1229_v1_2804
+            GAK: X907_0699
+            ELQ: Ga0102493_112272
+            AAY: WYH_00219
+            MAGQ: MGMAQ_3234
+            NTH: Nther_0677
+            MMI: MMAR_0861
+            MLI: MULP_00886
+            SVL: Strvi_1838
+            SRC: M271_16300
+            SGV: B1H19_33065
+            SEN: SACE_3901 SACE_5862(gsmT)
+            SVI: Svir_27050
+            SNA: Snas_2966
+            SYW: SYNW1914(gsmt)
+            SYX: SynWH7803_0361
+            SYNR: KR49_11730
+            SYNW: SynWH8103_02187(gbmt1)
+            DSL: Dacsa_3637
+            PMT: PMT_0552
+            PMF: P9303_17011
+            HAO: PCC7418_3510
+            KST: KSMBR1_0462
+            PBU: L21SP3_00981
+            PBP: STSP1_02231
+            VBL: L21SP4_02069
+            CTS: Ctha_2188
+            MMH: Mmah_0524
+            MHAZ: BHR79_00800
+            MEV: Metev_0932
+            AGW: QT03_C0001G0105
+DBLINKS     ExplorEnz - The Enzyme Database: 2.1.1.156
+            IUBMB Enzyme Nomenclature: 2.1.1.156
+            ExPASy - ENZYME nomenclature database: 2.1.1.156
+            BRENDA, the Enzyme Database: 2.1.1.156
+            CAS: 294210-82-5
+///

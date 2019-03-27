@@ -1,0 +1,33 @@
+ENTRY       EC 2.1.1.162                Enzyme
+NAME        glycine/sarcosine/dimethylglycine N-methyltransferase;
+            GSDMT;
+            glycine sarcosine dimethylglycine N-methyltransferase
+CLASS       Transferases;
+            Transferring one-carbon groups;
+            Methyltransferases
+SYSNAME     S-adenosyl-L-methionine:glycine(or sarcosine or N,N-dimethylglycine) N-methyltransferase [sarcosine(or N,N-dimethylglycine or betaine)-forming]
+REACTION    3 S-adenosyl-L-methionine + glycine = 3 S-adenosyl-L-homocysteine + betaine (overall reaction) [RN:R10062];
+            (1a) S-adenosyl-L-methionine + glycine = S-adenosyl-L-homocysteine + sarcosine [RN:R00367];
+            (1b) S-adenosyl-L-methionine + sarcosine = S-adenosyl-L-homocysteine + N,N-dimethylglycine [RN:R07243];
+            (1c) S-adenosyl-L-methionine + N,N-dimethylglycine = S-adenosyl-L-homocysteine + betaine [RN:R07244]
+ALL_REAC    R00367 R07243 R07244 R10062
+SUBSTRATE   S-adenosyl-L-methionine [CPD:C00019];
+            glycine [CPD:C00037];
+            sarcosine [CPD:C00213];
+            N,N-dimethylglycine [CPD:C01026]
+PRODUCT     S-adenosyl-L-homocysteine [CPD:C00021];
+            betaine [CPD:C00719];
+            sarcosine [CPD:C00213];
+            N,N-dimethylglycine [CPD:C01026]
+COMMENT     Unlike EC 2.1.1.156 (glycine/sarcosine N-methyltransferase), EC 2.1.1.157 (sarcosine/dimethylglycine N-methyltransferase) and EC 2.1.1.161 (dimethylglycine N-methyltransferase), this enzyme, from the halophilic methanoarchaeon Methanohalophilus portucalensis, can methylate glycine and all of its intermediates to form the compatible solute betaine [1].
+HISTORY     EC 2.1.1.162 created 2007
+REFERENCE   1  [PMID:17098399]
+  AUTHORS   Lai MC, Wang CC, Chuang MJ, Wu YC, Lee YC.
+  TITLE     Effects of substrate and potassium on the betaine-synthesizing enzyme glycine sarcosine dimethylglycine N-methyltransferase from a halophilic methanoarchaeon Methanohalophilus portucalensis.
+  JOURNAL   Res Microbiol 157:948-55 (2006)
+            DOI:10.1016/j.resmic.2006.08.007
+DBLINKS     ExplorEnz - The Enzyme Database: 2.1.1.162
+            IUBMB Enzyme Nomenclature: 2.1.1.162
+            ExPASy - ENZYME nomenclature database: 2.1.1.162
+            BRENDA, the Enzyme Database: 2.1.1.162
+///

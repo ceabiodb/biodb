@@ -1,0 +1,29 @@
+ENTRY       C02116                      Compound
+NAME        2-Nitropropane
+FORMULA     C3H7NO2
+EXACT_MASS  89.0477
+MOL_WEIGHT  89.0932
+BRITE       Carcinogens [BR:br08008]
+             Group 2B: Possibly carcinogenic to humans
+              Compounds
+               C02116  2-Nitropropane
+DBLINKS     CAS: 79-46-9
+            PubChem: 5196
+            ChEBI: 16037
+            ChEMBL: CHEMBL261886
+            PDB-CCD: NIS
+            NIKKAJI: J3.845H
+ATOM        6
+            1   C1c C    18.3162  -15.5343
+            2   N2b N    18.3162  -14.2466 #+
+            3   C1a C    17.1946  -16.1812
+            4   C1a C    19.4320  -16.1812
+            5   O3a O    17.0463  -13.3054
+            6   O3a O    19.7346  -13.3113 #-
+BOND        5
+            1     1   2 1
+            2     1   3 1
+            3     1   4 1
+            4     2   5 2
+            5     2   6 1
+///

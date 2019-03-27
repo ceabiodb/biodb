@@ -1,0 +1,197 @@
+ENTRY       EC 4.1.1.64                 Enzyme
+NAME        2,2-dialkylglycine decarboxylase (pyruvate);
+            dialkyl amino acid (pyruvate) decarboxylase;
+            alpha-dialkyl amino acid transaminase;
+            2,2-dialkyl-2-amino acid-pyruvate aminotransferase;
+            L-alanine-alpha-ketobutyrate aminotransferase;
+            dialkylamino-acid decarboxylase (pyruvate);
+            2,2-dialkylglycine carboxy-lyase (amino-transferring)
+CLASS       Lyases;
+            Carbon-carbon lyases;
+            Carboxy-lyases
+SYSNAME     2,2-dialkylglycine carboxy-lyase (amino-transferring; L-alanine-forming)
+REACTION    2,2-dialkylglycine + pyruvate = dialkyl ketone + CO2 + L-alanine [RN:R03854]
+ALL_REAC    R03854
+SUBSTRATE   2,2-dialkylglycine [CPD:C02623];
+            pyruvate [CPD:C00022]
+PRODUCT     dialkyl ketone [CPD:C02146];
+            CO2 [CPD:C00011];
+            L-alanine [CPD:C00041]
+COMMENT     A pyridoxal-phosphate protein. Acts on 2-amino-2-methylpropanoate (i.e. 2-methylalanine), 2-amino-2-methylbutanoate and 1-aminocyclopentanecarboxylate.
+HISTORY     EC 4.1.1.64 created 1972
+REFERENCE   1
+  AUTHORS   Bailey, G.B. and Dempsey, W.B.
+  TITLE     Purification and properties of an alpha-dialkyl amino acid transaminase.
+  JOURNAL   Biochemistry 6:1526-1533 (1967)
+ORTHOLOGY   K00596  2,2-dialkylglycine decarboxylase (pyruvate)
+GENES       HAA: A5892_06680 A5892_07480
+            BVI: Bcep1808_3365
+            BVE: AK36_3396(dgdA)
+            BUR: Bcep18194_B0665
+            BCN: Bcen_3362
+            BCH: Bcen2424_5005
+            BCM: Bcenmc03_5282
+            BCJ: BCAM2237
+            BCEN: DM39_5613(dgdA)
+            BCEW: DM40_4955(dgdA)
+            BCEO: I35_6128
+            BAM: Bamb_4418
+            BAC: BamMC406_4936
+            BCT: GEM_3432
+            BCED: DM42_5757(dgdA)
+            BCEP: APZ15_27875
+            BPYR: ABD05_24335
+            BCON: NL30_01295
+            BDF: WI26_24005
+            BLAT: WK25_27250
+            BTEI: WS51_08310
+            BSEM: WJ12_31120
+            BPSL: WS57_02965
+            BSTL: BBJ41_24910
+            BGD: bgla_2g24020
+            BGO: BM43_6089(dgdA)
+            BYI: BYI23_C012020
+            BUK: MYA_2984
+            BUO: BRPE64_DCDS08220
+            BUE: BRPE67_CCDS14570
+            BGP: BGL_2c24400
+            BPLA: bpln_2g24710
+            BUM: AXG89_34715
+            BUI: AX768_17785
+            BXE: Bxe_B2675
+            BXB: DR64_5009(dgdA)
+            BPY: Bphyt_2046
+            BFN: OI25_5730(dgdA)
+            BCAI: K788_0007088
+            PARB: CJU94_26030
+            PHS: C2L64_34830
+            PTER: C2L65_30880
+            PPK: U875_11315
+            PPNO: DA70_03710
+            PPNM: LV28_02605
+            PRB: X636_23390
+            PPUL: RO07_21545
+            PSPU: NA29_15775
+            PAPI: SG18_20380
+            PVE: UC34_12750
+            POX: MB84_17190
+            PFG: AB870_22935
+            PNR: AT302_19615
+            BBRO: BAU06_24640
+            BOH: AKI39_23510
+            AXY: AXYL_05358(dgdA)
+            AXO: NH44784_032131
+            AXN: AX27061_5147
+            AXX: ERS451415_05181(dgdA_2)
+            AIS: BUW96_15430
+            RHY: RD110_08995
+            VPE: Varpa_4653
+            VBO: CKY39_32625
+            ADN: Alide_3099
+            ADK: Alide2_1348
+            MPT: Mpe_A1466
+            METP: C1M51_00890
+            HEE: hmeg3_01805
+            RGE: RGE_11320
+            RBN: RBXJA2T_07210
+            MIU: ABE85_09735
+            AAK: AA2016_4777
+            SMD: Smed_5089
+            ATU: Atu5302
+            ATA: AWN88_04245
+            ARO: B0909_23225
+            RIR: BN877_II1367(dgdA)
+            RHV: BA939_19280
+            NEN: NCHU2750_08140(dgdA)
+            SHZ: shn_26760
+            BRK: CWS35_02565
+            BOP: AXW83_13185 AXW83_15800 AXW83_15845
+            BVV: BHK69_15960
+            BOI: BLM15_17870
+            MRD: Mrad2831_2878
+            MOR: MOC_3244
+            MPHY: MCBMB27_02318
+            METX: A3862_17405
+            LAP: ACP90_01925
+            LAGG: B0E33_13415
+            SPSE: SULPSESMR1_01214(dgdA)
+            PABY: Ga0080574_TMP3290
+            RMM: ROSMUCSMR3_03320(dgdA)
+            ROK: RAK1035_2212
+            SSAN: NX02_17365
+            GXL: H845_1622
+            TMO: TMO_1799(dgdA)
+            TXI: TH3_07410
+            THAC: CSC3H3_22560
+            TII: DY252_10290
+            ABAW: D5400_02300
+            LME: LEUM_0839
+            LMM: MI1_03880
+            LMK: LMES_0762
+            MSM: MSMEG_6842
+            MSG: MSMEI_6659
+            MSB: LJ00_33805
+            MSN: LI99_33810
+            MSH: LI98_33815
+            MVA: Mvan_5803
+            MGO: AFA91_06220
+            NTP: CRH09_35075
+            GPO: GPOL_c48070
+            GRU: GCWB2_22815(dgdA)
+            GOM: D7316_03141(dgdA)
+            TPR: Tpau_3251
+            TSM: ASU32_05225
+            SCO: SCO7537(SC8G12.13c)
+            SVL: Strvi_5938
+            SRC: M271_42620
+            SLV: SLIV_01625(dgdA)
+            SPAV: Spa2297_01110
+            STRD: NI25_35870
+            SNW: BBN63_01490
+            SAUO: BV401_08395
+            SSIA: A7J05_02840
+            SMAL: SMALA_0919
+            SALF: SMD44_08818
+            LMOI: VV02_24205
+            CET: B8281_16675
+            CCEU: CBR64_14670
+            SERJ: SGUI_1980
+            SRO: Sros_5114
+            NML: Namu_5409
+            NAK: EH165_08795
+            SEN: SACE_2647
+            AMD: AMED_0279
+            AMN: RAM_01410
+            AMM: AMES_0274
+            AMZ: B737_0275
+            AOI: AORI_6411
+            AJA: AJAP_06860(dgdA)
+            AMYC: CU254_08120
+            AMYB: BKN51_25485
+            AAB: A4R43_00605
+            PDX: Psed_5588
+            PSEE: FRP1_10245
+            PSEQ: AD006_17795
+            PECQ: AD017_25630
+            PHH: AFB00_25355
+            AMI: Amir_4825
+            APRE: CNX65_23970
+            KAL: KALB_5707
+            KPHY: AOZ06_23470
+            LED: BBK82_38655
+            AHM: TL08_05550
+            ACTI: UA75_05470
+            ACAD: UA74_05470
+            AHG: AHOG_05110(dgdA)
+            ACTA: C1701_00110
+            PMAD: BAY61_18000
+            ACTN: L083_6648
+            AFS: AFR_23730
+            SNA: Snas_1896
+            BTP: D805_0368
+DBLINKS     ExplorEnz - The Enzyme Database: 4.1.1.64
+            IUBMB Enzyme Nomenclature: 4.1.1.64
+            ExPASy - ENZYME nomenclature database: 4.1.1.64
+            BRENDA, the Enzyme Database: 4.1.1.64
+            CAS: 9032-17-1
+///

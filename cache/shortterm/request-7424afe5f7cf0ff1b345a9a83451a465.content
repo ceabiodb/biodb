@@ -1,0 +1,49 @@
+ENTRY       EC 1.14.14.41               Enzyme
+NAME        (E)-2-methylbutanal oxime monooxygenase;
+            CYP71E7 (gene name)
+CLASS       Oxidoreductases;
+            Acting on paired donors, with incorporation or reduction of molecular oxygen;
+            With reduced flavin or flavoprotein as one donor, and incorporation of one atom of oxygen into the other donor
+SYSNAME     (E)-2-methylbutanal oxime,[reduced NADPH---hemoprotein reductase]:oxygen oxidoreductase
+REACTION    (1) (E)-2-methylbutanal oxime + [reduced NADPH---hemoprotein reductase] + O2 = 2-hydroxy-2-methylbutanenitrile + [oxidized NADPH---hemoprotein reductase] + 2 H2O (overall reaction) [RN:R11597];
+            (1a) (E)-2-methylbutanal oxime = (Z)-2-methylbutanal oxime [RN:R10030];
+            (1b) (Z)-2-methylbutanal oxime = 2-methylbutanenitrile + H2O [RN:R11639];
+            (1c) 2-methylbutanenitrile + [reduced NADPH---hemoprotein reductase] + O2 = 2-hydroxy-2-methylbutanenitrile + [oxidized NADPH---hemoprotein reductase] + H2O [RN:R11640];
+            (2) (E)-2-methylpropanal oxime + [reduced NADPH---hemoprotein reductase] + O2 = 2-hydroxy-2-methylpropanenitrile + [oxidized NADPH---hemoprotein reductase] + 2 H2O (overall reaction) [RN:R11598];
+            (2a) (E)-2-methylpropanal oxime = (Z)-2-methylpropanal oxime [RN:R10034];
+            (2b) (Z)-2-methylpropanal oxime = 2-methylpropanenitrile + H2O [RN:R11641];
+            (2c) 2-methylpropanenitrile + [reduced NADPH---hemoprotein reductase] + O2 = 2-hydroxy-2-methylpropanenitrile + [oxidized NADPH---hemoprotein reductase] + H2O [RN:R11642]
+ALL_REAC    R10030 R10034 R11597 R11598 R11639 R11640 R11641 R11642
+SUBSTRATE   (E)-2-methylbutanal oxime [CPD:C19491];
+            [reduced NADPH---hemoprotein reductase] [CPD:C03024];
+            O2 [CPD:C00007];
+            (Z)-2-methylbutanal oxime [CPD:C20312];
+            2-methylbutanenitrile [CPD:C21525];
+            (E)-2-methylpropanal oxime [CPD:C03219];
+            (Z)-2-methylpropanal oxime [CPD:C20315];
+            2-methylpropanenitrile [CPD:C02420]
+PRODUCT     2-hydroxy-2-methylbutanenitrile [CPD:C18796];
+            [oxidized NADPH---hemoprotein reductase] [CPD:C03161];
+            H2O [CPD:C00001];
+            (Z)-2-methylbutanal oxime [CPD:C20312];
+            2-methylbutanenitrile [CPD:C21525];
+            2-hydroxy-2-methylpropanenitrile [CPD:C02659];
+            (Z)-2-methylpropanal oxime [CPD:C20315];
+            2-methylpropanenitrile [CPD:C02420]
+COMMENT     This cytochrome P-450 (heme thiolate) enzyme is involved in the biosynthesis of the cyanogenic glucosides lotaustralin and linamarin. It catalyses three different activities - isomerization of its substrate, the (E) isomer, to the (Z) isomer, dehydration, and C-hydroxylation.
+HISTORY     EC 1.14.14.41 created 2017
+REFERENCE   1  [PMID:21045121]
+  AUTHORS   Jorgensen K, Morant AV, Morant M, Jensen NB, Olsen CE, Kannangara R, Motawia MS, Moller BL, Bak S
+  TITLE     Biosynthesis of the cyanogenic glucosides linamarin and lotaustralin in cassava:  isolation, biochemical characterization, and expression pattern of CYP71E7, the oxime-metabolizing cytochrome P450 enzyme.
+  JOURNAL   Plant Physiol 155:282-92 (2011)
+            DOI:10.1104/pp.110.164053
+  SEQUENCE  [ag:AAP57704]
+PATHWAY     ec00460  Cyanoamino acid metabolism
+            ec01110  Biosynthesis of secondary metabolites
+ORTHOLOGY   K16265  (E)-2-methylbutanal oxime monooxygenase
+GENES       MESC: 110628704
+DBLINKS     ExplorEnz - The Enzyme Database: 1.14.14.41
+            IUBMB Enzyme Nomenclature: 1.14.14.41
+            ExPASy - ENZYME nomenclature database: 1.14.14.41
+            BRENDA, the Enzyme Database: 1.14.14.41
+///

@@ -1,0 +1,35 @@
+ENTRY       C00213                      Compound
+NAME        Sarcosine;
+            N-Methylglycine
+FORMULA     C3H7NO2
+EXACT_MASS  89.0477
+MOL_WEIGHT  89.0932
+REACTION    R00367 R00610 R00611 R01563 R01564 R01565 R01566 R05862 
+            R07227 R07243 R10061
+PATHWAY     map00260  Glycine, serine and threonine metabolism
+            map00330  Arginine and proline metabolism
+            map01100  Metabolic pathways
+ENZYME      1.4.3.19        1.5.3.1         1.5.3.10        1.5.8.3         
+            1.5.8.4         1.21.4.3        2.1.1.20        2.1.1.156       
+            2.1.1.157       2.1.1.162       3.5.1.59        3.5.3.3
+DBLINKS     CAS: 107-97-1
+            PubChem: 3513
+            ChEBI: 15611
+            ChEMBL: CHEMBL304383
+            PDB-CCD: SAR
+            3DMET: B01190
+            NIKKAJI: J5.067I
+ATOM        6
+            1   C1b C    27.6500  -17.5000
+            2   C6a C    28.7700  -16.8000
+            3   N1b N    26.2500  -16.8000
+            4   O6a O    28.7700  -15.4000
+            5   O6a O    29.8900  -17.5000
+            6   C1a C    24.9900  -17.5000
+BOND        5
+            1     1   2 1
+            2     1   3 1
+            3     2   4 2
+            4     2   5 1
+            5     3   6 1
+///

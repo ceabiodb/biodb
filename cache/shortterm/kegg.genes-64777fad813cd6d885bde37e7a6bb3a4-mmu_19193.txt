@@ -1,0 +1,66 @@
+ENTRY       19193             CDS       T01002
+NAME        Pipox, LPIPOX, Pso
+DEFINITION  (RefSeq) pipecolic acid oxidase
+ORTHOLOGY   K00306  sarcosine oxidase / L-pipecolate oxidase [EC:1.5.3.1 1.5.3.7]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00260  Glycine, serine and threonine metabolism
+            mmu00310  Lysine degradation
+            mmu01100  Metabolic pathways
+            mmu04146  Peroxisome
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00260 Glycine, serine and threonine metabolism
+                19193 (Pipox)
+               00310 Lysine degradation
+                19193 (Pipox)
+             09140 Cellular Processes
+              09141 Transport and catabolism
+               04146 Peroxisome
+                19193 (Pipox)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.5  Acting on the CH-NH group of donors
+               1.5.3  With oxygen as acceptor
+                1.5.3.1  sarcosine oxidase
+                 19193 (Pipox)
+                1.5.3.7  L-pipecolate oxidase
+                 19193 (Pipox)
+POSITION    11 B5; 11 46.74 cM
+MOTIF       Pfam: DAO NAD_binding_8 HI0933_like FAD_binding_2 Pyr_redox_2 GIDA ApbA
+DBLINKS     NCBI-GeneID: 19193
+            NCBI-ProteinID: NP_032978
+            MGI: 1197006
+            Ensembl: ENSMUSG00000017453
+            Vega: OTTMUSG00000000072
+            UniProt: Q9D826 Q3UEJ8
+AASEQ       390
+            MAAQTDFWDAIVIGAGIQGCFTAYHLAKHSKSVLLLEQFFLPHSRGSSHGQSRIIRKAYP
+            EDFYTMMMKECYQTWAQLEREAGTQLHRQTELLLLGTKENPGLKTIQATLSRQGIDHEYL
+            SSVDLKQRFPNIRFTRGEVGLLDKTGGVLYADKALRALQHIICQLGGTVCDGEKVVEIRP
+            GLPVTVKTTLKSYQANSLVITAGPWTNRLLHPLGIELPLQTLRINVCYWREKVPGSYGVS
+            QAFPCILGLDLAPHHIYGLPASEYPGLMKICYHHGDNVDPEERDCPKTFSDIQDVQILCH
+            FVRDHLPGLRAEPDIMERCMYTNTPDEHFILDCHPKYDNIVIGAGFSGHGFKLAPVVGKI
+            LYELSMKLPPSYDLAPFRMSRFSTLSKAHL
+NTSEQ       1173
+            atggctgctcagacagatttctgggatgctattgtgattggagcaggcatccagggctgc
+            tttaccgcgtaccacctggccaaacactccaagagcgtcctcctgctggagcagttcttt
+            cttccccattcccgaggaagctcacatggacagagccgcataatcagaaaggcttatcca
+            gaggacttctacacgatgatgatgaaggaatgttatcagacatgggcccagctggagcgt
+            gaagccggaacccagttacacaggcagactgagctcttacttctggggacgaaggaaaat
+            ccaggattaaagacaatccaggccaccctgtctaggcaagggatcgaccatgagtatctt
+            tcgtcagtggatttaaagcaacgctttccaaacattcggttcaccaggggagaagtgggg
+            ctcttggacaagactggaggtgtcctctatgcagacaaggccctcagagccctccagcat
+            ataatttgtcagctaggaggcactgtgtgtgatggagagaaggtagtggagataagacct
+            ggtctacccgtcacagtgaaaaccaccttgaagagctaccaagccaacagcttggtcatc
+            actgctggtccctggaccaaccggcttctgcatcctctggggattgagttgcctctccag
+            acccttaggatcaatgtgtgttactggcgagagaaggtccctgggagctatggtgtatca
+            caagcttttccatgcatcctgggtctggatctggccccccaccacatctatggactgcca
+            gcatccgagtacccggggctgatgaagatctgctatcaccatggtgacaatgtggaccca
+            gaggagcgggactgccccaaaaccttctcagacatccaagacgttcaaattctatgccac
+            tttgtcagagatcatttaccaggcctgcgggctgagccagacatcatggaacgctgcatg
+            tacacgaatactcctgatgagcactttattcttgattgccacccaaagtatgacaacatt
+            gtcatcggcgctggattctctggacatggattcaagttggcccctgttgtggggaagatc
+            ctctatgagctaagcatgaaattacccccatcctatgacttggctccgtttcgaatgagt
+            cgcttctctacgctgagcaaagcccacctttga
+///

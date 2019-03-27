@@ -29,7 +29,7 @@ all:
 # Check and test {{{1
 ################################################################
 
-check: BIODB_CACHE_DIRECTORY=$(PWD)/biodb.check.cache
+check: BIODB_CACHE_DIRECTORY=$(PWD)/cache
 check: $(ZIPPED_PKG) clean.cache
 	R CMD check --as-cran "$<"
 # Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:
@@ -65,7 +65,7 @@ $(ZIPPED_PKG): doc
 doc:
 	R -q -e "devtools::document('$(CURDIR)')"
 
-vignettes: BIODB_CACHE_DIRECTORY=$(PWD)/biodb.check.cache
+vignettes: BIODB_CACHE_DIRECTORY=$(PWD)/cache
 vignettes:
 	@echo Build vignettes for already installed package, not from local soures.
 	R -q -e "devtools::clean_vignettes('$(CURDIR)')"

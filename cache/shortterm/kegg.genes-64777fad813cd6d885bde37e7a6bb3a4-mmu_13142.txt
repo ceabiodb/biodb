@@ -1,0 +1,68 @@
+ENTRY       13142             CDS       T01002
+NAME        Dao, AI987963, DAAO, DAMOX, Dao-1, Dao1
+DEFINITION  (RefSeq) D-amino acid oxidase
+ORTHOLOGY   K00273  D-amino-acid oxidase [EC:1.4.3.3]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00260  Glycine, serine and threonine metabolism
+            mmu00330  Arginine and proline metabolism
+            mmu00472  D-Arginine and D-ornithine metabolism
+            mmu01100  Metabolic pathways
+            mmu04146  Peroxisome
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00260 Glycine, serine and threonine metabolism
+                13142 (Dao)
+               00330 Arginine and proline metabolism
+                13142 (Dao)
+              09106 Metabolism of other amino acids
+               00472 D-Arginine and D-ornithine metabolism
+                13142 (Dao)
+              09110 Biosynthesis of other secondary metabolites
+               00311 Penicillin and cephalosporin biosynthesis
+                13142 (Dao)
+             09140 Cellular Processes
+              09141 Transport and catabolism
+               04146 Peroxisome
+                13142 (Dao)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.4  Acting on the CH-NH2 group of donors
+               1.4.3  With oxygen as acceptor
+                1.4.3.3  D-amino-acid oxidase
+                 13142 (Dao)
+POSITION    5 F; 5 55.93 cM
+MOTIF       Pfam: DAO ADH_zinc_N_2 UDPG_MGDP_dh_N
+DBLINKS     NCBI-GeneID: 13142
+            NCBI-ProteinID: NP_001273325
+            MGI: 94859
+            Ensembl: ENSMUSG00000042096
+            Vega: OTTMUSG00000024124
+            UniProt: P18894 A0A0R4J203
+AASEQ       345
+            MRVAVIGAGVIGLSTALCIHERYHPTQPLHMKIYADRFTPFTTSDVAAGLWQPYLSDPSN
+            PQEAEWSQQTFDYLLSCLHSPNAEKMGLALISGYNLFRDEVPDPFWKNAVLGFRKLTPSE
+            MDLFPDYGYGWFNTSLLLEGKSYLPWLTERLTERGVKLIHRKVESLEEVARGVDVIINCT
+            GVWAGALQADASLQPGRGQIIQVEAPWIKHFILTHDPSLGIYNSPYIIPGSKTVTLGGIF
+            QLGNWSGLNSVRDHNTIWKSCCKLEPTLKNARIVGELTGFRPVRPQVRLEREWLHFGSSS
+            AEVIHNYGHGGYGLTIHWGCAMEAANLFGKILEEKKLSRLPPSHL
+NTSEQ       1038
+            atgcgcgtggccgtgatcggagcaggagtcattgggctctccacagccctctgcattcat
+            gagcgttaccacccaacacagccactgcacatgaagatctatgcagatcgattcaccccg
+            ttcaccacgagcgatgtggccgccggcctctggcagccttatctctctgaccccagcaac
+            cctcaggaggcggagtggagccagcaaacgtttgattacctgctgagctgcctccattct
+            ccaaacgctgaaaaaatgggcctggccctaatctcaggctacaacctcttccgagatgaa
+            gttccggaccctttctggaaaaacgcagttctgggattccggaagctgacccccagtgag
+            atggacctgttccctgattatggctacggctggttcaatacaagcctccttctagagggg
+            aagagctacctgccatggctaactgagaggttaactgagaggggagtgaagcttatccat
+            cggaaggtggagtctctcgaagaggtggcaagaggagtggatgtgattatcaactgcacc
+            ggggtgtgggccggggccctgcaagcagatgcctccctgcagccaggccggggccagatc
+            atccaggtggaggccccttggattaaacacttcatcctcacccatgatcctagccttggt
+            atctacaactctccgtacatcatcccaggttccaagacagttacgctcgggggtatattc
+            cagctggggaactggagcgggttaaacagcgtccgtgaccacaataccatttggaagagc
+            tgctgtaaactggagcccaccctgaagaatgcaagaattgtgggtgaactcactggcttc
+            cggccagtccggcctcaggtccggctagaaagagaatggcttcattttggatcttcaagt
+            gcagaggtcatccacaactatggtcatggaggttacgggctcacaatccactggggttgt
+            gcaatggaggcggccaacctcttcgggaaaattctagaggaaaagaagttgtccaggttg
+            cctccctcccacctctga
+///

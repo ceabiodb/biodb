@@ -1,0 +1,28 @@
+ENTRY       C06144                      Compound
+NAME        3-Butynoate;
+            But-3-ynoate
+FORMULA     C4H4O2
+EXACT_MASS  84.0211
+MOL_WEIGHT  84.0734
+REACTION    R01367 R05119 R05120
+PATHWAY     map00650  Butanoate metabolism
+ENZYME      4.2.1.27
+DBLINKS     CAS: 2345-51-9
+            PubChem: 8400
+            ChEBI: 1461 62211
+            3DMET: B00908
+            NIKKAJI: J247.950H
+ATOM        6
+            1   C1b C    26.4402  -21.6133
+            2   C6a C    27.6577  -20.9076
+            3   C3b C    25.2228  -20.9206
+            4   O6a O    28.8685  -21.6133
+            5   O6a O    27.6448  -19.5024
+            6   C3a C    24.0463  -20.1891
+BOND        5
+            1     1   2 1
+            2     1   3 1
+            3     2   4 1
+            4     2   5 2
+            5     3   6 3
+///

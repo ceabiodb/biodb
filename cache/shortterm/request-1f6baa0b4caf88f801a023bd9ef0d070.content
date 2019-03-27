@@ -1,0 +1,79 @@
+ENTRY       11529             CDS       T01002
+NAME        Adh7, AI325182, Adh-3, Adh-3e, Adh-3t, Adh3, Adh3-e, Adh3-t, Adh4, Adt-1
+DEFINITION  (RefSeq) alcohol dehydrogenase 7 (class IV), mu or sigma polypeptide
+ORTHOLOGY   K13951  alcohol dehydrogenase 1/7 [EC:1.1.1.1]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00010  Glycolysis / Gluconeogenesis
+            mmu00071  Fatty acid degradation
+            mmu00350  Tyrosine metabolism
+            mmu00830  Retinol metabolism
+            mmu00980  Metabolism of xenobiotics by cytochrome P450
+            mmu00982  Drug metabolism - cytochrome P450
+            mmu01100  Metabolic pathways
+            mmu05204  Chemical carcinogenesis
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00010 Glycolysis / Gluconeogenesis
+                11529 (Adh7)
+              09103 Lipid metabolism
+               00071 Fatty acid degradation
+                11529 (Adh7)
+              09105 Amino acid metabolism
+               00350 Tyrosine metabolism
+                11529 (Adh7)
+              09108 Metabolism of cofactors and vitamins
+               00830 Retinol metabolism
+                11529 (Adh7)
+              09111 Xenobiotics biodegradation and metabolism
+               00980 Metabolism of xenobiotics by cytochrome P450
+                11529 (Adh7)
+               00982 Drug metabolism - cytochrome P450
+                11529 (Adh7)
+             09160 Human Diseases
+              09161 Cancers: Overview
+               05204 Chemical carcinogenesis
+                11529 (Adh7)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.1  Acting on the CH-OH group of donors
+               1.1.1  With NAD+ or NADP+ as acceptor
+                1.1.1.1  alcohol dehydrogenase
+                 11529 (Adh7)
+POSITION    3 G3; 3 64.13 cM
+MOTIF       Pfam: ADH_N ADH_zinc_N UDPG_MGDP_dh_N 2-Hacid_dh_C
+DBLINKS     NCBI-GeneID: 11529
+            NCBI-ProteinID: NP_033756
+            MGI: 87926
+            Ensembl: ENSMUSG00000055301
+            Vega: OTTMUSG00000052803
+            UniProt: Q64437 Q9D748
+AASEQ       374
+            MGTAGKVIKCKAAVLWGVNQPFSIEEIEVAPPKAKEVRVKILATGICRTDDHIIKGSMVS
+            KFPVIVGHEAVGVVESVGEGVTTVRPGDKVIPLFLPQCRECNACLNPEGNLCIRSDLTGR
+            GVLADGTTRFTCKGKPVQHFMNTSTFTEYTVLDESSVAKVDGAAPPEKACLIGCGFSTGY
+            GAAVKTAKVTPGSTCVVFGLGGVGLSVIMGCKAAGASRIIGIDINKDKFQKALAVGATEC
+            ISPKDSTKPISEVLSDMTGNTIQYTFEVIGRLETMVDALSSCHMNYGTSVVVGAPPSAKM
+            LTYDPMLLFTGRTWKGCVFGGWKSRDDVPKLVTEFLEKKFDLDQLITHTLPFNNINEGFE
+            LLYSGKSIRTVLTF
+NTSEQ       1125
+            atgggcaccgctggaaaagttattaagtgcaaagcggctgtcctatggggagtgaaccag
+            cctttctccattgaggaaatcgaggtggccccaccaaaggctaaggaagtccgtgttaag
+            attttggccacaggaatctgtcgcacagatgaccatataataaaaggatcgatggtgtct
+            aagtttccagtgattgtgggacatgaagcagttggggttgtggagagtgttggagaaggg
+            gtcactacagtgagaccaggtgacaaagtcatccccctctttctaccacagtgtagagaa
+            tgcaacgcctgcctgaacccagagggcaatctctgcattaggagcgatctgacaggccgt
+            ggagtattggctgatggcactaccagattcacctgcaagggcaaaccggtccagcacttc
+            atgaacaccagcaccttcactgagtacacggtgctggacgaatcctccgtagcgaaggtt
+            gacggtgcggctccgcctgagaaagcctgcttgatcggctgtggattttccacgggttat
+            ggagctgctgttaaaactgccaaggtcacccctggctccacttgtgttgtctttggcctg
+            ggaggagttggcctgtcagtcatcatgggctgtaaagcagctggtgcctccaggatcatt
+            ggaatcgacatcaacaaagacaaattccagaaagctctggccgtaggtgccacagagtgt
+            atcagtcccaaggactctaccaagcccatcagtgaggtgctatccgacatgacaggcaac
+            accatacagtatacttttgaagttattgggcgtcttgagaccatggttgatgccctctca
+            tcttgccatatgaactatgggaccagtgtggtggttggtgctcctccgtcagccaagatg
+            ctcacctatgacccaatgctgctcttcactgggcgtacgtggaagggctgcgtctttgga
+            gggtggaagagcagagatgatgtacctaaactggtgactgagttcctggaaaagaagttt
+            gacctggaccagttgataacccacaccttgccttttaataacatcaatgaaggatttgaa
+            ttgctgtattcggggaaaagcattcggactgtcctgacattttga
+///

@@ -1,0 +1,86 @@
+ENTRY       76507             CDS       T01002
+NAME        Aoc1, 1600012D06Rik, Abp1, DAO
+DEFINITION  (RefSeq) amine oxidase, copper-containing 1
+ORTHOLOGY   K11182  diamine oxidase [EC:1.4.3.22]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00330  Arginine and proline metabolism
+            mmu00340  Histidine metabolism
+            mmu00380  Tryptophan metabolism
+            mmu01100  Metabolic pathways
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00330 Arginine and proline metabolism
+                76507 (Aoc1)
+               00340 Histidine metabolism
+                76507 (Aoc1)
+               00380 Tryptophan metabolism
+                76507 (Aoc1)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.4  Acting on the CH-NH2 group of donors
+               1.4.3  With oxygen as acceptor
+                1.4.3.22  diamine oxidase
+                 76507 (Aoc1)
+POSITION    6 B2.3; 6 23.78 cM
+MOTIF       Pfam: Cu_amine_oxid Cu_amine_oxidN2 Cu_amine_oxidN3 DUF1965
+DBLINKS     NCBI-GeneID: 76507
+            NCBI-ProteinID: NP_001155093
+            MGI: 1923757
+            Ensembl: ENSMUSG00000029811
+            Vega: OTTMUSG00000034260
+            UniProt: E9PYN9 Q3UKB9
+AASEQ       756
+            MRLAQMSLAFGWAAVILLLQTADTASAVTTPHDKARIFADLSPQEIKAVHSFLMSRKELG
+            LESSKNLTLAKNSVFLIEMLLPKKKNVLKFLDEGRKSPVREARAIIFFGAQDHPNVTEFA
+            VGPLPRPCYVQALSPRPGHHLSWSSRPISTAEYDLLYHMLNRAITPLHQFFLDTTGFSFL
+            GCDDRFLTFTDVAPRGVESGQRRSWLIVQRYVEGYFLHPTGLEILVDHSSTDVQDWRVEQ
+            LWYNGKFYNSPEELAQKYAVGEVEAVVLEEVVLEDPLPGATEQPPLFSSYKPRGEFHTPV
+            TVAGPHVVQPSGPRYKLEGNVVLYGDWSFSYRLRSSSGLQIFNVLFGGERVAYEVSVQEA
+            VALYGGHTPAGMQTKYIDVGWGLGSVTHELAPGIDCPETATFLDAFHYYDSDGPVLYPRA
+            LCLFEMPTGVPLRRHFDSNFKGGFNFYAGLKGYVLVLRTTSTVYNYDYIWDFIFYPNGVM
+            ETKMHATGYVHATFYTPEGLRHGTRLQTHLLGNIHTHLVHYRVDLDVAGTKNSFRTLKTK
+            LENITNPWSPSHSLVQPTLEQTQYSHEHQAAFRFGQTLPKYLLFSSPQKNRWGHRRSYRL
+            QIHSMAEQVLPPGWQEERAVTWARYPLAVTKYRESERYSSSLYNQNDPWDPPVVFEEFLR
+            NNENIENEDLVAWVTVGFLHIPHSEDVPNTATPGNCVGFLIRPFNFFEEDPSLASRDTVI
+            VWPQDNGLNHVQRWIPENRDCLVSPPFSYNGTYKPV
+NTSEQ       2271
+            atgaggctggcacagatgagtctggccttcggctgggcagctgtcatattacttctacag
+            acggcagacacagcatctgctgtgacgactcctcatgacaaagcaaggatatttgcagac
+            ctgagcccccaggagataaaggctgtgcacagcttcctgatgagcagaaaggagctgggg
+            ctggagtcatccaagaatctgactttggccaagaactccgtgtttctcattgagatgcta
+            ctgccaaaaaagaagaatgtgctgaaatttttggatgaaggaagaaaaagtcctgtccgg
+            gaagccagggccatcatcttcttcggtgcccaggatcaccccaatgtcactgagtttgct
+            gtggggcccctgccacggccctgctatgttcaagcactgtcccccaggccagggcaccat
+            ctgtcctggtcatcaagacccatctccacagcggagtatgacctcctctaccacatgctg
+            aacagagccatcacgcctctgcaccagtttttccttgacactactggcttctcattccta
+            ggctgcgatgaccggttcttgacttttacggatgtagcgccgcgtggtgtggagtctggt
+            cagcgtagaagctggcttatcgtgcagcgctatgtggaaggctacttcctgcatcccaca
+            gggctggagatccttgtagatcatagcagcacagatgtccaggactggagagtggaacag
+            ctctggtataacggcaagttctacaacagcccagaggaactggctcagaaatacgcagtt
+            ggagaagtggaggcagtggttctggaggaagtggttctcgaggacccactgccgggtgcc
+            acagagcagccaccactcttctcttcctacaagccccggggggaattccacacgccagtc
+            actgttgcaggcccccacgttgtccagcccagtggccccagatataagctagagggcaac
+            gttgtgctctacggagactggagcttctcttaccggctaagatcctcttctgggctgcag
+            atctttaatgtactctttggaggtgagcgtgttgcctatgaggtcagcgtgcaggaggct
+            gtggcactatatggaggacacacacctgcaggcatgcagactaagtatattgatgttggt
+            tggggcctgggcagtgtcactcacgagctggcccctggtattgactgtccagagaccgct
+            actttcctggatgctttccactattatgacagcgatggccctgtcctttatccacgcgct
+            ctgtgcctctttgagatgcccacaggggtaccccttaggcgccactttgactcaaacttt
+            aaaggtggcttcaacttctatgcgggtttgaaaggatatgtgctggtgctacggacgaca
+            tcgacagtctataattatgactatatctgggatttcatcttctaccctaatggtgtgatg
+            gagaccaagatgcatgccactggatatgtccacgcaaccttctacacccctgagggactg
+            cgccatggcactcgcttacaaacccacctgcttggcaacatccacacccacctggtgcac
+            taccgtgttgacctggacgtggcaggcaccaagaacagcttccggacactgaagacaaag
+            ctggaaaacatcaccaatccctggagcccaagtcactccctagtccagcccacacttgag
+            cagacccagtactcccacgagcaccaggctgcattccgctttggacagactctgcccaag
+            tacctgctctttagcagcccccaaaagaaccgttggggccacaggcggagctaccgcctg
+            cagatccactctatggctgagcaggtgctaccaccaggttggcaggaggagcgggctgtc
+            acttgggccaggtatcccttggctgtgacaaagtatcgggaatctgaacgctacagcagc
+            agcctctacaaccagaatgacccctgggatccccctgtggtttttgaggagttccttcgg
+            aacaacgagaacattgaaaatgaggatctggtggcctgggtgacagtaggcttcctgcac
+            atccctcactcagaggatgtccccaacacagccacacctggaaattgtgtgggcttcttg
+            atccggccattcaacttcttcgaggaggatccatccctggcatctagagacactgtgata
+            gtgtggccccaggacaacggtctcaaccatgttcagcgctggatccctgagaacagggac
+            tgcttggtgtctcctccttttagctacaatgggacctacaagcctgtgtga
+///

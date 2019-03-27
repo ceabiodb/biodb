@@ -1,0 +1,147 @@
+ENTRY       EC 2.6.1.77                 Enzyme
+NAME        taurine---pyruvate aminotransferase;
+            Tpa
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     taurine:pyruvate aminotransferase
+REACTION    taurine + pyruvate = L-alanine + 2-sulfoacetaldehyde [RN:R05652]
+ALL_REAC    R05652
+SUBSTRATE   taurine [CPD:C00245];
+            pyruvate [CPD:C00022]
+PRODUCT     L-alanine [CPD:C00041];
+            2-sulfoacetaldehyde [CPD:C00593]
+COMMENT     The enzyme from the bacterium Bilophila wadsworthia requires pyridoxal 5'-phosphate as a cofactor, and catalyses a reversible reaction that starts an anaerobic taurine degradation pathway. beta-Alanine is also a significant amino group donor. The enzyme from the bacterium Pseudomonas denitrificans PD1222 can also use hypotaurine, producing 2-sulfinoacetaldehyde, which spontaneously hydrolyses to sulfite and acetaldehyde. Unlike, EC 2.6.1.55, taurine---2-oxoglutarate transaminase, 2-oxoglutarate cannot serve as an acceptor for the amino group.
+HISTORY     EC 2.6.1.77 created 2003
+REFERENCE   1  [PMID:11082195]
+  AUTHORS   Laue H, Cook AM.
+  TITLE     Biochemical and molecular characterization of taurine:pyruvate aminotransferase from the anaerobe Bilophila wadsworthia.
+  JOURNAL   Eur J Biochem 267:6841-8 (2000)
+            DOI:10.1046/j.1432-1033.2000.01782.x
+  SEQUENCE  [ag:AAG50296]
+REFERENCE   2  [PMID:12471498]
+  AUTHORS   Cook AM, Denger K.
+  TITLE     Dissimilation of the C2 sulfonates.
+  JOURNAL   Arch Microbiol 179:1-6 (2002)
+            DOI:10.1007/s00203-002-0497-0
+REFERENCE   3  [PMID:11728723]
+  AUTHORS   Masepohl B, Fuhrer F, Klipp W.
+  TITLE     Genetic analysis of a Rhodobacter capsulatus gene region involved in utilization of taurine as a sulfur source.
+  JOURNAL   FEMS Microbiol Lett 205:105-11 (2001)
+            DOI:10.1111/j.1574-6968.2001.tb10932.x
+REFERENCE   4  [PMID:23603744]
+  AUTHORS   Felux AK, Denger K, Weiss M, Cook AM, Schleheck D
+  TITLE     Paracoccus denitrificans PD1222 utilizes hypotaurine via transamination followed  by spontaneous desulfination to yield acetaldehyde and, finally, acetate for growth.
+  JOURNAL   J Bacteriol 195:2921-30 (2013)
+            DOI:10.1128/JB.00307-13
+PATHWAY     ec00430  Taurine and hypotaurine metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K03851  taurine-pyruvate aminotransferase
+GENES       VNA: PN96_16085
+            VEJ: VEJY3_24191
+            PGB: H744_1c1564
+            PCQ: PcP3B5_40420(tpa_3)
+            COLW: A3Q33_11510
+            PIN: Ping_0051
+            WOC: BA177_02200
+            GAI: IMCC3135_11690(tpa)
+            HHH: CLM76_04195
+            MPC: Mar181_2033
+            MARS: A8C75_19765
+            TSN: W908_04080
+            BPE: BP0721
+            BPC: BPTD_0724
+            BPER: BN118_0083
+            BPET: B1917_3102
+            BPEU: Q425_33090
+            BPA: BPP3675
+            BPAR: BN117_1002
+            BBR: BB4110
+            BBM: BN115_3799
+            BBH: BN112_4293
+            BBX: BBS798_3903
+            DVM: DvMF_0516
+            DDS: Ddes_0218
+            DFI: AXF13_01545
+            DEF: CNY67_13690
+            DOA: AXF15_02700
+            DPS: DP0541
+            DEO: CAY53_09710
+            HOE: IMCC20628_04174
+            NEN: NCHU2750_31190(tpa)
+            MAQU: Maq22A_c21465(bioA)
+            MEE: DA075_14980
+            SIL: SPO0673(tpa)
+            SIT: TM1040_0159
+            RUA: D1823_10950
+            RMB: K529_018320
+            RSP: RSP_0943(yhxA)
+            RSH: Rsph17029_2602
+            RSQ: Rsph17025_2972
+            RSK: RSKD131_2333
+            RCP: RCAP_rcc02240(tpa)
+            RHP: LPB142_00195
+            RBL: B6K69_03585
+            RDE: RD1_0981(tpa)
+            RLI: RLO149_c001900(tpa)
+            PDE: Pden_4273
+            PAMI: JCM7686_0076
+            PYE: A6J80_08490
+            PAMN: JCM7685_1928
+            DSH: Dshi_2042(tpa)
+            KVU: EIO_1453
+            KVL: KVU_0494(yhxA) KVU_0941(tpa)
+            KRO: BVG79_01142(tpa)
+            PGA: PGA1_c28770(tpa)
+            PGL: PGA2_c26710(tpa)
+            PGD: Gal_00552
+            PHP: PhaeoP97_00629(tpa)
+            PPIC: PhaeoP14_02649(tpa)
+            PHQ: D1820_09080
+            OAT: OAN307_c06270(tpa)
+            OAR: OA238_c35800(tpa)
+            OTM: OSB_27890(tpa_2)
+            LMD: METH_14885
+            LEJ: ETW24_16500
+            PTP: RCA23_c01520(tpa)
+            CID: P73_3057
+            CEH: CEW89_00680
+            MALG: MALG_00569
+            RHC: RGUI_0795
+            YAN: AYJ57_04665
+            YPAC: CEW88_11285
+            SUAM: BOO69_01270
+            SPSE: SULPSESMR1_03483(tpa)
+            SULZ: C1J03_02125
+            SULI: C1J05_19075
+            SULD: B5M07_15800
+            DON: BSK21_02220
+            TPRO: Ga0080559_TMP1161
+            TOM: BWR18_14615
+            PABY: Ga0080574_TMP3122
+            RMM: ROSMUCSMR3_02376(tpa)
+            ROK: RAK1035_0806
+            LVS: LOKVESSMR4R_02315(tpa)
+            AHT: ANTHELSMS3_02105
+            RBG: BG454_06905
+            SAGU: CDO87_04525
+            THAS: C6Y53_15175
+            GEH: HYN69_10755
+            TAW: EI545_18660
+            SEDI: EBB79_18515
+            RBZ: B9057_11330
+            GXL: H845_1617 H845_1618
+            RGI: RGI145_19730
+            ROS: CTJ15_00415
+            ATI: AL072_26690
+            AZM: DM194_19010
+            TMO: TMO_c0442
+            PBD: PBOR_26460
+            DDL: Desdi_0270
+            DRU: Desru_0589
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.77
+            IUBMB Enzyme Nomenclature: 2.6.1.77
+            ExPASy - ENZYME nomenclature database: 2.6.1.77
+            BRENDA, the Enzyme Database: 2.6.1.77
+            CAS: 51901-18-9
+///

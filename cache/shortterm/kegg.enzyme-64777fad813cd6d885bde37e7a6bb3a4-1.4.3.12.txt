@@ -1,0 +1,29 @@
+ENTRY       EC 1.4.3.12                 Enzyme
+NAME        cyclohexylamine oxidase
+CLASS       Oxidoreductases;
+            Acting on the CH-NH2 group of donors;
+            With oxygen as acceptor
+SYSNAME     cyclohexylamine:oxygen oxidoreductase (deaminating)
+REACTION    cyclohexylamine + O2 + H2O = cyclohexanone + NH3 + H2O2 [RN:R02233]
+ALL_REAC    R02233
+SUBSTRATE   cyclohexylamine [CPD:C00571];
+            O2 [CPD:C00007];
+            H2O [CPD:C00001]
+PRODUCT     cyclohexanone [CPD:C00414];
+            NH3 [CPD:C00014];
+            H2O2 [CPD:C00027]
+COMMENT     A flavoprotein (FAD). Some other cyclic amines can act instead of cyclohexylamine, but not simple aliphatic and aromatic amides.
+HISTORY     EC 1.4.3.12 created 1978
+REFERENCE   1  [PMID:18451]
+  AUTHORS   Tokieda T, Niimura T, Takamura F, Yamaha T.
+  TITLE     Purification and some properties of cyclohexylamine oxidase from a Pseudomonas sp.
+  JOURNAL   J Biochem (Tokyo) 81:851-8 (1977)
+PATHWAY     ec00930  Caprolactam degradation
+            ec01120  Microbial metabolism in diverse environments
+DBLINKS     ExplorEnz - The Enzyme Database: 1.4.3.12
+            IUBMB Enzyme Nomenclature: 1.4.3.12
+            ExPASy - ENZYME nomenclature database: 1.4.3.12
+            UM-BBD (Biocatalysis/Biodegradation Database): 1.4.3.12
+            BRENDA, the Enzyme Database: 1.4.3.12
+            CAS: 63116-97-2
+///

@@ -1,0 +1,187 @@
+ENTRY       EC 1.4.3.22                 Enzyme
+NAME        diamine oxidase;
+            amine oxidase (ambiguous);
+            amine oxidase (copper-containing) (ambiguous);
+            CAO (ambiguous);
+            Cu-containing amine oxidase (ambiguous);
+            copper amine oxidase (ambiguous);
+            diamine oxidase (ambiguous);
+            diamino oxhydrase (ambiguous);
+            histaminase;
+            histamine deaminase (incorrect);
+            semicarbazide-sensitive amine oxidase (incorrect);
+            SSAO (incorrect)
+CLASS       Oxidoreductases;
+            Acting on the CH-NH2 group of donors;
+            With oxygen as acceptor
+SYSNAME     histamine:oxygen oxidoreductase (deaminating)
+REACTION    histamine + H2O + O2 = (imidazol-4-yl)acetaldehyde + NH3 + H2O2 [RN:R02150]
+ALL_REAC    R02150;
+            (other) R01151 R02173 R03139 R04674
+SUBSTRATE   histamine [CPD:C00388];
+            H2O [CPD:C00001];
+            O2 [CPD:C00007]
+PRODUCT     (imidazol-4-yl)acetaldehyde;
+            NH3 [CPD:C00014];
+            H2O2 [CPD:C00027]
+COMMENT     A group of enzymes that oxidize diamines, such as histamine, and also some primary monoamines but have little or no activity towards secondary and tertiary amines. They are copper quinoproteins (2,4,5-trihydroxyphenylalanine quinone) and, like EC 1.4.3.21 (primary-amine oxidase) but unlike EC 1.4.3.4 (monoamine oxidase), they are sensitive to inhibition by carbonyl-group reagents, such as semicarbazide.
+HISTORY     EC 1.4.3.22 created 2007 (EC 1.4.3.6 created 1961, part-incorporated 2008)
+REFERENCE   1
+  AUTHORS   Zeller, E.A.
+  TITLE     Diamine oxidases.
+  JOURNAL   In: Boyer, P.D., Lardy, H. and Myrback, K. (Eds.), The Enzymes, 2nd ed., vol. 8, Academic Press, New York, 1963, p. 313-335.
+REFERENCE   2  [PMID:182134]
+  AUTHORS   Crabbe MJ, Waight RD, Bardsley WG, Barker RW, Kelly ID, Knowles PF.
+  TITLE     Human placental diamine oxidase. Improved purification and characterization of a copper- and manganese-containing amine oxidase with novel substrate specificity.
+  JOURNAL   Biochem J 155:679-87 (1976)
+REFERENCE   3  [PMID:8182053]
+  AUTHORS   Chassande O, Renard S, Barbry P, Lazdunski M.
+  TITLE     The human gene for diamine oxidase, an amiloride binding protein. Molecular cloning, sequencing, and characterization of the promoter.
+  JOURNAL   J Biol Chem 269:14484-9 (1994)
+  SEQUENCE  [hsa:26]
+REFERENCE   4  [PMID:10668504]
+  AUTHORS   Houen G.
+  TITLE     Mammalian Cu-containing amine oxidases (CAOs): new methods of analysis, structural relationships, and possible functions.
+  JOURNAL   APMIS Suppl 96:1-46 (1999)
+REFERENCE   5  [PMID:12072962]
+  AUTHORS   Elmore BO, Bollinger JA, Dooley DM.
+  TITLE     Human kidney diamine oxidase: heterologous expression, purification, and characterization.
+  JOURNAL   J Biol Inorg Chem 7:565-79 (2002)
+            DOI:10.1007/s00775-001-0331-1
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec00340  Histidine metabolism
+            ec00380  Tryptophan metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K11182  diamine oxidase
+GENES       HSA: 26(AOC1)
+            PTR: 107975990(AOC1)
+            PPS: 100973977(AOC1)
+            GGO: 101145709(AOC1)
+            PON: 100173768(AOC1)
+            NLE: 100598250(AOC1)
+            MCC: 714112(AOC1)
+            MCF: 102141942(AOC1)
+            CSAB: 103227226(AOC1)
+            RRO: 104675391(AOC1)
+            RBB: 108531161(AOC1)
+            CJC: 100414302(AOC1)
+            SBQ: 101033597(AOC1)
+            MMU: 76507(Aoc1)
+            RNO: 65029(Aoc1)
+            CGE: 100763954 100771382
+            NGI: 103745300 103745301 103745358 103745360 103745361
+            HGL: 101712557(Aoc1)
+            CCAN: 109694449(Aoc1)
+            OCU: 100347103(AOC1)
+            TUP: 102495583(AOC1)
+            CFA: 475536(AOC1)
+            AML: 100484243(AOC1)
+            UMR: 103660997(AOC1)
+            ORO: 101381594(AOC1)
+            FCA: 101096221(AOC1)
+            PTG: 102955637(AOC1)
+            AJU: 106974449(AOC1)
+            BTA: 509751(AOC1)
+            BOM: 102275498(AOC1)
+            BIU: 109557791(AOC1)
+            PHD: 102330697(AOC1)
+            CHX: 102177774(AOC1)
+            OAS: 101112561(AOC1)
+            SSC: 100517436(AOC1)
+            CFR: 102522082(AOC1)
+            CDK: 105105709(AOC1)
+            BACU: 103017288(AOC1)
+            LVE: 103087882(AOC1)
+            OOR: 101279845(AOC1)
+            ECB: 100063930(AOC1)
+            EPZ: 103544966(AOC1)
+            EAI: 106823380(AOC1)
+            MYB: 102245958 102256259(AOC1)
+            MYD: 102751704 102773146 107184081
+            HAI: 109389675(AOC1)
+            RSS: 109435152(AOC1)
+            PALE: 102880369(AOC1)
+            LAV: 100668068 100668351(AOC1)
+            TMU: 101356291
+            MDO: 100017902(AOC1)
+            SHR: 100915360(AOC1)
+            OAA: 100075142 100077877
+            GGA: 100858159(AOC1)
+            CJO: 107308680(AOC1)
+            SCAN: 108964570
+            FAB: 101814988
+            PHI: 102101625(AOC1)
+            PMAJ: 107214654(AOC1)
+            FPG: 101917962(AOC1)
+            FCH: 102057016(AOC1)
+            CLV: 102084607(AOC1)
+            ACUN: 113477547(AOC1)
+            AAM: 106500478
+            ASN: 102380706(AOC1)
+            AMJ: 102569229(AOC1)
+            CPIC: 101932586(AOC1)
+            ACS: 100557987(aoc1)
+            PVT: 110082530(AOC1)
+            PBI: 103060423(AOC1)
+            PMUR: 107299028(AOC1)
+            GJA: 107108215(AOC1)
+            XLA: 108695581(aoc1.S) 108705560
+            XTR: 100486601(aoc1)
+            NPR: 108803230(AOC1)
+            DRE: 555401(aoc1)
+            SRX: 107713450 107753085
+            SANH: 107667202 107687273
+            SGH: 107553388 107574283
+            CCAR: 109050071(aoc1) 109066974
+            IPU: 108276865(aoc1)
+            PHYP: 113526925(aoc1)
+            AMEX: 103033242(aoc1)
+            EEE: 113573000(aoc1)
+            TRU: 101078662(aoc1)
+            TNG: GSTEN00016699G001 GSTEN00016700G001
+            LCO: 104927590(aoc1)
+            NCC: 104965259(aoc1)
+            MZE: 101467347(aoc1)
+            OLA: 101163530(aoc1)
+            XMA: 102236337(aoc1)
+            PRET: 103482350(aoc1)
+            NFU: 107382765(aoc1)
+            KMR: 108246408(aoc1)
+            CSEM: 103376876(aoc1)
+            LCF: 108881560(aoc1)
+            SDU: 111228279(aoc1)
+            HCQ: 109518117(aoc1)
+            BPEC: 110165585(aoc1)
+            MALB: 109953334(aoc1)
+            SASA: 106590278
+            OTW: 112216529 112227831
+            SALP: 111953200 111972976
+            ELS: 105019484(aoc1)
+            SFM: 108935426(aoc1)
+            PKI: 111840061(aoc1)
+            LCM: 102354448(AOC1)
+            BFO: BRAFLDRAFT_124922 BRAFLDRAFT_217424 BRAFLDRAFT_217434 BRAFLDRAFT_217436 BRAFLDRAFT_279774 BRAFLDRAFT_279777 BRAFLDRAFT_77414
+            LGI: LOTGIDRAFT_118163 LOTGIDRAFT_118238 LOTGIDRAFT_120790 LOTGIDRAFT_133255 LOTGIDRAFT_137098 LOTGIDRAFT_159693 LOTGIDRAFT_159859 LOTGIDRAFT_224288
+            CRG: 105317731 105319659 105333031 105336069 105338020 105340107 105344412
+            MYI: 110451868 110456357 110456359 110456366 110456370 110458341 110463954
+            OBI: 106869685 106870602 106880971
+            LAK: 106153941 106161605 106162659 106164094 106169091 106175867 106179266 106181241
+            SMM: Smp_017610
+            SHX: MS3_05030
+            OVI: T265_13327 T265_15957
+            EGL: EGR_03941
+            NVE: NEMVE_v1g230529 NEMVE_v1g243223
+            EPA: 110237497 110237498 110238468 110241103 110247868 110247869 110247923 110247925 110247926
+            ADF: 107333816 107333827 107337677 107352948
+            PDAM: 113675191 113677914 113679149 113679167
+            SPIS: 111322076 111327136 111327159
+            CRE: CHLREDRAFT_206147(AMX3)
+            MNG: MNEG_1864
+            CSL: COCSUDRAFT_46300
+            ACAN: ACA1_076120
+            FCY: FRACYDRAFT_244491
+DBLINKS     ExplorEnz - The Enzyme Database: 1.4.3.22
+            IUBMB Enzyme Nomenclature: 1.4.3.22
+            ExPASy - ENZYME nomenclature database: 1.4.3.22
+            BRENDA, the Enzyme Database: 1.4.3.22
+///

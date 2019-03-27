@@ -1,0 +1,150 @@
+ENTRY       EC 2.1.3.6                  Enzyme
+NAME        putrescine carbamoyltransferase;
+            PTCase;
+            putrescine synthase;
+            putrescine transcarbamylase
+CLASS       Transferases;
+            Transferring one-carbon groups;
+            Carboxy- and carbamoyltransferases
+SYSNAME     carbamoyl-phosphate:putrescine carbamoyltransferase
+REACTION    carbamoyl phosphate + putrescine = phosphate + N-carbamoylputrescine [RN:R01399]
+ALL_REAC    R01399
+SUBSTRATE   carbamoyl phosphate [CPD:C00169];
+            putrescine [CPD:C00134]
+PRODUCT     phosphate [CPD:C00009];
+            N-carbamoylputrescine [CPD:C00436]
+COMMENT     The plant enzyme also catalyses the reactions of EC 2.1.3.3 ornithine carbamoyltransferase, EC 2.7.2.2 carbamate kinase and EC 3.5.3.12 agmatine deiminase, thus acting as putrescine synthase, converting agmatine [(4-aminobutyl)guanidine] and ornithine into putrescine and citrulline, respectively.
+HISTORY     EC 2.1.3.6 created 1976
+REFERENCE   1  [PMID:4621632]
+  AUTHORS   Roon RJ, Barker HA.
+  TITLE     Fermentation of agmatine in Streptococcus faecalis: occurrence of putrescine transcarbamoylase.
+  JOURNAL   J Bacteriol 109:44-50 (1972)
+  SEQUENCE  [efa:EF0732]
+REFERENCE   2  [PMID:6895223]
+  AUTHORS   Srivenugopal KS, Adiga PR.
+  TITLE     Enzymic conversion of agmatine to putrescine in Lathyrus sativus seedlings. Purification and properties of a multifunctional enzyme (putrescine synthase).
+  JOURNAL   J Biol Chem 256:9532-41 (1981)
+ORTHOLOGY   K13252  putrescine carbamoyltransferase
+GENES       VHR: AL538_19730(argF)
+            VGA: BSQ33_19090
+            PPR: PBPRB1921(WS1753)
+            PGB: H744_1c0258
+            PLA: Plav_1142
+            HMC: HYPMC_3083(ptcA)
+            CAK: Caul_2960
+            HBC: AEM38_01040
+            STER: AOA14_07435
+            LMO: lmo0036
+            LMN: LM5578_2980
+            LMY: LM5923_2929
+            LMT: LMRG_02465
+            LMOC: LMOSLCC5850_0036(argF-1)
+            LMOE: BN418_0038
+            LMOB: BN419_0039
+            LMOD: LMON_0037
+            LMOW: AX10_08655
+            LMOQ: LM6179_0315(ptcA)
+            LMR: LMR479A_0043(ptcA)
+            LMOM: IJ09_10195
+            LMF: LMOf2365_0045(argF-1)
+            LMC: Lm4b_00045
+            LMOG: BN389_00460(ptcA)
+            LMP: MUO_00230
+            LMOL: LMOL312_0044(argF-1)
+            LMOJ: LM220_21670
+            LMOZ: LM1816_03697
+            LMOX: AX24_12720
+            LMG: LMKG_02293
+            LMS: LMLG_0131
+            LMJ: LMOG_01589
+            LMW: LMOSLCC2755_0041(argF-1)
+            LMX: LMOSLCC2372_0036(argF-1)
+            LMZ: LMOSLCC2482_0041(argF-1)
+            LMOS: LMOSLCC7179_0042(argF-1)
+            LMOO: LMOSLCC2378_0045(argF-1)
+            LMOY: LMOSLCC2479_0036(argF-1)
+            LMOT: LMOSLCC2540_0042(argF-1)
+            LMOA: LMOATCC19117_0044(argF-1)
+            LMOK: CQ02_00235
+            LMV: Y193_01065
+            LIV: LIV_0034
+            LII: JL52_00420
+            LIW: AX25_00430
+            LIA: JL58_00360
+            LIO: JL53_00360
+            LLA: L0113(otcA)
+            LLK: LLKF_1862(pctA)
+            LLT: CVCAS_1609(pctA)
+            LLS: lilo_1676(otcA)
+            LLD: P620_09560
+            LLX: NCDO2118_1801(ptcA2)
+            LLW: kw2_1669(pctA)
+            LLJ: LG36_1655(pctA)
+            LPK: LACPI_2113(AguB)
+            LRN: CMV25_06390
+            LACT: D7I46_10315
+            SMU: SMU_262(otcA)
+            SMUT: SMUGS5_01040
+            SMJ: SMULJ23_1707(otcA)
+            SMUA: SMUFR_0221(ptcA)
+            SCP: HMPREF0833_10548(argF)
+            SPAT: A0O21_09225
+            SSOB: DK181_09900
+            LSA: LCA_0067
+            LBR: LVIS_2210
+            LBK: LVISKB_2283
+            LBH: Lbuc_0314
+            LBN: LBUCD034_0348(pctA)
+            LAW: LACWKB8_0684
+            LPD: AYR62_15735
+            LCU: PL11_002955
+            PPE: PEPE_0189
+            PPEN: T256_01065
+            PCE: PECL_1708(aguB)
+            PACI: A4V11_07565
+            EFA: EF0732(argF-2)
+            EFL: EF62_1118(agcB)
+            EFI: OG1RF_10469(argF)
+            EFD: EFD32_0550
+            EFS: EFS1_0578(otcA)
+            EFN: DENG_00782(ptcA)
+            EFQ: DR75_2688(argF)
+            ENE: ENT_23710
+            EFM: M7W_2228
+            EHR: EHR_01665
+            ESS: ATZ33_03180
+            ETH: CK496_06390
+            EGV: EGCR1_15285(argF) EGCR1_16265
+            CLJ: CLJU_c42560
+            CAH: CAETHG_2082
+            LACY: A4V08_12380
+            CMIU: B1H56_06205
+            MMY: MSC_0703(arcB)
+            MMYM: MMS_A0772(argF)
+            MMYI: mycmycITA_00744(pyrB)
+            MML: MLC_6550(arcB)
+            MCP: MCAP_0654(argF)
+            MCAP: MCCPF38_00767(ptcA_2)
+            MCAR: MCCPILRI181_00770(ptcA_3)
+            MCAI: MCCG_0755
+            MLC: MSB_A0669(argF)
+            MLH: MLEA_006300(ptcA)
+            SERI: SERIO_v1c11430(ptcA)
+            SHI: Shel_12530
+            ELE: Elen_0670 Elen_0676 Elen_2191
+            EYY: EGYY_08400(ArgF) EGYY_08440(ArgF) EGYY_08490(ArgF) EGYY_17800(ArgF)
+            GPA: GPA_08150
+            AEQ: AEQU_1881
+            DDT: AAY81_03010
+            OLS: Olsu_1744
+            OLO: ADJ70_06640
+            CGO: Corgl_1584
+            CAER: CSV91_06105
+            ABAO: BEQ56_06455
+            STR: Sterm_3447
+DBLINKS     ExplorEnz - The Enzyme Database: 2.1.3.6
+            IUBMB Enzyme Nomenclature: 2.1.3.6
+            ExPASy - ENZYME nomenclature database: 2.1.3.6
+            BRENDA, the Enzyme Database: 2.1.3.6
+            CAS: 9076-55-5
+///

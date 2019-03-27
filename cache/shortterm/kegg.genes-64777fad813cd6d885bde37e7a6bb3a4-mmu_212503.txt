@@ -1,0 +1,64 @@
+ENTRY       212503            CDS       T01002
+NAME        Paox, 2410012F02Rik, AI118225, Pao
+DEFINITION  (RefSeq) polyamine oxidase (exo-N4-amino)
+ORTHOLOGY   K00308  N1-acetylpolyamine oxidase [EC:1.5.3.13]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu04146  Peroxisome
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09140 Cellular Processes
+              09141 Transport and catabolism
+               04146 Peroxisome
+                212503 (Paox)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.5  Acting on the CH-NH group of donors
+               1.5.3  With oxygen as acceptor
+                1.5.3.13  N1-acetylpolyamine oxidase
+                 212503 (Paox)
+POSITION    7; 7 F4
+MOTIF       Pfam: Amino_oxidase NAD_binding_8 Lycopene_cycl FAD_binding_2 Pyr_redox_2 DAO Thi4
+DBLINKS     NCBI-GeneID: 212503
+            NCBI-ProteinID: NP_722478
+            MGI: 1916983
+            Ensembl: ENSMUSG00000025464
+            Vega: OTTMUSG00000027287
+            UniProt: Q8C0L6
+STRUCTURE   PDB: 5MBX 5LFO 5LGB 5LAE
+AASEQ       504
+            MAFPGPRVLVVGSGIAGLGAAQKLCSHRAAPHLRVLEATASAGGRIRSERCFGGVVELGA
+            HWIHGPSQDNPVFQLAAEFGLLGEKELSEENQLVDTGGHVALPSMIWSSSGTSVSLELMT
+            EMARLFYGLIERTREFLNESETPMASVGEFLKKEISQQVASWTEDDEDTRKRKLAILNTF
+            FNIECCVSGTHSMDLVALAPFGEYTVLPGLDCILAGGYQGLTDRILASLPKDTVAFDKPV
+            KTIHWNGSFQEAAFPGETFPVLVECEDGARLPAHHVIVTVPLGFLKEHQDTFFEPPLPAK
+            KAEAIKKLGFGTNNKIFLEFEEPFWEPDCQFIQVVWEDTSPLQDTALSLQDTWFKKLIGF
+            LVQPSFESSHVLCGFIAGLESEFMETLSDEEVLLSLTQVLRRVTGNPQLPAAKSVRRSQW
+            HSAPYTRGSYSYVAVGSTGDDLDLMAQPLPEDGTGTQLQVLFAGEATHRTFYSTTHGALL
+            SGWREADRLVSLWDSQVEQSRPRL
+NTSEQ       1515
+            atggcgttccctggcccgcgggtgctggtggtgggcagcggcatcgcggggctgggcgct
+            gcgcagaagctctgcagccaccgggctgctccacacctgcgggttctggaggccaccgcc
+            agcgccgggggccgcatccgctcggaacgctgcttcggtggtgtagtggagctgggtgca
+            cactggatccatgggccctcccaggacaatcctgtcttccagctggctgcagaattcggg
+            ctcctgggggagaaagaattatcggaagagaaccagcttgtggatacaggagggcacgtg
+            gccctgccctccatgatctggtccagctctggaacaagtgtgagcctggagctgatgaca
+            gagatggcccgtctgttctatggactgatagagcggacccgagaattcctgaatgaatct
+            gaaaccccaatggccagtgttggagagttcctgaagaaggagataagtcagcaggtggct
+            agctggaccgaggatgatgaggacaccagaaagcgcaagctggctatcctgaatactttc
+            ttcaacatagagtgttgtgtgagcggcacccacagcatggacctggtggctcttgcaccg
+            ttcggggagtatacagtgctgcctgggctggattgcatcttggctggtggctaccaagga
+            cttaccgaccgcatactggcttccttgcccaaggatacggtcgcttttgacaagccggtg
+            aagaccattcactggaatgggtccttccaggaagctgcttttccaggggagaccttcccc
+            gtattggtggagtgtgaagatggtgcccgcctgcctgcacatcatgtcattgtcacagtg
+            ccattaggttttcttaaagaacaccaagataccttttttgagccaccactgcctgccaaa
+            aaagcagaagccatcaaaaaactaggctttggtaccaacaacaaaatcttcttggagttt
+            gaagagcccttctgggagcccgactgccagttcatccaggtggtgtgggaagatacatcg
+            cccttacaggacacagccctctcactccaagacacctggttcaagaagctcattggattt
+            ttggtccagccttcttttgagtcttcacatgtgctctgtgggtttattgctgggctggag
+            tcggagtttatggagactctgtcagatgaagaagtgcttctgtctctaacccaagtactc
+            cggagagtgacaggaaacccacaattgccagcagccaagagcgtacgaaggtctcagtgg
+            cacagtgccccgtacacccgaggttcctacagctatgtggctgtgggcagcactggcgat
+            gacctagatctgatggctcagcccctccctgaagatggaactggcacccagctccaggta
+            ctctttgctggggaagccacacatcggacattttattctaccacacatggggccctcctg
+            tctggctggagagaagctgatcgcctcgttagtctgtgggactcacaggtggagcagtcg
+            cggcccaggctgtga
+///

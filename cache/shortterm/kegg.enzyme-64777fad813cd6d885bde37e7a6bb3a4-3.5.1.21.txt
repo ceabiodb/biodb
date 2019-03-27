@@ -1,0 +1,24 @@
+ENTRY       EC 3.5.1.21                 Enzyme
+NAME        N-acetyl-beta-alanine deacetylase
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In linear amides
+SYSNAME     N-acetyl-beta-alanine amidohydrolase
+REACTION    N-acetyl-beta-alanine + H2O = acetate + beta-alanine [RN:R00909]
+ALL_REAC    R00909
+SUBSTRATE   N-acetyl-beta-alanine [CPD:C01073];
+            H2O [CPD:C00001]
+PRODUCT     acetate [CPD:C00033];
+            beta-alanine [CPD:C00099]
+HISTORY     EC 3.5.1.21 created 1972
+REFERENCE   1
+  AUTHORS   Fujimoto, D., Koyama, T. and Tamiya, N.
+  TITLE     N-Acetyl-beta-alanine deacetylase in hog kidney.
+  JOURNAL   Biochim Biophys Acta 167:407-413 (1968)
+PATHWAY     ec00410  beta-Alanine metabolism
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.1.21
+            IUBMB Enzyme Nomenclature: 3.5.1.21
+            ExPASy - ENZYME nomenclature database: 3.5.1.21
+            BRENDA, the Enzyme Database: 3.5.1.21
+            CAS: 37289-04-6
+///

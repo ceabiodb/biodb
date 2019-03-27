@@ -1,0 +1,1 @@
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["url","header","body"]}},"value":[{"type":"character","attributes":{},"value":["http://rest.kegg.jp/get/mmu:268860"]},{"type":"character","attributes":{},"value":[]},{"type":"character","attributes":{},"value":[]}]}

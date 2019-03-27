@@ -1,0 +1,25 @@
+ENTRY       EC 1.3.99.14                Enzyme
+NAME        cyclohexanone dehydrogenase;
+            cyclohexanone:(acceptor) 2-oxidoreductase
+CLASS       Oxidoreductases;
+            Acting on the CH-CH group of donors;
+            With unknown physiological acceptors
+SYSNAME     cyclohexanone:acceptor 2-oxidoreductase
+REACTION    cyclohexanone + acceptor = cyclohex-2-enone + reduced acceptor [RN:R02234]
+ALL_REAC    R02234
+SUBSTRATE   cyclohexanone [CPD:C00414];
+            acceptor [CPD:C00028]
+PRODUCT     cyclohex-2-enone [CPD:C02395];
+            reduced acceptor [CPD:C00030]
+COMMENT     2,6-Dichloroindophenol can act as acceptor. The corresponding ketones of cyclopentane and cycloheptane cannot act as donors.
+HISTORY     EC 1.3.99.14 created 1992
+REFERENCE   1  [PMID:2505723]
+  AUTHORS   Dangel W, Tschech A, Fuchs G
+  TITLE     Enzyme reactions involved in anaerobic cyclohexanol metabolism by a denitrifying  Pseudomonas species.
+  JOURNAL   Arch Microbiol 152:271-9 (1989)
+DBLINKS     ExplorEnz - The Enzyme Database: 1.3.99.14
+            IUBMB Enzyme Nomenclature: 1.3.99.14
+            ExPASy - ENZYME nomenclature database: 1.3.99.14
+            BRENDA, the Enzyme Database: 1.3.99.14
+            CAS: 123516-43-8
+///

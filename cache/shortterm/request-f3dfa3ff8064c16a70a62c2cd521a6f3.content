@@ -1,0 +1,25 @@
+ENTRY       EC 3.5.1.75                 Enzyme
+NAME        urethanase;
+            urethane hydrolase
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In linear amides
+SYSNAME     urethane amidohydrolase (decarboxylating)
+REACTION    urethane + H2O = ethanol + CO2 + NH3 [RN:R02359]
+ALL_REAC    R02359
+SUBSTRATE   urethane [CPD:C01537];
+            H2O [CPD:C00001]
+PRODUCT     ethanol [CPD:C00469];
+            CO2 [CPD:C00011];
+            NH3 [CPD:C00014]
+HISTORY     EC 3.5.1.75 created 1992
+REFERENCE   1  [PMID:2393957]
+  AUTHORS   Kobashi K, Takebe S, Sakai T.
+  TITLE     Urethane-hydrolyzing enzyme from Citrobacter sp.
+  JOURNAL   Chem Pharm Bull (Tokyo) 38:1326-8 (1990)
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.1.75
+            IUBMB Enzyme Nomenclature: 3.5.1.75
+            ExPASy - ENZYME nomenclature database: 3.5.1.75
+            BRENDA, the Enzyme Database: 3.5.1.75
+            CAS: 122007-70-9
+///

@@ -1,0 +1,98 @@
+ENTRY       72535             CDS       T01002
+NAME        Aldh1b1, 2700007F14Rik
+DEFINITION  (RefSeq) aldehyde dehydrogenase 1 family, member B1
+ORTHOLOGY   K00128  aldehyde dehydrogenase (NAD+) [EC:1.2.1.3]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00010  Glycolysis / Gluconeogenesis
+            mmu00053  Ascorbate and aldarate metabolism
+            mmu00071  Fatty acid degradation
+            mmu00280  Valine, leucine and isoleucine degradation
+            mmu00310  Lysine degradation
+            mmu00330  Arginine and proline metabolism
+            mmu00340  Histidine metabolism
+            mmu00380  Tryptophan metabolism
+            mmu00410  beta-Alanine metabolism
+            mmu00561  Glycerolipid metabolism
+            mmu00620  Pyruvate metabolism
+            mmu01100  Metabolic pathways
+MODULE      mmu_M00135  GABA biosynthesis, eukaryotes, putrescine => GABA
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00010 Glycolysis / Gluconeogenesis
+                72535 (Aldh1b1)
+               00053 Ascorbate and aldarate metabolism
+                72535 (Aldh1b1)
+               00620 Pyruvate metabolism
+                72535 (Aldh1b1)
+              09103 Lipid metabolism
+               00071 Fatty acid degradation
+                72535 (Aldh1b1)
+               00561 Glycerolipid metabolism
+                72535 (Aldh1b1)
+              09105 Amino acid metabolism
+               00280 Valine, leucine and isoleucine degradation
+                72535 (Aldh1b1)
+               00310 Lysine degradation
+                72535 (Aldh1b1)
+               00330 Arginine and proline metabolism
+                72535 (Aldh1b1)
+               00340 Histidine metabolism
+                72535 (Aldh1b1)
+               00380 Tryptophan metabolism
+                72535 (Aldh1b1)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                72535 (Aldh1b1)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.2  Acting on the aldehyde or oxo group of donors
+               1.2.1  With NAD+ or NADP+ as acceptor
+                1.2.1.3  aldehyde dehydrogenase (NAD+)
+                 72535 (Aldh1b1)
+POSITION    4; 4 B1
+MOTIF       Pfam: Aldedh
+DBLINKS     NCBI-GeneID: 72535
+            NCBI-ProteinID: NP_082546
+            MGI: 1919785
+            Ensembl: ENSMUSG00000035561
+            Vega: OTTMUSG00000006730
+            UniProt: Q9CZS1
+AASEQ       519
+            MLTARLLLPRLLCLQGRTTSYSTAAALPNPIPNPEICYNKLFINNEWHDAVSKKTFPTVN
+            PTTGEVIGHVAEGDRADVDLAVKAAREAFRLGSPWRRMDASERGRLLNRLADLVERDRVY
+            LASLETLDNGKPFQESYVLDLDEVIKVYRYFAGWADKWHGKTIPMDGEHFCFTRHEPVGV
+            CGQIIPWNFPLVMQGWKLAPALATGNTVVMKVAEQTPLSALYLASLIKEAGFPPGVVNII
+            TGYGPTAGAAIAQHMDVDKVAFTGSTEVGHLIQKAAGESNLKRVTLELGGKSPSIVLADA
+            DMEHAVDQCHEALFFNMGQCCCAGSRTFVEESIYREFLERTVEKAKQRKVGNPFELDTQQ
+            GPQVDKEQFERILGYIRLGQKEGAKLLCGGERLGERGFFIKPTVFGDVQDGMRIAKEEIF
+            GPVQPLFKFKKIEEVIQRANNTRYGLAAAVFTRDLDKAIYFTQALQAGTVWVNTYNIVTC
+            HTPFGGFKESGNGRELGEDGLRAYTEVKTVTIKVPEKNS
+NTSEQ       1560
+            atgctgactgcccgactcttgctgccccggctcctctgcctccagggcaggactacctct
+            tactctacagcagctgctctcccgaacccaatcccaaacccagagatttgctacaacaag
+            ctgttcatcaacaacgagtggcatgatgcggtcagcaaaaagaccttccccacagtgaac
+            cccactacaggtgaggtcattgggcatgtggccgaaggtgaccgggcagatgtggatctg
+            gctgtaaaagcagcccgagaagccttccgcctggggtccccatggcgcaggatggatgcc
+            tcagagcggggccggctgctgaaccgcctagctgatcttgtggaacgagatcgagtgtac
+            ttggcctcactggagacgctagataacgggaaacctttccaggagtcttatgtcttggat
+            ctggatgaagtcatcaaggtgtaccgttacttcgctggctgggctgacaagtggcatggt
+            aagaccatccctatggatggtgagcatttctgcttcacccgacatgagccagtgggtgtc
+            tgtggccagataatcccttggaacttcccactggtcatgcagggctggaagctggccccg
+            gcactcgccacgggcaacactgtggtcatgaaggtggcagagcagaccccactctctgct
+            ctgtacttggcctccctcatcaaagaggcggggtttcccccaggagtggtgaacatcatc
+            actggctacggccccacggcgggagctgccatcgctcagcacatggatgtggataaagtc
+            gccttcacgggctccactgaggtaggccacctgattcagaaggcagctggcgagtctaac
+            ctcaagagagtcaccctggagctgggtgggaagagccccagcattgtgctggcagacgct
+            gacatggagcatgccgtagatcagtgtcacgaagcccttttcttcaacatgggccagtgc
+            tgctgtgcaggctcccggacattcgtggaagagtccatctaccgtgagtttctcgagaga
+            actgtggagaaggccaagcagaggaaagtggggaacccctttgagttggacacccagcag
+            ggacctcaggtggacaaggagcagtttgaacgaatcctgggctacatccggctgggacag
+            aaggaaggggcaaagcttctctgtggcggggagcgtttgggggagcgcggcttcttcatc
+            aaacccacagtcttcggggacgttcaggatggcatgaggatcgccaaggaggagatcttt
+            gggcccgtgcagcctctgttcaagttcaagaagatcgaggaagtaatccagagagccaac
+            aacaccaggtatggcctggctgcggctgtgttcacccgagacctggacaaggccatctac
+            ttcacgcaggccctgcaagctgggacggtgtgggtgaacacctataacattgtcacctgc
+            cacacgccattcggaggctttaaggaatctggcaatggcagggagctgggggaggacggg
+            ctcagagcctacacggaggtgaagactgtcaccatcaaggttcccgagaagaattcctga
+///

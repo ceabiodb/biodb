@@ -1,0 +1,90 @@
+ENTRY       237940            CDS       T01002
+NAME        Aoc2, RAO
+DEFINITION  (RefSeq) amine oxidase, copper containing 2 (retina-specific)
+ORTHOLOGY   K00276  primary-amine oxidase [EC:1.4.3.21]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00260  Glycine, serine and threonine metabolism
+            mmu00350  Tyrosine metabolism
+            mmu00360  Phenylalanine metabolism
+            mmu00410  beta-Alanine metabolism
+            mmu01100  Metabolic pathways
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00260 Glycine, serine and threonine metabolism
+                237940 (Aoc2)
+               00350 Tyrosine metabolism
+                237940 (Aoc2)
+               00360 Phenylalanine metabolism
+                237940 (Aoc2)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                237940 (Aoc2)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.4  Acting on the CH-NH2 group of donors
+               1.4.3  With oxygen as acceptor
+                1.4.3.21  primary-amine oxidase
+                 237940 (Aoc2)
+POSITION    11; 11 D
+MOTIF       Pfam: Cu_amine_oxid Cu_amine_oxidN2 Cu_amine_oxidN3 DUF1965
+DBLINKS     NCBI-GeneID: 237940
+            NCBI-ProteinID: NP_849263
+            MGI: 2668431
+            Ensembl: ENSMUSG00000078651
+            Vega: OTTMUSG00000002792
+            UniProt: Q812C9
+AASEQ       757
+            MNLKVLLLLLGLSFLTVFALVYVLLTRQGSFSQSPRCPSIPPRIHPWTHPSQSQLFADLT
+            PEELTAVMSFLTKHLGPGLVDAAQARPSDNCVFSVELQLPAKAAALAHLDRGGPPPVREA
+            LAIIFFGGQPKPNVSELVVGPLPHPSYMRDVTVERHGGPLPYYRRPMQKTEFVQIWRHLK
+            EVELPKAPTFLASVLNYNGSTLAPLHSTASGFHAGDRATWIALYHNISGLGVFLHPVGLE
+            LLLDHGALDPADWVVQQVFYLGHYYADLAQLEWEFKVGRLEVIRVPLPTPGGASSLRPRV
+            TPDPPLPPLQFSLQGPQYNIQGNSVTSPLWTFTFGHGVFSGLRIFDIRFKGERVAYEVSV
+            QECLTVYGADSPKTMTIRYLDSSYGLGLNSRALVRGVDCPYQATMVDIHVLVGTGSVQLL
+            PGAVCVFEEAQGLPLRRHHNGIGGHFYGGLASSSLVVRSVSSVGNYDYIWDFMLHPTGAL
+            EARVHATGYINTAFMSGGAESLLFGNRVGERVLGAVHTHAFHFKLDLDVAGLKNWVIAED
+            AVFKPVAAPWNPELQLQRPQLTRQVLSREDLAAFPWGSPLPRYLYLATNQTNAWGHQRGY
+            RIQIHSPPGVHVPLESSEERALSWGRYQLVVTQRKEAEPHSSSIYYQNDMRSPATVFADF
+            INNETLLGEDLVAWVTASFLHIPHAEDIPNTVTVGNRVGFLLRPYNFFNEDPSIFSPGSV
+            YFERDQDAGLCSINPVACTQQLADCVPNLPSFSYEGL
+NTSEQ       2274
+            atgaatctcaaggtgctgctgctgcttctggggctgtctttcctcactgtctttgctctg
+            gtctatgtcctgctgaccaggcaaggcagtttcagccagtctcctcgatgcccttccata
+            cctcccagaattcatccctggacacaccctagccagagccagctgtttgcagacctgacc
+            ccagaggagctgacagctgtgatgagcttcctgaccaagcacctggggccggggctggtg
+            gatgcagcccaggctcgaccctcggacaactgtgtcttctcagtagagttgcagctgcct
+            gccaaggctgcagccctggcccacctggacagaggggggcccccacctgtgcgagaggca
+            ctagccatcatcttctttggtggacaacccaagcccaacgtgagtgagctggtggtgggg
+            cccctgcctcacccctcctacatgcgggatgtgactgtggagcgccacggcggccccctg
+            ccctattatcggcgccccatgcagaaaactgagtttgttcagatatggaggcatttgaaa
+            gaagtggagctaccaaaggcacccacctttctggcttctgtcttgaactacaatggctcc
+            accttggcacctttgcattctactgctagtggtttccatgcaggcgatcgagctacctgg
+            atagccctctaccataacatctcaggtcttggagtgttccttcaccctgtggggctggag
+            ctactgttggaccacggggccctggaccctgccgactgggtagtccaacaggtcttctac
+            cttgggcattactatgcagacttggcccagttggaatgggagtttaaagttggccgccta
+            gaagtgattcgggtccctctacccacaccaggtggagcttcctccttgaggcctagagtc
+            actccagaccctcctcttccccctcttcagttctcacttcagggtccccagtataacata
+            cagggaaactcagtgacatctcccctctggacatttacctttggtcatggggtgttcagt
+            ggcttaagaatttttgatattcggttcaagggtgagcgtgtggcttatgaagtcagtgtc
+            caggagtgtctgacagtttatggtgctgattcccccaaaacaatgacgatccggtacttg
+            gacagcagctatgggcttggtctcaacagccgagctttggttcggggggtggattgcccc
+            tatcaagccacaatggtggacatccatgtactggtgggcacggggtcagtccagctgctt
+            ccaggggctgtgtgtgtatttgaggaggcccagggactgccccttcgaaggcatcataat
+            ggcatcgggggtcatttctatggtggtttggccagctcaagccttgtggtcaggtcggtg
+            tcatcagtgggcaactatgattacatctgggactttatgctacacccaaccggggccctt
+            gaagctcgtgtccatgccacgggctatatcaacacagccttcatgagtggaggagctgaa
+            agtctcctctttgggaaccgtgtgggagaaagagtgctgggagcggtgcatacacacgct
+            ttccacttcaaactggaccttgatgtagcaggtttgaaaaactgggtgatagctgaagat
+            gcggtctttaagcctgtagcagccccctggaacccagagcttcagctacagcgcccacag
+            ctgaccaggcaggtcctgagcagagaggacctggctgcatttccctgggggagccctctt
+            cctcgatacctttacctggctaccaaccagaccaatgcctggggtcaccagcgagggtac
+            cgaatccagatccacagccctcctggtgtgcatgtgcctctggagagcagcgaggagagg
+            gctctcagctgggggaggtaccagcttgtggtgacccagaggaaggaggcagagcctcac
+            agcagcagcatctattaccagaacgacatgcggagcccagctacggtttttgctgacttc
+            atcaacaatgaaaccctcttaggggaggatctggtggcttgggtgacagccagtttcctg
+            cacatcccccatgctgaggacatccccaacacagtgactgtgggaaacagagtgggcttc
+            ttgctccgaccctacaatttcttcaatgaagatccctctatcttctcccctggcagcgtg
+            tactttgagagggaccaggatgccgggctctgcagcatcaaccctgtggcctgcacccaa
+            cagctggcagactgtgtccccaacttaccctccttttcctatgaaggcttatag
+///

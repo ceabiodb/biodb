@@ -1,0 +1,78 @@
+ENTRY       EC 6.1.2.1                  Enzyme
+NAME        D-alanine---(R)-lactate ligase;
+            VanA;
+            VanB;
+            VanD
+CLASS       Ligases;
+            Forming carbon-oxygen bonds;
+            Acid-alcohol ligases (ester synthases)
+SYSNAME     D-alanine:(R)-lactate ligase (ADP-forming)
+REACTION    D-alanine + (R)-lactate + ATP = D-alanyl-(R)-lactate + ADP + phosphate [RN:R09588]
+ALL_REAC    R09588
+SUBSTRATE   D-alanine [CPD:C00133];
+            (R)-lactate [CPD:C00256];
+            ATP [CPD:C00002]
+PRODUCT     D-alanyl-(R)-lactate [CPD:C19694];
+            ADP [CPD:C00008];
+            phosphate [CPD:C00009]
+COMMENT     The product of this enzyme, the depsipeptide D-alanyl-(R)-lactate, can be incorporated into the peptidoglycan pentapeptide instead of the usual D-alanyl-D-alanine dipeptide, which is formed by EC 6.3.2.4, D-alanine---D-alanine ligase. The resulting peptidoglycan does not bind the glycopeptide antibiotics vancomycin and teicoplanin, conferring resistance on the bacteria.
+HISTORY     EC 6.1.2.1 created 2010
+REFERENCE   1  [PMID:1931965]
+  AUTHORS   Bugg TD, Wright GD, Dutka-Malen S, Arthur M, Courvalin P, Walsh CT
+  TITLE     Molecular basis for vancomycin resistance in Enterococcus faecium BM4147: biosynthesis of a depsipeptide peptidoglycan precursor by vancomycin resistance proteins VanH and VanA.
+  JOURNAL   Biochemistry 30:10408-15 (1991)
+            DOI:10.1021/bi00107a007
+  SEQUENCE  [ag:CAA40215]
+REFERENCE   2  [PMID:7957913]
+  AUTHORS   Meziane-Cherif D, Badet-Denisot MA, Evers S, Courvalin P, Badet B
+  TITLE     Purification and characterization of the VanB ligase associated with type B vancomycin resistance in Enterococcus faecalis V583.
+  JOURNAL   FEBS Lett 354:140-2 (1994)
+            DOI:10.1016/0014-5793(94)01096-X
+  SEQUENCE  [efa:EF2294]
+REFERENCE   3  [PMID:9303405]
+  AUTHORS   Perichon B, Reynolds P, Courvalin P
+  TITLE     VanD-type glycopeptide-resistant Enterococcus faecium BM4339.
+  JOURNAL   Antimicrob Agents Chemother 41:2016-8 (1997)
+ORTHOLOGY   K15739  D-alanine---(R)-lactate ligase
+GENES       PLV: ERIC2_c07960(vanA)
+            LAH: LA20533_00580
+            EFA: EF2294(vanB)
+            EFC: EFAU004_02775(vanB)
+            EFAU: EFAU085_00735(vanB)
+            CARG: RSJ17_20565
+            DSY: DSY3690
+            DHD: Dhaf_1664
+            DDL: Desdi_1473
+            NTP: CRH09_30840(vanB)
+            TPR: Tpau_0523
+            SCO: SCO3595(vanB)
+            SLV: SLIV_20320
+            SXI: SXIM_54620
+            STRC: AA958_28375(vanB)
+            SLS: SLINC_1844
+            RTX: TI83_01670(vanB)
+            RTC: APU90_04820(vanB)
+            RTN: A6122_0299
+            KFL: Kfla_3620
+            FRE: Franean1_7137
+            AMD: AMED_8289(ddlA)
+            AMN: RAM_42565(vanB)
+            AMM: AMES_8162(ddlA)
+            AMZ: B737_8163(ddlA)
+            AOI: AORI_1472(ddl)
+            AJA: AJAP_32170
+            AMYC: CU254_05730(vanB)
+            AMYB: BKN51_41395(vanB)
+            AAB: A4R43_21435(vanB)
+            SESP: BN6_49760
+            KAL: KALB_1172
+            KPHY: AOZ06_08680(vanB) AOZ06_28865(vanB)
+            CAI: Caci_5793
+            SNA: Snas_5356
+            CWO: Cwoe_1414
+            OLS: Olsu_1201
+DBLINKS     ExplorEnz - The Enzyme Database: 6.1.2.1
+            IUBMB Enzyme Nomenclature: 6.1.2.1
+            ExPASy - ENZYME nomenclature database: 6.1.2.1
+            BRENDA, the Enzyme Database: 6.1.2.1
+///

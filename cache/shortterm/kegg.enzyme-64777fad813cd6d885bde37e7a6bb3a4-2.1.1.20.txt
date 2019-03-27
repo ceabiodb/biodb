@@ -1,0 +1,229 @@
+ENTRY       EC 2.1.1.20                 Enzyme
+NAME        glycine N-methyltransferase;
+            glycine methyltransferase;
+            S-adenosyl-L-methionine:glycine methyltransferase;
+            GNMT
+CLASS       Transferases;
+            Transferring one-carbon groups;
+            Methyltransferases
+SYSNAME     S-adenosyl-L-methionine:glycine N-methyltransferase
+REACTION    S-adenosyl-L-methionine + glycine = S-adenosyl-L-homocysteine + sarcosine [RN:R00367]
+ALL_REAC    R00367
+SUBSTRATE   S-adenosyl-L-methionine [CPD:C00019];
+            glycine [CPD:C00037]
+PRODUCT     S-adenosyl-L-homocysteine [CPD:C00021];
+            sarcosine [CPD:C00213]
+COMMENT     This enzyme is thought to play an important role in the regulation of methyl group metabolism in the liver and pancreas by regulating the ratio between S-adenosyl-L-methionine and S-adenosyl-L-homocysteine. It is inhibited by 5-methyltetrahydrofolate pentaglutamate [4]. Sarcosine, which has no physiological role, is converted back into glycine by the action of EC 1.5.8.3, sarcosine dehydrogenase.
+HISTORY     EC 2.1.1.20 created 1972, modified 2005
+REFERENCE   1  [PMID:13971907]
+  AUTHORS   BLUMENSTEIN J, WILLIAMS GR.
+  TITLE     Glycine methyltransferase.
+  JOURNAL   Can J Biochem Physiol 41:201-10 (1963)
+REFERENCE   2  [PMID:9597750]
+  AUTHORS   Ogawa H, Gomi T, Takusagawa F, Fujioka M.
+  TITLE     Structure, function and physiological role of glycine N-methyltransferase.
+  JOURNAL   Int J Biochem Cell Biol 30:13-26 (1998)
+            DOI:10.1016/S1357-2725(97)00105-2
+REFERENCE   3  [PMID:10608809]
+  AUTHORS   Yeo EJ, Briggs WT, Wagner C.
+  TITLE     Inhibition of glycine N-methyltransferase by 5-methyltetrahydrofolate pentaglutamate.
+  JOURNAL   J Biol Chem 274:37559-64 (1999)
+            DOI:10.1074/jbc.274.53.37559
+REFERENCE   4  [PMID:10833353]
+  AUTHORS   Martinov MV, Vitvitsky VM, Mosharov EV, Banerjee R, Ataullakhanov FI.
+  TITLE     A substrate switch: a new mode of regulation in the methionine metabolic pathway.
+  JOURNAL   J Theor Biol 204:521-32 (2000)
+            DOI:10.1006/jtbi.2000.2035
+REFERENCE   5  [PMID:12859184]
+  AUTHORS   Takata Y, Huang Y, Komoto J, Yamada T, Konishi K, Ogawa H, Gomi T, Fujioka M, Takusagawa F.
+  TITLE     Catalytic mechanism of glycine N-methyltransferase.
+  JOURNAL   Biochemistry 42:8394-402 (2003)
+            DOI:10.1021/bi034245a
+  SEQUENCE  [rno:25134]
+REFERENCE   6  [PMID:15340920]
+  AUTHORS   Pakhomova S, Luka Z, Grohmann S, Wagner C, Newcomer ME.
+  TITLE     Glycine N-methyltransferases: a comparison of the crystal structures and kinetic properties of recombinant human, mouse and rat enzymes.
+  JOURNAL   Proteins 57:331-7 (2004)
+            DOI:10.1002/prot.20209
+  SEQUENCE  [hsa:27232] [mmu:14711]
+PATHWAY     ec00260  Glycine, serine and threonine metabolism
+ORTHOLOGY   K00552  glycine N-methyltransferase
+GENES       HSA: 27232(GNMT)
+            PTR: 462703(GNMT)
+            PPS: 100993237(GNMT)
+            GGO: 101143848(GNMT)
+            PON: 100432507(GNMT)
+            NLE: 100603199(GNMT)
+            MCC: 697722(GNMT)
+            MCF: 102133929(GNMT)
+            CSAB: 103221484(GNMT)
+            RRO: 104667328(GNMT)
+            RBB: 108533480(GNMT)
+            CJC: 100413047(GNMT)
+            SBQ: 101053276(GNMT)
+            MMU: 14711(Gnmt)
+            RNO: 25134(Gnmt)
+            CGE: 100769585
+            NGI: 103730804(Gnmt)
+            HGL: 101697457(Gnmt)
+            CCAN: 109682081(Gnmt)
+            OCU: 100009512(GNMT)
+            TUP: 102501380(GNMT)
+            CFA: 474905(GNMT)
+            AML: 100477196(GNMT)
+            UMR: 103664079(GNMT)
+            ORO: 101377523(GNMT)
+            FCA: 101083006(GNMT)
+            PTG: 102965502(GNMT)
+            AJU: 106973967(GNMT)
+            BTA: 538212(GNMT)
+            BOM: 102287446(GNMT)
+            BIU: 109577223(GNMT)
+            PHD: 102315757(GNMT)
+            CHX: 102170645(GNMT)
+            OAS: 101111134(GNMT)
+            SSC: 397444(GNMT)
+            CFR: 102506340(GNMT)
+            CDK: 105088648(GNMT)
+            BACU: 103001201(GNMT)
+            LVE: 103077097(GNMT)
+            OOR: 101270773(GNMT)
+            ECB: 100067145(GNMT)
+            EPZ: 103548169(GNMT)
+            EAI: 106828715(GNMT)
+            MYB: 102250180(GNMT)
+            MYD: 102760706(GNMT)
+            HAI: 109382878
+            RSS: 109450754(GNMT)
+            PALE: 102898977(GNMT)
+            LAV: 100660725(GNMT)
+            TMU: 101355018
+            MDO: 100010632(GNMT)
+            SHR: 100925098(GNMT)
+            OAA: 100681554(GNMT)
+            GGA: 769542(GNMT)
+            MGP: 100540940(GNMT)
+            CJO: 107310908(GNMT)
+            APLA: 113842961
+            TGU: 100231507(GNMT)
+            SCAN: 103821310
+            FAB: 101818171(GNMT)
+            PHI: 102109993(GNMT)
+            PMAJ: 107202337(GNMT)
+            CCAE: 111922583
+            FPG: 101921183(GNMT)
+            FCH: 102046712
+            CLV: 102096572
+            EGZ: 104128772(GNMT)
+            NNI: 104015806(GNMT)
+            ACUN: 113477688
+            AAM: 106494152(GNMT)
+            ASN: 102386281
+            AMJ: 102566047(GNMT)
+            PSS: 102460961
+            CMY: 102938095(GNMT)
+            CPIC: 101948133(GNMT)
+            ACS: 100552842(gnmt)
+            PVT: 110087012(GNMT)
+            PBI: 103067312(GNMT)
+            PMUR: 107297201(GNMT)
+            GJA: 107123075(GNMT)
+            XLA: 108716567 108717630
+            NPR: 108803755
+            DRE: 403338(gnmt)
+            SRX: 107706413 107748599
+            SANH: 107697528(gnmt) 107703804
+            SGH: 107553737 107566124
+            CCAR: 109106978
+            IPU: 108270118(gnmt)
+            PHYP: 113545046(gnmt)
+            AMEX: 103028138
+            EEE: 113572147(gnmt)
+            TRU: 101067368(gnmt)
+            TNG: GSTEN00016922G001
+            LCO: 104932648(gnmt)
+            NCC: 104954782(gnmt)
+            MZE: 101484870(gnmt)
+            OLA: 101154832(gnmt)
+            XMA: 102219353(gnmt)
+            NFU: 107389170 107392578(gnmt)
+            KMR: 108246999(gnmt)
+            CSEM: 103380842(gnmt)
+            LCF: 108898000(gnmt)
+            SDU: 111226206(gnmt)
+            HCQ: 109530231(gnmt)
+            BPEC: 110155508(gnmt)
+            MALB: 109973687(gnmt)
+            SASA: 106561891(gnmt)
+            OTW: 112263437(gnmt)
+            SALP: 111969168(gnmt)
+            ELS: 105006939(gnmt)
+            SFM: 108923148
+            PKI: 111834432(gnmt)
+            LCM: 102360222(GNMT)
+            CMK: 103187634(gnmt)
+            BFO: BRAFLDRAFT_123711 BRAFLDRAFT_275838
+            SPU: 575025 579000
+            APLC: 110974275 110981790
+            SKO: 100378448
+            DME: Dmel_CG6188(Gnmt)
+            DPO: Dpse_GA19423
+            DAN: Dana_GF17115
+            DER: 6553637
+            DPE: 113566232
+            DSE: Dsec_GM24056
+            DSI: Dsimw501_GD18854(Dsim_GD18854)
+            DWI: 6651484
+            DYA: Dyak_GE26214
+            DGR: Dgri_GH21361
+            DMO: Dmoj_GI10501
+            DVI: Dvir_GJ23182
+            MDE: 101892983
+            AGA: AgaP_AGAP002198
+            AAG: 5576784
+            CQU: CpipJ_CPIJ015956
+            AME: 552832
+            BIM: 100742588
+            BTER: 100647936
+            SOC: 105193482
+            MPHA: 105837902
+            AEC: 105154304
+            ACEP: 105618894
+            PBAR: 105430839
+            HST: 105191076
+            DQU: 106745158
+            CFO: 105256576
+            LHU: 105675201
+            PGC: 109860071
+            OBO: 105277551
+            PCF: 106788778
+            NVI: 100121709(Gnmt) 100122726
+            MDL: 103577735 103578163 103578164 103578165 103578166 103578167
+            TCA: 662005 662371
+            DPA: 109541622
+            NVL: 108569224
+            BMOR: 101738705 101738844
+            DPL: KGM_204745
+            PMAC: 106708644
+            PRAP: 110995024
+            HAW: 110374194
+            TNL: 113506686 113508201
+            PXY: 105387574
+            ZNE: 110837685
+            FCD: 110843745
+            DPX: DAPPUDRAFT_230833
+            ISC: IscW_ISCW020587
+            LAK: 106167602
+            NVE: NEMVE_v1g173936
+            EPA: 110240485
+            ADF: 107351994 107351995
+            PDAM: 113684111
+            SPIS: 111338256
+            HMG: 100206590
+            TAD: TRIADDRAFT_59780
+DBLINKS     ExplorEnz - The Enzyme Database: 2.1.1.20
+            IUBMB Enzyme Nomenclature: 2.1.1.20
+            ExPASy - ENZYME nomenclature database: 2.1.1.20
+            BRENDA, the Enzyme Database: 2.1.1.20
+            CAS: 37228-72-1
+///

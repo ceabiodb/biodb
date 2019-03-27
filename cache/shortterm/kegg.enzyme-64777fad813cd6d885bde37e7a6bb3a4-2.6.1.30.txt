@@ -1,0 +1,31 @@
+ENTRY       EC 2.6.1.30                 Enzyme
+NAME        pyridoxamine---pyruvate transaminase;
+            pyridoxamine-pyruvic transaminase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     pyridoxamine:pyruvate aminotransferase
+REACTION    pyridoxamine + pyruvate = pyridoxal + L-alanine [RN:R01712]
+ALL_REAC    R01712
+SUBSTRATE   pyridoxamine [CPD:C00534];
+            pyruvate [CPD:C00022]
+PRODUCT     pyridoxal [CPD:C00250];
+            L-alanine [CPD:C00041]
+HISTORY     EC 2.6.1.30 created 1972
+REFERENCE   1  [PMID:14004227]
+  AUTHORS   WADA H, SNELL EE.
+  TITLE     Enzymatic transamination of pyridoxamine. II. Crystalline pyridoxamine-pyruvate transaminase.
+  JOURNAL   J Biol Chem 237:133-7 (1962)
+PATHWAY     ec00750  Vitamin B6 metabolism
+            ec01120  Microbial metabolism in diverse environments
+ORTHOLOGY   K18608  pyridoxamine---pyruvate transaminase
+GENES       MLO: mlr6806
+            MCI: Mesci_2031
+            MAM: Mesau_02095
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.30
+            IUBMB Enzyme Nomenclature: 2.6.1.30
+            ExPASy - ENZYME nomenclature database: 2.6.1.30
+            UM-BBD (Biocatalysis/Biodegradation Database): 2.6.1.30
+            BRENDA, the Enzyme Database: 2.6.1.30
+            CAS: 9023-38-5
+///

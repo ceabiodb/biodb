@@ -1,0 +1,168 @@
+ENTRY       EC 1.5.3.13                 Enzyme
+NAME        N1-acetylpolyamine oxidase;
+            hPAO-1;
+            PAO (ambiguous);
+            mPAO;
+            hPAO;
+            polyamine oxidase (ambiguous)
+CLASS       Oxidoreductases;
+            Acting on the CH-NH group of donors;
+            With oxygen as acceptor
+SYSNAME     N1-acetylpolyamine:oxygen oxidoreductase (3-acetamidopropanal-forming)
+REACTION    (1) N1-acetylspermidine + O2 + H2O = putrescine + 3-acetamidopropanal + H2O2 [RN:R09074];
+            (2) N1-acetylspermine + O2 + H2O = spermidine + 3-acetamidopropanal + H2O2 [RN:R03899]
+ALL_REAC    R03899 R09074
+SUBSTRATE   N1-acetylspermidine [CPD:C00612];
+            O2 [CPD:C00007];
+            H2O [CPD:C00001];
+            N1-acetylspermine [CPD:C02567]
+PRODUCT     putrescine [CPD:C00134];
+            3-acetamidopropanal [CPD:C18170];
+            H2O2 [CPD:C00027];
+            spermidine [CPD:C00315]
+COMMENT     The enzyme also catalyses the reaction: N1,N12-diacetylspermine + O2 + H2O = N1-acetylspermidine + 3-acetamamidopropanal + H2O2 [1]. No or very weak activity with spermine, or spermidine in absence of aldehydes. In presence of aldehydes the enzyme catalyses the reactions: 1. spermine + O2 + H2O = spermidine + 3-aminopropanal + H2O2, and with weak efficiency 2. spermidine + O2 + H2O = putrescine + 3-aminopropanal + H2O2 [2]. A flavoprotein (FAD). This enzyme, encoded by the PAOX gene, is found in mammalian peroxisomes and oxidizes N1-acetylated polyamines at the exo (three-carbon) side of the secondary amine, forming 3-acetamamidopropanal. Since the products of the reactions are deacetylated polyamines, this process is known as polyamine back-conversion. Differs in specificity from EC 1.5.3.14 [polyamine oxidase (propane-1,3-diamine-forming)], EC 1.5.3.15 [N8-acetylspermidine oxidase (propane-1,3-diamine-forming)], EC 1.5.3.16 (spermine oxidase) and EC 1.5.3.17 (non-specific polyamine oxidase).
+HISTORY     EC 1.5.3.13 created 2009
+REFERENCE   1  [PMID:12477380]
+  AUTHORS   Vujcic S, Liang P, Diegelman P, Kramer DL, Porter CW
+  TITLE     Genomic identification and biochemical characterization of the mammalian polyamine oxidase involved in polyamine back-conversion.
+  JOURNAL   Biochem J 370:19-28 (2003)
+            DOI:10.1042/BJ20021779
+  SEQUENCE  [hsa:196743]
+REFERENCE   2  [PMID:15611107]
+  AUTHORS   Jarvinen A, Grigorenko N, Khomutov AR, Hyvonen MT, Uimari A, Vepsalainen J, Sinervirta R, Keinanen TA, Vujcic S, Alhonen L, Porter CW, Janne J
+  TITLE     Metabolic stability of alpha-methylated polyamine derivatives and their use as substitutes for the natural polyamines.
+  JOURNAL   J Biol Chem 280:6595-601 (2005)
+            DOI:10.1074/jbc.M412788200
+REFERENCE   3  [PMID:15791459]
+  AUTHORS   Wang Y, Hacker A, Murray-Stewart T, Frydman B, Valasinas A, Fraser AV, Woster PM, Casero RA Jr
+  TITLE     Properties of recombinant human N1-acetylpolyamine oxidase (hPAO): potential role in determining drug sensitivity.
+  JOURNAL   Cancer Chemother Pharmacol 56:83-90 (2005)
+            DOI:10.1007/s00280-004-0936-5
+REFERENCE   4  [PMID:12660232]
+  AUTHORS   Wu T, Yankovskaya V, McIntire WS
+  TITLE     Cloning, sequencing, and heterologous expression of the murine peroxisomal flavoprotein, N1-acetylated polyamine oxidase.
+  JOURNAL   J Biol Chem 278:20514-25 (2003)
+            DOI:10.1074/jbc.M302149200
+  SEQUENCE  [mmu:212503]
+ORTHOLOGY   K00308  N1-acetylpolyamine oxidase
+GENES       HSA: 196743(PAOX)
+            PTR: 100612198(PAOX)
+            PPS: 100991166(PAOX)
+            GGO: 101144152(PAOX)
+            PON: 100447841(PAOX)
+            NLE: 100591252(PAOX)
+            MCC: 100498675(PAOX)
+            MCF: 102133238(PAOX)
+            CSAB: 103245972(PAOX)
+            RRO: 104677646(PAOX)
+            RBB: 108543375(PAOX)
+            CJC: 100391148(PAOX)
+            SBQ: 101035835(PAOX)
+            MMU: 212503(Paox)
+            RNO: 293589(Paox)
+            CGE: 100754371(Paox)
+            NGI: 103725840(Paox)
+            HGL: 101697041(Paox)
+            CCAN: 109698400(Paox)
+            OCU: 100341296(PAOX)
+            TUP: 102487097(PAOX)
+            AML: 100470303(PAOX)
+            UMR: 103659644(PAOX)
+            ORO: 101366439(PAOX)
+            FCA: 101090142(PAOX)
+            PTG: 102954249(PAOX)
+            AJU: 106987504(PAOX)
+            BTA: 282639(PAOX)
+            BOM: 102280842(PAOX)
+            BIU: 109553024(PAOX)
+            PHD: 102327990(PAOX)
+            CHX: 102185531(PAOX)
+            OAS: 101111594(PAOX)
+            SSC: 100626281(PAOX)
+            CFR: 102509887(PAOX)
+            CDK: 105104593(PAOX)
+            BACU: 103020663(PAOX)
+            LVE: 103087537(PAOX)
+            OOR: 101276665(PAOX)
+            ECB: 100629322(PAOX)
+            EPZ: 103545896 103556402(PAOX)
+            EAI: 106841087(PAOX)
+            MYD: 102769158(PAOX)
+            HAI: 109383553(PAOX)
+            RSS: 109445719(PAOX)
+            PALE: 102897106(PAOX)
+            LAV: 100671217(PAOX)
+            TMU: 101340288
+            MDO: 100618593(PAOX)
+            SHR: 100935074(PAOX)
+            OAA: 100091298
+            GGA: 100857693(PAOX)
+            CJO: 107315627(PAOX)
+            APLA: 110352281(PAOX)
+            ACYG: 106030647(PAOX)
+            TGU: 100226026(PAOX)
+            SCAN: 103814080(PAOX)
+            FAB: 101813552(PAOX)
+            PHI: 102109800 106628584(PAOX)
+            PMAJ: 107207134(PAOX)
+            CCAE: 111944263
+            FPG: 101915114(PAOX)
+            FCH: 102054181(PAOX)
+            CLV: 102084101(PAOX)
+            EGZ: 104125146(PAOX)
+            NNI: 104013577(PAOX)
+            ACUN: 113481861(PAOX)
+            AAM: 106495312(PAOX)
+            ASN: 102375090(PAOX)
+            AMJ: 102575603(PAOX)
+            PSS: 102444520(PAOX)
+            CMY: 102934388(PAOX)
+            CPIC: 101935511(PAOX)
+            ACS: 100563036(paox)
+            PVT: 110087238(PAOX)
+            PBI: 103061034(PAOX)
+            PMUR: 107291447(PAOX)
+            GJA: 107106972(PAOX)
+            XLA: 108701271 495472(paox.L)
+            XTR: 496840(paox)
+            NPR: 108792302 108793155(PAOX)
+            DRE: 562105(si:dkey-275b16.2)
+            SRX: 107708014 107757157
+            SANH: 107668834 107673908
+            SGH: 107564350 107588698
+            CCAR: 109082582 109100677
+            IPU: 108263770(paox)
+            PHYP: 113544009(paox)
+            AMEX: 103029926(paox)
+            EEE: 113580961(paox)
+            TRU: 101066188 101066416(paox)
+            LCO: 104924262(paox)
+            NCC: 104961348(paox)
+            MZE: 101482825 101483098
+            OLA: 101166491 101169480
+            XMA: 102221096 102221362 102229573 102231116(paox)
+            PRET: 103476962 103476963
+            NFU: 107375621(paox) 107375622
+            KMR: 108234132(paox)
+            CSEM: 103387348(paox)
+            LCF: 108888274 108888275(paox)
+            SDU: 111234316 111234324
+            HCQ: 109516209(paox)
+            BPEC: 110157178(paox)
+            MALB: 109954186 109961140 109961142
+            SASA: 106576873(paox)
+            OTW: 112252755(paox)
+            SALP: 112070947(paox)
+            ELS: 105010685(paox)
+            SFM: 108918131(paox)
+            PKI: 111850322(paox)
+            LCM: 102353427(PAOX)
+            CMK: 103178487 103182165(paox)
+            SPU: 579633
+            ISC: IscW_ISCW005122
+            GTT: GUITHDRAFT_110590
+DBLINKS     ExplorEnz - The Enzyme Database: 1.5.3.13
+            IUBMB Enzyme Nomenclature: 1.5.3.13
+            ExPASy - ENZYME nomenclature database: 1.5.3.13
+            BRENDA, the Enzyme Database: 1.5.3.13
+///

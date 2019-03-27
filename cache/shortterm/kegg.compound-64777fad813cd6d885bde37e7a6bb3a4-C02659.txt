@@ -1,0 +1,36 @@
+ENTRY       C02659                      Compound
+NAME        Acetone cyanohydrin;
+            alpha-Hydroxyisobutyronitrile;
+            2-Hydroxy-2-methylpropanenitrile;
+            2-Methyllactonitrile;
+            Acetone cyanhydrin;
+            2-Hydroxyisobutyronitrile
+FORMULA     C4H7NO
+EXACT_MASS  85.0528
+MOL_WEIGHT  85.1045
+REACTION    R01553 R03625 R10038 R10040 R11598 R11642
+PATHWAY     map00460  Cyanoamino acid metabolism
+            map01110  Biosynthesis of secondary metabolites
+ENZYME      1.14.14.41      2.4.1.63        3.2.1.21        4.1.2.46        
+            4.1.2.47
+DBLINKS     CAS: 75-86-5
+            PubChem: 5632
+            ChEBI: 15348
+            ChEMBL: CHEMBL1231861
+            PDB-CCD: CNH
+            3DMET: B00479
+            NIKKAJI: J1.468K
+ATOM        6
+            1   C1d C    23.5900  -19.5300
+            2   C3b C    24.9900  -19.5300
+            3   C1a C    22.1900  -19.5300
+            4   C1a C    23.5900  -18.1300
+            5   O1a O    23.5900  -20.9300
+            6   N3a N    26.3900  -19.5300
+BOND        5
+            1     1   2 1
+            2     1   3 1
+            3     1   4 1
+            4     1   5 1
+            5     2   6 3
+///

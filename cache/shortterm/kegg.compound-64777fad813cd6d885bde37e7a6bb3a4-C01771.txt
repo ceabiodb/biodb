@@ -1,0 +1,32 @@
+ENTRY       C01771                      Compound
+NAME        2-Butenoate;
+            2-Butenoic acid;
+            Crotonic acid;
+            3-Methylacrylic acid
+FORMULA     C4H6O2
+EXACT_MASS  86.0368
+MOL_WEIGHT  86.0892
+REACTION    R01689
+ENZYME      1.3.1.31
+DBLINKS     CAS: 3724-65-0
+            PubChem: 4904
+            ChEBI: 17217 41131
+            ChEMBL: CHEMBL1213528
+            LipidBank: DFA0042
+            PDB-CCD: BEO
+            3DMET: B00348
+            NIKKAJI: J109.464E
+ATOM        6
+            1   C2b C    22.1306  -15.0946
+            2   C6a C    23.3400  -15.7959
+            3   C2b C    20.9148  -15.7959
+            4   O6a O    23.3400  -17.4782
+            5   O6a O    24.5495  -15.0946
+            6   C1a C    19.7053  -15.0946
+BOND        5
+            1     1   2 1
+            2     1   3 2
+            3     2   4 1
+            4     2   5 2
+            5     3   6 1
+///

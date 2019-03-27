@@ -1,0 +1,24 @@
+ENTRY       C11488                      Compound
+NAME        HMMF;
+            N-Hydroxymethyl-N-methylformamide
+FORMULA     C3H7NO2
+EXACT_MASS  89.0477
+MOL_WEIGHT  89.0932
+DBLINKS     CAS: 20546-32-1
+            PubChem: 13658
+            ChEBI: 5593
+            NIKKAJI: J397.555J
+ATOM        6
+            1   N1c N    28.2100  -20.3000
+            2   C4a C    29.4000  -21.0000
+            3   C1a C    28.2100  -18.9700
+            4   O4a O    30.5900  -20.3700
+            5   C1b C    26.9500  -21.0000
+            6   O1a O    25.6900  -20.2300
+BOND        5
+            1     1   3 1
+            2     2   4 2
+            3     1   5 1
+            4     1   2 1
+            5     5   6 1
+///

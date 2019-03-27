@@ -1,0 +1,129 @@
+ENTRY       EC 3.4.13.20                Enzyme
+NAME        beta-Ala-His dipeptidase;
+            serum carnosinase
+CLASS       Hydrolases;
+            Acting on peptide bonds (peptidases);
+            Dipeptidases
+REACTION    Preferential hydrolysis of the beta-Ala!His dipeptide (carnosine), and also anserine, Xaa!His dipeptides and other dipeptides including homocarnosine [RN:R01166 R03288]
+ALL_REAC    R01166 R03288 > R01992
+COMMENT     Present in the serum of humans and higher primates, but not in the serum of other mammals. Activated by Cd2+ and citrate. Belongs in peptidase family M20.
+HISTORY     EC 3.4.13.20 created 1992
+REFERENCE   1  [PMID:7116644]
+  AUTHORS   Lenney JF, George RP, Weiss AM, Kucera CM, Chan PW, Rinzler GS.
+  TITLE     Human serum carnosinase: characterization, distinction from cellular carnosinase, and activation by cadmium.
+  JOURNAL   Clin Chim Acta 123:221-31 (1982)
+            DOI:10.1016/0009-8981(82)90166-8
+  SEQUENCE  [hsa:84735]
+REFERENCE   2  [PMID:1903095]
+  AUTHORS   Jackson MC, Kucera CM, Lenney JF.
+  TITLE     Purification and properties of human serum carnosinase.
+  JOURNAL   Clin Chim Acta 196:193-205 (1991)
+            DOI:10.1016/0009-8981(91)90073-L
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec00340  Histidine metabolism
+            ec00410  beta-Alanine metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K05604  beta-Ala-His dipeptidase
+GENES       HSA: 84735(CNDP1)
+            PTR: 455474(CNDP1)
+            GGO: 101127378(CNDP1)
+            PON: 100172721(CNDP1)
+            NLE: 100583488(CNDP1)
+            MCC: 695195(CNDP1)
+            MCF: 102131452(CNDP1)
+            CSAB: 103244082(CNDP1)
+            RRO: 104656992(CNDP1)
+            RBB: 108525057(CNDP1)
+            CJC: 100395623(CNDP1)
+            SBQ: 101048509(CNDP1)
+            MMU: 338403(Cndp1)
+            RNO: 307212(Cndp1)
+            CGE: 100761203(Cndp1)
+            NGI: 103748140(Cndp1)
+            HGL: 101707301(Cndp1)
+            CCAN: 109681064(Cndp1)
+            OCU: 100345937(CNDP1)
+            TUP: 102489508(CNDP1)
+            CFA: 476165(CNDP1)
+            AML: 100467604(CNDP1)
+            UMR: 103658416(CNDP1)
+            ORO: 101378722(CNDP1)
+            FCA: 101099503(CNDP1)
+            PTG: 102964440(CNDP1)
+            AJU: 106982253(CNDP1)
+            BTA: 614200(CNDP1)
+            BOM: 102267168(CNDP1)
+            BIU: 109578014(CNDP1)
+            PHD: 102332890(CNDP1)
+            CHX: 102180002(CNDP1)
+            OAS: 101110987(CNDP1)
+            SSC: 100516053(CNDP1)
+            CFR: 102512299(CNDP1)
+            CDK: 105105074(CNDP1)
+            BACU: 103016948(CNDP1)
+            LVE: 103084929(CNDP1)
+            OOR: 101281356(CNDP1)
+            ECB: 100061728(CNDP1)
+            EPZ: 103544994 103561746
+            EAI: 106832860 106832861
+            MYB: 102242328(CNDP1)
+            MYD: 102767022(CNDP1)
+            HAI: 109383171(CNDP1)
+            RSS: 109436700(CNDP1)
+            PALE: 102890418(CNDP1)
+            LAV: 100657615(CNDP1)
+            TMU: 101356417
+            MDO: 100619431(CNDP1)
+            SHR: 100922964(CNDP1)
+            OAA: 100076860(CNDP1)
+            GGA: 421012(CNDP1)
+            MGP: 100541194(CNDP1)
+            CJO: 107309982(CNDP1)
+            APLA: 101791863(CNDP1)
+            ACYG: 106035949(CNDP1)
+            TGU: 100232073(CNDP1)
+            SCAN: 103815755(CNDP1)
+            GFR: 102040432(CNDP1)
+            FAB: 101819344(CNDP1)
+            PHI: 102111429(CNDP1)
+            PMAJ: 107200306(CNDP1)
+            CCAE: 111925250(CNDP1)
+            CCW: 104685799(CNDP1)
+            FPG: 101915873(CNDP1)
+            FCH: 102045939(CNDP1)
+            CLV: 102095516
+            EGZ: 104128655(CNDP1)
+            NNI: 104018184(CNDP1)
+            ACUN: 113476758(CNDP1)
+            AAM: 106482719(CNDP1)
+            ASN: 102367881(CNDP1)
+            AMJ: 106737110(CNDP1)
+            PSS: 102445657
+            CMY: 102938002
+            CPIC: 101937111(CNDP1)
+            ACS: 100554161(cndp1)
+            PVT: 110083379(CNDP1)
+            PBI: 103057080 103057919
+            PMUR: 107291693(CNDP1)
+            GJA: 107115115(CNDP1)
+            XLA: 398917(cndp1.L)
+            XTR: 100135225(cndp1)
+            NPR: 108799252
+            IPU: 108261199(Cndp1)
+            AMEX: 103026681
+            EEE: 113574437
+            NCC: 104951856
+            NFU: 107396261
+            SASA: 100196692(cndp1)
+            OTW: 112247755
+            SALP: 111964936 112068906
+            ELS: 105019194
+            SFM: 108940582
+            PKI: 111844178 111844287
+            LCM: 102355447
+DBLINKS     ExplorEnz - The Enzyme Database: 3.4.13.20
+            IUBMB Enzyme Nomenclature: 3.4.13.20
+            ExPASy - ENZYME nomenclature database: 3.4.13.20
+            BRENDA, the Enzyme Database: 3.4.13.20
+            CAS: 525589-43-9
+///

@@ -1,0 +1,140 @@
+ENTRY       EC 3.5.1.100                Enzyme
+NAME        (R)-amidase;
+            R-stereospecific amidase;
+            R-amidase
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In linear amides
+SYSNAME     (R)-piperazine-2-carboxamide amidohydrolase
+REACTION    (1) (R)-piperazine-2-carboxamide + H2O = (R)-piperazine-2-carboxylate + NH3 [RN:R09647];
+            (2) beta-alaninamide + H2O = beta-alanine + NH3 [RN:R09648]
+ALL_REAC    R09647 R09648
+SUBSTRATE   (R)-piperazine-2-carboxamide [CPD:C19778];
+            H2O [CPD:C00001];
+            beta-alaninamide [CPD:C19779]
+PRODUCT     (R)-piperazine-2-carboxylate [CPD:C19780];
+            NH3 [CPD:C00014];
+            beta-alanine [CPD:C00099]
+COMMENT     In addition (R)-piperidine-3-carboxamide is hydrolysed to (R)-piperidine-3-carboxylic acid and NH3, and (R)-N-tert-butylpiperazine-2-carboxamide is hydrolysed to (R)-piperazine-2-carboxylic acid and tert-butylamine with lower activity. The enzyme does not act on the other amide substrates which are hydrolysed by EC 3.5.1.4 (amidase).
+HISTORY     EC 3.5.1.100 created 2009, modified 2011
+REFERENCE   1  [PMID:15066183]
+  AUTHORS   Komeda H, Harada H, Washika S, Sakamoto T, Ueda M, Asano Y
+  TITLE     A novel R-stereoselective amidase from Pseudomonas sp. MCI3434 acting on piperazine-2-tert-butylcarboxamide.
+  JOURNAL   Eur J Biochem 271:1580-90 (2004)
+            DOI:10.1111/j.1432-1033.2004.04069.x
+  SEQUENCE  [ag:BAD15093]
+ORTHOLOGY   K18540  (R)-amidase
+GENES       SLQ: M495_09540
+            SFW: WN53_23135
+            SFG: AV650_18940
+            PAE: PA3598
+            PAEV: N297_3722(ramA)
+            PAEI: N296_3722(ramA)
+            PAU: PA14_17730
+            PAP: PSPA7_1543
+            PAG: PLES_14371
+            PAF: PAM18_1387
+            PNC: NCGM2_4729
+            PAEB: NCGM1900_2679
+            PDK: PADK2_06350
+            PSG: G655_06805
+            PRP: M062_19050
+            PAEP: PA1S_07420
+            PAER: PA1R_gp1417
+            PAEM: U769_06900
+            PAEL: T223_07135
+            PAES: SCV20265_1459
+            PAEU: BN889_03983
+            PAEG: AI22_26485
+            PAEC: M802_3719(ramA)
+            PAEO: M801_3587(ramA)
+            PRE: PCA10_16240
+            PCQ: PcP3B5_21760(ramA_1)
+            PPU: PP_3846(ramA)
+            PPG: PputGB1_2588
+            PPT: PPS_2644
+            PPUH: B479_12805
+            PPUD: DW66_2904
+            PFV: Psefu_1603
+            PMON: X969_12555
+            PMOT: X970_12200
+            PMOS: O165_014445
+            PPJ: RK21_02127
+            POR: APT59_07350
+            PFL: PFL_4898
+            PPRC: PFLCHA0_c48790(ramA)
+            PPRO: PPC_4907
+            PFO: Pfl01_4557
+            PFX: A7318_04835
+            PMAN: OU5_4712
+            PTV: AA957_08470
+            PAZO: AYR47_12840
+            PEN: PSEEN3582
+            PPUU: PputUW4_01010
+            PDR: H681_06995
+            PKC: PKB_3494(ramA)
+            PCH: EY04_25420
+            PCZ: PCL1606_12510
+            PFZ: AV641_09915
+            PALK: PSAKL28_32040
+            PSW: LK03_17965
+            PSEM: TO66_25495
+            PFK: PFAS1_05720
+            PANR: A7J50_1111
+            PSET: THL1_1666
+            PSIL: PMA3_19055
+            PYM: AK972_0917 AK972_2857
+            CSA: Csal_0061
+            HHU: AR456_00330
+            TAU: Tola_1341
+            SALN: SALB1_0801
+            PSE: NH8B_1826
+            AMAH: DLM_2428
+            BVI: Bcep1808_1625
+            BVE: AK36_2221(ramA)
+            BUR: Bcep18194_A4513
+            BCN: Bcen_4372
+            BCH: Bcen2424_3994
+            BCM: Bcenmc03_1348
+            BCJ: BCAL1380(ramA)
+            BCEN: DM39_1273(ramA)
+            BCEO: I35_1275(ramA)
+            BAM: Bamb_1638
+            BMU: Bmul_5017
+            BMUL: NP80_1792(ramA)
+            BCT: GEM_2060
+            BCED: DM42_329(ramA)
+            BCEP: APZ15_10660
+            BDL: AK34_1396(ramA)
+            BPYR: ABD05_12660
+            BCON: NL30_08850
+            BTEI: WS51_07825
+            BSEM: WJ12_06730
+            BPSL: WS57_25140
+            BMEC: WJ16_06595
+            BSTL: BBJ41_05260
+            BGL: bglu_2g15230
+            BGU: KS03_4414(ramA)
+            BGD: bgla_2g09710
+            BGO: BM43_4600(ramA)
+            BUK: MYA_1509
+            BGP: BGL_2c08780
+            BPLA: bpln_2g09690
+            BUZ: AYM40_06155 AYM40_21415
+            BFN: OI25_201
+            BCAI: K788_0003819
+            PARB: CJU94_17435
+            PHS: C2L64_06765
+            PTER: C2L65_06505
+            ASW: CVS48_09000
+            ACHR: C2U31_18595
+            DEL: DelCs14_5435
+            DTS: BI380_19195
+            DHK: BO996_05515
+            ARD: AXF14_08145
+            NOU: Natoc_4240
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.1.100
+            IUBMB Enzyme Nomenclature: 3.5.1.100
+            ExPASy - ENZYME nomenclature database: 3.5.1.100
+            BRENDA, the Enzyme Database: 3.5.1.100
+///

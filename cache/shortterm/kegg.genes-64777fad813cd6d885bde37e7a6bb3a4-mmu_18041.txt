@@ -1,0 +1,90 @@
+ENTRY       18041             CDS       T01002
+NAME        Nfs1, AA987187, m-Nfs1, m-Nfsl
+DEFINITION  (RefSeq) nitrogen fixation gene 1 (S. cerevisiae)
+ORTHOLOGY   K04487  cysteine desulfurase [EC:2.8.1.7]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00730  Thiamine metabolism
+            mmu01100  Metabolic pathways
+            mmu04122  Sulfur relay system
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09108 Metabolism of cofactors and vitamins
+               00730 Thiamine metabolism
+                18041 (Nfs1)
+             09120 Genetic Information Processing
+              09123 Folding, sorting and degradation
+               04122 Sulfur relay system
+                18041 (Nfs1)
+             09180 Brite Hierarchies
+              09182 Protein families: genetic information processing
+               03016 Transfer RNA biogenesis [BR:mmu03016]
+                18041 (Nfs1)
+               03029 Mitochondrial biogenesis [BR:mmu03029]
+                18041 (Nfs1)
+              09183 Protein families: signaling and cellular processes
+               02048 Prokaryotic defense system [BR:mmu02048]
+                18041 (Nfs1)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.8  Transferring sulfur-containing groups
+               2.8.1  Sulfurtransferases
+                2.8.1.7  cysteine desulfurase
+                 18041 (Nfs1)
+            Transfer RNA biogenesis [BR:mmu03016]
+             Eukaryotic Type
+              tRNA modification factors
+               Thiolation factors
+                18041 (Nfs1)
+             Prokaryotic Type
+                18041 (Nfs1)
+            Mitochondrial biogenesis [BR:mmu03029]
+             Mitochondrial quality control factors
+              Regulator of mitochondrial biogenesis
+               Proteins involved in Fe-S cluster biogenesis
+                18041 (Nfs1)
+            Prokaryotic defense system [BR:mmu02048]
+             DNA phosphothiolation system
+              Sulfur modification proteins
+               18041 (Nfs1)
+POSITION    2; 2 H1
+MOTIF       Pfam: Aminotran_5 Beta_elim_lyase DegT_DnrJ_EryC1 Pyridoxal_deC
+DBLINKS     NCBI-GeneID: 18041
+            NCBI-ProteinID: NP_035041
+            MGI: 1316706
+            Ensembl: ENSMUSG00000027618
+            Vega: OTTMUSG00000016100
+            UniProt: Q9Z1J3 Q9CTB2
+AASEQ       459
+            MVGSVAGNMLLRAAWRRASLAATSLALGRSSVPTRGLRLRVVDHGPHSPVHSEAEAVLRP
+            LYMDVQATTPLDPRVLDAMLPYLVNYYGNPHSRTHAYGWESEAAMERARQQVASLIGADP
+            REIIFTSGATESNNIAIKGVARFYRSRKKHLVTTQTEHKCVLDSCRSLEAEGFRVTYLPV
+            QKSGIIDLKELEAAIQPDTSLVSVMTVNNEIGVKQPIAEIGQICSSRKVYFHTDAAQAVG
+            KIPLDVNDMKIDLMSISGHKLYGPKGVGAIYIRRRPRVRVEALQSGGGQERGMRSGTVPT
+            PLVVGLGAACELAQQEMEYDHKRISKLAERLVQNIMKNLPDVVMNGDPKQHYPGCINLSF
+            AYVEGESLLMALKDVALSSGSACTSASLEPSYVLRAIGTDEDLAHSSIRFGIGRFTTEEE
+            VDYTAEKCIHHVKRLREMSPLWEMVQDGIDLKSIKWTQH
+NTSEQ       1380
+            atggtgggctctgtggctgggaacatgctgctgcgagccgcttggaggcgggcgtcgttg
+            gcggctacctccttggccctgggaaggtcctcggtgcccacccggggactgcgcctgcgc
+            gttgtagatcatggcccccattcgcctgttcactcagaggcagaggcagtgctgcgacct
+            ctctacatggacgtacaggccaccactcctctggatcccagagtgcttgatgccatgctc
+            ccataccttgtcaactactatgggaaccctcattctcggactcatgcatatggctgggag
+            agcgaggcagccatggaacgtgctcgccagcaagtagcatctctgattggagctgatcct
+            cgggagatcattttcactagtggagctactgagtccaacaacatagcaattaagggagtg
+            gccaggttctacaggtcaaggaaaaaacacttggtcacaacccagacagaacacaaatgt
+            gtgctggattcctgccgctccctggaagctgagggctttcgggtcacttacctccctgtg
+            cagaagagcgggatcattgacttaaaggaactagaggctgccatccagccagacaccagc
+            ctggtctccgttatgactgtgaacaatgaaattggagtaaagcaaccaattgcagaaata
+            gggcagatttgtagttccagaaaggtgtacttccacactgatgccgcccaagcggttggg
+            aaaatcccacttgacgtcaatgacatgaagattgatctcatgagcatcagcggtcacaaa
+            ctctatggccctaaaggggttggtgctatctatatccgccgtaggccccgggtacgtgtg
+            gaggccctacagagtggaggcgggcaggagcggggtatgcggtctgggacagtgcccaca
+            cccttggtggtgggcctgggagctgcatgtgagttggcacaacaagagatggaatacgac
+            cataagcggatctcaaagttagcagagcgactggtacagaacataatgaagaatcttcca
+            gatgtggtaatgaacggggacccgaagcagcactaccctggctgtatcaacctctccttc
+            gcgtatgtggaaggagagagcctgctgatggccctcaaggatgtggccttgtcctcaggg
+            agtgcctgcacttctgcatcattggagccctcttatgtcctcagagcaattggtaccgat
+            gaggatttagcacactcctctatcaggtttggcatcggccgcttcactacagaagaggag
+            gtggactacacggcggagaagtgcatccaccacgtgaagcgccttcgagaaatgagtcct
+            ctctgggagatggtccaggatggcattgacctcaagagcatcaagtggacccagcattag
+///

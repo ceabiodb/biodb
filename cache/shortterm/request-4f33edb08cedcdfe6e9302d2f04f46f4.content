@@ -1,0 +1,74 @@
+ENTRY       73748             CDS       T01002
+NAME        Gadl1, 1110027M19Rik, ADC, CSADC
+DEFINITION  (RefSeq) glutamate decarboxylase-like 1
+ORTHOLOGY   K18966  sulfinoalanine decarboxylase / aspartate 1-decarboxylase [EC:4.1.1.29 4.1.1.11]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00410  beta-Alanine metabolism
+            mmu00430  Taurine and hypotaurine metabolism
+            mmu00770  Pantothenate and CoA biosynthesis
+            mmu01100  Metabolic pathways
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                73748 (Gadl1)
+               00430 Taurine and hypotaurine metabolism
+                73748 (Gadl1)
+              09108 Metabolism of cofactors and vitamins
+               00770 Pantothenate and CoA biosynthesis
+                73748 (Gadl1)
+            Enzymes [BR:mmu01000]
+             4. Lyases
+              4.1  Carbon-carbon lyases
+               4.1.1  Carboxy-lyases
+                4.1.1.11  aspartate 1-decarboxylase
+                 73748 (Gadl1)
+                4.1.1.29  sulfinoalanine decarboxylase
+                 73748 (Gadl1)
+POSITION    9; 9 F3
+MOTIF       Pfam: Pyridoxal_deC Aminotran_5 Beta_elim_lyase SepSecS
+DBLINKS     NCBI-GeneID: 73748
+            NCBI-ProteinID: NP_082914
+            MGI: 1920998
+            Ensembl: ENSMUSG00000056880
+            Vega: OTTMUSG00000030875
+            UniProt: Q80WP8 E9QP13
+STRUCTURE   PDB: 6ENZ
+AASEQ       502
+            MTPGKKIPIFVDGVVLNGPQTDVKAGEKFVEEACRLIMEEVVLKATDVNEKVCEWQPPEQ
+            LRQLLDLEMRDTGESQDKLLKLCQDVIHFSVKTNHPRFFNQLYAGLDYYSLAARIITEAL
+            NPSIYTYEVSPVFLLVEEAVLKKMIECVGWKEGDGIFNPGGSVSNMCAMNLARYRHCPDI
+            KEKGLSGLPRLILFTSAECHYSMKKAASFLGIGTQNVYFVETDGRGKMIPEDLEKQIWQA
+            RQEGAVPFLVCATSGTTVLGAFDPLDEIAEVCERHGLWLHVDASWGGSALVSRKHRRLLH
+            GIHRADSVAWNPHKMLMAGIQCSALLVKDKSDLLKKCYSAKATYLFQQDKFYDVSYDTGD
+            KSIQCSRRPDAFKFWMTWKALGTSGLEERVNRAFALSRYLVDEIKKREGFKLLMEPEYTN
+            VCFWYIPPSLREMEEGPEFWRKLSLVAPAIKEKMMKKGSLMLGYQPHRGKVNFFRQVVIS
+            PQVSREDMDFLLDEIDSLGRDM
+NTSEQ       1509
+            atgacccctggtaagaagatccccatctttgtggatggggttgtacttaatggacctcaa
+            acagatgtgaaagctggagaaaaatttgttgaagaagcctgtaggctcataatggaagag
+            gtggttttgaaagctacggacgtcaatgaaaaggtatgtgagtggcagccccctgagcag
+            ctgaggcagctccttgacctggagatgagggacacaggcgagtcacaggacaagctgctg
+            aaactctgccaagacgtcatccacttcagcgtcaaaaccaaccatccaagatttttcaac
+            cagctctatgctggccttgattactactccttggcggcccggattataacagaggcgctg
+            aatccaagcatttatacgtatgaggtgtccccagtgtttctgttagtggaagaggcggtt
+            ctgaagaaaatgattgaatgtgttggctggaaagaaggggatggaatatttaacccaggt
+            ggctcagtgtccaatatgtgtgcaatgaatttagctagatacagacattgccctgatatc
+            aaagagaaaggcctgtctggtttgccaagattaatccttttcacatcggcagagtgccat
+            tactccatgaagaaagcggcctccttccttgggattggcactcagaacgtgtactttgta
+            gaaacagatggaagaggaaaaatgataccggaggatctggaaaaacaaatttggcaagcg
+            agacaagagggggcggtgccatttcttgtctgcgccacctctggtaccaccgtgctgggc
+            gcatttgaccccctggatgagattgctgaggtctgcgagaggcatggcctctggctccat
+            gtggatgcctcttggggcggctcagctttggtgtcaagaaagcaccgccggctcctgcat
+            ggcatccacagggctgactcagtggcctggaacccacacaagatgctgatggcgggaatc
+            cagtgctctgctctacttgtcaaggacaaatctgatcttcttaagaagtgctactctgcc
+            aaagcaacgtacctgttccagcaggataaattctatgatgtcagctatgacaccggagac
+            aagtccattcagtgcagcaggaggcctgatgcattcaagttctggatgacctggaaggct
+            ctgggcacatcaggactcgaggagagagtaaatcgtgcctttgctctatctcggtacctg
+            gtagacgaaatcaagaaaagagaaggcttcaagctgctgatggagcctgaatataccaat
+            gtttgcttttggtacattccaccgagtctcagagagatggaggaaggaccagagttctgg
+            agaaagcttagcttggtggccccagccatcaaggagaaaatgatgaagaagggaagtctg
+            atgttgggctaccagccccaccgggggaaggtcaacttcttccgccaggtggtcatcagc
+            cctcaagtgagccgggaagacatggacttcctgctggatgagatagacagcctggggaga
+            gatatgtag
+///

@@ -1,0 +1,40 @@
+ENTRY       EC 1.1.1.163                Enzyme
+NAME        cyclopentanol dehydrogenase
+CLASS       Oxidoreductases;
+            Acting on the CH-OH group of donors;
+            With NAD+ or NADP+ as acceptor
+SYSNAME     cyclopentanol:NAD+ oxidoreductase
+REACTION    cyclopentanol + NAD+ = cyclopentanone + NADH + H+ [RN:R02553]
+ALL_REAC    R02553;
+            (other) R02229
+SUBSTRATE   cyclopentanol [CPD:C02020];
+            NAD+ [CPD:C00003]
+PRODUCT     cyclopentanone [CPD:C00557];
+            NADH [CPD:C00004];
+            H+ [CPD:C00080]
+COMMENT     4-Methylcyclohexanol and cyclohexanol can also act as substrates.
+HISTORY     EC 1.1.1.163 created 1976
+REFERENCE   1  [PMID:4349113]
+  AUTHORS   Griffin M, Trudgill PW.
+  TITLE     The metabolism of cyclopentanol by Pseudomonas N.C.I.B. 9872.
+  JOURNAL   Biochem J 129:595-603 (1972)
+REFERENCE   2  [PMID:12406764]
+  AUTHORS   Iwaki H, Hasegawa Y, Wang S, Kayser MM, Lau PC.
+  TITLE     Cloning and characterization of a gene cluster involved in cyclopentanol metabolism in Comamonas sp. strain NCIMB 9872 and biotransformations effected by Escherichia coli-expressed cyclopentanone 1,2-monooxygenase.
+  JOURNAL   Appl Environ Microbiol 68:5671-84 (2002)
+            DOI:10.1128/AEM.68.11.5671-5684.2002
+  SEQUENCE  [ag:BAC22653]
+PATHWAY     ec00930  Caprolactam degradation
+ORTHOLOGY   K17754  cyclopentanol dehydrogenase
+GENES       PPJ: RK21_02868
+            POL: Bpro_5564
+            AJS: Ajs_2100
+            ADK: Alide2_4312
+            PLA: Plav_1760
+            PMO: Pmob_0729
+DBLINKS     ExplorEnz - The Enzyme Database: 1.1.1.163
+            IUBMB Enzyme Nomenclature: 1.1.1.163
+            ExPASy - ENZYME nomenclature database: 1.1.1.163
+            BRENDA, the Enzyme Database: 1.1.1.163
+            CAS: 37364-12-8
+///

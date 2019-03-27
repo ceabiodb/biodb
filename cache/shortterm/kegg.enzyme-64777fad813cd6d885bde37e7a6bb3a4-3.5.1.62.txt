@@ -1,0 +1,26 @@
+ENTRY       EC 3.5.1.62                 Enzyme
+NAME        acetylputrescine deacetylase
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In linear amides
+SYSNAME     N-acetylputrescine acetylhydrolase
+REACTION    N-acetylputrescine + H2O = acetate + putrescine [RN:R01156]
+ALL_REAC    R01156
+SUBSTRATE   N-acetylputrescine [CPD:C02714];
+            H2O [CPD:C00001]
+PRODUCT     acetate [CPD:C00033];
+            putrescine [CPD:C00134]
+COMMENT     The enzyme from Micrococcus luteus also acts on N8-acetylspermidine and acetylcadaverine, but more slowly.
+HISTORY     EC 3.5.1.62 created 1989
+REFERENCE   1
+  AUTHORS   Suzuki, O., Ishikawa, Y., Miyazaki, K., Izu, K. and Matsumoto, T.
+  TITLE     Acetylputrescine deacetylase from Micrococcus luteus K-11.
+  JOURNAL   Biochim Biophys Acta 882:140-142 (1986)
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec01100  Metabolic pathways
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.1.62
+            IUBMB Enzyme Nomenclature: 3.5.1.62
+            ExPASy - ENZYME nomenclature database: 3.5.1.62
+            BRENDA, the Enzyme Database: 3.5.1.62
+            CAS: 103679-48-7
+///

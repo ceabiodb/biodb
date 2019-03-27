@@ -1,0 +1,409 @@
+ENTRY       EC 2.8.1.9                  Enzyme
+NAME        molybdenum cofactor sulfurtransferase;
+            molybdenum cofactor sulfurase;
+            ABA3;
+            HMCS;
+            MoCo sulfurase;
+            MoCo sulfurtransferase
+CLASS       Transferases;
+            Transferring sulfur-containing groups;
+            Sulfurtransferases
+SYSNAME     L-cysteine:molybdenum cofactor sulfurtransferase
+REACTION    molybdenum cofactor + L-cysteine + reduced acceptor + 2 H+ = thio-molybdenum cofactor + L-alanine + H2O + oxidized acceptor [RN:R11583]
+ALL_REAC    R11583
+SUBSTRATE   molybdenum cofactor [CPD:C18237];
+            L-cysteine [CPD:C00097];
+            reduced acceptor [CPD:C00030];
+            H+ [CPD:C00080]
+PRODUCT     thio-molybdenum cofactor [CPD:C21486];
+            L-alanine [CPD:C00041];
+            H2O [CPD:C00001];
+            oxidized acceptor
+COMMENT     Contains pyridoxal phosphate. Replaces the equatorial oxo ligand of the molybdenum by sulfur via an enzyme-bound persulfide. The reaction occurs in prokaryotes and eukaryotes but MoCo sulfurtransferases are only found in eukaryotes. In prokaryotes the reaction is catalysed by two enzymes: cysteine desulfurase (EC 2.8.1.7), which is homologous to the N-terminus of eukaryotic MoCo sulfurtransferases, and a molybdo-enzyme specific chaperone which binds the MoCo and acts as an adapter protein.
+HISTORY     EC 2.8.1.9 created 2011, modified 2015
+REFERENCE   1  [PMID:11553608]
+  AUTHORS   Bittner F, Oreb M, Mendel RR
+  TITLE     ABA3 is a molybdenum cofactor sulfurase required for activation of aldehyde oxidase and xanthine dehydrogenase in Arabidopsis thaliana.
+  JOURNAL   J Biol Chem 276:40381-4 (2001)
+            DOI:10.1074/jbc.C100472200
+  SEQUENCE  [ath:AT1G16540]
+REFERENCE   2  [PMID:15561708]
+  AUTHORS   Heidenreich T, Wollers S, Mendel RR, Bittner F
+  TITLE     Characterization of the NifS-like domain of ABA3 from Arabidopsis thaliana provides insight into the mechanism of molybdenum cofactor sulfuration.
+  JOURNAL   J Biol Chem 280:4213-8 (2005)
+            DOI:10.1074/jbc.M411195200
+  SEQUENCE  [ath:AT1G16540]
+REFERENCE   3  [PMID:18258600]
+  AUTHORS   Wollers S, Heidenreich T, Zarepour M, Zachmann D, Kraft C, Zhao Y, Mendel RR, Bittner F
+  TITLE     Binding of sulfurated molybdenum cofactor to the C-terminal domain of ABA3 from Arabidopsis thaliana provides insight into the mechanism of molybdenum cofactor sulfuration.
+  JOURNAL   J Biol Chem 283:9642-50 (2008)
+            DOI:10.1074/jbc.M708549200
+  SEQUENCE  [ath:AT1G16540]
+PATHWAY     ec00790  Folate biosynthesis
+ORTHOLOGY   K15631  molybdenum cofactor sulfurtransferase
+GENES       HSA: 55034(MOCOS)
+            PTR: 455379(MOCOS)
+            PPS: 100980622(MOCOS)
+            GGO: 101144098(MOCOS)
+            PON: 100437474(MOCOS)
+            NLE: 100603055(MOCOS)
+            MCC: 715633(MOCOS)
+            MCF: 102120844(MOCOS)
+            CSAB: 103222528(MOCOS)
+            RRO: 104661881(MOCOS)
+            RBB: 108530893(MOCOS)
+            CJC: 100394299(MOCOS)
+            SBQ: 101048496(MOCOS)
+            MMU: 68591(Mocos)
+            RNO: 361300(Mocos)
+            CGE: 113834026
+            NGI: 103733624(Mocos)
+            HGL: 101714313(Mocos)
+            CCAN: 109693438 109693507 109693519
+            OCU: 100353426(MOCOS)
+            TUP: 102477563(MOCOS)
+            CFA: 490482(MOCOS)
+            AML: 100471952(MOCOS)
+            UMR: 103665067(MOCOS)
+            ORO: 101376236(MOCOS)
+            FCA: 101098093(MOCOS)
+            PTG: 102960562(MOCOS)
+            AJU: 106984131(MOCOS)
+            BTA: 281226(MOCOS)
+            BOM: 102271668(MOCOS)
+            BIU: 109577802(MOCOS)
+            PHD: 102325177(MOCOS)
+            CHX: 102184109(MOCOS)
+            OAS: 101115591(MOCOS)
+            SSC: 100621611(MOCOS)
+            CFR: 102519803(MOCOS)
+            CDK: 105086901(MOCOS)
+            BACU: 103013287(MOCOS)
+            LVE: 103077536(MOCOS)
+            OOR: 101270096(MOCOS)
+            ECB: 100067480(MOCOS)
+            EPZ: 103557043(MOCOS)
+            EAI: 106823547(MOCOS)
+            MYB: 102247364(MOCOS)
+            MYD: 102753138(MOCOS)
+            HAI: 109380405(MOCOS)
+            RSS: 109452115(MOCOS)
+            PALE: 102880788(MOCOS)
+            LAV: 100677256(MOCOS)
+            TMU: 101346589
+            MDO: 100013356(MOCOS)
+            SHR: 100930485(MOCOS)
+            OAA: 100075210(MOCOS)
+            GGA: 420964(MOCOS)
+            MGP: 100545875(MOCOS)
+            CJO: 107309449(MOCOS)
+            APLA: 101790101(MOCOS)
+            ACYG: 106045026(MOCOS)
+            TGU: 100221503(MOCOS)
+            SCAN: 103815511(MOCOS)
+            GFR: 102035844(MOCOS)
+            FAB: 101818369(MOCOS)
+            PHI: 102107851(MOCOS)
+            PMAJ: 107200520(MOCOS)
+            CCAE: 111925340(MOCOS)
+            CCW: 104685912(MOCOS)
+            FPG: 101916617(MOCOS)
+            FCH: 102048214(MOCOS)
+            CLV: 102094081(MOCOS)
+            EGZ: 104127290(MOCOS)
+            NNI: 104013414(MOCOS)
+            ACUN: 113476074(MOCOS)
+            AAM: 106492843(MOCOS)
+            ASN: 102371402(MOCOS)
+            AMJ: 102570986(MOCOS)
+            PSS: 102456094(MOCOS)
+            CMY: 102946540
+            CPIC: 101945849(MOCOS)
+            ACS: 100552531(mocos) 103281780
+            PVT: 110075377(MOCOS)
+            PBI: 103056356 103058826 103061476
+            PMUR: 107289459(MOCOS)
+            GJA: 107118425(MOCOS)
+            XLA: 108720028
+            XTR: 100490959(mocos)
+            NPR: 108790410(MOCOS)
+            DRE: 100331902(mocos)
+            SRX: 107708374 107721213(mocos)
+            SANH: 107678503 107698156
+            SGH: 107582499
+            CCAR: 109064480 109064770
+            IPU: 108263722(mocos)
+            PHYP: 113545829(mocos)
+            AMEX: 103041534(mocos)
+            EEE: 113587070(mocos)
+            TRU: 101076796(mocos)
+            TNG: GSTEN00005422G001
+            LCO: 104921895(mocos)
+            NCC: 104941688(mocos)
+            MZE: 101482613(mocos)
+            OLA: 101157481(mocos)
+            XMA: 102225677(mocos)
+            PRET: 103477143(mocos)
+            NFU: 107375543(mocos)
+            KMR: 108247154(mocos)
+            CSEM: 103387498(mocos)
+            LCF: 108886273(mocos)
+            SDU: 111220745(mocos)
+            HCQ: 109523029(mocos)
+            BPEC: 110173521(mocos)
+            MALB: 109960038
+            SASA: 106576810 106604730
+            OTW: 112252794 112252819
+            SALP: 111951948 111978108
+            ELS: 105026557(mocos)
+            SFM: 108923697(mocos)
+            PKI: 111851161(mocos)
+            LCM: 102345152(MOCOS)
+            CMK: 103181183(mocos)
+            BFO: BRAFLDRAFT_124063
+            CIN: 100182548
+            SPU: 583644
+            APLC: 110975000
+            SKO: 102802829
+            DME: Dmel_CG1692(mal)
+            DPO: Dpse_GA14218
+            DAN: Dana_GF19210
+            DER: 6549751
+            DPE: 6599378
+            DSE: Dsec_GM23034
+            DSI: Dsimw501_GD19688(Dsim_GD19688)
+            DWI: 6644650
+            DYA: Dyak_GE17883
+            DGR: Dgri_GH17731
+            DMO: Dmoj_GI15478
+            DVI: Dvir_GJ19188
+            MDE: 101890540
+            AGA: AgaP_AGAP000555(MOCOS_ANOGA)
+            AAG: 5575262 5575265
+            CQU: CpipJ_CPIJ009938 CpipJ_CPIJ009941
+            AME: 411261
+            BIM: 100747497
+            BTER: 100647735
+            SOC: 105193848
+            MPHA: 105836664
+            AEC: 105144204 105144207
+            ACEP: 105618350 105618460
+            PBAR: 105432349
+            HST: 105192250
+            DQU: 106752064
+            CFO: 105259179
+            LHU: 105672589
+            PGC: 109856555
+            OBO: 105275142
+            PCF: 106784086
+            NVI: 100122104(mal)
+            MDL: 103570737
+            TCA: 655996
+            DPA: 109532846
+            NVL: 108569660
+            BMOR: 100134930(mal)
+            DPL: KGM_211280
+            PMAC: 106716247 106720640 106720641
+            PRAP: 110996467
+            HAW: 110374298
+            TNL: 113500505
+            PXY: 105390609
+            API: 100159934 100164725
+            DNX: 107168202
+            CLEC: 106669371
+            PHU: Phum_PHUM354400
+            ZNE: 110840571
+            FCD: 110849036
+            DPX: DAPPUDRAFT_198784
+            CEL: CELE_R03A10.3(mocs-1)
+            CBR: CBG07703
+            NAI: NECAME_00680
+            TSP: Tsp_00269
+            HRO: HELRODRAFT_77660
+            LGI: LOTGIDRAFT_235545
+            CRG: 105333152 105333201
+            MYI: 110445086
+            LAK: 106161598 106161604 106179355
+            NVE: NEMVE_v1g82242
+            EPA: 110238345
+            ADF: 107334248
+            PDAM: 113666540
+            SPIS: 111328372
+            TAD: TRIADDRAFT_20006
+            AQU: 100632714
+            ATH: AT1G16540(ABA3)
+            ALY: ARALYDRAFT_471852 ARALYDRAFT_912014
+            CRB: 17900233
+            CSAT: 104740338 104755974 104759250 104775752
+            EUS: EUTSA_v10006808mg
+            BRP: 103872446
+            BNA: 106346761 106365599
+            BOE: 106295608
+            THJ: 104812356
+            CPAP: 110813185
+            CIT: 102577967
+            CIC: CICLE_v10004324mg
+            TCC: 18594558
+            GRA: 105775773
+            GHI: 107932693 107936180 107963677
+            GAB: 108481328 108483764
+            DZI: 111276021 111288351
+            EGR: 104448676
+            GMX: 100787334
+            PVU: PHAVU_011G216100g
+            VRA: 106756103
+            VAR: 108340378
+            CCAJ: 109817449
+            MTR: MTR_4g030930
+            CAM: 101491274
+            LJA: Lj3g3v0461990.1(Lj3g3v0461990.1) Lj3g3v0462260.1(Lj3g3v0462260.1)
+            ADU: 107470927
+            AIP: 107622615
+            LANG: 109325633
+            FVE: 101310007
+            PPER: 18780634
+            PMUM: 103325694
+            PAVI: 110769002
+            MDM: 103409089 103435418
+            PXB: 103952011
+            ZJU: 107417969
+            CSV: 101220625
+            CMO: 103496300
+            MCHA: 111017992
+            CMAX: 111469677
+            CMOS: 111451282
+            CPEP: 111795061
+            RCU: 8272616
+            JCU: 105646197
+            HBR: 110662033
+            MESC: 110617318
+            POP: 7483072
+            JRE: 108998007
+            VVI: 100247369
+            SLY: 543832(FLACCA)
+            SPEN: 107026467
+            SOT: 102580056
+            CANN: 107878893
+            NTA: 107762786 107764728 107822877
+            NSY: 104216382 104217977
+            NTO: 104115990
+            INI: 109152987 109178270
+            SIND: 105175074
+            OEU: 111385378
+            HAN: 110890120
+            LSV: 111904522
+            CCAV: 112506408
+            DCR: 108205863 108214967
+            BVG: 104904512
+            SOE: 110784245
+            CQI: 110698612 110704929
+            NNU: 104608087
+            PSOM: 113280305 113280759
+            OSA: 4341801
+            DOSA: Os06t0670000-01(Os06g0670000)
+            OBR: 102708066
+            BDI: 100833860
+            ATS: 109764490(LOC109764490)
+            SBI: 8061592
+            ZMA: 103629655 103638882
+            SITA: 101770290
+            PDA: 103722273 103722368
+            EGU: 105047545 105049235
+            MUS: 103993636
+            DCT: 110109869 110110851 110116593
+            PEQ: 110038799
+            AOF: 109844527 109844698
+            ATR: 18443110
+            SMO: SELMODRAFT_123676 SELMODRAFT_173762 SELMODRAFT_180197
+            PPP: 112277529 112281141 112282503 112283195 112293898
+            CRE: CHLREDRAFT_175100 CHLREDRAFT_191208
+            VCN: VOLCADRAFT_40621 VOLCADRAFT_64703
+            MNG: MNEG_4687 MNEG_7052 MNEG_8999
+            BPG: Bathy10g01940
+            MIS: MICPUN_64112
+            CSL: COCSUDRAFT_19457
+            CVR: CHLNCDRAFT_143919 CHLNCDRAFT_54300
+            APRO: F751_4011 F751_5508
+            GSL: Gasu_62000
+            CCP: CHC_T00004572001
+            PPA: PAS_chr4_0951
+            SLB: AWJ20_3753
+            NCR: NCU02777
+            NTE: NEUTE1DRAFT106582(NEUTE1DRAFT_106582)
+            SMP: SMAC_00395 SMAC_04825 SMAC_09753
+            PAN: PODANSg10035 PODANSg5761
+            TTT: THITE_2048359 THITE_2121818
+            MTM: MYCTH_2075738 MYCTH_2294998
+            CTHR: CTHT_0053620
+            MGR: MGG_01613 MGG_05759
+            SSCK: SPSK_05938
+            FGR: FGSG_01107 FGSG_11787
+            FPU: FPSE_03133 FPSE_09064
+            FVR: FVEG_01032 FVEG_01234
+            FOX: FOXG_00283 FOXG_00475
+            NHE: NECHADRAFT_65620 NECHADRAFT_90012
+            TRE: TRIREDRAFT_56614
+            MAW: MAC_05269
+            MAJ: MAA_03960
+            CMT: CCM_07073
+            PLJ: VFPFJ_03537
+            VAL: VDBG_04857
+            VDA: VDAG_04397
+            CFJ: CFIO01_02220
+            ELA: UCREL1_1191
+            PFY: PFICI_01191 PFICI_01351
+            BFU: BCIN_01g03840
+            MBE: MBM_06139 MBM_08333
+            PSCO: LY89DRAFT_574838 LY89DRAFT_693745 LY89DRAFT_702279
+            GLZ: GLAREA_00427 GLAREA_09272
+            ANI: AN1637.2 AN5314.2
+            AFM: AFUA_4G08990
+            AOR: AO090023000633
+            ANG: ANI_1_1786184(An04g03890)
+            AFV: AFLA_110480
+            ACT: ACLA_048350
+            NFI: NFIA_107180
+            PCS: Pc18g03430
+            PDP: PDIP_72590 PDIP_86260
+            CIM: CIMG_08337
+            CPW: CPC735_061080
+            PBL: PAAG_03275
+            PBN: PADG_03145
+            URE: UREG_02511
+            ABE: ARB_00349
+            TVE: TRV_04189
+            AJE: HCAG_07088
+            PNO: SNOG_03754 SNOG_08868
+            PTE: PTT_11897 PTT_17229
+            BZE: COCCADRAFT_82416 COCCADRAFT_97443
+            BSC: COCSADRAFT_123521 COCSADRAFT_162629
+            BOR: COCMIDRAFT_3523 COCMIDRAFT_95895
+            AALT: CC77DRAFT_844885 CC77DRAFT_985777
+            ZTR: MYCGRDRAFT_14753 MYCGRDRAFT_58203 MYCGRDRAFT_74083 MYCGRDRAFT_76893
+            PFJ: MYCFIDRAFT_156097 MYCFIDRAFT_160506 MYCFIDRAFT_191255
+            BCOM: BAUCODRAFT_30361 BAUCODRAFT_39552
+            NPA: UCRNP2_5638 UCRNP2_8707
+            TML: GSTUM_00001509001
+            HIR: HETIRDRAFT_429587
+            UMA: UMAG_03628
+            PFP: PFL1_02705
+            SRE: PTSG_00019
+            DDI: DDB_G0272935(mocos)
+            DPP: DICPUDRAFT_59401
+            DFA: DFA_00843(mocos)
+            EIV: EIN_079600 EIN_284440
+            ACAN: ACA1_241830 ACA1_263000 ACA1_263020
+            SMIN: v1.2.020005.t1(symbB.v1.2.020005.t1) v1.2.036207.t1(symbB.v1.2.036207.t1)
+            PTI: PHATR_46641
+            FCY: FRACYDRAFT_207845
+            TPS: THAPSDRAFT_261324
+            PIF: PITG_04515
+            PSOJ: PHYSODRAFT_480999
+            SPAR: SPRG_02564
+            EHX: EMIHUDRAFT_456573 EMIHUDRAFT_458486
+            GTT: GUITHDRAFT_114790
+DBLINKS     ExplorEnz - The Enzyme Database: 2.8.1.9
+            IUBMB Enzyme Nomenclature: 2.8.1.9
+            ExPASy - ENZYME nomenclature database: 2.8.1.9
+            BRENDA, the Enzyme Database: 2.8.1.9
+///

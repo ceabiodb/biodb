@@ -1,0 +1,34 @@
+ENTRY       EC 3.4.13.5                 Enzyme
+NAME        Xaa-methyl-His dipeptidase;
+            anserinase;
+            aminoacyl-methylhistidine dipeptidase;
+            acetylhistidine deacetylase;
+            N-acetylhistidine deacetylase;
+            alpha-N-acetyl-L-histidine aminohydrolase;
+            X-methyl-His dipeptidase
+CLASS       Hydrolases;
+            Acting on peptide bonds (peptidases);
+            Dipeptidases
+REACTION    Hydrolysis of anserine (beta-alanyl!Npi-methyl-L-histidine), carnosine, homocarnosine, glycyl!leucine and other dipeptides with broad specificity [RN:R03288]
+ALL_REAC    R03288
+HISTORY     EC 3.4.13.5 created 1961 as EC 3.4.3.4, transferred 1972 to EC 3.4.13.5, modified 1981 (EC 3.5.1.34 created 1972, incorporated 1981)
+REFERENCE   1  [PMID:14363188]
+  AUTHORS   JONES NR.
+  TITLE     The free amino acids of fish; 1-methylhistidine and beta-alanine liberation by skeletal muscle anserinase of codling (Gadus callarias).
+  JOURNAL   Biochem J 60:81-7 (1955)
+REFERENCE   2  [PMID:6067033]
+  AUTHORS   Baslow MH, Lenney JF.
+  TITLE     Alpha-N-acetyl-L-histidine amidohydrolase activity from the brain of the skipjack tuna Katsuwonus pelamis.
+  JOURNAL   Can J Biochem 45:337-40 (1967)
+REFERENCE   3  [PMID:318374]
+  AUTHORS   Lenney JF, Baslow MH, Sugiyama GH.
+  TITLE     Similarity of tuna N-acetylhistidine deacetylase and cod fish anserinase.
+  JOURNAL   Comp Biochem Physiol B 61:253-8 (1978)
+PATHWAY     ec00340  Histidine metabolism
+            ec00410  beta-Alanine metabolism
+DBLINKS     ExplorEnz - The Enzyme Database: 3.4.13.5
+            IUBMB Enzyme Nomenclature: 3.4.13.5
+            ExPASy - ENZYME nomenclature database: 3.4.13.5
+            BRENDA, the Enzyme Database: 3.4.13.5
+            CAS: 9027-38-7
+///

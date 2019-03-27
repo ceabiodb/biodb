@@ -1,0 +1,32 @@
+ENTRY       C00741                      Compound
+NAME        Diacetyl;
+            Biacetyl;
+            Dimethylglyoxal;
+            2,3-Butanedione
+FORMULA     C4H6O2
+EXACT_MASS  86.0368
+MOL_WEIGHT  86.0892
+REACTION    R02343 R02855 R02856 R09078 R10506
+PATHWAY     map00650  Butanoate metabolism
+ENZYME      1.1.1.303       1.1.1.304
+DBLINKS     CAS: 431-03-8
+            PubChem: 4004
+            ChEBI: 16583
+            ChEMBL: CHEMBL365809
+            PDB-CCD: BUO
+            3DMET: B00164
+            NIKKAJI: J2.586K
+ATOM        6
+            1   C5a C    21.5154  -15.8226
+            2   C5a C    22.7246  -16.5174
+            3   C1a C    20.2994  -16.5174
+            4   O5a O    21.5154  -14.4903
+            5   C1a C    23.9406  -15.8226
+            6   O5a O    22.7246  -18.0597
+BOND        5
+            1     1   2 1
+            2     1   3 1
+            3     1   4 2
+            4     2   5 1
+            5     2   6 2
+///
