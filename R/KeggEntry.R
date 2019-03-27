@@ -74,3 +74,14 @@ KeggEntry$methods( .parseModuleIds = function(parsed.content) {
 		.self$setFieldValue('kegg.module.id', module.ids)
 	}
 })
+
+# Parse pathway IDs {{{1
+################################################################
+
+KeggEntry$methods( .parsePathwayIds = function(parsed.content) {
+	pathway.ids = .self$.getTagLines(tag = 'PATHWAY', parsed.content = parsed.content)
+	if (length(pathway.ids) > 0) {
+		pathway.ids = sub('^\\s*([^ ]+)\\s+.*$', '\\1', pathway.ids)
+		.self$setFieldValue('kegg.pathway.id', pathway.ids)
+	}
+})
