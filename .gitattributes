@@ -1,4 +1,4 @@
 # Declare resource files as vendor in order to ignore them in GitHub language detection.
 tests/res/offline-cache/*   linguist-vendored
 inst/doc/*                  linguist-documentation
-cache/* filter=lfs diff=lfs merge=lfs -text
+cache/*                     linguist-vendored

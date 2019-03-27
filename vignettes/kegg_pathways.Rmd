@@ -33,7 +33,13 @@ kegg.comp.conn = mybiodb$getFactory()$createConn('kegg.compound')
 
 We start with a predefined list of KEGG compound IDs:
 ```{r}
-kegg.comp.ids = c('C02648', 'C06144', 'C06178', 'C02659', 'C02659', 'C01746', 'C01746', 'C00741', 'C01770', 'C01771', 'C02497', 'C16267', 'C00741', 'C01770', 'C01771', 'C02497', 'C16267', 'C02640', 'C00134', 'C00041', 'C00099', 'C00133', 'C00213', 'C01401', 'C01537', 'C02116', 'C11488', 'C07090', 'C14279', 'C00414', 'C02019', 'C08497', 'C16310', 'C11118', 'C02240')
+kegg.comp.ids = c('C02648', 'C06144', 'C06178', 'C02659', 'C02659',
+                  'C01746', 'C01746', 'C00741', 'C01770', 'C01771',
+                  'C02497', 'C16267', 'C00741', 'C01770', 'C01771',
+                  'C02497', 'C16267', 'C02640', 'C00134', 'C00041',
+                  'C00099', 'C00133', 'C00213', 'C01401', 'C01537',
+                  'C02116', 'C11488', 'C07090', 'C14279', 'C00414',
+                  'C02019', 'C08497', 'C16310', 'C11118', 'C02240')
 ```
 
 # Getting the organism and the pathways
@@ -64,12 +70,10 @@ for (comp.id in kegg.comp.ids) {
 	# First of all we get the compound entry corresponding to this ID:
 	comp = kegg.comp.conn$getEntry(comp.id)
 
-mybiodb$message('info', paste('-------------------------------- COMP', if (is.null(comp)) 'NULL' else comp$getFieldValue('accession')))
 	# Then we loop on all enzymes referenced by this compound:
 	if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id')) {
 		for (enz in kegg.enz.conn$getEntry(comp$getFieldValue('kegg.enzyme.id'), drop = FALSE)) {
 
-mybiodb$message('info', paste('-------------------------------- ENZ', if (is.null(enz)) 'NULL' else enz$getFieldValue('accession')))
 			# For each enzyme, we loop on all the genes it references:
 			if ( ! is.null(enz) && enz$hasField('kegg.genes.id')) {
 
@@ -79,13 +83,15 @@ mybiodb$message('info', paste('-------------------------------- ENZ', if (is.nul
 
 				for (gene in kegg.gen.conn$getEntry(mmu_genes_ids, drop = FALSE)) {
 
-mybiodb$message('info', paste('-------------------------------- GENE', if (is.null(gene)) 'NULL' else gene$getFieldValue('accession')))
 					# We test if this gene is related to the mouse:
+					if ( ! is.null(gene) && gene$hasField('kegg.organism.code'))
+						mybiodb$message('info', paste('-------------------------------- GENE ORGANISM', gene$getFieldValue('kegg.organism.code')))
 					if ( ! is.null(gene) && gene$hasField('kegg.organism.code') && gene$getFieldValue('kegg.organism.code') == 'mmu') {
 
 						# We access the list of pathways to which this gene is related, and store it in our variable:
-						if (gene$hasField('kegg.pathway.id'))
+						if (gene$hasField('kegg.pathway.id')) {
 							comp.mmu.gene.pathways[[comp.id]] = unique(c(comp.mmu.gene.pathways[[comp.id]], gene$getFieldValue('kegg.pathway.id')))
+						}
 					}
 				}
 			}
@@ -96,21 +102,21 @@ mybiodb$message('info', paste('-------------------------------- GENE', if (is.nu
 
 # Count to how many pathways each compound is related
 
-Know we will loop on all the original compounds, and count for each of them the number of pathways to which they are related.
+Now we will loop on all the original compounds, and count for each of them the number of pathways to which they are related.
 
 ```{r}
 nb_mmu_gene_pathways = vapply(kegg.comp.ids, function(i) if (i %in% names(comp.mmu.gene.pathways)) length(comp.mmu.gene.pathways[[i]]) else 0, FUN.VALUE = 0)
 names(nb_mmu_gene_pathways) = kegg.comp.ids
 ```
 
-Here in the final table, we list the number of pathways for each KEGG compound:
+Here, in the final table, we list the number of pathways for each KEGG compound:
 ```{r}
 nb_mmu_gene_pathways
 ```
 
-# Conclusion
+# Terminate the biodb instance
 
-We need to terminate the `Biodb` instance:
+Once we are done with Biodb, we need to terminate properly the `Biodb` instance:
 ```{r}
 mybiodb$terminate()
 ```
