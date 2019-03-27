@@ -65,6 +65,7 @@ $(ZIPPED_PKG): doc
 doc:
 	R -q -e "devtools::document('$(CURDIR)')"
 
+vignettes: BIODB_CACHE_DIRECTORY=$(PWD)/biodb.check.cache
 vignettes:
 	@echo Build vignettes for already installed package, not from local soures.
 	R -q -e "devtools::clean_vignettes('$(CURDIR)')"
