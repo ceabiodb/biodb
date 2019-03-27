@@ -1,0 +1,116 @@
+---
+title: "Detected related compounds using KEGG databases"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  This vignette shows how to check if it exists a functional link between compounds, in pathways, using KEGG databases.
+vignette: |
+  %\VignetteIndexEntry{Accessing KEGG databases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+In this vignette, we will try to find biological links between compounds inside a same organism. We will start from a given list of KEGG compound IDs, and explore KEGG to find to which organisms they can be related and try to discover links between them through KEGG pathways.
+
+As an example, we will start for a predefined list of KEGG compound IDs, and focus on one organism, the mouse.
+
+First we need to create an instance of the `Biodb` class:
+```{r}
+mybiodb = biodb::Biodb()
+```
+
+Then we need a connector to the KEGG Compound database:
+```{r}
+kegg.comp.conn = mybiodb$getFactory()$createConn('kegg.compound')
+```
+
+# Getting KEGG compound entries
+
+We start with a predefined list of KEGG compound IDs:
+```{r}
+kegg.comp.ids = c('C02648', 'C06144', 'C06178', 'C02659', 'C02659', 'C01746', 'C01746', 'C00741', 'C01770', 'C01771', 'C02497', 'C16267', 'C00741', 'C01770', 'C01771', 'C02497', 'C16267', 'C02640', 'C00134', 'C00041', 'C00099', 'C00133', 'C00213', 'C01401', 'C01537', 'C02116', 'C11488', 'C07090', 'C14279', 'C00414', 'C02019', 'C08497', 'C16310', 'C11118', 'C02240')
+```
+
+# Getting the organism and the pathways
+
+Now that we have a list of compounds from which to start our search, we will find in which organism these compounds may be found. If the compound can be related to the mouse (`"mmu"` code in KEGG), we will then list all the pathways related to this compound and store them for later processing.
+
+To know the organism, we will have to get the KEGG Gene entries related to the compound, since the organism information is stored in Genes database.
+In order to get the genes, we will have first to go through the KEGG Enzyme database.
+
+Note that pathways may be listed in any entry of these three databases (Compound, Enzyme and Genes). For this example, we will only use pathways stored in the Genes entries.
+
+First we need to create new connectors, for accessing KEGG Enzyme and KEGG Genes databases:
+```{r}
+kegg.enz.conn = mybiodb$getFactory()$createConn('kegg.enzyme')
+kegg.gen.conn = mybiodb$getFactory()$createConn('kegg.genes')
+```
+
+We create an empty list in which to store the pathways found for each compound.
+```{r}
+comp.mmu.gene.pathways = list()
+```
+This variable will therefore be a list of lists.
+
+```{r}
+# We start by looping on all compound IDs:
+for (comp.id in kegg.comp.ids) {
+
+	# First of all we get the compound entry corresponding to this ID:
+	comp = kegg.comp.conn$getEntry(comp.id)
+
+mybiodb$message('info', paste('-------------------------------- COMP', if (is.null(comp)) 'NULL' else comp$getFieldValue('accession')))
+	# Then we loop on all enzymes referenced by this compound:
+	if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id')) {
+		for (enz in kegg.enz.conn$getEntry(comp$getFieldValue('kegg.enzyme.id'), drop = FALSE)) {
+
+mybiodb$message('info', paste('-------------------------------- ENZ', if (is.null(enz)) 'NULL' else enz$getFieldValue('accession')))
+			# For each enzyme, we loop on all the genes it references:
+			if ( ! is.null(enz) && enz$hasField('kegg.genes.id')) {
+
+				# We skip non mouse genes
+				genes_ids = enz$getFieldValue('kegg.genes.id')
+				mmu_genes_ids = genes_ids[grep('^mmu:', genes_ids)]
+
+				for (gene in kegg.gen.conn$getEntry(mmu_genes_ids, drop = FALSE)) {
+
+mybiodb$message('info', paste('-------------------------------- GENE', if (is.null(gene)) 'NULL' else gene$getFieldValue('accession')))
+					# We test if this gene is related to the mouse:
+					if ( ! is.null(gene) && gene$hasField('kegg.organism.code') && gene$getFieldValue('kegg.organism.code') == 'mmu') {
+
+						# We access the list of pathways to which this gene is related, and store it in our variable:
+						if (gene$hasField('kegg.pathway.id'))
+							comp.mmu.gene.pathways[[comp.id]] = unique(c(comp.mmu.gene.pathways[[comp.id]], gene$getFieldValue('kegg.pathway.id')))
+					}
+				}
+			}
+		}
+	}
+}
+```
+
+# Count to how many pathways each compound is related
+
+Know we will loop on all the original compounds, and count for each of them the number of pathways to which they are related.
+
+```{r}
+nb_mmu_gene_pathways = vapply(kegg.comp.ids, function(i) if (i %in% names(comp.mmu.gene.pathways)) length(comp.mmu.gene.pathways[[i]]) else 0, FUN.VALUE = 0)
+names(nb_mmu_gene_pathways) = kegg.comp.ids
+```
+
+Here in the final table, we list the number of pathways for each KEGG compound:
+```{r}
+nb_mmu_gene_pathways
+```
+
+# Conclusion
+
+We need to terminate the `Biodb` instance:
+```{r}
+mybiodb$terminate()
+```
