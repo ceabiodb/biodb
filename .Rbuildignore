@@ -9,3 +9,4 @@
 ^LICENSE$
 ^biodb_.*\.tar\.gz$
 ^biodb\.Rcheck$
+^biodb\.check\.cache$

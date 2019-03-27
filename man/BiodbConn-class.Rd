@@ -62,9 +62,29 @@ Get the identifier of this connector.}
 
 Get the number of entries contained in this database.}
 
+\item{\code{isCompounddb()}}{:
+
+Returns TRUE if the database is a compound database (i.e.: the connector class inherits from BiodbCompounddbConn class).}
+
+\item{\code{isDownloadable()}}{:
+
+Returns TRUE if the database is downloadable (i.e.: the connector class implements the interface BiodbDownloadable).}
+
 \item{\code{isEditable()}}{:
 
 Returns TRUE if the database is editable (i.e.: the connector class implements the interface BiodbEditable). If this connector is editable, then you can call allowEditing() to enable editing.}
+
+\item{\code{isMassdb()}}{:
+
+Returns TRUE if the database is a mass database (i.e.: the connector class inherits from BiodbMassdbConn class).}
+
+\item{\code{isRemotedb()}}{:
+
+Returns TRUE if the database is a remote database (i.e.: the connector class inherits from BiodbRemotedbConn class).}
+
+\item{\code{isSearchable()}}{:
+
+Returns TRUE if the database is searchable (i.e.: the connector class implements the interface BiodbSearchable).}
 
 \item{\code{isWritable()}}{:
 

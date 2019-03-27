@@ -341,7 +341,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 				ch.missing.contents <- conn$getEntryContent(ch.missing.ids)
 
 				# Save to cache
-				if ( ! is.null(ch.missing.contents) && .self$getBiodb()$getCache()$isWritable())
+				if ( ! is.null(ch.missing.contents) && ! is.null(conn$getCacheId()) && .self$getBiodb()$getCache()$isWritable())
 					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, cache.id = conn$getCacheId(), subfolder = 'shortterm', name = ch.missing.ids, ext = conn$getEntryFileExt())
 
 				# Append
