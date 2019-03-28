@@ -84,8 +84,6 @@ for (comp.id in kegg.comp.ids) {
 				for (gene in kegg.gen.conn$getEntry(mmu_genes_ids, drop = FALSE)) {
 
 					# We test if this gene is related to the mouse:
-					if ( ! is.null(gene) && gene$hasField('kegg.organism.code'))
-						mybiodb$message('info', paste('-------------------------------- GENE ORGANISM', gene$getFieldValue('kegg.organism.code')))
 					if ( ! is.null(gene) && gene$hasField('kegg.organism.code') && gene$getFieldValue('kegg.organism.code') == 'mmu') {
 
 						# We access the list of pathways to which this gene is related, and store it in our variable:
