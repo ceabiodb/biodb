@@ -757,7 +757,6 @@ GENES       SCE: YAL060W(BDH1) YAL061W(BDH2)
             THS: TES1_0121
             SRUB: C2R22_06200
             HLR: HALLA_01855 HALLA_01915
-            LOKI: Lokiarch_16160(gutB_1)
 DBLINKS     ExplorEnz - The Enzyme Database: 1.1.1.303
             IUBMB Enzyme Nomenclature: 1.1.1.303
             ExPASy - ENZYME nomenclature database: 1.1.1.303
