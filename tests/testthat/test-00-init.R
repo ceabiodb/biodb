@@ -14,13 +14,13 @@ if ('MODES' %in% names(ENV) && ENV[['MODES']] == MODE.FULL) {
 	biodb$getCache()$eraseFolder()
 }
 
-# Erase only short term cache
-if (MODE.ONLINE %in% TEST.MODES) {
-	biodb <- Biodb$new(logger = FALSE)
-	biodb$getCache()$eraseFolder('shortterm')
-}
+## Erase only short term cache
+#if (MODE.ONLINE %in% TEST.MODES) {
+#	biodb <- Biodb$new(logger = FALSE)
+#	biodb$getCache()$eraseFolder('shortterm')
+#}
 
-biodb <- Biodb$new(logger = FALSE)
+#biodb <- Biodb$new(logger = FALSE)
 
 # Remove all log files {{{1
 ################################################################

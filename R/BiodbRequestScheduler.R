@@ -302,11 +302,14 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 	header <- RCurl::basicHeaderGatherer()
 
 	# Enter query loop
-	i <- 0
-	while (i < .self$.nb.max.tries && is.na(content)) {
+	i = 0
+	retry = TRUE
+	while (retry && i < .self$.nb.max.tries) {
+
+		err_msg = NULL
 
 		# Increment try number
-		i <- i + 1
+		i = i + 1
 
 		# Print debug information about header and body
 		.self$message('debug', paste0('Request header is: "', request$getHeaderAsSingleString(), '".'))
@@ -319,60 +322,81 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 		opts <- request$getCurlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'))
 
 		# Send request
-		retry = TRUE
+		retry = FALSE
 		curl.error = NULL
+		header$reset()
 		content = tryCatch(expr = {
 				if (request$getMethod() == 'get')
 					RCurl::getURL(request$getUrl()$toString(), .opts = opts, ssl.verifypeer = .self$.ssl.verifypeer, .encoding = request$getEncoding(), headerfunction = header$update)
 				else
 					RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding(), headerfunction = header$update)
 				},
-			PEER_FAILED_VERIFICATION = function(err) { curl.error = err },
-			GenericCurlError = function(err) { curl.error = err },
-			finally = function(err) { retry = FALSE ; curl.error = err })
+			PEER_FAILED_VERIFICATION = function(err) { retry = TRUE ; curl.error = err },
+			GenericCurlError = function(err) { retry = TRUE ; curl.error = err },
+			error = function(err) { retry = FALSE ; curl.error = err })
 
-		# Log error
-		if ( ! is.null(curl.error)) {
-			msg = paste0("RCurl error: ", curl.error)
-			if (retry)
-				msg = paste0(msg, " Retrying connection to server...")
-			.self$message('info', msg)
-			if (retry)
-				next
-			else
-				break
-		}
+		# RCurl error
+		if ( ! is.null(curl.error))
+			err_msg = paste0("RCurl error: ", curl.error)
 
 		# Get header information sent by server
-		hdr <- as.list(header$value())
-		hdr$status <- as.integer(hdr$status)
+		hdr = NULL
+		if (is.null(err_msg)) {
+			hdr = tryCatch(expr = as.list(header$value()),
+			               warning = function(w) w, # We want to catch "<simpleWarning in max(i): no non-missing arguments to max; returning -Inf>".
+			               error = function(e) e)
 
-		if (hdr$status %in% c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT, .HTTP.STATUS.INTERNAL.SERVER.ERROR, .HTTP.STATUS.SERVICE.UNAVAILABLE)) {
-			msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
-			if ('Retry-After' %in% names(hdr))
-				msg <- paste0(msg, " Retry after ", hdr[['Retry-After']], ".")
-			msg <- paste0(msg, " Retrying connection to server...")
-			.self$message('info', msg)
-			next
+			if (methods::is(hdr, 'simpleError') || methods::is(hdr, 'simpleWarning')) {
+				err_msg = paste0('Error while retrieving HTTP header: ', hdr, '.')
+				hdr = NULL
+				retry = TRUE
+			}
+
+			if ( ! is.null(hdr)) {
+				hdr$status <- as.integer(hdr$status)
+				if (hdr$status == 0) {
+					hdr = NULL
+					err_msg = "Cannot find status info in HTTP header."
+					retry = TRUE
+				}
+			}
 		}
 
-		# HTTP error
-		if (hdr$status != .HTTP.STATUS.OK) {
-			msg <- paste0("Unrecoverable HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+		# Recoverable HTTP errors
+		if ( ! is.null(hdr) && hdr$status %in% c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT, .HTTP.STATUS.INTERNAL.SERVER.ERROR, .HTTP.STATUS.SERVICE.UNAVAILABLE)) {
+			err_msg = paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
 			if ('Retry-After' %in% names(hdr))
-				msg <- paste0(msg, " Retry after ", hdr[['Retry-After']], ".")
-			.self$message('info', msg)
-			content <- NA_character_
-			break
+				err_msg = paste0(err_msg, " Retry after ", hdr[['Retry-After']], ".")
+			retry = TRUE
+		}
+
+		# Other HTTP errors
+		if (is.null(err_msg) && ! is.null(hdr) && hdr$status != .HTTP.STATUS.OK) {
+			err_msg = paste0("Unrecoverable HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+			if ('Retry-After' %in% names(hdr))
+				err_msg = paste0(err_msg, " Retry after ", hdr[['Retry-After']], ".")
+			content = NA_character_
+			retry = FALSE
 		}
 
 		# Proxy server error
-		if (length(grep('The proxy server could not handle the request', content)) > 0) {
+		if (is.null(err_msg) && ! is.null(content) && ! is.na(content) && length(grep('The proxy server could not handle the request', content)) > 0) {
 			.self$message('debug', 'Found proxy error message in content.')
-			.self$info("Error between the proxy and the main server.") # This happens sometime with NCBI CCDS server.
-			content <- NA_character_
-			break
+			err_msg = "Error between the proxy and the main server." # This happens sometime with NCBI CCDS server.
+			content = NA_character_
+			retry = FALSE
 		}
+
+		# Message
+		if ( ! is.null(err_msg)) {
+			content = NA_character_
+			if (retry)
+				err_msg = paste0(err_msg, " Retrying connection to server...")
+			.self$message('info', err_msg)
+		}
+
+		if (retry)
+			content = NA_character_
 	}
 
 	return(content)

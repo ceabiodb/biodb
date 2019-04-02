@@ -9,7 +9,7 @@ test.hmdbmetabolite.nbentries <- function(db) {
 	n <- db$getNbEntries(count = TRUE)
 	expect_is(n, 'integer')
 	if (db$isDownloaded())
-		expect_gt(n, 4000)
+		expect_gt(n, 0)
 	else
 		expect_true(is.na(n))
 }

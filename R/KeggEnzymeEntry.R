@@ -23,6 +23,9 @@ KeggEnzymeEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 	# Name
 	.self$.parseMultilinesField(field = 'name', tag = 'NAME', parsed.content = parsed.content, strip.chars = ' ;', split.char = NA_character_)
 
+	# Other KEGG IDs
+	.self$.parsePathwayIds(parsed.content = parsed.content)
+
 	# Genes
 	lines = .self$.getTagLines(tag = 'GENES', parsed.content = parsed.content)
 	if (length(lines) > 0) {

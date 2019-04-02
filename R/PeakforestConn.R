@@ -56,12 +56,15 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 	# Get directly one JSON string for each ID
 	if (length(jsonstr) == length(entry.id)) {
 		for (i in seq_along(jsonstr)) {
-			json = jsonlite::fromJSON(jsonstr[[i]], simplifyDataFrame = FALSE)
+			json = if (is.na(jsonstr[[i]])) NULL else jsonlite::fromJSON(jsonstr[[i]], simplifyDataFrame = FALSE)
 			if (is.null(json))
 				next
+
+			# XXX TODO What do those lines? In which context are they run?
+			# XXX The loop ends in all cases!
 			if (class(json) == 'list' && ! is.null(names(json))) {
-			content <- jsonstr
-			return(content)
+				content = jsonstr
+				return(content)
 			}
 			else
 				break
@@ -74,7 +77,7 @@ PeakforestConn$methods( getEntryContent = function(entry.id) {
 		if (.self$.checkIfError(single.jsonstr))
 			break
 
-		json <- jsonlite::fromJSON(single.jsonstr, simplifyDataFrame = FALSE)
+		json <- if (is.na(single.jsonstr)) NULL else jsonlite::fromJSON(single.jsonstr, simplifyDataFrame = FALSE)
 
 		if ( ! is.null(json)) {
 			if (class(json) == 'list' && is.null(names(json))) {

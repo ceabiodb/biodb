@@ -1,9 +1,10 @@
+Meta
+doc
 .swp
 .*.swp
 .DS_Store
 .RData
 .Rhistory
-cache
 ..Rcheck
 src/*.rds
 test-pkg.output
@@ -20,3 +21,7 @@ inst
 biodb_*.tgz
 biodb_*.tar.gz
 biodb.Rcheck
+cache/longterm
+cache/shortterm/hmdb.metabolites-*
+!cache/shortterm/hmdb.metabolites-9e094cf1e5980f9ac69d952373fb6d34-HMDB0000001.xml
+!cache/shortterm/hmdb.metabolites-9e094cf1e5980f9ac69d952373fb6d34-extracted.marker

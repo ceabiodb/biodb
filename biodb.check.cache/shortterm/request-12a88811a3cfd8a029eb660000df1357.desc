@@ -1,1 +1,0 @@
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["url","header","body"]}},"value":[{"type":"character","attributes":{},"value":["https://www.uniprot.org/uniprot/?query=name:%22prion%20protein%22&columns1=id&columns2=entry%20name&format=txt&limit=10"]},{"type":"character","attributes":{},"value":[]},{"type":"character","attributes":{},"value":[]}]}

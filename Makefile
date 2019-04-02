@@ -5,7 +5,7 @@
 
 # Set cache folder
 ifndef BIODB_CACHE_DIRECTORY
-export BIODB_CACHE_DIRECTORY=$(HOME)/.biodb.dev.check.cache
+export BIODB_CACHE_DIRECTORY=$(PWD)/cache
 endif
 
 # Set testthat reporter
@@ -21,6 +21,10 @@ PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
 ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
 
+# Display values of main variables
+$(info "ENV VAR BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
+$(info "ENV VAR DATABASES=$(DATABASES)")
+
 # Default target {{{1
 ################################################################
 
@@ -29,8 +33,7 @@ all:
 # Check and test {{{1
 ################################################################
 
-check: BIODB_CACHE_DIRECTORY=$(PWD)/biodb.check.cache
-check: $(ZIPPED_PKG) clean.cache
+check: $(ZIPPED_PKG)
 	R CMD check --as-cran "$<"
 # Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:
 #   Warning in config_val_to_logical(check_incoming) :
@@ -99,7 +102,7 @@ uninstall:
 # Clean {{{1
 ################################################################
 
-clean: clean.cache clean.build
+clean: clean.build
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/test.log tests/output tests/test\ *.log
 
