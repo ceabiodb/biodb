@@ -349,6 +349,7 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 			if (methods::is(hdr, 'simpleError') || methods::is(hdr, 'simpleWarning')) {
 				err_msg = paste0('Error while retrieving HTTP header: ', hdr, '.')
 				hdr = NULL
+				retry = TRUE
 			}
 
 			if ( ! is.null(hdr)) {
