@@ -823,7 +823,7 @@ GENES       HSA: 314(AOC2) 8639(AOC3)
             NOU: Natoc_0595 Natoc_1202 Natoc_1215
             SSO: SSO1692(tynA)
             SOL: Ssol_2477
-            SSOA: SULA_2500(tynA)
+            SSOA: SULA_2500
             SSOL: SULB_2503(tynA)
             SSOF: SULC_2498(tynA)
             SAI: Saci_2182(tynA)

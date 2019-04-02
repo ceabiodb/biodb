@@ -2451,7 +2451,7 @@ GENES       HSA: 79814(AGMAT)
             STO: STK_03520(speB)
             SSO: SSO0445(speB-1) SSO2732(speB-2)
             SOL: Ssol_0543 Ssol_1421
-            SSOA: SULA_0533 SULA_1464
+            SSOA: SULA_0533(speB) SULA_1464(speB)
             SSOL: SULB_0535 SULB_1465
             SSOF: SULC_0533 SULC_1463
             SAI: Saci_0863 Saci_2134
