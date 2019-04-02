@@ -1,0 +1,3184 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
+<entry dataset="Swiss-Prot" created="1988-08-01" modified="2019-02-13" version="218">
+<accession>P08123</accession>
+<accession>P02464</accession>
+<accession>Q13897</accession>
+<accession>Q13997</accession>
+<accession>Q13998</accession>
+<accession>Q14038</accession>
+<accession>Q14057</accession>
+<accession>Q15177</accession>
+<accession>Q15947</accession>
+<accession>Q16480</accession>
+<accession>Q16511</accession>
+<accession>Q7Z5S6</accession>
+<accession>Q9UEB6</accession>
+<accession>Q9UEF9</accession>
+<accession>Q9UM83</accession>
+<accession>Q9UMI1</accession>
+<accession>Q9UML5</accession>
+<accession>Q9UMM6</accession>
+<accession>Q9UPH0</accession>
+<name>CO1A2_HUMAN</name>
+<protein>
+<recommendedName>
+<fullName>Collagen alpha-2(I) chain</fullName>
+</recommendedName>
+<alternativeName>
+<fullName>Alpha-2 type I collagen</fullName>
+</alternativeName>
+</protein>
+<gene>
+<name type="primary">COL1A2</name>
+</gene>
+<organism>
+<name type="scientific">Homo sapiens</name>
+<name type="common">Human</name>
+<dbReference type="NCBI Taxonomy" id="9606"/>
+<lineage>
+<taxon>Eukaryota</taxon>
+<taxon>Metazoa</taxon>
+<taxon>Chordata</taxon>
+<taxon>Craniata</taxon>
+<taxon>Vertebrata</taxon>
+<taxon>Euteleostomi</taxon>
+<taxon>Mammalia</taxon>
+<taxon>Eutheria</taxon>
+<taxon>Euarchontoglires</taxon>
+<taxon>Primates</taxon>
+<taxon>Haplorrhini</taxon>
+<taxon>Catarrhini</taxon>
+<taxon>Hominidae</taxon>
+<taxon>Homo</taxon>
+</lineage>
+</organism>
+<reference key="1">
+<citation type="journal article" date="1987" name="J. Biol. Chem." volume="262" first="16032" last="16036">
+<title>Organization of the human pro-alpha 2(I) collagen gene.</title>
+<authorList>
+<person name="de Wet W.J."/>
+<person name="Bernard M.P."/>
+<person name="Benson-Chanda V."/>
+<person name="Chu M.-L."/>
+<person name="Dickson L.A."/>
+<person name="Weil D."/>
+<person name="Ramirez F."/>
+</authorList>
+<dbReference type="PubMed" id="2824475"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+<scope>VARIANTS ASN-249; THR-276; VAL-483; ALA-549; HIS-678; GLY-743; PHE-1022; GLU-1189; PRO-1198 AND HIS-1354</scope>
+</reference>
+<reference key="2">
+<citation type="journal article" date="1997" name="Nucleic Acids Res." volume="25" first="181" last="187">
+<title>The human type I collagen mutation database.</title>
+<authorList>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="9016532"/>
+<dbReference type="DOI" id="10.1093/nar/25.1.181"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+<scope>REVIEW ON OI VARIANTS</scope>
+<scope>VARIANTS ALA-549; HIS-678 AND HIS-1354</scope>
+</reference>
+<reference key="3">
+<citation type="journal article" date="1998" name="Am. J. Hum. Genet." volume="62" first="98" last="110">
+<title>Analysis of the COL1A1 and COL1A2 genes by PCR amplification and scanning by conformation-sensitive gel electrophoresis identifies only COL1A1 mutations in 15 patients with osteogenesis imperfecta type I: identification of common sequences of null-allele mutations.</title>
+<authorList>
+<person name="Korkko J.M."/>
+<person name="Ala-Kokko L."/>
+<person name="De Paepe A."/>
+<person name="Nuytinck L."/>
+<person name="Earley J.J."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="9443882"/>
+<dbReference type="DOI" id="10.1086/301689"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+<scope>VARIANTS ILE-270; VAL-483; HIS-678; GLY-743; PHE-1022; GLU-1189; PRO-1198 AND HIS-1354</scope>
+</reference>
+<reference key="4">
+<citation type="journal article" date="2004" name="Genome Res." volume="14" first="2121" last="2127">
+<title>The status, quality, and expansion of the NIH full-length cDNA project: the Mammalian Gene Collection (MGC).</title>
+<authorList>
+<consortium name="The MGC Project Team"/>
+</authorList>
+<dbReference type="PubMed" id="15489334"/>
+<dbReference type="DOI" id="10.1101/gr.2596504"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA]</scope>
+<scope>VARIANT ALA-549</scope>
+<source>
+<tissue>Skin</tissue>
+<tissue>Uterus</tissue>
+</source>
+</reference>
+<reference key="5">
+<citation type="journal article" date="1988" name="Biochem. J." volume="252" first="633" last="640">
+<title>Structure of a full-length cDNA clone for the prepro alpha 2(I) chain of human type I procollagen. Comparison with the chicken gene confirms unusual patterns of gene conservation.</title>
+<authorList>
+<person name="Kuivaniemi H."/>
+<person name="Tromp G."/>
+<person name="Chu M.-L."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="3421913"/>
+<dbReference type="DOI" id="10.1042/bj2520633"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1-765</scope>
+<scope>VARIANTS HIS-678 AND GLY-743</scope>
+<source>
+<tissue>Placenta</tissue>
+</source>
+</reference>
+<reference key="6">
+<citation type="journal article" date="1985" name="Nucleic Acids Res." volume="13" first="3427" last="3438">
+<title>Analysis of the promoter region and the N-propeptide domain of the human pro alpha 2(I) collagen gene.</title>
+<authorList>
+<person name="Dickson L.A."/>
+<person name="de Wet W."/>
+<person name="Di Liberto M."/>
+<person name="Weil D."/>
+<person name="Ramirez F."/>
+</authorList>
+<dbReference type="PubMed" id="4011429"/>
+<dbReference type="DOI" id="10.1093/nar/13.10.3427"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1-93</scope>
+<scope>VARIANT PRO-59</scope>
+</reference>
+<reference key="7">
+<citation type="journal article" date="1998" name="Connect. Tissue Res." volume="30" first="1" last="6">
+<title>Fine structural analysis of the unique 5' region of the human COL1A2 gene containing two regions of dinucleotide repeats adjacent to the transcriptional start site.</title>
+<authorList>
+<person name="Akai J."/>
+<person name="Kimura A."/>
+<person name="Arai K."/>
+<person name="Uehara K."/>
+<person name="Hata R."/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 1-32</scope>
+</reference>
+<reference key="8">
+<citation type="journal article" date="1987" name="J. Biol. Chem." volume="262" first="16376" last="16385">
+<title>Ehlers-Danlos syndrome type VIIB. Deletion of 18 amino acids comprising the N-telopeptide region of a pro-alpha 2(I) chain.</title>
+<authorList>
+<person name="Wirtz M.K."/>
+<person name="Glanville R.W."/>
+<person name="Steinmann B."/>
+<person name="Rao V.H."/>
+<person name="Hollister D.W."/>
+</authorList>
+<dbReference type="PubMed" id="3680255"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 32-111</scope>
+<scope>HYDROXYLATION AT PRO-47; PRO-50; PRO-62; PRO-65; PRO-68; PRO-71; PRO-102 AND PRO-108</scope>
+<scope>VARIANT EDSARTH2 76-ASN--MET-93 DEL</scope>
+</reference>
+<reference key="9">
+<citation type="journal article" date="1990" name="J. Biol. Chem." volume="265" first="16007" last="16011">
+<title>Structural and functional characterization of a splicing mutation in the pro-alpha 2(I) collagen gene of an Ehlers-Danlos type VII patient.</title>
+<authorList>
+<person name="Weil D."/>
+<person name="D'Alessio M."/>
+<person name="Ramirez F."/>
+<person name="Eyre D.R."/>
+</authorList>
+<dbReference type="PubMed" id="2394758"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 76-93</scope>
+<scope>PROTEIN SEQUENCE OF 23-96</scope>
+<scope>HYDROXYLATION AT PRO-47; PRO-50; PRO-62; PRO-65; PRO-68 AND PRO-71</scope>
+<scope>PYROGLUTAMATE FORMATION AT GLN-23</scope>
+<scope>VARIANT EDSARTH2 76-ASN--MET-93 DEL</scope>
+</reference>
+<reference key="10">
+<citation type="journal article" date="1992" name="J. Biol. Chem." volume="267" first="9093" last="9100">
+<title>Ehlers Danlos syndrome type VIIB. Incomplete cleavage of abnormal type I procollagen by N-proteinase in vitro results in the formation of copolymers of collagen and partially cleaved pNcollagen that are near circular in cross-section.</title>
+<authorList>
+<person name="Watson R.B."/>
+<person name="Wallis G.A."/>
+<person name="Holmes D.F."/>
+<person name="Viljoen D."/>
+<person name="Byers P.H."/>
+<person name="Kadler K.E."/>
+</authorList>
+<dbReference type="PubMed" id="1577745"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 76-93</scope>
+<scope>VARIANT EDSARTH2 76-ASN--MET-93 DEL</scope>
+</reference>
+<reference key="11">
+<citation type="journal article" date="1970" name="Biochemistry" volume="9" first="4699" last="4706">
+<title>Isolation and characterization of the cyanogen bromide peptides from the alpha 1 and alpha 2 chains of human skin collagen.</title>
+<authorList>
+<person name="Click E.M."/>
+<person name="Bornstein P."/>
+</authorList>
+<dbReference type="PubMed" id="5529814"/>
+<dbReference type="DOI" id="10.1021/bi00826a012"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 80-96</scope>
+<scope>ALLYSINE AT LYS-84</scope>
+<scope>PYROGLUTAMATE FORMATION AT GLN-80</scope>
+<source>
+<tissue>Skin</tissue>
+</source>
+</reference>
+<reference key="12">
+<citation type="journal article" date="1988" name="J. Biol. Chem." volume="263" first="11407" last="11413">
+<title>A 19-base pair deletion in the pro-alpha 2(I) gene of type I procollagen that causes in-frame RNA splicing from exon 10 to exon 12 in a proband with atypical osteogenesis imperfecta and in his asymptomatic mother.</title>
+<authorList>
+<person name="Kuivaniemi H."/>
+<person name="Sabol C."/>
+<person name="Tromp G."/>
+<person name="Sippola-Thiele M."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="3403536"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 145-198</scope>
+</reference>
+<reference key="13">
+<citation type="journal article" date="1992" name="J. Bone Miner. Res." volume="7" first="793" last="805">
+<title>Expression of mutant alpha (I)-procollagen in osteoblast and fibroblast cultures from a proband with osteogenesis imperfecta type IV.</title>
+<authorList>
+<person name="Chipman S.D."/>
+<person name="Shapiro J.R."/>
+<person name="McKinstry M.B."/>
+<person name="Stover M.L."/>
+<person name="Branson P."/>
+<person name="Rowe D.W."/>
+</authorList>
+<dbReference type="PubMed" id="1642148"/>
+<dbReference type="DOI" id="10.1002/jbmr.5650070709"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 163-213</scope>
+<scope>VARIANT OI4 181-GLY--LYS-198 DEL</scope>
+</reference>
+<reference key="14">
+<citation type="journal article" date="1970" name="J. Biol. Chem." volume="245" first="5042" last="5048">
+<title>A comparative study of glycopeptides derived from selected vertebrate collagens. A possible role of the carbohydrate in fibril formation.</title>
+<authorList>
+<person name="Morgan P.H."/>
+<person name="Jacobs H.G."/>
+<person name="Segrest J.P."/>
+<person name="Cunningham L.W."/>
+</authorList>
+<dbReference type="PubMed" id="4319110"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 175-180</scope>
+<scope>HYDROXYLATION AT LYS-177</scope>
+<scope>GLYCOSYLATION AT LYS-177</scope>
+<source>
+<tissue>Skin</tissue>
+</source>
+</reference>
+<reference key="15">
+<citation type="submission" date="1997-09" db="EMBL/GenBank/DDBJ databases">
+<authorList>
+<person name="Kalicki J."/>
+<person name="Wamsley P."/>
+<person name="Gibson A."/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 181-1366</scope>
+</reference>
+<reference key="16">
+<citation type="journal article" date="1974" name="Eur. J. Biochem." volume="47" first="257" last="261">
+<title>Comparative sequence studies on alpha2-CB2 from calf, human, rabbit and pig-skin collagen.</title>
+<authorList>
+<person name="Fietzek P.P."/>
+<person name="Furthmayr H."/>
+<person name="Kuehn K."/>
+</authorList>
+<dbReference type="PubMed" id="4412529"/>
+<dbReference type="DOI" id="10.1111/j.1432-1033.1974.tb03689.x"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 417-447</scope>
+<scope>HYDROXYLATION AT PRO-420; PRO-441 AND PRO-444</scope>
+<source>
+<tissue>Skin</tissue>
+</source>
+</reference>
+<reference key="17">
+<citation type="journal article" date="1988" name="Proc. Natl. Acad. Sci. U.S.A." volume="85" first="5254" last="5258">
+<title>Single base mutation in the pro alpha 2(I) collagen gene that causes efficient splicing of RNA from exon 27 to exon 29 and synthesis of a shortened but in-frame pro alpha 2(I) chain.</title>
+<authorList>
+<person name="Tromp G."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2839839"/>
+<dbReference type="DOI" id="10.1073/pnas.85.14.5254"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 520-573</scope>
+<scope>VARIANT ALA-549</scope>
+</reference>
+<reference key="18">
+<citation type="journal article" date="1984" name="J. Invest. Dermatol." volume="82" first="265" last="269">
+<title>Isolation and characterization of a human pro alpha 2(I) collagen gene segment.</title>
+<authorList>
+<person name="Tajima S."/>
+<person name="Ting J.P."/>
+<person name="Pinnell S.R."/>
+<person name="Kaufman R.E."/>
+</authorList>
+<dbReference type="PubMed" id="6321602"/>
+<dbReference type="DOI" id="10.1111/1523-1747.ep12260213"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 622-657</scope>
+</reference>
+<reference key="19">
+<citation type="journal article" date="1983" name="Biochemistry" volume="22" first="1139" last="1145">
+<title>Structure of a cDNA for the pro alpha 2 chain of human type I procollagen. Comparison with chick cDNA for pro alpha 2(I) identifies structurally conserved features of the protein and the gene.</title>
+<authorList>
+<person name="Bernard M.P."/>
+<person name="Myers J.C."/>
+<person name="Chu M.-L."/>
+<person name="Ramirez F."/>
+<person name="Eikenberry E.F."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="6687691"/>
+<dbReference type="DOI" id="10.1021/bi00274a023"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 623-1366</scope>
+<scope>VARIANTS HIS-678; PHE-1022; GLU-1189; PRO-1198 AND HIS-1354</scope>
+</reference>
+<reference key="20">
+<citation type="journal article" date="1992" name="J. Biol. Chem." volume="267" first="7751" last="7757">
+<title>Defective folding and stable association with protein disulfide isomerase/prolyl hydroxylase of type I procollagen with a deletion in the pro alpha 2(I) chain that preserves the Gly-X-Y repeat pattern.</title>
+<authorList>
+<person name="Chessler S.D."/>
+<person name="Byers P.H."/>
+</authorList>
+<dbReference type="PubMed" id="1339453"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 631-864</scope>
+<scope>VARIANT OI2 676-GLY--ALA-855 DEL</scope>
+</reference>
+<reference key="21">
+<citation type="journal article" date="1994" name="Hum. Mol. Genet." volume="3" first="2201" last="2206">
+<title>Severe (type III) osteogenesis imperfecta due to glycine substitutions in the central domain of the collagen triple helix.</title>
+<authorList>
+<person name="Forlino A."/>
+<person name="Zolezzi F."/>
+<person name="Valli M."/>
+<person name="Pignatti P.F."/>
+<person name="Cetta G."/>
+<person name="Brunelli P.C."/>
+<person name="Mottes M."/>
+</authorList>
+<dbReference type="PubMed" id="7881420"/>
+<dbReference type="DOI" id="10.1093/hmg/3.12.2201"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 663-746</scope>
+<scope>VARIANT OI3 VAL-676</scope>
+</reference>
+<reference key="22">
+<citation type="journal article" date="1990" name="Biochim. Biophys. Acta" volume="1049" first="171" last="176">
+<title>Growth-dependent modulation of type I collagen production and mRNA levels in cultured human skin fibroblasts.</title>
+<authorList>
+<person name="Maekelae J.K."/>
+<person name="Vuorio T."/>
+<person name="Vuorio E."/>
+</authorList>
+<dbReference type="PubMed" id="2364107"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 960-1356</scope>
+<scope>VARIANT HIS-1354</scope>
+<source>
+<tissue>Skin</tissue>
+</source>
+</reference>
+<reference key="23">
+<citation type="journal article" date="1981" name="Proc. Natl. Acad. Sci. U.S.A." volume="78" first="3516" last="3520">
+<title>Cloning a cDNA for the pro-alpha 2 chain of human type I collagen.</title>
+<authorList>
+<person name="Myers J.C."/>
+<person name="Chu M.-L."/>
+<person name="Faro S.H."/>
+<person name="Clark W.J."/>
+<person name="Prockop D.J."/>
+<person name="Ramirez F."/>
+</authorList>
+<dbReference type="PubMed" id="6267597"/>
+<dbReference type="DOI" id="10.1073/pnas.78.6.3516"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 964-1019</scope>
+</reference>
+<reference key="24">
+<citation type="journal article" date="1988" name="J. Biol. Chem." volume="263" first="7734" last="7740">
+<title>Arginine for glycine substitution in the triple-helical domain of the products of one alpha 2(I) collagen allele (COL1A2) produces the osteogenesis imperfecta type IV phenotype.</title>
+<authorList>
+<person name="Wenstrup R.J."/>
+<person name="Cohn D.H."/>
+<person name="Cohen T."/>
+<person name="Byers P.H."/>
+</authorList>
+<dbReference type="PubMed" id="2897363"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA / MRNA] OF 1090-1107</scope>
+<scope>VARIANT OI4 ARG-1102</scope>
+</reference>
+<reference key="25">
+<citation type="journal article" date="1983" name="J. Biol. Chem." volume="258" first="10128" last="10135">
+<title>Analysis of the 3' end of the human pro-alpha 2(I) collagen gene. Utilization of multiple polyadenylation sites in cultured fibroblasts.</title>
+<authorList>
+<person name="Myers J.C."/>
+<person name="Dickson L.A."/>
+<person name="de Wet W.J."/>
+<person name="Bernard M.P."/>
+<person name="Chu M.-L."/>
+<person name="Di Liberto M."/>
+<person name="Pepe G."/>
+<person name="Sangiorgi F.O."/>
+<person name="Ramirez F."/>
+</authorList>
+<dbReference type="PubMed" id="6309769"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 1319-1366</scope>
+<scope>VARIANT HIS-1354</scope>
+</reference>
+<reference key="26">
+<citation type="journal article" date="1984" name="J. Biol. Chem." volume="259" first="12941" last="12944">
+<title>Osteogenesis imperfecta: cloning of a pro-alpha 2(I) collagen gene with a frameshift mutation.</title>
+<authorList>
+<person name="Pihlajaniemi T."/>
+<person name="Dickson L.A."/>
+<person name="Pope F.M."/>
+<person name="Korhonen V.R."/>
+<person name="Nicholls A."/>
+<person name="Prockop D.J."/>
+<person name="Myers J.C."/>
+</authorList>
+<dbReference type="PubMed" id="6092353"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 1319-1366</scope>
+<scope>VARIANT HIS-1354</scope>
+<source>
+<tissue>Skin</tissue>
+</source>
+</reference>
+<reference key="27">
+<citation type="journal article" date="1991" name="FASEB J." volume="5" first="2052" last="2060">
+<title>Mutations in collagen genes: causes of rare and some common diseases in humans.</title>
+<authorList>
+<person name="Kuivaniemi H."/>
+<person name="Tromp G."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2010058"/>
+</citation>
+<scope>REVIEW ON VARIANTS</scope>
+</reference>
+<reference key="28">
+<citation type="journal article" date="1997" name="Hum. Mutat." volume="9" first="300" last="315">
+<title>Mutations in fibrillar collagens (types I, II, III, and XI), fibril-associated collagen (type IX), and network-forming collagen (type X) cause a spectrum of diseases of bone, cartilage, and blood vessels.</title>
+<authorList>
+<person name="Kuivaniemi H."/>
+<person name="Tromp G."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="9101290"/>
+<dbReference type="DOI" id="10.1002/(SICI)1098-1004(1997)9:4&lt;300::AID-HUMU2>3.0.CO;2-9"/>
+</citation>
+<scope>REVIEW ON VARIANTS</scope>
+</reference>
+<reference key="29">
+<citation type="journal article" date="1991" name="J. Med. Genet." volume="28" first="433" last="442">
+<title>Osteogenesis imperfecta: translation of mutation to phenotype.</title>
+<authorList>
+<person name="Byers P.H."/>
+<person name="Wallis G.A."/>
+<person name="Willing M.C."/>
+</authorList>
+<dbReference type="PubMed" id="1895312"/>
+<dbReference type="DOI" id="10.1136/jmg.28.7.433"/>
+</citation>
+<scope>REVIEW ON OI VARIANTS</scope>
+</reference>
+<reference key="30">
+<citation type="journal article" date="2012" name="J. Proteome Res." volume="11" first="4733" last="4743">
+<title>Resveratrol-induced changes of the human adipocyte secretion profile.</title>
+<authorList>
+<person name="Rosenow A."/>
+<person name="Noben J.P."/>
+<person name="Jocken J."/>
+<person name="Kallendrusch S."/>
+<person name="Fischer-Posovszky P."/>
+<person name="Mariman E.C."/>
+<person name="Renes J."/>
+</authorList>
+<dbReference type="PubMed" id="22905912"/>
+<dbReference type="DOI" id="10.1021/pr300539b"/>
+</citation>
+<scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
+</reference>
+<reference key="31">
+<citation type="journal article" date="2014" name="J. Proteomics" volume="96" first="253" last="262">
+<title>An enzyme assisted RP-RPLC approach for in-depth analysis of human liver phosphoproteome.</title>
+<authorList>
+<person name="Bian Y."/>
+<person name="Song C."/>
+<person name="Cheng K."/>
+<person name="Dong M."/>
+<person name="Wang F."/>
+<person name="Huang J."/>
+<person name="Sun D."/>
+<person name="Wang L."/>
+<person name="Ye M."/>
+<person name="Zou H."/>
+</authorList>
+<dbReference type="PubMed" id="24275569"/>
+<dbReference type="DOI" id="10.1016/j.jprot.2013.11.014"/>
+</citation>
+<scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
+<source>
+<tissue>Liver</tissue>
+</source>
+</reference>
+<reference key="32">
+<citation type="journal article" date="1989" name="J. Biol. Chem." volume="264" first="3002" last="3006">
+<title>A single base mutation that converts glycine 907 of the alpha 2(I) chain of type I procollagen to aspartate in a lethal variant of osteogenesis imperfecta. The single amino acid substitution near the carboxyl terminus destabilizes the whole triple helix.</title>
+<authorList>
+<person name="Baldwin C.T."/>
+<person name="Constantinou C."/>
+<person name="Dumars K.W."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2914942"/>
+</citation>
+<scope>VARIANT OI2 ASP-997</scope>
+</reference>
+<reference key="33">
+<citation type="journal article" date="1989" name="J. Biol. Chem." volume="264" first="15809" last="15812">
+<title>Characterization of point mutations in the collagen COL1A1 and COL1A2 genes causing lethal perinatal osteogenesis imperfecta.</title>
+<authorList>
+<person name="Lamande S.R."/>
+<person name="Dahl H.-H.M."/>
+<person name="Cole W.G."/>
+<person name="Bateman J.F."/>
+</authorList>
+<dbReference type="PubMed" id="2777764"/>
+</citation>
+<scope>VARIANT OI2 SER-955</scope>
+</reference>
+<reference key="34">
+<citation type="journal article" date="1990" name="Am. J. Hum. Genet." volume="47" first="A216" last="A216">
+<title>Two cysteine substitutions in the type I procollagen genes (COL1A1 and COL1A2) that cause lethal osteogenesis imperfecta. The location of glycine substitutions does not in any simple way predict their effects on protein function or phenotype.</title>
+<authorList>
+<person name="Fertala A."/>
+<person name="Westerhausen A."/>
+<person name="Morris G.M."/>
+<person name="Rooney J.E."/>
+<person name="Prockop D.J."/>
+</authorList>
+</citation>
+<scope>VARIANT OI2 CYS-877</scope>
+</reference>
+<reference key="35">
+<citation type="journal article" date="1991" name="Biochem. J." volume="276" first="765" last="770">
+<title>Characterization of a type I collagen alpha 2(I) glycine-586 to valine substitution in osteogenesis imperfecta type IV. Detection of the mutation and prenatal diagnosis by a chemical cleavage method.</title>
+<authorList>
+<person name="Bateman J.F."/>
+<person name="Hannagan M."/>
+<person name="Chan D."/>
+<person name="Cole W.G."/>
+</authorList>
+<dbReference type="PubMed" id="2064612"/>
+<dbReference type="DOI" id="10.1042/bj2760765"/>
+</citation>
+<scope>VARIANT OI4 VAL-676</scope>
+</reference>
+<reference key="36">
+<citation type="journal article" date="1991" name="J. Biol. Chem." volume="266" first="2590" last="2594">
+<title>The effects of different cysteine for glycine substitutions within alpha 2(I) chains. Evidence of distinct structural domains within the type I collagen triple helix.</title>
+<authorList>
+<person name="Wenstrup R.J."/>
+<person name="Shrago-Howe A.W."/>
+<person name="Lever L.W."/>
+<person name="Phillips C.L."/>
+<person name="Byers P.H."/>
+<person name="Cohn D.H."/>
+</authorList>
+<dbReference type="PubMed" id="1990009"/>
+</citation>
+<scope>VARIANT OI3 CYS-349</scope>
+<scope>VARIANT OI1 CYS-736</scope>
+</reference>
+<reference key="37">
+<citation type="journal article" date="1991" name="J. Biol. Chem." volume="266" first="15608" last="15613">
+<title>Substitutions for glycine alpha 1-637 and glycine alpha 2-694 of type I procollagen in lethal osteogenesis imperfecta. The conformational strain on the triple helix introduced by a glycine substitution can be transmitted along the helix.</title>
+<authorList>
+<person name="Tsuneyoshi T."/>
+<person name="Westerhausen A."/>
+<person name="Constantinou C.D."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="1874719"/>
+</citation>
+<scope>VARIANT OI2 ARG-784</scope>
+</reference>
+<reference key="38">
+<citation type="journal article" date="1991" name="Proc. Natl. Acad. Sci. U.S.A." volume="88" first="5423" last="5427">
+<title>Mutation in a gene for type I procollagen (COL1A2) in a woman with postmenopausal osteoporosis: evidence for phenotypic and genotypic overlap with mild osteogenesis imperfecta.</title>
+<authorList>
+<person name="Spotila L.D."/>
+<person name="Constantinou C.D."/>
+<person name="Sereda L."/>
+<person name="Ganguly A."/>
+<person name="Riggs B.L."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2052622"/>
+<dbReference type="DOI" id="10.1073/pnas.88.12.5423"/>
+</citation>
+<scope>VARIANT OI4 SER-751</scope>
+</reference>
+<reference key="39">
+<citation type="journal article" date="1992" name="Hum. Mutat." volume="1" first="55" last="62">
+<title>Lethal perinatal osteogenesis imperfecta due to a type I collagen alpha 2(I) Gly to Arg substitution detected by chemical cleavage of an mRNA:cDNA sequence mismatch.</title>
+<authorList>
+<person name="Bateman J.F."/>
+<person name="Moeller I."/>
+<person name="Hannagan M."/>
+<person name="Chan D."/>
+<person name="Cole W.G."/>
+</authorList>
+<dbReference type="PubMed" id="1284475"/>
+<dbReference type="DOI" id="10.1002/humu.1380010109"/>
+</citation>
+<scope>VARIANT OI2 ARG-547</scope>
+</reference>
+<reference key="40">
+<citation type="journal article" date="1992" name="J. Biol. Chem." volume="267" first="23108" last="23112">
+<title>Incorporation of type I collagen molecules that contain a mutant alpha 2(I) chain (Gly580-->Asp) into bone matrix in a lethal case of osteogenesis imperfecta.</title>
+<authorList>
+<person name="Niyibizi C."/>
+<person name="Bonadio J."/>
+<person name="Byers P.H."/>
+<person name="Eyre D.R."/>
+</authorList>
+<dbReference type="PubMed" id="1385413"/>
+</citation>
+<scope>VARIANT OI2 ASP-670</scope>
+</reference>
+<reference key="41">
+<citation type="journal article" date="1993" name="Am. J. Med. Genet." volume="45" first="228" last="232">
+<title>Mutations in the COL1A2 gene of type I collagen that result in nonlethal forms of osteogenesis imperfecta.</title>
+<authorList>
+<person name="Wenstrup R.J."/>
+<person name="Lever L.W."/>
+<person name="Phillips C.L."/>
+<person name="Quarles L.D."/>
+</authorList>
+<dbReference type="PubMed" id="8456807"/>
+<dbReference type="DOI" id="10.1002/ajmg.1320450215"/>
+</citation>
+<scope>VARIANT OI3 CYS-349</scope>
+<scope>VARIANT OI1 CYS-736</scope>
+</reference>
+<reference key="42">
+<citation type="journal article" date="1993" name="Am. J. Med. Genet." volume="45" first="233" last="240">
+<title>Chemical cleavage method for the detection of RNA base changes: experience in the application to collagen mutations in osteogenesis imperfecta.</title>
+<authorList>
+<person name="Bateman J.F."/>
+<person name="Lamande S.R."/>
+<person name="Hannagan M."/>
+<person name="Moeller I."/>
+<person name="Dahl H.-H.M."/>
+<person name="Cole W.G."/>
+</authorList>
+<dbReference type="PubMed" id="8456808"/>
+<dbReference type="DOI" id="10.1002/ajmg.1320450216"/>
+</citation>
+<scope>VARIANT ALA-549</scope>
+</reference>
+<reference key="43">
+<citation type="journal article" date="1993" name="Hum. Genet." volume="90" first="621" last="628">
+<title>A single amino acid deletion in the alpha 2(I) chain of type I collagen produces osteogenesis imperfecta type III.</title>
+<authorList>
+<person name="Molyneux K."/>
+<person name="Starman B.J."/>
+<person name="Byers P.H."/>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="8444468"/>
+<dbReference type="DOI" id="10.1007/BF00202479"/>
+</citation>
+<scope>VARIANT OI3 VAL-345 DEL</scope>
+</reference>
+<reference key="44">
+<citation type="journal article" date="1993" name="Hum. Mol. Genet." volume="2" first="1319" last="1321">
+<title>Identification of type I collagen gene (COL1A2) mutations in nonlethal osteogenesis imperfecta.</title>
+<authorList>
+<person name="Sztrolovics R."/>
+<person name="Glorieux F.H."/>
+<person name="van der Rest M."/>
+<person name="Roughley P.J."/>
+</authorList>
+<dbReference type="PubMed" id="8401517"/>
+<dbReference type="DOI" id="10.1093/hmg/2.8.1319"/>
+</citation>
+<scope>VARIANT OI4 VAL-634</scope>
+</reference>
+<reference key="45">
+<citation type="journal article" date="1993" name="Hum. Mol. Genet." volume="2" first="2175" last="2177">
+<title>A novel glycine to glutamic acid substitution at position 343 in the alpha 2 chain of type I collagen in an individual with lethal osteogenesis imperfecta.</title>
+<authorList>
+<person name="Rose N.J."/>
+<person name="Mackay K."/>
+<person name="Byers P.H."/>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="7906591"/>
+<dbReference type="DOI" id="10.1093/hmg/2.12.2175"/>
+</citation>
+<scope>VARIANT OI2 GLU-433</scope>
+</reference>
+<reference key="46">
+<citation type="journal article" date="1993" name="J. Biol. Chem." volume="268" first="2667" last="2673">
+<title>Serine for glycine substitutions in type I collagen in two cases of type IV osteogenesis imperfecta (OI). Additional evidence for a regional model of OI pathophysiology.</title>
+<authorList>
+<person name="Marini J.C."/>
+<person name="Lewis M.B."/>
+<person name="Wang Q."/>
+<person name="Chen K.J."/>
+<person name="Orrison B.M."/>
+</authorList>
+<dbReference type="PubMed" id="8094076"/>
+</citation>
+<scope>VARIANT OI4 SER-1012</scope>
+</reference>
+<reference key="47">
+<citation type="journal article" date="1993" name="J. Biol. Chem." volume="268" first="25162" last="25167">
+<title>Two additional cases of osteogenesis imperfecta with substitutions for glycine in the alpha 2(I) collagen chain. A regional model relating mutation location with phenotype.</title>
+<authorList>
+<person name="Wang Q."/>
+<person name="Orrison B.M."/>
+<person name="Marini J.C."/>
+</authorList>
+<dbReference type="PubMed" id="7693712"/>
+</citation>
+<scope>VARIANT OI4 VAL-766</scope>
+<scope>VARIANT OI2 SER-796</scope>
+</reference>
+<reference key="48">
+<citation type="journal article" date="1994" name="Bone" volume="15" first="321" last="328">
+<title>Osteogenesis imperfecta: comparison of molecular defects with bone histological changes.</title>
+<authorList>
+<person name="Sztrolovics R."/>
+<person name="Glorieux F.H."/>
+<person name="Travers R."/>
+<person name="van der Rest M."/>
+<person name="Roughley P.J."/>
+</authorList>
+<dbReference type="PubMed" id="7520724"/>
+<dbReference type="DOI" id="10.1016/8756-3282(94)90295-X"/>
+</citation>
+<scope>VARIANT OI3 ARG-517</scope>
+</reference>
+<reference key="49">
+<citation type="journal article" date="1994" name="Hum. Genet." volume="94" first="497" last="503">
+<title>Three unrelated individuals with perinatally lethal osteogenesis imperfecta resulting from identical Gly502Ser substitutions in the alpha 2-chain of type I collagen.</title>
+<authorList>
+<person name="Rose N.J."/>
+<person name="Mackay K."/>
+<person name="de Paepe A."/>
+<person name="Steinmann B."/>
+<person name="Punnett H.H."/>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="7959683"/>
+<dbReference type="DOI" id="10.1007/BF00211014"/>
+</citation>
+<scope>VARIANT OI2 SER-592</scope>
+</reference>
+<reference key="50">
+<citation type="journal article" date="1994" name="Hum. Mutat." volume="3" first="391" last="394">
+<title>A Gly859Ser substitution in the triple helical domain of the alpha 2 chain of type I collagen resulting in osteogenesis imperfecta type III in two unrelated individuals.</title>
+<authorList>
+<person name="Rose N.J."/>
+<person name="Mackay K."/>
+<person name="Byers P.H."/>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="8081394"/>
+<dbReference type="DOI" id="10.1002/humu.1380030411"/>
+</citation>
+<scope>VARIANT OI3 SER-949</scope>
+</reference>
+<reference key="51">
+<citation type="journal article" date="1994" name="J. Biol. Chem." volume="269" first="14751" last="14758">
+<title>Substitution of an aspartic acid for glycine 700 in the alpha 2(I) chain of type I collagen in a recurrent lethal type II osteogenesis imperfecta dramatically affects the mineralization of bone.</title>
+<authorList>
+<person name="Cohen-Solal L."/>
+<person name="Zylberberg L."/>
+<person name="Sangalli A."/>
+<person name="Gomez Lira M."/>
+<person name="Mottes M."/>
+</authorList>
+<dbReference type="PubMed" id="8182080"/>
+</citation>
+<scope>VARIANT OI2 ASP-790</scope>
+</reference>
+<reference key="52">
+<citation type="journal article" date="1994" name="J. Med. Genet." volume="31" first="965" last="968">
+<title>Determination of a new collagen type I alpha 2 gene point mutation which causes a Gly640 Cys substitution in osteogenesis imperfecta and prenatal diagnosis by DNA hybridisation.</title>
+<authorList>
+<person name="Gomez Lira M."/>
+<person name="Sangalli A."/>
+<person name="Pignatti P.F."/>
+<person name="Digilio M.C."/>
+<person name="Giannotti A."/>
+<person name="Carnevale E."/>
+<person name="Mottes M."/>
+</authorList>
+<dbReference type="PubMed" id="7891382"/>
+<dbReference type="DOI" id="10.1136/jmg.31.12.965"/>
+</citation>
+<scope>VARIANT OI2 CYS-730</scope>
+</reference>
+<reference key="53">
+<citation type="journal article" date="1995" name="Eur. J. Pediatr." volume="154" first="123" last="129">
+<title>Genetic counselling on brittle grounds: recurring osteogenesis imperfecta due to parental mosaicism for a dominant mutation.</title>
+<authorList>
+<person name="Raghunath M."/>
+<person name="Mackay K."/>
+<person name="Dalgleish R."/>
+<person name="Steinmann B."/>
+</authorList>
+<dbReference type="PubMed" id="7720740"/>
+<dbReference type="DOI" id="10.1007/BF01991915"/>
+</citation>
+<scope>VARIANT OI3 SER-778</scope>
+</reference>
+<reference key="54">
+<citation type="journal article" date="1995" name="Hum. Genet." volume="95" first="215" last="218">
+<title>A Gly238Ser substitution in the alpha 2 chain of type I collagen results in osteogenesis imperfecta type III.</title>
+<authorList>
+<person name="Rose N.J."/>
+<person name="Mackay K."/>
+<person name="Byers P.H."/>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="7860070"/>
+<dbReference type="DOI" id="10.1007/BF00209405"/>
+</citation>
+<scope>VARIANT OI3 SER-328</scope>
+</reference>
+<reference key="55">
+<citation type="journal article" date="1995" name="Hum. Mutat." volume="5" first="175" last="178">
+<title>A novel G1006A substitution in the alpha 2(I) chain of type I collagen produces osteogenesis imperfecta type III.</title>
+<authorList>
+<person name="Lu J."/>
+<person name="Costa T."/>
+<person name="Cole W.G."/>
+</authorList>
+<dbReference type="PubMed" id="7749416"/>
+<dbReference type="DOI" id="10.1002/humu.1380050212"/>
+</citation>
+<scope>VARIANT OI3 ALA-1096</scope>
+</reference>
+<reference key="56">
+<citation type="journal article" date="1996" name="Eur. J. Hum. Genet." volume="4" first="39" last="45">
+<title>Gly802Asp substitution in the pro alpha 2(I) collagen chain in a family with recurrent osteogenesis imperfecta due to paternal mosaicism.</title>
+<authorList>
+<person name="Lund A.M."/>
+<person name="Schwartz M."/>
+<person name="Raghunath M."/>
+<person name="Steinmann B."/>
+<person name="Skovby F."/>
+</authorList>
+<dbReference type="PubMed" id="8800927"/>
+</citation>
+<scope>VARIANT OI3 ASP-892</scope>
+<scope>VARIANT OI4 ASP-892</scope>
+</reference>
+<reference key="57">
+<citation type="journal article" date="1996" name="Hum. Mutat." volume="7" first="89" last="99">
+<title>Direct sequencing of PCR products derived from cDNAs for the pro alpha 1 and pro alpha 2 chains of type I procollagen as a screening method to detect mutations in patients with osteogenesis imperfecta.</title>
+<authorList>
+<person name="Zhuang J."/>
+<person name="Tromp G."/>
+<person name="Kuivaniemi H."/>
+<person name="Castells S."/>
+<person name="Bugge M."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="8829649"/>
+<dbReference type="DOI" id="10.1002/(SICI)1098-1004(1996)7:2&lt;89::AID-HUMU1>3.0.CO;2-K"/>
+</citation>
+<scope>VARIANTS OI1 ASP-211 AND SER-835</scope>
+<scope>VARIANTS OI3 SER-337 AND SER-460</scope>
+<scope>VARIANT HIS-822</scope>
+</reference>
+<reference key="58">
+<citation type="journal article" date="1996" name="Hum. Mutat." volume="7" first="318" last="326">
+<title>Mutation in the carboxy-terminal propeptide of the Pro alpha 1(I) chain of type I collagen in a child with severe osteogenesis imperfecta (OI type III): possible implications for protein folding.</title>
+<authorList>
+<person name="Oliver J.E."/>
+<person name="Thompson E.M."/>
+<person name="Pope F.M."/>
+<person name="Nicholls A.C."/>
+</authorList>
+<dbReference type="PubMed" id="8723681"/>
+<dbReference type="DOI" id="10.1002/(SICI)1098-1004(1996)7:4&lt;318::AID-HUMU5>3.0.CO;2-4"/>
+</citation>
+<scope>VARIANT OI3 PRO-1148</scope>
+</reference>
+<reference key="59">
+<citation type="journal article" date="1998" name="Hum. Mutat." volume="12" first="71" last="72">
+<title>Four new cases of lethal osteogenesis imperfecta due to glycine substitutions in COL1A1 and genes.</title>
+<authorList>
+<person name="Mottes M."/>
+<person name="Gomez Lira M."/>
+<person name="Zolezzi F."/>
+<person name="Valli M."/>
+<person name="Lisi V."/>
+<person name="Freising P."/>
+</authorList>
+<dbReference type="PubMed" id="10627137"/>
+<dbReference type="DOI" id="10.1002/(SICI)1098-1004(1998)12:1&lt;71::AID-HUMU16>3.0.CO;2-4"/>
+</citation>
+<scope>VARIANTS OI2 VAL-409 AND CYS-787</scope>
+</reference>
+<reference key="60">
+<citation type="journal article" date="1999" name="Hum. Mutat." volume="13" first="503" last="503">
+<title>Osteogenesis imperfecta: mosaicism and refinement of the genotype-phenotype map in OI type III.</title>
+<authorList>
+<person name="Lund A.M."/>
+<person name="Astroem E."/>
+<person name="Soederhaell S."/>
+<person name="Schwartz M."/>
+<person name="Skovby F."/>
+</authorList>
+<dbReference type="PubMed" id="10408781"/>
+<dbReference type="DOI" id="10.1002/(SICI)1098-1004(1999)13:6&lt;503::AID-HUMU11>3.0.CO;2-L"/>
+</citation>
+<scope>VARIANTS OI3 ASP-331; CYS-337 AND VAL-973</scope>
+</reference>
+<reference key="61">
+<citation type="journal article" date="2000" name="Cancer Res." volume="60" first="4869" last="4872">
+<title>PLAG1 fusion oncogenes in lipoblastoma.</title>
+<authorList>
+<person name="Hibbard M.K."/>
+<person name="Kozakewich H.P."/>
+<person name="Dal Cin P."/>
+<person name="Sciot R."/>
+<person name="Tan X."/>
+<person name="Xiao S."/>
+<person name="Fletcher J.A."/>
+</authorList>
+<dbReference type="PubMed" id="10987300"/>
+</citation>
+<scope>CHROMOSOMAL REARRANGEMENT WITH PLAG1</scope>
+</reference>
+<reference key="62">
+<citation type="journal article" date="2004" name="Am. J. Hum. Genet." volume="74" first="917" last="930">
+<title>Rare autosomal recessive cardiac valvular form of Ehlers-Danlos syndrome results from mutations in the COL1A2 gene that activate the nonsense-mediated RNA decay pathway.</title>
+<authorList>
+<person name="Schwarze U."/>
+<person name="Hata R."/>
+<person name="McKusick V.A."/>
+<person name="Shinkai H."/>
+<person name="Hoyme H.E."/>
+<person name="Pyeritz R.E."/>
+<person name="Byers P.H."/>
+</authorList>
+<dbReference type="PubMed" id="15077201"/>
+<dbReference type="DOI" id="10.1086/420794"/>
+</citation>
+<scope>INVOLVEMENT IN CARDIAC VALVULAR EDS</scope>
+</reference>
+<reference key="63">
+<citation type="journal article" date="2006" name="J. Med. Genet." volume="43" first="E36" last="E36">
+<title>Total absence of the alpha2(I) chain of collagen type I causes a rare form of Ehlers-Danlos syndrome with hypermobility and propensity to cardiac valvular problems.</title>
+<authorList>
+<person name="Malfait F."/>
+<person name="Symoens S."/>
+<person name="Coucke P."/>
+<person name="Nunes L."/>
+<person name="De Almeida S."/>
+<person name="De Paepe A."/>
+</authorList>
+<dbReference type="PubMed" id="16816023"/>
+<dbReference type="DOI" id="10.1136/jmg.2005.038224"/>
+</citation>
+<scope>INVOLVEMENT IN EDSCV</scope>
+</reference>
+<reference key="64">
+<citation type="journal article" date="2006" name="Clin. Genet." volume="70" first="131" last="139">
+<title>Osteogenesis imperfecta: clinical, biochemical and molecular findings.</title>
+<authorList>
+<person name="Venturi G."/>
+<person name="Tedeschi E."/>
+<person name="Mottes M."/>
+<person name="Valli M."/>
+<person name="Camilot M."/>
+<person name="Viglio S."/>
+<person name="Antoniazzi F."/>
+<person name="Tato L."/>
+</authorList>
+<dbReference type="PubMed" id="16879195"/>
+<dbReference type="DOI" id="10.1111/j.1399-0004.2006.00646.x"/>
+</citation>
+<scope>VARIANTS OI4 SER-193 AND CYS-754</scope>
+<scope>VARIANT OI2 ASP-625</scope>
+<scope>VARIANTS OI3 CYS-835 AND VAL-991</scope>
+</reference>
+<reference key="65">
+<citation type="journal article" date="2006" name="Hum. Mutat." volume="27" first="599" last="599">
+<title>Mutational spectrum of type I collagen genes in Korean patients with osteogenesis imperfecta.</title>
+<authorList>
+<person name="Lee K.S."/>
+<person name="Song H.R."/>
+<person name="Cho T.J."/>
+<person name="Kim H.J."/>
+<person name="Lee T.M."/>
+<person name="Jin H.S."/>
+<person name="Park H.Y."/>
+<person name="Kang S."/>
+<person name="Jung S.C."/>
+<person name="Koo S.K."/>
+</authorList>
+<dbReference type="PubMed" id="16705691"/>
+<dbReference type="DOI" id="10.1002/humu.9423"/>
+</citation>
+<scope>VARIANTS OI1/OI3/OI4 GLU-325; SER-328; SER-358; SER-601; ASP-676; SER-820; ARG-856; SER-1012; PRO-PRO-GLY-811 INS; VAL-GLY-PRO-989 INS AND 1094-PRO--GLY-1096 DEL</scope>
+</reference>
+<reference key="66">
+<citation type="journal article" date="2006" name="Hum. Mutat." volume="27" first="716" last="716">
+<title>Mutation analysis of COL1A1 and COL1A2 in patients diagnosed with osteogenesis imperfecta type I-IV.</title>
+<authorList>
+<person name="Pollitt R."/>
+<person name="McMahon R."/>
+<person name="Nunn J."/>
+<person name="Bamford R."/>
+<person name="Afifi A."/>
+<person name="Bishop N."/>
+<person name="Dalton A."/>
+</authorList>
+<dbReference type="PubMed" id="16786509"/>
+<dbReference type="DOI" id="10.1002/humu.9430"/>
+</citation>
+<scope>VARIANTS OI4 ARG-202 AND VAL-256</scope>
+<scope>VARIANTS OI1 ARG-247; ARG-319; CYS-733 AND TYR-1195</scope>
+<scope>VARIANTS OI2 ASP-253; ASP-982 AND ASP-1003</scope>
+<scope>VARIANT OI3 ASP-1087</scope>
+</reference>
+<reference key="67">
+<citation type="journal article" date="2008" name="Genomics" volume="91" first="307" last="314">
+<title>Natural variation in four human collagen genes across an ethnically diverse population.</title>
+<authorList>
+<person name="Chan T.F."/>
+<person name="Poon A."/>
+<person name="Basu A."/>
+<person name="Addleman N.R."/>
+<person name="Chen J."/>
+<person name="Phong A."/>
+<person name="Byers P.H."/>
+<person name="Klein T.E."/>
+<person name="Kwok P.Y."/>
+</authorList>
+<dbReference type="PubMed" id="18272325"/>
+<dbReference type="DOI" id="10.1016/j.ygeno.2007.12.008"/>
+</citation>
+<scope>VARIANTS SER-528; ALA-549 AND THR-564</scope>
+</reference>
+<reference key="68">
+<citation type="journal article" date="2009" name="Hum. Mol. Genet." volume="18" first="463" last="471">
+<title>Mutation and polymorphism spectrum in osteogenesis imperfecta type II: implications for genotype-phenotype relationships.</title>
+<authorList>
+<person name="Bodian D.L."/>
+<person name="Chan T.F."/>
+<person name="Poon A."/>
+<person name="Schwarze U."/>
+<person name="Yang K."/>
+<person name="Byers P.H."/>
+<person name="Kwok P.Y."/>
+<person name="Klein T.E."/>
+</authorList>
+<dbReference type="PubMed" id="18996919"/>
+<dbReference type="DOI" id="10.1093/hmg/ddn374"/>
+</citation>
+<scope>VARIANTS OI2 CYS-234; ARG-283; GLU-397; CYS-454; LEU-457; 461-PRO--GLY-466 DEL; GLU-526; VAL-562; 705-ALA--PRO-707 DEL; ARG-739; VAL-748; ASP-790; PRO-798 INS; 806-PRO--GLY-811 DEL; VAL-856; SER-949; ASP-955; GLU-1027 AND 1058-PRO--ALA-1062 DEL</scope>
+<scope>VARIANT ALA-549</scope>
+</reference>
+<reference key="69">
+<citation type="journal article" date="2011" name="Hum. Mutat." volume="32" first="598" last="609">
+<title>COL1 C-propeptide cleavage site mutations cause high bone mass osteogenesis imperfecta.</title>
+<authorList>
+<person name="Lindahl K."/>
+<person name="Barnes A.M."/>
+<person name="Fratzl-Zelman N."/>
+<person name="Whyte M.P."/>
+<person name="Hefferan T.E."/>
+<person name="Makareeva E."/>
+<person name="Brusel M."/>
+<person name="Yaszemski M.J."/>
+<person name="Rubin C.J."/>
+<person name="Kindmark A."/>
+<person name="Roschger P."/>
+<person name="Klaushofer K."/>
+<person name="McAlister W.H."/>
+<person name="Mumm S."/>
+<person name="Leikin S."/>
+<person name="Kessler E."/>
+<person name="Boskey A.L."/>
+<person name="Ljunggren O."/>
+<person name="Marini J.C."/>
+</authorList>
+<dbReference type="PubMed" id="21344539"/>
+<dbReference type="DOI" id="10.1002/humu.21475"/>
+</citation>
+<scope>VARIANT THR-1119</scope>
+<scope>CHARACTERIZATION OF VARIANT THR-1119</scope>
+</reference>
+<reference key="70">
+<citation type="journal article" date="2013" name="N. Engl. J. Med." volume="368" first="1809" last="1816">
+<title>WNT1 mutations in early-onset osteoporosis and osteogenesis imperfecta.</title>
+<authorList>
+<person name="Laine C.M."/>
+<person name="Joeng K.S."/>
+<person name="Campeau P.M."/>
+<person name="Kiviranta R."/>
+<person name="Tarkkonen K."/>
+<person name="Grover M."/>
+<person name="Lu J.T."/>
+<person name="Pekkinen M."/>
+<person name="Wessman M."/>
+<person name="Heino T.J."/>
+<person name="Nieminen-Pihala V."/>
+<person name="Aronen M."/>
+<person name="Laine T."/>
+<person name="Kroeger H."/>
+<person name="Cole W.G."/>
+<person name="Lehesjoki A.E."/>
+<person name="Nevarez L."/>
+<person name="Krakow D."/>
+<person name="Curry C.J."/>
+<person name="Cohn D.H."/>
+<person name="Gibbs R.A."/>
+<person name="Lee B.H."/>
+<person name="Maekitie O."/>
+</authorList>
+<dbReference type="PubMed" id="23656646"/>
+<dbReference type="DOI" id="10.1056/NEJMoa1215458"/>
+</citation>
+<scope>VARIANT HIS-1067</scope>
+</reference>
+<comment type="function">
+<text>Type I collagen is a member of group I collagen (fibrillar forming collagen).</text>
+</comment>
+<comment type="subunit">
+<text>Trimers of one alpha 2(I) and two alpha 1(I) chains.</text>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-983038"/>
+<interactant intactId="EBI-1051469">
+<id>Q6PIL6</id>
+<label>KCNIP4</label>
+</interactant>
+<organismsDiffer>false</organismsDiffer>
+<experiments>7</experiments>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-983038"/>
+<interactant intactId="EBI-347996">
+<id>O43765</id>
+<label>SGTA</label>
+</interactant>
+<organismsDiffer>false</organismsDiffer>
+<experiments>8</experiments>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-983038"/>
+<interactant intactId="EBI-744081">
+<id>Q96EQ0</id>
+<label>SGTB</label>
+</interactant>
+<organismsDiffer>false</organismsDiffer>
+<experiments>3</experiments>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-983038"/>
+<interactant intactId="EBI-741480">
+<id>Q9UMX0</id>
+<label>UBQLN1</label>
+</interactant>
+<organismsDiffer>false</organismsDiffer>
+<experiments>5</experiments>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-983038"/>
+<interactant intactId="EBI-10173939">
+<id>Q9UMX0-2</id>
+<label>UBQLN1</label>
+</interactant>
+<organismsDiffer>false</organismsDiffer>
+<experiments>6</experiments>
+</comment>
+<comment type="subcellular location">
+<subcellularLocation>
+<location evidence="5">Secreted</location>
+<location evidence="5">Extracellular space</location>
+<location evidence="5">Extracellular matrix</location>
+</subcellularLocation>
+</comment>
+<comment type="tissue specificity">
+<text>Forms the fibrils of tendon, ligaments and bones. In bones the fibrils are mineralized with calcium hydroxyapatite.</text>
+</comment>
+<comment type="domain">
+<text evidence="1">The C-terminal propeptide, also known as COLFI domain, have crucial roles in tissue growth and repair by controlling both the intracellular assembly of procollagen molecules and the extracellular assembly of collagen fibrils. It binds a calcium ion which is essential for its function.</text>
+</comment>
+<comment type="PTM">
+<text evidence="37">Prolines at the third position of the tripeptide repeating unit (G-X-Y) are hydroxylated in some or all of the chains.</text>
+</comment>
+<comment type="disease" evidence="12 27 34">
+<disease id="DI-05166">
+<name>Ehlers-Danlos syndrome, arthrochalasia type, 2</name>
+<acronym>EDSARTH2</acronym>
+<description>A form of Ehlers-Danlos syndrome, a connective tissue disorder characterized by hyperextensible skin, atrophic cutaneous scars due to tissue fragility and joint hyperlaxity. EDSARTH2 is an autosomal dominant condition characterized by frequent congenital hip dislocation and extreme joint laxity with recurrent joint subluxations and minimal skin involvement.</description>
+<dbReference type="MIM" id="617821"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="14 15 21 56 60">
+<disease id="DI-02106">
+<name>Osteogenesis imperfecta 1</name>
+<acronym>OI1</acronym>
+<description>An autosomal dominant form of osteogenesis imperfecta, a connective tissue disorder characterized by low bone mass, bone fragility and susceptibility to fractures after minimal trauma. Disease severity ranges from very mild forms without fractures to intrauterine fractures and perinatal lethality. Extraskeletal manifestations, which affect a variable number of patients, are dentinogenesis imperfecta, hearing loss, and blue sclerae. OI1 is a non-deforming form with normal height or mild short stature, and no dentinogenesis imperfecta.</description>
+<dbReference type="MIM" id="166200"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="7 8 9 10 15 17 19 20 28 32 43 48 49 50 53 63">
+<disease id="DI-02107">
+<name>Osteogenesis imperfecta 2</name>
+<acronym>OI2</acronym>
+<description>An autosomal dominant form of osteogenesis imperfecta, a connective tissue disorder characterized by low bone mass, bone fragility and susceptibility to fractures after minimal trauma. Disease severity ranges from very mild forms without fractures to intrauterine fractures and perinatal lethality. Extraskeletal manifestations, which affect a variable number of patients, are dentinogenesis imperfecta, hearing loss, and blue sclerae. OI2 is characterized by bone fragility, with many perinatal fractures, severe bowing of long bones, undermineralization, and death in the perinatal period due to respiratory insufficiency.</description>
+<dbReference type="MIM" id="166210"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="16">
+<disease id="DI-01317">
+<name>Ehlers-Danlos syndrome, cardiac valvular type</name>
+<acronym>EDSCV</acronym>
+<description>A form of Ehlers-Danlos syndrome, a group of connective tissue disorders characterized by skin hyperextensibility, articular hypermobility, and tissue fragility. EDSCV is an autosomal recessive disease characterized by mitral valve prolapse and insufficiency, mitral regurgitation, and aortic insufficiency, in addition to joint laxity, skin hyperextensibility and friability, and abnormal scar formation.</description>
+<dbReference type="MIM" id="225320"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="6 15 17 21 42 44 45 46 47 51 55 56 58 59 60">
+<disease id="DI-02108">
+<name>Osteogenesis imperfecta 3</name>
+<acronym>OI3</acronym>
+<description>An autosomal dominant form of osteogenesis imperfecta, a connective tissue disorder characterized by low bone mass, bone fragility and susceptibility to fractures after minimal trauma. Disease severity ranges from very mild forms without fractures to intrauterine fractures and perinatal lethality. Extraskeletal manifestations, which affect a variable number of patients, are dentinogenesis imperfecta, hearing loss, and blue sclerae. OI3 is characterized by progressively deforming bones, very short stature, a triangular face, severe scoliosis, grayish sclera and dentinogenesis imperfecta.</description>
+<dbReference type="MIM" id="259420"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="13 15 17 22 23 31 43 52 54 59">
+<disease id="DI-02103">
+<name>Osteogenesis imperfecta 4</name>
+<acronym>OI4</acronym>
+<description>An autosomal dominant form of osteogenesis imperfecta, a connective tissue disorder characterized by low bone mass, bone fragility and susceptibility to fractures after minimal trauma. Disease severity ranges from very mild forms without fractures to intrauterine fractures and perinatal lethality. Extraskeletal manifestations, which affect a variable number of patients, are dentinogenesis imperfecta, hearing loss, and blue sclerae. OI4 is characterized by moderately short stature, mild to moderate scoliosis, grayish or white sclera and dentinogenesis imperfecta.</description>
+<dbReference type="MIM" id="166220"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease">
+<text>A chromosomal aberration involving COL1A2 may be a cause of lipoblastomas, which are benign tumors resulting from transformation of adipocytes, usually diagnosed in children. Translocation t(7;8)(p22;q13) with PLAG1.</text>
+</comment>
+<comment type="similarity">
+<text evidence="5">Belongs to the fibrillar collagen family.</text>
+</comment>
+<comment type="online information" name="Atlas of Genetics and Cytogenetics in Oncology and Haematology">
+<link uri="http://atlasgeneticsoncology.org/Genes/COL1A2ID411ch7q22.html"/>
+</comment>
+<comment type="online information" name="Osteogenesis imperfecta variant database">
+<link uri="http://oi.gene.le.ac.uk/home.php?select_db=COL1A2"/>
+<text>Collagen type I alpha 2 (COL1A2)</text>
+</comment>
+<dbReference type="EMBL" id="J03464">
+<property type="protein sequence ID" value="AAB59374.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="Z74616">
+<property type="protein sequence ID" value="CAA98969.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AF004877">
+<property type="protein sequence ID" value="AAB93981.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="BC042586">
+<property type="protein sequence ID" value="AAH42586.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="BC054498">
+<property type="protein sequence ID" value="AAH54498.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="Y00724">
+<property type="protein sequence ID" value="CAA68709.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="X02488">
+<property type="protein sequence ID" value="CAA26320.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AB004317">
+<property type="protein sequence ID" value="BAA25383.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M35391">
+<property type="protein sequence ID" value="AAA60041.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="S98904">
+<property type="protein sequence ID" value="AAB22126.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M21671">
+<property type="protein sequence ID" value="AAA59994.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="S41099">
+<property type="protein sequence ID" value="AAB22761.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AC002528">
+<property type="protein sequence ID" value="AAB69977.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M21353">
+<property type="protein sequence ID" value="AAA52053.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M28985">
+<property type="protein sequence ID" value="AAA60356.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="V00503">
+<property type="protein sequence ID" value="CAA23761.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="S96821">
+<property type="protein sequence ID" value="AAB22020.2"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="L47668">
+<property type="protein sequence ID" value="AAB59577.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="X55525">
+<property type="protein sequence ID" value="CAA39142.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="J00114">
+<property type="protein sequence ID" value="AAA51996.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M22816">
+<property type="protein sequence ID" value="AAA51844.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M22817">
+<property type="protein sequence ID" value="AAA51846.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="K01078">
+<property type="protein sequence ID" value="AAA51887.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="K02568">
+<property type="protein sequence ID" value="AAA51850.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="CCDS" id="CCDS34682.1"/>
+<dbReference type="PIR" id="A28500">
+<property type="entry name" value="CGHU2S"/>
+</dbReference>
+<dbReference type="RefSeq" id="NP_000080.2">
+<property type="nucleotide sequence ID" value="NM_000089.3"/>
+</dbReference>
+<dbReference type="UniGene" id="Hs.489142"/>
+<dbReference type="PDB" id="5CTD">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="1.60"/>
+<property type="chains" value="B=484-495"/>
+</dbReference>
+<dbReference type="PDB" id="5CTI">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="1.90"/>
+<property type="chains" value="B=484-495"/>
+</dbReference>
+<dbReference type="PDB" id="5CVA">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="2.10"/>
+<property type="chains" value="A/D=484-495"/>
+</dbReference>
+<dbReference type="PDBsum" id="5CTD"/>
+<dbReference type="PDBsum" id="5CTI"/>
+<dbReference type="PDBsum" id="5CVA"/>
+<dbReference type="ProteinModelPortal" id="P08123"/>
+<dbReference type="SMR" id="P08123"/>
+<dbReference type="BioGrid" id="107675">
+<property type="interactions" value="25"/>
+</dbReference>
+<dbReference type="ComplexPortal" id="CPX-1650">
+<property type="entry name" value="Collagen type I trimer"/>
+</dbReference>
+<dbReference type="DIP" id="DIP-36079N"/>
+<dbReference type="IntAct" id="P08123">
+<property type="interactions" value="23"/>
+</dbReference>
+<dbReference type="MINT" id="P08123"/>
+<dbReference type="STRING" id="9606.ENSP00000297268"/>
+<dbReference type="ChEMBL" id="CHEMBL2685"/>
+<dbReference type="DrugBank" id="DB00048">
+<property type="generic name" value="Collagenase clostridium histolyticum"/>
+</dbReference>
+<dbReference type="GlyConnect" id="1135"/>
+<dbReference type="iPTMnet" id="P08123"/>
+<dbReference type="PhosphoSitePlus" id="P08123"/>
+<dbReference type="BioMuta" id="COL1A2"/>
+<dbReference type="DMDM" id="296439507"/>
+<dbReference type="EPD" id="P08123"/>
+<dbReference type="jPOST" id="P08123"/>
+<dbReference type="MaxQB" id="P08123"/>
+<dbReference type="PaxDb" id="P08123"/>
+<dbReference type="PeptideAtlas" id="P08123"/>
+<dbReference type="PRIDE" id="P08123"/>
+<dbReference type="ProteomicsDB" id="52070"/>
+<dbReference type="Ensembl" id="ENST00000297268">
+<property type="protein sequence ID" value="ENSP00000297268"/>
+<property type="gene ID" value="ENSG00000164692"/>
+</dbReference>
+<dbReference type="GeneID" id="1278"/>
+<dbReference type="KEGG" id="hsa:1278"/>
+<dbReference type="UCSC" id="uc003ung.1">
+<property type="organism name" value="human"/>
+</dbReference>
+<dbReference type="CTD" id="1278"/>
+<dbReference type="DisGeNET" id="1278"/>
+<dbReference type="EuPathDB" id="HostDB:ENSG00000164692.17"/>
+<dbReference type="GeneCards" id="COL1A2"/>
+<dbReference type="GeneReviews" id="COL1A2"/>
+<dbReference type="H-InvDB" id="HIX0006854"/>
+<dbReference type="HGNC" id="HGNC:2198">
+<property type="gene designation" value="COL1A2"/>
+</dbReference>
+<dbReference type="HPA" id="CAB032650"/>
+<dbReference type="HPA" id="HPA059738"/>
+<dbReference type="MalaCards" id="COL1A2"/>
+<dbReference type="MIM" id="120160">
+<property type="type" value="gene"/>
+</dbReference>
+<dbReference type="MIM" id="166200">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="166210">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="166220">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="225320">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="259420">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="617821">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="neXtProt" id="NX_P08123"/>
+<dbReference type="OpenTargets" id="ENSG00000164692"/>
+<dbReference type="Orphanet" id="99876">
+<property type="disease" value="Ehlers-Danlos syndrome type 7B"/>
+</dbReference>
+<dbReference type="Orphanet" id="230851">
+<property type="disease" value="Ehlers-Danlos syndrome, cardiac valvular type"/>
+</dbReference>
+<dbReference type="Orphanet" id="230857">
+<property type="disease" value="Ehlers-Danlos/osteogenesis imperfecta syndrome"/>
+</dbReference>
+<dbReference type="Orphanet" id="314029">
+<property type="disease" value="High bone mass osteogenesis imperfecta"/>
+</dbReference>
+<dbReference type="Orphanet" id="216796">
+<property type="disease" value="Osteogenesis imperfecta type 1"/>
+</dbReference>
+<dbReference type="Orphanet" id="216804">
+<property type="disease" value="Osteogenesis imperfecta type 2"/>
+</dbReference>
+<dbReference type="Orphanet" id="216812">
+<property type="disease" value="Osteogenesis imperfecta type 3"/>
+</dbReference>
+<dbReference type="Orphanet" id="216820">
+<property type="disease" value="Osteogenesis imperfecta type 4"/>
+</dbReference>
+<dbReference type="PharmGKB" id="PA35042"/>
+<dbReference type="eggNOG" id="KOG3544">
+<property type="taxonomic scope" value="Eukaryota"/>
+</dbReference>
+<dbReference type="eggNOG" id="ENOG410XNMM">
+<property type="taxonomic scope" value="LUCA"/>
+</dbReference>
+<dbReference type="GeneTree" id="ENSGT00940000155639"/>
+<dbReference type="HOVERGEN" id="HBG004933"/>
+<dbReference type="InParanoid" id="P08123"/>
+<dbReference type="KO" id="K06236"/>
+<dbReference type="OMA" id="PTGKHGN"/>
+<dbReference type="OrthoDB" id="1406711at2759"/>
+<dbReference type="PhylomeDB" id="P08123"/>
+<dbReference type="TreeFam" id="TF344135"/>
+<dbReference type="Reactome" id="R-HSA-114604">
+<property type="pathway name" value="GPVI-mediated activation cascade"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-1442490">
+<property type="pathway name" value="Collagen degradation"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-1474244">
+<property type="pathway name" value="Extracellular matrix organization"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-1650814">
+<property type="pathway name" value="Collagen biosynthesis and modifying enzymes"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-198933">
+<property type="pathway name" value="Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-2022090">
+<property type="pathway name" value="Assembly of collagen fibrils and other multimeric structures"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-202733">
+<property type="pathway name" value="Cell surface interactions at the vascular wall"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-216083">
+<property type="pathway name" value="Integrin cell surface interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-2214320">
+<property type="pathway name" value="Anchoring fibril formation"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-2243919">
+<property type="pathway name" value="Crosslinking of collagen fibrils"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000170">
+<property type="pathway name" value="Syndecan interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000171">
+<property type="pathway name" value="Non-integrin membrane-ECM interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000178">
+<property type="pathway name" value="ECM proteoglycans"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000480">
+<property type="pathway name" value="Scavenging by Class A Receptors"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-430116">
+<property type="pathway name" value="GP1b-IX-V activation signalling"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-6785807">
+<property type="pathway name" value="Interleukin-4 and Interleukin-13 signaling"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-75892">
+<property type="pathway name" value="Platelet Adhesion to exposed collagen"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-76009">
+<property type="pathway name" value="Platelet Aggregation (Plug Formation)"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-8874081">
+<property type="pathway name" value="MET activates PTK2 signaling"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-8948216">
+<property type="pathway name" value="Collagen chain trimerization"/>
+</dbReference>
+<dbReference type="SIGNOR" id="P08123"/>
+<dbReference type="ChiTaRS" id="COL1A2">
+<property type="organism name" value="human"/>
+</dbReference>
+<dbReference type="GeneWiki" id="COL1A2"/>
+<dbReference type="GenomeRNAi" id="1278"/>
+<dbReference type="PRO" id="PR:P08123"/>
+<dbReference type="Proteomes" id="UP000005640">
+<property type="component" value="Chromosome 7"/>
+</dbReference>
+<dbReference type="Bgee" id="ENSG00000164692">
+<property type="expression patterns" value="Expressed in 238 organ(s), highest expression level in tibia"/>
+</dbReference>
+<dbReference type="ExpressionAtlas" id="P08123">
+<property type="expression patterns" value="baseline and differential"/>
+</dbReference>
+<dbReference type="Genevisible" id="P08123">
+<property type="organism ID" value="HS"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005584">
+<property type="term" value="C:collagen type I trimer"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0062023">
+<property type="term" value="C:collagen-containing extracellular matrix"/>
+<property type="evidence" value="ECO:0007005"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005783">
+<property type="term" value="C:endoplasmic reticulum"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="HPA"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005788">
+<property type="term" value="C:endoplasmic reticulum lumen"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0070062">
+<property type="term" value="C:extracellular exosome"/>
+<property type="evidence" value="ECO:0007005"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0031012">
+<property type="term" value="C:extracellular matrix"/>
+<property type="evidence" value="ECO:0000318"/>
+<property type="project" value="GO_Central"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005576">
+<property type="term" value="C:extracellular region"/>
+<property type="evidence" value="ECO:0007005"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005615">
+<property type="term" value="C:extracellular space"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005201">
+<property type="term" value="F:extracellular matrix structural constituent"/>
+<property type="evidence" value="ECO:0000318"/>
+<property type="project" value="GO_Central"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030020">
+<property type="term" value="F:extracellular matrix structural constituent conferring tensile strength"/>
+<property type="evidence" value="ECO:0007005"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0042802">
+<property type="term" value="F:identical protein binding"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0046872">
+<property type="term" value="F:metal ion binding"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="UniProtKB-KW"/>
+</dbReference>
+<dbReference type="GO" id="GO:0048407">
+<property type="term" value="F:platelet-derived growth factor binding"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="MGI"/>
+</dbReference>
+<dbReference type="GO" id="GO:0002020">
+<property type="term" value="F:protease binding"/>
+<property type="evidence" value="ECO:0000353"/>
+<property type="project" value="CAFA"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030674">
+<property type="term" value="F:protein binding, bridging"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0046332">
+<property type="term" value="F:SMAD binding"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007596">
+<property type="term" value="P:blood coagulation"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0001568">
+<property type="term" value="P:blood vessel development"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030282">
+<property type="term" value="P:bone mineralization"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0071230">
+<property type="term" value="P:cellular response to amino acid stimulus"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030199">
+<property type="term" value="P:collagen fibril organization"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0032963">
+<property type="term" value="P:collagen metabolic process"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0019221">
+<property type="term" value="P:cytokine-mediated signaling pathway"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0085029">
+<property type="term" value="P:extracellular matrix assembly"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030198">
+<property type="term" value="P:extracellular matrix organization"/>
+<property type="evidence" value="ECO:0000318"/>
+<property type="project" value="GO_Central"/>
+</dbReference>
+<dbReference type="GO" id="GO:0050900">
+<property type="term" value="P:leukocyte migration"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0042476">
+<property type="term" value="P:odontogenesis"/>
+<property type="evidence" value="ECO:0000303"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030168">
+<property type="term" value="P:platelet activation"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0070208">
+<property type="term" value="P:protein heterotrimerization"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0008217">
+<property type="term" value="P:regulation of blood pressure"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0050776">
+<property type="term" value="P:regulation of immune response"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007266">
+<property type="term" value="P:Rho protein signal transduction"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0001501">
+<property type="term" value="P:skeletal system development"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0043589">
+<property type="term" value="P:skin morphogenesis"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007179">
+<property type="term" value="P:transforming growth factor beta receptor signaling pathway"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR008160">
+<property type="entry name" value="Collagen"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR000885">
+<property type="entry name" value="Fib_collagen_C"/>
+</dbReference>
+<dbReference type="Pfam" id="PF01410">
+<property type="entry name" value="COLFI"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="Pfam" id="PF01391">
+<property type="entry name" value="Collagen"/>
+<property type="match status" value="6"/>
+</dbReference>
+<dbReference type="ProDom" id="PD002078">
+<property type="entry name" value="Fib_collagen_C"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="SMART" id="SM00038">
+<property type="entry name" value="COLFI"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS51461">
+<property type="entry name" value="NC1_FIB"/>
+<property type="match status" value="1"/>
+</dbReference>
+<proteinExistence type="evidence at protein level"/>
+<keyword id="KW-0002">3D-structure</keyword>
+<keyword id="KW-0106">Calcium</keyword>
+<keyword id="KW-0160">Chromosomal rearrangement</keyword>
+<keyword id="KW-0176">Collagen</keyword>
+<keyword id="KW-0181">Complete proteome</keyword>
+<keyword id="KW-0903">Direct protein sequencing</keyword>
+<keyword id="KW-0225">Disease mutation</keyword>
+<keyword id="KW-1015">Disulfide bond</keyword>
+<keyword id="KW-0242">Dwarfism</keyword>
+<keyword id="KW-0248">Ehlers-Danlos syndrome</keyword>
+<keyword id="KW-0272">Extracellular matrix</keyword>
+<keyword id="KW-0325">Glycoprotein</keyword>
+<keyword id="KW-0379">Hydroxylation</keyword>
+<keyword id="KW-0479">Metal-binding</keyword>
+<keyword id="KW-1065">Osteogenesis imperfecta</keyword>
+<keyword id="KW-0621">Polymorphism</keyword>
+<keyword id="KW-0873">Pyrrolidone carboxylic acid</keyword>
+<keyword id="KW-1185">Reference proteome</keyword>
+<keyword id="KW-0677">Repeat</keyword>
+<keyword id="KW-0964">Secreted</keyword>
+<keyword id="KW-0732">Signal</keyword>
+<feature type="signal peptide" evidence="2">
+<location>
+<begin position="1"/>
+<end position="22"/>
+</location>
+</feature>
+<feature type="propeptide" description="N-terminal propeptide" id="PRO_0000005804" evidence="38">
+<location>
+<begin position="23"/>
+<end position="79"/>
+</location>
+</feature>
+<feature type="chain" description="Collagen alpha-2(I) chain" id="PRO_0000005805">
+<location>
+<begin position="80"/>
+<end position="1119"/>
+</location>
+</feature>
+<feature type="propeptide" description="C-terminal propeptide" id="PRO_0000005806">
+<location>
+<begin position="1120"/>
+<end position="1366"/>
+</location>
+</feature>
+<feature type="domain" description="Fibrillar collagen NC1" evidence="5">
+<location>
+<begin position="1133"/>
+<end position="1366"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium" evidence="3">
+<location>
+<position position="1181"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium" evidence="3">
+<location>
+<position position="1183"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium; via carbonyl oxygen" evidence="3">
+<location>
+<position position="1184"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium; via carbonyl oxygen" evidence="3">
+<location>
+<position position="1186"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium" evidence="3">
+<location>
+<position position="1189"/>
+</location>
+</feature>
+<feature type="modified residue" description="Pyrrolidone carboxylic acid" evidence="27">
+<location>
+<position position="23"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="27 34">
+<location>
+<position position="47"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="27 34">
+<location>
+<position position="50"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="27 34">
+<location>
+<position position="62"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="27 34">
+<location>
+<position position="65"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="27 34">
+<location>
+<position position="68"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="27 34">
+<location>
+<position position="71"/>
+</location>
+</feature>
+<feature type="modified residue" description="Pyrrolidone carboxylic acid" evidence="38">
+<location>
+<position position="80"/>
+</location>
+</feature>
+<feature type="modified residue" description="Allysine" evidence="38">
+<location>
+<position position="84"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="102"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="108"/>
+</location>
+</feature>
+<feature type="modified residue" description="5-hydroxylysine; alternate" evidence="36">
+<location>
+<position position="177"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="37">
+<location>
+<position position="420"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="37">
+<location>
+<position position="441"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="37">
+<location>
+<position position="444"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="O-linked (Gal...) hydroxylysine; alternate" evidence="36">
+<location>
+<position position="177"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) asparagine" evidence="4">
+<location>
+<position position="1267"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="5">
+<location>
+<begin position="1163"/>
+<end position="1195"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="5">
+<location>
+<begin position="1203"/>
+<end position="1364"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="5">
+<location>
+<begin position="1272"/>
+<end position="1317"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs1800221." id="VAR_030116" evidence="35">
+<original>T</original>
+<variation>P</variation>
+<location>
+<position position="59"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSARTH2." id="VAR_001851" evidence="12 27 34">
+<location>
+<begin position="76"/>
+<end position="93"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4." id="VAR_030117" evidence="13">
+<location>
+<begin position="181"/>
+<end position="198"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs72656370." id="VAR_063343" evidence="17">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="193"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs72656376." id="VAR_063344" evidence="15">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="202"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI1; dbSNP:rs72656378." id="VAR_001852" evidence="60">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="211"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs1206388800." id="VAR_063345" evidence="20">
+<original>R</original>
+<variation>C</variation>
+<location>
+<position position="234"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI1." id="VAR_063346" evidence="15">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="247"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs1800228." id="VAR_001853" evidence="29">
+<original>I</original>
+<variation>N</variation>
+<location>
+<position position="249"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72656385." id="VAR_063347" evidence="15">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="253"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs67525025." id="VAR_063348" evidence="15">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="256"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs368468." id="VAR_030118" evidence="62">
+<original>V</original>
+<variation>I</variation>
+<location>
+<position position="270"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs1800231." id="VAR_001854" evidence="29">
+<original>A</original>
+<variation>T</variation>
+<location>
+<position position="276"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063349" evidence="20">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="283"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI1; dbSNP:rs72656393." id="VAR_063350" evidence="15">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="319"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs72656395." id="VAR_063351" evidence="14">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="325"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI1, OI3 AND OI4; dbSNP:rs66612022." id="VAR_001855" evidence="14 46">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="328"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs67729041." id="VAR_008119" evidence="6">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="331"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_001856">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="334"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs67865220." id="VAR_001857" evidence="6">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="337"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs67865220." id="VAR_001858" evidence="60">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="337"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs16868573." id="VAR_055677">
+<original>L</original>
+<variation>V</variation>
+<location>
+<position position="344"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3." id="VAR_001859" evidence="55">
+<location>
+<position position="345"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs66773001." id="VAR_001860" evidence="21 56">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="349"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs66619856." id="VAR_063352" evidence="14">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="358"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063353" evidence="20">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="397"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658109." id="VAR_001861" evidence="7">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="409"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658114." id="VAR_001862" evidence="49">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="433"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658117." id="VAR_063354" evidence="20">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="454"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; requires 2 nucleotide substitutions." id="VAR_063355" evidence="20">
+<original>G</original>
+<variation>L</variation>
+<location>
+<position position="457"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs72658118." id="VAR_001863" evidence="60">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="460"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063356" evidence="20">
+<location>
+<begin position="461"/>
+<end position="466"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs414408." id="VAR_030119" evidence="29 62">
+<original>A</original>
+<variation>V</variation>
+<location>
+<position position="483"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs66999265." id="VAR_001864">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="511"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs72658126." id="VAR_001865" evidence="42">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="517"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658130." id="VAR_063357" evidence="20">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="526"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs41317144." id="VAR_033040" evidence="18">
+<original>N</original>
+<variation>S</variation>
+<location>
+<position position="528"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658136." id="VAR_001866" evidence="8">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="547"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs42524." id="VAR_001867" evidence="11 18 20 29 30 57 61">
+<original>P</original>
+<variation>A</variation>
+<location>
+<position position="549"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658138." id="VAR_001868">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="562"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063358" evidence="20">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="562"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs41317153." id="VAR_033041" evidence="18">
+<original>A</original>
+<variation>T</variation>
+<location>
+<position position="564"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658139." id="VAR_001869">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="586"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658141." id="VAR_001870" evidence="50">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="592"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI; dbSNP:rs72658143." id="VAR_063359" evidence="14">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="601"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658145." id="VAR_063360" evidence="17">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="625"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs72658147." id="VAR_001871" evidence="54">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="634"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658148." id="VAR_001872">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="637"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_001873">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="640"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658155." id="VAR_001874" evidence="10">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="670"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_030120" evidence="9">
+<location>
+<begin position="676"/>
+<end position="855"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs66883877." id="VAR_063361" evidence="14">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="676"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3 and OI4; dbSNP:rs66883877." id="VAR_001875" evidence="23 47">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="676"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs409108." id="VAR_030121" evidence="29 33 41 61 62">
+<original>P</original>
+<variation>H</variation>
+<location>
+<position position="678"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063362" evidence="20">
+<location>
+<begin position="705"/>
+<end position="707"/>
+</location>
+</feature>
+<feature type="sequence variant" description="Found in a patient with a variant form of Marfan syndrome; unknown pathological significance; dbSNP:rs72658163." id="VAR_001876">
+<original>R</original>
+<variation>Q</variation>
+<location>
+<position position="708"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658167." id="VAR_001877">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="715"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658171." id="VAR_001878" evidence="48">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="730"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI1; dbSNP:rs72658172." id="VAR_063363" evidence="15">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="733"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI1; mild; dbSNP:rs72658173." id="VAR_001879" evidence="21 56">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="736"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658174." id="VAR_063364" evidence="20">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="739"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs408535." id="VAR_001880" evidence="29 33 62">
+<original>A</original>
+<variation>G</variation>
+<location>
+<position position="743"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063365" evidence="20">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="748"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs72658176." id="VAR_001881" evidence="22">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="751"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs72658177." id="VAR_063366" evidence="17">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="754"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_001882">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="754"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs72658183." id="VAR_001883" evidence="43">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="766"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs72658186." id="VAR_001884" evidence="44">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="778"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs66592844." id="VAR_001885" evidence="19">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="784"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658187." id="VAR_001886" evidence="7">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="787"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658188." id="VAR_001887" evidence="20 53">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="790"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs66716547." id="VAR_001888" evidence="43">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="796"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063367" evidence="20">
+<original>P</original>
+<variation>PP</variation>
+<location>
+<position position="798"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063368" evidence="20">
+<location>
+<begin position="806"/>
+<end position="811"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4." id="VAR_063369">
+<original>G</original>
+<variation>GPPG</variation>
+<location>
+<position position="811"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs72658191." id="VAR_063370" evidence="14">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="820"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs1800240." id="VAR_001889" evidence="60">
+<original>R</original>
+<variation>H</variation>
+<location>
+<position position="822"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3." id="VAR_063371" evidence="17">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="835"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI1; dbSNP:rs72658193." id="VAR_001890" evidence="60">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="835"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3." id="VAR_063372" evidence="14">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="856"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063373" evidence="20">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="856"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72658201." id="VAR_001891" evidence="63">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="877"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3 and OI4; dbSNP:rs72659304." id="VAR_001892" evidence="59">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="892"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72659305." id="VAR_001893">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="895"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; moderate; dbSNP:rs72659312." id="VAR_001894" evidence="20 51">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="949"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063374" evidence="20">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="955"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs66507857." id="VAR_001895" evidence="28">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="955"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs67609234." id="VAR_008120" evidence="6">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="973"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs67422093." id="VAR_063375" evidence="15">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="982"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4." id="VAR_063376">
+<original>P</original>
+<variation>PVGP</variation>
+<location>
+<position position="989"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs72659316." id="VAR_063377" evidence="17">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="991"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72659317." id="VAR_001896" evidence="32">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="997"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs1114167414." id="VAR_063378" evidence="15">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1003"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3 and OI4; moderate; dbSNP:rs72659319." id="VAR_001897" evidence="14 52">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="1012"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs392609." id="VAR_001898" evidence="29 41 62">
+<original>L</original>
+<variation>F</variation>
+<location>
+<position position="1022"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72659323." id="VAR_063379" evidence="20">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1027"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_063380" evidence="20">
+<location>
+<begin position="1058"/>
+<end position="1062"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2; dbSNP:rs72659331." id="VAR_001899">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1066"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs530026906." id="VAR_069633" evidence="26">
+<original>R</original>
+<variation>H</variation>
+<location>
+<position position="1067"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI2." id="VAR_001900">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="1078"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs72659335." id="VAR_063381" evidence="15">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1087"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4." id="VAR_063382" evidence="14">
+<location>
+<begin position="1094"/>
+<end position="1096"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs72659337." id="VAR_001901" evidence="45">
+<original>G</original>
+<variation>A</variation>
+<location>
+<position position="1096"/>
+</location>
+</feature>
+<feature type="sequence variant" id="VAR_001903">
+<original>P</original>
+<variation>L</variation>
+<location>
+<position position="1101"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI4; dbSNP:rs67768540." id="VAR_001902" evidence="31">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1102"/>
+</location>
+</feature>
+<feature type="sequence variant" description="Found in a patient with mild osteogenesis imperfecta associated with increased bone mineral density; results in defective type I procollagen processing; incorporation of the immature procollagen into the matrix leads to increased bone matrix mineralization and altered collagen fibril structure." id="VAR_066386" evidence="24">
+<original>A</original>
+<variation>T</variation>
+<location>
+<position position="1119"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI3; dbSNP:rs1800250." id="VAR_001904" evidence="58">
+<original>T</original>
+<variation>P</variation>
+<location>
+<position position="1148"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs422361." id="VAR_001905" evidence="29 41 62">
+<original>D</original>
+<variation>E</variation>
+<location>
+<position position="1189"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In OI1; dbSNP:rs72659342." id="VAR_063383" evidence="15">
+<original>C</original>
+<variation>Y</variation>
+<location>
+<position position="1195"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs384487." id="VAR_001906" evidence="29 41 62">
+<original>S</original>
+<variation>P</variation>
+<location>
+<position position="1198"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs418570." id="VAR_030122" evidence="25 29 39 40 41 61 62">
+<original>Q</original>
+<variation>H</variation>
+<location>
+<position position="1354"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 6; CAA26320." ref="6" evidence="64">
+<original>E</original>
+<variation>G</variation>
+<location>
+<position position="55"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 1; AAB59374." ref="1" evidence="64">
+<original>V</original>
+<variation>P</variation>
+<location>
+<position position="333"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 1; AAB59374." ref="1" evidence="64">
+<original>A</original>
+<variation>T</variation>
+<location>
+<position position="338"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 5; CAA68709." ref="5" evidence="64">
+<original>P</original>
+<variation>D</variation>
+<location>
+<position position="549"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 19; CAA23761." ref="19" evidence="64">
+<original>V</original>
+<variation>A</variation>
+<location>
+<position position="828"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 19; CAA23761." ref="19" evidence="64">
+<original>T</original>
+<variation>P</variation>
+<location>
+<position position="831"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 19; CAA23761." ref="19" evidence="64">
+<original>V</original>
+<variation>P</variation>
+<location>
+<position position="837"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 23; AAA51996." ref="23" evidence="64">
+<original>E</original>
+<variation>V</variation>
+<location>
+<position position="980"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 19; CAA23761." ref="19" evidence="64">
+<original>P</original>
+<variation>L</variation>
+<location>
+<position position="1098"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 19; CAA23761." ref="19" evidence="64">
+<location>
+<begin position="1122"/>
+<end position="1125"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 25; AAA51887." ref="25" evidence="64">
+<original>R</original>
+<variation>A</variation>
+<location>
+<position position="1338"/>
+</location>
+</feature>
+<evidence key="1" type="ECO:0000250"/>
+<evidence key="2" type="ECO:0000250">
+<source>
+<dbReference type="UniProtKB" id="P02466"/>
+</source>
+</evidence>
+<evidence key="3" type="ECO:0000250">
+<source>
+<dbReference type="UniProtKB" id="Q03692"/>
+</source>
+</evidence>
+<evidence key="4" type="ECO:0000255"/>
+<evidence key="5" type="ECO:0000255">
+<source>
+<dbReference type="PROSITE-ProRule" id="PRU00793"/>
+</source>
+</evidence>
+<evidence key="6" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="10408781"/>
+</source>
+</evidence>
+<evidence key="7" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="10627137"/>
+</source>
+</evidence>
+<evidence key="8" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1284475"/>
+</source>
+</evidence>
+<evidence key="9" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1339453"/>
+</source>
+</evidence>
+<evidence key="10" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1385413"/>
+</source>
+</evidence>
+<evidence key="11" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="15489334"/>
+</source>
+</evidence>
+<evidence key="12" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1577745"/>
+</source>
+</evidence>
+<evidence key="13" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1642148"/>
+</source>
+</evidence>
+<evidence key="14" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16705691"/>
+</source>
+</evidence>
+<evidence key="15" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16786509"/>
+</source>
+</evidence>
+<evidence key="16" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16816023"/>
+</source>
+</evidence>
+<evidence key="17" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16879195"/>
+</source>
+</evidence>
+<evidence key="18" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="18272325"/>
+</source>
+</evidence>
+<evidence key="19" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1874719"/>
+</source>
+</evidence>
+<evidence key="20" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="18996919"/>
+</source>
+</evidence>
+<evidence key="21" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1990009"/>
+</source>
+</evidence>
+<evidence key="22" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2052622"/>
+</source>
+</evidence>
+<evidence key="23" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2064612"/>
+</source>
+</evidence>
+<evidence key="24" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="21344539"/>
+</source>
+</evidence>
+<evidence key="25" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2364107"/>
+</source>
+</evidence>
+<evidence key="26" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="23656646"/>
+</source>
+</evidence>
+<evidence key="27" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2394758"/>
+</source>
+</evidence>
+<evidence key="28" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2777764"/>
+</source>
+</evidence>
+<evidence key="29" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2824475"/>
+</source>
+</evidence>
+<evidence key="30" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2839839"/>
+</source>
+</evidence>
+<evidence key="31" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2897363"/>
+</source>
+</evidence>
+<evidence key="32" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2914942"/>
+</source>
+</evidence>
+<evidence key="33" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="3421913"/>
+</source>
+</evidence>
+<evidence key="34" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="3680255"/>
+</source>
+</evidence>
+<evidence key="35" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="4011429"/>
+</source>
+</evidence>
+<evidence key="36" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="4319110"/>
+</source>
+</evidence>
+<evidence key="37" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="4412529"/>
+</source>
+</evidence>
+<evidence key="38" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="5529814"/>
+</source>
+</evidence>
+<evidence key="39" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="6092353"/>
+</source>
+</evidence>
+<evidence key="40" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="6309769"/>
+</source>
+</evidence>
+<evidence key="41" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="6687691"/>
+</source>
+</evidence>
+<evidence key="42" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7520724"/>
+</source>
+</evidence>
+<evidence key="43" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7693712"/>
+</source>
+</evidence>
+<evidence key="44" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7720740"/>
+</source>
+</evidence>
+<evidence key="45" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7749416"/>
+</source>
+</evidence>
+<evidence key="46" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7860070"/>
+</source>
+</evidence>
+<evidence key="47" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7881420"/>
+</source>
+</evidence>
+<evidence key="48" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7891382"/>
+</source>
+</evidence>
+<evidence key="49" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7906591"/>
+</source>
+</evidence>
+<evidence key="50" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7959683"/>
+</source>
+</evidence>
+<evidence key="51" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8081394"/>
+</source>
+</evidence>
+<evidence key="52" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8094076"/>
+</source>
+</evidence>
+<evidence key="53" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8182080"/>
+</source>
+</evidence>
+<evidence key="54" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8401517"/>
+</source>
+</evidence>
+<evidence key="55" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8444468"/>
+</source>
+</evidence>
+<evidence key="56" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8456807"/>
+</source>
+</evidence>
+<evidence key="57" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8456808"/>
+</source>
+</evidence>
+<evidence key="58" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8723681"/>
+</source>
+</evidence>
+<evidence key="59" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8800927"/>
+</source>
+</evidence>
+<evidence key="60" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8829649"/>
+</source>
+</evidence>
+<evidence key="61" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="9016532"/>
+</source>
+</evidence>
+<evidence key="62" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="9443882"/>
+</source>
+</evidence>
+<evidence key="63" type="ECO:0000269">
+<source ref="34"/>
+</evidence>
+<evidence key="64" type="ECO:0000305"/>
+<sequence length="1366" mass="129314" checksum="1E68A5970FB4210A" modified="2010-05-18" version="7" precursor="true">
+MLSFVDTRTLLLLAVTLCLATCQSLQEETVRKGPAGDRGPRGERGPPGPPGRDGEDGPTG
+PPGPPGPPGPPGLGGNFAAQYDGKGVGLGPGPMGLMGPRGPPGAAGAPGPQGFQGPAGEP
+GEPGQTGPAGARGPAGPPGKAGEDGHPGKPGRPGERGVVGPQGARGFPGTPGLPGFKGIR
+GHNGLDGLKGQPGAPGVKGEPGAPGENGTPGQTGARGLPGERGRVGAPGPAGARGSDGSV
+GPVGPAGPIGSAGPPGFPGAPGPKGEIGAVGNAGPAGPAGPRGEVGLPGLSGPVGPPGNP
+GANGLTGAKGAAGLPGVAGAPGLPGPRGIPGPVGAAGATGARGLVGEPGPAGSKGESGNK
+GEPGSAGPQGPPGPSGEEGKRGPNGEAGSAGPPGPPGLRGSPGSRGLPGADGRAGVMGPP
+GSRGASGPAGVRGPNGDAGRPGEPGLMGPRGLPGSPGNIGPAGKEGPVGLPGIDGRPGPI
+GPAGARGEPGNIGFPGPKGPTGDPGKNGDKGHAGLAGARGAPGPDGNNGAQGPPGPQGVQ
+GGKGEQGPPGPPGFQGLPGPSGPAGEVGKPGERGLHGEFGLPGPAGPRGERGPPGESGAA
+GPTGPIGSRGPSGPPGPDGNKGEPGVVGAVGTAGPSGPSGLPGERGAAGIPGGKGEKGEP
+GLRGEIGNPGRDGARGAPGAVGAPGPAGATGDRGEAGAAGPAGPAGPRGSPGERGEVGPA
+GPNGFAGPAGAAGQPGAKGERGAKGPKGENGVVGPTGPVGAAGPAGPNGPPGPAGSRGDG
+GPPGMTGFPGAAGRTGPPGPSGISGPPGPPGPAGKEGLRGPRGDQGPVGRTGEVGAVGPP
+GFAGEKGPSGEAGTAGPPGTPGPQGLLGAPGILGLPGSRGERGLPGVAGAVGEPGPLGIA
+GPPGARGPPGAVGSPGVNGAPGEAGRDGNPGNDGPPGRDGQPGHKGERGYPGNIGPVGAA
+GAPGPHGPVGPAGKHGNRGETGPSGPVGPAGAVGPRGPSGPQGIRGDKGEPGEKGPRGLP
+GLKGHNGLQGLPGIAGHHGDQGAPGSVGPAGPRGPAGPSGPAGKDGRTGHPGTVGPAGIR
+GPQGHQGPAGPPGPPGPPGPPGVSGGGYDFGYDGDFYRADQPRSAPSLRPKDYEVDATLK
+SLNNQIETLLTPEGSRKNPARTCRDLRLSHPEWSSGYYWIDPNQGCTMDAIKVYCDFSTG
+ETCIRAQPENIPAKNWYRSSKDKKHVWLGETINAGSQFEYNVEGVTSKEMATQLAFMRLL
+ANYASQNITYHCKNSIAYMDEETGNLKKAVILQGSNDVELVAEGNSRFTYTVLVDGCSKK
+TNEWGKTIIEYKTNKPSRLPFLDIAPLDIGGADQEFFVDIGPVCFK
+</sequence>
+</entry>
+<copyright>
+Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+Distributed under the Creative Commons Attribution (CC BY 4.0) License
+</copyright>
+</uniprot>

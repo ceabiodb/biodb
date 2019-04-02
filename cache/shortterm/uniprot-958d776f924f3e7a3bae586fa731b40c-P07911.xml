@@ -1,0 +1,2448 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
+<entry dataset="Swiss-Prot" created="1988-08-01" modified="2019-02-13" version="190">
+<accession>P07911</accession>
+<accession>B3KP48</accession>
+<accession>B3KRN9</accession>
+<accession>E9PEA4</accession>
+<accession>Q540J6</accession>
+<accession>Q6ZS84</accession>
+<accession>Q8IYG0</accession>
+<name>UROM_HUMAN</name>
+<protein>
+<recommendedName>
+<fullName>Uromodulin</fullName>
+</recommendedName>
+<alternativeName>
+<fullName>Tamm-Horsfall urinary glycoprotein</fullName>
+<shortName>THP</shortName>
+</alternativeName>
+<component>
+<recommendedName>
+<fullName>Uromodulin, secreted form</fullName>
+</recommendedName>
+</component>
+</protein>
+<gene>
+<name type="primary">UMOD</name>
+</gene>
+<organism>
+<name type="scientific">Homo sapiens</name>
+<name type="common">Human</name>
+<dbReference type="NCBI Taxonomy" id="9606"/>
+<lineage>
+<taxon>Eukaryota</taxon>
+<taxon>Metazoa</taxon>
+<taxon>Chordata</taxon>
+<taxon>Craniata</taxon>
+<taxon>Vertebrata</taxon>
+<taxon>Euteleostomi</taxon>
+<taxon>Mammalia</taxon>
+<taxon>Eutheria</taxon>
+<taxon>Euarchontoglires</taxon>
+<taxon>Primates</taxon>
+<taxon>Haplorrhini</taxon>
+<taxon>Catarrhini</taxon>
+<taxon>Hominidae</taxon>
+<taxon>Homo</taxon>
+</lineage>
+</organism>
+<reference key="1">
+<citation type="journal article" date="1987" name="Science" volume="236" first="83" last="88">
+<title>Identification of human uromodulin as the Tamm-Horsfall urinary glycoprotein.</title>
+<authorList>
+<person name="Pennica D."/>
+<person name="Kohr W.J."/>
+<person name="Kuang W.-J."/>
+<person name="Glaister D."/>
+<person name="Aggarwal B.B."/>
+<person name="Chen E.Y."/>
+<person name="Goeddel D.V."/>
+</authorList>
+<dbReference type="PubMed" id="3453112"/>
+<dbReference type="DOI" id="10.1126/science.3453112"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] (ISOFORM 1)</scope>
+<scope>SUBCELLULAR LOCATION</scope>
+<scope>TISSUE SPECIFICITY</scope>
+</reference>
+<reference key="2">
+<citation type="journal article" date="1987" name="Science" volume="237" first="1479" last="1484">
+<title>Uromodulin (Tamm-Horsfall glycoprotein): a renal ligand for lymphokines.</title>
+<authorList>
+<person name="Hession C."/>
+<person name="Decker J.M."/>
+<person name="Sherblom A.P."/>
+<person name="Kumar S."/>
+<person name="Yue C.C."/>
+<person name="Mattaliano R.J."/>
+<person name="Tizard R."/>
+<person name="Kawashima E."/>
+<person name="Schmeissner U."/>
+<person name="Heletky S."/>
+<person name="Chow E.P."/>
+<person name="Burne C.A."/>
+<person name="Shaw A."/>
+<person name="Muchmore A.V."/>
+</authorList>
+<dbReference type="PubMed" id="3498215"/>
+<dbReference type="DOI" id="10.1126/science.3498215"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] (ISOFORM 1)</scope>
+<scope>PARTIAL PROTEIN SEQUENCE</scope>
+<scope>FUNCTION</scope>
+</reference>
+<reference key="3">
+<citation type="journal article" date="2002" name="J. Med. Genet." volume="39" first="882" last="892">
+<title>Mutations of the UMOD gene are responsible for medullary cystic kidney disease 2 and familial juvenile hyperuricaemic nephropathy.</title>
+<authorList>
+<person name="Hart T.C."/>
+<person name="Gorry M.C."/>
+<person name="Hart P.S."/>
+<person name="Woodard A.S."/>
+<person name="Shihabi Z."/>
+<person name="Sandhu J."/>
+<person name="Shirts B."/>
+<person name="Xu L."/>
+<person name="Zhu H."/>
+<person name="Barmada M.M."/>
+<person name="Bleyer A.J."/>
+</authorList>
+<dbReference type="PubMed" id="12471200"/>
+<dbReference type="DOI" id="10.1136/jmg.39.12.882"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+<scope>VARIANTS HNFJ1 TYR-148 AND ARG-217</scope>
+<scope>VARIANT MCKD2 CYS-103</scope>
+</reference>
+<reference key="4">
+<citation type="journal article" date="2004" name="Nat. Genet." volume="36" first="40" last="45">
+<title>Complete sequencing and characterization of 21,243 full-length human cDNAs.</title>
+<authorList>
+<person name="Ota T."/>
+<person name="Suzuki Y."/>
+<person name="Nishikawa T."/>
+<person name="Otsuki T."/>
+<person name="Sugiyama T."/>
+<person name="Irie R."/>
+<person name="Wakamatsu A."/>
+<person name="Hayashi K."/>
+<person name="Sato H."/>
+<person name="Nagai K."/>
+<person name="Kimura K."/>
+<person name="Makita H."/>
+<person name="Sekine M."/>
+<person name="Obayashi M."/>
+<person name="Nishi T."/>
+<person name="Shibahara T."/>
+<person name="Tanaka T."/>
+<person name="Ishii S."/>
+<person name="Yamamoto J."/>
+<person name="Saito K."/>
+<person name="Kawai Y."/>
+<person name="Isono Y."/>
+<person name="Nakamura Y."/>
+<person name="Nagahari K."/>
+<person name="Murakami K."/>
+<person name="Yasuda T."/>
+<person name="Iwayanagi T."/>
+<person name="Wagatsuma M."/>
+<person name="Shiratori A."/>
+<person name="Sudo H."/>
+<person name="Hosoiri T."/>
+<person name="Kaku Y."/>
+<person name="Kodaira H."/>
+<person name="Kondo H."/>
+<person name="Sugawara M."/>
+<person name="Takahashi M."/>
+<person name="Kanda K."/>
+<person name="Yokoi T."/>
+<person name="Furuya T."/>
+<person name="Kikkawa E."/>
+<person name="Omura Y."/>
+<person name="Abe K."/>
+<person name="Kamihara K."/>
+<person name="Katsuta N."/>
+<person name="Sato K."/>
+<person name="Tanikawa M."/>
+<person name="Yamazaki M."/>
+<person name="Ninomiya K."/>
+<person name="Ishibashi T."/>
+<person name="Yamashita H."/>
+<person name="Murakawa K."/>
+<person name="Fujimori K."/>
+<person name="Tanai H."/>
+<person name="Kimata M."/>
+<person name="Watanabe M."/>
+<person name="Hiraoka S."/>
+<person name="Chiba Y."/>
+<person name="Ishida S."/>
+<person name="Ono Y."/>
+<person name="Takiguchi S."/>
+<person name="Watanabe S."/>
+<person name="Yosida M."/>
+<person name="Hotuta T."/>
+<person name="Kusano J."/>
+<person name="Kanehori K."/>
+<person name="Takahashi-Fujii A."/>
+<person name="Hara H."/>
+<person name="Tanase T.-O."/>
+<person name="Nomura Y."/>
+<person name="Togiya S."/>
+<person name="Komai F."/>
+<person name="Hara R."/>
+<person name="Takeuchi K."/>
+<person name="Arita M."/>
+<person name="Imose N."/>
+<person name="Musashino K."/>
+<person name="Yuuki H."/>
+<person name="Oshima A."/>
+<person name="Sasaki N."/>
+<person name="Aotsuka S."/>
+<person name="Yoshikawa Y."/>
+<person name="Matsunawa H."/>
+<person name="Ichihara T."/>
+<person name="Shiohata N."/>
+<person name="Sano S."/>
+<person name="Moriya S."/>
+<person name="Momiyama H."/>
+<person name="Satoh N."/>
+<person name="Takami S."/>
+<person name="Terashima Y."/>
+<person name="Suzuki O."/>
+<person name="Nakagawa S."/>
+<person name="Senoh A."/>
+<person name="Mizoguchi H."/>
+<person name="Goto Y."/>
+<person name="Shimizu F."/>
+<person name="Wakebe H."/>
+<person name="Hishigaki H."/>
+<person name="Watanabe T."/>
+<person name="Sugiyama A."/>
+<person name="Takemoto M."/>
+<person name="Kawakami B."/>
+<person name="Yamazaki M."/>
+<person name="Watanabe K."/>
+<person name="Kumagai A."/>
+<person name="Itakura S."/>
+<person name="Fukuzumi Y."/>
+<person name="Fujimori Y."/>
+<person name="Komiyama M."/>
+<person name="Tashiro H."/>
+<person name="Tanigami A."/>
+<person name="Fujiwara T."/>
+<person name="Ono T."/>
+<person name="Yamada K."/>
+<person name="Fujii Y."/>
+<person name="Ozaki K."/>
+<person name="Hirao M."/>
+<person name="Ohmori Y."/>
+<person name="Kawabata A."/>
+<person name="Hikiji T."/>
+<person name="Kobatake N."/>
+<person name="Inagaki H."/>
+<person name="Ikema Y."/>
+<person name="Okamoto S."/>
+<person name="Okitani R."/>
+<person name="Kawakami T."/>
+<person name="Noguchi S."/>
+<person name="Itoh T."/>
+<person name="Shigeta K."/>
+<person name="Senba T."/>
+<person name="Matsumura K."/>
+<person name="Nakajima Y."/>
+<person name="Mizuno T."/>
+<person name="Morinaga M."/>
+<person name="Sasaki M."/>
+<person name="Togashi T."/>
+<person name="Oyama M."/>
+<person name="Hata H."/>
+<person name="Watanabe M."/>
+<person name="Komatsu T."/>
+<person name="Mizushima-Sugano J."/>
+<person name="Satoh T."/>
+<person name="Shirai Y."/>
+<person name="Takahashi Y."/>
+<person name="Nakagawa K."/>
+<person name="Okumura K."/>
+<person name="Nagase T."/>
+<person name="Nomura N."/>
+<person name="Kikuchi H."/>
+<person name="Masuho Y."/>
+<person name="Yamashita R."/>
+<person name="Nakai K."/>
+<person name="Yada T."/>
+<person name="Nakamura Y."/>
+<person name="Ohara O."/>
+<person name="Isogai T."/>
+<person name="Sugano S."/>
+</authorList>
+<dbReference type="PubMed" id="14702039"/>
+<dbReference type="DOI" id="10.1038/ng1285"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA] (ISOFORMS 2; 4 AND 5)</scope>
+<source>
+<tissue>Kidney</tissue>
+</source>
+</reference>
+<reference key="5">
+<citation type="journal article" date="2004" name="Nature" volume="432" first="988" last="994">
+<title>The sequence and analysis of duplication-rich human chromosome 16.</title>
+<authorList>
+<person name="Martin J."/>
+<person name="Han C."/>
+<person name="Gordon L.A."/>
+<person name="Terry A."/>
+<person name="Prabhakar S."/>
+<person name="She X."/>
+<person name="Xie G."/>
+<person name="Hellsten U."/>
+<person name="Chan Y.M."/>
+<person name="Altherr M."/>
+<person name="Couronne O."/>
+<person name="Aerts A."/>
+<person name="Bajorek E."/>
+<person name="Black S."/>
+<person name="Blumer H."/>
+<person name="Branscomb E."/>
+<person name="Brown N.C."/>
+<person name="Bruno W.J."/>
+<person name="Buckingham J.M."/>
+<person name="Callen D.F."/>
+<person name="Campbell C.S."/>
+<person name="Campbell M.L."/>
+<person name="Campbell E.W."/>
+<person name="Caoile C."/>
+<person name="Challacombe J.F."/>
+<person name="Chasteen L.A."/>
+<person name="Chertkov O."/>
+<person name="Chi H.C."/>
+<person name="Christensen M."/>
+<person name="Clark L.M."/>
+<person name="Cohn J.D."/>
+<person name="Denys M."/>
+<person name="Detter J.C."/>
+<person name="Dickson M."/>
+<person name="Dimitrijevic-Bussod M."/>
+<person name="Escobar J."/>
+<person name="Fawcett J.J."/>
+<person name="Flowers D."/>
+<person name="Fotopulos D."/>
+<person name="Glavina T."/>
+<person name="Gomez M."/>
+<person name="Gonzales E."/>
+<person name="Goodstein D."/>
+<person name="Goodwin L.A."/>
+<person name="Grady D.L."/>
+<person name="Grigoriev I."/>
+<person name="Groza M."/>
+<person name="Hammon N."/>
+<person name="Hawkins T."/>
+<person name="Haydu L."/>
+<person name="Hildebrand C.E."/>
+<person name="Huang W."/>
+<person name="Israni S."/>
+<person name="Jett J."/>
+<person name="Jewett P.B."/>
+<person name="Kadner K."/>
+<person name="Kimball H."/>
+<person name="Kobayashi A."/>
+<person name="Krawczyk M.-C."/>
+<person name="Leyba T."/>
+<person name="Longmire J.L."/>
+<person name="Lopez F."/>
+<person name="Lou Y."/>
+<person name="Lowry S."/>
+<person name="Ludeman T."/>
+<person name="Manohar C.F."/>
+<person name="Mark G.A."/>
+<person name="McMurray K.L."/>
+<person name="Meincke L.J."/>
+<person name="Morgan J."/>
+<person name="Moyzis R.K."/>
+<person name="Mundt M.O."/>
+<person name="Munk A.C."/>
+<person name="Nandkeshwar R.D."/>
+<person name="Pitluck S."/>
+<person name="Pollard M."/>
+<person name="Predki P."/>
+<person name="Parson-Quintana B."/>
+<person name="Ramirez L."/>
+<person name="Rash S."/>
+<person name="Retterer J."/>
+<person name="Ricke D.O."/>
+<person name="Robinson D.L."/>
+<person name="Rodriguez A."/>
+<person name="Salamov A."/>
+<person name="Saunders E.H."/>
+<person name="Scott D."/>
+<person name="Shough T."/>
+<person name="Stallings R.L."/>
+<person name="Stalvey M."/>
+<person name="Sutherland R.D."/>
+<person name="Tapia R."/>
+<person name="Tesmer J.G."/>
+<person name="Thayer N."/>
+<person name="Thompson L.S."/>
+<person name="Tice H."/>
+<person name="Torney D.C."/>
+<person name="Tran-Gyamfi M."/>
+<person name="Tsai M."/>
+<person name="Ulanovsky L.E."/>
+<person name="Ustaszewska A."/>
+<person name="Vo N."/>
+<person name="White P.S."/>
+<person name="Williams A.L."/>
+<person name="Wills P.L."/>
+<person name="Wu J.-R."/>
+<person name="Wu K."/>
+<person name="Yang J."/>
+<person name="DeJong P."/>
+<person name="Bruce D."/>
+<person name="Doggett N.A."/>
+<person name="Deaven L."/>
+<person name="Schmutz J."/>
+<person name="Grimwood J."/>
+<person name="Richardson P."/>
+<person name="Rokhsar D.S."/>
+<person name="Eichler E.E."/>
+<person name="Gilna P."/>
+<person name="Lucas S.M."/>
+<person name="Myers R.M."/>
+<person name="Rubin E.M."/>
+<person name="Pennacchio L.A."/>
+</authorList>
+<dbReference type="PubMed" id="15616553"/>
+<dbReference type="DOI" id="10.1038/nature03187"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+</reference>
+<reference key="6">
+<citation type="journal article" date="2004" name="Genome Res." volume="14" first="2121" last="2127">
+<title>The status, quality, and expansion of the NIH full-length cDNA project: the Mammalian Gene Collection (MGC).</title>
+<authorList>
+<consortium name="The MGC Project Team"/>
+</authorList>
+<dbReference type="PubMed" id="15489334"/>
+<dbReference type="DOI" id="10.1101/gr.2596504"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA] (ISOFORM 3)</scope>
+<source>
+<tissue>Kidney</tissue>
+</source>
+</reference>
+<reference key="7">
+<citation type="journal article" date="2008" name="Biochem. Biophys. Res. Commun." volume="370" first="410" last="413">
+<title>Urinary uromodulin carries an intact ZP domain generated by a conserved C-terminal proteolytic cleavage.</title>
+<authorList>
+<person name="Santambrogio S."/>
+<person name="Cattaneo A."/>
+<person name="Bernascone I."/>
+<person name="Schwend T."/>
+<person name="Jovine L."/>
+<person name="Bachi A."/>
+<person name="Rampoldi L."/>
+</authorList>
+<dbReference type="PubMed" id="18375198"/>
+<dbReference type="DOI" id="10.1016/j.bbrc.2008.03.099"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 578-587</scope>
+<scope>PROTEOLYTIC CLEAVAGE</scope>
+<scope>IDENTIFICATION BY MASS SPECTROMETRY</scope>
+<scope>SUBCELLULAR LOCATION</scope>
+<scope>TISSUE SPECIFICITY</scope>
+</reference>
+<reference key="8">
+<citation type="journal article" date="1981" name="J. Anat." volume="132" first="597" last="605">
+<title>Localization of Tamm-Horsfall glycoprotein in the human kidney using immuno-fluorescence and immuno-electron microscopical techniques.</title>
+<authorList>
+<person name="Sikri K.L."/>
+<person name="Foster C.L."/>
+<person name="MacHugh N."/>
+<person name="Marshall R.D."/>
+</authorList>
+<dbReference type="PubMed" id="7028707"/>
+</citation>
+<scope>TISSUE SPECIFICITY</scope>
+<scope>SUBCELLULAR LOCATION</scope>
+</reference>
+<reference key="9">
+<citation type="journal article" date="1990" name="J. Biol. Chem." volume="265" first="20784" last="20789">
+<title>Uromodulin (Tamm-Horsfall glycoprotein/uromucoid) is a phosphatidylinositol-linked membrane protein.</title>
+<authorList>
+<person name="Rindler M.J."/>
+<person name="Naik S.S."/>
+<person name="Li N."/>
+<person name="Hoops T.C."/>
+<person name="Peraldi M.-N."/>
+</authorList>
+<dbReference type="PubMed" id="2249987"/>
+</citation>
+<scope>GPI-ANCHOR</scope>
+<scope>SUBCELLULAR LOCATION</scope>
+</reference>
+<reference key="10">
+<citation type="journal article" date="2009" name="Mol. Biol. Cell" volume="20" first="589" last="599">
+<title>Analysis of uromodulin polymerization provides new insights into the mechanisms regulating ZP domain-mediated protein assembly.</title>
+<authorList>
+<person name="Schaeffer C."/>
+<person name="Santambrogio S."/>
+<person name="Perucca S."/>
+<person name="Casari G."/>
+<person name="Rampoldi L."/>
+</authorList>
+<dbReference type="PubMed" id="19005207"/>
+<dbReference type="DOI" id="10.1091/mbc.E08-08-0876"/>
+</citation>
+<scope>SUBCELLULAR LOCATION</scope>
+<scope>SUBUNIT</scope>
+<scope>MUTAGENESIS OF ASP-430; LEU-435; VAL-458; 586-ARG--SER-589; 598-VAL--ASN-600; 602-GLY-PRO-603 AND 605-THR--LYS-607</scope>
+<scope>REGION</scope>
+<scope>GLYCOSYLATION</scope>
+</reference>
+<reference key="11">
+<citation type="journal article" date="2010" name="Cell. Physiol. Biochem." volume="26" first="311" last="318">
+<title>Uromodulin facilitates neutrophil migration across renal epithelial monolayers.</title>
+<authorList>
+<person name="Schmid M."/>
+<person name="Prajczer S."/>
+<person name="Gruber L.N."/>
+<person name="Bertocchi C."/>
+<person name="Gandini R."/>
+<person name="Pfaller W."/>
+<person name="Jennings P."/>
+<person name="Joannidis M."/>
+</authorList>
+<dbReference type="PubMed" id="20798515"/>
+<dbReference type="DOI" id="10.1159/000320554"/>
+</citation>
+<scope>FUNCTION</scope>
+<scope>SUBCELLULAR LOCATION</scope>
+</reference>
+<reference key="12">
+<citation type="journal article" date="2010" name="Hum. Mol. Genet." volume="19" first="1985" last="1997">
+<title>Uromodulin is expressed in renal primary cilia and UMOD mutations result in decreased ciliary uromodulin expression.</title>
+<authorList>
+<person name="Zaucke F."/>
+<person name="Boehnlein J.M."/>
+<person name="Steffens S."/>
+<person name="Polishchuk R.S."/>
+<person name="Rampoldi L."/>
+<person name="Fischer A."/>
+<person name="Pasch A."/>
+<person name="Boehm C.W."/>
+<person name="Baasner A."/>
+<person name="Attanasio M."/>
+<person name="Hoppe B."/>
+<person name="Hopfer H."/>
+<person name="Beck B.B."/>
+<person name="Sayer J.A."/>
+<person name="Hildebrandt F."/>
+<person name="Wolf M.T."/>
+</authorList>
+<dbReference type="PubMed" id="20172860"/>
+<dbReference type="DOI" id="10.1093/hmg/ddq077"/>
+</citation>
+<scope>SUBCELLULAR LOCATION</scope>
+</reference>
+<reference key="13">
+<citation type="journal article" date="2012" name="Mol. Cell. Proteomics" volume="11" first="1" last="17">
+<title>Human urinary glycoproteomics; attachment site specific analysis of N-and O-linked glycosylations by CID and ECD.</title>
+<authorList>
+<person name="Halim A."/>
+<person name="Nilsson J."/>
+<person name="Ruetschi U."/>
+<person name="Hesse C."/>
+<person name="Larson G."/>
+</authorList>
+<dbReference type="PubMed" id="22171320"/>
+<dbReference type="DOI" id="10.1074/mcp.M111.013649"/>
+</citation>
+<scope>GLYCOSYLATION AT ASN-232; ASN-322 AND ASN-396</scope>
+<scope>STRUCTURE OF CARBOHYDRATES</scope>
+<scope>IDENTIFICATION BY MASS SPECTROMETRY</scope>
+</reference>
+<reference key="14">
+<citation type="journal article" date="2012" name="Am. J. Nephrol." volume="36" first="114" last="120">
+<title>Novel uromodulin mutation in familial juvenile hyperuricemic nephropathy.</title>
+<authorList>
+<person name="Wei X."/>
+<person name="Xu R."/>
+<person name="Yang Z."/>
+<person name="Li Z."/>
+<person name="Liao Y."/>
+<person name="Johnson R.J."/>
+<person name="Yu X."/>
+<person name="Chen W."/>
+</authorList>
+<dbReference type="PubMed" id="22776760"/>
+<dbReference type="DOI" id="10.1159/000339752"/>
+</citation>
+<scope>SUBCELLULAR LOCATION</scope>
+<scope>TISSUE SPECIFICITY</scope>
+<scope>INVOLVEMENT IN HNFJ1</scope>
+</reference>
+<reference key="15">
+<citation type="journal article" date="2015" name="Elife" volume="4">
+<title>The serine protease hepsin mediates urinary secretion and polymerisation of Zona Pellucida domain protein uromodulin.</title>
+<authorList>
+<person name="Brunati M."/>
+<person name="Perucca S."/>
+<person name="Han L."/>
+<person name="Cattaneo A."/>
+<person name="Consolato F."/>
+<person name="Andolfo A."/>
+<person name="Schaeffer C."/>
+<person name="Olinger E."/>
+<person name="Peng J."/>
+<person name="Santambrogio S."/>
+<person name="Perrier R."/>
+<person name="Li S."/>
+<person name="Bokhove M."/>
+<person name="Bachi A."/>
+<person name="Hummler E."/>
+<person name="Devuyst O."/>
+<person name="Wu Q."/>
+<person name="Jovine L."/>
+<person name="Rampoldi L."/>
+</authorList>
+<dbReference type="PubMed" id="26673890"/>
+<dbReference type="DOI" id="10.7554/eLife.08887"/>
+</citation>
+<scope>SUBUNIT</scope>
+<scope>ELECTRON MICROSCOPY</scope>
+<scope>SUBCELLULAR LOCATION</scope>
+<scope>GLYCOSYLATION</scope>
+<scope>MUTAGENESIS OF 586-ARG--SER-589</scope>
+<scope>PROTEOLYTIC CLEAVAGE BY HPN</scope>
+<scope>IDENTIFICATION BY MASS SPECTROMETRY</scope>
+</reference>
+<reference key="16">
+<citation type="journal article" date="2016" name="Proc. Natl. Acad. Sci. U.S.A." volume="113" first="1552" last="1557">
+<title>A structured interdomain linker directs self-polymerization of human uromodulin.</title>
+<authorList>
+<person name="Bokhove M."/>
+<person name="Nishimura K."/>
+<person name="Brunati M."/>
+<person name="Han L."/>
+<person name="de Sanctis D."/>
+<person name="Rampoldi L."/>
+<person name="Jovine L."/>
+</authorList>
+<dbReference type="PubMed" id="26811476"/>
+<dbReference type="DOI" id="10.1073/pnas.1519803113"/>
+</citation>
+<scope>X-RAY CRYSTALLOGRAPHY (3.2 ANGSTROMS) OF 295-610</scope>
+<scope>ELECTRON MICROSCOPY</scope>
+<scope>SUBUNIT</scope>
+<scope>SUBCELLULAR LOCATION</scope>
+<scope>DISULFIDE BOND</scope>
+<scope>DOMAIN</scope>
+<scope>GLYCOSYLATION AT ASN-396</scope>
+<scope>MUTAGENESIS OF LEU-333; ILE-421 AND 586-ARG--SER-589</scope>
+<scope>REGION</scope>
+</reference>
+<reference key="17">
+<citation type="journal article" date="2003" name="Am. J. Kidney Dis." volume="42" first="E20" last="E26">
+<title>Renal manifestations of a mutation in the uromodulin (Tamm Horsfall protein) gene.</title>
+<authorList>
+<person name="Bleyer A.J."/>
+<person name="Trachtman H."/>
+<person name="Sandhu J."/>
+<person name="Gorry M.C."/>
+<person name="Hart T.C."/>
+</authorList>
+<dbReference type="PubMed" id="12900848"/>
+<dbReference type="DOI" id="10.1016/S0272-6386(03)00670-X"/>
+</citation>
+<scope>VARIANT HNFJ1 TYR-223</scope>
+</reference>
+<reference key="18">
+<citation type="journal article" date="2003" name="Hum. Mol. Genet." volume="12" first="3369" last="3384">
+<title>Allelism of MCKD, FJHN and GCKD caused by impairment of uromodulin export dynamics.</title>
+<authorList>
+<person name="Rampoldi L."/>
+<person name="Caridi G."/>
+<person name="Santon D."/>
+<person name="Boaretto F."/>
+<person name="Bernascone I."/>
+<person name="Lamorte G."/>
+<person name="Tardanico R."/>
+<person name="Dagnino M."/>
+<person name="Colussi G."/>
+<person name="Scolari F."/>
+<person name="Ghiggeri G.M."/>
+<person name="Amoroso A."/>
+<person name="Casari G."/>
+</authorList>
+<dbReference type="PubMed" id="14570709"/>
+<dbReference type="DOI" id="10.1093/hmg/ddg353"/>
+</citation>
+<scope>INVOLVEMENT IN MCKD2</scope>
+<scope>VARIANTS HNFJ1 TRP-148; SER-150 AND TYR-317</scope>
+<scope>VARIANT GCKDHI ARG-315</scope>
+<scope>CHARACTERIZATION OF VARIANTS HNFJ1 TRP-148; SER-150 AND TYR-317</scope>
+<scope>CHARACTERIZATION OF VARIANT GCKDHI ARG-315</scope>
+</reference>
+<reference key="19">
+<citation type="journal article" date="2003" name="J. Am. Soc. Nephrol." volume="14" first="2883" last="2893">
+<title>A cluster of mutations in the UMOD gene causes familial juvenile hyperuricemic nephropathy with abnormal expression of uromodulin.</title>
+<authorList>
+<person name="Dahan K."/>
+<person name="Devuyst O."/>
+<person name="Smaers M."/>
+<person name="Vertommen D."/>
+<person name="Loute G."/>
+<person name="Poux J.M."/>
+<person name="Viron B."/>
+<person name="Jacquot C."/>
+<person name="Gagnadoux M.F."/>
+<person name="Chauveau D."/>
+<person name="Buchler M."/>
+<person name="Cochat P."/>
+<person name="Cosyns J.P."/>
+<person name="Mougenot B."/>
+<person name="Rider M.H."/>
+<person name="Antignac C."/>
+<person name="Verellen-Dumoulin C."/>
+<person name="Pirson Y."/>
+</authorList>
+<dbReference type="PubMed" id="14569098"/>
+<dbReference type="DOI" id="10.1097/01.ASN.0000092147.83480.B5"/>
+</citation>
+<scope>INVOLVEMENT IN HNFJ1</scope>
+<scope>VARIANTS HNFJ1 ALA-59; ARG-112; ARG-126; TYR-170; SER-185; GLY-204; GLY-217; PRO-222; MET-225 AND ARG-282</scope>
+</reference>
+<reference key="20">
+<citation type="journal article" date="2003" name="J. Clin. Endocrinol. Metab." volume="88" first="1398" last="1401">
+<title>UROMODULIN mutations cause familial juvenile hyperuricemic nephropathy.</title>
+<authorList>
+<person name="Turner J.J.O."/>
+<person name="Stacey J.M."/>
+<person name="Harding B."/>
+<person name="Kotanko P."/>
+<person name="Lhotta K."/>
+<person name="Puig J.G."/>
+<person name="Roberts I."/>
+<person name="Torres R.J."/>
+<person name="Thakker R.V."/>
+</authorList>
+<dbReference type="PubMed" id="12629136"/>
+<dbReference type="DOI" id="10.1210/jc.2002-021973"/>
+</citation>
+<scope>VARIANTS HNFJ1 TYR-77; ARG-126; SER-128; TYR-255 AND GLY-300</scope>
+</reference>
+<reference key="21">
+<citation type="journal article" date="2003" name="Kidney Int." volume="64" first="1580" last="1587">
+<title>Mutations of the Uromodulin gene in MCKD type 2 patients cluster in exon 4, which encodes three EGF-like domains.</title>
+<authorList>
+<person name="Wolf M.T.F."/>
+<person name="Mucha B.E."/>
+<person name="Attanasio M."/>
+<person name="Zalewski I."/>
+<person name="Karle S.M."/>
+<person name="Neumann H.P.H."/>
+<person name="Rahman N."/>
+<person name="Bader B."/>
+<person name="Baldamus C.A."/>
+<person name="Otto E."/>
+<person name="Witzgall R."/>
+<person name="Fuchshuber A."/>
+<person name="Hildebrandt F."/>
+</authorList>
+<dbReference type="PubMed" id="14531790"/>
+<dbReference type="DOI" id="10.1046/j.1523-1755.2003.00269.x"/>
+</citation>
+<scope>VARIANTS MCKD2 93-VAL--GLY-97 DELINS ALA-ALA-SER-CYS; LYS-225 AND TRP-248</scope>
+</reference>
+<reference key="22">
+<citation type="journal article" date="2004" name="Kidney Int." volume="65" first="1589" last="1597">
+<title>Familial juvenile hyperuricemic nephropathy: detection of mutations in the uromodulin gene in five Japanese families.</title>
+<authorList>
+<person name="Kudo E."/>
+<person name="Kamatani N."/>
+<person name="Tezuka O."/>
+<person name="Taniguchi A."/>
+<person name="Yamanaka H."/>
+<person name="Yabe S."/>
+<person name="Osabe D."/>
+<person name="Shinohara S."/>
+<person name="Nomura K."/>
+<person name="Segawa M."/>
+<person name="Miyamoto T."/>
+<person name="Moritani M."/>
+<person name="Kunika K."/>
+<person name="Itakura M."/>
+</authorList>
+<dbReference type="PubMed" id="15086896"/>
+<dbReference type="DOI" id="10.1111/j.1523-1755.2004.00559.x"/>
+</citation>
+<scope>INVOLVEMENT IN HNFJ1</scope>
+<scope>VARIANTS HNFJ1 TRP-52; SER-135; PHE-195; SER-202 AND LEU-236</scope>
+</reference>
+<reference key="23">
+<citation type="journal article" date="2004" name="Nephrol. Dial. Transplant." volume="19" first="3150" last="3154">
+<title>Functional consequences of a novel uromodulin mutation in a family with familial juvenile hyperuricaemic nephropathy.</title>
+<authorList>
+<person name="Tinschert S."/>
+<person name="Ruf N."/>
+<person name="Bernascone I."/>
+<person name="Sacherer K."/>
+<person name="Lamorte G."/>
+<person name="Neumayer H.H."/>
+<person name="Nurnberg P."/>
+<person name="Luft F.C."/>
+<person name="Rampoldi L."/>
+</authorList>
+<dbReference type="PubMed" id="15575003"/>
+<dbReference type="DOI" id="10.1093/ndt/gfh524"/>
+</citation>
+<scope>VARIANT HNFJ1 GLY-347</scope>
+<scope>CHARACTERIZATION OF VARIANT HNFJ1 GLY-347</scope>
+</reference>
+<reference key="24">
+<citation type="journal article" date="2005" name="Am. J. Kidney Dis." volume="46" first="52" last="57">
+<title>A novel pattern of mutation in uromodulin disorders: autosomal dominant medullary cystic kidney disease type 2, familial juvenile hyperuricemic nephropathy, and autosomal dominant glomerulocystic kidney disease.</title>
+<authorList>
+<person name="Lens X.M."/>
+<person name="Banet J.F."/>
+<person name="Outeda P."/>
+<person name="Barrio-Lucia V."/>
+</authorList>
+<dbReference type="PubMed" id="15983957"/>
+<dbReference type="DOI" id="10.1053/j.ajkd.2005.04.003"/>
+</citation>
+<scope>VARIANT HNFJ1 PRO-316</scope>
+</reference>
+<reference key="25">
+<citation type="journal article" date="2006" name="Traffic" volume="7" first="1567" last="1579">
+<title>Defective intracellular trafficking of uromodulin mutant isoforms.</title>
+<authorList>
+<person name="Bernascone I."/>
+<person name="Vavassori S."/>
+<person name="Di Pentima A."/>
+<person name="Santambrogio S."/>
+<person name="Lamorte G."/>
+<person name="Amoroso A."/>
+<person name="Scolari F."/>
+<person name="Ghiggeri G.M."/>
+<person name="Casari G."/>
+<person name="Polishchuk R."/>
+<person name="Rampoldi L."/>
+</authorList>
+<dbReference type="PubMed" id="17010121"/>
+<dbReference type="DOI" id="10.1111/j.1600-0854.2006.00481.x"/>
+</citation>
+<scope>VARIANT HNFJ1 ARG-236</scope>
+<scope>CHARACTERIZATION OF VARIANTS HNFJ1 ALA-59; SER-128; TRP-148; SER-150; GLY-204; ARG-217 AND ARG-236</scope>
+<scope>CHARACTERIZATION OF VARIANT MCKD2 LYS-225</scope>
+<scope>CHARACTERIZATION OF VARIANT GCKDHI ARG-315</scope>
+</reference>
+<reference key="26">
+<citation type="journal article" date="2010" name="J. Korean Med. Sci." volume="25" first="1680" last="1682">
+<title>A case of familial juvenile hyperuricemic nephropathy with novel uromodulin gene mutation, a novel heterozygous missense mutation in Korea.</title>
+<authorList>
+<person name="Lee D.H."/>
+<person name="Kim J.K."/>
+<person name="Oh S.E."/>
+<person name="Noh J.W."/>
+<person name="Lee Y.K."/>
+</authorList>
+<dbReference type="PubMed" id="21060763"/>
+<dbReference type="DOI" id="10.3346/jkms.2010.25.11.1680"/>
+</citation>
+<scope>VARIANT HNFJ1 GLU-461</scope>
+</reference>
+<reference key="27">
+<citation type="journal article" date="2012" name="Case Rep. Nephrol. Urol." volume="2" first="15" last="19">
+<title>A Japanese family suffering from familial juvenile hyperuricemic nephropathy due to a rare mutation of the uromodulin gene.</title>
+<authorList>
+<person name="Nakayama M."/>
+<person name="Mori Y."/>
+<person name="Ota N."/>
+<person name="Ishida M."/>
+<person name="Shiotsu Y."/>
+<person name="Matsuoka E."/>
+<person name="Kado H."/>
+<person name="Ishida R."/>
+<person name="Nakata M."/>
+<person name="Kitani T."/>
+<person name="Tamagaki K."/>
+<person name="Sekita C."/>
+<person name="Taniguchi A."/>
+</authorList>
+<dbReference type="PubMed" id="23197950"/>
+<dbReference type="DOI" id="10.1159/000337343"/>
+</citation>
+<scope>VARIANT HNFJ1 ARG-230</scope>
+</reference>
+<reference key="28">
+<citation type="journal article" date="2013" name="Gene" volume="531" first="363" last="369">
+<title>Novel UMOD mutations in familial juvenile hyperuricemic nephropathy lead to abnormal uromodulin intracellular trafficking.</title>
+<authorList>
+<person name="Liu M."/>
+<person name="Chen Y."/>
+<person name="Liang Y."/>
+<person name="Liu Y."/>
+<person name="Wang S."/>
+<person name="Hou P."/>
+<person name="Zhang H."/>
+<person name="Zhao M."/>
+</authorList>
+<dbReference type="PubMed" id="23988501"/>
+<dbReference type="DOI" id="10.1016/j.gene.2013.08.041"/>
+</citation>
+<scope>VARIANTS HNFJ1 GLU-109; GLN-236 AND TRP-248</scope>
+<scope>CHARACTERIZATION OF VARIANTS HNFJ1 GLU-109; GLN-236 AND TRP-248</scope>
+<scope>SUBCELLULAR LOCATION</scope>
+<scope>TISSUE SPECIFICITY</scope>
+</reference>
+<reference key="29">
+<citation type="journal article" date="2015" name="FEBS Lett." volume="589" first="89" last="93">
+<title>Pathogenic uromodulin mutations result in premature intracellular polymerization.</title>
+<authorList>
+<person name="Stewart A.P."/>
+<person name="Sandford R.N."/>
+<person name="Karet Frankl F.E."/>
+<person name="Edwardson J.M."/>
+</authorList>
+<dbReference type="PubMed" id="25436415"/>
+<dbReference type="DOI" id="10.1016/j.febslet.2014.11.029"/>
+</citation>
+<scope>VARIANT ARG-155</scope>
+<scope>CHARACTERIZATION OF VARIANT MCKD2 93-VAL--GLY-97 DELINS ALA-ALA-SER-CYS</scope>
+<scope>CHARACTERIZATION OF VARIANTS HNFJ1 SER-150</scope>
+<scope>CHARACTERIZATION OF VARIANT ARG-155</scope>
+</reference>
+<reference key="30">
+<citation type="journal article" date="2017" name="Clin. Biochem." volume="50" first="155" last="158">
+<title>A new missense mutation in UMOD gene leads to severely reduced serum uromodulin concentrations - A tool for the diagnosis of uromodulin-associated kidney disease.</title>
+<authorList>
+<person name="Satanovskij R."/>
+<person name="Bader A."/>
+<person name="Block M."/>
+<person name="Herbst V."/>
+<person name="Schlumberger W."/>
+<person name="Haack T."/>
+<person name="Nockher W.A."/>
+<person name="Heemann U."/>
+<person name="Renders L."/>
+<person name="Schmaderer C."/>
+<person name="Angermann S."/>
+<person name="Wen M."/>
+<person name="Meitinger T."/>
+<person name="Scherberich J."/>
+<person name="Steubl D."/>
+</authorList>
+<dbReference type="PubMed" id="27729211"/>
+<dbReference type="DOI" id="10.1016/j.clinbiochem.2016.10.003"/>
+</citation>
+<scope>VARIANT MCKD2 GLY-120</scope>
+<scope>CHARACTERIZATION OF VARIANT MCKD2 GLY-120</scope>
+</reference>
+<comment type="function">
+<text evidence="19 31 35">Uromodulin: Functions in biogenesis and organization of the apical membrane of epithelial cells of the thick ascending limb of Henle's loop (TALH), where it promotes formation of complex filamentous gel-like structure that may play a role in the water barrier permeability (Probable). May serve as a receptor for binding and endocytosis of cytokines (IL-1, IL-2) and TNF (PubMed:3498215). Facilitates neutrophil migration across renal epithelia (PubMed:20798515).</text>
+</comment>
+<comment type="function">
+<text evidence="2 35">Uromodulin, secreted form: In the urine, may contribute to colloid osmotic pressure, retards passage of positively charged electrolytes, prevents urinary tract infection and inhibits formation of liquid containing supersaturated salts and subsequent formation of salt crystals.</text>
+</comment>
+<comment type="subunit">
+<text evidence="17 27 28">Uromodulin, secreted form: homodimer that then polymerizes into long filaments.</text>
+</comment>
+<comment type="subcellular location">
+<subcellularLocation>
+<location evidence="23 25 27 32">Apical cell membrane</location>
+<topology evidence="22">Lipid-anchor</topology>
+<topology evidence="22">GPI-anchor</topology>
+</subcellularLocation>
+<subcellularLocation>
+<location evidence="32">Basolateral cell membrane</location>
+<topology evidence="22">Lipid-anchor</topology>
+<topology evidence="22">GPI-anchor</topology>
+</subcellularLocation>
+<subcellularLocation>
+<location evidence="18">Cell projection</location>
+<location evidence="18">Cilium membrane</location>
+</subcellularLocation>
+<text evidence="16 18 28 30 32">Only a small fraction sorts to the basolateral pole of tubular epithelial cells compared to apical localization (PubMed:22776760). Secreted into urine after cleavage (PubMed:18375198, PubMed:26811476). Colocalizes with NPHP1 and KIF3A (PubMed:20172860).</text>
+</comment>
+<comment type="subcellular location">
+<molecule>Uromodulin, secreted form</molecule>
+<subcellularLocation>
+<location evidence="16 17 27 28 30 32">Secreted</location>
+</subcellularLocation>
+<text evidence="16 28 30 32">Detected in urine.</text>
+</comment>
+<comment type="alternative products">
+<event type="alternative splicing"/>
+<isoform>
+<id>P07911-1</id>
+<name>1</name>
+<sequence type="displayed"/>
+</isoform>
+<isoform>
+<id>P07911-2</id>
+<name>2</name>
+<sequence type="described" ref="VSP_017565"/>
+<text>No experimental confirmation available.</text>
+</isoform>
+<isoform>
+<id>P07911-3</id>
+<name>3</name>
+<sequence type="described" ref="VSP_017566"/>
+<text>No experimental confirmation available.</text>
+</isoform>
+<isoform>
+<id>P07911-4</id>
+<name>4</name>
+<sequence type="described" ref="VSP_040973"/>
+</isoform>
+<isoform>
+<id>P07911-5</id>
+<name>5</name>
+<sequence type="described" ref="VSP_054828"/>
+</isoform>
+</comment>
+<comment type="tissue specificity">
+<text evidence="16 23 25 30 32">Expressed in the tubular cells of the kidney. Most abundant protein in normal urine (at protein level). Synthesized exclusively in the kidney. Expressed exclusively by epithelial cells of the thick ascending limb of Henle's loop (TALH) and of distal convoluted tubule lumen.</text>
+</comment>
+<comment type="domain">
+<text evidence="28">The ZP domain mediates polymerization, leading to the formation of long filaments.</text>
+</comment>
+<comment type="PTM">
+<text evidence="17 21 27 28">N-glycosylated (PubMed:19005207, PubMed:26673890, PubMed:26811476). N-glycan heterogeneity at Asn-232: Hex7HexNAc6 (major) and dHex1Hex7HexNAc6 (minor); at Asn-322: dHex1Hex6HexNAc5 (minor), dHex1Hex7HexNAc6 (major) and dHex1Hex8HexNAc7 (minor); at Asn-396: Hex6HexNAc5 (major), dHex1Hex6HexNAc5 (minor) and Hex7HexNAc6 (minor) (PubMed:22171320).</text>
+</comment>
+<comment type="PTM">
+<text evidence="16 17 27">Proteolytically cleaved at a conserved C-terminal proteolytic cleavage site to generate the secreted form found in urine (PubMed:18375198, PubMed:19005207). This cleavage is catalyzed by HPN (PubMed:26673890).</text>
+</comment>
+<comment type="disease" evidence="6 7 8 10 11 12 13 14 15 20 23 24 25 26">
+<disease id="DI-00493">
+<name>Familial juvenile hyperuricemic nephropathy 1</name>
+<acronym>HNFJ1</acronym>
+<description>A renal disease characterized by juvenile onset of hyperuricemia, polyuria, progressive renal failure, and gout. The disease is associated with interstitial pathological changes resulting in fibrosis.</description>
+<dbReference type="MIM" id="162000"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="6 9 11 15 26 29">
+<disease id="DI-00705">
+<name>Medullary cystic kidney disease 2</name>
+<acronym>MCKD2</acronym>
+<description>A form of tubulointerstitial nephropathy characterized by formation of renal cysts at the corticomedullary junction. It is characterized by adult onset of impaired renal function and salt wasting resulting in end-stage renal failure by the sixth decade.</description>
+<dbReference type="MIM" id="603860"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="11 15">
+<disease id="DI-00511">
+<name>Glomerulocystic kidney disease with hyperuricemia and isosthenuria</name>
+<acronym>GCKDHI</acronym>
+<description>A renal disorder characterized by a cystic dilation of Bowman space, a collapse of glomerular tuft, and hyperuricemia due to low fractional excretion of uric acid and severe impairment of urine concentrating ability.</description>
+<dbReference type="MIM" id="609886"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<dbReference type="EMBL" id="M15881">
+<property type="protein sequence ID" value="AAA36798.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M17778">
+<property type="protein sequence ID" value="AAA36799.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY162970">
+<property type="protein sequence ID" value="AAO64446.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY162963">
+<property type="protein sequence ID" value="AAO64446.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY162964">
+<property type="protein sequence ID" value="AAO64446.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY162965">
+<property type="protein sequence ID" value="AAO64446.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY162967">
+<property type="protein sequence ID" value="AAO64446.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY162968">
+<property type="protein sequence ID" value="AAO64446.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY162969">
+<property type="protein sequence ID" value="AAO64446.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AK127643">
+<property type="protein sequence ID" value="BAC87070.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AK055722">
+<property type="protein sequence ID" value="BAG51560.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AK091961">
+<property type="protein sequence ID" value="BAG52451.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AC106796">
+<property type="status" value="NOT_ANNOTATED_CDS"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="BC035975">
+<property type="protein sequence ID" value="AAH35975.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="CCDS" id="CCDS10583.1">
+<molecule id="P07911-1"/>
+</dbReference>
+<dbReference type="CCDS" id="CCDS61876.1">
+<molecule id="P07911-5"/>
+</dbReference>
+<dbReference type="PIR" id="A30452">
+<property type="entry name" value="A30452"/>
+</dbReference>
+<dbReference type="RefSeq" id="NP_001008390.1">
+<molecule id="P07911-1"/>
+<property type="nucleotide sequence ID" value="NM_001008389.2"/>
+</dbReference>
+<dbReference type="RefSeq" id="NP_001265543.1">
+<molecule id="P07911-5"/>
+<property type="nucleotide sequence ID" value="NM_001278614.1"/>
+</dbReference>
+<dbReference type="RefSeq" id="NP_003352.2">
+<molecule id="P07911-1"/>
+<property type="nucleotide sequence ID" value="NM_003361.3"/>
+</dbReference>
+<dbReference type="UniGene" id="Hs.654425"/>
+<dbReference type="PDB" id="4WRN">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="3.20"/>
+<property type="chains" value="A/B=295-610"/>
+</dbReference>
+<dbReference type="PDBsum" id="4WRN"/>
+<dbReference type="ProteinModelPortal" id="P07911"/>
+<dbReference type="SMR" id="P07911"/>
+<dbReference type="BioGrid" id="113216">
+<property type="interactions" value="2"/>
+</dbReference>
+<dbReference type="IntAct" id="P07911">
+<property type="interactions" value="2"/>
+</dbReference>
+<dbReference type="STRING" id="9606.ENSP00000306279"/>
+<dbReference type="GlyConnect" id="613"/>
+<dbReference type="iPTMnet" id="P07911"/>
+<dbReference type="PhosphoSitePlus" id="P07911"/>
+<dbReference type="UniCarbKB" id="P07911"/>
+<dbReference type="BioMuta" id="UMOD"/>
+<dbReference type="DMDM" id="137116"/>
+<dbReference type="jPOST" id="P07911"/>
+<dbReference type="PaxDb" id="P07911"/>
+<dbReference type="PeptideAtlas" id="P07911"/>
+<dbReference type="PRIDE" id="P07911"/>
+<dbReference type="ProteomicsDB" id="52038"/>
+<dbReference type="ProteomicsDB" id="52039">
+<molecule id="P07911-2"/>
+</dbReference>
+<dbReference type="ProteomicsDB" id="52040">
+<molecule id="P07911-3"/>
+</dbReference>
+<dbReference type="ProteomicsDB" id="52041">
+<molecule id="P07911-4"/>
+</dbReference>
+<dbReference type="Ensembl" id="ENST00000302509">
+<molecule id="P07911-1"/>
+<property type="protein sequence ID" value="ENSP00000306279"/>
+<property type="gene ID" value="ENSG00000169344"/>
+</dbReference>
+<dbReference type="Ensembl" id="ENST00000396134">
+<molecule id="P07911-5"/>
+<property type="protein sequence ID" value="ENSP00000379438"/>
+<property type="gene ID" value="ENSG00000169344"/>
+</dbReference>
+<dbReference type="Ensembl" id="ENST00000570689">
+<molecule id="P07911-1"/>
+<property type="protein sequence ID" value="ENSP00000460548"/>
+<property type="gene ID" value="ENSG00000169344"/>
+</dbReference>
+<dbReference type="GeneID" id="7369"/>
+<dbReference type="KEGG" id="hsa:7369"/>
+<dbReference type="UCSC" id="uc002dgz.5">
+<molecule id="P07911-1"/>
+<property type="organism name" value="human"/>
+</dbReference>
+<dbReference type="CTD" id="7369"/>
+<dbReference type="DisGeNET" id="7369"/>
+<dbReference type="EuPathDB" id="HostDB:ENSG00000169344.15"/>
+<dbReference type="GeneCards" id="UMOD"/>
+<dbReference type="GeneReviews" id="UMOD"/>
+<dbReference type="H-InvDB" id="HIX0012858"/>
+<dbReference type="HGNC" id="HGNC:12559">
+<property type="gene designation" value="UMOD"/>
+</dbReference>
+<dbReference type="HPA" id="CAB009446"/>
+<dbReference type="HPA" id="HPA043420"/>
+<dbReference type="HPA" id="HPA054721"/>
+<dbReference type="MalaCards" id="UMOD"/>
+<dbReference type="MIM" id="162000">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="191845">
+<property type="type" value="gene"/>
+</dbReference>
+<dbReference type="MIM" id="603860">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="609886">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="neXtProt" id="NX_P07911"/>
+<dbReference type="OpenTargets" id="ENSG00000169344"/>
+<dbReference type="Orphanet" id="209886">
+<property type="disease" value="Familial juvenile hyperuricemic nephropathy type 1"/>
+</dbReference>
+<dbReference type="Orphanet" id="88950">
+<property type="disease" value="UMOD-related autosomal dominant tubulointerstitial kidney disease"/>
+</dbReference>
+<dbReference type="PharmGKB" id="PA37199"/>
+<dbReference type="eggNOG" id="ENOG410IVSV">
+<property type="taxonomic scope" value="Eukaryota"/>
+</dbReference>
+<dbReference type="eggNOG" id="ENOG410YDU6">
+<property type="taxonomic scope" value="LUCA"/>
+</dbReference>
+<dbReference type="GeneTree" id="ENSGT00940000156742"/>
+<dbReference type="HOGENOM" id="HOG000293303"/>
+<dbReference type="HOVERGEN" id="HBG004349"/>
+<dbReference type="InParanoid" id="P07911"/>
+<dbReference type="KO" id="K18274"/>
+<dbReference type="OrthoDB" id="665331at2759"/>
+<dbReference type="PhylomeDB" id="P07911"/>
+<dbReference type="TreeFam" id="TF330284"/>
+<dbReference type="Reactome" id="R-HSA-446203">
+<property type="pathway name" value="Asparagine N-linked glycosylation"/>
+</dbReference>
+<dbReference type="SIGNOR" id="P07911"/>
+<dbReference type="GeneWiki" id="Tamm%E2%80%93Horsfall_protein"/>
+<dbReference type="GenomeRNAi" id="7369"/>
+<dbReference type="PRO" id="PR:P07911"/>
+<dbReference type="Proteomes" id="UP000005640">
+<property type="component" value="Chromosome 16"/>
+</dbReference>
+<dbReference type="Bgee" id="ENSG00000169344">
+<property type="expression patterns" value="Expressed in 55 organ(s), highest expression level in renal medulla"/>
+</dbReference>
+<dbReference type="ExpressionAtlas" id="P07911">
+<property type="expression patterns" value="baseline and differential"/>
+</dbReference>
+<dbReference type="Genevisible" id="P07911">
+<property type="organism ID" value="HS"/>
+</dbReference>
+<dbReference type="GO" id="GO:0031225">
+<property type="term" value="C:anchored component of membrane"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0016324">
+<property type="term" value="C:apical plasma membrane"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0016323">
+<property type="term" value="C:basolateral plasma membrane"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0060170">
+<property type="term" value="C:ciliary membrane"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="UniProtKB-SubCell"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005929">
+<property type="term" value="C:cilium"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0070062">
+<property type="term" value="C:extracellular exosome"/>
+<property type="evidence" value="ECO:0007005"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0019898">
+<property type="term" value="C:extrinsic component of membrane"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="ProtInc"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005796">
+<property type="term" value="C:Golgi lumen"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0000922">
+<property type="term" value="C:spindle pole"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005509">
+<property type="term" value="F:calcium ion binding"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="InterPro"/>
+</dbReference>
+<dbReference type="GO" id="GO:0019864">
+<property type="term" value="F:IgG binding"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0006968">
+<property type="term" value="P:cellular defense response"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="ProtInc"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007588">
+<property type="term" value="P:excretion"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007157">
+<property type="term" value="P:heterophilic cell-cell adhesion via plasma membrane cell adhesion molecules"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0050801">
+<property type="term" value="P:ion homeostasis"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007159">
+<property type="term" value="P:leukocyte cell-cell adhesion"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0072218">
+<property type="term" value="P:metanephric ascending thin limb development"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0072221">
+<property type="term" value="P:metanephric distal convoluted tubule development"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0072233">
+<property type="term" value="P:metanephric thick ascending limb development"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0008285">
+<property type="term" value="P:negative regulation of cell population proliferation"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="ProtInc"/>
+</dbReference>
+<dbReference type="GO" id="GO:1990266">
+<property type="term" value="P:neutrophil migration"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR001881">
+<property type="entry name" value="EGF-like_Ca-bd_dom"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR013032">
+<property type="entry name" value="EGF-like_CS"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR000742">
+<property type="entry name" value="EGF-like_dom"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR000152">
+<property type="entry name" value="EGF-type_Asp/Asn_hydroxyl_site"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR018097">
+<property type="entry name" value="EGF_Ca-bd_CS"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR024731">
+<property type="entry name" value="EGF_dom"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR009030">
+<property type="entry name" value="Growth_fac_rcpt_cys_sf"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR001507">
+<property type="entry name" value="ZP_dom"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR017977">
+<property type="entry name" value="ZP_dom_CS"/>
+</dbReference>
+<dbReference type="Pfam" id="PF12947">
+<property type="entry name" value="EGF_3"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="Pfam" id="PF07645">
+<property type="entry name" value="EGF_CA"/>
+<property type="match status" value="2"/>
+</dbReference>
+<dbReference type="Pfam" id="PF00100">
+<property type="entry name" value="Zona_pellucida"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="PRINTS" id="PR00023">
+<property type="entry name" value="ZPELLUCIDA"/>
+</dbReference>
+<dbReference type="SMART" id="SM00181">
+<property type="entry name" value="EGF"/>
+<property type="match status" value="3"/>
+</dbReference>
+<dbReference type="SMART" id="SM00179">
+<property type="entry name" value="EGF_CA"/>
+<property type="match status" value="2"/>
+</dbReference>
+<dbReference type="SMART" id="SM00241">
+<property type="entry name" value="ZP"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="SUPFAM" id="SSF57184">
+<property type="entry name" value="SSF57184"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS00010">
+<property type="entry name" value="ASX_HYDROXYL"/>
+<property type="match status" value="2"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS01186">
+<property type="entry name" value="EGF_2"/>
+<property type="match status" value="3"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS50026">
+<property type="entry name" value="EGF_3"/>
+<property type="match status" value="3"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS01187">
+<property type="entry name" value="EGF_CA"/>
+<property type="match status" value="2"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS00682">
+<property type="entry name" value="ZP_1"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS51034">
+<property type="entry name" value="ZP_2"/>
+<property type="match status" value="1"/>
+</dbReference>
+<proteinExistence type="evidence at protein level"/>
+<keyword id="KW-0002">3D-structure</keyword>
+<keyword id="KW-0025">Alternative splicing</keyword>
+<keyword id="KW-1003">Cell membrane</keyword>
+<keyword id="KW-0966">Cell projection</keyword>
+<keyword id="KW-1186">Ciliopathy</keyword>
+<keyword id="KW-0969">Cilium</keyword>
+<keyword id="KW-0181">Complete proteome</keyword>
+<keyword id="KW-0903">Direct protein sequencing</keyword>
+<keyword id="KW-0225">Disease mutation</keyword>
+<keyword id="KW-1015">Disulfide bond</keyword>
+<keyword id="KW-0245">EGF-like domain</keyword>
+<keyword id="KW-0325">Glycoprotein</keyword>
+<keyword id="KW-0336">GPI-anchor</keyword>
+<keyword id="KW-0449">Lipoprotein</keyword>
+<keyword id="KW-0472">Membrane</keyword>
+<keyword id="KW-0983">Nephronophthisis</keyword>
+<keyword id="KW-0621">Polymorphism</keyword>
+<keyword id="KW-1185">Reference proteome</keyword>
+<keyword id="KW-0677">Repeat</keyword>
+<keyword id="KW-0964">Secreted</keyword>
+<keyword id="KW-0732">Signal</keyword>
+<feature type="signal peptide">
+<location>
+<begin position="1"/>
+<end position="24"/>
+</location>
+</feature>
+<feature type="chain" description="Uromodulin" id="PRO_0000041671">
+<location>
+<begin position="25"/>
+<end position="614"/>
+</location>
+</feature>
+<feature type="chain" description="Uromodulin, secreted form" id="PRO_0000407909">
+<location>
+<begin position="25"/>
+<end position="587"/>
+</location>
+</feature>
+<feature type="propeptide" description="Removed in mature form" id="PRO_0000041672" evidence="3">
+<location>
+<begin position="615"/>
+<end position="640"/>
+</location>
+</feature>
+<feature type="domain" description="EGF-like 1" evidence="4">
+<location>
+<begin position="28"/>
+<end position="64"/>
+</location>
+</feature>
+<feature type="domain" description="EGF-like 2; calcium-binding" evidence="4">
+<location>
+<begin position="65"/>
+<end position="107"/>
+</location>
+</feature>
+<feature type="domain" description="EGF-like 3; calcium-binding" evidence="4">
+<location>
+<begin position="108"/>
+<end position="149"/>
+</location>
+</feature>
+<feature type="domain" description="ZP" evidence="5">
+<location>
+<begin position="334"/>
+<end position="589"/>
+</location>
+</feature>
+<feature type="region of interest" description="Important for secretion and polymerization into filaments" evidence="28">
+<location>
+<begin position="430"/>
+<end position="453"/>
+</location>
+</feature>
+<feature type="region of interest" description="Essential for cleavage by HPN" evidence="17 27 28">
+<location>
+<begin position="586"/>
+<end position="589"/>
+</location>
+</feature>
+<feature type="region of interest" description="Regulates polymerization into filaments" evidence="17">
+<location>
+<begin position="598"/>
+<end position="607"/>
+</location>
+</feature>
+<feature type="site" description="Cleavage" evidence="16">
+<location>
+<begin position="587"/>
+<end position="588"/>
+</location>
+</feature>
+<feature type="lipid moiety-binding region" description="GPI-anchor amidated serine" evidence="3">
+<location>
+<position position="614"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) asparagine" evidence="3">
+<location>
+<position position="38"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) asparagine" evidence="3">
+<location>
+<position position="76"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) asparagine" evidence="3">
+<location>
+<position position="80"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex) asparagine" evidence="21 28">
+<location>
+<position position="232"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) asparagine" id="CAR_000178">
+<location>
+<position position="275"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex) asparagine" evidence="21">
+<location>
+<position position="322"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) (complex) asparagine" evidence="21">
+<location>
+<position position="396"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="32"/>
+<end position="41"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="35"/>
+<end position="50"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="52"/>
+<end position="63"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="69"/>
+<end position="83"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="77"/>
+<end position="92"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="94"/>
+<end position="106"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="112"/>
+<end position="126"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="120"/>
+<end position="135"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4">
+<location>
+<begin position="137"/>
+<end position="148"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="28">
+<location>
+<begin position="297"/>
+<end position="306"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="28">
+<location>
+<begin position="300"/>
+<end position="315"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="28">
+<location>
+<begin position="317"/>
+<end position="347"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="28">
+<location>
+<begin position="335"/>
+<end position="425"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="28">
+<location>
+<begin position="366"/>
+<end position="389"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4 28">
+<location>
+<begin position="506"/>
+<end position="566"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="28">
+<location>
+<begin position="527"/>
+<end position="582"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="28">
+<location>
+<begin position="571"/>
+<end position="578"/>
+</location>
+</feature>
+<feature type="splice variant" description="In isoform 5." id="VSP_054828" evidence="33">
+<original>A</original>
+<variation>ARTKYNCPARWSWRTPQRGGDTEQGPDEDFTSQG</variation>
+<location>
+<position position="29"/>
+</location>
+</feature>
+<feature type="splice variant" description="In isoform 2." id="VSP_017565" evidence="33">
+<location>
+<begin position="67"/>
+<end position="199"/>
+</location>
+</feature>
+<feature type="splice variant" description="In isoform 4." id="VSP_040973" evidence="33">
+<location>
+<begin position="133"/>
+<end position="154"/>
+</location>
+</feature>
+<feature type="splice variant" description="In isoform 3." id="VSP_017566" evidence="34">
+<original>FVGQGGARMAETCVPVLRCNTAAPMWLNGT</original>
+<variation>P</variation>
+<location>
+<begin position="205"/>
+<end position="234"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073052" evidence="12">
+<original>C</original>
+<variation>W</variation>
+<location>
+<position position="52"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073053" evidence="10 15">
+<original>D</original>
+<variation>A</variation>
+<location>
+<position position="59"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917768." id="VAR_025950" evidence="7">
+<original>C</original>
+<variation>Y</variation>
+<location>
+<position position="77"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In MCKD2; results in mutant retention in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_025951" evidence="9 26">
+<original>VCPEG</original>
+<variation>AASC</variation>
+<location>
+<begin position="93"/>
+<end position="97"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In MCKD2; dbSNP:rs28934584." id="VAR_017666" evidence="6">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="103"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER; dbSNP:rs780462125." id="VAR_071398" evidence="25">
+<original>V</original>
+<variation>E</variation>
+<location>
+<position position="109"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073054" evidence="10">
+<original>C</original>
+<variation>R</variation>
+<location>
+<position position="112"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In MCKD2; serum levels severely reduced." id="VAR_077514" evidence="29">
+<original>C</original>
+<variation>G</variation>
+<location>
+<position position="120"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917769." id="VAR_025952" evidence="7 10">
+<original>C</original>
+<variation>R</variation>
+<location>
+<position position="126"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER; dbSNP:rs121917770." id="VAR_025953" evidence="7 15">
+<original>N</original>
+<variation>S</variation>
+<location>
+<position position="128"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073055" evidence="12">
+<original>C</original>
+<variation>S</variation>
+<location>
+<position position="135"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025954" evidence="11 15">
+<original>C</original>
+<variation>W</variation>
+<location>
+<position position="148"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs28934582." id="VAR_017667" evidence="6">
+<original>C</original>
+<variation>Y</variation>
+<location>
+<position position="148"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_025955" evidence="11 15 26">
+<original>C</original>
+<variation>S</variation>
+<location>
+<position position="150"/>
+</location>
+</feature>
+<feature type="sequence variant" description="Probable-disease association mutation found in a patient with cystic kidney disease; results in mutant retention in the ER; results is abnormal intracellular polymerization of the mutant protein." id="VAR_073056" evidence="26">
+<original>C</original>
+<variation>R</variation>
+<location>
+<position position="155"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073057" evidence="10">
+<original>C</original>
+<variation>Y</variation>
+<location>
+<position position="170"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073058" evidence="10">
+<original>R</original>
+<variation>S</variation>
+<location>
+<position position="185"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073059" evidence="12">
+<original>C</original>
+<variation>F</variation>
+<location>
+<position position="195"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073060" evidence="12">
+<original>W</original>
+<variation>S</variation>
+<location>
+<position position="202"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073061" evidence="10 15">
+<original>R</original>
+<variation>G</variation>
+<location>
+<position position="204"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs28934583." id="VAR_073062" evidence="10">
+<original>C</original>
+<variation>G</variation>
+<location>
+<position position="217"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER; dbSNP:rs28934583." id="VAR_017668" evidence="6 15">
+<original>C</original>
+<variation>R</variation>
+<location>
+<position position="217"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073063" evidence="10">
+<original>R</original>
+<variation>P</variation>
+<location>
+<position position="222"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_025956" evidence="8">
+<original>C</original>
+<variation>Y</variation>
+<location>
+<position position="223"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In MCKD2; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_025957" evidence="9 15">
+<original>T</original>
+<variation>K</variation>
+<location>
+<position position="225"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073064" evidence="10">
+<original>T</original>
+<variation>M</variation>
+<location>
+<position position="225"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_071399" evidence="24">
+<original>W</original>
+<variation>R</variation>
+<location>
+<position position="230"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs1447458978." id="VAR_073065" evidence="12">
+<original>P</original>
+<variation>L</variation>
+<location>
+<position position="236"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_071400" evidence="25">
+<original>P</original>
+<variation>Q</variation>
+<location>
+<position position="236"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; results in defective trafficking of mutant protein to the plasma membrane; the mutant is retained in the ER." id="VAR_073066" evidence="15">
+<original>P</original>
+<variation>R</variation>
+<location>
+<position position="236"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In MCKD2 and HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER; dbSNP:rs886043751." id="VAR_025958" evidence="9 25">
+<original>C</original>
+<variation>W</variation>
+<location>
+<position position="248"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917771." id="VAR_025959" evidence="7">
+<original>C</original>
+<variation>Y</variation>
+<location>
+<position position="255"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073067" evidence="10">
+<original>C</original>
+<variation>R</variation>
+<location>
+<position position="282"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; dbSNP:rs121917772." id="VAR_025960" evidence="7">
+<original>C</original>
+<variation>G</variation>
+<location>
+<position position="300"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In GCKDHI; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER; dbSNP:rs121917773." id="VAR_025961" evidence="11 15">
+<original>C</original>
+<variation>R</variation>
+<location>
+<position position="315"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_073068" evidence="14">
+<original>Q</original>
+<variation>P</variation>
+<location>
+<position position="316"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; phenotype overlapping with medullary cystic kidney disease; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_025962" evidence="11">
+<original>C</original>
+<variation>Y</variation>
+<location>
+<position position="317"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1; causes a delay in protein export to the plasma membrane due to a longer retention time in the ER." id="VAR_073069" evidence="13">
+<original>C</original>
+<variation>G</variation>
+<location>
+<position position="347"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs55772253." id="VAR_061993">
+<original>V</original>
+<variation>L</variation>
+<location>
+<position position="458"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HNFJ1." id="VAR_071401" evidence="20">
+<original>A</original>
+<variation>E</variation>
+<location>
+<position position="461"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Abolishes polymerization and filament formation of the secreted form." evidence="28">
+<original>L</original>
+<variation>K</variation>
+<location>
+<position position="333"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Abolishes polymerization and filament formation of the secreted form." evidence="28">
+<original>I</original>
+<variation>K</variation>
+<location>
+<position position="421"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Impairs polymerization and filament formation of the secreted form." evidence="17">
+<original>D</original>
+<variation>L</variation>
+<location>
+<position position="430"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Impairs polymerization and filament formation of the secreted form." evidence="17">
+<original>L</original>
+<variation>S</variation>
+<location>
+<position position="435"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Leads to retention in the endoplasmic reticulum, probably due to misfolding." evidence="17">
+<original>V</original>
+<variation>R</variation>
+<location>
+<position position="458"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Abolishes cleavage by HPN." evidence="17 27 28">
+<original>RFRS</original>
+<variation>AAAA</variation>
+<location>
+<begin position="586"/>
+<end position="589"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Decreased export from the endoplasmic reticulum, leading to decreased secretion. Impairs polymerization." evidence="17">
+<original>VLN</original>
+<variation>AAA</variation>
+<location>
+<begin position="598"/>
+<end position="600"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Decreased export from the endoplasmic reticulum, leading to decreased secretion. Impairs polymerization." evidence="17">
+<original>GP</original>
+<variation>AA</variation>
+<location>
+<begin position="602"/>
+<end position="603"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="No effect on secretion. Does not impair polymerization." evidence="17">
+<original>TRK</original>
+<variation>AAA</variation>
+<location>
+<begin position="605"/>
+<end position="607"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="35">
+<original>T</original>
+<variation>A</variation>
+<location>
+<position position="288"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 4; BAG51560." ref="4" evidence="35">
+<original>M</original>
+<variation>I</variation>
+<location>
+<position position="503"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 2; AAA36799." ref="2" evidence="35">
+<original>H</original>
+<variation>D</variation>
+<location>
+<position position="565"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="296"/>
+<end position="299"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="304"/>
+<end position="308"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="313"/>
+<end position="317"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="327"/>
+<end position="329"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="332"/>
+<end position="335"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="337"/>
+<end position="345"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="346"/>
+<end position="350"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="351"/>
+<end position="353"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="377"/>
+<end position="387"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="388"/>
+<end position="390"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="392"/>
+<end position="395"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="397"/>
+<end position="408"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="411"/>
+<end position="414"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="419"/>
+<end position="428"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="431"/>
+<end position="437"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="438"/>
+<end position="441"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="443"/>
+<end position="450"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="451"/>
+<end position="453"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="454"/>
+<end position="465"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="473"/>
+<end position="475"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="477"/>
+<end position="479"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="485"/>
+<end position="494"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="496"/>
+<end position="498"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="499"/>
+<end position="512"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="520"/>
+<end position="524"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="527"/>
+<end position="529"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="535"/>
+<end position="550"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="552"/>
+<end position="555"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="560"/>
+<end position="572"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="573"/>
+<end position="575"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="595"/>
+<end position="597"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="598"/>
+<end position="606"/>
+</location>
+</feature>
+<evidence key="1" type="ECO:0000244">
+<source>
+<dbReference type="PDB" id="4WRN"/>
+</source>
+</evidence>
+<evidence key="2" type="ECO:0000250">
+<source>
+<dbReference type="UniProtKB" id="Q91X17"/>
+</source>
+</evidence>
+<evidence key="3" type="ECO:0000255"/>
+<evidence key="4" type="ECO:0000255">
+<source>
+<dbReference type="PROSITE-ProRule" id="PRU00076"/>
+</source>
+</evidence>
+<evidence key="5" type="ECO:0000255">
+<source>
+<dbReference type="PROSITE-ProRule" id="PRU00375"/>
+</source>
+</evidence>
+<evidence key="6" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="12471200"/>
+</source>
+</evidence>
+<evidence key="7" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="12629136"/>
+</source>
+</evidence>
+<evidence key="8" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="12900848"/>
+</source>
+</evidence>
+<evidence key="9" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="14531790"/>
+</source>
+</evidence>
+<evidence key="10" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="14569098"/>
+</source>
+</evidence>
+<evidence key="11" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="14570709"/>
+</source>
+</evidence>
+<evidence key="12" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="15086896"/>
+</source>
+</evidence>
+<evidence key="13" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="15575003"/>
+</source>
+</evidence>
+<evidence key="14" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="15983957"/>
+</source>
+</evidence>
+<evidence key="15" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="17010121"/>
+</source>
+</evidence>
+<evidence key="16" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="18375198"/>
+</source>
+</evidence>
+<evidence key="17" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="19005207"/>
+</source>
+</evidence>
+<evidence key="18" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="20172860"/>
+</source>
+</evidence>
+<evidence key="19" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="20798515"/>
+</source>
+</evidence>
+<evidence key="20" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="21060763"/>
+</source>
+</evidence>
+<evidence key="21" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="22171320"/>
+</source>
+</evidence>
+<evidence key="22" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2249987"/>
+</source>
+</evidence>
+<evidence key="23" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="22776760"/>
+</source>
+</evidence>
+<evidence key="24" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="23197950"/>
+</source>
+</evidence>
+<evidence key="25" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="23988501"/>
+</source>
+</evidence>
+<evidence key="26" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="25436415"/>
+</source>
+</evidence>
+<evidence key="27" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="26673890"/>
+</source>
+</evidence>
+<evidence key="28" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="26811476"/>
+</source>
+</evidence>
+<evidence key="29" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="27729211"/>
+</source>
+</evidence>
+<evidence key="30" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="3453112"/>
+</source>
+</evidence>
+<evidence key="31" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="3498215"/>
+</source>
+</evidence>
+<evidence key="32" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7028707"/>
+</source>
+</evidence>
+<evidence key="33" type="ECO:0000303">
+<source>
+<dbReference type="PubMed" id="14702039"/>
+</source>
+</evidence>
+<evidence key="34" type="ECO:0000303">
+<source>
+<dbReference type="PubMed" id="15489334"/>
+</source>
+</evidence>
+<evidence key="35" type="ECO:0000305"/>
+<sequence length="640" mass="69761" checksum="D26A07A76353AE48" modified="1988-08-01" version="1" precursor="true">
+MGQPSLTWMLMVVVASWFITTAATDTSEARWCSECHSNATCTEDEAVTTCTCQEGFTGDG
+LTCVDLDECAIPGAHNCSANSSCVNTPGSFSCVCPEGFRLSPGLGCTDVDECAEPGLSHC
+HALATCVNVVGSYLCVCPAGYRGDGWHCECSPGSCGPGLDCVPEGDALVCADPCQAHRTL
+DEYWRSTEYGEGYACDTDLRGWYRFVGQGGARMAETCVPVLRCNTAAPMWLNGTHPSSDE
+GIVSRKACAHWSGHCCLWDASVQVKACAGGYYVYNLTAPPECHLAYCTDPSSVEGTCEEC
+SIDEDCKSNNGRWHCQCKQDFNITDISLLEHRLECGANDMKVSLGKCQLKSLGFDKVFMY
+LSDSRCSGFNDRDNRDWVSVVTPARDGPCGTVLTRNETHATYSNTLYLADEIIIRDLNIK
+INFACSYPLDMKVSLKTALQPMVSALNIRVGGTGMFTVRMALFQTPSYTQPYQGSSVTLS
+TEAFLYVGTMLDGGDLSRFALLMTNCYATPSSNATDPLKYFIIQDRCPHTRDSTIQVVEN
+GESSQGRFSVQMFRFAGNYDLVYLHCEVYLCDTMNEKCKPTCSGTRFRSGSVIDQSRVLN
+LGPITRKGVQATVSRAFSSLGLLKVWLPLLLSATLTLTFQ
+</sequence>
+</entry>
+<copyright>
+Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+Distributed under the Creative Commons Attribution (CC BY 4.0) License
+</copyright>
+</uniprot>

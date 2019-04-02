@@ -1,0 +1,25 @@
+cpd:C00133	D-Alanine; D-2-Aminopropionic acid; D-Ala
+cpd:C00993	D-Alanyl-D-alanine; D-Ala-D-Ala
+cpd:C02487	(Ac)2-L-Lys-D-Ala; (Ac)2-L-lysyl-D-alanine
+cpd:C02634	3-Chloro-D-alanine
+cpd:C02638	3-Fluoro-D-alanine; (S)-3-Fluoroalanine
+cpd:C03326	(Ac)2-L-Lys-D-Ala-D-Ala; (Ac)2-L-lysyl-D-alanyl-D-alanine
+cpd:C03738	gamma-L-Glutamyl-D-alanine; L-gamma-Glutamyl-D-alanine
+cpd:C03790	N-(Carboxymethyl)-D-alanine; Strombine
+cpd:C04702	UDPMurNAc(oyl-L-Ala-D-gamma-Glu-L-Lys-D-Ala-D-Ala); UDP-N-acetylmuramoyl-L-alanyl-gamma-D-glutamyl-L-lysyl-D-alanyl-D-alanine; UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-L-lysyl-D-alanyl-D-alanine
+cpd:C04804	UDP-N-acetylmuramoyl-L-alanyl-D-gamma-glutamyl-meso-2,6-diaminopimeloyl-D-alanine; UDP-N-acetylmuramoyl-L-Ala-D-gamma-Glu-6-carboxy-L-Lys-D-Ala; UDP-N-acetylmuramoyl-L-alanyl-D-gamma-glutamyl-6-carboxy-L-lysyl-D-alanine
+cpd:C04851	MurAc(oyl-L-Ala-D-gamma-Glu-L-Lys-D-Ala-D-Ala)-diphospho-undecaprenol; Undecaprenyl-diphospho-N-acetylmuramoyl-L-alanyl-gamma-D-glutamyl-L-lysyl-D-alanyl-D-alanine
+cpd:C04882	UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-6-carboxy-L-lysyl-D-alanyl-D-alanine; UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-meso-2,6-diaminopimeloyl-D-alanyl-D-alanine; UDP-N-acetylmuramoyl-L-alanyl-D-gamma-glutamyl-6-carboxy-L-lysyl-D-alanyl-D-alanine
+cpd:C04894	UDP-N-acetylmuramoyl-L-alanyl-gamma-D-glutamyl-N6-(L-alanyl)-L-lysyl-D-alanyl-D-alanine; UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-N6-(L-alanyl)-L-lysyl-D-alanyl-D-alanine
+cpd:C04904	N-Acetyl-D-glucosaminyl-N-acetylmuramoyl-L-Ala-D-glutamyl-6-carboxy-L-lysyl-D-alanine
+cpd:C05893	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-gamma-D-glutamyl-L-lysyl-D-alanyl-D-alanine; GlcNAc-(1->4)-Mur2Ac(oyl-L-Ala-gamma-D-Glu-L-Lys-D-Ala-D-Ala)-diphosphoundecaprenol; GlcNAc-(1->4)-MurNAc(oyl-L-Ala-gamma-D-Glu-L-Lys-D-Ala-D-Ala)-diphosphoundecaprenol
+cpd:C05894	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-D-isoglutaminyl-L-lysyl-D-alanyl-D-alanine
+cpd:C05895	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-D-isoglutaminyl-L-lysyl-(glycyl)5-D-alanyl-D-alanine
+cpd:C05897	Undecaprenyl-diphospho-N-acetylmuramoyl-L-alanyl-D-glutamyl-meso-2,6-diaminopimeloyl-D-alanyl-D-alanine
+cpd:C05898	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-D-glutamyl-meso-2,6-diaminopimeloyl-D-alanyl-D-alanine
+cpd:C06432	UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-L-lysyl-D-alanine; UDP-N-acetylmuramoyl-L-alanyl-D-gamma-glutamyl-L-lysyl-D-alanine
+cpd:C11617	Pristinamycin IC; Vernamycin B gamma; 2-D-Alanine-4-[4-(dimethylamino)-N-methyl-L-phenylalanine]virginiamycin S1
+cpd:C17541	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-D-isoglutaminyl-L-lysyl-(glycyl)-D-alanyl-D-alanine; Und-PP-MurNAc-(GlcNAc)-L-Ala-D-isoglutaminyl-L-Lys-(Gly)-D-Ala-D-Ala
+cpd:C17542	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-D-isoglutaminyl-L-lysyl-(glycyl)3-D-alanyl-D-alanine; Und-PP-MurNAc-(GlcNAc)-L-Ala-D-isoglutaminyl-L-Lys-(Gly)3-D-Ala-D-Ala
+cpd:C17549	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-gamma-D-glutamyl-L-lysyl-(L-alanyl-L-alanyl)-D-alanyl-D-alanine
+cpd:C17550	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-gamma-D-glutamyl-L-lysyl-(L-alanyl)-D-alanyl-D-alanine

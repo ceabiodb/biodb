@@ -1,0 +1,2518 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
+<entry dataset="Swiss-Prot" created="1986-07-21" modified="2019-02-13" version="205">
+<accession>P02462</accession>
+<accession>A7E2W4</accession>
+<accession>B1AM70</accession>
+<accession>F5H5K0</accession>
+<accession>Q1P9S9</accession>
+<accession>Q5VWF6</accession>
+<accession>Q86X41</accession>
+<accession>Q8NF88</accession>
+<accession>Q9NYC5</accession>
+<name>CO4A1_HUMAN</name>
+<protein>
+<recommendedName>
+<fullName>Collagen alpha-1(IV) chain</fullName>
+</recommendedName>
+<component>
+<recommendedName>
+<fullName>Arresten</fullName>
+</recommendedName>
+</component>
+</protein>
+<gene>
+<name type="primary">COL4A1</name>
+</gene>
+<organism>
+<name type="scientific">Homo sapiens</name>
+<name type="common">Human</name>
+<dbReference type="NCBI Taxonomy" id="9606"/>
+<lineage>
+<taxon>Eukaryota</taxon>
+<taxon>Metazoa</taxon>
+<taxon>Chordata</taxon>
+<taxon>Craniata</taxon>
+<taxon>Vertebrata</taxon>
+<taxon>Euteleostomi</taxon>
+<taxon>Mammalia</taxon>
+<taxon>Eutheria</taxon>
+<taxon>Euarchontoglires</taxon>
+<taxon>Primates</taxon>
+<taxon>Haplorrhini</taxon>
+<taxon>Catarrhini</taxon>
+<taxon>Hominidae</taxon>
+<taxon>Homo</taxon>
+</lineage>
+</organism>
+<reference key="1">
+<citation type="journal article" date="1989" name="J. Biol. Chem." volume="264" first="13565" last="13571">
+<title>Structural organization of the gene for the alpha 1 chain of human type IV collagen.</title>
+<authorList>
+<person name="Soininen R."/>
+<person name="Huotari M."/>
+<person name="Ganguly A."/>
+<person name="Prockop D.J."/>
+<person name="Tryggvason K."/>
+</authorList>
+<dbReference type="PubMed" id="2701944"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+</reference>
+<reference key="2">
+<citation type="journal article" date="2004" name="Nature" volume="428" first="522" last="528">
+<title>The DNA sequence and analysis of human chromosome 13.</title>
+<authorList>
+<person name="Dunham A."/>
+<person name="Matthews L.H."/>
+<person name="Burton J."/>
+<person name="Ashurst J.L."/>
+<person name="Howe K.L."/>
+<person name="Ashcroft K.J."/>
+<person name="Beare D.M."/>
+<person name="Burford D.C."/>
+<person name="Hunt S.E."/>
+<person name="Griffiths-Jones S."/>
+<person name="Jones M.C."/>
+<person name="Keenan S.J."/>
+<person name="Oliver K."/>
+<person name="Scott C.E."/>
+<person name="Ainscough R."/>
+<person name="Almeida J.P."/>
+<person name="Ambrose K.D."/>
+<person name="Andrews D.T."/>
+<person name="Ashwell R.I.S."/>
+<person name="Babbage A.K."/>
+<person name="Bagguley C.L."/>
+<person name="Bailey J."/>
+<person name="Bannerjee R."/>
+<person name="Barlow K.F."/>
+<person name="Bates K."/>
+<person name="Beasley H."/>
+<person name="Bird C.P."/>
+<person name="Bray-Allen S."/>
+<person name="Brown A.J."/>
+<person name="Brown J.Y."/>
+<person name="Burrill W."/>
+<person name="Carder C."/>
+<person name="Carter N.P."/>
+<person name="Chapman J.C."/>
+<person name="Clamp M.E."/>
+<person name="Clark S.Y."/>
+<person name="Clarke G."/>
+<person name="Clee C.M."/>
+<person name="Clegg S.C."/>
+<person name="Cobley V."/>
+<person name="Collins J.E."/>
+<person name="Corby N."/>
+<person name="Coville G.J."/>
+<person name="Deloukas P."/>
+<person name="Dhami P."/>
+<person name="Dunham I."/>
+<person name="Dunn M."/>
+<person name="Earthrowl M.E."/>
+<person name="Ellington A.G."/>
+<person name="Faulkner L."/>
+<person name="Frankish A.G."/>
+<person name="Frankland J."/>
+<person name="French L."/>
+<person name="Garner P."/>
+<person name="Garnett J."/>
+<person name="Gilbert J.G.R."/>
+<person name="Gilson C.J."/>
+<person name="Ghori J."/>
+<person name="Grafham D.V."/>
+<person name="Gribble S.M."/>
+<person name="Griffiths C."/>
+<person name="Hall R.E."/>
+<person name="Hammond S."/>
+<person name="Harley J.L."/>
+<person name="Hart E.A."/>
+<person name="Heath P.D."/>
+<person name="Howden P.J."/>
+<person name="Huckle E.J."/>
+<person name="Hunt P.J."/>
+<person name="Hunt A.R."/>
+<person name="Johnson C."/>
+<person name="Johnson D."/>
+<person name="Kay M."/>
+<person name="Kimberley A.M."/>
+<person name="King A."/>
+<person name="Laird G.K."/>
+<person name="Langford C.J."/>
+<person name="Lawlor S."/>
+<person name="Leongamornlert D.A."/>
+<person name="Lloyd D.M."/>
+<person name="Lloyd C."/>
+<person name="Loveland J.E."/>
+<person name="Lovell J."/>
+<person name="Martin S."/>
+<person name="Mashreghi-Mohammadi M."/>
+<person name="McLaren S.J."/>
+<person name="McMurray A."/>
+<person name="Milne S."/>
+<person name="Moore M.J.F."/>
+<person name="Nickerson T."/>
+<person name="Palmer S.A."/>
+<person name="Pearce A.V."/>
+<person name="Peck A.I."/>
+<person name="Pelan S."/>
+<person name="Phillimore B."/>
+<person name="Porter K.M."/>
+<person name="Rice C.M."/>
+<person name="Searle S."/>
+<person name="Sehra H.K."/>
+<person name="Shownkeen R."/>
+<person name="Skuce C.D."/>
+<person name="Smith M."/>
+<person name="Steward C.A."/>
+<person name="Sycamore N."/>
+<person name="Tester J."/>
+<person name="Thomas D.W."/>
+<person name="Tracey A."/>
+<person name="Tromans A."/>
+<person name="Tubby B."/>
+<person name="Wall M."/>
+<person name="Wallis J.M."/>
+<person name="West A.P."/>
+<person name="Whitehead S.L."/>
+<person name="Willey D.L."/>
+<person name="Wilming L."/>
+<person name="Wray P.W."/>
+<person name="Wright M.W."/>
+<person name="Young L."/>
+<person name="Coulson A."/>
+<person name="Durbin R.M."/>
+<person name="Hubbard T."/>
+<person name="Sulston J.E."/>
+<person name="Beck S."/>
+<person name="Bentley D.R."/>
+<person name="Rogers J."/>
+<person name="Ross M.T."/>
+</authorList>
+<dbReference type="PubMed" id="15057823"/>
+<dbReference type="DOI" id="10.1038/nature02379"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+</reference>
+<reference key="3">
+<citation type="journal article" date="2004" name="Genome Res." volume="14" first="2121" last="2127">
+<title>The status, quality, and expansion of the NIH full-length cDNA project: the Mammalian Gene Collection (MGC).</title>
+<authorList>
+<consortium name="The MGC Project Team"/>
+</authorList>
+<dbReference type="PubMed" id="15489334"/>
+<dbReference type="DOI" id="10.1101/gr.2596504"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA] (ISOFORM 1)</scope>
+<scope>VARIANT HIS-1334</scope>
+<source>
+<tissue>Brain</tissue>
+</source>
+</reference>
+<reference key="4">
+<citation type="journal article" date="1987" name="Eur. J. Biochem." volume="168" first="529" last="536">
+<title>Completion of the amino acid sequence of the alpha 1 chain of human basement membrane collagen (type IV) reveals 21 non-triplet interruptions located within the collagenous domain.</title>
+<authorList>
+<person name="Brazel D."/>
+<person name="Oberbaeumer I."/>
+<person name="Dieringer H."/>
+<person name="Babel W."/>
+<person name="Glanville R.W."/>
+<person name="Deutzmann R."/>
+<person name="Kuehn K."/>
+</authorList>
+<dbReference type="PubMed" id="3311751"/>
+<dbReference type="DOI" id="10.1111/j.1432-1033.1987.tb13450.x"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1-943</scope>
+<source>
+<tissue>Placenta</tissue>
+</source>
+</reference>
+<reference key="5">
+<citation type="journal article" date="1988" name="J. Biol. Chem." volume="263" first="17217" last="17220">
+<title>The structural genes for alpha 1 and alpha 2 chains of human type IV collagen are divergently encoded on opposite DNA strands and have an overlapping promoter region.</title>
+<authorList>
+<person name="Soininen R."/>
+<person name="Huotari M."/>
+<person name="Hostikka S.L."/>
+<person name="Prockop D.J."/>
+<person name="Tryggvason K."/>
+</authorList>
+<dbReference type="PubMed" id="3182844"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 1-28</scope>
+</reference>
+<reference key="6">
+<citation type="journal article" date="1985" name="Eur. J. Biochem." volume="152" first="213" last="219">
+<title>Amino acid sequence of the N-terminal aggregation and cross-linking region (7S domain) of the alpha 1 (IV) chain of human basement membrane collagen.</title>
+<authorList>
+<person name="Glanville R.W."/>
+<person name="Qian R.Q."/>
+<person name="Siebold B."/>
+<person name="Risteli J."/>
+<person name="Kuehn K."/>
+</authorList>
+<dbReference type="PubMed" id="4043082"/>
+<dbReference type="DOI" id="10.1111/j.1432-1033.1985.tb09186.x"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 28-243</scope>
+</reference>
+<reference key="7">
+<citation type="journal article" date="1987" name="FEBS Lett." volume="225" first="188" last="194">
+<title>Complete primary structure of the alpha 1-chain of human basement membrane (type IV) collagen.</title>
+<authorList>
+<person name="Soininen R."/>
+<person name="Haka-Risku T."/>
+<person name="Prockop D.J."/>
+<person name="Tryggvason K."/>
+</authorList>
+<dbReference type="PubMed" id="3691802"/>
+<dbReference type="DOI" id="10.1016/0014-5793(87)81155-9"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 46-1257</scope>
+<source>
+<tissue>Placenta</tissue>
+</source>
+</reference>
+<reference key="8">
+<citation type="journal article" date="1984" name="Eur. J. Biochem." volume="143" first="545" last="556">
+<title>Structure of human-basement-membrane (type IV) collagen. Complete amino-acid sequence of a 914-residue-long pepsin fragment from the alpha 1(IV) chain.</title>
+<authorList>
+<person name="Babel W."/>
+<person name="Glanville R.W."/>
+</authorList>
+<dbReference type="PubMed" id="6434307"/>
+<dbReference type="DOI" id="10.1111/j.1432-1033.1984.tb08404.x"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 534-1447</scope>
+<scope>PROLINE HYDROXYLATION</scope>
+<scope>LYSINE HYDROXYLATION</scope>
+</reference>
+<reference key="9">
+<citation type="journal article" date="1985" name="J. Biol. Chem." volume="260" first="7681" last="7687">
+<title>cDNA clones coding for the pro-alpha1(IV) chain of human type IV procollagen reveal an unusual homology of amino acid sequences in two halves of the carboxyl-terminal domain.</title>
+<authorList>
+<person name="Pihlajaniemi T."/>
+<person name="Tryggvason K."/>
+<person name="Myers J.C."/>
+<person name="Kurkinen M."/>
+<person name="Lebo R."/>
+<person name="Cheung M.-C."/>
+<person name="Prockop D.J."/>
+<person name="Boyd C.D."/>
+</authorList>
+<dbReference type="PubMed" id="2581969"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1256-1669</scope>
+</reference>
+<reference key="10">
+<citation type="journal article" date="1985" name="Proc. Natl. Acad. Sci. U.S.A." volume="82" first="3649" last="3653">
+<title>Restricted homology between human alpha 1 type IV and other procollagen chains.</title>
+<authorList>
+<person name="Brinker J.M."/>
+<person name="Gudas L.J."/>
+<person name="Loidl H.R."/>
+<person name="Wang S.-Y."/>
+<person name="Rosenbloom J."/>
+<person name="Kefalides N.A."/>
+<person name="Myers J.C."/>
+</authorList>
+<dbReference type="PubMed" id="2582422"/>
+<dbReference type="DOI" id="10.1073/pnas.82.11.3649"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1259-1669</scope>
+</reference>
+<reference key="11">
+<citation type="journal article" date="1988" name="Eur. J. Biochem." volume="176" first="617" last="624">
+<title>The arrangement of intra- and intermolecular disulfide bonds in the carboxyterminal, non-collagenous aggregation and cross-linking domain of basement-membrane type IV collagen.</title>
+<authorList>
+<person name="Siebold B."/>
+<person name="Deutzmann R."/>
+<person name="Kuehn K."/>
+</authorList>
+<dbReference type="PubMed" id="2844531"/>
+<dbReference type="DOI" id="10.1111/j.1432-1033.1988.tb14321.x"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 1441-1669</scope>
+<scope>DISULFIDE BONDS</scope>
+<source>
+<tissue>Placenta</tissue>
+</source>
+</reference>
+<reference key="12">
+<citation type="journal article" date="2000" name="Cancer Res." volume="60" first="2520" last="2526">
+<title>Anti-angiogenic cues from vascular basement membrane collagen.</title>
+<authorList>
+<person name="Colorado P.C."/>
+<person name="Torre A."/>
+<person name="Kamphaus G."/>
+<person name="Maeshima Y."/>
+<person name="Hopfer H."/>
+<person name="Takahashi K."/>
+<person name="Volk R."/>
+<person name="Zamborsky E.D."/>
+<person name="Herman S."/>
+<person name="Sarkar P.K."/>
+<person name="Ericksen M.B."/>
+<person name="Dhanabal M."/>
+<person name="Simons M."/>
+<person name="Post M."/>
+<person name="Kufe D.W."/>
+<person name="Weichselbaum R.R."/>
+<person name="Sukhatme V.P."/>
+<person name="Kalluri R."/>
+</authorList>
+<dbReference type="PubMed" id="10811134"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1441-1669</scope>
+<scope>FUNCTION OF ARRESTEN</scope>
+<scope>TISSUE SPECIFICITY</scope>
+</reference>
+<reference key="13">
+<citation type="submission" date="2001-03" db="EMBL/GenBank/DDBJ databases">
+<title>Arresten, a collagen-derived inhibitor of angiogenesis.</title>
+<authorList>
+<person name="Fu J."/>
+<person name="Bai X."/>
+<person name="Wang W."/>
+<person name="Ruan C."/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1441-1669</scope>
+</reference>
+<reference key="14">
+<citation type="submission" date="2001-07" db="EMBL/GenBank/DDBJ databases">
+<authorList>
+<person name="Peng X."/>
+<person name="Yin B."/>
+<person name="Yuan J."/>
+<person name="Qiang B."/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1441-1669</scope>
+</reference>
+<reference key="15">
+<citation type="journal article" date="2002" name="Zhonghua Shi Yan Wai Ke Za Zhi" volume="19" first="46" last="47">
+<title>Molecular cloning and sequencing of human arresten gene.</title>
+<authorList>
+<person name="Zheng Q.C."/>
+<person name="Song Z.F."/>
+<person name="Zheng Y.W."/>
+<person name="Li Y.Q."/>
+<person name="Shu X."/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1441-1669</scope>
+</reference>
+<reference key="16">
+<citation type="submission" date="2002-08" db="EMBL/GenBank/DDBJ databases">
+<title>Cloning and expression of arresten in Escherichia coli and Pachia pastoris.</title>
+<authorList>
+<person name="He A.B."/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1441-1669</scope>
+</reference>
+<reference key="17">
+<citation type="journal article" date="2006" name="Hepatobiliary Pancreat. Dis. Int." volume="5" first="74" last="79">
+<title>Construction of recombinant plasmid and prokaryotic expression in E. coli and biological activity analysis of human placenta arresten gene.</title>
+<authorList>
+<person name="Zheng J.P."/>
+<person name="Tang H.Y."/>
+<person name="Chen X.J."/>
+<person name="Yu B.F."/>
+<person name="Xie J."/>
+<person name="Wu T.C."/>
+</authorList>
+<dbReference type="PubMed" id="16481288"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1441-1669</scope>
+<scope>FUNCTION</scope>
+<scope>TISSUE SPECIFICITY</scope>
+<source>
+<tissue>Placenta</tissue>
+</source>
+</reference>
+<reference key="18">
+<citation type="journal article" date="2005" name="J. Clin. Invest." volume="115" first="2801" last="2810">
+<title>Human alpha1 type IV collagen NC1 domain exhibits distinct antiangiogenic activity mediated by alpha1beta1 integrin.</title>
+<authorList>
+<person name="Sudhakar A."/>
+<person name="Nyberg P."/>
+<person name="Keshamouni V.G."/>
+<person name="Mannam A.P."/>
+<person name="Li J."/>
+<person name="Sugimoto H."/>
+<person name="Cosgrove D."/>
+<person name="Kalluri R."/>
+</authorList>
+<dbReference type="PubMed" id="16151532"/>
+<dbReference type="DOI" id="10.1172/JCI24813"/>
+</citation>
+<scope>IDENTIFICATION OF RECEPTOR</scope>
+<scope>FUNCTION OF ARRESTEN</scope>
+</reference>
+<reference key="19">
+<citation type="journal article" date="2008" name="Exp. Cell Res." volume="314" first="3292" last="3305">
+<title>Characterization of the anti-angiogenic properties of arresten, an alpha1beta1 integrin-dependent collagen-derived tumor suppressor.</title>
+<authorList>
+<person name="Nyberg P."/>
+<person name="Xie L."/>
+<person name="Sugimoto H."/>
+<person name="Colorado P."/>
+<person name="Sund M."/>
+<person name="Holthaus K."/>
+<person name="Sudhakar A."/>
+<person name="Salo T."/>
+<person name="Kalluri R."/>
+</authorList>
+<dbReference type="PubMed" id="18775695"/>
+<dbReference type="DOI" id="10.1016/j.yexcr.2008.08.011"/>
+</citation>
+<scope>IDENTIFICATION OF RECEPTOR</scope>
+<scope>FUNCTION OF ARRESTEN</scope>
+</reference>
+<reference key="20">
+<citation type="journal article" date="2012" name="Ann. Neurol." volume="71" first="470" last="477">
+<title>COL4A1 mutations in patients with sporadic late-onset intracerebral hemorrhage.</title>
+<authorList>
+<person name="Weng Y.C."/>
+<person name="Sonni A."/>
+<person name="Labelle-Dumais C."/>
+<person name="de Leau M."/>
+<person name="Kauffman W.B."/>
+<person name="Jeanne M."/>
+<person name="Biffi A."/>
+<person name="Greenberg S.M."/>
+<person name="Rosand J."/>
+<person name="Gould D.B."/>
+</authorList>
+<dbReference type="PubMed" id="22522439"/>
+<dbReference type="DOI" id="10.1002/ana.22682"/>
+</citation>
+<scope>INVOLVEMENT IN ICH</scope>
+<scope>VARIANTS ICH LEU-352 AND GLY-538</scope>
+<scope>VARIANTS VAL-144 AND VAL-1531</scope>
+<scope>CHARACTERIZATION OF VARIANTS ICH LEU-352 AND GLY-538</scope>
+</reference>
+<reference key="21">
+<citation type="journal article" date="2012" name="Dev. Med. Child. Neurol." volume="54" first="569" last="574">
+<title>Childhood presentation of COL4A1 mutations.</title>
+<authorList>
+<person name="Shah S."/>
+<person name="Ellard S."/>
+<person name="Kneen R."/>
+<person name="Lim M."/>
+<person name="Osborne N."/>
+<person name="Rankin J."/>
+<person name="Stoodley N."/>
+<person name="van der Knaap M."/>
+<person name="Whitney A."/>
+<person name="Jardine P."/>
+</authorList>
+<dbReference type="PubMed" id="22574627"/>
+<dbReference type="DOI" id="10.1111/j.1469-8749.2011.04198.x"/>
+</citation>
+<scope>INVOLVEMENT IN BSVD</scope>
+<scope>VARIANTS BSVD ARG-755; ARG-773; ASP-882 AND ARG-1266</scope>
+</reference>
+<reference key="22">
+<citation type="journal article" date="2013" name="Am. J. Ophthalmol." volume="155" first="946" last="953">
+<title>Variants of anterior segment dysgenesis and cerebral involvement in a large family with a novel COL4A1 mutation.</title>
+<authorList>
+<person name="Rodahl E."/>
+<person name="Knappskog P.M."/>
+<person name="Majewski J."/>
+<person name="Johansson S."/>
+<person name="Telstad W."/>
+<person name="Krakenes J."/>
+<person name="Boman H."/>
+</authorList>
+<dbReference type="PubMed" id="23394911"/>
+<dbReference type="DOI" id="10.1016/j.ajo.2012.11.028"/>
+</citation>
+<scope>INVOLVEMENT IN BSVD</scope>
+<scope>VARIANT BSVD LYS-1627</scope>
+</reference>
+<reference key="23">
+<citation type="journal article" date="2013" name="Ann. Neurol." volume="73" first="48" last="57">
+<title>Phenotypic spectrum of COL4A1 mutations: porencephaly to schizencephaly.</title>
+<authorList>
+<person name="Yoneda Y."/>
+<person name="Haginoya K."/>
+<person name="Kato M."/>
+<person name="Osaka H."/>
+<person name="Yokochi K."/>
+<person name="Arai H."/>
+<person name="Kakita A."/>
+<person name="Yamamoto T."/>
+<person name="Otsuki Y."/>
+<person name="Shimizu S."/>
+<person name="Wada T."/>
+<person name="Koyama N."/>
+<person name="Mino Y."/>
+<person name="Kondo N."/>
+<person name="Takahashi S."/>
+<person name="Hirabayashi S."/>
+<person name="Takanashi J."/>
+<person name="Okumura A."/>
+<person name="Kumagai T."/>
+<person name="Hirai S."/>
+<person name="Nabetani M."/>
+<person name="Saitoh S."/>
+<person name="Hattori A."/>
+<person name="Yamasaki M."/>
+<person name="Kumakura A."/>
+<person name="Sugo Y."/>
+<person name="Nishiyama K."/>
+<person name="Miyatake S."/>
+<person name="Tsurusaki Y."/>
+<person name="Doi H."/>
+<person name="Miyake N."/>
+<person name="Matsumoto N."/>
+<person name="Saitsu H."/>
+</authorList>
+<dbReference type="PubMed" id="23225343"/>
+<dbReference type="DOI" id="10.1002/ana.23736"/>
+</citation>
+<scope>INVOLVEMENT IN SCHZ</scope>
+<scope>VARIANTS SCHZC ARG-655; ARG-870; SER-897; SER-948; GLU-1041; GLU-1082; ARG-1326; ASP-1332 AND LYS-1615</scope>
+</reference>
+<reference key="24">
+<citation type="journal article" date="2014" name="Graefes Arch. Clin. Exp. Ophthalmol." volume="252" first="1789" last="1794">
+<title>Next generation sequencing uncovers a missense mutation in COL4A1 as the cause of familial retinal arteriolar tortuosity.</title>
+<authorList>
+<person name="Zenteno J.C."/>
+<person name="Crespi J."/>
+<person name="Buentello-Volante B."/>
+<person name="Buil J.A."/>
+<person name="Bassaganyas F."/>
+<person name="Vela-Segarra J.I."/>
+<person name="Diaz-Cascajosa J."/>
+<person name="Marieges M.T."/>
+</authorList>
+<dbReference type="PubMed" id="25228067"/>
+<dbReference type="DOI" id="10.1007/s00417-014-2800-6"/>
+</citation>
+<scope>INVOLVEMENT IN RATOR</scope>
+<scope>VARIANT RATOR ARG-510</scope>
+</reference>
+<reference key="25">
+<citation type="journal article" date="2014" name="Clin. Genet." volume="86" first="475" last="481">
+<title>Whole exome analysis identifies dominant COL4A1 mutations in patients with complex ocular phenotypes involving microphthalmia.</title>
+<authorList>
+<person name="Deml B."/>
+<person name="Reis L.M."/>
+<person name="Maheshwari M."/>
+<person name="Griffis C."/>
+<person name="Bick D."/>
+<person name="Semina E.V."/>
+</authorList>
+<dbReference type="PubMed" id="24628545"/>
+<dbReference type="DOI" id="10.1111/cge.12379"/>
+</citation>
+<scope>INVOLVEMENT IN BSVD</scope>
+<scope>VARIANTS BSVD ARG-708 AND ARG-773</scope>
+</reference>
+<reference key="26">
+<citation type="journal article" date="2002" name="Proc. Natl. Acad. Sci. U.S.A." volume="99" first="6607" last="6612">
+<title>The 1.9-A crystal structure of the noncollagenous (NC1) domain of human placenta collagen IV shows stabilization via a novel type of covalent Met-Lys cross-link.</title>
+<authorList>
+<person name="Than M.E."/>
+<person name="Henrich S."/>
+<person name="Huber R."/>
+<person name="Ries A."/>
+<person name="Mann K."/>
+<person name="Kuhn K."/>
+<person name="Timpl R."/>
+<person name="Bourenkov G.P."/>
+<person name="Bartunik H.D."/>
+<person name="Bode W."/>
+</authorList>
+<dbReference type="PubMed" id="12011424"/>
+<dbReference type="DOI" id="10.1073/pnas.062183499"/>
+</citation>
+<scope>X-RAY CRYSTALLOGRAPHY (1.9 ANGSTROMS) OF 1441-1669</scope>
+<scope>ADDITIONAL INTERCHAIN LINKS</scope>
+</reference>
+<reference key="27">
+<citation type="journal article" date="2005" name="Science" volume="308" first="1167" last="1171">
+<title>Mutations in Col4a1 cause perinatal cerebral hemorrhage and porencephaly.</title>
+<authorList>
+<person name="Gould D.B."/>
+<person name="Phalan F.C."/>
+<person name="Breedveld G.J."/>
+<person name="van Mil S.E."/>
+<person name="Smith R.S."/>
+<person name="Schimenti J.C."/>
+<person name="Aguglia U."/>
+<person name="van der Knaap M.S."/>
+<person name="Heutink P."/>
+<person name="John S.W.M."/>
+</authorList>
+<dbReference type="PubMed" id="15905400"/>
+<dbReference type="DOI" id="10.1126/science.1109418"/>
+</citation>
+<scope>VARIANTS POREN1 SER-749 AND ARG-1236</scope>
+</reference>
+<reference key="28">
+<citation type="journal article" date="2006" name="J. Med. Genet." volume="43" first="490" last="495">
+<title>Novel mutations in three families confirm a major role of COL4A1 in hereditary porencephaly.</title>
+<authorList>
+<person name="Breedveld G."/>
+<person name="de Coo I.F."/>
+<person name="Lequin M.H."/>
+<person name="Arts W.F.M."/>
+<person name="Heutink P."/>
+<person name="Gould D.B."/>
+<person name="John S.W.M."/>
+<person name="Oostra B."/>
+<person name="Mancini G.M.S."/>
+</authorList>
+<dbReference type="PubMed" id="16107487"/>
+<dbReference type="DOI" id="10.1136/jmg.2005.035584"/>
+</citation>
+<scope>VARIANTS POREN1 ASP-1130 AND ARG-1423</scope>
+</reference>
+<reference key="29">
+<citation type="journal article" date="2006" name="N. Engl. J. Med." volume="354" first="1489" last="1496">
+<title>Role of COL4A1 in small-vessel disease and hemorrhagic stroke.</title>
+<authorList>
+<person name="Gould D.B."/>
+<person name="Phalan F.C."/>
+<person name="van Mil S.E."/>
+<person name="Sundberg J.P."/>
+<person name="Vahedi K."/>
+<person name="Massin P."/>
+<person name="Bousser M.G."/>
+<person name="Heutink P."/>
+<person name="Miner J.H."/>
+<person name="Tournier-Lasserve E."/>
+<person name="John S.W.M."/>
+</authorList>
+<dbReference type="PubMed" id="16598045"/>
+<dbReference type="DOI" id="10.1056/NEJMoa053727"/>
+</citation>
+<scope>VARIANT BSVD GLU-562</scope>
+</reference>
+<reference key="30">
+<citation type="journal article" date="2007" name="Ann. Neurol." volume="62" first="177" last="184">
+<title>COL4A1 mutation in Axenfeld-Rieger anomaly with leukoencephalopathy and stroke.</title>
+<authorList>
+<person name="Sibon I."/>
+<person name="Coupry I."/>
+<person name="Menegon P."/>
+<person name="Bouchet J.P."/>
+<person name="Gorry P."/>
+<person name="Burgelin I."/>
+<person name="Calvas P."/>
+<person name="Orignac I."/>
+<person name="Dousset V."/>
+<person name="Lacombe D."/>
+<person name="Orgogozo J.M."/>
+<person name="Arveiler B."/>
+<person name="Goizet C."/>
+</authorList>
+<dbReference type="PubMed" id="17696175"/>
+<dbReference type="DOI" id="10.1002/ana.21191"/>
+</citation>
+<scope>VARIANT BSVD ASP-720</scope>
+</reference>
+<reference key="31">
+<citation type="journal article" date="2007" name="N. Engl. J. Med." volume="357" first="2687" last="2695">
+<title>COL4A1 mutations and hereditary angiopathy, nephropathy, aneurysms, and muscle cramps.</title>
+<authorList>
+<person name="Plaisier E."/>
+<person name="Gribouval O."/>
+<person name="Alamowitch S."/>
+<person name="Mougenot B."/>
+<person name="Prost C."/>
+<person name="Verpont M.C."/>
+<person name="Marro B."/>
+<person name="Desmettre T."/>
+<person name="Cohen S.Y."/>
+<person name="Roullet E."/>
+<person name="Dracon M."/>
+<person name="Fardeau M."/>
+<person name="Van Agtmael T."/>
+<person name="Kerjaschki D."/>
+<person name="Antignac C."/>
+<person name="Ronco P."/>
+</authorList>
+<dbReference type="PubMed" id="18160688"/>
+<dbReference type="DOI" id="10.1056/NEJMoa071906"/>
+</citation>
+<scope>VARIANTS HANAC VAL-498; ARG-519 AND GLU-528</scope>
+</reference>
+<reference key="32">
+<citation type="journal article" date="2007" name="Stroke" volume="38" first="1461" last="1464">
+<title>COL4A1 mutation in a patient with sporadic, recurrent intracerebral hemorrhage.</title>
+<authorList>
+<person name="Vahedi K."/>
+<person name="Kubis N."/>
+<person name="Boukobza M."/>
+<person name="Arnoult M."/>
+<person name="Massin P."/>
+<person name="Tournier-Lasserve E."/>
+<person name="Bousser M.G."/>
+</authorList>
+<dbReference type="PubMed" id="17379824"/>
+<dbReference type="DOI" id="10.1161/STROKEAHA.106.475194"/>
+</citation>
+<scope>VARIANT BSVD ARG-805</scope>
+</reference>
+<reference key="33">
+<citation type="journal article" date="2009" name="Ann. Neurol." volume="65" first="12" last="18">
+<title>COL4A1 mutation in two preterm siblings with antenatal onset of parenchymal hemorrhage.</title>
+<authorList>
+<person name="de Vries L.S."/>
+<person name="Koopman C."/>
+<person name="Groenendaal F."/>
+<person name="Van Schooneveld M."/>
+<person name="Verheijen F.W."/>
+<person name="Verbeek E."/>
+<person name="Witkamp T.D."/>
+<person name="van der Worp H.B."/>
+<person name="Mancini G."/>
+</authorList>
+<dbReference type="PubMed" id="19194877"/>
+<dbReference type="DOI" id="10.1002/ana.21525"/>
+</citation>
+<scope>VARIANT POREN1 ARG-1580</scope>
+</reference>
+<reference key="34">
+<citation type="journal article" date="2010" name="Am. J. Med. Genet. A" volume="152" first="2550" last="2555">
+<title>Novel COL4A1 mutations associated with HANAC syndrome: a role for the triple helical CB3[IV] domain.</title>
+<authorList>
+<person name="Plaisier E."/>
+<person name="Chen Z."/>
+<person name="Gekeler F."/>
+<person name="Benhassine S."/>
+<person name="Dahan K."/>
+<person name="Marro B."/>
+<person name="Alamowitch S."/>
+<person name="Paques M."/>
+<person name="Ronco P."/>
+</authorList>
+<dbReference type="PubMed" id="20818663"/>
+<dbReference type="DOI" id="10.1002/ajmg.a.33659"/>
+</citation>
+<scope>VARIANTS HANAC ARG-498; ARG-510 AND LEU-525</scope>
+</reference>
+<reference key="35">
+<citation type="journal article" date="2010" name="Arch. Ophthalmol." volume="128" first="483" last="489">
+<title>Ophthalmological features associated with COL4A1 mutations.</title>
+<authorList>
+<person name="Coupry I."/>
+<person name="Sibon I."/>
+<person name="Mortemousque B."/>
+<person name="Rouanet F."/>
+<person name="Mine M."/>
+<person name="Goizet C."/>
+</authorList>
+<dbReference type="PubMed" id="20385946"/>
+<dbReference type="DOI" id="10.1001/archophthalmol.2010.42"/>
+</citation>
+<scope>VARIANTS BSVD ASP-720 AND ARG-755</scope>
+</reference>
+<reference key="36">
+<citation type="journal article" date="2010" name="Eur. J. Paediatr. Neurol." volume="14" first="182" last="187">
+<title>A dominantly inherited mutation in collagen IV A1 (COL4A1) causing childhood onset stroke without porencephaly.</title>
+<authorList>
+<person name="Shah S."/>
+<person name="Kumar Y."/>
+<person name="McLean B."/>
+<person name="Churchill A."/>
+<person name="Stoodley N."/>
+<person name="Rankin J."/>
+<person name="Rizzu P."/>
+<person name="van der Knaap M."/>
+<person name="Jardine P."/>
+</authorList>
+<dbReference type="PubMed" id="19477666"/>
+<dbReference type="DOI" id="10.1016/j.ejpn.2009.04.010"/>
+</citation>
+<scope>VARIANT BSVD ARG-755</scope>
+</reference>
+<reference key="37">
+<citation type="journal article" date="2011" name="Mol. Vis." volume="17" first="827" last="843">
+<title>Sequence variants in COL4A1 and COL4A2 genes in Ecuadorian families with keratoconus.</title>
+<authorList>
+<person name="Karolak J.A."/>
+<person name="Kulinska K."/>
+<person name="Nowak D.M."/>
+<person name="Pitarque J.A."/>
+<person name="Molinari A."/>
+<person name="Rydzanicz M."/>
+<person name="Bejjani B.A."/>
+<person name="Gajecka M."/>
+</authorList>
+<dbReference type="PubMed" id="21527998"/>
+</citation>
+<scope>VARIANTS LEU-7 AND HIS-1334</scope>
+</reference>
+<comment type="function">
+<text evidence="2">Type IV collagen is the major structural component of glomerular basement membranes (GBM), forming a 'chicken-wire' meshwork together with laminins, proteoglycans and entactin/nidogen.</text>
+</comment>
+<comment type="function">
+<text evidence="5 10 16">Arresten, comprising the C-terminal NC1 domain, inhibits angiogenesis and tumor formation. The C-terminal half is found to possess the anti-angiogenic activity. Specifically inhibits endothelial cell proliferation, migration and tube formation. Inhibits expression of hypoxia-inducible factor 1alpha and ERK1/2 and p38 MAPK activation. Ligand for alpha1/beta1 integrin.</text>
+</comment>
+<comment type="subunit">
+<text evidence="3">There are six type IV collagen isoforms, alpha 1(IV)-alpha 6(IV), each of which can form a triple helix structure with 2 other chains to generate type IV collagen network.</text>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-2432478"/>
+<interactant intactId="EBI-2432506">
+<id>P08572</id>
+<label>COL4A2</label>
+</interactant>
+<organismsDiffer>false</organismsDiffer>
+<experiments>2</experiments>
+</comment>
+<comment type="subcellular location">
+<subcellularLocation>
+<location evidence="2">Secreted</location>
+<location evidence="2">Extracellular space</location>
+<location evidence="2">Extracellular matrix</location>
+<location evidence="2">Basement membrane</location>
+</subcellularLocation>
+</comment>
+<comment type="alternative products">
+<event type="alternative splicing"/>
+<isoform>
+<id>P02462-1</id>
+<name>1</name>
+<sequence type="displayed"/>
+</isoform>
+<isoform>
+<id>P02462-2</id>
+<name>2</name>
+<sequence type="described" ref="VSP_059564 VSP_059565"/>
+<text>Gene prediction based on EST data.</text>
+</isoform>
+</comment>
+<comment type="tissue specificity">
+<text evidence="5 11">Highly expressed in placenta.</text>
+</comment>
+<comment type="domain">
+<text evidence="31">Alpha chains of type IV collagen have a non-collagenous domain (NC1) at their C-terminus, frequent interruptions of the G-X-Y repeats in the long central triple-helical domain (which may cause flexibility in the triple helix), and a short N-terminal triple-helical 7S domain.</text>
+</comment>
+<comment type="PTM">
+<text evidence="30">Lysines at the third position of the tripeptide repeating unit (G-X-Y) are hydroxylated. The modified lysines can be O-glycosylated.</text>
+</comment>
+<comment type="PTM">
+<text evidence="2 32">Contains 4-hydroxyproline (Probable). Prolines at the third position of the tripeptide repeating unit (G-X-Y) are hydroxylated in some or all of the chains (By similarity).</text>
+</comment>
+<comment type="PTM">
+<text evidence="2 3">Contains 3-hydroxyproline. This modification occurs on the first proline residue in the sequence motif Gly-Pro-Hyp, where Hyp is 4-hydroxyproline.</text>
+</comment>
+<comment type="PTM">
+<text evidence="28 31">Type IV collagens contain numerous cysteine residues which are involved in inter- and intramolecular disulfide bonding (PubMed:2844531). 12 of these, located in the NC1 domain, are conserved in all known type IV collagens.</text>
+</comment>
+<comment type="PTM">
+<text evidence="2 6">The trimeric structure of the NC1 domains is stabilized by covalent bonds (sulfilimine cross-links) between Lys and Met residues (PubMed:12011424). These cross-links are important for the mechanical stability of the basement membrane (By similarity).</text>
+</comment>
+<comment type="PTM">
+<text evidence="5">Proteolytic processing produces the C-terminal NC1 peptide, arresten.</text>
+</comment>
+<comment type="disease" evidence="12 13 14 18 19 23 25 26">
+<disease id="DI-01293">
+<name>Brain small vessel disease with or without ocular anomalies</name>
+<acronym>BSVD</acronym>
+<description>An autosomal dominant disease characterized by weakening of the blood vessels in the brain and retinal arteriolar tortuosity. In affected individuals, stroke is often the first symptom and is usually caused by bleeding in the brain (hemorrhagic stroke) rather than a lack of blood flow in the brain (ischemic stroke). Patients also have leukoencephalopathy and may experience seizures and migraine headaches accompanied by visual sensations known as auras.</description>
+<dbReference type="MIM" id="607595"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="15 20">
+<disease id="DI-01710">
+<name>Hereditary angiopathy with nephropathy aneurysms and muscle cramps</name>
+<acronym>HANAC</acronym>
+<description>The clinical renal manifestations include hematuria and bilateral large cysts. Histologic analysis revealed complex basement membrane defects in kidney and skin. The systemic angiopathy appears to affect both small vessels and large arteries.</description>
+<dbReference type="MIM" id="611773"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="8 9 17">
+<disease id="DI-02182">
+<name>Porencephaly 1</name>
+<acronym>POREN1</acronym>
+<description>A neurologic disorder characterized by a fluid-filled cysts or cavities within the cerebral hemispheres, neurologic manifestations, facial paresis, and visual defects. Affected individuals typically have hemiplegia, seizures, and intellectual disability. Porencephaly type 1 is usually unilateral and results from focal destructive lesions such as fetal vascular occlusion or birth trauma.</description>
+<dbReference type="MIM" id="175780"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="22">
+<disease id="DI-03406">
+<name>Intracerebral hemorrhage</name>
+<acronym>ICH</acronym>
+<description>A pathological condition characterized by bleeding into one or both cerebral hemispheres including the basal ganglia and the cerebral cortex. It is often associated with hypertension and craniocerebral trauma. Intracerebral bleeding is a common cause of stroke.</description>
+<dbReference type="MIM" id="614519"/>
+</disease>
+<text>Disease susceptibility is associated with variations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="27">
+<disease id="DI-04437">
+<name>Tortuosity of retinal arteries</name>
+<acronym>RATOR</acronym>
+<description>A disease characterized by marked tortuosity of second- and third-order retinal arteries with normal first-order arteries and venous system. Most patients manifest variable degrees of symptomatic transient vision loss due to retinal hemorrhage following minor stress or trauma.</description>
+<dbReference type="MIM" id="180000"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="disease" evidence="24">
+<disease id="DI-02284">
+<name>Schizencephaly</name>
+<acronym>SCHZC</acronym>
+<description>Extremely rare human congenital disorder characterized by a full-thickness cleft within the cerebral hemispheres. These clefts are lined with gray matter and most commonly involve the parasylvian regions. Large portions of the cerebral hemispheres may be absent and replaced by cerebro-spinal fluid.</description>
+<dbReference type="MIM" id="269160"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="similarity">
+<text evidence="4">Belongs to the type IV collagen family.</text>
+</comment>
+<dbReference type="EMBL" id="M26576">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="J04217">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26550">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26540">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26542">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26543">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26544">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26545">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26546">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26547">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26537">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26538">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26548">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26549">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26551">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26552">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26553">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26554">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26555">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26556">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26557">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26539">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26558">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26559">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26560">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26561">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26562">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26536">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26563">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26541">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26564">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26565">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26566">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26567">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26568">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26569">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26570">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26571">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26572">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26573">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26574">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26575">
+<property type="protein sequence ID" value="AAA53098.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AL161773">
+<property type="status" value="NOT_ANNOTATED_CDS"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AL390755">
+<property type="status" value="NOT_ANNOTATED_CDS"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="KF455822">
+<property type="status" value="NOT_ANNOTATED_CDS"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="BC047305">
+<property type="protein sequence ID" value="AAH47305.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="BC151220">
+<property type="protein sequence ID" value="AAI51221.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="X05561">
+<property type="protein sequence ID" value="CAA29075.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="Y00706">
+<property type="protein sequence ID" value="CAA68698.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M10940">
+<property type="protein sequence ID" value="AAA52006.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M11315">
+<property type="protein sequence ID" value="AAA52042.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AF258349">
+<property type="protein sequence ID" value="AAF72630.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AF363672">
+<property type="protein sequence ID" value="AAK53382.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AF400431">
+<property type="protein sequence ID" value="AAK92480.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY285780">
+<property type="protein sequence ID" value="AAP43112.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AF536207">
+<property type="protein sequence ID" value="AAM97359.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="DQ464183">
+<property type="protein sequence ID" value="ABE73157.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="CCDS" id="CCDS76649.1">
+<molecule id="P02462-2"/>
+</dbReference>
+<dbReference type="CCDS" id="CCDS9511.1">
+<molecule id="P02462-1"/>
+</dbReference>
+<dbReference type="PIR" id="S16876">
+<property type="entry name" value="CGHU4B"/>
+</dbReference>
+<dbReference type="RefSeq" id="NP_001290039.1">
+<molecule id="P02462-2"/>
+<property type="nucleotide sequence ID" value="NM_001303110.1"/>
+</dbReference>
+<dbReference type="RefSeq" id="NP_001836.3">
+<molecule id="P02462-1"/>
+<property type="nucleotide sequence ID" value="NM_001845.5"/>
+</dbReference>
+<dbReference type="UniGene" id="Hs.17441"/>
+<dbReference type="PDB" id="1LI1">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="1.90"/>
+<property type="chains" value="A/B/D/E=1441-1669"/>
+</dbReference>
+<dbReference type="PDB" id="5NAX">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="2.82"/>
+<property type="chains" value="A/B/D/F=1441-1669"/>
+</dbReference>
+<dbReference type="PDB" id="5NAY">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="1.80"/>
+<property type="chains" value="A/B/C/D/E/F=1441-1669"/>
+</dbReference>
+<dbReference type="PDBsum" id="1LI1"/>
+<dbReference type="PDBsum" id="5NAX"/>
+<dbReference type="PDBsum" id="5NAY"/>
+<dbReference type="ProteinModelPortal" id="P02462"/>
+<dbReference type="SMR" id="P02462"/>
+<dbReference type="BioGrid" id="107679">
+<property type="interactions" value="24"/>
+</dbReference>
+<dbReference type="ComplexPortal" id="CPX-1723">
+<property type="entry name" value="Collagen type IV trimer variant 1"/>
+</dbReference>
+<dbReference type="IntAct" id="P02462">
+<property type="interactions" value="26"/>
+</dbReference>
+<dbReference type="MINT" id="P02462"/>
+<dbReference type="STRING" id="9606.ENSP00000364979"/>
+<dbReference type="ChEMBL" id="CHEMBL2364188"/>
+<dbReference type="iPTMnet" id="P02462"/>
+<dbReference type="PhosphoSitePlus" id="P02462"/>
+<dbReference type="SwissPalm" id="P02462"/>
+<dbReference type="BioMuta" id="COL4A1"/>
+<dbReference type="DMDM" id="125987809"/>
+<dbReference type="EPD" id="P02462"/>
+<dbReference type="jPOST" id="P02462"/>
+<dbReference type="PaxDb" id="P02462"/>
+<dbReference type="PeptideAtlas" id="P02462"/>
+<dbReference type="PRIDE" id="P02462"/>
+<dbReference type="ProteomicsDB" id="51524"/>
+<dbReference type="ProteomicsDB" id="51525">
+<molecule id="P02462-2"/>
+</dbReference>
+<dbReference type="Ensembl" id="ENST00000375820">
+<molecule id="P02462-1"/>
+<property type="protein sequence ID" value="ENSP00000364979"/>
+<property type="gene ID" value="ENSG00000187498"/>
+</dbReference>
+<dbReference type="Ensembl" id="ENST00000543140">
+<molecule id="P02462-2"/>
+<property type="protein sequence ID" value="ENSP00000443348"/>
+<property type="gene ID" value="ENSG00000187498"/>
+</dbReference>
+<dbReference type="GeneID" id="1282"/>
+<dbReference type="KEGG" id="hsa:1282"/>
+<dbReference type="UCSC" id="uc001vqw.4">
+<molecule id="P02462-1"/>
+<property type="organism name" value="human"/>
+</dbReference>
+<dbReference type="CTD" id="1282"/>
+<dbReference type="DisGeNET" id="1282"/>
+<dbReference type="EuPathDB" id="HostDB:ENSG00000187498.14"/>
+<dbReference type="GeneCards" id="COL4A1"/>
+<dbReference type="GeneReviews" id="COL4A1"/>
+<dbReference type="HGNC" id="HGNC:2202">
+<property type="gene designation" value="COL4A1"/>
+</dbReference>
+<dbReference type="HPA" id="CAB001695"/>
+<dbReference type="HPA" id="HPA054039"/>
+<dbReference type="MalaCards" id="COL4A1"/>
+<dbReference type="MIM" id="120130">
+<property type="type" value="gene"/>
+</dbReference>
+<dbReference type="MIM" id="175780">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="180000">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="269160">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="607595">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="611773">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="MIM" id="614519">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="neXtProt" id="NX_P02462"/>
+<dbReference type="OpenTargets" id="ENSG00000187498"/>
+<dbReference type="Orphanet" id="36383">
+<property type="disease" value="COL4A1-related familial vascular leukoencephalopathy"/>
+</dbReference>
+<dbReference type="Orphanet" id="99810">
+<property type="disease" value="Familial porencephaly"/>
+</dbReference>
+<dbReference type="Orphanet" id="481986">
+<property type="disease" value="Familial schizencephaly"/>
+</dbReference>
+<dbReference type="Orphanet" id="73229">
+<property type="disease" value="HANAC syndrome"/>
+</dbReference>
+<dbReference type="Orphanet" id="477749">
+<property type="disease" value="Pontine autosomal dominant microangiopathy with leukoencephalopathy"/>
+</dbReference>
+<dbReference type="Orphanet" id="75326">
+<property type="disease" value="Retinal arterial tortuosity"/>
+</dbReference>
+<dbReference type="Orphanet" id="899">
+<property type="disease" value="Walker-Warburg syndrome"/>
+</dbReference>
+<dbReference type="PharmGKB" id="PA26717"/>
+<dbReference type="eggNOG" id="KOG3544">
+<property type="taxonomic scope" value="Eukaryota"/>
+</dbReference>
+<dbReference type="eggNOG" id="ENOG410XNMM">
+<property type="taxonomic scope" value="LUCA"/>
+</dbReference>
+<dbReference type="GeneTree" id="ENSGT00940000157678"/>
+<dbReference type="HOVERGEN" id="HBG004933"/>
+<dbReference type="InParanoid" id="P02462"/>
+<dbReference type="KO" id="K06237"/>
+<dbReference type="OMA" id="DPQCPPG"/>
+<dbReference type="OrthoDB" id="63831at2759"/>
+<dbReference type="PhylomeDB" id="P02462"/>
+<dbReference type="TreeFam" id="TF316865"/>
+<dbReference type="Reactome" id="R-HSA-1442490">
+<property type="pathway name" value="Collagen degradation"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-1474244">
+<property type="pathway name" value="Extracellular matrix organization"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-1650814">
+<property type="pathway name" value="Collagen biosynthesis and modifying enzymes"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-186797">
+<property type="pathway name" value="Signaling by PDGF"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-2022090">
+<property type="pathway name" value="Assembly of collagen fibrils and other multimeric structures"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-216083">
+<property type="pathway name" value="Integrin cell surface interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-2214320">
+<property type="pathway name" value="Anchoring fibril formation"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-2243919">
+<property type="pathway name" value="Crosslinking of collagen fibrils"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000157">
+<property type="pathway name" value="Laminin interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000171">
+<property type="pathway name" value="Non-integrin membrane-ECM interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000178">
+<property type="pathway name" value="ECM proteoglycans"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000480">
+<property type="pathway name" value="Scavenging by Class A Receptors"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-419037">
+<property type="pathway name" value="NCAM1 interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-8948216">
+<property type="pathway name" value="Collagen chain trimerization"/>
+</dbReference>
+<dbReference type="SIGNOR" id="P02462"/>
+<dbReference type="ChiTaRS" id="COL4A1">
+<property type="organism name" value="human"/>
+</dbReference>
+<dbReference type="EvolutionaryTrace" id="P02462"/>
+<dbReference type="GeneWiki" id="Collagen,_type_IV,_alpha_1"/>
+<dbReference type="GenomeRNAi" id="1282"/>
+<dbReference type="PRO" id="PR:P02462"/>
+<dbReference type="Proteomes" id="UP000005640">
+<property type="component" value="Chromosome 13"/>
+</dbReference>
+<dbReference type="Bgee" id="ENSG00000187498">
+<property type="expression patterns" value="Expressed in 229 organ(s), highest expression level in visceral pleura"/>
+</dbReference>
+<dbReference type="ExpressionAtlas" id="P02462">
+<property type="expression patterns" value="baseline and differential"/>
+</dbReference>
+<dbReference type="Genevisible" id="P02462">
+<property type="organism ID" value="HS"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005604">
+<property type="term" value="C:basement membrane"/>
+<property type="evidence" value="ECO:0000305"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005587">
+<property type="term" value="C:collagen type IV trimer"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0062023">
+<property type="term" value="C:collagen-containing extracellular matrix"/>
+<property type="evidence" value="ECO:0007005"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005788">
+<property type="term" value="C:endoplasmic reticulum lumen"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0031012">
+<property type="term" value="C:extracellular matrix"/>
+<property type="evidence" value="ECO:0000318"/>
+<property type="project" value="GO_Central"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005576">
+<property type="term" value="C:extracellular region"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005615">
+<property type="term" value="C:extracellular space"/>
+<property type="evidence" value="ECO:0000318"/>
+<property type="project" value="GO_Central"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005201">
+<property type="term" value="F:extracellular matrix structural constituent"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030020">
+<property type="term" value="F:extracellular matrix structural constituent conferring tensile strength"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0048407">
+<property type="term" value="F:platelet-derived growth factor binding"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="MGI"/>
+</dbReference>
+<dbReference type="GO" id="GO:0071711">
+<property type="term" value="P:basement membrane organization"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0048514">
+<property type="term" value="P:blood vessel morphogenesis"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007420">
+<property type="term" value="P:brain development"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0001569">
+<property type="term" value="P:branching involved in blood vessel morphogenesis"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0071230">
+<property type="term" value="P:cellular response to amino acid stimulus"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0038063">
+<property type="term" value="P:collagen-activated tyrosine kinase receptor signaling pathway"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030855">
+<property type="term" value="P:epithelial cell differentiation"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030198">
+<property type="term" value="P:extracellular matrix organization"/>
+<property type="evidence" value="ECO:0000318"/>
+<property type="project" value="GO_Central"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007528">
+<property type="term" value="P:neuromuscular junction development"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0061333">
+<property type="term" value="P:renal tubule morphogenesis"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0061304">
+<property type="term" value="P:retinal blood vessel morphogenesis"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="Gene3D" id="2.170.240.10">
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR008160">
+<property type="entry name" value="Collagen"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR001442">
+<property type="entry name" value="Collagen_IV_NC"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR036954">
+<property type="entry name" value="Collagen_IV_NC_sf"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR016187">
+<property type="entry name" value="CTDL_fold"/>
+</dbReference>
+<dbReference type="Pfam" id="PF01413">
+<property type="entry name" value="C4"/>
+<property type="match status" value="2"/>
+</dbReference>
+<dbReference type="Pfam" id="PF01391">
+<property type="entry name" value="Collagen"/>
+<property type="match status" value="16"/>
+</dbReference>
+<dbReference type="SMART" id="SM00111">
+<property type="entry name" value="C4"/>
+<property type="match status" value="2"/>
+</dbReference>
+<dbReference type="SUPFAM" id="SSF56436">
+<property type="entry name" value="SSF56436"/>
+<property type="match status" value="2"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS51403">
+<property type="entry name" value="NC1_IV"/>
+<property type="match status" value="1"/>
+</dbReference>
+<proteinExistence type="evidence at protein level"/>
+<keyword id="KW-0002">3D-structure</keyword>
+<keyword id="KW-0025">Alternative splicing</keyword>
+<keyword id="KW-0037">Angiogenesis</keyword>
+<keyword id="KW-0084">Basement membrane</keyword>
+<keyword id="KW-0176">Collagen</keyword>
+<keyword id="KW-0181">Complete proteome</keyword>
+<keyword id="KW-0903">Direct protein sequencing</keyword>
+<keyword id="KW-0225">Disease mutation</keyword>
+<keyword id="KW-1015">Disulfide bond</keyword>
+<keyword id="KW-0272">Extracellular matrix</keyword>
+<keyword id="KW-0325">Glycoprotein</keyword>
+<keyword id="KW-0379">Hydroxylation</keyword>
+<keyword id="KW-0621">Polymorphism</keyword>
+<keyword id="KW-1185">Reference proteome</keyword>
+<keyword id="KW-0677">Repeat</keyword>
+<keyword id="KW-0964">Secreted</keyword>
+<keyword id="KW-0732">Signal</keyword>
+<feature type="signal peptide" evidence="29">
+<location>
+<begin position="1"/>
+<end position="27"/>
+</location>
+</feature>
+<feature type="propeptide" description="N-terminal propeptide (7S domain)" id="PRO_0000005748">
+<location>
+<begin position="28"/>
+<end position="172"/>
+</location>
+</feature>
+<feature type="chain" description="Collagen alpha-1(IV) chain" id="PRO_0000005749">
+<location>
+<begin position="173"/>
+<end position="1669"/>
+</location>
+</feature>
+<feature type="chain" description="Arresten" id="PRO_0000390482">
+<location>
+<begin position="1445"/>
+<end position="1669"/>
+</location>
+</feature>
+<feature type="domain" description="Collagen IV NC1" evidence="4">
+<location>
+<begin position="1445"/>
+<end position="1669"/>
+</location>
+</feature>
+<feature type="region of interest" description="Triple-helical region">
+<location>
+<begin position="173"/>
+<end position="1440"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="204"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="207"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="210"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="587"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="602"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="2">
+<location>
+<position position="603"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="605"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="2">
+<location>
+<position position="606"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="2">
+<location>
+<position position="623"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="2">
+<location>
+<position position="626"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="2">
+<location>
+<position position="629"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="2">
+<location>
+<position position="632"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="647"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="1214"/>
+</location>
+</feature>
+<feature type="modified residue" description="3-hydroxyproline" evidence="3">
+<location>
+<position position="1424"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="N-linked (GlcNAc...) asparagine">
+<location>
+<position position="126"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4 28">
+<location>
+<begin position="1460"/>
+<end position="1551"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4 28">
+<location>
+<begin position="1493"/>
+<end position="1548"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4 28">
+<location>
+<begin position="1505"/>
+<end position="1511"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4 28">
+<location>
+<begin position="1570"/>
+<end position="1665"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4 28">
+<location>
+<begin position="1604"/>
+<end position="1662"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="4 28">
+<location>
+<begin position="1616"/>
+<end position="1622"/>
+</location>
+</feature>
+<feature type="cross-link" description="S-Lysyl-methionine sulfilimine (Met-Lys) (interchain with K-1651)" evidence="6">
+<location>
+<position position="1533"/>
+</location>
+</feature>
+<feature type="cross-link" description="S-Lysyl-methionine sulfilimine (Lys-Met) (interchain with M-1533)" evidence="6">
+<location>
+<position position="1651"/>
+</location>
+</feature>
+<feature type="splice variant" description="In isoform 2." id="VSP_059564" evidence="31">
+<original>GPQGTPG</original>
+<variation>LLFQIHK</variation>
+<location>
+<begin position="513"/>
+<end position="519"/>
+</location>
+</feature>
+<feature type="splice variant" description="In isoform 2." id="VSP_059565" evidence="31">
+<location>
+<begin position="520"/>
+<end position="1669"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs9515185." id="VAR_030027" evidence="21">
+<original>V</original>
+<variation>L</variation>
+<location>
+<position position="7"/>
+</location>
+</feature>
+<feature type="sequence variant" id="VAR_073809" evidence="22">
+<original>A</original>
+<variation>V</variation>
+<location>
+<position position="144"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs34843786." id="VAR_044158">
+<original>P</original>
+<variation>L</variation>
+<location>
+<position position="304"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In ICH; the mutant protein is retained intracellularly and is not secreted normally; dbSNP:rs200786329." id="VAR_073810" evidence="22">
+<original>P</original>
+<variation>L</variation>
+<location>
+<position position="352"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HANAC; dbSNP:rs267606744." id="VAR_064493" evidence="20">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="498"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HANAC; dbSNP:rs113994104." id="VAR_044159" evidence="15">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="498"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HANAC and RATOR; dbSNP:rs267606743." id="VAR_064494" evidence="20 27">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="510"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HANAC; dbSNP:rs113994105." id="VAR_044160" evidence="15">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="519"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HANAC; requires 2 nucleotide substitutions." id="VAR_064495" evidence="20">
+<original>G</original>
+<variation>L</variation>
+<location>
+<position position="525"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In HANAC; dbSNP:rs113994106." id="VAR_044161" evidence="15">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="528"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In ICH; the mutant protein is retained intracellularly and is not secreted normally; dbSNP:rs397514624." id="VAR_073811" evidence="22">
+<original>R</original>
+<variation>G</variation>
+<location>
+<position position="538"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs536174." id="VAR_030511">
+<original>P</original>
+<variation>T</variation>
+<location>
+<position position="555"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD; dbSNP:rs121912857." id="VAR_030028" evidence="12">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="562"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC." id="VAR_073812" evidence="24">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="655"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD; dbSNP:rs672601349." id="VAR_073813" evidence="26">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="708"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD; diffuse small vessel disease of the brain associated with Axenfeld-Rieger anomaly and leukoencephalopathy; dbSNP:rs113994108." id="VAR_064496" evidence="14 19">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="720"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In POREN1; dbSNP:rs113994109." id="VAR_030029" evidence="8">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="749"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD; associated with ocular anomalies of variable severity in some patients; dbSNP:rs672601346." id="VAR_064497" evidence="18 19 23">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="755"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD; dbSNP:rs672601347." id="VAR_073814" evidence="23 26">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="773"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD; dbSNP:rs113994110." id="VAR_064498" evidence="13">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="805"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC." id="VAR_073815" evidence="24">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="870"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD." id="VAR_073816" evidence="23">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="882"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC." id="VAR_073817" evidence="24">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="897"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC." id="VAR_073818" evidence="24">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="948"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC." id="VAR_073819" evidence="24">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1041"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC." id="VAR_073820" evidence="24">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1082"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In POREN1; dbSNP:rs113994111." id="VAR_030030" evidence="9">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1130"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In POREN1; dbSNP:rs113994112." id="VAR_030031" evidence="8">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1236"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD." id="VAR_073821" evidence="23">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1266"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC; dbSNP:rs587777379." id="VAR_073822" evidence="24">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1326"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC." id="VAR_073823" evidence="24">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1332"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs3742207." id="VAR_020013" evidence="7 21">
+<original>Q</original>
+<variation>H</variation>
+<location>
+<position position="1334"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In POREN1; dbSNP:rs113994113." id="VAR_030032" evidence="9">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1423"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs1343193102." id="VAR_073824" evidence="22">
+<original>M</original>
+<variation>V</variation>
+<location>
+<position position="1531"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In POREN1; dbSNP:rs113994114." id="VAR_064499" evidence="17">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1580"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In SCHZC." id="VAR_073825" evidence="24">
+<original>E</original>
+<variation>K</variation>
+<location>
+<position position="1615"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In BSVD; dbSNP:rs672601348." id="VAR_073826" evidence="25">
+<original>N</original>
+<variation>K</variation>
+<location>
+<position position="1627"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 6; AA sequence." ref="6" evidence="31">
+<original>SG</original>
+<variation>KE</variation>
+<location>
+<begin position="237"/>
+<end position="238"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 6; AA sequence." ref="6" evidence="31">
+<original>G</original>
+<variation>K</variation>
+<location>
+<position position="241"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 4; CAA29075." ref="4" evidence="31">
+<original>Q</original>
+<variation>A</variation>
+<location>
+<position position="319"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>N</original>
+<variation>D</variation>
+<location>
+<position position="719"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>D</original>
+<variation>Y</variation>
+<location>
+<position position="837"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>K</original>
+<variation>P</variation>
+<location>
+<position position="842"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 7; CAA68698." ref="7" evidence="31">
+<original>V</original>
+<variation>W</variation>
+<location>
+<position position="896"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>E</original>
+<variation>Q</variation>
+<location>
+<position position="904"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>S</original>
+<variation>K</variation>
+<location>
+<position position="914"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>S</original>
+<variation>K</variation>
+<location>
+<position position="998"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>K</original>
+<variation>P</variation>
+<location>
+<position position="1010"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>S</original>
+<variation>K</variation>
+<location>
+<position position="1012"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 8; AA sequence." ref="8" evidence="31">
+<original>E</original>
+<variation>Q</variation>
+<location>
+<position position="1358"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 17; ABE73157." ref="17" evidence="31">
+<original>A</original>
+<variation>T</variation>
+<location>
+<position position="1490"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 17; ABE73157." ref="17" evidence="31">
+<original>I</original>
+<variation>T</variation>
+<location>
+<position position="1507"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 17; ABE73157." ref="17" evidence="31">
+<original>Y</original>
+<variation>C</variation>
+<location>
+<position position="1519"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 16; AAM97359." ref="16" evidence="31">
+<original>C</original>
+<variation>Y</variation>
+<location>
+<position position="1570"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1446"/>
+<end position="1451"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1453"/>
+<end position="1456"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1465"/>
+<end position="1478"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1481"/>
+<end position="1484"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1490"/>
+<end position="1492"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1493"/>
+<end position="1496"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1502"/>
+<end position="1505"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1511"/>
+<end position="1514"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1519"/>
+<end position="1524"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1538"/>
+<end position="1544"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1547"/>
+<end position="1555"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1557"/>
+<end position="1561"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1563"/>
+<end position="1566"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1574"/>
+<end position="1587"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1589"/>
+<end position="1591"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1593"/>
+<end position="1595"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1601"/>
+<end position="1603"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1604"/>
+<end position="1607"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1613"/>
+<end position="1617"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1620"/>
+<end position="1623"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1629"/>
+<end position="1634"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1638"/>
+<end position="1640"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1641"/>
+<end position="1643"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1648"/>
+<end position="1650"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1655"/>
+<end position="1658"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1661"/>
+<end position="1667"/>
+</location>
+</feature>
+<evidence key="1" type="ECO:0000244">
+<source>
+<dbReference type="PDB" id="5NAY"/>
+</source>
+</evidence>
+<evidence key="2" type="ECO:0000250">
+<source>
+<dbReference type="UniProtKB" id="P02463"/>
+</source>
+</evidence>
+<evidence key="3" type="ECO:0000250">
+<source>
+<dbReference type="UniProtKB" id="Q7SIB2"/>
+</source>
+</evidence>
+<evidence key="4" type="ECO:0000255">
+<source>
+<dbReference type="PROSITE-ProRule" id="PRU00736"/>
+</source>
+</evidence>
+<evidence key="5" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="10811134"/>
+</source>
+</evidence>
+<evidence key="6" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="12011424"/>
+</source>
+</evidence>
+<evidence key="7" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="15489334"/>
+</source>
+</evidence>
+<evidence key="8" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="15905400"/>
+</source>
+</evidence>
+<evidence key="9" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16107487"/>
+</source>
+</evidence>
+<evidence key="10" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16151532"/>
+</source>
+</evidence>
+<evidence key="11" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16481288"/>
+</source>
+</evidence>
+<evidence key="12" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16598045"/>
+</source>
+</evidence>
+<evidence key="13" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="17379824"/>
+</source>
+</evidence>
+<evidence key="14" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="17696175"/>
+</source>
+</evidence>
+<evidence key="15" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="18160688"/>
+</source>
+</evidence>
+<evidence key="16" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="18775695"/>
+</source>
+</evidence>
+<evidence key="17" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="19194877"/>
+</source>
+</evidence>
+<evidence key="18" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="19477666"/>
+</source>
+</evidence>
+<evidence key="19" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="20385946"/>
+</source>
+</evidence>
+<evidence key="20" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="20818663"/>
+</source>
+</evidence>
+<evidence key="21" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="21527998"/>
+</source>
+</evidence>
+<evidence key="22" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="22522439"/>
+</source>
+</evidence>
+<evidence key="23" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="22574627"/>
+</source>
+</evidence>
+<evidence key="24" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="23225343"/>
+</source>
+</evidence>
+<evidence key="25" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="23394911"/>
+</source>
+</evidence>
+<evidence key="26" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="24628545"/>
+</source>
+</evidence>
+<evidence key="27" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="25228067"/>
+</source>
+</evidence>
+<evidence key="28" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2844531"/>
+</source>
+</evidence>
+<evidence key="29" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="4043082"/>
+</source>
+</evidence>
+<evidence key="30" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="6434307"/>
+</source>
+</evidence>
+<evidence key="31" type="ECO:0000305"/>
+<evidence key="32" type="ECO:0000305">
+<source>
+<dbReference type="PubMed" id="6434307"/>
+</source>
+</evidence>
+<sequence length="1669" mass="160611" checksum="3BEBA6DFFB9B8A84" modified="2018-05-23" version="4" precursor="true">
+MGPRLSVWLLLLPAALLLHEEHSRAAAKGGCAGSGCGKCDCHGVKGQKGERGLPGLQGVI
+GFPGMQGPEGPQGPPGQKGDTGEPGLPGTKGTRGPPGASGYPGNPGLPGIPGQDGPPGPP
+GIPGCNGTKGERGPLGPPGLPGFAGNPGPPGLPGMKGDPGEILGHVPGMLLKGERGFPGI
+PGTPGPPGLPGLQGPVGPPGFTGPPGPPGPPGPPGEKGQMGLSFQGPKGDKGDQGVSGPP
+GVPGQAQVQEKGDFATKGEKGQKGEPGFQGMPGVGEKGEPGKPGPRGKPGKDGDKGEKGS
+PGFPGEPGYPGLIGRQGPQGEKGEAGPPGPPGIVIGTGPLGEKGERGYPGTPGPRGEPGP
+KGFPGLPGQPGPPGLPVPGQAGAPGFPGERGEKGDRGFPGTSLPGPSGRDGLPGPPGSPG
+PPGQPGYTNGIVECQPGPPGDQGPPGIPGQPGFIGEIGEKGQKGESCLICDIDGYRGPPG
+PQGPPGEIGFPGQPGAKGDRGLPGRDGVAGVPGPQGTPGLIGQPGAKGEPGEFYFDLRLK
+GDKGDPGFPGQPGMPGRAGSPGRDGHPGLPGPKGSPGSVGLKGERGPPGGVGFPGSRGDT
+GPPGPPGYGPAGPIGDKGQAGFPGGPGSPGLPGPKGEPGKIVPLPGPPGAEGLPGSPGFP
+GPQGDRGFPGTPGRPGLPGEKGAVGQPGIGFPGPPGPKGVDGLPGDMGPPGTPGRPGFNG
+LPGNPGVQGQKGEPGVGLPGLKGLPGLPGIPGTPGEKGSIGVPGVPGEHGAIGPPGLQGI
+RGEPGPPGLPGSVGSPGVPGIGPPGARGPPGGQGPPGLSGPPGIKGEKGFPGFPGLDMPG
+PKGDKGAQGLPGITGQSGLPGLPGQQGAPGIPGFPGSKGEMGVMGTPGQPGSPGPVGAPG
+LPGEKGDHGFPGSSGPRGDPGLKGDKGDVGLPGKPGSMDKVDMGSMKGQKGDQGEKGQIG
+PIGEKGSRGDPGTPGVPGKDGQAGQPGQPGPKGDPGISGTPGAPGLPGPKGSVGGMGLPG
+TPGEKGVPGIPGPQGSPGLPGDKGAKGEKGQAGPPGIGIPGLRGEKGDQGIAGFPGSPGE
+KGEKGSIGIPGMPGSPGLKGSPGSVGYPGSPGLPGEKGDKGLPGLDGIPGVKGEAGLPGT
+PGPTGPAGQKGEPGSDGIPGSAGEKGEPGLPGRGFPGFPGAKGDKGSKGEVGFPGLAGSP
+GIPGSKGEQGFMGPPGPQGQPGLPGSPGHATEGPKGDRGPQGQPGLPGLPGPMGPPGLPG
+IDGVKGDKGNPGWPGAPGVPGPKGDPGFQGMPGIGGSPGITGSKGDMGPPGVPGFQGPKG
+LPGLQGIKGDQGDQGVPGAKGLPGPPGPPGPYDIIKGEPGLPGPEGPPGLKGLQGLPGPK
+GQQGVTGLVGIPGPPGIPGFDGAPGQKGEMGPAGPTGPRGFPGPPGPDGLPGSMGPPGTP
+SVDHGFLVTRHSQTIDDPQCPSGTKILYHGYSLLYVQGNERAHGQDLGTAGSCLRKFSTM
+PFLFCNINNVCNFASRNDYSYWLSTPEPMPMSMAPITGENIRPFISRCAVCEAPAMVMAV
+HSQTIQIPPCPSGWSSLWIGYSFVMHTSAGAEGSGQALASPGSCLEEFRSAPFIECHGRG
+TCNYYANAYSFWLATIERSEMFKKPTPSTLKAGELRTHVSRCQVCMRRT
+</sequence>
+</entry>
+<copyright>
+Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+Distributed under the Creative Commons Attribution (CC BY 4.0) License
+</copyright>
+</uniprot>

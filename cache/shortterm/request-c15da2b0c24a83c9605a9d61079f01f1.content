@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:15440</chebiId><chebiAsciiName>squalene</chebiAsciiName><definition>A triterpene consisting of 2,6,10,15,19,23-hexamethyltetracosane having six double bonds at the 2-, 6-, 10-, 14-, 18- and 22-positions with (all-E)-configuration.</definition><status>CHECKED</status><smiles>CC(C)=CCC\C(C)=C\CC\C(C)=C\CC\C=C(/C)CC\C=C(/C)CCC=C(C)C</smiles><inchi>InChI=1S/C30H50/c1-25(2)15-11-19-29(7)23-13-21-27(5)17-9-10-18-28(6)22-14-24-30(8)20-12-16-26(3)4/h15-18,23-24H,9-14,19-22H2,1-8H3/b27-17+,28-18+,29-23+,30-24+</inchi><inchiKey>YYGNTYWPHWGJRM-AAJYLUCBSA-N</inchiKey><charge>0</charge><mass>410.71800</mass><monoisotopicMass>410.39125</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:10843</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:9245</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:10795</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:15104</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:26746</SecondaryChEBIIds><Synonyms><data>(all-E)-2,6,10,15,19,23-hexamethyl-2,6,10,14,18,22-tetracosahexaene</data><type>SYNONYM</type><source>NIST Chemistry WebBook</source></Synonyms><Synonyms><data>Spinacene</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>Squalene</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>squalene</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Synonyms><data>Supraene</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>(6E,10E,14E,18E)-2,6,10,15,19,23-hexamethyltetracosa-2,6,10,14,18,22-hexaene</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50</data><source>ChEBI</source></Formulae><RegistryNumbers><data>111-02-4</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><RegistryNumbers><data>111-02-4</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>111-02-4</data><type>CAS Registry Number</type><source>NIST Chemistry WebBook</source></RegistryNumbers><RegistryNumbers><data>1728920</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><Citations><data>16341241</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>24362891</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>ChEBI
+  Marvin  06291110412D          
+
+ 30 29  0  0  0  0            999 V2000
+    5.8184   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.5210   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2236   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9262   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6288   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3314   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0340   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.7366   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4392   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1418   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.8444   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.6011   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3037   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0063   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7089   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4115   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.1141   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.8167   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5193   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2219   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.9245   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.6271   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.3297   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.0324   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.5210   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3314   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1418   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7089   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5193   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.3297   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  3  2  2  0  0  0  0
+ 25  2  1  0  0  0  0
+  4  3  1  0  0  0  0
+  5  4  1  0  0  0  0
+  6  5  1  0  0  0  0
+  7  6  2  0  0  0  0
+ 26  6  1  0  0  0  0
+  8  7  1  0  0  0  0
+  9  8  1  0  0  0  0
+ 10  9  1  0  0  0  0
+ 11 10  2  0  0  0  0
+ 27 10  1  0  0  0  0
+ 12 11  1  0  0  0  0
+ 13 12  1  0  0  0  0
+ 14 13  1  0  0  0  0
+ 15 14  2  0  0  0  0
+ 16 15  1  0  0  0  0
+ 28 15  1  0  0  0  0
+ 17 16  1  0  0  0  0
+ 18 17  1  0  0  0  0
+ 19 18  2  0  0  0  0
+ 20 19  1  0  0  0  0
+ 29 19  1  0  0  0  0
+ 21 20  1  0  0  0  0
+ 22 21  1  0  0  0  0
+ 23 22  2  0  0  0  0
+ 24 23  1  0  0  0  0
+ 30 23  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  06291110412D          
+
+ 30 29  0  0  0  0            999 V2000
+   -3.7420   -2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.4564   -2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.4564   -3.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.7420   -3.7125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0275   -3.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0275   -2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3130   -2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3130   -3.7125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5986   -3.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5986   -2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5986   -0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3130   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8841   -2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8841   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0995   -0.9825    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0995   -2.3174    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3854   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.1545   -4.4270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.1586   -4.2959    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0275   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0995   -0.1575    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8140    0.2550    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6150    0.2550    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3295   -0.1575    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4807   -1.7973    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0439    0.2550    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7584   -0.1575    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4729    0.2550    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7584   -0.9825    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0093   -2.9464    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  6  1  0  0  0  0
+  2  3  1  0  0  0  0
+  3  4  2  0  0  0  0
+  6  5  2  0  0  0  0
+  5  8  1  0  0  0  0
+  8  9  1  0  0  0  0
+  9 10  1  0  0  0  0
+  7 10  2  0  0  0  0
+ 12  7  1  0  0  0  0
+ 11 12  1  0  0  0  0
+ 11 14  1  0  0  0  0
+ 14 13  2  0  0  0  0
+ 13 16  1  0  0  0  0
+ 15 17  1  0  0  0  0
+ 16 17  1  0  0  0  0
+  4 18  1  0  0  0  0
+  4 19  1  0  0  0  0
+  6 20  1  0  0  0  0
+ 15 21  2  0  0  0  0
+ 21 22  1  0  0  0  0
+ 21 23  1  0  0  0  0
+ 23 24  1  0  0  0  0
+ 10 25  1  0  0  0  0
+ 24 26  1  0  0  0  0
+ 26 27  2  0  0  0  0
+ 27 28  1  0  0  0  0
+ 27 29  1  0  0  0  0
+ 13 30  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00003755</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C00751</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>LMPR0106010002</data><type>LIPID MAPS instance accession</type></DatabaseLinks><OntologyParents><chebiName>Saccharomyces cerevisiae metabolite</chebiName><chebiId>CHEBI:75772</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>human metabolite</chebiName><chebiId>CHEBI:77746</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>mouse metabolite</chebiName><chebiId>CHEBI:75771</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>plant metabolite</chebiName><chebiId>CHEBI:76924</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>triterpene</chebiName><chebiId>CHEBI:35191</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>tetrahydroxysqualene</chebiName><chebiId>CHEBI:66216</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>(R)-12-hydroxysqualene</chebiName><chebiId>CHEBI:88123</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>squalene triterpenoid</chebiName><chebiId>CHEBI:26747</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>3-methyl-1,2-didehydro-2,3-dihydrosqualene</chebiName><chebiId>CHEBI:70860</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>(S)-2,3-epoxysqualene</chebiName><chebiId>CHEBI:15441</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>3,22-dimethyl-1,2,23,24-tetradehydro-2,3,22,23-tetrahydrosqualene</chebiName><chebiId>CHEBI:70861</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>2,3-epoxysqualene</chebiName><chebiId>CHEBI:78662</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><GeneralComments><text>Squalene is the biochemical precursor to the whole family of steroids. Oxidation (via squalene monooxygenase) of one of the terminal double bonds of squalene yields 2,3-squalene oxide, which undergoes enzyme-catalyzed cyclization to afford lanosterol, which is then elaborated into cholesterol and other steroids (Wikipedia).</text><date>2011-04-06</date></GeneralComments><CompoundOrigins><speciesText>Rubia yunnanensis</speciesText><speciesAccession>IPNI:765385-1</speciesAccession><componentText>root</componentText><componentAccession>BTO:0001188</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>21973054</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>19425150</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Centella asiatica</speciesText><speciesAccession>NCBI:48106</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS175</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Centella asiatica</speciesText><speciesAccession>NCBI:48106</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS175</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Saccharomyces cerevisiae</speciesText><speciesAccession>NCBI:4932</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>24678285</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>DOI</SourceType><SourceAccession>10.1038/nbt.2488</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>blood</componentText><componentAccession>UBERON:0000178</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>10487487</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

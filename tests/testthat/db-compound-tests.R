@@ -39,7 +39,10 @@ test.searchCompound <- function(db) {
 			if ( ! is.na(field.type) && field.type == 'mass') {
 
 				mass <- entry$getFieldValue(field)
-				mass.tol = 0.00002
+				if (mass != floor(mass))
+					mass.tol = 10^-as.integer(nchar(strsplit(as.character(mass), '\\.')[[1]][[2]]))
+				else
+					mass.tol = 1
 
 				# Search by mass
 				ids <- db$searchCompound(mass = mass, mass.tol = mass.tol, mass.field = field)
