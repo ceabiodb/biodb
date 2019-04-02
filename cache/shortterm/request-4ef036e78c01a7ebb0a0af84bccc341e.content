@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE eInfoResult PUBLIC "-//NLM//DTD einfo 20130322//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20130322/einfo.dtd">
+<eInfoResult>
+	<DbInfo>
+	<DbName>gene</DbName>
+	<MenuName>Gene</MenuName>
+	<Description>Gene database</Description>
+	<DbBuild>Build190402-0040m.1</DbBuild>
+	<Count>34754630</Count>
+	<LastUpdate>2019/04/02 09:14</LastUpdate>
+	<FieldList>
+		<Field>
+			<Name>ALL</Name>
+			<FullName>All Fields</FullName>
+			<Description>All terms from all searchable fields</Description>
+			<TermCount>548997770</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>N</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>UID</Name>
+			<FullName>UID</FullName>
+			<Description>Unique number assigned to a gene record</Description>
+			<TermCount>0</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>Y</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>FILT</Name>
+			<FullName>Filter</FullName>
+			<Description>Limits the records</Description>
+			<TermCount>234</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>TITL</Name>
+			<FullName>Gene/Protein Name</FullName>
+			<Description>gene or protein name</Description>
+			<TermCount>35887763</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>WORD</Name>
+			<FullName>Text Word</FullName>
+			<Description>Free text associated with record</Description>
+			<TermCount>306012511</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>ORGN</Name>
+			<FullName>Organism</FullName>
+			<Description>scientific and common names of organism</Description>
+			<TermCount>174214</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>Y</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>MDAT</Name>
+			<FullName>Modification Date</FullName>
+			<Description>The last date on which the record was updated</Description>
+			<TermCount>3250</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>CHR</Name>
+			<FullName>Chromosome</FullName>
+			<Description>Chromosome number or numbers; also &apos;mitochondrial&apos;, &apos;unknown&apos; properties</Description>
+			<TermCount>608</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>MV</Name>
+			<FullName>Default Map Location</FullName>
+			<Description>Chromosomal map location as displayed in MapViewer</Description>
+			<TermCount>38680</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>GENE</Name>
+			<FullName>Gene Name</FullName>
+			<Description>Symbol or symbols of the gene</Description>
+			<TermCount>49775934</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>ECNO</Name>
+			<FullName>EC/RN Number</FullName>
+			<Description>EC number for enzyme or CAS registry number</Description>
+			<TermCount>4244</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>MIM</Name>
+			<FullName>MIM ID</FullName>
+			<Description>MIM number from OMIM</Description>
+			<TermCount>22789</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>DIS</Name>
+			<FullName>Disease/Phenotype</FullName>
+			<Description>Name(s) of diseases associated with this gene. When available, OMIM name will be used</Description>
+			<TermCount>43053</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>ACCN</Name>
+			<FullName>Nucleotide/Protein Accession</FullName>
+			<Description>Nucleotide or protein accession(s) associated with this gene</Description>
+			<TermCount>231605048</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>UGEN</Name>
+			<FullName>UniGene Cluster Number</FullName>
+			<Description>UniGene cluster number for this gene</Description>
+			<TermCount>567813</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>PROP</Name>
+			<FullName>Properties</FullName>
+			<Description>Properties of Gene record</Description>
+			<TermCount>111</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>CDAT</Name>
+			<FullName>Creation Date</FullName>
+			<Description>The date on which this record first appeared</Description>
+			<TermCount>7324</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>NCAC</Name>
+			<FullName>Nucleotide Accession</FullName>
+			<Description>nucleotide accessions of sequences</Description>
+			<TermCount>93674489</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>NUID</Name>
+			<FullName>Nucleotide UID</FullName>
+			<Description>nucleotide uids of sequences</Description>
+			<TermCount>29733187</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>PACC</Name>
+			<FullName>Protein Accession</FullName>
+			<Description>protein accessions</Description>
+			<TermCount>137929757</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>PUID</Name>
+			<FullName>Protein UID</FullName>
+			<Description>protein uids</Description>
+			<TermCount>51736375</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>PMID</Name>
+			<FullName>PubMed ID</FullName>
+			<Description>PubMed ids of accessions linked to the record</Description>
+			<TermCount>1206847</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>TID</Name>
+			<FullName>Taxonomy ID</FullName>
+			<Description>taxonomy id</Description>
+			<TermCount>28502</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>GO</Name>
+			<FullName>Gene Ontology</FullName>
+			<Description>Gene Ontology</Description>
+			<TermCount>83815</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>DOM</Name>
+			<FullName>Domain Name</FullName>
+			<Description>Domain Name</Description>
+			<TermCount>307885</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>DDAT</Name>
+			<FullName>Date Discontinued</FullName>
+			<Description>The date on which the record was discontinued</Description>
+			<TermCount>4225</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>CPOS</Name>
+			<FullName>Base Position</FullName>
+			<Description>Chromosome base position</Description>
+			<TermCount>13402369</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>GFN</Name>
+			<FullName>Gene Full Name</FullName>
+			<Description>Gene full name</Description>
+			<TermCount>3812807</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>PFN</Name>
+			<FullName>Protein Full Name</FullName>
+			<Description>Protein full name</Description>
+			<TermCount>2181710</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>GL</Name>
+			<FullName>Gene Length</FullName>
+			<Description>Gene length</Description>
+			<TermCount>336291</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>XC</Name>
+			<FullName>Exon Count</FullName>
+			<Description>Exon count</Description>
+			<TermCount>307</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>GRP</Name>
+			<FullName>Group</FullName>
+			<Description>Relationships for this gene</Description>
+			<TermCount>26464</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>PREF</Name>
+			<FullName>Preferred Symbol</FullName>
+			<Description>Preferred symbol of the gene</Description>
+			<TermCount>40192424</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>AACC</Name>
+			<FullName>Assembly Accession</FullName>
+			<Description>Assembly accession</Description>
+			<TermCount>3135</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>ASM</Name>
+			<FullName>Assembly Name</FullName>
+			<Description>Assembly name</Description>
+			<TermCount>755</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>EXPR</Name>
+			<FullName>Expression/Tissues</FullName>
+			<Description>Gene expression</Description>
+			<TermCount>122</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+	</FieldList>
+		<LinkList>
+			<Link>
+				<Name>gene_bioproject</Name>
+				<Menu>BioProjects</Menu>
+				<Description>BioProjects related to a gene</Description>
+				<DbTo>bioproject</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_biosystems</Name>
+				<Menu>BioSystem Links</Menu>
+				<Description>BioSystems</Description>
+				<DbTo>biosystems</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_books</Name>
+				<Menu>Books Links</Menu>
+				<Description>Books</Description>
+				<DbTo>books</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_ccds</Name>
+				<Menu></Menu>
+				<Description>Link to CCDS</Description>
+				<DbTo>ccds</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_cdd</Name>
+				<Menu>Conserved Domain Links</Menu>
+				<Description>Related CDD</Description>
+				<DbTo>cdd</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_clinvar</Name>
+				<Menu>ClinVar</Menu>
+				<Description>Related medical variations</Description>
+				<DbTo>clinvar</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_clinvar_specific</Name>
+				<Menu>Related gene-specific medical variations</Menu>
+				<Description>Related medical variations</Description>
+				<DbTo>clinvar</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_dbvar</Name>
+				<Menu>dbVar</Menu>
+				<Description>Link from Gene to dbVar</Description>
+				<DbTo>dbvar</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_gap</Name>
+				<Menu>GAP Links</Menu>
+				<Description>GAP Links</Description>
+				<DbTo>gap</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_gene_h3k4me3</Name>
+				<Menu>Genes with a similar H3K4me3 profile</Menu>
+				<Description>Genes with a similar profile of promoter-activating H3K4me3 modifications across several tissue types</Description>
+				<DbTo>gene</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_gene_neighbors</Name>
+				<Menu>Gene neighbors</Menu>
+				<Description>Overlapping genes and two nearest non-overlapping genes on either side</Description>
+				<DbTo>gene</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_genome</Name>
+				<Menu>Genome Links</Menu>
+				<Description>Related Genome</Description>
+				<DbTo>genome</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_geoprofiles</Name>
+				<Menu>GEO Profile Links</Menu>
+				<Description>Related GEO</Description>
+				<DbTo>geoprofiles</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_gtr</Name>
+				<Menu>GTR</Menu>
+				<Description>Tests for this gene in the NIH Genetic Testing Registry</Description>
+				<DbTo>gtr</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_homologene</Name>
+				<Menu>HomoloGene Links</Menu>
+				<Description>Related HomoloGene</Description>
+				<DbTo>homologene</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_medgen_diseases</Name>
+				<Menu>MedGen</Menu>
+				<Description>Related information in MedGen</Description>
+				<DbTo>medgen</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_nuccore</Name>
+				<Menu>Nucleotide Links</Menu>
+				<Description>Link to related Nucleotide entry</Description>
+				<DbTo>nuccore</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_nuccore_mgc</Name>
+				<Menu>Nucleotide NIH cDNA clone links</Menu>
+				<Description>Nucleotide NIH cDNA clone</Description>
+				<DbTo>nuccore</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_nuccore_refseqgene</Name>
+				<Menu>RefSeqGene Links</Menu>
+				<Description>Link to Nucleotide RefSeqGenes</Description>
+				<DbTo>nuccore</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_nuccore_refseqrna</Name>
+				<Menu>RefSeq RNA Links</Menu>
+				<Description>Link to Nucleotide RefSeq RNAs</Description>
+				<DbTo>nuccore</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_nucest</Name>
+				<Menu>EST Links</Menu>
+				<Description>Link to related EST entry</Description>
+				<DbTo>nucest</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_nucest_clust</Name>
+				<Menu></Menu>
+				<Description>Links to ESTs included in UniGene</Description>
+				<DbTo>nucest</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_nucgss</Name>
+				<Menu>GSS Links</Menu>
+				<Description>Link to related GSS entry</Description>
+				<DbTo>nucgss</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_nucleotide_mgc_url</Name>
+				<Menu></Menu>
+				<Description>Order cDNA clone</Description>
+				<DbTo>nucleotide</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_omim</Name>
+				<Menu>OMIM Links</Menu>
+				<Description>Link to related OMIM entry</Description>
+				<DbTo>omim</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pcassay_alltarget_list</Name>
+				<Menu>BioAssay by Target (List)</Menu>
+				<Description>BioAssays related to the gene by protein target or RNAi target</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pcassay_alltarget_summary</Name>
+				<Menu>BioAssay by Target (Summary)</Menu>
+				<Description>Summarized PubChem Data on the gene, showing the active data by default</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pcassay_rnai</Name>
+				<Menu>BioAssays, RNAi Target, Tested</Menu>
+				<Description>BioAssays that contain the gene as the target of a RNAi reagent</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pcassay_rnai_active</Name>
+				<Menu>BioAssays, RNAi Target, Active</Menu>
+				<Description>BioAssays that contain the gene as the target of a RNAi reagent, which is identified as a hit in a RNAi screening and flagged as &amp;quot;active&amp;quot; in the corresponding BioAssay record</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pcassay_target</Name>
+				<Menu>BioAssay, by Gene target</Menu>
+				<Description>PubChem BioAssays done on the Gene target</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pccompound</Name>
+				<Menu>PubChem Compound Links</Menu>
+				<Description>PubChem Compounds</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pcsubstance</Name>
+				<Menu>PubChem Substance Links</Menu>
+				<Description>PubChem Substances</Description>
+				<DbTo>pcsubstance</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pmc</Name>
+				<Menu>PMC Links</Menu>
+				<Description>PMC links</Description>
+				<DbTo>pmc</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pmc_nucleotide</Name>
+				<Menu>Full text in PMC (nucleotide)</Menu>
+				<Description>Full text in PubMedCentral identified from shared sequence links</Description>
+				<DbTo>pmc</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_probe</Name>
+				<Menu>Probe Links</Menu>
+				<Description>Related Probe entry</Description>
+				<DbTo>probe</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_protein</Name>
+				<Menu>Protein Links</Menu>
+				<Description>Link to related protein entry</Description>
+				<DbTo>protein</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_protein_refseq</Name>
+				<Menu>RefSeq Protein Links</Menu>
+				<Description>Link to Protein RefSeqs</Description>
+				<DbTo>protein</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_proteinclusters</Name>
+				<Menu>Protein Cluster Links</Menu>
+				<Description>Related Protein Clusters</Description>
+				<DbTo>proteinclusters</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pubmed</Name>
+				<Menu>PubMed Links</Menu>
+				<Description>Link to related PubMed entry</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pubmed_citedinomim</Name>
+				<Menu>PubMed (OMIM) Links</Menu>
+				<Description>Gene links to PubMed derived from omim_pubmed_cited links</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pubmed_pmc_nucleotide</Name>
+				<Menu>PubMed (nucleotide/PMC)</Menu>
+				<Description>Citations in PubMed identified from shared sequence and PMC links.</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_pubmed_rif</Name>
+				<Menu>PubMed (GeneRIF) Links</Menu>
+				<Description>Link to related PubMed article from GeneRIFs</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_snp</Name>
+				<Menu>SNP Links</Menu>
+				<Description>Related SNP records</Description>
+				<DbTo>snp</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_snp_geneview</Name>
+				<Menu></Menu>
+				<Description>SNPs linked from GeneView</Description>
+				<DbTo>snp</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_sparcle</Name>
+				<Menu>Functional Class</Menu>
+				<Description>Functional class of the sequence domain architecture</Description>
+				<DbTo>sparcle</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_structure</Name>
+				<Menu>3D structures</Menu>
+				<Description>3D structure of a gene</Description>
+				<DbTo>structure</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_taxonomy</Name>
+				<Menu>Taxonomy Links</Menu>
+				<Description>Link to related taxonomy entry</Description>
+				<DbTo>taxonomy</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_unigene</Name>
+				<Menu>UniGene Links</Menu>
+				<Description>Links to unigene</Description>
+				<DbTo>unigene</DbTo>
+			</Link>
+			<Link>
+				<Name>gene_varview</Name>
+				<Menu>Variation Viewer</Menu>
+				<Description>Related Variants</Description>
+				<DbTo>varview</DbTo>
+			</Link>
+		</LinkList>
+	</DbInfo>
+
+</eInfoResult>
