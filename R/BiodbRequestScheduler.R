@@ -304,7 +304,9 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 	# Enter query loop
 	i = 0
 	retry = TRUE
-	while (retry && i < .self$.nb.max.tries && is.na(content)) {
+	while (retry && i < .self$.nb.max.tries) {
+
+		err_msg = NULL
 
 		# Increment try number
 		i = i + 1
@@ -320,8 +322,7 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 		opts <- request$getCurlOptions(useragent = .self$getBiodb()$getConfig()$get('useragent'))
 
 		# Send request
-		err_msg = NULL
-		retry = TRUE
+		retry = FALSE
 		curl.error = NULL
 		header$reset()
 		content = tryCatch(expr = {
@@ -330,9 +331,9 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 				else
 					RCurl::postForm(request$getUrl()$toString(), .opts = opts, .encoding = request$getEncoding(), headerfunction = header$update)
 				},
-			PEER_FAILED_VERIFICATION = function(err) { curl.error = err },
-			GenericCurlError = function(err) { curl.error = err },
-			finally = function(err) { retry = FALSE ; curl.error = err })
+			PEER_FAILED_VERIFICATION = function(err) { retry = TRUE ; curl.error = err },
+			GenericCurlError = function(err) { retry = TRUE ; curl.error = err },
+			error = function(err) { retry = FALSE ; curl.error = err })
 
 		# RCurl error
 		if ( ! is.null(curl.error))
@@ -341,10 +342,16 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 		# Get header information sent by server
 		hdr = NULL
 		if (is.null(err_msg)) {
-			header.error = NULL
 			hdr = tryCatch(expr = as.list(header$value()),
-		               	   error = function(err) { header.error = err })
-			if (is.null(header.error)) {
+			               warning = function(w) w, # We want to catch "<simpleWarning in max(i): no non-missing arguments to max; returning -Inf>".
+			               error = function(e) e)
+
+			if (methods::is(hdr, 'simpleError') || methods::is(hdr, 'simpleWarning')) {
+				err_msg = paste0('Error while retrieving HTTP header: ', hdr, '.')
+				hdr = NULL
+			}
+
+			if ( ! is.null(hdr)) {
 				hdr$status <- as.integer(hdr$status)
 				if (hdr$status == 0) {
 					hdr = NULL
@@ -356,9 +363,9 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 
 		# Recoverable HTTP errors
 		if ( ! is.null(hdr) && hdr$status %in% c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT, .HTTP.STATUS.INTERNAL.SERVER.ERROR, .HTTP.STATUS.SERVICE.UNAVAILABLE)) {
-			err_msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+			err_msg = paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
 			if ('Retry-After' %in% names(hdr))
-				err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']], ".")
+				err_msg = paste0(err_msg, " Retry after ", hdr[['Retry-After']], ".")
 			retry = TRUE
 		}
 
@@ -381,12 +388,14 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 
 		# Message
 		if ( ! is.null(err_msg)) {
-			if (retry) {
+			content = NA_character_
+			if (retry)
 				err_msg = paste0(err_msg, " Retrying connection to server...")
-				content = NA_character_
-			}
 			.self$message('info', err_msg)
 		}
+
+		if (retry)
+			content = NA_character_
 	}
 
 	return(content)
