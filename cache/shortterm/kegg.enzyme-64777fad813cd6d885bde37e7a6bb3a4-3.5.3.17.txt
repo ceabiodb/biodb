@@ -1,0 +1,161 @@
+ENTRY       EC 3.5.3.17                 Enzyme
+NAME        guanidinopropionase;
+            GPase;
+            GPH
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In linear amidines
+SYSNAME     3-guanidinopropanoate amidinopropionase
+REACTION    3-guanidinopropanoate + H2O = beta-alanine + urea [RN:R00913]
+ALL_REAC    R00913
+SUBSTRATE   3-guanidinopropanoate [CPD:C03065];
+            H2O [CPD:C00001]
+PRODUCT     beta-alanine [CPD:C00099];
+            urea [CPD:C00086]
+COMMENT     Requires Mn2+. Also acts, more slowly, on taurocyamine and 4-guanidinobutanoate.
+HISTORY     EC 3.5.3.17 created 1989
+REFERENCE   1
+  AUTHORS   Yorifuji, T., Sugai, I., Matsumoto, H. and Tabuchi, A.
+  TITLE     Characterization of 3-guanidinopropionate amidinohydrolase from Pseudomonas aeruginosa and a comparative study with 4-guanidinobutyrate amidinohydrolase from another Pseudomonas.
+  JOURNAL   Agric Biol Chem 46:1361-1363 (1982)
+ORTHOLOGY   K18459  guanidinopropionase
+GENES       GQU: AWC35_09795
+            ROR: RORB6_24330
+            RAO: DSD31_05870(speB)
+            KOR: AWR26_06155
+            KRD: A3780_17860
+            PAE: PA0288(gpuA)
+            PAEV: N297_294(speB)
+            PAEI: N296_294(speB)
+            PAU: PA14_03770(speB1)
+            PAP: PSPA7_0379(speB2)
+            PAG: PLES_02841(gpuA)
+            PAF: PAM18_0283(gpuA)
+            PNC: NCGM2_0323(speB1)
+            PAEB: NCGM1900_0284(speB1)
+            PDK: PADK2_01430
+            PSG: G655_01450
+            PRP: M062_01420
+            PAEP: PA1S_01445
+            PAER: PA1R_gp3796
+            PAEM: U769_01475
+            PAEL: T223_01435
+            PAES: SCV20265_0298
+            PAEU: BN889_00343(gpuA)
+            PAEG: AI22_02460
+            PAEC: M802_293(speB)
+            PAEO: M801_294(speB)
+            PRE: PCA10_22720(gbuA)
+            PCQ: PcP3B5_01170(gbh_1)
+            PFL: PFL_0325(gpuA)
+            PPRC: PFLCHA0_c03300(gbh1)
+            PPRO: PPC_0336(gpuA)
+            PDR: H681_00510
+            PCZ: PCL1606_16930
+            PSEM: TO66_23435
+            PSET: THL1_2244
+            GAI: IMCC3135_16295(gpuA_1) IMCC3135_23280(gpuA_2)
+            HAK: KO116_00693
+            HAM: HALO0709
+            HSI: BOX17_06910
+            HALO: BWR19_05055
+            HHH: CLM76_07845(speB)
+            CRZ: D1345_17160(speB)
+            REU: Reut_B5705
+            CUU: BKK79_27425
+            BCEN: DM39_1662(speB)
+            BYI: BYI23_C004650
+            BUL: BW21_4532(speB)
+            BUD: AQ610_30440
+            BUM: AXG89_35490
+            BUI: AX768_17000
+            BPH: Bphy_6083
+            BPY: Bphyt_6362
+            BCAI: K788_0001273
+            PHS: C2L64_39545(speB)
+            PTER: C2L65_36830(speB)
+            PPNO: DA70_00350
+            PVE: UC34_05085
+            PTX: ABW99_15470
+            BHZ: ACR54_02441(gbh)
+            BBRO: BAU06_23375
+            BFZ: BAU07_19415
+            BPDZ: BBN53_09980
+            CSER: CCO03_06560
+            ACOM: CEW83_15355(speB)
+            ANT: Arnit_0325
+            SCU: SCE1572_36630
+            BBAT: Bdt_3350(speB)
+            BBW: BDW_12730
+            BBAC: EP01_02370
+            BEX: A11Q_500
+            AAK: AA2016_5072
+            AVI: Avi_1009(speB)
+            RHL: LPU83_pLPU83c0428(gpuA)
+            NEN: NCHU2750_31210(gpuA)
+            SHZ: shn_29260
+            SNO: Snov_2246
+            MEX: Mext_3924
+            MEA: Mex_1p4303
+            MDI: METDI4914
+            MCH: Mchl_4292
+            MPO: Mpop_4397
+            MZA: B2G69_01515
+            MET: M446_6964
+            MNO: Mnod_7678
+            META: Y590_19515
+            METD: C0214_21630(speB)
+            METS: DK389_01195(speB)
+            MOC: BB934_01150
+            PLEO: OHA_1_00424(gbh_1)
+            BRN: D1F64_18045
+            HDI: HDIA_3294(gbh)
+            SIL: SPOA0235(speB-4)
+            RUA: D1823_02730 D1823_02735
+            RCP: RCAP_rcc02271(speB2)
+            RBL: B6K69_15690
+            JAN: Jann_1967
+            RLI: RLO149_c017320
+            PDE: Pden_5116
+            PARS: DRW48_15500(speB)
+            PGA: PGA1_c00300 PGA1_c00310
+            PGL: PGA2_c30540
+            PGD: Gal_00165
+            PPIC: PhaeoP14_03021 PhaeoP14_03022
+            PHQ: D1820_10930(speB)
+            OAT: OAN307_c18240
+            OAR: OA238_c21110
+            LEJ: ETW24_17085 ETW24_17090
+            RED: roselon_03059
+            MALG: MALG_03124
+            CON: TQ29_15845
+            PPHR: APZ00_15400
+            LABR: CHH27_07480
+            DAA: AKL17_1883
+            YAN: AYJ57_08800
+            YPAC: CEW88_01780(speB)
+            TPRO: Ga0080559_TMP2029
+            PABY: Ga0080574_TMP2134
+            THW: BMG03_09900
+            RMM: ROSMUCSMR3_02397(gpuA)
+            ROK: RAK1035_0786
+            LVS: LOKVESSMR4R_03207(gpuA)
+            AHT: ANTHELSMS3_01436
+            SAGU: CDO87_08930(speB)
+            GEH: HYN69_06240 HYN69_19165(speB)
+            TAW: EI545_05515
+            SALO: EF888_11930(speB)
+            AACE: A0U92_10100
+            ATI: AL072_29130
+            TMO: TMO_c0500
+            TXI: TH3_07450
+            TII: DY252_10375(speB)
+            PGV: SL003B_1579(speB-4)
+            MRH: MycrhN_5773
+            SACI: Sinac_4136
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.3.17
+            IUBMB Enzyme Nomenclature: 3.5.3.17
+            ExPASy - ENZYME nomenclature database: 3.5.3.17
+            BRENDA, the Enzyme Database: 3.5.3.17
+            CAS: 68821-77-2
+///

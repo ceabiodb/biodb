@@ -1,0 +1,26 @@
+ENTRY       EC 1.5.1.26                 Enzyme
+NAME        beta-alanopine dehydrogenase
+CLASS       Oxidoreductases;
+            Acting on the CH-NH group of donors;
+            With NAD+ or NADP+ as acceptor
+SYSNAME     N-(D-1-carboxyethyl)-beta-alanine:NAD+ oxidoreductase (beta-alanine-forming)
+REACTION    beta-alanopine + NAD+ + H2O = beta-alanine + pyruvate + NADH + H+ [RN:R00906]
+ALL_REAC    R00906
+SUBSTRATE   beta-alanopine [CPD:C02207];
+            NAD+ [CPD:C00003];
+            H2O [CPD:C00001]
+PRODUCT     beta-alanine [CPD:C00099];
+            pyruvate [CPD:C00022];
+            NADH [CPD:C00004];
+            H+ [CPD:C00080]
+HISTORY     EC 1.5.1.26 created 1990
+REFERENCE   1
+  AUTHORS   Sato, M., Takahara, M., Kanno, N., Sato, Y. and Ellington, W.R.
+  TITLE     Isolation of a new opine, beta-alanopine, from the extracts of the muscle of the marine bivalve mollusc Scapharca broughtonii.
+  JOURNAL   Comp Biochem Physiol 88B:803-806 (1987)
+DBLINKS     ExplorEnz - The Enzyme Database: 1.5.1.26
+            IUBMB Enzyme Nomenclature: 1.5.1.26
+            ExPASy - ENZYME nomenclature database: 1.5.1.26
+            BRENDA, the Enzyme Database: 1.5.1.26
+            CAS: 113573-64-1
+///

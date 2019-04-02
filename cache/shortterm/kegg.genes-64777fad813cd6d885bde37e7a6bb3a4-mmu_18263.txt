@@ -1,0 +1,66 @@
+ENTRY       18263             CDS       T01002
+NAME        Odc1, ODC
+DEFINITION  (RefSeq) ornithine decarboxylase, structural 1
+ORTHOLOGY   K01581  ornithine decarboxylase [EC:4.1.1.17]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00330  Arginine and proline metabolism
+            mmu00480  Glutathione metabolism
+            mmu01100  Metabolic pathways
+MODULE      mmu_M00134  Polyamine biosynthesis, arginine => ornithine => putrescine
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00330 Arginine and proline metabolism
+                18263 (Odc1)
+              09106 Metabolism of other amino acids
+               00480 Glutathione metabolism
+                18263 (Odc1)
+            Enzymes [BR:mmu01000]
+             4. Lyases
+              4.1  Carbon-carbon lyases
+               4.1.1  Carboxy-lyases
+                4.1.1.17  ornithine decarboxylase
+                 18263 (Odc1)
+POSITION    12 A1.1; 12 8.11 cM
+MOTIF       Pfam: Orn_Arg_deC_N Orn_DAP_Arg_deC
+DBLINKS     NCBI-GeneID: 18263
+            NCBI-ProteinID: NP_038642
+            MGI: 97402
+            Ensembl: ENSMUSG00000011179
+            UniProt: P00860
+STRUCTURE   PDB: 7ODC
+AASEQ       461
+            MSSFTKDEFDCHILDEGFTAKDILDQKINEVSSSDDKDAFYVADLGDILKKHLRWLKALP
+            RVTPFYAVKCNDSRAIVSTLAAIGTGFDCASKTEIQLVQGLGVPAERVIYANPCKQVSQI
+            KYAASNGVQMMTFDSEIELMKVARAHPKAKLVLRIATDDSKAVCRLSVKFGATLKTSRLL
+            LERAKELNIDVIGVSFHVGSGCTDPETFVQAVSDARCVFDMATEVGFSMHLLDIGGGFPG
+            SEDTKLKFEEITSVINPALDKYFPSDSGVRIIAEPGRYYVASAFTLAVNIIAKKTVWKEQ
+            PGSDDEDESNEQTFMYYVNDGVYGSFNCILYDHAHVKALLQKRPKPDEKYYSSSIWGPTC
+            DGLDRIVERCNLPEMHVGDWMLFENMGAYTVAAASTFNGFQRPNIYYVMSRPMWQLMKQI
+            QSHGFPPEVEEQDDGTLPMSCAQESGMDRHPAACASARINV
+NTSEQ       1386
+            atgagcagctttactaaggacgagtttgactgccacatccttgatgaaggctttactgct
+            aaggacattctggaccaaaaaatcaatgaagtctcttcctctgacgataaggatgcgttc
+            tatgttgcggacctcggagacattctaaagaagcatctgaggtggctaaaagctcttccc
+            cgcgtcactcccttttacgcagtcaagtgtaacgatagcagagccatagtgagcacccta
+            gctgccattgggacaggatttgactgtgcaagcaagactgaaatacagttggtgcagggg
+            cttggggtgcctgcagagagggttatctatgcaaatccttgtaaacaagtctctcaaatc
+            aagtatgctgccagtaacggagtccagatgatgacttttgacagtgaaattgaattgatg
+            aaagtcgccagagcacatccaaaggcaaagttggttctacggattgccactgatgattcc
+            aaagctgtctgtcgcctcagtgttaagtttggtgccacactcaaaaccagcaggcttctc
+            ttggaacgggcaaaagagctaaatattgacgtcattggtgtgagcttccatgtgggcagt
+            ggatgtactgatcctgagaccttcgttcaggcagtgtcggatgcccgctgtgtgtttgac
+            atggcaacagaagttggtttcagcatgcatctgcttgatattggtggtggctttcctgga
+            tctgaagatacaaagcttaaatttgaagagatcaccagtgtaatcaacccagctctggac
+            aagtacttcccatcagactctggagtgagaatcatagctgagccaggcagatactatgtc
+            gcatcagctttcacgcttgcagtcaacatcattgccaaaaaaaccgtgtggaaggagcag
+            cccggctctgacgatgaagatgagtcaaatgaacaaaccttcatgtattatgtgaatgat
+            ggagtatatggatcatttaactgcattctttatgatcatgcccatgtgaaggccctgctg
+            cagaagagacccaagccagacgagaagtattactcatccagcatctggggaccaacatgt
+            gatggccttgatcggatcgtggagcgctgtaacctgcctgaaatgcatgtgggtgattgg
+            atgctgtttgagaacatgggtgcatacactgttgctgctgcttctactttcaatgggttc
+            cagaggccaaacatctactatgtaatgtcacggccaatgtggcaactcatgaagcagatc
+            cagagccatggcttcccgccggaggtggaggagcaggatgatggcacgctgcccatgtct
+            tgtgcccaggagagcgggatggaccgtcaccctgcagcctgtgcttctgctaggatcaat
+            gtgtag
+///

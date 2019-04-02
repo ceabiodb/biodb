@@ -1,0 +1,28 @@
+ENTRY       EC 2.1.2.7                  Enzyme
+NAME        D-alanine 2-hydroxymethyltransferase;
+            2-methylserine hydroxymethyltransferase
+CLASS       Transferases;
+            Transferring one-carbon groups;
+            Hydroxymethyl-, formyl- and related transferases
+SYSNAME     5,10-methylenetetrahydrofolate:D-alanine 2-hydroxymethyltransferase
+REACTION    5,10-methylenetetrahydrofolate + D-alanine + H2O = tetrahydrofolate + 2-methylserine [RN:R01225]
+ALL_REAC    R01225
+SUBSTRATE   5,10-methylenetetrahydrofolate [CPD:C00143];
+            D-alanine [CPD:C00133];
+            H2O [CPD:C00001]
+PRODUCT     tetrahydrofolate [CPD:C00101];
+            2-methylserine [CPD:C02115]
+COMMENT     Also acts on 2-hydroxymethylserine.
+HISTORY     EC 2.1.2.7 created 1972
+REFERENCE   1  [PMID:14001018]
+  AUTHORS   WILSON EM, SNELL EE.
+  TITLE     Metabolism of alpha-methylserine. I. alpha-Methylserine hydroxymethyltransferase.
+  JOURNAL   J Biol Chem 237:3171-9 (1962)
+PATHWAY     ec00670  One carbon pool by folate
+            ec01100  Metabolic pathways
+DBLINKS     ExplorEnz - The Enzyme Database: 2.1.2.7
+            IUBMB Enzyme Nomenclature: 2.1.2.7
+            ExPASy - ENZYME nomenclature database: 2.1.2.7
+            BRENDA, the Enzyme Database: 2.1.2.7
+            CAS: 9075-76-7
+///

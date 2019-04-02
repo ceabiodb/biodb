@@ -1,0 +1,132 @@
+ENTRY       EC 1.4.3.10                 Enzyme
+NAME        putrescine oxidase
+CLASS       Oxidoreductases;
+            Acting on the CH-NH2 group of donors;
+            With oxygen as acceptor
+SYSNAME     putrescine:oxygen oxidoreductase (deaminating)
+REACTION    putrescine + O2 + H2O = 4-aminobutanal + NH3 + H2O2 [RN:R01151]
+ALL_REAC    R01151
+SUBSTRATE   putrescine [CPD:C00134];
+            O2 [CPD:C00007];
+            H2O [CPD:C00001]
+PRODUCT     4-aminobutanal [CPD:C00555];
+            NH3 [CPD:C00014];
+            H2O2 [CPD:C00027]
+COMMENT     A flavoprotein (FAD). 4-Aminobutanal condenses non-enzymically to 1-pyrroline.
+HISTORY     EC 1.4.3.10 created 1976
+REFERENCE   1  [PMID:4341347]
+  AUTHORS   DeSa RJ.
+  TITLE     Putrescine oxidase from Micrococcus rubens. Purification and properties of the enzyme.
+  JOURNAL   J Biol Chem 247:5527-34 (1972)
+REFERENCE   2
+  AUTHORS   Yamada, H.
+  TITLE     Putrescine oxidase (Micrococcus rubens).
+  JOURNAL   Methods Enzymol 17B:726-730 (1971)
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K03343  putrescine oxidase
+GENES       MDX: BTO20_02740
+            MAB: MAB_4321
+            MMV: MYCMA_04160
+            MABB: MASS_4385
+            MABL: MMASJCM_4423
+            MIZ: BAB75_24735
+            ASD: AS9A_2717
+            CGL: NCgl0220(Cgl0223)
+            CGB: cg0274
+            CGU: WA5_0220
+            CGM: cgp_0274
+            CUL: CULC22_02315(puo)
+            CUC: CULC809_02158(puo)
+            CUE: CULC0102_2312(puo)
+            CUN: Cul210932_2300
+            CUQ: Cul210931_2254
+            CUZ: Cul05146_2294
+            CUJ: CUL131002_2202c
+            CVA: CVAR_2956(puo)
+            CAZ: CARG_01345
+            CGY: CGLY_01565(puo)
+            CSX: CSING_03535(puo1) CSING_03615(puo2)
+            CMV: CMUST_11955
+            CTED: CTEST_03955(puo)
+            CSP: WM42_0722(puo)
+            CFC: CFLV_03350
+            CSTR: CBE89_10300
+            RHA: RHA1_ro05606
+            RER: RER_44090(puo)
+            REY: O5Y_20700
+            REB: XU06_20865
+            ROP: ROP_56710(puo)
+            ROA: Pd630_LPD02204
+            RAV: AAT18_21820
+            RFA: A3L23_00934(puo_1)
+            RHS: A3Q41_02419(puo_2)
+            RRZ: CS378_11270
+            RQI: C1M55_22210
+            RHOD: AOT96_02255
+            TPR: Tpau_0682
+            MTS: MTES_2458
+            MIM: AKG07_08370
+            MIP: AXH82_02655
+            MCW: A8L33_00210
+            MPAL: BO218_06795
+            MIH: BJP65_12865
+            MICR: BMW26_12890
+            MAUR: BOH66_04505
+            MHOS: CXR34_04675
+            MFOL: DXT68_12985
+            CUB: BJK06_07955
+            MVD: AWU67_13115
+            FRP: AX769_20540
+            AGY: ATC03_02650
+            AGM: DCE93_01895
+            CPHY: B5808_17110
+            MYL: C3E77_01815
+            SALA: ESZ53_07630
+            HUM: DVJ78_03850
+            PLAP: EAO79_08100
+            ART: Arth_0040
+            ARR: ARUE_c00400(puo)
+            ARM: ART_2629
+            ARL: AFL94_14185
+            ARE: AL755_00440
+            AAQ: AOC05_08705 AOC05_15990
+            ARW: MB46_15705
+            ARH: AHiyo8_34410
+            ARY: ATC04_03755
+            ARZ: AUT26_00210
+            ARU: ASPU41_05835
+            ARQ: BWQ92_09985
+            ARN: CGK93_00220
+            ARX: ARZXY2_3854(puo)
+            ACRY: AC20117_13240
+            ARTH: C3B78_00295
+            ARI: UM93_12850
+            AAU: AAur_0043(puo)
+            ACH: Achl_0040
+            APN: Asphe3_00340
+            PSUL: AU252_10185
+            AAI: AARI_27810(puo)
+            GAR: AOZ07_14250
+            RSA: RSal33209_3508
+            KRH: KRH_00860(puo)
+            KFV: AS188_01795
+            MLU: Mlut_10320
+            RDN: HMPREF0733_11940
+            RAJ: RA11412_1825
+            SATK: SA2016_3728
+            BLY: A2T55_09215
+            BLIN: BLSMQ_2014
+            AEZ: C3E78_04525
+            AEB: C6I20_10710
+            NAL: B005_4495(puo)
+            KRA: Krad_0838
+            AMS: AMIS_35620
+            ASE: ACPL_3219(puo)
+            ACTS: ACWT_3091
+DBLINKS     ExplorEnz - The Enzyme Database: 1.4.3.10
+            IUBMB Enzyme Nomenclature: 1.4.3.10
+            ExPASy - ENZYME nomenclature database: 1.4.3.10
+            BRENDA, the Enzyme Database: 1.4.3.10
+            CAS: 9076-87-3
+///

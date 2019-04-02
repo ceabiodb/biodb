@@ -1,0 +1,34 @@
+ENTRY       C11118                      Compound
+NAME        N-Methyl-2-pyrrolidinone;
+            1-Methyl-2-pyrrolidinone;
+            N-Methylpyrrolidone
+FORMULA     C5H9NO
+EXACT_MASS  99.0684
+MOL_WEIGHT  99.1311
+BRITE       Pharmaceutical additives in Japan [BR:br08316]
+             Solubilizing agent
+              C11118  [109125] N-Methyl-2-pyrrolidinone
+DBLINKS     CAS: 872-50-4
+            PubChem: 13300
+            ChEBI: 7307
+            ChEMBL: CHEMBL12543
+            KNApSAcK: C00039855
+            PDB-CCD: MB3
+            NIKKAJI: J26.033I
+ATOM        7
+            1   C1x C    28.0557  -21.3202
+            2   N1y N    28.4827  -19.9871
+            3   C1x C    26.2121  -20.0021
+            4   C1x C    26.6562  -21.3296
+            5   O5x O    27.2485  -17.7693
+            6   C5x C    27.2578  -19.2895
+            7   C1a C    29.8241  -19.5710
+BOND        7
+            1     3   4 1
+            2     4   1 1
+            3     6   5 2
+            4     1   2 1
+            5     2   6 1
+            6     6   3 1
+            7     2   7 1
+///

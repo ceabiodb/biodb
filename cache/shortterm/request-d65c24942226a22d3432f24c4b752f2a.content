@@ -1,0 +1,41 @@
+ENTRY       69574             CDS       T01002
+NAME        Cmbl, 2310016A09Rik
+DEFINITION  (RefSeq) carboxymethylenebutenolidase-like (Pseudomonas)
+ORTHOLOGY   K01061  carboxymethylenebutenolidase [EC:3.1.1.45]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu01100  Metabolic pathways
+BRITE       Enzymes [BR:mmu01000]
+             3. Hydrolases
+              3.1  Acting on ester bonds
+               3.1.1  Carboxylic-ester hydrolases
+                3.1.1.45  carboxymethylenebutenolidase
+                 69574 (Cmbl)
+POSITION    15; 15 B2
+MOTIF       Pfam: DLH Peptidase_S9 Abhydrolase_1 FSH1 BAAT_C Abhydrolase_2 Hydrolase_4 Abhydrolase_5 DUF915 Abhydrolase_4 DUF829
+DBLINKS     NCBI-GeneID: 69574
+            NCBI-ProteinID: NP_853619
+            MGI: 1916824
+            Ensembl: ENSMUSG00000022235
+            Vega: OTTMUSG00000022674
+            UniProt: Q8R1G2
+AASEQ       245
+            MANEANPCPCDIGHKLEYGGMGHEVQVEHIKAYVTRSPVDAGKAVIVVQDIFGWQLPNTR
+            YMADMIARNGYTTIVPDFFVGQEPWDPAGDWSTFPAWLKSRNARKVNREVDAVLRYLRQQ
+            CHAQKIGIVGFCWGGVVVHQVMTAYPDIRAGVSVYGIIRDSEDVYNLKNPTLFIFAENDT
+            VIPLEQVSTLTQKLKEHCIVNYQVKTFSGQTHGFVHRKREDCSPADKPYIEEARRNLIEW
+            LNKYV
+NTSEQ       738
+            atggctaacgaagctaacccttgcccatgtgacattggtcacaaactagagtatggtggc
+            atgggccacgaagttcaggttgagcacatcaaggcatatgtcacccggtcccccgtggat
+            gcaggcaaagccgtgattgtcgtccaggatatatttggctggcagctgcccaacaccagg
+            tatatggctgacatgattgccagaaatggatacacaactattgtcccagacttctttgtg
+            ggtcaagagccatgggacccagctggtgactggtccaccttccccgcgtggttgaaatca
+            agaaatgccagaaaagtcaatcgggaggttgatgctgtcttgaggtatctgagacaacag
+            tgtcatgctcagaagattggcattgtgggcttctgctgggggggtgttgtggtgcaccaa
+            gtgatgacggcatacccggacatcagggcgggggtgtctgtctatggtatcatcagagat
+            tctgaagatgtttataatttgaagaacccaacgttgtttatttttgcagaaaatgacact
+            gtgattccacttgagcaggtttctacactgacccagaagcttaaagaacactgcatagtt
+            aattaccaagttaaaacgttttctgggcaaactcatggctttgtgcatcggaagagagaa
+            gactgctcccctgctgacaagccctacatcgaggaggcaaggaggaacctaattgaatgg
+            ctgaacaagtatgtctaa
+///

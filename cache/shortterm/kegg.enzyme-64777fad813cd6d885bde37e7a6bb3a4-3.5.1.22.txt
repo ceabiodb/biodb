@@ -1,0 +1,28 @@
+ENTRY       EC 3.5.1.22                 Enzyme
+NAME        pantothenase;
+            pantothenate hydrolase;
+            pantothenate amidohydrolase
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In linear amides
+SYSNAME     (R)-pantothenate amidohydrolase
+REACTION    (R)-pantothenate + H2O = (R)-pantoate + beta-alanine [RN:R02474]
+ALL_REAC    R02474
+SUBSTRATE   (R)-pantothenate [CPD:C00864];
+            H2O [CPD:C00001]
+PRODUCT     (R)-pantoate [CPD:C00522];
+            beta-alanine [CPD:C00099]
+HISTORY     EC 3.5.1.22 created 1972
+REFERENCE   1  [PMID:5940928]
+  AUTHORS   Nurmikko V, Salo E, Hakola H, Makinen K, Snell EE.
+  TITLE     The bacterial degradation of pantothenic acid. II. Pantothenate hydrolase.
+  JOURNAL   Biochemistry 5:399-402 (1966)
+PATHWAY     ec00770  Pantothenate and CoA biosynthesis
+            ec01100  Metabolic pathways
+            ec01110  Biosynthesis of secondary metabolites
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.1.22
+            IUBMB Enzyme Nomenclature: 3.5.1.22
+            ExPASy - ENZYME nomenclature database: 3.5.1.22
+            BRENDA, the Enzyme Database: 3.5.1.22
+            CAS: 9076-90-8
+///

@@ -1,0 +1,54 @@
+ENTRY       EC 4.1.2.46                 Enzyme
+NAME        aliphatic (R)-hydroxynitrile lyase;
+            (R)-HNL;
+            (R)-oxynitrilase;
+            (R)-hydroxynitrile lyase;
+            LuHNL
+CLASS       Lyases;
+            Carbon-carbon lyases;
+            Aldehyde-lyases
+SYSNAME     (2R)-2-hydroxy-2-methylbutanenitrile butan-2-one-lyase (cyanide forming)
+REACTION    (2R)-2-hydroxy-2-methylbutanenitrile = cyanide + butan-2-one [RN:R09358]
+ALL_REAC    R09358;
+            (other) R01553 R02811
+SUBSTRATE   (2R)-2-hydroxy-2-methylbutanenitrile [CPD:C18796]
+PRODUCT     cyanide [CPD:C00177];
+            butan-2-one [CPD:C02845]
+COMMENT     The enzyme contains Zn2+ [1]. The enzyme catalyses the stereoselective synthesis of aliphatic (R)-cyanohydrins [1]. No activity towards mandelonitrile and 4-hydroxymandelonitrile [5]. Natural substrates for the (R)-oxynitrilase from Linum usitatissimum are acetone and butan-2-one, which are the building blocks of the cyanogen glycosides in Linum, linamarin and lotaustralin, or linustatin and neolinustatin, respectively [4].
+HISTORY     EC 4.1.2.46 created 2011
+REFERENCE   1
+  AUTHORS   Trummler, K., Roos, J., Schwaneberg, U., Effenberger, F., Forster, S., Pfizenmaier, K. and Wajant, H.
+  TITLE     Expression of the Zn2+-containing hydroxynitrile lyase from flax (Linum usitatissimum) in Pichia pastoris- utilization of the recombinant enzyme for enzymatic analysis and site-directed mutagenesis.
+  JOURNAL   Plant Sci 139:19-27 (1998)
+REFERENCE   2  [PMID:9030531]
+  AUTHORS   Trummler K, Wajant H
+  TITLE     Molecular cloning of acetone cyanohydrin lyase from flax (Linum usitatissimum). Definition of a novel class of hydroxynitrile lyases.
+  JOURNAL   J Biol Chem 272:4770-4 (1997)
+            DOI:10.1074/jbc.272.8.4770
+  SEQUENCE  [ag:CAA70304]
+REFERENCE   3  [PMID:8387315]
+  AUTHORS   Albrecht J, Jansen I, Kula MR
+  TITLE     Improved purification of an (R)-oxynitrilase from Linum usitatissimum (flax) and  investigation of the substrate range.
+  JOURNAL   Biotechnol Appl Biochem 17 ( Pt 2):191-203 (1993)
+REFERENCE   4  [PMID:3377504]
+  AUTHORS   Xu LL, Singh BK, Conn EE.
+  TITLE     Purification and characterization of acetone cyanohydrin lyase from Linum usitatissimum.
+  JOURNAL   Arch Biochem Biophys 263:256-63 (1988)
+            DOI:10.1016/0003-9861(88)90634-0
+  SEQUENCE  [ag:CAA70304]
+REFERENCE   5
+  AUTHORS   Cabirol, F.L., Tan, P.L., Tay, B., Cheng, S., Hanefeld, U. and Sheldon, R.A.
+  TITLE     Linum usitatissimum hydroxynitrile lyase cross-linked enzyme aggregates: a recyclable enantioselective catalyst.
+  JOURNAL   Adv Synth Catal 350:2329-2338 (2008)
+REFERENCE   6
+  AUTHORS   Breithaupt, H., Pohl, M., Bonigk, W., Heim, P., Schimz, K.-L. and Kula, M.-R.
+  TITLE     Cloning and expression of (R)-hydroxynitrile lyase from Linum usitatissimum (flax).
+  JOURNAL   J Mol Catal B 6:315-332 (1999)
+PATHWAY     ec00460  Cyanoamino acid metabolism
+            ec01110  Biosynthesis of secondary metabolites
+ORTHOLOGY   K14577  aliphatic (R)-hydroxynitrile lyase
+DBLINKS     ExplorEnz - The Enzyme Database: 4.1.2.46
+            IUBMB Enzyme Nomenclature: 4.1.2.46
+            ExPASy - ENZYME nomenclature database: 4.1.2.46
+            BRENDA, the Enzyme Database: 4.1.2.46
+///

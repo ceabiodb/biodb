@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
+<entry dataset="Swiss-Prot" created="1989-07-01" modified="2018-12-05" version="80">
+<accession>P10480</accession>
+<name>GCAT_AERHY</name>
+<protein>
+<recommendedName>
+<fullName>Phosphatidylcholine-sterol acyltransferase</fullName>
+<ecNumber>2.3.1.43</ecNumber>
+</recommendedName>
+<alternativeName>
+<fullName>Glycerophospholipid-cholesterol acyltransferase</fullName>
+<shortName>GCAT</shortName>
+</alternativeName>
+</protein>
+<organism>
+<name type="scientific">Aeromonas hydrophila</name>
+<dbReference type="NCBI Taxonomy" id="644"/>
+<lineage>
+<taxon>Bacteria</taxon>
+<taxon>Proteobacteria</taxon>
+<taxon>Gammaproteobacteria</taxon>
+<taxon>Aeromonadales</taxon>
+<taxon>Aeromonadaceae</taxon>
+<taxon>Aeromonas</taxon>
+</lineage>
+</organism>
+<reference key="1">
+<citation type="journal article" date="1990" name="Biochemistry" volume="29" first="9072" last="9078">
+<title>Purification and spectral study of a microbial fatty acyltransferase: activation by limited proteolysis.</title>
+<authorList>
+<person name="Hilton S."/>
+<person name="McCubbin W.D."/>
+<person name="Kay C.M."/>
+<person name="Buckley J.T."/>
+</authorList>
+<dbReference type="PubMed" id="2271578"/>
+<dbReference type="DOI" id="10.1021/bi00490a026"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+<source>
+<strain>Ah65</strain>
+</source>
+</reference>
+<reference key="2">
+<citation type="journal article" date="1988" name="Biochim. Biophys. Acta" volume="959" first="153" last="159">
+<title>Molecular cloning of a phospholipid-cholesterol acyltransferase from Aeromonas hydrophila. Sequence homologies with lecithin-cholesterol acyltransferase and other lipases.</title>
+<authorList>
+<person name="Thornton J."/>
+<person name="Howard S.P."/>
+<person name="Buckley J.T."/>
+</authorList>
+<dbReference type="PubMed" id="3280033"/>
+<dbReference type="DOI" id="10.1016/0005-2760(88)90026-4"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+<source>
+<strain>Ah65</strain>
+</source>
+</reference>
+<reference key="3">
+<citation type="journal article" date="1991" name="J. Biol. Chem." volume="266" first="997" last="1000">
+<title>Studies on the reaction mechanism of a microbial lipase/acyltransferase using chemical modification and site-directed mutagenesis.</title>
+<authorList>
+<person name="Hilton S."/>
+<person name="Buckley J.T."/>
+</authorList>
+<dbReference type="PubMed" id="1985976"/>
+</citation>
+<scope>MUTAGENESIS</scope>
+<scope>ACTIVE SITE</scope>
+</reference>
+<reference key="4">
+<citation type="journal article" date="1994" name="J. Biol. Chem." volume="269" first="2146" last="2150">
+<title>Influence of active site and tyrosine modification on the secretion and activity of the Aeromonas hydrophila lipase/acyltransferase.</title>
+<authorList>
+<person name="Robertson D.L."/>
+<person name="Hilton S."/>
+<person name="Wong K.R."/>
+<person name="Koepke A."/>
+<person name="Buckley J.T."/>
+</authorList>
+<dbReference type="PubMed" id="8294469"/>
+</citation>
+<scope>MUTAGENESIS</scope>
+</reference>
+<comment type="function">
+<text>Fatty acid transfer between phosphatidylcholine and cholesterol.</text>
+</comment>
+<comment type="catalytic activity">
+<reaction>
+<text>a 1,2-diacyl-sn-glycero-3-phosphocholine + a sterol = a 1-acyl-sn-glycero-3-phosphocholine + a steryl ester</text>
+<dbReference type="Rhea" id="RHEA:21204"/>
+<dbReference type="ChEBI" id="CHEBI:15889"/>
+<dbReference type="ChEBI" id="CHEBI:35915"/>
+<dbReference type="ChEBI" id="CHEBI:57643"/>
+<dbReference type="ChEBI" id="CHEBI:58168"/>
+<dbReference type="EC" id="2.3.1.43"/>
+</reaction>
+</comment>
+<comment type="similarity">
+<text evidence="3">Belongs to the 'GDSL' lipolytic enzyme family.</text>
+</comment>
+<comment type="sequence caution" evidence="3">
+<conflict type="frameshift">
+<sequence resource="EMBL-CDS" id="CAA30260" version="1"/>
+</conflict>
+<location>
+<position position="268"/>
+</location>
+<location>
+<position position="302"/>
+</location>
+</comment>
+<dbReference type="EC" id="2.3.1.43"/>
+<dbReference type="EMBL" id="X07279">
+<property type="protein sequence ID" value="CAA30260.1"/>
+<property type="status" value="ALT_FRAME"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="PIR" id="A36035">
+<property type="entry name" value="XXFOGA"/>
+</dbReference>
+<dbReference type="ProteinModelPortal" id="P10480"/>
+<dbReference type="GO" id="GO:0016298">
+<property type="term" value="F:lipase activity"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="InterPro"/>
+</dbReference>
+<dbReference type="GO" id="GO:0004607">
+<property type="term" value="F:phosphatidylcholine-sterol O-acyltransferase activity"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="UniProtKB-EC"/>
+</dbReference>
+<dbReference type="GO" id="GO:0008203">
+<property type="term" value="P:cholesterol metabolic process"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="UniProtKB-KW"/>
+</dbReference>
+<dbReference type="Gene3D" id="3.40.50.1110">
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR001087">
+<property type="entry name" value="GDSL"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR008265">
+<property type="entry name" value="Lipase_GDSL_AS"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR036514">
+<property type="entry name" value="SGNH_hydro_sf"/>
+</dbReference>
+<dbReference type="Pfam" id="PF00657">
+<property type="entry name" value="Lipase_GDSL"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS01098">
+<property type="entry name" value="LIPASE_GDSL_SER"/>
+<property type="match status" value="1"/>
+</dbReference>
+<proteinExistence type="evidence at protein level"/>
+<keyword id="KW-0012">Acyltransferase</keyword>
+<keyword id="KW-0153">Cholesterol metabolism</keyword>
+<keyword id="KW-0443">Lipid metabolism</keyword>
+<keyword id="KW-0732">Signal</keyword>
+<keyword id="KW-0753">Steroid metabolism</keyword>
+<keyword id="KW-1207">Sterol metabolism</keyword>
+<keyword id="KW-0808">Transferase</keyword>
+<feature type="signal peptide" evidence="2">
+<location>
+<begin position="1"/>
+<end position="18"/>
+</location>
+</feature>
+<feature type="chain" description="Phosphatidylcholine-sterol acyltransferase" id="PRO_0000017844">
+<location>
+<begin position="19"/>
+<end position="335"/>
+</location>
+</feature>
+<feature type="active site" description="Nucleophile" evidence="1">
+<location>
+<position position="34"/>
+</location>
+</feature>
+<feature type="active site" evidence="1">
+<location>
+<position position="306"/>
+</location>
+</feature>
+<feature type="active site" evidence="1">
+<location>
+<position position="309"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Loss of activity.">
+<original>S</original>
+<variation>N</variation>
+<location>
+<position position="34"/>
+</location>
+</feature>
+<feature type="mutagenesis site" description="Loss of activity.">
+<original>S</original>
+<variation>G</variation>
+<location>
+<position position="36"/>
+</location>
+</feature>
+<evidence key="1" type="ECO:0000250"/>
+<evidence key="2" type="ECO:0000255"/>
+<evidence key="3" type="ECO:0000305"/>
+<sequence length="335" mass="37067" checksum="58A72BA2B4C8B870" modified="2006-11-28" version="3" precursor="true">
+MKKWFVCLLGLVALTVQAADSRPAFSRIVMFGDSLSDTGKMYSKMRGYLPSSPPYYEGRF
+SNGPVWLEQLTNEFPGLTIANEAEGGPTAVAYNKISWNPKYQVINNLDYEVTQFLQKDSF
+KPDDLVILWVGANDYLAYGWNTEQDAKRVRDAISDAANRMVLNGAKEILLFNLPDLGQNP
+SARSQKVVEAASHVSAYHNQLLLNLARQLAPTGMVKLFEIDKQFAEMLRDPQNFGLSDTE
+NACYGGSYVWKPFASRSASTDSQLSAFNPQERLAIAGNPLLAQAVASPMAARSASTLNCE
+GKMFWDQVHPTTVVHAALSEPAATFIESQYEFLAH
+</sequence>
+</entry>
+<copyright>
+Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+Distributed under the Creative Commons Attribution (CC BY 4.0) License
+</copyright>
+</uniprot>

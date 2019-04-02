@@ -1,0 +1,1 @@
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["url","header","body"]}},"value":[{"type":"character","attributes":{},"value":["https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=CCDS43240.1"]},{"type":"character","attributes":{},"value":[]},{"type":"character","attributes":{},"value":[]}]}

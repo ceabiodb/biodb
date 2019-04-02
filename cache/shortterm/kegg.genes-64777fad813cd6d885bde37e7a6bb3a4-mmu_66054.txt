@@ -1,0 +1,83 @@
+ENTRY       66054             CDS       T01002
+NAME        Cndp2, 0610010E05Rik, C76600, Cn2, Dip-2, Pep-1, Pep1
+DEFINITION  (RefSeq) CNDP dipeptidase 2 (metallopeptidase M20 family)
+ORTHOLOGY   K08660  cytosolic nonspecific dipeptidase [EC:3.4.13.18]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00330  Arginine and proline metabolism
+            mmu00340  Histidine metabolism
+            mmu00410  beta-Alanine metabolism
+            mmu01100  Metabolic pathways
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00330 Arginine and proline metabolism
+                66054 (Cndp2)
+               00340 Histidine metabolism
+                66054 (Cndp2)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                66054 (Cndp2)
+             09180 Brite Hierarchies
+              09181 Protein families: metabolism
+               01002 Peptidases [BR:mmu01002]
+                66054 (Cndp2)
+              09183 Protein families: signaling and cellular processes
+               04147 Exosome [BR:mmu04147]
+                66054 (Cndp2)
+            Enzymes [BR:mmu01000]
+             3. Hydrolases
+              3.4  Acting on peptide bonds (peptidases)
+               3.4.13  Dipeptidases
+                3.4.13.18  cytosol nonspecific dipeptidase
+                 66054 (Cndp2)
+            Peptidases [BR:mmu01002]
+             Metallo Peptidases
+              Family M20
+               66054 (Cndp2)
+            Exosome [BR:mmu04147]
+             Exosomal proteins
+              Exosomal proteins of breast milk
+               66054 (Cndp2)
+POSITION    18; 18 E4
+MOTIF       Pfam: Peptidase_M20 M20_dimer Peptidase_M28
+DBLINKS     NCBI-GeneID: 66054
+            NCBI-ProteinID: NP_001276460
+            MGI: 1913304
+            Ensembl: ENSMUSG00000024644
+            UniProt: Q9D1A2
+STRUCTURE   PDB: 2ZOG 2ZOF
+AASEQ       475
+            MSALKAVFQYIDENQDRYVKKLAEWVAIQSVSAWPEKRGEIRRMMEVAAADVQRLGGSVE
+            LVDIGKQKLPDGSEIPLPPILLGKLGSDPQKKTVCIYGHLDVQPAALEDGWDSEPFTLVE
+            REGKLYGRGSTDDKGPVAGWMNALEAYQKTGQEIPVNLRFCLEGMEESGSEGLDELIFAQ
+            KDKFFKDVDYVCISDNYWLGKNKPCITYGLRGICYFFIEVECSDKDLHSGVYGGSVHEAM
+            TDLISLMGCLVDKKGKILIPGINDAVAPVTDEEHALYDHIDFDMEEFAKDVGAETLLHSC
+            KKDILMHRWRYPSLSLHGIEGAFSGSGAKTVIPRKVVGKFSIRLVPDMIPEVVSEQVSSY
+            LSKKFAELQSPNKFKVYMGHGGKPWVSDFNHPHYQAGRRALKTVFGVEPDLTREGGSIPV
+            TLTFQEATGKNVMLLPVGSADDGAHSQNEKLNRLNYIEGTKMLAAYLYEVSQLKN
+NTSEQ       1428
+            atgtcagccctcaaagctgtcttccagtatatcgatgaaaaccaggaccgctacgtcaag
+            aaacttgcagaatgggtggccatccagagcgtgtccgcatggccggagaagagaggagag
+            atcagaaggatgatggaggtggcagctgccgatgtccagaggctggggggctccgtggaa
+            ctggtggatattgggaagcagaagctcccagatggctcggagataccacttcctcccatt
+            ctgctgggcaagctaggcagcgacccccagaagaaaaccgtgtgcatttacgggcacctg
+            gacgtgcagcctgcggccctggaggacgggtgggacagcgagcccttcaccttggtggag
+            cgggaaggcaagctgtatgggagaggctccacggacgataaggggccagtggccgggtgg
+            atgaatgccctggaagcctatcagaagactggtcaggagatcccagtcaacctgcggttc
+            tgcctggaaggcatggaggagtctggctccgaaggcctggatgagctcatttttgcccag
+            aaagacaagttcttcaaagatgtggactatgtgtgcatttcagacaattactggctgggg
+            aagaataagccgtgtatcacgtacggcctcagaggcatctgttacttcttcatcgaggtg
+            gaatgcagtgacaaagacctccattctggggtatatggaggctcagtgcacgaggccatg
+            acggatctcatttcactgatgggctgcctggtagacaagaaggggaagatcctcatcccg
+            ggcatcaacgatgccgtggcgcctgtgacggatgaggagcatgcgctctacgaccacatt
+            gacttcgatatggaagagttcgccaaggacgtgggggctgagacccttctgcacagctgc
+            aagaaagacatcctgatgcacagatggcgatacccgtccctctccctgcatgggatcgaa
+            ggggccttctccggttcaggggccaagactgtgatccccagaaaggtggtcggcaagttc
+            tccatcaggctcgtgccagacatgataccggaagttgttagcgagcaagtttcaagctac
+            ttgtcaaaaaaatttgctgaactgcagagccccaacaagttcaaggtgtacatgggccac
+            ggcgggaagccctgggtgtctgacttcaaccatcctcattaccaggcggggagaagagcc
+            ctgaagacagtgtttggtgttgagcctgacttgaccagagaaggtggcagtattcctgtg
+            accttgacctttcaagaggccacaggcaaaaatgtcatgctattgccagtggggtcagca
+            gatgacggtgcccactcgcagaatgagaagctcaacaggctcaactacatagaaggaacc
+            aaaatgctggctgcatatctgtatgaggtgtctcagctgaagaactga
+///

@@ -1,3 +1,5 @@
+^Meta$
+^doc$
 ^ext$
 ^examples$
 ^\.travis\.yml$
@@ -10,3 +12,4 @@
 ^biodb_.*\.tar\.gz$
 ^biodb\.Rcheck$
 ^biodb\.check\.cache$
+^cache$

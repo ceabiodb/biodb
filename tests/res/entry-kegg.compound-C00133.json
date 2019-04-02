@@ -1,0 +1,28 @@
+{
+	"accession": "C00133",
+	"name": ["D-Alanine", "D-2-Aminopropionic acid", "D-Ala"],
+	"formula": "C3H7NO2",
+	"inchi": "InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m1/s1",
+	"inchikey": "QNAYBMKLOCPYGJ-UWTATZPHSA-N",
+	"monoisotopic.mass": 89.0477,
+	"molecular.mass": 89.0932,
+	"chebi.id": "15570",
+	"cas.id": "338-69-2",
+	"ncbi.pubchem.comp.id": "3433",
+	"kegg.reaction.id": [
+		"R00399", "R00401", "R01147", "R01148", "R01149", "R01150", "R01225", "R01344",
+		"R02718", "R04369", "R04611", "R05861", "R07651", "R08850", "R09588", "R09595",
+		"R11965"],
+	"kegg.pathway.id": [
+		"map00473",
+		"map00550",
+		"map01100",
+		"map01502",
+		"map01503",
+		"map04742"],
+	"kegg.enzyme.id": [
+		"1.4.3.3", "1.4.3.19", "2.1.2.7", "2.3.1.263",
+		"2.3.2.14", "2.6.1.21", "3.1.1.103", "3.4.13.22",
+		"3.4.17.8", "5.1.1.1", "6.1.1.13", "6.1.2.1",
+		"6.3.2.4", "6.3.2.16", "6.3.2.35"]
+}

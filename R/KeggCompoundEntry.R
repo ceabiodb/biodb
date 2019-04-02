@@ -26,11 +26,5 @@ KeggCompoundEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 	# Other KEGG IDs
 	.self$.parseMultilinesField(field = 'kegg.reaction.id', tag = 'REACTION', parsed.content = parsed.content)
 	.self$.parseMultilinesField(field = 'kegg.enzyme.id',   tag = 'ENZYME', parsed.content = parsed.content)
-
-	# Pathway
-	pathway.ids = .self$.getTagLines(tag = 'PATHWAY', parsed.content = parsed.content)
-	if (length(pathway.ids) > 0) {
-		pathway.ids = sub('^\\s*([^ ]+)\\s+.*$', '\\1', pathway.ids)
-		.self$setFieldValue('kegg.pathway.id', pathway.ids)
-	}
+	.self$.parsePathwayIds(parsed.content = parsed.content)
 })

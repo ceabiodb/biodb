@@ -1,0 +1,26 @@
+ENTRY       C02648                      Compound
+NAME        4-Hydroxy-2-butynal;
+            4-Hydroxybut-2-ynal
+FORMULA     C4H4O2
+EXACT_MASS  84.0211
+MOL_WEIGHT  84.0734
+REACTION    R03963
+ENZYME      1.1.1.165
+DBLINKS     PubChem: 5625
+            ChEBI: 16711
+            3DMET: B00475
+            NIKKAJI: J2.739.319E
+ATOM        6
+            1   C3b C    25.8520  -16.0530
+            2   C3b C    27.0680  -16.7546
+            3   C1b C    24.6416  -15.3514
+            4   C4a C    28.2784  -16.0530
+            5   O1a O    23.4313  -16.0530
+            6   O4a O    29.4887  -16.7546
+BOND        5
+            1     1   2 3
+            2     1   3 1
+            3     2   4 1
+            4     3   5 1
+            5     4   6 2
+///

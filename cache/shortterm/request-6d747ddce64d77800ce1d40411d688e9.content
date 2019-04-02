@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD esearch 20060628//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20060628/esearch.dtd">
+<eSearchResult><Count>5</Count><RetMax>5</RetMax><RetStart>0</RetStart><IdList>
+<Id>2833</Id>
+<Id>84475</Id>
+<Id>101687132</Id>
+<Id>101454090</Id>
+<Id>105266729</Id>
+</IdList><TranslationSet/><TranslationStack>   <TermSet>    <Term>"GPR9"[Gene Name]</Term>    <Field>Gene Name</Field>    <Count>5</Count>    <Explode>N</Explode>   </TermSet>   <OP>GROUP</OP>  </TranslationStack><QueryTranslation>"GPR9"[Gene Name]</QueryTranslation></eSearchResult>

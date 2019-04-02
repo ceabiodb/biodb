@@ -1,0 +1,62 @@
+ENTRY       EC 2.6.1.58                 Enzyme
+NAME        phenylalanine(histidine) transaminase;
+            phenylalanine (histidine) aminotransferase;
+            phenylalanine(histidine):pyruvate aminotransferase;
+            histidine:pyruvate aminotransferase;
+            L-phenylalanine(L-histidine):pyruvate aminotransferase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     L-phenylalanine:pyruvate aminotransferase
+REACTION    L-phenylalanine + pyruvate = phenylpyruvate + L-alanine [RN:R00692]
+ALL_REAC    R00692;
+            (other) R09254
+SUBSTRATE   L-phenylalanine [CPD:C00079];
+            pyruvate [CPD:C00022]
+PRODUCT     phenylpyruvate [CPD:C00166];
+            L-alanine [CPD:C00041]
+COMMENT     L-Histidine and L-tyrosine can act instead of L-phenylalanine; in the reverse reaction, L-methionine, L-serine and L-glutamine can replace L-alanine.
+HISTORY     EC 2.6.1.58 created 1978
+REFERENCE   1  [PMID:14070]
+  AUTHORS   Minatogawa Y, Noguchi T, Kido R.
+  TITLE     Species distribution and properties of hepatic phenylalanine (histidine):pyruvate aminotransferase.
+  JOURNAL   Hoppe Seylers Z Physiol Chem 358:59-67 (1977)
+PATHWAY     ec00350  Tyrosine metabolism
+            ec00360  Phenylalanine metabolism
+            ec00400  Phenylalanine, tyrosine and tryptophan biosynthesis
+            ec00960  Tropane, piperidine and pyridine alkaloid biosynthesis
+            ec01100  Metabolic pathways
+            ec01110  Biosynthesis of secondary metabolites
+            ec01130  Biosynthesis of antibiotics
+ORTHOLOGY   K05821  aromatic amino acid aminotransferase II
+GENES       SCE: YHR137W(ARO9)
+            KLA: KLLA0_D11110g
+            KMX: KLMA_60423(ARO9)
+            LTH: KLTH0B06270g
+            VPO: Kpol_1035p30
+            ZRO: ZYRO0G05346g
+            CGR: CAGL0G06028g
+            NCS: NCAS_0B07220(NCAS0B07220)
+            NDI: NDAI_0B04550(NDAI0B04550)
+            TPF: TPHA_0O01520(TPHA0O01520)
+            TBL: TBLA_0B00990(TBLA0B00990)
+            TDL: TDEL_0F00900(TDEL0F00900)
+            PPA: PAS_chr4_0147
+            PIC: PICST_34099(ARO9.1)
+            PGU: PGUG_05380
+            LEL: LELG_05645
+            CAL: CAALFM_C405560CA(ARO9)
+            CTP: CTRG_03861
+            COT: CORT_0B00660
+            CDU: CD36_45160
+            CTEN: CANTEDRAFT_120671
+            YLI: YALI0C05258g
+            CLU: CLUG_04493
+            CLUS: A9F13_25g00781
+            CAUR: QG37_02082
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.58
+            IUBMB Enzyme Nomenclature: 2.6.1.58
+            ExPASy - ENZYME nomenclature database: 2.6.1.58
+            BRENDA, the Enzyme Database: 2.6.1.58
+            CAS: 72560-98-6
+///

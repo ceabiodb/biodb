@@ -1,0 +1,32 @@
+ENTRY       EC 2.6.1.15                 Enzyme
+NAME        glutamine---pyruvate transaminase;
+            glutaminase II;
+            L-glutamine transaminase L;
+            glutamine-oxo-acid transaminase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     L-glutamine:pyruvate aminotransferase
+REACTION    L-glutamine + pyruvate = 2-oxoglutaramate + L-alanine [RN:R00576]
+ALL_REAC    R00576
+SUBSTRATE   L-glutamine [CPD:C00064];
+            pyruvate [CPD:C00022]
+PRODUCT     2-oxoglutaramate [CPD:C00940];
+            L-alanine [CPD:C00041]
+COMMENT     A pyridoxal-phosphate protein. L-Methionine can act as donor; glyoxylate can act as acceptor.
+HISTORY     EC 2.6.1.15 created 1961
+REFERENCE   1  [PMID:5059882]
+  AUTHORS   Cooper JL, Meister A.
+  TITLE     Isolation and properties of highly purified glutamine transaminase.
+  JOURNAL   Biochemistry 11:661-71 (1972)
+REFERENCE   2  [PMID:13201566]
+  AUTHORS   MEISTER A.
+  TITLE     Studies on the mechanism and specificity of the glutamine-alpha-keto acid transamination-deamidation reaction.
+  JOURNAL   J Biol Chem 210:17-35 (1954)
+PATHWAY     ec00250  Alanine, aspartate and glutamate metabolism
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.15
+            IUBMB Enzyme Nomenclature: 2.6.1.15
+            ExPASy - ENZYME nomenclature database: 2.6.1.15
+            BRENDA, the Enzyme Database: 2.6.1.15
+            CAS: 9030-44-8
+///

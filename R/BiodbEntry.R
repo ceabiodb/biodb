@@ -473,7 +473,7 @@ BiodbEntry$methods( .doParseContent = function(content) {
 ################################################################
 
 BiodbEntry$methods( .isParsedContentCorrect = function(parsed.content) {
-	return(TRUE)
+	return( ! is.null(parsed.content) && ( ! is.vector(parsed.content) || length(parsed.content) > 1 || ! is.na(parsed.content)))
 })
 
 # Parse fields step 1 {{{2

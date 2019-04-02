@@ -1,0 +1,4298 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<uniprot xmlns="http://uniprot.org/uniprot" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
+<entry dataset="Swiss-Prot" created="1986-07-21" modified="2019-01-16" version="213">
+<accession>P02461</accession>
+<accession>D2JYH5</accession>
+<accession>D3DPH4</accession>
+<accession>P78429</accession>
+<accession>Q15112</accession>
+<accession>Q16403</accession>
+<accession>Q53S91</accession>
+<accession>Q541P8</accession>
+<accession>Q6LDB3</accession>
+<accession>Q6LDJ2</accession>
+<accession>Q6LDJ3</accession>
+<accession>Q7KZ56</accession>
+<accession>Q8N6U4</accession>
+<accession>Q9UC88</accession>
+<accession>Q9UC89</accession>
+<accession>Q9UC90</accession>
+<accession>Q9UC91</accession>
+<accession>R4N3C5</accession>
+<accession>V9GZI1</accession>
+<name>CO3A1_HUMAN</name>
+<protein>
+<recommendedName>
+<fullName>Collagen alpha-1(III) chain</fullName>
+</recommendedName>
+</protein>
+<gene>
+<name type="primary">COL3A1</name>
+</gene>
+<organism>
+<name type="scientific">Homo sapiens</name>
+<name type="common">Human</name>
+<dbReference type="NCBI Taxonomy" id="9606"/>
+<lineage>
+<taxon>Eukaryota</taxon>
+<taxon>Metazoa</taxon>
+<taxon>Chordata</taxon>
+<taxon>Craniata</taxon>
+<taxon>Vertebrata</taxon>
+<taxon>Euteleostomi</taxon>
+<taxon>Mammalia</taxon>
+<taxon>Eutheria</taxon>
+<taxon>Euarchontoglires</taxon>
+<taxon>Primates</taxon>
+<taxon>Haplorrhini</taxon>
+<taxon>Catarrhini</taxon>
+<taxon>Hominidae</taxon>
+<taxon>Homo</taxon>
+</lineage>
+</organism>
+<reference key="1">
+<citation type="journal article" date="1989" name="Biochem. J." volume="260" first="509" last="516">
+<title>Structure of cDNA clones coding for the entire prepro alpha 1 (III) chain of human type III procollagen. Differences in protein structure from type I procollagen and conservation of codon preferences.</title>
+<authorList>
+<person name="Ala-Kokko L."/>
+<person name="Kontusaari S."/>
+<person name="Baldwin C.T."/>
+<person name="Kuivaniemi H."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2764886"/>
+<dbReference type="DOI" id="10.1042/bj2600509"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] (ISOFORM 1)</scope>
+<scope>VARIANT GLN-1353</scope>
+<source>
+<tissue>Skin fibroblast</tissue>
+</source>
+</reference>
+<reference key="2">
+<citation type="journal article" date="2001" name="Matrix Biol." volume="20" first="357" last="366">
+<title>Genomic organization of the human COL3A1 and COL5A2 genes: COL5A2 has evolved differently than the other minor fibrillar collagen genes.</title>
+<authorList>
+<person name="Valkkila M."/>
+<person name="Melkoniemi M."/>
+<person name="Kvist L."/>
+<person name="Kuivaniemi H."/>
+<person name="Tromp G."/>
+<person name="Ala-Kokko L."/>
+</authorList>
+<dbReference type="PubMed" id="11566270"/>
+<dbReference type="DOI" id="10.1016/S0945-053X(01)00145-7"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] (ISOFORM 1)</scope>
+<scope>VARIANT GLN-1353</scope>
+</reference>
+<reference key="3">
+<citation type="submission" date="2013-01" db="EMBL/GenBank/DDBJ databases">
+<authorList>
+<person name="Fang H."/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+<scope>VARIANT ARG-726</scope>
+</reference>
+<reference key="4">
+<citation type="submission" date="2009-09" db="EMBL/GenBank/DDBJ databases">
+<authorList>
+<consortium name="NHLBI resequencing and genotyping service (RS&amp;G)"/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+</reference>
+<reference key="5">
+<citation type="journal article" date="2005" name="Nature" volume="434" first="724" last="731">
+<title>Generation and annotation of the DNA sequences of human chromosomes 2 and 4.</title>
+<authorList>
+<person name="Hillier L.W."/>
+<person name="Graves T.A."/>
+<person name="Fulton R.S."/>
+<person name="Fulton L.A."/>
+<person name="Pepin K.H."/>
+<person name="Minx P."/>
+<person name="Wagner-McPherson C."/>
+<person name="Layman D."/>
+<person name="Wylie K."/>
+<person name="Sekhon M."/>
+<person name="Becker M.C."/>
+<person name="Fewell G.A."/>
+<person name="Delehaunty K.D."/>
+<person name="Miner T.L."/>
+<person name="Nash W.E."/>
+<person name="Kremitzki C."/>
+<person name="Oddy L."/>
+<person name="Du H."/>
+<person name="Sun H."/>
+<person name="Bradshaw-Cordum H."/>
+<person name="Ali J."/>
+<person name="Carter J."/>
+<person name="Cordes M."/>
+<person name="Harris A."/>
+<person name="Isak A."/>
+<person name="van Brunt A."/>
+<person name="Nguyen C."/>
+<person name="Du F."/>
+<person name="Courtney L."/>
+<person name="Kalicki J."/>
+<person name="Ozersky P."/>
+<person name="Abbott S."/>
+<person name="Armstrong J."/>
+<person name="Belter E.A."/>
+<person name="Caruso L."/>
+<person name="Cedroni M."/>
+<person name="Cotton M."/>
+<person name="Davidson T."/>
+<person name="Desai A."/>
+<person name="Elliott G."/>
+<person name="Erb T."/>
+<person name="Fronick C."/>
+<person name="Gaige T."/>
+<person name="Haakenson W."/>
+<person name="Haglund K."/>
+<person name="Holmes A."/>
+<person name="Harkins R."/>
+<person name="Kim K."/>
+<person name="Kruchowski S.S."/>
+<person name="Strong C.M."/>
+<person name="Grewal N."/>
+<person name="Goyea E."/>
+<person name="Hou S."/>
+<person name="Levy A."/>
+<person name="Martinka S."/>
+<person name="Mead K."/>
+<person name="McLellan M.D."/>
+<person name="Meyer R."/>
+<person name="Randall-Maher J."/>
+<person name="Tomlinson C."/>
+<person name="Dauphin-Kohlberg S."/>
+<person name="Kozlowicz-Reilly A."/>
+<person name="Shah N."/>
+<person name="Swearengen-Shahid S."/>
+<person name="Snider J."/>
+<person name="Strong J.T."/>
+<person name="Thompson J."/>
+<person name="Yoakum M."/>
+<person name="Leonard S."/>
+<person name="Pearman C."/>
+<person name="Trani L."/>
+<person name="Radionenko M."/>
+<person name="Waligorski J.E."/>
+<person name="Wang C."/>
+<person name="Rock S.M."/>
+<person name="Tin-Wollam A.-M."/>
+<person name="Maupin R."/>
+<person name="Latreille P."/>
+<person name="Wendl M.C."/>
+<person name="Yang S.-P."/>
+<person name="Pohl C."/>
+<person name="Wallis J.W."/>
+<person name="Spieth J."/>
+<person name="Bieri T.A."/>
+<person name="Berkowicz N."/>
+<person name="Nelson J.O."/>
+<person name="Osborne J."/>
+<person name="Ding L."/>
+<person name="Meyer R."/>
+<person name="Sabo A."/>
+<person name="Shotland Y."/>
+<person name="Sinha P."/>
+<person name="Wohldmann P.E."/>
+<person name="Cook L.L."/>
+<person name="Hickenbotham M.T."/>
+<person name="Eldred J."/>
+<person name="Williams D."/>
+<person name="Jones T.A."/>
+<person name="She X."/>
+<person name="Ciccarelli F.D."/>
+<person name="Izaurralde E."/>
+<person name="Taylor J."/>
+<person name="Schmutz J."/>
+<person name="Myers R.M."/>
+<person name="Cox D.R."/>
+<person name="Huang X."/>
+<person name="McPherson J.D."/>
+<person name="Mardis E.R."/>
+<person name="Clifton S.W."/>
+<person name="Warren W.C."/>
+<person name="Chinwalla A.T."/>
+<person name="Eddy S.R."/>
+<person name="Marra M.A."/>
+<person name="Ovcharenko I."/>
+<person name="Furey T.S."/>
+<person name="Miller W."/>
+<person name="Eichler E.E."/>
+<person name="Bork P."/>
+<person name="Suyama M."/>
+<person name="Torrents D."/>
+<person name="Waterston R.H."/>
+<person name="Wilson R.K."/>
+</authorList>
+<dbReference type="PubMed" id="15815621"/>
+<dbReference type="DOI" id="10.1038/nature03466"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+</reference>
+<reference key="6">
+<citation type="submission" date="2005-09" db="EMBL/GenBank/DDBJ databases">
+<authorList>
+<person name="Mural R.J."/>
+<person name="Istrail S."/>
+<person name="Sutton G.G."/>
+<person name="Florea L."/>
+<person name="Halpern A.L."/>
+<person name="Mobarry C.M."/>
+<person name="Lippert R."/>
+<person name="Walenz B."/>
+<person name="Shatkay H."/>
+<person name="Dew I."/>
+<person name="Miller J.R."/>
+<person name="Flanigan M.J."/>
+<person name="Edwards N.J."/>
+<person name="Bolanos R."/>
+<person name="Fasulo D."/>
+<person name="Halldorsson B.V."/>
+<person name="Hannenhalli S."/>
+<person name="Turner R."/>
+<person name="Yooseph S."/>
+<person name="Lu F."/>
+<person name="Nusskern D.R."/>
+<person name="Shue B.C."/>
+<person name="Zheng X.H."/>
+<person name="Zhong F."/>
+<person name="Delcher A.L."/>
+<person name="Huson D.H."/>
+<person name="Kravitz S.A."/>
+<person name="Mouchard L."/>
+<person name="Reinert K."/>
+<person name="Remington K.A."/>
+<person name="Clark A.G."/>
+<person name="Waterman M.S."/>
+<person name="Eichler E.E."/>
+<person name="Adams M.D."/>
+<person name="Hunkapiller M.W."/>
+<person name="Myers E.W."/>
+<person name="Venter J.C."/>
+</authorList>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+<scope>VARIANT GLN-1353</scope>
+</reference>
+<reference key="7">
+<citation type="journal article" date="2004" name="Genome Res." volume="14" first="2121" last="2127">
+<title>The status, quality, and expansion of the NIH full-length cDNA project: the Mammalian Gene Collection (MGC).</title>
+<authorList>
+<consortium name="The MGC Project Team"/>
+</authorList>
+<dbReference type="PubMed" id="15489334"/>
+<dbReference type="DOI" id="10.1101/gr.2596504"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA] (ISOFORM 2)</scope>
+<scope>VARIANT GLN-1353</scope>
+<source>
+<tissue>Liver</tissue>
+</source>
+</reference>
+<reference key="8">
+<citation type="journal article" date="1989" name="Gene" volume="78" first="255" last="265">
+<title>Cloning and analysis of the 5' portion of the human type-III procollagen gene (COL3A1).</title>
+<authorList>
+<person name="Benson-Chanda V."/>
+<person name="Su M.W."/>
+<person name="Weil D."/>
+<person name="Chu M.-L."/>
+<person name="Ramirez F."/>
+</authorList>
+<dbReference type="PubMed" id="2777083"/>
+<dbReference type="DOI" id="10.1016/0378-1119(89)90228-X"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 1-176</scope>
+</reference>
+<reference key="9">
+<citation type="journal article" date="1988" name="Nucleic Acids Res." volume="16" first="7201" last="7201">
+<title>Nucleotide sequence of a cDNA coding for the amino-terminal region of human prepro alpha 1(III) collagen.</title>
+<authorList>
+<person name="Toman D."/>
+<person name="Ricca G."/>
+<person name="de Crombrugghe B."/>
+</authorList>
+<dbReference type="PubMed" id="3405773"/>
+<dbReference type="DOI" id="10.1093/nar/16.14.7201"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1-170 (ISOFORMS 1/2)</scope>
+<source>
+<tissue>Placenta</tissue>
+</source>
+</reference>
+<reference key="10">
+<citation type="journal article" date="1989" name="Nucleic Acids Res." volume="17" first="6742" last="6742">
+<title>Nucleotide and amino acid sequences of the entire human alpha 1 (III) collagen.</title>
+<authorList>
+<person name="Janeczko R.A."/>
+<person name="Ramirez F."/>
+</authorList>
+<dbReference type="PubMed" id="2780304"/>
+<dbReference type="DOI" id="10.1093/nar/17.16.6742"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 149-1225 (ISOFORM 1)</scope>
+</reference>
+<reference key="11">
+<citation type="journal article" date="1977" name="Biochemistry" volume="16" first="1158" last="1164">
+<title>Covalent structure of collagen: amino acid sequence of cyanogen bromide peptides from the amino-terminal segment of type III collagen of human liver.</title>
+<authorList>
+<person name="Seyer J.M."/>
+<person name="Kang A.H."/>
+</authorList>
+<dbReference type="PubMed" id="557335"/>
+<dbReference type="DOI" id="10.1021/bi00625a020"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 168-398</scope>
+<scope>HYDROXYLATION AT PRO-173; PRO-179; PRO-182; PRO-185; PRO-191; PRO-194; PRO-197; PRO-203; PRO-206; PRO-215; PRO-218; PRO-236; PRO-239; PRO-245; PRO-248; PRO-257; PRO-260; LYS-263; PRO-281; LYS-284; PRO-290; PRO-296; PRO-305; PRO-311; PRO-314; PRO-332; PRO-335; PRO-338; PRO-344; PRO-347; PRO-359; PRO-365; PRO-371; PRO-383; PRO-386 AND PRO-392</scope>
+</reference>
+<reference key="12">
+<citation type="submission" date="1977-12" db="PIR data bank">
+<authorList>
+<person name="Seyer J.M."/>
+</authorList>
+</citation>
+<scope>SEQUENCE REVISION</scope>
+</reference>
+<reference key="13">
+<citation type="journal article" date="1993" name="Am. J. Hum. Genet." volume="53" first="62" last="70">
+<title>Parental somatic and germ-line mosaicism for a multiexon deletion with unusual endpoints in a type III collagen (COL3A1) allele produces Ehlers-Danlos syndrome type IV in the heterozygous offspring.</title>
+<authorList>
+<person name="Milewicz D.M."/>
+<person name="Witz A.M."/>
+<person name="Smith A.C."/>
+<person name="Manchester D.K."/>
+<person name="Waldstein G."/>
+<person name="Byers P.H."/>
+</authorList>
+<dbReference type="PubMed" id="8317500"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 186-194 (ISOFORMS 1/2)</scope>
+</reference>
+<reference key="14">
+<citation type="journal article" date="1995" name="Biochem. J." volume="311" first="939" last="943">
+<title>Abnormal type III collagen produced by an exon-17-skipping mutation of the COL3A1 gene in Ehlers-Danlos syndrome type IV is not incorporated into the extracellular matrix.</title>
+<authorList>
+<person name="Chiodo A.A."/>
+<person name="Sillence D.O."/>
+<person name="Cole W.G."/>
+<person name="Bateman J.F."/>
+</authorList>
+<dbReference type="PubMed" id="7487954"/>
+<dbReference type="DOI" id="10.1042/bj3110939"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 302-423 (ISOFORMS 1/2)</scope>
+</reference>
+<reference key="15">
+<citation type="journal article" date="1995" name="Biochem. Biophys. Res. Commun." volume="207" first="852" last="859">
+<title>Onco-fetal/laminin-binding collagen from colon carcinoma: detection of new sequences.</title>
+<authorList>
+<person name="Minafra I.P."/>
+<person name="Andriolo M."/>
+<person name="Basirico L."/>
+<person name="Aquino A."/>
+<person name="Minafra S."/>
+<person name="Boutillon M.-M."/>
+<person name="van der Rest M."/>
+</authorList>
+<dbReference type="PubMed" id="7864881"/>
+<dbReference type="DOI" id="10.1006/bbrc.1995.1264"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 395-416; 579-595; 800-814 AND 1064-1079</scope>
+<source>
+<tissue>Colon carcinoma</tissue>
+</source>
+</reference>
+<reference key="16">
+<citation type="journal article" date="1978" name="Biochemistry" volume="17" first="3404" last="3411">
+<title>Covalent structure of collagen: amino acid sequence of five consecutive CNBr peptides from type III collagen of human liver.</title>
+<authorList>
+<person name="Seyer J.M."/>
+<person name="Kang A.H."/>
+</authorList>
+<dbReference type="PubMed" id="687591"/>
+<dbReference type="DOI" id="10.1021/bi00609a034"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 399-727</scope>
+<scope>HYDROXYLATION AT PRO-404; PRO-407; PRO-416; PRO-425; PRO-434; PRO-443; PRO-455; PRO-458; PRO-470; PRO-473; PRO-479; PRO-488; PRO-500; PRO-512; PRO-524; PRO-530; PRO-533; PRO-539; PRO-542; PRO-545; PRO-551; PRO-554; PRO-563; PRO-566; PRO-575; PRO-581; PRO-590; PRO-599; PRO-602; PRO-608; PRO-620; PRO-635; PRO-644; PRO-650; PRO-656; PRO-659; PRO-661; PRO-668; PRO-671; PRO-680; PRO-686; PRO-692; PRO-701; PRO-703; PRO-713; PRO-716 AND PRO-722</scope>
+</reference>
+<reference key="17">
+<citation type="journal article" date="1991" name="J. Biol. Chem." volume="266" first="5256" last="5259">
+<title>G to T transversion at position +5 of a splice donor site causes skipping of the preceding exon in the type III procollagen transcripts of a patient with Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Lee B."/>
+<person name="Vitale E."/>
+<person name="Superti-Furga A."/>
+<person name="Steinmann B."/>
+<person name="Ramirez F."/>
+</authorList>
+<dbReference type="PubMed" id="1672129"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 537-605</scope>
+</reference>
+<reference key="18">
+<citation type="journal article" date="1980" name="Biochemistry" volume="19" first="1583" last="1589">
+<title>Covalent structure of collagen: amino acid sequence of alpha 1 (III)-CB5 from type III collagen of human liver.</title>
+<authorList>
+<person name="Seyer J.M."/>
+<person name="Mainardi C."/>
+<person name="Kang A.H."/>
+</authorList>
+<dbReference type="PubMed" id="6246925"/>
+<dbReference type="DOI" id="10.1021/bi00549a008"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 728-964</scope>
+<scope>HYDROXYLATION AT PRO-728; PRO-737; PRO-746; PRO-749; PRO-755; PRO-770; PRO-776; PRO-785; PRO-788; PRO-797; PRO-806; PRO-812; PRO-815; PRO-821; PRO-830; PRO-839; PRO-845; PRO-854; LYS-860; PRO-866; PRO-869; PRO-875; PRO-881; PRO-884; PRO-890; PRO-892; PRO-899; PRO-905; PRO-914; PRO-917; PRO-929; PRO-935; PRO-941; PRO-944 AND PRO-962</scope>
+</reference>
+<reference key="19">
+<citation type="journal article" date="1990" name="J. Biol. Chem." volume="265" first="17070" last="17077">
+<title>A base substitution at a splice site in the COL3A1 gene causes exon skipping and generates abnormal type III procollagen in a patient with Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Cole W.G."/>
+<person name="Chiodo A.A."/>
+<person name="Lamande S.R."/>
+<person name="Janeczko R."/>
+<person name="Ramirez F."/>
+<person name="Dahl H.-H.M."/>
+<person name="Chan D."/>
+<person name="Bateman J.F."/>
+</authorList>
+<dbReference type="PubMed" id="2145268"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA / MRNA] OF 861-1015 (ISOFORM 1)</scope>
+</reference>
+<reference key="20">
+<citation type="journal article" date="1988" name="Nucleic Acids Res." volume="16" first="2337" last="2337">
+<title>Human pro alpha 1(III) collagen: cDNA sequence for the 3' end.</title>
+<authorList>
+<person name="Mankoo B.S."/>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="3357782"/>
+<dbReference type="DOI" id="10.1093/nar/16.5.2337"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 950-1466 (ISOFORM 1)</scope>
+<scope>VARIANT GLN-1353</scope>
+</reference>
+<reference key="21">
+<citation type="journal article" date="1988" name="Nucleic Acids Res." volume="16" first="11833" last="11833">
+<title>Human type III collagen 'variant' is a cDNA cloning artefact.</title>
+<authorList>
+<person name="Molyneux K."/>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="3211760"/>
+<dbReference type="DOI" id="10.1093/nar/16.24.11833"/>
+</citation>
+<scope>SEQUENCE REVISION TO 1184</scope>
+</reference>
+<reference key="22">
+<citation type="journal article" date="1981" name="Biochemistry" volume="20" first="2621" last="2627">
+<title>Covalent structure of collagen: amino acid sequence of alpha 1(III)-CB9 from type III collagen of human liver.</title>
+<authorList>
+<person name="Seyer J.M."/>
+<person name="Kang A.H."/>
+</authorList>
+<dbReference type="PubMed" id="7016180"/>
+<dbReference type="DOI" id="10.1021/bi00512a040"/>
+</citation>
+<scope>PROTEIN SEQUENCE OF 965-1200</scope>
+<scope>HYDROXYLATION AT PRO-965; PRO-971; LYS-977; PRO-983; PRO-995; PRO-1001; PRO-1010; PRO-1016; PRO-1022; PRO-1028; PRO-1040; PRO-1043; PRO-1046; PRO-1049; PRO-1052; PRO-1076; PRO-1085; LYS-1106; PRO-1112; PRO-1115; PRO-1118; PRO-1121; PRO-1133; PRO-1148; PRO-1157; PRO-1163; PRO-1178; PRO-1181; PRO-1184; PRO-1187; PRO-1190 AND PRO-1193</scope>
+</reference>
+<reference key="23">
+<citation type="journal article" date="1984" name="Nucleic Acids Res." volume="12" first="9383" last="9394">
+<title>Molecular cloning and carboxyl-propeptide analysis of human type III procollagen.</title>
+<authorList>
+<person name="Loidl H.R."/>
+<person name="Brinker J.M."/>
+<person name="May M."/>
+<person name="Pihlajaniemi T."/>
+<person name="Morrow S."/>
+<person name="Rosenbloom J."/>
+<person name="Myers J.C."/>
+</authorList>
+<dbReference type="PubMed" id="6096827"/>
+<dbReference type="DOI" id="10.1093/nar/12.24.9383"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1065-1466 (ISOFORM 1)</scope>
+</reference>
+<reference key="24">
+<citation type="journal article" date="1986" name="Biochemistry" volume="25" first="1408" last="1413">
+<title>Human type III collagen gene expression is coordinately modulated with the type I collagen genes during fibroblast growth.</title>
+<authorList>
+<person name="Miskulin M."/>
+<person name="Dalgleish R."/>
+<person name="Kluve-Beckerman B."/>
+<person name="Rennard S.I."/>
+<person name="Tolstoshev P."/>
+<person name="Brantly M."/>
+<person name="Crystal R.G."/>
+</authorList>
+<dbReference type="PubMed" id="3754462"/>
+<dbReference type="DOI" id="10.1021/bi00354a033"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1161-1200 (ISOFORMS 1/2)</scope>
+</reference>
+<reference key="25">
+<citation type="journal article" date="1985" name="Proc. Natl. Acad. Sci. U.S.A." volume="82" first="3385" last="3389">
+<title>Human alpha 1(III) and alpha 2(V) procollagen genes are located on the long arm of chromosome 2.</title>
+<authorList>
+<person name="Emanuel B.S."/>
+<person name="Cannizzaro L.A."/>
+<person name="Seyer J.M."/>
+<person name="Myers J.C."/>
+</authorList>
+<dbReference type="PubMed" id="3858826"/>
+<dbReference type="DOI" id="10.1073/pnas.82.10.3385"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1165-1196 (ISOFORMS 1/2)</scope>
+</reference>
+<reference key="26">
+<citation type="journal article" date="1985" name="J. Biol. Chem." volume="260" first="4357" last="4363">
+<title>Isolation of cDNA and genomic clones encoding human pro-alpha 1 (III) collagen. Partial characterization of the 3' end region of the gene.</title>
+<authorList>
+<person name="Chu M.-L."/>
+<person name="Weil D."/>
+<person name="de Wet W.J."/>
+<person name="Bernard M.P."/>
+<person name="Sippola M."/>
+<person name="Ramirez F."/>
+</authorList>
+<dbReference type="PubMed" id="2579949"/>
+</citation>
+<scope>NUCLEOTIDE SEQUENCE [MRNA] OF 1122-1466 (ISOFORMS 1/2)</scope>
+<scope>VARIANT GLN-1353</scope>
+</reference>
+<reference key="27">
+<citation type="journal article" date="1997" name="Hum. Mutat." volume="9" first="300" last="315">
+<title>Mutations in fibrillar collagens (types I, II, III, and XI), fibril-associated collagen (type IX), and network-forming collagen (type X) cause a spectrum of diseases of bone, cartilage, and blood vessels.</title>
+<authorList>
+<person name="Kuivaniemi H."/>
+<person name="Tromp G."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="9101290"/>
+<dbReference type="DOI" id="10.1002/(SICI)1098-1004(1997)9:4&lt;300::AID-HUMU2>3.0.CO;2-9"/>
+</citation>
+<scope>REVIEW ON VARIANTS</scope>
+</reference>
+<reference key="28">
+<citation type="journal article" date="2012" name="J. Proteome Res." volume="11" first="4733" last="4743">
+<title>Resveratrol-induced changes of the human adipocyte secretion profile.</title>
+<authorList>
+<person name="Rosenow A."/>
+<person name="Noben J.P."/>
+<person name="Jocken J."/>
+<person name="Kallendrusch S."/>
+<person name="Fischer-Posovszky P."/>
+<person name="Mariman E.C."/>
+<person name="Renes J."/>
+</authorList>
+<dbReference type="PubMed" id="22905912"/>
+<dbReference type="DOI" id="10.1021/pr300539b"/>
+</citation>
+<scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
+</reference>
+<reference key="29">
+<citation type="journal article" date="2014" name="J. Proteomics" volume="96" first="253" last="262">
+<title>An enzyme assisted RP-RPLC approach for in-depth analysis of human liver phosphoproteome.</title>
+<authorList>
+<person name="Bian Y."/>
+<person name="Song C."/>
+<person name="Cheng K."/>
+<person name="Dong M."/>
+<person name="Wang F."/>
+<person name="Huang J."/>
+<person name="Sun D."/>
+<person name="Wang L."/>
+<person name="Ye M."/>
+<person name="Zou H."/>
+</authorList>
+<dbReference type="PubMed" id="24275569"/>
+<dbReference type="DOI" id="10.1016/j.jprot.2013.11.014"/>
+</citation>
+<scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
+<source>
+<tissue>Liver</tissue>
+</source>
+</reference>
+<reference key="30">
+<citation type="journal article" date="2008" name="J. Biol. Chem." volume="283" first="32580" last="32589">
+<title>Crystal structure of human type III collagen Gly991-Gly1032 cystine knot-containing peptide shows both 7/2 and 10/3 triple helical symmetries.</title>
+<authorList>
+<person name="Boudko S.P."/>
+<person name="Engel J."/>
+<person name="Okuyama K."/>
+<person name="Mizuno K."/>
+<person name="Bachinger H.P."/>
+<person name="Schumacher M.A."/>
+</authorList>
+<dbReference type="PubMed" id="18805790"/>
+<dbReference type="DOI" id="10.1074/jbc.M805394200"/>
+</citation>
+<scope>X-RAY CRYSTALLOGRAPHY (2.3 ANGSTROMS) OF 1158-1199</scope>
+<scope>INTERCHAIN DISULFIDE BONDS</scope>
+</reference>
+<reference key="31">
+<citation type="journal article" date="2012" name="Nat. Struct. Mol. Biol." volume="19" first="1031" last="1036">
+<title>Structural basis of fibrillar collagen trimerization and related genetic disorders.</title>
+<authorList>
+<person name="Bourhis J.M."/>
+<person name="Mariano N."/>
+<person name="Zhao Y."/>
+<person name="Harlos K."/>
+<person name="Exposito J.Y."/>
+<person name="Jones E.Y."/>
+<person name="Moali C."/>
+<person name="Aghajari N."/>
+<person name="Hulmes D.J."/>
+</authorList>
+<dbReference type="PubMed" id="23001006"/>
+<dbReference type="DOI" id="10.1038/nsmb.2389"/>
+</citation>
+<scope>X-RAY CRYSTALLOGRAPHY (1.68 ANGSTROMS) OF 1222-1466</scope>
+<scope>PROPEPTIDE</scope>
+<scope>DISULFIDE BONDS</scope>
+<scope>CALCIUM-BINDING SITES</scope>
+</reference>
+<reference key="32">
+<citation type="journal article" date="1993" name="J. Clin. Invest." volume="91" first="2539" last="2545">
+<title>Sequencing of cDNA from 50 unrelated patients reveals that mutations in the triple-helical domain of type III procollagen are an infrequent cause of aortic aneurysms.</title>
+<authorList>
+<person name="Tromp G."/>
+<person name="Wu Y."/>
+<person name="Prockop D.J."/>
+<person name="Madhatheri S.L."/>
+<person name="Kleinert C."/>
+<person name="Earley J.J."/>
+<person name="Zhuang J."/>
+<person name="Noerrgaard O."/>
+<person name="Darling R.C."/>
+<person name="Abbott W.M."/>
+<person name="Cole C.W."/>
+<person name="Jaakkola P."/>
+<person name="Ryynaenen M."/>
+<person name="Pearce W.H."/>
+<person name="Yao J.S.T."/>
+<person name="Majamaa K."/>
+<person name="Smullens S.N."/>
+<person name="Gatalica Z."/>
+<person name="Ferrell R.E."/>
+<person name="Jimenez S.A."/>
+<person name="Jackson C.E."/>
+<person name="Michels V.V."/>
+<person name="Kaye M."/>
+<person name="Kuivaniemi H."/>
+</authorList>
+<dbReference type="PubMed" id="8514866"/>
+<dbReference type="DOI" id="10.1172/JCI116490"/>
+</citation>
+<scope>VARIANT EDSVASC ARG-303</scope>
+<scope>VARIANT THR-668</scope>
+</reference>
+<reference key="33">
+<citation type="journal article" date="1990" name="Nucleic Acids Res." volume="18" first="6180" last="6180">
+<title>G to A polymorphism in exon 31 of the COL3A1 gene.</title>
+<authorList>
+<person name="Zafarullah K."/>
+<person name="Kleinert C."/>
+<person name="Tromp G."/>
+<person name="Kuivaniemi H."/>
+<person name="Kontusaari S."/>
+<person name="Wu Y."/>
+<person name="Ganguly A."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2235526"/>
+<dbReference type="DOI" id="10.1093/nar/18.20.6180"/>
+</citation>
+<scope>VARIANT THR-698</scope>
+</reference>
+<reference key="34">
+<citation type="journal article" date="1990" name="J. Clin. Invest." volume="86" first="1465" last="1473">
+<title>A mutation in the gene for type III procollagen (COL3A1) in a family with aortic aneurysms.</title>
+<authorList>
+<person name="Kontusaari S."/>
+<person name="Tromp G."/>
+<person name="Kuivaniemi H."/>
+<person name="Romanic A.M."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2243125"/>
+<dbReference type="DOI" id="10.1172/JCI114863"/>
+</citation>
+<scope>VARIANT EDSVASC ARG-786</scope>
+</reference>
+<reference key="35">
+<citation type="journal article" date="1992" name="Hum. Genet." volume="88" first="325" last="330">
+<title>A 27-bp deletion from one allele of the type III collagen gene (COL3A1) in a large family with Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Richards A.J."/>
+<person name="Lloyd J.C."/>
+<person name="Narcisi P."/>
+<person name="Ward P.N."/>
+<person name="Nicholls A.C."/>
+<person name="De Paepe A."/>
+<person name="Pope F.M."/>
+</authorList>
+<dbReference type="PubMed" id="1370809"/>
+<dbReference type="DOI" id="10.1007/BF00197268"/>
+</citation>
+<scope>VARIANT EDSVASC 830-PRO--PRO-838 DEL</scope>
+</reference>
+<reference key="36">
+<citation type="journal article" date="1993" name="J. Med. Genet." volume="30" first="690" last="693">
+<title>The substitution of glycine 661 by arginine in type III collagen produces mutant molecules with different thermal stabilities and causes Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Richards A.J."/>
+<person name="Narcisi P."/>
+<person name="Lloyd J.C."/>
+<person name="Ferguson C."/>
+<person name="Pope F.M."/>
+</authorList>
+<dbReference type="PubMed" id="8411057"/>
+<dbReference type="DOI" id="10.1136/jmg.30.8.690"/>
+</citation>
+<scope>VARIANT EDSVASC ARG-828</scope>
+</reference>
+<reference key="37">
+<citation type="journal article" date="1989" name="J. Biol. Chem." volume="264" first="1349" last="1352">
+<title>A single base mutation that substitutes serine for glycine 790 of the alpha 1 (III) chain of type III procollagen exposes an arginine and causes Ehlers-Danlos syndrome IV.</title>
+<authorList>
+<person name="Tromp G."/>
+<person name="Kuivaniemi H."/>
+<person name="Shikata H."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2492273"/>
+</citation>
+<scope>VARIANT EDSVASC SER-957</scope>
+</reference>
+<reference key="38">
+<citation type="journal article" date="1995" name="Hum. Mutat." volume="5" first="179" last="181">
+<title>Substitution of valine for glycine 793 in type III procollagen in Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Tromp G."/>
+<person name="de Paepe A."/>
+<person name="Nuytinck L."/>
+<person name="Madhatheri S.L."/>
+<person name="Kuivaniemi H."/>
+</authorList>
+<dbReference type="PubMed" id="7749417"/>
+<dbReference type="DOI" id="10.1002/humu.1380050213"/>
+</citation>
+<scope>VARIANT EDSVASC VAL-960</scope>
+</reference>
+<reference key="39">
+<citation type="journal article" date="1992" name="Hum. Genet." volume="89" first="414" last="418">
+<title>A single base mutation in the gene for type III collagen (COL3A1) converts glycine 847 to glutamic acid in a family with Ehlers-Danlos syndrome type IV. An unaffected family member is mosaic for the mutation.</title>
+<authorList>
+<person name="Richards A.J."/>
+<person name="Ward P.N."/>
+<person name="Narcisi P."/>
+<person name="Nicholls A.C."/>
+<person name="Lloyd J.C."/>
+<person name="Pope F.M."/>
+</authorList>
+<dbReference type="PubMed" id="1352273"/>
+<dbReference type="DOI" id="10.1007/BF00194313"/>
+</citation>
+<scope>VARIANT EDSVASC GLU-1014</scope>
+</reference>
+<reference key="40">
+<citation type="journal article" date="1989" name="J. Biol. Chem." volume="264" first="19313" last="19317">
+<title>Single base mutation in the type III procollagen gene that converts the codon for glycine 883 to aspartate in a mild variant of Ehlers-Danlos syndrome IV.</title>
+<authorList>
+<person name="Tromp G."/>
+<person name="Kuivaniemi H."/>
+<person name="Stolle C.A."/>
+<person name="Pope F.M."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2808425"/>
+</citation>
+<scope>VARIANT EDSVASC ASP-1050</scope>
+</reference>
+<reference key="41">
+<citation type="journal article" date="1990" name="Am. J. Hum. Genet." volume="47" first="112" last="120">
+<title>Inheritance of an RNA splicing mutation (G+ 1 IVS20) in the type III procollagen gene (COL3A1) in a family having aortic aneurysms and easy bruisability: phenotypic overlap between familial arterial aneurysms and Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Kontusaari S."/>
+<person name="Tromp G."/>
+<person name="Kuivaniemi H."/>
+<person name="Ladda R.L."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="2349939"/>
+</citation>
+<scope>INVOLVEMENT IN EDSVASC</scope>
+</reference>
+<reference key="42">
+<citation type="journal article" date="1991" name="J. Med. Genet." volume="28" first="458" last="463">
+<title>Characterisation of a glycine to valine substitution at amino acid position 910 of the triple helical region of type III collagen in a patient with Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Richards A.J."/>
+<person name="Lloyd J.C."/>
+<person name="Ward P.N."/>
+<person name="de Paepe A."/>
+<person name="Narcisi P."/>
+<person name="Pope F.M."/>
+</authorList>
+<dbReference type="PubMed" id="1895316"/>
+<dbReference type="DOI" id="10.1136/jmg.28.7.458"/>
+</citation>
+<scope>VARIANT EDSVASC VAL-1077</scope>
+</reference>
+<reference key="43">
+<citation type="journal article" date="1992" name="J. Inherit. Metab. Dis." volume="15" first="426" last="430">
+<title>A COL3A1 glycine 1006 to glutamic acid substitution in a patient with Ehlers-Danlos syndrome type IV detected by denaturing gradient gel electrophoresis.</title>
+<authorList>
+<person name="Johnson P.H."/>
+<person name="Richards A.J."/>
+<person name="Pope F.M."/>
+<person name="Hopkinson D.A."/>
+</authorList>
+<dbReference type="PubMed" id="1357232"/>
+<dbReference type="DOI" id="10.1007/BF02435995"/>
+</citation>
+<scope>VARIANT EDSVASC GLU-1173</scope>
+</reference>
+<reference key="44">
+<citation type="journal article" date="1992" name="Am. J. Hum. Genet." volume="51" first="497" last="507">
+<title>Substitution of aspartate for glycine 1018 in the type III procollagen (COL3A1) gene causes type IV Ehlers-Danlos syndrome: the mutated allele is present in most blood leukocytes of the asymptomatic and mosaic mother.</title>
+<authorList>
+<person name="Kontusaari S."/>
+<person name="Tromp G."/>
+<person name="Kuivaniemi H."/>
+<person name="Stolle C.A."/>
+<person name="Pope F.M."/>
+<person name="Prockop D.J."/>
+</authorList>
+<dbReference type="PubMed" id="1496983"/>
+</citation>
+<scope>VARIANT EDSVASC ASP-1185</scope>
+</reference>
+<reference key="45">
+<citation type="journal article" date="1993" name="Am. J. Med. Genet." volume="46" first="278" last="283">
+<title>Single base mutation that substitutes glutamic acid for glycine 1021 in the COL3A1 gene and causes Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Narcisi P."/>
+<person name="Wu Y."/>
+<person name="Tromp G."/>
+<person name="Earley J.J."/>
+<person name="Richards A.J."/>
+<person name="Pope F.M."/>
+<person name="Kuivaniemi H."/>
+</authorList>
+<dbReference type="PubMed" id="8098182"/>
+<dbReference type="DOI" id="10.1002/ajmg.1320460308"/>
+</citation>
+<scope>VARIANT EDSVASC GLU-1188</scope>
+</reference>
+<reference key="46">
+<citation type="journal article" date="1993" name="Matrix" volume="13" first="47" last="47">
+<title>Substitution of glycines 1000, 1003 and 1006 in type III collagen all cause the acrogeric form of EDS-IV, and destabilise the collagen triple helix.</title>
+<authorList>
+<person name="Richards A.J."/>
+<person name="Narcisi P."/>
+<person name="Lloyd J.C."/>
+<person name="Johnson P.H."/>
+<person name="Hopkinson D.A."/>
+<person name="Pope F.M."/>
+</authorList>
+</citation>
+<scope>VARIANTS EDSVASC VAL-1167; ASP-1170 AND GLU-1173</scope>
+</reference>
+<reference key="47">
+<citation type="journal article" date="1993" name="Neurology" volume="43" first="2652" last="2658">
+<title>Exclusion of mutations in the gene for type III collagen (COL3A1) as a common cause of intracranial aneurysms or cervical artery dissections: results from sequence analysis of the coding sequences of type III collagen from 55 unrelated patients.</title>
+<authorList>
+<person name="Kuivaniemi H."/>
+<person name="Prockop D.J."/>
+<person name="Wu Y."/>
+<person name="Madhatheri S.L."/>
+<person name="Kleinert C."/>
+<person name="Earley J.J."/>
+<person name="Jokinen A."/>
+<person name="Stolle C.A."/>
+<person name="Majamaa K."/>
+<person name="Mylllylae V.V."/>
+<person name="Noerrgaard O."/>
+<person name="Schievink W.I."/>
+<person name="Mokri B."/>
+<person name="Fukawa O."/>
+<person name="Ter Berg J.W.M."/>
+<person name="de Paepe A."/>
+<person name="Lozano A.M."/>
+<person name="Leblanc R."/>
+<person name="Ryynaenen M."/>
+<person name="Baxter B.T."/>
+<person name="Shikata H."/>
+<person name="Ferrell R.E."/>
+<person name="Tromp G."/>
+</authorList>
+<dbReference type="PubMed" id="8255472"/>
+<dbReference type="DOI" id="10.1212/WNL.43.12.2652"/>
+</citation>
+<scope>VARIANTS THR-602 AND LEU-635</scope>
+</reference>
+<reference key="48">
+<citation type="journal article" date="1994" name="Hum. Mol. Genet." volume="3" first="511" last="512">
+<title>Substitution of glutamic acid for glycine 589 in the triple-helical domain of type III procollagen (COL3A1) in a family with variable phenotype of the Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Madhatheri S.L."/>
+<person name="Tromp G."/>
+<person name="Gustavson K.H."/>
+<person name="Kuivaniemi H."/>
+</authorList>
+<dbReference type="PubMed" id="7912131"/>
+<dbReference type="DOI" id="10.1093/hmg/3.3.511"/>
+</citation>
+<scope>VARIANT EDSVASC GLU-756</scope>
+</reference>
+<reference key="49">
+<citation type="journal article" date="1994" name="Hum. Mol. Genet." volume="3" first="1617" last="1620">
+<title>A family with Ehlers-Danlos syndrome type III/articular hypermobility syndrome has a glycine 637-to-serine substitution in type III collagen.</title>
+<authorList>
+<person name="Narcisi P."/>
+<person name="Richards A.J."/>
+<person name="Ferguson S.D."/>
+<person name="Pope F.M."/>
+</authorList>
+<dbReference type="PubMed" id="7833919"/>
+<dbReference type="DOI" id="10.1093/hmg/3.9.1617"/>
+</citation>
+<scope>VARIANT EDSVASC SER-804</scope>
+</reference>
+<reference key="50">
+<citation type="journal article" date="1994" name="Hum. Mutat." volume="3" first="268" last="274">
+<title>Single-strand conformation polymorphism (SSCP) analysis of the COL3A1 gene detects a mutation that results in the substitution of glycine 1009 to valine and causes severe Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Nuytinck L."/>
+<person name="De Paepe A."/>
+<person name="Renard J.P."/>
+<person name="Adriaens F."/>
+<person name="Leroy J."/>
+</authorList>
+<dbReference type="PubMed" id="8019562"/>
+<dbReference type="DOI" id="10.1002/humu.1380030315"/>
+</citation>
+<scope>VARIANT EDSVASC VAL-1176</scope>
+</reference>
+<reference key="51">
+<citation type="journal article" date="1994" name="Matrix Biol." volume="14" first="392" last="393">
+<title>Marked heterogeneity in COL3A1 mutations that produce the EDS type IV phenotype.</title>
+<authorList>
+<person name="Goldstein J.A."/>
+<person name="Schwarze U."/>
+<person name="Witz A."/>
+<person name="Byers P.H."/>
+</authorList>
+</citation>
+<scope>VARIANTS EDSVASC CYS-183; ARG-201; GLU-228; ARG-540; ARG-936; GLU-996; VAL-1071; ALA-1104; GLU-1182; VAL-1185; GLU-1188 AND ARG-1188</scope>
+</reference>
+<reference key="52">
+<citation type="journal article" date="1995" name="Hum. Mutat." volume="6" first="336" last="342">
+<title>Efficient strategy for the detection of mutations in acrogeric Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Johnson P.H."/>
+<person name="Richards A.J."/>
+<person name="Lloyd J.C."/>
+<person name="Pope F.M."/>
+<person name="Hopkinson D.A."/>
+</authorList>
+<dbReference type="PubMed" id="8680408"/>
+<dbReference type="DOI" id="10.1002/humu.1380060408"/>
+</citation>
+<scope>VARIANTS EDSVASC ASP-909 AND ASP-939</scope>
+</reference>
+<reference key="53">
+<citation type="journal article" date="1996" name="Clin. Genet." volume="49" first="286" last="295">
+<title>Ehlers-Danlos syndrome type IV caused by Gly400Glu, Gly595Cys and Gly1003Asp substitutions in collagen III: clinical features, biochemical screening, and molecular confirmation.</title>
+<authorList>
+<person name="Mackay K."/>
+<person name="Raghunath M."/>
+<person name="Superti-Furga A."/>
+<person name="Steinmann B."/>
+<person name="Dalgleish R."/>
+</authorList>
+<dbReference type="PubMed" id="8884076"/>
+</citation>
+<scope>VARIANTS EDSVASC GLU-567; CYS-762 AND ASP-1170</scope>
+</reference>
+<reference key="54">
+<citation type="journal article" date="1996" name="Clin. Genet." volume="50" first="442" last="445">
+<title>Abnormal extracellular matrix in Ehlers-Danlos syndrome type IV due to the substitution of glycine 934 by glutamic acid in the triple helical domain of type III collagen.</title>
+<authorList>
+<person name="McGrory J."/>
+<person name="Weksberg R."/>
+<person name="Thorner P."/>
+<person name="Cole W.G."/>
+</authorList>
+<dbReference type="PubMed" id="9147870"/>
+</citation>
+<scope>VARIANT EDSVASC GLU-1101</scope>
+</reference>
+<reference key="55">
+<citation type="journal article" date="1996" name="Hum. Mutat." volume="7" first="59" last="60">
+<title>A novel G499D substitution in the alpha 1(III) chain of type III collagen produces variable forms of Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="McGrory J."/>
+<person name="Costa T."/>
+<person name="Cole W.G."/>
+</authorList>
+<dbReference type="PubMed" id="8664902"/>
+<dbReference type="DOI" id="10.1002/(SICI)1098-1004(1996)7:1&lt;59::AID-HUMU8>3.3.CO;2-R"/>
+</citation>
+<scope>VARIANT EDSVASC ASP-666</scope>
+</reference>
+<reference key="56">
+<citation type="journal article" date="1997" name="Hum. Mutat." volume="9" first="62" last="63">
+<title>A glycine (415)-to-serine substitution results in impaired secretion and decreased thermal stability of type III procollagen in a patient with Ehlers-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Anderson D.W."/>
+<person name="Thakker-Varia S."/>
+<person name="Tromp G."/>
+<person name="Kuivaniemi H."/>
+<person name="Stolle C.A."/>
+</authorList>
+<dbReference type="PubMed" id="8990011"/>
+<dbReference type="DOI" id="10.1002/(SICI)1098-1004(1997)9:1&lt;62::AID-HUMU11>3.3.CO;2-B"/>
+</citation>
+<scope>VARIANT EDSVASC SER-582</scope>
+</reference>
+<reference key="57">
+<citation type="journal article" date="1997" name="J. Invest. Dermatol." volume="108" first="241" last="247">
+<title>Mutations in the COL3A1 gene result in the Ehlers-Danlos syndrome type IV and alterations in the size and distribution of the major collagen fibrils of the dermis.</title>
+<authorList>
+<person name="Smith L.T."/>
+<person name="Schwarze U."/>
+<person name="Goldstein J."/>
+<person name="Byers P.H."/>
+</authorList>
+<dbReference type="PubMed" id="9036918"/>
+<dbReference type="DOI" id="10.1111/1523-1747.ep12286441"/>
+</citation>
+<scope>VARIANTS EDSVASC CYS-183; ARG-201; GLU-228; ARG-540 AND ARG-936</scope>
+</reference>
+<reference key="58">
+<citation type="journal article" date="1998" name="Hum. Mutat. Suppl." volume="1" first="S257" last="S259">
+<title>A type III collagen Gly559 to Arg helix mutation in Ehler's-Danlos syndrome type IV.</title>
+<authorList>
+<person name="Bateman J.F."/>
+<person name="Chiodo A.A."/>
+<person name="Weng Y.M."/>
+<person name="Chan D."/>
+<person name="Haan E."/>
+</authorList>
+<dbReference type="PubMed" id="9452103"/>
+</citation>
+<scope>VARIANT EDSVASC ARG-726</scope>
+</reference>
+<reference key="59">
+<citation type="journal article" date="2000" name="Br. J. Dermatol." volume="142" first="178" last="180">
+<title>COL3A1 mutation leading to acrogeria (Gottron Type).</title>
+<authorList>
+<person name="Jansen T."/>
+<person name="de Paepe A."/>
+<person name="Luytinck N."/>
+<person name="Plewig G."/>
+</authorList>
+<dbReference type="PubMed" id="10819545"/>
+<dbReference type="DOI" id="10.1046/j.1365-2133.2000.03266.x"/>
+</citation>
+<scope>VARIANT EDS-IV ARG-1173</scope>
+</reference>
+<reference key="60">
+<citation type="journal article" date="2000" name="Hum. Mutat." volume="16" first="176" last="177">
+<title>Characterization of 11 new mutations in COL3A1 of individuals with Ehlers-Danlos syndrome type IV: preliminary comparison of RNase cleavage, EMC and DHPLC assays.</title>
+<authorList>
+<person name="Giunta C."/>
+<person name="Steinmann B."/>
+</authorList>
+<dbReference type="PubMed" id="10923041"/>
+<dbReference type="DOI" id="10.1002/1098-1004(200008)16:2&lt;176::AID-HUMU12>3.0.CO;2-E"/>
+</citation>
+<scope>VARIANTS EDSVASC ASP-204; ASP-210; ARG-264; ASP-327; ASP-1098 AND GLU-1173</scope>
+</reference>
+<reference key="61">
+<citation type="journal article" date="2000" name="N. Engl. J. Med." volume="342" first="673" last="680">
+<title>Clinical and genetic features of Ehlers-Danlos syndrome type IV, the vascular type.</title>
+<authorList>
+<person name="Pepin M."/>
+<person name="Schwarze U."/>
+<person name="Superti-Furga A."/>
+<person name="Byers P.H."/>
+</authorList>
+<dbReference type="PubMed" id="10706896"/>
+<dbReference type="DOI" id="10.1056/NEJM200003093421001"/>
+</citation>
+<scope>VARIANTS EDSVASC</scope>
+</reference>
+<reference key="62">
+<citation type="journal article" date="2001" name="J. Intern. Med." volume="249" first="103" last="108">
+<title>Ehlers-Danlos syndrome type IV with a unique point mutation in COL3A1 and familial phenotype of myocardial infarction without organic coronary stenosis.</title>
+<authorList>
+<person name="Nishiyama Y."/>
+<person name="Nejima J."/>
+<person name="Watanabe A."/>
+<person name="Kotani E."/>
+<person name="Sakai N."/>
+<person name="Hatamochi A."/>
+<person name="Shinkai H."/>
+<person name="Kiuchi K."/>
+<person name="Tamura K."/>
+<person name="Shimada T."/>
+<person name="Takano T."/>
+<person name="Katayama Y."/>
+</authorList>
+<dbReference type="PubMed" id="11168790"/>
+<dbReference type="DOI" id="10.1046/j.1365-2796.2001.00761.x"/>
+</citation>
+<scope>VARIANT EDSVASC ASP-1044</scope>
+</reference>
+<reference key="63">
+<citation type="journal article" date="2003" name="Clin. Genet." volume="63" first="224" last="227">
+<title>Ehlers-Danlos syndrome type IV: unusual congenital anomalies in a mother and son with a COL3A1 mutation and a normal collagen III protein profile.</title>
+<authorList>
+<person name="Kroes H.Y."/>
+<person name="Pals G."/>
+<person name="van Essen A.J."/>
+</authorList>
+<dbReference type="PubMed" id="12694234"/>
+<dbReference type="DOI" id="10.1034/j.1399-0004.2003.00047.x"/>
+</citation>
+<scope>VARIANT EDSVASC ARG-297</scope>
+</reference>
+<reference key="64">
+<citation type="journal article" date="2003" name="Clin. Genet." volume="64" first="375" last="375">
+<authorList>
+<person name="Kroes H.Y."/>
+<person name="Pals G."/>
+<person name="van Essen A.J."/>
+</authorList>
+</citation>
+<scope>ERRATUM</scope>
+</reference>
+<reference key="65">
+<citation type="journal article" date="2003" name="Clin. Genet." volume="63" first="510" last="515">
+<title>Neurological presentation of Ehlers-Danlos syndrome type IV in a family with parental mosaicism.</title>
+<authorList>
+<person name="Palmeri S."/>
+<person name="Mari F."/>
+<person name="Meloni I."/>
+<person name="Malandrini A."/>
+<person name="Ariani F."/>
+<person name="Villanova M."/>
+<person name="Pompilio A."/>
+<person name="Schwarze U."/>
+<person name="Byers P.H."/>
+<person name="Renieri A."/>
+</authorList>
+<dbReference type="PubMed" id="12786757"/>
+<dbReference type="DOI" id="10.1034/j.1399-0004.2003.00075.x"/>
+</citation>
+<scope>VARIANT EDSVASC VAL-1050</scope>
+</reference>
+<reference key="66">
+<citation type="journal article" date="2006" name="Science" volume="314" first="268" last="274">
+<title>The consensus coding sequences of human breast and colorectal cancers.</title>
+<authorList>
+<person name="Sjoeblom T."/>
+<person name="Jones S."/>
+<person name="Wood L.D."/>
+<person name="Parsons D.W."/>
+<person name="Lin J."/>
+<person name="Barber T.D."/>
+<person name="Mandelker D."/>
+<person name="Leary R.J."/>
+<person name="Ptak J."/>
+<person name="Silliman N."/>
+<person name="Szabo S."/>
+<person name="Buckhaults P."/>
+<person name="Farrell C."/>
+<person name="Meeh P."/>
+<person name="Markowitz S.D."/>
+<person name="Willis J."/>
+<person name="Dawson D."/>
+<person name="Willson J.K.V."/>
+<person name="Gazdar A.F."/>
+<person name="Hartigan J."/>
+<person name="Wu L."/>
+<person name="Liu C."/>
+<person name="Parmigiani G."/>
+<person name="Park B.H."/>
+<person name="Bachman K.E."/>
+<person name="Papadopoulos N."/>
+<person name="Vogelstein B."/>
+<person name="Kinzler K.W."/>
+<person name="Velculescu V.E."/>
+</authorList>
+<dbReference type="PubMed" id="16959974"/>
+<dbReference type="DOI" id="10.1126/science.1133427"/>
+</citation>
+<scope>VARIANTS [LARGE SCALE ANALYSIS] SER-420 AND CYS-1434</scope>
+</reference>
+<reference key="67">
+<citation type="journal article" date="2008" name="Genomics" volume="91" first="307" last="314">
+<title>Natural variation in four human collagen genes across an ethnically diverse population.</title>
+<authorList>
+<person name="Chan T.F."/>
+<person name="Poon A."/>
+<person name="Basu A."/>
+<person name="Addleman N.R."/>
+<person name="Chen J."/>
+<person name="Phong A."/>
+<person name="Byers P.H."/>
+<person name="Klein T.E."/>
+<person name="Kwok P.Y."/>
+</authorList>
+<dbReference type="PubMed" id="18272325"/>
+<dbReference type="DOI" id="10.1016/j.ygeno.2007.12.008"/>
+</citation>
+<scope>VARIANTS THR-679; THR-698; VAL-1205 AND GLN-1353</scope>
+</reference>
+<comment type="function">
+<text>Collagen type III occurs in most soft connective tissues along with type I collagen. Involved in regulation of cortical development. Is the major ligand of ADGRG1 in the developing brain and binding to ADGRG1 inhibits neuronal migration and activates the RhoA pathway by coupling ADGRG1 to GNA13 and possibly GNA12.</text>
+</comment>
+<comment type="subunit">
+<text>Trimers of identical alpha 1(III) chains. The chains are linked to each other by interchain disulfide bonds. Trimers are also cross-linked via hydroxylysines.</text>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-2431491"/>
+<interactant intactId="EBI-7685554">
+<id>O01949</id>
+<label>AAEL010235</label>
+</interactant>
+<organismsDiffer>true</organismsDiffer>
+<experiments>2</experiments>
+</comment>
+<comment type="interaction">
+<interactant intactId="EBI-15740444"/>
+<interactant intactId="EBI-2800983">
+<id>P09486</id>
+<label>SPARC</label>
+</interactant>
+<organismsDiffer>false</organismsDiffer>
+<experiments>4</experiments>
+</comment>
+<comment type="subcellular location">
+<subcellularLocation>
+<location evidence="6">Secreted</location>
+<location evidence="6">Extracellular space</location>
+<location evidence="6">Extracellular matrix</location>
+</subcellularLocation>
+</comment>
+<comment type="alternative products">
+<event type="alternative splicing"/>
+<isoform>
+<id>P02461-1</id>
+<name>1</name>
+<sequence type="displayed"/>
+</isoform>
+<isoform>
+<id>P02461-2</id>
+<name>2</name>
+<sequence type="described" ref="VSP_022502"/>
+<text>No experimental confirmation available.</text>
+</isoform>
+</comment>
+<comment type="domain">
+<text>The C-terminal propeptide, also known as COLFI domain, have crucial roles in tissue growth and repair by controlling both the intracellular assembly of procollagen molecules and the extracellular assembly of collagen fibrils. It binds a calcium ion which is essential for its function.</text>
+</comment>
+<comment type="PTM">
+<text evidence="31 34">Proline residues at the third position of the tripeptide repeating unit (G-X-Y) are hydroxylated in some or all of the chains.</text>
+</comment>
+<comment type="PTM">
+<text>O-linked glycan consists of a Glc-Gal disaccharide bound to the oxygen atom of a post-translationally added hydroxyl group.</text>
+</comment>
+<comment type="disease" evidence="7 9 10 12 13 14 15 16 17 21 23 25 26 29 35 36 37 38 39 41 42 43 44 45 46 47 48 49 51 52">
+<disease id="DI-00439">
+<name>Ehlers-Danlos syndrome, vascular type</name>
+<acronym>EDSVASC</acronym>
+<description>A severe form of Ehlers-Danlos syndrome, a group of connective tissue disorders characterized by skin hyperextensibility, articular hypermobility, and tissue fragility. EDSVASC is an autosomal dominant disease characterized by joint and dermal manifestations as in other forms of the syndrome, and by proneness to spontaneous rupture of bowel and large arteries. The vascular complications may affect all anatomical areas.</description>
+<dbReference type="MIM" id="130050"/>
+</disease>
+<text>The disease is caused by mutations affecting the gene represented in this entry.</text>
+</comment>
+<comment type="similarity">
+<text evidence="6">Belongs to the fibrillar collagen family.</text>
+</comment>
+<comment type="online information" name="COL3A1">
+<link uri="https://eds.gene.le.ac.uk/home.php?select_db=COL3A1"/>
+<text>Collagen type III alpha-1 chain mutations</text>
+</comment>
+<comment type="online information" name="Wikipedia">
+<link uri="https://en.wikipedia.org/wiki/Type-III_collagen"/>
+<text>Type-III collagen entry</text>
+</comment>
+<dbReference type="EMBL" id="X14420">
+<property type="protein sequence ID" value="CAA32583.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY054301">
+<property type="protein sequence ID" value="AAL13167.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AY016295">
+<property type="protein sequence ID" value="AAL13167.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="KC567894">
+<property type="protein sequence ID" value="AGL34959.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="GU143397">
+<property type="protein sequence ID" value="ACZ58371.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="AC066694">
+<property type="protein sequence ID" value="AAY24164.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="CH471058">
+<property type="protein sequence ID" value="EAX10910.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="CH471058">
+<property type="protein sequence ID" value="EAX10911.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="BC028178">
+<property type="protein sequence ID" value="AAH28178.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M26939">
+<property type="protein sequence ID" value="AAA52040.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="X07240">
+<property type="protein sequence ID" value="CAA30229.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="X15332">
+<property type="protein sequence ID" value="CAA33387.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="S62925">
+<property type="protein sequence ID" value="AAD13937.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="S79877">
+<property type="protein sequence ID" value="AAB35615.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M59312">
+<property type="protein sequence ID" value="AAA52041.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M59227">
+<property type="protein sequence ID" value="AAB59383.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M55603">
+<property type="status" value="NOT_ANNOTATED_CDS"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="X06700">
+<property type="protein sequence ID" value="CAA29886.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="X01655">
+<property type="protein sequence ID" value="CAA25821.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="X01742">
+<property type="protein sequence ID" value="CAA25879.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M13146">
+<property type="protein sequence ID" value="AAA52003.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M11134">
+<property type="protein sequence ID" value="AAA52004.1"/>
+<property type="molecule type" value="mRNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M10795">
+<property type="protein sequence ID" value="AAA52002.1"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M10615">
+<property type="protein sequence ID" value="AAA52002.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M10793">
+<property type="protein sequence ID" value="AAA52002.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M10794">
+<property type="protein sequence ID" value="AAA52002.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M10800">
+<property type="protein sequence ID" value="AAA52002.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="EMBL" id="M10801">
+<property type="protein sequence ID" value="AAA52002.1"/>
+<property type="status" value="JOINED"/>
+<property type="molecule type" value="Genomic_DNA"/>
+</dbReference>
+<dbReference type="CCDS" id="CCDS2297.1">
+<molecule id="P02461-1"/>
+</dbReference>
+<dbReference type="PIR" id="S05272">
+<property type="entry name" value="CGHU7L"/>
+</dbReference>
+<dbReference type="RefSeq" id="NP_000081.1">
+<property type="nucleotide sequence ID" value="NM_000090.3"/>
+</dbReference>
+<dbReference type="UniGene" id="Hs.443625"/>
+<dbReference type="PDB" id="2V53">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="3.20"/>
+<property type="chains" value="B/C/D=564-584"/>
+</dbReference>
+<dbReference type="PDB" id="3DMW">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="2.30"/>
+<property type="chains" value="A/B/C=1158-1199"/>
+</dbReference>
+<dbReference type="PDB" id="4AE2">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="1.68"/>
+<property type="chains" value="A/B/C=1222-1466"/>
+</dbReference>
+<dbReference type="PDB" id="4AEJ">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="2.21"/>
+<property type="chains" value="A/B/C=1222-1466"/>
+</dbReference>
+<dbReference type="PDB" id="4AK3">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="3.50"/>
+<property type="chains" value="A=1222-1466"/>
+</dbReference>
+<dbReference type="PDB" id="4GYX">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="1.49"/>
+<property type="chains" value="A/B/C=1158-1200"/>
+</dbReference>
+<dbReference type="PDB" id="6FZV">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="2.70"/>
+<property type="chains" value="A/B/C=1222-1466"/>
+</dbReference>
+<dbReference type="PDB" id="6FZW">
+<property type="method" value="X-ray"/>
+<property type="resolution" value="2.78"/>
+<property type="chains" value="A/B/C=1185-1466"/>
+</dbReference>
+<dbReference type="PDBsum" id="2V53"/>
+<dbReference type="PDBsum" id="3DMW"/>
+<dbReference type="PDBsum" id="4AE2"/>
+<dbReference type="PDBsum" id="4AEJ"/>
+<dbReference type="PDBsum" id="4AK3"/>
+<dbReference type="PDBsum" id="4GYX"/>
+<dbReference type="PDBsum" id="6FZV"/>
+<dbReference type="PDBsum" id="6FZW"/>
+<dbReference type="ProteinModelPortal" id="P02461"/>
+<dbReference type="SMR" id="P02461"/>
+<dbReference type="BioGrid" id="107678">
+<property type="interactions" value="12"/>
+</dbReference>
+<dbReference type="ComplexPortal" id="CPX-1714">
+<property type="entry name" value="Collagen type III trimer"/>
+</dbReference>
+<dbReference type="DIP" id="DIP-57177N"/>
+<dbReference type="IntAct" id="P02461">
+<property type="interactions" value="23"/>
+</dbReference>
+<dbReference type="MINT" id="P02461"/>
+<dbReference type="STRING" id="9606.ENSP00000304408"/>
+<dbReference type="ChEMBL" id="CHEMBL2364188"/>
+<dbReference type="DrugBank" id="DB00048">
+<property type="generic name" value="Collagenase clostridium histolyticum"/>
+</dbReference>
+<dbReference type="GlyConnect" id="1127"/>
+<dbReference type="iPTMnet" id="P02461"/>
+<dbReference type="PhosphoSitePlus" id="P02461"/>
+<dbReference type="BioMuta" id="COL3A1"/>
+<dbReference type="DMDM" id="124056490"/>
+<dbReference type="EPD" id="P02461"/>
+<dbReference type="jPOST" id="P02461"/>
+<dbReference type="PaxDb" id="P02461"/>
+<dbReference type="PeptideAtlas" id="P02461"/>
+<dbReference type="PRIDE" id="P02461"/>
+<dbReference type="ProteomicsDB" id="51522"/>
+<dbReference type="ProteomicsDB" id="51523">
+<molecule id="P02461-2"/>
+</dbReference>
+<dbReference type="Ensembl" id="ENST00000304636">
+<molecule id="P02461-1"/>
+<property type="protein sequence ID" value="ENSP00000304408"/>
+<property type="gene ID" value="ENSG00000168542"/>
+</dbReference>
+<dbReference type="Ensembl" id="ENST00000317840">
+<molecule id="P02461-2"/>
+<property type="protein sequence ID" value="ENSP00000315243"/>
+<property type="gene ID" value="ENSG00000168542"/>
+</dbReference>
+<dbReference type="GeneID" id="1281"/>
+<dbReference type="KEGG" id="hsa:1281"/>
+<dbReference type="UCSC" id="uc002uqj.2">
+<molecule id="P02461-1"/>
+<property type="organism name" value="human"/>
+</dbReference>
+<dbReference type="CTD" id="1281"/>
+<dbReference type="DisGeNET" id="1281"/>
+<dbReference type="EuPathDB" id="HostDB:ENSG00000168542.12"/>
+<dbReference type="GeneCards" id="COL3A1"/>
+<dbReference type="GeneReviews" id="COL3A1"/>
+<dbReference type="HGNC" id="HGNC:2201">
+<property type="gene designation" value="COL3A1"/>
+</dbReference>
+<dbReference type="HPA" id="CAB016766"/>
+<dbReference type="HPA" id="CAB059993"/>
+<dbReference type="HPA" id="HPA007583"/>
+<dbReference type="MalaCards" id="COL3A1"/>
+<dbReference type="MIM" id="120180">
+<property type="type" value="gene"/>
+</dbReference>
+<dbReference type="MIM" id="130050">
+<property type="type" value="phenotype"/>
+</dbReference>
+<dbReference type="neXtProt" id="NX_P02461"/>
+<dbReference type="OpenTargets" id="ENSG00000168542"/>
+<dbReference type="Orphanet" id="2500">
+<property type="disease" value="Acrogeria"/>
+</dbReference>
+<dbReference type="Orphanet" id="286">
+<property type="disease" value="Ehlers-Danlos syndrome, vascular type"/>
+</dbReference>
+<dbReference type="Orphanet" id="86">
+<property type="disease" value="Familial abdominal aortic aneurysm"/>
+</dbReference>
+<dbReference type="Orphanet" id="231160">
+<property type="disease" value="Familial cerebral saccular aneurysm"/>
+</dbReference>
+<dbReference type="PharmGKB" id="PA26716"/>
+<dbReference type="eggNOG" id="KOG3544">
+<property type="taxonomic scope" value="Eukaryota"/>
+</dbReference>
+<dbReference type="eggNOG" id="ENOG410XNMM">
+<property type="taxonomic scope" value="LUCA"/>
+</dbReference>
+<dbReference type="GeneTree" id="ENSGT00940000161229"/>
+<dbReference type="HOVERGEN" id="HBG004933"/>
+<dbReference type="InParanoid" id="P02461"/>
+<dbReference type="KO" id="K19720"/>
+<dbReference type="OMA" id="DFKINTD"/>
+<dbReference type="OrthoDB" id="1406711at2759"/>
+<dbReference type="PhylomeDB" id="P02461"/>
+<dbReference type="TreeFam" id="TF344135"/>
+<dbReference type="Reactome" id="R-HSA-1442490">
+<property type="pathway name" value="Collagen degradation"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-1474244">
+<property type="pathway name" value="Extracellular matrix organization"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-1650814">
+<property type="pathway name" value="Collagen biosynthesis and modifying enzymes"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-186797">
+<property type="pathway name" value="Signaling by PDGF"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-198933">
+<property type="pathway name" value="Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-2022090">
+<property type="pathway name" value="Assembly of collagen fibrils and other multimeric structures"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-216083">
+<property type="pathway name" value="Integrin cell surface interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000170">
+<property type="pathway name" value="Syndecan interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000171">
+<property type="pathway name" value="Non-integrin membrane-ECM interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000178">
+<property type="pathway name" value="ECM proteoglycans"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-3000480">
+<property type="pathway name" value="Scavenging by Class A Receptors"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-419037">
+<property type="pathway name" value="NCAM1 interactions"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-8874081">
+<property type="pathway name" value="MET activates PTK2 signaling"/>
+</dbReference>
+<dbReference type="Reactome" id="R-HSA-8948216">
+<property type="pathway name" value="Collagen chain trimerization"/>
+</dbReference>
+<dbReference type="SIGNOR" id="P02461"/>
+<dbReference type="ChiTaRS" id="COL3A1">
+<property type="organism name" value="human"/>
+</dbReference>
+<dbReference type="EvolutionaryTrace" id="P02461"/>
+<dbReference type="GeneWiki" id="Collagen,_type_III,_alpha_1"/>
+<dbReference type="GenomeRNAi" id="1281"/>
+<dbReference type="PRO" id="PR:P02461"/>
+<dbReference type="Proteomes" id="UP000005640">
+<property type="component" value="Chromosome 2"/>
+</dbReference>
+<dbReference type="Bgee" id="ENSG00000168542">
+<property type="expression patterns" value="Expressed in 229 organ(s), highest expression level in uterine cervix"/>
+</dbReference>
+<dbReference type="ExpressionAtlas" id="P02461">
+<property type="expression patterns" value="baseline and differential"/>
+</dbReference>
+<dbReference type="Genevisible" id="P02461">
+<property type="organism ID" value="HS"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005586">
+<property type="term" value="C:collagen type III trimer"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="CAFA"/>
+</dbReference>
+<dbReference type="GO" id="GO:0062023">
+<property type="term" value="C:collagen-containing extracellular matrix"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005788">
+<property type="term" value="C:endoplasmic reticulum lumen"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0031012">
+<property type="term" value="C:extracellular matrix"/>
+<property type="evidence" value="ECO:0000318"/>
+<property type="project" value="GO_Central"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005576">
+<property type="term" value="C:extracellular region"/>
+<property type="evidence" value="ECO:0007005"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005615">
+<property type="term" value="C:extracellular space"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005201">
+<property type="term" value="F:extracellular matrix structural constituent"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030020">
+<property type="term" value="F:extracellular matrix structural constituent conferring tensile strength"/>
+<property type="evidence" value="ECO:0007005"/>
+<property type="project" value="BHF-UCL"/>
+</dbReference>
+<dbReference type="GO" id="GO:0005178">
+<property type="term" value="F:integrin binding"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0046872">
+<property type="term" value="F:metal ion binding"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="UniProtKB-KW"/>
+</dbReference>
+<dbReference type="GO" id="GO:0048407">
+<property type="term" value="F:platelet-derived growth factor binding"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="MGI"/>
+</dbReference>
+<dbReference type="GO" id="GO:0002020">
+<property type="term" value="F:protease binding"/>
+<property type="evidence" value="ECO:0000353"/>
+<property type="project" value="CAFA"/>
+</dbReference>
+<dbReference type="GO" id="GO:0046332">
+<property type="term" value="F:SMAD binding"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0060414">
+<property type="term" value="P:aorta smooth muscle tissue morphogenesis"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007160">
+<property type="term" value="P:cell-matrix adhesion"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0071230">
+<property type="term" value="P:cellular response to amino acid stimulus"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0021987">
+<property type="term" value="P:cerebral cortex development"/>
+<property type="evidence" value="ECO:0000250"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030199">
+<property type="term" value="P:collagen fibril organization"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0048565">
+<property type="term" value="P:digestive tract development"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030198">
+<property type="term" value="P:extracellular matrix organization"/>
+<property type="evidence" value="ECO:0000318"/>
+<property type="project" value="GO_Central"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007507">
+<property type="term" value="P:heart development"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007229">
+<property type="term" value="P:integrin-mediated signaling pathway"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0050777">
+<property type="term" value="P:negative regulation of immune response"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:2001223">
+<property type="term" value="P:negative regulation of neuron migration"/>
+<property type="evidence" value="ECO:0000250"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0018149">
+<property type="term" value="P:peptide cross-linking"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0030168">
+<property type="term" value="P:platelet activation"/>
+<property type="evidence" value="ECO:0000303"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0035025">
+<property type="term" value="P:positive regulation of Rho protein signal transduction"/>
+<property type="evidence" value="ECO:0000250"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0050776">
+<property type="term" value="P:regulation of immune response"/>
+<property type="evidence" value="ECO:0000304"/>
+<property type="project" value="Reactome"/>
+</dbReference>
+<dbReference type="GO" id="GO:0034097">
+<property type="term" value="P:response to cytokine"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0009612">
+<property type="term" value="P:response to mechanical stimulus"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0009314">
+<property type="term" value="P:response to radiation"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0001501">
+<property type="term" value="P:skeletal system development"/>
+<property type="evidence" value="ECO:0000501"/>
+<property type="project" value="Ensembl"/>
+</dbReference>
+<dbReference type="GO" id="GO:0043588">
+<property type="term" value="P:skin development"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0097435">
+<property type="term" value="P:supramolecular fiber organization"/>
+<property type="evidence" value="ECO:0000315"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0007179">
+<property type="term" value="P:transforming growth factor beta receptor signaling pathway"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="GO" id="GO:0042060">
+<property type="term" value="P:wound healing"/>
+<property type="evidence" value="ECO:0000314"/>
+<property type="project" value="UniProtKB"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR008160">
+<property type="entry name" value="Collagen"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR000885">
+<property type="entry name" value="Fib_collagen_C"/>
+</dbReference>
+<dbReference type="InterPro" id="IPR001007">
+<property type="entry name" value="VWF_dom"/>
+</dbReference>
+<dbReference type="Pfam" id="PF01410">
+<property type="entry name" value="COLFI"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="Pfam" id="PF01391">
+<property type="entry name" value="Collagen"/>
+<property type="match status" value="8"/>
+</dbReference>
+<dbReference type="Pfam" id="PF00093">
+<property type="entry name" value="VWC"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="ProDom" id="PD002078">
+<property type="entry name" value="Fib_collagen_C"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="SMART" id="SM00038">
+<property type="entry name" value="COLFI"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="SMART" id="SM00214">
+<property type="entry name" value="VWC"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS51461">
+<property type="entry name" value="NC1_FIB"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS01208">
+<property type="entry name" value="VWFC_1"/>
+<property type="match status" value="1"/>
+</dbReference>
+<dbReference type="PROSITE" id="PS50184">
+<property type="entry name" value="VWFC_2"/>
+<property type="match status" value="1"/>
+</dbReference>
+<proteinExistence type="evidence at protein level"/>
+<keyword id="KW-0002">3D-structure</keyword>
+<keyword id="KW-0025">Alternative splicing</keyword>
+<keyword id="KW-0993">Aortic aneurysm</keyword>
+<keyword id="KW-0106">Calcium</keyword>
+<keyword id="KW-0176">Collagen</keyword>
+<keyword id="KW-0181">Complete proteome</keyword>
+<keyword id="KW-0903">Direct protein sequencing</keyword>
+<keyword id="KW-0225">Disease mutation</keyword>
+<keyword id="KW-1015">Disulfide bond</keyword>
+<keyword id="KW-0248">Ehlers-Danlos syndrome</keyword>
+<keyword id="KW-0272">Extracellular matrix</keyword>
+<keyword id="KW-0325">Glycoprotein</keyword>
+<keyword id="KW-0379">Hydroxylation</keyword>
+<keyword id="KW-0479">Metal-binding</keyword>
+<keyword id="KW-0621">Polymorphism</keyword>
+<keyword id="KW-1185">Reference proteome</keyword>
+<keyword id="KW-0677">Repeat</keyword>
+<keyword id="KW-0964">Secreted</keyword>
+<keyword id="KW-0732">Signal</keyword>
+<feature type="signal peptide">
+<location>
+<begin position="1"/>
+<end position="23"/>
+</location>
+</feature>
+<feature type="propeptide" description="N-terminal propeptide" id="PRO_0000005740">
+<location>
+<begin position="24"/>
+<end position="153"/>
+</location>
+</feature>
+<feature type="chain" description="Collagen alpha-1(III) chain" id="PRO_0000005741">
+<location>
+<begin position="154"/>
+<end position="1221"/>
+</location>
+</feature>
+<feature type="propeptide" description="C-terminal propeptide" id="PRO_0000005742">
+<location>
+<begin position="1222"/>
+<end position="1466"/>
+</location>
+</feature>
+<feature type="domain" description="VWFC" evidence="5">
+<location>
+<begin position="30"/>
+<end position="89"/>
+</location>
+</feature>
+<feature type="domain" description="Fibrillar collagen NC1" evidence="6">
+<location>
+<begin position="1232"/>
+<end position="1466"/>
+</location>
+</feature>
+<feature type="region of interest" description="Nonhelical region (N-terminal)">
+<location>
+<begin position="149"/>
+<end position="167"/>
+</location>
+</feature>
+<feature type="region of interest" description="Triple-helical region">
+<location>
+<begin position="168"/>
+<end position="1196"/>
+</location>
+</feature>
+<feature type="region of interest" description="Nonhelical region (C-terminal)">
+<location>
+<begin position="1197"/>
+<end position="1205"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium">
+<location>
+<position position="1280"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium">
+<location>
+<position position="1282"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium; via carbonyl oxygen">
+<location>
+<position position="1283"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium; via carbonyl oxygen">
+<location>
+<position position="1285"/>
+</location>
+</feature>
+<feature type="metal ion-binding site" description="Calcium">
+<location>
+<position position="1288"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="173"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="179"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="182"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="185"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="191"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="194"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="197"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="203"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="206"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="215"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="218"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="236"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="239"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="245"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="248"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="257"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="260"/>
+</location>
+</feature>
+<feature type="modified residue" description="5-hydroxylysine; alternate" evidence="31">
+<location>
+<position position="263"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="281"/>
+</location>
+</feature>
+<feature type="modified residue" description="5-hydroxylysine" evidence="31">
+<location>
+<position position="284"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="290"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="296"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="305"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="311"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="314"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="332"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="335"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="338"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="344"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="347"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="359"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="365"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="371"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="383"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="386"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="31">
+<location>
+<position position="392"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="404"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="407"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="416"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="425"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="434"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="443"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="455"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="458"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="470"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="473"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="479"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="488"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="500"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="512"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="524"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="530"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="533"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="539"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="542"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="545"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="551"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="554"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="563"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="566"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="575"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="581"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="590"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="599"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="602"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="608"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="620"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="635"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="644"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="650"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="656"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="659"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="661"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="668"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="671"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="680"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="686"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="692"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="701"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="703"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="713"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="716"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="33">
+<location>
+<position position="722"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="728"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="737"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="746"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="749"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="755"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="770"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="776"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="785"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="788"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="797"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="806"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="812"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="815"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="821"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="830"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="839"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="845"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="854"/>
+</location>
+</feature>
+<feature type="modified residue" description="5-hydroxylysine" evidence="32">
+<location>
+<position position="860"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="866"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="869"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="875"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="881"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="884"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="890"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="892"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="899"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="905"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="914"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="917"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="929"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="935"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="941"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="944"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="32">
+<location>
+<position position="962"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="965"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="971"/>
+</location>
+</feature>
+<feature type="modified residue" description="5-hydroxylysine" evidence="34">
+<location>
+<position position="977"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="983"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="995"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1001"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1010"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1016"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1022"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1028"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1040"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1043"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1046"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1049"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1052"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1076"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1085"/>
+</location>
+</feature>
+<feature type="modified residue" description="5-hydroxylysine" evidence="34">
+<location>
+<position position="1106"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1112"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1115"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1118"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1121"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1133"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1148"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1157"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1163"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1178"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1181"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1184"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1187"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1190"/>
+</location>
+</feature>
+<feature type="modified residue" description="4-hydroxyproline" evidence="34">
+<location>
+<position position="1193"/>
+</location>
+</feature>
+<feature type="glycosylation site" description="O-linked (Gal...) hydroxylysine; alternate">
+<location>
+<position position="263"/>
+</location>
+</feature>
+<feature type="disulfide bond" description="Interchain" evidence="6 24">
+<location>
+<position position="1196"/>
+</location>
+</feature>
+<feature type="disulfide bond" description="Interchain" evidence="6 24">
+<location>
+<position position="1197"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="6 24">
+<location>
+<begin position="1262"/>
+<end position="1294"/>
+</location>
+</feature>
+<feature type="disulfide bond" description="Interchain (with C-1285)" evidence="6 24">
+<location>
+<position position="1268"/>
+</location>
+</feature>
+<feature type="disulfide bond" description="Interchain (with C-1268)" evidence="6 24">
+<location>
+<position position="1285"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="6 24">
+<location>
+<begin position="1302"/>
+<end position="1464"/>
+</location>
+</feature>
+<feature type="disulfide bond" evidence="6 24">
+<location>
+<begin position="1372"/>
+<end position="1417"/>
+</location>
+</feature>
+<feature type="splice variant" description="In isoform 2." id="VSP_022502" evidence="54">
+<location>
+<begin position="847"/>
+<end position="1149"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs111391222." id="VAR_001767">
+<original>L</original>
+<variation>F</variation>
+<location>
+<position position="169"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912926." id="VAR_001768" evidence="47 52">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="183"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779420." id="VAR_011095">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="183"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912926." id="VAR_011096">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="183"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779710." id="VAR_011097">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="192"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779436." id="VAR_001769" evidence="47 52">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="201"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779626." id="VAR_011098" evidence="9">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="204"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779711." id="VAR_011099">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="204"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_011100" evidence="9">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="210"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779624." id="VAR_011101">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="219"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779533." id="VAR_011102">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="225"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779555." id="VAR_001770" evidence="47 52">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="228"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779468." id="VAR_011103">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="240"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779629." id="VAR_011104">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="243"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912927." id="VAR_011105">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="249"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912927." id="VAR_011106">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="249"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779464." id="VAR_011107">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="252"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779705." id="VAR_011108">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="252"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779464." id="VAR_011109">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="252"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779605." id="VAR_011110">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="255"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_011111" evidence="9">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="264"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779427." id="VAR_011112">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="267"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_037007" evidence="12">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="297"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912919." id="VAR_001771" evidence="42">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="303"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779588." id="VAR_011113">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="321"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_011114" evidence="9">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="327"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779419." id="VAR_011115">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="345"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779637." id="VAR_011116">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="417"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In a colorectal cancer sample; somatic mutation; dbSNP:rs587779692." id="VAR_035738" evidence="19">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="420"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779489." id="VAR_011117">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="444"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779476." id="VAR_011118">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="489"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779523." id="VAR_011119">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="501"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_011120">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="519"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs41263744." id="VAR_055665">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="534"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779584." id="VAR_001772" evidence="47 52">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="540"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779679." id="VAR_011121">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="549"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912928." id="VAR_011122">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="552"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_001773" evidence="45">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="567"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912923." id="VAR_001774" evidence="46">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="582"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779691." id="VAR_011123">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="588"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs35795890." id="VAR_001775" evidence="40">
+<original>P</original>
+<variation>T</variation>
+<location>
+<position position="602"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs902780774." id="VAR_001776" evidence="40">
+<original>P</original>
+<variation>L</variation>
+<location>
+<position position="635"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779522." id="VAR_011124">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="636"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779699." id="VAR_011125">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="657"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779493." id="VAR_011126">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="660"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912921." id="VAR_001777" evidence="43">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="666"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs1801183." id="VAR_011127" evidence="42">
+<original>P</original>
+<variation>T</variation>
+<location>
+<position position="668"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs41263773." id="VAR_055666" evidence="20">
+<original>A</original>
+<variation>T</variation>
+<location>
+<position position="679"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs41263775." id="VAR_055667">
+<original>P</original>
+<variation>A</variation>
+<location>
+<position position="686"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs1800255." id="VAR_001778" evidence="20 22">
+<original>A</original>
+<variation>T</variation>
+<location>
+<position position="698"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779668." id="VAR_011128">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="699"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779638." id="VAR_001779" evidence="49 50">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="726"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912925." id="VAR_011129">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="738"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779615." id="VAR_011130">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="738"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779697." id="VAR_011131">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="744"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_001780" evidence="37">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="756"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_001781" evidence="45">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="762"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs113485686." id="VAR_001782" evidence="23">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="786"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912920." id="VAR_001783" evidence="36">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="804"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_001784" evidence="41">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="828"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779486." id="VAR_011132">
+<original>G</original>
+<variation>W</variation>
+<location>
+<position position="828"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_037008" evidence="16">
+<location>
+<begin position="830"/>
+<end position="838"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779690." id="VAR_011133">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="852"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779645." id="VAR_011134">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="879"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779622." id="VAR_011135">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="882"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779599." id="VAR_011136">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="900"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779505." id="VAR_011137">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="903"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_001785" evidence="44">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="909"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779483." id="VAR_011138">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="909"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779662." id="VAR_011139">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="918"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779471." id="VAR_011140">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="924"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779566." id="VAR_001786" evidence="47 52">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="936"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_001787">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="936"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs112978464." id="VAR_001788" evidence="44">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="939"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779517." id="VAR_011141">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="942"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; severe variant; dbSNP:rs121912913." id="VAR_001789" evidence="26">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="957"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; severe variant; dbSNP:rs121912922." id="VAR_001790" evidence="35">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="960"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779571." id="VAR_011142">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="966"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779559." id="VAR_011143">
+<original>G</original>
+<variation>A</variation>
+<location>
+<position position="972"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; requires 2 nucleotide substitutions." id="VAR_011144">
+<original>G</original>
+<variation>T</variation>
+<location>
+<position position="984"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779576." id="VAR_001791" evidence="52">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="996"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779548." id="VAR_011145">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="999"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779552." id="VAR_011146">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1011"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912916." id="VAR_001792" evidence="14">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1014"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779428." id="VAR_011147">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1032"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779704." id="VAR_011148">
+<original>G</original>
+<variation>C</variation>
+<location>
+<position position="1035"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_011149" evidence="10">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1044"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; mild variant; dbSNP:rs121912914." id="VAR_001793" evidence="29">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1050"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912914." id="VAR_011150" evidence="13">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1050"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779709." id="VAR_001794" evidence="52">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1071"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912915." id="VAR_001795" evidence="21">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1077"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779672." id="VAR_011151">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1089"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_011152" evidence="9">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1098"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779614." id="VAR_011153">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1098"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912924." id="VAR_001796" evidence="48">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1101"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC." id="VAR_001797" evidence="52">
+<original>G</original>
+<variation>A</variation>
+<location>
+<position position="1104"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779473." id="VAR_011154">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1161"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779431." id="VAR_011155">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1164"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779553." id="VAR_011156">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1164"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In spondyloepiphyseal dysplasia." id="VAR_001798">
+<original>G</original>
+<variation>S</variation>
+<location>
+<position position="1164"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779578." id="VAR_001799" evidence="51">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1167"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779465." id="VAR_001800" evidence="45 51">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1170"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779465." id="VAR_011157">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1170"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912918." id="VAR_001801" evidence="9 15 51">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1173"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; Gottron type acrogeria; dbSNP:rs587779521." id="VAR_011158" evidence="8">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1173"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; severe." id="VAR_001802" evidence="38">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1176"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779574." id="VAR_011159">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1179"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs111505097." id="VAR_001803" evidence="52">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1182"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; severe variant; dbSNP:rs121912917." id="VAR_001804" evidence="17">
+<original>G</original>
+<variation>D</variation>
+<location>
+<position position="1185"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs121912917." id="VAR_001805" evidence="52">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="1185"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; severe variant; dbSNP:rs112456072." id="VAR_001806" evidence="39 52">
+<original>G</original>
+<variation>E</variation>
+<location>
+<position position="1188"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In EDSVASC; dbSNP:rs587779504." id="VAR_001807" evidence="52">
+<original>G</original>
+<variation>R</variation>
+<location>
+<position position="1188"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs2271683." id="VAR_020012" evidence="20">
+<original>I</original>
+<variation>V</variation>
+<location>
+<position position="1205"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In dbSNP:rs1516446." id="VAR_030115" evidence="11 18 20 27 28 30 53">
+<original>H</original>
+<variation>Q</variation>
+<location>
+<position position="1353"/>
+</location>
+</feature>
+<feature type="sequence variant" description="In a colorectal cancer sample; somatic mutation; dbSNP:rs747324731." id="VAR_035739" evidence="19">
+<original>R</original>
+<variation>C</variation>
+<location>
+<position position="1434"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>G</original>
+<variation>GG</variation>
+<location>
+<position position="163"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 11; AA sequence." ref="11" evidence="55">
+<original>G</original>
+<variation>V</variation>
+<location>
+<position position="168"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 11; AA sequence." ref="11" evidence="55">
+<location>
+<begin position="226"/>
+<end position="228"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>E</original>
+<variation>D</variation>
+<location>
+<position position="241"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 11; AA sequence." ref="11" evidence="55">
+<original>T</original>
+<variation>A</variation>
+<location>
+<position position="278"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 11; AA sequence." ref="11" evidence="55">
+<original>NGA</original>
+<variation>DGS</variation>
+<location>
+<begin position="293"/>
+<end position="295"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 15; AA sequence." ref="15" evidence="55">
+<original>A</original>
+<variation>L</variation>
+<location>
+<position position="401"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 15; AA sequence." ref="15" evidence="55">
+<original>L</original>
+<variation>P</variation>
+<location>
+<position position="409"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>E</original>
+<variation>D</variation>
+<location>
+<position position="472"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>PGF</original>
+<variation>LGS</variation>
+<location>
+<begin position="488"/>
+<end position="490"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 15; AA sequence." ref="15" evidence="55">
+<original>A</original>
+<variation>E</variation>
+<location>
+<position position="589"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>T</original>
+<variation>Y</variation>
+<location>
+<position position="614"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>P</original>
+<variation>R</variation>
+<location>
+<position position="635"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>D</original>
+<variation>E</variation>
+<location>
+<position position="664"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 16; AA sequence." ref="16" evidence="55">
+<original>D</original>
+<variation>N</variation>
+<location>
+<position position="676"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 15; AA sequence." ref="15" evidence="55">
+<original>T</original>
+<variation>P</variation>
+<location>
+<position position="803"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 18; AA sequence." ref="18" evidence="55">
+<original>S</original>
+<variation>A</variation>
+<location>
+<position position="896"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 22; AA sequence." ref="22" evidence="55">
+<original>S</original>
+<variation>A</variation>
+<location>
+<position position="980"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 22; AA sequence." ref="22" evidence="55">
+<original>ANGLS</original>
+<variation>PSGQN</variation>
+<location>
+<begin position="985"/>
+<end position="989"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 20; CAA29886." ref="20" evidence="55">
+<original>D</original>
+<variation>Y</variation>
+<location>
+<position position="1019"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 15; AA sequence." ref="15" evidence="55">
+<original>S</original>
+<variation>P</variation>
+<location>
+<position position="1067"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 15; AA sequence." ref="15" evidence="55">
+<original>A</original>
+<variation>P</variation>
+<location>
+<position position="1070"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 22; AA sequence." ref="22" evidence="55">
+<original>T</original>
+<variation>P</variation>
+<location>
+<position position="1097"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 22; AA sequence." ref="22" evidence="55">
+<original>TS</original>
+<variation>AT</variation>
+<location>
+<begin position="1153"/>
+<end position="1154"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 22; AA sequence." ref="22" evidence="55">
+<original>H</original>
+<variation>S</variation>
+<location>
+<position position="1156"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>P</original>
+<variation>S</variation>
+<location>
+<position position="1184"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>A</original>
+<variation>P</variation>
+<location>
+<position position="1203"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 10; CAA33387." ref="10" evidence="55">
+<original>G</original>
+<variation>A</variation>
+<location>
+<position position="1210"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 26; AAA52002." ref="26" evidence="55">
+<original>D</original>
+<variation>P</variation>
+<location>
+<position position="1222"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 26; AAA52002." ref="26" evidence="55">
+<original>M</original>
+<variation>I</variation>
+<location>
+<position position="1235"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 20; CAA29886 and 23; CAA25879." ref="20 23" evidence="55">
+<original>V</original>
+<variation>A</variation>
+<location>
+<position position="1241"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 26; AAA52002." ref="26" evidence="55">
+<original>S</original>
+<variation>T</variation>
+<location>
+<position position="1274"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 26; AAA52002." ref="26" evidence="55">
+<original>M</original>
+<variation>I</variation>
+<location>
+<position position="1332"/>
+</location>
+</feature>
+<feature type="sequence conflict" description="In Ref. 26; AAA52002." ref="26" evidence="55">
+<original>L</original>
+<variation>P</variation>
+<location>
+<position position="1357"/>
+</location>
+</feature>
+<feature type="helix" evidence="4">
+<location>
+<begin position="1231"/>
+<end position="1249"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1253"/>
+<end position="1257"/>
+</location>
+</feature>
+<feature type="strand" evidence="4">
+<location>
+<begin position="1259"/>
+<end position="1261"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1262"/>
+<end position="1268"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1274"/>
+<end position="1279"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1286"/>
+<end position="1288"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1290"/>
+<end position="1295"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="1296"/>
+<end position="1299"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1300"/>
+<end position="1303"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1305"/>
+<end position="1307"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1309"/>
+<end position="1313"/>
+</location>
+</feature>
+<feature type="strand" evidence="3">
+<location>
+<begin position="1320"/>
+<end position="1322"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1328"/>
+<end position="1331"/>
+</location>
+</feature>
+<feature type="strand" evidence="2">
+<location>
+<begin position="1339"/>
+<end position="1341"/>
+</location>
+</feature>
+<feature type="strand" evidence="3">
+<location>
+<begin position="1343"/>
+<end position="1345"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1347"/>
+<end position="1360"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1364"/>
+<end position="1374"/>
+</location>
+</feature>
+<feature type="turn" evidence="1">
+<location>
+<begin position="1381"/>
+<end position="1384"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1391"/>
+<end position="1393"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1395"/>
+<end position="1397"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1399"/>
+<end position="1404"/>
+</location>
+</feature>
+<feature type="helix" evidence="4">
+<location>
+<begin position="1406"/>
+<end position="1408"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1411"/>
+<end position="1415"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1422"/>
+<end position="1434"/>
+</location>
+</feature>
+<feature type="helix" evidence="1">
+<location>
+<begin position="1436"/>
+<end position="1438"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1443"/>
+<end position="1445"/>
+</location>
+</feature>
+<feature type="strand" evidence="4">
+<location>
+<begin position="1451"/>
+<end position="1453"/>
+</location>
+</feature>
+<feature type="strand" evidence="1">
+<location>
+<begin position="1455"/>
+<end position="1465"/>
+</location>
+</feature>
+<evidence key="1" type="ECO:0000244">
+<source>
+<dbReference type="PDB" id="4AE2"/>
+</source>
+</evidence>
+<evidence key="2" type="ECO:0000244">
+<source>
+<dbReference type="PDB" id="4AEJ"/>
+</source>
+</evidence>
+<evidence key="3" type="ECO:0000244">
+<source>
+<dbReference type="PDB" id="4AK3"/>
+</source>
+</evidence>
+<evidence key="4" type="ECO:0000244">
+<source>
+<dbReference type="PDB" id="6FZV"/>
+</source>
+</evidence>
+<evidence key="5" type="ECO:0000255">
+<source>
+<dbReference type="PROSITE-ProRule" id="PRU00220"/>
+</source>
+</evidence>
+<evidence key="6" type="ECO:0000255">
+<source>
+<dbReference type="PROSITE-ProRule" id="PRU00793"/>
+</source>
+</evidence>
+<evidence key="7" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="10706896"/>
+</source>
+</evidence>
+<evidence key="8" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="10819545"/>
+</source>
+</evidence>
+<evidence key="9" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="10923041"/>
+</source>
+</evidence>
+<evidence key="10" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="11168790"/>
+</source>
+</evidence>
+<evidence key="11" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="11566270"/>
+</source>
+</evidence>
+<evidence key="12" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="12694234"/>
+</source>
+</evidence>
+<evidence key="13" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="12786757"/>
+</source>
+</evidence>
+<evidence key="14" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1352273"/>
+</source>
+</evidence>
+<evidence key="15" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1357232"/>
+</source>
+</evidence>
+<evidence key="16" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1370809"/>
+</source>
+</evidence>
+<evidence key="17" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1496983"/>
+</source>
+</evidence>
+<evidence key="18" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="15489334"/>
+</source>
+</evidence>
+<evidence key="19" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="16959974"/>
+</source>
+</evidence>
+<evidence key="20" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="18272325"/>
+</source>
+</evidence>
+<evidence key="21" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="1895316"/>
+</source>
+</evidence>
+<evidence key="22" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2235526"/>
+</source>
+</evidence>
+<evidence key="23" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2243125"/>
+</source>
+</evidence>
+<evidence key="24" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="23001006"/>
+</source>
+</evidence>
+<evidence key="25" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2349939"/>
+</source>
+</evidence>
+<evidence key="26" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2492273"/>
+</source>
+</evidence>
+<evidence key="27" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2579949"/>
+</source>
+</evidence>
+<evidence key="28" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2764886"/>
+</source>
+</evidence>
+<evidence key="29" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="2808425"/>
+</source>
+</evidence>
+<evidence key="30" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="3357782"/>
+</source>
+</evidence>
+<evidence key="31" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="557335"/>
+</source>
+</evidence>
+<evidence key="32" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="6246925"/>
+</source>
+</evidence>
+<evidence key="33" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="687591"/>
+</source>
+</evidence>
+<evidence key="34" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7016180"/>
+</source>
+</evidence>
+<evidence key="35" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7749417"/>
+</source>
+</evidence>
+<evidence key="36" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7833919"/>
+</source>
+</evidence>
+<evidence key="37" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="7912131"/>
+</source>
+</evidence>
+<evidence key="38" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8019562"/>
+</source>
+</evidence>
+<evidence key="39" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8098182"/>
+</source>
+</evidence>
+<evidence key="40" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8255472"/>
+</source>
+</evidence>
+<evidence key="41" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8411057"/>
+</source>
+</evidence>
+<evidence key="42" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8514866"/>
+</source>
+</evidence>
+<evidence key="43" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8664902"/>
+</source>
+</evidence>
+<evidence key="44" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8680408"/>
+</source>
+</evidence>
+<evidence key="45" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8884076"/>
+</source>
+</evidence>
+<evidence key="46" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="8990011"/>
+</source>
+</evidence>
+<evidence key="47" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="9036918"/>
+</source>
+</evidence>
+<evidence key="48" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="9147870"/>
+</source>
+</evidence>
+<evidence key="49" type="ECO:0000269">
+<source>
+<dbReference type="PubMed" id="9452103"/>
+</source>
+</evidence>
+<evidence key="50" type="ECO:0000269">
+<source ref="3"/>
+</evidence>
+<evidence key="51" type="ECO:0000269">
+<source ref="46"/>
+</evidence>
+<evidence key="52" type="ECO:0000269">
+<source ref="51"/>
+</evidence>
+<evidence key="53" type="ECO:0000269">
+<source ref="6"/>
+</evidence>
+<evidence key="54" type="ECO:0000303">
+<source>
+<dbReference type="PubMed" id="15489334"/>
+</source>
+</evidence>
+<evidence key="55" type="ECO:0000305"/>
+<sequence length="1466" mass="138564" checksum="B904B4E05E17D339" modified="2007-01-23" version="4" precursor="true">
+MMSFVQKGSWLLLALLHPTIILAQQEAVEGGCSHLGQSYADRDVWKPEPCQICVCDSGSV
+LCDDIICDDQELDCPNPEIPFGECCAVCPQPPTAPTRPPNGQGPQGPKGDPGPPGIPGRN
+GDPGIPGQPGSPGSPGPPGICESCPTGPQNYSPQYDSYDVKSGVAVGGLAGYPGPAGPPG
+PPGPPGTSGHPGSPGSPGYQGPPGEPGQAGPSGPPGPPGAIGPSGPAGKDGESGRPGRPG
+ERGLPGPPGIKGPAGIPGFPGMKGHRGFDGRNGEKGETGAPGLKGENGLPGENGAPGPMG
+PRGAPGERGRPGLPGAAGARGNDGARGSDGQPGPPGPPGTAGFPGSPGAKGEVGPAGSPG
+SNGAPGQRGEPGPQGHAGAQGPPGPPGINGSPGGKGEMGPAGIPGAPGLMGARGPPGPAG
+ANGAPGLRGGAGEPGKNGAKGEPGPRGERGEAGIPGVPGAKGEDGKDGSPGEPGANGLPG
+AAGERGAPGFRGPAGPNGIPGEKGPAGERGAPGPAGPRGAAGEPGRDGVPGGPGMRGMPG
+SPGGPGSDGKPGPPGSQGESGRPGPPGPSGPRGQPGVMGFPGPKGNDGAPGKNGERGGPG
+GPGPQGPPGKNGETGPQGPPGPTGPGGDKGDTGPPGPQGLQGLPGTGGPPGENGKPGEPG
+PKGDAGAPGAPGGKGDAGAPGERGPPGLAGAPGLRGGAGPPGPEGGKGAAGPPGPPGAAG
+TPGLQGMPGERGGLGSPGPKGDKGEPGGPGADGVPGKDGPRGPTGPIGPPGPAGQPGDKG
+EGGAPGLPGIAGPRGSPGERGETGPPGPAGFPGAPGQNGEPGGKGERGAPGEKGEGGPPG
+VAGPPGGSGPAGPPGPQGVKGERGSPGGPGAAGFPGARGLPGPPGSNGNPGPPGPSGSPG
+KDGPPGPAGNTGAPGSPGVSGPKGDAGQPGEKGSPGAQGPPGAPGPLGIAGITGARGLAG
+PPGMPGPRGSPGPQGVKGESGKPGANGLSGERGPPGPQGLPGLAGTAGEPGRDGNPGSDG
+LPGRDGSPGGKGDRGENGSPGAPGAPGHPGPPGPVGPAGKSGDRGESGPAGPAGAPGPAG
+SRGAPGPQGPRGDKGETGERGAAGIKGHRGFPGNPGAPGSPGPAGQQGAIGSPGPAGPRG
+PVGPSGPPGKDGTSGHPGPIGPPGPRGNRGERGSEGSPGHPGQPGPPGPPGAPGPCCGGV
+GAAAIAGIGGEKAGGFAPYYGDEPMDFKINTDEIMTSLKSVNGQIESLISPDGSRKNPAR
+NCRDLKFCHPELKSGEYWVDPNQGCKLDAIKVFCNMETGETCISANPLNVPRKHWWTDSS
+AEKKHVWFGESMDGGFQFSYGNPELPEDVLDVHLAFLRLLSSRASQNITYHCKNSIAYMD
+QASGNVKKALKLMGSNEGEFKAEGNSKFTYTVLEDGCTKHTGEWSKTVFEYRTRKAVRLP
+IVDIAPYDIGGPDQEFGVDVGPVCFL
+</sequence>
+</entry>
+<copyright>
+Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+Distributed under the Creative Commons Attribution (CC BY 4.0) License
+</copyright>
+</uniprot>

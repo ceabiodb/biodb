@@ -1,0 +1,247 @@
+ENTRY       EC 3.4.13.18                Enzyme
+NAME        cytosol nonspecific dipeptidase;
+            N2-beta-alanylarginine dipeptidase;
+            glycyl-glycine dipeptidase;
+            glycyl-leucine dipeptidase;
+            iminodipeptidase;
+            peptidase A;
+            Pro-X dipeptidase;
+            prolinase;
+            prolyl dipeptidase;
+            prolylglycine dipeptidase;
+            iminodipeptidase;
+            prolinase;
+            L-prolylglycine dipeptidase;
+            prolylglycine dipeptidase;
+            diglycinase;
+            Gly-Leu hydrolase;
+            glycyl-L-leucine dipeptidase;
+            glycyl-L-leucine hydrolase;
+            glycyl-L-leucine peptidase;
+            L-amino-acyl-L-amino-acid hydrolase;
+            glycylleucine peptidase;
+            glycylleucine hydrolase;
+            glycylleucine dipeptide hydrolase;
+            non-specific dipeptidase;
+            human cytosolic non-specific dipeptidase;
+            glycyl-L-leucine hydrolase;
+            glycyl-glycine dipeptidase
+CLASS       Hydrolases;
+            Acting on peptide bonds (peptidases);
+            Dipeptidases
+REACTION    Hydrolysis of dipeptides, preferentially hydrophobic dipeptides including prolyl amino acids
+ALL_REAC    (other) R01166 R01992
+COMMENT     A zinc enzyme with broad specificity, varying somewhat with source species. Activated and stabilized by dithiothreitol and Mn2+. Inhibited by bestatin and leucine.
+HISTORY     EC 3.4.13.18 created 1961 as EC 3.4.3.1 and EC 3.4.3.2, transferred 1972 to EC 3.4.13.1 and EC 3.4.13.2, transferred 1978 to EC 3.4.13.11, part transferred 1992 to EC 3.4.13.18, modified 2000 (EC 3.4.13.15 created 1989, incorporated 1992)
+REFERENCE   1
+  AUTHORS   Bauer, K.
+  TITLE     Cytosol non-specific dipeptidase.
+  JOURNAL   In: Barrett, A.J., Rawlings, N.D. and Woessner, J.F. (Eds.), Handbook of Proteolytic Enzymes, Academic Press, London, 1998, p. 1520-1522.
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec00340  Histidine metabolism
+            ec00410  beta-Alanine metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K08660  cytosolic nonspecific dipeptidase
+GENES       HSA: 55748(CNDP2)
+            PTR: 455473(CNDP2)
+            PPS: 100970514(CNDP2)
+            GGO: 101126755(CNDP2)
+            PON: 100174694(CNDP2)
+            NLE: 100583155(CNDP2)
+            MCC: 695080(CNDP2)
+            MCF: 101865174(CNDP2)
+            CSAB: 103244083(CNDP2)
+            RRO: 104656990(CNDP2)
+            RBB: 108525047(CNDP2)
+            CJC: 100393355(CNDP2)
+            SBQ: 101053821(CNDP2)
+            MMU: 66054(Cndp2)
+            RNO: 291394(Cndp2)
+            CGE: 100760626(Cndp2)
+            NGI: 103748118(Cndp2)
+            HGL: 101709694(Cndp2)
+            CCAN: 109700927(Cndp2)
+            OCU: 100347984(CNDP2)
+            TUP: 102489914(CNDP2)
+            CFA: 476166(CNDP2)
+            AML: 100466673(CNDP2)
+            UMR: 103658414(CNDP2)
+            ORO: 101378244(CNDP2)
+            FCA: 101095774(CNDP2)
+            PTG: 102964722(CNDP2)
+            AJU: 106982249(CNDP2)
+            BTA: 512626(CNDP2)
+            BOM: 102267439(CNDP2)
+            BIU: 109577882(CNDP2)
+            PHD: 102320179(CNDP2)
+            CHX: 102189261(CNDP2)
+            OAS: 101111244(CNDP2)
+            SSC: 100158127(CNDP2)
+            CFR: 102510239(CNDP2)
+            CDK: 105105096(CNDP2)
+            BACU: 103016660(CNDP2)
+            LVE: 103085206(CNDP2)
+            OOR: 101280936(CNDP2)
+            ECB: 100061697(CNDP2)
+            EPZ: 103561747(CNDP2)
+            EAI: 106832864
+            MYB: 102242032(CNDP2)
+            MYD: 102767302(CNDP2)
+            HAI: 109383204(CNDP2)
+            RSS: 109436660(CNDP2)
+            PALE: 102880342(CNDP2)
+            LAV: 100668146(CNDP2)
+            TMU: 101353090
+            MDO: 100016094(CNDP2)
+            SHR: 100920874(CNDP2)
+            OAA: 100076934
+            GGA: 421013(CNDP2)
+            MGP: 100541349(CNDP2)
+            CJO: 107309961(CNDP2)
+            APLA: 101791366(CNDP2)
+            ACYG: 106036016(CNDP2)
+            TGU: 100229152(CNDP2)
+            SCAN: 103826354(CNDP2)
+            GFR: 102034558(CNDP2)
+            FAB: 101807367(CNDP2)
+            PHI: 102114713(CNDP2)
+            PMAJ: 107200307(CNDP2)
+            CCAE: 111925251(CNDP2)
+            CCW: 104685798(CNDP2)
+            FPG: 101914717(CNDP2)
+            FCH: 102052576(CNDP2)
+            CLV: 102092467(CNDP2)
+            EGZ: 104128656(CNDP2)
+            NNI: 104018185(CNDP2)
+            ACUN: 113477172(CNDP2)
+            AAM: 106484108(CNDP2)
+            ASN: 102368140
+            AMJ: 102560010 102563504(CNDP2)
+            PSS: 102446043(CNDP2)
+            CMY: 102938228(CNDP2)
+            CPIC: 101937378(CNDP2)
+            ACS: 100553967(cndp2) 100556028
+            PVT: 110083373 110083377(CNDP2)
+            PBI: 103052866(CNDP2)
+            PMUR: 107291689(CNDP2)
+            GJA: 107115121(CNDP2)
+            XLA: 108695220 380001(cndp2.S) 398689(darmin.L) 446978(cndp2.L)
+            XTR: 394907(cndp2)
+            NPR: 108786278 108799251
+            DRE: 327288(cndp2)
+            SRX: 107739559 107748690
+            SANH: 107688323 107696911
+            SGH: 107579761 107592070 107593602(cndp2)
+            CCAR: 109055046 109057850 109066328
+            IPU: 108257136(cndp2)
+            PHYP: 113536259(cndp2)
+            AMEX: 103024590(cndp2)
+            EEE: 113585121(cndp2)
+            TRU: 101066809(cndp2)
+            TNG: GSTEN00032549G001
+            LCO: 104927574(cndp2)
+            NCC: 104949438 104962947(cndp2)
+            MZE: 101468473 101468783 101469064 106676710
+            OLA: 101158501(cndp2)
+            XMA: 102224641 102232950
+            PRET: 103472482 103472483(cndp2)
+            NFU: 107394616(cndp2)
+            KMR: 108237889(cndp2)
+            CSEM: 103394277(cndp2)
+            LCF: 108879475(cndp2)
+            SDU: 111223447(cndp2)
+            HCQ: 109512013(cndp2)
+            BPEC: 110161127(cndp2)
+            MALB: 109958636(cndp2)
+            SASA: 106569863 106579285 106579306 106588296(CNDP2) 106605538
+            OTW: 112227796 112247756 112264696
+            SALP: 111955262 111955733
+            ELS: 105012659(cndp2) 105019195
+            SFM: 108933337 108940590
+            PKI: 111852260(cndp2)
+            LCM: 102355182(CNDP2)
+            CMK: 103184951(cndp2)
+            BFO: BRAFLDRAFT_125873 BRAFLDRAFT_287169
+            SPU: 594228
+            APLC: 110975407 110975526
+            SKO: 100378098 100378352
+            DME: Dmel_CG17337(CG17337)
+            DPO: Dpse_GA14468 Dpse_GA23831 Dpse_GA25180
+            DAN: Dana_GF13844
+            DER: 6541545 6542112
+            DPE: 6590913 6601359
+            DSE: Dsec_GM16517
+            DSI: Dsimw501_GD10382(Dsim_GD10382)
+            DWI: 26529072 6637975 6642226
+            DYA: Dyak_GE20538
+            DGR: Dgri_GH11455 Dgri_GH20431
+            DMO: Dmoj_GI19613 Dmoj_GI21918 Dmoj_GI21920 Dmoj_GI26928
+            DVI: Dvir_GJ14978 Dvir_GJ17823 Dvir_GJ19835
+            MDE: 101898638
+            AGA: AgaP_AGAP007619
+            AAG: 5571265
+            CQU: CpipJ_CPIJ017373
+            AME: 412393
+            BIM: 100743679
+            BTER: 100648827
+            SOC: 105196148
+            MPHA: 105834920
+            AEC: 105147021
+            ACEP: 105622856
+            PBAR: 105423960
+            HST: 105184854
+            DQU: 106745289
+            CFO: 105259365
+            LHU: 105675762
+            PGC: 109859585
+            OBO: 105278212
+            PCF: 106789699
+            NVI: 100121200
+            MDL: 103573504
+            TCA: 660098 660961
+            DPA: 109537684 109538891 109539660
+            NVL: 108560640 108566235
+            BMOR: 101736010
+            DPL: KGM_204431
+            PMAC: 106712293
+            PRAP: 111000943 111003138
+            HAW: 110371138
+            TNL: 113492664
+            PXY: 105387002 105392064
+            API: 100166238
+            DNX: 107164375 107164376 107173562
+            CLEC: 106663411
+            PHU: Phum_PHUM537060
+            ZNE: 110827434
+            FCD: 110845061 110850716
+            DPX: DAPPUDRAFT_303911
+            ISC: IscW_ISCW017703
+            DPTE: 113795765 113797587
+            NAI: NECAME_06866 NECAME_13889
+            LOA: LOAG_10052
+            TSP: Tsp_11047
+            LGI: LOTGIDRAFT_224093
+            CRG: 105342026 105342027
+            MYI: 110440951
+            OBI: 106883127 106883205
+            LAK: 106176476
+            OVI: T265_06073
+            EGL: EGR_00983
+            NVE: NEMVE_v1g183701
+            EPA: 110248653
+            ADF: 107332222 107348131 107348132
+            PDAM: 113664778
+            SPIS: 111320177
+            HMG: 100210621(cndp2) 100211929
+            GSL: Gasu_32150
+            CCP: CHC_T00002877001
+            MBR: MONBRDRAFT_37652
+            SRE: PTSG_10206
+            FCY: FRACYDRAFT_236083
+            AAF: AURANDRAFT_29643
+DBLINKS     ExplorEnz - The Enzyme Database: 3.4.13.18
+            IUBMB Enzyme Nomenclature: 3.4.13.18
+            ExPASy - ENZYME nomenclature database: 3.4.13.18
+            BRENDA, the Enzyme Database: 3.4.13.18
+            CAS: 9025-31-4
+///

@@ -1,0 +1,86 @@
+ENTRY       11670             CDS       T01002
+NAME        Aldh3a1, Ahd-4, Ahd4, Aldh, Aldh3
+DEFINITION  (RefSeq) aldehyde dehydrogenase family 3, subfamily A1
+ORTHOLOGY   K00129  aldehyde dehydrogenase (NAD(P)+) [EC:1.2.1.5]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00010  Glycolysis / Gluconeogenesis
+            mmu00340  Histidine metabolism
+            mmu00350  Tyrosine metabolism
+            mmu00360  Phenylalanine metabolism
+            mmu00410  beta-Alanine metabolism
+            mmu00980  Metabolism of xenobiotics by cytochrome P450
+            mmu00982  Drug metabolism - cytochrome P450
+            mmu01100  Metabolic pathways
+            mmu05204  Chemical carcinogenesis
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00010 Glycolysis / Gluconeogenesis
+                11670 (Aldh3a1)
+              09105 Amino acid metabolism
+               00340 Histidine metabolism
+                11670 (Aldh3a1)
+               00350 Tyrosine metabolism
+                11670 (Aldh3a1)
+               00360 Phenylalanine metabolism
+                11670 (Aldh3a1)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                11670 (Aldh3a1)
+              09111 Xenobiotics biodegradation and metabolism
+               00980 Metabolism of xenobiotics by cytochrome P450
+                11670 (Aldh3a1)
+               00982 Drug metabolism - cytochrome P450
+                11670 (Aldh3a1)
+             09160 Human Diseases
+              09161 Cancers: Overview
+               05204 Chemical carcinogenesis
+                11670 (Aldh3a1)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.2  Acting on the aldehyde or oxo group of donors
+               1.2.1  With NAD+ or NADP+ as acceptor
+                1.2.1.5  aldehyde dehydrogenase [NAD(P)+]
+                 11670 (Aldh3a1)
+POSITION    11 B2; 11 37.96 cM
+MOTIF       Pfam: Aldedh
+DBLINKS     NCBI-GeneID: 11670
+            NCBI-ProteinID: NP_001106196
+            MGI: 1353451
+            Ensembl: ENSMUSG00000019102
+            Vega: OTTMUSG00000005823
+            UniProt: P47739 Q3UNF5
+AASEQ       453
+            MSNISSIVNRARDAFNSGKTRPLQFRVEQLEALQRMINENLKGISKALASNLRKNEWTSY
+            YEEVAHVLDEIDFTIKGLSDWAEDEPVAKTRQTQEDDLYIHSEPLGVVLVIGAWNYPFNL
+            TIQPMVGAIAAGNAVVLKPSEVSDHMADLLSTLIPQYMDKDLYPVIKGGVPETTELLKEK
+            FDHIMYTGSTAVGKIVMAAAAKHLTPVTLELGGKSPCYVDKDCDLDVACRRIAWGKFMNS
+            GQTCVAPDYILCDPSIQNEIVEKLKKSLKDFYGEDAKQSHDYGRIINDRHFQRVINLIDS
+            KKVAHGGTWDQPSRYIAPTILVDVDPQSPVMQEEIFGPVMPIVCVRSLDEAIKFINQREK
+            PLALYVFSNNDKVIKKMIAETSSGGVTANDVIVHITVPTLPFGGVGNSGMGAYHGKKSFE
+            TFSHRRSCLVRSLRNEEANKARYPPSPAKMPRH
+NTSEQ       1362
+            atgagcaatatcagtagcatcgtgaaccgggcccgtgatgcctttaactcaggcaagact
+            cgaccgctgcagttccgggttgagcagctggaggcgttgcagcgcatgatcaacgagaac
+            ttgaaaggcatctccaaggcgctggcctctaacctgcgcaagaatgaatggacctcctac
+            tacgaggaggtggctcacgtgctggacgaaatcgatttcacgattaaggggctctccgat
+            tgggctgaggacgagcctgtggcaaagactcgtcagacccaggaagatgacctctacatc
+            cactcggagcccctgggcgtggtccttgtcataggtgcttggaactacccattcaacctc
+            accattcagcccatggtgggtgccatcgctgcaggaaatgctgtggtcctcaagccctcg
+            gaagtgagtgatcacatggcagacctgctttcaacacttatccctcagtatatggacaag
+            gatctgtacccagtgatcaaagggggtgtccctgaaaccacggagctgctcaaagagaag
+            tttgaccacatcatgtacacagggagcacggctgtaggaaagatcgtcatggcggctgcc
+            gccaagcatctgacccctgtcaccttggagcttggaggaaagagcccttgttacgtagac
+            aaggactgtgatctagatgtggcttgccggcgtattgcttggggaaagtttatgaacagt
+            ggccagacctgtgtggccccagactacatcctctgtgacccctccattcagaatgaaatt
+            gtggagaagctcaaaaagtcactgaaagatttctatggggaagatgctaagcagtcccat
+            gactatgggaggatcatcaacgaccggcacttccagcgggtcataaatctgattgacagc
+            aagaaagtagcccatggaggcacctgggatcagccttcacgatacatagctcccaccatc
+            ctagtggatgtggacccccagtccccggtgatgcaggaggagatctttgggccggtgatg
+            cccattgtgtgtgttcgaagcttggatgaggccattaaatttatcaaccagcgcgagaag
+            cccctggcactctatgtgttctccaacaatgacaaggtgatcaagaaaatgatcgcagag
+            acatcaagcggtggagtgacagccaatgacgtcattgttcacatcactgtgcccactttg
+            ccctttgggggtgtggggaacagcggcatgggggcctaccatggcaagaaaagcttcgag
+            accttttcccaccgccgctcttgcctggtgaggtctctgcggaatgaagaagctaacaag
+            gccaggtatcccccaagcccagccaagatgccccggcattga
+///

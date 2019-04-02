@@ -1,0 +1,79 @@
+ENTRY       EC 2.1.1.157                Enzyme
+NAME        sarcosine/dimethylglycine N-methyltransferase;
+            ApDMT;
+            sarcosine-dimethylglycine methyltransferase;
+            SDMT;
+            sarcosine dimethylglycine N-methyltransferase;
+            S-adenosyl-L-methionine:N,N-dimethylglycine N-methyltransferase
+CLASS       Transferases;
+            Transferring one-carbon groups;
+            Methyltransferases
+SYSNAME     S-adenosyl-L-methionine:sarcosine(or N,N-dimethylglycine) N-methyltransferase [N,N-dimethylglycine(or betaine)-forming]
+REACTION    2 S-adenosyl-L-methionine + sarcosine = 2 S-adenosyl-L-homocysteine + betaine (overall reaction) [RN:R10061];
+            (1a) S-adenosyl-L-methionine + sarcosine = S-adenosyl-L-homocysteine + N,N-dimethylglycine [RN:R07243];
+            (1b) S-adenosyl-L-methionine + N,N-dimethylglycine = S-adenosyl-L-homocysteine + betaine [RN:R07244]
+ALL_REAC    R07243 R07244 R10061
+SUBSTRATE   S-adenosyl-L-methionine [CPD:C00019];
+            sarcosine [CPD:C00213];
+            N,N-dimethylglycine [CPD:C01026]
+PRODUCT     S-adenosyl-L-homocysteine [CPD:C00021];
+            betaine [CPD:C00719];
+            N,N-dimethylglycine [CPD:C01026]
+COMMENT     Cells of the oxygen-evolving halotolerant cyanobacterium Aphanocthece halophytica synthesize betaine from glycine by a three-step methylation process. The first enzyme, EC 2.1.1.156, glycine/sarcosine N-methyltransferase, leads to the formation of either sarcosine or N,N-dimethylglycine, which is further methylated to yield betaine (N,N,N-trimethylglycine) by the action of this enzyme. Both of these enzymes can catalyse the formation of N,N-dimethylglycine from sarcosine [3]. The reactions are strongly inhibited by S-adenosyl-L-homocysteine.
+HISTORY     EC 2.1.1.157 created 2005, modified 2010
+REFERENCE   1  [PMID:10896953]
+  AUTHORS   Nyyssola A, Kerovuo J, Kaukinen P, von Weymarn N, Reinikainen T.
+  TITLE     Extreme halophiles synthesize betaine from glycine by methylation.
+  JOURNAL   J Biol Chem 275:22196-201 (2000)
+            DOI:10.1074/jbc.M910111199
+  SEQUENCE  [ag:AAF87203 AAF87204]
+REFERENCE   2  [PMID:11319079]
+  AUTHORS   Nyyssola A, Reinikainen T, Leisola M.
+  TITLE     Characterization of glycine sarcosine N-methyltransferase and sarcosine dimethylglycine N-methyltransferase.
+  JOURNAL   Appl Environ Microbiol 67:2044-50 (2001)
+            DOI:10.1128/AEM.67.5.2044-2050.2001
+  SEQUENCE  [ag:AAF87203]
+REFERENCE   3  [PMID:12466265]
+  AUTHORS   Waditee R, Tanaka Y, Aoki K, Hibino T, Jikuya H, Takano J, Takabe T, Takabe T.
+  TITLE     Isolation and functional characterization of N-methyltransferases that catalyze betaine synthesis from glycine in a halotolerant photosynthetic organism Aphanothece halophytica.
+  JOURNAL   J Biol Chem 278:4932-42 (2003)
+            DOI:10.1074/jbc.M210970200
+  SEQUENCE  [ag:BAC56940]
+PATHWAY     ec00260  Glycine, serine and threonine metabolism
+ORTHOLOGY   K18897  sarcosine/dimethylglycine N-methyltransferase
+GENES       TIG: THII_1899
+            TMB: Thimo_1799
+            MPUR: MARPU_03460
+            HHA: Hhal_1677
+            HHC: M911_05555
+            TGR: Tgr7_1180
+            TKM: TK90_0180
+            TNI: TVNIR_0235
+            TTI: THITH_16325
+            TVR: TVD_00880
+            SPIU: SPICUR_05635
+            EBS: ECTOBSL9_2475
+            HOH: Hoch_6747
+            PLA: Plav_2857
+            FIL: BN1229_v1_3117
+            FIY: BN1229_v1_2803
+            MAGQ: MGMAQ_3233
+            MMI: MMAR_0861
+            MLI: MULP_00886
+            SVL: Strvi_1838
+            SRC: M271_16300
+            SEN: SACE_3901
+            SVI: Svir_27050
+            SNA: Snas_2966
+            DSL: Dacsa_3636
+            HAO: PCC7418_3511
+            TER: Tery_2447
+            CTS: Ctha_2187
+            MMH: Mmah_0525
+            MHAZ: BHR79_00795
+            MEV: Metev_0931
+DBLINKS     ExplorEnz - The Enzyme Database: 2.1.1.157
+            IUBMB Enzyme Nomenclature: 2.1.1.157
+            ExPASy - ENZYME nomenclature database: 2.1.1.157
+            BRENDA, the Enzyme Database: 2.1.1.157
+///

@@ -1,0 +1,26 @@
+ENTRY       EC 1.5.3.10                 Enzyme
+NAME        dimethylglycine oxidase
+CLASS       Oxidoreductases;
+            Acting on the CH-NH group of donors;
+            With oxygen as acceptor
+SYSNAME     N,N-dimethylglycine:oxygen oxidoreductase (demethylating)
+REACTION    N,N-dimethylglycine + H2O + O2 = sarcosine + formaldehyde + H2O2 [RN:R01564]
+ALL_REAC    R01564
+SUBSTRATE   N,N-dimethylglycine [CPD:C01026];
+            H2O [CPD:C00001];
+            O2 [CPD:C00007]
+PRODUCT     sarcosine [CPD:C00213];
+            formaldehyde [CPD:C00067];
+            H2O2 [CPD:C00027]
+COMMENT     A flavoprotein (FAD). Does not oxidize sarcosine.
+HISTORY     EC 1.5.3.10 created 1992
+REFERENCE   1
+  AUTHORS   Mori, N., Kawakami, B., Tani, Y. and Yamada, H.
+  TITLE     Purification and properties of dimethylglycine oxidase from Cylindrocarpon didymum M-1.
+  JOURNAL   Agric Biol Chem 44:1383-1389 (1980)
+DBLINKS     ExplorEnz - The Enzyme Database: 1.5.3.10
+            IUBMB Enzyme Nomenclature: 1.5.3.10
+            ExPASy - ENZYME nomenclature database: 1.5.3.10
+            BRENDA, the Enzyme Database: 1.5.3.10
+            CAS: 37256-30-7
+///

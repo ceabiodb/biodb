@@ -1,0 +1,32 @@
+ENTRY       EC 2.4.1.63                 Enzyme
+NAME        linamarin synthase;
+            uridine diphosphoglucose-ketone glucosyltransferase;
+            uridine diphosphate-glucose-ketone cyanohydrin beta-glucosyltransferase;
+            UDP glucose ketone cyanohydrin glucosyltransferase;
+            UDP-glucose:ketone cyanohydrin beta-glucosyltransferase;
+            uridine diphosphoglucose-ketone cyanohydrin glucosyltransferase
+CLASS       Transferases;
+            Glycosyltransferases;
+            Hexosyltransferases
+SYSNAME     UDP-glucose:2-hydroxy-2-methylpropanenitrile beta-D-glucosyltransferase
+REACTION    UDP-glucose + 2-hydroxy-2-methylpropanenitrile = UDP + linamarin [RN:R03625]
+ALL_REAC    R03625;
+            (other) R04948 R10037
+SUBSTRATE   UDP-glucose [CPD:C00029];
+            2-hydroxy-2-methylpropanenitrile [CPD:C02659]
+PRODUCT     UDP [CPD:C00015];
+            linamarin [CPD:C01594]
+COMMENT     The enzyme glucosylates the cyanohydrins of butanone and pentan-3-one as well as that of acetone.
+HISTORY     EC 2.4.1.63 created 1972
+REFERENCE   1  [PMID:5417265]
+  AUTHORS   Hahlbrock K, Conn EE.
+  TITLE     The biosynthesis of cyanogenic glycosides in higher plants. I. Purification and properties of a uridine diphosphate-glucose-ketone cyanohydrin beta-glucosyltransferase from Linum usitatissimum L.
+  JOURNAL   J Biol Chem 245:917-22 (1970)
+PATHWAY     ec00460  Cyanoamino acid metabolism
+            ec01110  Biosynthesis of secondary metabolites
+DBLINKS     ExplorEnz - The Enzyme Database: 2.4.1.63
+            IUBMB Enzyme Nomenclature: 2.4.1.63
+            ExPASy - ENZYME nomenclature database: 2.4.1.63
+            BRENDA, the Enzyme Database: 2.4.1.63
+            CAS: 37277-68-2
+///

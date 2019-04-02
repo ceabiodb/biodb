@@ -1,0 +1,34 @@
+ENTRY       EC 3.4.17.8                 Enzyme
+NAME        muramoylpentapeptide carboxypeptidase;
+            D-alanine carboxypeptidase I;
+            DD-carboxypeptidase;
+            D-alanine carboxypeptidase;
+            D-alanyl-D-alanine carboxypeptidase;
+            D-alanine-D-alanine-carboxypeptidase;
+            carboxypeptidase D-alanyl-D-alanine;
+            carboxypeptidase I;
+            UDP-N-acetylmuramoyl-tetrapeptidyl-D-alanine alanine-hydrolase;
+            D-alanyl-D-alanine peptidase;
+            DD-peptidase;
+            penicillin binding protein 5;
+            PBP5;
+            PdcA;
+            VanY
+CLASS       Hydrolases;
+            Acting on peptide bonds (peptidases);
+            Metallocarboxypeptidases
+REACTION    Cleavage of the bond UDP-N-acetylmuramoyl-L-alanyl-gamma-D-glutamyl-6-carboxy-L-lysyl-D-alanyl!D-alanine [RN:R08850]
+ALL_REAC    R08850;
+            (other) R04611
+COMMENT     A bacterial enzyme that requires a divalent cation for activity. Does not cleave the C-terminal D-alanine from the product of the above reaction, UDP-N-acetyl-muramoyl-L-alanyl-gamma-D-glutamyl-6-carboxy-L-lysyl-D-alanine. Competitively inhibited by penicillins and cephalosporins.
+HISTORY     EC 3.4.17.8 created 1972 as EC 3.4.12.6, transferred 1978 to EC 3.4.17.8
+REFERENCE   1  [PMID:4871206]
+  AUTHORS   Izaki K, Strominger JL.
+  TITLE     Biosynthesis of the peptidoglycan of bacterial cell walls. XIV. Purification and properties of two D-alanine carboxypeptidases from Escherichia coli.
+  JOURNAL   J Biol Chem 243:3193-201 (1968)
+DBLINKS     ExplorEnz - The Enzyme Database: 3.4.17.8
+            IUBMB Enzyme Nomenclature: 3.4.17.8
+            ExPASy - ENZYME nomenclature database: 3.4.17.8
+            BRENDA, the Enzyme Database: 3.4.17.8
+            CAS: 9077-67-2
+///

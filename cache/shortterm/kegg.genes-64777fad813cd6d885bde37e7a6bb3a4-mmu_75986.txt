@@ -1,0 +1,54 @@
+ENTRY       75986             CDS       T01002
+NAME        Agmat, 5033405N08Rik
+DEFINITION  (RefSeq) agmatine ureohydrolase (agmatinase)
+ORTHOLOGY   K01480  agmatinase [EC:3.5.3.11]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00330  Arginine and proline metabolism
+            mmu01100  Metabolic pathways
+MODULE      mmu_M00133  Polyamine biosynthesis, arginine => agmatine => putrescine => spermidine
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00330 Arginine and proline metabolism
+                75986 (Agmat)
+            Enzymes [BR:mmu01000]
+             3. Hydrolases
+              3.5  Acting on carbon-nitrogen bonds, other than peptide bonds
+               3.5.3  In linear amidines
+                3.5.3.11  agmatinase
+                 75986 (Agmat)
+POSITION    4; 4 E1
+MOTIF       Pfam: Arginase
+DBLINKS     NCBI-GeneID: 75986
+            NCBI-ProteinID: NP_001074877
+            MGI: 1923236
+            Ensembl: ENSMUSG00000040706
+            Vega: OTTMUSG00000009931
+            UniProt: A2AS89
+AASEQ       358
+            MLRLLRSSWARGLGSGVATWRPSAGLFRPGCPGIRQASGASDTPHHQSPSSESPVQPVGV
+            GVCSMMRLPLQSSPEGLDAAFIGVPLDTGTSNRPGARFGPCRIREESLMLGAVNPSTGAL
+            PFQSLRVADLGNVNVNLYNLQDSCLLIREAYQNVLAAGCIPLTLGGDQTITYPILQAVAK
+            EHGPVGLVHVGAHTNTTDKPREEKVYHRTPFRRSVDEGLLDSKRVVQIGIRGSSRTLDPY
+            RYSRSQGFRVVLAEDCWMKSLVPLMAEVRQQMGGKPLYISFAIDALDPAYAPGTGTPEIA
+            GLTPSQALEIIRGCQGLNVVGCDLVEVSPPYDLSGNTALLAANLLFEMLCALPKVTTV
+NTSEQ       1077
+            atgctgaggctgctgaggtccagctgggcccgcggcttggggtctggggtggccacttgg
+            cgtccctcagcggggctctttcgtcctgggtgccctgggatccgccaggcttcaggtgcc
+            tcagataccccacaccaccagtcccccagctctgagtcaccggtacagccggtgggggtg
+            ggtgtctgttccatgatgcgcctgcccctgcagtcctcccccgaggggctggacgctgct
+            ttcatcggtgtgcctctggatactgggacttccaaccggcccggggcaagatttggaccc
+            tgtcgcatccgggaggagtcactgatgctgggggctgtcaaccccagcacgggagctctc
+            cccttccagtccctcagggttgcagacctaggcaatgtgaacgtcaatctctacaacctc
+            caggacagctgcctgctgattcgagaggcctatcagaatgtcctcgctgcgggctgcatt
+            cctctgaccttgggtggagaccaaacaatcacatatcccatactgcaagccgtggcaaag
+            gagcatggcccggtgggtttagtgcatgtgggtgcccacaccaacaccacggacaaacct
+            cgggaggagaaggtctaccatcggacacctttccgccgaagtgtggatgagggactgctg
+            gacagcaagcgagtggtacagataggcatccggggctcctccaggactctggatccctac
+            agatacagtaggagccagggcttccgtgtggtcctggctgaagactgttggatgaagtca
+            ctggtccccctgatggcagaggtcaggcagcagatggggggcaagcctctttatatcagc
+            tttgccatagatgccttggatcctgcctatgccccaggaacagggacaccggaaatcgcg
+            gggctcacccctagtcaggctctggagatcatccggggctgccaaggcctgaatgtggtg
+            ggctgcgatcttgtggaagtctccccgccgtatgatctctctggtaacacagccctccta
+            gcagctaacctgctgtttgagatgctgtgtgctctccccaaagtgacaactgtctga
+///

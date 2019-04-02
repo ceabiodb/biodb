@@ -1,0 +1,28 @@
+ENTRY       EC 6.3.2.23                 Enzyme
+NAME        homoglutathione synthase;
+            homoglutathione synthetase;
+            beta-alanine specific hGSH synthetase
+CLASS       Ligases;
+            Forming carbon-nitrogen bonds;
+            Acid-D-amino-acid ligases (peptide synthases)
+SYSNAME     gamma-L-glutamyl-L-cysteine:beta-alanine ligase (ADP-forming)
+REACTION    ATP + gamma-L-glutamyl-L-cysteine + beta-alanine = ADP + phosphate + gamma-L-glutamyl-L-cysteinyl-beta-alanine [RN:R02741]
+ALL_REAC    R02741
+SUBSTRATE   ATP [CPD:C00002];
+            gamma-L-glutamyl-L-cysteine [CPD:C00669];
+            beta-alanine [CPD:C00099]
+PRODUCT     ADP [CPD:C00008];
+            phosphate [CPD:C00009];
+            gamma-L-glutamyl-L-cysteinyl-beta-alanine [CPD:C04544]
+COMMENT     Not identical with EC 6.3.2.3 glutathione synthase.
+HISTORY     EC 6.3.2.23 created 1990
+REFERENCE   1
+  AUTHORS   Macnicol, P.K.
+  TITLE     Homoglutathione and glutathione synthetases of legume seedlings - partial-purification and substrate-specificity.
+  JOURNAL   Plant Sci 53:229-235 (1987)
+DBLINKS     ExplorEnz - The Enzyme Database: 6.3.2.23
+            IUBMB Enzyme Nomenclature: 6.3.2.23
+            ExPASy - ENZYME nomenclature database: 6.3.2.23
+            BRENDA, the Enzyme Database: 6.3.2.23
+            CAS: 113875-72-2
+///

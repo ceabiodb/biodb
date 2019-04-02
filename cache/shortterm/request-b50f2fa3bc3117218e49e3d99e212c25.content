@@ -1,0 +1,98 @@
+ENTRY       107239            CDS       T01002
+NAME        Carns1, AI790298, Atpgd1, mKIAA1394
+DEFINITION  (RefSeq) carnosine synthase 1
+ORTHOLOGY   K14755  carnosine synthase [EC:6.3.2.11]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00330  Arginine and proline metabolism
+            mmu00340  Histidine metabolism
+            mmu00410  beta-Alanine metabolism
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00330 Arginine and proline metabolism
+                107239 (Carns1)
+               00340 Histidine metabolism
+                107239 (Carns1)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                107239 (Carns1)
+            Enzymes [BR:mmu01000]
+             6. Ligases
+              6.3  Forming carbon-nitrogen bonds
+               6.3.2  Acid-D-amino-acid ligases (peptide synthases)
+                6.3.2.11  carnosine synthase
+                 107239 (Carns1)
+POSITION    19; 19 A
+MOTIF       Pfam: ATPgrasp_Ter ATPgrasp_N ATP-grasp_4 ATP-grasp_3 Sacchrp_dh_NADP
+DBLINKS     NCBI-GeneID: 107239
+            NCBI-ProteinID: NP_598909
+            MGI: 2147595
+            Ensembl: ENSMUSG00000075289
+            UniProt: E9PX09
+AASEQ       947
+            MLCLDPLGTEWDSKDLDGKEEPWKSGAGLPPTGCFPGPWRQDISLDCKGSPEETEARAWT
+            VYYYGLLQSCLQQAGLPETQDRSQAPRTGCPGAEVTLCILGSPSTFLSLLLEGGVQSPGN
+            MLLCLSPAWLMKVATPGQEGEAVLLVSKAVSFYPGGLTFLDDFVPPRHATYFLAGLGPES
+            GRGKEAAELARNLTCPTGTSSELSQLLENRLLMRWLLSQQSGVAVPATLAFTYRPPGLLR
+            GGDASPGLRLVELSGKEGQETLVKEEVEAFVHSEALGDASQVAVRLSGCRWRGQQALPLH
+            LRVEPSTVVNTVLGLLEKLEEEESVLVEAMCPPVRLPLPGGPAPGPELAVRICAVVCRIQ
+            GDRPLLSKVVCGVGRGDRPVRHHYTLPRTLRVALAQCGLEEEAQVALLEQGIKEAAEGAL
+            AAVLALEAGLSVEQRGGRQVHTDFLGVDLVLTVIGRTLTPVVLKLNSGLCLEACGALEGL
+            WAVPRLRRSAEEAAAAPLVETMLRRSGRHLMDGKQLLVIGAGGVSKKFVWEAARDYGLTL
+            HLVESDPNHFASQLVQTFIHFDVTEHRRDEENALLLAELVRARNLKLDGCFSFWDDCLVL
+            TALLCRELGLPCSPPAAMCLAKQKSRTQLHLLRCQGPPWPSTSLHAVACCPLENEADVER
+            AIYQVPLPGVMKLEFGSGAVGVQLVKDGPQCREHFSRILHDLQGEADHPGIGLGWGNAML
+            LMEFVEGTEHDVDLVVFGGRLLAAFVSDNGPTRLPGFTETAACMPTGLAPEQEAQVVQAA
+            FRCCLGCGLLDGVFNVELKMTGAGPRLIEINPRMGGFYLRDWILELYGVDLLLASTMVAC
+            GLQPALPAHPRARGYLVGIMCLVSQHLQLLSSPSSRETLQTLHDQGQLRLNLLEEALIPG
+            QYEEPYCNVACAGPSPAEACHRLLGICQGLGIDRPNYPVAHFLSHFK
+NTSEQ       2844
+            atgctctgcctggatccactgggtacggagtgggactccaaggacctggatggaaaggaa
+            gaaccatggaaaagcggtgctggcctgccacccacaggctgcttccctgggccctggcgc
+            caggatatcagcctggattgcaagggctccccggaagagactgaggctcgggcctggact
+            gtgtactactacggtctccttcagagttgtctgcagcaagctggccttcctgagacccag
+            gatcgcagccaggcacctcgtacaggctgccctggggcagaggtgaccttgtgcattctg
+            ggttctcccagcaccttcctatctctgttgctggagggtggggtccagagccctggaaac
+            atgctcctttgcctgtcccctgcttggctgatgaaggtggcaactccaggccaagagggt
+            gaggcagtcctgctggtctctaaggctgtgagcttctatccagggggcctgacattcctg
+            gatgactttgttccccctcggcatgctacttacttcctggcaggcctggggccagaatct
+            ggccgtggcaaggaggcagcagagctggctcggaatctcacttgccccacaggaacctca
+            tcggagctgtcccagctgctggagaaccggctgctgatgaggtggttgctgtcccagcag
+            agtggtgtggccgtgccagctaccctggctttcacttataggcctccggggctgcttcgg
+            ggaggggatgccagccctggactccggctggtggaactcagtgggaaggagggccaggaa
+            acactggtgaaagaggaagtagaggcctttgtgcactccgaggccttgggtgatgcttca
+            caggtggctgtgaggctcagtggctgtcgctggcgtggacagcaggcattgcctctgcac
+            ctgcgggtagagccatccacagtggtgaacacggtgctgggattgctggagaagctggag
+            gaggaggagagtgtccttgtggaggccatgtgcccacctgtccggctgcccttaccaggc
+            ggtcctgcacctggccctgagctggctgtgcgtatctgtgcagtggtgtgtcggattcag
+            ggtgataggcccctactgagtaaggtggtgtgtggcgtgggccgtggggatcgacccgtg
+            cggcaccactataccctgccaaggacactgagggtggcgctggctcagtgtggcctggaa
+            gaggaggcgcaggtggcgcttctggagcagggcatcaaagaagcagccgaaggcgcgttg
+            gccgctgtgctggccctggaggctggactgagtgtggagcagcgtggtggacgccaagtg
+            cacaccgacttcctcggcgtggacttagttctcacggtgatcggacgcacgctgacgccc
+            gtggtccttaagctgaacagtggcctgtgcctagaggcctgcggcgcgctcgaggggctg
+            tgggccgtgccacgcctaagacgctcagctgaggaggcagcggcagcgccgctggtggag
+            actatgctgcggcgctcagggcgccacctcatggacggcaagcagctgctggtgatcggc
+            gccggcggcgtcagcaagaagttcgtgtgggaggcggcgcgggactacggactgacgctg
+            cacctggtggaatcagaccccaaccactttgcatcccaactggtacagacctttatccac
+            tttgatgtgactgagcaccggagggatgaggagaatgcgctgctgctggctgagctggta
+            cgggcccggaacctgaagctagatggctgcttctccttctgggatgactgcttggtgctt
+            actgctctcctctgccgtgagctgggtctgccctgcagccccccagctgccatgtgcttg
+            gcaaagcagaagagccgcacacagctacatctgttgcggtgccagggcccaccctggcct
+            tcgacctctctccatgctgtggcctgttgcccattggagaatgaggctgatgtggagaga
+            gccatttaccaggtacccctgccaggtgtgatgaaactggaatttgggtcaggagcagta
+            ggcgtgcagctggtgaaggatgggccccagtgccgtgagcacttttcccggatcctccat
+            gacctgcagggtgaggctgaccaccctggcatcgggctgggctggggcaatgctatgctg
+            ctgatggagtttgttgagggcacagagcatgacgtggacctggtggtgttcggtggacgg
+            ttgctggctgctttcgtctccgataatggccccacaaggctgcctggcttcacagagact
+            gcagcctgcatgcccactgggctagcaccagagcaggaggcccaggtggtgcaggcagcc
+            tttcgctgctgcctgggctgtgggctgctggatggggttttcaatgtggagctcaagatg
+            actggggctgggccaaggctcatcgagattaaccctcgaatgggaggcttctaccttcga
+            gactggatcctagagctctatggtgtggatttgcttctggcttctacaatggtggcctgt
+            ggcctgcagcctgccttgcctgctcaccctcgtgcccgtggctacctagtgggcatcatg
+            tgcctggtgtcccagcacctacagctgctgagttccccgagcagtagagagactctgcaa
+            accctccatgaccaggggcaattacgactcaacctgctggaggaggccctgatacctggc
+            cagtatgaggagccctactgcaatgtggcctgtgctgggcccagccctgctgaggcctgt
+            caccgcctgctaggcatctgtcagggcttgggcattgacaggcccaactaccctgttgcc
+            catttcctgtctcatttcaaatag
+///

@@ -1,0 +1,64 @@
+ENTRY       EC 2.6.1.108                Enzyme
+NAME        (5-formylfuran-3-yl)methyl phosphate transaminase;
+            mfnC (gene name);
+            [5-(hydroxymethyl)furan-3-yl]methyl phosphate transaminase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     L-alanine:(5-formylfuran-3-yl)methyl phosphate aminotransferase
+REACTION    L-alanine + (5-formylfuran-3-yl)methyl phosphate = pyruvate + [5-(aminomethyl)furan-3-yl]methyl phosphate [RN:R11038]
+ALL_REAC    R11038
+SUBSTRATE   L-alanine [CPD:C00041];
+            (5-formylfuran-3-yl)methyl phosphate [CPD:C20954]
+PRODUCT     pyruvate [CPD:C00022];
+            [5-(aminomethyl)furan-3-yl]methyl phosphate [CPD:C21068]
+COMMENT     A pyridoxal 5'-phosphate protein. The enzyme, characterized from the archaebacterium Methanocaldococcus jannaschii, participates in the biosynthesis of the cofactor methanofuran. Requires pyridoxal 5'-phosphate.
+HISTORY     EC 2.6.1.108 created 2015
+REFERENCE   1  [PMID:24977328]
+  AUTHORS   Miller D, Wang Y, Xu H, Harich K, White RH
+  TITLE     Biosynthesis of the 5-(Aminomethyl)-3-furanmethanol moiety of methanofuran.
+  JOURNAL   Biochemistry 53:4635-47 (2014)
+            DOI:10.1021/bi500615p
+  SEQUENCE  [mja:MJ_0684]
+PATHWAY     ec00680  Methane metabolism
+ORTHOLOGY   K19793  (5-formylfuran-3-yl)methyl phosphate transaminase
+GENES       MJA: MJ_0684
+            MFE: Mefer_0615
+            MVU: Metvu_0344
+            MFS: MFS40622_1497
+            MJH: JH146_1215
+            MIG: Metig_0137
+            MAC: MA_0636(aspC)
+            MBA: Mbar_A1546
+            MBY: MSBRM_2902
+            MBW: MSBRW_3183
+            MBAR: MSBR2_2861
+            MBAK: MSBR3_1827
+            MMA: MM_1802
+            MMAZ: MmTuc01_1875
+            MMJ: MSMAS_2883
+            MMAC: MSMAC_1551
+            MVC: MSVAZ_2704
+            MEK: MSKOL_2708
+            MLS: MSLAZ_0359
+            METM: MSMTP_2810
+            MEF: MSWH1_2805
+            MEQ: MSWHS_2230
+            MSJ: MSSAC_0572
+            MSZ: MSSIH_0522
+            MSW: MSSIT_0552
+            MTHE: MSTHC_1072
+            MTHR: MSTHT_2208
+            MHOR: MSHOH_3582
+            MMET: MCMEM_1376
+            MMH: Mmah_1336
+            MPY: Mpsy_0899
+            MHZ: Metho_0766
+            MCJ: MCON_2279(aspC)
+            MHI: Mhar_2101
+            MPD: MCP_1841
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.108
+            IUBMB Enzyme Nomenclature: 2.6.1.108
+            ExPASy - ENZYME nomenclature database: 2.6.1.108
+            BRENDA, the Enzyme Database: 2.6.1.108
+///

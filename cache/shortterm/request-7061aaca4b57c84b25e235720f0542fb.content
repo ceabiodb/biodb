@@ -1,0 +1,360 @@
+ENTRY       EC 2.5.1.44                 Enzyme
+NAME        homospermidine synthase
+CLASS       Transferases;
+            Transferring alkyl or aryl groups, other than methyl groups;
+            Transferring alkyl or aryl groups, other than methyl groups (only sub-subclass identified to date)
+SYSNAME     putrescine:putrescine 4-aminobutyltransferase (ammonia-forming)
+REACTION    (1) 2 putrescine = sym-homospermidine + NH3 + H+ [RN:R00018];
+            (2) putrescine + spermidine = sym-homospermidine + propane-1,3-diamine [RN:R01919]
+ALL_REAC    R00018 R01919
+SUBSTRATE   putrescine [CPD:C00134];
+            spermidine [CPD:C00315]
+PRODUCT     sym-homospermidine [CPD:C06366];
+            NH3 [CPD:C00014];
+            H+ [CPD:C00080];
+            propane-1,3-diamine [CPD:C00986]
+COMMENT     The reaction of this enzyme occurs in three steps, with some of the intermediates presumably remaining enzyme-bound: NAD+-dependent dehydrogenation of putrescine, transfer of the 4-aminobutylidene group from dehydroputrescine to a second molecule of putrescine and reduction of the imine intermediate to form homospermidine. Hence the overall reaction is transfer of a 4-aminobutyl group. Differs from EC 2.5.1.45, homospermidine synthase (spermidine-specific), which cannot use putrescine as donor of the aminobutyl group.
+HISTORY     EC 2.5.1.44 created 1999, modified 2001
+REFERENCE   1  [PMID:437275]
+  AUTHORS   Tait GH.
+  TITLE     The formation of homospermidine by an enzyme from Rhodopseudomonas viridis [proceedings]
+  JOURNAL   Biochem Soc Trans 7:199-201 (1979)
+REFERENCE   2
+  AUTHORS   Bottcher, F., Ober, D. and Hartmann, T.
+  TITLE     Biosynthesis of pyrrolizidine alkaloids: putrescine and spermidine are essential substrates of enzymatic homospermidine formation.
+  JOURNAL   Can J Chem 72:80-85 (1994)
+REFERENCE   3  [PMID:8407874]
+  AUTHORS   Yamamoto S, Nagata S, Kusaba K.
+  TITLE     Purification and characterization of homospermidine synthase in Acinetobacter tartarogenes ATCC 31105.
+  JOURNAL   J Biochem (Tokyo) 114:45-9 (1993)
+REFERENCE   4  [PMID:7470060]
+  AUTHORS   Srivenugopal KS, Adiga PR.
+  TITLE     Enzymic synthesis of sym-homospermidine in Lathyrus sativus (grass pea) seedlings.
+  JOURNAL   Biochem J 190:461-4 (1980)
+REFERENCE   5
+  AUTHORS   Ober, D., Tholl, D., Martin, W. and Hartmann, T.
+  TITLE     Homospermidine synthase of Rhodopseudomonas viridis: Substrate specificity and effects of the heterologously expressed enzyme on polyamine metabolism of Escherichia coli.
+  JOURNAL   J Gen Appl Microbiol 42:411-419 (1996)
+REFERENCE   6  [PMID:10611289]
+  AUTHORS   Ober D, Hartmann T.
+  TITLE     Homospermidine synthase, the first pathway-specific enzyme of pyrrolizidine alkaloid biosynthesis, evolved from deoxyhypusine synthase.
+  JOURNAL   Proc Natl Acad Sci U S A 96:14777-82 (1999)
+            DOI:10.1073/pnas.96.26.14777
+PATHWAY     ec00960  Tropane, piperidine and pyridine alkaloid biosynthesis
+            ec01110  Biosynthesis of secondary metabolites
+ORTHOLOGY   K00808  homospermidine synthase
+GENES       PAU: PA14_35790
+            PAP: PSPA7_3061
+            PDK: PADK2_14350
+            PAES: SCV20265_3124
+            PAEU: BN889_06565
+            PST: PSPTO_1868(hss)
+            PSK: U771_27265
+            PCZ: PCL1606_20560
+            PSEM: TO66_21620
+            PANR: A7J50_5695
+            SAZ: Sama_3337
+            AMAA: amad1_21553
+            AMAL: I607_20267
+            AMAE: I876_01355
+            AMAO: I634_01455
+            AMAI: I635_21559
+            LPN: lpg2495(hss)
+            LPH: LPV_2823
+            LPO: LPO_2687
+            LPU: LPE509_00564
+            LPM: LP6_2525(hss)
+            LPF: lpl2416
+            LPP: lpp2562
+            LPC: LPC_1979(hss)
+            LPA: lpa_03638
+            LPE: lp12_2487
+            LLO: LLO_3342(hss)
+            LHA: LHA_0258(hss) LHA_0415(hss)
+            LOK: Loa_01233
+            LCD: clem_13100(hss_1) clem_13105(hss_2) clem_13880(hss_3)
+            LSH: CAB17_03525
+            LLG: 44548918_00308(hss)
+            TMC: LMI_1387(hss)
+            BLEP: AL038_04755
+            SDF: ACG33_08725
+            RPJ: N234_00065
+            REH: H16_A0043(hss)
+            CUH: BJN34_00200
+            CTI: RALTA_A0009 RALTA_A1622(hss)
+            CBW: RR42_s2132
+            CGD: CR3_2929(hss)
+            BGE: BC1002_6757
+            BUQ: AC233_06405
+            PGP: CUJ91_06900 CUJ91_28930
+            PTS: CUJ90_11575
+            VAP: Vapar_2012
+            CBX: Cenrod_1499(hss)
+            OFO: BRW83_1089(hss)
+            BBAG: E1O_25610
+            PBH: AAW51_2240(hss)
+            NEU: NE1498(hss)
+            NII: Nit79A3_1512
+            NCO: AAW31_08255
+            NMU: Nmul_A1700
+            NAF: GQ61_05610
+            MLO: mlr3014
+            MLN: A9174_09790 A9174_34240
+            MCI: Mesci_1890
+            MOP: Mesop_1937
+            MAM: Mesau_01949
+            MAMO: A6B35_27880
+            MESO: BSQ44_21705
+            MESW: A9K65_009875
+            MES: Meso_2727
+            HOE: IMCC20628_00379
+            AAK: AA2016_2036
+            AMIH: CO731_02153(hss)
+            PHT: BLM14_03010
+            PLA: Plav_1354
+            SME: SMc04016(hss)
+            SMK: Sinme_2855
+            SMQ: SinmeB_2631
+            SMX: SM11_chr2965(hss)
+            SMI: BN406_02658(hss)
+            SMEG: C770_GR4Chr2927
+            SMEL: SM2011_c04016(hss)
+            SMER: DU99_15480
+            SMD: Smed_2688
+            RHI: NGR_c28470
+            SFH: SFHH103_02857
+            SFD: USDA257_c52690(hss)
+            SIX: BSY16_3876
+            SAME: SAMCFNEI73_Ch3223(hss)
+            SINO: SS05631_c32570
+            EAD: OV14_0297
+            EAH: FA04_15185
+            ESJ: SJ05684_c28230
+            ATU: Atu3768
+            ARA: Arad_3814(hss)
+            ATF: Ach5_35600
+            ATA: AWN88_07905
+            AVI: Avi_3707
+            AGR: AGROH133_12138
+            AGC: BSY240_3983
+            ARO: B0909_19720
+            RET: RHE_CH03553(hss)
+            REC: RHECIAT_CH0003806(hss)
+            REL: REMIM1_CH03624(hss)
+            REP: IE4803_CH03928(hss)
+            REI: IE4771_CH03866(hss)
+            RLE: RL4073(hss)
+            RLT: Rleg2_3300
+            RLG: Rleg_3602
+            RLB: RLEG3_29065
+            RLU: RLEG12_27945
+            RTR: RTCIAT899_CH15075
+            RIR: BN877_II0721(hss)
+            RHL: LPU83_3541(hss)
+            RGA: RGR602_CH03450(hss)
+            RHN: AMJ98_CH03777(hss)
+            RPHA: AMC79_CH03729(hss)
+            RHT: NT26_2725(hss)
+            RHX: AMK02_CH03666(hss)
+            RHV: BA939_23175
+            RHK: Kim5_CH03896(hss)
+            REZ: AMJ99_CH03830(hss)
+            NGL: RG1141_CH29930
+            NGG: RG540_CH30680
+            NEO: CYG48_10950
+            NEN: NCHU2750_27630(hss)
+            SHZ: shn_15290
+            BME: BMEII0015 BMEII0016
+            BMEL: DK63_2103(hss)
+            BMZ: BM28_B0080 BM28_B0081
+            BMG: BM590_B0080 BM590_B0081
+            BMW: BMNI_II0076 BMNI_II0077
+            BMEE: DK62_2173(hss)
+            BMF: BAB2_0077
+            BMB: BruAb2_0078
+            BMC: BAbS19_II00720
+            BAA: BAA13334_II00332
+            BABO: DK55_3182(hss)
+            BABR: DO74_2368(hss)
+            BABT: DK49_2186(hss)
+            BABB: DK48_2615(hss)
+            BABU: DK53_3056(hss)
+            BABS: DK51_2540(hss)
+            BABC: DO78_3101(hss)
+            BMS: BRA0078
+            BSI: BS1330_II0078
+            BSF: BSS2_II0077
+            BSUI: BSSP1_II0046
+            BSUP: BSPT1_II0046
+            BSUV: BSPT2_II0046
+            BSUC: BSSP2_II0046
+            BMT: BSUIS_B0083
+            BSZ: DK67_2110(hss)
+            BSV: BSVBI22_B0078
+            BSW: IY71_11495
+            BSG: IY72_11035
+            BOV: BOV_A0073
+            BCS: BCAN_B0081(hss)
+            BSK: BCA52141_II1121
+            BOL: BCOUA_II0078
+            BCAR: DK60_2965(hss)
+            BCAS: DA85_10890
+            BMR: BMI_II80
+            BPP: BPI_II80
+            BPV: DK65_2381(hss)
+            BCET: V910_200016
+            BCEE: V568_200017
+            BVL: BF3285c2_0718
+            BRU: BFS01_10775
+            OAN: Oant_4263
+            OAH: DR92_3986(hss)
+            OPS: A8A54_11510
+            OCH: CES85_5524(hss)
+            BJA: blr7762
+            BJU: BJ6T_16160
+            BJP: RN69_07980
+            BRA: BRADO6264(hss)
+            BBT: BBta_1345(hss)
+            BRS: S23_63280
+            AOL: S58_64330
+            BRC: BCCGELA001_05545
+            BRAD: BF49_3189
+            BIC: LMTR13_34025
+            BRO: BRAD285_6208(hss)
+            BRK: CWS35_01215
+            BOT: CIT37_16915
+            BRQ: CIT40_03165
+            RPA: RPA0865
+            RPB: RPB_4552
+            RPC: RPC_4834
+            RPD: RPD_0850
+            RPE: RPE_4799
+            RPT: Rpal_0933
+            RPX: Rpdx1_1032
+            NWI: Nwi_0921
+            NHA: Nham_3423
+            OCA: OCAR_4912
+            OCG: OCA5_c30420(hss)
+            OCO: OCA4_c29900(hss)
+            BOP: AXW83_18715
+            BOS: BSY19_4381
+            BVV: BHK69_03430
+            BOI: BLM15_26700
+            VGO: GJW-30_1_02467(hss)
+            XAU: Xaut_2138
+            AZC: AZC_0296
+            SNO: Snov_3872
+            MEX: Mext_2042
+            MEA: Mex_1p2024(hss)
+            MDI: METDI2807(hss) METDI4480(hss)
+            MCH: Mchl_2317 Mchl_5462
+            MPO: Mpop_2003
+            MZA: B2G69_17665
+            MRD: Mrad2831_5045
+            MET: M446_0451
+            MNO: Mnod_1646
+            MOR: MOC_5748
+            META: Y590_09740
+            MAQU: Maq22A_c02140
+            MPHY: MCBMB27_04488
+            MEE: DA075_19710
+            METD: C0214_11610
+            METX: A3862_05900
+            METS: DK389_18870
+            MOC: BB934_09230
+            MIV: C4E04_17655
+            BID: Bind_1078
+            MSL: Msil_1154
+            MLG: CWB41_07805
+            CHEL: AL346_03725
+            CDQ: BOQ54_14575
+            BVR: BVIR_716
+            RHZ: RHPLAN_13640
+            MSC: BN69_1957
+            MBRY: B1812_05690
+            MROS: EHO51_15445
+            MTW: CQW49_06000
+            PLEO: OHA_1_03491(hss)
+            MEY: TM49_01040
+            MAAD: AZF01_18730
+            MMED: Mame_01224(hss)
+            AUA: M673_16125
+            BRN: D1F64_18820
+            PSIN: CAK95_12905
+            HDI: HDIA_4115
+            JAN: Jann_0956
+            DSH: Dshi_2947(hss)
+            MALG: MALG_02794
+            LAP: ACP90_11510
+            LAGG: B0E33_23440
+            LABR: CHH27_09065
+            SUAM: BOO69_03870
+            PABY: Ga0080574_TMP2386
+            LVS: LOKVESSMR4R_00452(hss)
+            SAGU: CDO87_17490
+            TAW: EI545_13210
+            SALO: EF888_10035
+            GBE: GbCGDNIH1_0521
+            GBH: GbCGDNIH2_0521
+            GBC: GbCGDNIH3_0521
+            GBS: GbCGDNIH4_0521
+            RCE: RC1_1718(hss)
+            MAG: amb2266
+            MGY: MGMSRv2__1441(hss)
+            MGRY: MSR1_08010(hss)
+            MAGX: XM1_3089(hss)
+            MAGN: WV31_07945
+            AZL: AZL_014430
+            ALI: AZOLI_1158(hss)
+            ABS: AZOBR_140285(hss)
+            ABQ: ABAZ39_06110
+            ABF: AMK58_08100
+            ATI: AL072_11885
+            AHU: A6A40_04925
+            AZT: TSH58p_03885
+            AZM: DM194_04320
+            TMO: TMO_3104
+            HJO: AY555_07295
+            NAO: Y958_14415
+            NCB: C0V82_14725
+            MAI: MICA_471(hss)
+            MAN: A11S_454
+            PGV: SL003B_2997
+            PHR: C6569_17185
+            ABAW: D5400_19570
+            AMYB: BKN51_19855
+            AEY: CDG81_16905
+            ABAM: B1s21122_05650
+            NHI: B1s21160_05455
+            NAB: B1sIIB91_05200
+            CALO: Cal7507_3401
+            OTE: Oter_0694
+            OBG: Verru16b_00850(hss)
+            TPX: Turpa_1598
+            PPH: Ppha_0878
+            PRF: PeribacterA2_1013
+            MAC: MA_1636
+            MBA: Mbar_A2685
+            MBY: MSBRM_2330
+            MBW: MSBRW_2042
+            MBAR: MSBR2_0084
+            MBAK: MSBR3_0145
+            MMA: MM_0166
+            MMAZ: MmTuc01_0175
+            MMJ: MSMAS_1136
+            MMAC: MSMAC_2495
+            MVC: MSVAZ_0741
+            MEK: MSKOL_0725
+            MLS: MSLAZ_2197
+            MSJ: MSSAC_1603
+            MSZ: MSSIH_1192
+            MSW: MSSIT_1259
+            MHOR: MSHOH_1357
+            MBN: Mboo_1047
+            MFO: Metfor_1105
+DBLINKS     ExplorEnz - The Enzyme Database: 2.5.1.44
+            IUBMB Enzyme Nomenclature: 2.5.1.44
+            ExPASy - ENZYME nomenclature database: 2.5.1.44
+            BRENDA, the Enzyme Database: 2.5.1.44
+            CAS: 76106-84-8
+///

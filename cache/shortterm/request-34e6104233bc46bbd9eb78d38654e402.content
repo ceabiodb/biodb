@@ -1,0 +1,35 @@
+ENTRY       C01401                      Compound
+NAME        Alanine;
+            2-Aminopropionic acid;
+            2-Aminopropanoic acid
+FORMULA     C3H7NO2
+EXACT_MASS  89.0477
+MOL_WEIGHT  89.0932
+REACTION    R03542 R05840
+PATHWAY     map00460  Cyanoamino acid metabolism
+ENZYME      3.5.5.1
+BRITE       Risk category of Japanese OTC drugs [BR:br08312]
+             Third-class OTC drugs
+              Inorganic and organic chemicals
+               L-Alanine
+                C01401  Alanine
+DBLINKS     CAS: 302-72-7
+            PubChem: 4590
+            ChEBI: 16449
+            ChEMBL: CHEMBL12198
+            3DMET: B04793
+            NIKKAJI: J44.439A
+ATOM        6
+            1   O6a O    22.7503  -15.7507
+            2   C6a C    23.9627  -15.0506
+            3   C1c C    25.1753  -15.7507
+            4   C1a C    26.3878  -15.0506
+            5   O6a O    23.9627  -13.6508
+            6   N1a N    25.1753  -17.1506
+BOND        5
+            1     1   2 1
+            2     2   3 1
+            3     3   4 1
+            4     2   5 2
+            5     3   6 1
+///

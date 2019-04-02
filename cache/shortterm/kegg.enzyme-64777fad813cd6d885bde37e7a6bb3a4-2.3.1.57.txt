@@ -1,0 +1,2016 @@
+ENTRY       EC 2.3.1.57                 Enzyme
+NAME        diamine N-acetyltransferase;
+            spermidine acetyltransferase;
+            putrescine acetyltransferase;
+            putrescine (diamine)-acetylating enzyme;
+            diamine acetyltransferase;
+            spermidine/spermine N1-acetyltransferase;
+            spermidine N1-acetyltransferase;
+            acetyl-coenzyme A-1,4-diaminobutane N-acetyltransferase;
+            putrescine acetylase;
+            putrescine N-acetyltransferase
+CLASS       Transferases;
+            Acyltransferases;
+            Transferring groups other than aminoacyl groups
+SYSNAME     acetyl-CoA:alkane-alpha,omega-diamine N-acetyltransferase
+REACTION    acetyl-CoA + an alkane-alpha,omega-diamine = CoA + an N-acetyldiamine [RN:R03910]
+ALL_REAC    R03910 > R01154
+SUBSTRATE   acetyl-CoA [CPD:C00024];
+            alkane-alpha,omega-diamine [CPD:C03687]
+PRODUCT     CoA [CPD:C00010];
+            N-acetyldiamine [CPD:C02297]
+COMMENT     Acts on propane-1,3-diamine, pentane-1,5-diamine, putrescine, spermidine (forming N1- and N8-acetylspermidine), spermine, N1-acetylspermidine and N8-acetylspermidine.
+HISTORY     EC 2.3.1.57 created 1976, modified 1989
+REFERENCE   1  [PMID:7150547]
+  AUTHORS   Ragione FD, Pegg AE.
+  TITLE     Purification and characterization of spermidine/spermine N1-acetyltransferase from rat liver.
+  JOURNAL   Biochemistry 21:6152-8 (1982)
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K00657  diamine N-acetyltransferase
+            K22441  diamine N-acetyltransferase
+GENES       HSA: 112483(SAT2) 6303(SAT1)
+            PTR: 107971113(SAT1) 455216(SAT2)
+            PPS: 100977863(SAT2) 100992425(SAT1)
+            GGO: 101131093(SAT2) 101139591(SAT1)
+            PON: 100434079(SAT2) 100459131(SAT1)
+            NLE: 100581095(SAT2) 100595262(SAT1)
+            MCC: 697884(SAT1) 716044(SAT2)
+            MCF: 102135237(SAT2) 102146166(SAT1)
+            CSAB: 103231716(SAT1) 103242563(SAT2)
+            RRO: 104661658(SAT2) 104677173(SAT1)
+            RBB: 108514321(SAT2) 108526897(SAT1)
+            CJC: 100385930(SAT1) 100386747(SAT2)
+            SBQ: 101042062(SAT2) 101042647(SAT1)
+            MMU: 20229(Sat1) 69215(Sat2)
+            RNO: 302642(Sat1) 360547(Sat2)
+            CGE: 100689427(Sat1) 100757665(Sat2)
+            NGI: 103725369(Sat1) 103752119(Sat2)
+            HGL: 101700467(Sat2) 101726536(Sat1)
+            CCAN: 109674823(Sat2) 109695233(Sat1)
+            OCU: 100347933(SAT1) 100355148(SAT2)
+            TUP: 102468312 102468727 102500392(SAT1)
+            CFA: 100856136(SAT2) 480865(SAT1)
+            AML: 100467618(SAT1) 100476582(SAT2)
+            UMR: 103660477(SAT2) 103668270(SAT1)
+            ORO: 101363319(SAT2) 101383225(SAT1)
+            FCA: 101093752(SAT1) 101099254(SAT2)
+            PTG: 102962858(SAT2) 102972097(SAT1)
+            AJU: 106968254(SAT1) 106972436(SAT2)
+            BTA: 359722(SAT2) 508861(SAT1)
+            BOM: 102271146(SAT2) 102277336(SAT1)
+            BIU: 109555258(SAT1) 109574283(SAT2)
+            PHD: 102332273(SAT2) 102335271(SAT1)
+            CHX: 100860804(SAT1) 102169129(SAT2)
+            OAS: 101103248(SAT2) 101113463(SAT1)
+            SSC: 100170117(SAT2) 397645(SAT1)
+            CFR: 102510353(SAT1) 102523615(SAT2)
+            CDK: 105103015(SAT2) 105103961(SAT1)
+            BACU: 103001948(SAT1) 103010226(SAT2) 103012822 103017109
+            LVE: 103071963(SAT1) 103088646(SAT2)
+            OOR: 101274717(SAT1) 101287040(SAT2)
+            ECB: 100051982(SAT1) 100073008(SAT2)
+            EPZ: 103543769(SAT1) 103557707(SAT2)
+            EAI: 106844215(SAT2) 106848136(SAT1)
+            MYB: 102243584(SAT2) 102251575(SAT1)
+            MYD: 102758257(SAT2) 102763504(SAT1) 102770991
+            HAI: 109372986(SAT1) 109394626(SAT2)
+            RSS: 109435736(SAT1) 109454497(SAT2)
+            PALE: 102889105(SAT2) 102898837(SAT1)
+            LAV: 100655001(SAT1)
+            TMU: 101352622 101356401
+            MDO: 100010615(SAT1) 100015536(SAT2)
+            SHR: 100922994(SAT2) 100926291(SAT1)
+            OAA: 100082554(SAT1)
+            GGA: 374006(SAT1)
+            MGP: 100547154(SAT1)
+            CJO: 107325080(SAT1)
+            APLA: 101795318(SAT1)
+            ACYG: 106037790(SAT1)
+            TGU: 100190555(SAT1)
+            SCAN: 103815856(SAT1)
+            GFR: 102033474 102034901(SAT1)
+            FAB: 101821955(SAT1)
+            PHI: 102099603(SAT1)
+            PMAJ: 107203936(SAT1)
+            CCAE: 111922900(SAT1)
+            CCW: 104686198(SAT1)
+            FPG: 101922124(SAT1)
+            FCH: 102049944(SAT1)
+            CLV: 102095445(SAT1)
+            EGZ: 104123445(SAT1)
+            NNI: 104022505(SAT1)
+            ACUN: 113483189(SAT1)
+            AAM: 106487569(SATL1) 106492181(SAT1)
+            ASN: 102375486(SAT1) 112548333 112548701
+            AMJ: 102559356(SAT1) 102571079(SATL1)
+            PSS: 102454670(SAT1) 102455612(SATL1) 102461192 106732520
+            CMY: 102932775(SAT1) 102934752 102936355 102942355 102948152
+            CPIC: 101934547(SAT1) 101937171 101942510(SATL1) 101943129 103307106
+            ACS: 100561557(sat1) 100561670(sat2) 100566692(satl1) 103282676
+            PVT: 110076747(SAT1) 110082289 110082346 110082371 110087758
+            PBI: 103056887(SATL1) 103061601 103061823 103061945 103062673 103065664(SAT1)
+            PMUR: 107296184(SATL1) 107298403(SAT1) 107299836
+            GJA: 107114018(SAT1) 107116039(SATL1) 107118075 107118095
+            XLA: 100036974(sat1.S) 100049123(sat2.L) 108703443 447322(sat1.L) 496038(satl1.L)
+            XTR: 100487185(sat2) 100488114(satl1) 493359(sat1)
+            NPR: 108798991(SAT1) 108800911(SATL1) 108803148
+            DRE: 431716(sat1a.2) 436827(sat2b) 565700(sat1a.1)
+            SRX: 107705229 107707062 107716391 107725087 107725150 107730312(sat2) 107734340 107734365 107738013
+            SANH: 107654216 107654289 107654323 107665519 107665649 107683553 107684390(sat2) 107701652 107702052
+            SGH: 107562183 107562204 107591216 107591481 107591482 107591484 107595291(sat2) 107596022 107597051
+            CCAR: 109048549 109049840 109062288 109062289 109066053 109066395 109066461 109067356(sat2) 109069568 109091495 109101040
+            IPU: 100528188(sat1) 108260197(sat1) 108260198(sat2) 108268333
+            PHYP: 113531523(sat1) 113531524 113540674
+            AMEX: 103025143 103030130 103043715
+            EEE: 113570208(sat1) 113573768 113573852
+            TRU: 101067944 101068160(sat1) 101073899(sat2)
+            TNG: GSTEN00001111G001 GSTEN00007921G001 GSTEN00024351G001
+            LCO: 104927601 104927615 104934067 104935631 104940048
+            NCC: 104944270 104960624(sat1) 104965271(sat2) 104965991
+            MZE: 101466839 101467131 101467227 101470058 101472334 101478256
+            OLA: 101167325 101174286 101174540(sat1)
+            XMA: 102220989 102226753 102234014 102236283(sat1)
+            PRET: 103456993(sat1) 103475420 103475794 103480524(sat2)
+            NFU: 107372941 107383119(sat1) 107386420 107386486(sat2)
+            KMR: 108236911 108245213 108247767 108249538
+            CSEM: 103377172(sat1) 103388016(sat2) 103395468 103395694
+            LCF: 108885021(sat1) 108893239 108893583 108902474
+            SDU: 111234361 111234464 111235580 111238314(sat1)
+            HCQ: 109512468 109512471 109512473 109517955 109529734
+            BPEC: 110158610 110158637 110166928 110171954
+            MALB: 109951085 109954193 109959508 109959545 109966520
+            SASA: 100380620(sat2) 106563588(SAT1) 106579466(SAT1) 106590481 106590486(SAT1) 106603062(sat1) 106608759
+            OTW: 112215431 112218353 112227684 112227686 112228909(sat1) 112231222 112232735 112233853 112247552 112247554
+            SALP: 111950584 111953321 111953787 111962036(sat2) 111964325 111972840 112072131
+            ELS: 105010795(sat2) 105021992 105027680 105031480(sat2)
+            SFM: 108918661 108922899(sat2) 108923836 108923837 108939736(sat1)
+            PKI: 111835778(sat1) 111850643 111854521 111857271
+            LCM: 102346965(SAT1) 102359456
+            CMK: 103187601(sat1)
+            BFO: BRAFLDRAFT_212483 BRAFLDRAFT_222747 BRAFLDRAFT_285620 BRAFLDRAFT_74218
+            CIN: 100178309
+            SPU: 591752
+            APLC: 110985387 110985388
+            MPHA: 105832793
+            HST: 105186849
+            DQU: 106748030
+            CFO: 105253996
+            LHU: 105674080
+            PGC: 109854979
+            OBO: 105286856
+            PCF: 106785936
+            MDL: 103568635
+            TCA: 662606
+            DPA: 109538564
+            NVL: 108569004
+            PXY: 105385292
+            DNX: 107163103
+            CLEC: 106662318 106666868
+            ZNE: 110831962
+            FCD: 110857532
+            DPX: DAPPUDRAFT_306312 DAPPUDRAFT_51083
+            ISC: IscW_ISCW008305
+            TUT: 107370633
+            DPTE: 113791754
+            HRO: HELRODRAFT_116813 HELRODRAFT_186311
+            LGI: LOTGIDRAFT_109229
+            CRG: 105344591 105344595
+            MYI: 110455895 110458376 110458385 110458395 110462433 110465284
+            OBI: 106869093
+            LAK: 106156789 106156792
+            NVE: NEMVE_v1g204044
+            EPA: 110241881 110242579 110246188
+            ADF: 107351115
+            PDAM: 113678306 113679737
+            SPIS: 111339119
+            TAD: TRIADDRAFT_51268
+            ECO: b1584(speG)
+            ECJ: JW1576(speG)
+            ECD: ECDH10B_1717(speG)
+            EBW: BWG_1398(speG)
+            ECOK: ECMDS42_1254(speG)
+            ECE: Z2571(speG)
+            ECS: ECs2290
+            ECF: ECH74115_2293(speG)
+            ETW: ECSP_2148(speG)
+            ELX: CDCO157_2127
+            EOJ: ECO26_2286(speG)
+            EOI: ECO111_2051(speG)
+            EOH: ECO103_1723(speG)
+            ECOO: ECRM13514_2072(speG)
+            ECOH: ECRM13516_1977(speG)
+            ECG: E2348C_1668(speG)
+            EOK: G2583_1978(speG)
+            ELR: ECO55CA74_09710
+            ESO: O3O_12935
+            ESM: O3M_12660
+            ESL: O3K_12700
+            ECW: EcE24377A_1791(speG)
+            ELH: ETEC_1618
+            EUN: UMNK88_2038
+            ECC: c1974(speG)
+            ECP: ECP_1532
+            ECI: UTI89_C1771(speG)
+            ECV: APECO1_667
+            ECX: EcHS_A1657(speG)
+            ECM: EcSMS35_1616(speG)
+            ECY: ECSE_1705
+            ECR: ECIAI1_1634(speG)
+            ECQ: ECED1_1752(speG)
+            ECK: EC55989_1749(speG)
+            ECT: ECIAI39_1474(speG)
+            EOC: CE10_1854(speG)
+            EUM: ECUMN_1869(speG)
+            ECZ: ECS88_1629(speG)
+            ELO: EC042_1731(speG)
+            ELN: NRG857_07930
+            ESE: ECSF_1443
+            ECL: EcolC_2046
+            EBR: ECB_01553(speG)
+            EBD: ECBD_2062
+            EKO: EKO11_2194
+            EKF: KO11_14835(speG)
+            EAB: ECABU_c17800(speG)
+            EDH: EcDH1_2059
+            EDJ: ECDH1ME8569_1527(speG)
+            EIH: ECOK1_1701
+            ENA: ECNA114_1629(speG)
+            ELU: UM146_09250
+            ELW: ECW_m1749(speG)
+            ELL: WFL_08565(speG)
+            ELC: i14_1797(speG)
+            ELD: i02_1797(speG)
+            ELP: P12B_c1497(speG)
+            EBL: ECD_01553(speG)
+            EBE: B21_01543(speG)
+            ELF: LF82_2163(speG)
+            ECOA: APECO78_11720
+            ECOL: LY180_08250
+            ECOI: ECOPMV1_01679(speG)
+            ECOJ: P423_08485
+            ECOS: EC958_1802(speG)
+            EFE: EFER_1522(speG)
+            EAL: EAKF1_ch4469c(speG)
+            EMA: C1192_04350 C1192_13940
+            STY: STY1561(speG)
+            STT: t1423(speG)
+            SEX: STBHUCCB_15100
+            SENT: TY21A_07205
+            STM: STM1502(speG)
+            SEO: STM14_1814(speG)
+            SEV: STMMW_15021
+            SEY: SL1344_1432(speG)
+            SEM: STMDT12_C15160
+            SEJ: STMUK_1465(speG)
+            SEB: STM474_1512(speG)
+            SEF: UMN798_1565(speG)
+            SETU: STU288_03825
+            SETC: CFSAN001921_09620
+            SENR: STMDT2_14291(speG)
+            SEND: DT104_14721(speG)
+            SENI: CY43_07650
+            SEEN: SE451236_13385
+            SPT: SPA1353(speG)
+            SEK: SSPA1258
+            SPQ: SPAB_01809
+            SEI: SPC_2227(speG)
+            SEC: SCH_1519(speG)
+            SEH: SeHA_C1672(speG)
+            SHB: SU5_02113
+            SENH: CFSAN002069_01485
+            SEEH: SEEH1578_16730
+            SEE: SNSL254_A1613(speG)
+            SENN: SN31241_25730
+            SEW: SeSA_A1604(speG)
+            SEA: SeAg_B1670(speG)
+            SENS: Q786_07735
+            SED: SeD_A1837(speG)
+            SEG: SG1618(speG)
+            SEL: SPUL_1318(speG)
+            SEGA: SPUCDC_1318(speG)
+            SET: SEN1548(speG)
+            SENA: AU38_08000
+            SENO: AU37_08000
+            SENV: AU39_08010
+            SENQ: AU40_08960
+            SENL: IY59_08195
+            SENJ: CFSAN001992_04070
+            SEEC: CFSAN002050_13910
+            SEEB: SEEB0189_012015
+            SEEP: I137_06105
+            SENB: BN855_15420
+            SENE: IA1_07430
+            SENC: SEET0819_14175
+            SES: SARI_01438
+            SBG: SBG_1329(speG)
+            SBZ: A464_1522
+            SBV: N643_06360
+            SFE: SFxv_1792(speG)
+            SFN: SFy_2285
+            SFS: SFyv_2338
+            SFT: NCTC1_01729(speG)
+            SDZ: Asd1617_02109
+            SHQ: A0259_11940
+            ENT: Ent638_1929
+            ENC: ECL_02186
+            ENO: ECENHK_10170
+            ECLO: ENC_12100 ENC_16230
+            ENL: A3UG_10190
+            ECLG: EC036_19780
+            ECLE: ECNIH2_10720
+            ECLN: ECNIH4_12355 ECNIH4_12555
+            ECLI: ECNIH5_09850
+            ECLX: LI66_07905 LI66_10070
+            ECLY: LI62_10855
+            ECLZ: LI64_10225
+            EHM: AB284_14940
+            EXF: BFV63_10255
+            ECLA: ECNIH3_09860
+            ECLC: ECR091_09835
+            EAS: Entas_2003
+            EAU: DI57_08735
+            EKB: BFV64_10520
+            EEC: EcWSU1_02012(speG)
+            ELG: BH714_06350
+            ECAN: CWI88_12365
+            ERN: BFV67_09690
+            ECLS: LI67_015640
+            ENR: H650_03530
+            ENX: NI40_010290
+            ENF: AKI40_2972
+            ESA: ESA_01749
+            CSK: ES15_1931(speG)
+            CSZ: CSSP291_08535
+            CSJ: CSK29544_03063
+            CCON: AFK62_09935
+            CDM: AFK67_10200
+            CSI: P262_02828
+            CMJ: AFK66_009420
+            CUI: AFK65_10415
+            CMW: AFK63_08510
+            CTU: CTU_22060(speG)
+            KPN: KPN_01583(speG)
+            KPU: KP1_2606(speG)
+            KPM: KPHS_24950
+            KPP: A79E_2653
+            KPH: KPNIH24_15785
+            KPZ: KPNIH27_12145
+            KPV: KPNIH29_12635
+            KPW: KPNIH30_12920
+            KPY: KPNIH31_12010
+            KPG: KPNIH32_12770
+            KPC: KPNIH10_12445
+            KPQ: KPR0928_12450
+            KPT: VK055_0918
+            KPE: KPK_2873
+            KPO: KPN2242_10720
+            KPR: KPR_2466(speG)
+            KPJ: N559_2740
+            KPI: D364_08040
+            KPA: KPNJ1_02891
+            KPS: KPNJ2_02891
+            KPX: PMK1_03902(speG_2)
+            KPB: FH42_03825
+            KPNE: KU54_013740
+            KPNU: LI86_13675
+            KPNK: BN49_2693(speG)
+            KVA: Kvar_2203 Kvar_2774
+            KPK: A593_22490 A593_25325
+            KVD: KR75_20310 KR75_23250
+            KVQ: SP68_01320 SP68_03965
+            KOX: KOX_21535
+            KOE: A225_3178
+            KOY: J415_16050
+            KOM: HR38_19835
+            KMI: VW41_10415
+            KOK: KONIH1_15585
+            KOC: AB185_20310
+            KQU: AVR78_17030
+            EAE: EAE_18400
+            EAR: CCG30211
+            KQV: B8P98_14575
+            KLL: BJF97_15715
+            CKO: CKO_01578
+            CRO: ROD_14791(speG)
+            CFD: CFNIH1_17580
+            CBRA: A6J81_03930
+            CWE: CO701_10685
+            CYO: CD187_06080 CD187_12385
+            CAMA: F384_06795
+            CAF: AL524_15520
+            CIF: AL515_03470 AL515_11890
+            CFAR: CI104_12740
+            CIR: C2U53_21900
+            CIE: AN232_18250
+            GQU: AWC35_18455
+            BED: BTURN675_548(speG)
+            HDE: HDEF_0693(speG)
+            SECT: A359_00380
+            EBT: EBL_c22170(speG)
+            ROR: RORB6_05585
+            RON: TE10_15655
+            RPLN: B1209_12255
+            RAO: DSD31_12060
+            CNT: JT31_01710
+            CEM: LH23_16235
+            CEN: LH86_15215
+            CLAP: NCTC11466_02377(speG_3)
+            PGE: LG71_16435
+            ESC: Entcl_2326
+            KLE: AO703_10590
+            KSA: C813_04175
+            KCO: BWI95_15820
+            KOT: EH164_12170(speG)
+            KGO: CEW81_08530 CEW81_19815
+            LAZ: A8A57_09895
+            LEF: LJPFL01_1976
+            LNI: CWR52_01970(speG)
+            LEW: DAI21_16310
+            BUF: D8682_03900(speG)
+            DEN: MHIR_DE00253(speG)
+            GED: FVIR_GE00361(speG)
+            METY: MRY16398_26760
+            AHN: NCTC12129_02513(speG)
+            EBF: D782_2227 D782_3593
+            EBC: C2U52_22180
+            EBU: CUC76_03080
+            PSTS: E05_33140
+            YPE: YPO2830(speG)
+            YPK: y1405(speG)
+            YPH: YPC_1293(speG)
+            YPA: YPA_2267
+            YPN: YPN_1308
+            YPM: YP_2698(speG)
+            YPP: YPDSF_2180
+            YPG: YpAngola_A3118(speG)
+            YPZ: YPZ3_2492(speG)
+            YPT: A1122_11435
+            YPD: YPD4_2216(speG)
+            YPX: YPD8_2470(speG)
+            YPW: CH59_3241(speG)
+            YPJ: CH55_3991(speG)
+            YPV: BZ15_699(speG)
+            YPL: CH46_2272(speG)
+            YPS: YPTB2797(speG)
+            YPO: BZ17_3834(speG)
+            YPI: YpsIP31758_1232(speG)
+            YPY: YPK_1349
+            YPB: YPTS_2902
+            YPQ: DJ40_3744(speG)
+            YPU: BZ21_2101(speG)
+            YPR: BZ20_3410(speG)
+            YPC: BZ23_2384(speG)
+            YPF: BZ19_2167(speG)
+            YEN: YE1124(speG)
+            YEP: YE105_C2968
+            YEY: Y11_43441
+            YEL: LC20_04027
+            YEW: CH47_541(speG)
+            YET: CH48_487(speG)
+            YEF: FORC2_1137
+            YEE: YE5303_08741(speG)
+            YAL: AT01_3593(speG)
+            YFR: AW19_308(speG)
+            YIN: CH53_587(speG)
+            YKR: CH54_1356
+            YRO: CH64_1419(speG)
+            YRU: BD65_998(speG)
+            YRB: UGYR_05585
+            YAK: ACZ76_03505
+            YMA: DA391_06035
+            SPE: Spro_3528
+            SRR: SerAS9_3735
+            SRL: SOD_c34550(speG)
+            SRY: M621_18785
+            SPLY: Q5A_018745(speG_2)
+            SRS: SerAS12_3736
+            SRA: SerAS13_3737
+            SSZ: SCc_301(speG)
+            SMAF: D781_3295
+            SMW: SMWW4_v1c36410(speG)
+            SMAR: SM39_3138(speG)
+            SMAC: SMDB11_2927(speG)
+            SLQ: M495_18205
+            SERF: L085_10380
+            SERS: SERRSCBI_17690
+            SFW: WN53_00370
+            SFG: AV650_23075
+            SRZ: AXX16_1772
+            SERM: CLM71_17385
+            SFO: Z042_04695
+            RAH: Rahaq_3275
+            RAQ: Rahaq2_3351
+            RAA: Q7S_16520
+            ROX: BV494_07195 BV494_11480
+            PCT: PC1_1125
+            PCC: PCC21_011560
+            PCV: BCS7_05830
+            PWA: Pecwa_3190
+            PPAR: A8F97_02700
+            PEC: W5S_3188
+            PWS: A7983_14760
+            PPOA: BJK05_00865
+            SGL: SG1899
+            SOD: Sant_0972(speG)
+            PES: SOPEG_0856(speG)
+            SENY: HBA_0848(speG)
+            DDD: Dda3937_01793(speG)
+            DZE: Dd1591_3002
+            DDC: Dd586_1098
+            CED: LH89_06345
+            DFN: CVE23_06355
+            BGJ: AWC36_12425
+            LBQ: CKQ53_10105
+            ETA: ETA_09430(speG)
+            EPY: EpC_09230(speG)
+            EPR: EPYR_00973(speG)
+            EAM: EAMY_2706(speG)
+            EAY: EAM_2590(speG)
+            EBI: EbC_34340(speG)
+            ERJ: EJP617_01670(speG)
+            EGE: EM595_2740(speG)
+            EPE: CI789_01140
+            PAM: PANA_2983(speG)
+            PLF: PANA5342_1054(speG)
+            PAJ: PAJ_2258(speG)
+            PAQ: PAGR_g1052
+            PVA: Pvag_2351(speG)
+            PAGG: AL522_18955
+            PAO: Pat9b_3015
+            KLN: LH22_07485
+            PANT: PSNIH1_01660
+            PANP: PSNIH2_02820
+            PAGC: BEE12_02415
+            PSTW: DSJ_06945
+            PALH: B1H58_12055
+            PGZ: C2E15_16400
+            PCD: C2E16_16245
+            TCI: A7K98_15635
+            TPTY: NCTC11468_02977(speG_2)
+            PLU: plu2762(speG) plu3536
+            PLUM: A4R40_13765 A4R40_17580
+            PAY: PAU_01778(speG) PAU_02887
+            PTT: VY86_15360 VY86_17470
+            PMR: PMI1577(speG)
+            PMIB: BB2000_0699 BB2000_1665(speG)
+            PVL: AOB99_09840
+            PVG: CRN77_11130
+            XBO: XBJ1_2070(speG) XBJ1_2087
+            XBV: XBW1_2332 XBW1_2405(speG)
+            XNE: XNC1_2468 XNC1_2675(speG) XNC1_4467
+            XNM: XNC2_2374 XNC2_2572(speG)
+            XDO: XDD1_2430(speG)
+            XPO: XPG1_1451(speG) XPG1_1961
+            XHO: A9255_02440 A9255_02875 A9255_18010
+            PSI: S70_01230 S70_07020 S70_12340 S70_20850
+            PSX: DR96_1851 DR96_3069 DR96_3414(speG) DR96_704
+            PSTA: BGK56_02800 BGK56_04170 BGK56_10105 BGK56_15300
+            PRG: RB151_006960 RB151_018580(bltD_1) RB151_024670(speG_2) RB151_036030(bltD_3)
+            PALA: CO695_01495 CO695_13365
+            PHEI: NCTC12003_00703 NCTC12003_01796(speG_2)
+            PRQ: CYG50_03890 CYG50_12165 CYG50_21875 CYG50_22000
+            MMK: MU9_1493 MU9_2502
+            ASY: AUT07_00580(speG)
+            EIC: NT01EI_1189
+            ETR: ETAE_1084(speG)
+            ETD: ETAF_1011
+            ETE: ETEE_3028(speG)
+            ETC: ETAC_05175
+            EDW: QY76_14825
+            EDL: AAZ33_05620
+            EHO: A9798_11315
+            HAV: AT03_15975
+            HPAR: AL518_10415
+            OPO: DSM2777_19115
+            PFQ: QQ39_13355
+            LRI: NCTC12151_00966(speG)
+            KIN: AB182_11390
+            PSHI: SAMEA2665130_1400(paiA)
+            ASU: Asuc_0740
+            APAG: EIA51_00765
+            SMT: Smal_0936
+            BUJ: BurJV3_0932
+            STEN: CCR98_05050
+            LAB: LA76x_3753
+            LAQ: GLA29479_913(speG)
+            LCP: LC55x_3751
+            LGU: LG3211_1463
+            LEZ: GLE_1429(speG)
+            LEM: LEN_3522
+            LMB: C9I47_2198
+            LYT: DWG18_11205
+            LUE: DCD74_06120
+            RHD: R2APBS1_3105
+            DKO: I596_3640
+            LRZ: BJI69_07280
+            XBA: C7S18_11890
+            VCH: VCA0947
+            VCF: IR04_04155
+            VCS: MS6_A0984
+            VCE: Vch1786_II0634(speG)
+            VCQ: EN18_03010
+            VCJ: VCD_000387
+            VCI: O3Y_17933
+            VCO: VC0395_0291(speG)
+            VCR: VC395_A0972(speG)
+            VCM: VCM66_A0907(speG)
+            VCL: VCLMA_B0706
+            VCX: VAA049_2044
+            VCZ: VAB027_1176
+            VPA: VPA0474
+            VPB: VPBB_A0430
+            VPK: M636_01600 M636_13035
+            VPF: M634_21470 M634_24155
+            VPH: VPUCM_1407 VPUCM_21165
+            VHA: VIBHAR_05644 VIBHAR_06378
+            VCA: M892_20280 M892_23410 M892_25005
+            VAG: N646_4685
+            VEX: VEA_001389
+            VDB: AL552_01040 AL552_07680
+            VHR: AL538_26795
+            VNA: PN96_22835
+            VOW: A9237_18740 A9237_21810 A9237_23535
+            VRO: BSZ04_02130 BSZ04_06490
+            VEJ: VEJY3_22171
+            VFU: vfu_B01251
+            VNI: VIBNI_A1868 VIBNI_B1873
+            VAN: VAA_01303
+            LAG: N175_16415
+            VAU: VANGNB10_cII0916(speG)
+            VCY: IX92_05855
+            VFL: AL536_01085
+            VMI: AL543_00640
+            VBR: A6E01_06120
+            VSC: VSVS12_03330(speG) VSVS12_03417
+            VGA: BSQ33_16285 BSQ33_20945
+            VSH: BSZ05_21555
+            VQI: CCZ37_14030
+            VTA: B0847
+            VFI: VF_A0385(speG)
+            VFM: VFMJ11_A0424 VFMJ11_A0700
+            VSA: VSAL_II0440(speG)
+            AWD: AWOD_II_0400(speG) AWOD_II_0746
+            PAE: PA4114
+            PAEV: N297_4246
+            PAEI: N296_4246
+            PAU: PA14_10740
+            PAP: PSPA7_0978
+            PAG: PLES_08571
+            PAF: PAM18_0825
+            PNC: NCGM2_5315
+            PAEB: NCGM1900_0846
+            PDK: PADK2_03745
+            PSG: G655_04130
+            PRP: M062_21700
+            PAEP: PA1S_04250
+            PAER: PA1R_gp2005
+            PAEM: U769_04275
+            PAEL: T223_04185
+            PAES: SCV20265_0853
+            PAEU: BN889_04568
+            PAEG: AI22_29365
+            PAEC: M802_4244
+            PAEO: M801_4112
+            PPRC: PFLCHA0_c08180
+            PPRO: PPC_0827
+            PFW: PF1751_v1c47360
+            PFF: PFLUOLIPICF712280
+            PCH: EY04_06805 EY04_10025
+            PCP: JM49_19845
+            PSOS: POS17_2007 POS17_3918
+            PSPG: AK823_03725
+            ACB: A1S_1602
+            ABC: ACICU_01628
+            ABN: AB57_1826
+            ABX: ABK1_2087
+            ABZ: ABZJ_01790
+            ABR: ABTJ_02079
+            ABD: ABTW07_1845
+            ABH: M3Q_1980
+            ABJ: BJAB07104_02124
+            ABAJ: BJAB0868_01751
+            ABK: LX00_08085
+            ABAU: IX87_18830
+            ABW: BL01_12210
+            ABAL: ABLAC_24340
+            ACC: BDGL_000971
+            ANO: RR32_09980
+            ALC: OTEC02_10205
+            ACAL: BUM88_08715
+            ACD: AOLE_10735
+            ASJ: AsACE_CH02105
+            SBM: Shew185_3353
+            SBN: Sbal195_3481
+            SBT: Sbal678_3497
+            SPC: Sputcn32_1375
+            SHP: Sput200_1385
+            SPL: Spea_1042
+            SHW: Sputw3181_1842
+            SHL: Shal_1088
+            SWD: Swoo_3441
+            SALG: BS332_07165
+            PAT: Patl_0928
+            PSEO: OM33_17235
+            PIA: PI2015_3068
+            PPHE: PP2015_1196
+            PRR: AT705_20415 AT705_22760
+            PALN: B0W48_16205
+            PPIS: B1L02_21610
+            PEA: PESP_b0056(speG) PESP_b0057
+            PSPO: PSPO_b1651(speG)
+            PTU: PTUN_a2376(speG)
+            PTD: PTET_b0035(speG)
+            PSEN: PNC201_02185 PNC201_20670(bltD)
+            AMC: MADE_1011995
+            AMH: I633_13110
+            AMAA: amad1_12745
+            AMAL: I607_12010
+            AMAE: I876_12385
+            AMAO: I634_12240
+            AMAD: I636_12360
+            AMAI: I635_12725
+            AMAG: I533_11980
+            AMAC: MASE_11770
+            AMB: AMBAS45_12325
+            AMG: AMEC673_12075
+            ALT: ambt_04635
+            ALR: DS731_10790
+            SALM: D0Y50_06575
+            PIN: Ping_3645
+            FBL: Fbal_2507
+            TTU: TERTU_3861
+            HJA: BST95_00365 BST95_16420
+            CBU: CBU_1678(speG)
+            CBS: COXBURSA331_A1869(speG)
+            CBD: CBUD_0323(speG)
+            CBG: CbuG_0343(speG)
+            CBC: CbuK_0332(speG)
+            PSAL: PSLF89_1124
+            HCS: FF32_10275
+            HAK: KO116_03379
+            HAM: HALO3651
+            HSI: BOX17_02570
+            HHH: CLM76_10390
+            HAG: BB497_07430
+            HALK: CUU95_01795
+            HAA: A5892_02485
+            KMA: B9H00_12735
+            ABO: ABO_2330
+            BSAN: CHH28_06970 CHH28_07110
+            GSN: YC6258_03042
+            AHA: AHA_2716
+            AHY: AHML_14420
+            AHD: AI20_05860
+            AHR: V428_14930
+            AHP: V429_14955
+            AHJ: V469_08190
+            AHH: RY45_14285
+            AHI: VU14_08150
+            AAJ: BOQ57_13965
+            ASA: ASA_1657(speG)
+            AEO: O23A_p0880
+            CHJ: NCTC10426_01101(speG)
+            SALN: SALB1_2068
+            NMN: NMCC_1622
+            NMI: NMO_1526
+            CVC: BKX93_19815
+            CHRI: DK842_14420
+            CHRB: DK843_19980
+            JEU: BJP62_14735
+            RPI: Rpic_4264
+            RPF: Rpic12D_4374
+            RMN: TK49_21975
+            RIN: ACS15_4207
+            BMAE: DM78_474(speG)
+            BPS: BPSL0096(speG)
+            BPM: BURPS1710b_0317(speG)
+            BPL: BURPS1106A_0126(speG)
+            BPD: BURPS668_0111(speG)
+            BPR: GBP346_A0029(speG)
+            BPSE: BDL_1851(speG)
+            BPSM: BBQ_3306(speG)
+            BPSU: BBN_3428(speG)
+            BPSD: BBX_241(speG)
+            BPZ: BP1026B_I0090(speG)
+            BPQ: BPC006_I0113
+            BPK: BBK_1336(speG)
+            BPSH: DR55_962(speG)
+            BPSA: BBU_2005(speG)
+            BPSO: X996_576(speG)
+            BUT: X994_2566(speG)
+            BTE: BTH_I0081(speG)
+            BTQ: BTQ_100(speG)
+            BTJ: BTJ_2334(speG)
+            BTZ: BTL_267(speG)
+            BTD: BTI_22(speG)
+            BTV: BTHA_308(speG)
+            BTHE: BTN_1144(speG)
+            BTHM: BTRA_451(speG)
+            BTHA: DR62_1292
+            BTHL: BG87_463(speG)
+            BOK: DM82_3276(speG)
+            BOC: BG90_1491(speG)
+            BVI: Bcep1808_3304
+            BVE: AK36_769
+            BUR: Bcep18194_A5735 Bcep18194_A6513
+            BCN: Bcen_2543
+            BCH: Bcen2424_3157
+            BCM: Bcenmc03_3175
+            BCJ: BCAL0433(speG)
+            BCEN: DM39_3262
+            BCEW: DM40_752
+            BCEO: I35_3233(speG)
+            BAM: Bamb_3209
+            BAC: BamMC406_3093
+            BMU: Bmul_3149
+            BMJ: BMULJ_00080(speG)
+            BMK: DM80_1705(speG)
+            BMUL: NP80_129
+            BCT: GEM_0272
+            BCED: DM42_1799
+            BCEP: APZ15_03785
+            BDL: AK34_3086
+            BPYR: ABD05_05865
+            BCON: NL30_28955
+            BUB: BW23_1726
+            BDF: WI26_15310
+            BLAT: WK25_15415
+            BTEI: WS51_26205
+            BSEM: WJ12_15835
+            BPSL: WS57_34635
+            BMEC: WJ16_16025
+            BSTG: WT74_16645
+            BSTL: BBJ41_12695
+            BGD: bgla_1p1410
+            BUK: MYA_2917
+            BUL: BW21_110(speG)
+            BUD: AQ610_18175
+            BUM: AXG89_36280
+            BUI: AX768_16215
+            BXE: Bxe_A4477
+            BXB: DR64_2150
+            BPY: Bphyt_3965
+            BFN: OI25_1476
+            PARB: CJU94_05360
+            PNU: Pnuc_1664
+            LMIR: NCTC12852_01555(speG)
+            BAV: BAV2135(speG)
+            BHO: D560_2648 D560_2649(speG)
+            BHM: D558_2628 D558_2629(speG)
+            BHZ: ACR54_02889(speG)
+            BTRM: SAMEA390648703693(speG)
+            BPDZ: BBN53_07575
+            BOH: AKI39_17230
+            AXY: AXYL_02617(speG)
+            AXO: NH44784_041711
+            AXN: AX27061_2349
+            AXX: ERS451415_02343(speG_1)
+            ADT: APT56_11525
+            AIS: BUW96_03195
+            ASW: CVS48_16035
+            ACHR: C2U31_17445
+            ACHB: DVB37_09910
+            AMIM: MIM_c35130
+            AFA: UZ73_05040
+            AFQ: AFA_05270
+            AAQU: D3M96_06815
+            ODI: ODI_R2904
+            DAC: Daci_2859
+            DEL: DelCs14_3889
+            DTS: BI380_09350
+            DHK: BO996_13195
+            CTT: CtCNB1_2620
+            CKE: B5M06_09680
+            JAB: VN23_02390 VN23_07455
+            JSV: CNX70_17185
+            CFU: CFU_1138(speG)
+            CARE: LT85_3671
+            CPRA: CPter91_3951(speG)
+            MASZ: C9I28_12780
+            MASY: DPH57_08835
+            UPV: EJN92_20530
+            MIU: ABE85_15470
+            MFA: Mfla_0941 Mfla_1085
+            THK: CCZ27_09705
+            BEBA: BWI17_09370
+            DPG: DESPIGER_1394
+            SUR: STAUR_2973
+            SCU: SCE1572_13655
+            MLO: mlr1969
+            MLN: A9174_16845
+            MCI: Mesci_2847
+            MOP: Mesop_3228
+            MAM: Mesau_03109
+            MAMO: A6B35_12075
+            MESW: A9K65_015510
+            AAK: AA2016_1716 AA2016_3176
+            RBS: RHODOSMS8_00391(speG)
+            EAH: FA04_05950 FA04_09760
+            ESJ: SJ05684_c21630
+            AGR: AGROH133_14669
+            REC: RHECIAT_CH0003798
+            RPHA: AMC79_CH03722
+            OPS: A8A54_22735
+            BRA: BRADO5577
+            BBT: BBta_6099
+            BOP: AXW83_14035
+            BVV: BHK69_10865
+            BOI: BLM15_04590
+            VGO: GJW-30_1_00997(speG) GJW-30_1_01863(bltD)
+            MEX: Mext_2705
+            MEA: Mex_1p2899(speG)
+            MDI: METDI3468(speG)
+            MCH: Mchl_2932
+            MPO: Mpop_2827
+            MZA: B2G69_21065
+            MRD: Mrad2831_2314
+            MET: M446_2666
+            MNO: Mnod_2920
+            MOR: MOC_2740
+            META: Y590_13000
+            MAQU: Maq22A_c05935(rimL)
+            MPHY: MCBMB27_01930
+            MEE: DA075_06840
+            METD: C0214_15180
+            METX: A3862_19210
+            METS: DK389_29820
+            CHEL: AL346_03710
+            CDQ: BOQ54_14560
+            RVA: Rvan_0950
+            AUA: M673_18925
+            RUE: DT065_16480
+            PARO: CUV01_03230 CUV01_06930
+            AHT: ANTHELSMS3_02804(bltD)
+            GEH: HYN69_07865
+            HBA: Hbal_2022
+            NTD: EGO55_11945
+            SPHL: LPB140_10970
+            ERY: CP97_04330
+            ERR: DVR09_10965
+            GBE: GbCGDNIH1_1186
+            MAES: Ga0123461_1188
+            MFN: Ga0123462_1171
+            BSU: BSU26600(bltD) BSU32150(paiA)
+            BSR: I33_2699 I33_3314
+            BSL: A7A1_0807 A7A1_2327
+            BSH: BSU6051_26600(bltD) BSU6051_32150(paiA)
+            BSY: I653_12605 I653_15490
+            BSUT: BSUB_02839(bltD) BSUB_03433(paiA)
+            BSUL: BSUA_02839(bltD) BSUA_03433(paiA)
+            BSUS: Q433_14220 Q433_17590
+            BSS: BSUW23_12875(bltD) BSUW23_15670(paiA)
+            BST: GYO_2905 GYO_3507
+            BSO: BSNT_09050(bltD) BSNT_09680(paiA)
+            BSN: BSn5_03925 BSn5_06965
+            BSQ: B657_26600(bltD) B657_32150(paiA)
+            BSX: C663_2496(bltD) C663_3073(paiA)
+            BSP: U712_13025 U712_16025
+            BLI: BL02687(paiA) BL03216
+            BLD: BLi00582(paiA) BLi02012(speG)
+            BLH: BaLi_c06120(paiA) BaLi_c20810
+            BAY: RBAM_006040(bltD) RBAM_031720(paiA)
+            BAQ: BACAU_0521(bltD) BACAU_3199(paiA)
+            BYA: BANAU_0524(bltD) BANAU_3347(paiA)
+            BAMP: B938_02775 B938_16270
+            BAML: BAM5036_0531(bltD) BAM5036_3087(paiA)
+            BAMA: RBAU_0563(bltD) RBAU_3309(paiA)
+            BAMN: BASU_0552(bltD) BASU_3087(paiA)
+            BAMB: BAPNAU_0530(bltD) BAPNAU_3354(paiA)
+            BAMT: AJ82_03370 AJ82_17925
+            BAMY: V529_05330(bltD) V529_34360(paiA)
+            BMP: NG74_00580(bltD) NG74_03332(paiA_2)
+            BAO: BAMF_0503(bltD) BAMF_3297(paiA)
+            BAZ: BAMTA208_02610(bltD) BAMTA208_17495(paiA)
+            BQL: LL3_00536(bltD) LL3_03586(paiA)
+            BXH: BAXH7_00546(bltD) BAXH7_03575(paiA)
+            BQY: MUS_0573(bltD) MUS_3773(paiA)
+            BAMI: KSO_003255 KSO_016725
+            BAMC: U471_05790 U471_32920
+            BAMF: U722_02990 U722_17015
+            BAE: BATR1942_00190 BATR1942_06780 BATR1942_15200
+            BVM: B9C48_02985 B9C48_16240
+            BHA: BH3076(paiA)
+            BAN: BA_2022 BA_2675 BA_3295 BA_5323(speG)
+            BAR: GBAA_2022 GBAA_3295 GBAA_5323(speG)
+            BAT: BAS1880 BAS2491 BAS3031 BAS3058 BAS4945
+            BAH: BAMEG_1325 BAMEG_1355 BAMEG_1918 BAMEG_2564 BAMEG_5374(speG)
+            BAI: BAA_2093 BAA_3335 BAA_5352(speG)
+            BAX: H9401_1921 H9401_2548 H9401_3108 H9401_3138 H9401_5077
+            BANT: A16_20620 A16_27100 A16_33150 A16_53370
+            BANR: A16R_20890 A16R_27470 A16R_33260 A16R_33560 A16R_54000
+            BANS: BAPAT_1935 BAPAT_2570 BAPAT_3126 BAPAT_3127 BAPAT_3155 BAPAT_5104
+            BANH: HYU01_10125 HYU01_13280 HYU01_16190 HYU01_26020
+            BANV: DJ46_1455 DJ46_2007(paiA) DJ46_2037 DJ46_3991(speG) DJ46_829(bltD)
+            BCE: BC2020 BC2684 BC5073
+            BCA: BCE_2102 BCE_2712(bltD) BCE_3275(paiA) BCE_5220(speG)
+            BCZ: BCE33L1834(bltD) BCE33L2422(bltD) BCE33L2952(paiA) BCE33L4806(speG)
+            BCR: BCAH187_A2135 BCAH187_A2740 BCAH187_A3282 BCAH187_A5241(speG)
+            BCB: BCB4264_A2024 BCB4264_A2697 BCB4264_A3252 BCB4264_A5224(speG)
+            BCU: BCAH820_2057 BCAH820_2689 BCAH820_3210 BCAH820_5190(speG) BCAH820_C0002
+            BCG: BCG9842_B0022(speG) BCG9842_B1998 BCG9842_B2613 BCG9842_B3285
+            BCQ: BCQ_1048 BCQ_2019(bltD) BCQ_2534(bltD) BCQ_3061(paiA) BCQ_4900(speG)
+            BCX: BCA_2103 BCA_2764 BCA_3292 BCA_5227(speG)
+            BAL: BACI_c19950(bltD) BACI_c26470 BACI_c32050 BACI_c50900(speG)
+            BNC: BCN_1949 BCN_2551 BCN_3078 BCN_4996
+            BCF: bcf_09955 bcf_13120 bcf_15915 bcf_25515
+            BCER: BCK_03385 BCK_09865 BCK_18830 BCK_21445 BCK_24470 BCK_26478
+            BCEF: BcrFT9_00851 BcrFT9_02113 BcrFT9_02518
+            BCY: Bcer98_1525
+            BTK: BT9727_0894 BT9727_1850(bltD) BT9727_2451(bltD) BT9727_2968(bltD) BT9727_4788(speG)
+            BTL: BALH_1792(bltD) BALH_2397(bltD) BALH_2409(bltD) BALH_2906(paiA) BALH_4612(speG)
+            BTB: BMB171_C1803 BMB171_C2408 BMB171_C4687(speG)
+            BTT: HD73_2193 HD73_3322 HD73_5445
+            BTHR: YBT1520_10935 YBT1520_16365 YBT1520_26995
+            BTHI: BTK_11075 BTK_16400 BTK_26925
+            BTC: CT43_CH1975 CT43_CH2664 CT43_CH3122 CT43_CH5141(speG)
+            BTF: YBT020_05125 YBT020_10555 YBT020_13405 YBT020_25265
+            BTM: MC28_1244 MC28_1876 MC28_4343
+            BTG: BTB_c20890(bltD) BTB_c27910 BTB_c32540 BTB_c53040(speG)
+            BTI: BTG_03230 BTG_06320 BTG_09840 BTG_23200
+            BTN: BTF1_07490 BTF1_10900 BTF1_13620 BTF1_23935
+            BTHT: H175_328p279 H175_ch2001 H175_ch2712 H175_ch3176 H175_ch5223
+            BTHU: YBT1518_11240 YBT1518_13830 YBT1518_14805 YBT1518_17300 YBT1518_28215 YBT1518_31240
+            BTW: BF38_3237(bltD) BF38_3851 BF38_4356 BF38_838(speG)
+            BTHY: AQ980_04075 AQ980_14600 AQ980_20030
+            BWE: BcerKBAB4_1884 BcerKBAB4_2466 BcerKBAB4_4907
+            BWW: bwei_2362(bltD) bwei_2992(bltD) bwei_4683(bltD)
+            BMYO: BG05_3356 BG05_3965 BG05_947(speG)
+            BTY: Btoyo_2313 Btoyo_4591
+            BMYC: DJ92_2160(speG) DJ92_43 DJ92_4585(bltD) DJ92_5155 DJ92_5265
+            BBY: CY96_09185 CY96_12165 CY96_24570
+            BCL: ABC3243(paiA)
+            BPUS: UP12_03200
+            BMQ: BMQ_1634 BMQ_1739
+            BMD: BMD_1614 BMD_1724
+            BMH: BMWSH_3478(speG) BMWSH_3595(paiA)
+            BMEG: BG04_3913(paiA) BG04_4059(speG)
+            BCO: Bcell_1022
+            BJS: MY9_2635 MY9_3228
+            BACI: B1NLA3E_13235
+            BIF: N288_13650 N288_14815 N288_25050 N288_25210 N288_25630
+            BACP: SB24_06840 SB24_12880
+            BACB: OY17_05645 OY17_19120
+            BACY: QF06_11455 QF06_14390
+            BACL: BS34A_29040(bltD) BS34A_35110(paiA)
+            BALM: BsLM_2613 BsLM_3210
+            BEO: BEH_11455 BEH_13295
+            BSJ: UP17_03215
+            BON: A361_02800 A361_03900 A361_17495 A361_26760
+            BGY: BGLY_0437(paiA) BGLY_2230
+            BFX: BC359_07515
+            BGI: BGM20_07140 BGM20_10175
+            BHK: B4U37_03420
+            BBEV: BBEV_3196(bltD)
+            BKO: CKF48_12830 CKF48_15575
+            BALT: CFN77_03090
+            BACS: AUL54_07780 AUL54_13770
+            BMUR: ABE28_010245 ABE28_020145
+            BSAF: BSL056_02965
+            BIT: BIS30_02710 BIS30_05630
+            OIH: OB1247(paiA) OB1723
+            OCN: CUC15_06780
+            LSP: Bsph_0659 Bsph_2964 Bsph_3263 Bsph_4501 Bsph_4503
+            LGY: T479_06470 T479_09145 T479_22330
+            LFU: HR49_01720 HR49_01730 HR49_11790 HR49_23110
+            LYS: LBYS11_11180 LBYS11_21595
+            LYB: C3943_07860 C3943_09205 C3943_17680 C3943_25390
+            LYZ: DCE79_09835 DCE79_10195 DCE79_10615
+            HLI: HLI_03990 HLI_19865
+            TAP: GZ22_03425 GZ22_05385 GZ22_12570
+            VIR: X953_07010
+            VHL: BME96_02575 BME96_04875 BME96_05920
+            VIG: BKP57_17050 BKP57_20845
+            VIL: CFK37_18330 CFK37_18380 CFK37_18915 CFK37_19375
+            VNE: CFK40_07745 CFK40_16060
+            VPN: A21D_03444(speG_2)
+            LAO: AOX59_17545
+            FPN: ABE65_005385
+            FAR: ABE41_004730 ABE41_005485
+            SJE: AAV35_000985
+            STEA: C0679_13390
+            BSE: Bsel_0171
+            SAU: SA2159
+            SAV: SAV2369
+            SAW: SAHV_2353
+            SAH: SaurJH1_2439
+            SAJ: SaurJH9_2393
+            SAM: MW2290
+            SAS: SAS2260
+            SAR: SAR2458
+            SAC: SACOL2366
+            SAX: USA300HOU_0057 USA300HOU_2352
+            SAA: SAUSA300_0053(speG) SAUSA300_2316
+            SAO: SAOUHSC_02651
+            SAE: NWMN_2271
+            SAD: SAAV_2434
+            SUU: M013TW_2330
+            SUV: SAVC_10715
+            SUE: SAOV_2416c
+            SUJ: SAA6159_02273
+            SUK: SAA6008_02407
+            SUC: ECTR2_2229
+            SUT: SAT0131_02559
+            SUQ: HMPREF0772_10819
+            SUZ: MS7_2387(paiA)
+            SUD: ST398NM01_2423
+            SUX: SAEMRSA15_22700
+            SUW: SATW20_25010
+            SUG: SAPIG2423
+            SUF: SARLGA251_21550
+            SAUA: SAAG_00198
+            SAUE: RSAU_002207
+            SAUN: SAKOR_02346
+            SAUS: SA40_2118
+            SAUU: SA957_2202
+            SAUG: SA268_2275
+            SAUZ: SAZ172_2473
+            SAUT: SAI1T1_2017570
+            SAUJ: SAI2T2_1017580
+            SAUK: SAI3T3_1017570
+            SAUQ: SAI4T8_1017580
+            SAUV: SAI7S6_1017570
+            SAUW: SAI5S5_1017510
+            SAUX: SAI6T6_1017520
+            SAUY: SAI8T7_1017550
+            SAUF: X998_2354
+            SAB: SAB2249c
+            SUY: SA2981_2308(paiA)
+            SAUB: C248_2416
+            SAUM: BN843_24100 BN843_280
+            SAUC: CA347_2451(paiA)
+            SAUR: SABB_01304
+            SAUI: AZ30_00280 AZ30_12470
+            SAUD: CH52_07130
+            SAMS: NI36_11730
+            SUH: SAMSHR1132_21970
+            SEP: SE0026 SE0046 SE1949
+            SER: SERP0118 SERP1961 SERP2470
+            SEPP: SEB_01956 SEB_02298
+            SEPS: DP17_1538 DP17_897(paiA)
+            SHA: SH0689 SH2531
+            SHH: ShL2_00588 ShL2_02316
+            SSP: SSP0534 SSP1043
+            SCA: SCA_1591(paiA)
+            SLG: SLGD_00078 SLGD_00107 SLGD_00669 SLGD_02428
+            SLN: SLUG_01060 SLUG_06670 SLUG_23280
+            SSD: SPSINT_2042
+            SDT: SPSE_0440
+            SWA: A284_02655 A284_10950
+            SPAS: STP1_0861 STP1_1561
+            SXY: BE24_06255 BE24_09300
+            SXL: SXYLSMQ121_0568 SXYLSMQ121_1081
+            SXO: SXYL_00574 SXYL_01144(speG)
+            SHU: SHYC_02605 SHYC_10395(speG)
+            SCAP: AYP1020_1553(paiA) AYP1020_2017(speG_1) AYP1020_2212(speG_2)
+            SAGQ: EP23_07540
+            SEQO: SE1039_15430 SE1039_20380
+            SSIF: AL483_01920 AL483_10010
+            SCV: A4G25_12215
+            SPET: CEP67_05755
+            SCOH: BZ166_09790
+            SSCU: CEP64_09450 CEP64_10170 CEP64_14040
+            SNL: BJD96_02990 BJD96_13545
+            SKL: C7J89_04250 C7J89_07310
+            MCL: MCCL_0856 MCCL_1705
+            MCAK: MCCS_01170 MCCS_21930(paiA_1)
+            MACR: BHM04_09845
+            SHV: AAT16_09325 AAT16_13885
+            SBAC: BVH56_01855
+            LMO: lmo0009 lmo0816 lmo2400
+            LMN: LM5578_0895 LM5578_2599 LM5578_3014
+            LMY: LM5923_0850 LM5923_2548 LM5923_2963
+            LMT: LMRG_01848 LMRG_02437 LMRG_02781
+            LMOC: LMOSLCC5850_0009(speG) LMOSLCC5850_0816 LMOSLCC5850_2403
+            LMOE: BN418_0009 BN418_0953 BN418_2848
+            LMOB: BN419_0010 BN419_0958 BN419_2855
+            LMOD: LMON_0009 LMON_0820 LMON_2411
+            LMOW: AX10_06065 AX10_08515 AX10_12620
+            LMOQ: LM6179_0288(speG) LM6179_1130(paiA) LM6179_1872
+            LMR: LMR479A_0009(speG) LMR479A_0834(paiA) LMR479A_2526
+            LMOM: IJ09_06250 IJ09_10365 IJ09_12795
+            LMF: LMOf2365_0009(speG) LMOf2365_2374
+            LMC: Lm4b_00009 Lm4b_02372
+            LMOG: BN389_00090(speG) BN389_23660(bltD_2)
+            LMP: MUO_00045 MUO_11990
+            LMOL: LMOL312_0009(speG) LMOL312_2361
+            LMOJ: LM220_13850 LM220_16172 LM220_22525
+            LMOZ: LM1816_03467 LM1816_13815
+            LMOX: AX24_09910 AX24_12530
+            LMH: LMHCC_0198 LMHCC_2655(speG)
+            LMQ: LMM7_0009(speG) LMM7_2444
+            LML: lmo4a_0009(speG) lmo4a_2405
+            LMG: LMKG_01056 LMKG_02325 LMKG_02744
+            LMS: LMLG_0165 LMLG_1660 LMLG_2170
+            LMJ: LMOG_01624 LMOG_02474
+            LMW: LMOSLCC2755_0009(speG) LMOSLCC2755_0816 LMOSLCC2755_2406
+            LMX: LMOSLCC2372_0009(speG) LMOSLCC2372_0826 LMOSLCC2372_2463
+            LMZ: LMOSLCC2482_0009(speG) LMOSLCC2482_0859 LMOSLCC2482_2404
+            LMON: LMOSLCC2376_0009(speG) LMOSLCC2376_0783 LMOSLCC2376_2296
+            LMOS: LMOSLCC7179_0009(speG) LMOSLCC7179_0793 LMOSLCC7179_2315
+            LMOO: LMOSLCC2378_0009(speG) LMOSLCC2378_2405
+            LMOY: LMOSLCC2479_0009(speG) LMOSLCC2479_0824 LMOSLCC2479_2462
+            LMOT: LMOSLCC2540_0009(speG) LMOSLCC2540_0815 LMOSLCC2540_2435
+            LMOA: LMOATCC19117_0009(speG) LMOATCC19117_2409
+            LMOK: CQ02_00045 CQ02_12195
+            LMV: Y193_01255 Y193_03710 Y193_11690
+            LIN: lin0009 lin0812 lin2499
+            LWE: lwe0009(speG) lwe0295 lwe2347 lwe2607
+            LSG: lse_0009(speG) lse_2304
+            LIV: LIV_0009 LIV_2309
+            LII: JL52_00295 JL52_12205
+            LIW: AX25_00305 AX25_12385
+            LIA: JL58_00230 JL58_03255 JL58_12390
+            LIO: JL53_00230 JL53_03565 JL53_12885
+            LWI: UE46_00025 UE46_02515
+            BTHS: CNY62_03080
+            ESI: Exig_0163 Exig_1357 Exig_1364
+            EAT: EAT1b_1238 EAT1b_1567 EAT1b_1577
+            EAN: Eab7_0156 Eab7_1525
+            EXM: U719_00840
+            EXU: ESP131_03250
+            GOT: AXE85_02805
+            BBE: BBR47_19840(bltD) BBR47_32030 BBR47_40490
+            BLR: BRLA_c030030
+            BFM: BP422_11150 BP422_15980
+            PJD: Pjdr2_3089
+            GYM: GYMC10_2553 GYMC10_3450 GYMC10_4426
+            PPY: PPE_02381
+            PPM: PPSC2_12210(paiA) PPSC2_22720
+            PPO: PPM_2338(paiA) PPM_4512(M1_4944)
+            PPOL: X809_28315
+            PPQ: PPSQR21_024360 PPSQR21_031950 PPSQR21_046010
+            PPOY: RE92_00145 RE92_14495
+            PMS: KNP414_03252 KNP414_03813(paiA) KNP414_05153
+            PMQ: PM3016_1204 PM3016_3476 PM3016_4555
+            PMW: B2K_06135 B2K_17940 B2K_18865 B2K_23600
+            PTA: HPL003_21945
+            PLV: ERIC2_c16650
+            PSAB: PSAB_19010 PSAB_23840
+            PBD: PBOR_16970
+            PGM: PGRAT_13040 PGRAT_32245
+            POD: PODO_19480
+            PAEN: P40081_06785
+            PAEF: R50345_13185 R50345_18140 R50345_19710
+            PAEQ: R50912_06010
+            PSTE: PSTEL_12790
+            PAEA: R70723_15285 R70723_16410
+            PAEE: R70331_14830 R70331_15785
+            PAEH: H70357_14315 H70357_16025 H70357_18575
+            PAEJ: H70737_12570 H70737_18305 H70737_20000
+            PIH: UB51_10430 UB51_19015
+            PRI: PRIO_2823(paiA) PRIO_6706
+            PPEO: ABE82_12645
+            PBV: AR543_09755 AR543_14505 AR543_17705 AR543_18625
+            PXL: BS614_15885 BS614_16000 BS614_20730 BS614_26500
+            PDH: B9T62_31580
+            PIB: BBD41_02325 BBD41_22950 BBD41_23560 BBD41_28120 BBD41_28225
+            PCX: LPB68_01190 LPB68_18710
+            PKB: B4V02_12785 B4V02_13015
+            PAIH: ASL14_24215
+            PVO: PVOR_15444 PVOR_16989 PVOR_24134
+            PLW: D5F53_08035 D5F53_13010 D5F53_16895
+            TCO: Theco_0363
+            COH: EAV92_18760
+            TAB: CIG75_18040
+            SIV: SSIL_2075 SSIL_3478
+            SSIL: SOLI23_01045 SOLI23_07360 SOLI23_08345 SOLI23_09140
+            SOB: CSE16_02720 CSE16_06835 CSE16_12260 CSE16_12875 CSE16_13765
+            PKU: AUO94_00580 AUO94_08865
+            PRT: AUC31_12115 AUC31_14650
+            PLL: I858_008030
+            PDG: BCM40_10330
+            PHC: BBI08_03965 BBI08_05510 BBI08_05600
+            PMAR: B0X71_03705 B0X71_05670 B0X71_16265
+            PPLA: BBI15_07760 BBI15_11340
+            PFAE: AJGP001_08405 AJGP001_17070
+            PLX: CW734_13795
+            JEO: JMA_03780 JMA_06920
+            SPSY: AZE41_05715 AZE41_08490 AZE41_11980 AZE41_14060
+            SPOR: SporoP33_06385
+            SPOP: SporoP37_06865
+            SURE: SporoP32a_06800
+            SPOS: DV702_10720
+            RST: ATY39_00770 ATY39_11455 ATY39_13270
+            PAEK: D3873_00565 D3873_00705 D3873_12165
+            LLA: L56232(yqfF)
+            LLK: LLKF_1282(paiA)
+            LLT: CVCAS_1523(yqfF)
+            LLS: lilo_1539(yqfF)
+            LLD: P620_09100
+            LLX: NCDO2118_1249(paiA) NCDO2118_1713
+            LLC: LACR_1724
+            LLM: llmg_0879(speG)
+            LLR: llh_4420
+            LLN: LLNZ_04525
+            LLI: uc509_1561(speG)
+            LLW: kw2_1575
+            LLJ: LG36_1564
+            LGR: LCGT_1327
+            LGV: LCGL_1348
+            LPK: LACPI_1217
+            LRN: CMV25_10235
+            LACT: D7I46_03090 D7I46_08100
+            SPN: SP_0580 SP_1019
+            SPD: SPD_0505 SPD_0905
+            SPR: spr0508 spr0923(bltD)
+            SPW: SPCG_0546
+            SJJ: SPJ_0535
+            SNV: SPNINV200_05130
+            SPX: SPG_0528
+            SNT: SPT_0610
+            SND: MYY_0634
+            SPNN: T308_02750
+            SNE: SPN23F05240
+            SPV: SPH_0679 SPH_1122
+            SNC: HMPREF0837_10873
+            SNM: SP70585_0644 SP70585_1058
+            SPP: SPP_0596 SPP_1025
+            SNI: INV104_04830
+            SPNG: HMPREF1038_00604
+            SNB: SP670_0644
+            SNP: SPAP_0571 SPAP_1179
+            SNX: SPNOXC05320
+            SNU: SPNA45_01521
+            SPNE: SPN034156_15820
+            SPNU: SPN034183_05350
+            SPNM: SPN994038_05230
+            SPNO: SPN994039_05240
+            SAG: SAG0870
+            SAN: gbs0887
+            SAK: SAK_0993
+            SGC: A964_0873
+            SAGS: SaSA20_0745
+            SAGM: BSA_9580
+            SAGI: MSA_10170
+            SAGR: SAIL_10140
+            SAGT: GBSCOH1_0796 GBSCOH1_0797
+            SAGE: EN72_05085
+            SAGN: W903_0960
+            SMU: SMU_1511c
+            SMC: SmuNN2025_0593
+            SMUT: SMUGS5_06800
+            SMJ: SMULJ23_0608
+            SMUA: SMUFR_1310
+            STC: str1293
+            STL: stu1293
+            STE: STER_1269
+            STN: STND_1241
+            STU: STH8232_1518
+            STW: Y1U_C1208
+            STHE: T303_07400
+            STHS: AVT04_08405
+            SSA: SSA_0913
+            SSB: SSUBM407_0427 SSUBM407_0790
+            SSU: SSU05_0488 SSU05_1151
+            SSV: SSU98_0482 SSU98_1167
+            SSI: SSU0440 SSU0996
+            SSS: SSUSC84_0424 SSUSC84_1034
+            SSF: SSUA7_0444 SSUA7_1009
+            SSW: SSGZ1_0436 SSGZ1_1013
+            SUP: YYK_02110 YYK_04730
+            SSUS: NJAUSS_0460 NJAUSS_1069
+            SST: SSUST3_0379 SSUST3_0509 SSUST3_1173
+            SSUY: YB51_1870 YB51_2520 YB51_5775
+            SSK: SSUD12_0361 SSUD12_0461 SSUD12_0778
+            SSQ: SSUD9_0398 SSUD9_0507 SSUD9_1317
+            SUI: SSUJS14_0453 SSUJS14_1123
+            SUO: SSU12_0449 SSU12_1061
+            SRP: SSUST1_0378 SSUST1_0488 SSUST1_0805
+            SSUT: TL13_0406 TL13_0513 TL13_0812
+            SSUI: T15_0373(speG) T15_0479 T15_0801
+            SGO: SGO_0860
+            SUB: SUB0679
+            SGA: GALLO_0800
+            SGG: SGGBAA2069_c07720
+            SGT: SGGB_0785
+            SMB: smi_0071 smi_1128 smi_1802
+            SOR: SOR_0046 SOR_0282
+            STK: STP_0505
+            SCP: HMPREF0833_10825
+            SCF: Spaf_1405
+            SSR: SALIVB_0813(paiA)
+            STF: Ssal_00891
+            STJ: SALIVA_1286
+            STRS: SSAL8618_06320
+            SSAH: HSISS4_01146
+            STD: SPPN_00790 SPPN_03075
+            SMN: SMA_0735(paiA)
+            SIE: SCIM_1080
+            SIB: SIR_0519
+            SIU: SII_0500
+            SANG: SAIN_1166
+            SANC: SANR_0804
+            SANS: DK43_04290
+            SCG: SCI_0694
+            SCON: SCRE_0674
+            SCOS: SCR2_0674
+            SOI: I872_02440
+            SIK: K710_1256
+            SIQ: DQ08_05800
+            SIO: DW64_05795
+            SIZ: SI82_05950
+            SLU: KE3_0697
+            SIG: N596_02535 N596_04115
+            SIP: N597_05960
+            SPAT: A0O21_06005
+            STRA: ATM98_02550 ATM98_03780
+            STRN: SNAG_0102(bltD)
+            SSOB: DK181_04390
+            LPL: lp_1820
+            LPT: zj316_1808 zj316_1809
+            LPS: LPST_C1462
+            LPR: LBP_cg1416
+            LPZ: Lp16_1409
+            LPB: SH83_07575
+            LJO: LJ_0662 LJ_1226
+            LJF: FI9785_1570(paiA) FI9785_956
+            LJH: LJP_0938 LJP_1546c
+            LJN: T285_04630 T285_07895
+            LAC: LBA1664
+            LAI: LAC30SC_09015
+            LAD: LA14_1665
+            LAF: SD55_1667
+            LSA: LCA_0240
+            LSL: LSL_0998(wecD)
+            LSI: HN6_00823(wecD)
+            LSJ: LSJ_0998c(wecD)
+            LBU: LBUL_1763
+            LDE: LDBND_1744
+            LDL: LBU_1544
+            LBR: LVIS_1732
+            LBK: LVISKB_1662 LVISKB_P2-0031
+            LGA: LGAS_1044 LGAS_1635
+            LRT: LRI_1946
+            LHL: LBHH_1696
+            LFF: LBFF_1022
+            LCR: LCRIS_01691
+            LAM: LA2_09350
+            LAY: LAB52_08335
+            LBH: Lbuc_0807
+            LBN: LBUCD034_0867(paiA)
+            LKE: WANG_1236
+            LRM: LRC_05590
+            LSN: LSA_00880 LSA_02370 LSA_10710(paiA)
+            LHO: LOOC260_118290
+            LMU: LBLM1_06230
+            LGN: ABM34_01085
+            LKO: ABN16_09625
+            LHI: JP39_03975 JP39_12105
+            LKU: APS55_02650
+            LGL: AO203_04440
+            LPX: ASU28_07575
+            LOR: AYI71_10130 AYI71_14195
+            LPAR: FAM21731_00089
+            LLE: AYR59_01055 AYR59_01875 AYR59_03970
+            LPD: AYR62_08920
+            LJE: BUE77_02610
+            LCU: PL11_000275
+            LCT: BI355_1403
+            LCV: FBA2_01415
+            LAH: LA20533_00240
+            LAGL: BEN83_08190
+            LZY: LZ3411_1055
+            LPG: BB562_08385
+            LCY: LC20004_11190
+            LACA: LAC1533_0326 LAC1533_2136
+            LALW: BTM29_09300
+            LALI: LA20249_01110
+            PPE: PEPE_1677
+            PPEN: T256_08255
+            PDM: ADU72_0937
+            PACI: A4V11_05865
+            PIO: PI20285_08820
+            EFA: EF1086 EF3001
+            EFL: EF62_0085 EF62_1538 EF62_1968
+            EFI: OG1RF_10865(bltD) OG1RF_11308 OG1RF_12281
+            EFD: EFD32_0895 EFD32_1331 EFD32_2579
+            EFS: EFS1_0911 EFS1_1345(paiA-1) EFS1_2434(paiA-2)
+            EFN: DENG_01221(speG) DENG_01759 DENG_02889
+            EFQ: DR75_161(bltD) DR75_1729(paiA) DR75_591(paiA)
+            ENE: ENT_04860 ENT_27460
+            EFC: EFAU004_00301 EFAU004_00362 EFAU004_00868
+            EFAU: EFAU085_00298
+            EFU: HMPREF0351_10301 HMPREF0351_10371 HMPREF0351_11918
+            EFM: M7W_149 M7W_540
+            EFT: M395_01690
+            EHR: EHR_06230
+            ECAS: ECBG_00633 ECBG_02727
+            EMU: EMQU_0333
+            EDU: LIU_13320
+            EGA: AL523_00700 AL523_15320
+            ESS: ATZ33_00850 ATZ33_10530
+            ETH: CK496_01480 CK496_02725
+            EGV: EGCR1_14860 EGCR1_18075
+            THL: TEH_05620
+            TOO: C7K38_06445
+            TKR: C7K43_06980
+            VTE: BHY08_07240
+            OOE: OEOE_0717
+            OEN: DSM07_02370 DSM07_05880
+            LME: LEUM_0565
+            LMM: MI1_02535
+            LMK: LMES_0494
+            LCI: LCK_01325
+            LKI: LKI_00480 LKI_07910
+            LEC: LGMK_02195 LGMK_04230
+            LCN: C270_02020 C270_03995
+            LGS: LEGAS_0548(speG)
+            LGE: C269_02700
+            LLF: BCR17_05880
+            LGC: A9176_04395 A9176_08525
+            LSU: A6B45_02745
+            WKO: WKK_01060 WKK_05035
+            WCE: WS08_0438
+            WCT: WS74_0439
+            WCI: WS105_0436
+            WCB: AO080_07520
+            WJO: FOL01_1986
+            AUI: APT62_03970
+            ASAN: AWM72_01620
+            AVS: AWM76_06355
+            AUH: AWM75_08495
+            CRN: CAR_c22730(paiA)
+            CML: BN424_1550(bltD) BN424_1649(paiA) BN424_1934(bltD)
+            CAW: Q783_10315
+            CARC: NY10_1592 NY10_2033
+            CDJ: BFC22_02500
+            MARR: BKP56_09430 BKP56_11785 BKP56_11855
+            JEP: BW721_01690 BW721_11325 BW721_11495
+            JEH: EJN90_00680 EJN90_02685 EJN90_03035
+            CBO: CBO1174
+            CBA: CLB_1205
+            CBH: CLC_1217
+            CBY: CLM_1325
+            CBL: CLK_0609 CLK_1390(bltD)
+            CBK: CLL_A2145 CLL_A2178
+            CBB: CLD_2691(bltD) CLD_3395
+            CBI: CLJ_B1215 CLJ_B2137
+            CBT: CLH_1426 CLH_2376
+            CBF: CLI_1256 CLI_1999(bltD)
+            CBM: CBF_1229 CBF_1982(bltD)
+            CBJ: H04402_01953
+            CBE: Cbei_3907
+            CBZ: Cbs_3907
+            CCB: Clocel_1049 Clocel_2516
+            CSR: Cspa_c34840
+            CPAS: Clopa_3203
+            CSB: CLSA_c29190(paiA)
+            CBV: U729_2398(bltD)
+            CLD: CLSPO_c11740 CLSPO_c19310(bltD)
+            CCK: Ccar_12430
+            CARG: RSJ17_06470 RSJ17_06815 RSJ17_09855 RSJ17_09865 RSJ17_18685
+            ASO: SFBmNL_00795
+            RUK: A4V00_12135
+            FPLA: A4U99_00330 A4U99_13150 A4U99_17655
+            RAL: Rumal_1851
+            BPB: bpr_I2228
+            BFI: CIY_09640 CIY_09660
+            CLE: Clole_3801
+            BYL: A4V09_17535
+            CPY: Cphy_2218 Cphy_3809
+            CSO: CLS_14210
+            CBOL: CGC65_18015
+            ERT: EUR_21790
+            LBW: C3V36_12320
+            CDF: CD630_12120(bltD)
+            PDC: CDIF630_01361(bltD)
+            CDC: CD196_1072(bltD)
+            CDL: CDR20291_1050(bltD)
+            PDF: CD630DERM_12120(bltD)
+            PBQ: C3V37_02900
+            DSY: DSY1265
+            DHD: Dhaf_2363
+            DOR: Desor_2173
+            ELM: ELI_1893
+            IBU: IB211_00430c
+            HALS: D7D81_10015 D7D81_10090
+            TUR: AT726_05780
+            FRO: AALO17_05570
+            ERB: A4V01_16050
+            ABRA: BN85314880
+            APAL: BN85409030
+            TBM: BK010_06240
+            TBZ: BK011_02675 BK011_05865
+            CDO: CDOO_03940
+            NFA: NFA_22170 NFA_27360
+            NFR: ERS450000_01362(speG_2) ERS450000_01880(bltD)
+            NBR: O3I_035055
+            GOQ: ACH46_07770
+            GOC: CXX93_15000
+            GIT: C6V83_08365
+            TPR: Tpau_1458
+            TSM: ASU32_08265
+            SRT: Srot_0635
+            SCO: SCO4279(SCD95A.12c)
+            SALB: XNR_2505
+            SGR: SGR_4326
+            SGB: WQO_06270 WQO_13870
+            SCB: SCAB_38251 SCAB_66191
+            SFA: Sfla_3730 Sfla_4019
+            SHY: SHJG_6419
+            SHO: SHJGH_6180
+            SVE: SVEN_3961
+            SDV: BN159_4873
+            SALS: SLNWT_2273
+            STRP: F750_2704 F750_3003
+            SFI: SFUL_1220 SFUL_2807
+            SLV: SLIV_17000
+            SGU: SGLAU_15485
+            SVT: SVTN_20690
+            SLC: SL103_03300
+            STRM: M444_36585
+            SAMB: SAM23877_3428
+            SPRI: SPRI_2762
+            SCZ: ABE83_22030 ABE83_29560
+            SCX: AS200_25375
+            SLE: sle_38990(sle_38990)
+            SPAV: Spa2297_14880
+            STRT: A8713_13950
+            SCLF: BB341_28370
+            STSI: A4E84_18115
+            STRD: NI25_21720
+            SNW: BBN63_24715
+            SVU: B1H20_05450 B1H20_13200
+            SPUN: BFF78_23330 BFF78_37805
+            SLAU: SLA_3442 SLA_4068
+            SALF: SMD44_08858
+            SLX: SLAV_40320
+            STRO: STRMOE7_16650
+            KSK: KSE_10810
+            KAB: B7C62_05155 B7C62_12935
+            KAU: B6264_15300
+            KIT: CFP65_3328
+            CMS: CMS0600
+            CMC: CMN_02493
+            CMH: VO01_13040
+            CCAP: AES38_12240
+            MTS: MTES_0688(speG)
+            MIM: AKG07_17345
+            MIO: AOA12_04405
+            MIX: AB663_001691
+            MIP: AXH82_11040
+            MCW: A8L33_06915
+            MPAL: BO218_14515
+            MIH: BJP65_05265
+            MICR: BMW26_04555
+            MAUR: BOH66_13430
+            MHOS: CXR34_14505
+            MFOL: DXT68_04685
+            RTX: TI83_03100
+            RTC: APU90_03370
+            RTN: A6122_0690
+            CUM: NI26_14550
+            CUB: BJK06_09935
+            MVD: AWU67_01470
+            FRP: AX769_06425
+            AGY: ATC03_05905
+            AGM: DCE93_11085
+            CART: PA27867_2866
+            CRY: B7495_13885
+            CPHY: B5808_05110
+            AMIN: AUMI_115620
+            AUM: AURMO_01506
+            AUW: AURUGA1_01432
+            PSAI: C3B54_11372
+            MALK: MalAC0309_0576
+            MYL: C3E77_11155
+            SALC: C2138_01250
+            SALA: ESZ53_06735
+            HUM: DVJ78_15775
+            GRY: D7I44_04775
+            PLAP: EAO79_09715
+            RDN: HMPREF0733_11756
+            RAJ: RA11412_2209
+            LMOI: VV02_23210
+            SKE: Sked_10380
+            NAL: B005_4260
+            SRO: Sros_0218
+            NOA: BKM31_41710
+            MMAR: MODMU_3427
+            AMD: AMED_2171(speG)
+            AMN: RAM_11060
+            AMM: AMES_2150(speG)
+            AMZ: B737_2151(speG)
+            AJA: AJAP_07855
+            AMYC: CU254_08915 CU254_08920
+            PSEA: WY02_23280
+            PSEE: FRP1_19440
+            PSEH: XF36_04695
+            PSEQ: AD006_26860
+            PECQ: AD017_06455
+            PHH: AFB00_19305
+            SESP: BN6_25030
+            KPHY: AOZ06_21280
+            LED: BBK82_27795
+            ACTI: UA75_14230
+            ACAD: UA74_14145
+            AHG: AHOG_13310
+            PMAD: BAY61_28730
+            MAU: Micau_1486
+            MIL: ML5_1748
+            MICB: MicB006_1515
+            MTUA: CSH63_16820
+            VMA: VAB18032_21875
+            AMS: AMIS_49730
+            ACTN: L083_1842
+            AFS: AFR_02185 AFR_09060
+            PLAB: C6361_30415
+            PLAT: C6W10_32745 C6W10_35685
+            CAI: Caci_7897
+            ACTT: DDD63_01780
+            FSL: EJO69_11075
+            BLA: BLA_1350
+            BLC: Balac_0830
+            BLT: Balat_0830
+            BBB: BIF_00376
+            BBC: BLC1_0793
+            BNM: BALAC2494_00293
+            BLV: BalV_0800
+            BLW: W7Y_0832
+            BLS: W91_0852
+            BANI: Bl12_0776
+            BANL: BLAC_04245
+            BNI: BANAN_04095
+            BANM: EN10_04205
+            BAST: BAST_0543
+            BPSP: AH67_04480
+            BACT: AB656_06225
+            BCHO: BcFMB_07240
+            SIJ: SCIP_0478
+            RRD: RradSPS_2327
+            AYM: YM304_35880
+            OLO: ADJ70_00850
+            CGC: Cyagr_2829
+            CYI: CBM981_0374(speG)
+            CMP: Cha6605_2231 Cha6605_2434 Cha6605_3688
+            LBO: LBWT_X1420
+            CYH: Cyan8802_4648
+            CALT: Cal6303_0334 Cal6303_2333
+            RIV: Riv7116_1126
+            PLP: Ple7327_2823
+            HAU: Haur_2347 Haur_4354
+            ABAO: BEQ56_05440
+            PBF: CFX0092_A3263
+            DFC: DFI_14410
+            OBG: Verru16b_02227(paiA)
+            GES: VT84_16560(paiA)
+            SACI: Sinac_6570
+            TDE: TDE0542 TDE0808
+            TPED: TPE_0296 TPE_1315
+            TPK: JO40_02975 JO40_03255 JO40_09330 JO40_09430
+            TRM: JO41_12430
+            SLR: L21SP2_2999
+            ABAC: LuPra_05039(paiA)
+            EMI: Emin_0862
+            FNU: FN1057
+            FVA: FV113G1_00310
+            FUL: C4N20_06050
+            LEO: AMK43_00915
+            STR: Sterm_3731
+            GAU: GAU_3733
+            GPH: GEMMAAP_18115
+            GBA: J421_1509 J421_4771
+            BTH: BT_1079
+            BTHO: Btheta7330_02694(speG)
+            BFR: BF2055
+            BFS: BF9343_2022
+            BFG: BF638R_2178
+            BFB: VU15_08905
+            BVU: BVU_2973
+            BHL: Bache_2540
+            BSA: Bacsa_1028
+            BXY: BXY_06990
+            BDO: EL88_07920
+            BDH: GV66_15810
+            BOA: Bovatus_00538(speG)
+            BCEL: BcellWH2_00451(speG)
+            BCAC: CGC64_11765
+            BCAE: A4V03_07385
+            BZG: C4H11_02545
+            BHF: C3V43_03715
+            PGI: PG_1254
+            PGN: PGN_1389
+            PGT: PGTDC60_1226
+            PCRE: NCTC12858_01476
+            PBT: ING2E5B_0313
+            PMUC: ING2E5A_2524(p20)
+            PET: PEIBARAKI_6493
+            PPN: Palpr_1077
+            PDI: BDI_1432
+            PARC: CI960_11375
+            TFO: BFO_2131
+            TOH: BCB71_06420
+            PARY: A4V02_06600
+            BVS: BARVI_05530
+            PSAC: PSM36_0618
+            OSP: Odosp_1805
+            BUY: D8S85_07380
+            PRU: PRU_0894(speG)
+            PMZ: HMPREF0659_A7395
+            PDN: HMPREF9137_0965
+            PIT: PIN17_A1535
+            PDT: Prede_0637
+            PRO: HMPREF0669_00405
+            PFUS: ADJ77_11295
+            PEO: AS203_02960
+            PJE: CRM71_13695
+            AFD: Alfi_2556
+            ASH: AL1_08060
+            RBC: BN938_2852
+            DORI: FH5T_01960 FH5T_17175 FH5T_21750
+            BLQ: L21SP5_01207(speG)
+            ASX: CDL62_03060
+            MBAS: ALGA_1026
+            SRU: SRU_2319
+            NKO: Niako_1585 Niako_4238
+            NSO: NIASO_15880
+            FLA: SY85_05895 SY85_18015 SY85_19460
+            FLN: FLA_2014
+            PSEG: D3H65_07515 D3H65_28830
+            PCM: AY601_1045
+            PSTY: BFS30_20995
+            PGS: CPT03_04630
+            SPHN: BV902_22275
+            SMIZ: 4412673_02004(paiA)
+            SCN: Solca_2927
+            MUP: A0256_17780
+            MUC: MuYL_3030
+            MGOT: MgSA37_00479(paiA_1) MgSA37_02857(paiA_2)
+            MUH: HYN43_011530
+            SBX: CA265_04585
+            CMR: Cycma_0394
+            EVI: Echvi_0822
+            ALM: AO498_09785 AO498_14570
+            SLI: Slin_0363
+            SRD: SD10_05315
+            SMON: AWR27_01500 AWR27_03895 AWR27_10295 AWR27_11345
+            SPIR: CWM47_12450
+            RSI: Runsl_5317
+            RUN: DR864_01835 DR864_06925
+            RUP: DTQ70_07510 DTQ70_15980
+            EOL: Emtol_1648 Emtol_1817
+            FAE: FAES_4085
+            FIB: A6C57_24240 A6C57_25070
+            ALS: DJ013_11830
+            HSW: Hsw_2586 Hsw_3553 Hsw_3647
+            HYM: N008_11120 N008_11605
+            HYD: PK28_15395 PK28_15840 PK28_18160
+            HYE: AM218_00650 AM218_01080
+            HYG: AUC43_05685 AUC43_08215
+            HYP: A0257_10000 A0257_10925
+            HYZ: AXW84_17665 AXW84_18365
+            HNV: DDQ68_12510 DDQ68_13305
+            HYH: D3Y59_15925 D3Y59_16360
+            PKO: PKOR_08225 PKOR_08675 PKOR_10230 PKOR_12525
+            PACT: CA264_02185 CA264_10450 CA264_19555
+            RUF: TH63_00835 TH63_01310
+            RTI: DC20_11330 DC20_11800
+            RUD: TH61_09310 TH61_09810
+            FBT: D770_14660
+            CHER: DK880_00844
+            CHK: D4L85_05885 D4L85_24570
+            GFO: GFO_0625 GFO_2080
+            GRL: LPB144_00460
+            GFL: GRFL_0445
+            GRS: C7S20_00620
+            FJO: Fjoh_0017 Fjoh_3300
+            FJG: BB050_02497(speG) BB050_04110(paiA_1)
+            FPS: FP1214
+            FPC: FPSM_02124
+            FPY: FPG101_10645
+            FPO: FPG3_03415
+            FPQ: IB65_05695
+            FPV: IA03_05800
+            FPW: IA04_05705
+            FPK: IA06_05740
+            FPSZ: AMR72_05975 AMR72_06060
+            FBR: FBFL15_0403 FBFL15_2906
+            FCO: FCOL_04730
+            FIN: KQS_03585
+            FGL: EM308_08160
+            FCM: BIW12_11065
+            FFA: FFWV33_00050
+            FAT: DVK85_00500
+            FKI: FK004_00040
+            COC: Coch_0431 Coch_1615
+            CCM: Ccan_11740
+            COL: AM608_00475 AM608_05670
+            CHG: AXF12_05590
+            CAPN: CBG49_11935 CBG49_14215
+            CGH: CGC50_02845
+            CLK: CGC53_02530
+            CSPU: CGC55_13270
+            CCYN: CGC48_02640
+            CAPH: CGC49_09105
+            CSTO: CGC58_10210
+            RBI: RB2501_06405 RB2501_16124
+            ZPR: ZPR_3595
+            CAT: CA2559_12768
+            RAN: Riean_1382
+            RAI: RA0C_1660
+            RAR: RIA_0829
+            RAG: B739_0494
+            RAE: G148_0175
+            RAT: M949_0944
+            FBC: FB2170_05445 FB2170_13503
+            MARM: YQ22_00030 YQ22_08700 YQ22_13265
+            MART: BTR34_00030 BTR34_08845 BTR34_13215
+            MARB: CJ263_02175 CJ263_07765 CJ263_17970
+            CAO: Celal_0006
+            CLY: Celly_0006
+            CLH: IX49_16735
+            CBAL: M667_00755 M667_17795
+            CBAT: M666_00730 M666_04885 M666_17800
+            KDI: Krodi_0183 Krodi_2189
+            DOK: MED134_03329 MED134_11015 MED134_12016
+            DDO: I597_0975(paiA_1) I597_1177(paiA_2) I597_2523(speG)
+            DOD: DCS32_00755 DCS32_04495 DCS32_11325
+            LAN: Lacal_0008
+            LVN: BWR22_10210
+            LACI: CW733_06995 CW733_07275 CW733_11690
+            ZGA: ZOBELLIA_6
+            MRS: Murru_0006 Murru_1420
+            MLT: VC82_1433 VC82_7
+            ASL: Aeqsu_2371
+            AEV: EI546_02605
+            PTQ: P700755_000032 P700755_000343 P700755_001869
+            NDO: DDD_2581
+            NOM: AAT17_00200
+            NSD: BST91_05865
+            NOB: CW736_11115 CW736_11260
+            POM: MED152_08730 MED152_13024 MED152_13429
+            POB: LPB03_00035 LPB03_05730 LPB03_10840
+            PRN: BW723_05120 BW723_16710 BW723_17110 BW723_17500
+            POLA: BXQ17_05655 BXQ17_05910 BXQ17_10880
+            POA: CW731_00035 CW731_06980 CW731_10935
+            EMG: BBD33_13515
+            MYR: MYRA21_2284 MYRA21_2502
+            MPW: MPR_1031 MPR_1222 MPR_1277
+            MOD: AS202_11155 AS202_12215 AS202_12430
+            MYZ: BK054_10755 BK054_11765 BK054_11980
+            CHZ: CHSO_0147 CHSO_2581 CHSO_3326
+            CGN: OK18_09780 OK18_17255
+            CIH: ATE47_07325
+            CHH: A0O34_19310
+            CIO: CEQ15_06480
+            CHRY: CEY12_03360
+            CPIP: CJF12_04445
+            CHRS: EAG08_00975 EAG08_20830
+            CARH: EGY05_09185
+            WIN: WPG_0008 WPG_2509
+            WIJ: BWZ20_03765
+            SZE: AW14_11620 AW14_13950
+            AHZ: APS56_16275
+            SYI: SB49_05475 SB49_11655
+            TDI: AUW17_07895
+            TEN: LPB136_01475 LPB136_01770 LPB136_10705
+            TJE: TJEJU_1652 TJEJU_1816 TJEJU_4160
+            TMAR: MARIT_0950 MARIT_1885
+            LUT: Lupro_00030
+            LUL: LPB138_00030 LPB138_00885
+            WFU: AXE80_07535
+            FOR: FORMB_04110
+            SALT: AO058_16570 AO058_17865
+            SEON: BWZ22_00150
+            AALG: AREALGSMS7_00239 AREALGSMS7_01471 AREALGSMS7_04000 AREALGSMS7_04679
+            OLL: CW732_10205 CW732_10575 CW732_18735
+            OAQ: DZC78_00335 DZC78_04260 DZC78_15775
+            FEK: C1H87_00910 C1H87_02130 C1H87_03620 C1H87_07670
+            TAJ: C1A40_00030
+            AUE: C5O00_10310
+            SPON: HME9304_00006(speG) HME9304_00437 HME9304_00559 HME9304_01612
+            KOS: KORDIASMS9_01593(paiA) KORDIASMS9_02741(paiA) KORDIASMS9_03165(speG)
+            MARF: CJ739_9
+            AQB: D1818_00865 D1818_01600 D1818_03140 D1818_04575 D1818_08075
+            AQA: D1815_01375 D1815_01980 D1815_02315 D1815_03020 D1815_05955
+            AQD: D1816_05470 D1816_05830 D1816_06740 D1816_09835 D1816_25090
+            EMAR: D1013_01485 D1013_11010 D1013_16945
+            CNR: EB819_02485
+            MUR: EQY75_07525 EQY75_09150 EQY75_13480
+            FBA: FIC_00738
+            FBU: UJ101_00268 UJ101_02675
+            FTE: Fluta_3409
+            FLU: CHH17_08640
+            OHO: Oweho_1012
+            ISE: JBKA6_0499
+            BBAU: AEM51_12645
+            IAL: IALB_2100
+            TAF: THA_1371
+            MPG: Theba_0916
+            MINF: MESINF_2628
+            LFC: LFE_1596
+            BIH: BIP78_0068
+            TAC: Ta0374
+            PTO: PTO0833
+            CDIV: CPM_0662
+            MER: MMINT_12240
+            PYC: TQ32_08070
+            MFO: Metfor_1640
+            LOKI: Lokiarch_14760(bltD)
+DBLINKS     ExplorEnz - The Enzyme Database: 2.3.1.57
+            IUBMB Enzyme Nomenclature: 2.3.1.57
+            ExPASy - ENZYME nomenclature database: 2.3.1.57
+            BRENDA, the Enzyme Database: 2.3.1.57
+            CAS: 54596-36-0
+///

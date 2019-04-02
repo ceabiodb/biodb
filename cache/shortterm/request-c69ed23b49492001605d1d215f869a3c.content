@@ -1,0 +1,83 @@
+ENTRY       268782            CDS       T01002
+NAME        Agxt2, AI303810, AI663818
+DEFINITION  (RefSeq) alanine-glyoxylate aminotransferase 2
+ORTHOLOGY   K00827  alanine-glyoxylate transaminase / (R)-3-amino-2-methylpropionate-pyruvate transaminase [EC:2.6.1.44 2.6.1.40]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00250  Alanine, aspartate and glutamate metabolism
+            mmu00260  Glycine, serine and threonine metabolism
+            mmu00270  Cysteine and methionine metabolism
+            mmu00280  Valine, leucine and isoleucine degradation
+            mmu01100  Metabolic pathways
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00250 Alanine, aspartate and glutamate metabolism
+                268782 (Agxt2)
+               00260 Glycine, serine and threonine metabolism
+                268782 (Agxt2)
+               00270 Cysteine and methionine metabolism
+                268782 (Agxt2)
+               00280 Valine, leucine and isoleucine degradation
+                268782 (Agxt2)
+             09180 Brite Hierarchies
+              09181 Protein families: metabolism
+               01007 Amino acid related enzymes [BR:mmu01007]
+                268782 (Agxt2)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.6  Transferring nitrogenous groups
+               2.6.1  Transaminases
+                2.6.1.40  (R)-3-amino-2-methylpropionate---pyruvate transaminase
+                 268782 (Agxt2)
+                2.6.1.44  alanine---glyoxylate transaminase
+                 268782 (Agxt2)
+            Amino acid related enzymes [BR:mmu01007]
+             Aminotransferase (transaminase)
+              Class III
+               268782 (Agxt2)
+POSITION    15; 15 A1
+MOTIF       Pfam: Aminotran_3
+DBLINKS     NCBI-GeneID: 268782
+            NCBI-ProteinID: NP_001297664
+            MGI: 2146052
+            Ensembl: ENSMUSG00000089678
+            Vega: OTTMUSG00000024223
+            UniProt: Q3UEG6
+AASEQ       513
+            MSLAWRNLQKPFYLETSLRILQMRPSLSLGASRIAVPKLTLHTKHSMPPCDFSPEKYQSL
+            AYSRVLAIHKQHLSPVDTAYFRKPLLLHQGHMEWLFDSEGNRYLDFFSGIVTVSVGHCHP
+            KVSAVAKKQIDRLWHTSSVFFHSPMHEYAEKLSALLPEPLKVIFLVNSGSEANDLAMVMA
+            RAHSNHTDIISFRGAYHGCSPYTLGLTNVGIYKMEVPGGIGCQSTMCPDVFRGPWGGIHC
+            RDSPVQTVRDCSCAPDCCQAKERYIEQFKDTLNTSVATSIAGFFAEPIQGVNGVVQYPKE
+            FLKEAFALVRERGGVCIADEVQTGFGRLGSHFWGFQTHDVLPDIVTMAKGIGNGFPMAAV
+            VTTPEIAKSLAKRLLHFSTFGGNPLACAIGSAVLEVIEEENLQRNSQEVGTYMLLKFAKL
+            RDEFDIVGDVRGKGLMVGIEMVQDKISRQPLPKTEVNQIHEDCKDMGLLVGRGGNFSQTF
+            RIVPPMCVTKMEVDFAYEVFRAALIQHMERRAK
+NTSEQ       1542
+            atgtctctagcctggagaaatttgcagaaacccttttatctggagacttctctcagaata
+            ctccagatgcgtccatccctgagcttaggtgcttcccggatagctgtgcccaagctcact
+            cttcatacaaagcacagcatgccaccgtgtgacttctcacctgagaaataccagtccctg
+            gcctacagccgtgtgctggcgattcacaagcagcatctttctcctgtggatacagcctat
+            ttccggaagcctttgctactccaccagggacacatggagtggctctttgattctgaggga
+            aacagatacctggacttcttctctgggattgtcactgttagtgttggtcactgccacccg
+            aaggtaagtgcagtggcaaaaaaacagatagaccgcctgtggcatacaagttctgtcttc
+            ttccactctccgatgcatgaatatgcagagaagctctcagcactccttcctgagcctctt
+            aaggtcattttcttggtgaacagtggatcagaagccaacgacctggccatggtgatggcc
+            cgagcacactcgaatcacacagacatcatatctttcagaggagcctatcacggatgcagt
+            ccctatacacttggcctgacaaatgtcggaatctacaagatggaagtccctggtgggata
+            ggctgccaatcaacaatgtgcccagatgttttccgtggcccttggggaggaatccattgt
+            cgagattctccagtgcaaacagtgagggactgcagctgtgctccagactgctgccaagct
+            aaagaacggtatatcgaacaattcaaagacacactgaacacttctgtggccacatcaatt
+            gctggattttttgcagagccaattcaaggtgtgaatggtgttgtccagtacccaaaggag
+            tttctgaaggaagcctttgcgttggtccgagagcggggaggtgtgtgcatcgcagatgaa
+            gtgcagacaggctttggcaggctgggctctcacttctggggtttccagacacatgatgta
+            cttcctgacattgtcaccatggctaaagggattggaaatggcttccccatggctgcagtt
+            gtgaccactccagaaattgcgaagtctttggctaaacgtttgcttcacttcagcacattt
+            ggaggaaatcccctggcctgcgccattggatctgctgtgcttgaggtgattgaagaagaa
+            aatctccagagaaacagtcaagaagttggcacctacatgctgctgaagtttgctaagctt
+            cgggacgaatttgatatcgttggggatgtccgaggcaaaggccttatggtggggatagag
+            atggttcaagacaagataagccgacaacctcttcctaaaacagaagtcaatcaaatccat
+            gaggactgcaaagacatggggctcctagtgggtagaggtggtaatttttctcagactttt
+            cgaattgtgcccccgatgtgtgtcacgaagatggaagtagattttgcatatgaagtattt
+            cgagctgccttaattcaacacatggagagaagagctaagtaa
+///

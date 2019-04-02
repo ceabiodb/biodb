@@ -21,8 +21,11 @@ BiodbXmlEntry$methods( initialize = function(...) {
 
 BiodbXmlEntry$methods( .doParseContent = function(content) {
 
+	xml = NULL
+
 	# Parse XML
-	xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
+	if ( ! is.null(content) && is.character(content) && length(content) == 1 && ! is.na(content))
+		xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
 
 	return(xml)
 })

@@ -1,0 +1,30 @@
+ENTRY       C08497                      Compound
+NAME        (E)-2-Hexenal;
+            trans-2-Hexenal;
+            Leaf aldehyde
+FORMULA     C6H10O
+EXACT_MASS  98.0732
+MOL_WEIGHT  98.143
+DBLINKS     CAS: 6728-26-3
+            PubChem: 10690
+            ChEBI: 28913
+            ChEMBL: CHEMBL2228570
+            LipidBank: DLD0002
+            KNApSAcK: C00000351 C00035480
+            NIKKAJI: J36.838E
+ATOM        7
+            1   C2b C    28.0000  -19.2025
+            2   C1b C    26.7842  -19.9040
+            3   C2b C    29.2158  -19.8923
+            4   C1b C    25.5681  -19.2084
+            5   C4a C    30.4319  -19.1967
+            6   C1a C    24.3523  -19.9099
+            7   O4a O    31.6420  -19.8865
+BOND        6
+            1     1   2 1
+            2     1   3 2
+            3     2   4 1
+            4     3   5 1
+            5     4   6 1
+            6     5   7 2
+///

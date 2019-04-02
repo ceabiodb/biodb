@@ -1,0 +1,44 @@
+ENTRY       C07090                      Compound
+NAME        Protoanemonin;
+            4-Methylenebut-2-en-4-olide;
+            cis-4-Methylenebut-2-en-4-olide
+FORMULA     C5H4O2
+EXACT_MASS  96.0211
+MOL_WEIGHT  96.0841
+REACTION    R05390 R05510
+PATHWAY     map00361  Chlorocyclohexane and chlorobenzene degradation
+            map01120  Microbial metabolism in diverse environments
+ENZYME      3.1.1.45        5.5.1.1
+BRITE       Phytochemical compounds [BR:br08003]
+             Others
+              Others
+               Others
+                C07090  Protoanemonin
+            Natural toxins [BR:br08009]
+             Phytotoxins
+              Others
+               Others
+                C07090  Protoanemonin
+DBLINKS     CAS: 108-28-1
+            PubChem: 9301
+            ChEBI: 28906
+            KNApSAcK: C00000301
+            3DMET: B01062
+            NIKKAJI: J10.112E
+ATOM        7
+            1   C2y C    27.7068  -16.7298
+            2   O7x O    28.8400  -15.9062
+            3   C2x C    28.1391  -18.0614
+            4   C2a C    26.3752  -16.3034
+            5   C7x C    29.9732  -16.7298
+            6   C2x C    29.5409  -18.0614
+            7   O6a O    31.3048  -16.3034
+BOND        7
+            1     1   2 1
+            2     1   3 1
+            3     1   4 2
+            4     2   5 1
+            5     3   6 2
+            6     5   7 2
+            7     5   6 1
+///

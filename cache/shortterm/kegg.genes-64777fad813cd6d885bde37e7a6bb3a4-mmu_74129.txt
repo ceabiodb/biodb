@@ -1,0 +1,88 @@
+ENTRY       74129             CDS       T01002
+NAME        Dmgdh, 1200014D15Rik, AI787269
+DEFINITION  (RefSeq) dimethylglycine dehydrogenase precursor
+ORTHOLOGY   K00315  dimethylglycine dehydrogenase [EC:1.5.8.4]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00260  Glycine, serine and threonine metabolism
+            mmu01100  Metabolic pathways
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00260 Glycine, serine and threonine metabolism
+                74129 (Dmgdh)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.5  Acting on the CH-NH group of donors
+               1.5.8  With a flavin or flavoprotein as acceptor
+                1.5.8.4  dimethylglycine dehydrogenase
+                 74129 (Dmgdh)
+POSITION    13; 13 C3
+MOTIF       Pfam: GCV_T DAO GCV_T_C FAO_M SoxG Pyr_redox_3 FAD_binding_2 NAD_binding_8 Pyr_redox_2 NAD_binding_9 FAD_binding_3 Thi4 ApbA Pyr_redox NAD_binding_7 Lycopene_cycl
+DBLINKS     NCBI-GeneID: 74129
+            NCBI-ProteinID: NP_083048
+            MGI: 1921379
+            Ensembl: ENSMUSG00000042102
+            Vega: OTTMUSG00000024424
+            UniProt: Q9DBT9
+AASEQ       869
+            MLRPGALRLRGLALRGSPRRPSSAGLREGQESPASPPEWKDRAETVIIGGGCVGVSLAYH
+            LAKAGMRDVVLMEKSELTAGSTWHAAGLTTYFHPGINLKKIHYDSIKLYERLEEETGQVV
+            GFHQPGSIRLATTPVRVDEFKYQMTRTNWHATEQYIIEPEKIHELFPLLNMNKILAGLYN
+            PGDGHIDPYSLTMALAAGARKYGALLKYPAPVTSLKPRPDGTWDVETPQGSVRANRIVNA
+            AGFWAREVGKMIGLDHPLIPVQHQYVVTSTIPEVKALKRELPVLRDLEGSYYLRQERDGL
+            LFGPYESQEKMKLQASWVTHGVPPGFGKELFESDLDRISDHLEAAMEMIPVLKKADIINV
+            VNGPITYSPDILPMVGPHQGVRNYWVATGFGYGIIHAGGVGKFLSDWILHGEPPFDLIEL
+            DPNRYGKWTTTQYTEAKARESYGFNNIVGYPKEERFAGRPTQRVSGLYKTLKSKCSMGFH
+            AGWEQPHWFYKPGQDTQYRPSFRRTNWFEPVGSEYKQVMQRVGVIDLSPFGKFNIKGRDS
+            TQLLDHLFANVIPKVGFTNISHMLTPRGRVYAELTVSQQSPGEFLLITGSGSELHDLRWI
+            EEAAFRGGYDVEIQNITDEFGVLGVAGPYARRVLQKLTSEDLSDDAFKFLQTKSFNISDI
+            PVTAIRISYTGELGWELYHRREDSATLYERIMSAGQEEGIGDFGTYALNALRLEKAFRAW
+            GSEMNCDTNPLEAGLEYFVKLNKPADFIGKQALKQIKTEGLKRRLVCLTVATDDVDPEGN
+            ESIWYKGKVVGNTTSGSYSYSIQKSLAFAYVPVQLSEVGQQVEVELLGKNYPATIIQEPL
+            VLTEPARARLQKDGKKTNLEKGPSRTTKL
+NTSEQ       2610
+            atgctccgcccgggcgcgctgcggctgcggggcctcgcgctgcggggctcccccaggcgc
+            ccaagctccgctggcctccgggaaggacaggaaagcccagcctcacccccagaatggaag
+            gacagagcagagactgtgatcattggaggcggctgtgtgggcgtgagcctggcttatcat
+            ctggccaaggctgggatgagagatgtggtcctgatggagaagtcggagctcaccgctggc
+            tctacctggcacgcagcaggtttaacaacttactttcaccccgggataaacttgaagaaa
+            atacattatgacagcatcaaactttacgagaggctggaagaagaaaccggacaggtggtg
+            ggattccatcaaccaggtagtatcaggcttgctacaactcctgtaagggtggacgaattt
+            aaataccaaatgacgcgaaccaactggcacgccacggaacagtatattattgagcctgaa
+            aaaatccacgagctgttccctttactcaacatgaacaagattttagccggactgtataac
+            ccaggagatggccacattgatccttattctctgacgatggccctggctgctggtgctagg
+            aaatatggggcccttctaaagtatccagcaccagtgacatctctgaagcccaggccagat
+            gggacatgggatgtggagactccacaaggatctgtgagagcaaataggattgtgaatgct
+            gcaggattttgggctcgtgaagtgggtaaaatgattggactagaccaccccctcatcccc
+            gtccaacatcaatatgtcgtcacatcaacaatcccagaagtgaaggctttgaaacgagag
+            ctccccgtcctccgcgacctggaaggatcctactacctccgacaggaaagggatgggctt
+            ttgtttggtccctatgaaagtcaggagaagatgaaactccaagcctcctgggtcactcac
+            ggagtccctccaggctttggaaaggagctttttgagtctgatttagatcgaatctcagac
+            cacctggaagctgccatggagatgattcctgtcttgaagaaggcggacatcatcaatgtc
+            gtcaatggccctatcacctactctcccgacattctgcctatggtggggccccatcagggg
+            gtcagaaactactgggtggcgactggctttggatacggcataatccatgctggtggggta
+            ggcaagttcctcagtgactggatcctgcatggagaacctccttttgacctgatagaactg
+            gatcccaatcgctacggcaaatggacgacgacacagtacaccgaggccaaagcccgagaa
+            tcatatgggttcaacaacattgttggttatcctaaagaagagcggtttgctgggaggcca
+            acccagagagtcagtggactttacaaaaccctgaagtccaagtgttccatgggcttccat
+            gcaggctgggaacagccacattggttctataagcctggccaggacactcagtataggcca
+            agtttccgccgcacaaactggtttgagccggtgggctctgagtacaaacaggttatgcaa
+            agagttggtgtgattgacctgtctccatttggcaagttcaacatcaaaggccgagattct
+            acccaacttctggaccatctctttgctaatgtcattcccaaggtgggttttacaaacata
+            agtcacatgttgacgcccagaggtcgggtgtatgctgagctgactgtttcccagcagtct
+            cctggggagttcctgttgatcactggctccgggtcggagcttcacgaccttagatggatt
+            gaagaagcagccttcagaggtggatatgatgtggaaattcaaaacataaccgatgagttt
+            ggggtcctgggagttgcagggccatatgcaagaagagtccttcagaagctgacctcagaa
+            gatctcagcgatgatgcattcaagtttcttcaaaccaaatcttttaacatctcagacatt
+            ccagtcactgctatcagaatctcctatactggtgagctgggctgggagctgtaccacaga
+            cgagaagattctgcgacgctttatgagcgcatcatgagtgccggccaggaggagggcatc
+            ggcgactttggaacttacgccctgaacgctttgagactggagaaggctttccgagcctgg
+            ggctccgagatgaactgtgacacaaaccccttggaagctgggctggaatatttcgtgaag
+            ctgaataagcccgctgacttcatagggaagcaggccctgaagcagattaaaaccgagggg
+            ctaaagcggagactggtctgcctcaccgtggcaacggacgatgtggatccagagggaaat
+            gaaagcatttggtacaagggcaaggtggttggcaacacaacatctggaagctacagttac
+            agcattcagaagagcctggcttttgcttatgtcccagtccagctcagtgaagtgggacag
+            caagtggaggttgaactactgggtaaaaattacccagccaccattatacaagaacccctg
+            gtactcacggagcctgcccgagccaggcttcagaaagacggtaaaaagacaaatcttgag
+            aaaggcccatcccggacaaccaagttgtag
+///

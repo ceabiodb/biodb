@@ -1,0 +1,58 @@
+ENTRY       C00099                      Compound
+NAME        beta-Alanine;
+            3-Aminopropionic acid;
+            3-Aminopropanoate
+FORMULA     C3H7NO2
+EXACT_MASS  89.0477
+MOL_WEIGHT  89.0932
+REMARK      Same as: D07561
+REACTION    R00489 R00904 R00905 R00906 R00907 R00908 R00909 R00910 
+            R00911 R00912 R00913 R00914 R00915 R00916 R00917 R01164 
+            R01166 R02473 R02474 R02741 R03286 R03288 R03935 R09379 
+            R09648 R10821
+PATHWAY     map00240  Pyrimidine metabolism
+            map00410  beta-Alanine metabolism
+            map00640  Propanoate metabolism
+            map00770  Pantothenate and CoA biosynthesis
+            map01100  Metabolic pathways
+            map01110  Biosynthesis of secondary metabolites
+            map04080  Neuroactive ligand-receptor interaction
+            map04974  Protein digestion and absorption
+MODULE      M00046  Pyrimidine degradation, uracil => beta-alanine, thymine => 3-aminoisobutanoate
+            M00119  Pantothenate biosynthesis, valine/L-aspartate => pantothenate
+ENZYME      1.2.1.3         1.2.1.5         1.2.1.19        1.5.1.26        
+            2.6.1.18        2.6.1.19        2.6.1.55        2.8.3.-         
+            3.4.13.4        3.4.13.5        3.4.13.18       3.4.13.20       
+            3.5.1.6         3.5.1.21        3.5.1.22        3.5.1.100       
+            3.5.3.17        4.1.1.11        4.1.1.15        6.3.2.1         
+            6.3.2.11        6.3.2.23        6.3.2.36        6.3.2.44
+BRITE       Compounds with biological roles [BR:br08001]
+             Peptides
+              Amino acids
+               Other amino acids
+                C00099  beta-Alanine
+              Amines
+               Biogenic amines
+                C00099  beta-Alanine
+DBLINKS     CAS: 107-95-9
+            PubChem: 3399
+            ChEBI: 16958
+            ChEMBL: CHEMBL297569
+            KNApSAcK: C00001333
+            PDB-CCD: BAL
+            3DMET: B00025
+            NIKKAJI: J4.070C
+ATOM        6
+            1   C1b C    25.6778  -16.8919
+            2   C6a C    24.4732  -16.1936
+            3   C1b C    26.8940  -16.1936
+            4   O6a O    23.2571  -16.8978
+            5   O6a O    24.4732  -14.7912
+            6   N1a N    28.1045  -16.8919
+BOND        5
+            1     1   2 1
+            2     1   3 1
+            3     2   4 1
+            4     2   5 2
+            5     3   6 1
+///

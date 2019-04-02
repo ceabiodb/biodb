@@ -1,0 +1,414 @@
+ENTRY       EC 2.6.1.96                 Enzyme
+NAME        4-aminobutyrate---pyruvate transaminase;
+            aminobutyrate aminotransferase (ambiguous);
+            gamma-aminobutyrate aminotransaminase (ambiguous);
+            gamma-aminobutyrate transaminase (ambiguous);
+            gamma-aminobutyric acid aminotransferase (ambiguous);
+            gamma-aminobutyric acid pyruvate transaminase;
+            gamma-aminobutyric acid transaminase (ambiguous);
+            gamma-aminobutyric transaminase (ambiguous);
+            4-aminobutyrate aminotransferase (ambiguous);
+            4-aminobutyric acid aminotransferase (ambiguous);
+            aminobutyrate transaminase (ambiguous);
+            GABA aminotransferase (ambiguous);
+            GABA transaminase (ambiguous);
+            GABA transferase;
+            POP2 (gene name)
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     4-aminobutanoate:pyruvate aminotransferase
+REACTION    (1) 4-aminobutanoate + pyruvate = succinate semialdehyde + L-alanine [RN:R10178];
+            (2) 4-aminobutanoate + glyoxylate = succinate semialdehyde + glycine [RN:R10179]
+ALL_REAC    R10178 R10179
+SUBSTRATE   4-aminobutanoate [CPD:C00334];
+            pyruvate [CPD:C00022];
+            glyoxylate [CPD:C00048]
+PRODUCT     succinate semialdehyde [CPD:C00232];
+            L-alanine [CPD:C00041];
+            glycine [CPD:C00037]
+COMMENT     Requires pyridoxal 5'-phosphate. The enzyme is found in plants that do not have the 2-oxoglutarate dependent enzyme (cf. EC 2.6.1.19). The reaction with pyruvate is reversible while the reaction with glyoxylate only takes place in the forward direction.
+HISTORY     EC 2.6.1.96 created 2012
+REFERENCE   1
+  AUTHORS   Van Cauwenberghe, O.R. and Shelp, B.J.
+  TITLE     Biochemical characterization of partially purified gaba:pyruvate transaminase from Nicotiana tabacum.
+  JOURNAL   Phytochemistry 52:575-581 (1999)
+REFERENCE   2  [PMID:12859897]
+  AUTHORS   Palanivelu R, Brass L, Edlund AF, Preuss D
+  TITLE     Pollen tube growth and guidance is regulated by POP2, an Arabidopsis gene that controls GABA levels.
+  JOURNAL   Cell 114:47-59 (2003)
+            DOI:10.1016/S0092-8674(03)00479-3
+  SEQUENCE  [ath:AT3G22200]
+REFERENCE   3  [PMID:19264755]
+  AUTHORS   Clark SM, Di Leo R, Dhanoa PK, Van Cauwenberghe OR, Mullen RT, Shelp BJ
+  TITLE     Biochemical characterization, mitochondrial localization, expression, and potential functions for an Arabidopsis gamma-aminobutyrate transaminase that utilizes both pyruvate and glyoxylate.
+  JOURNAL   J Exp Bot 60:1743-57 (2009)
+            DOI:10.1093/jxb/erp044
+  SEQUENCE  [ath:AT3G22200]
+REFERENCE   4  [PMID:19470656]
+  AUTHORS   Clark SM, Di Leo R, Van Cauwenberghe OR, Mullen RT, Shelp BJ
+  TITLE     Subcellular localization and expression of multiple tomato gamma-aminobutyrate transaminases that utilize both pyruvate and glyoxylate.
+  JOURNAL   J Exp Bot 60:3255-67 (2009)
+            DOI:10.1093/jxb/erp161
+  SEQUENCE  [sly:543873 543874 544258]
+PATHWAY     ec00250  Alanine, aspartate and glutamate metabolism
+            ec00650  Butanoate metabolism
+            ec01100  Metabolic pathways
+            ec01120  Microbial metabolism in diverse environments
+ORTHOLOGY   K16871  4-aminobutyrate---pyruvate transaminase
+GENES       RSS: 109440979
+            AQU: 100637930
+            ATH: AT3G22200(POP2)
+            ALY: ARALYDRAFT_479734
+            CRB: 17893100
+            CSAT: 104746666 104787216 109124790
+            EUS: EUTSA_v10020531mg EUTSA_v10020563mg
+            BRP: 103834779 103869108 103869110 103869111
+            BNA: 106345502 106391515 106391519 106439809 111198460 111202360
+            BOE: 106294543 106314343
+            THJ: 104803008 104803009
+            CPAP: 110821608
+            CIT: 102624895
+            CIC: CICLE_v10011509mg
+            TCC: 18612261
+            GRA: 105779779 105781113 105793534 105803492
+            GHI: 107888213 107898295 107907968 107908328 107912667 107924570 107950690
+            GAB: 108468412 108473906
+            DZI: 111305652 111314578
+            EGR: 104425166
+            GMX: 100792355 100815181
+            PVU: PHAVU_011G024300g
+            VRA: 106756560
+            VAR: 108340828
+            CCAJ: 109798457
+            MTR: MTR_4g076100
+            CAM: 101512659
+            LJA: Lj3g3v3558220.1(Lj3g3v3558220.1) Lj3g3v3569310.1(Lj3g3v3569310.1) Lj3g3v3569310.2(Lj3g3v3569310.2)
+            ADU: 107477267
+            AIP: 107629579
+            LANG: 109325764 109354047 109355542
+            FVE: 101306251 101311407
+            PPER: 18781566
+            PMUM: 103329005
+            PAVI: 110768720
+            MDM: 103429193(GABA-T1) 103441440(GABA-T2)
+            PXB: 103939502 103941119
+            ZJU: 107404602 107404604 107416848 107416854 107416874
+            CSV: 101211530 101219660 101220932
+            CMO: 103493051 103493054 103502504
+            MCHA: 111008130 111008301
+            CMAX: 111477042 111479758 111480372 111483360 111483362 111483363 111483365
+            CMOS: 111437539 111437540 111437541 111437542 111437544 111442867 111445807 111447381
+            CPEP: 111787855 111797325 111804476 111809772 111809773 111809774 111809775 111809776
+            RCU: 8264914
+            JCU: 105641156
+            HBR: 110655144 110659742
+            MESC: 110621232
+            POP: 7455851 7495636
+            JRE: 108996768 108996780 108996782 109010285 109010333
+            VVI: 100248495 100258633
+            SLY: 101258391 543873(GABA-TP1) 543874(GABA-TP2) 544258(GABA-TP3)
+            SPEN: 107005469 107007340 107026604 107027278
+            SOT: 102595558 102596238 102597871 102599962
+            CANN: 107841786 107854420(pAMT) 107862720
+            NTA: 107759660 107759965 107783009 107784412 107789828 107790076 107802933 107806271 107812914 107821173 107832742
+            NSY: 104226521 104236859 104240406 104250096
+            NTO: 104088989 104094231 104104015
+            INI: 109157385 109187554
+            SIND: 105178585
+            OEU: 111379037
+            HAN: 110872148 110903718
+            LSV: 111909672 111910449
+            CCAV: 112524455 112527486
+            DCR: 108200542 108204726
+            BVG: 104895371
+            SOE: 110783525 110783560
+            CQI: 110681943 110681944 110695106
+            NNU: 104599670
+            PSOM: 113279738 113290086
+            OSA: 4328053 4336982 4336983 4344928
+            DOSA: Os02t0112900-00(Os02g0112900) Os04t0614500-01(Os04g0614500) Os04t0614600-01(Os04g0614600) Os08t0205900-01(Os08g0205900)
+            OBR: 102701536 102702002 102702310
+            BDI: 100831754 100839166
+            ATS: 109732675(LOC109732675) 109754386(LOC109754386)
+            SBI: 8071169 8072343 8076546
+            ZMA: 100282236 100286148 103626684 103626685 103631410 103632117 103645944
+            SITA: 101758155 101781154
+            PDA: 103713189
+            EGU: 105059874
+            MUS: 103983705
+            DCT: 110109905
+            PEQ: 110020253
+            AOF: 109845251
+            ATR: 18448099
+            SMO: SELMODRAFT_177017 SELMODRAFT_270846
+            PPP: 112284110 112285886
+            GTT: GUITHDRAFT_164445
+            VNA: PN96_21685
+            PRE: PCA10_49520
+            PPU: PP_2799
+            PPUH: B479_13880
+            PMOS: O165_009765 O165_024215
+            PPJ: RK21_02889
+            PFN: HZ99_03390
+            PMAN: OU5_1389
+            PSK: U771_16045
+            PSEC: CCOS191_2907(GABA-TP1b)
+            PKR: AYO71_16555
+            PPSL: BJP27_05640
+            PSIL: PMA3_09585
+            AWU: BEN71_08205
+            CPS: CPS_2025
+            OSG: BST96_06695
+            HJA: BST95_14935
+            WMA: WM2015_1694
+            GAI: IMCC3135_15065 IMCC3135_27785
+            MARS: A8C75_14780
+            CBW: RR42_s1372
+            CCUP: BKK81_02605
+            CUP: BKK80_01950
+            CUU: BKK79_10325
+            BAC: BamMC406_6604
+            BCON: NL30_32710
+            BSEM: WJ12_19180
+            BYI: BYI23_C002220
+            BUE: BRPE67_CCDS10000
+            BCAI: K788_0002976
+            PHS: C2L64_24465
+            BPE: BP2305
+            BPC: BPTD_2264
+            BPER: BN118_0763
+            BPET: B1917_2213
+            BPEU: Q425_16060
+            BPA: BPP2424
+            BPAR: BN117_1750
+            BBR: BB1873
+            BBM: BN115_3162
+            BBH: BN112_1642
+            BBX: BBS798_1774
+            BPT: Bpet3097
+            BAV: BAV2206
+            BHO: D560_0023
+            BHM: D558_0026
+            BHZ: ACR54_02963(tpa)
+            BTRM: SAMEA390648703040(tpa_2) SAMEA390648703251(bioA_2)
+            BBRO: BAU06_16795
+            BFZ: BAU07_09390
+            BPDZ: BBN53_07200
+            BOH: AKI39_16090
+            BGM: CAL15_15385
+            PUT: PT7_1614
+            AKA: TKWG_24240
+            AMIM: MIM_c39140
+            CDN: BN940_12961 BN940_13021
+            POL: Bpro_0421
+            VEI: Veis_3196
+            VAP: Vapar_5230
+            VPD: VAPA_1c54400
+            VAM: C4F17_01295
+            SIMP: C6571_15770
+            MLN: A9174_13570
+            MCI: Mesci_5413
+            MAMO: A6B35_00165
+            MESO: BSQ44_07585 BSQ44_21920
+            MESW: A9K65_029540
+            AAK: AA2016_0584
+            AMIH: CO731_00574(tpa)
+            PHT: BLM14_13005
+            PLA: Plav_0797
+            RBS: RHODOSMS8_00357
+            SME: SM_b20379
+            SMK: Sinme_3799
+            SMQ: SinmeB_4295
+            SMX: SM11_pD1234
+            SMI: BN406_04030(GABA-TP3) BN406_06293(GABA-TP3)
+            SMEG: C770_GR4pD1223
+            SMEL: SM2011_b20379
+            SMER: DU99_31405
+            SMD: Smed_3738
+            SIX: BSY16_4291
+            EAD: OV14_a1582
+            EAH: FA04_33600
+            ESJ: SJ05684_b52390
+            ATU: Atu3300
+            ARA: Arad_9339(bioA)
+            ATF: Ach5_31520
+            ATA: AWN88_03400
+            AGR: AGROH133_11145 AGROH133_14247
+            ARO: B0909_22270
+            RET: RHE_CH02145
+            REC: RHECIAT_CH0002203
+            REL: REMIM1_CH02155
+            REP: IE4803_CH02157
+            REI: IE4771_CH02244
+            RLU: RLEG12_01060
+            RTR: RTCIAT899_PC06530
+            RIR: BN877_II1544
+            RHN: AMJ98_CH02196
+            RPHA: AMC79_CH02276
+            RHT: NT26_3623
+            RHX: AMK02_CH02207
+            RHV: BA939_18440
+            RHK: Kim5_CH02254
+            REZ: AMJ99_CH02274
+            NGL: RG1141_CH37570
+            NGG: RG540_CH38220
+            NEO: CYG48_14250
+            NEN: NCHU2750_32320 NCHU2750_35590 NCHU2750_54570
+            SHZ: shn_02765 shn_26215
+            BME: BMEI1757
+            BMEL: DK63_1728
+            BMI: BMEA_A0199
+            BMZ: BM28_A0203
+            BMG: BM590_A0200
+            BMW: BMNI_I0189
+            BMEE: DK62_1223
+            BMF: BAB1_0191
+            BMB: BruAb1_0186
+            BMC: BAbS19_I01810
+            BAA: BAA13334_I00160
+            BABO: DK55_205
+            BABR: DO74_1677
+            BABT: DK49_2054
+            BABB: DK48_1921
+            BABU: DK53_200
+            BABS: DK51_1262
+            BABC: DO78_117
+            BMS: BR0191
+            BSI: BS1330_I0191
+            BSF: BSS2_I0188
+            BSUI: BSSP1_I0189
+            BSUP: BSPT1_I0191
+            BSUV: BSPT2_I0192
+            BSUC: BSSP2_I0189
+            BMT: BSUIS_A0192
+            BSZ: DK67_10
+            BSV: BSVBI22_A0191
+            BSW: IY71_01070
+            BSG: IY72_00795
+            BOV: BOV_0184
+            BCS: BCAN_A0196
+            BSK: BCA52141_I1382
+            BOL: BCOUA_I0191
+            BCAR: DK60_292
+            BCAS: DA85_00925
+            BMR: BMI_I194
+            BPP: BPI_I192 BPI_II550
+            BPV: DK65_1179
+            BCET: V910_101783
+            BCEE: V568_102003
+            BVL: BF3285c1_0492
+            BRU: BFS01_00885
+            OAN: Oant_0199
+            OAH: DR92_48
+            OCH: CES85_3010 CES85_3433
+            BJA: blr4134
+            BJU: BJ6T_56750 BJ6T_81330
+            BJP: RN69_27505 RN69_39500
+            BBT: BBta_1928
+            BRS: S23_41280
+            BRC: BCCGELA001_17235
+            BRAD: BF49_0928
+            BOT: CIT37_05140 CIT37_33355
+            BRQ: CIT40_13380
+            RPB: RPB_1491
+            BOP: AXW83_05045 AXW83_05070 AXW83_12715
+            BOS: BSY19_3995
+            BVV: BHK69_00045 BHK69_27605
+            BOI: BLM15_17705 BLM15_24705
+            SNO: Snov_0274
+            MEX: Mext_2908
+            MEA: Mex_1p3113
+            MDI: METDI3676
+            MCH: Mchl_3134
+            MPO: Mpop_3032
+            MZA: B2G69_22105
+            MRD: Mrad2831_0848 Mrad2831_3217
+            MET: M446_3814
+            MNO: Mnod_5513
+            MOR: MOC_1061
+            META: Y590_14055
+            MAQU: Maq22A_1p33760(bioA) Maq22A_2p41305(bioA) Maq22A_2p42700(bioA)
+            MPHY: MCBMB27_00445
+            MEE: DA075_15375
+            METD: C0214_16170
+            METX: A3862_26315
+            METS: DK389_01470
+            BVR: BVIR_1905
+            RHZ: RHPLAN_18600
+            AUA: M673_19005 M673_21240 M673_22855
+            BRN: D1F64_18625
+            HDI: HDIA_1218(bioA_2)
+            RBM: TEF_07805
+            SIT: TM1040_2031
+            RMB: K529_003700 K529_016625
+            RSP: RSP_3261(bioA)
+            RSH: Rsph17029_3993
+            RSQ: Rsph17025_3280
+            RSK: RSKD131_3436
+            RDE: RD1_2337
+            RLI: RLO149_c021610
+            PDE: Pden_3052
+            PAMI: JCM7686_1171 JCM7686_1757
+            PZH: CX676_08755
+            PGA: PGA1_c09350
+            PGL: PGA2_c09240
+            PGD: Gal_02556
+            PHP: PhaeoP97_00901 PhaeoP97_03853
+            PPIC: PhaeoP14_00855
+            PHQ: D1820_00440
+            LMD: METH_12640
+            LEJ: ETW24_13310
+            CID: P73_3746
+            LAP: ACP90_24025
+            LAGG: B0E33_07480
+            LABR: CHH27_24600
+            DAA: AKL17_0232
+            YAN: AYJ57_12825
+            YPAC: CEW88_05875
+            SPSE: SULPSESMR1_02511(tpa)
+            SULD: B5M07_18130
+            TPRO: Ga0080559_TMP3230
+            PABY: Ga0080574_TMP1142 Ga0080574_TMP1876
+            THAS: C6Y53_15655
+            SEDI: EBB79_06050
+            KNA: B0W47_15385 B0W47_15750
+            KEU: S101446_00109(spuC)
+            KSC: CD178_00086(bioK)
+            RGI: RGI145_10140
+            ROS: CTJ15_07200
+            RRU: Rru_A2041
+            RRF: F11_10495
+            RCE: RC1_0997
+            RPM: RSPPHO_01272
+            MAG: amb1684
+            MGY: MGMSRv2__0300
+            MGRY: MSR1_19010(bioA_2)
+            MAGX: XM1_2248(GABA-TP)
+            MAGN: WV31_18875
+            AZL: AZL_b03720
+            ALI: AZOLI_2849
+            ABS: AZOBR_40214
+            ABQ: ABAZ39_01730
+            ABF: AMK58_12110
+            ATI: AL072_03730
+            AHU: A6A40_11375
+            AZT: TSH58p_13270
+            AZM: DM194_10945
+            TMO: TMO_0276
+            TXI: TH3_06800
+            THAC: CSC3H3_06585
+            TII: DY252_00205
+            MAGQ: MGMAQ_1311
+            HJO: AY555_10380
+            NCB: C0V82_01300 C0V82_03020
+            PGV: SL003B_3287
+            PHR: C6569_00440
+            SSX: SACTE_6541
+            SRN: A4G23_04201(bioK_3)
+            MRE: K649_09380
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.96
+            IUBMB Enzyme Nomenclature: 2.6.1.96
+            ExPASy - ENZYME nomenclature database: 2.6.1.96
+            BRENDA, the Enzyme Database: 2.6.1.96
+///

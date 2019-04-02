@@ -27,8 +27,9 @@ KeggGenesEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 	if (.self$hasField('kegg.organism.code'))
 		.self$setFieldValue('accession', paste(.self$getFieldValue('kegg.organism.code'), .self$getFieldValue('accession'), sep = ':'))
 
-	# Module IDs
+	# Other KEGG IDs
 	.self$.parseModuleIds(parsed.content)
+	.self$.parsePathwayIds(parsed.content = parsed.content)
 
 	# Parse Uniprot IDs
 	if (.self$hasField('uniprot.id'))

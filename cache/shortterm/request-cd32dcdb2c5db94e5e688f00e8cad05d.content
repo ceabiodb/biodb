@@ -1,0 +1,37 @@
+ENTRY       EC 4.2.1.27                 Enzyme
+NAME        acetylenecarboxylate hydratase;
+            acetylenemonocarboxylate hydratase;
+            alkynoate hydratase;
+            acetylenemonocarboxylate hydrase;
+            acetylenemonocarboxylic acid hydrase;
+            malonate-semialdehyde dehydratase;
+            3-oxopropanoate hydro-lyase
+CLASS       Lyases;
+            Carbon-oxygen lyases;
+            Hydro-lyases
+SYSNAME     3-oxopropanoate hydro-lyase (propynoate-forming)
+REACTION    3-oxopropanoate = propynoate + H2O [RN:R01611]
+ALL_REAC    R01611;
+            (other) R01367
+SUBSTRATE   3-oxopropanoate [CPD:C00222]
+PRODUCT     propynoate [CPD:C00804];
+            H2O [CPD:C00001]
+COMMENT     The reaction is effectively irreversible, favouring oxopropanoate (malonic semialdehyde) and its tautomers. Also acts on but-3-ynoate forming acetoacetate. The mechanism appears to involve hydration of the acetylene to 3-hydroxypropenoate, which will spontaneously tautomerize to 3-oxopropanoate. It is thus analogous to EC 4.1.1.78, acetylenedicarboxylate decarboxylase, in its mechanism.
+HISTORY     EC 4.2.1.27 created 1965, (EC 4.2.1.71 created 1978, modified 1989, modified 2000, incorporated 2004) modified 2004
+REFERENCE   1
+  AUTHORS   Van den Tweel, W.J.J. and De Bont, J.A.M.
+  TITLE     Metabolism of 3-butyn-1-ol by Pseudomonas BB1.
+  JOURNAL   J Gen Microbiol 131:3155-3162 (1985)
+REFERENCE   2  [PMID:13654296]
+  AUTHORS   YAMADA EW, JAKOBY WB.
+  TITLE     Enzymatic utilization of acetylenic compounds. II. Acetylenemonocarboxylic acid hydrase.
+  JOURNAL   J Biol Chem 234:941-5 (1959)
+PATHWAY     ec00410  beta-Alanine metabolism
+            ec00640  Propanoate metabolism
+            ec00650  Butanoate metabolism
+DBLINKS     ExplorEnz - The Enzyme Database: 4.2.1.27
+            IUBMB Enzyme Nomenclature: 4.2.1.27
+            ExPASy - ENZYME nomenclature database: 4.2.1.27
+            BRENDA, the Enzyme Database: 4.2.1.27
+            CAS: 9024-26-4
+///

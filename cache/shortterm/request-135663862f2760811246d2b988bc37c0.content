@@ -1,0 +1,32 @@
+ENTRY       EC 2.6.1.56                 Enzyme
+NAME        1D-1-guanidino-3-amino-1,3-dideoxy-scyllo-inositol transaminase;
+            guanidinoaminodideoxy-scyllo-inositol-pyruvate aminotransferase;
+            L-alanine-N-amidino-3-(or 5-)keto-scyllo-inosamine transaminase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     1D-1-guanidino-3-amino-1,3-dideoxy-scyllo-inositol:pyruvate aminotransferase
+REACTION    1D-1-guanidino-3-amino-1,3-dideoxy-scyllo-inositol + pyruvate = 1D-1-guanidino-1-deoxy-3-dehydro-scyllo-inositol + L-alanine [RN:R03502]
+ALL_REAC    R03502
+SUBSTRATE   1D-1-guanidino-3-amino-1,3-dideoxy-scyllo-inositol [CPD:C01298];
+            pyruvate [CPD:C00022]
+PRODUCT     1D-1-guanidino-1-deoxy-3-dehydro-scyllo-inositol [CPD:C04673];
+            L-alanine [CPD:C00041]
+COMMENT     L-Glutamate and L-glutamine can also act as amino donors.
+HISTORY     EC 2.6.1.56 created 1976
+REFERENCE   1  [PMID:4376579]
+  AUTHORS   Walker JB.
+  TITLE     Enzymatic reactions involved in streptomycin biosynthesis and metabolism.
+  JOURNAL   Lloydia 34:363-71 (1971)
+REFERENCE   2  [PMID:5781017]
+  AUTHORS   Walker JB, Walker MS.
+  TITLE     Streptomycin biosynthesis. Transamination reactions involving inosamines and inosadiamines.
+  JOURNAL   Biochemistry 8:763-70 (1969)
+PATHWAY     ec00521  Streptomycin biosynthesis
+            ec01130  Biosynthesis of antibiotics
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.56
+            IUBMB Enzyme Nomenclature: 2.6.1.56
+            ExPASy - ENZYME nomenclature database: 2.6.1.56
+            BRENDA, the Enzyme Database: 2.6.1.56
+            CAS: 57127-19-2
+///

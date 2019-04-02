@@ -1,0 +1,26 @@
+ENTRY       EC 2.6.1.46                 Enzyme
+NAME        diaminobutyrate---pyruvate transaminase;
+            diaminobutyrate-pyruvate aminotransferase;
+            L-diaminobutyric acid transaminase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     L-2,4-diaminobutanoate:pyruvate aminotransferase
+REACTION    L-2,4-diaminobutanoate + pyruvate = L-aspartate 4-semialdehyde + L-alanine [RN:R02293]
+ALL_REAC    R02293
+SUBSTRATE   L-2,4-diaminobutanoate [CPD:C03283];
+            pyruvate [CPD:C00022]
+PRODUCT     L-aspartate 4-semialdehyde [CPD:C00441];
+            L-alanine [CPD:C00041]
+COMMENT     A pyridoxal-phosphate protein.
+HISTORY     EC 2.6.1.46 created 1972
+REFERENCE   1  [PMID:4390206]
+  AUTHORS   Rao DR, Hariharan K, Vijayalakshmi KR.
+  TITLE     A study of the metabolism of L-alpha gamma-diaminobutyric acid in a Xanthomonas species.
+  JOURNAL   Biochem J 114:107-15 (1969)
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.46
+            IUBMB Enzyme Nomenclature: 2.6.1.46
+            ExPASy - ENZYME nomenclature database: 2.6.1.46
+            BRENDA, the Enzyme Database: 2.6.1.46
+            CAS: 37277-95-5
+///

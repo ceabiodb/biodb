@@ -1,0 +1,27 @@
+ENTRY       EC 2.3.1.145                Enzyme
+NAME        piperidine N-piperoyltransferase;
+            piperidine piperoyltransferase;
+            piperoyl-CoA:piperidine N-piperoyltransferase
+CLASS       Transferases;
+            Acyltransferases;
+            Transferring groups other than aminoacyl groups
+SYSNAME     (E,E)-piperoyl-CoA:piperidine N-piperoyltransferase
+REACTION    (E,E)-piperoyl-CoA + piperidine = CoA + N-[(E,E)-piperoyl]-piperidine [RN:R03994]
+ALL_REAC    R03994
+SUBSTRATE   (E,E)-piperoyl-CoA [CPD:C02611];
+            piperidine [CPD:C01746]
+PRODUCT     CoA [CPD:C00010];
+            N-[(E,E)-piperoyl]-piperidine
+COMMENT     Pyrrolidine and 3-pyrroline can also act as acceptors, but more slowly.
+HISTORY     EC 2.3.1.145 created 1992
+REFERENCE   1
+  AUTHORS   Geisler, J.G. and Gross, G.G.
+  TITLE     The biosynthesis of piperine in Piper nigrum.
+  JOURNAL   Phytochemistry 29:489-492 (1990)
+PATHWAY     ec00960  Tropane, piperidine and pyridine alkaloid biosynthesis
+DBLINKS     ExplorEnz - The Enzyme Database: 2.3.1.145
+            IUBMB Enzyme Nomenclature: 2.3.1.145
+            ExPASy - ENZYME nomenclature database: 2.3.1.145
+            BRENDA, the Enzyme Database: 2.3.1.145
+            CAS: 126806-22-2
+///

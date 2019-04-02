@@ -105,6 +105,10 @@ TestObserver$methods( initialize = function(...) {
 	.last.index <<- 0
 })
 
+TestObserver$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
+	testthat::expect_is(msg, 'character')
+})
+
 TestObserver$methods( progress = function(type = 'info', msg, index, total, first) {
 
 	.self$checkMessageType(type)

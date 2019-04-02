@@ -1,0 +1,94 @@
+ENTRY       268860            CDS       T01002
+NAME        Abat, 9630038C02Rik, AI255750, Gabaat, Gabat, Gm9851, I54, Laibat, X61497
+DEFINITION  (RefSeq) 4-aminobutyrate aminotransferase
+ORTHOLOGY   K13524  4-aminobutyrate aminotransferase / (S)-3-amino-2-methylpropionate transaminase [EC:2.6.1.19 2.6.1.22]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00250  Alanine, aspartate and glutamate metabolism
+            mmu00280  Valine, leucine and isoleucine degradation
+            mmu00410  beta-Alanine metabolism
+            mmu00640  Propanoate metabolism
+            mmu00650  Butanoate metabolism
+            mmu01100  Metabolic pathways
+            mmu04727  GABAergic synapse
+MODULE      mmu_M00027  GABA (gamma-Aminobutyrate) shunt
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00640 Propanoate metabolism
+                268860 (Abat)
+               00650 Butanoate metabolism
+                268860 (Abat)
+              09105 Amino acid metabolism
+               00250 Alanine, aspartate and glutamate metabolism
+                268860 (Abat)
+               00280 Valine, leucine and isoleucine degradation
+                268860 (Abat)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                268860 (Abat)
+             09150 Organismal Systems
+              09156 Nervous system
+               04727 GABAergic synapse
+                268860 (Abat)
+             09180 Brite Hierarchies
+              09181 Protein families: metabolism
+               01007 Amino acid related enzymes [BR:mmu01007]
+                268860 (Abat)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.6  Transferring nitrogenous groups
+               2.6.1  Transaminases
+                2.6.1.19  4-aminobutyrate---2-oxoglutarate transaminase
+                 268860 (Abat)
+                2.6.1.22  (S)-3-amino-2-methylpropionate transaminase
+                 268860 (Abat)
+            Amino acid related enzymes [BR:mmu01007]
+             Aminotransferase (transaminase)
+              Class III
+               268860 (Abat)
+POSITION    16; 16 A1
+MOTIF       Pfam: Aminotran_3 Tex_N Aminotran_1_2
+DBLINKS     NCBI-GeneID: 268860
+            NCBI-ProteinID: NP_766549
+            MGI: 2443582
+            Ensembl: ENSMUSG00000057880
+            Vega: OTTMUSG00000025937
+            UniProt: P61922
+AASEQ       500
+            MAFLLITRRLACSSQKNLHLFIPGSRYISQAAAKVDIEFDYDGPLMKTEVPGPRSKELMK
+            QLNTIQNAEAVHFFCNYEESRGNYLVDVDGNRMLDLYSQISSVPIGYNHPALAKLVQQPQ
+            NASTFINRPALGILPPENFVDKLQESLMSVAPRGMSQLITMACGSCSNENAFKTIFMWYR
+            SKERGQRGFSKEELETCMVNQSPGCPDYSILSFMGAFHGRTMGCLATTHSKAIHKIDIPS
+            FDWPIAPFPRLKYPLEEFTTDNQQEEARCLEEVEDLIVKYRKKKRTVAGIIVEPIQSEGG
+            DNHASDDFFRKLRDIARKHGCAFLVDEVQTGGGCTGKFWAHEHWGLDDPADVMTFSKKMM
+            TGGFFHKEEFRPSAPYRIFNTWLGDPSKNLLLAEVINIIKREDLLNNVARVGKTLLTGLL
+            DLQAQYPQFISRVRGRGTFCSFDTPDEAIRNKLILIARNKGVVLGGCGDKSIRFRPTLVF
+            RDHHAHLFLSIFSGILADFK
+NTSEQ       1503
+            atggccttcttgttgattacccgacggctggcctgcagttcccagaaaaacctccacctc
+            ttcatacctggatccagatatatcagccaagccgctgccaaagttgacattgaatttgat
+            tatgatggaccactcatgaagacggaagtcccggggcctagatctaaggaactaatgaaa
+            cagctgaacacaatccagaatgcagaggccgtgcactttttctgcaactatgaagagagc
+            agaggtaactacctagtggacgtggacggcaaccgcatgttggacctgtattctcagatc
+            tcctctgtgcccataggttacaaccatccggctctggcgaaactcgttcaacagcctcag
+            aacgcgagcactttcatcaacagacctgccttgggcatcctgcctccagagaactttgtg
+            gacaagctccaggagtccttgatgtcggtggcgcccaggggcatgtcccagctcatcacc
+            atggcctgtggctcctgctccaatgagaatgcattcaagaccatcttcatgtggtaccgg
+            agtaaggaacgagggcagagaggtttctccaaagaggagctggagacttgcatggttaac
+            cagagtcctggatgcccagactacagcattctctccttcatgggtgctttccatgggagg
+            accatgggttgcttagcgaccacacactccaaagcaattcacaagattgacatcccttcc
+            tttgactggcccattgctccattcccacggctgaaatatcccctggaggagtttacaacg
+            gacaaccagcaagaggaggcccgctgcctagaagaggtggaggatttaattgtgaaatat
+            cggaaaaagaagagaacggtggctggaatcatcgtggagcccatccagtccgagggtgga
+            gacaaccatgcatcagatgacttcttccggaagctgagagacatagccaggaagcatggc
+            tgtgccttcttggtggacgaggtgcagaccggaggaggctgtacaggcaagttctgggcc
+            catgaacactggggcttggatgacccagccgatgtgatgacgttcagcaagaaaatgatg
+            accgggggcttcttccacaaggaggagtttcggccaagtgctccttaccggattttcaat
+            acctggctgggggacccatccaagaacttgctgctggctgaggtcatcaacatcatcaag
+            cgggaagacctgctcaacaatgtggcccgtgtggggaagaccctactcacagggctgctg
+            gacctccaggcccagtaccctcagttcatcagcagagtgaggggacgaggcaccttctgt
+            tccttcgacactcccgatgaagccatacggaataaactcatcctaattgccaggaacaaa
+            ggtgtggtactggggggctgcggtgacaagtccatccgtttccgccccacgctggtcttc
+            agggatcaccacgcccatctgttcctcagcattttcagcggcatcttagcagacttcaag
+            taa
+///
