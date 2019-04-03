@@ -422,8 +422,8 @@ test.convertMzTolToRange <- function(db) {
 # Run Mass DB tests {{{1
 ################################################################
 
-run.mass.db.tests <- function(db, mode) {
-	if ( ! db$isRemotedb() || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+run.mass.db.tests <- function(db) {
+	if ( ! db$isRemotedb() || test.online())
 		if (db$isMassdb()) {
 
 			test.that("M/Z tolerance values are converted correctly to M/Z range.", 'test.convertMzTolToRange', conn = db)

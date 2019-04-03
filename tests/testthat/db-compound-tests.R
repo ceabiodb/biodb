@@ -84,9 +84,9 @@ test.searchCompound.no.mass.field <- function(db) {
 # Run Compound DB tests {{{1
 ################################################################
 
-run.compound.db.tests <- function(conn, mode) {
+run.compound.db.tests <- function(conn) {
 
-	if ( ! conn$isRemotedb() || mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE))
+	if ( ! conn$isRemotedb() || test.online())
 		if (conn$isCompounddb()) {
 
 			test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)

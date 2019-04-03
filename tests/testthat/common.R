@@ -10,7 +10,6 @@ OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
-ONLINE.CACHE.DIR <- ENV[['BIODB_CACHE_DIRECTORY']]
 USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
@@ -63,24 +62,19 @@ if ('DONT_TEST_DBS' %in% names(ENV) && nchar(ENV[['DONT_TEST_DBS']]) > 0) {
 
 MODE.OFFLINE <- 'offline'
 MODE.ONLINE <- 'online'
-MODE.QUICK.ONLINE <- 'quick.online'
-MODE.ALL <- 'all'
-MODE.FULL <- 'full'
-DEFAULT.MODES <- MODE.OFFLINE
-ALLOWED.MODES <- c(MODE.ONLINE, MODE.QUICK.ONLINE, MODE.OFFLINE)
+ALLOWED.MODES <- c(MODE.ONLINE, MODE.OFFLINE)
 if ('MODES' %in% names(ENV) && nchar(ENV[['MODES']]) > 0) {
-	if (ENV[['MODES']] %in% c(MODE.ALL, MODE.FULL))
-		TEST.MODES <- ALLOWED.MODES
-	else {
-		TEST.MODES <- strsplit(ENV[['MODES']], ',')[[1]]
-		mode.exists <- TEST.MODES %in% ALLOWED.MODES
-		if ( ! all(mode.exists)) {
-			wrong.modes <- TEST.MODES[ ! mode.exists]
-			stop(paste('Unknown testing mode(s) ', paste(wrong.modes, collapse = ', ')), '.', sep = '')
-		}
-	}
+		if ( ! TEST.MODES %in% ALLOWED.MODES)
+			stop(paste0('Unknown testing mode ', TEST.MODES, '.'))
 } else {
-	TEST.MODES <- DEFAULT.MODES
+	TEST.MODES <- MODE.OFFLINE
+}
+
+# Test online {{{1
+################################################################
+
+test.online = function() {
+	TEST.MODES == MODE.ONLINE
 }
 
 # Set test functions {{{1
@@ -136,7 +130,7 @@ get.log.file.descriptor <- function() {
 # Create Biodb instance {{{1
 ################################################################
 
-create.biodb.instance <- function() {
+create.biodb.instance <- function(offline = FALSE) {
 
 	# Create logger
 	logger <- BiodbLogger(file = get.log.file.descriptor(), close.file = FALSE)
@@ -151,16 +145,24 @@ create.biodb.instance <- function() {
 	# Set user agent
 	biodb$getConfig()$set('useragent', USERAGENT)
 
-	# Set Peakforest URL and token
-	if ('BIODB_TEST_PEAKFOREST_TOKEN' %in% names(ENV))
-		for (db in c('peakforest.mass', 'peakforest.compound'))
-			biodb$getDbsInfo()$get(db)$setToken(ENV[['BIODB_PEAKFOREST_ALPHA_TOKEN']])
-	if ('BIODB_TEST_PEAKFOREST_URL' %in% names(ENV))
-		for (db in c('peakforest.mass', 'peakforest.compound'))
-			biodb$getDbsInfo()$get(db)$setBaseUrl(ENV[['BIODB_TEST_PEAKFOREST_URL']])
+	# Online
+	if ( ! offline && test.online()) {
+		biodb$getConfig()$disable('cache.read.only')
+		biodb$getConfig()$enable('allow.huge.downloads')
+		biodb$getConfig()$disable('offline')
+		biodb$getConfig()$enable('cache.subfolders')
+	}
+	else { # Offline
+		biodb$getConfig()$set('cache.directory', OFFLINE.CACHE.DIR)
+		biodb$getConfig()$enable('cache.read.only')
+		biodb$getConfig()$disable('allow.huge.downloads')
+		biodb$getConfig()$enable('offline')
+		biodb$getConfig()$disable('cache.subfolders')
+	}
 
 	return(biodb)
 }
+
 # Set test context {{{1
 ################################################################
 
@@ -177,43 +179,6 @@ set.test.context <- function(biodb, text) {
 	biodb$message('info', "")
 }
 
-# Set mode {{{1
-################################################################
-
-set.mode <- function(biodb, mode) {
-
-	# Online
-	if (mode == MODE.ONLINE) {
-		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
-		biodb$getConfig()$disable('cache.read.only')
-		biodb$getConfig()$enable('allow.huge.downloads')
-		biodb$getConfig()$disable('offline')
-		biodb$getConfig()$enable('cache.subfolders')
-	}
-
-	# Quick online
-	else if (mode == MODE.QUICK.ONLINE) {
-		biodb$getConfig()$set('cache.directory', ONLINE.CACHE.DIR)
-		biodb$getConfig()$disable('cache.read.only')
-		biodb$getConfig()$enable('allow.huge.downloads')
-		biodb$getConfig()$disable('offline')
-		biodb$getConfig()$enable('cache.subfolders')
-	}
-
-	# Offline
-	else if (mode == MODE.OFFLINE) {
-		biodb$getConfig()$set('cache.directory', OFFLINE.CACHE.DIR)
-		biodb$getConfig()$enable('cache.read.only')
-		biodb$getConfig()$disable('allow.huge.downloads')
-		biodb$getConfig()$enable('offline')
-		biodb$getConfig()$disable('cache.subfolders')
-	}
-
-	# Unknown mode
-	else {
-		stop(paste("Unknown mode \"", mode, "\".", sep = "."))
-	}
-}
 
 # List reference entries {{{1
 ################################################################
@@ -292,7 +257,7 @@ load.ref.entries <- function(db) {
 # Get default connector {{{1
 ################################################################
 
-create.conn.for.generic.tests = function(biodb, class.db, mode) {
+create.conn.for.generic.tests = function(biodb, class.db) {
 
 	# Get connector
 	if (biodb$getFactory()$connExists(class.db))
@@ -300,10 +265,7 @@ create.conn.for.generic.tests = function(biodb, class.db, mode) {
 
 	# Create connector
 	else {
-		if (mode == 'offline')
-			conn = biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
-		else
-			conn = biodb$getFactory()$createConn(class.db)
+		conn = biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
 
 		# Set parameters for local connectors
 		if (class.db == 'mass.csv.file') {
@@ -316,7 +278,7 @@ create.conn.for.generic.tests = function(biodb, class.db, mode) {
 			# Create SQLite database file
 			if ( ! file.exists(MASS.SQLITE.URL)) {
 
-				mass.csv.file.conn = create.conn.for.generic.tests(biodb = biodb, class.db = 'mass.csv.file',  mode = mode)
+				mass.csv.file.conn = create.conn.for.generic.tests(biodb = biodb, class.db = 'mass.csv.file')
 				conn$allowEditing()
 				biodb$copyDb(conn.from = mass.csv.file.conn, conn.to = conn)
 				conn$allowWriting()
@@ -327,14 +289,10 @@ create.conn.for.generic.tests = function(biodb, class.db, mode) {
 		}
 
 		# Create needed additional connectors for computing missing fields
-		if (mode == 'offline') {
-
-			# Loop on all fields
-			for (field in biodb$getEntryFields()$getFieldNames())
-				for (computing.db in biodb$getEntryFields()$get(field)$getComputableFrom())
-					if (computing.db != class.db)
-						c = create.conn.for.generic.tests(biodb = biodb, class.db = computing.db, mode = mode)
-		}
+		for (field in biodb$getEntryFields()$getFieldNames())
+			for (computing.db in biodb$getEntryFields()$get(field)$getComputableFrom())
+				if (computing.db != class.db)
+					c = create.conn.for.generic.tests(biodb = biodb, class.db = computing.db)
 	}
 
 	return(conn)

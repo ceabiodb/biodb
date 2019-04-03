@@ -23,6 +23,8 @@ ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
 
 # Display values of main variables
 $(info "ENV VAR BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
+$(info "ENV VAR BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
+$(info "ENV VAR BIODB_OFFLINE=$(BIODB_OFFLINE)")
 $(info "ENV VAR DATABASES=$(DATABASES)")
 
 # Default target {{{1
