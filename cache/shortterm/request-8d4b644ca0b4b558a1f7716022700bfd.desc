@@ -1,0 +1,1 @@
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["url","header","body"]}},"value":[{"type":"character","attributes":{},"value":["http://www.lipidmaps.org/data/LMSDRecord.php?LMID=LMFA00000002&Mode=File&OutputType=CSV"]},{"type":"character","attributes":{},"value":[]},{"type":"character","attributes":{},"value":[]}]}
