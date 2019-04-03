@@ -64,6 +64,7 @@ MODE.OFFLINE <- 'offline'
 MODE.ONLINE <- 'online'
 ALLOWED.MODES <- c(MODE.ONLINE, MODE.OFFLINE)
 if ('MODES' %in% names(ENV) && nchar(ENV[['MODES']]) > 0) {
+	TEST.MODES = ENV[['MODES']]
 		if ( ! TEST.MODES %in% ALLOWED.MODES)
 			stop(paste0('Unknown testing mode ', TEST.MODES, '.'))
 } else {
@@ -254,7 +255,7 @@ load.ref.entries <- function(db) {
 }
 
 
-# Get default connector {{{1
+# Create connector for generic tests {{{1
 ################################################################
 
 create.conn.for.generic.tests = function(biodb, class.db) {
@@ -265,7 +266,7 @@ create.conn.for.generic.tests = function(biodb, class.db) {
 
 	# Create connector
 	else {
-		conn = biodb$getFactory()$createConn(class.db, conn.id = class.db, cache.id = class.db)
+		conn = biodb$getFactory()$createConn(class.db)
 
 		# Set parameters for local connectors
 		if (class.db == 'mass.csv.file') {

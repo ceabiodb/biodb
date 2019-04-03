@@ -25,3 +25,5 @@ cache/longterm
 cache/shortterm/hmdb.metabolites-*
 !cache/shortterm/hmdb.metabolites-9e094cf1e5980f9ac69d952373fb6d34-HMDB0000001.xml
 !cache/shortterm/hmdb.metabolites-9e094cf1e5980f9ac69d952373fb6d34-extracted.marker
+cache/shortterm/mass.csv.file-*
+cache/shortterm/mass.sqlite-*
