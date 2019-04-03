@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:3510</chebiId><chebiAsciiName>ceftibuten</chebiAsciiName><definition>A third-generation cephalosporin antibiotic with a [(2Z)-2-(2-amino-1,3-thiazol-4-yl)-4-carboxybut-2-enoyl]amino substituent at the 7 position of the cephem skeleton. An orally-administered agent, ceftibuten is used as the dihydrate to treat urinary-tract and respiratory-tract infections.</definition><status>CHECKED</status><smiles>[H][C@]12SCC=C(N1C(=O)[C@H]2NC(=O)C(=C/CC(O)=O)\c1csc(N)n1)C(O)=O</smiles><inchi>InChI=1S/C15H14N4O6S2/c16-15-17-7(5-27-15)6(1-2-9(20)21)11(22)18-10-12(23)19-8(14(24)25)3-4-26-13(10)19/h1,3,5,10,13H,2,4H2,(H2,16,17)(H,18,22)(H,20,21)(H,24,25)/b6-1-/t10-,13-/m1/s1</inchi><inchiKey>UNJFKXSSGBWRBZ-BJCIPQKHSA-N</inchiKey><charge>0</charge><mass>410.42500</mass><monoisotopicMass>410.03548</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:554578</SecondaryChEBIIds><Synonyms><data>(+)-(6R,7R)-7-((Z)-2-(2-amino-4-thiazolyl)-4-carboxycrotonamido)-8-oxo-5-thia-1-azabicyclo(4.2.0)oct-2-ene-2-carboxylic acid</data><type>SYNONYM</type><source>COMe</source></Synonyms><Synonyms><data>(6R,7R)-7-{[(2Z)-2-(2-amino-1,3-thiazol-4-yl)-4-carboxybut-2-enoyl]amino}-8-oxo-5-thia-1-azabicyclo[4.2.0]oct-2-ene-2-carboxylic acid</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>ceftibuten</data><type>INN</type><source>ChemIDplus</source></Synonyms><Synonyms><data>ceftibutene</data><type>INN</type><source>ChemIDplus</source></Synonyms><Synonyms><data>ceftibuteno</data><type>INN</type><source>ChemIDplus</source></Synonyms><Synonyms><data>ceftibutenum</data><type>INN</type><source>ChemIDplus</source></Synonyms><Synonyms><data>cis-ceftibuten</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>7beta-{[(2Z)-2-(2-amino-1,3-thiazol-4-yl)-4-carboxybut-2-enoyl]amino}-3,4-didehydrocepham-4-carboxylic acid</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C15H14N4O6S2</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>5892046</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><RegistryNumbers><data>97519-39-6</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>29017833</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>9250548</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure> 
+  CDK    9/16/09,9:55
+
+ 28 30  0  0  0  0  0  0  0  0999 V2000
+   12.5775   -0.3522    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8674   -0.7564    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1368   -0.3221    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8740   -1.6204    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2894   -0.7690    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0944   -1.6073    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0944   -0.7723    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2894   -1.6073    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.8114   -2.0216    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.8114   -0.3613    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5812   -2.0640    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.5262   -1.6073    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.8114   -2.8433    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.5262   -0.7723    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.1144   -3.2831    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.5063   -3.2631    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0944    0.0272    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4171   -0.7253    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6716   -0.3830    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1117   -0.9889    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5149   -1.7086    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3239   -1.5474    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2925   -0.8922    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1475    0.5029    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8670    0.9061    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8777    1.7310    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5966    2.1358    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1679    2.1542    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  9 12  2  0  0  0  0 
+  9 13  1  0  0  0  0 
+ 10 14  1  0  0  0  0 
+ 13 15  1  0  0  0  0 
+ 13 16  2  0  0  0  0 
+  8  5  1  0  0  0  0 
+ 12 14  1  0  0  0  0 
+  7 17  1  6  0  0  0 
+  2  4  2  0  0  0  0 
+  3 18  1  0  0  0  0 
+ 18 19  1  0  0  0  0 
+  5  1  1  1  0  0  0 
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+ 19 20  2  0  0  0  0 
+ 20 21  1  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 18  2  0  0  0  0 
+  6  7  1  0  0  0  0 
+ 20 23  1  0  0  0  0 
+  6  8  1  0  0  0  0 
+  3 24  2  0  0  0  0 
+  6  9  1  0  0  0  0 
+ 24 25  1  0  0  0  0 
+  7  5  1  0  0  0  0 
+ 25 26  1  0  0  0  0 
+  7 10  1  0  0  0  0 
+  8 11  2  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 26 28  2  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>562</data><type>Drug Central accession</type></DatabaseLinks><DatabaseLinks><data>C08117</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>Ceftibuten</data><type>Wikipedia accession</type></DatabaseLinks><DatabaseLinks><data>CN105153198</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>CN106397455</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>D00922</data><type>KEGG DRUG accession</type></DatabaseLinks><DatabaseLinks><data>DB01415</data><type>DrugBank accession</type></DatabaseLinks><DatabaseLinks><data>EP136721</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>US4634697</data><type>Patent accession</type></DatabaseLinks><OntologyParents><chebiName>cephalosporin</chebiName><chebiId>CHEBI:23066</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antibacterial drug</chebiName><chebiId>CHEBI:36047</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>dicarboxylic acid</chebiName><chebiId>CHEBI:35692</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>ceftibuten dihydrate</chebiName><chebiId>CHEBI:34618</chebiId><type>has part</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

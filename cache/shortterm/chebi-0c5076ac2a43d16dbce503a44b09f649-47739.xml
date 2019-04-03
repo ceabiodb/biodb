@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:47739</chebiId><chebiAsciiName>NiFe4S4 cluster</chebiAsciiName><definition>A nickel-iron-sulfur cluster in which the nickel and iron atoms are linked by bridging sulfur atoms with the ratio Ni:Fe:S = 1:4:4.</definition><status>CHECKED</status><smiles>[Fe][S]1[Fe]2S[Fe]3[S]([Ni])[Fe]1[S]23</smiles><inchi>InChI=1S/4Fe.Ni.4S</inchi><inchiKey>QGLWBXDZIHZONR-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.33300</mass><monoisotopicMass>409.56337</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>[Ni-4Fe-4S] cluster</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Formulae><data>Fe4NiS4</data><source>ChEBI</source></Formulae><ChemicalStructures><structure>
+  Marvin  02071115382D          
+
+  9 11  0  0  0  0            999 V2000
+   -0.8741    0.1992    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1596    0.6117    0.0000 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4616   -0.5153    0.0000 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+    0.0553   -0.0221    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8522   -0.2357    0.0000 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+    0.8522    0.5893    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4397   -0.9501    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6491    0.3758    0.0000 Ni  0  0  0  0  0  0  0  0  0  0  0  0
+    1.2366   -1.1637    0.0000 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  3  1  0  0  0  0
+  2  4  1  0  0  0  0
+  3  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  5  6  1  0  0  0  0
+  5  7  1  0  0  0  0
+  3  7  1  0  0  0  0
+  2  6  1  0  0  0  0
+  6  8  1  0  0  0  0
+  7  9  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  02071115383D          
+
+  9 11  0  0  0  0            999 V2000
+   -2.1791   -1.0400    0.0970 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+    1.6890   -3.1210    0.1460 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4080    1.9210    0.0930 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+    0.6810   -0.2050   -0.2250 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+    0.7970    1.9680    0.1290 S   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.1510    0.2710   -1.3290 S   0  0  1  0  0  0  0  0  0  0  0  0
+   -3.2500    0.8200    0.6160 S   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.2773   -2.1571    0.1352 S   0  0  0  0  0  0  0  0  0  0  0  0
+    3.2780    1.8340    0.1400 Ni  0  0  0  0  0  0  0  0  0  0  0  0
+  1  6  1  0  0  0  0
+  1  7  1  0  0  0  0
+  1  8  1  0  0  0  0
+  2  8  1  0  0  0  0
+  3  5  1  0  0  0  0
+  3  6  1  0  0  0  0
+  3  7  1  0  0  0  0
+  4  5  1  0  0  0  0
+  4  6  1  0  0  0  0
+  4  8  1  0  0  0  0
+  5  9  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>3D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><OntologyParents><chebiName>nickel-iron-sulfur cluster</chebiName><chebiId>CHEBI:60400</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

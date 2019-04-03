@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:131378</chebiId><chebiAsciiName>ferrous ammonium sulfate heptahydrate</chebiAsciiName><definition>A hydrate that is the heptahydrate form of ferrous ammonium sulfate.</definition><status>CHECKED</status><smiles>O.O.O.O.O.O.O.[Fe+2].S([O-])([O-])(=O)=O.[NH4+].S([O-])([O-])(=O)=O.[NH4+]</smiles><inchi>InChI=1S/Fe.2H3N.2H2O4S.7H2O/c;;;2*1-5(2,3)4;;;;;;;/h;2*1H3;2*(H2,1,2,3,4);7*1H2/q+2;;;;;;;;;;;/p-2</inchi><inchiKey>CFUNAYGQFFNNSD-UHFFFAOYSA-L</inchiKey><charge>0</charge><mass>410.156</mass><monoisotopicMass>409.98110</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>ammonium iron(II) sulfate heptahydrate</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>ammonium iron(2+) sulfate--water (1/7)</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>ferrous ammonium sulfate</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Formulae><data>FeH22N2O15S2</data><source>ChEBI</source></Formulae><RegistryNumbers><data>17140490</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><ChemicalStructures><structure>
+  Ketcher 03011614302D 1   1.00000     0.00000     0
+
+ 20  8  0     0  0            999 V2000
+    8.2535   -2.6286    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2656   -4.2150    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2535   -5.7532    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2656   -7.3998    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.4430   -3.2055    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3830   -4.8639    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3830   -6.4262    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8198   -7.3709    0.0000 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+   10.9302   -5.9648    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7932   -6.4648    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0552   -6.4648    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4343   -5.0995    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4317   -5.1026    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9582   -3.5036    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   10.9424   -3.7658    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8052   -4.2658    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0672   -4.2658    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4465   -2.9004    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4438   -2.9035    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5855   -3.4674    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+ 10  9  1  0     0  0
+ 11  9  1  0     0  0
+ 12  9  2  0     0  0
+ 13  9  2  0     0  0
+ 16 15  1  0     0  0
+ 17 15  1  0     0  0
+ 18 15  2  0     0  0
+ 19 15  2  0     0  0
+M  CHG  7   8   2  10  -1  11  -1  14   1  16  -1  17  -1  20   1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>Ammonium_iron(II)_sulfate</data><type>Wikipedia accession</type></DatabaseLinks><OntologyParents><chebiName>hydrate</chebiName><chebiId>CHEBI:35505</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>ferrous ammonium sulfate (anhydrous)</chebiName><chebiId>CHEBI:76243</chebiId><type>has part</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

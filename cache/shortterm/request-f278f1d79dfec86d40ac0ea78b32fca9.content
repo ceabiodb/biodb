@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:134117</chebiId><chebiAsciiName>presqualene monophosphate</chebiAsciiName><definition>A triterpenyl phosphate that is presqualene in which the hydroxy hydrogen has been replaced by a monophosphate group.</definition><status>CHECKED</status><smiles>[C@@H]1([C@H](/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)[C@@]1(CC/C=C(/CCC=C(C)C)\C)C)COP(O)(O)=O</smiles><inchi>InChI=1S/C30H51O4P/c1-23(2)13-9-15-25(5)17-11-18-27(7)21-28-29(22-34-35(31,32)33)30(28,8)20-12-19-26(6)16-10-14-24(3)4/h13-14,17,19,21,28-29H,9-12,15-16,18,20,22H2,1-8H3,(H2,31,32,33)/b25-17+,26-19+,27-21+/t28-,29-,30-/m0/s1</inchi><inchiKey>GPKFJNOMPPCLGX-VYCBRMPGSA-N</inchiKey><charge>0</charge><mass>506.698</mass><monoisotopicMass>506.35250</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>{(1S,2S,3S)-2-[(3E)-4,8-dimethylnona-3,7-dien-1-yl]-2-methyl-3-[(2E,6E)-2,6,10-trimethylundeca-1,5,9-trien-1-yl]cyclopropan-1-yl}methyl dihydrogen phosphate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H51O4P</data><source>ChEBI</source></Formulae><Citations><data>16464866</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><Citations><data>16990613</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23568778</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>9353124</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>
+  Ketcher 04031716492D 1   1.00000     0.00000     0
+
+ 35 35  0     1  0            999 V2000
+   14.3304   -8.2866    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4679   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3304   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6003   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.1979   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3354  -10.2972    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7377   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.0656   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8701   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7377   -7.7965    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.9280   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0077   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.7955   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1401   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6581   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.7955  -10.2972    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2777   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.5257   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4099   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2777   -7.7965    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.3881   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.5475   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.2559   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.6800   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.1182   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.2559  -10.2972    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8175   -8.7969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9499   -9.2969    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8175   -7.7965    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.8259   -7.4175    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.8262   -7.4122    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.3217   -6.5432    0.0000 P   0  0  0  0  0  0  0  0  0  0  0  0
+   17.3217   -6.5378    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.8217   -7.4092    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.8171   -5.6799    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0     0  0
+  1  3  1  0     0  0
+  2  4  1  1     0  0
+  3  5  1  1     0  0
+  3  6  1  6     0  0
+  4  7  2  0     0  0
+  5  8  1  0     0  0
+  7  9  1  0     0  0
+  7 10  1  0     0  0
+  8 11  1  0     0  0
+  9 12  1  0     0  0
+ 11 13  2  0     0  0
+ 12 14  1  0     0  0
+ 13 15  1  0     0  0
+ 13 16  1  0     0  0
+ 14 17  2  0     0  0
+ 15 18  1  0     0  0
+ 17 19  1  0     0  0
+ 17 20  1  0     0  0
+ 18 21  1  0     0  0
+ 19 22  1  0     0  0
+ 21 23  2  0     0  0
+ 22 24  1  0     0  0
+ 23 25  1  0     0  0
+ 23 26  1  0     0  0
+ 24 27  2  0     0  0
+ 27 28  1  0     0  0
+ 27 29  1  0     0  0
+  2  3  1  0     0  0
+  1 30  1  6     0  0
+ 30 31  1  0     0  0
+ 31 32  1  0     0  0
+ 32 33  1  0     0  0
+ 32 34  1  0     0  0
+ 32 35  2  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>triterpenoid</chebiName><chebiId>CHEBI:36615</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>triterpenyl phosphate</chebiName><chebiId>CHEBI:36780</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

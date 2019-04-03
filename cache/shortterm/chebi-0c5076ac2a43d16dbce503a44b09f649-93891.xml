@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:93891</chebiId><chebiAsciiName>acetic acid (3-ethenyl-6,10,10b-trihydroxy-3,4a,7,7,10a-pentamethyl-1-oxo-5,6,6a,8,9,10-hexahydro-2H-benzo[f][1]benzopyran-5-yl) ester</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CC(=O)OC1C(C2C(CCC(C2(C3(C1(OC(CC3=O)(C)C=C)C)O)C)O)(C)C)O</smiles><inchi>InChI=1S/C22H34O7/c1-8-19(5)11-14(25)22(27)20(6)13(24)9-10-18(3,4)16(20)15(26)17(28-12(2)23)21(22,7)29-19/h8,13,15-17,24,26-27H,1,9-11H2,2-7H3</inchi><inchiKey>OHCQJHSOBUTRHG-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.502</mass><monoisotopicMass>410.23045</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C22H34O7</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162158
+null
+ 29 31  0  0  0  0  0  0  0  0999 V2000
+    1.1270   -3.1599    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5395   -2.4454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3645   -2.4454    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1270   -1.7309    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5395   -1.0164    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3645   -1.0164    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7770   -0.3020    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6020   -0.3020    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0145    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6020    1.1270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7770    1.1270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3645    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5395    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1270   -0.3020    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3020   -0.3020    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1105    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3020    1.1270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1270    1.1270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5395    1.8414    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8390    0.0252    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8390    0.7998    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8678    1.6243    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -1.0164    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9520    1.1270    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4507    1.2330    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3645    1.8414    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.3016   -0.7392    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6308   -1.1265    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7770   -1.7309    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  2  0  0  0  0 
+  2  4  1  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12  7  1  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 13 14  1  0  0  0  0 
+ 14  5  1  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 18  1  0  0  0  0 
+ 18 13  1  0  0  0  0 
+ 18 19  2  0  0  0  0 
+ 16 20  1  0  0  0  0 
+ 16 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 14 23  1  0  0  0  0 
+ 13 24  1  0  0  0  0 
+ 12 25  1  0  0  0  0 
+ 11 26  1  0  0  0  0 
+  8 27  1  0  0  0  0 
+  8 28  1  0  0  0  0 
+  6 29  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-4467</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>triterpenoid</chebiName><chebiId>CHEBI:36615</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

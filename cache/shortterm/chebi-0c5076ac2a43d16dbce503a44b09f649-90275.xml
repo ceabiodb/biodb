@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:90275</chebiId><chebiAsciiName>lactucopicrin</chebiAsciiName><definition>A sesquiterpene lactone obtained by formal condensation of the carboxy group of 4-hydroxyphenylacetic acid with the 8-hydroxy group of lactucin. Found in chicory.</definition><status>OK - Preliminary</status><smiles>OCC1=CC(=O)C2=C(C)C[C@@H]([C@]3(C(=C)C(=O)O[C@@]3([C@@]12[H])[H])[H])OC(=O)CC=4C=CC(O)=CC4</smiles><inchi>InChI=1S/C23H22O7/c1-11-7-17(29-18(27)8-13-3-5-15(25)6-4-13)20-12(2)23(28)30-22(20)21-14(10-24)9-16(26)19(11)21/h3-6,9,17,20-22,24-25H,2,7-8,10H2,1H3/t17-,20+,21-,22-/m0/s1</inchi><inchiKey>UMVSOHBRAQTGQI-XGARDCMYSA-N</inchiKey><charge>0</charge><mass>410.417</mass><monoisotopicMass>410.13655</monoisotopicMass><entityStar>2</entityStar><Synonyms><data>(+)-Lactucopicrin</data><type>SYNONYM</type><source>KNApSAcK</source></Synonyms><Synonyms><data>Lactopicrin</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Lactupicrin</data><type>SYNONYM</type><source>KNApSAcK</source></Synonyms><IupacNames><data>(3aR,4S,9aS,9bR)-9-(hydroxymethyl)-6-methyl-3-methylidene-2,7-dioxo-2,3,3a,4,5,7,9a,9b-octahydroazuleno[4,5-b]furan-4-yl (4-hydroxyphenyl)acetate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C23H22O7</data><source>ChEBI</source></Formulae><RegistryNumbers><data>1358541</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>65725-11-3</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>65725-11-3</data><type>CAS Registry Number</type><source>KNApSAcK</source></RegistryNumbers><Citations><data>10858433</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>15507374</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>16621374</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Ketcher 06161612102D 1   1.00000     0.00000     0
+
+ 33 36  0     1  0            999 V2000
+   15.6233  -12.3844    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.6232  -12.3656    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.1386  -13.2217    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7492  -14.1418    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.5037  -14.7965    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.4181  -15.7924    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   18.3599  -14.2811    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2616  -14.7112    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2654  -15.7106    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.1607  -14.2742    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.3797  -13.2992    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.7537  -12.5202    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.0590  -11.5685    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.0086  -11.2567    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2483  -10.9841    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2444   -9.9847    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   18.4421  -11.5750    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   18.7544  -12.5241    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.1340  -13.3078    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.8103  -12.1972    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   20.7191  -12.2615    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   19.1092  -13.5267    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   21.3533  -13.0733    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   21.8570  -13.9429    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.3542  -14.8109    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.8539  -13.9429    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   23.3575  -14.8120    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.3545  -14.8120    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.8539  -15.6762    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.3510  -16.5448    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.8546  -17.4144    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   23.3542  -16.5448    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.8504  -15.6751    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0     0  0
+  2  3  1  0     0  0
+  3  4  2  0     0  0
+  3 19  1  0     0  0
+  4  5  1  0     0  0
+  5  6  2  0     0  0
+  5  7  1  0     0  0
+  7  8  2  0     0  0
+  7 19  1  0     0  0
+  8  9  1  0     0  0
+  8 10  1  0     0  0
+ 10 11  1  0     0  0
+ 11 12  1  0     0  0
+ 12 13  1  0     0  0
+ 12 18  1  0     0  0
+ 13 14  2  0     0  0
+ 13 15  1  0     0  0
+ 15 16  2  0     0  0
+ 15 17  1  0     0  0
+ 17 18  1  0     0  0
+ 18 19  1  0     0  0
+ 18 20  1  6     0  0
+ 12 21  1  1     0  0
+ 19 22  1  1     0  0
+ 11 23  1  1     0  0
+ 23 24  1  0     0  0
+ 24 25  2  0     0  0
+ 24 26  1  0     0  0
+ 26 27  1  0     0  0
+ 27 28  1  0     0  0
+ 27 33  2  0     0  0
+ 28 29  2  0     0  0
+ 29 30  1  0     0  0
+ 30 31  1  0     0  0
+ 30 32  2  0     0  0
+ 32 33  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00003312</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0035828</data><type>HMDB accession</type></DatabaseLinks><DatabaseLinks><data>Lactucopicrin</data><type>Wikipedia accession</type></DatabaseLinks><OntologyParents><chebiName>azulenofuran</chebiName><chebiId>CHEBI:39433</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>cyclic terpene ketone</chebiName><chebiId>CHEBI:36130</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>enone</chebiName><chebiId>CHEBI:51689</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>phenols</chebiName><chebiId>CHEBI:33853</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>sesquiterpene lactone</chebiName><chebiId>CHEBI:37667</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>4-hydroxyphenylacetic acid</chebiName><chebiId>CHEBI:18101</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>lactucin</chebiName><chebiId>CHEBI:6358</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>plant metabolite</chebiName><chebiId>CHEBI:76924</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>primary alcohol</chebiName><chebiId>CHEBI:15734</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>sedative</chebiName><chebiId>CHEBI:35717</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antimalarial</chebiName><chebiId>CHEBI:38068</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Cichorium intybus</speciesText><speciesAccession>NCBI:13427</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS270</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

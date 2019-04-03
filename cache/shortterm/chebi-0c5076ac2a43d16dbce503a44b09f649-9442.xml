@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:9442</chebiId><chebiAsciiName>tephrosin</chebiAsciiName><definition>A member of the class of rotenones that is 13,13a-dihydro-3H-chromeno[3,4-b]pyrano[2,3-h]chromen-7(7aH)-one substituted with geminal methyl groups at position 3, hydroxy group at position 7a and methoxy groups at positions 9 and 10 (the 7aR,13aR stereoisomer). It is isolated from the leaves and twigs of Antheroporum pierrei and exhibits antineoplastic and pesticidal activities.</definition><status>CHECKED</status><smiles>[H][C@@]12COc3cc(OC)c(OC)cc3[C@]1(O)C(=O)c1ccc3OC(C)(C)C=Cc3c1O2</smiles><inchi>InChI=1S/C23H22O7/c1-22(2)8-7-12-15(30-22)6-5-13-20(12)29-19-11-28-16-10-18(27-4)17(26-3)9-14(16)23(19,25)21(13)24/h5-10,19,25H,11H2,1-4H3/t19-,23-/m1/s1</inchi><inchiKey>AQBZCCQCDWNNJQ-AUSIDOKSSA-N</inchiKey><charge>0</charge><mass>410.41660</mass><monoisotopicMass>410.13655</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:68052</SecondaryChEBIIds><Synonyms><data>(7aR,13aR)-13,13a-dihydro-7a-hydroxy-9,10-dimethoxy-3,3-dimethyl-3H-bis(1)benzopyrano(3,4-b:6',5'-e)pyran-7(7aH)-one</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>deguelinol I</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>hydroxydeguelin</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Tephrosin</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>(7aR,13aR)-7a-hydroxy-9,10-dimethoxy-3,3-dimethyl-13,13a-dihydro-3H-chromeno[3,4-b]pyrano[2,3-h]chromen-7(7aH)-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C23H22O7</data><source>ChEBI</source></Formulae><RegistryNumbers><data>5661956</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>76-80-2</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>17830264</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>20572190</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>21452840</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>21966156</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22123175</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22237680</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22970736</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  01081309042D          
+
+ 31 35  0  0  0  0            999 V2000
+    7.5098   -5.6449    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    8.2191   -6.0537    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.7922   -6.0579    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.0788   -4.8146    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.0788   -5.6449    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.5140   -4.8146    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    6.7922   -4.3975    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3570   -4.4016    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9367   -5.6491    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6478   -4.8230    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3487   -3.5797    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2107   -6.8757    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9259   -4.4225    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9409   -4.8230    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6459   -6.0662    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3653   -6.0621    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9200   -7.2970    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6376   -6.8882    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6311   -3.1750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9218   -3.5964    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2275   -4.4016    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.7922   -6.8840    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6478   -5.6449    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.5015   -6.4668    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9117   -8.1231    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3510   -7.3054    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7006   -2.7912    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1166   -3.8050    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3468   -8.1314    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.1940   -8.5279    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.5056   -3.9885    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  3  1  1  0  0  0  0
+  4  7  1  0  0  0  0
+  5  3  1  0  0  0  0
+  6  1  1  0  0  0  0
+  7  6  1  0  0  0  0
+  8  4  2  0  0  0  0
+  9  2  2  0  0  0  0
+ 10  8  1  0  0  0  0
+ 11  8  1  0  0  0  0
+ 12  2  1  0  0  0  0
+ 13 10  1  0  0  0  0
+ 14  9  1  0  0  0  0
+ 15  9  1  0  0  0  0
+ 16  5  2  0  0  0  0
+ 17 12  2  0  0  0  0
+ 18 17  1  0  0  0  0
+ 19 11  2  0  0  0  0
+ 20 19  1  0  0  0  0
+ 21  6  1  0  0  0  0
+ 22  3  2  0  0  0  0
+ 23 16  1  0  0  0  0
+  1 24  1  1  0  0  0
+ 25 17  1  0  0  0  0
+ 26 18  1  0  0  0  0
+ 27 20  1  0  0  0  0
+ 28 20  1  0  0  0  0
+ 29 26  1  0  0  0  0
+ 30 25  1  0  0  0  0
+  6 31  1  1  0  0  0
+ 21 14  1  0  0  0  0
+  5  4  1  0  0  0  0
+ 15 18  2  0  0  0  0
+ 23 10  2  0  0  0  0
+ 13 20  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00002578</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C10535</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>CPD-12165</data><type>MetaCyc accession</type></DatabaseLinks><DatabaseLinks><data>DE19707178</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>GB350897</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>GB437171</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>LMPK12060047</data><type>LIPID MAPS instance accession</type></DatabaseLinks><DatabaseLinks><data>Tephrosin</data><type>Wikipedia accession</type></DatabaseLinks><OntologyParents><chebiName>organic heteropentacyclic compound</chebiName><chebiId>CHEBI:38164</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>pesticide</chebiName><chebiId>CHEBI:25944</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antineoplastic agent</chebiName><chebiId>CHEBI:35610</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aromatic ether</chebiName><chebiId>CHEBI:35618</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>cyclic ketone</chebiName><chebiId>CHEBI:3992</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>rotenones</chebiName><chebiId>CHEBI:72581</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>4',5'-dihydro-11,5'-dihydroxy-4'-methoxytephrosin</chebiName><chebiId>CHEBI:65772</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Antheroporum pierrei</speciesText><speciesAccession>IPNI:474590-1</speciesAccession><componentText>leaf</componentText><componentAccession>BTO:0000713</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>21452840</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Antheroporum pierrei</speciesText><speciesAccession>IPNI:474590-1</speciesAccession><componentText>twig</componentText><componentAccession>BTO:0001411</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>21452840</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

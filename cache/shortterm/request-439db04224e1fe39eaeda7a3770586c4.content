@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:66216</chebiId><chebiAsciiName>tetrahydroxysqualene</chebiAsciiName><definition>A  triterpenoid that is  squalene substituted by four hydroxy groups. It is isolated from Rhus taitensis and has been shown to exhibit antimycobacterial activity.</definition><status>CHECKED</status><smiles>C\C(CC\C=C(/C)CCC=C(CO)CO)=C/CC\C=C(/C)CC\C=C(/C)CCC=C(CO)CO</smiles><inchi>InChI=1S/C30H50O4/c1-25(13-7-15-27(3)17-9-19-29(21-31)22-32)11-5-6-12-26(2)14-8-16-28(4)18-10-20-30(23-33)24-34/h11-12,15-16,19-20,31-34H,5-10,13-14,17-18,21-24H2,1-4H3/b25-11+,26-12+,27-15+,28-16+</inchi><inchiKey>YMMHDITUHQNNKU-DKTKHUEWSA-N</inchiKey><charge>0</charge><mass>474.71560</mass><monoisotopicMass>474.37091</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>(6E,10E,14E,18E)-2,23-bis(hydroxymethyl)-6,10,15,19-tetramethyltetracosa-2,6,10,14,18,22-hexaene-1,24-diol</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50O4</data><source>ChEBI</source></Formulae><RegistryNumbers><data>19220861</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>18710283</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  09161312062D          
+
+ 34 33  0  0  0  0            999 V2000
+    4.8142  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5281  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2421  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9561  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6701  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.3840  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0980  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8120  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5260  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2399  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9539  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6679  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3819  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0959  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.8098  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.5238  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.2378  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.9518  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.6657  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.3797  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.0937  -22.5592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.8077  -22.1458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0977  -22.1467    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8152  -23.3859    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0997  -23.8001    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0967  -21.3200    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6701  -23.3859    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5260  -23.3859    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0959  -21.3191    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.9518  -21.3191    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.5240  -22.5583    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.8067  -21.3191    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.5221  -20.9048    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.5251  -23.3850    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  8  9  1  0  0  0  0
+ 17 18  2  0  0  0  0
+  4  5  1  0  0  0  0
+ 18 19  1  0  0  0  0
+  9 10  2  0  0  0  0
+ 19 20  1  0  0  0  0
+  2  3  1  0  0  0  0
+ 20 21  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 21 22  2  0  0  0  0
+  5  6  2  0  0  0  0
+  1 23  1  0  0  0  0
+ 11 12  1  0  0  0  0
+  1 24  1  0  0  0  0
+  1  2  2  0  0  0  0
+ 24 25  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 23 26  1  0  0  0  0
+  6  7  1  0  0  0  0
+  5 27  1  0  0  0  0
+ 13 14  2  0  0  0  0
+  9 28  1  0  0  0  0
+  3  4  1  0  0  0  0
+ 14 29  1  0  0  0  0
+ 14 15  1  0  0  0  0
+ 18 30  1  0  0  0  0
+  7  8  1  0  0  0  0
+ 22 31  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 22 32  1  0  0  0  0
+ 32 33  1  0  0  0  0
+ 16 17  1  0  0  0  0
+ 31 34  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>squalene</chebiName><chebiId>CHEBI:15440</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>triterpenoid</chebiName><chebiId>CHEBI:36615</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>tetrol</chebiName><chebiId>CHEBI:33573</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antimycobacterial drug</chebiName><chebiId>CHEBI:64912</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>primary alcohol</chebiName><chebiId>CHEBI:15734</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Rhus taitensis</speciesText><speciesAccession>NCBI:384978</speciesAccession><componentText>leaf</componentText><componentAccession>BTO:0000713</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>18710283</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Rhus taitensis</speciesText><speciesAccession>NCBI:384978</speciesAccession><componentText>twig</componentText><componentAccession>BTO:0001411</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>18710283</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:75311</chebiId><chebiAsciiName>methyl aklanonate</chebiAsciiName><definition>A methyl ester resulting from the formal condensation of aklanonic acid with methanol.</definition><status>CHECKED</status><smiles>CCC(=O)CC(=O)c1c(O)c2C(=O)c3c(O)cccc3C(=O)c2cc1CC(=O)OC</smiles><inchi>InChI=1S/C22H18O8/c1-3-11(23)9-15(25)17-10(8-16(26)30-2)7-13-19(21(17)28)22(29)18-12(20(13)27)5-4-6-14(18)24/h4-7,24,28H,3,8-9H2,1-2H3</inchi><inchiKey>IDEZUESUWKFILV-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.37350</mass><monoisotopicMass>410.10017</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:31179</SecondaryChEBIIds><Synonyms><data>AAME</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>Aklanonic acid methyl ester</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>methyl [4,5-dihydroxy-9,10-dioxo-3-(3-oxopentanoyl)-9,10-dihydroanthracen-2-yl]acetate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C22H18O8</data><source>ChEBI</source></Formulae><Citations><data>7836284</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>
+  Marvin  09171312032D          
+
+ 30 32  0  0  0  0            999 V2000
+   -1.2033   -0.6079    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2033   -1.4329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4888   -0.1954    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.9178   -0.1954    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4888   -1.8454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.9178   -1.8454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2256   -0.6079    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6323   -0.6079    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2256   -1.4329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4888   -2.6704    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6323   -1.4329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9401   -0.1954    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9401   -1.8454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6546   -1.4329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6546   -0.6079    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.9178   -2.6704    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4888    0.6296    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9401   -2.6704    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3690   -0.1954    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3690   -1.8454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.0835   -1.4329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3690    0.6296    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.0835    1.0421    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6546    1.0421    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7980   -1.8454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5124   -1.4329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2269   -1.8454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7980   -2.6704    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3690   -2.6704    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7980    0.6296    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0
+  1  3  1  0  0  0  0
+  1  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  1  0  0  0  0
+  3  7  1  0  0  0  0
+  4  8  2  0  0  0  0
+  5  9  1  0  0  0  0
+  5 10  2  0  0  0  0
+  6 11  2  0  0  0  0
+  8 11  1  0  0  0  0
+ 12 15  1  0  0  0  0
+ 12  7  2  0  0  0  0
+  7  9  1  0  0  0  0
+  9 13  2  0  0  0  0
+ 13 14  1  0  0  0  0
+  6 16  1  0  0  0  0
+  3 17  2  0  0  0  0
+ 13 18  1  0  0  0  0
+ 19 15  1  0  0  0  0
+ 14 15  2  0  0  0  0
+ 14 20  1  0  0  0  0
+ 20 21  1  0  0  0  0
+ 19 22  1  0  0  0  0
+ 22 23  1  0  0  0  0
+ 22 24  2  0  0  0  0
+ 21 25  1  0  0  0  0
+ 25 26  1  0  0  0  0
+ 26 27  1  0  0  0  0
+ 25 28  2  0  0  0  0
+ 20 29  2  0  0  0  0
+ 23 30  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C12422</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>CPD-15729</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>polyphenol</chebiName><chebiId>CHEBI:26195</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aklanonic acid</chebiName><chebiId>CHEBI:31178</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>methyl ester</chebiName><chebiId>CHEBI:25248</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>methyl aklanonate(1-)</chebiName><chebiId>CHEBI:77988</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>dihydroxyanthraquinone</chebiName><chebiId>CHEBI:37484</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>methyl aklanonate(1-)</chebiName><chebiId>CHEBI:77988</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

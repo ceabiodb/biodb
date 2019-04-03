@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:71954</chebiId><chebiAsciiName>BKM120</chebiAsciiName><definition>An aminopyridine that is 4-(trifluoromethyl)pyridin-2-amine substituted at position 5 by a 2,6-di(morpholin-4-yl)pyrimidin-4-y group. A selective PI3K inhibitor with anti-tumour properties.</definition><status>CHECKED</status><smiles>Nc1cc(c(cn1)-c1cc(nc(n1)N1CCOCC1)N1CCOCC1)C(F)(F)F</smiles><inchi>InChI=1S/C18H21F3N6O2/c19-18(20,21)13-9-15(22)23-11-12(13)14-10-16(26-1-5-28-6-2-26)25-17(24-14)27-3-7-29-8-4-27/h9-11H,1-8H2,(H2,22,23)</inchi><inchiKey>CWHUFRVAEUJCEF-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.39350</mass><monoisotopicMass>410.16781</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>BKM 120</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>NVP-BKM120</data><type>SYNONYM</type><source>SUBMITTER</source></Synonyms><IupacNames><data>5-[2,6-di(morpholin-4-yl)pyrimidin-4-yl]-4-(trifluoromethyl)pyridin-2-amine</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C18H21F3N6O2</data><source>ChEBI</source></Formulae><RegistryNumbers><data>1202777-78-3</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>12938097</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>21169255</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>21362200</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22037215</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22049316</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22065080</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22159814</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22162589</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22188813</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22207485</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22355357</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22543857</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22619567</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22653967</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22682985</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22737248</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22781393</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22915751</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22915752</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23238639</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23300274</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23319457</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  01301311232D          
+
+ 29 32  0  0  0  0            999 V2000
+   14.3701   -6.9718    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   16.5135   -4.9093    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3714   -9.8593    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.5135   -6.5593    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   17.9424   -9.0343    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   17.2280   -7.7968    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   16.5135   -9.0343    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3701  -10.2718    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   12.9411  -10.2718    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7990   -6.1468    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.2280   -6.1468    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6568   -8.6218    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.9424   -9.8593    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.5135   -7.3843    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7990   -5.3218    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.2280   -5.3218    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.2280   -8.6218    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3714   -9.0343    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6568  -10.2718    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7990   -7.7968    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7990   -8.6218    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0845   -9.0343    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3701   -8.6218    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0845   -9.8593    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.6556   -9.0343    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3701   -7.7968    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.6556   -9.8593    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0845   -7.3843    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   13.6556   -7.3843    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+  1 26  1  0  0  0  0
+  2 15  1  0  0  0  0
+  2 16  1  0  0  0  0
+  3 18  1  0  0  0  0
+  3 19  1  0  0  0  0
+  4 10  1  0  0  0  0
+  4 11  1  0  0  0  0
+  4 14  1  0  0  0  0
+  5 12  1  0  0  0  0
+  5 13  1  0  0  0  0
+  5 17  1  0  0  0  0
+  6 14  2  0  0  0  0
+  6 17  1  0  0  0  0
+  7 17  2  0  0  0  0
+  7 21  1  0  0  0  0
+  8 24  1  0  0  0  0
+  8 27  2  0  0  0  0
+  9 27  1  0  0  0  0
+ 10 15  1  0  0  0  0
+ 11 16  1  0  0  0  0
+ 12 18  1  0  0  0  0
+ 13 19  1  0  0  0  0
+ 14 20  1  0  0  0  0
+ 20 21  2  0  0  0  0
+ 21 22  1  0  0  0  0
+ 22 23  1  0  0  0  0
+ 22 24  2  0  0  0  0
+ 23 25  2  0  0  0  0
+ 23 26  1  0  0  0  0
+ 25 27  1  0  0  0  0
+ 26 28  1  0  0  0  0
+ 26 29  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-1148</data><type>LINCS accession</type></DatabaseLinks><DatabaseLinks><data>WO2007084786</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>WO2012044727</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>WO2012109423</data><type>Patent accession</type></DatabaseLinks><OntologyParents><chebiName>morpholines</chebiName><chebiId>CHEBI:38785</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aminopyrimidine</chebiName><chebiId>CHEBI:38338</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aminopyridine</chebiName><chebiId>CHEBI:38207</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>organofluorine compound</chebiName><chebiId>CHEBI:37143</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>EC 2.7.1.137 (phosphatidylinositol 3-kinase) inhibitor</chebiName><chebiId>CHEBI:50914</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antineoplastic agent</chebiName><chebiId>CHEBI:35610</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

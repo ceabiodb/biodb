@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:138307</chebiId><chebiAsciiName>(3S,22S)-2,3:22,23-diepoxy-2,3,22,23-tetrahydrosqualene</chebiAsciiName><definition>A squalene triterpenoid obtained by epoxidation accross the 2,3- and 22,23-double bonds of squalene.</definition><status>CHECKED</status><smiles>C(C/C=C(/CC/C=C(/CC[C@H]1C(O1)(C)C)\C)\C)/C=C(/CC/C=C(/CC[C@H]2C(O2)(C)C)\C)\C</smiles><inchi>InChI=1S/C30H50O2/c1-23(15-11-17-25(3)19-21-27-29(5,6)31-27)13-9-10-14-24(2)16-12-18-26(4)20-22-28-30(7,8)32-28/h13-14,17-18,27-28H,9-12,15-16,19-22H2,1-8H3/b23-13+,24-14+,25-17+,26-18+/t27-,28-/m0/s1</inchi><inchiKey>KABSNIWLJXCBGG-OQSIWNGOSA-N</inchiKey><charge>0</charge><mass>442.718</mass><monoisotopicMass>442.38108</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>(3S,22S)-2,3:22,23-diepoxy-2,3,22,23-tetrahydrosqualene</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Synonyms><data>(3S,22S)-2,3:22,23-dioxidosqualene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>(2S,2'S)-2,2'-[(3E,7E,11E,15E)-3,7,12,16-tetramethyloctadeca-3,7,11,15-tetraene-1,18-diyl]bis(3,3-dimethyloxirane)</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50O2</data><source>ChEBI</source></Formulae><RegistryNumbers><data>8657029</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>16366544</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>17112472</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>26663356</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>
+  Ketcher 11131714392D 1   1.00000     0.00000     0
+
+ 32 33  0     1  0            999 V2000
+   12.3772   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2373   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0975   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.9577   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.8178   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.6780   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.5382   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.3984   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2585   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.1186   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.9788   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.9577   -4.1211    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.3984   -4.1211    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.9721   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.4842   -6.5350    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.5171   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.6568   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7967   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9366   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.0764   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2162   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.3561   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.4959   -5.6109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6357   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.6568   -6.6043    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2162   -6.6043    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6424   -5.1143    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1304   -4.1904    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.4523   -4.7415    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.9651   -5.5922    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1621   -5.9837    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6493   -5.1331    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  3  1  0     0  0
+  3  4  2  0     0  0
+  4  5  1  0     0  0
+  5  6  1  0     0  0
+  6  7  1  0     0  0
+  7  8  2  0     0  0
+  8  9  1  0     0  0
+  9 10  1  0     0  0
+ 11 10  1  1     0  0
+  4 12  1  0     0  0
+  8 13  1  0     0  0
+ 11 14  1  0     0  0
+ 11 15  1  0     0  0
+ 14 15  1  0     0  0
+  1  2  1  0     0  0
+ 16 17  2  0     0  0
+ 17 18  1  0     0  0
+ 17 25  1  0     0  0
+ 18 19  1  0     0  0
+ 19 20  1  0     0  0
+ 20 21  2  0     0  0
+ 21 22  1  0     0  0
+ 21 26  1  0     0  0
+ 22 23  1  0     0  0
+ 24 23  1  1     0  0
+ 24 27  1  0     0  0
+ 24 28  1  0     0  0
+ 27 28  1  0     0  0
+  1 16  1  0     0  0
+ 29 14  1  0     0  0
+ 30 14  1  0     0  0
+ 31 27  1  0     0  0
+ 32 27  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>CPD-20473</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>epoxide</chebiName><chebiId>CHEBI:32955</chebiId><type>is a</type><status>SUBMITTED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>squalene triterpenoid</chebiName><chebiId>CHEBI:26747</chebiId><type>is a</type><status>SUBMITTED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>plant metabolite</chebiName><chebiId>CHEBI:76924</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Lycopodium clavatum</speciesText><speciesAccession>NCBI:3252</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>26663356</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

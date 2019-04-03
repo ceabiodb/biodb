@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:7799</chebiId><chebiAsciiName>oseltamivir phosphate</chebiAsciiName><definition></definition><status>CHECKED</status><smiles>OP(O)(O)=O.CCOC(=O)C1=C[C@@H](OC(CC)CC)[C@H](NC(C)=O)[C@@H](N)C1</smiles><inchi>InChI=1S/C16H28N2O4.H3O4P/c1-5-12(6-2)22-14-9-11(16(20)21-7-3)8-13(17)15(14)18-10(4)19;1-5(2,3)4/h9,12-15H,5-8,17H2,1-4H3,(H,18,19);(H3,1,2,3,4)/t13-,14+,15+;/m0./s1</inchi><inchiKey>PGZUMBJQJWIWGJ-ONAKXNSWSA-N</inchiKey><charge>0</charge><mass>410.39970</mass><monoisotopicMass>410.18180</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>(3R-(3alpha,4beta,5alpha))-Ethyl 4-(acetylamino)-5-amino-3-(1-ethylpropoxy)-1-cyclohexene-1-carboxylate phosphate (1:1)</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Ethyl (3R,4R,5S)-4-acetamido-5-amino-3-(1-ethylpropoxy)-1-cyclohexene-1-carboxylate phosphate (1:1)</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Oseltamivir phosphate</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>Tamiflu</data><type>BRAND NAME</type><source>DrugBank</source></Synonyms><IupacNames><data>ethyl (3R,4R,5S)-4-acetamido-5-amino-3-(pentan-3-yloxy)cyclohex-1-ene-1-carboxylate phosphate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C16H28N2O4.H3O4P</data><source>KEGG COMPOUND</source></Formulae><Formulae><data>C16H31N2O8P</data><source>ChEBI</source></Formulae><RegistryNumbers><data>204255-11-8</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>8101020</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  05110911112D          
+
+ 27 26  0  0  0  0            999 V2000
+   -0.6777    1.2670    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3921    0.8545    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -1.3921    0.0295    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -0.6777   -0.3831    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.0368    0.0295    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0368    0.8545    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7513    1.2670    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6777   -1.2081    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1066   -0.3830    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1066    1.2670    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7513    2.0920    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4657    0.8545    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4657    0.0295    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1802   -0.3830    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0368   -1.6206    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0368   -2.4456    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7513   -1.2081    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7513   -0.3831    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7513   -2.8581    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1066   -1.2080    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8211   -1.6205    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3922   -1.6205    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9503   -2.1999    0.0000 P   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9503   -1.3749    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1253   -2.1999    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9503   -3.0249    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7753   -2.1999    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  6  1  0  0  0  0
+  2  3  1  0  0  0  0
+  3  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  5  6  2  0  0  0  0
+  6  7  1  0  0  0  0
+  4  8  1  1  0  0  0
+  3  9  1  6  0  0  0
+  2 10  1  1  0  0  0
+  7 11  2  0  0  0  0
+  7 12  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 13 14  1  0  0  0  0
+  8 15  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 15 17  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 16 19  1  0  0  0  0
+  9 20  1  0  0  0  0
+ 20 21  1  0  0  0  0
+ 20 22  2  0  0  0  0
+ 23 24  2  0  0  0  0
+ 23 25  1  0  0  0  0
+ 23 26  1  0  0  0  0
+ 23 27  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C08093</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>D00900</data><type>KEGG DRUG accession</type></DatabaseLinks><DatabaseLinks><data>DB00198</data><type>DrugBank accession</type></DatabaseLinks><OntologyParents><chebiName>phosphate salt</chebiName><chebiId>CHEBI:37853</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>oseltamivir</chebiName><chebiId>CHEBI:7798</chebiId><type>has part</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

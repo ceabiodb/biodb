@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:125701</chebiId><chebiAsciiName>7-[(3-chlorophenyl)methyl]-4-phenyl-9-oxa-1,6,13,14-tetrazabicyclo[9.3.0]tetradeca-11,13-dien-5-one</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C1CN2C(=CN=N2)COCC(NC(=O)C1C3=CC=CC=C3)CC4=CC(=CC=C4)Cl</smiles><inchi>InChI=1S/C22H23ClN4O2/c23-18-8-4-5-16(11-18)12-19-14-29-15-20-13-24-26-27(20)10-9-21(22(28)25-19)17-6-2-1-3-7-17/h1-8,11,13,19,21H,9-10,12,14-15H2,(H,25,28)</inchi><inchiKey>MDLNBKGTNRCNPP-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.897</mass><monoisotopicMass>410.15095</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C22H23ClN4O2</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161912
+null
+ 29 32  0  0  0  0  0  0  0  0999 V2000
+    1.6751   -0.5103    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1902    0.2512    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4056    0.5062    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4056    1.3312    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3791    1.5861    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8640    0.9187    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3791    0.2512    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1902    1.5861    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6751    2.3476    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5001    2.3476    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9126    1.6331    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5001    0.9187    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9126    0.2042    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7376    0.2042    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5001   -0.5103    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9126   -1.2248    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7376   -1.2248    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1501   -1.9392    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7376   -2.6537    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9126   -2.6537    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5001   -1.9392    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7376    1.6331    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1501    2.3476    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9751    2.3476    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3876    3.0621    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9751    3.7765    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1501    3.7765    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7376    3.0621    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2126    3.0621    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  2  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  2  0  0  0  0 
+  7  3  1  0  0  0  0 
+  4  8  1  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 13 14  2  0  0  0  0 
+ 13 15  1  0  0  0  0 
+ 15  1  1  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  2  0  0  0  0 
+ 17 18  1  0  0  0  0 
+ 18 19  2  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 16  1  0  0  0  0 
+ 11 22  1  0  0  0  0 
+ 22 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 26  2  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 28  2  0  0  0  0 
+ 28 23  1  0  0  0  0 
+ 25 29  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-37270</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>organochlorine compound</chebiName><chebiId>CHEBI:36683</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

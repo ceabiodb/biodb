@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:106028</chebiId><chebiAsciiName>N-[[2-[cyclohexyl(methyl)amino]-5-nitrophenyl]methylideneamino]-2-phenoxyacetamide</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CN(C1CCCCC1)C2=C(C=C(C=C2)[N+](=O)[O-])C=NNC(=O)COC3=CC=CC=C3</smiles><inchi>InChI=1S/C22H26N4O4/c1-25(18-8-4-2-5-9-18)21-13-12-19(26(28)29)14-17(21)15-23-24-22(27)16-30-20-10-6-3-7-11-20/h3,6-7,10-15,18H,2,4-5,8-9,16H2,1H3,(H,24,27)</inchi><inchiKey>LPAXYLXDCLVQJS-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.467</mass><monoisotopicMass>410.19541</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C22H26N4O4</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162330
+null
+ 30 32  0  0  0  0  0  0  0  0999 V2000
+   -1.4289   -4.1250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -4.9500    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1434   -5.3625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1434   -6.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8579   -6.6000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5724   -6.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5724   -5.3625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8579   -4.9500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -5.3625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -4.9500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -5.3625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -6.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -6.6000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -6.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -6.6000    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -7.4250    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -6.1875    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -4.1250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -3.7125    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -2.8875    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -1.6500    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579   -2.4750    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724   -2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868   -2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0013   -2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0013   -3.7125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868   -4.1250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724   -3.7125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  3  1  0  0  0  0 
+  2  9  1  0  0  0  0 
+  9 10  2  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  2  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 13 14  2  0  0  0  0 
+ 14  9  1  0  0  0  0 
+ 12 15  1  0  0  0  0 
+ 15 16  2  0  0  0  0 
+ 15 17  1  0  0  0  0 
+ 18 10  1  4  0  0  0 
+ 18 19  2  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 21 23  1  0  0  0  0 
+ 23 24  1  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 26  2  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 28  2  0  0  0  0 
+ 28 29  1  0  0  0  0 
+ 29 30  2  0  0  0  0 
+ 30 25  1  0  0  0  0 
+M  CHG  1  15   1
+M  CHG  1  17  -1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-17389</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>C-nitro compound</chebiName><chebiId>CHEBI:35716</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:15441</chebiId><chebiAsciiName>(S)-2,3-epoxysqualene</chebiAsciiName><definition>A 2,3-epoxysqualene in which the chiral centre has S configuration. It is converted to lanosterol by lanosterol synthase (EC 5.4.99.7) in a key rate-limiting step in the biosynthesis of chloesterol, steroid hormones, and vitamin D.</definition><status>CHECKED</status><smiles>CC(C)=CCC\C(C)=C\CC\C(C)=C\CC\C=C(/C)CC\C=C(/C)CC[C@@H]1OC1(C)C</smiles><inchi>InChI=1S/C30H50O/c1-24(2)14-11-17-27(5)20-12-18-25(3)15-9-10-16-26(4)19-13-21-28(6)22-23-29-30(7,8)31-29/h14-16,20-21,29H,9-13,17-19,22-23H2,1-8H3/b25-15+,26-16+,27-20+,28-21+/t29-/m0/s1</inchi><inchiKey>QYIMSPSDBYKPPY-RSKUXYSASA-N</inchiKey><charge>0</charge><mass>426.71740</mass><monoisotopicMass>426.38617</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:18728</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:11026</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:11072</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:372</SecondaryChEBIIds><Synonyms><data>(3S)-2,3-dihydro-2,3-epoxysqualene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(3S)-2,3-epoxy-2,3-dihydrosqualene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(S)-2,3-dihydro-2,3-epoxysqualene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(S)-2,3-epoxy-2,3-dihydrosqualene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(S)-2,3-Epoxysqualene</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>(S)-2,3-epoxysqualene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(S)-2,3-epoxysqualene</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Synonyms><data>(S)-2,3-oxidosqualene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(S)-Squalene-2,3-epoxide</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>(S)-squalene-2,3-epoxide</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>2,3-EDSQ</data><type>SYNONYM</type><source>MetaCyc</source></Synonyms><Synonyms><data>2,3-epoxisqualene</data><type>SYNONYM</type><source>MetaCyc</source></Synonyms><Synonyms><data>2,3-oxidosqualene</data><type>SYNONYM</type><source>MetaCyc</source></Synonyms><Synonyms><data>oxidosqualene</data><type>SYNONYM</type><source>MetaCyc</source></Synonyms><Synonyms><data>Squalene 2,3-epoxide</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>Squalene 2,3-oxide</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>(3S)-2,2-dimethyl-3-[(3E,7E,11E,15E)-3,7,12,16,20-pentamethylhenicosa-3,7,11,15,19-pentaen-1-yl]oxirane</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50O</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>4710524</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>19951700</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>26058429</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>ChEBI
+  Marvin  09060512422D          
+
+ 31 31  0  0  1  0            999 V2000
+    6.4786    0.0003    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9081   -0.7603    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+    6.0595   -0.7379    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    7.6462   -1.1795    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.6873   -1.5537    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3411   -1.1435    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6030   -0.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8846   -1.1300    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1464   -0.7109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4280   -1.1165    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6899   -0.6973    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9714   -1.1029    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2333   -0.6838    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4851   -1.0894    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.1571   -0.6887    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.9178   -1.1181    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6375   -0.6329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.3743   -1.1046    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.0702   -0.6616    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.8309   -1.0911    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.5268   -0.6481    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.2874   -1.0775    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.9833   -0.6346    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -7.7017   -1.0402    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -8.4399   -0.6211    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -9.1582   -1.0266    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9044   -1.9547    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9491   -1.9515    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6335    0.1496    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.5466    0.1766    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -8.4174    0.2275    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  3  1  1  0  0  0  0
+  3  2  1  0  0  0  0
+  4  2  1  0  0  0  0
+  5  2  1  0  0  0  0
+  3  6  1  6  0  0  0
+  7  6  1  0  0  0  0
+  8  7  1  0  0  0  0
+  9  8  2  0  0  0  0
+ 27  8  1  0  0  0  0
+ 10  9  1  0  0  0  0
+ 11 10  1  0  0  0  0
+ 12 11  1  0  0  0  0
+ 13 12  2  0  0  0  0
+ 28 12  1  0  0  0  0
+ 14 13  1  0  0  0  0
+ 15 14  1  0  0  0  0
+ 16 15  1  0  0  0  0
+ 17 16  2  0  0  0  0
+ 18 17  1  0  0  0  0
+ 29 17  1  0  0  0  0
+ 19 18  1  0  0  0  0
+ 20 19  1  0  0  0  0
+ 21 20  2  0  0  0  0
+ 22 21  1  0  0  0  0
+ 30 21  1  0  0  0  0
+ 23 22  1  0  0  0  0
+ 24 23  1  0  0  0  0
+ 25 24  2  0  0  0  0
+ 26 25  1  0  0  0  0
+ 31 25  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>2TX</data><type>PDBeChem accession</type></DatabaseLinks><DatabaseLinks><data>C00007282</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C01054</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>EPOXYSQUALENE</data><type>MetaCyc accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0001188</data><type>HMDB accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0059621</data><type>HMDB accession</type></DatabaseLinks><DatabaseLinks><data>LMPR0106010010</data><type>LIPID MAPS instance accession</type></DatabaseLinks><OntologyParents><chebiName>Saccharomyces cerevisiae metabolite</chebiName><chebiId>CHEBI:75772</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>human metabolite</chebiName><chebiId>CHEBI:77746</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>mouse metabolite</chebiName><chebiId>CHEBI:75771</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>squalene</chebiName><chebiId>CHEBI:15440</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>2,3-epoxysqualene</chebiName><chebiId>CHEBI:78662</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>19425150</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Saccharomyces cerevisiae</speciesText><speciesAccession>NCBI:4932</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>24678285</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>DOI</SourceType><SourceAccession>10.1038/nbt.2488</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

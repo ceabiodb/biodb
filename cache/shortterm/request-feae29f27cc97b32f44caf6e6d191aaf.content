@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:113004</chebiId><chebiAsciiName>1-(4-amino-1,2,5-oxadiazol-3-yl)-N-[1-(3-hydroxyphenyl)ethylideneamino]-5-thiophen-2-yl-4-triazolecarboxamide</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CC(=NNC(=O)C1=C(N(N=N1)C2=NON=C2N)C3=CC=CS3)C4=CC(=CC=C4)O</smiles><inchi>InChI=1S/C17H14N8O3S/c1-9(10-4-2-5-11(26)8-10)19-21-17(27)13-14(12-6-3-7-29-12)25(24-20-13)16-15(18)22-28-23-16/h2-8,26H,1H3,(H2,18,22)(H,21,27)</inchi><inchiKey>RTCJTAUAMXFRDT-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.412</mass><monoisotopicMass>410.09096</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C17H14N8O3S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161859
+null
+ 29 32  0  0  0  0  0  0  0  0999 V2000
+    1.4289   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -1.6500    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -2.4750    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -2.4750    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -3.7125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0470   -4.1974    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3020   -4.9820    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.1270   -4.9820    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3819   -4.1974    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1830   -5.6495    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.0080   -5.6495    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2629   -6.4341    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5955   -6.9190    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0720   -6.4341    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8566   -6.6890    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7376   -3.9425    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9925   -3.1579    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8175   -3.1579    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0725   -3.9425    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4050   -4.4274    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    1.2375    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  2  0  0  0  0 
+  3  4  1  4  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  2  0  0  0  0 
+  5  7  1  0  0  0  0 
+  7  8  2  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  2  0  0  0  0 
+ 11  7  1  0  0  0  0 
+  9 12  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+ 13 14  1  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  2  0  0  0  0 
+ 16 12  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+  8 18  1  0  0  0  0 
+ 18 19  2  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 18  1  0  0  0  0 
+  2 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 26  2  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 28  2  0  0  0  0 
+ 28 23  1  0  0  0  0 
+ 25 29  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-24414</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>organic salt</chebiName><chebiId>CHEBI:24868</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

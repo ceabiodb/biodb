@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:130933</chebiId><chebiAsciiName>1-[(2R,3S)-3-[4-(4-fluorophenyl)phenyl]-2-(hydroxymethyl)-1-(1-oxopropyl)-1,6-diazaspiro[3.3]heptan-6-yl]-1-propanone</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CCC(=O)N1CC2(C1)[C@H]([C@@H](N2C(=O)CC)CO)C3=CC=C(C=C3)C4=CC=C(C=C4)F</smiles><inchi>InChI=1S/C24H27FN2O3/c1-3-21(29)26-14-24(15-26)23(20(13-28)27(24)22(30)4-2)18-7-5-16(6-8-18)17-9-11-19(25)12-10-17/h5-12,20,23,28H,3-4,13-15H2,1-2H3/t20-,23-/m0/s1</inchi><inchiKey>YSMZUGMPGSMHFK-REWPJTCUSA-N</inchiKey><charge>0</charge><mass>410.482</mass><monoisotopicMass>410.20057</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C24H27FN2O3</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161919
+null
+ 30 33  0  0  0  0  0  0  0  0999 V2000
+   -2.2334   -0.3020    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4084   -0.3020    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9959    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4084    1.1270    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1709    0.4125    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4125    0.9959    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9959    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4125   -0.1709    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5792    0.9959    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    2.1626    0.4125    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    1.5792   -0.1709    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5792   -0.9959    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8648   -1.4084    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2937   -1.4084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2937   -2.2334    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9876    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4001   -0.3020    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5792    1.8209    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8648    2.2334    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8648    3.0584    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5792    3.4709    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2937    3.0584    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2937    2.2334    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5792    4.2959    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8648    4.7084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8648    5.5334    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5792    5.9459    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2937    5.5334    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2937    4.7084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5792    6.7709    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  2  0  0  0  0 
+  3  5  1  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  5  1  0  0  0  0 
+  7  9  1  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11  7  1  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+ 12 14  1  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 10 16  1  6  0  0  0 
+ 16 17  1  0  0  0  0 
+  9 18  1  1  0  0  0 
+ 18 19  2  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 23  2  0  0  0  0 
+ 23 18  1  0  0  0  0 
+ 21 24  1  0  0  0  0 
+ 24 25  2  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  2  0  0  0  0 
+ 27 28  1  0  0  0  0 
+ 28 29  2  0  0  0  0 
+ 29 24  1  0  0  0  0 
+ 27 30  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-42481</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>biphenyls</chebiName><chebiId>CHEBI:22888</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

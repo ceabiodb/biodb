@@ -60,22 +60,23 @@ if ('DONT_TEST_DBS' %in% names(ENV) && nchar(ENV[['DONT_TEST_DBS']]) > 0) {
 # Set testing modes {{{1
 ################################################################
 
-MODE.OFFLINE <- 'offline'
-MODE.ONLINE <- 'online'
-ALLOWED.MODES <- c(MODE.ONLINE, MODE.OFFLINE)
-if ('MODES' %in% names(ENV) && nchar(ENV[['MODES']]) > 0) {
-	TEST.MODES = ENV[['MODES']]
-		if ( ! TEST.MODES %in% ALLOWED.MODES)
-			stop(paste0('Unknown testing mode ', TEST.MODES, '.'))
-} else {
-	TEST.MODES <- MODE.OFFLINE
-}
+#MODE.OFFLINE <- 'offline'
+#MODE.ONLINE <- 'online'
+#ALLOWED.MODES <- c(MODE.ONLINE, MODE.OFFLINE)
+#if ('MODES' %in% names(ENV) && nchar(ENV[['MODES']]) > 0) {
+#	TEST.MODES = ENV[['MODES']]
+#		if ( ! TEST.MODES %in% ALLOWED.MODES)
+#			stop(paste0('Unknown testing mode ', TEST.MODES, '.'))
+#} else {
+#	TEST.MODES <- MODE.OFFLINE
+#}
 
 # Test online {{{1
 ################################################################
 
 test.online = function() {
-	TEST.MODES == MODE.ONLINE
+#	return(TEST.MODES == MODE.ONLINE)
+	return(TRUE)
 }
 
 # Set test functions {{{1

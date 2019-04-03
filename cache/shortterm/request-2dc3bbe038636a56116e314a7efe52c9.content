@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:68895</chebiId><chebiAsciiName>24-ethylcholesta-4,22-dien-3-one</chebiAsciiName><definition>A  3-oxo steroid that is cholesta-4,22-dien-3-one substituted by an oxo group at position 3. It has been isolated from  Croton gratissimus.</definition><status>CHECKED</status><smiles>CCC(C(C)C)\C=C\[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3CC[C@]12C</smiles><inchi>InChI=1S/C29H46O/c1-7-21(19(2)3)9-8-20(4)25-12-13-26-24-11-10-22-18-23(30)14-16-28(22,5)27(24)15-17-29(25,26)6/h8-9,18-21,24-27H,7,10-17H2,1-6H3/b9-8+/t20-,21?,24+,25-,26+,27+,28+,29-/m1/s1</inchi><inchiKey>MKGZDUKUQPPHFM-KBEOWXOMSA-N</inchiKey><charge>0</charge><mass>410.67490</mass><monoisotopicMass>410.35487</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>(22E,24xi)-stigmasta-4,22-dien-3-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C29H46O</data><source>ChEBI</source></Formulae><RegistryNumbers><data>15766024</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>22032651</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  09301313592D          
+
+ 34 37  0  0  0  0            999 V2000
+   -4.8711   -7.5672    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.8711   -8.3922    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.1591   -8.8006    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.1591   -7.1505    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.4470   -7.5672    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -3.4459   -8.3922    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7349   -8.8016    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0202   -8.3903    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7370   -7.1515    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -2.0256   -7.5676    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -2.0178   -5.9223    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7362   -6.3296    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3065   -6.3384    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -1.3101   -7.1584    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -0.5314   -7.4152    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0465   -6.7539    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5255   -6.0886    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -0.5333   -5.2628    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.1772   -4.8435    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8956   -5.2493    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6062   -4.8300    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3245   -5.2357    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.0352   -4.8165    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3323   -6.0608    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2518   -4.8571    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.5851   -8.8058    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5984   -4.0050    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3089   -3.5857    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7419   -7.9755    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3168   -7.9797    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2958   -6.0879    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.4544   -6.7421    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3126   -5.5128    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0334   -6.7421    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+ 14 15  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 16 17  1  0  0  0  0
+ 17 13  1  0  0  0  0
+  7  8  1  0  0  0  0
+ 17 18  1  0  0  0  0
+  8 10  1  0  0  0  0
+ 18 19  1  0  0  0  0
+  9 10  1  0  0  0  0
+ 19 20  2  0  0  0  0
+  3  6  2  0  0  0  0
+ 20 21  1  0  0  0  0
+  5  4  1  0  0  0  0
+ 21 22  1  0  0  0  0
+  5  6  1  0  0  0  0
+ 22 23  1  0  0  0  0
+ 22 24  1  0  0  0  0
+  9 12  1  0  0  0  0
+ 18 25  1  6  0  0  0
+ 10 14  1  0  0  0  0
+  2 26  2  0  0  0  0
+ 13 11  1  0  0  0  0
+ 21 27  1  0  0  0  0
+ 11 12  1  0  0  0  0
+ 27 28  1  0  0  0  0
+ 13 14  1  0  0  0  0
+  9 29  1  6  0  0  0
+  1  2  1  0  0  0  0
+ 14 30  1  6  0  0  0
+  1  4  1  0  0  0  0
+ 17 31  1  6  0  0  0
+  2  3  1  0  0  0  0
+  5 32  1  1  0  0  0
+  5  9  1  0  0  0  0
+ 13 33  1  1  0  0  0
+  6  7  1  0  0  0  0
+ 10 34  1  1  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>3-oxo-Delta(4) steroid</chebiName><chebiId>CHEBI:47909</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Croton gratissimus</speciesText><speciesAccession>NCBI:316784</speciesAccession><componentText>leaf</componentText><componentAccession>BTO:0000713</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>22032651</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

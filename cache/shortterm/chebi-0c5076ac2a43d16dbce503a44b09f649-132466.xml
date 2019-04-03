@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:132466</chebiId><chebiAsciiName>hop-17(21)-ene</chebiAsciiName><definition>A triterpene consisting of hopane having a C=C double bond at the 17(21)-position.</definition><status>CHECKED</status><smiles>C1CCC([C@]2([C@]1([C@@]3([C@@](CC2)([C@]4([C@@](CC3)([H])[C@]5(CCC(=C5CC4)C(C)C)C)C)C)[H])C)[H])(C)C</smiles><inchi>InChI=1S/C30H50/c1-20(2)21-12-17-27(5)22(21)13-18-29(7)24(27)10-11-25-28(6)16-9-15-26(3,4)23(28)14-19-30(25,29)8/h20,23-25H,9-19H2,1-8H3/t23-,24+,25+,27-,28-,29+,30+/m0/s1</inchi><inchiKey>BJFPMDGPOFJGIR-WWJAXWOYSA-N</inchiKey><charge>0</charge><mass>410.719</mass><monoisotopicMass>410.39125</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>A'-Neogammacer-17(21)-ene</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>hop-17(21)-ene</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50</data><source>ChEBI</source></Formulae><RegistryNumbers><data>2420300</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>546-99-6</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>11377875</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>24888970</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><Citations><data>26731047</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>6076789</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>8839970</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Ketcher 11081615512D 1   1.00000     0.00000     0
+
+ 33 37  0     1  0            999 V2000
+    9.5209   -7.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6548   -8.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6548   -9.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2529   -9.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1189   -9.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1189   -6.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2529   -6.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3869   -8.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1189   -8.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3869   -9.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3869  -10.3084    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2529   -7.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2529   -8.8084    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   12.9850   -5.8084    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5209   -9.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0589   -5.3302    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0534   -5.2258    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4601   -6.1393    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.8509   -6.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7170   -6.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.9850   -6.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.9850   -7.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.8509   -8.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7170   -7.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6548  -10.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5209  -10.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3869   -7.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1189   -7.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.8509   -7.3084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.9850   -8.8084    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7472   -7.2982    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.1074   -5.6040    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4383   -6.3472    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0     0  0
+  1  8  1  0     0  0
+  2  3  1  0     0  0
+  3 15  1  0     0  0
+ 15 10  1  0     0  0
+ 12  8  1  0     0  0
+  8 10  1  0     0  0
+ 10  4  1  0     0  0
+  4  5  1  0     0  0
+  5  9  1  0     0  0
+  9 22  1  0     0  0
+ 12  9  1  0     0  0
+  7 12  1  0     0  0
+  6  7  1  0     0  0
+  6 21  1  0     0  0
+ 10 11  1  6     0  0
+ 12 13  1  6     0  0
+ 21 14  1  1     0  0
+ 19 16  1  0     0  0
+ 16 17  1  0     0  0
+ 18 17  1  0     0  0
+ 20 18  2  0     0  0
+ 18 33  1  0     0  0
+ 21 22  1  0     0  0
+ 19 21  1  0     0  0
+ 19 20  1  0     0  0
+ 22 23  1  0     0  0
+ 24 20  1  0     0  0
+ 23 24  1  0     0  0
+  8 27  1  1     0  0
+ 22 30  1  6     0  0
+ 19 29  1  6     0  0
+ 15 25  1  0     0  0
+ 15 26  1  0     0  0
+  9 28  1  1     0  0
+ 33 32  1  0     0  0
+ 33 31  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>triterpene</chebiName><chebiId>CHEBI:35191</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>hopane</chebiName><chebiId>CHEBI:36482</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>plant metabolite</chebiName><chebiId>CHEBI:76924</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>bacterial metabolite</chebiName><chebiId>CHEBI:76969</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>2beta-methylhop-17(21)-ene</chebiName><chebiId>CHEBI:132467</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Colysis pothifolia</speciesText><speciesAccession>NCBI:493398</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>26731047</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Zymomonas mobilis</speciesText><speciesAccession>NCBI:542</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>11377875</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

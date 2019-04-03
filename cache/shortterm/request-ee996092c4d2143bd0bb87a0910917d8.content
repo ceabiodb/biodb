@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:3014</chebiId><chebiAsciiName>benfuracarb</chebiAsciiName><definition></definition><status>CHECKED</status><smiles>CCOC(=O)CCN(SN(C)C(=O)Oc1cccc2CC(C)(C)Oc12)C(C)C</smiles><inchi>InChI=1S/C20H30N2O5S/c1-7-25-17(23)11-12-22(14(2)3)28-21(6)19(24)26-16-10-8-9-15-13-20(4,5)27-18(15)16/h8-10,14H,7,11-13H2,1-6H3</inchi><inchiKey>FYZBOYWSHKHDMT-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.52868</mass><monoisotopicMass>410.18754</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>Aminofuracarb</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Benfuracarb</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>N-(((((2,3-dihydro-2,2-dimethyl-7-benzofuranyl)oxy)carbonyl)methylamino)thio)-N-(1-methylethyl)-beta-alanine, ethyl ester</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>ethyl 3-[{[{[(2,2-dimethyl-2,3-dihydro-1-benzofuran-7-yl)oxy]carbonyl}(methyl)amino]sulfanyl}(1-methylethyl)amino]propanoate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C20H30N2O5S</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>82560-54-1</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><RegistryNumbers><data>82560-54-1</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>8347990</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  11140709142D          
+
+ 28 29  0  0  0  0            999 V2000
+    0.0000   -0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4991   -0.6674    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4991    0.6674    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6985    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9840    0.0000    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+    2.6985   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    1.6500    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    2.8875    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289    1.6500    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1434    2.0625    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1434    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8579    0.8250    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   -2.8579    1.6500    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5724    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.0013    2.8875    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.0013    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.7158    1.6500    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.4302    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -7.1447    1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2868    1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5724    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0
+  7  2  1  0  0  0  0
+  1  3  1  0  0  0  0
+  4  3  2  0  0  0  0
+  2  5  1  0  0  0  0
+  8  5  1  0  0  0  0
+  6  4  1  0  0  0  0
+  5  6  2  0  0  0  0
+  6 12  1  0  0  0  0
+ 10  7  1  0  0  0  0
+  8 10  1  0  0  0  0
+ 10  9  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 12 14  1  0  0  0  0
+ 14 13  2  0  0  0  0
+ 14 16  1  0  0  0  0
+ 16 15  1  0  0  0  0
+ 16 17  1  0  0  0  0
+ 17 20  1  0  0  0  0
+ 19 18  1  0  0  0  0
+ 20 19  1  0  0  0  0
+ 19 28  1  0  0  0  0
+ 20 21  1  0  0  0  0
+ 21 27  1  0  0  0  0
+ 23 22  2  0  0  0  0
+ 27 23  1  0  0  0  0
+ 23 24  1  0  0  0  0
+ 24 25  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>63</data><type>PPDB accession</type></DatabaseLinks><DatabaseLinks><data>C11073</data><type>KEGG COMPOUND accession</type></DatabaseLinks><OntologyParents><chebiName>ethyl ester</chebiName><chebiId>CHEBI:23990</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>EC 3.1.1.7 (acetylcholinesterase) inhibitor</chebiName><chebiId>CHEBI:38462</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>carbamate ester</chebiName><chebiId>CHEBI:23003</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>carbamate insecticide</chebiName><chebiId>CHEBI:38461</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>agrochemical</chebiName><chebiId>CHEBI:33286</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>1-benzofurans</chebiName><chebiId>CHEBI:38830</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

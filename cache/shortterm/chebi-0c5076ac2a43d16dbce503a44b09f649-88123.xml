@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:88123</chebiId><chebiAsciiName>(R)-12-hydroxysqualene</chebiAsciiName><definition>A triterpenoid that is squalene substituted at position 12 by a hydroxy group (the R-enantiomer).</definition><status>CHECKED</status><smiles>C(/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)[C@H](/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)O</smiles><inchi>InChI=1S/C30H50O/c1-24(2)13-9-15-26(5)17-11-19-28(7)21-22-30(31)23-29(8)20-12-18-27(6)16-10-14-25(3)4/h13-14,17-18,21,23,30-31H,9-12,15-16,19-20,22H2,1-8H3/b26-17+,27-18+,28-21+,29-23+/t30-/m1/s1</inchi><inchiKey>IBTBZLYRNUPSAW-HWKIJRFISA-N</inchiKey><charge>0</charge><mass>426.719</mass><monoisotopicMass>426.38617</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>(12R)-hydroxysqualene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>hydroxysqualene</data><type>SYNONYM</type><source>UniProt</source></Synonyms><IupacNames><data>(6E,10E,12R,14E,18E)-2,6,10,15,19,23-hexamethyltetracosa-2,6,10,14,18,22-hexaen-12-ol</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50O</data><source>ChEBI</source></Formulae><RegistryNumbers><data>7256007</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>26258173</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>
+  Ketcher 11021514252D 1   1.00000     0.00000     0
+
+ 31 30  0     0  0            999 V2000
+   10.6978   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.5606   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8299   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4286   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.5657   -4.9513    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9670   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2966   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.0990   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9670   -2.4496    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.1593   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2362   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0272   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.3683   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.8901   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5056   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7579   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6375   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5056   -2.4496    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.6207   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7747   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.4888   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9068   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3515   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0439   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1760   -3.9506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0439   -2.4496    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.2182   -3.9507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.0848   -3.4503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.2182   -4.9514    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2979   -4.9513    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7592   -4.9513    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  3  1  0     0  0
+  2  4  1  0     0  0
+  2  5  1  6     0  0
+  3  6  2  0     0  0
+  4  7  2  0     0  0
+  6  8  1  0     0  0
+  6  9  1  0     0  0
+  7 10  1  0     0  0
+  8 11  1  0     0  0
+ 10 12  1  0     0  0
+ 11 13  1  0     0  0
+ 12 14  1  0     0  0
+ 13 15  2  0     0  0
+ 14 16  2  0     0  0
+ 15 17  1  0     0  0
+ 15 18  1  0     0  0
+ 16 19  1  0     0  0
+ 17 20  1  0     0  0
+ 19 21  1  0     0  0
+ 20 22  1  0     0  0
+ 21 23  1  0     0  0
+ 22 24  2  0     0  0
+ 24 25  1  0     0  0
+ 24 26  1  0     0  0
+  1  2  1  0     0  0
+ 27 28  1  0     0  0
+ 23 27  2  0     0  0
+ 27 29  1  0     0  0
+  7 30  1  0     0  0
+ 16 31  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>CPD-18508</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>squalene</chebiName><chebiId>CHEBI:15440</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>triterpenoid</chebiName><chebiId>CHEBI:36615</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>secondary alcohol</chebiName><chebiId>CHEBI:35681</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>bacterial metabolite</chebiName><chebiId>CHEBI:76969</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

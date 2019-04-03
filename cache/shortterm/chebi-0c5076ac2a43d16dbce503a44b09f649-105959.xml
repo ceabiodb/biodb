@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:105959</chebiId><chebiAsciiName>2-[[2-methyl-5-nitro-3-(phenylmethyl)-4-imidazolyl]thio]-6-nitro-1H-benzimidazole</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CC1=NC(=C(N1CC2=CC=CC=C2)SC3=NC4=C(N3)C=C(C=C4)[N+](=O)[O-])[N+](=O)[O-]</smiles><inchi>InChI=1S/C18H14N6O4S/c1-11-19-16(24(27)28)17(22(11)10-12-5-3-2-4-6-12)29-18-20-14-8-7-13(23(25)26)9-15(14)21-18/h2-9H,10H2,1H3,(H,20,21)</inchi><inchiKey>XKEXZAZXSQWNSI-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.408</mass><monoisotopicMass>410.07972</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C18H14N6O4S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162330
+null
+ 29 32  0  0  0  0  0  0  0  0999 V2000
+   -2.0572   -3.5386    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1435   -2.7181    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8579   -2.3056    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6864   -1.4986    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.8659   -1.4124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5304   -2.1661    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7234   -2.3376    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4685   -3.1222    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3385   -3.2938    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5934   -4.0784    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0414   -4.6915    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7656   -4.5200    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0205   -3.7353    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4534   -0.6979    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6284   -0.6979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1435   -1.3654    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6411   -1.1104    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6411   -0.2854    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1435   -0.0305    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3556    0.1271    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0701   -0.2854    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0701   -1.1104    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3556   -1.5229    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7845    0.1271    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7845    0.9521    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4990   -0.2854    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.2384   -0.8856    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.9835   -0.1009    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.0454   -1.0571    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  2  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  2  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  2  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  2  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  2  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+ 13  8  1  0  0  0  0 
+  5 14  1  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  2  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 18  2  0  0  0  0 
+ 18 19  1  0  0  0  0 
+ 19 15  1  0  0  0  0 
+ 18 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 23  2  0  0  0  0 
+ 23 17  1  0  0  0  0 
+ 21 24  1  0  0  0  0 
+ 24 25  2  0  0  0  0 
+ 24 26  1  0  0  0  0 
+  4 27  1  0  0  0  0 
+ 27 28  2  0  0  0  0 
+ 27 29  1  0  0  0  0 
+M  CHG  1  24   1
+M  CHG  1  26  -1
+M  CHG  1  27   1
+M  CHG  1  29  -1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-17320</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>aryl sulfide</chebiName><chebiId>CHEBI:35683</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

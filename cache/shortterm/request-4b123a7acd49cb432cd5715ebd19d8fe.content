@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:121032</chebiId><chebiAsciiName>4-chloro-3-[(4-chlorophenyl)sulfamoyl]-N-(1H-1,2,4-triazol-5-yl)benzamide</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C1=CC(=CC=C1NS(=O)(=O)C2=C(C=CC(=C2)C(=O)NC3=NC=NN3)Cl)Cl</smiles><inchi>InChI=1S/C15H11Cl2N5O3S/c16-10-2-4-11(5-3-10)22-26(24,25)13-7-9(1-6-12(13)17)14(23)20-15-18-8-19-21-15/h1-8,22H,(H2,18,19,20,21,23)</inchi><inchiKey>KKALNLMXTMFBQI-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>412.252</mass><monoisotopicMass>410.99597</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C15H11Cl2N5O3S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161909
+null
+ 26 28  0  0  0  0  0  0  0  0999 V2000
+   -0.1067    8.8902    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1067    9.7152    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6078   10.1277    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3222    9.7152    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3222    8.8902    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6078    8.4777    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6078    7.6527    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3222    7.2402    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7347    7.9547    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9097    6.5257    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0367    6.8277    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7512    7.2402    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4656    6.8277    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4656    6.0027    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7512    5.5902    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0367    6.0027    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7512    4.7652    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0367    4.3527    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4656    4.3527    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4656    3.5277    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1331    3.0428    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8781    2.2581    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.0531    2.2581    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7982    3.0428    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7512    8.0652    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+    0.6078   10.9527    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  2  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  2  0  0  0  0 
+  6  1  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  2  0  0  0  0 
+  8 10  2  0  0  0  0 
+  8 11  1  0  0  0  0 
+ 11 12  2  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 13 14  2  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  2  0  0  0  0 
+ 16 11  1  0  0  0  0 
+ 15 17  1  0  0  0  0 
+ 17 18  2  0  0  0  0 
+ 17 19  1  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 23  2  0  0  0  0 
+ 23 24  1  0  0  0  0 
+ 24 20  1  0  0  0  0 
+ 12 25  1  0  0  0  0 
+  3 26  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-32475</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>sulfonamide</chebiName><chebiId>CHEBI:35358</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

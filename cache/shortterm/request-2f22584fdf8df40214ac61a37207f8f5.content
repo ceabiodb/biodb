@@ -1,0 +1,137 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>miRNA Search Results</title>
+<link rel="stylesheet" type="text/css" href="/css/mirna_base.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="/css/query.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="/css/mirna_entry.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="/css/wp.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="/css/tinybox.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css" media="all"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css" media="all"/>
+<script src="/js/toggle.js" type="text/javascript"></script>
+<script src="/js/sortabletable.js" type="text/javascript"></script>
+<script src="/js/toggleWp.js" type="text/javascript"></script>
+<script src="/js/browseSelectable.js" type="text/javascript"></script>
+<script src="/js/confidenceJSON.js" type="text/javascript"></script>
+<script src="/js/tinybox.js" type="text/javascript"></script>
+<script src="/js/hideColumn.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/js/jquery-ui.js" type="text/javascript"></script>
+<script src="/js/ajax.js" type="text/javascript"></script>
+<script src="/js/autocomplete.js" type="text/javascript"></script>
+<script src="/js/quickgoJSON.js" type="text/javascript"></script>
+<script src="/js/pubmedJson.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<table id="header">
+<tr>
+<td id="mirna_logo">
+<a href="/">
+<img src="/images/mirbase-logo-blue-web.png" alt="miRBase" width="130" />
+</a>
+</td>
+<td id="pageTitle">
+<a href="/">
+<h1>
+	miRBase
+</h1>
+</a>
+</td>
+<td id="sanger_logo">
+<a href="http://www.ls.manchester.ac.uk/">
+<img src="/images/logomanchester.gif" alt="University of Manchester" width="120" />
+</a>
+</td>
+</tr>
+<tr>
+	<td id="spacer" colspan="2"><img height="1" src="/images/blank.gif" alt="" width="650" /></td>
+</tr>
+</table>
+<div id="navBarDiv">
+<div id="searchBox">
+	<form method="get" action="/textsearch.shtml" enctype="multipart/form-data" name="sitesearch">
+	<input type="text" name="q"  size="15" maxlength="100" id="searchField" /> <input type="submit" name="submit" value="submit" id="submitButton" /> </form>
+</div>
+<ul id="navbar">
+<li>
+	<a href="/index.shtml">Home</a>
+</li>
+<li>
+	<a href="/search.shtml">Search</a>
+</li>
+<li>
+	<a href="/cgi-bin/browse.pl">Browse</a>
+</li>
+<li>
+	<a href="/help/index.shtml">Help</a>
+</li>
+<li>
+	<a href="/ftp.shtml">Download</a>
+</li>
+<li>
+	<a href="http://www.mirbase.org/blog/">Blog</a>
+</li>
+<li class="spaceLeft">
+	<a href="/registry.shtml">Submit</a>
+</li>
+<li class="current">
+	No Results
+</li>
+</ul>
+</div>
+<div id="tips">
+<h1>
+	No results
+</h1>
+<p>
+	Your search (&quot;onc&quot;) did not return any results
+</p>
+<h2>
+	Search tips
+</h2>
+<p>
+	Here are a few tips on how to get the most out of the MiRNA search system:
+</p>
+<dl>
+	<dt>
+		avoid special characters:
+	</dt>
+	<dd>
+		your search term can only include standard word characters (letters and numbers), as well as space&nbsp;(&quot;&nbsp;&quot;), underscore&nbsp;(&quot;_&quot;), hyphen&nbsp;(&quot;-&quot;) and period&nbsp;(&quot;.&quot;). Search terms that include other characters will be rejected
+	</dd>
+	<dt>
+		don't include wildcards:
+	</dt>
+	<dd>
+		the search system will automatically add wildcards to the end of your search terms. The asterisk (&quot;*&quot;) character is reserved for miR* sequences
+	</dd>
+	<dt>
+		don't worry about case:
+	</dt>
+	<dd>
+		the search is case insensitive, so changing the case of your search terms will not affect the results
+	</dd>
+	<dt>
+		check your spelling:
+	</dt>
+	<dd>
+		make sure that the spelling of your search terms is accurate; the database can't compensate for incorrect spelling
+	</dd>
+</dl>
+<p class="back">
+Go <a href="javascript:history.go(-1)">back</a> to the previous page, or edit your query in the <a onclick="javascript:document.sitesearch.terms.value='onc';document.sitesearch.terms.focus();return false;" href="#">search box</a>above.</p>
+</div>
+<div id="footer">
+<p class="mailto">
+	Comments, questions? Email  <a href="mailto:mirbase@manchester.ac.uk">mirbase@manchester.ac.uk</a>
+</p>
+</div>
+
+</body>
+</html>

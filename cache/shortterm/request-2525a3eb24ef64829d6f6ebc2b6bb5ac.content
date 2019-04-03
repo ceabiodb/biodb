@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:87236</chebiId><chebiAsciiName>PF-670462</chebiAsciiName><definition>A hydrochloride salt resulting from the formal reaction of 3-[(3-chlorophenoxy)methyl]-1-(tetrahydro-2H-pyran-4-yl)-1H-pyrazolo[3,4-d]pyrimidin-4-amine with 2 mol eq. of hydrogen chloride. It is a selective inhibitor of the delta- and epsilon-isoforms of casein kinase 1 (CK1delta and CK1epsilon).</definition><status>CHECKED</status><smiles>Cl.Cl.Nc1nccc(n1)-c1c(ncn1C1CCCCC1)-c1ccc(F)cc1</smiles><inchi>InChI=1S/C19H20FN5.2ClH/c20-14-8-6-13(7-9-14)17-18(16-10-11-22-19(21)24-16)25(12-23-17)15-4-2-1-3-5-15;;/h6-12,15H,1-5H2,(H2,21,22,24);2*1H</inchi><inchiKey>PSNKGVAXBSAHCH-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.31600</mass><monoisotopicMass>409.12363</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>4-[1-cyclohexyl-4-(4-fluorophenyl)-1H-imidazol-5-yl]pyrimidin-2-amine dihydrochloride</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C19H22Cl2FN5</data><source>ChEBI</source></Formulae><RegistryNumbers><data>11152377</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>950912-80-8</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>17502429</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>20407760</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>21927596</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22168824</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22549116</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22743604</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22832921</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23349822</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23863866</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23936135</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>24076244</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>25245819</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Ketcher 08031512562D 1   1.00000     0.00000     0
+
+ 27 28  0     0  0            999 V2000
+   16.7925  -14.7227    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+   16.7925  -13.5976    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+   15.1068  -16.4507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.2408  -15.9507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3748  -16.4507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3748  -17.4507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.2408  -17.9507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.1068  -17.4507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.5597  -11.6893    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.9719  -10.8803    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.5707  -11.8983    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1585  -12.7073    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.1530  -12.6028    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3897  -10.1758    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9774  -10.9848    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4807  -14.6719    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7376  -14.0028    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.7865  -14.3118    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5786  -15.2900    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3218  -15.9591    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.2728  -15.6501    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   14.2408  -14.9507    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0498  -14.3629    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7408  -13.4119    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   13.7408  -13.4119    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4318  -14.3629    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1138  -16.9372    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+  3  4  1  0     0  0
+  4  5  1  0     0  0
+  5  6  1  0     0  0
+  6  7  1  0     0  0
+  7  8  1  0     0  0
+  8  3  1  0     0  0
+  9 10  1  0     0  0
+ 11 12  2  0     0  0
+ 12 13  1  0     0  0
+ 13  9  2  0     0  0
+ 14 15  1  0     0  0
+ 16 17  1  0     0  0
+ 17 18  2  0     0  0
+ 18 19  1  0     0  0
+ 19 20  2  0     0  0
+ 20 21  1  0     0  0
+ 21 16  2  0     0  0
+ 22 23  1  0     0  0
+ 23 24  2  0     0  0
+ 24 25  1  0     0  0
+ 25 26  2  0     0  0
+ 26 22  1  0     0  0
+ 22  4  1  0     0  0
+ 25 13  1  0     0  0
+ 26 16  1  0     0  0
+ 10 15  2  0     0  0
+ 15 11  1  0     0  0
+ 27 20  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>hydrochloride</chebiName><chebiId>CHEBI:36807</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>PF-670462 free base(2+)</chebiName><chebiId>CHEBI:87284</chebiId><type>has part</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>EC 2.7.11.1 (non-specific serine/threonine protein kinase) inhibitor</chebiName><chebiId>CHEBI:50925</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

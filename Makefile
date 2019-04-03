@@ -24,8 +24,10 @@ ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
 # Display values of main variables
 $(info "ENV VAR BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
 $(info "ENV VAR BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
+# TODO Set an option for only writing to cache, not reading. This way we can run test and update the cache only.
 $(info "ENV VAR BIODB_OFFLINE=$(BIODB_OFFLINE)")
 $(info "ENV VAR DATABASES=$(DATABASES)")
+$(info "ENV VAR DONT_TEST_DBS=$(DONT_TEST_DBS)")
 
 # Default target {{{1
 ################################################################

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:109553</chebiId><chebiAsciiName>2,7-bis[2-(diethylamino)ethoxy]-9-fluorenone</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CCN(CC)CCOC1=CC2=C(C=C1)C3=C(C2=O)C=C(C=C3)OCCN(CC)CC</smiles><inchi>InChI=1S/C25H34N2O3/c1-5-26(6-2)13-15-29-19-9-11-21-22-12-10-20(30-16-14-27(7-3)8-4)18-24(22)25(28)23(21)17-19/h9-12,17-18H,5-8,13-16H2,1-4H3</inchi><inchiKey>MPMFCABZENCRHV-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.550</mass><monoisotopicMass>410.25694</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C25H34N2O3</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162333
+null
+ 30 32  0  0  0  0  0  0  0  0999 V2000
+   -3.4702   10.0996    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7165    9.7641    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6303    8.9436    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.2977    8.4586    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.0514    8.7942    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.8766    8.6080    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.7904    7.7875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0367    7.4520    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9504    6.6315    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1968    6.2959    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1105    5.4755    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7780    4.9905    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5316    5.3261    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6179    6.1466    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5230    4.2059    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3020    4.2059    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5569    4.9905    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3415    5.2455    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    3.4914    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3020    2.7770    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5230    2.7770    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9355    3.4914    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    2.0625    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5395    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9520    1.3480    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7770    1.3480    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1895    0.6336    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0145    0.6336    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1895    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0145    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  1  0  0  0  0 
+  3  6  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  2  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  2  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 13 14  2  0  0  0  0 
+ 14  9  1  0  0  0  0 
+ 12 15  1  0  0  0  0 
+ 15 16  2  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 11  1  0  0  0  0 
+ 17 18  2  0  0  0  0 
+ 16 19  1  0  0  0  0 
+ 19 20  2  0  0  0  0 
+ 20 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 22 15  1  0  0  0  0 
+ 20 23  1  0  0  0  0 
+ 23 24  1  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 28  1  0  0  0  0 
+ 26 29  1  0  0  0  0 
+ 29 30  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-20974</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>fluorenes</chebiName><chebiId>CHEBI:24059</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

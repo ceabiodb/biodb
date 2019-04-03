@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:70016</chebiId><chebiAsciiName>(22E,24R)-ergosta-7,22-diene-3,6-dione</chebiAsciiName><definition>A 3-oxo Delta(7)-steroid that is (22E)-ergosta-7,22-diene substituted by oxo groups at positions 3 and 6. It has been isolated from Penicillium commune.</definition><status>CHECKED</status><smiles>CC(C)[C@@H](C)\C=C\[C@@H](C)[C@H]1CC[C@H]2C3=CC(=O)[C@H]4CC(=O)CC[C@]4(C)[C@H]3CC[C@]12C</smiles><inchi>InChI=1S/C28H42O2/c1-17(2)18(3)7-8-19(4)22-9-10-23-21-16-26(30)25-15-20(29)11-13-28(25,6)24(21)12-14-27(22,23)5/h7-8,16-19,22-25H,9-15H2,1-6H3/b8-7+/t18-,19+,22+,23-,24-,25+,27+,28+/m0/s1</inchi><inchiKey>AGFWEYQAOQMEEO-KRGQBHGKSA-N</inchiKey><charge>0</charge><mass>410.63190</mass><monoisotopicMass>410.31848</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>cyathisterone</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>(22E)-ergosta-7,22-diene-3,6-dione</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C28H42O2</data><source>ChEBI</source></Formulae><RegistryNumbers><data>7049139</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>21226488</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Mrv0541 11071313522D          
+
+ 34 37  0  0  0  0            999 V2000
+    7.2382   -1.3334    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2382   -2.1585    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9502   -2.5669    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9502   -0.9168    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6623   -1.3334    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    8.6634   -2.1585    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    9.3745   -2.5678    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0891   -2.1567    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3724   -0.9177    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   10.0860   -1.3300    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0848    0.3154    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3687   -0.0958    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.7985   -0.0968    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   10.7999   -0.9213    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   11.5845   -1.1747    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.0680   -0.5067    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.5822    0.1593    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    8.6550   -0.5083    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3676   -1.7419    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   10.7927   -1.7460    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   10.7927    0.7293    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8357    0.9444    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   12.6425    1.1174    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2825    1.5565    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4053    0.1625    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   13.1956    0.5052    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0024    0.6783    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   14.5555    0.0661    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.3623    0.2391    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3020   -0.7191    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.2559    1.4634    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3744   -3.3929    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.5242   -2.5721    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6591   -2.9795    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+ 14 15  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 16 17  1  0  0  0  0
+ 17 13  1  0  0  0  0
+  7  8  1  0  0  0  0
+  5 18  1  1  0  0  0
+  8 10  2  0  0  0  0
+  9 19  1  6  0  0  0
+  9 10  1  0  0  0  0
+ 14 20  1  6  0  0  0
+  3  6  1  0  0  0  0
+ 13 21  1  1  0  0  0
+  5  4  1  0  0  0  0
+ 17 22  1  0  0  0  0
+  5  6  1  0  0  0  0
+ 22 23  1  0  0  0  0
+ 22 24  1  6  0  0  0
+  9 12  1  0  0  0  0
+ 17 25  1  6  0  0  0
+ 10 14  1  0  0  0  0
+ 23 26  2  0  0  0  0
+ 13 11  1  0  0  0  0
+ 26 27  1  0  0  0  0
+ 11 12  1  0  0  0  0
+ 27 28  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 28 29  1  0  0  0  0
+  1  2  1  0  0  0  0
+ 28 30  1  0  0  0  0
+  1  4  1  0  0  0  0
+ 27 31  1  6  0  0  0
+  2  3  1  0  0  0  0
+  7 32  2  0  0  0  0
+  5  9  1  0  0  0  0
+  2 33  2  0  0  0  0
+  6  7  1  0  0  0  0
+  6 34  1  6  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>6-oxo steroid</chebiName><chebiId>CHEBI:36883</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>Penicillium metabolite</chebiName><chebiId>CHEBI:76964</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>ergostanoid</chebiName><chebiId>CHEBI:50403</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>3-oxo Delta(7)-steroid</chebiName><chebiId>CHEBI:71598</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Penicillium commune</speciesText><speciesAccession>NCBI:36653</speciesAccession><componentText>mycelium</componentText><componentAccession>BTO:0001436</componentAccession><strainText>QSD 17</strainText><SourceType>PubMed Id</SourceType><SourceAccession>21226488</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:125123</chebiId><chebiAsciiName>LSM-36585</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C1[C@@H]2C([C@@H](N2)CN1CC3=CC4=C(C=C3)OCO4)C5=CC=C(C=C5)C=CC6=CC=CC=C6</smiles><inchi>InChI=1S/C27H26N2O2/c1-2-4-19(5-3-1)6-7-20-8-11-22(12-9-20)27-23-16-29(17-24(27)28-23)15-21-10-13-25-26(14-21)31-18-30-25/h1-14,23-24,27-28H,15-18H2/t23-,24+,27?</inchi><inchiKey>TZCNQHQFHJRCDL-VKSRLUHHSA-N</inchiKey><charge>0</charge><mass>410.509</mass><monoisotopicMass>410.19943</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C27H26N2O2</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161911
+null
+ 31 36  0  0  0  0  0  0  0  0999 V2000
+    3.6416   -1.6444    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8167   -1.6543    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    2.2998   -2.3448    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8339   -3.0831    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    2.6467   -2.3708    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6588   -3.0732    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0627   -2.3538    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8876   -2.3439    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3087   -3.0533    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1336   -3.0434    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.5547   -3.7529    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1508   -4.4723    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3259   -4.4822    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9048   -3.7727    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.7102   -5.0787    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4598   -4.7341    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.3637   -3.9147    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5879   -2.3836    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1840   -3.1030    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3591   -3.1129    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0620   -2.4034    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3419   -1.6841    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1668   -1.6741    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8869   -2.4134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2908   -3.1327    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1158   -3.1427    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.5196   -3.8621    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.3446   -3.8720    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.7656   -3.1625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.3618   -2.4431    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.5368   -2.4332    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  1  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  1  6  0  0  0 
+  5  2  1  0  0  0  0 
+  4  6  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  1  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  2  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  2  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 13 14  2  0  0  0  0 
+ 14  9  1  0  0  0  0 
+ 12 15  1  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 11  1  0  0  0  0 
+  3 18  1  0  0  0  0 
+ 18 19  2  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 23  2  0  0  0  0 
+ 23 18  1  0  0  0  0 
+ 24 21  1  4  0  0  0 
+ 24 25  2  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  2  0  0  0  0 
+ 27 28  1  0  0  0  0 
+ 28 29  2  0  0  0  0 
+ 29 30  1  0  0  0  0 
+ 30 31  2  0  0  0  0 
+ 31 26  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-36585</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>stilbenoid</chebiName><chebiId>CHEBI:26776</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

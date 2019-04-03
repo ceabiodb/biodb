@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD esearch 20060628//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20060628/esearch.dtd">
+<eSearchResult><Count>1724</Count><RetMax>20</RetMax><RetStart>0</RetStart><IdList>
+<Id>137395554</Id>
+<Id>137319965</Id>
+<Id>137274206</Id>
+<Id>137269680</Id>
+<Id>137262640</Id>
+<Id>137219518</Id>
+<Id>137219470</Id>
+<Id>137175458</Id>
+<Id>137120232</Id>
+<Id>136955190</Id>
+<Id>136955189</Id>
+<Id>136955188</Id>
+<Id>136955187</Id>
+<Id>136955186</Id>
+<Id>136898983</Id>
+<Id>136730789</Id>
+<Id>136439838</Id>
+<Id>136439264</Id>
+<Id>136426903</Id>
+<Id>136397856</Id>
+</IdList><TranslationSet/><TranslationStack>   <TermSet>    <Term>0000204.245000[MolecularWeight]</Term>    <Field>MolecularWeight</Field>    <Count>0</Count>    <Explode>N</Explode>   </TermSet>   <TermSet>    <Term>0000204.247000[MolecularWeight]</Term>    <Field>MolecularWeight</Field>    <Count>0</Count>    <Explode>N</Explode>   </TermSet>   <OP>RANGE</OP>  </TranslationStack><QueryTranslation>0000204.245000[MolecularWeight] : 0000204.247000[MolecularWeight]</QueryTranslation></eSearchResult>

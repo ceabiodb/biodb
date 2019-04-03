@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:59287</chebiId><chebiAsciiName>(R)-butaconazole</chebiAsciiName><definition>The (R)-enantiomer of butaconazole.</definition><status>CHECKED</status><smiles>Clc1ccc(CC[C@H](Cn2ccnc2)Sc2c(Cl)cccc2Cl)cc1</smiles><inchi>InChI=1S/C19H17Cl3N2S/c20-15-7-4-14(5-8-15)6-9-16(12-24-11-10-23-13-24)25-19-17(21)2-1-3-18(19)22/h1-5,7-8,10-11,13,16H,6,9,12H2/t16-/m1/s1</inchi><inchiKey>SWLMUYACZKCSHZ-MRXNPFEDSA-N</inchiKey><charge>0</charge><mass>411.77600</mass><monoisotopicMass>410.01780</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>1-{(2R)-4-(4-chlorophenyl)-2-[(2,6-dichlorophenyl)sulfanyl]butyl}-1H-imidazole</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C19H17Cl3N2S</data><source>ChEBI</source></Formulae><RegistryNumbers><data>6374956</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>6374956</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  04261010082D          
+
+ 25 27  0  0  1  0            999 V2000
+    3.8382   -4.5122    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9757   -2.3789    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    5.9882   -3.2747    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5632   -4.9289    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1633   -2.4664    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8382   -3.6789    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1340   -4.9164    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.3257   -3.1164    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.7090   -3.6789    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2840   -3.6789    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2840   -4.5164    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    8.8590   -5.7664    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1340   -5.7414    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+    4.5632   -3.2622    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+    7.4257   -4.9414    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5757   -6.1789    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+    5.9965   -4.9289    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.7132   -4.5289    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.8590   -4.9414    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.1507   -6.1747    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.1507   -4.5289    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4257   -5.7664    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4132   -3.6789    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1340   -3.2747    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4132   -4.5122    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  5  2  0  0  0  0
+  3 10  1  0  0  0  0
+  4  1  1  0  0  0  0
+  5  3  1  0  0  0  0
+  6  1  1  0  0  0  0
+  7  1  2  0  0  0  0
+  8  9  2  0  0  0  0
+  9  3  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 11  4  1  1  0  0  0
+ 12 20  1  0  0  0  0
+ 13  7  1  0  0  0  0
+ 14  6  1  0  0  0  0
+ 15 18  1  0  0  0  0
+ 16 12  1  0  0  0  0
+ 17 11  1  0  0  0  0
+ 18 17  1  0  0  0  0
+ 19 21  1  0  0  0  0
+ 20 22  2  0  0  0  0
+ 21 15  2  0  0  0  0
+ 22 15  1  0  0  0  0
+ 23 25  2  0  0  0  0
+ 24  6  2  0  0  0  0
+ 25  7  1  0  0  0  0
+ 24 23  1  0  0  0  0
+  8  2  1  0  0  0  0
+ 19 12  2  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>butoconazole</chebiName><chebiId>CHEBI:3240</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>(S)-butoconazole</chebiName><chebiId>CHEBI:59288</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>(S)-butoconazole</chebiName><chebiId>CHEBI:59288</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

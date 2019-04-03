@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:68931</chebiId><chebiAsciiName>bruceine D</chebiAsciiName><definition>A  quassinoid that is 13,20-epoxypicras-3-ene substituted by hydroxy groups at positions 1, 11, 12, 14 and 15 and oxo groups at positions 2 and 16. Isolated from the ethanol extract of the stem of Brucea mollis, it exhibits cytotoxic activity.</definition><status>CHECKED</status><smiles>CC1=CC(=O)[C@@H](O)[C@@]2(C)[C@H]1C[C@H]1OC(=O)[C@H](O)[C@@]3(O)[C@]4(C)OC[C@]13[C@@H]2[C@@H](O)[C@@H]4O</smiles><inchi>InChI=1S/C20H26O9/c1-7-4-9(21)13(23)17(2)8(7)5-10-19-6-28-18(3,14(24)11(22)12(17)19)20(19,27)15(25)16(26)29-10/h4,8,10-15,22-25,27H,5-6H2,1-3H3/t8-,10+,11+,12+,13+,14-,15-,17-,18+,19+,20+/m0/s1</inchi><inchiKey>JBDMZGKDLMGOFR-KQSRGDCESA-N</inchiKey><charge>0</charge><mass>410.41500</mass><monoisotopicMass>410.15768</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:3191</SecondaryChEBIIds><IupacNames><data>(1beta,11beta,12alpha,15beta)-1,11,12,14,15-pentahydroxy-13,20-epoxypicras-3-ene-2,16-dione</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C20H26O9</data><source>ChEBI</source></Formulae><RegistryNumbers><data>21499-66-1</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><RegistryNumbers><data>21499-66-1</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>9674394</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>22070654</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Mrv0541 10081311142D          
+
+ 32 36  0  0  0  0            999 V2000
+    9.0431    0.5798    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0431   -0.2461    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7560   -0.6549    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7560    0.9969    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   10.4688    0.5798    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   10.4698   -0.2461    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   11.1816   -0.6558    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1795    0.9960    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   12.6070    1.8177    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   11.8926    2.2303    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   11.1757    1.8187    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   11.8938    0.5832    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   11.9007   -0.2417    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   12.6146   -0.6460    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3262   -0.2298    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3193    0.5950    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   12.6009    1.0039    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   11.8962   -1.0637    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5929    0.1794    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4249    1.3222    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4613    1.4057    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7557   -1.4808    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4656   -1.0679    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1746    0.1710    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3239    2.2278    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.3267    0.9907    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7560    1.8228    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4600    2.2308    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8937    3.0562    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0315    1.0133    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0442   -0.6378    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9254    1.8520    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  7 13  1  0  0  0  0
+ 12 17  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 14 15  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 16 17  1  0  0  0  0
+  8 12  1  0  0  0  0
+ 13 18  1  1  0  0  0
+  2  3  2  0  0  0  0
+ 17 19  1  1  0  0  0
+  3  6  1  0  0  0  0
+ 12 20  1  1  0  0  0
+  5  4  1  0  0  0  0
+  5 21  1  1  0  0  0
+  5  6  1  0  0  0  0
+  3 22  1  0  0  0  0
+  8 11  1  0  0  0  0
+  6 23  1  6  0  0  0
+ 17  9  1  0  0  0  0
+  8 24  1  6  0  0  0
+  9 10  1  0  0  0  0
+  9 25  1  0  0  0  0
+ 10 11  1  0  0  0  0
+  1 26  2  0  0  0  0
+ 12 13  1  0  0  0  0
+  4 27  1  1  0  0  0
+ 11 28  1  1  0  0  0
+  1  2  1  0  0  0  0
+ 10 29  1  6  0  0  0
+  1  4  1  0  0  0  0
+ 16 30  1  1  0  0  0
+  5  8  1  0  0  0  0
+ 15 31  2  0  0  0  0
+  6  7  1  0  0  0  0
+  9 32  1  1  0  0  0
+ 20 32  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00003702</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C08752</data><type>KEGG COMPOUND accession</type></DatabaseLinks><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>picrasane</chebiName><chebiId>CHEBI:36506</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antineoplastic agent</chebiName><chebiId>CHEBI:35610</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>plant metabolite</chebiName><chebiId>CHEBI:76924</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>delta-lactone</chebiName><chebiId>CHEBI:18946</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>pentol</chebiName><chebiId>CHEBI:37205</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>quassinoid</chebiName><chebiId>CHEBI:72485</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>organic heteropentacyclic compound</chebiName><chebiId>CHEBI:38164</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>secondary alpha-hydroxy ketone</chebiName><chebiId>CHEBI:2468</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Brucea mollis</speciesText><speciesAccession>NCBI:43723</speciesAccession><componentText>stem</componentText><componentAccession>BTO:0001300</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>22070654</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

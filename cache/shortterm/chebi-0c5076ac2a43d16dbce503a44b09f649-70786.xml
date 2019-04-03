@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:70786</chebiId><chebiAsciiName>C30 botryococcene</chebiAsciiName><definition>A triterpene that is docosa-2,6,11,16,20-pentaene bearing six methyl substituents at positions 2, 6, 10, 13, 17 and 21 as well as a vinyl substituent at position 10 (with all-E-configuration).</definition><status>CHECKED</status><smiles>C[C@H](CC\C=C(/C)CCC=C(C)C)\C=C\[C@@](C)(CC\C=C(/C)CCC=C(C)C)C=C</smiles><inchi>InChI=1S/C30H50/c1-10-30(9,23-14-21-28(7)18-12-16-26(4)5)24-22-29(8)20-13-19-27(6)17-11-15-25(2)3/h10,15-16,19,21-22,24,29H,1,11-14,17-18,20,23H2,2-9H3/b24-22+,27-19+,28-21+/t29-,30-/m1/s1</inchi><inchiKey>LRCNPQXZCZKGDI-OFGMELEWSA-N</inchiKey><charge>0</charge><mass>410.71800</mass><monoisotopicMass>410.39125</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>(10S,13R)-10-ethenyl-2,6,10,13,17,21-hexamethyldocosa-2,5,11,16,20-pentaene</data><type>SYNONYM</type><source>SUBMITTER</source></Synonyms><Synonyms><data>(10S,13R)-C30 botryococcene</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(6E,10S,11E,13R,16E)-2,6,10,13,17,21-hexamethyl-10-vinyldocosa-2,6,11,16,20-pentaene</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>C30 botryococcene</data><type>SYNONYM</type><source>UniProt</source></Synonyms><IupacNames><data>(6E,10S,11E,13R,16E)-10-ethenyl-2,6,10,13,17,21-hexamethyldocosa-2,6,11,16,20-pentaene</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50</data><source>ChEBI</source></Formulae><RegistryNumbers><data>22597362</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>21746901</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><Citations><data>22524150</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  11011215112D          
+
+ 30 29  0  0  0  0            999 V2000
+   -3.7346    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0202    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3057    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5912    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8768    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1623    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5522    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2667    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9811    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6956    0.5009    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    3.4101    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1245    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8390    0.9134    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    5.5535    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2680    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9824    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6969    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.4114    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1258    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8403    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5548    0.9134    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2693    0.5009    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0202   -0.3241    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1623   -0.3241    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5548    1.7384    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6969    1.7384    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8390    1.7384    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1122   -0.0825    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1081   -0.2136    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3258   -0.8794    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  2  3  2  0  0  0  0
+  3  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  5  6  1  0  0  0  0
+  6  7  2  0  0  0  0
+  7  8  1  0  0  0  0
+  8  9  1  0  0  0  0
+  9 10  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 11 12  2  0  0  0  0
+ 12 13  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 14 15  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 16 17  2  0  0  0  0
+ 17 18  1  0  0  0  0
+ 18 19  1  0  0  0  0
+ 19 20  1  0  0  0  0
+ 20 21  2  0  0  0  0
+ 21 22  1  0  0  0  0
+  2 23  1  0  0  0  0
+  6 24  1  0  0  0  0
+ 21 25  1  0  0  0  0
+ 17 26  1  0  0  0  0
+ 13 27  1  6  0  0  0
+ 10 28  1  6  0  0  0
+ 10 29  1  0  0  0  0
+ 28 30  2  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>CPD-10662</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>triterpene</chebiName><chebiId>CHEBI:35191</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>3,20-dimethyl-1,2,21,22-tetradehydro-2,3,20,21-tetrahydrobotryococcene</chebiName><chebiId>CHEBI:70865</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>3-methyl-1,2-didehydro-2,3-dihydrobotryococcene</chebiName><chebiId>CHEBI:70863</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>20-methyl-21,22-didehydro-20,21-dihydrobotryococcene</chebiName><chebiId>CHEBI:70864</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

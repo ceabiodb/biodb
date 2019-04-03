@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:66318</chebiId><chebiAsciiName>rubraxanthone</chebiAsciiName><definition>A member of the class of xanthones that is 9H-xanthen-9-one substituted by hydroxy groups at positions 3, 6 and 8, a geranyl group at position 1 and a methoxy group at position 2. Isolated from  Mesua and Garcinia dioica, it exhibits antibacterial and cytotoxic activities.</definition><status>CHECKED</status><smiles>COc1c(O)cc2oc3cc(O)cc(O)c3c(=O)c2c1C\C=C(/C)CCC=C(C)C</smiles><inchi>InChI=1S/C24H26O6/c1-13(2)6-5-7-14(3)8-9-16-21-20(12-18(27)24(16)29-4)30-19-11-15(25)10-17(26)22(19)23(21)28/h6,8,10-12,25-27H,5,7,9H2,1-4H3/b14-8+</inchi><inchiKey>JLTSTSRANGPLOQ-RIYZIHGNSA-N</inchiKey><charge>0</charge><mass>410.45960</mass><monoisotopicMass>410.17294</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>1-[(2E)-3,7-dimethylocta-2,6-dien-1-yl]-3,6,8-trihydroxy-2-methoxy-9H-xanthen-9-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C24H26O6</data><source>ChEBI</source></Formulae><RegistryNumbers><data>1607002</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>65411-01-0</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>12494345</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>15451317</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>16394561</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>18523924</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19652408</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22044165</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>8887739</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  04241309222D          
+
+ 30 32  0  0  0  0            999 V2000
+   13.3257   -3.5957    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3257   -5.2457    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6135   -4.0040    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6161   -4.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9055   -5.2392    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1921   -4.8292    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1934   -4.0029    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9045   -3.5945    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0378   -4.8290    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0361   -4.0060    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7470   -3.5947    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4602   -4.0055    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4578   -4.8318    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7461   -5.2394    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3242   -6.0708    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7442   -6.0644    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.1750   -3.5937    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4798   -3.5888    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4775   -5.2418    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4777   -6.0670    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9072   -6.0644    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1935   -6.4783    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1952   -7.3033    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4814   -7.7172    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4831   -8.5423    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7693   -8.9562    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7711   -9.7812    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0573  -10.1953    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4862  -10.1924    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9104   -7.7145    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+ 14  9  1  0  0  0  0
+  9  2  1  0  0  0  0
+  2 15  2  0  0  0  0
+  6  7  1  0  0  0  0
+ 14 16  1  0  0  0  0
+ 12 17  1  0  0  0  0
+  7  8  2  0  0  0  0
+  7 18  1  0  0  0  0
+  8  3  1  0  0  0  0
+  6 19  1  0  0  0  0
+  4  2  1  0  0  0  0
+ 19 20  1  0  0  0  0
+  3  4  2  0  0  0  0
+  5 21  1  0  0  0  0
+  9 10  2  0  0  0  0
+ 21 22  1  0  0  0  0
+  3  1  1  0  0  0  0
+ 22 23  2  0  0  0  0
+ 10 11  1  0  0  0  0
+ 23 24  1  0  0  0  0
+  4  5  1  0  0  0  0
+ 24 25  1  0  0  0  0
+ 11 12  2  0  0  0  0
+ 25 26  1  0  0  0  0
+  1 10  1  0  0  0  0
+ 26 27  2  0  0  0  0
+ 12 13  1  0  0  0  0
+ 27 28  1  0  0  0  0
+  5  6  2  0  0  0  0
+ 27 29  1  0  0  0  0
+ 13 14  2  0  0  0  0
+ 23 30  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>aromatic ether</chebiName><chebiId>CHEBI:35618</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>polyphenol</chebiName><chebiId>CHEBI:26195</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>xanthones</chebiName><chebiId>CHEBI:51149</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antineoplastic agent</chebiName><chebiId>CHEBI:35610</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antibacterial agent</chebiName><chebiId>CHEBI:33282</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><GeneralComments><text>NAT PROD SCI,2006,12,138</text><date>2012-07-27</date></GeneralComments><CompoundOrigins><speciesText>Allanblackia monticola</speciesText><speciesAccession>IPNI:427045-1</speciesAccession><componentText>stem</componentText><componentAccession>BTO:0001300</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>16394561</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Garcinia dioica</speciesText><speciesAccession>IPNI:427925-1</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>8887739</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Garcinia merguensis</speciesText><speciesAccession>IPNI:428083-1</speciesAccession><componentText>xylem</componentText><componentAccession>BTO:0001468</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>18523924</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Mesua</speciesText><speciesAccession>NCBI:114078</speciesAccession><componentText>stem</componentText><componentAccession>BTO:0001300</componentAccession><SourceType>Article</SourceType><SourceAccession>NAT PROD SCI,2006,12,138</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Garcinia cowa</speciesText><speciesAccession>NCBI:180103</speciesAccession><SourceType>DOI</SourceType><SourceAccession>10.1071/CH03175</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Garcinia parvifolia</speciesText><speciesAccession>NCBI:180113</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>12494345</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

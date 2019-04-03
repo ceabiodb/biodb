@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:134706</chebiId><chebiAsciiName>trenbolone hexahydrobenzylcarbonate</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C1CC(C=C2C1=C3[C@@](CC2)([C@]4([C@](C=C3)([C@H](CC4)OC(=O)OCC5CCCCC5)C)[H])[H])=O</smiles><inchi>InChI=1S/C26H34O4/c1-26-14-13-21-20-10-8-19(27)15-18(20)7-9-22(21)23(26)11-12-24(26)30-25(28)29-16-17-5-3-2-4-6-17/h13-15,17,22-24H,2-12,16H2,1H3/t22-,23+,24+,26+/m1/s1</inchi><inchiKey>GQJSFWYQKNQCIK-APFRJGHOSA-N</inchiKey><charge>0</charge><mass>410.547</mass><monoisotopicMass>410.24571</monoisotopicMass><entityStar>2</entityStar><Synonyms><data>parabolan</data><type>SYNONYM</type><source>DrugCentral</source></Synonyms><Synonyms><data>trenbolone cyclohexylmethylcarbonate</data><type>SYNONYM</type><source>DrugCentral</source></Synonyms><Formulae><data>C26H34O4</data><source>DrugCentral</source></Formulae><RegistryNumbers><data>23454-33-3</data><type>CAS Registry Number</type><source>DrugCentral</source></RegistryNumbers><ChemicalStructures><structure>trenbolone hexahydrobenzylcarbonate
+  CDK     0223171731
+null
+ 32 36  0  0  0  0  0  0  0  0999 V2000
+   -4.9205   -0.6187    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.6350   -1.0312    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.6350   -1.8563    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.9205   -2.2688    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2061   -1.8563    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2061   -1.0312    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.4916   -0.6187    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.4916   -2.2688    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7771   -1.8563    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7771   -1.0312    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -2.7771    0.6188    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.4916    0.2063    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0627   -0.6187    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -2.0627    0.2063    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -1.2781   -0.8737    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7932   -0.2062    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2780    0.4612    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -6.3495   -2.2688    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7771   -0.2062    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0627    1.0313    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0231    1.2458    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0627   -1.4437    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1981    1.2458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2144    1.9603    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2144    0.5313    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.0394    0.5313    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4519   -0.1832    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.0394   -0.8976    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4520   -1.6121    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2770   -1.6121    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6894   -0.8977    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2769   -0.1832    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  1  6  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  2  0  0  0  0 
+  5  6  1  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  1  0  0  0  0 
+  7 10  1  0  0  0  0 
+  5  8  1  0  0  0  0 
+  7  6  2  0  0  0  0 
+ 11 12  2  0  0  0  0 
+ 13 14  1  0  0  0  0 
+ 11 14  1  0  0  0  0 
+ 12  7  1  0  0  0  0 
+ 10 13  1  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 13 15  1  0  0  0  0 
+ 14 17  1  0  0  0  0 
+  3 18  2  0  0  0  0 
+ 10 19  1  1  0  0  0 
+ 14 20  1  1  0  0  0 
+ 17 21  1  1  0  0  0 
+ 13 22  1  6  0  0  0 
+ 21 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 23 25  1  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 28 29  1  0  0  0  0 
+ 29 30  1  0  0  0  0 
+ 30 31  1  0  0  0  0 
+ 31 32  1  0  0  0  0 
+ 27 28  1  0  0  0  0 
+ 27 32  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>5065</data><type>Drug Central accession</type></DatabaseLinks><OntologyParents><chebiName>steroid ester</chebiName><chebiId>CHEBI:47880</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

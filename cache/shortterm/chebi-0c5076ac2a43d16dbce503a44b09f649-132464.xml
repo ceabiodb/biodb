@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:132464</chebiId><chebiAsciiName>hop-21(22)-ene</chebiAsciiName><definition>A triterpene consisting of hopane having a C=C double bond at the 21-position.</definition><status>CHECKED</status><smiles>C1CCC([C@]2([C@]1([C@@]3([C@@](CC2)([C@]4([C@@](CC3)([H])[C@]5(CCC([C@]5([H])CC4)=C(C)C)C)C)C)[H])C)[H])(C)C</smiles><inchi>InChI=1S/C30H50/c1-20(2)21-12-17-27(5)22(21)13-18-29(7)24(27)10-11-25-28(6)16-9-15-26(3,4)23(28)14-19-30(25,29)8/h22-25H,9-19H2,1-8H3/t22-,23-,24+,25+,27-,28-,29+,30+/m0/s1</inchi><inchiKey>CBZFLMNNXKRPHN-DRTOFSRZSA-N</inchiKey><charge>0</charge><mass>410.719</mass><monoisotopicMass>410.39125</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>hop-21-ene</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50</data><source>ChEBI</source></Formulae><RegistryNumbers><data>2390482</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>11377875</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>15056909</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>15668001</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>20421508</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>
+  Ketcher 11081614332D 1   1.00000     0.00000     0
+
+ 34 38  0     1  0            999 V2000
+   10.8872   -4.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0211   -4.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0211   -5.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6192   -6.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4852   -5.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4852   -2.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6192   -3.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7532   -4.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4852   -4.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7532   -5.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7532   -6.5247    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6192   -4.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6192   -5.0247    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3513   -2.0247    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8872   -6.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.0833   -2.0247    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4252   -1.5465    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4198   -1.4421    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.8265   -2.3556    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.2172   -2.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.0833   -3.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3513   -3.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3513   -4.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.2172   -4.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.0833   -4.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0211   -6.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8872   -7.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7532   -3.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4852   -3.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.2172   -3.5247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3513   -5.0247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.1136   -3.5145    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.4737   -1.8204    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.8046   -2.5635    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0     0  0
+  1  8  1  0     0  0
+  2  3  1  0     0  0
+  3 15  1  0     0  0
+ 15 10  1  0     0  0
+ 12  8  1  0     0  0
+  8 10  1  0     0  0
+ 10  4  1  0     0  0
+  4  5  1  0     0  0
+  5  9  1  0     0  0
+  9 23  1  0     0  0
+ 12  9  1  0     0  0
+  7 12  1  0     0  0
+  6  7  1  0     0  0
+  6 22  1  0     0  0
+ 10 11  1  6     0  0
+ 12 13  1  6     0  0
+ 22 14  1  1     0  0
+ 21 16  1  1     0  0
+ 20 17  1  0     0  0
+ 17 18  1  0     0  0
+ 19 18  1  0     0  0
+ 21 19  1  0     0  0
+ 19 34  2  0     0  0
+ 22 23  1  0     0  0
+ 20 22  1  0     0  0
+ 20 21  1  0     0  0
+ 23 24  1  0     0  0
+ 25 21  1  0     0  0
+ 24 25  1  0     0  0
+  8 28  1  1     0  0
+ 23 31  1  6     0  0
+ 20 30  1  6     0  0
+ 15 26  1  0     0  0
+ 15 27  1  0     0  0
+  9 29  1  1     0  0
+ 34 33  1  0     0  0
+ 34 32  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>triterpene</chebiName><chebiId>CHEBI:35191</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>hopane</chebiName><chebiId>CHEBI:36482</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>bacterial metabolite</chebiName><chebiId>CHEBI:76969</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>2beta-methylhop-21-ene</chebiName><chebiId>CHEBI:132465</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Rhodopseudomonas palustris</speciesText><speciesAccession>NCBI:1076</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>20421508</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Geobacter metallireducens</speciesText><speciesAccession>NCBI:28232</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>15668001</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Geobacter sulfurreducens</speciesText><speciesAccession>NCBI:35554</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>15668001</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Zymomonas mobilis</speciesText><speciesAccession>NCBI:542</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>11377875</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

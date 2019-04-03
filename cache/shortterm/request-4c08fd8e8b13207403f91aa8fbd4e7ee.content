@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:636</chebiId><chebiAsciiName>1-isomangostin</chebiAsciiName><definition>An  organic heterotetracyclic compound that is 3,4-dihydro-2H,12H-pyrano[2,3-a]xanthen-12-one substituted by hydroxy groups at positions 5 and 9, a methoxy group at position 10, two methyl groups at position 2, a prenyl group at position 11 and an oxo group at position 12.</definition><status>CHECKED</status><smiles>COc1c(O)cc2oc3cc(O)c4CCC(C)(C)Oc4c3c(=O)c2c1CC=C(C)C</smiles><inchi>InChI=1S/C24H26O6/c1-12(2)6-7-14-19-17(11-16(26)22(14)28-5)29-18-10-15(25)13-8-9-24(3,4)30-23(13)20(18)21(19)27/h6,10-11,25-26H,7-9H2,1-5H3</inchi><inchiKey>JUHXHWKPHWGZKL-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.45960</mass><monoisotopicMass>410.17294</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>5,9-dihydroxy-10-methoxy-2,2-dimethyl-11-(3-methylbut-2-en-1-yl)-3,4-dihydro-2H,12H-pyrano[2,3-a]xanthen-12-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C24H26O6</data><source>ChEBI</source></Formulae><RegistryNumbers><data>1631615</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>19275-44-6</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><Citations><data>24555285</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Mrv0541 10021415242D          
+ 
+ 30 33  0  0  0  0            999 V2000
+   13.0385   -9.1615    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3303   -9.5740    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.0418   -8.3365    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.7498   -9.5773    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.6119   -9.1615    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3303  -10.4023    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.7567   -7.9241    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3303   -7.9207    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.4648   -9.1649    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.7465  -10.4023    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.6119   -8.3365    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8935   -9.5740    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.6119  -10.8183    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.4717   -8.3400    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.1728   -9.5842    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8935   -7.9207    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8935  -10.4023    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.0621  -11.4817    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1828  -11.4470    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.1901   -7.9345    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.8912   -9.1786    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.1660  -10.4092    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.9016   -8.3537    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.6062   -9.5980    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.8810  -10.8319    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.6200   -7.9447    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   17.3246   -9.1924    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.8706  -11.6568    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.5856  -12.0762    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.1522  -12.0624    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  3  2  0  0  0  0
+  1  4  1  0  0  0  0
+  2  5  2  0  0  0  0
+  2  6  1  0  0  0  0
+  3  7  1  0  0  0  0
+  3  8  1  0  0  0  0
+  4  9  1  0  0  0  0
+  4 10  2  0  0  0  0
+  5 11  1  0  0  0  0
+  5 12  1  0  0  0  0
+  6 13  1  0  0  0  0
+  7 14  1  0  0  0  0
+  9 15  1  0  0  0  0
+ 11 16  1  0  0  0  0
+ 12 17  1  0  0  0  0
+ 13 18  1  0  0  0  0
+ 13 19  1  0  0  0  0
+ 14 20  1  0  0  0  0
+ 15 21  2  0  0  0  0
+ 15 22  1  0  0  0  0
+ 20 23  2  0  0  0  0
+ 21 24  1  0  0  0  0
+ 22 25  1  0  0  0  0
+ 23 26  1  0  0  0  0
+ 24 27  1  0  0  0  0
+ 25 28  2  0  0  0  0
+ 28 29  1  0  0  0  0
+ 28 30  1  0  0  0  0
+  8 11  2  0  0  0  0
+  9 14  2  0  0  0  0
+ 13 17  1  0  0  0  0
+ 21 23  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00002958</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C10071</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0029981</data><type>HMDB accession</type></DatabaseLinks><OntologyParents><chebiName>phenols</chebiName><chebiId>CHEBI:33853</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>plant metabolite</chebiName><chebiId>CHEBI:76924</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>organic heterotetracyclic compound</chebiName><chebiId>CHEBI:38163</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>cyclic ketone</chebiName><chebiId>CHEBI:3992</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>cyclic ether</chebiName><chebiId>CHEBI:37407</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Garcinia mangostana</speciesText><speciesAccession>NCBI:58228</speciesAccession><componentText>pericarp</componentText><componentAccession>BTO:0001017</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>24555285</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

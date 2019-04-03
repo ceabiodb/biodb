@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:114937</chebiId><chebiAsciiName>5-bromo-N-[3-(2-oxo-1-benzopyran-3-yl)phenyl]-2-furancarboxamide</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C1=CC=C2C(=C1)C=C(C(=O)O2)C3=CC(=CC=C3)NC(=O)C4=CC=C(O4)Br</smiles><inchi>InChI=1S/C20H12BrNO4/c21-18-9-8-17(25-18)19(23)22-14-6-3-5-12(10-14)15-11-13-4-1-2-7-16(13)26-20(15)24/h1-11H,(H,22,23)</inchi><inchiKey>LLNZVRCHUHIFMZ-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.218</mass><monoisotopicMass>408.99497</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C20H12BrNO4</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161900
+null
+ 26 29  0  0  0  0  0  0  0  0999 V2000
+   -0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579   -1.6500    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -1.6500    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724    1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724    2.0625    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868    2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0013    2.0625    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868    3.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6194    3.7849    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8743    4.5695    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6993    4.5695    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9543    3.7849    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.1842    5.2370    0.0000 Br  0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  2  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  2  0  0  0  0 
+  6  1  1  0  0  0  0 
+  5  7  1  0  0  0  0 
+  7  8  2  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  2  0  0  0  0 
+  9 11  1  0  0  0  0 
+ 11  4  1  0  0  0  0 
+  8 12  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+ 13 14  1  0  0  0  0 
+ 14 15  2  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  2  0  0  0  0 
+ 17 12  1  0  0  0  0 
+ 14 18  1  0  0  0  0 
+ 18 19  1  0  0  0  0 
+ 19 20  2  0  0  0  0 
+ 19 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 22 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 21  1  0  0  0  0 
+ 24 26  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-26400</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>isoflavonoid</chebiName><chebiId>CHEBI:50753</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

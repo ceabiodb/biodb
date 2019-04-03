@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:132662</chebiId><chebiAsciiName>isobrucine N-oxide</chebiAsciiName><definition>A monoterpenoid indole alkaloid with formula C23H26N2O5, originally isolated from the seeds of Strychnos nux-vomica.</definition><status>CHECKED</status><smiles>O=C1N2[C@@]3([C@@]4([C@]5([N+](CC4)(C\C(\[C@](C5)(C3=CC1)[H])=C\CO)[O-])[H])C=6C2=CC(=C(C6)OC)OC)[H]</smiles><inchi>InChI=1S/C23H26N2O5/c1-29-18-10-16-17(11-19(18)30-2)24-21(27)4-3-14-15-9-20-23(16,22(14)24)6-7-25(20,28)12-13(15)5-8-26/h3,5,10-11,15,20,22,26H,4,6-9,12H2,1-2H3/b13-5-/t15-,20-,22-,23+,25?/m0/s1</inchi><inchiKey>ICEFLCNOUJCINW-FBUVUDCZSA-N</inchiKey><charge>0</charge><mass>410.464</mass><monoisotopicMass>410.18417</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>(3aS,11bS,12S,13aS,14E)-14-(2-hydroxyethylidene)-5,6-dimethoxy-1-oxo-1,2,3,10,11b,12,13,13a-octahydro-9H-1,12-ethano-1lambda(5)-pyrido[1,2,3-lm]pyrrolo[2,3-d]carbazol-9-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C23H26N2O5</data><source>ChEBI</source></Formulae><Citations><data>10375801</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>288564</data><type>Chinese Abstracts citation</type><source>Europe PMC</source></Citations><Citations><data>7912074</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Ketcher 01091716122D 1   1.00000     0.00000     0
+
+ 33 38  0     1  0            999 V2000
+   11.1607   -1.6660    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.9003   -8.5377    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.8291   -6.0170    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4200   -3.2611    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7694   -4.7227    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7694   -5.7114    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.6258   -4.2283    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.8291   -4.4172    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.6258   -6.2059    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4820   -5.7114    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4820   -4.7227    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2479   -5.2171    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0346   -4.0611    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6150   -6.7772    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8674   -6.7772    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.4368   -3.1578    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.2943   -4.1093    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2545   -2.6782    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.0514   -4.1643    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1817   -3.0979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.8556   -2.3579    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3755   -7.6574    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4701   -3.3645    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8722   -2.4612    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3921   -7.6574    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4311   -5.2125    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3247   -3.7204    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3166   -5.9348    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    8.0826   -6.6654    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2910   -1.6612    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6932   -0.7579    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4867   -3.4679    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.9055   -2.6680    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 18  2  0     0  0
+  2 25  1  0     0  0
+  3  6  1  0     0  0
+  3 12  1  0     0  0
+  3 14  1  0     0  0
+  4  7  1  0     0  0
+  4 16  1  0     0  0
+  4 18  1  0     0  0
+  5  6  1  0     0  0
+  5  7  1  0     0  0
+  5  8  1  0     0  0
+  5 13  1  1     0  0
+  6  9  1  0     0  0
+  6 26  1  1     0  0
+  7 11  1  0     0  0
+  7 27  1  6     0  0
+  8 12  1  0     0  0
+  9 10  1  0     0  0
+ 10 11  1  0     0  0
+ 10 15  1  0     0  0
+ 10 28  1  1     0  0
+ 11 17  2  0     0  0
+ 13 16  1  0     0  0
+ 13 19  2  0     0  0
+ 14 15  1  0     0  0
+ 15 22  2  0     0  0
+ 16 21  2  0     0  0
+ 17 20  1  0     0  0
+ 18 20  1  0     0  0
+ 19 23  1  0     0  0
+ 21 24  1  0     0  0
+ 22 25  1  0     0  0
+ 23 24  2  0     0  0
+  3 29  1  0     0  0
+ 24 30  1  0     0  0
+ 30 31  1  0     0  0
+ 23 32  1  0     0  0
+ 32 33  1  0     0  0
+M  CHG  2   3   1  29  -1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>101532797</data><type>Pubchem accession</type></DatabaseLinks><OntologyParents><chebiName>organic heterohexacyclic compound</chebiName><chebiId>CHEBI:51914</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>primary alcohol</chebiName><chebiId>CHEBI:15734</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aromatic ether</chebiName><chebiId>CHEBI:35618</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>plant metabolite</chebiName><chebiId>CHEBI:76924</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>delta-lactam</chebiName><chebiId>CHEBI:77727</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>monoterpenoid indole alkaloid</chebiName><chebiId>CHEBI:65323</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>olefinic compound</chebiName><chebiId>CHEBI:78840</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>tertiary amine oxide</chebiName><chebiId>CHEBI:134363</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Strychnos nux-vomica</speciesText><speciesAccession>NCBI:28545</speciesAccession><componentText>seed</componentText><componentAccession>BTO:0001226</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>7912074</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

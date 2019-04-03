@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:94209</chebiId><chebiAsciiName>2-bromo-4-[[(3-cyclohexyl-5-sulfanylidene-1H-1,2,4-triazol-4-yl)amino]methylidene]-6-methoxy-1-cyclohexa-2,5-dienone</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>COC1=CC(=CNN2C(=NNC2=S)C3CCCCC3)C=C(C1=O)Br</smiles><inchi>InChI=1S/C16H19BrN4O2S/c1-23-13-8-10(7-12(17)14(13)22)9-18-21-15(19-20-16(21)24)11-5-3-2-4-6-11/h7-9,11,18H,2-6H2,1H3,(H,20,24)</inchi><inchiKey>RSNAWJQFQRLPDP-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>411.318</mass><monoisotopicMass>410.04121</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C16H19BrN4O2S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162158
+null
+ 24 26  0  0  0  0  0  0  0  0999 V2000
+    1.4289    3.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    2.4750    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -0.4125    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -1.2375    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3819   -1.7224    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1270   -2.5070    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3020   -2.5070    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0470   -1.7224    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7376   -1.4675    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1665   -1.4675    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3381   -0.6605    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1227   -0.4056    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7358   -0.9576    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5642   -1.7646    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7796   -2.0195    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    3.3000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289    2.4750    0.0000 Br  0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  2  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  2  0  0  0  0 
+  6  7  1  4  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  2  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12  8  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+  9 14  1  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 18  1  0  0  0  0 
+ 18 19  1  0  0  0  0 
+ 19 14  1  0  0  0  0 
+  5 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22  3  1  0  0  0  0 
+ 22 23  2  0  0  0  0 
+ 21 24  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-4831</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>quinomethanes</chebiName><chebiId>CHEBI:52404</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

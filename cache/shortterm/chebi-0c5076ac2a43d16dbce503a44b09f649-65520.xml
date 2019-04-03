@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:65520</chebiId><chebiAsciiName>brasixanthone C</chebiAsciiName><definition>A member of the class of pyranoxanthones that is 2H,6H-pyrano[3,2-b]xanthen-6-one substituted by a 2-hydroperoxy-3-methylbut-3-en-1-yl moiety at position 12, hydroxy groups at positions 5 and 8 and geminal methyl groups at position 2. It is isolated from the stem bark of Calophyllum brasiliense and exhibits significant inhibitory activity against 12-O-tetradecanoylphorbol-13-acetate induced Epstein-Barr virus early antigen activation in Raji cells.</definition><status>CHECKED</status><smiles>CC(=C)C(Cc1c2OC(C)(C)C=Cc2c(O)c2c1oc1ccc(O)cc1c2=O)OO</smiles><inchi>InChI=1S/C23H22O7/c1-11(2)17(30-27)10-15-21-13(7-8-23(3,4)29-21)19(25)18-20(26)14-9-12(24)5-6-16(14)28-22(15)18/h5-9,17,24-25,27H,1,10H2,2-4H3</inchi><inchiKey>JSZZQWZCXGLNKJ-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.41660</mass><monoisotopicMass>410.13655</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>12-(2-hydroperoxy-3-methylbut-3-en-1-yl)-5,8-dihydroxy-2,2-dimethyl-2H,6H-pyrano[3,2-b]xanthen-6-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C23H22O7</data><source>ChEBI</source></Formulae><RegistryNumbers><data>9093892</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>11908963</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  11271212022D          
+
+ 30 33  0  0  0  0            999 V2000
+    2.8956   -1.8124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8956   -2.6373    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6076   -3.0540    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6076   -1.3957    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.3279   -1.8124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.3251   -2.6415    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0442   -3.0520    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0415   -1.3938    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7623   -1.8101    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7615   -2.6366    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4732   -3.0477    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4747   -1.3946    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1880   -1.8114    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1869   -2.6371    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8977   -3.0481    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6155   -2.6390    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6124   -1.8133    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9000   -1.3966    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1791   -1.4002    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0387   -0.5647    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4740   -0.5655    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3243   -2.2206    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3243   -3.0498    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4715   -3.8767    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7566   -4.2877    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7548   -5.1126    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0433   -3.8737    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.3283   -4.2848    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0398   -5.5236    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4681   -5.5266    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  4  2  0  0  0  0
+  2  3  2  0  0  0  0
+  5  8  1  0  0  0  0
+  6  7  1  0  0  0  0
+  7 10  1  0  0  0  0
+ 13 18  1  0  0  0  0
+ 14 15  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 16 17  1  0  0  0  0
+ 17 18  2  0  0  0  0
+  9  8  1  0  0  0  0
+  1 19  1  0  0  0  0
+  9 10  2  0  0  0  0
+  8 20  2  0  0  0  0
+  3  6  1  0  0  0  0
+ 12 21  1  0  0  0  0
+  5  4  1  0  0  0  0
+ 16 22  1  0  0  0  0
+  5  6  2  0  0  0  0
+ 16 23  1  0  0  0  0
+ 11 24  1  0  0  0  0
+  9 12  1  0  0  0  0
+ 24 25  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 25 26  1  0  0  0  0
+ 11 14  2  0  0  0  0
+ 25 27  1  0  0  0  0
+ 13 12  2  0  0  0  0
+ 27 28  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 26 29  1  0  0  0  0
+  1  2  1  0  0  0  0
+ 26 30  2  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>8177171</data><type>Chemspider accession</type></DatabaseLinks><OntologyParents><chebiName>antineoplastic agent</chebiName><chebiId>CHEBI:35610</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>polyphenol</chebiName><chebiId>CHEBI:26195</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>pyranoxanthones</chebiName><chebiId>CHEBI:71238</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>peroxol</chebiName><chebiId>CHEBI:35924</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Calophyllum brasiliense</speciesText><speciesAccession>IPNI:427115-1</speciesAccession><componentText>stem</componentText><componentAccession>BTO:0001300</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>11908963</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

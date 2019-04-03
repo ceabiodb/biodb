@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:66303</chebiId><chebiAsciiName>rhinacanthin C</chebiAsciiName><definition>A naphthoquinone isolated from Rhinacanthus nasutus and has been shown to exhibit antiviral activity.</definition><status>CHECKED</status><smiles>C\C=C(/C)CC\C=C(/C)C(=O)OCC(C)(C)CC1=C(O)C(=O)c2ccccc2C1=O</smiles><inchi>InChI=1S/C25H30O5/c1-6-16(2)10-9-11-17(3)24(29)30-15-25(4,5)14-20-21(26)18-12-7-8-13-19(18)22(27)23(20)28/h6-8,11-13,28H,9-10,14-15H2,1-5H3/b16-6+,17-11+</inchi><inchiKey>HBWJZSWEQJLURT-QIGLBIQCSA-N</inchiKey><charge>0</charge><mass>410.50270</mass><monoisotopicMass>410.20932</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>3-(3-hydroxy-1,4-dioxo-1,4-dihydronaphthalen-2-yl)-2,2-dimethylpropyl (2E,6E)-2,6-dimethylocta-2,6-dienoate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C25H30O5</data><source>ChEBI</source></Formulae><RegistryNumbers><data>7391477</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>15256742</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19303271</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19403288</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23025179</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23393336</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>8792629</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  04221316142D          
+
+ 30 31  0  0  0  0            999 V2000
+    0.4876  -24.1587    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1030  -23.4307    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3337  -24.1263    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.4598  -23.0198    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.1789  -23.4334    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.1807  -24.2596    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.4641  -24.6730    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7462  -23.4338    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7462  -24.2570    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0366  -24.6644    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3222  -24.2530    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3222  -23.4297    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0365  -23.0178    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0376  -22.1922    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0377  -25.4900    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6115  -24.6688    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6105  -23.0196    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8206  -23.0212    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5359  -23.4326    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2518  -23.0227    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9670  -23.4341    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2527  -22.1971    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9662  -24.2598    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6830  -23.0242    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.3940  -23.4356    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.1100  -23.0256    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.8252  -23.4371    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.5412  -23.0271    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2564  -23.4387    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.8243  -24.2627    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+ 10 15  2  0  0  0  0
+  8  9  2  0  0  0  0
+ 11 16  1  0  0  0  0
+  2  1  1  0  0  0  0
+ 12 17  1  0  0  0  0
+ 17  2  1  0  0  0  0
+  4  5  2  0  0  0  0
+  2 18  1  0  0  0  0
+  3  2  1  0  0  0  0
+ 18 19  1  0  0  0  0
+  5  6  1  0  0  0  0
+ 19 20  1  0  0  0  0
+ 20 21  1  0  0  0  0
+  6  7  2  0  0  0  0
+ 20 22  2  0  0  0  0
+  8 13  1  0  0  0  0
+ 21 23  1  0  0  0  0
+  9 10  1  0  0  0  0
+ 21 24  2  0  0  0  0
+ 10 11  1  0  0  0  0
+ 24 25  1  0  0  0  0
+ 11 12  2  0  0  0  0
+ 25 26  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 26 27  1  0  0  0  0
+  7  9  1  0  0  0  0
+ 27 28  2  0  0  0  0
+ 13 14  2  0  0  0  0
+ 28 29  1  0  0  0  0
+  8  4  1  0  0  0  0
+ 27 30  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>hydroxy-1,4-naphthoquinone</chebiName><chebiId>CHEBI:132157</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>carboxylic ester</chebiName><chebiId>CHEBI:33308</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>enol</chebiName><chebiId>CHEBI:33823</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>enoate ester</chebiName><chebiId>CHEBI:51702</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antiviral agent</chebiName><chebiId>CHEBI:22587</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antineoplastic agent</chebiName><chebiId>CHEBI:35610</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Rhinacanthus nasutus</speciesText><speciesAccession>NCBI:537489</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>8792629</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>
