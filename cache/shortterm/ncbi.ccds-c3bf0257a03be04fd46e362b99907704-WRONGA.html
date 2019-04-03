@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML>
+
+<HEAD>
+  <TITLE>CCDS Report for Consensus CDS</TITLE>
+  <META http-equiv=Content-Type content="text/html; charset=windows-1252">
+  
+  <META NAME="author" CONTENT="CCDS">
+  <META NAME="keywords" CONTENT="consensus cds, ccds, core gene set, core protein set, human genome, annotation">
+  <META NAME="description" CONTENT="The CCDS database identifies a core set of human protein coding regions that are consistently annotated by multiple public resources and pass quality tests. ">
+  <LINK href="/ncbi.css" rel=stylesheet>
+
+  <style TYPE="text/css"> 
+    .notice {
+      margin-top: 1em;
+      padding: 4px;
+      border: 8px yellow solid;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+  </style>
+
+<script type="text/javascript" language="JavaScript" src="CcdsBrowse.js"></SCRIPT>
+<script type="text/javascript" language="JavaScript" src="/corehtml/query/query.js"></script>
+
+<meta name="jig" content="ncbilinksmenu"/>
+
+<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js"></script>
+
+<meta name="galert_type" content="default"/>
+<script type="text/javascript">
+    jQuery.getScript("/core/alerts/alerts.js", function () {
+        galert(['form'])
+    });
+</script>
+
+</HEAD>
+
+<body bgcolor='FFFFFF' background="/corehtml/bkgd.gif">
+  <TABLE cellSpacing=0 cellPadding=0 border=0 width="937"> <!-- page contents table -->
+    <TR> <!-- top banner -->
+    <TD  valign=top>				        
+       <TABLE border="0" cellpadding="0" cellspacing="0" width="937">
+       <tr align="left">
+       <td  valign="top" align="left" width="135"><a href="https://www.ncbi.nlm.nih.gov"><img src="/corehtml/left.GIF" width="130" height="45" border="0" alt="NCBI"></a></td>
+       <td align="left" valign="top" bgcolor="000000"><a href="CcdsBrowse.cgi"><img src="IMG/banner.jpg" width="468" height="60" ALT="CCDS banner" border=0></a></td>
+       </tr>
+       </TABLE>
+    </td>
+    </tr> 
+<tr><!-- horizontal link bar-->
+<td colspan=2>
+   <TABLE class="TEXT" border="0" cellspacing="0" cellpadding="2" bgcolor="#000000" width="937"> 
+   <tr class="TEXT" align="CENTER" bgcolor=#000000>
+   <td><a href="/sites/entrez?db=pubmed" class="GUTTER3"><FONT COLOR="#FFFFFF">PubMed</FONT></a></td>
+   <td><a href="/gquery/gquery.fcgi" class="GUTTER3"><FONT COLOR="#FFFFFF">Entrez</FONT></a></td>
+   <td><a href="/sites/entrez?db=gene" class="GUTTER3"><FONT COLOR="#FFFFFF">Gene</FONT></a></td>
+   <td><a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="GUTTER3"><FONT COLOR="#FFFFFF">BLAST</FONT></a></td>
+   <td><a href="/sites/entrez?db=omim" class="GUTTER3"><FONT COLOR="#FFFFFF">OMIM</FONT></a></td>
+   </tr></TABLE>
+</td>
+</tr>
+
+
+
+<tr><!--query box -->
+<td colspan=2> 
+  <form action="CcdsBrowse.cgi" method="GET">
+<TABLE bgcolor=#b0c4de border="0" width="937">
+<TR><TD colspan=6 td class="SMALL1">&nbsp;<label for="Search">&nbsp;Search</label>&nbsp;<small><select name="REQUEST">
+<option value='ALLFIELDS' >All</option>
+<option value='CCDS' selected>CCDS ID</option>
+<option value='GENEID' >Gene ID</option>
+<option value='GENE' >Gene Symbol</option>
+<option value='NUCID' >Nucleotide ID</option>
+<option value='PROTID' >Protein ID</option>
+</select></small>
+<label for="for">for</label>
+<INPUT TYPE="TEXT" SIZE="22" NAME="DATA" id="DATA" VALUE="WRONGA">
+<label for="in">in</label>
+<small><select name="ORGANISM">
+<option value="0">All Organisms</option>
+<option value="9606">Homo sapiens</option>
+<option value="10090">Mus musculus</option>
+</select></small>
+<label for="and">and</label>
+<small><select name="BUILDS">
+<option value='ALLBUILDS' >All Releases</option>
+<option value='CURRENTBUILDS' selected>Current Releases</option>
+</select></small>
+<input type="submit" value="Go">
+<input name="Clear" value="Clear" onclick="this.form.DATA.value='';this.form.DATA.focus();" type="button">
+<script language='javascript'> var d = document.getElementById('DATA'); if (d) {d.focus();} </script></TD></TR>
+<TR><TD><img src="/corehtml/transparent.gif" height="1" border="0"></TD></TR>
+</FORM>
+</TABLE>
+
+</td>
+</tr>
+
+<tr><!-- page contents -->
+<td>
+   <TABLE border=0 cellpadding=0 cellspacing=0 >
+   <tr><!-- side column links-->
+
+   <td width="140" valign="top" align="left">
+   <img src="/corehtml/transparent.gif" width="140" height="1" border="0"> 
+   <p><span class="GUTTER1">CCDS</span><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><!-- Home --><span class="GUTTER2"><a href="CcdsBrowse.cgi" class="GUTTER2">Home</a><br></span><!-- FTP --><span class="GUTTER2"><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="ftp://ftp.ncbi.nlm.nih.gov/pub/CCDS/" class="GUTTER2">FTP</a><br></span><!-- Process --><span class="GUTTER2"><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="CcdsBrowse.cgi?#process" class="GUTTER2">Process</a><br></span><!-- Reports (internal site only) --><!-- Statistics --><span class="GUTTER2"><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="CcdsBrowse.cgi?REQUEST=SHOW_STATISTICS" class="GUTTER2">Releases & Statistics</a><br></span><!-- Curation Guidelines --><!-- TEMPORARILY REMOVED PER SHASHI'S REQUEST<span class="GUTTER2"><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="docs/CCDS_curation_guidelines.pdf" class="GUTTER2">Curation Guidelines</a><br>--><!-- Help (internal site only) --><p><span class="GUTTER1">Collaborators</span><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="http://www.ebi.ac.uk/" class="GUTTER2">EBI</a><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="http://www.genenames.org/" class="GUTTER2">HGNC</a><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="http://www.informatics.jax.org/" class="GUTTER2">MGI</a><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="https://www.ncbi.nlm.nih.gov" class="GUTTER2">NCBI</a><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="http://www.sanger.ac.uk/" class="GUTTER2">WTSI</a><br><p><span class="GUTTER1">Contact Us</span><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="/projects/CCDS/UserRequest/feedback_form.cgi" class="GUTTER2">email CCDS</a><br><p><span class="GUTTER1">Genome Displays</span><br>  <table cellpadding=1 cellspacing=0 border=0>    <tr align=left valign=center>      <td align=left valign=center>        <img src="/corehtml/transparent.gif" width="5" height="0" border="0">        <img src="IMG/ccds-Ensembl.jpg">      </td>      <td align=left valign=top>        <a href="https://www.ensembl.org/" ALT="Ensembl Genome Browser" class="GUTTER2">Ensembl</a>      </td>    </tr>    <tr align=left valign=center>      <td align=left valign=center>        <img src="/corehtml/transparent.gif" width="5" height="0" border="0">        <img src="IMG/ccds-NcbiGenomeDataViewer.jpg">      </td>      <td align=left valign=top>        <a href="https://www.ncbi.nlm.nih.gov/genome/gdv/" ALT="NCBI Genome Data Viewer" class="GUTTER2">NCBI</a>      </td>    </tr>    <tr align=left valign=center>      <td align=left valign=center>        <img src="/corehtml/transparent.gif" width="5" height="0" border="0">        <img src="IMG/ccds-Ucsc.jpg">      </td>      <td align=left valign=top>        <a href="http://genome.ucsc.edu/" ALT="UCSC Genome Browser" class="GUTTER2">UCSC</a>      </td>    </tr>    <tr align=left valign=center>      <td align=left valign=center>        <img src="/corehtml/transparent.gif" width="5" height="0" border="0">        <img src="IMG/ccds-Vega.jpg">      </td>      <td align=left valign=top>        <a href="http://vega.sanger.ac.uk/" ALT="VEGA Genome Browser" class="GUTTER2">VEGA</a>      </td>    </tr>  </table><p><span class="GUTTER1">Related Resources</span><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="https://www.ncbi.nlm.nih.gov/sites/entrez?db=gene" class="GUTTER2">Gene</a><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="https://www.ncbi.nlm.nih.gov/sites/entrez?db=homologene" class="GUTTER2">HomoloGene</a><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="https://www.ncbi.nlm.nih.gov/RefSeq/" class="GUTTER2">RefSeq</a><br><img src="/corehtml/transparent.gif" width="5" height="0" border="0"><a href="https://www.ncbi.nlm.nih.gov/sites/entrez?db=unigene" class="GUTTER2">UniGene</a><br>
+   </TD>
+  <td width="5" align="left" > <img src="/corehtml/transparent.gif" width="5" height="0" border="0"></td> 
+ <TD  valign=top> <!--  <img src="/corehtml/transparent.gif" width="10" height="0" border="0"> -->
+    <p>
+    <h3>No results found for CCDS ID WRONGA. Please check your query and try again. For example, you may want to change the search to look in <i>All Releases</i>.</h3>
+
+
+   </TD>
+   </TR>
+  </TABLE>
+
+  <br><br><table border=0 width=790 cellpadding=0 cellspacing=1><tr><th align=left valign=top width=145><img src="/corehtml/transparent.gif" width="145" height="1" border=0></th><th colspan=9 align=left valign=top  bgcolor="#e0eeee">Links Key</th><tr><tr><th align=left valign=top width=145><img src="/corehtml/transparent.gif" width="145" height="1" border=0></th><th align=left valign=top><small>&nbsp;Links to:</th><th align=left valign=top> <img src="IMG/ccds-History.jpg"><small>&nbsp; History report</small><br><img src="IMG/ccds-BLAST.jpg"><small>&nbsp; BLAST report</small><br><img src="IMG/ccds-Gene.jpg"><small>&nbsp; Entrez Gene</small><br><img src="IMG/ccds-Nucleotide.jpg"><small>&nbsp; Nucleotide report</small><br><img src="IMG/ccds-Protein.jpg"><small>&nbsp; Protein report</small></small></th></tr><tr><th align=left valign=top width=145><img src="/corehtml/transparent.gif" width="145" height="1" border=0></th><th align=left valign=top><small>&nbsp;Re-query CCDS DB by:</th><th align=left valign=top> <img src="IMG/ccds-Cquery.jpg"><small>&nbsp; CCDS ID</small><br> <img src="IMG/ccds-Gquery.jpg">&nbsp;<small> Gene ID</small><br> <img src="IMG/ccds-Nquery.jpg"><small>&nbsp; Nucleotide ID</small><br> <img src="IMG/ccds-Pquery.jpg"><small>&nbsp; Protein ID</small></small></th></tr><tr><th align=left valign=top width=145><img src="/corehtml/transparent.gif" width="145" height="1" border=0></th><th align=left valign=top><small>&nbsp;Genome Browser Links:</th><th align=left valign=top> <img src="IMG/ccds-Ensembl.jpg"><small>&nbsp; Ensembl Genome Browser</small><br><img src="IMG/ccds-SeqViewer.jpg"><small>&nbsp; NCBI Sequence Viewer</small><br><img src="IMG/ccds-Ucsc.jpg"><small>&nbsp; UCSC Genome Browser</small><br><img src="IMG/ccds-Vega.jpg"><small>&nbsp; VEGA Genome Browser</small></small></th></tr></table><br>
+  </td></tr>
+  <tr><td>
+  <div align="center" class="SMALL1">
+  <p><p>
+  <a href="https://www.ncbi.nlm.nih.gov/About/disclaimer.html">Disclaimer</a>
+  |  <a href="mailto:info@ncbi.nlm.nih.gov">Write to the Help Desk</a>
+  <br>
+  <a href="https://www.ncbi.nlm.nih.gov">NCBI</a>
+  | <a href="https://www.nlm.nih.gov">NLM</a>
+  | <a href="https://www.nih.gov">NIH</a>
+</div>
+  </td></tr>
+  </table>
+  
+
+</BODY>
+</HTML>
