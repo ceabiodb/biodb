@@ -5,7 +5,7 @@ cache:
     #        - $BIODB_CACHE_DIRECTORY
 
 r:
-    - oldrel
+#    - oldrel
     - release
     - devel
 
