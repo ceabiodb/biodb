@@ -16,7 +16,8 @@ Suggests:
 	devtools,
 	testthat (>= 2.0.0),
 	knitr,
-	rmarkdown
+	rmarkdown,
+	igraph
 Imports:
 	Rcpp,
 	methods,
