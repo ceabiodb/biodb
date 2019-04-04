@@ -14,8 +14,8 @@ notifications:
   recipients:
    - pk.roger@icloud.com
 
-env:
-    - CHECK=yes
+     #env:
+     #    - CHECK=yes
 #    - TESTTHAT_REPORTER=summary
 #    - MODE=offline TESTTHAT_REPORTER=summary
 #    - DBS=hmdb.metabolites MODE=online TESTTHAT_REPORTER=summary
@@ -31,8 +31,8 @@ branches:
     - /^release[/].*$/
     - /^testing[/]travis-.*$/
 
-script:
-    - ./travis-tests
+      #script:
+      #    - ./travis-tests
       
 after_script:
-    - if [ -f biodb.Rcheck/tests/testthat.Rout ] ; then cat biodb.Rcheck/tests/testthat.Rout ; fi
+    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
