@@ -28,3 +28,5 @@ cache/shortterm/hmdb.metabolites-*
 cache/shortterm/mass.csv.file-*
 cache/shortterm/mass.sqlite-*
 cache/shortterm/mirbase.mature-*
+!cache/shortterm/mirbase.mature-ecbae556d51779d9d48125ba5a617e19-MIMAT0000433.txt
+!cache/shortterm/mirbase.mature-ecbae556d51779d9d48125ba5a617e19-MIMAT0000434.txt
