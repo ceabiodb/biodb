@@ -31,8 +31,8 @@ branches:
     - /^release[/].*$/
     - /^testing[/]travis-.*$/
 
-      #script:
-      #    - ./travis-tests
-      
-after_script:
-    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
+#script:
+#    - ./travis-tests
+
+#after_script:
+#    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
