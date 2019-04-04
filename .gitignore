@@ -25,3 +25,8 @@ cache/longterm
 cache/shortterm/hmdb.metabolites-*
 !cache/shortterm/hmdb.metabolites-9e094cf1e5980f9ac69d952373fb6d34-HMDB0000001.xml
 !cache/shortterm/hmdb.metabolites-9e094cf1e5980f9ac69d952373fb6d34-extracted.marker
+cache/shortterm/mass.csv.file-*
+cache/shortterm/mass.sqlite-*
+cache/shortterm/mirbase.mature-*
+!cache/shortterm/mirbase.mature-ecbae556d51779d9d48125ba5a617e19-MIMAT0000433.txt
+!cache/shortterm/mirbase.mature-ecbae556d51779d9d48125ba5a617e19-MIMAT0000434.txt

@@ -30,33 +30,26 @@ for (db.name in TEST.DATABASES) {
 
 	set.test.context(biodb, paste0("Test ", db.name, "."))
 
-	# Loop on test modes
-	for (mode in TEST.MODES) {
+	# Get instance
+	conn <- create.conn.for.generic.tests(biodb = biodb, class.db = db.name)
+	expect_is(conn, 'BiodbConn')
 
-		# Configure mode
-		set.mode(biodb, mode)
+	# Delete cache entries
+	biodb$getFactory()$deleteAllCacheEntries(conn$getId())
 
-		# Get instance
-		conn <- create.conn.for.generic.tests(biodb = biodb, class.db = db.name, mode = mode)
-		expect_is(conn, 'BiodbConn')
+	# Generic tests
+	run.db.generic.tests(conn)
 
-		# Delete cache entries
-		biodb$getFactory()$deleteAllCacheEntries(conn$getId())
+	# Compound database testing
+	run.compound.db.tests(conn)
 
-		# Generic tests
-		run.db.generic.tests(conn, mode)
+	# Mass database testing
+	run.mass.db.tests(conn)
 
-		# Compound database testing
-		run.compound.db.tests(conn, mode)
-
-		# Mass database testing
-		run.mass.db.tests(conn, mode)
-
-		# Specific tests
-		fct <- paste('run', db.name, 'tests', sep = '.')
-		if (exists(fct))
-			do.call(fct, list(conn = conn, mode = mode, obs = obs))
-	}
+	# Specific tests
+	fct <- paste('run', db.name, 'tests', sep = '.')
+	if (exists(fct))
+		do.call(fct, list(conn = conn, obs = obs))
 }
 
 # Terminate Biodb

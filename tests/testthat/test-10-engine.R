@@ -15,10 +15,9 @@ source('engine-scheduler-tests.R')
 ################################################################
 
 # Create biodb instance
-biodb <- create.biodb.instance()
+biodb = create.biodb.instance(offline = TRUE)
 expect_is(biodb, 'Biodb')
-obs <- create.test.observer(biodb)
-set.mode(biodb, MODE.OFFLINE)
+obs = create.test.observer(biodb)
 
 # Run tests
 run.abstract.tests(biodb, obs)

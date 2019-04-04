@@ -98,8 +98,8 @@ test.peakforest.mass.token.init <- function(biodb) {
 # Run PeakForest Compound tests {{{1
 ################################################################
 
-run.peakforest.compound.tests <- function(conn, mode, obs) {
-	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+run.peakforest.compound.tests <- function(conn, obs) {
+	if (test.online()) {
 		test.that('Web service "search" works.', 'test.peakforest.compound.ws.search', conn = conn)
 		test.that('Web service "all.count" works.', 'test.peakforest.compound.ws.all.count', conn = conn)
 		test.that('Web service "all.ids" works.', 'test.peakforest.compound.ws.all.ids', conn = conn)
@@ -109,11 +109,11 @@ run.peakforest.compound.tests <- function(conn, mode, obs) {
 # Run PeakForest Mass tests {{{1
 ################################################################
 
-run.peakforest.mass.tests <- function(conn, mode, obs) {
+run.peakforest.mass.tests <- function(conn, obs) {
 
 	test.that('Test token init.', 'test.peakforest.mass.token.init', biodb = conn$getBiodb())
 
-	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+	if (test.online()) {
 		test.that('Test if RT match gives same result with minutes and seconds in input.', 'test.peakforest.mass.rt.match.with.different.units', conn = conn)
 	}
 }

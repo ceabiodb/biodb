@@ -48,8 +48,8 @@ test.lipidmaps.structure.ws.LMSDSearch = function(db) {
 # Run LipidMaps Structure tests {{{1
 ################################################################
 
-run.lipidmaps.structure.tests = function(conn, mode, obs) {
-	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+run.lipidmaps.structure.tests = function(conn, obs) {
+	if (test.online()) {
 		test.that("Test web service ws.LMSDRecord.", 'test.lipidmaps.structure.ws.LMSDRecord', conn = conn)
 		test.that("Test web service ws.LMSDSearch.", 'test.lipidmaps.structure.ws.LMSDSearch', conn = conn)
 	}
