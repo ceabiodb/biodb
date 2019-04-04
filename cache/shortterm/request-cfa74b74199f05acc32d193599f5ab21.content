@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:51226</chebiId><chebiAsciiName>epicocconone</chebiAsciiName><definition>A natural cell-permeable fluorescent compound isolated from the fungus Epicoccum nigrum.</definition><status>CHECKED</status><smiles>C\C=C\C=C\C=C\C(=O)\C=C(O)\C1=C2C=C3C[C@@H](CO)OC=C3C(=O)[C@@]2(C)OC1=O</smiles><inchi>InChI=1S/C23H22O7/c1-3-4-5-6-7-8-15(25)11-19(26)20-18-10-14-9-16(12-24)29-13-17(14)21(27)23(18,2)30-22(20)28/h3-8,10-11,13,16,24,26H,9,12H2,1-2H3/b4-3+,6-5+,8-7+,19-11-/t16-,23-/m0/s1</inchi><inchiKey>JKMBMIMLVFMXRW-LYYFRFARSA-N</inchiKey><charge>0</charge><mass>410.41658</mass><monoisotopicMass>410.13655</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>Deep Purple</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Lava Purple</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Lightning Fast</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>(6S,9aS)-6-(hydroxymethyl)-3-[(1Z,4E,6E,8E)-1-hydroxy-3-oxodeca-1,4,6,8-tetraen-1-yl]-9a-methyl-5,6-dihydro-2H-furo[3,2-g]isochromene-2,9(9aH)-dione</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C23H22O7</data><source>ChEBI</source></Formulae><RegistryNumbers><data>9529236</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  12150816142D          
+
+ 30 32  0  0  1  0            999 V2000
+   -3.5235    0.4127    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5236   -0.4124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8090    0.8251    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8091   -0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0945    0.4126    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -2.0946   -0.4124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.9525    0.4126    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.9525   -0.4123    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -4.2379    0.8252    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2380   -0.8248    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3099    0.6675    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8250    0.0001    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3099   -0.6674    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0551   -1.4521    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6071   -2.0651    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.2481   -1.6236    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0069   -2.4082    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8138   -2.5798    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.0687   -3.3645    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8757   -3.5360    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1306   -4.3206    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9376   -4.4922    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1924   -5.2768    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5453   -3.0212    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9994   -5.4484    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8090    1.6501    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.6670   -0.8248    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.3814   -0.4123    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0945    1.2376    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  3  1  1  0  0  0  0
+  4  2  2  0  0  0  0
+  5  3  1  0  0  0  0
+  6  4  1  0  0  0  0
+  8  7  1  0  0  0  0
+  9  7  1  0  0  0  0
+ 10  8  1  0  0  0  0
+  1  9  2  0  0  0  0
+  2 10  1  0  0  0  0
+  2  1  1  0  0  0  0
+ 11  5  1  0  0  0  0
+  6  5  1  0  0  0  0
+ 12 11  1  0  0  0  0
+ 13  6  2  0  0  0  0
+ 15 14  1  0  0  0  0
+ 16 14  2  0  0  0  0
+ 17 16  1  0  0  0  0
+ 18 17  1  0  0  0  0
+ 19 18  2  0  0  0  0
+ 20 19  1  0  0  0  0
+ 21 20  2  0  0  0  0
+ 22 21  1  0  0  0  0
+ 23 22  2  0  0  0  0
+ 17 24  2  0  0  0  0
+ 23 25  1  0  0  0  0
+  3 26  2  0  0  0  0
+ 12 27  2  0  0  0  0
+ 14 13  1  0  0  0  0
+ 12 13  1  0  0  0  0
+  8 28  1  1  0  0  0
+ 28 29  1  0  0  0  0
+  5 30  1  6  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>organic heterotricyclic compound</chebiName><chebiId>CHEBI:26979</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>fluorochrome</chebiName><chebiId>CHEBI:51217</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

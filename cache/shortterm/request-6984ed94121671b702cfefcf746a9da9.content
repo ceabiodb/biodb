@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+	<head>
+		<title>LIPID MAPS Lipidomics Gateway</title>
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800">
+		<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+        <script type='text/javascript' src='https://www.google.com/recaptcha/api.js'></script>
+
+		<link rel="stylesheet" href="/css/carousel_24_20190225a.css">
+		<link rel="stylesheet" href="/css/bootstrap_20190227c.css">
+		<link rel="stylesheet" href="/css/styles.css">
+		<link href="/css/sticky_footer.css" rel="stylesheet">
+		<link rel="stylesheet" href="/css/cookiealert.css">
+		<style>
+			a[href^="http://"] {
+  			background: url(/images/exit_small.png) no-repeat center right;
+  			padding-right: 14px;
+    			margin-right: 6px;
+			}
+			container a[href^="https://"] {
+  			background: url(/images/exit_small.png) no-repeat center right;
+  			padding-right: 14px;
+    			margin-right: 6px;
+			}
+			a {text-decoration: underline;}
+			button {text-decoration: underline;}
+			nav a {text-decoration: none;}
+			table a {text-decoration: none;}
+			
+		</style>
+	</head>
+
+	<body style='padding:0rem; margin:0rem;'><nav class="navbar sticky-top navbar-expand-xl navbar-dark bg-dark" style="margin:0rem;"><a class="navbar-brand" href="/"><img src="/images/logo_R_transparent.png" width="60" class="d-inline-block align-top" alt="logo"><span style="font-size:1.6rem; padding-left:0.6rem;">LIPID MAPS<sub>&#174;</sub> Lipidomics Gateway</span></a>		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button><div class="collapse navbar-collapse" id="navbarToggler"><ul class="navbar-nav ml-auto">	<li class="nav-item">
+		<a class="nav-link" href="/">Home</a>
+	</li>	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="" id="navbarDropdownUpdates" data-toggle="dropdown">Updates</a>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="/updates/eventscalendar.php">Events Calendar</a>
+			<a class="dropdown-item" href="/updates/lipidmapshighlights.php">LIPID MAPS<sub>&#174;</sub> Highlights</a>
+			<a class="dropdown-item" href="/updates/lipidmatters.php">Lipid Matters (blog)</a>
+			<a class="dropdown-item" href="/updates/lipidofthemonth.php">Lipid of the Month</a>
+		</div>
+	</li>	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="" id="navbarDropdownResources" data-toggle="dropdown">Resources</a>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="/data/classification/LM_classification_exp.php">Classification</a>
+			<a class="dropdown-item" href="/resources/standards/index.php">Standards</a>
+			<a class="dropdown-item" href="/resources/protocols/index.php">Methods and Protocols</a>
+			<a class="dropdown-item" href="/resources/data/index.php">Experimental Data</a>
+			<a class="dropdown-item" href="/resources/databases/index.php">Databases</a>
+			<a class="dropdown-item" href="/resources/pathways/index.php">Pathways</a>
+			<a class="dropdown-item" href="/resources/REST/index.php">REST Service</a>
+			<a class="dropdown-item" href="/resources/tools/index.php">Tools</a>
+			<a class="dropdown-item" href="/resources/tutorials/index.php">Tutorials</a>
+			<a class="dropdown-item" href="/resources/links/index.php">Links</a>
+		</div>
+	</li>	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="" id="navbarDropdownAbout" data-toggle="dropdown">About</a>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="/about/index.php">About Us</a>
+			<a class="dropdown-item" href="/about/partners.php">About Our Academic Partners</a>
+			<a class="dropdown-item" href="/about/sponsors.php">About Our Sponsors</a>
+			<a class="dropdown-item" href="/about/sponsor_us.php">Sponsor Us</a>
+			<a class="dropdown-item" href="/about/contact.php">Contact Us</a>
+			<a class="dropdown-item" href="/about/archive.php">Archive</a>
+		</div>
+	</li></ul>	<form class="form-inline" action='/search/quicksearch.php' method="get">
+		<input class="form-control mr-sm-2" name="Name" type="search" placeholder="Search" aria-label="Search">
+		<div class="input-group-btn">
+			<button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+		</div>
+	</form></div></nav><div class="container" style="padding:0rem;">
+<div class="container bg-light" style="padding-bottom:2rem;">	
+
+<h1 style='width: 100%;'>Structure database (LMSD)<div class='small text-muted' style='text-align:right; font-size: 0.8rem; margin-top:1rem; margin-bottom:1rem;'>Return to <a href='/resources/databases/index.php'>Databases Overview</a></div></h1>
+<script language='JavaScript' type='text/JavaScript'>
+
+function ChangeMassZRatio(MassZRatioList){
+  var IonType = MassZRatioList.options[MassZRatioList.selectedIndex].value;
+
+  var MassZRatio, Formula, FormulaDisplay, MassAndFormula;
+
+  MassZRatio = '';
+  Formula = '';
+  FormulaDisplay = '';
+  MassAndFormula = '';
+  if(IonType == 'MplusH'){ MassZRatio = 300.2897; Formula = 'C18H38NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>8</sub>NO<sub>2</sub>';}
+  else if(IonType == 'MplusH-H2O'){ MassZRatio = 282.2791; Formula = 'C18H36NO'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>6</sub>NO';}
+  else if(IonType == 'M.'){ MassZRatio = 299.2819; Formula = 'C18H37NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>NO<sub>2</sub>';}
+  else if(IonType == 'Mplus2H'){ MassZRatio = 150.6485; Formula = 'C18H39NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>9</sub>NO<sub>2</sub>';}
+  else if(IonType == 'Mplus3H'){ MassZRatio = 100.7681; Formula = 'C18H40NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>4</sub><sub>0</sub>NO<sub>2</sub>';}
+  else if(IonType == 'Mplus4H'){ MassZRatio = 75.8279; Formula = 'C18H41NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>4</sub><sub>1</sub>NO<sub>2</sub>';}
+  else if(IonType == 'MplusK'){ MassZRatio = 338.2456; Formula = 'C18H37KNO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>KNO<sub>2</sub>';}
+  else if(IonType == 'Mplus2K'){ MassZRatio = 188.6044; Formula = 'C18H37K2NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>K<sub>2</sub>NO<sub>2</sub>';}
+  else if(IonType == 'Mplus2K-H'){ MassZRatio = 376.2015; Formula = 'C18H36K2NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>6</sub>K<sub>2</sub>NO<sub>2</sub>';}
+  else if(IonType == 'MplusNa'){ MassZRatio = 322.2716; Formula = 'C18H37NNaO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>NNaO<sub>2</sub>';}
+  else if(IonType == 'Mplus2Na'){ MassZRatio = 172.6304; Formula = 'C18H37NNa2O2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>NNa<sub>2</sub>O<sub>2</sub>';}
+  else if(IonType == 'Mplus2Na-H'){ MassZRatio = 344.2536; Formula = 'C18H36NNa2O2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>6</sub>NNa<sub>2</sub>O<sub>2</sub>';}
+  else if(IonType == 'MplusLi'){ MassZRatio = 306.2979; Formula = 'C18H37LiNO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>LiNO<sub>2</sub>';}
+  else if(IonType == 'Mplus2Li'){ MassZRatio = 156.6567; Formula = 'C18H37Li2NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>Li<sub>2</sub>NO<sub>2</sub>';}
+  else if(IonType == 'MplusNH4'){ MassZRatio = 317.3162; Formula = 'C18H41N2O2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>4</sub><sub>1</sub>N<sub>2</sub>O<sub>2</sub>';}
+  else if(IonType == 'M-H'){ MassZRatio = 298.2752; Formula = 'C18H36NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>6</sub>NO<sub>2</sub>';}
+  else if(IonType == 'M-2H'){ MassZRatio = 148.6339; Formula = 'C18H35NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>5</sub>NO<sub>2</sub>';}
+  else if(IonType == 'M-3H'){ MassZRatio = 98.7535; Formula = 'C18H34NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>4</sub>NO<sub>2</sub>';}
+  else if(IonType == 'M-4H'){ MassZRatio = 73.8133; Formula = 'C18H33NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>3</sub>NO<sub>2</sub>';}
+  else if(IonType == 'M.Cl'){ MassZRatio = 334.2518; Formula = 'C18H37ClNO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>ClNO<sub>2</sub>';}
+  else if(IonType == 'M.OAc'){ MassZRatio = 358.2963; Formula = 'C20H40NO4'; FormulaDisplay = 'C<sub>2</sub><sub>0</sub>H<sub>4</sub><sub>0</sub>NO<sub>4</sub>';}
+  else if(IonType == 'neutral'){ MassZRatio = 299.2824; Formula = 'C18H37NO2'; FormulaDisplay = 'C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>NO<sub>2</sub>';}
+
+  if (MassZRatio) {
+    FormulaTag = '<a href = "/tools/ms/iso2d_Ag.php?formula=' + Formula + '" style="text-decoration : none;" >' + FormulaDisplay + '</a>';
+    MassZRatio = MassZRatio.toFixed(4);
+    MassAndFormula = MassZRatio + ' (' + FormulaTag + ')';
+  }
+
+  document.getElementById("MassZRatio").innerHTML = MassAndFormula;
+}
+</script><table border="0" cellpadding="2" cellspacing="2" width='100%'>
+<tr><td colspan="2" align="left"><form method="post" action="" name="DownloadLMSDRecordForm" enctype="multipart/form-data">
+<input type="hidden" name="Mode" value="Download" />
+<input type="hidden" name="LMID" value="LMFA08040013" />
+<input type="submit" value="Download file">
+&nbsp;<select name="OutputType"><option value='MDLMOL' selected>MDLMOL</option>
+<option value='SDF'>SDF</option>
+<option value='CSV'>CSV</option>
+<option value='TSV'>TSV</option>
+</select>  MDLMOL files can be opened in various drawing programs. In ChemDraw, open as filetype "MDL Molfile". </form> 
+<tr><td bgcolor="#ffffff" class="structure" colspan="2" align="left" valign="middle">
+<div id="GGAKetcherOuter" style="border:1px solid white;width:660px;height:300px;"><div id="GGAKetcher" style="width:660px;height:300px;margin-left:0px;;margin-right:0px;margin-top:0px;margin-bottom:0px"></div></div>
+</td></tr>
+<tr class="data"><th width="150">LM ID</th><td>LMFA08040013</td></tr>
+<tr class="data"><th width="150">Common Name</th><td>Palmitoyl-EA</td></tr>
+<tr class="data"><th width="150">Systematic Name</th><td>N-hexadecanoyl-ethanolamine</td></tr>
+<tr class="data"><th width="150">Synonyms</th><td>Palmitoyl ethanolamide; palmitoylethanolamide; Anandamide (16:0); N-palmitoyl <br>ethanolamine</td></tr>
+<tr class="data"><th width="150">Exact Mass</th><td>  <form method='post' name='MassZRatioForm'>
+  299.2824 (neutral)&nbsp;&nbsp;&nbsp;&nbsp;<strong>Calculate m/z:</strong>
+
+  <select NAME= 'MassZRatioList' onClick='ChangeMassZRatio(this.form.MassZRatioList)'>
+  <option VALUE='' SELECTED >(Select m/z)</option><option VALUE='MplusH'>[M+H]+</option>
+<option VALUE='MplusH-H2O'>[M+H-H2O]+</option>
+<option VALUE='M.'>[M.]+</option>
+<option VALUE='Mplus2H'>[M+2H]2+</option>
+<option VALUE='Mplus3H'>[M+3H]3+</option>
+<option VALUE='Mplus4H'>[M+4H]4+</option>
+<option VALUE='MplusK'>[M+K]+</option>
+<option VALUE='Mplus2K'>[M+2K]2+</option>
+<option VALUE='Mplus2K-H'>[M+2K-H]+</option>
+<option VALUE='MplusNa'>[M+Na]+</option>
+<option VALUE='Mplus2Na'>[M+2Na]2+</option>
+<option VALUE='Mplus2Na-H'>[M+2Na-H]+</option>
+<option VALUE='MplusLi'>[M+Li]+</option>
+<option VALUE='Mplus2Li'>[M+2Li]2+</option>
+<option VALUE='MplusNH4'>[M+NH4]+</option>
+<option VALUE='M-H'>[M-H]-</option>
+<option VALUE='M-2H'>[M-2H]2-</option>
+<option VALUE='M-3H'>[M-3H]3-</option>
+<option VALUE='M-4H'>[M-4H]4-</option>
+<option VALUE='M.Cl'>[M+Cl]-</option>
+<option VALUE='M.OAc'>[M+OAc]-</option>
+<option VALUE='neutral'>M(neutral)</option>
+  </select>
+   <span id="MassZRatio"></span>
+  </form></td></tr>
+<tr class="data"><th width="150">Formula</th><td><a href='/tools/ms/iso2d_Ag.php?formula=C18H37NO2' style='text-decoration : none;' >C<sub>1</sub><sub>8</sub>H<sub>3</sub><sub>7</sub>NO<sub>2</sub></a></td></tr>
+<tr class="data"><th width="150">Category</th><td><a href='/data/structure/LMSDSearch.php?Mode=ProcessClassSearch&LMID=LMFA' >Fatty Acyls [FA]</td></tr>
+<tr class="data"><th width="150">Main Class</th><td><a href='/data/structure/LMSDSearch.php?Mode=ProcessClassSearch&LMID=LMFA08' >Fatty amides [FA08]</td></tr>
+<tr class="data"><th width="150">Sub Class</th><td><a href='/data/structure/LMSDSearch.php?Mode=ProcessClassSearch&LMID=LMFA0804' >N-acyl ethanolamines (endocannabinoids) [FA0804]</a></td></tr>
+<tr class="data"><th width="150">LIPIDBANK ID</th><td><a href="http://www.lipidbank.jp/cgi-bin/detail.cgi?id=XPR7013" >XPR7013</a></td></tr>
+<tr class="data"><th width="150">PubChem CID</th><td><a href="http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid=4671" >4671</a></td></tr>
+<tr class="data"><th width="150">HMDB ID</th><td><a href="http://www.hmdb.ca/metabolites/HMDB0002100" >HMDB0002100</a></td></tr>
+<tr class="data"><th width="150">SWISSLIPIDS ID</th><td><a href="http://www.swisslipids.org/#/entity/SLM:000000149/" >SLM:000000149</a></td></tr>
+<tr class="data"><th width="150">CAYMAN ID</th><td><a href="https://www.caymanchem.com/product/90350/" >90350</a></td></tr>
+<tr class="data"><th width="150">InChIKey</th><td>HXYVTAGFYLMHSO-UHFFFAOYSA-N&nbsp;<a href=/search/quicksearch.php?Name=HXYVTAGFYLMHSO-XXXXXXXXXX-N&Mode=ProcessTextSearch&submit=go >
+  Show lipids differing only in stereochemistry/bond geometry</a></td></tr>
+<tr class="data"><th width="150">InChI</th><td>InChI=1S/C18H37NO2/c1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-18(21)19-16-17-20/h20H,2<br/>-17H2,1H3,(H,19,21)</td></tr>
+<tr class="data"><th width="150">SMILES</th><td>C(CCCCCCCCCCCCCC)C(=O)NCCO</td></tr>
+<tr class="data"><th width="150">Status</th><td>Active</td></tr>
+<tr><td colspan="2" align="left"><table border="0" cellpadding="0" cellspacing="0">
+<tr><th colspan="2" align="left">Calculated physicochemical properties <a href="PhyschemPropHelp.html" title="Help for calculated physicochemical properties" >(?)</a>:</th></tr>
+</table></td></tr>
+<tr><td colspan="2" align="left"><table border="0" cellpadding="2" cellspacing="2">
+<tr class="data"><td width="10">&nbsp;</td><th width="135" align="left">Heavy Atoms</th><td width="65">21</td><th width="135" align="left">Rings</th><td width="65">0</td><th width="135" align="left">Aromatic Rings</th><td width="65">0</td><th width="135" align="left">Rotatable Bonds</th><td width="65">16</td></tr><tr class="data"><td>&nbsp;</td><th align="left">van der Waals<br/>Molecular Volume</th><td>345.90</td><th align="left">Topological Polar<br/>Surface Area</th><td>49.33</td><th align="left">Hydrogen<br/>Bond Donors</th><td>2</td><th align="left">Hydrogen<br/>Bond Acceptors</th><td>2</td></tr><tr class="data"><td>&nbsp;</td><th align="left">logP</th><td>5.15</td><th align="left">Molar<br/>Refractivity</th><td>91.39</td><th align="left">&nbsp;</th><td>&nbsp;</td><th>&nbsp;</th><td>&nbsp;</td></tr></table></td></tr>
+</table>
+
+  <script type="text/javascript" src="/data/ketcher/prototype-min.js"></script>
+  <script type="text/javascript" src="/data/ketcher/raphael.js"></script>
+  <script type="text/javascript" src="/data/ketcher/util/common.js"></script>
+  <script type="text/javascript" src="/data/ketcher/util/vec2.js"></script>
+  <script type="text/javascript" src="/data/ketcher/util/set.js"></script>
+  <script type="text/javascript" src="/data/ketcher/util/map.js"></script>
+  <script type="text/javascript" src="/data/ketcher/util/pool.js"></script>
+  <script type="text/javascript" src="/data/ketcher/chem/element.js"></script>
+  <script type="text/javascript" src="/data/ketcher/chem/sgroup.js"></script>
+  <script type="text/javascript" src="/data/ketcher/chem/struct.js"></script>
+  <script type="text/javascript" src="/data/ketcher/chem/struct_valence.js"></script>
+  <script type="text/javascript" src="/data/ketcher/chem/molfile.js"></script>
+  <script type="text/javascript" src="/data/ketcher/chem/dfs.js"></script>
+  <script type="text/javascript" src="/data/ketcher/chem/smiles.js"></script>
+  <script type="text/javascript" src="/data/ketcher/rnd/events.js"></script>
+  <script type="text/javascript" src="/data/ketcher/rnd/visel.js"></script>
+  <script type="text/javascript" src="/data/ketcher/rnd/restruct.js"></script>
+  <script type="text/javascript" src="/data/ketcher/rnd/restruct_rendering.js"></script>
+  <script type="text/javascript" src="/data/ketcher/rnd/render.js"></script>
+  <script type="text/javascript" src="/data/ketcher/ketcher.js"></script>
+
+
+  <script type="text/javascript">
+
+   // Load molecule into table row...
+   window.onload = ketcher.showMolfileOpts('GGAKetcher', 'LMFA08040013\n  Accord  08271317172D\n\n 21 20  0  0  0  0  0  0  0  0999 V2000\n   15.0025    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   15.7170    5.4126    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   16.4316    5.0000    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n   15.7170    6.2376    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n   17.1461    5.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   17.8605    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   18.5749    5.4124    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n   14.2881    5.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   13.5736    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   12.8591    5.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   12.1447    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   11.4302    5.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   10.7157    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   10.0012    5.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    9.2868    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    8.5723    5.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    7.8578    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    7.1434    5.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    6.4290    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    5.7144    5.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    5.0000    5.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n  2  1  1  0  0  0  0\n  3  2  1  0  0  0  0\n  2  4  2  0  0  0  0\n  5  3  1  0  0  0  0\n  6  5  1  0  0  0  0\n  6  7  1  0  0  0  0\n  8  1  1  0  0  0  0\n  9  8  1  0  0  0  0\n 10  9  1  0  0  0  0\n 11 10  1  0  0  0  0\n 12 11  1  0  0  0  0\n 13 12  1  0  0  0  0\n 14 13  1  0  0  0  0\n 15 14  1  0  0  0  0\n 16 15  1  0  0  0  0\n 17 16  1  0  0  0  0\n 18 17  1  0  0  0  0\n 19 18  1  0  0  0  0\n 20 19  1  0  0  0  0\n 21 20  1  0  0  0  0\nM  END', 75, {'autoScale':true,'autoScaleMargin':20,'hideTerminalLabels':true,'atomColoring':true, 'ignoreMouseEvents':true});
+
+  </script>
+</div></div><footer class="bg-dark" style="padding-top:1rem;">
+	<div class="footer-bottom bg-light text-muted" style='padding-top:0.4rem; padding-bottom:0rem; text-align: center;'>
+		<div class="container">
+	  	<div class="row">
+			<div class="col" style='text-align: center;'>
+				<p style='font-size:1.6rem;'>Participating Institutions</p>
+			</div>
+	  	</div>
+		</div>
+	</div>	<div class='bg-light' style='padding-top:0.4rem;'>
+		<div class="container">
+			<div class="row align-items-end" style='border-bottom-style:solid; border-color: #cccccc; padding-bottom:2rem;'>
+
+				<div class="col-sm" style='text-align:center; padding:1rem;'>
+					<img src="/images/cardiff_logo.png" style="width: 4rem;" alt="Cardiff University logo">
+					<br><a href='https://www.cardiff.ac.uk'>Cardiff University</a>
+				</div>
+				<div class="col-sm" style='text-align:center; padding:1rem;'>
+					<img src="/images/BI-2016-small.png" style="width: 4.9rem;" alt="Babraham Institutei logo">
+					<br><a href='https://www.babraham.ac.uk/'>Babraham Institute</a>
+				</div>
+				<div class="col-sm" style='text-align:center; padding:1rem;'>
+					<img src="/images/UCSanDiegoLogo-BlueGold.png" style="width: 150px;" alt="University of California, San Diego logo">
+					<br><a href='https://www.ucsd.edu'>University of California, San Diego</a>
+				</div>
+
+			</div>
+		</div>
+	</div>	<div class="footer-bottom bg-light text-muted" style='margin-top:0.0rem; padding-top:1.4rem; padding-bottom:0rem; text-align: center;'>
+		<div class="container">
+			<div class="row">
+				<div class="col" style='text-align: center;'>
+					<p style='font-size:1.6rem;'>Funded by</p>
+				</div>
+			</div>
+		</div>
+	</div>	<div class="footer-bottom bg-light text-muted" style='padding-top:0rem; text-align: center;'>
+		<div class="container">
+			<div class="row">
+				<div class="col" style='text-align: center;'>
+					<p>
+						<img src="/images/wellcome-logo-black.jpg" style="width: 4rem;" alt="Wellcome Trust logo">
+						<br>
+						<a href='https://wellcome.ac.uk/'>Wellcome Trust</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>	<div class="m-t-3">
+	</div>
+
+	<div class="footer-top p-y-2">
+		<div class="container-fluid">		</div>
+	</div>	<div class="footer-bottom text-muted" style='background-color:black; padding-top:0.4rem; padding-right:0rem;'>
+		<div class="container" style='width:100%;'>
+
+			<div class="row" style='width:100%;'>
+
+				<div class="col-sm-4">
+					<!-- <p class="text-xs-center">&copy;2003-2019 LIPID MAPS<sub>&#174;</sub> Lipidomics Gateway</p> -->
+					<span class='text-muted small'>
+					&copy;2003-2019 LIPID MAPS<sub>&#174;</sub> Lipidomics Gateway
+					</span>
+				</div>
+
+				<div class="col-sm-2">
+					<!-- <p class="text-xs-center">&copy;2003-2019 LIPID MAPS<sub>&#174;</sub> Lipidomics Gateway</p> -->
+					<span class='text-muted small'>
+<a href="http://www.w3.org/html/logo/">
+<!-- img src="https://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png" width="165" height="64" alt="HTML5 Powered with CSS3 / Styling, and Semantics" title="HTML5 Powered with CSS3 / Styling, and Semantics" -->
+<img src="https://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png" height='30' style='' alt="HTML5 Powered with CSS3 / Styling, and Semantics" title="HTML5 Powered with CSS3 / Styling, and Semantics">
+</a>
+					</span>
+				</div>
+
+
+				<div class="col-sm-3">
+					<!-- <p class="text-xs-center">&copy;2003-2019 LIPID MAPS<sub>&#174;</sub> Lipidomics Gateway</p> -->
+					<ul class="list-inline text-muted small">
+						<li class="list-inline-item"><a href="/about/termsofuse.php">Terms of Use</a></li>
+						<li class="list-inline-item"><a href="/about/howtocite.php">How to Cite</a></li>
+						<li class="list-inline-item"><a href="/about/howtolink.php">How to Link</a></li>
+						<li class="list-inline-item"><a href="/about/browsers.php">Browsers Supported</a></li>
+					</ul>
+				</div>
+
+
+				<div class="col-sm-2">
+					<!-- <p class="text-xs-center">&copy;2003-2019 LIPID MAPS<sub>&#174;</sub> Lipidomics Gateway</p> -->				</div>
+
+
+
+
+			</div>
+
+		</div>
+	</div>
+</footer><script src="https://code.jquery.com/jquery-1.12.2.min.js" integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<!--[if IE 6]>
+<![endif]-->
+
+<!-- Google Analytics code updated 02/20/2015-->
+<script>
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4701305-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>	</body>
+</html>

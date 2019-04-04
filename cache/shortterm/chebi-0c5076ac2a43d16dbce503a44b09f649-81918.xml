@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:81918</chebiId><chebiAsciiName>fentin acetate</chebiAsciiName><definition>An organotin compound that is the O-acetyl derivative of triphenyltin hydroxide. A fungicide used to control blights on potatoes, leaf spot diseases on sugar beet and anthracnose on beans.</definition><status>CHECKED</status><smiles>CC(=O)O[Sn](c1ccccc1)(c1ccccc1)c1ccccc1</smiles><inchi>InChI=1S/3C6H5.C2H4O2.Sn/c3*1-2-4-6-5-3-1;1-2(3)4;/h3*1-5H;1H3,(H,3,4);/q;;;;+1/p-1</inchi><inchiKey>WDQNIWFZKXZFAY-UHFFFAOYSA-M</inchiKey><charge>0</charge><mass>409.07000</mass><monoisotopicMass>410.03288</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>(Acetyloxy)triphenylstannane</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Acetatotriphenylstannane</data><type>SYNONYM</type><source>NIST Chemistry WebBook</source></Synonyms><Synonyms><data>Acetic acid, triphenylstannyl ester</data><type>SYNONYM</type><source>NIST Chemistry WebBook</source></Synonyms><Synonyms><data>Acetoxy-triphenyl-stannan</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Acetoxytriphenylstannane</data><type>SYNONYM</type><source>NIST Chemistry WebBook</source></Synonyms><Synonyms><data>Acetoxytriphenyltin</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Fentin azetat</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Phentin acetate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Phentinoacetate</data><type>SYNONYM</type><source>NIST Chemistry WebBook</source></Synonyms><Synonyms><data>Tin triphenyl acetate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Triphenyl-zinnacetat</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Triphenylaceto stannane</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Triphenylstannium acetate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>triphenylstannyl acetate</data><type>SYNONYM</type><source>Alan Wood's Pesticides</source></Synonyms><Synonyms><data>Triphenyltin acetate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Triphenyltin(IV) acetate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>acetoxy(triphenyl)stannane</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C20H18O2Sn</data><source>ChEBI</source></Formulae><RegistryNumbers><data>3819297</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>900-95-8</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><RegistryNumbers><data>900-95-8</data><type>CAS Registry Number</type><source>NIST Chemistry WebBook</source></RegistryNumbers><RegistryNumbers><data>900-95-8</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>15669734</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>3567403</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>IND91037778</data><type>Agricola citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Mrv0541 10221411422D          
+ 
+ 23 25  0  0  0  0            999 V2000
+   13.2003  -10.1890    0.0000 Sn  0  0  0  0  0  0  0  0  0  0  0  0
+   13.2003   -9.3640    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.1078  -10.1890    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3753  -10.1890    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2003  -11.0140    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2003  -11.8390    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9148   -8.9514    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9148   -8.1264    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2003   -7.7139    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4858   -8.1264    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4858   -8.9514    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.5203  -10.9034    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.3453  -10.9034    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7578  -10.1890    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.3453   -9.4745    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.5203   -9.4745    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9628   -9.4745    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1377   -9.4745    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.7252  -10.1890    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1377  -10.9034    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9628  -10.9034    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4858  -12.2515    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9148  -12.2515    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  3  1  0  0  0  0
+  1  4  1  0  0  0  0
+  1  5  1  0  0  0  0
+  5  6  1  0  0  0  0
+  2  7  2  0  0  0  0
+  7  8  1  0  0  0  0
+  8  9  2  0  0  0  0
+  9 10  1  0  0  0  0
+ 10 11  2  0  0  0  0
+  2 11  1  0  0  0  0
+  3 12  2  0  0  0  0
+ 12 13  1  0  0  0  0
+ 13 14  2  0  0  0  0
+ 14 15  1  0  0  0  0
+ 15 16  2  0  0  0  0
+  3 16  1  0  0  0  0
+  4 17  2  0  0  0  0
+ 17 18  1  0  0  0  0
+ 18 19  2  0  0  0  0
+ 19 20  1  0  0  0  0
+ 20 21  2  0  0  0  0
+  4 21  1  0  0  0  0
+  6 22  2  0  0  0  0
+  6 23  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>311</data><type>PPDB accession</type></DatabaseLinks><DatabaseLinks><data>C18728</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>Fentin_acetate</data><type>Wikipedia accession</type></DatabaseLinks><DatabaseLinks><data>GB2262037</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0031789</data><type>HMDB accession</type></DatabaseLinks><OntologyParents><chebiName>organotin compound</chebiName><chebiId>CHEBI:25717</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>fentin hydroxide</chebiName><chebiId>CHEBI:30473</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>acetate ester</chebiName><chebiId>CHEBI:47622</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antifungal agrochemical</chebiName><chebiId>CHEBI:86328</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

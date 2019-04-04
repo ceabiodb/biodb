@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:107164</chebiId><chebiAsciiName>LSM-18518</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CC1CC(N2C3=C(C=C(C=C13)C)C4(C2=O)N(C(=O)CS4)C5=CC=C(C=C5)F)(C)C</smiles><inchi>InChI=1S/C23H23FN2O2S/c1-13-9-17-14(2)11-22(3,4)26-20(17)18(10-13)23(21(26)28)25(19(27)12-29-23)16-7-5-15(24)6-8-16/h5-10,14H,11-12H2,1-4H3</inchi><inchiKey>YGRBMKXOAUNPHR-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.506</mass><monoisotopicMass>410.14643</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C23H23FN2O2S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162331
+null
+ 29 33  0  0  0  0  0  0  0  0999 V2000
+   -0.7068   -0.1983    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0389   -0.5512    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1062   -1.3734    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8519   -1.7263    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5303   -1.2570    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4631   -0.4347    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2243   -0.1167    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3295    0.7016    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6734    1.2018    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9122    0.8838    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7174   -0.0818    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7786    2.0201    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7620   -0.7423    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3331   -1.4471    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6512   -2.2083    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.3877   -0.2046    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0925   -0.6335    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8537   -0.3155    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9023   -1.4363    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.0801   -1.5036    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    3.3205    0.6176    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5747    0.9705    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5075    1.7928    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1860    2.2621    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9317    1.9093    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9989    1.0870    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.1187    3.0844    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5252   -2.4839    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2973   -2.4208    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  2  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  2  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  2  0  0  0  0 
+ 11  2  1  0  0  0  0 
+ 11  6  1  0  0  0  0 
+  9 12  1  0  0  0  0 
+  7 13  1  0  0  0  0 
+ 13 14  1  0  0  0  0 
+ 14  5  1  0  0  0  0 
+ 14 15  2  0  0  0  0 
+ 13 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 18  2  0  0  0  0 
+ 17 19  1  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 13  1  0  0  0  0 
+ 16 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 22 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 26  2  0  0  0  0 
+ 26 21  1  0  0  0  0 
+ 24 27  1  0  0  0  0 
+  4 28  1  0  0  0  0 
+  4 29  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-18518</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>quinolines</chebiName><chebiId>CHEBI:26513</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

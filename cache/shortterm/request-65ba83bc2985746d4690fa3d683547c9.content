@@ -1,0 +1,602 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-US" prefix="bioschema: http://bioschemas.org/">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"><!-- automatically added by Apache -->
+<script type="application/ld+json">{
+		"@context" : [ "https://schema.org/" ],
+		"@type" : "Organization",
+		"url" : "https://enzyme.expasy.org",
+  		"name": "ENZYME"
+		, "logo": "https://enzyme.expasy.org//images/expasy_logos/sprot1.gif"
+		, "memberof" : {
+				"@type" : "NGO",
+				"name"  : "SIB Swiss Institute of Bioinformatics",
+				"url"   : "https://sib.swiss/"
+			        }
+		, "parentOrganization" : 
+				{
+				"@type" : "Organization",
+                                "name"  : "ExPASy",
+                                "url"   : "https://www.expasy.org/"
+				}
+		}</script><!-- automatically added by Apache -->
+    <link rel="icon" href="https://web.expasy.org/favicon.ico" ><!-- automatically added by Apache -->
+    <link rel="stylesheet" href="/css/sib_css/sib.css" type="text/css" media="screen" charset="utf-8" >
+	   <link rel="stylesheet" href="/css/sib_css/sib_print.css" type="text/css" media="print" charset="utf-8" >
+           <!--[if lte IE 6]>
+	   <link rel="stylesheet" href="/css/sib_css/sib_ie6.css" type="text/css" media="screen" title="" charset="utf-8">
+           <![endif]-->
+           <link rel="stylesheet" href="/css/base.css" type="text/css"><!-- automatically added by Apache -->
+<link rel="stylesheet" href="/css/enzyme.css" type="text/css"><title>ENZYME search by commment</title>
+  </head>
+  <body  typeof="schema:WebPage"> 
+<!-- ********************************************************************************************** -->
+<!-- START OF HEADER information on top of the page -->
+<div id='sib_top'><a name='TOP'></a></div>
+<div id='sib_container'>
+
+<!-- TODO: Change id to "sib_header" or "sib_header_small" -->
+<div id='sib_header_small'>
+
+<!-- SIB-ExPASy -->
+<div id="sib_expasy_logo" property="schema:isPartOf" typeof="schema:CreativeWork" >
+<a href="https://sib.swiss/" id="sib_link" title="SIB Swiss Institute of Bioinformatics"></a>
+<a property="schema:url" href="https://www.expasy.org" id="expasy_link" title="ExPASy - SIB Bioinformatics Resource Portal"></a>
+</div>
+<!-- SIB-ExPASy END -->
+
+<div class='sib_title_no_logo'>
+<h1><a href='https://enzyme.expasy.org'>ENZYME</a></h1>
+</div>
+
+<! -- Additionnal resource header -->
+<div id='resource_header'></div>
+	<div id='sib_header_nav'>
+		<a property="" href="https://enzyme.expasy.org" title="Home page">Home</a>
+		&nbsp;|&nbsp;
+		<a style="font-weight: bold; color: rgb(204,0,0) !important;" href="/contact" title="Contact">Contact</a>
+	</div>
+</div>
+<!-- END OF HEADER -->
+<!-- ********************************************************************************************** -->
+<div id='sib_body'>
+<!-- automatically added by Apache -->
+<p><font color=red><b>A new class EC 7, Translocases, has been added to the EC list. It will be part of ENZYME from release 2018_10. Read more about EC 7 <a href="http://www.enzyme-database.org/news.php">here</a>.</b></font></p><H1> BEST found in ENZYME</H1>
+<H3>Release of 13-Feb-19
+</H3>
+Please choose one of the following entries:<PRE>
+<A HREF= "/EC/1.1.1.91">1.1.1.91</A>     Aryl-alcohol dehydrogenase (NADP(+)). 
+(CC: -!- Also acts on some aliphatic aldehydes, but cinnamaldehyde was the
+         best substrate found.)
+
+<A HREF= "/EC/1.1.3.7">1.1.3.7</A>      Aryl-alcohol oxidase. 
+(CC: -!- Oxidizes many primary alcohols containing an aromatic ring; best
+         substrates are (2-naphthyl)methanol and 3-methoxybenzyl alcohol.)
+
+<A HREF= "/EC/1.1.3.20">1.1.3.20</A>     Long-chain-alcohol oxidase. 
+(CC: -!- Oxidizes long-chain fatty alcohols; best substrate is dodecyl
+         alcohol.)
+
+<A HREF= "/EC/1.2.1.48">1.2.1.48</A>     Long-chain-aldehyde dehydrogenase. 
+(CC: -!- The best substrate is dodecylaldehyde.)
+
+<A HREF= "/EC/1.2.3.14">1.2.3.14</A>     Abscisic-aldehyde oxidase. 
+(CC: -!- Acts on both (+)- and (-)-abscisic aldehyde.
+     -!- Involved in the abscisic-acid biosynthesis pathway in plants, along
+         with EC <A HREF= "/EC/1.1.1.288">1.1.1.288</A>, EC <A HREF= "/EC/1.13.11.51">1.13.11.51</A> and EC <A HREF= "/EC/1.14.13.93">1.14.13.93</A>.
+     -!- While abscisic aldehyde is the best substrate, the enzyme also acts
+         with indole-3-aldehyde, 1-naphthaldehyde and benzaldehyde as
+         substrates, but more slowly.)
+
+<A HREF= "/EC/1.3.1.31">1.3.1.31</A>     2-enoate reductase. 
+(CC: -!- Acts, in the reverse direction, on a wide range of alkyl and aryl
+         alpha-beta-unsaturated carboxylate ions; 2-butenoate was the best
+         substrate tested.)
+
+<A HREF= "/EC/1.3.1.34">1.3.1.34</A>     2,4-dienoyl-CoA reductase (NADPH). 
+(CC: -!- Best substrates for reduction contain a 2,4-diene structure with
+         chain length C(8) or C(10).)
+
+<A HREF= "/EC/1.3.3.13">1.3.3.13</A>     Albonoursin synthase. 
+(CC: -!- The enzyme can also oxidize several other cyclo dipeptides, the best
+         being cyclo(L-tryptophyl-L-tryptophyl) and cyclo(L-phenylalanyl-L-
+         phenylalanyl).)
+
+<A HREF= "/EC/1.3.5.2">1.3.5.2</A>      Dihydroorotate dehydrogenase (quinone). 
+(CC: -!- This Class 2 dihydroorotate dehydrogenase enzyme contains FMN.
+     -!- The enzyme is found in eukaryotes in the mitochondrial membrane,
+         in cyanobacteria, and in some Gram-negative and Gram-positive
+         bacteria associated with the cytoplasmic membrane.
+     -!- The reaction is the only redox reaction in the de-novo biosynthesis
+         of pyrimidine nucleotides.
+     -!- The best quinone electron acceptors for the enzyme from bovine liver
+         are ubiquinone-6 and ubiquinone-7, although simple quinones, such as
+         benzoquinone, can also act as acceptor at lower rates.
+     -!- Methyl-, ethyl-, tert-butyl and benzyl-(S)-dihydroorotates are also
+         substrates, but methyl esters of (S)-1-methyl and (S)-3-methyl and
+         (S)-1,3-dimethyldihydroorotates are not.
+     -!- Class 1 dihydroorotate dehydrogenases use either fumarate
+         (EC <A HREF= "/EC/1.3.98.1">1.3.98.1</A>), NAD(+) (EC <A HREF= "/EC/1.3.1.14">1.3.1.14</A>) or NADP(+) (EC <A HREF= "/EC/1.3.1.15">1.3.1.15</A>) as
+         electron acceptor.
+     -!- Formerly EC <A HREF= "/EC/1.3.99.11">1.3.99.11</A>.)
+
+<A HREF= "/EC/1.5.99.5">1.5.99.5</A>     Methylglutamate dehydrogenase. 
+(CC: -!- A number of N-methyl-substituted amino acids can act as donors.
+     -!- 2,6-dichloroindophenol is the best acceptor.)
+
+<A HREF= "/EC/1.6.5.5">1.6.5.5</A>      NADPH:quinone reductase. 
+(CC: -!- Specific for NADPH.
+     -!- Catalyzes the one-electron reduction of certain quinones, with the
+         orthoquinones 1,2-naphthoquinone and 9,10-phenanthrenequinone being
+         the best substrates.
+     -!- Dicoumarol (cf. EC <A HREF= "/EC/1.6.5.2">1.6.5.2</A>) and nitrofurantoin are competitive
+         inhibitors with respect to the quinone substrate.
+     -!- The semiquinone free-radical product may be non-enzymically reduced
+         to the hydroquinone or oxidized back to quinone in the presence of
+         O(2).
+     -!- Abundant in the lens of the eye of some mammalian species.)
+
+<A HREF= "/EC/1.10.5.1">1.10.5.1</A>     Ribosyldihydronicotinamide dehydrogenase (quinone). 
+(CC: -!- Unlike EC <A HREF= "/EC/1.6.5.2">1.6.5.2</A>, this quinone reductase cannot use NADH or NADPH;
+         instead it uses N-ribosyl- and N-alkyldihydronicotinamides.
+     -!- Polycyclic aromatic hydrocarbons, such as benz[a]anthracene, and the
+         estrogens 17-beta-estradiol and diethylstilbestrol are potent
+         inhibitors, but dicoumarol is only a very weak inhibitor.
+     -!- This enzyme can catalyze both 2-electron and 4-electron reductions,
+         but one-electron acceptors, such as potassium ferricyanide, cannot be
+         reduced.
+     -!- Formerly EC <A HREF= "/EC/1.10.99.2">1.10.99.2</A>.)
+
+<A HREF= "/EC/1.11.1.20">1.11.1.20</A>    Prostamide/prostaglandin F(2-alpha) synthase. 
+(CC: -!- The enzyme contains a thioredoxin-type disulfide as a catalytic
+         group.
+     -!- Prostamide H(2) and prostaglandin H(2) are the best substrates; the
+         latter is converted to prostaglandin F(2-alpha).
+     -!- The enzyme also reduces tert-butyl hydroperoxide, cumene
+         hydroperoxide and H(2)O(2), but not prostaglandin D(2) or
+         prostaglandin E(2).)
+
+<A HREF= "/EC/1.13.11.50">1.13.11.50</A>   Acetylacetone-cleaving enzyme. 
+(CC: -!- Forms the first step in the acetylacetone degradation pathway of
+         Acinetobacter johnsonii.
+     -!- While acetylacetone is by far the best substrate, heptane-3,5-dione,
+         octane-2,4-dione, 2-acetylcyclohexanone and ethyl acetoacetate can
+         also act as substrates.)
+
+<A HREF= "/EC/1.13.12.24">1.13.12.24</A>   Calcium-regulated photoprotein. 
+(CC: -!- Ca(2+)-regulated photoproteins are found in a variety of
+         bioluminescent marine organisms, mostly coelenterates, and are
+         responsible for their light emission.
+     -!- The best studied enzyme is from the jellyfish Aequorea victoria.
+     -!- The enzyme tightly binds the imidazolopyrazinone derivative
+         coelenterazine, which is then peroxidized by oxygen.
+     -!- The hydroperoxide is stably bound until three Ca(2+) ions bind to the
+         protein, inducing a structural change that results in the formation
+         of a 1,2-dioxetan-3-one ring, followed by decarboxylation and
+         generation of a protein-bound coelenteramide in an excited state.
+     -!- The calcium-bound protein-product complex is known as a blue
+         fluorescent protein.
+     -!- In vivo the energy is transferred to a green fluorescent protein
+         (GFP) by Foerster resonance energy transfer.
+     -!- In vitro, in the absence of GFP, coelenteramide emits a photon of
+         blue light while returning to its ground state.)
+
+<A HREF= "/EC/1.13.99.3">1.13.99.3</A>    Tryptophan 2'-dioxygenase. 
+(CC: -!- Acts on a number of indole-3-alkane derivatives, oxidizing the
+         3-side-chain in the 2'-position.
+     -!- Best substrates are L-tryptophan and 5-hydroxy-L-tryptophan.)
+
+<A HREF= "/EC/1.14.13.92">1.14.13.92</A>   Phenylacetone monooxygenase. 
+(CC: -!- NADH cannot replace NADPH as coenzyme.
+     -!- In addition to phenylacetone, which is the best substrate found to
+         date, this Baeyer-Villiger monooxygenase can oxidize other aromatic
+         ketones (1-(4-hydroxyphenyl)propan-2-one, 1-(4-hydroxyphenyl)propan-
+         2-one and 3-phenylbutan-2-one), some alipatic ketones (e.g. dodecan-
+         2-one) and sulfides (e.g. 1-methyl-4-(methylsulfanyl)benzene).)
+
+<A HREF= "/EC/1.14.14.48">1.14.14.48</A>   Jasmonoyl-L-amino acid 12-hydroxylase. 
+(CC: -!- The enzyme, found in plants, acts on jasmonoyl-L-amino conjugates,
+         catalyzing the hydroxylation of the C-12 position of the jasmonic
+         acid chain.
+     -!- While the best studied substrate is (+)-7-epi-jasmonoyl-L-isoleucine,
+         the enzyme was shown to be active with jasmonoyl-L-valine and
+         jasmonoyl-L-phenylalanine, and is likely to be active with other
+         jasmonoyl-amino acid conjugates.)
+
+<A HREF= "/EC/1.14.14.49">1.14.14.49</A>   12-hydroxyjasmonoyl-L-amino acid 12-hydroxylase. 
+(CC: -!- The enzyme, found in plants, acts on jasmonoyl-L-amino conjugates
+         that have been hydroxylated at the C-12 position of the jasmonic acid
+         chain by EC <A HREF= "/EC/1.14.14.48">1.14.14.48</A> further oxidizing that position to a
+         carboxylate via an aldehyde intermediate.
+     -!- While the best studied substrate is (+)-7-iso-jasmonoyl-L-isoleucine,
+         the enzyme was shown to be active with jasmonoyl-L-phenylalanine,
+         and is likely to be active with other jasmonoyl-amino acid
+         conjugates.)
+
+<A HREF= "/EC/1.14.17.3">1.14.17.3</A>    Peptidylglycine monooxygenase. 
+(CC: -!- Peptidylglycines with a neutral amino acid residue in the penultimate
+         position are the best substrates for the enzyme.
+     -!- The product is unstable and dismutates to glyoxylate and the
+         corresponding desglycine peptide amide, a reaction catalyzed by
+         EC <A HREF= "/EC/4.3.2.5">4.3.2.5</A>.
+     -!- Involved in the final step of biosynthesis of alpha-melanotropin and
+         related biologically active peptides.)
+
+<A HREF= "/EC/1.14.99.15">1.14.99.15</A>   4-methoxybenzoate monooxygenase (O-demethylating). 
+(CC: -!- The bacterial enzyme consists of a ferredoxin-type protein and an
+         iron-sulfur flavoprotein (FMN).
+     -!- Also acts on 4-ethoxybenzoate, N-methyl-4-aminobenzoate and toluate.
+     -!- The fungal enzyme acts best on veratrate.)
+
+<A HREF= "/EC/2.1.1.160">2.1.1.160</A>    Caffeine synthase. 
+(CC: -!- Paraxanthine is the best substrate for this enzyme but the
+         paraxanthine pathway is considered to be a minor pathway for caffeine
+         biosynthesis.)
+
+<A HREF= "/EC/2.1.1.339">2.1.1.339</A>    Xanthohumol 4-O-methyltransferase. 
+(CC: -!- The enzyme from hops (Humulus lupulus) has a broad substrate
+         specificity.
+     -!- The best substrates in vitro are resveratrol, desmethylxanthohumol,
+         chalconaringenin and isoliquiritigenin.)
+
+<A HREF= "/EC/2.3.1.75">2.3.1.75</A>     Long-chain-alcohol O-fatty-acyltransferase. 
+(CC: -!- Transfers saturated or unsaturated acyl residues of chain-length
+         C(18) to C(20) to long-chain alcohols, forming waxes.
+     -!- The best acceptor is cis-icos-11-en-1-ol.)
+
+<A HREF= "/EC/2.3.1.77">2.3.1.77</A>     Triacylglycerol--sterol O-acyltransferase. 
+(CC: -!- Tripalmitoylglycerol can act as donor, and, more slowly, other
+         triacylglycerols containing C(6) to C(22) fatty acids.
+     -!- The best acceptors are 3-beta-hydroxysteroids with a planar ring
+         system.)
+
+<A HREF= "/EC/2.3.1.121">2.3.1.121</A>    1-alkenylglycerophosphoethanolamine O-acyltransferase. 
+(CC: -!- Long-chain unsaturated acyl-CoAs are the best substrates.)
+
+<A HREF= "/EC/2.3.1.184">2.3.1.184</A>    Acyl-homoserine-lactone synthase. 
+(CC: -!- Acyl-homoserine lactones (AHLs) are produced by a number of bacterial
+         species and are used by them to regulate the expression of virulence
+         genes in a process known as quorum-sensing.
+     -!- Each bacterial cell has a basal level of AHL and, once the population
+         density reaches a critical level, it triggers AHL-signaling which,
+         in turn, initiates the expression of particular virulence genes.
+     -!- N-(3-oxohexanoyl)-[acyl-carrier-protein] and hexanoyl-[acyl-carrier-
+         protein] are the best substrates.
+     -!- The fatty-acyl substrate is derived from fatty-acid biosynthesis
+         through acyl-[acyl-carrier-protein] rather than from fatty-acid
+         degradation through acyl-CoA.
+     -!- S-adenosyl-L-methionine cannot be replaced by methionine,
+         S-adenosylhomocysteine, homoserine or homoserine lactone.)
+
+<A HREF= "/EC/2.3.1.185">2.3.1.185</A>    Tropine acyltransferase. 
+(CC: -!- Exhibits absolute specificity for the endo/3-alpha configuration
+         found in tropine as pseudotropine (tropan-3-beta-ol; see
+         EC <A HREF= "/EC/2.3.1.186">2.3.1.186</A>) is not a substrate.
+     -!- Acts on a wide range of aliphatic acyl-CoA derivatives, with tigloyl-
+         CoA and acetyl-CoA being the best substrates.
+     -!- It is probably involved in the formation of the tropane alkaloid
+         littorine, which is a precursor of hyoscyamine.)
+
+<A HREF= "/EC/2.3.1.232">2.3.1.232</A>    Methanol O-anthraniloyltransferase. 
+(CC: -!- The enzyme from Concord grape (Vitis labrusca) is solely responsible
+         for the production of O-methyl anthranilate, an important aroma and
+         flavor compound in the grape.
+     -!- The enzyme has a broad substrate specificity, and can use a range of
+         alcohols with substantial activity, the best being butanol, benzyl
+         alcohol, iso-pentanol, octanol and 2-propanol.
+     -!- It can use benzoyl-CoA and acetyl-CoA as acyl donors with lower
+         efficiency.
+     -!- In addition to O-methyl anthranilate, the enzyme might be responsible
+         for the production of ethyl butanoate, methyl-3-hydroxy butanoate and
+         ethyl-3-hydroxy butanoate, which are present in large quantities in
+         the grapes.
+     -!- Also catalyzes EC <A HREF= "/EC/2.3.1.196">2.3.1.196</A>.)
+
+<A HREF= "/EC/2.4.1.78">2.4.1.78</A>     Phosphopolyprenol glucosyltransferase. 
+(CC: -!- Ficaprenyl phosphate is the best substrate; other polyprenols can
+         also act as substrates, more slowly.)
+
+<A HREF= "/EC/2.4.1.136">2.4.1.136</A>    Gallate 1-beta-glucosyltransferase. 
+(CC: -!- A number of substituted benzoic acids and, more slowly, cinnamic
+         acids, can act as acceptors.
+     -!- Vanillin is the best acceptor investigated.)
+
+<A HREF= "/EC/2.4.1.165">2.4.1.165</A>    N-acetylneuraminylgalactosylglucosylceramide beta-1,4-N-
+             acetylgalactosaminyltransferase. 
+(CC: -!- Only substances containing sialic acid residues can act as acceptors;
+         bovine fetuin is the best acceptor tested.)
+
+<A HREF= "/EC/2.4.1.181">2.4.1.181</A>    Hydroxyanthraquinone glucosyltransferase. 
+(CC: -!- A range of anthraquinones and some flavones can act as acceptors;
+         best substrates are emodin, anthrapurpurin, quinizarin, 2,6-
+         dihydroxyanthraquinone and 1,8-dihydroxyanthraquinone.)
+
+<A HREF= "/EC/2.4.1.358">2.4.1.358</A>    Acylphloroglucinol glucosyltransferase. 
+(CC: -!- Isolated from strawberries (Fragaria X ananassa).
+     -!- Acts best on phloroisovalerophenone and phlorobutyrophenone but will
+         also glycosylate many other phenolic compounds.
+     -!- A minor product of the reaction is the 5-O-beta-D-glucoside.)
+
+<A HREF= "/EC/2.6.1.21">2.6.1.21</A>     D-amino-acid transaminase. 
+(CC: -!- The enzyme from thermophilic Bacillus species acts on many D-amino
+         acids with D-alanine and D-2-aminobutyrate as the best amino donors.
+     -!- It can similarly use any of several 2-oxo acids as amino acceptor,
+         with 2-oxoglutarate and 2-oxobutyrate among the best.
+     -!- The enzyme from some other sources has a broader specificity.
+     -!- Formerly EC <A HREF= "/EC/2.6.1.10">2.6.1.10</A>.)
+
+<A HREF= "/EC/2.6.1.84">2.6.1.84</A>     Arginine--pyruvate transaminase. 
+(CC: -!- While L-arginine is the best substrate, the enzyme exhibits broad
+         substrate specificity, with L-lysine, L-methionine, L-leucine,
+         L-ornithine and L-glutamine also able to act as substrates, but more
+         slowly.
+     -!- Pyruvate cannot be replaced by 2-oxoglutarate as amino-group
+         acceptor.
+     -!- This is the first catalytic enzyme of the arginine transaminase
+         pathway for L-arginine utilization in Pseudomonas aeruginosa.
+     -!- This pathway is only used when the major route of arginine
+         catabolism, i.e. the arginine succinyltransferase pathway,
+         is blocked.)
+
+<A HREF= "/EC/2.7.1.62">2.7.1.62</A>     Phosphoramidate--hexose phosphotransferase. 
+(CC: -!- Activity is observed with several hexoses; of these glucose is the
+         best substrate and the product from it is alpha-D-glucose
+         1-phosphate.
+     -!- The phosphoramidate donor can be replaced by N-phosphoglycine and by
+         an N-phosphohistidine.
+     -!- May be identical with EC <A HREF= "/EC/3.1.3.9">3.1.3.9</A>.)
+
+<A HREF= "/EC/3.1.1.2">3.1.1.2</A>      Arylesterase. 
+(CC: -!- Acts on many phenolic esters.
+     -!- It is likely that the three forms of human paraoxonase are lactonases
+         rather than aromatic esterases.
+     -!- The natural substrates of the paraoxonases are lactones, with (+-)-5-
+         hydroxy-6E,8Z,11Z,4Z-eicostetraenoic-acid 1,5-lactone being the best
+         substrate.)
+
+<A HREF= "/EC/3.1.1.55">3.1.1.55</A>     Acetylsalicylate deacetylase. 
+(CC: -!- Not identical with EC <A HREF= "/EC/3.1.1.1">3.1.1.1</A>, EC <A HREF= "/EC/3.1.1.2">3.1.1.2</A>, EC <A HREF= "/EC/3.1.1.7">3.1.1.7</A> or EC <A HREF= "/EC/3.1.1.8">3.1.1.8</A>.
+     -!- The activity of the liver cytosol enzyme is highest with acetyl
+         esters of aryl alcohols, and thioesters are also hydrolyzed.
+     -!- The microsomal enzyme also hydrolyzes some other negatively charged
+         esters.
+     -!- Best substrates were esters of salicylate with long-chain alcohols.)
+
+<A HREF= "/EC/3.1.1.67">3.1.1.67</A>     Fatty-acyl-ethyl-ester synthase. 
+(CC: -!- In the reverse reaction, forms ethyl esters from fatty acids and
+         ethanol in the absence of coenzyme A or ATP.
+     -!- Best substrates are unsaturated octadecanoic acids; palmitate,
+         stearate and arachidonate also act, more slowly.)
+
+<A HREF= "/EC/3.1.3.38">3.1.3.38</A>     3-phosphoglycerate phosphatase. 
+(CC: -!- Wide specificity, but 3-phosphoglycerate is the best substrate.)
+
+<A HREF= "/EC/3.1.3.76">3.1.3.76</A>     Lipid-phosphate phosphatase. 
+(CC: -!- The enzyme from mammals is a bifunctional enzyme: the N-terminal
+         domain exhibits lipid-phosphate-phosphatase activity and the
+         C-terminal domain has the activity of EC <A HREF= "/EC/3.3.2.10">3.3.2.10</A>.
+     -!- The best substrates for this enzyme are 10-hydroxy-9-
+         (phosphonooxy)octadecanoates, with the threo- form being a better
+         substrate than the erythro- form.
+     -!- The phosphatase activity is not found in plant EC <A HREF= "/EC/3.3.2.10">3.3.2.10</A> or in
+         mammalian EC <A HREF= "/EC/3.3.2.9">3.3.2.9</A>.)
+
+<A HREF= "/EC/3.1.7.1">3.1.7.1</A>      Prenyl-diphosphatase. 
+(CC: -!- Farnesyl diphosphate is the best substrate so far tested.)
+
+<A HREF= "/EC/3.2.1.99">3.2.1.99</A>     Arabinan endo-1,5-alpha-L-arabinosidase. 
+(CC: -!- Acts best on linear 1,5-alpha-L-arabinan.
+     -!- Also acts on branched arabinan, but more slowly.)
+
+<A HREF= "/EC/3.2.1.153">3.2.1.153</A>    Fructan beta-(2,1)-fructosidase. 
+(CC: -!- Possesses one of the activities of EC <A HREF= "/EC/3.2.1.80">3.2.1.80</A>.
+     -!- While the best substrates are the inulin-type fructans, such as
+         1-kestose (beta-D-fructofuranosyl-(2->1)-beta-D-fructofuranosyl
+         alpha-D-glucopyranoside) and 1,1-nystose (beta-D-fructofuranosyl-
+         (2->1)-beta-D-fructofuranosyl-(2->1)-beta-D-fructofuranosyl alpha-D-
+         glucopyranoside), some (but not all) levan-type fructans can also be
+         hydrolyzed, but more slowly (see EC <A HREF= "/EC/3.2.1.154">3.2.1.154</A>).
+     -!- Sucrose, while being a very poor substrate, can substantially inhibit
+         enzyme activity in some cases.)
+
+<A HREF= "/EC/3.2.1.154">3.2.1.154</A>    Fructan beta-(2,6)-fructosidase. 
+(CC: -!- Possesses one of the activities of EC <A HREF= "/EC/3.2.1.80">3.2.1.80</A>.
+     -!- While the best substrates are the levan-type fructans such as
+         6-kestotriose (beta-D-fructofuranosyl-(2->6)-beta-D-fructofuranosyl
+         alpha-D-glucopyranoside) and 6,6-kestotetraose (beta-D-
+         fructofuranosyl-(2->6)-beta-D-fructofuranosyl-(2->6)-beta-D-
+         fructofuranosyl alpha-D-glucopyranoside), some (but not all) inulin-
+         type fructans can also be hydrolyzed, but more slowly (cf.
+         EC <A HREF= "/EC/3.2.1.153">3.2.1.153</A>).
+     -!- Sucrose, while being a very poor substrate, can substantially inhibit
+         enzyme activity in some cases.)
+
+<A HREF= "/EC/3.4.11.24">3.4.11.24</A>    Aminopeptidase S. 
+(CC: -!- Activated by Ca(2+).
+     -!- In the presence of Ca(2+), the best substrates are Leu-Phe, Leu-Ser,
+         Leu-pNA (aminoacyl-p-nitroanilide), Phe-Phe-Phe and Phe-Phe.
+     -!- Peptides with proline in the P1' position are not substrates.
+     -!- Belongs to peptidase family M28.
+     -!- Formerly EC 3.4.11.n1.)
+
+<A HREF= "/EC/3.4.13.18">3.4.13.18</A>    Cytosol nonspecific dipeptidase. 
+(CC: -!- Broad specificity, varying somewhat with source species.
+     -!- Activated and stabilized by dithiothreitol and manganese.
+     -!- Inhibited by bestatin and leucine.
+     -!- Belongs to peptidase family M20.
+     -!- Formerly EC <A HREF= "/EC/3.4.3.1">3.4.3.1</A>, EC <A HREF= "/EC/3.4.3.2">3.4.3.2</A>, EC <A HREF= "/EC/3.4.3.3">3.4.3.3</A>, EC <A HREF= "/EC/3.4.3.6">3.4.3.6</A>, EC <A HREF= "/EC/3.4.13.1">3.4.13.1</A>,
+         EC <A HREF= "/EC/3.4.13.2">3.4.13.2</A>, EC <A HREF= "/EC/3.4.13.3">3.4.13.3</A>, EC <A HREF= "/EC/3.4.13.8">3.4.13.8</A>, EC <A HREF= "/EC/3.4.13.11">3.4.13.11</A>, EC <A HREF= "/EC/3.4.13.13">3.4.13.13</A> and
+         EC <A HREF= "/EC/3.4.13.15">3.4.13.15</A>.)
+
+<A HREF= "/EC/3.4.13.19">3.4.13.19</A>    Membrane dipeptidase. 
+(CC: -!- Membrane bound, with broad specificity.
+     -!- Abundant in the kidney cortex.
+     -!- Inhibited by bestatin and cilastatin.
+     -!- Belongs to peptidase family M19.
+     -!- Formerly EC <A HREF= "/EC/3.4.3.1">3.4.3.1</A>, EC <A HREF= "/EC/3.4.3.2">3.4.3.2</A>, EC <A HREF= "/EC/3.4.3.6">3.4.3.6</A>, EC <A HREF= "/EC/3.4.13.1">3.4.13.1</A>,
+         EC <A HREF= "/EC/3.4.13.2">3.4.13.2</A>, EC <A HREF= "/EC/3.4.13.8">3.4.13.8</A>, EC <A HREF= "/EC/3.4.13.11">3.4.13.11</A> and EC <A HREF= "/EC/3.4.13.15">3.4.13.15</A>.)
+
+<A HREF= "/EC/3.4.19.1">3.4.19.1</A>     Acylaminoacyl-peptidase. 
+(CC: -!- Best if P1 = Ser, Ala, Met; poor if P1 = Gly, Tyr, Asp, Asn or Pro.
+     -!- Group of similar enzymes liberating N-acetyl or N-formyl amino acid
+         from proteins and peptides.
+     -!- Active at neutral pH.
+     -!- Several variants of this enzyme exist; the human erythrocyte enzyme
+         is relatively specific for removal of N-acetylalanine from peptides.
+     -!- Display dipeptidyl-peptidase activity on glycyl-peptides, perhaps as
+         a result of misrecognition of the glycyl residue as an uncharged
+         N-acyl group.
+     -!- Inhibited by diisopropyl fluorophosphate.
+     -!- Belongs to peptidase family S9C.
+     -!- Formerly EC <A HREF= "/EC/3.4.14.3">3.4.14.3</A>.)
+
+<A HREF= "/EC/3.4.19.12">3.4.19.12</A>    Ubiquitinyl hydrolase 1. 
+(CC: -!- Links to polypeptides smaller than 60 residues are hydrolyzed more
+         readily than those to larger polypeptides.
+     -!- Isoforms exist with quantitatively different specificities among the
+         best known being UCH-L1 and UCH-L3, major proteins of the brain of
+         mammals.
+     -!- Inhibited by ubiquitin aldehyde (in which Gly76 is replaced by
+         aminoacetaldehyde).
+     -!- Belongs to peptidase family C12.)
+
+<A HREF= "/EC/3.4.22.34">3.4.22.34</A>    Legumain. 
+(CC: -!- Best known from legume seeds, the trematode Schistosoma mansoni and
+         mammalian lysosomes.
+     -!- Not inhibited by compound E-64.
+     -!- Belongs to peptidase family C13.)
+
+<A HREF= "/EC/3.4.22.46">3.4.22.46</A>    L-peptidase. 
+(CC: -!- Best known from foot-and-mouth disease virus, but occurs in other
+         aphthoviruses and cardioviruses.
+     -!- Destruction of initiation factor eIF-4G has the effect of shutting
+         off host-cell protein synthesis while allowing synthesis of viral
+         proteins to continue.
+     -!- The tertiary structure reveals a distant relationship to papain and,
+         consistent with this, compound E-64 is inhibitory.
+     -!- Belongs to peptidase family C28.)
+
+<A HREF= "/EC/3.4.24.61">3.4.24.61</A>    Nardilysin. 
+(CC: -!- Unusually for a metallopeptidase, inhibited by bestatin, amastin and
+         ethylmaleimide.
+     -!- Belongs to peptidase family M16.)
+
+<A HREF= "/EC/3.5.1.91">3.5.1.91</A>     N-substituted formamide deformylase. 
+(CC: -!- While N-benzylformamide is the best substrate, the enzyme from
+         Arthrobacter pascens can also act on the N-substituted formamides
+         N-butylformamide, N-allylformamide, N-(2-(cyclohex-1-
+         enyl)ethyl)formamide and N-(1-phenylethyl)formamide, but much more
+         slowly.
+     -!- Amides of other acids do not act as substrates.)
+
+<A HREF= "/EC/3.6.1.45">3.6.1.45</A>     UDP-sugar diphosphatase. 
+(CC: -!- UDP-sugar is the best substrate, although other nucleoside-sugar
+         diphosphates are used as substrates with similar Km values but much
+         lower maximum velocities.
+     -!- Thus, this enzyme has a specificity distinct from that of
+         EC <A HREF= "/EC/3.6.1.21">3.6.1.21</A>.
+     -!- Some but not all enzymes of this class also appear to have EC <A HREF= "/EC/3.1.3.5">3.1.3.5</A>
+         activity.)
+
+<A HREF= "/EC/4.2.1.74">4.2.1.74</A>     Long-chain-enoyl-CoA hydratase. 
+(CC: -!- Acts in the reverse direction.
+     -!- The best substrate is oct-3-enoyl-CoA.
+     -!- Unlike EC <A HREF= "/EC/4.2.1.17">4.2.1.17</A> does not act on crotonoyl-CoA.)
+
+<A HREF= "/EC/4.2.2.20">4.2.2.20</A>     Chondroitin-sulfate-ABC endolyase. 
+(CC: -!- Degrades a variety of glycosaminoglycans of the chondroitin-sulfate-
+         and dermatan-sulfate type.
+     -!- Chondroitin sulfate, chondroitin-sulfate proteoglycan and dermatan
+         sulfate are the best substrates but the enzyme can also act on
+         hyaluronan at a much lower rate.
+     -!- Keratan sulfate, heparan sulfate and heparin are not substrates.
+     -!- In general, chondroitin sulfate (CS) and dermatan sulfate (DS) chains
+         comprise a linkage region, a chain cap and a repeat region.
+     -!- The repeat region of CS is a repeating disaccharide of glucuronic
+         acid (GlcA) and N-acetylgalactosamine (GalNAc) [-4)GlcA(beta-1-
+         3)GalNAc(beta-1-](n), which may be O-sulfated on the C-4 and/or C-6
+         of GalNAc and C-2 of GlcA.
+     -!- GlcA residues of CS may be epimerized to iduronic acid (IdoA) forming
+         the repeating disaccharide [-4)IdoA(alpha-1-3)GalNAc(beta-1-](n) of
+         DS.
+     -!- Both the concentrations and locations of sulfate-ester substituents
+         vary with glucosaminoglycan source.
+     -!- The related enzyme EC <A HREF= "/EC/4.2.2.21">4.2.2.21</A> has the same substrate specificity but
+         removes disaccharide residues from the non-reducing ends of both
+         polymeric chondroitin sulfates and their oligosaccharide fragments
+         produced by EC <A HREF= "/EC/4.2.2.20">4.2.2.20</A>.
+     -!- Formerly EC <A HREF= "/EC/4.2.2.4">4.2.2.4</A> and EC <A HREF= "/EC/4.2.99.6">4.2.99.6</A>.)
+
+<A HREF= "/EC/4.2.2.21">4.2.2.21</A>     Chondroitin-sulfate-ABC exolyase. 
+(CC: -!- Degrades a variety of glycosaminoglycans of the chondroitin-sulfate-
+         and dermatan-sulfate type.
+     -!- Chondroitin sulfate, chondroitin-sulfate proteoglycan and dermatan
+         sulfate are the best substrates but the enzyme can also act on
+         hyaluronan at a much lower rate.
+     -!- The related enzyme EC <A HREF= "/EC/4.2.2.20">4.2.2.20</A> has the same substrate specificity but
+         produces a mixture of oligosaccharides of different sizes that are
+         ultimately degraded to tetra- and disaccharides.
+     -!- Both enzymes act by the removal of a relatively acidic C-5 proton of
+         the uronic acid followed by the elimination of a 4-linked hexosamine,
+         resulting in the formation of an unsaturated C4-C5 bond on the
+         hexuronic acid moiety of the products.
+     -!- Formerly EC <A HREF= "/EC/4.2.2.4">4.2.2.4</A> and EC <A HREF= "/EC/4.2.99.6">4.2.99.6</A>.)
+
+<A HREF= "/EC/4.6.1.15">4.6.1.15</A>     FAD-AMP lyase (cyclizing). 
+(CC: -!- While FAD was the best substrate tested the enzyme also splits
+         ribonucleoside diphosphate-X compounds in which X is an acyclic or
+         cyclic monosaccharide or derivative bearing an X-OH group that is
+         able to attack internally the proximal phosphorus with the geometry
+         necessary to form a P=X product; either a five-atom monocyclic
+         phosphodiester or a cis-bicyclic phosphodiester-pyranose fusion.
+     -!- The reaction is strongly inhibited by ADP or ATP but is unaffected by
+         the presence of the product, cFMN.)
+
+<A HREF= "/EC/6.2.1.23">6.2.1.23</A>     Dicarboxylate--CoA ligase. 
+(CC: -!- Acts on dicarboxylic acids of chain length C(5) to C(16); the best
+         substrate is dodecanedioic acid.)
+
+<A HREF= "/EC/7.5.2.6">7.5.2.6</A>      ABC-type lipid A-core oligosaccharide transporter. 
+(CC: -!- An ATP-binding cassette (ABC) type transporter, characterized by the
+         presence of two similar ATP-binding domains/proteins and two integral
+         membrane domains/proteins.
+     -!- The enzyme, best characterized from the bacterium Escherichia coli,
+         is located in the inner membrane and mediates the movement of lipid A
+         attached to the core oligosaccharide from the cytoplasm to the
+         periplasmic side of the inner membrane, an important step in the
+         lipopolysaccharide biosynthetic pathway.
+     -!- Not to be confused with EC <A HREF= "/EC/7.5.2.5">7.5.2.5</A>, which is implicated in the
+         translocation of LPS from the inner membrane to the outer membrane
+         and acts later in the process.)
+
+</PRE><P>
+<!-- sib_body -->
+<br clear="left" />
+</div>
+<!-- ********************************************************************************************** -->
+<!-- START OF FOOTER information at the bottom of the page -->
+<div id = 'sib_footer'>			
+  <!-- This part of the footer is _left_ justified and should contain SIB on the very left -->	
+  <div id = 'sib_footer_content' property="schema:creator" typeof="schema:NGO">
+    <a property="schema:url" href="https://sib.swiss/" ><span property="schema:name">SIB Swiss Institute of Bioinformatics</span></a>&nbsp;|&nbsp;<a href = "https://www.expasy.org/disclaimer.html">Disclaimer</a>
+	<!-- This part of the footer is _right_ justified -->
+	<div id = "sib_footer_right">	
+      <a href="#TOP" id = "sib_footer_gototop"><span style = "padding-left: 10px">Back to the Top</span></a>				
+    </div>
+  </div>
+</div>
+<!-- END OF FOOTER -->
+</div> 
+<!-- sib_container -->
+
+<script async="async" src='https://www.google-analytics.com/analytics.js' type="text/javascript"></script>
+<script type="text/javascript"/>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-23624944-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<!-- automatically added by Apache -->
+
+    </body>
+</html>

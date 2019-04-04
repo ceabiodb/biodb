@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:70860</chebiId><chebiAsciiName>3-methyl-1,2-didehydro-2,3-dihydrosqualene</chebiAsciiName><definition>A triterpenoid obtained by methylation at position 3 of squalene with concomitant double bond migration from position 2 to position 1.</definition><status>CHECKED</status><smiles>CC(CC\C(C)=C\CC\C(C)=C\CC\C=C(/C)CC\C=C(/C)CCC=C(C)C)C(C)=C</smiles><inchi>InChI=1S/C31H52/c1-25(2)15-12-18-29(7)21-13-19-27(5)16-10-11-17-28(6)20-14-22-30(8)23-24-31(9)26(3)4/h15-17,21-22,31H,3,10-14,18-20,23-24H2,1-2,4-9H3/b27-16+,28-17+,29-21+,30-22+</inchi><inchiKey>ANCCRFGXJYBRIW-SKQHXPRYSA-N</inchiKey><charge>0</charge><mass>424.74460</mass><monoisotopicMass>424.40690</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>3-methyl-1,2-didehydro-2,3-dihydrosqualene</data><type>SYNONYM</type><source>UniProt</source></Synonyms><IupacNames><data>(6E,10E,14E,18E)-2,3,6,10,15,19,23-heptamethyltetracosa-1,6,10,14,18,22-hexaene</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C31H52</data><source>ChEBI</source></Formulae><RegistryNumbers><data>4500243</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>22241476</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>ChEBI
+  Marvin  11061211482D          
+
+ 31 30  0  0  0  0            999 V2000
+    5.8184   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.5210   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2236   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9262   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6288   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3314   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0340   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.7366   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4392   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1418   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.8444   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.6011   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3037   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0063   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7089   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4115   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.1141   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.8167   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5193   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2219   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.9245   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.6271   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.3297   -3.4813    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.0324   -3.9137    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.5210   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3314   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1418   -4.7244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7089   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5193   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.3297   -2.6707    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2236   -2.6563    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  3  2  1  0  0  0  0
+ 25  2  2  0  0  0  0
+  4  3  1  0  0  0  0
+  5  4  1  0  0  0  0
+  6  5  1  0  0  0  0
+  7  6  2  0  0  0  0
+ 26  6  1  0  0  0  0
+  8  7  1  0  0  0  0
+  9  8  1  0  0  0  0
+ 10  9  1  0  0  0  0
+ 11 10  2  0  0  0  0
+ 27 10  1  0  0  0  0
+ 12 11  1  0  0  0  0
+ 13 12  1  0  0  0  0
+ 14 13  1  0  0  0  0
+ 15 14  2  0  0  0  0
+ 16 15  1  0  0  0  0
+ 28 15  1  0  0  0  0
+ 17 16  1  0  0  0  0
+ 18 17  1  0  0  0  0
+ 19 18  2  0  0  0  0
+ 20 19  1  0  0  0  0
+ 29 19  1  0  0  0  0
+ 21 20  1  0  0  0  0
+ 22 21  1  0  0  0  0
+ 23 22  2  0  0  0  0
+ 24 23  1  0  0  0  0
+ 30 23  1  0  0  0  0
+  3 31  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>CPD-14263</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>squalene</chebiName><chebiId>CHEBI:15440</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>triterpenoid</chebiName><chebiId>CHEBI:36615</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

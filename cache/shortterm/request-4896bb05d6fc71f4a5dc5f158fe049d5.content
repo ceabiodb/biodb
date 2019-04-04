@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:35030</chebiId><chebiAsciiName>trimipramine maleate</chebiAsciiName><definition></definition><status>CHECKED</status><smiles>[O-]C(=O)\C=C/C([O-])=O.[H][N+](C)(C)CC(C)C[N+]1([H])c2ccccc2CCc2ccccc12</smiles><inchi>InChI=1S/C20H26N2.C4H4O4/c1-16(14-21(2)3)15-22-19-10-6-4-8-17(19)12-13-18-9-5-7-11-20(18)22;5-3(6)1-2-4(7)8/h4-11,16H,12-15H2,1-3H3;1-2H,(H,5,6)(H,7,8)/b;2-1-</inchi><inchiKey>YDGHCKHAXOUQOS-BTJKTKAUSA-N</inchiKey><charge>0</charge><mass>410.50608</mass><monoisotopicMass>410.22056</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>10,11-dihydro-N,N,beta-trimethyl-5H-dibenz(b,f)azepine-5-propanamine (Z)-2-butenedioate (1:1)</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>5-(3-(dimethylamino)-2-methylpropyl)-10,11-dihydro-5H-dibenz(b,f)azepine maleate (1:1)</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Trimipramine maleate</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>5-[3-(dimethylammonio)-2-methylpropyl]-10,11-dihydro-5H-dibenzo[b,f]azepinium (2Z)-but-2-enedioate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C20H26N2.C4H4O4</data><source>KEGG COMPOUND</source></Formulae><Formulae><data>C24H30N2O4</data><source>ChEBI</source></Formulae><RegistryNumbers><data>521-78-8</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>6038607</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  11150712492D          
+ 
+ 32 33  0  0  0  0            999 V2000
+    0.4125    1.8073    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9269    1.1623    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7433    0.3580    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4125    1.8073    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7433    0.3580    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9269    1.1623    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3481   -0.2032    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1364    0.0400    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3200    0.8443    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7152    1.4054    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.7152    1.4054    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3200    0.8443    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1364    0.0400    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3481   -0.2032    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -3.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -1.2375    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+    1.4290   -0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 N   0  3  3  0  0  0  0  0  0  0  0  0
+   -0.7145   -0.4125    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -2.4750    0.0000 N   0  3  3  0  0  0  0  0  0  0  0  0
+    2.1434   -2.8875    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5723   -2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868   -2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0012   -1.2375    0.0000 O   0  5  0  0  0  0  0  0  0  0  0  0
+    4.2869   -0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2869   -0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0012   -2.0625    0.0000 O   0  5  0  0  0  0  0  0  0  0  0  0
+    4.2868   -3.3000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  3 19  1  0  0  0  0
+ 19  5  1  0  0  0  0
+ 19 23  1  0  0  0  0
+ 23 17  1  0  0  0  0
+  1  4  1  0  0  0  0
+  1  2  1  0  0  0  0
+  2  3  2  0  0  0  0
+  2 10  1  0  0  0  0
+  3  7  1  0  0  0  0
+  4  6  1  0  0  0  0
+  5  6  2  0  0  0  0
+  5 14  1  0  0  0  0
+  6 11  1  0  0  0  0
+  7  8  2  0  0  0  0
+  8  9  1  0  0  0  0
+  9 10  2  0  0  0  0
+ 11 12  2  0  0  0  0
+ 12 13  1  0  0  0  0
+ 13 14  2  0  0  0  0
+ 17 15  1  0  0  0  0
+ 15 21  1  0  0  0  0
+ 21 16  1  0  0  0  0
+ 21 24  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 19 20  1  0  0  0  0
+ 21 22  1  0  0  0  0
+ 25 32  2  0  0  0  0
+ 26 25  1  0  0  0  0
+ 30 26  1  0  0  0  0
+ 26 31  2  0  0  0  0
+ 27 29  1  0  0  0  0
+ 29 28  2  0  0  0  0
+ 29 32  1  0  0  0  0
+M  CHG  4  19   1  21   1  27  -1  30  -1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C14029</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>D02408</data><type>KEGG DRUG accession</type></DatabaseLinks><OntologyParents><chebiName>maleate salt</chebiName><chebiId>CHEBI:50221</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antidepressant</chebiName><chebiId>CHEBI:35469</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>trimipramine</chebiName><chebiId>CHEBI:9738</chebiId><type>has part</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>maleate(2-)</chebiName><chebiId>CHEBI:30780</chebiId><type>has part</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:125039</chebiId><chebiAsciiName>(1R,5S)-3-(2-fluorophenyl)sulfonyl-7-[4-(5-pyrimidinyl)phenyl]-3,6-diazabicyclo[3.1.1]heptane</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C1[C@@H]2C([C@@H](N2)CN1S(=O)(=O)C3=CC=CC=C3F)C4=CC=C(C=C4)C5=CN=CN=C5</smiles><inchi>InChI=1S/C21H19FN4O2S/c22-17-3-1-2-4-20(17)29(27,28)26-11-18-21(19(12-26)25-18)15-7-5-14(6-8-15)16-9-23-13-24-10-16/h1-10,13,18-19,21,25H,11-12H2/t18-,19+,21?</inchi><inchiKey>PSPRAYJRKITFGY-PMSBKCLSSA-N</inchiKey><charge>0</charge><mass>410.466</mass><monoisotopicMass>410.12128</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C21H19FN4O2S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161911
+null
+ 29 33  0  0  0  0  0  0  0  0999 V2000
+    1.2182    0.8217    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3933    0.8316    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -0.1409    0.0933    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3761   -0.5973    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.2061    0.1193    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2010   -0.6072    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6221    0.1023    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4470    0.0924    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4569    0.9173    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4371   -0.7326    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.2720    0.0824    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6930    0.7919    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5180    0.7820    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9218    0.0626    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5008   -0.6469    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6758   -0.6370    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.2548   -1.3464    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8527    0.1321    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2738   -0.5774    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0988   -0.5675    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.5026    0.1519    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0816    0.8614    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2566    0.8514    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.3276    0.1618    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.7486   -0.5476    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.5736   -0.5377    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.9775    0.1817    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.5564    0.8911    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.7314    0.8812    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  1  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  1  6  0  0  0 
+  5  2  1  0  0  0  0 
+  4  6  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  1  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  2  0  0  0  0 
+  8 10  2  0  0  0  0 
+  8 11  1  0  0  0  0 
+ 11 12  2  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 13 14  2  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  2  0  0  0  0 
+ 16 11  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+  3 18  1  0  0  0  0 
+ 18 19  2  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 23  2  0  0  0  0 
+ 23 18  1  0  0  0  0 
+ 21 24  1  0  0  0  0 
+ 24 25  2  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  2  0  0  0  0 
+ 27 28  1  0  0  0  0 
+ 28 29  2  0  0  0  0 
+ 29 24  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-36501</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>pyrimidines</chebiName><chebiId>CHEBI:39447</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

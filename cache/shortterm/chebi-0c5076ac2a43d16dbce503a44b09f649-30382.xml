@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:30382</chebiId><chebiAsciiName>tetrakis(trifluorophosphane)nickel</chebiAsciiName><definition></definition><status>CHECKED</status><smiles>F[P-](F)(F)[Ni+4]([P-](F)(F)F)([P-](F)(F)F)[P-](F)(F)F</smiles><inchi>InChI=1S/4F3P.Ni/c4*1-4(2)3;</inchi><inchiKey>TXBNRHVYQQTHJK-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.56928</mass><monoisotopicMass>409.81123</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>[Ni(PF3)4]</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>tetrakis(phosphorus trifluoride)nickel</data><type>SYNONYM</type><source>NIST Chemistry WebBook</source></Synonyms><Synonyms><data>tetrakis(trifluorophosphane)nickel</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>Tetrakis(trifluorophosphine)nickel</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>tetrakis(trifluoridophosphorus)nickel</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>F12NiP4</data><source>ChEBI</source></Formulae><RegistryNumbers><data>13859-65-9</data><type>CAS Registry Number</type><source>NIST Chemistry WebBook</source></RegistryNumbers><RegistryNumbers><data>13859-65-9</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>143884</data><type>Gmelin Registry Number</type><source>Gmelin</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  03310614152D          
+
+ 17 16  0  0  0  0            999 V2000
+    0.0000    0.0000    0.0000 Ni  0  0  3  0  0  0  0  0  0  0  0  0
+   -1.4290   -0.8250    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8250    1.4290    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8250   -1.4290    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4290    0.8250    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2375    0.7145    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4125    0.7145    0.0000 P   0  5  3  0  0  0  0  0  0  0  0  0
+    0.0000    1.4289    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -1.2375    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -0.4125    0.0000 P   0  5  3  0  0  0  0  0  0  0  0  0
+   -1.4289    0.0000    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0001   -1.4290    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4125   -0.7145    0.0000 P   0  5  3  0  0  0  0  0  0  0  0  0
+    1.2374   -0.7145    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    1.2374    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    0.4125    0.0000 P   0  5  3  0  0  0  0  0  0  0  0  0
+    1.4290   -0.0001    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+  1  7  1  0  0  0  0
+  1 10  1  0  0  0  0
+  1 16  1  0  0  0  0
+  1 13  1  0  0  0  0
+ 10  2  1  0  0  0  0
+  7  3  1  0  0  0  0
+ 13  4  1  0  0  0  0
+ 16  5  1  0  0  0  0
+  7  6  1  0  0  0  0
+  7  8  1  0  0  0  0
+ 10  9  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 13 12  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 16 15  1  0  0  0  0
+ 16 17  1  0  0  0  0
+M  CHG  5   1   4   7  -1  10  -1  13  -1  16  -1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>270</data><type>MolBase accession</type></DatabaseLinks><OntologyParents><chebiName>nickel coordination entity</chebiName><chebiId>CHEBI:35438</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

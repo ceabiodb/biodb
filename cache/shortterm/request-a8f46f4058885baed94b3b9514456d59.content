@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:132205</chebiId><chebiAsciiName>5-O-phosphono-2-deoxyribosyl-(3-&gt;5)-2-deoxyribose</chebiAsciiName><definition>A 2-deoxyribose bisphosphate that is 2-deoxy-alpha-D-ribofuranose 3,5-bisphosphate in which the phosphate group at position 3 is esterfied by a 2-deoxy-alpha-D-ribofuranos-5-yl group.</definition><status>CHECKED</status><smiles>O(C[C@H]1O[C@@H](C[C@@H]1O)O)P(O[C@@H]2[C@H](O[C@@H](C2)O)COP(=O)(O)O)(=O)O</smiles><inchi>InChI=1S/C10H20O13P2/c11-5-1-9(12)21-7(5)3-20-25(17,18)23-6-2-10(13)22-8(6)4-19-24(14,15)16/h5-13H,1-4H2,(H,17,18)(H2,14,15,16)/t5-,6-,7+,8+,9-,10-/m0/s1</inchi><inchiKey>AIWQBXPYUYKLDD-HMELBQQSSA-N</inchiKey><charge>0</charge><mass>410.206</mass><monoisotopicMass>410.03791</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>5-O-phosphono-2-deoxy-alpha-ribosyl-(3-&gt;5)-2-deoxy-alpha-ribose</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>[(2R,3S,5S)-3-{[{[(2R,3S,5S)-3,5-dihydroxyoxolan-2-yl]methoxy}(hydroxy)phosphoryl]oxy}-5-hydroxyoxolan-2-yl]methyl dihydrogen phosphate</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>dRibose5P_dRibose5P</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Formulae><data>C10H20O13P2</data><source>ChEBI</source></Formulae><Citations><data>22817898</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Ketcher 06151611022D 1   1.00000     0.00000     0
+
+ 25 26  0     1  0            999 V2000
+   23.5398   -9.3452    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.9311  -10.1032    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.1260   -9.5181    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.7426   -9.5375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.4289   -8.5714    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.4335   -8.5714    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.6797   -9.8731    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.1793   -9.8258    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   25.6366   -5.9951    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   26.4419   -6.5800    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.8250   -6.5607    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   25.1391   -7.5267    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   26.1343   -7.5265    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   27.3883   -6.2724    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   24.5539   -8.3320    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   24.5505  -10.3702    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   24.5505   -9.3749    0.0000 P   0  0  0  0  0  0  0  0  0  0  0  0
+   25.5459   -9.3747    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   23.8880   -6.2251    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   23.6304   -5.2636    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.6196   -4.2387    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   21.6243   -5.2340    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.6196   -5.2340    0.0000 P   0  0  0  0  0  0  0  0  0  0  0  0
+   22.6196   -6.2293    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.0139   -7.7663    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  7  1  1  0     0  0
+ 17  1  1  0     0  0
+  2  4  1  0     0  0
+  2  3  1  0     0  0
+  6  3  1  0     0  0
+  3  8  1  6     0  0
+  4  5  1  0     0  0
+  4  7  1  1     0  0
+  5  6  1  0     0  0
+  9 11  1  0     0  0
+  9 10  1  0     0  0
+ 13 10  1  0     0  0
+ 10 14  1  6     0  0
+ 11 12  1  0     0  0
+ 11 19  1  1     0  0
+ 12 13  1  0     0  0
+ 12 15  1  6     0  0
+ 15 17  1  0     0  0
+ 17 16  2  0     0  0
+ 17 18  1  0     0  0
+ 19 20  1  0     0  0
+ 23 20  1  0     0  0
+ 23 21  2  0     0  0
+ 23 22  1  0     0  0
+ 23 24  1  0     0  0
+  5 25  1  6     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>2-deoxyribose bisphosphate</chebiName><chebiId>CHEBI:19568</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>Mycoplasma genitalium metabolite</chebiName><chebiId>CHEBI:131604</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Mycoplasma genitalium</speciesText><speciesAccession>NCBI:2097</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>22817898</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

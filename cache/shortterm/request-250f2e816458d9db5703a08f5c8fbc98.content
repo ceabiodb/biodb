@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE eInfoResult PUBLIC "-//NLM//DTD einfo 20130322//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20130322/einfo.dtd">
+<eInfoResult>
+	<DbInfo>
+	<DbName>pccompound</DbName>
+	<MenuName>PubChem Compound</MenuName>
+	<Description>PubChem Compound Database</Description>
+	<DbBuild>Build190402-0510m.1</DbBuild>
+	<Count>97351543</Count>
+	<LastUpdate>2019/04/02 20:14</LastUpdate>
+	<FieldList>
+		<Field>
+			<Name>ALL</Name>
+			<FullName>All Fields</FullName>
+			<Description>All terms from all searchable fields</Description>
+			<TermCount>960413803</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>N</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>UID</Name>
+			<FullName>CompoundID</FullName>
+			<Description>Compound ID</Description>
+			<TermCount>0</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>FILT</Name>
+			<FullName>Filter</FullName>
+			<Description>Limits the records</Description>
+			<TermCount>63</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>SRC</Name>
+			<FullName>SourceName</FullName>
+			<Description>Source Name</Description>
+			<TermCount>1194</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>SRCC</Name>
+			<FullName>SourceCategory</FullName>
+			<Description>Source Category</Description>
+			<TermCount>29</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>CDAT</Name>
+			<FullName>CreateDate</FullName>
+			<Description>Record Create Date</Description>
+			<TermCount>3548</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>INCH</Name>
+			<FullName>InChI</FullName>
+			<Description>InChI</Description>
+			<TermCount>92757005</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>IKEY</Name>
+			<FullName>InChIKey</FullName>
+			<Description>InChI Key</Description>
+			<TermCount>181485566</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>CSYN</Name>
+			<FullName>CompleteSynonym</FullName>
+			<Description>Complete Synonym</Description>
+			<TermCount>341050604</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>SYNO</Name>
+			<FullName>Synonym</FullName>
+			<Description>Synonym</Description>
+			<TermCount>345054775</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>MSHT</Name>
+			<FullName>MeSHTerm</FullName>
+			<Description>MeSH Term</Description>
+			<TermCount>302715</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>PHMA</Name>
+			<FullName>PharmAction</FullName>
+			<Description>Pharmacological Action</Description>
+			<TermCount>573</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>ELMT</Name>
+			<FullName>Element</FullName>
+			<Description>Element</Description>
+			<TermCount>111</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>MW</Name>
+			<FullName>MolecularWeight</FullName>
+			<Description>Molecular Weight</Description>
+			<TermCount>1148571</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>TFC</Name>
+			<FullName>TotalFormalCharge</FullName>
+			<Description>Total Formal Charge</Description>
+			<TermCount>111</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>UPAC</Name>
+			<FullName>IUPACName</FullName>
+			<Description>IUPAC Name</Description>
+			<TermCount>99541280</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>XLGP</Name>
+			<FullName>XLogP</FullName>
+			<Description>XLogP</Description>
+			<TermCount>1804</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>CPLX</Name>
+			<FullName>Complexity</FullName>
+			<Description>Complexity</Description>
+			<TermCount>2957</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>RBC</Name>
+			<FullName>RotatableBondCount</FullName>
+			<Description>Rotatable Bond Count</Description>
+			<TermCount>365</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>HBDC</Name>
+			<FullName>HydrogenBondDonorCount</FullName>
+			<Description>Hydrogen Bond Donor Count</Description>
+			<TermCount>134</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>HBAC</Name>
+			<FullName>HydrogenBondAcceptorCount</FullName>
+			<Description>Hydrogen Bond Acceptor Count</Description>
+			<TermCount>245</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>HAC</Name>
+			<FullName>HeavyAtomCount</FullName>
+			<Description>Heavy Atom Count</Description>
+			<TermCount>567</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>ACC</Name>
+			<FullName>AtomChiralCount</FullName>
+			<Description>Atom Chiral Count</Description>
+			<TermCount>235</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>ACDC</Name>
+			<FullName>AtomChiralDefCount</FullName>
+			<Description>Atom Chiral Defined Count</Description>
+			<TermCount>148</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>ACUC</Name>
+			<FullName>AtomChiralUndefCount</FullName>
+			<Description>Atom Chiral Undefined Count</Description>
+			<TermCount>217</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>BCC</Name>
+			<FullName>BondChiralCount</FullName>
+			<Description>Bond Chiral Count</Description>
+			<TermCount>98</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>BCDC</Name>
+			<FullName>BondChiralDefCount</FullName>
+			<Description>Bond Chiral Defined Count</Description>
+			<TermCount>87</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>BCUC</Name>
+			<FullName>BondChiralUndefCount</FullName>
+			<Description>Bond Chiral Undefined Count</Description>
+			<TermCount>82</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>IAC</Name>
+			<FullName>IsotopeAtomCount</FullName>
+			<Description>Isotope Atom Count</Description>
+			<TermCount>88</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>CUC</Name>
+			<FullName>CovalentUnitCount</FullName>
+			<Description>Covalent Unit Count</Description>
+			<TermCount>180</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>AC</Name>
+			<FullName>ActiveAidCount</FullName>
+			<Description>Active AID Count</Description>
+			<TermCount>435</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>TAC</Name>
+			<FullName>TotalAidCount</FullName>
+			<Description>Total AID Count</Description>
+			<TermCount>1537</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>SID</Name>
+			<FullName>SubstanceID</FullName>
+			<Description>Substance ID</Description>
+			<TermCount>243545593</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>TPSA</Name>
+			<FullName>TPSA</FullName>
+			<Description>TPSA</Description>
+			<TermCount>2166</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>EMAS</Name>
+			<FullName>ExactMass</FullName>
+			<Description>Exact Mass</Description>
+			<TermCount>910600</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>MMAS</Name>
+			<FullName>MonoisotopicMass</FullName>
+			<Description>Monoisotopic Mass</Description>
+			<TermCount>910519</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>PAID</Name>
+			<FullName>PharmActionID</FullName>
+			<Description>Pharmacological Action ID</Description>
+			<TermCount>519</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>STID</Name>
+			<FullName>StructureID</FullName>
+			<Description>Depositor Associated Structure ID</Description>
+			<TermCount>97791</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>DCSY</Name>
+			<FullName>DepositorCompleteSynonym</FullName>
+			<Description>Depositor Complete Synonym</Description>
+			<TermCount>164317867</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>DSYN</Name>
+			<FullName>DepositorSynonym</FullName>
+			<Description>Depositor Synonym</Description>
+			<TermCount>168667738</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>DCNT</Name>
+			<FullName>DepositorCount</FullName>
+			<Description>Depositor Count</Description>
+			<TermCount>223</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+	</FieldList>
+		<LinkList>
+			<Link>
+				<Name>pccompound_biosystems</Name>
+				<Menu>BioSystems</Menu>
+				<Description>BioSystems</Description>
+				<DbTo>biosystems</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_gene</Name>
+				<Menu>Gene</Menu>
+				<Description>Genes</Description>
+				<DbTo>gene</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_mesh</Name>
+				<Menu>MeSH Keyword</Menu>
+				<Description>Related MeSH</Description>
+				<DbTo>mesh</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_nuccore</Name>
+				<Menu>Nucleotide Sequences</Menu>
+				<Description>Related Nucleotide</Description>
+				<DbTo>nuccore</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_omim</Name>
+				<Menu>OMIM</Menu>
+				<Description>OMIM</Description>
+				<DbTo>omim</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pcassay</Name>
+				<Menu>BioAssays</Menu>
+				<Description>Related BioAssays</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pcassay_active</Name>
+				<Menu>BioAssays, Active</Menu>
+				<Description>Related Active BioAssays</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pcassay_activityconcmicromolar</Name>
+				<Menu>BioAssays, activity concentration at/below 1 uM</Menu>
+				<Description>BioAssays, activity concentration at/below 1 uM</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pcassay_activityconcnanomolar</Name>
+				<Menu>BioAssays, activity concentration at/below 1 nM</Menu>
+				<Description>BioAssays, activity concentration at/below 1 nM</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pcassay_inactive</Name>
+				<Menu>BioAssays, Inactive</Menu>
+				<Description>Related Inactive BioAssays</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pcassay_probe</Name>
+				<Menu>BioAssays, Probe</Menu>
+				<Description>Related Probe BioAssays</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound</Name>
+				<Menu>Similar Compounds</Menu>
+				<Description>Related PubChem Similar Compound</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_3d</Name>
+				<Menu>Similar Conformers</Menu>
+				<Description>3D Shape Similarity</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_mixture</Name>
+				<Menu>Mixture/Component Compounds</Menu>
+				<Description>Related PubChem Mixture/Component Compound</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_parent</Name>
+				<Menu>Parent Compound</Menu>
+				<Description>Parent Compound</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_parent_connectivity_pulldown</Name>
+				<Menu>Same Parent, Connectivity</Menu>
+				<Description>Same Parent, Connectivity</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_parent_isotopes_pulldown</Name>
+				<Menu>Same Parent, Isotopes</Menu>
+				<Description>Same Parent, Isotopes</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_parent_pulldown</Name>
+				<Menu>Same Parent</Menu>
+				<Description>Same Parent</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_parent_stereo_pulldown</Name>
+				<Menu>Same Parent, Stereochemistry</Menu>
+				<Description>Same Parent, Stereochemistry</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_parent_tautomer_pulldown</Name>
+				<Menu>Same Parent, Any Tautomer</Menu>
+				<Description>Same Parent, Any Tautomer</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_sameanytautomer_pulldown</Name>
+				<Menu>Same, Any Tautomer</Menu>
+				<Description>Related PubChem Identical Compounds (Same, Any Tautomer)</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_sameconnectivity_pulldown</Name>
+				<Menu>Same, Connectivity</Menu>
+				<Description>Related PubChem Identical Compounds (Same, Connectivity)</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_sameisotopic_pulldown</Name>
+				<Menu>Same, Isotopes</Menu>
+				<Description>Related PubChem Identical Compounds (Same, Isotopic)</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pccompound_samestereochem_pulldown</Name>
+				<Menu>Same, Stereochemistry</Menu>
+				<Description>Related PubChem Identical Compounds (Same, Stereochem.)</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pcsubstance</Name>
+				<Menu>PubChem Mixture Substances</Menu>
+				<Description>Related PubChem Substance</Description>
+				<DbTo>pcsubstance</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pcsubstance_same</Name>
+				<Menu>PubChem Same Substances</Menu>
+				<Description>Related PubChem Substance</Description>
+				<DbTo>pcsubstance</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pmc</Name>
+				<Menu>PMC Articles</Menu>
+				<Description>PubMed Central Links</Description>
+				<DbTo>pmc</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_protein</Name>
+				<Menu>Protein Sequences</Menu>
+				<Description>Related Protein</Description>
+				<DbTo>protein</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pubmed</Name>
+				<Menu>PubMed Citations</Menu>
+				<Description>Related PubMed Citation</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pubmed_mesh</Name>
+				<Menu>PubMed (MeSH Keyword)</Menu>
+				<Description>Related PubMed via MeSH</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_pubmed_publisher</Name>
+				<Menu>PubMed (Publisher)</Menu>
+				<Description>PubMed articles linked via publisher deposited structures</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_structure</Name>
+				<Menu>Protein Structures</Menu>
+				<Description>Related Protein Structure</Description>
+				<DbTo>structure</DbTo>
+			</Link>
+			<Link>
+				<Name>pccompound_taxonomy</Name>
+				<Menu>Taxonomy</Menu>
+				<Description>Taxonomy</Description>
+				<DbTo>taxonomy</DbTo>
+			</Link>
+		</LinkList>
+	</DbInfo>
+
+</eInfoResult>

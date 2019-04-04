@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:4648</chebiId><chebiAsciiName>hop-22(29)-ene</chebiAsciiName><definition>A triterpene consisting of hopane having a C=C double bond at the 22(29)-position.</definition><status>CHECKED</status><smiles>[H][C@@]12CC[C@]3(C)[C@]([H])(CC[C@]4([H])[C@@]5(C)CCCC(C)(C)[C@]5([H])CC[C@@]34C)[C@@]1(C)CC[C@@H]2C(C)=C</smiles><inchi>InChI=1S/C30H50/c1-20(2)21-12-17-27(5)22(21)13-18-29(7)24(27)10-11-25-28(6)16-9-15-26(3,4)23(28)14-19-30(25,29)8/h21-25H,1,9-19H2,2-8H3/t21-,22+,23+,24-,25-,27+,28+,29-,30-/m1/s1</inchi><inchiKey>HHXYJYBYNZMZKX-PYQRSULMSA-N</inchiKey><charge>0</charge><mass>410.71800</mass><monoisotopicMass>410.39125</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>22(29)-Hopene</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>A'-neogammacer-22(29)-ene</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Diploptene</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>Hop-22(29)-ene</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>hop-22(29)-ene</data><type>SYNONYM</type><source>UniProt</source></Synonyms><IupacNames><data>hop-22(29)-ene</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>1615-91-4</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>2419865</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>2419865</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><Citations><data>11377875</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>11537761</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>7550095</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>8839970</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  09130609212D          
+
+ 34 38  0  0  0  0            999 V2000
+   -2.2733   -0.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.9878   -0.6000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.9878   -1.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8444   -1.8375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1299   -1.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1299    1.0500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8444    0.6375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5588   -0.6000    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -0.1299   -0.6000    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -1.5588   -1.4250    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -1.5588   -2.2500    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8444   -0.1875    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -0.8444   -1.0125    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5846    1.4625    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.2733   -1.8375    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+    2.0135    1.4625    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4706    1.8570    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2911    1.9432    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6266    1.1895    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    1.2990    1.0500    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    2.0135    0.6375    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.5846    0.6375    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    0.5846   -0.1875    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    1.2990   -0.6000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0135   -0.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.9878   -2.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.2733   -2.6625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5588    0.2250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1299    0.2250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2990    0.2250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5846   -1.0125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6885    0.2334    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9856    1.6311    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4336    1.0180    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  8  1  0  0  0  0
+  2  3  1  0  0  0  0
+  3 15  1  0  0  0  0
+ 15 10  1  0  0  0  0
+ 12  8  1  0  0  0  0
+  8 10  1  0  0  0  0
+ 10  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  5  9  1  0  0  0  0
+  9 23  1  0  0  0  0
+ 12  9  1  0  0  0  0
+  7 12  1  0  0  0  0
+  6  7  1  0  0  0  0
+  6 22  1  0  0  0  0
+ 10 11  1  6  0  0  0
+ 12 13  1  6  0  0  0
+ 22 14  1  1  0  0  0
+ 21 16  1  1  0  0  0
+ 20 17  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 19 18  1  0  0  0  0
+ 21 19  1  0  0  0  0
+ 19 34  1  6  0  0  0
+ 22 23  1  0  0  0  0
+ 20 22  1  0  0  0  0
+ 20 21  1  0  0  0  0
+ 23 24  1  0  0  0  0
+ 25 21  1  0  0  0  0
+ 24 25  1  0  0  0  0
+  8 28  1  1  0  0  0
+ 23 31  1  6  0  0  0
+ 20 30  1  6  0  0  0
+ 15 26  1  0  0  0  0
+ 15 27  1  0  0  0  0
+  9 29  1  1  0  0  0
+ 34 33  2  0  0  0  0
+ 34 32  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  09130609212D          
+
+ 34 38  0  0  0  0            999 V2000
+   -2.2733   -0.1875    0.0000 C   0  0  0  0  0  0  0  0  0  1  0  0
+   -2.9878   -0.6000    0.0000 C   0  0  0  0  0  0  0  0  0  2  0  0
+   -2.9878   -1.4250    0.0000 C   0  0  0  0  0  0  0  0  0  3  0  0
+   -0.8444   -1.8375    0.0000 C   0  0  0  0  0  0  0  0  0  6  0  0
+   -0.1299   -1.4250    0.0000 C   0  0  0  0  0  0  0  0  0  7  0  0
+   -0.1299    1.0500    0.0000 C   0  0  0  0  0  0  0  0  0 12  0  0
+   -0.8444    0.6375    0.0000 C   0  0  0  0  0  0  0  0  0 11  0  0
+    1.2990   -0.6000    0.0000 C   0  0  0  0  0  0  0  0  0 15  0  0
+    2.0135   -0.1875    0.0000 C   0  0  0  0  0  0  0  0  0 16  0  0
+    1.2990    1.8750    0.0000 C   0  0  0  0  0  0  0  0  0 19  0  0
+    2.7280    1.8750    0.0000 C   0  0  0  0  0  0  0  0  0 20  0  0
+   -1.5588   -0.6000    0.0000 C   0  0  1  0  0  0  0  0  0 10  0  0
+   -0.1299   -0.6000    0.0000 C   0  0  1  0  0  0  0  0  0  8  0  0
+    0.5846   -0.1875    0.0000 C   0  0  1  0  0  0  0  0  0 14  0  0
+    1.2990    1.0500    0.0000 C   0  0  1  0  0  0  0  0  0 18  0  0
+   -1.5588   -1.4250    0.0000 C   0  0  2  0  0  0  0  0  0  5  0  0
+   -1.5588   -2.2500    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8444   -0.1875    0.0000 C   0  0  2  0  0  0  0  0  0  9  0  0
+   -0.8444   -1.0125    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5846    0.6375    0.0000 C   0  0  1  0  0  0  0  0  0 13  0  0
+    0.5846    1.4625    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.5588    0.2250    0.0000 C   0  0  0  0  0  0  0  0  0 25  0  0
+    0.5846   -1.0125    0.0000 C   0  0  0  0  0  0  0  0  0 27  0  0
+    1.2990    0.2250    0.0000 C   0  0  0  0  0  0  0  0  0 28  0  0
+   -2.2733   -1.8375    0.0000 C   0  0  2  0  0  0  0  0  0  4  0  0
+    2.7280    1.0500    0.0000 C   0  0  1  0  0  0  0  0  0 21  0  0
+   -2.9878   -2.2500    0.0000 C   0  0  0  0  0  0  0  0  0 23  0  0
+   -2.2733   -2.6625    0.0000 C   0  0  0  0  0  0  0  0  0 24  0  0
+    2.0135    0.6375    0.0000 C   0  0  2  0  0  0  0  0  0 17  0  0
+    2.0135    1.4625    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1299    0.2250    0.0000 C   0  0  0  0  0  0  0  0  0 26  0  0
+    3.4425   -0.1875    0.0000 C   0  0  0  0  0  0  0  0  0 30  0  0
+    3.4425    0.6375    0.0000 C   0  0  0  0  0  0  0  0  0 22  0  0
+    4.1570    1.0500    0.0000 C   0  0  0  0  0  0  0  0  0 29  0  0
+  1  2  1  0  0  0  0
+  1 12  1  0  0  0  0
+  2  3  1  0  0  0  0
+  3 25  1  0  0  0  0
+ 25 16  1  0  0  0  0
+ 18 12  1  0  0  0  0
+ 12 16  1  0  0  0  0
+ 16  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  5 13  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 18 13  1  0  0  0  0
+  7 18  1  0  0  0  0
+  6  7  1  0  0  0  0
+  6 20  1  0  0  0  0
+ 15 20  1  0  0  0  0
+ 20 14  1  0  0  0  0
+ 14  8  1  0  0  0  0
+  8  9  1  0  0  0  0
+  9 29  1  0  0  0  0
+ 29 26  1  0  0  0  0
+ 15 29  1  0  0  0  0
+ 10 15  1  0  0  0  0
+ 26 11  1  0  0  0  0
+ 16 17  1  6  0  0  0
+ 18 19  1  6  0  0  0
+ 20 21  1  1  0  0  0
+ 29 30  1  1  0  0  0
+ 10 11  1  0  0  0  0
+ 26 33  1  6  0  0  0
+ 33 34  2  0  0  0  0
+ 12 22  1  1  0  0  0
+ 14 23  1  6  0  0  0
+ 15 24  1  6  0  0  0
+ 25 27  1  0  0  0  0
+ 25 28  1  1  0  0  0
+ 13 31  1  1  0  0  0
+ 33 32  1  0  0  0  0
+M  APO  7  22   1  23   1  24   1  27   1  28   1  31   1  32   1
+M  STY  7   1 SUP   2 SUP   3 SUP   4 SUP   5 SUP   6 SUP   7 SUP
+M  SAL   1  1  22
+M  SBL   1  1  32
+M  SMT   1 Me
+M  SAL   2  1  23
+M  SBL   2  1  33
+M  SMT   2 Me
+M  SAL   3  1  24
+M  SBL   3  1  34
+M  SMT   3 Me
+M  SAL   4  1  27
+M  SBL   4  1  35
+M  SMT   4 Me
+M  SAL   5  1  28
+M  SBL   5  1  36
+M  SMT   5 Me
+M  SAL   6  1  31
+M  SBL   6  1  37
+M  SMT   6 Me
+M  SAL   7  1  32
+M  SBL   7  1  38
+M  SMT   7 Me
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><DatabaseLinks><data>C06310</data><type>KEGG COMPOUND accession</type></DatabaseLinks><OntologyParents><chebiName>triterpene</chebiName><chebiId>CHEBI:35191</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>hopane</chebiName><chebiId>CHEBI:36482</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>2beta-methylhop-22(29)-ene</chebiName><chebiId>CHEBI:132460</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

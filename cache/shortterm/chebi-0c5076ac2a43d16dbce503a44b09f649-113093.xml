@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:113093</chebiId><chebiAsciiName>N-[4-(1H-benzimidazol-2-yl)phenyl]-3-(2,5-dioxo-1-pyrrolidinyl)benzamide</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C1CC(=O)N(C1=O)C2=CC=CC(=C2)C(=O)NC3=CC=C(C=C3)C4=NC5=CC=CC=C5N4</smiles><inchi>InChI=1S/C24H18N4O3/c29-21-12-13-22(30)28(21)18-5-3-4-16(14-18)24(31)25-17-10-8-15(9-11-17)23-26-19-6-1-2-7-20(19)27-23/h1-11,14H,12-13H2,(H,25,31)(H,26,27)</inchi><inchiKey>CYQXTOLGRVVWPJ-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.426</mass><monoisotopicMass>410.13789</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C24H18N4O3</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161859
+null
+ 31 35  0  0  0  0  0  0  0  0999 V2000
+   -5.8112   -4.1471    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.5257   -3.7346    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.3542   -2.9276    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.9062   -2.3145    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.5337   -2.8414    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.1981   -3.5950    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.3912   -3.7666    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.1212   -2.1269    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.5337   -1.4124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.1212   -0.6979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2962   -0.6979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8837   -1.4124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2962   -2.1269    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0587   -1.4124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6462   -2.1269    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6462   -0.6979    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.8212   -0.6979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4087    0.0165    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5837    0.0165    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1712   -0.6979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5837   -1.4124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4087   -1.4124    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6538   -0.6979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1387   -0.0305    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9233   -0.2854    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6378    0.1271    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.3523   -0.2854    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.3523   -1.1104    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6378   -1.5229    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9233   -1.1104    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1387   -1.3654    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  2  0  0  0  0 
+  3  5  1  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  1  1  0  0  0  0 
+  6  7  2  0  0  0  0 
+  5  8  1  0  0  0  0 
+  8  9  2  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  2  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+ 13  8  1  0  0  0  0 
+ 12 14  1  0  0  0  0 
+ 14 15  2  0  0  0  0 
+ 14 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 18  2  0  0  0  0 
+ 18 19  1  0  0  0  0 
+ 19 20  2  0  0  0  0 
+ 20 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 22 17  1  0  0  0  0 
+ 20 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 26  2  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 28  2  0  0  0  0 
+ 28 29  1  0  0  0  0 
+ 29 30  2  0  0  0  0 
+ 30 25  1  0  0  0  0 
+ 30 31  1  0  0  0  0 
+ 31 23  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-24503</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>benzimidazoles</chebiName><chebiId>CHEBI:22715</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

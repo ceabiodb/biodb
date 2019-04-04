@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:3017</chebiId><chebiAsciiName>bensulfuron-methyl</chebiAsciiName><definition>The methyl ester of bensulfuron. An acetolactate synthase inhibitor, it is used as a herbicide for the control of a variety of both annual and perennial weeds in crops, particularly wheat and rice. It is not licensed for use within the UK.</definition><status>CHECKED</status><smiles>O=C(NS(CC=1C=CC=CC1C(OC)=O)(=O)=O)NC2=NC(=CC(=N2)OC)OC</smiles><inchi>InChI=1S/C16H18N4O7S/c1-25-12-8-13(26-2)18-15(17-12)19-16(22)20-28(23,24)9-10-6-4-5-7-11(10)14(21)27-3/h4-8H,9H2,1-3H3,(H2,17,18,19,20,22)</inchi><inchiKey>XMQFTWRPUQYINF-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.403</mass><monoisotopicMass>410.08962</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>Bensulfuron methyl</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>bensulfuron methyl ester</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>methyl 2-[[[[[(4,6-dimethoxy-2-pyrimidinyl)amino]carbonyl]amino]sulfonyl]methyl]benzoate</data><type>SYNONYM</type><source>Alan Wood's Pesticides</source></Synonyms><Synonyms><data>methyl alpha-((4,6-dimethoxypyrimidin-2-yl)ureidosulfonyl)-o-toluate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>methyl alpha-[(4,6-dimethoxypyrimidin-2-ylcarbamoyl)sulfamoyl]-o-toluate</data><type>SYNONYM</type><source>Alan Wood's Pesticides</source></Synonyms><Synonyms><data>Methyl bensulfuron</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>methyl 2-({[(4,6-dimethoxypyrimidin-2-yl)carbamoyl]sulfamoyl}methyl)benzoate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C16H18N4O7S</data><source>ChEBI</source></Formulae><RegistryNumbers><data>7447488</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>83055-99-6</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>83055-99-6</data><type>CAS Registry Number</type><source>Alan Wood's Pesticides</source></RegistryNumbers><Citations><data>24406793</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>25463855</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>25797565</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>26021849</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>26453234</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Ketcher 08011609302D 1   1.00000     0.00000     0
+
+ 28 29  0     0  0            999 V2000
+   22.9207  -26.6501    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.9207  -27.6499    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.0549  -28.1498    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   21.1891  -26.6501    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.1891  -27.6499    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   24.6523  -26.6503    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   23.7865  -28.1498    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   24.6522  -27.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.0548  -25.1506    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   21.1890  -24.6508    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.3233  -26.1503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.3233  -25.1506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.4576  -26.6501    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5919  -26.1503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.4576  -24.6509    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5919  -25.1507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.1889  -23.6510    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.9206  -24.6507    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.6892  -28.5156    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.1894  -27.6499    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   25.5180  -26.1506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   26.3837  -26.6505    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   25.5179  -28.1498    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   26.3836  -27.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   25.5182  -25.1508    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   27.2494  -28.1501    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   26.3912  -24.6446    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   27.2464  -29.1495    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  3  2  1  0     0  0
+  5  3  1  0     0  0
+  5  4  1  0     0  0
+  2  1  2  0     0  0
+  7  2  1  0     0  0
+  8  7  1  0     0  0
+ 10  9  1  0     0  0
+ 11  4  1  0     0  0
+ 12 10  1  0     0  0
+ 13 11  1  0     0  0
+ 12 11  2  0     0  0
+ 14 13  2  0     0  0
+ 15 12  1  0     0  0
+ 16 14  1  0     0  0
+ 16 15  2  0     0  0
+ 10 17  2  0     0  0
+  9 18  1  0     0  0
+ 19  5  2  0     0  0
+ 20  5  2  0     0  0
+ 21  6  1  0     0  0
+  8  6  2  0     0  0
+ 22 21  2  0     0  0
+ 23  8  1  0     0  0
+ 24 22  1  0     0  0
+ 24 23  2  0     0  0
+ 21 25  1  0     0  0
+ 24 26  1  0     0  0
+ 25 27  1  0     0  0
+ 26 28  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Ketcher 08011609302D 1   1.00000     0.00000     0
+
+ 28 29  0     0  0            999 V2000
+   25.4549  -12.6276    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   25.4549  -11.6293    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.5565  -11.1302    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.5565  -13.1267    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   23.7080  -12.6276    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   23.7080  -11.6293    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.8096  -11.1302    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.8096  -13.1267    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.9611  -12.6276    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   21.9611  -11.6293    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   21.1126  -11.1302    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   21.0627  -13.2265    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.2142  -12.4279    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.2142  -11.6293    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3657  -11.0803    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5172  -12.5777    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5172  -11.5794    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.6687  -11.0803    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7703  -11.5794    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7703  -12.5777    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.6188  -13.0768    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.8096  -14.1249    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.9218  -11.0803    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0233  -11.5794    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.6188  -14.0750    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7203  -14.5741    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.8595  -12.1285    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   21.1126  -12.1285    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  5  6  1  0     0  0
+ 13 14  2  0     0  0
+ 14 15  1  0     0  0
+ 15 17  1  0     0  0
+  6  7  1  0     0  0
+  7 10  1  0     0  0
+  9  8  1  0     0  0
+  8  5  1  0     0  0
+  5  4  2  0     0  0
+  4  1  1  0     0  0
+ 16 17  1  0     0  0
+ 17 18  2  0     0  0
+ 18 19  1  0     0  0
+ 19 20  2  0     0  0
+ 20 21  1  0     0  0
+ 21 16  2  0     0  0
+  8 22  2  0     0  0
+  1  2  2  0     0  0
+ 19 23  1  0     0  0
+ 10 11  1  0     0  0
+ 23 24  1  0     0  0
+ 11 14  1  0     0  0
+ 21 25  1  0     0  0
+ 12  9  1  0     0  0
+ 25 26  1  0     0  0
+  2  3  1  0     0  0
+ 10 27  2  0     0  0
+  3  6  2  0     0  0
+ 10 28  2  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><DatabaseLinks><data>60G</data><type>PDBeChem accession</type></DatabaseLinks><DatabaseLinks><data>68</data><type>PPDB accession</type></DatabaseLinks><DatabaseLinks><data>C10937</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>derivatives/bensulfuron-methyl</data><type>Pesticides accession</type></DatabaseLinks><OntologyParents><chebiName>N-sulfonylurea</chebiName><chebiId>CHEBI:76983</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>pyrimidines</chebiName><chebiId>CHEBI:39447</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>methyl ester</chebiName><chebiId>CHEBI:25248</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aromatic ether</chebiName><chebiId>CHEBI:35618</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>herbicide</chebiName><chebiId>CHEBI:24527</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>agrochemical</chebiName><chebiId>CHEBI:33286</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>bensulfuron</chebiName><chebiId>CHEBI:132880</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>EC 2.2.1.6 (acetolactate synthase) inhibitor</chebiName><chebiId>CHEBI:22180</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

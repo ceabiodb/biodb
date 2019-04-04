@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:92342</chebiId><chebiAsciiName>6-[3-(cyclopropylmethoxy)-4-methoxyphenyl]-3-(2-fluorophenyl)-7H-[1,2,4]triazolo[3,4-b][1,3,4]thiadiazine</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>COC1=C(C=C(C=C1)C2=NN3C(=NN=C3SC2)C4=CC=CC=C4F)OCC5CC5</smiles><inchi>InChI=1S/C21H19FN4O2S/c1-27-18-9-8-14(10-19(18)28-11-13-6-7-13)17-12-29-21-24-23-20(26(21)25-17)15-4-2-3-5-16(15)22/h2-5,8-10,13H,6-7,11-12H2,1H3</inchi><inchiKey>GQCVCBZNBVITSS-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.466</mass><monoisotopicMass>410.12128</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C21H19FN4O2S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162153
+null
+ 29 33  0  0  0  0  0  0  0  0999 V2000
+    5.6424   -0.1271    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9279   -0.5396    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2135   -0.1271    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4990   -0.5396    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7845   -0.1271    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7845    0.6979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4990    1.1104    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2135    0.6979    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0701    1.1104    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3556    0.6979    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6411    1.1104    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1435    0.8555    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6284    1.5229    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1435    2.1904    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6411    1.9354    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3556    2.3479    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0701    1.9354    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3984    0.0709    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1536   -0.5422    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1014   -1.3268    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9083   -1.4984    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4604   -0.8853    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2054   -0.1006    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.7575    0.5124    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4990   -1.3646    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2135   -1.7771    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2135   -2.6021    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6260   -3.3165    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8010   -3.3165    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  2  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  2  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  8  2  0  0  0  0 
+  8  3  1  0  0  0  0 
+  6  9  1  0  0  0  0 
+  9 10  2  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+ 13 14  1  0  0  0  0 
+ 14 15  2  0  0  0  0 
+ 15 11  1  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17  9  1  0  0  0  0 
+ 12 18  1  0  0  0  0 
+ 18 19  2  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  2  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 23  2  0  0  0  0 
+ 23 18  1  0  0  0  0 
+ 23 24  1  0  0  0  0 
+  4 25  1  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 28  1  0  0  0  0 
+ 28 29  1  0  0  0  0 
+ 29 27  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-2417</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>triazoles</chebiName><chebiId>CHEBI:35727</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:64473</chebiId><chebiAsciiName>orlandin</chebiAsciiName><definition>A member of the class of 8,8'-bicoumarins that is kotanin in which the methoxy groups at the 7 and 7' positions are replaced by hydroxy groups. A fungal metabolite, its isolation from Aspergillus niger was first reported in 1979.</definition><status>CHECKED</status><smiles>COc1cc(=O)oc2c(c(O)cc(C)c12)-c1c(O)cc(C)c2c(OC)cc(=O)oc12</smiles><inchi>InChI=1S/C22H18O8/c1-9-5-11(23)19(21-17(9)13(27-3)7-15(25)29-21)20-12(24)6-10(2)18-14(28-4)8-16(26)30-22(18)20/h5-8,23-24H,1-4H3</inchi><inchiKey>SSGXAFNGBRRLQM-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.37350</mass><monoisotopicMass>410.10017</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>7-hydroxy-8-(7-hydroxy-4-methoxy-5-methyl-2-oxochromen-8-yl)-4-methoxy-5-methylchromen-2-one</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>7,7'-dihydroxy-4,4'-dimethoxy-5,5'-dimethyl-2H,2'H-8,8'-bichromene-2,2'-dione</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C22H18O8</data><source>ChEBI</source></Formulae><RegistryNumbers><data>7781683</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>447931</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  05011216432D          
+
+ 30 33  0  0  0  0            999 V2000
+    7.1322   -5.3981    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1322   -6.2232    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4176   -4.9857    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4176   -6.6357    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7032   -5.3981    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7032   -6.2232    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4176   -7.4607    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1320   -7.8732    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7032   -7.8732    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1320   -8.6982    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7032   -8.6982    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4176   -9.1107    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8466   -4.9857    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.5611   -5.3982    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8466   -6.6357    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.5610   -6.2232    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8466   -7.4609    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.5610   -7.8734    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8464   -9.1109    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.5610   -8.6984    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.2757   -7.4610    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.2754   -6.6357    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8466   -4.1607    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9888   -6.6357    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9886   -7.4607    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8464   -9.9359    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4176   -4.1607    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4176   -9.9357    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.5611   -3.7482    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.5608  -10.3484    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  3  1  2  0  0  0  0
+  4  2  2  0  0  0  0
+  3  5  1  0  0  0  0
+  4  6  1  0  0  0  0
+  6  5  2  0  0  0  0
+  8  7  2  0  0  0  0
+  9  7  1  0  0  0  0
+ 10  8  1  0  0  0  0
+ 11  9  2  0  0  0  0
+ 12 10  2  0  0  0  0
+ 12 11  1  0  0  0  0
+  4  7  1  0  0  0  0
+ 13  1  1  0  0  0  0
+  2  1  1  0  0  0  0
+ 14 13  2  0  0  0  0
+ 15  2  1  0  0  0  0
+ 16 14  1  0  0  0  0
+ 16 15  1  0  0  0  0
+ 17  8  1  0  0  0  0
+ 18 17  1  0  0  0  0
+ 19 10  1  0  0  0  0
+ 20 18  1  0  0  0  0
+ 20 19  2  0  0  0  0
+ 18 21  2  0  0  0  0
+ 16 22  2  0  0  0  0
+ 13 23  1  0  0  0  0
+  6 24  1  0  0  0  0
+  9 25  1  0  0  0  0
+ 19 26  1  0  0  0  0
+  3 27  1  0  0  0  0
+ 12 28  1  0  0  0  0
+ 23 29  1  0  0  0  0
+ 26 30  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>8,8'-bicoumarins</chebiName><chebiId>CHEBI:64462</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>Aspergillus metabolite</chebiName><chebiId>CHEBI:76956</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>demethylkotanin</chebiName><chebiId>CHEBI:64465</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>(+)-kotanin</chebiName><chebiId>CHEBI:64454</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

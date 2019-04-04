@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:67547</chebiId><chebiAsciiName>alpha-mangostin</chebiAsciiName><definition>A member of the class of xanthones that is 9H-xanthene substituted by hydroxy group at positions 1, 3 and 6, a methoxy group at position 7, an oxo group at position 9 and prenyl groups at positions 2 and 8. Isolated from the stems of Cratoxylum cochinchinense, it exhibits antioxidant, antimicrobial and antitumour activities.</definition><status>CHECKED</status><smiles>COc1c(O)cc2oc3cc(O)c(CC=C(C)C)c(O)c3c(=O)c2c1CC=C(C)C</smiles><inchi>InChI=1S/C24H26O6/c1-12(2)6-8-14-16(25)10-19-21(22(14)27)23(28)20-15(9-7-13(3)4)24(29-5)17(26)11-18(20)30-19/h6-7,10-11,25-27H,8-9H2,1-5H3</inchi><inchiKey>GNRIZKKCNOBBMO-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.45960</mass><monoisotopicMass>410.17294</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>1,3,6-trihydroxy-7-methoxy-2,8-diprenylxanthone</data><type>SYNONYM</type><source>HMDB</source></Synonyms><Synonyms><data>mangostin</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>1,3,6-trihydroxy-7-methoxy-2,8-bis(3-methylbut-2-en-1-yl)-9H-xanthen-9-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C24H26O6</data><source>ChEBI</source></Formulae><RegistryNumbers><data>362302</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>6147-11-1</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>20380307</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>21428375</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22832848</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22982495</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23232053</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>24273861</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Mrv0541 12121315062D          
+
+ 30 32  0  0  0  0            999 V2000
+   -1.6625   -7.7792    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9458   -8.1917    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.2208   -7.7750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3750   -8.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4958   -8.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6583   -6.9458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.2208   -6.9458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0875   -7.7750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9417   -6.5250    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2125   -7.7750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0875   -6.9458    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3750   -6.5333    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4917   -6.5333    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2083   -6.9417    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4958   -9.0125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8042   -8.1875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2083   -9.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8042   -9.0125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9458   -9.0167    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2083  -10.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.5167   -9.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3750   -9.0125    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8000   -6.5375    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9292   -8.1875    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9208   -6.5292    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4958  -10.6625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.2333   -9.0125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.5208  -10.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9208  -10.6625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6417   -7.7750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  3  2  1  0  0  0  0
+  4  1  2  0  0  0  0
+  5  3  1  0  0  0  0
+  6  1  1  0  0  0  0
+  7  9  1  0  0  0  0
+  8  4  1  0  0  0  0
+  9  6  1  0  0  0  0
+ 10  5  2  0  0  0  0
+ 11  8  2  0  0  0  0
+ 12  6  2  0  0  0  0
+ 13  7  1  0  0  0  0
+ 14 13  2  0  0  0  0
+ 15  5  1  0  0  0  0
+ 16  8  1  0  0  0  0
+ 17 15  1  0  0  0  0
+ 18 16  1  0  0  0  0
+ 19  2  2  0  0  0  0
+ 20 17  2  0  0  0  0
+ 21 18  2  0  0  0  0
+ 22  4  1  0  0  0  0
+ 23 11  1  0  0  0  0
+ 24 10  1  0  0  0  0
+ 25 14  1  0  0  0  0
+ 26 20  1  0  0  0  0
+ 27 21  1  0  0  0  0
+ 28 21  1  0  0  0  0
+ 29 20  1  0  0  0  0
+ 30 24  1  0  0  0  0
+ 11 12  1  0  0  0  0
+  3  7  2  0  0  0  0
+ 14 10  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00002963</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C10080</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>CN101612147</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>CN102670581</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0035796</data><type>HMDB accession</type></DatabaseLinks><DatabaseLinks><data>Mangostin</data><type>Wikipedia accession</type></DatabaseLinks><OntologyParents><chebiName>xanthones</chebiName><chebiId>CHEBI:51149</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antineoplastic agent</chebiName><chebiId>CHEBI:35610</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antimicrobial agent</chebiName><chebiId>CHEBI:33281</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antioxidant</chebiName><chebiId>CHEBI:22586</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>phenols</chebiName><chebiId>CHEBI:33853</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aromatic ether</chebiName><chebiId>CHEBI:35618</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>plant metabolite</chebiName><chebiId>CHEBI:76924</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Cratoxylum cochinchinense</speciesText><speciesAccession>NCBI:271749</speciesAccession><componentText>stem</componentText><componentAccession>BTO:0001300</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>21428375</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:65499</chebiId><chebiAsciiName>bipinnatone B</chebiAsciiName><definition>A member of the class of dihydrochalones that is dihydrochalcone hydroxylated at C-2', C-4', C-6' and C-4 and substituted by a geranyl group at C-3. It is isolated from the aerial parts of Boronia bipinnata and exhibits antimalarial activity.</definition><status>CHECKED</status><smiles>CC(C)=CCC\C(C)=C\Cc1cc(CCC(=O)c2c(O)cc(O)cc2O)ccc1O</smiles><inchi>InChI=1S/C25H30O5/c1-16(2)5-4-6-17(3)7-10-19-13-18(8-11-21(19)27)9-12-22(28)25-23(29)14-20(26)15-24(25)30/h5,7-8,11,13-15,26-27,29-30H,4,6,9-10,12H2,1-3H3/b17-7+</inchi><inchiKey>NJIYMLLTXNGJHV-REZTVBANSA-N</inchiKey><charge>0</charge><mass>410.50270</mass><monoisotopicMass>410.20932</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>3-{3-[(2E)-3,7-dimethylocta-2,6-dien-1-yl]-4-hydroxyphenyl}-1-(2,4,6-trihydroxyphenyl)propan-1-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C25H30O5</data><source>ChEBI</source></Formulae><RegistryNumbers><data>18863622</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>18662038</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  11231213402D          
+
+ 30 31  0  0  0  0            999 V2000
+   -4.5996    1.9677    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.6007    1.1399    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8855    0.7269    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.1729    1.1404    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.1758    1.9713    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8873    2.3765    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.3148    2.3788    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8857   -0.0985    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.4621    2.3853    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.4562    0.7277    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.4538   -0.0977    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.7419    1.1445    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0252    0.7318    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3109    1.1445    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4020    0.7314    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1158    1.1432    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1140    1.9697    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3909    2.3823    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3192    1.9675    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8276    2.3878    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8280    0.7342    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5427    1.1465    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.2591    0.7375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9737    1.1497    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.2609   -0.0879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6901    0.7407    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.4047    1.1529    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1170    0.7398    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.8316    1.1562    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1188   -0.0856    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+ 14 15  2  0  0  0  0
+  3  4  2  0  0  0  0
+ 15 16  1  0  0  0  0
+  3  8  1  0  0  0  0
+ 16 17  2  0  0  0  0
+ 17 18  1  0  0  0  0
+  5  9  1  0  0  0  0
+ 18 19  2  0  0  0  0
+ 19 14  1  0  0  0  0
+  4  5  1  0  0  0  0
+ 17 20  1  0  0  0  0
+  4 10  1  0  0  0  0
+ 16 21  1  0  0  0  0
+  2  3  1  0  0  0  0
+ 21 22  1  0  0  0  0
+ 10 11  2  0  0  0  0
+ 22 23  2  0  0  0  0
+  5  6  2  0  0  0  0
+ 23 24  1  0  0  0  0
+ 10 12  1  0  0  0  0
+ 23 25  1  0  0  0  0
+  6  1  1  0  0  0  0
+ 24 26  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 26 27  1  0  0  0  0
+  1  2  2  0  0  0  0
+ 27 28  2  0  0  0  0
+ 13 14  1  0  0  0  0
+ 28 29  1  0  0  0  0
+  1  7  1  0  0  0  0
+ 28 30  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antimalarial</chebiName><chebiId>CHEBI:38068</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>dihydrochalcones</chebiName><chebiId>CHEBI:71230</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>polyphenol</chebiName><chebiId>CHEBI:26195</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Boronia bipinnata</speciesText><speciesAccession>IPNI:771577-1</speciesAccession><componentText>aerial part</componentText><componentAccession>BTO:0001658</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>18662038</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

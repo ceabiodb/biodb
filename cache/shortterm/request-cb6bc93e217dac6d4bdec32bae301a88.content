@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD esearch 20060628//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20060628/esearch.dtd">
+<eSearchResult><Count>147</Count><RetMax>20</RetMax><RetStart>0</RetStart><IdList>
+<Id>134904241</Id>
+<Id>137155403</Id>
+<Id>136842556</Id>
+<Id>136842555</Id>
+<Id>136430324</Id>
+<Id>135881212</Id>
+<Id>135733436</Id>
+<Id>135506699</Id>
+<Id>135336941</Id>
+<Id>132231757</Id>
+<Id>130317117</Id>
+<Id>129904956</Id>
+<Id>129809710</Id>
+<Id>129802102</Id>
+<Id>129762349</Id>
+<Id>129660878</Id>
+<Id>126843297</Id>
+<Id>123974119</Id>
+<Id>123576264</Id>
+<Id>123556177</Id>
+</IdList><TranslationSet/><TranslationStack>   <TermSet>    <Term>0000204.123000[MonoisotopicMass]</Term>    <Field>MonoisotopicMass</Field>    <Count>0</Count>    <Explode>N</Explode>   </TermSet>   <TermSet>    <Term>0000204.125000[MonoisotopicMass]</Term>    <Field>MonoisotopicMass</Field>    <Count>0</Count>    <Explode>N</Explode>   </TermSet>   <OP>RANGE</OP>  </TranslationStack><QueryTranslation>0000204.123000[MonoisotopicMass] : 0000204.125000[MonoisotopicMass]</QueryTranslation></eSearchResult>

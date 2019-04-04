@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:132193</chebiId><chebiAsciiName>2'-deoxy-5-(4,5-dihydroxypentyl)uridine 5'-monophosphate</chebiAsciiName><definition>A pyrimidine 2'-deoxyribonucleoside 5'-monophosphate having 5-(4,5-dihydroxypentyl)uracil as the nucleobase.</definition><status>CHECKED</status><smiles>O(P(O)(=O)O)C[C@H]1O[C@@H](N2C=C(CCCC(CO)O)C(NC2=O)=O)C[C@@H]1O</smiles><inchi>InChI=1S/C14H23N2O10P/c17-6-9(18)3-1-2-8-5-16(14(21)15-13(8)20)12-4-10(19)11(26-12)7-25-27(22,23)24/h5,9-12,17-19H,1-4,6-7H2,(H,15,20,21)(H2,22,23,24)/t9?,10-,11+,12+/m0/s1</inchi><inchiKey>DZWBOVINFCXKSX-FGHRXAJISA-N</inchiKey><charge>0</charge><mass>410.314</mass><monoisotopicMass>410.10903</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>2'-deoxy-5-(4,5-dihydroxypentyl)uridine 5'-phosphate</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>5-(4,5-dihydroxypentyl)-2'-deoxy-5'-uridylic acid</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>5-(4,5-dihydroxypentyl)-2'-deoxyuridine 5'-monophosphate</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>5-(4,5-dihydroxypentyl)-2'-deoxyuridine 5'-phosphate</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>5-(4,5-dihydroxypentyl)-2'-deoxyuridylic acid</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>5-(4,5-dihydroxypentyl)-dUMP</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>dhpdUMP</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>2'-deoxy-5-(4,5-dihydroxypentyl)uridine 5'-(dihydrogen phosphate)</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C14H23N2O10P</data><source>ChEBI</source></Formulae><Citations><data>153409</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22817898</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Ketcher 06141612052D 1   1.00000     0.00000     0
+
+ 27 28  0     1  0            999 V2000
+   15.7715   -7.2768    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0395   -7.2768    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.9054   -8.7768    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.9054   -6.7768    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.9054   -7.7768    0.0000 P   0  0  0  0  0  0  0  0  0  0  0  0
+   16.9591   -3.6879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.9591   -2.6879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.8252   -4.1879    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6913   -3.6879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6913   -2.6879    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   17.8252   -2.1879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.8252   -5.1879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.0163   -5.7756    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6343   -5.7756    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.3252   -6.7267    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.3252   -6.7267    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.5573   -4.1879    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   18.9129   -7.5356    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7375   -7.5356    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.8252   -1.1879    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.0931   -2.1879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.2271   -2.6879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3611   -2.1879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4950   -2.6879    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6290   -2.1880    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7629   -2.6880    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4950   -3.6879    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  2  5  1  0     0  0
+  5  3  2  0     0  0
+  5  4  1  0     0  0
+  5  1  1  0     0  0
+  6  7  2  0     0  0
+  7 21  1  0     0  0
+  8  6  1  0     0  0
+ 12  8  1  1     0  0
+  8  9  1  0     0  0
+  9 17  2  0     0  0
+  9 10  1  0     0  0
+  7 11  1  0     0  0
+ 10 11  1  0     0  0
+ 11 20  2  0     0  0
+ 12 13  1  0     0  0
+ 12 14  1  0     0  0
+ 13 15  1  0     0  0
+ 14 16  1  0     0  0
+ 15 19  1  1     0  0
+ 15 16  1  0     0  0
+ 16 18  1  6     0  0
+ 19  1  1  0     0  0
+ 21 22  1  0     0  0
+ 22 23  1  0     0  0
+ 23 24  1  0     0  0
+ 24 25  1  0     0  0
+ 25 26  1  0     0  0
+ 24 27  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>pyrimidine 2'-deoxyribonucleoside 5'-monophosphate</chebiName><chebiId>CHEBI:36995</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>dUMP</chebiName><chebiId>CHEBI:17622</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>Mycoplasma genitalium metabolite</chebiName><chebiId>CHEBI:131604</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Bacillus subtilis</speciesText><speciesAccession>NCBI:1423</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>153409</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Mycoplasma genitalium</speciesText><speciesAccession>NCBI:2097</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>22817898</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

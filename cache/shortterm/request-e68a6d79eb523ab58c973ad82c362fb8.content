@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE eInfoResult PUBLIC "-//NLM//DTD einfo 20130322//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20130322/einfo.dtd">
+<eInfoResult>
+	<DbInfo>
+	<DbName>pcsubstance</DbName>
+	<MenuName>PubChem Substance</MenuName>
+	<Description>PubChem Substance Database</Description>
+	<DbBuild>Build190402-0510m.1</DbBuild>
+	<Count>252903305</Count>
+	<LastUpdate>2019/04/02 14:49</LastUpdate>
+	<FieldList>
+		<Field>
+			<Name>ALL</Name>
+			<FullName>All Fields</FullName>
+			<Description>All terms from all searchable fields</Description>
+			<TermCount>959098851</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>N</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>UID</Name>
+			<FullName>SubstanceID</FullName>
+			<Description>Substance ID</Description>
+			<TermCount>0</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>FILT</Name>
+			<FullName>Filter</FullName>
+			<Description>Limits the records</Description>
+			<TermCount>37</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>SRC</Name>
+			<FullName>SourceName</FullName>
+			<Description>Source Name</Description>
+			<TermCount>1257</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>CSN</Name>
+			<FullName>CurrentSourceName</FullName>
+			<Description>Current Source Name</Description>
+			<TermCount>595</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>SRID</Name>
+			<FullName>SourceID</FullName>
+			<Description>Source ID</Description>
+			<TermCount>229452275</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>SRCC</Name>
+			<FullName>SourceCategory</FullName>
+			<Description>Source Category</Description>
+			<TermCount>32</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>SRD</Name>
+			<FullName>SourceReleaseDate</FullName>
+			<Description>Source Release Date</Description>
+			<TermCount>6556</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>DDAT</Name>
+			<FullName>DepositDate</FullName>
+			<Description>Deposit Date</Description>
+			<TermCount>3682</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>MDAT</Name>
+			<FullName>ModifyDate</FullName>
+			<Description>Modification Date</Description>
+			<TermCount>3406</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>CSYN</Name>
+			<FullName>CompleteSynonym</FullName>
+			<Description>Complete Synonym</Description>
+			<TermCount>674214844</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>SYNO</Name>
+			<FullName>Synonym</FullName>
+			<Description>Synonym</Description>
+			<TermCount>678774912</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>CMT</Name>
+			<FullName>Comment</FullName>
+			<Description>Comment</Description>
+			<TermCount>75263228</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>TAC</Name>
+			<FullName>TotalAidCount</FullName>
+			<Description>Total AID Count</Description>
+			<TermCount>1114</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>SCID</Name>
+			<FullName>StandardizedCID</FullName>
+			<Description>Standardized CID</Description>
+			<TermCount>95654133</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>CCID</Name>
+			<FullName>ComponentCID</FullName>
+			<Description>Component CID</Description>
+			<TermCount>4518033</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>CID</Name>
+			<FullName>CompoundID</FullName>
+			<Description>Compound ID</Description>
+			<TermCount>97351544</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>ASRC</Name>
+			<FullName>AssaySourceName</FullName>
+			<Description>Assay Source Name</Description>
+			<TermCount>103</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>Y</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>STID</Name>
+			<FullName>StructureID</FullName>
+			<Description>Structure ID</Description>
+			<TermCount>116101</TermCount>
+			<IsDate>N</IsDate>
+			<IsNumerical>Y</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>N</IsRangable>
+		</Field>
+		<Field>
+			<Name>HUD</Name>
+			<FullName>HoldUntilDate</FullName>
+			<Description>Hold Until Date</Description>
+			<TermCount>1597</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+		<Field>
+			<Name>ADAT</Name>
+			<FullName>AvailableDate</FullName>
+			<Description>Available Date</Description>
+			<TermCount>4008</TermCount>
+			<IsDate>Y</IsDate>
+			<IsNumerical>N</IsNumerical>
+			<SingleToken>Y</SingleToken>
+			<Hierarchy>N</Hierarchy>
+			<IsHidden>N</IsHidden>
+			<IsTruncatable>N</IsTruncatable>
+			<IsRangable>Y</IsRangable>
+		</Field>
+	</FieldList>
+		<LinkList>
+			<Link>
+				<Name>pcsubstance_biosystems</Name>
+				<Menu>BioSystems</Menu>
+				<Description>BioSystems</Description>
+				<DbTo>biosystems</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_books</Name>
+				<Menu>Books</Menu>
+				<Description>Related books</Description>
+				<DbTo>books</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_gene</Name>
+				<Menu>Gene</Menu>
+				<Description>Genes</Description>
+				<DbTo>gene</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_nuccore</Name>
+				<Menu>Nucleotide Sequences</Menu>
+				<Description>Related Nucleotide</Description>
+				<DbTo>nuccore</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_omim</Name>
+				<Menu>OMIM</Menu>
+				<Description>OMIM</Description>
+				<DbTo>omim</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pcassay</Name>
+				<Menu>BioAssays</Menu>
+				<Description>Related BioAssays</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pcassay_active</Name>
+				<Menu>BioAssays, Active</Menu>
+				<Description>Related Active BioAssays</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pcassay_activityconcmicromolar</Name>
+				<Menu>BioAssays, activity concentration at/below 1 uM</Menu>
+				<Description>BioAssays, activity concentration at/below 1 uM</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pcassay_activityconcnanomolar</Name>
+				<Menu>BioAssays, activity concentration at/below 1 nM</Menu>
+				<Description>BioAssays, activity concentration at/below 1 nM</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pcassay_inactive</Name>
+				<Menu>BioAssays, Inactive</Menu>
+				<Description>Related Inactive BioAssays</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pcassay_probe</Name>
+				<Menu>BioAssays, Probe</Menu>
+				<Description>Related Probe BioAssays</Description>
+				<DbTo>pcassay</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pccompound</Name>
+				<Menu>PubChem Component Compounds</Menu>
+				<Description>Related PubChem Compound</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pccompound_same</Name>
+				<Menu>PubChem Same Compounds</Menu>
+				<Description>Related PubChem Compound</Description>
+				<DbTo>pccompound</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pmc</Name>
+				<Menu>PMC Articles</Menu>
+				<Description>PubMed Central Links</Description>
+				<DbTo>pmc</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_probe</Name>
+				<Menu>Probe</Menu>
+				<Description>Probes</Description>
+				<DbTo>probe</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_protein</Name>
+				<Menu>Protein Sequences</Menu>
+				<Description>Related Protein</Description>
+				<DbTo>protein</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pubmed</Name>
+				<Menu>PubMed Citations</Menu>
+				<Description>Related PubMed Citation</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pubmed_bookrecords</Name>
+				<Menu>&quot;Bookshelf (from PubChem Substance)&quot;</Menu>
+				<Description>&amp;quot;Bookshelf records citing structures in the PubChem Substance database&amp;quot;</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_pubmed_publisher</Name>
+				<Menu>PubMed (Publisher)</Menu>
+				<Description>PubMed Substances supplied by publisher</Description>
+				<DbTo>pubmed</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_structure</Name>
+				<Menu>Protein Structures</Menu>
+				<Description>Related Protein Structure</Description>
+				<DbTo>structure</DbTo>
+			</Link>
+			<Link>
+				<Name>pcsubstance_taxonomy</Name>
+				<Menu>Taxonomy</Menu>
+				<Description>Taxonomy</Description>
+				<DbTo>taxonomy</DbTo>
+			</Link>
+		</LinkList>
+	</DbInfo>
+
+</eInfoResult>

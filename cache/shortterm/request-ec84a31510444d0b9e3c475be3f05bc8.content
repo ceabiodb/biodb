@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD esearch 20060628//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20060628/esearch.dtd">
+<eSearchResult><Count>1</Count><RetMax>1</RetMax><RetStart>0</RetStart><IdList>
+<Id>2</Id>
+</IdList><TranslationSet/><TranslationStack>   <TermSet>    <Term>"(2-acetyloxy-3-carboxypropyl)-trimethylazanium"[IUPACName]</Term>    <Field>IUPACName</Field>    <Count>5</Count>    <Explode>N</Explode>   </TermSet>   <TermSet>    <Term>0000204.123000[MonoisotopicMass]</Term>    <Field>MonoisotopicMass</Field>    <Count>0</Count>    <Explode>N</Explode>   </TermSet>   <TermSet>    <Term>0000204.125000[MonoisotopicMass]</Term>    <Field>MonoisotopicMass</Field>    <Count>0</Count>    <Explode>N</Explode>   </TermSet>   <OP>RANGE</OP>   <OP>AND</OP>  </TranslationStack><QueryTranslation>"(2-acetyloxy-3-carboxypropyl)-trimethylazanium"[IUPACName] AND 0000204.123000[MonoisotopicMass] : 0000204.125000[MonoisotopicMass]</QueryTranslation></eSearchResult>

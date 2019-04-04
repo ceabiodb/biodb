@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:31937</chebiId><chebiAsciiName>Ornoprostil</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C(=C/[C@H](C[C@H](CCCC)C)O)\[C@@H]1[C@@H](CC(CCCCC(OC)=O)=O)C(C[C@H]1O)=O</smiles><inchi>InChI=1S/C23H38O6/c1-4-5-8-16(2)13-18(25)11-12-19-20(22(27)15-21(19)26)14-17(24)9-6-7-10-23(28)29-3/h11-12,16,18-21,25-26H,4-10,13-15H2,1-3H3/b12-11+/t16-,18+,19+,20+,21+/m0/s1</inchi><inchiKey>BBRBUTFBTUFFBU-LHACABTQSA-N</inchiKey><charge>0</charge><mass>410.545</mass><monoisotopicMass>410.26684</monoisotopicMass><entityStar>2</entityStar><Synonyms><data>Ornoprostil</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>ronoprost</data><type>SYNONYM</type><source>DrugCentral</source></Synonyms><Formulae><data>C23H38O6</data><source>KEGG COMPOUND</source></Formulae><Formulae><data>C23H38O6</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>70667-26-4</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><ChemicalStructures><structure>ornoprostil
+  CDK     0222172004
+
+ 29 29  0  0  0  0  0  0  0  0999 V2000
+    0.6956   -2.8889    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4117   -3.3021    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0184   -3.3021    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    2.1257   -2.8889    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -0.6711   -2.7968    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -0.2844   -4.0735    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    2.8397   -3.3021    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1257   -2.0643    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6711   -1.9723    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3524   -3.3021    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1882   -4.7486    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.1150   -4.0735    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5538   -2.8889    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -1.3851   -1.5610    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1380   -3.0464    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2678   -3.3021    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5538   -2.0643    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1053   -1.9600    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3851   -0.7365    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9818   -2.8889    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8193   -1.5488    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.6959   -3.3021    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5394   -1.9477    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4099   -2.8889    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2535   -1.5365    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.9757   -1.9354    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.6877   -1.5242    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.9757   -2.7600    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.4099   -1.9232    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0 
+  4  2  1  0  0  0  0 
+  3  1  1  1  0  0  0 
+  3  5  1  0  0  0  0 
+  6  3  1  0  0  0  0 
+  4  7  1  0  0  0  0 
+  4  8  1  1  0  0  0 
+  5  9  1  6  0  0  0 
+  5 10  1  0  0  0  0 
+  6 11  1  6  0  0  0 
+  6 12  1  0  0  0  0 
+ 13  7  1  0  0  0  0 
+  9 14  1  0  0  0  0 
+ 10 12  1  0  0  0  0 
+ 10 15  2  0  0  0  0 
+ 13 16  1  0  0  0  0 
+ 13 17  1  1  0  0  0 
+ 14 18  1  0  0  0  0 
+ 14 19  2  0  0  0  0 
+ 16 20  1  0  0  0  0 
+ 18 21  1  0  0  0  0 
+ 20 22  1  0  0  0  0 
+ 21 23  1  0  0  0  0 
+ 22 24  1  0  0  0  0 
+ 23 25  1  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 26 28  2  0  0  0  0 
+ 27 29  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>1998</data><type>Drug Central accession</type></DatabaseLinks><DatabaseLinks><data>D01869</data><type>KEGG DRUG accession</type></DatabaseLinks><OntologyParents><chebiName>organic molecular entity</chebiName><chebiId>CHEBI:50860</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,8 @@
+ID   1.1.1.54
+DE   Allyl-alcohol dehydrogenase.
+CA   Allyl alcohol + NADP(+) = acrolein + NADPH.
+CC   -!- Also acts on saturated primary alcohols.
+DR   Q3ZCJ2, AK1A1_BOVIN;  O70473, AK1A1_CRIGR;  P14550, AK1A1_HUMAN;
+DR   Q9JII6, AK1A1_MOUSE;  P50578, AK1A1_PIG  ;  Q5R5D5, AK1A1_PONAB;
+DR   P51635, AK1A1_RAT  ;  O60218, AK1BA_HUMAN;
+//

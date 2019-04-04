@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:114711</chebiId><chebiAsciiName>5-tert-butyl-N-[2-(cyclopentylamino)-2-oxoethyl]-N-(2,5-dimethylphenyl)-3-methyl-2-furancarboxamide</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CC1=CC(=C(C=C1)C)N(CC(=O)NC2CCCC2)C(=O)C3=C(C=C(O3)C(C)(C)C)C</smiles><inchi>InChI=1S/C25H34N2O3/c1-16-11-12-17(2)20(13-16)27(15-22(28)26-19-9-7-8-10-19)24(29)23-18(3)14-21(30-23)25(4,5)6/h11-14,19H,7-10,15H2,1-6H3,(H,26,28)</inchi><inchiKey>FVHDXZMRUQCZTC-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.550</mass><monoisotopicMass>410.25694</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C25H34N2O3</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161900
+null
+ 30 32  0  0  0  0  0  0  0  0999 V2000
+   -0.7954   -2.7474    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3829   -2.0329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7954   -1.3184    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3829   -0.6039    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3294   -0.6341    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8546   -1.3184    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4421   -2.0329    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1958   -0.2684    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7954    0.1105    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6204    0.1105    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0329    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6204    1.5395    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8579    0.8250    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.2704    1.5395    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.0909    1.6257    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2624    2.4327    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5479    2.8452    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.9348    2.2931    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3829    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7954    1.5395    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4421    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9270    0.1576    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7117    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7117    1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9270    1.4924    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3791    1.7224    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.0465    2.2073    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8942    2.3899    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8640    1.0550    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6721   -0.6271    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  2  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  2  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  2  0  0  0  0 
+  7  2  1  0  0  0  0 
+  5  8  1  0  0  0  0 
+  4  9  1  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  2  0  0  0  0 
+ 11 13  1  0  0  0  0 
+ 13 14  1  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 18  1  0  0  0  0 
+ 18 14  1  0  0  0  0 
+  9 19  1  0  0  0  0 
+ 19 20  2  0  0  0  0 
+ 19 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 22 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 21  1  0  0  0  0 
+ 24 26  1  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 26 28  1  0  0  0  0 
+ 26 29  1  0  0  0  0 
+ 22 30  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-26173</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>aromatic amide</chebiName><chebiId>CHEBI:62733</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>furans</chebiName><chebiId>CHEBI:24129</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

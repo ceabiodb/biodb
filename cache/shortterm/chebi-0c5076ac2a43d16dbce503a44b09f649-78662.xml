@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:78662</chebiId><chebiAsciiName>2,3-epoxysqualene</chebiAsciiName><definition>A squalene triterpenoid obtained by formal epoxidation across the 2,3 C=C bond of squalene.</definition><status>CHECKED</status><smiles>CC(C)=CCC\C(C)=C\CC\C(C)=C\CC\C=C(/C)CC\C=C(/C)CCC1OC1(C)C</smiles><inchi>InChI=1S/C30H50O/c1-24(2)14-11-17-27(5)20-12-18-25(3)15-9-10-16-26(4)19-13-21-28(6)22-23-29-30(7,8)31-29/h14-16,20-21,29H,9-13,17-19,22-23H2,1-8H3/b25-15+,26-16+,27-20+,28-21+</inchi><inchiKey>QYIMSPSDBYKPPY-BANQPHDMSA-N</inchiKey><charge>0</charge><mass>426.71740</mass><monoisotopicMass>426.38617</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>2,3-Edsq</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>2,3-Epoxy-2,3-dihydrosqualene</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>2,3-Oxidosqualene</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Squalene-2,3-epoxide</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Squalene-2,3-oxide</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>2,2-dimethyl-3-[(3E,7E,11E,15E)-3,7,12,16,20-pentamethylhenicosa-3,7,11,15,19-pentaen-1-yl]oxirane</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C30H50O</data><source>ChEBI</source></Formulae><RegistryNumbers><data>1627703</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>7200-26-2</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><ChemicalStructures><structure>
+  Mrv0541 06021409502D          
+
+ 31 31  0  0  0  0            999 V2000
+   12.1963   -2.1005    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7772   -2.8386    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.0589   -3.2442    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3209   -2.8251    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6025   -3.2307    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.8644   -2.8117    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.1461   -3.2172    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4080   -2.7981    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.6896   -3.2036    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.9516   -2.7846    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2332   -3.1901    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5613   -2.7895    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8007   -3.2188    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.0810   -2.7337    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3443   -3.2053    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6485   -2.7624    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8878   -3.1918    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1920   -2.7489    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5685   -3.1782    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2643   -2.7354    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.9827   -3.1409    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7208   -2.7219    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.4390   -3.1273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6223   -4.0553    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.6673   -4.0521    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.0850   -1.9512    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1722   -1.9242    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.6983   -1.8733    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.0382   -3.5755    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6257   -2.8610    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4507   -2.8610    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+ 30  1  1  0  0  0  0
+  2  1  1  0  0  0  0
+  2 30  1  0  0  0  0
+  2  3  1  0  0  0  0
+  4  3  1  0  0  0  0
+  5  4  1  0  0  0  0
+  6  5  2  0  0  0  0
+ 24  5  1  0  0  0  0
+  7  6  1  0  0  0  0
+  8  7  1  0  0  0  0
+  9  8  1  0  0  0  0
+ 10  9  2  0  0  0  0
+ 25  9  1  0  0  0  0
+ 11 10  1  0  0  0  0
+ 12 11  1  0  0  0  0
+ 13 12  1  0  0  0  0
+ 14 13  2  0  0  0  0
+ 15 14  1  0  0  0  0
+ 26 14  1  0  0  0  0
+ 16 15  1  0  0  0  0
+ 17 16  1  0  0  0  0
+ 18 17  2  0  0  0  0
+ 19 18  1  0  0  0  0
+ 27 18  1  0  0  0  0
+ 20 19  1  0  0  0  0
+ 21 20  1  0  0  0  0
+ 22 21  2  0  0  0  0
+ 23 22  1  0  0  0  0
+ 28 22  1  0  0  0  0
+ 29 30  1  0  0  0  0
+ 30 31  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>epoxide</chebiName><chebiId>CHEBI:32955</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>squalene triterpenoid</chebiName><chebiId>CHEBI:26747</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>squalene</chebiName><chebiId>CHEBI:15440</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>(S)-2,3-epoxysqualene</chebiName><chebiId>CHEBI:15441</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

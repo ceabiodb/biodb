@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:77601</chebiId><chebiAsciiName>(3S,5R)-fluvastatin(1-)</chebiAsciiName><definition>A monocarboxylic acid anion resulting from the removal of a proton from the carboxy group of (3S,5R)-fluvastatin.</definition><status>CHECKED</status><smiles>CC(C)n1c(\C=C\[C@H](O)C[C@H](O)CC([O-])=O)c(-c2ccc(F)cc2)c2ccccc12</smiles><inchi>InChI=1S/C24H26FNO4/c1-15(2)26-21-6-4-3-5-20(21)24(16-7-9-17(25)10-8-16)22(26)12-11-18(27)13-19(28)14-23(29)30/h3-12,15,18-19,27-28H,13-14H2,1-2H3,(H,29,30)/p-1/b12-11+/t18-,19-/m0/s1</inchi><inchiKey>FJLGEFLZQAZZCD-JUFISIKESA-M</inchiKey><charge>-1</charge><mass>410.45860</mass><monoisotopicMass>410.17731</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>(-)-(3S,5R)-fluvastatin(1-)</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(-)-fluvastatin(1-)</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>(3S,5R)-(-)-fluvastatin(1-)</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>(3S,5R,6E)-7-[3-(4-fluorophenyl)-1-isopropyl-1H-indol-2-yl]-3,5-dihydroxyhept-6-enoate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C24H25FNO4</data><source>ChEBI</source></Formulae><ChemicalStructures><structure>
+  Mrv0541 03061411302D          
+
+ 30 32  0  0  0  0            999 V2000
+   11.0658   -1.0196    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3513   -1.4321    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6368   -1.0196    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6368   -0.1946    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.0658   -0.1946    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3513    0.2179    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5889   -4.2301    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.7685   -4.1439    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.4329   -3.3902    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9178   -2.7229    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7382   -2.8091    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0738   -3.5627    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.8942   -3.4765    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   12.2532   -3.9180    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4463   -4.0896    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1913   -4.8742    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.0658   -2.6696    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3513   -2.2571    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3513    1.0429    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4947   -2.6696    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9237   -2.6696    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2092   -2.2571    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   13.2092   -1.4321    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.6381   -2.2571    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   14.6381   -1.4321    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.3525   -2.6696    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.0670   -1.4321    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.0670   -2.2571    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.7814   -2.6696    0.0000 O   0  5  0  0  0  0  0  0  0  0  0  0
+   11.7802   -2.2571    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  2  0  0  0  0
+ 18  2  1  0  0  0  0
+  2  3  1  0  0  0  0
+  4  3  2  0  0  0  0
+  1  5  1  0  0  0  0
+  6  4  1  0  0  0  0
+  5  6  2  0  0  0  0
+  6 19  1  0  0  0  0
+  7  8  2  0  0  0  0
+  7 12  1  0  0  0  0
+  8  9  1  0  0  0  0
+  9 10  2  0  0  0  0
+ 10 11  1  0  0  0  0
+ 11 18  1  0  0  0  0
+ 12 11  2  0  0  0  0
+ 13 12  1  0  0  0  0
+ 13 17  1  0  0  0  0
+ 13 15  1  0  0  0  0
+ 15 14  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 18 17  2  0  0  0  0
+ 17 30  1  0  0  0  0
+ 30 20  2  0  0  0  0
+ 20 22  1  0  0  0  0
+ 22 21  1  0  0  0  0
+ 21 24  1  0  0  0  0
+ 22 23  1  6  0  0  0
+ 24 26  1  0  0  0  0
+ 24 25  1  6  0  0  0
+ 26 28  1  0  0  0  0
+ 28 27  2  0  0  0  0
+ 28 29  1  0  0  0  0
+M  CHG  1  29  -1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>monocarboxylic acid anion</chebiName><chebiId>CHEBI:35757</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>(3S,5R)-fluvastatin</chebiName><chebiId>CHEBI:5136</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>(3R,5S)-fluvastatin(1-)</chebiName><chebiId>CHEBI:77600</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>(3S,5R)-fluvastatin</chebiName><chebiId>CHEBI:5136</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>(3R,5S)-fluvastatin(1-)</chebiName><chebiId>CHEBI:77600</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>(3S,5R)-fluvastatin sodium</chebiName><chebiId>CHEBI:77603</chebiId><type>has part</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

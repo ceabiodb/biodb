@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:65674</chebiId><chebiAsciiName>cratoxyarborenone D</chebiAsciiName><definition>An organic heterotetracyclic compound that is 2,3-dihydro-5H-furo[3,2-b]xanthen-5-one substituted by hydroxy groups at positions 4, 7, 8 and 9, an isoprenyl group at position 6 and a prop-1-en-2-yl group at position 2. It is isolated from Cratoxylum Sumatranum and exhibits cytotoxicity towards the KB (human oral epidermoid) cancer cell line.</definition><status>CHECKED</status><smiles>CC(C)=CCc1c(O)c(O)c(O)c2oc3cc4OC(Cc4c(O)c3c(=O)c12)C(C)=C</smiles><inchi>InChI=1S/C23H22O7/c1-9(2)5-6-11-16-20(26)17-15(30-23(16)22(28)21(27)19(11)25)8-14-12(18(17)24)7-13(29-14)10(3)4/h5,8,13,24-25,27-28H,3,6-7H2,1-2,4H3</inchi><inchiKey>PIPKOMCOCGAXLZ-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.41660</mass><monoisotopicMass>410.13655</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>2,3-dihydro-1,5,6,7-tetrahydroxy-3-(1-methyethenyl)-8-prenylfuro[2,3-b]xanthone</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>4,7,8,9-tetrahydroxy-6-(3-methylbut-2-en-1-yl)-2-(prop-1-en-2-yl)-2,3-dihydro-5H-furo[3,2-b]xanthen-5-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C23H22O7</data><source>ChEBI</source></Formulae><RegistryNumbers><data>9098517</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>11908969</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  12181211112D          
+
+ 30 33  0  0  0  0            999 V2000
+    5.5736   -6.2553    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5736   -7.0803    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2820   -7.4870    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2820   -5.8370    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9980   -6.2553    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9991   -7.0803    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.7100   -7.4877    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.7080   -5.8377    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.4233   -6.2535    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.4243   -7.0805    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1408   -7.4890    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1388   -5.8350    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2799   -5.0120    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8595   -7.4910    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.7090   -8.3127    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1407   -8.3140    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2798   -8.3120    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5645   -8.7245    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5622   -9.5495    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8469   -9.9582    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2754   -9.9620    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8578   -5.8436    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8558   -6.2518    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8595   -7.0749    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.6410   -7.3252    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1215   -6.6558    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.6350   -5.9908    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9465   -6.6521    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3640   -7.3644    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3576   -5.9360    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  4  2  0  0  0  0
+  2 14  1  0  0  0  0
+  2  3  2  0  0  0  0
+  7 15  2  0  0  0  0
+  5  8  1  0  0  0  0
+ 11 16  1  0  0  0  0
+  6  7  1  0  0  0  0
+  3 17  1  0  0  0  0
+  7 10  1  0  0  0  0
+ 17 18  1  0  0  0  0
+  9  8  1  0  0  0  0
+ 18 19  2  0  0  0  0
+  9 10  2  0  0  0  0
+ 19 20  1  0  0  0  0
+  3  6  1  0  0  0  0
+ 19 21  1  0  0  0  0
+  5  4  1  0  0  0  0
+  1 22  1  0  0  0  0
+ 23 24  1  0  0  0  0
+  5  6  2  0  0  0  0
+  9 12  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 11 24  2  0  0  0  0
+ 24 25  1  0  0  0  0
+ 25 26  1  0  0  0  0
+ 26 27  1  0  0  0  0
+ 27 23  1  0  0  0  0
+ 23 12  2  0  0  0  0
+ 26 28  1  0  0  0  0
+  1  2  1  0  0  0  0
+ 28 29  1  0  0  0  0
+  4 13  1  0  0  0  0
+ 28 30  2  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>organic heterotetracyclic compound</chebiName><chebiId>CHEBI:38163</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>cyclic ketone</chebiName><chebiId>CHEBI:3992</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>polyphenol</chebiName><chebiId>CHEBI:26195</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>cyclic ether</chebiName><chebiId>CHEBI:37407</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>antineoplastic agent</chebiName><chebiId>CHEBI:35610</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Cratoxylum Sumatranum</speciesText><speciesAccession>IPNI:433074-1</speciesAccession><componentText>leaf</componentText><componentAccession>BTO:0000713</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>11908969</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Cratoxylum Sumatranum</speciesText><speciesAccession>IPNI:433074-1</speciesAccession><componentText>twig</componentText><componentAccession>BTO:0001411</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>11908969</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Cratoxylum Sumatranum</speciesText><speciesAccession>IPNI:433074-1</speciesAccession><componentText>stem</componentText><componentAccession>BTO:0001300</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>11908969</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

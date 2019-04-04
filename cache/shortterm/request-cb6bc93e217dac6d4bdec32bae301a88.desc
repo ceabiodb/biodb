@@ -1,0 +1,1 @@
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["url","header","body"]}},"value":[{"type":"character","attributes":{},"value":["https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term=204.123:204.125[MonoisotopicMass]"]},{"type":"character","attributes":{},"value":[]},{"type":"character","attributes":{},"value":[]}]}

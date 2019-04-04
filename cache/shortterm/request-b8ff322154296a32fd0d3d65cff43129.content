@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:132060</chebiId><chebiAsciiName>N-arachidonoyltaurine(1-)</chebiAsciiName><definition>A fatty acid-taurine conjugate obtained by deprotonation of the sulfonate group of N-arachidonoyltaurine; major species at pH 7.3.</definition><status>CHECKED</status><smiles>C(CCC)C/C=C\C/C=C\C/C=C\C/C=C\CCCC(NCCS([O-])(=O)=O)=O</smiles><inchi>InChI=1S/C22H37NO4S/c1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-22(24)23-20-21-28(25,26)27/h6-7,9-10,12-13,15-16H,2-5,8,11,14,17-21H2,1H3,(H,23,24)(H,25,26,27)/p-1/b7-6-,10-9-,13-12-,16-15-</inchi><inchiKey>YUNYSWCRLRYOPO-DOFZRALJSA-M</inchiKey><charge>-1</charge><mass>410.592</mass><monoisotopicMass>410.23705</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>N-(5Z,8Z,11Z,14Z)-eicosatetraenoyl-taurine</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Synonyms><data>N-(5Z,8Z,11Z,14Z)-icosatetraenoyl-taurine(1-)</data><type>SYNONYM</type><source>SUBMITTER</source></Synonyms><Synonyms><data>N-(5Z,8Z,11Z,14Z)-icosatetraenoyltaurine(1-)</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>N-arachidonoyl-taurine(1-)</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>2-{[(5Z,8Z,11Z,14Z)-icosa-5,8,11,14-tetraenoyl]amino}ethane-1-sulfonate</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C22H36NO4S</data><source>ChEBI</source></Formulae><Citations><data>18311922</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>
+  Ketcher 07111610392D 1   1.00000     0.00000     0
+
+ 28 27  0     0  0            999 V2000
+    7.8508   -7.4596    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8508   -5.4580    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9842   -5.9585    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9842   -6.9591    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7811   -7.5821    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5677   -6.9613    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8073   -5.5576    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3754   -6.4588    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8073   -7.3600    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7811   -5.3355    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5677   -5.9562    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2789   -7.6669    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2801   -7.6659    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2801   -5.2516    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2789   -5.2506    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.7175   -6.9592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.7175   -5.9584    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5842   -7.4596    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4510   -6.9592    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4510   -5.9584    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5842   -5.4580    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5842   -4.4572    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3134   -5.4510    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.1762   -5.9584    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.0387   -5.4510    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9060   -5.9423    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.5372   -4.5878    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5404   -4.5878    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1 16  1  0     0  0
+  1  4  1  0     0  0
+ 17  2  1  0     0  0
+  2  3  1  0     0  0
+ 10  7  2  0     0  0
+  5  6  1  0     0  0
+  7  8  1  0     0  0
+  8  9  1  0     0  0
+  5  9  2  0     0  0
+ 10 11  1  0     0  0
+ 12  4  1  0     0  0
+ 12 13  2  0     0  0
+ 14 11  1  0     0  0
+  6 13  1  0     0  0
+ 14 15  2  0     0  0
+ 15  3  1  0     0  0
+ 18 16  1  0     0  0
+ 21 17  1  0     0  0
+ 18 19  1  0     0  0
+ 20 21  1  0     0  0
+ 21 22  2  0     0  0
+ 20 23  1  0     0  0
+ 23 24  1  0     0  0
+ 24 25  1  0     0  0
+ 25 26  1  0     0  0
+ 25 27  2  0     0  0
+ 25 28  2  0     0  0
+M  CHG  1  26  -1
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>N-arachidonoyltaurine</chebiName><chebiId>CHEBI:132506</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>fatty acid-taurine conjugate(1-)</chebiName><chebiId>CHEBI:132040</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>N-[12(S)-hydroperoxy-(5Z,8Z,10E,14Z)-icosatetraenoyl]taurine(1-)</chebiName><chebiId>CHEBI:132061</chebiId><type>has functional parent</type><status>SUBMITTED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N-arachidonoyltaurine</chebiName><chebiId>CHEBI:132506</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

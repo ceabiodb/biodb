@@ -173,36 +173,39 @@ exclude_dbs() {
 
 run_tests() {
 
-	if [[ $DBS == none ]] ; then
-		info "Nothing to test. Exiting."
-	else
-	 	msg="Testing package"
+#	if [[ $DBS == none ]] ; then
+#		info "Nothing to test. Exiting."
+#	else
+#	 	msg="Testing package"
 
 		# Databases to test
 		if [[ -n $DBS ]] ; then
-			msg="$msg on database(s) $DBS"
+#			msg="$msg on database(s) $DBS"
 			export DATABASES=$DBS
-		else
-			msg="$msg on all databases"
+#		else
+#			msg="$msg on all databases"
 		fi
 
 		# Exclude databases
 		if [[ -n $EXCLUDE_DBS ]] ; then
-			msg="$msg except on database(s) $EXCLUDE_DBS"
+#			msg="$msg except on database(s) $EXCLUDE_DBS"
 			export DONT_TEST_DBS=$EXCLUDE_DBS
 		fi
 
-		# Mode
-		msg="$msg in mode $MODE."
-		if [[ $MODE == online ]] ; then
-			export MODES=quick.online
-		else
-			export MODES=$MODE
-		fi
+#		# Mode
+#		msg="$msg in mode $MODE."
+#		if [[ $MODE == online ]] ; then
+#			export MODES=quick.online
+#		else
+#			export MODES=$MODE
+#		fi
 
-		info "$msg"
-		[[ $DRY_RUN == $YES ]] || make test || return 1
-	fi
+		# Run make
+#		info "$msg"
+		target=test
+		[[ $CHECK == yes ]] && target=check
+		[[ $DRY_RUN == $YES ]] || make $target || return 1
+#	fi
 }
 
 # Main {{{1
@@ -210,25 +213,25 @@ run_tests() {
 
 read_args "$@"
 
-# Check
-if [[ $CHECK == yes ]] ; then
-	echo "Checking package..."
-	make check || exit 1
-fi
+## Check
+#if [[ $CHECK == yes ]] ; then
+#	echo "Checking package..."
+#	make check || exit 1
+#fi
 
 # Test
-if [[ -n $MODE ]] ; then
+#if [[ -n $MODE ]] ; then
 
-	[[ $MODE == online || $MODE == offline ]] || error "MODE env var must be set either to online or offline."
+#	[[ $MODE == online || $MODE == offline ]] || error "MODE env var must be set either to online or offline."
 
 	[[ -n $DBS && -n $EXCLUDE_DBS ]] && error "Error, both DBS ($DBS) and EXCLUDE_DBS ($EXCLUDE_DBS) env vars are defined."
 
 	# Exclude out of order databases
-	[[ $MODE == offline ]] || exclude_dbs "$(get_ooo_dbs | tr ' ' ',')"
+	exclude_dbs "$(get_ooo_dbs | tr ' ' ',')"
 
 	# Exclude databases that have online tests turned off
-	[[ $MODE == offline ]] || exclude_dbs "$(get_dbs_with_online_tests_off | tr ' ' ',')"
+	exclude_dbs "$(get_dbs_with_online_tests_off | tr ' ' ',')"
 
 	# Run tests
 	run_tests || exit 1
-fi
+#fi

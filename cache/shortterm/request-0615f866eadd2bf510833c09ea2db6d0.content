@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:39424</chebiId><chebiAsciiName>heptafluorobutyric anhydride</chebiAsciiName><definition>An acyclic carboxylic anhydride that is perfluorinated butyric anhydride. It is used as a derivatising reagent for gas chromatographic analyses.</definition><status>CHECKED</status><smiles>FC(F)(F)C(F)(F)C(F)(F)C(=O)OC(=O)C(F)(F)C(F)(F)C(F)(F)F</smiles><inchi>InChI=1S/C8F14O3/c9-3(10,5(13,14)7(17,18)19)1(23)25-2(24)4(11,12)6(15,16)8(20,21)22</inchi><inchiKey>UFFSXJKVKBQEHC-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.06144</mass><monoisotopicMass>409.96239</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>HFBA</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>heptafluorobutanoic anhydride</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C8F14O3</data><source>ChEBI</source></Formulae><RegistryNumbers><data>336-59-4</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>856036</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  10090714452D          
+
+ 25 24  0  0  0  0            999 V2000
+   -4.2995   -2.9301    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4416   -2.9301    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4416   -2.1051    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7271   -3.3426    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0126   -2.9301    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0126   -2.1051    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8452   -2.9301    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5850   -4.1676    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1308   -4.1676    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5850   -3.3426    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   -4.2995   -3.7551    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1308   -3.3426    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+    2.8452   -3.7551    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.4580   -2.2156    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8705   -2.9301    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   -3.2830   -2.2156    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8288   -2.2156    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2893   -4.0571    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7018   -3.3426    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+    1.1143   -4.0571    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.7436   -4.0571    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1561   -3.3426    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   -2.5686   -4.0571    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4163   -2.9301    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+    1.0038   -2.2156    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+  1 10  1  0  0  0  0
+ 10 15  1  0  0  0  0
+ 15 22  1  0  0  0  0
+ 22  2  1  0  0  0  0
+  2  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  5 19  1  0  0  0  0
+ 19 24  1  0  0  0  0
+  2  3  2  0  0  0  0
+  5  6  2  0  0  0  0
+ 24 12  1  0  0  0  0
+ 12  7  1  0  0  0  0
+ 10  8  1  0  0  0  0
+ 12  9  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 15 14  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 24 17  1  0  0  0  0
+ 19 18  1  0  0  0  0
+ 19 20  1  0  0  0  0
+ 22 21  1  0  0  0  0
+ 22 23  1  0  0  0  0
+ 24 25  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>acyclic carboxylic anhydride</chebiName><chebiId>CHEBI:36631</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>chromatographic reagent</chebiName><chebiId>CHEBI:59745</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>organofluorine compound</chebiName><chebiId>CHEBI:37143</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>butyric acid</chebiName><chebiId>CHEBI:30772</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

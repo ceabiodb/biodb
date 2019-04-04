@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:7554</chebiId><chebiAsciiName>nicosulfuron</chebiAsciiName><definition>A N-sulfonylurea that is 2-(carbamoylsulfamoyl)-N,N-dimethylpyridine-3-carboxamide substituted by a 4,6-dimethoxypyrimidin-2-yl group at the amino nitrogen.</definition><status>CHECKED</status><smiles>COc1cc(OC)nc(NC(=O)NS(=O)(=O)c2ncccc2C(=O)N(C)C)n1</smiles><inchi>InChI=1S/C15H18N6O6S/c1-21(2)13(22)9-6-5-7-16-12(9)28(24,25)20-15(23)19-14-17-10(26-3)8-11(18-14)27-4/h5-8H,1-4H3,(H2,17,18,19,20,23)</inchi><inchiKey>RTCOGUMHFFWOJV-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.40500</mass><monoisotopicMass>410.10085</monoisotopicMass><entityStar>3</entityStar><IupacNames><data>2-{[(4,6-dimethoxypyrimidin-2-yl)carbamoyl]sulfamoyl}-N,N-dimethylpyridine-3-carboxamide</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C15H18N6O6S</data><source>ChEBI</source></Formulae><RegistryNumbers><data>111991-09-4</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><RegistryNumbers><data>111991-09-4</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>7233432</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>25165819</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>25272750</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>25338136</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Mrv0541 11061409482D          
+ 
+ 28 29  0  0  0  0            999 V2000
+   15.7427  -10.9244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7427  -11.7551    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0366  -12.1705    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3305  -11.7551    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3305  -10.9244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0366  -10.5090    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   20.7688   -9.6783    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.7688  -10.5090    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.0626  -10.9244    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   20.0626   -9.2629    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3565   -9.6783    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3565  -10.5090    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6088  -10.9244    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   17.9027  -10.5090    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   17.9442   -9.6367    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6088   -9.2629    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6088   -8.4321    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3150   -8.0167    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.9027   -8.0167    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2319  -11.5890    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   18.0688  -11.6721    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   17.1966  -10.9244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4904  -10.5090    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   13.6243  -10.5090    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.8766  -10.9244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0366  -13.0013    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3305  -13.3751    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.1966  -11.7551    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+ 11 12  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 16 11  1  0  0  0  0
+  3  4  2  0  0  0  0
+ 16 17  1  0  0  0  0
+  7  8  2  0  0  0  0
+ 17 18  1  0  0  0  0
+  8  9  1  0  0  0  0
+ 17 19  1  0  0  0  0
+  9 12  2  0  0  0  0
+ 13 20  2  0  0  0  0
+ 11 10  2  0  0  0  0
+ 13 21  2  0  0  0  0
+ 10  7  1  0  0  0  0
+ 14 22  1  0  0  0  0
+  4  5  1  0  0  0  0
+ 22 23  1  0  0  0  0
+ 23  1  1  0  0  0  0
+  5  6  2  0  0  0  0
+  5 24  1  0  0  0  0
+  6  1  1  0  0  0  0
+ 24 25  1  0  0  0  0
+  3 26  1  0  0  0  0
+  1  2  2  0  0  0  0
+ 26 27  1  0  0  0  0
+  2  3  1  0  0  0  0
+ 22 28  2  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>484</data><type>PPDB accession</type></DatabaseLinks><DatabaseLinks><data>C10949</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>nicosulfuron</data><type>Pesticides accession</type></DatabaseLinks><OntologyParents><chebiName>N-sulfonylurea</chebiName><chebiId>CHEBI:76983</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>pyrimidines</chebiName><chebiId>CHEBI:39447</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>herbicide</chebiName><chebiId>CHEBI:24527</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>xenobiotic</chebiName><chebiId>CHEBI:35703</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>environmental contaminant</chebiName><chebiId>CHEBI:78298</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>pyridines</chebiName><chebiId>CHEBI:26421</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><GeneralComments><text>Stravs M, Schymanski E, Singer H, Department of Environmental Chemistry, Eawag</text><date>2014-10-29</date></GeneralComments></return></getCompleteEntityResponse></S:Body></S:Envelope>

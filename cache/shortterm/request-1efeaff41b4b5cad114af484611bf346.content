@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:66654</chebiId><chebiAsciiName>(+)-makassaric acid</chebiAsciiName><definition>A meroterpenoid isolated from the marine sponge Acanthodendrilla sp. It exhibits inhibitory activity against the enzyme mitogen-activated protein kinase-activated protein kinase 2 (EC 2.7.11.1).</definition><status>CHECKED</status><smiles>[H][C@@]12CC[C@@]3(C)[C@H](Cc4cc(ccc4O)C(O)=O)C(C)=CC[C@]3([H])[C@@]1(C)CCCC2(C)C</smiles><inchi>InChI=1S/C27H38O3/c1-17-7-10-23-26(4,14-11-22-25(2,3)12-6-13-27(22,23)5)20(17)16-19-15-18(24(29)30)8-9-21(19)28/h7-9,15,20,22-23,28H,6,10-14,16H2,1-5H3,(H,29,30)/t20-,22+,23+,26+,27+/m1/s1</inchi><inchiKey>VIOMEESUKISOEL-XDEZJFBHSA-N</inchiKey><charge>0</charge><mass>410.58880</mass><monoisotopicMass>410.28210</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>4-hydroxy-3-{[(1R,4aR,4bS,8aS,10aS)-2,4b,8,8,10a-pentamethyl-1,4,4a,4b,5,6,7,8,8a,9,10,10a-dodecahydrophenanthren-1-yl]methyl}benzoic acid</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><IupacNames><data>3-{[(14beta)-8,13-dimethylpodocarp-12-en-14-yl]methyl}-4-hydroxybenzoic acid</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C27H38O3</data><source>ChEBI</source></Formulae><RegistryNumbers><data>11308967</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>15620270</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  10181209222D          
+
+ 32 35  0  0  0  0            999 V2000
+   -3.3650  -17.6634    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.7737  -16.9503    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.1869  -17.6608    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.4826  -15.7161    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.4826  -16.5417    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.7700  -15.2991    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0574  -15.7161    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -3.0564  -16.5417    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -2.3448  -16.9513    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6297  -16.5398    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3469  -15.3001    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -1.6328  -15.7126    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -0.9224  -15.3027    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -0.9199  -14.4786    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6340  -14.0660    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3507  -14.4777    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0648  -14.8905    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.0606  -17.3631    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3518  -16.1247    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9215  -16.1247    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.2081  -15.7167    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5076  -15.3051    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.2042  -14.0669    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2204  -15.7202    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9357  -15.3092    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9375  -14.4828    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2181  -14.0688    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5059  -14.4822    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2165  -13.2432    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9308  -12.8291    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5008  -12.8318    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2181  -16.5458    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+ 13 14  1  0  0  0  0
+ 14 15  2  0  0  0  0
+ 15 16  1  0  0  0  0
+  7 17  1  1  0  0  0
+  2  1  1  0  0  0  0
+  8 18  1  6  0  0  0
+  3  2  1  0  0  0  0
+ 11 19  1  6  0  0  0
+  7 11  1  0  0  0  0
+ 12 20  1  1  0  0  0
+  8  9  1  0  0  0  0
+ 13 21  1  1  0  0  0
+  9 10  1  0  0  0  0
+ 21 22  1  0  0  0  0
+ 10 12  1  0  0  0  0
+ 14 23  1  0  0  0  0
+ 11 12  1  0  0  0  0
+ 22 24  2  0  0  0  0
+  4  6  1  0  0  0  0
+ 24 25  1  0  0  0  0
+  5  2  1  0  0  0  0
+ 25 26  2  0  0  0  0
+  2  8  1  0  0  0  0
+ 26 27  1  0  0  0  0
+  7  6  1  0  0  0  0
+ 27 28  2  0  0  0  0
+ 28 22  1  0  0  0  0
+  7  8  1  0  0  0  0
+ 27 29  1  0  0  0  0
+  4  5  1  0  0  0  0
+ 29 30  1  0  0  0  0
+ 11 16  1  0  0  0  0
+ 29 31  2  0  0  0  0
+ 12 13  1  0  0  0  0
+ 24 32  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>monohydroxybenzoic acid</chebiName><chebiId>CHEBI:25389</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>meroterpenoid</chebiName><chebiId>CHEBI:64419</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>protein kinase inhibitor</chebiName><chebiId>CHEBI:37699</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>carbotricyclic compound</chebiName><chebiId>CHEBI:38032</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Acanthodendrilla</speciesText><speciesAccession>NCBI:558782</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>15620270</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

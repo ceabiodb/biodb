@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-US" prefix="bioschema: http://bioschemas.org/">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"><!-- automatically added by Apache -->
+<script type="application/ld+json">{
+		"@context" : [ "https://schema.org/" ],
+		"@type" : "Organization",
+		"url" : "https://enzyme.expasy.org",
+  		"name": "ENZYME"
+		, "logo": "https://enzyme.expasy.org//images/expasy_logos/sprot1.gif"
+		, "memberof" : {
+				"@type" : "NGO",
+				"name"  : "SIB Swiss Institute of Bioinformatics",
+				"url"   : "https://sib.swiss/"
+			        }
+		, "parentOrganization" : 
+				{
+				"@type" : "Organization",
+                                "name"  : "ExPASy",
+                                "url"   : "https://www.expasy.org/"
+				}
+		}</script><!-- automatically added by Apache -->
+    <link rel="icon" href="https://web.expasy.org/favicon.ico" ><!-- automatically added by Apache -->
+    <link rel="stylesheet" href="/css/sib_css/sib.css" type="text/css" media="screen" charset="utf-8" >
+	   <link rel="stylesheet" href="/css/sib_css/sib_print.css" type="text/css" media="print" charset="utf-8" >
+           <!--[if lte IE 6]>
+	   <link rel="stylesheet" href="/css/sib_css/sib_ie6.css" type="text/css" media="screen" title="" charset="utf-8">
+           <![endif]-->
+           <link rel="stylesheet" href="/css/base.css" type="text/css"><!-- automatically added by Apache -->
+<link rel="stylesheet" href="/css/enzyme.css" type="text/css"><title>ENZYME search by name</title>
+  </head>
+  <body  typeof="schema:WebPage"> 
+<!-- ********************************************************************************************** -->
+<!-- START OF HEADER information on top of the page -->
+<div id='sib_top'><a name='TOP'></a></div>
+<div id='sib_container'>
+
+<!-- TODO: Change id to "sib_header" or "sib_header_small" -->
+<div id='sib_header_small'>
+
+<!-- SIB-ExPASy -->
+<div id="sib_expasy_logo" property="schema:isPartOf" typeof="schema:CreativeWork" >
+<a href="https://sib.swiss/" id="sib_link" title="SIB Swiss Institute of Bioinformatics"></a>
+<a property="schema:url" href="https://www.expasy.org" id="expasy_link" title="ExPASy - SIB Bioinformatics Resource Portal"></a>
+</div>
+<!-- SIB-ExPASy END -->
+
+<div class='sib_title_no_logo'>
+<h1><a href='https://enzyme.expasy.org'>ENZYME</a></h1>
+</div>
+
+<! -- Additionnal resource header -->
+<div id='resource_header'></div>
+	<div id='sib_header_nav'>
+		<a property="" href="https://enzyme.expasy.org" title="Home page">Home</a>
+		&nbsp;|&nbsp;
+		<a style="font-weight: bold; color: rgb(204,0,0) !important;" href="/contact" title="Contact">Contact</a>
+	</div>
+</div>
+<!-- END OF HEADER -->
+<!-- ********************************************************************************************** -->
+<div id='sib_body'>
+<!-- automatically added by Apache -->
+<p><font color=red><b>A new class EC 7, Translocases, has been added to the EC list. It will be part of ENZYME from release 2018_10. Read more about EC 7 <a href="http://www.enzyme-database.org/news.php">here</a>.</b></font></p><H2>Search in ENZYME for: ALCOHOL </H2>
+<H3>Release of 13-Feb-19
+</H3>
+Please choose one of the following entries:<PRE>
+<A HREF= "/EC/1.1.1.1">1.1.1.1</A>      Alcohol dehydrogenase. 
+             (AN: Aldehyde reductase.)
+
+<A HREF= "/EC/1.1.1.2">1.1.1.2</A>      Alcohol dehydrogenase (NADP(+)). 
+             (AN: Aldehyde reductase (NADPH).)
+
+<A HREF= "/EC/1.1.1.54">1.1.1.54</A>     Allyl-alcohol dehydrogenase. 
+
+<A HREF= "/EC/1.1.1.71">1.1.1.71</A>     Alcohol dehydrogenase (NAD(P)(+)). 
+             (AN: Retinal reductase.)
+
+<A HREF= "/EC/1.1.1.90">1.1.1.90</A>     Aryl-alcohol dehydrogenase. 
+             (AN: Benzyl alcohol dehydrogenase.
+                  p-hydroxybenzyl alcohol dehydrogenase.)
+
+<A HREF= "/EC/1.1.1.91">1.1.1.91</A>     Aryl-alcohol dehydrogenase (NADP(+)). 
+
+<A HREF= "/EC/1.1.1.97">1.1.1.97</A>     3-hydroxybenzyl-alcohol dehydrogenase. 
+             (AN: m-hydroxybenzyl alcohol dehydrogenase.)
+
+<A HREF= "/EC/1.1.1.144">1.1.1.144</A>    Perillyl-alcohol dehydrogenase. 
+
+<A HREF= "/EC/1.1.1.192">1.1.1.192</A>    Long-chain-alcohol dehydrogenase. 
+             (AN: Fatty alcohol oxidoreductase.)
+
+<A HREF= "/EC/1.1.1.194">1.1.1.194</A>    Coniferyl-alcohol dehydrogenase. 
+
+<A HREF= "/EC/1.1.1.195">1.1.1.195</A>    Cinnamyl-alcohol dehydrogenase. 
+             (AN: CAD.)
+
+<A HREF= "/EC/1.1.1.284">1.1.1.284</A>    S-(hydroxymethyl)glutathione dehydrogenase. 
+             (AN: ADH3.
+                  Chi-ADH.
+                  Class III alcohol dehydrogenase.
+                  FDH.
+                  Formaldehyde dehydrogenase.
+                  Formaldehyde dehydrogenase (glutathione).
+                  Formic dehydrogenase.
+                  GD-FALDH.
+                  Glutathione-dependent formaldehyde dehydrogenase.
+                  GS-FDH.
+                  NAD- and glutathione-dependent formaldehyde dehydrogenase.
+                  NAD-dependent formaldehyde dehydrogenase.
+                  NAD-linked formaldehyde dehydrogenase.)
+
+<A HREF= "/EC/1.1.1.314">1.1.1.314</A>    Germacrene A alcohol dehydrogenase. 
+
+<A HREF= "/EC/1.1.2.6">1.1.2.6</A>      Polyvinyl alcohol dehydrogenase (cytochrome). 
+             (AN: PVA dehydrogenase.
+                  PVADH.)
+
+<A HREF= "/EC/1.1.2.8">1.1.2.8</A>      Alcohol dehydrogenase (cytochrome c). 
+
+<A HREF= "/EC/1.1.3.7">1.1.3.7</A>      Aryl-alcohol oxidase. 
+             (AN: Veratryl alcohol oxidase.)
+
+<A HREF= "/EC/1.1.3.13">1.1.3.13</A>     Alcohol oxidase. 
+             (AN: AOX.
+                  Methanol oxidase.)
+
+<A HREF= "/EC/1.1.3.18">1.1.3.18</A>     Secondary-alcohol oxidase. 
+
+<A HREF= "/EC/1.1.3.20">1.1.3.20</A>     Long-chain-alcohol oxidase. 
+
+<A HREF= "/EC/1.1.3.30">1.1.3.30</A>     Polyvinyl-alcohol oxidase. 
+             (AN: PVA oxidase.)
+
+<A HREF= "/EC/1.1.3.38">1.1.3.38</A>     Vanillyl-alcohol oxidase. 
+             (AN: 4-hydroxy-2-methoxybenzyl alcohol oxidase.)
+
+<A HREF= "/EC/1.1.5.5">1.1.5.5</A>      Alcohol dehydrogenase (quinone). 
+             (AN: PQQ alcohol dehydrogenase.
+                  PQQ-dependent ADH.
+                  PQQ-dependent alcohol dehydrogenase.
+                  Pyrroloquinoline quinone-dependent alcohol dehydrogenase.
+                  Quinoprotein ADH.
+                  Quinoprotein alcohol dehydrogenase.
+                  Type III ADH.)
+
+<A HREF= "/EC/1.1.5.7">1.1.5.7</A>      Cyclic alcohol dehydrogenase (quinone). 
+             (AN: Cyclic alcohol dehydrogenase.
+                  MCAD.)
+
+<A HREF= "/EC/1.1.9.1">1.1.9.1</A>      Alcohol dehydrogenase (azurin). 
+             (AN: QHEDH.)
+
+<A HREF= "/EC/1.1.98.5">1.1.98.5</A>     Secondary-alcohol dehydrogenase (coenzyme-F420). 
+             (AN: F420-dependent alcohol dehydrogenase.
+                  F420-dependent secondary alcohol dehydrogenase.)
+
+<A HREF= "/EC/1.1.99.36">1.1.99.36</A>    Alcohol dehydrogenase (nicotinoprotein). 
+             (AN: NDMA-dependent alcohol dehydrogenase.
+                  Nicotinoprotein alcohol dehydrogenase.)
+
+<A HREF= "/EC/1.2.1.84">1.2.1.84</A>     Alcohol-forming fatty acyl-CoA reductase. 
+
+<A HREF= "/EC/1.14.13.229">1.14.13.229</A>  Tert-butanol monooxygenase. 
+             (AN: Tert-butyl alcohol monooxygenase.)
+
+<A HREF= "/EC/1.14.19.48">1.14.19.48</A>   Tert-amyl alcohol desaturase. 
+
+<A HREF= "/EC/2.3.1.75">2.3.1.75</A>     Long-chain-alcohol O-fatty-acyltransferase. 
+             (AN: Wax synthase.)
+
+<A HREF= "/EC/2.3.1.84">2.3.1.84</A>     Alcohol O-acetyltransferase. 
+             (AN: AATASE.)
+
+<A HREF= "/EC/2.3.1.152">2.3.1.152</A>    Alcohol O-cinnamoyltransferase. 
+
+<A HREF= "/EC/2.3.1.196">2.3.1.196</A>    Benzyl alcohol O-benzoyltransferase. 
+
+<A HREF= "/EC/2.3.1.224">2.3.1.224</A>    Acetyl-CoA-benzylalcohol acetyltransferase. 
+
+<A HREF= "/EC/2.4.1.111">2.4.1.111</A>    Coniferyl-alcohol glucosyltransferase. 
+
+<A HREF= "/EC/2.4.1.172">2.4.1.172</A>    Salicyl-alcohol beta-D-glucosyltransferase. 
+
+<A HREF= "/EC/2.7.1.66">2.7.1.66</A>     Undecaprenol kinase. 
+             (AN: C(55)-isoprenoid alcohol kinase.
+                  Isoprenoid-alcohol kinase.)
+
+<A HREF= "/EC/2.7.8.13">2.7.8.13</A>     Phospho-N-acetylmuramoyl-pentapeptide-transferase. 
+             (AN: MraY transferase.
+                  Phospho-MurNAc-pentapeptide transferase.
+                  Phospho-N-acetylmuramoyl pentapeptide translocase.
+                  Phospho-NAc-muramoyl-pentapeptide translocase (UMP).
+                  Phosphoacetylmuramoylpentapeptide translocase.
+                  Phosphoacetylmuramoylpentapeptidetransferase.
+                  UDP-MurNAc-Ala-gamma-DGlu-Lys-DAla-DAla:undecaprenylphosphate
+                  transferase.
+                  UDP-MurNAc-L-Ala-D-gamma-Glu-L-Lys-D-Ala-D-Ala:C(55)-isoprenoid alcohol
+                  transferase.
+                  UDP-MurNAc-pentapeptide phosphotransferase.)
+
+<A HREF= "/EC/2.8.2.2">2.8.2.2</A>      Alcohol sulfotransferase. 
+             (AN: Hydroxysteroid sulfotransferase.)
+
+<A HREF= "/EC/3.6.1.53">3.6.1.53</A>     Mn(2+)-dependent ADP-ribose/CDP-alcohol diphosphatase. 
+             (AN: ADPRibase-Mn.
+                  Mn(2+)-dependent ADP-ribose/CDP-alcohol pyrophosphatase.)
+
+<A HREF= "/EC/4.2.3.2">4.2.3.2</A>      Ethanolamine-phosphate phospho-lyase. 
+             (AN: Amino alcohol O-phosphate phospholyase.
+                  O-phosphoethanolamine-phospholyase.
+                  O-phosphorylethanol-amine phospho-lyase.)
+
+</PRE>
+<!-- sib_body -->
+<br clear="left" />
+</div>
+<!-- ********************************************************************************************** -->
+<!-- START OF FOOTER information at the bottom of the page -->
+<div id = 'sib_footer'>			
+  <!-- This part of the footer is _left_ justified and should contain SIB on the very left -->	
+  <div id = 'sib_footer_content' property="schema:creator" typeof="schema:NGO">
+    <a property="schema:url" href="https://sib.swiss/" ><span property="schema:name">SIB Swiss Institute of Bioinformatics</span></a>&nbsp;|&nbsp;<a href = "https://www.expasy.org/disclaimer.html">Disclaimer</a>
+	<!-- This part of the footer is _right_ justified -->
+	<div id = "sib_footer_right">	
+      <a href="#TOP" id = "sib_footer_gototop"><span style = "padding-left: 10px">Back to the Top</span></a>				
+    </div>
+  </div>
+</div>
+<!-- END OF FOOTER -->
+</div> 
+<!-- sib_container -->
+
+<script async="async" src='https://www.google-analytics.com/analytics.js' type="text/javascript"></script>
+<script type="text/javascript"/>
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-23624944-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<!-- automatically added by Apache -->
+
+    </body>
+</html>

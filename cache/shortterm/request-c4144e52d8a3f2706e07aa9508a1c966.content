@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:105462</chebiId><chebiAsciiName>N-[3-(4-methyl-1-piperidinyl)-1,4-dioxo-2-naphthalenyl]benzenesulfonamide</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CC1CCN(CC1)C2=C(C(=O)C3=CC=CC=C3C2=O)NS(=O)(=O)C4=CC=CC=C4</smiles><inchi>InChI=1S/C22H22N2O4S/c1-15-11-13-24(14-12-15)20-19(23-29(27,28)16-7-3-2-4-8-16)21(25)17-9-5-6-10-18(17)22(20)26/h2-10,15,23H,11-14H2,1H3</inchi><inchiKey>UFLHDBCVXZGJMP-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.488</mass><monoisotopicMass>410.13003</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C22H22N2O4S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162329
+null
+ 29 32  0  0  0  0  0  0  0  0999 V2000
+   -2.1434   -2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -1.6500    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    0.8250    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -2.4750    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.8250    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8250    0.8250    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.8250    0.8250    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    3.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    2.0625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  2  1  0  0  0  0 
+  5  8  1  0  0  0  0 
+  8  9  2  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10 11  2  0  0  0  0 
+ 10 12  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+ 13 14  1  0  0  0  0 
+ 14 15  2  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  2  0  0  0  0 
+ 17 12  1  0  0  0  0 
+ 17 18  1  0  0  0  0 
+ 18  8  1  0  0  0  0 
+ 18 19  2  0  0  0  0 
+  9 20  1  0  0  0  0 
+ 20 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 21 23  2  0  0  0  0 
+ 21 24  1  0  0  0  0 
+ 24 25  2  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  2  0  0  0  0 
+ 27 28  1  0  0  0  0 
+ 28 29  2  0  0  0  0 
+ 29 24  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-16825</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>1,4-naphthoquinones</chebiName><chebiId>CHEBI:132142</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>sulfonamide</chebiName><chebiId>CHEBI:35358</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>piperidines</chebiName><chebiId>CHEBI:26151</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

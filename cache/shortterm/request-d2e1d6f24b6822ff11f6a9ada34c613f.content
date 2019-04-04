@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:80097</chebiId><chebiAsciiName>5-Dehydroavenasterol</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C\C=C(\CC[C@@H](C)C1CCC2C3=CC=C4C[C@@H](O)CC[C@]4(C)C3CC[C@]12C)C(C)C</smiles><inchi>InChI=1S/C29H46O/c1-7-21(19(2)3)9-8-20(4)25-12-13-26-24-11-10-22-18-23(30)14-16-28(22,5)27(24)15-17-29(25,26)6/h7,10-11,19-20,23,25-27,30H,8-9,12-18H2,1-6H3/b21-7-/t20-,23+,25?,26?,27?,28+,29-/m1/s1</inchi><inchiKey>XPRWWANUPMYKMF-UUHDPGOWSA-N</inchiKey><charge>0</charge><mass>410.67490</mass><monoisotopicMass>410.35487</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C29H46O</data><source>ChEBI</source></Formulae><ChemicalStructures><structure> 
+ 
+ 
+ 30 33  0  0  1  0  0  0  0  0999 V2000
+   20.4947  -23.0148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.4947  -24.3868    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   21.6900  -25.0693    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   21.6900  -22.3254    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.8711  -23.0148    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   22.8650  -24.3868    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   24.0473  -25.0743    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   25.2427  -24.3971    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.0593  -22.3306    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   25.2428  -23.0282    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   25.2656  -20.2915    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   24.0707  -20.9622    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   26.4420  -20.9820    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   26.4253  -22.3460    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   28.8592  -22.3051    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   28.8060  -21.0110    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   27.6360  -20.3181    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   27.6527  -18.9461    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   28.8318  -18.2518    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   30.0209  -18.9343    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.2029  -18.2447    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   32.3848  -18.9272    0.0000 C   0  0  3  0  0  0  0  0  0  0  0  0
+   33.5737  -18.2378    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   32.3879  -20.2992    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.1998  -16.8728    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   32.3835  -16.1806    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3097  -25.0699    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.8586  -21.6429    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   26.4327  -19.6097    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   26.4539  -18.2518    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  6  7  2  0     0  0
+  7  8  1  0     0  0
+ 13 14  1  0     0  0
+ 15 16  1  0     0  0
+ 16 17  1  0     0  0
+ 17 13  1  0     0  0
+ 14 15  1  0     0  0
+  8 10  2  0     0  0
+ 17 18  1  0     0  0
+  9  5  1  0     0  0
+ 18 19  1  0     0  0
+  5  4  1  0     0  0
+ 19 20  1  0     0  0
+  4  1  1  0     0  0
+ 20 21  1  0     0  0
+ 21 22  1  0     0  0
+  1  2  1  0     0  0
+ 22 23  1  0     0  0
+  9 10  1  0     0  0
+ 22 24  1  0     0  0
+ 10 14  1  0     0  0
+ 21 25  2  0     0  0
+ 13 11  1  0     0  0
+ 25 26  1  0     0  0
+ 11 12  1  0     0  0
+ 12  9  1  0     0  0
+  2 27  1  1     0  0
+  2  3  1  0     0  0
+  5 28  1  1     0  0
+  3  6  1  0     0  0
+ 13 29  1  1     0  0
+  5  6  1  0     0  0
+ 18 30  1  6     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00007527</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C15783</data><type>KEGG COMPOUND accession</type></DatabaseLinks><OntologyParents><chebiName>stigmastane</chebiName><chebiId>CHEBI:26773</chebiId><type>has parent hydride</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>steroid</chebiName><chebiId>CHEBI:35341</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>19425150</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

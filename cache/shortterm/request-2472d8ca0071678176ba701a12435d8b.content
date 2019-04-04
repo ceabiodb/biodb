@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:98242</chebiId><chebiAsciiName>2-cyclopropyl-N-[(2S,3S,6R)-2-(hydroxymethyl)-6-[2-[(4-methylphenyl)sulfonylamino]ethyl]oxan-3-yl]acetamide</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CC1=CC=C(C=C1)S(=O)(=O)NCC[C@H]2CC[C@@H]([C@H](O2)CO)NC(=O)CC3CC3</smiles><inchi>InChI=1S/C20H30N2O5S/c1-14-2-7-17(8-3-14)28(25,26)21-11-10-16-6-9-18(19(13-23)27-16)22-20(24)12-15-4-5-15/h2-3,7-8,15-16,18-19,21,23H,4-6,9-13H2,1H3,(H,22,24)/t16-,18+,19-/m1/s1</inchi><inchiKey>VPHPWASIVZFRRJ-NZSAHSFTSA-N</inchiKey><charge>0</charge><mass>410.529</mass><monoisotopicMass>410.18754</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C20H30N2O5S</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162245
+null
+ 28 30  0  0  0  0  0  0  0  0999 V2000
+   -6.0177    6.0770    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.3033    6.4895    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.3033    7.3145    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.5888    7.7270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8743    7.3145    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.8743    6.4895    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.5888    6.0770    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.1599    7.7270    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.7474    7.0125    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5724    8.4414    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.4454    8.1395    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.7309    7.7270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0164    8.1395    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3020    7.7270    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.4125    8.1395    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1270    7.7270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1270    6.9020    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.4125    6.4895    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -0.3020    6.9020    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4125    5.6645    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3020    5.2520    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8414    6.4895    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8414    5.6645    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1270    5.2520    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5559    5.2520    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5559    4.4270    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9684    3.7125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434    3.7125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  2  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  2  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  2  0  0  0  0 
+  7  2  1  0  0  0  0 
+  5  8  1  0  0  0  0 
+  8  9  2  0  0  0  0 
+  8 10  2  0  0  0  0 
+  8 11  1  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 14 13  1  1  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 18  1  0  0  0  0 
+ 18 19  1  0  0  0  0 
+ 19 14  1  0  0  0  0 
+ 18 20  1  1  0  0  0 
+ 20 21  1  0  0  0  0 
+ 17 22  1  6  0  0  0 
+ 22 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 23 25  1  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 28  1  0  0  0  0 
+ 28 26  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-9621</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>C-glycosyl compound</chebiName><chebiId>CHEBI:20857</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

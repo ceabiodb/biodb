@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:65641</chebiId><chebiAsciiName>Cleistanone(rac)</chebiAsciiName><definition>A natural product found in Cleistanthus collinus.</definition><status>OK - Preliminary</status><smiles>COC1OC(=O)c2c1c(O)c1cc(OC)c(OC)cc1c2-c1ccc2OCOc2c1</smiles><inchi>InChI=1S/C22H18O8/c1-25-14-7-11-12(8-15(14)26-2)20(23)19-18(21(24)30-22(19)27-3)17(11)10-4-5-13-16(6-10)29-9-28-13/h4-8,22-23H,9H2,1-3H3</inchi><inchiKey>XURLTFUKDPZAPN-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.37350</mass><monoisotopicMass>410.10017</monoisotopicMass><entityStar>2</entityStar><Synonyms><data>rac-1-hydroxy-2a-methoxy-2-(-hydroxymethyl)-6,7-dimethoxy-4-(3,4-methylenedioxy-phenyl)-3-naphthoic acid-gamma-lactone</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Formulae><data>C22H18O8</data><source>ChEBI</source></Formulae><Citations><data>14600376</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  CDK    7/27/12,16:42
+
+ 30 34  0  0  0  0  0  0  0  0999 V2000
+   12.5826   -7.0327    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5814   -7.8568    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2909   -8.2681    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2892   -6.6255    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0031   -7.0293    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0038   -7.8528    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7137   -8.2623    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7083   -6.6168    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4227   -7.0227    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4300   -7.8463    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.2136   -8.0936    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.6923   -7.4233    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.2018   -6.7617    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7147   -9.1118    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9738   -9.5399    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9757  -10.3965    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4540   -9.5338    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4594  -10.3850    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7184  -10.8221    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.9013  -11.6603    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7586  -11.7446    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.1020  -10.9560    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8421   -6.6062    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.8407   -8.2830    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1017   -7.0331    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1006   -7.8557    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7040   -5.7634    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4579   -5.9457    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   17.2919   -5.7612    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4841   -8.9048    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  6  7  1  0  0  0  0 
+ 14 15  2  0  0  0  0 
+  7 10  2  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 19  2  0  0  0  0 
+  1  2  2  0  0  0  0 
+ 18 17  2  0  0  0  0 
+ 17 14  1  0  0  0  0 
+  7 14  1  0  0  0  0 
+ 18 19  1  0  0  0  0 
+  9  8  2  0  0  0  0 
+  8  5  1  0  0  0  0 
+  9 10  1  0  0  0  0 
+  5  4  2  0  0  0  0 
+  4  1  1  0  0  0  0 
+ 19 20  1  0  0  0  0 
+ 20 21  1  0  0  0  0 
+ 21 22  1  0  0  0  0 
+ 22 18  1  0  0  0  0 
+  1 23  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  2 24  1  0  0  0  0 
+  5  6  1  0  0  0  0 
+ 23 25  1  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 24 26  1  0  0  0  0 
+ 11 12  1  0  0  0  0 
+  8 27  1  0  0  0  0 
+ 12 13  1  0  0  0  0 
+ 13 28  1  0  0  0  0 
+ 13  9  1  0  0  0  0 
+ 28 29  1  0  0  0  0 
+  3  6  2  0  0  0  0 
+ 11 30  2  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>lignan</chebiName><chebiId>CHEBI:25036</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><GeneralComments><text>Suggested Classification:  ISA:lignan(CHEBI:25036); ISA:lactone(CHEBI:25000); ISA:naphthofuran(CHEBI:39270); ISA:biphenyls(CHEBI:22888); ISA:naphthols(CHEBI:25392); ISA:hydroxybenzoic acid(CHEBI:24676); ISA:2-benzofurans(CHEBI:38831); ISA:benzodioxoles(CHEBI:38298); ISA:methoxybenzene(CHEBI:51683); ISA:phenols(CHEBI:33853); ISA:aromatic ether(CHEBI:35618); ISA:enol ether(CHEBI:47985); ISA:enone(CHEBI:51689); ISA:polyol(CHEBI:26191); ISA:carboxylic ester(CHEBI:33308); ISA:monocarboxylic acid(CHEBI:25384); ISA:acetal(CHEBI:59769); ISA:aromatic alcohol(CHEBI:33854); ISA:carbonyl compound(CHEBI:36586); ISA:organic anion(CHEBI:25696);</text><date>2014-10-17</date></GeneralComments><CompoundOrigins><speciesText>Cleistanthus collinus</speciesText><speciesAccession>NCBI:1357584</speciesAccession><componentText>aerial part</componentText><componentAccession>BTO:0001658</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>14600376</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

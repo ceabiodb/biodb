@@ -51,9 +51,9 @@ test.massbank.relative.intensity = function(conn, obs) {
 # Run Massbank tests {{{1
 ################################################################
 
-run.massbank.tests <- function(conn, mode, obs) {
+run.massbank.tests <- function(conn, obs) {
 	test.that('Relative intensity is parsed correctly.', 'test.massbank.relative.intensity', conn = conn, obs = obs)
-	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+	if (test.online()) {
 		test.that('MSMS search works for Massbank.', 'test.msmsSearch.massbank', conn = conn)
 		test.that('The computing of inchikey field in a Massbank entry does not loop indefinitely.', 'test.issue150.inchikey.computing.loop.in.massbank', conn = conn)
 	}

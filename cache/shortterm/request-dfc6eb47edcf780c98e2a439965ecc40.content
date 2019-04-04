@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:75412</chebiId><chebiAsciiName>2,3-dimethyl-6-geranylgeranyl-1,4-benzoquinol</chebiAsciiName><definition>A  polyprenylhydroquinone that is 2,3-dimethylbenzene-1,4-diol substituted by a geranylgeranyl group at position 6.</definition><status>CHECKED</status><smiles>CC(C)=CCC\C(C)=C\CC\C(C)=C\CC\C(C)=C\Cc1cc(O)c(C)c(C)c1O</smiles><inchi>InChI=1S/C28H42O2/c1-20(2)11-8-12-21(3)13-9-14-22(4)15-10-16-23(5)17-18-26-19-27(29)24(6)25(7)28(26)30/h11,13,15,17,19,29-30H,8-10,12,14,16,18H2,1-7H3/b21-13+,22-15+,23-17+</inchi><inchiKey>QFMVWSPTQOCGTB-TUZVQDLTSA-N</inchiKey><charge>0</charge><mass>410.63190</mass><monoisotopicMass>410.31848</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>6-geranylgeranyl-2,3-dimethylbenzene-1,4-diol</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Synonyms><data>DMGGBQ</data><type>SYNONYM</type><source>SUBMITTER</source></Synonyms><IupacNames><data>2,3-dimethyl-5-[(2E,6E,10E)-3,7,11,15-tetramethylhexadeca-2,6,10,14-tetraen-1-yl]benzene-1,4-diol</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C28H42O2</data><source>ChEBI</source></Formulae><RegistryNumbers><data>7598758</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>18844774</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>
+  Marvin  09111311372D          
+
+ 30 30  0  0  0  0            999 V2000
+   17.0019  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.2874  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.5729  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.8584  -18.5898    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.8584  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.1440  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4295  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.7150  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.0006  -18.5898    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.0006  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2861  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5716  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8571  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1427  -18.5898    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1427  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.4282  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.7137  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9993  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2848  -18.5898    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2848  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5703  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.7164  -19.4148    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.0019  -20.6523    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.7164  -21.0648    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.4308  -20.6523    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.4308  -19.8273    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.2874  -21.0648    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   19.1453  -19.4148    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   17.7164  -21.8898    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.1453  -21.0648    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  2  3  1  0  0  0  0
+  3  5  2  0  0  0  0
+  5  4  1  0  0  0  0
+  5  6  1  0  0  0  0
+  6  7  1  0  0  0  0
+  7  8  1  0  0  0  0
+  8 10  2  0  0  0  0
+ 10  9  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 11 12  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 13 15  2  0  0  0  0
+ 15 14  1  0  0  0  0
+ 15 16  1  0  0  0  0
+ 16 17  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 18 20  2  0  0  0  0
+ 20 19  1  0  0  0  0
+ 20 21  1  0  0  0  0
+ 22  1  1  0  0  0  0
+  1 23  2  0  0  0  0
+ 23 24  1  0  0  0  0
+ 24 25  2  0  0  0  0
+ 25 26  1  0  0  0  0
+ 22 26  2  0  0  0  0
+ 23 27  1  0  0  0  0
+ 26 28  1  0  0  0  0
+ 24 29  1  0  0  0  0
+ 25 30  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>hydroquinones</chebiName><chebiId>CHEBI:24646</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>polyprenylhydroquinone</chebiName><chebiId>CHEBI:26253</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:120577</chebiId><chebiAsciiName>2-naphthalenesulfonic acid [2-[(2-amino-4-oxo-5-thiazolylidene)methyl]phenyl] ester</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>C1=CC=C2C=C(C=CC2=C1)S(=O)(=O)OC3=CC=CC=C3C=C4C(=O)N=C(S4)N</smiles><inchi>InChI=1S/C20H14N2O4S2/c21-20-22-19(23)18(27-20)12-15-7-3-4-8-17(15)26-28(24,25)16-10-9-13-5-1-2-6-14(13)11-16/h1-12H,(H2,21,22,23)</inchi><inchiKey>WHHBIURMEKIKFL-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.469</mass><monoisotopicMass>410.03950</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C20H14N2O4S2</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0225161908
+null
+ 28 31  0  0  0  0  0  0  0  0999 V2000
+    0.7145   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434   -1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868    0.0000    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    4.6993   -0.7145    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8743    0.7145    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0013    0.4125    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0013    1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868    1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868    2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0013    2.8875    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7158    2.4750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7158    1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4302    1.2375    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1447    1.6500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2309    2.4705    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.6179    3.0225    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.0379    2.6420    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    8.4504    1.9275    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8984    1.3144    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    9.2709    1.8413    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  2  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  2  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  8  2  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9  4  1  0  0  0  0 
+  9 10  2  0  0  0  0 
+ 10  1  1  0  0  0  0 
+  6 11  1  0  0  0  0 
+ 11 12  2  0  0  0  0 
+ 11 13  2  0  0  0  0 
+ 11 14  1  0  0  0  0 
+ 14 15  1  0  0  0  0 
+ 15 16  2  0  0  0  0 
+ 16 17  1  0  0  0  0 
+ 17 18  2  0  0  0  0 
+ 18 19  1  0  0  0  0 
+ 19 20  2  0  0  0  0 
+ 20 15  1  0  0  0  0 
+ 21 20  1  4  0  0  0 
+ 21 22  2  0  0  0  0 
+ 22 23  1  0  0  0  0 
+ 23 24  2  0  0  0  0 
+ 23 25  1  0  0  0  0 
+ 25 26  2  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 22  1  0  0  0  0 
+ 26 28  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-32020</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>naphthalenesulfonic acid</chebiName><chebiId>CHEBI:36336</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

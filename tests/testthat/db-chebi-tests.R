@@ -27,8 +27,8 @@ test.chebi.ws.getLiteEntity <- function(conn) {
 # Run ChEBI tests {{{1
 ################################################################
 
-run.chebi.tests <- function(conn, mode, obs) {
-	if (mode %in% c(MODE.ONLINE, MODE.QUICK.ONLINE)) {
+run.chebi.tests <- function(conn, obs) {
+	if (test.online()) {
 		test.that('Web service getLiteEntity works fine.', 'test.chebi.ws.getLiteEntity', conn = conn)
 		test.that('ChEBI encoding issue in XML is handled.', 'test.chebi.encoding.issue.in.xml', conn = conn)
 	}

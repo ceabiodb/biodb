@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:78144</chebiId><chebiAsciiName>fatty alcohol 28:0</chebiAsciiName><definition>Any fatty alcohol containing 28 carbons.</definition><status>CHECKED</status><smiles>O[*]</smiles><charge>0</charge><mass>410.75950</mass><monoisotopicMass>410.44877</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>fatty alcohol 28:0</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Formulae><data>C28H58O</data><source>ChEBI</source></Formulae><ChemicalStructures><structure>
+  Mrv0541 06251410032D          
+
+  2  1  0  0  0  0            999 V2000
+   -3.1827    1.9155    0.0000 R   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.4683    1.5030    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>fatty alcohol</chebiName><chebiId>CHEBI:24026</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>octacosan-1-ol</chebiName><chebiId>CHEBI:28243</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:93831</chebiId><chebiAsciiName>benzoic acid [3-hydroxy-10-(hydroxymethyl)-13-methyl-2,3,4,7,8,9,11,12,14,15,16,17-dodecahydro-1H-cyclopenta[a]phenanthren-17-yl] ester</chebiAsciiName><definition></definition><status>OK - Preliminary</status><smiles>CC12CCC3C(C1CCC2OC(=O)C4=CC=CC=C4)CC=C5C3(CCC(C5)O)CO</smiles><inchi>InChI=1S/C26H34O4/c1-25-13-12-22-20(8-7-18-15-19(28)11-14-26(18,22)16-27)21(25)9-10-23(25)30-24(29)17-5-3-2-4-6-17/h2-7,19-23,27-28H,8-16H2,1H3</inchi><inchiKey>HPNPWGLKVZAMPM-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.547</mass><monoisotopicMass>410.24571</monoisotopicMass><entityStar>2</entityStar><Formulae><data>C26H34O4</data><source>LINCS</source></Formulae><ChemicalStructures><structure>null
+  CDK     0224162157
+null
+ 30 34  0  0  0  0  0  0  0  0999 V2000
+    4.3228   -0.9107    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9629   -0.1684    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4311   -0.7991    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6190   -0.6539    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3387    0.1221    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8705    0.7528    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6826    0.6076    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.3340    1.1139    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.0168    0.6509    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.7875   -0.1416    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2939   -0.7929    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1111   -0.6800    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4220    0.0841    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.6175   -1.3314    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4347   -1.2185    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9411   -1.8698    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6302   -2.6340    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.8129   -2.7469    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.3066   -2.0955    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5902    1.5287    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7781    1.6739    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2463    1.0432    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5266    0.2673    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9948   -0.3634    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1827   -0.2182    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0976    0.5577    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4342    1.1884    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.9098    0.7029    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8069   -0.5086    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2751   -1.1393    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0 
+  2  3  1  0  0  0  0 
+  3  4  1  0  0  0  0 
+  4  5  1  0  0  0  0 
+  5  6  1  0  0  0  0 
+  6  7  1  0  0  0  0 
+  7  2  1  0  0  0  0 
+  7  8  1  0  0  0  0 
+  8  9  1  0  0  0  0 
+  9 10  1  0  0  0  0 
+ 10  2  1  0  0  0  0 
+ 10 11  1  0  0  0  0 
+ 11 12  1  0  0  0  0 
+ 12 13  2  0  0  0  0 
+ 12 14  1  0  0  0  0 
+ 14 15  2  0  0  0  0 
+ 15 16  1  0  0  0  0 
+ 16 17  2  0  0  0  0 
+ 17 18  1  0  0  0  0 
+ 18 19  2  0  0  0  0 
+ 19 14  1  0  0  0  0 
+  6 20  1  0  0  0  0 
+ 20 21  1  0  0  0  0 
+ 21 22  2  0  0  0  0 
+ 22 23  1  0  0  0  0 
+ 23  5  1  0  0  0  0 
+ 23 24  1  0  0  0  0 
+ 24 25  1  0  0  0  0 
+ 25 26  1  0  0  0  0 
+ 26 27  1  0  0  0  0 
+ 27 22  1  0  0  0  0 
+ 26 28  1  0  0  0  0 
+ 23 29  1  0  0  0  0 
+ 29 30  1  0  0  0  0 
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>LSM-4376</data><type>LINCS accession</type></DatabaseLinks><OntologyParents><chebiName>steroid ester</chebiName><chebiId>CHEBI:47880</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

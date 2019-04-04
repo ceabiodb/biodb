@@ -1,0 +1,813 @@
+md:M00001	Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate
+md:M00002	Glycolysis, core module involving three-carbon compounds
+md:M00003	Gluconeogenesis, oxaloacetate => fructose-6P
+md:M00004	Pentose phosphate pathway (Pentose phosphate cycle)
+md:M00005	PRPP biosynthesis, ribose 5P => PRPP
+md:M00006	Pentose phosphate pathway, oxidative phase, glucose 6P => ribulose 5P
+md:M00007	Pentose phosphate pathway, non-oxidative phase, fructose 6P => ribose 5P
+md:M00008	Entner-Doudoroff pathway, glucose-6P => glyceraldehyde-3P + pyruvate
+md:M00009	Citrate cycle (TCA cycle, Krebs cycle)
+md:M00010	Citrate cycle, first carbon oxidation, oxaloacetate => 2-oxoglutarate
+md:M00011	Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+md:M00012	Glyoxylate cycle
+md:M00013	Malonate semialdehyde pathway, propanoyl-CoA => acetyl-CoA
+md:M00014	Glucuronate pathway (uronate pathway)
+md:M00015	Proline biosynthesis, glutamate => proline
+md:M00016	Lysine biosynthesis, succinyl-DAP pathway, aspartate => lysine
+md:M00017	Methionine biosynthesis, apartate => homoserine => methionine
+md:M00018	Threonine biosynthesis, aspartate => homoserine => threonine
+md:M00019	Valine/isoleucine biosynthesis, pyruvate => valine / 2-oxobutanoate => isoleucine
+md:M00020	Serine biosynthesis, glycerate-3P => serine
+md:M00021	Cysteine biosynthesis, serine => cysteine
+md:M00022	Shikimate pathway, phosphoenolpyruvate + erythrose-4P => chorismate
+md:M00023	Tryptophan biosynthesis, chorismate => tryptophan
+md:M00024	Phenylalanine biosynthesis, chorismate => phenylalanine
+md:M00025	Tyrosine biosynthesis, chorismate => tyrosine
+md:M00026	Histidine biosynthesis, PRPP => histidine
+md:M00027	GABA (gamma-Aminobutyrate) shunt
+md:M00028	Ornithine biosynthesis, glutamate => ornithine
+md:M00029	Urea cycle
+md:M00030	Lysine biosynthesis, AAA pathway, 2-oxoglutarate => 2-aminoadipate => lysine
+md:M00031	Lysine biosynthesis, mediated by LysW, 2-aminoadipate => lysine
+md:M00032	Lysine degradation, lysine => saccharopine => acetoacetyl-CoA
+md:M00033	Ectoine biosynthesis, aspartate => ectoine
+md:M00034	Methionine salvage pathway
+md:M00035	Methionine degradation
+md:M00036	Leucine degradation, leucine => acetoacetate + acetyl-CoA
+md:M00037	Melatonin biosynthesis, tryptophan => serotonin => melatonin
+md:M00038	Tryptophan metabolism, tryptophan => kynurenine => 2-aminomuconate
+md:M00039	Monolignol biosynthesis, phenylalanine/tyrosine => monolignol
+md:M00040	Tyrosine biosynthesis, prephanate => pretyrosine => tyrosine
+md:M00042	Catecholamine biosynthesis, tyrosine => dopamine => noradrenaline => adrenaline
+md:M00043	Thyroid hormone biosynthesis, tyrosine => triiodothyronine/thyroxine
+md:M00044	Tyrosine degradation, tyrosine => homogentisate
+md:M00045	Histidine degradation, histidine => N-formiminoglutamate => glutamate
+md:M00046	Pyrimidine degradation, uracil => beta-alanine, thymine => 3-aminoisobutanoate
+md:M00047	Creatine pathway
+md:M00048	Inosine monophosphate biosynthesis, PRPP + glutamine => IMP
+md:M00049	Adenine ribonucleotide biosynthesis, IMP => ADP,ATP
+md:M00050	Guanine ribonucleotide biosynthesis IMP => GDP,GTP
+md:M00051	Uridine monophosphate biosynthesis, glutamine (+ PRPP) => UMP
+md:M00052	Pyrimidine ribonucleotide biosynthesis, UMP => UDP/UTP,CDP/CTP
+md:M00053	Pyrimidine deoxyribonuleotide biosynthesis, CDP/CTP => dCDP/dCTP,dTDP/dTTP
+md:M00055	N-glycan precursor biosynthesis
+md:M00056	O-glycan biosynthesis, mucin type core
+md:M00057	Glycosaminoglycan biosynthesis, linkage tetrasaccharide
+md:M00058	Glycosaminoglycan biosynthesis, chondroitin sulfate backbone
+md:M00059	Glycosaminoglycan biosynthesis, heparan sulfate backbone
+md:M00060	KDO2-lipid A biosynthesis, Raetz pathway, LpxL-LpxM type
+md:M00061	D-Glucuronate degradation, D-glucuronate => pyruvate + D-glyceraldehyde 3P
+md:M00063	CMP-KDO biosynthesis
+md:M00064	ADP-L-glycero-D-manno-heptose biosynthesis
+md:M00065	GPI-anchor biosynthesis, core oligosaccharide
+md:M00066	Lactosylceramide biosynthesis
+md:M00067	Sulfoglycolipids biosynthesis, ceramide/1-alkyl-2-acylglycerol => sulfatide/seminolipid
+md:M00068	Glycosphingolipid biosynthesis, globo-series, LacCer => Gb4Cer
+md:M00069	Glycosphingolipid biosynthesis, ganglio series, LacCer => GT3
+md:M00070	Glycosphingolipid biosynthesis, lacto-series, LacCer => Lc4Cer
+md:M00071	Glycosphingolipid biosynthesis, neolacto-series, LacCer => nLc4Cer
+md:M00072	N-glycosylation by oligosaccharyltransferase
+md:M00073	N-glycan precursor trimming
+md:M00074	N-glycan biosynthesis, high-mannose type
+md:M00075	N-glycan biosynthesis, complex type
+md:M00076	Dermatan sulfate degradation
+md:M00077	Chondroitin sulfate degradation
+md:M00078	Heparan sulfate degradation
+md:M00079	Keratan sulfate degradation
+md:M00081	Pectin degradation
+md:M00082	Fatty acid biosynthesis, initiation
+md:M00083	Fatty acid biosynthesis, elongation
+md:M00085	Fatty acid biosynthesis, elongation, mitochondria
+md:M00086	beta-Oxidation, acyl-CoA synthesis
+md:M00087	beta-Oxidation
+md:M00088	Ketone body biosynthesis, acetyl-CoA => acetoacetate/3-hydroxybutyrate/acetone
+md:M00089	Triacylglycerol biosynthesis
+md:M00090	Phosphatidylcholine (PC) biosynthesis, choline => PC
+md:M00091	Phosphatidylcholine (PC) biosynthesis, PE => PC
+md:M00092	Phosphatidylethanolamine (PE) biosynthesis, ethanolamine => PE
+md:M00093	Phosphatidylethanolamine (PE) biosynthesis, PA => PS => PE
+md:M00094	Ceramide biosynthesis
+md:M00095	C5 isoprenoid biosynthesis, mevalonate pathway
+md:M00096	C5 isoprenoid biosynthesis, non-mevalonate pathway
+md:M00097	beta-Carotene biosynthesis, GGAP => beta-carotene
+md:M00098	Acylglycerol degradation
+md:M00099	Sphingosine biosynthesis
+md:M00100	Sphingosine degradation
+md:M00101	Cholesterol biosynthesis, squalene 2,3-epoxide => cholesterol
+md:M00102	Ergocalciferol biosynthesis
+md:M00103	Cholecalciferol biosynthesis
+md:M00104	Bile acid biosynthesis, cholesterol => cholate/chenodeoxycholate
+md:M00106	Conjugated bile acid biosynthesis, cholate => taurocholate/glycocholate
+md:M00107	Steroid hormone biosynthesis, cholesterol => prognenolone => progesterone
+md:M00108	C21-Steroid hormone biosynthesis, progesterone => corticosterone/aldosterone
+md:M00109	C21-Steroid hormone biosynthesis, progesterone => cortisol/cortisone
+md:M00110	C19/C18-Steroid hormone biosynthesis, pregnenolone => androstenedione => estrone
+md:M00112	Tocopherol/tocotorienol biosynthesis
+md:M00113	Jasmonic acid biosynthesis
+md:M00114	Ascorbate biosynthesis, plants, glucose-6P => ascorbate
+md:M00115	NAD biosynthesis, aspartate => NAD
+md:M00116	Menaquinone biosynthesis, chorismate => menaquinol
+md:M00117	Ubiquinone biosynthesis, prokaryotes, chorismate => ubiquinone
+md:M00118	Glutathione biosynthesis, glutamate => glutathione
+md:M00119	Pantothenate biosynthesis, valine/L-aspartate => pantothenate
+md:M00120	Coenzyme A biosynthesis, pantothenate => CoA
+md:M00121	Heme biosynthesis, plants and bacteria, glutamate => heme
+md:M00122	Cobalamin biosynthesis, cobinamide => cobalamin
+md:M00123	Biotin biosynthesis, pimeloyl-ACP/CoA => biotin
+md:M00124	Pyridoxal biosynthesis, erythrose-4P => pyridoxal-5P
+md:M00125	Riboflavin biosynthesis, GTP => riboflavin/FMN/FAD
+md:M00126	Tetrahydrofolate biosynthesis, GTP => THF
+md:M00127	Thiamine biosynthesis, AIR => thiamine-P/thiamine-2P
+md:M00128	Ubiquinone biosynthesis, eukaryotes, 4-hydroxybenzoate => ubiquinone
+md:M00129	Ascorbate biosynthesis, animals, glucose-1P => ascorbate
+md:M00130	Inositol phosphate metabolism, PI=> PIP2 => Ins(1,4,5)P3 => Ins(1,3,4,5)P4
+md:M00131	Inositol phosphate metabolism, Ins(1,3,4,5)P4 => Ins(1,3,4)P3 => myo-inositol
+md:M00132	Inositol phosphate metabolism, Ins(1,3,4)P3 => phytate
+md:M00133	Polyamine biosynthesis, arginine => agmatine => putrescine => spermidine
+md:M00134	Polyamine biosynthesis, arginine => ornithine => putrescine
+md:M00135	GABA biosynthesis, eukaryotes, putrescine => GABA
+md:M00136	GABA biosynthesis, prokaryotes, putrescine => GABA
+md:M00137	Flavanone biosynthesis, phenylalanine => naringenin
+md:M00138	Flavonoid biosynthesis, naringenin => pelargonidin
+md:M00140	C1-unit interconversion, prokaryotes
+md:M00141	C1-unit interconversion, eukaryotes
+md:M00142	NADH:ubiquinone oxidoreductase, mitochondria
+md:M00143	NADH dehydrogenase (ubiquinone) Fe-S protein/flavoprotein complex, mitochondria
+md:M00144	NADH:quinone oxidoreductase, prokaryotes
+md:M00145	NAD(P)H:quinone oxidoreductase, chloroplasts and cyanobacteria
+md:M00146	NADH dehydrogenase (ubiquinone) 1 alpha subcomplex
+md:M00147	NADH dehydrogenase (ubiquinone) 1 beta subcomplex
+md:M00148	Succinate dehydrogenase (ubiquinone)
+md:M00149	Succinate dehydrogenase, prokaryotes
+md:M00150	Fumarate reductase, prokaryotes
+md:M00151	Cytochrome bc1 complex respiratory unit
+md:M00152	Cytochrome bc1 complex
+md:M00153	Cytochrome bd ubiquinol oxidase
+md:M00154	Cytochrome c oxidase
+md:M00155	Cytochrome c oxidase, prokaryotes
+md:M00156	Cytochrome c oxidase, cbb3-type
+md:M00157	F-type ATPase, prokaryotes and chloroplasts
+md:M00158	F-type ATPase, eukaryotes
+md:M00159	V/A-type ATPase, prokaryotes
+md:M00160	V-type ATPase, eukaryotes
+md:M00161	Photosystem II
+md:M00162	Cytochrome b6f complex
+md:M00163	Photosystem I
+md:M00165	Reductive pentose phosphate cycle (Calvin cycle)
+md:M00166	Reductive pentose phosphate cycle, ribulose-5P => glyceraldehyde-3P
+md:M00167	Reductive pentose phosphate cycle, glyceraldehyde-3P => ribulose-5P
+md:M00168	CAM (Crassulacean acid metabolism), dark
+md:M00169	CAM (Crassulacean acid metabolism), light
+md:M00170	C4-dicarboxylic acid cycle, phosphoenolpyruvate carboxykinase type
+md:M00171	C4-dicarboxylic acid cycle, NAD - malic enzyme type
+md:M00172	C4-dicarboxylic acid cycle, NADP - malic enzyme type
+md:M00173	Reductive citrate cycle (Arnon-Buchanan cycle)
+md:M00174	Methane oxidation, methanotroph, methane => formaldehyde
+md:M00175	Nitrogen fixation, nitrogen => ammonia
+md:M00176	Assimilatory sulfate reduction, sulfate => H2S
+md:M00177	Ribosome, eukaryotes
+md:M00178	Ribosome, bacteria
+md:M00179	Ribosome, archaea
+md:M00180	RNA polymerase II, eukaryotes
+md:M00181	RNA polymerase III, eukaryotes
+md:M00182	RNA polymerase I, eukaryotes
+md:M00183	RNA polymerase, bacteria
+md:M00184	RNA polymerase, archaea
+md:M00185	Sulfate/thiosulfate transport system
+md:M00186	Tungstate transport system
+md:M00188	NitT/TauT family transport system
+md:M00189	Molybdate transport system
+md:M00190	Iron(III) transport system
+md:M00191	Thiamine transport system
+md:M00192	Putative thiamine transport system
+md:M00193	Putative spermidine/putrescine transport system
+md:M00194	Maltose/maltodextrin transport system
+md:M00196	Raffinose/stachyose/melibiose transport system
+md:M00197	Putative fructooligosaccharide transport system
+md:M00198	Putative sn-glycerol-phosphate transport system
+md:M00199	L-Arabinose/lactose transport system
+md:M00200	Putative sorbitol/mannitol transport system
+md:M00201	alpha-Glucoside transport system
+md:M00202	Oligogalacturonide transport system
+md:M00203	Glucose/arabinose transport system
+md:M00204	Trehalose/maltose transport system
+md:M00205	N-Acetylglucosamine transport system
+md:M00206	Cellobiose transport system
+md:M00207	Putative multiple sugar transport system
+md:M00208	Glycine betaine/proline transport system
+md:M00209	Osmoprotectant transport system
+md:M00210	Phospholipid transport system
+md:M00211	Putative ABC transport system
+md:M00212	Ribose transport system
+md:M00213	L-Arabinose transport system
+md:M00214	Methyl-galactoside transport system
+md:M00215	D-Xylose transport system
+md:M00216	Multiple sugar transport system
+md:M00217	D-Allose transport system
+md:M00218	Fructose transport system
+md:M00219	AI-2 transport system
+md:M00220	Rhamnose transport system
+md:M00221	Putative simple sugar transport system
+md:M00222	Phosphate transport system
+md:M00223	Phosphonate transport system
+md:M00224	Fluoroquinolone transport system
+md:M00225	Lysine/arginine/ornithine transport system
+md:M00226	Histidine transport system
+md:M00227	Glutamine transport system
+md:M00228	Aspartate/glutamate/glutamine transport system
+md:M00229	Arginine transport system
+md:M00230	Glutamate/aspartate transport system
+md:M00231	Octopine/nopaline transport system
+md:M00232	General L-amino acid transport system
+md:M00233	Glutamate transport system
+md:M00234	L-Cystine transport system
+md:M00235	Arginine/ornithine transport system
+md:M00236	Putative polar amino acid transport system
+md:M00237	Branched-chain amino acid transport system
+md:M00238	D-Methionine transport system
+md:M00239	Peptides/nickel transport system
+md:M00240	Iron complex transport system
+md:M00241	Vitamin B12 transport system
+md:M00242	Zinc transport system
+md:M00243	Manganese/iron transport system
+md:M00244	Putative zinc/manganese transport system
+md:M00245	Cobalt/nickel transport system
+md:M00246	Nickel transport system
+md:M00247	Putative ABC transport system
+md:M00249	Capsular polysaccharide transport system
+md:M00250	Lipopolysaccharide transport system
+md:M00251	Teichoic acid transport system
+md:M00252	Lipooligosaccharide transport system
+md:M00253	Sodium transport system
+md:M00254	ABC-2 type transport system
+md:M00255	Lipoprotein-releasing system
+md:M00256	Cell division transport system
+md:M00257	Hemin transport system
+md:M00258	Putative ABC transport system
+md:M00259	Heme transport system
+md:M00260	DNA polymerase III complex, bacteria
+md:M00261	DNA polymerase alpha / primase complex
+md:M00262	DNA polymerase delta complex
+md:M00263	DNA polymerase epsilon complex
+md:M00264	DNA polymerase II complex, archaea
+md:M00265	PTS system, glucose-specific II component
+md:M00266	PTS system, maltose/glucose-specific II component
+md:M00267	PTS system, N-acetylglucosamine-specific II component
+md:M00268	PTS system, alpha-glucoside-specific II component
+md:M00269	PTS system, sucrose-specific II component
+md:M00270	PTS system, trehalose-specific II component
+md:M00271	PTS system, beta-glucoside-specific II component
+md:M00272	PTS system, beta-glucoside (arbutin/salicin/cellobiose)-specific II component
+md:M00273	PTS system, fructose-specific II component
+md:M00274	PTS system, mannitol-specific II component
+md:M00275	PTS system, cellobiose-specific II component
+md:M00276	PTS system, mannose-specific II component
+md:M00277	PTS system, N-acetylgalactosamine-specific II component
+md:M00278	PTS system, sorbose-specific II component
+md:M00279	PTS system, galactitol-specific II component
+md:M00280	PTS system, glucitol/sorbitol-specific II component
+md:M00281	PTS system, lactose-specific II component
+md:M00282	PTS system, D-glucosamine-specific II component
+md:M00283	PTS system, ascorbate-specific II component
+md:M00284	Origin recognition complex
+md:M00285	MCM complex
+md:M00286	GINS complex
+md:M00287	PTS system, galactosamine-specific II component
+md:M00288	RPA complex
+md:M00289	RF-C complex
+md:M00290	Holo-TFIIH complex
+md:M00291	MRN complex
+md:M00292	MRX complex
+md:M00293	DNA polymerase zeta complex
+md:M00294	DNA polymerase gamma complex
+md:M00295	BRCA1-associated genome surveillance complex (BASC)
+md:M00296	BER complex
+md:M00297	DNA-PK complex
+md:M00298	Multidrug/hemolysin transport system
+md:M00299	Spermidine/putrescine transport system
+md:M00300	Putrescine transport system
+md:M00301	Mannopine transport system
+md:M00302	2-Aminoethylphosphonate transport system
+md:M00303	PTS system, N-acetylmuramic acid-specific II component
+md:M00304	PTS system, fructose-specific II component
+md:M00305	PTS system, 2-O-A-mannosyl-D-glycerate-specific II component
+md:M00306	PTS system, fructose-specific II-like component
+md:M00307	Pyruvate oxidation, pyruvate => acetyl-CoA
+md:M00308	Semi-phosphorylative Entner-Doudoroff pathway, gluconate => glycerate-3P
+md:M00309	Non-phosphorylative Entner-Doudoroff pathway, gluconate/galactonate => glycerate
+md:M00314	Bacitracin transport system
+md:M00315	Uncharacterized ABC transport system
+md:M00316	Manganese transport system
+md:M00317	Manganese/iron transport system
+md:M00318	Iron/zinc/manganese/copper transport system
+md:M00319	Manganese/zinc/iron transport system
+md:M00320	Lipopolysaccharide export system
+md:M00321	Bicarbonate transport system
+md:M00322	Neutral amino acid transport system
+md:M00323	Urea transport system
+md:M00324	Dipeptide transport system
+md:M00325	alpha-Hemolysin/cyclolysin transport system
+md:M00326	RTX toxin transport system
+md:M00327	S-Layer protein transport system
+md:M00328	Hemophore/metalloprotease transport system
+md:M00329	Multiple protein transport system
+md:M00330	Adhesin protein transport system
+md:M00331	Type II general secretion pathway
+md:M00332	Type III secretion system
+md:M00333	Type IV secretion system
+md:M00334	Type VI secretion system
+md:M00335	Sec (secretion) system
+md:M00336	Twin-arginine translocation (Tat) system
+md:M00337	Immunoproteasome
+md:M00338	Cysteine biosynthesis, homocysteine + serine => cysteine
+md:M00339	RaxAB-RaxC type I secretion system
+md:M00340	Proteasome, 20S core particle
+md:M00341	Proteasome, 19S regulatory particle (PA700)
+md:M00342	Bacterial proteasome
+md:M00343	Archaeal proteasome
+md:M00344	Formaldehyde assimilation, xylulose monophosphate pathway
+md:M00345	Formaldehyde assimilation, ribulose monophosphate pathway
+md:M00346	Formaldehyde assimilation, serine pathway
+md:M00348	Glutathione transport system
+md:M00349	Microcin C transport system
+md:M00351	Spliceosome, U1-snRNP
+md:M00352	Spliceosome, U2-snRNP
+md:M00353	Spliceosome, Prp19/CDC5L complex
+md:M00354	Spliceosome, U4/U6.U5 tri-snRNP
+md:M00355	Spliceosome, 35S U5-snRNP
+md:M00356	Methanogenesis, methanol => methane
+md:M00357	Methanogenesis, acetate => methane
+md:M00358	Coenzyme M biosynthesis
+md:M00359	Aminoacyl-tRNA biosynthesis, eukaryotes
+md:M00360	Aminoacyl-tRNA biosynthesis, prokaryotes
+md:M00361	Nucleotide sugar biosynthesis, eukaryotes
+md:M00362	Nucleotide sugar biosynthesis, prokaryotes
+md:M00363	EHEC pathogenicity signature, Shiga toxin
+md:M00364	C10-C20 isoprenoid biosynthesis, bacteria
+md:M00365	C10-C20 isoprenoid biosynthesis, archaea
+md:M00366	C10-C20 isoprenoid biosynthesis, plants
+md:M00367	C10-C20 isoprenoid biosynthesis, non-plant eukaryotes
+md:M00368	Ethylene biosynthesis, methionine => ethylene
+md:M00369	Cyanogenic glycoside biosynthesis, tyrosine => dhurrin
+md:M00370	Glucosinolate biosynthesis, tryptophan => glucobrassicin
+md:M00371	Castasterone biosynthesis, campesterol => castasterone
+md:M00372	Abscisic acid biosynthesis, beta-carotene => abscisic acid
+md:M00373	Ethylmalonyl pathway
+md:M00374	Dicarboxylate-hydroxybutyrate cycle
+md:M00375	Hydroxypropionate-hydroxybutylate cycle
+md:M00376	3-Hydroxypropionate bi-cycle
+md:M00377	Reductive acetyl-CoA pathway (Wood-Ljungdahl pathway)
+md:M00378	F420 biosynthesis
+md:M00379	SCF-MET30 complex
+md:M00380	SCF-BTRC complex
+md:M00381	SCF-SKP2 complex
+md:M00382	SCF-FBS complex
+md:M00383	ECV complex
+md:M00384	Cul3-SPOP complex
+md:M00385	Cul4-DDB1-DDB2 complex
+md:M00386	Cul4-DDB1-CSA complex
+md:M00387	SCF-FBW7 complex
+md:M00388	ECS complex
+md:M00389	APC/C complex
+md:M00390	Exosome, archaea
+md:M00391	Exosome, eukaryotes
+md:M00392	Ski complex
+md:M00393	TRAMP complex
+md:M00394	RNA degradosome
+md:M00395	Decapping complex
+md:M00396	Lsm 2-8 complex
+md:M00397	Lsm 1-7 complex
+md:M00398	Sm core complex
+md:M00399	Cap binding complex
+md:M00400	p97-Ufd1-Npl4 complex
+md:M00401	Sec61 complex
+md:M00402	Translocon-associated protein (TRAP) complex
+md:M00403	HRD1/SEL1 ERAD complex
+md:M00404	COPII complex
+md:M00405	THC complex
+md:M00406	TREX complex
+md:M00407	SCF-CDC4 complex
+md:M00408	ESCRT-0 complex
+md:M00409	ESCRT-I complex
+md:M00410	ESCRT-II complex
+md:M00411	SCF-GRR1 complex
+md:M00412	ESCRT-III complex
+md:M00413	FA core complex
+md:M00414	Bloom's syndrome complex
+md:M00415	Fatty acid biosynthesis, elongation, endoplasmic reticulum
+md:M00416	Cytochrome aa3-600 menaquinol oxidase
+md:M00417	Cytochrome o ubiquinol oxidase
+md:M00418	Toluene degradation, anaerobic, toluene => benzoyl-CoA
+md:M00419	Cymene degradation, p-cymene => p-cumate
+md:M00422	Acetyl-CoA pathway, CO2 => acetyl-CoA
+md:M00423	Molybdate/tungstate transport system
+md:M00424	Shelterin complex
+md:M00425	H/ACA ribonucleoprotein complex
+md:M00426	Survival motor neuron (SMN) complex
+md:M00427	Nuclear pore complex
+md:M00428	eIF4F complex
+md:M00429	Competence-related DNA transformation transporter
+md:M00430	Exon junction complex (EJC)
+md:M00432	Leucine biosynthesis, 2-oxoisovalerate => 2-oxoisocaproate
+md:M00433	Lysine biosynthesis, 2-oxoglutarate => 2-oxoadipate
+md:M00434	PhoR-PhoB (phosphate starvation response) two-component regulatory system
+md:M00435	Taurine transport system
+md:M00436	Sulfonate transport system
+md:M00437	Phthalate transport system
+md:M00438	Nitrate/nitrite transport system
+md:M00439	Oligopeptide transport system
+md:M00440	Nickel transport system
+md:M00442	Putative hydroxymethylpyrimidine transport system
+md:M00443	SenX3-RegX3 (phosphate starvation response) two-component regulatory system
+md:M00444	PhoQ-PhoP (magnesium transport) two-component regulatory system
+md:M00445	EnvZ-OmpR (osmotic stress response) two-component regulatory system
+md:M00446	RstB-RstA two-component regulatory system
+md:M00447	CpxA-CpxR (envelope stress response) two-component regulatory system
+md:M00448	CssS-CssR (secretion stress response) two-component regulatory system
+md:M00449	CreC-CreB (phosphate regulation) two-component regulatory system
+md:M00450	BaeS-BaeR (envelope stress response) two-component regulatory system
+md:M00451	BasS-BasR (antimicrobial peptide resistance) two-component regulatory system
+md:M00452	CusS-CusR (copper tolerance) two-component regulatory system
+md:M00453	QseC-QseB (quorum sensing) two-component regulatory system
+md:M00454	KdpD-KdpE (potassium transport) two-component regulatory system
+md:M00455	TorS-TorR (TMAO respiration) two-component regulatory system
+md:M00456	ArcB-ArcA (anoxic redox control) two-component regulatory system
+md:M00457	TctE-TctD (tricarboxylic acid transport) two-component regulatory system
+md:M00458	ResE-ResD (aerobic and anaerobic respiration) two-component regulatory system
+md:M00459	VicK-VicR (cell wall metabolism) two-component regulatory system
+md:M00460	MprB-MprA (maintenance of persistent infection) two-component regulatory system
+md:M00461	MtrB-MtrA (osmotic stress response) two-component regulatory system
+md:M00462	PrrB-PrrA (intracellular multiplication) two-component regulatory system
+md:M00463	TrcS-TrcR two-component regulatory system
+md:M00464	NrsS-NrsR (nickel tolerance) two-component regulatory system
+md:M00465	ManS-ManR (manganese homeostasis) two-component regulatory system
+md:M00466	NblS-NblR (photosynthesis) two-component regulatory system
+md:M00467	SasA-RpaAB (circadian timing mediating) two-component regulatory system
+md:M00468	SaeS-SaeR (staphylococcal virulence regulation) two-component regulatory system
+md:M00469	BceS-BceR (bacitracin transport) two-component regulatory system
+md:M00470	YxdK-YxdJ (antimicrobial peptide response) two-component regulatory system
+md:M00471	NarX-NarL (nitrate respiration) two-component regulatory system
+md:M00472	NarQ-NarP (nitrate respiration) two-component regulatory system
+md:M00473	UhpB-UhpA (hexose phosphates uptake) two-component regulatory system
+md:M00474	RcsC-RcsD-RcsB (capsule synthesis) two-component regulatory system
+md:M00475	BarA-UvrY (central carbon metabolism) two-component regulatory system
+md:M00476	ComP-ComA (competence) two-component regulatory system
+md:M00477	EvgS-EvgA (acid and drug tolerance) two-component regulatory system
+md:M00478	DegS-DegU (multicellular behavior control) two-component regulatory system
+md:M00479	DesK-DesR (membrane lipid fluidity regulation) two-component regulatory system
+md:M00480	VraS-VraR (cell-wall peptidoglycan synthesis) two-component regulatory system
+md:M00481	LiaS-LiaR (cell wall stress response) two-component regulatory system
+md:M00482	DevS-DevR (redox response) two-component regulatory system
+md:M00483	NreB-NreC (dissimilatory nitrate/nitrite reduction) two-component regulatory system
+md:M00484	YdfH-YdfI two-component regulatory system
+md:M00485	KinABCDE-Spo0FA (sporulation control) two-component regulatory system
+md:M00486	CitA-CitB (citrate fermentation) two-component regulatory system
+md:M00487	CitS-CitT (magnesium-citrate transport) two-component regulatory system
+md:M00488	DcuS-DcuR (C4-dicarboxylate metabolism) two-component regulatory system
+md:M00489	DctS-DctR (C4-dicarboxylate transport) two-component regulatory system
+md:M00490	MalK-MalR (malate transport) two-component regulatory system
+md:M00491	arabinogalactan oligomer/maltooligosaccharide transport system
+md:M00492	LytS-LytR two-component regulatory system
+md:M00493	AlgZ-AlgR (alginate production) two-component regulatory system
+md:M00494	NatK-NatR (sodium extrusion) two-component regulatory system
+md:M00495	AgrC-AgrA (exoprotein synthesis) two-component regulatory system
+md:M00496	ComD-ComE (competence) two-component regulatory system
+md:M00497	GlnL-GlnG (nitrogen regulation) two-component regulatory system
+md:M00498	NtrY-NtrX (nitrogen regulation) two-component regulatory system
+md:M00499	HydH-HydG (metal tolerance) two-component regulatory system
+md:M00500	AtoS-AtoC (cPHB biosynthesis) two-component regulatory system
+md:M00501	PilS-PilR (type 4 fimbriae synthesis) two-component regulatory system
+md:M00502	GlrK-GlrR (amino sugar metabolism) two-component regulatory system
+md:M00503	PgtB-PgtA (phosphoglycerate transport) two-component regulatory system
+md:M00504	DctB-DctD (C4-dicarboxylate transport) two-component regulatory system
+md:M00505	KinB-AlgB (alginate production) two-component regulatory system
+md:M00506	CheA-CheYBV (chemotaxis) two-component regulatory system
+md:M00507	ChpA-ChpB/PilGH (chemosensory) two-component regulatory system
+md:M00508	PixL-PixGH (positive phototaxis) two-component regulatory system
+md:M00509	WspE-WspRF (chemosensory) two-component regulatory system
+md:M00510	Cph1-Rcp1 (light response) two-component regulatory system
+md:M00511	PleC-PleD (cell fate control) two-component regulatory system
+md:M00512	CckA-CtrA/CpdR (cell cycle control) two-component regulatory system
+md:M00513	LuxQN/CqsS-LuxU-LuxO (quorum sensing) two-component regulatory system
+md:M00514	TtrS-TtrR (tetrathionate respiration) two-component regulatory system
+md:M00515	FlrB-FlrC (polar flagellar synthesis) two-component regulatory system
+md:M00516	SLN1-YPD1-SSK1/SKN7 (osmosensing) two-component regulatory system
+md:M00517	RpfC-RpfG (cell-to-cell signaling) two-component regulatory system
+md:M00518	GlnK-GlnL (glutamine utilization) two-component regulatory system
+md:M00519	YesM-YesN two-component regulatory system
+md:M00520	ChvG-ChvI (acidity sensing) two-component regulatory system
+md:M00521	CiaH-CiaR two-component regulatory system
+md:M00522	SalK-SalR two-component regulatory system
+md:M00523	RegB-RegA (redox response) two-component regulatory system
+md:M00524	FixL-FixJ (nitrogen fixation) two-component regulatory system
+md:M00525	Lysine biosynthesis, acetyl-DAP pathway, aspartate => lysine
+md:M00526	Lysine biosynthesis, DAP dehydrogenase pathway, aspartate => lysine
+md:M00527	Lysine biosynthesis, DAP aminotransferase pathway, aspartate => lysine
+md:M00528	Nitrification, ammonia => nitrite
+md:M00529	Denitrification, nitrate => nitrogen
+md:M00530	Dissimilatory nitrate reduction, nitrate => ammonia
+md:M00531	Assimilatory nitrate reduction, nitrate => ammonia
+md:M00532	Photorespiration
+md:M00533	Homoprotocatechuate degradation, homoprotocatechuate => 2-oxohept-3-enedioate
+md:M00534	Naphthalene degradation, naphthalene => salicylate
+md:M00535	Isoleucine biosynthesis, pyruvate => 2-oxobutanoate
+md:M00537	Xylene degradation, xylene => methylbenzoate
+md:M00538	Toluene degradation, toluene => benzoate
+md:M00539	Cumate degradation, p-cumate => 2-oxopent-4-enoate + 2-methylpropanoate
+md:M00540	Benzoate degradation, cyclohexanecarboxylic acid =>pimeloyl-CoA
+md:M00541	Benzoyl-CoA degradation, benzoyl-CoA => 3-hydroxypimeloyl-CoA
+md:M00542	EHEC/EPEC pathogenicity signature, T3SS and effectors
+md:M00543	Biphenyl degradation, biphenyl => 2-oxopent-4-enoate + benzoate
+md:M00544	Carbazole degradation, carbazole => 2-oxopent-4-enoate + anthranilate
+md:M00545	Trans-cinnamate degradation, trans-cinnamate => acetyl-CoA
+md:M00546	Purine degradation, xanthine => urea
+md:M00547	Benzene/toluene degradation, benzene => catechol / toluene => 3-methylcatechol
+md:M00548	Benzene degradation, benzene => catechol
+md:M00549	Nucleotide sugar biosynthesis, glucose => UDP-glucose
+md:M00550	Ascorbate degradation, ascorbate => D-xylulose-5P
+md:M00551	Benzoate degradation, benzoate => catechol / methylbenzoate => methylcatechol
+md:M00552	D-galactonate degradation, De Ley-Doudoroff pathway, D-galactonate => glycerate-3P
+md:M00554	Nucleotide sugar biosynthesis, galactose => UDP-galactose
+md:M00555	Betaine biosynthesis, choline => betaine
+md:M00563	Methanogenesis, methylamine/dimethylamine/trimethylamine => methane
+md:M00564	Helicobacter pylori pathogenicity signature, cagA pathogenicity island
+md:M00565	Trehalose biosynthesis, D-glucose 1P => trehalose
+md:M00566	Dipeptide transport system, Firmicutes
+md:M00567	Methanogenesis, CO2 => methane
+md:M00568	Catechol ortho-cleavage, catechol => 3-oxoadipate
+md:M00569	Catechol meta-cleavage, catechol => acetyl-CoA / 4-methylcatechol => propanoyl-CoA
+md:M00570	Isoleucine biosynthesis, threonine => 2-oxobutanoate => isoleucine
+md:M00571	AlgE-type Mannuronan C-5-Epimerase transport system
+md:M00572	Pimeloyl-ACP biosynthesis, BioC-BioH pathway, malonyl-ACP => pimeloyl-ACP
+md:M00573	Biotin biosynthesis, BioI pathway, long-chain-acyl-ACP => pimeloyl-ACP => biotin
+md:M00574	Pertussis pathogenicity signature, pertussis toxin
+md:M00575	Pertussis pathogenicity signature, T1SS
+md:M00576	ETEC pathogenicity signature, heat-labile and heat-stable enterotoxins
+md:M00577	Biotin biosynthesis, BioW pathway, pimelate => pimeloyl-CoA => biotin
+md:M00579	Phosphate acetyltransferase-acetate kinase pathway, acetyl-CoA => acetate
+md:M00580	Pentose phosphate pathway, archaea, fructose 6P => ribose 5P
+md:M00581	Biotin transport system
+md:M00582	Energy-coupling factor transport system
+md:M00583	Putative peptide transport system
+md:M00584	Acetoin utilization transport system
+md:M00585	L-Cystine transport system
+md:M00586	Putative S-methylcysteine transport system
+md:M00587	Arginine/lysine/histidine/glutamine transport system
+md:M00589	Putative lysine transport system
+md:M00590	Erythritol transport system
+md:M00591	Putative xylitol transport system
+md:M00592	Inositol transport system
+md:M00593	Inositol transport system
+md:M00595	Thiosulfate oxidation by SOX complex, thiosulfate => sulfate
+md:M00596	Dissimilatory sulfate reduction, sulfate => H2S
+md:M00597	Anoxygenic photosystem II
+md:M00598	Anoxygenic photosystem I
+md:M00599	Inositol-phosphate transport system
+md:M00600	alpha-1,4-Digalacturonate transport system
+md:M00601	Putative chitobiose transport system
+md:M00602	Arabinosaccharide transport system
+md:M00603	Putative aldouronate transport system
+md:M00604	Trehalose transport system
+md:M00605	Glucose/mannose transport system
+md:M00606	N,N'-Diacetylchitobiose transport system
+md:M00607	Glycerol transport system
+md:M00608	2-Oxocarboxylic acid chain extension, 2-oxoglutarate => 2-oxoadipate => 2-oxopimelate => 2-oxosuberate
+md:M00609	Cysteine biosynthesis, methionine => cysteine
+md:M00610	PTS system, D-glucosaminate-specific II component
+md:M00611	Oxygenic photosynthesis in plants and cyanobacteria
+md:M00612	Anoxygenic photosynthesis in purple bacteria
+md:M00613	Anoxygenic photosynthesis in green nonsulfur bacteria
+md:M00614	Anoxygenic photosynthesis in green sulfur bacteria
+md:M00615	Nitrate assimilation
+md:M00616	Sulfate-sulfur assimilation
+md:M00617	Methanogen
+md:M00618	Acetogen
+md:M00619	Xylobiose transport system
+md:M00620	Incomplete reductive citrate cycle, acetyl-CoA => oxoglutarate
+md:M00622	Nicotinate degradation, nicotinate => fumarate
+md:M00623	Phthalate degradation, phthalate => protocatechuate
+md:M00624	Terephthalate degradation, terephthalate => 3,4-dihydroxybenzoate
+md:M00625	Methicillin resistance
+md:M00627	beta-Lactam resistance, Bla system
+md:M00628	beta-Lactam resistance, AmpC system
+md:M00630	D-Galacturonate degradation (fungi), D-galacturonate => glycerol
+md:M00631	D-Galacturonate degradation (bacteria), D-galacturonate => pyruvate + D-glyceraldehyde 3P
+md:M00632	Galactose degradation, Leloir pathway, galactose => alpha-D-glucose-1P
+md:M00633	Semi-phosphorylative Entner-Doudoroff pathway, gluconate/galactonate => glycerate-3P
+md:M00634	Oleandomycin transport system
+md:M00635	Tetracycline resistance, TetAB(46) transporter
+md:M00636	Phthalate degradation, phthalate => protocatechuate
+md:M00637	Anthranilate degradation, anthranilate => catechol
+md:M00638	Salicylate degradation, salicylate => gentisate
+md:M00639	Multidrug resistance, efflux pump MexCD-OprJ
+md:M00641	Multidrug resistance, efflux pump MexEF-OprN
+md:M00642	Multidrug resistance, efflux pump MexJK-OprM
+md:M00643	Multidrug resistance, efflux pump MexXY-OprM
+md:M00644	Vanadium resistance, efflux pump MexGHI-OpmD
+md:M00645	Multidrug resistance, efflux pump SmeABC
+md:M00646	Multidrug resistance, efflux pump AcrAD-TolC
+md:M00647	Multidrug resistance, efflux pump AcrAB-TolC/SmeDEF
+md:M00648	Multidrug resistance, efflux pump MdtABC
+md:M00649	Multidrug resistance, efflux pump AdeABC
+md:M00651	Vancomycin resistance, D-Ala-D-Lac type
+md:M00652	Vancomycin resistance, D-Ala-D-Ser type
+md:M00653	AauS-AauR (acidic amino acids utilization) two-component regulatory system
+md:M00654	ParS-ParR (polymyxin-adaptive resistance) two-component regulatory system
+md:M00655	AdeS-AdeR two-component regulatory system
+md:M00656	VanS-VanR (VanB type vancomycin resistance) two-component regulatory system
+md:M00657	VanS-VanR (VanE type vancomycin resistance) two-component regulatory system
+md:M00658	VanS-VanR (actinomycete type vancomycin resistance) two-component regulatory system
+md:M00660	Xanthomonas spp. pathogenicity signature, T3SS and effectors
+md:M00661	Paspaline biosynthesis, geranylgeranyl-PP + indoleglycerol phosphate => paspaline
+md:M00662	Hk1-Rrp1 (glycerol uptake and utilization) two-component regulatory system
+md:M00663	SsrA-SsrB two-component regulatory system
+md:M00664	Nodulation
+md:M00667	Tetracycline resistance, efflux pump
+md:M00668	Tetracycline resistance, TetA transporter
+md:M00669	gamma-Hexachlorocyclohexane transport system
+md:M00670	Mce transport system
+md:M00672	Penicillin biosynthesis, aminoadipate + cycteine + valine => penicillin
+md:M00673	Cephamycin C biosynthesis, aminoadipate + cycteine + valine => cephamycin C
+md:M00674	Clavaminate biosynthesis, arginine + glyceraldehyde-3P => clavaminate
+md:M00675	Carbapenem-3-carboxylate biosynthesis, pyrroline-5-carboxylate + malonyl-CoA => carbapenem-3-carboxylate
+md:M00676	PI3K-Akt signaling
+md:M00677	Wnt signaling
+md:M00678	Hedgehog signaling
+md:M00679	BMP signaling
+md:M00680	TGF-beta signaling
+md:M00681	Activin signaling
+md:M00682	Notch signaling
+md:M00683	Hippo signaling
+md:M00684	JAK-STAT signaling
+md:M00685	Apoptotic machinery
+md:M00686	Toll-like receptor signaling
+md:M00687	MAPK (ERK1/2) signaling
+md:M00688	MAPK (JNK) signaling
+md:M00689	MAPK (p38) signaling
+md:M00690	MAPK (ERK5) signaling
+md:M00691	DNA damage-induced cell cycle checkpoints
+md:M00692	Cell cycle - G1/S transition
+md:M00693	Cell cycle - G2/M transition
+md:M00694	cGMP signaling
+md:M00695	cAMP signaling
+md:M00696	Multidrug resistance, efflux pump AcrEF-TolC
+md:M00697	Multidrug resistance, efflux pump MdtEF-TolC
+md:M00698	Multidrug resistance, efflux pump BpeEF-OprC
+md:M00699	Multidrug resistance, efflux pump AmeABC
+md:M00700	Multidrug resistance, efflux pump AbcA
+md:M00701	Multidrug resistance, efflux pump EmrAB
+md:M00702	Multidrug resistance, efflux pump NorB
+md:M00704	Tetracycline resistance, efflux pump Tet38
+md:M00705	Multidrug resistance, efflux pump MepA
+md:M00706	Multidrug resistance, EfrAB transporter
+md:M00707	Multidrug resistance, MdlAB/SmdAB transporter
+md:M00708	Multidrug resistance, PatAB transporter
+md:M00709	Macrolide resistance, MacAB-TolC transporter
+md:M00710	Multidrug resistance, efflux pump EbrAB
+md:M00711	Multidrug resistance, efflux pump MdtIJ
+md:M00712	Multidrug resistance, efflux pump YkkCD
+md:M00713	Fluoroquinolone resistance, efflux pump LfrA
+md:M00714	Multidrug resistance, efflux pump QacA
+md:M00715	Lincosamide resistance, efflux pump LmrB
+md:M00716	ArlS-ArlR (virulence regulation) two-component regulatory system
+md:M00717	Multidrug resistance, efflux pump NorA
+md:M00718	Multidrug resistance, efflux pump MexAB-OprM
+md:M00719	Ihk-Irr (virulence regulation) two-component regulatory system
+md:M00720	Multidrug resistance, efflux pump VexEF-TolC
+md:M00721	Cationic antimicrobial peptide (CAMP) resistance, arnBCADTEF operon
+md:M00722	Cationic antimicrobial peptide (CAMP) resistance, ethanolaminephosphotransferase EptA
+md:M00723	Cationic antimicrobial peptide (CAMP) resistance, ethanolaminephosphotransferase EptB
+md:M00724	Cationic antimicrobial peptide (CAMP) resistance, palmitoyl transferase PagP
+md:M00725	Cationic antimicrobial peptide (CAMP) resistance, dltABCD operon
+md:M00726	Cationic antimicrobial peptide (CAMP) resistance, lysyl-phosphatidylglycerol (L-PG) synthase MprF
+md:M00727	Cationic antimicrobial peptide (CAMP) resistance, N-acetylmuramoyl-L-alanine amidase AmiA and AmiC
+md:M00728	Cationic antimicrobial peptide (CAMP) resistance, envelope protein folding and degrading factors DegP and DsbA
+md:M00729	Fluoroquinolone resistance, gyrase-protecting protein Qnr
+md:M00730	Cationic antimicrobial peptide (CAMP) resistance, VraFG transporter
+md:M00731	Bacitracin transport system
+md:M00732	Cationic antimicrobial peptide transport system
+md:M00733	GraS-GraR (cationic antimicrobial peptide transport) two-component regulatory system
+md:M00734	BraS-BraR (bacitracin transport) two-component regulatory system
+md:M00736	Nocardicin A biosynthesis, L-pHPG + arginine + serine => nocardicin A
+md:M00737	Bacitracin resistance, VraDE transporter
+md:M00738	Bacitracin resistance, BceAB transporter
+md:M00739	Cationic peptide transport system
+md:M00740	Methylaspartate cycle
+md:M00741	Propanoyl-CoA metabolism, propanoyl-CoA => succinyl-CoA
+md:M00742	Aminoglycoside resistance, protease FtsH
+md:M00743	Aminoglycoside resistance, protease HtpX
+md:M00744	Cationic antimicrobial peptide (CAMP) resistance, protease PgtE
+md:M00745	Imipenem resistance, repression of porin OprD
+md:M00746	Multidrug resistance, repression of porin OmpF
+md:M00747	Bacitracin transport system
+md:M00754	Nisin resistance, phage shock protein homolog LiaH
+md:M00760	Erythromycin resistance, macrolide 2'-phosphotransferase I MphA
+md:M00761	Undecaprenylphosphate alpha-L-Ara4N biosynthesis, UDP-GlcA => undecaprenyl phosphate alpha-L-Ara4N
+md:M00762	Copper-processing system
+md:M00763	Ornithine biosynthesis, mediated by LysW, glutamate => ornithine
+md:M00764	PTS system, fructoselysine/glucoselysine-specific II component
+md:M00765	Multidrug resistance, efflux pump Bmr
+md:M00766	Streptomycin resistance, deactivating enzyme StrAB
+md:M00767	Multidrug resistance, efflux pump OqxAB
+md:M00768	Multidrug resistance, efflux pump GesABC
+md:M00769	Multidrug resistance, efflux pump MexPQ-OpmE
+md:M00770	PfeS-PfeR (enterobactin-dependent iron acquisition) two-component regulatory system
+md:M00771	FitF-FitH (insecticidal toxin regulation) two-component regulatory system
+md:M00772	HupT-HupR (hydrogenase synthesis regulation) two-component regulatory system
+md:M00773	Tylosin biosynthesis, methylmalonyl-CoA + malonyl-CoA => tylactone => tylosin
+md:M00774	Erythromycin biosynthesis, propanoyl-CoA + methylmalonyl-CoA => deoxyerythronolide B => erythromycin A/B
+md:M00775	Oleandomycin biosynthesis, malonyl-CoA + methylmalonyl-CoA => 8,8a-deoxyoleandolide => oleandomycin
+md:M00776	Pikromycin/methymycin biosynthesis, methylmalonyl-CoA + malonyl-CoA => narbonolide/10-deoxymethynolide => pikromycin/methymycin
+md:M00777	Avermectin biosynthesis, 2-methylbutanoyl-CoA/isobutyryl-CoA => 6,8a-Seco-6,8a-deoxy-5-oxoavermectin 1a/1b aglycone => avermectin A1a/B1a/A1b/B1b
+md:M00778	Type II polyketide backbone biosynthesis, acyl-CoA + malonyl-CoA => polyketide
+md:M00779	Dihydrokalafungin biosynthesis, octaketide => dihydrokalafungin
+md:M00780	Tetracycline/oxytetracycline biosynthesis, pretetramide => tetracycline/oxytetracycline
+md:M00781	Nogalavinone/aklavinone biosynthesis, deoxynogalonate/deoxyaklanonate => nogalavinone/aklavinone
+md:M00782	Mithramycin biosynthesis, 4-demethylpremithramycinone => mithramycin
+md:M00783	Tetracenomycin C/8-demethyltetracenomycin C biosynthesis, tetracenomycin F2 => tetracenomycin C/8-demethyltetracenomycin C
+md:M00784	Elloramycin biosynthesis, 8-demethyltetracenomycin C => elloramycin A
+md:M00785	Cycloserine biosynthesis, arginine/serine => cycloserine
+md:M00786	Fumitremorgin alkaloid biosynthesis, tryptophan + proline => fumitremorgin C/A
+md:M00787	Bacilysin biosynthesis, prephenate => bacilysin
+md:M00788	Terpentecin biosynthesis, GGAP => terpentecin
+md:M00789	Rebeccamycin biosynthesis, tryptophan => rebeccamycin
+md:M00790	Pyrrolnitrin biosynthesis, tryptophan => pyrrolnitrin
+md:M00791	Manganese/zinc transport system
+md:M00792	Manganese transport system
+md:M00793	dTDP-L-rhamnose biosynthesis
+md:M00794	dTDP-6-deoxy-D-allose biosynthesis
+md:M00795	dTDP-beta-L-noviose biosynthesis
+md:M00796	dTDP-D-mycaminose biosynthesis
+md:M00797	dTDP-D-desosamine biosynthesis
+md:M00798	dTDP-L-mycarose biosynthesis
+md:M00799	dTDP-L-oleandrose biosynthesis
+md:M00800	dTDP-L-megosamine biosynthesis
+md:M00801	dTDP-L-olivose biosynthesis
+md:M00802	dTDP-D-forosamine biosynthesis
+md:M00803	dTDP-D-angolosamine biosynthesis
+md:M00804	Complete nitrification, comammox, ammonia => nitrite => nitrate
+md:M00805	Staurosporine biosynthesis, tryptophan => staurosporine
+md:M00806	PTS system, maltose-specific II component
+md:M00807	PTS system, galactose-specific II component
+md:M00808	Violacein biosynthesis, tryptophan => violacein
+md:M00809	PTS system, glucose-specific II component
+md:M00810	Nicotine degradation, pyridine pathway, nicotine => 2,6-dihydroxypyridine/succinate semialdehyde
+md:M00811	Nicotine degradation, pyrrolidine pathway, nicotine => succinate semialdehyde
+md:M00812	AgrC2-AgrA2 (virulence regulation) two-component regulatory system
+md:M00813	Lantibiotic transport system
+md:M00814	Acarbose biosynthesis, sedoheptulopyranose-7P => acarbose
+md:M00815	Validamycin A biosynthesis, sedoheptulopyranose-7P => validamycin A
+md:M00816	NisK-NisR (lantibiotic biosynthesis) two-component regulatory system
+md:M00817	Lantibiotic transport system
+md:M00818	FusK-FusR (virulence regulation) two-component regulatory system
+md:M00819	Pentalenolactone biosynthesis, farnesyl-PP => pentalenolactone
+md:M00820	SagS-HptB-HsbR (swarming activity and biofilm formation) two-component regulatory system
+md:M00821	Multidrug resistance, efflux pump TriABC-TolC
+md:M00822	Multidrug resistance, efflux pump MexMN-OprM
+md:M00823	Chlortetracycline biosynthesis, pretetramide => chlortetracycline
+md:M00824	9-membered enediyne core biosynthesis, malonyl-CoA => 3-hydroxyhexadeca-4,6,8,10,12,14-hexaenoyl-ACP => 9-membered enediyne core
+md:M00825	10-membered enediyne core biosynthesis, malonyl-CoA => 3-hydroxyhexadeca-4,6,8,10,12,14-hexaenoyl-ACP => 10-membered enediyne core
+md:M00826	C-1027 benzoxazolinate moiety biosynthesis, chorismate => benzoxazolinyl-CoA
+md:M00827	C-1027 beta-amino acid moiety biosynthesis, tyrosine => 3-chloro-4,5-dihydroxy-beta-phenylalanyl-PCP
+md:M00828	Maduropeptin beta-hydroxy acid moiety biosynthesis, tyrosine => 3-(4-hydroxyphenyl)-3-oxopropanoyl-PCP
+md:M00829	3,6-Dimethylsalicylyl-CoA biosynthesis, malonyl-CoA => 6-methylsalicylate => 3,6-dimethylsalicylyl-CoA
+md:M00830	Neocarzinostatin naphthoate moiety biosynthesis, malonyl-CoA => 2-hydroxy-5-methyl-1-naphthoate => 2-hydroxy-7-methoxy-5-methyl-1-naphthoyl-CoA
+md:M00831	Kedarcidin 2-hydroxynaphthoate moiety biosynthesis, malonyl-CoA => 3,6,8-trihydroxy-2-naphthoate => 3-hydroxy-7,8-dimethoxy-6-isopropoxy-2-naphthoyl-CoA
+md:M00832	Kedarcidin 2-aza-3-chloro-beta-tyrosine moiety biosynthesis, azatyrosine => 2-aza-3-chloro-beta-tyrosyl-PCP
+md:M00833	Calicheamicin biosynthesis, calicheamicinone => calicheamicin
+md:M00834	Calicheamicin orsellinate moiety biosynthesis, malonyl-CoA => orsellinate-ACP => 5-iodo-2,3-dimethoxyorsellinate-ACP
+md:M00835	Pyocyanine biosynthesis, chorismate => pyocyanine
+md:M00836	Coenzyme F430 biosynthesis, sirohydrochlorin => coenzyme F430
+md:M00837	Prodigiosin biosynthesis, L-proline => prodigiosin
+md:M00838	Undecylprodigiosin biosynthesis, L-proline => undecylprodigiosin
+md:M00839	PdtaS-PdtaR two-component regulatory system
+md:M00840	Tetrahydrofolate biosynthesis, mediated by ribA and trpF, GTP => THF
+md:M00841	Tetrahydrofolate biosynthesis, mediated by PTPS, GTP => THF
+md:M00842	Tetrahydrobiopterin biosynthesis, GTP => BH4
+md:M00843	L-threo-Tetrahydrobiopterin biosynthesis, GTP => L-threo-BH4
+md:M00844	Arginine biosynthesis, ornithine => arginine
+md:M00845	Arginine biosynthesis, glutamate => acetylcitrulline => arginine
+md:M00846	Siroheme biosynthesis, glutamate => siroheme
+md:M00847	Heme biosynthesis, archaea, siroheme => heme
+md:M00848	Aurachin biosynthesis, anthranilate => aurachin A
+md:M00849	C5 isoprenoid biosynthesis, mevalonate pathway, archaea
+md:M00850	Vibrio cholerae pathogenicity signature, cholera toxins
+md:M00851	Carbapenem resistance
+md:M00852	Vibrio cholerae pathogenicity signature, toxin coregulated pilus
+md:M00853	ETEC pathogenicity signature, colonization factors
+md:M00854	Glycogen biosynthesis, glucose-1P => glycogen/starch
+md:M00855	Glycogen degradation, glycogen => glucose-6P
+md:M00856	Salmonella enterica pathogenicity signature, typhoid toxin
+md:M00857	Salmonella enterica pathogenicity signature, Vi antigen
+md:M00858	Vi polysaccharide transport system
+md:M00859	Bacillus anthracis pathogenicity signature, anthrax toxin
+md:M00860	Bacillus anthracis pathogenicity signature, polyglutamic acid capsule biosynthesis
+md:M00861	beta-Oxidation, peroxisome, VLCFA
+md:M00862	beta-Oxidation, peroxisome, tri/dihydroxycholestanoyl-CoA => choloyl/chenodeoxycholoyl-CoA
+md:M00863	Putative lysine/arginine/ornithine/histidine/octopine transport system
+md:M00864	Arginine/lysine/histidine transport system
+md:M00865	Hydroxyproline transporter system
+md:M00866	KDO2-lipid A biosynthesis, Raetz pathway, non-LpxL-LpxM type
+md:M00867	KDO2-lipid A modification pathway
+md:M00868	Heme biosynthesis, animals and fungi, glycine => heme
+md:M00872	O-glycan biosynthesis, mannose type (core M3)

@@ -1,0 +1,1 @@
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["url","header","body"]}},"value":[{"type":"character","attributes":{},"value":["https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sid/3/XML"]},{"type":"character","attributes":{},"value":[]},{"type":"character","attributes":{},"value":[]}]}

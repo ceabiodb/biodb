@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:75350</chebiId><chebiAsciiName>3-[(4-bromophenyl)amino]-3-(4-methoxyphenyl)-1-phenylpropan-1-one</chebiAsciiName><definition>An aromatic ketone that is propiophenone substituted at position 3 by (4-bromophenyl)amino and 4-methoxyphenyl groups respectively.</definition><status>CHECKED</status><smiles>COc1ccc(cc1)C(CC(=O)c1ccccc1)Nc1ccc(Br)cc1</smiles><inchi>InChI=1S/C22H20BrNO2/c1-26-20-13-7-16(8-14-20)21(24-19-11-9-18(23)10-12-19)15-22(25)17-5-3-2-4-6-17/h2-14,21,24H,15H2,1H3</inchi><inchiKey>TWTRFZJCSFQJML-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>410.30400</mass><monoisotopicMass>409.06774</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>beta-(4-bromo-anilino)-beta-(4-methoxy-phenyl)-propiophenone</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>3-[(4-bromophenyl)amino]-3-(4-methoxyphenyl)-1-phenylpropan-1-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C22H20BrNO2</data><source>ChEBI</source></Formulae><RegistryNumbers><data>2768464</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  08271315222D          
+
+ 26 28  0  0  0  0            999 V2000
+    7.5431   -4.2691    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.5431   -5.0941    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.8286   -3.8566    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.8286   -5.5066    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1141   -4.2691    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1141   -5.0941    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2576   -5.5067    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2576   -6.3317    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9720   -5.0942    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6865   -5.5067    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4010   -5.0942    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4010   -4.2692    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1155   -3.0317    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1155   -3.8567    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4010   -2.6192    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6866   -3.0317    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6866   -3.8567    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4010   -1.7942    0.0000 Br  0  0  0  0  0  0  0  0  0  0  0  0
+    9.6865   -6.3317    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4010   -6.7442    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.4010   -7.5692    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6865   -7.9817    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9720   -6.7442    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9720   -7.5692    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6864   -8.8067    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9720   -9.2192    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  3  1  2  0  0  0  0
+  4  2  2  0  0  0  0
+  5  3  1  0  0  0  0
+  6  4  1  0  0  0  0
+  6  5  2  0  0  0  0
+  2  7  1  0  0  0  0
+  7  8  2  0  0  0  0
+  7  9  1  0  0  0  0
+  9 10  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 11 12  1  0  0  0  0
+ 14 13  1  0  0  0  0
+ 15 13  2  0  0  0  0
+ 12 14  2  0  0  0  0
+ 16 15  1  0  0  0  0
+ 17 12  1  0  0  0  0
+ 17 16  2  0  0  0  0
+ 15 18  1  0  0  0  0
+ 10 19  1  0  0  0  0
+ 21 20  1  0  0  0  0
+ 19 20  2  0  0  0  0
+ 22 21  2  0  0  0  0
+ 23 19  1  0  0  0  0
+ 24 22  1  0  0  0  0
+ 24 23  2  0  0  0  0
+ 22 25  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><OntologyParents><chebiName>organobromine compound</chebiName><chebiId>CHEBI:37141</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>secondary amino compound</chebiName><chebiId>CHEBI:50995</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aromatic ether</chebiName><chebiId>CHEBI:35618</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>aromatic ketone</chebiName><chebiId>CHEBI:76224</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>
