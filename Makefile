@@ -38,13 +38,16 @@ all:
 ################################################################
 
 check: $(ZIPPED_PKG)
-	R CMD check --as-cran "$<"
+	time R CMD check --no-build-vignettes "$<"
 # Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:
 #   Warning in config_val_to_logical(check_incoming) :
 #     cannot coerce ‘FALSE false’ to logical
 #   Error in if (check_incoming) check_CRAN_incoming(!check_incoming_remote) : 
 #     missing value where TRUE/FALSE needed
 #   Execution halted
+
+bioc.check:
+	time R CMD BiocCheck --new-package --quit-with-status .
 
 check.version:
 	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
@@ -61,10 +64,8 @@ conda_install_%: clean
 # Build {{{1
 ################################################################
 
-build: $(ZIPPED_PKG)
-
-$(ZIPPED_PKG): doc
-	cd "$(dir $(CURDIR))" && R CMD build "$(notdir $(CURDIR))" && mv "$@" "$(CURDIR)"
+$(ZIPPED_PKG) build: doc
+	R CMD build .
 
 # Documentation {{{1
 ################################################################
@@ -119,4 +120,4 @@ clean.cache:
 # Phony targets {{{1
 ################################################################
 
-.PHONY: all clean win test check vignettes install uninstall devtools.check devtools.build clean.build clean.cache doc check.version
+.PHONY: all clean win test build check vignettes install uninstall devtools.check devtools.build clean.build clean.cache doc check.version
