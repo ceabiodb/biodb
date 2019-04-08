@@ -198,7 +198,9 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('catalytic.activity', description = 'Catalytic activity.',                        card = BIODB.CARD.MANY)
 	.self$.define('cofactor',           description = 'Cofactor.',                                  card = BIODB.CARD.MANY)
 	.self$.define('charge',             description = 'Charge.',               class = 'integer')
-
+	.self$.define('equation', description = 'Chemical equation')
+	.self$.define('substrates', description = 'Substrates of an enzymatic chemical reaction.')
+	.self$.define('products', description = 'Products of an enzymatic chemical reaction.')
 	.self$.define('average.mass',  description = 'Average mass.',    class = 'double', type = 'mass')
 	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double', type = 'mass')
 	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer', type = 'mass')

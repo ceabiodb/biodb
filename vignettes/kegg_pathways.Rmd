@@ -98,6 +98,13 @@ for (comp.id in kegg.comp.ids) {
 }
 ```
 
+# List found pathways
+
+We print the found pathways:
+```{r}
+unique(unlist(comp.mmu.gene.pathways, use.names = FALSE))
+```
+
 # Count to how many pathways each compound is related
 
 Now we will loop on all the original compounds, and count for each of them the number of pathways to which they are related.
