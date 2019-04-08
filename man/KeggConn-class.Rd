@@ -42,5 +42,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable.R}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable}}.
 }

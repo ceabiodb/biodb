@@ -9,7 +9,7 @@
 #'
 #' @param query The query to send to the database web service.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable.R}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
