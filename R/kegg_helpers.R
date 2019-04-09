@@ -16,36 +16,6 @@
 #'
 #' @export
 get_kegg_pathway_reactions = function(pathway.id) {
-
-    reactions = character()
-    
-    biodb.ins = biodb::Biodb()
-    kegg.path.conn  = biodb.ins$getFactory()$createConn('kegg.pathway')
-    kegg.mod.conn   = biodb.ins$getFactory()$createConn('kegg.module')
-    
-    # Loop on all Pathway IDs
-    for (path.id in pathway.id) {
-        
-        path = kegg.path.conn$getEntry(path.id)
-        if ( ! is.null(path) && path$hasField('kegg.module.id')) {
-            
-            # Loop on all modules
-            for (mod.id in path$getFieldValue('kegg.module.id')) {
-                
-                mod = kegg.mod.conn$getEntry(mod.id)
-                if ( ! is.null(mod) && mod$hasField('kegg.reaction.id'))
-                    
-                    reactions = c(reactions,
-                                  mod$getFieldValue('kegg.reaction.id'))
-            }
-        }
-    }
-    
-    biodb.ins$terminate()
-    
-    reactions = unique(reactions)
-    
-    return(reactions)
 }
 
 # Build KEGG pathway graph {{{1
@@ -63,28 +33,6 @@ get_kegg_pathway_reactions = function(pathway.id) {
 #'
 #' @export
 build_kegg_pathway_graph = function(pathway.id) {
-
-    graph = NULL
-    
-    if (require('igraph')) {
-        detach('package:igraph') # Force using namespace.
-
-        biodb.ins = biodb::Biodb()
-        kegg.react.conn = biodb.ins$getFactory()$createConn('kegg.reaction')
-        
-        # Loop on all reactions
-        for (react.id in get_kegg_pathway_reactions(pathway.id)) {
-            
-            react = kegg.react.conn$getEntry(react.id)
-                
-            # Form reaction vertex name
-            react_vertex_id = react$getFieldValue('kegg.enzyme.id')
-        }
-        
-        biodb.ins$terminate()
-    }
-    
-    return(graph)
 }
 
 #' Get organism pathways.
