@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:17203</chebiId><chebiAsciiName>L-proline</chebiAsciiName><definition>Pyrrolidine in which the pro-S hydrogen at position 2 is substituted by a carboxylic acid group. L-Proline is the only one of the twenty DNA-encoded amino acids which has a secondary amino group alpha to the carboxyl group. It is an essential component of collagen and is important for proper functioning of joints and tendons. It also helps maintain and strengthen heart muscles.</definition><status>CHECKED</status><smiles>OC(=O)[C@@H]1CCCN1</smiles><inchi>InChI=1S/C5H9NO2/c7-5(8)4-2-1-3-6-4/h4,6H,1-3H2,(H,7,8)/t4-/m0/s1</inchi><inchiKey>ONIBWKKTOPOVIA-BYPYZUCNSA-N</inchiKey><charge>0</charge><mass>115.13050</mass><monoisotopicMass>115.06333</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:45159</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:45100</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:45040</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:42067</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:184637</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:6286</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:13154</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:21373</SecondaryChEBIIds><Synonyms><data>(-)-(S)-proline</data><type>SYNONYM</type><source>NIST Chemistry WebBook</source></Synonyms><Synonyms><data>(-)-2-pyrrolidinecarboxylic acid</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>(-)-proline</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>(2S)-pyrrolidine-2-carboxylic acid</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>(S)-2-carboxypyrrolidine</data><type>SYNONYM</type><source>DrugBank</source></Synonyms><Synonyms><data>(S)-2-pyrrolidinecarboxylic acid</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>(S)-pyrrolidine-2-carboxylic acid</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>2-Pyrrolidinecarboxylic acid</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>L-(-)-proline</data><type>SYNONYM</type><source>NIST Chemistry WebBook</source></Synonyms><Synonyms><data>L-alpha-pyrrolidinecarboxylic acid</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>L-Prolin</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>L-Proline</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>L-pyrrolidine-2-carboxylic acid</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>P</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>prolina</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>PROLINE</data><type>SYNONYM</type><source>PDBeChem</source></Synonyms><Synonyms><data>proline</data><type>INN</type><source>ChemIDplus</source></Synonyms><Synonyms><data>prolinum</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>L-proline</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C5H9NO2</data><source>ChEBI</source></Formulae><RegistryNumbers><data>147-85-3</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><RegistryNumbers><data>147-85-3</data><type>CAS Registry Number</type><source>NIST Chemistry WebBook</source></RegistryNumbers><RegistryNumbers><data>147-85-3</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>50152</data><type>Gmelin Registry Number</type><source>Gmelin</source></RegistryNumbers><RegistryNumbers><data>80810</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><RegistryNumbers><data>80810</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>11076505</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>12770004</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>14975886</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>15576824</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>15838615</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>15894682</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>15973048</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>16033917</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>16190672</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>16501220</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>16656443</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>16657874</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>16668324</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>17127472</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>17608428</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>18551589</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>18802692</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>18973300</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19215998</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19580280</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19656302</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19688381</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19811425</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22139509</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22201772</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22451406</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22475019</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22482728</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22491679</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22770225</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  06271321382D          
+
+  8  8  0  0  1  0            999 V2000
+   19.2929   -5.5715    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   19.0380   -4.7869    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.0949   -5.8321    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.6254   -6.0564    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   18.2130   -4.7869    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.2493   -6.6336    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.6909   -5.2745    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   17.9581   -5.5716    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  3  1  1  0  0  0
+  1  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  3  6  1  0  0  0  0
+  3  7  2  0  0  0  0
+  4  8  1  0  0  0  0
+  5  8  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  06271321382D          
+
+  8  8  0  0  1  0            999 V2000
+   -0.7145    1.2375    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    1.2375    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.6674   -0.4849    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6674   -0.4849    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4125   -1.2695    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.4125   -1.2695    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  2  0  0  0  0
+  3  2  1  0  0  0  0
+  4  2  1  0  0  0  0
+  4  5  1  1  0  0  0
+  6  4  1  0  0  0  0
+  7  6  1  0  0  0  0
+  8  7  1  0  0  0  0
+  8  5  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  06271321383D          
+
+ 17 17  0  0  1  0            999 V2000
+    2.6178   -1.7552    0.0062 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4896   -1.4533   -0.3525 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9525   -2.2007   -1.1622 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8101   -0.2780    0.1603 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.4653    0.6664   -0.9155 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5551   -0.5700    0.8210 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.3656    0.7273    0.6378 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5872    1.5550   -0.4029 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.1298   -2.0421   -1.4346 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4528    0.2414    0.8824 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2861    1.2308   -1.1500 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4396   -0.8385    1.8742 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0808   -1.3920    0.3243 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3804    0.5080    0.2936 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4368    1.2743    1.5812 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1330    2.4356    0.0600 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.2255    1.8909   -1.2232 H   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  2  0  0  0  0
+  3  2  1  0  0  0  0
+  4  2  1  0  0  0  0
+  4  5  1  0  0  0  0
+  6  4  1  0  0  0  0
+  7  6  1  0  0  0  0
+  8  7  1  0  0  0  0
+  8  5  1  0  0  0  0
+  3  9  1  0  0  0  0
+  4 10  1  0  0  0  0
+  5 11  1  0  0  0  0
+  6 12  1  0  0  0  0
+  6 13  1  0  0  0  0
+  7 14  1  0  0  0  0
+  7 15  1  0  0  0  0
+  8 16  1  0  0  0  0
+  8 17  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>3D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  06271321382D          
+
+  8  8  0  0  1  0            999 V2000
+    4.1688   -5.9205    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    3.5014   -6.4054    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1688   -5.0773    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8362   -6.4055    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7563   -7.1900    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8834   -4.6829    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4544   -4.6828    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5813   -7.1900    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  3  1  1  0  0  0
+  1  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  3  6  1  0  0  0  0
+  3  7  2  0  0  0  0
+  4  8  1  0  0  0  0
+  5  8  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  06271321383D          
+
+ 16 16  0  0  0  0            999 V2000
+   -0.8061   -1.1057   -0.2775 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0052    0.1181   -0.5034 C   0  0  2  0  0  0  0  0  0  0  0  0
+    1.4073   -0.0781    0.0131 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6160   -0.8555    0.9142 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7159    1.2203    0.3019 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1741    0.7338    0.4304 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.2114   -0.6215   -0.3080 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4244    0.6109   -0.5280 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0234    0.3719   -1.5633 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.2637    1.3259    1.2880 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6789    2.1677   -0.2359 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.4377    0.6006    1.4797 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8528    1.4424   -0.0442 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8662   -1.3202    0.2127 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.5420   -0.4844   -1.3376 H   0  0  0  0  0  0  0  0  0  0  0  0
+    3.3240    0.4850   -0.1966 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  7  1  0  0  0  0
+  2  3  1  0  0  0  0
+  4  3  2  0  0  0  0
+  5  2  1  0  0  0  0
+  6  5  1  0  0  0  0
+  6  7  1  0  0  0  0
+  8  3  1  0  0  0  0
+  8 16  1  0  0  0  0
+  9  2  1  0  0  0  0
+ 10  5  1  0  0  0  0
+ 11  5  1  0  0  0  0
+ 12  6  1  0  0  0  0
+ 13  6  1  0  0  0  0
+ 14  7  1  0  0  0  0
+ 15  7  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>3D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  06271321383D          
+
+ 16 16  0  0  0  0            999 V2000
+    0.1605   -1.0970   -0.0266 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.2631    0.2245    0.5580 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -1.7019    0.5018    0.2107 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.3393   -0.3106   -0.4154 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6482    1.2946   -0.0743 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9527    0.5251   -0.3663 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6449   -0.9006    0.1325 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.4116   -1.6242    0.7511 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3437   -2.0544   -0.5380 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1346    0.2128    1.6384 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2122    1.6690   -0.9952 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8308    2.1016    0.6284 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1608    0.5181   -1.4316 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7802    0.9522    0.1914 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1835   -1.6314   -0.4682 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9227   -0.9981    1.1805 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  7  1  0  0  0  0
+  1  8  1  0  0  0  0
+  1  9  1  0  0  0  0
+  2  3  1  0  0  0  0
+  4  3  2  0  0  0  0
+  5  2  1  0  0  0  0
+  6  5  1  0  0  0  0
+  6  7  1  0  0  0  0
+ 10  2  1  0  0  0  0
+ 11  5  1  0  0  0  0
+ 12  5  1  0  0  0  0
+ 13  6  1  0  0  0  0
+ 14  6  1  0  0  0  0
+ 15  7  1  0  0  0  0
+ 16  7  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>3D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  06271321382D          
+
+  8  8  0  0  1  0            999 V2000
+    3.4611   -7.1310    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9957   -7.0057    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7597   -6.6926    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    3.4361   -7.9576    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1876   -6.7427    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4654   -6.3753    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6971   -5.8659    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8955   -5.6738    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  3  1  0  0  0  0
+  3  1  1  0  0  0  0
+  4  1  2  0  0  0  0
+  5  1  1  0  0  0  0
+  6  2  1  0  0  0  0
+  3  7  1  1  0  0  0
+  8  7  1  0  0  0  0
+  8  6  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><DatabaseLinks><data>4125</data><type>Drug Central accession</type></DatabaseLinks><DatabaseLinks><data>C00001388</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C00148</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>D00035</data><type>KEGG DRUG accession</type></DatabaseLinks><DatabaseLinks><data>DB00172</data><type>DrugBank accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0000162</data><type>HMDB accession</type></DatabaseLinks><DatabaseLinks><data>L-proline</data><type>Wikipedia accession</type></DatabaseLinks><DatabaseLinks><data>PRO</data><type>PDBeChem accession</type></DatabaseLinks><DatabaseLinks><data>PRO</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>Escherichia coli metabolite</chebiName><chebiId>CHEBI:76971</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>Saccharomyces cerevisiae metabolite</chebiName><chebiId>CHEBI:75772</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>proteinogenic amino acid</chebiName><chebiId>CHEBI:83813</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>micronutrient</chebiName><chebiId>CHEBI:27027</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>nutraceutical</chebiName><chebiId>CHEBI:50733</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>glutamine family amino acid</chebiName><chebiId>CHEBI:24318</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>algal metabolite</chebiName><chebiId>CHEBI:84735</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>mouse metabolite</chebiName><chebiId>CHEBI:75771</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>D-proline</chebiName><chebiId>CHEBI:16313</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>L-prolinium</chebiName><chebiId>CHEBI:32864</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>L-prolinate</chebiName><chebiId>CHEBI:32862</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>L-proline zwitterion</chebiName><chebiId>CHEBI:60039</chebiId><type>is tautomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>proline</chebiName><chebiId>CHEBI:26271</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>compatible osmolytes</chebiName><chebiId>CHEBI:23366</chebiId><type>has role</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>L-alpha-amino acid</chebiName><chebiId>CHEBI:15705</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>Gly-Pro</chebiName><chebiId>CHEBI:70744</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Val-Asp-Pro</chebiName><chebiId>CHEBI:73384</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Val-Pro-Pro</chebiName><chebiId>CHEBI:73392</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Pro</chebiName><chebiId>CHEBI:73393</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Asn-Asn-Pro-Ser</chebiName><chebiId>CHEBI:73407</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Asn-Pro</chebiName><chebiId>CHEBI:73425</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Asp-Met-Thr-Pro</chebiName><chebiId>CHEBI:73436</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Asp-Pro-Ser-Ser</chebiName><chebiId>CHEBI:73439</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Leu-Ala-Pro</chebiName><chebiId>CHEBI:73353</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Phe-Pro-Pro</chebiName><chebiId>CHEBI:73644</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Arg</chebiName><chebiId>CHEBI:73645</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Pro</chebiName><chebiId>CHEBI:73646</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Pro-Pro</chebiName><chebiId>CHEBI:73647</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Ser</chebiName><chebiId>CHEBI:73648</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Val-Gly-Pro</chebiName><chebiId>CHEBI:73649</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Trp-Val-Gly</chebiName><chebiId>CHEBI:73650</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Thr-Pro-Tyr</chebiName><chebiId>CHEBI:73661</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Thr-Pro</chebiName><chebiId>CHEBI:73662</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Thr-Ala-Pro</chebiName><chebiId>CHEBI:73381</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Asp-Val-Pro-Pro</chebiName><chebiId>CHEBI:73443</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Glu-Pro</chebiName><chebiId>CHEBI:73508</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Trp-Pro</chebiName><chebiId>CHEBI:141449</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Ala-Pro</chebiName><chebiId>CHEBI:73323</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Val-Pro-Pro</chebiName><chebiId>CHEBI:73696</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Leu-Pro</chebiName><chebiId>CHEBI:73580</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Leu-Pro-Tyr</chebiName><chebiId>CHEBI:73581</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Lys-Thr-Pro-Pro</chebiName><chebiId>CHEBI:73596</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Met-Pro</chebiName><chebiId>CHEBI:73612</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Phe-Ala-Pro</chebiName><chebiId>CHEBI:73617</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Thr</chebiName><chebiId>CHEBI:141395</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>acromelic acid A</chebiName><chebiId>CHEBI:134690</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Asn-Asp-Pro</chebiName><chebiId>CHEBI:73329</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Met</chebiName><chebiId>CHEBI:141444</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Tyr-Pro</chebiName><chebiId>CHEBI:141456</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Gln-Pro</chebiName><chebiId>CHEBI:73347</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Gly-Pro</chebiName><chebiId>CHEBI:73349</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Gly-Pro-Hyp</chebiName><chebiId>CHEBI:74135</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Asn-Met-Gln-Pro</chebiName><chebiId>CHEBI:138505</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Pro-Hyp</chebiName><chebiId>CHEBI:74767</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Phe-Pro-Thr</chebiName><chebiId>CHEBI:138789</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>D-proline</chebiName><chebiId>CHEBI:16313</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-proline derivative</chebiName><chebiId>CHEBI:84186</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Val-Asn-Pro</chebiName><chebiId>CHEBI:73697</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Val-Pro</chebiName><chebiId>CHEBI:73701</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Leu-Gly-Pro</chebiName><chebiId>CHEBI:6414</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Ala-Pro-Pro</chebiName><chebiId>CHEBI:73324</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Asn-Asn-Pro</chebiName><chebiId>CHEBI:73326</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-prolino group</chebiName><chebiId>CHEBI:32866</chebiId><type>is substituent group from</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-proline residue</chebiName><chebiId>CHEBI:50342</chebiId><type>is substituent group from</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-prolinium</chebiName><chebiId>CHEBI:32864</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-prolinate</chebiName><chebiId>CHEBI:32862</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-prolyl group</chebiName><chebiId>CHEBI:32865</chebiId><type>is substituent group from</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-proline zwitterion</chebiName><chebiId>CHEBI:60039</chebiId><type>is tautomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Asp-Val-Gly-Pro</chebiName><chebiId>CHEBI:73441</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Cys-Pro</chebiName><chebiId>CHEBI:73461</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Gln-Leu-Leu-Pro</chebiName><chebiId>CHEBI:73463</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>royal jelly</chebiName><chebiId>CHEBI:78665</chebiId><type>has part</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>maculosin</chebiName><chebiId>CHEBI:6631</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Arg-Pro</chebiName><chebiId>CHEBI:141419</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Asp-Gly-Pro</chebiName><chebiId>CHEBI:73291</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Leu-Thr-Pro</chebiName><chebiId>CHEBI:73292</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>Ala-Asp-Pro</chebiName><chebiId>CHEBI:73342</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>19425150</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Chlamydomonas reinhardtii</speciesText><speciesAccession>NCBI:3055</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>25515814</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Saccharomyces cerevisiae</speciesText><speciesAccession>NCBI:4932</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>24678285</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Escherichia coli</speciesText><speciesAccession>NCBI:562</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>21988831</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>DOI</SourceType><SourceAccession>10.1038/nbt.2488</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>cerebrospinal fluid</componentText><componentAccession>UBERON:0001359</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>11510941</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>breast milk</componentText><componentAccession>ENVO:02000031</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>24027187</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>urine</componentText><componentAccession>BTO:0001419</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>19309105</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>saliva</componentText><componentAccession>UBERON:0001836</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>20300169</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>blood</componentText><componentAccession>UBERON:0000178</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>21359215</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>faeces</componentText><componentAccession>UBERON:0001988</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>23940645</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>blood serum</componentText><componentAccession>BTO:0000133</componentAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS90</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS226</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS93</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS424</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS90</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS425</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS337</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS290</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS100</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS152</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS150</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS200</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS213</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

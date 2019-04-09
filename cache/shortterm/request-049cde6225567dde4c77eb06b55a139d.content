@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:17858</chebiId><chebiAsciiName>glutathione disulfide</chebiAsciiName><definition></definition><status>CHECKED</status><smiles>N[C@@H](CCC(=O)N[C@@H](CSSC[C@H](NC(=O)CC[C@H](N)C(O)=O)C(=O)NCC(O)=O)C(=O)NCC(O)=O)C(O)=O</smiles><inchi>InChI=1S/C20H32N6O12S2/c21-9(19(35)36)1-3-13(27)25-11(17(33)23-5-15(29)30)7-39-40-8-12(18(34)24-6-16(31)32)26-14(28)4-2-10(22)20(37)38/h9-12H,1-8,21-22H2,(H,23,33)(H,24,34)(H,25,27)(H,26,28)(H,29,30)(H,31,32)(H,35,36)(H,37,38)/t9-,10-,11-,12-/m0/s1</inchi><inchiKey>YPZRWBKMTBYPTK-BJDJZHNGSA-N</inchiKey><charge>0</charge><mass>612.63332</mass><monoisotopicMass>612.15196</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:7840</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:42832</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:14720</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:14328</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:24336</SecondaryChEBIIds><Synonyms><data>Glutathione disulfide</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>glutathione disulphide</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>GSSG</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>oxidised glutathione</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Oxidized glutathione</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>Oxidized glutathione</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>OXIDIZED GLUTATHIONE DISULFIDE</data><type>SYNONYM</type><source>PDBeChem</source></Synonyms><Synonyms><data>Oxiglutatione</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>(2S,2'S)-5,5'-[disulfanediylbis({(2R)-3-[(carboxymethyl)amino]-3-oxopropane-1,2-diyl}imino)]bis(2-amino-5-oxopentanoic acid)</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C20H32N6O12S2</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>27025-41-8</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><RegistryNumbers><data>27025-41-8</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  02120600552D          
+
+ 40 39  0  0  1  0            999 V2000
+   -2.8579   -1.1962    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8579   -0.3712    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -2.1434    0.0413    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -0.3712    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    0.0413    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    0.8663    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -0.3712    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    0.0413    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.7145    0.8663    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -0.3713    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -1.1963    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434    0.0412    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579   -0.3713    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724    0.0412    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5724    0.8662    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2868   -0.3713    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5724    0.0412    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.5724    0.8663    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.2868   -0.3713    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7157    4.5788    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7157    3.7538    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    5.0012    3.3413    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.2867    3.7538    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5723    3.3413    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5723    2.5163    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8578    3.7538    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1433    3.3413    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    2.1433    2.5163    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    2.1038    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    3.7539    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    4.5789    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7144    3.3414    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0001    3.7539    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7146    3.3414    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7146    2.5164    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4290    3.7539    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4302    3.3414    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4302    2.5163    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1446    3.7539    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    1.2788    0.0000 S   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  6  0  0  0
+  2  3  1  0  0  0  0
+  2 17  1  0  0  0  0
+  3  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  5  6  2  0  0  0  0
+  5  7  1  0  0  0  0
+  7  8  1  0  0  0  0
+  8  9  1  1  0  0  0
+  8 10  1  0  0  0  0
+  9 40  1  0  0  0  0
+ 10 11  2  0  0  0  0
+ 10 12  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 14 15  2  0  0  0  0
+ 14 16  1  0  0  0  0
+ 17 18  2  0  0  0  0
+ 17 19  1  0  0  0  0
+ 21 20  1  6  0  0  0
+ 21 22  1  0  0  0  0
+ 21 37  1  0  0  0  0
+ 22 23  1  0  0  0  0
+ 23 24  1  0  0  0  0
+ 24 25  2  0  0  0  0
+ 24 26  1  0  0  0  0
+ 26 27  1  0  0  0  0
+ 27 28  1  1  0  0  0
+ 27 30  1  0  0  0  0
+ 28 29  1  0  0  0  0
+ 30 31  2  0  0  0  0
+ 30 32  1  0  0  0  0
+ 32 33  1  0  0  0  0
+ 33 34  1  0  0  0  0
+ 34 35  2  0  0  0  0
+ 34 36  1  0  0  0  0
+ 37 38  2  0  0  0  0
+ 37 39  1  0  0  0  0
+ 40 29  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>5130</data><type>Drug Central accession</type></DatabaseLinks><DatabaseLinks><data>C00127</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>D00031</data><type>KEGG DRUG accession</type></DatabaseLinks><DatabaseLinks><data>DB03310</data><type>DrugBank accession</type></DatabaseLinks><DatabaseLinks><data>GDS</data><type>PDBeChem accession</type></DatabaseLinks><OntologyParents><chebiName>Escherichia coli metabolite</chebiName><chebiId>CHEBI:76971</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>mouse metabolite</chebiName><chebiId>CHEBI:75771</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>organic disulfide</chebiName><chebiId>CHEBI:35489</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>glutathione disulfide(2-)</chebiName><chebiId>CHEBI:58297</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>glutathione derivative</chebiName><chebiId>CHEBI:24337</chebiId><type>is a</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>glutathione disulfide(2-)</chebiName><chebiId>CHEBI:58297</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>19425150</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Escherichia coli</speciesText><speciesAccession>NCBI:562</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>21988831</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>saliva</componentText><componentAccession>UBERON:0001836</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>23857558</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>cerebrospinal fluid</componentText><componentAccession>UBERON:0001359</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>12938853</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>blood</componentText><componentAccession>UBERON:0000178</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>16139832</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS264</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS87</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS267</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS140</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS265</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS88</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS266</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS263</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS292</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

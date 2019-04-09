@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:28635</chebiId><chebiAsciiName>2-isopropylmalic acid</chebiAsciiName><definition>A dicarboxylic acid that is malic acid (2-hydroxysuccinic acid) in which the hydrogen at position 2 is substituted by an isopropyl group.</definition><status>CHECKED</status><smiles>C(C(=O)O)C(C(=O)O)(O)C(C)C</smiles><inchi>InChI=1S/C7H12O5/c1-4(2)7(12,6(10)11)3-5(8)9/h4,12H,3H2,1-2H3,(H,8,9)(H,10,11)</inchi><inchiKey>BITYXLXUCSKTJS-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>176.167</mass><monoisotopicMass>176.06847</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:11763</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:19667</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:11580</SecondaryChEBIIds><Synonyms><data>2-hydroxy-2-(1-methylethyl)butanedioic acid</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>2-hydroxy-2-isopropylsuccinic acid</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>3-carboxy-3-hydroxy-4-methylpentanoic acid</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>3-carboxy-3-hydroxyisocaproic acid</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>alpha-isopropylmalate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>alpha-isopropylmalic acid</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>2-hydroxy-2-(propan-2-yl)butanedioic acid</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C7H12O5</data><source>ChEBI</source></Formulae><RegistryNumbers><data>1707897</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>3237-44-3</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>17439666</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>22770225</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Ketcher 08031612522D 1   1.00000     0.00000     0
+
+ 12 11  0     0  0            999 V2000
+    8.7854  -24.8804    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5362  -24.8804    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9316  -25.3869    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6536  -25.3869    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5497  -23.8826    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9316  -26.3998    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3858  -25.3770    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.0634  -24.8949    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1514  -26.2493    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.1494  -26.2529    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1474  -26.2565    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6474  -27.1153    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  3  1  1  0     0  0
+  4  1  1  0     0  0
+  4  2  1  0     0  0
+  5  2  2  0     0  0
+  7  2  1  0     0  0
+  6  3  2  0     0  0
+  8  3  1  0     0  0
+  9  4  1  0     0  0
+ 10  4  1  0     0  0
+ 10 11  1  0     0  0
+ 10 12  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Ketcher 08031612522D 1   1.00000     0.00000     0
+
+ 12 11  0     0  0            999 V2000
+    5.5834   -3.4454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4416   -3.9337    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2850   -3.4454    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.1580   -3.9337    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5834   -2.4539    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.7251   -3.9337    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.1580   -4.9251    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0015   -3.4454    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9989   -4.8491    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.3814   -5.6667    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.9000   -4.8019    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9069   -4.9747    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0     0  0
+  6  1  1  0     0  0
+  5  1  2  0     0  0
+  3  2  1  0     0  0
+  9  2  1  0     0  0
+ 11  2  1  0     0  0
+  4  3  1  0     0  0
+  8  4  1  0     0  0
+  7  4  2  0     0  0
+ 11 10  1  0     0  0
+ 12 11  1  0     0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><OntologyParents><chebiName>dicarboxylic acid</chebiName><chebiId>CHEBI:35692</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>3-hydroxy carboxylic acid</chebiName><chebiId>CHEBI:61355</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>2-hydroxy carboxylic acid</chebiName><chebiId>CHEBI:52618</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>2-isopropylmalate</chebiName><chebiId>CHEBI:132917</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>2-isopropylmalate(2-)</chebiName><chebiId>CHEBI:28107</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>succinic acid</chebiName><chebiId>CHEBI:15741</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>metabolite</chebiName><chebiId>CHEBI:25212</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>2-isopropylmalate</chebiName><chebiId>CHEBI:132917</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>(2S)-2-isopropylmalic acid</chebiName><chebiId>CHEBI:35128</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>2-isopropylmalate(2-)</chebiName><chebiId>CHEBI:28107</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS225</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Chlamydomonas reinhardtii</speciesText><speciesAccession>NCBI:3055</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>25515814</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Chlamydomonas reinhardtii</speciesText><speciesAccession>NCBI:3055</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS208</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Lotus japonicus</speciesText><speciesAccession>NCBI:34305</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS16</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Lotus japonicus</speciesText><speciesAccession>NCBI:34305</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS14</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Lotus japonicus</speciesText><speciesAccession>NCBI:34305</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS15</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Arabidopsis thaliana</speciesText><speciesAccession>NCBI:3702</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS311</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Brassica napus</speciesText><speciesAccession>NCBI:3708</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS309</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Brassica napus</speciesText><speciesAccession>NCBI:3708</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS312</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Saccharomyces cerevisiae</speciesText><speciesAccession>NCBI:4932</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS8</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

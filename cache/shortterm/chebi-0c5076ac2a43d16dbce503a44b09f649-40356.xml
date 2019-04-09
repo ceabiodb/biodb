@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:40356</chebiId><chebiAsciiName>N-acetyl-alpha-D-galactosamine</chebiAsciiName><definition>An N-acetyl-D-galactosamine having alpha-configuration at the anomeric centre.</definition><status>CHECKED</status><smiles>CC(=O)N[C@H]1[C@@H](O)O[C@H](CO)[C@H](O)[C@@H]1O</smiles><inchi>InChI=1S/C8H15NO6/c1-3(11)9-5-7(13)6(12)4(2-10)15-8(5)14/h4-8,10,12-14H,2H2,1H3,(H,9,11)/t4-,5-,6+,7-,8+/m1/s1</inchi><inchiKey>OVRNDRQMDRJTHS-CBQIKETKSA-N</inchiKey><charge>0</charge><mass>221.20780</mass><monoisotopicMass>221.08994</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>2-(acetylamino)-2-deoxy-alpha-D-galactopyranose</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>alpha-GalNAc</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>alpha-GalpNAc</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>GalNAc-alpha</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>N-acetyl-alpha-D-galactosamine</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Synonyms><data>Tn</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Tn antigen saccharide</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>TN antigen saccharide</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Tn antigen saccharide component</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>TN antigen saccharide component</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Tn saccharide</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>TN saccharide</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Tn saccharide component</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>TN saccharide component</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><IupacNames><data>2-acetamido-2-deoxy-alpha-D-galactopyranose</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C8H15NO6</data><source>ChEBI</source></Formulae><RegistryNumbers><data>14215-68-0</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>1429040</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><Citations><data>15936003</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>17991151</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>19443021</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>2800471</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>3378242</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  01111114372D          
+
+ 15 15  0  0  1  0            999 V2000
+   11.9436   -5.3368    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   11.9436   -6.1618    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2291   -4.9243    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   10.5147   -5.3368    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.2291   -4.0994    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   12.6580   -4.0994    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   13.3724   -3.6869    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3724   -5.3368    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9436   -3.6869    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6580   -4.9243    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   10.5147   -3.6869    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8002   -4.0994    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3724   -6.1618    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0868   -6.5744    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6579   -6.5743    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  5  3  1  0  0  0  0
+  5  9  1  0  0  0  0
+  3  1  1  0  0  0  0
+  9  6  1  0  0  0  0
+  1 10  1  0  0  0  0
+  6 10  1  0  0  0  0
+  1  2  1  1  0  0  0
+  3  4  1  1  0  0  0
+  5 11  1  1  0  0  0
+  6  7  1  6  0  0  0
+ 10  8  1  6  0  0  0
+ 11 12  1  0  0  0  0
+ 14 13  2  0  0  0  0
+ 15 13  1  0  0  0  0
+  8 13  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  09130717143D          
+
+ 30 30  0  0  0  0            999 V2000
+    2.5370    0.6870    1.0540 C   0  0  2  0  0  0  0  0  0  0  0  0
+    2.0980    0.3880   -0.3860 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.8740   -0.5350   -0.3920 C   0  0  2  0  0  0  0  0  0  0  0  0
+    1.1430   -1.7840    0.4550 C   0  0  2  0  0  0  0  0  0  0  0  0
+    1.6180   -1.3800    1.8570 C   0  0  1  0  0  0  0  0  0  0  0  0
+    2.0030   -2.5750    2.7210 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8160    2.2930   -1.8150 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3240    3.5270   -2.4970 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.7710   -0.5290    1.7720 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5700    1.5070    1.7080 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5710   -0.9190   -1.7310 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1480   -2.5660   -0.1940 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8670   -3.4070    2.8720 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9960    1.9780   -1.9140 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8390    1.6090   -1.1160 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9180   -0.1060   -0.9210 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2440   -2.4080    0.5090 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8200   -0.8380    2.3780 H   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4770    1.2490    1.0480 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3820    2.2430    1.1070 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0030   -0.0060   -0.0010 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3570   -1.3740   -2.0720 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2020   -3.4000    0.2950 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7190   -3.5170    3.8270 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8940    1.9810   -1.1150 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3320   -2.2340    3.7030 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8020   -3.1400    2.2420 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8500    4.4340   -2.1550 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.4770    3.4950   -3.5870 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2530    3.7460   -2.3610 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  9  1  0  0  0  0
+  1 10  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  3  1  0  0  0  0
+  2 15  1  0  0  0  0
+  2 16  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3 11  1  0  0  0  0
+  3 21  1  0  0  0  0
+  4  5  1  0  0  0  0
+  4 12  1  0  0  0  0
+  4 17  1  0  0  0  0
+  5  6  1  0  0  0  0
+  5  9  1  0  0  0  0
+  5 18  1  0  0  0  0
+  6 13  1  0  0  0  0
+  6 26  1  0  0  0  0
+  6 27  1  0  0  0  0
+  7  8  1  0  0  0  0
+  7 14  2  0  0  0  0
+  7 15  1  0  0  0  0
+  8 28  1  0  0  0  0
+  8 29  1  0  0  0  0
+  8 30  1  0  0  0  0
+ 10 20  1  0  0  0  0
+ 11 22  1  0  0  0  0
+ 12 23  1  0  0  0  0
+ 13 24  1  0  0  0  0
+ 15 25  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>3D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><DatabaseLinks><data>CPD-3604</data><type>MetaCyc accession</type></DatabaseLinks><DatabaseLinks><data>EP0788504</data><type>Patent accession</type></DatabaseLinks><DatabaseLinks><data>US5527891</data><type>Patent accession</type></DatabaseLinks><OntologyParents><chebiName>epitope</chebiName><chebiId>CHEBI:53000</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>N-acetyl-D-galactosamine</chebiName><chebiId>CHEBI:28037</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>N-acetyl-alpha-neuraminyl-(2-&gt;6)-N-acetyl-alpha-D-galactosamine</chebiName><chebiId>CHEBI:61818</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N-acetyl-alpha-D-galactosaminyl group</chebiName><chebiId>CHEBI:88142</chebiId><type>is substituent group from</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>saliva</componentText><componentAccession>UBERON:0001836</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>22308371</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

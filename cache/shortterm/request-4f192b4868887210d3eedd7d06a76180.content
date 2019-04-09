@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:32826</chebiId><chebiAsciiName>D-allothreonine</chebiAsciiName><definition>The D-enantiomer of  allothreonine. It occurs as a component of peptido-lipids in certain bacteria.</definition><status>CHECKED</status><smiles>C[C@@H](O)[C@@H](N)C(O)=O</smiles><inchi>InChI=1S/C4H9NO3/c1-2(6)3(5)4(7)8/h2-3,6H,5H2,1H3,(H,7,8)/t2-,3-/m1/s1</inchi><inchiKey>AYFVYJQAPQTCCC-PWNYCUMCSA-N</inchiKey><charge>0</charge><mass>119.11920</mass><monoisotopicMass>119.05824</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:31452</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:29378</SecondaryChEBIIds><Synonyms><data>(2R,3R)-2-amino-3-hydroxybutanoic acid</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>(2R,3R)-allothreonine</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>(R)-allothreonine</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>D-allo-Threonine</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>D-Allothreonine</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>D-allothreonine</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C4H9NO3</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>1721644</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>1721644</data><type>Beilstein Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>24830-94-2</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>13717442</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>21190106</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>7410203</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  05110712422D          
+
+  8  7  0  0  0  0            999 V2000
+    0.7145    0.1031    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -0.3094    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -0.7145    0.1031    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    1.4289   -0.3094    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    0.9281    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -1.1344    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    0.9281    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -0.3094    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  5  1  2  0  0  0  0
+  4  1  1  0  0  0  0
+  2  3  1  0  0  0  0
+  2  6  1  6  0  0  0
+  3  7  1  1  0  0  0
+  3  8  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>ChEBI
+
+
+  8  7  0  0  1  0  0  0  0  0  1 V2000
+   12.2269   -9.6610    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.5619   -8.5092    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.2269   -7.3572    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   10.2318   -8.5092    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5668   -9.6610    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5668   -7.3572    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2367   -7.3572    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.2318   -6.2054    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  3  2  2  0  0  0  0
+  4  2  1  0  0  0  0
+  4  5  1  6  0  0  0
+  6  4  1  0  0  0  0
+  6  7  1  0  0  0  0
+  6  8  1  1  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><DatabaseLinks><data>2TL</data><type>PDBeChem accession</type></DatabaseLinks><DatabaseLinks><data>C12317</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>CPD-10303</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>D-allothreonine zwitterion</chebiName><chebiId>CHEBI:58645</chebiId><type>is tautomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>allothreonine</chebiName><chebiId>CHEBI:38262</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>L-allothreonine</chebiName><chebiId>CHEBI:28718</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>bacterial metabolite</chebiName><chebiId>CHEBI:76969</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>D-allothreonine zwitterion</chebiName><chebiId>CHEBI:58645</chebiId><type>is tautomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-allothreonine</chebiName><chebiId>CHEBI:28718</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren></return></getCompleteEntityResponse></S:Body></S:Envelope>
