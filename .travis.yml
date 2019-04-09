@@ -1,13 +1,14 @@
 language: r
-cache:
-    packages: true
+#cache:
+#    packages: true
     #    directories:
     #        - $BIODB_CACHE_DIRECTORY
 
 r:
 #    - oldrel
-    - release
-    - devel
+    - 3.5.3
+#    - release
+#    - devel
 
 notifications:
  email:
@@ -31,8 +32,8 @@ branches:
     - /^release[/].*$/
     - /^testing[/]travis-.*$/
 
-script:
-    - Rscript -e 'devtools::dev_package_deps(dependencies = NA)'
+      #script:
+      #    - Rscript -e 'devtools::dev_package_deps(dependencies = NA)'
 #script:
 #    - ./travis-tests
 
