@@ -28,7 +28,7 @@ NCBI CCDS              | ncbi.ccds           |   ✅   |
 NCBI Gene              | ncbi.gene           |   ✅   |
 NCBI PubChem Compound  | ncbi.pubchem.comp   |   ✅   |              |                                                   |            | 
 NCBI PubChem Substance | ncbi.pubchem.subst  |   ✅   |
-PeakForest Compound    | peakforest.compound |   ❌   |              |                                                   |            | <https://metabohub.peakforest.org/> is down.
+PeakForest Compound    | peakforest.compound |   ✅   |              |                                                   |            | <https://metabohub.peakforest.org/> is down.
 PeakForest Mass        | peakforest.mass     |   ✅   |              |                                                   |            | <https://metabohub.peakforest.org/> is down.
 UniProt                | uniprot             |   ✅   |              |                                                   |            | 
 

@@ -6,7 +6,7 @@ Description: The biodb library provides a way to connect to several chemical and
     biological databases, and retrieve entries easily.
 biocViews: Software, Infrastructure, DataImport
 Depends:
-    R (>= 3.5)
+    R (>= 3.5.3)
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
