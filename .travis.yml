@@ -9,7 +9,8 @@ r:
     - release
 #    - devel
 
-before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
+# XXX To be removed later, when R language is fixed on Travis-CI
+#before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
 
 notifications:
  email:
