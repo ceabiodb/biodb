@@ -31,6 +31,8 @@ branches:
     - /^release[/].*$/
     - /^testing[/]travis-.*$/
 
+  script:
+      - Rscript -e 'devtools::dev_package_deps(dependencies = NA)'
 #script:
 #    - ./travis-tests
 
