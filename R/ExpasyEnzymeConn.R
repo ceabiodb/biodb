@@ -19,7 +19,6 @@
 #'
 #' @param name      The name to search for.
 #' @param comment   The comment to search for.
-#' @param biodb.ids If set to \code{TRUE}, the method will return the entry IDs as a vector of characters, instead of the raw result page.
 #'
 #' @include BiodbRemotedbConn.R
 #' @export ExpasyEnzymeConn

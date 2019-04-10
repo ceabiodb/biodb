@@ -30,7 +30,7 @@
 #'                  See https://www.genome.jp/kegg/catalog/org_list.html for a
 #'                  complete list of KEGG organism codes.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
