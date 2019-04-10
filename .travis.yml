@@ -1,13 +1,13 @@
 language: r
-#cache:
-#    packages: true
+cache:
+    packages: true
     #    directories:
     #        - $BIODB_CACHE_DIRECTORY
 
 r:
 #    - oldrel
     - release
-#    - devel
+    - devel
 
 # XXX To be removed later, when R language is fixed on Travis-CI
 #before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
