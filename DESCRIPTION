@@ -125,5 +125,5 @@ Collate:
     'UniprotConn.R'
     'UniprotEntry.R'
     'biodb-package.R'
-    'massdb-helper.R'
+    'mass_helpers.R'
     'spec-dist.R'

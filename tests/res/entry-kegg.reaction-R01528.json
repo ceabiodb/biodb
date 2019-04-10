@@ -1,3 +1,19 @@
 {
-	"accession": "R01528"
+	"accession": "R01528",
+	"name": "6-phospho-D-gluconate:NADP+ 2-oxidoreductase (decarboxylating)",
+	"kegg.enzyme.id": ["1.1.1.44", "1.1.1.351"],
+	"equation": "C00345 + C00006 <=> C00199 + C00011 + C00005 + C00080",
+	"substrates": ["C00345", "C00006"],
+	"products": ["C00199", "C00011", "C00005", "C00080"],
+	"kegg.pathway.id": [
+		"rn00030",
+		"rn00480",
+		"rn01100",
+		"rn01110",
+		"rn01120",
+		"rn01130",
+		"rn01200"],
+	"kegg.module.id": [
+		"M00004",
+		"M00006"]
 }

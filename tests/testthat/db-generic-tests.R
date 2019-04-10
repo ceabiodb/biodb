@@ -64,7 +64,7 @@ test.entry.fields <- function(db) {
 		# Loop on all fields of loaded entry
 		for (f in e$getFieldNames())
 			if ( ! f %in% c(db.id.field, 'peaks'))
-				expect_true(any(biodb$getEntryFields()$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its values is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
+				expect_true(any(biodb$getEntryFields()$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its value is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
 
 		# Store all encountered fields
 		entry.fields <- c(entry.fields, e$getFieldNames())

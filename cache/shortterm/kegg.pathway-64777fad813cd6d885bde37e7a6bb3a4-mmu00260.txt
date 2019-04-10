@@ -1,0 +1,144 @@
+ENTRY       mmu00260                    Pathway
+NAME        Glycine, serine and threonine metabolism - Mus musculus (mouse)
+DESCRIPTION Serine is derived from 3-phospho-D-glycerate, an intermediate of glycolysis [MD:M00020], and glycine is derived from serine. Threonine is an essential amino acid, which animals cannot synthesize. In bacteria and plants, threonine is derived from aspartate [MD:M00018].
+CLASS       Metabolism; Amino acid metabolism
+PATHWAY_MAP mmu00260  Glycine, serine and threonine metabolism
+MODULE      mmu_M00020  Serine biosynthesis, glycerate-3P => serine [PATH:mmu00260]
+            mmu_M00338  Cysteine biosynthesis, homocysteine + serine => cysteine [PATH:mmu00260]
+DBLINKS     GO: 0006544 0006563 0070178 0006566
+ORGANISM    Mus musculus (mouse) [GN:mmu]
+GENE        71776  Tha1; threonine aldolase 1 [KO:K01620] [EC:4.1.2.48]
+            20425  Shmt1; serine hydroxymethyltransferase 1 (soluble) [KO:K00600] [EC:2.1.2.1]
+            108037  Shmt2; serine hydroxymethyltransferase 2 (mitochondrial) [KO:K00600] [EC:2.1.2.1]
+            11611  Agxt; alanine-glyoxylate aminotransferase [KO:K00830] [EC:2.6.1.51 2.6.1.45 2.6.1.44]
+            76238  Grhpr; glyoxylate reductase/hydroxypyruvate reductase [KO:K00049] [EC:1.1.1.81 1.1.1.79]
+            235582  Glyctk; glycerate kinase [KO:K11529] [EC:2.7.1.165]
+            18648  Pgam1; phosphoglycerate mutase 1 [KO:K01834] [EC:5.4.2.11]
+            56012  Pgam2; phosphoglycerate mutase 2 [KO:K01834] [EC:5.4.2.11]
+            12183  Bpgm; 2,3-bisphosphoglycerate mutase [KO:K01837] [EC:5.4.2.11 5.4.2.4]
+            236539  Phgdh; 3-phosphoglycerate dehydrogenase [KO:K00058] [EC:1.1.1.399 1.1.1.95]
+            107272  Psat1; phosphoserine aminotransferase 1 [KO:K00831] [EC:2.6.1.52]
+            100678  Psph; phosphoserine phosphatase [KO:K01079] [EC:3.1.3.3]
+            26912  Gcat; glycine C-acetyltransferase (2-amino-3-ketobutyrate-coenzyme A ligase) [KO:K00639] [EC:2.3.1.29]
+            58865  Tdh; L-threonine dehydrogenase [KO:K15789] [EC:1.1.1.103]
+            11656  Alas2; aminolevulinic acid synthase 2, erythroid [KO:K00643] [EC:2.3.1.37]
+            11655  Alas1; aminolevulinic acid synthase 1 [KO:K00643] [EC:2.3.1.37]
+            17161  Maoa; monoamine oxidase A [KO:K00274] [EC:1.4.3.4]
+            109731  Maob; monoamine oxidase B [KO:K00274] [EC:1.4.3.4]
+            11754  Aoc3; amine oxidase, copper containing 3 [KO:K00276] [EC:1.4.3.21]
+            237940  Aoc2; amine oxidase, copper containing 2 (retina-specific) [KO:K00276] [EC:1.4.3.21]
+            104174  Gldc; glycine decarboxylase [KO:K00281] [EC:1.4.4.2]
+            434437  Amt; aminomethyltransferase [KO:K00605] [EC:2.1.2.10]
+            13382  Dld; dihydrolipoamide dehydrogenase [KO:K00382] [EC:1.8.1.4]
+            68133  Gcsh; glycine cleavage system protein H (aminomethyl carrier) [KO:K02437]
+            13142  Dao; D-amino acid oxidase [KO:K00273] [EC:1.4.3.3]
+            268782  Agxt2; alanine-glyoxylate aminotransferase 2 [KO:K00827] [EC:2.6.1.40 2.6.1.44]
+            67092  Gatm; glycine amidinotransferase (L-arginine:glycine amidinotransferase) [KO:K00613] [EC:2.1.4.1]
+            14431  Gamt; guanidinoacetate methyltransferase [KO:K00542] [EC:2.1.1.2]
+            218865  Chdh; choline dehydrogenase [KO:K00108] [EC:1.1.99.1]
+            110695  Aldh7a1; aldehyde dehydrogenase family 7, member A1 [KO:K14085] [EC:1.2.1.3 1.2.1.8 1.2.1.31]
+            12116  Bhmt; betaine-homocysteine methyltransferase [KO:K00544] [EC:2.1.1.5]
+            74129  Dmgdh; dimethylglycine dehydrogenase precursor [KO:K00315] [EC:1.5.8.4]
+            19193  Pipox; pipecolic acid oxidase [KO:K00306] [EC:1.5.3.7 1.5.3.1]
+            192166  Sardh; sarcosine dehydrogenase [KO:K00314] [EC:1.5.8.3]
+            14711  Gnmt; glycine N-methyltransferase [KO:K00552] [EC:2.1.1.20]
+            12411  Cbs; cystathionine beta-synthase [KO:K01697] [EC:4.2.1.22]
+            107869  Cth; cystathionase (cystathionine gamma-lyase) [KO:K01758] [EC:4.4.1.1]
+            231691  Sds; serine dehydratase [KO:K17989] [EC:4.3.1.19 4.3.1.17]
+            257635  Sdsl; serine dehydratase-like [KO:K17989] [EC:4.3.1.19 4.3.1.17]
+            27364  Srr; serine racemase [KO:K12235] [EC:5.1.1.18]
+COMPOUND    C00011  CO2
+            C00014  Ammonia
+            C00022  Pyruvate
+            C00037  Glycine
+            C00048  Glyoxylate
+            C00049  L-Aspartate
+            C00065  L-Serine
+            C00078  L-Tryptophan
+            C00097  L-Cysteine
+            C00101  Tetrahydrofolate
+            C00109  2-Oxobutanoate
+            C00114  Choline
+            C00143  5,10-Methylenetetrahydrofolate
+            C00168  Hydroxypyruvate
+            C00188  L-Threonine
+            C00197  3-Phospho-D-glycerate
+            C00213  Sarcosine
+            C00258  D-Glycerate
+            C00263  L-Homoserine
+            C00300  Creatine
+            C00430  5-Aminolevulinate
+            C00441  L-Aspartate 4-semialdehyde
+            C00546  Methylglyoxal
+            C00576  Betaine aldehyde
+            C00581  Guanidinoacetate
+            C00631  2-Phospho-D-glycerate
+            C00719  Betaine
+            C00740  D-Serine
+            C00986  1,3-Diaminopropane
+            C01005  O-Phospho-L-serine
+            C01026  N,N-Dimethylglycine
+            C01102  O-Phospho-L-homoserine
+            C01242  S-Aminomethyldihydrolipoylprotein
+            C01726  D-Lombricine
+            C01888  Aminoacetone
+            C02051  Lipoylprotein
+            C02291  L-Cystathionine
+            C02737  Phosphatidylserine
+            C02855  N-Phospho-D-lombricine
+            C02972  Dihydrolipoylprotein
+            C03082  4-Phospho-L-aspartate
+            C03194  (R)-1-Aminopropan-2-ol
+            C03232  3-Phosphonooxypyruvate
+            C03283  L-2,4-Diaminobutanoate
+            C03508  L-2-Amino-3-oxobutanoic acid
+            C05519  L-Allothreonine
+            C06231  Ectoine
+            C06442  N(gamma)-Acetyldiaminobutyrate
+            C16432  5-Hydroxyectoine
+            C19929  N(alpha)-Acetyl-L-2,4-diaminobutyrate
+REFERENCE   
+  AUTHORS   Nishizuka Y, Seyama Y, Ikai A, Ishimura Y, Kawaguchi A (eds).
+  TITLE     [Cellular Functions and Metabolic Maps] (In Japanese)
+  JOURNAL   Tokyo Kagaku Dojin (1997)
+REFERENCE   PMID:11823218
+  AUTHORS   Kuhlmann AU, Bremer E.
+  TITLE     Osmotically regulated synthesis of the compatible solute ectoine in Bacillus pasteurii and related Bacillus spp.
+  JOURNAL   Appl Environ Microbiol 68:772-83 (2002)
+            DOI:10.1128/AEM.68.2.772-783.2002
+REFERENCE   PMID:10473374
+  AUTHORS   Canovas D, Borges N, Vargas C, Ventosa A, Nieto JJ, Santos H.
+  TITLE     Role of Ngamma-acetyldiaminobutyrate as an enzyme stabilizer and an intermediate in the biosynthesis of hydroxyectoine.
+  JOURNAL   Appl Environ Microbiol 65:3774-9 (1999)
+REFERENCE   PMID:17636255
+  AUTHORS   Bursy J, Pierik AJ, Pica N, Bremer E.
+  TITLE     Osmotically induced synthesis of the compatible solute hydroxyectoine is mediated by an evolutionarily conserved ectoine hydroxylase.
+  JOURNAL   J Biol Chem 282:31147-55 (2007)
+            DOI:10.1074/jbc.M704023200
+REFERENCE   PMID:16707670
+  AUTHORS   Garcia-Estepa R, Argandona M, Reina-Bueno M, Capote N, Iglesias-Guerra F, Nieto JJ, Vargas C.
+  TITLE     The ectD gene, which is involved in the synthesis of the compatible solute hydroxyectoine, is essential for thermoprotection of the halophilic bacterium Chromohalobacter salexigens.
+  JOURNAL   J Bacteriol 188:3774-84 (2006)
+            DOI:10.1128/JB.00136-06
+REFERENCE   PMID:15470257
+  AUTHORS   Arevalo-Rodriguez M, Pan X, Boeke JD, Heitman J
+  TITLE     FKBP12 controls aspartate pathway flux in Saccharomyces cerevisiae to prevent toxic intermediate accumulation.
+  JOURNAL   Eukaryot Cell 3:1287-96 (2004)
+            DOI:10.1128/EC.3.5.1287-1296.2004
+REFERENCE   PMID:7639721
+  AUTHORS   Rees WD, Hay SM
+  TITLE     The biosynthesis of threonine by mammalian cells: expression of a complete bacterial biosynthetic pathway in an animal cell.
+  JOURNAL   Biochem J 309 ( Pt 3):999-1007 (1995)
+            DOI:10.1042/bj3090999
+REFERENCE   PMID:11341914
+  AUTHORS   Jacques SL, Nieman C, Bareich D, Broadhead G, Kinach R, Honek JF, Wright GD
+  TITLE     Characterization of yeast homoserine dehydrogenase, an antifungal target: the invariant histidine 309 is important for enzyme integrity.
+  JOURNAL   Biochim Biophys Acta 1544:28-41 (2001)
+            DOI:10.1016/S0167-4838(00)00203-X
+REFERENCE   PMID:15520012
+  AUTHORS   Chen X, Jhee KH, Kruger WD
+  TITLE     Production of the neuromodulator H2S by cystathionine beta-synthase via the condensation of cysteine and homocysteine.
+  JOURNAL   J Biol Chem 279:52082-6 (2004)
+            DOI:10.1074/jbc.C400481200
+KO_PATHWAY  ko00260
+///

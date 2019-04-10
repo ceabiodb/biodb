@@ -1,0 +1,19 @@
+ENTRY       R01001                      Reaction
+NAME        L-cystathionine cysteine-lyase (deaminating; 2-oxobutanoate-forming)
+DEFINITION  L-Cystathionine + H2O <=> L-Cysteine + Ammonia + 2-Oxobutanoate
+EQUATION    C02291 + C00001 <=> C00097 + C00014 + C00109
+COMMENT     multi-step reaction (see R08632+R08637)
+RCLASS      RC00069  C00097_C02291
+            RC00348  C00109_C02291
+ENZYME      4.4.1.1
+PATHWAY     rn00260  Glycine, serine and threonine metabolism
+            rn00270  Cysteine and methionine metabolism
+            rn01100  Metabolic pathways
+            rn01130  Biosynthesis of antibiotics
+            rn01230  Biosynthesis of amino acids
+MODULE      M00338  Cysteine biosynthesis, homocysteine + serine => cysteine
+            M00609  Cysteine biosynthesis, methionine => cysteine
+ORTHOLOGY   K01758  cystathionine gamma-lyase [EC:4.4.1.1]
+            K17217  cystathionine gamma-lyase / homocysteine desulfhydrase [EC:4.4.1.1 4.4.1.2]
+DBLINKS     RHEA: 14008
+///

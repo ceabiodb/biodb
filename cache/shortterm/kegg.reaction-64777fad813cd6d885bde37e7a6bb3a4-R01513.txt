@@ -1,0 +1,18 @@
+ENTRY       R01513                      Reaction
+NAME        3-Phospho-D-glycerate:NAD+ 2-oxidoreductase
+DEFINITION  3-Phospho-D-glycerate + NAD+ <=> 3-Phosphonooxypyruvate + NADH + H+
+EQUATION    C00197 + C00003 <=> C03232 + C00004 + C00080
+RCLASS      RC00001  C00003_C00004
+            RC00031  C00197_C03232
+ENZYME      1.1.1.95
+PATHWAY     rn00260  Glycine, serine and threonine metabolism
+            rn00680  Methane metabolism
+            rn01100  Metabolic pathways
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+            rn01230  Biosynthesis of amino acids
+MODULE      M00020  Serine biosynthesis, glycerate-3P => serine
+ORTHOLOGY   K00058  D-3-phosphoglycerate dehydrogenase / 2-oxoglutarate reductase [EC:1.1.1.95 1.1.1.399]
+DBLINKS     RHEA: 12644
+///

@@ -218,8 +218,8 @@ KeggCompoundConn$methods( getPathwayIdsPerCompound = function(id, org) {
 
 	comp.mmu.gene.pathways = list()
 
-    kegg.enz.conn  = .self$getBiodb()$getFactory()$createConn('kegg.enzyme')
-    kegg.gen.conn  = .self$getBiodb()$getFactory()$createConn('kegg.genes')
+    kegg.enz.conn = .self$getBiodb()$getFactory()$getConn('kegg.enzyme')
+    kegg.gen.conn = .self$getBiodb()$getFactory()$getConn('kegg.genes')
     
 	# Loop on all compound ids
 	for (comp.id in id) {
@@ -244,9 +244,8 @@ KeggCompoundConn$methods( getPathwayIdsPerCompound = function(id, org) {
 						if ( ! is.null(gene) && gene$hasField('kegg.organism.code') && gene$getFieldValue('kegg.organism.code') == org) {
 
 							# We access the list of pathways to which this gene is related, and store it in our variable:
-							if (gene$hasField('kegg.pathway.id')) {
+							if (gene$hasField('kegg.pathway.id'))
 								comp.mmu.gene.pathways[[comp.id]] = unique(c(comp.mmu.gene.pathways[[comp.id]], gene$getFieldValue('kegg.pathway.id')))
-							}
 						}
 					}
 				}
@@ -264,7 +263,7 @@ KeggCompoundConn$methods( getPathwayIds = function(id, org) {
 	"Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves KEGG pathways of this organism in which the compounds are involved. It returns a vector of KEGG pathway IDs."
 
 	pathways = .self$getPathwayIdsPerCompound(id = id, org = org)
-	unique(unlist(pathways, use.names = FALSE))
+	pathways = unique(unlist(pathways, use.names = FALSE))
 
 	return(pathways)
 })

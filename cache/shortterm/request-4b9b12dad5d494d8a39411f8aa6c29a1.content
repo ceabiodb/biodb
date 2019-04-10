@@ -1,0 +1,20 @@
+ENTRY       R00582                      Reaction
+NAME        O-phospho-L-serine phosphohydrolase
+DEFINITION  O-Phospho-L-serine + H2O <=> L-Serine + Orthophosphate
+EQUATION    C01005 + C00001 <=> C00065 + C00009
+COMMENT     see R02853 (D-form)
+RCLASS      RC00017  C00065_C01005
+ENZYME      3.1.3.3
+PATHWAY     rn00260  Glycine, serine and threonine metabolism
+            rn00680  Methane metabolism
+            rn01100  Metabolic pathways
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+            rn01230  Biosynthesis of amino acids
+MODULE      M00020  Serine biosynthesis, glycerate-3P => serine
+ORTHOLOGY   K01079  phosphoserine phosphatase [EC:3.1.3.3]
+            K02203  phosphoserine / homoserine phosphotransferase [EC:3.1.3.3 2.7.1.39]
+            K22305  phosphoserine phosphatase [EC:3.1.3.3]
+DBLINKS     RHEA: 21211
+///
