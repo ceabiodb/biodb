@@ -147,10 +147,14 @@ KeggPathwayConn$methods( buildPathwayGraph = function(id, drop = TRUE,
 
                     # Create reaction vertex
                     rid = react$getFieldValue('accession')
-                    react_vertex_id = if (dir == 0 ) rid else paste(rid, dir, sep = '_')
+                    if (dir != 0)
+                        rvid = rid
+                    else
+                        rvid = paste(rid, dir, sep = '_')
                     vertices = rbind(vertices,
-                                     data.frame(name = react_vertex_id,
-                                                type = 'reaction', id = rid))
+                                     data.frame(name = rvid,
+                                                type = 'reaction',
+                                                id = rid))
                 
                     # Reverse substrates/products
                     if (dir == 2) {
