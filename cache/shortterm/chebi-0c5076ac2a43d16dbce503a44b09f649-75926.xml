@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:75926</chebiId><chebiAsciiName>4-hydroxy-2-quinolone</chebiAsciiName><definition>A heteroaryl hydroxy compound that is 2-quinolone substituted at position 4 by a hydroxy group.</definition><status>CHECKED</status><smiles>Oc1cc(=O)[nH]c2ccccc12</smiles><inchi>InChI=1S/C9H7NO2/c11-8-5-9(12)10-7-4-2-1-3-6(7)8/h1-5H,(H2,10,11,12)</inchi><inchiKey>HDHQZCHIXUUSMK-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>161.15740</mass><monoisotopicMass>161.04768</monoisotopicMass><entityStar>3</entityStar><Synonyms><data>4-hydroxy-2(1H)-quinolone</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Synonyms><data>4-Hydroxy-2-quinolinone</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>4-Hydroxycarbostyril</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>Hydroxycarbostyril</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>4-hydroxyquinolin-2(1H)-one</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C9H7NO2</data><source>ChEBI</source></Formulae><RegistryNumbers><data>129767</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>86-95-3</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><Citations><data>21425231</data><type>PubMed citation</type><source>SUBMITTER</source></Citations><ChemicalStructures><structure>
+  Mrv0541 10171316222D          
+
+ 12 13  0  0  0  0            999 V2000
+   -0.7145    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289    0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1434    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1434   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145    0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7145   -0.4125    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.8250    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -0.8250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289    0.8250    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -1.6500    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0
+  1  3  1  0  0  0  0
+  4  3  2  0  0  0  0
+  4  6  1  0  0  0  0
+  5  6  2  0  0  0  0
+  5  2  1  0  0  0  0
+  7  8  1  0  0  0  0
+  7  9  1  0  0  0  0
+  1  9  1  0  0  0  0
+ 10  2  1  0  0  0  0
+ 10  8  2  0  0  0  0
+  7 11  2  0  0  0  0
+ 10 12  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00026388</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C16716</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>CPD-12840</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>quinolone</chebiName><chebiId>CHEBI:23765</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>heteroaryl hydroxy compound</chebiName><chebiId>CHEBI:74818</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents></return></getCompleteEntityResponse></S:Body></S:Envelope>

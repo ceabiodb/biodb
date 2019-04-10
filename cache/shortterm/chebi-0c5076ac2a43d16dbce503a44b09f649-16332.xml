@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:16332</chebiId><chebiAsciiName>D-xylulose 5-phosphate</chebiAsciiName><definition>The D-enantiomer of xylulose 5-phosphate.</definition><status>CHECKED</status><smiles>OCC(=O)[C@@H](O)[C@H](O)COP(O)(O)=O</smiles><inchi>InChI=1S/C5H11O8P/c6-1-3(7)5(9)4(8)2-13-14(10,11)12/h4-6,8-9H,1-2H2,(H2,10,11,12)/t4-,5-/m1/s1</inchi><inchiKey>FNZLKVNUWIIPSJ-RFZPGFLSSA-N</inchiKey><charge>0</charge><mass>230.10980</mass><monoisotopicMass>230.01915</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:13036</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:21121</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:4269</SecondaryChEBIIds><Synonyms><data>5-O-phosphono-D-threo-pentos-2-ulose</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>5-O-phosphono-D-xylulose</data><type>SYNONYM</type><source>IUPAC</source></Synonyms><Synonyms><data>D-Xylulose 5-phosphate</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>D-Xylulose-5-phosphate</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><IupacNames><data>D-threo-pentos-2-ulose 5-(dihydrogen phosphate)</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><IupacNames><data>D-xylulose 5-(dihydrogen phosphate)</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C5H11O8P</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>1913425</data><type>Beilstein Registry Number</type><source>Beilstein</source></RegistryNumbers><RegistryNumbers><data>1913425</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>60802-29-1</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><ChemicalStructures><structure>
+  Marvin  11300716212D          
+
+ 14 13  0  0  1  0            999 V2000
+   -0.7145    0.2221    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    0.0000   -0.1904    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    0.7145    0.2221    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.4289   -0.1904    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.7145    1.0471    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000   -1.0154    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -0.1904    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.4289   -1.0154    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.1434    0.2221    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.8579   -0.1904    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434    1.0471    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8579   -0.1904    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1434    0.2221    0.0000 P   0  0  3  0  0  0  0  0  0  0  0  0
+    2.1434   -0.6029    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  2  1  1  0  0  0  0
+  2  3  1  0  0  0  0
+  4  3  1  0  0  0  0
+  1  5  1  1  0  0  0
+  2  6  1  1  0  0  0
+  1  7  1  0  0  0  0
+  8  7  2  0  0  0  0
+  9  7  1  0  0  0  0
+ 10  9  1  0  0  0  0
+ 11 13  2  0  0  0  0
+ 12 13  1  0  0  0  0
+  4 13  1  0  0  0  0
+ 13 14  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00019693</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C00231</data><type>KEGG COMPOUND accession</type></DatabaseLinks><OntologyParents><chebiName>Escherichia coli metabolite</chebiName><chebiId>CHEBI:76971</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>mouse metabolite</chebiName><chebiId>CHEBI:75771</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>D-xylulose</chebiName><chebiId>CHEBI:17140</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>D-xylulose 5-phosphate(2-)</chebiName><chebiId>CHEBI:57737</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>L-xylulose 5-phosphate</chebiName><chebiId>CHEBI:16593</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>xylulose 5-phosphate</chebiName><chebiId>CHEBI:27354</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>D-xylulose 5-phosphate(2-)</chebiName><chebiId>CHEBI:57737</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>L-xylulose 5-phosphate</chebiName><chebiId>CHEBI:16593</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>19425150</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Escherichia coli</speciesText><speciesAccession>NCBI:562</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>21988831</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>cytoplasm</componentText><componentAccession>GO:0005737</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>15882454</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Leaf</speciesText><speciesAccession>PO:0025034</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS297</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

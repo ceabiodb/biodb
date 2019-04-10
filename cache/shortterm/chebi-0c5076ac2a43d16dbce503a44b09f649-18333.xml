@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:18333</chebiId><chebiAsciiName>D-arabinitol</chebiAsciiName><definition>The D-enantiomer of arabinitol.</definition><status>CHECKED</status><smiles>OC[C@@H](O)C(O)[C@H](O)CO</smiles><inchi>InChI=1S/C5H12O5/c6-1-3(8)5(10)4(9)2-7/h3-10H,1-2H2/t3-,4-/m1/s1</inchi><inchiKey>HEBKCHPVOIAQTA-QWWZWVQMSA-N</inchiKey><charge>0</charge><mass>152.14580</mass><monoisotopicMass>152.06847</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:4105</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:12912</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:20916</SecondaryChEBIIds><Synonyms><data>D-Arabinitol</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>D-arabinitol</data><type>SYNONYM</type><source>UniProt</source></Synonyms><Synonyms><data>D-Arabinol</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>D-Arabitol</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>D-Lyxitol</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><IupacNames><data>D-arabinitol</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C5H12O5</data><source>ChEBI</source></Formulae><RegistryNumbers><data>1720520</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>488-82-4</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><Citations><data>10921974</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>23261427</data><type>PubMed citation</type><source>Europe PMC</source></Citations><Citations><data>8204415</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>ChEBI
+  Mrv0541 11111317042D          
+
+ 10  9  0  0  1  0            999 V2000
+    6.0408   -1.8948    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.6329   -2.6118    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    6.0562   -3.3238    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    5.6484   -4.0409    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+    6.0717   -4.7529    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.6175   -1.1828    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8082   -2.6276    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.8811   -3.3080    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8237   -4.0567    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.8966   -4.7371    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  6  1  1  0  0  0  0
+  2  1  1  0  0  0  0
+  2  7  1  6  0  0  0
+  3  2  1  0  0  0  0
+  3  8  1  6  0  0  0
+  4  3  1  0  0  0  0
+  4  9  1  1  0  0  0
+  5  4  1  0  0  0  0
+ 10  5  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Mrv0541 11111317042D          
+
+ 13 12  0  0  0  0            999 V2000
+    1.0312    3.6693    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.0312    2.8443    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.6188    4.4943    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2062    5.3193    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9206    5.7318    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2062    2.0193    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9206    1.6068    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2062    4.4943    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+    1.0312    4.4943    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2062    3.6693    0.0000 C   0  0  1  0  0  0  0  0  0  0  0  0
+   -0.6188    3.6693    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.2062    2.8443    0.0000 C   0  0  2  0  0  0  0  0  0  0  0  0
+   -0.6188    2.8443    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+  4  8  1  0  0  0  0
+  8 10  1  0  0  0  0
+ 10 12  1  0  0  0  0
+ 12  6  1  0  0  0  0
+ 12  2  1  1  0  0  0
+ 10  1  1  1  0  0  0
+  8  3  1  1  0  0  0
+  4  5  1  0  0  0  0
+  6  7  1  0  0  0  0
+  8  9  1  1  0  0  0
+ 10 11  1  1  0  0  0
+ 12 13  1  1  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00001156</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C01904</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>D-arabinitol</data><type>Wikipedia accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0000568</data><type>HMDB accession</type></DatabaseLinks><OntologyParents><chebiName>L-arabinitol</chebiName><chebiId>CHEBI:18403</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>arabinitol</chebiName><chebiId>CHEBI:22605</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>L-arabinitol</chebiName><chebiId>CHEBI:18403</chebiId><type>is enantiomer of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>2-carboxy-D-arabinitol</chebiName><chebiId>CHEBI:17077</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>D-arabinitol 1-phosphate</chebiName><chebiId>CHEBI:28455</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>acremoauxin A</chebiName><chebiId>CHEBI:2431</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Lotus japonicus</speciesText><speciesAccession>NCBI:34305</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS54</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Lotus japonicus</speciesText><speciesAccession>NCBI:34305</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS44</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Lotus japonicus</speciesText><speciesAccession>NCBI:34305</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS43</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Arabidopsis thaliana</speciesText><speciesAccession>NCBI:3702</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS12</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Arabidopsis thaliana</speciesText><speciesAccession>NCBI:3702</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS11</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Arabidopsis thaliana</speciesText><speciesAccession>NCBI:3702</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS13</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Arabidopsis thaliana</speciesText><speciesAccession>NCBI:3702</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS7</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Schizosaccharomyces pombe</speciesText><speciesAccession>NCBI:4896</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS67</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>urine</componentText><componentAccession>BTO:0001419</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>14988808</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>cerebrospinal fluid</componentText><componentAccession>UBERON:0001359</componentAccession><SourceType>Article</SourceType><SourceAccession>Geigy Scientific Tables, 8th Rev edition, pp. 165-177. Edited by C. Lentner, West Cadwell, N.J.: Medical education Div., Ciba-Geigy Corp., Basel, Switzerland c1981-1992.</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>blood</componentText><componentAccession>UBERON:0000178</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>14988808</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>urine</componentText><componentAccession>BTO:0001419</componentAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS71</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>cerebrospinal fluid</componentText><componentAccession>UBERON:0001359</componentAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS71</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>blood</componentText><componentAccession>UBERON:0000178</componentAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS71</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>

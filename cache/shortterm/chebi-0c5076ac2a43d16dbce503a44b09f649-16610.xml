@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><getCompleteEntityResponse xmlns="https://www.ebi.ac.uk/webservices/chebi"><return><chebiId>CHEBI:16610</chebiId><chebiAsciiName>spermidine</chebiAsciiName><definition>A triamine that is the 1,5,10-triaza derivative of decane.</definition><status>CHECKED</status><smiles>NCCCCNCCCN</smiles><inchi>InChI=1S/C7H19N3/c8-4-1-2-6-10-7-3-5-9/h10H,1-9H2</inchi><inchiKey>ATHGHQPFGPMSJY-UHFFFAOYSA-N</inchiKey><charge>0</charge><mass>145.24598</mass><monoisotopicMass>145.15790</monoisotopicMass><entityStar>3</entityStar><SecondaryChEBIIds>CHEBI:26733</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:45647</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:15095</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:9218</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:15097</SecondaryChEBIIds><SecondaryChEBIIds>CHEBI:26732</SecondaryChEBIIds><Synonyms><data>1,5,10-triazadecane</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>4-azaoctamethylenediamine</data><type>SYNONYM</type><source>ChemIDplus</source></Synonyms><Synonyms><data>4-azaoctane-1,8-diamine</data><type>SYNONYM</type><source>IUBMB</source></Synonyms><Synonyms><data>N-(3-Aminopropyl)-1,4-butane-diamine</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>Spermidin</data><type>SYNONYM</type><source>ChEBI</source></Synonyms><Synonyms><data>Spermidine</data><type>SYNONYM</type><source>KEGG COMPOUND</source></Synonyms><Synonyms><data>SPERMIDINE</data><type>SYNONYM</type><source>PDBeChem</source></Synonyms><IupacNames><data>N-(3-aminopropyl)butane-1,4-diamine</data><type>IUPAC NAME</type><source>IUPAC</source></IupacNames><Formulae><data>C7H19N3</data><source>KEGG COMPOUND</source></Formulae><RegistryNumbers><data>124-20-9</data><type>CAS Registry Number</type><source>KEGG COMPOUND</source></RegistryNumbers><RegistryNumbers><data>124-20-9</data><type>CAS Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>1698591</data><type>Reaxys Registry Number</type><source>Reaxys</source></RegistryNumbers><RegistryNumbers><data>1698591</data><type>Beilstein Registry Number</type><source>ChemIDplus</source></RegistryNumbers><RegistryNumbers><data>454510</data><type>Gmelin Registry Number</type><source>Gmelin</source></RegistryNumbers><Citations><data>22770225</data><type>PubMed citation</type><source>Europe PMC</source></Citations><ChemicalStructures><structure>
+  Marvin  07050709002D          
+
+ 10  9  0  0  0  0            999 V2000
+    3.2151    0.2063    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5006   -0.2062    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7862    0.2063    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.0717   -0.2062    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.3572    0.2063    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3572   -0.2063    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.0717    0.2063    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.7862   -0.2063    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.5006    0.2062    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.2151   -0.2063    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  2  3  1  0  0  0  0
+  3  4  1  0  0  0  0
+  4  5  1  0  0  0  0
+  5  6  1  0  0  0  0
+  6  7  1  0  0  0  0
+  7  8  1  0  0  0  0
+  8  9  1  0  0  0  0
+  9 10  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>2D</dimension><defaultStructure>true</defaultStructure></ChemicalStructures><ChemicalStructures><structure>
+  Marvin  07050709003D          
+
+ 29 28  0  0  0  0            999 V2000
+    5.0715   -5.4276   -0.1878 N   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1147   -5.3964    0.8473 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.4535   -3.9398    1.1804 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2101   -3.2020    1.6909 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1378   -3.1367    0.5943 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9645   -2.3826    1.0643 N   0  0  0  0  0  0  0  0  0  0  0  0
+    3.2898   -0.9526    1.1858 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0492   -0.1788    1.6350 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5920   -0.6974    2.9995 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6578   -0.4837    3.9889 N   0  0  0  0  0  0  0  0  0  0  0  0
+    4.4735   -4.5630   -0.1096 H   0  0  0  0  0  0  0  0  0  0  0  0
+    4.4707   -6.2835   -0.0550 H   0  0  0  0  0  0  0  0  0  0  0  0
+    7.0137   -5.9237    0.4622 H   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7356   -5.9210    1.7502 H   0  0  0  0  0  0  0  0  0  0  0  0
+    6.8292   -3.4338    0.2655 H   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2396   -3.9181    1.9653 H   0  0  0  0  0  0  0  0  0  0  0  0
+    5.4938   -2.1697    1.9875 H   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8008   -3.7417    2.5716 H   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8078   -4.1622    0.3224 H   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5433   -2.6268   -0.3055 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.6681   -2.7524    2.0056 H   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6357   -0.5822    0.1971 H   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1051   -0.8363    1.9314 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2349   -0.3216    0.8928 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2947    0.9019    1.7128 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3725   -1.7851    2.9436 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6833   -0.1523    3.3332 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.5942    0.4983    4.3668 H   0  0  0  0  0  0  0  0  0  0  0  0
+    3.5963   -0.6232    3.5298 H   0  0  0  0  0  0  0  0  0  0  0  0
+  9 10  1  0  0  0  0
+  8  9  1  0  0  0  0
+  7  8  1  0  0  0  0
+  6  7  1  0  0  0  0
+  5  6  1  0  0  0  0
+  4  5  1  0  0  0  0
+  3  4  1  0  0  0  0
+  2  3  1  0  0  0  0
+  1  2  1  0  0  0  0
+ 11  1  1  0  0  0  0
+ 12  1  1  0  0  0  0
+ 13  2  1  0  0  0  0
+ 14  2  1  0  0  0  0
+ 15  3  1  0  0  0  0
+ 16  3  1  0  0  0  0
+ 17  4  1  0  0  0  0
+ 18  4  1  0  0  0  0
+ 19  5  1  0  0  0  0
+ 20  5  1  0  0  0  0
+ 21  6  1  0  0  0  0
+ 22  7  1  0  0  0  0
+ 23  7  1  0  0  0  0
+ 24  8  1  0  0  0  0
+ 25  8  1  0  0  0  0
+ 26  9  1  0  0  0  0
+ 27  9  1  0  0  0  0
+ 28 10  1  0  0  0  0
+ 29 10  1  0  0  0  0
+M  END
+</structure><type>mol</type><dimension>3D</dimension><defaultStructure>false</defaultStructure></ChemicalStructures><DatabaseLinks><data>C00001431</data><type>KNApSAcK accession</type></DatabaseLinks><DatabaseLinks><data>C00315</data><type>KEGG COMPOUND accession</type></DatabaseLinks><DatabaseLinks><data>DB03566</data><type>DrugBank accession</type></DatabaseLinks><DatabaseLinks><data>HMDB0001257</data><type>HMDB accession</type></DatabaseLinks><DatabaseLinks><data>LSM-37075</data><type>LINCS accession</type></DatabaseLinks><DatabaseLinks><data>SPD</data><type>PDBeChem accession</type></DatabaseLinks><DatabaseLinks><data>Spermidine</data><type>Wikipedia accession</type></DatabaseLinks><DatabaseLinks><data>SPERMIDINE</data><type>MetaCyc accession</type></DatabaseLinks><OntologyParents><chebiName>fundamental metabolite</chebiName><chebiId>CHEBI:78675</chebiId><type>has role</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>spermidine(3+)</chebiName><chebiId>CHEBI:57834</chebiId><type>is conjugate base of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyParents><OntologyParents><chebiName>triamine</chebiName><chebiId>CHEBI:38751</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyParents><chebiName>polyazaalkane</chebiName><chebiId>CHEBI:39474</chebiId><type>is a</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyParents><OntologyChildren><chebiName>N(1),N(8)-bis-(dihydrocaffeoyl)spermidine</chebiName><chebiId>CHEBI:142881</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>mygalin</chebiName><chebiId>CHEBI:64901</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N(1),N(8)-bis(sinapoyl)-spermidine</chebiName><chebiId>CHEBI:85300</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N-caffeoylspermidine</chebiName><chebiId>CHEBI:138030</chebiId><type>has functional parent</type><status>OK</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>spermidine(3+)</chebiName><chebiId>CHEBI:57834</chebiId><type>is conjugate acid of</type><status>CHECKED</status><cyclicRelationship>true</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>carboxyspermidine</chebiName><chebiId>CHEBI:66868</chebiId><type>has parent hydride</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N(4)-aminopropylspermidine</chebiName><chebiId>CHEBI:83547</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N(4)-bis(aminopropyl)spermidine(1+)</chebiName><chebiId>CHEBI:83553</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>spermidine hydroxycinnamic acid conjugate</chebiName><chebiId>CHEBI:61233</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>spermidine alkaloid</chebiName><chebiId>CHEBI:38524</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N(1),N(8)-bis(coumaroyl)spermidine</chebiName><chebiId>CHEBI:85530</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N-(3-aminopropyl)but-2-ene-1,4-diamine</chebiName><chebiId>CHEBI:48008</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>N-[(E)-4-aminobutylidene]propane-1,3-diamine</chebiName><chebiId>CHEBI:48007</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>acetylspermidine</chebiName><chebiId>CHEBI:22204</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>glutathionylspermidine</chebiName><chebiId>CHEBI:16613</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><OntologyChildren><chebiName>trypanothione</chebiName><chebiId>CHEBI:17842</chebiId><type>has functional parent</type><status>CHECKED</status><cyclicRelationship>false</cyclicRelationship></OntologyChildren><CompoundOrigins><speciesText>Mus musculus</speciesText><speciesAccession>NCBI:10090</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>19425150</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Escherichia coli</speciesText><speciesAccession>NCBI:562</speciesAccession><SourceType>PubMed Id</SourceType><SourceAccession>21988831</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>urine</componentText><componentAccession>BTO:0001419</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>3757213</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>saliva</componentText><componentAccession>UBERON:0001836</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>23857558</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>faeces</componentText><componentAccession>UBERON:0001988</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>20669995</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>blood</componentText><componentAccession>UBERON:0000178</componentAccession><SourceType>Article</SourceType><SourceAccession>Geigy Scientific Tables, 8th Rev edition, pp. 165-177. Edited by C. Lentner, West Cadwell, N.J.: Medical education Div., Ciba-Geigy Corp., Basel, Switzerland c1981-1992.</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><componentText>cerebrospinal fluid</componentText><componentAccession>UBERON:0001359</componentAccession><SourceType>PubMed Id</SourceType><SourceAccession>15745737</SourceAccession></CompoundOrigins><CompoundOrigins><speciesText>Homo sapiens</speciesText><speciesAccession>NCBI:9606</speciesAccession><SourceType>MetaboLights</SourceType><SourceAccession>MTBLS20</SourceAccession></CompoundOrigins></return></getCompleteEntityResponse></S:Body></S:Envelope>
