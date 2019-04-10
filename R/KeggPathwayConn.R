@@ -120,6 +120,7 @@ KeggPathwayConn$methods( buildPathwayGraph = function(id, drop = TRUE,
 
         edges = NULL
         vertices = NULL
+        dirs = if (directed) c(1, 2) else 0
 
         # Loop on all pathway IDs
         for (path.id in id) {
@@ -142,11 +143,11 @@ KeggPathwayConn$methods( buildPathwayGraph = function(id, drop = TRUE,
                                                     id = c))
                 
                 # Set edges
-                for (dir in c(1, 2)) {
+                for (dir in dirs) {
 
                     # Create reaction vertex
                     rid = react$getFieldValue('accession')
-                    react_vertex_id = paste(rid, dir, sep = '_')
+                    react_vertex_id = if (dir == 0 ) rid else paste(rid, dir, sep = '_')
                     vertices = rbind(vertices,
                                      data.frame(name = react_vertex_id,
                                                 type = 'reaction', id = rid))
