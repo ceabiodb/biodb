@@ -219,38 +219,14 @@ KeggCompoundConn$methods( getPathwayIdsPerCompound = function(id, org) {
 	comp.mmu.gene.pathways = list()
 
     kegg.enz.conn = .self$getBiodb()$getFactory()$getConn('kegg.enzyme')
-    kegg.gen.conn = .self$getBiodb()$getFactory()$getConn('kegg.genes')
     
 	# Loop on all compound ids
 	for (comp.id in id) {
 
 		# Get compound
 		comp = .self$getEntry(comp.id)
-
-		# Loop on enzymes
-		if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id')) {
-			for (enz in kegg.enz.conn$getEntry(comp$getFieldValue('kegg.enzyme.id'), drop = FALSE)) {
-
-				# For each enzyme, we loop on all the genes it references:
-				if ( ! is.null(enz) && enz$hasField('kegg.genes.id')) {
-
-					# We skip non organism genes
-					genes_ids = enz$getFieldValue('kegg.genes.id')
-					mmu_genes_ids = genes_ids[grep(paste0('^', org, ':'), genes_ids)]
-
-					for (gene in kegg.gen.conn$getEntry(mmu_genes_ids, drop = FALSE)) {
-
-						# We check that this gene is related to the organism:
-						if ( ! is.null(gene) && gene$hasField('kegg.organism.code') && gene$getFieldValue('kegg.organism.code') == org) {
-
-							# We access the list of pathways to which this gene is related, and store it in our variable:
-							if (gene$hasField('kegg.pathway.id'))
-								comp.mmu.gene.pathways[[comp.id]] = unique(c(comp.mmu.gene.pathways[[comp.id]], gene$getFieldValue('kegg.pathway.id')))
-						}
-					}
-				}
-			}
-		}
+		if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id'))
+			comp.mmu.gene.pathways[[comp.id]] = kegg.enz.conn$getPathwayIds(comp$getFieldValue('kegg.enzyme.id'), org = org)
 	}
 
 	return(comp.mmu.gene.pathways)
