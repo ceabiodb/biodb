@@ -1,0 +1,59 @@
+ENTRY       50880             CDS       T01002
+NAME        Scly, 9830169H08, A930015N15Rik, SCL, Scly1, Scly2
+DEFINITION  (RefSeq) selenocysteine lyase
+ORTHOLOGY   K01763  selenocysteine lyase [EC:4.4.1.16]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00450  Selenocompound metabolism
+            mmu01100  Metabolic pathways
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09106 Metabolism of other amino acids
+               00450 Selenocompound metabolism
+                50880 (Scly)
+            Enzymes [BR:mmu01000]
+             4. Lyases
+              4.4  Carbon-sulfur lyases
+               4.4.1  Carbon-sulfur lyases (only sub-subclass identified to date)
+                4.4.1.16  selenocysteine lyase
+                 50880 (Scly)
+POSITION    1; 1 D
+MOTIF       Pfam: Aminotran_5 DegT_DnrJ_EryC1
+DBLINKS     NCBI-GeneID: 50880
+            NCBI-ProteinID: NP_057926
+            MGI: 1355310
+            Ensembl: ENSMUSG00000026307
+            Vega: OTTMUSG00000022404
+            UniProt: Q9JLI6 A0A0R4J069
+AASEQ       432
+            MDAARNGALGSVESLPDRKVYMDYNATTPLEPEVIQAVTEAMKEAWGNPSSSYVSGRKAK
+            DIINAARASLAKMIGGKPQDIIFTSGGTESNNLVIHSMVRCFHEQQTLKGNMVDQHSPEE
+            GTRPHFITCTVEHDSIRLPLEHLVENQMAEVTFVPVSKVNGQAEVEDILAAVRPTTCLVT
+            IMLANNETGVIMPVSEISRRIKALNQIRAASGLPRVLVHTDAAQALGKRRVDVEDLGVDF
+            LTIVGHKFYGPRIGALYVRGVGKLTPLYPMLFGGGQEWNFRPGTENTPMIAGLGKAADLV
+            SENCETYEAHMRDIRDYLEERLEAEFGKRIHLNSRFPGVERLPNTCNFSIQGSQLQGYTV
+            LAQCRTLLASVGASCHSNHEDRPSPVLLSCGIPVDVARNAVRLSVGRGTTRADVDLIVQD
+            LKQAVAQLEGRL
+NTSEQ       1299
+            atggacgcggcgcgaaatggcgcgctgggcagtgtggagagcctacccgacaggaaggtc
+            tatatggactataatgccaccacacctctagagcccgaagtcatccaggctgtgacagag
+            gccatgaaggaagcctggggaaaccccagcagctcctatgtgtcaggtaggaaggccaag
+            gacattataaatgcagctcgagcgagcctggccaagatgataggtggaaagccccaggac
+            atcatcttcacttctgggggcaccgagtcaaataatttagtaatccactctatggtaaga
+            tgcttccatgaacagcagaccctgaaggggaacatggttgaccagcacagcccagaagag
+            gggaccaggccccattttatcacttgcacagtggaacacgactccatccggctgcccctg
+            gagcacctggtggaaaatcaaatggcagaggtcacttttgtcccagtgtcgaaggtgaat
+            gggcaggcagaggtcgaggatatcctggcggctgtccgtcccaccacatgccttgtgacc
+            atcatgctggccaataatgagaccggcgtcatcatgcctgtctccgagatcagtcggcga
+            attaaagccctgaaccagatccgggctgcctcggggctgccccgagtcctggtgcacaca
+            gacgctgctcaggcactggggaagaggcgagtggatgtcgaagacctgggcgtggacttc
+            ctgaccatcgtgggacataagttctacggccccaggatcggtgctctgtatgtacgaggg
+            gtcggtaaacttacccccctgtaccccatgctgtttggaggtggacaagagtggaatttc
+            aggccagggaccgagaacacgcccatgattgctggccttgggaaggctgctgatctggtg
+            agcgagaactgcgagacttatgaggcccacatgagagacatccgagattacctggaggag
+            aggctggaggctgagtttggtaagagaatccatttgaacagccggtttccaggagtggag
+            aggcttccaaacacctgcaacttttccatccaggggtcccagcttcaagggtacacggtc
+            cttgcacagtgccggacactgctggccagtgtgggagcatcatgccactcaaatcacgag
+            gaccggccatccccagtgctgctgagctgcggcattcctgtggacgtggcccggaatgca
+            gtccggctcagcgtgggccgcggtaccaccagggctgatgtggatctcatcgtacaggac
+            ctgaagcaggccgtggcccaactggaagggcggctctag
+///

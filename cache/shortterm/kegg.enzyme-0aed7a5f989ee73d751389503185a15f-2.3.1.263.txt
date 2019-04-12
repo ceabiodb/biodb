@@ -1,0 +1,111 @@
+ENTRY       EC 2.3.1.263                Enzyme
+NAME        2-amino-4-oxopentanoate thiolase;
+            AKPT;
+            AKP thiolase;
+            2-amino-4-ketopentanoate thiolase
+CLASS       Transferases;
+            Acyltransferases;
+            Transferring groups other than aminoacyl groups
+SYSNAME     acetyl-CoA:D-alanine acetyltransferase
+REACTION    acetyl-CoA + D-alanine = CoA + (2R)-2-amino-4-oxopentanoate [RN:R00399]
+ALL_REAC    R00399
+SUBSTRATE   acetyl-CoA [CPD:C00024];
+            D-alanine [CPD:C00133]
+PRODUCT     CoA [CPD:C00010];
+            (2R)-2-amino-4-oxopentanoate [CPD:C03341]
+COMMENT     A pyridoxal 5'-phosphate enzyme. The enzyme, characterized from the bacterium Clostridium sticklandii, is part of a degradation pathway of ornithine. It is specific for acetyl-CoA and D-alanine.
+HISTORY     EC 2.3.1.263 created 2017
+REFERENCE   1  [PMID:4407783]
+  AUTHORS   Jeng IM, Somack R, Barker HA
+  TITLE     Ornithine degradation in Clostridium sticklandii; pyridoxal phosphate and coenzyme A dependent thiolytic cleavage of 2-amino-4-ketopentanoate to alanine and acetyl coenzyme A.
+  JOURNAL   Biochemistry 13:2898-903 (1974)
+            DOI:10.1021/bi00711a019
+REFERENCE   2  [PMID:19251850]
+  AUTHORS   Fonknechten N, Perret A, Perchat N, Tricot S, Lechaplais C, Vallenet D, Vergne C, Zaparucha A, Le Paslier D, Weissenbach J, Salanoubat M.
+  TITLE     A conserved gene cluster rules anaerobic oxidative degradation of L-ornithine.
+  JOURNAL   J Bacteriol 191:3162-7 (2009)
+            DOI:10.1128/JB.01777-08
+  SEQUENCE  [ag:CAQ42979 CAQ42980]
+ORTHOLOGY   K21399  2-amino-4-ketopentanoate thiolase alpha subunit
+            K21400  2-amino-4-ketopentanoate thiolase beta subunit
+GENES       CEH: CEW89_15605 CEW89_15610
+            BACI: B1NLA3E_09765 B1NLA3E_09770
+            OCN: CUC15_16345 CUC15_16350
+            CSQ: CSCA_0121 CSCA_0122
+            CACE: CACET_c17490 CACET_c17500
+            CEU: A7L45_16585 A7L45_16590
+            CFM: BJL90_14520 BJL90_14525
+            CARG: RSJ17_08680 RSJ17_08685
+            CDRK: B9W14_17930 B9W14_17935
+            AMT: Amet_2368 Amet_2369
+            AOE: Clos_1697 Clos_1698
+            GFE: Gferi_19575 Gferi_19580 Gferi_26735 Gferi_26740
+            FPLA: A4U99_15100 A4U99_15105
+            CDF: CD630_04430(ortA) CD630_04440(ortB)
+            PDC: CDIF630_00571(ortA) CDIF630_00572(ortB)
+            CDC: CD196_0400 CD196_0401
+            CDL: CDR20291_0386 CDR20291_0387
+            PDF: CD630DERM_04430(ortA) CD630DERM_04440(ortB)
+            CST: CLOST_1292(ortB) CLOST_1293(ortA)
+            DAI: Desaci_1874 Desaci_1875
+            AMIJ: EQM06_08565 EQM06_08570 EQM06_12590 EQM06_12595
+            EUU: ADJ67_00770 ADJ67_00775
+            TTE: TTE1235 TTE1236(ThrC)
+            TEX: Teth514_1478 Teth514_1479
+            THX: Thet_1424 Thet_1425
+            TPD: Teth39_1041 Teth39_1042
+            TBO: Thebr_1068 Thebr_1069
+            TWI: Thewi_1185 Thewi_1186
+            TOC: Toce_1487 Toce_1488
+            NTH: Nther_1167 Nther_1168
+            HOR: Hore_21100 Hore_21110
+            AFT: BBF96_13565 BBF96_13570
+            SPOA: EQM13_10955 EQM13_10960
+            PFT: JBW_01653 JBW_01654
+            MBJ: KQ51_00245(trpB_1) KQ51_00246
+            TBM: BK010_05550 BK010_05555
+            TBZ: BK011_05590 BK011_05595
+            ARS: ADJ73_08365 ADJ73_08370
+            PAC: PPA2277 PPA2278
+            PAK: HMPREF0675_5354 HMPREF0675_5355
+            PAV: TIA2EST22_11165 TIA2EST22_11170
+            PAX: TIA2EST36_11140 TIA2EST36_11145
+            PAZ: TIA2EST2_11085 TIA2EST2_11090
+            PAW: PAZ_c23750 PAZ_c23760
+            PAD: TIIST44_04205 TIIST44_04210
+            PCN: TIB1ST10_11605 TIB1ST10_11610
+            PACC: PAC1_11615 PAC1_11620
+            PACH: PAGK_2186 PAGK_2187
+            PACN: TIA1EST1_11235 TIA1EST1_11240
+            CACN: RN83_00015 RN83_00020
+            PRA: PALO_10900
+            CGRN: 4412665_01729 4412665_01730(trpB_2)
+            PRL: BCB70_06950 BCB70_06955
+            PPC: HMPREF9154_0893 HMPREF9154_0894
+            ABAT: CFX1CAM_0746 CFX1CAM_0747
+            TPI: TREPR_1362 TREPR_1363
+            SLR: L21SP2_1010 L21SP2_1011
+            FHW: RN87_08670 RN87_08675
+            FPD: CTM68_09150 CTM68_09155
+            ACO: Amico_1693 Amico_1694
+            TLI: Tlie_1696 Tlie_1697
+            TME: Tmel_0906 Tmel_0907
+            TAF: THA_1161 THA_1162
+            THP: BG95_05270
+            THER: Y592_05350 Y592_05355
+            FNO: Fnod_1644 Fnod_1645
+            FPE: Ferpe_1991 Ferpe_1992
+            FIA: NA23_09980 NA23_09985
+            PMO: Pmob_1167 Pmob_1168
+            MPZ: Marpi_1534 Marpi_1535
+            MARN: LN42_08175 LN42_08180
+            DTN: DTL3_0760 DTL3_0761
+            KOL: Kole_0357 Kole_0358
+            KPF: IX53_10195 IX53_10200
+            MPG: Theba_1252 Theba_1253
+            MINF: MESINF_2282 MESINF_2283
+DBLINKS     ExplorEnz - The Enzyme Database: 2.3.1.263
+            IUBMB Enzyme Nomenclature: 2.3.1.263
+            ExPASy - ENZYME nomenclature database: 2.3.1.263
+            BRENDA, the Enzyme Database: 2.3.1.263
+///

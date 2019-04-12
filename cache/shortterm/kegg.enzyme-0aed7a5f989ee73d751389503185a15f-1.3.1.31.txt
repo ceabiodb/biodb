@@ -1,0 +1,127 @@
+ENTRY       EC 1.3.1.31                 Enzyme
+NAME        2-enoate reductase;
+            enoate reductase
+CLASS       Oxidoreductases;
+            Acting on the CH-CH group of donors;
+            With NAD+ or NADP+ as acceptor
+SYSNAME     butanoate:NAD+ Delta2-oxidoreductase
+REACTION    butanoate + NAD+ = but-2-enoate + NADH + H+ [RN:R01689]
+ALL_REAC    R01689;
+            (other) R02252
+SUBSTRATE   butanoate [CPD:C00246];
+            NAD+ [CPD:C00003]
+PRODUCT     but-2-enoate;
+            NADH [CPD:C00004];
+            H+ [CPD:C00080]
+COMMENT     An iron-sulfur-flavoprotein (FAD). Acts (in the reverse direction) on a wide range of alkyl and aryl alphabeta-unsaturated carboxylate ions; but-2-enoate was the best substrate tested.
+HISTORY     EC 1.3.1.31 created 1982
+REFERENCE   1  [PMID:477658]
+  AUTHORS   Tischer W, Bader J, Simon H.
+  TITLE     Purification and some properties of a hitherto-unknown enzyme reducing the carbon-carbon double bond of alpha, beta-unsaturated carboxylate anions.
+  JOURNAL   Eur J Biochem 97:103-12 (1979)
+            DOI:10.1111/j.1432-1033.1979.tb13090.x
+PATHWAY     ec00360  Phenylalanine metabolism
+            ec01120  Microbial metabolism in diverse environments
+ORTHOLOGY   K10797  2-enoate reductase
+GENES       AHN: NCTC12129_01671(fadH_2)
+            DDA: Dd703_1770
+            DZC: W909_10970
+            HAV: AT03_03765
+            VFM: VFMJ11_A0422
+            PGB: H744_1c1347
+            SVO: SVI_1286
+            GSN: YC6258_02236
+            BAG: Bcoa_0725
+            PPY: PPE_00671
+            PGM: PGRAT_12400
+            PPEO: ABE82_03485
+            PAIH: ASL14_08350
+            CAC: CA_C3371
+            CAE: SMB_G3408
+            CAY: CEA_G3374
+            CNO: NT01CX_0026
+            CBO: CBO2166(fldZ)
+            CBA: CLB_2105(enr)
+            CBH: CLC_2109(enr)
+            CBY: CLM_2376(enr)
+            CBL: CLK_1618(enr)
+            CBK: CLL_A1978(enr)
+            CBB: CLD_2412(enr)
+            CBI: CLJ_B2374(enr)
+            CBN: CbC4_1717
+            CBF: CLI_2212(enr)
+            CBM: CBF_2196
+            CBJ: H04402_02175
+            CBE: Cbei_1927
+            CBZ: Cbs_1927
+            CBEI: LF65_02094
+            CKL: CKL_0743
+            CKR: CKR_0664
+            CLJ: CLJU_c29840 CLJU_c33480
+            CLB: Clo1100_3183
+            CPAS: Clopa_0474 Clopa_0897
+            CPAT: CLPA_c07300(fldZ)
+            CPAE: CPAST_c07300(fldZ)
+            CSB: CLSA_c15150
+            CAH: CAETHG_0983 CAETHG_1247 CAETHG_2913
+            CSQ: CSCA_0756 CSCA_4467
+            CLD: CLSPO_c22060(fldZ)
+            CCK: Ccar_03860 Ccar_19120
+            CTYK: CTK_C06040(enr) CTK_C14420(fldZ)
+            CEU: A7L45_02950 A7L45_04775
+            CDRK: B9W14_03570 B9W14_14805 B9W14_22660
+            CIA: BEN51_10715
+            CCEL: CCDG5_0328
+            CAPR: EQM14_11130
+            BPB: bpr_I1763
+            BHU: bhn_I1760
+            RIX: RO1_35990
+            BYL: A4V09_01960 A4V09_08560
+            LACY: A4V08_01080
+            CSH: Closa_1489
+            AWO: Awo_c31510(enr2) Awo_c32990(enr3) Awo_c34040(enr4)
+            OVA: OBV_08550
+            IBU: IB211_00125
+            TWI: Thewi_0323
+            TEP: TepRe1_1963
+            TAE: TepiRe1_2113
+            MTA: Moth_2056
+            TTM: Tthe_2455
+            TTO: Thethe_02520
+            TXY: Thexy_2131
+            TSH: Tsac_0256
+            MAS: Mahau_0110
+            NTH: Nther_1849
+            HALS: D7D81_07875
+            PUF: UFO1_0119 UFO1_3384
+            PFT: JBW_00293
+            ERB: A4V01_06450 A4V01_08225
+            EBM: SG0102_24830
+            CBQ: AL705_05955
+            DVA: DAD186_18160
+            PAK: HMPREF0675_4609
+            PAV: TIA2EST22_07730
+            PAX: TIA2EST36_07715
+            PAZ: TIA2EST2_07645
+            PAW: PAZ_c16300
+            PAD: TIIST44_00705 TIIST44_00710
+            PACC: PAC1_08105
+            PACH: PAGK_0638
+            PACN: TIA1EST1_07725
+            PRA: PALO_03265
+            PRL: BCB70_10710
+            AACI: ASQ49_03495
+            PCAT: Pcatena_06780
+            CGO: Corgl_0813
+            TDE: TDE2205
+            TPK: JO40_00515
+            AMO: Anamo_0184
+            MMET: MCMEM_1611
+            MZH: Mzhil_0362
+            MHZ: Metho_0353
+DBLINKS     ExplorEnz - The Enzyme Database: 1.3.1.31
+            IUBMB Enzyme Nomenclature: 1.3.1.31
+            ExPASy - ENZYME nomenclature database: 1.3.1.31
+            BRENDA, the Enzyme Database: 1.3.1.31
+            CAS: 70712-51-5
+///

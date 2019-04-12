@@ -1,0 +1,82 @@
+ENTRY       11532             CDS       T01002
+NAME        Adh5, Adh-5, Adh3, GSNOR
+DEFINITION  (RefSeq) alcohol dehydrogenase 5 (class III), chi polypeptide
+ORTHOLOGY   K00121  S-(hydroxymethyl)glutathione dehydrogenase / alcohol dehydrogenase [EC:1.1.1.284 1.1.1.1]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00010  Glycolysis / Gluconeogenesis
+            mmu00071  Fatty acid degradation
+            mmu00350  Tyrosine metabolism
+            mmu00830  Retinol metabolism
+            mmu00980  Metabolism of xenobiotics by cytochrome P450
+            mmu00982  Drug metabolism - cytochrome P450
+            mmu01100  Metabolic pathways
+            mmu01200  Carbon metabolism
+            mmu05204  Chemical carcinogenesis
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00010 Glycolysis / Gluconeogenesis
+                11532 (Adh5)
+              09103 Lipid metabolism
+               00071 Fatty acid degradation
+                11532 (Adh5)
+              09105 Amino acid metabolism
+               00350 Tyrosine metabolism
+                11532 (Adh5)
+              09108 Metabolism of cofactors and vitamins
+               00830 Retinol metabolism
+                11532 (Adh5)
+              09111 Xenobiotics biodegradation and metabolism
+               00980 Metabolism of xenobiotics by cytochrome P450
+                11532 (Adh5)
+               00982 Drug metabolism - cytochrome P450
+                11532 (Adh5)
+             09160 Human Diseases
+              09161 Cancers: Overview
+               05204 Chemical carcinogenesis
+                11532 (Adh5)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.1  Acting on the CH-OH group of donors
+               1.1.1  With NAD+ or NADP+ as acceptor
+                1.1.1.1  alcohol dehydrogenase
+                 11532 (Adh5)
+                1.1.1.284  S-(hydroxymethyl)glutathione dehydrogenase
+                 11532 (Adh5)
+POSITION    3; 3 G3
+MOTIF       Pfam: ADH_zinc_N ADH_N Glu_dehyd_C UDPG_MGDP_dh_N 2-Hacid_dh_C
+DBLINKS     NCBI-GeneID: 11532
+            NCBI-ProteinID: NP_031436
+            MGI: 87929
+            Ensembl: ENSMUSG00000028138
+            Vega: OTTMUSG00000029527
+            UniProt: P28474 Q6P5I3
+AASEQ       374
+            MANQVIRCKAAVAWEAGKPLSIEEIEVAPPKAHEVRIKILATAVCHTDAYTLSGADPEGC
+            FPVILGHEGAGIVESVGEGVTKLKAGDTVIPLYIPQCGECKFCLNPKTNLCQKIRVTQGK
+            GLMPDGTSRFTCKGKSVFHFMGTSTFSEYTVVADISVAKIDPSAPLDKVCLLGCGISTGY
+            GAAVNTAKVEPGSTCAVFGLGGVGLAVIMGCKVAGASRIIGIDINKDKFAKAKEFGASEC
+            ISPQDFSKSIQEVLVEMTDGGVDYSFECIGNVKVMRSALEAAHKGWGVSVVVGVAASGEE
+            ISTRPFQLVTGRTWKGTAFGGWKSVESVPKLVSEYMSKKIKVDEFVTGNLSFDQINQAFD
+            LMHSGDSIRTVLKM
+NTSEQ       1125
+            atggcgaaccaggtgatcaggtgtaaggctgcagtcgcctgggaggcgggaaagcctctc
+            tccatagaggagatagaagtggcccctccaaaggctcatgaagttcggattaagatcctt
+            gccactgctgtttgccacaccgatgcctataccctgagcggagctgaccccgaggggtgt
+            ttcccagtgatcttgggacatgaaggtgctggaattgtggaaagtgttggtgaaggggtc
+            acgaagctgaaggcaggtgacactgtcatcccactctacatcccacagtgtggagaatgc
+            aagttttgtctgaatcctaaaacaaacctttgccagaaaataagggtcactcaggggaag
+            ggattaatgccagatgggactagcagatttacctgcaaaggaaagtctgtttttcacttc
+            atggggactagcacattttccgagtacacagttgtggctgacatctctgttgctaaaatc
+            gatccttcggcccctttggataaagtctgccttctcggctgtggtatttcaactggctac
+            ggggctgctgtgaacactgccaaggtggagcctggttctacttgtgccgtctttggcctg
+            ggaggagttggactggcagtgatcatgggctgtaaggtggctggtgcatcccggatcatt
+            ggtatcgacatcaataaagataaattcgcaaaggccaaagaatttggagcctctgaatgt
+            attagcccccaagacttcagtaaatccatccaggaagtcctcgttgagatgacagatggg
+            ggcgtggattactcctttgagtgcattggcaacgtgaaggtcatgagatcagcccttgag
+            gcagcccacaaaggctggggtgtcagtgtggtagtgggagtagctgcttcaggggaagaa
+            atctccactcgtccattccagctggtgacaggacgcacatggaaaggcaccgcctttgga
+            ggatggaagagtgtggagagtgtcccaaagctggtgtctgaatatatgtccaaaaagata
+            aaagttgacgaatttgtgaccggcaatctctccttcgaccaaattaaccaagcctttgat
+            ctgatgcactcgggagacagcattcgaactgttctaaagatgtaa
+///

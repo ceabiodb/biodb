@@ -1,0 +1,32 @@
+ENTRY       EC 1.14.13.16               Enzyme
+NAME        cyclopentanone monooxygenase;
+            cyclopentanone oxygenase
+CLASS       Oxidoreductases;
+            Acting on paired donors, with incorporation or reduction of molecular oxygen;
+            With NADH or NADPH as one donor, and incorporation of one atom of oxygen into the other donor
+SYSNAME     cyclopentanone,NADPH:oxygen oxidoreductase (5-hydroxylating, lactonizing)
+REACTION    cyclopentanone + NADPH + H+ + O2 = 5-valerolactone + NADP+ + H2O [RN:R02554]
+ALL_REAC    R02554
+SUBSTRATE   cyclopentanone [CPD:C00557];
+            NADPH [CPD:C00005];
+            H+ [CPD:C00080];
+            O2 [CPD:C00007]
+PRODUCT     5-valerolactone [CPD:C02240];
+            NADP+ [CPD:C00006];
+            H2O [CPD:C00001]
+HISTORY     EC 1.14.13.16 created 1976
+REFERENCE   1  [PMID:4349113]
+  AUTHORS   Griffin M, Trudgill PW.
+  TITLE     The metabolism of cyclopentanol by Pseudomonas N.C.I.B. 9872.
+  JOURNAL   Biochem J 129:595-603 (1972)
+REFERENCE   2  [PMID:4313]
+  AUTHORS   Griffin M, Trudgill PW.
+  TITLE     Purification and properties of cyclopentanone oxygenase of Pseudomonas NCIB 9872.
+  JOURNAL   Eur J Biochem 63:199-209 (1976)
+            DOI:10.1111/j.1432-1033.1976.tb10222.x
+DBLINKS     ExplorEnz - The Enzyme Database: 1.14.13.16
+            IUBMB Enzyme Nomenclature: 1.14.13.16
+            ExPASy - ENZYME nomenclature database: 1.14.13.16
+            BRENDA, the Enzyme Database: 1.14.13.16
+            CAS: 37364-15-1
+///

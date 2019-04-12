@@ -1,0 +1,123 @@
+ENTRY       EC 3.1.1.103                Enzyme
+NAME        teichoic acid D-alanine hydrolase;
+            fmtA (gene name)
+CLASS       Hydrolases;
+            Acting on ester bonds;
+            Carboxylic-ester hydrolases
+SYSNAME     teichoic acid D-alanylhydrolase
+REACTION    [(4-D-Ala)-(2-GlcNAc)-Rib-ol-P]n-[Gro-P]m-ManNAc-GlcNAc-PP-peptidoglycan + n H2O = [(2-GlcNAc)-Rib-ol-P]n-[Gro-P]m-ManNAc-GlcNAc-PP-peptidoglycan + n D-alanine [RN:R11965]
+ALL_REAC    R11965
+SUBSTRATE   [(4-D-Ala)-(2-GlcNAc)-Rib-ol-P]n-[Gro-P]m-ManNAc-GlcNAc-PP-peptidoglycan;
+            H2O [CPD:C00001]
+PRODUCT     [(2-GlcNAc)-Rib-ol-P]n-[Gro-P]m-ManNAc-GlcNAc-PP-peptidoglycan;
+            D-alanine [CPD:C00133]
+COMMENT     The enzyme, characterized from the bacterium Staphylococcus aureus, removes D-alanine groups from the teichoic acid produced by this organism, thus modulating the electrical charge of the bacterial surface. The activity greatly increases methicillin resistance in MRSA strains.
+HISTORY     EC 3.1.1.103 created 2018
+REFERENCE   1  [PMID:9371333]
+  AUTHORS   Komatsuzawa H, Sugai M, Ohta K, Fujiwara T, Nakashima S, Suzuki J, Lee CY, Suginaka H
+  TITLE     Cloning and characterization of the fmt gene which affects the methicillin resistance level and autolysis in the presence of triton X-100 in methicillin-resistant Staphylococcus aureus.
+  JOURNAL   Antimicrob Agents Chemother 41:2355-61 (1997)
+  SEQUENCE  [sau:SA0909]
+REFERENCE   2  [PMID:22564846]
+  AUTHORS   Qamar A, Golemi-Kotra D
+  TITLE     Dual roles of FmtA in Staphylococcus aureus cell wall biosynthesis and autolysis.
+  JOURNAL   Antimicrob Agents Chemother 56:3797-805 (2012)
+            DOI:10.1128/AAC.00187-12
+REFERENCE   3  [PMID:26861022]
+  AUTHORS   Rahman MM, Hunter HN, Prova S, Verma V, Qamar A, Golemi-Kotra D
+  TITLE     The Staphylococcus aureus Methicillin Resistance Factor FmtA Is a d-Amino Esterase That Acts on Teichoic Acids.
+  JOURNAL   MBio 7:e02070-15 (2016)
+            DOI:10.1128/mBio.02070-15
+ORTHOLOGY   K22580  teichoic acid D-alanine hydrolase
+GENES       SAU: SA0909(fmtA)
+            SAV: SAV1057(fmt)
+            SAW: SAHV_1049(fmt)
+            SAH: SaurJH1_1139
+            SAJ: SaurJH9_1116
+            SAM: MW0940(fmt)
+            SAS: SAS0992
+            SAR: SAR1030(fmt)
+            SAC: SACOL1066
+            SAX: USA300HOU_1001(fmt1)
+            SAA: SAUSA300_0959(fmt)
+            SAO: SAOUHSC_00998
+            SAE: NWMN_0926
+            SAD: SAAV_1021
+            SUU: M013TW_0988
+            SUV: SAVC_04450
+            SUE: SAOV_1003
+            SUJ: SAA6159_00913
+            SUK: SAA6008_01012
+            SUC: ECTR2_912
+            SUT: SAT0131_01092
+            SUQ: HMPREF0772_12177
+            SUZ: MS7_1014(fmtA)
+            SUD: ST398NM01_1054
+            SUX: SAEMRSA15_08880(fmt)
+            SUW: SATW20_10530(fmt)
+            SUG: SAPIG1054
+            SUF: SARLGA251_09710(fmt)
+            SAUA: SAAG_02168
+            SAUE: RSAU_000944(fmtA)
+            SAUN: SAKOR_00978
+            SAUS: SA40_0927(fmt)
+            SAUU: SA957_0942(fmt)
+            SAUG: SA268_0945(fmt)
+            SAUZ: SAZ172_0997(fmtA)
+            SAUT: SAI1T1_2007480
+            SAUJ: SAI2T2_1007500
+            SAUK: SAI3T3_1007490
+            SAUQ: SAI4T8_1007480
+            SAUV: SAI7S6_1007490(fmtA)
+            SAUW: SAI5S5_1007450(fmtA)
+            SAUX: SAI6T6_1007460(fmtA)
+            SAUY: SAI8T7_1007490(fmtA)
+            SAUF: X998_1056
+            SAB: SAB0923(fmt)
+            SUY: SA2981_1011(fmtA)
+            SAUB: C248_1082(fmt)
+            SAUM: BN843_9630
+            SAUC: CA347_973(fmtA)
+            SAUR: SABB_01023(fmtA)
+            SAUI: AZ30_05045
+            SAUD: CH52_00600
+            SAMS: NI36_05060
+            SUH: SAMSHR1132_09050
+            SEP: SE0754
+            SER: SERP0641
+            SEPP: SEB_00730
+            SEPS: DP17_2087(fmtA)
+            SHA: SH1907(fmt)
+            SHH: ShL2_01771
+            SSP: SSP1736
+            SCA: SCA_0665
+            SLG: SLGD_01819
+            SLN: SLUG_18150(fmt)
+            SSD: SPSINT_0518
+            SDT: SPSE_1942(fmtA)
+            SWA: A284_08550
+            SPAS: STP1_2114
+            SXY: BE24_02600
+            SXL: SXYLSMQ121_1737
+            SXO: SXYL_01880(fmtA)
+            SHU: SHYC_01895
+            SCAP: AYP1020_0379(pbpX)
+            SSCH: LH95_09295
+            SSCZ: RN70_10070
+            SAGQ: EP23_08225
+            SEQO: SE1039_08140
+            SSIF: AL483_06610 AL483_06615
+            SCV: A4G25_04610
+            SLZ: B5P37_08435
+            SCOH: BZ166_00595
+            SSCU: CEP64_08355
+            SNL: BJD96_09640
+            SKL: C7J89_10440
+            MCAK: MCCS_07670(pbpX_1) MCCS_07680(pbpX_2)
+            LPX: ASU28_00405
+            FLA: SY85_14975
+DBLINKS     ExplorEnz - The Enzyme Database: 3.1.1.103
+            IUBMB Enzyme Nomenclature: 3.1.1.103
+            ExPASy - ENZYME nomenclature database: 3.1.1.103
+            BRENDA, the Enzyme Database: 3.1.1.103
+///

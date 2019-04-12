@@ -1,0 +1,24 @@
+ENTRY       EC 3.4.13.4                 Enzyme
+NAME        Xaa-Arg dipeptidase;
+            aminoacyl-lysine dipeptidase;
+            N2-(4-amino-butyryl)-L-lysine hydrolase;
+            X-Arg dipeptidase
+CLASS       Hydrolases;
+            Acting on peptide bonds (peptidases);
+            Dipeptidases
+REACTION    Preferential hydrolysis of Xaa!Arg, Xaa!Lys or Xaa!ornithine dipeptides
+ALL_REAC    (other) R00911 R03935
+COMMENT     Widely distributed in mammals
+HISTORY     EC 3.4.13.4 created 1972
+REFERENCE   1  [PMID:5436646]
+  AUTHORS   Kumon A, Matsuoka Y, Kakimoto Y, Nakajima T, Sano I.
+  TITLE     A peptidase that hydrolyzes Na-(gamma-aminobutyryl)lysine.
+  JOURNAL   Biochim Biophys Acta 200:466-74 (1970)
+            DOI:10.1016/0005-2795(70)90103-0
+PATHWAY     ec00410  beta-Alanine metabolism
+DBLINKS     ExplorEnz - The Enzyme Database: 3.4.13.4
+            IUBMB Enzyme Nomenclature: 3.4.13.4
+            ExPASy - ENZYME nomenclature database: 3.4.13.4
+            BRENDA, the Enzyme Database: 3.4.13.4
+            CAS: 37288-72-5
+///

@@ -1,0 +1,28 @@
+ENTRY       C02497                      Compound
+NAME        2-Butyne-1,4-diol;
+            1,4-Butynediol
+FORMULA     C4H6O2
+EXACT_MASS  86.0368
+MOL_WEIGHT  86.0892
+REACTION    R03963
+ENZYME      1.1.1.165
+DBLINKS     CAS: 110-65-6
+            PubChem: 5509
+            ChEBI: 16413
+            ChEMBL: CHEMBL3187551
+            3DMET: B00451
+            NIKKAJI: J5.098I
+ATOM        6
+            1   C3b C    17.8041  -14.4219
+            2   C3b C    19.0159  -15.1181
+            3   C1b C    16.5854  -15.1181
+            4   C1b C    20.2346  -14.4219
+            5   O1a O    15.3735  -14.4219
+            6   O1a O    21.4465  -15.1181
+BOND        5
+            1     1   2 3
+            2     1   3 1
+            3     2   4 1
+            4     3   5 1
+            5     4   6 1
+///

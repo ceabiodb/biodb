@@ -1,0 +1,83 @@
+ENTRY       11611             CDS       T01002
+NAME        Agxt, AGT, Agt1, Agxt1, SPT
+DEFINITION  (RefSeq) alanine-glyoxylate aminotransferase
+ORTHOLOGY   K00830  alanine-glyoxylate transaminase / serine-glyoxylate transaminase / serine-pyruvate transaminase [EC:2.6.1.44 2.6.1.45 2.6.1.51]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00250  Alanine, aspartate and glutamate metabolism
+            mmu00260  Glycine, serine and threonine metabolism
+            mmu00630  Glyoxylate and dicarboxylate metabolism
+            mmu01100  Metabolic pathways
+            mmu01200  Carbon metabolism
+            mmu04146  Peroxisome
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00630 Glyoxylate and dicarboxylate metabolism
+                11611 (Agxt)
+              09105 Amino acid metabolism
+               00250 Alanine, aspartate and glutamate metabolism
+                11611 (Agxt)
+               00260 Glycine, serine and threonine metabolism
+                11611 (Agxt)
+             09140 Cellular Processes
+              09141 Transport and catabolism
+               04146 Peroxisome
+                11611 (Agxt)
+             09180 Brite Hierarchies
+              09181 Protein families: metabolism
+               01007 Amino acid related enzymes [BR:mmu01007]
+                11611 (Agxt)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.6  Transferring nitrogenous groups
+               2.6.1  Transaminases
+                2.6.1.44  alanine---glyoxylate transaminase
+                 11611 (Agxt)
+                2.6.1.45  serine---glyoxylate transaminase
+                 11611 (Agxt)
+                2.6.1.51  serine---pyruvate transaminase
+                 11611 (Agxt)
+            Amino acid related enzymes [BR:mmu01007]
+             Aminotransferase (transaminase)
+              Class V
+               11611 (Agxt)
+POSITION    1 D; 1 47.0 cM
+MOTIF       Pfam: Aminotran_5 Aminotran_1_2 Cys_Met_Meta_PP
+DBLINKS     NCBI-GeneID: 11611
+            NCBI-ProteinID: NP_057911
+            MGI: 1329033
+            Ensembl: ENSMUSG00000026272
+            Vega: OTTMUSG00000048639
+            UniProt: O35423 Q3UEN9
+STRUCTURE   PDB: 3KGW 3KGX
+AASEQ       414
+            MFRMLAKASVTLGSRAAGWVRTMGSYQLLVPPPEALSKPLSVPTRLLLGPGPSNLAPRVL
+            AAGSLRMIGHMQKEMLQIMEEIKQGIQYVFQTRNPLTLVVSGSGHCAMETALFNLLEPGD
+            SFLTGTNGIWGMRAAEIADRIGARVHQMIKKPGEHYTLQEVEEGLAQHKPVLLFLVHGES
+            STGVVQPLDGFGELCHRYQCLLLVDSVASLGGVPIYMDQQGIDIMYSSSQKVLNAPPGIS
+            LISFNDKAKYKVYSRKTKPVSFYTDITYLAKLWGCEGETRVIHHTTPVTSLYCLRESLAL
+            IAEQGLENCWRRHREATAHLHKHLQEMGLKFFVKDPEIRLPTITTVTVPAGYNWRDIVSY
+            VLDHFSIEISGGLGPTEERVLRIGLLGYNATTENVDRVAEALREALQHCPKNKL
+NTSEQ       1245
+            atgttccggatgttggccaaggccagtgtgacgctgggctccagagcggcaggttgggtc
+            cggaccatgggctcgtatcagctgctggtgccaccgccagaggccctgagcaagcccctg
+            tcagttcctacgaggctcctgttgggtccggggccctccaacctggctccccgtgtgctg
+            gcggcgggaagtctgagaatgattggccacatgcaaaaagagatgcttcagatcatggag
+            gagatcaagcaaggcatccagtatgtgttccagaccaggaaccccctcacactggttgtc
+            agcggttcagggcactgcgccatggagactgccctgttcaacctcctagagcctggggac
+            tcctttctaaccggaaccaatggcatctggggaatgcgggctgcagagattgctgatcgc
+            attggagcccgtgtgcaccagatgatcaagaagcctggagaacattatacactgcaggag
+            gtggaggagggcctggcccaacacaaaccggtattgctgttcctggtccacggggagtca
+            tccactggcgtggtgcagcccctggatggttttggggagctctgccataggtaccagtgc
+            ctactcctggtggactcagtggcatccctgggcggggttcctatctacatggaccaacaa
+            ggcattgacatcatgtactctagctctcagaaggtcctgaatgccccaccagggatctcc
+            ctcatctccttcaacgacaaggccaaatacaaggtctactcccggaagacaaagccagtc
+            tccttctacacagacatcacatacttggccaaattgtggggatgtgagggcgagaccaga
+            gtaattcatcataccacacctgtcaccagcttatactgcctgagggagagcctggcactc
+            attgcagagcagggcctggagaattgctggcggcgtcacagggaggctacagcacatctg
+            cacaaacacctgcaggagatgggcttaaagttctttgtgaaggatccggaaatccggcta
+            cccacaatcaccaccgtgactgtgcctgccggctacaactggagggacatcgtcagctat
+            gtgctggaccacttcagcattgaaatctctgggggtcttgggcccactgaggagagggtg
+            ctacggattggcctcctgggctacaacgccaccactgagaatgtggaccgtgtggccgag
+            gccctgagggaggccctgcagcattgtcctaagaacaagttgtga
+///

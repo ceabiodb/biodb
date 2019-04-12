@@ -1,0 +1,69 @@
+ENTRY       103149            CDS       T01002
+NAME        Upb1, AI195023
+DEFINITION  (RefSeq) ureidopropionase, beta
+ORTHOLOGY   K01431  beta-ureidopropionase [EC:3.5.1.6]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00240  Pyrimidine metabolism
+            mmu00410  beta-Alanine metabolism
+            mmu00770  Pantothenate and CoA biosynthesis
+            mmu00983  Drug metabolism - other enzymes
+            mmu01100  Metabolic pathways
+MODULE      mmu_M00046  Pyrimidine degradation, uracil => beta-alanine, thymine => 3-aminoisobutanoate
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09104 Nucleotide metabolism
+               00240 Pyrimidine metabolism
+                103149 (Upb1)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                103149 (Upb1)
+              09108 Metabolism of cofactors and vitamins
+               00770 Pantothenate and CoA biosynthesis
+                103149 (Upb1)
+              09111 Xenobiotics biodegradation and metabolism
+               00983 Drug metabolism - other enzymes
+                103149 (Upb1)
+            Enzymes [BR:mmu01000]
+             3. Hydrolases
+              3.5  Acting on carbon-nitrogen bonds, other than peptide bonds
+               3.5.1  In linear amides
+                3.5.1.6  beta-ureidopropionase
+                 103149 (Upb1)
+POSITION    10; 10 C1
+MOTIF       Pfam: CN_hydrolase Tugs DUF3420
+DBLINKS     NCBI-GeneID: 103149
+            NCBI-ProteinID: NP_598756
+            MGI: 2143535
+            Ensembl: ENSMUSG00000033427
+            Vega: OTTMUSG00000031799
+            UniProt: Q8VC97 Q3UEK4
+AASEQ       393
+            MAGPEWQSLEQCLEKHLPPDDLAQVKRILYGKQTRNLDLPREALKAASERNFELKGYAFG
+            AAKEQQRCPQIVRVGLVQNRIPLPTSAPVAEQVSALHKSIEEIAEVAAMCGVNIICFQEA
+            WNMPFAFCTREKLPWTEFAESAEDGLTTRFCQKLAKKHNMVVVSPILERDREHGGVLWNT
+            AVVISNSGLVMGKTRKNHIPRVGDFNESTYYMEGNLGHPVFQTQFGRIAVNICYGRHHPL
+            NWLMYSINGAEIIFNPSATIGELSESLWPIEARNAAIANHCFTCALNRVGQEHFPNEFTS
+            GDGKKAHHDLGYFYGSSYVAAPDGSRTPGLSRNQDGLLVTELNLNLCQQINDFWTFKMTG
+            RLEMYARELAEAVKPNYSPNIVKEDLVLAPSSG
+NTSEQ       1182
+            atggcgggaccggagtggcagtccctggagcagtgcctggaaaaacatctgccgcctgac
+            gatttggcccaggtgaagcgaattctctacggcaagcagactaggaatctcgatctgccc
+            agagaagctttaaaagctgcctcagaaaggaactttgaactgaagggatatgccttcggg
+            gcagccaaggagcagcagagatgcccccagatcgtgcgcgtggggctcgttcagaacaga
+            atcccgctccccacttctgcccccgtggcagaacaggtctctgcgctccacaagagcata
+            gaggagattgctgaggtggccgcaatgtgtggagtcaatatcatctgtttccaggaagca
+            tggaatatgccgttcgctttttgtacacgagagaaacttccttggacagaatttgctgag
+            tcggccgaggatgggctcaccaccaggttctgtcagaagctggcaaagaagcacaacatg
+            gtggtggtgtctccaatcttggagcgtgatagagagcatgggggagttctgtggaacaca
+            gctgtggtgatctccaattcagggctggtcatggggaagaccagaaagaaccacatcccc
+            agagtgggagacttcaacgagtccacttactacatggagggaaacctgggccaccccgtg
+            ttccagacccagtttggcaggattgcagtgaacatttgctatgggcggcaccaccccctc
+            aactggctcatgtacagcatcaacggagctgaaatcatcttcaacccttcggccaccatt
+            ggagaactcagtgagtccttgtggccgatcgaagccagaaatgcagccattgccaatcac
+            tgcttcacctgtgctctcaaccgtgtgggtcaggaacacttccccaatgagtttacttct
+            ggagatggaaagaaagctcaccatgacctcggctacttctatggttcgagctatgtggca
+            gctcccgatggcagccggacccccggcctctcccgtaatcaggatgggctgctggtcacg
+            gagctcaacctcaatctctgccagcagatcaatgatttctggactttcaagatgacggga
+            cgacttgagatgtatgcccgggaacttgccgaagcggtcaaacccaactacagtcccaac
+            attgtgaaggaagacctggtactagcccctagctcgggttag
+///

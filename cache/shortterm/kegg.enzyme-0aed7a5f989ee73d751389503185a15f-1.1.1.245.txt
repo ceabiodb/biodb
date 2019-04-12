@@ -1,0 +1,38 @@
+ENTRY       EC 1.1.1.245                Enzyme
+NAME        cyclohexanol dehydrogenase
+CLASS       Oxidoreductases;
+            Acting on the CH-OH group of donors;
+            With NAD+ or NADP+ as acceptor
+SYSNAME     cyclohexanol:NAD+ oxidoreductase
+REACTION    cyclohexanol + NAD+ = cyclohexanone + NADH + H+ [RN:R02229]
+ALL_REAC    R02229
+SUBSTRATE   cyclohexanol [CPD:C00854];
+            NAD+ [CPD:C00003]
+PRODUCT     cyclohexanone [CPD:C00414];
+            NADH [CPD:C00004];
+            H+ [CPD:C00080]
+COMMENT     Also oxidizes some other alicyclic alcohols and diols.
+HISTORY     EC 1.1.1.245 created 1992
+REFERENCE   1  [PMID:2505723]
+  AUTHORS   Dangel W, Tschech A, Fuchs G
+  TITLE     Enzyme reactions involved in anaerobic cyclohexanol metabolism by a denitrifying  Pseudomonas species.
+  JOURNAL   Arch Microbiol 152:271-9 (1989)
+REFERENCE   2  [PMID:1261]
+  AUTHORS   Donoghue NA, Trudgill PW.
+  TITLE     The metabolism of cyclohexanol by Acinetobacter NCIB 9871.
+  JOURNAL   Eur J Biochem 60:1-7 (1975)
+            DOI:10.1111/j.1432-1033.1975.tb20968.x
+REFERENCE   3  [PMID:16346796]
+  AUTHORS   Trower MK, Buckland RM, Higgins R, Griffin M.
+  TITLE     Isolation and Characterization of a Cyclohexane-Metabolizing Xanthobacter sp.
+  JOURNAL   Appl Environ Microbiol 49:1282-1289 (1985)
+PATHWAY     ec00930  Caprolactam degradation
+            ec01120  Microbial metabolism in diverse environments
+ORTHOLOGY   K19960  cyclohexanol dehydrogenase
+DBLINKS     ExplorEnz - The Enzyme Database: 1.1.1.245
+            IUBMB Enzyme Nomenclature: 1.1.1.245
+            ExPASy - ENZYME nomenclature database: 1.1.1.245
+            UM-BBD (Biocatalysis/Biodegradation Database): 1.1.1.245
+            BRENDA, the Enzyme Database: 1.1.1.245
+            CAS: 63951-98-4
+///

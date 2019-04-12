@@ -1,0 +1,210 @@
+ENTRY       EC 3.5.3.3                  Enzyme
+NAME        creatinase
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In linear amidines
+SYSNAME     creatine amidinohydrolase
+REACTION    creatine + H2O = sarcosine + urea [RN:R01566]
+ALL_REAC    R01566
+SUBSTRATE   creatine [CPD:C00300];
+            H2O [CPD:C00001]
+PRODUCT     sarcosine [CPD:C00213];
+            urea [CPD:C00086]
+HISTORY     EC 3.5.3.3 created 1961
+REFERENCE   1  [PMID:14791411]
+  AUTHORS   ROCHE J, LACOMBE G, GIRARD H.
+  TITLE     [On the specificity of certain bacterial deguanidases generating urea and on arginindihydrolase.]
+  JOURNAL   Biochim Biophys Acta 6:210-6 (1950)
+REFERENCE   2  [PMID:8443]
+  AUTHORS   Yoshimoto T, Oka I, Tsuru D.
+  TITLE     Purification, crystallization, and some properties of creatine amidinohydrolase from Pseudomonas putida.
+  JOURNAL   J Biochem (Tokyo) 79:1381-3 (1976)
+PATHWAY     ec00260  Glycine, serine and threonine metabolism
+            ec00330  Arginine and proline metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K08688  creatinase
+GENES       KOE: A225_0582
+            KOM: HR38_27865
+            KQU: AVR78_26185
+            KLL: BJF97_29060
+            PRE: PCA10_04400
+            PPSE: BN5_0137(pepQ)
+            PCQ: PcP3B5_01400
+            PPU: PP_3667(creA)
+            PPF: Pput_2062
+            PPG: PputGB1_2232
+            PPW: PputW619_2236 PputW619_3269
+            PPT: PPS_2272
+            PPB: PPUBIRD1_2061
+            PPI: YSA_09478
+            PPX: T1E_1754
+            PPUH: B479_11675
+            PPUT: L483_19245 L483_21915
+            PPUN: PP4_21260
+            PPUD: DW66_2531
+            PMON: X969_09705
+            PMOT: X970_09365
+            PPJ: RK21_01101 RK21_02556
+            PFL: PFL_5299(pepQ)
+            PPRC: PFLCHA0_c52730
+            PPRO: PPC_5277(pepQ)
+            PSZ: PSTAB_0117(pepQ)
+            PSV: PVLB_11000
+            PKC: PKB_0197
+            PFZ: AV641_10105
+            PLQ: AA042_21005
+            PPSY: AOC04_06990
+            PSOS: POS17_5264
+            PSET: THL1_383
+            PSIL: PMA3_12795
+            ABY: p3ABAYE0029
+            ANO: RR32_18285
+            ACW: A0J50_18930
+            CBER: B5D82_04830
+            GAI: IMCC3135_30825
+            HAK: KO116_00409
+            HCO: LOKO_00393
+            KUS: B9G99_06170
+            KMA: B9H00_08960
+            MARS: A8C75_10585 A8C75_10600
+            OCE: GU3_07685
+            ZDF: AN401_07415
+            TSN: W908_00585
+            THIN: CRN91_00800
+            PSE: NH8B_1341
+            BVI: Bcep1808_7033
+            BCEN: DM39_6465
+            BPSL: WS57_17245
+            BYI: BYI23_C008510
+            BUE: BRPE67_CCDS02700
+            BPH: Bphy_6284
+            BCAI: K788_0002690
+            PHS: C2L64_23065
+            PTER: C2L65_24320
+            CDN: BN940_07841
+            AZA: AZKH_p0039
+            AZI: AzCIB_2141
+            ACOM: CEW83_15360
+            AZD: CDA09_08580
+            DDN: DND132_1424
+            MAMO: A6B35_32655
+            MESW: A9K65_021920
+            HOE: IMCC20628_00244
+            AMIH: CO731_00744
+            SHZ: shn_25500
+            OAH: DR92_4431
+            OCH: CES85_3141
+            MMYR: MXMO3_02428 MXMO3_03570
+            MEY: TM49_10610
+            MMED: Mame_02389
+            SIL: SPO3327
+            SIT: TM1040_2491
+            RUA: D1823_06430
+            RMB: K529_011925
+            RSP: RSP_1752
+            RSH: Rsph17029_0398
+            RSQ: Rsph17025_2498
+            RSK: RSKD131_0051
+            RCP: RCAP_rcc00431(creA)
+            RHP: LPB142_15105
+            RBL: B6K69_08745
+            JAN: Jann_2612
+            RDE: RD1_0929(cln)
+            RLI: RLO149_c001400
+            PDE: Pden_1018 Pden_1692 Pden_1738 Pden_3409
+            PAMI: JCM7686_pAMI1p057
+            PYE: A6J80_03015
+            PZH: CX676_16335
+            PARO: CUV01_13195
+            PAMN: JCM7685_2117 pAMV3p0177
+            PARS: DRW48_01200
+            DSH: Dshi_2126
+            PGA: PGA1_c29630
+            PGL: PGA2_c27540
+            PGD: Gal_00468
+            PHP: PhaeoP97_00541
+            PPIC: PhaeoP14_02733
+            PHQ: D1820_09500
+            OAT: OAN307_c09630
+            OAR: OA238_c34120
+            OTM: OSB_23980
+            LMD: METH_15315
+            LEJ: ETW24_16930
+            RED: roselon_01692
+            PTP: RCA23_c24450
+            MALG: MALG_03308
+            RSU: NHU_03374
+            RHM: B5V46_13935
+            RHC: RGUI_0492
+            PPHR: APZ00_19930
+            HAT: RC74_16535
+            LAP: ACP90_26620
+            LAGG: B0E33_10665
+            LABR: CHH27_21055
+            DAA: AKL17_3129
+            YAN: AYJ57_07135
+            SUAM: BOO69_10895
+            SPSE: SULPSESMR1_03417
+            SULZ: C1J03_21620
+            SULI: C1J05_07180
+            TPRO: Ga0080559_TMP2015
+            TOM: BWR18_15040
+            PABY: Ga0080574_TMP2148
+            THW: BMG03_09810
+            RMM: ROSMUCSMR3_01886 ROSMUCSMR3_02680
+            ROK: RAK1035_0496 RAK1035_1299
+            LVS: LOKVESSMR4R_00345 LOKVESSMR4R_01079
+            AHT: ANTHELSMS3_00845
+            RBG: BG454_11820
+            SAGU: CDO87_10985
+            THAS: C6Y53_08965
+            GEH: HYN69_00580 HYN69_00620 HYN69_04205
+            TAW: EI545_09525
+            SALO: EF888_19755
+            SEDI: EBB79_00635
+            TII: DY252_00035
+            PUB: SAR11_0687(pepQ)
+            APM: HIMB5_00002710
+            PGV: SL003B_2641
+            APB: SAR116_0762
+            EAC: EAL2_808p07360(creA)
+            CKP: ckrop_1220
+            CTER: A606_03785
+            CFN: CFAL_02435
+            ROP: ROP_15090
+            ROA: Pd630_LPD05992
+            ART: Arth_3728
+            ARR: ARUE_c39580
+            ARM: ART_1482
+            ARL: AFL94_16215
+            AAQ: AOC05_01730 AOC05_01745
+            ARH: AHiyo8_21820 AHiyo8_21830
+            ARY: ATC04_01700
+            ARZ: AUT26_18115
+            ARU: ASPU41_21240
+            ARQ: BWQ92_15530
+            ARX: ARZXY2_4271
+            ACRY: AC20117_10945 AC20117_11645
+            ARTH: C3B78_00905
+            AAU: AAur_3822
+            ACH: Achl_3303
+            APN: Asphe3_02360
+            AAI: AARI_27250
+            KRH: KRH_03000
+            KFV: AS188_03515
+            SATK: SA2016_1118
+            BRV: CFK39_04640
+            BRZ: CFK38_06515
+            DVA: DAD186_08130
+            DNI: HX89_12200
+            ORN: DV701_04015
+            BLY: A2T55_01300
+            MPH: MLP_20240
+            MMAR: MODMU_3069
+            RXY: Rxyl_0461
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.3.3
+            IUBMB Enzyme Nomenclature: 3.5.3.3
+            ExPASy - ENZYME nomenclature database: 3.5.3.3
+            BRENDA, the Enzyme Database: 3.5.3.3
+            CAS: 37340-58-2
+///

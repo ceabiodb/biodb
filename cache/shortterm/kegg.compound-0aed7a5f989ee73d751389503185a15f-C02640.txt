@@ -1,0 +1,27 @@
+ENTRY       C02640                      Compound
+NAME        3-Methylbutanamine;
+            Isoamylamine;
+            Isopentylamine
+FORMULA     C5H13N
+EXACT_MASS  87.1048
+MOL_WEIGHT  87.1634
+DBLINKS     CAS: 107-85-7
+            PubChem: 5620
+            ChEBI: 43689
+            ChEMBL: CHEMBL42003
+            PDB-CCD: LEN
+            NIKKAJI: J95.661I
+ATOM        6
+            1   C1b C    18.4694  -13.6946
+            2   C1c C    17.2600  -14.3959
+            3   C1b C    19.6852  -14.3959
+            4   C1a C    16.0505  -13.6946
+            5   C1a C    17.2600  -15.7982
+            6   N1a N    20.8947  -13.6946
+BOND        5
+            1     1   2 1
+            2     1   3 1
+            3     2   4 1
+            4     2   5 1
+            5     3   6 1
+///

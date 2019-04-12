@@ -1,0 +1,363 @@
+ENTRY       EC 4.1.1.12                 Enzyme
+NAME        aspartate 4-decarboxylase;
+            desulfinase;
+            aminomalonic decarboxylase;
+            aspartate beta-decarboxylase;
+            aspartate omega-decarboxylase;
+            aspartic omega-decarboxylase;
+            aspartic beta-decarboxylase;
+            L-aspartate beta-decarboxylase;
+            cysteine sulfinic desulfinase;
+            L-cysteine sulfinate acid desulfinase;
+            L-aspartate 4-carboxy-lyase
+CLASS       Lyases;
+            Carbon-carbon lyases;
+            Carboxy-lyases
+SYSNAME     L-aspartate 4-carboxy-lyase (L-alanine-forming)
+REACTION    L-aspartate = L-alanine + CO2 [RN:R00397]
+ALL_REAC    R00397;
+            (other) R00863
+SUBSTRATE   L-aspartate [CPD:C00049]
+PRODUCT     L-alanine [CPD:C00041];
+            CO2 [CPD:C00011]
+COMMENT     A pyridoxal-phosphate protein. Also catalyses the decarboxylation of aminomalonate (formerly listed as EC 4.1.1.10), and the desulfination of 3-sulfino-L-alanine to sulfite and alanine.
+HISTORY     EC 4.1.1.12 created 1961, modified 1976 (EC 4.1.1.10 created 1961, incorporated 1972)
+REFERENCE   1  [PMID:5773301]
+  AUTHORS   Kakimoto T, Kato J, Shibatani T, Nishimura N, Chibata I.
+  TITLE     Crystalline L-aspartate beta-decarboxylase of Pseudomonas dacunhae. I. Crystallization and some physiocochemical properties.
+  JOURNAL   J Biol Chem 244:353-8 (1969)
+REFERENCE   2  [PMID:14154469]
+  AUTHORS   NOVOGRODSKY A, MEISTER A.
+  TITLE     CONTROL OF ASPARTATE BETA-DECARBOXYLASE ACTIVITY BY TRANSAMINATION.
+  JOURNAL   J Biol Chem 239:879-88 (1964)
+REFERENCE   3  [PMID:5424207]
+  AUTHORS   Palekar AG, Tate SS, Meister A.
+  TITLE     Inhibition of aspartate beta-decarboxylase by aminomalonate. Stereospecific decarboxylation of aminomalonate to glycine.
+  JOURNAL   Biochemistry 9:2310-5 (1970)
+REFERENCE   4  [PMID:14071532]
+  AUTHORS   WILSON EM, KORNBERG HL.
+  TITLE     PROPERTIES OF CRYSTALLINE L-ASPARTATE 4-CARBOXY-LYASE FROM ACHROMOBACTER SP.
+  JOURNAL   Biochem J 88:578-87 (1963)
+PATHWAY     ec00250  Alanine, aspartate and glutamate metabolism
+            ec00270  Cysteine and methionine metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K09758  aspartate 4-decarboxylase
+GENES       PGE: LG71_16775
+            EBI: EbC_05500(asdA)
+            EGE: EM595_p0259(asD)
+            PAGC: BEE12_19545
+            VPF: M634_10470
+            VAG: N646_0788
+            VOW: A9237_22760
+            VBR: A6E01_18540
+            VSH: BSZ05_17320
+            POR: APT59_06490
+            PPSL: BJP27_21240
+            ABC: ACICU_02407
+            ABX: ABK1_1281
+            ABR: ABTJ_01313
+            ABD: ABTW07_2602
+            ABH: M3Q_2677
+            ABJ: BJAB07104_02567
+            ABAJ: BJAB0868_02449
+            ABK: LX00_11905
+            ABW: BL01_18405
+            ACC: BDGL_001724(asdA)
+            ANO: RR32_06650
+            ALC: OTEC02_06155
+            ACAL: BUM88_12690
+            ACD: AOLE_05980
+            ACW: A0J50_05920
+            ARJ: DOM24_06685
+            SJA: SJ2017_0934
+            SPSW: Sps_02671
+            FTQ: RO31_0955 RO31_0956(asdP)
+            FTW: FTW_1358
+            FTL: FTL_0320
+            FTH: FTH_0320(aspD)
+            FTA: FTA_0339
+            FTS: F92_01720
+            FTI: FTS_0320(aspD)
+            FTO: X557_01710
+            FTC: DA46_389(aspD)
+            FTV: CH67_605(aspD)
+            FTZ: CH68_339(aspD)
+            FTM: FTM_0420
+            FTN: FTN_0343
+            FTX: AW25_1696(aspD)
+            FTD: AS84_347(aspD)
+            FTY: CH70_1724(aspD)
+            FCF: FNFX1_0347
+            FCN: FN3523_0319
+            FHI: FSC454_01590
+            FPH: Fphi_0481
+            FPT: BZ13_1555(aspD)
+            FPI: BF30_676(aspD)
+            FPM: LA56_1696(aspD)
+            FPX: KU46_878(aspD)
+            FPZ: LA55_350(aspD)
+            FPJ: LA02_93(aspD)
+            FRT: F7308_0370
+            FNL: M973_02125
+            FRX: F7310_01935
+            GAP: GAPWK_0604
+            FPP: FPB0191_01217
+            SALV: SALWKB2_1178
+            JEU: BJP62_06550
+            RMN: TK49_17160
+            RIN: ACS15_4642(aspD)
+            REU: Reut_A2709
+            REH: H16_A3009(asdA)
+            CUH: BJN34_16100
+            RME: Rmet_1984(asdA)
+            CTI: RALTA_A2486
+            CPAU: EHF44_03735 EHF44_08790
+            BOK: DM82_5797(asdP)
+            BOC: BG90_4832
+            BDL: AK34_5158(aspD)
+            BGL: bglu_1g10380
+            BGU: KS03_1969(aspD)
+            BUG: BC1001_0495
+            BGF: BC1003_0509
+            BGD: bgla_1g34720
+            BGO: BM43_966(aspD)
+            BYI: BYI23_B001880 BYI23_B009610
+            BUO: BRPE64_BCDS03460
+            BUE: BRPE67_BCDS04300 BRPE67_BCDS13690
+            BUQ: AC233_02730 AC233_21280
+            BGP: BGL_1c10730
+            BPLA: bpln_1g10290
+            BUZ: AYM40_02735
+            BUI: AX768_27835
+            BXE: Bxe_A3891
+            BXB: DR64_1567(aspD)
+            BPX: BUPH_04382
+            BPY: Bphyt_0790
+            BFN: OI25_910(aspD)
+            BCAI: K788_0004943
+            PARA: BTO02_16975
+            PARB: CJU94_02295
+            PTER: C2L65_12530
+            PGP: CUJ91_02890 CUJ91_22250
+            PCJ: CUJ87_02565
+            PPK: U875_16620
+            PPNO: DA70_08515
+            PPNM: LV28_22125
+            PRB: X636_17850
+            PPUL: RO07_16525
+            PSPU: NA29_20650
+            PAPI: SG18_15360
+            PVE: UC34_07725
+            POX: MB84_12100
+            PFG: AB870_18430
+            PNR: AT302_26280
+            BGM: CAL15_04880
+            AXY: AXYL_01733(asdA)
+            AXO: NH44784_003501
+            AXN: AX27061_1634
+            AXX: ERS451415_01627
+            ADT: APT56_07650
+            AIS: BUW96_17710
+            ASW: CVS48_27420
+            ACHB: DVB37_06875 DVB37_19495
+            PIG: EGT29_14105
+            DAC: Daci_3914
+            DEL: DelCs14_2898
+            DTS: BI380_05570
+            DHK: BO996_17860
+            VBO: CKY39_13670
+            CTT: CtCNB1_2315
+            CTES: O987_14975
+            OTK: C6570_11340
+            MMS: mma_1084(asdA)
+            JAZ: YQ44_16560
+            JAL: BZG29_11315
+            JSV: CNX70_11725
+            HEE: hmeg3_11990
+            CFU: CFU_0143(asdA)
+            CARE: LT85_0123
+            CPRA: CPter91_0121(aspD)
+            RGU: A4W93_20110
+            SUN: SUN_0877
+            DAS: Daes_0274
+            MSD: MYSTI_04286
+            CCX: COCOR_02790
+            LLU: AKJ09_07676
+            PLA: Plav_0095
+            SMER: DU99_31685
+            EAH: FA04_09150
+            ATA: AWN88_07440
+            RIR: BN877_II0817
+            RHL: LPU83_pLPU83c0641(asdA)
+            OAN: Oant_3483
+            OAH: DR92_3003(aspD)
+            BJA: blr3477
+            BRS: S23_35870
+            BOI: BLM15_13525
+            MET: M446_1557
+            CMB: CSW64_14790
+            RUA: D1823_08915
+            ZMO: ZMO1682
+            ZMN: Za10_1537
+            ZMM: Zmob_1458
+            ZMB: ZZ6_1435
+            ZMI: ZCP4_1480
+            ZMC: A265_01479
+            ZMR: A254_01478
+            KSC: CD178_01686(asD)
+            APT: APA01_04430 APA01_15490
+            APW: APA42C_04430 APA42C_15490
+            APF: APA03_04430 APA03_15490
+            APU: APA07_04430 APA07_15490
+            APG: APA12_04430 APA12_15490
+            APQ: APA22_04430 APA22_15490
+            APX: APA26_04430 APA26_15490
+            APZ: APA32_04430 APA32_15490
+            APK: APA386B_1928(asdA) APA386B_482
+            ASZ: ASN_851
+            ASV: WG31_02660 WG31_08065
+            AACE: A0U92_00615
+            APER: A0U91_10830
+            APOM: CPF11_05090 CPF11_12475
+            ATO: CIW82_07840
+            AASC: A4S02_09960
+            ACET: DS739_02335 DS739_07955
+            KBA: A0U89_15935
+            RGI: RGI145_16190
+            ROS: CTJ15_14925
+            ABS: AZOBR_p430032
+            ABQ: ABAZ39_32690
+            ABF: AMK58_23540
+            AZT: TSH58p_19950
+            AAD: TC41_0858
+            LGR: LCGT_1281
+            LGV: LCGL_1302
+            LPR: LBP_p3g040
+            LPZ: Lp16_F030
+            LAC: LBA1695
+            LAD: LA14_1696
+            LAF: SD55_1697
+            LSA: LCA_0306(aspD)
+            LCA: LSEI_2747
+            LCZ: LCAZH_2752
+            LPI: LBPG_01343
+            LCB: LCABL_29320(asdA)
+            LCS: LCBD_2960
+            LCE: LC2W_2934
+            LCW: BN194_28750
+            LCL: LOCK919_3003
+            LCX: LCA12A_0440
+            LHL: LBHH_1710
+            LHO: LOOC260_121710
+            LOR: AYI71_02915
+            LCV: FBA2_01670
+            EFA: EF1037
+            EFL: EF62_1474
+            EFI: OG1RF_10770
+            EFD: EFD32_0849
+            EFS: EFS1_0865(asdA)
+            EFN: DENG_01170
+            EFQ: DR75_96(aspD)
+            ENE: ENT_30620
+            EGV: EGCR1_11780 EGCR1_18225(aspD)
+            MPS: MPTP_0441 MPTP_0995
+            MPX: MPD5_0951 MPD5_1465
+            THL: TEH_22060(aspD)
+            VTE: BHY08_01720 BHY08_05240
+            VPI: BW732_03295
+            MARR: BKP56_00640
+            CPE: CPE0341 CPE1001
+            CPF: CPF_0325 CPF_1258(aspD)
+            CPR: CPR_0327
+            CBO: CBO1166(asdA)
+            CBA: CLB_1197(asdA)
+            CBH: CLC_1209(asdA)
+            CBY: CLM_1317
+            CBL: CLK_0601
+            CBB: CLD_3403
+            CBI: CLJ_B1207(aspD)
+            CBF: CLI_1247(aspD)
+            CBJ: H04402_01235
+            CBE: Cbei_1924
+            CBZ: Cbs_1924
+            CBEI: LF65_02091
+            CKL: CKL_0699
+            CKR: CKR_0621
+            CLJ: CLJU_c33270
+            CSB: CLSA_c16110
+            CAH: CAETHG_1226
+            CBV: U729_1867(aspD)
+            CSQ: CSCA_1714
+            CLD: CLSPO_c11660(asd1)
+            CCK: Ccar_06140
+            CTYK: CTK_C07120
+            CEU: A7L45_04535
+            CCHV: BTM20_06005 BTM20_06010
+            CDRK: B9W14_10705
+            CLE: Clole_2227
+            CDF: CD630_25150
+            PDC: CDIF630_02764(aspD)
+            CDC: CD196_2360(aspD)
+            CDL: CDR20291_2407(aspD)
+            PDF: CD630DERM_25150
+            EAC: EAL2_c09600(aspD)
+            PSOR: RSJ16_04440
+            DMT: DESME_09070
+            DOR: Desor_4048
+            DAI: Desaci_1009
+            HHL: Halha_1158
+            MANA: MAMMFC1_00109(asD)
+            TUR: AT726_09355 AT726_11740
+            NNO: NONO_c61950
+            SALB: XNR_4167
+            SGR: SGR_4732
+            SGB: WQO_11875
+            SVE: SVEN_2588
+            SFI: SFUL_2397
+            SVT: SVTN_13840
+            SCZ: ABE83_23965
+            SVU: B1H20_11125
+            SFK: KY5_2946
+            KSK: KSE_63100
+            KAB: B7C62_10775
+            KIT: CFP65_6286
+            SALA: ESZ53_11080
+            AAQ: AOC05_08165
+            SESP: BN6_36290
+            PMAD: BAY61_13710
+            CAI: Caci_1946
+            SNA: Snas_3840
+            AEQ: AEQU_1726
+            TRM: JO41_09340
+            LBA: Lebu_0659
+            CPOR: BED41_13885
+            BTH: BT_0735
+            BTHO: Btheta7330_02355(asD)
+            BFR: BF1517
+            BFS: BF9343_1378
+            BFG: BF638R_1530
+            BFB: VU15_06365
+            BVU: BVU_2264
+            BXY: BXY_02850
+            BDO: EL88_04250
+            BDH: GV66_11835
+            BOA: Bovatus_00911(asD)
+            BCEL: BcellWH2_01068(asD)
+            BCAC: CGC64_12685(aspD)
+            PDI: BDI_1073
+            PARC: CI960_09080
+            SCN: Solca_2046
+            FJG: BB050_04015(asD)
+            CAO: Celal_4230
+            OLL: CW732_12970
+            MEL: Metbo_1835
+            ABI: Aboo_0621
+            ACF: AciM339_0098
+            THA: TAM4_1721
+            THM: CL1_0496
+DBLINKS     ExplorEnz - The Enzyme Database: 4.1.1.12
+            IUBMB Enzyme Nomenclature: 4.1.1.12
+            ExPASy - ENZYME nomenclature database: 4.1.1.12
+            BRENDA, the Enzyme Database: 4.1.1.12
+            CAS: 9024-57-1
+///

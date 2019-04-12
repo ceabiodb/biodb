@@ -1,0 +1,86 @@
+ENTRY       68591             CDS       T01002
+NAME        Mocos, 1110018O12Rik, HMCS, MCS, MOS
+DEFINITION  (RefSeq) molybdenum cofactor sulfurase
+ORTHOLOGY   K15631  molybdenum cofactor sulfurtransferase [EC:2.8.1.9]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00790  Folate biosynthesis
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09108 Metabolism of cofactors and vitamins
+               00790 Folate biosynthesis
+                68591 (Mocos)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.8  Transferring sulfur-containing groups
+               2.8.1  Sulfurtransferases
+                2.8.1.9  molybdenum cofactor sulfurtransferase
+                 68591 (Mocos)
+POSITION    18; 18 A2
+MOTIF       Pfam: MOSC_N Aminotran_5 MOSC SKICH
+DBLINKS     NCBI-GeneID: 68591
+            NCBI-ProteinID: NP_081055
+            MGI: 1915841
+            Ensembl: ENSMUSG00000039616
+            UniProt: Q14CH1
+AASEQ       862
+            MACGAAERGPEPPAFQRHLEASTQRLAHGYGLRSMSELRDQEFGRLAGTVYLDHAGATLF
+            PQSQLTNFTKDLMENVYGNPHSQNITSKLTHDTVEQVRYRILTHFHTTPEDYIVIFTAGS
+            TAALRLVAEAFPWVSRSPENSGSHFCYLTDNHTSVVGMRKVAAAMSVTSIPVKPEDMWSA
+            EGKDAGACDPDCQLPHLFCYPAQSNFSGTRYPLSWVEEVKSGRRSPVNAPGKWFVLLDAA
+            SYVSTSPLDLSAHQADFIPISFYKIFGLPTGLGALLVNKHVAPLLRKGYFGGGTAAAYLA
+            GEDFYVPRSSVAERFEDGTISFLDVIALKHGFDALEHLTGGMVNIQQHTFALVQYTHSAL
+            SSLRYLNGAPVVRIYSDSEFSSPDVQGPIINFNVLDDGGKIIGYSQVDKMASLYNIHLRT
+            GCFCNLGACQRHLGLSDEMVKKHFQAGHVCGDDVDIIDGRPTGSVRISFGYMSTLEDAQA
+            FLRFISTIYLRSPSDQPVPQASISDAGALTSKSDCHSPQEGSCTDPSVCNGSYPDTNIMD
+            LHPSLSKASSAQQTPQDKAAGILNGDPGSHIVTNIYLYPIKSCAAFEVTKWPVGSQGLLY
+            DRSWMVVNHNGICMSQKQEPRLCLIQPFIDLQQRIMVIKAEGMEPIQVPLEEDGEQTQIC
+            QSRVCADRVNTYDCGENVSRWLSKFLGRLCHLIKQSPHFQRNARKTPKKGQPPGTTVALS
+            LVNEAQYLLVNTSSILELQRQLNASDEHGKEESFSMKDLISRFRANIITKGARAFEEEKW
+            DEISIGSLHFQVLGPCHRCQMICINQQTGQRNQDVFQTLSESRGRKVNFGVYLMHSYLDL
+            SSPCFLSVGSEVLPVLKDCGVS
+NTSEQ       2589
+            atggcctgcggggcggcagagcggggccctgagcccccggccttccagcgccatctggaa
+            gccagcacacagcgcttggcccacggctacggcttgcgcagcatgagcgagctgcgggac
+            caggagtttggccgcctagcaggaactgtctaccttgaccatgcaggagccaccttgttc
+            ccccagagccagctcacaaacttcactaaggatctcatggaaaatgtctatggtaaccct
+            cacagccagaacatcaccagcaaactcacccacgacactgtggagcaggtccgctacagg
+            atcctgactcactttcacaccaccccagaggactacatcgtgatcttcacagctgggagt
+            acagctgctctcaggctagtggcagaggcgtttccgtgggtgtcccggagcccagagaac
+            agtgggagtcacttctgctacctcactgacaaccacacctctgtggtgggaatgaggaag
+            gtggctgcagccatgagtgtcacatctatcccagtcaagccagaggacatgtggtcagcg
+            gagggaaaggatgctggagcctgtgaccccgactgtcagcttccacacctcttctgttac
+            ccagctcagagtaacttttcgggcaccagatacccattgtcatgggtagaggaggtcaag
+            tctgggcggaggagccctgtgaatgcaccggggaagtggtttgtgctgctggatgcagcc
+            tcctatgtcagcacttcccccttggatctgtcagctcaccaggctgacttcatccccatc
+            tccttctataagatctttgggctccccacaggcctgggtgctctgctagtcaataagcac
+            gtggctcctctcttgaggaaaggctacttcggaggagggactgcagctgcctaccttgca
+            ggagaggacttttacgtcccaaggtcatcggtggcagaaaggttcgaagatggcaccatc
+            tcattcctcgatgtaatagcgctgaagcatggatttgatgctctggagcacctcacaggc
+            ggcatggtgaacatacagcagcacaccttcgctctggtgcagtacactcactctgccctg
+            tcttccctccgctacctcaacggggcccctgtggtgcgcatttacagcgattctgagttc
+            agcagccctgatgtccagggtccaatcatcaattttaatgtgttggatgatggtgggaag
+            atcattggctactcccaggtggacaaaatggctagcctgtacaacatccacctgaggact
+            ggctgcttctgtaacttaggggcctgccagaggcacctggggctaagtgacgagatggtg
+            aagaaacattttcaggcgggtcatgtctgtggggatgatgttgacattatagatggacga
+            cccaccggctctgtgaggatttcctttggatacatgtccacactagaagatgcccaggcc
+            tttctgaggttcatcagtactatctacctccgctcacccagtgaccagcctgttcctcaa
+            gccagcatcagtgatgctggggccttaacctcgaagagtgactgtcactcacctcaggaa
+            ggttcctgtacagacccttcagtttgcaatggctcctatcctgacacaaacatcatggac
+            ttgcacccgtctctgagcaaagccagcagcgcccagcagacccctcaagacaaagctgca
+            ggaatcctgaatggggacccggggtcccacattgtcaccaacatttacctctaccccatc
+            aaatcctgtgctgcgtttgaggtgaccaagtggcctgtggggagccaagggctgctgtat
+            gaccggagctggatggttgtgaatcacaatggcatttgcatgagtcagaagcaggagcca
+            cggctctgcctgatccagcccttcattgacctgcagcagaggatcatggtcatcaaagca
+            gaagggatggagcctatccaggtgcctcttgaggaggatggagaacagactcagatttgt
+            caaagcagagtgtgtgctgacagggtaaatacttatgattgtggagaaaatgtttcaaga
+            tggctgtcaaagtttcttggccgtctatgtcatttaatcaagcaaagtccacacttccag
+            cgaaatgccaggaagacgcctaaaaaaggtcagcctcccggtactactgttgccctgtcc
+            ttggtgaacgaggctcagtatctgctggtgaacacatcaagtattctggagcttcagcgg
+            cagttaaatgccagtgacgaacatggaaaggaggagtcattctccatgaaagatctcatc
+            tcccgcttccgtgccaatattattaccaagggagccagagcctttgaagaagagaagtgg
+            gatgagatttcaattggctccttgcatttccaggttctagggccttgccacaggtgccag
+            atgatttgtatcaaccagcaaaccgggcagcggaaccaggacgtcttccagacgctctcc
+            gagagtcgggggagaaaggtgaactttggtgtgtacctgatgcattcgtacttggattta
+            tcgtctccatgtttcctgtcagtgggatcggaggtgctccccgtgttgaaagactgtgga
+            gtgtcctga
+///

@@ -1,0 +1,24 @@
+ENTRY       EC 2.3.2.14                 Enzyme
+NAME        D-alanine gamma-glutamyltransferase
+CLASS       Transferases;
+            Acyltransferases;
+            Aminoacyltransferases
+SYSNAME     L-glutamine:D-alanine gamma-glutamyltransferase
+REACTION    L-glutamine + D-alanine = NH3 + gamma-L-glutamyl-D-alanine [RN:R01149]
+ALL_REAC    R01149
+SUBSTRATE   L-glutamine [CPD:C00064];
+            D-alanine [CPD:C00133]
+PRODUCT     NH3 [CPD:C00014];
+            gamma-L-glutamyl-D-alanine [CPD:C03738]
+COMMENT     D-Phenylalanine and D-2-aminobutyrate can also act as acceptors, but more slowly. The enzyme also catalyses some of the reactions of EC 2.3.2.2 (gamma-glutamyltransferase).
+HISTORY     EC 2.3.2.14 created 1989
+REFERENCE   1
+  AUTHORS   Kawasaki, Y., Ogawa, T. and Sasaoka, K.
+  TITLE     Occurrence and some properties of a novel gamma-glutamyltransferase responsible for the synthesis of gamma-L-glutamyl-D-alanine in pea-seedlings.
+  JOURNAL   Biochim Biophys Acta 716:194-200 (1982)
+DBLINKS     ExplorEnz - The Enzyme Database: 2.3.2.14
+            IUBMB Enzyme Nomenclature: 2.3.2.14
+            ExPASy - ENZYME nomenclature database: 2.3.2.14
+            BRENDA, the Enzyme Database: 2.3.2.14
+            CAS: 9046-27-9
+///
