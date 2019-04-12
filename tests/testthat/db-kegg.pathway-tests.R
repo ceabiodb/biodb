@@ -21,6 +21,23 @@ test_kegg_pathway_buildPathwayGraph = function(conn) {
     testthat::expect_is(graph, 'igraph')
 }
 
+# Test KEGG Pathway getDecoratedGraphPicture() {{{1
+################################################################
+
+test_kegg_pathway_getDecoratedGraphPicture = function(conn) {
+    
+    # Set colors
+    c = list(yellow = c('4.2.1.22', '4.2.3.1'), green = c('C00101', 'C00168'))
+    graph_pix = conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
+    if (require('magick')) {
+        detach('package:magick') # Force using namespace.
+        testthat::expect_is(graph_pix, 'magick-image')
+        magick::image_write(graph_pix, path = file.path(OUTPUT.DIR, 'test_kegg_pathway_getDecoratedGraphPicture_image.png'), format = 'png')
+    }
+    else
+        testthat::expect_null(graph_pix)
+}
+
 # Run KEGG Pathway tests {{{1
 ################################################################
 
@@ -31,5 +48,7 @@ run.kegg.pathway.tests = function(conn, obs) {
                   'test_kegg_pathway_getReactions', conn = conn)
         test.that('buildPathwayGraph() works correctly.',
                   'test_kegg_pathway_buildPathwayGraph', conn = conn)
+        test.that('We can build a decorated pathway graph,',
+                  'test_kegg_pathway_getDecoratedGraphPicture', conn = conn)
     }
 }

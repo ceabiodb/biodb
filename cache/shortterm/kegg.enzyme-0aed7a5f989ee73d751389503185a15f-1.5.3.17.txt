@@ -1,0 +1,170 @@
+ENTRY       EC 1.5.3.17                 Enzyme
+NAME        non-specific polyamine oxidase;
+            polyamine oxidase (ambiguous);
+            Fms1;
+            AtPAO3
+CLASS       Oxidoreductases;
+            Acting on the CH-NH group of donors;
+            With oxygen as acceptor
+SYSNAME     polyamine:oxygen oxidoreductase (3-aminopropanal or 3-acetamidopropanal-forming)
+REACTION    (1) spermine + O2 + H2O = spermidine + 3-aminopropanal + H2O2 [RN:R09076];
+            (2) spermidine + O2 + H2O = putrescine + 3-aminopropanal + H2O2 [RN:R09077];
+            (3) N1-acetylspermine + O2 + H2O = spermidine + 3-acetamidopropanal + H2O2 [RN:R03899];
+            (4) N1-acetylspermidine + O2 + H2O = putrescine + 3-acetamidopropanal + H2O2 [RN:R09074]
+ALL_REAC    R03899 R09074 R09076 R09077
+SUBSTRATE   spermine [CPD:C00750];
+            O2 [CPD:C00007];
+            H2O [CPD:C00001];
+            spermidine [CPD:C00315];
+            N1-acetylspermine [CPD:C02567];
+            N1-acetylspermidine [CPD:C00612]
+PRODUCT     spermidine [CPD:C00315];
+            3-aminopropanal [CPD:C05665];
+            H2O2 [CPD:C00027];
+            putrescine [CPD:C00134];
+            3-acetamidopropanal [CPD:C18170]
+COMMENT     A flavoprotein (FAD). The non-specific polyamine oxidases may differ from each other considerably. The enzyme from Saccharomyces cerevisiae shows a rather broad specificity and also oxidizes N8-acetylspermidine [3]. The enzyme from Ascaris suum shows high activity with spermine and spermidine, but also oxidizes norspermine [2]. The enzyme from Arabidopsis thaliana shows high activity with spermidine, but also oxidizes other polyamines [1].
+            The specific polyamine oxidases are classified as EC 1.5.3.13 (N1-acetylpolyamine oxidase), EC 1.5.3.14 (polyamine oxidase (propane-1,3-diamine-forming)), EC 1.5.3.15 (N8-acetylspermidine oxidase (propane-1,3-diamine-forming)) and EC 1.5.3.16 (spermine oxidase).
+HISTORY     EC 1.5.3.17 created 2009
+REFERENCE   1  [PMID:18583528]
+  AUTHORS   Moschou PN, Sanmartin M, Andriopoulou AH, Rojo E, Sanchez-Serrano JJ, Roubelakis-Angelakis KA
+  TITLE     Bridging the gap between plant and mammalian polyamine catabolism: a novel peroxisomal polyamine oxidase responsible for a full back-conversion pathway in Arabidopsis.
+  JOURNAL   Plant Physiol 147:1845-57 (2008)
+            DOI:10.1104/pp.108.123802
+  SEQUENCE  [ath:AT3G59050]
+REFERENCE   2  [PMID:1567380]
+  AUTHORS   Muller S, Walter RD
+  TITLE     Purification and characterization of polyamine oxidase from Ascaris suum.
+  JOURNAL   Biochem J 283 ( Pt 1):75-80 (1992)
+REFERENCE   3  [PMID:12670477]
+  AUTHORS   Landry J, Sternglanz R
+  TITLE     Yeast Fms1 is a FAD-utilizing polyamine oxidase.
+  JOURNAL   Biochem Biophys Res Commun 303:771-6 (2003)
+            DOI:10.1016/S0006-291X(03)00416-9
+  SEQUENCE  [sce:YMR020W]
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec00410  beta-Alanine metabolism
+ORTHOLOGY   K13367  polyamine oxidase
+            K17839  polyamine oxidase
+GENES       ATH: AT1G65840(PAO4) AT2G43020(PAO2) AT3G59050(PAO3)
+            ALY: ARALYDRAFT_483403 ARALYDRAFT_486367 ARALYDRAFT_894198
+            CRB: 17887258 17890473 17895855
+            CSAT: 104699419 104701179 104750367 104781816 104782814 104785057 104787599 104788143 104792182 109129483
+            EUS: EUTSA_v10005954mg EUTSA_v10016573mg EUTSA_v10018447mg
+            BRP: 103830193 103852299 103858041 103866035 103866687
+            BNA: 106351646 106351654 106353169 106381329 106385479 106391704 106421166 106428226 106434498 106441217 111211981
+            BOE: 106296723 106318716 106332596 106333466 106336574 106336734
+            THJ: 104803407 104805661 104821208 104822137
+            CPAP: 110815019 110815049 110815461
+            CIT: 102624788 102625282 102627867
+            CIC: CICLE_v10011567mg CICLE_v10031239mg
+            TCC: 18612191
+            GRA: 105763643 105790392
+            GHI: 107916881 107925953 107944271 107945473
+            GAB: 108469685 108483444
+            DZI: 111291899 111305825
+            EGR: 104422211 104442425
+            GMX: 100782576 100785056 100790521 100791090 100798561 100799631 100806878 100811255
+            PVU: PHAVU_006G028600g PHAVU_006G085900g PHAVU_008G196900g PHAVU_008G241700g
+            VRA: 106753045 106765160 106765271 106776036
+            VAR: 108337267 108338488 108343091 108343161
+            CCAJ: 109790272 109795185 109795282
+            MTR: MTR_3g064370 MTR_3g449620 MTR_5g090300
+            CAM: 101488772 101489745 101514322
+            LJA: Lj2g3v3070860.1(Lj2g3v3070860.1) Lj2g3v3070870.1(Lj2g3v3070870.1) Lj2g3v3070870.2(Lj2g3v3070870.2) Lj6g3v0366930.1(Lj6g3v0366930.1) Lj6g3v0933770.1(Lj6g3v0933770.1)
+            ADU: 107458090 107480998 107496522
+            AIP: 107610087 107631405
+            LANG: 109330188 109339566 109356838
+            FVE: 101293234 101293991
+            PPER: 18782544 18782903
+            PMUM: 103327360 103328951
+            PAVI: 110765111 110765925
+            MDM: 103405136 103405900 103426256 103443150 103444375
+            PXB: 103933878 103947391 103956795 103956798 103959927 103965587
+            ZJU: 107416625
+            CSV: 101205765 101213852
+            CMO: 103493008 103502485
+            MCHA: 111005782 111008343
+            CMAX: 111477047 111480387 111482955
+            CMOS: 111437612 111442764 111445809
+            CPEP: 111788589 111797083 111810933
+            RCU: 8273410 8277860
+            JCU: 105634456 105634459 105636130
+            HBR: 110638926 110638949 110654238 110666897
+            MESC: 110600153 110604601 110608659
+            POP: 18106497 7464825 7468334 7468715
+            JRE: 108986807 108988145 108993577 109010094
+            VVI: 100245491 100250153
+            SLY: 101252005 101258232 101260014 101264170
+            SPEN: 107007559 107011311 107012957 107026194
+            SOT: 102591553 102594410 102598184 102605222
+            CANN: 107841896 107859655 107878076
+            NTA: 107761719 107762338 107764894 107775720 107775961 107799822 107800087 107812697 107831274(T361)
+            NSY: 104210410 104213745 104226820 104230337
+            NTO: 104086117 104093043 104097366 104107681
+            INI: 109167577 109172637 109187541
+            SIND: 105167429 105175973 105178573
+            OEU: 111372349 111378096 111390976 111400284 111400605
+            HAN: 110882585 110912497 110921258
+            LSV: 111884410 111898938 111914638 111915491
+            CCAV: 112515135 112522951 112527605
+            DCR: 108192953 108204744 108210485
+            BVG: 104891257 104902678
+            SOE: 110785198 110798217
+            CQI: 110691948 110701998 110708250 110711120
+            NNU: 104588475 104607001 104610796
+            PSOM: 113287329 113288317 113295350 113298295 113300769 113303219
+            OSA: 4337046 4337359 4337360
+            DOSA: Os04t0623300-01(Os04g0623300) Os04t0671200-01(Os04g0671200) Os04t0671300-01(Os04g0671300)
+            OBR: 102710582 102711526 102711798
+            BDI: 100824039 100840588 100841193
+            ATS: 109734611(LOC109734611) 109739586(LOC109739586) 109759728(LOC109759728)
+            SBI: 8074727 8082588 8082590
+            ZMA: 100191603(pco077065) 100384522(TIDP3366) 101027113 103631209 103631435 103631626 103642073
+            SITA: 101753072 101753473 101768863
+            PDA: 103699682 103703721 103705589 103717571 103723706
+            EGU: 105033992 105035498 105035697 105058904 105059362
+            MUS: 103971799 103973550 103983690 103998527
+            DCT: 110099374 110101011 110103987
+            PEQ: 110019083 110020947 110023934
+            AOF: 109827207 109845387
+            ATR: 18427217 18437742
+            SMO: SELMODRAFT_22558 SELMODRAFT_22584 SELMODRAFT_270153 SELMODRAFT_271685 SELMODRAFT_439374 SELMODRAFT_440258
+            PPP: 112286660 112286662 112292916
+            SCE: YMR020W(FMS1)
+            AGO: AGOS_ABR057W
+            ERC: Ecym_4580
+            KLA: KLLA0_E07789g
+            KMX: KLMA_40378(FMS1)
+            LTH: KLTH0D07942g
+            ZRO: ZYRO0E06314g
+            CGR: CAGL0M07612g
+            NCS: NCAS_0A12730(NCAS0A12730)
+            NDI: NDAI_0B01530(NDAI0B01530)
+            TDL: TDEL_0B06550(TDEL0B06550)
+            KAF: KAFR_0A02140(KAFR0A02140)
+            DHA: DEHA2A02552g
+            PIC: PICST_28515(CPB2) PICST_57813
+            PGU: PGUG_01595
+            SPAA: SPAPADRAFT_59154 SPAPADRAFT_72688
+            LEL: LELG_04349
+            CAL: CAALFM_C402040WA(CaO19.4589) CAALFM_CR09270CA(CBP1)
+            CTP: CTRG_00245 CTRG_05911
+            COT: CORT_0G01470 CORT_0G01480
+            CDU: CD36_34620(CBP1) CD36_41930
+            CTEN: CANTEDRAFT_112827
+            YLI: YALI0B23430g
+            CLU: CLUG_02138 CLUG_02198
+            CLUS: A9F13_02g01056 A9F13_02g01573
+            CAUR: QG37_03853
+            SLB: AWJ20_1654(FMS1) AWJ20_390(FMS1) AWJ20_4168(FMS1)
+            FVR: FVEG_09930
+            PDP: PDIP_27570
+            ZTR: MYCGRDRAFT_110027
+            PFJ: MYCFIDRAFT_86444
+            AAF: AURANDRAFT_65354
+DBLINKS     ExplorEnz - The Enzyme Database: 1.5.3.17
+            IUBMB Enzyme Nomenclature: 1.5.3.17
+            ExPASy - ENZYME nomenclature database: 1.5.3.17
+            BRENDA, the Enzyme Database: 1.5.3.17
+///

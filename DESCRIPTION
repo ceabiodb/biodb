@@ -17,7 +17,8 @@ Suggests:
 	testthat (>= 2.0.0),
 	knitr,
 	rmarkdown,
-	igraph
+	igraph,
+	magick
 Imports:
 	Rcpp,
 	methods,

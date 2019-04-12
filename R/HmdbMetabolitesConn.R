@@ -109,8 +109,8 @@ HmdbMetabolitesConn$methods( .doDownload = function() {
 
 	# Download
 	.self$message('info', "Downloading HMDB metabolite database...")
-	zip.url <- BiodbUrl(url = c(.self$getUrl('base.url'), 'system', 'downloads', 'current', 'hmdb_metabolites.zip'))$toString()
-	.self$message('info', paste("Downloading \"", zip.url, "\"...", sep = ''))
+	zip.url <- BiodbUrl(url = c(.self$getUrl('base.url'), 'system', 'downloads', 'current', 'hmdb_metabolites.zip'))
+	.self$message('info', paste("Downloading \"", zip.url$toString(), "\"...", sep = ''))
 	.self$getBiodb()$getRequestScheduler()$downloadFile(url = zip.url, dest.file = .self$getDownloadPath())
 })
 

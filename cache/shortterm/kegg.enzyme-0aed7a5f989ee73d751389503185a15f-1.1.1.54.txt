@@ -1,0 +1,25 @@
+ENTRY       EC 1.1.1.54                 Enzyme
+NAME        allyl-alcohol dehydrogenase
+CLASS       Oxidoreductases;
+            Acting on the CH-OH group of donors;
+            With NAD+ or NADP+ as acceptor
+SYSNAME     allyl-alcohol:NADP+ oxidoreductase
+REACTION    allyl alcohol + NADP+ = acrolein + NADPH + H+ [RN:R03572]
+ALL_REAC    R03572
+SUBSTRATE   allyl alcohol [CPD:C02001];
+            NADP+ [CPD:C00006]
+PRODUCT     acrolein [CPD:C01471];
+            NADPH [CPD:C00005];
+            H+ [CPD:C00080]
+COMMENT     Also acts on saturated primary alcohols.
+HISTORY     EC 1.1.1.54 created 1965
+REFERENCE   1
+  AUTHORS   Otsuka, K.
+  TITLE     Triphosphopyridine nucleotide-allyl and -ethyl alcohol dehydrogenases from Escherichia coli.
+  JOURNAL   J Gen Appl Microbiol 4:211-215 (1958)
+DBLINKS     ExplorEnz - The Enzyme Database: 1.1.1.54
+            IUBMB Enzyme Nomenclature: 1.1.1.54
+            ExPASy - ENZYME nomenclature database: 1.1.1.54
+            BRENDA, the Enzyme Database: 1.1.1.54
+            CAS: 9028-58-4
+///

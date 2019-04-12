@@ -54,8 +54,8 @@ MirbaseMatureConn$methods( requiresDownload = function() {
 MirbaseMatureConn$methods( .doDownload = function() {
 
 	# Download
-	gz.url <- paste0(.self$getUrl('ftp.url'), 'mature.fa.gz')
-	.self$message('info', paste("Downloading \"", gz.url, "\"...", sep = ''))
+	gz.url <- BiodbUrl(url = paste0(.self$getUrl('ftp.url'), 'mature.fa.gz'))
+	.self$message('info', paste("Downloading \"", gz.url$toString(), "\"...", sep = ''))
 	.self$getBiodb()$getRequestScheduler()$downloadFile(url = gz.url, dest.file = .self$getDownloadPath())
 	.self$message('debug', 'Finish downloading Mirbase Mature database.')
 })

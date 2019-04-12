@@ -1,0 +1,47 @@
+ENTRY       C00133                      Compound
+NAME        D-Alanine;
+            D-2-Aminopropionic acid;
+            D-Ala
+FORMULA     C3H7NO2
+EXACT_MASS  89.0477
+MOL_WEIGHT  89.0932
+REACTION    R00399 R00401 R01147 R01148 R01149 R01150 R01225 R01344 
+            R02718 R04369 R04611 R05861 R07651 R08850 R09588 R09595 
+            R11965
+PATHWAY     map00473  D-Alanine metabolism
+            map00550  Peptidoglycan biosynthesis
+            map01100  Metabolic pathways
+            map01502  Vancomycin resistance
+            map01503  Cationic antimicrobial peptide (CAMP) resistance
+            map04742  Taste transduction
+ENZYME      1.4.3.3         1.4.3.19        2.1.2.7         2.3.1.263       
+            2.3.2.14        2.6.1.21        3.1.1.103       3.4.13.22       
+            3.4.17.8        5.1.1.1         6.1.1.13        6.1.2.1         
+            6.3.2.4         6.3.2.16        6.3.2.35
+BRITE       Compounds with biological roles [BR:br08001]
+             Peptides
+              Amino acids
+               Other amino acids
+                C00133  D-Alanine
+DBLINKS     CAS: 338-69-2
+            PubChem: 3433
+            ChEBI: 15570
+            ChEMBL: CHEMBL66693
+            KNApSAcK: C00019654
+            PDB-CCD: DAL
+            3DMET: B00036
+            NIKKAJI: J9.190A
+ATOM        6
+            1   O6a O    22.7503  -15.7507
+            2   C6a C    23.9627  -15.0506
+            3   C1c C    25.1753  -15.7507
+            4   C1a C    26.3878  -15.0506
+            5   O6a O    23.9627  -13.6508
+            6   N1a N    25.1753  -17.1506
+BOND        5
+            1     1   2 1
+            2     2   3 1
+            3     3   4 1
+            4     2   5 2
+            5     3   6 1 #Up
+///

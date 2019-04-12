@@ -166,11 +166,11 @@ KeggPathwayConn$methods( buildPathwayGraph = function(id, drop = TRUE,
                     # Create links to substrates
                     for (substrate in substrates)
                         edges = rbind(edges, data.frame(from = substrate,
-                                                        to = react_vertex_id))
+                                                        to = rvid))
 
                     # Create links to products
                     for (product in products)
-                        edges = rbind(edges, data.frame(from = react_vertex_id,
+                        edges = rbind(edges, data.frame(from = rvid,
                                                         to = product))
                 }
             }
@@ -190,8 +190,121 @@ KeggPathwayConn$methods( buildPathwayGraph = function(id, drop = TRUE,
     return(graph)
 })
 
+# Get decorated graph picture {{{1
+################################################################
+
+KeggPathwayConn$methods( getDecoratedGraphPicture = function(id, color2ids) {
+ 
+    pix = NULL
+    
+    if (require('magick')) {
+        detach('package:magick') # Force using namespace.
+
+        # Extract pathway number
+        path_idx = sub('^[^0-9]+', '', id)
+            
+        # Build Request
+        url = BiodbUrl(url = c(.self$getUrl('base.url'), 'kegg-bin', 'show_pathway'),
+                       params = c(org_name = 'map', mapno = path_idx,
+                                  mapscale = '1.0', show_description = 'hide'))
+        request = BiodbRequest(url = url)
+        
+        # Send request and get HTML page
+        html = .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+        
+        # Get image
+        pix = .self$.getPathwayImage(path_idx = path_idx, html = html)
+        
+        # Extract shapes
+        shapes = .self$.extractPathwayMapShapes(html = html, color2ids = color2ids)
+        
+        # Draw shapes
+        dev = magick::image_draw(pix)
+        for (shape in shapes) {
+            
+            # Make color
+            c = col2rgb(shape$color)
+            c = rgb(c[1,], c[2,], c[3,], 127, maxColorValue = 255)
+            if (shape$type == 'rect')
+                rect(shape$left, shape$bottom, shape$right, shape$top,
+                     col = c, border = NA)
+            else if (shape$type == 'circle')
+                symbols(x = shape$x, y = shape$y,
+                        circles = shape$radius, bg = c,
+                        add = TRUE, inches = FALSE)
+        }
+        dev.off()
+        pix = dev
+    }
+    
+    return(pix)
+})
+
 # Private methods {{{1
 ################################################################
+
+# Extract shapes from pathway map {{{2
+################################################################
+
+KeggPathwayConn$methods( .extractPathwayMapShapes = function(html, color2ids) {
+                            
+    shapes = list()
+    
+    for (color in names(color2ids)) {
+        
+        for (id in color2ids[[color]]) {
+            
+            regex =  paste0('shape=([^ ]+)\\s+coords=([^ ]+)\\s+.+title="[^"]*',
+                            id, '[^"]*"')
+            g = stringr::str_match_all(html, regex)[[1]]
+            if ( ! is.na(g[1, 1])) {
+                
+                for (i in 1:nrow(g)) {
+                    
+                    # Create shape
+                    s = list(type = g[i, 2], id = id, color = color)
+                    
+                    # Set coordinates
+                    c = strsplit(g[i, 3], ',')[[1]]
+                    if (s$type == 'rect')
+                        s = c(s, left = c[[1]], top = c[[2]],
+                                 right = c[[3]], bottom = c[[4]])
+                    
+                    else if (s$type == 'circle')
+                        s = c(s, x = c[[1]], y = c[[2]], radius = c[[3]])
+
+                    else
+                        next
+                
+                    # Append new shape to list
+                    if ( ! is.null(s))
+                        shapes = c(shapes, list(s))
+                }
+            }
+        }
+    }
+        
+    return(shapes)
+})
+
+# Get pathway image {{{2
+################################################################
+
+KeggPathwayConn$methods( .getPathwayImage = function(path_idx, html) {
+                            
+    cache = .self$getBiodb()$getCache()
+    img_filename = paste0('pathwaymap-', path_idx)
+    img_file = cache$getFilePath(.self$getCacheId(), 'shortterm', img_filename, 'png')
+    if ( ! cache$fileExist(.self$getCacheId(), 'shortterm', img_filename, 'png')) {
+        img_url = stringr::str_match(html, 'src="([^"]+)"\\s+name="pathwayimage"')
+        if (is.na(img_url[1, 1]))
+            .self$message('error', 'Impossible to find pathway image path inside HTML page.')
+        img_url = BiodbUrl(url = c(.self$getUrl('base.url'), img_url[1, 2]))
+        .self$getBiodb()$getRequestScheduler()$downloadFile(url = img_url, dest.file = img_file)
+    }
+    
+    return(magick::image_read(img_file))
+})
 
 # Get parsing expressions {{{2
 ################################################################

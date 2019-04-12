@@ -255,12 +255,11 @@ MassbankConn$methods( .getParsingExpressions = function() {
 MassbankConn$methods( .doDownload = function() {
 
 	# Download tar.gz
-	tar.gz.url <- .self$getUrl('db.tar.url')
-	.self$message('info', paste0("Downloading \"", tar.gz.url, "\"..."))
+	tar.gz.url <- BiodbUrl(url = .self$getUrl('db.tar.url'))
+	.self$message('info', paste0("Downloading \"", tar.gz.url$toString(), "\"..."))
 	scheduler <- .self$getBiodb()$getRequestScheduler()
 	path <- .self$getDownloadPath()
 	scheduler$downloadFile(url = tar.gz.url, dest.file = path)
-	.self$getBiodb()$getRequestScheduler()$downloadFile(url = tar.gz.url, dest.file = .self$getDownloadPath())
 })
 
 # Do extract download {{{2
@@ -384,7 +383,7 @@ MassbankConn$methods( .loadPrefixes = function() {
 	# Get prefixes file content
 	prefixes.filepath <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), subfolder = 'longterm', name = 'prefixes', ext = 'md')
 	if ( ! file.exists(prefixes.filepath))
-		.self$getBiodb()$getRequestScheduler()$downloadFile(url = .self$getUrl('prefixes.file.url'), dest.file = prefixes.filepath)
+		.self$getBiodb()$getRequestScheduler()$downloadFile(url = BiodbUrl(url = .self$getUrl('prefixes.file.url')), dest.file = prefixes.filepath)
 
 	# Split in lines
 	lines <- readLines(prefixes.filepath)
