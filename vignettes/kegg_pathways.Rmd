@@ -83,9 +83,10 @@ kegg.path.conn = mybiodb$getFactory()$getConn('kegg.pathway')
 
 Now we build the graph for the first pathway found:
 ```{r Building a pathway graph}
-graph = kegg.path.conn$buildPathwayGraph(pathways[[1]])
+graph = kegg.path.conn$buildPathwayGraph('mmu00260')
 ```
 
+<!-- TODO Use DiagrammeR to plot with GrapheVIZ instead (see http://rich-iannone.github.io/DiagrammeR/graphs.html). -->
 And we plot it:
 ```{r Plotting the pathway graph}
 plot(graph, layout = igraph::layout_with_kk)
@@ -109,8 +110,12 @@ img = kegg.path.conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
 ```
 
 Finally we plot it:
-```{r Plotting}
+```{r out.width = "200%"}
 plot(img)
+```
+
+```{r}
+plot(as.raster(img))
 ```
 
 # Terminate the biodb instance

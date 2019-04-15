@@ -9,8 +9,6 @@
 \item{name}{The name to search for.}
 
 \item{comment}{The comment to search for.}
-
-\item{biodb.ids}{If set to \code{TRUE}, the method will return the entry IDs as a vector of characters, instead of the raw result page.}
 }
 \description{
 This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.

@@ -21,7 +21,7 @@ description of inherited methods.
 \section{Methods}{
 
 \describe{
-\item{\code{buildPathwayGraph(id, drop = TRUE)}}{Build a pathway graph using KEGG database. Returns an \code{igraph}
+\item{\code{buildPathwayGraph(id, drop = TRUE, directed = FALSE)}}{Build a pathway graph using KEGG database. Returns an \code{igraph}
 object, or NULL if the igraph library is not available.}
 
 \item{\code{getEntryImageUrl(entry.id)}}{:

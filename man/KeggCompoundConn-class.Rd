@@ -70,5 +70,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}.
+\code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
 }
