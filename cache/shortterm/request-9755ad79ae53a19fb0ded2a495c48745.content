@@ -1,0 +1,23 @@
+ENTRY       R01641                      Reaction
+NAME        sedoheptulose-7-phosphate:D-glyceraldehyde-3-phosphate glycolaldehyde transferase
+DEFINITION  Sedoheptulose 7-phosphate + D-Glyceraldehyde 3-phosphate <=> D-Ribose 5-phosphate + D-Xylulose 5-phosphate
+EQUATION    C05382 + C00118 <=> C00117 + C00231
+COMMENT     TPP-dependent enzyme (see R06863+R06861)
+RCLASS      RC00032  C00118_C00231
+            RC00571  C00117_C05382
+ENZYME      2.2.1.1
+PATHWAY     rn00030  Pentose phosphate pathway
+            rn00710  Carbon fixation in photosynthetic organisms
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+            rn01230  Biosynthesis of amino acids
+MODULE      M00004  Pentose phosphate pathway (Pentose phosphate cycle)
+            M00007  Pentose phosphate pathway, non-oxidative phase, fructose 6P => ribose 5P
+            M00165  Reductive pentose phosphate cycle (Calvin cycle)
+            M00167  Reductive pentose phosphate cycle, glyceraldehyde-3P => ribulose-5P
+ORTHOLOGY   K00615  transketolase [EC:2.2.1.1]
+DBLINKS     RHEA: 10511
+///

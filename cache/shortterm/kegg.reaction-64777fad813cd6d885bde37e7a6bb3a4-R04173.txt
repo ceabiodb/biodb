@@ -1,0 +1,17 @@
+ENTRY       R04173                      Reaction
+NAME        3-Phosphoserine:2-oxoglutarate aminotransferase
+DEFINITION  O-Phospho-L-serine + 2-Oxoglutarate <=> 3-Phosphonooxypyruvate + L-Glutamate
+EQUATION    C01005 + C00026 <=> C03232 + C00025
+RCLASS      RC00006  C00025_C00026  C01005_C03232
+ENZYME      2.6.1.52
+PATHWAY     rn00260  Glycine, serine and threonine metabolism
+            rn00680  Methane metabolism
+            rn01100  Metabolic pathways
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+            rn01230  Biosynthesis of amino acids
+MODULE      M00020  Serine biosynthesis, glycerate-3P => serine
+ORTHOLOGY   K00831  phosphoserine aminotransferase [EC:2.6.1.52]
+DBLINKS     RHEA: 14332
+///

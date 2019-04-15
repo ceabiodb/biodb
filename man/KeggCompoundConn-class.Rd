@@ -11,6 +11,13 @@
 \item{mass.min}{Minimal mass.}
 
 \item{mass.max}{Maximal mass.}
+
+\item{id}{A character vector of entry IDs.}
+
+\item{org}{The organism in which to search for pathways, as a KEGG
+organism code (3-4 letters code, like "hsa", "mmu", ...).
+See https://www.genome.jp/kegg/catalog/org_list.html for a
+complete list of KEGG organism codes.}
 }
 \description{
 This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
@@ -21,6 +28,10 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
 Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+
+\item{\code{getPathwayIds(id, org)}}{Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves KEGG pathways of this organism in which the compounds are involved. It returns a vector of KEGG pathway IDs.}
+
+\item{\code{getPathwayIdsPerCompound(id, org)}}{Get organism pathways for each compound. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves for each compound the KEGG pathways of the organism in which the compound is involved. It returns a named list of KEGG pathway ID vectors, where the names of the list are the compound IDs.}
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
   mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
@@ -50,6 +61,9 @@ conn$ws.find.exact.mass(mass = 174.05, retfmt = 'parsed')
 
 # Search for compounds by molecular weight 
 conn$ws.find.molecular.weight(mass = 300, retfmt = 'parsed')
+
+# Get pathway IDs related to compounds
+pathway.ids = conn$getPathwayIds(c('C02648', 'C06144'), org = 'mmu')
 
 # Terminate instance.
 mybiodb$terminate()

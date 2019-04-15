@@ -1,0 +1,76 @@
+ENTRY       76282             CDS       T01002
+NAME        Gpt, 1300007J06Rik, 2310022B03Rik, ALT, ALT1, Gpt-1, Gpt1
+DEFINITION  (RefSeq) glutamic pyruvic transaminase, soluble
+ORTHOLOGY   K00814  alanine transaminase [EC:2.6.1.2]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00220  Arginine biosynthesis
+            mmu00250  Alanine, aspartate and glutamate metabolism
+            mmu01100  Metabolic pathways
+            mmu01200  Carbon metabolism
+            mmu01210  2-Oxocarboxylic acid metabolism
+            mmu01230  Biosynthesis of amino acids
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00250 Alanine, aspartate and glutamate metabolism
+                76282 (Gpt)
+               00220 Arginine biosynthesis
+                76282 (Gpt)
+             09180 Brite Hierarchies
+              09181 Protein families: metabolism
+               01007 Amino acid related enzymes [BR:mmu01007]
+                76282 (Gpt)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.6  Transferring nitrogenous groups
+               2.6.1  Transaminases
+                2.6.1.2  alanine transaminase
+                 76282 (Gpt)
+            Amino acid related enzymes [BR:mmu01007]
+             Aminotransferase (transaminase)
+              Class I
+               76282 (Gpt)
+POSITION    15 D3; 15 36.28 cM
+MOTIF       Pfam: Aminotran_1_2
+DBLINKS     NCBI-GeneID: 76282
+            NCBI-ProteinID: NP_877957
+            MGI: 95802
+            Ensembl: ENSMUSG00000022546
+            UniProt: Q8QZR5 Q566C3
+AASEQ       496
+            MASQRNDRIQASRNGLKGKVLTLDTMNPCVRRVEYAVRGPIVQRALELEQELRQGVKKPF
+            TEVIRANIGDAQAMGQRPITFFRQVLALCVYPNLLSSPDFPEDAKRRAERILQACGGHSL
+            GAYSISSGIQPIREDVAQYIERRDGGIPADPNNIFLSTGASDAIVTMLKLLVAGEGRART
+            GVLIPIPQYPLYSAALAELDAVQVDYYLDEERAWALDIAELRRALCQARDRCCPRVLCVI
+            NPGNPTGQVQTRECIEAVIRFAFEEGLFLMADEVYQDNVYAEGSQFHSFKKVLTEMGPPY
+            ATQQELASFHSVSKGYMGECGFRGGYVEVVNMDAEVQKQMAKLMSVRLCPPVPGQALMGM
+            VVSPPTPSEPSFKQFQAERQEVLAELAAKAKLTEQVFNEAPGIRCNPVQGAMYSFPQIQL
+            PLKAVQRAQDLGLAPDMFFCLCLLEETGICVVPGSGFGQQEGTYHFRMTILPPMEKLRVL
+            LEKLRHFHAKFTHEYS
+NTSEQ       1491
+            atggcctcacaaaggaatgaccggatccaggcttcaaggaatggactgaaggggaaggtg
+            ctaactctggataccatgaacccatgtgtgcggagggtggagtatgcagtccgaggcccc
+            atcgtgcaacgtgccttggagctggagcaggagctgcgccagggtgtgaagaagcctttt
+            actgaggttatccgtgccaatattggggatgcacaagccatggggcagagacccatcacc
+            ttcttccgccaggtcctggccctctgtgtctaccccaatcttctgagcagtccggacttc
+            ccagaggatgccaagagaagggcagaacgcatcttgcaggcatgcgggggccacagcctg
+            ggtgcctatagcattagctctggaatccagccgattcgggaggatgtggcgcaatatatt
+            gagaggagagacggaggcatccctgcagacccgaacaacatatttctgtccacaggggcc
+            agcgatgccatcgtgaccatgctcaagctgctggtagccggcgagggccgtgcgcgaacc
+            ggtgtactcattcccattcctcagtacccactgtactcagctgcgctggctgagctggac
+            gccgtgcaagtggactactacctggacgaagagcgcgcctgggctcttgacatcgctgag
+            ctgcggcgcgctctgtgccaggcacgtgaccgctgctgccctcgagtactatgcgtcatc
+            aaccccggcaaccccacggggcaggtgcagacccgtgaatgcatcgaggccgtaatccgc
+            tttgctttcgaagagggactcttcctgatggctgatgaggtataccaagacaatgtatat
+            gctgagggctctcagttccattcattcaagaaggtgctcacggagatggggccaccatat
+            gccacgcagcaggagctcgcgtctttccactcagtctctaagggctacatgggcgagtgc
+            gggtttcgtggtggctatgtggaagtggtaaacatggatgccgaggtgcagaaacagatg
+            gcgaaactgatgagcgtgcggttgtgtccaccagtgccgggccaggctttgatgggcatg
+            gtggtcagtccgccaaccccctcggagccgtccttcaagcagtttcaagcagagaggcag
+            gaggtgctggctgaactggcagccaaggctaaactcacggagcaggtcttcaacgaggcc
+            cccgggatccgctgcaacccggtgcagggcgctatgtattccttccctcaaattcagctg
+            cctttgaaagcagtgcagcgtgcgcaggacctgggcctggcccctgacatgttcttctgt
+            ctgtgcctcctggaagagactggcatctgcgttgtgcctgggagtggctttgggcagcag
+            gagggcacctatcatttccggatgaccattctgccccccatggagaaactgcgggtgctg
+            ctggagaaactgaggcacttccatgctaaattcactcatgagtactcctga
+///

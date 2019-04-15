@@ -1,0 +1,29 @@
+ENTRY       EC 6.3.2.44                 Enzyme
+NAME        pantoate---beta-alanine ligase (ADP-forming);
+            pantothenate synthetase (ambiguous);
+            pantoate---beta-alanine ligase (ambiguous)
+CLASS       Ligases;
+            Forming carbon-nitrogen bonds;
+            Acid-D-amino-acid ligases (peptide synthases)
+SYSNAME     (R)-pantoate:beta-alanine ligase (ADP-forming)
+REACTION    ATP + (R)-pantoate + beta-alanine = ADP + phosphate + (R)-pantothenate [RN:R10821]
+ALL_REAC    R10821
+SUBSTRATE   ATP [CPD:C00002];
+            (R)-pantoate [CPD:C00522];
+            beta-alanine [CPD:C00099]
+PRODUCT     ADP [CPD:C00008];
+            phosphate [CPD:C00009];
+            (R)-pantothenate [CPD:C00864]
+COMMENT     The enzyme, characterized from the archaeon Methanosarcina mazei, is involved in the biosynthesis of pantothenate. It is different from EC 6.3.2.1, the AMP-forming pantoate-beta-alanine ligase found in bacteria and eukaryota.
+HISTORY     EC 6.3.2.44 created 2014
+REFERENCE   1  [PMID:18422645]
+  AUTHORS   Ronconi S, Jonczyk R, Genschel U
+  TITLE     A novel isoform of pantothenate synthetase in the Archaea.
+  JOURNAL   FEBS J 275:2754-64 (2008)
+            DOI:10.1111/j.1742-4658.2008.06416.x
+  SEQUENCE  [mma:MM_2281]
+DBLINKS     ExplorEnz - The Enzyme Database: 6.3.2.44
+            IUBMB Enzyme Nomenclature: 6.3.2.44
+            ExPASy - ENZYME nomenclature database: 6.3.2.44
+            BRENDA, the Enzyme Database: 6.3.2.44
+///

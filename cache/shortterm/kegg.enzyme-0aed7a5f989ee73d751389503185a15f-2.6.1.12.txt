@@ -1,0 +1,42 @@
+ENTRY       EC 2.6.1.12                 Enzyme
+NAME        alanine---oxo-acid transaminase;
+            L-alanine-alpha-keto acid aminotransferase;
+            leucine-alanine transaminase;
+            alanine-keto acid aminotransferase;
+            alanine-oxo acid aminotransferase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     L-alanine:2-oxo-acid aminotransferase
+REACTION    L-alanine + a 2-oxo carboxylate = pyruvate + an L-amino acid [RN:R01261]
+ALL_REAC    R01261 > R00400
+SUBSTRATE   L-alanine [CPD:C00041];
+            2-oxo carboxylate [CPD:C00161]
+PRODUCT     pyruvate [CPD:C00022];
+            L-amino acid [CPD:C00151]
+COMMENT     A pyridoxal-phosphate protein.
+HISTORY     EC 2.6.1.12 created 1961
+REFERENCE   1  [PMID:13084587]
+  AUTHORS   ALTENBERN RA, HOUSEWRIGHT RD.
+  TITLE     Transaminases in smooth Brucella abortus, strain 19.
+  JOURNAL   J Biol Chem 204:159-67 (1953)
+REFERENCE   2  [PMID:13363834]
+  AUTHORS   ROWSELL EV.
+  TITLE     Transaminations with pyruvate and other alpha-keto acids.
+  JOURNAL   Biochem J 64:246-52 (1956)
+REFERENCE   3  [PMID:13385257]
+  AUTHORS   SALLACH HJ.
+  TITLE     Formation of serine hydroxypryuvate and L-alanine.
+  JOURNAL   J Biol Chem 223:1101-8 (1956)
+REFERENCE   4  [PMID:13174595]
+  AUTHORS   WILSON DG, KING KW, BURRIS RH.
+  TITLE     Transamination reactions in plants.
+  JOURNAL   J Biol Chem 208:863-74 (1954)
+PATHWAY     ec00250  Alanine, aspartate and glutamate metabolism
+            ec01100  Metabolic pathways
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.12
+            IUBMB Enzyme Nomenclature: 2.6.1.12
+            ExPASy - ENZYME nomenclature database: 2.6.1.12
+            BRENDA, the Enzyme Database: 2.6.1.12
+            CAS: 9030-41-5
+///

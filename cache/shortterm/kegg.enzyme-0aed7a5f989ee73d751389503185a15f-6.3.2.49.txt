@@ -1,0 +1,111 @@
+ENTRY       EC 6.3.2.49                 Enzyme
+NAME        L-alanine---L-anticapsin ligase;
+            BacD;
+            alanine-anticapsin ligase;
+            L-Ala-L-anticapsin ligase;
+            ywfE (gene name)
+CLASS       Ligases;
+            Forming carbon-nitrogen bonds;
+            Acid-D-amino-acid ligases (peptide synthases)
+SYSNAME     L-alanine:L-anticapsin ligase (ADP-forming)
+REACTION    ATP + L-alanine + L-anticapsin = ADP + phosphate + bacilysin [RN:R11064]
+ALL_REAC    R11064
+SUBSTRATE   ATP [CPD:C00002];
+            L-alanine [CPD:C00041];
+            L-anticapsin [CPD:C20941]
+PRODUCT     ADP [CPD:C00008];
+            phosphate [CPD:C00009];
+            bacilysin [CPD:C20942]
+COMMENT     The enzyme, characterized from the bacterium Bacillus subtilis, is involved in the biosynthesis of the nonribosomally synthesized dipeptide antibiotic bacilysin, composed of L-alanine and L-anticapsin. The enzyme requires Mg2+ or Mn2+ for activity, and has a broad substrate specificity in vitro [1].
+HISTORY     EC 6.3.2.49 created 2006 as EC 6.3.2.28, trasferred 2015 to EC 6.3.2.49
+REFERENCE   1  [PMID:16030213]
+  AUTHORS   Tabata K, Ikeda H, Hashimoto S.
+  TITLE     ywfE in Bacillus subtilis codes for a novel enzyme, L-amino acid ligase.
+  JOURNAL   J Bacteriol 187:5195-202 (2005)
+            DOI:10.1128/JB.187.15.5195-5202.2005
+  SEQUENCE  [bsu:BSU37710]
+REFERENCE   2  [PMID:22298000]
+  AUTHORS   Tsuda T, Suzuki T, Kojima S
+  TITLE     Crystallization and preliminary X-ray diffraction analysis of Bacillus subtilis YwfE, an L-amino-acid ligase.
+  JOURNAL   Acta Crystallogr Sect F Struct Biol Cryst Commun 68:203-6 (2012)
+            DOI:10.1107/S174430911105425X
+REFERENCE   3  [PMID:22407814]
+  AUTHORS   Shomura Y, Hinokuchi E, Ikeda H, Senoo A, Takahashi Y, Saito J, Komori H, Shibata N, Yonetani Y, Higuchi Y
+  TITLE     Structural and enzymatic characterization of BacD, an L-amino acid dipeptide ligase from Bacillus subtilis.
+  JOURNAL   Protein Sci 21:707-16 (2012)
+            DOI:10.1002/pro.2058
+  SEQUENCE  [bsu:BSU37710]
+REFERENCE   4  [PMID:23317005]
+  AUTHORS   Parker JB, Walsh CT
+  TITLE     Action and timing of BacC and BacD in the late stages of biosynthesis of the dipeptide antibiotic bacilysin.
+  JOURNAL   Biochemistry 52:889-901 (2013)
+            DOI:10.1021/bi3016229
+PATHWAY     ec00999  Biosynthesis of secondary metabolites - unclassified
+            ec01130  Biosynthesis of antibiotics
+ORTHOLOGY   K13037  L-alanine-L-anticapsin ligase
+GENES       BUZ: AYM40_00965
+            BSU: BSU37710(bacD)
+            BSR: I33_3919(bacD)
+            BSL: A7A1_0190
+            BSH: BSU6051_37710(bacD)
+            BSY: I653_18500
+            BSUT: BSUB_04007(bacD)
+            BSUL: BSUA_04007(bacD)
+            BSUS: Q433_20770
+            BSS: BSUW23_18625(bacD)
+            BST: GYO_4157(bacD)
+            BSO: BSNT_10429(ywfE)
+            BSN: BSn5_09845
+            BSQ: B657_37710(bacD)
+            BSX: C663_3676(bacD)
+            BSP: U712_19005
+            BAY: RBAM_034900(bacD)
+            BAQ: BACAU_3519(bacD)
+            BYA: BANAU_3672(bacD)
+            BAMP: B938_17910(bacD)
+            BAML: BAM5036_3420(bacD)
+            BAMA: RBAU_3628(bacD)
+            BAMN: BASU_3404(bacD)
+            BAMB: BAPNAU_3686(bacD)
+            BAMT: AJ82_19695
+            BAMY: V529_37620(bacD)
+            BMP: NG74_03665(bacD_2)
+            BAO: BAMF_3604(bacD)
+            BAZ: BAMTA208_19085(bacD)
+            BQL: LL3_03915(bacD)
+            BXH: BAXH7_03907(bacD)
+            BQY: MUS_4149(bacD)
+            BAMI: KSO_001610
+            BAMC: U471_36350
+            BAMF: U722_18645
+            BVM: B9C48_17860
+            BPU: BPUM_3423
+            BPUM: BW16_18175
+            BPUS: UP12_17620
+            BJS: MY9_3862
+            BACW: QR42_17175
+            BACP: SB24_11245
+            BACB: OY17_01115
+            BACY: QF06_17295
+            BACL: BS34A_40890(bacD)
+            BALM: BsLM_3801
+            BGI: BGM20_13115
+            BALT: CFN77_18080
+            BACS: AUL54_12245
+            BMUR: ABE28_019130
+            BSAF: BSL056_18720
+            BIT: BIS30_08570
+            SLC: SL103_22160
+            SCX: AS200_02635
+            SGS: AVL59_16770
+            SSIA: A7J05_33560
+            SGV: B1H19_04595
+            SLAU: SLA_0354
+            SALJ: SMD11_5600
+            STRO: STRMOE7_33255
+            SFK: KY5_0069
+DBLINKS     ExplorEnz - The Enzyme Database: 6.3.2.49
+            IUBMB Enzyme Nomenclature: 6.3.2.49
+            ExPASy - ENZYME nomenclature database: 6.3.2.49
+            BRENDA, the Enzyme Database: 6.3.2.49
+///

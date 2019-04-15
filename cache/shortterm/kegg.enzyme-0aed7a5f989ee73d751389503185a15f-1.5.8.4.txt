@@ -1,0 +1,350 @@
+ENTRY       EC 1.5.8.4                  Enzyme
+NAME        dimethylglycine dehydrogenase;
+            N,N-dimethylglycine oxidase;
+            N,N-dimethylglycine:(acceptor) oxidoreductase (demethylating);
+            Me2GlyDH;
+            N,N-dimethylglycine:electron-transfer flavoprotein oxidoreductase (demethylating)
+CLASS       Oxidoreductases;
+            Acting on the CH-NH group of donors;
+            With a flavin or flavoprotein as acceptor
+SYSNAME     N,N-dimethylglycine,5,6,7,8-tetrahydrofolate:electron-transferflavoprotein oxidoreductase (demethylating,5,10-methylenetetrahydrofolate-forming)
+REACTION    N,N-dimethylglycine + 5,6,7,8-tetrahydrofolate + electron-transfer flavoprotein = sarcosine + 5,10-methylenetetrahydrofolate + reduced electron-transfer flavoprotein [RN:R01565]
+ALL_REAC    R01565
+SUBSTRATE   N,N-dimethylglycine [CPD:C01026];
+            5,6,7,8-tetrahydrofolate [CPD:C00101];
+            electron-transfer flavoprotein [CPD:C04253]
+PRODUCT     sarcosine [CPD:C00213];
+            5,10-methylenetetrahydrofolate [CPD:C00143];
+            reduced electron-transfer flavoprotein [CPD:C04570]
+COMMENT     A flavoprotein, containing a histidyl(Npi)-(8alpha)FAD linkage at position 91 in the human protein. An imine intermediate is channeled from the FAD binding site to the 5,6,7,8-tetrahydrofolate binding site through a 40 A tunnel [5,8,9]. In the absence of 5,6,7,8-tetrahydrofolate the enzyme forms formaldehyde [5,9].
+HISTORY     EC 1.5.8.4 created 1972 as EC 1.5.99.2, transferred 2012 to EC 1.5.8.4, modified 2017
+REFERENCE   1  [PMID:13895406]
+  AUTHORS   FRISELL WR, MACKENZIE CG.
+  TITLE     Separation and purification of sarcosine dehydrogenase and dimethylglycine dehydrogenase.
+  JOURNAL   J Biol Chem 237:94-8 (1962)
+REFERENCE   2  [PMID:13716069]
+  AUTHORS   HOSKINS DD, MACKENZIE CG.
+  TITLE     Solubilization and electron transfer flavoprtein requirement of mitochondrial sarcosine dehydrogenase and dimethylglycine dehydrogenase.
+  JOURNAL   J Biol Chem 236:177-83 (1961)
+REFERENCE   3  [PMID:6163777]
+  AUTHORS   Wittwer AJ, Wagner C
+  TITLE     Identification of the folate-binding proteins of rat liver mitochondria as dimethylglycine dehydrogenase and sarcosine dehydrogenase. Purification and folate-binding characteristics.
+  JOURNAL   J Biol Chem 256:4102-8 (1981)
+REFERENCE   4  [PMID:6163778]
+  AUTHORS   Wittwer AJ, Wagner C
+  TITLE     Identification of the folate-binding proteins of rat liver mitochondria as dimethylglycine dehydrogenase and sarcosine dehydrogenase. Flavoprotein nature and enzymatic properties of the purified proteins.
+  JOURNAL   J Biol Chem 256:4109-15 (1981)
+REFERENCE   5  [PMID:2417560]
+  AUTHORS   Porter DH, Cook RJ, Wagner C
+  TITLE     Enzymatic properties of dimethylglycine dehydrogenase and sarcosine dehydrogenase from rat liver.
+  JOURNAL   Arch Biochem Biophys 243:396-407 (1985)
+            DOI:10.1016/0003-9861(85)90516-8
+REFERENCE   6  [PMID:15358367]
+  AUTHORS   Brizio C, Brandsch R, Bufano D, Pochini L, Indiveri C, Barile M
+  TITLE     Over-expression in Escherichia coli, functional characterization and refolding of rat dimethylglycine dehydrogenase.
+  JOURNAL   Protein Expr Purif 37:434-42 (2004)
+            DOI:10.1016/j.pep.2004.06.011
+  SEQUENCE  [rno:245961]
+REFERENCE   7  [PMID:18423846]
+  AUTHORS   Brizio C, Brandsch R, Douka M, Wait R, Barile M
+  TITLE     The purified recombinant precursor of rat mitochondrial dimethylglycine dehydrogenase binds FAD via an autocatalytic reaction.
+  JOURNAL   Int J Biol Macromol 42:455-62 (2008)
+            DOI:10.1016/j.ijbiomac.2008.03.001
+  SEQUENCE  [rno:245961]
+REFERENCE   8  [PMID:24858690]
+  AUTHORS   Luka Z, Pakhomova S, Loukachevitch LV, Newcomer ME, Wagner C
+  TITLE     Folate in demethylation: the crystal structure of the rat dimethylglycine dehydrogenase complexed with tetrahydrofolate.
+  JOURNAL   Biochem Biophys Res Commun 449:392-8 (2014)
+            DOI:10.1016/j.bbrc.2014.05.064
+  SEQUENCE  [rno:245961]
+REFERENCE   9  [PMID:27486859]
+  AUTHORS   Augustin P, Hromic A, Pavkov-Keller T, Gruber K, Macheroux P
+  TITLE     Structure and biochemical properties of recombinant human dimethylglycine dehydrogenase and comparison to the disease-related H109R variant.
+  JOURNAL   FEBS J 283:3587-3603 (2016)
+            DOI:10.1111/febs.13828
+  SEQUENCE  [hsa:29958]
+PATHWAY     ec00260  Glycine, serine and threonine metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K00315  dimethylglycine dehydrogenase
+GENES       HSA: 29958(DMGDH)
+            PTR: 471505(DMGDH)
+            PPS: 100985018(DMGDH)
+            GGO: 101138464(DMGDH)
+            PON: 100457567(DMGDH)
+            NLE: 100587925(DMGDH)
+            MCC: 709237(DMGDH)
+            MCF: 102117996(DMGDH)
+            CSAB: 103223602(DMGDH)
+            RRO: 104662973(DMGDH)
+            RBB: 108528899(DMGDH)
+            CJC: 100393734(DMGDH)
+            SBQ: 101045195(DMGDH)
+            MMU: 74129(Dmgdh)
+            RNO: 245961(Dmgdh)
+            CGE: 100759503(Dmgdh)
+            NGI: 103750305(Dmgdh)
+            HGL: 101722315(Dmgdh)
+            CCAN: 109675254(Dmgdh)
+            OCU: 100340207(DMGDH)
+            TUP: 102489576(DMGDH)
+            CFA: 488935(DMGDH)
+            AML: 100466333(DMGDH)
+            UMR: 103681493(DMGDH)
+            ORO: 101373953(DMGDH)
+            FCA: 101089168(DMGDH)
+            PTG: 102963363(DMGDH)
+            AJU: 106974795(DMGDH)
+            BTA: 504453(DMGDH)
+            BOM: 102287393(DMGDH)
+            BIU: 109564663(DMGDH)
+            PHD: 102327524(DMGDH)
+            CHX: 102189681(DMGDH)
+            OAS: 101113594(DMGDH)
+            SSC: 100525563(DMGDH)
+            CFR: 102522919(DMGDH)
+            CDK: 105084826(DMGDH)
+            BACU: 103000721(DMGDH)
+            LVE: 103081304(DMGDH)
+            OOR: 101281736(DMGDH)
+            ECB: 100073267(DMGDH)
+            EPZ: 103548668(DMGDH)
+            EAI: 106841177(DMGDH)
+            MYB: 102246690(DMGDH)
+            MYD: 102758327(DMGDH)
+            HAI: 109381891(DMGDH)
+            RSS: 109445644(DMGDH)
+            PALE: 102895924(DMGDH)
+            LAV: 100671550(DMGDH)
+            TMU: 101355257
+            MDO: 100032620(DMGDH)
+            SHR: 100931635(DMGDH)
+            OAA: 100088110(DMGDH)
+            GGA: 416370(DMGDH)
+            CJO: 107305932(DMGDH)
+            APLA: 101802594(DMGDH)
+            ACYG: 106042090(DMGDH)
+            TGU: 100231246(DMGDH)
+            SCAN: 103819544(DMGDH)
+            GFR: 102044591(DMGDH)
+            FAB: 101806587(DMGDH)
+            PHI: 102112577(DMGDH)
+            PMAJ: 107216431(DMGDH)
+            CCAE: 111941402(DMGDH)
+            CCW: 104695710(DMGDH)
+            FPG: 101910969(DMGDH)
+            FCH: 102049188(DMGDH)
+            CLV: 102091750(DMGDH)
+            EGZ: 104124898(DMGDH)
+            NNI: 104017622(DMGDH)
+            ACUN: 113489761(DMGDH)
+            AAM: 106489320
+            ASN: 102383441(DMGDH)
+            AMJ: 102561678(DMGDH)
+            PSS: 102445412(DMGDH)
+            CMY: 102947394(DMGDH)
+            CPIC: 101938519(DMGDH)
+            ACS: 100564503(dmgdh)
+            PVT: 110073960(DMGDH)
+            PBI: 103049444(DMGDH)
+            PMUR: 107287877(DMGDH)
+            GJA: 107117472(DMGDH)
+            XLA: 446949(dmgdh.L)
+            XTR: 100492188(dmgdh)
+            NPR: 108799972(DMGDH)
+            DRE: 100141496(dmgdh)
+            SRX: 107717757 107724713
+            SANH: 107694541(dmgdh)
+            SGH: 107574100(dmgdh)
+            CCAR: 109046308(dmgdh)
+            IPU: 108279027(dmgdh)
+            PHYP: 113535384(dmgdh)
+            AMEX: 103034486(dmgdh)
+            EEE: 113573718(dmgdh)
+            TRU: 101062880(dmgdh)
+            LCO: 104936285(dmgdh)
+            NCC: 104966861(dmgdh)
+            MZE: 101476130(dmgdh)
+            OLA: 101169624(dmgdh)
+            XMA: 102227264(dmgdh)
+            PRET: 103473305(dmgdh)
+            NFU: 107374847(dmgdh)
+            KMR: 108251297(dmgdh)
+            CSEM: 103390008(dmgdh)
+            LCF: 108895442(dmgdh)
+            SDU: 111239025(dmgdh)
+            HCQ: 109517687(dmgdh)
+            BPEC: 110157318(dmgdh)
+            MALB: 109953004(dmgdh) 109954008
+            SASA: 106568126(dmgdh)
+            OTW: 112220276(dmgdh)
+            SALP: 111961762
+            ELS: 105015173(dmgdh)
+            SFM: 108925069(dmgdh)
+            PKI: 111849812(dmgdh)
+            LCM: 102353346
+            CMK: 103177764(dmgdh)
+            BFO: BRAFLDRAFT_264920 BRAFLDRAFT_280302 BRAFLDRAFT_78592
+            SPU: 587447
+            APLC: 110987881 110988117 110988587
+            SKO: 100377832 100377978
+            ISC: IscW_ISCW001817
+            CEL: CELE_Y37E3.17(Y37E3.17)
+            CBR: CBG22093
+            NAI: NECAME_09711
+            BMY: Bm1_17220
+            LOA: LOAG_05663
+            LAK: 106166448
+            NVE: NEMVE_v1g243380
+            EPA: 110231395
+            ADF: 107342978
+            PDAM: 113682317 113683486
+            SPIS: 111324311 111327844
+            HMG: 100209590
+            TAD: TRIADDRAFT_54121
+            AQU: 100637773
+            SMIN: v1.2.028204.t1(symbB.v1.2.028204.t1) v1.2.028204.t2(symbB.v1.2.028204.t2) v1.2.028204.t3(symbB.v1.2.028204.t3)
+            SPAR: SPRG_07877
+            EHX: EMIHUDRAFT_457242 EMIHUDRAFT_470504
+            GAI: IMCC3135_12455(abo_3) IMCC3135_18055(abo_4) IMCC3135_27130(abo_5)
+            HAF: C8233_04785
+            TSN: W908_00470 W908_00955 W908_05595 W908_07550
+            THIN: CRN91_00510 CRN91_00900 CRN91_02465 CRN91_02630
+            BGO: BM43_4044
+            AZA: AZKH_p0176
+            MLO: mll1517 mll1653 mll2449 mlr1213 mlr1280
+            MLN: A9174_01365 A9174_12360 A9174_18060 A9174_18565 A9174_20015 A9174_20275 A9174_30160
+            MCI: Mesci_0276 Mesci_3080 Mesci_3179 Mesci_3332 Mesci_3392 Mesci_3401 Mesci_5747
+            MOP: Mesop_3464 Mesop_3570 Mesop_3782 Mesop_3823 Mesop_3876 Mesop_6323
+            MAM: Mesau_03350 Mesau_03612 Mesau_03663 Mesau_05797
+            MAMO: A6B35_09220 A6B35_10505 A6B35_12565 A6B35_21685 A6B35_21955 A6B35_23330
+            MESO: BSQ44_15470 BSQ44_15795
+            MESW: A9K65_001380 A9K65_016715 A9K65_017220 A9K65_018025 A9K65_018325 A9K65_018375
+            HOE: IMCC20628_00539 IMCC20628_01684
+            AAK: AA2016_2973 AA2016_3040
+            AMIH: CO731_02954(gcvT_6) CO731_03008(gcvT_9) CO731_03534(gcvT_11)
+            PHT: BLM14_05370 BLM14_05485 BLM14_08065
+            SME: SMa1483 SMc01663
+            SMK: Sinme_2255 Sinme_6001
+            SMQ: SinmeB_2099 SinmeB_6321
+            SMX: SM11_chr0983 SM11_pC0842
+            SMI: BN406_02099 BN406_04544
+            SMEG: C770_GR4Chr2334 C770_GR4pC0569
+            SMEL: SM2011_a1483 SM2011_c01663
+            SMER: DU99_12730 DU99_21970
+            SMD: Smed_2198 Smed_5112
+            RHI: NGR_b16530 NGR_c21820
+            SFH: SFHH103_02078
+            SFD: USDA257_c45740(gcvT5)
+            SIX: BSY16_102 BSY16_4802 BSY16_522
+            SAME: SAMCFNEI73_Ch2544
+            SINO: SS05631_c23310
+            EAD: OV14_3709 OV14_4043 OV14_a0111
+            EAH: FA04_11570 FA04_13205
+            ESJ: SJ05684_c23260
+            ATU: Atu1632
+            ARA: Arad_3491 Arad_7067
+            ATF: Ach5_15600
+            ATA: AWN88_13155
+            AVI: Avi_2727
+            AGR: AGROH133_06455
+            AGC: BSY240_4127
+            ARO: B0909_04860
+            RLT: Rleg2_3310
+            RTR: RTCIAT899_CH13890
+            RIR: BN877_I1595
+            RHL: LPU83_2074
+            RHT: NT26_1995
+            RHV: BA939_02800
+            NGL: RG1141_CH19670
+            NGG: RG540_CH20470
+            NEO: CYG48_06565
+            NEN: NCHU2750_25890 NCHU2750_44930
+            SHZ: shn_12225 shn_14410
+            OCH: CES85_4737
+            MMYR: MXMO3_00053
+            MEY: TM49_20070
+            MAAD: AZF01_13610
+            MMED: Mame_04001(gcvT_3)
+            RBM: TEF_07375 TEF_16760
+            SIL: SPO0207 SPO0544 SPO0564 SPO1628 SPO3400 SPOA0063
+            SIT: TM1040_0486 TM1040_1426 TM1040_2063
+            RUA: D1823_00950 D1823_02745 D1823_06845 D1823_08205 D1823_10250 D1823_12790 D1823_16990 D1823_20780
+            RMB: K529_002195 K529_003550 K529_006445
+            RSP: RSP_3566
+            RSH: Rsph17029_3249
+            RSQ: Rsph17025_3155
+            RSK: RSKD131_3734
+            RCP: RCAP_rcc00526
+            RHP: LPB142_03920
+            RBL: B6K69_00135 B6K69_00670 B6K69_07415
+            JAN: Jann_0919 Jann_1481 Jann_1596 Jann_2488 Jann_2805
+            RDE: RD1_0019 RD1_0607 RD1_1345 RD1_3093 RD1_3434
+            RLI: RLO149_c023240(dmgdh1) RLO149_c027920(dmgdh2) RLO149_c034400(dmgdh3) RLO149_c039110(dmgdh4) RLO149_p940550(dmgdh)
+            PDE: Pden_1940
+            PAMI: JCM7686_0185
+            PYE: A6J80_15065
+            PZH: CX676_08395 CX676_11705
+            PARO: CUV01_18175
+            PARS: DRW48_15525
+            DSH: Dshi_1485 Dshi_2967
+            PSF: PSE_p0029
+            PGA: PGA1_262p01400(dmgdH) PGA1_c14040(dmgdH1) PGA1_c25540(dmgdH2) PGA1_c28230(dmgdH3) PGA1_c33130(dmgdH4)
+            PGL: PGA2_239p1580(dmgdH) PGA2_c13940(dmgdH1) PGA2_c26230(dmgdH2) PGA2_c31400(dmgdH3)
+            PGD: Gal_00601 Gal_01999 Gal_03372 Gal_03876
+            PHP: PhaeoP97_00680(dmgdH3) PhaeoP97_01401(dmgdH1) PhaeoP97_03223(dmgdH4) PhaeoP97_03709(dmgdH)
+            PPIC: PhaeoP14_01307(dmgdH1) PhaeoP14_02584(dmgdH3) PhaeoP14_03111(dmgdH4) PhaeoP14_03603(dmgdH)
+            PHQ: D1820_03020 D1820_08825 D1820_11350 D1820_17765
+            OAT: OAN307_c07010(dmgdh5) OAN307_c24050(dmgdh3) OAN307_c24060(dmgdh1) OAN307_c42890(dmgdh2) OAN307_c46320(dmgdh4)
+            OAR: OA238_c04890(dmgdh2) OA238_c19930(dmgdh1) OA238_c19940(dmgdh3) OA238_c34950(dmgdh5) OA238_c40910(dmgdh4)
+            OTM: OSB_05340(mlr_1) OSB_15100(mlr_2) OSB_15120(mlr_3) OSB_26970(mlr_5) OSB_30270(mlr_7)
+            LMD: METH_03735 METH_03940 METH_10325 METH_15465 METH_18800 METH_19120 METH_21940 METH_22240
+            LEJ: ETW24_01830 ETW24_04590 ETW24_05260 ETW24_11035 ETW24_15600 ETW24_18640 ETW24_20765 ETW24_21005
+            RED: roselon_00386 roselon_02666 roselon_03053
+            PTP: RCA23_c00660 RCA23_c01560 RCA23_c15530 RCA23_c15540 RCA23_c20240 RCA23_c21230
+            CMAG: CBW24_01220
+            MALG: MALG_00176 MALG_02067 MALG_02872 MALG_05031
+            CON: TQ29_02695 TQ29_08680
+            RSU: NHU_00780
+            RHM: B5V46_04750
+            HAT: RC74_01400
+            LAP: ACP90_05180
+            LAGG: B0E33_16735
+            LABR: CHH27_14530 CHH27_15475 CHH27_24580
+            DAA: AKL17_0631 AKL17_1896
+            YAN: AYJ57_04365
+            SUAM: BOO69_09345 BOO69_09355 BOO69_14040 BOO69_14970 BOO69_16555
+            SPSE: SULPSESMR1_00305(abo) SULPSESMR1_01729(abo) SULPSESMR1_01730(abo) SULPSESMR1_02942(abo)
+            SULZ: C1J03_02070 C1J03_02180 C1J03_12000 C1J03_12980 C1J03_12985 C1J03_18530 C1J03_24870
+            SULI: C1J05_00620 C1J05_01555 C1J05_03595 C1J05_03615 C1J05_06305 C1J05_09340 C1J05_09350 C1J05_17060 C1J05_17365
+            SULD: B5M07_03755 B5M07_09395 B5M07_10375
+            DON: BSK21_11185
+            TOM: BWR18_06035 BWR18_06045 BWR18_12820 BWR18_14145 BWR18_15290 BWR18_17915
+            THW: BMG03_16345
+            RMM: ROSMUCSMR3_00197(abo) ROSMUCSMR3_00199(abo) ROSMUCSMR3_01611(dmg) ROSMUCSMR3_02526(abo) ROSMUCSMR3_03060(abo)
+            ROK: RAK1035_0653 RAK1035_1554 RAK1035_1955 RAK1035_3049 RAK1035_3051
+            LVS: LOKVESSMR4R_00303(abo) LOKVESSMR4R_02748(abo)
+            AHT: ANTHELSMS3_00322 ANTHELSMS3_02047 ANTHELSMS3_02167 ANTHELSMS3_03636 ANTHELSMS3_03637 ANTHELSMS3_04119(gcvT)
+            RBG: BG454_17160 BG454_17495 BG454_17960
+            SAGU: CDO87_04200 CDO87_04815 CDO87_18660
+            THAS: C6Y53_03320 C6Y53_08730 C6Y53_16540
+            GEH: HYN69_00790 HYN69_09150
+            TAW: EI545_00905 EI545_01500 EI545_13050
+            SALO: EF888_02530
+            SEDI: EBB79_09265 EBB79_11090 EBB79_17395 EBB79_23745
+            RBZ: B9057_02430
+            SWI: Swit_0939
+            SPHD: HY78_21825
+            SMIC: SmB9_18450
+            ANH: A6F65_00140(mlr_2)
+            PUB: SAR11_1253
+            APM: HIMB5_00008670 HIMB5_00008920
+            PGV: SL003B_2784
+            APB: SAR116_0544 SAR116_1059 SAR116_1184 SAR116_2173
+            ABAW: D5400_09000
+            ORN: DV701_04675
+DBLINKS     ExplorEnz - The Enzyme Database: 1.5.8.4
+            IUBMB Enzyme Nomenclature: 1.5.8.4
+            ExPASy - ENZYME nomenclature database: 1.5.8.4
+            BRENDA, the Enzyme Database: 1.5.8.4
+            CAS: 37256-30-7
+///

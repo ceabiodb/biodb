@@ -1,0 +1,84 @@
+ENTRY       EC 4.1.2.47                 Enzyme
+NAME        (S)-hydroxynitrile lyase;
+            (S)-cyanohydrin producing hydroxynitrile lyase;
+            (S)-oxynitrilase;
+            (S)-HbHNL;
+            (S)-MeHNL;
+            hydroxynitrile lyase;
+            oxynitrilase;
+            HbHNL;
+            MeHNL;
+            (S)-selective hydroxynitrile lyase;
+            (S)-cyanohydrin carbonyl-lyase (cyanide forming)
+CLASS       Lyases;
+            Carbon-carbon lyases;
+            Aldehyde-lyases
+SYSNAME     (S)-cyanohydrin lyase (cyanide forming)
+REACTION    (1) an aliphatic (S)-hydroxynitrile = cyanide + an aliphatic aldehyde or ketone;
+            (2) an aromatic (S)-hydroxynitrile = cyanide + an aromatic aldehyde [RN:R09359]
+ALL_REAC    R09359;
+            (other) R01409 R02811
+SUBSTRATE   aliphatic (S)-hydroxynitrile;
+            aromatic (S)-hydroxynitrile
+PRODUCT     cyanide [CPD:C01326];
+            aliphatic aldehyde;
+            aliphatic ketone;
+            aromatic aldehyde [CPD:C00193]
+COMMENT     Hydroxynitrile lyases catalyses the the cleavage of hydroxynitriles into cyanide and the corresponding aldehyde or ketone. In nature the liberation of cyanide serves as a defense mechanism against herbivores and microbial attack in plants. In vitro the enzymes from Manihot esculenta and Hevea brasiliensis accept a broad range of aliphatic and aromatic carbonyl compounds as substrates and catalyse the formation of (S)-hydroxynitriles [1,10].
+HISTORY     EC 4.1.2.47 created 2011
+REFERENCE   1
+  AUTHORS   Forster, S., Roos, J., Effenberger, F., Wajant, H. and Sprauer, A.
+  TITLE     The first recombinant hydroxynitrile lyase and its application in the synthesis of (S)-cyanohydrins.
+  JOURNAL   Angew Chem Int Ed 35:437-439 (1996)
+REFERENCE   2  [PMID:12616635]
+  AUTHORS   Buhler H, Effenberger F, Forster S, Roos J, Wajant H
+  TITLE     Substrate specificity of mutants of the hydroxynitrile lyase from Manihot esculenta.
+  JOURNAL   Chembiochem 4:211-6 (2003)
+            DOI:10.1002/cbic.200390033
+REFERENCE   3  [PMID:18540112]
+  AUTHORS   Semba H, Dobashi Y, Matsui T
+  TITLE     Expression of hydroxynitrile lyase from Manihot esculenta in yeast and its application in (S)-mandelonitrile production using an immobilized enzyme reactor.
+  JOURNAL   Biosci Biotechnol Biochem 72:1457-63 (2008)
+REFERENCE   4  [PMID:19006143]
+  AUTHORS   Avi M, Wiedner RM, Griengl H, Schwab H
+  TITLE     Improvement of a stereoselective biocatalytic synthesis by substrate and enzyme engineering: 2-hydroxy-(4'-oxocyclohexyl)acetonitrile as the model.
+  JOURNAL   Chemistry 14:11415-22 (2008)
+            DOI:10.1002/chem.200800609
+REFERENCE   5  [PMID:18204865]
+  AUTHORS   von Langermann J, Guterl JK, Pohl M, Wajant H, Kragl U
+  TITLE     Hydroxynitrile lyase catalyzed cyanohydrin synthesis at high pH-values.
+  JOURNAL   Bioprocess Biosyst Eng 31:155-61 (2008)
+            DOI:10.1007/s00449-008-0198-4
+REFERENCE   6  [PMID:18524775]
+  AUTHORS   Schmidt A, Gruber K, Kratky C, Lamzin VS
+  TITLE     Atomic resolution crystal structures and quantum chemistry meet to reveal subtleties of hydroxynitrile lyase catalysis.
+  JOURNAL   J Biol Chem 283:21827-36 (2008)
+            DOI:10.1074/jbc.M801056200
+REFERENCE   7  [PMID:17250917]
+  AUTHORS   Gartler G, Kratky C, Gruber K
+  TITLE     Structural determinants of the enantioselectivity of the hydroxynitrile lyase from Hevea brasiliensis.
+  JOURNAL   J Biotechnol 129:87-97 (2007)
+            DOI:10.1016/j.jbiotec.2006.12.009
+REFERENCE   8  [PMID:15299689]
+  AUTHORS   Wagner UG, Schall M, Hasslacher M, Hayn M, Griengl H, Schwab H, Kratky C
+  TITLE     Crystallization and preliminary X-ray diffraction studies of a hydroxynitrile lyase from Hevea brasiliensis.
+  JOURNAL   Acta Crystallogr D Biol Crystallogr 52:591-3 (1996)
+            DOI:10.1107/S0907444995016830
+REFERENCE   9
+  AUTHORS   Schmidt, M., Herve, S., Klempier, N. and Griengl, H.
+  TITLE     Preparation of optically active cyanohydrins using the (S)-hydroxynitrile lyase from Hevea brasiliensis.
+  JOURNAL   Tetrahedron 52:7833-7840 (1996)
+REFERENCE   10
+  AUTHORS   Klempier, N. and Griengl, H.
+  TITLE     Aliphatic (S)-cyanohydrins by enzyme catalyzed synthesis.
+  JOURNAL   Tetrahedron Lett 34:4769-4772 (1993)
+PATHWAY     ec00460  Cyanoamino acid metabolism
+            ec01110  Biosynthesis of secondary metabolites
+ORTHOLOGY   K13033  (S)-hydroxynitrile lyase
+GENES       HBR: 110640545
+            MESC: 110630413
+DBLINKS     ExplorEnz - The Enzyme Database: 4.1.2.47
+            IUBMB Enzyme Nomenclature: 4.1.2.47
+            ExPASy - ENZYME nomenclature database: 4.1.2.47
+            BRENDA, the Enzyme Database: 4.1.2.47
+///

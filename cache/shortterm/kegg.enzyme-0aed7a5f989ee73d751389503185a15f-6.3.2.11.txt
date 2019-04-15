@@ -1,0 +1,144 @@
+ENTRY       EC 6.3.2.11                 Enzyme
+NAME        carnosine synthase;
+            carnosine synthetase;
+            carnosine-anserine synthetase;
+            homocarnosine-carnosine synthetase;
+            carnosine-homocarnosine synthetase;
+            L-histidine:beta-alanine ligase (AMP-forming) (incorrect)
+CLASS       Ligases;
+            Forming carbon-nitrogen bonds;
+            Acid-D-amino-acid ligases (peptide synthases)
+SYSNAME     L-histidine:beta-alanine ligase (ADP-forming)
+REACTION    ATP + L-histidine + beta-alanine = ADP + phosphate + carnosine [RN:R01164]
+ALL_REAC    R01164;
+            (other) R00910 R00912 R01991 R03286
+SUBSTRATE   ATP [CPD:C00002];
+            L-histidine [CPD:C00135];
+            beta-alanine [CPD:C00099]
+PRODUCT     ADP [CPD:C00008];
+            phosphate [CPD:C00009];
+            carnosine [CPD:C00386]
+COMMENT     This enzyme was thought to form AMP [1,2], but studies with highly purified enzyme proved that it forms ADP [4]. Carnosine is a dipeptide that is present at high concentrations in skeletal muscle and the olfactory bulb of vertebrates [3]. It is also found in the skeletal muscle of some invertebrates. The enzyme can also catalyse the formation of homocarnosine from 4-aminobutanoate and L-histidine, with much lower activity [4].
+HISTORY     EC 6.3.2.11 created 1965, modified 2010
+REFERENCE   1  [PMID:14404206]
+  AUTHORS   KALYANKAR GD, MEISTER A.
+  TITLE     Enzymatic synthesis of carnosine and related beta-alanyl and gamma-aminobutyryl peptides.
+  JOURNAL   J Biol Chem 234:3210-8 (1959)
+REFERENCE   2  [PMID:16748858]
+  AUTHORS   Stenesh JJ, Winnick T.
+  TITLE     Carnosine-anserine synthetase of muscle. 4. Partial purification of the enzyme and further studies of beta-alanyl peptide synthesis.
+  JOURNAL   Biochem J 77:575-81 (1960)
+REFERENCE   3  [PMID:4988625]
+  AUTHORS   Crush KG
+  TITLE     Carnosine and related substances in animal tissues.
+  JOURNAL   Comp Biochem Physiol 34:3-30 (1970)
+REFERENCE   4  [PMID:20097752]
+  AUTHORS   Drozak J, Veiga-da-Cunha M, Vertommen D, Stroobant V, Van Schaftingen E
+  TITLE     Molecular identification of carnosine synthase as ATP-grasp domain-containing protein 1 (ATPGD1).
+  JOURNAL   J Biol Chem 285:9346-56 (2010)
+            DOI:10.1074/jbc.M109.095505
+  SEQUENCE  [gga:100359387] [hsa:57571] [mmu:107239]
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec00340  Histidine metabolism
+            ec00410  beta-Alanine metabolism
+ORTHOLOGY   K14755  carnosine synthase
+GENES       HSA: 57571(CARNS1)
+            PTR: 451368(CARNS1)
+            PPS: 100992842(CARNS1)
+            GGO: 101133589(CARNS1)
+            PON: 100433050(CARNS1)
+            NLE: 100586652(CARNS1)
+            MCC: 712485(CARNS1)
+            MCF: 102140146(CARNS1)
+            CSAB: 103217912(CARNS1)
+            RRO: 104664741(CARNS1)
+            RBB: 108518609(CARNS1)
+            CJC: 100396814(CARNS1)
+            SBQ: 101048183(CARNS1)
+            MMU: 107239(Carns1)
+            RNO: 309150(Carns1)
+            CGE: 100765077(Carns1)
+            NGI: 103725587(Carns1)
+            HGL: 101703269(Carns1)
+            CCAN: 109688626(Carns1)
+            TUP: 102476516(CARNS1)
+            CFA: 483695(CARNS1)
+            AML: 100470611(CARNS1)
+            UMR: 103679612(CARNS1)
+            ORO: 101382286(CARNS1)
+            FCA: 101080661(CARNS1)
+            PTG: 102953183(CARNS1)
+            AJU: 106971104(CARNS1)
+            BTA: 783525(CARNS1)
+            BOM: 102288119(CARNS1)
+            BIU: 109554139(CARNS1)
+            PHD: 102339857(CARNS1)
+            CHX: 102182385(CARNS1)
+            OAS: 101109312(CARNS1)
+            SSC: 100512885(CARNS1)
+            CFR: 102506874 102520872(CARNS1)
+            CDK: 105104426(CARNS1)
+            BACU: 103008596(CARNS1)
+            LVE: 103080369(CARNS1)
+            OOR: 101285110(CARNS1)
+            ECB: 100059309(CARNS1)
+            EPZ: 103560159(CARNS1)
+            EAI: 106833657(CARNS1)
+            MYB: 102244811(CARNS1)
+            MYD: 102764108(CARNS1)
+            HAI: 109384218(CARNS1)
+            RSS: 109450430(CARNS1)
+            PALE: 102891454(CARNS1)
+            LAV: 100671318(CARNS1)
+            TMU: 101343802
+            MDO: 100028997(CARNS1)
+            SHR: 100934818(CARNS1)
+            OAA: 100087096 100681134
+            GGA: 100359387(CARNS1)
+            MGP: 100548525(CARNS1)
+            CJO: 107314238(CARNS1)
+            SCAN: 108964728(CARNS1)
+            FAB: 101810237(CARNS1)
+            PHI: 102100376(CARNS1)
+            PMAJ: 107205283(CARNS1)
+            FPG: 101914136(RPS6KB2) 106112844(CARNS1)
+            FCH: 102053346(CARNS1)
+            CLV: 102090970(CARNS1)
+            ASN: 102369760(CARNS1)
+            AMJ: 102565182(CARNS1)
+            PSS: 102451775(CARNS1)
+            CMY: 102932637(CARNS1)
+            CPIC: 101949086(CARNS1)
+            ACS: 100557340(carns1)
+            PVT: 110085648(CARNS1)
+            PBI: 103057026(CARNS1)
+            PMUR: 107293631(CARNS1)
+            GJA: 107121294(CARNS1)
+            XLA: 108696326(carns1.L)
+            XTR: 100487967(carns1)
+            NPR: 108796235 108796244
+            SASA: 106604853 106611885
+            OTW: 112220780(carns1)
+            SALP: 111965406 112069063
+            ELS: 105025204(carns1)
+            SFM: 108935907(carns1) 108937619
+            CRG: 105317679 105324334 105346080 105346086
+            MYI: 110447816 110448302 110451261 110451263 110453869 110458064 110459034
+            OBI: 106877889 106879380
+            LAK: 106154292 106154298 106157794 106157795 106172484 106172486 106176028 106176029 106176030 106176034 106176050 106176454 106179960
+            CRE: CHLREDRAFT_99071
+            VCN: VOLCADRAFT_89214
+            MNG: MNEG_7106
+            CSL: COCSUDRAFT_56342
+            CVR: CHLNCDRAFT_137776 CHLNCDRAFT_144890
+            APRO: F751_4577 F751_4578
+            CME: CYME_CMF080C
+            GSL: Gasu_24910
+            CCP: CHC_T00004987001
+            SMIN: v1.2.013461.t1(symbB.v1.2.013461.t1) v1.2.013473.t1(symbB.v1.2.013473.t1) v1.2.023159.t1(symbB.v1.2.023159.t1) v1.2.032723.t1(symbB.v1.2.032723.t1)
+DBLINKS     ExplorEnz - The Enzyme Database: 6.3.2.11
+            IUBMB Enzyme Nomenclature: 6.3.2.11
+            ExPASy - ENZYME nomenclature database: 6.3.2.11
+            BRENDA, the Enzyme Database: 6.3.2.11
+            CAS: 9023-61-4
+///

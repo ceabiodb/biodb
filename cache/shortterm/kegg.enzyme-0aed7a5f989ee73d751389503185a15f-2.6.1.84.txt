@@ -1,0 +1,229 @@
+ENTRY       EC 2.6.1.84                 Enzyme
+NAME        arginine---pyruvate transaminase;
+            arginine:pyruvate transaminase;
+            AruH;
+            ATase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     L-arginine:pyruvate aminotransferase
+REACTION    L-arginine + pyruvate = 5-guanidino-2-oxopentanoate + L-alanine [RN:R08197]
+ALL_REAC    R08197
+SUBSTRATE   L-arginine [CPD:C00062];
+            pyruvate [CPD:C00022]
+PRODUCT     5-guanidino-2-oxopentanoate [CPD:C03771];
+            L-alanine [CPD:C00041]
+COMMENT     A pyridoxal-phosphate protein. While L-arginine is the best substrate, the enzyme exhibits broad substrate specificity, with L-lysine, L-methionine, L-leucine, L-ornithine and L-glutamine also able to act as substrates, but more slowly. Pyruvate cannot be replaced by 2-oxoglutarate as amino-group acceptor. This is the first catalytic enzyme of the arginine transaminase pathway for L-arginine utilization in Pseudomonas aeruginosa. This pathway is only used when the major route of arginine catabolism, i.e. the arginine succinyltransferase pathway, is blocked.
+HISTORY     EC 2.6.1.84 created 2007
+REFERENCE   1  [PMID:17416668]
+  AUTHORS   Yang Z, Lu CD.
+  TITLE     Characterization of an arginine:pyruvate transaminase in arginine catabolism of Pseudomonas aeruginosa PAO1.
+  JOURNAL   J Bacteriol 189:3954-9 (2007)
+            DOI:10.1128/JB.00262-07
+  SEQUENCE  [pae:PA4976]
+REFERENCE   2  [PMID:17416670]
+  AUTHORS   Yang Z, Lu CD.
+  TITLE     Functional genomics enables identification of genes of the arginine transaminase pathway in Pseudomonas aeruginosa.
+  JOURNAL   J Bacteriol 189:3945-53 (2007)
+            DOI:10.1128/JB.00261-07
+  SEQUENCE  [pae:PA4976]
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K12252  arginine:pyruvate transaminase
+GENES       PAE: PA4976(aruH)
+            PAEV: N297_5148
+            PAEI: N296_5148
+            PAU: PA14_65770(aspC)
+            PAP: PSPA7_5709(aspC)
+            PAG: PLES_53641(aruH)
+            PAF: PAM18_5087(aruH)
+            PNC: NCGM2_0542(aspC)
+            PAEB: NCGM1900_5724(aspC)
+            PDK: PADK2_26370
+            PSG: G655_26225
+            PRP: M062_26235
+            PAEP: PA1S_26990
+            PAER: PA1R_gp2899
+            PAEM: U769_27255
+            PAEL: T223_27450
+            PAES: SCV20265_5639
+            PAEU: BN889_05521(aruH)
+            PAEG: AI22_07005
+            PAEC: M802_5146
+            PAEO: M801_5013
+            PRE: PCA10_40340(aspC)
+            PCQ: PcP3B5_02230(aruH)
+            PPU: PP_3721(aruH)
+            PPF: Pput_2042
+            PPG: PputGB1_2185
+            PPW: PputW619_2796
+            PPT: PPS_3189
+            PPB: PPUBIRD1_2041(aspC)
+            PPI: YSA_09437
+            PPX: T1E_1732(aspC)
+            PPUH: B479_15825
+            PPUT: L483_19365
+            PPUN: PP4_21010(aspC)
+            PPUD: DW66_3460
+            PMON: X969_15335
+            PMOT: X970_14980
+            PMOS: O165_008755
+            PPJ: RK21_01449
+            PFL: PFL_2715(aruH) PFL_3354 PFL_5024
+            PPRC: PFLCHA0_c27760(aspC2) PFLCHA0_c33840(aspC3)
+            PPRO: PPC_2762(aruH) PPC_3378
+            PFO: Pfl01_2905
+            PFE: PSF113_2328
+            PMAN: OU5_0567 OU5_1975
+            PEN: PSEEN3003(aspC)
+            PBA: PSEBR_a3399
+            PBC: CD58_12060
+            PPUU: PputUW4_02429 PputUW4_02748
+            PDR: H681_24930
+            PSV: PVLB_11490
+            PKC: PKB_0124(aspc1)
+            PCH: EY04_16645
+            PCZ: PCL1606_27200 PCL1606_34600
+            PCP: JM49_14095
+            PALK: PSAKL28_23960 PSAKL28_27660
+            PSEM: TO66_13290 TO66_17300
+            PSEC: CCOS191_2783(aruH)
+            PSOS: POS17_2711(aruH) POS17_3331
+            PKR: AYO71_17595
+            PFK: PFAS1_25360
+            PSET: THL1_3997
+            PSIL: PMA3_15850
+            COLW: A3Q33_05690
+            CBER: B5D82_00655
+            AAL: EP13_17935
+            AAUS: EP12_18740
+            SAGA: M5M_04555
+            MTHD: A3224_03285
+            MICC: AUP74_01586(aruH_1) AUP74_02850(aruH_2)
+            MAGA: Mag101_09640 Mag101_13965
+            MII: BTJ40_03595
+            GAI: IMCC3135_11970(aruH_1)
+            CSA: Csal_0536
+            HEL: HELO_2764(aruH)
+            HHU: AR456_09240
+            HBE: BEI_1553(aruH)
+            HAF: C8233_03405
+            CMAI: BFX80_10085
+            CRZ: D1345_05740
+            BCEN: DM39_3804
+            BCT: GEM_4550
+            BPSL: WS57_08055
+            BUG: BC1001_3734
+            BGE: BC1002_4015
+            BGF: BC1003_3781
+            BUQ: AC233_20655
+            BUM: AXG89_35180
+            BUI: AX768_17330
+            BXE: Bxe_B1173
+            BXB: DR64_6490
+            BPX: BUPH_00300
+            BPY: Bphyt_5434
+            BFN: OI25_6931
+            PSPW: BJG93_26095 BJG93_27760
+            PARB: CJU94_23330
+            PGP: CUJ91_22775
+            PCJ: CUJ87_22160
+            PTS: CUJ90_29950
+            MLO: mlr1282
+            MLN: A9174_20005
+            MCI: Mesci_3330
+            MOP: Mesop_3821
+            MAM: Mesau_03610
+            MAMO: A6B35_21965
+            MESO: BSQ44_15810
+            MESW: A9K65_018015
+            MES: Meso_1479
+            HOE: IMCC20628_02962
+            AAK: AA2016_2971
+            AMIH: CO731_02952(aruH)
+            PHT: BLM14_07955
+            SME: SMc02262
+            SMK: Sinme_0209
+            SMQ: SinmeB_0186
+            SMX: SM11_chr0192(aspC)
+            SMI: BN406_00201
+            SMEG: C770_GR4Chr0562
+            SMEL: SM2011_c02262(aspC)
+            SMER: DU99_02980
+            SMD: Smed_0178
+            RHI: NGR_c01980
+            SFH: SFHH103_00217
+            SFD: USDA257_c01790(aspC2)
+            SIX: BSY16_2654
+            SAME: SAMCFNEI73_Ch0558(aspC)
+            SINO: SS05631_c01920
+            EAD: OV14_1495
+            EAH: FA04_01000
+            ESJ: SJ05684_c01780
+            RHT: NT26_2963(aspC)
+            NGL: RG1141_CH32880(aruH)
+            NGG: RG540_CH33690
+            NEO: CYG48_12085
+            NEN: NCHU2750_30720(aruH)
+            SHZ: shn_00815
+            MEY: TM49_20655
+            MAAD: AZF01_01000
+            MMED: Mame_04622(aruH)
+            SIL: SPO2132(aspC-3) SPOA0066
+            SIT: TM1040_3605
+            RUA: D1823_04845 D1823_17940
+            RMB: K529_019675
+            RHP: LPB142_08990
+            RBL: B6K69_07060
+            JAN: Jann_1956
+            RDE: RD1_3185(aspC)
+            RLI: RLO149_c024100(aspC)
+            PAMI: JCM7686_2718
+            PARS: DRW48_10140
+            PGA: PGA1_262p02330
+            PGL: PGA2_239p2060
+            PGD: Gal_03952
+            PHP: PhaeoP97_03759
+            PPIC: PhaeoP14_03656
+            PHQ: D1820_17525
+            OAT: OAN307_c22570(aspC)
+            OAR: OA238_c22200(aspC)
+            OTM: OSB_16290(aruH)
+            LMD: METH_14760
+            LEJ: ETW24_15690
+            RED: roselon_03069
+            PTP: RCA23_c16670(aspC3)
+            CMAG: CBW24_05150
+            MALG: MALG_01400
+            LAP: ACP90_08715
+            LAGG: B0E33_20790
+            LABR: CHH27_11905
+            DAA: AKL17_1923
+            YAN: AYJ57_13545
+            YPAC: CEW88_06400 CEW88_20105
+            SUAM: BOO69_10325
+            SPSE: SULPSESMR1_01753(aruH)
+            SULZ: C1J03_09245
+            SULI: C1J05_09180
+            SULD: B5M07_09490
+            TOM: BWR18_08205
+            RMM: ROSMUCSMR3_01198(aruH)
+            ROK: RAK1035_0146
+            LVS: LOKVESSMR4R_02264(aruH)
+            AHT: ANTHELSMS3_03017(aruH)
+            SAGU: CDO87_01160
+            THAS: C6Y53_09510
+            GEH: HYN69_13810
+            TAW: EI545_07470
+            SALO: EF888_12205
+            SEDI: EBB79_11325
+            ABS: AZOBR_p250001
+            ABQ: ABAZ39_26620
+            ABF: AMK58_24180
+            AZT: TSH58p_01790
+            TII: DY252_00675
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.84
+            IUBMB Enzyme Nomenclature: 2.6.1.84
+            ExPASy - ENZYME nomenclature database: 2.6.1.84
+            BRENDA, the Enzyme Database: 2.6.1.84
+///

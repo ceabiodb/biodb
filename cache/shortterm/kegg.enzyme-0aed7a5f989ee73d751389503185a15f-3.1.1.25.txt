@@ -1,0 +1,31 @@
+ENTRY       EC 3.1.1.25                 Enzyme
+NAME        1,4-lactonase;
+            gamma-lactonase
+CLASS       Hydrolases;
+            Acting on ester bonds;
+            Carboxylic-ester hydrolases
+SYSNAME     1,4-lactone hydroxyacylhydrolase
+REACTION    a 1,4-lactone + H2O = a 4-hydroxyacid [RN:R03708]
+ALL_REAC    R03708 > R02933 R03034
+SUBSTRATE   1,4-lactone [CPD:C01770];
+            H2O [CPD:C00001]
+PRODUCT     4-hydroxyacid [CPD:C01991]
+COMMENT     The enzyme is specific for 1,4-lactones with 4-8 carbon atoms. It does not hydrolyse simple aliphatic esters, acetylcholine, sugar lactones or substituted aliphatic lactones, e.g. 3-hydroxy-4-butyrolactone; requires Ca2+.
+HISTORY     EC 3.1.1.25 created 1972, modified 1981
+REFERENCE   1  [PMID:4958984]
+  AUTHORS   Fishbein WN, Bessman SP.
+  TITLE     Purification and properties of an enzyme in human blood and rat liver microsomes catalyzing the formation and hydrolysis of gamma-lactones. I. Tissue localization, stoichiometry, specificity, distinction from esterase.
+  JOURNAL   J Biol Chem 241:4835-41 (1966)
+REFERENCE   2  [PMID:4958985]
+  AUTHORS   Fishbein WN, Bessman SP.
+  TITLE     Purification and properties of an enzyme in human blood and rat liver microsomes catalyzing the formation and hydrolysis of gamma-lactones. II. Metal ion effects, kinetics, and equilibra.
+  JOURNAL   J Biol Chem 241:4842-7 (1966)
+PATHWAY     ec00052  Galactose metabolism
+            ec00053  Ascorbate and aldarate metabolism
+            ec01100  Metabolic pathways
+DBLINKS     ExplorEnz - The Enzyme Database: 3.1.1.25
+            IUBMB Enzyme Nomenclature: 3.1.1.25
+            ExPASy - ENZYME nomenclature database: 3.1.1.25
+            BRENDA, the Enzyme Database: 3.1.1.25
+            CAS: 37278-38-9
+///

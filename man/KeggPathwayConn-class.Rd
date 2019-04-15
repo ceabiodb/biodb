@@ -5,17 +5,52 @@
 \alias{KeggPathwayConn-class}
 \alias{KeggPathwayConn}
 \title{The connector class to KEGG Pathway database.}
+\arguments{
+\item{id}{A character vector of entry IDs.}
+
+\item{drop}{\code{TRUE} if you want to get a single element outside of
+a list, or \code{FALSE} if you want to keep the element
+inside a list even if it is single.}
+}
 \description{
-This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+This is a concrete connector class. It must never be instantiated directly,
+but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+Only specific methods are described here. See super classes for the
+description of inherited methods.
 }
 \section{Methods}{
 
 \describe{
+\item{\code{buildPathwayGraph(id, drop = TRUE)}}{Build a pathway graph using KEGG database. Returns an \code{igraph}
+object, or NULL if the igraph library is not available.}
+
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
 Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+
+\item{\code{getReactions(id, drop = TRUE)}}{Retrieve all reactions part of a KEGG pathway. Connect to KEGG databases,
+and walk through all pathways submitted, and their modules, to find all
+reactions they are composed of. Returns a list of KEGG reaction objects or
+a single KEGG reaction objects, depending on the drop parameter.}
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get connector
+conn = mybiodb$getFactory()$createConn('kegg.pathway')
+
+# Retrieve all reactions related to a mouse pathway:
+reactions = conn$getReactions('mmu00260')
+
+# Get a pathway graph
+graph = conn$buildPathwayGraph('mmu00260')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{KeggConn}}.
 }

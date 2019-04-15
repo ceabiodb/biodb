@@ -1,0 +1,227 @@
+ENTRY       EC 1.5.8.3                  Enzyme
+NAME        sarcosine dehydrogenase;
+            sarcosine N-demethylase;
+            monomethylglycine dehydrogenase;
+            sarcosine:(acceptor) oxidoreductase (demethylating)
+CLASS       Oxidoreductases;
+            Acting on the CH-NH group of donors;
+            With a flavin or flavoprotein as acceptor
+SYSNAME     sarcosine:electron-transfer flavoprotein oxidoreductase (demethylating)
+REACTION    sarcosine + H2O + electron-transfer flavoprotein = glycine + formaldehyde + reduced electron-transfer flavoprotein [RN:R00611]
+ALL_REAC    R00611
+SUBSTRATE   sarcosine [CPD:C00213];
+            H2O [CPD:C00001];
+            electron-transfer flavoprotein [CPD:C04253]
+PRODUCT     glycine [CPD:C00037];
+            formaldehyde [CPD:C00067];
+            reduced electron-transfer flavoprotein [CPD:C04570]
+COMMENT     A flavoprotein (FMN). Tetrahydrofolate is also a substrate, being converted to N5,N10-methylenetetrahydrofolate.
+HISTORY     EC 1.5.8.3 created 1972 as EC 1.5.99.1, transferred 2012 to EC 1.5.8.3
+REFERENCE   1  [PMID:13716069]
+  AUTHORS   HOSKINS DD, MACKENZIE CG.
+  TITLE     Solubilization and electron transfer flavoprtein requirement of mitochondrial sarcosine dehydrogenase and dimethylglycine dehydrogenase.
+  JOURNAL   J Biol Chem 236:177-83 (1961)
+REFERENCE   2  [PMID:13895406]
+  AUTHORS   FRISELL WR, MACKENZIE CG.
+  TITLE     Separation and purification of sarcosine dehydrogenase and dimethylglycine dehydrogenase.
+  JOURNAL   J Biol Chem 237:94-8 (1962)
+REFERENCE   3  [PMID:6180732]
+  AUTHORS   Steenkamp DJ, Husain M
+  TITLE     The effect of tetrahydrofolate on the reduction of electron transfer flavoprotein by sarcosine and dimethylglycine dehydrogenases.
+  JOURNAL   Biochem J 203:707-15 (1982)
+PATHWAY     ec00260  Glycine, serine and threonine metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K00314  sarcosine dehydrogenase
+GENES       HSA: 1757(SARDH)
+            PTR: 464828(SARDH)
+            PPS: 100986136(SARDH)
+            GGO: 101126679(SARDH)
+            PON: 100172073(SARDH)
+            NLE: 100581547(SARDH)
+            MCC: 713289(SARDH)
+            MCF: 102139165(SARDH)
+            CSAB: 103239675(SARDH)
+            RRO: 104669713(SARDH)
+            RBB: 108513254(SARDH)
+            CJC: 100396240(SARDH)
+            SBQ: 101038416(SARDH)
+            MMU: 192166(Sardh)
+            RNO: 114123(Sardh)
+            CGE: 100761121(Sardh)
+            NGI: 103742819(Sardh)
+            HGL: 101717296(Sardh)
+            CCAN: 109695047(Sardh)
+            OCU: 103347198(SARDH) 103347553
+            TUP: 102468288(SARDH)
+            CFA: 491277(SARDH)
+            AML: 100477821(SARDH)
+            UMR: 103679941(SARDH)
+            ORO: 101363163(SARDH)
+            FCA: 101082702(SARDH)
+            PTG: 102957950 102959524(SARDH)
+            AJU: 106988257(SARDH)
+            BTA: 614603(SARDH)
+            BOM: 102286478(SARDH)
+            BIU: 109566616(SARDH)
+            PHD: 102331084(SARDH)
+            CHX: 102176539(SARDH)
+            OAS: 101110407(SARDH)
+            SSC: 100154338(SARDH)
+            CFR: 102509945 102524074(SARDH)
+            CDK: 105102809 105106320 105106654
+            BACU: 103001806(SARDH)
+            LVE: 103082579(SARDH)
+            OOR: 101269445(SARDH)
+            ECB: 100069193(SARDH)
+            EPZ: 103564041(SARDH)
+            EAI: 106845348(SARDH)
+            MYB: 102263827(SARDH)
+            MYD: 102763367(SARDH)
+            HAI: 109381141(SARDH)
+            RSS: 109445986(SARDH)
+            PALE: 102882489(SARDH)
+            LAV: 100656061 100677707
+            TMU: 101344177
+            MDO: 100018850(SARDH)
+            SHR: 100925921(SARDH)
+            OAA: 100073946(SARDH)
+            GGA: 417146(SARDH)
+            MGP: 100544931(SARDH)
+            CJO: 107321866(SARDH)
+            APLA: 101793569(SARDH)
+            ACYG: 106044083(SARDH)
+            TGU: 100221431(SARDH)
+            SCAN: 103819130(SARDH)
+            GFR: 102042792(SARDH)
+            FAB: 101807275(SARDH)
+            PHI: 102100623(SARDH)
+            PMAJ: 107211981(SARDH)
+            CCAE: 111937046(SARDH) 111943258
+            CCW: 104688488(SARDH)
+            FPG: 101910621(SARDH)
+            FCH: 102055614(SARDH)
+            CLV: 102089708(SARDH)
+            EGZ: 104129358(SARDH)
+            NNI: 104023287(SARDH)
+            ACUN: 113486534(SARDH)
+            AAM: 106484478(SARDH)
+            ASN: 102387705 112551262
+            AMJ: 102565496(SARDH)
+            PSS: 102455800(SARDH)
+            CMY: 102936719(SARDH)
+            CPIC: 101938284(SARDH)
+            ACS: 100567227 103281982(sardh)
+            PVT: 110089290(SARDH)
+            PBI: 103049572 103050331 103065615
+            PMUR: 107291024(SARDH)
+            GJA: 107106570(SARDH)
+            XLA: 108698171(sardh.L)
+            XTR: 100492087(sardh)
+            NPR: 108792838 108793117
+            DRE: 394103(sardh)
+            SRX: 107713264 107744257
+            SANH: 107658653 107685122(sardh)
+            SGH: 107595553(sardh)
+            CCAR: 109052549 109064274 109080207
+            IPU: 108276635(sardh)
+            PHYP: 113544041(sardh)
+            AMEX: 103038491(sardh)
+            EEE: 113576323(sardh)
+            TRU: 101066393(sardh)
+            TNG: GSTEN00007739G001 GSTEN00024728G001
+            LCO: 104923713(sardh)
+            NCC: 104968189(sardh)
+            MZE: 101464347(sardh)
+            OLA: 101171504(sardh)
+            XMA: 102218956(sardh)
+            PRET: 103473627(sardh)
+            NFU: 107372413(sardh)
+            KMR: 108232690(sardh)
+            CSEM: 103389066(sardh) 103399004
+            LCF: 108879253(sardh)
+            SDU: 111238764(sardh)
+            HCQ: 109517069(sardh)
+            BPEC: 110174148(sardh)
+            MALB: 109963453(sardh)
+            SASA: 106561570(sardh)
+            OTW: 112224345 112235511 112259564
+            SALP: 111961266(sardh)
+            ELS: 105014778(sardh)
+            SFM: 108932522(sardh)
+            PKI: 111854167(sardh)
+            LCM: 102358838(SARDH)
+            CMK: 103183089(sardh)
+            BFO: BRAFLDRAFT_86026
+            CIN: 100184925
+            SPU: 576973
+            APLC: 110984820
+            SKO: 100374616(Sardh)
+            DME: Dmel_CG6385(Sardh)
+            DPO: Dpse_GA19555
+            DAN: Dana_GF13226
+            DER: 6546660
+            DPE: 6592810
+            DSE: Dsec_GM19952
+            DSI: Dsimw501_GD25443(Dsim_GD25443)
+            DWI: 6652181
+            DYA: Dyak_GE13964
+            DGR: Dgri_GH11169
+            DMO: Dmoj_GI23785
+            DVI: Dvir_GJ20980
+            MDE: 101899451
+            AGA: AgaP_AGAP007123
+            AAG: 5565677
+            CQU: CpipJ_CPIJ004591 CpipJ_CPIJ016929
+            BIM: 100748086
+            BTER: 100643113
+            SOC: 105195588
+            MPHA: 105835145
+            AEC: 105144562 105144729
+            ACEP: 105618338
+            PBAR: 105431690
+            HST: 105184399
+            DQU: 106746182
+            CFO: 105253367
+            LHU: 105673907
+            PGC: 109857207
+            OBO: 105288106
+            PCF: 106788912
+            NVI: 103316656
+            MDL: 103575471
+            TCA: 656849
+            DPA: 109533033 109541557 109541559
+            NVL: 108568210
+            BMOR: 101743034
+            DPL: KGM_204504
+            PMAC: 106710382
+            PRAP: 110993772
+            HAW: 110382187
+            TNL: 113492560
+            PXY: 105381895
+            CLEC: 106666323
+            PHU: Phum_PHUM213030
+            ZNE: 110831180 110831181
+            FCD: 110856220
+            DPX: DAPPUDRAFT_308482
+            ISC: IscW_ISCW010313
+            LAK: 106167453
+            NVE: NEMVE_v1g174872
+            EPA: 110254849
+            ADF: 107344630
+            PDAM: 113668163
+            SPIS: 111329248
+            HMG: 100197405
+            TAD: TRIADDRAFT_53512
+            AFM: AFUA_4G01150
+            SMIN: v1.2.021035.t1(symbB.v1.2.021035.t1)
+            AAF: AURANDRAFT_22613(SDH1)
+            SPAR: SPRG_03481
+            EHX: EMIHUDRAFT_97687
+            RET: RHE_PE00084
+            BME: BMEI0684
+DBLINKS     ExplorEnz - The Enzyme Database: 1.5.8.3
+            IUBMB Enzyme Nomenclature: 1.5.8.3
+            ExPASy - ENZYME nomenclature database: 1.5.8.3
+            BRENDA, the Enzyme Database: 1.5.8.3
+            CAS: 37228-65-2 93389-49-2
+///

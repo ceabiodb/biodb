@@ -1,0 +1,25 @@
+ENTRY       EC 1.1.1.165                Enzyme
+NAME        2-alkyn-1-ol dehydrogenase
+CLASS       Oxidoreductases;
+            Acting on the CH-OH group of donors;
+            With NAD+ or NADP+ as acceptor
+SYSNAME     2-butyne-1,4-diol:NAD+ 1-oxidoreductase
+REACTION    2-butyne-1,4-diol + NAD+ = 4-hydroxy-2-butynal + NADH + H+ [RN:R03963]
+ALL_REAC    R03963
+SUBSTRATE   2-butyne-1,4-diol [CPD:C02497];
+            NAD+ [CPD:C00003]
+PRODUCT     4-hydroxy-2-butynal [CPD:C02648];
+            NADH [CPD:C00004];
+            H+ [CPD:C00080]
+COMMENT     Acts on a variety of 2-alkyn-1-ols, and also on 1,4-butanediol. NADP+ also acts as acceptor, but more slowly.
+HISTORY     EC 1.1.1.165 created 1976
+REFERENCE   1
+  AUTHORS   Miyoshi, T., Sato, H. and Harada, T.
+  TITLE     Purification and characterization of 2-alkyne-1-ol dehydrogenase induced by 2-butene-1,4-diol in Fusarium merismoides B11.
+  JOURNAL   Biochim Biophys Acta 358:231-239 (1974)
+DBLINKS     ExplorEnz - The Enzyme Database: 1.1.1.165
+            IUBMB Enzyme Nomenclature: 1.1.1.165
+            ExPASy - ENZYME nomenclature database: 1.1.1.165
+            BRENDA, the Enzyme Database: 1.1.1.165
+            CAS: 54576-94-2
+///

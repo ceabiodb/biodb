@@ -1,0 +1,1 @@
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["url","header","body"]}},"value":[{"type":"character","attributes":{},"value":["https://www.kegg.jp/kegg-bin/show_pathway?org_name=map&mapno=00260&mapscale=1.0&show_description=hide"]},{"type":"character","attributes":{},"value":[]},{"type":"character","attributes":{},"value":[]}]}

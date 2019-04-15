@@ -100,14 +100,38 @@ test.kegg.compound.ws.find.molecular.weight <- function(db) {
 	expect_true(length(ids) > 1)
 }
 
+# Test KEGG Compound getPathwayIds() {{{1
+################################################################
+
+test.kegg.compound.getPathwayIds <- function(conn) {
+	c = 'C00134'
+	ids = conn$getPathwayIds(c, 'mmu')
+	testthat::expect_is(ids, 'character')
+	testthat::expect_true(length(ids) > 0)
+}
+
+# Test KEGG Compound getPathwayIdsPerCompound() {{{1
+################################################################
+
+test.kegg.compound.getPathwayIdsPerCompound <- function(conn) {
+	c = 'C00134'
+	ids = conn$getPathwayIdsPerCompound(c, 'mmu')
+	testthat::expect_is(ids, 'list')
+	testthat::expect_true(c %in% names(ids))
+	testthat::expect_is(ids[[c]], 'character')
+	testthat::expect_true(length(ids[[c]]) > 0)
+}
+
 # Run KEGG Compound tests {{{1
 ################################################################
 
 run.kegg.compound.tests <- function(conn, obs) {
 	if (test.online()) {
-		test.that('Test', 'test.kegg.compound.ws.list', conn = conn)
-		test.that('Test', 'test.kegg.compound.ws.find', conn = conn)
-		test.that('Test', 'test.kegg.compound.ws.find.exact.mass', conn = conn)
-		test.that('Test', 'test.kegg.compound.ws.find.molecular.weight', conn = conn)
+		test.that('ws.list() works correctly.', 'test.kegg.compound.ws.list', conn = conn)
+		test.that('ws.find() works correctly.', 'test.kegg.compound.ws.find', conn = conn)
+		test.that('ws.find.exact.mass() works correctly.', 'test.kegg.compound.ws.find.exact.mass', conn = conn)
+		test.that('ws.find.molecular.weight() works correctly.', 'test.kegg.compound.ws.find.molecular.weight', conn = conn)
+		test.that('getPathwayIdsPerCompound() works correctly.', 'test.kegg.compound.getPathwayIdsPerCompound', conn = conn)
+		test.that('getPathwayIds() works correctly.', 'test.kegg.compound.getPathwayIds', conn = conn)
 	}
 }

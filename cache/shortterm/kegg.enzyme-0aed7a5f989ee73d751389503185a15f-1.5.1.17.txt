@@ -1,0 +1,43 @@
+ENTRY       EC 1.5.1.17                 Enzyme
+NAME        alanopine dehydrogenase;
+            ALPDH ;
+            alanopine[meso-N-(1-carboxyethyl)-alanine]dehydrogenase;
+            meso-N-(1-carboxyethyl)-alanine:NAD+ oxidoreductase;
+            alanopine: NAD+ oxidoreductase;
+            ADH;
+            alanopine:NAD+ oxidoreductase
+CLASS       Oxidoreductases;
+            Acting on the CH-NH group of donors;
+            With NAD+ or NADP+ as acceptor
+SYSNAME     2,2'-iminodipropanoate:NAD+ oxidoreductase (L-alanine-forming)
+REACTION    2,2'-iminodipropanoate + NAD+ + H2O = L-alanine + pyruvate + NADH + H+ [RN:R00398]
+ALL_REAC    R00398
+SUBSTRATE   2,2'-iminodipropanoate [CPD:C03210];
+            NAD+ [CPD:C00003];
+            H2O [CPD:C00001]
+PRODUCT     L-alanine [CPD:C00041];
+            pyruvate [CPD:C00022];
+            NADH [CPD:C00004];
+            H+ [CPD:C00080]
+COMMENT     In the reverse reaction, L-alanine can be replaced by L-cysteine, L-serine or L-threonine; glycine acts very slowly (cf. EC 1.5.1.22 strombine dehydrogenase).
+HISTORY     EC 1.5.1.17 created 1983, modified 1986
+REFERENCE   1
+  AUTHORS   Dando, P.R.
+  TITLE     Strombine [N-(carboxymethyl)-D-alanine] dehydrogenase and alanopine [meso-N-(1-carboxyethyl)-alanine dehydrogenase from the mussel Mytilus edulis L.
+  JOURNAL   Biochem Soc Trans 9:297-298 (1981)
+REFERENCE   2  [PMID:6156653]
+  AUTHORS   Fields JH, Eng AK, Ramsden WD, Hochachka PW, Weinstein B.
+  TITLE     Alanopine and strombine are novel imino acids produced by a dehydrogenase found in the adductor muscle of the oyster, Crassostrea gigas.
+  JOURNAL   Arch Biochem Biophys 201:110-4 (1980)
+            DOI:10.1016/0003-9861(80)90493-2
+REFERENCE   3  [PMID:7238503]
+  AUTHORS   Fields JH, Hochachka PW.
+  TITLE     Purification and properties of alanopine dehydrogenase from the adductor muscle of the oyster, Crassostrea gigas (Mollusca, Bivalvia).
+  JOURNAL   Eur J Biochem 114:615-21 (1981)
+            DOI:10.1111/j.1432-1033.1981.tb05188.x
+DBLINKS     ExplorEnz - The Enzyme Database: 1.5.1.17
+            IUBMB Enzyme Nomenclature: 1.5.1.17
+            ExPASy - ENZYME nomenclature database: 1.5.1.17
+            BRENDA, the Enzyme Database: 1.5.1.17
+            CAS: 71343-07-2
+///

@@ -1,0 +1,27 @@
+ENTRY       EC 2.6.1.41                 Enzyme
+NAME        D-methionine---pyruvate transaminase;
+            D-methionine transaminase;
+            D-methionine aminotransferase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     D-methionine:pyruvate aminotransferase
+REACTION    D-methionine + pyruvate = 4-(methylsulfanyl)-2-oxobutanoate + L-alanine [RN:R03001]
+ALL_REAC    R03001
+SUBSTRATE   D-methionine [CPD:C00855];
+            pyruvate [CPD:C00022]
+PRODUCT     4-(methylsulfanyl)-2-oxobutanoate [CPD:C01180];
+            L-alanine [CPD:C00041]
+COMMENT     Oxaloacetate can replace pyruvate.
+HISTORY     EC 2.6.1.41 created 1972, modified 1982
+REFERENCE   1  [PMID:5357015]
+  AUTHORS   Mapson LW, March JF, Wardale DA.
+  TITLE     Biosynthesis of ethylene. 4-methylmercapto-2-oxobutyric acid: an intermediate in the formation from methionine.
+  JOURNAL   Biochem J 115:653-61 (1969)
+PATHWAY     ec00473  D-Alanine metabolism
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.41
+            IUBMB Enzyme Nomenclature: 2.6.1.41
+            ExPASy - ENZYME nomenclature database: 2.6.1.41
+            BRENDA, the Enzyme Database: 2.6.1.41
+            CAS: 37277-93-3
+///

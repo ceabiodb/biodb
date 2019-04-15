@@ -1,0 +1,19 @@
+{
+	"accession": "R02035",
+	"name": "6-Phospho-D-glucono-1,5-lactone lactonohydrolase",
+	"kegg.enzyme.id": "3.1.1.31",
+	"equation": "C01236 + C00001 <=> C00345",
+	"substrates": ["C01236", "C00001"],
+	"products": "C00345",
+	"kegg.pathway.id": [
+		"rn00030",
+		"rn01100",
+		"rn01110",
+		"rn01120",
+		"rn01130",
+		"rn01200"],
+	"kegg.module.id": [
+		"M00004",
+		"M00006",
+		"M00008"]
+}

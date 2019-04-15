@@ -1,0 +1,75 @@
+ENTRY       EC 6.3.2.35                 Enzyme
+NAME        D-alanine---D-serine ligase;
+            VanC;
+            VanE;
+            VanG
+CLASS       Ligases;
+            Forming carbon-nitrogen bonds;
+            Acid-D-amino-acid ligases (peptide synthases)
+SYSNAME     D-alanine:D-serine ligase (ADP-forming)
+REACTION    D-alanine + D-serine + ATP = D-alanyl-D-serine + ADP + phosphate [RN:R09595]
+ALL_REAC    R09595
+SUBSTRATE   D-alanine [CPD:C00133];
+            D-serine [CPD:C00740];
+            ATP [CPD:C00002]
+PRODUCT     D-alanyl-D-serine [CPD:C19719];
+            ADP [CPD:C00008];
+            phosphate [CPD:C00009]
+COMMENT     The product of this enzyme, D-alanyl-D-serine, can be incorporated into the peptidoglycan pentapeptide instead of the usual D-alanyl-D-alanine dipeptide, which is formed by EC 6.3.2.4, D-alanine---D-alanine ligase. The resulting peptidoglycan does not bind the glycopeptide antibiotics vancomycin and teicoplanin, conferring resistance on the bacteria.
+HISTORY     EC 6.3.2.35 created 2010
+REFERENCE   1  [PMID:1551598]
+  AUTHORS   Dutka-Malen S, Molinas C, Arthur M, Courvalin P
+  TITLE     Sequence of the vanC gene of Enterococcus gallinarum BM4174 encoding a D-alanine:D-alanine ligase-related protein necessary for vancomycin resistance.
+  JOURNAL   Gene 112:53-8 (1992)
+            DOI:10.1016/0378-1119(92)90302-6
+  SEQUENCE  [ag:AAA24786]
+REFERENCE   2  [PMID:9294159]
+  AUTHORS   Park IS, Lin CH, Walsh CT
+  TITLE     Bacterial resistance to vancomycin: overproduction, purification, and characterization of VanC2 from Enterococcus casseliflavus as a D-Ala-D-Ser ligase.
+  JOURNAL   Proc Natl Acad Sci U S A 94:10040-4 (1997)
+            DOI:10.1073/pnas.94.19.10040
+REFERENCE   3  [PMID:10471558]
+  AUTHORS   Fines M, Perichon B, Reynolds P, Sahm DF, Courvalin P
+  TITLE     VanE, a new type of acquired glycopeptide resistance in Enterococcus faecalis BM4405.
+  JOURNAL   Antimicrob Agents Chemother 43:2161-4 (1999)
+REFERENCE   4  [PMID:14617152]
+  AUTHORS   Depardieu F, Bonora MG, Reynolds PE, Courvalin P
+  TITLE     The vanG glycopeptide resistance operon from Enterococcus faecalis revisited.
+  JOURNAL   Mol Microbiol 50:931-48 (2003)
+            DOI:10.1046/j.1365-2958.2003.03737.x
+REFERENCE   5  [PMID:19216682]
+  AUTHORS   Watanabe S, Kobayashi N, Quinones D, Hayakawa S, Nagashima S, Uehara N, Watanabe N
+  TITLE     Genetic diversity of the low-level vancomycin resistance gene vanC-2/vanC-3 and identification of a novel vanC subtype (vanC-4) in Enterococcus casseliflavus.
+  JOURNAL   Microb Drug Resist 15:1-9 (2009)
+            DOI:10.1089/mdr.2009.0856
+ORTHOLOGY   K18856  D-alanine---D-serine ligase
+GENES       BBE: BBR47_05870
+            BFM: BP422_28590(vanB)
+            PBJ: VN24_01315(vanB)
+            SANS: DK43_03860(vanB)
+            ECAS: ECBG_02849
+            EGA: AL523_09465
+            CLB: Clo1100_2030
+            CACE: CACET_c25480(vanA)
+            CFM: BJL90_20410(vanB)
+            CARG: RSJ17_11295(vanB)
+            AOE: Clos_2860
+            FPLA: A4U99_10115(vanB)
+            CLE: Clole_1511
+            CSO: CLS_04660
+            HSD: SD1D_0541(ddl2)
+            CDF: CD630_16260(vanG)
+            PDC: CDIF630_01803(vanG)
+            CDC: CD196_1549(vanG)
+            CDL: CDR20291_1524(vanG)
+            PDF: CD630DERM_16260(vanG)
+            DGI: Desgi_1749
+            OVA: OBV_09510
+            IBU: IB211_01760
+            CAD: Curi_c05060(vanG)
+            EUC: EC1_04100
+DBLINKS     ExplorEnz - The Enzyme Database: 6.3.2.35
+            IUBMB Enzyme Nomenclature: 6.3.2.35
+            ExPASy - ENZYME nomenclature database: 6.3.2.35
+            BRENDA, the Enzyme Database: 6.3.2.35
+///

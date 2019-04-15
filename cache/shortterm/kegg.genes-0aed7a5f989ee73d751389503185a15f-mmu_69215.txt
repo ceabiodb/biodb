@@ -1,0 +1,47 @@
+ENTRY       69215             CDS       T01002
+NAME        Sat2, 2610016A03Rik, SSAT-2, SSAT2
+DEFINITION  (RefSeq) spermidine/spermine N1-acetyl transferase 2
+ORTHOLOGY   K00657  diamine N-acetyltransferase [EC:2.3.1.57]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00330  Arginine and proline metabolism
+            mmu01100  Metabolic pathways
+            mmu04216  Ferroptosis
+MODULE      mmu_M00135  GABA biosynthesis, eukaryotes, putrescine => GABA
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09105 Amino acid metabolism
+               00330 Arginine and proline metabolism
+                69215 (Sat2)
+             09140 Cellular Processes
+              09143 Cell growth and death
+               04216 Ferroptosis
+                69215 (Sat2)
+            Enzymes [BR:mmu01000]
+             2. Transferases
+              2.3  Acyltransferases
+               2.3.1  Transferring groups other than aminoacyl groups
+                2.3.1.57  diamine N-acetyltransferase
+                 69215 (Sat2)
+POSITION    11; 11 B3
+MOTIF       Pfam: Acetyltransf_1 Acetyltransf_7 Acetyltransf_10 FR47 Acetyltransf_CG Acetyltransf_3 Acetyltransf_15 Acetyltransf_13
+DBLINKS     NCBI-GeneID: 69215
+            NCBI-ProteinID: NP_081267
+            MGI: 1916465
+            Ensembl: ENSMUSG00000069835
+            Vega: OTTMUSG00000006006
+            UniProt: Q6P8J2 A0A158SIT0
+AASEQ       170
+            MASTRIREARESDCGDIMRMIRELAEFEKLSHQVKISEEALRADGFGENPFFHCLVAEII
+            PAPGESQGSLVVGYGLYYFIYSTWTGRNVYLEDIYVMPQYRGQGIGTKIIKKVAEVALNK
+            GCSQFRLAVLDWNKKAVNLYKFLGAQDLTESEGWLSFRFEGEAMRELAGR
+NTSEQ       513
+            atggcttccacgcgaatccgagaggccagggagagcgattgtggagacattatgaggatg
+            atccgggaactggcagagttcgagaaactgtcccatcaggtgaagatcagtgaagaagct
+            ctgcgagcagatggctttggagagaaccctttctttcactgtttggtggcagagattatc
+            ccagcacctggggagtcacaagggtcccttgtggtgggctatgggctgtactacttcatc
+            tatagcacatggaccggacgaaacgtttatctggaagacatctatgtgatgccgcaatat
+            cggggtcaagggattggtaccaaaataatcaaaaaggtggctgaggttgccctgaataag
+            ggttgctcccagttccgcctggcagttctggattggaacaagaaggccgtgaacttgtac
+            aaatttctaggggctcaagatctgactgaatcggaaggctggctctcctttcgatttgaa
+            ggcgaggcaatgagggagttggcaggacgctga
+///

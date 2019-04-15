@@ -1,0 +1,29 @@
+ENTRY       EC 2.3.1.138                Enzyme
+NAME        putrescine N-hydroxycinnamoyltransferase;
+            caffeoyl-CoA putrescine N-caffeoyl transferase;
+            PHT;
+            putrescine hydroxycinnamoyl transferase;
+            hydroxycinnamoyl-CoA:putrescine hydroxycinnamoyltransferase;
+            putrescine hydroxycinnamoyltransferase
+CLASS       Transferases;
+            Acyltransferases;
+            Transferring groups other than aminoacyl groups
+SYSNAME     caffeoyl-CoA:putrescine N-(3,4-dihydroxycinnamoyl)transferase
+REACTION    caffeoyl-CoA + putrescine = CoA + N-caffeoylputrescine [RN:R01944]
+ALL_REAC    R01944
+SUBSTRATE   caffeoyl-CoA [CPD:C00323];
+            putrescine [CPD:C00134]
+PRODUCT     CoA [CPD:C00010];
+            N-caffeoylputrescine [CPD:C03002]
+COMMENT     Feruloyl-CoA, cinnamoyl-CoA and sinapoyl-CoA can also act as donors, but more slowly.
+HISTORY     EC 2.3.1.138 created 1992
+REFERENCE   1
+  AUTHORS   Negrel, J.
+  TITLE     The biosynthesis of cinnamoylputrescines in callus-tissue cultures of Nicotiana tabacum.
+  JOURNAL   Phytochemistry 28:477-481 (1989)
+DBLINKS     ExplorEnz - The Enzyme Database: 2.3.1.138
+            IUBMB Enzyme Nomenclature: 2.3.1.138
+            ExPASy - ENZYME nomenclature database: 2.3.1.138
+            BRENDA, the Enzyme Database: 2.3.1.138
+            CAS: 120598-69-8
+///

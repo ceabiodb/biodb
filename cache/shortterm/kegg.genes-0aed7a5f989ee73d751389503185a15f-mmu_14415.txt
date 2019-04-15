@@ -1,0 +1,91 @@
+ENTRY       14415             CDS       T01002
+NAME        Gad1, EP10, Gad-1
+DEFINITION  (RefSeq) glutamate decarboxylase 1
+ORTHOLOGY   K01580  glutamate decarboxylase [EC:4.1.1.15]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00250  Alanine, aspartate and glutamate metabolism
+            mmu00410  beta-Alanine metabolism
+            mmu00430  Taurine and hypotaurine metabolism
+            mmu00650  Butanoate metabolism
+            mmu01100  Metabolic pathways
+            mmu04727  GABAergic synapse
+            mmu04940  Type I diabetes mellitus
+MODULE      mmu_M00027  GABA (gamma-Aminobutyrate) shunt
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00650 Butanoate metabolism
+                14415 (Gad1)
+              09105 Amino acid metabolism
+               00250 Alanine, aspartate and glutamate metabolism
+                14415 (Gad1)
+              09106 Metabolism of other amino acids
+               00410 beta-Alanine metabolism
+                14415 (Gad1)
+               00430 Taurine and hypotaurine metabolism
+                14415 (Gad1)
+             09150 Organismal Systems
+              09156 Nervous system
+               04727 GABAergic synapse
+                14415 (Gad1)
+             09160 Human Diseases
+              09167 Endocrine and metabolic diseases
+               04940 Type I diabetes mellitus
+                14415 (Gad1)
+            Enzymes [BR:mmu01000]
+             4. Lyases
+              4.1  Carbon-carbon lyases
+               4.1.1  Carboxy-lyases
+                4.1.1.15  glutamate decarboxylase
+                 14415 (Gad1)
+POSITION    2 C2; 2 41.63 cM
+MOTIF       Pfam: Pyridoxal_deC Aminotran_5 Beta_elim_lyase DegT_DnrJ_EryC1 SepSecS OKR_DC_1
+DBLINKS     NCBI-GeneID: 14415
+            NCBI-ProteinID: NP_032103
+            MGI: 95632
+            Ensembl: ENSMUSG00000070880
+            Vega: OTTMUSG00000033269
+            UniProt: P48318 Q548L6
+AASEQ       593
+            MASSTPSPATSSNAGADPNTTNLRPTTYDTWCGVAHGCTRKLGLKICGFLQRTNSLEEKS
+            RLVSAFRERQSSKNLLSCENSDQGARFRRTETDFSNLFAQDLLPAKNGEEQTAQFLLEVV
+            DILLNYVRKTFDRSTKVLDFHHPHQLLEGMEGFNLELSDHPESLEQILVDCRDTLKYGVR
+            TGHPRFFNQLSTGLDIIGLAGEWLTSTANTNMFTYEIAPVFVLMEQITLKKMREIVGWSN
+            KDGDGIFSPGGAISNMYSIMAARYKYFPEVKTKGMAAVPKLVLFTSEHSHYSIKKAGAAL
+            GFGTDNVILIKCNERGKIIPADLEAKILDAKQKGYVPLYVNATAGTTVYGAFDPIQEIAD
+            ICEKYNLWLHVDAAWGGGLLMSRKHRHKLSGIERANSVTWNPHKMMGVLLQCSAILVKEK
+            GILQGCNQMCAGYLFQPDKQYDVSYDTGDKAIQCGRHVDIFKFWLMWKAKGTVGFENQIN
+            KCLELADYLYAKIKNREEFEMVFDGEPEHTNVCFWYIPQSLRGVPDSPERREKLHRVAPK
+            IKALMMESGTTMVGYQPQGDKANFFRMVISNPAATQSDIDFLIEEIERLGQDL
+NTSEQ       1782
+            atggcatcttccactccttcgcctgcaacctcctcgaacgcgggagcggatcctaatact
+            accaacctgcgccctacaacgtatgatacttggtgtggcgtagcccatggatgcaccaga
+            aaactgggcctgaagatctgtggcttcttacaaaggaccaatagcctggaagagaagagt
+            cgtcttgtgagcgccttcagggagaggcagtcctccaagaacctgctttcctgtgaaaac
+            agtgaccagggtgcccgcttccggcgcacagagaccgacttctccaacctgtttgctcaa
+            gatctgcttccagctaagaacggggaggagcaaactgcgcagttcttgctggaagtggta
+            gacatactcctcaactatgtccgcaagacatttgatcgctccaccaaggttctggatttc
+            caccacccacaccagttgctggaaggcatggaaggctttaatttggagctgtctgaccac
+            cccgagtctctggagcagatcctggttgactgtagagacaccctgaagtacggggttcgc
+            acaggtcaccctcgatttttcaaccagctctctactggtttggatatcattggtttagct
+            ggtgaatggctgacatcgactgccaataccaatatgttcacatatgaaattgcacccgtg
+            tttgttctcatggaacagattactcttaagaagatgagagagatcgttggatggtcaaat
+            aaagatggtgatgggatattttctcctgggggagccatatccaatatgtacagcatcatg
+            gctgctcgttacaagtacttcccagaagtgaagacaaaaggcatggcggctgtgcccaaa
+            ctggtcctcttcacctcagaacacagtcactattccataaagaaagccggggctgcgctt
+            ggctttggaaccgacaatgtgattttgataaagtgcaatgaaagggggaagataattccg
+            gctgatttagaggcaaaaattcttgatgccaaacaaaagggctatgttcccctttatgtc
+            aatgcaaccgcaggcacgactgtttacggagcattcgatccaatccaggaaattgcggac
+            atatgtgagaaatacaacctttggctgcatgtggatgctgcctggggtggtggactgctc
+            atgtcccggaagcaccgccacaaactcagcggcatagaaagggccaattcagtcacctgg
+            aaccctcacaagatgatgggcgtgctgctccagtgctctgccattctggtcaaggaaaag
+            ggtatactccaaggatgcaaccagatgtgtgcaggctacctcttccagccagacaagcag
+            tatgacgtctcctatgacaccggggacaaggcgattcagtgtggccgccatgtggacatc
+            ttcaagttctggctgatgtggaaagcaaagggcaccgtgggatttgaaaaccagatcaac
+            aaatgcctggagctggctgattacctctacgccaagattaaaaacagagaagagtttgag
+            atggttttcgatggtgagcctgagcacacaaatgtctgtttctggtacattccacaaagc
+            cttcgaggggttccagatagccctgagcgacgagaaaagctacacagggtggctcccaag
+            atcaaagctctgatgatggagtcaggaacaaccatggtgggctaccagcctcaaggggac
+            aaggccaacttcttccggatggtcatctctaacccagccgccacccagtctgacatcgat
+            ttcctcattgaggagatagagaggttgggtcaggatctgtaa
+///

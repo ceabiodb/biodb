@@ -1,0 +1,29 @@
+ENTRY       EC 2.6.1.29                 Enzyme
+NAME        diamine transaminase;
+            amine transaminase;
+            amine-ketoacid transaminase;
+            diamine aminotransferase;
+            diamine-ketoglutaric transaminase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     diamine:2-oxoglutarate aminotransferase
+REACTION    an alpha,omega-diamine + 2-oxoglutarate = an omega-aminoaldehyde + L-glutamate [RN:R07275]
+ALL_REAC    R07275 > R01155
+SUBSTRATE   alpha,omega-diamine [CPD:C02896];
+            2-oxoglutarate [CPD:C00026]
+PRODUCT     omega-aminoaldehyde [CPD:C02903];
+            L-glutamate [CPD:C00025]
+HISTORY     EC 2.6.1.29 created 1972
+REFERENCE   1  [PMID:14154456]
+  AUTHORS   KIM KH.
+  TITLE     PURIFICATION AND PROPERTIES OF A DIAMINE ALPHA-KETOGLUTARATE TRANSAMINASE FROM ESCHERICHIA COLI.
+  JOURNAL   J Biol Chem 239:783-6 (1964)
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec01100  Metabolic pathways
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.29
+            IUBMB Enzyme Nomenclature: 2.6.1.29
+            ExPASy - ENZYME nomenclature database: 2.6.1.29
+            BRENDA, the Enzyme Database: 2.6.1.29
+            CAS: 9031-83-8
+///

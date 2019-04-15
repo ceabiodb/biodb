@@ -9,6 +9,9 @@ r:
     - release
     - devel
 
+before_install:
+    - sudo apt-get install -y libmagick++-dev
+
 # XXX To be removed later, when R language is fixed on Travis-CI
 #before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
 

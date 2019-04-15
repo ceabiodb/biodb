@@ -1,0 +1,22 @@
+{
+	"accession": "R01641",
+	"name": "sedoheptulose-7-phosphate:D-glyceraldehyde-3-phosphate glycolaldehyde transferase",
+	"kegg.enzyme.id": "2.2.1.1",
+	"equation": "C05382 + C00118 <=> C00117 + C00231",
+	"substrates": ["C05382", "C00118"],
+	"products": ["C00117", "C00231"],
+	"kegg.pathway.id": [
+		"rn00030",
+		"rn00710",
+		"rn01100",
+		"rn01110",
+		"rn01120",
+		"rn01130",
+		"rn01200",
+		"rn01230"],
+	"kegg.module.id": [
+		"M00004",
+		"M00007",
+		"M00165",
+		"M00167"]
+}

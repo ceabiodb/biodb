@@ -1,0 +1,25 @@
+ENTRY       EC 2.6.1.71                 Enzyme
+NAME        lysine---pyruvate 6-transaminase;
+            lysine-pyruvate aminotransferase;
+            Lys-AT
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     L-lysine:pyruvate aminotransferase
+REACTION    L-lysine + pyruvate = (S)-2-amino-6-oxohexanoate + L-alanine [RN:R00453]
+ALL_REAC    R00453
+SUBSTRATE   L-lysine [CPD:C00047];
+            pyruvate [CPD:C00022]
+PRODUCT     (S)-2-amino-6-oxohexanoate [CPD:C04076];
+            L-alanine [CPD:C00041]
+HISTORY     EC 2.6.1.71 created 1990, modified 2011
+REFERENCE   1
+  AUTHORS   Schmidt, H., Bode, R. and Birnbaum, D.
+  TITLE     A novel enzyme, L-lysine : pyruvate aminotransferase, catalyses the first step of lysine catabolism in Pichia guilliermondii.
+  JOURNAL   FEMS Microbiol Lett 49:203-206 (1988)
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.71
+            IUBMB Enzyme Nomenclature: 2.6.1.71
+            ExPASy - ENZYME nomenclature database: 2.6.1.71
+            BRENDA, the Enzyme Database: 2.6.1.71
+            CAS: 114189-79-6
+///

@@ -1,0 +1,31 @@
+ENTRY       EC 3.5.1.59                 Enzyme
+NAME        N-carbamoylsarcosine amidase;
+            carbamoylsarcosine amidase
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In linear amides
+SYSNAME     N-carbamoylsarcosine amidohydrolase
+REACTION    N-carbamoylsarcosine + H2O = sarcosine + CO2 + NH3 [RN:R01563]
+ALL_REAC    R01563
+SUBSTRATE   N-carbamoylsarcosine [CPD:C01043];
+            H2O [CPD:C00001]
+PRODUCT     sarcosine [CPD:C00213];
+            CO2 [CPD:C00011];
+            NH3 [CPD:C00014]
+HISTORY     EC 3.5.1.59 created 1989
+REFERENCE   1
+  AUTHORS   Deeg, R., Roeder, A., Siedel, J., Gauhl, H. and Ziegenhorn, J.
+  TITLE     Process and reagent for the determination of N-carbamoylsarcosine with the use of a new enzyme.
+  JOURNAL   Chem Abstr 101:18751 (1984)
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K08687  N-carbamoylsarcosine amidase
+GENES       XAU: Xaut_0856
+            AZC: AZC_2464
+            PDE: Pden_4354
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.1.59
+            IUBMB Enzyme Nomenclature: 3.5.1.59
+            ExPASy - ENZYME nomenclature database: 3.5.1.59
+            BRENDA, the Enzyme Database: 3.5.1.59
+            CAS: 92767-52-7
+///

@@ -1,0 +1,45 @@
+ENTRY       EC 2.6.1.43                 Enzyme
+NAME        aminolevulinate transaminase;
+            aminolevulinate aminotransferase, gamma,delta-dioxovalerate aminotransferase;
+            gamma,delta-dioxovaleric acid transaminase;
+            4,5-dioxovalerate aminotransferase;
+            4,5-dioxovaleric acid transaminase;
+            4,5-dioxovaleric transaminase;
+            5-aminolevulinic acid transaminase;
+            alanine-gamma,delta-dioxovalerate aminotransferase;
+            alanine-dioxovalerate aminotransferase;
+            alanine:4,5-dioxovalerate aminotransferase;
+            aminolevulinic acid transaminase;
+            dioxovalerate transaminase;
+            L-alanine-4,5-dioxovalerate aminotransferase;
+            L-alanine:4,5-dioxovaleric acid transaminase;
+            L-alanine:dioxovalerate transaminase;
+            DOVA transaminase;
+            4,5-dioxovaleric acid aminotransferase
+CLASS       Transferases;
+            Transferring nitrogenous groups;
+            Transaminases
+SYSNAME     5-aminolevulinate:pyruvate aminotransferase
+REACTION    5-aminolevulinate + pyruvate = 4,5-dioxopentanoate + L-alanine [RN:R02271]
+ALL_REAC    R02271
+SUBSTRATE   5-aminolevulinate [CPD:C00430];
+            pyruvate [CPD:C00022]
+PRODUCT     4,5-dioxopentanoate [CPD:C02800];
+            L-alanine [CPD:C00041]
+COMMENT     A pyridoxal-phosphate protein.
+HISTORY     EC 2.6.1.43 created 1972
+REFERENCE   1  [PMID:13898421]
+  AUTHORS   GIBSON KD, MATTHEW M, NEUBERGER A, TAIT GH.
+  TITLE     Biosynthesis of porphyrins and chlorophylls.
+  JOURNAL   Nature 192:204-8 (1961)
+REFERENCE   2  [PMID:13938132]
+  AUTHORS   NEUBERGER A, TURNER JM.
+  TITLE     gamma,delta-Dioxovalerate aminotransferase activity in Rhodopseudomonas spheroides.
+  JOURNAL   Biochim Biophys Acta 67:342-5 (1963)
+PATHWAY     ec00860  Porphyrin and chlorophyll metabolism
+DBLINKS     ExplorEnz - The Enzyme Database: 2.6.1.43
+            IUBMB Enzyme Nomenclature: 2.6.1.43
+            ExPASy - ENZYME nomenclature database: 2.6.1.43
+            BRENDA, the Enzyme Database: 2.6.1.43
+            CAS: 9012-46-8
+///

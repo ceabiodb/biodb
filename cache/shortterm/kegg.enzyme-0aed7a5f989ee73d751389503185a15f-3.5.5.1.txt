@@ -1,0 +1,219 @@
+ENTRY       EC 3.5.5.1                  Enzyme
+NAME        nitrilase;
+            acetonitrilase;
+            benzonitrilase
+CLASS       Hydrolases;
+            Acting on carbon-nitrogen bonds, other than peptide bonds;
+            In nitriles
+SYSNAME     nitrile aminohydrolase
+REACTION    a nitrile + 2 H2O = a carboxylate + NH3 [RN:R00540]
+ALL_REAC    R00540 > R01887 R03093 R03542 R05591 R07855
+SUBSTRATE   nitrile [CPD:C00726];
+            H2O [CPD:C00001]
+PRODUCT     carboxylate [CPD:C00060];
+            NH3 [CPD:C00014]
+COMMENT     Acts on a wide range of aromatic nitriles including (indol-3-yl)acetonitrile, and also on some aliphatic nitriles, and on the corresponding acid amides. cf. EC 4.2.1.84 nitrile hydratase.
+HISTORY     EC 3.5.5.1 created 1965, modified 1989
+REFERENCE   1  [PMID:21655]
+  AUTHORS   Harper DB.
+  TITLE     Microbial metabolism of aromatic nitriles. Enzymology of C-N cleavage by Nocardia sp. (Rhodochrous group) N.C.I.B. 11216.
+  JOURNAL   Biochem J 165:309-19 (1977)
+REFERENCE   2  [PMID:14165487]
+  AUTHORS   THIMANN KV, MAHADEVAN S.
+  TITLE     NITRILASE. I. OCCURRENCE, PREPARATION, AND GENERAL PROPERTIES OF THE ENZYME.
+  JOURNAL   Arch Biochem Biophys 105:133-41 (1964)
+            DOI:10.1016/0003-9861(64)90244-9
+REFERENCE   3  [PMID:11380987]
+  AUTHORS   Pace HC, Brenner C.
+  TITLE     The nitrilase superfamily: classification, structure and function.
+  JOURNAL   Genome Biol 2:REVIEWS0001 (2001)
+PATHWAY     ec00380  Tryptophan metabolism
+            ec00460  Cyanoamino acid metabolism
+            ec00627  Aminobenzoate degradation
+            ec00643  Styrene degradation
+            ec00910  Nitrogen metabolism
+            ec01120  Microbial metabolism in diverse environments
+ORTHOLOGY   K01501  nitrilase
+GENES       CEL: CELE_ZK1058.6(nit-1)
+            CBR: CBG03597(Cbr-nit-1)
+            ATH: AT3G44300(NIT2) AT3G44310(NIT1) AT3G44320(NIT3)
+            ALY: ARALYDRAFT_323132 ARALYDRAFT_484849
+            CRB: 17877697 17886221
+            CSAT: 104710891 104773049 104780280 104790687 104790689
+            EUS: EUTSA_v10010499mg EUTSA_v10010504mg EUTSA_v10023557mg
+            BRP: 103848073 103851084(NIT-T1) 103856931(BrNIT3) 103865089(BrNIT1)
+            BNA: 106348366 106354428 106402388 106403172 106425068 106437374
+            BOE: 106320293 106327314 106333257 106339483
+            RCU: 8268610
+            OSA: 4330076
+            DOSA: Os02t0635000-01(Os02g0635000)
+            BDI: 100822233
+            SBI: 8074792
+            ZMA: 542573(NIT1)
+            SITA: 101766965
+            LTH: KLTH0E00330g
+            PPA: PAS_chr2-1_0037
+            DHA: DEHA2D00990g
+            PIC: PICST_36697(NIT1)
+            CLU: CLUG_04100
+            CLUS: A9F13_01g00077
+            NCR: NCU05387
+            PAN: PODANSg6829
+            MGR: MGG_03280
+            FOX: FOXG_11025
+            NHE: NECHADRAFT_30373
+            MAW: MAC_09596
+            MAJ: MAA_08327
+            SSL: SS1G_10951
+            ANI: AN7367.2
+            AFM: AFUA_6G13450
+            AOR: AO090003000470
+            ANG: ANI_1_1394104(An12g01260) ANI_1_254054(An06g01960)
+            AFV: AFLA_033490
+            ACT: ACLA_086750
+            NFI: NFIA_059410
+            PCS: Pc22g01000 Pc22g07020
+            CIM: CIMG_10233
+            CPW: CPC735_013280
+            PBL: PAAG_04639
+            PBN: PADG_04797
+            URE: UREG_03497
+            PNO: SNOG_02380
+            BZE: COCCADRAFT_106140 COCCADRAFT_83227
+            TML: GSTUM_00003299001
+            TCR: 510039.40
+            DDA: Dd703_3697
+            DDD: Dda3937_04568
+            DZE: Dd1591_2288
+            PAO: Pat9b_1901
+            FAU: Fraau_0752
+            VEJ: VEJY3_18251
+            PAP: PSPA7_3027
+            PPUH: B479_13035
+            PFL: PFL_2909
+            PPRC: PFLCHA0_c29550(nitA)
+            PFO: Pfl01_2571
+            PFS: PFLU_2708
+            PFE: PSF113_2665
+            PFC: PflA506_2986
+            PPZ: H045_09705
+            PEN: PSEEN3513
+            PBA: PSEBR_a3130
+            PPUU: PputUW4_02136 PputUW4_02461
+            PAR: Psyc_0202
+            PCR: Pcryo_0222
+            SSE: Ssed_0525
+            SPL: Spea_2863
+            SHL: Shal_2959
+            SVO: SVI_3911
+            PHA: PSHAa2676
+            PAT: Patl_0189 Patl_2399
+            MBS: MRBBS_2036
+            AMC: MADE_1001325
+            GAG: Glaag_4118
+            KKO: Kkor_0639
+            ASA: ASA_2402
+            PSE: NH8B_1273
+            RSL: RPSI07_mp0987(nit)
+            BVI: Bcep1808_0666
+            BVE: AK36_140
+            BUR: Bcep18194_A3790
+            BCN: Bcen_0220
+            BCH: Bcen2424_0704
+            BCM: Bcenmc03_0671
+            BCJ: BCAL3323
+            BCEN: DM39_513(nit2)
+            BCEW: DM40_1397(nit4)
+            BCEO: I35_0552
+            BAM: Bamb_0595
+            BAC: BamMC406_0620
+            BMU: Bmul_2680
+            BMJ: BMULJ_00558
+            BMK: DM80_966(nit2)
+            BCT: GEM_2822
+            BCED: DM42_1138(nit2)
+            BPYR: ABD05_09095
+            BCON: NL30_20595
+            BUB: BW23_1032
+            BGL: bglu_1g01570
+            BGD: bgla_1g01700
+            BUK: MYA_0610
+            PNU: Pnuc_1777
+            BBR: BB1116
+            BBM: BN115_1062
+            BBH: BN112_2334
+            BBX: BBS798_1084
+            BPDZ: BBN53_01000
+            AXY: AXYL_01231(nit1) AXYL_01249(nit2)
+            POL: Bpro_3376
+            PNA: Pnap_4743
+            AAA: Acav_4464
+            MMS: mma_2480
+            DAR: Daro_3329
+            CJE: Cj1056c
+            CJJ: CJJ81176_1076
+            CJR: CJE1199
+            CFF: CFF8240_0615
+            CCV: CCV52592_0982
+            CHA: CHAB381_0911
+            SFU: Sfum_2312
+            MES: Meso_0079
+            SFH: SFHH103_06513(nit)
+            BJA: blr3397(nit)
+            RPA: RPA4166
+            RPT: Rpal_4645
+            RPX: Rpdx1_4378
+            XAU: Xaut_1567
+            MEA: Mex_2p1120
+            MDI: METDI2664
+            CAK: Caul_5248
+            OAT: OAN307_c22280
+            MMR: Mmar10_1113
+            ZMO: ZMO1207
+            ZMN: Za10_0124
+            SWI: Swit_2469
+            ABS: AZOBR_p350044(nitA)
+            GMC: GY4MC1_1997
+            GTH: Geoth_2087
+            BSE: Bsel_2856
+            BBE: BBR47_51710
+            CKL: CKL_2025
+            CKR: CKR_1770
+            CDF: CD630_28420
+            PDC: CDIF630_03109(nit)
+            CDC: CD196_2686
+            CDL: CDR20291_2733
+            PDF: CD630DERM_28420
+            NTH: Nther_1072
+            HPK: Hprae_1182
+            MED: MELS_1676
+            AFN: Acfer_0950
+            MSM: MSMEG_1120 MSMEG_5373
+            MSG: MSMEI_1088
+            NBR: O3I_007265
+            RHA: RHA1_ro03332 RHA1_ro03335
+            AAU: AAur_0337
+            PDX: Psed_2545
+            RXY: Rxyl_0235
+            SYF: Synpcc7942_0839
+            PMG: P9301_13131
+            PSL: Psta_3064
+            SUS: Acid_5967
+            SLI: Slin_1649
+            RSI: Runsl_5495
+            MTT: Ftrac_1361
+            CAT: CA2559_04585
+            FBC: FB2170_08229
+            CAO: Celal_0969
+            CLY: Celly_0836
+            KDI: Krodi_1527
+            LAN: Lacal_0657
+            CPB: Cphamn1_1310
+            HMA: pNG7354(nitB)
+DBLINKS     ExplorEnz - The Enzyme Database: 3.5.5.1
+            IUBMB Enzyme Nomenclature: 3.5.5.1
+            ExPASy - ENZYME nomenclature database: 3.5.5.1
+            UM-BBD (Biocatalysis/Biodegradation Database): 3.5.5.1
+            BRENDA, the Enzyme Database: 3.5.5.1
+            CAS: 9024-90-2
+///

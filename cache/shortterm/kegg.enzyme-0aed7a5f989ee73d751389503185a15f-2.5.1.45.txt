@@ -1,0 +1,35 @@
+ENTRY       EC 2.5.1.45                 Enzyme
+NAME        homospermidine synthase (spermidine-specific)
+CLASS       Transferases;
+            Transferring alkyl or aryl groups, other than methyl groups;
+            Transferring alkyl or aryl groups, other than methyl groups (only sub-subclass identified to date)
+SYSNAME     spermidine:putrescine 4-aminobutyltransferase (propane-1,3-diamine-forming)
+REACTION    spermidine + putrescine = sym-homospermidine + propane-1,3-diamine [RN:R01919]
+ALL_REAC    R01919
+SUBSTRATE   spermidine [CPD:C00315];
+            putrescine [CPD:C00134]
+PRODUCT     sym-homospermidine [CPD:C06366];
+            propane-1,3-diamine [CPD:C00986]
+COMMENT     The reaction of this enzyme occurs in three steps, with some of the intermediates presumably remaining enzyme-bound: (a) NAD+-dependent dehydrogenation of spermidine, (b) transfer of the 4-aminobutylidene group from dehydrospermidine to putrescine and (c) reduction of the imine intermediate to form homospermidine. This enzyme is more specific than EC 2.5.1.44, homospermidine synthase, which is found in bacteria, as it cannot use putrescine as donor of the 4-aminobutyl group. Forms part of the biosynthetic pathway of the poisonous pyrrolizidine alkaloids of the ragworts (Senecio).
+HISTORY     EC 2.5.1.45 created 2001
+REFERENCE   1
+  AUTHORS   Bottcher, F., Ober, D. and Hartmann, T.
+  TITLE     Biosynthesis of pyrrolizidine alkaloids: putrescine and spermidine are essential substrates of enzymatic homospermidine formation.
+  JOURNAL   Can J Chem 72:80-85 (1994)
+REFERENCE   2  [PMID:10611289]
+  AUTHORS   Ober D, Hartmann T.
+  TITLE     Homospermidine synthase, the first pathway-specific enzyme of pyrrolizidine alkaloid biosynthesis, evolved from deoxyhypusine synthase.
+  JOURNAL   Proc Natl Acad Sci U S A 96:14777-82 (1999)
+            DOI:10.1073/pnas.96.26.14777
+  SEQUENCE  [ag:CAB65462]
+REFERENCE   3  [PMID:11117878]
+  AUTHORS   Bode HB, Zeeck A
+  TITLE     UV mutagenesis and enzyme inhibitors as tools to elucidate the late biosynthesis  of the spirobisnaphthalenes.
+  JOURNAL   Phytochemistry 55:311-6 (2000)
+            DOI:10.1016/S0031-9422(00)00307-1
+ORTHOLOGY   K21300  homospermidine synthase (spermidine-specific)
+DBLINKS     ExplorEnz - The Enzyme Database: 2.5.1.45
+            IUBMB Enzyme Nomenclature: 2.5.1.45
+            ExPASy - ENZYME nomenclature database: 2.5.1.45
+            BRENDA, the Enzyme Database: 2.5.1.45
+///

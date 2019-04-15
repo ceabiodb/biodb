@@ -1,0 +1,273 @@
+ENTRY       EC 6.3.1.11                 Enzyme
+NAME        glutamate---putrescine ligase;
+            gamma-glutamylputrescine synthetase;
+            YcjK
+CLASS       Ligases;
+            Forming carbon-nitrogen bonds;
+            Acid-D-ammonia (or amine) ligases (amide synthases)
+SYSNAME     L-glutamate:putrescine ligase (ADP-forming)
+REACTION    ATP + L-glutamate + putrescine = ADP + phosphate + gamma-L-glutamylputrescine [RN:R07414]
+ALL_REAC    R07414
+SUBSTRATE   ATP [CPD:C00002];
+            L-glutamate [CPD:C00025];
+            putrescine [CPD:C00134]
+PRODUCT     ADP [CPD:C00008];
+            phosphate [CPD:C00009];
+            gamma-L-glutamylputrescine [CPD:C15699]
+COMMENT     Forms part of a novel bacterial putrescine utilization pathway in Escherichia coli.
+HISTORY     EC 6.3.1.11 created 2005
+REFERENCE   1  [PMID:15590624]
+  AUTHORS   Kurihara S, Oda S, Kato K, Kim HG, Koyanagi T, Kumagai H, Suzuki H.
+  TITLE     A novel putrescine utilization pathway involves gamma-glutamylated intermediates of Escherichia coli K-12.
+  JOURNAL   J Biol Chem 280:4602-8 (2005)
+            DOI:10.1074/jbc.M411114200
+  SEQUENCE  [eco:b1297]
+PATHWAY     ec00330  Arginine and proline metabolism
+            ec01100  Metabolic pathways
+ORTHOLOGY   K09470  gamma-glutamylputrescine synthase
+GENES       ECO: b1297(puuA)
+            ECJ: JW5201(puuA)
+            ECD: ECDH10B_1414(puuA)
+            EBW: BWG_1129(puuA)
+            ECOK: ECMDS42_1095(puuA)
+            ECE: Z2491
+            ECS: ECs1874
+            ECF: ECH74115_1939(puuA)
+            ETW: ECSP_1822(puuA)
+            ELX: CDCO157_1794
+            EOJ: ECO26_1864(puuA)
+            EOI: ECO111_1680(puuA)
+            EOH: ECO103_1461(puuA)
+            ECOO: ECRM13514_1722
+            ECOH: ECRM13516_1688
+            EOK: G2583_1644(puuA)
+            ELR: ECO55CA74_08005
+            ESO: O3O_11785
+            ESM: O3M_13820
+            ESL: O3K_13845
+            ECW: EcE24377A_1506(puuA)
+            ELH: ETEC_1401
+            EUN: UMNK88_1630 UMNK88_1631
+            ECX: EcHS_A1412(puuA)
+            ECM: EcSMS35_1825(puuA)
+            ECY: ECSE_1349
+            ECR: ECIAI1_1322(puuA)
+            ECK: EC55989_1459(puuA)
+            ECT: ECIAI39_1648(puuA)
+            EOC: CE10_1545(puuA)
+            EUM: ECUMN_1603(puuA)
+            ELO: EC042_1425(puuA)
+            ECL: EcolC_2328
+            EBR: ECB_01274(ycjK)
+            EBD: ECBD_2320
+            EKO: EKO11_2553
+            EKF: KO11_16325(puuA)
+            EDH: EcDH1_2349
+            EDJ: ECDH1ME8569_1239(puuA)
+            ELW: ECW_m1393(puuA)
+            ELL: WFL_06790(puuA)
+            ELP: P12B_c1797(puuA)
+            EBL: ECD_01274(puuA)
+            EBE: B21_01285(puuA)
+            ECOA: APECO78_10360
+            ECOL: LY180_06605
+            EAL: EAKF1_ch0121(puuA)
+            SFL: SF1302
+            SFX: S1384
+            SFV: SFV_1311
+            SFE: SFxv_1475(puuA)
+            SFN: SFy_1870
+            SFS: SFyv_1927
+            SFT: NCTC1_01377(puuA)
+            SSN: SSON_1843
+            SBO: SBO_1765
+            SBC: SbBS512_E1533(puuA)
+            SDZ: Asd1617_02624
+            SHQ: A0259_10610
+            ENC: ECL_02225
+            ENO: ECENHK_09945 ECENHK_15025
+            ENL: A3UG_10020 A3UG_15575
+            ECLG: EC036_19410
+            ECLN: ECNIH4_07635 ECNIH4_12700
+            EAS: Entas_2914
+            EAU: DI57_04170 DI57_08920
+            EKB: BFV64_10370
+            EEC: EcWSU1_03061(puuA)
+            ELG: BH714_11365
+            ECAN: CWI88_14355
+            ERN: BFV67_09515 BFV67_14610
+            ECLS: LI67_011095 LI67_016160
+            ENR: H650_07825
+            ENX: NI40_015070
+            ENF: AKI40_4007
+            ESA: ESA_02078
+            CSK: ES15_0194 ES15_2235(puuA)
+            CSZ: CSSP291_09880 CSSP291_19610
+            CSJ: CSK29544_01154 CSK29544_03371
+            CCON: AFK62_18985
+            CDM: AFK67_08765 AFK67_19615
+            CSI: P262_00299 P262_03228
+            CMJ: AFK66_001035 AFK66_010915
+            CUI: AFK65_08625 AFK65_18695
+            CMW: AFK63_09865 AFK63_19645
+            CTU: CTU_18860(puuA)
+            KPN: KPN_01021
+            KPU: KP1_2006
+            KPM: KPHS_18960
+            KPP: A79E_3212
+            KPH: KPNIH24_19030
+            KPZ: KPNIH27_08955
+            KPV: KPNIH29_09485
+            KPW: KPNIH30_10000
+            KPY: KPNIH31_09375
+            KPG: KPNIH32_09840
+            KPC: KPNIH10_09495
+            KPQ: KPR0928_09665
+            KPT: VK055_1456(puuA)
+            KPE: KPK_3539(puuA)
+            KPO: KPN2242_08165
+            KPR: KPR_3501(puuA)
+            KPJ: N559_3266
+            KPI: D364_05310
+            KPA: KPNJ1_03507
+            KPS: KPNJ2_03496
+            KPX: PMK1_03361(puuA)
+            KPB: FH42_00960
+            KPNE: KU54_016660
+            KPNU: LI86_16970
+            KPNK: BN49_2109(puuA)
+            KVA: Kvar_3358
+            KPK: A593_19605
+            KVD: KR75_17275
+            KVQ: SP68_23655
+            KOX: KOX_16935
+            KOE: A225_2235
+            KOY: J415_20600
+            KOM: HR38_15455
+            KMI: VW41_06405 VW41_14385
+            KOK: KONIH1_10935
+            KOC: AB185_25200
+            KQU: AVR78_13935
+            EAE: EAE_15935
+            EAR: CCG30720
+            KQV: B8P98_18165
+            KLL: BJF97_11210
+            CRO: ROD_03561(puuA)
+            CFD: CFNIH1_11625
+            CBRA: A6J81_11665
+            CYO: CD187_18785
+            CIE: AN232_24810
+            ROR: RORB6_09555
+            RON: TE10_11025
+            RAO: DSD31_16190
+            CNT: JT31_05805 JT31_20735
+            CEM: LH23_12125 LH23_20340
+            CEN: LH86_11535 LH86_18975
+            CLAP: NCTC11466_03162(puuA)
+            PGE: LG71_13300
+            ESC: Entcl_1710
+            KLE: AO703_13440 AO703_14000
+            KSA: C813_22630
+            KRD: A3780_16470
+            LAZ: A8A57_07995
+            LEF: LJPFL01_2811
+            LNI: CWR52_20020
+            EBF: D782_2781
+            EBU: CUC76_06180
+            PSTS: E05_49370
+            SPE: Spro_2068 Spro_3216
+            SRR: SerAS9_0522 SerAS9_2005 SerAS9_3356
+            SRL: SOD_c04620(puuA1) SOD_c18800(puuA2) SOD_c31290(puuA)
+            SRY: M621_02375 M621_10370 M621_17055
+            SPLY: Q5A_002500(puuA_1) Q5A_010400(puuA_2) Q5A_017000(puuA_3)
+            SRS: SerAS12_0522 SerAS12_2005 SerAS12_3357
+            SRA: SerAS13_0522 SerAS13_2006 SerAS13_3359
+            SMAF: D781_0539 D781_1892
+            SMW: SMWW4_v1c05240 SMWW4_v1c20870 SMWW4_v1c33120
+            SMAR: SM39_1531(puuA) SM39_2780 SM39_4908
+            SMAC: SMDB11_1341(puuA) SMDB11_2544 SMDB11_4654
+            SLQ: M495_02295 M495_10025 M495_16450
+            SERF: L085_01440 L085_12115 L085_18330
+            SERS: SERRSCBI_02540 SERRSCBI_09780 SERRSCBI_15985
+            SFW: WN53_19620 WN53_24965
+            SFG: AV650_14995 AV650_20605
+            SRZ: AXX16_3237 AXX16_4570
+            SERM: CLM71_02615 CLM71_09395
+            SFO: Z042_02945 Z042_23800
+            RAH: Rahaq_1578
+            RAQ: Rahaq2_1642
+            RAA: Q7S_07630
+            ROX: BV494_03025 BV494_18795
+            SOD: Sant_1485(puuA)
+            CED: LH89_04065
+            DFN: CVE23_08755
+            EBI: EbC_29010
+            EGE: EM595_2349(puuA)
+            EPE: CI789_04205
+            PAM: PANA_2462(puuA)
+            PLF: PANA5342_1624(ycjK)
+            PAJ: PAJ_1759(puuA)
+            PAQ: PAGR_g1567
+            PVA: Pvag_1945(ycjK)
+            PAGG: AL522_16620
+            PAO: Pat9b_2554
+            KLN: LH22_09820
+            PANT: PSNIH1_15795
+            PANP: PSNIH2_05250
+            PAGC: BEE12_00315
+            PSTW: DSJ_15835
+            PALH: B1H58_14675
+            PGZ: C2E15_13340
+            PCD: C2E16_13550
+            HAV: AT03_07550
+            HPAR: AL518_18040
+            OPO: DSM2777_12835
+            KIN: AB182_12295
+            VPB: VPBB_1637
+            VPK: M636_13180
+            VPF: M634_10405
+            VPH: VPUCM_1860
+            VAG: N646_0402
+            VNA: PN96_04975
+            VEJ: VEJY3_08300
+            VFU: vfu_A02176
+            VFL: AL536_14615
+            VBR: A6E01_13670
+            VSH: BSZ05_19070
+            ABC: ACICU_02336
+            ABN: AB57_2469
+            ABB: ABBFA_001330
+            ABX: ABK1_1353
+            ABZ: ABZJ_02488
+            ABR: ABTJ_01407
+            ABD: ABTW07_2528
+            ABH: M3Q_2584
+            ABAD: ABD1_21350
+            ABJ: BJAB07104_02492
+            ABAB: BJAB0715_02519
+            ABAJ: BJAB0868_02375
+            ABAZ: P795_6275
+            ABK: LX00_11555
+            ABAU: IX87_06670
+            ABAA: IX88_13220
+            ABW: BL01_17250
+            ABAL: ABLAC_13710
+            ACC: BDGL_001623(puuA)
+            ANO: RR32_07165
+            ALC: OTEC02_06675
+            ACAL: BUM88_12160
+            ACD: AOLE_06470
+            AJO: RZ95_14110
+            ACW: A0J50_06445
+            ASOL: BEN76_01595
+            ARJ: DOM24_09745
+            HAA: A5892_00915
+            ASR: WL1483_2278(puuA)
+            OCE: GU3_14525
+            ZDF: AN401_15160
+DBLINKS     ExplorEnz - The Enzyme Database: 6.3.1.11
+            IUBMB Enzyme Nomenclature: 6.3.1.11
+            ExPASy - ENZYME nomenclature database: 6.3.1.11
+            BRENDA, the Enzyme Database: 6.3.1.11
+            CAS: 914090-78-1
+///

@@ -114,7 +114,7 @@ BiodbRequestScheduler$methods( downloadFile = function(url, dest.file) {
 	# Wait required time between two requests
 	rule$wait.as.needed()
 
-	utils::download.file(url = url, destfile = dest.file, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
+	utils::download.file(url = url$toString(), destfile = dest.file, mode = 'wb', method = 'libcurl', cacheOK = FALSE, quiet = TRUE)
 })
 
 # Private methods {{{1

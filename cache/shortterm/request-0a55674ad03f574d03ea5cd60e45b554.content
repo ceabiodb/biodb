@@ -1,0 +1,19 @@
+ENTRY       R01290                      Reaction
+NAME        L-serine hydro-lyase (adding homocysteine; L-cystathionine-forming)
+DEFINITION  L-Serine + L-Homocysteine <=> L-Cystathionine + H2O
+EQUATION    C00065 + C00155 <=> C02291 + C00001
+COMMENT     multi-step reaction (hydro-lyase, L-homocysteine-lyase)
+RCLASS      RC00069  C00155_C02291
+            RC00489  C00065_C02291
+ENZYME      4.2.1.22
+PATHWAY     rn00260  Glycine, serine and threonine metabolism
+            rn00270  Cysteine and methionine metabolism
+            rn01100  Metabolic pathways
+            rn01130  Biosynthesis of antibiotics
+            rn01230  Biosynthesis of amino acids
+MODULE      M00035  Methionine degradation
+            M00338  Cysteine biosynthesis, homocysteine + serine => cysteine
+ORTHOLOGY   K01697  cystathionine beta-synthase [EC:4.2.1.22]
+            K10150  cysteine synthase / O-phosphoserine sulfhydrylase / cystathionine beta-synthase [EC:2.5.1.47 2.5.1.65 4.2.1.22]
+DBLINKS     RHEA: 10115
+///

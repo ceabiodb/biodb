@@ -1,0 +1,80 @@
+ENTRY       26876             CDS       T01002
+NAME        Adh4, Adh2
+DEFINITION  (RefSeq) alcohol dehydrogenase 4 (class II), pi polypeptide
+ORTHOLOGY   K13980  alcohol dehydrogenase 4 [EC:1.1.1.1]
+ORGANISM    mmu  Mus musculus (mouse)
+PATHWAY     mmu00010  Glycolysis / Gluconeogenesis
+            mmu00071  Fatty acid degradation
+            mmu00350  Tyrosine metabolism
+            mmu00830  Retinol metabolism
+            mmu00980  Metabolism of xenobiotics by cytochrome P450
+            mmu00982  Drug metabolism - cytochrome P450
+            mmu01100  Metabolic pathways
+            mmu05204  Chemical carcinogenesis
+BRITE       KEGG Orthology (KO) [BR:mmu00001]
+             09100 Metabolism
+              09101 Carbohydrate metabolism
+               00010 Glycolysis / Gluconeogenesis
+                26876 (Adh4)
+              09103 Lipid metabolism
+               00071 Fatty acid degradation
+                26876 (Adh4)
+              09105 Amino acid metabolism
+               00350 Tyrosine metabolism
+                26876 (Adh4)
+              09108 Metabolism of cofactors and vitamins
+               00830 Retinol metabolism
+                26876 (Adh4)
+              09111 Xenobiotics biodegradation and metabolism
+               00980 Metabolism of xenobiotics by cytochrome P450
+                26876 (Adh4)
+               00982 Drug metabolism - cytochrome P450
+                26876 (Adh4)
+             09160 Human Diseases
+              09161 Cancers: Overview
+               05204 Chemical carcinogenesis
+                26876 (Adh4)
+            Enzymes [BR:mmu01000]
+             1. Oxidoreductases
+              1.1  Acting on the CH-OH group of donors
+               1.1.1  With NAD+ or NADP+ as acceptor
+                1.1.1.1  alcohol dehydrogenase
+                 26876 (Adh4)
+POSITION    3; 3 G3
+MOTIF       Pfam: ADH_N ADH_zinc_N ADH_zinc_N_2 AlaDh_PNT_C UDPG_MGDP_dh_N
+DBLINKS     NCBI-GeneID: 26876
+            NCBI-ProteinID: NP_036126
+            MGI: 1349472
+            Ensembl: ENSMUSG00000037797
+            Vega: OTTMUSG00000030507
+            UniProt: Q9QYY9
+STRUCTURE   PDB: 1E3I 1E3E 1E3L
+AASEQ       377
+            MGTQGKVIKCKAAIAWKTGSPLCIEEIEVSPPKACEVRIQVIATCVCPTDINATDPKKKA
+            LFPVVLGHECAGIVESVGPGVTNFKPGDKVIPFFAPQCKRCKLCLSPLTNLCGKLRNFKY
+            PTIDQELMEDRTSRFTCKGRSIYHFMGVSSFSQYTVVSEANLARVDDEANLERVCLIGCG
+            FSSGYGAAINTAKVTPSSTCAVFGLGCVGLSAIIGCKIAGASRIIAIDINGEKFPKAKAL
+            GATDCLNPRELDKPVQDVITELTAGGVDYSLDCAGTAQTLKAAVDCTVLGWGSCTVVGAK
+            VDKMTIPTVDVILGRSINGTFFGGWKSVDSVPNLVSDYKNKKFDLDLLVTHALPFESIND
+            AIDLMKEGKSIRTILTF
+NTSEQ       1134
+            atgggcacccagggaaaagttattaaatgcaaggcagccattgcctggaaaactggcagt
+            cccctttgcattgaagaaattgaggtgtcccctcctaaagcttgtgaggttcggattcag
+            gtaatcgccacgtgtgtgtgccctactgacatcaatgccaccgatcctaagaagaaagct
+            ctcttcccggtagtccttggtcatgagtgtgcaggaattgtagaaagtgttgggccggga
+            gtgaccaacttcaaaccaggtgacaaagtaatcccattctttgcaccacagtgcaaaagg
+            tgcaagctctgtctgagccctctcacaaacctctgtggaaaactccgaaacttcaaatac
+            cccactattgatcaggagctcatggaagacagaaccagcaggtttacctgcaaaggaaga
+            tcaatttaccatttcatgggcgtcagttcattctctcaatacactgtggtttcagaggcc
+            aatcttgccagagtcgatgatgaggcaaacttggagagagtgtgtctgattggatgtggg
+            ttctcatcaggctacggggctgccatcaatactgccaaggtcacccccagttccacttgt
+            gctgtctttggcctggggtgtgtaggtctttctgccataattgggtgtaaaatagcaggt
+            gcttccagaatcatagctattgacatcaacggtgagaagttcccaaaagccaaggccctg
+            ggagccactgactgcctgaatcccagggagctagacaaacctgtccaggatgtcatcact
+            gagctgacagctggaggtgtggattactcccttgactgtgcaggaacagctcagaccttg
+            aaagcagctgtggactgcactgtattaggctgggggtcgtgcactgtggtcggagcaaag
+            gttgacaaaatgactatacccaccgtggacgttatattgggccgttctataaatggaaca
+            ttctttggtggttggaaaagtgtagactctgtcccaaacctggtttctgactacaagaat
+            aagaaattcgatctggacttactggtgacccatgccctacctttcgagagcataaatgat
+            gccattgacctgatgaaggaaggaaaaagcatccgaacaatcctgaccttctga
+///
