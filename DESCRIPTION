@@ -16,7 +16,9 @@ Suggests:
 	devtools,
 	testthat (>= 2.0.0),
 	knitr,
-	rmarkdown
+	rmarkdown,
+	igraph,
+	magick
 Imports:
 	Rcpp,
 	methods,
@@ -124,5 +126,5 @@ Collate:
     'UniprotConn.R'
     'UniprotEntry.R'
     'biodb-package.R'
-    'massdb-helper.R'
+    'mass_helpers.R'
     'spec-dist.R'

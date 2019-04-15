@@ -15,23 +15,33 @@ vignette: |
 
 # Introduction
 
-In this vignette, we will try to find biological links between compounds inside a same organism. We will start from a given list of KEGG compound IDs, and explore KEGG to find to which organisms they can be related and try to discover links between them through KEGG pathways.
+In this vignette, we will:
+ * Look for pathways related to specified compounds.
+ * Count to how many pathways each compound is related.
+ * Build a pathway graph.
+ * Create a decorated pathway graph picture.
+
+For that we will start from a given list of KEGG compound IDs, and explore KEGG to find to which organisms they can be related and try to discover links between them through KEGG pathways.
 
 As an example, we will start for a predefined list of KEGG compound IDs, and focus on one organism, the mouse.
 
+# Initializing the library
+
 First we need to create an instance of the `Biodb` class:
-```{r}
+```{r Initializing Biodb}
 mybiodb = biodb::Biodb()
 ```
 
-Then we need a connector to the KEGG Compound database:
+# Creating a connector
+
+We need a connector to the KEGG Compound database:
 ```{r}
-kegg.comp.conn = mybiodb$getFactory()$createConn('kegg.compound')
+kegg.comp.conn = mybiodb$getFactory()$getConn('kegg.compound')
 ```
 
-# Getting KEGG compound entries
+# List of compound IDs
 
-We start with a predefined list of KEGG compound IDs:
+We will use the following list of compounds as a start in our search:
 ```{r}
 kegg.comp.ids = c('C02648', 'C06144', 'C06178', 'C02659', 'C02659',
                   'C01746', 'C01746', 'C00741', 'C01770', 'C01771',
@@ -42,68 +52,20 @@ kegg.comp.ids = c('C02648', 'C06144', 'C06178', 'C02659', 'C02659',
                   'C02019', 'C08497', 'C16310', 'C11118', 'C02240')
 ```
 
-# Getting the organism and the pathways
+# Look for pathways related to specified compounds
 
-Now that we have a list of compounds from which to start our search, we will find in which organism these compounds may be found. If the compound can be related to the mouse (`"mmu"` code in KEGG), we will then list all the pathways related to this compound and store them for later processing.
-
-To know the organism, we will have to get the KEGG Gene entries related to the compound, since the organism information is stored in Genes database.
-In order to get the genes, we will have first to go through the KEGG Enzyme database.
-
-Note that pathways may be listed in any entry of these three databases (Compound, Enzyme and Genes). For this example, we will only use pathways stored in the Genes entries.
-
-First we need to create new connectors, for accessing KEGG Enzyme and KEGG Genes databases:
+Given a list of compounds and an organism, we can look for pathways in a single command:
 ```{r}
-kegg.enz.conn = mybiodb$getFactory()$createConn('kegg.enzyme')
-kegg.gen.conn = mybiodb$getFactory()$createConn('kegg.genes')
-```
-
-We create an empty list in which to store the pathways found for each compound.
-```{r}
-comp.mmu.gene.pathways = list()
-```
-This variable will therefore be a list of lists.
-
-```{r}
-# We start by looping on all compound IDs:
-for (comp.id in kegg.comp.ids) {
-
-	# First of all we get the compound entry corresponding to this ID:
-	comp = kegg.comp.conn$getEntry(comp.id)
-
-	# Then we loop on all enzymes referenced by this compound:
-	if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id')) {
-		for (enz in kegg.enz.conn$getEntry(comp$getFieldValue('kegg.enzyme.id'), drop = FALSE)) {
-
-			# For each enzyme, we loop on all the genes it references:
-			if ( ! is.null(enz) && enz$hasField('kegg.genes.id')) {
-
-				# We skip non mouse genes
-				genes_ids = enz$getFieldValue('kegg.genes.id')
-				mmu_genes_ids = genes_ids[grep('^mmu:', genes_ids)]
-
-				for (gene in kegg.gen.conn$getEntry(mmu_genes_ids, drop = FALSE)) {
-
-					# We test if this gene is related to the mouse:
-					if ( ! is.null(gene) && gene$hasField('kegg.organism.code') && gene$getFieldValue('kegg.organism.code') == 'mmu') {
-
-						# We access the list of pathways to which this gene is related, and store it in our variable:
-						if (gene$hasField('kegg.pathway.id')) {
-							comp.mmu.gene.pathways[[comp.id]] = unique(c(comp.mmu.gene.pathways[[comp.id]], gene$getFieldValue('kegg.pathway.id')))
-						}
-					}
-				}
-			}
-		}
-	}
-}
+pathways = kegg.comp.conn$getPathwayIds(kegg.comp.ids, 'mmu')
+pathways
 ```
 
 # Count to how many pathways each compound is related
 
-Now we will loop on all the original compounds, and count for each of them the number of pathways to which they are related.
-
+With another function we can get the pathways found for each compound:
 ```{r}
-nb_mmu_gene_pathways = vapply(kegg.comp.ids, function(i) if (i %in% names(comp.mmu.gene.pathways)) length(comp.mmu.gene.pathways[[i]]) else 0, FUN.VALUE = 0)
+path.per.comp = kegg.comp.conn$getPathwayIdsPerCompound(kegg.comp.ids, 'mmu')
+nb_mmu_gene_pathways = vapply(kegg.comp.ids, function(i) if (i %in% names(path.per.comp)) length(path.per.comp[[i]]) else 0, FUN.VALUE = 0)
 names(nb_mmu_gene_pathways) = kegg.comp.ids
 ```
 
@@ -112,9 +74,48 @@ Here, in the final table, we list the number of pathways for each KEGG compound:
 nb_mmu_gene_pathways
 ```
 
+# Build a pathway graph
+
+To build a pathway graph, we need a connector to the KEGG Pathway database:
+```{r Getting a connector to the KEGG Pathway database}
+kegg.path.conn = mybiodb$getFactory()$getConn('kegg.pathway')
+```
+
+Now we build the graph for the first pathway found:
+```{r Building a pathway graph}
+graph = kegg.path.conn$buildPathwayGraph(pathways[[1]])
+```
+
+And we plot it:
+```{r Plotting the pathway graph}
+plot(graph, layout = igraph::layout_with_kk)
+```
+
+# Create a decorated pathway graph picture
+
+We will now use a KEGG pathway picture and highlight some of the enzymes and compounds on it.
+
+For this, we first define the colors we want to apply:
+```{r Attributing colors to entries}
+c = list(yellow = c('4.2.1.22', '4.2.3.1', '3.5.4.44', '2.7.2.4',
+                    '1.2.1.8', '4.1.2.48'),
+         green = c('C00101', 'C00168', 'C01026', 'C00581', 'C00014',
+                   'C05519'))
+```
+
+Then we call the method:
+```{r Creating a decorated pathway picture}
+img = kegg.path.conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
+```
+
+Finally we plot it:
+```{r Plotting}
+plot(img)
+```
+
 # Terminate the biodb instance
 
 Once we are done with Biodb, we need to terminate properly the `Biodb` instance:
-```{r}
+```{r Terminating the Biodb instance}
 mybiodb$terminate()
 ```

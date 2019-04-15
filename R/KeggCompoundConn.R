@@ -24,8 +24,13 @@
 #' @param mass      Single mass.
 #' @param mass.min  Minimal mass.
 #' @param mass.max  Maximal mass.
+#' @param id        A character vector of entry IDs.
+#' @param org       The organism in which to search for pathways, as a KEGG
+#'                  organism code (3-4 letters code, like "hsa", "mmu", ...).
+#'                  See https://www.genome.jp/kegg/catalog/org_list.html for a
+#'                  complete list of KEGG organism codes.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -39,6 +44,9 @@
 #'
 #' # Search for compounds by molecular weight 
 #' conn$ws.find.molecular.weight(mass = 300, retfmt = 'parsed')
+#'
+#' # Get pathway IDs related to compounds
+#' pathway.ids = conn$getPathwayIds(c('C02648', 'C06144'), org = 'mmu')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -200,6 +208,40 @@ KeggCompoundConn$methods( searchCompound = function(name = NULL, mass = NULL, ma
 
 KeggCompoundConn$methods( getEntryImageUrl = function(id) {
 	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'Fig', 'compound', paste(x, 'gif', sep = '.')))$toString(), FUN.VALUE = ''))
+})
+
+# Get pathway IDs per compound {{{1
+################################################################
+
+KeggCompoundConn$methods( getPathwayIdsPerCompound = function(id, org) {
+	"Get organism pathways for each compound. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves for each compound the KEGG pathways of the organism in which the compound is involved. It returns a named list of KEGG pathway ID vectors, where the names of the list are the compound IDs."
+
+	comp.mmu.gene.pathways = list()
+
+    kegg.enz.conn = .self$getBiodb()$getFactory()$getConn('kegg.enzyme')
+    
+	# Loop on all compound ids
+	for (comp.id in id) {
+
+		# Get compound
+		comp = .self$getEntry(comp.id)
+		if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id'))
+			comp.mmu.gene.pathways[[comp.id]] = kegg.enz.conn$getPathwayIds(comp$getFieldValue('kegg.enzyme.id'), org = org)
+	}
+
+	return(comp.mmu.gene.pathways)
+})
+
+# Get pathway IDs {{{1
+################################################################
+
+KeggCompoundConn$methods( getPathwayIds = function(id, org) {
+	"Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves KEGG pathways of this organism in which the compounds are involved. It returns a vector of KEGG pathway IDs."
+
+	pathways = .self$getPathwayIdsPerCompound(id = id, org = org)
+	pathways = unique(unlist(pathways, use.names = FALSE))
+
+	return(pathways)
 })
 
 # Private methods {{{1

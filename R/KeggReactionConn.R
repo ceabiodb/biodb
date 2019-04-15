@@ -5,7 +5,7 @@
 
 .BIODB.KEGG.REACTION.PARSING.EXPR <- list(
 	'accession'              = "^ENTRY\\s+(\\S+)\\s+Reaction",
-	'kegg.enzyme.id'         = "^[ENZYME ]+\\s*(\\S+)$"
+	'equation'               = "^EQUATION\\s+(.+)\\s*$"
 )
 
 # Class declaration {{{1

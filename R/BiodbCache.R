@@ -114,7 +114,7 @@ BiodbCache$methods( setMarker = function(cache.id, subfolder, name) {
 	writeChar('', marker.path)
 })
 
-# Get file paths {{{1
+# Get file path {{{1
 ################################################################
 
 BiodbCache$methods( getFilePath = function(cache.id, subfolder, name, ext) {
