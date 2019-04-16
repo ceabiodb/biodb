@@ -1,6 +1,6 @@
 language: r
-#cache:
-#    packages: true
+cache:
+    packages: true
     #    directories:
     #        - $BIODB_CACHE_DIRECTORY
 
