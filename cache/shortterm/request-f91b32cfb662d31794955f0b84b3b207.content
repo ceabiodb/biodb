@@ -1,0 +1,22 @@
+ENTRY       R00267                      Reaction
+NAME        Isocitrate:NADP+ oxidoreductase (decarboxylating)
+DEFINITION  Isocitrate + NADP+ <=> 2-Oxoglutarate + CO2 + NADPH + H+
+EQUATION    C00311 + C00006 <=> C00026 + C00011 + C00005 + C00080
+COMMENT     two-step reaction (see R01899+R00268)
+RCLASS      RC00001  C00005_C00006
+            RC00114  C00026_C00311
+            RC02801  C00011_C00311
+ENZYME      1.1.1.42
+PATHWAY     rn00480  Glutathione metabolism
+            rn00720  Carbon fixation pathways in prokaryotes
+            rn01100  Metabolic pathways
+            rn01120  Microbial metabolism in diverse environments
+            rn01200  Carbon metabolism
+            rn01210  2-Oxocarboxylic acid metabolism
+            rn01230  Biosynthesis of amino acids
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00010  Citrate cycle, first carbon oxidation, oxaloacetate => 2-oxoglutarate
+            M00173  Reductive citrate cycle (Arnon-Buchanan cycle)
+ORTHOLOGY   K00031  isocitrate dehydrogenase [EC:1.1.1.42]
+DBLINKS     RHEA: 19632
+///

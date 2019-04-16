@@ -33,7 +33,8 @@ KeggModuleEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 	# Reactions
 	reaction.ids = .self$.getTagLines(tag = 'REACTION', parsed.content = parsed.content)
 	if (length(reaction.ids) > 0) {
-		reaction.ids = sub('^\\s*(R[0-9]+)\\s+.*$', '\\1', reaction.ids)
+		reaction.ids = stringr::str_match_all(reaction.ids, '(^|[ +,])(R[0-9]+)')
+		reaction.ids = unlist(lapply(reaction.ids, function(x) x[,3]))
 		.self$setFieldValue('kegg.reaction.id', reaction.ids)
 	}
 

@@ -1,0 +1,16 @@
+ENTRY       R02570                      Reaction
+NAME        succinyl-CoA:enzyme N6-(dihydrolipoyl)lysine S-succinyltransferase
+DEFINITION  Succinyl-CoA + Enzyme N6-(dihydrolipoyl)lysine <=> CoA + [Dihydrolipoyllysine-residue succinyltransferase] S-succinyldihydrolipoyllysine
+EQUATION    C00091 + C15973 <=> C00010 + C16254
+COMMENT     2-oxoglutarate dehydrogenase complex:dihydrolipoyllysine-residue succinyltransferase
+            a part of multi-step reaction (see R08549, R01700+R02570+R07618)
+            following after R01700
+RCLASS      RC00004  C00010_C00091  C15973_C16254
+            RC02727  C00091_C16254
+ENZYME      2.3.1.61
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00011  Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+ORTHOLOGY   K00658  2-oxoglutarate dehydrogenase E2 component (dihydrolipoamide succinyltransferase) [EC:2.3.1.61]
+DBLINKS     RHEA: 15216
+///

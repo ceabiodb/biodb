@@ -1,0 +1,26 @@
+ENTRY       R01082                      Reaction
+NAME        (S)-malate hydro-lyase (fumarate-forming)
+DEFINITION  (S)-Malate <=> Fumarate + H2O
+EQUATION    C00149 <=> C00122 + C00001
+RCLASS      RC00443  C00122_C00149
+ENZYME      4.2.1.2
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+            rn00620  Pyruvate metabolism
+            rn00720  Carbon fixation pathways in prokaryotes
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00011  Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+            M00173  Reductive citrate cycle (Arnon-Buchanan cycle)
+            M00374  Dicarboxylate-hydroxybutyrate cycle
+            M00376  3-Hydroxypropionate bi-cycle
+            M00620  Incomplete reductive citrate cycle, acetyl-CoA => oxoglutarate
+ORTHOLOGY   K01676  fumarate hydratase, class I [EC:4.2.1.2]
+            K01677  fumarate hydratase subunit alpha [EC:4.2.1.2]
+            K01678  fumarate hydratase subunit beta [EC:4.2.1.2]
+            K01679  fumarate hydratase, class II [EC:4.2.1.2]
+DBLINKS     RHEA: 12463
+///

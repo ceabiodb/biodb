@@ -1,0 +1,22 @@
+ENTRY       R00709                      Reaction
+NAME        isocitrate:NAD+ oxidoreductase (decarboxylating)
+DEFINITION  Isocitrate + NAD+ <=> 2-Oxoglutarate + CO2 + NADH + H+
+EQUATION    C00311 + C00003 <=> C00026 + C00011 + C00004 + C00080
+RCLASS      RC00001  C00003_C00004
+            RC00114  C00026_C00311
+            RC02801  C00011_C00311
+ENZYME      1.1.1.41        1.1.1.286
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+            rn01210  2-Oxocarboxylic acid metabolism
+            rn01230  Biosynthesis of amino acids
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00010  Citrate cycle, first carbon oxidation, oxaloacetate => 2-oxoglutarate
+ORTHOLOGY   K00030  isocitrate dehydrogenase (NAD+) [EC:1.1.1.41]
+            K17753  isocitrate--homoisocitrate dehydrogenase [EC:1.1.1.286]
+DBLINKS     RHEA: 23635
+///

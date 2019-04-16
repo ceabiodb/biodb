@@ -1,0 +1,31 @@
+ENTRY       R01196                      Reaction
+NAME        pyruvate:ferredoxin 2-oxidoreductase (CoA-acetylating)
+DEFINITION  2 Reduced ferredoxin + Acetyl-CoA + CO2 + 2 H+ <=> 2 Oxidized ferredoxin + Pyruvate + CoA
+EQUATION    2 C00138 + C00024 + C00011 + 2 C00080 <=> 2 C00139 + C00022 + C00010
+RCLASS      RC00004  C00010_C00024
+            RC02742  C00022_C00024
+ENZYME      1.2.7.1         1.2.7.11
+PATHWAY     rn00010  Glycolysis / Gluconeogenesis
+            rn00020  Citrate cycle (TCA cycle)
+            rn00620  Pyruvate metabolism
+            rn00650  Butanoate metabolism
+            rn00680  Methane metabolism
+            rn00720  Carbon fixation pathways in prokaryotes
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+MODULE      M00173  Reductive citrate cycle (Arnon-Buchanan cycle)
+            M00307  Pyruvate oxidation, pyruvate => acetyl-CoA
+            M00374  Dicarboxylate-hydroxybutyrate cycle
+            M00620  Incomplete reductive citrate cycle, acetyl-CoA => oxoglutarate
+ORTHOLOGY   K00169  pyruvate ferredoxin oxidoreductase alpha subunit [EC:1.2.7.1]
+            K00170  pyruvate ferredoxin oxidoreductase beta subunit [EC:1.2.7.1]
+            K00171  pyruvate ferredoxin oxidoreductase delta subunit [EC:1.2.7.1]
+            K00172  pyruvate ferredoxin oxidoreductase gamma subunit [EC:1.2.7.1]
+            K00174  2-oxoglutarate/2-oxoacid ferredoxin oxidoreductase subunit alpha [EC:1.2.7.3 1.2.7.11]
+            K00175  2-oxoglutarate/2-oxoacid ferredoxin oxidoreductase subunit beta [EC:1.2.7.3 1.2.7.11]
+            K03737  pyruvate-ferredoxin/flavodoxin oxidoreductase [EC:1.2.7.1 1.2.7.-]
+DBLINKS     RHEA: 44143
+///

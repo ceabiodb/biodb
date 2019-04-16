@@ -1,0 +1,20 @@
+ENTRY       R02765                      Reaction
+NAME        Methylmalonyl-CoA epimerase
+DEFINITION  (R)-Methylmalonyl-CoA <=> (S)-Methylmalonyl-CoA
+EQUATION    C01213 <=> C00683
+RCLASS      RC00780  C00683_C01213
+ENZYME      5.1.99.1
+PATHWAY     rn00280  Valine, leucine and isoleucine degradation
+            rn00630  Glyoxylate and dicarboxylate metabolism
+            rn00640  Propanoate metabolism
+            rn00720  Carbon fixation pathways in prokaryotes
+            rn01100  Metabolic pathways
+            rn01120  Microbial metabolism in diverse environments
+            rn01200  Carbon metabolism
+MODULE      M00373  Ethylmalonyl pathway
+            M00375  Hydroxypropionate-hydroxybutylate cycle
+            M00376  3-Hydroxypropionate bi-cycle
+            M00741  Propanoyl-CoA metabolism, propanoyl-CoA => succinyl-CoA
+ORTHOLOGY   K05606  methylmalonyl-CoA/ethylmalonyl-CoA epimerase [EC:5.1.99.1]
+DBLINKS     RHEA: 20556
+///

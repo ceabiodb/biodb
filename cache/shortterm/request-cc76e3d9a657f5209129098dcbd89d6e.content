@@ -1,0 +1,19 @@
+ENTRY       R01049                      Reaction
+NAME        ATP:D-ribose-5-phosphate diphosphotransferase
+DEFINITION  ATP + D-Ribose 5-phosphate <=> AMP + 5-Phospho-alpha-D-ribose 1-diphosphate
+EQUATION    C00002 + C00117 <=> C00020 + C00119
+RCLASS      RC00002  C00002_C00020
+            RC00078  C00117_C00119
+ENZYME      2.7.6.1
+PATHWAY     rn00030  Pentose phosphate pathway
+            rn00230  Purine metabolism
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+            rn01230  Biosynthesis of amino acids
+MODULE      M00005  PRPP biosynthesis, ribose 5P => PRPP
+ORTHOLOGY   K00948  ribose-phosphate pyrophosphokinase [EC:2.7.6.1]
+DBLINKS     RHEA: 15612
+///

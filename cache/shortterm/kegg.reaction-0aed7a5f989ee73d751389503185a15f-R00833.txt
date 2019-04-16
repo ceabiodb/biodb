@@ -1,0 +1,22 @@
+ENTRY       R00833                      Reaction
+NAME        (R)-Methylmalonyl-CoA CoA-carbonylmutase
+DEFINITION  (R)-Methylmalonyl-CoA <=> Succinyl-CoA
+EQUATION    C01213 <=> C00091
+RCLASS      RC00395  C00091_C01213
+ENZYME      5.4.99.2
+PATHWAY     rn00280  Valine, leucine and isoleucine degradation
+            rn00630  Glyoxylate and dicarboxylate metabolism
+            rn00640  Propanoate metabolism
+            rn00720  Carbon fixation pathways in prokaryotes
+            rn01100  Metabolic pathways
+            rn01120  Microbial metabolism in diverse environments
+            rn01200  Carbon metabolism
+MODULE      M00373  Ethylmalonyl pathway
+            M00375  Hydroxypropionate-hydroxybutylate cycle
+            M00376  3-Hydroxypropionate bi-cycle
+            M00741  Propanoyl-CoA metabolism, propanoyl-CoA => succinyl-CoA
+ORTHOLOGY   K01847  methylmalonyl-CoA mutase [EC:5.4.99.2]
+            K01848  methylmalonyl-CoA mutase, N-terminal domain [EC:5.4.99.2]
+            K01849  methylmalonyl-CoA mutase, C-terminal domain [EC:5.4.99.2]
+DBLINKS     RHEA: 22891
+///

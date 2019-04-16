@@ -162,8 +162,14 @@ KeggPathwayConn$methods( getPathwayIgraph = function(id, directed = FALSE,
         
         g = .self$buildPathwayGraph(id = id, directed = directed, drop = FALSE)
         for (n in names(g)) {
+            
+            # Get edges and vertices
             e = g[[n]][['edges']]
             v = g[[n]][['vertices']]
+            
+            # Set colors and shapes
+
+            # Create igraph object
             graph[[n]] = igraph::graph_from_data_frame(e, directed = directed,
                                                        vertices = v)
         }

@@ -1,0 +1,23 @@
+ENTRY       R00209                      Reaction
+NAME        pyruvate:NAD+ 2-oxidoreductase (CoA-acetylating);
+            pyruvate dehydrogenase complex
+DEFINITION  Pyruvate + CoA + NAD+ <=> Acetyl-CoA + CO2 + NADH + H+
+EQUATION    C00022 + C00010 + C00003 <=> C00024 + C00011 + C00004 + C00080
+COMMENT     multi-step reaction (see R01699+R02569+R07618)
+RCLASS      RC00001  C00003_C00004
+            RC00004  C00010_C00024
+            RC02742  C00022_C00024
+ENZYME      1.2.4.1         1.8.1.4         2.3.1.12
+PATHWAY     rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+MODULE      M00307  Pyruvate oxidation, pyruvate => acetyl-CoA
+ORTHOLOGY   K00161  pyruvate dehydrogenase E1 component alpha subunit [EC:1.2.4.1]
+            K00162  pyruvate dehydrogenase E1 component beta subunit [EC:1.2.4.1]
+            K00163  pyruvate dehydrogenase E1 component [EC:1.2.4.1]
+            K00382  dihydrolipoamide dehydrogenase [EC:1.8.1.4]
+            K00627  pyruvate dehydrogenase E2 component (dihydrolipoamide acetyltransferase) [EC:2.3.1.12]
+DBLINKS     RHEA: 28045
+///

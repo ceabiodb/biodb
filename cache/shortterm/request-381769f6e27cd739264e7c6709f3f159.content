@@ -1,0 +1,33 @@
+ENTRY       R00342                      Reaction
+NAME        (S)-malate:NAD+ oxidoreductase
+DEFINITION  (S)-Malate + NAD+ <=> Oxaloacetate + NADH + H+
+EQUATION    C00149 + C00003 <=> C00036 + C00004 + C00080
+RCLASS      RC00001  C00003_C00004
+            RC00031  C00036_C00149
+ENZYME      1.1.1.37        1.1.1.299
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+            rn00620  Pyruvate metabolism
+            rn00630  Glyoxylate and dicarboxylate metabolism
+            rn00680  Methane metabolism
+            rn00710  Carbon fixation in photosynthetic organisms
+            rn00720  Carbon fixation pathways in prokaryotes
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00011  Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+            M00012  Glyoxylate cycle
+            M00168  CAM (Crassulacean acid metabolism), dark
+            M00171  C4-dicarboxylic acid cycle, NAD - malic enzyme type
+            M00173  Reductive citrate cycle (Arnon-Buchanan cycle)
+            M00346  Formaldehyde assimilation, serine pathway
+            M00374  Dicarboxylate-hydroxybutyrate cycle
+            M00620  Incomplete reductive citrate cycle, acetyl-CoA => oxoglutarate
+            M00740  Methylaspartate cycle
+ORTHOLOGY   K00024  malate dehydrogenase [EC:1.1.1.37]
+            K00025  malate dehydrogenase [EC:1.1.1.37]
+            K00026  malate dehydrogenase [EC:1.1.1.37]
+DBLINKS     RHEA: 21435
+///

@@ -1,0 +1,14 @@
+ENTRY       R00621                      Reaction
+DEFINITION  2-Oxoglutarate + Thiamin diphosphate <=> 3-Carboxy-1-hydroxypropyl-ThPP + CO2
+EQUATION    C00026 + C00068 <=> C05381 + C00011
+COMMENT     2-oxoglutarate dehydrogenase complex: oxoglutarate dehydrogenase (see R01700)
+            TPP-dependent enzymatic reaction (see R00621+R03316)
+            subsequently R03316
+RCLASS      RC00027  C00068_C05381
+            RC02743  C00026_C05381
+ENZYME      1.2.4.2
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00011  Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+ORTHOLOGY   K00164  2-oxoglutarate dehydrogenase E1 component [EC:1.2.4.2]
+///
