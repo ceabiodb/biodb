@@ -109,13 +109,9 @@ Then we call the method:
 img = kegg.path.conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
 ```
 
-Finally we plot it:
-```{r out.width = "200%"}
-plot(img)
-```
-
+And print the image:
 ```{r}
-plot(as.raster(img))
+print(img)
 ```
 
 # Terminate the biodb instance
