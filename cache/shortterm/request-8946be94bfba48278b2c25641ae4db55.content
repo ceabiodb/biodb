@@ -1,0 +1,15 @@
+ENTRY       R03316                      Reaction
+DEFINITION  3-Carboxy-1-hydroxypropyl-ThPP + Enzyme N6-(lipoyl)lysine <=> [Dihydrolipoyllysine-residue succinyltransferase] S-succinyldihydrolipoyllysine + Thiamin diphosphate
+EQUATION    C05381 + C15972 <=> C16254 + C00068
+COMMENT     2-oxoglutarate dehydrogenase complex: oxoglutarate dehydrogenase (see R01700)
+            TPP-dependent enzymatic reaction (see R00621+R03316)
+            following after R00621
+RCLASS      RC00027  C00068_C05381
+            RC00627  C15972_C16254
+            RC02883  C05381_C16254
+ENZYME      1.2.4.2
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00011  Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+ORTHOLOGY   K00164  2-oxoglutarate dehydrogenase E1 component [EC:1.2.4.2]
+///

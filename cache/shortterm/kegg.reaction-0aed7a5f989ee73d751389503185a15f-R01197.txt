@@ -1,0 +1,23 @@
+ENTRY       R01197                      Reaction
+NAME        2-oxoglutarate:ferredoxin oxidoreductase (decarboxylating)
+DEFINITION  2 Reduced ferredoxin + Succinyl-CoA + CO2 + 2 H+ <=> 2 Oxidized ferredoxin + 2-Oxoglutarate + CoA
+EQUATION    2 C00138 + C00091 + C00011 + 2 C00080 <=> 2 C00139 + C00026 + C00010
+RCLASS      RC00004  C00010_C00091
+            RC02833  C00026_C00091
+ENZYME      1.2.7.3         1.2.7.11
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+            rn00720  Carbon fixation pathways in prokaryotes
+            rn01100  Metabolic pathways
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00011  Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+            M00173  Reductive citrate cycle (Arnon-Buchanan cycle)
+            M00620  Incomplete reductive citrate cycle, acetyl-CoA => oxoglutarate
+ORTHOLOGY   K00174  2-oxoglutarate/2-oxoacid ferredoxin oxidoreductase subunit alpha [EC:1.2.7.3 1.2.7.11]
+            K00175  2-oxoglutarate/2-oxoacid ferredoxin oxidoreductase subunit beta [EC:1.2.7.3 1.2.7.11]
+            K00176  2-oxoglutarate ferredoxin oxidoreductase subunit delta [EC:1.2.7.3]
+            K00177  2-oxoglutarate ferredoxin oxidoreductase subunit gamma [EC:1.2.7.3]
+DBLINKS     RHEA: 17300
+///

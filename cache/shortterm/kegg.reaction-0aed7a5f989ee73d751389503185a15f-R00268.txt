@@ -1,0 +1,20 @@
+ENTRY       R00268                      Reaction
+NAME        oxalosuccinate carboxy-lyase (2-oxoglutarate-forming)
+DEFINITION  Oxalosuccinate <=> 2-Oxoglutarate + CO2
+EQUATION    C05379 <=> C00026 + C00011
+COMMENT     the second step of two-step reaction (see R00267, R01899+R00268)
+            following after R01899
+RCLASS      RC00626  C00026_C05379
+ENZYME      1.1.1.42
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01210  2-Oxocarboxylic acid metabolism
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00010  Citrate cycle, first carbon oxidation, oxaloacetate => 2-oxoglutarate
+            M00740  Methylaspartate cycle
+ORTHOLOGY   K00031  isocitrate dehydrogenase [EC:1.1.1.42]
+DBLINKS     RHEA: 19384
+///

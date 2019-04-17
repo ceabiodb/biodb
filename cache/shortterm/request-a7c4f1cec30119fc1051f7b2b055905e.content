@@ -1,0 +1,19 @@
+ENTRY       R10221                      Reaction
+NAME        6-phospho-D-gluconate:NAD+ 2-oxidoreductase (decarboxylating)
+DEFINITION  6-Phospho-D-gluconate + NAD+ <=> D-Ribulose 5-phosphate + CO2 + NADH + H+
+EQUATION    C00345 + C00003 <=> C00199 + C00011 + C00004 + C00080
+COMMENT     NADP+ (see R01528)
+RCLASS      RC00001  C00003_C00004
+            RC00539  C00199_C00345
+ENZYME      1.1.1.343       1.1.1.351
+PATHWAY     rn00030  Pentose phosphate pathway
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+MODULE      M00004  Pentose phosphate pathway (Pentose phosphate cycle)
+            M00006  Pentose phosphate pathway, oxidative phase, glucose 6P => ribulose 5P
+ORTHOLOGY   K00033  6-phosphogluconate dehydrogenase [EC:1.1.1.44 1.1.1.343]
+DBLINKS     RHEA: 33026
+///

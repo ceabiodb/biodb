@@ -1,0 +1,21 @@
+ENTRY       R07618                      Reaction
+NAME        enzyme N6-(dihydrolipoyl)lysine:NAD+ oxidoreductase
+DEFINITION  Enzyme N6-(dihydrolipoyl)lysine + NAD+ <=> Enzyme N6-(lipoyl)lysine + NADH + H+
+EQUATION    C15973 + C00003 <=> C15972 + C00004 + C00080
+COMMENT     Oxo-acid dehydrogenase complexes, dihydrolipoyl dehydrogenase
+RCLASS      RC00001  C00003_C00004
+            RC00583  C15972_C15973
+ENZYME      1.8.1.4
+PATHWAY     rn00010  Glycolysis / Gluconeogenesis
+            rn00020  Citrate cycle (TCA cycle)
+            rn00280  Valine, leucine and isoleucine degradation
+            rn00620  Pyruvate metabolism
+            rn00640  Propanoate metabolism
+            rn01110  Biosynthesis of secondary metabolites
+            rn01130  Biosynthesis of antibiotics
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00011  Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+            M00036  Leucine degradation, leucine => acetoacetate + acetyl-CoA
+ORTHOLOGY   K00382  dihydrolipoamide dehydrogenase [EC:1.8.1.4]
+DBLINKS     RHEA: 15048
+///

@@ -81,14 +81,23 @@ To build a pathway graph, we need a connector to the KEGG Pathway database:
 kegg.path.conn = mybiodb$getFactory()$getConn('kegg.pathway')
 ```
 
-Now we build the graph for the first pathway found:
+Building list of edges and vertices for pathways is done by calling buildPathwayGraph():
 ```{r Building a pathway graph}
-graph = kegg.path.conn$buildPathwayGraph(pathways[[1]])
+graph = kegg.path.conn$buildPathwayGraph(c('mmu00260', 'mmu01200'))
+```
+The object returned is a list whose names are the pathway IDs submitted, and the values are lists containing two data frames (edges and vertices).
+
+We can also get an igraph object for the a pathway (or a list of pathways):
+```{r Getting an igraph for the pathway}
+ig = kegg.path.conn$getPathwayIgraph('mmu00260')
 ```
 
 And we plot it:
-```{r Plotting the pathway graph}
-plot(graph, layout = igraph::layout_with_kk)
+```{r Plotting the pathway igraph}
+vert <- igraph::as_data_frame(ig, 'vertices')
+shapes <- vapply(vert[['type']], function(x) if (x == 'reaction') 'rectangle' else 'circle', FUN.VALUE = '', USE.NAMES = FALSE)
+colors <- vapply(vert[['type']], function(x) if (x == 'reaction') 'yellow' else 'green', FUN.VALUE = '', USE.NAMES = FALSE)
+plot(ig, vertex.shape = shapes, vertex.color = colors, vertex.label.dist = 1, vertex.size = 4, vertex.size2 = 4)
 ```
 
 # Create a decorated pathway graph picture
@@ -108,9 +117,9 @@ Then we call the method:
 img = kegg.path.conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
 ```
 
-Finally we plot it:
-```{r Plotting}
-plot(img)
+And print the image:
+```{r}
+print(img)
 ```
 
 # Terminate the biodb instance

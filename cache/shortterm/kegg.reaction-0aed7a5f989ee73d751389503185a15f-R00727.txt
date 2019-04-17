@@ -1,0 +1,19 @@
+ENTRY       R00727                      Reaction
+NAME        Succinate:CoA ligase (IDP-forming)
+DEFINITION  ITP + Succinate + CoA <=> IDP + Orthophosphate + Succinyl-CoA
+EQUATION    C00081 + C00042 + C00010 <=> C00104 + C00009 + C00091
+RCLASS      RC00002  C00081_C00104
+            RC00004  C00010_C00091
+            RC00014  C00042_C00091
+ENZYME      6.2.1.4
+PATHWAY     rn00020  Citrate cycle (TCA cycle)
+            rn01100  Metabolic pathways
+            rn01110  Biosynthesis of secondary metabolites
+            rn01120  Microbial metabolism in diverse environments
+            rn01130  Biosynthesis of antibiotics
+            rn01200  Carbon metabolism
+MODULE      M00009  Citrate cycle (TCA cycle, Krebs cycle)
+            M00011  Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+ORTHOLOGY   K01899  succinyl-CoA synthetase alpha subunit [EC:6.2.1.4 6.2.1.5]
+            K01900  succinyl-CoA synthetase beta subunit [EC:6.2.1.4 6.2.1.5]
+///

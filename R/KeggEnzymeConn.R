@@ -22,6 +22,9 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Get connector
+#' conn <- mybiodb$getFactory()$createConn('kegg.enzyme')
+#'
 #' # Get pathway IDs related to enzymes
 #' pathway.ids = conn$getPathwayIds(c('1.2.1.3', '3.7.1.3'), org = 'mmu')
 #'

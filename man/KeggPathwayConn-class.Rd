@@ -21,12 +21,16 @@ description of inherited methods.
 \section{Methods}{
 
 \describe{
-\item{\code{buildPathwayGraph(id, drop = TRUE)}}{Build a pathway graph using KEGG database. Returns an \code{igraph}
-object, or NULL if the igraph library is not available.}
+\item{\code{buildPathwayGraph(id, directed = FALSE, drop = TRUE)}}{Build a pathway graph using KEGG database. Returns a named list whose
+names are the pathway IDs, and values are lists containing two data frames
+named vertices and edges.}
 
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
 Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+
+\item{\code{getPathwayIgraph(id, directed = FALSE, drop = TRUE)}}{Build a pathway graph using KEGG database. Returns an \code{igraph}
+object, or NULL if the igraph library is not available.}
 
 \item{\code{getReactions(id, drop = TRUE)}}{Retrieve all reactions part of a KEGG pathway. Connect to KEGG databases,
 and walk through all pathways submitted, and their modules, to find all
