@@ -108,8 +108,50 @@ KeggPathwayConn$methods( getReactions = function(id, drop = TRUE) {
 # Build pathway graph {{{1
 ################################################################
 
-KeggPathwayConn$methods( buildPathwayGraph = function(id, drop = TRUE,
-                                                      directed = FALSE) {
+KeggPathwayConn$methods( buildPathwayGraph = function(id, directed = FALSE,
+                                                      drop = TRUE) {
+    "Build a pathway graph using KEGG database. Returns a named list whose
+    names are the pathway IDs, and values are lists containing two data frames
+    named vertices and edges."
+
+    graph = list()
+
+    # Loop on all pathway IDs
+    for (path.id in id) {
+
+        edg = NULL
+        vert = NULL
+
+        # Loop on all reactions
+        for (react in .self$getReactions(id)) {
+            g <- .self$.buildReactionGraph(react, directed)
+            if ( ! is.null(g)) {
+                edg <- rbind(edg, g$edges)
+                vert <- rbind(vert, g$vertices)
+            }
+        }
+        
+        # Build graph
+        if ( ! is.null(edg)) {
+            vert <- vert[ ! duplicated(vert[['name']]), ]
+            graph[[path.id]] = list(vertices = vert, edges = edg)
+        }
+        else
+            graph[[path.id]] = NULL
+    }
+
+    # Drop
+    if (drop && length(graph) <= 1)
+        graph = if (length(graph) == 1) graph[[1]] else NULL
+    
+    return(graph)
+})
+
+# Get pathway igraph {{{1
+################################################################
+
+KeggPathwayConn$methods( getPathwayIgraph = function(id, directed = FALSE,
+                                                     drop = TRUE) {
     "Build a pathway graph using KEGG database. Returns an \\code{igraph}
     object, or NULL if the igraph library is not available."
 
@@ -117,69 +159,19 @@ KeggPathwayConn$methods( buildPathwayGraph = function(id, drop = TRUE,
  
     if (require('igraph')) {
         detach('package:igraph') # Force using namespace.
-
-        edges = NULL
-        vertices = NULL
-        dirs = if (directed) c(1, 2) else 0
-
-        # Loop on all pathway IDs
-        for (path.id in id) {
-            
-            # Loop on all reactions
-            for (react in .self$getReactions(id)) {
-
-                substrates = react$getFieldValue('substrates')
-                products = react$getFieldValue('products')
-
-                if (is.null(substrates) || is.null(products))
-                    next
-
-                # Create compound vertices
-                for (c in c(substrates, products))
-                    if ( ! c %in% vertices[['name']])
-                        vertices = rbind(vertices,
-                                         data.frame(name = c,
-                                                    type = 'compound',
-                                                    id = c))
-                
-                # Set edges
-                for (dir in dirs) {
-
-                    # Create reaction vertex
-                    rid = react$getFieldValue('accession')
-                    if (dir != 0)
-                        rvid = rid
-                    else
-                        rvid = paste(rid, dir, sep = '_')
-                    vertices = rbind(vertices,
-                                     data.frame(name = rvid,
-                                                type = 'reaction',
-                                                id = rid))
-                
-                    # Reverse substrates/products
-                    if (dir == 2) {
-                        tmp = substrates
-                        substrates = products
-                        products = tmp
-                    }
-
-                    # Create links to substrates
-                    for (substrate in substrates)
-                        edges = rbind(edges, data.frame(from = substrate,
-                                                        to = rvid))
-
-                    # Create links to products
-                    for (product in products)
-                        edges = rbind(edges, data.frame(from = rvid,
-                                                        to = product))
-                }
-            }
         
-            # Build graph
-            if ( ! is.null(edges) && ! is.null(vertices)) {
-                g = igraph::graph_from_data_frame(edges, vertices = vertices)
-                graph[[path.id]] = g
-            }
+        g = .self$buildPathwayGraph(id = id, directed = directed, drop = FALSE)
+        for (n in names(g)) {
+            
+            # Get edges and vertices
+            e = g[[n]][['edges']]
+            v = g[[n]][['vertices']]
+            
+            # Set colors and shapes
+
+            # Create igraph object
+            graph[[n]] = igraph::graph_from_data_frame(e, directed = directed,
+                                                       vertices = v)
         }
     }
 
@@ -311,4 +303,44 @@ KeggPathwayConn$methods( .getPathwayImage = function(path_idx, html) {
 
 KeggPathwayConn$methods( .getParsingExpressions = function() {
     return(.BIODB.KEGG.PATHWAY.PARSING.EXPR)
+})
+
+# Build reaction graph {{{2
+################################################################
+
+KeggPathwayConn$methods( .buildReactionGraph = function(react, directed) {
+
+    graph <- NULL
+    
+    # Get substrates and products
+    subst = react$getFieldValue('substrates')
+    prod = react$getFieldValue('products')
+    
+    if ( ! is.null(subst) && ! is.null(prod)) {
+
+        # Create compound vertices
+        ids <- c(subst, prod)
+        vert = data.frame(name = ids, type = 'compound', id = ids)
+        
+        # Create reaction edge
+        rid = react$getFieldValue('accession')
+        vert = rbind(vert,
+                     data.frame(name = rid, type = 'reaction', id = rid))
+        edg = rbind(data.frame(from = subst, to = rid),
+                    data.frame(from = rid, to = prod))
+        
+        # Create reverse reaction edge
+        if (directed) {
+            rvid = paste(rid, 'rev', sep = '_')
+            vert = rbind(vert,
+                         data.frame(name = rvid, type = 'reaction',
+                                    id = rid))
+            edg = rbind(edg, data.frame(from = prod, to = rvid),
+                        data.frame(from = rvid, to = subst))
+        }
+        
+        graph = list(edges = edg, vertices = vert)
+    }
+    
+    return(graph)
 })

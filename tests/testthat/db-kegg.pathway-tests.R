@@ -18,6 +18,15 @@ test_kegg_pathway_getReactions = function(conn) {
 
 test_kegg_pathway_buildPathwayGraph = function(conn) {
     graph = conn$buildPathwayGraph('mmu00260')
+    testthat::expect_is(graph, 'list')
+    testthat::expect_equal(names(graph), c('vertices', 'edges'))
+}
+
+# Test KEGG Pathway getPathwayIgraph() {{{1
+################################################################
+
+test_kegg_pathway_getPathwayIgraph = function(conn) {
+    graph = conn$getPathwayIgraph('mmu00260')
     testthat::expect_is(graph, 'igraph')
 }
 
@@ -48,6 +57,8 @@ run.kegg.pathway.tests = function(conn, obs) {
                   'test_kegg_pathway_getReactions', conn = conn)
         test.that('buildPathwayGraph() works correctly.',
                   'test_kegg_pathway_buildPathwayGraph', conn = conn)
+        test.that('getPathwayIgraph() works correctly.',
+                  'test_kegg_pathway_getPathwayIgraph', conn = conn)
         test.that('We can build a decorated pathway graph,',
                   'test_kegg_pathway_getDecoratedGraphPicture', conn = conn)
     }
