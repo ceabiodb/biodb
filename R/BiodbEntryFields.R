@@ -209,6 +209,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('organism',           description = 'The biological organism to which this entry belongs.')
 	.self$.define('kegg.organism.code', description = 'The 3-4 characters organism code used un KEGG.')
 	.self$.define('comp.super.class',   description = 'Compound super class.', alias = c('superclass', 'super.class'))
+	.self$.define('pathway.class',      description = 'Pathway class.', card = BIODB.CARD.MANY)
 	.self$.define('aa.seq',             description = 'Amino acids sequence.', computable.from = 'ncbi.ccds', alias = 'sequence')
 	.self$.define('aa.seq.length',      description = 'Length of the amino acids sequence.', class = 'integer', alias = c('seq.length', 'length'))
 	.self$.define('aa.seq.location',    description = 'Location of the amino acids sequence.', alias = c('seq.location', 'location'))
