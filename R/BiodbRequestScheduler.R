@@ -391,7 +391,7 @@ BiodbRequestScheduler$methods( .doSendRequest = function(request, rule) {
 		if ( ! is.null(err_msg)) {
 			content = NA_character_
 			if (retry)
-				err_msg = paste0(err_msg, " Retrying connection to server...")
+				err_msg = paste0(err_msg, paste0(" When contacting URL \"", request$getUrl()$toString(), "\". Retrying connection to server..."))
 			.self$message('info', err_msg)
 		}
 
