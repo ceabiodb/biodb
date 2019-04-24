@@ -249,7 +249,7 @@ KeggPathwayConn$methods( .extractPathwayMapShapes = function(html, color2ids) {
             regex =  paste0('shape=([^ ]+)\\s+coords=([^ ]+)\\s+.+title="[^"]*',
                             id, '[^"]*"')
             g = stringr::str_match_all(html, regex)[[1]]
-            if ( ! is.na(g[1, 1])) {
+            if (nrow(g) > 0) {
                 
                 for (i in 1:nrow(g)) {
                     
