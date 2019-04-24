@@ -23,6 +23,9 @@ KeggPathwayEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 	# Name
 	.self$.parseMultilinesField(field = 'name', tag = 'NAME', parsed.content = parsed.content, strip.chars = ' ;', split.char = NA_character_)
 
+	# Class
+	.self$.parseMultilinesField(field = 'pathway.class', tag = 'CLASS', parsed.content = parsed.content, strip.chars = ' ', split.char = ';')
+
 	# Module IDs
 	.self$.parseModuleIds(parsed.content)
 })
