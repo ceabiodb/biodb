@@ -221,12 +221,17 @@ KeggCompoundConn$methods( getPathwayIdsPerCompound = function(id, org) {
     kegg.enz.conn = .self$getBiodb()$getFactory()$getConn('kegg.enzyme')
     
 	# Loop on all compound ids
+    i <- 0
 	for (comp.id in id) {
 
 		# Get compound
 		comp = .self$getEntry(comp.id)
 		if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id'))
 			comp.mmu.gene.pathways[[comp.id]] = kegg.enz.conn$getPathwayIds(comp$getFieldValue('kegg.enzyme.id'), org = org)
+
+		# Send progress message
+		i <- i + 1
+		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Retrieving pathways of compounds.', index = i, total = length(id), first = (i == 1)))
 	}
 
 	return(comp.mmu.gene.pathways)
