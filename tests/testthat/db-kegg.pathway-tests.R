@@ -34,14 +34,29 @@ test_kegg_pathway_getPathwayIgraph = function(conn) {
 ################################################################
 
 test_kegg_pathway_getDecoratedGraphPicture = function(conn) {
-    
-    # Set colors
+ 
     c = list(yellow = c('4.2.1.22', '4.2.3.1'), green = c('C00101', 'C00168'))
     graph_pix = conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
     if (require('magick')) {
         detach('package:magick') # Force using namespace.
         testthat::expect_is(graph_pix, 'magick-image')
         magick::image_write(graph_pix, path = file.path(OUTPUT.DIR, 'test_kegg_pathway_getDecoratedGraphPicture_image.png'), format = 'png')
+    }
+    else
+        testthat::expect_null(graph_pix)
+}
+
+# Test KEGG Pathway getDecoratedGraphPicture() with a wrong compound {{{1
+################################################################
+
+test_kegg_pathway_getDecoratedGraphPicture_not_a_compound = function(conn) {
+    
+    c = list(red = 'not_a_compound')
+    graph_pix = conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
+    if (require('magick')) {
+        detach('package:magick') # Force using namespace.
+        testthat::expect_is(graph_pix, 'magick-image')
+        magick::image_write(graph_pix, path = file.path(OUTPUT.DIR, 'test_kegg_pathway_getDecoratedGraphPicture_not_a_compound_image.png'), format = 'png')
     }
     else
         testthat::expect_null(graph_pix)
@@ -59,7 +74,11 @@ run.kegg.pathway.tests = function(conn, obs) {
                   'test_kegg_pathway_buildPathwayGraph', conn = conn)
         test.that('getPathwayIgraph() works correctly.',
                   'test_kegg_pathway_getPathwayIgraph', conn = conn)
-        test.that('We can build a decorated pathway graph,',
+        test.that('We can build a decorated pathway graph.',
                   'test_kegg_pathway_getDecoratedGraphPicture', conn = conn)
+        test.that('getDecoratedGraphPicture() does not fail when called with
+ unexisting compounds.',
+                  'test_kegg_pathway_getDecoratedGraphPicture_not_a_compound',
+                  conn = conn)
     }
 }
