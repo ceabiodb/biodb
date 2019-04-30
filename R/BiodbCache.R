@@ -1,10 +1,12 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# BiodbCache {{{1
-################################################################################
+# Constants {{{1
+################################################################
 
-# Declaration {{{2
-################################################################################
+_BIODB_CACHE_VERSION <- '0.2'
+
+# BiodbCache {{{1
+################################################################
 
 #' A class for handling file caching.
 #'
@@ -48,6 +50,24 @@ BiodbCache <- methods::setRefClass("BiodbCache",
 
 # Public methods {{{2
 ################################################################################
+
+# Get version {{{3
+################################################################
+
+getVersion=function() {
+    ":\n\nReturns the cache version.
+    \nReturned value: The current cache version.
+    "
+
+    version <- '0.1'
+
+    # Check version file
+    version_file <- file.path(.self$getDir(), 'VERSION')
+    if (file.exists(version_file))
+        version <- readLines(version_file)
+
+    return(version)
+},
 
 # Get directory {{{3
 ################################################################################
