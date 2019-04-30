@@ -73,7 +73,7 @@ initialize=function() {
 
     # Create instances of children
     .self$.config <- BiodbConfig$new(parent=.self)
-    .self$.cache <- BiodbCache$new(parent=.self)
+    .self$.cache <- BiodbPersistentCache$new(parent = .self)
     .self$.dbsinfo <- BiodbDbsInfo$new(parent=.self)
     .self$.factory <- BiodbFactory$new(parent=.self)
     .self$.entry.fields <- BiodbEntryFields$new(parent=.self)

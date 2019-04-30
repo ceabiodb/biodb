@@ -1,11 +1,6 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Constants {{{1
-################################################################
-
-_BIODB_CACHE_VERSION <- '0.2'
-
-# BiodbCache {{{1
+# BiodbPersistentCache {{{1
 ################################################################
 
 #' A class for handling file caching.
@@ -42,9 +37,9 @@ _BIODB_CACHE_VERSION <- '0.2'
 #' mybiodb$terminate()
 #'
 #' @include BiodbChildObject.R
-#' @export BiodbCache
-#' @exportClass BiodbCache
-BiodbCache <- methods::setRefClass("BiodbCache",
+#' @export BiodbPersistentCache
+#' @exportClass BiodbPersistentCache
+BiodbPersistentCache <- methods::setRefClass("BiodbPersistentCache",
     contains='BiodbChildObject',
     methods=list(
 
