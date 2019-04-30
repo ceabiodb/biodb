@@ -62,6 +62,7 @@ config:
     type: character
     description: The name of the long term cache subfolder.
     default: longterm
+    deprecated: We do not use anymore a longterm subfolder in cache directory. Cache files are now stored under a different folder for each database.
 
   msg.caution.lvl:
     type: integer
@@ -110,6 +111,7 @@ config:
     type: character
     description: The name of the short term cache subfolder.
     default: shortterm
+    deprecated: We do not use anymore a shortterm subfolder in cache directory. Cache files are now stored under a different folder for each database.
 
   svn.binary.path:
     type: character
