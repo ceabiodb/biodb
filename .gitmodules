@@ -1,0 +1,3 @@
+[submodule "cache"]
+	path = cache
+	url = https://github.com/pkrog/biodb-cache
