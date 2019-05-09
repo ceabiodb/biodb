@@ -85,3 +85,26 @@ KeggEntry$methods( .parsePathwayIds = function(parsed.content) {
 		.self$setFieldValue('kegg.pathway.id', pathway.ids)
 	}
 })
+
+# Parse compound IDs {{{1
+################################################################
+
+KeggEntry$methods( .parseCompoundIds = function(parsed.content) {
+	compound.ids = .self$.getTagLines(tag = 'COMPOUND', parsed.content = parsed.content)
+	if (length(compound.ids) > 0) {
+		compound.ids = sub('^\\s*(C[0-9]+)\\s+.*$', '\\1', compound.ids)
+		.self$setFieldValue('kegg.compound.id', compound.ids)
+	}
+})
+
+# Parse reaction IDs {{{1
+################################################################
+
+KeggEntry$methods( .parseReactionIds = function(parsed.content) {
+	reaction.ids = .self$.getTagLines(tag = 'REACTION', parsed.content = parsed.content)
+	if (length(reaction.ids) > 0) {
+		reaction.ids = stringr::str_match_all(reaction.ids, '(^|[ +,])(R[0-9]+)')
+		reaction.ids = unlist(lapply(reaction.ids, function(x) x[,3]))
+		.self$setFieldValue('kegg.reaction.id', reaction.ids)
+	}
+})

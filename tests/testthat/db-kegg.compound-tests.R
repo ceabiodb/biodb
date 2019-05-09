@@ -105,16 +105,24 @@ test.kegg.compound.ws.find.molecular.weight <- function(db) {
 
 test.kegg.compound.getPathwayIds_issue_333_20190507 <- function(conn) {
 
-	c = 'C05402'
-	ids = conn$getPathwayIds(c, 'mmu')
+	# Compound
+	c <- 'C05402'
+
+	# Pathways returned that contain this compound in their compound list.
+	pwgood <- 'mmu00052'
+
+	# Pathways linked through gene that do not contain this compound in their compound list.
+	# c("mmu00561", "mmu00600", "mmu00603", "mmu04142")
+
+	# Pathway mmu01100 has no list of compounds, and contains many modules. It's like a superpathway. None of its modules contain the compound.
+
+	# Get all pathways
+	ids <- conn$getPathwayIds(c, 'mmu')
 	testthat::expect_is(ids, 'character')
 	testthat::expect_true(length(ids) > 0)
-
-	# "mmu00052" "mmu00561" "mmu00600" "mmu00603" "mmu01100" "mmu04142"
-	# mmu00052 contains C05402.
-	# pb: mmu01100 has no list of compounds, and contains many modules. It's like a superpathway.
-	# The 4 other pathways mmu00561 mmu00600 mmu00603 mmu04142 do not contain C05402.
+	testthat::expect_identical(ids, pwgood)
 }
+
 # Test KEGG Compound getPathwayIds() {{{1
 ################################################################
 
