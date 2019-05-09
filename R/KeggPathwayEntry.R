@@ -28,4 +28,7 @@ KeggPathwayEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
 	# Module IDs
 	.self$.parseModuleIds(parsed.content)
+
+	# Compound IDs
+	.self$.parseCompoundIds(parsed.content)
 })

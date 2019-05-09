@@ -216,25 +216,55 @@ KeggCompoundConn$methods( getEntryImageUrl = function(id) {
 KeggCompoundConn$methods( getPathwayIdsPerCompound = function(id, org) {
 	"Get organism pathways for each compound. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves for each compound the KEGG pathways of the organism in which the compound is involved. It returns a named list of KEGG pathway ID vectors, where the names of the list are the compound IDs."
 
-	comp.mmu.gene.pathways = list()
+	pathways = list()
 
     kegg.enz.conn = .self$getBiodb()$getFactory()$getConn('kegg.enzyme')
+    kegg.path.conn = .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+    kegg.module.conn = .self$getBiodb()$getFactory()$getConn('kegg.module')
     
 	# Loop on all compound ids
     i <- 0
 	for (comp.id in id) {
 
-		# Get compound
+		# Get compound entry
 		comp = .self$getEntry(comp.id)
-		if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id'))
-			comp.mmu.gene.pathways[[comp.id]] = kegg.enz.conn$getPathwayIds(comp$getFieldValue('kegg.enzyme.id'), org = org)
+		if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id')) {
+
+			# Get pathways
+			pws = kegg.enz.conn$getPathwayIds(comp$getFieldValue('kegg.enzyme.id'), org = org)
+
+			# Loop on all pathways
+			good_pws = character()
+			for (pw in pws) {
+				
+				# Get pathway entry
+				pw.entry <- kegg.path.conn$getEntry(pw)
+				if ( ! is.null(pw.entry)) {
+					# Check that the compound is inside the list of compounds
+					if (pw.entry$hasField('kegg.compound.id') && comp.id %in% pw.entry$getFieldValue('kegg.compound.id'))
+						good_pws = c(good_pws, pw)
+					else if (pw.entry$hasField('kegg.module.id')) {
+						# We need to check that the compound is listed in at least one of the modules
+						module.ids <- pw.entry$getFieldValue('kegg.module.id')
+						for (m in module.ids) {
+							mentry <- kegg.module.conn$getEntry(m)
+							if ( ! is.null(mentry) && mentry$hasField('kegg.compound.id') && comp.id %in% mentry$getFieldValue('kegg.compound.id'))
+								good_pws = c(good_pws, pw)
+						}
+					}
+				}
+			}
+
+			# Record good pathways
+			pathways[[comp.id]] = good_pws
+		}
 
 		# Send progress message
 		i <- i + 1
 		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Retrieving pathways of compounds.', index = i, total = length(id), first = (i == 1)))
 	}
 
-	return(comp.mmu.gene.pathways)
+	return(pathways)
 })
 
 # Get pathway IDs {{{1
