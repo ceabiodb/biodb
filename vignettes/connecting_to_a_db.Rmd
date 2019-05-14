@@ -24,7 +24,7 @@ First you need to create an instance of the `Biodb` class:
 mybiodb <- biodb::Biodb()
 ```
 
-## Getting list of available databases
+## Getting the list of available databases
 
 Several connectors are implemented in Biodb. You can get a list of with the following call:
 ```{r}
