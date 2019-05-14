@@ -13,7 +13,9 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
-# Setting your token
+# Using an access token
+
+## Setting your token
 
 As of today, two databases require an access token: ChemSpider and Peakforest.
 
@@ -57,6 +59,13 @@ factory <- mybiodb$getFactory()
 conn <- factory$createConn('chemspider', token = '01234567-89ab-cdef-0123-456789abcdef')
 ```
 
-# Accessing the database
+## Accessing the database
 
 You should then be able to access the database normally.
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

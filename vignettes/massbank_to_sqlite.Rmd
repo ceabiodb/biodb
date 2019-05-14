@@ -13,7 +13,9 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
-# Introduction
+# Massbank to MassSqlite
+
+## Introduction
 
 In this vignette, we will see how to copy/convert a database into a writable database.
 
@@ -22,7 +24,7 @@ Create an instance of the `Biodb` class:
 mybiodb = biodb::Biodb()
 ```
 
-# Creating the connectors
+## Creating the connectors
 
 Create the Massbank connector:
 ```{r}
@@ -34,7 +36,7 @@ Create a connector to an empty MassSqlite database:
 masssqlite = mybiodb$getFactory()$createConn('mass.sqlite', url = 'massbank.sqlite')
 ```
 
-# Copying entries
+## Copying entries
 
 We first need to allow modification of the MassSqlite database:
 ```{r}
@@ -48,7 +50,7 @@ mybiodb$copyDb(conn.from = massbank, conn.to = masssqlite, limit = 3)
 In this example, the number of entries has been limited to 3.
 In order to copy the whole Massbank database, just omit the `limit` parameter in your call to `copyDb()`.
 
-# Saving the local database
+## Saving the local database
 
 For saving the MassSqlite database, we first have to allow writing:
 ```{r}
@@ -60,7 +62,7 @@ Then we call the `write()` method:
 masssqlite$write()
 ```
 
-# Closing biodb instance
+## Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}
