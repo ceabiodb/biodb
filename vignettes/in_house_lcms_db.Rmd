@@ -6,7 +6,7 @@ output:
     theme: null
 package: biodb
 abstract: |
-  How define an in-house LCMS database and run annotation using it.
+  How to define an in-house LCMS database and run annotation using it.
 vignette: |
   %\VignetteIndexEntry{In-house LCMS database}
   %\VignetteEngine{knitr::rmarkdown}
