@@ -43,7 +43,7 @@ lipidmaps.entries <- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = c
 
 We call then the `entriesToDataframe()` on all those entries, selectin the fields we want in the output:
 ```{r}
-mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries, lipidmaps.entries), fields = c('accession', 'name', 'mass'))
+mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries, lipidmaps.entries), fields = c('accession', 'molecular.mass', 'monoisotopic.mass', 'inchikey', 'name'))
 ```
 
 ## Closing biodb instance
