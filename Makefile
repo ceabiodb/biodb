@@ -99,7 +99,7 @@ install.local:
 	R --slave -e "devtools::install_local('$(CURDIR)', dependencies = TRUE)"
 
 list.classes:
-	R --slave -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\\n", sep = ""), sep = "\\n")'
+	R --slave -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\n", sep = ""), sep = "\n")'
 
 uninstall:
 	R --slave -e "try(devtools::uninstall('$(CURDIR)'), silent = TRUE)"

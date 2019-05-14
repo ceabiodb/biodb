@@ -1,0 +1,87 @@
+---
+title: "Accessing ChEBI entries"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to access entries in ChEBI database.
+vignette: |
+  %\VignetteIndexEntry{Accessing ChEBI entries}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# How to access entries in ChEBI database
+
+## Introduction
+
+Through the example of the ChEBI database, we are going to see how to access a database to access its entries.
+
+First we instantiate the package:
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+
+Then we create a connector to ChEBI:
+```{r}
+chebi <- mybiodb$getFactory()$createConn('chebi')
+```
+
+## Requesting entries
+
+Using accession numbers, we request entries from ChEBI:
+```{r}
+entries <- chebi$getEntry(c('2528', '17053', '15440'))
+```
+
+## Get entry fields
+
+Getting the values of entry fields are done using `getFieldValue()` method.
+Here we retrieve the SMILES fields for all ChEBI entries obtained previously:
+```{r}
+vapply(entries, function(e) e$getFieldValue('smiles'), FUN.VALUE = '')
+```
+
+## Get data frame
+
+We can convert an entry into a data frame:
+```{r}
+entries[[1]]$getFieldsAsDataFrame()
+```
+
+Building a data frame for a list of entries is also possible:
+```{r}
+mybiodb$entriesToDataframe(entries, fields = c('accession', 'formula', 'molecular.mass', 'inchikey', 'kegg.compound.id'))
+```
+
+## Search by name and mass
+
+Searching by name and/or mass is done through the `searchCompound()`.
+
+Searching by name:
+```{r}
+chebi$searchCompound(name = 'aspartic', max.results = 3)
+```
+
+Searching by mass:
+```{r}
+chebi$searchCompound(mass = 133, mass.field = 'molecular.mass', mass.tol = 0.3, max.results = 3)
+```
+
+Searching by name and mass:
+```{r}
+ids <- chebi$searchCompound(name = 'aspartic', mass = 133, mass.field = 'molecular.mass', mass.tol = 0.3, max.results = 3)
+```
+Display results in data frame:
+```{r}
+mybiodb$entriesToDataframe(chebi$getEntry(ids), fields = c('accession', 'molecular.mass', 'name'))
+```
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

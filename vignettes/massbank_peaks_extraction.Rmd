@@ -1,0 +1,75 @@
+---
+title: "Massbank peaks extraction"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to extract a peak list from Massbank.
+vignette: |
+  %\VignetteIndexEntry{Massbank peaks extraction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Massbank peaks extraction
+
+## Introduction
+
+In this vignette we will extract entries from the Massbank database, filtering them on desired creteria, and then convert them to a data frame of M/Z peaks.
+
+We first create an instance of the `Biodb` class:
+```{r}
+mybiodb <- biodb::Biodb()
+```
+
+And a then a connector to Massbank:
+```{r}
+conn <- mybiodb$getFactory()$createConn('massbank')
+```
+
+## Getting the entry IDs
+
+We first retrieve the IDs of the entries we want, selecting only MSMS spectra:
+```{r}
+entry.ids <- conn$getEntryIds(ms.level = 2, max.results = 10)
+entry.ids
+```
+We limit the number of entries to 10 for this example.
+
+# Getting the entries and filtering
+
+From the IDs we get the entries:
+```{r}
+entries <- conn$getEntry(entry.ids, drop = FALSE)
+```
+
+Then we filter on the MS mode:
+```{r}
+entries <- entries[vapply(entries, function(e) e$getFieldValue('ms.mode') == 'pos'
+                   && e$getFieldValue('nb.peaks') < 10, FUN.VALUE = TRUE), drop = FALSE]
+vapply(entries, function(e) e$getFieldValue('accession'), FUN.VALUE = '')
+```
+
+## Converting an entire database into a data frame
+
+We transform all entries into a single data frame, selecting only some of the fields:
+```{r}
+mybiodb$entriesToDataframe(entries, fields = c('accession', 'ms.level', 'ms.mode', 'nb.peaks', 'peaks'), only.atomic = FALSE)
+```
+The parameter `only.atomic` controls if only atomic values are put inside the data frame. If set to `TRUE`, then each entry will occupy only one line inside the data frame. If set to `FALSE` and an entry contains a non-atomic value (vector or data frame), then instead of occupying one line in the data frame an entry will occupy several lines, its atomic values being copied as many time as there are values inside the non-atomic value.
+The field `peaks` is a special field for the peaks data frame.
+
+Other fields are available for the data frame output:
+```{r}
+entries[[1]]$getFieldNames()
+```
+If you want to output all fields, just omit the `fields` parameter in the `entriesToDataframe()` method.
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```
