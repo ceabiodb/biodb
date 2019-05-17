@@ -109,18 +109,38 @@ test.kegg.compound.getPathwayIds_issue_333_20190507 <- function(conn) {
 	c <- 'C05402'
 
 	# Pathways returned that contain this compound in their compound list.
-	pwgood <- 'mmu00052'
+	goodpws <- c('mmu00052', 'mmu01100', 'mmu02010')
 
 	# Pathways linked through gene that do not contain this compound in their compound list.
-	# c("mmu00561", "mmu00600", "mmu00603", "mmu04142")
-
-	# Pathway mmu01100 has no list of compounds, and contains many modules. It's like a superpathway. None of its modules contain the compound.
+	wrongpws <- c("mmu00561", "mmu00600", "mmu00603", "mmu04142")
 
 	# Get all pathways
 	ids <- conn$getPathwayIds(c, 'mmu')
 	testthat::expect_is(ids, 'character')
 	testthat::expect_true(length(ids) > 0)
-	testthat::expect_identical(ids, pwgood)
+	testthat::expect_true(any(goodpws %in% ids))
+	testthat::expect_false(any(wrongpws %in% ids))
+}
+
+# Test KEGG Compound getPathwayIds() issue 338 {{{1
+################################################################
+
+test.kegg.compound.getPathwayIds_issue_338_20190517 <- function(conn) {
+
+	# Compound
+	atp <- 'C00002'
+	adp <- 'C00008'
+
+	# Pathway that should be found (among others)
+	pw <- 'mmu00190'
+
+	# Get all pathways
+	for (c in c(adp, atp)) {
+		ids <- conn$getPathwayIds(c, 'mmu')
+		testthat::expect_is(ids, 'character')
+		testthat::expect_true(length(ids) > 0)
+		testthat::expect_true(pw %in% ids)
+	}
 }
 
 # Test KEGG Compound getPathwayIds() {{{1
@@ -157,5 +177,6 @@ run.kegg.compound.tests <- function(conn, obs) {
 		test.that('getPathwayIdsPerCompound() works correctly.', 'test.kegg.compound.getPathwayIdsPerCompound', conn = conn)
 		test.that('getPathwayIds() works correctly.', 'test.kegg.compound.getPathwayIds', conn = conn)
 		test.that('getPathwayIds() issue_333 is corrected', 'test.kegg.compound.getPathwayIds_issue_333_20190507', conn = conn)
+		test.that('getPathwayIds() issue_338 is corrected', 'test.kegg.compound.getPathwayIds_issue_338_20190517', conn = conn)
 	}
 }

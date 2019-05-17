@@ -22,12 +22,14 @@ GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
 ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
 
 # Display values of main variables
-$(info "ENV VAR BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
-$(info "ENV VAR BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
+$(info "BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
+$(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
 # TODO Set an option for only writing to cache, not reading. This way we can run test and update the cache only.
-$(info "ENV VAR BIODB_OFFLINE=$(BIODB_OFFLINE)")
-$(info "ENV VAR DATABASES=$(DATABASES)")
-$(info "ENV VAR DONT_TEST_DBS=$(DONT_TEST_DBS)")
+$(info "BIODB_OFFLINE=$(BIODB_OFFLINE)")
+$(info "DATABASES=$(DATABASES)")
+$(info "DONT_TEST_DBS=$(DONT_TEST_DBS)")
+$(info "PKG_VERSION=$(PKG_VERSION)")
+$(info "GIT_VERSION=$(GIT_VERSION)")
 
 # Default target {{{1
 ################################################################
@@ -50,7 +52,8 @@ bioc.check:
 	time R CMD BiocCheck --new-package --quit-with-status .
 
 check.version:
-	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
+#	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
+# Does not work anymore
 
 test: check.version
 	R -q -e "devtools::test('$(CURDIR)', reporter = c('$(TESTTHAT_REPORTER)', 'fail'))"

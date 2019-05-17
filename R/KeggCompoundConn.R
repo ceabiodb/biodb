@@ -219,45 +219,42 @@ KeggCompoundConn$methods( getPathwayIdsPerCompound = function(id, org) {
 	pathways = list()
 
     kegg.enz.conn = .self$getBiodb()$getFactory()$getConn('kegg.enzyme')
-    kegg.path.conn = .self$getBiodb()$getFactory()$getConn('kegg.pathway')
-    kegg.module.conn = .self$getBiodb()$getFactory()$getConn('kegg.module')
     
 	# Loop on all compound ids
     i <- 0
 	for (comp.id in id) {
 
+		pws <- NULL
+
 		# Get compound entry
 		comp = .self$getEntry(comp.id)
-		if ( ! is.null(comp) && comp$hasField('kegg.enzyme.id')) {
+		if (is.null(comp))
+			next
+
+		# Does this compound have a list of pathways?
+		if (comp$hasField('kegg.pathway.id')) {
+
+			# Get pathways
+			pws <- comp$getFieldValue('kegg.pathway.id')
+
+			# Convert them to specified organism
+			kegg.path.conn = .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+			pws <- kegg.path.conn$convertToOrgPathways(pws, org = org)
+		}
+
+		# Look for enzymes
+		else if (comp$hasField('kegg.enzyme.id')) {
 
 			# Get pathways
 			pws = kegg.enz.conn$getPathwayIds(comp$getFieldValue('kegg.enzyme.id'), org = org)
 
-			# Loop on all pathways
-			good_pws = character()
-			for (pw in pws) {
-				
-				# Get pathway entry
-				pw.entry <- kegg.path.conn$getEntry(pw)
-				if ( ! is.null(pw.entry)) {
-					# Check that the compound is inside the list of compounds
-					if (pw.entry$hasField('kegg.compound.id') && comp.id %in% pw.entry$getFieldValue('kegg.compound.id'))
-						good_pws = c(good_pws, pw)
-					else if (pw.entry$hasField('kegg.module.id')) {
-						# We need to check that the compound is listed in at least one of the modules
-						module.ids <- pw.entry$getFieldValue('kegg.module.id')
-						for (m in module.ids) {
-							mentry <- kegg.module.conn$getEntry(m)
-							if ( ! is.null(mentry) && mentry$hasField('kegg.compound.id') && comp.id %in% mentry$getFieldValue('kegg.compound.id'))
-								good_pws = c(good_pws, pw)
-						}
-					}
-				}
-			}
-
-			# Record good pathways
-			pathways[[comp.id]] = good_pws
+			# Filter out wrong pathways
+			pws = pws[vapply(pws, function(pw) .self$.isInPathway(pw), FUN.VALUE = TRUE)]
 		}
+
+		# Record found pathways
+		if ( ! is.null(pws))
+			pathways[[comp.id]] = pws
 
 		# Send progress message
 		i <- i + 1
@@ -287,4 +284,42 @@ KeggCompoundConn$methods( getPathwayIds = function(id, org) {
 
 KeggCompoundConn$methods( .getParsingExpressions = function() {
 	return(.BIODB.KEGG.COMPOUND.PARSING.EXPR)
+})
+
+# Is in pathway {{{2
+################################################################
+
+KeggCompoundConn$methods( .isInPathway = function(pw) {
+
+	in_pathway = FALSE
+
+	# Get connectors
+	kegg.path.conn = .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+	kegg.module.conn = .self$getBiodb()$getFactory()$getConn('kegg.module')
+
+	# Get pathway entry
+	pw.entry <- kegg.path.conn$getEntry(pw)
+
+	if ( ! is.null(pw.entry)) {
+
+		# Check that the compound is inside the list of compounds
+		if (pw.entry$hasField('kegg.compound.id') && comp.id %in% pw.entry$getFieldValue('kegg.compound.id'))
+			in_pathway = TRUE
+
+		else if (pw.entry$hasField('kegg.module.id')) {
+
+			# We need to check that the compound is listed in at least one of the modules
+			module.ids <- pw.entry$getFieldValue('kegg.module.id')
+			for (m in module.ids) {
+
+				mentry <- kegg.module.conn$getEntry(m)
+				if ( ! is.null(mentry) && mentry$hasField('kegg.compound.id') && comp.id %in% mentry$getFieldValue('kegg.compound.id')) {
+					in_pathway = TRUE
+					break
+				}
+			}
+		}
+	}
+
+	return(in_pathway)
 })

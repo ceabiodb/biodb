@@ -105,6 +105,25 @@ KeggPathwayConn$methods( getReactions = function(id, drop = TRUE) {
     return(reactions)
 })
 
+# Convert to organism pathways {{{1
+################################################################
+
+KeggPathwayConn$methods( convertToOrgPathways = function(id, org) {
+    "Take a list of pathways IDs and convert them to the specified organism,
+    filtering out the ones that do not exist in KEGG."
+    
+    # Set organism code in IDs
+    id <- sub('^[^0-9]+', org, id)
+    
+    # Get entries to check existence
+    entries <- .self$getEntry(id, drop = FALSE)
+    
+    # Filter out non existing entries
+    id <- id[ ! vapply(entries, is.null, FUN.VALUE = TRUE)]
+    
+    return(id)
+})
+
 # Build pathway graph {{{1
 ################################################################
 
