@@ -157,7 +157,7 @@ KeggPathwayConn$methods( getPathwayIgraph = function(id, directed = FALSE,
 
     graph = list()
  
-    if (require('igraph')) {
+    if (require('igraph', quietly = TRUE, warn.conflicts = FALSE)) {
         detach('package:igraph') # Force using namespace.
         
         g = .self$buildPathwayGraph(id = id, directed = directed, drop = FALSE)
@@ -189,7 +189,7 @@ KeggPathwayConn$methods( getDecoratedGraphPicture = function(id, color2ids) {
  
     pix = NULL
     
-    if (require('magick')) {
+    if (require('magick', quietly = TRUE, warn.conflicts = FALSE)) {
         detach('package:magick') # Force using namespace.
 
         # Extract pathway number

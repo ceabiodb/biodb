@@ -1,0 +1,108 @@
+---
+title: "In-house MSMS database"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to define an in-house MSMS database and run spectrum annotation on it.
+vignette: |
+  %\VignetteIndexEntry{In-house MSMS database}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# In-house MSMS database
+
+## Introduction
+
+In this vignette, we will define an in-house MSMS database and try to match a spectrum on it.
+
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+
+## Defining the database
+
+We create the data frame containing the peaks:
+```{r}
+db <- rbind.data.frame(
+	   list(accession = 'AU200951',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 161.0238, peak.intensity = 38176  , peak.relative.intensity = 100     , peak.formula = 'C7H4F3O-',           msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = '[M-H]-'     ),
+	   list(accession = 'AU200951',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 162.0274, peak.intensity = 1780   , peak.relative.intensity = 4.604605, peak.formula = 'C6[13]CH4F3O-',      msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = NA_character_),
+	   list(accession = 'AU200951',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 141.0167, peak.intensity = 616    , peak.relative.intensity = 1.601602, peak.formula = 'C7H3F2O-',           msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = NA_character_),
+	   list(accession = 'AU200952',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 161.0246, peak.intensity = 6180   , peak.relative.intensity = 100     , peak.formula = 'C7H4F3O-',           msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = '[M-H]-'     ),
+	   list(accession = 'AU200952',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 141.0184, peak.intensity = 1384   , peak.relative.intensity = 22.32232, peak.formula = 'C7H3F2O-',           msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = NA_character_),
+	   list(accession = 'AU200952',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 121.0113, peak.intensity = 1180   , peak.relative.intensity = 19.01902, peak.formula = 'C7H2FO-',            msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = NA_character_),
+	   list(accession = 'AU200952',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 162.0282, peak.intensity = 388    , peak.relative.intensity = 6.206206, peak.formula = 'C6[13]CH4F3O-',      msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = NA_character_),
+	   list(accession = 'AU200953',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 121.0113, peak.intensity = 828    , peak.relative.intensity = 100     , peak.formula = 'C7H2FO-',            msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = NA_character_),
+	   list(accession = 'AU200953',  formula = 'C7H5F3O',      ms.mode = 'neg',     ms.level = 2, peak.mz = 141.0174, peak.intensity = 300    , peak.relative.intensity = 36.13614, peak.formula = 'C7H3F2O-',           msprecannot = '[M-H]-',       msprecmz = 161.022 ,   peak.attr = NA_character_),
+	   list(accession = 'AU325851',  formula = 'C10H12N2O3S',  ms.mode = 'neg',     ms.level = 2, peak.mz = 239.0502, peak.intensity = 4580   , peak.relative.intensity = 100     , peak.formula = 'C10H11N2O3S-',       msprecannot = '[M-H]-',       msprecmz = 239.0496,   peak.attr = '[M-H]-'     ),
+	   list(accession = 'AU325851',  formula = 'C10H12N2O3S',  ms.mode = 'neg',     ms.level = 2, peak.mz = 240.0525, peak.intensity = 468    , peak.relative.intensity = 10.21021, peak.formula = 'C9[13]CH11N2O3S-',   msprecannot = '[M-H]-',       msprecmz = 239.0496,   peak.attr = NA_character_),
+	   list(accession = 'AU325851',  formula = 'C10H12N2O3S',  ms.mode = 'neg',     ms.level = 2, peak.mz = 241.0471, peak.intensity = 312    , peak.relative.intensity = 6.806807, peak.formula = 'C10H11N2O3[34]S-',   msprecannot = '[M-H]-',       msprecmz = 239.0496,   peak.attr = NA_character_),
+	   list(accession = 'AU341051',  formula = 'C9H10Cl2N2O',  ms.mode = 'neg',     ms.level = 2, peak.mz = 231.0102, peak.intensity = 30800  , peak.relative.intensity = 100     , peak.formula = 'C9H9Cl2N2O- [M-H]-', msprecannot = '[M-H]-',       msprecmz = 231.0097,   peak.attr = NA_character_),
+	   list(accession = 'AU341051',  formula = 'C9H10Cl2N2O',  ms.mode = 'neg',     ms.level = 2, peak.mz = 233.0077, peak.intensity = 13532  , peak.relative.intensity = 43.84384, peak.formula = 'C9H9Cl[37]ClN2O-',   msprecannot = '[M-H]-',       msprecmz = 231.0097,   peak.attr = NA_character_),
+	   list(accession = 'AU341051',  formula = 'C9H10Cl2N2O',  ms.mode = 'neg',     ms.level = 2, peak.mz = 232.0129, peak.intensity = 2024   , peak.relative.intensity = 6.506507, peak.formula = 'C8[13]CH9Cl2N2O-',   msprecannot = '[M-H]-',       msprecmz = 231.0097,   peak.attr = NA_character_),
+	   list(accession = 'AU341051',  formula = 'C9H10Cl2N2O',  ms.mode = 'neg',     ms.level = 2, peak.mz = 185.9529, peak.intensity = 1672   , peak.relative.intensity = 5.405405, peak.formula = 'C7H2Cl2NO-',         msprecannot = '[M-H]-',       msprecmz = 231.0097,   peak.attr = NA_character_),
+	   list(accession = 'AU341051',  formula = 'C9H10Cl2N2O',  ms.mode = 'neg',     ms.level = 2, peak.mz = 187.9496, peak.intensity = 868    , peak.relative.intensity = 2.802803, peak.formula = 'C7H2Cl[37]ClNO-',    msprecannot = '[M-H]-',       msprecmz = 231.0097,   peak.attr = NA_character_),
+	   list(accession = 'AU341051',  formula = 'C9H10Cl2N2O',  ms.mode = 'neg',     ms.level = 2, peak.mz = 159.9737, peak.intensity = 844    , peak.relative.intensity = 2.702703, peak.formula = 'C6H4Cl2N-',          msprecannot = '[M-H]-',       msprecmz = 231.0097,   peak.attr = NA_character_),
+	   list(accession = 'AU341051',  formula = 'C9H10Cl2N2O',  ms.mode = 'neg',     ms.level = 2, peak.mz = 161.9711, peak.intensity = 404    , peak.relative.intensity = 1.301301, peak.formula = 'C6H4Cl[37]ClN-',     msprecannot = '[M-H]-',       msprecmz = 231.0097,   peak.attr = NA_character_),
+	   list(accession = 'AU158001',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 286.1456, peak.intensity = 1073792, peak.relative.intensity = 100     , peak.formula = 'C17H20NO3+',         msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = '[M+H]+'     ),
+	   list(accession = 'AU158001',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 287.1488, peak.intensity = 157332 , peak.relative.intensity = 14.61461, peak.formula = 'C16[13]CH20NO3+',    msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = NA_character_),
+	   list(accession = 'AU158001',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 288.1514, peak.intensity = 15604  , peak.relative.intensity = 1.401401, peak.formula = 'C15[13]C2H20NO3+',   msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = NA_character_),
+	   list(accession = 'AU158002',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 286.1457, peak.intensity = 1338896, peak.relative.intensity = 100     , peak.formula = 'C17H20NO3+',         msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = '[M+H]+'     ),
+	   list(accession = 'AU158002',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 287.1489, peak.intensity = 227244 , peak.relative.intensity = 16.91692, peak.formula = 'C16[13]CH20NO3+',    msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = NA_character_),
+	   list(accession = 'AU158002',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 229.0869, peak.intensity = 20980  , peak.relative.intensity = 1.501502, peak.formula = 'C14H13O3+',          msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = NA_character_),
+	   list(accession = 'AU158002',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 288.1513, peak.intensity = 19640  , peak.relative.intensity = 1.401401, peak.formula = 'C15[13]C2H20NO3+',   msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = NA_character_),
+	   list(accession = 'AU158002',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 201.0918, peak.intensity = 19520  , peak.relative.intensity = 1.401401, peak.formula = 'C13H13O2+',          msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = NA_character_),
+	   list(accession = 'AU158002',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 268.1343, peak.intensity = 8808   , peak.relative.intensity = 0.600600, peak.formula = 'C17H18NO2+',         msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = NA_character_),
+	   list(accession = 'AU158002',  formula = 'C17H19NO3',    ms.mode = 'pos',     ms.level = 2, peak.mz = 211.076 , peak.intensity = 8660   , peak.relative.intensity = 0.600600, peak.formula = 'C14H11O2+',          msprecannot = '[M+H]+',       msprecmz = 286.1438,   peak.attr = NA_character_),
+	   list(accession = 'AU116602',  formula = 'C4H6N2S',      ms.mode = 'pos',     ms.level = 2, peak.mz = 115.0334, peak.intensity = 6556   , peak.relative.intensity = 100     , peak.formula = 'C4H7N2S+',           msprecannot = '[M+H]+',       msprecmz = 115.0324,   peak.attr = '[M+H]+'     ),
+	   list(accession = 'AU116606',  formula = 'C4H6N2S',      ms.mode = 'pos',     ms.level = 2, peak.mz = 115.0334, peak.intensity = 39940  , peak.relative.intensity = 100     , peak.formula = 'C4H7N2S+',           msprecannot = '[M+H]+',       msprecmz = 115.0324,   peak.attr = '[M+H]+'     ),
+	   list(accession = 'AU116606',  formula = 'C4H6N2S',      ms.mode = 'pos',     ms.level = 2, peak.mz = 116.0365, peak.intensity = 2808   , peak.relative.intensity = 7.007007, peak.formula = 'C3[13]CH7N2S+',      msprecannot = '[M+H]+',       msprecmz = 115.0324,   peak.attr = NA_character_),
+	   list(accession = 'AU116606',  formula = 'C4H6N2S',      ms.mode = 'pos',     ms.level = 2, peak.mz = 117.0293, peak.intensity = 2596   , peak.relative.intensity = 6.406406, peak.formula = 'C4H7N2[34]S+',       msprecannot = '[M+H]+',       msprecmz = 115.0324,   peak.attr = NA_character_),
+            stringsAsFactors = FALSE)
+```
+
+Then we create the connector to this data frame database:
+```{r}
+conn <- mybiodb$getFactory()$createConn('mass.csv.file')
+conn$setDb(db)
+```
+
+For runnning the MSMS search we need to define a `peak.mztheo` field and keep the original `peak.mz` field:
+```{r}
+conn$setField('peak.mztheo', 'peak.mz')
+conn$setField('peak.mz', 'peak.mz')
+```
+
+## Searching for entries
+
+We can search for entries containing certain M/Z values with the following method:
+```{r}
+conn$searchMsEntries(mz.min = 115, mz.max = 115.1, max.results = 5)
+```
+
+It is also possible to call it with a tolerance:
+```{r}
+conn$searchMsEntries(mz = 115, mz.tol = 0.1, mz.tol.unit = 'plain', max.results = 5)
+```
+
+## Spectrum matching
+
+The spectrum to search for must be defined inside a data frame:
+```{r}
+spectrum <- data.frame(mz = c(286.1456, 287.1488, 288.1514), rel.int = c(100, 45, 18))
+```
+
+Then we call the `msmsSearch()` method:
+```{r}
+conn$msmsSearch(spectrum, precursor.mz = 286.1438, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = 'pos')
+```
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

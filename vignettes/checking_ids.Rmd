@@ -1,0 +1,66 @@
+---
+title: "Checking database IDs"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to check IDs contained in a table.
+vignette: |
+  %\VignetteIndexEntry{Checking database IDs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Checking database IDs
+
+## Introduction
+
+Supposing that you have a table containing IDs of different databases, this vignette will show you how to quickly check that your IDs are coherent.
+
+First we instantiate the package:
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+
+## Creating a table of IDs
+
+For the example, we create a table containing database IDs:
+```{r}
+table <- data.frame(chebi = c('2528', '17053', '37600'), kegg = c('C08811', 'C00046', 'C08259'))
+```
+Here we expect that the KEGG IDs correspond to the ChEBI IDs in the first column. We are going to check that in the next chapters.
+
+## Requesting entries from ChEBI
+
+We create a connector to the ChEBI database:
+```{r}
+conn <- mybiodb$getFactory()$getConn('chebi')
+```
+
+Then we retrieve the entries:
+```{r}
+entries <- conn$getEntry(table[['chebi']])
+```
+
+## Getting a data frame of all these entries
+
+We put the fields we are interested in inside a data frame:
+```{r}
+df <- mybiodb$entriesToDataframe(entries, fields = c('chebi.id', 'kegg.compound.id'))
+```
+
+## Search for rows containing mistake in KEGG ID
+
+We identify the rows with wrong KEGG IDs:
+```{r}
+table[table[['kegg']] != df[['kegg.compound.id']], ]
+```
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

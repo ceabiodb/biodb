@@ -1,0 +1,54 @@
+---
+title: "Merging entries coming from different databases"
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to build a data frame containing entries coming from different databases.
+vignette: |
+  %\VignetteIndexEntry{Merging entries coming from different databases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Merging entries coming from different databases
+
+## Introduction
+
+First we instantiate the package:
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+
+## Getting the entries
+
+Request entries from ChEBI, using accession numbers:
+```{r}
+chebi.entries <- mybiodb$getFactory()$getEntry('chebi', id = c('2528', '17053'))
+```
+
+Request entries from Uniprot:
+```{r}
+uniprot.entries <- mybiodb$getFactory()$getEntry('uniprot', id = c('P02461', 'P08123', 'Q31611'))
+```
+
+Request entries from LIPID MAPS Structure:
+```{r}
+lipidmaps.entries <- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = c('LMFA08040013'))
+```
+
+## Get a data frame of all these entries
+
+We call then the `entriesToDataframe()` on all those entries, selectin the fields we want in the output:
+```{r}
+mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries, lipidmaps.entries), fields = c('accession', 'molecular.mass', 'monoisotopic.mass', 'inchikey', 'name'))
+```
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

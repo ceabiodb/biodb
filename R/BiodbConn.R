@@ -88,13 +88,13 @@ BiodbConn$methods( getEntryIds = function(max.results = NA_integer_, ...) {
 
 	ids = character()
 
-	# Get IDs volatile cache
+	# Get IDs from volatile cache
 	not.null = ! vapply(.self$.entries, is.null, FUN.VALUE = T)
 	ids = names(.self$.entries[not.null])
 
 	# Get IDs from database
 	if (is.null(max.results) || is.na(max.results) || length(ids) < max.results) {
-		db.ids = .self$.doGetEntryIds(max.results, ...)
+		db.ids = .self$.doGetEntryIds(if (is.null(max.results)) NA_integer_ else max.results, ...)
 		if ( ! is.null(db.ids))
 			ids = c(ids, db.ids[ ! db.ids %in% ids])
 	}

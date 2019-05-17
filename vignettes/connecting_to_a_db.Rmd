@@ -1,5 +1,5 @@
 ---
-title: "Accessing database entries by accession number"
+title: "Connecting to a database"
 author: "Pierrick Roger"
 output:
   html_document:
@@ -8,34 +8,45 @@ package: biodb
 abstract: |
   How to retrieve entries from databases.
 vignette: |
-  %\VignetteIndexEntry{Accessing database entries by accession number}
+  %\VignetteIndexEntry{Connecting to a database}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-# Introduction
+# Connecting to a database
 
-In this vignette, we will explain how to download and access entry information from databases.
+## Introduction
+
+In this vignette, we will explain how to connect to a database and retrieve entries.
 
 First you need to create an instance of the `Biodb` class:
 ```{r}
 mybiodb <- biodb::Biodb()
 ```
 
-# Getting list of available databases
+## Getting the list of available databases
 
-A database ID is required for choosing which database to access. To get the list of available database IDs, just run:
+Several connectors are implemented in Biodb. You can get a list of with the following call:
 ```{r}
 mybiodb$getDbsInfo()$getIds()
 ```
 
-# Getting an entry from the database
-To obtain an entry from a database you have to call the `getEntry()` method from the `BiodbFactory` class. The following example access the KEGG Compound database in order to retrieve the entry number 2:
+## Creating a connector
+
+Creating a connector is done through the factory:
 ```{r}
-entry <- mybiodb$getFactory()$getEntry('kegg.compound', id = 'C00005')
+conn <- mybiodb$getFactory()$getConn('kegg.compound')
 ```
 
-# Accessing entry fields
+## Getting an entry from the database
+
+Retrieving an entry from the database is done using the `getEntry()` method:
+```{r}
+entry <- conn$getEntry('C00005')
+```
+
+## Accessing entry fields
+
 From an entry instance, you can access different values stored in fields. Here is an example to get back the entry number (or accession number) used to obtain this entry:
 ```{r}
 entry$getFieldValue('accession')
@@ -49,4 +60,11 @@ entry$getFieldNames()
 You can also get a data frame of the field values with the method `getFieldsAsDataFrame()`:
 ```{r}
 entry$getFieldsAsDataFrame()
+```
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
 ```

@@ -334,11 +334,11 @@ Biodb$methods( computeFields = function(entries) {
 # Copy database {{{1
 ################################################################
 
-Biodb$methods( copyDb = function(conn.from, conn.to) {
+Biodb$methods( copyDb = function(conn.from, conn.to, limit = NULL) {
 	":\n\nCopy all entries of a database into another database. The connector of the destination database must be editable."
 	
 	# Get all entry IDs of "from" database
-	ids = conn.from$getEntryIds()
+	ids = conn.from$getEntryIds(max.results = limit)
 
 	# Get entries
 	entries = conn.from$getEntry(ids)

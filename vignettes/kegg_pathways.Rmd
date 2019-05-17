@@ -1,19 +1,21 @@
 ---
-title: "Detected related compounds using KEGG databases"
+title: "Getting pathways related to compounds using KEGG databases"
 author: "Pierrick Roger"
 output:
   html_document:
     theme: null
 package: biodb
 abstract: |
-  This vignette shows how to check if it exists a functional link between compounds, in pathways, using KEGG databases.
+  This vignette shows how to retrieve pathways related to a compound using KEGG databases. It also demonstrate how to get a pathways map with a set of enzymes and compounds highlighted on it.
 vignette: |
   %\VignetteIndexEntry{Accessing KEGG databases}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-# Introduction
+# Getting pathways related to compounds using KEGG databases
+
+## Introduction
 
 In this vignette, we will:
  * Look for pathways related to specified compounds.
@@ -23,23 +25,23 @@ In this vignette, we will:
 
 For that we will start from a given list of KEGG compound IDs, and explore KEGG to find to which organisms they can be related and try to discover links between them through KEGG pathways.
 
-As an example, we will start for a predefined list of KEGG compound IDs, and focus on one organism, the mouse.
+As an example, we will start for a pyellowefined list of KEGG compound IDs, and focus on one organism, the mouse.
 
-# Initializing the library
+## Initializing the library
 
 First we need to create an instance of the `Biodb` class:
 ```{r Initializing Biodb}
 mybiodb = biodb::Biodb()
 ```
 
-# Creating a connector
+## Creating a connector
 
 We need a connector to the KEGG Compound database:
 ```{r}
 kegg.comp.conn = mybiodb$getFactory()$getConn('kegg.compound')
 ```
 
-# List of compound IDs
+## List of compound IDs
 
 We will use the following list of compounds as a start in our search:
 ```{r}
@@ -52,7 +54,7 @@ kegg.comp.ids = c('C02648', 'C06144', 'C06178', 'C02659', 'C02659',
                   'C02019', 'C08497', 'C16310', 'C11118', 'C02240')
 ```
 
-# Look for pathways related to specified compounds
+## Look for pathways related to specified compounds
 
 Given a list of compounds and an organism, we can look for pathways in a single command:
 ```{r}
@@ -60,7 +62,7 @@ pathways = kegg.comp.conn$getPathwayIds(kegg.comp.ids, 'mmu')
 pathways
 ```
 
-# Count to how many pathways each compound is related
+## Count to how many pathways each compound is related
 
 With another function we can get the pathways found for each compound:
 ```{r}
@@ -74,7 +76,7 @@ Here, in the final table, we list the number of pathways for each KEGG compound:
 nb_mmu_gene_pathways
 ```
 
-# Build a pathway graph
+## Build a pathway graph
 
 To build a pathway graph, we need a connector to the KEGG Pathway database:
 ```{r Getting a connector to the KEGG Pathway database}
@@ -96,11 +98,11 @@ And we plot it:
 ```{r Plotting the pathway igraph}
 vert <- igraph::as_data_frame(ig, 'vertices')
 shapes <- vapply(vert[['type']], function(x) if (x == 'reaction') 'rectangle' else 'circle', FUN.VALUE = '', USE.NAMES = FALSE)
-colors <- vapply(vert[['type']], function(x) if (x == 'reaction') 'yellow' else 'green', FUN.VALUE = '', USE.NAMES = FALSE)
+colors <- vapply(vert[['type']], function(x) if (x == 'reaction') 'yellow' else 'red', FUN.VALUE = '', USE.NAMES = FALSE)
 plot(ig, vertex.shape = shapes, vertex.color = colors, vertex.label.dist = 1, vertex.size = 4, vertex.size2 = 4)
 ```
 
-# Create a decorated pathway graph picture
+## Create a decorated pathway graph picture
 
 We will now use a KEGG pathway picture and highlight some of the enzymes and compounds on it.
 
@@ -108,7 +110,7 @@ For this, we first define the colors we want to apply:
 ```{r Attributing colors to entries}
 c = list(yellow = c('4.2.1.22', '4.2.3.1', '3.5.4.44', '2.7.2.4',
                     '1.2.1.8', '4.1.2.48'),
-         green = c('C00101', 'C00168', 'C01026', 'C00581', 'C00014',
+         red = c('C00101', 'C00168', 'C01026', 'C00581', 'C00014',
                    'C05519'))
 ```
 
@@ -122,7 +124,7 @@ And print the image:
 print(img)
 ```
 
-# Terminate the biodb instance
+## Terminate the biodb instance
 
 Once we are done with Biodb, we need to terminate properly the `Biodb` instance:
 ```{r Terminating the Biodb instance}
