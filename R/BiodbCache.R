@@ -36,7 +36,6 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
 #' @include BiodbChildObject.R
 #' @export BiodbCache
 #' @exportClass BiodbCache

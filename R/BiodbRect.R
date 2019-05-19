@@ -5,15 +5,54 @@
 
 #' A class for representing a rectangle.
 #'
-#' This abstract class represents a rectangle, used for graphical
+#' This class represents a rectangle, used for graphical
 #' representation.
 #'
-#' @slot label A text label to associate with the shape.
-#' @slot color A color, as a character string.
+#' @field left   Coordinate of left border.
+#' @field right  Coordinate of right border.
+#' @field top    Coordinate of top border.
+#' @field bottom Coordinate of bottom border.
 #'
 #' @seealso \code{\link{BiodbShape}}, \code{\link{BiodbCircle}}.
 #'
+#' @include BiodbShape.R
+#' @export BiodbRect
 #' @exportClass BiodbRect
-setClass('BiodbRect', contains = 'BiodbShape',
-         slots = c(left = 'integer', bottom = 'integer',
-                   right = 'integer', top = 'integer'))
+BiodbRect <- methods::setRefClass('BiodbRect',
+                                  contains = 'BiodbShape',
+
+    # Fields {{{2
+    ################################################################
+                                  
+    fields = list(.left = 'integer',
+                  .bottom = 'integer',
+                  .right = 'integer',
+                  .top = 'integer'),
+
+    # Public methods {{{2
+    ################################################################
+
+    methods = list(
+
+        # Constructor {{{3
+        ################################################################
+
+        initialize = function(left, top, bottom, right, ...) {
+            callSuper(...)
+            .left <<- left
+            .right <<- right
+            .top <<- top
+            .bottom <<- bottom
+        },
+
+        # Draw {{3
+        ################################################################
+
+        draw = function() {
+            'Draw the shape on the current image.'
+            
+            rect(.self$.left, .self$.bottom, .self$.right, .self$.top,
+                 col = .self$getRgbColor(alpha = 127), border = NA)
+        }
+    )
+)

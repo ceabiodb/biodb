@@ -227,23 +227,13 @@ KeggPathwayConn$methods( getDecoratedGraphPicture = function(id, color2ids) {
         pix = .self$.getPathwayImage(path_idx = path_idx, html = html)
         
         # Extract shapes
-        shapes = .self$.extractPathwayMapShapes(html = html, color2ids = color2ids)
+        shapes = .self$.extractPathwayMapShapes(html = html,
+                                                color2ids = color2ids)
         
         # Draw shapes
         dev = magick::image_draw(pix)
-        for (shape in shapes) {
-            
-            # Make color
-            c = col2rgb(shape$color)
-            c = rgb(c[1,], c[2,], c[3,], 127, maxColorValue = 255)
-            if (shape$type == 'rect')
-                rect(shape$left, shape$bottom, shape$right, shape$top,
-                     col = c, border = NA)
-            else if (shape$type == 'circle')
-                symbols(x = shape$x, y = shape$y,
-                        circles = shape$radius, bg = c,
-                        add = TRUE, inches = FALSE)
-        }
+        for (shape in shapes)
+            shape$draw()
         dev.off()
         pix = dev
     }
@@ -272,20 +262,17 @@ KeggPathwayConn$methods( .extractPathwayMapShapes = function(html, color2ids) {
                 
                 for (i in 1:nrow(g)) {
                     
-                    # Create shape
-                    s = list(type = g[i, 2], id = id, color = color)
-                    
-                    # Set coordinates
-                    c = strsplit(g[i, 3], ',')[[1]]
-                    if (s$type == 'rect')
-                        s = c(s, left = c[[1]], top = c[[2]],
-                                 right = c[[3]], bottom = c[[4]])
-                    
-                    else if (s$type == 'circle')
-                        s = c(s, x = c[[1]], y = c[[2]], radius = c[[3]])
-
-                    else
-                        next
+                    type <- g[i, 2]
+                    c = as.integer(strsplit(g[i, 3], ',')[[1]])
+                    s <- switch(type,
+                                rect = BiodbRect(label = id,
+                                           color = color,
+                                           left = c[[1]], top = c[[2]],
+                                           right = c[[3]], bottom = c[[4]]),
+                                circle = BiodbCircle(label = id,
+                                             color = color, x = c[[1]],
+                                             y = c[[2]], r = c[[3]]),
+                                NULL)
                 
                     # Append new shape to list
                     if ( ! is.null(s))
