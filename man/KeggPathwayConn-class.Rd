@@ -25,6 +25,9 @@ description of inherited methods.
 names are the pathway IDs, and values are lists containing two data frames
 named vertices and edges.}
 
+\item{\code{convertToOrgPathways(id, org)}}{Take a list of pathways IDs and convert them to the specified organism,
+filtering out the ones that do not exist in KEGG.}
+
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
 Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}

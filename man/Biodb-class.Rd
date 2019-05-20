@@ -44,7 +44,7 @@ Add new observers. Observers will be called each time an event occurs. This is t
 
 Compute missing fields in entries.}
 
-\item{\code{copyDb(conn.from, conn.to)}}{:
+\item{\code{copyDb(conn.from, conn.to, limit = NULL)}}{:
 
 Copy all entries of a database into another database. The connector of the destination database must be editable.}
 
