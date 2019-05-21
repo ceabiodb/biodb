@@ -250,6 +250,36 @@ BiodbConn$methods( getCacheId = function() {
 	return(id)
 })
 
+# Makes reference to entry  {{{1
+################################################################
+
+BiodbConn$methods( makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
+    'Test for each entry of this database in id parameter if it makes reference to the entry 
+    oid from database db. If any is set to TRUE, will return a single logical value: TRUE
+    if any entry contains a reference to oid, FALSE otherwise.'
+
+    # Returns TRUE if any entry in id makes reference to oid
+    if (any) {
+        makes_ref <- FALSE
+        for (i in id) {
+            e <- .self$getEntry(i)
+            if ( ! is.null(e) && e$makesRefToEntry(db=db, oid=oid, recurse=recurse)) {
+                makes_ref = TRUE
+				break
+			}
+        }
+    }
+    
+    # Returns a vector, testing each entry in id individually
+    else {
+        entries <- .self$getEntry(id)
+        makes_ref <- vapply(entries,
+                           function(e) ! is.null(e) && e$makesRefToEntry(db=db, oid=oid, recurse=recurse),
+                           FUN.VALUE=TRUE)
+    }
+    return(makes_ref)
+})
+
 # Private methods {{{1
 ################################################################
 

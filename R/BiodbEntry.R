@@ -441,8 +441,36 @@ BiodbEntry$methods( getName = function() {
 	return(name)
 })
 
+# Makes reference to entry  {{{1
+################################################################
+
+BiodbEntry$methods( makesRefToEntry = function(db, oid, recurse = FALSE) {
+	'Returns TRUE if this entry makes reference to the entry oid from database db.'
+    
+    makes_ref <- FALSE
+    field <- paste(db, 'id', sep='.')
+
+    # Check if oid is inside field
+    if (.self$hasField(field) && oid %in% .self$getFieldValue(field))
+        makes_ref <- TRUE
+
+    # Recursive search
+	else if (recurse)
+		makes_ref <- .self$.makesRefToEntryRecurse(db, oid)
+    # TODO Why not describe the recurse tree to follow in each DbInfo object? Specialy if we use JSON to register/define DbInfo objects.
+
+	return(makes_ref)
+})
+
 # Private methods {{{1
 ################################################################
+
+# Makes reference to entry  {{{2
+################################################################
+
+BiodbEntry$methods( .makesRefToEntryRecurse = function(db, oid) {
+	return(FALSE)
+})
 
 # Set as new {{{2
 ################################################################

@@ -1,34 +1,72 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80 
+
+# KeggPathwayEntry {{{1
+################################################################################
 
 #' @include KeggEntry.R
+KeggPathwayEntry <- methods::setRefClass(
+    "KeggPathwayEntry",
+    contains = 'KeggEntry',
 
-# Class declaration {{{1
-################################################################
+    # Public methods {{{2
+    ############################################################################
 
-KeggPathwayEntry <- methods::setRefClass("KeggPathwayEntry", contains = 'KeggEntry')
+    methods = list(
 
-# Constructor {{{1
-################################################################
+        # Constructor {{{3
+        ########################################################################
 
-KeggPathwayEntry$methods( initialize = function(...) {
+        initialize = function(...) {
+            callSuper(...)
+        },
+        
+    # Private methods {{{2
+    ############################################################################
 
-	callSuper(...)
-})
+        # Makes reference to entry, recurse {{{3
+        ########################################################################
+        
+        .makesRefToEntryRecurse = function(db, oid) {
+    
+            makes_ref <- FALSE
 
-# Parse fields step 2 {{{1
-################################################################
+            if (db %in% c('kegg.compound', 'kegg.enzyme')
+                && .self$hasField('kegg.module.id')) {
 
-KeggPathwayEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+                # We need to check that oid is listed in at least one of the modules
+                kmc <- .self$getBiodb()$getFactory()$getConn('kegg.module')
+                module.ids <- .self$getFieldValue('kegg.module.id')
+                makes_ref <- kmc$makesRefToEntry(module.ids, db = db, oid = oid,
+                                                 any = TRUE, recurse = TRUE)
+            }
 
-	# Name
-	.self$.parseMultilinesField(field = 'name', tag = 'NAME', parsed.content = parsed.content, strip.chars = ' ;', split.char = NA_character_)
+            return(makes_ref)
+        },
 
-	# Class
-	.self$.parseMultilinesField(field = 'pathway.class', tag = 'CLASS', parsed.content = parsed.content, strip.chars = ' ', split.char = ';')
+        # Parse fields step 2 {{{3
+        ################################################################
 
-	# Module IDs
-	.self$.parseModuleIds(parsed.content)
+        .parseFieldsStep2 = function(parsed.content) {
 
-	# Compound IDs
-	.self$.parseCompoundIds(parsed.content)
-})
+            # Name
+            .self$.parseMultilinesField(field = 'name',
+                                        tag = 'NAME',
+                                        parsed.content = parsed.content,
+                                        strip.chars = ' ;',
+                                        split.char = NA_character_)
+
+            # Class
+            .self$.parseMultilinesField(field = 'pathway.class',
+                                        tag = 'CLASS',
+                                        parsed.content = parsed.content,
+                                        strip.chars = ' ',
+                                        split.char = ';')
+
+            # Module IDs
+            .self$.parseModuleIds(parsed.content)
+
+            # Compound IDs
+            .self$.parseCompoundIds(parsed.content)
+        }
+    )
+)
