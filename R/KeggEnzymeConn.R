@@ -59,10 +59,27 @@ KeggEnzymeConn$methods( getPathwayIds = function(id, org) {
 	pathways = character()
     kegg.gen.conn = .self$getBiodb()$getFactory()$getConn('kegg.genes')
 
-	for (enz in .self$getEntry(id, drop = FALSE)) {
+    # Loop on all enzymes
+	for (enz.id in id) {
 
-		# For each enzyme, we loop on all the genes it references:
-		if ( ! is.null(enz) && enz$hasField('kegg.genes.id')) {
+		pws <- NULL
+		enz = .self$getEntry(enz.id)
+		if (is.null(enz))
+			next
+
+		# Does this enzyme have a list of pathways?
+		if (enz$hasField('kegg.pathway.id')) {
+
+			# Get pathways
+			pws <- enz$getFieldValue('kegg.pathway.id')
+
+			# Convert them to specified organism
+			kegg.path.conn = .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+			pws <- kegg.path.conn$convertToOrgPathways(pws, org = org)
+		}
+
+		# Look for genes
+		else if ( ! is.null(enz) && enz$hasField('kegg.genes.id')) {
 
 			# We skip non organism genes
 			genes_ids = enz$getFieldValue('kegg.genes.id')
@@ -71,15 +88,21 @@ KeggEnzymeConn$methods( getPathwayIds = function(id, org) {
 			for (gene in kegg.gen.conn$getEntry(mmu_genes_ids, drop = FALSE)) {
 
 				# We check that this gene is related to the organism:
-				if ( ! is.null(gene) && gene$hasField('kegg.organism.code') && gene$getFieldValue('kegg.organism.code') == org) {
+				if ( ! is.null(gene) && gene$hasField('kegg.pathway.id')) {
 
-					# We access the list of pathways to which this gene is related, and store it in our variable:
-					# FIXME Here we get the list of pathways related to the gene, not to the enzyme only
-					if (gene$hasField('kegg.pathway.id'))
-						pathways = unique(c(pathways, gene$getFieldValue('kegg.pathway.id')))
+					# Get pathways
+					pws <- gene$getFieldValue('kegg.pathway.id')
+
+					# Filter out wrong pathways
+					kpc <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+					pws <- pws[kpc$makesRefToEntry(pws, db = 'kegg.enzyme', oid = enz.id, recurse = TRUE)]
 				}
 			}
 		}
+
+		# Record found pathways
+		if ( ! is.null(pws))
+			pathways <- c(pathways, pws)
 	}
 
 	return(pathways)

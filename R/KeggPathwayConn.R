@@ -46,21 +46,24 @@
 KeggPathwayConn <- methods::setRefClass("KeggPathwayConn",
                                         contains = c("KeggConn"))
 
-# Constructor {{{1
+# Public methods {{{1
+################################################################################
+
+# Constructor {{{2
 ################################################################
 
 KeggPathwayConn$methods( initialize = function(...) {
     callSuper(db.name = 'pathway', db.abbrev = 'path', ...)
 })
 
-# Get entry image url {{{1
+# Get entry image url {{{2
 ################################################################
 
 KeggPathwayConn$methods( getEntryImageUrl = function(id) {
     return(rep(NA_character_, length(id)))
 })
 
-# Get reactions {{{1
+# Get reactions {{{2
 ################################################################
 
 KeggPathwayConn$methods( getReactions = function(id, drop = TRUE) {
@@ -105,7 +108,7 @@ KeggPathwayConn$methods( getReactions = function(id, drop = TRUE) {
     return(reactions)
 })
 
-# Convert to organism pathways {{{1
+# Convert to organism pathways {{{2
 ################################################################
 
 KeggPathwayConn$methods( convertToOrgPathways = function(id, org) {
@@ -124,7 +127,7 @@ KeggPathwayConn$methods( convertToOrgPathways = function(id, org) {
     return(id)
 })
 
-# Build pathway graph {{{1
+# Build pathway graph {{{2
 ################################################################
 
 KeggPathwayConn$methods( buildPathwayGraph = function(id, directed = FALSE,
@@ -166,7 +169,7 @@ KeggPathwayConn$methods( buildPathwayGraph = function(id, directed = FALSE,
     return(graph)
 })
 
-# Get pathway igraph {{{1
+# Get pathway igraph {{{2
 ################################################################
 
 KeggPathwayConn$methods( getPathwayIgraph = function(id, directed = FALSE,
@@ -201,7 +204,7 @@ KeggPathwayConn$methods( getPathwayIgraph = function(id, directed = FALSE,
     return(graph)
 })
 
-# Get decorated graph picture {{{1
+# Get decorated graph picture {{{2
 ################################################################
 
 KeggPathwayConn$methods( getDecoratedGraphPicture = function(id, color2ids) {
@@ -227,9 +230,6 @@ KeggPathwayConn$methods( getDecoratedGraphPicture = function(id, color2ids) {
     
     return(pix)
 })
-
-# Public methods {{{1
-################################################################################
 
 # Extract shapes from pathway map {{{2
 ################################################################
