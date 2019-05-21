@@ -451,7 +451,7 @@ BiodbEntry$methods( makesRefToEntry = function(db, oid, recurse = FALSE) {
     field <- paste(db, 'id', sep='.')
 
     # Check if oid is inside field
-    if (.self$hasField(field) && id %in% .self$getFieldValue(field))
+    if (.self$hasField(field) && oid %in% .self$getFieldValue(field))
         makes_ref <- TRUE
 
     # Recursive search
