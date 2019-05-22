@@ -19,7 +19,7 @@ PeakforestConn$methods( initialize = function(db.name, ...) {
 	.db.name <<- db.name
 
 	# Check token
-	if (is.na(.self$getToken()))
+	if (is.na(.self$getPropertyValue('token')))
 		.self$message('caution', "Peakforest requires a token to function correctly.")
 })
 
@@ -106,7 +106,7 @@ PeakforestConn$methods( ws.search = function(term, max = NA_integer_, retfmt = c
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	params <- c(token = .self$getToken())
+	params <- c(token = .self$getPropertyValue('token'))
 	if ( ! is.na(max))
 		params <- c(params, max = max)
 	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'search', .self$.db.name, term), params = params)
@@ -143,7 +143,7 @@ PeakforestConn$methods( ws.all.count = function(retfmt = c('plain', 'request', '
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	params <- c(token = .self$getToken())
+	params <- c(token = .self$getPropertyValue('token'))
 	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), .self$.db.name, 'all', 'count'), params = params)
 	request = BiodbRequest(method = 'get', url = url)
 	if (retfmt == 'request')
@@ -170,7 +170,7 @@ PeakforestConn$methods( ws.all.ids = function(retfmt = c('plain', 'request', 'pa
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	params <- c(token = .self$getToken())
+	params <- c(token = .self$getPropertyValue('token'))
 	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), .self$.db.name, 'all', 'ids'), params = params)
 	request = BiodbRequest(method = 'get', url = url)
 	if (retfmt == 'request')

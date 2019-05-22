@@ -61,7 +61,7 @@ PeakforestCompoundConn$methods( ws.search.compounds.mass = function(field, mass,
 		.self$message('error', paste0('Unknown mass field "', field, '".'))
 
 	# Build request
-	params <- c(token = .self$getToken())
+	params <- c(token = .self$getPropertyValue('token'))
 	if ( ! is.na(max))
 		params <- c(params, max = max)
 	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'search', 'compounds', field, mass, delta), params = params)
@@ -159,8 +159,8 @@ PeakforestCompoundConn$methods( .getParsingExpressions = function() {
 PeakforestCompoundConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	# Check token
-	if (is.na(.self$getToken()))
+	if (is.na(.self$getPropertyValue('token')))
 		.self$message('error', "Peakforest requires a token for this service.")
 
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'compounds', x), params = list(token = .self$getToken()))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'compounds', x), params = list(token = .self$getPropertyValue('token')))$toString(), FUN.VALUE = ''))
 })

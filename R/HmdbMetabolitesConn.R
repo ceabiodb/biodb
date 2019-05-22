@@ -148,7 +148,7 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 
 	# Delete existing cache files
 	.self$message('debug', 'Delete existing entry files in cache system.')
-	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
+	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'))
 
 	# Open file in binary mode
 	file.conn <- file(xml.file, open = 'rb')
@@ -193,7 +193,7 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 			ids <- stringr::str_match(metabolites, '<accession>(HMDB[0-9]+)</accession>')[, 2]
 
 			# Write all XML entries into files
-			.self$getBiodb()$getCache()$saveContentToFile(metabolites, cache.id = .self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+			.self$getBiodb()$getCache()$saveContentToFile(metabolites, cache.id = .self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getPropertyValue('entry.content.type'))
 		}
 		else
 			xml.chunks <- c(xml.chunks, chunk)
@@ -220,7 +220,7 @@ HmdbMetabolitesConn$methods( .doGetEntryIds = function(max.results = NA_integer_
 	if (.self$isDownloaded()) {
 
 		# Get IDs from cache
-		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'), extract.name = TRUE)
 
 		# Filter out wrong IDs
 		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]

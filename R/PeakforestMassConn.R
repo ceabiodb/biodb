@@ -62,7 +62,7 @@ PeakforestMassConn$methods( ws.peaks.get.range = function(type = c('lcms', 'lcms
 	if ( ! is.null(mz.min) && ! is.null(mz.max) && ! is.na(mz.min) && ! is.na(mz.max)) {
 
 		# Build request
-		params = c(token = .self$getToken())
+		params = c(token = .self$getPropertyValue('token'))
 		if ( ! is.na(mode))
 			params = c(params, mode = mode)
 		url = BiodbUrl(url = c(.self$getUrl('ws.url'), "spectra", type, "peaks", "get-range", mz.min, mz.max), params = params)
@@ -92,7 +92,7 @@ PeakforestMassConn$methods( ws.lcmsms.from.precursor = function(prec.mz, precurs
 	if ( ! is.null(prec.mz) && ! is.na(prec.mz)) {
 
 		# Build request
-		params <- c(token = .self$getToken(), precursorMassDelta = precursorMassDelta)
+		params <- c(token = .self$getPropertyValue('token'), precursorMassDelta = precursorMassDelta)
 		if ( ! is.na(mode))
 			params <- c(params, mode = mode)
 		url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'spectra', 'lcmsms', 'from-precursor', prec.mz), params = params)
@@ -118,7 +118,7 @@ PeakforestMassConn$methods( ws.list.code.columns = function(retfmt = c('plain', 
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'metadata', 'lc', 'list-code-columns'), params = list(token = .self$getToken()))
+	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'metadata', 'lc', 'list-code-columns'), params = list(token = .self$getPropertyValue('token')))
 	request = BiodbRequest(method = 'get', url = url)
 	if (retfmt == 'request')
 		return(request)
@@ -216,7 +216,7 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 
 	else {
 		# Set URL
-		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/peaks/list-mz?token=', .self$getToken(), sep = '')
+		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/peaks/list-mz?token=', .self$getPropertyValue('token'), sep = '')
 		if ( ! is.na(ms.mode))
 			url <- paste(url, '&mode=', if (ms.mode == 'pos') 'positive' else 'negative', sep ='')
 
@@ -348,17 +348,17 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 PeakforestMassConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	# Check token
-	if (is.na(.self$getToken()))
+	if (is.na(.self$getPropertyValue('token')))
 		.self$message('error', "Peakforest requires a token for this service.")
 
 	# IDs are unique between LCMS and LCMSMS. Hence no confusion possible, and ID used in LCMS is not used in LCMSMS.
 	if (concatenate) {
-		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = '')
-		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getToken(), sep = ''))
+		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getPropertyValue('token'), sep = '')
+		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getPropertyValue('token'), sep = ''))
 	}
 	else {
-		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', id,'?token=', .self$getToken(), sep = '')
-		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getToken(), sep = ''))
+		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', id,'?token=', .self$getPropertyValue('token'), sep = '')
+		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getPropertyValue('token'), sep = ''))
 	}
 
 	return(url)

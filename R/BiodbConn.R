@@ -190,7 +190,7 @@ BiodbConn$methods( isMassdb = function() {
 ################################################################
 
 BiodbConn$methods( show = function() {
-	cat("Biodb ", .self$getName(), " connector instance, using URL \"", .self$getUrl('base.url'), "\".\n", sep = '')
+	cat("Biodb ", .self$getPropertyValue('name'), " connector instance, using URL \"", .self$getUrl('base.url'), "\".\n", sep = '')
 })
 
 # Check database {{{1

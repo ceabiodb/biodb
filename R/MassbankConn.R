@@ -279,8 +279,8 @@ MassbankConn$methods( .doExtractDownload = function() {
 	dup.ids <- duplicated(ids)
 	if (any(dup.ids))
 		.self$message('caution', paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
-	cache.files <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
-	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
+	cache.files <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getPropertyValue('entry.content.type'))
+	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'))
 	file.copy(record.files, cache.files)
 
 	# Delete extracted dir
@@ -414,7 +414,7 @@ MassbankConn$methods( .doGetEntryIds = function(max.results = NA_integer_, ms.le
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'), extract.name = TRUE)
 
 	# Filter on MS level
 	if ( ! is.na(ms.level) && ms.level > 0) {

@@ -141,7 +141,7 @@ ChemspiderConn$methods( ws.recordsRecordidDetailsGet = function(recordid, fields
 		fields <- paste(.self$getAllRecordFields(), collapse = ',')
 
 	# Build request
-	header <- c('Content-Type' = "", apikey = .self$getToken())
+	header <- c('Content-Type' = "", apikey = .self$getPropertyValue('token'))
 	request <- BiodbRequest(method = 'get', url = BiodbUrl(c(.self$getUrl('ws.url'), 'records', recordid, 'details'), params = c(fields = fields)), header = header)
 	if (retfmt == 'request')
 		return(request)
@@ -175,7 +175,7 @@ ChemspiderConn$methods( ws.recordsBatchPost = function(recordids, fields = NULL,
 		fields <- .self$getAllRecordFields()
 
 	# Build request
-	header <- c('Content-Type' = "", apikey = .self$getToken())
+	header <- c('Content-Type' = "", apikey = .self$getPropertyValue('token'))
 	body <- paste0('{"recordIds": [', paste(recordids, collapse = ','), '], "fields": [', paste(vapply(fields, function(x) paste0('"', x, '"'), FUN.VALUE = ''), collapse = ',') ,']}')
 	request <- BiodbRequest(method = 'post', url = BiodbUrl(c(.self$getUrl('ws.url'), 'records', 'batch')), header = header, body = body)
 	if (retfmt == 'request')
@@ -202,7 +202,7 @@ ChemspiderConn$methods( ws.filterNamePost = function(name, retfmt = c('plain', '
 	retfmt <- match.arg(retfmt)
 
 	# Build request
-	header <- c('Content-Type' = "", apikey = .self$getToken())
+	header <- c('Content-Type' = "", apikey = .self$getPropertyValue('token'))
 	body <- paste0("{\n", '\t"name": "', name, '"', "\n}")
 	request <- BiodbRequest(method = 'post', url = BiodbUrl(c(.self$getUrl('ws.url'), 'filter', 'name')), header = header, body = body)
 	if (retfmt == 'request')
@@ -229,7 +229,7 @@ ChemspiderConn$methods( ws.filterMassPost = function(mass, range, retfmt = c('pl
 	retfmt <- match.arg(retfmt)
 
 	# Build request
-	header <- c('Content-Type' = "", apikey = .self$getToken())
+	header <- c('Content-Type' = "", apikey = .self$getPropertyValue('token'))
 	body <- paste0("{\n", '\t"mass": ', mass, ",\n",'\t"range": ', range, "\n}")
 	request <- BiodbRequest(method = 'post', url = BiodbUrl(c(.self$getUrl('ws.url'), 'filter', 'mass')), header = header, body = body)
 	if (retfmt == 'request')
@@ -260,7 +260,7 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet = function(queryid, retfmt = c
 	retfmt <- match.arg(retfmt)
 
 	# Set URL
-	header <- c('Content-Type' = "", apikey = .self$getToken())
+	header <- c('Content-Type' = "", apikey = .self$getPropertyValue('token'))
 	request <- BiodbRequest(method = 'get', url = BiodbUrl(c(.self$getUrl('ws.url'), 'filter', queryid, 'status')), header = header)
 	if (retfmt == 'request')
 		return(request)
@@ -301,7 +301,7 @@ ChemspiderConn$methods( ws.filterQueryIdResultsGet = function(queryid, start = 0
 		url$setParam('start', start)
 	if (count > 0)
 		url$setParam('count', count)
-	header <- c('Content-Type' = "", apikey = .self$getToken())
+	header <- c('Content-Type' = "", apikey = .self$getPropertyValue('token'))
 	request <- BiodbRequest(method = 'get', url = url, header = header)
 	if (retfmt == 'request')
 		return(request)

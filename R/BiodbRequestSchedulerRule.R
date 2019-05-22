@@ -31,7 +31,7 @@ BiodbRequestSchedulerRule$methods( initialize = function(host, n, t, conn, ...) 
 	.last.time <<- list()
 	.n.index <<- as.integer(0)
 	.conn <<- list(conn)
-	.self$setFrequency(n = conn$getSchedulerNParam(), t = conn$getSchedulerTParam())
+	.self$setFrequency(n = conn$getPropertyValue('scheduler.n'), t = conn$getPropertyValue('scheduler.t'))
 })
 
 # Get hostname {{{1
@@ -138,8 +138,8 @@ BiodbRequestSchedulerRule$methods( recomputeFrequency = function() {
 
 	# Loop on all connectors
 	for (conn in .self$.conn) {
-		t.conn <- conn$getSchedulerTParam()
-		n.conn <- conn$getSchedulerNParam()
+		t.conn <- conn$getPropertyValue('scheduler.t')
+		n.conn <- conn$getPropertyValue('scheduler.n')
 		if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 1e-6 && n.conn < n) || t.conn / n.conn > t / n)) {
 			t <- t.conn
 			n <- n.conn
