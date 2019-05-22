@@ -73,6 +73,8 @@ Returns TRUE if the specified field is defined in this entry.}
 
 Return TRUE if this entry was newly created.}
 
+\item{\code{makesRefToEntry(db, oid, recurse = FALSE)}}{Returns TRUE if this entry makes reference to the entry oid from database db.}
+
 \item{\code{parentIsAConnector()}}{:
 
 Return TRUE if this entry belongs to a connector.}

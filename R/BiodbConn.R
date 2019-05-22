@@ -272,7 +272,7 @@ BiodbConn$methods( makesRefToEntry = function(id, db, oid, any = FALSE, recurse 
     
     # Returns a vector, testing each entry in id individually
     else {
-        entries <- .self$getEntry(id)
+        entries <- .self$getEntry(id, drop = FALSE)
         makes_ref <- vapply(entries,
                            function(e) ! is.null(e) && e$makesRefToEntry(db=db, oid=oid, recurse=recurse),
                            FUN.VALUE=TRUE)

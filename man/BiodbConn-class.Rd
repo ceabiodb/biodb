@@ -89,6 +89,10 @@ Returns TRUE if the database is searchable (i.e.: the connector class implements
 \item{\code{isWritable()}}{:
 
 Returns TRUE if the database is writable (i.e.: the connector class implements the interface BiodbWritable). If this connector is writable, then you can call allowWriting() to enable writing.}
+
+\item{\code{makesRefToEntry(id, db, oid, any = FALSE, recurse = FALSE)}}{Test for each entry of this database in id parameter if it makes reference to the entry 
+oid from database db. If any is set to TRUE, will return a single logical value: TRUE
+if any entry contains a reference to oid, FALSE otherwise.}
 }}
 
 \examples{
