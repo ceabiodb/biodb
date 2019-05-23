@@ -109,7 +109,7 @@ PeakforestConn$methods( ws.search = function(term, max = NA_integer_, retfmt = c
 	params <- c(token = .self$getPropertyValue('token'))
 	if ( ! is.na(max))
 		params <- c(params, max = max)
-	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'search', .self$.db.name, term), params = params)
+	url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'search', .self$.db.name, term), params = params)
 	request = BiodbRequest(method = 'get', url = url)
 	if (retfmt == 'request')
 		return(request)
@@ -144,7 +144,7 @@ PeakforestConn$methods( ws.all.count = function(retfmt = c('plain', 'request', '
 
 	# Build request
 	params <- c(token = .self$getPropertyValue('token'))
-	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), .self$.db.name, 'all', 'count'), params = params)
+	url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), .self$.db.name, 'all', 'count'), params = params)
 	request = BiodbRequest(method = 'get', url = url)
 	if (retfmt == 'request')
 		return(request)
@@ -171,7 +171,7 @@ PeakforestConn$methods( ws.all.ids = function(retfmt = c('plain', 'request', 'pa
 
 	# Build request
 	params <- c(token = .self$getPropertyValue('token'))
-	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), .self$.db.name, 'all', 'ids'), params = params)
+	url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), .self$.db.name, 'all', 'ids'), params = params)
 	request = BiodbRequest(method = 'get', url = url)
 	if (retfmt == 'request')
 		return(request)

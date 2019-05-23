@@ -232,7 +232,7 @@ BiodbRequestScheduler$methods( .addConnectorRules = function(conn) {
 	.self$.connid2rules[[conn$getId()]] <- list()
 
 	# Loop on all connector URLs
-	for (url in conn$getUrls()) {
+	for (url in conn$getPropertyValue('urls')) {
 
 		# Check if a rule already exists
 		rule <- .self$.findRule(url, fail = FALSE)

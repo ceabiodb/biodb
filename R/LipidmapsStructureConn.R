@@ -34,7 +34,7 @@ LipidmapsStructureConn$methods( .doGetEntryContentRequest = function(ids, concat
 ################################################################
 
 LipidmapsStructureConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = .self$getUrl('base.url'), params = list(LMID = x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = .self$getPropValSlot('urls', 'base.url'), params = list(LMID = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -105,7 +105,7 @@ LipidmapsStructureConn$methods( ws.LMSDSearch = function(mode = NULL, output.mod
 		params = c(params, MainClass = main.class)
 	if ( ! is.null(sub.class))
 		params = c(params, SubClass = sub.class)
-	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('base.url'), 'structure', 'LMSDSearch.php'), params = params))
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'structure', 'LMSDSearch.php'), params = params))
 	if (retfmt == 'request')
 		return(request)
 
@@ -157,7 +157,7 @@ LipidmapsStructureConn$methods( ws.LMSDRecord = function(lmid, mode = NULL, outp
 		.self$message('error', paste0('Unknown value "', output.column.header, '" for output.column.header parameter.'))
 
 	# Build request
-	url = paste0(.self$getUrl('base.url'), 'LMSDRecord.php')
+	url = paste0(.self$getPropValSlot('urls', 'base.url'), 'LMSDRecord.php')
 	params = list(LMID = lmid)
 	if ( ! is.null(mode))
 		params = c(params, Mode = mode)

@@ -8,13 +8,8 @@
 #' This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 #'
 #' @field db.class      The class of the database (\code{"massbank", "hmdb.metabolies", ...}).
-#' @field urls          The URLs of the database.
-#' @field xml.ns        The XML namespace used by the database.
 #' @field prop.def      Definitions of the properties.
 #' @field prop          Values of the properties.
-#'
-#' @param url       A URL for the database.
-#' @param xml.ns    The XML namespace used by the database.
 #'
 #' @seealso \code{\link{BiodbDbsInfo}}, \code{\link{BiodbConn}}.
 #'
@@ -22,12 +17,12 @@
 #' @include BiodbChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "BiodbChildObject", fields = list( .db.class = "character", .urls = "character", .xml.ns = 'character', .observers = 'list', .prop.def = 'list', .prop = 'list'))
+BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "BiodbChildObject", fields = list( .db.class = "character", .observers = 'list', .prop.def = 'list', .prop = 'list'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, urls = NULL, xml.ns = NULL, properties = NULL, ...) {
+BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
@@ -35,7 +30,7 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, urls
 	# Take parameter values from other object instance
 	if ( ! is.null(other)) {
 		.self$.assert.inherits.from(other, "BiodbConnBase")
-		for (param in c('db.class', 'urls', 'xml.ns'))
+		for (param in c('db.class'))
 			if (is.null(get(param)) || is.na(get(param)))
 				assign(param, other[[paste0('.', param)]])
 	}
@@ -46,13 +41,7 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, urls
 	.self$.assert.is(db.class, 'character')
 	.db.class <<- db.class
 
-	# URLs
-	.self$.assert.is(urls, 'character')
-	.urls <<- urls
-
-	# Other parameters
-	.self$.assert.is(xml.ns, 'character')
-	.xml.ns <<- if (is.null(xml.ns)) character() else xml.ns
+	# Set observers
 	.observers <<- list()
 
 	# Set properties
@@ -166,53 +155,6 @@ BiodbConnBase$methods( getEntryIdField = function() {
 	return(paste(.self$.db.class, 'id', sep = '.'))
 })
 
-# Get URLs {{{1
-################################################################
-
-BiodbConnBase$methods( getUrls = function() {
-	":\n\nReturns the URLs."
-
-	return(.self$.urls)
-})
-
-# Get a URL {{{1
-################################################################
-
-BiodbConnBase$methods( getUrl = function(name) {
-	":\n\nReturns a URL."
-
-	url <- NA_character_
-
-	if (name %in% names(.self$.urls))
-		url <- .self$.urls[[name]]
-
-	return(url)
-})
-
-# Set a URL {{{1
-################################################################
-
-BiodbConnBase$methods( setUrl = function(name, url) {
-	":\n\nReturns a URL."
-
-	.self$.checkSettingOfUrl(name, url)
-
-	.self$.urls[[name]] <- url
-
-	# Notify observers
-	for (obs in .self$.observers)
-		obs$connUrlsUpdated(.self)
-})
-
-# Get XML namespace {{{1
-################################################################
-
-BiodbConnBase$methods( getXmlNs = function() {
-	":\n\nReturns the XML namespace."
-
-	return(.self$.xml.ns)
-})
-
 # Get property value {{{1
 ################################################################
 
@@ -246,9 +188,11 @@ BiodbConnBase$methods( setPropertyValue = function(name, value) {
 	.self$.prop[[name]] <- value
 
 	# Notify observers
-	if (name %in% c('scheduler.n', 'scheduler.t'))
-		for (obs in .self$.observers)
+	for (obs in .self$.observers)
+		if (name %in% c('scheduler.n', 'scheduler.t'))
 			obs$connSchedulerFrequencyUpdated(.self)
+		else if (name == 'urls')
+			obs$connUrlsUpdated(.self)
 })
 
 # Get property value slot {{{1
@@ -259,9 +203,12 @@ BiodbConnBase$methods( getPropValSlot = function(name, slot) {
 	value <- .self$getPropertyValue(name)
 	.self$.checkProperty(name = name, slot = slot)
 
-	if ( ! slot %in% names(value))
-		.self$message('error', 'Slot "', slot, '" is not defined in named property "', name, '" of database "', .self$getDbClass(), '".')
-	value <- value[[slot]]
+	if (slot %in% names(value))
+		value <- value[[slot]]
+	else {
+		pdef <- .self$.prop.def[[name]]
+		value <- as.vector(NA, mode = pdef$class)
+	}
 
 	return(value)
 })
@@ -273,7 +220,14 @@ BiodbConnBase$methods( setPropValSlot = function(name, slot, value) {
 
 	.self$.checkProperty(name = name, slot = slot)
 
-	# TODO Set value with slot
+	# Get current value
+	curval <- .self$getPropertyValue(name)
+	
+	# Add/set new value
+	curval[[slot]] <- value
+
+	# Update value
+	.self$setPropertyValue(name, curval)
 })
 
 # Deprecated methods {{{1
@@ -345,7 +299,7 @@ BiodbConnBase$methods( setToken = function(token) {
 	.self$setPropertyValue('token', token)
 })
 
-# Get name {{{1
+# Get name {{{2
 ################################################################
 
 BiodbConnBase$methods( getName = function() {
@@ -409,6 +363,52 @@ BiodbConnBase$methods( setSchedulerTParam = function(t) {
 	.self$.deprecated.method("setPropertyValue('scheduler.t', t)")
 
 	.self$setPropertyValue('scheduler.t', t)
+})
+
+# Get URLs {{{2
+################################################################
+
+BiodbConnBase$methods( getUrls = function() {
+	":\n\nReturns the URLs."
+
+	.self$.deprecated.method("getPropertyValue('urls')")
+
+	return(.self$getPropertyValue('urls'))
+})
+
+# Get a URL {{{2
+################################################################
+
+BiodbConnBase$methods( getUrl = function(name) {
+	":\n\nReturns a URL."
+
+	.self$.deprecated.method("getPropValSlot('urls', 'base.url')")
+
+	return(.self$getPropValSlot(name='urls', slot=name))
+})
+
+# Set a URL {{{2
+################################################################
+
+BiodbConnBase$methods( setUrl = function(name, url) {
+	":\n\nReturns a URL."
+
+	.self$.deprecated.method("setPropValSlot('urls', 'base.url', 'http://my/url')")
+
+	.self$setPropValSlot(name='urls', slot=name, value=url)
+
+#	.self$.checkSettingOfUrl(name, url)
+})
+
+# Get XML namespace {{{2
+################################################################
+
+BiodbConnBase$methods( getXmlNs = function() {
+	":\n\nReturns the XML namespace."
+
+	.self$.deprecated.method("getPropertyValue('xml.ns')")
+
+	return(.self$getPropertyValue('xml.ns'))
 })
 
 # Private methods {{{1
@@ -477,8 +477,8 @@ BiodbConnBase$methods( .checkProperty = function(name, slot = NULL) {
 		.self$message('error', paste0('Unknown property "', name, '" for database ', .self$getDbClass(), '.'))
 
 	pdef <- .self$.prop.def[[name]]
-	if ( ! 'named' %in% names(pdef))
-		.self$message('error', 'Unauthorized use of slot "', slot, '", property "', name, '" of database "', .self$getDbClass(), '" is unnamed.')
+	if ( ! is.null(slot) && ! 'named' %in% names(pdef))
+		.self$message('error', paste0('Unauthorized use of slot "', slot, '" with unnamed property "', name, '" of database "', .self$getDbClass(), '".'))
 })
 
 # Check property value {{{2
@@ -491,26 +491,28 @@ BiodbConnBase$methods( .checkPropertyValue = function(name, value) {
 	pdef <- .self$.prop.def[[name]]
 
 	# Check cardinality
-	if ( ! 'mult' %in% names(pdef) || ! pdef$mult && length(value) > 1)
-		.self$message('error', paste0('Multiple values are forbidden for property "', name, '" of database "', self$getDbClass(), '".'))
+	if ( ( ! 'mult' %in% names(pdef) || ! pdef$mult) && length(value) > 1)
+		.self$message('error', paste0('Multiple values are forbidden for property "', name, '" of database "', .self$getDbClass(), '".'))
 
 	# Check names
-	if ('named' %in% names(pdef)) {
+	if ('named' %in% names(pdef) && ! is.null(value) && length(value) > 0) {
 		if (is.null(names(value)) || any(nchar(names(value)) == 0))
-			.self$message('error', paste0('Value vector for property "', name, '"of database "', self$getDbClass(), '" must be named.'))
+			.self$message('error', paste0('Value vector for property "', name, '"of database "', .self$getDbClass(), '" must be named. Values are: ', paste(paste(names(value), value, sep='='), collapse=', ')))
 		if (any(duplicated(names(value))))
-			.self$message('error', paste0('Value vector for property "', name, '"of database "', self$getDbClass(), '" contains duplicated names.'))
+			.self$message('error', paste0('Value vector for property "', name, '"of database "', .self$getDbClass(), '" contains duplicated names.'))
 	}
 
 	# Convert value
+	nms <- names(value)
 	value <- as.vector(value, mode = pdef$class)
+	names(value) <- nms
 
 	# Check if value is allowed
 	if (is.na(value) && 'na.allowed' %in% names(pdef) && ! pdef$na.allowed)
-		.self$message('error', paste0('NA value is not allowed for property "', name, '" of database "', self$getDbClass(), '".'))
+		.self$message('error', paste0('NA value is not allowed for property "', name, '" of database "', .self$getDbClass(), '".'))
 	if ( ! is.na(value) && 'allowed' %in% names(pdef)
 	    && ! value %in% pdef$allowed)
-		.self$message('error', paste0('Value "', value, '" is not allowed for property "', name, '" of database "', self$getDbClass(), '".'))
+		.self$message('error', paste0('Value "', value, '" is not allowed for property "', name, '" of database "', .self$getDbClass(), '".'))
 
 	return(value)
 })
@@ -565,6 +567,7 @@ BiodbConnBase$methods( .getFullPropDefList = function() {
 		scheduler.n = list(class = 'integer', default = 1, na.allowed = FALSE),
 		scheduler.t = list(class = 'numeric', default = 1, na.allowed = FALSE),
 		urls = list(class = 'character', default = character(), named = TRUE, mult = TRUE),
+		xml.ns = list(class = 'character', default = character(), named = TRUE, mult = TRUE),
 		token = list(class = 'character', default = default_token, na.allowed = TRUE)
 	)
 

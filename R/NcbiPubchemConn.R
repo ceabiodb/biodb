@@ -27,9 +27,9 @@ NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag,
 NcbiPubchemConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
 	if (concatenate)
-		url = BiodbUrl(url = c(.self$getUrl('ws2.url'), .self$.db.name, .self$.id.urlfield, paste(id, collapse = ','), 'XML'))$toString()
+		url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws2.url'), .self$.db.name, .self$.id.urlfield, paste(id, collapse = ','), 'XML'))$toString()
 	else
-		url <- vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws2.url'), .self$.db.name, .self$.id.urlfield, x, 'XML'))$toString(), FUN.VALUE = '')
+		url <- vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws2.url'), .self$.db.name, .self$.id.urlfield, x, 'XML'))$toString(), FUN.VALUE = '')
 
 	return(url)
 })
@@ -38,7 +38,7 @@ NcbiPubchemConn$methods( .doGetEntryContentRequest = function(id, concatenate = 
 ################################################################
 
 NcbiPubchemConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), .self$.db.name, x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), .self$.db.name, x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -60,7 +60,7 @@ NcbiPubchemConn$methods( getEntryImageUrl = function(id) {
 		params$t = 'l'
 
 		# Build URL
-		urls[[i]] = BiodbUrl(url = c(.self$getUrl('base.url'), 'image', 'imgsrv.fcgi'), params = params)$toString()
+		urls[[i]] = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'image', 'imgsrv.fcgi'), params = params)$toString()
 	}
 
 	return(urls)

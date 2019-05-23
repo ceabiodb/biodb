@@ -39,7 +39,7 @@ PeakforestCompoundConn$methods( initialize = function(...) {
 ################################################################
 
 PeakforestCompoundConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = .self$getUrl('base.url'), params = list(PFc = x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = .self$getPropValSlot('urls', 'base.url'), params = list(PFc = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -64,7 +64,7 @@ PeakforestCompoundConn$methods( ws.search.compounds.mass = function(field, mass,
 	params <- c(token = .self$getPropertyValue('token'))
 	if ( ! is.na(max))
 		params <- c(params, max = max)
-	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'search', 'compounds', field, mass, delta), params = params)
+	url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'search', 'compounds', field, mass, delta), params = params)
 	request = BiodbRequest(method = 'get', url = url)
 	if (retfmt == 'request')
 		return(request)
@@ -162,5 +162,5 @@ PeakforestCompoundConn$methods( .doGetEntryContentRequest = function(id, concate
 	if (is.na(.self$getPropertyValue('token')))
 		.self$message('error', "Peakforest requires a token for this service.")
 
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'compounds', x), params = list(token = .self$getPropertyValue('token')))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'compounds', x), params = list(token = .self$getPropertyValue('token')))$toString(), FUN.VALUE = ''))
 })

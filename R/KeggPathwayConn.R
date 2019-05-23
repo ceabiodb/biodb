@@ -290,7 +290,7 @@ KeggPathwayConn$methods( .getPathwayHtml = function(id) {
     path_idx <- sub('^[^0-9]+', '', id)
 
     # Build Request
-    url = BiodbUrl(url = c(.self$getUrl('base.url'), 'kegg-bin',
+    url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'kegg-bin',
                            'show_pathway'),
                    params = c(org_name = 'map', mapno = path_idx,
                               mapscale = '1.0', show_description = 'hide'))
@@ -317,7 +317,7 @@ KeggPathwayConn$methods( .getPathwayImage = function(id) {
         img_url = stringr::str_match(html, 'src="([^"]+)"\\s+name="pathwayimage"')
         if (is.na(img_url[1, 1]))
             .self$message('error', 'Impossible to find pathway image path inside HTML page.')
-        img_url = BiodbUrl(url = c(.self$getUrl('base.url'), img_url[1, 2]))
+        img_url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), img_url[1, 2]))
         .self$getBiodb()$getRequestScheduler()$downloadFile(url = img_url, dest.file = img_file)
     }
     

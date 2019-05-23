@@ -34,7 +34,7 @@ ExpasyEnzymeConn$methods( ws.enzymeByName = function(name, retfmt = c('plain', '
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('base.url'), "enzyme-byname.html"), params = name))
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), "enzyme-byname.html"), params = name))
 	if (retfmt == 'request')
 		return(request)
 
@@ -56,7 +56,7 @@ ExpasyEnzymeConn$methods( ws.enzymeByComment = function(comment, retfmt = c('pla
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getUrl('base.url'), "enzyme-bycomment.html"), params = comment))
+	request = BiodbRequest(method = 'get', url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), "enzyme-bycomment.html"), params = comment))
 	if (retfmt == 'request')
 		return(request)
 
@@ -85,7 +85,7 @@ ExpasyEnzymeConn$methods( getEntryPageUrl = function(id) {
 		# Get four fields of ID
 		fields = strsplit(x, '\\.')[[1]]
 		if (length(fields) == 4)
-			urls[[i]] = BiodbUrl(url = c(.self$getUrl('base.url'), 'cgi-bin', 'enzyme', 'enzyme-search-ec'), params = list(field1 = fields[[1]], field2 = fields[[2]], field3 = fields[[3]], field4 = fields[[4]]))$toString()
+			urls[[i]] = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'enzyme', 'enzyme-search-ec'), params = list(field1 = fields[[1]], field2 = fields[[2]], field3 = fields[[3]], field4 = fields[[4]]))$toString()
 	}
 
 	return(urls)
@@ -106,7 +106,7 @@ ExpasyEnzymeConn$methods( getEntryImageUrl = function(id) {
 
 ExpasyEnzymeConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
-	urls <- vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'EC', paste(x, 'txt', sep = '.')))$toString(), FUN.VALUE = '')
+	urls <- vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'EC', paste(x, 'txt', sep = '.')))$toString(), FUN.VALUE = '')
 
 	return(urls)
 })

@@ -31,7 +31,7 @@ MirbaseMatureConn$methods( initialize = function(...) {
 ################################################################
 
 MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'cgi-bin', 'mature.pl'), params = list(mature_acc = x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'mature.pl'), params = list(mature_acc = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -54,7 +54,7 @@ MirbaseMatureConn$methods( requiresDownload = function() {
 MirbaseMatureConn$methods( .doDownload = function() {
 
 	# Download
-	gz.url <- BiodbUrl(url = paste0(.self$getUrl('ftp.url'), 'mature.fa.gz'))
+	gz.url <- BiodbUrl(url = paste0(.self$getPropValSlot('urls', 'ftp.url'), 'mature.fa.gz'))
 	.self$message('info', paste("Downloading \"", gz.url$toString(), "\"...", sep = ''))
 	.self$getBiodb()$getRequestScheduler()$downloadFile(url = gz.url, dest.file = .self$getDownloadPath())
 	.self$message('debug', 'Finish downloading Mirbase Mature database.')
@@ -116,7 +116,7 @@ MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', retfmt 
 
 	# Build request
 	params = list(terms = terms, submit = submit)
-	url = BiodbUrl(url = c(.self$getUrl('base.url'), 'cgi-bin', 'query.pl'), params = params)
+	url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'query.pl'), params = params)
 	request = BiodbRequest(url = url)
 	if (retfmt == 'request')
 		return(request)

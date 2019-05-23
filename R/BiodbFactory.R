@@ -82,7 +82,7 @@ BiodbFactory$methods( createConn = function(db.class, url = NULL, token = NA_cha
     .self$message('debug', paste0('Creating new connector ', conn.id, ' for database class ', db.class, (if (is.null(url) || is.na(url)) '' else paste0(', with base URL "', url, '"')), '.'))
 	conn <- conn.class$new(id = conn.id, cache.id = cache.id, other = db.info, properties = list(token = token), parent = .self)
     if ( ! is.null(url) && ! is.na(url))
-	    conn$setUrl('base.url', url)
+	    conn$setPropValSlot('urls', 'base.url', url)
 
     # Check if an identical connector already exists
     .self$.checkConnExists(conn, error = fail.if.exists)
@@ -329,7 +329,7 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 		# Get contents
 		if (length(missing.ids) > 0 && ( ! methods::is(conn, 'BiodbDownloadable') || ! conn$isDownloaded())) {
 
-			.self$message('debug', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getPropertyValue('name'), " database \"", conn$getUrl('base.url'), "\"."))
+			.self$message('debug', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getPropertyValue('name'), " database \"", conn$getPropValSlot('urls', 'base.url'), "\"."))
 
 			# Divide list of missing ids in chunks (in order to save in cache regularly)
 			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
@@ -407,10 +407,20 @@ BiodbFactory$methods( .checkConnExists = function(new.conn, error) {
 	# Loop on all connectors
 	for (conn in .self$.conn)
 		if (conn$getDbClass() == new.conn$getDbClass()) {
-			same.url <- if (is.na(conn$getUrl('base.url')) || is.na(new.conn$getUrl('base.url'))) FALSE else normalizePath(conn$getUrl('base.url'), mustWork = FALSE) == normalizePath(new.conn$getUrl('base.url'), mustWork = FALSE)
-			same.token <- if (is.na(conn$getPropertyValue('token')) || is.na(new.conn$getPropertyValue('token'))) FALSE else conn$getPropertyValue('token') == new.conn$getPropertyValue('token')
+
+			# Compare base URLs
+			bu <- conn$getPropValSlot('urls', 'base.url')
+			nbu <- new.conn$getPropValSlot('urls', 'base.url')
+			same.url <- if (is.na(bu) || is.na(nbu)) FALSE else normalizePath(bu, mustWork = FALSE) == normalizePath(nbu, mustWork = FALSE)
+
+			# Compare tokens
+			tk <- conn$getPropertyValue('token')
+			ntk <- new.conn$getPropertyValue('token')
+			same.token <- if (is.na(tk) || is.na(ntk)) FALSE else tk == ntk
+
+			# Check
 			if (same.url && (is.na(new.conn$getPropertyValue('token')) || same.token))
-				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', conn$getUrl('base.url'), ')', if ( ! is.na(conn$getPropertyValue('token'))) paste0(' and the same token'), '.'))
+				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', bu, ')', if ( ! is.na(conn$getPropertyValue('token'))) paste0(' and the same token'), '.'))
 		}
 })
 

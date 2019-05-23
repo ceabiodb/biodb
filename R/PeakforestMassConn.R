@@ -39,7 +39,7 @@ PeakforestMassConn$methods( initialize = function(...) {
 ################################################################
 
 PeakforestMassConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = .self$getUrl('base.url'), params = list(PFs = x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = .self$getPropValSlot('urls', 'base.url'), params = list(PFs = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -65,7 +65,7 @@ PeakforestMassConn$methods( ws.peaks.get.range = function(type = c('lcms', 'lcms
 		params = c(token = .self$getPropertyValue('token'))
 		if ( ! is.na(mode))
 			params = c(params, mode = mode)
-		url = BiodbUrl(url = c(.self$getUrl('ws.url'), "spectra", type, "peaks", "get-range", mz.min, mz.max), params = params)
+		url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), "spectra", type, "peaks", "get-range", mz.min, mz.max), params = params)
 		request = BiodbRequest(method = 'get', url = url)
 		if (retfmt == 'request')
 			return(request)
@@ -95,7 +95,7 @@ PeakforestMassConn$methods( ws.lcmsms.from.precursor = function(prec.mz, precurs
 		params <- c(token = .self$getPropertyValue('token'), precursorMassDelta = precursorMassDelta)
 		if ( ! is.na(mode))
 			params <- c(params, mode = mode)
-		url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'spectra', 'lcmsms', 'from-precursor', prec.mz), params = params)
+		url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'spectra', 'lcmsms', 'from-precursor', prec.mz), params = params)
 		request = BiodbRequest(method = 'get', url = url)
 		if (retfmt == 'request')
 			return(request)
@@ -118,7 +118,7 @@ PeakforestMassConn$methods( ws.list.code.columns = function(retfmt = c('plain', 
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'metadata', 'lc', 'list-code-columns'), params = list(token = .self$getPropertyValue('token')))
+	url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'metadata', 'lc', 'list-code-columns'), params = list(token = .self$getPropertyValue('token')))
 	request = BiodbRequest(method = 'get', url = url)
 	if (retfmt == 'request')
 		return(request)
@@ -216,7 +216,7 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 
 	else {
 		# Set URL
-		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/peaks/list-mz?token=', .self$getPropertyValue('token'), sep = '')
+		url <- paste(.self$getPropValSlot('urls', 'ws.url'), 'spectra/lcms/peaks/list-mz?token=', .self$getPropertyValue('token'), sep = '')
 		if ( ! is.na(ms.mode))
 			url <- paste(url, '&mode=', if (ms.mode == 'pos') 'positive' else 'negative', sep ='')
 
@@ -353,12 +353,12 @@ PeakforestMassConn$methods( .doGetEntryContentRequest = function(id, concatenate
 
 	# IDs are unique between LCMS and LCMSMS. Hence no confusion possible, and ID used in LCMS is not used in LCMSMS.
 	if (concatenate) {
-		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getPropertyValue('token'), sep = '')
-		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getPropertyValue('token'), sep = ''))
+		url <- paste(.self$getPropValSlot('urls', 'ws.url'), 'spectra/lcms/ids/', paste(id, collapse = ','),'?token=', .self$getPropertyValue('token'), sep = '')
+		url <- c(url, paste(.self$getPropValSlot('urls', 'ws.url'), 'spectra/lcmsms/ids/', paste(id, collapse = ','),'?token=', .self$getPropertyValue('token'), sep = ''))
 	}
 	else {
-		url <- paste(.self$getUrl('ws.url'), 'spectra/lcms/ids/', id,'?token=', .self$getPropertyValue('token'), sep = '')
-		url <- c(url, paste(.self$getUrl('ws.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getPropertyValue('token'), sep = ''))
+		url <- paste(.self$getPropValSlot('urls', 'ws.url'), 'spectra/lcms/ids/', id,'?token=', .self$getPropertyValue('token'), sep = '')
+		url <- c(url, paste(.self$getPropValSlot('urls', 'ws.url'), 'spectra/lcmsms/ids/', id,'?token=', .self$getPropertyValue('token'), sep = ''))
 	}
 
 	return(url)
