@@ -83,7 +83,7 @@ UniprotConn$methods( ws.query = function(query = '', columns = NULL, format = NU
 	params <- list(query = query, columns = columns, format = format)
 	if ( ! is.null(limit) && ! is.na(limit))
 		params[['limit']] <- limit
-	url <- BiodbUrl(url = c(.self$getUrl('base.url'), ''), params = params)
+	url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), ''), params = params)
 	request <- BiodbRequest(method = 'get', url = url)
 
 	# Return request
@@ -115,7 +115,7 @@ UniprotConn$methods( ws.query = function(query = '', columns = NULL, format = NU
 
 UniprotConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 	                    
-	url <- paste0(.self$getUrl('base.url'), id, '.xml')
+	url <- paste0(.self$getPropValSlot('urls', 'base.url'), id, '.xml')
 
 	return(url)
 })
@@ -124,7 +124,7 @@ UniprotConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE
 ################################################################
 
 UniprotConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), id))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), id))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1

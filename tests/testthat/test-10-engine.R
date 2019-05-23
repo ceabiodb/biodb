@@ -1,16 +1,6 @@
 # vi: fdm=marker
 
-source('common.R')
-
-source('engine-abstract-tests.R')
-source('engine-assertions-tests.R')
-source('engine-config-tests.R')
-source('engine-biodb-tests.R')
-source('engine-factory-tests.R')
-source('engine-object-printing-tests.R')
-source('engine-observers-tests.R')
-source('engine-scheduler-tests.R')
-source('engine-shapes-tests.R')
+source('common.R', local=TRUE)
 
 # MAIN {{{1
 ################################################################
@@ -20,16 +10,15 @@ biodb = create.biodb.instance(offline = TRUE)
 expect_is(biodb, 'Biodb')
 obs = create.test.observer(biodb)
 
-# Run tests
-run.abstract.tests(biodb, obs)
-run.assertions.tests(biodb, obs)
-run.object.printing.tests(biodb)
-run.observers.tests(biodb, obs)
-run.config.tests(biodb)
-run.biodb.tests(biodb, obs)
-run.factory.tests(biodb, obs)
-run.scheduler.tests(biodb)
-run.shapes.tests(biodb)
+# Set context
+set.test.context(biodb, "Test engine")
+
+# List all engine test files
+files <- Sys.glob('engine-*-tests.R')
+
+# Loop on all engine test files
+for (f in files)
+	source(f, local=TRUE)
 
 # Terminate Biodb
 biodb$terminate()

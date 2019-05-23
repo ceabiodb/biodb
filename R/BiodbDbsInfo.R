@@ -14,7 +14,7 @@
 #' @examples
 #' # Getting the base URL of a database:
 #' mybiodb <- biodb::Biodb()
-#' chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getUrl('base.url')
+#' chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getPropValSlot('urls', 'base.url')
 #'
 #' # Setting a token:
 #' mybiodb$getDbsInfo()$get('chemspider')$setToken('my.chemspider.token')
@@ -96,6 +96,20 @@ BiodbDbsInfo$methods( show = function() {
 	cat("Biodb databases information instance.\n")
 })
 
+# Load info file {{{1
+################################################################
+
+BiodbDbsInfo$methods( loadInfoFile = function(file) {
+	'Load databases information file, and defines the new databases.
+	The parameter file must point to a valid JSON file.'
+
+	dbi <- jsonlite::fromJSON(file, simplifyDataFrame = FALSE)
+
+	# Loop on all db info
+	for (db in names(dbi))
+		.self$.define(db, properties = dbi[[db]])
+})
+
 # Private methods {{{1
 ################################################################
 
@@ -103,39 +117,21 @@ BiodbDbsInfo$methods( show = function() {
 ################################################################
 
 BiodbDbsInfo$methods( .initDbsInfo = function() {
-	.self$.define('chebi',                  name = 'ChEBI',         scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = 'https://www.ebi.ac.uk/chebi/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/'), xml.ns = c(chebi = "https://www.ebi.ac.uk/webservices/chebi", xsd = "http://www.w3.org/2001/XMLSchema"), properties = list(entry.content.encoding = 'UTF-8'))
-	.self$.define('chemspider',             name = 'ChemSpider',    scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = "http://www.chemspider.com/", ws.url = "https://api.rsc.org/compounds/v1/"))
-	.self$.define('expasy.enzyme',          name = 'ExPASy ENZYME', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = "https://enzyme.expasy.org/"))
-	.self$.define('hmdb.metabolites',       name = 'HMDB Metabolites', scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = "http://www.hmdb.ca/"))
-	.self$.define('kegg.compound',          name = 'KEGG Compound', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'https://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
-	.self$.define('kegg.enzyme',            name = 'KEGG Enzyme', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'https://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
-	.self$.define('kegg.genes',            name = 'KEGG Genes', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'https://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
-	.self$.define('kegg.module',            name = 'KEGG Module', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'https://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
-	.self$.define('kegg.pathway',           name = 'KEGG Pathway', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'https://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
-	.self$.define('kegg.reaction',          name = 'KEGG Reaction', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'https://www.kegg.jp/', ws.url = 'http://rest.kegg.jp/', entry.page.url = 'https://www.genome.jp/dbget-bin'))
-	.self$.define('lipidmaps.structure',    name = 'LIPID MAPS Structure', scheduler.n = 1, scheduler.t = 20, entry.content.type = 'csv', urls = c(base.url = 'http://www.lipidmaps.org/data/')) # About access frequency, see http://www.lipidmaps.org/data/structure/programmaticaccess.html
-	.self$.define('mass.csv.file',          name = 'Mass CSV File',                entry.content.type = 'tsv', urls = character())
-	.self$.define('mass.sqlite',            name = 'Mass SQLite',                  entry.content.type = 'list', urls = character())
-	.self$.define('massbank',               name = 'MassBank', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = 'https://massbank.eu/', db.tar.url = 'https://github.com/MassBank/MassBank-data/archive/master.tar.gz', prefixes.file.url = 'https://raw.githubusercontent.com/MassBank/MassBank-data/master/List_of_Contributors_Prefixes_and_Projects.md'))
-	.self$.define('mirbase.mature',         name = 'miRBase Mature', scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = "http://www.mirbase.org/", ftp.url = "ftp://mirbase.org/pub/mirbase/CURRENT/"))
-	.self$.define('ncbi.ccds',              name = 'NCBI CCDS', scheduler.n = 3, entry.content.type = 'html', urls = c(base.url = 'https://www.ncbi.nlm.nih.gov/CCDS/', ws.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils'))
-	.self$.define('ncbi.gene',              name = 'NCBI Gene', scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = 'https://www.ncbi.nlm.nih.gov/', ws.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/')) # About access frequency, see https://www.ncbi.nlm.nih.gov/books/NBK25497/
-	.self$.define('ncbi.pubchem.comp',      name = 'PubChem Compound', scheduler.n = 5, entry.content.type = 'xml', urls = c(base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', ws2.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/')) # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
-	.self$.define('ncbi.pubchem.subst',     name = 'PubChem Substance', scheduler.n = 5, entry.content.type = 'xml', urls = c(base.url = 'https://pubchem.ncbi.nlm.nih.gov/', ws.url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/', ws2.url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/')) # About access frequency, see https://pubchem.ncbi.nlm.nih.gov/pug_rest/PUG_REST.html
-	.self$.define('peakforest.mass',        name = 'PeakForest Mass', scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = 'https://metabohub.peakforest.org/webapp/home', ws.url = 'https://metabohub.peakforest.org/rest/'))
-	.self$.define('peakforest.compound',    name = 'PeakForest Compound', scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = 'https://metabohub.peakforest.org/webapp/home', ws.url = 'https://metabohub.peakforest.org/rest/'))
-	.self$.define('uniprot',                name = 'UniProt',                  entry.content.type = 'xml', urls = c(base.url = 'https://www.uniprot.org/uniprot/'), xml.ns = c(uniprot = "http://uniprot.org/uniprot"))
+
+	# Load JSON databases information file
+	dbf <- .self$getBiodb()$getConfig()$get('dbinfo.file')
+	.self$loadInfoFile(dbf)
 })
 
 # Define {{{2
 ################################################################
 
-BiodbDbsInfo$methods( .define = function(id, scheduler.n = 1, scheduler.t = 1, ...) {
+BiodbDbsInfo$methods( .define = function(id, ...) {
 
 	# Is this database already defined?
 	if (id %in% names(.self$.dbs))
 		.self$message('error', paste("Database \"", id, "\" has already been defined.", sep = ''))
 
 	# Define new field
-	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, scheduler.n = scheduler.n, scheduler.t = scheduler.t, ...)
+	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, ...)
 })

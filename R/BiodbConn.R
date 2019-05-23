@@ -190,7 +190,7 @@ BiodbConn$methods( isMassdb = function() {
 ################################################################
 
 BiodbConn$methods( show = function() {
-	cat("Biodb ", .self$getName(), " connector instance, using URL \"", .self$getUrl('base.url'), "\".\n", sep = '')
+	cat("Biodb ", .self$getPropertyValue('name'), " connector instance, using URL \"", .self$getPropValSlot('urls', 'base.url'), "\".\n", sep = '')
 })
 
 # Check database {{{1
@@ -242,7 +242,7 @@ BiodbConn$methods( getCacheId = function() {
 		id <- .self$.cache.id
 
 	} else {
-		url <- .self$getUrl('base.url')
+		url <- .self$getPropValSlot('urls', 'base.url')
 		if ( ! is.null(url) && ! is.na(url))
 			id <- paste(.self$getDbClass(), openssl::md5(url), sep = '-')
 	}

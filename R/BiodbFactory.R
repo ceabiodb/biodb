@@ -80,9 +80,9 @@ BiodbFactory$methods( createConn = function(db.class, url = NULL, token = NA_cha
 
 	# Create connector instance
     .self$message('debug', paste0('Creating new connector ', conn.id, ' for database class ', db.class, (if (is.null(url) || is.na(url)) '' else paste0(', with base URL "', url, '"')), '.'))
-	conn <- conn.class$new(id = conn.id, cache.id = cache.id, other = db.info, token = token, parent = .self)
+	conn <- conn.class$new(id = conn.id, cache.id = cache.id, other = db.info, properties = list(token = token), parent = .self)
     if ( ! is.null(url) && ! is.na(url))
-	    conn$setUrl('base.url', url)
+	    conn$setPropValSlot('urls', 'base.url', url)
 
     # Check if an identical connector already exists
     .self$.checkConnExists(conn, error = fail.if.exists)
@@ -294,11 +294,11 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 		conn <- .self$getConn(conn.id)
 
 		# Debug
-		.self$message('debug', paste0("Get ", conn$getName(), " entry content(s) for ", length(id)," id(s)..."))
+		.self$message('debug', paste0("Get ", conn$getPropertyValue('name'), " entry content(s) for ", length(id)," id(s)..."))
 
 		# Download full database if possible and allowed or if required
 		if (.self$getBiodb()$getCache()$isWritable() && methods::is(conn, 'BiodbDownloadable')) {
-			.self$message('debug', paste('Ask for whole database download of ', conn$getName(), '.', sep = ''))
+			.self$message('debug', paste('Ask for whole database download of ', conn$getPropertyValue('name'), '.', sep = ''))
 			conn$download()
 		}
 
@@ -319,17 +319,17 @@ BiodbFactory$methods( getEntryContent = function(conn.id, id) {
 
 		# Debug
 		if (any(is.na(id)))
-			.self$message('debug', paste0(sum(is.na(id)), " ", conn$getName(), " entry ids are NA."))
+			.self$message('debug', paste0(sum(is.na(id)), " ", conn$getPropertyValue('name'), " entry ids are NA."))
 		if (.self$getBiodb()$getCache()$isReadable()) {
-			.self$message('debug', paste0(sum( ! is.na(id)) - length(missing.ids), " ", conn$getName(), " entry content(s) loaded from cache."))
+			.self$message('debug', paste0(sum( ! is.na(id)) - length(missing.ids), " ", conn$getPropertyValue('name'), " entry content(s) loaded from cache."))
 			if (n.duplicates > 0)
-				.self$message('debug', paste0(n.duplicates, " ", conn$getName(), " entry ids, whose content needs to be fetched, are duplicates."))
+				.self$message('debug', paste0(n.duplicates, " ", conn$getPropertyValue('name'), " entry ids, whose content needs to be fetched, are duplicates."))
 		}
 
 		# Get contents
 		if (length(missing.ids) > 0 && ( ! methods::is(conn, 'BiodbDownloadable') || ! conn$isDownloaded())) {
 
-			.self$message('debug', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getName(), " database \"", conn$getUrl('base.url'), "\"."))
+			.self$message('debug', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getPropertyValue('name'), " database \"", conn$getPropValSlot('urls', 'base.url'), "\"."))
 
 			# Divide list of missing ids in chunks (in order to save in cache regularly)
 			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
@@ -407,10 +407,20 @@ BiodbFactory$methods( .checkConnExists = function(new.conn, error) {
 	# Loop on all connectors
 	for (conn in .self$.conn)
 		if (conn$getDbClass() == new.conn$getDbClass()) {
-			same.url <- if (is.na(conn$getUrl('base.url')) || is.na(new.conn$getUrl('base.url'))) FALSE else normalizePath(conn$getUrl('base.url'), mustWork = FALSE) == normalizePath(new.conn$getUrl('base.url'), mustWork = FALSE)
-			same.token <- if (is.na(conn$getToken()) || is.na(new.conn$getToken())) FALSE else conn$getToken() == new.conn$getToken()
-			if (same.url && (is.na(new.conn$getToken()) || same.token))
-				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', conn$getUrl('base.url'), ')', if ( ! is.na(conn$getToken())) paste0(' and the same token'), '.'))
+
+			# Compare base URLs
+			bu <- conn$getPropValSlot('urls', 'base.url')
+			nbu <- new.conn$getPropValSlot('urls', 'base.url')
+			same.url <- if (is.na(bu) || is.na(nbu)) FALSE else normalizePath(bu, mustWork = FALSE) == normalizePath(nbu, mustWork = FALSE)
+
+			# Compare tokens
+			tk <- conn$getPropertyValue('token')
+			ntk <- new.conn$getPropertyValue('token')
+			same.token <- if (is.na(tk) || is.na(ntk)) FALSE else tk == ntk
+
+			# Check
+			if (same.url && (is.na(new.conn$getPropertyValue('token')) || same.token))
+				.self$message(if (error) 'error' else 'caution', paste0('A connector (', conn$getId(), ') already exists for database ', new.conn$getDbClass(), ' with the same URL (', bu, ')', if ( ! is.na(conn$getPropertyValue('token'))) paste0(' and the same token'), '.'))
 		}
 })
 
@@ -433,13 +443,13 @@ BiodbFactory$methods( .createEntryFromContent = function(conn.id, content, drop 
 		# Get connector
 		conn <- .self$getConn(conn.id)
 
-		.self$message('debug', paste('Creating ', conn$getName(), ' entries from ', length(content), ' content(s).', sep = ''))
+		.self$message('debug', paste('Creating ', conn$getPropertyValue('name'), ' entries from ', length(content), ' content(s).', sep = ''))
 
 		# Get entry class
     	entry.class <- conn$getEntryClass()
 
     	# Loop on all contents
-    	.self$message('debug', paste('Parsing ', length(content), ' ', conn$getName(), ' entries.', sep = ''))
+    	.self$message('debug', paste('Parsing ', length(content), ' ', conn$getPropertyValue('name'), ' entries.', sep = ''))
 		i = 0
 		for (single.content in content) {
 

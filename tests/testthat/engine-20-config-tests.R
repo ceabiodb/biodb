@@ -12,12 +12,7 @@ test.listKeys <- function(biodb) {
 	expect_false(any(is.na(keys$Description)))
 }
 
-# Run config tests {{{1
+# Main {{{1
 ################################################################
 
-run.config.tests <- function(biodb) {
-
-	set.test.context(biodb, "Test configuration")
-
-	test.that("Keys are listed correctly.", 'test.listKeys', biodb = biodb)
-}
+test.that("Keys are listed correctly.", 'test.listKeys', biodb = biodb)

@@ -156,7 +156,7 @@ MassbankConn$methods( getEntryContent = function(entry.id) {
 	xml.request <- paste0('<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:getRecordInfo>', paste(paste('<tns:entry.ids>', entry.id, '</tns:entry.ids>', sep = ''), collapse = ''), '</tns:getRecordInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>')
 
 	# Send request
-	xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(paste0(.self$getUrl('base.url'), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
+	xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(paste0(.self$getPropValSlot('urls', 'base.url'), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
 
 	# Parse XML and get text
 	if ( ! is.na(xmlstr)) {
@@ -229,7 +229,7 @@ MassbankConn$methods( getDns = function(id) {
 ################################################################
 
 MassbankConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'MassBank', 'RecordDisplay.jsp'), params = list(id = x, dsn = .self$getDns(x)))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'MassBank', 'RecordDisplay.jsp'), params = list(id = x, dsn = .self$getDns(x)))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -255,7 +255,7 @@ MassbankConn$methods( .getParsingExpressions = function() {
 MassbankConn$methods( .doDownload = function() {
 
 	# Download tar.gz
-	tar.gz.url <- BiodbUrl(url = .self$getUrl('db.tar.url'))
+	tar.gz.url <- BiodbUrl(url = .self$getPropValSlot('urls', 'db.tar.url'))
 	.self$message('info', paste0("Downloading \"", tar.gz.url$toString(), "\"..."))
 	scheduler <- .self$getBiodb()$getRequestScheduler()
 	path <- .self$getDownloadPath()
@@ -279,8 +279,8 @@ MassbankConn$methods( .doExtractDownload = function() {
 	dup.ids <- duplicated(ids)
 	if (any(dup.ids))
 		.self$message('caution', paste("Found duplicated IDs in downloaded Massbank records: ", paste(ids[dup.ids], collapse = ', '), '.', sep = ''))
-	cache.files <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
-	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
+	cache.files <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getPropertyValue('entry.content.type'))
+	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'))
 	file.copy(record.files, cache.files)
 
 	# Delete extracted dir
@@ -325,7 +325,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 
 		# Send request
 		.self$message('debug', paste('Searching for M/Z values, with request: "', xml.request, '".', sep = ''))
-		xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(paste0(.self$getUrl('base.url'), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
+		xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(paste0(.self$getPropValSlot('urls', 'base.url'), 'api/services/MassBankAPI.MassBankAPIHttpSoap11Endpoint/'), xml.request)
 
 		# Parse XML and get text
 		if ( ! is.na(xmlstr)) {
@@ -383,7 +383,7 @@ MassbankConn$methods( .loadPrefixes = function() {
 	# Get prefixes file content
 	prefixes.filepath <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), subfolder = 'longterm', name = 'prefixes', ext = 'md')
 	if ( ! file.exists(prefixes.filepath))
-		.self$getBiodb()$getRequestScheduler()$downloadFile(url = BiodbUrl(url = .self$getUrl('prefixes.file.url')), dest.file = prefixes.filepath)
+		.self$getBiodb()$getRequestScheduler()$downloadFile(url = BiodbUrl(url = .self$getPropValSlot('urls', 'prefixes.file.url')), dest.file = prefixes.filepath)
 
 	# Split in lines
 	lines <- readLines(prefixes.filepath)
@@ -414,7 +414,7 @@ MassbankConn$methods( .doGetEntryIds = function(max.results = NA_integer_, ms.le
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'), extract.name = TRUE)
 
 	# Filter on MS level
 	if ( ! is.na(ms.level) && ms.level > 0) {

@@ -33,12 +33,15 @@ Returns a character vector containing all the IDs of the defined databases.}
 \item{\code{isDefined(db.id)}}{:
 
 Returns TRUE if the specified id corresponds to a defined database.}
+
+\item{\code{loadInfoFile(file)}}{Load databases information file, and defines the new databases.
+The parameter file must point to a valid JSON file.}
 }}
 
 \examples{
 # Getting the base URL of a database:
 mybiodb <- biodb::Biodb()
-chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getUrl('base.url')
+chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getPropValSlot('urls', 'base.url')
 
 # Setting a token:
 mybiodb$getDbsInfo()$get('chemspider')$setToken('my.chemspider.token')

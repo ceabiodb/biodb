@@ -25,12 +25,7 @@ test.deprecated.methods <- function(biodb, obs) {
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Run observers tests {{{1
+# Main {{{1
 ################################################################
 
-run.observers.tests <- function(biodb, obs) {
-
-	set.test.context(biodb, "Test observers")
-
-	test.that("Deprecated methods send correct message.", 'test.deprecated.methods', biodb = biodb, obs = obs)
-}
+test.that("Deprecated methods send correct message.", 'test.deprecated.methods', biodb = biodb, obs = obs)

@@ -8,12 +8,7 @@ test.abstract.class.declaration <- function(biodb, obs) {
 	expect_equal(obs$lastMsg(), "Class BiodbConnBase is abstract and thus cannot be instantiated.")
 }
 
-# Run abstract tests {{{1
+# Main {{{1
 ################################################################
 
-run.abstract.tests <- function(biodb, obs) {
-
-	set.test.context(biodb, "Test abstract declarations")
-
-	test.that("An abstract class cannot be instantiated.", 'test.abstract.class.declaration', biodb = biodb, obs = obs)
-}
+test.that("An abstract class cannot be instantiated.", 'test.abstract.class.declaration', biodb = biodb, obs = obs)

@@ -31,7 +31,7 @@ MirbaseMatureConn$methods( initialize = function(...) {
 ################################################################
 
 MirbaseMatureConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'cgi-bin', 'mature.pl'), params = list(mature_acc = x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'mature.pl'), params = list(mature_acc = x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
@@ -54,7 +54,7 @@ MirbaseMatureConn$methods( requiresDownload = function() {
 MirbaseMatureConn$methods( .doDownload = function() {
 
 	# Download
-	gz.url <- BiodbUrl(url = paste0(.self$getUrl('ftp.url'), 'mature.fa.gz'))
+	gz.url <- BiodbUrl(url = paste0(.self$getPropValSlot('urls', 'ftp.url'), 'mature.fa.gz'))
 	.self$message('info', paste("Downloading \"", gz.url$toString(), "\"...", sep = ''))
 	.self$getBiodb()$getRequestScheduler()$downloadFile(url = gz.url, dest.file = .self$getDownloadPath())
 	.self$message('debug', 'Finish downloading Mirbase Mature database.')
@@ -84,8 +84,8 @@ MirbaseMatureConn$methods( .doExtractDownload = function() {
 		contents <- paste(lines[seq(1, 2*length(ids), 2)], lines[seq(2, 2*length(ids), 2)], sep = "\n")
 
 		# Write all entries into files
-		.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
-		.self$getBiodb()$getCache()$saveContentToFile(contents, cache.id = .self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+		.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'))
+		.self$getBiodb()$getCache()$saveContentToFile(contents, cache.id = .self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getPropertyValue('entry.content.type'))
 	}
 
 	# Remove extract directory
@@ -101,7 +101,7 @@ MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
 	.self$download()
 
 	# Load content from cache
-	content <- .self$getBiodb()$getCache()$loadFileContent(.self$getCacheId(), subfolder = 'shortterm', name = entry.id, ext = .self$getEntryContentType(), output.vector = TRUE)
+	content <- .self$getBiodb()$getCache()$loadFileContent(.self$getCacheId(), subfolder = 'shortterm', name = entry.id, ext = .self$getPropertyValue('entry.content.type'), output.vector = TRUE)
 
 	return(content)
 })
@@ -116,7 +116,7 @@ MirbaseMatureConn$methods( ws.query = function(terms, submit = 'Search', retfmt 
 
 	# Build request
 	params = list(terms = terms, submit = submit)
-	url = BiodbUrl(url = c(.self$getUrl('base.url'), 'cgi-bin', 'query.pl'), params = params)
+	url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'query.pl'), params = params)
 	request = BiodbRequest(url = url)
 	if (retfmt == 'request')
 		return(request)
@@ -180,7 +180,7 @@ MirbaseMatureConn$methods( .doGetEntryIds = function(max.results = NA_integer_) 
 	.self$download()
 
 	# Get IDs from cache
-	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+	ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'), extract.name = TRUE)
 
 	# Filter out wrong IDs
 	ids <- ids[grepl("^MIMAT[0-9]+$", ids, perl = TRUE)]

@@ -160,15 +160,10 @@ test.BiodbUrl <- function(biodb) {
 	testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt&limit=2')
 }
 
-# Run scheduler tests {{{1
+# Main {{{1
 ################################################################
 
-run.scheduler.tests <- function(biodb) {
-
-	set.test.context(biodb, "Test request scheduler")
-
-	test.that("BiodbUrl works fine.", 'test.BiodbUrl', biodb = biodb)
-	test.that("Right rule is created.", 'test.schedulerRightRule', biodb = biodb)
-	test.that("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb)
-	test.that("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb)
-}
+test.that("BiodbUrl works fine.", 'test.BiodbUrl', biodb = biodb)
+test.that("Right rule is created.", 'test.schedulerRightRule', biodb = biodb)
+test.that("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb)
+test.that("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb)

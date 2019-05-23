@@ -62,14 +62,14 @@ KeggConn$methods( .complete.entry.id = function(id) {
 ################################################################
 
 KeggConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('ws.url'), 'get', x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'get', x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry page url {{{1
 ################################################################
 
 KeggConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('entry.page.url'), 'www_bget'), params = .self$.complete.entry.id(id))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget'), params = .self$.complete.entry.id(id))$toString(), FUN.VALUE = ''))
 })
 
 # Web service list {{{1
@@ -81,7 +81,7 @@ KeggConn$methods( ws.list = function(retfmt = c('plain', 'request', 'ids')) {
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	url <- BiodbUrl(url = c(.self$getUrl('ws.url'), 'list', .self$.db.name))
+	url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'list', .self$.db.name))
 	request <- BiodbRequest(url = url)
 	if (retfmt == 'request')
 		return(request)
@@ -111,7 +111,7 @@ KeggConn$methods( ws.find = function(query, retfmt = c('plain', 'request', 'pars
 	retfmt = match.arg(retfmt)
 
 	# Build request
-	url = BiodbUrl(url = c(.self$getUrl('ws.url'), 'find', .self$.db.name, query))
+	url = BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name, query))
 	request <- BiodbRequest(url = url)
 	if (retfmt == 'request')
 		return(request)

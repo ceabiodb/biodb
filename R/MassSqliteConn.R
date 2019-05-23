@@ -114,7 +114,7 @@ MassSqliteConn$methods( .doWrite = function() {
 
 	if ( ! is.null(.self$.db)) {
 
-		.self$message('info', paste0('Write all new entries into "', .self$getUrl('base.url'), '".'))
+		.self$message('info', paste0('Write all new entries into "', .self$getPropValSlot('urls', 'base.url'), '".'))
 
 		# Get new entries
 		cached.entries = .self$getAllCacheEntries()
@@ -169,8 +169,8 @@ MassSqliteConn$methods( .doWrite = function() {
 
 MassSqliteConn$methods( .init.db = function() {
 
-	if (is.null(.self$.db) && ! is.null(.self$getUrl('base.url')) && ! is.na(.self$getUrl('base.url')))
-		.db <<-  DBI::dbConnect(RSQLite::SQLite(), dbname = .self$getUrl('base.url'))
+	if (is.null(.self$.db) && ! is.null(.self$getPropValSlot('urls', 'base.url')) && ! is.na(.self$getPropValSlot('urls', 'base.url')))
+		.db <<-  DBI::dbConnect(RSQLite::SQLite(), dbname = .self$getPropValSlot('urls', 'base.url'))
 })
 
 # Do terminate {{{2

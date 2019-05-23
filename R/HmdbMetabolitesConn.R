@@ -58,14 +58,14 @@ HmdbMetabolitesConn$methods( getNbEntries = function(count = FALSE) {
 ################################################################
 
 HmdbMetabolitesConn$methods( getEntryPageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'metabolites', x))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'metabolites', x))$toString(), FUN.VALUE = ''))
 })
 
 # Get entry image url {{{1
 ################################################################
 
 HmdbMetabolitesConn$methods( getEntryImageUrl = function(id) {
-	return(vapply(id, function(x) BiodbUrl(url = c(.self$getUrl('base.url'), 'structures', x, 'image.png'))$toString(), FUN.VALUE = ''))
+	return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'structures', x, 'image.png'))$toString(), FUN.VALUE = ''))
 })
 
 # Search compound {{{1
@@ -97,7 +97,7 @@ HmdbMetabolitesConn$methods( .getParsingExpressions = function() {
 
 HmdbMetabolitesConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
 
-	url <- BiodbUrl(url = c(.self$getUrl('base.url'), 'metabolites', paste(id, 'xml', sep = '.')))$toString()
+	url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'metabolites', paste(id, 'xml', sep = '.')))$toString()
 
 	return(url)
 })
@@ -109,7 +109,7 @@ HmdbMetabolitesConn$methods( .doDownload = function() {
 
 	# Download
 	.self$message('info', "Downloading HMDB metabolite database...")
-	zip.url <- BiodbUrl(url = c(.self$getUrl('base.url'), 'system', 'downloads', 'current', 'hmdb_metabolites.zip'))
+	zip.url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), 'system', 'downloads', 'current', 'hmdb_metabolites.zip'))
 	.self$message('info', paste("Downloading \"", zip.url$toString(), "\"...", sep = ''))
 	.self$getBiodb()$getRequestScheduler()$downloadFile(url = zip.url, dest.file = .self$getDownloadPath())
 })
@@ -148,7 +148,7 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 
 	# Delete existing cache files
 	.self$message('debug', 'Delete existing entry files in cache system.')
-	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType())
+	.self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'))
 
 	# Open file in binary mode
 	file.conn <- file(xml.file, open = 'rb')
@@ -193,7 +193,7 @@ HmdbMetabolitesConn$methods( .doExtractDownload = function() {
 			ids <- stringr::str_match(metabolites, '<accession>(HMDB[0-9]+)</accession>')[, 2]
 
 			# Write all XML entries into files
-			.self$getBiodb()$getCache()$saveContentToFile(metabolites, cache.id = .self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getEntryContentType())
+			.self$getBiodb()$getCache()$saveContentToFile(metabolites, cache.id = .self$getCacheId(), subfolder = 'shortterm', name = ids, ext = .self$getPropertyValue('entry.content.type'))
 		}
 		else
 			xml.chunks <- c(xml.chunks, chunk)
@@ -220,7 +220,7 @@ HmdbMetabolitesConn$methods( .doGetEntryIds = function(max.results = NA_integer_
 	if (.self$isDownloaded()) {
 
 		# Get IDs from cache
-		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getEntryContentType(), extract.name = TRUE)
+		ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder = 'shortterm', ext = .self$getPropertyValue('entry.content.type'), extract.name = TRUE)
 
 		# Filter out wrong IDs
 		ids <- ids[grepl("^HMDB[0-9]+$", ids, perl = TRUE)]
