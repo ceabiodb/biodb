@@ -96,7 +96,7 @@ BiodbDbsInfo$methods( show = function() {
 	cat("Biodb databases information instance.\n")
 })
 
-# Load info file
+# Load info file {{{1
 ################################################################
 
 BiodbDbsInfo$methods( loadInfoFile = function(file) {
@@ -106,8 +106,8 @@ BiodbDbsInfo$methods( loadInfoFile = function(file) {
 	dbi <- jsonlite::fromJSON(file, simplifyDataFrame = FALSE)
 
 	# Loop on all db info
-	for (db in names(dbi)) {
-	}
+	for (db in names(dbi))
+		.self$.define(db, properties = dbi[[db]])
 })
 
 # Private methods {{{1
@@ -122,7 +122,7 @@ BiodbDbsInfo$methods( .initDbsInfo = function() {
 	dbf <- .self$getBiodb()$getConfig()$get('dbinfo.file')
 	.self$loadInfoFile(dbf)
 
-	.self$.define('chebi',                  properties = list(name = 'ChEBI',  scheduler.n = 3, entry.content.type = 'xml', entry.content.encoding = 'UTF-8', urls = c(base.url = 'https://www.ebi.ac.uk/chebi/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/'), xml.ns = c(chebi = "https://www.ebi.ac.uk/webservices/chebi", xsd = "http://www.w3.org/2001/XMLSchema")))
+#	.self$.define('chebi',                  properties = list(name = 'ChEBI',  scheduler.n = 3, entry.content.type = 'xml', entry.content.encoding = 'UTF-8', urls = c(base.url = 'https://www.ebi.ac.uk/chebi/', ws.url = 'https://www.ebi.ac.uk/webservices/chebi/2.0/'), xml.ns = c(chebi = "https://www.ebi.ac.uk/webservices/chebi", xsd = "http://www.w3.org/2001/XMLSchema")))
 	.self$.define('chemspider',             properties = list(name = 'ChemSpider',  scheduler.n = 3, entry.content.type = 'json', urls = c(base.url = "http://www.chemspider.com/", ws.url = "https://api.rsc.org/compounds/v1/")))
 	.self$.define('expasy.enzyme',          properties = list(name = 'ExPASy ENZYME',  scheduler.n = 3, entry.content.type = 'txt', urls = c(base.url = "https://enzyme.expasy.org/")))
 	.self$.define('hmdb.metabolites',       properties = list(name = 'HMDB Metabolites',  scheduler.n = 3, entry.content.type = 'xml', urls = c(base.url = "http://www.hmdb.ca/")))
