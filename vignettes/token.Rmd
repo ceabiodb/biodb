@@ -49,7 +49,7 @@ To set the token directly on the DbInfo instance:
 ```{r}
 mybiodb <- biodb::Biodb$new()
 dbsinfo <- mybiodb$getDbsInfo()
-dbsinfo$get('chemspider')$setToken('01234567-89ab-cdef-0123-456789abcdef')
+dbsinfo$get('chemspider')$setPropertyValue('token', '01234567-89ab-cdef-0123-456789abcdef')
 ```
 
 To set the token when instantiating the connector with the factory:
