@@ -89,18 +89,13 @@ test.searchMsEntries.assert <- function(biodb, obs) {
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Run assertions tests {{{1
+# Main {{{1
 ################################################################
 
-run.assertions.tests <- function(biodb, obs) {
-
-	set.test.context(biodb, "Test assertions")
-
-	test.that("Assertion of positive number works correctly", 'test.assert.positive', biodb = biodb, obs = obs)
-	test.that("Assertion of enumerate works correctly", 'test.assert.in', biodb = biodb, obs = obs)
-	test.that("Assertion of non NA value works correctly", 'test.assert.not.na', biodb = biodb, obs = obs)
-	test.that("Assertion of non NULL value works correctly", 'test.assert.not.null', biodb = biodb, obs = obs)
-	test.that("Assertion of inferior relationship works correctly", 'test.assert.inferior', biodb = biodb, obs = obs)
-	test.that("Assertion of a single element works correctly", 'test.assert.length.one', biodb = biodb, obs = obs)
-	test.that('Assertion called from searchMsEntries display the right variable name', 'test.searchMsEntries.assert', biodb = biodb, obs = obs)
-}
+test.that("Assertion of positive number works correctly", 'test.assert.positive', biodb = biodb, obs = obs)
+test.that("Assertion of enumerate works correctly", 'test.assert.in', biodb = biodb, obs = obs)
+test.that("Assertion of non NA value works correctly", 'test.assert.not.na', biodb = biodb, obs = obs)
+test.that("Assertion of non NULL value works correctly", 'test.assert.not.null', biodb = biodb, obs = obs)
+test.that("Assertion of inferior relationship works correctly", 'test.assert.inferior', biodb = biodb, obs = obs)
+test.that("Assertion of a single element works correctly", 'test.assert.length.one', biodb = biodb, obs = obs)
+test.that('Assertion called from searchMsEntries display the right variable name', 'test.searchMsEntries.assert', biodb = biodb, obs = obs)

@@ -60,14 +60,9 @@ test.connectorDefaultValues <- function(biodb, obs) {
 	testthat::expect_equal(chebi.info$getSchedulerTParam(), chebi$getSchedulerTParam())
 }
 
-# Run factory tests {{{1
+# Main {{{1
 ################################################################
 
-run.factory.tests <- function(biodb, obs) {
-
-	set.test.context(biodb, "Test factory")
-
-	test.that("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb = biodb, obs = obs)
-	test.that("A newly created connector get the default values.", 'test.connectorDefaultValues', biodb = biodb, obs = obs)
-	test.that("Connectors are deleted.", 'test.connectorDeletion', biodb = biodb, obs = obs)
-}
+test.that("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb = biodb, obs = obs)
+test.that("A newly created connector get the default values.", 'test.connectorDefaultValues', biodb = biodb, obs = obs)
+test.that("Connectors are deleted.", 'test.connectorDeletion', biodb = biodb, obs = obs)

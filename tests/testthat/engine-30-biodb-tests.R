@@ -14,12 +14,7 @@ test.convertEntryIdFieldToDbClass <- function(biodb, obs) {
 	testthat::expect_null(biodb$convertEntryIdFieldToDbClass('blabla.id'))
 }
 
-# Run biodb tests {{{1
+# Main {{{1
 ################################################################
 
-run.biodb.tests <- function(biodb, obs) {
-
-	set.test.context(biodb, "Test Biodb class")
-
-	test.that("convertEntryIdFieldToDbClass() works correctly.", 'test.convertEntryIdFieldToDbClass', biodb = biodb, obs = obs)
-}
+test.that("convertEntryIdFieldToDbClass() works correctly.", 'test.convertEntryIdFieldToDbClass', biodb = biodb, obs = obs)

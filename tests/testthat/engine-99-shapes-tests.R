@@ -20,13 +20,8 @@ test.circle <- function(biodb) {
 	expect_is(circle, 'BiodbCircle')
 }
 
-# Run shapes tests {{{1
+# Main {{{1
 ################################################################
 
-run.shapes.tests <- function(biodb) {
-
-	set.test.context(biodb, "Test shapes")
-
-	test.that("We can create a rectangle object.", 'test.rect', biodb = biodb)
-	test.that("We can create a circle object.", 'test.circle', biodb = biodb)
-}
+test.that("We can create a rectangle object.", 'test.rect', biodb = biodb)
+test.that("We can create a circle object.", 'test.circle', biodb = biodb)
