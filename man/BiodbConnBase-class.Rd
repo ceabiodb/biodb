@@ -5,17 +5,6 @@
 \alias{BiodbConnBase-class}
 \alias{BiodbConnBase}
 \title{Base class of \code{BiodbConn} for encapsulating all needed information for database access.}
-\arguments{
-\item{url}{A URL for the database.}
-
-\item{n}{The scheduler "number of requests parameter.}
-
-\item{t}{The scheduler "time" parameter, in seconds.}
-
-\item{token}{An access token for the database.}
-
-\item{xml.ns}{The XML namespace used by the database.}
-}
 \description{
 This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 }
@@ -24,15 +13,9 @@ This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The construc
 \describe{
 \item{\code{db.class}}{The class of the database (\code{"massbank", "hmdb.metabolies", ...}).}
 
-\item{\code{urls}}{The URLs of the database.}
+\item{\code{prop.def}}{Definitions of the properties.}
 
-\item{\code{xml.ns}}{The XML namespace used by the database.}
-
-\item{\code{token}}{An access token for the database.}
-
-\item{\code{scheduler.n}}{The N parameter for the scheduler. The N paramter is the number of request allowed for each bit of time (defined by the T parameter).}
-
-\item{\code{scheduler.t}}{The T parameter for the scheduler. The bit of time, in seconds, during which a maximum of N (see scheduler.n) requests is allowed.}
+\item{\code{prop}}{Values of the properties.}
 }}
 
 \section{Methods}{
@@ -125,10 +108,6 @@ Returns a URL.}
 \item{\code{setWsUrl(ws.url)}}{:
 
 Sets the web sevices URL.}
-
-\item{\code{setXmlNs(xml.ns)}}{:
-
-Sets the XML namespace.}
 }}
 
 \seealso{
