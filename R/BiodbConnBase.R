@@ -508,11 +508,13 @@ BiodbConnBase$methods( .checkPropertyValue = function(name, value) {
 	names(value) <- nms
 
 	# Check if value is allowed
-	if (is.na(value) && 'na.allowed' %in% names(pdef) && ! pdef$na.allowed)
-		.self$message('error', paste0('NA value is not allowed for property "', name, '" of database "', .self$getDbClass(), '".'))
-	if ( ! is.na(value) && 'allowed' %in% names(pdef)
-	    && ! value %in% pdef$allowed)
-		.self$message('error', paste0('Value "', value, '" is not allowed for property "', name, '" of database "', .self$getDbClass(), '".'))
+	if (length(value) == 1) {
+		if (is.na(value) && 'na.allowed' %in% names(pdef) && ! pdef$na.allowed)
+			.self$message('error', paste0('NA value is not allowed for property "', name, '" of database "', .self$getDbClass(), '".'))
+		if ( ! is.na(value) && 'allowed' %in% names(pdef)
+	    	&& ! value %in% pdef$allowed)
+			.self$message('error', paste0('Value "', value, '" is not allowed for property "', name, '" of database "', .self$getDbClass(), '".'))
+	}
 
 	return(value)
 })
