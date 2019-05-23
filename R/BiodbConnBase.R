@@ -45,12 +45,7 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, prop
 	.observers <<- list()
 
 	# Set properties
-	if (is.null(other))
-		.self$.defineProperties(properties)
-	else {
-		.prop.def <<- other$.prop.def
-		.prop <<- other$.prop
-	}
+	.self$.defineProperties(other, properties)
 })
 
 # Get entry file extension {{{1
@@ -522,21 +517,29 @@ BiodbConnBase$methods( .checkPropertyValue = function(name, value) {
 # Define properties {{{2
 ################################################################
 
-BiodbConnBase$methods( .defineProperties = function(properties) {
+BiodbConnBase$methods( .defineProperties = function(other, properties) {
 
 	# Set list of property definitions
-	.prop.def <<- .self$.getFullPropDefList()
+	if (is.null(other))
+		.prop.def <<- .self$.getFullPropDefList()
+	else
+		.prop.def <<- other$.prop.def
 
-	# Select subset of properties
-	if ( ! is.null(properties)) {
-
-		# Reset default values
+	# Reset default values
+	if ( ! is.null(properties))
 		for (p in names(properties))
 			.self$.prop.def[[p]]$default <- .self$.checkPropertyValue(p, properties[[p]])
-	}
 
-	# Reset property values
-	.self$.resetPropertyValues()
+	# Set property values
+	if (is.null(other))
+		.self$.resetPropertyValues()
+	else
+		.prop <<- other$.prop
+
+	# Set chosen values from properties
+	if ( ! is.null(properties))
+		for (p in names(properties))
+			.self$.prop[[p]] <- .self$.checkPropertyValue(p, properties[[p]])
 })
 
 # Reset propertyValues {{{2
