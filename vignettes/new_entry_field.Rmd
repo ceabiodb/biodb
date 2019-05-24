@@ -1,0 +1,57 @@
+---
+title: "Creating a new field for entries."
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to create a new field and use it to parse a value inside an entry content.
+vignette: |
+  %\VignetteIndexEntry{Creating a new field for entries.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Creating a new field for entries.
+
+## Introduction
+
+In this vignette we will create a new field, and parse information from an entry content downloaded from a database for setting the value into the new field.
+
+First we instantiate the package:
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+
+## Get an entry
+
+## Look at the fields already parsed
+
+## Look at the entry content
+
+## Search for the information we need inside the content
+
+Get the file path to the cache file containing the entry content.
+Open the cache file into your favorite editor.
+Look for the information you want to extract.
+
+## Create the new field
+
+## Create the parsing expression
+
+<!--
+	1. We need to move the constant parsing expressions into the database information file dbinfo.json
+	2. We need to allow the definition of additional parsing expressions.
+-->
+
+## Forget/remove the loaded entry and remove it from the cache
+
+## Get again the entry and see the new field
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

@@ -1,20 +1,6 @@
 # vi: fdm=marker
 
 # Constants {{{1
-################################################################
-
-.BIODB.CHEBI.PARSING.EXPR <- list(
-	'accession'         = "substring-after(//chebi:return/chebi:chebiId,'CHEBI:')",
-	'smiles'            = "//chebi:return/chebi:smiles",
-	'inchi'             = "//chebi:return/chebi:inchi",
-	'inchikey'          = "//chebi:return/chebi:inchiKey",
-	'kegg.compound.id'  = "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data",
-	'mass'              = "//chebi:mass",
-	'monoisotopic.mass' = "//chebi:monoisotopicMass",
-	'charge'            = "//chebi:charge",
-	'name'              = c("//chebi:chebiAsciiName", "//chebi:Synonyms/chebi:data"),
-	'formula'           = c("//chebi:Formulae/chebi:source[text()='ChEBI']/../chebi:data", "(//chebi:Formulae/chebi:data)[1]"))
-
 # Class declaration {{{1
 ################################################################
 
@@ -218,12 +204,6 @@ ChebiConn$methods( .parseWebServiceValues = function() {
 	}
 })
 
-# Get parsing expressions {{{2
-################################################################
-
-ChebiConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.CHEBI.PARSING.EXPR)
-})
 # Get entry ids {{{2
 ################################################################
 

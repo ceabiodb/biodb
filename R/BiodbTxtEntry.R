@@ -33,7 +33,7 @@ BiodbTxtEntry$methods( .doParseContent = function(content) {
 BiodbTxtEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
-	parsing.expr <- .self$getParent()$.getParsingExpressions()
+	parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
 	.self$.assert.not.null(parsed.content)
 	.self$.assert.not.na(parsed.content)

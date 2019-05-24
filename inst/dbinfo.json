@@ -11,6 +11,18 @@
 		"xml.ns": {
 			"chebi": "https://www.ebi.ac.uk/webservices/chebi",
 			"xsd": "http://www.w3.org/2001/XMLSchema"
+		},
+		"parsing.expr": {
+			"accession": "substring-after(//chebi:return/chebi:chebiId,'CHEBI:')",
+			"smiles": "//chebi:return/chebi:smiles",
+			"inchi": "//chebi:return/chebi:inchi",
+			"inchikey": "//chebi:return/chebi:inchiKey",
+			"kegg.compound.id": "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data",
+			"mass": "//chebi:mass",
+			"monoisotopic.mass": "//chebi:monoisotopicMass",
+			"charge": "//chebi:charge",
+			"name": ["//chebi:chebiAsciiName", "//chebi:Synonyms/chebi:data"],
+			"formula": ["//chebi:Formulae/chebi:source[textzh='ChEBI']/../chebi:data", "(//chebi:Formulae/chebi:data)[1]"]
 		}
 	},
 
@@ -21,6 +33,18 @@
 		"urls": {
 			"base.url": "http://www.chemspider.com/",
 			"ws.url": "https://api.rsc.org/compounds/v1/"
+		},
+		"parsing.expr": {
+			"accession": "id",
+			"formula": "formula",
+			"name": "commonName",
+			"average.mass": "averageMass",
+			"monoisotopic.mass": "monoisotopicMass",
+			"nominal.mass": "nominalMass",
+			"molecular.weight": "molecularWeight",
+			"inchi": "inchi",
+			"inchikey": "inchiKey",
+			"smiles": "smiles"
 		}
 	},
 
@@ -30,6 +54,12 @@
 		"entry.content.type": "txt",
 		"urls": {
 			"base.url": "https://enzyme.expasy.org/"
+		},
+		"parsing.expr": {
+			"accession": "^ID\\s+([0-9.]+)$",
+			"name": "^DE\\s+(.+?)\\.?$",
+			"catalytic.activity": "^CA\\s+(.+?)\\.?$",
+			"cofactor": "^CF\\s+(.+?)\\.?$"
 		}
 	},
 

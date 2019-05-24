@@ -36,7 +36,7 @@ BiodbXmlEntry$methods( .doParseContent = function(content) {
 BiodbXmlEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
-	parsing.expr <- .self$getParent()$.getParsingExpressions()
+	parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
 	# Set namespace
 	xml.ns <- .self$getParent()$getXmlNs()

@@ -569,11 +569,12 @@ BiodbConnBase$methods( .getFullPropDefList = function() {
 		entry.content.encoding = list(class = 'character', default = NA_character_, na.allowed = TRUE),
 		entry.content.type = list(class = 'character', default = NA_character_, allowed = c('html', 'txt', 'xml', 'csv', 'tsv', 'json', 'list'), na.allowed = FALSE, modifiable = FALSE),
 		name = list(class = 'character', default = NA_character_, na.allowed = FALSE, modifiable = FALSE),
+		parsing.expr = list(class = 'list', default = NULL, named = TRUE, mult = TRUE, allowed_item_types = 'character', na.allowed = FALSE),
 		scheduler.n = list(class = 'integer', default = 1, na.allowed = FALSE),
 		scheduler.t = list(class = 'numeric', default = 1, na.allowed = FALSE),
+		token = list(class = 'character', default = default_token, na.allowed = TRUE),
 		urls = list(class = 'character', default = character(), named = TRUE, mult = TRUE),
-		xml.ns = list(class = 'character', default = character(), named = TRUE, mult = TRUE),
-		token = list(class = 'character', default = default_token, na.allowed = TRUE)
+		xml.ns = list(class = 'character', default = character(), named = TRUE, mult = TRUE)
 	)
 
 	return(prop.def)
