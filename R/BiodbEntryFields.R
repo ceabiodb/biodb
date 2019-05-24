@@ -135,6 +135,23 @@ BiodbEntryFields$methods( show = function() {
 	cat("Biodb entry fields information instance.\n")
 })
 
+# Load fields file {{{1
+################################################################
+
+BiodbEntryFields$methods( loadFieldsFile = function(file) {
+	'Load entry fields information file, and defines the new fields.
+	The parameter file must point to a valid JSON file.'
+
+	fields <- jsonlite::fromJSON(file, simplifyDataFrame = FALSE)
+
+	# Loop on all db info
+	for (f in names(fields)) {
+		args <- fields[[f]]
+		args[['name']] <- f
+		do.call(.self$.define, args)
+	}
+})
+
 # Private methods {{{1
 ################################################################
 
@@ -168,26 +185,28 @@ BiodbEntryFields$methods( .define = function(name, ...) {
 
 BiodbEntryFields$methods( .initFields = function() {
 
-	.self$.define('accession',      description = 'The accession number of the entry.')
+	# Load JSON file
+	eff <- .self$getBiodb()$getConfig()$get('entryfields.file')
+	.self$loadFieldsFile(eff)
+
 	# Define database ID fields
 	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
-		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = BIODB.CARD.MANY, description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
-	.self$.define('compound.id',        description = 'The compound ID.', card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'compoundid')
-	.self$.define('cas.id',             description = 'CAS ID',           card = BIODB.CARD.MANY, forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'casid')
+		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = 'many', description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
+	.self$.define('cas.id',             description = 'CAS ID',           card = 'many', forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id', alias = 'casid')
 
 	.self$.define('description',    description = 'The decription of the entry.', alias = 'protdesc')
 
-	.self$.define('name',       description = 'The name of the entry.',     card = BIODB.CARD.MANY, alias = c('fullnames', 'synonyms'), case.insensitive = TRUE, forbids.duplicates = TRUE, type = 'name')
+	.self$.define('name',       description = 'The name of the entry.',     card = 'many', alias = c('fullnames', 'synonyms'), case.insensitive = TRUE, forbids.duplicates = TRUE, type = 'name')
 	.self$.define('comp.iupac.name.allowed',    description = 'IUPAC allowed name', type = 'name')
 	.self$.define('comp.iupac.name.trad',       description = 'IUPAC traditional name', type = 'name')
 	.self$.define('comp.iupac.name.syst',       description = 'IUPAC systematic name', type = 'name')
 	.self$.define('comp.iupac.name.pref',       description = 'IUPAC preferred name', type = 'name')
 	.self$.define('comp.iupac.name.cas',        description = 'IUPAC CAS name', type = 'name')
-	.self$.define('gene.symbol',  alias = c('gene.symbols', 'symbol', 'genesymbols'), description = 'A list of gene symbols.', card = BIODB.CARD.MANY, case.insensitive = TRUE, forbids.duplicates = TRUE)
+	.self$.define('gene.symbol',  alias = c('gene.symbols', 'symbol', 'genesymbols'), description = 'A list of gene symbols.', card = 'many', case.insensitive = TRUE, forbids.duplicates = TRUE)
 
 	.self$.define('logp',       description = 'logP',               class = 'double')
 	.self$.define('nb.compounds',  alias = 'nbcompounds', description = 'Number of associated compounds.', class = 'integer')
-#	.self$.define('compounds',     class = 'object',        description = 'List of associated compounds.', card = BIODB.CARD.MANY)
+#	.self$.define('compounds',     class = 'object',        description = 'List of associated compounds.', card = 'many')
 
 	.self$.define('formula',            description = 'Empirical molecular formula.')
 	.self$.define('inchi',      description = 'International Chemical Identifier (InChI).', computable.from = 'chebi')
@@ -195,12 +214,12 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('smiles',             description = 'SMILES.')
 	.self$.define('smiles.canonical',   description = 'SMILES canonical.')
 	.self$.define('smiles.isomeric',    description = 'SMILES isomeric.')
-	.self$.define('catalytic.activity', description = 'Catalytic activity.',                        card = BIODB.CARD.MANY)
-	.self$.define('cofactor',           description = 'Cofactor.',                                  card = BIODB.CARD.MANY)
+	.self$.define('catalytic.activity', description = 'Catalytic activity.',                        card = 'many')
+	.self$.define('cofactor',           description = 'Cofactor.',                                  card = 'many')
 	.self$.define('charge',             description = 'Charge.',               class = 'integer')
 	.self$.define('equation', description = 'Chemical equation')
-	.self$.define('substrates', description = 'Substrates of an enzymatic chemical reaction.', card = BIODB.CARD.MANY)
-	.self$.define('products', description = 'Products of an enzymatic chemical reaction.', card = BIODB.CARD.MANY)
+	.self$.define('substrates', description = 'Substrates of an enzymatic chemical reaction.', card = 'many')
+	.self$.define('products', description = 'Products of an enzymatic chemical reaction.', card = 'many')
 	.self$.define('average.mass',  description = 'Average mass.',    class = 'double', type = 'mass')
 	.self$.define('monoisotopic.mass',  alias = c('exact.mass'), description = 'Monoisotopic mass.',    class = 'double', type = 'mass')
 	.self$.define('nominal.mass',       description = 'Nominal mass.',         class = 'integer', type = 'mass')
@@ -209,7 +228,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('organism',           description = 'The biological organism to which this entry belongs.')
 	.self$.define('kegg.organism.code', description = 'The 3-4 characters organism code used un KEGG.')
 	.self$.define('comp.super.class',   description = 'Compound super class.', alias = c('superclass', 'super.class'))
-	.self$.define('pathway.class',      description = 'Pathway class.', card = BIODB.CARD.MANY)
+	.self$.define('pathway.class',      description = 'Pathway class.', card = 'many')
 	.self$.define('aa.seq',             description = 'Amino acids sequence.', computable.from = 'ncbi.ccds', alias = 'sequence')
 	.self$.define('aa.seq.length',      description = 'Length of the amino acids sequence.', class = 'integer', alias = c('seq.length', 'length'))
 	.self$.define('aa.seq.location',    description = 'Location of the amino acids sequence.', alias = c('seq.location', 'location'))
@@ -221,7 +240,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('msdevtype',          description = 'Mass spectrometer device type.')
 	.self$.define('mstype',             description = 'Mass spectrometry type.')
 	.self$.define('ms.mode',            description = 'Mass spectrometry mode.', alias = 'msmode', allowed.values = list(neg = c('-', 'negative'), pos = c('+', 'positive')), lower.case = TRUE)
-	.self$.define('msprecmz',           description = 'MS precursor M/Z value.',  class =  'double',    card = BIODB.CARD.MANY)
+	.self$.define('msprecmz',           description = 'MS precursor M/Z value.',  class =  'double',    card = 'many')
 	.self$.define('msprecannot',        description = 'MS precursor annotation.')
 	.self$.define('nb.peaks',           description = 'Number of MS peaks.', alias = 'nbpeaks',            class = 'integer')
 
@@ -245,7 +264,7 @@ BiodbEntryFields$methods( .initFields = function() {
 	.self$.define('chrom.col.constructor',      description = 'Chromatographic column constructor.')
 	.self$.define('chrom.col.length',           description = 'Chromatographic column length.', class = "double")
 	.self$.define('chrom.col.diameter',         description = 'Chromatographic column diameter.', class = "double")
-	.self$.define('chrom.solvent',         description = 'Chromatographic column solvent.', card = BIODB.CARD.MANY)
+	.self$.define('chrom.solvent',         description = 'Chromatographic column solvent.', card = 'many')
 	.self$.define('chrom.flow.rate',         description = 'Chromatographic column flow rate.')
 	.self$.define('chrom.flow.gradient',         description = 'Chromatographic column flow gradient.')
 	.self$.define('chrom.rt',               description = 'Chromatographic column retention time.', alias = c('chromcolrt', 'chrom.col.rt'), class = 'double')

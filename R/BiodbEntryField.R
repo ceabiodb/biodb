@@ -3,12 +3,6 @@
 # Constants {{{1
 ################################################################
 
-# Cardinalities
-BIODB.CARD.ONE <- '1'
-BIODB.CARD.MANY <- '*'
-FIELD.CARDINALITIES <- c(BIODB.CARD.ONE, BIODB.CARD.MANY)
-
-FIELD.CLASSES <- c('character', 'integer', 'double', 'logical', 'object', 'data.frame')
 
 # Class declaration {{{1
 ################################################################
@@ -52,7 +46,7 @@ BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "BiodbChil
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type = NA_character_, group = NA_character_, class = 'character', card = BIODB.CARD.ONE, forbids.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, computable.from = NULL, ...) {
+BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type = NA_character_, group = NA_character_, class = c('character', 'integer', 'double', 'logical', 'object', 'data.frame'), card = c('one', 'many'), forbids.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, computable.from = NULL, ...) {
 
 	callSuper(...)
 
@@ -72,13 +66,11 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type
 	.group <<- group
 
 	# Set class
-	if ( ! class %in% FIELD.CLASSES)
-		.self$message('error', paste("Unknown class \"", class, "\" for field \"", name, "\".", sep = ''))
+	class <- match.arg(class)
 	.class <<- class
 
 	# Set cardinality
-	if ( ! card %in% FIELD.CARDINALITIES)
-		.self$message('error', paste("Unknown cardinality \"", card, "\" for field \"", name, "\".", sep = ''))
+	card <- match.arg(card)
 	.cardinality <<- card
 
 	# Set description
@@ -321,7 +313,7 @@ BiodbEntryField$methods( checkValue = function(value) {
 BiodbEntryField$methods( hasCardOne = function() {
 	":\n\n Returns \\code{TRUE} if the cardinality of this field is one."
 
-	return(.self$.cardinality == BIODB.CARD.ONE)
+	return(.self$.cardinality == 'one')
 })
 
 # Has card many {{{1
@@ -330,7 +322,7 @@ BiodbEntryField$methods( hasCardOne = function() {
 BiodbEntryField$methods( hasCardMany = function() {
 	":\n\n Returns \\code{TRUE} if the cardinality of this field is many."
 
-	return(.self$.cardinality == BIODB.CARD.MANY)
+	return(.self$.cardinality == 'many')
 })
 
 # Forbids duplicates {{{1

@@ -1,0 +1,14 @@
+{
+	"accession": {
+		"description": "The accession number of the entry."
+	},
+
+	"compound.id": {
+		"description": "The compound ID.",
+		"card": "many",
+		"forbids.duplicates": true,
+		"case.insensitive": true,
+		"type": "id",
+		"alias": "compoundid"
+	}
+}
