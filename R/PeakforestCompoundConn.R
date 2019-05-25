@@ -1,24 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.PEAKFOREST.COMPOUND.PARSING.EXPR <- list(
-	'accession'             = "id",
-	'ncbi.pubchem.comp.id'  = "PubChemCID",
-	'chebi.id'              = "ChEBI",
-	'hmdb.metabolites.id'   = "HMDB",
-	'kegg.compound.id'      = "KEGG",
-	'formula'               = "formula",
-	'smiles'                = "canSmiles",
-	'average.mass'          = "averageMass",
-	'monoisotopic.mass'     = "monoisotopicMass",
-	'inchi'                 = "inChI",
-	'inchikey'              = "inChIKey",
-	'name'                  = "mainName",
-	'logp'                  = "logP"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -145,13 +126,6 @@ PeakforestCompoundConn$methods( searchCompound = function(name = NULL, mass = NU
 
 # Private methods {{{1
 ################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-PeakforestCompoundConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.PEAKFOREST.COMPOUND.PARSING.EXPR)
-})
 
 # Get entry content request {{{2
 ################################################################

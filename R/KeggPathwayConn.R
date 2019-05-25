@@ -1,12 +1,5 @@
 # vi: fdm=marker ts=4 et cc=80 
 
-# Constants {{{1
-################################################################
-
-.BIODB.KEGG.PATHWAY.PARSING.EXPR <- list(
-    'accession'              = "^ENTRY\\s+(\\S+)\\s+Pathway"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -322,13 +315,6 @@ KeggPathwayConn$methods( .getPathwayImage = function(id) {
     }
     
     return(magick::image_read(img_file))
-})
-
-# Get parsing expressions {{{2
-################################################################
-
-KeggPathwayConn$methods( .getParsingExpressions = function() {
-    return(.BIODB.KEGG.PATHWAY.PARSING.EXPR)
 })
 
 # Build reaction graph {{{2

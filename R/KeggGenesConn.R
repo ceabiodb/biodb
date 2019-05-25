@@ -1,17 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.KEGG.GENES.PARSING.EXPR <- list(
-	'accession'              = "^ENTRY\\s+(\\S+)\\s+.*",
-	'organism'               = '^ORGANISM\\s+\\S+\\s+(.*)$',
-	'kegg.organism.code'     = '^ORGANISM\\s+(\\S+)\\s+.*$',
-	'ncbi.gene.id'           = "^[DBLINKS ]+ NCBI-GeneID:\\s+(\\S+)$",
-	'uniprot.id'             = "^[DBLINKS ]+ UniProt:\\s+(\\S+.*)$",
-	'description'            = '^DEFINITION\\s+(.*)$'
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -40,12 +28,3 @@ KeggGenesConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
 
-# Private methods {{{1
-################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-KeggGenesConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.KEGG.GENES.PARSING.EXPR)
-})

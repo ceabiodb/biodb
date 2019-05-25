@@ -1,45 +1,11 @@
 # vi: fdm=marker
 
-#' @include BiodbRemotedbConn.R
-#' @include BiodbMassdbConn.R
-#' @include BiodbDownloadable.R
-
-# Constants {{{1
-################################################################
-
-# Parsing expressions {{{2
-################################################################
-
-.BIODB.MASSBANK.PARSING.EXPR <- list(
-	'accession'             = "^ACCESSION: (.+)$",
-	'name'                  = "^CH\\$NAME:\\s+(.+)$",
-	'msdev'                 = "^AC\\$INSTRUMENT: (.+)$",
-	'msdevtype'             = "^AC\\$INSTRUMENT_TYPE: (.+)$",
-	'mstype'                = "^AC\\$MASS_SPECTROMETRY: MS_TYPE (.+)$",
-	'nb.peaks'              = "^PK\\$NUM_PEAK: ([0-9]+)$",
-	'msprecannot'           = "^MS\\$FOCUSED_ION: PRECURSOR_TYPE (.+)$",
-	'inchi'                 = "^CH\\$IUPAC:\\s+(.+)$",
-	'inchikey'              = "^CH\\$LINK: INCHIKEY\\s+(.+)$",
-	'chemspider.id'         = "^CH\\$LINK: CHEMSPIDER\\s+(.+)$",
-	'chebi.id'              = "^CH\\$LINK: CHEBI\\s+(.+)$",
-	'kegg.compound.id'      = "^CH\\$LINK: KEGG\\s+(.+)$",
-	'cas.id'                = "^CH\\$LINK: CAS\\s+(.+)$",
-	'ncbi.pubchem.comp.id'  = "^CH\\$LINK: PUBCHEM\\s+((CID:)?[0-9]+)",
-	'ncbi.pubchem.subst.id' = "^CH\\$LINK: PUBCHEM\\s+.*(SID:[0-9]+)",
-	'hmdb.metabolites.id'   = "^CH\\$LINK: HMDB\\s+(HMDB[0-9]+)",
-	'formula'               = "^CH\\$FORMULA:\\s+(.+)$",
-	'smiles'                = "^CH\\$SMILES:\\s+(.+)$",
-	'exact.mass'            = "^CH\\$EXACT_MASS:\\s+(.+)$",
-	'msmode'                = "^AC\\$MASS_SPECTROMETRY: ION_MODE (.+)$",
-	'chrom.col.name'        = "^AC\\$CHROMATOGRAPHY: COLUMN_NAME\\s+(.+)$",
-	'chrom.solvent'         = "^AC\\$CHROMATOGRAPHY: SOLVENT\\s+(.+)$",
-	'chrom.flow.rate'       = "^AC\\$CHROMATOGRAPHY: FLOW_RATE\\s+(.+)$",
-	'chrom.flow.gradient'   = "^AC\\$CHROMATOGRAPHY: FLOW_GRADIENT\\s+(.+)$"
-)
-
 # Class declaration {{{1
 ################################################################
 
+#' @include BiodbRemotedbConn.R
+#' @include BiodbMassdbConn.R
+#' @include BiodbDownloadable.R
 MassbankConn <- methods::setRefClass("MassbankConn", contains = c("BiodbRemotedbConn", "BiodbMassdbConn", 'BiodbDownloadable'), fields = list(.prefix2dns = 'list'))
 
 # Constructor {{{1
@@ -241,13 +207,6 @@ MassbankConn$methods( getEntryImageUrl = function(id) {
 
 # Private methods {{{1
 ################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-MassbankConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.MASSBANK.PARSING.EXPR)
-})
 
 # Do download {{{2
 ################################################################

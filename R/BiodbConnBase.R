@@ -17,15 +17,28 @@
 #' @include BiodbChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "BiodbChildObject", fields = list( .db.class = "character", .observers = 'list', .prop.def = 'list', .prop = 'list'))
+BiodbConnBase <- methods::setRefClass("BiodbConnBase",
+	contains =  "BiodbChildObject",
+	fields = list(
+		.db.class = "character",
+		.observers = 'list',
+		.prop.def = 'list',
+		.prop = 'list',
+		.run.hooks = 'character'),
 
-# Constructor {{{1
+	methods = list(
+
+# Public methods {{{1
+################################################################################
+
+# Constructor {{{2
 ################################################################
 
-BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
+initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
+	.run.hooks <<- character()
 
 	# Take parameter values from other object instance
 	if ( ! is.null(other)) {
@@ -46,6 +59,23 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, prop
 
 	# Set properties
 	.self$.defineProperties(other, properties)
+},
+
+zazou = function() {
+	print('zazou')
+},
+
+# Define parsing expressions {{{2
+################################################################################
+
+defineParsingExpressions = function() {
+	'Reimplement this method in your connector class to define parsing expressions dynamically.'
+}
+
+))
+
+BiodbConnBase$methods( zozou = function() {
+	                      print('zozou')
 })
 
 # Get entry file extension {{{1
@@ -156,11 +186,30 @@ BiodbConnBase$methods( getEntryIdField = function() {
 BiodbConnBase$methods( getPropertyValue = function(name) {
 
 	.self$.checkProperty(name)
+	pdef <- .self$.prop.def[[name]]
 
+	# Run hook
+	if ('hook' %in% names(pdef) && ! pdef$hook %in% .self$.run.hooks) {
+		print('-------------------------------- BiodbConnBase::getPropertyValue 10')
+		print(names(.self))
+		print('-------------------------------- BiodbConnBase::getPropertyValue 10.1')
+		print(class(.self))
+		print('-------------------------------- BiodbConnBase::getPropertyValue 10.2')
+		print(.self)
+		print('-------------------------------- BiodbConnBase::getPropertyValue 10.3')
+		.self[[pdef$hook]]()
+		print('-------------------------------- BiodbConnBase::getPropertyValue 11')
+		.run.hooks <<- c(.self$.run.hooks, pdef$hook)
+		print('-------------------------------- BiodbConnBase::getPropertyValue 12')
+	}
+
+		print('-------------------------------- BiodbConnBase::getPropertyValue 20')
+	# Get value
 	if (name %in% names(.self$.prop))
 		value <- .self$.prop[[name]]
 	else
-		value <- .self$.prop.def[[name]]$default
+		value <- pdef$default
+		print('-------------------------------- BiodbConnBase::getPropertyValue 20')
 
 	return(value)
 })
@@ -406,6 +455,8 @@ BiodbConnBase$methods( getXmlNs = function() {
 	return(.self$getPropertyValue('xml.ns'))
 })
 
+
+
 # Private methods {{{1
 ################################################################
 
@@ -569,7 +620,7 @@ BiodbConnBase$methods( .getFullPropDefList = function() {
 		entry.content.encoding = list(class = 'character', default = NA_character_, na.allowed = TRUE),
 		entry.content.type = list(class = 'character', default = NA_character_, allowed = c('html', 'txt', 'xml', 'csv', 'tsv', 'json', 'list'), na.allowed = FALSE, modifiable = FALSE),
 		name = list(class = 'character', default = NA_character_, na.allowed = FALSE, modifiable = FALSE),
-		parsing.expr = list(class = 'list', default = NULL, named = TRUE, mult = TRUE, allowed_item_types = 'character', na.allowed = FALSE),
+		parsing.expr = list(class = 'list', default = NULL, named = TRUE, mult = TRUE, allowed_item_types = 'character', na.allowed = FALSE, hook = 'defineParsingExpressions'),
 		scheduler.n = list(class = 'integer', default = 1, na.allowed = FALSE),
 		scheduler.t = list(class = 'numeric', default = 1, na.allowed = FALSE),
 		token = list(class = 'character', default = default_token, na.allowed = TRUE),

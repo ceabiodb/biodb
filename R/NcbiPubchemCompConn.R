@@ -1,25 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.PUBCHEM.COMP.PARSING.EXPR <- list(
-	'accession'                 = "//PC-CompoundType_id_cid",
-	'inchi'                     = "//PC-Urn_label[text()='InChI']/../../..//PC-InfoData_value_sval",
-	'inchikey'                  = "//PC-Urn_label[text()='InChIKey']/../../..//PC-InfoData_value_sval",
-	'formula'                   = "//PC-Urn_label[text()='Molecular Formula']/../../..//PC-InfoData_value_sval",
-	'exact.mass'                = "//PC-Urn_label[text()='Mass']/../../..//PC-InfoData_value_fval",
-	'molecular.weight'          = "//PC-Urn_label[text()='Molecular Weight']/../../..//PC-InfoData_value_fval",
-	'comp.iupac.name.syst'      = "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Systematic']/../../..//PC-InfoData_value_sval",
-	'comp.iupac.name.allowed'   = "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Allowed']/../../..//PC-InfoData_value_sval",
-	'comp.iupac.name.cas'       = "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='CAS-like Style']/../../..//PC-InfoData_value_sval",
-	'comp.iupac.name.pref'      = "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Preferred']/../../..//PC-InfoData_value_sval",
-	'comp.iupac.name.trad'      = "//PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Traditional']/../../..//PC-InfoData_value_sval",
-	'logp'                      = "//PC-Urn_label[text()='Log P']/../../..//PC-InfoData_value_fval",
-	'smiles.canonical'          = "//PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Canonical']/../../..//PC-InfoData_value_sval",
-	'smiles.isomeric'           = "//PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Isomeric']/../../..//PC-InfoData_value_sval"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -100,12 +80,3 @@ NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, mass = NULL,
 	return(ids)
 })
 
-# Private methods {{{1
-################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-NcbiPubchemCompConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.PUBCHEM.COMP.PARSING.EXPR)
-})

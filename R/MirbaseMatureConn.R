@@ -1,15 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.MIRBASE.MATURE.PARSING.EXPR <- list(
-	'accession'     = "^>[^ ]+ *(MIMAT[0-9]+) .*$",
-	'name'          = "^>([^ ]+) *MIMAT[0-9]+ .*$",
-	'description'   = "^>[^ ]+ *MIMAT[0-9]+ (.*)$",
-	'sequence'      = "^([ACGU]+)$"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -161,13 +151,6 @@ MirbaseMatureConn$methods( searchByName = function(name, max.results = NA_intege
 
 # Private methods {{{1
 ################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-MirbaseMatureConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.MIRBASE.MATURE.PARSING.EXPR)
-})
 
 # Get entry ids {{{2
 ################################################################
