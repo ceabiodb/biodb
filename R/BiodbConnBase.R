@@ -61,10 +61,6 @@ initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 	.self$.defineProperties(other, properties)
 },
 
-zazou = function() {
-	print('zazou')
-},
-
 # Define parsing expressions {{{2
 ################################################################################
 
@@ -73,10 +69,6 @@ defineParsingExpressions = function() {
 }
 
 ))
-
-BiodbConnBase$methods( zozou = function() {
-	                      print('zozou')
-})
 
 # Get entry file extension {{{1
 ################################################################
@@ -190,26 +182,15 @@ BiodbConnBase$methods( getPropertyValue = function(name) {
 
 	# Run hook
 	if ('hook' %in% names(pdef) && ! pdef$hook %in% .self$.run.hooks) {
-		print('-------------------------------- BiodbConnBase::getPropertyValue 10')
-		print(names(.self))
-		print('-------------------------------- BiodbConnBase::getPropertyValue 10.1')
-		print(class(.self))
-		print('-------------------------------- BiodbConnBase::getPropertyValue 10.2')
-		print(.self)
-		print('-------------------------------- BiodbConnBase::getPropertyValue 10.3')
-		.self[[pdef$hook]]()
-		print('-------------------------------- BiodbConnBase::getPropertyValue 11')
 		.run.hooks <<- c(.self$.run.hooks, pdef$hook)
-		print('-------------------------------- BiodbConnBase::getPropertyValue 12')
+		eval(parse(text = paste0('.self$', pdef$hook, '()')))
 	}
 
-		print('-------------------------------- BiodbConnBase::getPropertyValue 20')
 	# Get value
 	if (name %in% names(.self$.prop))
 		value <- .self$.prop[[name]]
 	else
 		value <- pdef$default
-		print('-------------------------------- BiodbConnBase::getPropertyValue 20')
 
 	return(value)
 })
