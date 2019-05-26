@@ -23,10 +23,10 @@ MassSqliteConn$methods( initialize = function(...) {
 	.db <<- NULL
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-MassSqliteConn$methods( getEntryContent = function(entry.id) {
+MassSqliteConn$methods( getEntryContentFromDb = function(entry.id) {
 	
 	# Initialize contents to return
 	content = rep(list(NULL), length(entry.id))

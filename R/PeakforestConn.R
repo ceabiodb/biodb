@@ -39,10 +39,10 @@ PeakforestConn$methods( .checkIfError = function(content) {
 	return(FALSE)
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-PeakforestConn$methods( getEntryContent = function(entry.id) {
+PeakforestConn$methods( getEntryContentFromDb = function(entry.id) {
 	
 	# Initialize contents to return
 	content <- rep(NA_character_, length(entry.id))

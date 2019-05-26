@@ -82,10 +82,10 @@ MirbaseMatureConn$methods( .doExtractDownload = function() {
 	unlink(extracted.file)
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
+MirbaseMatureConn$methods( getEntryContentFromDb = function(entry.id) {
 
 	# Download
 	.self$download()

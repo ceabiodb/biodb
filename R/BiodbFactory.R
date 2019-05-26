@@ -11,7 +11,6 @@
 #' @param db.class  The type of a database. The list of types can be obtained from the class \code{\link{BiodbDbsInfo}}.
 #' @param conn.id   The identifier of a database connector.
 #' @param drop      If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.
-#' @param dwnld.chunk.size The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
 #' @param id        A character vector containing database entry IDs (accession numbers).
 #' @param token     A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.
 #' @param url       An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.
@@ -38,7 +37,7 @@
 #' @include BiodbChildObject.R
 #' @export BiodbFactory
 #' @exportClass BiodbFactory
-BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbChildObject', fields = list( .conn = "list", .chunk.size = "integer"))
+BiodbFactory <- methods::setRefClass("BiodbFactory", contains = 'BiodbChildObject', fields = list( .conn = "list"))
 
 # Constructor {{{1
 ################################################################
@@ -48,7 +47,6 @@ BiodbFactory$methods( initialize = function(...) {
 	callSuper(...)
 
 	.conn <<- list()
-	.chunk.size <<- NA_integer_
 })
 
 # Create connector {{{1
@@ -196,15 +194,6 @@ BiodbFactory$methods( getConn = function(conn.id) {
 })
 
 
-# Set chunk size {{{1
-################################################################
-
-BiodbFactory$methods( setDownloadChunkSize = function(dwnld.chunk.size) {
-	":\n\nSet the download chunk size."
-
-	.chunk.size <<- as.integer(dwnld.chunk.size)
-})
-
 # Get entry {{{1
 ################################################################
 
@@ -278,89 +267,6 @@ BiodbFactory$methods( deleteAllCacheEntries = function(conn.id) {
 	.self$.conn[[conn.id]]$deleteAllCacheEntries()
 })
 
-# Get entry content {{{1
-################################################################
-
-BiodbFactory$methods( getEntryContent = function(conn.id, id) {
-	":\n\nGet the contents of database entries from IDs (accession numbers)."
-
-	content <- list()
-
-	if ( ! is.null(id) && length(id) > 0) {
-
-		id <- as.character(id)
-
-		# Get connector instance
-		conn <- .self$getConn(conn.id)
-
-		# Debug
-		.self$message('debug', paste0("Get ", conn$getPropertyValue('name'), " entry content(s) for ", length(id)," id(s)..."))
-
-		# Download full database if possible and allowed or if required
-		if (.self$getBiodb()$getCache()$isWritable() && methods::is(conn, 'BiodbDownloadable')) {
-			.self$message('debug', paste('Ask for whole database download of ', conn$getPropertyValue('name'), '.', sep = ''))
-			conn$download()
-		}
-
-		# Initialize content
-		if (.self$getBiodb()$getCache()$isReadable() && ! is.null(conn$getCacheId())) {
-			# Load content from cache
-			content = .self$getBiodb()$getCache()$loadFileContent(conn$getCacheId(), subfolder = 'shortterm', name = id, ext = conn$getEntryFileExt())
-			missing.ids = id[vapply(content, is.null, FUN.VALUE = TRUE)]
-		}
-		else {
-			content <- lapply(id, as.null)
-			missing.ids <- id
-		}
-
-		# Remove duplicates
-		n.duplicates <- sum(duplicated(missing.ids))
-		missing.ids <- missing.ids[ ! duplicated(missing.ids)]
-
-		# Debug
-		if (any(is.na(id)))
-			.self$message('debug', paste0(sum(is.na(id)), " ", conn$getPropertyValue('name'), " entry ids are NA."))
-		if (.self$getBiodb()$getCache()$isReadable()) {
-			.self$message('debug', paste0(sum( ! is.na(id)) - length(missing.ids), " ", conn$getPropertyValue('name'), " entry content(s) loaded from cache."))
-			if (n.duplicates > 0)
-				.self$message('debug', paste0(n.duplicates, " ", conn$getPropertyValue('name'), " entry ids, whose content needs to be fetched, are duplicates."))
-		}
-
-		# Get contents
-		if (length(missing.ids) > 0 && ( ! methods::is(conn, 'BiodbDownloadable') || ! conn$isDownloaded())) {
-
-			.self$message('debug', paste0(length(missing.ids), " entry content(s) need to be fetched from ", conn$getPropertyValue('name'), " database \"", conn$getPropValSlot('urls', 'base.url'), "\"."))
-
-			# Divide list of missing ids in chunks (in order to save in cache regularly)
-			chunks.of.missing.ids = if (is.na(.self$.chunk.size)) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$.chunk.size))
-
-			# Loop on chunks
-			missing.contents <- NULL
-			for (ch.missing.ids in chunks.of.missing.ids) {
-
-				ch.missing.contents <- conn$getEntryContent(ch.missing.ids)
-
-				# Save to cache
-				if ( ! is.null(ch.missing.contents) && ! is.null(conn$getCacheId()) && .self$getBiodb()$getCache()$isWritable())
-					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, cache.id = conn$getCacheId(), subfolder = 'shortterm', name = ch.missing.ids, ext = conn$getEntryFileExt())
-
-				# Append
-				missing.contents <- c(missing.contents, ch.missing.contents)
-
-				# Debug
-				if (.self$getBiodb()$getCache()$isReadable())
-					.self$message('debug', paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
-			}
-
-			# Merge content and missing.contents
-			missing.contents = as.list(missing.contents)
-			content[id %in% missing.ids] = missing.contents[vapply(id[id %in% missing.ids], function(x) which(missing.ids == x), FUN.VALUE = as.integer(1))]
-		}
-	}
-
-	return(content)
-})
-
 # Show {{{1
 ################################################################
 
@@ -387,7 +293,7 @@ BiodbFactory$methods( .loadEntries = function(conn.id, ids, drop) {
 		.self$message('debug', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
 
 		# Get contents
-		content = .self$getEntryContent(conn$getId(), ids)
+		content = conn$getEntryContent(ids)
 
 		# Create entries
 		new.entries <- .self$.createEntryFromContent(conn$getId(), content = content, drop = drop)

@@ -262,10 +262,10 @@ MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
 	return(length(peaks))
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-MassCsvFileConn$methods( getEntryContent = function(entry.id) {
+MassCsvFileConn$methods( getEntryContentFromDb = function(entry.id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))

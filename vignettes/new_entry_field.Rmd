@@ -26,9 +26,33 @@ mybiodb <- biodb::Biodb$new()
 
 ## Get an entry
 
+For the example, we will use a connector to the LIPID MAPS Structure database:
+```{r}
+conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+```
+This database returns its entries as CSV files, which are fairly simple to parse. A good choice for this first vignette about entry field parsing.
+
 ## Look at the fields already parsed
 
+The expressions for parsing entry fields are stored inside the `parsing.expr` property:
+```{r}
+conn$getPropertyValue('parsing.expr')
+```
+As you can see, the parsing expressions are quite simple, they only indicate the column name where to find the field value inside the CSV file.
+
+In order to illustrate the mechanism of field parsing, we will define a new field `...2`, which will be the exact equivalent of the field `...`.
+
 ## Look at the entry content
+
+In order to know the name of the column in which the value of our field is stored, we need to see the CSV file returned by the database web service. One way to do this, is by passing one or more entry IDs to the `getEntryContent()`:
+```{r}
+conn$getEntryContent('LMFA00000001')
+```
+Another possibility, when using the persistent cache, is to get the file path to the cache file:
+```{r}
+conn$getCacheFile('LMFA00000001')
+```
+You can then open the file inside your preferred application.
 
 ## Search for the information we need inside the content
 
@@ -41,11 +65,11 @@ Look for the information you want to extract.
 ## Create the parsing expression
 
 <!--
-	1. We need to move the constant parsing expressions into the database information file dbinfo.json
+X	1. We need to move the constant parsing expressions into the database information file dbinfo.json
 	2. We need to allow the definition of additional parsing expressions.
 -->
 
-## Forget/remove the loaded entry and remove it from the cache
+## Forget/remove the loaded entry and remove it from the memory/volatile cache
 
 ## Get again the entry and see the new field
 

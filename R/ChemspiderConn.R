@@ -28,10 +28,10 @@
 #' @exportClass ChemspiderConn
 ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"))
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-ChemspiderConn$methods( getEntryContent = function(entry.id) {
+ChemspiderConn$methods( getEntryContentFromDb = function(entry.id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))

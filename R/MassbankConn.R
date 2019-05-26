@@ -105,10 +105,10 @@ MassbankConn$methods( requiresDownload = function() {
 	return(TRUE)
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-MassbankConn$methods( getEntryContent = function(entry.id) {
+MassbankConn$methods( getEntryContentFromDb = function(entry.id) {
 
 	# NOTE Method unused, since database is downloaded.
 

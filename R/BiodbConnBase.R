@@ -61,6 +61,54 @@ initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 	.self$.defineProperties(other, properties)
 },
 
+# Show {{{2
+################################################################
+
+show = function() {
+	msg <- paste0("Biodb ", .self$getPropertyValue('name'), " connector instance")
+	if (hasPropSlot('urls', 'base.url'))
+		msg <- paste0(msg, ', using URL "', .self$getPropValSlot('urls', 'base.url'), '"')
+	msg <- paste0(msg, ".\n")
+	cat(msg)
+},
+
+# Has property {{{2
+################################################################
+
+hasProp = function(name) {
+	'Returns true if the property "name" exists.'
+
+	return (name %in% .self$.prop)
+},
+
+# Has property slot {{{2
+################################################################
+
+hasPropSlot = function(name, slot) {
+	'Returns true if the property "name" exists and has the slot "slot" defined.'
+
+	return (.self$hasProp(name) && slot %in% names(.self$.prop[[name]]))
+},
+
+# Get property value slot {{{2
+################################################################
+
+getPropValSlot = function(name, slot) {
+	'Return the value of the slot "slot" of the property "name".'
+
+	value <- .self$getPropertyValue(name)
+	.self$.checkProperty(name = name, slot = slot)
+
+	if (slot %in% names(value))
+		value <- value[[slot]]
+	else {
+		pdef <- .self$.prop.def[[name]]
+		value <- as.vector(NA, mode = pdef$class)
+	}
+
+	return(value)
+},
+
 # Define parsing expressions {{{2
 ################################################################################
 
@@ -218,24 +266,6 @@ BiodbConnBase$methods( setPropertyValue = function(name, value) {
 			obs$connSchedulerFrequencyUpdated(.self)
 		else if (name == 'urls')
 			obs$connUrlsUpdated(.self)
-})
-
-# Get property value slot {{{1
-################################################################
-
-BiodbConnBase$methods( getPropValSlot = function(name, slot) {
-
-	value <- .self$getPropertyValue(name)
-	.self$.checkProperty(name = name, slot = slot)
-
-	if (slot %in% names(value))
-		value <- value[[slot]]
-	else {
-		pdef <- .self$.prop.def[[name]]
-		value <- as.vector(NA, mode = pdef$class)
-	}
-
-	return(value)
 })
 
 # Set property value slot {{{1
