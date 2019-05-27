@@ -39,7 +39,7 @@ BiodbXmlEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 	parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
 	# Set namespace
-	xml.ns <- .self$getParent()$getXmlNs()
+	xml.ns <- .self$getParent()$getPropertyValue('xml.ns')
 	ns <- if (is.null(xml.ns) || length(xml.ns) == 0 || all(is.na(xml.ns))) XML::xmlNamespaceDefinitions(parsed.content, simplify = TRUE) else xml.ns
 
 	# Loop on all parsing expressions

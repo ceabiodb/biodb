@@ -264,12 +264,9 @@ BiodbConfig$methods( .defineKeys = function() {
 
 	.keys <<- list()
 
-
 	# Define default values
 	cachedir.default  <- if ('HOME' %in% names(.self$.env)) file.path(.self$.env[['HOME']], '.biodb.cache') else NULL
 	useragent.default <- if ('EMAIL' %in% names(.self$.env)) paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ') else NULL
-	dbf.def <- system.file("dbinfo.json", package = "biodb")
-	eff.def <- system.file("entryfields.json", package = "biodb")
 
 	# Define keys
 	.self$.newKey('allow.huge.downloads',       type = 'logical',   description = "Download of huge files like whole database data is allowed.", default = TRUE)
@@ -281,8 +278,6 @@ BiodbConfig$methods( .defineKeys = function() {
 	.self$.newKey('dwnld.chunk.size',           type = 'integer',   description = 'The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.', default = NA_integer_)
 	.self$.newKey('factory.cache',              type = 'logical',   description = "Factory cache system is ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the same entries are requested several times, avoiding the parsing process.", default = FALSE, deprecated = "The cache is now always enabled. Thus all entries returned are referenced inside the cache and will be returned when needed.")
 	.self$.newKey('compute.fields',             type = 'logical',   description = "If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.", default = TRUE)
-	.self$.newKey('dbinfo.file',               type = 'character',   description = "The path to the built-in databases information file.", default = dbf.def)
-	.self$.newKey('entryfields.file',               type = 'character',   description = "The path to the built-in entry fields file.", default = eff.def)
 	.self$.newKey('force.locale',               type = 'logical',   description = "Forcing current locale is allowed.", default = TRUE)
 	.self$.newKey('longterm.cache.subfolder',   type = 'character', description = "The name of the long term cache subfolder.",  default = 'longterm')
 	.self$.newKey('multival.field.sep',         type = 'character', description = "The character used as separator when concatenating multiple values of a field.",  default = ';')

@@ -25,6 +25,7 @@ Imports:
 	XML,
 	stringr,
 	plyr,
+	yaml,
 	jsonlite,
 	RCurl,
 	stats,

@@ -37,8 +37,6 @@ BiodbDbsInfo$methods( initialize = function(...) {
 	callSuper(...)
 
 	.dbs <<- list()
-
-	.self$.initDbsInfo()
 })
 
 # Get list of database IDs {{{1
@@ -96,42 +94,23 @@ BiodbDbsInfo$methods( show = function() {
 	cat("Biodb databases information instance.\n")
 })
 
-# Load info file {{{1
-################################################################
-
-BiodbDbsInfo$methods( loadInfoFile = function(file) {
-	'Load databases information file, and defines the new databases.
-	The parameter file must point to a valid JSON file.'
-
-	dbi <- jsonlite::fromJSON(file, simplifyDataFrame = FALSE)
-
-	# Loop on all db info
-	for (db in names(dbi))
-		.self$.define(db, properties = dbi[[db]])
-})
 
 # Private methods {{{1
 ################################################################
 
-# Initialize databases information {{{2
+# Load definitions {{{2
 ################################################################
 
-BiodbDbsInfo$methods( .initDbsInfo = function() {
+BiodbDbsInfo$methods( .loadDefinitions = function(def) {
 
-	# Load JSON databases information file
-	dbf <- .self$getBiodb()$getConfig()$get('dbinfo.file')
-	.self$loadInfoFile(dbf)
-})
+	# Loop on all db info
+	for (db in names(def))
 
-# Define {{{2
-################################################################
+		# Database already defined
+		if (db %in% names(.self$.dbs))
+			.self$.dbs[[db]]$updatePropertiesDefinition(def[[db]])
 
-BiodbDbsInfo$methods( .define = function(id, ...) {
-
-	# Is this database already defined?
-	if (id %in% names(.self$.dbs))
-		.self$message('error', paste("Database \"", id, "\" has already been defined.", sep = ''))
-
-	# Define new field
-	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, ...)
+		# Define new database
+		else
+			.self$.dbs[[db]] <- BiodbDbInfo$new(parent = .self, db.class = db, properties = def[[db]])
 })

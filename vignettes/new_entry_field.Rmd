@@ -42,27 +42,6 @@ As you can see, the parsing expressions are quite simple, they only indicate the
 
 In order to illustrate the mechanism of field parsing, we will define a new field `formula2`, which will be the exact equivalent of the field `formula`.
 
-## Create the new field
-
-We have defined the new `formula2` inside a JSON file:
-```{r}
-field_file <- system.file("extdata", "formula2_field.json", package = "biodb")
-```
-Here is its content:
-```{r}
-writeLines(readLines(field_file))
-```
-
-Now we load this definition of a new field:
-```{r}
-mybiodb$getEntryFields()$loadFieldsFile(field_file)
-```
-
-And we can check that the new definition exists:
-```{r}
-mybiodb$getEntryFields()$get('formula2')
-```
-
 ## Look at the entry content
 
 In order to know the name of the column in which the value of our field is stored, we need to see the CSV file returned by the database web service. One way to do this, is by passing one or more entry IDs to the `getEntryContent()`:
@@ -77,12 +56,26 @@ You can then open the file inside your preferred application.
 
 Now look for the information we want to extract, which is the chemical formula, and get the corresponding column name: `FORMULA`.
 
-## Create the parsing expression
+## Create the new field and its parsing expression
 
-<!--
-X	1. We need to move the constant parsing expressions into the database information file dbinfo.json
-	2. We need to allow the definition of additional parsing expressions.
--->
+We have defined the new `formula2` field and its parsing expression inside a YAML file:
+```{r}
+def_file <- system.file("extdata", "new_entry_field.yml", package = "biodb")
+```
+Here is its content:
+```{r}
+writeLines(readLines(def_file))
+```
+
+Now we load this definition file:
+```{r}
+mybiodb$loadDefinitions(def_file)
+```
+
+And we can check that the new definition exists:
+```{r}
+mybiodb$getEntryFields()$get('formula2')
+```
 
 ## Forget/remove the loaded entry and remove it from the memory/volatile cache
 

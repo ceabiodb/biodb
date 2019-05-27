@@ -43,8 +43,6 @@ BiodbEntryFields$methods( initialize = function(...) {
 
 	.fields <<- list()
 	.aliasToName <<- character(0)
-
-	.self$.initFields()
 })
 
 # Is alias {{{1
@@ -140,16 +138,9 @@ BiodbEntryFields$methods( show = function() {
 
 BiodbEntryFields$methods( loadFieldsFile = function(file) {
 	'Load entry fields information file, and defines the new fields.
-	The parameter file must point to a valid JSON file.'
+	The parameter file must point to a valid YAML file.'
 
-	fields <- jsonlite::fromJSON(file, simplifyDataFrame = FALSE)
-
-	# Loop on all db info
-	for (f in names(fields)) {
-		args <- fields[[f]]
-		args[['name']] <- f
-		do.call(.self$.define, args)
-	}
+	fields <- yaml::read_yaml(file)
 })
 
 # Private methods {{{1
@@ -160,9 +151,8 @@ BiodbEntryFields$methods( loadFieldsFile = function(file) {
 
 BiodbEntryFields$methods( .define = function(name, ...) {
 
-	# Check that name is in lower case
-	if (name != tolower(name))
-		.self$message('error', paste("Field name \"", name, "\" must be in lower case.", sep = ''))
+	# Make sure name is in lower case
+	name <- tolower(name)
 
 	# Is field already defined?
 	if (.self$isDefined(name))
@@ -180,17 +170,15 @@ BiodbEntryFields$methods( .define = function(name, ...) {
 			.self$.aliasToName[[alias]] <- name
 })
 
-# Init fields {{{2
+# Load definitions {{{2
 ################################################################
 
-BiodbEntryFields$methods( .initFields = function() {
+BiodbEntryFields$methods( .loadDefinitions = function(def) {
 
-	# Load JSON file
-	eff <- .self$getBiodb()$getConfig()$get('entryfields.file')
-	.self$loadFieldsFile(eff)
-
-	# Define database ID fields
-	for (db.info in .self$getBiodb()$getDbsInfo()$getAll())
-		.self$.define(db.info$getEntryIdField(), db.id = TRUE, card = 'many', description = paste(db.info$getName(), 'ID'), forbids.duplicates = TRUE, case.insensitive = TRUE, type = 'id')
-
+	# Loop on all fields
+	for (f in names(def)) {
+		args <- def[[f]]
+		args[['name']] <- f
+		do.call(.self$.define, args)
+	}
 })

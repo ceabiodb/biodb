@@ -134,7 +134,7 @@ BiodbConn$methods( getEntryContent = function(id) {
 			.self$message('debug', paste0(length(missing.ids), " entry content(s) need to be fetched from ", .self$getPropertyValue('name'), " database \"", .self$getPropValSlot('urls', 'base.url'), "\"."))
 
 			# Divide list of missing ids in chunks (in order to save in cache regularly)
-			chunks.of.missing.ids = if (is.na(.self$getBiodb()$getConfig()$hasKey('dwnld.chunk.size'))) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$getBiodb()$getConfig()$get('dwnld.chunk.size')))
+			chunks.of.missing.ids = if (.self$getBiodb()$getConfig()$hasKey('dwnld.chunk.size')) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$getBiodb()$getConfig()$get('dwnld.chunk.size')))
 
 			# Loop on chunks
 			missing.contents <- NULL

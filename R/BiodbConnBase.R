@@ -66,7 +66,7 @@ initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 
 show = function() {
 	msg <- paste0("Biodb ", .self$getPropertyValue('name'), " connector instance")
-	if (hasPropSlot('urls', 'base.url'))
+	if (.self$hasPropSlot('urls', 'base.url'))
 		msg <- paste0(msg, ', using URL "', .self$getPropValSlot('urls', 'base.url'), '"')
 	msg <- paste0(msg, ".\n")
 	cat(msg)
@@ -78,7 +78,7 @@ show = function() {
 hasProp = function(name) {
 	'Returns true if the property "name" exists.'
 
-	return (name %in% .self$.prop)
+	return (name %in% names(.self$.prop))
 },
 
 # Has property slot {{{2
@@ -107,6 +107,18 @@ getPropValSlot = function(name, slot) {
 	}
 
 	return(value)
+},
+
+# Update properties definition {{{2
+################################################################################
+
+updatePropertiesDefinition = function(def) {
+	'Update the definition of properties.'
+
+	# Loop on properties
+	for (prop in names(def)) {
+		# TODO
+	}
 },
 
 # Define parsing expressions {{{2
