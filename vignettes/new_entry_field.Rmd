@@ -40,13 +40,34 @@ conn$getPropertyValue('parsing.expr')
 ```
 As you can see, the parsing expressions are quite simple, they only indicate the column name where to find the field value inside the CSV file.
 
-In order to illustrate the mechanism of field parsing, we will define a new field `...2`, which will be the exact equivalent of the field `...`.
+In order to illustrate the mechanism of field parsing, we will define a new field `formula2`, which will be the exact equivalent of the field `formula`.
+
+## Create the new field
+
+We have defined the new `formula2` inside a JSON file:
+```{r}
+field_file <- system.file("extdata", "formula2_field.json", package = "biodb")
+```
+Here is its content:
+```{r}
+writeLines(readLines(field_file))
+```
+
+Now we load this definition of a new field:
+```{r}
+mybiodb$getEntryFields()$loadFieldsFile(field_file)
+```
+
+And we can check that the new definition exists:
+```{r}
+mybiodb$getEntryFields()$get('formula2')
+```
 
 ## Look at the entry content
 
 In order to know the name of the column in which the value of our field is stored, we need to see the CSV file returned by the database web service. One way to do this, is by passing one or more entry IDs to the `getEntryContent()`:
 ```{r}
-conn$getEntryContent('LMFA00000001')
+cat(conn$getEntryContent('LMFA00000001')[[1]])
 ```
 Another possibility, when using the persistent cache, is to get the file path to the cache file:
 ```{r}
@@ -54,13 +75,7 @@ conn$getCacheFile('LMFA00000001')
 ```
 You can then open the file inside your preferred application.
 
-## Search for the information we need inside the content
-
-Get the file path to the cache file containing the entry content.
-Open the cache file into your favorite editor.
-Look for the information you want to extract.
-
-## Create the new field
+Now look for the information we want to extract, which is the chemical formula, and get the corresponding column name: `FORMULA`.
 
 ## Create the parsing expression
 

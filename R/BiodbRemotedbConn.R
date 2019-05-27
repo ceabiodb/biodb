@@ -48,10 +48,10 @@ BiodbRemotedbConn$methods( initialize = function(...) {
 	.self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-BiodbRemotedbConn$methods( getEntryContent = function(entry.id) {
+BiodbRemotedbConn$methods( getEntryContentFromDb = function(entry.id) {
 	# Default implementation
 	return(.self$.doGetEntryContentOneByOne(entry.id))
 })

@@ -140,7 +140,7 @@ BiodbConn$methods( getEntryContent = function(id) {
 			missing.contents <- NULL
 			for (ch.missing.ids in chunks.of.missing.ids) {
 
-				ch.missing.contents <- .self$getEntryContent(ch.missing.ids)
+				ch.missing.contents <- .self$getEntryContentFromDb(ch.missing.ids)
 
 				# Save to cache
 				if ( ! is.null(ch.missing.contents) && ! is.null(.self$getCacheId()) && .self$getBiodb()$getCache()$isWritable())

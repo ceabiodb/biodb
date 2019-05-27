@@ -378,6 +378,13 @@ BiodbEntryField$methods( isVector = function() {
 	return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
 })
 
+# Show {{{1 
+################################################################
+
+BiodbEntryField$methods( show = function() {
+	cat("Entry field \"", .self$.name, "\".\n")
+})
+
 # DEPRECATED METHODS {{{1
 ################################################################
 
