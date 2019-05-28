@@ -12,6 +12,7 @@ Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
 Suggests:
+	BiocStyle,
 	roxygen2,
 	devtools,
 	testthat (>= 2.0.0),
