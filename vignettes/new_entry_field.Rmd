@@ -1,16 +1,18 @@
 ---
-title: "Creating a new field for entries."
+title: "*biodb*: Creating a new field for entries."
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
-abstract: |
-  How to create a new field and use it to parse a value inside an entry content.
-vignette: |
-  %\VignetteIndexEntry{Creating a new field for entries.}
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
 ---
 
 # Creating a new field for entries.
@@ -72,6 +74,12 @@ Now we load this definition file:
 mybiodb$loadDefinitions(def_file)
 ```
 
+And delete the current connector for recreating a new one just after:
+```{r}
+mybiodb$getFactory()$deleteConn(conn$getId())
+conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+```
+
 We can check that the new definition exists:
 ```{r}
 mybiodb$getEntryFields()$get('formula2')
@@ -82,15 +90,7 @@ And the new parsing expression has been registered:
 conn$getPropertyValue('parsing.expr')
 ```
 
-## Recreate the connector
-
-For the parsing of the new field to take effect, we need to delete the current connector and create a new one:
-```{r}
-mybiodb$getFactory()$deleteConn(conn$getId())
-conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
-```
-
-## Get again the entry and see the new field
+## Get the entry and see the new field
 
 Now we can get the entry and print the value of our new field:
 ```{r}
