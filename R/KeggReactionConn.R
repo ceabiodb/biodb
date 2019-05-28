@@ -1,13 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.KEGG.REACTION.PARSING.EXPR <- list(
-	'accession'              = "^ENTRY\\s+(\\S+)\\s+Reaction",
-	'equation'               = "^EQUATION\\s+(.+)\\s*$"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -36,12 +28,3 @@ KeggReactionConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
 
-# Private methods {{{1
-################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-KeggReactionConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.KEGG.REACTION.PARSING.EXPR)
-})

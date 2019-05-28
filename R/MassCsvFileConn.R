@@ -262,10 +262,10 @@ MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
 	return(length(peaks))
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-MassCsvFileConn$methods( getEntryContent = function(entry.id) {
+MassCsvFileConn$methods( getEntryContentFromDb = function(entry.id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))
@@ -295,6 +295,32 @@ MassCsvFileConn$methods( setDb = function(db) {
 		.self$message('error', 'Cannot set this data frame as database. A URL that points to an existing file has already been set for the connector.')
 
 	.self$.doSetDb(db)
+})
+
+# Public methods {{{1
+################################################################
+
+# Define parsing expressions {{{2
+################################################################
+
+MassCsvFileConn$methods( defineParsingExpressions = function() {
+
+	entry.fields <- .self$getBiodb()$getEntryFields()
+
+	# Loop on all fields defined in database
+	for (field in names(.self$.fields)) {
+		f <- entry.fields$get(field)
+		if (is.null(f) || is.na(f$getGroup()) || f$getGroup() != 'peak')
+			.self$setPropValSlot('parsing.expr', field, .self$.fields[[field]])
+	}
+
+	# Loop on all entry fields
+	for (field in entry.fields$getFieldNames())
+		if ( ! field %in% names(.self$.fields)) {
+		f <- entry.fields$get(field)
+		if (is.na(f$getGroup()) || f$getGroup() != 'peak')
+			.self$setPropValSlot('parsing.expr', field, field)
+	}
 })
 
 # Private methods {{{1
@@ -540,35 +566,6 @@ MassCsvFileConn$methods( .checkSettingOfUrl = function(key, value) {
 		if ( ! is.null(.self$.db) && ! is.null(url) && ! is.na(url) && file.exists(url))
 			.self$message('error', paste0('You cannot overwrite base URL. A URL has already been set ("', url, '") that points to a valid file that has already been loaded in memory.'))
 	}
-})
-
-# Get parsing expressions {{{2
-################################################################
-
-MassCsvFileConn$methods( .getParsingExpressions = function() {
-
-	if (length(.self$.parsing.expr) == 0) {
-		.parsing.expr <<- list()
-		entry.fields <- .self$getBiodb()$getEntryFields()
-
-		# Loop on all fields defined in database
-		for (field in names(.self$.fields)) {
-			f <- entry.fields$get(field)
-			if (is.null(f) || is.na(f$getGroup()) || f$getGroup() != 'peak')
-				.self$.parsing.expr[[field]] <- .self$.fields[[field]]
-		}
-
-		# Loop on all entry fields
-		for (field in entry.fields$getFieldNames())
-			if ( ! field %in% names(.self$.fields)) {
-			f <- entry.fields$get(field)
-			if (is.na(f$getGroup()) || f$getGroup() != 'peak')
-				.self$.parsing.expr[[field]] <- field
-		}
-
-	}
-
-	return(.self$.parsing.expr)
 })
 
 # Check if parsing has began {{{2

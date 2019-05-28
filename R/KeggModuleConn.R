@@ -1,12 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.KEGG.MODULE.PARSING.EXPR <- list(
-	'accession'              = "^ENTRY\\s+(\\S+)\\s+Pathway"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -35,12 +28,3 @@ KeggModuleConn$methods( getEntryImageUrl = function(id) {
 	return(rep(NA_character_, length(id)))
 })
 
-# Private methods {{{1
-################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-KeggModuleConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.KEGG.MODULE.PARSING.EXPR)
-})

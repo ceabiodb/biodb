@@ -145,10 +145,10 @@ NcbiEntrezConn$methods( .doGetEntryContentRequest = function(id, concatenate = T
 	return(urls)
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-NcbiEntrezConn$methods( getEntryContent = function(entry.id) {
+NcbiEntrezConn$methods( getEntryContentFromDb = function(entry.id) {
 
 	# Debug
 	.self$message('info', paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))

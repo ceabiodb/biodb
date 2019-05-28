@@ -11,7 +11,6 @@
 #'
 #' This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
 #'
-#' @field db.id             Set to \code{TRUE} if the field is a database ID.
 #' @field name              The name of the field.
 #' @field alias             A character vector containing zero or more aliases for the field.
 #' @field class             The class of the field. One of: 'character', 'integer', 'double', 'logical', 'object', 'data.frame'.
@@ -41,12 +40,12 @@
 #' @include BiodbChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "BiodbChildObject", fields = list( .name = 'character', .type = 'character', .group = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .db.id = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical', .computable.from = 'character'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains = "BiodbChildObject", fields = list( .name = 'character', .type = 'character', .group = 'character', .class = 'character', .cardinality = 'character', .forbids.duplicates = 'logical', .description = 'character', .alias = 'character', .allowed.values = "ANY", .lower.case = 'logical', .case.insensitive = 'logical', .computable.from = 'character'))
 
 # Constructor {{{1
 ################################################################
 
-BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type = NA_character_, group = NA_character_, class = c('character', 'integer', 'double', 'logical', 'object', 'data.frame'), card = c('one', 'many'), forbids.duplicates = FALSE, db.id = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, computable.from = NULL, ...) {
+BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type = NA_character_, group = NA_character_, class = c('character', 'integer', 'double', 'logical', 'object', 'data.frame'), card = c('one', 'many'), forbids.duplicates = FALSE, description = NA_character_, allowed.values = NULL, lower.case = FALSE, case.insensitive = FALSE, computable.from = NULL, ...) {
 
 	callSuper(...)
 
@@ -113,7 +112,6 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type
 
 	# Set other fields
 	.forbids.duplicates <<- forbids.duplicates
-	.db.id <<- db.id
 })
 
 # Get name {{{1
@@ -376,6 +374,13 @@ BiodbEntryField$methods( isDataFrame = function() {
 BiodbEntryField$methods( isVector = function() {
 	":\n\nReturns \\code{TRUE} if the field's type is vector (i.e.: character, integer, double or logical)."
 	return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
+})
+
+# Show {{{1 
+################################################################
+
+BiodbEntryField$methods( show = function() {
+	cat("Entry field \"", .self$.name, "\".\n", sep='')
 })
 
 # DEPRECATED METHODS {{{1

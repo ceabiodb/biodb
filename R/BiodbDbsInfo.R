@@ -1,6 +1,6 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
+# BiodbDbsInfo {{{1
 ################################################################
 
 #' A class for describing the available databases.
@@ -27,7 +27,35 @@
 #' @include BiodbDbInfo.R
 #' @export BiodbDbsInfo
 #' @exportClass BiodbDbsInfo
-BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo", contains =  "BiodbChildObject", fields = list( .dbs = "list"))
+BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo",
+    contains =  "BiodbChildObject",
+    fields = list( .dbs = "list"),
+    methods = list(
+
+# Public methods {{{2
+################################################################################
+
+# Define {{{3
+################################################################################
+
+define = function(def) {
+    'Define databases from a structured object, normally loaded from a YAML
+    file.'
+
+	# Loop on all db info
+	for (db in names(def))
+
+		# Database already defined
+		if (db %in% names(.self$.dbs))
+			.self$.dbs[[db]]$updatePropertiesDefinition(def[[db]])
+
+		# Define new database
+		else
+			.self$.dbs[[db]] <- BiodbDbInfo$new(parent = .self, db.class = db,
+                                                properties = def[[db]])
+}
+
+))
 
 # Constructor {{{1
 ################################################################
@@ -37,8 +65,6 @@ BiodbDbsInfo$methods( initialize = function(...) {
 	callSuper(...)
 
 	.dbs <<- list()
-
-	.self$.initDbsInfo()
 })
 
 # Get list of database IDs {{{1
@@ -96,42 +122,7 @@ BiodbDbsInfo$methods( show = function() {
 	cat("Biodb databases information instance.\n")
 })
 
-# Load info file {{{1
-################################################################
-
-BiodbDbsInfo$methods( loadInfoFile = function(file) {
-	'Load databases information file, and defines the new databases.
-	The parameter file must point to a valid JSON file.'
-
-	dbi <- jsonlite::fromJSON(file, simplifyDataFrame = FALSE)
-
-	# Loop on all db info
-	for (db in names(dbi))
-		.self$.define(db, properties = dbi[[db]])
-})
 
 # Private methods {{{1
 ################################################################
 
-# Initialize databases information {{{2
-################################################################
-
-BiodbDbsInfo$methods( .initDbsInfo = function() {
-
-	# Load JSON databases information file
-	dbf <- .self$getBiodb()$getConfig()$get('dbinfo.file')
-	.self$loadInfoFile(dbf)
-})
-
-# Define {{{2
-################################################################
-
-BiodbDbsInfo$methods( .define = function(id, ...) {
-
-	# Is this database already defined?
-	if (id %in% names(.self$.dbs))
-		.self$message('error', paste("Database \"", id, "\" has already been defined.", sep = ''))
-
-	# Define new field
-	.self$.dbs[[id]] <- BiodbDbInfo$new(parent = .self, db.class = id, ...)
-})

@@ -1,20 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.LIPIDMAPS.STRUCTURE.PARSING.EXPR = list(
-	'name'                  = 'COMMON_NAME',
-	'accession'             = 'LM_ID',
-	'kegg.compound.id'      = 'KEGG_ID',
-	'hmdb.metabolites.id'   = 'HMDBID',
-	'chebi.id'              = 'CHEBI_ID',
-	'ncbi.pubchem.comp.id'  = 'PUBCHEM_COMPOUND_ID',
-	'exact.mass'            = 'MASS',
-	'formula'               = 'FORMULA',
-	'comp.iupac.name.syst'  = 'SYSTEMATIC_NAME'
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -238,13 +223,6 @@ LipidmapsStructureConn$methods( searchCompound = function(name = NULL, mass = NU
 
 # Private methods {{{1
 ################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-LipidmapsStructureConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.LIPIDMAPS.STRUCTURE.PARSING.EXPR)
-})
 
 # Get entry ids {{{2
 ################################################################

@@ -56,7 +56,7 @@ BiodbCsvEntry$methods( .isParsedContentCorrect = function(parsed.content) {
 BiodbCsvEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
-	parsing.expr <- .self$getParent()$.getParsingExpressions()
+	parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
 	# Loop on all expressions
 	for (field in names(parsing.expr)) {

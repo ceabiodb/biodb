@@ -17,15 +17,28 @@
 #' @include BiodbChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase", contains =  "BiodbChildObject", fields = list( .db.class = "character", .observers = 'list', .prop.def = 'list', .prop = 'list'))
+BiodbConnBase <- methods::setRefClass("BiodbConnBase",
+	contains =  "BiodbChildObject",
+	fields = list(
+		.db.class = "character",
+		.observers = 'list',
+		.prop.def = 'list',
+		.prop = 'list',
+		.run.hooks = 'character'),
 
-# Constructor {{{1
+	methods = list(
+
+# Public methods {{{1
+################################################################################
+
+# Constructor {{{2
 ################################################################
 
-BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
+initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
+	.run.hooks <<- character()
 
 	# Take parameter values from other object instance
 	if ( ! is.null(other)) {
@@ -46,7 +59,85 @@ BiodbConnBase$methods( initialize = function(other = NULL, db.class = NULL, prop
 
 	# Set properties
 	.self$.defineProperties(other, properties)
-})
+},
+
+# Show {{{2
+################################################################
+
+show = function() {
+	msg <- paste0("Biodb ", .self$getPropertyValue('name'), " connector instance")
+	if (.self$hasPropSlot('urls', 'base.url'))
+		msg <- paste0(msg, ', using URL "', .self$getPropValSlot('urls', 'base.url'), '"')
+	msg <- paste0(msg, ".\n")
+	cat(msg)
+},
+
+# Has property {{{2
+################################################################
+
+hasProp = function(name) {
+	'Returns true if the property "name" exists.'
+
+	return (name %in% names(.self$.prop))
+},
+
+# Has property slot {{{2
+################################################################
+
+hasPropSlot = function(name, slot) {
+	'Returns true if the property "name" exists and has the slot "slot" defined.'
+
+	return (.self$hasProp(name) && slot %in% names(.self$.prop[[name]]))
+},
+
+# Get property value slot {{{2
+################################################################
+
+getPropValSlot = function(name, slot) {
+	'Return the value of the slot "slot" of the property "name".'
+
+	value <- .self$getPropertyValue(name)
+	.self$.checkProperty(name = name, slot = slot)
+
+	if (slot %in% names(value))
+		value <- value[[slot]]
+	else {
+		pdef <- .self$.prop.def[[name]]
+		value <- as.vector(NA, mode = pdef$class)
+	}
+
+	return(value)
+},
+
+# Update properties definition {{{2
+################################################################################
+
+updatePropertiesDefinition = function(def) {
+	'Update the definition of properties.'
+
+	# Loop on properties
+	for (prop in names(def)) {
+
+		# Set single value
+		if ( ! prop %in% names(.self$.prop)
+			|| is.null(names(def[[prop]])))
+			.self$setPropertyValue(def[[prop]])
+
+		# Set named values
+		else
+			for (slot in names(def[[prop]]))
+				.self$setPropValSlot(prop, slot, def[[prop]][[slot]])
+	}
+},
+
+# Define parsing expressions {{{2
+################################################################################
+
+defineParsingExpressions = function() {
+	'Reimplement this method in your connector class to define parsing expressions dynamically.'
+}
+
+))
 
 # Get entry file extension {{{1
 ################################################################
@@ -156,11 +247,19 @@ BiodbConnBase$methods( getEntryIdField = function() {
 BiodbConnBase$methods( getPropertyValue = function(name) {
 
 	.self$.checkProperty(name)
+	pdef <- .self$.prop.def[[name]]
 
+	# Run hook
+	if ('hook' %in% names(pdef) && ! pdef$hook %in% .self$.run.hooks) {
+		.run.hooks <<- c(.self$.run.hooks, pdef$hook)
+		eval(parse(text = paste0('.self$', pdef$hook, '()')))
+	}
+
+	# Get value
 	if (name %in% names(.self$.prop))
 		value <- .self$.prop[[name]]
 	else
-		value <- .self$.prop.def[[name]]$default
+		value <- pdef$default
 
 	return(value)
 })
@@ -188,24 +287,6 @@ BiodbConnBase$methods( setPropertyValue = function(name, value) {
 			obs$connSchedulerFrequencyUpdated(.self)
 		else if (name == 'urls')
 			obs$connUrlsUpdated(.self)
-})
-
-# Get property value slot {{{1
-################################################################
-
-BiodbConnBase$methods( getPropValSlot = function(name, slot) {
-
-	value <- .self$getPropertyValue(name)
-	.self$.checkProperty(name = name, slot = slot)
-
-	if (slot %in% names(value))
-		value <- value[[slot]]
-	else {
-		pdef <- .self$.prop.def[[name]]
-		value <- as.vector(NA, mode = pdef$class)
-	}
-
-	return(value)
 })
 
 # Set property value slot {{{1
@@ -406,6 +487,8 @@ BiodbConnBase$methods( getXmlNs = function() {
 	return(.self$getPropertyValue('xml.ns'))
 })
 
+
+
 # Private methods {{{1
 ################################################################
 
@@ -569,11 +652,12 @@ BiodbConnBase$methods( .getFullPropDefList = function() {
 		entry.content.encoding = list(class = 'character', default = NA_character_, na.allowed = TRUE),
 		entry.content.type = list(class = 'character', default = NA_character_, allowed = c('html', 'txt', 'xml', 'csv', 'tsv', 'json', 'list'), na.allowed = FALSE, modifiable = FALSE),
 		name = list(class = 'character', default = NA_character_, na.allowed = FALSE, modifiable = FALSE),
+		parsing.expr = list(class = 'list', default = NULL, named = TRUE, mult = TRUE, allowed_item_types = 'character', na.allowed = FALSE, hook = 'defineParsingExpressions'),
 		scheduler.n = list(class = 'integer', default = 1, na.allowed = FALSE),
 		scheduler.t = list(class = 'numeric', default = 1, na.allowed = FALSE),
+		token = list(class = 'character', default = default_token, na.allowed = TRUE),
 		urls = list(class = 'character', default = character(), named = TRUE, mult = TRUE),
-		xml.ns = list(class = 'character', default = character(), named = TRUE, mult = TRUE),
-		token = list(class = 'character', default = default_token, na.allowed = TRUE)
+		xml.ns = list(class = 'character', default = character(), named = TRUE, mult = TRUE)
 	)
 
 	return(prop.def)

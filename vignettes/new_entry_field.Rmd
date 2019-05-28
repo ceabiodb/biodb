@@ -1,0 +1,106 @@
+---
+title: "Creating a new field for entries."
+author: "Pierrick Roger"
+output:
+  html_document:
+    theme: null
+package: biodb
+abstract: |
+  How to create a new field and use it to parse a value inside an entry content.
+vignette: |
+  %\VignetteIndexEntry{Creating a new field for entries.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Creating a new field for entries.
+
+## Introduction
+
+In this vignette we will create a new field, and parse information from an entry content downloaded from a database for setting the value into the new field.
+
+First we instantiate the package:
+```{r}
+mybiodb <- biodb::Biodb$new()
+```
+
+## Get an entry
+
+For the example, we will use a connector to the LIPID MAPS Structure database:
+```{r}
+conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+```
+This database returns its entries as CSV files, which are fairly simple to parse. A good choice for this first vignette about entry field parsing.
+
+## Look at the fields already parsed
+
+The expressions for parsing entry fields are stored inside the `parsing.expr` property:
+```{r}
+conn$getPropertyValue('parsing.expr')
+```
+As you can see, the parsing expressions are quite simple, they only indicate the column name where to find the field value inside the CSV file.
+
+In order to illustrate the mechanism of field parsing, we will define a new field `formula2`, which will be the exact equivalent of the field `formula`.
+
+## Look at the entry content
+
+In order to know the name of the column in which the value of our field is stored, we need to see the CSV file returned by the database web service. One way to do this, is by passing one or more entry IDs to the `getEntryContent()`:
+```{r}
+cat(conn$getEntryContent('LMFA00000001')[[1]])
+```
+Another possibility, when using the persistent cache, is to get the file path to the cache file:
+```{r}
+conn$getCacheFile('LMFA00000001')
+```
+You can then open the file inside your preferred application.
+
+Now look for the information we want to extract, which is the chemical formula, and get the corresponding column name: `FORMULA`.
+
+## Create the new field and its parsing expression
+
+We have defined the new `formula2` field and its parsing expression inside a YAML file:
+```{r}
+def_file <- system.file("extdata", "new_entry_field.yml", package = "biodb")
+```
+Here is its content:
+```{r}
+writeLines(readLines(def_file))
+```
+
+Now we load this definition file:
+```{r}
+mybiodb$loadDefinitions(def_file)
+```
+
+We can check that the new definition exists:
+```{r}
+mybiodb$getEntryFields()$get('formula2')
+```
+
+And the new parsing expression has been registered:
+```{r}
+conn$getPropertyValue('parsing.expr')
+```
+
+## Recreate the connector
+
+For the parsing of the new field to take effect, we need to delete the current connector and create a new one:
+```{r}
+mybiodb$getFactory()$deleteConn(conn$getId())
+conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+```
+
+## Get again the entry and see the new field
+
+Now we can get the entry and print the value of our new field:
+```{r}
+entry <- conn$getEntry('LMFA00000001')
+entry$getFieldValue('formula2')
+```
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

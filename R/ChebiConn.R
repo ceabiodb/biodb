@@ -1,20 +1,6 @@
 # vi: fdm=marker
 
 # Constants {{{1
-################################################################
-
-.BIODB.CHEBI.PARSING.EXPR <- list(
-	'accession'         = "substring-after(//chebi:return/chebi:chebiId,'CHEBI:')",
-	'smiles'            = "//chebi:return/chebi:smiles",
-	'inchi'             = "//chebi:return/chebi:inchi",
-	'inchikey'          = "//chebi:return/chebi:inchiKey",
-	'kegg.compound.id'  = "//chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data",
-	'mass'              = "//chebi:mass",
-	'monoisotopic.mass' = "//chebi:monoisotopicMass",
-	'charge'            = "//chebi:charge",
-	'name'              = c("//chebi:chebiAsciiName", "//chebi:Synonyms/chebi:data"),
-	'formula'           = c("//chebi:Formulae/chebi:source[text()='ChEBI']/../chebi:data", "(//chebi:Formulae/chebi:data)[1]"))
-
 # Class declaration {{{1
 ################################################################
 
@@ -112,7 +98,7 @@ ChebiConn$methods( ws.getLiteEntity = function(search = NULL, search.category = 
 		results <-  XML::xmlInternalTreeParse(results, asText = TRUE)
 
 		if (retfmt == 'ids') {
-			results <- XML::xpathSApply(results, "//chebi:chebiId", XML::xmlValue, namespaces = .self$getXmlNs())
+			results <- XML::xpathSApply(results, "//chebi:chebiId", XML::xmlValue, namespaces = .self$getPropertyValue('xml.ns'))
 			results <- sub('CHEBI:', '', results)
 			if (length(grep("^[0-9]+$", results)) != length(results))
 				.self$message('error', "Impossible to parse XML to get entry IDs.")
@@ -211,19 +197,13 @@ ChebiConn$methods( .parseWebServiceValues = function() {
 		wsdl = .self$ws.wsdl(retfmt = 'parsed')
 
 		# Get search categories
-		.self$.ws.values$search.categories = XML::xpathSApply(wsdl, "//xsd:simpleType[@name='SearchCategory']//xsd:enumeration", XML::xmlGetAttr, 'value', namespaces = .self$getXmlNs())
+		.self$.ws.values$search.categories = XML::xpathSApply(wsdl, "//xsd:simpleType[@name='SearchCategory']//xsd:enumeration", XML::xmlGetAttr, 'value', namespaces = .self$getPropertyValue('xml.ns'))
 
 		# Get stars categories
-		.self$.ws.values$stars.categories = XML::xpathSApply(wsdl, "//xsd:simpleType[@name='StarsCategory']//xsd:enumeration", XML::xmlGetAttr, 'value', namespaces = .self$getXmlNs())
+		.self$.ws.values$stars.categories = XML::xpathSApply(wsdl, "//xsd:simpleType[@name='StarsCategory']//xsd:enumeration", XML::xmlGetAttr, 'value', namespaces = .self$getPropertyValue('xml.ns'))
 	}
 })
 
-# Get parsing expressions {{{2
-################################################################
-
-ChebiConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.CHEBI.PARSING.EXPR)
-})
 # Get entry ids {{{2
 ################################################################
 

@@ -70,15 +70,107 @@ BiodbConn$methods( getEntry = function(id, drop = TRUE) {
 	return(.self$getBiodb()$getFactory()$getEntry(.self$getId(), id = id, drop = drop))
 })
 
+# Get cache file {{{1
+################################################################
+
+BiodbConn$methods( getCacheFile = function(entry.id) {
+	"Get the path to the persistent cache file."
+
+	fp <- .self$getBiodb()$getCache()$getFilePath(.self$getCacheId(), 'shortterm', entry.id, .self$getEntryFileExt())
+	if ( ! file.exists(fp))
+		fp <- NULL
+
+	return(fp)
+})
+
 # Get entry content {{{1
 ################################################################
 
-BiodbConn$methods( getEntryContent = function(entry.id) {
-	":\n\nGet the content of an entry."
+BiodbConn$methods( getEntryContent = function(id) {
+	":\n\nGet the contents of database entries from IDs (accession numbers)."
+
+	content <- list()
+
+	if ( ! is.null(id) && length(id) > 0) {
+
+		id <- as.character(id)
+
+		# Debug
+		.self$message('debug', paste0("Get ", .self$getPropertyValue('name'), " entry content(s) for ", length(id)," id(s)..."))
+
+		# Download full database if possible and allowed or if required
+		if (.self$getBiodb()$getCache()$isWritable() && methods::is(.self, 'BiodbDownloadable')) {
+			.self$message('debug', paste('Ask for whole database download of ', .self$getPropertyValue('name'), '.', sep = ''))
+			.self$download()
+		}
+
+		# Initialize content
+		if (.self$getBiodb()$getCache()$isReadable() && ! is.null(.self$getCacheId())) {
+			# Load content from cache
+			content = .self$getBiodb()$getCache()$loadFileContent(.self$getCacheId(), subfolder = 'shortterm', name = id, ext = .self$getEntryFileExt())
+			missing.ids = id[vapply(content, is.null, FUN.VALUE = TRUE)]
+		}
+		else {
+			content <- lapply(id, as.null)
+			missing.ids <- id
+		}
+
+		# Remove duplicates
+		n.duplicates <- sum(duplicated(missing.ids))
+		missing.ids <- missing.ids[ ! duplicated(missing.ids)]
+
+		# Debug
+		if (any(is.na(id)))
+			.self$message('debug', paste0(sum(is.na(id)), " ", .self$getPropertyValue('name'), " entry ids are NA."))
+		if (.self$getBiodb()$getCache()$isReadable()) {
+			.self$message('debug', paste0(sum( ! is.na(id)) - length(missing.ids), " ", .self$getPropertyValue('name'), " entry content(s) loaded from cache."))
+			if (n.duplicates > 0)
+				.self$message('debug', paste0(n.duplicates, " ", .self$getPropertyValue('name'), " entry ids, whose content needs to be fetched, are duplicates."))
+		}
+
+		# Get contents
+		if (length(missing.ids) > 0 && ( ! methods::is(.self, 'BiodbDownloadable') || ! .self$isDownloaded())) {
+
+			.self$message('debug', paste0(length(missing.ids), " entry content(s) need to be fetched from ", .self$getPropertyValue('name'), " database \"", .self$getPropValSlot('urls', 'base.url'), "\"."))
+
+			# Divide list of missing ids in chunks (in order to save in cache regularly)
+			chunks.of.missing.ids = if (.self$getBiodb()$getConfig()$hasKey('dwnld.chunk.size')) list(missing.ids) else split(missing.ids, ceiling(seq_along(missing.ids) / .self$getBiodb()$getConfig()$get('dwnld.chunk.size')))
+
+			# Loop on chunks
+			missing.contents <- NULL
+			for (ch.missing.ids in chunks.of.missing.ids) {
+
+				ch.missing.contents <- .self$getEntryContentFromDb(ch.missing.ids)
+
+				# Save to cache
+				if ( ! is.null(ch.missing.contents) && ! is.null(.self$getCacheId()) && .self$getBiodb()$getCache()$isWritable())
+					.self$getBiodb()$getCache()$saveContentToFile(ch.missing.contents, cache.id = .self$getCacheId(), subfolder = 'shortterm', name = ch.missing.ids, ext = .self$getEntryFileExt())
+
+				# Append
+				missing.contents <- c(missing.contents, ch.missing.contents)
+
+				# Debug
+				if (.self$getBiodb()$getCache()$isReadable())
+					.self$message('debug', paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+			}
+
+			# Merge content and missing.contents
+			missing.contents = as.list(missing.contents)
+			content[id %in% missing.ids] = missing.contents[vapply(id[id %in% missing.ids], function(x) which(missing.ids == x), FUN.VALUE = as.integer(1))]
+		}
+	}
+
+	return(content)
+})
+
+# Get entry content from database {{{1
+################################################################
+
+BiodbConn$methods( getEntryContentFromDb = function(entry.id) {
+	":\n\nGet the content of an entry from the database."
 
 	.self$.abstract.method()
 })
-
 
 # Get entry ids {{{1
 ################################################################
@@ -184,13 +276,6 @@ BiodbConn$methods( isMassdb = function() {
 	":\n\nReturns TRUE if the database is a mass database (i.e.: the connector class inherits from BiodbMassdbConn class)."
 
 	return(methods::is(.self, 'BiodbMassdbConn'))
-})
-
-# Show {{{1
-################################################################
-
-BiodbConn$methods( show = function() {
-	cat("Biodb ", .self$getPropertyValue('name'), " connector instance, using URL \"", .self$getPropValSlot('urls', 'base.url'), "\".\n", sep = '')
 })
 
 # Check database {{{1
@@ -330,8 +415,3 @@ BiodbConn$methods( .getEntryMissingFromCache = function(ids) {
 	return(missing.ids)
 })
 
-# Get parsing expressions {{{2
-################################################################
-
-BiodbConn$methods( .getParsingExpressions = function() {
-})

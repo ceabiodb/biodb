@@ -1,14 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.KEGG.ENZYME.PARSING.EXPR <- list(
-	'accession'              = "^ENTRY\\s+EC (\\S+)\\s+Enzyme",
-	'cas.id'                 = "^[DBLINKS ]+ CAS:\\s+(\\S+)$",
-	'expasy.enzyme.id'       = "^[DBLINKS ]+ ExPASy - ENZYME nomenclature database:\\s+(\\S+)$"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -108,12 +99,3 @@ KeggEnzymeConn$methods( getPathwayIds = function(id, org) {
 	return(pathways)
 })
 
-# Private methods {{{1
-################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-KeggEnzymeConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.KEGG.ENZYME.PARSING.EXPR)
-})

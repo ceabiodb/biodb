@@ -6,7 +6,7 @@ source('common.R', local=TRUE)
 ################################################################
 
 # Create biodb instance
-biodb = create.biodb.instance(offline = TRUE)
+biodb = create.biodb.instance()
 expect_is(biodb, 'Biodb')
 obs = create.test.observer(biodb)
 

@@ -1,6 +1,6 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
+# Biodb {{{1
 ################################################################
 
 #' The central class of the biodb package.
@@ -44,12 +44,26 @@
 #' @include BiodbObject.R
 #' @export Biodb
 #' @exportClass Biodb
-Biodb <- methods::setRefClass("Biodb", contains = "BiodbObject", fields = list( .factory = "ANY", .observers = "ANY", .config = "ANY", .cache = "ANY", .entry.fields = "ANY", .dbsinfo = "ANY", .request.scheduler = "ANY", .entry.id.field.to.db.name = 'list'))
+Biodb <- methods::setRefClass("Biodb",
+	contains = "BiodbObject",
+	fields = list(
+		.factory = "ANY",
+		.observers = "ANY",
+		.config = "ANY",
+		.cache = "ANY",
+		.entry.fields = "ANY",
+		.dbsinfo = "ANY",
+		.request.scheduler = "ANY"),
 
-# Constructor {{{1
-################################################################
+methods = list(
 
-Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
+# Public methods {{{1
+################################################################################
+
+# Constructor {{{2
+################################################################################
+
+initialize = function(logger = TRUE, observers = NULL, ...) {
 
 	callSuper(...)
 
@@ -63,32 +77,43 @@ Biodb$methods( initialize = function(logger = TRUE, observers = NULL, ...) {
 	# Print package version
 	.self$message('info', paste0('This is biodb version ', packageVersion('biodb'), '.'))
 
-	# Create configuration instance
+	# Create instances of children
 	.config <<- BiodbConfig$new(parent = .self)
-
-	# Create cache
 	.cache <<- BiodbCache$new(parent = .self)
-
-	# Create databases information
 	.dbsinfo <<- BiodbDbsInfo$new(parent = .self)
-
-	# Create factory
 	.factory <<- BiodbFactory$new(parent = .self)
-
-	# Create entry fields
 	.entry.fields <<- BiodbEntryFields$new(parent = .self)
-
-	# Create scheduler
 	.request.scheduler <<- BiodbRequestScheduler$new(parent = .self)
 
-	# Initialize other fields
-	.entry.id.field.to.db.name <<- list()
+	# Load definitions
+	file <- system.file("definitions.yml", package = "biodb")
+	.self$loadDefinitions(file)
 
 	# Check locale
 	.self$.check.locale()
 
 	.self$message('info', 'Created successfully new Biodb instance.')
-})
+},
+
+# Load definitions {{{2
+################################################################################
+
+loadDefinitions = function(file) {
+	'Load databases and entry fields definitions from YAML file.'
+
+	# Load file
+	def <- yaml::read_yaml(file)
+
+	# Define databases
+	if ('databases' %in% names(def))
+		.self$getDbsInfo()$define(def$databases)
+
+	# Define fields
+	if ('fields' %in% names(def))
+		.self$getEntryFields()$define(def$fields)
+}
+
+))
 
 # Terminate {{{1
 ################################################################

@@ -1,15 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.MIRBASE.MATURE.PARSING.EXPR <- list(
-	'accession'     = "^>[^ ]+ *(MIMAT[0-9]+) .*$",
-	'name'          = "^>([^ ]+) *MIMAT[0-9]+ .*$",
-	'description'   = "^>[^ ]+ *MIMAT[0-9]+ (.*)$",
-	'sequence'      = "^([ACGU]+)$"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -92,10 +82,10 @@ MirbaseMatureConn$methods( .doExtractDownload = function() {
 	unlink(extracted.file)
 })
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-MirbaseMatureConn$methods( getEntryContent = function(entry.id) {
+MirbaseMatureConn$methods( getEntryContentFromDb = function(entry.id) {
 
 	# Download
 	.self$download()
@@ -161,13 +151,6 @@ MirbaseMatureConn$methods( searchByName = function(name, max.results = NA_intege
 
 # Private methods {{{1
 ################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-MirbaseMatureConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.MIRBASE.MATURE.PARSING.EXPR)
-})
 
 # Get entry ids {{{2
 ################################################################

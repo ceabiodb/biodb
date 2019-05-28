@@ -1,15 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.EXPAZY.ENZYME.PARSING.EXPR <- list(
-	'accession'             = "^ID\\s+([0-9.]+)$",
-	'name'                  = "^DE\\s+(.+?)\\.?$",
-	'catalytic.activity'    = "^CA\\s+(.+?)\\.?$",
-	'cofactor'              = "^CF\\s+(.+?)\\.?$"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -127,13 +117,6 @@ ExpasyEnzymeConn$methods( .parseWsReturnedHtml = function(results, retfmt) {
 	}
 
 	return(results)
-})
-
-# Get parsing expressions {{{2
-################################################################
-
-ExpasyEnzymeConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.EXPAZY.ENZYME.PARSING.EXPR)
 })
 
 # Get entry ids {{{2

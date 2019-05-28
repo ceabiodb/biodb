@@ -1,21 +1,5 @@
 # vi: fdm=marker
 
-# Constants {{{1
-################################################################
-
-.BIODB.CHEMSPIDER.PARSING.EXPR <- list(
-	'accession'         = "id",
-	'formula'           = "formula",
-	'name'              = "commonName",
-	'average.mass'      = "averageMass",
-	'monoisotopic.mass' = "monoisotopicMass",
-	'nominal.mass'      = "nominalMass",
-	'molecular.weight'  = "molecularWeight",
-	'inchi'             = "inchi",
-	'inchikey'          = "inchiKey",
-	'smiles'            = "smiles"
-)
-
 # Class declaration {{{1
 ################################################################
 
@@ -44,10 +28,10 @@
 #' @exportClass ChemspiderConn
 ChemspiderConn <- methods::setRefClass("ChemspiderConn", contains = c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"))
 
-# Get entry content {{{1
+# Get entry content from database {{{1
 ################################################################
 
-ChemspiderConn$methods( getEntryContent = function(entry.id) {
+ChemspiderConn$methods( getEntryContentFromDb = function(entry.id) {
 
 	# Initialize return values
 	content <- rep(NA_character_, length(entry.id))
@@ -373,13 +357,6 @@ ChemspiderConn$methods( searchCompound = function(name = NULL, mass = NULL, mass
 
 # Private methods {{{1
 ################################################################
-
-# Get parsing expressions {{{2
-################################################################
-
-ChemspiderConn$methods( .getParsingExpressions = function() {
-	return(.BIODB.CHEMSPIDER.PARSING.EXPR)
-})
 
 # Retrieve query {{{2
 ################################################################

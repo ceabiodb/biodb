@@ -33,7 +33,7 @@ BiodbJsonEntry$methods( .doParseContent = function(content) {
 BiodbJsonEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
 	# Get parsing expressions
-	parsing.expr <- .self$getParent()$.getParsingExpressions()
+	parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
 	# Set fields
 	for (field in names(parsing.expr)) {
