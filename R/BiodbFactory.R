@@ -134,6 +134,8 @@ BiodbFactory$methods( deleteConn = function(conn.id = NULL, db.class = NULL) {
 		else
 			.self$message('info', paste0(n, ' connector(s) of type "', db.class, '" deleted.'))
 	}
+
+	invisible(NULL)
 })
 
 # Get all connectors {{{1

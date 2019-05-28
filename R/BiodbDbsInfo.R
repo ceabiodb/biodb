@@ -1,6 +1,6 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
+# BiodbDbsInfo {{{1
 ################################################################
 
 #' A class for describing the available databases.
@@ -27,7 +27,35 @@
 #' @include BiodbDbInfo.R
 #' @export BiodbDbsInfo
 #' @exportClass BiodbDbsInfo
-BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo", contains =  "BiodbChildObject", fields = list( .dbs = "list"))
+BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo",
+    contains =  "BiodbChildObject",
+    fields = list( .dbs = "list"),
+    methods = list(
+
+# Public methods {{{2
+################################################################################
+
+# Define {{{3
+################################################################################
+
+define = function(def) {
+    'Define databases from a structured object, normally loaded from a YAML
+    file.'
+
+	# Loop on all db info
+	for (db in names(def))
+
+		# Database already defined
+		if (db %in% names(.self$.dbs))
+			.self$.dbs[[db]]$updatePropertiesDefinition(def[[db]])
+
+		# Define new database
+		else
+			.self$.dbs[[db]] <- BiodbDbInfo$new(parent = .self, db.class = db,
+                                                properties = def[[db]])
+}
+
+))
 
 # Constructor {{{1
 ################################################################
@@ -98,19 +126,3 @@ BiodbDbsInfo$methods( show = function() {
 # Private methods {{{1
 ################################################################
 
-# Load definitions {{{2
-################################################################
-
-BiodbDbsInfo$methods( .loadDefinitions = function(def) {
-
-	# Loop on all db info
-	for (db in names(def))
-
-		# Database already defined
-		if (db %in% names(.self$.dbs))
-			.self$.dbs[[db]]$updatePropertiesDefinition(def[[db]])
-
-		# Define new database
-		else
-			.self$.dbs[[db]] <- BiodbDbInfo$new(parent = .self, db.class = db, properties = def[[db]])
-})

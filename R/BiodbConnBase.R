@@ -117,7 +117,16 @@ updatePropertiesDefinition = function(def) {
 
 	# Loop on properties
 	for (prop in names(def)) {
-		# TODO
+
+		# Set single value
+		if ( ! prop %in% names(.self$.prop)
+			|| is.null(names(def[[prop]])))
+			.self$setPropertyValue(def[[prop]])
+
+		# Set named values
+		else
+			for (slot in names(def[[prop]]))
+				.self$setPropValSlot(prop, slot, def[[prop]][[slot]])
 	}
 },
 

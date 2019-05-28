@@ -72,14 +72,31 @@ Now we load this definition file:
 mybiodb$loadDefinitions(def_file)
 ```
 
-And we can check that the new definition exists:
+We can check that the new definition exists:
 ```{r}
 mybiodb$getEntryFields()$get('formula2')
 ```
 
-## Forget/remove the loaded entry and remove it from the memory/volatile cache
+And the new parsing expression has been registered:
+```{r}
+conn$getPropertyValue('parsing.expr')
+```
+
+## Recreate the connector
+
+For the parsing of the new field to take effect, we need to delete the current connector and create a new one:
+```{r}
+mybiodb$getFactory()$deleteConn(conn$getId())
+conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+```
 
 ## Get again the entry and see the new field
+
+Now we can get the entry and print the value of our new field:
+```{r}
+entry <- conn$getEntry('LMFA00000001')
+entry$getFieldValue('formula2')
+```
 
 ## Closing biodb instance
 

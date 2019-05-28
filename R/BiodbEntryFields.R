@@ -1,6 +1,6 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
+# BiodbEntryFields {{{1
 ################################################################
 
 #' A class for handling description of all entry fields.
@@ -32,7 +32,63 @@
 #' @include BiodbEntryField.R
 #' @export BiodbEntryFields
 #' @exportClass BiodbEntryFields
-BiodbEntryFields <- methods::setRefClass("BiodbEntryFields", contains = "BiodbChildObject", fields = list( .fields = "list", .aliasToName = "character" ))
+BiodbEntryFields <- methods::setRefClass("BiodbEntryFields",
+    contains = "BiodbChildObject",
+    fields = list( .fields = "list",
+                  .aliasToName = "character"),
+    methods = list(
+
+# Public methods {{{2
+################################################################################
+
+# Define {{{3
+############################################################lipidmaps.structure
+define = function(def) {
+
+	# Loop on all fields
+	for (f in names(def)) {
+		args <- def[[f]]
+		args[['name']] <- f
+		do.call(.self$.defineField, args)
+	}
+},
+
+# Is defined {{{3
+################################################################
+
+isDefined = function(name) {
+	":\n\nReturns TRUE if name corresponds to a defined field."
+	return(tolower(name) %in% names(.self$.fields) || .self$isAlias(name))
+},
+
+# Private methods {{{2
+################################################################
+
+# Define field {{{3
+################################################################
+
+.defineField = function(name, ...) {
+
+	# Make sure name is in lower case
+	name <- tolower(name)
+
+	# Is field already defined?
+	if (.self$isDefined(name))
+		.self$message('error', paste("Field \"", name, "\" has already been defined.", sep = ''))
+
+	# Define new field
+	field <- BiodbEntryField$new(parent = .self, name = name, ...)
+
+	# Store inside fields list
+	.self$.fields[[name]] <- field
+
+	# Define aliases
+	if (field$hasAliases())
+		for (alias in field$getAliases())
+			.self$.aliasToName[[alias]] <- name
+}
+
+))
 
 # Constructor {{{1
 ################################################################
@@ -52,14 +108,6 @@ BiodbEntryFields$methods( isAlias = function(name) {
 	":\n\nReturns TRUE if name is an alias of a field."
 
 	return(tolower(name) %in% names(.self$.aliasToName))
-})
-
-# Is defined {{{1
-################################################################
-
-BiodbEntryFields$methods( isDefined = function(name) {
-	":\n\nReturns TRUE if name corresponds to a defined field."
-	return(tolower(name) %in% names(.self$.fields) || .self$isAlias(name))
 })
 
 # Check is defined {{{1
@@ -143,42 +191,3 @@ BiodbEntryFields$methods( loadFieldsFile = function(file) {
 	fields <- yaml::read_yaml(file)
 })
 
-# Private methods {{{1
-################################################################
-
-# Define {{{2
-################################################################
-
-BiodbEntryFields$methods( .define = function(name, ...) {
-
-	# Make sure name is in lower case
-	name <- tolower(name)
-
-	# Is field already defined?
-	if (.self$isDefined(name))
-		.self$message('error', paste("Field \"", name, "\" has already been defined.", sep = ''))
-
-	# Define new field
-	field <- BiodbEntryField$new(parent = .self, name = name, ...)
-
-	# Store inside fields list
-	.self$.fields[[name]] <- field
-
-	# Define aliases
-	if (field$hasAliases())
-		for (alias in field$getAliases())
-			.self$.aliasToName[[alias]] <- name
-})
-
-# Load definitions {{{2
-################################################################
-
-BiodbEntryFields$methods( .loadDefinitions = function(def) {
-
-	# Loop on all fields
-	for (f in names(def)) {
-		args <- def[[f]]
-		args[['name']] <- f
-		do.call(.self$.define, args)
-	}
-})

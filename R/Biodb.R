@@ -1,4 +1,4 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Biodb {{{1
 ################################################################
@@ -99,17 +99,18 @@ initialize = function(logger = TRUE, observers = NULL, ...) {
 ################################################################################
 
 loadDefinitions = function(file) {
+	'Load databases and entry fields definitions from YAML file.'
 
 	# Load file
 	def <- yaml::read_yaml(file)
 
 	# Define databases
 	if ('databases' %in% names(def))
-		.self$getDbsInfo()$.loadDefinitions(def$databases)
+		.self$getDbsInfo()$define(def$databases)
 
 	# Define fields
 	if ('fields' %in% names(def))
-		.self$getEntryFields()$.loadDefinitions(def$fields)
+		.self$getEntryFields()$define(def$fields)
 }
 
 ))
