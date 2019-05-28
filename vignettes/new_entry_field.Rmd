@@ -15,9 +15,7 @@ output:
       collapsed: false
 ---
 
-# Creating a new field for entries.
-
-## Introduction
+# Introduction
 
 In this vignette we will create a new field, and parse information from an entry content downloaded from a database for setting the value into the new field.
 
@@ -26,7 +24,7 @@ First we instantiate the package:
 mybiodb <- biodb::Biodb$new()
 ```
 
-## Get an entry
+# Get an entry
 
 For the example, we will use a connector to the LIPID MAPS Structure database:
 ```{r}
@@ -34,7 +32,7 @@ conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
 ```
 This database returns its entries as CSV files, which are fairly simple to parse. A good choice for this first vignette about entry field parsing.
 
-## Look at the fields already parsed
+# Look at the fields already parsed
 
 The expressions for parsing entry fields are stored inside the `parsing.expr` property:
 ```{r}
@@ -44,7 +42,7 @@ As you can see, the parsing expressions are quite simple, they only indicate the
 
 In order to illustrate the mechanism of field parsing, we will define a new field `formula2`, which will be the exact equivalent of the field `formula`.
 
-## Look at the entry content
+# Look at the entry content
 
 In order to know the name of the column in which the value of our field is stored, we need to see the CSV file returned by the database web service. One way to do this, is by passing one or more entry IDs to the `getEntryContent()`:
 ```{r}
@@ -58,7 +56,7 @@ You can then open the file inside your preferred application.
 
 Now look for the information we want to extract, which is the chemical formula, and get the corresponding column name: `FORMULA`.
 
-## Create the new field and its parsing expression
+# Create the new field and its parsing expression
 
 We have defined the new `formula2` field and its parsing expression inside a YAML file:
 ```{r}
@@ -90,7 +88,7 @@ And the new parsing expression has been registered:
 conn$getPropertyValue('parsing.expr')
 ```
 
-## Get the entry and see the new field
+# Get the entry and see the new field
 
 Now we can get the entry and print the value of our new field:
 ```{r}
@@ -98,7 +96,7 @@ entry <- conn$getEntry('LMFA00000001')
 entry$getFieldValue('formula2')
 ```
 
-## Closing biodb instance
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}
