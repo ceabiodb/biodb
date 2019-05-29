@@ -34,7 +34,13 @@ $(info "GIT_VERSION=$(GIT_VERSION)")
 # Default target {{{1
 ################################################################
 
-all:
+all: compile
+
+# Compile {{{1
+################################################################
+
+compile:
+	R CMD SHLIB src/*.c
 
 # Check and test {{{1
 ################################################################
@@ -49,6 +55,7 @@ check: $(ZIPPED_PKG)
 #   Execution halted
 
 bioc.check:
+	R -q -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
 	time R CMD BiocCheck --new-package --quit-with-status .
 
 check.version:
