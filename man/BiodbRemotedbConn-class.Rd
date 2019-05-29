@@ -18,9 +18,9 @@ This is the super class of remote database connectors. It thus defines methods r
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryContent(entry.id)}}{:
+\item{\code{getEntryContentFromDb(entry.id)}}{:
 
-Get the content of an entry.}
+Get the content of an entry from the database.}
 
 \item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{:
 

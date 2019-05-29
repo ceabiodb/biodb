@@ -15,8 +15,8 @@ Class for handling a Mass spectrometry database in SQLite format.
 
 Get a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'.}
 
-\item{\code{getEntryContent(entry.id)}}{:
+\item{\code{getEntryContentFromDb(entry.id)}}{:
 
-Get the content of an entry.}
+Get the content of an entry from the database.}
 }}
 

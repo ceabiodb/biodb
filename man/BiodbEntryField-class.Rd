@@ -11,8 +11,6 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 \section{Fields}{
 
 \describe{
-\item{\code{db.id}}{Set to \code{TRUE} if the field is a database ID.}
-
 \item{\code{name}}{The name of the field.}
 
 \item{\code{alias}}{A character vector containing zero or more aliases for the field.}

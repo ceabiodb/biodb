@@ -57,6 +57,8 @@ Return the name of the corresponding database ID field in entries.}
 
 Returns the full database name.}
 
+\item{\code{getPropValSlot(name, slot)}}{Return the value of the slot "slot" of the property "name".}
+
 \item{\code{getSchedulerNParam()}}{:
 
 Returns the N parameter for the scheduler.}
@@ -85,6 +87,10 @@ Returns the web sevices URL.}
 
 Returns the XML namespace.}
 
+\item{\code{hasProp(name)}}{Returns true if the property "name" exists.}
+
+\item{\code{hasPropSlot(name, slot)}}{Returns true if the property "name" exists and has the slot "slot" defined.}
+
 \item{\code{setBaseUrl(url)}}{:
 
 Sets the base URL.}
@@ -108,6 +114,8 @@ Returns a URL.}
 \item{\code{setWsUrl(ws.url)}}{:
 
 Sets the web sevices URL.}
+
+\item{\code{updatePropertiesDefinition(def)}}{Update the definition of properties.}
 }}
 
 \seealso{

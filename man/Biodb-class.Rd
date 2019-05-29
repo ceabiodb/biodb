@@ -92,6 +92,8 @@ Get the list of registered observers.}
 
 Returns the single instance of the \code{BiodbRequestScheduler} class.}
 
+\item{\code{loadDefinitions(file)}}{Load databases and entry fields definitions from YAML file.}
+
 \item{\code{saveEntriesAsJson(entries, files, compute = TRUE)}}{:
 
 Save a list of entries in JSON format.}

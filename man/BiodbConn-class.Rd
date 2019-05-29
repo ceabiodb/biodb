@@ -38,6 +38,8 @@ Delete all entries from the memory cache.}
 
 Get all entries from the memory cache.}
 
+\item{\code{getCacheFile(entry.id)}}{Get the path to the persistent cache file.}
+
 \item{\code{getCacheId()}}{:
 
 Returns the ID used by this connector in the disk cache.}
@@ -46,9 +48,13 @@ Returns the ID used by this connector in the disk cache.}
 
 Return the entry corresponding to this ID. You can pass a vector of IDs, and you will get a list of entries.}
 
-\item{\code{getEntryContent(entry.id)}}{:
+\item{\code{getEntryContent(id)}}{:
 
-Get the content of an entry.}
+Get the contents of database entries from IDs (accession numbers).}
+
+\item{\code{getEntryContentFromDb(entry.id)}}{:
+
+Get the content of an entry from the database.}
 
 \item{\code{getEntryIds(max.results = NA_integer_, ...)}}{:
 

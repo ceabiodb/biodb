@@ -1,9 +1,3 @@
-#dyn.load('src/closeMatchPpm.dll')
-# commented out for refactoring as package
-#dyn.load('src/closeMatchPpm.so')
-
-#' @import stats
-
 trpz <- function (x, y) 
 {
 	if (missing(y)) {
@@ -90,14 +84,13 @@ cosine <-
 			 dmz = 0.005) {
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		###Weigthed intensity
-		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		pfound <- which(!vapply(matchList, is.null, FUN.VALUE = TRUE))
 		
 		###If no peak is found.
 		if (length(pfound) == 0)
 			return(list(measure = 0, matched = rep(-1, length(mz1))))
 		w1 <- int1 ^ intexp * mz1 ^ mzexp
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
-		cat(w1[pfound], w2[unlist(matchList[pfound])], '\n')
 		cos_value <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
 																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))

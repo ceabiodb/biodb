@@ -43,6 +43,9 @@ Returns TRUE if name is an alias of a field.}
 \item{\code{isDefined(name)}}{:
 
 Returns TRUE if name corresponds to a defined field.}
+
+\item{\code{loadFieldsFile(file)}}{Load entry fields information file, and defines the new fields.
+The parameter file must point to a valid YAML file.}
 }}
 
 \examples{

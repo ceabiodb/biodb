@@ -6,7 +6,9 @@
 \alias{BiodbDbInfo}
 \title{A class for describing the characteristics of a database.}
 \description{
-This class is used by \code{\link{BiodbDbsInfo}} for storing database characteristics, and returning them through the \code{get()} method. This class inherits from \code{\link{BiodbConnBase}}.
+This class is used by \code{\link{BiodbDbsInfo}} for storing database
+characteristics, and returning them through the \code{get()} method.
+This class inherits from \code{\link{BiodbConnBase}}.
 }
 
 \seealso{

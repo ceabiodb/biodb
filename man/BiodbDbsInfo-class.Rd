@@ -18,6 +18,9 @@ The unique instance of this class is handle by the \code{\link{Biodb}} class and
 
 Throws an error if the specified id does not correspond to a defined database.}
 
+\item{\code{define(def)}}{Define databases from a structured object, normally loaded from a YAML
+file.}
+
 \item{\code{get(db.id)}}{:
 
 Returns the BiodbDbInfo instance corresponding to the specified database ID.}
@@ -33,9 +36,6 @@ Returns a character vector containing all the IDs of the defined databases.}
 \item{\code{isDefined(db.id)}}{:
 
 Returns TRUE if the specified id corresponds to a defined database.}
-
-\item{\code{loadInfoFile(file)}}{Load databases information file, and defines the new databases.
-The parameter file must point to a valid JSON file.}
 }}
 
 \examples{

@@ -14,8 +14,6 @@
 
 \item{drop}{If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.}
 
-\item{dwnld.chunk.size}{The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.}
-
 \item{id}{A character vector containing database entry IDs (accession numbers).}
 
 \item{token}{A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.}
@@ -68,14 +66,6 @@ Get the instance of connector database corresponding to the submitted ID or data
 \item{\code{getEntry(conn.id, id, drop = TRUE)}}{:
 
 Create database entry objects from IDs (accession numbers), for the specified connector.}
-
-\item{\code{getEntryContent(conn.id, id)}}{:
-
-Get the contents of database entries from IDs (accession numbers).}
-
-\item{\code{setDownloadChunkSize(dwnld.chunk.size)}}{:
-
-Set the download chunk size.}
 }}
 
 \examples{

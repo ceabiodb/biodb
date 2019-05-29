@@ -85,19 +85,16 @@ compareSpectra <- function(spec, libspec, npmin = 2, fun = "wcosine", params = l
 	if ( ! is.null(libspec) && ! is.null(spec) && length(libspec) > 0 && nrow(spec) > 0) {
 
 		####spec is directly normalized.
-		vall <- sapply(libspec, calcDistance, spec1 = spec, npmin = npmin, params = params, fun = fun, simplify = FALSE)
+		vall <- lapply(libspec, calcDistance, spec1 = spec, npmin = npmin, params = params, fun = fun)
 
 		####the list is ordered with the chosen metric.
 		sim <- vapply(vall,	'[[', i = "similarity", FUN.VALUE = 1)
-#		osim <- order(sim, decreasing = decreasing)
-		matched <- sapply(vall, '[[', i = "matched", simplify = FALSE)
+		matched <- lapply(vall, '[[', i = "matched")
 		
 		res[1:length(sim), 'score'] <- sim
-#		res[['ord']] <- osim
 		for (i in seq(length(matched)))
 			res[i, peak.cols] <- matched[[i]]
 
-#		return(list(ord = osim, matched = matched, similarity = sim))
 	}
 
 	return(res)
