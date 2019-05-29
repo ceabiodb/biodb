@@ -100,7 +100,7 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
 }
 
 /* Run match {{{1 */
-SEXP runMatch(tIdxStruct* pidxS, double *px, double *py, int nx, int ny,
+SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
               int *pxidx, int *pyidx, int xoLength) {
     
     int txi, from, to;
@@ -108,30 +108,29 @@ SEXP runMatch(tIdxStruct* pidxS, double *px, double *py, int nx, int ny,
 
     PROTECT(ans = allocVector(VECSXP, xoLength));
 
-    for (int xi=0;xi < nx;xi++) {
+    tIdxStruct *end = pidxS + nx;
+    double *q = px;
+    int *i = pxidx;
+    for (tIdxStruct *p = pidxS ; p < end ; ++p, ++q, ++i) {
 
         // no match
-        if (pidxS[xi].from == ny +1 && pidxS[xi].to == 0)
+        if (p->from == ny +1 && p->to == 0)
             continue;
 
-        txi = pxidx[xi] -1;
-        from = pidxS[xi].from;
-        to = pidxS[xi].to;
-
-        // single match
-        if (pidxS[xi].from == ny + 1)
-            from = pidxS[xi].to;
-        if (pidxS[xi].to == 0)
-            to = pidxS[xi].from;
+        txi = *i - 1;
+        from = p->from == (ny + 1) ? p->to : p->from;
+        to = p->to == 0 ? p->from : p->to;
 
         PROTECT(residx = NEW_INTEGER(1));
 
         //Checking which point is the closest.
         double mindist = 10;
         int minindex   = -1;
-        for (int yi=from;yi <= to;yi++)
-            if(fabs(py[yi] - px[xi])<mindist)
-                minindex=yi;
+        int yi = from;
+        double *rend = py + to;
+        for (double *r = py + from ; r <= rend ; ++r, ++yi)
+            if(fabs(*r - *q) < mindist)
+                minindex = yi;
         INTEGER_POINTER(residx)[0] = pyidx[minindex];
         SET_VECTOR_ELT(ans, txi, residx);
         UNPROTECT(1); // residx
