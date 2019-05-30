@@ -246,7 +246,7 @@ KeggPathwayConn$methods( extractPathwayMapShapes = function(id, color2ids) {
             g = stringr::str_match_all(html, regex)[[1]]
             if (nrow(g) > 0) {
                 
-                for (i in 1:nrow(g)) {
+                for (i in seq_len(nrow(g))) {
                     
                     type <- g[i, 2]
                     c = as.integer(strsplit(g[i, 3], ',')[[1]])

@@ -5,6 +5,8 @@
 ^\.travis\.yml$
 ^scripts$
 ^Makefile$
+^tests/dockerfiles$
+^tests/output$
 ^dockers$
 ^.*\.dockerfile$
 ^travis-tests$

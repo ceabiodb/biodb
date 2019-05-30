@@ -144,13 +144,13 @@ BiodbCache$methods( loadFileContent = function(cache.id, subfolder, name, ext, o
 
 	# Read contents from files
 	file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
-	.self$message('debug', paste("Trying to load from cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
+	.self$message('debug', paste("Trying to load from cache \"", paste(file.paths[seq_len(min(10, length(file.paths)))], collapse = ", "), if (length(file.paths) > 10) " ..." else "", "\".", sep = ''))
 	content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else if ( ! file.exists(x)) NULL else if (ext == 'RData') { load(x) ; c} else readChar(x, file.info(x)$size, useBytes = TRUE)} )
 	files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE = T)]
 	if (length(files.read) == 0)
 		.self$message('debug', "No files loaded from cache.")
 	else
-		.self$message('debug', paste("Loaded from cache \"", paste(if (length(files.read) > 10) c(files.read[1:10], '...') else files.read, collapse = ", ") ,"\".", sep = ''))
+		.self$message('debug', paste("Loaded from cache \"", paste(if (length(files.read) > 10) c(files.read[seq_len(10)], '...') else files.read, collapse = ", ") ,"\".", sep = ''))
 
 	# Check that the read content is not conflicting with the current locale
 	for (i in seq(content)) {
@@ -196,7 +196,7 @@ BiodbCache$methods( saveContentToFile = function(content, cache.id, subfolder, n
 		content[is.na(content)] <- 'NA'
 
 	# Write content to files
-	.self$message('debug', paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[1:10], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
+	.self$message('debug', paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[seq_len(10)], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
 	if (ext == 'RData')
 		mapply(function(c, f) { save(c, file = f) }, content, file.paths)
 	else

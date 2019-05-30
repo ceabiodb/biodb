@@ -110,7 +110,7 @@ BiodbMassdbConn$methods( filterEntriesOnRt = function(entry.ids, rt, rt.unit, rt
 		# Filter on chromatographic columns
 		if ( ! is.null(chrom.col.ids) && length(chrom.col.ids) > 0) {
 			entries <- entries[vapply(entries, function(e) e$getFieldValue('chrom.col.id') %in% chrom.col.ids, FUN.VALUE = TRUE)]
-			.self$message('debug', paste0(length(entries), ' spectra remaining after chrom col filtering: ', paste(vapply((if (length(entries) <= 10) entries else entries[1:10]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
+			.self$message('debug', paste0(length(entries), ' spectra remaining after chrom col filtering: ', paste(vapply((if (length(entries) <= 10) entries else entries[seq_len(10)]), function(e) e$getFieldValue('accession'), FUN.VALUE = ''), collapse = ', '), '.'))
 		}
 
 		# Filter out entries with no RT values or no RT unit
@@ -138,7 +138,7 @@ BiodbMassdbConn$methods( filterEntriesOnRt = function(entry.ids, rt, rt.unit, rt
 				entry.ids <- c(entry.ids, e$getFieldValue('accession'))
 		}
 
-		.self$message('debug', paste0(length(entry.ids), ' spectra remaining after retention time filtering:', paste((if (length(entry.ids) <= 10) entry.ids else entry.ids[1:10]), collapse = ', '), '.'))
+		.self$message('debug', paste0(length(entry.ids), ' spectra remaining after retention time filtering:', paste((if (length(entry.ids) <= 10) entry.ids else entry.ids[seq_len(10)]), collapse = ', '), '.'))
 	}
 
 	return(entry.ids)
@@ -193,7 +193,7 @@ BiodbMassdbConn$methods( searchMsEntries = function(mz.min = NULL, mz.max = NULL
 
 	# Cut
 	if ( ! is.na(max.results) && length(ids) > max.results)
-		ids <- ids[1:max.results]
+		ids <- ids[seq_len(max.results)]
 
 	return(ids)
 })
@@ -220,7 +220,7 @@ BiodbMassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, m
 		                                             rt = input.df[[input.df.colnames[['rt']]]], rt.unit = rt.unit, rt.tol = precursor.rt.tol, chrom.col.ids = chrom.col.ids,
 		                                             precursor = precursor,
 		                                             min.rel.int = min.rel.int, ms.mode = ms.mode, ms.level = ms.level)
-		.self$message('debug', paste0('Found ', length(precursor.match.ids), ' spectra with matched precursor: ', paste((if (length(precursor.match.ids) <= 10) precursor.match.ids else precursor.match.ids[1:10]), collapse = ', '), '.'))
+		.self$message('debug', paste0('Found ', length(precursor.match.ids), ' spectra with matched precursor: ', paste((if (length(precursor.match.ids) <= 10) precursor.match.ids else precursor.match.ids[seq_len(10)]), collapse = ', '), '.'))
 	}
 
 	# Loop on the list of M/Z values
@@ -233,12 +233,12 @@ BiodbMassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, m
 		# Search for spectra
 		.self$message('debug', paste('Searching for spectra that contains M/Z value in range [', mz.range$min, ', ', mz.range$max, '].', sep = ''))
 		ids <- .self$searchMzRange(mz.min = mz.range$min, mz.max = mz.range$max, min.rel.int = min.rel.int, ms.mode = ms.mode, max.results = if (check.param$use.rt.match) NA_integer_ else max.results, ms.level = ms.level)
-		.self$message('debug', paste0('Found ', length(ids), ' spectra: ', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
+		.self$message('debug', paste0('Found ', length(ids), ' spectra: ', paste((if (length(ids) <= 10) ids else ids[seq_len(10)]), collapse = ', '), '.'))
 
 		# Filter out IDs that were not found in step 1.
 		if ( ! is.null(precursor.match.ids)) {
 			ids <- ids[ids %in% precursor.match.ids]
-			.self$message('debug', paste0('After filtering on IDs with precursor match, we have ', length(ids), ' spectra: ', paste((if (length(ids) <= 10) ids else ids[1:10]), collapse = ', '), '.'))
+			.self$message('debug', paste0('After filtering on IDs with precursor match, we have ', length(ids), ' spectra: ', paste((if (length(ids) <= 10) ids else ids[seq_len(10)]), collapse = ', '), '.'))
 		}
 		
 		# Filter on RT value
@@ -252,7 +252,7 @@ BiodbMassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, m
 		# Cut
 		if ( ! is.na(max.results) && length(entries) > max.results) {
 			.self$message('debug', paste('Cutting data frame', max.results, 'rows.'))
-			entries <- entries[1:max.results]
+			entries <- entries[seq_len(max.results)]
 		}
 
 		# Remove NULL entries

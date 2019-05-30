@@ -93,7 +93,7 @@ MassbankConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor,
 
 	# Cut
 	if ( ! is.na(max.results) && length(mz) > max.results)
-		mz <- mz[1:max.results]
+		mz <- mz[seq_len(max.results)]
 
 	return(mz)
 })
@@ -327,7 +327,7 @@ MassbankConn$methods( .doSearchMzTol = function(mz, mz.tol, mz.tol.unit, min.rel
 	# Cut
 	if ( ! is.na(max.results) && length(returned.ids) > max.results) {
 		.self$message('debug', 'Cut list of IDs to return.')
-		returned.ids <- returned.ids[1:max.results]
+		returned.ids <- returned.ids[seq_len(max.results)]
 	}
 
 	return(returned.ids)

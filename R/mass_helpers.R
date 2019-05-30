@@ -91,8 +91,8 @@ compareSpectra <- function(spec, libspec, npmin = 2, fun = "wcosine", params = l
 		sim <- vapply(vall,	'[[', i = "similarity", FUN.VALUE = 1)
 		matched <- lapply(vall, '[[', i = "matched")
 		
-		res[1:length(sim), 'score'] <- sim
-		for (i in seq(length(matched)))
+		res[seq_len(length(sim)), 'score'] <- sim
+		for (i in seq_len(length(matched)))
 			res[i, peak.cols] <- matched[[i]]
 
 	}

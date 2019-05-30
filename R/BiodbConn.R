@@ -193,7 +193,7 @@ BiodbConn$methods( getEntryIds = function(max.results = NA_integer_, ...) {
 
 	# Cut
 	if ( ! is.null(max.results) && ! is.na(max.results) && max.results > 0 && length(ids) > max.results)
-		ids <- ids[1:max.results]
+		ids <- ids[seq_len(max.results)]
 
 	return(ids)
 })

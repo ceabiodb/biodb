@@ -144,7 +144,7 @@ MirbaseMatureConn$methods( searchByName = function(name, max.results = NA_intege
 
 	# Cut
 	if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
-		ids <- ids[1:max.results]
+		ids <- ids[seq_len(max.results)]
 
 	return(ids)
 })

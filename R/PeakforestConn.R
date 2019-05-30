@@ -62,7 +62,7 @@ PeakforestConn$methods( getEntryContentFromDb = function(entry.id) {
 
 			# XXX TODO What do those lines? In which context are they run?
 			# XXX The loop ends in all cases!
-			if (class(json) == 'list' && ! is.null(names(json))) {
+			if (methods::is(json, 'list') && ! is.null(names(json))) {
 				content = jsonstr
 				return(content)
 			}
@@ -80,7 +80,7 @@ PeakforestConn$methods( getEntryContentFromDb = function(entry.id) {
 		json <- if (is.na(single.jsonstr)) NULL else jsonlite::fromJSON(single.jsonstr, simplifyDataFrame = FALSE)
 
 		if ( ! is.null(json)) {
-			if (class(json) == 'list' && is.null(names(json))) {
+			if (methods::is(json, 'list') && is.null(names(json))) {
 				null <- vapply(json, is.null, FUN.VALUE = TRUE)
 				json.ids <- vapply(json[ ! null], function(x) as.character(x$id), FUN.VALUE = '')
 				content[entry.id %in% json.ids] <- vapply(json[ ! null], function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')

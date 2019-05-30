@@ -40,7 +40,7 @@ MassbankEntry$methods( .doParseContent = function(content) {
 		.self$message('caution', paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse = ", "), ". All lines after the first last line marker have been deleted.", sep = ''))
 
 		# Remove all lines after the first marker
-		lines <- lines[1:last.line.number[[1]]]
+		lines <- lines[seq_len(last.line.number[[1]])]
 	}
 
 	return(lines)
@@ -132,7 +132,7 @@ MassbankEntry$methods( .parsePeakInfo = function(parsed.content, title) {
 		# Is next line the suite of the current line?
 		while (i + 1 <= length(parsed.content) && length(grep('^    ', parsed.content[[i + 1]])) == 1) {
 			parsed.content[[i]] <- paste(parsed.content[[i]], parsed.content[[i + 1]], sep = '')
-			parsed.content <- if (i + 2 <= length(parsed.content)) parsed.content[c(1:i,i+2:length(parsed.content))] else parsed.content[c(1:i)]
+			parsed.content <- if (i + 2 <= length(parsed.content)) parsed.content[c(seq_len(i), seq(from=i+2, to=length(parsed.content)))] else parsed.content[seq_len(i)]
 		}
 
 		# Next line

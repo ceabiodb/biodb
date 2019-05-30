@@ -212,7 +212,7 @@ BiodbEntryField$methods( correctValue = function(value) {
 			value <- tolower(value)
 
 		# Enumerated type
-		if (.self$isEnumerate() && class(.self$.allowed.values) == 'list')
+		if (.self$isEnumerate() && methods::is(.self$.allowed.values, 'list'))
 			value <- vapply(value, function(v) { for (a in names(.self$.allowed.values)) if (v == a || v %in% .self$.allowed.values[[a]]) return(a) ; return(v) }, FUN.VALUE = as.vector(0, mode = .self$getClass()), USE.NAMES = FALSE)
 	}
 

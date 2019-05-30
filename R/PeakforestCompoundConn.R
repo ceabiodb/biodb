@@ -119,7 +119,7 @@ PeakforestCompoundConn$methods( searchCompound = function(name = NULL, mass = NU
 
 	# Cut
 	if ( ! is.na(max.results) && length(ids) > max.results)
-		ids <- ids[1:max.results]
+		ids <- ids[seq_len(max.results)]
 
 	return(ids)
 })

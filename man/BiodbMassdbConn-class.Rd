@@ -99,9 +99,7 @@ Returns the number of peaks contained in the database.}
 
 \item{\code{msmsSearch(spectrum, precursor.mz, mz.tol, mz.tol.unit = "plain", ms.mode,
   npmin = 2, dist.fun = c("wcosine", "cosine", "pkernel", "pbachtttarya"),
-  msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{:
-
-Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search.}
+  msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search.}
 
 \item{\code{searchMsEntries(mz.min = NULL, mz.max = NULL, mz = NULL, mz.shift = 0,
   mz.tol = NA_real_, mz.tol.unit = "plain", rt = NULL,

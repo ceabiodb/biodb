@@ -503,7 +503,7 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 
 	# Cut
 	if ( ! is.na(max.rows) && max.rows > 0 && nrow(db) > max.rows)
-		db <- db[1:max.rows, , drop = FALSE]
+		db <- db[seq_len(max.rows), , drop = FALSE]
 
 	# Drop
 	if (drop && ncol(db) == 1)

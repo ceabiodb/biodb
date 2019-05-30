@@ -210,7 +210,7 @@ PeakforestMassConn$methods( .doGetMzValues = function(ms.mode, max.results, prec
 
 	# Apply cut-off
 	if ( ! is.na(max.results) && length(mz) > max.results)
-		mz <- mz[1:max.results]
+		mz <- mz[seq_len(max.results)]
 
 	return(mz)
 })
@@ -311,7 +311,7 @@ PeakforestMassConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.
 
 	# Cut
 	if ( ! is.na(max.results) && length(ids) > max.results)
-		ids <- ids[1:max.results]
+		ids <- ids[seq_len(max.results)]
 
 	return(ids)
 })

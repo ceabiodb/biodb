@@ -19,8 +19,8 @@ trpz <- function (x, y)
 	xp <- c(x, x[m:1])
 	yp <- c(numeric(m), y[m:1])
 	n <- 2 * m
-	p1 <- sum(xp[1:(n - 1)] * yp[2:n]) + xp[n] * yp[1]
-	p2 <- sum(xp[2:n] * yp[1:(n - 1)]) + xp[1] * yp[n]
+	p1 <- sum(xp[seq_len(n - 1)] * yp[2:n]) + xp[n] * yp[1]
+	p2 <- sum(xp[2:n] * yp[seq_len(n - 1)]) + xp[1] * yp[n]
 	return(0.5 * (p1 - p2))
 }
 
@@ -71,8 +71,6 @@ simpList <- function(v) {
 
 ##Stein and scott values : mzexp 3 intexp 0.6
 ##Massbank values : mzexp 2 intexp 0.5
-
-
 cosine <-
 	function(mz1,
 			 mz2,
@@ -115,7 +113,7 @@ wcosine <-
 		penality <- match.arg(penality)
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		###Weigthed intensity
-		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		pfound <- which(!vapply(matchList, is.null, FUN.VALUE = TRUE))
 		###If no peak is found.
 		if (length(pfound) == 0)
 			return(list(measure = 0, matched = rep(-1, length(mz1))))
@@ -161,7 +159,7 @@ pkernel <-
 		###We first match the peak
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		# ###Weigthed intensity
-		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		pfound <- which(!vapply(matchList, is.null, FUN.VALUE = TRUE))
 		#
 		###If no peak is found.
 		if (length(pfound) == 0)
@@ -177,18 +175,14 @@ pkernel <-
 		l2 <- length(w2)
 		###The mz dev
 		vsig1 = mz1 * ppm * 3 * 10 ^ -6
-		vsig1 = sapply(vsig1, function(x, y) {
-			return(max(x, y))
-		}, y = dmz)
+		vsig1 = vapply(vsig1, function(x, y) max(x, y), y = dmz, FUN.VALUE = 1.0)
 		
 		vsig2 = mz2 * ppm * 3 * 10 ^ -6
-		vsig2 = sapply(vsig2, function(x, y) {
-			return(max(x, y))
-		}, y = dmz)
+		vsig2 = vapply(vsig2, function(x, y) max(x, y), y = dmz, FUN.VALUE = 1.0)
 		accu = 0
 		###TO DO rcopder en C
-		for (i in 1:l1) {
-			for (j in 1:l2) {
+		for (i in seq_len(l1)) {
+			for (j in seq_len(l2)) {
 				divisor = max(
 					stats::dnorm(
 						mz1[i],
@@ -238,7 +232,7 @@ pbachtttarya <-
 		###We first match the peak
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		# ###Weigthed intensity
-		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		pfound <- which(!vapply(matchList, is.null, FUN.VALUE = TRUE))
 		#
 		###If no peak is found.
 		if (length(pfound) == 0)
@@ -254,20 +248,15 @@ pbachtttarya <-
 		l2 <- length(w2)
 		###The mz dev
 		vsig1 = mz1 * ppm * 3 * 10 ^ -6
-		vsig1 = sapply(vsig1, function(x, y) {
-			return(max(x, y))
-		}, y = dmz)
+		vsig1 = vapply(vsig1, function(x, y) max(x, y), y = dmz, FUN.VALUE = 1.0)
 		
 		vsig2 = mz2 * ppm * 3 * 10 ^ -6
-		vsig2 = sapply(vsig2, function(x, y) {
-			return(max(x, y))
-		}, y = dmz)
+		vsig2 = vapply(vsig2, function(x, y) max(x, y), y = dmz, FUN.VALUE = 1.0)
 		
 		accu = 0
 		
-		###TO DO rcopder en C
 		###For each matched peak in we compute the Bhattacharyya coefficient:
-		for (j in 1:length(matchList)) {
+		for (j in seq_len(length(matchList))) {
 			if (is.null(matchList[[j]]))
 				next
 			mz1v <- mz1[j]
@@ -278,8 +267,8 @@ pbachtttarya <-
 			sig <- max(sig1, sig2)
 			xseq <- seq(min(mz1v, mz2v) - 4 * sig, max(mz1v, mz2v) + 4 * sig, length =
 							100)
-			y1 <- dnorm(xseq, mean = mz1v, sd = sig)
-			y2 <- dnorm(xseq, mean = mz2v, sd = sig)
+			y1 <- stats::dnorm(xseq, mean = mz1v, sd = sig)
+			y2 <- stats::dnorm(xseq, mean = mz2v, sd = sig)
 			accu = accu + sum(trpz(xseq,sqrt(y1 * y2)))
 		}
 		div = 1

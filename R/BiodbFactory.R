@@ -292,7 +292,7 @@ BiodbFactory$methods( .loadEntries = function(conn.id, ids, drop) {
 		conn <- .self$getConn(conn.id)
 
 		# Debug
-		.self$message('debug', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[1:10] else ids, collapse = ", "), "..."))
+		.self$message('debug', paste("Creating", length(ids), "entries from ids", paste(if (length(ids) > 10) ids[seq_len(10)] else ids, collapse = ", "), "..."))
 
 		# Get contents
 		content = conn$getEntryContent(ids)
