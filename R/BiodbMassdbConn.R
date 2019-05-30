@@ -308,7 +308,7 @@ BiodbMassdbConn$methods ( searchMsPeaks = function(input.df = NULL, mz = NULL, m
 ################################################################
 
 BiodbMassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, mz.tol.unit = 'plain', ms.mode, npmin = 2, dist.fun = c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_) {
-	":\n\nSearch MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search."
+	"Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search."
 	
 	peak.tables = list()
 	dist.fun = match.arg(dist.fun)
@@ -330,20 +330,15 @@ BiodbMassdbConn$methods( msmsSearch = function(spectrum, precursor.mz, mz.tol, m
 	# Compare spectrum against database spectra
 	res <- compareSpectra(spectrum, peak.tables, npmin = npmin, fun = dist.fun, params = list(ppm = msms.mz.tol, dmz = msms.mz.tol.min))
 	
-	#if(is.null(res)) return(NULL) # To decide at BiodbMassdbConn level: return empty list (or empty data frame) or NULL.
-	
     cols <- colnames(res)
     res[['id']] <- ids
     res <- res[, c('id', cols)]
 	
     # Order rows
     res <- res[order(res[['score']], decreasing = TRUE), ]
-
-#    results <- list(measure = res$similarity[res[['ord']]], matchedpeaks = res$matched[res[['ord']]], id = ids[res[['ord']]])
 	
 	return(res)
 })
-
 
 # Collapse results data frame {{{1
 ################################################################
