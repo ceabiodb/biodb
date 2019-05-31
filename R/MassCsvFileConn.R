@@ -402,6 +402,113 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 	return(TRUE)
 })
 
+# Select by mode {{{2
+################################################################
+
+MassCsvFileConn$methods( .selectByMode = function(db, mode) {
+
+	# Check mode value
+	ms.mode.field <- .self$getBiodb()$getEntryFields()$get('ms.mode')
+	ms.mode.field$checkValue(mode)
+	.self$.check.fields('ms.mode')
+
+	# Filter on mode
+	db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), , drop = FALSE]
+
+	return(db)
+})
+
+# Select by IDs {{{2
+################################################################
+
+MassCsvFileConn$methods( .selectByIds = function(db, ids) {
+
+	.self$.check.fields('accession')
+	db <- db[db[[.self$.fields[['accession']]]] %in% ids, , drop = FALSE]
+
+	return(db)
+})
+
+# Select by compound IDs {{{2
+################################################################
+
+MassCsvFileConn$methods( .selectByCompoundIds = function(db, compound.ids) {
+
+	.self$.check.fields('compound.id')
+	db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, , drop = FALSE]
+
+	return(db)
+})
+
+# Select by M/Z values {{{2
+################################################################
+
+MassCsvFileConn$methods( .selectByMzValues = function(db, mz.min, mz.max) {
+
+	if (is.null(mz.min) || is.null(mz.max))
+		.self$message('error', 'You must set both mz.min and mz.max.')
+	if (length(mz.min) != length(mz.max))
+		.self$message('error', paste("'mz.min' and 'mz.max' must have equal lengths. 'mz.min' has ", length(mz.min), " element(s), and 'mz.max' has ", length(mz.max), "element(s).", sep = ''))
+	
+	.self$message('debug', paste0('Filtering on M/Z ranges: ', paste0('[', mz.min, ', ', mz.max, ']', collapse = ', '), '.'))
+	.self$.check.fields('peak.mztheo')
+	f <- .self$.fields[['peak.mztheo']]
+	mz <- db[[f]]
+	.self$message('debug', paste(length(mz), 'M/Z values to filter.'))
+
+	# For all couples in vectors mz.min and mz.max, verify which M/Z values in mz are in the range. For each couple of mz.min/mz.max we get a vector of booleans the same length as mz.
+	s <- mapply(function(mzmin, mzmax) { if (is.na(mzmin) && is.na(mzmax)) rep(FALSE, length(mz)) else ((if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin) & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax)) }, mz.min, mz.max)
+
+	# Now we select the M/Z values that are in at least one of the M/Z ranges.
+	if (is.matrix(s))
+		s <- apply(s, 1, function(x) Reduce("|", x))
+	else if (is.list(s))
+		s <- unlist(s)
+
+	db <- db[s, , drop = FALSE]
+
+	return(db)
+})
+
+# Select by relative intensity {{{2
+################################################################
+
+MassCsvFileConn$methods( .selectByRelInt = function(db, min.rel.int) {
+
+	if (.self$.check.fields('peak.relative.intensity', fail = FALSE))
+		db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, , drop = FALSE]
+	else
+		db <- db[integer(), , drop = FALSE]
+
+	return(db)
+})
+
+# Select by precursors {{{2
+################################################################
+
+MassCsvFileConn$methods( .selectByPrecursors = function(db) {
+
+	if (.self$.check.fields('peak.attr', fail = FALSE))
+		db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, , drop = FALSE]
+	else
+		db <- db[integer(), , drop = FALSE]
+
+	return(db)
+})
+
+# Select by MS level {{{2
+################################################################
+
+MassCsvFileConn$methods( .selectByMsLevel = function(db, level) {
+
+	if (.self$.check.fields('ms.level', fail = FALSE))
+		db <- db[db[[.self$.fields[['ms.level']]]] == level, , drop = FALSE]
+	else
+		db <- db[integer(), , drop = FALSE]
+
+	return(db)
+})
+
 # Select {{{2
 ################################################################
 
@@ -414,78 +521,21 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 	# Get db
 	db <- .self$.db
 
-	# Filter db on mode
-	if ( ! is.null(mode) && ! is.na(mode)) {
-
-		# Check mode value
-		ms.mode.field <- .self$getBiodb()$getEntryFields()$get('ms.mode')
-		ms.mode.field$checkValue(mode)
-		.self$.check.fields('ms.mode')
-
-		# Filter on mode
-		db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), , drop = FALSE]
-	}
-
-	# Filter db on ids
-	if ( ! is.null(ids)) {
-		.self$.check.fields('accession')
-		db <- db[db[[.self$.fields[['accession']]]] %in% ids, , drop = FALSE]
-	}
-
-	# Filter db on compound ids
-	if ( ! is.null(compound.ids)) {
-		.self$.check.fields('compound.id')
-		db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, , drop = FALSE]
-	}
-
-	# Filter on mz values
-	if ( ! is.null(mz.min) || ! is.null(mz.max)) {
-		if (is.null(mz.min) || is.null(mz.max))
-			.self$message('error', 'You must set both mz.min and mz.max.')
-		if (length(mz.min) != length(mz.max))
-			.self$message('error', paste("'mz.min' and 'mz.max' must have equal lengths. 'mz.min' has ", length(mz.min), " element(s), and 'mz.max' has ", length(mz.max), "element(s).", sep = ''))
-		
-		.self$message('debug', paste0('Filtering on M/Z ranges: ', paste0('[', mz.min, ', ', mz.max, ']', collapse = ', '), '.'))
-		.self$.check.fields('peak.mztheo')
-		f <- .self$.fields[['peak.mztheo']]
-		mz <- db[[f]]
-		.self$message('debug', paste(length(mz), 'M/Z values to filter.'))
-
-		# For all couples in vectors mz.min and mz.max, verify which M/Z values in mz are in the range. For each couple of mz.min/mz.max we get a vector of booleans the same length as mz.
-		s <- mapply(function(mzmin, mzmax) { if (is.na(mzmin) && is.na(mzmax)) rep(FALSE, length(mz)) else ((if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin) & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax)) }, mz.min, mz.max)
-
-		# Now we select the M/Z values that are in at least one of the M/Z ranges.
-		if (is.matrix(s))
-			s <- apply(s, 1, function(x) Reduce("|", x))
-		else if (is.list(s))
-			s <- unlist(s)
-
-		db <- db[s, , drop = FALSE]
-	}
-
-	# Filter on relative intensity
-	if ( ! is.na(min.rel.int)) {
-		if (.self$.check.fields('peak.relative.intensity', fail = FALSE))
-			db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, , drop = FALSE]
-		else
-			db <- db[integer(), , drop = FALSE]
-	}
-
-	# Filter on precursors
-	if (precursor) {
-		if (.self$.check.fields('peak.attr', fail = FALSE))
-			db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, , drop = FALSE]
-		else
-			db <- db[integer(), , drop = FALSE]
-	}
-
-	# Filter on MS level
-	if (level > 0) {
-		if (.self$.check.fields('ms.level', fail = FALSE))
-			db <- db[db[[.self$.fields[['ms.level']]]] == level, , drop = FALSE]
-		else
-			db <- db[integer(), , drop = FALSE]
-	}
+	# Filtering
+	if ( ! is.null(mode) && ! is.na(mode))
+		db <- .self$.selectByMode(db, mode)
+	if ( ! is.null(ids))
+		db <- .self$.selectByIds(db, ids)
+	if ( ! is.null(compound.ids))
+		db <- .self$.selectByCompoundIds(db, compound.ids)
+	if ( ! is.null(mz.min) || ! is.null(mz.max))
+		db <- .self$.selectByMzValues(db, mz.min, mz.max)
+	if ( ! is.na(min.rel.int))
+		db <- .self$.selectByRelInt(db, min.rel.int)
+	if (precursor)
+		db <- .self$.selectByPrecursors(db)
+	if (level > 0)
+		db <- .self$.selectByMsLevel(db, level)
 
 	# Get subset of columns
 	if ( ! is.null(cols) && ! is.na(cols)) {
