@@ -47,7 +47,7 @@ BiodbConfig$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.env <<- Sys.getenv()
+	.self$.env <- Sys.getenv()
 	.self$.defineKeys()
 	.self$.initValues()
 })
@@ -262,7 +262,7 @@ BiodbConfig$methods( .get.svn.binary.path = function() {
 
 BiodbConfig$methods( .defineKeys = function() {
 
-	.keys <<- list()
+	.self$.keys <- list()
 
 	# Define default values
 	cachedir.default  <- if ('HOME' %in% names(.self$.env)) file.path(.self$.env[['HOME']], '.biodb.cache') else NULL
@@ -335,7 +335,7 @@ BiodbConfig$methods( .newKey = function(key, type, default = NULL, description =
 
 BiodbConfig$methods( .initValues = function() {
 
-	.values <<- list()
+	.self$.values <- list()
 
 	# Loop on all keys
 	for (key in .self$getKeys()) {

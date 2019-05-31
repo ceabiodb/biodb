@@ -20,7 +20,7 @@ MassSqliteConn$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.db <<- NULL
+	.self$.db <- NULL
 })
 
 # Get entry content from database {{{1
@@ -170,7 +170,7 @@ MassSqliteConn$methods( .doWrite = function() {
 MassSqliteConn$methods( .init.db = function() {
 
 	if (is.null(.self$.db) && ! is.null(.self$getPropValSlot('urls', 'base.url')) && ! is.na(.self$getPropValSlot('urls', 'base.url')))
-		.db <<-  DBI::dbConnect(RSQLite::SQLite(), dbname = .self$getPropValSlot('urls', 'base.url'))
+		.self$.db <-  DBI::dbConnect(RSQLite::SQLite(), dbname = .self$getPropValSlot('urls', 'base.url'))
 })
 
 # Do terminate {{{2
@@ -180,7 +180,7 @@ MassSqliteConn$methods( .doTerminate = function() {
 
 	if ( ! is.null(.self$.db)) {
 		DBI::dbDisconnect(.self$.db)
-		.db <<- NULL
+		.self$.db <- NULL
 	}
 })
 

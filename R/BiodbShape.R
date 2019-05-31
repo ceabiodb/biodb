@@ -32,8 +32,8 @@ BiodbShape <- methods::setRefClass('BiodbShape',
 
         initialize = function(label = NA_character_,
                               color = NA_character_) {
-            .label <<- label
-            .color <<- color
+            .self$.label <- label
+            .self$.color <- color
         },
 
         # Get label {{3

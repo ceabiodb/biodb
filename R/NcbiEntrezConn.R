@@ -18,13 +18,13 @@ NcbiEntrezConn$methods( initialize = function(entrez.name = NA_character_, entre
 	# Set name
 	if (is.null(entrez.name) || is.na(entrez.name))
 		.self$message('error', "You must set an Entrez name for this NCBI database.")
-	.entrez.name <<- entrez.name
+	.self$.entrez.name <- entrez.name
 
 	# Set tag
-	.entrez.tag <<- if (is.null(entrez.tag)) NA_character_ else entrez.tag
+	.self$.entrez.tag <- if (is.null(entrez.tag)) NA_character_ else entrez.tag
 
 	# Set ID tag
-	.entrez.id.tag <<- if (is.null(entrez.id.tag)) NA_character_ else entrez.id.tag
+	.self$.entrez.id.tag <- if (is.null(entrez.id.tag)) NA_character_ else entrez.id.tag
 })
 
 # Web service efetch {{{1

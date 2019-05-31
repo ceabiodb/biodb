@@ -64,7 +64,7 @@ BiodbDbsInfo$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.dbs <<- list()
+	.self$.dbs <- list()
 })
 
 # Get list of database IDs {{{1

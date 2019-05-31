@@ -17,16 +17,16 @@ MassCsvFileConn$methods( initialize = function(...) {
 	callSuper(...)
 
 	# Set fields
-	.db <<- NULL
-	.db.orig.colnames <<- NA_character_
-	.file.sep <<- "\t"
-	.file.quote <<- "\""
-	.fields <<- character()
-	.field.multval.sep <<- ';'
-	.parsing.expr <<- list()
+	.self$.db <- NULL
+	.self$.db.orig.colnames <- NA_character_
+	.self$.file.sep <- "\t"
+	.self$.file.quote <- "\""
+	.self$.fields <- character()
+	.self$.field.multval.sep <- ';'
+	.self$.parsing.expr <- list()
 
 	# Precursors
-	.precursors <<- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+", "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
+	.self$.precursors <- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+", "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
 })
 
 # Get precursor formulae {{{1
@@ -51,7 +51,7 @@ MassCsvFileConn$methods( isAPrecursorFormula = function(formula) {
 MassCsvFileConn$methods( setPrecursorFormulae = function(formulae) {
 	":\n\nReplace current formulae by this new list of formulae."
 	.self$.assert.is(formulae, 'character')
-	.precursors <<- formulae[ ! duplicated(formulae)]
+	.self$.precursors <- formulae[ ! duplicated(formulae)]
 })
 
 # Add precursor formulae {{{1
@@ -64,7 +64,7 @@ MassCsvFileConn$methods( addPrecursorFormulae = function(formulae) {
 
 	if ( ! all(formulae %in% .self$.precursors)) {
 		formulae <- formulae[ ! formulae %in% .self$.precursors]
-		.precursors <<- c(.self$.precursors, formulae)
+		.self$.precursors <- c(.self$.precursors, formulae)
 	}
 })
 
@@ -205,7 +205,7 @@ MassCsvFileConn$methods( setFieldMultValSep = function(sep) {
 
 	.self$.check.parsing.has.began()
 
-	.field.multval.sep <<- sep
+	.self$.field.multval.sep <- sep
 })
 
 
@@ -545,14 +545,14 @@ MassCsvFileConn$methods( .doSetDb = function(db) {
 		.self$message('error', 'The database object must be a data frame.')
 
 	# Set data frame as database
-	.db <<- db
+	.self$.db <- db
 
 	# Set fields
 	for (field in names(.self$.db))
 		.self$setField(field, field, ignore.if.missing = TRUE)
 
 	# Save column names
-	.db.orig.colnames <<- colnames(.self$.db)
+	.self$.db.orig.colnames <- colnames(.self$.db)
 })
 
 # Check setting of URL {{{2

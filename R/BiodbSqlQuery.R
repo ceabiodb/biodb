@@ -26,12 +26,12 @@ BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery", fields = list(.table = 'c
 ################################################################
 
 BiodbSqlQuery$methods( initialize = function() {
-	.table <<- character()
-	.fields <<- list()
-	.distinct <<- FALSE
-	.join <<- list()
-	.where <<- NULL
-	.limit <<- as.integer(0)
+	.self$.table <- character()
+	.self$.fields <- list()
+	.self$.distinct <- FALSE
+	.self$.join <- list()
+	.self$.where <- NULL
+	.self$.limit <- as.integer(0)
 })
 
 # Add table {{{2
@@ -40,7 +40,7 @@ BiodbSqlQuery$methods( initialize = function() {
 BiodbSqlQuery$methods( setTable = function(table) {
 	":\n\nSet the table."
 
-	.table <<- table
+	.self$.table <- table
 })
 
 # Add  {{{2
@@ -49,7 +49,7 @@ BiodbSqlQuery$methods( setTable = function(table) {
 BiodbSqlQuery$methods( addField = function(table = NULL, field) {
 	":\n\nSet the fields."
 
-	.fields <<- c(.self$.fields, list(list(table = table, field = field)))
+	.self$.fields <- c(.self$.fields, list(list(table = table, field = field)))
 })
 
 # Set distinct {{{2
@@ -58,7 +58,7 @@ BiodbSqlQuery$methods( addField = function(table = NULL, field) {
 BiodbSqlQuery$methods( setDistinct = function(distinct) {
 	":\n\nSet or unset distinct modifier."
 
-	.distinct <<- as.logical(distinct)
+	.self$.distinct <- as.logical(distinct)
 })
 
 # Set limit {{{2
@@ -67,7 +67,7 @@ BiodbSqlQuery$methods( setDistinct = function(distinct) {
 BiodbSqlQuery$methods( setLimit = function(limit) {
 	":\n\nSet results limit."
 
-	.limit <<- as.integer(limit)
+	.self$.limit <- as.integer(limit)
 })
 
 # Add join {{{2
@@ -81,7 +81,7 @@ BiodbSqlQuery$methods( addJoin = function(table1, field1, table2, field2) {
 
 	# Append
 	if ( ! duplicate)
-		.join <<- c(.self$.join, list(list(table1 = table1, field1 = field1, table2 = table2, field2 = field2)))
+		.self$.join <- c(.self$.join, list(list(table1 = table1, field1 = field1, table2 = table2, field2 = field2)))
 })
 
 # Set where {{{2
@@ -90,7 +90,7 @@ BiodbSqlQuery$methods( addJoin = function(table1, field1, table2, field2) {
 BiodbSqlQuery$methods( setWhere = function(expr) {
 	":\n\nSet  the where clause."
 
-	.where <<- expr
+	.self$.where <- expr
 })
 
 # Get join {{{2
@@ -199,15 +199,15 @@ BiodbSqlLogicalOp <- methods::setRefClass("BiodbSqlLogicalOp", contains = 'Biodb
 ################################################################
 
 BiodbSqlLogicalOp$methods( initialize = function(op) {
-	.op <<- op
-	.expr <<- list()
+	.self$.op <- op
+	.self$.expr <- list()
 })
 
 # Add expression {{{2
 ################################################################
 
 BiodbSqlLogicalOp$methods( addExpr = function(expr) {
-	.expr <<- c(.self$.expr, expr)
+	.self$.expr <- c(.self$.expr, expr)
 })
 
 # To string {{{2
@@ -234,9 +234,9 @@ BiodbSqlBinaryOp <- methods::setRefClass("BiodbSqlBinaryOp", contains = "BiodbSq
 ################################################################
 
 BiodbSqlBinaryOp$methods( initialize = function(lexpr, op, rexpr) {
-	.op <<- op
-	.lexpr <<- lexpr
-	.rexpr <<- rexpr
+	.self$.op <- op
+	.self$.lexpr <- lexpr
+	.self$.rexpr <- rexpr
 })
 
 # To string {{{2
@@ -259,7 +259,7 @@ BiodbSqlValue <- methods::setRefClass("BiodbSqlValue", contains = "BiodbSqlExpr"
 ################################################################
 
 BiodbSqlValue$methods( initialize = function(value) {
-	.value <<- value
+	.self$.value <- value
 })
 
 # To string {{{2
@@ -288,7 +288,7 @@ BiodbSqlList <- methods::setRefClass("BiodbSqlList", contains = "BiodbSqlExpr", 
 ################################################################
 
 BiodbSqlList$methods( initialize = function(values) {
-	.values <<- values
+	.self$.values <- values
 })
 
 # To string {{{2
@@ -318,8 +318,8 @@ BiodbSqlField <- methods::setRefClass("BiodbSqlField", contains = "BiodbSqlExpr"
 ################################################################
 
 BiodbSqlField$methods( initialize = function(table = NA_character_, field) {
-	.table <<- table
-	.field <<- field
+	.self$.table <- table
+	.self$.field <- field
 })
 
 # To string {{{2

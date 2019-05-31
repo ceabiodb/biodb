@@ -38,7 +38,7 @@ initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 
 	callSuper(...)
 	.self$.abstract.class('BiodbConnBase')
-	.run.hooks <<- character()
+	.self$.run.hooks <- character()
 
 	# Take parameter values from other object instance
 	if ( ! is.null(other)) {
@@ -52,10 +52,10 @@ initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 	.self$.assert.not.null(db.class)
 	.self$.assert.not.na(db.class)
 	.self$.assert.is(db.class, 'character')
-	.db.class <<- db.class
+	.self$.db.class <- db.class
 
 	# Set observers
-	.observers <<- list()
+	.self$.observers <- list()
 
 	# Set properties
 	.self$.defineProperties(other, properties)
@@ -251,7 +251,7 @@ BiodbConnBase$methods( getPropertyValue = function(name) {
 
 	# Run hook
 	if ('hook' %in% names(pdef) && ! pdef$hook %in% .self$.run.hooks) {
-		.run.hooks <<- c(.self$.run.hooks, pdef$hook)
+		.self$.run.hooks <- c(.self$.run.hooks, pdef$hook)
 		eval(parse(text = paste0('.self$', pdef$hook, '()')))
 	}
 
@@ -524,7 +524,7 @@ BiodbConnBase$methods( .registerObserver = function(obs) {
 
 	# Register this new observer
 	else
-		.observers <<- c(.self$.observers, obs)
+		.self$.observers <- c(.self$.observers, obs)
 })
 
 # Unregister observer {{{2
@@ -543,7 +543,7 @@ BiodbConnBase$methods( .unregisterObserver = function(obs) {
 
 	# Unregister observer
 	else
-		.observers <<- .self$.observers[ ! found.obs ]
+		.self$.observers <- .self$.observers[ ! found.obs ]
 })
 
 # Check property {{{2
@@ -604,9 +604,9 @@ BiodbConnBase$methods( .defineProperties = function(other, properties) {
 
 	# Set list of property definitions
 	if (is.null(other))
-		.prop.def <<- .self$.getFullPropDefList()
+		.self$.prop.def <- .self$.getFullPropDefList()
 	else
-		.prop.def <<- other$.prop.def
+		.self$.prop.def <- other$.prop.def
 
 	# Reset default values
 	if ( ! is.null(properties))
@@ -617,7 +617,7 @@ BiodbConnBase$methods( .defineProperties = function(other, properties) {
 	if (is.null(other))
 		.self$.resetPropertyValues()
 	else
-		.prop <<- other$.prop
+		.self$.prop <- other$.prop
 
 	# Set chosen values from properties
 	if ( ! is.null(properties))
@@ -630,7 +630,7 @@ BiodbConnBase$methods( .defineProperties = function(other, properties) {
 
 BiodbConnBase$methods( .resetPropertyValues = function() {
 
-	.prop <<- list()
+	.self$.prop <- list()
 	for (p in names(.self$.prop.def))
 		.self$setPropertyValue(p, .self$.prop.def[[p]]$default)
 })

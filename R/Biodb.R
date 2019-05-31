@@ -68,7 +68,7 @@ initialize = function(logger = TRUE, observers = NULL, ...) {
 	callSuper(...)
 
 	# Set observers
-	.observers <<- list(BiodbWarningReporter$new(), BiodbErrorReporter$new())
+	.self$.observers <- list(BiodbWarningReporter$new(), BiodbErrorReporter$new())
 	if (logger)
 		.self$addObservers(BiodbLogger$new())
 	if ( ! is.null(observers))
@@ -78,12 +78,12 @@ initialize = function(logger = TRUE, observers = NULL, ...) {
 	.self$message('info', paste0('This is biodb version ', packageVersion('biodb'), '.'))
 
 	# Create instances of children
-	.config <<- BiodbConfig$new(parent = .self)
-	.cache <<- BiodbCache$new(parent = .self)
-	.dbsinfo <<- BiodbDbsInfo$new(parent = .self)
-	.factory <<- BiodbFactory$new(parent = .self)
-	.entry.fields <<- BiodbEntryFields$new(parent = .self)
-	.request.scheduler <<- BiodbRequestScheduler$new(parent = .self)
+	.self$.config <- BiodbConfig$new(parent = .self)
+	.self$.cache <- BiodbCache$new(parent = .self)
+	.self$.dbsinfo <- BiodbDbsInfo$new(parent = .self)
+	.self$.factory <- BiodbFactory$new(parent = .self)
+	.self$.entry.fields <- BiodbEntryFields$new(parent = .self)
+	.self$.request.scheduler <- BiodbRequestScheduler$new(parent = .self)
 
 	# Load definitions
 	file <- system.file("definitions.yml", package = "biodb")
@@ -198,7 +198,7 @@ Biodb$methods( addObservers = function(observers) {
 		.self$message('error', "Observers must inherit from BiodbObserver class.")
 
 	# Add observers to current list (insert at beginning)
-	.observers <<- if (is.null(.self$.observers)) observers else c(observers, .self$.observers)
+	.self$.observers <- if (is.null(.self$.observers)) observers else c(observers, .self$.observers)
 })
 
 # Get observers {{{1

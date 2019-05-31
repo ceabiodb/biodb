@@ -23,7 +23,7 @@ BiodbDownloadable$methods( initialize = function(...) {
 	callSuper(...)
 	.self$.abstract.class('BiodbDownloadable')
 
-	.ext <<- NA_character_
+	.self$.ext <- NA_character_
 })
 
 # Get download path {{{1
@@ -101,7 +101,7 @@ BiodbDownloadable$methods( download = function() {
 ################################################################
 
 BiodbDownloadable$methods( .setDownloadExt = function(ext) {
-	.ext <<- ext
+	.self$.ext <- ext
 })
 
 # Do download {{{2

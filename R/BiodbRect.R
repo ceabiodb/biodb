@@ -39,10 +39,10 @@ BiodbRect <- methods::setRefClass('BiodbRect',
 
         initialize = function(left, top, bottom, right, ...) {
             callSuper(...)
-            .left <<- left
-            .right <<- right
-            .top <<- top
-            .bottom <<- bottom
+            .self$.left <- left
+            .self$.right <- right
+            .self$.top <- top
+            .self$.bottom <- bottom
         },
 
         # Draw {{3

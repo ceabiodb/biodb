@@ -52,35 +52,35 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type
 	# Set name
 	if ( is.null(name) || is.na(name) || nchar(name) == '')
 		.self$message('error', "You cannot set an empty name for a field. Name was empty (either NULL or NA or empty string).")
-	.name <<- tolower(name)
+	.self$.name <- tolower(name)
 
 	# Set type
 	if ( ! is.na(type) && ! type %in% c('mass', 'name', 'id'))
 		.self$message('error', paste("Unknown type \"", type, "\" for field \"", name, "\".", sep = ''))
-	.type <<- type
+	.self$.type <- type
 
 	# Set group
 	if ( ! is.na(group) && ! group %in% c('peak'))
 		.self$message('error', paste("Unknown group \"", group, "\" for field \"", name, "\".", sep = ''))
-	.group <<- group
+	.self$.group <- group
 
 	# Set class
 	class <- match.arg(class)
-	.class <<- class
+	.self$.class <- class
 
 	# Set cardinality
 	card <- match.arg(card)
-	.cardinality <<- card
+	.self$.cardinality <- card
 
 	# Set description
 	if (is.null(description) || is.na(description))
 		.self$message('caution', paste("Missing description for entry field \"", name, "\".", sep = ''))
-	.description <<- description
+	.self$.description <- description
 
 	# Set alias
 	if (length(alias) > 1 && any(is.na(alias)))
 		.self$message('error', paste("One of the aliases of entry field \"", name, "\" is NA.", sep = ''))
-	.alias <<- alias
+	.self$.alias <- alias
 
 	# Set allowed values
 	if ( ! is.null(allowed.values)) {
@@ -95,23 +95,23 @@ BiodbEntryField$methods( initialize = function(name, alias = NA_character_, type
 				.self$message('error', 'When allowed values are specified as a list, all values must be characters.')
 		}
 	}
-	.allowed.values <<- allowed.values
+	.self$.allowed.values <- allowed.values
 
 	# Case insensitive
 	if (case.insensitive && class != 'character')
 		.self$message('error', 'Only character fields can be case insensitive.')
-	.case.insensitive <<- case.insensitive
+	.self$.case.insensitive <- case.insensitive
 
 	# Lower case
 	if (lower.case && class != 'character')
 		.self$message('error', 'Only character fields can be forced to lower case.')
-	.lower.case <<- lower.case
+	.self$.lower.case <- lower.case
 
 	# Computable from
-	.computable.from <<- if (is.null(computable.from)) character() else computable.from
+	.self$.computable.from <- if (is.null(computable.from)) character() else computable.from
 
 	# Set other fields
-	.forbids.duplicates <<- forbids.duplicates
+	.self$.forbids.duplicates <- forbids.duplicates
 })
 
 # Get name {{{1

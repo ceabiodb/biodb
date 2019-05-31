@@ -14,8 +14,8 @@ BiodbCsvEntry$methods( initialize = function(sep = ',', na.strings = 'NA', ...) 
 	callSuper(...)
 	.self$.abstract.class('BiodbCsvEntry')
 
-	.sep <<- sep
-	.na.strings <<- na.strings
+	.self$.sep <- sep
+	.self$.na.strings <- na.strings
 })
 
 # Private methods {{{1

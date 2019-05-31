@@ -46,7 +46,7 @@ BiodbFactory$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.conn <<- list()
+	.self$.conn <- list()
 })
 
 # Create connector {{{1

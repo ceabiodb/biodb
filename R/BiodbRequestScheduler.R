@@ -40,10 +40,10 @@ BiodbRequestScheduler$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.connid2rules <<- list()
-	.host2rule <<- list()
-	.nb.max.tries <<- 10L
-	.ssl.verifypeer <<- TRUE
+	.self$.connid2rules <- list()
+	.self$.host2rule <- list()
+	.self$.nb.max.tries <- 10L
+	.self$.ssl.verifypeer <- TRUE
 })
 
 # Send soap request {{{1

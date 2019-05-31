@@ -41,10 +41,10 @@ KeggConn$methods( initialize = function(db.name = NA_character_, db.abbrev = NA_
 	# Set name
 	if (is.null(db.name) || is.na(db.name))
 		.self$message('error', "You must set a name for this KEGG database.")
-	.db.name <<- db.name
+	.self$.db.name <- db.name
 
 	# Set abbreviation
-	.db.abbrev <<- db.abbrev
+	.self$.db.abbrev <- db.abbrev
 })
 
 # Complete entry id {{{1

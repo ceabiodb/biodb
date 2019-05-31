@@ -16,7 +16,7 @@ ChebiConn$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.ws.values <<- list()
+	.self$.ws.values <- list()
 })
 
 # Get entry content request {{{1

@@ -61,7 +61,7 @@ BiodbEditable$methods( setEditingAllowed = function(allow) {
 	":\n\nAllow or disallow editing for this database."
 	
 	.self$.assert.is(allow, 'logical')
-	.editing.allowed <<- allow
+	.self$.editing.allowed <- allow
 })
 
 # Add new entry {{{1

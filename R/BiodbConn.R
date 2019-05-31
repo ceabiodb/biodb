@@ -47,9 +47,9 @@ BiodbConn$methods( initialize = function(id = NA_character_, cache.id = NA_chara
 	.self$.abstract.class('BiodbConn')
 
 	.self$.assert.is(id, "character")
-	.id <<- id
-	.cache.id <<- if (is.null(cache.id)) NA_character_ else cache.id
-	.entries <<- list()
+	.self$.id <- id
+	.self$.cache.id <- if (is.null(cache.id)) NA_character_ else cache.id
+	.self$.entries <- list()
 })
 
 # Get id {{{1
@@ -312,7 +312,7 @@ BiodbConn$methods( getAllCacheEntries = function() {
 BiodbConn$methods( deleteAllCacheEntries = function() {
 	":\n\nDelete all entries from the memory cache."
 
-	.entries <<- list()
+	.self$.entries <- list()
 })
 
 # Get cache ID {{{1

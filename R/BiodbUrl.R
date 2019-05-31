@@ -23,7 +23,7 @@ BiodbUrl <- methods::setRefClass("BiodbUrl", fields = list(.url = 'character', .
 BiodbUrl$methods( initialize = function(url = character(), params = character()) {
 
 	# Set URL
-	.url <<- url
+	.self$.url <- url
 
 	# Set parameters
 	if (is.list(params))
@@ -33,7 +33,7 @@ BiodbUrl$methods( initialize = function(url = character(), params = character())
 		params <- as.character(params)
 		names(params) <- names
 	}
-	.params <<- params
+	.self$.params <- params
 })
 
 # Get domain {{{1
@@ -50,7 +50,7 @@ BiodbUrl$methods( getDomain = function() {
 ################################################################
 
 BiodbUrl$methods( setUrl = function(url) {
-	.url <<- url
+	.self$.url <- url
 })
 
 # Set parameter {{{1

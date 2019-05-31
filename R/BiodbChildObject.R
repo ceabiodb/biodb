@@ -40,5 +40,5 @@ BiodbChildObject$methods( .setParent = function(parent) {
 		.self$message('error', "Parent cannot be NULL.")
 	if ( ! is(parent, 'BiodbObject'))
 		.self$message('error', "Parent must inherit from BiodbObject.")
-	.parent <<- parent
+	.self$.parent <- parent
 })

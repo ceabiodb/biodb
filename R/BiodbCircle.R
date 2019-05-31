@@ -37,9 +37,9 @@ BiodbCircle <- methods::setRefClass('BiodbCircle',
 
         initialize = function(x, y, r, ...) {
             callSuper(...)
-            .x <<- x
-            .y <<- y
-            .r <<- r
+            .self$.x <- x
+            .self$.y <- y
+            .self$.r <- r
         },
 
         # Get X {{3

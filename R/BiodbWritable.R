@@ -62,7 +62,7 @@ BiodbWritable$methods( setWritingAllowed = function(allow) {
 	":\n\nAllow or disallow writing for this database."
 	
 	.self$.assert.is(allow, 'logical')
-	.writing.allowed <<- allow
+	.self$.writing.allowed <- allow
 })
 
 # Write {{{1

@@ -16,7 +16,7 @@ PeakforestConn$methods( initialize = function(db.name, ...) {
 	.self$.abstract.class('PeakforestConn')
 
 	# Set db name
-	.db.name <<- db.name
+	.self$.db.name <- db.name
 
 	# Check token
 	if (is.na(.self$getPropertyValue('token')))

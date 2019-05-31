@@ -51,14 +51,14 @@ BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', close.fi
 		error(paste('Unknown class "', class(file), '" for log file.', sep = ''))
 
 	# Set member field
-	.file <<- file
-	.close.file <<- close.file
-	.lastime.progress <<- list()
-	.progress.initial.time <<- list()
-	.progress.laptime <<- as.integer(10) # In seconds
+	.self$.file <- file
+	.self$.close.file <- close.file
+	.self$.lastime.progress <- list()
+	.self$.progress.initial.time <- list()
+	.self$.progress.laptime <- as.integer(10) # In seconds
 
 	# Exclude DEBUG messages
-	.exclude <<- character(0)
+	.self$.exclude <- character(0)
 	.self$excludeMsgType('debug')
 })
 

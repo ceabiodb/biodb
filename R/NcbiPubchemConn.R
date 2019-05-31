@@ -15,10 +15,10 @@ NcbiPubchemConn$methods( initialize = function(db.name, id.xmltag, entry.xmltag,
 	callSuper(...)
 	.self$.abstract.class('NcbiPubchemConn')
 
-	.db.name <<- db.name
-	.id.xmltag <<- id.xmltag
-	.entry.xmltag <<- entry.xmltag
-	.id.urlfield <<- id.urlfield
+	.self$.db.name <- db.name
+	.self$.id.xmltag <- id.xmltag
+	.self$.entry.xmltag <- entry.xmltag
+	.self$.id.urlfield <- id.urlfield
 })
 
 # Do get entry content request {{{1

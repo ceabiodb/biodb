@@ -97,8 +97,8 @@ BiodbEntryFields$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.fields <<- list()
-	.aliasToName <<- character(0)
+	.self$.fields <- list()
+	.self$.aliasToName <- character(0)
 })
 
 # Is alias {{{1

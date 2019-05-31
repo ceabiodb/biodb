@@ -27,10 +27,10 @@ BiodbRequestSchedulerRule$methods( initialize = function(host, n, t, conn, ...) 
 
 	.self$.assert.inherits.from(conn, 'BiodbConn')
 	.self$.assert.is(host, 'character')
-	.host <<- host
-	.last.time <<- list()
-	.n.index <<- as.integer(0)
-	.conn <<- list(conn)
+	.self$.host <- host
+	.self$.last.time <- list()
+	.self$.n.index <- as.integer(0)
+	.self$.conn <- list(conn)
 	.self$setFrequency(n = conn$getPropertyValue('scheduler.n'), t = conn$getPropertyValue('scheduler.t'))
 })
 
@@ -67,18 +67,18 @@ BiodbRequestSchedulerRule$methods( setFrequency = function(n, t) {
 	# Update last time and index
 	if (length(.self$.last.time) >= 1) {
 		if (length(.self$.last.time) <= n) {
-			.last.time <<- .self$.last.time[seq(from = .self$.n.index - 1, to = .self$.n.index - length(.self$.last.time)) %% .self$.n + 1]
-			.n.index <<- length(.self$.last.time)
+			.self$.last.time <- .self$.last.time[seq(from = .self$.n.index - 1, to = .self$.n.index - length(.self$.last.time)) %% .self$.n + 1]
+			.self$.n.index <- length(.self$.last.time)
 		}
 		else {
-			.last.time <<- .self$.last.time[seq(from = .self$.n.index - 1, to = .self$.n.index - n) %% .self$.n + 1]
-			.n.index <<- n
+			.self$.last.time <- .self$.last.time[seq(from = .self$.n.index - 1, to = .self$.n.index - n) %% .self$.n + 1]
+			.self$.n.index <- n
 		}
 	}
 
 	# Update frequency
-	.n <<- n
-	.t <<- t
+	.self$.n <- n
+	.self$.t <- t
 })
 
 # Get connectors {{{1
@@ -101,7 +101,7 @@ BiodbRequestSchedulerRule$methods( addConnector = function(conn) {
 	# Add connector
 	else {
 
-		.conn <<- c(.self$.conn, conn)
+		.self$.conn <- c(.self$.conn, conn)
 
 		# Update frequency
 		.self$recomputeFrequency()
@@ -124,7 +124,7 @@ BiodbRequestSchedulerRule$methods( removeConnector = function(conn) {
 
 		# Update frequency
 
-		.conn <<- .self$.conn[ ! found.conn]
+		.self$.conn <- .self$.conn[ ! found.conn]
 	}
 })
 
@@ -191,7 +191,7 @@ BiodbRequestSchedulerRule$methods( storeCurrentTime = function(cur.time = NULL) 
 	if (is.null(cur.time))
 		cur.time <-Sys.time()
 
-	.n.index <<- as.integer(if (.self$.n.index == .self$.n) 1 else .self$.n.index + 1)
+	.self$.n.index <- as.integer(if (.self$.n.index == .self$.n) 1 else .self$.n.index + 1)
 	.self$.last.time[[.self$.n.index]] <- cur.time
 })
 

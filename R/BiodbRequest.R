@@ -22,11 +22,11 @@ BiodbRequest <- methods::setRefClass("BiodbRequest", fields = list(.url = 'Biodb
 
 BiodbRequest$methods( initialize = function(url, method = c('get', 'post'), header = character(), body = character(), encoding = integer()) {
 
-	.url <<- url
-	.method <<- match.arg(method)
-	.header <<- header
-	.body <<- body
-	.encoding <<- encoding
+	.self$.url <- url
+	.self$.method <- match.arg(method)
+	.self$.header <- header
+	.self$.body <- body
+	.self$.encoding <- encoding
 })
 
 # Get URL {{{1

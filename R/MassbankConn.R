@@ -15,7 +15,7 @@ MassbankConn$methods( initialize = function(...) {
 
 	callSuper(...)
 
-	.prefix2dns <<- list()
+	.self$.prefix2dns <- list()
 	.self$.setDownloadExt('tar.gz')
 })
 

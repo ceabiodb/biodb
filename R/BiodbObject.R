@@ -13,7 +13,7 @@ BiodbObject$methods( initialize = function(...) {
 	callSuper(...)
 	.self$.abstract.class('BiodbObject')
 
-	.message.enabled <<- TRUE
+	.self$.message.enabled <- TRUE
 })
 
 # Abstract class {{{1
@@ -258,9 +258,9 @@ BiodbObject$methods( message = function(type, msg) {
 	biodb <- NULL
 	if (length(.self$.message.enabled) == 1 # length is 0 if called from constructor
 		&& .self$.message.enabled) {
-		.message.enabled <<- FALSE
+		.self$.message.enabled <- FALSE
 		biodb <- .self$getBiodb() 
-		.message.enabled <<- TRUE
+		.self$.message.enabled <- TRUE
 	}
 
 	# Get class and method information

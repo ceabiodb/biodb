@@ -61,8 +61,8 @@ BiodbEntry$methods( initialize = function(...) {
 	callSuper(...)
 	.self$.abstract.class('BiodbEntry')
 
-	.fields <<- list()
-	.new <<- FALSE
+	.self$.fields <- list()
+	.self$.new <- FALSE
 })
 
 # Parent is connector {{{1
@@ -222,7 +222,7 @@ BiodbEntry$methods( removeField = function(field) {
 	":\n\nRemove the specified field from this entry."
 
 	if (.self$hasField(field))
-		.fields <<- .self$.fields[names(.self$.fields) != tolower(field)]
+		.self$.fields <- .self$.fields[names(.self$.fields) != tolower(field)]
 })
 
 # Get field value {{{1
@@ -476,7 +476,7 @@ BiodbEntry$methods( .makesRefToEntryRecurse = function(db, oid) {
 ################################################################
 
 BiodbEntry$methods( .setAsNew = function(new) {
-	.new <<- new
+	.self$.new <- new
 })
 
 # Is content correct {{{2
