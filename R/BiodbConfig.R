@@ -318,7 +318,8 @@ define = function(def) {
     value <- NULL
 
     # Look into ENV
-    envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
+    envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))),
+                    collapse = '_')
     if (envvar %in% names(.self$.env))
         value <- .self$.env[[envvar]]
 
@@ -328,7 +329,8 @@ define = function(def) {
 # New key {{{3
 ################################################################################
 
-.newKey = function(key, type, default = NULL, description = NA_character_, deprecated = NULL) {
+.newKey = function(key, type, default = NULL, description = NA_character_,
+                   deprecated = NULL) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key))
@@ -336,7 +338,9 @@ define = function(def) {
 
     # Check duplicated key
     if (key %in% names(.self$.keys))
-        .self$message('error', paste("Key ", key, " has already been defined in configuration.", sep = ''))
+        .self$message('error',
+                      paste("Key", key,
+                             "has already been defined in configuration."))
 
     # Overwrite default value by env var, if defined
     env.var.value <- .self$.getFromEnv(key)
@@ -352,7 +356,8 @@ define = function(def) {
     }
 
     # Define new key
-    .self$.keys[[key]] <- list(type = type, default = default, description = description)
+    .self$.keys[[key]] <- list(type = type, default = default,
+                               description = description)
 
     # Set as deprecated
     if ( ! is.null(deprecated))
@@ -366,7 +371,8 @@ define = function(def) {
 # Check key {{{3
 ################################################################################
 
-.checkKey = function(key, type = NA_character_, fail = TRUE, test.deprecated = TRUE) {
+.checkKey = function(key, type = NA_character_, fail = TRUE,
+                     test.deprecated = TRUE) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key)) {
@@ -379,19 +385,22 @@ define = function(def) {
     # Fail if invalid key
     if ( ! key %in% names(.self$.keys)) {
         if (fail)
-            .self$message('error', paste("Unknown key ", key, ".", sep = ''))
+            .self$message('error', paste0("Unknown key ", key, "."))
         else
             return(FALSE)
     }
 
     # Fail if deprecated
     if (.self$.isDeprecated(key))
-        .self$message('error', paste("Key ", key, " is deprecated. ", .self$.keys[[key]][['deprecated']], sep = ''))
+        .self$message('error', paste("Key", key, "is deprecated.",
+                                     .self$.keys[[key]][['deprecated']]))
 
     # Test type
-    if ( ! is.null(type) && ! is.na(type) && .self$.keys[[key]][['type']] != type) {
+    if ( ! is.null(type) && ! is.na(type)
+        && .self$.keys[[key]][['type']] != type) {
         if (fail)
-            .self$message('error', paste("Key ", key, " is not of type ", type, " but of type ", key.type, ".", sep = ''))
+            .self$message('error', paste0("Key ", key, " is not of type ", type,
+                                          " but of type ", key.type, "."))
         else
             return(FALSE)
     }
