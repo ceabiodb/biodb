@@ -1,7 +1,7 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' A class for logging biodb messages either to standard stream or into a file.
 #'
@@ -31,100 +31,100 @@
 #' @exportClass BiodbLogger
 BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY', .exclude = 'character', .close.file = 'logical', .lastime.progress = 'list', .progress.laptime = 'integer', .progress.initial.time = 'list'))
 
-# Constructor {{{1
-################################################################
+# Initialize {{{1
+################################################################################
 
 BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', close.file = TRUE, ...) {
 
-	callSuper(...)
+    callSuper(...)
 
-	# Is file NULL or NA?
-	if (is.null(file) || is.na(file))
-		error("You must choose either a standard stream or a file path for the \"file\" parameter")
+    # Is file NULL or NA?
+    if (is.null(file) || is.na(file))
+        error("You must choose either a standard stream or a file path for the \"file\" parameter")
 
-	# File is a path => create a connection
-	if (is.character(file))
-		file <- file(file, open = mode)
+    # File is a path => create a connection
+    if (is.character(file))
+        file <- file(file, open = mode)
 
-	# Check file class type
-	if ( ! all(class(file) %in% c('file', 'connection', 'terminal')))
-		error(paste('Unknown class "', class(file), '" for log file.', sep = ''))
+    # Check file class type
+    if ( ! all(class(file) %in% c('file', 'connection', 'terminal')))
+        error(paste('Unknown class "', class(file), '" for log file.', sep = ''))
 
-	# Set member field
-	.self$.file <- file
-	.self$.close.file <- close.file
-	.self$.lastime.progress <- list()
-	.self$.progress.initial.time <- list()
-	.self$.progress.laptime <- as.integer(10) # In seconds
+    # Set member field
+    .self$.file <- file
+    .self$.close.file <- close.file
+    .self$.lastime.progress <- list()
+    .self$.progress.initial.time <- list()
+    .self$.progress.laptime <- as.integer(10) # In seconds
 
-	# Exclude DEBUG messages
-	.self$.exclude <- character(0)
-	.self$excludeMsgType('debug')
+    # Exclude DEBUG messages
+    .self$.exclude <- character(0)
+    .self$excludeMsgType('debug')
 })
 
 # Terminate {{{1
-################################################################
+################################################################################
 
 BiodbLogger$methods( terminate = function() {
-	if ( .self$.close.file && ! is.null(.self$.file) && class(.self$.file)[[1]] != 'terminal')
-		close(.self$.file)
+    if ( .self$.close.file && ! is.null(.self$.file) && class(.self$.file)[[1]] != 'terminal')
+        close(.self$.file)
 })
 
 # Exclude message type {{{1
-################################################################
+################################################################################
 
 BiodbLogger$methods( excludeMsgType = function(type) {
 
-	.self$checkMessageType(type)
+    .self$checkMessageType(type)
 
-	if ( ! type %in% .self$.exclude)
-		.self$.exclude <- c(.self$.exclude, type)
+    if ( ! type %in% .self$.exclude)
+        .self$.exclude <- c(.self$.exclude, type)
 })
 
 # Include message type {{{1
-################################################################
+################################################################################
 
 BiodbLogger$methods( includeMsgType = function(type) {
 
-	.self$checkMessageType(type)
+    .self$checkMessageType(type)
 
-	if (type %in% .self$.exclude)
-		.self$.exclude <- .self$.exclude[ ! .self$.exclude %in% type]
+    if (type %in% .self$.exclude)
+        .self$.exclude <- .self$.exclude[ ! .self$.exclude %in% type]
 })
 
 # Message {{{1
-################################################################
+################################################################################
 
 BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
 
-	.self$checkMessageType(type)
+    .self$checkMessageType(type)
 
-	if ( ! type %in% .self$.exclude) {
+    if ( ! type %in% .self$.exclude) {
 
-		# Set caller information
-		caller.info <- if (is.na(class)) '' else class
-		caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
-		if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
+        # Set caller information
+        caller.info <- if (is.na(class)) '' else class
+        caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
+        if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
 
-		# Set timestamp
-		timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
+        # Set timestamp
+        timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
 
-		# Output message
-		cat('BIODB.', toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
-	}
+        # Output message
+        cat('BIODB.', toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
+    }
 })
 
 # Info progress {{{1
-################################################################
+################################################################################
 
 BiodbLogger$methods( progress = function(type = 'info', msg, index, total, first) {
 
-	if (first || ! msg %in% names(.self$.lastime.progress))
-		.self$.lastime.progress[[msg]] = .self$.progress.initial.time[[msg]] = Sys.time()
+    if (first || ! msg %in% names(.self$.lastime.progress))
+        .self$.lastime.progress[[msg]] = .self$.progress.initial.time[[msg]] = Sys.time()
 
-	else if (Sys.time() - .self$.lastime.progress[[msg]] > .self$.progress.laptime) {
-		eta = Sys.time() + (total - index) * (Sys.time() - .self$.progress.initial.time[[msg]]) / index
-		.self$message(type, paste0(msg, ' ', index, ' / ', total, ' (', ((100 * index) %/% total), '%, ETA: ', eta, ').'))
-		.self$.lastime.progress[[msg]] = Sys.time()
-	}
+    else if (Sys.time() - .self$.lastime.progress[[msg]] > .self$.progress.laptime) {
+        eta = Sys.time() + (total - index) * (Sys.time() - .self$.progress.initial.time[[msg]]) / index
+        .self$message(type, paste0(msg, ' ', index, ' / ', total, ' (', ((100 * index) %/% total), '%, ETA: ', eta, ').'))
+        .self$.lastime.progress[[msg]] = Sys.time()
+    }
 })

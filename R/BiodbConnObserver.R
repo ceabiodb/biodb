@@ -1,7 +1,7 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' The observer class of connectors.
 #'
@@ -15,19 +15,19 @@
 BiodbConnObserver <- methods::setRefClass("BiodbConnObserver", fields = list())
 
 # Terminating {{{1
-################################################################
+################################################################################
 
 BiodbConnObserver$methods( connTerminating = function(conn) {
 })
 
 # URLs updated {{{1
-################################################################
+################################################################################
 
 BiodbConnObserver$methods( connUrlsUpdated = function(conn) {
 })
 
 # Scheduler frequency updated {{{1
-################################################################
+################################################################################
 
 BiodbConnObserver$methods( connSchedulerFrequencyUpdated = function(conn) {
 })

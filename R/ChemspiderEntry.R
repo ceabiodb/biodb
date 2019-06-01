@@ -1,16 +1,16 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 #' @include BiodbJsonEntry.R
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 ChemspiderEntry <- methods::setRefClass("ChemspiderEntry", contains = "BiodbJsonEntry")
 
-# Constructor {{{1
-################################################################
+# Initialize {{{1
+################################################################################
 
 ChemspiderEntry$methods( initialize = function(...) {
 
-	callSuper(...)
+    callSuper(...)
 })

@@ -1,7 +1,7 @@
 # vi: fdm=marker ts=4 et cc=80 
 
 # BiodbShape {{{1
-################################################################
+################################################################################
 
 #' A class for representing a shape.
 #'
@@ -27,7 +27,7 @@ BiodbShape <- methods::setRefClass('BiodbShape',
 
     methods = list(
 
-        # Constructor {{{3
+# Initialize {{{3
         ################################################################
 
         initialize = function(label = NA_character_,

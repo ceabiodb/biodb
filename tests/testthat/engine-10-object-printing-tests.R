@@ -41,7 +41,7 @@ test.BiodbEntry.show <- function(biodb) {
 
 	# Get entry
 	entry <- conn$getEntry(id)
-	expect_output(entry$show(), regexp = '^Biodb .* entry instance .*\\.$')
+	testthat::expect_output(entry$show(), regexp = '^Biodb .* entry instance .*\\.$')
 
 	# Destroy connector
 	biodb$getFactory()$deleteConn(conn$getId())

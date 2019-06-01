@@ -1,37 +1,50 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
+
+# UniprotEntry {{{1
+################################################################################
 
 #' @include BiodbXmlEntry.R
+UniprotEntry <- methods::setRefClass("UniprotEntry",
+    contains = "BiodbXmlEntry",
+    methods = list(
 
-# Class declaration {{{1
-################################################################
+# Public methods {{{2
+################################################################################
 
-UniprotEntry <- methods::setRefClass("UniprotEntry", contains = "BiodbXmlEntry")
+# Initialize {{{3
+################################################################################
 
-# Constructor {{{1
-################################################################
+initialize = function(...) {
+    callSuper(...)
+},
 
-UniprotEntry$methods( initialize = function(...) {
-	callSuper(...)
-})
+# Private methods {{{2
+################################################################################
 
 # Is content correct {{{1
-################################################################
+################################################################################
 
-UniprotEntry$methods( .isContentCorrect = function(content) {
-	return( ! grepl("^<!DOCTYPE html ", content, perl = TRUE))
-})
+.isContentCorrect = function(content) {
+    return( ! grepl("^<!DOCTYPE html ", content, perl = TRUE))
+},
 
 # Parse fields step 2 {{{1
-################################################################
+################################################################################
 
-UniprotEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+.parseFieldsStep2 = function(parsed.content) {
 
-	# Remove new lines from sequence string
-	if (.self$hasField('nt.seq'))
-		.self$setFieldValue('nt.seq', gsub("\\n", "", .self$getFieldValue('nt.seq')))
+    # Remove new lines from sequence string
+    if (.self$hasField('nt.seq'))
+        .self$setFieldValue('nt.seq',
+                            gsub("\\n", "", .self$getFieldValue('nt.seq')))
 
-	# Get synonyms
-	synonyms <- XML::xpathSApply(parsed.content, "//uniprot:protein//uniprot:fullName", XML::xmlValue, namespaces = .self$getParent()$getPropertyValue('xml.ns'))
-	if (length(synonyms) > 0)
-		.self$appendFieldValue('name', synonyms)
-})
+    # Get synonyms
+    ns <- .self$getParent()$getPropertyValue('xml.ns')
+    synonyms <- XML::xpathSApply(parsed.content,
+                                 "//uniprot:protein//uniprot:fullName",
+                                 XML::xmlValue, namespaces = ns)
+    if (length(synonyms) > 0)
+        .self$appendFieldValue('name', synonyms)
+}
+
+))

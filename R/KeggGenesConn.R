@@ -1,7 +1,7 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' The connector class to KEGG Pathway database.
 #'
@@ -14,17 +14,17 @@
 #' @exportClass KeggGenesConn
 KeggGenesConn <- methods::setRefClass("KeggGenesConn", contains = c("KeggConn"))
 
-# Constructor {{{1
-################################################################
+# Initialize {{{1
+################################################################################
 
 KeggGenesConn$methods( initialize = function(...) {
-	callSuper(db.name = 'genes', ...)
+    callSuper(db.name = 'genes', ...)
 })
 
 # Get entry image url {{{1
-################################################################
+################################################################################
 
 KeggGenesConn$methods( getEntryImageUrl = function(id) {
-	return(rep(NA_character_, length(id)))
+    return(rep(NA_character_, length(id)))
 })
 

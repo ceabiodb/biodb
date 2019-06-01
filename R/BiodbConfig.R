@@ -1,11 +1,14 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
-################################################################
+# BiodbConfig {{{1
+################################################################################
 
 #' A class for storing configuration values.
 #'
-#' This class is responsible for storing configuration. You must go through the single instance of this class to create and set and get configuration values. To get the single instance of this class, call the \code{getConfig()} method of class \code{Biodb}.
+#' This class is responsible for storing configuration. You must go through the
+#' single instance of this class to create and set and get configuration values.
+#' To get the single instance of this class, call the \code{getConfig()} method
+#' of class \code{Biodb}.
 #'
 #' @seealso \code{\link{Biodb}}.
 #'
@@ -29,7 +32,10 @@
 #' print(config$get('offline'))
 #' config$enable('offline')    # set to TRUE
 #' config$disable('offline')   # set to FALSE
-#' print(if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.')
+#' if (config$isEnabled('offline'))
+#'   print('Mode offline is ON.')
+#' else
+#'   print('Mode offline is OFF.')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -38,369 +44,377 @@
 #' @include BiodbChildObject.R
 #' @export BiodbConfig
 #' @exportClass BiodbConfig
-BiodbConfig <- methods::setRefClass("BiodbConfig", contains = "BiodbChildObject", fields = list( .values = "list", .env = "ANY", .keys = "list" ))
+BiodbConfig <- methods::setRefClass("BiodbConfig",
+                                    contains = "BiodbChildObject",
 
-# Constructor {{{1
-################################################################
+# Fields {{{2
+################################################################################
+                                    
+fields = list(
+    .values = "list",
+    .env = "ANY",
+    .keys = "list"
+),
 
-BiodbConfig$methods( initialize = function(...) {
+# Public methods {{{2
+################################################################################
 
-	callSuper(...)
+methods = list(
 
-	.self$.env <- Sys.getenv()
-	.self$.defineKeys()
-	.self$.initValues()
-})
+# Initialize {{{3
+################################################################################
 
-# Get keys {{{1
-################################################################
+initialize = function(...) {
 
-BiodbConfig$methods( getKeys = function() {
-	":\n\nGet the list of available keys."
+    callSuper(...)
 
-	return(names(.self$.keys))
-})
+    .self$.env <- Sys.getenv()
+    .self$.keys <- list()
+    .self$.values <- list()
+},
 
-# Get description {{{1
-################################################################
+# Get keys {{{3
+################################################################################
 
-BiodbConfig$methods( getDescription = function(key) {
-	":\n\nGet the description of a key."
+getKeys = function() {
+    "Get the list of available keys."
 
-	description <- ''
+    return(names(.self$.keys))
+},
 
-	.self$.checkKey(key)
+# Get description {{{3
+################################################################################
 
-	# Get default value
-	if ('description' %in% names(.self$.keys[[key]]))
-		description <- .self$.keys[[key]][['description']]
+getDescription = function(key) {
+    "Get the description of a key."
 
-	return(description)
-})
+    description <- ''
 
-# Get default value {{{1
-################################################################
+    .self$.checkKey(key)
 
-BiodbConfig$methods( getDefaultValue = function(key) {
-	":\n\nGet the default value of a key."
+    # Get default value
+    if ('description' %in% names(.self$.keys[[key]]))
+        description <- .self$.keys[[key]][['description']]
 
-	default <- NULL
+    return(description)
+},
 
-	.self$.checkKey(key)
+# Get default value {{{3
+################################################################################
 
-	# Get default value
-	if ('default' %in% names(.self$.keys[[key]]))
-		default <- .self$.keys[[key]][['default']]
+getDefaultValue = function(key) {
+    "Get the default value of a key."
 
-	return(default)
-})
+    default <- NULL
 
-# Has key {{{1
-################################################################
+    .self$.checkKey(key)
 
-BiodbConfig$methods( hasKey = function(key) {
-	":\n\nTest if a key exists."
+    # Get default value
+    if ('default' %in% names(.self$.keys[[key]]))
+        default <- .self$.keys[[key]][['default']]
 
-	return(.self$.checkKey(key, fail = FALSE))
-})
+    return(default)
+},
 
-# Defined {{{1
-################################################################
+# Has key {{{3
+################################################################################
 
-BiodbConfig$methods( isDefined = function(key, fail = TRUE) {
-	":\n\nTest if a key is defined."
+hasKey = function(key) {
+    "Test if a key exists."
 
-	if (.self$.checkKey(key, fail = fail))
-		return(key %in% names(.self$.values))
-	
-	return(FALSE)
-})
+    return(.self$.checkKey(key, fail = FALSE))
+},
 
-# Is enabled {{{1
-################################################################
+# Defined {{{3
+################################################################################
 
-BiodbConfig$methods( isEnabled = function(key) {
-	":\n\nTest if a boolean key is set to TRUE."
+isDefined = function(key, fail = TRUE) {
+    "Test if a key is defined."
 
-	.self$.checkKey(key, type = 'logical')
+    if (.self$.checkKey(key, fail = fail))
+        return(key %in% names(.self$.values))
+    
+    return(FALSE)
+},
 
-	value <- FALSE
+# Is enabled {{{3
+################################################################################
 
-	# Defined ?
-	if (isDefined(key))
-		value <- .self$.values[[key]]
+isEnabled = function(key) {
+    "Test if a boolean key is set to TRUE."
 
-	return(value)
-})
+    .self$.checkKey(key, type = 'logical')
 
-# Get {{{1
-################################################################
+    value <- FALSE
 
-BiodbConfig$methods( get = function(key) {
-	":\n\nGet the value of a key."
+    # Defined ?
+    if (isDefined(key))
+        value <- .self$.values[[key]]
 
-	.self$.checkKey(key)
+    return(value)
+},
 
-	# Is value defined ?
-	if (.self$isDefined(key))
-		value <- .self$.values[[key]]
-	else
-		value <- as.vector(NA, mode = .self$.getType(key))
+# Get {{{3
+################################################################################
 
-	return(value)
-})
+get = function(key) {
+    "Get the value of a key."
 
-# Set {{{1
-################################################################
+    .self$.checkKey(key)
 
-BiodbConfig$methods( set = function(key, value) {
-	":\n\nSet the value of a key."
+    # Is value defined ?
+    if (.self$isDefined(key))
+        value <- .self$.values[[key]]
+    else
+        value <- as.vector(NA, mode = .self$.getType(key))
 
-	.self$.checkKey(key)
+    return(value)
+},
 
-	displayed.value <- if (is.character(value)) paste0('"', value, '"') else value
-	.self$message('info', paste("Set ", key, ' to ', displayed.value, '.', sep = ''))
-	.self$.values[[key]] <- as.vector(value, mode = .self$.getType(key))
-})
+# Set {{{3
+################################################################################
 
-# Enable {{{1
-################################################################
+set = function(key, value) {
+    "Set the value of a key."
 
-BiodbConfig$methods( enable = function(key) {
-	":\n\nSet a boolean key to TRUE."
+    .self$.checkKey(key)
 
-	.self$.checkKey(key, type = 'logical')
+    displayed.value <- if (is.character(value)) paste0('"', value, '"')
+                       else value
+    .self$message('info', paste("Set ", key, ' to ', displayed.value, '.',
+                                sep = ''))
+    .self$.values[[key]] <- as.vector(value, mode = .self$.getType(key))
+},
 
-	.self$message('info', paste("Enable ", key, ".", sep = ''))
-	.self$.values[[key]] <- TRUE
-})
+# Enable {{{3
+################################################################################
 
-# Disable {{{1
-################################################################
+enable = function(key) {
+    "Set a boolean key to TRUE."
 
-BiodbConfig$methods( disable = function(key) {
-	":\n\nSet a boolean key to FALSE."
+    .self$.checkKey(key, type = 'logical')
 
-	.self$.checkKey(key, type = 'logical')
+    .self$message('info', paste("Enable ", key, ".", sep = ''))
+    .self$.values[[key]] <- TRUE
+},
 
-	.self$message('info', paste("Disable ", key, ".", sep = ''))
-	.self$.values[[key]] <- FALSE
-})
+# Disable {{{3
+################################################################################
 
-# Show {{{1
-################################################################
+disable = function(key) {
+    "Set a boolean key to FALSE."
 
-BiodbConfig$methods( show = function() {
-	":\n\nPrint containt of this object in a human readable format."
+    .self$.checkKey(key, type = 'logical')
 
-	cat("Biodb configuration instance.\n")
-	cat("  Values:\n")
+    .self$message('info', paste("Disable ", key, ".", sep = ''))
+    .self$.values[[key]] <- FALSE
+},
 
-	# Loop on all keys
-	for (key in sort(.self$getKeys()))
-		if ( ! .self$.isDeprecated(key))
-			cat("    ", key, ": ", .self$get(key), "\n")
-})
+# Show {{{3
+################################################################################
 
-# List keys {{{1
-################################################################
+show = function() {
+    "Print containt of this object in a human readable format."
 
-BiodbConfig$methods( listKeys = function() {
+    cat("Biodb configuration instance.\n")
+    cat("  Values:\n")
 
-	# Fields to extract
-	field2title <- c(type = "Type", default = "Default value", description = "Description")
+    # Loop on all keys
+    for (key in sort(.self$getKeys()))
+        if ( ! .self$.isDeprecated(key))
+            cat("    ", key, ": ", .self$get(key), "\n")
+},
 
-	# Build data frame
-	df <- data.frame(Key = names(.self$.keys), stringsAsFactors = FALSE)
-	for (field in names(field2title))
-		df[[field2title[[field]]]] <- vapply(.self$.keys, function(k) if ( ! field %in% names(k) || is.null(k[[field]])) '' else as.character(k[[field]]), FUN.VALUE = '')
+# List keys {{{3
+################################################################################
 
-	return(df)
-})
+listKeys = function() {
 
-# Get associated environment variable {{{1
-################################################################
+    # Fields to extract
+    field2title <- c(type = "Type", default = "Default value",
+                     description = "Description")
 
-BiodbConfig$methods( getAssocEnvVar = function(key) {
-	":\n\nReturns the environment variable associated with this configuration key."
+    # Build data frame
+    df <- data.frame(Key = names(.self$.keys), stringsAsFactors = FALSE)
+    for (field in names(field2title))
+        df[[field2title[[field]]]] <-
+            vapply(.self$.keys,
+                   function(k) if ( ! field %in% names(k)
+                                   || is.null(k[[field]])) ''
+               else as.character(k[[field]]), FUN.VALUE = '')
 
-	# Check key
-	.self$.checkKey(key)
+    return(df)
+},
 
-	# Build env var
-	env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
+# Get associated environment variable {{{3
+################################################################################
 
-	return(env.var)
-})
+getAssocEnvVar = function(key) {
+    "Returns the environment variable associated with this configuration key."
 
-# PRIVATE METHODS {{{1
-################################################################
+    # Check key
+    .self$.checkKey(key)
 
-# Get SVN binary path {{{2
-################################################################
+    # Build env var
+    env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))),
+                     collapse = '_')
 
-BiodbConfig$methods( .get.svn.binary.path = function() {
+    return(env.var)
+},
 
-	svn.path <- ''
+# Private methods {{{2
+################################################################################
 
-	# Look in system PATH
-	svn.path <- Sys.which("svn")[[1]]
+# Get SVN binary path {{{3
+################################################################################
 
-	# On Windows, look in common locations
-	if (is.null(svn.path) && .Platform$OS.type == "windows") {
-		look_in <- c("C:/Program Files/Svn/bin/svn.exe", "C:/Program Files (x86)/Svn/bin/svn.exe", "C:/Program Files/SlikSvn/bin/svn.exe")
-		found <- file.exists(look_in)
-		if (any(found))
-			svn.path <- look_in[found][1]
-	}
+.get.svn.binary.path = function() {
 
-	return(svn.path)
-})
+    svn.path <- ''
 
-# Define keys {{{2
-################################################################
+    # Look in system PATH
+    svn.path <- Sys.which("svn")[[1]]
 
-BiodbConfig$methods( .defineKeys = function() {
+    # On Windows, look in common locations
+    if (is.null(svn.path) && .Platform$OS.type == "windows") {
+        look_in <- c("C:/Program Files/Svn/bin/svn.exe",
+                     "C:/Program Files (x86)/Svn/bin/svn.exe",
+                     "C:/Program Files/SlikSvn/bin/svn.exe")
+        found <- file.exists(look_in)
+        if (any(found))
+            svn.path <- look_in[found][1]
+    }
 
-	.self$.keys <- list()
+    return(svn.path)
+},
 
-	# Define default values
-	cachedir.default  <- if ('HOME' %in% names(.self$.env)) file.path(.self$.env[['HOME']], '.biodb.cache') else NULL
-	useragent.default <- if ('EMAIL' %in% names(.self$.env)) paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ') else NULL
+# Load definitions {{{3
+################################################################################
 
-	# Define keys
-	.self$.newKey('allow.huge.downloads',       type = 'logical',   description = "Download of huge files like whole database data is allowed.", default = TRUE)
-	.self$.newKey('cache.all.requests',         type = 'logical',   description = "All requests are cached. If disabled, only requests of entries by accession number are cached.", default = TRUE)
-	.self$.newKey('cache.directory',            type = 'character', description = "The directory in which cache files are stored.", default = cachedir.default)
-	.self$.newKey('cache.read.only',            type = 'logical',   description = "The cache system is not writable. This is mainly used for test purposes.", default = FALSE)
-	.self$.newKey('cache.subfolders',           type = 'logical',   description = "Use subfolders shortterm and longterm in cache system, in order to divide the downloaded files. If a whole database is downloaded, the file(s) will be put in the longterm subfolders.", default = TRUE)
-	.self$.newKey('cache.system',               type = 'logical',   description = "Cache system is ON.", default = TRUE)
-	.self$.newKey('dwnld.chunk.size',           type = 'integer',   description = 'The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.', default = NA_integer_)
-	.self$.newKey('factory.cache',              type = 'logical',   description = "Factory cache system is ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the same entries are requested several times, avoiding the parsing process.", default = FALSE, deprecated = "The cache is now always enabled. Thus all entries returned are referenced inside the cache and will be returned when needed.")
-	.self$.newKey('compute.fields',             type = 'logical',   description = "If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.", default = TRUE)
-	.self$.newKey('force.locale',               type = 'logical',   description = "Forcing current locale is allowed.", default = TRUE)
-	.self$.newKey('longterm.cache.subfolder',   type = 'character', description = "The name of the long term cache subfolder.",  default = 'longterm')
-	.self$.newKey('multival.field.sep',         type = 'character', description = "The character used as separator when concatenating multiple values of a field.",  default = ';')
-	.self$.newKey('offline',                    type = 'logical',   description = "All network accesses are blocked. This is mainly used for test purposes.", default = FALSE)
-	.self$.newKey('shortterm.cache.subfolder',  type = 'character', description = "The name of the short term cache subfolder.", default = 'shortterm')
-	.self$.newKey('svn.binary.path',            type = 'character', description = "The path to the SubVersion binary (svn).", default = .self$.get.svn.binary.path())
-	.self$.newKey('useragent',                  type = 'character', description = "The user agent description string. This string is compulsory when connection to remote databases.", default = useragent.default)
-	.self$.newKey('chemspider.token',           type = 'character', description = 'The token to access ChemSpider database.')
-	.self$.newKey('peakforest.mass.token',      type = 'character', description = 'The token to access PeakForest Mass database.')
-	.self$.newKey('peakforest.compound.token',  type = 'character', description = 'The token to access PeakForest Compound database.')
-})
+.loadDefinitions = function(file) {
+},
 
-# Get from env {{{2
-################################################################
+# Define {{{3
+################################################################################
 
-BiodbConfig$methods( .getFromEnv = function(key) {
+define = function(def) {
+    'Define config properties from a structured object, normally loaded from a
+    YAML file.'
 
-	value <- NULL
+    # Loop on all keys
+    for (key in names(def)) {
+        
+        v <- def[[key]]
+        v$key <- key
+        do.call(.self$.newKey, v)
+    }
+},
 
-	# Look into ENV
-	envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
-	if (envvar %in% names(.self$.env))
-		value <- .self$.env[[envvar]]
+# Get from env {{{3
+################################################################################
 
-	return(value)
-})
+.getFromEnv = function(key) {
 
-# New key {{{2
-################################################################
+    value <- NULL
 
-BiodbConfig$methods( .newKey = function(key, type, default = NULL, description = NA_character_, deprecated = NULL) {
+    # Look into ENV
+    envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))), collapse = '_')
+    if (envvar %in% names(.self$.env))
+        value <- .self$.env[[envvar]]
 
-	# Check key
-	if (is.null(key) || is.na(key) || ! is.character(key))
-		.self$message('error', "Key is NULL, NA or not character type.")
+    return(value)
+},
 
-	# Check duplicated key
-	if (key %in% names(.self$.keys))
-		.self$message('error', paste("Key ", key, " has already been defined in configuration.", sep = ''))
+# New key {{{3
+################################################################################
 
-	# Overwrite default value by env var, if defined
-	env.var.value <- .self$.getFromEnv(key)
-	if ( ! is.null(env.var.value))
-		default <- env.var.value
+.newKey = function(key, type, default = NULL, description = NA_character_, deprecated = NULL) {
 
-	# Define new key
-	.self$.keys[[key]] <- list(type = type, default = default, description = description)
+    # Check key
+    if (is.null(key) || is.na(key) || ! is.character(key))
+        .self$message('error', "Key is NULL, NA or not character type.")
 
-	if ( ! is.null(deprecated))
-		.self$.keys[[key]][['deprecated']] <- deprecated
-})
+    # Check duplicated key
+    if (key %in% names(.self$.keys))
+        .self$message('error', paste("Key ", key, " has already been defined in configuration.", sep = ''))
 
-# Initialize values {{{2
-################################################################
+    # Overwrite default value by env var, if defined
+    env.var.value <- .self$.getFromEnv(key)
+    if ( ! is.null(env.var.value))
+        default <- env.var.value
+    if (is.null(default)) {
+        if (key == 'cache.directory' && 'HOME' %in% names(.self$.env))
+            default <- file.path(.self$.env[['HOME']], '.biodb.cache')
+        if (key == 'useragent' && 'EMAIL' %in% names(.self$.env))
+            default <- paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ')
+        if (key == 'svn.binary.path')
+            default <- .self$.get.svn.binary.path()
+    }
 
-BiodbConfig$methods( .initValues = function() {
+    # Define new key
+    .self$.keys[[key]] <- list(type = type, default = default, description = description)
 
-	.self$.values <- list()
+    # Set as deprecated
+    if ( ! is.null(deprecated))
+        .self$.keys[[key]][['deprecated']] <- deprecated
+    
+    # Initialize value
+    if (is.null(deprecated) && ! is.null(default))
+        .self$set(key, default)
+},
 
-	# Loop on all keys
-	for (key in .self$getKeys()) {
-		
-		if (.self$.isDeprecated(key))
-			next
+# Check key {{{3
+################################################################################
 
-		default <- .self$getDefaultValue(key)
+.checkKey = function(key, type = NA_character_, fail = TRUE, test.deprecated = TRUE) {
 
-		# Set default value if not null
-		if ( ! is.null(default))
-			.self$set(key, default)
-	}
-})
+    # Check key
+    if (is.null(key) || is.na(key) || ! is.character(key)) {
+        if (fail)
+            .self$message('error', "Key is NULL, NA or not character type.")
+        else
+            return(FALSE)
+    }
 
-# Check key {{{2
-################################################################
+    # Fail if invalid key
+    if ( ! key %in% names(.self$.keys)) {
+        if (fail)
+            .self$message('error', paste("Unknown key ", key, ".", sep = ''))
+        else
+            return(FALSE)
+    }
 
-BiodbConfig$methods( .checkKey = function(key, type = NA_character_, fail = TRUE, test.deprecated = TRUE) {
+    # Fail if deprecated
+    if (.self$.isDeprecated(key))
+        .self$message('error', paste("Key ", key, " is deprecated. ", .self$.keys[[key]][['deprecated']], sep = ''))
 
-	# Check key
-	if (is.null(key) || is.na(key) || ! is.character(key)) {
-		if (fail)
-			.self$message('error', "Key is NULL, NA or not character type.")
-		else
-			return(FALSE)
-	}
+    # Test type
+    if ( ! is.null(type) && ! is.na(type) && .self$.keys[[key]][['type']] != type) {
+        if (fail)
+            .self$message('error', paste("Key ", key, " is not of type ", type, " but of type ", key.type, ".", sep = ''))
+        else
+            return(FALSE)
+    }
 
-	# Fail if invalid key
-	if ( ! key %in% names(.self$.keys)) {
-		if (fail)
-			.self$message('error', paste("Unknown key ", key, ".", sep = ''))
-		else
-			return(FALSE)
-	}
+    return(TRUE)
+},
 
-	# Fail if deprecated
-	if (.self$.isDeprecated(key))
-		.self$message('error', paste("Key ", key, " is deprecated. ", .self$.keys[[key]][['deprecated']], sep = ''))
+# Get type {{{3
+################################################################################
 
-	# Test type
-	if ( ! is.null(type) && ! is.na(type) && .self$.keys[[key]][['type']] != type) {
-		if (fail)
-			.self$message('error', paste("Key ", key, " is not of type ", type, " but of type ", key.type, ".", sep = ''))
-		else
-			return(FALSE)
-	}
+.getType = function(key) {
 
-	return(TRUE)
-})
+    .self$.checkKey(key)
 
-# Get type {{{2
-################################################################
+    return(.self$.keys[[key]][['type']])
+},
 
-BiodbConfig$methods( .getType = function(key) {
 
-	.self$.checkKey(key)
+# Is deprecated {{{3
+################################################################################
 
-	return(.self$.keys[[key]][['type']])
-})
+.isDeprecated = function(key) {
+    return('deprecated' %in% names(.self$.keys[[key]]))
+}
 
-
-# Is deprecated {{{2
-################################################################
-
-BiodbConfig$methods( .isDeprecated = function(key) {
-	return('deprecated' %in% names(.self$.keys[[key]]))
-})
+))

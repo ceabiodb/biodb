@@ -14,7 +14,7 @@ KeggModuleEntry <- methods::setRefClass(
 
 methods = list(
 
-# Constructor {{{3
+# Initialize {{{3
 ################################################################################
 
 initialize = function(...) {

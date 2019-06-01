@@ -1,7 +1,7 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' An abstract class (more like an interface) to model a database that can be searchable.
 #'
@@ -15,13 +15,13 @@
 #' @exportClass BiodbSearchable
 BiodbSearchable <- methods::setRefClass("BiodbSearchable", contains = 'BiodbObject', fields = list(.ext = 'character'))
 
-# Constructor {{{1
+# Initialize {{{1
 ################################################################0
 
 BiodbSearchable$methods( initialize = function(...) {
 
-	callSuper(...)
-	.self$.abstract.class('BiodbSearchable')
+    callSuper(...)
+    .self$.abstract.class('BiodbSearchable')
 })
 
 # Search by name {{{1
@@ -29,5 +29,5 @@ BiodbSearchable$methods( initialize = function(...) {
 
 BiodbSearchable$methods( searchByName = function(name, max.results = NA_integer_) {
 
-	.self$.abstract.method()
+    .self$.abstract.method()
 })

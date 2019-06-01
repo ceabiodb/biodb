@@ -1,7 +1,7 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' The mother abstract class of all observer classes.
 #'
@@ -37,34 +37,34 @@
 BiodbObserver <- methods::setRefClass("BiodbObserver", fields = list())
 
 # Terminate {{{1
-################################################################
+################################################################################
 
 BiodbObserver$methods( terminate = function() {
 })
 
 # Message {{{1
-################################################################
+################################################################################
 
 BiodbObserver$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
-	.self$checkMessageType(type)
+    .self$checkMessageType(type)
 })
 
 # Info progress {{{1
-################################################################
+################################################################################
 
 BiodbObserver$methods( progress = function(type = 'info', msg, index, total, first) {
-	.self$checkMessageType(type)
+    .self$checkMessageType(type)
 })
 
 # Check message type {{{1
-################################################################
+################################################################################
 
 BiodbObserver$methods( checkMessageType = function(type) {
 
-	# Define allowed types
-	allowed.types <- c('info', 'debug', 'caution', 'warning', 'error')
+    # Define allowed types
+    allowed.types <- c('info', 'debug', 'caution', 'warning', 'error')
 
-	# Is type unknown?
-	if ( ! tolower(type) %in% allowed.types)
-		stop(paste("Unknown message type \"", type, "\". Please use one of: ", paste(allowed.types, collapse = ', '), '.', sep = ''))
+    # Is type unknown?
+    if ( ! tolower(type) %in% allowed.types)
+        stop(paste("Unknown message type \"", type, "\". Please use one of: ", paste(allowed.types, collapse = ', '), '.', sep = ''))
 })

@@ -91,7 +91,7 @@ cosine <-
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
 		cos_value <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
-																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))
+																			2) * sum(w2[unlist(matchList[pfound])] ^ 2))
 		
 		####Adding the penality if needed.
 		list(measure = cos_value, matched = simpList(matchList))
@@ -122,7 +122,7 @@ wcosine <-
 		
 		cos_value <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
-																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))
+																			2) * sum(w2[unlist(matchList[pfound])] ^ 2))
 		
 		if (is.nan(cos_value))
 			cos_value <- 0

@@ -1,7 +1,7 @@
 # vi: fdm=marker ts=4 et cc=80 
 
 # BiodbDbInfo {{{1
-################################################################
+################################################################################
 
 #' A class for describing the characteristics of a database.
 #'

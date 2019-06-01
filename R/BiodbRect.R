@@ -1,7 +1,7 @@
 # vi: fdm=marker ts=4 et cc=80 
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' A class for representing a rectangle.
 #'
@@ -34,7 +34,7 @@ BiodbRect <- methods::setRefClass('BiodbRect',
 
     methods = list(
 
-        # Constructor {{{3
+# Initialize {{{3
         ################################################################
 
         initialize = function(left, top, bottom, right, ...) {

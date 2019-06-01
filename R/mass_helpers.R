@@ -1,5 +1,5 @@
 # Simplify spectrum {{{1
-################################################################
+################################################################################
 
 simplifySpectrum <- function(spec) {
 	if(length(spec) == 0){
@@ -41,7 +41,7 @@ simplifySpectrum <- function(spec) {
 }
 
 # Calc distance {{{1
-################################################################
+################################################################################
 
 calcDistance <-
 	function(spec1 ,
@@ -68,7 +68,7 @@ calcDistance <-
 	}
 
 # Compare spectra {{{1
-################################################################
+################################################################################
 
 ###The returned sim list is not ordered
 compareSpectra <- function(spec, libspec, npmin = 2, fun = "wcosine", params = list()) {
