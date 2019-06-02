@@ -74,8 +74,10 @@ BiodbDownloadable$methods( isExtracted = function() {
 BiodbDownloadable$methods( download = function() {
     "Download the database containt locally."
 
+    cch <- .self$getBiodb()$getCache()
+
     # Download
-    if ( ! .self$isDownloaded() && (.self$getBiodb()$getConfig()$isEnabled('allow.huge.downloads') || .self$requiresDownload()) && ! .self$getBiodb()$getConfig()$isEnabled('offline')) {
+    if (cch$isWritable() && ! .self$isDownloaded() && (.self$getBiodb()$getConfig()$isEnabled('allow.huge.downloads') || .self$requiresDownload()) && ! .self$getBiodb()$getConfig()$isEnabled('offline')) {
 
         .self$message('info', paste("Download whole database of ", .self$getId(), ".", sep = ''))
 
