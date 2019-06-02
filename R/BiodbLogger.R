@@ -1,6 +1,6 @@
 # vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
+# BiodbLogger {{{1
 ################################################################################
 
 #' A class for logging biodb messages either to standard stream or into a file.
@@ -29,12 +29,29 @@
 #' @include BiodbObserver.R
 #' @export BiodbLogger
 #' @exportClass BiodbLogger
-BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY', .exclude = 'character', .close.file = 'logical', .lastime.progress = 'list', .progress.laptime = 'integer', .progress.initial.time = 'list'))
+BiodbLogger <- methods::setRefClass("BiodbLogger",
+                                    contains = 'BiodbObserver',
 
-# Initialize {{{1
+# Fields {{{2
 ################################################################################
 
-BiodbLogger$methods( initialize = function(file = NULL, mode = 'w', close.file = TRUE, ...) {
+fields = list(
+    .file = 'ANY',
+    .close.file = 'logical',
+    .levels = 'integer',
+    .lastime.progress = 'list',
+    .progress.laptime = 'integer',
+    .progress.initial.time = 'list'),
+
+# Public methods {{{2
+################################################################################
+
+methods = list(
+
+# Initialize {{{3
+################################################################################
+
+initialize = function(file = NULL, mode = 'w', close.file = TRUE, ...) {
 
     callSuper(...)
 
@@ -56,54 +73,54 @@ BiodbLogger$methods( initialize = function(file = NULL, mode = 'w', close.file =
     # Set member field
     .self$.file <- file
     .self$.close.file <- close.file
+    .self$.levels <- integer()
     .self$.lastime.progress <- list()
     .self$.progress.initial.time <- list()
     .self$.progress.laptime <- as.integer(10) # In seconds
+},
 
-    # Exclude DEBUG messages
-    .self$.exclude <- character(0)
-    .self$excludeMsgType('debug')
-})
-
-# Terminate {{{1
+# Terminate {{{3
 ################################################################################
 
-BiodbLogger$methods( terminate = function() {
+terminate = function() {
     if (.self$.close.file && ! is.null(.self$.file)
         && ! methods::is(.self$.file, 'terminal'))
         close(.self$.file)
-})
+},
 
-# Exclude message type {{{1
+# Config key value set {{{3
 ################################################################################
 
-BiodbLogger$methods( excludeMsgType = function(type) {
+cfgKeyValSet = function(k, v) {
+    for (type in c('debug', 'info', 'caution')) {
+        lvl.k <- paste('msg', type, 'lvl', sep='.')
+        if (lvl.k == k)
+            .self$.levels[[k]] <- v
+    }
+},
 
-    .self$checkMessageType(type)
-
-    if ( ! type %in% .self$.exclude)
-        .self$.exclude <- c(.self$.exclude, type)
-})
-
-# Include message type {{{1
+# Get desired level {{{3
 ################################################################################
 
-BiodbLogger$methods( includeMsgType = function(type) {
+getDesiredLevel = function(type) {
 
-    .self$checkMessageType(type)
+    lvl <- 1
+    
+    if (type %in% names(.self$.levels))
+        lvl <- .self$.levels[[type]]
+    
+    return(lvl)
+},
 
-    if (type %in% .self$.exclude)
-        .self$.exclude <- .self$.exclude[ ! .self$.exclude %in% type]
-})
-
-# Message {{{1
+# Message {{{3
 ################################################################################
 
-BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
+message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
 
     .self$checkMessageType(type)
+    setlvl <- .self$getDesiredLevel(type)
 
-    if ( ! type %in% .self$.exclude) {
+    if (setlvl >= 1) {
 
         # Set caller information
         caller.info <- if (is.na(class)) '' else class
@@ -120,12 +137,12 @@ BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character
         else
             cat(m, "\n", sep = '', file = .self$.file)
     }
-})
+},
 
-# Info progress {{{1
+# Info progress {{{3
 ################################################################################
 
-BiodbLogger$methods( progress = function(type = 'info', msg, index, total, first) {
+progress = function(type = 'info', msg, index, total, first) {
 
     if (first || ! msg %in% names(.self$.lastime.progress))
         .self$.lastime.progress[[msg]] = .self$.progress.initial.time[[msg]] = Sys.time()
@@ -135,4 +152,6 @@ BiodbLogger$methods( progress = function(type = 'info', msg, index, total, first
         .self$message(type, paste0(msg, ' ', index, ' / ', total, ' (', ((100 * index) %/% total), '%, ETA: ', eta, ').'))
         .self$.lastime.progress[[msg]] = Sys.time()
     }
-})
+}
+
+))

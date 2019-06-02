@@ -183,7 +183,11 @@ set = function(key, value) {
                        else value
     .self$message('info', paste("Set ", key, ' to ', displayed.value, '.',
                                 sep = ''))
-    .self$.values[[key]] <- as.vector(value, mode = .self$.getType(key))
+    v <- as.vector(value, mode = .self$.getType(key))
+    .self$.values[[key]] <- v
+    
+    # Notify observers
+    lapply(.self$getBiodb()$getObservers(), function(o) o$cfgKeyValSet(key, v))
 },
 
 # Enable {{{3

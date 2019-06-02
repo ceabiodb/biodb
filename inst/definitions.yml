@@ -63,17 +63,17 @@ config:
     description: The name of the long term cache subfolder.
     default: longterm
 
-  msg.debug.level:
-    type: integer
-    description: The desired level of debug messages. Debug messages are turned off by default.
-    default: 0
-
-  msg.caution.level:
+  msg.caution.lvl:
     type: integer
     description: The desired level of caution messages. Set to 0 to turn messages off.
     default: 1
 
-  msg.info.level:
+  msg.debug.lvl:
+    type: integer
+    description: The desired level of debug messages. Debug messages are turned off by default.
+    default: 0
+
+  msg.info.lvl:
     type: integer
     description: The desired level of information messages. Set to 0 to turn messages off.
     default: 1
