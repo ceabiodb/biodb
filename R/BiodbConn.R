@@ -132,7 +132,8 @@ getEntryContent = function(id) {
         id <- as.character(id)
 
         # Debug
-        .self$debug("Get ", nm, " entry content(s) for ", length(id)," id(s)...")
+        .self$debug("Get ", nm, " entry content(s) for ", length(id),
+                    " id(s)...")
 
         # Download full database
         if (.self$isDownloadable())

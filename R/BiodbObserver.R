@@ -61,7 +61,8 @@ cfgKeyValSet = function(k, v) {
 # Message {{{3
 ################################################################################
 
-message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
+message = function(type = 'info', msg, class = NA_character_,
+                   method = NA_character_) {
     .self$checkMessageType(type)
 },
 
@@ -82,7 +83,8 @@ checkMessageType = function(type) {
 
     # Is type unknown?
     if ( ! tolower(type) %in% allowed.types)
-        stop(paste("Unknown message type \"", type, "\". Please use one of: ", paste(allowed.types, collapse = ', '), '.', sep = ''))
+        stop("Unknown message type \"", type, "\". Please use one of: ",
+             paste(allowed.types, collapse = ', '), '.')
 }
 
 ))

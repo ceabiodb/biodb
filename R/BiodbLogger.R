@@ -5,10 +5,16 @@
 
 #' A class for logging biodb messages either to standard stream or into a file.
 #'
-#' This class implements a logger for the biodb package. When creating an instance of this class, you can choose to either log to a standard stream (standard error or standard output) or to a file. See section Fields for a list of the constructor's parameters.
+#' This class implements a logger for the biodb package. When creating an
+#' instance of this class, you can choose to either log to a standard stream
+#' (standard error or standard output) or to a file. See section Fields for a
+#' list of the constructor's parameters.
 #'
-#' @field file The file path, file connection or standard stream to which you want to send biodb messages.
-#' @field mode For a file, the mode in which you want to open the file. 'w' for writing (if a file already exists, it will be erased), and 'a' for appending (if a file already exists, logs will be appended to it).
+#' @field file The file path, file connection or standard stream to which you
+#'        want to send biodb messages.
+#' @field mode For a file, the mode in which you want to open the file. 'w' for
+#'        writing (if a file already exists, it will be erased), and 'a' for
+#'        appending (if a file already exists, logs will be appended to it).
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
 #'
@@ -115,7 +121,8 @@ getDesiredLevel = function(type) {
 # Message {{{3
 ################################################################################
 
-message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
+message = function(type = 'info', msg, class = NA_character_,
+                   method = NA_character_) {
 
     .self$checkMessageType(type)
     setlvl <- .self$getDesiredLevel(type)
@@ -124,8 +131,10 @@ message = function(type = 'info', msg, class = NA_character_, method = NA_charac
 
         # Set caller information
         caller.info <- if (is.na(class)) '' else class
-        caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
-        if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
+        caller.info <- if (is.na(method)) caller.info
+            else paste(caller.info, method, sep = '::')
+        if (nchar(caller.info) > 0)
+            caller.info <- paste('[', caller.info, '] ', sep = '')
 
         # Set timestamp
         timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
@@ -143,14 +152,22 @@ message = function(type = 'info', msg, class = NA_character_, method = NA_charac
 ################################################################################
 
 progress = function(type = 'info', msg, index, total, first) {
+    
+    t <- Sys.time()
 
-    if (first || ! msg %in% names(.self$.lastime.progress))
-        .self$.lastime.progress[[msg]] = .self$.progress.initial.time[[msg]] = Sys.time()
+    if (first || ! msg %in% names(.self$.lastime.progress)) {
+        .self$.lastime.progress[[msg]] <- t
+        .self$.progress.initial.time[[msg]] <- t
+    }
 
-    else if (Sys.time() - .self$.lastime.progress[[msg]] > .self$.progress.laptime) {
-        eta = Sys.time() + (total - index) * (Sys.time() - .self$.progress.initial.time[[msg]]) / index
-        .self$message(type, paste0(msg, ' ', index, ' / ', total, ' (', ((100 * index) %/% total), '%, ETA: ', eta, ').'))
-        .self$.lastime.progress[[msg]] = Sys.time()
+    else if (t - .self$.lastime.progress[[msg]]
+             > .self$.progress.laptime) {
+        i <- .self$.progress.initial.time[[msg]]
+        eta <- t + (total - index) * (t - i) / index
+        .self$message(type, paste0(msg, ' ', index, ' / ', total, ' (',
+                                   ((100 * index) %/% total), '%, ETA: ',
+                                   eta, ').'))
+        .self$.lastime.progress[[msg]] <- t
     }
 }
 
