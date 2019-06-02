@@ -34,21 +34,24 @@ BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', f
 # Initialize {{{1
 ################################################################################
 
-BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', close.file = TRUE, ...) {
+BiodbLogger$methods( initialize = function(file = NULL, mode = 'w', close.file = TRUE, ...) {
 
     callSuper(...)
 
-    # Is file NULL or NA?
-    if (is.null(file) || is.na(file))
-        error("You must choose either a standard stream or a file path for the \"file\" parameter")
+    # Is file NA?
+    if ( ! is.null(file) && (is.na(file) || ( ! is.character(file)
+                             && ! methods::is(file, 'connection'))))
+        stop("You must choose either a connection to a file or a file path",
+              " for the \"file\" parameter")
 
     # File is a path => create a connection
     if (is.character(file))
         file <- file(file, open = mode)
 
     # Check file class type
-    if ( ! all(class(file) %in% c('file', 'connection', 'terminal')))
-        error(paste('Unknown class "', class(file), '" for log file.', sep = ''))
+    if ( ! is.null(file) && ! methods::is(file, 'file')
+        && ! methods::is(file, 'terminal'))
+        stop('Unknown class "', class(file), '" for log file.')
 
     # Set member field
     .self$.file <- file
@@ -66,7 +69,8 @@ BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', close.fi
 ################################################################################
 
 BiodbLogger$methods( terminate = function() {
-    if ( .self$.close.file && ! is.null(.self$.file) && class(.self$.file)[[1]] != 'terminal')
+    if (.self$.close.file && ! is.null(.self$.file)
+        && ! methods::is(.self$.file, 'terminal'))
         close(.self$.file)
 })
 
@@ -110,7 +114,11 @@ BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character
         timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
 
         # Output message
-        cat('BIODB.', toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
+        m <- paste0('BIODB.', toupper(type), timestamp, caller.info, ': ', msg)
+        if (is.null(.self$.file))
+            base::message(m)
+        else
+            cat(m, "\n", sep = '', file = .self$.file)
     }
 })
 

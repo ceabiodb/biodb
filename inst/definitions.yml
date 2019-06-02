@@ -38,16 +38,20 @@ config:
     type: integer
     description: The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
 
-  factory.cache:
-    type: logical
-    description: Factory cache system is ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the same entries are requested several times, avoiding the parsing process.
-    default: FALSE
-    deprecated: The cache is now always enabled. Thus all entries returned are referenced inside the cache and will be returned when needed.
+  chemspider.token:
+    type: character
+    description: The token to access ChemSpider database.
 
   compute.fields:
     type: logical
     description: If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.
     default: TRUE
+
+  factory.cache:
+    type: logical
+    description: Factory cache system is ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the same entries are requested several times, avoiding the parsing process.
+    default: FALSE
+    deprecated: The cache is now always enabled. Thus all entries returned are referenced inside the cache and will be returned when needed.
 
   force.locale:
     type: logical
@@ -59,6 +63,21 @@ config:
     description: The name of the long term cache subfolder.
     default: longterm
 
+  msg.debug.level:
+    type: integer
+    description: The desired level of debug messages. Debug messages are turned off by default.
+    default: 0
+
+  msg.caution.level:
+    type: integer
+    description: The desired level of caution messages. Set to 0 to turn messages off.
+    default: 1
+
+  msg.info.level:
+    type: integer
+    description: The desired level of information messages. Set to 0 to turn messages off.
+    default: 1
+
   multival.field.sep:
     type: character
     description: The character used as separator when concatenating multiple values of a field.
@@ -68,6 +87,14 @@ config:
     type: logical
     description: All network accesses are blocked. This is mainly used for test purposes.
     default: FALSE
+
+  peakforest.mass.token:
+    type: character
+    description: The token to access PeakForest Mass database.
+
+  peakforest.compound.token:
+    type: character
+    description: The token to access PeakForest Compound database.
 
   shortterm.cache.subfolder:
     type: character
@@ -81,19 +108,6 @@ config:
   useragent:
     type: character
     description: The user agent description string. This string is compulsory when connection to remote databases.
-
-  chemspider.token:
-    type: character
-    description: The token to access ChemSpider database.
-
-  peakforest.mass.token:
-    type: character
-    description: The token to access PeakForest Mass database.
-
-  peakforest.compound.token:
-    type: character
-    description: The token to access PeakForest Compound database.
-
 
 # DATABASES {{{1
 ################################################################################

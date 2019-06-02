@@ -39,6 +39,8 @@ getBiodb = function() {
 # Send a message to observers
 message = function(type, msg) {
 
+    type <- tolower(type)
+    
     # Get biodb instance
     biodb <- NULL
     if (length(.self$.message.enabled) == 1 # length is 0
@@ -65,9 +67,9 @@ message = function(type, msg) {
         if (nchar(caller.info) > 0)
             caller.info <- paste('[', caller.info, '] ', sep = '')
         switch(type,
-               ERROR = stop(paste0(caller.info, msg)),
-               WARNING = warning(paste0(caller.info, msg)),
-               cat(caller.info, msg, "\n", file = stderr()))
+               error = stop(caller.info, msg),
+               warning = warning(caller.info, msg),
+               base::message(caller.info, msg))
     }
 },
 

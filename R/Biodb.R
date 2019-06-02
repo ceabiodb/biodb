@@ -77,21 +77,17 @@ methods = list(
 # Initialize {{{3
 ################################################################################
 
-initialize = function(logger = TRUE, observers = NULL, ...) {
+initialize = function(...) {
 
     callSuper(...)
 
-    # Set observers
+    # Set default observers
     .self$.observers <- list(BiodbWarningReporter$new(),
-                             BiodbErrorReporter$new())
-    if (logger)
-        .self$addObservers(BiodbLogger$new())
-    if ( ! is.null(observers))
-        .self$addObservers(observers)
+                             BiodbErrorReporter$new(),
+                             BiodbLogger$new())
 
     # Print package version
-    .self$message('info', paste0('This is biodb version ',
-                                 packageVersion('biodb'), '.'))
+    .self$info('This is biodb version ', packageVersion('biodb'), '.')
 
     # Create instances of children
     .self$.config <- BiodbConfig$new(parent = .self)
@@ -114,7 +110,7 @@ initialize = function(logger = TRUE, observers = NULL, ...) {
 # Terminate {{{3
 ################################################################################
 
-terminate = function(logger = TRUE, observers = NULL, ...) {
+terminate = function() {
     "Close \\code{Biodb} instance."
 
     .self$message('info', 'Closing Biodb instance.')

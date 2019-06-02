@@ -30,15 +30,16 @@ if ( ! file.exists(OUTPUT.DIR))
 DATABASES.ALL <- 'all'
 DATABASES.NONE <- 'none'
 
-TEST.DATABASES <- biodb::Biodb$new(logger = FALSE)$getDbsInfo()$getIds()
+tmpbiodb <- biodb::Biodb()
+TEST.DATABASES <- tmpbiodb$getDbsInfo()$getIds()
 if ('DATABASES' %in% names(ENV) && nchar(ENV[['DATABASES']]) > 0) {
 	if (tolower(ENV[['DATABASES']]) == DATABASES.NONE)
 		TEST.DATABASES <- character(0)
 	else if (tolower(ENV[['DATABASES']]) == DATABASES.ALL)
-		TEST.DATABASES <- biodb::Biodb$new(logger = FALSE)$getDbsInfo()$getIds()
+		TEST.DATABASES <- tmpbiodb$getDbsInfo()$getIds()
 	else {
 		TEST.DATABASES <- strsplit(ENV[['DATABASES']], ',')[[1]]
-		db.exists <- vapply(TEST.DATABASES, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
+		db.exists <- vapply(TEST.DATABASES, function(x) tmpbiodb$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
 		if ( ! all(db.exists)) {
 			wrong.dbs <- TEST.DATABASES[ ! db.exists]
 			stop(paste('Unknown database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
@@ -49,13 +50,15 @@ if ('DATABASES' %in% names(ENV) && nchar(ENV[['DATABASES']]) > 0) {
 # Remove databases to test
 if ('DONT_TEST_DBS' %in% names(ENV) && nchar(ENV[['DONT_TEST_DBS']]) > 0) {
 	DONT.TEST.DBS <- strsplit(ENV[['DONT_TEST_DBS']], ',')[[1]]
-	db.exists <- vapply(DONT.TEST.DBS, function(x) biodb::Biodb$new(logger = FALSE)$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
+	db.exists <- vapply(DONT.TEST.DBS, function(x) tmpbiodb$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
 	if ( ! all(db.exists)) {
 		wrong.dbs <- DONT.TEST.DBS[ ! db.exists]
 		stop(paste('Unknown database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
 	}
 	TEST.DATABASES <- TEST.DATABASES[ ! TEST.DATABASES %in% DONT.TEST.DBS]
 }
+tmpbiodb$terminate()
+tmpbiodb <- NULL
 
 # Set testing modes {{{1
 ################################################################
@@ -142,7 +145,9 @@ create.biodb.instance <- function(offline = FALSE) {
 	test.observer <- TestObserver()
 
 	# Create instance
-	biodb <- Biodb$new(logger = FALSE, observers = c(test.observer, logger))
+	biodb <- Biodb$new()
+	biodb$addObservers(test.observer)
+	biodb$addObservers(logger)
 
 	# Set user agent
 	biodb$getConfig()$set('useragent', USERAGENT)
