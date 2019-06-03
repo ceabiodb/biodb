@@ -55,7 +55,7 @@
 BiodbConn <- methods::setRefClass("BiodbConn",
     contains = "BiodbConnBase",
 
-# Fields {{{1
+# Fields {{{2
 ################################################################################
 
 fields = list(
@@ -63,7 +63,7 @@ fields = list(
     .entries = "list",
     .cache.id = 'character'),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods = list(
@@ -187,23 +187,33 @@ getEntryContent = function(id) {
             missing.contents <- NULL
             for (ch.missing.ids in chunks.of.missing.ids) {
 
-                ch.missing.contents <- .self$getEntryContentFromDb(ch.missing.ids)
+                # Get contents of missing entries
+                ec <- .self$getEntryContentFromDb(ch.missing.ids)
 
                 # Save to cache
-                if ( ! is.null(ch.missing.contents) && ! is.null(.self$getCacheId()) && cch$isWritable())
-                    cch$saveContentToFile(ch.missing.contents, cache.id = .self$getCacheId(), subfolder = 'shortterm', name = ch.missing.ids, ext = .self$getEntryFileExt())
+                if ( ! is.null(ec)
+                    && ! is.null(.self$getCacheId()) && cch$isWritable())
+                    cch$saveContentToFile(ec,
+                                          cache.id = .self$getCacheId(),
+                                          subfolder = 'shortterm',
+                                          name = ch.missing.ids,
+                                          ext = .self$getEntryFileExt())
 
                 # Append
-                missing.contents <- c(missing.contents, ch.missing.contents)
+                missing.contents <- c(missing.contents, ec)
 
                 # Debug
-                if (cch$isReadable())
-                    .self$message('debug', paste0("Now ", length(missing.ids) - length(missing.contents)," id(s) left to be retrieved..."))
+                if (cch$isReadable()) {
+                    n <- length(missing.ids) - length(missing.contents)
+                    .self$debug("Now ", n," id(s) left to be retrieved...")
+                }
             }
 
             # Merge content and missing.contents
             missing.contents = as.list(missing.contents)
-            content[id %in% missing.ids] = missing.contents[vapply(id[id %in% missing.ids], function(x) which(missing.ids == x), FUN.VALUE = as.integer(1))]
+            ii <- vapply(id[id %in% missing.ids],
+                         function(x) which(missing.ids == x), FUN.VALUE = 1L)
+            content[id %in% missing.ids] = missing.contents[ii]
         }
     }
 
@@ -223,7 +233,10 @@ getEntryContentFromDb = function(entry.id) {
 ################################################################################
 
 getEntryIds = function(max.results = NA_integer_, ...) {
-    "Get entry identifiers from the database. More arguments can be given, depending on implementation in specific databases. For mass databases (the ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be set."
+    "Get entry identifiers from the database. More arguments can be given,
+    depending on implementation in specific databases. For mass databases, the
+    ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be
+    set."
 
     ids = character()
 
@@ -232,14 +245,17 @@ getEntryIds = function(max.results = NA_integer_, ...) {
     ids = names(.self$.entries[not.null])
 
     # Get IDs from database
-    if (is.null(max.results) || is.na(max.results) || length(ids) < max.results) {
-        db.ids = .self$.doGetEntryIds(if (is.null(max.results)) NA_integer_ else max.results, ...)
+    if (is.null(max.results) || is.na(max.results)
+        || length(ids) < max.results) {
+        mx <- if (is.null(max.results)) NA_integer_ else max.results
+        db.ids = .self$.doGetEntryIds(mx, ...)
         if ( ! is.null(db.ids))
             ids = c(ids, db.ids[ ! db.ids %in% ids])
     }
 
     # Cut
-    if ( ! is.null(max.results) && ! is.na(max.results) && max.results > 0 && length(ids) > max.results)
+    if ( ! is.null(max.results) && ! is.na(max.results) && max.results > 0
+        && length(ids) > max.results)
         ids <- ids[seq_len(max.results)]
 
     return(ids)
@@ -266,7 +282,9 @@ getNbEntries = function(count = FALSE) {
 ################################################################################
 
 isEditable = function() {
-    "Returns TRUE if the database is editable (i.e.: the connector class implements the interface BiodbEditable). If this connector is editable, then you can call allowEditing() to enable editing."
+    "Returns TRUE if the database is editable (i.e.: the connector class
+    implements the interface BiodbEditable). If this connector is editable, then
+    you can call allowEditing() to enable editing."
 
     return(methods::is(.self, 'BiodbEditable'))
 },
@@ -275,7 +293,9 @@ isEditable = function() {
 ################################################################################
 
 isWritable = function() {
-    "Returns TRUE if the database is writable (i.e.: the connector class implements the interface BiodbWritable). If this connector is writable, then you can call allowWriting() to enable writing."
+    "Returns TRUE if the database is writable (i.e.: the connector class
+    implements the interface BiodbWritable). If this connector is writable, then
+    you can call allowWriting() to enable writing."
 
     return(methods::is(.self, 'BiodbWritable'))
 },
@@ -284,7 +304,8 @@ isWritable = function() {
 ################################################################################
 
 isSearchable = function() {
-    "Returns TRUE if the database is searchable (i.e.: the connector class implements the interface BiodbSearchable)."
+    "Returns TRUE if the database is searchable (i.e.: the connector class
+    implements the interface BiodbSearchable)."
 
     return(methods::is(.self, 'BiodbSearchable'))
 },
@@ -293,7 +314,8 @@ isSearchable = function() {
 ################################################################################
 
 isDownloadable = function() {
-    "Returns TRUE if the database is downloadable (i.e.: the connector class implements the interface BiodbDownloadable)."
+    "Returns TRUE if the database is downloadable (i.e.: the connector class
+    implements the interface BiodbDownloadable)."
 
     return(methods::is(.self, 'BiodbDownloadable'))
 },
@@ -302,7 +324,8 @@ isDownloadable = function() {
 ################################################################################
 
 isRemotedb = function() {
-    "Returns TRUE if the database is a remote database (i.e.: the connector class inherits from BiodbRemotedbConn class)."
+    "Returns TRUE if the database is a remote database (i.e.: the connector
+    class inherits from BiodbRemotedbConn class)."
 
     return(methods::is(.self, 'BiodbRemotedbConn'))
 },
@@ -311,7 +334,8 @@ isRemotedb = function() {
 ################################################################################
 
 isCompounddb = function() {
-    "Returns TRUE if the database is a compound database (i.e.: the connector class inherits from BiodbCompounddbConn class)."
+    "Returns TRUE if the database is a compound database (i.e.: the connector
+    class inherits from BiodbCompounddbConn class)."
 
     return(methods::is(.self, 'BiodbCompounddbConn'))
 },
@@ -320,7 +344,8 @@ isCompounddb = function() {
 ################################################################################
 
 isMassdb = function() {
-    "Returns TRUE if the database is a mass database (i.e.: the connector class inherits from BiodbMassdbConn class)."
+    "Returns TRUE if the database is a mass database (i.e.: the connector
+    class inherits from BiodbMassdbConn class)."
 
     return(methods::is(.self, 'BiodbMassdbConn'))
 },
@@ -345,7 +370,8 @@ getAllCacheEntries = function() {
     "Get all entries from the memory cache."
 
     # Remove NULL entries
-    entries <- .self$.entries[ ! vapply(.self$.entries, is.null, FUN.VALUE = TRUE)]
+    entries <- .self$.entries[ ! vapply(.self$.entries, is.null,
+                                        FUN.VALUE = TRUE)]
 
     # Remove names
     names(entries) <- NULL
@@ -386,16 +412,18 @@ getCacheId = function() {
 ################################################################################
 
 makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
-    'Test for each entry of this database in id parameter if it makes reference to the entry 
-    oid from database db. If any is set to TRUE, will return a single logical value: TRUE
-    if any entry contains a reference to oid, FALSE otherwise.'
+    'Test for each entry of this database in id parameter if it makes reference
+    to the entry oid from database db. If any is set to TRUE, will return a
+    single logical value: TRUE if any entry contains a reference to oid, FALSE
+    otherwise.'
 
     # Returns TRUE if any entry in id makes reference to oid
     if (any) {
         makes_ref <- FALSE
         for (i in id) {
             e <- .self$getEntry(i)
-            if ( ! is.null(e) && e$makesRefToEntry(db=db, oid=oid, recurse=recurse)) {
+            if ( ! is.null(e)
+                && e$makesRefToEntry(db=db, oid=oid, recurse=recurse)) {
                 makes_ref = TRUE
                 break
             }
@@ -406,7 +434,9 @@ makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
     else {
         entries <- .self$getEntry(id, drop = FALSE)
         makes_ref <- vapply(entries,
-                           function(e) ! is.null(e) && e$makesRefToEntry(db=db, oid=oid, recurse=recurse),
+                           function(e) ! is.null(e)
+                           && e$makesRefToEntry(db=db, oid=oid,
+                                                recurse=recurse),
                            FUN.VALUE=TRUE)
     }
     return(makes_ref)

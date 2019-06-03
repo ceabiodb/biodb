@@ -1,13 +1,17 @@
 # vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
+# BiodbConnBase {{{1
 ################################################################################
 
-#' Base class of \code{BiodbConn} for encapsulating all needed information for database access.
+#' Base class of \code{BiodbConn} for encapsulating all needed information for
+#' database access.
 #'
-#' This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
+#' This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The
+#' constructor is not meant to be used, but for development purposes the
+#' constructor's parameters are nevertheless described in the Fields section.
 #'
-#' @field db.class      The class of the database (\code{"massbank", "hmdb.metabolies", ...}).
+#' @field db.class      The class of the database (\code{"massbank",
+#'                      "hmdb.metabolies", ...}).
 #' @field prop.def      Definitions of the properties.
 #' @field prop          Values of the properties.
 #'
@@ -19,19 +23,23 @@
 #' @exportClass BiodbConnBase
 BiodbConnBase <- methods::setRefClass("BiodbConnBase",
     contains =  "BiodbChildObject",
-    fields = list(
-        .db.class = "character",
-        .observers = 'list',
-        .prop.def = 'list',
-        .prop = 'list',
-        .run.hooks = 'character'),
 
-    methods = list(
-
-# Public methods {{{1
+# Fields {{{2
 ################################################################################
 
-# Initialize {{{2
+fields = list(
+    .db.class = "character",
+    .observers = 'list',
+    .prop.def = 'list',
+    .prop = 'list',
+    .run.hooks = 'character'),
+
+# Public methods {{{2
+################################################################################
+
+methods = list(
+
+# Initialize {{{3
 ################################################################################
 
 initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
@@ -61,18 +69,20 @@ initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
     .self$.defineProperties(other, properties)
 },
 
-# Show {{{2
+# Show {{{3
 ################################################################################
 
 show = function() {
-    msg <- paste0("Biodb ", .self$getPropertyValue('name'), " connector instance")
+    msg <- paste0("Biodb ", .self$getPropertyValue('name'),
+                  " connector instance")
     if (.self$hasPropSlot('urls', 'base.url'))
-        msg <- paste0(msg, ', using URL "', .self$getPropValSlot('urls', 'base.url'), '"')
+        msg <- paste0(msg, ', using URL "',
+                      .self$getPropValSlot('urls', 'base.url'), '"')
     msg <- paste0(msg, ".\n")
     cat(msg)
 },
 
-# Has property {{{2
+# Has property {{{3
 ################################################################################
 
 hasProp = function(name) {
@@ -81,16 +91,17 @@ hasProp = function(name) {
     return (name %in% names(.self$.prop))
 },
 
-# Has property slot {{{2
+# Has property slot {{{3
 ################################################################################
 
 hasPropSlot = function(name, slot) {
-    'Returns true if the property "name" exists and has the slot "slot" defined.'
+    'Returns true if the property "name" exists and has the slot "slot"
+    defined.'
 
     return (.self$hasProp(name) && slot %in% names(.self$.prop[[name]]))
 },
 
-# Get property value slot {{{2
+# Get property value slot {{{3
 ################################################################################
 
 getPropValSlot = function(name, slot) {
@@ -109,7 +120,7 @@ getPropValSlot = function(name, slot) {
     return(value)
 },
 
-# Update properties definition {{{2
+# Update properties definition {{{3
 ################################################################################
 
 updatePropertiesDefinition = function(def) {
@@ -130,19 +141,18 @@ updatePropertiesDefinition = function(def) {
     }
 },
 
-# Define parsing expressions {{{2
+# Define parsing expressions {{{3
 ################################################################################
 
 defineParsingExpressions = function() {
-    'Reimplement this method in your connector class to define parsing expressions dynamically.'
-}
+    'Reimplement this method in your connector class to define parsing
+    expressions dynamically.'
+},
 
-))
-
-# Get entry file extension {{{1
+# Get entry file extension {{{3
 ################################################################################
 
-BiodbConnBase$methods( getEntryFileExt = function() {
+getEntryFileExt = function() {
     "Returns the entry file extension."
 
     if (.self$getPropertyValue('entry.content.type') == 'list')
@@ -151,19 +161,19 @@ BiodbConnBase$methods( getEntryFileExt = function() {
         ext = .self$getPropertyValue('entry.content.type')
 
     return(ext)
-})
+},
 
-# Get database class {{{1
+# Get database class {{{3
 ################################################################################
 
-BiodbConnBase$methods( getDbClass = function() {
+getDbClass = function() {
     return(.self$.db.class)
-})
+},
 
-# Get connector class name {{{1
+# Get connector class name {{{3
 ################################################################################
 
-BiodbConnBase$methods( getConnClassName = function() {
+getConnClassName = function() {
     "Returns the name of the associated connector OOP class."
 
     # Get connection class name
@@ -171,12 +181,12 @@ BiodbConnBase$methods( getConnClassName = function() {
     conn.class.name <- paste(s, 'Conn', sep = '')
 
     return(conn.class.name)
-})
+},
 
-# Get entry class name {{{1
+# Get entry class name {{{3
 ################################################################################
 
-BiodbConnBase$methods( getEntryClassName = function() {
+getEntryClassName = function() {
     "Returns the name of the associated entry class."
 
     # Get entry class name
@@ -184,67 +194,69 @@ BiodbConnBase$methods( getEntryClassName = function() {
     entry.class.name <- paste(s, 'Entry', sep = '')
 
     return(entry.class.name)
-})
+},
 
-# Get connector class {{{1
+# Get connector class {{{3
 ################################################################################
 
-BiodbConnBase$methods( getConnClass = function() {
+getConnClass = function() {
     "Returns the associated connector OOP class."
 
     return(get(.self$getConnClassName()))
-})
+},
 
-# Get entry class {{{1
+# Get entry class {{{3
 ################################################################################
 
-BiodbConnBase$methods( getEntryClass = function() {
+getEntryClass = function() {
     "Returns the associated entry class."
 
     return(get(.self$getEntryClassName()))
-})
+},
 
-# Get entry class name {{{1
+# Get entry class name {{{3
 ################################################################################
 
-BiodbConnBase$methods( getEntryClassName = function() {
+getEntryClassName = function() {
     "Returns the name of the associated entry class."
 
     # Get entry class name
     s <- .self$.db.class
-    indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class, perl = TRUE)[[1]])
+    indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class,
+                                   perl = TRUE)[[1]])
     indices <- indices + 1  # We are interested in the letter after the dot.
     indices <- c(1, indices) # Add first letter.
     for (i in indices)
-        s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
+        s <- paste0(substring(s, 1, i - 1), toupper(substring(s, i, i)),
+                   substring(s, i + 1))
     s <- gsub('.', '', s, fixed = TRUE) # Remove dots
     entry.class.name <- paste(s, 'Entry', sep = '')
 
     return(entry.class.name)
-})
+},
 
-# Get entry class {{{1
+# Get entry class {{{3
 ################################################################################
 
-BiodbConnBase$methods( getEntryClass = function() {
+getEntryClass = function() {
     "Returns the associated entry class."
 
     return(get(.self$getEntryClassName()))
-})
+},
 
-# Get entry ID field {{{1
+# Get entry ID field {{{3
 ################################################################################
 
-BiodbConnBase$methods( getEntryIdField = function() {
+getEntryIdField = function() {
     "Return the name of the corresponding database ID field in entries."
     
     return(paste(.self$.db.class, 'id', sep = '.'))
-})
+},
 
-# Get property value {{{1
+# Get property value {{{3
 ################################################################################
 
-BiodbConnBase$methods( getPropertyValue = function(name) {
+getPropertyValue = function(name) {
 
     .self$.checkProperty(name)
     pdef <- .self$.prop.def[[name]]
@@ -262,21 +274,22 @@ BiodbConnBase$methods( getPropertyValue = function(name) {
         value <- pdef$default
 
     return(value)
-})
+},
 
-# Set property value {{{1
+# Set property value {{{3
 ################################################################################
 
-BiodbConnBase$methods( setPropertyValue = function(name, value) {
+setPropertyValue = function(name, value) {
 
     # Check value
-    value <- .self$.checkPropertyValue(name, value)
+    value <- .self$.chkPropVal(name, value)
 
     # Is this property already set and not modifiable?
     if (name %in% names(.self$.prop)
         && 'modifiable' %in% names(.self$.prop.def[[name]])
         && ! .self$.prop.def[[name]]$modifiable)
-        .self$message('error', paste0('Property "', name, '" of database "', .self$getDbClass(), '" is not modifiable.'))
+        .self$error('Property "', name, '" of database "', .self$getDbClass(),
+                   '" is not modifiable.')
 
     # Set value
     .self$.prop[[name]] <- value
@@ -287,12 +300,12 @@ BiodbConnBase$methods( setPropertyValue = function(name, value) {
             obs$connSchedulerFrequencyUpdated(.self)
         else if (name == 'urls')
             obs$connUrlsUpdated(.self)
-})
+},
 
-# Set property value slot {{{1
+# Set property value slot {{{3
 ################################################################################
 
-BiodbConnBase$methods( setPropValSlot = function(name, slot, value) {
+setPropValSlot = function(name, slot, value) {
 
     .self$.checkProperty(name = name, slot = slot)
 
@@ -304,198 +317,15 @@ BiodbConnBase$methods( setPropValSlot = function(name, slot, value) {
 
     # Update value
     .self$setPropertyValue(name, curval)
-})
+},
 
-# Deprecated methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Get base URL {{{2
+# Terminate {{{3
 ################################################################################
 
-BiodbConnBase$methods( getBaseUrl = function() {
-    "Returns the base URL."
-
-    .self$.deprecated.method("getUrl()")
-
-    return(.self$getUrl('base.url'))
-})
-
-# Set base URL {{{2
-################################################################################
-
-BiodbConnBase$methods( setBaseUrl = function(url) {
-    "Sets the base URL."
-
-    .self$.deprecated.method("setUrl()")
-
-    .self$setUrl('base.url', url)
-})
-
-# Get web sevices URL {{{2
-################################################################################
-
-BiodbConnBase$methods( getWsUrl = function() {
-    "Returns the web sevices URL."
-
-    .self$.deprecated.method("getUrl()")
-
-    return(.self$getUrl('ws.url'))
-})
-
-# Set web sevices URL {{{2
-################################################################################
-
-BiodbConnBase$methods( setWsUrl = function(ws.url) {
-    "Sets the web sevices URL."
-
-    .self$.deprecated.method("setUrl()")
-
-    .self$setUrl('ws.url', ws.url)
-})
-
-# Get token {{{2
-################################################################################
-
-BiodbConnBase$methods( getToken = function() {
-    "Returns the access token."
-
-    .self$.deprecated.method("getPropertyValue('token')")
-
-    return(.self$getPropertyValue('token'))
-})
-
-# Set token {{{2
-################################################################################
-
-BiodbConnBase$methods( setToken = function(token) {
-    "Sets the access token."
-
-    .self$.deprecated.method("setPropertyValue('token', 'my_token_value')")
-
-    .self$setPropertyValue('token', token)
-})
-
-# Get name {{{2
-################################################################################
-
-BiodbConnBase$methods( getName = function() {
-    "Returns the full database name."
-
-    .self$.deprecated.method("getPropertyValue('name')")
-
-    return(.self$getPropertyValue('name'))
-})
-
-# Get entry content type {{{2
-################################################################################
-
-BiodbConnBase$methods( getEntryContentType = function() {
-    "Returns the entry content type."
-
-    .self$.deprecated.method("getPropertyValue('entry.content.type')")
-
-    return(.self$getPropertyValue('entry.content.type'))
-})
-
-# Get scheduler N paramater {{{2
-################################################################################
-
-BiodbConnBase$methods( getSchedulerNParam = function() {
-    "Returns the N parameter for the scheduler."
-
-    .self$.deprecated.method("getPropertyValue('scheduler.n')")
-
-    return(.self$getPropertyValue('scheduler.n'))
-})
-
-# Set scheduler N paramater {{{2
-################################################################################
-
-BiodbConnBase$methods( setSchedulerNParam = function(n) {
-    "Sets the N parameter for the scheduler."
-
-    .self$.deprecated.method("setPropertyValue('scheduler.n', n)")
-
-    .self$setPropertyValue('scheduler.n', n)
-})
-
-# Get scheduler T paramater {{{2
-################################################################################
-
-BiodbConnBase$methods( getSchedulerTParam = function() {
-    "Returns the T parameter for the scheduler."
-
-    .self$.deprecated.method("getPropertyValue('scheduler.t')")
-
-    return(.self$getPropertyValue('scheduler.t'))
-})
-
-# Set scheduler T paramater {{{2
-################################################################################
-
-BiodbConnBase$methods( setSchedulerTParam = function(t) {
-    "Sets the T parameter for the scheduler."
-
-    .self$.deprecated.method("setPropertyValue('scheduler.t', t)")
-
-    .self$setPropertyValue('scheduler.t', t)
-})
-
-# Get URLs {{{2
-################################################################################
-
-BiodbConnBase$methods( getUrls = function() {
-    "Returns the URLs."
-
-    .self$.deprecated.method("getPropertyValue('urls')")
-
-    return(.self$getPropertyValue('urls'))
-})
-
-# Get a URL {{{2
-################################################################################
-
-BiodbConnBase$methods( getUrl = function(name) {
-    "Returns a URL."
-
-    .self$.deprecated.method("getPropValSlot('urls', 'base.url')")
-
-    return(.self$getPropValSlot(name='urls', slot=name))
-})
-
-# Set a URL {{{2
-################################################################################
-
-BiodbConnBase$methods( setUrl = function(name, url) {
-    "Returns a URL."
-
-    .self$.deprecated.method("setPropValSlot('urls', 'base.url', 'http://my/url')")
-
-    .self$setPropValSlot(name='urls', slot=name, value=url)
-
-#   .self$.checkSettingOfUrl(name, url)
-})
-
-# Get XML namespace {{{2
-################################################################################
-
-BiodbConnBase$methods( getXmlNs = function() {
-    "Returns the XML namespace."
-
-    .self$.deprecated.method("getPropertyValue('xml.ns')")
-
-    return(.self$getPropertyValue('xml.ns'))
-})
-
-
-
-# Private methods {{{1
-################################################################################
-
-# Terminate {{{2
-################################################################################
-
-BiodbConnBase$methods( .terminate = function() {
+.terminate = function() {
 
     # Notify observers
     for (obs in .self$.observers)
@@ -503,39 +333,41 @@ BiodbConnBase$methods( .terminate = function() {
 
     # Do terminate (do specific job for the connector)
     .self$.doTerminate()
-})
+},
 
-# Do terminate {{{2
+# Do terminate {{{3
 ################################################################################
 
-BiodbConnBase$methods( .doTerminate = function() {
-})
+.doTerminate = function() {
+},
 
-# Register observer {{{2
+# Register observer {{{3
 ################################################################################
 
-BiodbConnBase$methods( .registerObserver = function(obs) {
+.registerObserver = function(obs) {
 
     .self$.assert.inherits.from(obs, 'BiodbConnObserver')
 
     # Is this observer already registered?
-    if (any(vapply(.self$.observers, function(x) identical(x, obs), FUN.VALUE = TRUE)))
+    if (any(vapply(.self$.observers, function(x) identical(x, obs),
+                   FUN.VALUE = TRUE)))
         .self$message('caution', "Observer is already registered.")
 
     # Register this new observer
     else
         .self$.observers <- c(.self$.observers, obs)
-})
+},
 
-# Unregister observer {{{2
+# Unregister observer {{{3
 ################################################################################
 
-BiodbConnBase$methods( .unregisterObserver = function(obs) {
+.unregisterObserver = function(obs) {
 
     .self$.assert.inherits.from(obs, 'BiodbConnObserver')
 
     # Search for observer
-    found.obs <- vapply(.self$.observers, function(x) identical(x, obs), FUN.VALUE = TRUE)
+    found.obs <- vapply(.self$.observers, function(x) identical(x, obs),
+                        FUN.VALUE = TRUE)
 
     # Not found
     if ( ! any(found.obs))
@@ -544,25 +376,28 @@ BiodbConnBase$methods( .unregisterObserver = function(obs) {
     # Unregister observer
     else
         .self$.observers <- .self$.observers[ ! found.obs ]
-})
+},
 
-# Check property {{{2
+# Check property {{{3
 ################################################################################
 
-BiodbConnBase$methods( .checkProperty = function(name, slot = NULL) {
+.checkProperty = function(name, slot = NULL) {
 
     if ( ! name %in% names(.self$.prop.def))
-        .self$message('error', paste0('Unknown property "', name, '" for database ', .self$getDbClass(), '.'))
+        .self$error('Unknown property "', name, '" for database ',
+                    .self$getDbClass(), '.')
 
     pdef <- .self$.prop.def[[name]]
     if ( ! is.null(slot) && ! 'named' %in% names(pdef))
-        .self$message('error', paste0('Unauthorized use of slot "', slot, '" with unnamed property "', name, '" of database "', .self$getDbClass(), '".'))
-})
+        .self$error('Unauthorized use of slot "', slot, '" with unnamed", 
+                    " property "', name, '" of database "', .self$getDbClass(),
+                    '".')
+},
 
-# Check property value {{{2
+# Check property value {{{3
 ################################################################################
 
-BiodbConnBase$methods( .checkPropertyValue = function(name, value) {
+.chkPropVal = function(name, value) {
 
     .self$.checkProperty(name)
 
@@ -570,14 +405,19 @@ BiodbConnBase$methods( .checkPropertyValue = function(name, value) {
 
     # Check cardinality
     if ( ( ! 'mult' %in% names(pdef) || ! pdef$mult) && length(value) > 1)
-        .self$message('error', paste0('Multiple values are forbidden for property "', name, '" of database "', .self$getDbClass(), '".'))
+        .self$error('Multiple values are forbidden for property "', name,
+                    '" of database "', .self$getDbClass(), '".')
 
     # Check names
     if ('named' %in% names(pdef) && ! is.null(value) && length(value) > 0) {
         if (is.null(names(value)) || any(nchar(names(value)) == 0))
-            .self$message('error', paste0('Value vector for property "', name, '"of database "', .self$getDbClass(), '" must be named. Values are: ', paste(paste(names(value), value, sep='='), collapse=', ')))
+            .self$error('Value vector for property "', name, '"of database "',
+                        .self$getDbClass(), '" must be named. Values are: ',
+                        paste(paste(names(value), value, sep='='),
+                              collapse=', '))
         if (any(duplicated(names(value))))
-            .self$message('error', paste0('Value vector for property "', name, '"of database "', .self$getDbClass(), '" contains duplicated names.'))
+            .self$error('Value vector for property "', name, '"of database "',
+                        .self$getDbClass(), '" contains duplicated names.')
     }
 
     # Convert value
@@ -588,19 +428,21 @@ BiodbConnBase$methods( .checkPropertyValue = function(name, value) {
     # Check if value is allowed
     if (length(value) == 1) {
         if (is.na(value) && 'na.allowed' %in% names(pdef) && ! pdef$na.allowed)
-            .self$message('error', paste0('NA value is not allowed for property "', name, '" of database "', .self$getDbClass(), '".'))
+            .self$error('NA value is not allowed for property "', name,
+                        '" of database "', .self$getDbClass(), '".')
         if ( ! is.na(value) && 'allowed' %in% names(pdef)
             && ! value %in% pdef$allowed)
-            .self$message('error', paste0('Value "', value, '" is not allowed for property "', name, '" of database "', .self$getDbClass(), '".'))
+            .self$error('Value "', value, '" is not allowed for property "',
+                        name, '" of database "', .self$getDbClass(), '".')
     }
 
     return(value)
-})
+},
 
-# Define properties {{{2
+# Define properties {{{3
 ################################################################################
 
-BiodbConnBase$methods( .defineProperties = function(other, properties) {
+.defineProperties = function(other, properties) {
 
     # Set list of property definitions
     if (is.null(other))
@@ -611,7 +453,8 @@ BiodbConnBase$methods( .defineProperties = function(other, properties) {
     # Reset default values
     if ( ! is.null(properties))
         for (p in names(properties))
-            .self$.prop.def[[p]]$default <- .self$.checkPropertyValue(p, properties[[p]])
+            .self$.prop.def[[p]]$default <- .self$.chkPropVal(p,
+                                                              properties[[p]])
 
     # Set property values
     if (is.null(other))
@@ -622,23 +465,23 @@ BiodbConnBase$methods( .defineProperties = function(other, properties) {
     # Set chosen values from properties
     if ( ! is.null(properties))
         for (p in names(properties))
-            .self$.prop[[p]] <- .self$.checkPropertyValue(p, properties[[p]])
-})
+            .self$.prop[[p]] <- .self$.chkPropVal(p, properties[[p]])
+},
 
-# Reset propertyValues {{{2
+# Reset propertyValues {{{3
 ################################################################################
 
-BiodbConnBase$methods( .resetPropertyValues = function() {
+.resetPropertyValues = function() {
 
     .self$.prop <- list()
     for (p in names(.self$.prop.def))
         .self$setPropertyValue(p, .self$.prop.def[[p]]$default)
-})
+},
 
-# Get full list of property definitions {{{2
+# Get full list of property definitions {{{3
 ################################################################################
 
-BiodbConnBase$methods( .getFullPropDefList = function() {
+.getFullPropDefList = function() {
 
     # Default token
     default_token <- NA_character_
@@ -649,39 +492,237 @@ BiodbConnBase$methods( .getFullPropDefList = function() {
 
     # Define properties
     prop.def <- list(
-        entry.content.encoding = list(class = 'character', default = NA_character_, na.allowed = TRUE),
-        entry.content.type = list(class = 'character', default = NA_character_, allowed = c('html', 'txt', 'xml', 'csv', 'tsv', 'json', 'list'), na.allowed = FALSE, modifiable = FALSE),
-        name = list(class = 'character', default = NA_character_, na.allowed = FALSE, modifiable = FALSE),
-        parsing.expr = list(class = 'list', default = NULL, named = TRUE, mult = TRUE, allowed_item_types = 'character', na.allowed = FALSE, hook = 'defineParsingExpressions'),
+        entry.content.encoding = list(class = 'character',
+                                      default = NA_character_,
+                                      na.allowed = TRUE),
+        entry.content.type = list(class = 'character', default = NA_character_,
+                                  allowed = c('html', 'txt', 'xml', 'csv',
+                                              'tsv', 'json', 'list'),
+                                  na.allowed = FALSE, modifiable = FALSE),
+        name = list(class = 'character', default = NA_character_,
+                    na.allowed = FALSE, modifiable = FALSE),
+        parsing.expr = list(class = 'list', default = NULL, named = TRUE,
+                            mult = TRUE, allowed_item_types = 'character',
+                            na.allowed = FALSE,
+                            hook = 'defineParsingExpressions'),
         scheduler.n = list(class = 'integer', default = 1, na.allowed = FALSE),
         scheduler.t = list(class = 'numeric', default = 1, na.allowed = FALSE),
-        token = list(class = 'character', default = default_token, na.allowed = TRUE),
-        urls = list(class = 'character', default = character(), named = TRUE, mult = TRUE),
-        xml.ns = list(class = 'character', default = character(), named = TRUE, mult = TRUE)
+        token = list(class = 'character', default = default_token,
+                     na.allowed = TRUE),
+        urls = list(class = 'character', default = character(), named = TRUE,
+                    mult = TRUE),
+        xml.ns = list(class = 'character', default = character(), named = TRUE,
+                      mult = TRUE)
     )
 
     return(prop.def)
-})
+},
 
-# Check setting of URL {{{2
+# Check setting of URL {{{3
 ################################################################################
 
-BiodbConnBase$methods( .checkSettingOfUrl = function(key, value) {
+.checkSettingOfUrl = function(key, value) {
     # Accept setting by default
-})
+},
 
-# Get class name prefix {{{2
+# Get class name prefix {{{3
 ################################################################################
 
-BiodbConnBase$methods( .getClassNamePrefix = function() {
+.getClassNamePrefix = function() {
 
     s <- .self$.db.class
-    indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class, perl = TRUE)[[1]])
+    indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class,
+                                   perl = TRUE)[[1]])
     indices <- indices + 1  # We are interested in the letter after the dot.
     indices <- c(1, indices) # Add first letter.
     for (i in indices)
-        s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)), substring(s, i + 1), sep = '')
+        s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)),
+                   substring(s, i + 1), sep = '')
     s <- gsub('.', '', s, fixed = TRUE) # Remove dots
 
     return(s)
-})
+},
+
+# Deprecated methods {{{2
+################################################################################
+
+# Get base URL {{{3
+################################################################################
+
+getBaseUrl = function() {
+    "Returns the base URL."
+
+    .self$.deprecated.method("getUrl()")
+
+    return(.self$getUrl('base.url'))
+},
+
+# Set base URL {{{3
+################################################################################
+
+setBaseUrl = function(url) {
+    "Sets the base URL."
+
+    .self$.deprecated.method("setUrl()")
+
+    .self$setUrl('base.url', url)
+},
+
+# Get web sevices URL {{{3
+################################################################################
+
+getWsUrl = function() {
+    "Returns the web sevices URL."
+
+    .self$.deprecated.method("getUrl()")
+
+    return(.self$getUrl('ws.url'))
+},
+
+# Set web sevices URL {{{3
+################################################################################
+
+setWsUrl = function(ws.url) {
+    "Sets the web sevices URL."
+
+    .self$.deprecated.method("setUrl()")
+
+    .self$setUrl('ws.url', ws.url)
+},
+
+# Get token {{{3
+################################################################################
+
+getToken = function() {
+    "Returns the access token."
+
+    .self$.deprecated.method("getPropertyValue('token')")
+
+    return(.self$getPropertyValue('token'))
+},
+
+# Set token {{{3
+################################################################################
+
+setToken = function(token) {
+    "Sets the access token."
+
+    .self$.deprecated.method("setPropertyValue('token', 'my_token_value')")
+
+    .self$setPropertyValue('token', token)
+},
+
+# Get name {{{3
+################################################################################
+
+getName = function() {
+    "Returns the full database name."
+
+    .self$.deprecated.method("getPropertyValue('name')")
+
+    return(.self$getPropertyValue('name'))
+},
+
+# Get entry content type {{{3
+################################################################################
+
+getEntryContentType = function() {
+    "Returns the entry content type."
+
+    .self$.deprecated.method("getPropertyValue('entry.content.type')")
+
+    return(.self$getPropertyValue('entry.content.type'))
+},
+
+# Get scheduler N paramater {{{3
+################################################################################
+
+getSchedulerNParam = function() {
+    "Returns the N parameter for the scheduler."
+
+    .self$.deprecated.method("getPropertyValue('scheduler.n')")
+
+    return(.self$getPropertyValue('scheduler.n'))
+},
+
+# Set scheduler N paramater {{{3
+################################################################################
+
+setSchedulerNParam = function(n) {
+    "Sets the N parameter for the scheduler."
+
+    .self$.deprecated.method("setPropertyValue('scheduler.n', n)")
+
+    .self$setPropertyValue('scheduler.n', n)
+},
+
+# Get scheduler T paramater {{{3
+################################################################################
+
+getSchedulerTParam = function() {
+    "Returns the T parameter for the scheduler."
+
+    .self$.deprecated.method("getPropertyValue('scheduler.t')")
+
+    return(.self$getPropertyValue('scheduler.t'))
+},
+
+# Set scheduler T paramater {{{3
+################################################################################
+
+setSchedulerTParam = function(t) {
+    "Sets the T parameter for the scheduler."
+
+    .self$.deprecated.method("setPropertyValue('scheduler.t', t)")
+
+    .self$setPropertyValue('scheduler.t', t)
+},
+
+# Get URLs {{{3
+################################################################################
+
+getUrls = function() {
+    "Returns the URLs."
+
+    .self$.deprecated.method("getPropertyValue('urls')")
+
+    return(.self$getPropertyValue('urls'))
+},
+
+# Get a URL {{{3
+################################################################################
+
+getUrl = function(name) {
+    "Returns a URL."
+
+    .self$.deprecated.method("getPropValSlot('urls', 'base.url')")
+
+    return(.self$getPropValSlot(name='urls', slot=name))
+},
+
+# Set a URL {{{3
+################################################################################
+
+setUrl = function(name, url) {
+    "Returns a URL."
+
+    .self$.deprecated.method(paste0("setPropValSlot('urls', 'base.url',",
+                                    " 'http://my/url')"))
+
+    .self$setPropValSlot(name='urls', slot=name, value=url)
+
+#   .self$.checkSettingOfUrl(name, url)
+},
+
+# Get XML namespace {{{3
+################################################################################
+
+getXmlNs = function() {
+    "Returns the XML namespace."
+
+    .self$.deprecated.method("getPropertyValue('xml.ns')")
+
+    return(.self$getPropertyValue('xml.ns'))
+}
+
+))

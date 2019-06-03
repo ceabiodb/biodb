@@ -87,6 +87,20 @@ error = function(...) {
     .self$message(type = 'error', msg = paste0(...))
 },
 
+# Warning message {{{3
+################################################################################
+
+warning = function(...) {
+    .self$message(type = 'warning', msg = paste0(...))
+},
+
+# Caution message {{{3
+################################################################################
+
+caution = function(...) {
+    .self$message(type = 'caution', msg = paste0(...))
+},
+
 # Info message {{{3
 ################################################################################
 
