@@ -21,7 +21,7 @@ BiodbWritable <- methods::setRefClass("BiodbWritable", contains='BiodbObject', f
 BiodbWritable$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbWritable')
+    .self$.abstractClass('BiodbWritable')
 
     # This constructor is never called, because this class is used as an interface (i.e.: it is declared in the "contains" field of another class, in second position or greater. Only the constructor of the first declared "contained" class is called.).
 })
@@ -61,7 +61,7 @@ BiodbWritable$methods( disallowWriting=function() {
 BiodbWritable$methods( setWritingAllowed=function(allow) {
     "Allow or disallow writing for this database."
     
-    .self$.assert.is(allow, 'logical')
+    .self$.assertIs(allow, 'logical')
     .self$.writing.allowed <- allow
 })
 
@@ -97,7 +97,7 @@ BiodbWritable$methods( .checkWritingIsAllowed=function() {
 ################################################################################
 
 BiodbWritable$methods( .doWrite=function() {
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Init parameters {{{2

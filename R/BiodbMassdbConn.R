@@ -63,7 +63,7 @@ BiodbMassdbConn <- methods::setRefClass("BiodbMassdbConn", contains="BiodbConn")
 BiodbMassdbConn$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbMassdbConn')
+    .self$.abstractClass('BiodbMassdbConn')
 })
 
 # Get chromatographic columns {{{1
@@ -72,7 +72,7 @@ BiodbMassdbConn$methods( initialize=function(...) {
 BiodbMassdbConn$methods( getChromCol=function(ids=NULL) {
     "Get a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'."
 
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Get mz values {{{1
@@ -90,7 +90,7 @@ BiodbMassdbConn$methods( getMzValues=function(ms.mode=NA_character_, max.results
 BiodbMassdbConn$methods( getNbPeaks=function(mode=NULL, ids=NULL) {
     "Returns the number of peaks contained in the database."
 
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Filter entries on retention time {{{1
@@ -346,11 +346,11 @@ BiodbMassdbConn$methods( msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.
 BiodbMassdbConn$methods( collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt', sep='|') {
     "Collapse rows of a results data frame, by outputing a data frame with only one row for each MZ/RT value."
 
-    .self$.assert.is(results.df, 'data.frame')
+    .self$.assertIs(results.df, 'data.frame')
     if ( ! mz.col %in% colnames(results.df))
         .self$message('error', paste0('Data frame must contain a M/Z column named "', mz.col, '".'))
     use.rt <- rt.col %in% colnames(results.df)
-    .self$.assert.is(sep, 'character')
+    .self$.assertIs(sep, 'character')
 
     results.df.collapsed <- NULL
 
@@ -395,7 +395,7 @@ BiodbMassdbConn$methods( collapseResultsDataFrame=function(results.df, mz.col='m
 BiodbMassdbConn$methods( searchMzRange=function(mz.min, mz.max, min.rel.int=NA_real_, ms.mode=NA_character_, max.results=NA_integer_, precursor=FALSE, ms.level=0) {
     "Find spectra in the given M/Z range. Returns a list of spectra IDs."
 
-    .self$.deprecated.method('BiodbMassdbConn::searchMsEntries()')
+    .self$.deprecatedMethod('BiodbMassdbConn::searchMsEntries()')
 
     return(.self$searchMsEntries(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results, precursor=precursor, ms.level=ms.level))
 })
@@ -406,7 +406,7 @@ BiodbMassdbConn$methods( searchMzRange=function(mz.min, mz.max, min.rel.int=NA_r
 BiodbMassdbConn$methods( searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_, ms.mode=NA_character_, max.results=NA_integer_, precursor=FALSE, ms.level=0) {
     "Find spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs."
 
-    .self$.deprecated.method('BiodbMassdbConn::searchMsEntries()')
+    .self$.deprecatedMethod('BiodbMassdbConn::searchMsEntries()')
     
     return(.self$searchMsEntries(mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results, precursor=precursor, ms.level=ms.level))
 })
@@ -445,21 +445,21 @@ BiodbMassdbConn$methods( .doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.re
 ################################################################################
 
 BiodbMassdbConn$methods( .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Do get mz values {{{2
 ################################################################################
 
 BiodbMassdbConn$methods( .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Convert RT values {{{2
 
 ################################################################################
 
-BiodbMassdbConn$methods( .convert.rt=function(rt, units, wanted.unit) {
+BiodbMassdbConn$methods( .convertRt=function(rt, units, wanted.unit) {
 
     # RT values with wrong unit
     rt.wrong <- units != wanted.unit
@@ -489,12 +489,12 @@ BiodbMassdbConn$methods( .checkMzMinMaxParam=function(mz.min, mz.max) {
     use.min.max <- ! is.null(mz.min) && ! is.null(mz.max)
     
     if (use.min.max) {
-        .self$.assert.is(mz.min, c('numeric', 'integer'))
-        .self$.assert.is(mz.max, c('numeric', 'integer'))
-        .self$.assert.positive(mz.min)
-        .self$.assert.positive(mz.max)
-        .self$.assert.equal.length(mz.min, mz.max)
-        .self$.assert.inferior(mz.min, mz.max)
+        .self$.assertIs(mz.min, c('numeric', 'integer'))
+        .self$.assertIs(mz.max, c('numeric', 'integer'))
+        .self$.assertPositive(mz.min)
+        .self$.assertPositive(mz.max)
+        .self$.assertEqualLength(mz.min, mz.max)
+        .self$.assertInferior(mz.min, mz.max)
     }
 
     return(use.min.max)
@@ -508,11 +508,11 @@ BiodbMassdbConn$methods( .checkMzTolParam=function(mz, mz.shift, mz.tol, mz.tol.
     use.tol <- ! is.null(mz)
 
     if (use.tol) {
-        .self$.assert.is(mz, c('numeric', 'integer'))
-        .self$.assert.positive(mz)
-        .self$.assert.positive(mz.tol)
-        .self$.assert.length.one(mz.tol)
-        .self$.assert.in(mz.tol.unit, c('ppm', 'plain'))
+        .self$.assertIs(mz, c('numeric', 'integer'))
+        .self$.assertPositive(mz)
+        .self$.assertPositive(mz.tol)
+        .self$.assertLengthOne(mz.tol)
+        .self$.assertIn(mz.tol.unit, c('ppm', 'plain'))
     }
 
     return(use.tol)
@@ -538,17 +538,17 @@ BiodbMassdbConn$methods( .checkMzParam=function(mz.min, mz.max, mz, mz.shift, mz
 BiodbMassdbConn$methods( .checkRtParam=function(rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, match.rt) {
 
     if (match.rt) {
-        .self$.assert.is(rt, c('numeric', 'integer'))
-        .self$.assert.positive(rt)
-        .self$.assert.positive(rt.tol)
-        .self$.assert.positive(rt.tol.exp)
+        .self$.assertIs(rt, c('numeric', 'integer'))
+        .self$.assertPositive(rt)
+        .self$.assertPositive(rt.tol)
+        .self$.assertPositive(rt.tol.exp)
         if ( ! is.null(chrom.col.ids)) {
-            .self$.assert.not.na(chrom.col.ids)
-            .self$.assert.is(chrom.col.ids, 'character')
+            .self$.assertNotNa(chrom.col.ids)
+            .self$.assertIs(chrom.col.ids, 'character')
         }
-        .self$.assert.not.na(rt.unit)
-        .self$.assert.in(rt.unit, c('s', 'min'))
-        .self$.assert.length.one(rt.unit)
+        .self$.assertNotNa(rt.unit)
+        .self$.assertIn(rt.unit, c('s', 'min'))
+        .self$.assertLengthOne(rt.unit)
     }
 })
 
@@ -567,7 +567,7 @@ BiodbMassdbConn$methods( .checkSearchMsParam=function(input.df=NULL, input.df.co
                 input.df.colnames[['mz']] <- 'mz'
             colnames(input.df) <- input.df.colnames[['mz']]
         }
-        .self$.assert.is(input.df, 'data.frame')
+        .self$.assertIs(input.df, 'data.frame')
         for (v in c('mz', 'mz.min', 'mz.max', 'rt')) {
             if (is.null(get(v)) && v %in% names(input.df.colnames) && ! is.null(input.df.colnames[[v]]) && ! is.na(input.df.colnames[[v]]) && input.df.colnames[[v]] %in% colnames(input.df))
                 assign(v, input.df[[input.df.colnames[[v]]]])
@@ -601,11 +601,11 @@ BiodbMassdbConn$methods( .checkSearchMsParam=function(input.df=NULL, input.df.co
         }
     }
 
-    .self$.assert.positive(min.rel.int)
-    .self$.assert.in(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
+    .self$.assertPositive(min.rel.int)
+    .self$.assertIn(ms.mode, .self$getBiodb()$getEntryFields()$get('ms.mode')$getAllowedValues())
     ms.mode <- .self$getBiodb()$getEntryFields()$get('ms.mode')$correctValue(ms.mode)
-    .self$.assert.positive(max.results)
-    .self$.assert.positive(ms.level)
+    .self$.assertPositive(max.results)
+    .self$.assertPositive(ms.level)
 
     return(list(use.mz.tol=mz.match$use.tol, use.mz.min.max=mz.match$use.min.max, use.rt.match=match.rt, input.df=input.df))
 })
@@ -617,11 +617,11 @@ BiodbMassdbConn$methods( .computeChromColRtRange=function(entry) {
 
     rt.col.unit <- entry$getFieldValue('chrom.rt.unit')
     if (entry$hasField('chrom.rt')) {
-        rt.col.min <- .self$.convert.rt(entry$getFieldValue('chrom.rt'), rt.col.unit, 's')
+        rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt'), rt.col.unit, 's')
         rt.col.max <- rt.col.min
     } else if (entry$hasField('chrom.rt.min') && entry$hasField('chrom.rt.max')) {
-        rt.col.min <- .self$.convert.rt(entry$getFieldValue('chrom.rt.min'), rt.col.unit, 's')
-        rt.col.max <- .self$.convert.rt(entry$getFieldValue('chrom.rt.max'), rt.col.unit, 's')
+        rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt.min'), rt.col.unit, 's')
+        rt.col.max <- .self$.convertRt(entry$getFieldValue('chrom.rt.max'), rt.col.unit, 's')
     } else
         .self$message('error', 'Impossible to match on retention time, no retention time fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
 
@@ -633,7 +633,7 @@ BiodbMassdbConn$methods( .computeChromColRtRange=function(entry) {
 
 BiodbMassdbConn$methods( .computeRtRange=function(rt, rt.unit, rt.tol, rt.tol.exp) {
 
-    rt.sec <- .self$.convert.rt(rt, rt.unit, 's')
+    rt.sec <- .self$.convertRt(rt, rt.unit, 's')
     rt.min <- rt.sec
     rt.max <- rt.sec
     .self$message('debug', paste0('At step 1, RT range is [', rt.min, ', ', rt.max, '] (s).'))

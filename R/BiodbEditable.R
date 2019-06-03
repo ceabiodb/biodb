@@ -20,7 +20,7 @@ BiodbEditable <- methods::setRefClass("BiodbEditable", contains='BiodbObject', f
 BiodbEditable$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbEditable')
+    .self$.abstractClass('BiodbEditable')
 
     # This constructor is never called, because this class is used as an interface (i.e.: it is declared in the "contains" field of another class, in second position or greater. Only the constructor of the first declared "contained" class is called.).
 })
@@ -60,7 +60,7 @@ BiodbEditable$methods( disallowEditing=function() {
 BiodbEditable$methods( setEditingAllowed=function(allow) {
     "Allow or disallow editing for this database."
     
-    .self$.assert.is(allow, 'logical')
+    .self$.assertIs(allow, 'logical')
     .self$.editing.allowed <- allow
 })
 

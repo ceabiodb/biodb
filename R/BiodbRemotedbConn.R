@@ -42,7 +42,7 @@ BiodbRemotedbConn <- methods::setRefClass("BiodbRemotedbConn", contains="BiodbCo
 BiodbRemotedbConn$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbRemotedbConn')
+    .self$.abstractClass('BiodbRemotedbConn')
 
     # Register with request scheduler
     .self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
@@ -110,7 +110,7 @@ BiodbRemotedbConn$methods( getEntryContentRequest=function(entry.id, concatenate
 BiodbRemotedbConn$methods( getEntryImageUrl=function(entry.id) {
     "Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry)."
 
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Get entry page url {{{1
@@ -119,7 +119,7 @@ BiodbRemotedbConn$methods( getEntryImageUrl=function(entry.id) {
 BiodbRemotedbConn$methods( getEntryPageUrl=function(entry.id) {
     "Get the URL to the page of the entry on the database web site."
 
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Private methods {{{1
@@ -135,7 +135,7 @@ BiodbRemotedbConn$methods( .setRequestSchedulerRules=function() {
 ################################################################################
 
 BiodbRemotedbConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Do get entry content one by one {{{2

@@ -11,7 +11,7 @@ MirbaseConn <- methods::setRefClass("MirbaseConn", contains=c("BiodbRemotedbConn
 
 MirbaseConn$methods( initialize=function(...) {
     callSuper(...)
-    .self$.abstract.class('MirbaseConn')
+    .self$.abstractClass('MirbaseConn')
 })
 
 # Get nb entries {{{1

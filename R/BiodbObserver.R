@@ -25,7 +25,7 @@
 #' # Define the message method
 #' MyObsClass$methods( message=function(type='info', msg,
 #'                                        class=NA_character_,
-#'                                        method=NA_character_) {
+#'                                        method=NA_character_, lvl=1) {
 #' .self$checkMessageType(type)
 #' # print(paste(type, msg, sep=': '))
 #' })
@@ -62,14 +62,14 @@ cfgKeyValSet=function(k, v) {
 ################################################################################
 
 message=function(type='info', msg, class=NA_character_,
-                   method=NA_character_) {
+                 method=NA_character_, lvl=1) {
     .self$checkMessageType(type)
 },
 
 # Info progress {{{3
 ################################################################################
 
-progress=function(type='info', msg, index, total, first) {
+progress=function(type='info', msg, index, total, first, lvl=1) {
     .self$checkMessageType(type)
 },
 

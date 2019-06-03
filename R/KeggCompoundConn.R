@@ -26,10 +26,10 @@
 #' conn <- mybiodb$getFactory()$createConn('kegg.compound')
 #'
 #' # Search for compounds by exact mass
-#' conn$ws.find.exact.mass(mass=174.05, retfmt='parsed')
+#' conn$wsFindExactMass(mass=174.05, retfmt='parsed')
 #'
 #' # Search for compounds by molecular weight 
-#' conn$ws.find.molecular.weight(mass=300, retfmt='parsed')
+#' conn$wsFindMolecularWeight(mass=300, retfmt='parsed')
 #'
 #' # Get pathway IDs related to compounds
 #' pathway.ids=conn$getPathwayIds(c('C02648', 'C06144'), org='mmu')
@@ -53,7 +53,7 @@ KeggCompoundConn$methods( initialize=function(...) {
 # Web service find exact mass {{{1
 ################################################################################
 
-KeggCompoundConn$methods( ws.find.exact.mass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+KeggCompoundConn$methods( wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     "Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
     retfmt <- match.arg(retfmt)
@@ -96,7 +96,7 @@ KeggCompoundConn$methods( ws.find.exact.mass=function(mass=NA_real_, mass.min=NA
 # Web service find molecural weight {{{1
 ################################################################################
 
-KeggCompoundConn$methods( ws.find.molecular.weight=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+KeggCompoundConn$methods( wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     "Search for entries by molecular mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
     retfmt <- match.arg(retfmt)
@@ -168,9 +168,9 @@ KeggCompoundConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.fie
             }
 
             if (mass.field == 'monoisotopic.mass')
-                mass.ids <- .self$ws.find.exact.mass(mass.min=mass.min, mass.max=mass.max, retfmt='ids')
+                mass.ids <- .self$wsFindExactMass(mass.min=mass.min, mass.max=mass.max, retfmt='ids')
             else
-                mass.ids <- .self$ws.find.molecular.weight(mass.min=mass.min, mass.max=mass.max, retfmt='ids')
+                mass.ids <- .self$wsFindMolecularWeight(mass.min=mass.min, mass.max=mass.max, retfmt='ids')
             .self$message('debug', paste('Got entry IDs ', paste(mass.ids, collapse=', '), '.')) 
             if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
                 mass.ids <- sub('^cpd:', '', mass.ids)

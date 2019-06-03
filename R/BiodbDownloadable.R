@@ -21,7 +21,7 @@ BiodbDownloadable <- methods::setRefClass("BiodbDownloadable", contains='BiodbOb
 BiodbDownloadable$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbDownloadable')
+    .self$.abstractClass('BiodbDownloadable')
 
     .self$.ext <- NA_character_
 })
@@ -110,5 +110,5 @@ BiodbDownloadable$methods( .setDownloadExt=function(ext) {
 ################################################################################
 
 BiodbDownloadable$methods( .doDownload=function() {
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })

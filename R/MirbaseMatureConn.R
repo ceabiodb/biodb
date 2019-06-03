@@ -99,7 +99,7 @@ MirbaseMatureConn$methods( getEntryContentFromDb=function(entry.id) {
 # Web service query {{{1
 ################################################################################
 
-MirbaseMatureConn$methods( ws.query=function(terms, submit='Search', retfmt=c('plain', 'request', 'parsed', 'ids')) {
+MirbaseMatureConn$methods( wsQuery=function(terms, submit='Search', retfmt=c('plain', 'request', 'parsed', 'ids')) {
     "Send request to web service query."
 
     retfmt <- match.arg(retfmt)
@@ -140,7 +140,7 @@ MirbaseMatureConn$methods( searchByName=function(name, max.results=NA_integer_) 
 
     # Search by name
     if ( ! is.null(name))
-        ids <- .self$ws.query(terms=name, retfmt='ids')
+        ids <- .self$wsQuery(terms=name, retfmt='ids')
 
     # Cut
     if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))

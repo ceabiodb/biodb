@@ -44,7 +44,7 @@ ChebiConn$methods( getEntryImageUrl=function(id) {
 # Web service WSDL {{{1
 ################################################################################
 
-ChebiConn$methods( ws.wsdl=function(retfmt=c('plain', 'parsed', 'request')) {
+ChebiConn$methods( wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
 
     retfmt <- match.arg(retfmt)
 
@@ -66,7 +66,7 @@ ChebiConn$methods( ws.wsdl=function(retfmt=c('plain', 'parsed', 'request')) {
 # Web service getLiteEntity {{{1
 ################################################################################
 
-ChebiConn$methods( ws.getLiteEntity=function(search=NULL, search.category='ALL', max.results=10, stars='ALL', retfmt=c('plain', 'parsed', 'request', 'ids')) {
+ChebiConn$methods( wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10, stars='ALL', retfmt=c('plain', 'parsed', 'request', 'ids')) {
     "Calls getLiteEntity web service and returns the XML result. See http://www.ebi.ac.uk/chebi/webServices.do. Be careful when search by mass (search.category='MASS' or 'MONOISOTOPIC MASS', since the searched is made in text mode, thus the number must be exactly written as it stored in database eventually padded with 0 in order to have exactly 5 digits after the decimal. An easy solution is to use wildcards to search a mass: '410;.718*'."
 
     retfmt <- match.arg(retfmt)
@@ -74,13 +74,13 @@ ChebiConn$methods( ws.getLiteEntity=function(search=NULL, search.category='ALL',
     .self$.parseWebServiceValues()
 
     # Check parameters
-    .self$.assert.not.null(search)
-    .self$.assert.not.na(search)
-    .self$.assert.in(search.category, .self$.ws.values$search.categories)
+    .self$.assertNotNull(search)
+    .self$.assertNotNa(search)
+    .self$.assertIn(search.category, .self$.ws.values$search.categories)
     if (is.na(max.results))
         max.results <- 0
-    .self$.assert.positive(max.results)
-    .self$.assert.in(stars, .self$.ws.values$stars.categories)
+    .self$.assertPositive(max.results)
+    .self$.assertIn(stars, .self$.ws.values$stars.categories)
 
     # Build request
     params <- c(search=gsub('[ /]', '+', search), searchCategory=gsub(' ', '+', search.category), maximumResults=max.results, starsCategory=gsub(' ', '+', stars))
@@ -126,7 +126,7 @@ ChebiConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL
     
     # Search by name
     if ( ! is.null(name))
-        ids <- .self$ws.getLiteEntity(search=name, search.category="ALL NAMES", max.results=0, retfmt='ids')
+        ids <- .self$wsGetLiteEntity(search=name, search.category="ALL NAMES", max.results=0, retfmt='ids')
 
     # Search by mass
     if ( ! is.null(mass) && ! is.null(mass.field)) {
@@ -155,7 +155,7 @@ ChebiConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL
 
                 # Search for all masses in the range
                 for (integer.mass in seq(as.integer(mass.min), as.integer(mass.max)))
-                    ids <- c(ids, .self$ws.getLiteEntity(search=paste0(integer.mass, '*'), search.category=search.category, max.results=0, retfmt='ids'))
+                    ids <- c(ids, .self$wsGetLiteEntity(search=paste0(integer.mass, '*'), search.category=search.category, max.results=0, retfmt='ids'))
 
                 # Remove duplicates
                 ids <- ids[ ! duplicated(ids)]
@@ -194,7 +194,7 @@ ChebiConn$methods( .parseWebServiceValues=function() {
 
     if (length(.self$.ws.values) == 0) {
 
-        wsdl <- .self$ws.wsdl(retfmt='parsed')
+        wsdl <- .self$wsWsdl(retfmt='parsed')
 
         # Get search categories
         .self$.ws.values$search.categories <- XML::xpathSApply(wsdl, "//xsd:simpleType[@name='SearchCategory']//xsd:enumeration", XML::xmlGetAttr, 'value', namespaces=.self$getPropertyValue('xml.ns'))
@@ -208,6 +208,6 @@ ChebiConn$methods( .parseWebServiceValues=function() {
 ################################################################################
 
 ChebiConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
-    return(.self$ws.getLiteEntity(search='1*', search.category='CHEBI ID', max.results=max.results, retfmt='ids'))
+    return(.self$wsGetLiteEntity(search='1*', search.category='CHEBI ID', max.results=max.results, retfmt='ids'))
 })
 

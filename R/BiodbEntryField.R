@@ -390,6 +390,6 @@ BiodbEntryField$methods( show=function() {
 ################################################################################
 
 BiodbEntryField$methods( getCardinality=function() {
-    .self$.deprecated.method('hasCardOne() or hasCardMany()')
+    .self$.deprecatedMethod('hasCardOne() or hasCardMany()')
     return(.self$.cardinality)
 })

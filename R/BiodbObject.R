@@ -21,7 +21,7 @@ methods=list(
 initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbObject')
+    .self$.abstractClass('BiodbObject')
 
     .self$.message.enabled <- TRUE
 },
@@ -37,7 +37,7 @@ getBiodb=function() {
 ################################################################################
 
 # Send a message to observers
-message=function(type, msg) {
+message=function(type, msg, lvl=1) {
 
     type <- tolower(type)
     
@@ -59,7 +59,7 @@ message=function(type, msg) {
     if ( ! is.null(biodb))
         lapply(biodb$getObservers(),
                function(x) x$message(type=type, msg=msg, class=class,
-                                     method=method))
+                                     method=method, lvl=lvl))
     else {
         caller.info <- if (is.na(class)) '' else class
         if (! is.na(method))
@@ -108,6 +108,13 @@ info=function(...) {
     .self$message(type='info', msg=paste0(...))
 },
 
+# Info message level 2 {{{3
+################################################################################
+
+info2=function(...) {
+    .self$message(type='info', msg=paste0(...), lvl=2)
+},
+
 # Private methods {{{2
 ################################################################################
 
@@ -115,7 +122,7 @@ info=function(...) {
 ################################################################################
 
 # This method is used to declare a class as abstract.
-.abstract.class=function(class) {
+.abstractClass=function(class) {
 
     if (class == class(.self))
         .self$error('Class ', class, ' is abstract and thus cannot be ',
@@ -126,7 +133,7 @@ info=function(...) {
 ################################################################################
 
 # This method is used to declare a method as abstract.
-.abstract.method=function() {
+.abstractMethod=function() {
 
     class <- class(.self)
     method <- sys.calls()[[length(sys.calls()) - 1]]
@@ -141,7 +148,7 @@ info=function(...) {
 ################################################################################
 
 # This method is used to declare a method as deprecated.
-.deprecated.method=function(new.method=NA_character_) {
+.deprecatedMethod=function(new.method=NA_character_) {
 
     class <- class(.self)
     call <- sys.call(-1)
@@ -160,7 +167,7 @@ info=function(...) {
 # Assert not NA {{{3
 ################################################################################
 
-.assert.not.na=function(param, msg.type='error', sys.call.level=0, param.name=NULL) {
+.assertNotNa=function(param, msg.type='error', sys.call.level=0, param.name=NULL) {
 
     if (any(is.na(param))) {
 
@@ -178,7 +185,7 @@ info=function(...) {
 # Assert not NULL {{{3
 ################################################################################
 
-.assert.not.null=function(param, msg.type='error', sys.call.level=0,
+.assertNotNull=function(param, msg.type='error', sys.call.level=0,
                             param.name=NULL) {
 
     if (is.null(param)) {
@@ -196,7 +203,7 @@ info=function(...) {
 # Assert inferior {{{3
 ################################################################################
 
-.assert.inferior=function(param1, param2, msg.type='error',
+.assertInferior=function(param1, param2, msg.type='error',
                             na.allowed=TRUE) {
 
     # Remove NA values
@@ -222,7 +229,7 @@ info=function(...) {
 # Assert equal length {{{3
 ################################################################################
 
-.assert.equal.length=function(param1, param2, msg.type='error') {
+.assertEqualLength=function(param1, param2, msg.type='error') {
     if (length(param1) != length(param2)) {
         param1.name <- as.character(sys.call(0))[[2]]
         param2.name <- as.character(sys.call(0))[[3]]
@@ -238,16 +245,16 @@ info=function(...) {
 # Assert positive {{{3
 ################################################################################
 
-.assert.positive=function(param, na.allowed=TRUE, zero=TRUE,
+.assertPositive=function(param, na.allowed=TRUE, zero=TRUE,
                             sys.call.level=0, msg.type='error',
                             param.name=NULL) {
 
     if (is.null(param.name))
         param.name <- as.character(sys.call(sys.call.level))[[2]]
 
-    .self$.assert.not.null(param, msg.type=msg.type, param.name=param.name)
+    .self$.assertNotNull(param, msg.type=msg.type, param.name=param.name)
     if ( ! na.allowed)
-        .self$.assert.not.na(param, msg.type=msg.type, param.name=param.name)
+        .self$.assertNotNa(param, msg.type=msg.type, param.name=param.name)
 
     if (any(param[ ! is.na(param)] < 0)
         || ( ! zero && any(param[ ! is.na(param)] == 0))) {
@@ -265,7 +272,7 @@ info=function(...) {
 # Assert length one {{{3
 ################################################################################
 
-.assert.length.one=function(param, sys.call.level=0, msg.type='error',
+.assertLengthOne=function(param, sys.call.level=0, msg.type='error',
                               param.name=NULL) {
 
     if (length(param) != 1) {
@@ -284,7 +291,7 @@ info=function(...) {
 # Assert in {{{3
 ################################################################################
 
-.assert.in=function(param, values, msg.type='error') {
+.assertIn=function(param, values, msg.type='error') {
     if ( ! is.na(param) && ! param %in% values) {
         param.name <- as.character(sys.call(0))[[2]]
         .self$message(msg.type, paste0(param.name, ' cannot be set to ', param,
@@ -298,7 +305,7 @@ info=function(...) {
 # Assert is {{{3
 ################################################################################
 
-.assert.is=function(param, type, sys.call.level=0, msg.type='error',
+.assertIs=function(param, type, sys.call.level=0, msg.type='error',
                       param.name=NULL) {
 
     if ( ! is.null(param) && ! class(param) %in% type) {
@@ -318,7 +325,7 @@ info=function(...) {
 # Assert inherits from {{{3
 ################################################################################
 
-.assert.inherits.from=function(param, super.class, msg.type='error') {
+.assertInheritsFrom=function(param, super.class, msg.type='error') {
     if ( ! is.null(param) && ! is(param, super.class)) {
         param.name <- as.character(sys.call(0))[[2]]
         .self$message(msg.type, paste0(param.name, ' does not inherit from ',
@@ -331,7 +338,7 @@ info=function(...) {
 # Assert number {{{3
 ################################################################################
 
-.assert.number=function(param, length.one=TRUE, null.allowed=FALSE,
+.assertNumber=function(param, length.one=TRUE, null.allowed=FALSE,
                           na.allowed=FALSE, zero=TRUE, negative=TRUE,
                           sys.call.level=0, integer.allowed=TRUE,
                           float.allowed=TRUE) {
@@ -339,25 +346,25 @@ info=function(...) {
     param.name <- as.character(sys.call(sys.call.level))[[2]]
 
     if ( ! null.allowed)
-        .self$.assert.not.null(param, param.name=param.name)
+        .self$.assertNotNull(param, param.name=param.name)
 
     if ( ! is.null(param)) {
 
         if ( ! na.allowed)
-            .self$.assert.not.na(param, param.name=param.name)
+            .self$.assertNotNa(param, param.name=param.name)
 
         types <- character()
         if (integer.allowed)
             types <- c(types, 'integer')
         if (float.allowed)
             types <- c(types, 'numeric')
-        .self$.assert.is(param, types, param.name=param.name)
+        .self$.assertIs(param, types, param.name=param.name)
 
         if (length.one)
-            .self$.assert.length.one(param, param.name=param.name)
+            .self$.assertLengthOne(param, param.name=param.name)
 
         if ( ! negative)
-            .self$.assert.positive(param, na.allowed=na.allowed, zero=zero,
+            .self$.assertPositive(param, na.allowed=na.allowed, zero=zero,
                                    param.name=param.name)
     }
 }

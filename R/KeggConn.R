@@ -19,7 +19,7 @@
 #' conn <- mybiodb$getFactory()$createConn('kegg.compound')
 #' 
 #' # Search for an entry
-#' conn$ws.find('NADPH', retfmt='parsed')
+#' conn$wsFind('NADPH', retfmt='parsed')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -36,7 +36,7 @@ KeggConn <- methods::setRefClass("KeggConn", contains=c("BiodbRemotedbConn", "Bi
 KeggConn$methods( initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
 
     callSuper(...)
-    .self$.abstract.class('KeggConn')
+    .self$.abstractClass('KeggConn')
 
     # Set name
     if (is.null(db.name) || is.na(db.name))
@@ -50,7 +50,7 @@ KeggConn$methods( initialize=function(db.name=NA_character_, db.abbrev=NA_charac
 # Complete entry id {{{1
 ################################################################################
 
-KeggConn$methods( .complete.entry.id=function(id) {
+KeggConn$methods( .completeEntryId=function(id) {
 
     if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
         id <- paste(.self$.db.abbrev, id, sep=':')
@@ -69,13 +69,13 @@ KeggConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
 ################################################################################
 
 KeggConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget'), params=.self$.complete.entry.id(id))$toString(), FUN.VALUE=''))
+    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget'), params=.self$.completeEntryId(id))$toString(), FUN.VALUE=''))
 })
 
 # Web service list {{{1
 ################################################################################
 
-KeggConn$methods( ws.list=function(retfmt=c('plain', 'request', 'ids')) {
+KeggConn$methods( wsList=function(retfmt=c('plain', 'request', 'ids')) {
     "Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
     retfmt <- match.arg(retfmt)
@@ -105,7 +105,7 @@ KeggConn$methods( ws.list=function(retfmt=c('plain', 'request', 'ids')) {
 # Web service find {{{1
 ################################################################################
 
-KeggConn$methods( ws.find=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+KeggConn$methods( wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     "Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
     retfmt <- match.arg(retfmt)
@@ -144,7 +144,7 @@ KeggConn$methods( searchByName=function(name, max.results=NA_integer_) {
 
     # Search by name
     if ( ! is.null(name) && ! is.na(name)) {
-        ids <- .self$ws.find(name, retfmt='ids')
+        ids <- .self$wsFind(name, retfmt='ids')
         if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
             ids <- sub('^[^:]*:', '', ids)
     }
@@ -165,7 +165,7 @@ KeggConn$methods( searchByName=function(name, max.results=NA_integer_) {
 KeggConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
     # Get IDs
-    ids <- .self$ws.list(retfmt='ids')
+    ids <- .self$wsList(retfmt='ids')
 
     return(ids)
 })

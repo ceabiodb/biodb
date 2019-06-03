@@ -12,7 +12,7 @@ LipidmapsStructureConn=methods::setRefClass("LipidmapsStructureConn", contains=c
 ################################################################################
 
 LipidmapsStructureConn$methods( .doGetEntryContentRequest=function(ids, concatenate=TRUE) {
-    return(vapply(ids, function(id) .self$ws.LMSDRecord(lmid=id, mode='File', output.type='CSV', retfmt='request')$getUrl()$toString(), FUN.VALUE=''))
+    return(vapply(ids, function(id) .self$wsLmsdRecord(lmid=id, mode='File', output.type='CSV', retfmt='request')$getUrl()$toString(), FUN.VALUE=''))
 })
 
 # Get entry page url {{{1
@@ -33,7 +33,7 @@ LipidmapsStructureConn$methods( getEntryImageUrl=function(id) {
 # Web service LMSDSearch {{{1
 ################################################################################
 
-LipidmapsStructureConn$methods( ws.LMSDSearch=function(mode=NULL, output.mode=NULL, output.type=NULL, output.delimiter=NULL, output.quote=NULL, output.column.header=NULL, lmid=NULL, name=NULL, formula=NULL, search.type=NULL, smiles.string=NULL, exact.mass=NA_real_, exact.mass.offset=NA_real_, core.class=NULL, main.class=NULL, sub.class=NULL, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+LipidmapsStructureConn$methods( wsLmsdSearch=function(mode=NULL, output.mode=NULL, output.type=NULL, output.delimiter=NULL, output.quote=NULL, output.column.header=NULL, lmid=NULL, name=NULL, formula=NULL, search.type=NULL, smiles.string=NULL, exact.mass=NA_real_, exact.mass.offset=NA_real_, core.class=NULL, main.class=NULL, sub.class=NULL, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     "Calls LMSDSearch web service. See http://www.lipidmaps.org/data/structure/programmaticaccess.html."
 
     retfmt <- match.arg(retfmt)
@@ -124,7 +124,7 @@ LipidmapsStructureConn$methods( ws.LMSDSearch=function(mode=NULL, output.mode=NU
 # Web service LMSDRecord {{{1
 ################################################################################
 
-LipidmapsStructureConn$methods( ws.LMSDRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL, output.quote=NULL, output.column.header=NULL, retfmt=c('plain', 'request', 'parsed')) {
+LipidmapsStructureConn$methods( wsLmsdRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL, output.quote=NULL, output.column.header=NULL, retfmt=c('plain', 'request', 'parsed')) {
     "Calls LMSDRecord web service. See http://www.lipidmaps.org/data/structure/programmaticaccess.html."
 
     retfmt <- match.arg(retfmt)
@@ -216,7 +216,7 @@ LipidmapsStructureConn$methods( searchCompound=function(name=NULL, mass=NULL, ma
     }
 
     # Search
-    ids <- .self$ws.LMSDSearch(mode='ProcessStrSearch', output.mode='File', name=name, exact.mass=exact.mass, exact.mass.offset=exact.mass.offset, retfmt='ids')
+    ids <- .self$wsLmsdSearch(mode='ProcessStrSearch', output.mode='File', name=name, exact.mass=exact.mass, exact.mass.offset=exact.mass.offset, retfmt='ids')
 
     return(ids)
 })
@@ -230,7 +230,7 @@ LipidmapsStructureConn$methods( searchCompound=function(name=NULL, mass=NULL, ma
 LipidmapsStructureConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
     # Retrieve all IDs
-    ids <- .self$ws.LMSDSearch(mode='ProcessStrSearch', output.mode='File', retfmt='ids')
+    ids <- .self$wsLmsdSearch(mode='ProcessStrSearch', output.mode='File', retfmt='ids')
 
     return(ids)
 })

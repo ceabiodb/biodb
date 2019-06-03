@@ -224,7 +224,7 @@ saveContentToFile=function(content, cache.id, subfolder, name, ext) {
 getSubFolderPath=function(subfolder) {
     "Get the absolute path of a subfolder inside the cache system."
 
-    folder.path <- .self$.get.subfolder.path(subfolder)
+    folder.path <- .self$.getSubfolderPath(subfolder)
 
     # Create folder if needed
     if ( ! is.na(folder.path) && ! file.exists(folder.path))
@@ -244,7 +244,7 @@ eraseFolder=function(subfolder=NA_character_) {
 
     # Erase subfolder
     else
-        folder.to.erase <- .self$.get.subfolder.path(subfolder)
+        folder.to.erase <- .self$.getSubfolderPath(subfolder)
 
     # Erase
     .self$message('info', paste("Erasing cache folder ", folder.to.erase, ".", sep=''))
@@ -327,7 +327,7 @@ show=function() {
 # Get subfolder path {{{3
 ################################################################################
 
-.get.subfolder.path=function(subfolder) {
+.getSubfolderPath=function(subfolder) {
 
     cfg.subfolder.key <- paste(subfolder, 'cache', 'subfolder', sep='.')
 
@@ -350,7 +350,7 @@ show=function() {
 
 enabled=function() {
 
-    .self$.deprecated.method("BiodbConfig::isEnabled('cache.system')")
+    .self$.deprecatedMethod("BiodbConfig::isEnabled('cache.system')")
 
     return(.self$getBiodb()$getConfig()$isEnabled('cache.system'))
 },
@@ -360,7 +360,7 @@ enabled=function() {
 
 enable=function() {
 
-    .self$.deprecated.method("BiodbConfig::enable('cache.system')")
+    .self$.deprecatedMethod("BiodbConfig::enable('cache.system')")
     
     .self$getBiodb()$getConfig()$enable('cache.system')
 },
@@ -370,7 +370,7 @@ enable=function() {
 
 disable=function() {
 
-    .self$.deprecated.method("BiodbConfig::disable('cache.system')")
+    .self$.deprecatedMethod("BiodbConfig::disable('cache.system')")
     
     .self$getBiodb()$getConfig()$disable('cache.system')
 }

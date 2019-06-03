@@ -21,7 +21,7 @@ BiodbSearchable <- methods::setRefClass("BiodbSearchable", contains='BiodbObject
 BiodbSearchable$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbSearchable')
+    .self$.abstractClass('BiodbSearchable')
 })
 
 # Search by name {{{1
@@ -29,5 +29,5 @@ BiodbSearchable$methods( initialize=function(...) {
 
 BiodbSearchable$methods( searchByName=function(name, max.results=NA_integer_) {
 
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })

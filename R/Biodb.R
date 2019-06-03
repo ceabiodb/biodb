@@ -102,7 +102,7 @@ initialize=function(...) {
     .self$loadDefinitions(file)
 
     # Check locale
-    .self$.check.locale()
+    .self$.checkLocale()
 
     .self$message('info', 'Created successfully new Biodb instance.')
 },
@@ -128,6 +128,8 @@ terminate=function() {
 
 loadDefinitions=function(file) {
     'Load databases and entry fields definitions from YAML file.'
+
+    .self$debug('Load definitions from file "', file, '".')
 
     # Load file
     def <- yaml::read_yaml(file)
@@ -392,7 +394,7 @@ computeFields=function(entries) {
 saveEntriesAsJson=function(entries, files, compute=TRUE) {
     "Save a list of entries in JSON format."
 
-    .self$.assert.equal.length(entries, files)
+    .self$.assertEqualLength(entries, files)
 
     # Save
     for (i in seq_along(entries)) {
@@ -458,7 +460,7 @@ show=function() {
 # Check locale {{{3
 ################################################################################
 
-.check.locale=function() {
+.checkLocale=function() {
 
     # Get locale
     locale <- Sys.getlocale()
@@ -493,7 +495,7 @@ show=function() {
 
 fieldIsAtomic=function(field) {
 
-    .self$.deprecated.method('BiodbEntryField::isVector()')
+    .self$.deprecatedMethod('BiodbEntryField::isVector()')
 
     return(.self$getEntryFields()$get(field)$isVector())
 },
@@ -503,7 +505,7 @@ fieldIsAtomic=function(field) {
 
 getFieldClass=function(field) {
 
-    .self$.deprecated.method('Biodb::getEntryFields()$get(field)$getClass()')
+    .self$.deprecatedMethod('Biodb::getEntryFields()$get(field)$getClass()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 }

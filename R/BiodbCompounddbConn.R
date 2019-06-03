@@ -49,7 +49,7 @@ methods=list(
 initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbCompounddbConn')
+    .self$.abstractClass('BiodbCompounddbConn')
 },
 
 # Search compound {{{3
@@ -62,7 +62,7 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
     must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
                                        ...)"
 
-    .self$.abstract.method()
+    .self$.abstractMethod()
 },
 
 # Private methods {{{2
@@ -74,11 +74,11 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
 .checkMassField=function(mass, mass.field) {
 
     if ( ! is.null(mass)) {
-        .self$.assert.is(mass, c('integer', 'numeric'))
-        .self$.assert.not.null(mass.field)
-        .self$.assert.is(mass.field, 'character')
+        .self$.assertIs(mass, c('integer', 'numeric'))
+        .self$.assertNotNull(mass.field)
+        .self$.assertIs(mass.field, 'character')
         mass.fields <- .self$getBiodb()$getEntryFields()$getFieldNames(type='mass')
-        .self$.assert.in(mass.field, mass.fields)
+        .self$.assertIn(mass.field, mass.fields)
     }
 }
 

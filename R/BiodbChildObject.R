@@ -24,7 +24,7 @@ methods=list(
 initialize=function(parent, ...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbChildObject')
+    .self$.abstractClass('BiodbChildObject')
     .self$.setParent(parent)
 },
 

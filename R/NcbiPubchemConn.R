@@ -13,7 +13,7 @@ NcbiPubchemConn$methods( initialize=function(db.name, id.xmltag, entry.xmltag, i
 
     # Call parent constructor
     callSuper(...)
-    .self$.abstract.class('NcbiPubchemConn')
+    .self$.abstractClass('NcbiPubchemConn')
 
     .self$.db.name <- db.name
     .self$.id.xmltag <- id.xmltag

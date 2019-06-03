@@ -25,8 +25,8 @@ BiodbRequestSchedulerRule$methods( initialize=function(host, n, t, conn, ...) {
 
     callSuper(...)
 
-    .self$.assert.inherits.from(conn, 'BiodbConn')
-    .self$.assert.is(host, 'character')
+    .self$.assertInheritsFrom(conn, 'BiodbConn')
+    .self$.assertIs(host, 'character')
     .self$.host <- host
     .self$.last.time <- list()
     .self$.n.index <- as.integer(0)
@@ -59,10 +59,10 @@ BiodbRequestSchedulerRule$methods( getT=function() {
 ################################################################################
 
 BiodbRequestSchedulerRule$methods( setFrequency=function(n, t) {
-    .self$.assert.is(n, 'integer')
-    .self$.assert.is(t, c('integer', 'numeric'))
-    .self$.assert.positive(n)
-    .self$.assert.positive(t)
+    .self$.assertIs(n, 'integer')
+    .self$.assertIs(t, c('integer', 'numeric'))
+    .self$.assertPositive(n)
+    .self$.assertPositive(t)
 
     # Update last time and index
     if (length(.self$.last.time) >= 1) {
@@ -92,7 +92,7 @@ BiodbRequestSchedulerRule$methods( getConnectors=function() {
 ################################################################################
 
 BiodbRequestSchedulerRule$methods( addConnector=function(conn) {
-    .self$.assert.inherits.from(conn, 'BiodbConn')
+    .self$.assertInheritsFrom(conn, 'BiodbConn')
 
     # Connector already listed?
     if (any(vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE=TRUE)))
@@ -112,7 +112,7 @@ BiodbRequestSchedulerRule$methods( addConnector=function(conn) {
 ################################################################################
 
 BiodbRequestSchedulerRule$methods( removeConnector=function(conn) {
-    .self$.assert.inherits.from(conn, 'BiodbConn')
+    .self$.assertInheritsFrom(conn, 'BiodbConn')
 
     # Connector already listed?
     found.conn <- vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE=TRUE)
@@ -198,7 +198,7 @@ BiodbRequestSchedulerRule$methods( storeCurrentTime=function(cur.time=NULL) {
 # Wait as needed {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( wait.as.needed=function() {
+BiodbRequestSchedulerRule$methods( .waitAsNeeded=function() {
 
     # Compute sleep time
     sleep.time <- .self$computeSleepTime()

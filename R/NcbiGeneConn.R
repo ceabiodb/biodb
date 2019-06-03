@@ -42,7 +42,7 @@ NcbiGeneConn$methods( searchByName=function(name, max.results=NA_integer_) {
 
     # Set retmax
     if (is.na(max.results)) {
-        xml <- .self$ws.esearch(term=term, retmax=0, retfmt='parsed')
+        xml <- .self$wsEsearch(term=term, retmax=0, retfmt='parsed')
         retmax <- as.integer(XML::xpathSApply(xml, "/eSearchResult/Count", XML::xmlValue))
         if (length(retmax) == 0)
             retmax <- NA_integer_
@@ -51,7 +51,7 @@ NcbiGeneConn$methods( searchByName=function(name, max.results=NA_integer_) {
         retmax <- max.results
 
     # Send request
-    ids <- .self$ws.esearch(term=term, retmax=retmax, retfmt='ids')
+    ids <- .self$wsEsearch(term=term, retmax=retmax, retfmt='ids')
 
     return(ids)
 })

@@ -21,7 +21,7 @@
 #' uniprot <- mybiodb$getFactory()$createConn('uniprot')
 #'
 #' # Access web service query
-#' result <- uniprot$ws.query(query='name:"prion protein"',
+#' result <- uniprot$wsQuery(query='name:"prion protein"',
 #'                            columns=c('id', 'entry name'),
 #'                            format='txt', limit=10)
 #'
@@ -45,7 +45,7 @@ UniprotConn$methods( initialize=function(...) {
 # Web service query {{{1
 ################################################################################
 
-UniprotConn$methods( ws.query=function(query='', columns=NULL, format=NULL, limit=NULL, retfmt=c('plain', 'parsed', 'ids', 'request')) {
+UniprotConn$methods( wsQuery=function(query='', columns=NULL, format=NULL, limit=NULL, retfmt=c('plain', 'parsed', 'ids', 'request')) {
     "Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details."
 
     retfmt <- match.arg(retfmt)
@@ -178,7 +178,7 @@ UniprotConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NU
     }
 
     # Send query
-    ids <- .self$ws.query(query=query, limit=max.results, retfmt='ids')
+    ids <- .self$wsQuery(query=query, limit=max.results, retfmt='ids')
 
     return(ids)
 })
@@ -191,7 +191,7 @@ UniprotConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NU
 
 UniprotConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
-    ids <- .self$ws.query(limit=max.results, retfmt='ids')
+    ids <- .self$wsQuery(limit=max.results, retfmt='ids')
 
     return(ids)
 })

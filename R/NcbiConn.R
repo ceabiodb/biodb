@@ -13,5 +13,5 @@ NcbiConn$methods( initialize=function(...) {
 
     # Call parent constructor
     callSuper(...)
-    .self$.abstract.class('NcbiConn')
+    .self$.abstractClass('NcbiConn')
 })

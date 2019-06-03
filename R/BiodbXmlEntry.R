@@ -13,7 +13,7 @@ BiodbXmlEntry <- methods::setRefClass("BiodbXmlEntry", contains="BiodbEntry", fi
 BiodbXmlEntry$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbXmlEntry')
+    .self$.abstractClass('BiodbXmlEntry')
 })
 
 # Do parse content {{{1

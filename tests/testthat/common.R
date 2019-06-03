@@ -104,11 +104,11 @@ TestObserver$methods( initialize = function(...) {
 	.last.index <<- 0
 })
 
-TestObserver$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
+TestObserver$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_, lvl=1) {
 	testthat::expect_is(msg, 'character')
 })
 
-TestObserver$methods( progress = function(type = 'info', msg, index, total, first) {
+TestObserver$methods( progress = function(type = 'info', msg, index, total, first, lvl=1) {
 
 	.self$checkMessageType(type)
 
@@ -145,7 +145,9 @@ create.biodb.instance <- function(offline = FALSE) {
 
 	# Create instance
 	biodb <- Biodb$new()
-	biodb$getConfig()$set('msg.debug.lvl', 1)
+	biodb$getConfig()$set('msg.caution.lvl', 2)
+	biodb$getConfig()$set('msg.debug.lvl', 2)
+	biodb$getConfig()$set('msg.info.lvl', 2)
 	biodb$addObservers(test.observer)
 	biodb$addObservers(logger)
 
@@ -348,7 +350,7 @@ create.test.observer <- function(biodb) {
 		.msgs <<- character()
 		.msgs.by.type <<- list()
 	})
-	TestObs$methods( message = function(type, msg, class = NA_character_, method = NA_character_, level = 1) {
+	TestObs$methods( message = function(type, msg, class = NA_character_, method = NA_character_, lvl = 1) {
 		.msgs <<- c(.self$.msgs, msg)
 		.self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
 	})

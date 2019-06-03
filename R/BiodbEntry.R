@@ -59,7 +59,7 @@ BiodbEntry <- methods::setRefClass("BiodbEntry", contains="BiodbChildObject", fi
 BiodbEntry$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbEntry')
+    .self$.abstractClass('BiodbEntry')
 
     .self$.fields <- list()
     .self$.new <- FALSE
@@ -492,7 +492,7 @@ BiodbEntry$methods( .isContentCorrect=function(content) {
 ################################################################################
 
 BiodbEntry$methods( .doParseContent=function(content) {
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Is parsed content correct {{{2
@@ -506,7 +506,7 @@ BiodbEntry$methods( .isParsedContentCorrect=function(parsed.content) {
 ################################################################################
 
 BiodbEntry$methods( .parseFieldsStep1=function(parsed.content) {
-    .self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Parse fields step 2 {{{2
@@ -528,7 +528,7 @@ BiodbEntry$methods( .checkDbIdField=function() {
 ################################################################################
 
 BiodbEntry$methods( getField=function(field) {
-    .self$.deprecated.method("getFieldValue()")
+    .self$.deprecatedMethod("getFieldValue()")
     return(.self$getFieldValue(field))
 })
 
@@ -536,7 +536,7 @@ BiodbEntry$methods( getField=function(field) {
 ################################################################################
 
 BiodbEntry$methods( setField=function(field, value) {
-    .self$.deprecated.method("setFieldValue()")
+    .self$.deprecatedMethod("setFieldValue()")
     .self$setFieldValue(field, value)
 })
 
@@ -545,7 +545,7 @@ BiodbEntry$methods( setField=function(field, value) {
 
 BiodbEntry$methods( getFieldClass=function(field) {
 
-    .self$.deprecated.method('Biodb::getEntryFields()$get(field)$getClass()')
+    .self$.deprecatedMethod('Biodb::getEntryFields()$get(field)$getClass()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 })
@@ -555,7 +555,7 @@ BiodbEntry$methods( getFieldClass=function(field) {
 
 BiodbEntry$methods( getFieldCardinality=function(field) {
 
-    .self$.deprecated.method('BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany()')
+    .self$.deprecatedMethod('BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
 })
@@ -565,7 +565,7 @@ BiodbEntry$methods( getFieldCardinality=function(field) {
 
 BiodbEntry$methods( fieldHasBasicClass=function(field) {
 
-    .self$.deprecated.method('BiodbEntryField::isVector()')
+    .self$.deprecatedMethod('BiodbEntryField::isVector()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
 })
@@ -573,9 +573,9 @@ BiodbEntry$methods( fieldHasBasicClass=function(field) {
 # Compute field {{{2
 ################################################################################
 
-BiodbEntry$methods( .compute.field=function(fields=NULL) {
+BiodbEntry$methods( .computeField=function(fields=NULL) {
 
-    .self$.deprecated.method('BiodbEntry::computeFields()')
+    .self$.deprecatedMethod('BiodbEntry::computeFields()')
 
     return(.self$computeFields(fields=fields))
 })

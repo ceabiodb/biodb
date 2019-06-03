@@ -85,7 +85,7 @@ BiodbRequestScheduler$methods( sendRequest=function(request, cache.read=TRUE) {
     }
 
     # Check if in offline mode
-    .self$.check.offline.mode()
+    .self$.checkOfflineMode()
 
     if (is.na(content)) {
 
@@ -112,7 +112,7 @@ BiodbRequestScheduler$methods( downloadFile=function(url, dest.file) {
     rule <- .self$.findRule(url)
 
     # Wait required time between two requests
-    rule$wait.as.needed()
+    rule$.waitAsNeeded()
 
     utils::download.file(url=url$toString(), destfile=dest.file, mode='wb', method='libcurl', cacheOK=FALSE, quiet=TRUE)
 })
@@ -158,7 +158,7 @@ BiodbRequestScheduler$methods( connSchedulerFrequencyUpdated=function(conn) {
 # Check offline mode {{{2
 ################################################################################
 
-BiodbRequestScheduler$methods( .check.offline.mode=function() {
+BiodbRequestScheduler$methods( .checkOfflineMode=function() {
 
     if (.self$getBiodb()$getConfig()$isEnabled('offline'))
         .self$message('error', "Offline mode is enabled. All connections are forbidden.")
@@ -209,10 +209,10 @@ BiodbRequestScheduler$methods( .unregisterConnector=function(conn) {
 
 BiodbRequestScheduler$methods( .findRule=function(url, fail=TRUE) {
 
-    .self$.assert.not.null(url)
+    .self$.assertNotNull(url)
     if ( ! is(url, 'BiodbUrl')) {
-        .self$.assert.length.one(url)
-        .self$.assert.not.na(url)
+        .self$.assertLengthOne(url)
+        .self$.assertNotNa(url)
         url <- BiodbUrl(url =url)
     }
     domain <- url$getDomain()
@@ -266,7 +266,7 @@ BiodbRequestScheduler$methods( .getAllRules=function() {
 ################################################################################
 
 BiodbRequestScheduler$methods( .getConnectorRules=function(conn) {
-    .self$.assert.not.null(conn)
+    .self$.assertNotNull(conn)
     return(.self$.connid2rules[[conn$getId()]])
 })
 
@@ -403,7 +403,7 @@ BiodbRequestScheduler$methods( .doSendRequestLoop=function(request, rule) {
         .self$message('debug', paste0('Request body is "', paste(request$getBody(), collapse=', '), '".'))
 
         # Wait required time between two requests
-        rule$wait.as.needed()
+        rule$.waitAsNeeded()
 
         # Send request
         res <- .self$.doSendRequestOnce(request=request)
@@ -431,7 +431,7 @@ BiodbRequestScheduler$methods( .doSendRequestLoop=function(request, rule) {
 BiodbRequestScheduler$methods( getUrlString=function(url, params=list()) {
     "Build a URL string, using a base URL and parameters to be passed."
 
-    .self$.deprecated.method("BiodbUrl::toString()")
+    .self$.deprecatedMethod("BiodbUrl::toString()")
 
     url <- BiodbUrl(url=url, params=params)$toString(encode=FALSE)
 
@@ -444,7 +444,7 @@ BiodbRequestScheduler$methods( getUrlString=function(url, params=list()) {
 BiodbRequestScheduler$methods( getUrl=function(url, params=list(), method=c('get', 'post'), header=character(), body=character(), encoding=integer()) {
     "Send a URL request, either with GET or POST method, and return result."
 
-    .self$.deprecated.method("BiodbRequestScheduler::sendRequest()")
+    .self$.deprecatedMethod("BiodbRequestScheduler::sendRequest()")
 
     method <- match.arg(method)
 

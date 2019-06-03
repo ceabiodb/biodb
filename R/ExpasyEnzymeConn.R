@@ -18,7 +18,7 @@ ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn", contains=c("BiodbRe
 # Web service enzyme-byname {{{1
 ################################################################################
 
-ExpasyEnzymeConn$methods( ws.enzymeByName=function(name, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+ExpasyEnzymeConn$methods( wsEnzymeByName=function(name, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     "Calls enzyme-byname web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-byname.html."
 
     retfmt <- match.arg(retfmt)
@@ -40,7 +40,7 @@ ExpasyEnzymeConn$methods( ws.enzymeByName=function(name, retfmt=c('plain', 'requ
 # Web service enzyme-bycomment {{{1
 ################################################################################
 
-ExpasyEnzymeConn$methods( ws.enzymeByComment=function(comment, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+ExpasyEnzymeConn$methods( wsEnzymeByComment=function(comment, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     "Calls enzyme-bycomment web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-bycomment.html."
 
     retfmt <- match.arg(retfmt)
@@ -125,7 +125,7 @@ ExpasyEnzymeConn$methods( .parseWsReturnedHtml=function(results, retfmt) {
 ExpasyEnzymeConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
     # Send request
-    ids <- .self$ws.enzymeByComment('e', retfmt='ids')
+    ids <- .self$wsEnzymeByComment('e', retfmt='ids')
 
     return(ids)
 })

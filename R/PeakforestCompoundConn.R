@@ -33,7 +33,7 @@ PeakforestCompoundConn$methods( getEntryImageUrl=function(id) {
 # Web service search.compounds.mass {{{1
 ################################################################################
 
-PeakforestCompoundConn$methods( ws.search.compounds.mass=function(field, mass, delta, max=NA_integer_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+PeakforestCompoundConn$methods( wsSearchCompoundsMass=function(field, mass, delta, max=NA_integer_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
     retfmt <- match.arg(retfmt)
 
@@ -99,7 +99,7 @@ PeakforestCompoundConn$methods( searchCompound=function(name=NULL, mass=NULL, ma
     # Search by name
     if ( ! is.null(name)) {
         max <- if (search.mass) NA_integer_ else max.results
-        ids <- .self$ws.search(name, max=max, retfmt='ids')
+        ids <- .self$wsSearch(name, max=max, retfmt='ids')
     }
 
     # Search by mass
@@ -110,7 +110,7 @@ PeakforestCompoundConn$methods( searchCompound=function(name=NULL, mass=NULL, ma
             delta <- mass.tol
         field <- if (mass.field == 'monoisotopic.mass') 'monoisotopicmass' else 'averagemass'
         max <- if (is.null(name)) max.results else NA_integer_
-        mass.ids <- .self$ws.search.compounds.mass(field=field, mass=mass, delta=delta, max=max, retfmt='ids')
+        mass.ids <- .self$wsSearchCompoundsMass(field=field, mass=mass, delta=delta, max=max, retfmt='ids')
         if ( ! is.null(ids))
             ids <- ids[ids %in% mass.ids]
         else

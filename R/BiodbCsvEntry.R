@@ -12,7 +12,7 @@ BiodbCsvEntry <- methods::setRefClass("BiodbCsvEntry", contains='BiodbEntry', fi
 BiodbCsvEntry$methods( initialize=function(sep=',', na.strings='NA', ...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbCsvEntry')
+    .self$.abstractClass('BiodbCsvEntry')
 
     .self$.sep <- sep
     .self$.na.strings <- na.strings

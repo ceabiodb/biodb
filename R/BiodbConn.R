@@ -74,9 +74,9 @@ methods=list(
 initialize=function(id=NA_character_, cache.id=NA_character_, ...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbConn')
+    .self$.abstractClass('BiodbConn')
 
-    .self$.assert.is(id, "character")
+    .self$.assertIs(id, "character")
     .self$.id <- id
     .self$.cache.id <- if (is.null(cache.id)) NA_character_ else cache.id
     .self$.entries <- list()
@@ -226,7 +226,7 @@ getEntryContent=function(id) {
 getEntryContentFromDb=function(entry.id) {
     "Get the content of an entry from the database."
 
-    .self$.abstract.method()
+    .self$.abstractMethod()
 },
 
 # Get entry ids {{{3
@@ -449,7 +449,7 @@ makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
 ################################################################################
 
 .doGetEntryIds=function(max.results=NA_integer_) {
-    .self$.abstract.method()
+    .self$.abstractMethod()
 },
 
 # Add entries to cache {{{3

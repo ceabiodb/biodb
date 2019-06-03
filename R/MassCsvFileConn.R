@@ -49,7 +49,7 @@ MassCsvFileConn$methods( isAPrecursorFormula=function(formula) {
 
 MassCsvFileConn$methods( setPrecursorFormulae=function(formulae) {
     "Replace current formulae by this new list of formulae."
-    .self$.assert.is(formulae, 'character')
+    .self$.assertIs(formulae, 'character')
     .self$.precursors <- formulae[ ! duplicated(formulae)]
 })
 
@@ -59,7 +59,7 @@ MassCsvFileConn$methods( setPrecursorFormulae=function(formulae) {
 MassCsvFileConn$methods( addPrecursorFormulae=function(formulae) {
     "Add new formulae to the list of formulae used to recognize precursors."
 
-    .self$.check.parsing.has.began()
+    .self$.checkParsingHasBegan()
 
     if ( ! all(formulae %in% .self$.precursors)) {
         formulae <- formulae[ ! formulae %in% .self$.precursors]
@@ -84,7 +84,7 @@ MassCsvFileConn$methods( hasField=function(tag) {
     ( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
 
     # Load database file
-    .self$.init.db()
+    .self$.initDb()
 
     return(tag %in% names(.self$.fields))
 })
@@ -95,14 +95,14 @@ MassCsvFileConn$methods( hasField=function(tag) {
 MassCsvFileConn$methods( addField=function(tag, value) {
     "Add a new field (column) to the database (data frame)."
 
-    .self$.check.parsing.has.began()
+    .self$.checkParsingHasBegan()
 
     tag <- tolower(tag)
 
     ( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
 
     # Load database file
-    .self$.init.db()
+    .self$.initDb()
 
     # Field already defined?
     if (tag %in% names(.self$.fields))
@@ -126,7 +126,7 @@ MassCsvFileConn$methods( getField=function(tag) {
     ( ! is.null(tag) && ! is.na(tag)) || .self$message('error', "No tag specified.")
 
     # Load database file
-    .self$.init.db()
+    .self$.initDb()
 
     # Check that this field tag is defined in the fields list
     if ( ! tag %in% names(.self$.fields))
@@ -140,17 +140,17 @@ MassCsvFileConn$methods( getField=function(tag) {
 
 MassCsvFileConn$methods( setField=function(tag, colname, ignore.if.missing=FALSE) {
 
-    .self$.check.parsing.has.began()
+    .self$.checkParsingHasBegan()
 
     tag <- tolower(tag)
 
-    .self$.assert.not.null(tag)
-    .self$.assert.not.na(tag)
-    .self$.assert.not.null(colname)
-    .self$.assert.not.na(colname)
+    .self$.assertNotNull(tag)
+    .self$.assertNotNa(tag)
+    .self$.assertNotNull(colname)
+    .self$.assertNotNa(colname)
 
     # Load database file
-    .self$.init.db()
+    .self$.initDb()
 
     # Check that this is a correct field name
     if ( ! .self$getBiodb()$getEntryFields()$isDefined(tag)) {
@@ -202,7 +202,7 @@ MassCsvFileConn$methods( setField=function(tag, colname, ignore.if.missing=FALSE
 
 MassCsvFileConn$methods( setFieldMultValSep=function(sep) {
 
-    .self$.check.parsing.has.began()
+    .self$.checkParsingHasBegan()
 
     .self$.field.multval.sep <- sep
 })
@@ -349,7 +349,7 @@ MassCsvFileConn$methods( .doWrite=function() {
 # Init db {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .init.db=function() {
+MassCsvFileConn$methods( .initDb=function() {
 
     if (is.null(.self$.db)) {
 
@@ -378,7 +378,7 @@ MassCsvFileConn$methods( .init.db=function() {
 # Check fields {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .check.fields=function(fields, fail=TRUE) {
+MassCsvFileConn$methods( .checkFields=function(fields, fail=TRUE) {
 
     if (length(fields) == 0 || (length(fields) == 1 && is.na(fields)))
         return
@@ -389,7 +389,7 @@ MassCsvFileConn$methods( .check.fields=function(fields, fail=TRUE) {
         .self$message('error', paste0("Field(s) ", paste(fields, collapse=", "), " is/are unknown."))
 
     # Init db
-    .self$.init.db()
+    .self$.initDb()
 
     # Check if fields are defined in file database
     undefined.fields <- fields[ ! fields %in% names(.self$.fields)]
@@ -409,7 +409,7 @@ MassCsvFileConn$methods( .selectByMode=function(db, mode) {
     # Check mode value
     ms.mode.field <- .self$getBiodb()$getEntryFields()$get('ms.mode')
     ms.mode.field$checkValue(mode)
-    .self$.check.fields('ms.mode')
+    .self$.checkFields('ms.mode')
 
     # Filter on mode
     db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), , drop=FALSE]
@@ -422,7 +422,7 @@ MassCsvFileConn$methods( .selectByMode=function(db, mode) {
 
 MassCsvFileConn$methods( .selectByIds=function(db, ids) {
 
-    .self$.check.fields('accession')
+    .self$.checkFields('accession')
     db <- db[db[[.self$.fields[['accession']]]] %in% ids, , drop=FALSE]
 
     return(db)
@@ -433,7 +433,7 @@ MassCsvFileConn$methods( .selectByIds=function(db, ids) {
 
 MassCsvFileConn$methods( .selectByCompoundIds=function(db, compound.ids) {
 
-    .self$.check.fields('compound.id')
+    .self$.checkFields('compound.id')
     db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, , drop=FALSE]
 
     return(db)
@@ -450,7 +450,7 @@ MassCsvFileConn$methods( .selectByMzValues=function(db, mz.min, mz.max) {
         .self$message('error', paste("'mz.min' and 'mz.max' must have equal lengths. 'mz.min' has ", length(mz.min), " element(s), and 'mz.max' has ", length(mz.max), "element(s).", sep=''))
     
     .self$message('debug', paste0('Filtering on M/Z ranges: ', paste0('[', mz.min, ', ', mz.max, ']', collapse=', '), '.'))
-    .self$.check.fields('peak.mztheo')
+    .self$.checkFields('peak.mztheo')
     f <- .self$.fields[['peak.mztheo']]
     mz <- db[[f]]
     .self$message('debug', paste(length(mz), 'M/Z values to filter.'))
@@ -474,7 +474,7 @@ MassCsvFileConn$methods( .selectByMzValues=function(db, mz.min, mz.max) {
 
 MassCsvFileConn$methods( .selectByRelInt=function(db, min.rel.int) {
 
-    if (.self$.check.fields('peak.relative.intensity', fail=FALSE))
+    if (.self$.checkFields('peak.relative.intensity', fail=FALSE))
         db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, , drop=FALSE]
     else
         db <- db[integer(), , drop=FALSE]
@@ -487,7 +487,7 @@ MassCsvFileConn$methods( .selectByRelInt=function(db, min.rel.int) {
 
 MassCsvFileConn$methods( .selectByPrecursors=function(db) {
 
-    if (.self$.check.fields('peak.attr', fail=FALSE))
+    if (.self$.checkFields('peak.attr', fail=FALSE))
         db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, , drop=FALSE]
     else
         db <- db[integer(), , drop=FALSE]
@@ -500,7 +500,7 @@ MassCsvFileConn$methods( .selectByPrecursors=function(db) {
 
 MassCsvFileConn$methods( .selectByMsLevel=function(db, level) {
 
-    if (.self$.check.fields('ms.level', fail=FALSE))
+    if (.self$.checkFields('ms.level', fail=FALSE))
         db <- db[db[[.self$.fields[['ms.level']]]] == level, , drop=FALSE]
     else
         db <- db[integer(), , drop=FALSE]
@@ -515,7 +515,7 @@ MassCsvFileConn$methods( .selectByMsLevel=function(db, level) {
 MassCsvFileConn$methods( .select=function(ids=NULL, cols=NULL, mode=NULL, compound.ids=NULL, drop=FALSE, uniq=FALSE, sort=FALSE, max.rows=NA_integer_, mz.min=NULL, mz.max=NULL, min.rel.int=NA_real_, precursor=FALSE, level=0) {
 
     # Init db
-    .self$.init.db()
+    .self$.initDb()
 
     # Get db
     db <- .self$.db
@@ -538,7 +538,7 @@ MassCsvFileConn$methods( .select=function(ids=NULL, cols=NULL, mode=NULL, compou
 
     # Get subset of columns
     if ( ! is.null(cols) && ! is.na(cols)) {
-        .self$.check.fields(cols)
+        .self$.checkFields(cols)
         db <- db[, .self$.fields[cols], drop=FALSE]
     }
 
@@ -620,7 +620,7 @@ MassCsvFileConn$methods( .checkSettingOfUrl=function(key, value) {
 # Check if parsing has began {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .check.parsing.has.began=function() {
+MassCsvFileConn$methods( .checkParsingHasBegan=function() {
 
     # Parsing has began?
     if (length(.self$.parsing.expr) > 0)

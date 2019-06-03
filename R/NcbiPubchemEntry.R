@@ -13,7 +13,7 @@ NcbiPubchemEntry <- methods::setRefClass("NcbiPubchemEntry", contains="BiodbXmlE
 NcbiPubchemEntry$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('NcbiPubchemEntry')
+    .self$.abstractClass('NcbiPubchemEntry')
 })
 
 # Is parsed content correct {{{1

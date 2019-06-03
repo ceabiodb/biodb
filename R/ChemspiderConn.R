@@ -76,12 +76,12 @@ ChemspiderConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE)
         id.chunks <- split(id, ceiling(seq_along(id) / 100))
 
         # Create requests
-        requests <- lapply(id.chunks, function(x) .self$ws.recordsBatchPost(x, retfmt='request'))
+        requests <- lapply(id.chunks, function(x) .self$wsRecordsBatchPost(x, retfmt='request'))
     }
 
     # One request for each ID
     else
-        requests <- lapply(id, function(x) .self$ws.recordsRecordidDetailsGet(x, retfmt='request'))
+        requests <- lapply(id, function(x) .self$wsRecordsRecordidDetailsGet(x, retfmt='request'))
 
     return(requests)
 })
@@ -112,7 +112,7 @@ ChemspiderConn$methods( getAllRecordFields=function() {
 # Web service records-recordId-details-get {{{1
 ################################################################################
 
-ChemspiderConn$methods( ws.recordsRecordidDetailsGet=function(recordid, fields=NULL, retfmt=c('plain', 'parsed', 'request')) {
+ChemspiderConn$methods( wsRecordsRecordidDetailsGet=function(recordid, fields=NULL, retfmt=c('plain', 'parsed', 'request')) {
     "Access the records-recordId-details-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details."
 
     retfmt <- match.arg(retfmt)
@@ -145,7 +145,7 @@ ChemspiderConn$methods( ws.recordsRecordidDetailsGet=function(recordid, fields=N
 # Web service records-batch-post {{{1
 ################################################################################
 
-ChemspiderConn$methods( ws.recordsBatchPost=function(recordids, fields=NULL, retfmt=c('plain', 'parsed', 'request')) {
+ChemspiderConn$methods( wsRecordsBatchPost=function(recordids, fields=NULL, retfmt=c('plain', 'parsed', 'request')) {
     "Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/records/batch."
 
     retfmt <- match.arg(retfmt)
@@ -180,7 +180,7 @@ ChemspiderConn$methods( ws.recordsBatchPost=function(recordids, fields=NULL, ret
 # Web service filter-name-post {{{1
 ################################################################################
 
-ChemspiderConn$methods( ws.filterNamePost=function(name, retfmt=c('plain', 'parsed', 'queryid', 'ids', 'request')) {
+ChemspiderConn$methods( wsFilterNamePost=function(name, retfmt=c('plain', 'parsed', 'queryid', 'ids', 'request')) {
     "Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/name."
 
     retfmt <- match.arg(retfmt)
@@ -207,7 +207,7 @@ ChemspiderConn$methods( ws.filterNamePost=function(name, retfmt=c('plain', 'pars
 # Web service filter-mass-post {{{1
 ################################################################################
 
-ChemspiderConn$methods( ws.filterMassPost=function(mass, range, retfmt=c('plain', 'parsed', 'queryid', 'ids', 'request')) {
+ChemspiderConn$methods( wsFilterMassPost=function(mass, range, retfmt=c('plain', 'parsed', 'queryid', 'ids', 'request')) {
     "Access the filter-mass-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/mass."
 
     retfmt <- match.arg(retfmt)
@@ -234,12 +234,12 @@ ChemspiderConn$methods( ws.filterMassPost=function(mass, range, retfmt=c('plain'
 # Web service filter-queryId-status-get {{{1
 ################################################################################
 
-ChemspiderConn$methods( ws.filterQueryIdStatusGet=function(queryid, retfmt=c('plain', 'parsed', 'status', 'request'), cache.read=FALSE) {
+ChemspiderConn$methods( wsFilterQueryIdStatusGet=function(queryid, retfmt=c('plain', 'parsed', 'status', 'request'), cache.read=FALSE) {
     "Access the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status."
 
-    .self$.assert.not.null(queryid)
-    .self$.assert.not.na(queryid)
-    .self$.assert.is(queryid, 'character')
+    .self$.assertNotNull(queryid)
+    .self$.assertNotNa(queryid)
+    .self$.assertIs(queryid, 'character')
 
     retfmt <- match.arg(retfmt)
 
@@ -268,14 +268,14 @@ ChemspiderConn$methods( ws.filterQueryIdStatusGet=function(queryid, retfmt=c('pl
 # Web service filter-queryId-results-get {{{1
 ################################################################################
 
-ChemspiderConn$methods( ws.filterQueryIdResultsGet=function(queryid, start=0L, count=0L, retfmt=c('plain', 'parsed', 'ids', 'request')) {
+ChemspiderConn$methods( wsFilterQueryIdResultsGet=function(queryid, start=0L, count=0L, retfmt=c('plain', 'parsed', 'ids', 'request')) {
     "Access the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results,"
 
-    .self$.assert.not.null(queryid)
-    .self$.assert.not.na(queryid)
-    .self$.assert.is(queryid, 'character')
-    .self$.assert.number(start, negative=FALSE, float.allowed=FALSE)
-    .self$.assert.number(count, negative=FALSE, float.allowed=FALSE)
+    .self$.assertNotNull(queryid)
+    .self$.assertNotNa(queryid)
+    .self$.assertIs(queryid, 'character')
+    .self$.assertNumber(start, negative=FALSE, float.allowed=FALSE)
+    .self$.assertNumber(count, negative=FALSE, float.allowed=FALSE)
 
     retfmt <- match.arg(retfmt)
 
@@ -330,7 +330,7 @@ ChemspiderConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field
                 range <- mass * mass.tol * 1.e-6
             else
                 range <- mass.tol
-            ids <- .self$ws.filterMassPost(mass=mass, range=range, retfmt='ids')
+            ids <- .self$wsFilterMassPost(mass=mass, range=range, retfmt='ids')
         }
         else
             .self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
@@ -339,7 +339,7 @@ ChemspiderConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field
     # Search by name
     if ( ! is.null(name)) {
 
-        name.id <- .self$ws.filterNamePost(name, retfmt='ids')
+        name.id <- .self$wsFilterNamePost(name, retfmt='ids')
 
         # Merge with already found IDs
         if (is.null(ids))
@@ -377,7 +377,7 @@ ChemspiderConn$methods( .retrieveQuery=function(results, retfmt) {
             # Wait for query result to be ready
             cache.read <- TRUE
             while (TRUE) {
-                status <- .self$ws.filterQueryIdStatusGet(results$queryId, retfmt='status', cache.read=cache.read)
+                status <- .self$wsFilterQueryIdStatusGet(results$queryId, retfmt='status', cache.read=cache.read)
                 if (is.null(status))
                     return(NULL)
 
@@ -391,7 +391,7 @@ ChemspiderConn$methods( .retrieveQuery=function(results, retfmt) {
             ids <- integer()
             while (TRUE) {
 
-                res <- .self$ws.filterQueryIdResultsGet(results$queryId, retfmt='parsed')
+                res <- .self$wsFilterQueryIdResultsGet(results$queryId, retfmt='parsed')
                 ids <- c(ids, res$results)
 
                 if ( ! res$limitedToMaxAllowed)

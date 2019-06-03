@@ -31,7 +31,7 @@ MassSqliteConn$methods( getEntryContentFromDb=function(entry.id) {
     # Initialize contents to return
     content <- rep(list(NULL), length(entry.id))
 
-    .self$.init.db()
+    .self$.initDb()
 
     if ( ! is.null(.self$.db)) {
 
@@ -70,7 +70,7 @@ MassSqliteConn$methods( getChromCol=function(ids=NULL) {
 
     chrom.cols <- data.frame(id=character(0), title=character(0))
 
-    .self$.init.db()
+    .self$.initDb()
 
     if ( ! is.null(.self$.db)) {
 
@@ -110,7 +110,7 @@ MassSqliteConn$methods( getChromCol=function(ids=NULL) {
 
 MassSqliteConn$methods( .doWrite=function() {
 
-    .self$.init.db()
+    .self$.initDb()
 
     if ( ! is.null(.self$.db)) {
 
@@ -167,7 +167,7 @@ MassSqliteConn$methods( .doWrite=function() {
 # Init db {{{2
 ################################################################################
 
-MassSqliteConn$methods( .init.db=function() {
+MassSqliteConn$methods( .initDb=function() {
 
     if (is.null(.self$.db) && ! is.null(.self$getPropValSlot('urls', 'base.url')) && ! is.na(.self$getPropValSlot('urls', 'base.url')))
         .self$.db <-  DBI::dbConnect(RSQLite::SQLite(), dbname=.self$getPropValSlot('urls', 'base.url'))
@@ -209,7 +209,7 @@ MassSqliteConn$methods( .doGetMzValues=function(ms.mode, max.results, precursor,
 
     mz <- numeric()
 
-    .self$.init.db()
+    .self$.initDb()
 
     if ( ! is.null(.self$.db)) {
 
@@ -269,7 +269,7 @@ MassSqliteConn$methods( .doSearchMzRange=function(mz.min, mz.max, min.rel.int, m
 
     ids <- character()
 
-    .self$.init.db()
+    .self$.initDb()
 
     if ( ! is.null(.self$.db)) {
 
@@ -340,7 +340,7 @@ MassSqliteConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
     ids <- integer()
 
-    .self$.init.db()
+    .self$.initDb()
 
     if ( ! is.null(.self$.db)) {
 

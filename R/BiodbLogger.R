@@ -110,7 +110,7 @@ cfgKeyValSet=function(k, v) {
 
 getDesiredLevel=function(type) {
 
-    lvl <- 1
+    lvl <- 0
     
     if (type %in% names(.self$.levels))
         lvl <- .self$.levels[[type]]
@@ -122,12 +122,12 @@ getDesiredLevel=function(type) {
 ################################################################################
 
 message=function(type='info', msg, class=NA_character_,
-                   method=NA_character_) {
+                   method=NA_character_, lvl=1) {
 
     .self$checkMessageType(type)
     setlvl <- .self$getDesiredLevel(type)
 
-    if (setlvl >= 1) {
+    if (setlvl >= lvl) {
 
         # Set caller information
         caller.info <- if (is.na(class)) '' else class
@@ -151,7 +151,7 @@ message=function(type='info', msg, class=NA_character_,
 # Info progress {{{3
 ################################################################################
 
-progress=function(type='info', msg, index, total, first) {
+progress=function(type='info', msg, index, total, first, lvl=1) {
     
     t <- Sys.time()
 
@@ -166,7 +166,7 @@ progress=function(type='info', msg, index, total, first) {
         eta <- t + (total - index) * (t - i) / index
         .self$message(type, paste0(msg, ' ', index, ' / ', total, ' (',
                                    ((100 * index) %/% total), '%, ETA: ',
-                                   eta, ').'))
+                                   eta, ').'), lvl=lvl)
         .self$.lastime.progress[[msg]] <- t
     }
 }

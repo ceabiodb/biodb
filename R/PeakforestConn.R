@@ -13,7 +13,7 @@ PeakforestConn$methods( initialize=function(db.name, ...) {
 
     # Call mother class constructor
     callSuper(...)
-    .self$.abstract.class('PeakforestConn')
+    .self$.abstractClass('PeakforestConn')
 
     # Set db name
     .self$.db.name <- db.name
@@ -95,13 +95,13 @@ PeakforestConn$methods( getEntryContentFromDb=function(entry.id) {
 ################################################################################
 
 PeakforestConn$methods( getNbEntries=function(count=FALSE) {
-    return(.self$ws.all.count(retfmt='parsed'))
+    return(.self$wsAllCount(retfmt='parsed'))
 })
 
 # Web service search {{{1
 ################################################################################
 
-PeakforestConn$methods( ws.search=function(term, max=NA_integer_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+PeakforestConn$methods( wsSearch=function(term, max=NA_integer_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
     retfmt <- match.arg(retfmt)
 
@@ -138,7 +138,7 @@ PeakforestConn$methods( ws.search=function(term, max=NA_integer_, retfmt=c('plai
 # Web service all.count {{{1
 ################################################################################
 
-PeakforestConn$methods( ws.all.count=function(retfmt=c('plain', 'request', 'parsed')) {
+PeakforestConn$methods( wsAllCount=function(retfmt=c('plain', 'request', 'parsed')) {
 
     retfmt <- match.arg(retfmt)
 
@@ -165,7 +165,7 @@ PeakforestConn$methods( ws.all.count=function(retfmt=c('plain', 'request', 'pars
 # Web service all.ids {{{1
 ################################################################################
 
-PeakforestConn$methods( ws.all.ids=function(retfmt=c('plain', 'request', 'parsed', 'ids')) {
+PeakforestConn$methods( wsAllIds=function(retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
     retfmt <- match.arg(retfmt)
 
@@ -203,7 +203,7 @@ PeakforestConn$methods( ws.all.ids=function(retfmt=c('plain', 'request', 'parsed
 PeakforestConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
     # Get all IDs
-    ids <- .self$ws.all.ids(retfmt='ids')
+    ids <- .self$wsAllIds(retfmt='ids')
 
     return(ids)
 })

@@ -45,21 +45,21 @@ methods=list(
 initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbConnBase')
+    .self$.abstractClass('BiodbConnBase')
     .self$.run.hooks <- character()
 
     # Take parameter values from other object instance
     if ( ! is.null(other)) {
-        .self$.assert.inherits.from(other, "BiodbConnBase")
+        .self$.assertInheritsFrom(other, "BiodbConnBase")
         for (param in c('db.class'))
             if (is.null(get(param)) || is.na(get(param)))
                 assign(param, other[[paste0('.', param)]])
     }
 
     # Set database class
-    .self$.assert.not.null(db.class)
-    .self$.assert.not.na(db.class)
-    .self$.assert.is(db.class, 'character')
+    .self$.assertNotNull(db.class)
+    .self$.assertNotNa(db.class)
+    .self$.assertIs(db.class, 'character')
     .self$.db.class <- db.class
 
     # Set observers
@@ -346,7 +346,7 @@ setPropValSlot=function(name, slot, value) {
 
 .registerObserver=function(obs) {
 
-    .self$.assert.inherits.from(obs, 'BiodbConnObserver')
+    .self$.assertInheritsFrom(obs, 'BiodbConnObserver')
 
     # Is this observer already registered?
     if (any(vapply(.self$.observers, function(x) identical(x, obs),
@@ -363,7 +363,7 @@ setPropValSlot=function(name, slot, value) {
 
 .unregisterObserver=function(obs) {
 
-    .self$.assert.inherits.from(obs, 'BiodbConnObserver')
+    .self$.assertInheritsFrom(obs, 'BiodbConnObserver')
 
     # Search for observer
     found.obs <- vapply(.self$.observers, function(x) identical(x, obs),
@@ -552,7 +552,7 @@ setPropValSlot=function(name, slot, value) {
 getBaseUrl=function() {
     "Returns the base URL."
 
-    .self$.deprecated.method("getUrl()")
+    .self$.deprecatedMethod("getUrl()")
 
     return(.self$getUrl('base.url'))
 },
@@ -563,7 +563,7 @@ getBaseUrl=function() {
 setBaseUrl=function(url) {
     "Sets the base URL."
 
-    .self$.deprecated.method("setUrl()")
+    .self$.deprecatedMethod("setUrl()")
 
     .self$setUrl('base.url', url)
 },
@@ -574,7 +574,7 @@ setBaseUrl=function(url) {
 getWsUrl=function() {
     "Returns the web sevices URL."
 
-    .self$.deprecated.method("getUrl()")
+    .self$.deprecatedMethod("getUrl()")
 
     return(.self$getUrl('ws.url'))
 },
@@ -585,7 +585,7 @@ getWsUrl=function() {
 setWsUrl=function(ws.url) {
     "Sets the web sevices URL."
 
-    .self$.deprecated.method("setUrl()")
+    .self$.deprecatedMethod("setUrl()")
 
     .self$setUrl('ws.url', ws.url)
 },
@@ -596,7 +596,7 @@ setWsUrl=function(ws.url) {
 getToken=function() {
     "Returns the access token."
 
-    .self$.deprecated.method("getPropertyValue('token')")
+    .self$.deprecatedMethod("getPropertyValue('token')")
 
     return(.self$getPropertyValue('token'))
 },
@@ -607,7 +607,7 @@ getToken=function() {
 setToken=function(token) {
     "Sets the access token."
 
-    .self$.deprecated.method("setPropertyValue('token', 'my_token_value')")
+    .self$.deprecatedMethod("setPropertyValue('token', 'my_token_value')")
 
     .self$setPropertyValue('token', token)
 },
@@ -618,7 +618,7 @@ setToken=function(token) {
 getName=function() {
     "Returns the full database name."
 
-    .self$.deprecated.method("getPropertyValue('name')")
+    .self$.deprecatedMethod("getPropertyValue('name')")
 
     return(.self$getPropertyValue('name'))
 },
@@ -629,7 +629,7 @@ getName=function() {
 getEntryContentType=function() {
     "Returns the entry content type."
 
-    .self$.deprecated.method("getPropertyValue('entry.content.type')")
+    .self$.deprecatedMethod("getPropertyValue('entry.content.type')")
 
     return(.self$getPropertyValue('entry.content.type'))
 },
@@ -640,7 +640,7 @@ getEntryContentType=function() {
 getSchedulerNParam=function() {
     "Returns the N parameter for the scheduler."
 
-    .self$.deprecated.method("getPropertyValue('scheduler.n')")
+    .self$.deprecatedMethod("getPropertyValue('scheduler.n')")
 
     return(.self$getPropertyValue('scheduler.n'))
 },
@@ -651,7 +651,7 @@ getSchedulerNParam=function() {
 setSchedulerNParam=function(n) {
     "Sets the N parameter for the scheduler."
 
-    .self$.deprecated.method("setPropertyValue('scheduler.n', n)")
+    .self$.deprecatedMethod("setPropertyValue('scheduler.n', n)")
 
     .self$setPropertyValue('scheduler.n', n)
 },
@@ -662,7 +662,7 @@ setSchedulerNParam=function(n) {
 getSchedulerTParam=function() {
     "Returns the T parameter for the scheduler."
 
-    .self$.deprecated.method("getPropertyValue('scheduler.t')")
+    .self$.deprecatedMethod("getPropertyValue('scheduler.t')")
 
     return(.self$getPropertyValue('scheduler.t'))
 },
@@ -673,7 +673,7 @@ getSchedulerTParam=function() {
 setSchedulerTParam=function(t) {
     "Sets the T parameter for the scheduler."
 
-    .self$.deprecated.method("setPropertyValue('scheduler.t', t)")
+    .self$.deprecatedMethod("setPropertyValue('scheduler.t', t)")
 
     .self$setPropertyValue('scheduler.t', t)
 },
@@ -684,7 +684,7 @@ setSchedulerTParam=function(t) {
 getUrls=function() {
     "Returns the URLs."
 
-    .self$.deprecated.method("getPropertyValue('urls')")
+    .self$.deprecatedMethod("getPropertyValue('urls')")
 
     return(.self$getPropertyValue('urls'))
 },
@@ -695,7 +695,7 @@ getUrls=function() {
 getUrl=function(name) {
     "Returns a URL."
 
-    .self$.deprecated.method("getPropValSlot('urls', 'base.url')")
+    .self$.deprecatedMethod("getPropValSlot('urls', 'base.url')")
 
     return(.self$getPropValSlot(name='urls', slot=name))
 },
@@ -706,7 +706,7 @@ getUrl=function(name) {
 setUrl=function(name, url) {
     "Returns a URL."
 
-    .self$.deprecated.method(paste0("setPropValSlot('urls', 'base.url',",
+    .self$.deprecatedMethod(paste0("setPropValSlot('urls', 'base.url',",
                                     " 'http://my/url')"))
 
     .self$setPropValSlot(name='urls', slot=name, value=url)
@@ -720,7 +720,7 @@ setUrl=function(name, url) {
 getXmlNs=function() {
     "Returns the XML namespace."
 
-    .self$.deprecated.method("getPropertyValue('xml.ns')")
+    .self$.deprecatedMethod("getPropertyValue('xml.ns')")
 
     return(.self$getPropertyValue('xml.ns'))
 }

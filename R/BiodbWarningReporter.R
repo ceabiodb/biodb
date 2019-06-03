@@ -18,7 +18,7 @@ BiodbWarningReporter <- methods::setRefClass("BiodbWarningReporter", contains='B
 # MESSAGE {{{1
 ################################################################################
 
-BiodbWarningReporter$methods( message=function(type='info', msg, class=NA_character_, method=NA_character_) {
+BiodbWarningReporter$methods( message=function(type='info', msg, class=NA_character_, method=NA_character_, lvl=1) {
 
     .self$checkMessageType(type)
 

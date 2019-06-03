@@ -32,7 +32,7 @@ PeakforestMassConn$methods( getEntryImageUrl=function(id) {
 # Peaks get range {{{2
 ################################################################################
 
-PeakforestMassConn$methods( ws.peaks.get.range=function(type=c('lcms', 'lcmsms'), mz.min, mz.max, mode=NA_character_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+PeakforestMassConn$methods( wsPeaksGetRange=function(type=c('lcms', 'lcmsms'), mz.min, mz.max, mode=NA_character_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
     type <- match.arg(type)
     retfmt <- match.arg(retfmt)
@@ -63,7 +63,7 @@ PeakforestMassConn$methods( ws.peaks.get.range=function(type=c('lcms', 'lcmsms')
 # Webservice lcmsms/from-precursor
 ################################################################################
 
-PeakforestMassConn$methods( ws.lcmsms.from.precursor=function(prec.mz, precursorMassDelta, mode=NA_character_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+PeakforestMassConn$methods( wsLcmsmsFromPrecursor=function(prec.mz, precursorMassDelta, mode=NA_character_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
     retfmt <- match.arg(retfmt)
 
@@ -93,7 +93,7 @@ PeakforestMassConn$methods( ws.lcmsms.from.precursor=function(prec.mz, precursor
 # Web service list-code-columns {{{1
 ################################################################################
 
-PeakforestMassConn$methods( ws.list.code.columns=function(retfmt=c('plain', 'request', 'parsed', 'data.frame')) {
+PeakforestMassConn$methods( wsListCodeColumns=function(retfmt=c('plain', 'request', 'parsed', 'data.frame')) {
 
     retfmt <- match.arg(retfmt)
 
@@ -109,6 +109,10 @@ PeakforestMassConn$methods( ws.list.code.columns=function(retfmt=c('plain', 'req
     # Parse
     if (retfmt != 'plain') {
 
+        # Check JSON
+        if ( ! jsonlite::validate(results))
+            .self$error("Invalid JSON returned by server.")
+            
         # Parse results
         results <- jsonlite::fromJSON(results, simplifyDataFrame=FALSE)
 
@@ -141,7 +145,7 @@ PeakforestMassConn$methods( ws.list.code.columns=function(retfmt=c('plain', 'req
 
 PeakforestMassConn$methods( getChromCol=function(ids=NULL) {
 
-    cols <- .self$ws.list.code.columns(retfmt='data.frame')
+    cols <- .self$wsListCodeColumns(retfmt='data.frame')
 
     # Restrict to set of spectra
     if ( ! is.null(ids)) {
@@ -175,7 +179,7 @@ PeakforestMassConn$methods( .doGetMzValues=function(ms.mode, max.results, precur
         for (id in ids) {
 
             entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
-            .self$.assert.not.null(entry)
+            .self$.assertNotNull(entry)
 
             if (ms.level > 0 && ( ! entry$hasField('ms.level') || entry$getFieldValue('ms.level') != ms.level))
                 next
@@ -201,11 +205,15 @@ PeakforestMassConn$methods( .doGetMzValues=function(ms.mode, max.results, precur
             url <- paste(url, '&mode=', if (ms.mode == 'pos') 'positive' else 'negative', sep ='')
 
         # Get MZ values
-        json.str <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
-        .self$.checkIfError(json.str)
+        jsonStr <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
+        .self$.checkIfError(jsonStr)
+
+        # Check JSON
+        if ( ! jsonlite::validate(jsonStr))
+            .self$error("Invalid JSON returned by server.")
 
         # Parse JSON
-        mz <- jsonlite::fromJSON(json.str, simplifyDataFrame=FALSE)
+        mz <- jsonlite::fromJSON(jsonStr, simplifyDataFrame=FALSE)
     }
 
     # Apply cut-off
@@ -221,6 +229,10 @@ PeakforestMassConn$methods( .doGetMzValues=function(ms.mode, max.results, precur
 PeakforestMassConn$methods( .parseResults=function(results, retfmt) {
 
     if (retfmt != 'plain') {
+
+        # Check JSON
+        if ( ! jsonlite::validate(results))
+            .self$error("Invalid JSON returned by server.")
 
         # Parse
         results <- jsonlite::fromJSON(results, simplifyDataFrame=FALSE)
@@ -263,12 +275,12 @@ PeakforestMassConn$methods( .doSearchMzRange=function(mz.min, mz.max, min.rel.in
     else {
         mode <- if ( ! is.na(ms.mode)) (if (ms.mode == 'neg') 'NEG' else 'POS') else NA_character_
         if (ms.level == 0 || ms.level == 1)
-            ids <- .self$ws.peaks.get.range('lcms', mz.min, mz.max, mode=mode, retfmt='ids')
+            ids <- .self$wsPeaksGetRange('lcms', mz.min, mz.max, mode=mode, retfmt='ids')
         if (ms.level == 0 || ms.level == 2) {
             if (precursor)
-                ids <- c(ids, .self$ws.lcmsms.from.precursor((mz.min + mz.max) / 2, (mz.max - mz.min) / 2, mode=mode, retfmt='ids'))
+                ids <- c(ids, .self$wsLcmsmsFromPrecursor((mz.min + mz.max) / 2, (mz.max - mz.min) / 2, mode=mode, retfmt='ids'))
             else
-                ids <- c(ids, .self$ws.peaks.get.range('lcmsms', mz.min, mz.max, mode=mode, retfmt='ids'))
+                ids <- c(ids, .self$wsPeaksGetRange('lcmsms', mz.min, mz.max, mode=mode, retfmt='ids'))
         }
     }
 

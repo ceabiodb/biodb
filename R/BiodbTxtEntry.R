@@ -13,7 +13,7 @@ BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry", contains='BiodbEntry')
 BiodbTxtEntry$methods( initialize=function(...) {
 
     callSuper(...)
-    .self$.abstract.class('BiodbTxtEntry')
+    .self$.abstractClass('BiodbTxtEntry')
 })
 
 # Do parse content {{{1
@@ -35,11 +35,11 @@ BiodbTxtEntry$methods( .parseFieldsStep1=function(parsed.content) {
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
-    .self$.assert.not.null(parsed.content)
-    .self$.assert.not.na(parsed.content)
-    .self$.assert.not.null(parsing.expr)
-    .self$.assert.not.na(parsing.expr)
-    .self$.assert.not.null(names(parsing.expr))
+    .self$.assertNotNull(parsed.content)
+    .self$.assertNotNa(parsed.content)
+    .self$.assertNotNull(parsing.expr)
+    .self$.assertNotNa(parsing.expr)
+    .self$.assertNotNull(names(parsing.expr))
 
     # Loop on all parsing expressions
     for (field in names(parsing.expr)) {

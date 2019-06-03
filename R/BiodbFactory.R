@@ -108,7 +108,7 @@ BiodbFactory$methods( deleteConn=function(conn.id=NULL, db.class=NULL) {
 
     # Remove one connector
     if ( ! is.null(conn.id)) {
-        .self$.assert.is(conn.id, 'character')
+        .self$.assertIs(conn.id, 'character')
 
         if ( ! conn.id %in% names(.self$.conn))
             .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
@@ -121,7 +121,7 @@ BiodbFactory$methods( deleteConn=function(conn.id=NULL, db.class=NULL) {
 
     # Remove all connectors of a database class
     else if ( ! is.null(db.class)) {
-        .self$.assert.is(db.class, 'character')
+        .self$.assertIs(db.class, 'character')
 
         n <- 0
         for (c in .self$.conn)
@@ -167,8 +167,8 @@ BiodbFactory$methods( deleteAllConnectors=function() {
 BiodbFactory$methods( getConn=function(conn.id) {
     "Get the instance of connector database corresponding to the submitted ID or database class."
 
-    .self$.assert.not.null(conn.id)
-    .self$.assert.is(conn.id, 'character')
+    .self$.assertNotNull(conn.id)
+    .self$.assertIs(conn.id, 'character')
 
     conn <- NULL
 
@@ -247,7 +247,7 @@ BiodbFactory$methods( createNewEntry=function(db.class) {
 BiodbFactory$methods( getAllCacheEntries=function(conn.id) {
     "Get all entries of a connector from the cache."
 
-    .self$.assert.not.null(conn.id)
+    .self$.assertNotNull(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
         .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
@@ -261,7 +261,7 @@ BiodbFactory$methods( getAllCacheEntries=function(conn.id) {
 BiodbFactory$methods( deleteAllCacheEntries=function(conn.id) {
     "Delete all entries of a connector from the cache."
 
-    .self$.assert.not.null(conn.id)
+    .self$.assertNotNull(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
         .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))

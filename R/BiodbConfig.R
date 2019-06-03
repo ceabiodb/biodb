@@ -185,6 +185,7 @@ set=function(key, value) {
                                 sep=''))
     v <- as.vector(value, mode=.self$.getType(key))
     .self$.values[[key]] <- v
+    .self$debug('Set key ', key, ' to value "', v, '".')
     
     # Notify observers
     lapply(.self$getBiodb()$getObservers(), function(o) o$cfgKeyValSet(key, v))
@@ -272,7 +273,7 @@ getAssocEnvVar=function(key) {
 # Get SVN binary path {{{3
 ################################################################################
 
-.get.svn.binary.path=function() {
+.getSvnBinaryPath=function() {
 
     svn.path <- ''
 
@@ -305,11 +306,13 @@ define=function(def) {
     'Define config properties from a structured object, normally loaded from a
     YAML file.'
 
+    .self$debug('Define config keys.')
     # Loop on all keys
     for (key in names(def)) {
         
         v <- def[[key]]
         v$key <- key
+        .self$debug('Define config key ', key, '.')
         do.call(.self$.newKey, v)
     }
 },
@@ -324,8 +327,11 @@ define=function(def) {
     # Look into ENV
     envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed=TRUE))),
                     collapse='_')
-    if (envvar %in% names(.self$.env))
+    if (envvar %in% names(.self$.env)) {
         value <- .self$.env[[envvar]]
+        .self$info2("Found env var ", envvar, ', value "', value,
+                    '", defining default value for config key ', key, '.')
+    }
 
     return(value)
 },
@@ -356,8 +362,11 @@ define=function(def) {
         if (key == 'useragent' && 'EMAIL' %in% names(.self$.env))
             default <- paste('Biodb user', .self$.env[['EMAIL']], sep=' ; ')
         if (key == 'svn.binary.path')
-            default <- .self$.get.svn.binary.path()
+            default <- .self$.getSvnBinaryPath()
     }
+    print('-------------------------------- BiodbConfig::.newKey')
+    print(key)
+    print(default)
 
     # Define new key
     .self$.keys[[key]] <- list(type=type, default=default,

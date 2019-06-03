@@ -13,7 +13,7 @@ NcbiEntrezConn$methods( initialize=function(entrez.name=NA_character_, entrez.ta
 
     # Call parent constructor
     callSuper(...)
-    .self$.abstract.class('NcbiEntrezConn')
+    .self$.abstractClass('NcbiEntrezConn')
 
     # Set name
     if (is.null(entrez.name) || is.na(entrez.name))
@@ -30,7 +30,7 @@ NcbiEntrezConn$methods( initialize=function(entrez.name=NA_character_, entrez.ta
 # Web service efetch {{{1
 ################################################################################
 
-NcbiEntrezConn$methods( ws.efetch=function(id, rettype=NA_character_, retmode=NA_character_, retfmt=c('plain', 'parsed', 'request')) {
+NcbiEntrezConn$methods( wsEfetch=function(id, rettype=NA_character_, retmode=NA_character_, retfmt=c('plain', 'parsed', 'request')) {
     "Calls Entrez efetch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch."
 
     retfmt <- match.arg(retfmt)
@@ -59,7 +59,7 @@ NcbiEntrezConn$methods( ws.efetch=function(id, rettype=NA_character_, retmode=NA
 # Web service esearch {{{1
 ################################################################################
 
-NcbiEntrezConn$methods( ws.esearch=function(term, field=NA_character_, retmax=NA_integer_, retfmt=c('plain', 'parsed', 'request', 'ids')) {
+NcbiEntrezConn$methods( wsEsearch=function(term, field=NA_character_, retmax=NA_integer_, retfmt=c('plain', 'parsed', 'request', 'ids')) {
     "Calls Entrez esearch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch."
 
     retfmt <- match.arg(retfmt)
@@ -95,7 +95,7 @@ NcbiEntrezConn$methods( ws.esearch=function(term, field=NA_character_, retmax=NA
 # Web service einfo {{{1
 ################################################################################
 
-NcbiEntrezConn$methods( ws.einfo=function(retfmt=c('plain', 'request', 'parsed')) {
+NcbiEntrezConn$methods( wsEinfo=function(retfmt=c('plain', 'request', 'parsed')) {
     "Calls Entrez einfo web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EInfo."
 
     retfmt <- match.arg(retfmt)
@@ -123,7 +123,7 @@ NcbiEntrezConn$methods( ws.einfo=function(retfmt=c('plain', 'request', 'parsed')
 NcbiEntrezConn$methods( getNbEntries=function(count=FALSE) {
 
     # Send request
-    xml <- .self$ws.einfo(retfmt='parsed')
+    xml <- .self$wsEinfo(retfmt='parsed')
 
     # Get number of elements
     n <- XML::xpathSApply(xml, "//Count", XML::xmlValue)
@@ -138,9 +138,9 @@ NcbiEntrezConn$methods( getNbEntries=function(count=FALSE) {
 NcbiEntrezConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
     if (concatenate)
-        urls <- .self$ws.efetch(id, retmode='xml', retfmt='request')$getUrl()$toString()
+        urls <- .self$wsEfetch(id, retmode='xml', retfmt='request')$getUrl()$toString()
     else
-        urls <- vapply(id, function(single.id) .self$ws.efetch(single.id, retmode='xml', retfmt='request')$getUrl()$toString(), FUN.VALUE='')
+        urls <- vapply(id, function(single.id) .self$wsEfetch(single.id, retmode='xml', retfmt='request')$getUrl()$toString(), FUN.VALUE='')
 
     return(urls)
 })
@@ -207,6 +207,6 @@ NcbiEntrezConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
     .self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of Ncbi entries.")
 
-    return(.self$ws.esearch(term='e', retmax=if (is.na(max.results)) 1000000 else max.results, retfmt='ids'))
+    return(.self$wsEsearch(term='e', retmax=if (is.na(max.results)) 1000000 else max.results, retfmt='ids'))
 })
 
