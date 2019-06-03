@@ -211,15 +211,20 @@ addObservers=function(observers) {
 
     # Check types of observers
     if ( ! is.list(observers)) observers <- list(observers)
-    is.obs <- vapply(observers, function(o) is(o, "BiodbObserver"),
+    is.obs <- vapply(observers, function(o) methods::is(o, "BiodbObserver"),
                      FUN.VALUE=TRUE)
     if (any( ! is.obs))
         .self$message('error',
                       "Observers must inherit from BiodbObserver class.")
 
     # Add observers to current list (insert at beginning)
+    old_obs <- .self$.observers
     .self$.observers <- if (is.null(.self$.observers)) observers
         else c(observers, .self$.observers)
+
+    # Notify of new observers
+    for(no in observers)
+        lapply(old_obs, function(o) o$newObserver(no))
 },
 
 # Get observers {{{3

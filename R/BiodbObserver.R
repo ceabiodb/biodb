@@ -52,10 +52,16 @@ methods=list(
 terminate=function() {
 },
 
-# Config key value set {{{3
+# New observer {{{3
 ################################################################################
 
-cfgKeyValSet=function(k, v) {
+newObserver=function(obs) {
+},
+
+# Config key value update {{{3
+################################################################################
+
+cfgKVUpdate=function(k, v) {
 },
 
 # Message {{{3

@@ -42,10 +42,11 @@
 #'
 #' @import methods
 #' @include BiodbChildObject.R
+#' @include BiodbObserver.R
 #' @export BiodbConfig
 #' @exportClass BiodbConfig
 BiodbConfig <- methods::setRefClass("BiodbConfig",
-                                    contains="BiodbChildObject",
+    contains=c('BiodbChildObject', 'BiodbObserver'),
 
 # Fields {{{2
 ################################################################################
@@ -71,6 +72,19 @@ initialize=function(...) {
     .self$.env <- Sys.getenv()
     .self$.keys <- list()
     .self$.values <- list()
+    
+    # Register as observer
+    .self$getBiodb()$addObservers(.self)
+},
+
+# New observer {{{3
+################################################################################
+
+newObserver=function(obs) {
+    
+    # Loop on all keys
+    for(key in names(.self$.values))
+        .self$getObservers()$cfgKVUpdate(key, .self$.values[[key]])
 },
 
 # Get keys {{{3
@@ -168,6 +182,9 @@ get=function(key) {
     else
         value <- as.vector(NA, mode=.self$.getType(key))
 
+    print('-------------------------------- BiodbConfig::get')
+    print(key)
+    print(value)
     return(value)
 },
 
@@ -188,7 +205,7 @@ set=function(key, value) {
     .self$debug('Set key ', key, ' to value "', v, '".')
     
     # Notify observers
-    lapply(.self$getBiodb()$getObservers(), function(o) o$cfgKeyValSet(key, v))
+    lapply(.self$getBiodb()$getObservers(), function(o) o$cfgKVUpdate(key, v))
 },
 
 # Enable {{{3

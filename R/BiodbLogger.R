@@ -94,14 +94,21 @@ terminate=function() {
         close(.self$.file)
 },
 
-# Config key value set {{{3
+# Config key value update {{{3
 ################################################################################
 
-cfgKeyValSet=function(k, v) {
+cfgKVUpdate=function(k, v) {
+    print('-------------------------------- BiodbLogger::cfgKeyValSet 1')
     for (type in c('debug', 'info', 'caution')) {
         lvl.k <- paste('msg', type, 'lvl', sep='.')
-        if (lvl.k == k)
+        if (lvl.k == k) {
+    print('-------------------------------- BiodbLogger::cfgKeyValSet 10')
+    print(.self$.file)
+    print(k)
+    print(v)
             .self$.levels[[k]] <- v
+    print(.self$.levels)
+        }
     }
 },
 
