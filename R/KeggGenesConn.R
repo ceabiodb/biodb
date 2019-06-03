@@ -12,19 +12,19 @@
 #' @include KeggConn.R
 #' @export KeggGenesConn
 #' @exportClass KeggGenesConn
-KeggGenesConn <- methods::setRefClass("KeggGenesConn", contains = c("KeggConn"))
+KeggGenesConn <- methods::setRefClass("KeggGenesConn", contains=c("KeggConn"))
 
 # Initialize {{{1
 ################################################################################
 
-KeggGenesConn$methods( initialize = function(...) {
-    callSuper(db.name = 'genes', ...)
+KeggGenesConn$methods( initialize=function(...) {
+    callSuper(db.name='genes', ...)
 })
 
 # Get entry image url {{{1
 ################################################################################
 
-KeggGenesConn$methods( getEntryImageUrl = function(id) {
+KeggGenesConn$methods( getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
 })
 

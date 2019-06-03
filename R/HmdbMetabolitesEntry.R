@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry", contains = "BiodbXmlEntry")
+HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry", contains="BiodbXmlEntry")
 
 # Initialize {{{1
 ################################################################################
 
-HmdbMetabolitesEntry$methods( initialize = function(...) {
+HmdbMetabolitesEntry$methods( initialize=function(...) {
 
     callSuper(...)
 })
@@ -18,14 +18,14 @@ HmdbMetabolitesEntry$methods( initialize = function(...) {
 # Is parsed content correct {{{1
 ################################################################################
 
-HmdbMetabolitesEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+HmdbMetabolitesEntry$methods( .isParsedContentCorrect=function(parsed.content) {
     return(length(XML::getNodeSet(parsed.content, "//error")) == 0)
 })
 
 # Parse fields step 2 {{{1
 ################################################################################
 
-HmdbMetabolitesEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+HmdbMetabolitesEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
     # Remove fields with empty string
     for (f in .self$getFieldNames()) {
@@ -36,7 +36,7 @@ HmdbMetabolitesEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
     # Correct InChIKey
     if (.self$hasField('INCHIKEY'))
-        .self$setFieldValue('INCHIKEY', sub('^InChIKey=', '', .self$getFieldValue('INCHIKEY'), perl = TRUE))
+        .self$setFieldValue('INCHIKEY', sub('^InChIKey=', '', .self$getFieldValue('INCHIKEY'), perl=TRUE))
 
     # Synonyms
     synonyms <- XML::xpathSApply(parsed.content, "//synonym", XML::xmlValue)

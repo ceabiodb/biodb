@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry", contains = 'BiodbEntry')
+BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry", contains='BiodbEntry')
 
 # Initialize {{{1
 ################################################################################
 
-BiodbJsonEntry$methods( initialize = function(...) {
+BiodbJsonEntry$methods( initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbJsonEntry')
@@ -19,10 +19,10 @@ BiodbJsonEntry$methods( initialize = function(...) {
 # Do parse content {{{1
 ################################################################################
 
-BiodbJsonEntry$methods( .doParseContent = function(content) {
+BiodbJsonEntry$methods( .doParseContent=function(content) {
 
     # Parse JSON
-    json <- jsonlite::fromJSON(content, simplifyDataFrame = FALSE)  
+    json <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)  
 
     return(json)
 })
@@ -30,7 +30,7 @@ BiodbJsonEntry$methods( .doParseContent = function(content) {
 # Parse fields step 1 {{{1
 ################################################################################
 
-BiodbJsonEntry$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbJsonEntry$methods( .parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')

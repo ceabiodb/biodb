@@ -5,20 +5,20 @@
 # Class declaration {{{1
 ################################################################################
 
-MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry", contains = 'BiodbCsvEntry')
+MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry", contains='BiodbCsvEntry')
 
 # Initialize {{{1
 ################################################################################
 
-MassCsvFileEntry$methods( initialize = function(...) {
+MassCsvFileEntry$methods( initialize=function(...) {
 
-    callSuper(sep = "\t", ...)
+    callSuper(sep="\t", ...)
 })
 
 # Parse chromatographic columns {{{1
 ################################################################################
 
-MassCsvFileEntry$methods( .parseChromatoCols = function() {
+MassCsvFileEntry$methods( .parseChromatoCols=function() {
 
     if (.self$hasField('chrom.col.name') && ! .self$hasField('chrom.col.id'))
         .self$setFieldValue('chrom.col.id', .self$getFieldValue('chrom.col.name'))
@@ -30,9 +30,9 @@ MassCsvFileEntry$methods( .parseChromatoCols = function() {
 # Parse precursor {{{1
 ################################################################################
 
-MassCsvFileEntry$methods( .parsePrecursor = function() {
+MassCsvFileEntry$methods( .parsePrecursor=function() {
 
-    peaks = .self$getFieldValue('peaks')
+    peaks <- .self$getFieldValue('peaks')
 
     if ( ! is.null(peaks) && 'peak.attr' %in% colnames(peaks)) {
         precursors.attr <- .self$getParent()$getPrecursorFormulae()
@@ -40,11 +40,11 @@ MassCsvFileEntry$methods( .parsePrecursor = function() {
         if (sum(precursors) == 1)
             .self$setFieldValue('msprecmz', peaks[precursors, 'peak.mz'])
         else if (sum(precursors) > 1) {
-            .self$message('caution', paste("Found more than one precursor inside entry ", .self$getFieldValue('accession', compute = FALSE), ': ', paste(peaks[precursors, 'peak.attr'], collapse = ", "), ". Trying to take the one with highest intensity.", sep = ''))
+            .self$message('caution', paste("Found more than one precursor inside entry ", .self$getFieldValue('accession', compute=FALSE), ': ', paste(peaks[precursors, 'peak.attr'], collapse=", "), ". Trying to take the one with highest intensity.", sep=''))
             strongest.precursor.mz <- NULL
             for (int.col in c('peak.intensity', 'peak.relative.intensity'))
                 if (int.col %in% colnames(peaks))
-                    strongest.precursor.mz <- peaks[precursors, 'peak.mz'][[which(order(peaks[precursors, int.col], decreasing = TRUE) == 1)]]
+                    strongest.precursor.mz <- peaks[precursors, 'peak.mz'][[which(order(peaks[precursors, int.col], decreasing=TRUE) == 1)]]
             if (is.null(strongest.precursor.mz))
                 .self$message('caution', 'No intensity information found for choosing the strongest precursor.')
             else {
@@ -58,7 +58,7 @@ MassCsvFileEntry$methods( .parsePrecursor = function() {
 # Parse peak table {{{1
 ################################################################################
 
-MassCsvFileEntry$methods( .parsePeakTable = function(parsed.content) {
+MassCsvFileEntry$methods( .parsePeakTable=function(parsed.content) {
 
     entry.fields <- .self$getBiodb()$getEntryFields()
 
@@ -82,7 +82,7 @@ MassCsvFileEntry$methods( .parsePeakTable = function(parsed.content) {
 
                 # Add values to peak data frame
                 if (is.null(peaks)) {
-                    peaks <- data.frame(x = values, stringsAsFactors = FALSE)
+                    peaks <- data.frame(x=values, stringsAsFactors=FALSE)
                     colnames(peaks) <- field
                 }
                 else
@@ -105,7 +105,7 @@ MassCsvFileEntry$methods( .parsePeakTable = function(parsed.content) {
 # Parse fields step 2 {{{1
 ################################################################################
 
-MassCsvFileEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+MassCsvFileEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
     # Peak table
     .self$.parsePeakTable(parsed.content)

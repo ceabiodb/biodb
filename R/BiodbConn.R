@@ -53,25 +53,25 @@
 #' @export BiodbConn
 #' @exportClass BiodbConn
 BiodbConn <- methods::setRefClass("BiodbConn",
-    contains = "BiodbConnBase",
+    contains="BiodbConnBase",
 
 # Fields {{{2
 ################################################################################
 
-fields = list(
-    .id = "character",
-    .entries = "list",
-    .cache.id = 'character'),
+fields=list(
+    .id="character",
+    .entries="list",
+    .cache.id='character'),
 
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Initialize {{{3
 ################################################################################
 
-initialize = function(id = NA_character_, cache.id = NA_character_, ...) {
+initialize=function(id=NA_character_, cache.id=NA_character_, ...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbConn')
@@ -85,7 +85,7 @@ initialize = function(id = NA_character_, cache.id = NA_character_, ...) {
 # Get id {{{3
 ################################################################################
 
-getId = function() {
+getId=function() {
     "Get the identifier of this connector."
 
     return(.self$.id)
@@ -94,7 +94,7 @@ getId = function() {
 # Get entry {{{3
 ################################################################################
 
-getEntry = function(id, drop = TRUE) {
+getEntry=function(id, drop=TRUE) {
     "Return the entry corresponding to this ID. You can pass a vector of IDs,
     and you will get a list of entries."
 
@@ -105,7 +105,7 @@ getEntry = function(id, drop = TRUE) {
 # Get cache file {{{3
 ################################################################################
 
-getCacheFile = function(entry.id) {
+getCacheFile=function(entry.id) {
     "Get the path to the persistent cache file."
 
     c <- .self$getBiodb()$getCache()
@@ -120,7 +120,7 @@ getCacheFile = function(entry.id) {
 # Get entry content {{{3
 ################################################################################
 
-getEntryContent = function(id) {
+getEntryContent=function(id) {
     "Get the contents of database entries from IDs (accession numbers)."
 
     content <- list()
@@ -142,10 +142,10 @@ getEntryContent = function(id) {
         # Initialize content
         if (cch$isReadable() && ! is.null(.self$getCacheId())) {
             # Load content from cache
-            content = cch$loadFileContent(.self$getCacheId(),
-                                          subfolder = 'shortterm', name = id,
-                                          ext = .self$getEntryFileExt())
-            missing.ids = id[vapply(content, is.null, FUN.VALUE = TRUE)]
+            content <- cch$loadFileContent(.self$getCacheId(),
+                                          subfolder='shortterm', name=id,
+                                          ext=.self$getEntryFileExt())
+            missing.ids <- id[vapply(content, is.null, FUN.VALUE=TRUE)]
         }
         else {
             content <- lapply(id, as.null)
@@ -178,8 +178,8 @@ getEntryContent = function(id) {
             # Divide list of missing ids in chunks
             # (in order to save in cache regularly)
             cs <- .self$getBiodb()$getConfig()$get('dwnld.chunk.size')
-            .self$debug('dwnld.chunk.size = ', cs)
-            chunks.of.missing.ids = if (is.na(cs)) list(missing.ids)
+            .self$debug('dwnld.chunk.size=', cs)
+            chunks.of.missing.ids <- if (is.na(cs)) list(missing.ids)
                 else split(missing.ids, ceiling(seq_along(missing.ids) / cs))
             .self$debug(length(chunks.of.missing.ids), ' chunk(s) to download.')
 
@@ -194,10 +194,10 @@ getEntryContent = function(id) {
                 if ( ! is.null(ec)
                     && ! is.null(.self$getCacheId()) && cch$isWritable())
                     cch$saveContentToFile(ec,
-                                          cache.id = .self$getCacheId(),
-                                          subfolder = 'shortterm',
-                                          name = ch.missing.ids,
-                                          ext = .self$getEntryFileExt())
+                                          cache.id=.self$getCacheId(),
+                                          subfolder='shortterm',
+                                          name=ch.missing.ids,
+                                          ext=.self$getEntryFileExt())
 
                 # Append
                 missing.contents <- c(missing.contents, ec)
@@ -210,10 +210,10 @@ getEntryContent = function(id) {
             }
 
             # Merge content and missing.contents
-            missing.contents = as.list(missing.contents)
+            missing.contents <- as.list(missing.contents)
             ii <- vapply(id[id %in% missing.ids],
-                         function(x) which(missing.ids == x), FUN.VALUE = 1L)
-            content[id %in% missing.ids] = missing.contents[ii]
+                         function(x) which(missing.ids == x), FUN.VALUE=1L)
+            content[id %in% missing.ids] <- missing.contents[ii]
         }
     }
 
@@ -223,7 +223,7 @@ getEntryContent = function(id) {
 # Get entry content from database {{{3
 ################################################################################
 
-getEntryContentFromDb = function(entry.id) {
+getEntryContentFromDb=function(entry.id) {
     "Get the content of an entry from the database."
 
     .self$.abstract.method()
@@ -232,25 +232,25 @@ getEntryContentFromDb = function(entry.id) {
 # Get entry ids {{{3
 ################################################################################
 
-getEntryIds = function(max.results = NA_integer_, ...) {
+getEntryIds=function(max.results=NA_integer_, ...) {
     "Get entry identifiers from the database. More arguments can be given,
     depending on implementation in specific databases. For mass databases, the
     ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be
     set."
 
-    ids = character()
+    ids <- character()
 
     # Get IDs from volatile cache
-    not.null = ! vapply(.self$.entries, is.null, FUN.VALUE = T)
-    ids = names(.self$.entries[not.null])
+    not.null <- ! vapply(.self$.entries, is.null, FUN.VALUE=T)
+    ids <- names(.self$.entries[not.null])
 
     # Get IDs from database
     if (is.null(max.results) || is.na(max.results)
         || length(ids) < max.results) {
         mx <- if (is.null(max.results)) NA_integer_ else max.results
-        db.ids = .self$.doGetEntryIds(mx, ...)
+        db.ids <- .self$.doGetEntryIds(mx, ...)
         if ( ! is.null(db.ids))
-            ids = c(ids, db.ids[ ! db.ids %in% ids])
+            ids <- c(ids, db.ids[ ! db.ids %in% ids])
     }
 
     # Cut
@@ -264,7 +264,7 @@ getEntryIds = function(max.results = NA_integer_, ...) {
 # Get nb entries {{{3
 ################################################################################
 
-getNbEntries = function(count = FALSE) {
+getNbEntries=function(count=FALSE) {
     "Get the number of entries contained in this database."
 
     n <- NA_integer_
@@ -281,7 +281,7 @@ getNbEntries = function(count = FALSE) {
 # Is editable {{{3
 ################################################################################
 
-isEditable = function() {
+isEditable=function() {
     "Returns TRUE if the database is editable (i.e.: the connector class
     implements the interface BiodbEditable). If this connector is editable, then
     you can call allowEditing() to enable editing."
@@ -292,7 +292,7 @@ isEditable = function() {
 # Is writable {{{3
 ################################################################################
 
-isWritable = function() {
+isWritable=function() {
     "Returns TRUE if the database is writable (i.e.: the connector class
     implements the interface BiodbWritable). If this connector is writable, then
     you can call allowWriting() to enable writing."
@@ -303,7 +303,7 @@ isWritable = function() {
 # Is searchable {{{3
 ################################################################################
 
-isSearchable = function() {
+isSearchable=function() {
     "Returns TRUE if the database is searchable (i.e.: the connector class
     implements the interface BiodbSearchable)."
 
@@ -313,7 +313,7 @@ isSearchable = function() {
 # Is downloadable {{{3
 ################################################################################
 
-isDownloadable = function() {
+isDownloadable=function() {
     "Returns TRUE if the database is downloadable (i.e.: the connector class
     implements the interface BiodbDownloadable)."
 
@@ -323,7 +323,7 @@ isDownloadable = function() {
 # Is a remote database {{{3
 ################################################################################
 
-isRemotedb = function() {
+isRemotedb=function() {
     "Returns TRUE if the database is a remote database (i.e.: the connector
     class inherits from BiodbRemotedbConn class)."
 
@@ -333,7 +333,7 @@ isRemotedb = function() {
 # Is a compound database {{{3
 ################################################################################
 
-isCompounddb = function() {
+isCompounddb=function() {
     "Returns TRUE if the database is a compound database (i.e.: the connector
     class inherits from BiodbCompounddbConn class)."
 
@@ -343,7 +343,7 @@ isCompounddb = function() {
 # Is a mass database {{{3
 ################################################################################
 
-isMassdb = function() {
+isMassdb=function() {
     "Returns TRUE if the database is a mass database (i.e.: the connector
     class inherits from BiodbMassdbConn class)."
 
@@ -353,7 +353,7 @@ isMassdb = function() {
 # Check database {{{3
 ################################################################################
 
-checkDb = function() {
+checkDb=function() {
     "Check that the database is correct by trying to load all entries."
 
     # Get IDs
@@ -366,12 +366,12 @@ checkDb = function() {
 # Get all cache entries {{{3
 ################################################################################
 
-getAllCacheEntries = function() {
+getAllCacheEntries=function() {
     "Get all entries from the memory cache."
 
     # Remove NULL entries
     entries <- .self$.entries[ ! vapply(.self$.entries, is.null,
-                                        FUN.VALUE = TRUE)]
+                                        FUN.VALUE=TRUE)]
 
     # Remove names
     names(entries) <- NULL
@@ -382,7 +382,7 @@ getAllCacheEntries = function() {
 # Delete all cache entries {{{3
 ################################################################################
 
-deleteAllCacheEntries = function() {
+deleteAllCacheEntries=function() {
     "Delete all entries from the memory cache."
 
     .self$.entries <- list()
@@ -391,7 +391,7 @@ deleteAllCacheEntries = function() {
 # Get cache ID {{{3
 ################################################################################
 
-getCacheId = function() {
+getCacheId=function() {
     "Returns the ID used by this connector in the disk cache."
 
     id <- NULL
@@ -402,7 +402,7 @@ getCacheId = function() {
     } else {
         url <- .self$getPropValSlot('urls', 'base.url')
         if ( ! is.null(url) && ! is.na(url))
-            id <- paste(.self$getDbClass(), openssl::md5(url), sep = '-')
+            id <- paste(.self$getDbClass(), openssl::md5(url), sep='-')
     }
 
     return(id)
@@ -411,7 +411,7 @@ getCacheId = function() {
 # Makes reference to entry  {{{3
 ################################################################################
 
-makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
+makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
     'Test for each entry of this database in id parameter if it makes reference
     to the entry oid from database db. If any is set to TRUE, will return a
     single logical value: TRUE if any entry contains a reference to oid, FALSE
@@ -424,7 +424,7 @@ makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
             e <- .self$getEntry(i)
             if ( ! is.null(e)
                 && e$makesRefToEntry(db=db, oid=oid, recurse=recurse)) {
-                makes_ref = TRUE
+                makes_ref <- TRUE
                 break
             }
         }
@@ -432,7 +432,7 @@ makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
     
     # Returns a vector, testing each entry in id individually
     else {
-        entries <- .self$getEntry(id, drop = FALSE)
+        entries <- .self$getEntry(id, drop=FALSE)
         makes_ref <- vapply(entries,
                            function(e) ! is.null(e)
                            && e$makesRefToEntry(db=db, oid=oid,
@@ -448,14 +448,14 @@ makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
 # Do get entry ids {{{3
 ################################################################################
 
-.doGetEntryIds = function(max.results = NA_integer_) {
+.doGetEntryIds=function(max.results=NA_integer_) {
     .self$.abstract.method()
 },
 
 # Add entries to cache {{{3
 ################################################################################
 
-.addEntriesToCache = function(ids, entries) {
+.addEntriesToCache=function(ids, entries) {
 
     ids <- as.character(ids)
     
@@ -473,7 +473,7 @@ makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
 # Get entries from cache {{{3
 ################################################################################
 
-.getEntriesFromCache = function(ids) {
+.getEntriesFromCache=function(ids) {
 
     ids <- as.character(ids)
 
@@ -483,7 +483,7 @@ makesRefToEntry = function(id, db, oid, any = FALSE, recurse = FALSE) {
 # Get entries missing from cache {{{3
 ################################################################################
 
-.getEntryMissingFromCache = function(ids) {
+.getEntryMissingFromCache=function(ids) {
 
     ids <- as.character(ids)
 

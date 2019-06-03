@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains = 'BiodbTxtEntry')
+ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry", contains='BiodbTxtEntry')
 
 # Initialize {{{1
 ################################################################################
 
-ExpasyEnzymeEntry$methods( initialize = function(...) {
+ExpasyEnzymeEntry$methods( initialize=function(...) {
 
     callSuper(...)
 })
@@ -18,7 +18,7 @@ ExpasyEnzymeEntry$methods( initialize = function(...) {
 # Parse fields step 2 {{{1
 ################################################################################
 
-ExpasyEnzymeEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+ExpasyEnzymeEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
     # Cofactors may be listed on a single line, separated by a semicolon.
     if (.self$hasField('COFACTOR'))
@@ -26,7 +26,7 @@ ExpasyEnzymeEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 
     # Synonyms
     g <- stringr::str_match(parsed.content, "^AN\\s+(.+?)\\.?$")
-    results <- g[ ! is.na(g[,1]), , drop = FALSE]
+    results <- g[ ! is.na(g[,1]), , drop=FALSE]
     if (nrow(results) > 0)
         .self$appendFieldValue('name', results[,2])
 })

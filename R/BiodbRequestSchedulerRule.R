@@ -16,12 +16,12 @@
 #' @include BiodbChildObject.R
 #' @export BiodbRequestSchedulerRule
 #' @exportClass BiodbRequestSchedulerRule
-BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule", contains = "BiodbChildObject", fields = list(.host = "character", .n = "integer", .t = "numeric", .last.time = "list", .n.index = 'integer', .conn = 'list'))
+BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule", contains="BiodbChildObject", fields=list(.host="character", .n="integer", .t="numeric", .last.time="list", .n.index='integer', .conn='list'))
 
 # Initialize {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( initialize = function(host, n, t, conn, ...) {
+BiodbRequestSchedulerRule$methods( initialize=function(host, n, t, conn, ...) {
 
     callSuper(...)
 
@@ -31,34 +31,34 @@ BiodbRequestSchedulerRule$methods( initialize = function(host, n, t, conn, ...) 
     .self$.last.time <- list()
     .self$.n.index <- as.integer(0)
     .self$.conn <- list(conn)
-    .self$setFrequency(n = conn$getPropertyValue('scheduler.n'), t = conn$getPropertyValue('scheduler.t'))
+    .self$setFrequency(n=conn$getPropertyValue('scheduler.n'), t=conn$getPropertyValue('scheduler.t'))
 })
 
 # Get hostname {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( getHost = function() {
+BiodbRequestSchedulerRule$methods( getHost=function() {
     return(.self$.host)
 })
 
 # Get N {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( getN = function() {
+BiodbRequestSchedulerRule$methods( getN=function() {
     return(.self$.n)
 })
 
 # Get T {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( getT = function() {
+BiodbRequestSchedulerRule$methods( getT=function() {
     return(.self$.t)
 })
 
 # Set frequency {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( setFrequency = function(n, t) {
+BiodbRequestSchedulerRule$methods( setFrequency=function(n, t) {
     .self$.assert.is(n, 'integer')
     .self$.assert.is(t, c('integer', 'numeric'))
     .self$.assert.positive(n)
@@ -67,11 +67,11 @@ BiodbRequestSchedulerRule$methods( setFrequency = function(n, t) {
     # Update last time and index
     if (length(.self$.last.time) >= 1) {
         if (length(.self$.last.time) <= n) {
-            .self$.last.time <- .self$.last.time[seq(from = .self$.n.index - 1, to = .self$.n.index - length(.self$.last.time)) %% .self$.n + 1]
+            .self$.last.time <- .self$.last.time[seq(from=.self$.n.index - 1, to=.self$.n.index - length(.self$.last.time)) %% .self$.n + 1]
             .self$.n.index <- length(.self$.last.time)
         }
         else {
-            .self$.last.time <- .self$.last.time[seq(from = .self$.n.index - 1, to = .self$.n.index - n) %% .self$.n + 1]
+            .self$.last.time <- .self$.last.time[seq(from=.self$.n.index - 1, to=.self$.n.index - n) %% .self$.n + 1]
             .self$.n.index <- n
         }
     }
@@ -84,18 +84,18 @@ BiodbRequestSchedulerRule$methods( setFrequency = function(n, t) {
 # Get connectors {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( getConnectors = function() {
+BiodbRequestSchedulerRule$methods( getConnectors=function() {
     return(.self$.conn)
 })
 
 # Add connector {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( addConnector = function(conn) {
+BiodbRequestSchedulerRule$methods( addConnector=function(conn) {
     .self$.assert.inherits.from(conn, 'BiodbConn')
 
     # Connector already listed?
-    if (any(vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE = TRUE)))
+    if (any(vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE=TRUE)))
         .self$message('caution', paste0('Connector "', conn$getId(), '" is already listed in rule "', .self$.host, '".'))
 
     # Add connector
@@ -111,11 +111,11 @@ BiodbRequestSchedulerRule$methods( addConnector = function(conn) {
 # Remove connector {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( removeConnector = function(conn) {
+BiodbRequestSchedulerRule$methods( removeConnector=function(conn) {
     .self$.assert.inherits.from(conn, 'BiodbConn')
 
     # Connector already listed?
-    found.conn <- vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE = TRUE)
+    found.conn <- vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE=TRUE)
     if ( ! any(found.conn))
         .self$message('caution', paste0('Connector "', conn$getId(), '" is not listed in rule "', .self$.host, '".'))
 
@@ -131,7 +131,7 @@ BiodbRequestSchedulerRule$methods( removeConnector = function(conn) {
 # Recompute frequency {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( recomputeFrequency = function() {
+BiodbRequestSchedulerRule$methods( recomputeFrequency=function() {
 
     t <- NULL
     n <- NULL
@@ -147,13 +147,13 @@ BiodbRequestSchedulerRule$methods( recomputeFrequency = function() {
     }
 
     # Set frequency
-    .self$setFrequency(n = n, t = t)
+    .self$setFrequency(n=n, t=t)
 })
 
 # Compute sleep time {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( computeSleepTime = function(cur.time = NULL) {
+BiodbRequestSchedulerRule$methods( computeSleepTime=function(cur.time=NULL) {
 
     sleep.time <- 0
 
@@ -165,9 +165,9 @@ BiodbRequestSchedulerRule$methods( computeSleepTime = function(cur.time = NULL) 
 
         # Look at all "last" times starting from most recent one
         n <- 0
-        last.time.indices <- seq(from = .self$.n.index - 1, to = .self$.n.index - .self$.n) %% .self$.n + 1
+        last.time.indices <- seq(from=.self$.n.index - 1, to=.self$.n.index - .self$.n) %% .self$.n + 1
         for (i in last.time.indices)
-            if (difftime(.self$.last.time[[i]], cur.time, units = 'secs') < .self$.t)
+            if (difftime(.self$.last.time[[i]], cur.time, units='secs') < .self$.t)
                 n <- n + 1
             else
                 break
@@ -175,7 +175,7 @@ BiodbRequestSchedulerRule$methods( computeSleepTime = function(cur.time = NULL) 
         # Compute sleep time
         if (n == .self$.n) {
             n.oldest <- .self$.n.index %% .self$.n + 1
-            sleep.time <- .self$.t - difftime(cur.time, .self$.last.time[[n.oldest]], units = 'secs')
+            sleep.time <- .self$.t - difftime(cur.time, .self$.last.time[[n.oldest]], units='secs')
             sleep.time <- max(0, sleep.time)
         }
     }
@@ -186,7 +186,7 @@ BiodbRequestSchedulerRule$methods( computeSleepTime = function(cur.time = NULL) 
 # Store current time {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( storeCurrentTime = function(cur.time = NULL) {
+BiodbRequestSchedulerRule$methods( storeCurrentTime=function(cur.time=NULL) {
 
     if (is.null(cur.time))
         cur.time <-Sys.time()
@@ -198,14 +198,14 @@ BiodbRequestSchedulerRule$methods( storeCurrentTime = function(cur.time = NULL) 
 # Wait as needed {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( wait.as.needed = function() {
+BiodbRequestSchedulerRule$methods( wait.as.needed=function() {
 
     # Compute sleep time
     sleep.time <- .self$computeSleepTime()
 
     # Sleep if needed
     if (sleep.time > 0) {
-        .self$message('debug', paste('Wait ', sleep.time, ' second(s).', sep = ''))
+        .self$message('debug', paste('Wait ', sleep.time, ' second(s).', sep=''))
         Sys.sleep(sleep.time)
     }
 
@@ -215,8 +215,8 @@ BiodbRequestSchedulerRule$methods( wait.as.needed = function() {
 # Show {{{1
 ################################################################################
 
-BiodbRequestSchedulerRule$methods( show = function() {
+BiodbRequestSchedulerRule$methods( show=function() {
     cat("Biodb scheduler rule instance.\n")
-    cat('  Handle request waiting time for host "', .self$.host, '" for ', length(.self$.conn), " connector(s): ", paste(vapply(.self$.conn, function(x) x$getId(), FUN.VALUE = ''), collapse = ', '), ".\n", sep = '')
-    cat('  Parameters are T = ', .self$getT(), ' and N = ', .self$getN(), ".\n", sep = '')
+    cat('  Handle request waiting time for host "', .self$.host, '" for ', length(.self$.conn), " connector(s): ", paste(vapply(.self$.conn, function(x) x$getId(), FUN.VALUE=''), collapse=', '), ".\n", sep='')
+    cat('  Parameters are T=', .self$getT(), ' and N=', .self$getN(), ".\n", sep='')
 })

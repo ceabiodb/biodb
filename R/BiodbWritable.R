@@ -13,12 +13,12 @@
 #' @include BiodbObject.R
 #' @export BiodbWritable
 #' @exportClass BiodbWritable
-BiodbWritable <- methods::setRefClass("BiodbWritable", contains = 'BiodbObject', fields = list(.writing.allowed = 'logical'))
+BiodbWritable <- methods::setRefClass("BiodbWritable", contains='BiodbObject', fields=list(.writing.allowed='logical'))
 
 # Initialize {{{1
 ################################################################################
 
-BiodbWritable$methods( initialize = function(...) {
+BiodbWritable$methods( initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbWritable')
@@ -29,7 +29,7 @@ BiodbWritable$methods( initialize = function(...) {
 # Writing is allowed {{{1
 ################################################################################
 
-BiodbWritable$methods( writingIsAllowed = function() {
+BiodbWritable$methods( writingIsAllowed=function() {
     "Returns TRUE if writing is allowed for this database."
     
     .self$.initWritable()
@@ -40,7 +40,7 @@ BiodbWritable$methods( writingIsAllowed = function() {
 # Allow writing {{{1
 ################################################################################
 
-BiodbWritable$methods( allowWriting = function() {
+BiodbWritable$methods( allowWriting=function() {
     "Allow writing for this database."
 
     .self$setWritingAllowed(TRUE)
@@ -49,7 +49,7 @@ BiodbWritable$methods( allowWriting = function() {
 # Disallow writing {{{1
 ################################################################################
 
-BiodbWritable$methods( disallowWriting = function() {
+BiodbWritable$methods( disallowWriting=function() {
     "Disallow writing for this database."
     
     .self$setWritingAllowed(FALSE)
@@ -58,7 +58,7 @@ BiodbWritable$methods( disallowWriting = function() {
 # Set writing allowed {{{1
 ################################################################################
 
-BiodbWritable$methods( setWritingAllowed = function(allow) {
+BiodbWritable$methods( setWritingAllowed=function(allow) {
     "Allow or disallow writing for this database."
     
     .self$.assert.is(allow, 'logical')
@@ -68,7 +68,7 @@ BiodbWritable$methods( setWritingAllowed = function(allow) {
 # Write {{{1
 ################################################################################
 
-BiodbWritable$methods( write = function() {
+BiodbWritable$methods( write=function() {
     "Write the database. All modifications made to the database since the last time write() was called will be saved."
 
     .self$.checkWritingIsAllowed()
@@ -85,7 +85,7 @@ BiodbWritable$methods( write = function() {
 # Check that writing is allowed {{{2
 ################################################################################
 
-BiodbWritable$methods( .checkWritingIsAllowed = function() {
+BiodbWritable$methods( .checkWritingIsAllowed=function() {
     
     .self$.initWritable()
     
@@ -96,14 +96,14 @@ BiodbWritable$methods( .checkWritingIsAllowed = function() {
 # Do write {{{2
 ################################################################################
 
-BiodbWritable$methods( .doWrite = function() {
+BiodbWritable$methods( .doWrite=function() {
     .self$.abstract.method()
 })
 
 # Init parameters {{{2
 ################################################################################
 
-BiodbWritable$methods( .initWritable = function() {
+BiodbWritable$methods( .initWritable=function() {
     if (length(.self$.writing.allowed) == 0)
         .self$setWritingAllowed(FALSE)
 })

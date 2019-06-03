@@ -5,8 +5,8 @@
 
 #' @include BiodbXmlEntry.R
 UniprotEntry <- methods::setRefClass("UniprotEntry",
-    contains = "BiodbXmlEntry",
-    methods = list(
+    contains="BiodbXmlEntry",
+    methods=list(
 
 # Public methods {{{2
 ################################################################################
@@ -14,7 +14,7 @@ UniprotEntry <- methods::setRefClass("UniprotEntry",
 # Initialize {{{3
 ################################################################################
 
-initialize = function(...) {
+initialize=function(...) {
     callSuper(...)
 },
 
@@ -24,14 +24,14 @@ initialize = function(...) {
 # Is content correct {{{1
 ################################################################################
 
-.isContentCorrect = function(content) {
-    return( ! grepl("^<!DOCTYPE html ", content, perl = TRUE))
+.isContentCorrect=function(content) {
+    return( ! grepl("^<!DOCTYPE html ", content, perl=TRUE))
 },
 
 # Parse fields step 2 {{{1
 ################################################################################
 
-.parseFieldsStep2 = function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # Remove new lines from sequence string
     if (.self$hasField('nt.seq'))
@@ -42,7 +42,7 @@ initialize = function(...) {
     ns <- .self$getParent()$getPropertyValue('xml.ns')
     synonyms <- XML::xpathSApply(parsed.content,
                                  "//uniprot:protein//uniprot:fullName",
-                                 XML::xmlValue, namespaces = ns)
+                                 XML::xmlValue, namespaces=ns)
     if (length(synonyms) > 0)
         .self$appendFieldValue('name', synonyms)
 }

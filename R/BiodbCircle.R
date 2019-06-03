@@ -18,24 +18,24 @@
 #' @export BiodbCircle
 #' @exportClass BiodbCircle
 BiodbCircle <- methods::setRefClass('BiodbCircle',
-                                    contains = 'BiodbShape',
+                                    contains='BiodbShape',
 
 # Fields {{{2
 ################################################################################
 
-fields = list(.x = 'integer',
-              .y = 'integer',
-              .r = 'integer'),
+fields=list(.x='integer',
+            .y='integer',
+            .r='integer'),
 
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Initialize {{{3
 ################################################################################
 
-initialize = function(x, y, r, ...) {
+initialize=function(x, y, r, ...) {
     callSuper(...)
     .self$.x <- x
     .self$.y <- y
@@ -45,7 +45,7 @@ initialize = function(x, y, r, ...) {
 # Get X {{3
 ################################################################################
 
-getX = function() {
+getX=function() {
     'Return the X coordinate.'
     
     return(.self$.x)
@@ -54,7 +54,7 @@ getX = function() {
 # Get Y {{3
 ################################################################################
 
-getY = function() {
+getY=function() {
     'Return the Y coordinate.'
     
     return(.self$.y)
@@ -63,7 +63,7 @@ getY = function() {
 # Get radius {{3
 ################################################################################
 
-getRadius = function() {
+getRadius=function() {
     'Return the radius.'
     
     return(.self$.r)
@@ -72,13 +72,13 @@ getRadius = function() {
 # Draw {{3
 ################################################################################
 
-draw = function() {
+draw=function() {
     'Draw the shape on the current image.'
     
-    symbols(x = .self$.x, y = .self$.y,
-            circles = .self$.r,
-            bg = .self$getRgbColor(alpha = 127),
-            add = TRUE, inches = FALSE)
+    symbols(x=.self$.x, y=.self$.y,
+            circles=.self$.r,
+            bg=.self$getRgbColor(alpha=127),
+            add=TRUE, inches=FALSE)
 }
 
 ))

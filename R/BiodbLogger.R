@@ -20,13 +20,13 @@
 #'
 #' @examples
 #' # Create a biodb instance with a file log
-#' mybiodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = "myfile.log"))
+#' mybiodb <- biodb::Biodb(observers=biodb::BiodbLogger(file="myfile.log"))
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
 #' 
 #' # Create a biodb instance with logging to standard output
-#' mybiodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = stdout()))
+#' mybiodb <- biodb::Biodb(observers=biodb::BiodbLogger(file=stdout()))
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -36,28 +36,28 @@
 #' @export BiodbLogger
 #' @exportClass BiodbLogger
 BiodbLogger <- methods::setRefClass("BiodbLogger",
-                                    contains = 'BiodbObserver',
+                                    contains='BiodbObserver',
 
 # Fields {{{2
 ################################################################################
 
-fields = list(
-    .file = 'ANY',
-    .close.file = 'logical',
-    .levels = 'integer',
-    .lastime.progress = 'list',
-    .progress.laptime = 'integer',
-    .progress.initial.time = 'list'),
+fields=list(
+    .file='ANY',
+    .close.file='logical',
+    .levels='integer',
+    .lastime.progress='list',
+    .progress.laptime='integer',
+    .progress.initial.time='list'),
 
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Initialize {{{3
 ################################################################################
 
-initialize = function(file = NULL, mode = 'w', close.file = TRUE, ...) {
+initialize=function(file=NULL, mode='w', close.file=TRUE, ...) {
 
     callSuper(...)
 
@@ -69,7 +69,7 @@ initialize = function(file = NULL, mode = 'w', close.file = TRUE, ...) {
 
     # File is a path => create a connection
     if (is.character(file))
-        file <- file(file, open = mode)
+        file <- file(file, open=mode)
 
     # Check file class type
     if ( ! is.null(file) && ! methods::is(file, 'file')
@@ -88,7 +88,7 @@ initialize = function(file = NULL, mode = 'w', close.file = TRUE, ...) {
 # Terminate {{{3
 ################################################################################
 
-terminate = function() {
+terminate=function() {
     if (.self$.close.file && ! is.null(.self$.file)
         && ! methods::is(.self$.file, 'terminal'))
         close(.self$.file)
@@ -97,7 +97,7 @@ terminate = function() {
 # Config key value set {{{3
 ################################################################################
 
-cfgKeyValSet = function(k, v) {
+cfgKeyValSet=function(k, v) {
     for (type in c('debug', 'info', 'caution')) {
         lvl.k <- paste('msg', type, 'lvl', sep='.')
         if (lvl.k == k)
@@ -108,7 +108,7 @@ cfgKeyValSet = function(k, v) {
 # Get desired level {{{3
 ################################################################################
 
-getDesiredLevel = function(type) {
+getDesiredLevel=function(type) {
 
     lvl <- 1
     
@@ -121,8 +121,8 @@ getDesiredLevel = function(type) {
 # Message {{{3
 ################################################################################
 
-message = function(type = 'info', msg, class = NA_character_,
-                   method = NA_character_) {
+message=function(type='info', msg, class=NA_character_,
+                   method=NA_character_) {
 
     .self$checkMessageType(type)
     setlvl <- .self$getDesiredLevel(type)
@@ -132,26 +132,26 @@ message = function(type = 'info', msg, class = NA_character_,
         # Set caller information
         caller.info <- if (is.na(class)) '' else class
         caller.info <- if (is.na(method)) caller.info
-            else paste(caller.info, method, sep = '::')
+            else paste(caller.info, method, sep='::')
         if (nchar(caller.info) > 0)
-            caller.info <- paste('[', caller.info, '] ', sep = '')
+            caller.info <- paste('[', caller.info, '] ', sep='')
 
         # Set timestamp
-        timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
+        timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep='')
 
         # Output message
         m <- paste0('BIODB.', toupper(type), timestamp, caller.info, ': ', msg)
         if (is.null(.self$.file))
             base::message(m)
         else
-            cat(m, "\n", sep = '', file = .self$.file)
+            cat(m, "\n", sep='', file=.self$.file)
     }
 },
 
 # Info progress {{{3
 ################################################################################
 
-progress = function(type = 'info', msg, index, total, first) {
+progress=function(type='info', msg, index, total, first) {
     
     t <- Sys.time()
 

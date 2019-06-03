@@ -5,34 +5,34 @@
 
 #' @include NcbiEntrezConn.R
 #' @include BiodbSearchable.R
-NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains = c('NcbiEntrezConn', 'BiodbSearchable'))
+NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains=c('NcbiEntrezConn', 'BiodbSearchable'))
 
 # Initialize {{{1
 ################################################################################
 
-NcbiGeneConn$methods( initialize = function(...) {
+NcbiGeneConn$methods( initialize=function(...) {
 
-    callSuper(entrez.name = 'gene', entrez.tag = 'Entrezgene', entrez.id.tag = 'Gene-track_geneid', ...)
+    callSuper(entrez.name='gene', entrez.tag='Entrezgene', entrez.id.tag='Gene-track_geneid', ...)
 })
 
 # Get entry page url {{{1
 ################################################################################
 
-NcbiGeneConn$methods( getEntryPageUrl = function(id) {
-    return(vapply(id, function(x) BiodbUrl(url = c(.self$getPropValSlot('urls', 'base.url'), .self$.entrez.name), params = list(term = x))$toString(), FUN.VALUE = ''))
+NcbiGeneConn$methods( getEntryPageUrl=function(id) {
+    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), .self$.entrez.name), params=list(term=x))$toString(), FUN.VALUE=''))
 })
 
 # Get entry image url {{{1
 ################################################################################
 
-NcbiGeneConn$methods( getEntryImageUrl = function(id) {
+NcbiGeneConn$methods( getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
 })
 
 # Search by name {{{1
 ################################################################################
 
-NcbiGeneConn$methods( searchByName = function(name, max.results = NA_integer_) {
+NcbiGeneConn$methods( searchByName=function(name, max.results=NA_integer_) {
 
     ids <- NULL
 
@@ -42,16 +42,16 @@ NcbiGeneConn$methods( searchByName = function(name, max.results = NA_integer_) {
 
     # Set retmax
     if (is.na(max.results)) {
-        xml <- .self$ws.esearch(term = term, retmax = 0, retfmt = 'parsed')
+        xml <- .self$ws.esearch(term=term, retmax=0, retfmt='parsed')
         retmax <- as.integer(XML::xpathSApply(xml, "/eSearchResult/Count", XML::xmlValue))
         if (length(retmax) == 0)
-            retmax = NA_integer_
+            retmax <- NA_integer_
     }
     else
         retmax <- max.results
 
     # Send request
-    ids <- .self$ws.esearch(term = term, retmax = retmax, retfmt = 'ids')
+    ids <- .self$ws.esearch(term=term, retmax=retmax, retfmt='ids')
 
     return(ids)
 })

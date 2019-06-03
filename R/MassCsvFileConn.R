@@ -6,12 +6,12 @@
 #' @include BiodbMassdbConn.R 
 #' @include BiodbEditable.R 
 #' @include BiodbWritable.R 
-MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains = c("BiodbMassdbConn", 'BiodbWritable', 'BiodbEditable'), fields = list(.file.sep = "character", .file.quote = "character", .field.multval.sep = 'character', .db = "ANY", .db.orig.colnames = "character", .fields = "character", .precursors = "character", .parsing.expr = 'list'))
+MassCsvFileConn <- methods::setRefClass("MassCsvFileConn", contains=c("BiodbMassdbConn", 'BiodbWritable', 'BiodbEditable'), fields=list(.file.sep="character", .file.quote="character", .field.multval.sep='character', .db="ANY", .db.orig.colnames="character", .fields="character", .precursors="character", .parsing.expr='list'))
 
 # Initialize {{{1
 ################################################################################
 
-MassCsvFileConn$methods( initialize = function(...) {
+MassCsvFileConn$methods( initialize=function(...) {
 
     callSuper(...)
 
@@ -31,7 +31,7 @@ MassCsvFileConn$methods( initialize = function(...) {
 # Get precursor formulae {{{1
 ################################################################################
 
-MassCsvFileConn$methods( getPrecursorFormulae = function() {
+MassCsvFileConn$methods( getPrecursorFormulae=function() {
     "Returns the list of formulae used to recognize precursors."
     return (.self$.precursors)
 })
@@ -39,7 +39,7 @@ MassCsvFileConn$methods( getPrecursorFormulae = function() {
 # Is a precursor formula {{{1
 ################################################################################
 
-MassCsvFileConn$methods( isAPrecursorFormula = function(formula) {
+MassCsvFileConn$methods( isAPrecursorFormula=function(formula) {
     "Returns TRUE of the submitted formula is considered a precursor."
     return (formula %in% .self$.precursors)
 })
@@ -47,7 +47,7 @@ MassCsvFileConn$methods( isAPrecursorFormula = function(formula) {
 # Set precursor formulae {{{1
 ################################################################################
 
-MassCsvFileConn$methods( setPrecursorFormulae = function(formulae) {
+MassCsvFileConn$methods( setPrecursorFormulae=function(formulae) {
     "Replace current formulae by this new list of formulae."
     .self$.assert.is(formulae, 'character')
     .self$.precursors <- formulae[ ! duplicated(formulae)]
@@ -56,7 +56,7 @@ MassCsvFileConn$methods( setPrecursorFormulae = function(formulae) {
 # Add precursor formulae {{{1
 ################################################################################
 
-MassCsvFileConn$methods( addPrecursorFormulae = function(formulae) {
+MassCsvFileConn$methods( addPrecursorFormulae=function(formulae) {
     "Add new formulae to the list of formulae used to recognize precursors."
 
     .self$.check.parsing.has.began()
@@ -70,14 +70,14 @@ MassCsvFileConn$methods( addPrecursorFormulae = function(formulae) {
 # Is valid field tag {{{1
 ################################################################################
 
-MassCsvFileConn$methods( isValidFieldTag = function(tag) {
+MassCsvFileConn$methods( isValidFieldTag=function(tag) {
     return (tag %in% names(.self$.fields))
 })
 
 # Has field {{{1
 ################################################################################
 
-MassCsvFileConn$methods( hasField = function(tag) {
+MassCsvFileConn$methods( hasField=function(tag) {
 
     tag <- tolower(tag)
 
@@ -92,7 +92,7 @@ MassCsvFileConn$methods( hasField = function(tag) {
 # Add field {{{1
 ################################################################################
 
-MassCsvFileConn$methods( addField = function(tag, value) {
+MassCsvFileConn$methods( addField=function(tag, value) {
     "Add a new field (column) to the database (data frame)."
 
     .self$.check.parsing.has.began()
@@ -111,7 +111,7 @@ MassCsvFileConn$methods( addField = function(tag, value) {
         .self$message('error', paste0("Database column \"", tag, "\" is already defined."))
 
     # Add new field
-    .self$message('debug', paste('Adding new field ', tag, ' with value ', paste(value, collapse = ', '), '.', sep = ''))
+    .self$message('debug', paste('Adding new field ', tag, ' with value ', paste(value, collapse=', '), '.', sep=''))
     .self$.db[[tag]] <- value
     .self$.fields[[tag]] <- tag
 })
@@ -119,7 +119,7 @@ MassCsvFileConn$methods( addField = function(tag, value) {
 # Get field {{{1
 ################################################################################
 
-MassCsvFileConn$methods( getField = function(tag) {
+MassCsvFileConn$methods( getField=function(tag) {
 
     tag <- tolower(tag)
 
@@ -138,7 +138,7 @@ MassCsvFileConn$methods( getField = function(tag) {
 # Set field {{{1
 ################################################################################
 
-MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = FALSE) {
+MassCsvFileConn$methods( setField=function(tag, colname, ignore.if.missing=FALSE) {
 
     .self$.check.parsing.has.began()
 
@@ -165,11 +165,11 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
     # Fail if column names are not found in file
     if ( ! all(colname %in% names(.self$.db))) {
         undefined.cols <- colname[ ! colname %in% names(.self$.db)]
-        .self$message((if (ignore.if.missing) 'caution' else 'error'), paste0("Column(s) ", paste(undefined.cols, collapse = ", "), " is/are not defined in database file."))
+        .self$message((if (ignore.if.missing) 'caution' else 'error'), paste0("Column(s) ", paste(undefined.cols, collapse=", "), " is/are not defined in database file."))
         return()
     }
 
-    .self$message('debug', paste('Set field ', tag, ' to column(s) ', paste(colname, collapse = ', '), '.', sep = ''))
+    .self$message('debug', paste('Set field ', tag, ' to column(s) ', paste(colname, collapse=', '), '.', sep=''))
                   
     # One column used, only
     if (length(colname) == 1) {
@@ -192,7 +192,7 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 
     # Use several column to join together
     else {
-        .self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse = '.') }, FUN.VALUE = '')
+        .self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), function(i) { paste(.self$.db[i, colname], collapse='.') }, FUN.VALUE='')
         .self$.fields[[tag]] <- tag
     }
 })
@@ -200,7 +200,7 @@ MassCsvFileConn$methods( setField = function(tag, colname, ignore.if.missing = F
 # Set field multiple value separator {{{1
 ################################################################################
 
-MassCsvFileConn$methods( setFieldMultValSep = function(sep) {
+MassCsvFileConn$methods( setFieldMultValSep=function(sep) {
 
     .self$.check.parsing.has.began()
 
@@ -211,7 +211,7 @@ MassCsvFileConn$methods( setFieldMultValSep = function(sep) {
 # Get nb entries {{{1
 ################################################################################
 
-MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
+MassCsvFileConn$methods( getNbEntries=function(count=FALSE) {
 
     n <- NA_integer_
 
@@ -225,10 +225,10 @@ MassCsvFileConn$methods( getNbEntries = function(count = FALSE) {
 # Get chromatographic columns {{{1
 ################################################################################
 
-MassCsvFileConn$methods( getChromCol = function(ids = NULL) {
+MassCsvFileConn$methods( getChromCol=function(ids=NULL) {
 
     # Extract needed columns
-    db <- .self$.select(cols = 'chrom.col.name', ids = ids)
+    db <- .self$.select(cols='chrom.col.name', ids=ids)
 
     # Get column names
     cols <- db[[.self$.fields[['chrom.col.name']]]]
@@ -241,9 +241,9 @@ MassCsvFileConn$methods( getChromCol = function(ids = NULL) {
 
     # Make data frame
     if (is.null(cols))
-        chrom.cols <- data.frame(a = character(0), b = character(0))
+        chrom.cols <- data.frame(a=character(0), b=character(0))
     else
-        chrom.cols <- data.frame(cols, cols, stringsAsFactors = FALSE)
+        chrom.cols <- data.frame(cols, cols, stringsAsFactors=FALSE)
     names(chrom.cols) <- c('id', 'title')
 
     return(chrom.cols)
@@ -253,10 +253,10 @@ MassCsvFileConn$methods( getChromCol = function(ids = NULL) {
 ################################################################################
 
 # Inherited from BiodbMassdbConn.
-MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
+MassCsvFileConn$methods( getNbPeaks=function(mode=NULL, ids=NULL) {
 
     # Get peaks
-    peaks <- .self$.select(cols = 'peak.mztheo', mode = mode, ids = ids, drop = TRUE)
+    peaks <- .self$.select(cols='peak.mztheo', mode=mode, ids=ids, drop=TRUE)
 
     return(length(peaks))
 })
@@ -264,17 +264,17 @@ MassCsvFileConn$methods( getNbPeaks = function(mode = NULL, ids = NULL) {
 # Get entry content from database {{{1
 ################################################################################
 
-MassCsvFileConn$methods( getEntryContentFromDb = function(entry.id) {
+MassCsvFileConn$methods( getEntryContentFromDb=function(entry.id) {
 
     # Initialize return values
     content <- rep(NA_character_, length(entry.id))
 
     # Get data frame
-    .self$message('debug', paste("Entry entry.id:", paste(entry.id, collapse = ", ")))
-    df <- .self$.select(ids = entry.id, uniq = TRUE, sort = TRUE)
+    .self$message('debug', paste("Entry entry.id:", paste(entry.id, collapse=", ")))
+    df <- .self$.select(ids=entry.id, uniq=TRUE, sort=TRUE)
 
     # For each id, take the sub data frame and convert it into string
-    content <- vapply(entry.id, function(x) { if (is.na(x)) NA_character_ else { x.df <- .self$.select(ids = x) ; if (nrow(x.df) == 0) NA_character_ else { str.conn <- textConnection("str", "w", local = TRUE) ; write.table(x.df, file = str.conn, row.names = FALSE, quote = FALSE, sep = "\t") ; close(str.conn) ; paste(str, collapse = "\n") } } }, FUN.VALUE = '')
+    content <- vapply(entry.id, function(x) { if (is.na(x)) NA_character_ else { x.df <- .self$.select(ids=x) ; if (nrow(x.df) == 0) NA_character_ else { str.conn <- textConnection("str", "w", local=TRUE) ; write.table(x.df, file=str.conn, row.names=FALSE, quote=FALSE, sep="\t") ; close(str.conn) ; paste(str, collapse="\n") } } }, FUN.VALUE='')
 
     if (length(content) > 0)
         .self$message('debug', paste("Content of first entry:", content[[1]]))
@@ -285,7 +285,7 @@ MassCsvFileConn$methods( getEntryContentFromDb = function(entry.id) {
 # Set database {{{1
 ################################################################################
 
-MassCsvFileConn$methods( setDb = function(db) {
+MassCsvFileConn$methods( setDb=function(db) {
     "Set the database directly from a data frame. You must not have set the database previously with the URL parameter."
 
     # URL point to an existing file?
@@ -302,7 +302,7 @@ MassCsvFileConn$methods( setDb = function(db) {
 # Define parsing expressions {{{2
 ################################################################################
 
-MassCsvFileConn$methods( defineParsingExpressions = function() {
+MassCsvFileConn$methods( defineParsingExpressions=function() {
 
     entry.fields <- .self$getBiodb()$getEntryFields()
 
@@ -328,7 +328,7 @@ MassCsvFileConn$methods( defineParsingExpressions = function() {
 # Do write {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .doWrite = function() {
+MassCsvFileConn$methods( .doWrite=function() {
 
     .self$message('info', paste0('Write all entries into "', .self$getPropValSlot('urls', 'base.url'), '".'))
 
@@ -340,34 +340,34 @@ MassCsvFileConn$methods( .doWrite = function() {
     entries <- .self$getAllCacheEntries()
 
     # Get data frame of all entries
-    df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic = FALSE)
+    df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic=FALSE)
 
     # Write data frame
-    write.table(df, file = .self$getPropValSlot('urls', 'base.url'), row.names = FALSE, sep = "\t", quote = FALSE)
+    write.table(df, file=.self$getPropValSlot('urls', 'base.url'), row.names=FALSE, sep="\t", quote=FALSE)
 })
 
 # Init db {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .init.db = function() {
+MassCsvFileConn$methods( .init.db=function() {
 
     if (is.null(.self$.db)) {
 
         # Check file
         file <- .self$getPropValSlot('urls', 'base.url')
         if ( ! is.null(file) && ! is.na(file) && ! file.exists(file))
-            .self$message('info', paste("Cannot locate the file database \"", file, "\".", sep = ''))
+            .self$message('info', paste("Cannot locate the file database \"", file, "\".", sep=''))
 
         # No file to load
         if (is.null(file) || is.na(file) || ! file.exists(file)) {
             .self$message('info', "Creating empty database.")
-            db <- data.frame(accession = character(), stringsAsFactors = FALSE)
+            db <- data.frame(accession=character(), stringsAsFactors=FALSE)
         }
 
         # Load database
         else {
-            .self$message('info', paste("Loading file database \"", file, "\".", sep = ''))
-            db <- read.table(.self$getPropValSlot('urls', 'base.url'), sep = .self$.file.sep, quote = .self$.file.quote, header = TRUE, stringsAsFactors = FALSE, row.names = NULL, comment.char = '', check.names = FALSE, fill = FALSE)
+            .self$message('info', paste("Loading file database \"", file, "\".", sep=''))
+            db <- read.table(.self$getPropValSlot('urls', 'base.url'), sep=.self$.file.sep, quote=.self$.file.quote, header=TRUE, stringsAsFactors=FALSE, row.names=NULL, comment.char='', check.names=FALSE, fill=FALSE)
         }
 
         # Set database
@@ -378,15 +378,15 @@ MassCsvFileConn$methods( .init.db = function() {
 # Check fields {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
+MassCsvFileConn$methods( .check.fields=function(fields, fail=TRUE) {
 
     if (length(fields) == 0 || (length(fields) == 1 && is.na(fields)))
         return
 
     # Check if fields are known
-    unknown.fields <- fields[ ! vapply(fields, function(f) .self$getBiodb()$getEntryFields()$isDefined(f), FUN.VALUE = FALSE)]
+    unknown.fields <- fields[ ! vapply(fields, function(f) .self$getBiodb()$getEntryFields()$isDefined(f), FUN.VALUE=FALSE)]
     if (length(unknown.fields) > 0)
-        .self$message('error', paste0("Field(s) ", paste(fields, collapse = ", "), " is/are unknown."))
+        .self$message('error', paste0("Field(s) ", paste(fields, collapse=", "), " is/are unknown."))
 
     # Init db
     .self$.init.db()
@@ -394,7 +394,7 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
     # Check if fields are defined in file database
     undefined.fields <- fields[ ! fields %in% names(.self$.fields)]
     if (length(undefined.fields) > 0) {
-        .self$message((if (fail) 'error' else 'debug'), paste0("Field(s) ", paste(undefined.fields, collapse = ", "), " is/are undefined in file database."))
+        .self$message((if (fail) 'error' else 'debug'), paste0("Field(s) ", paste(undefined.fields, collapse=", "), " is/are undefined in file database."))
         return(FALSE)
     }
 
@@ -404,7 +404,7 @@ MassCsvFileConn$methods( .check.fields = function(fields, fail = TRUE) {
 # Select by mode {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .selectByMode = function(db, mode) {
+MassCsvFileConn$methods( .selectByMode=function(db, mode) {
 
     # Check mode value
     ms.mode.field <- .self$getBiodb()$getEntryFields()$get('ms.mode')
@@ -412,7 +412,7 @@ MassCsvFileConn$methods( .selectByMode = function(db, mode) {
     .self$.check.fields('ms.mode')
 
     # Filter on mode
-    db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), , drop = FALSE]
+    db <- db[db[[.self$.fields[['ms.mode']]]] %in% ms.mode.field$getAllowedValues(mode), , drop=FALSE]
 
     return(db)
 })
@@ -420,10 +420,10 @@ MassCsvFileConn$methods( .selectByMode = function(db, mode) {
 # Select by IDs {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .selectByIds = function(db, ids) {
+MassCsvFileConn$methods( .selectByIds=function(db, ids) {
 
     .self$.check.fields('accession')
-    db <- db[db[[.self$.fields[['accession']]]] %in% ids, , drop = FALSE]
+    db <- db[db[[.self$.fields[['accession']]]] %in% ids, , drop=FALSE]
 
     return(db)
 })
@@ -431,10 +431,10 @@ MassCsvFileConn$methods( .selectByIds = function(db, ids) {
 # Select by compound IDs {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .selectByCompoundIds = function(db, compound.ids) {
+MassCsvFileConn$methods( .selectByCompoundIds=function(db, compound.ids) {
 
     .self$.check.fields('compound.id')
-    db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, , drop = FALSE]
+    db <- db[db[[.self$.fields[['compound.id']]]] %in% compound.ids, , drop=FALSE]
 
     return(db)
 })
@@ -442,14 +442,14 @@ MassCsvFileConn$methods( .selectByCompoundIds = function(db, compound.ids) {
 # Select by M/Z values {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .selectByMzValues = function(db, mz.min, mz.max) {
+MassCsvFileConn$methods( .selectByMzValues=function(db, mz.min, mz.max) {
 
     if (is.null(mz.min) || is.null(mz.max))
         .self$message('error', 'You must set both mz.min and mz.max.')
     if (length(mz.min) != length(mz.max))
-        .self$message('error', paste("'mz.min' and 'mz.max' must have equal lengths. 'mz.min' has ", length(mz.min), " element(s), and 'mz.max' has ", length(mz.max), "element(s).", sep = ''))
+        .self$message('error', paste("'mz.min' and 'mz.max' must have equal lengths. 'mz.min' has ", length(mz.min), " element(s), and 'mz.max' has ", length(mz.max), "element(s).", sep=''))
     
-    .self$message('debug', paste0('Filtering on M/Z ranges: ', paste0('[', mz.min, ', ', mz.max, ']', collapse = ', '), '.'))
+    .self$message('debug', paste0('Filtering on M/Z ranges: ', paste0('[', mz.min, ', ', mz.max, ']', collapse=', '), '.'))
     .self$.check.fields('peak.mztheo')
     f <- .self$.fields[['peak.mztheo']]
     mz <- db[[f]]
@@ -464,7 +464,7 @@ MassCsvFileConn$methods( .selectByMzValues = function(db, mz.min, mz.max) {
     else if (is.list(s))
         s <- unlist(s)
 
-    db <- db[s, , drop = FALSE]
+    db <- db[s, , drop=FALSE]
 
     return(db)
 })
@@ -472,12 +472,12 @@ MassCsvFileConn$methods( .selectByMzValues = function(db, mz.min, mz.max) {
 # Select by relative intensity {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .selectByRelInt = function(db, min.rel.int) {
+MassCsvFileConn$methods( .selectByRelInt=function(db, min.rel.int) {
 
-    if (.self$.check.fields('peak.relative.intensity', fail = FALSE))
-        db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, , drop = FALSE]
+    if (.self$.check.fields('peak.relative.intensity', fail=FALSE))
+        db <- db[db[[.self$.fields[['peak.relative.intensity']]]] >= min.rel.int, , drop=FALSE]
     else
-        db <- db[integer(), , drop = FALSE]
+        db <- db[integer(), , drop=FALSE]
 
     return(db)
 })
@@ -485,12 +485,12 @@ MassCsvFileConn$methods( .selectByRelInt = function(db, min.rel.int) {
 # Select by precursors {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .selectByPrecursors = function(db) {
+MassCsvFileConn$methods( .selectByPrecursors=function(db) {
 
-    if (.self$.check.fields('peak.attr', fail = FALSE))
-        db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, , drop = FALSE]
+    if (.self$.check.fields('peak.attr', fail=FALSE))
+        db <- db[db[[.self$.fields[['peak.attr']]]] %in% .self$.precursors, , drop=FALSE]
     else
-        db <- db[integer(), , drop = FALSE]
+        db <- db[integer(), , drop=FALSE]
 
     return(db)
 })
@@ -498,12 +498,12 @@ MassCsvFileConn$methods( .selectByPrecursors = function(db) {
 # Select by MS level {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .selectByMsLevel = function(db, level) {
+MassCsvFileConn$methods( .selectByMsLevel=function(db, level) {
 
-    if (.self$.check.fields('ms.level', fail = FALSE))
-        db <- db[db[[.self$.fields[['ms.level']]]] == level, , drop = FALSE]
+    if (.self$.check.fields('ms.level', fail=FALSE))
+        db <- db[db[[.self$.fields[['ms.level']]]] == level, , drop=FALSE]
     else
-        db <- db[integer(), , drop = FALSE]
+        db <- db[integer(), , drop=FALSE]
 
     return(db)
 })
@@ -512,7 +512,7 @@ MassCsvFileConn$methods( .selectByMsLevel = function(db, level) {
 ################################################################################
 
 # Select data from database
-MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL, compound.ids = NULL, drop = FALSE, uniq = FALSE, sort = FALSE, max.rows = NA_integer_, mz.min = NULL, mz.max = NULL, min.rel.int = NA_real_, precursor = FALSE, level = 0) {
+MassCsvFileConn$methods( .select=function(ids=NULL, cols=NULL, mode=NULL, compound.ids=NULL, drop=FALSE, uniq=FALSE, sort=FALSE, max.rows=NA_integer_, mz.min=NULL, mz.max=NULL, min.rel.int=NA_real_, precursor=FALSE, level=0) {
 
     # Init db
     .self$.init.db()
@@ -539,20 +539,20 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
     # Get subset of columns
     if ( ! is.null(cols) && ! is.na(cols)) {
         .self$.check.fields(cols)
-        db <- db[, .self$.fields[cols], drop = FALSE]
+        db <- db[, .self$.fields[cols], drop=FALSE]
     }
 
     # Remove duplicates
     if (uniq)
-        db <- db[ ! duplicated(db), , drop = FALSE]
+        db <- db[ ! duplicated(db), , drop=FALSE]
 
     # Sort on first column
     if (sort && ncol(db) >= 1)
-        db <- db[order(db[[1]]), , drop = FALSE]
+        db <- db[order(db[[1]]), , drop=FALSE]
 
     # Cut
     if ( ! is.na(max.rows) && max.rows > 0 && nrow(db) > max.rows)
-        db <- db[seq_len(max.rows), , drop = FALSE]
+        db <- db[seq_len(max.rows), , drop=FALSE]
 
     # Drop
     if (drop && ncol(db) == 1)
@@ -564,18 +564,18 @@ MassCsvFileConn$methods( .select = function(ids = NULL, cols = NULL, mode = NULL
 # Do search M/Z range {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .doSearchMzRange = function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-    return(.self$.select(mz.min = mz.min, mz.max = mz.max, min.rel.int = min.rel.int, mode = ms.mode, max.rows = max.results, cols = 'accession', drop = TRUE, uniq = TRUE, sort = TRUE, precursor = precursor, level = ms.level))
+MassCsvFileConn$methods( .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+    return(.self$.select(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int, mode=ms.mode, max.rows=max.results, cols='accession', drop=TRUE, uniq=TRUE, sort=TRUE, precursor=precursor, level=ms.level))
 })
 
 # Do get mz values {{{2
 ################################################################################
 
 # Inherited from BiodbMassdbConn.
-MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precursor, ms.level) {
+MassCsvFileConn$methods( .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
 
     # Get mz values
-    mz <- .self$.select(cols = 'peak.mztheo', mode = ms.mode, drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results, precursor = precursor, level = ms.level)
+    mz <- .self$.select(cols='peak.mztheo', mode=ms.mode, drop=TRUE, uniq=TRUE, sort=TRUE, max.rows=max.results, precursor=precursor, level=ms.level)
 
     return(mz)
 })
@@ -583,7 +583,7 @@ MassCsvFileConn$methods( .doGetMzValues = function(ms.mode, max.results, precurs
 # Do set database data frame {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .doSetDb = function(db) {
+MassCsvFileConn$methods( .doSetDb=function(db) {
 
     # Already set?
     if ( ! is.null(.self$.db))
@@ -598,7 +598,7 @@ MassCsvFileConn$methods( .doSetDb = function(db) {
 
     # Set fields
     for (field in names(.self$.db))
-        .self$setField(field, field, ignore.if.missing = TRUE)
+        .self$setField(field, field, ignore.if.missing=TRUE)
 
     # Save column names
     .self$.db.orig.colnames <- colnames(.self$.db)
@@ -607,7 +607,7 @@ MassCsvFileConn$methods( .doSetDb = function(db) {
 # Check setting of URL {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .checkSettingOfUrl = function(key, value) {
+MassCsvFileConn$methods( .checkSettingOfUrl=function(key, value) {
 
     # Setting of base URL
     if (key == 'base.url') {
@@ -620,7 +620,7 @@ MassCsvFileConn$methods( .checkSettingOfUrl = function(key, value) {
 # Check if parsing has began {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .check.parsing.has.began = function() {
+MassCsvFileConn$methods( .check.parsing.has.began=function() {
 
     # Parsing has began?
     if (length(.self$.parsing.expr) > 0)
@@ -630,11 +630,11 @@ MassCsvFileConn$methods( .check.parsing.has.began = function() {
 # Get entry ids {{{2
 ################################################################################
 
-MassCsvFileConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+MassCsvFileConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
     ids <- NA_character_
 
-    ids <- as.character(.self$.select(cols =  'accession', drop = TRUE, uniq = TRUE, sort = TRUE, max.rows = max.results))
+    ids <- as.character(.self$.select(cols='accession', drop=TRUE, uniq=TRUE, sort=TRUE, max.rows=max.results))
 
     return(ids)
 })

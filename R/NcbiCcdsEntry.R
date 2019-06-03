@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains = "BiodbHtmlEntry")
+NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains="BiodbHtmlEntry")
 
 # Initialize {{{1
 ################################################################################
 
-NcbiCcdsEntry$methods( initialize = function(...) {
+NcbiCcdsEntry$methods( initialize=function(...) {
 
     callSuper(...)
 })
@@ -18,6 +18,6 @@ NcbiCcdsEntry$methods( initialize = function(...) {
 # Is parsed content correct {{{1
 ################################################################################
 
-NcbiCcdsEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+NcbiCcdsEntry$methods( .isParsedContentCorrect=function(parsed.content) {
     return(length(XML::getNodeSet(parsed.content, "//*[starts-with(.,'No results found for CCDS ID ')]")) == 0)
 })

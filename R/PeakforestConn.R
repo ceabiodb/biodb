@@ -4,12 +4,12 @@
 ################################################################################
 
 #' @include BiodbRemotedbConn.R
-PeakforestConn <- methods::setRefClass("PeakforestConn", contains = c("BiodbRemotedbConn"), fields = list(.db.name = 'character'))
+PeakforestConn <- methods::setRefClass("PeakforestConn", contains=c("BiodbRemotedbConn"), fields=list(.db.name='character'))
 
 # Initialize {{{1
 ################################################################################
 
-PeakforestConn$methods( initialize = function(db.name, ...) {
+PeakforestConn$methods( initialize=function(db.name, ...) {
 
     # Call mother class constructor
     callSuper(...)
@@ -26,7 +26,7 @@ PeakforestConn$methods( initialize = function(db.name, ...) {
 # Check if error {{{1
 ################################################################################
 
-PeakforestConn$methods( .checkIfError = function(content) {
+PeakforestConn$methods( .checkIfError=function(content) {
 
     if (length(grep('^<!DOCTYPE HTML ', content)) > 0) {
         .self$message('debug', paste("Peakforest returned error: ", content))
@@ -42,28 +42,28 @@ PeakforestConn$methods( .checkIfError = function(content) {
 # Get entry content from database {{{1
 ################################################################################
 
-PeakforestConn$methods( getEntryContentFromDb = function(entry.id) {
+PeakforestConn$methods( getEntryContentFromDb=function(entry.id) {
     
     # Initialize contents to return
     content <- rep(NA_character_, length(entry.id))
 
     # Get URLs
-    urls <- .self$getEntryContentRequest(entry.id, max.length = 2048)
+    urls <- .self$getEntryContentRequest(entry.id, max.length=2048)
 
     # Send request
-    jsonstr <- vapply(urls, function(url) .self$getBiodb()$getRequestScheduler()$getUrl(url), FUN.VALUE = '')
+    jsonstr <- vapply(urls, function(url) .self$getBiodb()$getRequestScheduler()$getUrl(url), FUN.VALUE='')
 
     # Get directly one JSON string for each ID
     if (length(jsonstr) == length(entry.id)) {
         for (i in seq_along(jsonstr)) {
-            json = if (is.na(jsonstr[[i]])) NULL else jsonlite::fromJSON(jsonstr[[i]], simplifyDataFrame = FALSE)
+            json <- if (is.na(jsonstr[[i]])) NULL else jsonlite::fromJSON(jsonstr[[i]], simplifyDataFrame=FALSE)
             if (is.null(json))
                 next
 
             # XXX TODO What do those lines? In which context are they run?
             # XXX The loop ends in all cases!
             if (methods::is(json, 'list') && ! is.null(names(json))) {
-                content = jsonstr
+                content=jsonstr
                 return(content)
             }
             else
@@ -77,13 +77,13 @@ PeakforestConn$methods( getEntryContentFromDb = function(entry.id) {
         if (.self$.checkIfError(single.jsonstr))
             break
 
-        json <- if (is.na(single.jsonstr)) NULL else jsonlite::fromJSON(single.jsonstr, simplifyDataFrame = FALSE)
+        json <- if (is.na(single.jsonstr)) NULL else jsonlite::fromJSON(single.jsonstr, simplifyDataFrame=FALSE)
 
         if ( ! is.null(json)) {
             if (methods::is(json, 'list') && is.null(names(json))) {
-                null <- vapply(json, is.null, FUN.VALUE = TRUE)
-                json.ids <- vapply(json[ ! null], function(x) as.character(x$id), FUN.VALUE = '')
-                content[entry.id %in% json.ids] <- vapply(json[ ! null], function(x) jsonlite::toJSON(x, pretty = TRUE, digits = NA_integer_), FUN.VALUE = '')
+                null <- vapply(json, is.null, FUN.VALUE=TRUE)
+                json.ids <- vapply(json[ ! null], function(x) as.character(x$id), FUN.VALUE='')
+                content[entry.id %in% json.ids] <- vapply(json[ ! null], function(x) jsonlite::toJSON(x, pretty=TRUE, digits=NA_integer_), FUN.VALUE='')
             }
         }
     }
@@ -94,23 +94,23 @@ PeakforestConn$methods( getEntryContentFromDb = function(entry.id) {
 # Get nb entries {{{1
 ################################################################################
 
-PeakforestConn$methods( getNbEntries = function(count = FALSE) {
-    return(.self$ws.all.count(retfmt = 'parsed'))
+PeakforestConn$methods( getNbEntries=function(count=FALSE) {
+    return(.self$ws.all.count(retfmt='parsed'))
 })
 
 # Web service search {{{1
 ################################################################################
 
-PeakforestConn$methods( ws.search = function(term, max = NA_integer_, retfmt = c('plain', 'request', 'parsed', 'ids')) {
+PeakforestConn$methods( ws.search=function(term, max=NA_integer_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
-    retfmt = match.arg(retfmt)
+    retfmt <- match.arg(retfmt)
 
     # Build request
-    params <- c(token = .self$getPropertyValue('token'))
+    params <- c(token=.self$getPropertyValue('token'))
     if ( ! is.na(max))
-        params <- c(params, max = max)
-    url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), 'search', .self$.db.name, term), params = params)
-    request = BiodbRequest(method = 'get', url = url)
+        params <- c(params, max=max)
+    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'search', .self$.db.name, term), params=params)
+    request <- BiodbRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 
@@ -121,12 +121,12 @@ PeakforestConn$methods( ws.search = function(term, max = NA_integer_, retfmt = c
     if (retfmt != 'plain') {
 
         # Parse results
-        results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+        results <- jsonlite::fromJSON(results, simplifyDataFrame=FALSE)
 
         # Extract IDs
         if (retfmt == 'ids') {
             if ('compoundNames' %in% names(results))
-                results <- vapply(results$compoundNames, function(x) as.character(x$compound$id), FUN.VALUE = '')
+                results <- vapply(results$compoundNames, function(x) as.character(x$compound$id), FUN.VALUE='')
             else
                 .self$message('error', 'Could find "compoundNames" field inside returned JSON.')
         }
@@ -138,14 +138,14 @@ PeakforestConn$methods( ws.search = function(term, max = NA_integer_, retfmt = c
 # Web service all.count {{{1
 ################################################################################
 
-PeakforestConn$methods( ws.all.count = function(retfmt = c('plain', 'request', 'parsed')) {
+PeakforestConn$methods( ws.all.count=function(retfmt=c('plain', 'request', 'parsed')) {
 
-    retfmt = match.arg(retfmt)
+    retfmt <- match.arg(retfmt)
 
     # Build request
-    params <- c(token = .self$getPropertyValue('token'))
-    url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), .self$.db.name, 'all', 'count'), params = params)
-    request = BiodbRequest(method = 'get', url = url)
+    params <- c(token=.self$getPropertyValue('token'))
+    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), .self$.db.name, 'all', 'count'), params=params)
+    request <- BiodbRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 
@@ -165,14 +165,14 @@ PeakforestConn$methods( ws.all.count = function(retfmt = c('plain', 'request', '
 # Web service all.ids {{{1
 ################################################################################
 
-PeakforestConn$methods( ws.all.ids = function(retfmt = c('plain', 'request', 'parsed', 'ids')) {
+PeakforestConn$methods( ws.all.ids=function(retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
-    retfmt = match.arg(retfmt)
+    retfmt <- match.arg(retfmt)
 
     # Build request
-    params <- c(token = .self$getPropertyValue('token'))
-    url <- BiodbUrl(url = c(.self$getPropValSlot('urls', 'ws.url'), .self$.db.name, 'all', 'ids'), params = params)
-    request = BiodbRequest(method = 'get', url = url)
+    params <- c(token=.self$getPropertyValue('token'))
+    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), .self$.db.name, 'all', 'ids'), params=params)
+    request <- BiodbRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 
@@ -184,7 +184,7 @@ PeakforestConn$methods( ws.all.ids = function(retfmt = c('plain', 'request', 'pa
     if (retfmt != 'plain') {
 
         # Parse JSON
-        results <- jsonlite::fromJSON(results, simplifyDataFrame = FALSE)
+        results <- jsonlite::fromJSON(results, simplifyDataFrame=FALSE)
 
         # extract IDs
         if (retfmt == 'ids')
@@ -200,11 +200,10 @@ PeakforestConn$methods( ws.all.ids = function(retfmt = c('plain', 'request', 'pa
 # Get entry ids {{{2
 ################################################################################
 
-PeakforestConn$methods( .doGetEntryIds = function(max.results = NA_integer_) {
+PeakforestConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
 
     # Get all IDs
-    ids <- .self$ws.all.ids(retfmt = 'ids')
+    ids <- .self$ws.all.ids(retfmt='ids')
 
     return(ids)
 })
-

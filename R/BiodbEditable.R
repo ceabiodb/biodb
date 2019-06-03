@@ -12,12 +12,12 @@
 #' @include BiodbObject.R
 #' @export BiodbEditable
 #' @exportClass BiodbEditable
-BiodbEditable <- methods::setRefClass("BiodbEditable", contains = 'BiodbObject', fields = list(.editing.allowed = 'logical'))
+BiodbEditable <- methods::setRefClass("BiodbEditable", contains='BiodbObject', fields=list(.editing.allowed='logical'))
 
 # Initialize {{{1
 ################################################################################
 
-BiodbEditable$methods( initialize = function(...) {
+BiodbEditable$methods( initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbEditable')
@@ -28,7 +28,7 @@ BiodbEditable$methods( initialize = function(...) {
 # Editing is allowed {{{1
 ################################################################################
 
-BiodbEditable$methods( editingIsAllowed = function() {
+BiodbEditable$methods( editingIsAllowed=function() {
     "Returns TRUE if editing is allowed for this database."
     
     .self$.initEditable()
@@ -39,7 +39,7 @@ BiodbEditable$methods( editingIsAllowed = function() {
 # Allow editing {{{1
 ################################################################################
 
-BiodbEditable$methods( allowEditing = function() {
+BiodbEditable$methods( allowEditing=function() {
     "Allow editing for this database."
 
     .self$setEditingAllowed(TRUE)
@@ -48,7 +48,7 @@ BiodbEditable$methods( allowEditing = function() {
 # Disallow editing {{{1
 ################################################################################
 
-BiodbEditable$methods( disallowEditing = function() {
+BiodbEditable$methods( disallowEditing=function() {
     "Disallow editing for this database."
     
     .self$setEditingAllowed(FALSE)
@@ -57,7 +57,7 @@ BiodbEditable$methods( disallowEditing = function() {
 # Set editing allowed {{{1
 ################################################################################
 
-BiodbEditable$methods( setEditingAllowed = function(allow) {
+BiodbEditable$methods( setEditingAllowed=function(allow) {
     "Allow or disallow editing for this database."
     
     .self$.assert.is(allow, 'logical')
@@ -67,7 +67,7 @@ BiodbEditable$methods( setEditingAllowed = function(allow) {
 # Add new entry {{{1
 ################################################################################
 
-BiodbEditable$methods( addNewEntry = function(entry) {
+BiodbEditable$methods( addNewEntry=function(entry) {
     "Add a new entry to the database. The passed entry must have been previously created from scratch using BiodbFactory::createNewEntry() or cloned from an existing entry using BiodbEntry::clone()."
 
     .self$.checkEditingIsAllowed()
@@ -79,23 +79,23 @@ BiodbEditable$methods( addNewEntry = function(entry) {
     # No accession number?
     if ( ! entry$hasField('accession'))
         .self$message('error', 'Impossible to add entry as a new entry. The passed entry has no accession number.')
-    id = entry$getFieldValue('accession')
+    id <- entry$getFieldValue('accession')
     if (is.na(id))
         .self$message('error', 'Impossible to add entry as a new entry. The passed entry has an accession number set to NA.')
 
     # Accession number is already used?
-    e = .self$getEntry(id)
+    e <- .self$getEntry(id)
     if ( ! is.null(e))
         .self$message('error', 'Impossible to add entry as a new entry. The accession number of the passed entry is already used in the connector.')
 
     # Make sure ID field is equal to accession
-    id.field = .self$getEntryIdField()
+    id.field <- .self$getEntryIdField()
     if ( ! entry$hasField(id.field) || entry$getFieldValue(id.field) != id)
         entry$setFieldValue(id.field, id)
 
     # Remove entry from non-volatile cache
     if (.self$getBiodb()$getCache()$isWritable())
-        .self$getBiodb()$getCache()$deleteFile(.self$getCacheId(), subfolder = 'shortterm', name = id, ext = .self$getEntryFileExt())
+        .self$getBiodb()$getCache()$deleteFile(.self$getCacheId(), subfolder='shortterm', name=id, ext=.self$getEntryFileExt())
 
     # Flag entry as new
     entry$.setAsNew(TRUE)
@@ -113,7 +113,7 @@ BiodbEditable$methods( addNewEntry = function(entry) {
 # Init parameters {{{2
 ################################################################################
 
-BiodbEditable$methods( .initEditable = function() {
+BiodbEditable$methods( .initEditable=function() {
     if (length(.self$.editing.allowed) == 0)
         .self$setEditingAllowed(FALSE)
 })
@@ -121,7 +121,7 @@ BiodbEditable$methods( .initEditable = function() {
 # Check that editing is allowed {{{2
 ################################################################################
 
-BiodbEditable$methods( .checkEditingIsAllowed = function() {
+BiodbEditable$methods( .checkEditingIsAllowed=function() {
     
     .self$.initEditable()
     

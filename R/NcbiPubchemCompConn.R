@@ -6,28 +6,28 @@
 #' @include NcbiPubchemConn.R
 #' @include BiodbSearchable.R
 #' @include BiodbCompounddbConn.R
-NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains = c("NcbiPubchemConn", 'BiodbCompounddbConn', 'BiodbSearchable'))
+NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn", contains=c("NcbiPubchemConn", 'BiodbCompounddbConn', 'BiodbSearchable'))
 
 # Initialize {{{1
 ################################################################################
 
-NcbiPubchemCompConn$methods( initialize = function(...) {
-    callSuper(db.name = 'compound', id.xmltag = 'PC-CompoundType_id_cid', entry.xmltag = 'PC-Compound', id.urlfield = 'cid', entrez.name = 'pccompound', ...)
+NcbiPubchemCompConn$methods( initialize=function(...) {
+    callSuper(db.name='compound', id.xmltag='PC-CompoundType_id_cid', entry.xmltag='PC-Compound', id.urlfield='cid', entrez.name='pccompound', ...)
 })
 
 # Search by name {{{1
 ################################################################################
 
-NcbiPubchemCompConn$methods( searchByName = function(name, max.results = NA_integer_) {
-    return(.self$searchCompound(name = name, max.results = max.results))
+NcbiPubchemCompConn$methods( searchByName=function(name, max.results=NA_integer_) {
+    return(.self$searchCompound(name=name, max.results=max.results))
 })
 
 # Search compound {{{1
 ################################################################################
 
-NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, mass = NULL, mass.field = NULL, mass.tol = 0.01, mass.tol.unit = 'plain', max.results = NA_integer_) {
+NcbiPubchemCompConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01, mass.tol.unit='plain', max.results=NA_integer_) {
         
-    .self$.checkMassField(mass = mass, mass.field = mass.field)
+    .self$.checkMassField(mass=mass, mass.field=mass.field)
 
     term <- character()
 
@@ -66,16 +66,16 @@ NcbiPubchemCompConn$methods( searchCompound = function(name = NULL, mass = NULL,
 
     # Set retmax
     if (is.na(max.results)) {
-        xml <- .self$ws.esearch(term = term, retmax = 0, retfmt = 'parsed')
+        xml <- .self$ws.esearch(term=term, retmax=0, retfmt='parsed')
         retmax <- as.integer(XML::xpathSApply(xml, "/eSearchResult/Count", XML::xmlValue))
         if (length(retmax) == 0)
-            retmax = NA_integer_
+            retmax <- NA_integer_
     }
     else
         retmax <- max.results
 
     # Send request
-    ids <- .self$ws.esearch(term = term, retmax = retmax, retfmt = 'ids')
+    ids <- .self$ws.esearch(term=term, retmax=retmax, retfmt='ids')
 
     return(ids)
 })

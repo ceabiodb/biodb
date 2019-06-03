@@ -4,12 +4,12 @@
 ################################################################################
 
 #' @include BiodbRemotedbConn.R
-NcbiConn <- methods::setRefClass("NcbiConn", contains = "BiodbRemotedbConn")
+NcbiConn <- methods::setRefClass("NcbiConn", contains="BiodbRemotedbConn")
 
 # Initialize {{{1
 ################################################################################
 
-NcbiConn$methods( initialize = function(...) {
+NcbiConn$methods( initialize=function(...) {
 
     # Call parent constructor
     callSuper(...)

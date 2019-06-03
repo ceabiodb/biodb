@@ -5,25 +5,25 @@
 # Class declaration {{{1
 ################################################################################
 
-PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry", contains = "BiodbJsonEntry")
+PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry", contains="BiodbJsonEntry")
 
 # Initialize {{{1
 ################################################################################
 
-PeakforestMassEntry$methods( initialize = function(...) {
+PeakforestMassEntry$methods( initialize=function(...) {
     callSuper(...)
 })
 
 # Parse fields step 2 {{{1
 ################################################################################
 
-PeakforestMassEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+PeakforestMassEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
     # Set peaks
     if ('peaks' %in% names(parsed.content) && length(parsed.content$peaks) > 0) {
 
         # Creaate empty peaks data frame
-        peaks <- data.frame(mz = double(), ri = double(), deltaPPM = double(), theoricalMass = double(), composition = character(), attribution = character(), stringsAsFactors = FALSE)
+        peaks <- data.frame(mz=double(), ri=double(), deltaPPM=double(), theoricalMass=double(), composition=character(), attribution=character(), stringsAsFactors=FALSE)
 
         # Loop on all peaks
         for (p in parsed.content$peaks) {
@@ -35,9 +35,9 @@ PeakforestMassEntry$methods( .parseFieldsStep2 = function(parsed.content) {
                     if (length(p[[field]]) > 0)
                         peak[[field]] <- p[[field]]
                     else
-                        peak[[field]] <- as.vector(NA, mode = class(peaks[[field]]))
+                        peak[[field]] <- as.vector(NA, mode=class(peaks[[field]]))
                 }
-            peak <- data.frame(peak, stringsAsFactors = FALSE)
+            peak <- data.frame(peak, stringsAsFactors=FALSE)
 
             # Append peak to peaks data frame
             peaks <- rbind(peaks, peak)
@@ -61,18 +61,18 @@ PeakforestMassEntry$methods( .parseFieldsStep2 = function(parsed.content) {
         # In case only one compound is listed, parse all compound fields.
         if (length(parsed.content$listOfCompounds) == 1) {
             comp <- parsed.content$listOfCompounds[[1]]
-            fields <- list('inchikey' = 'inChIKey',
-                           'inchi' = 'inChI',
-                           'ncbi.pubchem.comp.id' = 'PubChemCID',
-                           'kegg.compound.id' = 'KEGG',
-                           'chebi.id' = 'ChEBI',
-                           'hmdb.metabolites.id' = 'HMDB',
-                           'formula' = 'formula',
-                           'monoisotopic.mass' = 'monoisotopicMass',
-                           'average.mass' = 'averageMass',
-                           'smiles' = 'canSmiles',
-                           'logp' = 'logP',
-                           'name' = 'mainName')
+            fields <- list('inchikey'='inChIKey',
+                           'inchi'='inChI',
+                           'ncbi.pubchem.comp.id'='PubChemCID',
+                           'kegg.compound.id'='KEGG',
+                           'chebi.id'='ChEBI',
+                           'hmdb.metabolites.id'='HMDB',
+                           'formula'='formula',
+                           'monoisotopic.mass'='monoisotopicMass',
+                           'average.mass'='averageMass',
+                           'smiles'='canSmiles',
+                           'logp'='logP',
+                           'name'='mainName')
             for (f in names(fields)) {
                 comp.f <- fields[[f]]
                 if (comp.f %in% names(comp)) {
@@ -94,7 +94,7 @@ PeakforestMassEntry$methods( .parseFieldsStep2 = function(parsed.content) {
         if (parsed.content$fragmentationLevelString == 'MS2')
             .self$setFieldValue('ms.level', 2)
         else
-            .self$message('caution', paste('Unknown MS type "', parsed.content$fragmentationLevelString,'" for Peakforest entry "', .self$getFieldValue('accession'), '".', sep = ''))
+            .self$message('caution', paste('Unknown MS type "', parsed.content$fragmentationLevelString,'" for Peakforest entry "', .self$getFieldValue('accession'), '".', sep=''))
     }
     else
         .self$setFieldValue('ms.level', 1)

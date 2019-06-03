@@ -5,11 +5,11 @@
 # Class declaration {{{1
 ################################################################################
 
-NcbiPubchemSubstEntry <- methods::setRefClass("NcbiPubchemSubstEntry", contains = "NcbiPubchemEntry")
+NcbiPubchemSubstEntry <- methods::setRefClass("NcbiPubchemSubstEntry", contains="NcbiPubchemEntry")
 
 # Initialize {{{1
 ################################################################################
 
-NcbiPubchemSubstEntry$methods( initialize = function(...) {
+NcbiPubchemSubstEntry$methods( initialize=function(...) {
     callSuper(...)
 })

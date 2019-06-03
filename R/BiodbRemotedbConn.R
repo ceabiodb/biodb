@@ -34,12 +34,12 @@
 #' @include BiodbRequestScheduler.R
 #' @export BiodbRemotedbConn
 #' @exportClass BiodbRemotedbConn
-BiodbRemotedbConn <- methods::setRefClass("BiodbRemotedbConn", contains = "BiodbConn")
+BiodbRemotedbConn <- methods::setRefClass("BiodbRemotedbConn", contains="BiodbConn")
 
 # Initialize {{{1
 ################################################################################
 
-BiodbRemotedbConn$methods( initialize = function(...) {
+BiodbRemotedbConn$methods( initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbRemotedbConn')
@@ -51,7 +51,7 @@ BiodbRemotedbConn$methods( initialize = function(...) {
 # Get entry content from database {{{1
 ################################################################################
 
-BiodbRemotedbConn$methods( getEntryContentFromDb = function(entry.id) {
+BiodbRemotedbConn$methods( getEntryContentFromDb=function(entry.id) {
     # Default implementation
     return(.self$.doGetEntryContentOneByOne(entry.id))
 })
@@ -59,7 +59,7 @@ BiodbRemotedbConn$methods( getEntryContentFromDb = function(entry.id) {
 # Get entry content request {{{1
 ################################################################################
 
-BiodbRemotedbConn$methods( getEntryContentRequest = function(entry.id, concatenate = TRUE, max.length = 0) {
+BiodbRemotedbConn$methods( getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
     "Get the URL to use in order to get the contents of the specified entries."
 
     # Copy code from get.entry.url
@@ -70,7 +70,7 @@ BiodbRemotedbConn$methods( getEntryContentRequest = function(entry.id, concatena
     if (length(entry.id) > 0) {
 
         # Get full URL
-        full.url <- .self$.doGetEntryContentRequest(entry.id, concatenate = concatenate)
+        full.url <- .self$.doGetEntryContentRequest(entry.id, concatenate=concatenate)
 
         # No single URL for multiple IDs
         if ((length(entry.id) > 1 && length(full.url) > 1) || max.length == 0 || nchar(full.url) <= max.length)
@@ -107,7 +107,7 @@ BiodbRemotedbConn$methods( getEntryContentRequest = function(entry.id, concatena
 # Get entry image url {{{1
 ################################################################################
 
-BiodbRemotedbConn$methods( getEntryImageUrl = function(entry.id) {
+BiodbRemotedbConn$methods( getEntryImageUrl=function(entry.id) {
     "Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry)."
 
     .self$.abstract.method()
@@ -116,7 +116,7 @@ BiodbRemotedbConn$methods( getEntryImageUrl = function(entry.id) {
 # Get entry page url {{{1
 ################################################################################
 
-BiodbRemotedbConn$methods( getEntryPageUrl = function(entry.id) {
+BiodbRemotedbConn$methods( getEntryPageUrl=function(entry.id) {
     "Get the URL to the page of the entry on the database web site."
 
     .self$.abstract.method()
@@ -128,26 +128,26 @@ BiodbRemotedbConn$methods( getEntryPageUrl = function(entry.id) {
 # Set request scheduler rules {{{2
 ################################################################################
 
-BiodbRemotedbConn$methods( .setRequestSchedulerRules = function() {
+BiodbRemotedbConn$methods( .setRequestSchedulerRules=function() {
 })
 
 # Do get entry content request {{{2
 ################################################################################
 
-BiodbRemotedbConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
+BiodbRemotedbConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
     .self$.abstract.method()
 })
 
 # Do get entry content one by one {{{2
 ################################################################################
 
-BiodbRemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
+BiodbRemotedbConn$methods( .doGetEntryContentOneByOne=function(entry.id) {
 
     # Initialize return values
     content <- rep(NA_character_, length(entry.id))
 
     # Get requests
-    requests <- .self$getEntryContentRequest(entry.id, concatenate = FALSE)
+    requests <- .self$getEntryContentRequest(entry.id, concatenate=FALSE)
     
     # Get encoding
     encoding <- .self$getPropertyValue('entry.content.encoding')
@@ -155,11 +155,11 @@ BiodbRemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
     # If requests is a vector of characters, then the method is using the old scheme.
     # We now convert the requests to the new scheme, using class BiodbRequest.
     if (is.character(requests))
-        requests <- lapply(requests, function(x) BiodbRequest(method = 'get', url = BiodbUrl(x), encoding = encoding))
+        requests <- lapply(requests, function(x) BiodbRequest(method='get', url=BiodbUrl(x), encoding=encoding))
 
     # Send requests
     for (i in seq_along(requests)) {
-        lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', index = i, total = length(requests), first = (i == 1)))
+        lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type='info', msg='Getting entry contents.', index=i, total=length(requests), first=(i == 1)))
         content[[i]] <- .self$getBiodb()$getRequestScheduler()$sendRequest(requests[[i]])
     }
 
@@ -169,7 +169,7 @@ BiodbRemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
 # Terminate {{{2
 ################################################################################
 
-BiodbRemotedbConn$methods( .terminate = function() {
+BiodbRemotedbConn$methods( .terminate=function() {
 
     # Unregister from the request scheduler
     .self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)

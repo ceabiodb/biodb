@@ -12,19 +12,19 @@
 #' @include KeggConn.R
 #' @export KeggReactionConn
 #' @exportClass KeggReactionConn
-KeggReactionConn <- methods::setRefClass("KeggReactionConn", contains = c("KeggConn"))
+KeggReactionConn <- methods::setRefClass("KeggReactionConn", contains=c("KeggConn"))
 
 # Initialize {{{1
 ################################################################################
 
-KeggReactionConn$methods( initialize = function(...) {
-    callSuper(db.name = 'reaction', db.abbrev = 'rn', ...)
+KeggReactionConn$methods( initialize=function(...) {
+    callSuper(db.name='reaction', db.abbrev='rn', ...)
 })
 
 # Get entry image url {{{1
 ################################################################################
 
-KeggReactionConn$methods( getEntryImageUrl = function(id) {
+KeggReactionConn$methods( getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
 })
 

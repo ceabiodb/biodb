@@ -5,19 +5,19 @@
 # Class declaration {{{1
 ################################################################################
 
-PeakforestCompoundEntry <- methods::setRefClass("PeakforestCompoundEntry", contains = "BiodbJsonEntry")
+PeakforestCompoundEntry <- methods::setRefClass("PeakforestCompoundEntry", contains="BiodbJsonEntry")
 
 # Initialize {{{1
 ################################################################################
 
-PeakforestCompoundEntry$methods( initialize = function(...) {
+PeakforestCompoundEntry$methods( initialize=function(...) {
     callSuper(...)
 })
 
 # Parse fields step 2 {{{1
 ################################################################################
 
-PeakforestCompoundEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+PeakforestCompoundEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
     # HMDB null
     if (.self$hasField('hmdb.metabolites.id')) {

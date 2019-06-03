@@ -20,18 +20,18 @@
 #'
 #' @examples
 #' # Define a new observer class
-#' MyObsClass <- methods::setRefClass("MyObsClass", contains = 'BiodbObserver')
+#' MyObsClass <- methods::setRefClass("MyObsClass", contains='BiodbObserver')
 #'
 #' # Define the message method
-#' MyObsClass$methods( message = function(type = 'info', msg,
-#'                                        class = NA_character_,
-#'                                        method = NA_character_) {
+#' MyObsClass$methods( message=function(type='info', msg,
+#'                                        class=NA_character_,
+#'                                        method=NA_character_) {
 #' .self$checkMessageType(type)
-#' # print(paste(type, msg, sep = ': '))
+#' # print(paste(type, msg, sep=': '))
 #' })
 #'
 #' # Create an instance and register an instance of the new observer class:
-#' mybiodb <- biodb::Biodb(observers = MyObsClass$new())
+#' mybiodb <- biodb::Biodb(observers=MyObsClass$new())
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -44,39 +44,39 @@ BiodbObserver <- methods::setRefClass("BiodbObserver",
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Terminate {{{3
 ################################################################################
 
-terminate = function() {
+terminate=function() {
 },
 
 # Config key value set {{{3
 ################################################################################
 
-cfgKeyValSet = function(k, v) {
+cfgKeyValSet=function(k, v) {
 },
 
 # Message {{{3
 ################################################################################
 
-message = function(type = 'info', msg, class = NA_character_,
-                   method = NA_character_) {
+message=function(type='info', msg, class=NA_character_,
+                   method=NA_character_) {
     .self$checkMessageType(type)
 },
 
 # Info progress {{{3
 ################################################################################
 
-progress = function(type = 'info', msg, index, total, first) {
+progress=function(type='info', msg, index, total, first) {
     .self$checkMessageType(type)
 },
 
 # Check message type {{{3
 ################################################################################
 
-checkMessageType = function(type) {
+checkMessageType=function(type) {
 
     # Define allowed types
     allowed.types <- c('info', 'debug', 'caution', 'warning', 'error')
@@ -84,7 +84,7 @@ checkMessageType = function(type) {
     # Is type unknown?
     if ( ! tolower(type) %in% allowed.types)
         stop("Unknown message type \"", type, "\". Please use one of: ",
-             paste(allowed.types, collapse = ', '), '.')
+             paste(allowed.types, collapse=', '), '.')
 }
 
 ))

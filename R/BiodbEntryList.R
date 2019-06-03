@@ -4,7 +4,7 @@
 ################################################################################
 
 #' @include BiodbEntry.R
-BiodbEntryList <- methods::setRefClass("BiodbEntryList", contains = 'BiodbEntry', fields = list())
+BiodbEntryList <- methods::setRefClass("BiodbEntryList", contains='BiodbEntry')
 
 # Private methods {{{1
 ################################################################################
@@ -12,27 +12,27 @@ BiodbEntryList <- methods::setRefClass("BiodbEntryList", contains = 'BiodbEntry'
 # Do parse content {{{2
 ################################################################################
 
-BiodbEntryList$methods( .doParseContent = function(content) {
+BiodbEntryList$methods( .doParseContent=function(content) {
     return(content) # Nothing to parse
 })
 
 # Is parsed content correct {{{2
 ################################################################################
 
-BiodbEntryList$methods( .isParsedContentCorrect = function(parsed.content) {
+BiodbEntryList$methods( .isParsedContentCorrect=function(parsed.content) {
     return(is.list(parsed.content) && length(parsed.content) > 0 && ! is.null(names(parsed.content)) && length(names(parsed.content)) > 0)
 })
 
 # Parse fields step 1 {{{1
 ################################################################################
 
-BiodbEntryList$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbEntryList$methods( .parseFieldsStep1=function(parsed.content) {
 
     # Loop on all field names
     for (field.name in names(parsed.content)) {
 
         # Get value
-        value = parsed.content[[field.name]]
+        value <- parsed.content[[field.name]]
 
         # Skip empty vector or NA value
         if (is.vector(value) && (length(value) == 0 || all(is.na(value))))

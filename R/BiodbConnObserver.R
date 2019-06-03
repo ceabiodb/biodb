@@ -18,24 +18,24 @@ BiodbConnObserver <- methods::setRefClass("BiodbConnObserver",
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Terminating {{{3
 ################################################################################
 
-connTerminating = function(conn) {
+connTerminating=function(conn) {
 },
 
 # URLs updated {{{3
 ################################################################################
 
-connUrlsUpdated = function(conn) {
+connUrlsUpdated=function(conn) {
 },
 
 # Scheduler frequency updated {{{3
 ################################################################################
 
-connSchedulerFrequencyUpdated = function(conn) {
+connSchedulerFrequencyUpdated=function(conn) {
 }
 
 ))

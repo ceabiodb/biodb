@@ -20,12 +20,12 @@
 #' @import methods
 #' @export BiodbSqlQuery
 #' @exportClass BiodbSqlQuery
-BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery", fields = list(.table = 'character', .fields = 'list', .distinct = 'logical', .join = 'list', .where = 'ANY', .limit = 'integer'))
+BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery", fields=list(.table='character', .fields='list', .distinct='logical', .join='list', .where='ANY', .limit='integer'))
 
 # Initialize {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( initialize = function() {
+BiodbSqlQuery$methods( initialize=function() {
     .self$.table <- character()
     .self$.fields <- list()
     .self$.distinct <- FALSE
@@ -37,7 +37,7 @@ BiodbSqlQuery$methods( initialize = function() {
 # Add table {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( setTable = function(table) {
+BiodbSqlQuery$methods( setTable=function(table) {
     "Set the table."
 
     .self$.table <- table
@@ -46,16 +46,16 @@ BiodbSqlQuery$methods( setTable = function(table) {
 # Add  {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( addField = function(table = NULL, field) {
+BiodbSqlQuery$methods( addField=function(table=NULL, field) {
     "Set the fields."
 
-    .self$.fields <- c(.self$.fields, list(list(table = table, field = field)))
+    .self$.fields <- c(.self$.fields, list(list(table=table, field=field)))
 })
 
 # Set distinct {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( setDistinct = function(distinct) {
+BiodbSqlQuery$methods( setDistinct=function(distinct) {
     "Set or unset distinct modifier."
 
     .self$.distinct <- as.logical(distinct)
@@ -64,7 +64,7 @@ BiodbSqlQuery$methods( setDistinct = function(distinct) {
 # Set limit {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( setLimit = function(limit) {
+BiodbSqlQuery$methods( setLimit=function(limit) {
     "Set results limit."
 
     .self$.limit <- as.integer(limit)
@@ -73,21 +73,21 @@ BiodbSqlQuery$methods( setLimit = function(limit) {
 # Add join {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( addJoin = function(table1, field1, table2, field2) {
+BiodbSqlQuery$methods( addJoin=function(table1, field1, table2, field2) {
     "Add a join."
 
     # Check if this join already exists
-    duplicate = any(vapply(.self$.join, function(x) ((x$table1 == table1 && x$field1 == field1 && x$table2 == table2 && x$field2 == field2) || (x$table1 == table1 && x$field1 == field1 && x$table2 == table2 && x$field2 == field2)), FUN.VALUE = TRUE))
+    duplicate=any(vapply(.self$.join, function(x) ((x$table1 == table1 && x$field1 == field1 && x$table2 == table2 && x$field2 == field2) || (x$table1 == table1 && x$field1 == field1 && x$table2 == table2 && x$field2 == field2)), FUN.VALUE=TRUE))
 
     # Append
     if ( ! duplicate)
-        .self$.join <- c(.self$.join, list(list(table1 = table1, field1 = field1, table2 = table2, field2 = field2)))
+        .self$.join <- c(.self$.join, list(list(table1=table1, field1=field1, table2=table2, field2=field2)))
 })
 
 # Set where {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( setWhere = function(expr) {
+BiodbSqlQuery$methods( setWhere=function(expr) {
     "Set  the where clause."
 
     .self$.where <- expr
@@ -96,12 +96,12 @@ BiodbSqlQuery$methods( setWhere = function(expr) {
 # Get join {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( getJoin = function() {
+BiodbSqlQuery$methods( getJoin=function() {
 
-    join = character()
+    join <- character()
 
     for (j in .self$.join)
-        join = c(join, 'join', paste0('`', j$table1, '`'), 'on', paste0('`', j$table1, '`.`', j$field1, '`'), '=', paste0('`', j$table2, '`.`', j$field2, '`'))
+        join <- c(join, 'join', paste0('`', j$table1, '`'), 'on', paste0('`', j$table1, '`.`', j$field1, '`'), '=', paste0('`', j$table2, '`.`', j$field2, '`'))
 
     return(join)
 })
@@ -109,18 +109,18 @@ BiodbSqlQuery$methods( getJoin = function() {
 # Get where {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( getWhere = function() {
+BiodbSqlQuery$methods( getWhere=function() {
     return(.self$.where)
 })
 
 # Get fields {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( getFields = function() {
+BiodbSqlQuery$methods( getFields=function() {
 
-    fields = vapply(.self$.fields, function(x) { field = (if (x$field == '*') x$field else paste0('`', x$field, '`')) ; if (is.null(x$table)) field else paste0('`', x$table, '`.', field) }, FUN.VALUE = '')
+    fields=vapply(.self$.fields, function(x) { field=(if (x$field == '*') x$field else paste0('`', x$field, '`')) ; if (is.null(x$table)) field else paste0('`', x$table, '`.', field) }, FUN.VALUE='')
 
-    fields = paste(fields, collapse = ', ')
+    fields=paste(fields, collapse=', ')
 
     return(fields)
 })
@@ -128,40 +128,40 @@ BiodbSqlQuery$methods( getFields = function() {
 # To string {{{2
 ################################################################################
 
-BiodbSqlQuery$methods( toString = function() {
+BiodbSqlQuery$methods( toString=function() {
     "Generate the string representation of this query."
 
-    query = 'select'
+    query <- 'select'
 
     # Set distinct modifier
     if (.self$.distinct)
-        query = c(query, 'distinct')
+        query <- c(query, 'distinct')
 
     # Set fields
-    query = c(query, .self$getFields())
+    query <- c(query, .self$getFields())
 
     # Set table
-    query = c(query, 'from', paste0('`', .self$.table, '`'))
+    query <- c(query, 'from', paste0('`', .self$.table, '`'))
 
     # Set join clause
-    query = c(query, .self$getJoin())
+    query <- c(query, .self$getJoin())
 
     # Set where clause
     if ( ! is.null(.self$.where)) {
-        where = .self$.where$toString()
+        where <- .self$.where$toString()
         if (nchar(where) > 0)
-            query = c(query, 'where', where)
+            query <- c(query, 'where', where)
     }
 
     # Set limit
     if (.self$.limit > 0)
-        query = c(query, 'limit', .self$.limit)
+        query <- c(query, 'limit', .self$.limit)
 
     # Join all strings
-    query = paste(query, collapse = ' ')
+    query <- paste(query, collapse=' ')
 
     # End query
-    query = paste0(query, ';')
+    query <- paste0(query, ';')
 
     return(query)
 })
@@ -172,18 +172,18 @@ BiodbSqlQuery$methods( toString = function() {
 # Class declaration {{{2
 ################################################################################
 
-BiodbSqlExpr = methods::setRefClass("BiodbSqlExpr", fields = list())
+BiodbSqlExpr=methods::setRefClass("BiodbSqlExpr", fields=list())
 
 # Initialize {{{2
 ################################################################################
 
-BiodbSqlExpr$methods( initialize = function() {
+BiodbSqlExpr$methods( initialize=function() {
 })
 
 # To string {{{2
 ################################################################################
 
-BiodbSqlExpr$methods( toString = function() {
+BiodbSqlExpr$methods( toString=function() {
     stop("This method is abstract.")
 })
 
@@ -193,12 +193,12 @@ BiodbSqlExpr$methods( toString = function() {
 # Class declaration {{{2
 ################################################################################
 
-BiodbSqlLogicalOp <- methods::setRefClass("BiodbSqlLogicalOp", contains = 'BiodbSqlExpr', fields = list(.op = 'character', .expr = 'list'))
+BiodbSqlLogicalOp <- methods::setRefClass("BiodbSqlLogicalOp", contains='BiodbSqlExpr', fields=list(.op='character', .expr='list'))
 
 # Initialize {{{2
 ################################################################################
 
-BiodbSqlLogicalOp$methods( initialize = function(op) {
+BiodbSqlLogicalOp$methods( initialize=function(op) {
     .self$.op <- op
     .self$.expr <- list()
 })
@@ -206,19 +206,19 @@ BiodbSqlLogicalOp$methods( initialize = function(op) {
 # Add expression {{{2
 ################################################################################
 
-BiodbSqlLogicalOp$methods( addExpr = function(expr) {
+BiodbSqlLogicalOp$methods( addExpr=function(expr) {
     .self$.expr <- c(.self$.expr, expr)
 })
 
 # To string {{{2
 ################################################################################
 
-BiodbSqlLogicalOp$methods( toString = function() {
-    s = vapply(.self$.expr, function(e) e$toString(), FUN.VALUE = '')
-    s = s[vapply(s, function(x) nchar(x) > 0, FUN.VALUE = TRUE)]
-    s = paste(s, collapse = paste0(' ', .self$.op, ' '))
+BiodbSqlLogicalOp$methods( toString=function() {
+    s <- vapply(.self$.expr, function(e) e$toString(), FUN.VALUE='')
+    s <- s[vapply(s, function(x) nchar(x) > 0, FUN.VALUE=TRUE)]
+    s <- paste(s, collapse=paste0(' ', .self$.op, ' '))
     if (nchar(s) > 0)
-        s = paste0('(', s, ')')
+        s <- paste0('(', s, ')')
     return(s)
 })
 
@@ -228,12 +228,12 @@ BiodbSqlLogicalOp$methods( toString = function() {
 # Class declaration {{{2
 ################################################################################
 
-BiodbSqlBinaryOp <- methods::setRefClass("BiodbSqlBinaryOp", contains = "BiodbSqlExpr", fields = list(.op = 'character', .lexpr = 'BiodbSqlExpr', .rexpr = 'BiodbSqlExpr'))
+BiodbSqlBinaryOp <- methods::setRefClass("BiodbSqlBinaryOp", contains="BiodbSqlExpr", fields=list(.op='character', .lexpr='BiodbSqlExpr', .rexpr='BiodbSqlExpr'))
 
 # Initialize {{{2
 ################################################################################
 
-BiodbSqlBinaryOp$methods( initialize = function(lexpr, op, rexpr) {
+BiodbSqlBinaryOp$methods( initialize=function(lexpr, op, rexpr) {
     .self$.op <- op
     .self$.lexpr <- lexpr
     .self$.rexpr <- rexpr
@@ -242,8 +242,8 @@ BiodbSqlBinaryOp$methods( initialize = function(lexpr, op, rexpr) {
 # To string {{{2
 ################################################################################
 
-BiodbSqlBinaryOp$methods( toString = function() {
-    s = paste0('(', .self$.lexpr$toString(), ' ', .self$.op, ' ' , .self$.rexpr$toString(), ')')
+BiodbSqlBinaryOp$methods( toString=function() {
+    s=paste0('(', .self$.lexpr$toString(), ' ', .self$.op, ' ' , .self$.rexpr$toString(), ')')
     return(s)
 })
 
@@ -253,25 +253,25 @@ BiodbSqlBinaryOp$methods( toString = function() {
 # Class declaration {{{2
 ################################################################################
 
-BiodbSqlValue <- methods::setRefClass("BiodbSqlValue", contains = "BiodbSqlExpr", fields = list(.value = 'ANY'))
+BiodbSqlValue <- methods::setRefClass("BiodbSqlValue", contains="BiodbSqlExpr", fields=list(.value='ANY'))
 
 # Initialize {{{2
 ################################################################################
 
-BiodbSqlValue$methods( initialize = function(value) {
+BiodbSqlValue$methods( initialize=function(value) {
     .self$.value <- value
 })
 
 # To string {{{2
 ################################################################################
 
-BiodbSqlValue$methods( toString = function() {
+BiodbSqlValue$methods( toString=function() {
 
     # Quote strings
     if (is.character(.self$.value))
-        s = paste0('"', .self$.value, '"')
+        s <- paste0('"', .self$.value, '"')
     else
-        s = as.character(.self$.value)
+        s <- as.character(.self$.value)
 
     return(s)
 })
@@ -282,26 +282,26 @@ BiodbSqlValue$methods( toString = function() {
 # Class declaration {{{2
 ################################################################################
 
-BiodbSqlList <- methods::setRefClass("BiodbSqlList", contains = "BiodbSqlExpr", fields = list(.values = 'ANY'))
+BiodbSqlList <- methods::setRefClass("BiodbSqlList", contains="BiodbSqlExpr", fields=list(.values='ANY'))
 
 # Initialize {{{2
 ################################################################################
 
-BiodbSqlList$methods( initialize = function(values) {
+BiodbSqlList$methods( initialize=function(values) {
     .self$.values <- values
 })
 
 # To string {{{2
 ################################################################################
 
-BiodbSqlList$methods( toString = function() {
+BiodbSqlList$methods( toString=function() {
 
     # Quote strings
     if (is.character(.self$.values))
-        s = vapply(.self$.values, function(v) paste0('"', v, '"'), FUN.VALUE = '')
+        s <- vapply(.self$.values, function(v) paste0('"', v, '"'), FUN.VALUE='')
 
     # Collapse and convert to string
-    s = paste0('(', paste(s, collapse = ', '), ')')
+    s <- paste0('(', paste(s, collapse=', '), ')')
 
     return(s)
 })
@@ -312,12 +312,12 @@ BiodbSqlList$methods( toString = function() {
 # Class declaration {{{2
 ################################################################################
 
-BiodbSqlField <- methods::setRefClass("BiodbSqlField", contains = "BiodbSqlExpr", fields = list(.table = 'character', .field = 'character'))
+BiodbSqlField <- methods::setRefClass("BiodbSqlField", contains="BiodbSqlExpr", fields=list(.table='character', .field='character'))
 
 # Initialize {{{2
 ################################################################################
 
-BiodbSqlField$methods( initialize = function(table = NA_character_, field) {
+BiodbSqlField$methods( initialize=function(table=NA_character_, field) {
     .self$.table <- table
     .self$.field <- field
 })
@@ -325,9 +325,9 @@ BiodbSqlField$methods( initialize = function(table = NA_character_, field) {
 # To string {{{2
 ################################################################################
 
-BiodbSqlField$methods( toString = function() {
-    s = paste0('`', .self$.field, '`')
+BiodbSqlField$methods( toString=function() {
+    s <- paste0('`', .self$.field, '`')
     if ( ! is.na(.self$.table))
-        s = paste0('`', .self$.table, '`.', s)
+        s <- paste0('`', .self$.table, '`.', s)
     return(s)
 })

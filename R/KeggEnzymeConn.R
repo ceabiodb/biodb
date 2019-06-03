@@ -17,7 +17,7 @@
 #' conn <- mybiodb$getFactory()$createConn('kegg.enzyme')
 #'
 #' # Get pathway IDs related to enzymes
-#' pathway.ids = conn$getPathwayIds(c('1.2.1.3', '3.7.1.3'), org = 'mmu')
+#' pathway.ids=conn$getPathwayIds(c('1.2.1.3', '3.7.1.3'), org='mmu')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -25,36 +25,36 @@
 #' @include KeggConn.R
 #' @export KeggEnzymeConn
 #' @exportClass KeggEnzymeConn
-KeggEnzymeConn <- methods::setRefClass("KeggEnzymeConn", contains = c("KeggConn"))
+KeggEnzymeConn <- methods::setRefClass("KeggEnzymeConn", contains=c("KeggConn"))
 
 # Initialize {{{1
 ################################################################################
 
-KeggEnzymeConn$methods( initialize = function(...) {
-    callSuper(db.name = 'enzyme', db.abbrev = 'ec', ...)
+KeggEnzymeConn$methods( initialize=function(...) {
+    callSuper(db.name='enzyme', db.abbrev='ec', ...)
 })
 
 # Get entry image url {{{1
 ################################################################################
 
-KeggEnzymeConn$methods( getEntryImageUrl = function(id) {
+KeggEnzymeConn$methods( getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
 })
 
 # Get pathway IDs {{{1
 ################################################################################
 
-KeggEnzymeConn$methods( getPathwayIds = function(id, org) {
+KeggEnzymeConn$methods( getPathwayIds=function(id, org) {
     "Get organism pathways. Given a vector of KEGG Enzyme IDs and a KEGG organism code, this method retrieves KEGG pathways of this organism in which the enzymes are involved. It returns a vector of KEGG pathway IDs."
 
-    pathways = character()
-    kegg.gen.conn = .self$getBiodb()$getFactory()$getConn('kegg.genes')
+    pathways <- character()
+    kegg.gen.conn <- .self$getBiodb()$getFactory()$getConn('kegg.genes')
 
     # Loop on all enzymes
     for (enz.id in id) {
 
         pws <- NULL
-        enz = .self$getEntry(enz.id)
+        enz <- .self$getEntry(enz.id)
         if (is.null(enz))
             next
 
@@ -65,18 +65,18 @@ KeggEnzymeConn$methods( getPathwayIds = function(id, org) {
             pws <- enz$getFieldValue('kegg.pathway.id')
 
             # Convert them to specified organism
-            kegg.path.conn = .self$getBiodb()$getFactory()$getConn('kegg.pathway')
-            pws <- kegg.path.conn$convertToOrgPathways(pws, org = org)
+            kegg.path.conn <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+            pws <- kegg.path.conn$convertToOrgPathways(pws, org=org)
         }
 
         # Look for genes
         else if ( ! is.null(enz) && enz$hasField('kegg.genes.id')) {
 
             # We skip non organism genes
-            genes_ids = enz$getFieldValue('kegg.genes.id')
-            mmu_genes_ids = genes_ids[grep(paste0('^', org, ':'), genes_ids)]
+            genes_ids <- enz$getFieldValue('kegg.genes.id')
+            mmu_genes_ids <- genes_ids[grep(paste0('^', org, ':'), genes_ids)]
 
-            for (gene in kegg.gen.conn$getEntry(mmu_genes_ids, drop = FALSE)) {
+            for (gene in kegg.gen.conn$getEntry(mmu_genes_ids, drop=FALSE)) {
 
                 # We check that this gene is related to the organism:
                 if ( ! is.null(gene) && gene$hasField('kegg.pathway.id')) {
@@ -86,7 +86,7 @@ KeggEnzymeConn$methods( getPathwayIds = function(id, org) {
 
                     # Filter out wrong pathways
                     kpc <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
-                    pws <- pws[kpc$makesRefToEntry(pws, db = 'kegg.enzyme', oid = enz.id, recurse = TRUE)]
+                    pws <- pws[kpc$makesRefToEntry(pws, db='kegg.enzyme', oid=enz.id, recurse=TRUE)]
                 }
             }
         }
@@ -98,4 +98,3 @@ KeggEnzymeConn$methods( getPathwayIds = function(id, org) {
 
     return(pathways)
 })
-

@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-BiodbXmlEntry <- methods::setRefClass("BiodbXmlEntry", contains = "BiodbEntry", fields = list())
+BiodbXmlEntry <- methods::setRefClass("BiodbXmlEntry", contains="BiodbEntry", fields=list())
 
 # Initialize {{{1
 ################################################################################
 
-BiodbXmlEntry$methods( initialize = function(...) {
+BiodbXmlEntry$methods( initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbXmlEntry')
@@ -19,13 +19,13 @@ BiodbXmlEntry$methods( initialize = function(...) {
 # Do parse content {{{1
 ################################################################################
 
-BiodbXmlEntry$methods( .doParseContent = function(content) {
+BiodbXmlEntry$methods( .doParseContent=function(content) {
 
-    xml = NULL
+    xml <- NULL
 
     # Parse XML
     if ( ! is.null(content) && is.character(content) && length(content) == 1 && ! is.na(content))
-        xml <-  XML::xmlInternalTreeParse(content, asText = TRUE)
+        xml <-  XML::xmlInternalTreeParse(content, asText=TRUE)
 
     return(xml)
 })
@@ -33,14 +33,14 @@ BiodbXmlEntry$methods( .doParseContent = function(content) {
 # Parse fields step 1 {{{1
 ################################################################################
 
-BiodbXmlEntry$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbXmlEntry$methods( .parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
     # Set namespace
     xml.ns <- .self$getParent()$getPropertyValue('xml.ns')
-    ns <- if (is.null(xml.ns) || length(xml.ns) == 0 || all(is.na(xml.ns))) XML::xmlNamespaceDefinitions(parsed.content, simplify = TRUE) else xml.ns
+    ns <- if (is.null(xml.ns) || length(xml.ns) == 0 || all(is.na(xml.ns))) XML::xmlNamespaceDefinitions(parsed.content, simplify=TRUE) else xml.ns
 
     # Loop on all parsing expressions
     for (field in names(parsing.expr)) {
@@ -55,7 +55,7 @@ BiodbXmlEntry$methods( .parseFieldsStep1 = function(parsed.content) {
             for (expr in parsing.expr[[field]]) {
 
                 # Parse
-                v <- XML::xpathSApply(parsed.content, expr, XML::xmlValue, namespaces = ns)
+                v <- XML::xpathSApply(parsed.content, expr, XML::xmlValue, namespaces=ns)
 
                 # The field accepts only one value
                 if (field.single.value) {
@@ -72,7 +72,7 @@ BiodbXmlEntry$methods( .parseFieldsStep1 = function(parsed.content) {
 
         # Expression using path and attribute
         else
-            value <- XML::xpathSApply(parsed.content, parsing.expr[[field]]$path, XML::xmlGetAttr, parsing.expr[[field]]$attr, namespaces = ns)
+            value <- XML::xpathSApply(parsed.content, parsing.expr[[field]]$path, XML::xmlGetAttr, parsing.expr[[field]]$attr, namespaces=ns)
 
         # Set value
         if (length(value) > 0)

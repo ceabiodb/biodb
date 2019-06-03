@@ -4,12 +4,12 @@
 ################################################################################
 
 #' @include BiodbRemotedbConn.R
-MirbaseConn <- methods::setRefClass("MirbaseConn", contains = c("BiodbRemotedbConn"))
+MirbaseConn <- methods::setRefClass("MirbaseConn", contains=c("BiodbRemotedbConn"))
 
 # Initialize {{{1
 ################################################################################
 
-MirbaseConn$methods( initialize = function(...) {
+MirbaseConn$methods( initialize=function(...) {
     callSuper(...)
     .self$.abstract.class('MirbaseConn')
 })
@@ -17,7 +17,7 @@ MirbaseConn$methods( initialize = function(...) {
 # Get nb entries {{{1
 ################################################################################
 
-MirbaseConn$methods( getNbEntries = function(count = FALSE) {
+MirbaseConn$methods( getNbEntries=function(count=FALSE) {
 
     n <- NA_integer_
 

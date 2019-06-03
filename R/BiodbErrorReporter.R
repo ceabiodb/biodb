@@ -13,20 +13,20 @@
 #' @include BiodbObserver.R
 #' @export BiodbErrorReporter
 #' @exportClass BiodbErrorReporter
-BiodbErrorReporter <- methods::setRefClass("BiodbErrorReporter", contains = 'BiodbObserver')
+BiodbErrorReporter <- methods::setRefClass("BiodbErrorReporter", contains='BiodbObserver')
 
 # MESSAGE {{{1
 ################################################################################
 
-BiodbErrorReporter$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
+BiodbErrorReporter$methods( message=function(type='info', msg, class=NA_character_, method=NA_character_) {
 
     .self$checkMessageType(type)
 
     # Raise error
     if (type == 'error') {
         caller.info <- if (is.na(class)) '' else class
-        caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
-        if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
+        caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep='::')
+        if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep='')
         stop(paste0(caller.info, msg))
     }
 })

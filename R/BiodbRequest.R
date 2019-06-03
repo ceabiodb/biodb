@@ -15,12 +15,12 @@
 #' @include BiodbUrl.R
 #' @export BiodbRequest
 #' @exportClass BiodbRequest
-BiodbRequest <- methods::setRefClass("BiodbRequest", fields = list(.url = 'BiodbUrl', .method = 'character', .header = 'character', .body = 'character', .encoding = 'ANY'))
+BiodbRequest <- methods::setRefClass("BiodbRequest", fields=list(.url='BiodbUrl', .method='character', .header='character', .body='character', .encoding='ANY'))
 
 # Initialize {{{1
 ################################################################################
 
-BiodbRequest$methods( initialize = function(url, method = c('get', 'post'), header = character(), body = character(), encoding = integer()) {
+BiodbRequest$methods( initialize=function(url, method=c('get', 'post'), header=character(), body=character(), encoding=integer()) {
 
     .self$.url <- url
     .self$.method <- match.arg(method)
@@ -32,28 +32,28 @@ BiodbRequest$methods( initialize = function(url, method = c('get', 'post'), head
 # Get URL {{{1
 ################################################################################
 
-BiodbRequest$methods( getUrl = function() {
+BiodbRequest$methods( getUrl=function() {
     return(.self$.url)
 })
 
 # Get method {{{1
 ################################################################################
 
-BiodbRequest$methods( getMethod = function() {
+BiodbRequest$methods( getMethod=function() {
     return(.self$.method)
 })
 
 # Get encoding {{{1
 ################################################################################
 
-BiodbRequest$methods( getEncoding = function() {
+BiodbRequest$methods( getEncoding=function() {
     return(.self$.encoding)
 })
 
 # Get Curl options {{{1
 ################################################################################
 
-BiodbRequest$methods( getCurlOptions = function(useragent) {
+BiodbRequest$methods( getCurlOptions=function(useragent) {
 
     opts <- list()
     if (length(.self$.header) > 0)
@@ -61,7 +61,7 @@ BiodbRequest$methods( getCurlOptions = function(useragent) {
     if (length(.self$.body) > 0)
         opts$postfields <- .self$.body
 
-    opts <- RCurl::curlOptions(useragent = useragent, timeout.ms = 60000, verbose = FALSE, .opts = opts)
+    opts <- RCurl::curlOptions(useragent=useragent, timeout.ms=60000, verbose=FALSE, .opts=opts)
 
     return(opts)
 })
@@ -69,9 +69,9 @@ BiodbRequest$methods( getCurlOptions = function(useragent) {
 # Get unique key {{{1
 ################################################################################
 
-BiodbRequest$methods( getUniqueKey = function() {
+BiodbRequest$methods( getUniqueKey=function() {
 
-    key <- digest::digest(.self$toString(), algo = 'md5')
+    key <- digest::digest(.self$toString(), algo='md5')
 
     return(key)
 })
@@ -79,12 +79,12 @@ BiodbRequest$methods( getUniqueKey = function() {
 # Get header as single string {{{1
 ################################################################################
 
-BiodbRequest$methods( getHeaderAsSingleString = function() {
+BiodbRequest$methods( getHeaderAsSingleString=function() {
 
     s <- ''
 
     if (length(.self$.header) > 0)
-        s <- paste(vapply(names(.self$.header), function(k) paste(k, .self$.header[[k]], sep = '='), FUN.VALUE = ''), collapse = ', ')
+        s <- paste(vapply(names(.self$.header), function(k) paste(k, .self$.header[[k]], sep='='), FUN.VALUE=''), collapse=', ')
 
     return(s)
 })
@@ -92,16 +92,16 @@ BiodbRequest$methods( getHeaderAsSingleString = function() {
 # Get body {{{1
 ################################################################################
 
-BiodbRequest$methods( getBody = function() {
+BiodbRequest$methods( getBody=function() {
     return(.self$.body)
 })
 
 # To string {{{1
 ################################################################################
 
-BiodbRequest$methods( toString = function() {
+BiodbRequest$methods( toString=function() {
 
-    request <- list(url = .self$.url$toString(), header = .self$.header, body = .self$.body)
+    request <- list(url=.self$.url$toString(), header=.self$.header, body=.self$.body)
     request.json <- jsonlite::serializeJSON(request)
     request.json.str <- as.character(request.json)
 

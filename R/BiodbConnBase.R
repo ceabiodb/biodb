@@ -22,27 +22,27 @@
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
 BiodbConnBase <- methods::setRefClass("BiodbConnBase",
-    contains =  "BiodbChildObject",
+    contains="BiodbChildObject",
 
 # Fields {{{2
 ################################################################################
 
-fields = list(
-    .db.class = "character",
-    .observers = 'list',
-    .prop.def = 'list',
-    .prop = 'list',
-    .run.hooks = 'character'),
+fields=list(
+    .db.class="character",
+    .observers='list',
+    .prop.def='list',
+    .prop='list',
+    .run.hooks='character'),
 
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Initialize {{{3
 ################################################################################
 
-initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
+initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbConnBase')
@@ -72,7 +72,7 @@ initialize = function(other = NULL, db.class = NULL, properties = NULL, ...) {
 # Show {{{3
 ################################################################################
 
-show = function() {
+show=function() {
     msg <- paste0("Biodb ", .self$getPropertyValue('name'),
                   " connector instance")
     if (.self$hasPropSlot('urls', 'base.url'))
@@ -85,7 +85,7 @@ show = function() {
 # Has property {{{3
 ################################################################################
 
-hasProp = function(name) {
+hasProp=function(name) {
     'Returns true if the property "name" exists.'
 
     return (name %in% names(.self$.prop))
@@ -94,7 +94,7 @@ hasProp = function(name) {
 # Has property slot {{{3
 ################################################################################
 
-hasPropSlot = function(name, slot) {
+hasPropSlot=function(name, slot) {
     'Returns true if the property "name" exists and has the slot "slot"
     defined.'
 
@@ -104,17 +104,17 @@ hasPropSlot = function(name, slot) {
 # Get property value slot {{{3
 ################################################################################
 
-getPropValSlot = function(name, slot) {
+getPropValSlot=function(name, slot) {
     'Return the value of the slot "slot" of the property "name".'
 
     value <- .self$getPropertyValue(name)
-    .self$.checkProperty(name = name, slot = slot)
+    .self$.checkProperty(name=name, slot=slot)
 
     if (slot %in% names(value))
         value <- value[[slot]]
     else {
         pdef <- .self$.prop.def[[name]]
-        value <- as.vector(NA, mode = pdef$class)
+        value <- as.vector(NA, mode=pdef$class)
     }
 
     return(value)
@@ -123,7 +123,7 @@ getPropValSlot = function(name, slot) {
 # Update properties definition {{{3
 ################################################################################
 
-updatePropertiesDefinition = function(def) {
+updatePropertiesDefinition=function(def) {
     'Update the definition of properties.'
 
     # Loop on properties
@@ -144,7 +144,7 @@ updatePropertiesDefinition = function(def) {
 # Define parsing expressions {{{3
 ################################################################################
 
-defineParsingExpressions = function() {
+defineParsingExpressions=function() {
     'Reimplement this method in your connector class to define parsing
     expressions dynamically.'
 },
@@ -152,13 +152,13 @@ defineParsingExpressions = function() {
 # Get entry file extension {{{3
 ################################################################################
 
-getEntryFileExt = function() {
+getEntryFileExt=function() {
     "Returns the entry file extension."
 
     if (.self$getPropertyValue('entry.content.type') == 'list')
-        ext = 'RData'
+        ext <- 'RData'
     else
-        ext = .self$getPropertyValue('entry.content.type')
+        ext <- .self$getPropertyValue('entry.content.type')
 
     return(ext)
 },
@@ -166,19 +166,19 @@ getEntryFileExt = function() {
 # Get database class {{{3
 ################################################################################
 
-getDbClass = function() {
+getDbClass=function() {
     return(.self$.db.class)
 },
 
 # Get connector class name {{{3
 ################################################################################
 
-getConnClassName = function() {
+getConnClassName=function() {
     "Returns the name of the associated connector OOP class."
 
     # Get connection class name
     s <- .self$.getClassNamePrefix()
-    conn.class.name <- paste(s, 'Conn', sep = '')
+    conn.class.name <- paste(s, 'Conn', sep='')
 
     return(conn.class.name)
 },
@@ -186,12 +186,12 @@ getConnClassName = function() {
 # Get entry class name {{{3
 ################################################################################
 
-getEntryClassName = function() {
+getEntryClassName=function() {
     "Returns the name of the associated entry class."
 
     # Get entry class name
     s <- .self$.getClassNamePrefix()
-    entry.class.name <- paste(s, 'Entry', sep = '')
+    entry.class.name <- paste(s, 'Entry', sep='')
 
     return(entry.class.name)
 },
@@ -199,7 +199,7 @@ getEntryClassName = function() {
 # Get connector class {{{3
 ################################################################################
 
-getConnClass = function() {
+getConnClass=function() {
     "Returns the associated connector OOP class."
 
     return(get(.self$getConnClassName()))
@@ -208,7 +208,7 @@ getConnClass = function() {
 # Get entry class {{{3
 ################################################################################
 
-getEntryClass = function() {
+getEntryClass=function() {
     "Returns the associated entry class."
 
     return(get(.self$getEntryClassName()))
@@ -217,20 +217,20 @@ getEntryClass = function() {
 # Get entry class name {{{3
 ################################################################################
 
-getEntryClassName = function() {
+getEntryClassName=function() {
     "Returns the name of the associated entry class."
 
     # Get entry class name
     s <- .self$.db.class
     indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class,
-                                   perl = TRUE)[[1]])
+                                   perl=TRUE)[[1]])
     indices <- indices + 1  # We are interested in the letter after the dot.
     indices <- c(1, indices) # Add first letter.
     for (i in indices)
         s <- paste0(substring(s, 1, i - 1), toupper(substring(s, i, i)),
                    substring(s, i + 1))
-    s <- gsub('.', '', s, fixed = TRUE) # Remove dots
-    entry.class.name <- paste(s, 'Entry', sep = '')
+    s <- gsub('.', '', s, fixed=TRUE) # Remove dots
+    entry.class.name <- paste(s, 'Entry', sep='')
 
     return(entry.class.name)
 },
@@ -238,7 +238,7 @@ getEntryClassName = function() {
 # Get entry class {{{3
 ################################################################################
 
-getEntryClass = function() {
+getEntryClass=function() {
     "Returns the associated entry class."
 
     return(get(.self$getEntryClassName()))
@@ -247,16 +247,16 @@ getEntryClass = function() {
 # Get entry ID field {{{3
 ################################################################################
 
-getEntryIdField = function() {
+getEntryIdField=function() {
     "Return the name of the corresponding database ID field in entries."
     
-    return(paste(.self$.db.class, 'id', sep = '.'))
+    return(paste(.self$.db.class, 'id', sep='.'))
 },
 
 # Get property value {{{3
 ################################################################################
 
-getPropertyValue = function(name) {
+getPropertyValue=function(name) {
 
     .self$.checkProperty(name)
     pdef <- .self$.prop.def[[name]]
@@ -264,7 +264,7 @@ getPropertyValue = function(name) {
     # Run hook
     if ('hook' %in% names(pdef) && ! pdef$hook %in% .self$.run.hooks) {
         .self$.run.hooks <- c(.self$.run.hooks, pdef$hook)
-        eval(parse(text = paste0('.self$', pdef$hook, '()')))
+        eval(parse(text=paste0('.self$', pdef$hook, '()')))
     }
 
     # Get value
@@ -279,7 +279,7 @@ getPropertyValue = function(name) {
 # Set property value {{{3
 ################################################################################
 
-setPropertyValue = function(name, value) {
+setPropertyValue=function(name, value) {
 
     # Check value
     value <- .self$.chkPropVal(name, value)
@@ -305,9 +305,9 @@ setPropertyValue = function(name, value) {
 # Set property value slot {{{3
 ################################################################################
 
-setPropValSlot = function(name, slot, value) {
+setPropValSlot=function(name, slot, value) {
 
-    .self$.checkProperty(name = name, slot = slot)
+    .self$.checkProperty(name=name, slot=slot)
 
     # Get current value
     curval <- .self$getPropertyValue(name)
@@ -325,7 +325,7 @@ setPropValSlot = function(name, slot, value) {
 # Terminate {{{3
 ################################################################################
 
-.terminate = function() {
+.terminate=function() {
 
     # Notify observers
     for (obs in .self$.observers)
@@ -338,19 +338,19 @@ setPropValSlot = function(name, slot, value) {
 # Do terminate {{{3
 ################################################################################
 
-.doTerminate = function() {
+.doTerminate=function() {
 },
 
 # Register observer {{{3
 ################################################################################
 
-.registerObserver = function(obs) {
+.registerObserver=function(obs) {
 
     .self$.assert.inherits.from(obs, 'BiodbConnObserver')
 
     # Is this observer already registered?
     if (any(vapply(.self$.observers, function(x) identical(x, obs),
-                   FUN.VALUE = TRUE)))
+                   FUN.VALUE=TRUE)))
         .self$message('caution', "Observer is already registered.")
 
     # Register this new observer
@@ -361,13 +361,13 @@ setPropValSlot = function(name, slot, value) {
 # Unregister observer {{{3
 ################################################################################
 
-.unregisterObserver = function(obs) {
+.unregisterObserver=function(obs) {
 
     .self$.assert.inherits.from(obs, 'BiodbConnObserver')
 
     # Search for observer
     found.obs <- vapply(.self$.observers, function(x) identical(x, obs),
-                        FUN.VALUE = TRUE)
+                        FUN.VALUE=TRUE)
 
     # Not found
     if ( ! any(found.obs))
@@ -381,7 +381,7 @@ setPropValSlot = function(name, slot, value) {
 # Check property {{{3
 ################################################################################
 
-.checkProperty = function(name, slot = NULL) {
+.checkProperty=function(name, slot=NULL) {
 
     if ( ! name %in% names(.self$.prop.def))
         .self$error('Unknown property "', name, '" for database ',
@@ -397,7 +397,7 @@ setPropValSlot = function(name, slot, value) {
 # Check property value {{{3
 ################################################################################
 
-.chkPropVal = function(name, value) {
+.chkPropVal=function(name, value) {
 
     .self$.checkProperty(name)
 
@@ -422,7 +422,7 @@ setPropValSlot = function(name, slot, value) {
 
     # Convert value
     nms <- names(value)
-    value <- as.vector(value, mode = pdef$class)
+    value <- as.vector(value, mode=pdef$class)
     names(value) <- nms
 
     # Check if value is allowed
@@ -442,7 +442,7 @@ setPropValSlot = function(name, slot, value) {
 # Define properties {{{3
 ################################################################################
 
-.defineProperties = function(other, properties) {
+.defineProperties=function(other, properties) {
 
     # Set list of property definitions
     if (is.null(other))
@@ -471,7 +471,7 @@ setPropValSlot = function(name, slot, value) {
 # Reset propertyValues {{{3
 ################################################################################
 
-.resetPropertyValues = function() {
+.resetPropertyValues=function() {
 
     .self$.prop <- list()
     for (p in names(.self$.prop.def))
@@ -481,38 +481,38 @@ setPropValSlot = function(name, slot, value) {
 # Get full list of property definitions {{{3
 ################################################################################
 
-.getFullPropDefList = function() {
+.getFullPropDefList=function() {
 
     # Default token
     default_token <- NA_character_
     config <- .self$getBiodb()$getConfig()
-    token.key <- paste(.self$getDbClass(), 'token', sep = '.')
-    if (config$isDefined(token.key, fail = FALSE))
+    token.key <- paste(.self$getDbClass(), 'token', sep='.')
+    if (config$isDefined(token.key, fail=FALSE))
         default_token <- config$get(token.key)
 
     # Define properties
     prop.def <- list(
-        entry.content.encoding = list(class = 'character',
-                                      default = NA_character_,
-                                      na.allowed = TRUE),
-        entry.content.type = list(class = 'character', default = NA_character_,
-                                  allowed = c('html', 'txt', 'xml', 'csv',
+        entry.content.encoding=list(class='character',
+                                      default=NA_character_,
+                                      na.allowed=TRUE),
+        entry.content.type=list(class='character', default=NA_character_,
+                                  allowed=c('html', 'txt', 'xml', 'csv',
                                               'tsv', 'json', 'list'),
-                                  na.allowed = FALSE, modifiable = FALSE),
-        name = list(class = 'character', default = NA_character_,
-                    na.allowed = FALSE, modifiable = FALSE),
-        parsing.expr = list(class = 'list', default = NULL, named = TRUE,
-                            mult = TRUE, allowed_item_types = 'character',
-                            na.allowed = FALSE,
-                            hook = 'defineParsingExpressions'),
-        scheduler.n = list(class = 'integer', default = 1, na.allowed = FALSE),
-        scheduler.t = list(class = 'numeric', default = 1, na.allowed = FALSE),
-        token = list(class = 'character', default = default_token,
-                     na.allowed = TRUE),
-        urls = list(class = 'character', default = character(), named = TRUE,
-                    mult = TRUE),
-        xml.ns = list(class = 'character', default = character(), named = TRUE,
-                      mult = TRUE)
+                                  na.allowed=FALSE, modifiable=FALSE),
+        name=list(class='character', default=NA_character_,
+                    na.allowed=FALSE, modifiable=FALSE),
+        parsing.expr=list(class='list', default=NULL, named=TRUE,
+                            mult=TRUE, allowed_item_types='character',
+                            na.allowed=FALSE,
+                            hook='defineParsingExpressions'),
+        scheduler.n=list(class='integer', default=1, na.allowed=FALSE),
+        scheduler.t=list(class='numeric', default=1, na.allowed=FALSE),
+        token=list(class='character', default=default_token,
+                     na.allowed=TRUE),
+        urls=list(class='character', default=character(), named=TRUE,
+                    mult=TRUE),
+        xml.ns=list(class='character', default=character(), named=TRUE,
+                      mult=TRUE)
     )
 
     return(prop.def)
@@ -521,24 +521,24 @@ setPropValSlot = function(name, slot, value) {
 # Check setting of URL {{{3
 ################################################################################
 
-.checkSettingOfUrl = function(key, value) {
+.checkSettingOfUrl=function(key, value) {
     # Accept setting by default
 },
 
 # Get class name prefix {{{3
 ################################################################################
 
-.getClassNamePrefix = function() {
+.getClassNamePrefix=function() {
 
     s <- .self$.db.class
     indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class,
-                                   perl = TRUE)[[1]])
+                                   perl=TRUE)[[1]])
     indices <- indices + 1  # We are interested in the letter after the dot.
     indices <- c(1, indices) # Add first letter.
     for (i in indices)
         s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)),
-                   substring(s, i + 1), sep = '')
-    s <- gsub('.', '', s, fixed = TRUE) # Remove dots
+                   substring(s, i + 1), sep='')
+    s <- gsub('.', '', s, fixed=TRUE) # Remove dots
 
     return(s)
 },
@@ -549,7 +549,7 @@ setPropValSlot = function(name, slot, value) {
 # Get base URL {{{3
 ################################################################################
 
-getBaseUrl = function() {
+getBaseUrl=function() {
     "Returns the base URL."
 
     .self$.deprecated.method("getUrl()")
@@ -560,7 +560,7 @@ getBaseUrl = function() {
 # Set base URL {{{3
 ################################################################################
 
-setBaseUrl = function(url) {
+setBaseUrl=function(url) {
     "Sets the base URL."
 
     .self$.deprecated.method("setUrl()")
@@ -571,7 +571,7 @@ setBaseUrl = function(url) {
 # Get web sevices URL {{{3
 ################################################################################
 
-getWsUrl = function() {
+getWsUrl=function() {
     "Returns the web sevices URL."
 
     .self$.deprecated.method("getUrl()")
@@ -582,7 +582,7 @@ getWsUrl = function() {
 # Set web sevices URL {{{3
 ################################################################################
 
-setWsUrl = function(ws.url) {
+setWsUrl=function(ws.url) {
     "Sets the web sevices URL."
 
     .self$.deprecated.method("setUrl()")
@@ -593,7 +593,7 @@ setWsUrl = function(ws.url) {
 # Get token {{{3
 ################################################################################
 
-getToken = function() {
+getToken=function() {
     "Returns the access token."
 
     .self$.deprecated.method("getPropertyValue('token')")
@@ -604,7 +604,7 @@ getToken = function() {
 # Set token {{{3
 ################################################################################
 
-setToken = function(token) {
+setToken=function(token) {
     "Sets the access token."
 
     .self$.deprecated.method("setPropertyValue('token', 'my_token_value')")
@@ -615,7 +615,7 @@ setToken = function(token) {
 # Get name {{{3
 ################################################################################
 
-getName = function() {
+getName=function() {
     "Returns the full database name."
 
     .self$.deprecated.method("getPropertyValue('name')")
@@ -626,7 +626,7 @@ getName = function() {
 # Get entry content type {{{3
 ################################################################################
 
-getEntryContentType = function() {
+getEntryContentType=function() {
     "Returns the entry content type."
 
     .self$.deprecated.method("getPropertyValue('entry.content.type')")
@@ -637,7 +637,7 @@ getEntryContentType = function() {
 # Get scheduler N paramater {{{3
 ################################################################################
 
-getSchedulerNParam = function() {
+getSchedulerNParam=function() {
     "Returns the N parameter for the scheduler."
 
     .self$.deprecated.method("getPropertyValue('scheduler.n')")
@@ -648,7 +648,7 @@ getSchedulerNParam = function() {
 # Set scheduler N paramater {{{3
 ################################################################################
 
-setSchedulerNParam = function(n) {
+setSchedulerNParam=function(n) {
     "Sets the N parameter for the scheduler."
 
     .self$.deprecated.method("setPropertyValue('scheduler.n', n)")
@@ -659,7 +659,7 @@ setSchedulerNParam = function(n) {
 # Get scheduler T paramater {{{3
 ################################################################################
 
-getSchedulerTParam = function() {
+getSchedulerTParam=function() {
     "Returns the T parameter for the scheduler."
 
     .self$.deprecated.method("getPropertyValue('scheduler.t')")
@@ -670,7 +670,7 @@ getSchedulerTParam = function() {
 # Set scheduler T paramater {{{3
 ################################################################################
 
-setSchedulerTParam = function(t) {
+setSchedulerTParam=function(t) {
     "Sets the T parameter for the scheduler."
 
     .self$.deprecated.method("setPropertyValue('scheduler.t', t)")
@@ -681,7 +681,7 @@ setSchedulerTParam = function(t) {
 # Get URLs {{{3
 ################################################################################
 
-getUrls = function() {
+getUrls=function() {
     "Returns the URLs."
 
     .self$.deprecated.method("getPropertyValue('urls')")
@@ -692,7 +692,7 @@ getUrls = function() {
 # Get a URL {{{3
 ################################################################################
 
-getUrl = function(name) {
+getUrl=function(name) {
     "Returns a URL."
 
     .self$.deprecated.method("getPropValSlot('urls', 'base.url')")
@@ -703,7 +703,7 @@ getUrl = function(name) {
 # Set a URL {{{3
 ################################################################################
 
-setUrl = function(name, url) {
+setUrl=function(name, url) {
     "Returns a URL."
 
     .self$.deprecated.method(paste0("setPropValSlot('urls', 'base.url',",
@@ -717,7 +717,7 @@ setUrl = function(name, url) {
 # Get XML namespace {{{3
 ################################################################################
 
-getXmlNs = function() {
+getXmlNs=function() {
     "Returns the XML namespace."
 
     .self$.deprecated.method("getPropertyValue('xml.ns')")

@@ -12,19 +12,19 @@
 #' @include KeggConn.R
 #' @export KeggModuleConn
 #' @exportClass KeggModuleConn
-KeggModuleConn <- methods::setRefClass("KeggModuleConn", contains = c("KeggConn"))
+KeggModuleConn <- methods::setRefClass("KeggModuleConn", contains=c("KeggConn"))
 
 # Initialize {{{1
 ################################################################################
 
-KeggModuleConn$methods( initialize = function(...) {
-    callSuper(db.name = 'module', db.abbrev = 'md', ...)
+KeggModuleConn$methods( initialize=function(...) {
+    callSuper(db.name='module', db.abbrev='md', ...)
 })
 
 # Get entry image url {{{1
 ################################################################################
 
-KeggModuleConn$methods( getEntryImageUrl = function(id) {
+KeggModuleConn$methods( getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
 })
 

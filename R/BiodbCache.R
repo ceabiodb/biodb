@@ -51,8 +51,8 @@
 #' @export BiodbCache
 #' @exportClass BiodbCache
 BiodbCache <- methods::setRefClass("BiodbCache",
-    contains = 'BiodbChildObject',
-    methods = list(
+    contains='BiodbChildObject',
+    methods=list(
 
 # Public methods {{{2
 ################################################################################
@@ -60,14 +60,14 @@ BiodbCache <- methods::setRefClass("BiodbCache",
 # Initialize {{{3
 ################################################################################
 
-initialize = function(...) {
+initialize=function(...) {
     callSuper(...)
 },
 
 # Get directory {{{3
 ################################################################################
 
-getDir = function() {
+getDir=function() {
     "Get the absolute path to the cache directory."
 
     cachedir <- .self$getBiodb()$getConfig()$get('cache.directory')
@@ -82,7 +82,7 @@ getDir = function() {
 # Is readable {{{3
 ################################################################################
 
-isReadable = function() {
+isReadable=function() {
     "Returns TRUE if the cache system is readable."
 
     return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()))
@@ -91,7 +91,7 @@ isReadable = function() {
 # Is writable {{{3
 ################################################################################
 
-isWritable = function() {
+isWritable=function() {
     "Returns TRUE if the cache system is writable."
 
     return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()) && ! .self$getBiodb()$getConfig()$get('cache.read.only'))
@@ -100,7 +100,7 @@ isWritable = function() {
 # File exists {{{3
 ################################################################################
 
-fileExist = function(cache.id, subfolder, name, ext) {
+fileExist=function(cache.id, subfolder, name, ext) {
     "Test if files exist in the cache."
 
     exists <- file.exists(.self$getFilePath(cache.id, subfolder, name, ext))
@@ -111,19 +111,19 @@ fileExist = function(cache.id, subfolder, name, ext) {
 # Marker exists {{{3
 ################################################################################
 
-markerExist = function(cache.id, subfolder, name) {
+markerExist=function(cache.id, subfolder, name) {
     "Test if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly."
 
-    return(.self$fileExist(cache.id = cache.id, subfolder = subfolder, name = name, ext = 'marker'))
+    return(.self$fileExist(cache.id=cache.id, subfolder=subfolder, name=name, ext='marker'))
 },
 
 # Set marker {{{3
 ################################################################################
 
-setMarker = function(cache.id, subfolder, name) {
+setMarker=function(cache.id, subfolder, name) {
     "Set a marker."
 
-    marker.path <- .self$getFilePath(cache.id = cache.id, subfolder = subfolder, name = name, ext = 'marker')
+    marker.path <- .self$getFilePath(cache.id=cache.id, subfolder=subfolder, name=name, ext='marker')
 
     writeChar('', marker.path)
 },
@@ -131,14 +131,14 @@ setMarker = function(cache.id, subfolder, name) {
 # Get file path {{{3
 ################################################################################
 
-getFilePath = function(cache.id, subfolder, name, ext) {
+getFilePath=function(cache.id, subfolder, name, ext) {
     "Get path of file in cache system."
 
     # Replace unwanted characters
     name <- gsub('[^A-Za-z0-9._-]', '_', name)
 
     # Set file path
-    filepaths <- file.path(.self$getSubFolderPath(subfolder), paste(cache.id, '-', name, '.', ext, sep = ''))
+    filepaths <- file.path(.self$getSubFolderPath(subfolder), paste(cache.id, '-', name, '.', ext, sep=''))
 
     # Set NA values
     filepaths[is.na(name)] <- NA_character_
@@ -149,34 +149,34 @@ getFilePath = function(cache.id, subfolder, name, ext) {
 # Load file content {{{3
 ################################################################################
 
-loadFileContent = function(cache.id, subfolder, name, ext, output.vector = FALSE) {
+loadFileContent=function(cache.id, subfolder, name, ext, output.vector=FALSE) {
     "Load content of files from the cache."
 
     if ( ! .self$isReadable())
-        .self$message('error', paste("Attempt to read from non-readable cache \"", .self$getDir(), "\".", sep = ''))
+        .self$message('error', paste("Attempt to read from non-readable cache \"", .self$getDir(), "\".", sep=''))
 
     content <- NULL
 
     # Read contents from files
     file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
-    .self$message('debug', paste("Trying to load from cache \"", paste(file.paths[seq_len(min(10, length(file.paths)))], collapse = ", "), if (length(file.paths) > 10) " ..." else "", "\".", sep = ''))
-    content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else if ( ! file.exists(x)) NULL else if (ext == 'RData') { load(x) ; c} else readChar(x, file.info(x)$size, useBytes = TRUE)} )
-    files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE = T)]
+    .self$message('debug', paste("Trying to load from cache \"", paste(file.paths[seq_len(min(10, length(file.paths)))], collapse=", "), if (length(file.paths) > 10) " ..." else "", "\".", sep=''))
+    content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else if ( ! file.exists(x)) NULL else if (ext == 'RData') { load(x) ; c} else readChar(x, file.info(x)$size, useBytes=TRUE)} )
+    files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE=TRUE)]
     if (length(files.read) == 0)
         .self$message('debug', "No files loaded from cache.")
     else
-        .self$message('debug', paste("Loaded from cache \"", paste(if (length(files.read) > 10) c(files.read[seq_len(10)], '...') else files.read, collapse = ", ") ,"\".", sep = ''))
+        .self$message('debug', paste("Loaded from cache \"", paste(if (length(files.read) > 10) c(files.read[seq_len(10)], '...') else files.read, collapse=", ") ,"\".", sep=''))
 
     # Check that the read content is not conflicting with the current locale
     for (i in seq(content)) {
-        n <- tryCatch(nchar(content[[i]]), error = function(e) NULL)
+        n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
         if (is.null(n)) {
-            .self$message('caution', paste("Error when reading content of file \"", file.paths[[i]], "\". The function `nchar` returned an error on the content. The file may be written in a unexpected encoding. Trying latin-1...", sep = ''))
+            .self$message('caution', paste("Error when reading content of file \"", file.paths[[i]], "\". The function `nchar` returned an error on the content. The file may be written in a unexpected encoding. Trying latin-1...", sep=''))
             # The encoding may be wrong, try another one. Maybe LATIN-1
             content[[i]] <- iconv(content[[i]], "iso8859-1")
-            n <- tryCatch(nchar(content[[i]]), error = function(e) NULL)
+            n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
             if (is.null(n))
-                .self$message('error', paste("Impossible to handle correctly the content of file \"", file.paths[[i]], "\". The encoding of this file is unknown.", sep = ''))
+                .self$message('error', paste("Impossible to handle correctly the content of file \"", file.paths[[i]], "\". The encoding of this file is unknown.", sep=''))
         }
     }
 
@@ -185,7 +185,7 @@ loadFileContent = function(cache.id, subfolder, name, ext, output.vector = FALSE
 
     # Vector ?
     if (output.vector)
-        content <- vapply(content, function(x) if (is.null(x)) NA_character_ else x, FUN.VALUE = '')
+        content <- vapply(content, function(x) if (is.null(x)) NA_character_ else x, FUN.VALUE='')
 
     return(content)
 },
@@ -193,35 +193,35 @@ loadFileContent = function(cache.id, subfolder, name, ext, output.vector = FALSE
 # Save content into file {{{3
 ################################################################################
 
-saveContentToFile = function(content, cache.id, subfolder, name, ext) {
+saveContentToFile=function(content, cache.id, subfolder, name, ext) {
     "Save content to files into the cache."
 
     if ( ! .self$isWritable())
-        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
+        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep=''))
 
     # Get file paths
     file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
 
     # Check that we have the same number of content and file paths
     if (length(file.paths) != length(content))
-        .self$message('error', paste("The number of content to save (", length(content), ") is different from the number of paths (", length(file.paths), ").", sep = ''))
+        .self$message('error', paste("The number of content to save (", length(content), ") is different from the number of paths (", length(file.paths), ").", sep=''))
 
     # Replace NA values with 'NA' string
     if (ext != 'RData')
         content[is.na(content)] <- 'NA'
 
     # Write content to files
-    .self$message('debug', paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[seq_len(10)], '...') else file.paths, collapse = ", ") ,"\".", sep = ''))
+    .self$message('debug', paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[seq_len(10)], '...') else file.paths, collapse=", ") ,"\".", sep=''))
     if (ext == 'RData')
-        mapply(function(c, f) { save(c, file = f) }, content, file.paths)
+        mapply(function(c, f) { save(c, file=f) }, content, file.paths)
     else
-        mapply(function(c, f) { if ( ! is.null(c)) cat(c, file = f) }, content, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
+        mapply(function(c, f) { if ( ! is.null(c)) cat(c, file=f) }, content, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
 },
 
 # Get subfolder path {{{3
 ################################################################################
 
-getSubFolderPath = function(subfolder) {
+getSubFolderPath=function(subfolder) {
     "Get the absolute path of a subfolder inside the cache system."
 
     folder.path <- .self$.get.subfolder.path(subfolder)
@@ -236,7 +236,7 @@ getSubFolderPath = function(subfolder) {
 # Erase folder {{{3
 ################################################################################
 
-eraseFolder = function(subfolder = NA_character_) {
+eraseFolder=function(subfolder=NA_character_) {
 
     # Erase whole cache
     if (is.na(subfolder) || ! .self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
@@ -247,18 +247,18 @@ eraseFolder = function(subfolder = NA_character_) {
         folder.to.erase <- .self$.get.subfolder.path(subfolder)
 
     # Erase
-    .self$message('info', paste("Erasing cache folder ", folder.to.erase, ".", sep = ''))
-    unlink(folder.to.erase, recursive = TRUE)
+    .self$message('info', paste("Erasing cache folder ", folder.to.erase, ".", sep=''))
+    unlink(folder.to.erase, recursive=TRUE)
 },
 
 # Delete file {{{3
 ################################################################################
 
-deleteFile = function(cache.id, subfolder, name, ext) {
+deleteFile=function(cache.id, subfolder, name, ext) {
     "Delete one file inside the cache system."
 
     if ( ! .self$isWritable())
-        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
+        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep=''))
 
     # Get file paths
     file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
@@ -270,15 +270,15 @@ deleteFile = function(cache.id, subfolder, name, ext) {
 # Delete files {{{3
 ################################################################################
 
-deleteFiles = function(cache.id, subfolder, ext = NA_character_) {
+deleteFiles=function(cache.id, subfolder, ext=NA_character_) {
     "Delete files inside the cache system."
 
     if ( ! .self$isWritable())
-        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep = ''))
+        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep=''))
 
-    files <- paste(cache.id, '*',sep = '-')
+    files <- paste(cache.id, '*',sep='-')
     if ( ! is.na(ext))
-        files <- paste(files, ext, sep = '.')
+        files <- paste(files, ext, sep='.')
 
     unlink(file.path(.self$getSubFolderPath(subfolder), files))
 },
@@ -286,27 +286,27 @@ deleteFiles = function(cache.id, subfolder, ext = NA_character_) {
 # List files {{{3
 ################################################################################
 
-listFiles = function(cache.id, subfolder, ext = NA_character_, extract.name = FALSE) {
+listFiles=function(cache.id, subfolder, ext=NA_character_, extract.name=FALSE) {
     "List files present in the cache system."
 
     # Pattern
-    pattern <- paste('^', cache.id, '-.*', sep = '')
+    pattern <- paste('^', cache.id, '-.*', sep='')
     if ( ! is.na(ext))
-        pattern <- paste(pattern, ext, sep = '\\.')
-    pattern <- paste(pattern, '$', sep = '')
+        pattern <- paste(pattern, ext, sep='\\.')
+    pattern <- paste(pattern, '$', sep='')
 
     # List files
     dir <- .self$getSubFolderPath(subfolder)
     .self$message('debug', paste("List files in", dir, "using pattern ", pattern))
-    files <- list.files(path = dir, pattern = pattern)
+    files <- list.files(path=dir, pattern=pattern)
 
     # Extract only the name part
     if (extract.name) {
-        pattern <- paste('^', cache.id, '-(.*)', sep = '')
+        pattern <- paste('^', cache.id, '-(.*)', sep='')
         if ( ! is.na(ext))
-            pattern <- paste(pattern, ext, sep = '\\.')
-        pattern <- paste(pattern, '$', sep = '')
-        files <- sub(pattern, '\\1', files, perl = TRUE)
+            pattern <- paste(pattern, ext, sep='\\.')
+        pattern <- paste(pattern, '$', sep='')
+        files <- sub(pattern, '\\1', files, perl=TRUE)
     }
 
     return(files)
@@ -315,10 +315,10 @@ listFiles = function(cache.id, subfolder, ext = NA_character_, extract.name = FA
 # Show {{{3
 ################################################################################
 
-show = function() {
+show=function() {
     cat("Biodb cache system instance.\n")
-    cat("  The cache is ", (if (.self$isReadable()) "" else "not "), "readable.\n", sep = '')
-    cat("  The cache is ", (if (.self$isWritable()) "" else "not "), "writable.\n", sep = '')
+    cat("  The cache is ", (if (.self$isReadable()) "" else "not "), "readable.\n", sep='')
+    cat("  The cache is ", (if (.self$isWritable()) "" else "not "), "writable.\n", sep='')
 },
 
 # Private methods {{{2
@@ -327,13 +327,13 @@ show = function() {
 # Get subfolder path {{{3
 ################################################################################
 
-.get.subfolder.path = function(subfolder) {
+.get.subfolder.path=function(subfolder) {
 
-    cfg.subfolder.key <- paste(subfolder, 'cache', 'subfolder', sep = '.')
+    cfg.subfolder.key <- paste(subfolder, 'cache', 'subfolder', sep='.')
 
     # Check subfolder
     if ( ! .self$getBiodb()$getConfig()$isDefined(cfg.subfolder.key))
-        .self$message('error', paste("Unknown cache folder \"", folder, "\".", sep = ''))
+        .self$message('error', paste("Unknown cache folder \"", folder, "\".", sep=''))
 
     # Get subfolder path
     if (.self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
@@ -348,7 +348,7 @@ show = function() {
 # Enabled {{{3
 ################################################################################
 
-enabled = function() {
+enabled=function() {
 
     .self$.deprecated.method("BiodbConfig::isEnabled('cache.system')")
 
@@ -358,7 +358,7 @@ enabled = function() {
 # Enable {{{3
 ################################################################################
 
-enable = function() {
+enable=function() {
 
     .self$.deprecated.method("BiodbConfig::enable('cache.system')")
     
@@ -368,7 +368,7 @@ enable = function() {
 # Disable {{{3
 ################################################################################
 
-disable = function() {
+disable=function() {
 
     .self$.deprecated.method("BiodbConfig::disable('cache.system')")
     

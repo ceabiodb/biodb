@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry", contains = 'BiodbEntry')
+BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry", contains='BiodbEntry')
 
 # Initialize {{{1
 ################################################################################
 
-BiodbTxtEntry$methods( initialize = function(...) {
+BiodbTxtEntry$methods( initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbTxtEntry')
@@ -19,7 +19,7 @@ BiodbTxtEntry$methods( initialize = function(...) {
 # Do parse content {{{1
 ################################################################################
 
-BiodbTxtEntry$methods( .doParseContent = function(content) {
+BiodbTxtEntry$methods( .doParseContent=function(content) {
 
     # Get lines of content
     lines <- strsplit(content, "\r?\n")[[1]]
@@ -30,7 +30,7 @@ BiodbTxtEntry$methods( .doParseContent = function(content) {
 # Parse fields step 1 {{{1
 ################################################################################
 
-BiodbTxtEntry$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbTxtEntry$methods( .parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
@@ -48,7 +48,7 @@ BiodbTxtEntry$methods( .parseFieldsStep1 = function(parsed.content) {
         g <- stringr::str_match(parsed.content, parsing.expr[[field]])
 
         # Get positive results
-        results <- g[ ! is.na(g[, 1]), , drop = FALSE]
+        results <- g[ ! is.na(g[, 1]), , drop=FALSE]
 
         # Any match ?
         if (nrow(results) > 0)

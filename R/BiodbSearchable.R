@@ -13,12 +13,12 @@
 #' @include BiodbObject.R
 #' @export BiodbSearchable
 #' @exportClass BiodbSearchable
-BiodbSearchable <- methods::setRefClass("BiodbSearchable", contains = 'BiodbObject', fields = list(.ext = 'character'))
+BiodbSearchable <- methods::setRefClass("BiodbSearchable", contains='BiodbObject', fields=list(.ext='character'))
 
 # Initialize {{{1
 ################################################################0
 
-BiodbSearchable$methods( initialize = function(...) {
+BiodbSearchable$methods( initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbSearchable')
@@ -27,7 +27,7 @@ BiodbSearchable$methods( initialize = function(...) {
 # Search by name {{{1
 ################################################################0
 
-BiodbSearchable$methods( searchByName = function(name, max.results = NA_integer_) {
+BiodbSearchable$methods( searchByName=function(name, max.results=NA_integer_) {
 
     .self$.abstract.method()
 })

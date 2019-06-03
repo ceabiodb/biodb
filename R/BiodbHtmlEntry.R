@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-BiodbHtmlEntry <- methods::setRefClass("BiodbHtmlEntry", contains = "BiodbXmlEntry")
+BiodbHtmlEntry <- methods::setRefClass("BiodbHtmlEntry", contains="BiodbXmlEntry")
 
 # Initialize {{{1
 ################################################################################
 
-BiodbHtmlEntry$methods( initialize = function(...) {
+BiodbHtmlEntry$methods( initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbHtmlEntry')
@@ -19,10 +19,10 @@ BiodbHtmlEntry$methods( initialize = function(...) {
 # Do parse content {{{1
 ################################################################################
 
-BiodbHtmlEntry$methods( .doParseContent = function(content) {
+BiodbHtmlEntry$methods( .doParseContent=function(content) {
 
     # Parse XML
-    xml <-  XML::htmlTreeParse(content, asText = TRUE, useInternalNodes = TRUE)
+    xml <-  XML::htmlTreeParse(content, asText=TRUE, useInternalNodes=TRUE)
 
     return(xml)
 })

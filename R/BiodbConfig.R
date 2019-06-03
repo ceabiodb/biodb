@@ -45,26 +45,26 @@
 #' @export BiodbConfig
 #' @exportClass BiodbConfig
 BiodbConfig <- methods::setRefClass("BiodbConfig",
-                                    contains = "BiodbChildObject",
+                                    contains="BiodbChildObject",
 
 # Fields {{{2
 ################################################################################
                                     
-fields = list(
-    .values = "list",
-    .env = "ANY",
-    .keys = "list"
+fields=list(
+    .values="list",
+    .env="ANY",
+    .keys="list"
 ),
 
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Initialize {{{3
 ################################################################################
 
-initialize = function(...) {
+initialize=function(...) {
 
     callSuper(...)
 
@@ -76,7 +76,7 @@ initialize = function(...) {
 # Get keys {{{3
 ################################################################################
 
-getKeys = function() {
+getKeys=function() {
     "Get the list of available keys."
 
     return(names(.self$.keys))
@@ -85,7 +85,7 @@ getKeys = function() {
 # Get description {{{3
 ################################################################################
 
-getDescription = function(key) {
+getDescription=function(key) {
     "Get the description of a key."
 
     description <- ''
@@ -102,7 +102,7 @@ getDescription = function(key) {
 # Get default value {{{3
 ################################################################################
 
-getDefaultValue = function(key) {
+getDefaultValue=function(key) {
     "Get the default value of a key."
 
     default <- NULL
@@ -119,19 +119,19 @@ getDefaultValue = function(key) {
 # Has key {{{3
 ################################################################################
 
-hasKey = function(key) {
+hasKey=function(key) {
     "Test if a key exists."
 
-    return(.self$.checkKey(key, fail = FALSE))
+    return(.self$.checkKey(key, fail=FALSE))
 },
 
 # Defined {{{3
 ################################################################################
 
-isDefined = function(key, fail = TRUE) {
+isDefined=function(key, fail=TRUE) {
     "Test if a key is defined."
 
-    if (.self$.checkKey(key, fail = fail))
+    if (.self$.checkKey(key, fail=fail))
         return(key %in% names(.self$.values))
     
     return(FALSE)
@@ -140,10 +140,10 @@ isDefined = function(key, fail = TRUE) {
 # Is enabled {{{3
 ################################################################################
 
-isEnabled = function(key) {
+isEnabled=function(key) {
     "Test if a boolean key is set to TRUE."
 
-    .self$.checkKey(key, type = 'logical')
+    .self$.checkKey(key, type='logical')
 
     value <- FALSE
 
@@ -157,7 +157,7 @@ isEnabled = function(key) {
 # Get {{{3
 ################################################################################
 
-get = function(key) {
+get=function(key) {
     "Get the value of a key."
 
     .self$.checkKey(key)
@@ -166,7 +166,7 @@ get = function(key) {
     if (.self$isDefined(key))
         value <- .self$.values[[key]]
     else
-        value <- as.vector(NA, mode = .self$.getType(key))
+        value <- as.vector(NA, mode=.self$.getType(key))
 
     return(value)
 },
@@ -174,7 +174,7 @@ get = function(key) {
 # Set {{{3
 ################################################################################
 
-set = function(key, value) {
+set=function(key, value) {
     "Set the value of a key."
 
     .self$.checkKey(key)
@@ -182,8 +182,8 @@ set = function(key, value) {
     displayed.value <- if (is.character(value)) paste0('"', value, '"')
                        else value
     .self$message('info', paste("Set ", key, ' to ', displayed.value, '.',
-                                sep = ''))
-    v <- as.vector(value, mode = .self$.getType(key))
+                                sep=''))
+    v <- as.vector(value, mode=.self$.getType(key))
     .self$.values[[key]] <- v
     
     # Notify observers
@@ -193,31 +193,31 @@ set = function(key, value) {
 # Enable {{{3
 ################################################################################
 
-enable = function(key) {
+enable=function(key) {
     "Set a boolean key to TRUE."
 
-    .self$.checkKey(key, type = 'logical')
+    .self$.checkKey(key, type='logical')
 
-    .self$message('info', paste("Enable ", key, ".", sep = ''))
+    .self$message('info', paste("Enable ", key, ".", sep=''))
     .self$.values[[key]] <- TRUE
 },
 
 # Disable {{{3
 ################################################################################
 
-disable = function(key) {
+disable=function(key) {
     "Set a boolean key to FALSE."
 
-    .self$.checkKey(key, type = 'logical')
+    .self$.checkKey(key, type='logical')
 
-    .self$message('info', paste("Disable ", key, ".", sep = ''))
+    .self$message('info', paste("Disable ", key, ".", sep=''))
     .self$.values[[key]] <- FALSE
 },
 
 # Show {{{3
 ################################################################################
 
-show = function() {
+show=function() {
     "Print containt of this object in a human readable format."
 
     cat("Biodb configuration instance.\n")
@@ -232,20 +232,20 @@ show = function() {
 # List keys {{{3
 ################################################################################
 
-listKeys = function() {
+listKeys=function() {
 
     # Fields to extract
-    field2title <- c(type = "Type", default = "Default value",
-                     description = "Description")
+    field2title <- c(type="Type", default="Default value",
+                     description="Description")
 
     # Build data frame
-    df <- data.frame(Key = names(.self$.keys), stringsAsFactors = FALSE)
+    df <- data.frame(Key=names(.self$.keys), stringsAsFactors=FALSE)
     for (field in names(field2title))
         df[[field2title[[field]]]] <-
             vapply(.self$.keys,
                    function(k) if ( ! field %in% names(k)
                                    || is.null(k[[field]])) ''
-               else as.character(k[[field]]), FUN.VALUE = '')
+               else as.character(k[[field]]), FUN.VALUE='')
 
     return(df)
 },
@@ -253,15 +253,15 @@ listKeys = function() {
 # Get associated environment variable {{{3
 ################################################################################
 
-getAssocEnvVar = function(key) {
+getAssocEnvVar=function(key) {
     "Returns the environment variable associated with this configuration key."
 
     # Check key
     .self$.checkKey(key)
 
     # Build env var
-    env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))),
-                     collapse = '_')
+    env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed=TRUE))),
+                     collapse='_')
 
     return(env.var)
 },
@@ -272,7 +272,7 @@ getAssocEnvVar = function(key) {
 # Get SVN binary path {{{3
 ################################################################################
 
-.get.svn.binary.path = function() {
+.get.svn.binary.path=function() {
 
     svn.path <- ''
 
@@ -295,13 +295,13 @@ getAssocEnvVar = function(key) {
 # Load definitions {{{3
 ################################################################################
 
-.loadDefinitions = function(file) {
+.loadDefinitions=function(file) {
 },
 
 # Define {{{3
 ################################################################################
 
-define = function(def) {
+define=function(def) {
     'Define config properties from a structured object, normally loaded from a
     YAML file.'
 
@@ -317,13 +317,13 @@ define = function(def) {
 # Get from env {{{3
 ################################################################################
 
-.getFromEnv = function(key) {
+.getFromEnv=function(key) {
 
     value <- NULL
 
     # Look into ENV
-    envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed = TRUE))),
-                    collapse = '_')
+    envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed=TRUE))),
+                    collapse='_')
     if (envvar %in% names(.self$.env))
         value <- .self$.env[[envvar]]
 
@@ -333,8 +333,8 @@ define = function(def) {
 # New key {{{3
 ################################################################################
 
-.newKey = function(key, type, default = NULL, description = NA_character_,
-                   deprecated = NULL) {
+.newKey=function(key, type, default=NULL, description=NA_character_,
+                   deprecated=NULL) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key))
@@ -354,14 +354,14 @@ define = function(def) {
         if (key == 'cache.directory' && 'HOME' %in% names(.self$.env))
             default <- file.path(.self$.env[['HOME']], '.biodb.cache')
         if (key == 'useragent' && 'EMAIL' %in% names(.self$.env))
-            default <- paste('Biodb user', .self$.env[['EMAIL']], sep = ' ; ')
+            default <- paste('Biodb user', .self$.env[['EMAIL']], sep=' ; ')
         if (key == 'svn.binary.path')
             default <- .self$.get.svn.binary.path()
     }
 
     # Define new key
-    .self$.keys[[key]] <- list(type = type, default = default,
-                               description = description)
+    .self$.keys[[key]] <- list(type=type, default=default,
+                               description=description)
 
     # Set as deprecated
     if ( ! is.null(deprecated))
@@ -375,8 +375,8 @@ define = function(def) {
 # Check key {{{3
 ################################################################################
 
-.checkKey = function(key, type = NA_character_, fail = TRUE,
-                     test.deprecated = TRUE) {
+.checkKey=function(key, type=NA_character_, fail=TRUE,
+                     test.deprecated=TRUE) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key)) {
@@ -415,7 +415,7 @@ define = function(def) {
 # Get type {{{3
 ################################################################################
 
-.getType = function(key) {
+.getType=function(key) {
 
     .self$.checkKey(key)
 
@@ -426,7 +426,7 @@ define = function(def) {
 # Is deprecated {{{3
 ################################################################################
 
-.isDeprecated = function(key) {
+.isDeprecated=function(key) {
     return('deprecated' %in% names(.self$.keys[[key]]))
 }
 

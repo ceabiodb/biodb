@@ -5,7 +5,8 @@
 
 #' A class for describing the available databases.
 #'
-#' The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getDbsInfo()} method.
+#' The unique instance of this class is handle by the \code{\link{Biodb}} class
+#' and accessed through the \code{getDbsInfo()} method.
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbDbInfo}}.
 #'
@@ -14,7 +15,8 @@
 #' @examples
 #' # Getting the base URL of a database:
 #' mybiodb <- biodb::Biodb()
-#' chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getPropValSlot('urls', 'base.url')
+#' chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getPropValSlot('urls',
+#' 'base.url')
 #'
 #' # Setting a token:
 #' mybiodb$getDbsInfo()$get('chemspider')$setToken('my.chemspider.token')
@@ -28,22 +30,24 @@
 #' @export BiodbDbsInfo
 #' @exportClass BiodbDbsInfo
 BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo",
-    contains =  "BiodbChildObject",
+    contains="BiodbChildObject",
     
 # Fields {{{2
 ################################################################################
 
-fields = list( .dbs = "list"),
+fields=list(
+    .dbs="list"
+),
 
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Initialize {{{1
 ################################################################################
 
-initialize = function(...) {
+initialize=function(...) {
 
     callSuper(...)
 
@@ -53,7 +57,7 @@ initialize = function(...) {
 # Define {{{3
 ################################################################################
 
-define = function(def) {
+define=function(def) {
     'Define databases from a structured object, normally loaded from a YAML
     file.'
 
@@ -66,15 +70,16 @@ define = function(def) {
 
         # Define new database
         else
-            .self$.dbs[[db]] <- BiodbDbInfo$new(parent = .self, db.class = db,
-                                                properties = def[[db]])
+            .self$.dbs[[db]] <- BiodbDbInfo$new(parent=.self, db.class=db,
+                                                properties=def[[db]])
 },
 
 # Get list of database IDs {{{3
 ################################################################################
 
-getIds = function() {
-    "Returns a character vector containing all the IDs of the defined databases."
+getIds=function() {
+    "Returns a character vector containing all the IDs of the defined
+    databases."
 
     return(names(.self$.dbs))
 },
@@ -82,7 +87,7 @@ getIds = function() {
 # Is defined {{{3
 ################################################################################
 
-isDefined = function(db.id) {
+isDefined=function(db.id) {
     "Returns TRUE if the specified id corresponds to a defined database."
 
     return(db.id %in% names(.self$.dbs))
@@ -91,18 +96,20 @@ isDefined = function(db.id) {
 # Check is defined {{{3
 ################################################################################
 
-checkIsDefined = function(db.id) {
-    "Throws an error if the specified id does not correspond to a defined database."
+checkIsDefined=function(db.id) {
+    "Throws an error if the specified id does not correspond to a defined
+    database."
 
     if ( ! .self$isDefined(db.id))
-        .self$message('error', paste("Database \"", db.id, "\" is not defined.", sep = ''))
+        .self$error("Database \"", db.id, "\" is not defined.")
 },
 
 # Get {{{3
 ################################################################################
 
-get = function(db.id) {
-    "Returns the BiodbDbInfo instance corresponding to the specified database ID."
+get=function(db.id) {
+    "Returns the BiodbDbInfo instance corresponding to the specified database
+    ID."
 
     .self$checkIsDefined(db.id)
     db <- .self$.dbs[[db.id]]
@@ -112,7 +119,7 @@ get = function(db.id) {
 # Get all {{{3
 ################################################################################
 
-getAll = function() {
+getAll=function() {
     "Returns a list of all BiodbDbInfo instances."
 
     return(unname(.self$.dbs))
@@ -121,7 +128,7 @@ getAll = function() {
 # Show {{{3
 ################################################################################
 
-show = function() {
+show=function() {
     cat("Biodb databases information instance.\n")
 }
 

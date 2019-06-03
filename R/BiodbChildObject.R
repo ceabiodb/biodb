@@ -5,23 +5,23 @@
 
 #' @include BiodbObject.R
 BiodbChildObject <- methods::setRefClass("BiodbChildObject",
-    contains = 'BiodbObject',
+    contains='BiodbObject',
 
 # Fields {{{2
 ################################################################################
-fields = list(
-    .parent = "ANY"
+fields=list(
+    .parent="ANY"
 ),
 
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Initialize {{{3
 ################################################################################
 
-initialize = function(parent, ...) {
+initialize=function(parent, ...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbChildObject')
@@ -31,14 +31,14 @@ initialize = function(parent, ...) {
 # Get parent {{{3
 ################################################################################
 
-getParent = function() {
+getParent=function() {
     return(.self$.parent)
 },
 
 # Get biodb {{{3
 ################################################################################
 
-getBiodb = function() {
+getBiodb=function() {
     return(.self$getParent()$getBiodb())
 },
 
@@ -48,7 +48,7 @@ getBiodb = function() {
 # Set parent {{{3
 ################################################################################
 
-.setParent = function(parent) {
+.setParent=function(parent) {
 
     if (is.null(parent))
         .self$message('error', "Parent cannot be NULL.")

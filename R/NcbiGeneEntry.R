@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-NcbiGeneEntry <- methods::setRefClass("NcbiGeneEntry", contains = "BiodbXmlEntry")
+NcbiGeneEntry <- methods::setRefClass("NcbiGeneEntry", contains="BiodbXmlEntry")
 
 # Initialize {{{1
 ################################################################################
 
-NcbiGeneEntry$methods( initialize = function(...) {
+NcbiGeneEntry$methods( initialize=function(...) {
 
     callSuper(...)
 })
@@ -18,14 +18,14 @@ NcbiGeneEntry$methods( initialize = function(...) {
 # Is parsed content correct {{{1
 ################################################################################
 
-NcbiGeneEntry$methods( .isParsedContentCorrect = function(parsed.content) {
+NcbiGeneEntry$methods( .isParsedContentCorrect=function(parsed.content) {
     return(length(XML::getNodeSet(parsed.content, "//Error")) == 0 && length(XML::getNodeSet(parsed.content, "//ERROR")) == 0)
 })
 
 # Parse fields step 2 {{{1
 ################################################################################
 
-NcbiGeneEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+NcbiGeneEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
     # CCDS ID
     ccdsid <- .self$.find.ccds.id(parsed.content)
@@ -36,7 +36,7 @@ NcbiGeneEntry$methods( .parseFieldsStep2 = function(parsed.content) {
 # Find ccds id {{{1
 ################################################################################
 
-NcbiGeneEntry$methods( .find.ccds.id = function(parsed.content) {
+NcbiGeneEntry$methods( .find.ccds.id=function(parsed.content) {
 
     # 1) Get all CCDS tags.
     ccds_elements <- XML::getNodeSet(parsed.content, "//Dbtag_db[text()='CCDS']/..//Object-id_str")

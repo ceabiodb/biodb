@@ -5,12 +5,12 @@
 # Class declaration {{{1
 ################################################################################
 
-ChemspiderEntry <- methods::setRefClass("ChemspiderEntry", contains = "BiodbJsonEntry")
+ChemspiderEntry <- methods::setRefClass("ChemspiderEntry", contains="BiodbJsonEntry")
 
 # Initialize {{{1
 ################################################################################
 
-ChemspiderEntry$methods( initialize = function(...) {
+ChemspiderEntry$methods( initialize=function(...) {
 
     callSuper(...)
 })

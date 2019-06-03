@@ -4,4 +4,4 @@
 ################################################################################
 
 #' @include BiodbEntryList.R
-MassSqliteEntry <- methods::setRefClass("MassSqliteEntry", contains = "BiodbEntryList")
+MassSqliteEntry <- methods::setRefClass("MassSqliteEntry", contains="BiodbEntryList")

@@ -27,7 +27,7 @@
 #' conn <- mybiodb$getFactory()$createConn('chebi')
 #'
 #' # Search for compounds
-#' conn$searchCompound(name = 'prion protein', max.results = 10)
+#' conn$searchCompound(name='prion protein', max.results=10)
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -36,17 +36,17 @@
 #' @export BiodbCompounddbConn
 #' @exportClass BiodbCompounddbConn
 BiodbCompounddbConn <- methods::setRefClass("BiodbCompounddbConn",
-                                            contains = "BiodbConn",
+                                            contains="BiodbConn",
 
 # Public methods {{{2
 ################################################################################
 
-methods = list(
+methods=list(
 
 # Initialize {{{3
 ################################################################################
 
-initialize = function(...) {
+initialize=function(...) {
 
     callSuper(...)
     .self$.abstract.class('BiodbCompounddbConn')
@@ -55,9 +55,9 @@ initialize = function(...) {
 # Search compound {{{3
 ################################################################################
 
-searchCompound = function(name = NULL, mass = NULL, mass.field = NULL,
-                          mass.tol = 0.01, mass.tol.unit = 'plain',
-                          max.results = NA_integer_) {
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
+                          mass.tol=0.01, mass.tol.unit='plain',
+                          max.results=NA_integer_) {
     "Search for compounds by name and/or by mass. For searching by mass, you
     must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
                                        ...)"
@@ -71,13 +71,13 @@ searchCompound = function(name = NULL, mass = NULL, mass.field = NULL,
 # Check mass field {{{3
 ################################################################################
 
-.checkMassField = function(mass, mass.field) {
+.checkMassField=function(mass, mass.field) {
 
     if ( ! is.null(mass)) {
         .self$.assert.is(mass, c('integer', 'numeric'))
         .self$.assert.not.null(mass.field)
         .self$.assert.is(mass.field, 'character')
-        mass.fields <- .self$getBiodb()$getEntryFields()$getFieldNames(type = 'mass')
+        mass.fields <- .self$getBiodb()$getEntryFields()$getFieldNames(type='mass')
         .self$.assert.in(mass.field, mass.fields)
     }
 }
