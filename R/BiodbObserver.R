@@ -41,15 +41,34 @@
 #' @exportClass BiodbObserver
 BiodbObserver <- methods::setRefClass("BiodbObserver",
 
+# Fields {{{2
+################################################################################
+
+fields=list(
+),
+
 # Public methods {{{2
 ################################################################################
 
 methods=list(
 
+# Initialize {{{3
+################################################################################
+
+initialize=function() {
+},
+
 # Terminate {{{3
 ################################################################################
 
 terminate=function() {
+},
+
+# Show {{{3
+################################################################################
+
+show=function() {
+    cat('Observer of class ', class(.self), ".\n", sep='')
 },
 
 # New observer {{{3
@@ -67,8 +86,8 @@ cfgKVUpdate=function(k, v) {
 # Message {{{3
 ################################################################################
 
-message=function(type='info', msg, class=NA_character_,
-                 method=NA_character_, lvl=1) {
+msg=function(type='info', msg, class=NA_character_,
+             method=NA_character_, lvl=1) {
     .self$checkMessageType(type)
 },
 

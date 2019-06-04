@@ -128,7 +128,7 @@ getDesiredLevel=function(type) {
 # Message {{{3
 ################################################################################
 
-message=function(type='info', msg, class=NA_character_,
+msg=function(type='info', msg, class=NA_character_,
                    method=NA_character_, lvl=1) {
 
     .self$checkMessageType(type)
@@ -171,7 +171,7 @@ progress=function(type='info', msg, index, total, first, lvl=1) {
              > .self$.progress.laptime) {
         i <- .self$.progress.initial.time[[msg]]
         eta <- t + (total - index) * (t - i) / index
-        .self$message(type, paste0(msg, ' ', index, ' / ', total, ' (',
+        .self$msg(type, paste0(msg, ' ', index, ' / ', total, ' (',
                                    ((100 * index) %/% total), '%, ETA: ',
                                    eta, ').'), lvl=lvl)
         .self$.lastime.progress[[msg]] <- t

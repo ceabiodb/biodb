@@ -104,7 +104,7 @@ TestObserver$methods( initialize = function(...) {
 	.last.index <<- 0
 })
 
-TestObserver$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_, lvl=1) {
+TestObserver$methods( msg = function(type = 'info', msg, class = NA_character_, method = NA_character_, lvl=1) {
 	testthat::expect_is(msg, 'character')
 })
 
@@ -350,7 +350,7 @@ create.test.observer <- function(biodb) {
 		.msgs <<- character()
 		.msgs.by.type <<- list()
 	})
-	TestObs$methods( message = function(type, msg, class = NA_character_, method = NA_character_, lvl = 1) {
+	TestObs$methods( msg = function(type, msg, class = NA_character_, method = NA_character_, lvl = 1) {
 		.msgs <<- c(.self$.msgs, msg)
 		.self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
 	})

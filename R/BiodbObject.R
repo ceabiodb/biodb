@@ -58,7 +58,7 @@ message=function(type, msg, lvl=1) {
 
     if ( ! is.null(biodb))
         lapply(biodb$getObservers(),
-               function(x) x$message(type=type, msg=msg, class=class,
+               function(x) x$msg(type=type, msg=msg, class=class,
                                      method=method, lvl=lvl))
     else {
         caller.info <- if (is.na(class)) '' else class

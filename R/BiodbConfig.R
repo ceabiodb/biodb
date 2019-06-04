@@ -84,7 +84,7 @@ newObserver=function(obs) {
     
     # Loop on all keys
     for(key in names(.self$.values))
-        .self$getObservers()$cfgKVUpdate(key, .self$.values[[key]])
+        .self$getBiodb()$getObservers()$cfgKVUpdate(key, .self$.values[[key]])
 },
 
 # Get keys {{{3
@@ -239,12 +239,15 @@ show=function() {
     "Print containt of this object in a human readable format."
 
     cat("Biodb configuration instance.\n")
-    cat("  Values:\n")
 
     # Loop on all keys
-    for (key in sort(.self$getKeys()))
-        if ( ! .self$.isDeprecated(key))
-            cat("    ", key, ": ", .self$get(key), "\n")
+    keys <- sort(.self$getKeys())
+    if (length(keys) > 0) {
+        cat("  Values:\n")
+        for (key in keys)
+            if ( ! .self$.isDeprecated(key))
+                cat("    ", key, ": ", .self$get(key), "\n")
+    }
 },
 
 # List keys {{{3
