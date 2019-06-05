@@ -20,7 +20,7 @@
 #' config <- mybiodb$getConfig()
 #'
 #' # Print all available keys
-#' print(config$getKeys())
+#' config$getKeys()
 #'
 #' # Get a configuration value:
 #' value <- config$get('cache.directory')
@@ -29,13 +29,10 @@
 #' config$set('cache.directory', '~/my.biodb.cache')
 #'
 #' # For boolean values, you can use boolean methods:
-#' print(config$get('offline'))
+#' config$get('offline')
 #' config$enable('offline')    # set to TRUE
 #' config$disable('offline')   # set to FALSE
-#' if (config$isEnabled('offline'))
-#'   print('Mode offline is ON.')
-#' else
-#'   print('Mode offline is OFF.')
+#' config$isEnabled('offline')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -84,7 +81,8 @@ newObserver=function(obs) {
     
     # Loop on all keys
     for(key in names(.self$.values))
-        .self$getBiodb()$getObservers()$cfgKVUpdate(key, .self$.values[[key]])
+        .self$notify('cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
+#        lapply(.self$getBiodb()$getObservers(), function(o) o$cfgKVUpdate(key, .self$.values[[key]]))
 },
 
 # Get keys {{{3
@@ -182,9 +180,6 @@ get=function(key) {
     else
         value <- as.vector(NA, mode=.self$.getType(key))
 
-    print('-------------------------------- BiodbConfig::get')
-    print(key)
-    print(value)
     return(value)
 },
 
@@ -384,9 +379,6 @@ define=function(def) {
         if (key == 'svn.binary.path')
             default <- .self$.getSvnBinaryPath()
     }
-    print('-------------------------------- BiodbConfig::.newKey')
-    print(key)
-    print(default)
 
     # Define new key
     .self$.keys[[key]] <- list(type=type, default=default,

@@ -33,6 +33,21 @@ getBiodb=function() {
     .self$abstract.method()
 },
 
+# Notify observers {{{3
+################################################################################
+
+notify=function(fct, args) {
+    
+    # Get observers
+    obs <- .self$getBiodb()$getObservers()
+    
+    # Build call code
+    call <- paste0('do.call(o$', fct, ', args)')
+
+    # Notify each observer
+    lapply(obs, function(o) eval(parse(text=call)) )
+},
+
 # Message {{{3
 ################################################################################
 

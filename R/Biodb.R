@@ -223,18 +223,8 @@ addObservers=function(observers) {
         else c(observers, .self$.observers)
 
     # Notify of new observers
-    for(no in observers) {
-        print('-------------------------------- Biodb::addObservers 10')
-        print(is.null(no))
-        no$show()
-        print('-------------------------------- Biodb::addObservers 20')
-        for(o in old_obs) {
-        print('-------------------------------- Biodb::addObservers 21')
-            o$show()
-            o$newObserver(no)
-        }
+    for(no in observers)
         lapply(old_obs, function(o) o$newObserver(no))
-    }
 },
 
 # Get observers {{{3
