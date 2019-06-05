@@ -29,65 +29,35 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 \section{Methods}{
 
 \describe{
-\item{\code{forbidsDuplicates()}}{:
+\item{\code{forbidsDuplicates()}}{Returns \code{TRUE} if this field forbids duplicated values.}
 
- Returns \code{TRUE} if this field forbids duplicated values.}
+\item{\code{getAliases()}}{Returns the list of aliases if some are defined, otherwise returns NULL.}
 
-\item{\code{getAliases()}}{:
+\item{\code{getAllNames()}}{Returns the list of all names (main name and aliases).}
 
- Returns the list of aliases if some are defined, otherwise returns NULL.}
+\item{\code{getComputableFrom()}}{Returns the list of databases where to find this field's value.}
 
-\item{\code{getAllNames()}}{:
+\item{\code{getDescription()}}{Get field's description.}
 
- Returns the list of all names (main name and aliases).}
+\item{\code{getGroup()}}{Get field's group.}
 
-\item{\code{getComputableFrom()}}{:
+\item{\code{getName()}}{Get field's name.}
 
- Returns the list of databases where to find this field's value.}
+\item{\code{getType()}}{Get field's type.}
 
-\item{\code{getDescription()}}{:
+\item{\code{hasAliases()}}{Returns TRUE if this entry field defines aliases.}
 
- Get field's description.}
+\item{\code{hasCardMany()}}{Returns \code{TRUE} if the cardinality of this field is many.}
 
-\item{\code{getGroup()}}{:
+\item{\code{hasCardOne()}}{Returns \code{TRUE} if the cardinality of this field is one.}
 
- Get field's group.}
+\item{\code{isCaseInsensitive()}}{Returns \code{TRUE} if this field is case insensitive.}
 
-\item{\code{getName()}}{:
+\item{\code{isDataFrame()}}{Returns \code{TRUE} if field's type is data frame.}
 
- Get field's name.}
+\item{\code{isObject()}}{Returns \code{TRUE} if field's type is a class.}
 
-\item{\code{getType()}}{:
-
- Get field's type.}
-
-\item{\code{hasAliases()}}{:
-
- Returns TRUE if this entry field defines aliases.}
-
-\item{\code{hasCardMany()}}{:
-
- Returns \code{TRUE} if the cardinality of this field is many.}
-
-\item{\code{hasCardOne()}}{:
-
- Returns \code{TRUE} if the cardinality of this field is one.}
-
-\item{\code{isCaseInsensitive()}}{:
-
- Returns \code{TRUE} if this field is case insensitive.}
-
-\item{\code{isDataFrame()}}{:
-
- Returns \code{TRUE} if field's type is data frame.}
-
-\item{\code{isObject()}}{:
-
- Returns \code{TRUE} if field's type is a class.}
-
-\item{\code{isVector()}}{:
-
-Returns \code{TRUE} if the field's type is vector (i.e.: character, integer, double or logical).}
+\item{\code{isVector()}}{Returns \code{TRUE} if the field's type is vector (i.e.: character, integer, double or logical).}
 }}
 
 \examples{

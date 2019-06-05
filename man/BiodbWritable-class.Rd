@@ -14,24 +14,14 @@ A database class that implements this interface must allow the addition of new e
 \section{Methods}{
 
 \describe{
-\item{\code{allowWriting()}}{:
+\item{\code{allowWriting()}}{Allow writing for this database.}
 
-Allow writing for this database.}
+\item{\code{disallowWriting()}}{Disallow writing for this database.}
 
-\item{\code{disallowWriting()}}{:
+\item{\code{setWritingAllowed(allow)}}{Allow or disallow writing for this database.}
 
-Disallow writing for this database.}
+\item{\code{write()}}{Write the database. All modifications made to the database since the last time write() was called will be saved.}
 
-\item{\code{setWritingAllowed(allow)}}{:
-
-Allow or disallow writing for this database.}
-
-\item{\code{write()}}{:
-
-Write the database. All modifications made to the database since the last time write() was called will be saved.}
-
-\item{\code{writingIsAllowed()}}{:
-
-Returns TRUE if writing is allowed for this database.}
+\item{\code{writingIsAllowed()}}{Returns TRUE if writing is allowed for this database.}
 }}
 

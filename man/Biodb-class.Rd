@@ -6,7 +6,8 @@
 \alias{Biodb}
 \title{The central class of the biodb package.}
 \arguments{
-\item{compute}{If set to \code{TRUE} and an entry has not the field defined, then try to compute the field values.}
+\item{compute}{If set to \code{TRUE} and an entry has not the field
+defined, then try to compute the field values.}
 
 \item{entries}{A list of \code{BiodbEntry} objects.}
 
@@ -14,93 +15,74 @@
 
 \item{files}{A list of file paths.}
 
-\item{flatten}{If set to \code{TRUE} and the field has a cardinality greater than one, then values are collapsed and output is a vector of class character.}
+\item{flatten}{If set to \code{TRUE} and the field has a cardinality
+greater than one, then values are collapsed and output is
+a vector of class character.}
 
-\item{null.to.na}{If \code{TRUE}, each \code{NULL} entry is converted into a line of \code{NA} values inside the data frame."}
+\item{null.to.na}{If \code{TRUE}, each \code{NULL} entry is converted into a
+line of \code{NA} values inside the data frame."}
 
-\item{observers}{Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.}
+\item{observers}{Either a \code{BiodbObserver} class instance or a list of
+\code{BiodbObserver} class instances.}
 
-\item{only.atomic}{Set to \code{TRUE} if you want only the fields of atomic type (\code{integer}, \code{numeric}, \code{logical} and \code{character}) inside the data frame.}
+\item{only.atomic}{Set to \code{TRUE} if you want only the fields of atomic
+type (\code{integer}, \code{numeric}, \code{logical} and
+\code{character}) inside the data frame.}
 }
 \description{
-In order to use the biodb package, you need first to create an instance of this class. See section Fields for a list of the constructor's parameters.
+In order to use the biodb package, you need first to create an instance of
+this class. See section Fields for a list of the constructor's parameters.
 }
 \section{Fields}{
 
 \describe{
-\item{\code{logger}}{Set to \code{FALSE} if you want to disable the default logger.}
+\item{\code{logger}}{Set to \code{FALSE} if you want to disable the default}
 
-\item{\code{observers}}{Either a \code{BiodbObserver} class instance or a list of \code{BiodbObserver} class instances.}
+\item{\code{observers}}{Either a \code{BiodbObserver} class instance or a list of
+\code{BiodbObserver} class instances.}
 }}
 
 \section{Methods}{
 
 \describe{
-\item{\code{addObservers(observers)}}{:
+\item{\code{addObservers(observers)}}{Add new observers. Observers will be called each time an event occurs.
+This is the way used in biodb to get feedback about what is going inside
+biodb code.}
 
-Add new observers. Observers will be called each time an event occurs. This is the way used in biodb to get feedback about what is going inside biodb code.}
+\item{\code{computeFields(entries)}}{Compute missing fields in entries.}
 
-\item{\code{computeFields(entries)}}{:
+\item{\code{copyDb(conn.from, conn.to, limit = NULL)}}{Copy all entries of a database into another database. The connector of the
+destination database must be editable.}
 
-Compute missing fields in entries.}
-
-\item{\code{copyDb(conn.from, conn.to, limit = NULL)}}{:
-
-Copy all entries of a database into another database. The connector of the destination database must be editable.}
-
-\item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{:
-
-Extract the value of a field from a list of entries.
-
-Returns either a vector or a list depending on the type of the field.}
+\item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{Extract the value of a field from a list of entries. Returns either a
+vector or a list depending on the type of the field.}
 
 \item{\code{entriesToDataframe(entries, only.atomic = TRUE, null.to.na = TRUE,
   compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE,
-  flatten = TRUE, only.card.one = FALSE)}}{:
+  flatten = TRUE, only.card.one = FALSE)}}{Convert a list of entries (\code{BiodbEntry} objects) into a data frame.}
 
-Convert a list of entries (\code{BiodbEntry} objects) into a data frame.}
+\item{\code{entriesToJson(entries, compute = TRUE)}}{Convert a list of BiodbEntry objects into JSON. Returns a vector of
+characters.}
 
-\item{\code{entriesToJson(entries, compute = TRUE)}}{:
+\item{\code{getCache()}}{Returns the single instance of the \code{BiodbCache} class.}
 
-Convert a list of BiodbEntry objects into JSON. Returns a vector of characters.}
+\item{\code{getConfig()}}{Returns the single instance of the \code{BiodbConfig} class.}
 
-\item{\code{getCache()}}{:
+\item{\code{getDbsInfo()}}{Returns the single instance of the \code{BiodbDbsInfo} class.}
 
-Returns the single instance of the \code{BiodbCache} class.}
+\item{\code{getEntryFields()}}{Returns the single instance of the \code{BiodbEntryFields} class.}
 
-\item{\code{getConfig()}}{:
+\item{\code{getFactory()}}{Returns the single instance of the \code{BiodbFactory} class.}
 
-Returns the single instance of the \code{BiodbConfig} class.}
+\item{\code{getObservers()}}{Get the list of registered observers.}
 
-\item{\code{getDbsInfo()}}{:
-
-Returns the single instance of the \code{BiodbDbsInfo} class.}
-
-\item{\code{getEntryFields()}}{:
-
-Returns the single instance of the \code{BiodbEntryFields} class.}
-
-\item{\code{getFactory()}}{:
-
-Returns the single instance of the \code{BiodbFactory} class.}
-
-\item{\code{getObservers()}}{:
-
-Get the list of registered observers.}
-
-\item{\code{getRequestScheduler()}}{:
-
-Returns the single instance of the \code{BiodbRequestScheduler} class.}
+\item{\code{getRequestScheduler()}}{Returns the single instance of the \code{BiodbRequestScheduler} class.}
 
 \item{\code{loadDefinitions(file)}}{Load databases and entry fields definitions from YAML file.}
 
-\item{\code{saveEntriesAsJson(entries, files, compute = TRUE)}}{:
+\item{\code{saveEntriesAsJson(entries, files, compute = TRUE)}}{Save a list of entries in JSON format.}
 
-Save a list of entries in JSON format.}
-
-\item{\code{terminate(logger = TRUE, observers = NULL, ...)}}{:
-
-Close \code{Biodb} instance.}
+\item{\code{terminate()}}{Close \code{Biodb} instance.}
 }}
 
 \examples{
@@ -111,18 +93,22 @@ mybiodb <- biodb::Biodb()
 mybiodb$terminate()
 
 # Create an instance without the default logger:
-mybiodb <- biodb::Biodb(logger = FALSE)
+mybiodb <- biodb::Biodb(logger=FALSE)
 
 # Terminate instance.
 mybiodb$terminate()
 
 # Create an instance with a file logger
-mybiodb <- biodb::Biodb(logger = FALSE, observers = biodb::BiodbLogger(file = "file.log"))
+mybiodb <- biodb::Biodb(logger=FALSE,
+                        observers=biodb::BiodbLogger(file="file.log"))
 
 # Terminate instance.
 mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbCache}}, \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}}, \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}}, \code{\link{BiodbDbsInfo}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbCache}},
+\code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
+\code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}},
+\code{\link{BiodbDbsInfo}}.
 }

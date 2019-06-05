@@ -4,14 +4,18 @@
 \name{BiodbConnBase-class}
 \alias{BiodbConnBase-class}
 \alias{BiodbConnBase}
-\title{Base class of \code{BiodbConn} for encapsulating all needed information for database access.}
+\title{Base class of \code{BiodbConn} for encapsulating all needed information for
+database access.}
 \description{
-This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
+This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The
+constructor is not meant to be used, but for development purposes the
+constructor's parameters are nevertheless described in the Fields section.
 }
 \section{Fields}{
 
 \describe{
-\item{\code{db.class}}{The class of the database (\code{"massbank", "hmdb.metabolies", ...}).}
+\item{\code{db.class}}{The class of the database (\code{"massbank",
+"hmdb.metabolies", ...}).}
 
 \item{\code{prop.def}}{Definitions of the properties.}
 
@@ -21,99 +25,56 @@ This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The construc
 \section{Methods}{
 
 \describe{
-\item{\code{getBaseUrl()}}{:
+\item{\code{getBaseUrl()}}{Returns the base URL.}
 
-Returns the base URL.}
+\item{\code{getConnClass()}}{Returns the associated connector OOP class.}
 
-\item{\code{getConnClass()}}{:
+\item{\code{getConnClassName()}}{Returns the name of the associated connector OOP class.}
 
-Returns the associated connector OOP class.}
+\item{\code{getEntryClass()}}{Returns the associated entry class.}
 
-\item{\code{getConnClassName()}}{:
+\item{\code{getEntryClassName()}}{Returns the name of the associated entry class.}
 
-Returns the name of the associated connector OOP class.}
+\item{\code{getEntryContentType()}}{Returns the entry content type.}
 
-\item{\code{getEntryClass()}}{:
+\item{\code{getEntryFileExt()}}{Returns the entry file extension.}
 
-Returns the associated entry class.}
+\item{\code{getEntryIdField()}}{Return the name of the corresponding database ID field in entries.}
 
-\item{\code{getEntryClassName()}}{:
-
-Returns the name of the associated entry class.}
-
-\item{\code{getEntryContentType()}}{:
-
-Returns the entry content type.}
-
-\item{\code{getEntryFileExt()}}{:
-
-Returns the entry file extension.}
-
-\item{\code{getEntryIdField()}}{:
-
-Return the name of the corresponding database ID field in entries.}
-
-\item{\code{getName()}}{:
-
-Returns the full database name.}
+\item{\code{getName()}}{Returns the full database name.}
 
 \item{\code{getPropValSlot(name, slot)}}{Return the value of the slot "slot" of the property "name".}
 
-\item{\code{getSchedulerNParam()}}{:
+\item{\code{getSchedulerNParam()}}{Returns the N parameter for the scheduler.}
 
-Returns the N parameter for the scheduler.}
+\item{\code{getSchedulerTParam()}}{Returns the T parameter for the scheduler.}
 
-\item{\code{getSchedulerTParam()}}{:
+\item{\code{getToken()}}{Returns the access token.}
 
-Returns the T parameter for the scheduler.}
+\item{\code{getUrl(name)}}{Returns a URL.}
 
-\item{\code{getToken()}}{:
+\item{\code{getUrls()}}{Returns the URLs.}
 
-Returns the access token.}
+\item{\code{getWsUrl()}}{Returns the web sevices URL.}
 
-\item{\code{getUrl(name)}}{:
-
-Returns a URL.}
-
-\item{\code{getUrls()}}{:
-
-Returns the URLs.}
-
-\item{\code{getWsUrl()}}{:
-
-Returns the web sevices URL.}
-
-\item{\code{getXmlNs()}}{:
-
-Returns the XML namespace.}
+\item{\code{getXmlNs()}}{Returns the XML namespace.}
 
 \item{\code{hasProp(name)}}{Returns true if the property "name" exists.}
 
-\item{\code{hasPropSlot(name, slot)}}{Returns true if the property "name" exists and has the slot "slot" defined.}
+\item{\code{hasPropSlot(name, slot)}}{Returns true if the property "name" exists and has the slot "slot"
+defined.}
 
-\item{\code{setBaseUrl(url)}}{:
+\item{\code{setBaseUrl(url)}}{Sets the base URL.}
 
-Sets the base URL.}
+\item{\code{setSchedulerNParam(n)}}{Sets the N parameter for the scheduler.}
 
-\item{\code{setSchedulerNParam(n)}}{:
+\item{\code{setSchedulerTParam(t)}}{Sets the T parameter for the scheduler.}
 
-Sets the N parameter for the scheduler.}
+\item{\code{setToken(token)}}{Sets the access token.}
 
-\item{\code{setSchedulerTParam(t)}}{:
+\item{\code{setUrl(name, url)}}{Returns a URL.}
 
-Sets the T parameter for the scheduler.}
-
-\item{\code{setToken(token)}}{:
-
-Sets the access token.}
-
-\item{\code{setUrl(name, url)}}{:
-
-Returns a URL.}
-
-\item{\code{setWsUrl(ws.url)}}{:
-
-Sets the web sevices URL.}
+\item{\code{setWsUrl(ws.url)}}{Sets the web sevices URL.}
 
 \item{\code{updatePropertiesDefinition(def)}}{Update the definition of properties.}
 }}

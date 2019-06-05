@@ -26,27 +26,17 @@ This class handles GET and POST requests, as well as file downloading. Each remo
 \section{Methods}{
 
 \describe{
-\item{\code{downloadFile(url, dest.file)}}{:
-
-Download the content of a URL and save it into the specified destination file.}
+\item{\code{downloadFile(url, dest.file)}}{Download the content of a URL and save it into the specified destination file.}
 
 \item{\code{getUrl(url, params = list(), method = c("get", "post"),
-  header = character(), body = character(), encoding = integer())}}{:
+  header = character(), body = character(), encoding = integer())}}{Send a URL request, either with GET or POST method, and return result.}
 
-Send a URL request, either with GET or POST method, and return result.}
+\item{\code{getUrlString(url, params = list())}}{Build a URL string, using a base URL and parameters to be passed.}
 
-\item{\code{getUrlString(url, params = list())}}{:
-
-Build a URL string, using a base URL and parameters to be passed.}
-
-\item{\code{sendRequest(request, cache.read = TRUE)}}{:
-
-Send a request, and return content result.}
+\item{\code{sendRequest(request, cache.read = TRUE)}}{Send a request, and return content result.}
 
 \item{\code{sendSoapRequest(url, soap.request, soap.action = NA_character_,
-  encoding = integer())}}{:
-
-Send a SOAP request to a URL. Returns the string result.}
+  encoding = integer())}}{Send a SOAP request to a URL. Returns the string result.}
 }}
 
 \seealso{

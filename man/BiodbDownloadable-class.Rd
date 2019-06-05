@@ -11,21 +11,13 @@ The class must be inherited by any remote database class that allows download of
 \section{Methods}{
 
 \describe{
-\item{\code{download()}}{:
+\item{\code{download()}}{Download the database containt locally.}
 
-Download the database containt locally.}
+\item{\code{getDownloadPath()}}{Get the path where the downloaded containt is written.}
 
-\item{\code{getDownloadPath()}}{:
+\item{\code{isDownloaded()}}{Returns TRUE if the database containt has already been downloaded.}
 
-Get the path where the downloaded containt is written.}
-
-\item{\code{isDownloaded()}}{:
-
-Returns TRUE if the database containt has already been downloaded.}
-
-\item{\code{isExtracted()}}{:
-
-Returns TRUE of the downloaded database containt has been extracted.}
+\item{\code{isExtracted()}}{Returns TRUE of the downloaded database containt has been extracted.}
 }}
 
 \seealso{

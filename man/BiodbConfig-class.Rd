@@ -6,54 +6,38 @@
 \alias{BiodbConfig}
 \title{A class for storing configuration values.}
 \description{
-This class is responsible for storing configuration. You must go through the single instance of this class to create and set and get configuration values. To get the single instance of this class, call the \code{getConfig()} method of class \code{Biodb}.
+This class is responsible for storing configuration. You must go through the
+single instance of this class to create and set and get configuration values.
+To get the single instance of this class, call the \code{getConfig()} method
+of class \code{Biodb}.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{disable(key)}}{:
+\item{\code{define(def)}}{Define config properties from a structured object, normally loaded from a
+YAML file.}
 
-Set a boolean key to FALSE.}
+\item{\code{disable(key)}}{Set a boolean key to FALSE.}
 
-\item{\code{enable(key)}}{:
+\item{\code{enable(key)}}{Set a boolean key to TRUE.}
 
-Set a boolean key to TRUE.}
+\item{\code{get(key)}}{Get the value of a key.}
 
-\item{\code{get(key)}}{:
+\item{\code{getAssocEnvVar(key)}}{Returns the environment variable associated with this configuration key.}
 
-Get the value of a key.}
+\item{\code{getDefaultValue(key)}}{Get the default value of a key.}
 
-\item{\code{getAssocEnvVar(key)}}{:
+\item{\code{getDescription(key)}}{Get the description of a key.}
 
-Returns the environment variable associated with this configuration key.}
+\item{\code{getKeys()}}{Get the list of available keys.}
 
-\item{\code{getDefaultValue(key)}}{:
+\item{\code{hasKey(key)}}{Test if a key exists.}
 
-Get the default value of a key.}
+\item{\code{isDefined(key, fail = TRUE)}}{Test if a key is defined.}
 
-\item{\code{getDescription(key)}}{:
+\item{\code{isEnabled(key)}}{Test if a boolean key is set to TRUE.}
 
-Get the description of a key.}
-
-\item{\code{getKeys()}}{:
-
-Get the list of available keys.}
-
-\item{\code{hasKey(key)}}{:
-
-Test if a key exists.}
-
-\item{\code{isDefined(key, fail = TRUE)}}{:
-
-Test if a key is defined.}
-
-\item{\code{isEnabled(key)}}{:
-
-Test if a boolean key is set to TRUE.}
-
-\item{\code{set(key, value)}}{:
-
-Set the value of a key.}
+\item{\code{set(key, value)}}{Set the value of a key.}
 }}
 
 \examples{
@@ -64,7 +48,7 @@ mybiodb <- biodb::Biodb()
 config <- mybiodb$getConfig()
 
 # Print all available keys
-print(config$getKeys())
+config$getKeys()
 
 # Get a configuration value:
 value <- config$get('cache.directory')
@@ -73,10 +57,10 @@ value <- config$get('cache.directory')
 config$set('cache.directory', '~/my.biodb.cache')
 
 # For boolean values, you can use boolean methods:
-print(config$get('offline'))
+config$get('offline')
 config$enable('offline')    # set to TRUE
 config$disable('offline')   # set to FALSE
-print(if (config$isEnabled('offline')) 'Mode offline is ON.' else 'Mode offline is OFF.')
+config$isEnabled('offline')
 
 # Terminate instance.
 mybiodb$terminate()

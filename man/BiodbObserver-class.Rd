@@ -6,7 +6,8 @@
 \alias{BiodbObserver}
 \title{The mother abstract class of all observer classes.}
 \arguments{
-\item{type}{The type of a message. It must be one of: 'info', 'debug', 'caution', 'warning', 'error'.}
+\item{type}{The type of a message. It must be one of: 'info', 'debug',
+'caution', 'warning', 'error'.}
 
 \item{msg}{The text message to send.}
 
@@ -15,27 +16,31 @@
 \item{method}{The method of that called this message method.}
 }
 \description{
-This abstract class defines all the methods that can be used to send messages to the observers. You can define new observer classes by inherting from this class.
+This abstract class defines all the methods that can be used to send messages
+to the observers. You can define new observer classes by inherting from this
+class.
 }
 
 \examples{
 # Define a new observer class
-MyObsClass <- methods::setRefClass("MyObsClass", contains = 'BiodbObserver')
+MyObsClass <- methods::setRefClass("MyObsClass", contains='BiodbObserver')
 
 # Define the message method
-MyObsClass$methods( message = function(type = 'info', msg,
-                                       class = NA_character_, method = NA_character_) {
+MyObsClass$methods( message=function(type='info', msg,
+                                       class=NA_character_,
+                                       method=NA_character_, lvl=1) {
 .self$checkMessageType(type)
-# print(paste(type, msg, sep = ': '))
+# print(paste(type, msg, sep=': '))
 })
 
 # Create an instance and register an instance of the new observer class:
-mybiodb <- biodb::Biodb(observers = MyObsClass$new())
+mybiodb <- biodb::Biodb(observers=MyObsClass$new())
 
 # Terminate instance.
 mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbLogger}}, \code{\link{BiodbWarningReporter}}, \code{\link{BiodbErrorReporter}}.
+\code{\link{BiodbLogger}}, \code{\link{BiodbWarningReporter}},
+         \code{\link{BiodbErrorReporter}}.
 }

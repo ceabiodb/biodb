@@ -16,20 +16,12 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryImageUrl(entry.id)}}{:
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
 
-Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
-\item{\code{getEntryPageUrl(entry.id)}}{:
+\item{\code{wsEnzymeByComment(comment, retfmt = c("plain", "request", "parsed", "ids"))}}{Calls enzyme-bycomment web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-bycomment.html.}
 
-Get the URL to the page of the entry on the database web site.}
-
-\item{\code{ws.enzymeByComment(comment, retfmt = c("plain", "request", "parsed", "ids"))}}{:
-
-Calls enzyme-bycomment web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-bycomment.html.}
-
-\item{\code{ws.enzymeByName(name, retfmt = c("plain", "request", "parsed", "ids"))}}{:
-
-Calls enzyme-byname web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-byname.html.}
+\item{\code{wsEnzymeByName(name, retfmt = c("plain", "request", "parsed", "ids"))}}{Calls enzyme-byname web service and returns the HTML result. See http://enzyme.expasy.org/enzyme-byname.html.}
 }}
 

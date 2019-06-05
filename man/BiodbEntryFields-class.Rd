@@ -16,33 +16,19 @@ The unique instance of this class is handle by the \code{\link{Biodb}} class and
 \section{Methods}{
 
 \describe{
-\item{\code{checkIsDefined(name)}}{:
+\item{\code{checkIsDefined(name)}}{Throws an error if name does not correspond to a defined field.}
 
-Throws an error if name does not correspond to a defined field.}
+\item{\code{get(name)}}{Returns the BiodbEntryField instance associated with name.}
 
-\item{\code{get(name)}}{:
+\item{\code{getDatabaseIdField(database)}}{Returns the name of the field handling identifiers (i.e.: accession numbers) for this database.}
 
-Returns the BiodbEntryField instance associated with name.}
+\item{\code{getFieldNames(type = NULL)}}{Returns the main names of all fields.}
 
-\item{\code{getDatabaseIdField(database)}}{:
+\item{\code{getRealName(name)}}{If name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown.}
 
-Returns the name of the field handling identifiers (i.e.: accession numbers) for this database.}
+\item{\code{isAlias(name)}}{Returns TRUE if name is an alias of a field.}
 
-\item{\code{getFieldNames(type = NULL)}}{:
-
-Returns the main names of all fields.}
-
-\item{\code{getRealName(name)}}{:
-
-If name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown.}
-
-\item{\code{isAlias(name)}}{:
-
-Returns TRUE if name is an alias of a field.}
-
-\item{\code{isDefined(name)}}{:
-
-Returns TRUE if name corresponds to a defined field.}
+\item{\code{isDefined(name)}}{Returns TRUE if name corresponds to a defined field.}
 
 \item{\code{loadFieldsFile(file)}}{Load entry fields information file, and defines the new fields.
 The parameter file must point to a valid YAML file.}

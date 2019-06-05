@@ -6,7 +6,8 @@
 \alias{BiodbConnObserver}
 \title{The observer class of connectors.}
 \description{
-Classes inheriting this class, are able to register themselves to a connector instance and receiving messages from it.
+Classes inheriting this class, are able to register themselves to a
+connector instance and receiving messages from it.
 }
 
 \seealso{

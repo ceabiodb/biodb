@@ -10,73 +10,58 @@
 
 \item{cache.id}{An ID to use in the cache.}
 
-\item{ext}{The extension of the file, without the dot: 'html', 'xml', etc.}
+\item{ext}{The extension of the file, without the dot: 'html',
+'xml', etc.}
 
-\item{extract.name}{Instead of returning the file paths, returns the list of names used to construct the file name: [cache_folder]/[subfolder]/[connid]-[name].[ext].}
+\item{extract.name}{Instead of returning the file paths, returns the list of
+names used to construct the file name:
+[cache_folder]/[subfolder]/[connid]-[name].[ext].}
 
-\item{name}{The name of the file or the marker. Vector of characters. Length can be greater than one.}
+\item{name}{The name of the file or the marker. Vector of
+characters. Length can be greater than one.}
 
-\item{output.vector}{Force output to be a \code{vector} instead of a \code{list}. Where the list contains a \code{NULL}, the \code{vector} will contain a \code{NA} value.}
+\item{output.vector}{Force output to be a \code{vector} instead of a
+\code{list}. Where the list contains a \code{NULL}, the
+\code{vector} will contain a \code{NA} value.}
 
-\item{subfolder}{The subfolder inside the cache system. Supported values are: 'shortterm' and 'longterm'. The 'shortterm' folder contains individual entry files. The 'longterm' folder contains zip files of whole databases.}
+\item{subfolder}{The subfolder inside the cache system. Supported values
+are: 'shortterm' and 'longterm'. The 'shortterm' folder
+contains individual entry files. The 'longterm' folder
+contains zip files of whole databases.}
 }
 \description{
-This class manages a cache system for saving downloaded files and request results. It is designed for internal use, but you can still access some of the read-only methods if you wish.
+This class manages a cache system for saving downloaded files and request
+results. It is designed for internal use, but you can still access some of
+the read-only methods if you wish.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{deleteFile(cache.id, subfolder, name, ext)}}{:
+\item{\code{deleteFile(cache.id, subfolder, name, ext)}}{Delete one file inside the cache system.}
 
-Delete one file inside the cache system.}
+\item{\code{deleteFiles(cache.id, subfolder, ext = NA_character_)}}{Delete files inside the cache system.}
 
-\item{\code{deleteFiles(cache.id, subfolder, ext = NA_character_)}}{:
+\item{\code{fileExist(cache.id, subfolder, name, ext)}}{Test if files exist in the cache.}
 
-Delete files inside the cache system.}
+\item{\code{getDir()}}{Get the absolute path to the cache directory.}
 
-\item{\code{fileExist(cache.id, subfolder, name, ext)}}{:
+\item{\code{getFilePath(cache.id, subfolder, name, ext)}}{Get path of file in cache system.}
 
-Test if files exist in the cache.}
+\item{\code{getSubFolderPath(subfolder)}}{Get the absolute path of a subfolder inside the cache system.}
 
-\item{\code{getDir()}}{:
+\item{\code{isReadable()}}{Returns TRUE if the cache system is readable.}
 
-Get the absolute path to the cache directory.}
+\item{\code{isWritable()}}{Returns TRUE if the cache system is writable.}
 
-\item{\code{getFilePath(cache.id, subfolder, name, ext)}}{:
+\item{\code{listFiles(cache.id, subfolder, ext = NA_character_, extract.name = FALSE)}}{List files present in the cache system.}
 
-Get path of file in cache system.}
+\item{\code{loadFileContent(cache.id, subfolder, name, ext, output.vector = FALSE)}}{Load content of files from the cache.}
 
-\item{\code{getSubFolderPath(subfolder)}}{:
+\item{\code{markerExist(cache.id, subfolder, name)}}{Test if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly.}
 
-Get the absolute path of a subfolder inside the cache system.}
+\item{\code{saveContentToFile(content, cache.id, subfolder, name, ext)}}{Save content to files into the cache.}
 
-\item{\code{isReadable()}}{:
-
-Returns TRUE if the cache system is readable.}
-
-\item{\code{isWritable()}}{:
-
-Returns TRUE if the cache system is writable.}
-
-\item{\code{listFiles(cache.id, subfolder, ext = NA_character_, extract.name = FALSE)}}{:
-
-List files present in the cache system.}
-
-\item{\code{loadFileContent(cache.id, subfolder, name, ext, output.vector = FALSE)}}{:
-
-Load content of files from the cache.}
-
-\item{\code{markerExist(cache.id, subfolder, name)}}{:
-
-Test if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly.}
-
-\item{\code{saveContentToFile(content, cache.id, subfolder, name, ext)}}{:
-
-Save content to files into the cache.}
-
-\item{\code{setMarker(cache.id, subfolder, name)}}{:
-
-Set a marker.}
+\item{\code{setMarker(cache.id, subfolder, name)}}{Set a marker.}
 }}
 
 \examples{

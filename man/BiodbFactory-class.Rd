@@ -26,46 +26,26 @@ This class is responsible for the creation of database connectors and database e
 \section{Methods}{
 
 \describe{
-\item{\code{connExists(conn.id)}}{:
-
-Returns TRUE if a connector with this ID exists.}
+\item{\code{connExists(conn.id)}}{Returns TRUE if a connector with this ID exists.}
 
 \item{\code{createConn(db.class, url = NULL, token = NA_character_,
-  fail.if.exists = TRUE, conn.id = NULL, cache.id = NULL)}}{:
+  fail.if.exists = TRUE, conn.id = NULL, cache.id = NULL)}}{Create a connection to a database.}
 
-Create a connection to a database.}
+\item{\code{createNewEntry(db.class)}}{Create a new entry from scratch. This entry is not stored in cache.}
 
-\item{\code{createNewEntry(db.class)}}{:
+\item{\code{deleteAllCacheEntries(conn.id)}}{Delete all entries of a connector from the cache.}
 
-Create a new entry from scratch. This entry is not stored in cache.}
+\item{\code{deleteAllConnectors()}}{Delete all connectors.}
 
-\item{\code{deleteAllCacheEntries(conn.id)}}{:
+\item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{Delete existing connectors.}
 
-Delete all entries of a connector from the cache.}
+\item{\code{getAllCacheEntries(conn.id)}}{Get all entries of a connector from the cache.}
 
-\item{\code{deleteAllConnectors()}}{:
+\item{\code{getAllConnectors()}}{Returns a list of all created connectors.}
 
-Delete all connectors.}
+\item{\code{getConn(conn.id)}}{Get the instance of connector database corresponding to the submitted ID or database class.}
 
-\item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{:
-
-Delete existing connectors.}
-
-\item{\code{getAllCacheEntries(conn.id)}}{:
-
-Get all entries of a connector from the cache.}
-
-\item{\code{getAllConnectors()}}{:
-
-Returns a list of all created connectors.}
-
-\item{\code{getConn(conn.id)}}{:
-
-Get the instance of connector database corresponding to the submitted ID or database class.}
-
-\item{\code{getEntry(conn.id, id, drop = TRUE)}}{:
-
-Create database entry objects from IDs (accession numbers), for the specified connector.}
+\item{\code{getEntry(conn.id, id, drop = TRUE)}}{Create database entry objects from IDs (accession numbers), for the specified connector.}
 }}
 
 \examples{
@@ -79,7 +59,7 @@ factory <- mybiodb$getFactory()
 conn <- factory$createConn('chebi')
 
 # Get a database entry:
-entry <- factory$getEntry('chebi', id = '2528')
+entry <- factory$getEntry('chebi', id='2528')
 
 # Terminate instance.
 mybiodb$terminate()

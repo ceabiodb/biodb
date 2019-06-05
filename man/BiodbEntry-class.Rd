@@ -28,68 +28,38 @@ An entry is an element of a database, identifiable by its accession number. Each
 \section{Methods}{
 
 \describe{
-\item{\code{appendFieldValue(field, value)}}{:
+\item{\code{appendFieldValue(field, value)}}{Append a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values.}
 
-Append a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values.}
+\item{\code{clone(db.class = NULL)}}{Clone this entry.}
 
-\item{\code{clone(db.class = NULL)}}{:
+\item{\code{getDbClass()}}{Returns name of the database class associated with this entry.}
 
-Clone this entry.}
-
-\item{\code{getDbClass()}}{:
-
-Returns name of the database class associated with this entry.}
-
-\item{\code{getFieldNames()}}{:
-
-Get a list of all fields defined for this entry.}
+\item{\code{getFieldNames()}}{Get a list of all fields defined for this entry.}
 
 \item{\code{getFieldsAsDataFrame(only.atomic = TRUE, compute = TRUE, fields = NULL,
-  flatten = TRUE, only.card.one = FALSE)}}{:
+  flatten = TRUE, only.card.one = FALSE)}}{Convert this entry into a data frame.}
 
-Convert this entry into a data frame.}
+\item{\code{getFieldsAsJson(compute = TRUE)}}{Convert entry into a JSON string.}
 
-\item{\code{getFieldsAsJson(compute = TRUE)}}{:
+\item{\code{getFieldValue(field, compute = TRUE, flatten = FALSE, last = FALSE)}}{Get the value of the specified field.}
 
-Convert entry into a JSON string.}
+\item{\code{getId()}}{Returns the entry ID, which is the value if the "accession" field.}
 
-\item{\code{getFieldValue(field, compute = TRUE, flatten = FALSE, last = FALSE)}}{:
+\item{\code{getName()}}{Get a short text describing the entry instance.}
 
-Get the value of the specified field.}
+\item{\code{hasField(field)}}{Returns TRUE if the specified field is defined in this entry.}
 
-\item{\code{getId()}}{:
-
-Returns the entry ID, which is the value if the "accession" field.}
-
-\item{\code{getName()}}{:
-
-Get a short text describing the entry instance.}
-
-\item{\code{hasField(field)}}{:
-
-Returns TRUE if the specified field is defined in this entry.}
-
-\item{\code{isNew()}}{:
-
-Return TRUE if this entry was newly created.}
+\item{\code{isNew()}}{Return TRUE if this entry was newly created.}
 
 \item{\code{makesRefToEntry(db, oid, recurse = FALSE)}}{Returns TRUE if this entry makes reference to the entry oid from database db.}
 
-\item{\code{parentIsAConnector()}}{:
+\item{\code{parentIsAConnector()}}{Return TRUE if this entry belongs to a connector.}
 
-Return TRUE if this entry belongs to a connector.}
+\item{\code{parseContent(content)}}{Parse content string and set values accordingly for this entry's fields. This method is called automatically and should be run directly by users.}
 
-\item{\code{parseContent(content)}}{:
+\item{\code{removeField(field)}}{Remove the specified field from this entry.}
 
-Parse content string and set values accordingly for this entry's fields. This method is called automatically and should be run directly by users.}
-
-\item{\code{removeField(field)}}{:
-
-Remove the specified field from this entry.}
-
-\item{\code{setFieldValue(field, value)}}{:
-
-Set the value of a field. If the field is not already set for this entry, then the field will be created. See BiodbEntryFields for a list of possible fields in biodb.}
+\item{\code{setFieldValue(field, value)}}{Set the value of a field. If the field is not already set for this entry, then the field will be created. See BiodbEntryFields for a list of possible fields in biodb.}
 }}
 
 \examples{
@@ -107,7 +77,7 @@ smiles <- entry$getFieldValue('smiles')
 
 # Test if a field is defined:
 if (entry$hasField('charge'))
-  print(paste('The entry has a charge of ', entry$getFieldValue('charge'), '.', sep = ''))
+  print(paste('The entry has a charge of ', entry$getFieldValue('charge'), '.', sep=''))
 
 # Export an entry as a data frame:
 df <- entry$getFieldsAsDataFrame()

@@ -27,30 +27,31 @@ This is will create a `Biodb` instance and put its reference into the `mybiodb` 
 
 ## Observers
 
-By default, the `Biodb` instance will be configured with a console logger (instance of the class `BiodbLogger`), which will print all *biodb* messages to the console.
-You can disable this default logger by setting the `logger` argument to false:
+By default, the `Biodb` instance will be configured with 3 observers:
+ * `BiodbErrorReporter`, which is in charge of raising an error when an `error` message is sent.
+ * `BiodbWarningReporter`, which is in charge of raising a warning when an `warning` message is sent.
+ * `BiodbLogger`, which is in charge of logging `info`, `caution` and `debug` messages to the console.
+
+By default, the `BiodbLogger` instance uses the values set in `BiodbConfig` for the level of printing of `info`, `caution` and `debug` messages.
+Here is the default value of the levels:
 ```{r}
-mybiodb <- biodb::Biodb$new(logger = FALSE)
+mybiodb$getConfig()$get('msg.info.lvl')
+mybiodb$getConfig()$get('msg.caution.lvl')
+mybiodb$getConfig()$get('msg.debug.lvl')
 ```
-In this case, only the normal R warnings and errors will be printed.
+
+As you can see the level for `debug` messages is set to 0, so thoses messages are hidden. The other two types of messages have their levels set to 1, and thus only the first level of messages will be reported. You can set them to 0 in order to have complete silence, except for errors and warnings, from biodb.
 
 ### Setting your own instance of the `BiodbLogger` class
 
-You can also set your own instance of `BiodbLogger`, using the `observers` argument, in order for instance to redirect the output to a file:
+You can also set your own instance of `BiodbLogger`. Here is the setting of a new logger for logging messages into a file:
 ```{r}
-mybiodb <- biodb::Biodb$new(logger = FALSE, observers = biodb::BiodbLogger$new(file = 'mybiodb.log'))
+mybiodb$addObservers(biodb::BiodbLogger$new(file = 'mybiodb.log'))
 ```
-
-If you want both have the logger output written to the console and into a file, just define two instances of the `BiodbLogger` class:
-```{r}
-mybiodb <- biodb::Biodb$new(logger = FALSE, observers = list(biodb::BiodbLogger$new(), biodb::BiodbLogger$new(file = 'mybiodb2.log')))
-```
-
-See the documentation of the `BiodbLogger` class for more details.
 
 ### Defining your own observers
 
-If you wish, you can also define your own observers that inherit from the `BiodbObserver` class, and set them through the `observers` argument.
+If you wish, you can also define your own observers that inherit from the `BiodbObserver` class, and set them using the `addObservers()` method. 
 
 ### Setting observers after the instance has been created
 

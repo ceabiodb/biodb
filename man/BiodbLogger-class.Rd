@@ -6,26 +6,32 @@
 \alias{BiodbLogger}
 \title{A class for logging biodb messages either to standard stream or into a file.}
 \description{
-This class implements a logger for the biodb package. When creating an instance of this class, you can choose to either log to a standard stream (standard error or standard output) or to a file. See section Fields for a list of the constructor's parameters.
+This class implements a logger for the biodb package. When creating an
+instance of this class, you can choose to either log to a standard stream
+(standard error or standard output) or to a file. See section Fields for a
+list of the constructor's parameters.
 }
 \section{Fields}{
 
 \describe{
-\item{\code{file}}{The file path, file connection or standard stream to which you want to send biodb messages.}
+\item{\code{file}}{The file path, file connection or standard stream to which you
+want to send biodb messages.}
 
-\item{\code{mode}}{For a file, the mode in which you want to open the file. 'w' for writing (if a file already exists, it will be erased), and 'a' for appending (if a file already exists, logs will be appended to it).}
+\item{\code{mode}}{For a file, the mode in which you want to open the file. 'w' for
+writing (if a file already exists, it will be erased), and 'a' for
+appending (if a file already exists, logs will be appended to it).}
 }}
 
 
 \examples{
 # Create a biodb instance with a file log
-mybiodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = "myfile.log"))
+mybiodb <- biodb::Biodb(observers=biodb::BiodbLogger(file="myfile.log"))
 
 # Terminate instance.
 mybiodb$terminate()
 
 # Create a biodb instance with logging to standard output
-mybiodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = stdout()))
+mybiodb <- biodb::Biodb(observers=biodb::BiodbLogger(file=stdout()))
 
 # Terminate instance.
 mybiodb$terminate()
