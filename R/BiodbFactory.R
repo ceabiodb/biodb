@@ -78,7 +78,8 @@ BiodbFactory$methods( createConn=function(db.class, url=NULL, token=NA_character
 
     # Create connector instance
     .self$message('debug', paste0('Creating new connector ', conn.id, ' for database class ', db.class, (if (is.null(url) || is.na(url)) '' else paste0(', with base URL "', url, '"')), '.'))
-    conn <- conn.class$new(id=conn.id, cache.id=cache.id, other=db.info, properties=list(token=token), parent=.self)
+    prop <- if (is.na(token)) list() else list(token=token)
+    conn <- conn.class$new(id=conn.id, cache.id=cache.id, other=db.info, properties=prop, parent=.self)
     if ( ! is.null(url) && ! is.na(url))
         conn$setPropValSlot('urls', 'base.url', url)
 
