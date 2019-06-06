@@ -19,14 +19,14 @@
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
 #'
 #' @examples
-#' # Create a biodb instance with a file log
-#' mybiodb <- biodb::Biodb(observers=biodb::BiodbLogger(file="myfile.log"))
+#' # Create a file logger
+#' logger <- biodb::biodbLogger(file="myfile.log")
 #'
-#' # Terminate instance.
-#' mybiodb$terminate()
-#' 
-#' # Create a biodb instance with logging to standard output
-#' mybiodb <- biodb::Biodb(observers=biodb::BiodbLogger(file=stdout()))
+#' # Create a biodb instance
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Add the logger to the list of observers
+#' mybiodb$addObservers(logger)
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()

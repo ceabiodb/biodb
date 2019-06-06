@@ -89,21 +89,12 @@ characters.}
 # Create an instance with default settings:
 mybiodb <- biodb::Biodb()
 
-# Terminate instance.
-mybiodb$terminate()
-
-# Create an instance without the default logger:
-mybiodb <- biodb::Biodb(logger=FALSE)
+# Get the factory instance
+fact <- mybiodb$getFactory()
 
 # Terminate instance.
 mybiodb$terminate()
-
-# Create an instance with a file logger
-mybiodb <- biodb::Biodb(logger=FALSE,
-                        observers=biodb::BiodbLogger(file="file.log"))
-
-# Terminate instance.
-mybiodb$terminate()
+mybiodb <- NULL
 
 }
 \seealso{

@@ -120,6 +120,10 @@ PeakforestConn$methods( wsSearch=function(term, max=NA_integer_, retfmt=c('plain
     # Parse
     if (retfmt != 'plain') {
 
+        # Check JSON
+        if ( ! jsonlite::validate(results))
+            .self$error("Invalid JSON returned by server.")
+
         # Parse results
         results <- jsonlite::fromJSON(results, simplifyDataFrame=FALSE)
 
@@ -182,6 +186,10 @@ PeakforestConn$methods( wsAllIds=function(retfmt=c('plain', 'request', 'parsed',
 
     # Parse
     if (retfmt != 'plain') {
+
+        # Check JSON
+        if ( ! jsonlite::validate(results))
+            .self$error("Invalid JSON returned by server.")
 
         # Parse JSON
         results <- jsonlite::fromJSON(results, simplifyDataFrame=FALSE)

@@ -24,14 +24,14 @@ appending (if a file already exists, logs will be appended to it).}
 
 
 \examples{
-# Create a biodb instance with a file log
-mybiodb <- biodb::Biodb(observers=biodb::BiodbLogger(file="myfile.log"))
+# Create a file logger
+logger <- biodb::iodbLogger(file="myfile.log")
 
-# Terminate instance.
-mybiodb$terminate()
+# Create a biodb instance
+mybiodb <- biodb::Biodb()
 
-# Create a biodb instance with logging to standard output
-mybiodb <- biodb::Biodb(observers=biodb::BiodbLogger(file=stdout()))
+# Add the logger to the list of observers
+mybiodb$addObservers(logger)
 
 # Terminate instance.
 mybiodb$terminate()

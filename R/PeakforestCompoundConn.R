@@ -56,6 +56,10 @@ PeakforestCompoundConn$methods( wsSearchCompoundsMass=function(field, mass, delt
     # Parse
     if (retfmt != 'plain') {
 
+        # Check JSON
+        if ( ! jsonlite::validate(results))
+            .self$error("Invalid JSON returned by server.")
+
         # Parse results
         results <- jsonlite::fromJSON(results, simplifyDataFrame=FALSE)
 
