@@ -25,7 +25,7 @@ appending (if a file already exists, logs will be appended to it).}
 
 \examples{
 # Create a file logger
-logger <- biodb::biodbLogger(file="myfile.log")
+logger <- biodb::BiodbLogger(file="myfile.log")
 
 # Create a biodb instance
 mybiodb <- biodb::Biodb()
