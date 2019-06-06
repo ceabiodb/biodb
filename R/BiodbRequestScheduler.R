@@ -412,8 +412,8 @@ BiodbRequestScheduler$methods( .doSendRequestLoop=function(request, rule) {
         # Print connection error message
         if ( ! is.null(res$err_msg)) {
             if (retry)
-                err_msg=paste0(err_msg, paste0(" When contacting URL \"", request$getUrl()$toString(), "\". Retrying connection to server..."))
-            .self$message('info', err_msg)
+                res$err_msg=paste0(res$err_msg, paste0(" When contacting URL \"", request$getUrl()$toString(), "\". Retrying connection to server..."))
+            .self$message('info', res$err_msg)
         }
         else
             content <- res$content
