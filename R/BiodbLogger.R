@@ -101,7 +101,7 @@ cfgKVUpdate=function(k, v) {
     for (type in c('debug', 'info', 'caution')) {
         lvl.k <- paste('msg', type, 'lvl', sep='.')
         if (lvl.k == k)
-            .self$.levels[[k]] <- v
+            .self$.levels[[type]] <- v
     }
 },
 

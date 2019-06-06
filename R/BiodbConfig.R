@@ -82,7 +82,6 @@ newObserver=function(obs) {
     # Loop on all keys
     for(key in names(.self$.values))
         .self$notify('cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
-#        lapply(.self$getBiodb()$getObservers(), function(o) o$cfgKVUpdate(key, .self$.values[[key]]))
 },
 
 # Get keys {{{3
@@ -200,7 +199,7 @@ set=function(key, value) {
     .self$debug('Set key ', key, ' to value "', v, '".')
     
     # Notify observers
-    lapply(.self$getBiodb()$getObservers(), function(o) o$cfgKVUpdate(key, v))
+    .self$notify('cfgKVUpdate', list(k=key, v=v))
 },
 
 # Enable {{{3
