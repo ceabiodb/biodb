@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' # Create a file logger
-#' logger <- biodb::biodbLogger(file="myfile.log")
+#' logger <- biodb::BiodbLogger(file="myfile.log")
 #'
 #' # Create a biodb instance
 #' mybiodb <- biodb::Biodb()
@@ -44,7 +44,6 @@ BiodbLogger <- methods::setRefClass("BiodbLogger",
 fields=list(
     .file='ANY',
     .close.file='logical',
-    .levels='integer',
     .lastime.progress='list',
     .progress.laptime='integer',
     .progress.initial.time='list'),
@@ -79,7 +78,6 @@ initialize=function(file=NULL, mode='w', close.file=TRUE, ...) {
     # Set member field
     .self$.file <- file
     .self$.close.file <- close.file
-    .self$.levels <- integer()
     .self$.lastime.progress <- list()
     .self$.progress.initial.time <- list()
     .self$.progress.laptime <- as.integer(10) # In seconds
@@ -94,30 +92,6 @@ terminate=function() {
         close(.self$.file)
 },
 
-# Config key value update {{{3
-################################################################################
-
-cfgKVUpdate=function(k, v) {
-    for (type in c('debug', 'info', 'caution')) {
-        lvl.k <- paste('msg', type, 'lvl', sep='.')
-        if (lvl.k == k)
-            .self$.levels[[type]] <- v
-    }
-},
-
-# Get desired level {{{3
-################################################################################
-
-getDesiredLevel=function(type) {
-
-    lvl <- 0
-    
-    if (type %in% names(.self$.levels))
-        lvl <- .self$.levels[[type]]
-    
-    return(lvl)
-},
-
 # Message {{{3
 ################################################################################
 
@@ -125,7 +99,7 @@ msg=function(type='info', msg, class=NA_character_,
                    method=NA_character_, lvl=1) {
 
     .self$checkMessageType(type)
-    setlvl <- .self$getDesiredLevel(type)
+    setlvl <- .self$getLevel(type)
 
     if (setlvl >= lvl) {
 

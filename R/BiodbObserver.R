@@ -45,6 +45,8 @@ BiodbObserver <- methods::setRefClass("BiodbObserver",
 ################################################################################
 
 fields=list(
+    cfg.lvl='integer',
+    cust.lvl='integer'
 ),
 
 # Public methods {{{2
@@ -56,6 +58,8 @@ methods=list(
 ################################################################################
 
 initialize=function() {
+    .self$cfg.lvl <- integer()
+    .self$cust.lvl <- integer()
 },
 
 # Terminate {{{3
@@ -81,6 +85,35 @@ newObserver=function(obs) {
 ################################################################################
 
 cfgKVUpdate=function(k, v) {
+    for (type in c('debug', 'info', 'caution')) {
+        lvl.k <- paste('msg', type, 'lvl', sep='.')
+        if (lvl.k == k)
+            .self$cfg.lvl[[type]] <- v
+    }
+},
+
+# Get level {{{3
+################################################################################
+
+getLevel=function(type) {
+
+    lvl <- 0
+    .self$checkMessageType(type)
+    
+    if (type %in% names(.self$cust.lvl))
+        lvl <- .self$cust.lvl[[type]]
+    else if (type %in% names(.self$cfg.lvl))
+        lvl <- .self$cfg.lvl[[type]]
+    
+    return(lvl)
+},
+
+# Set level {{{3
+################################################################################
+
+setLevel=function(type, lvl) {
+    .self$checkMessageType(type)
+    .self$cust.lvl[[type]] <- as.integer(lvl)
 },
 
 # Message {{{3

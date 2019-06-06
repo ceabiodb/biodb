@@ -139,15 +139,15 @@ create.biodb.instance <- function(offline = FALSE) {
 
 	# Create logger
 	logger <- BiodbLogger(file = get.log.file.descriptor(), close.file = FALSE)
+	logger$setLevel('caution', 2L)
+	logger$setLevel('debug', 2L)
+	logger$setLevel('info', 2L)
 
 	# Create test observer
 	test.observer <- TestObserver()
 
 	# Create instance
 	biodb <- Biodb$new()
-	biodb$getConfig()$set('msg.caution.lvl', 2)
-	biodb$getConfig()$set('msg.debug.lvl', 2)
-	biodb$getConfig()$set('msg.info.lvl', 2)
 	biodb$addObservers(test.observer)
 	biodb$addObservers(logger)
 
