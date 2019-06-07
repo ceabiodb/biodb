@@ -23,18 +23,18 @@ class.
 
 \examples{
 # Define a new observer class
-MyObsClass <- methods::setRefClass("MyObsClass", contains='BiodbObserver')
-
-# Define the message method
-MyObsClass$methods( message=function(type='info', msg,
-                                       class=NA_character_,
-                                       method=NA_character_, lvl=1) {
-.self$checkMessageType(type)
-# print(paste(type, msg, sep=': '))
-})
+MyObsClass <- methods::setRefClass("MyObsClass", contains='BiodbObserver',
+  methods=list(message=function(type='info', msg,
+                                class=NA_character_,
+                                method=NA_character_, lvl=1) {
+    .self$checkMessageType(type)
+    print(paste(type, msg, sep=': '))
+  }
+))
 
 # Create an instance and register an instance of the new observer class:
-mybiodb <- biodb::Biodb(observers=MyObsClass$new())
+mybiodb <- biodb::Biodb()
+mybiodb$addObservers(MyObsClass$new())
 
 # Terminate instance.
 mybiodb$terminate()
