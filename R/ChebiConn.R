@@ -1,55 +1,100 @@
 # vi: fdm=marker ts=4 et cc=80
 
-# Constants {{{1
-# Class declaration {{{1
+# ChebiConn {{{1
 ################################################################################
 
+#' ChEBI connector class.
+#'
+#' This is the connector class for connecting to the ChEBI database through its
+#' web services.
+#'
 #' @include BiodbCompounddbConn.R
 #' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
-ChebiConn <- methods::setRefClass("ChebiConn", contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"), fields=list(.ws.values='list'))
+ChebiConn <- methods::setRefClass("ChebiConn",
+    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"),
 
-# Initialize {{{1
+# Fields {{{2
 ################################################################################
 
-ChebiConn$methods( initialize=function(...) {
+fields=list(
+    wsdl='ANY',
+    ws.values='list' # Stores WSDL values
+),
+
+# Public methods {{{2
+################################################################################
+
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
 
     callSuper(...)
 
-    .self$.ws.values <- list()
-})
+    .self$initFields(wsdl=NULL, ws.values=list())
+},
 
-# Get entry content request {{{1
+# Get entry content request {{{3
 ################################################################################
 
-ChebiConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'test', 'getCompleteEntity'), params=list(chebiId=x))$toString(), FUN.VALUE=''))
-})
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    
+    url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test',
+             'getCompleteEntity')
+    
+    urls <- vapply(id, function(x) BiodbUrl(url=url,
+                                            params=list(chebiId=x))$toString(),
+                   FUN.VALUE='')
+    
+    return(urls)
+},
 
-# Get entry page url {{{1
+# Get entry page url {{{3
 ################################################################################
 
-ChebiConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'searchId.do'), params=list(chebiId=x))$toString(), FUN.VALUE=''))
-})
+getEntryPageUrl=function(id) {
+    
+    url <- c(.self$getPropValSlot('urls', 'base.url'), 'searchId.do')
+    
+    urls <- vapply(id, function(x) BiodbUrl(url=url,
+                                            params=list(chebiId=x))$toString(),
+                   FUN.VALUE='')
+    
+    return(urls)
+},
 
-# Get entry image url {{{1
+# Get entry image url {{{3
 ################################################################################
 
-ChebiConn$methods( getEntryImageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'displayImage.do'), params=list(defaultImage='true', imageIndex=0, chebiId=x, dimensions=400))$toString(), FUN.VALUE=''))
-})
+getEntryImageUrl=function(id) {
+
+    url <- c(.self$getPropValSlot('urls', 'base.url'), 'displayImage.do')
+    
+    urls <- vapply(id,
+                   function(x) BiodbUrl(url=url,
+                                        params=list(defaultImage='true',
+                                          imageIndex=0, chebiId=x,
+                                          dimensions=400))$toString(),
+                  FUN.VALUE='')
+    
+    return(urls)
+},
 
 
-# Web service WSDL {{{1
+# Web service WSDL {{{3
 ################################################################################
 
-ChebiConn$methods( wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
+wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
+    'Returns the complete WSDL from the the web server.'
 
     retfmt <- match.arg(retfmt)
 
     # Build request
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'webservice'), params='wsdl'))
+    url <- c(.self$getPropValSlot('urls', 'ws.url'), 'webservice')
+    request <- BiodbRequest(method='get', url=BiodbUrl(url=url, params='wsdl'))
     if (retfmt == 'request')
         return(request)
 
@@ -61,30 +106,41 @@ ChebiConn$methods( wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
         results <-  XML::xmlInternalTreeParse(results, asText=TRUE)
 
     return(results)
-})
+},
 
-# Web service getLiteEntity {{{1
+# Web service getLiteEntity {{{3
 ################################################################################
 
-ChebiConn$methods( wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10, stars='ALL', retfmt=c('plain', 'parsed', 'request', 'ids')) {
-    "Calls getLiteEntity web service and returns the XML result. See http://www.ebi.ac.uk/chebi/webServices.do. Be careful when search by mass (search.category='MASS' or 'MONOISOTOPIC MASS', since the searched is made in text mode, thus the number must be exactly written as it stored in database eventually padded with 0 in order to have exactly 5 digits after the decimal. An easy solution is to use wildcards to search a mass: '410;.718*'."
+wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
+                         stars='ALL',
+                         retfmt=c('plain', 'parsed', 'request', 'ids')) {
+    "Calls getLiteEntity web service and returns the XML result. See
+    http://www.ebi.ac.uk/chebi/webServices.do. Be careful when search by mass
+    (search.category='MASS' or 'MONOISOTOPIC MASS', since the searched is made
+     in text mode, thus the number must be exactly written as it stored in
+     database eventually padded with 0 in order to have exactly 5 digits after
+     the decimal. An easy solution is to use wildcards to search a mass:
+     '410;.718*'."
 
     retfmt <- match.arg(retfmt)
-
-    .self$.parseWebServiceValues()
 
     # Check parameters
     .self$.assertNotNull(search)
     .self$.assertNotNa(search)
-    .self$.assertIn(search.category, .self$.ws.values$search.categories)
+    .self$.assertIn(search.category, .self$getSearchCategories())
     if (is.na(max.results))
         max.results <- 0
     .self$.assertPositive(max.results)
-    .self$.assertIn(stars, .self$.ws.values$stars.categories)
+    .self$.assertIn(stars, .self$getStarsCategories())
 
     # Build request
-    params <- c(search=gsub('[ /]', '+', search), searchCategory=gsub(' ', '+', search.category), maximumResults=max.results, starsCategory=gsub(' ', '+', stars))
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'test/getLiteEntity'), params=params), encoding='UTF-8')
+    params <- c(search=gsub('[ /]', '+', search),
+                searchCategory=gsub(' ', '+', search.category),
+                maximumResults=max.results,
+                starsCategory=gsub(' ', '+', stars))
+    url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test/getLiteEntity')
+    request <- BiodbRequest(method='get', url=BiodbUrl(url=url, params=params),
+                            encoding='UTF-8')
     if (retfmt == 'request')
         return(request)
 
@@ -98,27 +154,64 @@ ChebiConn$methods( wsGetLiteEntity=function(search=NULL, search.category='ALL', 
         results <-  XML::xmlInternalTreeParse(results, asText=TRUE)
 
         if (retfmt == 'ids') {
-            results <- XML::xpathSApply(results, "//chebi:chebiId", XML::xmlValue, namespaces=.self$getPropertyValue('xml.ns'))
+            ns <- .self$getPropertyValue('xml.ns')
+            results <- XML::xpathSApply(results, "//chebi:chebiId",
+                                        XML::xmlValue, namespaces=ns)
             results <- sub('CHEBI:', '', results)
             if (length(grep("^[0-9]+$", results)) != length(results))
-                .self$message('error', "Impossible to parse XML to get entry IDs.")
+                .self$error("Impossible to parse XML to get entry IDs.")
         }
     }
 
     return(results)
-})
+},
 
-# Search by name {{{1
+# Convert CAS ID to ChEBI ID {{{3
 ################################################################################
 
-ChebiConn$methods( searchByName=function(name, max.results=NA_integer_) {
+convCasToChebi=function(cas, simplify=TRUE) {
+    'Convert a list of CAS IDs into a list of ChEBI IDs. Several ChEBI IDs may
+    be returned for a single CAS ID. If `simplify` is set to `TRUE`, and only
+    one ChEBI ID has been found for each CAS ID, then a character vector is
+    returned. Otherwise a list of character vectors is returned.'
+    
+    chebi <- list()
+    
+    # Loop on all cas IDs
+    for (c in cas) {
+        
+        # Get ChEBI IDs for this CAS ID
+        if (is.na(c))
+            ids <- character()
+        else
+            ids <- .self$wsGetLiteEntity(c, search.category='REGISTRY NUMBERS',
+                                         retfmt='ids')
+        
+        chebi <- c(chebi, list(ids))
+    }
+    
+    # Simplify
+    if (simplify && all(vapply(chebi, length, FUN.VALUE=1L) < 2)) {
+        chebi <- lapply(chebi, function(x) if (length(x) == 0) NA_character_
+                                           else x)
+        chebi <- unlist(chebi)
+    }
+
+    return(chebi)
+},
+
+# Search by name {{{3
+################################################################################
+
+searchByName=function(name, max.results=NA_integer_) {
     return(.self$searchCompound(name=name, max.results=max.results))
-})
+},
 
-# Search compound {{{1
+# Search compound {{{3
 ################################################################################
 
-ChebiConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01, mass.tol.unit='plain', max.results=NA_integer_) {
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
+                        mass.tol.unit='plain', max.results=NA_integer_) {
         
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
@@ -126,7 +219,8 @@ ChebiConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL
     
     # Search by name
     if ( ! is.null(name))
-        ids <- .self$wsGetLiteEntity(search=name, search.category="ALL NAMES", max.results=0, retfmt='ids')
+        ids <- .self$wsGetLiteEntity(search=name, search.category="ALL NAMES",
+                                     max.results=0, retfmt='ids')
 
     # Search by mass
     if ( ! is.null(mass) && ! is.null(mass.field)) {
@@ -134,7 +228,7 @@ ChebiConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL
         mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
 
         if ( ! mass.field %in% c('monoisotopic.mass' ,'molecular.mass'))
-            .self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+            .self$caution('Mass field "', mass.field, '" is not handled.')
 
         else {
 
@@ -151,11 +245,17 @@ ChebiConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL
             if (is.null(ids)) {
 
                 # Set search category
-                search.category <- if (mass.field == 'monoisotopic.mass') 'MASS' else 'MONOISOTOPIC MASS'
+                search.category <- if (mass.field == 'monoisotopic.mass') 'MASS'
+                    else 'MONOISOTOPIC MASS'
 
                 # Search for all masses in the range
-                for (integer.mass in seq(as.integer(mass.min), as.integer(mass.max)))
-                    ids <- c(ids, .self$wsGetLiteEntity(search=paste0(integer.mass, '*'), search.category=search.category, max.results=0, retfmt='ids'))
+                range <- seq(as.integer(mass.min), as.integer(mass.max))
+                for (integer.mass in range) {
+                    x <- .self$wsGetLiteEntity(search=paste0(integer.mass, '*'),
+                                               search.category=search.category,
+                                               max.results=0, retfmt='ids')
+                    ids <- c(ids, x)
+                }
 
                 # Remove duplicates
                 ids <- ids[ ! duplicated(ids)]
@@ -165,8 +265,11 @@ ChebiConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL
             if ( ! is.null(ids)) {
 
                 # Get masses of all entries
-                entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids, drop=FALSE)
-                masses <- .self$getBiodb()$entriesToDataframe(entries, compute=FALSE, fields=mass.field, drop=TRUE)
+                entries <- .self$getEntry(ids, drop=FALSE)
+                masses <- .self$getBiodb()$entriesToDataframe(entries,
+                                                              compute=FALSE,
+                                                              fields=mass.field,
+                                                              drop=TRUE)
 
                 # Filter on mass
                 ids <- ids[(masses >= mass.min) & (masses <= mass.max)]
@@ -182,32 +285,69 @@ ChebiConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL
         ids <- ids[seq_len(max.results)]
 
     return(ids)
-})
+},
 
-# Private methods {{{1
+# Get WSDL {{{3
 ################################################################################
 
-# Parse web service values {{{2
+getWsdl=function() {
+    'Get the WSDL as a an XML object.'
+    
+    if (is.null(.self$wsdl))
+        .self$wsdl <- .self$wsWsdl(retfmt='parsed')
+    
+    return(.self$wsdl)
+},
+
+# Get WSDL enumeration {{{3
 ################################################################################
 
-ChebiConn$methods( .parseWebServiceValues=function() {
+getWsdlEnumeration=function(name) {
+    'Extract a list of enumerations from the WSDL.'
+    
+    if ( ! name %in% names(.self$ws.values)) {
 
-    if (length(.self$.ws.values) == 0) {
-
-        wsdl <- .self$wsWsdl(retfmt='parsed')
+        ns <- .self$getPropertyValue('xml.ns')
 
         # Get search categories
-        .self$.ws.values$search.categories <- XML::xpathSApply(wsdl, "//xsd:simpleType[@name='SearchCategory']//xsd:enumeration", XML::xmlGetAttr, 'value', namespaces=.self$getPropertyValue('xml.ns'))
-
-        # Get stars categories
-        .self$.ws.values$stars.categories <- XML::xpathSApply(wsdl, "//xsd:simpleType[@name='StarsCategory']//xsd:enumeration", XML::xmlGetAttr, 'value', namespaces=.self$getPropertyValue('xml.ns'))
+        expr <- paste0("//xsd:simpleType[@name='", name, "']//xsd:enumeration")
+        res <- XML::xpathSApply(.self$getWsdl(), expr, XML::xmlGetAttr, 'value',
+                                namespaces=ns)
+        .self$ws.values[[name]] <- res
     }
-})
+    
+    return(.self$ws.values[[name]])
+},
 
-# Get entry ids {{{2
+# Get stars categories {{{3
 ################################################################################
 
-ChebiConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
-    return(.self$wsGetLiteEntity(search='1*', search.category='CHEBI ID', max.results=max.results, retfmt='ids'))
-})
+getStarsCategories=function() {
+    'Returns the list of allowed stars categories for the getLiteEntity web
+    service.'
+    
+    return(.self$getWsdlEnumeration('StarsCategory'))
+},
 
+# Get search categories {{{3
+################################################################################
+
+getSearchCategories=function() {
+    'Returns the list of allowed search categories for the getLiteEntity web
+    service.'
+
+    return(.self$getWsdlEnumeration('SearchCategory'))
+},
+
+# Private methods {{{2
+################################################################################
+
+# Get entry ids {{{3
+################################################################################
+
+.doGetEntryIds=function(max.results=NA_integer_) {
+    return(.self$wsGetLiteEntity(search='1*', search.category='CHEBI ID',
+                                 max.results=max.results, retfmt='ids'))
+}
+
+))
