@@ -14,8 +14,6 @@
 
 \item{drop}{If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.}
 
-\item{dwnld.chunk.size}{The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.}
-
 \item{id}{A character vector containing database entry IDs (accession numbers).}
 
 \item{token}{A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.}
@@ -28,54 +26,26 @@ This class is responsible for the creation of database connectors and database e
 \section{Methods}{
 
 \describe{
-\item{\code{connExists(conn.id)}}{:
-
-Returns TRUE if a connector with this ID exists.}
+\item{\code{connExists(conn.id)}}{Returns TRUE if a connector with this ID exists.}
 
 \item{\code{createConn(db.class, url = NULL, token = NA_character_,
-  fail.if.exists = TRUE, conn.id = NULL, cache.id = NULL)}}{:
+  fail.if.exists = TRUE, conn.id = NULL, cache.id = NULL)}}{Create a connection to a database.}
 
-Create a connection to a database.}
+\item{\code{createNewEntry(db.class)}}{Create a new entry from scratch. This entry is not stored in cache.}
 
-\item{\code{createNewEntry(db.class)}}{:
+\item{\code{deleteAllCacheEntries(conn.id)}}{Delete all entries of a connector from the cache.}
 
-Create a new entry from scratch. This entry is not stored in cache.}
+\item{\code{deleteAllConnectors()}}{Delete all connectors.}
 
-\item{\code{deleteAllCacheEntries(conn.id)}}{:
+\item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{Delete existing connectors.}
 
-Delete all entries of a connector from the cache.}
+\item{\code{getAllCacheEntries(conn.id)}}{Get all entries of a connector from the cache.}
 
-\item{\code{deleteAllConnectors()}}{:
+\item{\code{getAllConnectors()}}{Returns a list of all created connectors.}
 
-Delete all connectors.}
+\item{\code{getConn(conn.id)}}{Get the instance of connector database corresponding to the submitted ID or database class.}
 
-\item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{:
-
-Delete existing connectors.}
-
-\item{\code{getAllCacheEntries(conn.id)}}{:
-
-Get all entries of a connector from the cache.}
-
-\item{\code{getAllConnectors()}}{:
-
-Returns a list of all created connectors.}
-
-\item{\code{getConn(conn.id)}}{:
-
-Get the instance of connector database corresponding to the submitted ID or database class.}
-
-\item{\code{getEntry(conn.id, id, drop = TRUE)}}{:
-
-Create database entry objects from IDs (accession numbers), for the specified connector.}
-
-\item{\code{getEntryContent(conn.id, id)}}{:
-
-Get the contents of database entries from IDs (accession numbers).}
-
-\item{\code{setDownloadChunkSize(dwnld.chunk.size)}}{:
-
-Set the download chunk size.}
+\item{\code{getEntry(conn.id, id, drop = TRUE)}}{Create database entry objects from IDs (accession numbers), for the specified connector.}
 }}
 
 \examples{
@@ -89,7 +59,7 @@ factory <- mybiodb$getFactory()
 conn <- factory$createConn('chebi')
 
 # Get a database entry:
-entry <- factory$getEntry('chebi', id = '2528')
+entry <- factory$getEntry('chebi', id='2528')
 
 # Terminate instance.
 mybiodb$terminate()

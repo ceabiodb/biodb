@@ -1,38 +1,38 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 #' @include BiodbJsonEntry.R
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
-PeakforestCompoundEntry <- methods::setRefClass("PeakforestCompoundEntry", contains = "BiodbJsonEntry")
+PeakforestCompoundEntry <- methods::setRefClass("PeakforestCompoundEntry", contains="BiodbJsonEntry")
 
-# Constructor {{{1
-################################################################
+# Initialize {{{1
+################################################################################
 
-PeakforestCompoundEntry$methods( initialize = function(...) {
-	callSuper(...)
+PeakforestCompoundEntry$methods( initialize=function(...) {
+    callSuper(...)
 })
 
 # Parse fields step 2 {{{1
-################################################################
+################################################################################
 
-PeakforestCompoundEntry$methods( .parseFieldsStep2 = function(parsed.content) {
+PeakforestCompoundEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
-	# HMDB null
-	if (.self$hasField('hmdb.metabolites.id')) {
-		v <- .self$getFieldValue('hmdb.metabolites.id')
-		v <- v[v != 'HMDBnull']
-		if (length(v) > 0)
-			.self$setFieldValue('hmdb.metabolites.id', v)
-		else
-			.self$removeField('hmdb.metabolites.id')
-	}
+    # HMDB null
+    if (.self$hasField('hmdb.metabolites.id')) {
+        v <- .self$getFieldValue('hmdb.metabolites.id')
+        v <- v[v != 'HMDBnull']
+        if (length(v) > 0)
+            .self$setFieldValue('hmdb.metabolites.id', v)
+        else
+            .self$removeField('hmdb.metabolites.id')
+    }
 
-	# ChEBI IDs
-	if (.self$hasField('chebi.id')) {
-		v <- .self$getFieldValue('chebi.id')
-		v <- sub('^CHEBI:', '', v)
-		.self$setFieldValue('chebi.id', v)
-	}
+    # ChEBI IDs
+    if (.self$hasField('chebi.id')) {
+        v <- .self$getFieldValue('chebi.id')
+        v <- sub('^CHEBI:', '', v)
+        .self$setFieldValue('chebi.id', v)
+    }
 })

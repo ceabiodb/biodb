@@ -20,33 +20,19 @@ This class represents an SQL query. It is used internally to generate an SQL que
 \section{Methods}{
 
 \describe{
-\item{\code{addField(table = NULL, field)}}{:
+\item{\code{addField(table = NULL, field)}}{Set the fields.}
 
-Set the fields.}
+\item{\code{addJoin(table1, field1, table2, field2)}}{Add a join.}
 
-\item{\code{addJoin(table1, field1, table2, field2)}}{:
+\item{\code{setDistinct(distinct)}}{Set or unset distinct modifier.}
 
-Add a join.}
+\item{\code{setLimit(limit)}}{Set results limit.}
 
-\item{\code{setDistinct(distinct)}}{:
+\item{\code{setTable(table)}}{Set the table.}
 
-Set or unset distinct modifier.}
+\item{\code{setWhere(expr)}}{Set  the where clause.}
 
-\item{\code{setLimit(limit)}}{:
-
-Set results limit.}
-
-\item{\code{setTable(table)}}{:
-
-Set the table.}
-
-\item{\code{setWhere(expr)}}{:
-
-Set  the where clause.}
-
-\item{\code{toString()}}{:
-
-Generate the string representation of this query.}
+\item{\code{toString()}}{Generate the string representation of this query.}
 }}
 
 \seealso{

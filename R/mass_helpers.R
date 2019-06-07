@@ -1,5 +1,5 @@
 # Simplify spectrum {{{1
-################################################################
+################################################################################
 
 simplifySpectrum <- function(spec) {
 	if(length(spec) == 0){
@@ -35,20 +35,20 @@ simplifySpectrum <- function(spec) {
 	if (is.null(int.vals))
 		stop("Cannot find intensity values.")
 
-	spec <- data.frame(mz = mz.vals, int = int.vals)
+	spec <- data.frame(mz=mz.vals, int=int.vals)
 	colnames(spec) <- c('peak.mz', 'peak.relative.intensity')
 	return(spec)
 }
 
 # Calc distance {{{1
-################################################################
+################################################################################
 
 calcDistance <-
 	function(spec1 ,
 			 spec2,
-			 npmin = 2,
-			 fun = c("wcosine"),
-			 params = list()) {
+			 npmin=2,
+			 fun=c("wcosine"),
+			 params=list()) {
 		#fun <- match.arg(fun)
 		
 		#SPec are always notmlized in pourcentage toa voir issues;
@@ -60,24 +60,24 @@ calcDistance <-
 		params$mz2 <- as.numeric(spec2[, 'peak.mz'])
 		params$int1 <- as.numeric(spec1[, 'peak.relative.intensity'])
 		params$int2 <- as.numeric(spec2[, 'peak.relative.intensity'])
-		res <- do.call(fun, args = params)
+		res <- do.call(fun, args=params)
 		if (sum(res$matched != -1) < npmin)
-			return(list(matched = res$matched, similarity = 0))
-		list(matched = res$matched,
-			 similarity = res$measure)
+			return(list(matched=res$matched, similarity=0))
+		list(matched=res$matched,
+			 similarity=res$measure)
 	}
 
 # Compare spectra {{{1
-################################################################
+################################################################################
 
 ###The returned sim list is not ordered
-compareSpectra <- function(spec, libspec, npmin = 2, fun = "wcosine", params = list()) {
+compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine", params=list()) {
 
-	res <- data.frame(score = numeric(0))
+	res <- data.frame(score=numeric(0))
 
 	# Add for peaks
 	if ( ! is.null(spec)) {
-		peak.cols <- paste('peak', seq(nrow(spec)), sep = '.')
+		peak.cols <- paste('peak', seq(nrow(spec)), sep='.')
 		for (p in peak.cols)
 			res[[p]] <- integer(0)
 	}
@@ -85,19 +85,16 @@ compareSpectra <- function(spec, libspec, npmin = 2, fun = "wcosine", params = l
 	if ( ! is.null(libspec) && ! is.null(spec) && length(libspec) > 0 && nrow(spec) > 0) {
 
 		####spec is directly normalized.
-		vall <- sapply(libspec, calcDistance, spec1 = spec, npmin = npmin, params = params, fun = fun, simplify = FALSE)
+		vall <- lapply(libspec, calcDistance, spec1=spec, npmin=npmin, params=params, fun=fun)
 
 		####the list is ordered with the chosen metric.
-		sim <- vapply(vall,	'[[', i = "similarity", FUN.VALUE = 1)
-#		osim <- order(sim, decreasing = decreasing)
-		matched <- sapply(vall, '[[', i = "matched", simplify = FALSE)
+		sim <- vapply(vall,	'[[', i="similarity", FUN.VALUE=1)
+		matched <- lapply(vall, '[[', i="matched")
 		
-		res[1:length(sim), 'score'] <- sim
-#		res[['ord']] <- osim
-		for (i in seq(length(matched)))
+		res[seq_len(length(sim)), 'score'] <- sim
+		for (i in seq_len(length(matched)))
 			res[i, peak.cols] <- matched[[i]]
 
-#		return(list(ord = osim, matched = matched, similarity = sim))
 	}
 
 	return(res)

@@ -6,17 +6,17 @@
 #' @include KeggEntry.R
 KeggPathwayEntry <- methods::setRefClass(
     "KeggPathwayEntry",
-    contains = 'KeggEntry',
+    contains='KeggEntry',
 
     # Public methods {{{2
     ############################################################################
 
-    methods = list(
+    methods=list(
 
-        # Constructor {{{3
+# Initialize {{{3
         ########################################################################
 
-        initialize = function(...) {
+        initialize=function(...) {
             callSuper(...)
         },
         
@@ -26,7 +26,7 @@ KeggPathwayEntry <- methods::setRefClass(
         # Makes reference to entry, recurse {{{3
         ########################################################################
         
-        .makesRefToEntryRecurse = function(db, oid) {
+        .makesRefToEntryRecurse=function(db, oid) {
     
             makes_ref <- FALSE
 
@@ -36,8 +36,8 @@ KeggPathwayEntry <- methods::setRefClass(
                 # We need to check that oid is listed in at least one of the modules
                 kmc <- .self$getBiodb()$getFactory()$getConn('kegg.module')
                 module.ids <- .self$getFieldValue('kegg.module.id')
-                makes_ref <- kmc$makesRefToEntry(module.ids, db = db, oid = oid,
-                                                 any = TRUE, recurse = TRUE)
+                makes_ref <- kmc$makesRefToEntry(module.ids, db=db, oid=oid,
+                                                 any=TRUE, recurse=TRUE)
             }
 
             return(makes_ref)
@@ -46,21 +46,21 @@ KeggPathwayEntry <- methods::setRefClass(
         # Parse fields step 2 {{{3
         ################################################################
 
-        .parseFieldsStep2 = function(parsed.content) {
+        .parseFieldsStep2=function(parsed.content) {
 
             # Name
-            .self$.parseMultilinesField(field = 'name',
-                                        tag = 'NAME',
-                                        parsed.content = parsed.content,
-                                        strip.chars = ' ;',
-                                        split.char = NA_character_)
+            .self$.parseMultilinesField(field='name',
+                                        tag='NAME',
+                                        parsed.content=parsed.content,
+                                        strip.chars=' ;',
+                                        split.char=NA_character_)
 
             # Class
-            .self$.parseMultilinesField(field = 'pathway.class',
-                                        tag = 'CLASS',
-                                        parsed.content = parsed.content,
-                                        strip.chars = ' ',
-                                        split.char = ';')
+            .self$.parseMultilinesField(field='pathway.class',
+                                        tag='CLASS',
+                                        parsed.content=parsed.content,
+                                        strip.chars=' ',
+                                        split.char=';')
 
             # Module IDs
             .self$.parseModuleIds(parsed.content)

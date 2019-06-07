@@ -1,7 +1,7 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' The mother class of all remote database connectors.
 #'
@@ -34,144 +34,144 @@
 #' @include BiodbRequestScheduler.R
 #' @export BiodbRemotedbConn
 #' @exportClass BiodbRemotedbConn
-BiodbRemotedbConn <- methods::setRefClass("BiodbRemotedbConn", contains = "BiodbConn")
+BiodbRemotedbConn <- methods::setRefClass("BiodbRemotedbConn", contains="BiodbConn")
 
-# Constructor {{{1
-################################################################
+# Initialize {{{1
+################################################################################
 
-BiodbRemotedbConn$methods( initialize = function(...) {
+BiodbRemotedbConn$methods( initialize=function(...) {
 
-	callSuper(...)
-	.self$.abstract.class('BiodbRemotedbConn')
+    callSuper(...)
+    .self$.abstractClass('BiodbRemotedbConn')
 
     # Register with request scheduler
-	.self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
+    .self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
 })
 
 # Get entry content from database {{{1
-################################################################
+################################################################################
 
-BiodbRemotedbConn$methods( getEntryContentFromDb = function(entry.id) {
-	# Default implementation
-	return(.self$.doGetEntryContentOneByOne(entry.id))
+BiodbRemotedbConn$methods( getEntryContentFromDb=function(entry.id) {
+    # Default implementation
+    return(.self$.doGetEntryContentOneByOne(entry.id))
 })
 
 # Get entry content request {{{1
-################################################################
+################################################################################
 
-BiodbRemotedbConn$methods( getEntryContentRequest = function(entry.id, concatenate = TRUE, max.length = 0) {
-	":\n\nGet the URL to use in order to get the contents of the specified entries."
+BiodbRemotedbConn$methods( getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
+    "Get the URL to use in order to get the contents of the specified entries."
 
-	# Copy code from get.entry.url
-	# 
+    # Copy code from get.entry.url
+    # 
 
-	urls <- character(0)
+    urls <- character(0)
 
-	if (length(entry.id) > 0) {
+    if (length(entry.id) > 0) {
 
-		# Get full URL
-		full.url <- .self$.doGetEntryContentRequest(entry.id, concatenate = concatenate)
+        # Get full URL
+        full.url <- .self$.doGetEntryContentRequest(entry.id, concatenate=concatenate)
 
-		# No single URL for multiple IDs
-		if ((length(entry.id) > 1 && length(full.url) > 1) || max.length == 0 || nchar(full.url) <= max.length)
-			urls <- full.url
+        # No single URL for multiple IDs
+        if ((length(entry.id) > 1 && length(full.url) > 1) || max.length == 0 || nchar(full.url) <= max.length)
+            urls <- full.url
 
-		# full.url is too big, we must split it
-		else {
-			.self$message('debug', "Split full URL.")
+        # full.url is too big, we must split it
+        else {
+            .self$message('debug', "Split full URL.")
 
-			start <- 1
+            start <- 1
 
-			# Loop as long as there are IDs
-			while (start <= length(entry.id)) {
-				# Find max size URL
-				a <- start
-				b <- length(entry.id)
-				while (a < b) {
-					m <- as.integer((a + b) / 2)
-					url <- .self$.doGetEntryContentRequest(entry.id[start:m])
-					if (all(nchar(url) <= max.length) && m != a)
-						a <- m
-					else
-						b <- m
-				}
-				urls <- c(urls, .self$.doGetEntryContentRequest(entry.id[start:a]))
-				start <- a + 1
-			}
-		}
-	}
+            # Loop as long as there are IDs
+            while (start <= length(entry.id)) {
+                # Find max size URL
+                a <- start
+                b <- length(entry.id)
+                while (a < b) {
+                    m <- as.integer((a + b) / 2)
+                    url <- .self$.doGetEntryContentRequest(entry.id[start:m])
+                    if (all(nchar(url) <= max.length) && m != a)
+                        a <- m
+                    else
+                        b <- m
+                }
+                urls <- c(urls, .self$.doGetEntryContentRequest(entry.id[start:a]))
+                start <- a + 1
+            }
+        }
+    }
 
-	return(urls)
+    return(urls)
 })
 
 # Get entry image url {{{1
-################################################################
+################################################################################
 
-BiodbRemotedbConn$methods( getEntryImageUrl = function(entry.id) {
-	":\n\nGet the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry)."
+BiodbRemotedbConn$methods( getEntryImageUrl=function(entry.id) {
+    "Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry)."
 
-	.self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Get entry page url {{{1
-################################################################
+################################################################################
 
-BiodbRemotedbConn$methods( getEntryPageUrl = function(entry.id) {
-	":\n\nGet the URL to the page of the entry on the database web site."
+BiodbRemotedbConn$methods( getEntryPageUrl=function(entry.id) {
+    "Get the URL to the page of the entry on the database web site."
 
-	.self$.abstract.method()
+    .self$.abstractMethod()
 })
 
 # Private methods {{{1
-################################################################
+################################################################################
 
 # Set request scheduler rules {{{2
-################################################################
+################################################################################
 
-BiodbRemotedbConn$methods( .setRequestSchedulerRules = function() {
+BiodbRemotedbConn$methods( .setRequestSchedulerRules=function() {
 })
 
 # Do get entry content request {{{2
-################################################################
+################################################################################
 
-BiodbRemotedbConn$methods( .doGetEntryContentRequest = function(id, concatenate = TRUE) {
-	.self$.abstract.method()
+BiodbRemotedbConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    .self$.abstractMethod()
 })
 
 # Do get entry content one by one {{{2
-################################################################
+################################################################################
 
-BiodbRemotedbConn$methods( .doGetEntryContentOneByOne = function(entry.id) {
+BiodbRemotedbConn$methods( .doGetEntryContentOneByOne=function(entry.id) {
 
-	# Initialize return values
-	content <- rep(NA_character_, length(entry.id))
+    # Initialize return values
+    content <- rep(NA_character_, length(entry.id))
 
-	# Get requests
-	requests <- .self$getEntryContentRequest(entry.id, concatenate = FALSE)
-	
-	# Get encoding
-	encoding <- .self$getPropertyValue('entry.content.encoding')
+    # Get requests
+    requests <- .self$getEntryContentRequest(entry.id, concatenate=FALSE)
+    
+    # Get encoding
+    encoding <- .self$getPropertyValue('entry.content.encoding')
 
-	# If requests is a vector of characters, then the method is using the old scheme.
-	# We now convert the requests to the new scheme, using class BiodbRequest.
-	if (is.character(requests))
-		requests <- lapply(requests, function(x) BiodbRequest(method = 'get', url = BiodbUrl(x), encoding = encoding))
+    # If requests is a vector of characters, then the method is using the old scheme.
+    # We now convert the requests to the new scheme, using class BiodbRequest.
+    if (is.character(requests))
+        requests <- lapply(requests, function(x) BiodbRequest(method='get', url=BiodbUrl(x), encoding=encoding))
 
-	# Send requests
-	for (i in seq_along(requests)) {
-		lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type = 'info', msg = 'Getting entry contents.', index = i, total = length(requests), first = (i == 1)))
-		content[[i]] <- .self$getBiodb()$getRequestScheduler()$sendRequest(requests[[i]])
-	}
+    # Send requests
+    for (i in seq_along(requests)) {
+        lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type='info', msg='Getting entry contents.', index=i, total=length(requests), first=(i == 1)))
+        content[[i]] <- .self$getBiodb()$getRequestScheduler()$sendRequest(requests[[i]])
+    }
 
-	return(content)
+    return(content)
 })
 
 # Terminate {{{2
-################################################################
+################################################################################
 
-BiodbRemotedbConn$methods( .terminate = function() {
+BiodbRemotedbConn$methods( .terminate=function() {
 
     # Unregister from the request scheduler
-	.self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)
+    .self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)
 })
 

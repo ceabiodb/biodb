@@ -1,15 +1,15 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 #' @include NcbiPubchemEntry.R
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
-NcbiPubchemSubstEntry <- methods::setRefClass("NcbiPubchemSubstEntry", contains = "NcbiPubchemEntry")
+NcbiPubchemSubstEntry <- methods::setRefClass("NcbiPubchemSubstEntry", contains="NcbiPubchemEntry")
 
-# Constructor {{{1
-################################################################
+# Initialize {{{1
+################################################################################
 
-NcbiPubchemSubstEntry$methods( initialize = function(...) {
-	callSuper(...)
+NcbiPubchemSubstEntry$methods( initialize=function(...) {
+    callSuper(...)
 })

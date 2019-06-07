@@ -28,9 +28,7 @@ named vertices and edges.}
 \item{\code{convertToOrgPathways(id, org)}}{Take a list of pathways IDs and convert them to the specified organism,
 filtering out the ones that do not exist in KEGG.}
 
-\item{\code{getEntryImageUrl(entry.id)}}{:
-
-Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
 
 \item{\code{getPathwayIgraph(id, directed = FALSE, drop = TRUE)}}{Build a pathway graph using KEGG database. Returns an \code{igraph}
 object, or NULL if the igraph library is not available.}
@@ -46,13 +44,13 @@ a single KEGG reaction objects, depending on the drop parameter.}
 mybiodb <- biodb::Biodb()
 
 # Get connector
-conn = mybiodb$getFactory()$createConn('kegg.pathway')
+conn=mybiodb$getFactory()$createConn('kegg.pathway')
 
 # Retrieve all reactions related to a mouse pathway:
-reactions = conn$getReactions('mmu00260')
+reactions=conn$getReactions('mmu00260')
 
 # Get a pathway graph
-graph = conn$buildPathwayGraph('mmu00260')
+graph=conn$buildPathwayGraph('mmu00260')
 
 # Terminate instance.
 mybiodb$terminate()

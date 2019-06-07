@@ -6,14 +6,29 @@
 \alias{BiodbConn}
 \title{The mother abstract class of all database connectors.}
 \arguments{
-\item{count}{If set to \code{TRUE} and no straightforward way exists to get number of entries, count the output of \code{getEntryIds()}.}
+\item{count}{If set to \code{TRUE} and no straightforward way exists
+to get number of entries, count the output of
+\code{getEntryIds()}.}
 
-\item{entry.id}{The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.}
+\item{entry.id}{The identifiers (e.g.: accession numbers) as a
+\code{character vector} of the database entries.}
 
 \item{max.results}{The maximum of elements to return from the method.}
 }
 \description{
-This is the super class of all connector classes. All methods defined here are thus common to all connector classes. Some connector classes inherit directly from this abstract class. Some others inherit from intermediate classes \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}. As for all connector concrete classes, you won't have to create an instance of this class directly, but you will instead go through the factory class. However, if you plan to develop a new connector, you will have to call the constructor of this class. See section Fields for a list of the constructor's parameters. Concrete classes may have direct web services methods or other specific methods implemented, in which case they will be described inside the documentation of the concrete class. Please refer to the documentation of each concrete class for more information. The database direct web services methods will be named "ws.*".
+This is the super class of all connector classes. All methods defined here
+are thus common to all connector classes. Some connector classes inherit
+directly from this abstract class. Some others inherit from intermediate
+classes \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+As for all connector concrete classes, you won't have to create an instance
+of this class directly, but you will instead go through the factory class.
+However, if you plan to develop a new connector, you will have to call the
+constructor of this class. See section Fields for a list of the constructor's
+parameters. Concrete classes may have direct web services methods or other
+specific methods implemented, in which case they will be described inside the
+documentation of the concrete class. Please refer to the documentation of
+each concrete class for more information. The database direct web services
+methods will be named "ws.*".
 }
 \section{Fields}{
 
@@ -26,73 +41,59 @@ This is the super class of all connector classes. All methods defined here are t
 \section{Methods}{
 
 \describe{
-\item{\code{checkDb()}}{:
+\item{\code{checkDb()}}{Check that the database is correct by trying to load all entries.}
 
-Check that the database is correct by trying to load all entries.}
+\item{\code{deleteAllCacheEntries()}}{Delete all entries from the memory cache.}
 
-\item{\code{deleteAllCacheEntries()}}{:
+\item{\code{getAllCacheEntries()}}{Get all entries from the memory cache.}
 
-Delete all entries from the memory cache.}
+\item{\code{getCacheFile(entry.id)}}{Get the path to the persistent cache file.}
 
-\item{\code{getAllCacheEntries()}}{:
+\item{\code{getCacheId()}}{Returns the ID used by this connector in the disk cache.}
 
-Get all entries from the memory cache.}
+\item{\code{getEntry(id, drop = TRUE)}}{Return the entry corresponding to this ID. You can pass a vector of IDs,
+and you will get a list of entries.}
 
-\item{\code{getCacheId()}}{:
+\item{\code{getEntryContent(id)}}{Get the contents of database entries from IDs (accession numbers).}
 
-Returns the ID used by this connector in the disk cache.}
+\item{\code{getEntryContentFromDb(entry.id)}}{Get the content of an entry from the database.}
 
-\item{\code{getEntry(id, drop = TRUE)}}{:
+\item{\code{getEntryIds(max.results = NA_integer_, ...)}}{Get entry identifiers from the database. More arguments can be given,
+depending on implementation in specific databases. For mass databases, the
+ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be
+set.}
 
-Return the entry corresponding to this ID. You can pass a vector of IDs, and you will get a list of entries.}
+\item{\code{getId()}}{Get the identifier of this connector.}
 
-\item{\code{getEntryContent(entry.id)}}{:
+\item{\code{getNbEntries(count = FALSE)}}{Get the number of entries contained in this database.}
 
-Get the content of an entry.}
+\item{\code{isCompounddb()}}{Returns TRUE if the database is a compound database (i.e.: the connector
+class inherits from BiodbCompounddbConn class).}
 
-\item{\code{getEntryIds(max.results = NA_integer_, ...)}}{:
+\item{\code{isDownloadable()}}{Returns TRUE if the database is downloadable (i.e.: the connector class
+implements the interface BiodbDownloadable).}
 
-Get entry identifiers from the database. More arguments can be given, depending on implementation in specific databases. For mass databases (the ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be set.}
+\item{\code{isEditable()}}{Returns TRUE if the database is editable (i.e.: the connector class
+implements the interface BiodbEditable). If this connector is editable, then
+you can call allowEditing() to enable editing.}
 
-\item{\code{getId()}}{:
+\item{\code{isMassdb()}}{Returns TRUE if the database is a mass database (i.e.: the connector
+class inherits from BiodbMassdbConn class).}
 
-Get the identifier of this connector.}
+\item{\code{isRemotedb()}}{Returns TRUE if the database is a remote database (i.e.: the connector
+class inherits from BiodbRemotedbConn class).}
 
-\item{\code{getNbEntries(count = FALSE)}}{:
+\item{\code{isSearchable()}}{Returns TRUE if the database is searchable (i.e.: the connector class
+implements the interface BiodbSearchable).}
 
-Get the number of entries contained in this database.}
+\item{\code{isWritable()}}{Returns TRUE if the database is writable (i.e.: the connector class
+implements the interface BiodbWritable). If this connector is writable, then
+you can call allowWriting() to enable writing.}
 
-\item{\code{isCompounddb()}}{:
-
-Returns TRUE if the database is a compound database (i.e.: the connector class inherits from BiodbCompounddbConn class).}
-
-\item{\code{isDownloadable()}}{:
-
-Returns TRUE if the database is downloadable (i.e.: the connector class implements the interface BiodbDownloadable).}
-
-\item{\code{isEditable()}}{:
-
-Returns TRUE if the database is editable (i.e.: the connector class implements the interface BiodbEditable). If this connector is editable, then you can call allowEditing() to enable editing.}
-
-\item{\code{isMassdb()}}{:
-
-Returns TRUE if the database is a mass database (i.e.: the connector class inherits from BiodbMassdbConn class).}
-
-\item{\code{isRemotedb()}}{:
-
-Returns TRUE if the database is a remote database (i.e.: the connector class inherits from BiodbRemotedbConn class).}
-
-\item{\code{isSearchable()}}{:
-
-Returns TRUE if the database is searchable (i.e.: the connector class implements the interface BiodbSearchable).}
-
-\item{\code{isWritable()}}{:
-
-Returns TRUE if the database is writable (i.e.: the connector class implements the interface BiodbWritable). If this connector is writable, then you can call allowWriting() to enable writing.}
-
-\item{\code{makesRefToEntry(id, db, oid, any = FALSE, recurse = FALSE)}}{Test for each entry of this database in id parameter if it makes reference to the entry 
-oid from database db. If any is set to TRUE, will return a single logical value: TRUE
-if any entry contains a reference to oid, FALSE otherwise.}
+\item{\code{makesRefToEntry(id, db, oid, any = FALSE, recurse = FALSE)}}{Test for each entry of this database in id parameter if it makes reference
+to the entry oid from database db. If any is set to TRUE, will return a
+single logical value: TRUE if any entry contains a reference to oid, FALSE
+otherwise.}
 }}
 
 \examples{
@@ -113,5 +114,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbMassdbConn}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+         \code{\link{BiodbMassdbConn}}.
 }

@@ -18,21 +18,13 @@ This is the super class of remote database connectors. It thus defines methods r
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryContent(entry.id)}}{:
+\item{\code{getEntryContentFromDb(entry.id)}}{Get the content of an entry from the database.}
 
-Get the content of an entry.}
+\item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{Get the URL to use in order to get the contents of the specified entries.}
 
-\item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{:
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
 
-Get the URL to use in order to get the contents of the specified entries.}
-
-\item{\code{getEntryImageUrl(entry.id)}}{:
-
-Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
-
-\item{\code{getEntryPageUrl(entry.id)}}{:
-
-Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 }}
 
 \examples{

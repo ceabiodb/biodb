@@ -1,12 +1,12 @@
 Package: biodb
 Title: Biodb, a Library for Connecting to Chemical and Biological Databases
-Version: 1.2.1
+Version: 0.99.0
 Authors@R: person("Pierrick", "Roger", email = "pk.roger@icloud.com", role = c("aut", "cre"))
 Description: The biodb library provides a way to connect to several chemical and
     biological databases, and retrieve entries easily.
 biocViews: Software, Infrastructure, DataImport
 Depends:
-    R (>= 3.5)
+    R (>= 3.6)
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
@@ -48,6 +48,7 @@ Collate:
     'BiodbConnBase.R'
     'BiodbConn.R'
     'BiodbCompounddbConn.R'
+    'BiodbObserver.R'
     'BiodbConfig.R'
     'BiodbConnObserver.R'
     'BiodbEntry.R'
@@ -59,7 +60,6 @@ Collate:
     'BiodbEntryField.R'
     'BiodbEntryFields.R'
     'BiodbEntryList.R'
-    'BiodbObserver.R'
     'BiodbErrorReporter.R'
     'BiodbFactory.R'
     'BiodbXmlEntry.R'

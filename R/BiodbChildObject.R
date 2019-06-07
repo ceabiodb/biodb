@@ -1,44 +1,60 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
+
+# BiodbChildObject {{{1
+################################################################################
 
 #' @include BiodbObject.R
+BiodbChildObject <- methods::setRefClass("BiodbChildObject",
+    contains='BiodbObject',
 
-# Class declaration {{{1
-################################################################
+# Fields {{{2
+################################################################################
+fields=list(
+    .parent="ANY"
+),
 
-BiodbChildObject <- methods::setRefClass("BiodbChildObject", contains = 'BiodbObject', fields = list( .parent = "ANY" ))
+# Public methods {{{2
+################################################################################
 
-# Constructor {{{1
-################################################################
+methods=list(
 
-BiodbChildObject$methods( initialize = function(parent, ...) {
+# Initialize {{{3
+################################################################################
 
-	callSuper(...)
-	.self$.abstract.class('BiodbChildObject')
-	.self$.setParent(parent)
-})
+initialize=function(parent, ...) {
 
-# Get parent {{{1
-################################################################
+    callSuper(...)
+    .self$.abstractClass('BiodbChildObject')
+    .self$.setParent(parent)
+},
 
-BiodbChildObject$methods( getParent = function() {
-	return(.self$.parent)
-})
+# Get parent {{{3
+################################################################################
 
-# Get biodb {{{1
-################################################################
+getParent=function() {
+    return(.self$.parent)
+},
 
-BiodbChildObject$methods( getBiodb = function() {
-	return(.self$getParent()$getBiodb())
-})
+# Get biodb {{{3
+################################################################################
 
-# Private methods {{{1
-################################################################
+getBiodb=function() {
+    return(.self$getParent()$getBiodb())
+},
 
-BiodbChildObject$methods( .setParent = function(parent) {
+# Private methods {{{2
+################################################################################
 
-	if (is.null(parent))
-		.self$message('error', "Parent cannot be NULL.")
-	if ( ! is(parent, 'BiodbObject'))
-		.self$message('error', "Parent must inherit from BiodbObject.")
-	.parent <<- parent
-})
+# Set parent {{{3
+################################################################################
+
+.setParent=function(parent) {
+
+    if (is.null(parent))
+        .self$message('error', "Parent cannot be NULL.")
+    if ( ! is(parent, 'BiodbObject'))
+        .self$message('error', "Parent must inherit from BiodbObject.")
+    .self$.parent <- parent
+}
+
+))

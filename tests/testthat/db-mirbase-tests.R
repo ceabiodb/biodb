@@ -3,21 +3,21 @@
 # Test WS query {{{1
 ################################################################
 
-test.mirbase.mature.ws.query <- function(db) {
+test.mirbase.mature.wsQuery <- function(db) {
 
-	results <- db$ws.query('onc')
+	results <- db$wsQuery('onc')
 	expect_is(results, 'character')
 	expect_length(results, 1)
 
-	results <- db$ws.query('onc', retfmt = 'parsed')
+	results <- db$wsQuery('onc', retfmt = 'parsed')
 	expect_is(results, 'HTMLInternalDocument')
 
-	results <- db$ws.query('onc', retfmt = 'ids')
+	results <- db$wsQuery('onc', retfmt = 'ids')
 	expect_is(results, 'character')
 	expect_false(any(is.na(results)))
 	expect_length(results, 0)
 
-	results <- db$ws.query('hsa', retfmt = 'ids')
+	results <- db$wsQuery('hsa', retfmt = 'ids')
 	expect_is(results, 'character')
 	expect_false(any(is.na(results)))
 	expect_true(length(results) > 0)
@@ -28,6 +28,6 @@ test.mirbase.mature.ws.query <- function(db) {
 
 run.mirbase.mature.tests <- function(conn, obs) {
 	if (test.online()) {
-		test.that('', 'test.mirbase.mature.ws.query', conn = conn)
+		test.that('', 'test.mirbase.mature.wsQuery', conn = conn)
 	}
 }

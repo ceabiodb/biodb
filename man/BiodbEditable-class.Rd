@@ -14,25 +14,15 @@ A database class that implements this interface allows the addition of new entri
 \section{Methods}{
 
 \describe{
-\item{\code{addNewEntry(entry)}}{:
+\item{\code{addNewEntry(entry)}}{Add a new entry to the database. The passed entry must have been previously created from scratch using BiodbFactory::createNewEntry() or cloned from an existing entry using BiodbEntry::clone().}
 
-Add a new entry to the database. The passed entry must have been previously created from scratch using BiodbFactory::createNewEntry() or cloned from an existing entry using BiodbEntry::clone().}
+\item{\code{allowEditing()}}{Allow editing for this database.}
 
-\item{\code{allowEditing()}}{:
+\item{\code{disallowEditing()}}{Disallow editing for this database.}
 
-Allow editing for this database.}
+\item{\code{editingIsAllowed()}}{Returns TRUE if editing is allowed for this database.}
 
-\item{\code{disallowEditing()}}{:
-
-Disallow editing for this database.}
-
-\item{\code{editingIsAllowed()}}{:
-
-Returns TRUE if editing is allowed for this database.}
-
-\item{\code{setEditingAllowed(allow)}}{:
-
-Allow or disallow editing for this database.}
+\item{\code{setEditingAllowed(allow)}}{Allow or disallow editing for this database.}
 }}
 
 \seealso{

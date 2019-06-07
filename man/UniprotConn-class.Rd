@@ -18,23 +18,17 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryImageUrl(entry.id)}}{:
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
 
-Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
-
-\item{\code{getEntryPageUrl(entry.id)}}{:
-
-Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
-  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
+must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
+                                   ...)}
 
-Search for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)}
-
-\item{\code{ws.query(query = "", columns = NULL, format = NULL, limit = NULL,
-  retfmt = c("plain", "parsed", "ids", "request"))}}{:
-
-Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details.}
+\item{\code{wsQuery(query = "", columns = NULL, format = NULL, limit = NULL,
+  retfmt = c("plain", "parsed", "ids", "request"))}}{Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details.}
 }}
 
 \examples{
@@ -45,9 +39,9 @@ mybiodb <- biodb::Biodb()
 uniprot <- mybiodb$getFactory()$createConn('uniprot')
 
 # Access web service query
-result <- uniprot$ws.query(query = 'name:"prion protein"',
-                           columns = c('id', 'entry name'),
-                           format = 'txt', limit = 10)
+result <- uniprot$wsQuery(query='name:"prion protein"',
+                           columns=c('id', 'entry name'),
+                           format='txt', limit=10)
 
 # Terminate instance.
 mybiodb$terminate()

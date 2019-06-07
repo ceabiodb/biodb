@@ -1,26 +1,32 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
-################################################################
+# BiodbLogger {{{1
+################################################################################
 
 #' A class for logging biodb messages either to standard stream or into a file.
 #'
-#' This class implements a logger for the biodb package. When creating an instance of this class, you can choose to either log to a standard stream (standard error or standard output) or to a file. See section Fields for a list of the constructor's parameters.
+#' This class implements a logger for the biodb package. When creating an
+#' instance of this class, you can choose to either log to a standard stream
+#' (standard error or standard output) or to a file. See section Fields for a
+#' list of the constructor's parameters.
 #'
-#' @field file The file path, file connection or standard stream to which you want to send biodb messages.
-#' @field mode For a file, the mode in which you want to open the file. 'w' for writing (if a file already exists, it will be erased), and 'a' for appending (if a file already exists, logs will be appended to it).
+#' @field file The file path, file connection or standard stream to which you
+#'        want to send biodb messages.
+#' @field mode For a file, the mode in which you want to open the file. 'w' for
+#'        writing (if a file already exists, it will be erased), and 'a' for
+#'        appending (if a file already exists, logs will be appended to it).
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
 #'
 #' @examples
-#' # Create a biodb instance with a file log
-#' mybiodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = "myfile.log"))
+#' # Create a file logger
+#' logger <- biodb::BiodbLogger(file="myfile.log")
 #'
-#' # Terminate instance.
-#' mybiodb$terminate()
-#' 
-#' # Create a biodb instance with logging to standard output
-#' mybiodb <- biodb::Biodb(observers = biodb::BiodbLogger(file = stdout()))
+#' # Create a biodb instance
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Add the logger to the list of observers
+#' mybiodb$addObservers(logger)
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -29,102 +35,114 @@
 #' @include BiodbObserver.R
 #' @export BiodbLogger
 #' @exportClass BiodbLogger
-BiodbLogger <- methods::setRefClass("BiodbLogger", contains = 'BiodbObserver', fields = list(.file = 'ANY', .exclude = 'character', .close.file = 'logical', .lastime.progress = 'list', .progress.laptime = 'integer', .progress.initial.time = 'list'))
+BiodbLogger <- methods::setRefClass("BiodbLogger",
+                                    contains='BiodbObserver',
 
-# Constructor {{{1
-################################################################
+# Fields {{{2
+################################################################################
 
-BiodbLogger$methods( initialize = function(file = stderr(), mode = 'w', close.file = TRUE, ...) {
+fields=list(
+    .file='ANY',
+    .close.file='logical',
+    .lastime.progress='list',
+    .progress.laptime='integer',
+    .progress.initial.time='list'),
 
-	callSuper(...)
+# Public methods {{{2
+################################################################################
 
-	# Is file NULL or NA?
-	if (is.null(file) || is.na(file))
-		error("You must choose either a standard stream or a file path for the \"file\" parameter")
+methods=list(
 
-	# File is a path => create a connection
-	if (is.character(file))
-		file <- file(file, open = mode)
+# Initialize {{{3
+################################################################################
 
-	# Check file class type
-	if ( ! all(class(file) %in% c('file', 'connection', 'terminal')))
-		error(paste('Unknown class "', class(file), '" for log file.', sep = ''))
+initialize=function(file=NULL, mode='w', close.file=TRUE, ...) {
 
-	# Set member field
-	.file <<- file
-	.close.file <<- close.file
-	.lastime.progress <<- list()
-	.progress.initial.time <<- list()
-	.progress.laptime <<- as.integer(10) # In seconds
+    callSuper(...)
 
-	# Exclude DEBUG messages
-	.exclude <<- character(0)
-	.self$excludeMsgType('debug')
-})
+    # Is file NA?
+    if ( ! is.null(file) && (is.na(file) || ( ! is.character(file)
+                             && ! methods::is(file, 'connection'))))
+        stop("You must choose either a connection to a file or a file path",
+              " for the \"file\" parameter")
 
-# Terminate {{{1
-################################################################
+    # File is a path => create a connection
+    if (is.character(file))
+        file <- file(file, open=mode)
 
-BiodbLogger$methods( terminate = function() {
-	if ( .self$.close.file && ! is.null(.self$.file) && class(.self$.file)[[1]] != 'terminal')
-		close(.self$.file)
-})
+    # Check file class type
+    if ( ! is.null(file) && ! methods::is(file, 'file')
+        && ! methods::is(file, 'terminal'))
+        stop('Unknown class "', class(file), '" for log file.')
 
-# Exclude message type {{{1
-################################################################
+    # Set member field
+    .self$.file <- file
+    .self$.close.file <- close.file
+    .self$.lastime.progress <- list()
+    .self$.progress.initial.time <- list()
+    .self$.progress.laptime <- as.integer(10) # In seconds
+},
 
-BiodbLogger$methods( excludeMsgType = function(type) {
+# Terminate {{{3
+################################################################################
 
-	.self$checkMessageType(type)
+terminate=function() {
+    if (.self$.close.file && ! is.null(.self$.file)
+        && ! methods::is(.self$.file, 'terminal'))
+        close(.self$.file)
+},
 
-	if ( ! type %in% .self$.exclude)
-		.self$.exclude <- c(.self$.exclude, type)
-})
+# Message {{{3
+################################################################################
 
-# Include message type {{{1
-################################################################
+msg=function(type='info', msg, class=NA_character_,
+                   method=NA_character_, lvl=1) {
 
-BiodbLogger$methods( includeMsgType = function(type) {
+    .self$checkMessageType(type)
+    setlvl <- .self$getLevel(type)
 
-	.self$checkMessageType(type)
+    if (setlvl >= lvl) {
 
-	if (type %in% .self$.exclude)
-		.self$.exclude <- .self$.exclude[ ! .self$.exclude %in% type]
-})
+        # Set caller information
+        caller.info <- if (is.na(class)) '' else class
+        caller.info <- if (is.na(method)) caller.info
+            else paste(caller.info, method, sep='::')
+        if (nchar(caller.info) > 0)
+            caller.info <- paste('[', caller.info, '] ', sep='')
 
-# Message {{{1
-################################################################
+        # Set timestamp
+        timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep='')
 
-BiodbLogger$methods( message = function(type = 'info', msg, class = NA_character_, method = NA_character_) {
+        # Output message
+        m <- paste0('BIODB.', toupper(type), timestamp, caller.info, ': ', msg)
+        if (is.null(.self$.file))
+            base::message(m)
+        else
+            cat(m, "\n", sep='', file=.self$.file)
+    }
+},
 
-	.self$checkMessageType(type)
+# Info progress {{{3
+################################################################################
 
-	if ( ! type %in% .self$.exclude) {
+progress=function(type='info', msg, index, total, first, lvl=1) {
+    
+    t <- Sys.time()
 
-		# Set caller information
-		caller.info <- if (is.na(class)) '' else class
-		caller.info <- if (is.na(method)) caller.info else paste(caller.info, method, sep = '::')
-		if (nchar(caller.info) > 0) caller.info <- paste('[', caller.info, '] ', sep = '')
+    if (first || ! msg %in% names(.self$.lastime.progress)) {
+        .self$.lastime.progress[[msg]] <- t
+        .self$.progress.initial.time[[msg]] <- t
+    }
 
-		# Set timestamp
-		timestamp <- paste('[', as.POSIXlt(Sys.time()), ']', sep = '')
+    else if (t - .self$.lastime.progress[[msg]]
+             > .self$.progress.laptime) {
+        i <- .self$.progress.initial.time[[msg]]
+        eta <- t + (total - index) * (t - i) / index
+        .self$msg(type, paste0(msg, ' ', index, ' / ', total, ' (',
+                                   ((100 * index) %/% total), '%, ETA: ',
+                                   eta, ').'), lvl=lvl)
+        .self$.lastime.progress[[msg]] <- t
+    }
+}
 
-		# Output message
-		cat('BIODB.', toupper(type), timestamp, caller.info, ': ', msg, "\n", sep = '', file = .self$.file)
-	}
-})
-
-# Info progress {{{1
-################################################################
-
-BiodbLogger$methods( progress = function(type = 'info', msg, index, total, first) {
-
-	if (first || ! msg %in% names(.self$.lastime.progress))
-		.self$.lastime.progress[[msg]] = .self$.progress.initial.time[[msg]] = Sys.time()
-
-	else if (Sys.time() - .self$.lastime.progress[[msg]] > .self$.progress.laptime) {
-		eta = Sys.time() + (total - index) * (Sys.time() - .self$.progress.initial.time[[msg]]) / index
-		.self$message(type, paste0(msg, ' ', index, ' / ', total, ' (', ((100 * index) %/% total), '%, ETA: ', eta, ').'))
-		.self$.lastime.progress[[msg]] = Sys.time()
-	}
-})
+))

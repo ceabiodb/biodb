@@ -1,57 +1,57 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 #' @include BiodbEntry.R
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
-BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry", contains = 'BiodbEntry')
+BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry", contains='BiodbEntry')
 
-# Constructor {{{1
-################################################################
+# Initialize {{{1
+################################################################################
 
-BiodbJsonEntry$methods( initialize = function(...) {
+BiodbJsonEntry$methods( initialize=function(...) {
 
-	callSuper(...)
-	.self$.abstract.class('BiodbJsonEntry')
+    callSuper(...)
+    .self$.abstractClass('BiodbJsonEntry')
 })
 
 # Do parse content {{{1
-################################################################
+################################################################################
 
-BiodbJsonEntry$methods( .doParseContent = function(content) {
+BiodbJsonEntry$methods( .doParseContent=function(content) {
 
-	# Parse JSON
-	json <- jsonlite::fromJSON(content, simplifyDataFrame = FALSE)	
+    # Parse JSON
+    json <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)  
 
-	return(json)
+    return(json)
 })
 
 # Parse fields step 1 {{{1
-################################################################
+################################################################################
 
-BiodbJsonEntry$methods( .parseFieldsStep1 = function(parsed.content) {
+BiodbJsonEntry$methods( .parseFieldsStep1=function(parsed.content) {
 
-	# Get parsing expressions
-	parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
+    # Get parsing expressions
+    parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
-	# Set fields
-	for (field in names(parsing.expr)) {
+    # Set fields
+    for (field in names(parsing.expr)) {
 
-		x <- parsed.content
+        x <- parsed.content
 
-		# Go along path
-		found.value <- TRUE
-		for (t in parsing.expr[[field]])
-			if (t %in% names(x))
-				x <- x[[t]]
-			else {
-				found.value <- FALSE
-				break
-			}
+        # Go along path
+        found.value <- TRUE
+        for (t in parsing.expr[[field]])
+            if (t %in% names(x))
+                x <- x[[t]]
+            else {
+                found.value <- FALSE
+                break
+            }
 
-			# Set value
-		if (found.value && length(x) == 1)
-			.self$setFieldValue(field, x)
-	}
+            # Set value
+        if (found.value && length(x) == 1)
+            .self$setFieldValue(field, x)
+    }
 })

@@ -20,52 +20,34 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \section{Methods}{
 
 \describe{
-\item{\code{getAllRecordFields()}}{:
+\item{\code{getAllRecordFields()}}{Returns the complete list of all record fields provided by ChemSpider.}
 
-Returns the complete list of all record fields provided by ChemSpider.}
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
 
-\item{\code{getEntryImageUrl(entry.id)}}{:
-
-Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
-
-\item{\code{getEntryPageUrl(entry.id)}}{:
-
-Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
-  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
+must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
+                                   ...)}
 
-Search for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)}
+\item{\code{wsFilterMassPost(mass, range, retfmt = c("plain", "parsed", "queryid", "ids",
+  "request"))}}{Access the filter-mass-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/mass.}
 
-\item{\code{ws.filterMassPost(mass, range, retfmt = c("plain", "parsed", "queryid", "ids",
-  "request"))}}{:
+\item{\code{wsFilterNamePost(name, retfmt = c("plain", "parsed", "queryid", "ids",
+  "request"))}}{Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/name.}
 
-Access the filter-mass-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/mass.}
+\item{\code{wsFilterQueryIdResultsGet(queryid, start = 0L, count = 0L,
+  retfmt = c("plain", "parsed", "ids", "request"))}}{Access the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results,}
 
-\item{\code{ws.filterNamePost(name, retfmt = c("plain", "parsed", "queryid", "ids",
-  "request"))}}{:
+\item{\code{wsFilterQueryIdStatusGet(queryid, retfmt = c("plain", "parsed", "status",
+  "request"), cache.read = FALSE)}}{Access the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.}
 
-Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/name.}
+\item{\code{wsRecordsBatchPost(recordids, fields = NULL, retfmt = c("plain", "parsed",
+  "request"))}}{Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/records/batch.}
 
-\item{\code{ws.filterQueryIdResultsGet(queryid, start = 0L, count = 0L,
-  retfmt = c("plain", "parsed", "ids", "request"))}}{:
-
-Access the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results,}
-
-\item{\code{ws.filterQueryIdStatusGet(queryid, retfmt = c("plain", "parsed", "status",
-  "request"), cache.read = FALSE)}}{:
-
-Access the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.}
-
-\item{\code{ws.recordsBatchPost(recordids, fields = NULL, retfmt = c("plain", "parsed",
-  "request"))}}{:
-
-Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/records/batch.}
-
-\item{\code{ws.recordsRecordidDetailsGet(recordid, fields = NULL, retfmt = c("plain",
-  "parsed", "request"))}}{:
-
-Access the records-recordId-details-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details.}
+\item{\code{wsRecordsRecordidDetailsGet(recordid, fields = NULL, retfmt = c("plain",
+  "parsed", "request"))}}{Access the records-recordId-details-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details.}
 }}
 
 \examples{

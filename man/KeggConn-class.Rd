@@ -14,17 +14,11 @@ This is the mother class of all KEGG connectors. It defines code common to all K
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryPageUrl(entry.id)}}{:
+\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
-Get the URL to the page of the entry on the database web site.}
+\item{\code{wsFind(query, retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
 
-\item{\code{ws.find(query, retfmt = c("plain", "request", "parsed", "ids"))}}{:
-
-Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
-
-\item{\code{ws.list(retfmt = c("plain", "request", "ids"))}}{:
-
-Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
+\item{\code{wsList(retfmt = c("plain", "request", "ids"))}}{Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
 }}
 
 \examples{
@@ -35,7 +29,7 @@ mybiodb <- biodb::Biodb()
 conn <- mybiodb$getFactory()$createConn('kegg.compound')
 
 # Search for an entry
-conn$ws.find('NADPH', retfmt = 'parsed')
+conn$wsFind('NADPH', retfmt='parsed')
 
 # Terminate instance.
 mybiodb$terminate()

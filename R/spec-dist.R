@@ -1,16 +1,10 @@
-#dyn.load('src/closeMatchPpm.dll')
-# commented out for refactoring as package
-#dyn.load('src/closeMatchPpm.so')
-
-#' @import stats
-
 trpz <- function (x, y) 
 {
 	if (missing(y)) {
 		if (length(x) == 0) 
 			return(0)
 		y <- x
-		x <- seq(along = x)
+		x <- seq(along=x)
 	}
 	if (length(x) == 0 && length(y) == 0) 
 		return(0)
@@ -25,12 +19,12 @@ trpz <- function (x, y)
 	xp <- c(x, x[m:1])
 	yp <- c(numeric(m), y[m:1])
 	n <- 2 * m
-	p1 <- sum(xp[1:(n - 1)] * yp[2:n]) + xp[n] * yp[1]
-	p2 <- sum(xp[2:n] * yp[1:(n - 1)]) + xp[1] * yp[n]
+	p1 <- sum(xp[seq_len(n - 1)] * yp[2:n]) + xp[n] * yp[1]
+	p2 <- sum(xp[2:n] * yp[seq_len(n - 1)]) + xp[1] * yp[n]
 	return(0.5 * (p1 - p2))
 }
 
-matchPpm <- function(x, y, ppm = 3, mzmin = 0) {
+matchPpm <- function(x, y, ppm=3, mzmin=0) {
 	if (any(is.na(y)))
 		stop("NA's are not allowed in y !\n")
 	ok <- !(is.na(x))
@@ -71,39 +65,36 @@ simpList <- function(v) {
 		} else{
 			x
 		}
-	}, FUN.VALUE = -1)
+	}, FUN.VALUE=-1)
 }
 
 
 ##Stein and scott values : mzexp 3 intexp 0.6
 ##Massbank values : mzexp 2 intexp 0.5
-
-
 cosine <-
 	function(mz1,
 			 mz2,
 			 int1,
 			 int2,
-			 mzexp = 2,
-			 intexp = 0.5,
-			 ppm = 3,
-			 dmz = 0.005) {
+			 mzexp=2,
+			 intexp=0.5,
+			 ppm=3,
+			 dmz=0.005) {
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		###Weigthed intensity
-		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		pfound <- which(!vapply(matchList, is.null, FUN.VALUE=TRUE))
 		
 		###If no peak is found.
 		if (length(pfound) == 0)
-			return(list(measure = 0, matched = rep(-1, length(mz1))))
+			return(list(measure=0, matched=rep(-1, length(mz1))))
 		w1 <- int1 ^ intexp * mz1 ^ mzexp
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
-		cat(w1[pfound], w2[unlist(matchList[pfound])], '\n')
 		cos_value <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
-																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))
+																			2) * sum(w2[unlist(matchList[pfound])] ^ 2))
 		
 		####Adding the penality if needed.
-		list(measure = cos_value, matched = simpList(matchList))
+		list(measure=cos_value, matched=simpList(matchList))
 	}
 
 
@@ -114,34 +105,34 @@ wcosine <-
 			 mz2,
 			 int1,
 			 int2,
-			 mzexp = 2,
-			 intexp = 0.5,
-			 ppm = 3,
-			 dmz = 0.005,
-			 penality = c("rweigth")) {
+			 mzexp=2,
+			 intexp=0.5,
+			 ppm=3,
+			 dmz=0.005,
+			 penality=c("rweigth")) {
 		penality <- match.arg(penality)
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		###Weigthed intensity
-		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		pfound <- which(!vapply(matchList, is.null, FUN.VALUE=TRUE))
 		###If no peak is found.
 		if (length(pfound) == 0)
-			return(list(measure = 0, matched = rep(-1, length(mz1))))
+			return(list(measure=0, matched=rep(-1, length(mz1))))
 		w1 <- int1 ^ intexp * mz1 ^ mzexp
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
 		
 		cos_value <-
 			sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
-																		 	2) * sum(w2[unlist(matchList[pfound])] ^ 2))
+																			2) * sum(w2[unlist(matchList[pfound])] ^ 2))
 		
 		if (is.nan(cos_value))
 			cos_value <- 0
 		####Adding the penality if needed.
-		div = 1
+		div=1
 		if (penality == "rweigth") {
 			p <-
 				(sum(w1[pfound]) / sum(w1) + sum(w2[unlist(matchList[pfound])]) / sum(w2)) /
 				2
-			div = 2
+			div=2
 		} else{
 			p <- 0
 		}
@@ -149,8 +140,8 @@ wcosine <-
 		measure <-  (cos_value + p) / div
 		if (is.nan(measure))
 			measure <-  (cos_value) / div
-		list(measure = measure,
-			 matched = simpList(matchList))
+		list(measure=measure,
+			 matched=simpList(matchList))
 	}
 
 ##The spec is seen as the mixture of two gaussian.
@@ -159,20 +150,20 @@ pkernel <-
 			 mz2,
 			 int1,
 			 int2,
-			 mzexp = 2,
-			 intexp = 0.5,
-			 ppm = 3,
+			 mzexp=2,
+			 intexp=0.5,
+			 ppm=3,
 			 ###here ppm is the sigma ofthe mass distribution.
-			 dmz = 0.005,
-			 penality = c("rweigth")) {
+			 dmz=0.005,
+			 penality=c("rweigth")) {
 		###We first match the peak
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		# ###Weigthed intensity
-		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		pfound <- which(!vapply(matchList, is.null, FUN.VALUE=TRUE))
 		#
 		###If no peak is found.
 		if (length(pfound) == 0)
-			return(list(measure = 0, matched = rep(-1, length(mz1))))
+			return(list(measure=0, matched=rep(-1, length(mz1))))
 		w1 <- int1 ^ intexp * mz1 ^ mzexp
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
 		
@@ -183,51 +174,47 @@ pkernel <-
 		l1 <- length(w1)
 		l2 <- length(w2)
 		###The mz dev
-		vsig1 = mz1 * ppm * 3 * 10 ^ -6
-		vsig1 = sapply(vsig1, function(x, y) {
-			return(max(x, y))
-		}, y = dmz)
+		vsig1=mz1 * ppm * 3 * 10 ^ -6
+		vsig1=vapply(vsig1, function(x, y) max(x, y), y=dmz, FUN.VALUE=1.0)
 		
-		vsig2 = mz2 * ppm * 3 * 10 ^ -6
-		vsig2 = sapply(vsig2, function(x, y) {
-			return(max(x, y))
-		}, y = dmz)
-		accu = 0
+		vsig2=mz2 * ppm * 3 * 10 ^ -6
+		vsig2=vapply(vsig2, function(x, y) max(x, y), y=dmz, FUN.VALUE=1.0)
+		accu=0
 		###TO DO rcopder en C
-		for (i in 1:l1) {
-			for (j in 1:l2) {
-				divisor = max(
+		for (i in seq_len(l1)) {
+			for (j in seq_len(l2)) {
+				divisor=max(
 					stats::dnorm(
 						mz1[i],
-						mean = mz1[i],
-						sd = sqrt(vsig1[i] ^ 2 + vsig1[i] ^ 2)
+						mean=mz1[i],
+						sd=sqrt(vsig1[i] ^ 2 + vsig1[i] ^ 2)
 					),
 					stats::dnorm(
 						mz2[j],
-						mean = mz2[j],
-						sd = sqrt(vsig2[j] ^ 2 + vsig2[j] ^ 2)
+						mean=mz2[j],
+						sd=sqrt(vsig2[j] ^ 2 + vsig2[j] ^ 2)
 					)
 				)
 				if (divisor == 0)
 					next
-				scalet = stats::dnorm(mz1[i],
-									  mean = mz2[j],
-									  sd = sqrt(vsig1[i] ^ 2 + vsig2[j] ^ 2))
-				accu = accu + scalet / divisor
+				scalet=stats::dnorm(mz1[i],
+									  mean=mz2[j],
+									  sd=sqrt(vsig1[i] ^ 2 + vsig2[j] ^ 2))
+				accu=accu + scalet / divisor
 			}
 		}
-		div = 1
+		div=1
 		if (penality == "rweigth") {
 			p <-
 				(sum(w1[pfound]) / sum(w1) + sum(w2[unlist(matchList[pfound])]) / sum(w2)) /
 				2
-			div = 2
+			div=2
 		} else{
 			p <- 0
 		}
-		accu = accu / (l2 * l1)
-		list(measure = (accu + p) / div,
-			 matched = simpList(matchList))
+		accu=accu / (l2 * l1)
+		list(measure=(accu + p) / div,
+			 matched=simpList(matchList))
 	}
 
 ###Uing the bachttarya similarity :
@@ -236,20 +223,20 @@ pbachtttarya <-
 			 mz2,
 			 int1,
 			 int2,
-			 mzexp = 2,
-			 intexp = 0.5,
-			 ppm = 3,
+			 mzexp=2,
+			 intexp=0.5,
+			 ppm=3,
 			 ###here ppm is the sigma ofthe mass distribution.
-			 dmz = 0.005,
-			 penality = c("rweigth")) {
+			 dmz=0.005,
+			 penality=c("rweigth")) {
 		###We first match the peak
 		matchList <- matchPpm(mz1, mz2, ppm, dmz)
 		# ###Weigthed intensity
-		pfound <- which(!sapply(matchList, is.null, simplify = TRUE))
+		pfound <- which(!vapply(matchList, is.null, FUN.VALUE=TRUE))
 		#
 		###If no peak is found.
 		if (length(pfound) == 0)
-			return(list(measure = 0, matched = rep(-1, length(mz1))))
+			return(list(measure=0, matched=rep(-1, length(mz1))))
 		w1 <- int1 ^ intexp * mz1 ^ mzexp
 		w2 <- int2 ^ intexp * mz2 ^ mzexp
 		
@@ -260,21 +247,16 @@ pbachtttarya <-
 		l1 <- length(w1)
 		l2 <- length(w2)
 		###The mz dev
-		vsig1 = mz1 * ppm * 3 * 10 ^ -6
-		vsig1 = sapply(vsig1, function(x, y) {
-			return(max(x, y))
-		}, y = dmz)
+		vsig1=mz1 * ppm * 3 * 10 ^ -6
+		vsig1=vapply(vsig1, function(x, y) max(x, y), y=dmz, FUN.VALUE=1.0)
 		
-		vsig2 = mz2 * ppm * 3 * 10 ^ -6
-		vsig2 = sapply(vsig2, function(x, y) {
-			return(max(x, y))
-		}, y = dmz)
+		vsig2=mz2 * ppm * 3 * 10 ^ -6
+		vsig2=vapply(vsig2, function(x, y) max(x, y), y=dmz, FUN.VALUE=1.0)
 		
-		accu = 0
+		accu=0
 		
-		###TO DO rcopder en C
 		###For each matched peak in we compute the Bhattacharyya coefficient:
-		for (j in 1:length(matchList)) {
+		for (j in seq_len(length(matchList))) {
 			if (is.null(matchList[[j]]))
 				next
 			mz1v <- mz1[j]
@@ -285,20 +267,20 @@ pbachtttarya <-
 			sig <- max(sig1, sig2)
 			xseq <- seq(min(mz1v, mz2v) - 4 * sig, max(mz1v, mz2v) + 4 * sig, length =
 							100)
-			y1 <- dnorm(xseq, mean = mz1v, sd = sig)
-			y2 <- dnorm(xseq, mean = mz2v, sd = sig)
-			accu = accu + sum(trpz(xseq,sqrt(y1 * y2)))
+			y1 <- stats::dnorm(xseq, mean=mz1v, sd=sig)
+			y2 <- stats::dnorm(xseq, mean=mz2v, sd=sig)
+			accu=accu + sum(trpz(xseq,sqrt(y1 * y2)))
 		}
-		div = 1
+		div=1
 		if (penality == "rweigth") {
 			p <-
 				(sum(w1[pfound]) / sum(w1) + sum(w2[unlist(matchList[pfound])]) / sum(w2)) /
 				2
-			div = 2
+			div=2
 		} else{
 			p <- 0
 		}
-		accu = accu / (l2 * l1)
-		list(measure = (accu + p) / div,
-			 matched = simpList(matchList))
+		accu=accu / (l2 * l1)
+		list(measure=(accu + p) / div,
+			 matched=simpList(matchList))
 	}

@@ -75,41 +75,27 @@ All Mass spectra databases inherit from this class. It thus defines methods spec
 
 \describe{
 \item{\code{collapseResultsDataFrame(results.df, mz.col = "mz", rt.col = "rt",
-  sep = "|")}}{:
-
-Collapse rows of a results data frame, by outputing a data frame with only one row for each MZ/RT value.}
+  sep = "|")}}{Collapse rows of a results data frame, by outputing a data frame with only one row for each MZ/RT value.}
 
 \item{\code{filterEntriesOnRt(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
-  match.rt)}}{:
+  match.rt)}}{Filter a list of entries on retention time values.}
 
-Filter a list of entries on retention time values.}
-
-\item{\code{getChromCol(ids = NULL)}}{:
-
-Get a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'.}
+\item{\code{getChromCol(ids = NULL)}}{Get a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'.}
 
 \item{\code{getMzValues(ms.mode = NA_character_, max.results = NA_integer_,
-  precursor = FALSE, ms.level = 0)}}{:
+  precursor = FALSE, ms.level = 0)}}{Get a list of M/Z values contained inside the database.}
 
-Get a list of M/Z values contained inside the database.}
-
-\item{\code{getNbPeaks(mode = NULL, ids = NULL)}}{:
-
-Returns the number of peaks contained in the database.}
+\item{\code{getNbPeaks(mode = NULL, ids = NULL)}}{Returns the number of peaks contained in the database.}
 
 \item{\code{msmsSearch(spectrum, precursor.mz, mz.tol, mz.tol.unit = "plain", ms.mode,
   npmin = 2, dist.fun = c("wcosine", "cosine", "pkernel", "pbachtttarya"),
-  msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{:
-
-Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search.}
+  msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search.}
 
 \item{\code{searchMsEntries(mz.min = NULL, mz.max = NULL, mz = NULL, mz.shift = 0,
   mz.tol = NA_real_, mz.tol.unit = "plain", rt = NULL,
   rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_,
   chrom.col.ids = NULL, precursor = FALSE, min.rel.int = NA_real_,
-  ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0)}}{:
-
-Search for entries (i.e.: spectra) that contains a peak around the given M/Z value. Entries can also be filtered on RT values. You can input either a list of M/Z values through mz argument and set a tolerance with mz.tol argument, or two lists of minimum and maximum M/Z values through mz.min and mz.max arguments.  Returns a character vector of spectra IDs.}
+  ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0)}}{Search for entries (i.e.: spectra) that contains a peak around the given M/Z value. Entries can also be filtered on RT values. You can input either a list of M/Z values through mz argument and set a tolerance with mz.tol argument, or two lists of minimum and maximum M/Z values through mz.min and mz.max arguments.  Returns a character vector of spectra IDs.}
 
 \item{\code{searchMsPeaks(input.df = NULL, mz = NULL, mz.shift = 0, mz.tol,
   mz.tol.unit = "plain", min.rel.int = NA_real_, ms.mode = NA_character_,
@@ -118,21 +104,15 @@ Search for entries (i.e.: spectra) that contains a peak around the given M/Z val
   rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_,
   insert.input.values = TRUE, prefix.on.result.cols = NULL,
   compute = TRUE, input.df.colnames = c(mz = "mz", rt = "rt"),
-  match.rt = FALSE)}}{:
-
-For each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value.}
+  match.rt = FALSE)}}{For each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value.}
 
 \item{\code{searchMzRange(mz.min, mz.max, min.rel.int = NA_real_,
   ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE,
-  ms.level = 0)}}{:
-
-Find spectra in the given M/Z range. Returns a list of spectra IDs.}
+  ms.level = 0)}}{Find spectra in the given M/Z range. Returns a list of spectra IDs.}
 
 \item{\code{searchMzTol(mz, mz.tol, mz.tol.unit = "plain", min.rel.int = NA_real_,
   ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE,
-  ms.level = 0)}}{:
-
-Find spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs.}
+  ms.level = 0)}}{Find spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs.}
 }}
 
 \examples{

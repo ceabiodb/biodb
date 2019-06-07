@@ -1,7 +1,7 @@
 # vi: fdm=marker ts=4 et cc=80 
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' A class for representing a rectangle.
 #'
@@ -19,40 +19,40 @@
 #' @export BiodbRect
 #' @exportClass BiodbRect
 BiodbRect <- methods::setRefClass('BiodbRect',
-                                  contains = 'BiodbShape',
+                                  contains='BiodbShape',
 
     # Fields {{{2
     ################################################################
                                   
-    fields = list(.left = 'integer',
-                  .bottom = 'integer',
-                  .right = 'integer',
-                  .top = 'integer'),
+    fields=list(.left='integer',
+                  .bottom='integer',
+                  .right='integer',
+                  .top='integer'),
 
     # Public methods {{{2
     ################################################################
 
-    methods = list(
+    methods=list(
 
-        # Constructor {{{3
+# Initialize {{{3
         ################################################################
 
-        initialize = function(left, top, bottom, right, ...) {
+        initialize=function(left, top, bottom, right, ...) {
             callSuper(...)
-            .left <<- left
-            .right <<- right
-            .top <<- top
-            .bottom <<- bottom
+            .self$.left <- left
+            .self$.right <- right
+            .self$.top <- top
+            .self$.bottom <- bottom
         },
 
         # Draw {{3
         ################################################################
 
-        draw = function() {
+        draw=function() {
             'Draw the shape on the current image.'
             
             rect(.self$.left, .self$.bottom, .self$.right, .self$.top,
-                 col = .self$getRgbColor(alpha = 127), border = NA)
+                 col=.self$getRgbColor(alpha=127), border=NA)
         }
     )
 )

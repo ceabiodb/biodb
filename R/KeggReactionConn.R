@@ -1,7 +1,7 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Class declaration {{{1
-################################################################
+################################################################################
 
 #' The connector class to KEGG Reaction database.
 #'
@@ -12,19 +12,19 @@
 #' @include KeggConn.R
 #' @export KeggReactionConn
 #' @exportClass KeggReactionConn
-KeggReactionConn <- methods::setRefClass("KeggReactionConn", contains = c("KeggConn"))
+KeggReactionConn <- methods::setRefClass("KeggReactionConn", contains=c("KeggConn"))
 
-# Constructor {{{1
-################################################################
+# Initialize {{{1
+################################################################################
 
-KeggReactionConn$methods( initialize = function(...) {
-	callSuper(db.name = 'reaction', db.abbrev = 'rn', ...)
+KeggReactionConn$methods( initialize=function(...) {
+    callSuper(db.name='reaction', db.abbrev='rn', ...)
 })
 
 # Get entry image url {{{1
-################################################################
+################################################################################
 
-KeggReactionConn$methods( getEntryImageUrl = function(id) {
-	return(rep(NA_character_, length(id)))
+KeggReactionConn$methods( getEntryImageUrl=function(id) {
+    return(rep(NA_character_, length(id)))
 })
 

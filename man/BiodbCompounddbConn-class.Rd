@@ -10,24 +10,27 @@
 
 \item{mass}{The searched mass.}
 
-\item{mass.field}{The mass field to use for the search. For instance: 'molecular.mass', 'monoisotopic.mass', 'average.mass'.}
+\item{mass.field}{The mass field to use for the search. For instance:
+'molecular.mass', 'monoisotopic.mass', 'average.mass'.}
 
 \item{mass.tol}{The tolerance on the molecular mass.}
 
-\item{mass.tol.unit}{The unit used for molecular mass tolerance. Either 'plain' or 'ppm'.}
+\item{mass.tol.unit}{The unit used for molecular mass tolerance. Either
+'plain' or 'ppm'.}
 
 \item{max.results}{The maximum number of matches wanted.}
 }
 \description{
-This interface must be inherited by all compound databases. It declares method headers specific to compound databases.
+This interface must be inherited by all compound databases. It declares
+method headers specific to compound databases.
 }
 \section{Methods}{
 
 \describe{
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
-  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{:
-
-Search for compounds by name and/or by mass. For searching by mass, you must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass', ...)}
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
+must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
+                                   ...)}
 }}
 
 \examples{
@@ -38,7 +41,7 @@ mybiodb <- biodb::Biodb()
 conn <- mybiodb$getFactory()$createConn('chebi')
 
 # Search for compounds
-conn$searchCompound(name = 'prion protein', max.results = 10)
+conn$searchCompound(name='prion protein', max.results=10)
 
 # Terminate instance.
 mybiodb$terminate()

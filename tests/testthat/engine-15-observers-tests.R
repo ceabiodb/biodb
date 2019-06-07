@@ -3,7 +3,7 @@
 # Test deprecated methods {{{1
 ################################################################
 
-test.deprecated.methods <- function(biodb, obs) {
+test.deprecatedMethods <- function(biodb, obs) {
 
 	obs$clearMessages()
 
@@ -28,4 +28,4 @@ test.deprecated.methods <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
-test.that("Deprecated methods send correct message.", 'test.deprecated.methods', biodb = biodb, obs = obs)
+test.that("Deprecated methods send correct message.", 'test.deprecatedMethods', biodb = biodb, obs = obs)

@@ -1,33 +1,41 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
-################################################################
+# BiodbConnObserver {{{1
+################################################################################
 
 #' The observer class of connectors.
 #'
-#' Classes inheriting this class, are able to register themselves to a connector instance and receiving messages from it.
+#' Classes inheriting this class, are able to register themselves to a
+#' connector instance and receiving messages from it.
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
 #' @import methods
 #' @export BiodbConnObserver
 #' @exportClass BiodbConnObserver
-BiodbConnObserver <- methods::setRefClass("BiodbConnObserver", fields = list())
+BiodbConnObserver <- methods::setRefClass("BiodbConnObserver",
 
-# Terminating {{{1
-################################################################
+# Public methods {{{2
+################################################################################
 
-BiodbConnObserver$methods( connTerminating = function(conn) {
-})
+methods=list(
 
-# URLs updated {{{1
-################################################################
+# Terminating {{{3
+################################################################################
 
-BiodbConnObserver$methods( connUrlsUpdated = function(conn) {
-})
+connTerminating=function(conn) {
+},
 
-# Scheduler frequency updated {{{1
-################################################################
+# URLs updated {{{3
+################################################################################
 
-BiodbConnObserver$methods( connSchedulerFrequencyUpdated = function(conn) {
-})
+connUrlsUpdated=function(conn) {
+},
+
+# Scheduler frequency updated {{{3
+################################################################################
+
+connSchedulerFrequencyUpdated=function(conn) {
+}
+
+))

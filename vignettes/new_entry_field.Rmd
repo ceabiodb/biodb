@@ -4,7 +4,7 @@ author: "Pierrick Roger"
 date: "`r doc_date()`"
 package: "`r pkg_ver('biodb')`"
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Creating a new field for entries.}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 output:

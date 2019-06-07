@@ -1,7 +1,7 @@
 # vi: fdm=marker ts=4 et cc=80 
 
 # BiodbCircle {{{1
-################################################################
+################################################################################
 
 #' A class for representing a circle.
 #'
@@ -18,68 +18,67 @@
 #' @export BiodbCircle
 #' @exportClass BiodbCircle
 BiodbCircle <- methods::setRefClass('BiodbCircle',
-                                    contains = 'BiodbShape',
+                                    contains='BiodbShape',
 
-    # Fields {{{2
-    ################################################################
+# Fields {{{2
+################################################################################
 
-    fields = list(.x = 'integer',
-                  .y = 'integer',
-                  .r = 'integer'),
+fields=list(.x='integer',
+            .y='integer',
+            .r='integer'),
 
-    # Public methods {{{2
-    ################################################################
+# Public methods {{{2
+################################################################################
 
-    methods = list(
+methods=list(
 
-        # Constructor {{{3
-        ################################################################
+# Initialize {{{3
+################################################################################
 
-        initialize = function(x, y, r, ...) {
-            callSuper(...)
-            .x <<- x
-            .y <<- y
-            .r <<- r
-        },
+initialize=function(x, y, r, ...) {
+    callSuper(...)
+    .self$.x <- x
+    .self$.y <- y
+    .self$.r <- r
+},
 
-        # Get X {{3
-        ################################################################
+# Get X {{3
+################################################################################
 
-        getX = function() {
-            'Return the X coordinate.'
-            
-            return(.self$.x)
-        },
-
-        # Get Y {{3
-        ################################################################
-
-        getY = function() {
-            'Return the Y coordinate.'
-            
-            return(.self$.y)
-        },
-
-        # Get radius {{3
-        ################################################################
-
-        getRadius = function() {
-            'Return the radius.'
-            
-            return(.self$.r)
-        },
-
-        # Draw {{3
-        ################################################################
-
-        draw = function() {
-            'Draw the shape on the current image.'
-            
-            symbols(x = .self$.x, y = .self$.y,
-                    circles = .self$.r,
-                    bg = .self$getRgbColor(alpha = 127),
-                    add = TRUE, inches = FALSE)
-        }
+getX=function() {
+    'Return the X coordinate.'
     
-    )    
-)
+    return(.self$.x)
+},
+
+# Get Y {{3
+################################################################################
+
+getY=function() {
+    'Return the Y coordinate.'
+    
+    return(.self$.y)
+},
+
+# Get radius {{3
+################################################################################
+
+getRadius=function() {
+    'Return the radius.'
+    
+    return(.self$.r)
+},
+
+# Draw {{3
+################################################################################
+
+draw=function() {
+    'Draw the shape on the current image.'
+    
+    symbols(x=.self$.x, y=.self$.y,
+            circles=.self$.r,
+            bg=.self$getRgbColor(alpha=127),
+            add=TRUE, inches=FALSE)
+}
+
+))

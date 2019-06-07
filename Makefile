@@ -3,6 +3,16 @@
 # Global variables {{{1
 ################################################################
 
+# Mute R 3.6 "Registered S3 method overwritten" warning messages.
+# Messages that were output:
+#     Registered S3 method overwritten by 'R.oo':
+#       method        from
+#       throw.default R.methodsS3
+#     Registered S3 method overwritten by 'openssl':
+#       method      from
+#       print.bytes Rcpp
+export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
+
 # Set cache folder
 ifndef BIODB_CACHE_DIRECTORY
 export BIODB_CACHE_DIRECTORY=$(PWD)/cache
@@ -34,7 +44,13 @@ $(info "GIT_VERSION=$(GIT_VERSION)")
 # Default target {{{1
 ################################################################
 
-all:
+all: compile
+
+# Compile {{{1
+################################################################
+
+compile:
+	R CMD SHLIB src/*.c
 
 # Check and test {{{1
 ################################################################
@@ -48,8 +64,9 @@ check: $(ZIPPED_PKG)
 #     missing value where TRUE/FALSE needed
 #   Execution halted
 
-bioc.check:
-	time R CMD BiocCheck --new-package --quit-with-status .
+bioc.check: $(ZIPPED_PKG)
+	R -q -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
+	time R CMD BiocCheck --new-package --quit-with-status "$<"
 
 check.version:
 #	test "$(PKG_VERSION)" = "$(GIT_VERSION)"

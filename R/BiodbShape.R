@@ -1,7 +1,7 @@
 # vi: fdm=marker ts=4 et cc=80 
 
 # BiodbShape {{{1
-################################################################
+################################################################################
 
 #' A class for representing a shape.
 #'
@@ -19,27 +19,27 @@ BiodbShape <- methods::setRefClass('BiodbShape',
     # Fields {{{2
     ################################################################
 
-    fields = list(.label = 'character',
-                  .color = 'character'),
+    fields=list(.label='character',
+                  .color='character'),
 
     # Public methods {{{2
     ################################################################
 
-    methods = list(
+    methods=list(
 
-        # Constructor {{{3
+# Initialize {{{3
         ################################################################
 
-        initialize = function(label = NA_character_,
-                              color = NA_character_) {
-            .label <<- label
-            .color <<- color
+        initialize=function(label=NA_character_,
+                              color=NA_character_) {
+            .self$.label <- label
+            .self$.color <- color
         },
 
         # Get label {{3
         ################################################################
 
-        getLabel = function() {
+        getLabel=function() {
             'Return the label associated with this shape.'
             
             return(.self$.label)
@@ -48,7 +48,7 @@ BiodbShape <- methods::setRefClass('BiodbShape',
         # Get color {{3
         ################################################################
 
-        getColor = function() {
+        getColor=function() {
             'Return the color associated with this shape.'
             
             return(.self$.color)
@@ -57,11 +57,11 @@ BiodbShape <- methods::setRefClass('BiodbShape',
         # Get RGB color {{3
         ################################################################
 
-        getRgbColor = function(alpha = 255) {
+        getRgbColor=function(alpha=255) {
             'Return the RGB color associated with this shape.'
             
-            c = col2rgb(.self$.color)
-            c = rgb(c[1,], c[2,], c[3,], alpha, maxColorValue = 255)
+            c <- col2rgb(.self$.color)
+            c <- rgb(c[1,], c[2,], c[3,], alpha, maxColorValue=255)
             
             return(c)
         },
@@ -69,7 +69,7 @@ BiodbShape <- methods::setRefClass('BiodbShape',
         # Draw {{3
         ################################################################
 
-        draw = function() {
+        draw=function() {
             'Draw the shape on the current image.'
         }
     
