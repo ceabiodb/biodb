@@ -3,6 +3,11 @@
 # ChebiConn {{{1
 ################################################################################
 
+#' ChEBI connector class.
+#'
+#' This is the connector class for connecting to the ChEBI database through its
+#' web services.
+#'
 #' @include BiodbCompounddbConn.R
 #' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
@@ -13,7 +18,8 @@ ChebiConn <- methods::setRefClass("ChebiConn",
 ################################################################################
 
 fields=list(
-    .ws.values='list'
+    wsdl='ANY',
+    ws.values='list' # Stores WSDL values
 ),
 
 # Public methods {{{2
@@ -28,7 +34,7 @@ initialize=function(...) {
 
     callSuper(...)
 
-    .self$.ws.values <- list()
+    .self$initFields(wsdl=NULL, ws.values=list())
 },
 
 # Get entry content request {{{3
@@ -82,6 +88,7 @@ getEntryImageUrl=function(id) {
 ################################################################################
 
 wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
+    'Returns the complete WSDL from the the web server.'
 
     retfmt <- match.arg(retfmt)
 
@@ -117,16 +124,14 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
 
     retfmt <- match.arg(retfmt)
 
-    .self$.parseWebServiceValues()
-
     # Check parameters
     .self$.assertNotNull(search)
     .self$.assertNotNa(search)
-    .self$.assertIn(search.category, .self$.ws.values$search.categories)
+    .self$.assertIn(search.category, .self$getSearchCategories())
     if (is.na(max.results))
         max.results <- 0
     .self$.assertPositive(max.results)
-    .self$.assertIn(stars, .self$.ws.values$stars.categories)
+    .self$.assertIn(stars, .self$getStarsCategories())
 
     # Build request
     params <- c(search=gsub('[ /]', '+', search),
@@ -159,6 +164,40 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
     }
 
     return(results)
+},
+
+# Convert CAS ID to ChEBI ID {{{3
+################################################################################
+
+convCasToChebi=function(cas, simplify=TRUE) {
+    'Convert a list of CAS IDs into a list of ChEBI IDs. Several ChEBI IDs may
+    be returned for a single CAS ID. If `simplify` is set to `TRUE`, and only
+    one ChEBI ID has been found for each CAS ID, then a character vector is
+    returned. Otherwise a list of character vectors is returned.'
+    
+    chebi <- list()
+    
+    # Loop on all cas IDs
+    for (c in cas) {
+        
+        # Get ChEBI IDs for this CAS ID
+        if (is.na(c))
+            ids <- character()
+        else
+            ids <- .self$wsGetLiteEntity(c, search.category='REGISTRY NUMBERS',
+                                         retfmt='ids')
+        
+        chebi <- c(chebi, list(ids))
+    }
+    
+    # Simplify
+    if (simplify && all(vapply(chebi, length, FUN.VALUE=1L) < 2)) {
+        chebi <- lapply(chebi, function(x) if (length(x) == 0) NA_character_
+                                           else x)
+        chebi <- unlist(chebi)
+    }
+
+    return(chebi)
 },
 
 # Search by name {{{3
@@ -248,32 +287,60 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
     return(ids)
 },
 
-# Private methods {{{2
+# Get WSDL {{{3
 ################################################################################
 
-# Parse web service values {{{3
+getWsdl=function() {
+    'Get the WSDL as a an XML object.'
+    
+    if (is.null(.self$wsdl))
+        .self$wsdl <- .self$wsWsdl(retfmt='parsed')
+    
+    return(.self$wsdl)
+},
+
+# Get WSDL enumeration {{{3
 ################################################################################
 
-.parseWebServiceValues=function() {
+getWsdlEnumeration=function(name) {
+    'Extract a list of enumerations from the WSDL.'
+    
+    if ( ! name %in% names(.self$ws.values)) {
 
-    if (length(.self$.ws.values) == 0) {
-
-        wsdl <- .self$wsWsdl(retfmt='parsed')
         ns <- .self$getPropertyValue('xml.ns')
 
         # Get search categories
-        expr <- "//xsd:simpleType[@name='SearchCategory']//xsd:enumeration"
-        search <- XML::xpathSApply(wsdl, expr, XML::xmlGetAttr, 'value',
-                                   namespaces=ns)
-        .self$.ws.values$search.categories <- search
-
-        # Get stars categories
-        expr <- "//xsd:simpleType[@name='StarsCategory']//xsd:enumeration"
-        stars <- XML::xpathSApply(wsdl, expr, XML::xmlGetAttr, 'value',
-                                  namespaces=ns)
-        .self$.ws.values$stars.categories <- stars
+        expr <- paste0("//xsd:simpleType[@name='", name, "']//xsd:enumeration")
+        res <- XML::xpathSApply(.self$getWsdl(), expr, XML::xmlGetAttr, 'value',
+                                namespaces=ns)
+        .self$ws.values[[name]] <- res
     }
+    
+    return(.self$ws.values[[name]])
 },
+
+# Get stars categories {{{3
+################################################################################
+
+getStarsCategories=function() {
+    'Returns the list of allowed stars categories for the getLiteEntity web
+    service.'
+    
+    return(.self$getWsdlEnumeration('StarsCategory'))
+},
+
+# Get search categories {{{3
+################################################################################
+
+getSearchCategories=function() {
+    'Returns the list of allowed search categories for the getLiteEntity web
+    service.'
+
+    return(.self$getWsdlEnumeration('SearchCategory'))
+},
+
+# Private methods {{{2
+################################################################################
 
 # Get entry ids {{{3
 ################################################################################

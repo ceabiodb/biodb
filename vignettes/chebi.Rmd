@@ -1,5 +1,5 @@
 ---
-title: "Accessing ChEBI entries"
+title: "Accessing ChEBI"
 author: "Pierrick Roger"
 output:
   html_document:
@@ -78,6 +78,19 @@ Display results in data frame:
 ```{r}
 mybiodb$entriesToDataframe(chebi$getEntry(ids), fields = c('accession', 'molecular.mass', 'name'))
 ```
+
+## Convert CAS IDs
+
+Convert CAS IDs to ChEBI IDs:
+```{r}
+chebi$convCasToChebi(c('87605-72-9', '51-41-2'))
+```
+
+If more than one ChEBI ID is found for a CAS ID, then a list of character vectors is returned:
+```{r}
+chebi$convCasToChebi('14215-68-0')
+```
+This behaviour can be made the default one by setting `simplify` parameter to `FALSE`.
 
 ## Closing biodb instance
 
