@@ -48,6 +48,14 @@ notify=function(fct, args) {
     lapply(obs, function(o) eval(parse(text=call)) )
 },
 
+# Progress message {{{3
+################################################################################
+
+progressMsg=function(type='info', msg, index, total, first) {
+    .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
+                                  first=first))
+},
+
 # Message {{{3
 ################################################################################
 
@@ -72,9 +80,8 @@ message=function(type, msg, lvl=1) {
     method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)[[1]]
 
     if ( ! is.null(biodb))
-        lapply(biodb$getObservers(),
-               function(x) x$msg(type=type, msg=msg, class=class,
-                                     method=method, lvl=lvl))
+        .self$notify('msg', list(type=type, msg=msg, class=class, method=method,
+                                 lvl=lvl))
     else {
         caller.info <- if (is.na(class)) '' else class
         if (! is.na(method))

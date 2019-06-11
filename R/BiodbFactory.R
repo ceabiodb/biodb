@@ -372,7 +372,8 @@ BiodbFactory$methods( .createEntryFromContent=function(conn.id, content, drop=TR
 
             # Send progress message
             i <- i + 1
-            lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type='info', msg='Getting entry contents.', index=i, total=length(content), first=(i == 1)))
+            .self$progressMsg(msg='Getting entry contents.', index=i,
+                              total=length(content), first=(i == 1))
         }
 
         # Replace elements with no accession id by NULL
