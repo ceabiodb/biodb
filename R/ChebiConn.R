@@ -178,6 +178,7 @@ convCasToChebi=function(cas, simplify=TRUE) {
     chebi <- list()
     
     # Loop on all cas IDs
+    i <- 0
     for (c in cas) {
         
         # Get ChEBI IDs for this CAS ID
@@ -188,6 +189,11 @@ convCasToChebi=function(cas, simplify=TRUE) {
                                          retfmt='ids')
         
         chebi <- c(chebi, list(ids))
+        
+        # Send progress message
+        i <- i + 1
+        .self$progressMsg(msg='Converting CAS IDs to ChEBI IDs.', index=i,
+                          total=length(cas), first=(i == 1))
     }
     
     # Simplify
