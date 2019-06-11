@@ -8,16 +8,6 @@
 #' @include BiodbDownloadable.R
 HmdbMetabolitesConn <- methods::setRefClass("HmdbMetabolitesConn", contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", 'BiodbDownloadable'), fields=list(.ns="character"))
 
-# Initialize {{{1
-################################################################################
-
-HmdbMetabolitesConn$methods( initialize=function(...) {
-
-    callSuper(...)
-
-    .self$.setDownloadExt('zip')
-})
-
 # Get nb entries {{{1
 ################################################################################
 

@@ -1,64 +1,73 @@
 # vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
+# MirbaseMatureConn {{{1
 ################################################################################
 
 #' @include MirbaseConn.R
 #' @include BiodbDownloadable.R
 #' @include BiodbSearchable.R
-MirbaseMatureConn <- methods::setRefClass("MirbaseMatureConn", contains=c("MirbaseConn", "BiodbDownloadable", "BiodbSearchable"))
+MirbaseMatureConn <- methods::setRefClass("MirbaseMatureConn",
+    contains=c("MirbaseConn", "BiodbDownloadable", "BiodbSearchable"),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-MirbaseMatureConn$methods( initialize=function(...) {
-    callSuper(...)
+methods=list(
 
-    .self$.setDownloadExt('gz')
-})
-
-# Get entry page url {{{1
+# Get entry page url {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'mature.pl'), params=list(mature_acc=x))$toString(), FUN.VALUE=''))
-})
+getEntryPageUrl=function(id) {
+    
+    url <- c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'mature.pl')
+    v <- vapply(id,
+                function(x) BiodbUrl(url=url,
+                                     params=list(mature_acc=x))$toString(),
+                FUN.VALUE='')
+    
+    return(v)
+},
 
-# Get entry image url {{{1
+# Get entry image url {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( getEntryImageUrl=function(id) {
+getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
-})
+},
 
-# Requires download {{{1
+# Requires download {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( requiresDownload=function() {
+requiresDownload=function() {
     return(TRUE)
-})
+},
 
-# Do download {{{1
+# Do download {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( .doDownload=function() {
+.doDownload=function() {
 
     # Download
-    gz.url <- BiodbUrl(url=paste0(.self$getPropValSlot('urls', 'ftp.url'), 'mature.fa.gz'))
-    .self$message('info', paste("Downloading \"", gz.url$toString(), "\"...", sep=''))
-    .self$getBiodb()$getRequestScheduler()$downloadFile(url=gz.url, dest.file=.self$getDownloadPath())
-    .self$message('debug', 'Finish downloading Mirbase Mature database.')
-})
+    url <- c(.self$getPropValSlot('urls', 'ftp.url'), 'mature.fa.gz')
+    gz.url <- BiodbUrl(url=url)
+    .self$info("Downloading \"", gz.url$toString(), "\"...")
+    sched <- .self$getBiodb()$getRequestScheduler()
+    sched$downloadFile(url=gz.url, dest.file=.self$getDownloadPath())
+    .self$debug('Downloading Mirbase Mature database completed.')
+},
 
-# Do extract download {{{1
+# Do extract download {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( .doExtractDownload=function() {
+.doExtractDownload=function() {
 
     # Extract
-    # We do this because of the warning "seek on a gzfile connection returned an internal error" when using `gzfile()`.
+    # We do this because of the warning:
+    # "seek on a gzfile connection returned an internal error"
+    # when using `gzfile()`.
     extracted.file <- tempfile(.self$getId())
-    R.utils::gunzip(filename=.self$getDownloadPath(), destname=extracted.file, remove=FALSE)
+    R.utils::gunzip(filename=.self$getDownloadPath(), destname=extracted.file,
+                    remove=FALSE)
 
     # Read file
     fd <- file(extracted.file, 'r')
@@ -66,47 +75,59 @@ MirbaseMatureConn$methods( .doExtractDownload=function() {
     close(fd)
 
     # Get all entry IDs
-    ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value=TRUE), perl=TRUE)
-    .self$message('debug', paste("Found ", length(ids), " entries in file \"", .self$getDownloadPath(), "\".", sep=''))
+    ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value=TRUE),
+               perl=TRUE)
+    .self$debug("Found ", length(ids), " entries in file \"",
+                .self$getDownloadPath(), "\".")
 
     if (length(ids) > 0) {
         # Get contents
-        contents <- paste(lines[seq(1, 2*length(ids), 2)], lines[seq(2, 2*length(ids), 2)], sep="\n")
+        contents <- paste(lines[seq(1, 2*length(ids), 2)],
+                          lines[seq(2, 2*length(ids), 2)], sep="\n")
 
         # Write all entries into files
-        .self$getBiodb()$getCache()$deleteFiles(.self$getCacheId(), subfolder='shortterm', ext=.self$getPropertyValue('entry.content.type'))
-        .self$getBiodb()$getCache()$saveContentToFile(contents, cache.id=.self$getCacheId(), subfolder='shortterm', name=ids, ext=.self$getPropertyValue('entry.content.type'))
+        cch <- .self$getBiodb()$getCache()
+        cch$deleteFiles(.self$getCacheId(), subfolder='shortterm',
+                        ext=.self$getPropertyValue('entry.content.type'))
+        cch$saveContentToFile(contents, cache.id=.self$getCacheId(),
+                              subfolder='shortterm', name=ids,
+                              ext=.self$getPropertyValue('entry.content.type'))
     }
 
     # Remove extract directory
     unlink(extracted.file)
-})
+},
 
-# Get entry content from database {{{1
+# Get entry content from database {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( getEntryContentFromDb=function(entry.id) {
+getEntryContentFromDb=function(entry.id) {
 
     # Download
     .self$download()
 
     # Load content from cache
-    content <- .self$getBiodb()$getCache()$loadFileContent(.self$getCacheId(), subfolder='shortterm', name=entry.id, ext=.self$getPropertyValue('entry.content.type'), output.vector=TRUE)
+    cch <- .self$getBiodb()$getCache()
+    ext <- .self$getPropertyValue('entry.content.type')
+    content <- cch$loadFileContent(.self$getCacheId(), subfolder='shortterm',
+                                   name=entry.id, ext=ext, output.vector=TRUE)
 
     return(content)
-})
+},
 
-# Web service query {{{1
+# Web service query {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( wsQuery=function(terms, submit='Search', retfmt=c('plain', 'request', 'parsed', 'ids')) {
+wsQuery=function(terms, submit='Search',
+                 retfmt=c('plain', 'request', 'parsed', 'ids')) {
     "Send request to web service query."
 
     retfmt <- match.arg(retfmt)
 
     # Build request
     params <- list(terms=terms, submit=submit)
-    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'query.pl'), params=params)
+    url <- c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'query.pl')
+    url <- BiodbUrl(url=url, params=params)
     request <- BiodbRequest(url=url)
     if (retfmt == 'request')
         return(request)
@@ -118,23 +139,26 @@ MirbaseMatureConn$methods( wsQuery=function(terms, submit='Search', retfmt=c('pl
     if (retfmt != 'plain') {
 
         # Parse HTML
-        results <-  XML::htmlTreeParse(results, asText=TRUE, useInternalNodes=TRUE)
+        results <- XML::htmlTreeParse(results, asText=TRUE,
+                                      useInternalNodes=TRUE)
 
         # Get IDs
         if (retfmt == 'ids') {
-            results <- unlist(XML::xpathSApply(results, "//a[starts-with(.,'MIMAT')]", XML::xmlValue))
+            results <- unlist(XML::xpathSApply(results,
+                                               "//a[starts-with(.,'MIMAT')]",
+                                               XML::xmlValue))
             if (is.null(results))
                 results <- character()
         }
     }
 
     return(results)
-})
+},
 
-# Search by name {{{1
+# Search by name {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( searchByName=function(name, max.results=NA_integer_) {
+searchByName=function(name, max.results=NA_integer_) {
         
     ids <- NULL
 
@@ -147,15 +171,15 @@ MirbaseMatureConn$methods( searchByName=function(name, max.results=NA_integer_) 
         ids <- ids[seq_len(max.results)]
 
     return(ids)
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Get entry ids {{{2
+# Get entry ids {{{3
 ################################################################################
 
-MirbaseMatureConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=NA_integer_) {
 
     ids <- NULL
 
@@ -163,11 +187,15 @@ MirbaseMatureConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
     .self$download()
 
     # Get IDs from cache
-    ids <- .self$getBiodb()$getCache()$listFiles(.self$getCacheId(), subfolder='shortterm', ext=.self$getPropertyValue('entry.content.type'), extract.name=TRUE)
+    cch <- .self$getBiodb()$getCache()
+    ids <- cch$listFiles(.self$getCacheId(), subfolder='shortterm',
+                         ext=.self$getPropertyValue('entry.content.type'),
+                         extract.name=TRUE)
 
     # Filter out wrong IDs
     ids <- ids[grepl("^MIMAT[0-9]+$", ids, perl=TRUE)]
 
     return(ids)
-})
+}
 
+))

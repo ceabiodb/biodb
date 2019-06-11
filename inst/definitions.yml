@@ -204,6 +204,7 @@ databases:
     scheduler.n: 3
     urls:
       base.url: http://www.hmdb.ca/
+    dwnld.ext: zip
 
 # KEGG Compound {{{2
 ################################################################################
@@ -365,6 +366,7 @@ databases:
       base.url: https://massbank.eu/
       db.tar.url: https://github.com/MassBank/MassBank-data/archive/master.tar.gz
       prefixes.file.url: https://raw.githubusercontent.com/MassBank/MassBank-data/master/List_of_Contributors_Prefixes_and_Projects.md
+    dwnld.ext: tar.gz
 
 # miRBase Mature {{{2
 ################################################################################
@@ -380,6 +382,7 @@ databases:
     urls:
       base.url: http://www.mirbase.org/
       ftp.url: ftp://mirbase.org/pub/mirbase/CURRENT/
+    dwnld.ext: gz
 
 # NCBI CCDS {{{2
 ################################################################################

@@ -492,6 +492,8 @@ setPropValSlot=function(name, slot, value) {
 
     # Define properties
     prop.def <- list(
+        dwnld.ext=list(class='character', default=NA_character_,
+                       modifiable=FALSE),
         entry.content.encoding=list(class='character',
                                       default=NA_character_,
                                       na.allowed=TRUE),
