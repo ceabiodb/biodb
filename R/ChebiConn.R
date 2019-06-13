@@ -114,13 +114,14 @@ wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
 wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
                          stars='ALL',
                          retfmt=c('plain', 'parsed', 'request', 'ids')) {
-    "Calls getLiteEntity web service and returns the XML result. See
-    http://www.ebi.ac.uk/chebi/webServices.do. Be careful when search by mass
-    (search.category='MASS' or 'MONOISOTOPIC MASS', since the searched is made
+    'Calls getLiteEntity web service and returns the XML result.
+    Be careful when search by mass
+    (search.category="MASS" or "MONOISOTOPIC MASS"), since the searched is made
      in text mode, thus the number must be exactly written as it stored in
      database eventually padded with 0 in order to have exactly 5 digits after
      the decimal. An easy solution is to use wildcards to search a mass:
-     '410;.718*'."
+     "410;.718*".
+    See http://www.ebi.ac.uk/chebi/webServices.do.'
 
     retfmt <- match.arg(retfmt)
 

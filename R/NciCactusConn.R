@@ -77,11 +77,56 @@ wsChemicalIdentifierResolver=function(structid, repr, xml=FALSE,
         # Parse XML
         results <-  XML::xmlInternalTreeParse(results, asText=TRUE)
 
-        if (retfmt == 'ids')
+        if (retfmt == 'ids') {
             results <- XML::xpathSApply(results, "//item", XML::xmlValue)
+            if (is.list(results)
+                && all(vapply(results, is.null, FUN.VALUE=TRUE)))
+                results <- character()
+        }
     }
 
     return(results)
+},
+
+# Convert CAS ID to InChI {{{3
+################################################################################
+
+convCasToInchi=function(cas) {
+    'Convert a list of CAS IDs into a list of InChI.'
+    
+    f <- function(x) {
+        r <- .self$wsChemicalIdentifierResolver(structid=x, repr='InChI',
+                                                xml=TRUE, retfmt='ids')
+        if (length(r) == 0)
+            r <- NA_character_
+        
+        return(r)
+    }
+    
+    inchi <- vapply(cas, f, FUN.VALUE='')
+                    
+    return(inchi)
+},
+
+# Convert CAS ID to InChI KEY {{{3
+################################################################################
+
+convCasToInchikey=function(cas) {
+    'Convert a list of CAS IDs into a list of InChI keys.'
+    
+    f <- function(x) {
+        r <- .self$wsChemicalIdentifierResolver(structid=x, repr='InChIKEY',
+                                                xml=TRUE, retfmt='ids')
+        if (length(r) == 0)
+            r <- NA_character_
+        
+        return(r)
+    }
+    
+    inchikey <- vapply(cas, f, FUN.VALUE='')
+    inchikey <- sub('^InChIKey=', '', inchikey)
+                    
+    return(inchikey)
 },
 
 # Requires download {{{3

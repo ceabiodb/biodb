@@ -25,8 +25,42 @@ test.nci.cactus.wsChemicalIdentifierResolver <- function(conn) {
     testthat::expect_equal(res, 'InChIKey=WINHZLLDWRZWRT-IUQVRHKZNA-N')
 }
 
+# Test convCasToInchi() {{{1
+################################################################
+
+test.nci.cactus.convCasToInchi <- function(conn) {
+    
+    cas2inchi <-
+        c('557795-19-4'=paste0(
+'InChI=1/C22H27FN4O2/c1-5-27(6-2)10-9-24-22(29)20-13(3)19(25-14(20)4)12-17',
+'-16-11-15(23)7-8-18(16)26-21(17)28/h7-8,11-12,25H,5-6,9-10H2,1-4H3,(H,24,2',
+'9)(H,26,28)/b17-12-/f/h24,26H'),
+          '557795-1-4'=NA_character_)
+ 
+    inchi <- conn$convCasToInchi(names(cas2inchi))
+    testthat::expect_is(inchi, 'character')
+    testthat::expect_identical(inchi, cas2inchi)
+}
+
+# Test convCasToInchikey() {{{1
+################################################################
+
+test.nci.cactus.convCasToInchikey <- function(conn) {
+    
+    cas2inchikey <- c('557795-19-4'='WINHZLLDWRZWRT-IUQVRHKZNA-N',
+                      '557795-1-4'=NA_character_)
+
+    inchikey <- conn$convCasToInchikey(names(cas2inchikey))
+    testthat::expect_is(inchikey, 'character')
+    testthat::expect_identical(inchikey, cas2inchikey)
+}
+
 # Main {{{1
 ################################################################
 
 test.that('Web service wsChemicalIdentifierResolver works fine.',
           'test.nci.cactus.wsChemicalIdentifierResolver', conn=conn)
+test.that('convCasToInchi() works fine.',
+          'test.nci.cactus.convCasToInchi', conn=conn)
+test.that('convCasToInchikey() works fine.',
+          'test.nci.cactus.convCasToInchikey', conn=conn)
