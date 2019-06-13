@@ -416,6 +416,26 @@ databases:
       base.url: https://www.ncbi.nlm.nih.gov/
       ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
 
+# NCI CACTUS {{{2
+################################################################################
+  nci.cactus:
+    entry.content.type: sdf
+    name: NCI CACTUS
+    parsing.expr:
+      accession: NSC
+      name: DTP names
+      inchi: Standard InChI
+      inchikey: ["Standard InChIKey", "^InChIKey=(.*)$"]
+      formula: Formula
+      molecular.mass: Molecular Weight
+      cas.id: CAS
+    scheduler.n: 3
+    urls:
+      base.url: https://cactus.nci.nih.gov/
+      ws.url: https://cactus.nci.nih.gov/
+      dwnld.url: https://cactus.nci.nih.gov/download/nci/
+    dwnld.ext: gz
+
 # PubChem Compound {{{2
 ################################################################################
   ncbi.pubchem.comp:
@@ -558,6 +578,11 @@ databases:
 fields:
 
   # Database IDs {{{2
+  ##############################################################################
+    
+  accession:
+    description: The accession number of the entry.
+    
   cas.id:
     alias: casid
     card: many
@@ -685,6 +710,13 @@ fields:
     type: id
     card: many
 
+  nci.cactus.id:
+    description: NCI CACTUS ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
   ncbi.pubchem.comp.id:
     description: PubChem Compound ID
     case.insensitive: true
@@ -727,6 +759,32 @@ fields:
     description: The compound ID.
     forbids.duplicates: true
     type: id
+
+  # Masses {{{2
+  ##############################################################################
+
+  average.mass:
+    class: double
+    description: Average mass.
+    type: mass
+
+  molecular.mass:
+    alias:
+    - mass
+    - molecular.weight
+    class: double
+    computable.from: chebi
+    description: Molecular mass (also called molecular weight), in Dalton.
+    type: mass
+
+  monoisotopic.mass:
+    alias: exact.mass
+    class: double
+    description: Monoisotopic mass.
+    type: mass
+
+  # Other fields {{{2
+  ##############################################################################
     
   aa.seq:
     alias: sequence
@@ -743,12 +801,6 @@ fields:
     - seq.location
     - location
     description: Location of the amino acids sequence.
-  accession:
-    description: The accession number of the entry.
-  average.mass:
-    class: double
-    description: Average mass.
-    type: mass
   catalytic.activity:
     card: many
     description: Catalytic activity.
@@ -850,19 +902,6 @@ fields:
   logp:
     class: double
     description: logP
-  molecular.mass:
-    alias:
-    - mass
-    - molecular.weight
-    class: double
-    computable.from: chebi
-    description: Molecular mass (also called molecular weight), in Dalton.
-    type: mass
-  monoisotopic.mass:
-    alias: exact.mass
-    class: double
-    description: Monoisotopic mass.
-    type: mass
   ms.level:
     class: integer
     description: Mass spectrum level.

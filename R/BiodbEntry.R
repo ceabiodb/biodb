@@ -185,7 +185,9 @@ BiodbEntry$methods( setFieldValue=function(field, value) {
 ################################################################################
 
 BiodbEntry$methods( appendFieldValue=function(field, value) {
-    "Append a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values."
+    "Append a value to an existing field. If the field is not defined for this
+    entry, then the field will be created and set to this value. Only fields
+    with a cardinality greater than one can accept multiple values."
 
     if (.self$hasField(field))
         .self$setFieldValue(field, c(.self$getFieldValue(field), value))

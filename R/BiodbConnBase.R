@@ -498,7 +498,7 @@ setPropValSlot=function(name, slot, value) {
                                       default=NA_character_,
                                       na.allowed=TRUE),
         entry.content.type=list(class='character', default=NA_character_,
-                                  allowed=c('html', 'txt', 'xml', 'csv',
+                                  allowed=c('html', 'sdf', 'txt', 'xml', 'csv',
                                               'tsv', 'json', 'list'),
                                   na.allowed=FALSE, modifiable=FALSE),
         name=list(class='character', default=NA_character_,

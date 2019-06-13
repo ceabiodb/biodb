@@ -4,9 +4,12 @@
 \name{BiodbDownloadable-class}
 \alias{BiodbDownloadable-class}
 \alias{BiodbDownloadable}
-\title{An abstract class (more like an interface) to model a remote database that can be downloaded locally.}
+\title{An abstract class (more like an interface) to model a remote database that
+can be downloaded locally.}
 \description{
-The class must be inherited by any remote database class that allows download of its whole content. The hidden/private method \code{.doDownload()} must be implemented by the database class.
+The class must be inherited by any remote database class that allows download
+of its whole content. The hidden/private method \code{.doDownload()} must be
+implemented by the database class.
 }
 \section{Methods}{
 

@@ -108,7 +108,7 @@ TestObserver$methods( msg = function(type = 'info', msg, class = NA_character_, 
 	testthat::expect_is(msg, 'character')
 })
 
-TestObserver$methods( progress = function(type = 'info', msg, index, total, first, lvl=1) {
+TestObserver$methods( progress = function(type = 'info', msg, index, first, total=NA_character_, lvl=1) {
 
 	.self$checkMessageType(type)
 
@@ -116,7 +116,8 @@ TestObserver$methods( progress = function(type = 'info', msg, index, total, firs
 		.last.index <<- 0
 
 	testthat::expect_gt(index, .self$.last.index)
-	testthat::expect_lte(index, total)
+	if ( ! is.na(total))
+		testthat::expect_lte(index, total)
 
 	.last.index <<- index
 })

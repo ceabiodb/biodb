@@ -51,7 +51,7 @@ notify=function(fct, args) {
 # Progress message {{{3
 ################################################################################
 
-progressMsg=function(type='info', msg, index, total, first) {
+progressMsg=function(type='info', msg, index, first, total=NA_integer_) {
     .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
                                   first=first))
 },
@@ -100,6 +100,13 @@ message=function(type, msg, lvl=1) {
 
 debug=function(...) {
     .self$message(type='debug', msg=paste0(...))
+},
+
+# Debug message level 2 {{{3
+################################################################################
+
+debug2=function(...) {
+    .self$message(type='debug', msg=paste0(...), lvl=2)
 },
 
 # Error message {{{3

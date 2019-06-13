@@ -114,7 +114,13 @@ BiodbRequestScheduler$methods( downloadFile=function(url, dest.file) {
     # Wait required time between two requests
     rule$.waitAsNeeded()
 
-    utils::download.file(url=url$toString(), destfile=dest.file, mode='wb', method='libcurl', cacheOK=FALSE, quiet=TRUE)
+    # Convert URL to string
+    url <- url$toString()
+    
+    # Download
+    .self$info2('Downloading file "', url, '".')
+    utils::download.file(url=url, destfile=dest.file, mode='wb',
+                         method='libcurl', cacheOK=FALSE, quiet=TRUE)
 })
 
 # Private methods {{{1

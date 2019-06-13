@@ -195,7 +195,6 @@ test.entry.page.url <- function(db) {
 	# Check
 	expect_is(urls, 'character')
 	expect_length(urls, length(ref.ids))
-	expect_false(any(is.na(urls)))
 }
 
 # Test entry image URL {{{1
@@ -224,12 +223,15 @@ test.entry.page.url.download <- function(db) {
 
 	# Get URL
 	url <- db$getEntryPageUrl(ref.ids[[1]])
+	expect_is(url, 'character')
 
 	# Try downloading
-	content <- RCurl::getURL(url)
-	expect_true( ! is.na(content))
-	expect_true(nchar(content) > 0)
-	expect_length(grep('<title>.*Not Found</title>', content), 0)
+	if ( ! is.na(url)) {
+		content <- RCurl::getURL(url)
+		expect_true( ! is.na(content))
+		expect_true(nchar(content) > 0)
+		expect_length(grep('<title>.*Not Found</title>', content), 0)
+	}
 }
 
 # Test entry image URL download {{{1

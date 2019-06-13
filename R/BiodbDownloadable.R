@@ -95,9 +95,9 @@ download=function() {
         && (cfg$isEnabled('allow.huge.downloads') || .self$requiresDownload())
         && ! cfg$isEnabled('offline')) {
 
-        .self$info("Download whole database of ", .self$getId(), ".")
-
+        .self$info("Downloading whole database of ", .self$getId(), ".")
         .self$.doDownload()
+        .self$debug('Downloading of ', .self$getId(), ' completed.')
     }
 
     # Extract

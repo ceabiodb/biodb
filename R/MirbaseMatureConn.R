@@ -42,62 +42,6 @@ requiresDownload=function() {
     return(TRUE)
 },
 
-# Do download {{{3
-################################################################################
-
-.doDownload=function() {
-
-    # Download
-    url <- c(.self$getPropValSlot('urls', 'ftp.url'), 'mature.fa.gz')
-    gz.url <- BiodbUrl(url=url)
-    .self$info("Downloading \"", gz.url$toString(), "\"...")
-    sched <- .self$getBiodb()$getRequestScheduler()
-    sched$downloadFile(url=gz.url, dest.file=.self$getDownloadPath())
-    .self$debug('Downloading Mirbase Mature database completed.')
-},
-
-# Do extract download {{{3
-################################################################################
-
-.doExtractDownload=function() {
-
-    # Extract
-    # We do this because of the warning:
-    # "seek on a gzfile connection returned an internal error"
-    # when using `gzfile()`.
-    extracted.file <- tempfile(.self$getId())
-    R.utils::gunzip(filename=.self$getDownloadPath(), destname=extracted.file,
-                    remove=FALSE)
-
-    # Read file
-    fd <- file(extracted.file, 'r')
-    lines <- readLines(fd)
-    close(fd)
-
-    # Get all entry IDs
-    ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value=TRUE),
-               perl=TRUE)
-    .self$debug("Found ", length(ids), " entries in file \"",
-                .self$getDownloadPath(), "\".")
-
-    if (length(ids) > 0) {
-        # Get contents
-        contents <- paste(lines[seq(1, 2*length(ids), 2)],
-                          lines[seq(2, 2*length(ids), 2)], sep="\n")
-
-        # Write all entries into files
-        cch <- .self$getBiodb()$getCache()
-        cch$deleteFiles(.self$getCacheId(), subfolder='shortterm',
-                        ext=.self$getPropertyValue('entry.content.type'))
-        cch$saveContentToFile(contents, cache.id=.self$getCacheId(),
-                              subfolder='shortterm', name=ids,
-                              ext=.self$getPropertyValue('entry.content.type'))
-    }
-
-    # Remove extract directory
-    unlink(extracted.file)
-},
-
 # Get entry content from database {{{3
 ################################################################################
 
@@ -175,6 +119,59 @@ searchByName=function(name, max.results=NA_integer_) {
 
 # Private methods {{{2
 ################################################################################
+
+# Do download {{{3
+################################################################################
+
+.doDownload=function() {
+
+    url <- c(.self$getPropValSlot('urls', 'ftp.url'), 'mature.fa.gz')
+    gz.url <- BiodbUrl(url=url)
+    sched <- .self$getBiodb()$getRequestScheduler()
+    sched$downloadFile(url=gz.url, dest.file=.self$getDownloadPath())
+},
+
+# Do extract download {{{3
+################################################################################
+
+.doExtractDownload=function() {
+
+    # Extract
+    # We do this because of the warning:
+    # "seek on a gzfile connection returned an internal error"
+    # when using `gzfile()`.
+    extracted.file <- tempfile(.self$getId())
+    R.utils::gunzip(filename=.self$getDownloadPath(), destname=extracted.file,
+                    remove=FALSE)
+
+    # Read file
+    fd <- file(extracted.file, 'r')
+    lines <- readLines(fd)
+    close(fd)
+
+    # Get all entry IDs
+    ids <- sub('^.*(MIMAT[0-9]+).*$', '\\1', grep('MIMAT', lines, value=TRUE),
+               perl=TRUE)
+    .self$debug("Found ", length(ids), " entries in file \"",
+                .self$getDownloadPath(), "\".")
+
+    if (length(ids) > 0) {
+        # Get contents
+        contents <- paste(lines[seq(1, 2*length(ids), 2)],
+                          lines[seq(2, 2*length(ids), 2)], sep="\n")
+
+        # Write all entries into files
+        cch <- .self$getBiodb()$getCache()
+        cch$deleteFiles(.self$getCacheId(), subfolder='shortterm',
+                        ext=.self$getPropertyValue('entry.content.type'))
+        cch$saveContentToFile(contents, cache.id=.self$getCacheId(),
+                              subfolder='shortterm', name=ids,
+                              ext=.self$getPropertyValue('entry.content.type'))
+    }
+
+    # Remove extract directory
+    unlink(extracted.file)
+},
 
 # Get entry ids {{{3
 ################################################################################
