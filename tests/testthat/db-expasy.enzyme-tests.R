@@ -22,12 +22,8 @@ test.wsEnzymeByComment <- function(db) {
 	expect_equal(length(grep('^[0-9.]*$', ids)), length(ids))
 }
 
-# Run tests {{{1
+# Main {{{1
 ################################################################
 
-run.expasy.enzyme.tests <- function(conn, obs) {
-	if (test.online()) {
-		test.that('Calls to enzyme-byname ExPASy Enzyme web service work fine.', 'test.wsEnzymeByName', conn = conn)
-		test.that('Calls to enzyme-bycomment ExPASy Enzyme web service work fine.', 'test.wsEnzymeByComment', conn = conn)
-	}
-}
+test.that('Calls to enzyme-byname ExPASy Enzyme web service work fine.', 'test.wsEnzymeByName', conn = conn)
+test.that('Calls to enzyme-bycomment ExPASy Enzyme web service work fine.', 'test.wsEnzymeByComment', conn = conn)

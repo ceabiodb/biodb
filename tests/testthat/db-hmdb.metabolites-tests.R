@@ -14,10 +14,7 @@ test.hmdbmetabolite.nbentries <- function(db) {
 		expect_true(is.na(n))
 }
 
-# Run HMDB tests {{{1
+# Main {{{1
 ################################################################
 
-run.hmdb.metabolites.tests <- function(conn, obs) {
-	if (test.online())
-		test.that("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', conn = conn)
-}
+test.that("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', conn = conn)

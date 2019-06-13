@@ -45,12 +45,8 @@ test.lipidmaps.structure.wsLmsdSearch = function(db) {
 	expect_gt(nrow(results), 0)
 }
 
-# Run LipidMaps Structure tests {{{1
+# Main {{{1
 ################################################################
 
-run.lipidmaps.structure.tests = function(conn, obs) {
-	if (test.online()) {
-		test.that("Test web service wsLmsdRecord.", 'test.lipidmaps.structure.wsLmsdRecord', conn = conn)
-		test.that("Test web service wsLmsdSearch.", 'test.lipidmaps.structure.wsLmsdSearch', conn = conn)
-	}
-}
+test.that("Test web service wsLmsdRecord.", 'test.lipidmaps.structure.wsLmsdRecord', conn = conn)
+test.that("Test web service wsLmsdSearch.", 'test.lipidmaps.structure.wsLmsdSearch', conn = conn)

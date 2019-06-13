@@ -3,6 +3,10 @@
 # NciCactusConn {{{1
 ################################################################################
 
+#' Connector for accessing the NCI database, using CACTUS services.
+#' See https://www.cancer.gov/ and https://cactus.nci.nih.gov/.
+#'
+#'
 #' @include BiodbRemotedbConn.R
 #' @include BiodbDownloadable.R
 NciCactusConn <- methods::setRefClass("NciCactusConn",
@@ -39,6 +43,45 @@ getEntryPageUrl=function(id) {
 
 getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
+},
+
+# Web service Chemical Identifier Resolver {{{3
+################################################################################
+
+wsChemicalIdentifierResolver=function(structid, repr, xml=FALSE,
+                                      retfmt=c('plain', 'parsed', 'request',
+                                               'ids')) {
+    'Calls Chemical Identifier Resolver web service. `structid` is the submitted
+    structure identifier, `repr` is the wanted representation and xml is a flag
+    for choosing the format returned by the web service between plain text and
+    XML.
+    See https://cactus.nci.nih.gov/chemical/structure_documentation.'
+
+    retfmt <- match.arg(retfmt)
+    
+    # Build request
+    url <- c(.self$getPropValSlot('urls', 'ws.url'), 'chemical', 'structure',
+             structid, repr)
+    if (xml)
+        url <- c(url, 'xml')
+    request <- BiodbRequest(method='get', url=BiodbUrl(url=url))
+    if (retfmt == 'request')
+        return(request)
+
+    # Send request
+    results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+
+    # Parse
+    if (retfmt != 'plain' && xml) {
+
+        # Parse XML
+        results <-  XML::xmlInternalTreeParse(results, asText=TRUE)
+
+        if (retfmt == 'ids')
+            results <- XML::xpathSApply(results, "//item", XML::xmlValue)
+    }
+
+    return(results)
 },
 
 # Requires download {{{3

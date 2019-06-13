@@ -58,16 +58,12 @@ test_chebi_convCasToChebi <- function(conn) {
     testthat::expect_identical(ids, unname(cas2chebi2))
 }
 
-# Run ChEBI tests {{{1
+# Main {{{1
 ################################################################
 
-run.chebi.tests <- function(conn, obs) {
-	if (test.online()) {
-		test.that('Web service getLiteEntity works fine.',
-                  'test.chebi.wsGetLiteEntity', conn = conn)
-		test.that('ChEBI encoding issue in XML is handled.',
-                  'test.chebi.encoding.issue.in.xml', conn = conn)
-		test.that('convCasToChebi() works.',
-                  'test_chebi_convCasToChebi', conn = conn)
-	}
-}
+test.that('Web service getLiteEntity works fine.',
+          'test.chebi.wsGetLiteEntity', conn = conn)
+test.that('ChEBI encoding issue in XML is handled.',
+          'test.chebi.encoding.issue.in.xml', conn = conn)
+test.that('convCasToChebi() works.',
+          'test_chebi_convCasToChebi', conn = conn)

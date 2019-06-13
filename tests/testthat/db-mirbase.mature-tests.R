@@ -23,11 +23,7 @@ test.mirbase.mature.wsQuery <- function(db) {
 	expect_true(length(results) > 0)
 }
 
-# Run Mirbase Mature tests {{{1
+# Main {{{1
 ################################################################
 
-run.mirbase.mature.tests <- function(conn, obs) {
-	if (test.online()) {
-		test.that('', 'test.mirbase.mature.wsQuery', conn = conn)
-	}
-}
+test.that('', 'test.mirbase.mature.wsQuery', conn = conn)

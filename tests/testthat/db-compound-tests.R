@@ -81,15 +81,10 @@ test.searchCompound.no.mass.field <- function(db) {
 	expect_error(db$searchCompound(mass = 45))
 }
 
-# Run Compound DB tests {{{1
+# Main {{{1
 ################################################################
 
-run.compound.db.tests <- function(conn) {
-
-	if ( ! conn$isRemotedb() || test.online())
-		if (conn$isCompounddb()) {
-
-			test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)
-			test.that('We can search for a compound', 'test.searchCompound', conn = conn)
-		}
+if (conn$isCompounddb()) {
+	test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)
+	test.that('We can search for a compound', 'test.searchCompound', conn = conn)
 }
