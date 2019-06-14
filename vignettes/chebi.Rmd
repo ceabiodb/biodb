@@ -1,21 +1,24 @@
 ---
-title: "Accessing ChEBI"
+title: "*biodb*: Using ChEBI connector"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
-  How to access entries in ChEBI database.
+  How to use the ChEBI connector and its methods.
 vignette: |
-  %\VignetteIndexEntry{Accessing ChEBI entries}
+  %\VignetteIndexEntry{Using ChEBI connector}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# How to access entries in ChEBI database
-
-## Introduction
+# Introduction
 
 Through the example of the ChEBI database, we are going to see how to access a database to access its entries.
 
@@ -29,14 +32,14 @@ Then we create a connector to ChEBI:
 chebi <- mybiodb$getFactory()$createConn('chebi')
 ```
 
-## Requesting entries
+# Requesting entries
 
 Using accession numbers, we request entries from ChEBI:
 ```{r}
 entries <- chebi$getEntry(c('2528', '17053', '15440'))
 ```
 
-## Get entry fields
+# Get entry fields
 
 Getting the values of entry fields are done using `getFieldValue()` method.
 Here we retrieve the SMILES fields for all ChEBI entries obtained previously:
@@ -44,7 +47,7 @@ Here we retrieve the SMILES fields for all ChEBI entries obtained previously:
 vapply(entries, function(e) e$getFieldValue('smiles'), FUN.VALUE = '')
 ```
 
-## Get data frame
+# Get data frame
 
 We can convert an entry into a data frame:
 ```{r}
@@ -56,7 +59,7 @@ Building a data frame for a list of entries is also possible:
 mybiodb$entriesToDataframe(entries, fields = c('accession', 'formula', 'molecular.mass', 'inchikey', 'kegg.compound.id'))
 ```
 
-## Search by name and mass
+# Search by name and mass
 
 Searching by name and/or mass is done through the `searchCompound()`.
 
@@ -79,9 +82,9 @@ Display results in data frame:
 mybiodb$entriesToDataframe(chebi$getEntry(ids), fields = c('accession', 'molecular.mass', 'name'))
 ```
 
-## Convert CAS IDs
+# Convert CAS IDs
 
-Convert CAS IDs to ChEBI IDs:
+Converting CAS IDs to ChEBI IDs:
 ```{r}
 chebi$convCasToChebi(c('87605-72-9', '51-41-2'))
 ```
@@ -92,7 +95,21 @@ chebi$convCasToChebi('14215-68-0')
 ```
 This behaviour can be made the default one by setting `simplify` parameter to `FALSE`.
 
-## Closing biodb instance
+# Convert InChI
+
+The method is similar to `convCasToChebi()`.
+
+Converting InChI to ChEBI IDs:
+```{r}
+chebi$convInchiToChebi('InChI=1S/C6H10O/c1-2-3-4-5-6-7/h4-6H,2-3H2,1H3/b5-4+')
+```
+
+You can also use an InChI key:
+```{r}
+chebi$convInchiToChebi('MBDOYVRWFFCFHM-SNAWJCMRSA-N')
+```
+
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}

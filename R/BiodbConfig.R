@@ -189,14 +189,12 @@ set=function(key, value) {
     "Set the value of a key."
 
     .self$.checkKey(key)
-
-    displayed.value <- if (is.character(value)) paste0('"', value, '"')
-                       else value
-    .self$message('info', paste("Set ", key, ' to ', displayed.value, '.',
-                                sep=''))
+                                
     v <- as.vector(value, mode=.self$.getType(key))
     .self$.values[[key]] <- v
-    .self$debug('Set key ', key, ' to value "', v, '".')
+    displayed.value <- if (is.character(value)) paste0('"', value, '"')
+                       else value
+    .self$debug('info', "Set key ", key, ' to ', displayed.value, '.')
     
     # Notify observers
     .self$notify('cfgKVUpdate', list(k=key, v=v))

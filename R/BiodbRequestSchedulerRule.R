@@ -96,7 +96,8 @@ BiodbRequestSchedulerRule$methods( addConnector=function(conn) {
 
     # Connector already listed?
     if (any(vapply(.self$.conn, function(x) identical(x, conn), FUN.VALUE=TRUE)))
-        .self$message('caution', paste0('Connector "', conn$getId(), '" is already listed in rule "', .self$.host, '".'))
+        .self$debug('Connector "', conn$getId(),
+                    '" is already listed in rule "', .self$.host, '".')
 
     # Add connector
     else {
