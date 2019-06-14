@@ -55,6 +55,11 @@ test.nci.cactus.convCasToInchikey <- function(conn) {
     inchikey <- conn$convCasToInchikey(names(cas2inchikey))
     testthat::expect_is(inchikey, 'character')
     testthat::expect_identical(inchikey, cas2inchikey)
+    
+    # Check that passing factors work too
+    inchikey <- conn$convCasToInchikey(as.factor(names(cas2inchikey)))
+    testthat::expect_is(inchikey, 'character')
+    testthat::expect_identical(inchikey, cas2inchikey)
 }
 
 # Main {{{1
