@@ -88,24 +88,41 @@ wsChemicalIdentifierResolver=function(structid, repr, xml=FALSE,
     return(results)
 },
 
+# Convert a list of IDs into another {{{3
+################################################################################
+
+conv=function(ids, repr) {
+    'Calls wsChemicalIdentifierResolver() to convert the list of IDs `ids` into
+    the representation `repr`.'
+    
+    res <- character()
+    msg <- paste0('Converting IDs to ', repr)
+    
+    # Loop on all IDs
+    i <- 0
+    for (id in ids) {
+        r <- .self$wsChemicalIdentifierResolver(structid=id, repr=repr,
+                                                xml=TRUE, retfmt='ids')
+        if (length(r) == 0)
+            r <- NA_character_
+        
+        res[[id]] <- r
+        
+        # Send progress message
+        i <- i + 1
+        .self$progressMsg(msg=msg, index=i, total=length(ids), first=(i == 1))
+    }
+    
+    return(res)
+},
+
 # Convert CAS ID to InChI {{{3
 ################################################################################
 
 convCasToInchi=function(cas) {
     'Convert a list of CAS IDs into a list of InChI.'
     
-    f <- function(x) {
-        r <- .self$wsChemicalIdentifierResolver(structid=x, repr='InChI',
-                                                xml=TRUE, retfmt='ids')
-        if (length(r) == 0)
-            r <- NA_character_
-        
-        return(r)
-    }
-    
-    inchi <- vapply(cas, f, FUN.VALUE='')
-                    
-    return(inchi)
+    return(.self$conv(cas, 'InChI'))
 },
 
 # Convert CAS ID to InChI KEY {{{3
@@ -114,16 +131,7 @@ convCasToInchi=function(cas) {
 convCasToInchikey=function(cas) {
     'Convert a list of CAS IDs into a list of InChI keys.'
     
-    f <- function(x) {
-        r <- .self$wsChemicalIdentifierResolver(structid=x, repr='InChIKEY',
-                                                xml=TRUE, retfmt='ids')
-        if (length(r) == 0)
-            r <- NA_character_
-        
-        return(r)
-    }
-    
-    inchikey <- vapply(cas, f, FUN.VALUE='')
+    inchikey <- .self$conv(cas, 'InChIKEY')
     inchikey <- sub('^InChIKey=', '', inchikey)
                     
     return(inchikey)
