@@ -416,27 +416,7 @@ databases:
       base.url: https://www.ncbi.nlm.nih.gov/
       ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
 
-# NCI CACTUS {{{2
-################################################################################
-  nci.cactus:
-    entry.content.type: sdf
-    name: NCI CACTUS
-    parsing.expr:
-      accession: NSC
-      name: DTP names
-      inchi: Standard InChI
-      inchikey: ["Standard InChIKey", "^InChIKey=(.*)$"]
-      formula: Formula
-      molecular.mass: Molecular Weight
-      cas.id: CAS
-    scheduler.n: 3
-    urls:
-      base.url: https://cactus.nci.nih.gov/
-      ws.url: https://cactus.nci.nih.gov/
-      dwnld.url: https://cactus.nci.nih.gov/download/nci/
-    dwnld.ext: gz
-
-# PubChem Compound {{{2
+# NCBI PubChem Compound {{{2
 ################################################################################
   ncbi.pubchem.comp:
     entry.content.type: xml
@@ -463,7 +443,7 @@ databases:
       ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
       ws2.url: https://pubchem.ncbi.nlm.nih.gov/rest/pug/
 
-# PubChem Substance {{{2
+# NCBI PubChem Substance {{{2
 ################################################################################
   ncbi.pubchem.subst:
     entry.content.type: xml
@@ -476,6 +456,26 @@ databases:
       base.url: https://pubchem.ncbi.nlm.nih.gov/
       ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
       ws2.url: https://pubchem.ncbi.nlm.nih.gov/rest/pug/
+
+# NCI CACTUS {{{2
+################################################################################
+  nci.cactus:
+    entry.content.type: sdf
+    name: NCI CACTUS
+    parsing.expr:
+      accession: NSC
+      name: DTP names
+      inchi: Standard InChI
+      inchikey: ["Standard InChIKey", "^InChIKey=(.*)$"]
+      formula: Formula
+      molecular.mass: Molecular Weight
+      cas.id: CAS
+    scheduler.n: 3
+    urls:
+      base.url: https://cactus.nci.nih.gov/
+      ws.url: https://cactus.nci.nih.gov/
+      dwnld.url: https://cactus.nci.nih.gov/download/nci/
+    dwnld.ext: gz
 
 # PeakForest Compound {{{2
 ################################################################################

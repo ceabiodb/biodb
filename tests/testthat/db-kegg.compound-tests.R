@@ -1,4 +1,4 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Test KEGG Compound wsList {{{1
 ################################################################
