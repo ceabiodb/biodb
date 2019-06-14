@@ -28,7 +28,9 @@ An entry is an element of a database, identifiable by its accession number. Each
 \section{Methods}{
 
 \describe{
-\item{\code{appendFieldValue(field, value)}}{Append a value to an existing field. If the field is not defined for this entry, then the field will be created and set to this value. Only fields with a cardinality greater than one can accept multiple values.}
+\item{\code{appendFieldValue(field, value)}}{Append a value to an existing field. If the field is not defined for this
+entry, then the field will be created and set to this value. Only fields
+with a cardinality greater than one can accept multiple values.}
 
 \item{\code{clone(db.class = NULL)}}{Clone this entry.}
 

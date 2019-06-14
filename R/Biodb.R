@@ -75,7 +75,7 @@ initialize=function(...) {
     # Set default observers
     .self$.observers <- list(BiodbWarningReporter$new(),
                              BiodbErrorReporter$new(),
-                             BiodbLogger$new())
+                             BiodbInfoReporter$new())
 
     # Print package version
     .self$info('This is biodb version ', packageVersion('biodb'), '.')
@@ -95,7 +95,7 @@ initialize=function(...) {
     # Check locale
     .self$.checkLocale()
 
-    .self$message('info', 'Created successfully new Biodb instance.')
+    .self$info('Created successfully new Biodb instance.')
 },
 
 # Terminate {{{3
@@ -104,14 +104,14 @@ initialize=function(...) {
 terminate=function() {
     "Close \\code{Biodb} instance."
 
-    .self$message('info', 'Closing Biodb instance.')
+    .self$info('Closing Biodb instance...')
+
+    # Terminate factory
+    .self$.factory$.terminate()
 
     # Terminate observers
     for (obs in .self$.observers)
         obs$terminate()
-
-    # Terminate factory
-    .self$.factory$.terminate()
 },
 
 # Load definitions {{{3

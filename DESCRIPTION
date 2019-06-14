@@ -64,6 +64,7 @@ Collate:
     'BiodbFactory.R'
     'BiodbXmlEntry.R'
     'BiodbHtmlEntry.R'
+    'BiodbInfoReporter.R'
     'BiodbJsonEntry.R'
     'BiodbLogger.R'
     'BiodbMassdbConn.R'

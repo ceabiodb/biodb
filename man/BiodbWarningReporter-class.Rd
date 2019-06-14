@@ -4,9 +4,10 @@
 \name{BiodbWarningReporter-class}
 \alias{BiodbWarningReporter-class}
 \alias{BiodbWarningReporter}
-\title{A class for logging warning messages.}
+\title{A class for throwing a warning.}
 \description{
-This class is not meant to be used directly. It is automatically instantiate inside biodb constructor in order to report warnings.
+This class is not meant to be used directly. It is automatically instantiated
+inside biodb constructor in order to report warnings.
 }
 
 \seealso{

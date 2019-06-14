@@ -4,9 +4,10 @@
 \name{BiodbErrorReporter-class}
 \alias{BiodbErrorReporter-class}
 \alias{BiodbErrorReporter}
-\title{A class for logging error messages.}
+\title{A class for throwing an error.}
 \description{
-This class is not meant to be used directly. It is automatically instantiate inside biodb constructor in order to report errors.
+This class is not meant to be used directly. It is automatically instantiated
+inside biodb constructor in order to report errors.
 }
 
 \seealso{

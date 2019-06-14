@@ -1,20 +1,20 @@
 # vi: fdm=marker ts=4 et cc=80
 
-# BiodbErrorReporter {{{1
+# BiodbInfoReporter {{{1
 ################################################################################
 
-#' A class for throwing an error.
+#' A class for display info messages for the user.
 #'
 #' This class is not meant to be used directly. It is automatically instantiated
-#' inside biodb constructor in order to report errors.
+#' inside biodb constructor in order to report information messages.
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
 #'
 #' @import methods
 #' @include BiodbObserver.R
-#' @export BiodbErrorReporter
-#' @exportClass BiodbErrorReporter
-BiodbErrorReporter <- methods::setRefClass("BiodbErrorReporter",
+#' @export BiodbInfoReporter
+#' @exportClass BiodbInfoReporter
+BiodbInfoReporter <- methods::setRefClass("BiodbInfoReporter",
     contains='BiodbObserver',
 
 # Public methods {{{2
@@ -29,16 +29,11 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
              lvl=1) {
 
     .self$checkMessageType(type)
+    setlvl <- .self$getLevel(type)
 
-    # Raise error
-    if (type == 'error') {
-        caller.info <- if (is.na(class)) '' else class
-        caller.info <- if (is.na(method)) caller.info
-            else paste(caller.info, method, sep='::')
-        if (nchar(caller.info) > 0)
-            caller.info <- paste('[', caller.info, '] ', sep='')
-        stop(paste0(caller.info, msg))
-    }
+    if (setlvl >= lvl && type == 'info')
+        base::message(msg)
 }
 
 ))
+

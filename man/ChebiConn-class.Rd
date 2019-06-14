@@ -17,6 +17,19 @@ be returned for a single CAS ID. If `simplify` is set to `TRUE`, and only
 one ChEBI ID has been found for each CAS ID, then a character vector is
 returned. Otherwise a list of character vectors is returned.}
 
+\item{\code{convIdsToChebiIds(ids, search.category, simplify = TRUE)}}{Convert a list of IDs into a list of ChEBI IDs. Several ChEBI IDs may
+be returned for a single ID. If `simplify` is set to `TRUE`, and only
+one ChEBI ID has been found for each ID, then a character vector is
+returned. Otherwise a list of character vectors is returned. The
+`search.category` parameter is the same used for `wsGetLiteEntity()`.}
+
+\item{\code{convInchiToChebi(inchi, simplify = TRUE)}}{Convert a list of InChI or InChI KEYs into a list of ChEBI IDs. Several
+ChEBI IDs may
+be returned for a single InChI or InChI KEY. If `simplify` is set to `TRUE`,
+and only
+one ChEBI ID has been found for each InChI, then a character vector is
+returned. Otherwise a list of character vectors is returned.}
+
 \item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
@@ -37,13 +50,14 @@ must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
                                    ...)}
 
 \item{\code{wsGetLiteEntity(search = NULL, search.category = "ALL", max.results = 10,
-  stars = "ALL", retfmt = c("plain", "parsed", "request", "ids"))}}{Calls getLiteEntity web service and returns the XML result. See
-http://www.ebi.ac.uk/chebi/webServices.do. Be careful when search by mass
-(search.category='MASS' or 'MONOISOTOPIC MASS', since the searched is made
+  stars = "ALL", retfmt = c("plain", "parsed", "request", "ids"))}}{Calls getLiteEntity web service and returns the XML result.
+Be careful when search by mass
+(search.category="MASS" or "MONOISOTOPIC MASS"), since the searched is made
  in text mode, thus the number must be exactly written as it stored in
  database eventually padded with 0 in order to have exactly 5 digits after
  the decimal. An easy solution is to use wildcards to search a mass:
- '410;.718*'.}
+ "410;.718*".
+See http://www.ebi.ac.uk/chebi/webServices.do.}
 
 \item{\code{wsWsdl(retfmt = c("plain", "parsed", "request"))}}{Returns the complete WSDL from the the web server.}
 }}

@@ -5,7 +5,7 @@
 
 #' A class for throwing a warning.
 #'
-#' This class is not meant to be used directly. It is automatically instantiate
+#' This class is not meant to be used directly. It is automatically instantiated
 #' inside biodb constructor in order to report warnings.
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
