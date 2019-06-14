@@ -106,7 +106,7 @@ conv=function(ids, repr) {
         if (length(r) == 0)
             r <- NA_character_
         
-        res[[id]] <- r
+        res <- c(res, r)
         
         # Send progress message
         i <- i + 1

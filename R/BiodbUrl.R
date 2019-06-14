@@ -71,18 +71,21 @@ BiodbUrl$methods( toString=function(encode=TRUE) {
 
     # Add parameters to URL
     if (length(.self$.params) > 0) {
+        
+        pn <- names(.self$.params)
+        pv <- unname(.self$.params)
+        
+        # Encode parameter values
+        if (encode)
+            pv <- vapply(pv, utils::URLencode, FUN.VALUE='', USE.NAMES=FALSE)
 
         # Build parameters string
-        pn <- names(.self$.params)
-        kv.list <- vapply(seq_along(.self$.params), function(i) if (is.null(pn) || nchar(pn[[i]]) == 0) .self$.params[[i]] else paste(pn[[i]], .self$.params[[i]], sep='='), FUN.VALUE='')
+        kv.list <- vapply(seq_along(pv), function(i) if (is.null(pn) || nchar(pn[[i]]) == 0) pv[[i]] else paste(pn[[i]], pv[[i]], sep='='), FUN.VALUE='')
         params.str <- paste(kv.list, collapse='&')
 
         # Concatenate URL with parameters
         url <- paste(url, params.str, sep='?')
     }
-
-    if (encode)
-        url <- utils::URLencode(url)
 
     return(url)
 })
