@@ -211,7 +211,7 @@ saveContentToFile=function(content, cache.id, subfolder, name, ext) {
         content[is.na(content)] <- 'NA'
 
     # Write content to files
-    .self$message('debug', paste("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[seq_len(10)], '...') else file.paths, collapse=", ") ,"\".", sep=''))
+    .self$debug2("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[seq_len(10)], '...') else file.paths, collapse=", ") ,"\".")
     if (ext == 'RData')
         mapply(function(c, f) { save(c, file=f) }, content, file.paths)
     else

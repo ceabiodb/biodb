@@ -89,16 +89,12 @@ test.chemspider.wsRecordsBatchPost <- function(conn) {
 	testthat::expect_identical(sort(vapply(results$records, function(x) x$id, FUN.VALUE = 0)), sort(ids))
 }
 
-# Run ChemSpider tests {{{1
+# Main {{{1
 ################################################################
 
-run.chemspider.tests <- function(conn, obs) {
-	if (test.online()) {
-		test.that('ChemSpider web service filter-name-post works fine.', 'test.chemspider.wsFilterNamePost', conn = conn)
-		test.that('ChemSpider web service filter-mass-post works fine.', 'test.chemspider.wsFilterMassPost', conn = conn)
-		test.that('ChemSpider web service filter-queryId-status-get works fine.', 'test.chemspider.wsFilterQueryIdStatusGet', conn = conn)
-		test.that('ChemSpider web service filter-queryId-results-get works fine.', 'test.chemspider.wsFilterQueryIdResultsGet', conn = conn)
-		test.that('ChemSpider web service records-recordId-details-get works fine.', 'test.chemspider.wsRecordsRecordidDetailsGet', conn = conn)
-		test.that('ChemSpider web service records-batch-post works fine.', 'test.chemspider.wsRecordsBatchPost', conn = conn)
-	}
-}
+test.that('ChemSpider web service filter-name-post works fine.', 'test.chemspider.wsFilterNamePost', conn = conn)
+test.that('ChemSpider web service filter-mass-post works fine.', 'test.chemspider.wsFilterMassPost', conn = conn)
+test.that('ChemSpider web service filter-queryId-status-get works fine.', 'test.chemspider.wsFilterQueryIdStatusGet', conn = conn)
+test.that('ChemSpider web service filter-queryId-results-get works fine.', 'test.chemspider.wsFilterQueryIdResultsGet', conn = conn)
+test.that('ChemSpider web service records-recordId-details-get works fine.', 'test.chemspider.wsRecordsRecordidDetailsGet', conn = conn)
+test.that('ChemSpider web service records-batch-post works fine.', 'test.chemspider.wsRecordsBatchPost', conn = conn)

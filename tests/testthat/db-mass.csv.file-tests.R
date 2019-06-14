@@ -503,28 +503,24 @@ test.mass.csv.file.cache.confusion <- function(biodb) {
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Run Mass CSV File tests {{{1
+# Main {{{1
 ################################################################
 
-run.mass.csv.file.tests <- function(conn, mode, obs) {
+test.that("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', conn = conn)
+test.that("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', conn = conn)
 
-	test.that("MassCsvFileConn methods are correct", 'test.basic.mass.csv.file', conn = conn)
-	test.that("M/Z match output contains all columns of database.", 'test.mass.csv.file.output.columns', conn = conn)
-
-	biodb <- conn$getBiodb()
-	test.that('Test fields manipulation works correctly.', 'test.fields', biodb = biodb)
-	test.that('Test that we detect undefined fields', 'test.undefined.fields', biodb = biodb)
-	test.that('Setting database with a data frame works.', 'test.mass.csv.file.data.frame', biodb = biodb)
-	test.that('Failure occurs when loading database file with a line containing wrong number of values.', 'test.wrong.nb.cols', biodb = biodb)
-	test.that('Failure occurs when a field with a cardinality of one has several values for the same accession number.', 'test.field.card.one', biodb = biodb)
-	test.that('We can search for precursor M/Z values without peak.attr column defined.', 'test.getMzValues.without.peak.attr', biodb = biodb)
-	test.that('Old column names are still recognized.', 'test.mass.csv.file.old.col.names', biodb = biodb)
-	test.that('Peaks table of entry has official field names.', 'test.mass.csv.file.entry.peaks.table.col.names', biodb = biodb)
-	test.that('M/Z matching limits (mz.min and mz.max) are respected.', 'test.mass.csv.file.mz.matching.limits', biodb = biodb)
-	test.that('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', biodb = biodb)
-	test.that('We can set additional values for MS mode.', 'test.mass.csv.file.ms.mode.values', biodb = biodb)
-	test.that('Precursor match works.', 'test.mass.csv.file.precursor.match', biodb = biodb)
-	test.that('Two different databases do not use the same cache files.', 'test.mass.csv.file.cache.confusion', biodb = biodb)
-	test.that('Sorting of columns of result frame works well in searchMsPeaks().', 'test.mass.csv.file.searchMsPeaks.column.sorting', biodb = biodb)
-	test.that('Cache ID is set correctly.', 'test.mass.csv.file.cache.id', biodb = biodb)
-}
+test.that('Test fields manipulation works correctly.', 'test.fields', biodb = biodb)
+test.that('Test that we detect undefined fields', 'test.undefined.fields', biodb = biodb)
+test.that('Setting database with a data frame works.', 'test.mass.csv.file.data.frame', biodb = biodb)
+test.that('Failure occurs when loading database file with a line containing wrong number of values.', 'test.wrong.nb.cols', biodb = biodb)
+test.that('Failure occurs when a field with a cardinality of one has several values for the same accession number.', 'test.field.card.one', biodb = biodb)
+test.that('We can search for precursor M/Z values without peak.attr column defined.', 'test.getMzValues.without.peak.attr', biodb = biodb)
+test.that('Old column names are still recognized.', 'test.mass.csv.file.old.col.names', biodb = biodb)
+test.that('Peaks table of entry has official field names.', 'test.mass.csv.file.entry.peaks.table.col.names', biodb = biodb)
+test.that('M/Z matching limits (mz.min and mz.max) are respected.', 'test.mass.csv.file.mz.matching.limits', biodb = biodb)
+test.that('RT matching limits (rt.min and rt.max) are respected.', 'test.mass.csv.file.rt.matching.limits', biodb = biodb)
+test.that('We can set additional values for MS mode.', 'test.mass.csv.file.ms.mode.values', biodb = biodb)
+test.that('Precursor match works.', 'test.mass.csv.file.precursor.match', biodb = biodb)
+test.that('Two different databases do not use the same cache files.', 'test.mass.csv.file.cache.confusion', biodb = biodb)
+test.that('Sorting of columns of result frame works well in searchMsPeaks().', 'test.mass.csv.file.searchMsPeaks.column.sorting', biodb = biodb)
+test.that('Cache ID is set correctly.', 'test.mass.csv.file.cache.id', biodb = biodb)

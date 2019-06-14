@@ -114,13 +114,14 @@ wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
 wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
                          stars='ALL',
                          retfmt=c('plain', 'parsed', 'request', 'ids')) {
-    "Calls getLiteEntity web service and returns the XML result. See
-    http://www.ebi.ac.uk/chebi/webServices.do. Be careful when search by mass
-    (search.category='MASS' or 'MONOISOTOPIC MASS', since the searched is made
+    'Calls getLiteEntity web service and returns the XML result.
+    Be careful when search by mass
+    (search.category="MASS" or "MONOISOTOPIC MASS"), since the searched is made
      in text mode, thus the number must be exactly written as it stored in
      database eventually padded with 0 in order to have exactly 5 digits after
      the decimal. An easy solution is to use wildcards to search a mass:
-     '410;.718*'."
+     "410;.718*".
+    See http://www.ebi.ac.uk/chebi/webServices.do.'
 
     retfmt <- match.arg(retfmt)
 
@@ -134,10 +135,10 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
     .self$.assertIn(stars, .self$getStarsCategories())
 
     # Build request
-    params <- c(search=gsub('[ /]', '+', search),
-                searchCategory=gsub(' ', '+', search.category),
+    params <- c(search=search,
+                searchCategory=search.category,
                 maximumResults=max.results,
-                starsCategory=gsub(' ', '+', stars))
+                starsCategory=stars)
     url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test/getLiteEntity')
     request <- BiodbRequest(method='get', url=BiodbUrl(url=url, params=params),
                             encoding='UTF-8')
@@ -166,34 +167,35 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
     return(results)
 },
 
-# Convert CAS ID to ChEBI ID {{{3
+# Convert IDs to ChEBI IDs {{{3
 ################################################################################
 
-convCasToChebi=function(cas, simplify=TRUE) {
-    'Convert a list of CAS IDs into a list of ChEBI IDs. Several ChEBI IDs may
-    be returned for a single CAS ID. If `simplify` is set to `TRUE`, and only
-    one ChEBI ID has been found for each CAS ID, then a character vector is
-    returned. Otherwise a list of character vectors is returned.'
+convIdsToChebiIds=function(ids, search.category, simplify=TRUE) {
+    'Convert a list of IDs into a list of ChEBI IDs. Several ChEBI IDs may
+    be returned for a single ID. If `simplify` is set to `TRUE`, and only
+    one ChEBI ID has been found for each ID, then a character vector is
+    returned. Otherwise a list of character vectors is returned. The
+    `search.category` parameter is the same used for `wsGetLiteEntity()`.'
     
     chebi <- list()
+    msg <- paste('Converting', search.category, 'IDs to ChEBI IDs.')
     
     # Loop on all cas IDs
     i <- 0
-    for (c in cas) {
+    for (id in ids) {
         
-        # Get ChEBI IDs for this CAS ID
-        if (is.na(c))
-            ids <- character()
+        # Get ChEBI IDs for this ID
+        if (is.na(id))
+            x <- character()
         else
-            ids <- .self$wsGetLiteEntity(c, search.category='REGISTRY NUMBERS',
-                                         retfmt='ids')
+            x <- .self$wsGetLiteEntity(id, search.category=search.category,
+                                       retfmt='ids')
         
-        chebi <- c(chebi, list(ids))
+        chebi <- c(chebi, list(x))
         
         # Send progress message
         i <- i + 1
-        .self$progressMsg(msg='Converting CAS IDs to ChEBI IDs.', index=i,
-                          total=length(cas), first=(i == 1))
+        .self$progressMsg(msg=msg, index=i, total=length(ids), first=(i == 1))
     }
     
     # Simplify
@@ -204,6 +206,34 @@ convCasToChebi=function(cas, simplify=TRUE) {
     }
 
     return(chebi)
+},
+
+# Convert InChI to ChEBI ID {{{3
+################################################################################
+
+convInchiToChebi=function(inchi, simplify=TRUE) {
+    'Convert a list of InChI or InChI KEYs into a list of ChEBI IDs. Several
+    ChEBI IDs may
+    be returned for a single InChI or InChI KEY. If `simplify` is set to `TRUE`,
+    and only
+    one ChEBI ID has been found for each InChI, then a character vector is
+    returned. Otherwise a list of character vectors is returned.'
+    
+    return(.self$convIdsToChebiIds(inchi, search.category='INCHI/INCHI KEY',
+                                   simplify=simplify))
+},
+
+# Convert CAS ID to ChEBI ID {{{3
+################################################################################
+
+convCasToChebi=function(cas, simplify=TRUE) {
+    'Convert a list of CAS IDs into a list of ChEBI IDs. Several ChEBI IDs may
+    be returned for a single CAS ID. If `simplify` is set to `TRUE`, and only
+    one ChEBI ID has been found for each CAS ID, then a character vector is
+    returned. Otherwise a list of character vectors is returned.'
+    
+    return(.self$convIdsToChebiIds(cas, search.category='REGISTRY NUMBERS',
+                                   simplify=simplify))
 },
 
 # Search by name {{{3

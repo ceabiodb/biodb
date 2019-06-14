@@ -36,7 +36,7 @@ test.chebi.wsGetLiteEntity <- function(conn) {
 
 test_chebi_convCasToChebi <- function(conn) {
     
-    # values
+    # Values
     cas2chebi1 <- c('51-41-2'='18357', '87605-72-9'='10000')
     cas2chebi2 <- c(as.list(cas2chebi1), list('14215-68-0'=c('40356', '28037')))
     
@@ -58,16 +58,31 @@ test_chebi_convCasToChebi <- function(conn) {
     testthat::expect_identical(ids, unname(cas2chebi2))
 }
 
-# Run ChEBI tests {{{1
+# Test ChEBI convInchiToChebi() {{{1
 ################################################################
 
-run.chebi.tests <- function(conn, obs) {
-	if (test.online()) {
-		test.that('Web service getLiteEntity works fine.',
-                  'test.chebi.wsGetLiteEntity', conn = conn)
-		test.that('ChEBI encoding issue in XML is handled.',
-                  'test.chebi.encoding.issue.in.xml', conn = conn)
-		test.that('convCasToChebi() works.',
-                  'test_chebi_convCasToChebi', conn = conn)
-	}
+test_chebi_convInchiToChebi <- function(conn) {
+    
+    # Build InChIs
+    x <- paste0('C15H24/c1-9(2)11-7-8-15(4)12-6-5-10(3)14(15)13(11)12/h5,9,11',
+                '-14H,6-',
+                '8H2,1-4H3/t11?,12?,13?,14?,15-/m0/s1')
+    inchi <- paste0('InChI=1/', x) # non standard InChI
+    stdinchi <- paste0('InChI=1S/', x) # standard InChI
+    inchikey <- 'VLXDPFLIRFYIME-MWHZVNNOSA-N'
+    testthat::expect_equal(conn$convInchiToChebi(inchi), '10341')
+    testthat::expect_equal(conn$convInchiToChebi(stdinchi), '10341')
+    testthat::expect_equal(conn$convInchiToChebi(inchikey), '10341')
 }
+
+# Main {{{1
+################################################################
+
+test.that('Web service getLiteEntity works fine.',
+          'test.chebi.wsGetLiteEntity', conn = conn)
+test.that('ChEBI encoding issue in XML is handled.',
+          'test.chebi.encoding.issue.in.xml', conn = conn)
+test.that('convCasToChebi() works.',
+          'test_chebi_convCasToChebi', conn = conn)
+test.that('convInchiToChebi() works.',
+          'test_chebi_convInchiToChebi', conn = conn)

@@ -1,21 +1,24 @@
 ---
-title: "Initializing biodb"
+title: "*biodb*: Initializing biodb"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
-  Initialization of biodb package.
+  How to start with biodb package.
 vignette: |
   %\VignetteIndexEntry{Initializing biodb}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# Initializing biodb
-
-## Introduction
+# Introduction
 
 First of all, before using *biodb*, you need to create an instance of the main class `Biodb`. This is done by calling the constructor of the class through the `new()` method. The OOP (Object Oriented Programming) system used in the *biodb* package is the **R5** system also called **Reference Classes**. In this system, the created objects are not copied, but their reference are copied. This means than when you pass an instance to a function, that function is able to modify the instance.
 
@@ -25,49 +28,52 @@ mybiodb <- biodb::Biodb()
 ```
 This is will create a `Biodb` instance and put its reference into the `mybiodb` variable. Calling `new()` without any argument configures the instance with the default values.
 
-## Observers
+# Observers
 
 By default, the `Biodb` instance will be configured with 3 observers:
  * `BiodbErrorReporter`, which is in charge of raising an error when an `error` message is sent.
  * `BiodbWarningReporter`, which is in charge of raising a warning when an `warning` message is sent.
- * `BiodbLogger`, which is in charge of logging `info`, `caution` and `debug` messages to the console.
+ * `BiodbInfoReporter`, which is in charge of logging `info` messages to the console.
 
-By default, the `BiodbLogger` instance uses the values set in `BiodbConfig` for the level of printing of `info`, `caution` and `debug` messages.
-Here is the default value of the levels:
+`BiodbInfoReporter` uses a level indicator to display messages. By default it is set to 1:
 ```{r}
 mybiodb$getConfig()$get('msg.info.lvl')
-mybiodb$getConfig()$get('msg.caution.lvl')
-mybiodb$getConfig()$get('msg.debug.lvl')
+```
+If you wish to stop the info messages, set the desired level to 0:
+```{r}
+mybiodb$getConfig()$set('msg.info.lvl', 0)
+```
+On the other hand, if you wish to see more messages, increase the desired level:
+```{r}
+mybiodb$getConfig()$set('msg.info.lvl', 2)
 ```
 
-As you can see the level for `debug` messages is set to 0, so thoses messages are hidden. The other two types of messages have their levels set to 1, and thus only the first level of messages will be reported. You can set them to 0 in order to have complete silence, except for errors and warnings, from biodb.
+## Lofginf into a file
 
-### Setting your own instance of the `BiodbLogger` class
-
-You can also set your own instance of `BiodbLogger`. Here is the setting of a new logger for logging messages into a file:
+To log into a file, use the `BiodbLogger` class. Here is the setting of a new logger for logging messages into a file:
 ```{r}
 mybiodb$addObservers(biodb::BiodbLogger$new(file = 'mybiodb.log'))
 ```
 
-### Defining your own observers
+If you wish to see all messages, make sure to increase the desired levels for each message category:
+```{r}
+mybiodb$getConfig()$set('msg.info.lvl', 2)
+mybiodb$getConfig()$set('msg.caution.lvl', 2)
+mybiodb$getConfig()$set('msg.debug.lvl', 2)
+```
+
+## Defining your own observers
 
 If you wish, you can also define your own observers that inherit from the `BiodbObserver` class, and set them using the `addObservers()` method. 
 
-### Setting observers after the instance has been created
-
-It is also possible to add an observer during the life of your *biodb* instance:
-```{r}
-mybiodb$addObservers( list(biodb::BiodbLogger$new(), biodb::BiodbLogger$new(file = 'mybiodb3.log')))
-```
-
-### Getting a list of current observers
+## Getting a list of current observers
 
 Here is how to obtain a list of all observers currently defined:
 ```{r}
 mybiodb$getObservers()
 ```
 
-## The singleton classes
+# The singleton classes
 
 Several singleton classes are defined in *biodb*. Their instances are all accessible from the `Biodb` instance you've created.
 
@@ -96,7 +102,7 @@ To get the entry fields instance:
 entry.fields <- mybiodb$getEntryFields()
 ```
 
-## Closing biodb instance
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}

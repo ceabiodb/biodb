@@ -1,36 +1,40 @@
 # vi: fdm=marker ts=4 et cc=80
 
+# BiodbTxtEntry {{{1
+################################################################################
+
 #' @include BiodbEntry.R
+BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry",
+    contains='BiodbEntry',
 
-# Class declaration {{{1
+# Public methods {{{2
+################################################################################
+methods=list(
+
+# Initialize {{{3
 ################################################################################
 
-BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry", contains='BiodbEntry')
-
-# Initialize {{{1
-################################################################################
-
-BiodbTxtEntry$methods( initialize=function(...) {
+initialize=function(...) {
 
     callSuper(...)
     .self$.abstractClass('BiodbTxtEntry')
-})
+},
 
-# Do parse content {{{1
+# Do parse content {{{3
 ################################################################################
 
-BiodbTxtEntry$methods( .doParseContent=function(content) {
+.doParseContent=function(content) {
 
     # Get lines of content
     lines <- strsplit(content, "\r?\n")[[1]]
 
     return(lines)
-})
+},
 
-# Parse fields step 1 {{{1
+# Parse fields step 1 {{{3
 ################################################################################
 
-BiodbTxtEntry$methods( .parseFieldsStep1=function(parsed.content) {
+.parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
@@ -54,4 +58,6 @@ BiodbTxtEntry$methods( .parseFieldsStep1=function(parsed.content) {
         if (nrow(results) > 0)
             .self$setFieldValue(field, results[, 2])
     }
-})
+}
+
+))

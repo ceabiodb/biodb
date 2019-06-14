@@ -127,7 +127,7 @@ msg=function(type='info', msg, class=NA_character_,
 # Info progress {{{3
 ################################################################################
 
-progress=function(type='info', msg, index, total, first, lvl=1) {
+progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1) {
     .self$checkMessageType(type)
 },
 

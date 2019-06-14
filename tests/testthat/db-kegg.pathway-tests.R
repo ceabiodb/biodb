@@ -82,25 +82,20 @@ test_getDecoratedGraphPicture_right_enzyme <- function(conn) {
     }
 }
 
-# Run KEGG Pathway tests {{{1
+# Main {{{1
 ################################################################################
 
-run.kegg.pathway.tests = function(conn, obs) {
-
-    if (test.online()) {
-        test.that('getReactions() works correctly.',
-                  'test_kegg_pathway_getReactions', conn = conn)
-        test.that('buildPathwayGraph() works correctly.',
-                  'test_kegg_pathway_buildPathwayGraph', conn = conn)
-        test.that('getPathwayIgraph() works correctly.',
-                  'test_kegg_pathway_getPathwayIgraph', conn = conn)
-        test.that('We can build a decorated pathway graph.',
-                  'test_getDecoratedGraphPicture', conn = conn)
-        test.that('getDecoratedGraphPicture() does not fail when called with
- unexisting compounds.',
-                  'test_getDecoratedGraphPicture_not_a_compound',
-                  conn = conn)
-        test.that('The right enzymes are highlighted on KEGG map.',
-                  'test_getDecoratedGraphPicture_right_enzyme', conn = conn)
-    }
-}
+test.that('getReactions() works correctly.',
+          'test_kegg_pathway_getReactions', conn = conn)
+test.that('buildPathwayGraph() works correctly.',
+          'test_kegg_pathway_buildPathwayGraph', conn = conn)
+test.that('getPathwayIgraph() works correctly.',
+          'test_kegg_pathway_getPathwayIgraph', conn = conn)
+test.that('We can build a decorated pathway graph.',
+          'test_getDecoratedGraphPicture', conn = conn)
+test.that('getDecoratedGraphPicture() does not fail when called with
+unexisting compounds.',
+          'test_getDecoratedGraphPicture_not_a_compound',
+          conn = conn)
+test.that('The right enzymes are highlighted on KEGG map.',
+          'test_getDecoratedGraphPicture_right_enzyme', conn = conn)

@@ -9,7 +9,6 @@ TEST.DIR <- file.path(getwd(), '..')
 OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
-OFFLINE.CACHE.DIR <- file.path(RES.DIR, 'offline-cache')
 USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
@@ -60,27 +59,6 @@ if ('DONT_TEST_DBS' %in% names(ENV) && nchar(ENV[['DONT_TEST_DBS']]) > 0) {
 tmpbiodb$terminate()
 tmpbiodb <- NULL
 
-# Set testing modes {{{1
-################################################################
-
-#MODE.OFFLINE <- 'offline'
-#MODE.ONLINE <- 'online'
-#ALLOWED.MODES <- c(MODE.ONLINE, MODE.OFFLINE)
-#if ('MODES' %in% names(ENV) && nchar(ENV[['MODES']]) > 0) {
-#	TEST.MODES = ENV[['MODES']]
-#		if ( ! TEST.MODES %in% ALLOWED.MODES)
-#			stop(paste0('Unknown testing mode ', TEST.MODES, '.'))
-#} else {
-#	TEST.MODES <- MODE.OFFLINE
-#}
-
-# Test online {{{1
-################################################################
-
-test.online = function() {
-#	return(TEST.MODES == MODE.ONLINE)
-	return(TRUE)
-}
 
 # Set test functions {{{1
 ################################################################
@@ -108,7 +86,7 @@ TestObserver$methods( msg = function(type = 'info', msg, class = NA_character_, 
 	testthat::expect_is(msg, 'character')
 })
 
-TestObserver$methods( progress = function(type = 'info', msg, index, total, first, lvl=1) {
+TestObserver$methods( progress = function(type = 'info', msg, index, first, total=NA_character_, lvl=1) {
 
 	.self$checkMessageType(type)
 
@@ -116,7 +94,8 @@ TestObserver$methods( progress = function(type = 'info', msg, index, total, firs
 		.last.index <<- 0
 
 	testthat::expect_gt(index, .self$.last.index)
-	testthat::expect_lte(index, total)
+	if ( ! is.na(total))
+		testthat::expect_lte(index, total)
 
 	.last.index <<- index
 })
@@ -155,19 +134,10 @@ create.biodb.instance <- function(offline = FALSE) {
 	biodb$getConfig()$set('useragent', USERAGENT)
 
 	# Online
-	if ( ! offline && test.online()) {
-		biodb$getConfig()$disable('cache.read.only')
-		biodb$getConfig()$enable('allow.huge.downloads')
-		biodb$getConfig()$disable('offline')
-		biodb$getConfig()$enable('cache.subfolders')
-	}
-	else { # Offline
-		biodb$getConfig()$set('cache.directory', OFFLINE.CACHE.DIR)
-		biodb$getConfig()$enable('cache.read.only')
-		biodb$getConfig()$disable('allow.huge.downloads')
-		biodb$getConfig()$enable('offline')
-		biodb$getConfig()$disable('cache.subfolders')
-	}
+	biodb$getConfig()$disable('cache.read.only')
+	biodb$getConfig()$enable('allow.huge.downloads')
+	biodb$getConfig()$disable('offline')
+	biodb$getConfig()$enable('cache.subfolders')
 
 	return(biodb)
 }

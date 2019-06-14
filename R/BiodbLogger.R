@@ -125,23 +125,27 @@ msg=function(type='info', msg, class=NA_character_,
 # Info progress {{{3
 ################################################################################
 
-progress=function(type='info', msg, index, total, first, lvl=1) {
+progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1) {
     
     t <- Sys.time()
+    msgid <- msg
 
     if (first || ! msg %in% names(.self$.lastime.progress)) {
-        .self$.lastime.progress[[msg]] <- t
-        .self$.progress.initial.time[[msg]] <- t
+        .self$.lastime.progress[[msgid]] <- t
+        .self$.progress.initial.time[[msgid]] <- t
     }
 
-    else if (t - .self$.lastime.progress[[msg]]
-             > .self$.progress.laptime) {
-        i <- .self$.progress.initial.time[[msg]]
-        eta <- t + (total - index) * (t - i) / index
-        .self$msg(type, paste0(msg, ' ', index, ' / ', total, ' (',
-                                   ((100 * index) %/% total), '%, ETA: ',
-                                   eta, ').'), lvl=lvl)
-        .self$.lastime.progress[[msg]] <- t
+    else if (t - .self$.lastime.progress[[msgid]] > .self$.progress.laptime) {
+        msg <- paste(msg, index, '/', if (is.na(total)) '?' else total)
+        if ( ! is.na(total)) {
+            i <- .self$.progress.initial.time[[msgid]]
+            eta <- t + (total - index) * (t - i) / index
+            msg <- paste0(msg, ' (', ((100 * index) %/% total), '%, ETA: ',
+                          eta, ')')
+        }
+        msg <- paste0(msg, '.')
+        .self$msg(type, msg, lvl=lvl)
+        .self$.lastime.progress[[msgid]] <- t
     }
 }
 

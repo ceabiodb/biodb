@@ -41,14 +41,10 @@ test.kegg.issue_340 <- function(conn) {
     testthat::expect_true(all(right_pws %in% pws))
 }
 
-# Run KEGG Enzyme tests {{{1
+# Main {{{1
 ################################################################################
 
-run.kegg.enzyme.tests <- function(conn, obs) {
-    if (test.online()) {
-        test.that('getPathwayIds() works correctly.',
-                  'test.kegg.enzyme.getPathwayIds', conn = conn)
-        test.that('issue 340 is corrected.',
-                  'test.kegg.issue_340', conn = conn)
-    }
-}
+test.that('getPathwayIds() works correctly.',
+          'test.kegg.enzyme.getPathwayIds', conn = conn)
+test.that('issue 340 is corrected.',
+          'test.kegg.issue_340', conn = conn)

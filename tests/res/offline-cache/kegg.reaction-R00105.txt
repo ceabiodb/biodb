@@ -1,9 +1,0 @@
-ENTRY       R00105                      Reaction
-NAME        ATP:NADH 2'-phosphotransferase
-DEFINITION  ATP + NADH <=> ADP + NADPH
-EQUATION    C00002 + C00004 <=> C00008 + C00005
-RCLASS      RC00002  C00002_C00008
-            RC00078  C00004_C00005
-ENZYME      2.7.1.86
-DBLINKS     RHEA: 12263
-///

@@ -16,7 +16,6 @@ MassbankConn$methods( initialize=function(...) {
     callSuper(...)
 
     .self$.prefix2dns <- list()
-    .self$.setDownloadExt('tar.gz')
 })
 
 # Do get mz values {{{1

@@ -3,7 +3,7 @@
 	"chebi.id": "15440",
 	"name": ["squalene", "(all-E)-2,6,10,15,19,23-hexamethyl-2,6,10,14,18,22-tetracosahexaene", "Spinacene", "Supraene"],
 	"formula": "C30H50",
-	"mass": 410.71800,
+	"molecular.mass": 410.71800,
 	"monoisotopic.mass": 410.39125,
 	"charge": 0,
 	"kegg.compound.id": "C00751",

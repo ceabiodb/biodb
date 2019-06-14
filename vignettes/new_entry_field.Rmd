@@ -3,7 +3,9 @@ title: "*biodb*: Creating a new field for entries."
 author: "Pierrick Roger"
 date: "`r doc_date()`"
 package: "`r pkg_ver('biodb')`"
-vignette: >
+abstract: |
+  How to parse a new field for entries.
+vignette: |
   %\VignetteIndexEntry{Creating a new field for entries.}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
@@ -13,9 +15,12 @@ output:
     toc_depth: 4
     toc_float:
       collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
 # Introduction
+
+For practical reasons, in biodb, when a connector is created we do not implement the parsing of all available data. Thus it may happen that one particular data that you see in entries on the database website, is not present inside the entries of biodb. If you are interested in this data that is missing, then this vignette is for you. Follow the subsequent explanations in order to understand how to add a new data field and how to parse its value from the downloaded content.
 
 In this vignette we will create a new field, and parse information from an entry content downloaded from a database for setting the value into the new field.
 

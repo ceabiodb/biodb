@@ -1,23 +1,6 @@
 # vi: fdm=marker
 
-source('common.R')
-source('db-generic-tests.R')
-source('db-ms-tests.R')
-source('db-compound-tests.R')
-
-source('db-chebi-tests.R')
-source('db-chemspider-tests.R')
-source('db-expasy.enzyme-tests.R')
-source('db-hmdb-tests.R')
-source('db-kegg.compound-tests.R')
-source('db-kegg.enzyme-tests.R')
-source('db-kegg.pathway-tests.R')
-source('db-lipidmaps-tests.R')
-source('db-mass.csv.file-tests.R')
-source('db-massbank-tests.R')
-source('db-mirbase-tests.R')
-source('db-peakforest-tests.R')
-source('db-uniprot-tests.R')
+source('common.R', local=TRUE)
 
 # MAIN {{{1
 ################################################################
@@ -40,18 +23,18 @@ for (db.name in TEST.DATABASES) {
 	biodb$getFactory()$deleteAllCacheEntries(conn$getId())
 
 	# Generic tests
-	run.db.generic.tests(conn)
+	source('db-generic-tests.R', local=TRUE)
 
 	# Compound database testing
-	run.compound.db.tests(conn)
+	source('db-compound-tests.R', local=TRUE)
 
 	# Mass database testing
-	run.mass.db.tests(conn)
+	source('db-ms-tests.R', local=TRUE)
 
 	# Specific tests
-	fct <- paste('run', db.name, 'tests', sep = '.')
-	if (exists(fct))
-		do.call(fct, list(conn = conn, obs = obs))
+	f <- paste('db', db.name, 'tests.R', sep='-')
+	testthat::expect_true(file.exists(f))
+	source(f, local=TRUE)
 }
 
 # Terminate Biodb

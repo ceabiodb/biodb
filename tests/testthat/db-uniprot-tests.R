@@ -41,13 +41,9 @@ test.uniprot.wsQuery.multiple.columns <- function(db) {
 	testthat::expect_true(nrow(results) == n)
 }
 
-# Run Uniprot tests {{{1
+# Main {{{1
 ################################################################
 
-run.uniprot.tests <- function(conn, obs) {
-	if (test.online()) {
-		test.that('Uniprot entries query works fine with an empty query.', 'test.uniprot.wsQuery.empty', conn = conn)
-		test.that('Uniprot entries query works fine with multiple columns', 'test.uniprot.wsQuery.multiple.columns', conn = conn)
-		test.that('Uniprot entries query works fine with a query by name.', 'test.uniprot.wsQuery.by.name', conn = conn)
-	}
-}
+test.that('Uniprot entries query works fine with an empty query.', 'test.uniprot.wsQuery.empty', conn = conn)
+test.that('Uniprot entries query works fine with multiple columns', 'test.uniprot.wsQuery.multiple.columns', conn = conn)
+test.that('Uniprot entries query works fine with a query by name.', 'test.uniprot.wsQuery.by.name', conn = conn)

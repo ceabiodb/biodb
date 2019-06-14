@@ -1,4 +1,4 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80
 
 # Test KEGG Compound wsList {{{1
 ################################################################
@@ -165,18 +165,14 @@ test.kegg.compound.getPathwayIdsPerCompound <- function(conn) {
 	testthat::expect_true(length(ids[[c]]) > 0)
 }
 
-# Run KEGG Compound tests {{{1
+# Main {{{1
 ################################################################
 
-run.kegg.compound.tests <- function(conn, obs) {
-	if (test.online()) {
-		test.that('wsList() works correctly.', 'test.kegg.compound.wsList', conn = conn)
-		test.that('wsFind() works correctly.', 'test.kegg.compound.wsFind', conn = conn)
-		test.that('wsFindExactMass() works correctly.', 'test.kegg.compound.wsFindExactMass', conn = conn)
-		test.that('wsFindMolecularWeight() works correctly.', 'test.kegg.compound.wsFindMolecularWeight', conn = conn)
-		test.that('getPathwayIdsPerCompound() works correctly.', 'test.kegg.compound.getPathwayIdsPerCompound', conn = conn)
-		test.that('getPathwayIds() works correctly.', 'test.kegg.compound.getPathwayIds', conn = conn)
-		test.that('getPathwayIds() issue_333 is corrected', 'test.kegg.compound.getPathwayIds_issue_333_20190507', conn = conn)
-		test.that('getPathwayIds() issue_338 is corrected', 'test.kegg.compound.getPathwayIds_issue_338_20190517', conn = conn)
-	}
-}
+test.that('wsList() works correctly.', 'test.kegg.compound.wsList', conn = conn)
+test.that('wsFind() works correctly.', 'test.kegg.compound.wsFind', conn = conn)
+test.that('wsFindExactMass() works correctly.', 'test.kegg.compound.wsFindExactMass', conn = conn)
+test.that('wsFindMolecularWeight() works correctly.', 'test.kegg.compound.wsFindMolecularWeight', conn = conn)
+test.that('getPathwayIdsPerCompound() works correctly.', 'test.kegg.compound.getPathwayIdsPerCompound', conn = conn)
+test.that('getPathwayIds() works correctly.', 'test.kegg.compound.getPathwayIds', conn = conn)
+test.that('getPathwayIds() issue_333 is corrected', 'test.kegg.compound.getPathwayIds_issue_333_20190507', conn = conn)
+test.that('getPathwayIds() issue_338 is corrected', 'test.kegg.compound.getPathwayIds_issue_338_20190517', conn = conn)

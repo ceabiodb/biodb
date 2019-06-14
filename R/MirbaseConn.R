@@ -1,23 +1,29 @@
 # vi: fdm=marker ts=4 et cc=80
 
-# Class declaration {{{1
+# MirbaseConn {{{1
 ################################################################################
 
 #' @include BiodbRemotedbConn.R
-MirbaseConn <- methods::setRefClass("MirbaseConn", contains=c("BiodbRemotedbConn"))
+MirbaseConn <- methods::setRefClass("MirbaseConn",
+    contains="BiodbRemotedbConn",
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-MirbaseConn$methods( initialize=function(...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
     callSuper(...)
     .self$.abstractClass('MirbaseConn')
-})
+},
 
-# Get nb entries {{{1
+# Get nb entries {{{3
 ################################################################################
 
-MirbaseConn$methods( getNbEntries=function(count=FALSE) {
+getNbEntries=function(count=FALSE) {
 
     n <- NA_integer_
 
@@ -26,4 +32,6 @@ MirbaseConn$methods( getNbEntries=function(count=FALSE) {
         n <- length(ids)
 
     return(n)
-})
+}
+
+))

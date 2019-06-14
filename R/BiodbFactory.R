@@ -117,7 +117,7 @@ BiodbFactory$methods( deleteConn=function(conn.id=NULL, db.class=NULL) {
         .self$deleteAllCacheEntries(conn.id)
         .self$.conn[[conn.id]]$.terminate()
         .self$.conn[[conn.id]] <- NULL
-        .self$message('info', paste0('Connector "', conn.id, '" deleted.'))
+        .self$info('Connector "', conn.id, '" deleted.')
     }
 
     # Remove all connectors of a database class
