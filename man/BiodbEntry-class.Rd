@@ -6,24 +6,45 @@
 \alias{BiodbEntry}
 \title{The mother abstract class of all database entry classes.}
 \arguments{
-\item{compute}{If set to \code{TRUE} and a field is not defined, try to compute it using internal defined computing rules. If set to \code{FALSE}, let the field undefined.}
+\item{compute}{If set to \code{TRUE} and a field is not defined, try to
+compute it using internal defined computing rules. If set to \code{FALSE},
+let the field undefined.}
 
-\item{content}{A character string containing definition for an entry and obtained from a database. The format can be: CSV, HTML, JSON, XML, or just text.}
+\item{content}{A character string containing definition for an entry
+and obtained from a database. The format can be: CSV, HTML, JSON, XML, or
+just text.}
 
 \item{field}{The nane of a field.}
 
-\item{fields}{Set to character vector of field names in order to restrict execution to this set of fields.}
+\item{fields}{Set to character vector of field names in order to
+restrict execution to this set of fields.}
 
-\item{flatten}{If set to \code{TRUE} and a field's value is a vector of more than one element, then export the field's value as a single string composed of the field's value concatenated and separated by the character defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the field contains only one value, changes nothing.}
+\item{flatten}{If set to \code{TRUE} and a field's value is a vector of
+more than one element, then export the field's value as a single string
+composed of the field's value concatenated and separated by the character
+defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the
+field contains only one value, changes nothing.}
 
-\item{last}{If set to \code{TRUE} and a field's value is a vector of more than one element, then export only the last value. If set to \code{FALSE}, changes nothing.}
+\item{last}{If set to \code{TRUE} and a field's value is a vector of
+more than one element, then export only the last value. If set to
+\code{FALSE}, changes nothing.}
 
-\item{only.atomic}{If set to \code{TRUE}, only export field's values that are atomic (i.e.: of type vector and length one).}
+\item{only.atomic}{If set to \code{TRUE}, only export field's values that
+are atomic (i.e.: of type vector and length one).}
 
 \item{value}{A field's value.}
 }
 \description{
-An entry is an element of a database, identifiable by its accession number. Each contains a list of fields defined by a name and a value. The details of all fields that can be set into an entry are defined inside the class \code{BiodbEntryFields}. From this class are derived other abstract classes for different types of entry contents: \code{BiodbTxtEntry}, \code{BiodbXmlEntry}, \code{BiodbCsvEntry}, \code{BiodbJsonEntry} and \code{BiodbHtmlEntry}. Then concrete classes are derived for each database: \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no need to know this hierarchy; the knowledge of this class and its methods is sufficient.
+An entry is an element of a database, identifiable by its accession number.
+Each contains a list of fields defined by a name and a value. The details of
+all fields that can be set into an entry are defined inside the class
+\code{BiodbEntryFields}. From this class are derived other abstract classes
+for different types of entry contents: \code{BiodbTxtEntry},
+\code{BiodbXmlEntry}, \code{BiodbCsvEntry}, \code{BiodbJsonEntry} and
+\code{BiodbHtmlEntry}. Then concrete classes are derived for each database:
+\code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no
+need to know this hierarchy; the knowledge of this class and its methods is
+sufficient.
 }
 \section{Methods}{
 
@@ -53,15 +74,19 @@ with a cardinality greater than one can accept multiple values.}
 
 \item{\code{isNew()}}{Return TRUE if this entry was newly created.}
 
-\item{\code{makesRefToEntry(db, oid, recurse = FALSE)}}{Returns TRUE if this entry makes reference to the entry oid from database db.}
+\item{\code{makesRefToEntry(db, oid, recurse = FALSE)}}{Returns TRUE if this entry makes reference to the entry oid from database
+db.}
 
 \item{\code{parentIsAConnector()}}{Return TRUE if this entry belongs to a connector.}
 
-\item{\code{parseContent(content)}}{Parse content string and set values accordingly for this entry's fields. This method is called automatically and should be run directly by users.}
+\item{\code{parseContent(content)}}{Parse content string and set values accordingly for this entry's fields.
+This method is called automatically and should be run directly by users.}
 
 \item{\code{removeField(field)}}{Remove the specified field from this entry.}
 
-\item{\code{setFieldValue(field, value)}}{Set the value of a field. If the field is not already set for this entry, then the field will be created. See BiodbEntryFields for a list of possible fields in biodb.}
+\item{\code{setFieldValue(field, value)}}{Set the value of a field. If the field is not already set for this entry,
+then the field will be created. See BiodbEntryFields for a list of possible
+fields in biodb.}
 }}
 
 \examples{
@@ -79,7 +104,8 @@ smiles <- entry$getFieldValue('smiles')
 
 # Test if a field is defined:
 if (entry$hasField('charge'))
-  print(paste('The entry has a charge of ', entry$getFieldValue('charge'), '.', sep=''))
+  print(paste('The entry has a charge of ', entry$getFieldValue('charge'),
+  '.', sep=''))
 
 # Export an entry as a data frame:
 df <- entry$getFieldsAsDataFrame()
@@ -95,5 +121,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntryFields}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbConn}},
+\code{\link{BiodbEntryFields}}.
 }

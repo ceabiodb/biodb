@@ -57,7 +57,9 @@ the read-only methods if you wish.
 
 \item{\code{loadFileContent(cache.id, subfolder, name, ext, output.vector = FALSE)}}{Load content of files from the cache.}
 
-\item{\code{markerExist(cache.id, subfolder, name)}}{Test if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly.}
+\item{\code{markerExist(cache.id, subfolder, name)}}{Test if markers exist in the cache. Markers are used, for instance, by
+biodb to remember that a downloaded zip file from a database has been
+extracted correctly.}
 
 \item{\code{saveContentToFile(content, cache.id, subfolder, name, ext)}}{Save content to files into the cache.}
 

@@ -1,4 +1,4 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # BiodbCompounddbConn {{{1
 ################################################################################
@@ -77,7 +77,8 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
         .self$.assertIs(mass, c('integer', 'numeric'))
         .self$.assertNotNull(mass.field)
         .self$.assertIs(mass.field, 'character')
-        mass.fields <- .self$getBiodb()$getEntryFields()$getFieldNames(type='mass')
+        ef <- .self$getBiodb()$getEntryFields()
+        mass.fields <- ef$getFieldNames(type='mass')
         .self$.assertIn(mass.field, mass.fields)
     }
 }

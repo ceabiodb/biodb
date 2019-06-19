@@ -6,20 +6,26 @@
 \alias{BiodbEntryField}
 \title{A class for describing an entry field.}
 \description{
-This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
+This class is used by \code{\link{BiodbEntryFields}} for storing field
+characteristics, and returning them through the \code{get()} method. The
+constructor is not meant to be used, but for development purposes the
+constructor's parameters are nevertheless described in the Fields section.
 }
 \section{Fields}{
 
 \describe{
 \item{\code{name}}{The name of the field.}
 
-\item{\code{alias}}{A character vector containing zero or more aliases for the field.}
+\item{\code{alias}}{A character vector containing zero or more aliases
+for the field.}
 
-\item{\code{class}}{The class of the field. One of: 'character', 'integer', 'double', 'logical', 'object', 'data.frame'.}
+\item{\code{class}}{The class of the field. One of: 'character',
+'integer', 'double', 'logical', 'object', 'data.frame'.}
 
 \item{\code{card}}{The cardinality of the field: either '1' or '*'.}
 
-\item{\code{allow.duplicates}}{If set to \code{TRUE}, the field allows duplicated values.}
+\item{\code{allow.duplicates}}{If set to \code{TRUE}, the field allows duplicated
+values.}
 
 \item{\code{description}}{The description of the field.}
 
@@ -57,7 +63,8 @@ This class is used by \code{\link{BiodbEntryFields}} for storing field character
 
 \item{\code{isObject()}}{Returns \code{TRUE} if field's type is a class.}
 
-\item{\code{isVector()}}{Returns \code{TRUE} if the field's type is vector (i.e.: character, integer, double or logical).}
+\item{\code{isVector()}}{Returns \code{TRUE} if the field's type is vector (i.e.: character,
+integer, double or logical).}
 }}
 
 \examples{

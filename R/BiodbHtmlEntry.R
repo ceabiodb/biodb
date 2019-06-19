@@ -1,28 +1,40 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
+# BiodbHtmlEntry {{{1
+################################################################################
+
+#' Abstract mother class for HTML entries.
+#'
 #' @include BiodbXmlEntry.R
+BiodbHtmlEntry <- methods::setRefClass("BiodbHtmlEntry",
+    contains="BiodbXmlEntry",
 
-# Class declaration {{{1
+# Public methods {{{2
 ################################################################################
 
-BiodbHtmlEntry <- methods::setRefClass("BiodbHtmlEntry", contains="BiodbXmlEntry")
+methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
-BiodbHtmlEntry$methods( initialize=function(...) {
+initialize=function(...) {
 
     callSuper(...)
     .self$.abstractClass('BiodbHtmlEntry')
-})
+},
 
-# Do parse content {{{1
+# Public methods {{{2
 ################################################################################
 
-BiodbHtmlEntry$methods( .doParseContent=function(content) {
+# Do parse content {{{3
+################################################################################
+
+.doParseContent=function(content) {
 
     # Parse XML
     xml <-  XML::htmlTreeParse(content, asText=TRUE, useInternalNodes=TRUE)
 
     return(xml)
-})
+}
+
+))

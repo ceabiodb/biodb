@@ -6,22 +6,35 @@
 \alias{BiodbFactory}
 \title{A class for constructing biodb objects.}
 \arguments{
-\item{content}{The content (as character vector) of one or more database entries.}
+\item{content}{The content (as character vector) of one or more database
+entries.}
 
-\item{db.class}{The type of a database. The list of types can be obtained from the class \code{\link{BiodbDbsInfo}}.}
+\item{db.class}{The type of a database. The list of types can be obtained
+from the class \code{\link{BiodbDbsInfo}}.}
 
 \item{conn.id}{The identifier of a database connector.}
 
-\item{drop}{If set to \code{TRUE} and the list of entries contains only one element, then returns this element instead of the list. If set to \code{FALSE}, then returns always a list.}
+\item{drop}{If set to \code{TRUE} and the list of entries contains only
+one element, then returns this element instead of the list. If set to
+\code{FALSE}, then returns always a list.}
 
-\item{id}{A character vector containing database entry IDs (accession numbers).}
+\item{id}{A character vector containing database entry IDs (accession
+numbers).}
 
-\item{token}{A security access token for the database. Some database require such a token for all or some of their webservices. Usually you obtain the token through your account on the database website.}
+\item{token}{A security access token for the database. Some database
+require such a token for all or some of their webservices. Usually you obtain
+the token through your account on the database website.}
 
-\item{url}{An URL to the database for which to create a connection. Each database connector is configured with a default URL, but some allow you to change it.}
+\item{url}{An URL to the database for which to create a connection.
+Each database connector is configured with a default URL, but some allow you
+to change it.}
 }
 \description{
-This class is responsible for the creation of database connectors and database entries. You must go through the single instance of this class to create and get connectors, as well as instantiate entries. To get the single instance of this class, call the \code{getFactory()} method of class \code{Biodb}.
+This class is responsible for the creation of database connectors and
+database entries. You must go through the single instance of this class to
+create and get connectors, as well as instantiate entries. To get the single
+instance of this class, call the \code{getFactory()} method of class
+\code{Biodb}.
 }
 \section{Methods}{
 
@@ -43,9 +56,11 @@ This class is responsible for the creation of database connectors and database e
 
 \item{\code{getAllConnectors()}}{Returns a list of all created connectors.}
 
-\item{\code{getConn(conn.id)}}{Get the instance of connector database corresponding to the submitted ID or database class.}
+\item{\code{getConn(conn.id)}}{Get the instance of connector database corresponding to the submitted ID or
+database class.}
 
-\item{\code{getEntry(conn.id, id, drop = TRUE)}}{Create database entry objects from IDs (accession numbers), for the specified connector.}
+\item{\code{getEntry(conn.id, id, drop = TRUE)}}{Create database entry objects from IDs (accession numbers), for the
+specified connector.}
 }}
 
 \examples{
@@ -66,5 +81,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{Biodb}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntry}}.
+\code{\link{Biodb}}, \code{\link{BiodbConn}},
+\code{\link{BiodbEntry}}.
 }

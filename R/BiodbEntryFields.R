@@ -1,11 +1,12 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # BiodbEntryFields {{{1
 ################################################################################
 
 #' A class for handling description of all entry fields.
 #'
-#' The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getEntryFields()} method.
+#' The unique instance of this class is handle by the \code{\link{Biodb}} class
+#' and accessed through the \code{getEntryFields()} method.
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbEntryField}}.
 #'
@@ -74,7 +75,7 @@ isDefined=function(name) {
 
     # Is field already defined?
     if (.self$isDefined(name))
-        .self$message('error', paste("Field \"", name, "\" has already been defined.", sep=''))
+        .self$error("Field \"", name, "\" has already been defined.")
 
     # Define new field
     field <- BiodbEntryField$new(parent=.self, name=name, ...)
@@ -117,14 +118,15 @@ BiodbEntryFields$methods( checkIsDefined=function(name) {
     "Throws an error if name does not correspond to a defined field."
 
     if ( ! .self$isDefined(name))
-        .self$message('error', paste("Field \"", name, "\" is not defined.", sep=''))
+        .self$error("Field \"", name, "\" is not defined.")
 })
 
 # Get real name {{{1
 ################################################################################
 
 BiodbEntryFields$methods( getRealName=function(name) {
-    "If name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown."
+    "If name is an alias, returns the main name of the field. If name is not
+    found neither in aliases nor in real names, an error is thrown."
 
     .self$checkIsDefined(name)
 
@@ -169,9 +171,11 @@ BiodbEntryFields$methods( getFieldNames=function(type=NULL) {
 ################################################################################
 
 BiodbEntryFields$methods( getDatabaseIdField=function(database) {
-    "Returns the name of the field handling identifiers (i.e.: accession numbers) for this database."
+    "Returns the name of the field handling identifiers (i.e.: accession
+    numbers) for this database."
 
-    return(.self$get(.self$getBiodb()$getDbsInfo()$get(database)$getIdFieldName()))
+    dbs <- .self$getBiodb()$getDbsInfo()
+    return(.self$get(dbs$get(database)$getIdFieldName()))
 })
 
 # Show {{{1

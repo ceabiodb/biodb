@@ -4,17 +4,23 @@
 \name{BiodbEditable-class}
 \alias{BiodbEditable-class}
 \alias{BiodbEditable}
-\title{An abstract class (more like an interface) to model an editable database.}
+\title{An interface to model an editable database.}
 \arguments{
 \item{entry}{An entry instance.}
 }
 \description{
-A database class that implements this interface allows the addition of new entries, the removal of entries and the modification of entries. If you want your modifications to be persistent, the database class must also be writable (see interface \code{BiodbWritable}), you must call the method \code{write} on the connector.
+A database class that implements this interface allows the addition of new
+entries, the removal of entries and the modification of entries. If you want
+your modifications to be persistent, the database class must also be writable
+(see interface \code{BiodbWritable}), you must call the method \code{write}
+on the connector.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{addNewEntry(entry)}}{Add a new entry to the database. The passed entry must have been previously created from scratch using BiodbFactory::createNewEntry() or cloned from an existing entry using BiodbEntry::clone().}
+\item{\code{addNewEntry(entry)}}{Add a new entry to the database. The passed entry must have been previously
+created from scratch using BiodbFactory::createNewEntry() or cloned from an
+existing entry using BiodbEntry::clone().}
 
 \item{\code{allowEditing()}}{Allow editing for this database.}
 

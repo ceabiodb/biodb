@@ -1,22 +1,44 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Entry abstract class {{{1
+# BiodbEntry {{{1
 ################################################################################
 
 #' The mother abstract class of all database entry classes.
 #'
-#' An entry is an element of a database, identifiable by its accession number. Each contains a list of fields defined by a name and a value. The details of all fields that can be set into an entry are defined inside the class \code{BiodbEntryFields}. From this class are derived other abstract classes for different types of entry contents: \code{BiodbTxtEntry}, \code{BiodbXmlEntry}, \code{BiodbCsvEntry}, \code{BiodbJsonEntry} and \code{BiodbHtmlEntry}. Then concrete classes are derived for each database: \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no need to know this hierarchy; the knowledge of this class and its methods is sufficient.
+#' An entry is an element of a database, identifiable by its accession number.
+#' Each contains a list of fields defined by a name and a value. The details of
+#' all fields that can be set into an entry are defined inside the class
+#' \code{BiodbEntryFields}. From this class are derived other abstract classes
+#' for different types of entry contents: \code{BiodbTxtEntry},
+#' \code{BiodbXmlEntry}, \code{BiodbCsvEntry}, \code{BiodbJsonEntry} and
+#' \code{BiodbHtmlEntry}. Then concrete classes are derived for each database:
+#' \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no
+#' need to know this hierarchy; the knowledge of this class and its methods is
+#' sufficient.
 #'
-#' @param compute       If set to \code{TRUE} and a field is not defined, try to compute it using internal defined computing rules. If set to \code{FALSE}, let the field undefined.
-#' @param content       A character string containing definition for an entry and obtained from a database. The format can be: CSV, HTML, JSON, XML, or just text.
+#' @param compute       If set to \code{TRUE} and a field is not defined, try to
+#' compute it using internal defined computing rules. If set to \code{FALSE},
+#' let the field undefined.
+#' @param content       A character string containing definition for an entry
+#' and obtained from a database. The format can be: CSV, HTML, JSON, XML, or
+#' just text.
 #' @param field         The nane of a field.
-#' @param fields        Set to character vector of field names in order to restrict execution to this set of fields.
-#' @param flatten       If set to \code{TRUE} and a field's value is a vector of more than one element, then export the field's value as a single string composed of the field's value concatenated and separated by the character defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the field contains only one value, changes nothing.
-#' @param last          If set to \code{TRUE} and a field's value is a vector of more than one element, then export only the last value. If set to \code{FALSE}, changes nothing.
-#' @param only.atomic   If set to \code{TRUE}, only export field's values that are atomic (i.e.: of type vector and length one).
+#' @param fields        Set to character vector of field names in order to
+#' restrict execution to this set of fields.
+#' @param flatten       If set to \code{TRUE} and a field's value is a vector of
+#' more than one element, then export the field's value as a single string
+#' composed of the field's value concatenated and separated by the character
+#' defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the
+#' field contains only one value, changes nothing.
+#' @param last          If set to \code{TRUE} and a field's value is a vector of
+#' more than one element, then export only the last value. If set to
+#' \code{FALSE}, changes nothing.
+#' @param only.atomic   If set to \code{TRUE}, only export field's values that
+#' are atomic (i.e.: of type vector and length one).
 #' @param value         A field's value.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbConn}}, \code{\link{BiodbEntryFields}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbConn}},
+#' \code{\link{BiodbEntryFields}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -33,7 +55,8 @@
 #'
 #' # Test if a field is defined:
 #' if (entry$hasField('charge'))
-#'   print(paste('The entry has a charge of ', entry$getFieldValue('charge'), '.', sep=''))
+#'   print(paste('The entry has a charge of ', entry$getFieldValue('charge'),
+#'   '.', sep=''))
 #'
 #' # Export an entry as a data frame:
 #' df <- entry$getFieldsAsDataFrame()
@@ -51,66 +74,77 @@
 #' @include BiodbChildObject.R
 #' @export BiodbEntry
 #' @exportClass BiodbEntry
-BiodbEntry <- methods::setRefClass("BiodbEntry", contains="BiodbChildObject", fields=list(.fields='list', .new='logical'))
+BiodbEntry <- methods::setRefClass("BiodbEntry",
+    contains="BiodbChildObject",
+    fields=list(
+        .fields='list',
+        .new='logical'
+    ),
 
-# Initialize {{{1
+# Public methods {{{1
 ################################################################################
 
-BiodbEntry$methods( initialize=function(...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
 
     callSuper(...)
     .self$.abstractClass('BiodbEntry')
 
     .self$.fields <- list()
     .self$.new <- FALSE
-})
+},
 
-# Parent is connector {{{1
+# Parent is connector {{{3
 ################################################################################
 
-BiodbEntry$methods( parentIsAConnector=function() {
+parentIsAConnector=function() {
     "Return TRUE if this entry belongs to a connector."
 
     return(is(.self$getParent(), "BiodbConn"))
-})
+},
 
-# Clone {{{1
+# Clone {{{3
 ################################################################################
 
-BiodbEntry$methods( clone=function(db.class=NULL) {
+clone=function(db.class=NULL) {
     "Clone this entry."
 
     # Create new entry
-    clone <- .self$getBiodb()$getFactory()$createNewEntry(db.class=if (is.null(db.class)) .self$getDbClass() else db.class)
+    cl <- if (is.null(db.class)) .self$getDbClass() else db.class
+    clone <- .self$getBiodb()$getFactory()$createNewEntry(db.class=cl)
 
     # Copy fields
     clone$.fields <- .self$.fields
 
     return(clone)
-})
+},
 
-# Get ID {{{1
+# Get ID {{{3
 ################################################################################
 
-BiodbEntry$methods( getId=function() {
+getId=function() {
     "Returns the entry ID, which is the value if the \"accession\" field."
 
     return(.self$getFieldValue('accession'))
-})
+},
 
-# Is new {{{1
+# Is new {{{3
 ################################################################################
 
-BiodbEntry$methods( isNew=function() {
+isNew=function() {
     "Return TRUE if this entry was newly created."
 
     return(.self$.new)
-})
+},
 
-# Get database class {{{1
+# Get database class {{{3
 ################################################################################
 
-BiodbEntry$methods( getDbClass=function() {
+getDbClass=function() {
     "Returns name of the database class associated with this entry."
 
     # Get class name
@@ -134,28 +168,34 @@ BiodbEntry$methods( getDbClass=function() {
     s <- tolower(s)
 
     return(s)
-})
+},
 
-# Set field value {{{1
+# Set field value {{{3
 ################################################################################
 
-BiodbEntry$methods( setFieldValue=function(field, value) {
-    "Set the value of a field. If the field is not already set for this entry, then the field will be created. See BiodbEntryFields for a list of possible fields in biodb."
+setFieldValue=function(field, value) {
+    "Set the value of a field. If the field is not already set for this entry,
+    then the field will be created. See BiodbEntryFields for a list of possible
+    fields in biodb."
 
     field.def <- .self$getBiodb()$getEntryFields()$get(field)
     field <- field.def$getName()
 
     # Specific case to handle objects.
     if (field.def$isObject() && !(isS4(value) & methods::is(value, "refClass")))
-      .self$message('error', paste0('Cannot set a non RC instance to field "', field, '" in BiodEntry.'))
+      .self$error('Cannot set a non RC instance to field "', field,
+                  '" in BiodEntry.')
 
     # Check value class
     if (field.def$isVector()) {
         if (length(value) == 0)
-            .self$message('error', paste0('Cannot set an empty value into field "', field, '".'))
+            .self$error('Cannot set an empty value into field "', field, '".')
         v <- as.vector(value, mode=field.def$getClass())
         if ( ! all(is.na(value)) && all(is.na(v)))
-            .self$message('caution', paste("Unable to convert value(s) \"", paste(value, collapse=', '), "\" into ", field.def$getClass(), " type for field \"", field, "\".", sep=''))
+            .self$caution("Unable to convert value(s) \"",
+                          paste(value, collapse=', '), "\" into ",
+                          field.def$getClass(), " type for field \"", field,
+                          "\".")
         value <- v
     }
 
@@ -166,25 +206,31 @@ BiodbEntry$methods( setFieldValue=function(field, value) {
     value <- field.def$correctValue(value)
 
     # Remove duplicates
-    if (field.def$forbidsDuplicates() || (field.def$isVector() && field.def$hasCardOne()))
-        value <- value[ ! duplicated(if (field.def$isCaseInsensitive()) tolower(value) else value)]
+    if (field.def$forbidsDuplicates() || (field.def$isVector()
+                                          && field.def$hasCardOne()))
+        value <- value[ ! duplicated(if (field.def$isCaseInsensitive())
+                                     tolower(value) else value)]
 
     # Check cardinality
     if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
         if (length(value) > 1)
-            .self$message('error', paste0('Cannot set more that one value (', paste(value, collapse=', '), ') into single value field "', field, '" for entry ', .self$getName(), '.'))
+            .self$error('Cannot set more that one value (',
+                        paste(value, collapse=', '),
+                        ') into single value field "', field, '" for entry ',
+                        .self$getName(), '.')
         if (length(value) == 0)
-            .self$message('error', paste0('Cannot set an empty vector into single value field "', field, '" for entry ', .self$getName(), '.'))
+            .self$error('Cannot set an empty vector into single value field "',
+                        field, '" for entry ', .self$getName(), '.')
     }
 
     # Set value
     .self$.fields[[field.def$getName()]] <- value
-})
+},
 
-# Append field value {{{1
+# Append field value {{{3
 ################################################################################
 
-BiodbEntry$methods( appendFieldValue=function(field, value) {
+appendFieldValue=function(field, value) {
     "Append a value to an existing field. If the field is not defined for this
     entry, then the field will be created and set to this value. Only fields
     with a cardinality greater than one can accept multiple values."
@@ -193,21 +239,21 @@ BiodbEntry$methods( appendFieldValue=function(field, value) {
         .self$setFieldValue(field, c(.self$getFieldValue(field), value))
     else
         .self$setFieldValue(field, value)
-})
+},
 
-# Get field names {{{1
+# Get field names {{{3
 ################################################################################
 
-BiodbEntry$methods( getFieldNames=function() {
+getFieldNames=function() {
     "Get a list of all fields defined for this entry."
 
     return(names(.self$.fields))
-})
+},
 
-# Has field {{{1
+# Has field {{{3
 ################################################################################
 
-BiodbEntry$methods( hasField=function(field) {
+hasField=function(field) {
     "Returns TRUE if the specified field is defined in this entry."
 
     # Get field definition
@@ -215,26 +261,27 @@ BiodbEntry$methods( hasField=function(field) {
     field <- field.def$getName()
 
     return(tolower(field) %in% names(.self$.fields))
-})
+},
 
-# Remove field {{{1
+# Remove field {{{3
 ################################################################################
 
-BiodbEntry$methods( removeField=function(field) {
+removeField=function(field) {
     "Remove the specified field from this entry."
 
     if (.self$hasField(field))
         .self$.fields <- .self$.fields[names(.self$.fields) != tolower(field)]
-})
+},
 
-# Get field value {{{1
+# Get field value {{{3
 ################################################################################
 
-BiodbEntry$methods( getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE) {
+getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE) {
     "Get the value of the specified field."
 
     val <- NULL
     field <- tolower(field)
+    cfg <- .self$getBiodb()$getConfig()
 
     # Get field definition
     field.def <- .self$getBiodb()$getEntryFields()$get(field)
@@ -249,7 +296,8 @@ BiodbEntry$methods( getFieldValue=function(field, compute=TRUE, flatten=FALSE, l
         val <- .self$.fields[[field]]
     else
         # Return NULL or NA
-        val <- if (field.def$isVector()) as.vector(NA, mode=field.def$getClass()) else NULL
+        val <- if (field.def$isVector())
+            as.vector(NA, mode=field.def$getClass()) else NULL
 
     # Get last value only
     if (last && field.def$hasCardMany() && length(val) > 1)
@@ -257,21 +305,23 @@ BiodbEntry$methods( getFieldValue=function(field, compute=TRUE, flatten=FALSE, l
 
     # Flatten: convert atomic values with cardinality > 1 into a string
     if (flatten && ! is.null(val)) {
-        if (field.def$isVector() && field.def$hasCardMany() && length(val) > 1) {
+        if (field.def$isVector() && field.def$hasCardMany()
+            && length(val) > 1) {
             if (all(is.na(val)))
                 val <-  as.vector(NA, mode=field.def$getClass())
             else
-                val <- paste(val, collapse=.self$getBiodb()$getConfig()$get('multival.field.sep'))
+                val <- paste(val, collapse=cfg$get('multival.field.sep'))
         }
     }
 
     return(val)
-})
+},
 
-# Get fields as data frame {{{1
+# Get fields as data frame {{{3
 ################################################################################
 
-BiodbEntry$methods( getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL, flatten=TRUE, only.card.one=FALSE) {
+getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
+                              flatten=TRUE, only.card.one=FALSE) {
     "Convert this entry into a data frame."
 
     df <- data.frame(stringsAsFactors=FALSE)
@@ -283,7 +333,8 @@ BiodbEntry$methods( getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE
         .self$computeFields(fields)
 
     # Set fields to get
-    fields <- if (is.null(fields)) names(.self$.fields) else fields[fields %in% names(.self$.fields)]
+    fields <- if (is.null(fields)) names(.self$.fields)
+        else fields[fields %in% names(.self$.fields)]
 
     # Loop on fields
     for (f in fields) {
@@ -312,12 +363,12 @@ BiodbEntry$methods( getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE
     }
 
     return(df)
-})
+},
 
-# Get fields as json {{{1
+# Get fields as json {{{3
 ################################################################################
 
-BiodbEntry$methods( getFieldsAsJson=function(compute=TRUE) {
+getFieldsAsJson=function(compute=TRUE) {
     "Convert entry into a JSON string."
 
     # Compute fields
@@ -325,17 +376,19 @@ BiodbEntry$methods( getFieldsAsJson=function(compute=TRUE) {
         .self$computeFields()
 
     return(jsonlite::toJSON(.self$.fields, pretty=TRUE, digits=NA_integer_))
-})
+},
 
-# Parse content {{{1
+# Parse content {{{3
 ################################################################################
 
-BiodbEntry$methods( parseContent=function(content) {
-    "Parse content string and set values accordingly for this entry's fields. This method is called automatically and should be run directly by users."
+parseContent=function(content) {
+    "Parse content string and set values accordingly for this entry's fields.
+    This method is called automatically and should be run directly by users."
 
     # No connector?
     if ( ! .self$parentIsAConnector())
-        .self$message('error', 'Impossible to parse content for this entry, because its parent is not a connector.')
+        .self$error('Impossible to parse content for this entry, because its',
+                    ' parent is not a connector.')
 
     # Parse
     if (.self$.isContentCorrect(content)) {
@@ -351,12 +404,16 @@ BiodbEntry$methods( parseContent=function(content) {
         }
     }
 
-    # Make sure the database id field is set to the same value as the accession field
+    # Make sure the database id field is set to the same value as the accession
+    # field
     # TODO Factorize this test in a separate method.
     dbid.field <- .self$getParent()$getEntryIdField()
     if (.self$hasField(dbid.field) && .self$hasField('accession')) {
         if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
-            .self$message('error', paste('Value of accession field ("', .self$getFieldValue('accession'), '") is different from value of ', dbid.field, ' field ("', .self$getFieldValue(dbid.field), '").', sep=''))
+            .self$error('Value of accession field ("',
+                        .self$getFieldValue('accession'),
+                        '") is different from value of ', dbid.field,
+                        ' field ("', .self$getFieldValue(dbid.field), '").')
     }
     else {
         if (.self$hasField(dbid.field))
@@ -364,14 +421,15 @@ BiodbEntry$methods( parseContent=function(content) {
         else if (.self$hasField('accession'))
             .self$setFieldValue(dbid.field, .self$getFieldValue('accession'))
     }
-})
+},
 
-# Compute fields {{{1
+# Compute fields {{{3
 ################################################################################
 
-BiodbEntry$methods( computeFields=function(fields=NULL) {
+computeFields=function(fields=NULL) {
 
     success <- FALSE
+    ef <- .self$getBiodb()$getEntryFields()
     if ( ! is.null(fields))
         fields <- tolower(fields)
 
@@ -379,7 +437,7 @@ BiodbEntry$methods( computeFields=function(fields=NULL) {
 
         # Set of fields to compute
         if (is.null(fields))
-            fields <- .self$getBiodb()$getEntryFields()$getFieldNames()
+            fields <- ef$getFieldNames()
 
         # Loop on all fields
         for(f in fields) {
@@ -389,10 +447,11 @@ BiodbEntry$methods( computeFields=function(fields=NULL) {
                 next
 
             # Loop on all databases where we can look for a value
-            for (db in .self$getBiodb()$getEntryFields()$get(f)$getComputableFrom()) {
+            for (db in ef$get(f)$getComputableFrom()) {
 
                 # Database is itself
-                if ( ! methods::is(.self$getParent(), 'BiodbConn') || db == .self$getParent()$getId())
+                if ( ! methods::is(.self$getParent(), 'BiodbConn')
+                    || db == .self$getParent()$getId())
                     next
 
                 # Have we a reference for this database?
@@ -403,12 +462,14 @@ BiodbEntry$methods( computeFields=function(fields=NULL) {
                 if ( ! is.na(db.id)) {
 
                     # Get value for this field in the database
-                    .self$message('debug', paste("Compute value for field \"", f, "\".", sep='')) 
-                    db.entry <- .self$getBiodb()$getFactory()$getEntry(db, id=db.id)
+                    .self$debug("Compute value for field \"", f, "\".") 
+                    db.entry <- .self$getBiodb()$getFactory()$getEntry(db,
+                                                                       id=db.id)
 
                     # Set found value
                     if ( ! is.null(db.entry)) {
-                        .self$setFieldValue(f, db.entry$getFieldValue(f, compute=FALSE))
+                        v <- db.entry$getFieldValue(f, compute=FALSE)
+                        .self$setFieldValue(f, v)
                         success <- TRUE
                         break
                     }
@@ -418,34 +479,37 @@ BiodbEntry$methods( computeFields=function(fields=NULL) {
     }
 
     return(success)
-})
+},
 
-# Show {{{1
+# Show {{{3
 ################################################################################
 
-BiodbEntry$methods( show=function() {
+show=function() {
     "Display short information about an instance."
 
-    accession <- .self$getFieldValue('accession', compute=FALSE)
-    cat("Biodb ", .self$getParent()$getName(), " entry instance ", (if (is.na(accession)) 'ID unknown' else accession), ".\n", sep='')
-})
+    db <- .self$getParent()$getName()
+    id <- .self$getFieldValue('accession', compute=FALSE)
+    id <- if (is.na(id)) 'ID unknown' else id
+    cat("Biodb ", db, " entry instance ", id, ".\n", sep='')
+},
 
-# Get name {{{1
+# Get name {{{3
 ################################################################################
 
-BiodbEntry$methods( getName=function() {
+getName=function() {
     "Get a short text describing the entry instance."
 
     name <- paste(.self$getParent()$getName(), .self$getFieldValue('accession'))
 
     return(name)
-})
+},
 
-# Makes reference to entry  {{{1
+# Makes reference to entry  {{{3
 ################################################################################
 
-BiodbEntry$methods( makesRefToEntry=function(db, oid, recurse=FALSE) {
-    'Returns TRUE if this entry makes reference to the entry oid from database db.'
+makesRefToEntry=function(db, oid, recurse=FALSE) {
+    'Returns TRUE if this entry makes reference to the entry oid from database
+    db.'
     
     makes_ref <- FALSE
     field <- paste(db, 'id', sep='.')
@@ -457,127 +521,136 @@ BiodbEntry$methods( makesRefToEntry=function(db, oid, recurse=FALSE) {
     # Recursive search
     else if (recurse)
         makes_ref <- .self$.makesRefToEntryRecurse(db, oid)
-    # TODO Why not describe the recurse tree to follow in each DbInfo object? Specialy if we use JSON to register/define DbInfo objects.
+    # TODO Why not describe the recurse tree to follow in each DbInfo object?
+    # Specialy if we use JSON to register/define DbInfo objects.
 
     return(makes_ref)
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Makes reference to entry  {{{2
+# Makes reference to entry  {{{3
 ################################################################################
 
-BiodbEntry$methods( .makesRefToEntryRecurse=function(db, oid) {
+.makesRefToEntryRecurse=function(db, oid) {
     return(FALSE)
-})
+},
 
-# Set as new {{{2
+# Set as new {{{3
 ################################################################################
 
-BiodbEntry$methods( .setAsNew=function(new) {
+.setAsNew=function(new) {
     .self$.new <- new
-})
+},
 
-# Is content correct {{{2
+# Is content correct {{{3
 ################################################################################
 
-BiodbEntry$methods( .isContentCorrect=function(content) {
+.isContentCorrect=function(content) {
 
-    correct <- ! is.null(content) && ((is.list(content) && length(content) > 0) || (is.character(content) && ! is.na(content) && content != ''))
-    # NOTE `nchar(content)` may give "invalid multibyte string, element 1" on some strings.
+    correct <- ! is.null(content) && ((is.list(content) && length(content) > 0)
+                                      || (is.character(content)
+                                          && ! is.na(content) && content != ''))
+    # NOTE `nchar(content)` may give "invalid multibyte string, element 1" on
+    # some strings.
 
     return(correct)
-})
+},
 
-# Do parse content {{{2
+# Do parse content {{{3
 ################################################################################
 
-BiodbEntry$methods( .doParseContent=function(content) {
+.doParseContent=function(content) {
     .self$.abstractMethod()
-})
+},
 
-# Is parsed content correct {{{2
+# Is parsed content correct {{{3
 ################################################################################
 
-BiodbEntry$methods( .isParsedContentCorrect=function(parsed.content) {
-    return( ! is.null(parsed.content) && ( ! is.vector(parsed.content) || length(parsed.content) > 1 || ! is.na(parsed.content)))
-})
+.isParsedContentCorrect=function(parsed.content) {
+    return( ! is.null(parsed.content)
+           && ( ! is.vector(parsed.content) || length(parsed.content) > 1
+               || ! is.na(parsed.content)))
+},
 
-# Parse fields step 1 {{{2
+# Parse fields step 1 {{{3
 ################################################################################
 
-BiodbEntry$methods( .parseFieldsStep1=function(parsed.content) {
+.parseFieldsStep1=function(parsed.content) {
     .self$.abstractMethod()
-})
+},
 
-# Parse fields step 2 {{{2
+# Parse fields step 2 {{{3
 ################################################################################
 
-BiodbEntry$methods( .parseFieldsStep2=function(parsed.content) {
-})
+.parseFieldsStep2=function(parsed.content) {
+},
 
-# Check database ID field {{{2
+# Check database ID field {{{3
 ################################################################################
 
-BiodbEntry$methods( .checkDbIdField=function() {
-})
+.checkDbIdField=function() {
+},
 
-# Deprecated methods {{{1
+# Deprecated methods {{{2
 ################################################################################
 
-# Get Field {{{2
+# Get Field {{{3
 ################################################################################
 
-BiodbEntry$methods( getField=function(field) {
+getField=function(field) {
     .self$.deprecatedMethod("getFieldValue()")
     return(.self$getFieldValue(field))
-})
+},
 
-# Set Field {{{2
+# Set Field {{{3
 ################################################################################
 
-BiodbEntry$methods( setField=function(field, value) {
+setField=function(field, value) {
     .self$.deprecatedMethod("setFieldValue()")
     .self$setFieldValue(field, value)
-})
+},
 
-# Get field class {{{2
+# Get field class {{{3
 ################################################################################
 
-BiodbEntry$methods( getFieldClass=function(field) {
+getFieldClass=function(field) {
 
     .self$.deprecatedMethod('Biodb::getEntryFields()$get(field)$getClass()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
-})
+},
 
-# Get field cardinality {{{2
+# Get field cardinality {{{3
 ################################################################################
 
-BiodbEntry$methods( getFieldCardinality=function(field) {
+getFieldCardinality=function(field) {
 
-    .self$.deprecatedMethod('BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany()')
+    msg <- 'BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany()'
+    .self$.deprecatedMethod(msg)
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
-})
+},
 
-# Field has basic class {{{2
+# Field has basic class {{{3
 ################################################################################
 
-BiodbEntry$methods( fieldHasBasicClass=function(field) {
+fieldHasBasicClass=function(field) {
 
     .self$.deprecatedMethod('BiodbEntryField::isVector()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
-})
+},
 
-# Compute field {{{2
+# Compute field {{{3
 ################################################################################
 
-BiodbEntry$methods( .computeField=function(fields=NULL) {
+.computeField=function(fields=NULL) {
 
     .self$.deprecatedMethod('BiodbEntry::computeFields()')
 
     return(.self$computeFields(fields=fields))
-})
+}
+
+))

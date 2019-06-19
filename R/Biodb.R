@@ -1,4 +1,4 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # Biodb {{{1
 ################################################################################
@@ -252,9 +252,7 @@ convertEntryIdFieldToDbClass=function(entry.id.field) {
 # Entries field to vector or list {{{3
 ################################################################################
 
-entriesFieldToVctOrLst=function(entries, field,
-                                                 flatten=FALSE,
-                                                 compute=TRUE) {
+entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
     "Extract the value of a field from a list of entries. Returns either a
     vector or a list depending on the type of the field."
 
