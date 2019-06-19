@@ -822,7 +822,8 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
         rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt'),
                                        rt.col.unit, 's')
         rt.col.max <- rt.col.min
-    } else if (entry$hasField('chrom.rt.min') && entry$hasField('chrom.rt.max')) {
+    } else if (entry$hasField('chrom.rt.min')
+               && entry$hasField('chrom.rt.max')) {
         rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt.min'),
                                        rt.col.unit, 's')
         rt.col.max <- .self$.convertRt(entry$getFieldValue('chrom.rt.max'),

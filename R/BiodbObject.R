@@ -211,7 +211,8 @@ info2=function(...) {
 # Assert not NA {{{3
 ################################################################################
 
-.assertNotNa=function(param, msg.type='error', sys.call.level=0, param.name=NULL) {
+.assertNotNa=function(param, msg.type='error', sys.call.level=0,
+                      param.name=NULL) {
 
     if (any(is.na(param))) {
 

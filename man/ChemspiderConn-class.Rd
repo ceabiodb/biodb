@@ -22,7 +22,8 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \describe{
 \item{\code{getAllRecordFields()}}{Returns the complete list of all record fields provided by ChemSpider.}
 
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
+case of a compound entry).}
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
