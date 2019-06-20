@@ -9,12 +9,18 @@
 .HTTP.STATUS.INTERNAL.SERVER.ERROR <- 500
 .HTTP.STATUS.SERVICE.UNAVAILABLE <- 503
 
-# Class declaration {{{1
+# BiodbRequestScheduler {{{1
 ################################################################################
 
 #' Class for handling requests.
 #'
-#' This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{BiodbRemotedbConn}) creates an instance of \code{BiodbRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
+#' This class handles GET and POST requests, as well as file downloading. Each
+#' remote database connection instance (instance of concrete class inheriting
+#' from \code{BiodbRemotedbConn}, creates an instance of
+#' \code{BiodbRequestScheduler} for handling database connection. A timer is
+#' used to schedule connections, and avoid sending too much requests to the
+#' database. This class is not meant to be used directly by the library user.
+#' See section Fields for a list of the constructor's parameters.
 #'
 #' @param url           The URL to access, as a character string.
 #' @param soap.request  The XML SOAP request to send, as a character string. 
@@ -24,19 +30,32 @@
 #' @param opts          The CURL options to use.
 #' @param dest.file     A path to a destination file.
 #'
-#' @seealso \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
+#' @seealso \code{\link{BiodbRemotedbConn}},
+#' \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
 #'
 #' @import methods
 #' @include BiodbChildObject.R
 #' @include BiodbConnObserver.R
 #' @export BiodbRequestScheduler
 #' @exportClass BiodbRequestScheduler
-BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler", contains=c("BiodbChildObject", "BiodbConnObserver"), fields=list(.ssl.verifypeer="logical", .nb.max.tries="integer", .host2rule="list", .connid2rules="list"))
+BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler",
+    contains=c("BiodbChildObject", "BiodbConnObserver"),
+    fields=list(
+        .ssl.verifypeer="logical",
+        .nb.max.tries="integer",
+        .host2rule="list",
+        .connid2rules="list"
+    ),
 
-# Initialize {{{1
+# Public methods {{{1
 ################################################################################
 
-BiodbRequestScheduler$methods( initialize=function(...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
 
     callSuper(...)
 
@@ -44,44 +63,55 @@ BiodbRequestScheduler$methods( initialize=function(...) {
     .self$.host2rule <- list()
     .self$.nb.max.tries <- 10L
     .self$.ssl.verifypeer <- TRUE
-})
+},
 
-# Send soap request {{{1
+# Send soap request {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( sendSoapRequest=function(url, soap.request, soap.action=NA_character_, encoding=integer()) {
+sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
+                         encoding=integer()) {
     "Send a SOAP request to a URL. Returns the string result."
 
     # Prepare request
-    header <- c(Accept="text/xml", Accept="multipart/*",  'Content-Type'="text/xml; charset=utf-8")
+    header <- c(Accept="text/xml", Accept="multipart/*",
+                'Content-Type'="text/xml; charset=utf-8")
     if ( ! is.na(soap.action))
         header <- c(header, SOAPAction=soap.action)
 
     # Send request
-    results <- .self$getUrl(url, method='post', header=header, body=soap.request, encoding=encoding)
+    results <- .self$getUrl(url, method='post', header=header,
+                            body=soap.request, encoding=encoding)
 
     return(results)
-})
+},
 
-# Send request {{{1
+# Send request {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( sendRequest=function(request, cache.read=TRUE) {
+sendRequest=function(request, cache.read=TRUE) {
     "Send a request, and return content result."
 
     content <- NA_character_
+    cch <- .self$getBiodb()$getCache()
+    cfg <- .self$getBiodb()$getConfig()
 
     # Get rule
     rule <- .self$.findRule(request$getUrl())
 
     # Log URL
-    .self$message('debug', paste0("Getting content of ", request$getMethod(), " URL request \"", request$getUrl()$toString(encode=FALSE), "\"."))
+    .self$debug("Getting content of ", request$getMethod(), " URL request \"",
+                request$getUrl()$toString(encode=FALSE), "\".")
 
     # Try to get query result from cache
     request.key <- request$getUniqueKey()
-    if (cache.read && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests') && .self$getBiodb()$getCache()$fileExist('request', subfolder='shortterm', name=request.key, ext='content')) {
-        .self$message('debug', "Loading content of request from cache.")
-        content <- .self$getBiodb()$getCache()$loadFileContent('request', subfolder='shortterm', name=request.key, ext ='content', output.vector=TRUE)
+    if (cache.read && cfg$isEnabled('cache.system')
+        && cfg$get('cache.all.requests')
+        && cch$fileExist('request', subfolder='shortterm', name=request.key,
+                         ext='content')) {
+        .self$debug("Loading content of request from cache.")
+        content <- cch$loadFileContent('request', subfolder='shortterm',
+                                       name=request.key, ext ='content',
+                                       output.vector=TRUE)
     }
 
     # Check if in offline mode
@@ -92,21 +122,27 @@ BiodbRequestScheduler$methods( sendRequest=function(request, cache.read=TRUE) {
         content <- .self$.doSendRequestLoop(request=request, rule=rule)
 
         # Save content to cache
-        if ( ! is.na(content) && .self$getBiodb()$getConfig()$isEnabled('cache.system') && .self$getBiodb()$getConfig()$get('cache.all.requests')) {
+        if ( ! is.na(content) && cfg$isEnabled('cache.system')
+            && cfg$get('cache.all.requests')) {
             .self$message('debug', "Saving content of request to cache.")
-            .self$getBiodb()$getCache()$saveContentToFile(content, cache.id='request', subfolder='shortterm', name=request.key, ext ='content')
-            .self$getBiodb()$getCache()$saveContentToFile(request$toString(), cache.id='request', subfolder='shortterm', name=request.key, ext ='desc')
+            cch$saveContentToFile(content, cache.id='request',
+                                  subfolder='shortterm', name=request.key,
+                                  ext='content')
+            cch$saveContentToFile(request$toString(), cache.id='request',
+                                  subfolder='shortterm', name=request.key,
+                                  ext='desc')
         }
     }
 
     return(content)
-})
+},
 
-# Download file {{{1
+# Download file {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( downloadFile=function(url, dest.file) {
-    "Download the content of a URL and save it into the specified destination file."
+downloadFile=function(url, dest.file) {
+    "Download the content of a URL and save it into the specified destination
+    file."
 
     # Get rule
     rule <- .self$.findRule(url)
@@ -121,64 +157,63 @@ BiodbRequestScheduler$methods( downloadFile=function(url, dest.file) {
     .self$info2('Downloading file "', url, '".')
     utils::download.file(url=url, destfile=dest.file, mode='wb',
                          method='libcurl', cacheOK=FALSE, quiet=TRUE)
-})
+},
 
-# Private methods {{{1
-################################################################################
-
-# Connector observer methods {{{2
+# Private methods {{{2
 ################################################################################
 
 # Terminating {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( connTerminating=function(conn) {
+connTerminating=function(conn) {
     .self$.unregisterConnector(conn)
-})
+},
 
 # URLs updated {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( connUrlsUpdated=function(conn) {
+connUrlsUpdated=function(conn) {
     .self$.unregisterConnector(conn)
     .self$.registerConnector(conn)
-})
+},
 
 # Scheduler frequency updated {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( connSchedulerFrequencyUpdated=function(conn) {
+connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$message('caution', paste0('Connector "', conn$getId(), '" has never been registered.'))
+        .self$caution('Connector "', conn$getId(),
+                      '" has never been registered.')
 
     # Update frequency
     else {
         for (rule in .self$.connid2rules[[conn$getId()]])
             rule$recomputeFrequency()
     }
-})
+},
 
 
-# Check offline mode {{{2
+# Check offline mode {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .checkOfflineMode=function() {
+.checkOfflineMode=function() {
 
     if (.self$getBiodb()$getConfig()$isEnabled('offline'))
-        .self$message('error', "Offline mode is enabled. All connections are forbidden.")
-})
+        .self$error("Offline mode is enabled. All connections are forbidden.")
+},
 
 
-# Register connector {{{2
+# Register connector {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .registerConnector=function(conn) {
+.registerConnector=function(conn) {
 
     # Is connector already registered?
     if (conn$getId() %in% names(.self$.connid2rules))
-        .self$message('caution', paste0('Connector "', conn$getId(), '" has already been registered.'))
+        .self$caution('Connector "', conn$getId(),
+                      '" has already been registered.')
 
     # Add connector
     else {
@@ -188,16 +223,17 @@ BiodbRequestScheduler$methods( .registerConnector=function(conn) {
         # Add connector
         .self$.addConnectorRules(conn)
     }
-})
+},
 
-# Unregister connector {{{2
+# Unregister connector {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .unregisterConnector=function(conn) {
+.unregisterConnector=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$message('caution', paste0('Connector "', conn$getId(), '" has never been registered.'))
+        .self$caution('Connector "', conn$getId(),
+                      '" has never been registered.')
 
     # Unregister connector
     else {
@@ -207,13 +243,13 @@ BiodbRequestScheduler$methods( .unregisterConnector=function(conn) {
         # Remove connector
         .self$.removeConnectorRules(conn)
     }
-})
+},
 
 
-# Find rule {{{2
+# Find rule {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .findRule=function(url, fail=TRUE) {
+.findRule=function(url, fail=TRUE) {
 
     .self$.assertNotNull(url)
     if ( ! is(url, 'BiodbUrl')) {
@@ -225,15 +261,15 @@ BiodbRequestScheduler$methods( .findRule=function(url, fail=TRUE) {
 
     # Rule does not exist
     if (fail && ! domain %in% names(.self$.host2rule))
-        .self$message('error', paste0('No rule exists for domain "', domain, '".'))
+        .self$error('No rule exists for domain "', domain, '".')
 
     return(.self$.host2rule[[domain]])
-})
+},
 
-# Add connector rules {{{2
+# Add connector rules {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .addConnectorRules=function(conn) {
+.addConnectorRules=function(conn) {
 
     .self$.connid2rules[[conn$getId()]] <- list()
 
@@ -246,8 +282,10 @@ BiodbRequestScheduler$methods( .addConnectorRules=function(conn) {
         # No rule exists => create new one
         if (is.null(rule)) {
             host <- BiodbUrl(url =url)$getDomain()
-            .self$message('debug', paste0('Create new rule for URL "', host,'" of connector "', conn$getId(), '"'))
-            rule <- BiodbRequestSchedulerRule$new(parent=.self, host=host, conn=conn)
+            .self$debug('Create new rule for URL "', host,'" of connector "',
+                        conn$getId(), '"')
+            rule <- BiodbRequestSchedulerRule$new(parent=.self, host=host,
+                                                  conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule
         }
 
@@ -256,30 +294,32 @@ BiodbRequestScheduler$methods( .addConnectorRules=function(conn) {
             rule$addConnector(conn)
 
         # Add rule
-        if ( ! any(vapply(.self$.connid2rules[[conn$getId()]], function(x) identical(rule, x), FUN.VALUE=TRUE)))
-            .self$.connid2rules[[conn$getId()]] <- c(.self$.connid2rules[[conn$getId()]], rule)
+        rules <- .self$.connid2rules[[conn$getId()]]
+        fct <- function(x) identical(rule, x)
+        if ( ! any(vapply(rules, fct, FUN.VALUE=TRUE)))
+            .self$.connid2rules[[conn$getId()]] <- c(rules, rule)
     }
-})
+},
 
-# Get all rules {{{2
+# Get all rules {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .getAllRules=function() {
+.getAllRules=function() {
     return(.self$.host2rule)
-})
+},
 
-# Get connector rules {{{2
+# Get connector rules {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .getConnectorRules=function(conn) {
+.getConnectorRules=function(conn) {
     .self$.assertNotNull(conn)
     return(.self$.connid2rules[[conn$getId()]])
-})
+},
 
-# Remove connector rules {{{2
+# Remove connector rules {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .removeConnectorRules=function(conn) {
+.removeConnectorRules=function(conn) {
 
     # Get rules
     rules <- .self$.connid2rules[[conn$getId()]]
@@ -295,52 +335,63 @@ BiodbRequestScheduler$methods( .removeConnectorRules=function(conn) {
     
     # Remove connector
     .self$.connid2rules[[conn$getId()]] <- NULL
-})
+},
 
-# Process request errors {{{2
+# Process request errors {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .processRequestErrors=function(content, hdr, err_msg, retry) {
+.processRequestErrors=function(content, hdr, err_msg, retry) {
 
     # Recoverable HTTP errors
-    if ( ! is.null(hdr) && hdr$status %in% c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT, .HTTP.STATUS.INTERNAL.SERVER.ERROR, .HTTP.STATUS.SERVICE.UNAVAILABLE)) {
-        err_msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+    lst <- c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT,
+             .HTTP.STATUS.INTERNAL.SERVER.ERROR,
+             .HTTP.STATUS.SERVICE.UNAVAILABLE) 
+    if ( ! is.null(hdr) && hdr$status %in% lst) {
+        err_msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage,
+                          "\").")
         if ('Retry-After' %in% names(hdr))
-            err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']], ".")
+            err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']],
+                              ".")
         retry <- TRUE
     }
 
     # Other HTTP errors
     if (is.null(err_msg) && ! is.null(hdr) && hdr$status != .HTTP.STATUS.OK) {
-        err_msg <- paste0("Unrecoverable HTTP error ", hdr$status," (\"", hdr$statusMessage, "\").")
+        err_msg <- paste0("Unrecoverable HTTP error ", hdr$status," (\"",
+                          hdr$statusMessage, "\").")
         if ('Retry-After' %in% names(hdr))
-            err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']], ".")
+            err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']],
+                              ".")
         content <- NA_character_
         retry <- FALSE
     }
 
     # Proxy server error
-    if (is.null(err_msg) && ! is.null(content) && ! is.na(content) && length(grep('The proxy server could not handle the request', content)) > 0) {
+    # This happens sometime with NCBI CCDS server.
+    if (is.null(err_msg) && ! is.null(content) && ! is.na(content)
+        && length(grep('The proxy server could not handle the request',
+                       content)) > 0) {
         .self$message('debug', 'Found proxy error message in content.')
-        err_msg <- "Error between the proxy and the main server." # This happens sometime with NCBI CCDS server.
+        err_msg <- "Error between the proxy and the main server."
         content <- NA_character_
         retry <- FALSE
     }
 
     return(list(retry=retry, err_msg=err_msg))
-})
+},
 
-# Do send request once {{{2
+# Do send request once {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .doSendRequestOnce=function(request) {
+.doSendRequestOnce=function(request) {
 
     content <- NA_character_
     err_msg <- NULL
     retry <- FALSE
+    cfg <- .self$getBiodb()$getConfig()
 
     # Build options
-    opts <- request$getCurlOptions(useragent=.self$getBiodb()$getConfig()$get('useragent'))
+    opts <- request$getCurlOptions(useragent=cfg$get('useragent'))
 
     # Create HTTP header object (to receive HTTP information from server).
     header <- RCurl::basicHeaderGatherer()
@@ -349,9 +400,14 @@ BiodbRequestScheduler$methods( .doSendRequestOnce=function(request) {
     header$reset()
     content <- tryCatch(expr={
             if (request$getMethod() == 'get')
-                RCurl::getURL(request$getUrl()$toString(), .opts=opts, ssl.verifypeer=.self$.ssl.verifypeer, .encoding=request$getEncoding(), headerfunction=header$update)
+                RCurl::getURL(request$getUrl()$toString(), .opts=opts,
+                              ssl.verifypeer=.self$.ssl.verifypeer,
+                              .encoding=request$getEncoding(),
+                              headerfunction=header$update)
             else
-                RCurl::postForm(request$getUrl()$toString(), .opts=opts, .encoding=request$getEncoding(), headerfunction=header$update)
+                RCurl::postForm(request$getUrl()$toString(), .opts=opts,
+                                .encoding=request$getEncoding(),
+                                headerfunction=header$update)
             },
         PEER_FAILED_VERIFICATION=function(err) { retry=TRUE ; curl.error=err },
         GenericCurlError=function(err) { retry=TRUE ; curl.error=err },
@@ -364,11 +420,14 @@ BiodbRequestScheduler$methods( .doSendRequestOnce=function(request) {
     # Get header information sent by server
     hdr <- NULL
     if (is.null(err_msg)) {
+        # We want to catch "<simpleWarning in max(i): no non-missing arguments
+        # to max; returning -Inf>".
         hdr <- tryCatch(expr=as.list(header$value()),
-                       warning=function(w) w, # We want to catch "<simpleWarning in max(i): no non-missing arguments to max; returning -Inf>".
+                       warning=function(w) w,
                        error=function(e) e)
 
-        if (methods::is(hdr, 'simpleError') || methods::is(hdr, 'simpleWarning')) {
+        if (methods::is(hdr, 'simpleError')
+            || methods::is(hdr, 'simpleWarning')) {
             err_msg <- paste0('Error while retrieving HTTP header: ', hdr, '.')
             hdr <- NULL
             retry <- TRUE
@@ -384,15 +443,16 @@ BiodbRequestScheduler$methods( .doSendRequestOnce=function(request) {
         }
     }
 
-    res <- .self$.processRequestErrors(content=content, hdr=hdr, err_msg=err_msg, retry=retry)
+    res <- .self$.processRequestErrors(content=content, hdr=hdr,
+                                       err_msg=err_msg, retry=retry)
 
     return(list(content=content, err_msg=res$err_msg, retry=res$retry))
-})
+},
 
-# Do send request loop {{{2
+# Do send request loop {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( .doSendRequestLoop=function(request, rule) {
+.doSendRequestLoop=function(request, rule) {
 
     content <- NA_character_
 
@@ -405,8 +465,10 @@ BiodbRequestScheduler$methods( .doSendRequestLoop=function(request, rule) {
         i <- i + 1
 
         # Print debug information about header and body
-        .self$message('debug', paste0('Request header is: "', request$getHeaderAsSingleString(), '".'))
-        .self$message('debug', paste0('Request body is "', paste(request$getBody(), collapse=', '), '".'))
+        .self$debug('Request header is: "', request$getHeaderAsSingleString(),
+                    '".')
+        .self$debug('Request body is "', paste(request$getBody(),
+                                               collapse=', '), '".')
 
         # Wait required time between two requests
         rule$.waitAsNeeded()
@@ -417,8 +479,12 @@ BiodbRequestScheduler$methods( .doSendRequestLoop=function(request, rule) {
 
         # Print connection error message
         if ( ! is.null(res$err_msg)) {
-            if (retry)
-                res$err_msg=paste0(res$err_msg, paste0(" When contacting URL \"", request$getUrl()$toString(), "\". Retrying connection to server..."))
+            if (retry) {
+                m <- paste0(" When contacting URL \"",
+                            request$getUrl()$toString(),
+                            "\". Retrying connection to server...")
+                res$err_msg=paste0(res$err_msg, m)
+            }
             .self$message('info', res$err_msg)
         }
         else
@@ -426,15 +492,15 @@ BiodbRequestScheduler$methods( .doSendRequestLoop=function(request, rule) {
     }
 
     return(content)
-})
+},
 
-# Deprecated methods {{{1
+# Deprecated methods {{{2
 ################################################################################
 
-# Get URL string {{{2
+# Get URL string {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( getUrlString=function(url, params=list()) {
+getUrlString=function(url, params=list()) {
     "Build a URL string, using a base URL and parameters to be passed."
 
     .self$.deprecatedMethod("BiodbUrl::toString()")
@@ -442,20 +508,23 @@ BiodbRequestScheduler$methods( getUrlString=function(url, params=list()) {
     url <- BiodbUrl(url=url, params=params)$toString(encode=FALSE)
 
     return(url)
-})
+},
 
-# Get URL {{{2
+# Get URL {{{3
 ################################################################################
 
-BiodbRequestScheduler$methods( getUrl=function(url, params=list(), method=c('get', 'post'), header=character(), body=character(), encoding=integer()) {
+getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
+                body=character(), encoding=integer()) {
     "Send a URL request, either with GET or POST method, and return result."
 
     .self$.deprecatedMethod("BiodbRequestScheduler::sendRequest()")
 
     method <- match.arg(method)
 
-    request <- BiodbRequest(url=BiodbUrl(url=url, params=params), method=method, header=header, body=body, encoding=encoding)
+    request <- BiodbRequest(url=BiodbUrl(url=url, params=params), method=method,
+                            header=header, body=body, encoding=encoding)
 
     return(.self$sendRequest(request))
-})
+}
 
+))

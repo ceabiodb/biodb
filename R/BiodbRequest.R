@@ -1,11 +1,12 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# BiodbRequest {{{1
 ################################################################################
 
 #' Class Request.
 #'
-#' This class represents a Request object that can be used with the Request Scheduler.
+#' This class represents a Request object that can be used with the Request
+#' Scheduler.
 #'
 #' @param url           A \code{BiodbUrl} object.
 #'
@@ -15,45 +16,58 @@
 #' @include BiodbUrl.R
 #' @export BiodbRequest
 #' @exportClass BiodbRequest
-BiodbRequest <- methods::setRefClass("BiodbRequest", fields=list(.url='BiodbUrl', .method='character', .header='character', .body='character', .encoding='ANY'))
+BiodbRequest <- methods::setRefClass("BiodbRequest",
+    fields=list(
+        .url='BiodbUrl',
+        .method='character',
+        .header='character',
+        .body='character',
+        .encoding='ANY'
+    ),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-BiodbRequest$methods( initialize=function(url, method=c('get', 'post'), header=character(), body=character(), encoding=integer()) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(url, method=c('get', 'post'), header=character(),
+                    body=character(), encoding=integer()) {
 
     .self$.url <- url
     .self$.method <- match.arg(method)
     .self$.header <- header
     .self$.body <- body
     .self$.encoding <- encoding
-})
+},
 
-# Get URL {{{1
+# Get URL {{{3
 ################################################################################
 
-BiodbRequest$methods( getUrl=function() {
+getUrl=function() {
     return(.self$.url)
-})
+},
 
-# Get method {{{1
+# Get method {{{3
 ################################################################################
 
-BiodbRequest$methods( getMethod=function() {
+getMethod=function() {
     return(.self$.method)
-})
+},
 
-# Get encoding {{{1
+# Get encoding {{{3
 ################################################################################
 
-BiodbRequest$methods( getEncoding=function() {
+getEncoding=function() {
     return(.self$.encoding)
-})
+},
 
-# Get Curl options {{{1
+# Get Curl options {{{3
 ################################################################################
 
-BiodbRequest$methods( getCurlOptions=function(useragent) {
+getCurlOptions=function(useragent) {
 
     opts <- list()
     if (length(.self$.header) > 0)
@@ -61,49 +75,56 @@ BiodbRequest$methods( getCurlOptions=function(useragent) {
     if (length(.self$.body) > 0)
         opts$postfields <- .self$.body
 
-    opts <- RCurl::curlOptions(useragent=useragent, timeout.ms=60000, verbose=FALSE, .opts=opts)
+    opts <- RCurl::curlOptions(useragent=useragent, timeout.ms=60000,
+                               verbose=FALSE, .opts=opts)
 
     return(opts)
-})
+},
 
-# Get unique key {{{1
+# Get unique key {{{3
 ################################################################################
 
-BiodbRequest$methods( getUniqueKey=function() {
+getUniqueKey=function() {
 
     key <- digest::digest(.self$toString(), algo='md5')
 
     return(key)
-})
+},
 
-# Get header as single string {{{1
+# Get header as single string {{{3
 ################################################################################
 
-BiodbRequest$methods( getHeaderAsSingleString=function() {
+getHeaderAsSingleString=function() {
 
     s <- ''
 
-    if (length(.self$.header) > 0)
-        s <- paste(vapply(names(.self$.header), function(k) paste(k, .self$.header[[k]], sep='='), FUN.VALUE=''), collapse=', ')
+    if (length(.self$.header) > 0) {
+        fct <- function(k) paste(k, .self$.header[[k]], sep='=')
+        kv <- vapply(names(.self$.header), fct, FUN.VALUE='')
+        s <- paste(kv, collapse=', ')
+    }
 
     return(s)
-})
+},
 
-# Get body {{{1
+# Get body {{{3
 ################################################################################
 
-BiodbRequest$methods( getBody=function() {
+getBody=function() {
     return(.self$.body)
-})
+},
 
-# To string {{{1
+# To string {{{3
 ################################################################################
 
-BiodbRequest$methods( toString=function() {
+toString=function() {
 
-    request <- list(url=.self$.url$toString(), header=.self$.header, body=.self$.body)
+    request <- list(url=.self$.url$toString(), header=.self$.header,
+                    body=.self$.body)
     request.json <- jsonlite::serializeJSON(request)
     request.json.str <- as.character(request.json)
 
     return(request.json.str)
-})
+}
+
+))

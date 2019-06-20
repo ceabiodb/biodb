@@ -9,7 +9,8 @@
 \item{url}{A \code{BiodbUrl} object.}
 }
 \description{
-This class represents a Request object that can be used with the Request Scheduler.
+This class represents a Request object that can be used with the Request
+Scheduler.
 }
 
 \seealso{

@@ -1,14 +1,12 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# SQL Query class {{{1
-################################################################################
-
-# Class declaration {{{2
+# BiodbSqlQuery {{{1
 ################################################################################
 
 #' Class SQL Query.
 #'
-#' This class represents an SQL query. It is used internally to generate an SQL query string.
+#' This class represents an SQL query. It is used internally to generate an SQL
+#' query string.
 #'
 #' @param table1        The first table of the join.
 #' @param field1        The field of the first table of the join.
@@ -20,7 +18,14 @@
 #' @import methods
 #' @export BiodbSqlQuery
 #' @exportClass BiodbSqlQuery
-BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery", fields=list(.table='character', .fields='list', .distinct='logical', .join='list', .where='ANY', .limit='integer'))
+BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery",
+    fields=list(
+        .table='character',
+        .fields='list',
+        .distinct='logical',
+        .join='list',
+        .where='ANY',
+        .limit='integer'))
 
 # Initialize {{{2
 ################################################################################
