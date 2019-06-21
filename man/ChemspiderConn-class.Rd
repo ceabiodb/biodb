@@ -10,12 +10,17 @@
 
 \item{query}{The query to send to the database.}
 
-\item{range}{The range of the searched mass. Plain range, Dalton unit. The mass searched are between (mass - range) and (mass + range).}
+\item{range}{The range of the searched mass. Plain range, Dalton unit. The
+mass searched are between (mass - range) and (mass + range).}
 
-\item{retfmt}{The wanted returned format, in a web service method ("ws.*" methods).}
+\item{retfmt}{The wanted returned format, in a web service method ("ws.*"
+methods).}
 }
 \description{
-This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+This is a concrete connector class. It must never be instantiated directly,
+but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+Only specific methods are described here. See super classes for the
+description of inherited methods.
 }
 \section{Methods}{
 
@@ -33,22 +38,28 @@ must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
                                    ...)}
 
 \item{\code{wsFilterMassPost(mass, range, retfmt = c("plain", "parsed", "queryid", "ids",
-  "request"))}}{Access the filter-mass-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/mass.}
+  "request"))}}{Access the filter-mass-post ChemSpider web service. See
+https://developer.rsc.org/compounds-v1/apis/post/filter/mass.}
 
 \item{\code{wsFilterNamePost(name, retfmt = c("plain", "parsed", "queryid", "ids",
-  "request"))}}{Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/filter/name.}
+  "request"))}}{Access the filter-name-post ChemSpider web service. See
+https://developer.rsc.org/compounds-v1/apis/post/filter/name.}
 
 \item{\code{wsFilterQueryIdResultsGet(queryid, start = 0L, count = 0L,
-  retfmt = c("plain", "parsed", "ids", "request"))}}{Access the filter-queryId-results-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results,}
+  retfmt = c("plain", "parsed", "ids", "request"))}}{Access the filter-queryId-results-get ChemSpider web service. See
+https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results.}
 
 \item{\code{wsFilterQueryIdStatusGet(queryid, retfmt = c("plain", "parsed", "status",
-  "request"), cache.read = FALSE)}}{Access the filter-queryId-status-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.}
+  "request"), cache.read = FALSE)}}{Access the filter-queryId-status-get ChemSpider web service. See
+https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.}
 
 \item{\code{wsRecordsBatchPost(recordids, fields = NULL, retfmt = c("plain", "parsed",
-  "request"))}}{Access the filter-name-post ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/post/records/batch.}
+  "request"))}}{Access the filter-name-post ChemSpider web service. See
+https://developer.rsc.org/compounds-v1/apis/post/records/batch.}
 
 \item{\code{wsRecordsRecordidDetailsGet(recordid, fields = NULL, retfmt = c("plain",
-  "parsed", "request"))}}{Access the records-recordId-details-get ChemSpider web service. See https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details.}
+  "parsed", "request"))}}{Access the records-recordId-details-get ChemSpider web service. See
+https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details.}
 }}
 
 \examples{
@@ -60,5 +71,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbCompounddbConn}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+\code{\link{BiodbCompounddbConn}}.
 }

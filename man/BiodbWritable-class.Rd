@@ -9,7 +9,8 @@
 \item{entry}{An entry instance.}
 }
 \description{
-A database class that implements this interface must allow the addition of new entries.
+A database class that implements this interface must allow the addition of
+new entries.
 }
 \section{Methods}{
 
@@ -20,7 +21,8 @@ A database class that implements this interface must allow the addition of new e
 
 \item{\code{setWritingAllowed(allow)}}{Allow or disallow writing for this database.}
 
-\item{\code{write()}}{Write the database. All modifications made to the database since the last time write() was called will be saved.}
+\item{\code{write()}}{Write the database. All modifications made to the database since the last
+time write() was called will be saved.}
 
 \item{\code{writingIsAllowed()}}{Returns TRUE if writing is allowed for this database.}
 }}

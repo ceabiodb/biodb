@@ -4,7 +4,7 @@
 \name{BiodbSqlQuery-class}
 \alias{BiodbSqlQuery-class}
 \alias{BiodbSqlQuery}
-\title{Class SQL Query.}
+\title{This class handles an SQL Query.}
 \arguments{
 \item{table1}{The first table of the join.}
 
@@ -15,7 +15,8 @@
 \item{field2}{The field of the second table of the join.}
 }
 \description{
-This class represents an SQL query. It is used internally to generate an SQL query string.
+This class represents an SQL query. It is used internally to generate an SQL
+query string.
 }
 \section{Methods}{
 

@@ -4,9 +4,11 @@
 \name{BiodbSearchable-class}
 \alias{BiodbSearchable-class}
 \alias{BiodbSearchable}
-\title{An abstract class (more like an interface) to model a database that can be searchable.}
+\title{An abstract class (more like an interface) to model a database that can be
+searchable.}
 \description{
-The class implementing this interface, must be searchable in a generic way. For instance, its entries must be searchable by name.
+The class implementing this interface, must be searchable in a generic way.
+For instance, its entries must be searchable by name.
 }
 
 \seealso{
