@@ -1,11 +1,14 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# KeggCompoundConn {{{1
 ################################################################################
 
 #' The connector class to KEGG Compound database.
 #'
-#' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+#' This is a concrete connector class. It must never be instantiated directly,
+#' but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+#' Only specific methods are described here. See super classes for the
+#' description of inherited methods.
 #'
 #' @param mass      Single mass.
 #' @param mass.min  Minimal mass.
@@ -16,7 +19,8 @@
 #'                  See https://www.genome.jp/kegg/catalog/org_list.html for a
 #'                  complete list of KEGG organism codes.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}},
+#' \code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -41,30 +45,42 @@
 #' @include BiodbCompounddbConn.R
 #' @export KeggCompoundConn
 #' @exportClass KeggCompoundConn
-KeggCompoundConn <- methods::setRefClass("KeggCompoundConn", contains=c("KeggConn", "BiodbCompounddbConn"))
+KeggCompoundConn <- methods::setRefClass("KeggCompoundConn",
+    contains=c("KeggConn", "BiodbCompounddbConn"),
 
-# Initialize {{{1
+# Public methods {{{1
 ################################################################################
 
-KeggCompoundConn$methods( initialize=function(...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
     callSuper(db.name='compound', db.abbrev='cpd', ...)
-})
+},
 
-# Web service find exact mass {{{1
+# Web service find exact mass {{{3
 ################################################################################
 
-KeggCompoundConn$methods( wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
+wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
+                         retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    "Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html
+    for details."
 
     retfmt <- match.arg(retfmt)
 
     # Build request
+    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name)
     if ( ! is.na(mass))
-        url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name, mass, 'exact_mass'))$toString()
+        umass <- mass
     else if ( ! is.na(mass.min) && ! is.na(mass.max))
-        url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name, paste(mass.min, mass.max, sep='-'), 'exact_mass'))$toString()
+        umass <- paste(mass.min, mass.max, sep='-')
     else
-        .self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
+        .self$error('You need to specify either mass parameter or both',
+                    ' mass.min and mass.max.')
+    u <- c(u, umass, 'exact_mass')
+    url <- BiodbUrl(url=u)$toString()
     request <- BiodbRequest(method='get', url=BiodbUrl(url=url))
     if (retfmt == 'request')
         return(request)
@@ -91,23 +107,30 @@ KeggCompoundConn$methods( wsFindExactMass=function(mass=NA_real_, mass.min=NA_re
     }
 
     return(results)
-})
+},
 
-# Web service find molecural weight {{{1
+# Web service find molecural weight {{{3
 ################################################################################
 
-KeggCompoundConn$methods( wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_, retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Search for entries by molecular mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
+wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
+                               mass.max=NA_real_,
+                               retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    "Search for entries by molecular mass. See
+    http://www.kegg.jp/kegg/docs/keggapi.html for details."
 
     retfmt <- match.arg(retfmt)
 
     # Build request
+    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name)
     if ( ! is.na(mass))
-        url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name, mass, 'mol_weight'))$toString()
+        umass <- mass
     else if ( ! is.na(mass.min) && ! is.na(mass.max))
-        url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name, paste(mass.min, mass.max, sep='-'), 'mol_weight'))$toString()
+        umass <- paste(mass.min, mass.max, sep='-')
     else
-        .self$message('error', 'You need to specify either mass parameter or both mass.min and mass.max.')
+        .self$error('You need to specify either mass parameter or both',
+                    ' mass.min and mass.max.')
+    u <- c(u, umass, 'mol_weight')
+    url <- BiodbUrl(url=u)$toString()
     request <- BiodbRequest(method='get', url=BiodbUrl(url=url))
     if (retfmt == 'request')
         return(request)
@@ -134,12 +157,13 @@ KeggCompoundConn$methods( wsFindMolecularWeight=function(mass=NA_real_, mass.min
     }
 
     return(results)
-})
+},
 
-# Search compound {{{1
+# Search compound {{{3
 ################################################################################
 
-KeggCompoundConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01, mass.tol.unit='plain', max.results=NA_integer_) {
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
+                        mass.tol.unit='plain', max.results=NA_integer_) {
         
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
@@ -155,7 +179,7 @@ KeggCompoundConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.fie
         mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
 
         if ( ! mass.field %in% c('monoisotopic.mass' ,'molecular.mass'))
-            .self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+            .self$caution('Mass field "', mass.field, '" is not handled.')
 
         else {
 
@@ -168,10 +192,14 @@ KeggCompoundConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.fie
             }
 
             if (mass.field == 'monoisotopic.mass')
-                mass.ids <- .self$wsFindExactMass(mass.min=mass.min, mass.max=mass.max, retfmt='ids')
+                mass.ids <- .self$wsFindExactMass(mass.min=mass.min,
+                                                  mass.max=mass.max,
+                                                  retfmt='ids')
             else
-                mass.ids <- .self$wsFindMolecularWeight(mass.min=mass.min, mass.max=mass.max, retfmt='ids')
-            .self$message('debug', paste('Got entry IDs ', paste(mass.ids, collapse=', '), '.')) 
+                mass.ids <- .self$wsFindMolecularWeight(mass.min=mass.min,
+                                                        mass.max=mass.max,
+                                                        retfmt='ids')
+            .self$debug('Got entry IDs ', paste(mass.ids, collapse=', '), '.')
             if ( ! is.null(mass.ids) && any(! is.na(mass.ids))) {
                 mass.ids <- sub('^cpd:', '', mass.ids)
                 if (is.null(ids))
@@ -187,24 +215,34 @@ KeggCompoundConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.fie
         ids <- ids[seq_len(max.results)]
 
     return(ids)
-})
+},
 
-# Get entry image url {{{1
+# Get entry image url {{{3
 ################################################################################
 
-KeggCompoundConn$methods( getEntryImageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'Fig', 'compound', paste(x, 'gif', sep='.')))$toString(), FUN.VALUE=''))
-})
+getEntryImageUrl=function(id) {
+    fct <- function(x) {
+        bu <- .self$getPropValSlot('urls', 'base.url')
+        u <- c(bu, 'Fig', 'compound', paste(x, 'gif', sep='.'))
+        BiodbUrl(url=u)$toString()
+    }
+    return(vapply(id, fct, FUN.VALUE=''))
+},
 
-# Get pathway IDs per compound {{{1
+# Get pathway IDs per compound {{{3
 ################################################################################
 
-KeggCompoundConn$methods( getPathwayIdsPerCompound=function(id, org) {
-    "Get organism pathways for each compound. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves for each compound the KEGG pathways of the organism in which the compound is involved. It returns a named list of KEGG pathway ID vectors, where the names of the list are the compound IDs."
+getPathwayIdsPerCompound=function(id, org) {
+    "Get organism pathways for each compound. Given a vector of KEGG Compound
+    IDs and a KEGG organism code, this method retrieves for each compound the
+    KEGG pathways of the organism in which the compound is involved. It returns
+    a named list of KEGG pathway ID vectors, where the names of the list are the
+    compound IDs."
 
     pathways <- list()
 
-    kegg.enz.conn <- .self$getBiodb()$getFactory()$getConn('kegg.enzyme')
+    fac <- .self$getBiodb()$getFactory()
+    kegg.enz.conn <- fac$getConn('kegg.enzyme')
     
     # Loop on all compound ids
     i <- 0
@@ -224,7 +262,7 @@ KeggCompoundConn$methods( getPathwayIdsPerCompound=function(id, org) {
             pws <- comp$getFieldValue('kegg.pathway.id')
 
             # Convert them to specified organism
-            kegg.path.conn <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+            kegg.path.conn <- fac$getConn('kegg.pathway')
             pws <- kegg.path.conn$convertToOrgPathways(pws, org=org)
         }
 
@@ -232,11 +270,13 @@ KeggCompoundConn$methods( getPathwayIdsPerCompound=function(id, org) {
         else if (comp$hasField('kegg.enzyme.id')) {
 
             # Get pathways
-            pws <- kegg.enz.conn$getPathwayIds(comp$getFieldValue('kegg.enzyme.id'), org=org)
+            enzid <- comp$getFieldValue('kegg.enzyme.id')
+            pws <- kegg.enz.conn$getPathwayIds(enzid, org=org)
 
             # Filter out wrong pathways
-            kpc <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
-            pws <- pws[kpc$makesRefToEntry(pws, db='kegg.compound', oid=comp.id, recurse=TRUE)]
+            kpc <- fac$getConn('kegg.pathway')
+            pws <- pws[kpc$makesRefToEntry(pws, db='kegg.compound',
+                                           oid=comp.id, recurse=TRUE)]
         }
 
         # Record found pathways
@@ -245,21 +285,25 @@ KeggCompoundConn$methods( getPathwayIdsPerCompound=function(id, org) {
 
         # Send progress message
         i <- i + 1
-        lapply(.self$getBiodb()$getObservers(), function(x) x$progress(type='info', msg='Retrieving pathways of compounds.', index=i, total=length(id), first=(i == 1)))
+        .self$progressMsg(msg='Retrieving pathways of compounds.', index=i,
+                          total=length(id), first=(i == 1))
     }
 
     return(pathways)
-})
+},
 
-# Get pathway IDs {{{1
+# Get pathway IDs {{{3
 ################################################################################
 
-KeggCompoundConn$methods( getPathwayIds=function(id, org) {
-    "Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves KEGG pathways of this organism in which the compounds are involved. It returns a vector of KEGG pathway IDs."
+getPathwayIds=function(id, org) {
+    "Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG
+    organism code, this method retrieves KEGG pathways of this organism in which
+    the compounds are involved. It returns a vector of KEGG pathway IDs."
 
     pathways <- .self$getPathwayIdsPerCompound(id=id, org=org)
     pathways <- unique(unlist(pathways, use.names=FALSE))
 
     return(pathways)
-})
+}
 
+))

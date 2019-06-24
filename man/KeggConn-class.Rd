@@ -9,16 +9,19 @@
 \item{query}{The query to send to the database web service.}
 }
 \description{
-This is the mother class of all KEGG connectors. It defines code common to all KEGG connectors.
+This is the mother class of all KEGG connectors. It defines code common to
+all KEGG connectors.
 }
 \section{Methods}{
 
 \describe{
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
-\item{\code{wsFind(query, retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
+\item{\code{wsFind(query, retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
+details.}
 
-\item{\code{wsList(retfmt = c("plain", "request", "ids"))}}{Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
+\item{\code{wsList(retfmt = c("plain", "request", "ids"))}}{Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for
+details.}
 }}
 
 \examples{
@@ -36,5 +39,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+\code{\link{BiodbSearchable}}.
 }

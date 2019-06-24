@@ -20,7 +20,10 @@ See https://www.genome.jp/kegg/catalog/org_list.html for a
 complete list of KEGG organism codes.}
 }
 \description{
-This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+This is a concrete connector class. It must never be instantiated directly,
+but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+Only specific methods are described here. See super classes for the
+description of inherited methods.
 }
 \section{Methods}{
 
@@ -28,9 +31,15 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
 case of a compound entry).}
 
-\item{\code{getPathwayIds(id, org)}}{Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves KEGG pathways of this organism in which the compounds are involved. It returns a vector of KEGG pathway IDs.}
+\item{\code{getPathwayIds(id, org)}}{Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG
+organism code, this method retrieves KEGG pathways of this organism in which
+the compounds are involved. It returns a vector of KEGG pathway IDs.}
 
-\item{\code{getPathwayIdsPerCompound(id, org)}}{Get organism pathways for each compound. Given a vector of KEGG Compound IDs and a KEGG organism code, this method retrieves for each compound the KEGG pathways of the organism in which the compound is involved. It returns a named list of KEGG pathway ID vectors, where the names of the list are the compound IDs.}
+\item{\code{getPathwayIdsPerCompound(id, org)}}{Get organism pathways for each compound. Given a vector of KEGG Compound
+IDs and a KEGG organism code, this method retrieves for each compound the
+KEGG pathways of the organism in which the compound is involved. It returns
+a named list of KEGG pathway ID vectors, where the names of the list are the
+compound IDs.}
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
   mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
@@ -38,10 +47,12 @@ must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
                                    ...)}
 
 \item{\code{wsFindExactMass(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_,
-  retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
+  retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html
+for details.}
 
 \item{\code{wsFindMolecularWeight(mass = NA_real_, mass.min = NA_real_,
-  mass.max = NA_real_, retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries by molecular mass. See http://www.kegg.jp/kegg/docs/keggapi.html for details.}
+  mass.max = NA_real_, retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries by molecular mass. See
+http://www.kegg.jp/kegg/docs/keggapi.html for details.}
 }}
 
 \examples{
@@ -65,5 +76,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{KeggConn}}, \code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
+\code{\link{BiodbFactory}}, \code{\link{KeggConn}},
+\code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
 }
