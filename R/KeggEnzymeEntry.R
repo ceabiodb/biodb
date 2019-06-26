@@ -1,27 +1,34 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
+# KeggEnzymeEntry {{{1
+################################################################################
+
 #' @include KeggEntry.R
+KeggEnzymeEntry <- methods::setRefClass("KeggEnzymeEntry",
+    contains='KeggEntry',
 
-# Class declaration {{{1
+# Public methods {{{2
 ################################################################################
 
-KeggEnzymeEntry <- methods::setRefClass("KeggEnzymeEntry", contains='KeggEntry')
+methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
-KeggEnzymeEntry$methods( initialize=function(...) {
+initialize=function(...) {
 
     callSuper(...)
-})
+},
 
-# Parse fields step 2 {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-KeggEnzymeEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseMultilinesField(field='name', tag='NAME', parsed.content=parsed.content, strip.chars=' ;', split.char=NA_character_)
+    .self$.parseMultilinesField(field='name', tag='NAME',
+                                parsed.content=parsed.content, strip.chars=' ;',
+                                split.char=NA_character_)
 
     # Other KEGG IDs
     .self$.parsePathwayIds(parsed.content=parsed.content)
@@ -33,8 +40,13 @@ KeggEnzymeEntry$methods( .parseFieldsStep2=function(parsed.content) {
         m <- stringr::str_match(lines, "^\\s*([^:]+):\\s*(.*)\\s*$")
         org <- tolower(m[, 2])
         genes <- gsub('\\([^)]+\\)', '', m[, 3], perl=TRUE)
-        for (i in seq_along(org))
-            genes.ids <- c(genes.ids, vapply(strsplit(genes[[i]], ' ')[[1]], function(gene) paste(org[[i]], gene, sep=':'), FUN.VALUE=''))
+        for (i in seq_along(org)) {
+            ids <- strsplit(genes[[i]], ' ')[[1]]
+            fct <- function(gene) paste(org[[i]], gene, sep=':')
+            genes.ids <- c(genes.ids, vapply(ids, fct, FUN.VALUE=''))
+        }
         .self$setFieldValue('kegg.genes.id', genes.ids)
     }
-})
+}
+
+))

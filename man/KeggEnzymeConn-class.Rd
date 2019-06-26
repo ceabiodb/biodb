@@ -6,7 +6,10 @@
 \alias{KeggEnzymeConn}
 \title{The connector class to KEGG Enzyme database.}
 \description{
-This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+This is a concrete connector class. It must never be instantiated directly,
+but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+Only specific methods are described here. See super classes for the
+description of inherited methods.
 }
 \section{Methods}{
 
@@ -14,7 +17,9 @@ This is a concrete connector class. It must never be instantiated directly, but 
 \item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
 case of a compound entry).}
 
-\item{\code{getPathwayIds(id, org)}}{Get organism pathways. Given a vector of KEGG Enzyme IDs and a KEGG organism code, this method retrieves KEGG pathways of this organism in which the enzymes are involved. It returns a vector of KEGG pathway IDs.}
+\item{\code{getPathwayIds(id, org)}}{Get organism pathways. Given a vector of KEGG Enzyme IDs and a KEGG
+organism code, this method retrieves KEGG pathways of this organism in which
+the enzymes are involved. It returns a vector of KEGG pathway IDs.}
 }}
 
 \examples{
