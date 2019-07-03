@@ -6,7 +6,10 @@
 \alias{KeggReactionConn}
 \title{The connector class to KEGG Reaction database.}
 \description{
-This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+This is a concrete connector class. It must never be instantiated directly,
+but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+Only specific methods are described here. See super classes for the
+description of inherited methods.
 }
 \section{Methods}{
 

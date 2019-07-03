@@ -1,31 +1,39 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
+# LipidmapsStructureEntry {{{1
+################################################################################
+
 #' @include BiodbCsvEntry.R
+LipidmapsStructureEntry <- methods::setRefClass("LipidmapsStructureEntry",
+    contains='BiodbCsvEntry',
 
-# Class declaration {{{1
+# Public methods {{{1
 ################################################################################
 
-LipidmapsStructureEntry <- methods::setRefClass("LipidmapsStructureEntry", contains='BiodbCsvEntry')
+methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
-LipidmapsStructureEntry$methods( initialize=function(...) {
+initialize=function(...) {
 
     callSuper(na.strings=c('', '-'), ...)
-})
+},
 
-# Is content correct {{{1
+# Private methods {{{1
 ################################################################################
 
-LipidmapsStructureEntry$methods( .isContentCorrect=function(content) {
+# Is content correct {{{3
+################################################################################
+
+.isContentCorrect=function(content) {
     return( ! grepl("No record found", content))
-})
+},
 
-# Parse fields step 2 {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-LipidmapsStructureEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # Set synonyms 
     if (.self$hasField('SYNONYMS')) {
@@ -43,4 +51,6 @@ LipidmapsStructureEntry$methods( .parseFieldsStep2=function(parsed.content) {
             .self$appendFieldValue('name', v)
         }
     }
-})
+}
+
+))

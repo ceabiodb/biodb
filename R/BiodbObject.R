@@ -51,7 +51,7 @@ notify=function(fct, args) {
 # Progress message {{{3
 ################################################################################
 
-progressMsg=function(type='info', msg, index, first, total=NA_integer_) {
+progressMsg=function(msg, index, first, total=NA_integer_, type='info') {
     .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
                                   first=first))
 },

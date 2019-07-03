@@ -73,7 +73,8 @@ calcDistance <-
 ################################################################################
 
 ###The returned sim list is not ordered
-compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine", params=list()) {
+compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine",
+                           params=list()) {
 
     res <- data.frame(score=numeric(0))
 
@@ -84,10 +85,12 @@ compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine", params=list())
             res[[p]] <- integer(0)
     }
 
-    if ( ! is.null(libspec) && ! is.null(spec) && length(libspec) > 0 && nrow(spec) > 0) {
+    if ( ! is.null(libspec) && ! is.null(spec) && length(libspec) > 0
+        && nrow(spec) > 0) {
 
         ####spec is directly normalized.
-        vall <- lapply(libspec, calcDistance, spec1=spec, npmin=npmin, params=params, fun=fun)
+        vall <- lapply(libspec, calcDistance, spec1=spec, npmin=npmin,
+                       params=params, fun=fun)
 
         ####the list is ordered with the chosen metric.
         sim <- vapply(vall, '[[', i="similarity", FUN.VALUE=1)

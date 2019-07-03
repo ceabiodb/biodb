@@ -1,40 +1,48 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# LipidmapsStructureConn {{{1
 ################################################################################
 
 #' @include BiodbCompounddbConn.R
 #' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
-LipidmapsStructureConn=methods::setRefClass("LipidmapsStructureConn", contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"))
+LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn",
+    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"),
 
-# Get entry content request {{{1
+# Public methods {{{2
 ################################################################################
 
-LipidmapsStructureConn$methods( .doGetEntryContentRequest=function(ids, concatenate=TRUE) {
-    return(vapply(ids, function(id) .self$wsLmsdRecord(lmid=id, mode='File', output.type='CSV', retfmt='request')$getUrl()$toString(), FUN.VALUE=''))
-})
+methods=list(
 
-# Get entry page url {{{1
+# Get entry page url {{{3
 ################################################################################
 
-LipidmapsStructureConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=.self$getPropValSlot('urls', 'base.url'), params=list(LMID=x))$toString(), FUN.VALUE=''))
-})
+getEntryPageUrl=function(id) {
+    u <- .self$getPropValSlot('urls', 'base.url')
+    fct <- function(x) BiodbUrl(url=u, params=list(LMID=x))$toString()
+    return(vapply(id, fct, FUN.VALUE=''))
+},
 
-# Get entry image url {{{1
+# Get entry image url {{{3
 ################################################################################
 
-LipidmapsStructureConn$methods( getEntryImageUrl=function(id) {
+getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
-})
+},
 
 
-# Web service LMSDSearch {{{1
+# Web service LMSDSearch {{{3
 ################################################################################
 
-LipidmapsStructureConn$methods( wsLmsdSearch=function(mode=NULL, output.mode=NULL, output.type=NULL, output.delimiter=NULL, output.quote=NULL, output.column.header=NULL, lmid=NULL, name=NULL, formula=NULL, search.type=NULL, smiles.string=NULL, exact.mass=NA_real_, exact.mass.offset=NA_real_, core.class=NULL, main.class=NULL, sub.class=NULL, retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Calls LMSDSearch web service. See http://www.lipidmaps.org/data/structure/programmaticaccess.html."
+wsLmsdSearch=function(mode=NULL, output.mode=NULL, output.type=NULL,
+                      output.delimiter=NULL, output.quote=NULL,
+                      output.column.header=NULL, lmid=NULL, name=NULL,
+                      formula=NULL, search.type=NULL, smiles.string=NULL,
+                      exact.mass=NA_real_, exact.mass.offset=NA_real_,
+                      core.class=NULL, main.class=NULL, sub.class=NULL,
+                      retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    "Calls LMSDSearch web service. See
+    http://www.lipidmaps.org/data/structure/programmaticaccess.html."
 
     retfmt <- match.arg(retfmt)
 
@@ -45,18 +53,28 @@ LipidmapsStructureConn$methods( wsLmsdSearch=function(mode=NULL, output.mode=NUL
     }
 
     # Check parameters
-    if ( ! is.null(mode) && ! mode %in% c('ProcessStrSearch', 'ProcessTextSearch', 'ProcessTextOntologySearch'))
-        .self$message('error', paste0('Unknown value "', output.mode, '" for output.mode parameter.'))
+    if ( ! is.null(mode) &&
+        ! mode %in% c('ProcessStrSearch', 'ProcessTextSearch',
+                      'ProcessTextOntologySearch'))
+        .self$error('Unknown value "', output.mode,
+                    '" for output.mode parameter.')
     if ( ! is.null(output.mode) && ! output.mode %in% c('File'))
-        .self$message('error', paste0('Unknown value "', output.mode, '" for output.mode parameter.'))
+        .self$error('Unknown value "', output.mode,
+                    '" for output.mode parameter.')
     if ( ! is.null(output.type) && ! output.type %in% c('TSV', 'CSV', 'SDF'))
-        .self$message('error', paste0('Unknown value "', output.type, '" for output.type parameter.'))
-    if ( ! is.null(output.delimiter) && ! output.delimiter %in% c('Tab', 'Comma', 'Semicolon'))
-        .self$message('error', paste0('Unknown value "', output.delimiter, '" for output.delimiter parameter.'))
+        .self$error('Unknown value "', output.type,
+                    '" for output.type parameter.')
+    if ( ! is.null(output.delimiter)
+        && ! output.delimiter %in% c('Tab', 'Comma', 'Semicolon'))
+        .self$error('Unknown value "', output.delimiter,
+                    '" for output.delimiter parameter.')
     if ( ! is.null(output.quote) && ! output.quote %in% c('Yes', 'No'))
-        .self$message('error', paste0('Unknown value "', output.quote, '" for output.quote parameter.'))
-    if ( ! is.null(output.column.header) && ! output.column.header %in% c('Yes', 'No'))
-        .self$message('error', paste0('Unknown value "', output.column.header, '" for output.column.header parameter.'))
+        .self$error('Unknown value "', output.quote,
+                    '" for output.quote parameter.')
+    if ( ! is.null(output.column.header)
+        && ! output.column.header %in% c('Yes', 'No'))
+        .self$error('Unknown value "', output.column.header,
+                    '" for output.column.header parameter.')
 
     # Build request
     params <- list(Mode=mode)
@@ -90,7 +108,9 @@ LipidmapsStructureConn$methods( wsLmsdSearch=function(mode=NULL, output.mode=NUL
         params <- c(params, MainClass=main.class)
     if ( ! is.null(sub.class))
         params <- c(params, SubClass=sub.class)
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'structure', 'LMSDSearch.php'), params=params))
+    u <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'),
+                        'structure', 'LMSDSearch.php'), params=params)
+    request <- BiodbRequest(method='get', url=u)
     if (retfmt == 'request')
         return(request)
 
@@ -105,13 +125,18 @@ LipidmapsStructureConn$methods( wsLmsdSearch=function(mode=NULL, output.mode=NUL
             if (is.null(output.type) || output.type == 'TSV')
                 sep <- "\t"
             else
-                sep <- if (is.null(output.delimiter) || output.delimiter == 'Comma') ',' else ';'
-            header <- (is.null(output.column.header) || output.column.header == 'Yes')
-            quote <- if (is.null(output.quote) || output.quote == 'No') '' else '"'
-            results <- read.table(text=results, sep=sep, header=header, comment.char='', stringsAsFactors=FALSE, quote=quote, fill=TRUE)
+                sep <- if (is.null(output.delimiter)
+                           || output.delimiter == 'Comma') ',' else ';'
+            header <- (is.null(output.column.header)
+                       || output.column.header == 'Yes')
+            quote <- if (is.null(output.quote)
+                         || output.quote == 'No') '' else '"'
+            results <- read.table(text=results, sep=sep, header=header,
+                                  comment.char='', stringsAsFactors=FALSE,
+                                  quote=quote, fill=TRUE)
         }
         else
-            .self$message('error', 'Only TSV and CSV output types are parsable.')
+            .self$error('Only TSV and CSV output types are parsable.')
 
         # Extract IDs
         if (retfmt == 'ids')
@@ -119,27 +144,37 @@ LipidmapsStructureConn$methods( wsLmsdSearch=function(mode=NULL, output.mode=NUL
     }
 
     return(results)
-})
+},
 
-# Web service LMSDRecord {{{1
+# Web service LMSDRecord {{{3
 ################################################################################
 
-LipidmapsStructureConn$methods( wsLmsdRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL, output.quote=NULL, output.column.header=NULL, retfmt=c('plain', 'request', 'parsed')) {
-    "Calls LMSDRecord web service. See http://www.lipidmaps.org/data/structure/programmaticaccess.html."
+wsLmsdRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL,
+                      output.quote=NULL, output.column.header=NULL,
+                      retfmt=c('plain', 'request', 'parsed')) {
+    "Calls LMSDRecord web service. See
+    http://www.lipidmaps.org/data/structure/programmaticaccess.html."
 
     retfmt <- match.arg(retfmt)
 
     # Check parameters
     if ( ! is.null(mode) && ! mode %in% c('File', 'Download'))
-        .self$message('error', paste0('Unknown value "', mode, '" for mode parameter.'))
-    if ( ! is.null(output.type) && ! output.type %in% c('TSV', 'CSV', 'SDF', 'MDLMOL'))
-        .self$message('error', paste0('Unknown value "', output.type, '" for output.type parameter.'))
-    if ( ! is.null(output.delimiter) && ! output.delimiter %in% c('Tab', 'Comma', 'Semicolon'))
-        .self$message('error', paste0('Unknown value "', output.delimiter, '" for output.delimiter parameter.'))
+        .self$error('Unknown value "', mode, '" for mode parameter.')
+    if ( ! is.null(output.type)
+        && ! output.type %in% c('TSV', 'CSV', 'SDF', 'MDLMOL'))
+        .self$error('Unknown value "', output.type,
+                    '" for output.type parameter.')
+    if ( ! is.null(output.delimiter)
+        && ! output.delimiter %in% c('Tab', 'Comma', 'Semicolon'))
+        .self$error('Unknown value "', output.delimiter,
+                    '" for output.delimiter parameter.')
     if ( ! is.null(output.quote) && ! output.quote %in% c('Yes', 'No'))
-        .self$message('error', paste0('Unknown value "', output.quote, '" for output.quote parameter.'))
-    if ( ! is.null(output.column.header) && ! output.column.header %in% c('Yes', 'No'))
-        .self$message('error', paste0('Unknown value "', output.column.header, '" for output.column.header parameter.'))
+        .self$error('Unknown value "', output.quote,
+                    '" for output.quote parameter.')
+    if ( ! is.null(output.column.header)
+        && ! output.column.header %in% c('Yes', 'No'))
+        .self$error('Unknown value "', output.column.header,
+                    '" for output.column.header parameter.')
 
     # Build request
     url <- paste0(.self$getPropValSlot('urls', 'base.url'), 'LMSDRecord.php')
@@ -169,30 +204,36 @@ LipidmapsStructureConn$methods( wsLmsdRecord=function(lmid, mode=NULL, output.ty
             if (output.type == 'TSV')
                 sep <- "\t"
             else
-                sep <- if (is.null(output.delimiter) || output.delimiter == 'Comma') ',' else ';'
-            header <- (is.null(output.column.header) || output.column.header == 'Yes')
-            quote <- if (is.null(output.quote) || output.quote == 'No') '' else '"'
-            results <- read.table(text=results, sep=sep, header=header, comment.char='', stringsAsFactors=FALSE, quote=quote, fill=TRUE)
+                sep <- if (is.null(output.delimiter)
+                           || output.delimiter == 'Comma') ',' else ';'
+            header <- (is.null(output.column.header)
+                       || output.column.header == 'Yes')
+            quote <- if (is.null(output.quote)
+                         || output.quote == 'No') '' else '"'
+            results <- read.table(text=results, sep=sep, header=header,
+                                  comment.char='', stringsAsFactors=FALSE,
+                                  quote=quote, fill=TRUE)
         }
         else
-            .self$message('error', 'Only TSV and CSV output types are parsable.')
+            .self$error('Only TSV and CSV output types are parsable.')
     }
 
     return(results)
-})
+},
 
 
-# Search by name {{{1
+# Search by name {{{3
 ################################################################################
 
-LipidmapsStructureConn$methods( searchByName=function(name, max.results=NA_integer_) {
+searchByName=function(name, max.results=NA_integer_) {
     return(.self$searchCompound(name=name, max.results=max.results))
-})
+},
 
-# Search compound {{{1
+# Search compound {{{3
 ################################################################################
 
-LipidmapsStructureConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01, mass.tol.unit='plain', max.results=NA_integer_) {
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
+                        mass.tol.unit='plain', max.results=NA_integer_) {
         
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
@@ -205,7 +246,7 @@ LipidmapsStructureConn$methods( searchCompound=function(name=NULL, mass=NULL, ma
         mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
 
         if (mass.field != 'monoisotopic.mass')
-            .self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+            .self$caution('Mass field "', mass.field, '" is not handled.')
         else {
             exact.mass <- mass
             if (mass.tol.unit == 'ppm')
@@ -216,22 +257,36 @@ LipidmapsStructureConn$methods( searchCompound=function(name=NULL, mass=NULL, ma
     }
 
     # Search
-    ids <- .self$wsLmsdSearch(mode='ProcessStrSearch', output.mode='File', name=name, exact.mass=exact.mass, exact.mass.offset=exact.mass.offset, retfmt='ids')
+    ids <- .self$wsLmsdSearch(mode='ProcessStrSearch', output.mode='File',
+                              name=name, exact.mass=exact.mass,
+                              exact.mass.offset=exact.mass.offset, retfmt='ids')
 
     return(ids)
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Get entry ids {{{2
+# Get entry content request {{{3
 ################################################################################
 
-LipidmapsStructureConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryContentRequest=function(ids, concatenate=TRUE) {
+    fct <- function(id) .self$wsLmsdRecord(lmid=id, mode='File',
+                                           output.type='CSV',
+                                           retfmt='request')$getUrl()$toString()
+    return(vapply(ids, fct, FUN.VALUE=''))
+},
+
+# Get entry ids {{{3
+################################################################################
+
+.doGetEntryIds=function(max.results=NA_integer_) {
 
     # Retrieve all IDs
-    ids <- .self$wsLmsdSearch(mode='ProcessStrSearch', output.mode='File', retfmt='ids')
+    ids <- .self$wsLmsdSearch(mode='ProcessStrSearch', output.mode='File',
+                              retfmt='ids')
 
     return(ids)
-})
+}
 
+))
