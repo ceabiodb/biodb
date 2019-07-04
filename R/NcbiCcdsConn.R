@@ -1,49 +1,51 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# NcbiCcdsConn {{{1
 ################################################################################
 
 #' @include NcbiConn.R
-NcbiCcdsConn <- methods::setRefClass("NcbiCcdsConn", contains="NcbiConn")
+NcbiCcdsConn <- methods::setRefClass("NcbiCcdsConn",
+    contains="NcbiConn",
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-NcbiCcdsConn$methods( initialize=function(...) {
+methods=list(
 
-    # Call parent constructor
-    callSuper(...)
-})
-
-
-# Do get entry content request {{{1
+# Do get entry content request {{{3
 ################################################################################
 
-NcbiCcdsConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
     return(.self$getEntryPageUrl(id))
-})
+},
 
-# Get entry page url {{{1
+# Get entry page url {{{3
 ################################################################################
 
-NcbiCcdsConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'CcdsBrowse.cgi'), params=list(REQUEST='CCDS', GO='MainBrowse', DATA=x))$toString(), FUN.VALUE=''))
-})
+getEntryPageUrl=function(id) {
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'base.url'), 'CcdsBrowse.cgi')
+        p <- list(REQUEST='CCDS', GO='MainBrowse', DATA=x)
+        BiodbUrl(url=u, params=p)$toString()
+    }
+    return(vapply(id, fct, FUN.VALUE=''))
+},
 
-# Get entry image url {{{1
+# Get entry image url {{{3
 ################################################################################
 
-NcbiCcdsConn$methods( getEntryImageUrl=function(id) {
+getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Get entry ids {{{2
+# Get entry ids {{{3
 ################################################################################
 
-NcbiCcdsConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=NA_integer_) {
     return(NULL)
-})
+}
 
+))

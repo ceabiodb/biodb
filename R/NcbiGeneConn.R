@@ -1,38 +1,49 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# NcbiGeneConn {{{1
 ################################################################################
 
 #' @include NcbiEntrezConn.R
 #' @include BiodbSearchable.R
-NcbiGeneConn <- methods::setRefClass("NcbiGeneConn", contains=c('NcbiEntrezConn', 'BiodbSearchable'))
+NcbiGeneConn <- methods::setRefClass("NcbiGeneConn",
+    contains=c('NcbiEntrezConn', 'BiodbSearchable'),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-NcbiGeneConn$methods( initialize=function(...) {
+methods=list(
 
-    callSuper(entrez.name='gene', entrez.tag='Entrezgene', entrez.id.tag='Gene-track_geneid', ...)
-})
-
-# Get entry page url {{{1
+# Initialize {{{3
 ################################################################################
 
-NcbiGeneConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), .self$.entrez.name), params=list(term=x))$toString(), FUN.VALUE=''))
-})
+initialize=function(...) {
 
-# Get entry image url {{{1
+    callSuper(entrez.name='gene', entrez.tag='Entrezgene',
+              entrez.id.tag='Gene-track_geneid', ...)
+},
+
+# Get entry page url {{{3
 ################################################################################
 
-NcbiGeneConn$methods( getEntryImageUrl=function(id) {
+getEntryPageUrl=function(id) {
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'base.url'), .self$.entrez.name)
+        BiodbUrl(url=u, params=list(term=x))$toString()
+    }
+    return(vapply(id, fct, FUN.VALUE=''))
+},
+
+# Get entry image url {{{3
+################################################################################
+
+getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
-})
+},
 
-# Search by name {{{1
+# Search by name {{{3
 ################################################################################
 
-NcbiGeneConn$methods( searchByName=function(name, max.results=NA_integer_) {
+searchByName=function(name, max.results=NA_integer_) {
 
     ids <- NULL
 
@@ -43,7 +54,8 @@ NcbiGeneConn$methods( searchByName=function(name, max.results=NA_integer_) {
     # Set retmax
     if (is.na(max.results)) {
         xml <- .self$wsEsearch(term=term, retmax=0, retfmt='parsed')
-        retmax <- as.integer(XML::xpathSApply(xml, "/eSearchResult/Count", XML::xmlValue))
+        xpath <- "/eSearchResult/Count"
+        retmax <- as.integer(XML::xpathSApply(xml, xpath, XML::xmlValue))
         if (length(retmax) == 0)
             retmax <- NA_integer_
     }
@@ -54,5 +66,6 @@ NcbiGeneConn$methods( searchByName=function(name, max.results=NA_integer_) {
     ids <- .self$wsEsearch(term=term, retmax=retmax, retfmt='ids')
 
     return(ids)
-})
+}
 
+))
