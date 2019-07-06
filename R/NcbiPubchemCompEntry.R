@@ -1,29 +1,32 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
+# NcbiPubchemCompEntry {{{1
+################################################################################
+
 #' @include NcbiPubchemEntry.R
+NcbiPubchemCompEntry <- methods::setRefClass("NcbiPubchemCompEntry",
+    contains="NcbiPubchemEntry",
 
-# Class declaration {{{1
+# Private methods {{{2
 ################################################################################
 
-NcbiPubchemCompEntry <- methods::setRefClass("NcbiPubchemCompEntry", contains="NcbiPubchemEntry")
+methods=list(
 
-# Initialize {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-NcbiPubchemCompEntry$methods( initialize=function(...) {
-    callSuper(...)
-})
-
-# Parse fields step 2 {{{1
-################################################################################
-
-NcbiPubchemCompEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # Set names
     names <- character()
-    for (f in c('COMP.IUPAC.NAME.PREF', 'COMP.IUPAC.NAME.ALLOWED', 'COMP.IUPAC.NAME.TRAD', 'COMP.IUPAC.NAME.SYST', 'COMP.IUPAC.NAME.CAS'))
+    fields <- c('COMP.IUPAC.NAME.PREF', 'COMP.IUPAC.NAME.ALLOWED',
+                'COMP.IUPAC.NAME.TRAD', 'COMP.IUPAC.NAME.SYST',
+                'COMP.IUPAC.NAME.CAS')
+    for (f in fields)
         if (.self$hasField(f))
             names <- c(names, .self$getFieldValue(f, compute=FALSE))
     if (length(names) > 0)
         .self$setFieldValue('name', names)
-})
+}
+
+))
