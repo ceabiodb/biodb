@@ -92,8 +92,8 @@ cosine <-
         w1 <- int1 ^ intexp * mz1 ^ mzexp
         w2 <- int2 ^ intexp * mz2 ^ mzexp
         cos_value <-
-            sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
-                                                                            2) * sum(w2[unlist(matchList[pfound])] ^ 2))
+            (sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2)
+             / (sum(w1[pfound] ^ 2) * sum(w2[unlist(matchList[pfound])] ^ 2)))
         
         ####Adding the penality if needed.
         list(measure=cos_value, matched=simpList(matchList))
@@ -123,27 +123,25 @@ wcosine <-
         w2 <- int2 ^ intexp * mz2 ^ mzexp
         
         cos_value <-
-            sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2) / (sum(w1[pfound] ^
-                                                                            2) * sum(w2[unlist(matchList[pfound])] ^ 2))
+            (sum((w1[pfound] * w2[unlist(matchList[pfound])]) ^ 2)
+             / (sum(w1[pfound] ^ 2) * sum(w2[unlist(matchList[pfound])] ^ 2)))
         
         if (is.nan(cos_value))
             cos_value <- 0
         ####Adding the penality if needed.
-        div=1
+        div <- 1
         if (penality == "rweigth") {
             p <-
-                (sum(w1[pfound]) / sum(w1) + sum(w2[unlist(matchList[pfound])]) / sum(w2)) /
-                2
-            div=2
-        } else{
+                ((sum(w1[pfound]) / sum(w1)
+                  + sum(w2[unlist(matchList[pfound])]) / sum(w2)) / 2)
+            div <- 2
+        } else
             p <- 0
-        }
         
         measure <-  (cos_value + p) / div
         if (is.nan(measure))
             measure <-  (cos_value) / div
-        list(measure=measure,
-             matched=simpList(matchList))
+        list(measure=measure, matched=simpList(matchList))
     }
 
 ##The spec is seen as the mixture of two gaussian.
@@ -205,15 +203,14 @@ pkernel <-
                 accu=accu + scalet / divisor
             }
         }
-        div=1
+        div <- 1
         if (penality == "rweigth") {
             p <-
-                (sum(w1[pfound]) / sum(w1) + sum(w2[unlist(matchList[pfound])]) / sum(w2)) /
-                2
-            div=2
-        } else{
+                ((sum(w1[pfound]) / sum(w1)
+                  + sum(w2[unlist(matchList[pfound])]) / sum(w2)) / 2)
+            div <- 2
+        } else
             p <- 0
-        }
         accu=accu / (l2 * l1)
         list(measure=(accu + p) / div,
              matched=simpList(matchList))
@@ -265,23 +262,22 @@ pbachtttarya <-
             mz2v <- mz2[matchList[[j]]]
             sig1 <- vsig1[j]
             sig2 <- vsig2[matchList[[j]]]
-            #cat(paste("ml",matchList[[j]],"mz1 ",mz1," mz2 ",mz2," sig1 ",sig1," sig2 ",sig2,"\n"))
+            #cat(paste("ml",matchList[[j]],"mz1 ",mz1," mz2 ",mz2," sig1
+            #",sig1," sig2 ",sig2,"\n"))
             sig <- max(sig1, sig2)
-            xseq <- seq(min(mz1v, mz2v) - 4 * sig, max(mz1v, mz2v) + 4 * sig, length =
-                            100)
+            xseq <- seq(min(mz1v, mz2v) - 4 * sig, max(mz1v, mz2v) + 4 * sig,
+                        length = 100)
             y1 <- stats::dnorm(xseq, mean=mz1v, sd=sig)
             y2 <- stats::dnorm(xseq, mean=mz2v, sd=sig)
             accu=accu + sum(trpz(xseq,sqrt(y1 * y2)))
         }
-        div=1
+        div <- 1
         if (penality == "rweigth") {
-            p <-
-                (sum(w1[pfound]) / sum(w1) + sum(w2[unlist(matchList[pfound])]) / sum(w2)) /
-                2
-            div=2
-        } else{
+            p <- ((sum(w1[pfound]) / sum(w1)
+                   + sum(w2[unlist(matchList[pfound])]) / sum(w2)) /2)
+            div <- 2
+        } else
             p <- 0
-        }
         accu=accu / (l2 * l1)
         list(measure=(accu + p) / div,
              matched=simpList(matchList))

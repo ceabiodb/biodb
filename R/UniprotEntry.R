@@ -6,17 +6,8 @@
 #' @include BiodbXmlEntry.R
 UniprotEntry <- methods::setRefClass("UniprotEntry",
     contains="BiodbXmlEntry",
-    methods=list(
 
-# Public methods {{{2
-################################################################################
-
-# Initialize {{{3
-################################################################################
-
-initialize=function(...) {
-    callSuper(...)
-},
+methods=list(
 
 # Private methods {{{2
 ################################################################################

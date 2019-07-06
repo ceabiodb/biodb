@@ -13,7 +13,10 @@
 \item{query}{The query to send to the database.}
 }
 \description{
-This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+This is a concrete connector class. It must never be instantiated directly,
+but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+Only specific methods are described here. See super classes for the
+description of inherited methods.
 }
 \section{Methods}{
 
@@ -29,7 +32,8 @@ must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
                                    ...)}
 
 \item{\code{wsQuery(query = "", columns = NULL, format = NULL, limit = NULL,
-  retfmt = c("plain", "parsed", "ids", "request"))}}{Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details.}
+  retfmt = c("plain", "parsed", "ids", "request"))}}{Direct query to the database for searching for compounds. See
+http://www.uniprot.org/help/api_queries for details.}
 }}
 
 \examples{
@@ -49,5 +53,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbCompounddbConn}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+\code{\link{BiodbCompounddbConn}}.
 }

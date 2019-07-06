@@ -1,17 +1,21 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# UniprotConn {{{1
 ################################################################################
 
 #' The connector class to Uniprot database.
 #'
-#' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+#' This is a concrete connector class. It must never be instantiated directly,
+#' but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+#' Only specific methods are described here. See super classes for the
+#' description of inherited methods.
 #'
 #' @param columns   The field columns to retrieve from the database.
 #' @param format    The return format.
 #' @param query     The query to send to the database.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbCompounddbConn}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+#' \code{\link{BiodbCompounddbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -33,20 +37,21 @@
 #' @include BiodbSearchable.R
 #' @export UniprotConn
 #' @exportClass UniprotConn
-UniprotConn <- methods::setRefClass("UniprotConn", contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", 'BiodbSearchable'))
+UniprotConn <- methods::setRefClass("UniprotConn",
+    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", 'BiodbSearchable'),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-UniprotConn$methods( initialize=function(...) {
-    callSuper(...)
-})
+methods=list(
 
-# Web service query {{{1
+# Web service query {{{3
 ################################################################################
 
-UniprotConn$methods( wsQuery=function(query='', columns=NULL, format=NULL, limit=NULL, retfmt=c('plain', 'parsed', 'ids', 'request')) {
-    "Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details."
+wsQuery=function(query='', columns=NULL, format=NULL, limit=NULL,
+                 retfmt=c('plain', 'parsed', 'ids', 'request')) {
+    "Direct query to the database for searching for compounds. See
+    http://www.uniprot.org/help/api_queries for details."
 
     retfmt <- match.arg(retfmt)
 
@@ -58,7 +63,12 @@ UniprotConn$methods( wsQuery=function(query='', columns=NULL, format=NULL, limit
 
     # Set columns
     if (is.null(columns) || all(is.na(columns)))
-        columns <- c("citation", "clusters", "comments", "domains", "domain", "ec", "id", "entry name", "existence", "families", "features", "genes", "go", "go-id", "interactor", "keywords", "last-modified", "length", "organism", "organism-id", "pathway", "protein names", "reviewed", "sequence", "3d", "version", "virus hosts")
+        columns <- c("citation", "clusters", "comments", "domains", "domain",
+                     "ec", "id", "entry name", "existence", "families",
+                     "features", "genes", "go", "go-id", "interactor",
+                     "keywords", "last-modified", "length", "organism",
+                     "organism-id", "pathway", "protein names", "reviewed",
+                     "sequence", "3d", "version", "virus hosts")
 
     # Set format
     if (is.null(format) || is.na(format))
@@ -68,7 +78,8 @@ UniprotConn$methods( wsQuery=function(query='', columns=NULL, format=NULL, limit
     params <- list(query=query, columns=columns, format=format)
     if ( ! is.null(limit) && ! is.na(limit))
         params[['limit']] <- limit
-    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), ''), params=params)
+    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), ''),
+                    params=params)
     request <- BiodbRequest(method='get', url=url)
 
     # Return request
@@ -93,43 +104,46 @@ UniprotConn$methods( wsQuery=function(query='', columns=NULL, format=NULL, limit
     }
 
     return(results)
-})
+},
 
-# Do get entry content request {{{1
+# Do get entry content request {{{3
 ################################################################################
 
-UniprotConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
                         
     url <- paste0(.self$getPropValSlot('urls', 'base.url'), id, '.xml')
 
     return(url)
-})
+},
 
-# Get entry page url {{{1
+# Get entry page url {{{3
 ################################################################################
 
-UniprotConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), id))$toString(), FUN.VALUE=''))
-})
+getEntryPageUrl=function(id) {
+    u <- c(.self$getPropValSlot('urls', 'base.url'), id)
+    f <- function(x) BiodbUrl(url=u)$toString()
+    return(vapply(id, f, FUN.VALUE=''))
+},
 
-# Get entry image url {{{1
+# Get entry image url {{{3
 ################################################################################
 
-UniprotConn$methods( getEntryImageUrl=function(id) {
+getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
-})
+},
 
-# Search by name {{{1
+# Search by name {{{3
 ################################################################################
 
-UniprotConn$methods( searchByName=function(name, max.results=NA_integer_) {
+searchByName=function(name, max.results=NA_integer_) {
     return(.self$searchCompound(name=name, max.results=max.results))
-})
+},
 
-# Search compound {{{1
+# Search compound {{{3
 ################################################################################
 
-UniprotConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01, mass.tol.unit='plain', max.results=NA_integer_) {
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
+                        mass.tol.unit='plain', max.results=NA_integer_) {
         
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
@@ -148,7 +162,7 @@ UniprotConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NU
         mass.field <- .self$getBiodb()$getEntryFields()$getRealName(mass.field)
 
         if (mass.field != 'molecular.mass')
-            .self$message('caution', paste0('Mass field "', mass.field, '" is not handled.'))
+            .self$caution('Mass field "', mass.field, '" is not handled.')
 
         else {
 
@@ -164,9 +178,13 @@ UniprotConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NU
             uniprot.mass.min <- as.integer(mass.min)
             uniprot.mass.max <- as.integer(mass.max)
             if (uniprot.mass.min != mass.min || uniprot.mass.max != mass.max)
-                .self$message('caution', paste0('Uniprot requires integers for mass range. Range [', mass.min, ', ', mass.max, '] will be converted into [', uniprot.mass.min, ', ', uniprot.mass.max, '].'))
+                .self$caution('Uniprot requires integers for mass range.',
+                              ' Range [', mass.min, ', ', mass.max,
+                              '] will be converted into [', uniprot.mass.min,
+                              ', ', uniprot.mass.max, '].')
 
-            mass.query <- paste0('mass:[', uniprot.mass.min, ' TO ', uniprot.mass.max, ']')
+            mass.query <- paste0('mass:[', uniprot.mass.min, ' TO ',
+                                 uniprot.mass.max, ']')
 
             if (nchar(query) > 0) {
                 query <- paste0('(', query, ')')
@@ -181,18 +199,19 @@ UniprotConn$methods( searchCompound=function(name=NULL, mass=NULL, mass.field=NU
     ids <- .self$wsQuery(query=query, limit=max.results, retfmt='ids')
 
     return(ids)
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Get entry ids {{{2
+# Get entry ids {{{3
 ################################################################################
 
-UniprotConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=NA_integer_) {
 
     ids <- .self$wsQuery(limit=max.results, retfmt='ids')
 
     return(ids)
-})
+}
 
+))
