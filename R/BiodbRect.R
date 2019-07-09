@@ -16,8 +16,6 @@
 #' @seealso \code{\link{BiodbShape}}, \code{\link{BiodbCircle}}.
 #'
 #' @include BiodbShape.R
-#' @export BiodbRect
-#' @exportClass BiodbRect
 BiodbRect <- methods::setRefClass('BiodbRect',
                                   contains='BiodbShape',
 

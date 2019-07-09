@@ -12,8 +12,6 @@
 #'
 #' @seealso \code{\link{BiodbRect}}, \code{\link{BiodbCircle}}.
 #'
-#' @export BiodbShape
-#' @exportClass BiodbShape
 BiodbShape <- methods::setRefClass('BiodbShape',
 
     # Fields {{{2

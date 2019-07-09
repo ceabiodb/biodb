@@ -6,7 +6,8 @@
 #' A class for representing a circle.
 #'
 #' This class represents a rectangle, used for graphical
-#' representation.
+#' representation. It is used inside by
+#' KeggPathwayConn::extractPathwayMapShapes() method.
 #'
 #' @field x      X coordinate of center. 
 #' @field y      Y coordinate of center. 
@@ -14,9 +15,21 @@
 #'
 #' @seealso \code{\link{BiodbShape}}, \code{\link{BiodbRect}}.
 #'
+#' @examples
+#' # Create an instance
+#' c1 <- BiodbCircle(x=12, y=5, r=3)
+#'
+#' # Since it inherits from BiodbShape, a color and a label can be set
+#' c2 <- BiodbCircle(x=12, y=5, r=3, color='blue', label='Circle 2')
+#'
+#' # Getting center
+#' c1$getX()
+#' c1$getY()
+#'
+#' # Getting radius
+#' c1#getRadius()
+#'
 #' @include BiodbShape.R
-#' @export BiodbCircle
-#' @exportClass BiodbCircle
 BiodbCircle <- methods::setRefClass('BiodbCircle',
                                     contains='BiodbShape',
 
