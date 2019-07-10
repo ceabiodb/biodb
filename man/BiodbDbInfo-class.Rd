@@ -11,6 +11,18 @@ characteristics, and returning them through the \code{get()} method.
 This class inherits from \code{\link{BiodbConnBase}}.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get a BiodbDbInfo object for a database:
+mybiodb$getDbsInfo()$get('chebi')
+
+# Terminate instance.
+mybiodb$terminate()
+mybiodb <- NULL
+
+}
 \seealso{
 \code{\link{BiodbDbsInfo}}, \code{\link{BiodbConnBase}}.
 }

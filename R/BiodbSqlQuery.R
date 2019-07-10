@@ -16,8 +16,6 @@
 #' @seealso \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbRequest}}.
 #'
 #' @import methods
-#' @export BiodbSqlQuery
-#' @exportClass BiodbSqlQuery
 BiodbSqlQuery <- methods::setRefClass("BiodbSqlQuery",
     fields=list(
         .table='character',
