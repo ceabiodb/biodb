@@ -12,8 +12,6 @@
 #'
 #' @import methods
 #' @include BiodbObserver.R
-#' @export BiodbErrorReporter
-#' @exportClass BiodbErrorReporter
 BiodbErrorReporter <- methods::setRefClass("BiodbErrorReporter",
     contains='BiodbObserver',
 

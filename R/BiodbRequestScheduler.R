@@ -47,7 +47,7 @@ BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler",
         .connid2rules="list"
     ),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(

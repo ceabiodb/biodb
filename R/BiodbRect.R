@@ -16,41 +16,47 @@
 #' @seealso \code{\link{BiodbShape}}, \code{\link{BiodbCircle}}.
 #'
 #' @include BiodbShape.R
+#' @export BiodbRect
+#' @exportClass BiodbRect
+#'
+#' @examples
+#' # Create a rectangle instance
+#' r <- BiodbRect(left=10, top=10, bottom=20, right=30, color='yellow')
+#'
+#' # Draw a rectangle on current image
+#' r$draw()
+#'
 BiodbRect <- methods::setRefClass('BiodbRect',
-                                  contains='BiodbShape',
-
-    # Fields {{{2
-    ################################################################
-                                  
+    contains='BiodbShape',
     fields=list(.left='integer',
-                  .bottom='integer',
-                  .right='integer',
-                  .top='integer'),
+                .bottom='integer',
+                .right='integer',
+                .top='integer'),
 
-    # Public methods {{{2
-    ################################################################
+# Public methods {{{2
+################################################################################
 
-    methods=list(
+methods=list(
 
 # Initialize {{{3
-        ################################################################
+################################################################################
 
-        initialize=function(left, top, bottom, right, ...) {
-            callSuper(...)
-            .self$.left <- left
-            .self$.right <- right
-            .self$.top <- top
-            .self$.bottom <- bottom
-        },
+initialize=function(left, top, bottom, right, ...) {
+    callSuper(...)
+    .self$.left <- left
+    .self$.right <- right
+    .self$.top <- top
+    .self$.bottom <- bottom
+},
 
-        # Draw {{3
-        ################################################################
+# Draw {{{3
+################################################################################
 
-        draw=function() {
-            'Draw the shape on the current image.'
-            
-            rect(.self$.left, .self$.bottom, .self$.right, .self$.top,
-                 col=.self$getRgbColor(alpha=127), border=NA)
-        }
-    )
-)
+draw=function() {
+    'Draw the shape on the current image.'
+    
+    rect(.self$.left, .self$.bottom, .self$.right, .self$.top,
+         col=.self$getRgbColor(alpha=127), border=NA)
+}
+
+))

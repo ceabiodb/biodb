@@ -26,6 +26,14 @@ This abstract class represents a shape, used for graphical representation.
 \item{\code{getRgbColor(alpha = 255)}}{Return the RGB color associated with this shape.}
 }}
 
+\examples{
+# Create a circle instance
+c <- BiodbCircle(x=12, y=5, r=3, label='MyCircle')
+
+# Create a rectangle instance
+r <- BiodbRect(left=10, top=10, bottom=20, right=30, color='yellow')
+
+}
 \seealso{
 \code{\link{BiodbRect}}, \code{\link{BiodbCircle}}.
 }

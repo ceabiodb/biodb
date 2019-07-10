@@ -29,16 +29,17 @@
 #' # Getting radius
 #' c1#getRadius()
 #'
+#' # Draw a circle on the current image
+#' c1$draw()
+#'
 #' @include BiodbShape.R
+#' @export BiodbCircle
+#' @exportClass BiodbCircle
 BiodbCircle <- methods::setRefClass('BiodbCircle',
-                                    contains='BiodbShape',
-
-# Fields {{{2
-################################################################################
-
-fields=list(.x='integer',
-            .y='integer',
-            .r='integer'),
+    contains='BiodbShape',
+    fields=list(.x='integer',
+                .y='integer',
+                .r='integer'),
 
 # Public methods {{{2
 ################################################################################
@@ -55,7 +56,7 @@ initialize=function(x, y, r, ...) {
     .self$.r <- r
 },
 
-# Get X {{3
+# Get X {{{3
 ################################################################################
 
 getX=function() {
@@ -64,7 +65,7 @@ getX=function() {
     return(.self$.x)
 },
 
-# Get Y {{3
+# Get Y {{{3
 ################################################################################
 
 getY=function() {
@@ -73,7 +74,7 @@ getY=function() {
     return(.self$.y)
 },
 
-# Get radius {{3
+# Get radius {{{3
 ################################################################################
 
 getRadius=function() {
@@ -82,7 +83,7 @@ getRadius=function() {
     return(.self$.r)
 },
 
-# Draw {{3
+# Draw {{{3
 ################################################################################
 
 draw=function() {

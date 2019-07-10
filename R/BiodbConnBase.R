@@ -6,16 +6,45 @@
 #' Base class of \code{BiodbConn} for encapsulating all needed information for
 #' database access.
 #'
-#' This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}. The
-#' constructor is not meant to be used, but for development purposes the
-#' constructor's parameters are nevertheless described in the Fields section.
+#' This is the base class for \code{BiodbConn} and \code{BiodbDbInfo}.
+#' When defining a new connector class, your class must not inherit from
+#' \code{BiodbBaseConn} but at least from \code{BiodbConn} (or
+#' \code{BiodbRemoteConn} or any subclass of \code{BiodbConn}).
+#' Its main purpose is to store property values. Those values are initialized
+#' from YAML files. The default definition file is located inside the package
+#' in "inst/definitions.yml" and is loaded at Biodb startup. However you can
+#' define your own files and loaded them using the \code{Biodb::()} method.
 #'
 #' @field db.class      The class of the database (\code{"massbank",
 #'                      "hmdb.metabolies", ...}).
-#' @field prop.def      Definitions of the properties.
-#' @field prop          Values of the properties.
+#' @field properties    Some properties to set at initialization.
+#' @field other         Another object inheriting from \code{BiodbBaseConn}, and
+#'                      from which property values will be copied.
 #'
 #' @seealso \code{\link{BiodbDbsInfo}}, \code{\link{BiodbConn}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#' 
+#' # Accessing BiodbConnBase methods when using a BiodbDbInfo object
+#' dbinf <- mybiodb$getDbsInfo()$get('chebi')
+#'
+#' # Test if a property exists
+#' dbinf$hasProp('token')
+#'
+#' # Get a property value
+#' dbinf$getPropertyValue('name')
+#'
+#' # Set a property value
+#' dbinf$setPropertyValue('token', 'MyTokenValue')
+#'
+#' # Get a property value slot
+#' dbinf$getPropValSlot('urls', 'base.url')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#' mybiodb <- NULL
 #'
 #' @import methods
 #' @include BiodbChildObject.R
@@ -23,16 +52,12 @@
 #' @exportClass BiodbConnBase
 BiodbConnBase <- methods::setRefClass("BiodbConnBase",
     contains="BiodbChildObject",
-
-# Fields {{{2
-################################################################################
-
-fields=list(
-    .db.class="character",
-    .observers='list',
-    .prop.def='list',
-    .prop='list',
-    .run.hooks='character'),
+    fields=list(
+        .db.class="character",
+        .observers='list',
+        .prop.def='list',
+        .prop='list',
+        .run.hooks='character'),
 
 # Public methods {{{2
 ################################################################################

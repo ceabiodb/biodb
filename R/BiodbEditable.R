@@ -15,6 +15,26 @@
 #'
 #' @seealso \code{\link{BiodbWritable}}.
 #'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create an empty writable database
+#' mydb <- mybiodb$getFactory()$createConn('mass.sqlite')
+#'
+#' # Create new entry object
+#' entry <- mybiodb$getFactory()$createNewEntry('mass.sqlite')
+#' entry$setFieldValue('accession', '0')
+#' entry$setFieldValue('name', 'Some Entry')
+#'
+#' # Add an entry
+#' mydb$allowEditing()
+#' mydb$addNewEntry(entry)
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#' mybiodb <- NULL
+#'
 #' @import methods
 #' @include BiodbObject.R
 #' @export BiodbEditable

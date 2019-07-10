@@ -44,6 +44,9 @@ c1$getY()
 # Getting radius
 c1#getRadius()
 
+# Draw a circle on the current image
+c1$draw()
+
 }
 \seealso{
 \code{\link{BiodbShape}}, \code{\link{BiodbRect}}.
