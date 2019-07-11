@@ -69,6 +69,7 @@ wsQuery=function(query='', columns=NULL, format=NULL, limit=NULL,
                      "keywords", "last-modified", "length", "organism",
                      "organism-id", "pathway", "protein names", "reviewed",
                      "sequence", "3d", "version", "virus hosts")
+    columns <- paste(columns, collapse=',')
 
     # Set format
     if (is.null(format) || is.na(format))
