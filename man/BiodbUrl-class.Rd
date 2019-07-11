@@ -14,6 +14,16 @@
 This class represents a URL object that can be used in requests.
 }
 
+\examples{
+# Create a URL object
+u <- c("https://www.uniprot.org", "uniprot")
+p <- c(query="reviewed:yes+AND+organism:9606",
+       columns='id,entry name,protein names',
+       format="tab")
+url <- BiodbUrl(url=u, params=p)
+url$toString()
+
+}
 \seealso{
 \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbRequest}}.
 }

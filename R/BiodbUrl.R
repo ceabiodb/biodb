@@ -12,6 +12,15 @@
 #'
 #' @seealso \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbRequest}}.
 #'
+#' @examples
+#' # Create a URL object
+#' u <- c("https://www.uniprot.org", "uniprot")
+#' p <- c(query="reviewed:yes+AND+organism:9606",
+#'        columns='id,entry name,protein names',
+#'        format="tab")
+#' url <- BiodbUrl(url=u, params=p)
+#' url$toString()
+#'
 #' @import methods
 #' @export BiodbUrl
 #' @exportClass BiodbUrl
@@ -67,6 +76,13 @@ setUrl=function(url) {
 
 setParam=function(key, value) {
     .self$.params[[key]] <- value
+},
+
+# Show {{{3
+################################################################################
+
+show=function() {
+    cat(.self$toString(), "\n", sep='')
 },
 
 # To string {{{3

@@ -11,6 +11,23 @@ The class implementing this interface, must be searchable in a generic way.
 For instance, its entries must be searchable by name.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get a connector to a searchable database
+chebi <- mybiodb$getFactory()$getConn('chebi')
+
+# Search an entry by name
+\dontrun{
+chebi$searchByName('benzene')
+}
+
+# Terminate instance.
+mybiodb$terminate()
+mybiodb <- NULL
+
+}
 \seealso{
 \code{\link{BiodbConn}}.
 }

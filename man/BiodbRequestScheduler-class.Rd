@@ -46,6 +46,28 @@ file.}
   encoding = integer())}}{Send a SOAP request to a URL. Returns the string result.}
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get the scheduler
+sched <- mybiodb$getRequestScheduler()
+
+# Create a request object
+u <- 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1/XML'
+url <- BiodbUrl(url=u)
+request <- BiodbRequest(method='get', url=url)
+
+# Send request
+\dontrun{
+sched$sendRequest(request)
+}
+
+# Terminate instance.
+mybiodb$terminate()
+mybiodb <- NULL
+
+}
 \seealso{
 \code{\link{BiodbRemotedbConn}},
 \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
