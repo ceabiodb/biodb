@@ -11,6 +11,22 @@
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Get a connector to a searchable database
+#' chebi <- mybiodb$getFactory()$getConn('chebi')
+#'
+#' # Search an entry by name
+#' \dontrun{
+#' chebi$searchByName('benzene')
+#' }
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#' mybiodb <- NULL
+#'
 #' @import methods
 #' @include BiodbObject.R
 #' @export BiodbSearchable
