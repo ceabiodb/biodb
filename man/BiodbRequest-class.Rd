@@ -13,6 +13,25 @@ This class represents a Request object that can be used with the Request
 Scheduler.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a request object
+u <- 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1/XML'
+url <- BiodbUrl(url=u)
+request <- BiodbRequest(method='get', url=url)
+
+# Send request
+\dontrun{
+mybiodb$getRequestScheduler()$sendRequest(request)
+}
+
+# Terminate instance.
+mybiodb$terminate()
+mybiodb <- NULL
+
+}
 \seealso{
 \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbUrl}}.
 }
