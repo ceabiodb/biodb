@@ -1,6 +1,6 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# BiodbUrl {{{1
 ################################################################################
 
 #' Class URL.
@@ -12,15 +12,33 @@
 #'
 #' @seealso \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbRequest}}.
 #'
+#' @examples
+#' # Create a URL object
+#' u <- c("https://www.uniprot.org", "uniprot")
+#' p <- c(query="reviewed:yes+AND+organism:9606",
+#'        columns='id,entry name,protein names',
+#'        format="tab")
+#' url <- BiodbUrl(url=u, params=p)
+#' url$toString()
+#'
 #' @import methods
 #' @export BiodbUrl
 #' @exportClass BiodbUrl
-BiodbUrl <- methods::setRefClass("BiodbUrl", fields=list(.url='character', .params='character'))
+BiodbUrl <- methods::setRefClass("BiodbUrl",
+    fields=list(
+        .url='character',
+        .params='character'
+        ),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-BiodbUrl$methods( initialize=function(url=character(), params=character()) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(url=character(), params=character()) {
 
     # Set URL
     .self$.url <- url
@@ -34,40 +52,49 @@ BiodbUrl$methods( initialize=function(url=character(), params=character()) {
         names(params) <- names
     }
     .self$.params <- params
-})
+},
 
-# Get domain {{{1
+# Get domain {{{3
 ################################################################################
 
-BiodbUrl$methods( getDomain=function() {
+getDomain=function() {
 
     domain <- sub('^.+://([^/]+)(/.*)?$', '\\1', .self$.url[[1]], perl=TRUE)
 
     return(domain)
-})
+},
 
-# Set URL {{{1
+# Set URL {{{3
 ################################################################################
 
-BiodbUrl$methods( setUrl=function(url) {
+setUrl=function(url) {
     .self$.url <- url
-})
+},
 
-# Set parameter {{{1
+# Set parameter {{{3
 ################################################################################
 
-BiodbUrl$methods( setParam=function(key, value) {
+setParam=function(key, value) {
     .self$.params[[key]] <- value
-})
+},
 
-# To string {{{1
+# Show {{{3
 ################################################################################
 
-BiodbUrl$methods( toString=function(encode=TRUE) {
+show=function() {
+    cat(.self$toString(), "\n", sep='')
+},
 
-    # Build URL
-    url <- gsub('^/*([^/].*[^/])/*$', '\\1', .self$.url) # Remove '/' at start and end of each element
-    url <- paste(url, collapse='/') # Concatenate elements together
+# To string {{{3
+################################################################################
+
+toString=function(encode=TRUE) {
+
+    # Remove '/' at start and end of each element of the URL
+    url <- gsub('^/*([^/].*[^/])/*$', '\\1', .self$.url)
+    
+    # Concatenate URL elements together
+    url <- paste(url, collapse='/')
 
     # Add parameters to URL
     if (length(.self$.params) > 0) {
@@ -80,7 +107,13 @@ BiodbUrl$methods( toString=function(encode=TRUE) {
             pv <- vapply(pv, utils::URLencode, FUN.VALUE='', USE.NAMES=FALSE)
 
         # Build parameters string
-        kv.list <- vapply(seq_along(pv), function(i) if (is.null(pn) || nchar(pn[[i]]) == 0) pv[[i]] else paste(pn[[i]], pv[[i]], sep='='), FUN.VALUE='')
+        fct <- function(i) {
+            if (is.null(pn) || nchar(pn[[i]]) == 0)
+                pv[[i]]
+            else
+                paste(pn[[i]], pv[[i]], sep='=')
+        }
+        kv.list <- vapply(seq_along(pv), fct, FUN.VALUE='')
         params.str <- paste(kv.list, collapse='&')
 
         # Concatenate URL with parameters
@@ -88,4 +121,6 @@ BiodbUrl$methods( toString=function(encode=TRUE) {
     }
 
     return(url)
-})
+}
+
+))

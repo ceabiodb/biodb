@@ -30,7 +30,8 @@ and only
 one ChEBI ID has been found for each InChI, then a character vector is
 returned. Otherwise a list of character vectors is returned.}
 
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
+case of a compound entry).}
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 

@@ -1,23 +1,23 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+# NcbiCcdsEntry {{{1
+################################################################################
 
 #' @include BiodbHtmlEntry.R
+NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry",
+    contains="BiodbHtmlEntry",
 
-# Class declaration {{{1
+# Private methods {{{2
 ################################################################################
 
-NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry", contains="BiodbHtmlEntry")
+methods=list(
 
-# Initialize {{{1
+# Is parsed content correct {{{3
 ################################################################################
 
-NcbiCcdsEntry$methods( initialize=function(...) {
+.isParsedContentCorrect=function(parsed.content) {
+    xpath <- "//*[starts-with(.,'No results found for CCDS ID ')]"
+    return(length(XML::getNodeSet(parsed.content, xpath)) == 0)
+}
 
-    callSuper(...)
-})
-
-# Is parsed content correct {{{1
-################################################################################
-
-NcbiCcdsEntry$methods( .isParsedContentCorrect=function(parsed.content) {
-    return(length(XML::getNodeSet(parsed.content, "//*[starts-with(.,'No results found for CCDS ID ')]")) == 0)
-})
+))

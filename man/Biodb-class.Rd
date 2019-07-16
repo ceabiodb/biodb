@@ -20,7 +20,7 @@ greater than one, then values are collapsed and output is
 a vector of class character.}
 
 \item{null.to.na}{If \code{TRUE}, each \code{NULL} entry is converted into a
-line of \code{NA} values inside the data frame."}
+line of \code{NA} values inside the data frame.}
 
 \item{observers}{Either a \code{BiodbObserver} class instance or a list of
 \code{BiodbObserver} class instances.}
@@ -36,7 +36,8 @@ this class. See section Fields for a list of the constructor's parameters.
 \section{Fields}{
 
 \describe{
-\item{\code{logger}}{Set to \code{FALSE} if you want to disable the default}
+\item{\code{logger}}{Set to \code{FALSE} if you want to disable the default
+logger.}
 
 \item{\code{observers}}{Either a \code{BiodbObserver} class instance or a list of
 \code{BiodbObserver} class instances.}

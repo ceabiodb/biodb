@@ -1,21 +1,23 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Constants {{{1
-################################################################################
-
-
-# Class declaration {{{1
+# BiodbEntryField {{{1
 ################################################################################
 
 #' A class for describing an entry field.
 #'
-#' This class is used by \code{\link{BiodbEntryFields}} for storing field characteristics, and returning them through the \code{get()} method. The constructor is not meant to be used, but for development purposes the constructor's parameters are nevertheless described in the Fields section.
+#' This class is used by \code{\link{BiodbEntryFields}} for storing field
+#' characteristics, and returning them through the \code{get()} method. The
+#' constructor is not meant to be used, but for development purposes the
+#' constructor's parameters are nevertheless described in the Fields section.
 #'
 #' @field name              The name of the field.
-#' @field alias             A character vector containing zero or more aliases for the field.
-#' @field class             The class of the field. One of: 'character', 'integer', 'double', 'logical', 'object', 'data.frame'.
+#' @field alias             A character vector containing zero or more aliases
+#' for the field.
+#' @field class             The class of the field. One of: 'character',
+#' 'integer', 'double', 'logical', 'object', 'data.frame'.
 #' @field card              The cardinality of the field: either '1' or '*'.
-#' @field allow.duplicates  If set to \code{TRUE}, the field allows duplicated values.
+#' @field allow.duplicates  If set to \code{TRUE}, the field allows duplicated
+#' values.
 #' @field description       The description of the field.
 #' @field allowed.values    The values authorized for the field.
 #'
@@ -40,28 +42,55 @@
 #' @include BiodbChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField", contains="BiodbChildObject", fields=list( .name='character', .type='character', .group='character', .class='character', .cardinality='character', .forbids.duplicates='logical', .description='character', .alias='character', .allowed.values="ANY", .lower.case='logical', .case.insensitive='logical', .computable.from='character'))
+BiodbEntryField <- methods::setRefClass("BiodbEntryField",
+    contains="BiodbChildObject",
+    fields=list(
+        .name='character',
+        .type='character',
+        .group='character',
+        .class='character',
+        .cardinality='character',
+        .forbids.duplicates='logical',
+        .description='character',
+        .alias='character',
+        .allowed.values="ANY",
+        .lower.case='logical',
+        .case.insensitive='logical',
+        .computable.from='character'
+        ),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-BiodbEntryField$methods( initialize=function(name, alias=NA_character_, type=NA_character_, group=NA_character_, class=c('character', 'integer', 'double', 'logical', 'object', 'data.frame'), card=c('one', 'many'), forbids.duplicates=FALSE, description=NA_character_, allowed.values=NULL, lower.case=FALSE, case.insensitive=FALSE, computable.from=NULL, ...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(name, alias=NA_character_, type=NA_character_,
+                    group=NA_character_,
+                    class=c('character', 'integer', 'double', 'logical',
+                            'object', 'data.frame'), card=c('one', 'many'),
+                    forbids.duplicates=FALSE, description=NA_character_,
+                    allowed.values=NULL, lower.case=FALSE,
+                    case.insensitive=FALSE, computable.from=NULL, ...) {
 
     callSuper(...)
 
     # Set name
     if ( is.null(name) || is.na(name) || nchar(name) == '')
-        .self$message('error', "You cannot set an empty name for a field. Name was empty (either NULL or NA or empty string).")
+        .self$error("You cannot set an empty name for a field. Name was',
+                    ' empty (either NULL or NA or empty string).")
     .self$.name <- tolower(name)
 
     # Set type
     if ( ! is.na(type) && ! type %in% c('mass', 'name', 'id'))
-        .self$message('error', paste("Unknown type \"", type, "\" for field \"", name, "\".", sep=''))
+        .self$error("Unknown type \"", type, "\" for field \"", name, "\".")
     .self$.type <- type
 
     # Set group
     if ( ! is.na(group) && ! group %in% c('peak'))
-        .self$message('error', paste("Unknown group \"", group, "\" for field \"", name, "\".", sep=''))
+        .self$error("Unknown group \"", group, "\" for field \"", name, "\".")
     .self$.group <- group
 
     # Set class
@@ -74,95 +103,103 @@ BiodbEntryField$methods( initialize=function(name, alias=NA_character_, type=NA_
 
     # Set description
     if (is.null(description) || is.na(description))
-        .self$message('caution', paste("Missing description for entry field \"", name, "\".", sep=''))
+        .self$caution("Missing description for entry field \"", name, "\".")
     .self$.description <- description
 
     # Set alias
     if (length(alias) > 1 && any(is.na(alias)))
-        .self$message('error', paste("One of the aliases of entry field \"", name, "\" is NA.", sep=''))
+        .self$error("One of the aliases of entry field \"", name, "\" is NA.")
     .self$.alias <- alias
 
     # Set allowed values
     if ( ! is.null(allowed.values)) {
-        if ( ! is.vector(allowed.values, mode='numeric') && ! is.vector(allowed.values, mode='character') && ! is.vector(allowed.values, mode='list'))
-            .self$message('error', 'Allowed values must be either a list, a numeric vector or a character vector.')
+        if ( ! is.vector(allowed.values, mode='numeric')
+            && ! is.vector(allowed.values, mode='character')
+            && ! is.vector(allowed.values, mode='list'))
+            .self$error('Allowed values must be either a list, a numeric',
+                        ' vector or a character vector.')
 
         # For a list check that all values are character vectors
         if (is.vector(allowed.values, mode='list')) {
             if (is.null(names(allowed.values)))
-                .self$message('error', 'When allowed values are specified as a list, names must be set.')
-            if ( ! all(vapply(allowed.values, function(x) is.vector(x, 'character'), FUN.VALUE=TRUE)))
-                .self$message('error', 'When allowed values are specified as a list, all values must be characters.')
+                .self$error('When allowed values are specified as a list,',
+                            ' names must be set.')
+            if ( ! all(vapply(allowed.values,
+                              function(x) is.vector(x, 'character'),
+                              FUN.VALUE=TRUE)))
+                .self$error('When allowed values are specified as a list,',
+                            ' all values must be characters.')
         }
     }
     .self$.allowed.values <- allowed.values
 
     # Case insensitive
     if (case.insensitive && class != 'character')
-        .self$message('error', 'Only character fields can be case insensitive.')
+        .self$error('Only character fields can be case insensitive.')
     .self$.case.insensitive <- case.insensitive
 
     # Lower case
     if (lower.case && class != 'character')
-        .self$message('error', 'Only character fields can be forced to lower case.')
+        .self$error('Only character fields can be forced to lower case.')
     .self$.lower.case <- lower.case
 
     # Computable from
-    .self$.computable.from <- if (is.null(computable.from)) character() else computable.from
+    .self$.computable.from <- if (is.null(computable.from)) character()
+        else computable.from
 
     # Set other fields
     .self$.forbids.duplicates <- forbids.duplicates
-})
+},
 
-# Get name {{{1
+# Get name {{{3
 ################################################################################
 
-BiodbEntryField$methods( getName=function() {
+getName=function() {
     " Get field's name."
 
     return(.self$.name)
-})
+},
 
-# Get type {{{1
+# Get type {{{3
 ################################################################################
 
-BiodbEntryField$methods( getType=function() {
+getType=function() {
     " Get field's type."
 
     return(.self$.type)
-})
+},
 
-# Get group {{{1
+# Get group {{{3
 ################################################################################
 
-BiodbEntryField$methods( getGroup=function() {
+getGroup=function() {
     " Get field's group."
 
     return(.self$.group)
-})
+},
 
-# Get description {{{1
+# Get description {{{3
 ################################################################################
 
-BiodbEntryField$methods( getDescription=function() {
+getDescription=function() {
     " Get field's description."
 
     return(.self$.description)
-})
+},
 
-# Has aliases {{{1
+# Has aliases {{{3
 ################################################################################
 
-BiodbEntryField$methods( hasAliases=function() {
+hasAliases=function() {
     " Returns TRUE if this entry field defines aliases."
 
     return( ! any(is.na(.self$.alias)))
-})
+},
 
-# Get aliases {{{1
+# Get aliases {{{3
 ################################################################################
 
-BiodbEntryField$methods( getAliases=function() {
+getAliases=function() {
     " Returns the list of aliases if some are defined, otherwise returns NULL."
 
     aliases <- NULL
@@ -171,12 +208,12 @@ BiodbEntryField$methods( getAliases=function() {
         aliases <- .self$.alias
     
     return(aliases)
-})
+},
 
-# Get all names {{{1
+# Get all names {{{3
 ################################################################################
 
-BiodbEntryField$methods( getAllNames=function() {
+getAllNames=function() {
     " Returns the list of all names (main name and aliases)."
 
     aliases <- .self$getAliases()
@@ -185,23 +222,24 @@ BiodbEntryField$methods( getAllNames=function() {
         names <- c(names, aliases)
     
     return(names)
-})
+},
 
-# Get computable from {{{1
+# Get computable from {{{3
 ################################################################################
 
-BiodbEntryField$methods( getComputableFrom=function() {
+getComputableFrom=function() {
     " Returns the list of databases where to find this field's value."
 
     return(.self$.computable.from)
-})
+},
 
-# Correct value {{{1
+# Correct value {{{3
 ################################################################################
 
-BiodbEntryField$methods( correctValue=function(value) {
+correctValue=function(value) {
 
-    if (.self$isVector() && ! is.null(value) && ! (length(value) == 1 && is.na(value))) {
+    if (.self$isVector() && ! is.null(value) && ! (length(value) == 1
+                                                   && is.na(value))) {
 
         # Correct type
         if (.self$getClass() != class(value))
@@ -212,24 +250,32 @@ BiodbEntryField$methods( correctValue=function(value) {
             value <- tolower(value)
 
         # Enumerated type
-        if (.self$isEnumerate() && methods::is(.self$.allowed.values, 'list'))
-            value <- vapply(value, function(v) { for (a in names(.self$.allowed.values)) if (v == a || v %in% .self$.allowed.values[[a]]) return(a) ; return(v) }, FUN.VALUE=as.vector(0, mode=.self$getClass()), USE.NAMES=FALSE)
+        if (.self$isEnumerate() && methods::is(.self$.allowed.values, 'list')) {
+            fct <- function(v) {
+                for (a in names(.self$.allowed.values))
+                    if (v == a || v %in% .self$.allowed.values[[a]])
+                        return(a)
+                return(v)
+            }
+            fv <- as.vector(0, mode=.self$getClass())
+            value <- vapply(value, fct, FUN.VALUE=fv, USE.NAMES=FALSE)
+        }
     }
 
     return(value)
-})
+},
 
-# Is enumerate {{{1
+# Is enumerate {{{3
 ################################################################################
 
-BiodbEntryField$methods( isEnumerate=function() {
+isEnumerate=function() {
     return( ! is.null(.self$.allowed.values))
-})
+},
 
-# Get allowed values {{{1
+# Get allowed values {{{3
 ################################################################################
 
-BiodbEntryField$methods( getAllowedValues=function(value=NULL) {
+getAllowedValues=function(value=NULL) {
 
     values <- NULL
     if ( ! is.null(.self$.allowed.values)) {
@@ -241,11 +287,13 @@ BiodbEntryField$methods( getAllowedValues=function(value=NULL) {
                 values <- c(values, names(.self$.allowed.values))
             names(values) <- NULL
 
-        # Get all allowed values for just one specific value (i.e.: get synonyms)
+        # Get all allowed values for just one specific value
+        #    (i.e.: get synonyms)
         } else {
 
             # Find value in keys
-            if ( ! is.null(names(.self$.allowed.values)) && value %in% names(.self$.allowed.values))
+            if ( ! is.null(names(.self$.allowed.values))
+                && value %in% names(.self$.allowed.values))
                 values <- c(value, unlist(.self$.allowed.values[[value]]))
 
             # Search value in values
@@ -254,7 +302,8 @@ BiodbEntryField$methods( getAllowedValues=function(value=NULL) {
                     if (value %in% .self$.allowed.values[[i]]) {
                         values <- unlist(.self$.allowed.values[[i]])
                         if ( ! is.null(names(.self$.allowed.values)))
-                            values <- c(names(.self$.allowed.values)[[i]], values)
+                            values <- c(names(.self$.allowed.values)[[i]],
+                                        values)
                         break
                     }
             }
@@ -262,12 +311,12 @@ BiodbEntryField$methods( getAllowedValues=function(value=NULL) {
     }
 
     return(values)
-})
+},
 
-# Add allowed value {{{1
+# Add allowed value {{{3
 ################################################################################
 
-BiodbEntryField$methods( addAllowedValue=function(key, value) {
+addAllowedValue=function(key, value) {
 
     key <- tolower(key)
     if (.self$.lower.case)
@@ -275,121 +324,133 @@ BiodbEntryField$methods( addAllowedValue=function(key, value) {
 
     # Check that key exists
     if (is.null(names(.self$.allowed.values)))
-        .self$message('error', paste0('Field "', .self$.name, '" doesn\'t use keys for its allowed values.'))
+        .self$error('Field "', .self$.name,
+                    '" doesn\'t use keys for its allowed values.')
     if ( ! key %in% names(.self$.allowed.values))
-        .self$message('error', paste0('Field "', .self$.name, '" doesn\'t use key "', key, '" for its allowed values.'))
+        .self$error('Field "', .self$.name, '" doesn\'t use key "', key,
+                    '" for its allowed values.')
 
     # Check that value is not already used
     if (value %in% .self$getAllowedValues()) {
         current.key <- .self$correctValue(value)
         if (current.key != key)
-            .self$message('error', paste0('Field "', .self$.name, '" already uses value "', value, '" for its allowed values, but with key "', current.key, '" instead of key "', key, '".'))
+            .self$error('Field "', .self$.name, '" already uses value "', value,
+                        '" for its allowed values, but with key "', current.key,
+                        '" instead of key "', key, '".')
         else
-            .self$message('info', paste0('Field "', .self$.name, '" already uses value "', value, '" for its allowed values, with key "', key, '".'))
+            .self$info('Field "', .self$.name, '" already uses value "', value,
+                       '" for its allowed values, with key "', key, '".')
     }
 
     # Add new value
     .self$.allowed.values[[key]] <- c(.self$.allowed.values[[key]], value)
-})
+},
 
-# Check value {{{1
+# Check value {{{3
 ################################################################################
 
-BiodbEntryField$methods( checkValue=function(value) {
+checkValue=function(value) {
 
     if (.self$.lower.case)
         value <- tolower(value)
 
     bad.values <- value[ ! value %in% .self$getAllowedValues()]
-    if (.self$isEnumerate() && length(bad.values) > 0)
-        .self$message('error', paste('Value(s) ', paste(bad.values[ ! duplicated(bad.values)], collapse=', '), ' is/are not allowed for field ', .self$getName(), '. Allowed values are: ', paste(.self$getAllowedValues(), collapse=', '), '.', sep=''))
-})
+    if (.self$isEnumerate() && length(bad.values) > 0) {
+        bv <- paste(bad.values[ ! duplicated(bad.values)], collapse=', ')
+        av <- paste(.self$getAllowedValues(), collapse=', ')
+        .self$error('Value(s) ', bv, ' is/are not allowed for field ',
+                    .self$getName(), '. Allowed values are: ', av, '.')
+    }
+},
 
-# Has card one {{{1
+# Has card one {{{3
 ################################################################################
 
-BiodbEntryField$methods( hasCardOne=function() {
+hasCardOne=function() {
     " Returns \\code{TRUE} if the cardinality of this field is one."
 
     return(.self$.cardinality == 'one')
-})
+},
 
-# Has card many {{{1
+# Has card many {{{3
 ################################################################################
 
-BiodbEntryField$methods( hasCardMany=function() {
+hasCardMany=function() {
     " Returns \\code{TRUE} if the cardinality of this field is many."
 
     return(.self$.cardinality == 'many')
-})
+},
 
-# Forbids duplicates {{{1
+# Forbids duplicates {{{3
 ################################################################################
 
-BiodbEntryField$methods( forbidsDuplicates=function() {
+forbidsDuplicates=function() {
     " Returns \\code{TRUE} if this field forbids duplicated values."
 
     return(.self$.forbids.duplicates)
-})
+},
 
-# Is case insensitive {{{1
+# Is case insensitive {{{3
 ################################################################################
 
-BiodbEntryField$methods( isCaseInsensitive=function() {
+isCaseInsensitive=function() {
     " Returns \\code{TRUE} if this field is case insensitive."
 
     return(.self$.case.insensitive)
-})
+},
 
-# Get class {{{1
+# Get class {{{3
 ################################################################################
 
-BiodbEntryField$methods( getClass=function() {
+getClass=function() {
     " Returns the type (i.e.: class) of this field."
 
     return(.self$.class)
-})
+},
 
-# Is object {{{1
+# Is object {{{3
 ################################################################################
 
-BiodbEntryField$methods( isObject=function() {
+isObject=function() {
     " Returns \\code{TRUE} if field's type is a class."
 
     return(.self$.class == 'object')
-})
+},
 
-# Is data frame {{{1
+# Is data frame {{{3
 ################################################################################
 
-BiodbEntryField$methods( isDataFrame=function() {
+isDataFrame=function() {
     " Returns \\code{TRUE} if field's type is data frame."
 
     return(.self$.class == 'data.frame')
-})
+},
 
-# Is vector {{{1 
+# Is vector {{{3 
 ################################################################################
 
-BiodbEntryField$methods( isVector=function() {
-    "Returns \\code{TRUE} if the field's type is vector (i.e.: character, integer, double or logical)."
+isVector=function() {
+    "Returns \\code{TRUE} if the field's type is vector (i.e.: character,
+    integer, double or logical)."
     return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
-})
+},
 
-# Show {{{1 
+# Show {{{3 
 ################################################################################
 
-BiodbEntryField$methods( show=function() {
+show=function() {
     cat("Entry field \"", .self$.name, "\".\n", sep='')
-})
+},
 
-# DEPRECATED METHODS {{{1
+# Deprecated methods {{{2
 ################################################################################
 
-# Get cardinality {{{2
+# Get cardinality {{{3
 ################################################################################
 
-BiodbEntryField$methods( getCardinality=function() {
+getCardinality=function() {
     .self$.deprecatedMethod('hasCardOne() or hasCardMany()')
     return(.self$.cardinality)
-})
+}
+
+))

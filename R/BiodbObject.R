@@ -1,4 +1,4 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # BiodbObject {{{1
 ################################################################################
@@ -51,7 +51,7 @@ notify=function(fct, args) {
 # Progress message {{{3
 ################################################################################
 
-progressMsg=function(type='info', msg, index, first, total=NA_integer_) {
+progressMsg=function(msg, index, first, total=NA_integer_, type='info') {
     .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
                                   first=first))
 },
@@ -107,6 +107,21 @@ debug=function(...) {
 
 debug2=function(...) {
     .self$message(type='debug', msg=paste0(...), lvl=2)
+},
+
+# Debug message level 2 for printing list {{{3
+################################################################################
+
+debug2List=function(msg, lst, cut=10) {
+    
+    if (length(lst) == 0)
+        s <- 'none'
+    else {
+        s <- paste(if (length(lst) > 10) c(lst[seq_len(10)], '...') else lst,
+                   collapse=", ")
+        s <- paste0('"', s, '"')
+    }
+    .self$debug2(msg, '[', length(lst), ']: ', s, '.')
 },
 
 # Error message {{{3
@@ -196,7 +211,8 @@ info2=function(...) {
 # Assert not NA {{{3
 ################################################################################
 
-.assertNotNa=function(param, msg.type='error', sys.call.level=0, param.name=NULL) {
+.assertNotNa=function(param, msg.type='error', sys.call.level=0,
+                      param.name=NULL) {
 
     if (any(is.na(param))) {
 

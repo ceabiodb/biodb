@@ -1,6 +1,6 @@
 # vi: fdm=marker ts=4 et cc=80 
 
-# Class declaration {{{1
+# KeggPathwayConn {{{1
 ################################################################################
 
 #' The connector class to KEGG Pathway database.
@@ -37,29 +37,31 @@
 #' @export KeggPathwayConn
 #' @exportClass KeggPathwayConn
 KeggPathwayConn <- methods::setRefClass("KeggPathwayConn",
-                                        contains=c("KeggConn"))
+    contains=c("KeggConn"),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
-# Initialize {{{2
+methods=list(
+
+# Initialize {{{3
 ################################################################################
 
-KeggPathwayConn$methods( initialize=function(...) {
+initialize=function(...) {
     callSuper(db.name='pathway', db.abbrev='path', ...)
-})
+},
 
-# Get entry image url {{{2
+# Get entry image url {{{3
 ################################################################################
 
-KeggPathwayConn$methods( getEntryImageUrl=function(id) {
+getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
-})
+},
 
-# Get reactions {{{2
+# Get reactions {{{3
 ################################################################################
 
-KeggPathwayConn$methods( getReactions=function(id, drop=TRUE) {
+getReactions=function(id, drop=TRUE) {
     "Retrieve all reactions part of a KEGG pathway. Connect to KEGG databases,
     and walk through all pathways submitted, and their modules, to find all
     reactions they are composed of. Returns a list of KEGG reaction objects or
@@ -99,12 +101,12 @@ KeggPathwayConn$methods( getReactions=function(id, drop=TRUE) {
         reactions <- if (length(reactions) == 1) reactions[[1]] else NULL
  
     return(reactions)
-})
+},
 
-# Convert to organism pathways {{{2
+# Convert to organism pathways {{{3
 ################################################################################
 
-KeggPathwayConn$methods( convertToOrgPathways=function(id, org) {
+convertToOrgPathways=function(id, org) {
     "Take a list of pathways IDs and convert them to the specified organism,
     filtering out the ones that do not exist in KEGG."
     
@@ -118,12 +120,12 @@ KeggPathwayConn$methods( convertToOrgPathways=function(id, org) {
     id <- id[ ! vapply(entries, is.null, FUN.VALUE=TRUE)]
     
     return(id)
-})
+},
 
-# Build pathway graph {{{2
+# Build pathway graph {{{3
 ################################################################################
 
-KeggPathwayConn$methods( buildPathwayGraph=function(id, directed=FALSE,
+buildPathwayGraph=function(id, directed=FALSE,
                                                       drop=TRUE) {
     "Build a pathway graph using KEGG database. Returns a named list whose
     names are the pathway IDs, and values are lists containing two data frames
@@ -160,12 +162,12 @@ KeggPathwayConn$methods( buildPathwayGraph=function(id, directed=FALSE,
         graph <- if (length(graph) == 1) graph[[1]] else NULL
     
     return(graph)
-})
+},
 
-# Get pathway igraph {{{2
+# Get pathway igraph {{{3
 ################################################################################
 
-KeggPathwayConn$methods( getPathwayIgraph=function(id, directed=FALSE,
+getPathwayIgraph=function(id, directed=FALSE,
                                                      drop=TRUE) {
     "Build a pathway graph using KEGG database. Returns an \\code{igraph}
     object, or NULL if the igraph library is not available."
@@ -195,12 +197,12 @@ KeggPathwayConn$methods( getPathwayIgraph=function(id, directed=FALSE,
         graph <- if (length(graph) == 1) graph[[1]] else NULL
 
     return(graph)
-})
+},
 
-# Get decorated graph picture {{{2
+# Get decorated graph picture {{{3
 ################################################################################
 
-KeggPathwayConn$methods( getDecoratedGraphPicture=function(id, color2ids) {
+getDecoratedGraphPicture=function(id, color2ids) {
  
     pix <- NULL
     
@@ -222,12 +224,12 @@ KeggPathwayConn$methods( getDecoratedGraphPicture=function(id, color2ids) {
     }
     
     return(pix)
-})
+},
 
-# Extract shapes from pathway map {{{2
+# Extract shapes from pathway map {{{3
 ################################################################################
 
-KeggPathwayConn$methods( extractPathwayMapShapes=function(id, color2ids) {
+extractPathwayMapShapes=function(id, color2ids) {
                             
     shapes <- list()
     
@@ -269,15 +271,15 @@ KeggPathwayConn$methods( extractPathwayMapShapes=function(id, color2ids) {
     }
         
     return(shapes)
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Get pathway HTML page {{{2
+# Get pathway HTML page {{{3
 ################################################################################
 
-KeggPathwayConn$methods( .getPathwayHtml=function(id) {
+.getPathwayHtml=function(id) {
 
     # Extract pathway number
     path_idx <- sub('^[^0-9]+', '', id)
@@ -293,34 +295,39 @@ KeggPathwayConn$methods( .getPathwayHtml=function(id) {
     html=.self$getBiodb()$getRequestScheduler()$sendRequest(request)
     
     return(html)
-})
+},
 
-# Get pathway image {{{2
+# Get pathway image {{{3
 ################################################################################
 
-KeggPathwayConn$methods( .getPathwayImage=function(id) {
+.getPathwayImage=function(id) {
 
     html <- .self$.getPathwayHtml(id)
     path_idx <- sub('^[^0-9]+', '', id)
     
-    cache=.self$getBiodb()$getCache()
-    img_filename=paste0('pathwaymap-', path_idx)
-    img_file=cache$getFilePath(.self$getCacheId(), 'shortterm', img_filename, 'png')
-    if ( ! cache$fileExist(.self$getCacheId(), 'shortterm', img_filename, 'png')) {
-        img_url=stringr::str_match(html, 'src="([^"]+)"\\s+name="pathwayimage"')
+    cache <- .self$getBiodb()$getCache()
+    img_filename <- paste0('pathwaymap-', path_idx)
+    cid <- .self$getCacheId()
+    img_file <- cache$getFilePath(cid, 'shortterm', img_filename, 'png')
+    if ( ! cache$fileExist(cid, 'shortterm', img_filename, 'png')) {
+        img_url <- stringr::str_match(html,
+                                      'src="([^"]+)"\\s+name="pathwayimage"')
         if (is.na(img_url[1, 1]))
-            .self$message('error', 'Impossible to find pathway image path inside HTML page.')
-        img_url=BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), img_url[1, 2]))
-        .self$getBiodb()$getRequestScheduler()$downloadFile(url=img_url, dest.file=img_file)
+            .self$error('Impossible to find pathway image path inside',
+                        ' HTML page.')
+        u <- .self$getPropValSlot('urls', 'base.url')
+        img_url <- BiodbUrl(url=c(u, img_url[1, 2]))
+        .self$getBiodb()$getRequestScheduler()$downloadFile(url=img_url,
+                                                            dest.file=img_file)
     }
     
     return(magick::image_read(img_file))
-})
+},
 
-# Build reaction graph {{{2
+# Build reaction graph {{{3
 ################################################################################
 
-KeggPathwayConn$methods( .buildReactionGraph=function(react, directed) {
+.buildReactionGraph=function(react, directed) {
 
     graph <- NULL
     
@@ -355,4 +362,6 @@ KeggPathwayConn$methods( .buildReactionGraph=function(react, directed) {
     }
     
     return(graph)
-})
+}
+
+))

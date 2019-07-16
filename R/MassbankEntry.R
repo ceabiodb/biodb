@@ -1,24 +1,21 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+# MassbankEntry {{{1
+################################################################################
 
 #' @include BiodbTxtEntry.R
+MassbankEntry <- methods::setRefClass("MassbankEntry",
+    contains="BiodbTxtEntry",
 
-# Class declaration {{{1
+# Private methods {{{2
 ################################################################################
 
-MassbankEntry <- methods::setRefClass("MassbankEntry", contains="BiodbTxtEntry")
+methods=list(
 
-# Initialize {{{1
+# Do parse content {{{3
 ################################################################################
 
-MassbankEntry$methods( initialize=function(...) {
-
-    callSuper(...)
-})
-
-# Do parse content {{{1
-################################################################################
-
-MassbankEntry$methods( .doParseContent=function(content) {
+.doParseContent=function(content) {
 
     # Get lines of content
     lines <- strsplit(content, "\r?\n")[[1]]
@@ -37,26 +34,32 @@ MassbankEntry$methods( .doParseContent=function(content) {
             accession <- accession[[1]]
 
         # Message
-        .self$message('caution', paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse=", "), ". All lines after the first last line marker have been deleted.", sep=''))
+        .self$caution("More than one last line marker found in entry ",
+                      accession, ", at lines ",
+                      paste(last.line.number, collapse=", "),
+                      ". All lines after the first last line marker have been",
+                      " deleted.")
 
         # Remove all lines after the first marker
         lines <- lines[seq_len(last.line.number[[1]])]
     }
 
     return(lines)
-})
+},
 
-# Is parsed content correct {{{1
+# Is parsed content correct {{{3
 ################################################################################
 
-MassbankEntry$methods( .isParsedContentCorrect=function(parsed.content) {
+.isParsedContentCorrect=function(parsed.content) {
 
     # Look for last line marker
     g <- stringr::str_match(parsed.content, "^//$")
     last.line.number <- which(! is.na(g[, 1]))
 
     # Incorrect last line marker?
-    if (length(last.line.number) > 1 || (length(last.line.number) == 1 && last.line.number != length(parsed.content))) {
+    if (length(last.line.number) > 1
+        || (length(last.line.number) == 1
+            && last.line.number != length(parsed.content))) {
 
         # Get accession number
         g <- stringr::str_match(parsed.content, "^ACCESSION: (.+)$")
@@ -66,29 +69,35 @@ MassbankEntry$methods( .isParsedContentCorrect=function(parsed.content) {
 
         # Too much last lines
         if (length(last.line.number) > 1)
-            .self$message('caution', paste("More than one last line marker found in entry ", accession, ", at lines ", paste(last.line.number, collapse=", "), ".", sep=''))
+            .self$caution("More than one last line marker found in entry ",
+                          accession, ", at lines ",
+                          paste(last.line.number, collapse=", "), ".")
 
         # No last line
         else if (length(last.line.number) == 0)
-            .self$message('caution', paste("No last line symbol (\"//\") found in entry ", accession, ".", sep=''))
+            .self$caution("No last line symbol (\"//\") found in entry ",
+                          accession, ".")
 
         # Last line symbol no at last line
         else if (last.line.number != length(parsed.content))
-            .self$message('caution', paste("Last line symbol (\"//\") found at line ", last.line.number, " in entry ", accession, " instead of last line.", sep=''))
+            .self$caution("Last line symbol (\"//\") found at line ",
+                          last.line.number, " in entry ", accession,
+                          " instead of last line.")
 
         return(FALSE)
     }
 
     return(TRUE)
-})
+},
 
-# Parse peak info {{{1
+# Parse peak info {{{3
 ################################################################################
 
-MassbankEntry$methods( .parsePeakInfo=function(parsed.content, title) {
+.parsePeakInfo=function(parsed.content, title) {
 
     # Parse peaks
-    g <- stringr::str_match(parsed.content, paste("^PK\\$", title, ": (.*)$", sep=''))
+    re <- paste0("^PK\\$", title, ": (.*)$")
+    g <- stringr::str_match(parsed.content, re)
     peak.header.line.number <- which(! is.na(g[, 2]))
     if (length(peak.header.line.number) == 0)
         return() # No peaks
@@ -98,16 +107,22 @@ MassbankEntry$methods( .parsePeakInfo=function(parsed.content, title) {
 
     # Build parsing expression
     regex <- '^'
-    col.desc <- list('m/z'=list(name='peak.mz', type='double', regex='([0-9][0-9.]*)'),
-                     'int.'=list(name='peak.intensity', type='double', regex='([0-9][0-9.e]*)'),
-                     'rel.int.'=list(name='peak.relative.intensity', type='double', regex='([0-9]+)'),
-                     'struct.'=list(name='struct.',                    type='integer',   regex='([0-9]+)'),
-                     'num'=list(name='num',                        type='integer',   regex='([0-9]+)'),
-                     'formula'=list(name='peak.formula',           type='character', regex='([^ ]+)'),
-                     'tentative_formula'=list(name='tentative.formula',          type='character', regex='([^ ]+)'),
-                     'formula_count'=list(name='peak.formula.count',     type='integer',   regex='([0-9]+)'),
-                     'error(ppm)'=list(name='peak.error.ppm',         type='double',    regex='(-?[0-9][0-9.]*)'),
-                     'mass'=list(name='peak.mass',              type='double',    regex='([0-9][0-9.]*)')
+    col.desc <- list(
+        'm/z'=list(name='peak.mz', type='double', regex='([0-9][0-9.]*)'),
+        'int.'=list(name='peak.intensity', type='double',
+                    regex='([0-9][0-9.e]*)'),
+        'rel.int.'=list(name='peak.relative.intensity', type='double',
+                        regex='([0-9]+)'),
+        'struct.'=list(name='struct.', type='integer', regex='([0-9]+)'),
+        'num'=list(name='num', type='integer', regex='([0-9]+)'),
+        'formula'=list(name='peak.formula', type='character', regex='([^ ]+)'),
+        'tentative_formula'=list(name='tentative.formula', type='character',
+                                 regex='([^ ]+)'),
+        'formula_count'=list(name='peak.formula.count', type='integer',
+                             regex='([0-9]+)'),
+        'error(ppm)'=list(name='peak.error.ppm', type='double',
+                          regex='(-?[0-9][0-9.]*)'),
+        'mass'=list(name='peak.mass', type='double', regex='([0-9][0-9.]*)')
                      )
     for (c in cols) {
         if (c %in% names(col.desc)) {
@@ -130,9 +145,14 @@ MassbankEntry$methods( .parsePeakInfo=function(parsed.content, title) {
             break # Not an peakation block => leave
 
         # Is next line the suite of the current line?
-        while (i + 1 <= length(parsed.content) && length(grep('^    ', parsed.content[[i + 1]])) == 1) {
-            parsed.content[[i]] <- paste(parsed.content[[i]], parsed.content[[i + 1]], sep='')
-            parsed.content <- if (i + 2 <= length(parsed.content)) parsed.content[c(seq_len(i), seq(from=i+2, to=length(parsed.content)))] else parsed.content[seq_len(i)]
+        while (i + 1 <= length(parsed.content)
+               && length(grep('^    ', parsed.content[[i + 1]])) == 1) {
+            parsed.content[[i]] <- paste0(parsed.content[[i]],
+                                          parsed.content[[i + 1]])
+            r <- seq_len(i)
+            if (i + 2 <= length(parsed.content))
+                r <- c(r, seq(from=i+2, to=length(parsed.content)))
+            parsed.content <- parsed.content[r]
         }
 
         # Next line
@@ -152,7 +172,8 @@ MassbankEntry$methods( .parsePeakInfo=function(parsed.content, title) {
                 peaks[i, j] <- as.vector(g[1, j + 1], mode=class(peaks[[j]]))
         }
         else if (substring(line, 1, 2) == '  ')
-            .self$message('caution', paste0('Impossible to parse peak line: "', line, '" with regex "', regex, '".'))
+            .self$caution('Impossible to parse peak line: "', line,
+                          '" with regex "', regex, '".')
         else
             break
 
@@ -165,45 +186,53 @@ MassbankEntry$methods( .parsePeakInfo=function(parsed.content, title) {
 
         # Check that at least one peak have 999 as relative intensity
         if (all(peaks[['peak.relative.intensity']] != 999))
-            .self$message('caution', paste("No peak has a relative intensity of 999 inside Massbank entry ", .self$getFieldValue('accession'), ".", sep=''))
+            .self$caution("No peak has a relative intensity of 999 inside",
+                          " Massbank entry ", .self$getFieldValue('accession'),
+                          ".")
 
         # Scale to percentage
-        peaks[['peak.relative.intensity']] <- peaks[['peak.relative.intensity']] * 100 / 999
+        rint <- peaks[['peak.relative.intensity']]
+        peaks[['peak.relative.intensity']] <- rint * 100 / 999
     }
 
     # Check number of peaks
-    if (title == 'PEAK' && .self$hasField('nb.peaks') && .self$getFieldValue('nb.peaks', compute=FALSE) != nrow(peaks))
-         .self$message('caution', paste("Found ", nrow(peaks), " peak(s) instead of ", .self$getFieldValue('nb.peaks', compute=FALSE), ' for entry ', .self$getFieldValue('accession'), ".", sep=''))
+    if (title == 'PEAK' && .self$hasField('nb.peaks')
+        && .self$getFieldValue('nb.peaks', compute=FALSE) != nrow(peaks))
+         .self$caution("Found ", nrow(peaks), " peak(s) instead of ",
+                       .self$getFieldValue('nb.peaks', compute=FALSE),
+                       ' for entry ', .self$getFieldValue('accession'), ".")
 
     # Merge with existing peak info
     if (.self$hasField('peaks'))
-        peaks <- merge(.self$getFieldValue('peaks', compute=FALSE), peaks, all.x=TRUE)
+        peaks <- merge(.self$getFieldValue('peaks', compute=FALSE), peaks,
+                       all.x=TRUE)
 
     # Set new peaks table
     .self$setFieldValue('peaks', peaks)
-})
+},
 
-# Parse peak table {{{1
+# Parse peak table {{{3
 ################################################################################
 
-MassbankEntry$methods( .parsePeakTable=function(parsed.content) {
+.parsePeakTable=function(parsed.content) {
     .self$.parsePeakInfo(parsed.content, title='PEAK')
-})
+},
 
-# Parse annotation table {{{1
+# Parse annotation table {{{3
 ################################################################################
 
-MassbankEntry$methods( .parseAnnotationTable=function(parsed.content) {
+.parseAnnotationTable=function(parsed.content) {
     .self$.parsePeakInfo(parsed.content, title='ANNOTATION')
-})
+},
 
-# Parse fields step 2 {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-MassbankEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # PubChem IDs when SID and CID are both specified in that order
-    g <- stringr::str_match(parsed.content, "^CH\\$LINK: PUBCHEM\\s+(SID:[0-9]+)\\s+(CID:[0-9]+)")
+    re <- "^CH\\$LINK: PUBCHEM\\s+(SID:[0-9]+)\\s+(CID:[0-9]+)"
+    g <- stringr::str_match(parsed.content, re)
     results <- g[ ! is.na(g[,1]), , drop=FALSE]
     if (nrow(results) > 0) {
         sid <- results[,2]
@@ -213,7 +242,8 @@ MassbankEntry$methods( .parseFieldsStep2=function(parsed.content) {
     }
 
     # List of precursors
-    g <- stringr::str_match(parsed.content, "^MS\\$FOCUSED_ION: PRECURSOR_M/Z ([0-9./]+)$")
+    re <- "^MS\\$FOCUSED_ION: PRECURSOR_M/Z ([0-9./]+)$"
+    g <- stringr::str_match(parsed.content, re)
     results <- g[ ! is.na(g[,1]), , drop=FALSE]
     if (nrow(results) > 0) {
         precursors <- strsplit(results[,2], '/', fixed=TRUE)[[1]]
@@ -222,15 +252,19 @@ MassbankEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
     # Chromatographic column id
     if (.self$hasField('chrom.col.name'))
-        .self$setFieldValue('chrom.col.id', .self$getFieldValue('chrom.col.name'))
+        .self$setFieldValue('chrom.col.id',
+                            .self$getFieldValue('chrom.col.name'))
 
     # Retention time
-    g <- stringr::str_match(parsed.content, "^AC\\$CHROMATOGRAPHY: RETENTION_TIME\\s+([0-9.]+)\\s+([minsec]+)\\s*.*$")
+    re <- paste0("^AC\\$CHROMATOGRAPHY: RETENTION_TIME\\s+([0-9.]+)",
+                 "\\s+([minsec]+)\\s*.*$")
+    g <- stringr::str_match(parsed.content, re)
     results <- g[ ! is.na(g[,1]), , drop=FALSE]
     if (nrow(results) > 0) {
         unit <- tolower(results[,3]) 
         if ( ! unit %in% c('min', 'sec', 's'))
-            .self$message('warning', paste("Unknown unit", unit, " for retention time while parsing massbank entry."))
+            .self$warning("Unknown unit ", unit, " for retention time while",
+                          " parsing massbank entry.")
         rt <- as.numeric(results[,2])
         .self$setFieldValue('chrom.rt.unit', if (unit == 'min') 'min' else 's')
         .self$setFieldValue('chrom.rt', rt)
@@ -244,7 +278,8 @@ MassbankEntry$methods( .parseFieldsStep2=function(parsed.content) {
             ms.level <- 1
 
         if (is.na(ms.level)) 
-            .self$message('error', paste("Impossible to parse MS level of Massbank entry ", .self$getFieldValue('ACCESSION'), ".", sep=''))
+            .self$error("Impossible to parse MS level of Massbank entry ",
+                        .self$getFieldValue('ACCESSION'), ".")
         .self$setFieldValue('ms.level', ms.level)
     }
     
@@ -257,5 +292,8 @@ MassbankEntry$methods( .parseFieldsStep2=function(parsed.content) {
     # Check essential fields
     for (field in c('ms.level'))
         if ( ! .self$hasField(field))
-            .self$message('caution', paste("Massbank entry ", .self$getFieldValue('ACCESSION'), " has no field ", field, ".", sep=''))
-})
+            .self$caution("Massbank entry ", .self$getFieldValue('ACCESSION'),
+                          " has no field ", field, ".")
+}
+
+))

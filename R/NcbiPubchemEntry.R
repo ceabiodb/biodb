@@ -1,25 +1,35 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+# NcbiPubchemEntry {{{1
+################################################################################
 
 #' @include BiodbXmlEntry.R
+NcbiPubchemEntry <- methods::setRefClass("NcbiPubchemEntry",
+    contains="BiodbXmlEntry",
 
-# Class declaration {{{1
+# Public methods {{{2
 ################################################################################
 
-NcbiPubchemEntry <- methods::setRefClass("NcbiPubchemEntry", contains="BiodbXmlEntry")
+methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
-NcbiPubchemEntry$methods( initialize=function(...) {
+initialize=function(...) {
 
     callSuper(...)
     .self$.abstractClass('NcbiPubchemEntry')
-})
+},
 
-# Is parsed content correct {{{1
+# Private methods {{{2
 ################################################################################
 
-NcbiPubchemEntry$methods( .isParsedContentCorrect=function(parsed.content) {
+# Is parsed content correct {{{3
+################################################################################
+
+.isParsedContentCorrect=function(parsed.content) {
     fault <- XML::xpathSApply(parsed.content, "/Fault", XML::xmlValue)
     return(length(fault) == 0)
-})
+}
+
+))

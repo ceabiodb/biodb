@@ -1,15 +1,26 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# NcbiEntrezConn {{{1
 ################################################################################
 
 #' @include NcbiConn.R
-NcbiEntrezConn <- methods::setRefClass("NcbiEntrezConn", contains="NcbiConn", fields=list(.entrez.name="character", .entrez.tag='character', .entrez.id.tag='character'))
+NcbiEntrezConn <- methods::setRefClass("NcbiEntrezConn",
+    contains="NcbiConn",
+    fields=list(
+        .entrez.name="character",
+        .entrez.tag='character',
+        .entrez.id.tag='character'),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-NcbiEntrezConn$methods( initialize=function(entrez.name=NA_character_, entrez.tag=NA_character_, entrez.id.tag=NA_character_, ...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(entrez.name=NA_character_, entrez.tag=NA_character_,
+                    entrez.id.tag=NA_character_, ...) {
 
     # Call parent constructor
     callSuper(...)
@@ -17,21 +28,24 @@ NcbiEntrezConn$methods( initialize=function(entrez.name=NA_character_, entrez.ta
 
     # Set name
     if (is.null(entrez.name) || is.na(entrez.name))
-        .self$message('error', "You must set an Entrez name for this NCBI database.")
+        .self$error("You must set an Entrez name for this NCBI database.")
     .self$.entrez.name <- entrez.name
 
     # Set tag
     .self$.entrez.tag <- if (is.null(entrez.tag)) NA_character_ else entrez.tag
 
     # Set ID tag
-    .self$.entrez.id.tag <- if (is.null(entrez.id.tag)) NA_character_ else entrez.id.tag
-})
+    .self$.entrez.id.tag <- (if (is.null(entrez.id.tag)) NA_character_
+                             else entrez.id.tag)
+},
 
-# Web service efetch {{{1
+# Web service efetch {{{3
 ################################################################################
 
-NcbiEntrezConn$methods( wsEfetch=function(id, rettype=NA_character_, retmode=NA_character_, retfmt=c('plain', 'parsed', 'request')) {
-    "Calls Entrez efetch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch."
+wsEfetch=function(id, rettype=NA_character_, retmode=NA_character_,
+                  retfmt=c('plain', 'parsed', 'request')) {
+    "Calls Entrez efetch web service. See
+    https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch."
 
     retfmt <- match.arg(retfmt)
 
@@ -41,7 +55,8 @@ NcbiEntrezConn$methods( wsEfetch=function(id, rettype=NA_character_, retmode=NA_
         params <- c(params, rettype=rettype)
     if ( ! is.na(retmode))
         params <- c(params, retmode=retmode)
-    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'efetch.fcgi'), params=params)
+    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'efetch.fcgi')
+    url <- BiodbUrl(url=u, params=params)
     request <- BiodbRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
@@ -54,13 +69,15 @@ NcbiEntrezConn$methods( wsEfetch=function(id, rettype=NA_character_, retmode=NA_
         results <-  XML::xmlInternalTreeParse(results, asText=TRUE)
 
     return(results)
-})
+},
 
-# Web service esearch {{{1
+# Web service esearch {{{3
 ################################################################################
 
-NcbiEntrezConn$methods( wsEsearch=function(term, field=NA_character_, retmax=NA_integer_, retfmt=c('plain', 'parsed', 'request', 'ids')) {
-    "Calls Entrez esearch web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch."
+wsEsearch=function(term, field=NA_character_, retmax=NA_integer_,
+                   retfmt=c('plain', 'parsed', 'request', 'ids')) {
+    "Calls Entrez esearch web service. See
+    https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch."
 
     retfmt <- match.arg(retfmt)
 
@@ -70,7 +87,8 @@ NcbiEntrezConn$methods( wsEsearch=function(term, field=NA_character_, retmax=NA_
         params <- c(params, field=field)
     if ( ! is.null(retmax) && ! is.na(retmax) && retmax > 0)
         params <- c(params, retmax=retmax)
-    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'esearch.fcgi'), params=params)
+    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'esearch.fcgi')
+    url <- BiodbUrl(url=u, params=params)
     request <- BiodbRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
@@ -90,19 +108,21 @@ NcbiEntrezConn$methods( wsEsearch=function(term, field=NA_character_, retmax=NA_
     }
 
     return(results)
-})
+},
 
-# Web service einfo {{{1
+# Web service einfo {{{3
 ################################################################################
 
-NcbiEntrezConn$methods( wsEinfo=function(retfmt=c('plain', 'request', 'parsed')) {
-    "Calls Entrez einfo web service. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EInfo."
+wsEinfo=function(retfmt=c('plain', 'request', 'parsed')) {
+    "Calls Entrez einfo web service. See
+    https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EInfo."
 
     retfmt <- match.arg(retfmt)
 
     # Build request
     params <- c(db=.self$.entrez.name, version='2.0')
-    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'einfo.fcgi'), params=params)
+    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'einfo.fcgi')
+    url <- BiodbUrl(url=u, params=params)
     request <- BiodbRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
@@ -115,12 +135,12 @@ NcbiEntrezConn$methods( wsEinfo=function(retfmt=c('plain', 'request', 'parsed'))
         results <-  XML::xmlInternalTreeParse(results, asText=TRUE)
 
     return(results)
-})
+},
 
-# Get nb entries {{{1
+# Get nb entries {{{3
 ################################################################################
 
-NcbiEntrezConn$methods( getNbEntries=function(count=FALSE) {
+getNbEntries=function(count=FALSE) {
 
     # Send request
     xml <- .self$wsEinfo(retfmt='parsed')
@@ -130,28 +150,34 @@ NcbiEntrezConn$methods( getNbEntries=function(count=FALSE) {
     n <- as.integer(n)
 
     return(n)
-})
+},
 
-# Do get entry content request {{{1
+# Do get entry content request {{{3
 ################################################################################
 
-NcbiEntrezConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
     if (concatenate)
-        urls <- .self$wsEfetch(id, retmode='xml', retfmt='request')$getUrl()$toString()
-    else
-        urls <- vapply(id, function(single.id) .self$wsEfetch(single.id, retmode='xml', retfmt='request')$getUrl()$toString(), FUN.VALUE='')
+        urls <- .self$wsEfetch(id, retmode='xml',
+                               retfmt='request')$getUrl()$toString()
+    else {
+        fct <- function(single.id) { 
+            .self$wsEfetch(single.id, retmode='xml',
+                           retfmt='request')$getUrl()$toString()
+        }
+        urls <- vapply(id, fct, FUN.VALUE='')
+    }
 
     return(urls)
-})
+},
 
-# Get entry content from database {{{1
+# Get entry content from database {{{3
 ################################################################################
 
-NcbiEntrezConn$methods( getEntryContentFromDb=function(entry.id) {
+getEntryContentFromDb=function(entry.id) {
 
     # Debug
-    .self$message('info', paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
+    .self$info("Get entry content(s) for ", length(entry.id)," id(s)...")
 
     URL.MAX.LENGTH <- 2048
     concatenate <- TRUE
@@ -165,7 +191,9 @@ NcbiEntrezConn$methods( getEntryContentFromDb=function(entry.id) {
         content <- rep(NA_character_, length(entry.id))
 
         # Get URL requests
-        url.requests <- .self$getEntryContentRequest(entry.id, concatenate=concatenate, max.length=URL.MAX.LENGTH)
+        url.requests <- .self$getEntryContentRequest(entry.id,
+                                                     concatenate=concatenate,
+                                                     max.length=URL.MAX.LENGTH)
 
         # Loop on all URLs
         for (url in url.requests) {
@@ -175,7 +203,8 @@ NcbiEntrezConn$methods( getEntryContentFromDb=function(entry.id) {
 
             if (is.na(xmlstr) || length(grep('<ERROR>', xmlstr)) > 0) {
                 if (concatenate) {
-                    .self$message('caution', "Something went wrong while downloading several entries at once.")
+                    .self$caution("Something went wrong while downloading",
+                                  " several entries at once.")
                     concatenate <- FALSE
                     done <- FALSE
                     break
@@ -187,26 +216,33 @@ NcbiEntrezConn$methods( getEntryContentFromDb=function(entry.id) {
             xml <-  XML::xmlInternalTreeParse(xmlstr, asText=TRUE)
 
             # Get returned IDs
-            returned.ids <- XML::xpathSApply(xml, paste0("//", .self$.entrez.id.tag), XML::xmlValue)
+            xpath <- paste0("//", .self$.entrez.id.tag)
+            returned.ids <- XML::xpathSApply(xml, xpath, XML::xmlValue)
 
             # Store contents
-            content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, paste0("//", .self$.entrez.tag)), XML::saveXML, FUN.VALUE='')
+            nodes <- XML::getNodeSet(xml, paste0("//", .self$.entrez.tag))
+            c <- vapply(nodes, XML::saveXML, FUN.VALUE='')
+            content[match(returned.ids, entry.id)] <- c
         }
     }
 
     return(content)
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Get entry ids {{{2
+# Get entry ids {{{3
 ################################################################################
 
-NcbiEntrezConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=NA_integer_) {
 
-    .self$message('caution', "Method using a last resort solution for its implementation. Returns only a small subset of Ncbi entries.")
+    .self$caution("Method using a last resort solution for its implementation.",
+                  " Returns only a small subset of Ncbi entries.")
 
-    return(.self$wsEsearch(term='e', retmax=if (is.na(max.results)) 1000000 else max.results, retfmt='ids'))
-})
+    retmax <- if (is.na(max.results)) 1000000 else max.results
+    return(.self$wsEsearch(term='e', retmax=retmax, retfmt='ids'))
+}
+
+))
 

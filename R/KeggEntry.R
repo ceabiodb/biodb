@@ -1,24 +1,32 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+# KeggEntry {{{1
+################################################################################
 
 #' @include BiodbTxtEntry.R
+KeggEntry=methods::setRefClass("KeggEntry",
+    contains='BiodbTxtEntry',
 
-# Class declaration {{{1
+# Public methods {{{2
 ################################################################################
 
-KeggEntry=methods::setRefClass("KeggEntry", contains='BiodbTxtEntry')
+methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
-KeggEntry$methods( initialize=function(...) {
+initialize=function(...) {
 
     callSuper(...)
-})
+},
 
-# Get tag lines {{{1
+# Private methods {{{2
 ################################################################################
 
-KeggEntry$methods( .getTagLines=function(tag, parsed.content) {
+# Get tag lines {{{3
+################################################################################
+
+.getTagLines=function(tag, parsed.content) {
 
     lines <- character()
 
@@ -43,12 +51,13 @@ KeggEntry$methods( .getTagLines=function(tag, parsed.content) {
     }
 
     return(lines)
-})
+},
 
-# Parse multilines field {{{1
+# Parse multilines field {{{3
 ################################################################################
 
-KeggEntry$methods( .parseMultilinesField=function(field, tag, parsed.content, strip.chars=' ', split.char=' ') {
+.parseMultilinesField=function(field, tag, parsed.content, strip.chars=' ',
+                               split.char=' ') {
 
     # Get tag lines
     lines <- .self$.getTagLines(tag=tag, parsed.content=parsed.content)
@@ -57,54 +66,61 @@ KeggEntry$methods( .parseMultilinesField=function(field, tag, parsed.content, st
     if ( ! is.na(split.char))
         lines <- unlist(strsplit(lines, paste0(split.char, "+"), perl=TRUE))
 
-    value <- sub(paste0('[', strip.chars, ']+$'), '', sub(paste0('^[', strip.chars, ']+'), '', lines))
+    value <- sub(paste0('[', strip.chars, ']+$'), '',
+                 sub(paste0('^[', strip.chars, ']+'), '', lines))
 
     # Set field value
     if (length(value) > 0)
         .self$setFieldValue(field, value)
-})
+},
 
-# Parse module IDs {{{1
+# Parse module IDs {{{3
 ################################################################################
 
-KeggEntry$methods( .parseModuleIds=function(parsed.content) {
-    module.ids <- .self$.getTagLines(tag='MODULE', parsed.content=parsed.content)
+.parseModuleIds=function(parsed.content) {
+    module.ids <- .self$.getTagLines(tag='MODULE',
+                                     parsed.content=parsed.content)
     if (length(module.ids) > 0) {
         module.ids <- sub('^\\s*[A-Za-z_]*(M[0-9]+)\\s+.*$', '\\1', module.ids)
         .self$setFieldValue('kegg.module.id', module.ids)
     }
-})
+},
 
-# Parse pathway IDs {{{1
+# Parse pathway IDs {{{3
 ################################################################################
 
-KeggEntry$methods( .parsePathwayIds=function(parsed.content) {
-    pathway.ids <- .self$.getTagLines(tag='PATHWAY', parsed.content=parsed.content)
+.parsePathwayIds=function(parsed.content) {
+    pathway.ids <- .self$.getTagLines(tag='PATHWAY',
+                                      parsed.content=parsed.content)
     if (length(pathway.ids) > 0) {
         pathway.ids <- sub('^\\s*([^ ]+)\\s+.*$', '\\1', pathway.ids)
         .self$setFieldValue('kegg.pathway.id', pathway.ids)
     }
-})
+},
 
-# Parse compound IDs {{{1
+# Parse compound IDs {{{3
 ################################################################################
 
-KeggEntry$methods( .parseCompoundIds=function(parsed.content) {
-    compound.ids <- .self$.getTagLines(tag='COMPOUND', parsed.content=parsed.content)
+.parseCompoundIds=function(parsed.content) {
+    compound.ids <- .self$.getTagLines(tag='COMPOUND',
+                                       parsed.content=parsed.content)
     if (length(compound.ids) > 0) {
         compound.ids <- sub('^\\s*(C[0-9]+)\\s+.*$', '\\1', compound.ids)
         .self$setFieldValue('kegg.compound.id', compound.ids)
     }
-})
+},
 
-# Parse reaction IDs {{{1
+# Parse reaction IDs {{{3
 ################################################################################
 
-KeggEntry$methods( .parseReactionIds=function(parsed.content) {
-    reaction.ids <- .self$.getTagLines(tag='REACTION', parsed.content=parsed.content)
-    if (length(reaction.ids) > 0) {
-        reaction.ids <- stringr::str_match_all(reaction.ids, '(^|[ +,])(R[0-9]+)')
-        reaction.ids <- unlist(lapply(reaction.ids, function(x) x[,3]))
-        .self$setFieldValue('kegg.reaction.id', reaction.ids)
+.parseReactionIds=function(parsed.content) {
+    rids <- .self$.getTagLines(tag='REACTION',
+                               parsed.content=parsed.content)
+    if (length(rids) > 0) {
+        rids <- stringr::str_match_all(rids, '(^|[ +,])(R[0-9]+)')
+        rids <- unlist(lapply(rids, function(x) x[,3]))
+        .self$setFieldValue('kegg.reaction.id', rids)
     }
-})
+}
+
+))

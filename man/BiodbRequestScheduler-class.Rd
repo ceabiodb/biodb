@@ -21,12 +21,19 @@
 \item{dest.file}{A path to a destination file.}
 }
 \description{
-This class handles GET and POST requests, as well as file downloading. Each remote database connection instance (instance of concrete class inheriting from \code{BiodbRemotedbConn}) creates an instance of \code{BiodbRequestScheduler} for handling database connection. A timer is used to schedule connections, and avoid sending too much requests to the database. This class is not meant to be used directly by the library user. See section Fields for a list of the constructor's parameters.
+This class handles GET and POST requests, as well as file downloading. Each
+remote database connection instance (instance of concrete class inheriting
+from \code{BiodbRemotedbConn}, creates an instance of
+\code{BiodbRequestScheduler} for handling database connection. A timer is
+used to schedule connections, and avoid sending too much requests to the
+database. This class is not meant to be used directly by the library user.
+See section Fields for a list of the constructor's parameters.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{downloadFile(url, dest.file)}}{Download the content of a URL and save it into the specified destination file.}
+\item{\code{downloadFile(url, dest.file)}}{Download the content of a URL and save it into the specified destination
+file.}
 
 \item{\code{getUrl(url, params = list(), method = c("get", "post"),
   header = character(), body = character(), encoding = integer())}}{Send a URL request, either with GET or POST method, and return result.}
@@ -39,6 +46,29 @@ This class handles GET and POST requests, as well as file downloading. Each remo
   encoding = integer())}}{Send a SOAP request to a URL. Returns the string result.}
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get the scheduler
+sched <- mybiodb$getRequestScheduler()
+
+# Create a request object
+u <- 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1/XML'
+url <- BiodbUrl(url=u)
+request <- BiodbRequest(method='get', url=url)
+
+# Send request
+\dontrun{
+sched$sendRequest(request)
+}
+
+# Terminate instance.
+mybiodb$terminate()
+mybiodb <- NULL
+
+}
 \seealso{
-\code{\link{BiodbRemotedbConn}}, \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
+\code{\link{BiodbRemotedbConn}},
+\code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
 }

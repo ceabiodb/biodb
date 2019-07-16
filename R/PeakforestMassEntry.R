@@ -1,29 +1,30 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+# PeakforestMassEntry {{{1
+################################################################################
 
 #' @include BiodbJsonEntry.R
+PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry",
+    contains="BiodbJsonEntry",
 
-# Class declaration {{{1
+# Private methods {{{2
 ################################################################################
 
-PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry", contains="BiodbJsonEntry")
+methods=list(
 
-# Initialize {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-PeakforestMassEntry$methods( initialize=function(...) {
-    callSuper(...)
-})
-
-# Parse fields step 2 {{{1
-################################################################################
-
-PeakforestMassEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # Set peaks
-    if ('peaks' %in% names(parsed.content) && length(parsed.content$peaks) > 0) {
+    if ('peaks' %in% names(parsed.content)
+        && length(parsed.content$peaks) > 0) {
 
         # Creaate empty peaks data frame
-        peaks <- data.frame(mz=double(), ri=double(), deltaPPM=double(), theoricalMass=double(), composition=character(), attribution=character(), stringsAsFactors=FALSE)
+        peaks <- data.frame(mz=double(), ri=double(), deltaPPM=double(),
+                            theoricalMass=double(), composition=character(),
+                            attribution=character(), stringsAsFactors=FALSE)
 
         # Loop on all peaks
         for (p in parsed.content$peaks) {
@@ -35,7 +36,8 @@ PeakforestMassEntry$methods( .parseFieldsStep2=function(parsed.content) {
                     if (length(p[[field]]) > 0)
                         peak[[field]] <- p[[field]]
                     else
-                        peak[[field]] <- as.vector(NA, mode=class(peaks[[field]]))
+                        peak[[field]] <- as.vector(NA,
+                                                   mode=class(peaks[[field]]))
                 }
             peak <- data.frame(peak, stringsAsFactors=FALSE)
 
@@ -44,7 +46,9 @@ PeakforestMassEntry$methods( .parseFieldsStep2=function(parsed.content) {
         }
 
         # Set right column names
-        colnames(peaks) <- c('peak.mz', 'peak.relative.intensity', 'peak.error.ppm', 'peak.mass', 'peak.comp', 'peak.attr')
+        colnames(peaks) <- c('peak.mz', 'peak.relative.intensity',
+                             'peak.error.ppm', 'peak.mass', 'peak.comp',
+                             'peak.attr')
         .self$setFieldValue('peaks', peaks)
         .self$setFieldValue('nb.peaks', nrow(peaks))
     }
@@ -94,15 +98,22 @@ PeakforestMassEntry$methods( .parseFieldsStep2=function(parsed.content) {
         if (parsed.content$fragmentationLevelString == 'MS2')
             .self$setFieldValue('ms.level', 2)
         else
-            .self$message('caution', paste('Unknown MS type "', parsed.content$fragmentationLevelString,'" for Peakforest entry "', .self$getFieldValue('accession'), '".', sep=''))
+            .self$caution('Unknown MS type "',
+                          parsed.content$fragmentationLevelString,
+                          '" for Peakforest entry "',
+                          .self$getFieldValue('accession'), '".')
     }
     else
         .self$setFieldValue('ms.level', 1)
 
     # Get precursor
     if ( ! .self$hasField('msprecmz') && .self$hasField('peaks')) {
-        prec <- .self$getFieldValue('peaks')[['peak.attr']] %in% c('[M+H]+', '[M-H]-')
+        v <- .self$getFieldValue('peaks')[['peak.attr']]
+        prec <- v %in% c('[M+H]+', '[M-H]-')
         if (any(prec))
-            .self$setFieldValue('msprecmz', .self$getFieldValue('peaks')[prec, 'peak.mz'])
+            .self$setFieldValue('msprecmz',
+                                .self$getFieldValue('peaks')[prec, 'peak.mz'])
     }
-})
+}
+
+))

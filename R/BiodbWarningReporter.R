@@ -1,4 +1,4 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # BiodbWarningReporter {{{1
 ################################################################################
@@ -12,8 +12,6 @@
 #'
 #' @import methods
 #' @include BiodbObserver.R
-#' @export BiodbWarningReporter
-#' @exportClass BiodbWarningReporter
 BiodbWarningReporter <- methods::setRefClass("BiodbWarningReporter",
     contains='BiodbObserver',
 

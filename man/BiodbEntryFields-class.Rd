@@ -11,7 +11,8 @@
 \item{database}{The name of a database.}
 }
 \description{
-The unique instance of this class is handle by the \code{\link{Biodb}} class and accessed through the \code{getEntryFields()} method.
+The unique instance of this class is handle by the \code{\link{Biodb}} class
+and accessed through the \code{getEntryFields()} method.
 }
 \section{Methods}{
 
@@ -20,11 +21,13 @@ The unique instance of this class is handle by the \code{\link{Biodb}} class and
 
 \item{\code{get(name)}}{Returns the BiodbEntryField instance associated with name.}
 
-\item{\code{getDatabaseIdField(database)}}{Returns the name of the field handling identifiers (i.e.: accession numbers) for this database.}
+\item{\code{getDatabaseIdField(database)}}{Returns the name of the field handling identifiers (i.e.: accession
+numbers) for this database.}
 
 \item{\code{getFieldNames(type = NULL)}}{Returns the main names of all fields.}
 
-\item{\code{getRealName(name)}}{If name is an alias, returns the main name of the field. If name is not found neither in aliases nor in real names, an error is thrown.}
+\item{\code{getRealName(name)}}{If name is an alias, returns the main name of the field. If name is not
+found neither in aliases nor in real names, an error is thrown.}
 
 \item{\code{isAlias(name)}}{Returns TRUE if name is an alias of a field.}
 

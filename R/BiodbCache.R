@@ -1,4 +1,4 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # BiodbCache {{{1
 ################################################################################
@@ -85,7 +85,8 @@ getDir=function() {
 isReadable=function() {
     "Returns TRUE if the cache system is readable."
 
-    return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()))
+    cfg <- .self$getBiodb()$getConfig()
+    return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir()))
 },
 
 # Is writable {{{3
@@ -94,7 +95,9 @@ isReadable=function() {
 isWritable=function() {
     "Returns TRUE if the cache system is writable."
 
-    return( .self$getBiodb()$getConfig()$isEnabled('cache.system') && ! is.na(.self$getDir()) && ! .self$getBiodb()$getConfig()$get('cache.read.only'))
+    cfg <- .self$getBiodb()$getConfig()
+    return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir())
+           && ! cfg$get('cache.read.only'))
 },
 
 # File exists {{{3
@@ -112,9 +115,14 @@ fileExist=function(cache.id, subfolder, name, ext) {
 ################################################################################
 
 markerExist=function(cache.id, subfolder, name) {
-    "Test if markers exist in the cache. Markers are used, for instance, by biodb to remember that a downloaded zip file from a database has been extracted correctly."
+    "Test if markers exist in the cache. Markers are used, for instance, by
+    biodb to remember that a downloaded zip file from a database has been
+    extracted correctly."
 
-    return(.self$fileExist(cache.id=cache.id, subfolder=subfolder, name=name, ext='marker'))
+    b <- .self$fileExist(cache.id=cache.id, subfolder=subfolder, name=name,
+                         ext='marker')
+
+    return(b)
 },
 
 # Set marker {{{3
@@ -123,7 +131,8 @@ markerExist=function(cache.id, subfolder, name) {
 setMarker=function(cache.id, subfolder, name) {
     "Set a marker."
 
-    marker.path <- .self$getFilePath(cache.id=cache.id, subfolder=subfolder, name=name, ext='marker')
+    marker.path <- .self$getFilePath(cache.id=cache.id, subfolder=subfolder,
+                                     name=name, ext='marker')
 
     writeChar('', marker.path)
 },
@@ -138,7 +147,8 @@ getFilePath=function(cache.id, subfolder, name, ext) {
     name <- gsub('[^A-Za-z0-9._-]', '_', name)
 
     # Set file path
-    filepaths <- file.path(.self$getSubFolderPath(subfolder), paste(cache.id, '-', name, '.', ext, sep=''))
+    filepaths <- file.path(.self$getSubFolderPath(subfolder),
+                           paste(cache.id, '-', name, '.', ext, sep=''))
 
     # Set NA values
     filepaths[is.na(name)] <- NA_character_
@@ -153,30 +163,46 @@ loadFileContent=function(cache.id, subfolder, name, ext, output.vector=FALSE) {
     "Load content of files from the cache."
 
     if ( ! .self$isReadable())
-        .self$message('error', paste("Attempt to read from non-readable cache \"", .self$getDir(), "\".", sep=''))
+        .self$error("Attempt to read from non-readable cache \"",
+                    .self$getDir(), "\".")
 
     content <- NULL
 
+    # Read content
+    rdCnt <- function(x) {
+        if (is.na(x))
+            NA_character_
+        else if ( ! file.exists(x))
+            NULL
+        else if (ext == 'RData') {
+            load(x)
+            c
+        } else
+            readChar(x, file.info(x)$size, useBytes=TRUE)
+    }
+
     # Read contents from files
     file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
-    .self$message('debug', paste("Trying to load from cache \"", paste(file.paths[seq_len(min(10, length(file.paths)))], collapse=", "), if (length(file.paths) > 10) " ..." else "", "\".", sep=''))
-    content <- lapply(file.paths, function(x) { if (is.na(x)) NA_character_ else if ( ! file.exists(x)) NULL else if (ext == 'RData') { load(x) ; c} else readChar(x, file.info(x)$size, useBytes=TRUE)} )
+    .self$debug2List('Trying to load from cache', file.paths)
+    content <- lapply(file.paths,  rdCnt)
     files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE=TRUE)]
-    if (length(files.read) == 0)
-        .self$message('debug', "No files loaded from cache.")
-    else
-        .self$message('debug', paste("Loaded from cache \"", paste(if (length(files.read) > 10) c(files.read[seq_len(10)], '...') else files.read, collapse=", ") ,"\".", sep=''))
+    .self$debug2List('Loaded from cache', files.read)
 
     # Check that the read content is not conflicting with the current locale
     for (i in seq(content)) {
         n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
         if (is.null(n)) {
-            .self$message('caution', paste("Error when reading content of file \"", file.paths[[i]], "\". The function `nchar` returned an error on the content. The file may be written in a unexpected encoding. Trying latin-1...", sep=''))
+            .self$caution('Error when reading content of file "',
+                          file.paths[[i]], '". The function `nchar` returned',
+                          ' an error on the content. The file may be written', 
+                          ' in a unexpected encoding. Trying latin-1...')
             # The encoding may be wrong, try another one. Maybe LATIN-1
             content[[i]] <- iconv(content[[i]], "iso8859-1")
             n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
             if (is.null(n))
-                .self$message('error', paste("Impossible to handle correctly the content of file \"", file.paths[[i]], "\". The encoding of this file is unknown.", sep=''))
+                .self$error('Impossible to handle correctly the content of', 
+                            ' file "', file.paths[[i]], '". The encoding of', 
+                            ' this file is unknown.')
         }
     }
 
@@ -184,8 +210,10 @@ loadFileContent=function(cache.id, subfolder, name, ext, output.vector=FALSE) {
     content[content == 'NA' | content == "NA\n"] <- NA_character_
 
     # Vector ?
-    if (output.vector)
-        content <- vapply(content, function(x) if (is.null(x)) NA_character_ else x, FUN.VALUE='')
+    if (output.vector) {
+        null_to_na <- function(x) { if (is.null(x)) NA_character_ else x }
+        content <- vapply(content, null_to_na, FUN.VALUE='')
+    }
 
     return(content)
 },
@@ -197,25 +225,31 @@ saveContentToFile=function(content, cache.id, subfolder, name, ext) {
     "Save content to files into the cache."
 
     if ( ! .self$isWritable())
-        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep=''))
+        .self$error('Attempt to write into non-writable cache. "',
+                    .self$getDir(), '".')
 
     # Get file paths
     file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
 
     # Check that we have the same number of content and file paths
     if (length(file.paths) != length(content))
-        .self$message('error', paste("The number of content to save (", length(content), ") is different from the number of paths (", length(file.paths), ").", sep=''))
+        .self$error('The number of content to save (', length(content),
+                    ') is different from the number of paths (',
+                    length(file.paths), ').')
 
     # Replace NA values with 'NA' string
     if (ext != 'RData')
         content[is.na(content)] <- 'NA'
 
     # Write content to files
-    .self$debug2("Saving to cache \"", paste(if (length(file.paths) > 10) c(file.paths[seq_len(10)], '...') else file.paths, collapse=", ") ,"\".")
+    .self$debug2List('Saving to cache', file.paths)
     if (ext == 'RData')
         mapply(function(c, f) { save(c, file=f) }, content, file.paths)
     else
-        mapply(function(c, f) { if ( ! is.null(c)) cat(c, file=f) }, content, file.paths) # Use cat instead of writeChar, because writeChar was not working with some unicode string (wrong string length).
+        # Use cat instead of writeChar, because writeChar was not working with
+        # some unicode string (wrong string length).
+        mapply(function(c, f) { if ( ! is.null(c)) cat(c, file=f) },
+               content, file.paths)
 },
 
 # Get subfolder path {{{3
@@ -239,7 +273,8 @@ getSubFolderPath=function(subfolder) {
 eraseFolder=function(subfolder=NA_character_) {
 
     # Erase whole cache
-    if (is.na(subfolder) || ! .self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
+    cfg <- .self$getBiodb()$getConfig()
+    if (is.na(subfolder) || ! cfg$isEnabled('cache.subfolders'))
         folder.to.erase <- .self$getDir()
 
     # Erase subfolder
@@ -247,7 +282,7 @@ eraseFolder=function(subfolder=NA_character_) {
         folder.to.erase <- .self$.getSubfolderPath(subfolder)
 
     # Erase
-    .self$message('info', paste("Erasing cache folder ", folder.to.erase, ".", sep=''))
+    .self$info("Erasing cache folder ", folder.to.erase, ".")
     unlink(folder.to.erase, recursive=TRUE)
 },
 
@@ -258,7 +293,8 @@ deleteFile=function(cache.id, subfolder, name, ext) {
     "Delete one file inside the cache system."
 
     if ( ! .self$isWritable())
-        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep=''))
+        .self$error('Attempt to write into non-writable cache. "',
+                    .self$getDir(), '".')
 
     # Get file paths
     file.paths <- .self$getFilePath(cache.id, subfolder, name, ext)
@@ -274,7 +310,8 @@ deleteFiles=function(cache.id, subfolder, ext=NA_character_) {
     "Delete files inside the cache system."
 
     if ( ! .self$isWritable())
-        .self$message('error', paste("Attempt to write into non-writable cache. \"", .self$getDir(), "\".", sep=''))
+        .self$error('Attempt to write into non-writable cache. "',
+                    .self$getDir(), '".')
 
     files <- paste(cache.id, '*',sep='-')
     if ( ! is.na(ext))
@@ -297,7 +334,7 @@ listFiles=function(cache.id, subfolder, ext=NA_character_, extract.name=FALSE) {
 
     # List files
     dir <- .self$getSubFolderPath(subfolder)
-    .self$message('debug', paste("List files in", dir, "using pattern ", pattern))
+    .self$debug("List files in", dir, "using pattern ", pattern)
     files <- list.files(path=dir, pattern=pattern)
 
     # Extract only the name part
@@ -317,8 +354,10 @@ listFiles=function(cache.id, subfolder, ext=NA_character_, extract.name=FALSE) {
 
 show=function() {
     cat("Biodb cache system instance.\n")
-    cat("  The cache is ", (if (.self$isReadable()) "" else "not "), "readable.\n", sep='')
-    cat("  The cache is ", (if (.self$isWritable()) "" else "not "), "writable.\n", sep='')
+    cat("  The cache is ", (if (.self$isReadable()) "" else "not "),
+        "readable.\n", sep='')
+    cat("  The cache is ", (if (.self$isWritable()) "" else "not "),
+        "writable.\n", sep='')
 },
 
 # Private methods {{{2
@@ -329,15 +368,16 @@ show=function() {
 
 .getSubfolderPath=function(subfolder) {
 
+    cfg <- .self$getBiodb()$getConfig()
     cfg.subfolder.key <- paste(subfolder, 'cache', 'subfolder', sep='.')
 
     # Check subfolder
-    if ( ! .self$getBiodb()$getConfig()$isDefined(cfg.subfolder.key))
-        .self$message('error', paste("Unknown cache folder \"", folder, "\".", sep=''))
+    if ( ! cfg$isDefined(cfg.subfolder.key))
+        .self$error('Unknown cache folder "', folder, '".')
 
     # Get subfolder path
-    if (.self$getBiodb()$getConfig()$isEnabled('cache.subfolders'))
-        folder.path <- file.path(.self$getDir(), .self$getBiodb()$getConfig()$get(cfg.subfolder.key))
+    if (cfg$isEnabled('cache.subfolders'))
+        folder.path <- file.path(.self$getDir(), cfg$get(cfg.subfolder.key))
     else
         folder.path <- .self$getDir()
 },

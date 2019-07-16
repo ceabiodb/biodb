@@ -6,14 +6,21 @@
 \alias{BiodbRemotedbConn}
 \title{The mother class of all remote database connectors.}
 \arguments{
-\item{concatenate}{If set to \code{TRUE}, then try to build as few URLs as possible, sending requests with several identifiers at once.}
+\item{concatenate}{If set to \code{TRUE}, then try to build as few URLs as
+possible, sending requests with several identifiers at once.}
 
-\item{entry.id}{The identifiers (e.g.: accession numbers) as a \code{character vector} of the database entries.}
+\item{entry.id}{The identifiers (e.g.: accession numbers) as a
+\code{character vector} of the database entries.}
 
-\item{max.length}{The maximum length of the URLs to return, in number of characters.}
+\item{max.length}{The maximum length of the URLs to return, in number of
+characters.}
 }
 \description{
-This is the super class of remote database connectors. It thus defines methods related to remote connection, like the definition of a token, and URL definitions. As with \code{\link{BiodbConn}} class, you won't need to use the constructor. Nevertheless we provide in the Fields section information about the constructor parameters, for eventual developers.
+This is the super class of remote database connectors. It thus defines
+methods related to remote connection, like the definition of a token, and URL
+definitions. As with \code{\link{BiodbConn}} class, you won't need to use the
+constructor. Nevertheless we provide in the Fields section information about
+the constructor parameters, for eventual developers.
 }
 \section{Methods}{
 
@@ -22,7 +29,8 @@ This is the super class of remote database connectors. It thus defines methods r
 
 \item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{Get the URL to use in order to get the contents of the specified entries.}
 
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
+case of a compound entry).}
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 }}

@@ -1,31 +1,39 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+# HmdbMetabolitesEntry {{{1
+################################################################################
 
 #' @include BiodbXmlEntry.R
+HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry",
+    contains="BiodbXmlEntry",
 
-# Class declaration {{{1
+# Public methods {{{2
 ################################################################################
 
-HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry", contains="BiodbXmlEntry")
+methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
-HmdbMetabolitesEntry$methods( initialize=function(...) {
+initialize=function(...) {
 
     callSuper(...)
-})
+},
 
-# Is parsed content correct {{{1
+# Private methods {{{2
 ################################################################################
 
-HmdbMetabolitesEntry$methods( .isParsedContentCorrect=function(parsed.content) {
+# Is parsed content correct {{{3
+################################################################################
+
+.isParsedContentCorrect=function(parsed.content) {
     return(length(XML::getNodeSet(parsed.content, "//error")) == 0)
-})
+},
 
-# Parse fields step 2 {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-HmdbMetabolitesEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # Remove fields with empty string
     for (f in .self$getFieldNames()) {
@@ -35,11 +43,15 @@ HmdbMetabolitesEntry$methods( .parseFieldsStep2=function(parsed.content) {
     }
 
     # Correct InChIKey
-    if (.self$hasField('INCHIKEY'))
-        .self$setFieldValue('INCHIKEY', sub('^InChIKey=', '', .self$getFieldValue('INCHIKEY'), perl=TRUE))
+    if (.self$hasField('INCHIKEY')) {
+        v <- sub('^InChIKey=', '', .self$getFieldValue('INCHIKEY'), perl=TRUE)
+        .self$setFieldValue('INCHIKEY', v)
+    }
 
     # Synonyms
     synonyms <- XML::xpathSApply(parsed.content, "//synonym", XML::xmlValue)
     if (length(synonyms) > 0)
         .self$appendFieldValue('name', synonyms)
-})
+}
+
+))

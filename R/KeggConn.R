@@ -1,15 +1,17 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# KeggConn {{{1
 ################################################################################
 
 #' The connector abstract class to KEGG databases.
 #'
-#' This is the mother class of all KEGG connectors. It defines code common to all KEGG connectors.
+#' This is the mother class of all KEGG connectors. It defines code common to
+#' all KEGG connectors.
 #'
 #' @param query The query to send to the database web service.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbSearchable}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+#' \code{\link{BiodbSearchable}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -28,12 +30,22 @@
 #' @include BiodbSearchable.R
 #' @export KeggConn
 #' @exportClass KeggConn
-KeggConn <- methods::setRefClass("KeggConn", contains=c("BiodbRemotedbConn", "BiodbSearchable"), fields=list(.db.name="character", .db.abbrev="character"))
+KeggConn <- methods::setRefClass("KeggConn",
+    contains=c("BiodbRemotedbConn", "BiodbSearchable"),
+    fields=list(
+        .db.name="character",
+        .db.abbrev="character"
+    ),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-KeggConn$methods( initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
 
     callSuper(...)
     .self$.abstractClass('KeggConn')
@@ -45,43 +57,56 @@ KeggConn$methods( initialize=function(db.name=NA_character_, db.abbrev=NA_charac
 
     # Set abbreviation
     .self$.db.abbrev <- db.abbrev
-})
+},
 
-# Complete entry id {{{1
+# Complete entry id {{{3
 ################################################################################
 
-KeggConn$methods( .completeEntryId=function(id) {
+.completeEntryId=function(id) {
 
     if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
         id <- paste(.self$.db.abbrev, id, sep=':')
 
     return(id)
-})
+},
 
-# Get entry content request {{{1
+# Get entry content request {{{3
 ################################################################################
 
-KeggConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'get', x))$toString(), FUN.VALUE=''))
-})
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'ws.url'), 'get', x)
+        BiodbUrl(url=u)$toString()
+    }
+    
+    return(vapply(id, fct, FUN.VALUE=''))
+},
 
-# Get entry page url {{{1
+# Get entry page url {{{3
 ################################################################################
 
-KeggConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget'), params=.self$.completeEntryId(id))$toString(), FUN.VALUE=''))
-})
+getEntryPageUrl=function(id) {
+    
+    u <- c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
+    p <- .self$.completeEntryId(id)
+    fct <- function(x) BiodbUrl(url=u, params=p)$toString()
 
-# Web service list {{{1
+    return(vapply(id, fct, FUN.VALUE=''))
+},
+
+# Web service list {{{3
 ################################################################################
 
-KeggConn$methods( wsList=function(retfmt=c('plain', 'request', 'ids')) {
-    "Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
+wsList=function(retfmt=c('plain', 'request', 'ids')) {
+    "Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for
+    details."
 
     retfmt <- match.arg(retfmt)
 
     # Build request
-    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'list', .self$.db.name))
+    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'list', .self$.db.name)
+    url <- BiodbUrl(url=u)
     request <- BiodbRequest(url=url)
     if (retfmt == 'request')
         return(request)
@@ -100,18 +125,21 @@ KeggConn$methods( wsList=function(retfmt=c('plain', 'request', 'ids')) {
     }
 
     return(results)
-})
+},
 
-# Web service find {{{1
+# Web service find {{{3
 ################################################################################
 
-KeggConn$methods( wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for details."
+wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    "Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
+    details."
 
     retfmt <- match.arg(retfmt)
 
     # Build request
-    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name, query))
+    u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name,
+           query)
+    url <- BiodbUrl(url=u)
     request <- BiodbRequest(url=url)
     if (retfmt == 'request')
         return(request)
@@ -133,12 +161,12 @@ KeggConn$methods( wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 
     }
 
     return(results)
-})
+},
 
-# Search by name {{{1
+# Search by name {{{3
 ################################################################################
 
-KeggConn$methods( searchByName=function(name, max.results=NA_integer_) {
+searchByName=function(name, max.results=NA_integer_) {
 
     ids <- NULL
 
@@ -154,19 +182,20 @@ KeggConn$methods( searchByName=function(name, max.results=NA_integer_) {
         ids <- ids[seq_len(max.results)]
 
     return(ids)
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Get entry ids {{{2
+# Get entry ids {{{3
 ################################################################################
 
-KeggConn$methods( .doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=NA_integer_) {
 
     # Get IDs
     ids <- .self$wsList(retfmt='ids')
 
     return(ids)
-})
+}
 
+))

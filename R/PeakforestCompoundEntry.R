@@ -1,23 +1,22 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+
+# PeakforestCompoundEntry {{{1
+################################################################################
 
 #' @include BiodbJsonEntry.R
+PeakforestCompoundEntry <- methods::setRefClass("PeakforestCompoundEntry",
+    contains="BiodbJsonEntry",
 
-# Class declaration {{{1
+# Private methods {{{2
 ################################################################################
 
-PeakforestCompoundEntry <- methods::setRefClass("PeakforestCompoundEntry", contains="BiodbJsonEntry")
+methods=list(
 
-# Initialize {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-PeakforestCompoundEntry$methods( initialize=function(...) {
-    callSuper(...)
-})
-
-# Parse fields step 2 {{{1
-################################################################################
-
-PeakforestCompoundEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # HMDB null
     if (.self$hasField('hmdb.metabolites.id')) {
@@ -35,4 +34,6 @@ PeakforestCompoundEntry$methods( .parseFieldsStep2=function(parsed.content) {
         v <- sub('^CHEBI:', '', v)
         .self$setFieldValue('chebi.id', v)
     }
-})
+}
+
+))

@@ -65,7 +65,7 @@ check: $(ZIPPED_PKG)
 
 bioc.check: $(ZIPPED_PKG)
 	R -q -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
-	time R CMD BiocCheck --new-package --quit-with-status "$<"
+	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$<"
 
 check.version:
 #	test "$(PKG_VERSION)" = "$(GIT_VERSION)"

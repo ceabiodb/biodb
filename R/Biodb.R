@@ -1,4 +1,4 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # Biodb {{{1
 ################################################################################
@@ -9,7 +9,7 @@
 #' this class. See section Fields for a list of the constructor's parameters.
 #'
 #' @field logger    Set to \code{FALSE} if you want to disable the default
-#"                  logger.
+#'                  logger.
 #' @field observers Either a \code{BiodbObserver} class instance or a list of
 #'                  \code{BiodbObserver} class instances.
 #'
@@ -22,7 +22,7 @@
 #'                    greater than one, then values are collapsed and output is
 #'                    a vector of class character. 
 #' @param null.to.na  If \code{TRUE}, each \code{NULL} entry is converted into a
-#'                    line of \code{NA} values inside the data frame."
+#'                    line of \code{NA} values inside the data frame.
 #' @param observers   Either a \code{BiodbObserver} class instance or a list of
 #'                    \code{BiodbObserver} class instances.
 #' @param only.atomic Set to \code{TRUE} if you want only the fields of atomic
@@ -252,9 +252,7 @@ convertEntryIdFieldToDbClass=function(entry.id.field) {
 # Entries field to vector or list {{{3
 ################################################################################
 
-entriesFieldToVctOrLst=function(entries, field,
-                                                 flatten=FALSE,
-                                                 compute=TRUE) {
+entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
     "Extract the value of a field from a list of entries. Returns either a
     vector or a list depending on the type of the field."
 

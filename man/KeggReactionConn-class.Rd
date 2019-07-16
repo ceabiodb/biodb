@@ -6,12 +6,16 @@
 \alias{KeggReactionConn}
 \title{The connector class to KEGG Reaction database.}
 \description{
-This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+This is a concrete connector class. It must never be instantiated directly,
+but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+Only specific methods are described here. See super classes for the
+description of inherited methods.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
+case of a compound entry).}
 }}
 
 \seealso{

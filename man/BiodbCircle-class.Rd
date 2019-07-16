@@ -7,7 +7,8 @@
 \title{A class for representing a circle.}
 \description{
 This class represents a rectangle, used for graphical
-representation.
+representation. It is used inside by
+KeggPathwayConn::extractPathwayMapShapes() method.
 }
 \section{Fields}{
 
@@ -29,6 +30,26 @@ representation.
 \item{\code{getY()}}{Return the Y coordinate.}
 }}
 
+\examples{
+# Create an instance
+c1 <- BiodbCircle(x=12, y=5, r=3)
+
+# Since it inherits from BiodbShape, a color and a label can be set
+c2 <- BiodbCircle(x=12, y=5, r=3, color='blue', label='Circle 2')
+
+# Getting center
+c1$getX()
+c1$getY()
+
+# Getting radius
+c1#getRadius()
+
+# Draw a circle on the current image
+\dontrun{
+c1$draw()
+}
+
+}
 \seealso{
 \code{\link{BiodbShape}}, \code{\link{BiodbRect}}.
 }

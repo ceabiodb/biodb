@@ -1,11 +1,14 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# KeggEnzymeConn {{{1
 ################################################################################
 
 #' The connector class to KEGG Enzyme database.
 #'
-#' This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+#' This is a concrete connector class. It must never be instantiated directly,
+#' but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+#' Only specific methods are described here. See super classes for the
+#' description of inherited methods.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}.
 #'
@@ -25,30 +28,39 @@
 #' @include KeggConn.R
 #' @export KeggEnzymeConn
 #' @exportClass KeggEnzymeConn
-KeggEnzymeConn <- methods::setRefClass("KeggEnzymeConn", contains=c("KeggConn"))
+KeggEnzymeConn <- methods::setRefClass("KeggEnzymeConn",
+    contains=c("KeggConn"),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-KeggEnzymeConn$methods( initialize=function(...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
     callSuper(db.name='enzyme', db.abbrev='ec', ...)
-})
+},
 
-# Get entry image url {{{1
+# Get entry image url {{{3
 ################################################################################
 
-KeggEnzymeConn$methods( getEntryImageUrl=function(id) {
+getEntryImageUrl=function(id) {
     return(rep(NA_character_, length(id)))
-})
+},
 
-# Get pathway IDs {{{1
+# Get pathway IDs {{{3
 ################################################################################
 
-KeggEnzymeConn$methods( getPathwayIds=function(id, org) {
-    "Get organism pathways. Given a vector of KEGG Enzyme IDs and a KEGG organism code, this method retrieves KEGG pathways of this organism in which the enzymes are involved. It returns a vector of KEGG pathway IDs."
+getPathwayIds=function(id, org) {
+    "Get organism pathways. Given a vector of KEGG Enzyme IDs and a KEGG
+    organism code, this method retrieves KEGG pathways of this organism in which
+    the enzymes are involved. It returns a vector of KEGG pathway IDs."
 
     pathways <- character()
-    kegg.gen.conn <- .self$getBiodb()$getFactory()$getConn('kegg.genes')
+    fact <- .self$getBiodb()$getFactory()
+    kegg.gen.conn <- fact$getConn('kegg.genes')
 
     # Loop on all enzymes
     for (enz.id in id) {
@@ -65,7 +77,7 @@ KeggEnzymeConn$methods( getPathwayIds=function(id, org) {
             pws <- enz$getFieldValue('kegg.pathway.id')
 
             # Convert them to specified organism
-            kegg.path.conn <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+            kegg.path.conn <- fact$getConn('kegg.pathway')
             pws <- kegg.path.conn$convertToOrgPathways(pws, org=org)
         }
 
@@ -85,8 +97,10 @@ KeggEnzymeConn$methods( getPathwayIds=function(id, org) {
                     pws <- gene$getFieldValue('kegg.pathway.id')
 
                     # Filter out wrong pathways
-                    kpc <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
-                    pws <- pws[kpc$makesRefToEntry(pws, db='kegg.enzyme', oid=enz.id, recurse=TRUE)]
+                    kpc <- fact$getConn('kegg.pathway')
+                    x <- kpc$makesRefToEntry(pws, db='kegg.enzyme',
+                                             oid=enz.id, recurse=TRUE)
+                    pws <- pws[x]
                 }
             }
         }
@@ -97,4 +111,6 @@ KeggEnzymeConn$methods( getPathwayIds=function(id, org) {
     }
 
     return(pathways)
-})
+}
+
+))

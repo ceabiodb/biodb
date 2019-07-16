@@ -20,7 +20,8 @@ the representation `repr`.}
 
 \item{\code{convCasToInchikey(cas)}}{Convert a list of CAS IDs into a list of InChI keys.}
 
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
+case of a compound entry).}
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 

@@ -1,45 +1,48 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+# NcbiGeneEntry {{{1
+################################################################################
 
 #' @include BiodbXmlEntry.R
+NcbiGeneEntry <- methods::setRefClass("NcbiGeneEntry",
+    contains="BiodbXmlEntry",
 
-# Class declaration {{{1
+# Private methods {{{2
 ################################################################################
 
-NcbiGeneEntry <- methods::setRefClass("NcbiGeneEntry", contains="BiodbXmlEntry")
+methods=list(
 
-# Initialize {{{1
+# Is parsed content correct {{{3
 ################################################################################
 
-NcbiGeneEntry$methods( initialize=function(...) {
+.isParsedContentCorrect=function(parsed.content) {
+    
+    n <- XML::getNodeSet(parsed.content, "//Error")
+    if (length(n) == 0)
+        n <- XML::getNodeSet(parsed.content, "//ERROR")
+    
+    return(length(n) == 0)
+},
 
-    callSuper(...)
-})
-
-# Is parsed content correct {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-NcbiGeneEntry$methods( .isParsedContentCorrect=function(parsed.content) {
-    return(length(XML::getNodeSet(parsed.content, "//Error")) == 0 && length(XML::getNodeSet(parsed.content, "//ERROR")) == 0)
-})
-
-# Parse fields step 2 {{{1
-################################################################################
-
-NcbiGeneEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # CCDS ID
     ccdsid <- .self$.findCcdsId(parsed.content)
     if ( ! is.na(ccdsid))
         .self$setFieldValue('ncbi.ccds.id', ccdsid)
-})
+},
 
-# Find ccds id {{{1
+# Find ccds id {{{3
 ################################################################################
 
-NcbiGeneEntry$methods( .findCcdsId=function(parsed.content) {
+.findCcdsId=function(parsed.content) {
 
     # 1) Get all CCDS tags.
-    ccds_elements <- XML::getNodeSet(parsed.content, "//Dbtag_db[text()='CCDS']/..//Object-id_str")
+    xpath <- "//Dbtag_db[text()='CCDS']/..//Object-id_str"
+    ccds_elements <- XML::getNodeSet(parsed.content, xpath)
 
     # 2) If all CCDS are the same, go to point 3.
     ccds <- NA_character_
@@ -55,12 +58,18 @@ NcbiGeneEntry$methods( .findCcdsId=function(parsed.content) {
         }
     }
 
-    # 3) There are several CCDS values, we need to find the best one (i.e.: the most current one).
+    # 3) There are several CCDS values, we need to find the best one (i.e.: the
+    # most current one).
     if (is.na(ccds)) {
-        # For each CCDS, look for the parent Gene-commentary tag. Then look for the text content of the Gene-commentary_label which is situed under. Ignore CCDS that have no Gene-commentary_label associated. Choose the CCDS that has the smallest Gene-commentary_label in alphabetical order.
+        # For each CCDS, look for the parent Gene-commentary tag. Then look for
+        # the text content of the Gene-commentary_label which is situed under.
+        # Ignore CCDS that have no Gene-commentary_label associated. Choose the
+        # CCDS that has the smallest Gene-commentary_label in alphabetical
+        # order.
         version <- NA_character_
         for (e in ccds_elements) {
-            versions <- XML::xpathSApply(e, "ancestor::Gene-commentary/Gene-commentary_label", XML::xmlValue)
+            xpath <- "ancestor::Gene-commentary/Gene-commentary_label"
+            versions <- XML::xpathSApply(e, xpath, XML::xmlValue)
             if (length(versions) < 1) next
             current_version <- versions[[length(versions)]]
             if (is.na(version) || current_version < version) {
@@ -71,4 +80,6 @@ NcbiGeneEntry$methods( .findCcdsId=function(parsed.content) {
     }
 
     return(ccds)
-})
+}
+
+))

@@ -6,81 +6,113 @@
 \alias{BiodbMassdbConn}
 \title{The mother class of all Mass spectra databases.}
 \arguments{
-\item{chrom.col.ids}{IDs of chromatographic columns on which to match the retention time.}
+\item{chrom.col.ids}{IDs of chromatographic columns on which to match the
+retention time.}
 
-\item{dist.fun}{The distance function used to compute the distance betweem two mass spectra.}
+\item{dist.fun}{The distance function used to compute the distance
+betweem two mass spectra.}
 
 \item{entry.ids}{A list of entry IDs (vector of characters).}
 
-\item{ids}{A list of entry identifiers (i.e.: accession numbers). Used to restrict the set of entries on which to run the algorithm.}
+\item{ids}{A list of entry identifiers (i.e.: accession numbers).
+Used to restrict the set of entries on which to run the algorithm.}
 
-\item{input.df}{A data frame taken as input for searchMsPeaks(). It must contain a columns 'mz', and optionaly an 'rt' column.}
+\item{input.df}{A data frame taken as input for searchMsPeaks(). It must
+contain a columns 'mz', and optionaly an 'rt' column.}
 
 \item{input.df.colnames}{Names of the columns in the input data frame.}
 
-\item{insert.input.values}{Insert input values at the beginning of the result data frame.}
+\item{insert.input.values}{Insert input values at the beginning of the
+result data frame.}
 
 \item{prefix.on.result.cols}{Add prefix on column names of result data frame.}
 
 \item{max.results}{The maximum of elements returned by a method.}
 
-\item{min.rel.int}{The minimum relative intensity, in percentage (i.e.: float number between 0 and 100).}
+\item{min.rel.int}{The minimum relative intensity, in percentage (i.e.:
+float number between 0 and 100).}
 
-\item{ms.level}{The MS level to which you want to restrict your search. \code{0} means that you want to serach in all levels.}
+\item{ms.level}{The MS level to which you want to restrict your search.
+\code{0} means that you want to serach in all levels.}
 
-\item{ms.mode}{The MS mode. Set it to either \code{'neg'} or \code{'pos'}.}
+\item{ms.mode}{The MS mode. Set it to either \code{'neg'} or
+\code{'pos'}.}
 
-\item{msms.mz.tol}{M/Z tolerance to apply while matching MSMS spectra. In PPM.}
+\item{msms.mz.tol}{M/Z tolerance to apply while matching MSMS spectra.
+In PPM.}
 
-\item{msms.mz.tol.min}{Minimum of the M/Z tolerance (plain unit). If the M/Z tolerance computed with \code{msms.mz.tol} is lower than \code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.}
+\item{msms.mz.tol.min}{Minimum of the M/Z tolerance (plain unit). If the
+M/Z tolerance computed with \code{msms.mz.tol} is lower than
+\code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.}
 
 \item{mz}{A vector of M/Z values to match.}
 
 \item{mz.col}{The name of the M/Z column in the results data frame.}
 
-\item{mz.max}{A vector of maximum M/Z values to match. Goes with mz.min, and mut have the same length.}
+\item{mz.max}{A vector of maximum M/Z values to match. Goes with
+mz.min, and mut have the same length.}
 
-\item{mz.min}{A vector of minimum M/Z values to match. Goes with mz.max, and mut have the same length.}
+\item{mz.min}{A vector of minimum M/Z values to match. Goes with
+mz.max, and mut have the same length.}
 
-\item{mz.tol}{The M/Z tolerance, whose unit is defined by \code{mz.tol.unit}.}
+\item{mz.tol}{The M/Z tolerance, whose unit is defined by
+\code{mz.tol.unit}.}
 
-\item{mz.tol.unit}{The unit of the M/Z tolerance. Set it to either \code{'ppm'} or \code{'plain'}.}
+\item{mz.tol.unit}{The unit of the M/Z tolerance. Set it to either
+\code{'ppm'} or \code{'plain'}.}
 
-\item{npmin}{The minimum number of peak to detect a match (2 is recommended).}
+\item{npmin}{The minimum number of peak to detect a match (2 is
+recommended).}
 
-\item{precursor}{If set to \code{TRUE}, then restrict the search to precursor peaks.}
+\item{precursor}{If set to \code{TRUE}, then restrict the search to
+precursor peaks.}
 
-\item{precursor.mz}{The M/Z value of the precursor peak of the mass spectrum.}
+\item{precursor.mz}{The M/Z value of the precursor peak of the mass
+spectrum.}
 
 \item{results.df}{Results data frame.}
 
-\item{rt}{A vector of retention times to match. Unit is specified by rt.unit parameter.}
+\item{rt}{A vector of retention times to match. Unit is specified
+by rt.unit parameter.}
 
 \item{rt.col}{The name of the RT column in the results data frame.}
 
-\item{rt.tol}{The plain tolerance (in seconds) for retention times: input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
+\item{rt.tol}{The plain tolerance (in seconds) for retention times:
+input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
 
-\item{rt.tol.exp}{A special exponent tolerance for retention times: input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt ** rt.tol.exp. This exponent is applied on the RT value in seconds. If both rt.tol and rt.tol.exp are set, the inequality expression becomes:  input.rt - rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol + input.rt ** rt.tol.exp.}
+\item{rt.tol.exp}{A special exponent tolerance for retention times:
+input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+rt.tol and rt.tol.exp are set, the inequality expression becomes:  input.rt -
+rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+input.rt ** rt.tol.exp.}
 
-\item{rt.unit}{The unit for submitted retention times. Either 's' or 'min'.}
+\item{rt.unit}{The unit for submitted retention times. Either 's' or
+'min'.}
 
-\item{sep}{The separator used to concatenate values, when collapsing results data frame.}
+\item{sep}{The separator used to concatenate values, when
+collapsing results data frame.}
 
 \item{spectrum}{A template spectrum to match inside the database.}
 }
 \description{
-All Mass spectra databases inherit from this class. It thus defines methods specific to mass spectrometry.
+All Mass spectra databases inherit from this class. It thus defines methods
+specific to mass spectrometry.
 }
 \section{Methods}{
 
 \describe{
 \item{\code{collapseResultsDataFrame(results.df, mz.col = "mz", rt.col = "rt",
-  sep = "|")}}{Collapse rows of a results data frame, by outputing a data frame with only one row for each MZ/RT value.}
+  sep = "|")}}{Collapse rows of a results data frame, by outputing a data frame with only
+one row for each MZ/RT value.}
 
 \item{\code{filterEntriesOnRt(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
   match.rt)}}{Filter a list of entries on retention time values.}
 
-\item{\code{getChromCol(ids = NULL)}}{Get a list of chromatographic columns contained in this database. You can filter on specific entries using the ids parameter. The returned value is a data.frame with two columns : one for the ID 'id' and another one for the title 'title'.}
+\item{\code{getChromCol(ids = NULL)}}{Get a list of chromatographic columns contained in this database. You can
+filter on specific entries using the ids parameter. The returned value is a
+data.frame with two columns : one for the ID 'id' and another one for the
+title 'title'.}
 
 \item{\code{getMzValues(ms.mode = NA_character_, max.results = NA_integer_,
   precursor = FALSE, ms.level = 0)}}{Get a list of M/Z values contained inside the database.}
@@ -89,13 +121,18 @@ All Mass spectra databases inherit from this class. It thus defines methods spec
 
 \item{\code{msmsSearch(spectrum, precursor.mz, mz.tol, mz.tol.unit = "plain", ms.mode,
   npmin = 2, dist.fun = c("wcosine", "cosine", "pkernel", "pbachtttarya"),
-  msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{Search MSMS spectra matching a template spectrum. The mz.tol parameter is applied on the precursor search.}
+  msms.mz.tol = 3, msms.mz.tol.min = 0.005, max.results = NA_integer_)}}{Search MSMS spectra matching a template spectrum. The mz.tol parameter is
+applied on the precursor search.}
 
 \item{\code{searchMsEntries(mz.min = NULL, mz.max = NULL, mz = NULL, mz.shift = 0,
   mz.tol = NA_real_, mz.tol.unit = "plain", rt = NULL,
   rt.unit = NA_character_, rt.tol = NA_real_, rt.tol.exp = NA_real_,
   chrom.col.ids = NULL, precursor = FALSE, min.rel.int = NA_real_,
-  ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0)}}{Search for entries (i.e.: spectra) that contains a peak around the given M/Z value. Entries can also be filtered on RT values. You can input either a list of M/Z values through mz argument and set a tolerance with mz.tol argument, or two lists of minimum and maximum M/Z values through mz.min and mz.max arguments.  Returns a character vector of spectra IDs.}
+  ms.mode = NA_character_, max.results = NA_integer_, ms.level = 0)}}{Search for entries (i.e.: spectra) that contains a peak around the given
+M/Z value. Entries can also be filtered on RT values. You can input either a
+list of M/Z values through mz argument and set a tolerance with mz.tol
+argument, or two lists of minimum and maximum M/Z values through mz.min and
+mz.max arguments.  Returns a character vector of spectra IDs.}
 
 \item{\code{searchMsPeaks(input.df = NULL, mz = NULL, mz.shift = 0, mz.tol,
   mz.tol.unit = "plain", min.rel.int = NA_real_, ms.mode = NA_character_,
@@ -104,7 +141,9 @@ All Mass spectra databases inherit from this class. It thus defines methods spec
   rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_,
   insert.input.values = TRUE, prefix.on.result.cols = NULL,
   compute = TRUE, input.df.colnames = c(mz = "mz", rt = "rt"),
-  match.rt = FALSE)}}{For each M/Z value, search for matching MS spectra and return the matching peaks. If max.results is set, it is used to limit the number of matches found for each M/Z value.}
+  match.rt = FALSE)}}{For each M/Z value, search for matching MS spectra and return the matching
+peaks. If max.results is set, it is used to limit the number of matches
+found for each M/Z value.}
 
 \item{\code{searchMzRange(mz.min, mz.max, min.rel.int = NA_real_,
   ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE,
@@ -112,7 +151,8 @@ All Mass spectra databases inherit from this class. It thus defines methods spec
 
 \item{\code{searchMzTol(mz, mz.tol, mz.tol.unit = "plain", min.rel.int = NA_real_,
   ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE,
-  ms.level = 0)}}{Find spectra containg a peak around the given M/Z value. Returns a character vector of spectra IDs.}
+  ms.level = 0)}}{Find spectra containg a peak around the given M/Z value. Returns a
+character vector of spectra IDs.}
 }}
 
 \examples{

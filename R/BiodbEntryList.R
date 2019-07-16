@@ -1,32 +1,37 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# BiodbEntryList {{{1
 ################################################################################
 
 #' @include BiodbEntry.R
-BiodbEntryList <- methods::setRefClass("BiodbEntryList", contains='BiodbEntry')
+BiodbEntryList <- methods::setRefClass("BiodbEntryList",
+    contains='BiodbEntry',
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Do parse content {{{2
+methods=list(
+
+# Do parse content {{{3
 ################################################################################
 
-BiodbEntryList$methods( .doParseContent=function(content) {
+.doParseContent=function(content) {
     return(content) # Nothing to parse
-})
+},
 
-# Is parsed content correct {{{2
+# Is parsed content correct {{{3
 ################################################################################
 
-BiodbEntryList$methods( .isParsedContentCorrect=function(parsed.content) {
-    return(is.list(parsed.content) && length(parsed.content) > 0 && ! is.null(names(parsed.content)) && length(names(parsed.content)) > 0)
-})
+.isParsedContentCorrect=function(parsed.content) {
+    return(is.list(parsed.content) && length(parsed.content) > 0
+           && ! is.null(names(parsed.content))
+           && length(names(parsed.content)) > 0)
+},
 
 # Parse fields step 1 {{{1
 ################################################################################
 
-BiodbEntryList$methods( .parseFieldsStep1=function(parsed.content) {
+.parseFieldsStep1=function(parsed.content) {
 
     # Loop on all field names
     for (field.name in names(parsed.content)) {
@@ -41,4 +46,6 @@ BiodbEntryList$methods( .parseFieldsStep1=function(parsed.content) {
         # Set value
         .self$setFieldValue(field.name, value)
     }
-})
+}
+
+))

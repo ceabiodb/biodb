@@ -1,11 +1,12 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# BiodbWritable {{{1
 ################################################################################
 
 #' An abstract class (more like an interface) to model a writable database.
 #'
-#' A database class that implements this interface must allow the addition of new entries.
+#' A database class that implements this interface must allow the addition of
+#' new entries.
 #'
 #' @param entry An entry instance.
 #'
@@ -13,63 +14,76 @@
 #' @include BiodbObject.R
 #' @export BiodbWritable
 #' @exportClass BiodbWritable
-BiodbWritable <- methods::setRefClass("BiodbWritable", contains='BiodbObject', fields=list(.writing.allowed='logical'))
+BiodbWritable <- methods::setRefClass("BiodbWritable",
+    contains='BiodbObject',
+    fields=list(
+        .writing.allowed='logical'
+        ),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-BiodbWritable$methods( initialize=function(...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
 
     callSuper(...)
     .self$.abstractClass('BiodbWritable')
 
-    # This constructor is never called, because this class is used as an interface (i.e.: it is declared in the "contains" field of another class, in second position or greater. Only the constructor of the first declared "contained" class is called.).
-})
+    # This constructor is never called, because this class is used as an
+    # interface (i.e.: it is declared in the "contains" field of another class,
+    # in second position or greater. Only the constructor of the first declared
+    # "contained" class is called.).
+},
 
-# Writing is allowed {{{1
+# Writing is allowed {{{3
 ################################################################################
 
-BiodbWritable$methods( writingIsAllowed=function() {
+writingIsAllowed=function() {
     "Returns TRUE if writing is allowed for this database."
     
     .self$.initWritable()
 
     return(.self$.writing.allowed)
-})
+},
 
-# Allow writing {{{1
+# Allow writing {{{3
 ################################################################################
 
-BiodbWritable$methods( allowWriting=function() {
+allowWriting=function() {
     "Allow writing for this database."
 
     .self$setWritingAllowed(TRUE)
-})
+},
 
-# Disallow writing {{{1
+# Disallow writing {{{3
 ################################################################################
 
-BiodbWritable$methods( disallowWriting=function() {
+disallowWriting=function() {
     "Disallow writing for this database."
     
     .self$setWritingAllowed(FALSE)
-})
+},
 
-# Set writing allowed {{{1
+# Set writing allowed {{{3
 ################################################################################
 
-BiodbWritable$methods( setWritingAllowed=function(allow) {
+setWritingAllowed=function(allow) {
     "Allow or disallow writing for this database."
     
     .self$.assertIs(allow, 'logical')
     .self$.writing.allowed <- allow
-})
+},
 
-# Write {{{1
+# Write {{{3
 ################################################################################
 
-BiodbWritable$methods( write=function() {
-    "Write the database. All modifications made to the database since the last time write() was called will be saved."
+write=function() {
+    "Write the database. All modifications made to the database since the last
+    time write() was called will be saved."
 
     .self$.checkWritingIsAllowed()
     .self$.doWrite()
@@ -77,33 +91,37 @@ BiodbWritable$methods( write=function() {
     # Unset "new" flag for all entries
     for (e in .self$.entries)
         e$.setAsNew(FALSE)
-})
+},
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
-# Check that writing is allowed {{{2
+# Check that writing is allowed {{{3
 ################################################################################
 
-BiodbWritable$methods( .checkWritingIsAllowed=function() {
+.checkWritingIsAllowed=function() {
     
     .self$.initWritable()
     
     if ( ! .self$.writing.allowed)
-        .self$message('error', 'Writing is not enabled for this database. However this database type is writable. Please call allowWriting() method to enable writing.')
-})
+        .self$error('Writing is not enabled for this database. However this',
+                    ' database type is writable. Please call allowWriting()',
+                    ' method to enable writing.')
+},
 
-# Do write {{{2
+# Do write {{{3
 ################################################################################
 
-BiodbWritable$methods( .doWrite=function() {
+.doWrite=function() {
     .self$.abstractMethod()
-})
+},
 
-# Init parameters {{{2
+# Init parameters {{{3
 ################################################################################
 
-BiodbWritable$methods( .initWritable=function() {
+.initWritable=function() {
     if (length(.self$.writing.allowed) == 0)
         .self$setWritingAllowed(FALSE)
-})
+}
+
+))

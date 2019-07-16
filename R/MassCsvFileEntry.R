@@ -1,36 +1,46 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+# MassCsvFileEntry {{{1
+################################################################################
 
 #' @include BiodbCsvEntry.R
+MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry",
+    contains='BiodbCsvEntry',
 
-# Class declaration {{{1
+# Public methods {{{2
 ################################################################################
 
-MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry", contains='BiodbCsvEntry')
+methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
-MassCsvFileEntry$methods( initialize=function(...) {
+initialize=function(...) {
 
     callSuper(sep="\t", ...)
-})
+},
 
-# Parse chromatographic columns {{{1
+# Private methods {{{2
 ################################################################################
 
-MassCsvFileEntry$methods( .parseChromatoCols=function() {
+# Parse chromatographic columns {{{3
+################################################################################
+
+.parseChromatoCols=function() {
 
     if (.self$hasField('chrom.col.name') && ! .self$hasField('chrom.col.id'))
-        .self$setFieldValue('chrom.col.id', .self$getFieldValue('chrom.col.name'))
+        .self$setFieldValue('chrom.col.id',
+                            .self$getFieldValue('chrom.col.name'))
 
     if ( ! .self$hasField('chrom.col.name') && .self$hasField('chrom.col.id'))
-        .self$setFieldValue('chrom.col.name', .self$getFieldValue('chrom.col.id'))
-})
+        .self$setFieldValue('chrom.col.name',
+                            .self$getFieldValue('chrom.col.id'))
+},
 
-# Parse precursor {{{1
+# Parse precursor {{{3
 ################################################################################
 
-MassCsvFileEntry$methods( .parsePrecursor=function() {
+.parsePrecursor=function() {
 
     peaks <- .self$getFieldValue('peaks')
 
@@ -40,25 +50,34 @@ MassCsvFileEntry$methods( .parsePrecursor=function() {
         if (sum(precursors) == 1)
             .self$setFieldValue('msprecmz', peaks[precursors, 'peak.mz'])
         else if (sum(precursors) > 1) {
-            .self$message('caution', paste("Found more than one precursor inside entry ", .self$getFieldValue('accession', compute=FALSE), ': ', paste(peaks[precursors, 'peak.attr'], collapse=", "), ". Trying to take the one with highest intensity.", sep=''))
+            .self$caution("Found more than one precursor inside entry ",
+                          .self$getFieldValue('accession', compute=FALSE),
+                          ': ', paste(peaks[precursors, 'peak.attr'],
+                                      collapse=", "),
+                          ". Trying to take the one with highest intensity.")
             strongest.precursor.mz <- NULL
             for (int.col in c('peak.intensity', 'peak.relative.intensity'))
-                if (int.col %in% colnames(peaks))
-                    strongest.precursor.mz <- peaks[precursors, 'peak.mz'][[which(order(peaks[precursors, int.col], decreasing=TRUE) == 1)]]
+                if (int.col %in% colnames(peaks)) {
+                    s <- which(order(peaks[precursors, int.col],
+                                     decreasing=TRUE) == 1)
+                    strongest.precursor.mz <- peaks[precursors, 'peak.mz'][[s]]
+                }
             if (is.null(strongest.precursor.mz))
-                .self$message('caution', 'No intensity information found for choosing the strongest precursor.')
+                .self$caution('No intensity information found for choosing',
+                              ' the strongest precursor.')
             else {
-                .self$message('info', paste('Found strongest precursor:', strongest.precursor.mz, '.'))
+                .self$info('Found strongest precursor:',
+                           strongest.precursor.mz, '.')
                 .self$setFieldValue('msprecmz', strongest.precursor.mz)
             }
         }
     }
-})
+},
 
-# Parse peak table {{{1
+# Parse peak table {{{3
 ################################################################################
 
-MassCsvFileEntry$methods( .parsePeakTable=function(parsed.content) {
+.parsePeakTable=function(parsed.content) {
 
     entry.fields <- .self$getBiodb()$getEntryFields()
 
@@ -71,7 +90,10 @@ MassCsvFileEntry$methods( .parsePeakTable=function(parsed.content) {
         if ( ! is.na(f$getGroup()) && f$getGroup() == 'peak') {
 
             # Is the field is present in the parsed content data frame
-            col.name <- if (field %in% names(.self$getParent()$.fields)) .self$getParent()$.fields[[field]] else field
+            if (field %in% names(.self$getParent()$.fields))
+                col.name <- .self$getParent()$.fields[[field]]
+            else
+                col.name <- field
             if (col.name %in% colnames(parsed.content)) {
 
                 # Get vector of values
@@ -100,12 +122,12 @@ MassCsvFileEntry$methods( .parsePeakTable=function(parsed.content) {
     # Set peaks table in field
     if ( ! is.null(peaks))
         .self$setFieldValue('peaks', peaks)
-})
+},
 
-# Parse fields step 2 {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
-MassCsvFileEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # Peak table
     .self$.parsePeakTable(parsed.content)
@@ -115,4 +137,6 @@ MassCsvFileEntry$methods( .parseFieldsStep2=function(parsed.content) {
 
     # Set precursor
     .self$.parsePrecursor()
-})
+}
+
+))

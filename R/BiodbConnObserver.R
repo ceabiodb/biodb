@@ -1,18 +1,18 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # BiodbConnObserver {{{1
 ################################################################################
 
 #' The observer class of connectors.
 #'
-#' Classes inheriting this class, are able to register themselves to a
-#' connector instance and receiving messages from it.
+#' Classes inheriting this class are able to register themselves to a
+#' connector instance and receive messages from it.
+#' It is used by the scheduler class to receive updates about URLs and query
+#' frequencies.
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
 #' @import methods
-#' @export BiodbConnObserver
-#' @exportClass BiodbConnObserver
 BiodbConnObserver <- methods::setRefClass("BiodbConnObserver",
 
 # Public methods {{{2

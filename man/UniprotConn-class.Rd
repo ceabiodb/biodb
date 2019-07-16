@@ -13,12 +13,16 @@
 \item{query}{The query to send to the database.}
 }
 \description{
-This is a concrete connector class. It must never be instantiated directly, but instead be instantiated through the factory \code{\link{BiodbFactory}}. Only specific methods are described here. See super classes for the description of inherited methods.
+This is a concrete connector class. It must never be instantiated directly,
+but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+Only specific methods are described here. See super classes for the
+description of inherited methods.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
+case of a compound entry).}
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
@@ -28,7 +32,8 @@ must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
                                    ...)}
 
 \item{\code{wsQuery(query = "", columns = NULL, format = NULL, limit = NULL,
-  retfmt = c("plain", "parsed", "ids", "request"))}}{Direct query to the database for searching for compounds. See http://www.uniprot.org/help/api_queries for details.}
+  retfmt = c("plain", "parsed", "ids", "request"))}}{Direct query to the database for searching for compounds. See
+http://www.uniprot.org/help/api_queries for details.}
 }}
 
 \examples{
@@ -48,5 +53,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}, \code{\link{BiodbCompounddbConn}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+\code{\link{BiodbCompounddbConn}}.
 }

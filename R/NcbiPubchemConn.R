@@ -1,15 +1,26 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# NcbiPubchemConn {{{1
 ################################################################################
 
 #' @include NcbiEntrezConn.R
-NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn", contains='NcbiEntrezConn', fields=list(.db.name='character', .id.xmltag='character', .entry.xmltag='character', .id.urlfield='character'))
+NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn",
+    contains='NcbiEntrezConn',
+    fields=list(
+        .db.name='character',
+        .id.xmltag='character',
+        .entry.xmltag='character',
+        .id.urlfield='character'),
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-NcbiPubchemConn$methods( initialize=function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
 
     # Call parent constructor
     callSuper(...)
@@ -19,32 +30,23 @@ NcbiPubchemConn$methods( initialize=function(db.name, id.xmltag, entry.xmltag, i
     .self$.id.xmltag <- id.xmltag
     .self$.entry.xmltag <- entry.xmltag
     .self$.id.urlfield <- id.urlfield
-})
+},
 
-# Do get entry content request {{{1
+# Get entry page url {{{3
 ################################################################################
 
-NcbiPubchemConn$methods( .doGetEntryContentRequest=function(id, concatenate=TRUE) {
+getEntryPageUrl=function(id) {
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'base.url'), .self$.db.name, x)
+        BiodbUrl(url=u)$toString()
+    }
+    return(vapply(id, fct, FUN.VALUE=''))
+},
 
-    if (concatenate)
-        url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws2.url'), .self$.db.name, .self$.id.urlfield, paste(id, collapse=','), 'XML'))$toString()
-    else
-        url <- vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws2.url'), .self$.db.name, .self$.id.urlfield, x, 'XML'))$toString(), FUN.VALUE='')
-
-    return(url)
-})
-
-# Get entry page url {{{1
+# Get entry image url {{{3
 ################################################################################
 
-NcbiPubchemConn$methods( getEntryPageUrl=function(id) {
-    return(vapply(id, function(x) BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), .self$.db.name, x))$toString(), FUN.VALUE=''))
-})
-
-# Get entry image url {{{1
-################################################################################
-
-NcbiPubchemConn$methods( getEntryImageUrl=function(id) {
+getEntryImageUrl=function(id) {
 
     urls <- rep(NA_character_, length(id))
 
@@ -60,19 +62,20 @@ NcbiPubchemConn$methods( getEntryImageUrl=function(id) {
         params$t <- 'l'
 
         # Build URL
-        urls[[i]] <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), 'image', 'imgsrv.fcgi'), params=params)$toString()
+        u <- c(.self$getPropValSlot('urls', 'base.url'), 'image', 'imgsrv.fcgi')
+        urls[[i]] <- BiodbUrl(url=u, params=params)$toString()
     }
 
     return(urls)
-})
+},
 
-# Get entry content from database {{{1
+# Get entry content from database {{{3
 ################################################################################
 
-NcbiPubchemConn$methods( getEntryContentFromDb=function(entry.id) {
+getEntryContentFromDb=function(entry.id) {
 
     # Debug
-    .self$message('info', paste0("Get entry content(s) for ", length(entry.id)," id(s)..."))
+    .self$info("Get entry content(s) for ", length(entry.id)," id(s)...")
 
     URL.MAX.LENGTH <- 2048
     concatenate <- TRUE
@@ -86,7 +89,9 @@ NcbiPubchemConn$methods( getEntryContentFromDb=function(entry.id) {
         content <- rep(NA_character_, length(entry.id))
 
         # Get URL requests
-        url.requests <- .self$getEntryContentRequest(entry.id, concatenate=concatenate, max.length=URL.MAX.LENGTH)
+        url.requests <- .self$getEntryContentRequest(entry.id,
+                                                     concatenate=concatenate,
+                                                     max.length=URL.MAX.LENGTH)
 
         # Loop on all URLs
         for (url in url.requests) {
@@ -94,9 +99,10 @@ NcbiPubchemConn$methods( getEntryContentFromDb=function(entry.id) {
             # Send request
             xmlstr <- .self$getBiodb()$getRequestScheduler()$getUrl(url)
 
-            if (is.na(xmlstr) || length(grep('PUGREST.BadRequest|PUGREST.NotFound', xmlstr)) > 0) {
+            re <- 'PUGREST.BadRequest|PUGREST.NotFound'
+            if (is.na(xmlstr) || length(grep(re, xmlstr)) > 0) {
                 if (concatenate) {
-                    .self$message('caution', "One of the IDs to retrieve is wrong.")
+                    .self$caution("One of the IDs to retrieve is wrong.")
                     concatenate <- FALSE
                     done <- FALSE
                     break
@@ -109,12 +115,44 @@ NcbiPubchemConn$methods( getEntryContentFromDb=function(entry.id) {
 
             # Get returned IDs
             ns <- c(pcns="http://www.ncbi.nlm.nih.gov")
-            returned.ids <- XML::xpathSApply(xml, paste0("//pcns:", .self$.id.xmltag), XML::xmlValue, namespaces=ns)
+            xpath <- paste0("//pcns:", .self$.id.xmltag)
+            returned.ids <- XML::xpathSApply(xml, xpath, XML::xmlValue,
+                                             namespaces=ns)
 
             # Store contents
-            content[match(returned.ids, entry.id)] <- vapply(XML::getNodeSet(xml, paste0("//pcns:", .self$.entry.xmltag), namespaces=ns), XML::saveXML, FUN.VALUE='')
+            xpath <- paste0("//pcns:", .self$.entry.xmltag)
+            nodes <- XML::getNodeSet(xml, xpath, namespaces=ns)
+            c <- vapply(nodes, XML::saveXML, FUN.VALUE='')
+            content[match(returned.ids, entry.id)] <- c
         }
     }
 
     return(content)
-})
+},
+
+# Private methods {{{2
+################################################################################
+
+# Do get entry content request {{{3
+################################################################################
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+
+    if (concatenate) {
+        u <- c(.self$getPropValSlot('urls', 'ws2.url'), .self$.db.name,
+               .self$.id.urlfield, paste(id, collapse=','), 'XML')
+        url <- BiodbUrl(url=u)$toString()
+    }
+    else {
+        fct <- function(x) {
+            u <- c(.self$getPropValSlot('urls', 'ws2.url'), .self$.db.name,
+                   .self$.id.urlfield, x, 'XML')
+            BiodbUrl(url=u)$toString()
+        }
+        url <- vapply(id, fct, FUN.VALUE='')
+    }
+
+    return(url)
+}
+
+))

@@ -4,69 +4,68 @@
 ################################################################################
 
 #' @include KeggEntry.R
-KeggPathwayEntry <- methods::setRefClass(
-    "KeggPathwayEntry",
+KeggPathwayEntry <- methods::setRefClass("KeggPathwayEntry",
     contains='KeggEntry',
 
-    # Public methods {{{2
-    ############################################################################
+# Public methods {{{2
+################################################################################
 
-    methods=list(
+methods=list(
 
 # Initialize {{{3
-        ########################################################################
+################################################################################
 
-        initialize=function(...) {
-            callSuper(...)
-        },
+initialize=function(...) {
+    callSuper(...)
+},
         
-    # Private methods {{{2
-    ############################################################################
+# Private methods {{{2
+################################################################################
 
-        # Makes reference to entry, recurse {{{3
-        ########################################################################
-        
-        .makesRefToEntryRecurse=function(db, oid) {
-    
-            makes_ref <- FALSE
+# Makes reference to entry, recurse {{{3
+################################################################################
 
-            if (db %in% c('kegg.compound', 'kegg.enzyme')
-                && .self$hasField('kegg.module.id')) {
+.makesRefToEntryRecurse=function(db, oid) {
 
-                # We need to check that oid is listed in at least one of the modules
-                kmc <- .self$getBiodb()$getFactory()$getConn('kegg.module')
-                module.ids <- .self$getFieldValue('kegg.module.id')
-                makes_ref <- kmc$makesRefToEntry(module.ids, db=db, oid=oid,
-                                                 any=TRUE, recurse=TRUE)
-            }
+    makes_ref <- FALSE
 
-            return(makes_ref)
-        },
+    if (db %in% c('kegg.compound', 'kegg.enzyme')
+        && .self$hasField('kegg.module.id')) {
 
-        # Parse fields step 2 {{{3
-        ################################################################
+        # We need to check that oid is listed in at least one of the modules
+        kmc <- .self$getBiodb()$getFactory()$getConn('kegg.module')
+        module.ids <- .self$getFieldValue('kegg.module.id')
+        makes_ref <- kmc$makesRefToEntry(module.ids, db=db, oid=oid,
+                                         any=TRUE, recurse=TRUE)
+    }
 
-        .parseFieldsStep2=function(parsed.content) {
+    return(makes_ref)
+},
 
-            # Name
-            .self$.parseMultilinesField(field='name',
-                                        tag='NAME',
-                                        parsed.content=parsed.content,
-                                        strip.chars=' ;',
-                                        split.char=NA_character_)
+# Parse fields step 2 {{{3
+################################################################
 
-            # Class
-            .self$.parseMultilinesField(field='pathway.class',
-                                        tag='CLASS',
-                                        parsed.content=parsed.content,
-                                        strip.chars=' ',
-                                        split.char=';')
+.parseFieldsStep2=function(parsed.content) {
 
-            # Module IDs
-            .self$.parseModuleIds(parsed.content)
+    # Name
+    .self$.parseMultilinesField(field='name',
+                                tag='NAME',
+                                parsed.content=parsed.content,
+                                strip.chars=' ;',
+                                split.char=NA_character_)
 
-            # Compound IDs
-            .self$.parseCompoundIds(parsed.content)
-        }
-    )
-)
+    # Class
+    .self$.parseMultilinesField(field='pathway.class',
+                                tag='CLASS',
+                                parsed.content=parsed.content,
+                                strip.chars=' ',
+                                split.char=';')
+
+    # Module IDs
+    .self$.parseModuleIds(parsed.content)
+
+    # Compound IDs
+    .self$.parseCompoundIds(parsed.content)
+}
+
+))

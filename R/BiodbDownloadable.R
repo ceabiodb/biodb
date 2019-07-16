@@ -1,4 +1,4 @@
-# vi: fdm=marker ts=4 et cc=80
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # BiodbDownloadable {{{1
 ################################################################################
@@ -11,6 +11,27 @@
 #' implemented by the database class.
 #'
 #' @seealso \code{\link{BiodbRemotedbConn}}.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Use a downloadable database
+#' mirbase <- mybiodb$getFactory()$getConn('mirbase.mature')
+#'
+#' # Check if database has been downloaded
+#' mirbase$isDownloaded()
+#'
+#' # Download the whole database content
+#' \dontrun{
+#' mirbase$download()
+#' }
+#' # Not though that you do not need to call this method explicitly. This is
+#' # will be done automatically by Biodb if needed.
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#' mybiodb <- NULL
 #'
 #' @import methods
 #' @include BiodbObject.R
