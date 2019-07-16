@@ -30,7 +30,9 @@
 #' c1#getRadius()
 #'
 #' # Draw a circle on the current image
+#' \dontrun{
 #' c1$draw()
+#' }
 #'
 #' @include BiodbShape.R
 #' @export BiodbCircle

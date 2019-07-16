@@ -45,7 +45,9 @@ c1$getY()
 c1#getRadius()
 
 # Draw a circle on the current image
+\dontrun{
 c1$draw()
+}
 
 }
 \seealso{

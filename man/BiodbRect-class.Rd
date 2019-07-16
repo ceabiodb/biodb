@@ -27,7 +27,9 @@ representation.
 r <- BiodbRect(left=10, top=10, bottom=20, right=30, color='yellow')
 
 # Draw a rectangle on current image
+\dontrun{
 r$draw()
+}
 
 }
 \seealso{
