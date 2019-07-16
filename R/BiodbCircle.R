@@ -51,9 +51,9 @@ methods=list(
 
 initialize=function(x, y, r, ...) {
     callSuper(...)
-    .self$.x <- x
-    .self$.y <- y
-    .self$.r <- r
+    .self$.x <- as.integer(x)
+    .self$.y <- as.integer(y)
+    .self$.r <- as.integer(r)
 },
 
 # Get X {{{3

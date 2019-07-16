@@ -43,10 +43,10 @@ methods=list(
 
 initialize=function(left, top, bottom, right, ...) {
     callSuper(...)
-    .self$.left <- left
-    .self$.right <- right
-    .self$.top <- top
-    .self$.bottom <- bottom
+    .self$.left     <- as.integer(left)
+    .self$.right    <- as.integer(right)
+    .self$.top      <- as.integer(top)
+    .self$.bottom   <- as.integer(bottom)
 },
 
 # Draw {{{3
