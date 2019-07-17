@@ -765,7 +765,7 @@ fields:
 
   average.mass:
     class: double
-    description: Average mass.
+    description: Average mass, or average molecular weight, or relative molecular mass, or molar mass is defined as the mass of a sample of a compound divided by the amount of substance in that sample. It takes into account the presence of isotopes inside the sample. See https://en.wikipedia.org/wiki/Molar_mass.
     type: mass
 
   molecular.mass:
@@ -774,13 +774,18 @@ fields:
     - molecular.weight
     class: double
     computable.from: chebi
-    description: Molecular mass (also called molecular weight), in Dalton.
+    description: Molecular mass (also called molecular weight), in u (unified atomic mass units) or Da (Dalton). It is computed from the atomic masses of each nuclide present in the molecule, taking into account the various possible isotops of each atom. See https://en.wikipedia.org/wiki/Molecular_mass.
     type: mass
 
   monoisotopic.mass:
     alias: exact.mass
     class: double
-    description: Monoisotopic mass.
+    description: Monoisotopic mass, in u (unified atomic mass units) or Da (Dalton). It is computed using the mass of the primary isotope of the elements including the mass defect (mass difference between neutron and proton, and nuclear binding energy). Used with high resolution mass spectrometers. See https://en.wikipedia.org/wiki/Monoisotopic_mass.
+    type: mass
+    
+  nominal.mass:
+    class: integer
+    description: Nominal mass, in u (unified atomic mass units) or Da (Dalton). It is computed using the mass number of the most abundant isotope of each atom. Typically used with low resolution mass spectrometers. See https://en.wikipedia.org/wiki/Monoisotopic_mass.
     type: mass
 
   # Other fields {{{2
@@ -945,10 +950,6 @@ fields:
     alias: nbpeaks
     class: integer
     description: Number of MS peaks.
-  nominal.mass:
-    class: integer
-    description: Nominal mass.
-    type: mass
   nt.seq:
     description: Nucleotids sequence.
   nt.seq.length:
