@@ -86,7 +86,7 @@
 BiodbMassdbConn <- methods::setRefClass("BiodbMassdbConn",
     contains="BiodbConn",
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(

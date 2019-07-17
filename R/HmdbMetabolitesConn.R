@@ -169,8 +169,8 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
 
         # Send progress message
         bytes.read <- bytes.read + nchar(chunk, type='bytes')
-        .self$progress(msg='Reading all HMDB metabolites from XML file.',
-                       index=bytes.read, total=total.bytes, first=first)
+        .self$progressMsg(msg='Reading all HMDB metabolites from XML file.',
+                          index=bytes.read, total=total.bytes, first=first)
 
         # Is there a complete entry XML (<metabolite>...</metabolite>) in the
         # loaded chunks?
