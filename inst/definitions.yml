@@ -96,6 +96,11 @@ config:
     type: character
     description: The token to access PeakForest Compound database.
 
+  protonmass:
+    type: numeric
+    description: The mass of a proton, in u or Da.
+    default: 1.0072765
+
   shortterm.cache.subfolder:
     type: character
     description: The name of the short term cache subfolder.

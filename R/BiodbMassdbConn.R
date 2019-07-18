@@ -8,61 +8,27 @@
 #' All Mass spectra databases inherit from this class. It thus defines methods
 #' specific to mass spectrometry.
 #'
-#' @param chrom.col.ids IDs of chromatographic columns on which to match the
-#' retention time.
 #' @param dist.fun      The distance function used to compute the distance
 #' betweem two mass spectra.
 #' @param entry.ids     A list of entry IDs (vector of characters).
 #' @param ids           A list of entry identifiers (i.e.: accession numbers).
 #' Used to restrict the set of entries on which to run the algorithm.
-#' @param input.df      A data frame taken as input for searchMsPeaks(). It must
-#' contain a columns 'mz', and optionaly an 'rt' column.
-#' @param input.df.colnames  Names of the columns in the input data frame.
-#' @param insert.input.values   Insert input values at the beginning of the
-#' result data frame.
-#' @param prefix.on.result.cols Add prefix on column names of result data frame.
-#' @param max.results   The maximum of elements returned by a method.
-#' @param min.rel.int   The minimum relative intensity, in percentage (i.e.:
-#' float number between 0 and 100).
-#' @param ms.level      The MS level to which you want to restrict your search.
-#' \code{0} means that you want to serach in all levels.
-#' @param ms.mode       The MS mode. Set it to either \code{'neg'} or
-#' \code{'pos'}.
 #' @param msms.mz.tol       M/Z tolerance to apply while matching MSMS spectra.
 #' In PPM.
 #' @param msms.mz.tol.min   Minimum of the M/Z tolerance (plain unit). If the
 #' M/Z tolerance computed with \code{msms.mz.tol} is lower than
 #' \code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.
-#' @param mz            A vector of M/Z values to match.
 #' @param mz.col        The name of the M/Z column in the results data frame.
 #' @param mz.max        A vector of maximum M/Z values to match. Goes with
 #' mz.min, and mut have the same length.
 #' @param mz.min        A vector of minimum M/Z values to match. Goes with
 #' mz.max, and mut have the same length.
-#' @param mz.tol        The M/Z tolerance, whose unit is defined by
-#' \code{mz.tol.unit}.
-#' @param mz.tol.unit   The unit of the M/Z tolerance. Set it to either
-#' \code{'ppm'} or \code{'plain'}.
 #' @param npmin         The minimum number of peak to detect a match (2 is
 #' recommended).
-#' @param precursor     If set to \code{TRUE}, then restrict the search to
-#' precursor peaks.
 #' @param precursor.mz  The M/Z value of the precursor peak of the mass
 #' spectrum.
 #' @param results.df    Results data frame.
-#' @param rt            A vector of retention times to match. Unit is specified
-#' by rt.unit parameter.
 #' @param rt.col        The name of the RT column in the results data frame.
-#' @param rt.tol        The plain tolerance (in seconds) for retention times:
-#' input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
-#' @param rt.tol.exp    A special exponent tolerance for retention times:
-#' input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-#' rt.tol.exp. This exponent is applied on the RT value in seconds. If both
-#' rt.tol and rt.tol.exp are set, the inequality expression becomes:  input.rt -
-#' rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-#' input.rt ** rt.tol.exp.
-#' @param rt.unit       The unit for submitted retention times. Either 's' or
-#' 'min'.
 #' @param sep           The separator used to concatenate values, when
 #' collapsing results data frame.
 #' @param spectrum      A template spectrum to match inside the database.
@@ -308,8 +274,44 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     prefix.on.result.cols=NULL, compute=TRUE,
     input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
     "For each M/Z value, search for matching MS spectra and return the matching
-    peaks. If max.results is set, it is used to limit the number of matches
-    found for each M/Z value."
+    peaks.
+    \ninput.df: A data frame taken as input for searchMsPeaks(). It must
+    contain a columns 'mz', and optionaly an 'rt' column.
+    \nmz: A vector of M/Z values to match. Used if input.df is not set.
+    \nmz.shift: A shift applied on all M/Z values.
+    \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
+    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    \nmin.rel.int: The minimum relative intensity, in percentage (i.e.: float
+    number between 0 and 100).
+    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    \nms.level: The MS level to which you want to restrict your search.
+    0 means that you want to serach in all levels.
+    \nmax.results: If set, it is used to limit the number of matches found for
+    each M/Z value.
+    \nchrom.col.ids: IDs of chromatographic columns on which to match the
+    retention time.
+    \nrt: A vector of retention times to match. Used if input.df is not set.
+    Unit is specified by rt.unit parameter.
+    \nrt.unit: The unit for submitted retention times. Either 's' or 'min'.
+    \nrt.tol: The plain tolerance (in seconds) for retention times:
+    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+    \nrt.tol.exp: A special exponent tolerance for retention times:
+    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
+    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+    input.rt ** rt.tol.exp.
+    \nprecursor: If set to TRUE, then restrict the search to precursor peaks.
+    \nprecursor.rt.tol: The RT tolerance used when matching the precursor.
+    \ninsert.input.values: Insert input values at the beginning of the
+    result data frame.
+    \nprefix.on.result.cols: Add prefix on column names of result data frame.
+    \ncompute: If set to TRUE, use the computed values when converting found
+    entries to data frame.
+    \ninput.df.colnames: Names of the columns in the input data frame.
+    \nmatch.rt: If set to TRUE, match also RT values.
+    "
 
     # Check arguments
     check.param <- .self$.checkSearchMsParam(input.df=input.df, mz.min=NULL,

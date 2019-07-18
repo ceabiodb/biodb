@@ -84,10 +84,92 @@ test.searchCompound.no.mass.field <- function(db) {
 	expect_error(db$searchCompound(mass = 45))
 }
 
-# Main {{{1
+# Test annotateMzValues() {{{1
 ################################################################
+
+test.annotateMzValues <- function(conn) {
+
+	# Mass of a proton
+	proton.mass <- 1.0072765
+
+	# Get mass fields
+	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
+
+	# Get entries
+	ids <- list.ref.entries(conn$getId())
+	entries <- conn$getEntry(ids, drop = FALSE)
+
+	# Loop on mass fields
+	for (mf in mass.fields) {
+
+		# Get entries that have a value for this mass field
+		ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+		if (length(ewmf) > 0) {
+
+			# Get masses
+			masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+
+			# Loop on modes
+			for (mode in c('neg', 'pos')) {
+
+				# Compute M/Z values from masses
+				mz <- masses + proton.mass * (if (mode == 'neg') -1.0 else +1.0)
+
+				# Loop on mz shifts
+				for (shift in c(-0.1, 0.0, 0.1)) {
+
+					# Create input data frame
+					df <- data.frame(mz=mz+shift)
+
+					# Annotate
+					ret <- conn$annotateMzValues(df, mz.tol=shift*2, mass.field=mf, ms.mode=mode)
+
+					# Test returned value
+					if ( ! conn$isSearchableByField(mf))
+						testthat::expect_null(ret)
+					else {
+						testthat::expect_is(ret, 'data.frame')
+						testthat::expect_true(all(colnames(df) %in% colnames(ret)))
+						testthat::expect_true(nrow(ret) >= nrow(df))
+						testthat::expect_true(all(df[['mz']] %in% ret[['mz']]))
+						id.col <- paste(conn$getPropertyValue('name'), 'id', sep='.')
+						testthat::expect_true(id.col %in% colnames(ret))
+					}
+				}
+			}
+		}
+	}
+}
+
+# Test that we can input a vector in annotateMzValues() {{{1
+################################################################################
+
+test_annotateMzValues_input_vector <- function(conn) {
+	testthat::expect_true(FALSE)
+}
+
+# Test that we can ask for additional fields in annotateMzValues() {{{1
+################################################################################
+
+test_annotateMzValues_additional_fields <- function(conn) {
+	testthat::expect_true(FALSE)
+}
+
+# Test that PPM tolerance works in annotateMzValues() {{{1
+################################################################################
+
+test_annotateMzValues_ppm_tol <- function(conn) {
+	testthat::expect_true(FALSE)
+}
+
+# Main {{{1
+################################################################################
 
 if (conn$isCompounddb()) {
 	test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)
 	test.that('We can search for a compound', 'test.searchCompound', conn = conn)
+	test.that('annotateMzValues() works correctly.', 'test.annotateMzValues', conn = conn)
+	test.that('We can use a single vector as input for annotateMzValues()', 'test_annotateMzValues_input_vector', conn = conn)
+	test.that('We can ask for additional fields in annotateMzValues()', 'test_annotateMzValues_additional_fields', conn = conn)
+	test.that('Matching with tolerance in ppm works in annotateMzValues()', 'test_annotateMzValues_ppm_tol', conn = conn)
 }
