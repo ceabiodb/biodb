@@ -151,7 +151,8 @@ BiodbEntryFields$methods( get=function(name) {
 ################################################################################
 
 BiodbEntryFields$methods( getFieldNames=function(type=NULL) {
-    "Returns the main names of all fields."
+    "Returns the main names of all fields.
+    \ntype: If set, returns only the field names corresponding to this type."
 
     # Filter by type
     if ( ! is.null(type)) {

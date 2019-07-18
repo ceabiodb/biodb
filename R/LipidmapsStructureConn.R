@@ -4,10 +4,9 @@
 ################################################################################
 
 #' @include BiodbCompounddbConn.R
-#' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
 LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn",
-    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"),
+    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn"),
 
 # Public methods {{{2
 ################################################################################
@@ -221,13 +220,6 @@ wsLmsdRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL,
     return(results)
 },
 
-
-# Search by name {{{3
-################################################################################
-
-searchByName=function(name, max.results=NA_integer_) {
-    return(.self$searchCompound(name=name, max.results=max.results))
-},
 
 # Search compound {{{3
 ################################################################################

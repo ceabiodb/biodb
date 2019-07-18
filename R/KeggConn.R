@@ -10,8 +10,7 @@
 #'
 #' @param query The query to send to the database web service.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
-#' \code{\link{BiodbSearchable}}.
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -27,11 +26,10 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbRemotedbConn.R
-#' @include BiodbSearchable.R
 #' @export KeggConn
 #' @exportClass KeggConn
 KeggConn <- methods::setRefClass("KeggConn",
-    contains=c("BiodbRemotedbConn", "BiodbSearchable"),
+    contains="BiodbRemotedbConn",
     fields=list(
         .db.name="character",
         .db.abbrev="character"

@@ -83,8 +83,10 @@ class inherits from BiodbMassdbConn class).}
 \item{\code{isRemotedb()}}{Returns TRUE if the database is a remote database (i.e.: the connector
 class inherits from BiodbRemotedbConn class).}
 
-\item{\code{isSearchable()}}{Returns TRUE if the database is searchable (i.e.: the connector class
-implements the interface BiodbSearchable).}
+\item{\code{isSearchableByField(field)}}{Returns TRUE if the database is searchable using the specified field.
+This method is particularly useful when using methods searchByName() and
+searchCompound().
+field: The name of the field.}
 
 \item{\code{isWritable()}}{Returns TRUE if the database is writable (i.e.: the connector class
 implements the interface BiodbWritable). If this connector is writable, then

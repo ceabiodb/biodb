@@ -300,14 +300,46 @@ isWritable=function() {
     return(methods::is(.self, 'BiodbWritable'))
 },
 
-# Is searchable {{{3
+# Is searchable by field {{{3
 ################################################################################
 
-isSearchable=function() {
-    "Returns TRUE if the database is searchable (i.e.: the connector class
-    implements the interface BiodbSearchable)."
+isSearchableByField=function(field) {
+    "Returns TRUE if the database is searchable using the specified field, FALSE
+    otherwise.
+    This method is particularly useful when using methods searchByName() and
+    searchCompound().
+    \nfield: The name of the field."
+    
+    v <- FALSE
 
-    return(methods::is(.self, 'BiodbSearchable'))
+    ef <- .self$getBiodb()$getEntryFields()
+    field <- ef$getRealName(field)
+    for (sf in .self$getPropertyValue('searchable.fields'))
+        if (ef$getRealName(sf) == field) {
+            v <- TRUE
+            break;
+        }
+    
+    return(v)
+},
+
+# Search by name {{{3
+################################################################################
+
+searchByName=function(name, max.results=NA_integer_) {
+    'Searches the database for entries whose name matches the specified name.
+    Returns a character vector of entry IDs.
+    \nname: The name to look for.
+    \nmax.results: If set, the number of returned IDs is limited to the this
+    number.'
+    
+    if (.self$isCompounddb())
+        return(.self$searchCompound(name=name, max.results=max.results))
+    else if (.self$isSearchableByField('name'))
+        .self$error('This database is declared to be searchable by name, but',
+                    ' no implementation has been defined.')
+    
+    return(NULL)
 },
 
 # Is downloadable {{{3

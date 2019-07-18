@@ -432,26 +432,31 @@ test.db.copy = function(conn) {
 
 test.searchByName = function(conn) {
 
-	# Get an entry
-	id <- list.ref.entries(conn$getId())[[1]]
-	testthat::expect_true( ! is.null(id))
-	testthat::expect_length(id, 1)
-	entry <- conn$getEntry(id, drop = TRUE)
-	testthat::expect_true( ! is.null(entry))
+	if (conn$isSearchableByField('name')) {
+		# Get an entry
+		id <- list.ref.entries(conn$getId())[[1]]
+		testthat::expect_true( ! is.null(id))
+		testthat::expect_length(id, 1)
+		entry <- conn$getEntry(id, drop = TRUE)
+		testthat::expect_true( ! is.null(entry))
 
-	# Search by name
-	name <- entry$getFieldValue('name')
-	testthat::expect_is(name, 'character')
-	testthat::expect_gt(length(name), 0)
-	name <- name[[1]]
-	testthat::expect_true( ! is.na(name))
-	ids <- conn$searchByName(name = name)
+		# Search by name
+		name <- entry$getFieldValue('name')
+		testthat::expect_is(name, 'character')
+		testthat::expect_gt(length(name), 0)
+		name <- name[[1]]
+		testthat::expect_true( ! is.na(name))
+		ids <- conn$searchByName(name = name)
 
-	# Test
-	msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
-	testthat::expect_true( ! is.null(ids), msg)
-	testthat::expect_true(length(ids) > 0, msg)
-	testthat::expect_true(id %in% ids, msg)
+		# Test
+		msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
+		testthat::expect_true( ! is.null(ids), msg)
+		testthat::expect_true(length(ids) > 0, msg)
+		testthat::expect_true(id %in% ids, msg)
+	}
+	else {
+		testthat::expect_null(conn$searchByName(name = ''))
+	}
 }
 
 # Main {{{1
@@ -464,8 +469,7 @@ test.that("The peak table is correct.", 'test.peak.table', conn = conn)
 test.that("RT unit is defined when there is an RT value.", 'test.rt.unit', conn = conn)
 test.that("Nb entries is positive.", 'test.nb.entries', conn = conn)
 test.that("We can get a list of entry ids.", 'test.entry.ids', conn = conn)
-if (conn$isSearchable())
-	test.that("We can search for an entry by name.", 'test.searchByName', conn = conn)
+test.that("We can search for an entry by name.", 'test.searchByName', conn = conn)
 if (conn$isRemotedb()) {
 	test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', conn = conn)
 	test.that("We can get a URL pointing to the entry image.", 'test.entry.image.url', conn = conn)

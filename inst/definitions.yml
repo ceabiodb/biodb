@@ -137,6 +137,10 @@ databases:
       - //chebi:Synonyms/chebi:data
       smiles: //chebi:return/chebi:smiles
     scheduler.n: 3
+    searchable.fields:
+        - name
+        - monoisotopic.mass
+        - molecular.mass
     urls:
       base.url: https://www.ebi.ac.uk/chebi/
       ws.url: https://www.ebi.ac.uk/webservices/chebi/2.0/
@@ -412,6 +416,8 @@ databases:
       synonyms: //Gene-ref_syn_E
       uniprot.id: //Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.ncbi.nlm.nih.gov/
       ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
@@ -497,6 +503,10 @@ databases:
       ncbi.pubchem.comp.id: PubChemCID
       smiles: canSmiles
     scheduler.n: 3
+    searchable.fields:
+        - name
+        - average.mass
+        - monoisotopic.mass
     urls:
       base.url: https://metabohub.peakforest.org/webapp/home
       ws.url: https://metabohub.peakforest.org/rest/

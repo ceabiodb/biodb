@@ -9,10 +9,9 @@
 #' web services.
 #'
 #' @include BiodbCompounddbConn.R
-#' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
 ChebiConn <- methods::setRefClass("ChebiConn",
-    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"),
+    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn"),
 
 # Fields {{{2
 ################################################################################
@@ -234,13 +233,6 @@ convCasToChebi=function(cas, simplify=TRUE) {
     
     return(.self$convIdsToChebiIds(cas, search.category='REGISTRY NUMBERS',
                                    simplify=simplify))
-},
-
-# Search by name {{{3
-################################################################################
-
-searchByName=function(name, max.results=NA_integer_) {
-    return(.self$searchCompound(name=name, max.results=max.results))
 },
 
 # Search compound {{{3

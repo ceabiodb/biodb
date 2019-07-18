@@ -35,7 +35,7 @@ case of a compound entry).}
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
   mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
 must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
-                                   ...)}
+...)}
 
 \item{\code{wsFilterMassPost(mass, range, retfmt = c("plain", "parsed", "queryid", "ids",
   "request"))}}{Access the filter-mass-post ChemSpider web service. See

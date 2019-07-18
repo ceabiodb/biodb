@@ -76,7 +76,6 @@ Collate:
     'BiodbRequestSchedulerRule.R'
     'BiodbTxtEntry.R'
     'BiodbSdfEntry.R'
-    'BiodbSearchable.R'
     'BiodbSqlQuery.R'
     'BiodbWarningReporter.R'
     'BiodbWritable.R'

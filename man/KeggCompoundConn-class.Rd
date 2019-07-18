@@ -44,7 +44,7 @@ compound IDs.}
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
   mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
 must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
-                                   ...)}
+...)}
 
 \item{\code{wsFindExactMass(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_,
   retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html

@@ -4,9 +4,8 @@
 ################################################################################
 
 #' @include NcbiEntrezConn.R
-#' @include BiodbSearchable.R
 NcbiGeneConn <- methods::setRefClass("NcbiGeneConn",
-    contains=c('NcbiEntrezConn', 'BiodbSearchable'),
+    contains='NcbiEntrezConn',
 
 # Public methods {{{2
 ################################################################################
