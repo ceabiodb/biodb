@@ -54,14 +54,10 @@
 #' @exportClass BiodbConn
 BiodbConn <- methods::setRefClass("BiodbConn",
     contains="BiodbConnBase",
-
-# Fields {{{2
-################################################################################
-
-fields=list(
-    .id="character",
-    .entries="list",
-    .cache.id='character'),
+    fields=list(
+        .id="character",
+        .entries="list",
+        .cache.id='character'),
 
 # Public methods {{{2
 ################################################################################

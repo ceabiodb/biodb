@@ -8,12 +8,12 @@
 NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn",
     contains=c("NcbiPubchemConn", 'BiodbCompounddbConn'),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
 initialize=function(...) {
@@ -22,7 +22,7 @@ initialize=function(...) {
               entrez.name='pccompound', ...)
 },
 
-# Search compound {{{1
+# Search compound {{{3
 ################################################################################
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,

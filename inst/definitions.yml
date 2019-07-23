@@ -596,7 +596,6 @@ databases:
     searchable.fields:
         - name
         - molecular.mass
-        - monoisotopic.mass
     urls:
       base.url: https://www.uniprot.org/uniprot/
     xml.ns:

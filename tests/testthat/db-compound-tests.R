@@ -5,9 +5,6 @@
 
 test.searchCompound <- function(db) {
 
-	# Not searchable databases
-	not.searchable <- list(name = c('hmdb.metabolites'), molecular.mass = c('chemspider', 'expasy.enzyme', 'ncbi.gene', 'peakforest.compound'), monoisotopic.mass = c('expasy.enzyme', 'ncbi.gene'), average.mass = c('chemspider'), nominal.mass = c('chemspider', 'peakforest.compound'))
-
 	# Get an entry
 	id <- list.ref.entries(db$getId())[[1]]
 	expect_true( ! is.null(id))
@@ -22,69 +19,68 @@ test.searchCompound <- function(db) {
 	name <- name[[1]]
 	expect_true( ! is.na(name))
 	ids <- db$searchCompound(name = name)
-	if (db$getId() %in% not.searchable$name) {
-		expect_null(ids)
-		expect_false(db$isSearchableByField('name'))
-	}
-	else {
-		expect_true(db$isSearchableByField('name'))
+	if (db$isSearchableByField('name')) {
 		msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
 		expect_true( ! is.null(ids), msg)
 		expect_true(length(ids) > 0, msg)
 		expect_true(id %in% ids, msg)
+	} else
+		expect_null(ids)
 
-		# Loop on all mass fields
-		for (field in db$getBiodb()$getEntryFields()$getFieldNames('mass')) {
+	# Loop on all mass fields
+	for (field in db$getBiodb()$getEntryFields()$getFieldNames(type='mass')) {
 
-			if ( ! entry$hasField(field) && ! db$getId() %in% not.searchable[[field]])
-				next
+		if ( ! entry$hasField(field)) {
+			expect_false(db$isSearchableByField(field), paste0('No test for searchCompound() with mass field "', field, '" for database "', db$getId(), '".'))
+			next
+		}
 
-			mass <- if (entry$hasField(field)) entry$getFieldValue(field) else 10.0
-			if (mass != floor(mass))
-				mass.tol = 10^-as.integer(nchar(strsplit(as.character(mass), '\\.')[[1]][[2]]))
-			else
-				mass.tol = 1
+		mass <- if (entry$hasField(field)) entry$getFieldValue(field) else 10.0
+		if (field == 'molecular.mass')
+			mass.tol <- 0.01
+		else if (mass != floor(mass))
+			mass.tol <- 10^-as.integer(nchar(strsplit(as.character(mass), '\\.')[[1]][[2]]))
+		else
+			mass.tol <- 1.0
 
-			# Search by mass
-			max.results <- 3
-			ids <- db$searchCompound(mass = mass, mass.tol = mass.tol, mass.field = field, max.results=max.results)
-			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, '.')
-			if (db$getId() %in% not.searchable[[field]]) {
-				expect_null(ids, msg)
-				expect_false(db$isSearchableByField(field), paste0("For field ", field, "."))
+		# Search by mass
+		max.results <- 3
+		ids <- db$searchCompound(mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
+		msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, '.')
+		if ( ! db$isSearchableByField(field))
+			expect_null(ids, msg)
+		else {
+			expect_true( ! is.null(ids), msg)
+			expect_true(length(ids) > 0, msg)
+			# Search again if not found with limited max.results
+			if ( ! id %in% ids) {
+				max.results <- 1000000
+				ids <- db$searchCompound(mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
 			}
-			else {
-				expect_true(db$isSearchableByField(field), paste0("For field ", field, "."))
-				expect_true( ! is.null(ids), msg)
-				expect_true(length(ids) > 0, msg)
-				# Search again if not found with limited max.results
-				if ( ! id %in% ids) {
-					max.results <- NA_integer_
-					ids <- db$searchCompound(mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
-				}
-				expect_true(id %in% ids, msg)
-				expect_true(is.na(max.results) || length(ids) <= max.results)
-			}
+			expect_true(id %in% ids, msg)
+			expect_true(is.na(max.results) || length(ids) <= max.results)
+		}
 
-			# More mass search
-			if ( ! db$getId() %in% not.searchable[[field]]) {
-				# Search by mass and name
-				ids <- db$searchCompound(name = name, mass = mass, mass.tol = mass.tol, mass.field = field, max.results=max.results)
-				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-				expect_true( ! is.null(ids), msg)
-				expect_true(length(ids) > 0, msg)
-				expect_true(id %in% ids, msg)
-				expect_true(is.na(max.results) || length(ids) <= max.results)
+		# Search by mass and name
+		if (db$isSearchableByField('name')) {
 
-				# Search by name and slightly different mass
-				mass <- mass + mass.tol
-				ids <- db$searchCompound(name = name, mass = mass, mass.field = field, mass.tol = mass.tol, max.results=max.results)
-				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-				expect_true( ! is.null(ids), msg)
-				expect_true(length(ids) > 0, msg)
-				expect_true(id %in% ids, msg)
-				expect_true(is.na(max.results) || length(ids) <= max.results)
-			}
+			# Search by mass and name
+			ids <- db$searchCompound(name=name, mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
+			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+			expect_true( ! is.null(ids), msg)
+			expect_true(length(ids) > 0, msg)
+			expect_true(id %in% ids, msg)
+			expect_true(is.na(max.results) || length(ids) <= max.results)
+
+			# Search by name and slightly different mass
+			mass <- mass + mass.tol
+			mass.tol <- 2 * mass.tol
+			ids <- db$searchCompound(name=name, mass=mass, mass.field=field, mass.tol=mass.tol, max.results=max.results)
+			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+			expect_true( ! is.null(ids), msg)
+			expect_true(length(ids) > 0, msg)
+			expect_true(id %in% ids, msg)
+			expect_true(is.na(max.results) || length(ids) <= max.results)
 		}
 	}
 }
@@ -93,7 +89,7 @@ test.searchCompound <- function(db) {
 ################################################################
 
 test.searchCompound.no.mass.field <- function(db) {
-	expect_error(db$searchCompound(mass = 45))
+	expect_error(db$searchCompound(mass=45))
 }
 
 # Test annotateMzValues() {{{1
@@ -157,7 +153,39 @@ test.annotateMzValues <- function(conn) {
 ################################################################################
 
 test_annotateMzValues_input_vector <- function(conn) {
-	testthat::expect_true(FALSE)
+
+	# Mass of a proton
+	proton.mass <- 1.0072765
+
+	# Get mass fields
+	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
+
+	# Get entries
+	ids <- list.ref.entries(conn$getId())
+	entries <- conn$getEntry(ids, drop = FALSE)
+
+	# Loop on mass fields
+	for (mf in mass.fields) {
+
+		if ( ! conn$isSearchableByField(mf))
+			next
+
+		# Get entries that have a value for this mass field
+		ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+		if (length(ewmf) > 0) {
+
+			# Get masses
+			masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+
+			# Annotate
+			mz <- masses - proton.mass
+			ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3)
+			testthat::expect_is(ret, 'data.frame')
+			testthat::expect_equal(ncol(ret), 2)
+			id.col <- paste(conn$getId(), 'accession', sep='.')
+			testthat::expect_true(c('mz', id.col) %in% colnames(ret))
+		}
+	}
 }
 
 # Test that we can ask for additional fields in annotateMzValues() {{{1
