@@ -68,20 +68,27 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
 
 annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
                           mass.field='monoisotopic.mass',
-                          max.results=NA_integer_, mz.col='mz', fields=NULL) {
+                          max.results=3, mz.col='mz',
+                          fields=NULL, prefix=NULL, insert.input.values=TRUE) {
     "Annotate 
     \nx: Either a data frame or a numeric vector.
     \nfields: A character vector containing the additional entry fields you
     would like to get for each matched entry. Each field will be output in a
     different column.
+    \ninsert.input.values: Insert input values at the beginning of the
+    result data frame.
     \nmass.field: The mass field to use for matching M/Z values. One of:
     'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
     \nmax.results: If set, it is used to limit the number of matches found for
-    each M/Z value.
+    each M/Z value. To get all the matches, set this parameter to NA_integer_.
+    Default value is 3.
     \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
     \nmz.col: The name of the column where to find M/Z values in case x is a
     data frame.
     \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    \nprefix: A prefix that will be inserted before the name of each added
+    column in the output. By default it will be set to the name of the database
+    followed by a dot.
     'plain'.
     \nReturned value: A data frame containing the input values, and annotation
     columns appended at the end. The first annotation column contains the IDs
@@ -90,6 +97,8 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     "
     
     ret <- NULL
+    newCols <- character()
+    mz.tol.unit <- match.arg(mz.tol.unit)
  
     # Convert x to data frame
     if ( ! is.data.frame(x))
@@ -100,34 +109,66 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         .self$error('No column named "', mz.col,
                     '" was found inside data frame.')
     
+    # Set output fields
+    if ( is.null(fields) || ! 'accession' %in% names(fields))
+        fields <- c('accession', fields)
+    
+    # Set prefix
+    if (is.null(prefix))
+        prefix <- paste0(.self$getId(), '.')
+            
     # Check mass field
     mass.fields <- .self$getBiodb()$getEntryFields()$getFieldNames('mass')
     .self$.assertIn(mass.field, mass.fields)
     
     # Get proton mass
     pm <- .self$getBiodb()$getConfig()$get('proton.mass')
-        
-    # Compute masses
-    mass <- x[[mz.col]] + pm * (if (ms.mode == 'neg') +1.0 else -1.0)
     
     # Loop on all masses
+    for (i in seq_len(nrow(x))) {
     
+        # Compute mass
+        m <- x[i, mz.col] + pm * (if (ms.mode == 'neg') +1.0 else -1.0)
+
         # Search for compounds matching this mass
+        ids <- .self$searchCompound(mass=m, mass.field=mass.field,
+            mass.tol=mz.tol, mass.tol.unit=mz.tol.unit, max.results=max.results)
     
-        # Build local data frame
-    
-        # Additional fields required?
-    
-            # Get entries
-    
-            # Get values of fields
-    
-            # Add values to local data frame
+        # Get entries
+        entries <- .self$getEntry(ids, drop=FALSE)
+
+        # Convert entries to data frame
+        df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields)
+
+        # Add prefix
+        if ( ! is.null(df) && ! is.na(prefix))
+            colnames(df) <- paste0(prefix, colnames(df))
+
+        # Register new columns
+        if ( ! is.null(df)) {
+            c <- colnames(df)[ ! colnames(df) %in% newCols]
+            newCols <- c(newCols, c)
+        }
+
+        # Insert input values
+        if (insert.input.values)
+            df <- if (is.null(df)) x[i, , drop=FALSE]
+                else cbind(x[i, , drop=FALSE], df, row.names=NULL,
+                           stringsAsFactors=FALSE)
     
         # Append local data frame to main data frame
-    
+        ret <- plyr::rbind.fill(ret, df)
+    }
+
+    # Sort new columns
+    if ( ! is.null(ret)) {
+        isAnInputCol <- ! colnames(ret) %in% newCols
+        inputCols <- colnames(ret)[isAnInputCol]
+        ret <- ret[, c(inputCols, sort(newCols)), drop=FALSE]
+    }
+
     return(ret)
-}
+},
                           
                           
 # Private methods {{{2

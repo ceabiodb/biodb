@@ -96,7 +96,7 @@ config:
     type: character
     description: The token to access PeakForest Compound database.
 
-  protonmass:
+  proton.mass:
     type: numeric
     description: The mass of a proton, in u or Da.
     default: 1.0072765
@@ -230,6 +230,10 @@ databases:
       molecular.weight: ^MOL_WEIGHT\s+(\S+)$
       ncbi.pubchem.comp.id: ^[DBLINKS ]+ PubChem:\s+(\S+)$
     scheduler.n: 3
+    searchable.fields:
+        - name
+        - monoisotopic.mass
+        - molecular.mass
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -325,6 +329,9 @@ databases:
       ncbi.pubchem.comp.id: PUBCHEM_COMPOUND_ID
     scheduler.n: 1
     scheduler.t: 20
+    searchable.fields:
+        - name
+        - monoisotopic.mass
     urls:
       base.url: http://www.lipidmaps.org/data/
 
@@ -449,6 +456,10 @@ databases:
       smiles.canonical: //PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Canonical']/../../..//PC-InfoData_value_sval
       smiles.isomeric: //PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Isomeric']/../../..//PC-InfoData_value_sval
     scheduler.n: 5
+    searchable.fields:
+        - name
+        - molecular.mass
+        - monoisotopic.mass
     urls:
       base.url: https://pubchem.ncbi.nlm.nih.gov/
       ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
@@ -582,6 +593,10 @@ databases:
       nt.seq.length:
         attr: length
         path: //uniprot:entry/uniprot:sequence
+    searchable.fields:
+        - name
+        - molecular.mass
+        - monoisotopic.mass
     urls:
       base.url: https://www.uniprot.org/uniprot/
     xml.ns:

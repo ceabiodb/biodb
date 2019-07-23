@@ -433,7 +433,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
             result.columns <- c(result.columns, newCols)
         }
 
-        # Inserting M/Z and RT info at the beginning of the data frame
+        # Inserting input values at the beginning of the data frame
         if (insert.input.values)
             df <- if (is.null(df)) input.df[i, , drop=FALSE]
                 else cbind(input.df[i, , drop=FALSE], df, row.names=NULL,

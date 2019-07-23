@@ -253,6 +253,13 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                               name=name, exact.mass=exact.mass,
                               exact.mass.offset=exact.mass.offset, retfmt='ids')
 
+    if (is.null(ids))
+        ids <- character(0)
+
+    # Cut
+    if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+        ids <- ids[seq_len(max.results)]
+
     return(ids)
 },
 

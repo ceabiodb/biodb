@@ -46,7 +46,8 @@ test.searchCompound <- function(db) {
 				mass.tol = 1
 
 			# Search by mass
-			ids <- db$searchCompound(mass = mass, mass.tol = mass.tol, mass.field = field)
+			max.results <- 3
+			ids <- db$searchCompound(mass = mass, mass.tol = mass.tol, mass.field = field, max.results=max.results)
 			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, '.')
 			if (db$getId() %in% not.searchable[[field]]) {
 				expect_null(ids, msg)
@@ -56,23 +57,34 @@ test.searchCompound <- function(db) {
 				expect_true(db$isSearchableByField(field), paste0("For field ", field, "."))
 				expect_true( ! is.null(ids), msg)
 				expect_true(length(ids) > 0, msg)
+				# Search again if not found with limited max.results
+				if ( ! id %in% ids) {
+					max.results <- NA_integer_
+					ids <- db$searchCompound(mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
+				}
 				expect_true(id %in% ids, msg)
+				expect_true(is.na(max.results) || length(ids) <= max.results)
 			}
 
-			# Search by mass and name
-			ids <- db$searchCompound(name = name, mass = mass, mass.tol = mass.tol, mass.field = field)
-			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-			expect_true( ! is.null(ids), msg)
-			expect_true(length(ids) > 0, msg)
-			expect_true(id %in% ids, msg)
+			# More mass search
+			if ( ! db$getId() %in% not.searchable[[field]]) {
+				# Search by mass and name
+				ids <- db$searchCompound(name = name, mass = mass, mass.tol = mass.tol, mass.field = field, max.results=max.results)
+				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+				expect_true( ! is.null(ids), msg)
+				expect_true(length(ids) > 0, msg)
+				expect_true(id %in% ids, msg)
+				expect_true(is.na(max.results) || length(ids) <= max.results)
 
-			# Search by name and slightly different mass
-			mass <- mass + mass.tol
-			ids <- db$searchCompound(name = name, mass = mass, mass.field = field, mass.tol = mass.tol)
-			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-			expect_true( ! is.null(ids), msg)
-			expect_true(length(ids) > 0, msg)
-			expect_true(id %in% ids, msg)
+				# Search by name and slightly different mass
+				mass <- mass + mass.tol
+				ids <- db$searchCompound(name = name, mass = mass, mass.field = field, mass.tol = mass.tol, max.results=max.results)
+				msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+				expect_true( ! is.null(ids), msg)
+				expect_true(length(ids) > 0, msg)
+				expect_true(id %in% ids, msg)
+				expect_true(is.na(max.results) || length(ids) <= max.results)
+			}
 		}
 	}
 }
@@ -122,17 +134,17 @@ test.annotateMzValues <- function(conn) {
 					df <- data.frame(mz=mz+shift)
 
 					# Annotate
-					ret <- conn$annotateMzValues(df, mz.tol=shift*2, mass.field=mf, ms.mode=mode)
+					ret <- conn$annotateMzValues(df, mz.tol=abs(shift)+0.01, mass.field=mf, ms.mode=mode, max.results=3)
 
 					# Test returned value
 					if ( ! conn$isSearchableByField(mf))
-						testthat::expect_null(ret)
+						testthat::expect_identical(ret, df)
 					else {
 						testthat::expect_is(ret, 'data.frame')
 						testthat::expect_true(all(colnames(df) %in% colnames(ret)))
 						testthat::expect_true(nrow(ret) >= nrow(df))
 						testthat::expect_true(all(df[['mz']] %in% ret[['mz']]))
-						id.col <- paste(conn$getPropertyValue('name'), 'id', sep='.')
+						id.col <- paste(conn$getId(), 'accession', sep='.')
 						testthat::expect_true(id.col %in% colnames(ret))
 					}
 				}
@@ -162,6 +174,13 @@ test_annotateMzValues_ppm_tol <- function(conn) {
 	testthat::expect_true(FALSE)
 }
 
+# Test that input data frame is output untouched in annotateMzValues() {{{1
+################################################################################
+
+test_annotateMzValues_input_dataframe_untouched <- function(conn) {
+	testthat::expect_true(FALSE)
+}
+
 # Main {{{1
 ################################################################################
 
@@ -172,4 +191,5 @@ if (conn$isCompounddb()) {
 	test.that('We can use a single vector as input for annotateMzValues()', 'test_annotateMzValues_input_vector', conn = conn)
 	test.that('We can ask for additional fields in annotateMzValues()', 'test_annotateMzValues_additional_fields', conn = conn)
 	test.that('Matching with tolerance in ppm works in annotateMzValues()', 'test_annotateMzValues_ppm_tol', conn = conn)
+	test.that('Input data frame is output untouched for annotateMzValues()', 'test_annotateMzValues_input_dataframe_untouched', conn = conn)
 }
