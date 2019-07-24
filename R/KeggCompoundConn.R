@@ -48,7 +48,7 @@
 KeggCompoundConn <- methods::setRefClass("KeggCompoundConn",
     contains=c("KeggConn", "BiodbCompounddbConn"),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(

@@ -183,6 +183,7 @@ test_annotateMzValues_input_vector <- function(conn) {
 			testthat::expect_is(ret, 'data.frame')
 			id.col <- paste(conn$getId(), 'accession', sep='.')
 			testthat::expect_identical(c('mz', id.col), colnames(ret))
+			testthat::expect_false(any(is.na(ret[[id.col]])))
 		}
 	}
 }
@@ -191,14 +192,78 @@ test_annotateMzValues_input_vector <- function(conn) {
 ################################################################################
 
 test_annotateMzValues_additional_fields <- function(conn) {
-	testthat::expect_true(FALSE)
+
+	# Mass of a proton
+	proton.mass <- 1.0072765
+
+	# Get mass fields
+	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
+
+	# Get entries
+	ids <- list.ref.entries(conn$getId())
+	entries <- conn$getEntry(ids, drop = FALSE)
+
+	# Loop on mass fields
+	for (mf in mass.fields) {
+
+		if ( ! conn$isSearchableByField(mf))
+			next
+
+		# Get entries that have a value for this mass field
+		ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+		if (length(ewmf) > 0) {
+
+			# Get masses
+			masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+
+			# Annotate
+			mz <- masses - proton.mass
+			fields <- ewmf[[1]]$getFieldNames()
+			ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3, fields=fields)
+			testthat::expect_is(ret, 'data.frame')
+			outputFields <- paste(conn$getId(), fields, sep='.')
+			testthat::expect_identical(c('mz', outputFields), colnames(ret))
+		}
+	}
 }
 
 # Test that PPM tolerance works in annotateMzValues() {{{1
 ################################################################################
 
 test_annotateMzValues_ppm_tol <- function(conn) {
-	testthat::expect_true(FALSE)
+
+	# Mass of a proton
+	proton.mass <- 1.0072765
+
+	# Get mass fields
+	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
+
+	# Get entries
+	ids <- list.ref.entries(conn$getId())
+	entries <- conn$getEntry(ids, drop = FALSE)
+
+	# Loop on mass fields
+	for (mf in mass.fields) {
+
+		if ( ! conn$isSearchableByField(mf))
+			next
+
+		# Get entries that have a value for this mass field
+		ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+		if (length(ewmf) > 0) {
+
+			# Get masses
+			masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+
+			# Annotate
+			mz <- masses - proton.mass
+			ret <- conn$annotateMzValues(mz, mz.tol=15, mz.tol.unit='ppm', mass.field=mf, ms.mode='neg', max.results=3)
+			testthat::expect_is(ret, 'data.frame')
+			id.col <- paste(conn$getId(), 'accession', sep='.')
+			testthat::expect_identical(c('mz', id.col), colnames(ret))
+			testthat::expect_false(any(is.na(ret[[id.col]])))
+		}
+	}
 }
 
 # Test that input data frame is output untouched in annotateMzValues() {{{1
