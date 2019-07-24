@@ -270,7 +270,53 @@ test_annotateMzValues_ppm_tol <- function(conn) {
 ################################################################################
 
 test_annotateMzValues_input_dataframe_untouched <- function(conn) {
-	testthat::expect_true(FALSE)
+
+	# Mass of a proton
+	proton.mass <- 1.0072765
+
+	# Get mass fields
+	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
+
+	# Get entries
+	ids <- list.ref.entries(conn$getId())
+	entries <- conn$getEntry(ids, drop = FALSE)
+
+	# Loop on mass fields
+	for (mf in mass.fields) {
+
+		# Get entries that have a value for this mass field
+		ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+		if (length(ewmf) > 0) {
+
+			# Get masses
+			masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+
+			# Compute M/Z values from masses
+			mz <- masses - proton.mass
+
+			# Create input data frame
+			idf <- data.frame(mz=mz, col2='a', col3=10L)
+
+			# Annotate
+			ret <- conn$annotateMzValues(idf, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3)
+
+			# Test returned value
+			if ( ! conn$isSearchableByField(mf))
+				testthat::expect_identical(ret, idf)
+			else {
+				testthat::expect_is(ret, 'data.frame')
+				testthat::expect_true(all(colnames(idf) %in% colnames(ret)))
+				testthat::expect_true(nrow(ret) >= nrow(idf))
+				testthat::expect_true(all(idf[['mz']] %in% ret[['mz']]))
+				id.col <- paste(conn$getId(), 'accession', sep='.')
+				testthat::expect_true(id.col %in% colnames(ret))
+				odf <- ret[ ! duplicated(ret[['mz']]), colnames(idf)]
+				row.names(idf) <- NULL
+				row.names(odf) <- NULL
+				testthat::expect_identical(idf, odf)
+			}
+		}
+	}
 }
 
 # Main {{{1
