@@ -181,9 +181,8 @@ test_annotateMzValues_input_vector <- function(conn) {
 			mz <- masses - proton.mass
 			ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3)
 			testthat::expect_is(ret, 'data.frame')
-			testthat::expect_equal(ncol(ret), 2)
 			id.col <- paste(conn$getId(), 'accession', sep='.')
-			testthat::expect_true(c('mz', id.col) %in% colnames(ret))
+			testthat::expect_identical(c('mz', id.col), colnames(ret))
 		}
 	}
 }
