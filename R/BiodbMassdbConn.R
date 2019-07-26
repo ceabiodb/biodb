@@ -18,7 +18,6 @@
 #' @param msms.mz.tol.min   Minimum of the M/Z tolerance (plain unit). If the
 #' M/Z tolerance computed with \code{msms.mz.tol} is lower than
 #' \code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.
-#' @param mz.col        The name of the M/Z column in the results data frame.
 #' @param mz.max        A vector of maximum M/Z values to match. Goes with
 #' mz.min, and mut have the same length.
 #' @param mz.min        A vector of minimum M/Z values to match. Goes with
@@ -27,10 +26,6 @@
 #' recommended).
 #' @param precursor.mz  The M/Z value of the precursor peak of the mass
 #' spectrum.
-#' @param results.df    Results data frame.
-#' @param rt.col        The name of the RT column in the results data frame.
-#' @param sep           The separator used to concatenate values, when
-#' collapsing results data frame.
 #' @param spectrum      A template spectrum to match inside the database.
 #'
 #' @seealso \code{\link{BiodbConn}}.
@@ -511,50 +506,20 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
 collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
                                   sep='|') {
     "Collapse rows of a results data frame, by outputing a data frame with only
-    one row for each MZ/RT value."
+    one row for each MZ/RT value.
+    \nresults.df: Results data frame.
+    \n mz.col: The name of the M/Z column in the results data frame.
+    \n rt.col: The name of the RT column in the results data frame.
+    \n sep:    The separator used to concatenate values, when
+               collapsing results data frame.
+    \nReturned value: A data frame with rows collapsed."
 
-    .self$.assertIs(results.df, 'data.frame')
-    if ( ! mz.col %in% colnames(results.df))
-        .self$error('Data frame must contain a M/Z column named "', mz.col,
-                    '".')
-    use.rt <- rt.col %in% colnames(results.df)
-    .self$.assertIs(sep, 'character')
-
-    results.df.collapsed <- NULL
-
-    # Get duplicated rows
     cols <- mz.col
-    if (use.rt)
+    if (rt.col %in% colnames(results.df))
         cols <- c(cols, rt.col)
-    dup.row <- ( ! is.na(results.df[[mz.col]])) & duplicated(results.df[, cols])
-
-    # Loop on all rows
-    i <- 1
-    while (i <= length(dup.row)) {
-
-        # Find end of block
-        j <- i
-        while (j < length(dup.row) && dup.row[[j + 1]])
-            j <- j + 1
-
-        # Collapse gathered lines
-        one.line <- results.df[i, , drop=FALSE]
-        if (j > i)
-            for (col in colnames(results.df)) {
-                if (( ! all(is.na(results.df[i:j, col]))
-                     && any(is.na(results.df[i:j, col])))
-                || ( ( ! is.na(one.line[[col]]))
-                    && any(results.df[i:j, col] != one.line[[col]])))
-                    one.line[[col]] <- paste(results.df[i:j, col], collapse=sep)
-            }
-
-        # Append collapsed line to output data frame
-        results.df.collapsed <- rbind(results.df.collapsed, one.line)
-
-        i <- j + 1
-    }
-
-    return(results.df.collapsed)
+    x <- .self$getBiodb()$collapseRows(results.df, cols=cols)
+    
+    return(x)
 },
 
 # Deprecated methods {{{2
