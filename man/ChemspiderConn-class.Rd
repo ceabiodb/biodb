@@ -33,9 +33,23 @@ case of a compound entry).}
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
-  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
-must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
-...)}
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. At least one of name or mass
+    must be set.
+    
+name: The name of a compound to search for.
+    
+mass: The searched mass.
+    
+mass.field: For searching by mass, you must indicate a mass field to use
+    ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
+    
+mass.tol: The tolerance value on the molecular mass.
+    
+mass.tol.unit: The type of mass tolerance. Either 'plain' or 'ppm'.
+    
+max.results: The maximum number of matches to return.
+    
+Returned value: A character vector of entry IDs.}
 
 \item{\code{wsFilterMassPost(mass, range, retfmt = c("plain", "parsed", "queryid", "ids",
   "request"))}}{Access the filter-mass-post ChemSpider web service. See

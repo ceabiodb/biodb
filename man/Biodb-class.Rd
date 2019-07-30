@@ -50,6 +50,21 @@ logger.}
 This is the way used in biodb to get feedback about what is going inside
 biodb code.}
 
+\item{\code{collapseRows(x, sep = "|", cols = 1L)}}{Collapse rows of a data frame, by looking for duplicated values in the
+    reference columns (parameter `cols`). The values contained in the reference
+    columns are supposed to be ordered inside the data frame, in the sens that
+    all duplicated values are supposed to directly follow the original values.
+    For all rows containing duplicated values, we look at values in all other
+    columns and concatenate values in each column containing different values.
+    
+x: A data frame.
+    
+cols: The indices or the names of the columns used as reference.
+    
+sep: The separator to use when concatenating values in collapsed rows.
+    
+Returned value: A data frame, with rows collapsed.}
+
 \item{\code{computeFields(entries)}}{Compute missing fields in entries.}
 
 \item{\code{copyDb(conn.from, conn.to, limit = NULL)}}{Copy all entries of a database into another database. The connector of the

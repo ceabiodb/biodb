@@ -17,6 +17,14 @@ all KEGG connectors.
 \describe{
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
+\item{\code{searchByName(name, max.results = NA_integer_)}}{Searches the database for entries whose name matches the specified name.
+    Returns a character vector of entry IDs.
+    
+name: The name to look for.
+    
+max.results: If set, the number of returned IDs is limited to the this
+    number.}
+
 \item{\code{wsFind(query, retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
 details.}
 
@@ -39,6 +47,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
-\code{\link{BiodbSearchable}}.
+\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}
 }

@@ -249,6 +249,8 @@ databases:
       cas.id: ^[DBLINKS ]+ CAS:\s+(\S+)$
       expasy.enzyme.id: ^[DBLINKS ]+ ExPASy - ENZYME nomenclature database:\s+(\S+)$
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -267,6 +269,8 @@ databases:
       organism: ^ORGANISM\s+\S+\s+(.*)$
       uniprot.id: ^[DBLINKS ]+ UniProt:\s+(\S+.*)$
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -280,6 +284,8 @@ databases:
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -293,6 +299,8 @@ databases:
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -307,6 +315,8 @@ databases:
       accession: ^ENTRY\s+(\S+)\s+Reaction
       equation: ^EQUATION\s+(.+)\s*$
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin

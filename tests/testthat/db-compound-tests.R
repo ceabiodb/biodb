@@ -186,9 +186,6 @@ test_annotateMzValues_input_vector <- function(conn) {
 	# Loop on mass fields
 	for (mf in mass.fields) {
 
-		if ( ! conn$isSearchableByField(mf))
-			next
-
 		# Get entries that have a value for this mass field
 		ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
 		if (length(ewmf) > 0) {
@@ -199,10 +196,14 @@ test_annotateMzValues_input_vector <- function(conn) {
 			# Annotate
 			mz <- masses - proton.mass
 			ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3)
-			testthat::expect_is(ret, 'data.frame')
-			id.col <- paste(conn$getId(), 'accession', sep='.')
-			testthat::expect_identical(c('mz', id.col), colnames(ret))
-			testthat::expect_false(any(is.na(ret[[id.col]])))
+			if ( ! conn$isSearchableByField(mf))
+				testthat::expect_identical(ret, data.frame(mz=mz))
+			else {
+				testthat::expect_is(ret, 'data.frame')
+				id.col <- paste(conn$getId(), 'accession', sep='.')
+				testthat::expect_identical(c('mz', id.col), colnames(ret))
+				testthat::expect_false(any(is.na(ret[[id.col]])))
+			}
 		}
 	}
 }
@@ -225,9 +226,6 @@ test_annotateMzValues_additional_fields <- function(conn) {
 	# Loop on mass fields
 	for (mf in mass.fields) {
 
-		if ( ! conn$isSearchableByField(mf))
-			next
-
 		# Get entries that have a value for this mass field
 		ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
 		if (length(ewmf) > 0) {
@@ -239,16 +237,24 @@ test_annotateMzValues_additional_fields <- function(conn) {
 			mz <- masses - proton.mass
 			fields <- ewmf[[1]]$getFieldNames()
 			ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3, fields=fields)
-			testthat::expect_is(ret, 'data.frame')
-			outputFields <- paste(conn$getId(), fields, sep='.')
-			testthat::expect_identical(c('mz', outputFields), colnames(ret))
+			if ( ! conn$isSearchableByField(mf))
+				testthat::expect_identical(ret, data.frame(mz=mz))
+			else {
+				testthat::expect_is(ret, 'data.frame')
+				outputFields <- paste(conn$getId(), fields, sep='.')
+				testthat::expect_identical(c('mz', outputFields), colnames(ret))
+			}
 
 			# We should obtain the same result with a field that does not exist in entries.
 			# The field will just be ignored.
 			ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3, fields=c(fields, 'peak.attr'))
-			testthat::expect_is(ret, 'data.frame')
-			outputFields <- paste(conn$getId(), fields, sep='.')
-			testthat::expect_identical(c('mz', outputFields), colnames(ret))
+			if ( ! conn$isSearchableByField(mf))
+				testthat::expect_identical(ret, data.frame(mz=mz))
+			else {
+				testthat::expect_is(ret, 'data.frame')
+				outputFields <- paste(conn$getId(), fields, sep='.')
+				testthat::expect_identical(c('mz', outputFields), colnames(ret))
+			}
 		}
 	}
 }
@@ -271,9 +277,6 @@ test_annotateMzValues_ppm_tol <- function(conn) {
 	# Loop on mass fields
 	for (mf in mass.fields) {
 
-		if ( ! conn$isSearchableByField(mf))
-			next
-
 		# Get entries that have a value for this mass field
 		ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
 		if (length(ewmf) > 0) {
@@ -284,10 +287,14 @@ test_annotateMzValues_ppm_tol <- function(conn) {
 			# Annotate
 			mz <- masses - proton.mass
 			ret <- conn$annotateMzValues(mz, mz.tol=15, mz.tol.unit='ppm', mass.field=mf, ms.mode='neg', max.results=3)
-			testthat::expect_is(ret, 'data.frame')
-			id.col <- paste(conn$getId(), 'accession', sep='.')
-			testthat::expect_identical(c('mz', id.col), colnames(ret))
-			testthat::expect_false(any(is.na(ret[[id.col]])))
+			if ( ! conn$isSearchableByField(mf))
+				testthat::expect_identical(ret, data.frame(mz=mz))
+			else {
+				testthat::expect_is(ret, 'data.frame')
+				id.col <- paste(conn$getId(), 'accession', sep='.')
+				testthat::expect_identical(c('mz', id.col), colnames(ret))
+				testthat::expect_false(any(is.na(ret[[id.col]])))
+			}
 		}
 	}
 }
@@ -316,6 +323,7 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn) {
 
 			# Get masses
 			masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+			testthat::expect_is(masses, 'numeric')
 
 			# Compute M/Z values from masses
 			mz <- masses - proton.mass

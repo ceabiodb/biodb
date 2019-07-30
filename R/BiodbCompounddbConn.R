@@ -60,7 +60,14 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
     \nmax.results: The maximum number of matches to return.
     \nReturned value: A character vector of entry IDs."
 
-    .self$.abstractMethod()
+    .self$.checkMassField(mass=mass, mass.field=mass.field)
+
+    ids <- NULL
+
+    .self$caution('Database ', .self$getDbClass(),
+                  ' is not searchable by mass.')
+
+    return(ids)
 },
 
 # Annotate M/Z values {{{3
@@ -102,10 +109,18 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     ret <- data.frame(stringsAsFactors=FALSE)
     newCols <- character()
     mz.tol.unit <- match.arg(mz.tol.unit)
+    ef <- .self$getBiodb()$getEntryFields()
 
     # Convert x to data frame
     if ( ! is.data.frame(x))
         x <- data.frame(mz = x)
+
+    # Check mass field
+    mass.fields <- ef$getFieldNames('mass')
+    .self$.assertIn(mass.field, mass.fields)
+    if ( ! .self$isSearchableByField(mass.field))
+        .self$error("Database ", .self$getDbClass(), " is not searchable by",
+            " mass field ", mass.field, ".")
     
     # Check that we find the M/Z column
     if (nrow(x) > 0 && ! mz.col %in% names(x))
@@ -117,7 +132,6 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         ret[[mz.col]] <- numeric()
     
     # Set output fields
-    ef <- .self$getBiodb()$getEntryFields()
     if ( ! is.null(fields))
         ef$checkIsDefined(fields)
     if (is.null(fields) || ! 'accession' %in% names(fields))
@@ -126,10 +140,6 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     # Set prefix
     if (is.null(prefix))
         prefix <- paste0(.self$getId(), '.')
-
-    # Check mass field
-    mass.fields <- ef$getFieldNames('mass')
-    .self$.assertIn(mass.field, mass.fields)
     
     # Get proton mass
     pm <- .self$getBiodb()$getConfig()$get('proton.mass')

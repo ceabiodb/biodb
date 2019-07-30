@@ -5,21 +5,6 @@
 \alias{BiodbCompounddbConn-class}
 \alias{BiodbCompounddbConn}
 \title{An interface for all compound databases.}
-\arguments{
-\item{name}{The name of a compound.}
-
-\item{mass}{The searched mass.}
-
-\item{mass.field}{The mass field to use for the search. For instance:
-'molecular.mass', 'monoisotopic.mass', 'average.mass'.}
-
-\item{mass.tol}{The tolerance on the molecular mass.}
-
-\item{mass.tol.unit}{The unit used for molecular mass tolerance. Either
-'plain' or 'ppm'.}
-
-\item{max.results}{The maximum number of matches wanted.}
-}
 \description{
 This interface must be inherited by all compound databases. It declares
 method headers specific to compound databases.
@@ -27,10 +12,62 @@ method headers specific to compound databases.
 \section{Methods}{
 
 \describe{
+\item{\code{annotateMzValues(x, mz.tol, ms.mode, mz.tol.unit = c("plain", "ppm"),
+  mass.field = "monoisotopic.mass", max.results = 3, mz.col = "mz",
+  fields = NULL, prefix = NULL, insert.input.values = TRUE)}}{Annotate 
+    
+x: Either a data frame or a numeric vector.
+    
+fields: A character vector containing the additional entry fields you
+    would like to get for each matched entry. Each field will be output in a
+    different column.
+    
+insert.input.values: Insert input values at the beginning of the
+    result data frame.
+    
+mass.field: The mass field to use for matching M/Z values. One of:
+    'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
+    
+max.results: If set, it is used to limit the number of matches found for
+    each M/Z value. To get all the matches, set this parameter to NA_integer_.
+    Default value is 3.
+    
+ms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    
+mz.col: The name of the column where to find M/Z values in case x is a
+    data frame.
+    
+mz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    
+prefix: A prefix that will be inserted before the name of each added
+    column in the output. By default it will be set to the name of the database
+    followed by a dot.
+    'plain'.
+    
+Returned value: A data frame containing the input values, and annotation
+    columns appended at the end. The first annotation column contains the IDs
+    of the matched entries. The following columns contain the fields you have
+    requested through the `fields` parameter.
+    }
+
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
-  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
-must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
-...)}
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. At least one of name or mass
+    must be set.
+    
+name: The name of a compound to search for.
+    
+mass: The searched mass.
+    
+mass.field: For searching by mass, you must indicate a mass field to use
+    ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
+    
+mass.tol: The tolerance value on the molecular mass.
+    
+mass.tol.unit: The type of mass tolerance. Either 'plain' or 'ppm'.
+    
+max.results: The maximum number of matches to return.
+    
+Returned value: A character vector of entry IDs.}
 }}
 
 \examples{
