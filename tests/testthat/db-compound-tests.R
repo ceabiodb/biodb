@@ -97,6 +97,25 @@ test.searchCompound.no.mass.field <- function(db) {
 
 test.annotateMzValues <- function(conn) {
 
+	testthat::expect_null(conn$annotateMzValues(NULL, mz.tol=0.01, ms.mode='neg'))
+	testthat::expect_identical(data.frame(), conn$annotateMzValues(data.frame(), mz.tol=0.01, ms.mode='neg'))
+	testthat::expect_identical(data.frame(mz=numeric()), conn$annotateMzValues(data.frame(mz=numeric()), mz.tol=0.01, ms.mode='neg'))
+
+	# No M/Z column
+	testthat::expect_error(conn$annotateMzValues(data.frame(mass=1.0), mz.tol=0.01, ms.mode='neg'))
+
+	# Custom M/Z column name
+	testthat::expect_identical(data.frame(mass=numeric()), conn$annotateMzValues(data.frame(mass=numeric()), mz.tol=0.01, ms.mode='neg', mz.col='mass'))
+
+	# An error should be raised if the field name does not exist
+	testthat::expect_error(conn$annotateMzValues(data.frame(mz=numeric()), mz.tol=0.01, ms.mode='neg', fields='foo'))
+}
+
+# Test annotateMzValues() with real values {{{1
+################################################################
+
+test.annotateMzValues_real_values <- function(conn) {
+
 	# Mass of a proton
 	proton.mass <- 1.0072765
 
@@ -223,6 +242,13 @@ test_annotateMzValues_additional_fields <- function(conn) {
 			testthat::expect_is(ret, 'data.frame')
 			outputFields <- paste(conn$getId(), fields, sep='.')
 			testthat::expect_identical(c('mz', outputFields), colnames(ret))
+
+			# We should obtain the same result with a field that does not exist in entries.
+			# The field will just be ignored.
+			ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3, fields=c(fields, 'peak.attr'))
+			testthat::expect_is(ret, 'data.frame')
+			outputFields <- paste(conn$getId(), fields, sep='.')
+			testthat::expect_identical(c('mz', outputFields), colnames(ret))
 		}
 	}
 }
@@ -326,6 +352,7 @@ if (conn$isCompounddb()) {
 	test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)
 	test.that('We can search for a compound', 'test.searchCompound', conn = conn)
 	test.that('annotateMzValues() works correctly.', 'test.annotateMzValues', conn = conn)
+	test.that('annotateMzValues() works correctly with real values.', 'test.annotateMzValues_real_values', conn = conn)
 	test.that('We can use a single vector as input for annotateMzValues()', 'test_annotateMzValues_input_vector', conn = conn)
 	test.that('We can ask for additional fields in annotateMzValues()', 'test_annotateMzValues_additional_fields', conn = conn)
 	test.that('Matching with tolerance in ppm works in annotateMzValues()', 'test_annotateMzValues_ppm_tol', conn = conn)

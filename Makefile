@@ -36,6 +36,7 @@ $(info "BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
 $(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
 # TODO Set an option for only writing to cache, not reading. This way we can run test and update the cache only.
 $(info "DATABASES=$(DATABASES)")
+$(info "FUNCTIONS=$(FUNCTIONS)")
 $(info "DONT_TEST_DBS=$(DONT_TEST_DBS)")
 $(info "PKG_VERSION=$(PKG_VERSION)")
 $(info "GIT_VERSION=$(GIT_VERSION)")

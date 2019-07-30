@@ -606,8 +606,8 @@ databases:
 
 fields:
 
-  # Database IDs {{{2
-  ##############################################################################
+# Database IDs {{{2
+################################################################################
     
   accession:
     description: The accession number of the entry.
@@ -789,8 +789,8 @@ fields:
     forbids.duplicates: true
     type: id
 
-  # Masses {{{2
-  ##############################################################################
+# Masses {{{2
+################################################################################
 
   average.mass:
     class: double
@@ -817,8 +817,53 @@ fields:
     description: Nominal mass, in u (unified atomic mass units) or Da (Dalton). It is computed using the mass number of the most abundant isotope of each atom. Typically used with low resolution mass spectrometers. See https://en.wikipedia.org/wiki/Monoisotopic_mass.
     type: mass
 
-  # Other fields {{{2
-  ##############################################################################
+# Peak table fields {{{2
+################################################################################
+
+  peaks:
+    class: data.frame
+    description: Peaks table.
+
+  peak.attr:
+    description: Peak attribution.
+    group: peak
+  peak.comp:
+    description: Peak comp.
+    group: peak
+  peak.error.ppm:
+    class: double
+    description: Peak error in PPM.
+    group: peak
+  peak.formula:
+    description: Peak formula.
+    group: peak
+  peak.intensity:
+    class: double
+    description: Peak intensity.
+    group: peak
+  peak.mass:
+    class: double
+    description: Peak mass.
+    group: peak
+  peak.mz:
+    class: double
+    description: Peak M/Z.
+    group: peak
+  peak.mzexp:
+    class: double
+    description: Peak experimental M/Z.
+    group: peak
+  peak.mztheo:
+    class: double
+    description: Peak theoretical M/Z.
+    group: peak
+  peak.relative.intensity:
+    class: double
+    description: Peak relative intensity, in percentage (from 0 to 100).
+    group: peak
+    
+# Other fields {{{2
+################################################################################
     
   aa.seq:
     alias: sequence
@@ -989,46 +1034,6 @@ fields:
   pathway.class:
     card: many
     description: Pathway class.
-  peak.attr:
-    description: Peak attribution.
-    group: peak
-  peak.comp:
-    description: Peak comp.
-    group: peak
-  peak.error.ppm:
-    class: double
-    description: Peak error in PPM.
-    group: peak
-  peak.formula:
-    description: Peak formula.
-    group: peak
-  peak.intensity:
-    class: double
-    description: Peak intensity.
-    group: peak
-  peak.mass:
-    class: double
-    description: Peak mass.
-    group: peak
-  peak.mz:
-    class: double
-    description: Peak M/Z.
-    group: peak
-  peak.mzexp:
-    class: double
-    description: Peak experimental M/Z.
-    group: peak
-  peak.mztheo:
-    class: double
-    description: Peak theoretical M/Z.
-    group: peak
-  peak.relative.intensity:
-    class: double
-    description: Peak relative intensity, in percentage (from 0 to 100).
-    group: peak
-  peaks:
-    class: data.frame
-    description: Peaks table.
   products:
     card: many
     description: Products of an enzymatic chemical reaction.

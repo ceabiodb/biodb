@@ -95,30 +95,40 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     of the matched entries. The following columns contain the fields you have
     requested through the `fields` parameter.
     "
+ 
+    if (is.null(x))
+        return(NULL)
     
-    ret <- NULL
+    ret <- data.frame(stringsAsFactors=FALSE)
     newCols <- character()
     mz.tol.unit <- match.arg(mz.tol.unit)
- 
+
     # Convert x to data frame
     if ( ! is.data.frame(x))
         x <- data.frame(mz = x)
     
     # Check that we find the M/Z column
-    if ( ! mz.col %in% names(x))
+    if (nrow(x) > 0 && ! mz.col %in% names(x))
         .self$error('No column named "', mz.col,
                     '" was found inside data frame.')
     
+    # Set M/Z col in output data frame
+    if (mz.col %in% names(x))
+        ret[[mz.col]] <- numeric()
+    
     # Set output fields
-    if ( is.null(fields) || ! 'accession' %in% names(fields))
+    ef <- .self$getBiodb()$getEntryFields()
+    if ( ! is.null(fields))
+        ef$checkIsDefined(fields)
+    if (is.null(fields) || ! 'accession' %in% names(fields))
         fields <- c('accession', fields)
     
     # Set prefix
     if (is.null(prefix))
         prefix <- paste0(.self$getId(), '.')
-            
+
     # Check mass field
-    mass.fields <- .self$getBiodb()$getEntryFields()$getFieldNames('mass')
+    mass.fields <- ef$getFieldNames('mass')
     .self$.assertIn(mass.field, mass.fields)
     
     # Get proton mass
