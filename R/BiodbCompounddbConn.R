@@ -118,9 +118,6 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     # Check mass field
     mass.fields <- ef$getFieldNames('mass')
     .self$.assertIn(mass.field, mass.fields)
-    if ( ! .self$isSearchableByField(mass.field))
-        .self$error("Database ", .self$getDbClass(), " is not searchable by",
-            " mass field ", mass.field, ".")
     
     # Check that we find the M/Z column
     if (nrow(x) > 0 && ! mz.col %in% names(x))
