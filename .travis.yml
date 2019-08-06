@@ -1,6 +1,6 @@
 language: r
-cache:
-    packages: true
+#cache:
+#    packages: true
     #    directories:
     #        - $BIODB_CACHE_DIRECTORY
 
@@ -44,5 +44,5 @@ script:
 #    - ./travis-tests
 
 
-after_script:
+      #after_script:
     #    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
