@@ -4,10 +4,9 @@
 ################################################################################
 
 #' @include BiodbCompounddbConn.R
-#' @include BiodbSearchable.R
 #' @include BiodbRemotedbConn.R
 LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn",
-    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn", "BiodbSearchable"),
+    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn"),
 
 # Public methods {{{2
 ################################################################################
@@ -222,13 +221,6 @@ wsLmsdRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL,
 },
 
 
-# Search by name {{{3
-################################################################################
-
-searchByName=function(name, max.results=NA_integer_) {
-    return(.self$searchCompound(name=name, max.results=max.results))
-},
-
 # Search compound {{{3
 ################################################################################
 
@@ -260,6 +252,13 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
     ids <- .self$wsLmsdSearch(mode='ProcessStrSearch', output.mode='File',
                               name=name, exact.mass=exact.mass,
                               exact.mass.offset=exact.mass.offset, retfmt='ids')
+
+    if (is.null(ids))
+        ids <- character(0)
+
+    # Cut
+    if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+        ids <- ids[seq_len(max.results)]
 
     return(ids)
 },

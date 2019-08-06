@@ -4,17 +4,16 @@
 ################################################################################
 
 #' @include NcbiPubchemConn.R
-#' @include BiodbSearchable.R
 #' @include BiodbCompounddbConn.R
 NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn",
-    contains=c("NcbiPubchemConn", 'BiodbCompounddbConn', 'BiodbSearchable'),
+    contains=c("NcbiPubchemConn", 'BiodbCompounddbConn'),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
 initialize=function(...) {
@@ -23,14 +22,7 @@ initialize=function(...) {
               entrez.name='pccompound', ...)
 },
 
-# Search by name {{{1
-################################################################################
-
-searchByName=function(name, max.results=NA_integer_) {
-    return(.self$searchCompound(name=name, max.results=max.results))
-},
-
-# Search compound {{{1
+# Search compound {{{3
 ################################################################################
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,

@@ -5,9 +5,8 @@
 
 #' @include MirbaseConn.R
 #' @include BiodbDownloadable.R
-#' @include BiodbSearchable.R
 MirbaseMatureConn <- methods::setRefClass("MirbaseMatureConn",
-    contains=c("MirbaseConn", "BiodbDownloadable", "BiodbSearchable"),
+    contains=c("MirbaseConn", "BiodbDownloadable"),
 
 # Public methods {{{2
 ################################################################################

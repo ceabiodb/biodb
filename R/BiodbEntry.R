@@ -81,7 +81,7 @@ BiodbEntry <- methods::setRefClass("BiodbEntry",
         .new='logical'
     ),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
@@ -247,7 +247,7 @@ appendFieldValue=function(field, value) {
 getFieldNames=function() {
     "Get a list of all fields defined for this entry."
 
-    return(names(.self$.fields))
+    return(sort(names(.self$.fields)))
 },
 
 # Has field {{{3

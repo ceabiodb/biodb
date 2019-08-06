@@ -371,6 +371,68 @@ entriesToJson=function(entries, compute=TRUE) {
     return(json)
 },
 
+# Collapse rows {{{3
+################################################################################
+
+collapseRows=function(x, sep='|', cols=1L) {
+    "Collapse rows of a data frame, by looking for duplicated values in the
+    reference columns (parameter `cols`). The values contained in the reference
+    columns are supposed to be ordered inside the data frame, in the sens that
+    all duplicated values are supposed to directly follow the original values.
+    For all rows containing duplicated values, we look at values in all other
+    columns and concatenate values in each column containing different values.
+    \nx: A data frame.
+    \ncols: The indices or the names of the columns used as reference.
+    \nsep: The separator to use when concatenating values in collapsed rows.
+    \nReturned value: A data frame, with rows collapsed."
+    
+    if (is.null(x))
+        return(x)
+    .self$.assertIs(x, 'data.frame')
+    if (nrow(x) == 0)
+        return(x)
+    if (is.numeric(cols))
+        cols <- as.integer(cols)
+    if ( ! is.integer(cols) && ! all(cols %in% colnames(x)))
+        .self$error('The data frame does not contain columns "',
+                    paste(cols, collapse=', '), '".')
+    .self$.assertIs(sep, 'character')
+
+    y <- NULL
+
+    # Get duplicated rows
+    na.row <- apply(is.na(x[, cols, drop=FALSE]), 1, function(v) Reduce("|", v))
+    dup.row <- ( ! na.row) & duplicated(x[, cols])
+
+    # Loop on all rows
+    i <- 1
+    while (i <= length(dup.row)) {
+
+        # Find end of block
+        j <- i
+        while (j < length(dup.row) && dup.row[[j + 1]])
+            j <- j + 1
+
+        # Collapse gathered lines
+        one.line <- x[i, , drop=FALSE]
+        if (j > i)
+            for (col in colnames(x)) {
+                if (( ! all(is.na(x[i:j, col]))
+                     && any(is.na(x[i:j, col])))
+                || ( ( ! is.na(one.line[[col]]))
+                    && any(x[i:j, col] != one.line[[col]])))
+                    one.line[[col]] <- paste(x[i:j, col], collapse=sep)
+            }
+
+        # Append collapsed line to output data frame
+        y <- rbind(y, one.line)
+
+        i <- j + 1
+    }
+    
+    return(y)
+},
+
 # Compute fields {{{3
 ################################################################################
 

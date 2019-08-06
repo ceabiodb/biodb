@@ -46,9 +46,23 @@ service.}
 \item{\code{getWsdlEnumeration(name)}}{Extract a list of enumerations from the WSDL.}
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
-  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. For searching by mass, you
-must indicate a mass field to use ('monoisotopic.mass', 'molecular.mass',
-                                   ...)}
+  mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. At least one of name or mass
+    must be set.
+    
+name: The name of a compound to search for.
+    
+mass: The searched mass.
+    
+mass.field: For searching by mass, you must indicate a mass field to use
+    ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
+    
+mass.tol: The tolerance value on the molecular mass.
+    
+mass.tol.unit: The type of mass tolerance. Either 'plain' or 'ppm'.
+    
+max.results: The maximum number of matches to return.
+    
+Returned value: A character vector of entry IDs.}
 
 \item{\code{wsGetLiteEntity(search = NULL, search.category = "ALL", max.results = 10,
   stars = "ALL", retfmt = c("plain", "parsed", "request", "ids"))}}{Calls getLiteEntity web service and returns the XML result.

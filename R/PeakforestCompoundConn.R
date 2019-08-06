@@ -5,9 +5,8 @@
 
 #' @include PeakforestConn.R
 #' @include BiodbCompounddbConn.R
-#' @include BiodbSearchable.R
 PeakforestCompoundConn <- methods::setRefClass("PeakforestCompoundConn",
-    contains=c("PeakforestConn", "BiodbCompounddbConn", 'BiodbSearchable'),
+    contains=c("PeakforestConn", "BiodbCompounddbConn"),
 
 # Public methods {{{2
 ################################################################################
@@ -87,13 +86,6 @@ wsSearchCompoundsMass=function(field, mass, delta, max=NA_integer_,
     }
 
     return(results)
-},
-
-# Search by name {{{3
-################################################################################
-
-searchByName=function(name, max.results=NA_integer_) {
-    return(.self$searchCompound(name=name, max.results=max.results))
 },
 
 # Search compound {{{3

@@ -532,6 +532,8 @@ setPropValSlot=function(name, slot, value) {
                             mult=TRUE, allowed_item_types='character',
                             na.allowed=FALSE,
                             hook='defineParsingExpressions'),
+        searchable.fields=list(class='character', default=character(),
+                               na.allowed=FALSE, modifiable=FALSE, mult=TRUE),
         scheduler.n=list(class='integer', default=1, na.allowed=FALSE),
         scheduler.t=list(class='numeric', default=1, na.allowed=FALSE),
         token=list(class='character', default=default_token,

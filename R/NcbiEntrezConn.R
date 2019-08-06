@@ -86,7 +86,7 @@ wsEsearch=function(term, field=NA_character_, retmax=NA_integer_,
     if ( ! is.na(field))
         params <- c(params, field=field)
     if ( ! is.null(retmax) && ! is.na(retmax) && retmax > 0)
-        params <- c(params, retmax=retmax)
+        params <- c(params, retmax=as.integer(retmax))
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'esearch.fcgi')
     url <- BiodbUrl(url=u, params=params)
     request <- BiodbRequest(method='get', url=url)

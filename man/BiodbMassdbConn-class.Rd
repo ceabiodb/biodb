@@ -6,9 +6,6 @@
 \alias{BiodbMassdbConn}
 \title{The mother class of all Mass spectra databases.}
 \arguments{
-\item{chrom.col.ids}{IDs of chromatographic columns on which to match the
-retention time.}
-
 \item{dist.fun}{The distance function used to compute the distance
 betweem two mass spectra.}
 
@@ -17,27 +14,6 @@ betweem two mass spectra.}
 \item{ids}{A list of entry identifiers (i.e.: accession numbers).
 Used to restrict the set of entries on which to run the algorithm.}
 
-\item{input.df}{A data frame taken as input for searchMsPeaks(). It must
-contain a columns 'mz', and optionaly an 'rt' column.}
-
-\item{input.df.colnames}{Names of the columns in the input data frame.}
-
-\item{insert.input.values}{Insert input values at the beginning of the
-result data frame.}
-
-\item{prefix.on.result.cols}{Add prefix on column names of result data frame.}
-
-\item{max.results}{The maximum of elements returned by a method.}
-
-\item{min.rel.int}{The minimum relative intensity, in percentage (i.e.:
-float number between 0 and 100).}
-
-\item{ms.level}{The MS level to which you want to restrict your search.
-\code{0} means that you want to serach in all levels.}
-
-\item{ms.mode}{The MS mode. Set it to either \code{'neg'} or
-\code{'pos'}.}
-
 \item{msms.mz.tol}{M/Z tolerance to apply while matching MSMS spectra.
 In PPM.}
 
@@ -45,53 +21,17 @@ In PPM.}
 M/Z tolerance computed with \code{msms.mz.tol} is lower than
 \code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.}
 
-\item{mz}{A vector of M/Z values to match.}
-
-\item{mz.col}{The name of the M/Z column in the results data frame.}
-
 \item{mz.max}{A vector of maximum M/Z values to match. Goes with
 mz.min, and mut have the same length.}
 
 \item{mz.min}{A vector of minimum M/Z values to match. Goes with
 mz.max, and mut have the same length.}
 
-\item{mz.tol}{The M/Z tolerance, whose unit is defined by
-\code{mz.tol.unit}.}
-
-\item{mz.tol.unit}{The unit of the M/Z tolerance. Set it to either
-\code{'ppm'} or \code{'plain'}.}
-
 \item{npmin}{The minimum number of peak to detect a match (2 is
 recommended).}
 
-\item{precursor}{If set to \code{TRUE}, then restrict the search to
-precursor peaks.}
-
 \item{precursor.mz}{The M/Z value of the precursor peak of the mass
 spectrum.}
-
-\item{results.df}{Results data frame.}
-
-\item{rt}{A vector of retention times to match. Unit is specified
-by rt.unit parameter.}
-
-\item{rt.col}{The name of the RT column in the results data frame.}
-
-\item{rt.tol}{The plain tolerance (in seconds) for retention times:
-input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
-
-\item{rt.tol.exp}{A special exponent tolerance for retention times:
-input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-rt.tol.exp. This exponent is applied on the RT value in seconds. If both
-rt.tol and rt.tol.exp are set, the inequality expression becomes:  input.rt -
-rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-input.rt ** rt.tol.exp.}
-
-\item{rt.unit}{The unit for submitted retention times. Either 's' or
-'min'.}
-
-\item{sep}{The separator used to concatenate values, when
-collapsing results data frame.}
 
 \item{spectrum}{A template spectrum to match inside the database.}
 }
@@ -104,7 +44,18 @@ specific to mass spectrometry.
 \describe{
 \item{\code{collapseResultsDataFrame(results.df, mz.col = "mz", rt.col = "rt",
   sep = "|")}}{Collapse rows of a results data frame, by outputing a data frame with only
-one row for each MZ/RT value.}
+    one row for each MZ/RT value.
+    
+results.df: Results data frame.
+    
+ mz.col: The name of the M/Z column in the results data frame.
+    
+ rt.col: The name of the RT column in the results data frame.
+    
+ sep:    The separator used to concatenate values, when
+               collapsing results data frame.
+    
+Returned value: A data frame with rows collapsed.}
 
 \item{\code{filterEntriesOnRt(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
   match.rt)}}{Filter a list of entries on retention time values.}
@@ -142,8 +93,65 @@ mz.max arguments.  Returns a character vector of spectra IDs.}
   insert.input.values = TRUE, prefix.on.result.cols = NULL,
   compute = TRUE, input.df.colnames = c(mz = "mz", rt = "rt"),
   match.rt = FALSE)}}{For each M/Z value, search for matching MS spectra and return the matching
-peaks. If max.results is set, it is used to limit the number of matches
-found for each M/Z value.}
+    peaks.
+    
+input.df: A data frame taken as input for searchMsPeaks(). It must
+    contain a columns 'mz', and optionaly an 'rt' column.
+    
+mz: A vector of M/Z values to match. Used if input.df is not set.
+    
+mz.shift: A shift applied on all M/Z values.
+    
+mz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
+    
+mz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    
+min.rel.int: The minimum relative intensity, in percentage (i.e.: float
+    number between 0 and 100).
+    
+ms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    
+ms.level: The MS level to which you want to restrict your search.
+    0 means that you want to serach in all levels.
+    
+max.results: If set, it is used to limit the number of matches found for
+    each M/Z value.
+    
+chrom.col.ids: IDs of chromatographic columns on which to match the
+    retention time.
+    
+rt: A vector of retention times to match. Used if input.df is not set.
+    Unit is specified by rt.unit parameter.
+    
+rt.unit: The unit for submitted retention times. Either 's' or 'min'.
+    
+rt.tol: The plain tolerance (in seconds) for retention times:
+    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+    
+rt.tol.exp: A special exponent tolerance for retention times:
+    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
+    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+    input.rt ** rt.tol.exp.
+    
+precursor: If set to TRUE, then restrict the search to precursor peaks.
+    
+precursor.rt.tol: The RT tolerance used when matching the precursor.
+    
+insert.input.values: Insert input values at the beginning of the
+    result data frame.
+    
+prefix.on.result.cols: Add prefix on column names of result data frame.
+    
+compute: If set to TRUE, use the computed values when converting found
+    entries to data frame.
+    
+input.df.colnames: Names of the columns in the input data frame.
+    
+match.rt: If set to TRUE, match also RT values.
+    }
 
 \item{\code{searchMzRange(mz.min, mz.max, min.rel.int = NA_real_,
   ms.mode = NA_character_, max.results = NA_integer_, precursor = FALSE,

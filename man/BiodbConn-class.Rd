@@ -83,8 +83,12 @@ class inherits from BiodbMassdbConn class).}
 \item{\code{isRemotedb()}}{Returns TRUE if the database is a remote database (i.e.: the connector
 class inherits from BiodbRemotedbConn class).}
 
-\item{\code{isSearchable()}}{Returns TRUE if the database is searchable (i.e.: the connector class
-implements the interface BiodbSearchable).}
+\item{\code{isSearchableByField(field)}}{Returns TRUE if the database is searchable using the specified field, FALSE
+    otherwise.
+    This method is particularly useful when using methods searchByName() and
+    searchCompound().
+    
+field: The name of the field.}
 
 \item{\code{isWritable()}}{Returns TRUE if the database is writable (i.e.: the connector class
 implements the interface BiodbWritable). If this connector is writable, then
@@ -94,6 +98,14 @@ you can call allowWriting() to enable writing.}
 to the entry oid from database db. If any is set to TRUE, will return a
 single logical value: TRUE if any entry contains a reference to oid, FALSE
 otherwise.}
+
+\item{\code{searchByName(name, max.results = NA_integer_)}}{Searches the database for entries whose name matches the specified name.
+    Returns a character vector of entry IDs.
+    
+name: The name to look for.
+    
+max.results: If set, the number of returned IDs is limited to the this
+    number.}
 }}
 
 \examples{

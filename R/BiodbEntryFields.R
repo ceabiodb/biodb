@@ -10,7 +10,6 @@
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbEntryField}}.
 #'
-#' @param name      The name or alias of a field.
 #' @param database  The name of a database.
 #'
 #' @examples
@@ -42,6 +41,128 @@ BiodbEntryFields <- methods::setRefClass("BiodbEntryFields",
 # Public methods {{{2
 ################################################################################
 
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
+
+    callSuper(...)
+
+    .self$.fields <- list()
+    .self$.aliasToName <- character(0)
+},
+
+# Is alias {{{3
+################################################################################
+
+isAlias=function(name) {
+    "Returns TRUE if name is an alias of a field.
+    \nname: A character vector of names or aliases to test.
+    \nReturned value: A logical vector."
+
+    return(tolower(name) %in% names(.self$.aliasToName))
+},
+
+# Is defined {{{3
+################################################################################
+
+isDefined=function(name) {
+    "Returns TRUE if name corresponds to a defined field.
+    \nname: A character vector of names or aliases to test.
+    \nReturned value: A logical vector."
+    
+    return(tolower(name) %in% names(.self$.fields) | .self$isAlias(name))
+},
+
+# Check is defined {{{3
+################################################################################
+
+checkIsDefined=function(name) {
+    "Throws an error if any name does not correspond to a defined field.
+    \nname: A character vector of names or aliases to test."
+
+    def <- .self$isDefined(name)
+    if (any( ! def))
+        .self$error("Field(s) \"", paste(name[ ! def], collapse=", "),
+                    "\" is/are not defined.")
+},
+
+# Get real name {{{3
+################################################################################
+
+getRealName=function(name) {
+    "If name is an alias, returns the main name of the field. If name is not
+    found neither in aliases nor in real names, an error is thrown."
+
+    .self$checkIsDefined(name)
+
+    if ( ! tolower(name) %in% names(.self$.fields))
+        name <- .self$.aliasToName[[tolower(name)]]
+
+    return(name)
+},
+
+# Get {{{3
+################################################################################
+
+get=function(name) {
+    "Returns the BiodbEntryField instance associated with name."
+
+    name <- .self$getRealName(name)
+    field <- .self$.fields[[tolower(name)]]
+    return(field)
+},
+
+# Get field names {{{3
+################################################################################
+
+getFieldNames=function(type=NULL) {
+    "Returns the main names of all fields.
+    \ntype: If set, returns only the field names corresponding to this type."
+
+    # Filter by type
+    if ( ! is.null(type)) {
+        fields <- character()
+        for (n in names(.self$.fields))
+            if (.self$.fields[[n]]$getType() %in% type)
+                fields <- c(fields, n)
+    }
+
+    else
+        fields <- names(.self$.fields)
+
+    return(sort(fields))
+},
+
+# Get database id field {{{3
+################################################################################
+
+getDatabaseIdField=function(database) {
+    "Returns the name of the field handling identifiers (i.e.: accession
+    numbers) for this database."
+
+    dbs <- .self$getBiodb()$getDbsInfo()
+    return(.self$get(dbs$get(database)$getIdFieldName()))
+},
+
+# Show {{{3
+################################################################################
+
+show=function() {
+    cat("Biodb entry fields information instance.\n")
+},
+
+# Load fields file {{{3
+################################################################################
+
+loadFieldsFile=function(file) {
+    'Load entry fields information file, and defines the new fields.
+    The parameter file must point to a valid YAML file.'
+
+    fields <- yaml::read_yaml(file)
+},
+
+
 # Define {{{3
 ############################################################lipidmaps.structure
 define=function(def) {
@@ -52,14 +173,6 @@ define=function(def) {
         args[['name']] <- f
         do.call(.self$.defineField, args)
     }
-},
-
-# Is defined {{{3
-################################################################################
-
-isDefined=function(name) {
-    "Returns TRUE if name corresponds to a defined field."
-    return(tolower(name) %in% names(.self$.fields) || .self$isAlias(name))
 },
 
 # Private methods {{{2
@@ -90,108 +203,3 @@ isDefined=function(name) {
 }
 
 ))
-
-# Initialize {{{1
-################################################################################
-
-BiodbEntryFields$methods( initialize=function(...) {
-
-    callSuper(...)
-
-    .self$.fields <- list()
-    .self$.aliasToName <- character(0)
-})
-
-# Is alias {{{1
-################################################################################
-
-BiodbEntryFields$methods( isAlias=function(name) {
-    "Returns TRUE if name is an alias of a field."
-
-    return(tolower(name) %in% names(.self$.aliasToName))
-})
-
-# Check is defined {{{1
-################################################################################
-
-BiodbEntryFields$methods( checkIsDefined=function(name) {
-    "Throws an error if name does not correspond to a defined field."
-
-    if ( ! .self$isDefined(name))
-        .self$error("Field \"", name, "\" is not defined.")
-})
-
-# Get real name {{{1
-################################################################################
-
-BiodbEntryFields$methods( getRealName=function(name) {
-    "If name is an alias, returns the main name of the field. If name is not
-    found neither in aliases nor in real names, an error is thrown."
-
-    .self$checkIsDefined(name)
-
-    if ( ! tolower(name) %in% names(.self$.fields))
-        name <- .self$.aliasToName[[tolower(name)]]
-
-    return(name)
-})
-
-# Get {{{1
-################################################################################
-
-BiodbEntryFields$methods( get=function(name) {
-    "Returns the BiodbEntryField instance associated with name."
-
-    name <- .self$getRealName(name)
-    field <- .self$.fields[[tolower(name)]]
-    return(field)
-})
-
-# Get field names {{{1
-################################################################################
-
-BiodbEntryFields$methods( getFieldNames=function(type=NULL) {
-    "Returns the main names of all fields."
-
-    # Filter by type
-    if ( ! is.null(type)) {
-        fields <- character()
-        for (n in names(.self$.fields))
-            if (.self$.fields[[n]]$getType() %in% type)
-                fields <- c(fields, n)
-    }
-
-    else
-        fields <- names(.self$.fields)
-
-    return(sort(fields))
-})
-
-# Get database id field {{{1
-################################################################################
-
-BiodbEntryFields$methods( getDatabaseIdField=function(database) {
-    "Returns the name of the field handling identifiers (i.e.: accession
-    numbers) for this database."
-
-    dbs <- .self$getBiodb()$getDbsInfo()
-    return(.self$get(dbs$get(database)$getIdFieldName()))
-})
-
-# Show {{{1
-################################################################################
-
-BiodbEntryFields$methods( show=function() {
-    cat("Biodb entry fields information instance.\n")
-})
-
-# Load fields file {{{1
-################################################################################
-
-BiodbEntryFields$methods( loadFieldsFile=function(file) {
-    'Load entry fields information file, and defines the new fields.
-    The parameter file must point to a valid YAML file.'
-
-    fields <- yaml::read_yaml(file)
-})
-

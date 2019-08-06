@@ -96,6 +96,11 @@ config:
     type: character
     description: The token to access PeakForest Compound database.
 
+  proton.mass:
+    type: numeric
+    description: The mass of a proton, in u or Da.
+    default: 1.0072765
+
   shortterm.cache.subfolder:
     type: character
     description: The name of the short term cache subfolder.
@@ -137,6 +142,10 @@ databases:
       - //chebi:Synonyms/chebi:data
       smiles: //chebi:return/chebi:smiles
     scheduler.n: 3
+    searchable.fields:
+        - name
+        - monoisotopic.mass
+        - molecular.mass
     urls:
       base.url: https://www.ebi.ac.uk/chebi/
       ws.url: https://www.ebi.ac.uk/webservices/chebi/2.0/
@@ -221,6 +230,10 @@ databases:
       molecular.weight: ^MOL_WEIGHT\s+(\S+)$
       ncbi.pubchem.comp.id: ^[DBLINKS ]+ PubChem:\s+(\S+)$
     scheduler.n: 3
+    searchable.fields:
+        - name
+        - monoisotopic.mass
+        - molecular.mass
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -236,6 +249,8 @@ databases:
       cas.id: ^[DBLINKS ]+ CAS:\s+(\S+)$
       expasy.enzyme.id: ^[DBLINKS ]+ ExPASy - ENZYME nomenclature database:\s+(\S+)$
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -254,6 +269,8 @@ databases:
       organism: ^ORGANISM\s+\S+\s+(.*)$
       uniprot.id: ^[DBLINKS ]+ UniProt:\s+(\S+.*)$
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -267,6 +284,8 @@ databases:
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -280,6 +299,8 @@ databases:
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -294,6 +315,8 @@ databases:
       accession: ^ENTRY\s+(\S+)\s+Reaction
       equation: ^EQUATION\s+(.+)\s*$
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.kegg.jp/
       entry.page.url: https://www.genome.jp/dbget-bin
@@ -316,6 +339,9 @@ databases:
       ncbi.pubchem.comp.id: PUBCHEM_COMPOUND_ID
     scheduler.n: 1
     scheduler.t: 20
+    searchable.fields:
+        - name
+        - monoisotopic.mass
     urls:
       base.url: http://www.lipidmaps.org/data/
 
@@ -412,6 +438,8 @@ databases:
       synonyms: //Gene-ref_syn_E
       uniprot.id: //Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str
     scheduler.n: 3
+    searchable.fields:
+        - name
     urls:
       base.url: https://www.ncbi.nlm.nih.gov/
       ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
@@ -438,6 +466,10 @@ databases:
       smiles.canonical: //PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Canonical']/../../..//PC-InfoData_value_sval
       smiles.isomeric: //PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Isomeric']/../../..//PC-InfoData_value_sval
     scheduler.n: 5
+    searchable.fields:
+        - name
+        - molecular.mass
+        - monoisotopic.mass
     urls:
       base.url: https://pubchem.ncbi.nlm.nih.gov/
       ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
@@ -497,6 +529,10 @@ databases:
       ncbi.pubchem.comp.id: PubChemCID
       smiles: canSmiles
     scheduler.n: 3
+    searchable.fields:
+        - name
+        - average.mass
+        - monoisotopic.mass
     urls:
       base.url: https://metabohub.peakforest.org/webapp/home
       ws.url: https://metabohub.peakforest.org/rest/
@@ -567,6 +603,9 @@ databases:
       nt.seq.length:
         attr: length
         path: //uniprot:entry/uniprot:sequence
+    searchable.fields:
+        - name
+        - molecular.mass
     urls:
       base.url: https://www.uniprot.org/uniprot/
     xml.ns:
@@ -577,8 +616,8 @@ databases:
 
 fields:
 
-  # Database IDs {{{2
-  ##############################################################################
+# Database IDs {{{2
+################################################################################
     
   accession:
     description: The accession number of the entry.
@@ -760,12 +799,12 @@ fields:
     forbids.duplicates: true
     type: id
 
-  # Masses {{{2
-  ##############################################################################
+# Masses {{{2
+################################################################################
 
   average.mass:
     class: double
-    description: Average mass.
+    description: Average mass, or average molecular weight, or relative molecular mass, or molar mass is defined as the mass of a sample of a compound divided by the amount of substance in that sample. It takes into account the presence of isotopes inside the sample. See https://en.wikipedia.org/wiki/Molar_mass.
     type: mass
 
   molecular.mass:
@@ -774,17 +813,67 @@ fields:
     - molecular.weight
     class: double
     computable.from: chebi
-    description: Molecular mass (also called molecular weight), in Dalton.
+    description: Molecular mass (also called molecular weight), in u (unified atomic mass units) or Da (Dalton). It is computed from the atomic masses of each nuclide present in the molecule, taking into account the various possible isotops of each atom. See https://en.wikipedia.org/wiki/Molecular_mass.
     type: mass
 
   monoisotopic.mass:
     alias: exact.mass
     class: double
-    description: Monoisotopic mass.
+    description: Monoisotopic mass, in u (unified atomic mass units) or Da (Dalton). It is computed using the mass of the primary isotope of the elements including the mass defect (mass difference between neutron and proton, and nuclear binding energy). Used with high resolution mass spectrometers. See https://en.wikipedia.org/wiki/Monoisotopic_mass.
+    type: mass
+    
+  nominal.mass:
+    class: integer
+    description: Nominal mass, in u (unified atomic mass units) or Da (Dalton). It is computed using the mass number of the most abundant isotope of each atom. Typically used with low resolution mass spectrometers. See https://en.wikipedia.org/wiki/Monoisotopic_mass.
     type: mass
 
-  # Other fields {{{2
-  ##############################################################################
+# Peak table fields {{{2
+################################################################################
+
+  peaks:
+    class: data.frame
+    description: Peaks table.
+
+  peak.attr:
+    description: Peak attribution.
+    group: peak
+  peak.comp:
+    description: Peak comp.
+    group: peak
+  peak.error.ppm:
+    class: double
+    description: Peak error in PPM.
+    group: peak
+  peak.formula:
+    description: Peak formula.
+    group: peak
+  peak.intensity:
+    class: double
+    description: Peak intensity.
+    group: peak
+  peak.mass:
+    class: double
+    description: Peak mass.
+    group: peak
+  peak.mz:
+    class: double
+    description: Peak M/Z.
+    group: peak
+  peak.mzexp:
+    class: double
+    description: Peak experimental M/Z.
+    group: peak
+  peak.mztheo:
+    class: double
+    description: Peak theoretical M/Z.
+    group: peak
+  peak.relative.intensity:
+    class: double
+    description: Peak relative intensity, in percentage (from 0 to 100).
+    group: peak
+    
+# Other fields {{{2
+################################################################################
     
   aa.seq:
     alias: sequence
@@ -945,10 +1034,6 @@ fields:
     alias: nbpeaks
     class: integer
     description: Number of MS peaks.
-  nominal.mass:
-    class: integer
-    description: Nominal mass.
-    type: mass
   nt.seq:
     description: Nucleotids sequence.
   nt.seq.length:
@@ -959,46 +1044,6 @@ fields:
   pathway.class:
     card: many
     description: Pathway class.
-  peak.attr:
-    description: Peak attribution.
-    group: peak
-  peak.comp:
-    description: Peak comp.
-    group: peak
-  peak.error.ppm:
-    class: double
-    description: Peak error in PPM.
-    group: peak
-  peak.formula:
-    description: Peak formula.
-    group: peak
-  peak.intensity:
-    class: double
-    description: Peak intensity.
-    group: peak
-  peak.mass:
-    class: double
-    description: Peak mass.
-    group: peak
-  peak.mz:
-    class: double
-    description: Peak M/Z.
-    group: peak
-  peak.mzexp:
-    class: double
-    description: Peak experimental M/Z.
-    group: peak
-  peak.mztheo:
-    class: double
-    description: Peak theoretical M/Z.
-    group: peak
-  peak.relative.intensity:
-    class: double
-    description: Peak relative intensity, in percentage (from 0 to 100).
-    group: peak
-  peaks:
-    class: data.frame
-    description: Peaks table.
   products:
     card: many
     description: Products of an enzymatic chemical reaction.
