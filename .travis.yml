@@ -7,12 +7,12 @@ cache:
 r:
 #    - oldrel
     - release
-    - devel
+      #    - devel
 
 before_install:
     - sudo apt-get install -y libmagick++-dev
-    - ls cache/
-    - du -shc cache/
+    - Rscript -e 'install.packages(c("remotes"));if (!all(c("remotes") %in% installed.packages())) { q(status = 1, save = "no")}'
+    - Rscript -e 'deps <- remotes::dev_package_deps(dependencies = NA);remotes::install_deps(dependencies = TRUE);if (!all(deps$package %in% installed.packages())) { message("missing: ", paste(setdiff(deps$package, installed.packages()), collapse=", ")); q(status = 1, save = "no")}'
 
 # XXX To be removed later, when R language is fixed on Travis-CI
 #before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
@@ -39,8 +39,10 @@ notifications:
       #    - /^release[/].*$/
       #    - /^testing[/]travis-.*$/
 
-#script:
+script:
+    - make build
 #    - ./travis-tests
 
-#after_script:
-#    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
+
+after_script:
+    #    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
