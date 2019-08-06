@@ -11,6 +11,8 @@ r:
 
 before_install:
     - sudo apt-get install -y libmagick++-dev
+    - ls cache/
+    - du -shc cache/
 
 # XXX To be removed later, when R language is fixed on Travis-CI
 #before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
@@ -18,7 +20,7 @@ before_install:
 notifications:
  email:
   recipients:
-   - pk.roger@icloud.com
+   - pierrick.roger@cea.fr
 
 #env:
 #    - CHECK=yes
@@ -29,13 +31,13 @@ notifications:
 #    - DBS=peakforest.mass MODE=online TESTTHAT_REPORTER=summary
 #    - EXCLUDE_DBS=hmdb.metabolites,massbank,peakforest.mass MODE=online TESTTHAT_REPORTER=summary
 
-branches:
-  only:
-    - master
-    - develop
-    - /^.*_merging/
-    - /^release[/].*$/
-    - /^testing[/]travis-.*$/
+     #branches:
+     #  only:
+     #    - master
+     #    - develop
+      #    - /^.*_merging/
+      #    - /^release[/].*$/
+      #    - /^testing[/]travis-.*$/
 
 #script:
 #    - ./travis-tests
