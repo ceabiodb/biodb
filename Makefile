@@ -64,6 +64,9 @@ check: $(ZIPPED_PKG)
 #     missing value where TRUE/FALSE needed
 #   Execution halted
 
+full.check: $(ZIPPED_PKG)
+	time R CMD check "$<"
+
 bioc.check: $(ZIPPED_PKG)
 	R -q -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
 	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$<"
@@ -96,7 +99,7 @@ doc:
 vignettes:
 	@echo Build vignettes for already installed package, not from local soures.
 	R -q -e "devtools::clean_vignettes('$(CURDIR)')"
-	R -q -e "devtools::build_vignettes('$(CURDIR)')"
+	time R -q -e "devtools::build_vignettes('$(CURDIR)')"
 
 # Deprecated {{{1
 ################################################################
