@@ -1,4 +1,5 @@
 language: r
+cache: packages
 r: release
 
 before_install:
@@ -13,8 +14,8 @@ notifications:
 
 script:
     - make build
-    - make check
-#    - ./travis-tests
+      #    - make check # without vignettes
+    - make full.check # with vignettes
 
       #after_script:
     #    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
