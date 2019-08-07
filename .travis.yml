@@ -1,11 +1,11 @@
 language: r
+r: release
 #cache:
 #    packages: true
     #    directories:
     #        - $BIODB_CACHE_DIRECTORY
 
-r:
-    - 3.6.1
+#r:
 #    - oldrel
 #    - release
       #    - devel
