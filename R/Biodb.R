@@ -18,16 +18,6 @@
 #' @param entries     A list of \code{BiodbEntry} objects.
 #' @param field       The name of a field.
 #' @param files       A list of file paths.
-#' @param flatten     If set to \code{TRUE} and the field has a cardinality
-#'                    greater than one, then values are collapsed and output is
-#'                    a vector of class character. 
-#' @param null.to.na  If \code{TRUE}, each \code{NULL} entry is converted into a
-#'                    line of \code{NA} values inside the data frame.
-#' @param observers   Either a \code{BiodbObserver} class instance or a list of
-#'                    \code{BiodbObserver} class instances.
-#' @param only.atomic Set to \code{TRUE} if you want only the fields of atomic
-#'                    type (\code{integer}, \code{numeric}, \code{logical} and
-#'                    \code{character}) inside the data frame.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbCache}},
 #' \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
@@ -198,7 +188,11 @@ getRequestScheduler=function() {
 addObservers=function(observers) {
     "Add new observers. Observers will be called each time an event occurs.
     This is the way used in biodb to get feedback about what is going inside
-    biodb code."
+    biodb code.
+    \nobservers: Either a BiodbObserver instance or a list of BiodbObserver
+    instances.
+    \nReturned value: none.
+    "
 
     # Check types of observers
     if ( ! is.list(observers)) observers <- list(observers)
@@ -222,7 +216,9 @@ addObservers=function(observers) {
 ################################################################################
 
 getObservers=function() {
-    "Get the list of registered observers."
+    "Get the list of registered observers.
+    \nReturned value: The list or registered observers.
+    "
 
     return(.self$.observers)
 },
@@ -231,6 +227,10 @@ getObservers=function() {
 ################################################################################
 
 getBiodb=function() {
+    "Returns the biodb instance, which is itself in the case of the Biodb class.
+    \nReturned value: This instance.
+    "
+
     return(.self)
 },
 
@@ -238,6 +238,9 @@ getBiodb=function() {
 ################################################################################
 
 convertEntryIdFieldToDbClass=function(entry.id.field) {
+    "Get the database class name corresponding to an entry ID field.
+    \nentry.id.field: The name of an ID field. It must end with '.id'.
+    "
 
     db.name <- NULL
 
@@ -254,7 +257,16 @@ convertEntryIdFieldToDbClass=function(entry.id.field) {
 
 entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
     "Extract the value of a field from a list of entries. Returns either a
-    vector or a list depending on the type of the field."
+    vector or a list depending on the type of the field.
+    \nentries: A list of Biodb entries.
+    \nfield: The name of a field.
+    \nflatten: If set to TRUE and the field has a cardinality greater than
+    one, then values be converted into a vector of class character in which each
+    entry values are collapsed.
+    \ncompute: If set to TRUE, computable fields will be output.
+    \nReturned value: A vector if the field is atomic or flatten is set to TRUE,
+    otherwise a list.
+    "
 
     val <- NULL
 
@@ -290,11 +302,29 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
 ################################################################################
 
 entriesToDataframe=function(entries, only.atomic=TRUE,
-                                             null.to.na=TRUE, compute=TRUE,
-                                             fields=NULL, drop=FALSE,
-                                             sort.cols=FALSE, flatten=TRUE,
-                                             only.card.one=FALSE) {
-    "Convert a list of entries (\\code{BiodbEntry} objects) into a data frame."
+                            null.to.na=TRUE, compute=TRUE,
+                            fields=NULL, drop=FALSE,
+                            sort.cols=FALSE, flatten=TRUE,
+                            only.card.one=FALSE) {
+    "Convert a list of entries (\\code{BiodbEntry} objects) into a data frame.
+    \nentries: A list of Biodb entries.
+    \nonly.atomic: If set to TRUE, output only atomic fields, i.e.: the fields
+    whose value type is one of integer, numeric, logical or character.
+    \nnull.to.na: If set to TRUE, each NULL entry in the list is converted into
+    a row of NA values.
+    \ncompute: If set to TRUE, computable fields will be output.
+    \nfields: A character vector of field names to output. The data frame output
+    will be restricted to this list of fields.
+    \ndrop: If set to TRUE and the resulting data frame has only one column,
+    a vector will be output instead of data frame.
+    \nsort.cols: Sort columns in alphabetical order.
+    \nflatten: If set to TRUE, then each field with a cardinality greater than
+    one, will be converted into a vector of class character whose values are
+    collapsed.
+    \nonly.card.one: Output only fields whose cardinality is one.
+    \nReturned value: A data frame containing the entries. Columns are named
+    according to field names.
+    "
 
     if ( ! is.list(entries))
         .self$message('error', "Parameter 'entries' must be a list.")
@@ -363,7 +393,11 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 
 entriesToJson=function(entries, compute=TRUE) {
     "Convert a list of BiodbEntry objects into JSON. Returns a vector of
-    characters."
+    characters.
+    \nentries: A list of Biodb entries.
+    \ncompute: If set to TRUE, computable fields will added to JSON too.
+    \nReturned value: A list of JSON strings, the same length as entries list.
+    "
 
     json <- vapply(entries, function(e) e$getFieldsAsJson(compute=compute),
                    FUN.VALUE='')
@@ -385,7 +419,7 @@ collapseRows=function(x, sep='|', cols=1L) {
     \ncols: The indices or the names of the columns used as reference.
     \nsep: The separator to use when concatenating values in collapsed rows.
     \nReturned value: A data frame, with rows collapsed."
-    
+
     if (is.null(x))
         return(x)
     .self$.assertIs(x, 'data.frame')
@@ -437,7 +471,10 @@ collapseRows=function(x, sep='|', cols=1L) {
 ################################################################################
 
 computeFields=function(entries) {
-    "Compute missing fields in entries."
+    "Compute missing fields in entries, for those fields that are comptable.
+    \nentries: A list of Biodb entries.
+    \nReturned value: none.
+    "
 
     # Loop on all entries
     for (e in entries)
@@ -448,7 +485,13 @@ computeFields=function(entries) {
 ################################################################################
 
 saveEntriesAsJson=function(entries, files, compute=TRUE) {
-    "Save a list of entries in JSON format."
+    "Save a list of entries in JSON format. Each entry will be saved in a
+    separate file.
+    \nentries: A list of Biodb entries.
+    \nfiles: A list of file paths, the same length as entries list.
+    \ncompute: If set to TRUE, computable fields will be saved too.
+    \nReturned value: none.
+    "
 
     .self$.assertEqualLength(entries, files)
 
@@ -457,8 +500,6 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
         json <- entries[[i]]$getFieldsAsJson(compute=compute)
         writeChar(json, files[[i]])
     }
-
-    return(json)
 },
 
 # Copy database {{{3
@@ -466,8 +507,14 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
 
 copyDb=function(conn.from, conn.to, limit=NULL) {
     "Copy all entries of a database into another database. The connector of the
-    destination database must be editable."
-    
+    destination database must be editable.
+    \nconn.from: The connector of the source datababase to copy.
+    \nconn.to: The connector of the destination database.
+    \nlimit: The number of entries of the source database to copy. If set to
+    \nReturned value: none.
+    NULL, copy the whole database.
+    "
+
     # Get all entry IDs of "from" database
     ids <- conn.from$getEntryIds(max.results=limit)
 
@@ -496,7 +543,7 @@ copyDb=function(conn.from, conn.to, limit=NULL) {
 
 show=function() {
     'Print object information.'
-    
+
     v <- as.character(packageVersion('biodb'))
     cat("Biodb instance, version ", v, ".\n", sep='')
 },
