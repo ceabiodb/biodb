@@ -13,6 +13,7 @@ notifications:
 
 script:
     - make build
+    - make check
 #    - ./travis-tests
 
       #after_script:
