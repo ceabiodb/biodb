@@ -5,8 +5,9 @@ language: r
     #        - $BIODB_CACHE_DIRECTORY
 
 r:
+    - 3.6.1
 #    - oldrel
-    - release
+#    - release
       #    - devel
 
 before_install:
