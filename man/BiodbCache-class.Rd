@@ -5,65 +5,230 @@
 \alias{BiodbCache-class}
 \alias{BiodbCache}
 \title{A class for handling file caching.}
-\arguments{
-\item{content}{A \code{character vector} containing contents to save.}
-
-\item{cache.id}{An ID to use in the cache.}
-
-\item{ext}{The extension of the file, without the dot: 'html',
-'xml', etc.}
-
-\item{extract.name}{Instead of returning the file paths, returns the list of
-names used to construct the file name:
-[cache_folder]/[subfolder]/[connid]-[name].[ext].}
-
-\item{name}{The name of the file or the marker. Vector of
-characters. Length can be greater than one.}
-
-\item{output.vector}{Force output to be a \code{vector} instead of a
-\code{list}. Where the list contains a \code{NULL}, the
-\code{vector} will contain a \code{NA} value.}
-
-\item{subfolder}{The subfolder inside the cache system. Supported values
-are: 'shortterm' and 'longterm'. The 'shortterm' folder
-contains individual entry files. The 'longterm' folder
-contains zip files of whole databases.}
-}
 \description{
 This class manages a cache system for saving downloaded files and request
-results. It is designed for internal use, but you can still access some of
+results.
+}
+\details{
+It is designed for internal use, but you can still access some of
 the read-only methods if you wish.
+
+Inside the cache folder, two subfolders are created: "shortterm" and
+"longterm". The "shortterm" folder contains individual entry files. The
+"longterm" folder contains zip files of whole databases.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{deleteFile(cache.id, subfolder, name, ext)}}{Delete one file inside the cache system.}
+\item{\code{deleteFile(cache.id, subfolder, name, ext)}}{:
 
-\item{\code{deleteFiles(cache.id, subfolder, ext = NA_character_)}}{Delete files inside the cache system.}
+Deletes a list of files inside a subfolder of the cache system.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+name: A character vector containing file names.
+    
+ext: The extension of the files, without the dot ("html", "xml", etc).
+    
+Returned value: none.
+    }
 
-\item{\code{fileExist(cache.id, subfolder, name, ext)}}{Test if files exist in the cache.}
+\item{\code{deleteFiles(cache.id, subfolder, ext = NA_character_)}}{:
 
-\item{\code{getDir()}}{Get the absolute path to the cache directory.}
+Deletes all files inside a subfolder of the cache system.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+ext: The extension of the files, without the dot ("html", "xml", etc).
+    Only files having this extension will be deleted.
+    
+Returned value: none.
+    }
 
-\item{\code{getFilePath(cache.id, subfolder, name, ext)}}{Get path of file in cache system.}
+\item{\code{disable()}}{:
 
-\item{\code{getSubFolderPath(subfolder)}}{Get the absolute path of a subfolder inside the cache system.}
+DEPRECATED method. Use now
+    \code{BiodbConfig::disable('cache.system')}.
+    }
 
-\item{\code{isReadable()}}{Returns TRUE if the cache system is readable.}
+\item{\code{enable()}}{:
 
-\item{\code{isWritable()}}{Returns TRUE if the cache system is writable.}
+DEPRECATED method. Use now
+    \code{BiodbConfig::enable('cache.system')}.
+    }
 
-\item{\code{listFiles(cache.id, subfolder, ext = NA_character_, extract.name = FALSE)}}{List files present in the cache system.}
+\item{\code{enabled()}}{:
 
-\item{\code{loadFileContent(cache.id, subfolder, name, ext, output.vector = FALSE)}}{Load content of files from the cache.}
+DEPRECATED method. Use now
+    \code{BiodbConfig::isEnabled('cache.system')}.
+    }
 
-\item{\code{markerExist(cache.id, subfolder, name)}}{Test if markers exist in the cache. Markers are used, for instance, by
-biodb to remember that a downloaded zip file from a database has been
-extracted correctly.}
+\item{\code{eraseFolder(subfolder = NA_character_)}}{:
 
-\item{\code{saveContentToFile(content, cache.id, subfolder, name, ext)}}{Save content to files into the cache.}
+Erases the cache.
+    
+subfolder: The subfolder to erase ("longterm" or "shortterm"). If
+    unset, the whole cache will be erased.
+    
+Returned value: none.
+    }
 
-\item{\code{setMarker(cache.id, subfolder, name)}}{Set a marker.}
+\item{\code{fileExist(cache.id, subfolder, name, ext)}}{:
+
+Tests if files exist in the cache.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+name: A character vector containing file names.
+    
+ext: The extension of the files, without the dot ("html", "xml", etc).
+    
+Returned value: A logical vector, the same size as \code{name}, with
+    \code{TRUE} value if the file exists in the cache, or \code{FALSE}
+    otherwise.
+    }
+
+\item{\code{getDir()}}{:
+
+Gets the absolute path to the cache directory.
+    
+Returned value: The absolute path of the cache directory.
+    }
+
+\item{\code{getFilePath(cache.id, subfolder, name, ext)}}{:
+
+Gets path of file in cache system.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+name: A character vector containing file names.
+    
+ext: The extension of the files.
+    
+Returned value: A character vector, the same size as \code{names},
+    containing the paths to the files.
+    }
+
+\item{\code{getSubFolderPath(subfolder)}}{:
+
+Gets the absolute path of a subfolder inside the cache system.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+Returned value: The absolute path to the subfolder.
+    }
+
+\item{\code{isReadable()}}{:
+
+Checks if the cache system is readable.
+    
+Returned value: \code{TRUE} if the cache system is readable,
+    \code{FALSE} otherwise.
+    }
+
+\item{\code{isWritable()}}{:
+
+Checks if the cache system is writable.
+    
+Returned value: \code{TRUE} if the cache system is writable,
+    \code{FALSE} otherwise.
+    }
+
+\item{\code{listFiles(cache.id, subfolder, ext = NA_character_, extract.name = FALSE)}}{:
+
+Lists files present in the cache system.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+ext: The extension of the files, without the dot ("html", "xml", etc).
+    
+extract.name: If set to \code{TRUE}, instead of returning the file paths,
+    returns the list of names used to construct the file name:
+    [cache_folder]/[subfolder]/[connid]-[name].[ext].
+    
+Returned value: The files of found files, or the names of the files if
+    \code{extract.name} is set to \code{TRUE}.
+    }
+
+\item{\code{loadFileContent(cache.id, subfolder, name, ext, output.vector = FALSE)}}{:
+
+Loads content of files from the cache.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+name: A character vector containing file names.
+    
+ext: The extension of the files.
+    
+output.vector: If set to \code{TRUE}, force output to be a \code{vector}
+    instead of a \code{list}. Where the list contains a \code{NULL}, the
+    \code{vector} will contain an \code{NA} value.
+    
+Returned value: A list (or a vector if \code{output.vector} is set to
+    \code{TRUE}), the same size as \code{name}, containing the contents of the
+    files. If some file does not exist, a \code{NULL} value is inserted inside
+    the list.
+    }
+
+\item{\code{markerExist(cache.id, subfolder, name)}}{:
+
+Tests if markers exist in the cache. Markers are used, for instance, by
+    biodb to remember that a downloaded zip file from a database has been
+    extracted correctly.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+name: A character vector containing marker names.
+    
+Returned value: A logical vector, the same size as \code{name}, with
+    \code{TRUE} value if the marker file exists in the cache, or \code{FALSE}
+    otherwise.
+    }
+
+\item{\code{saveContentToFile(content, cache.id, subfolder, name, ext)}}{:
+
+Saves content to files into the cache.
+    
+content: A list or a character vector containing the contents of the
+    files. It must have the same length as \code{name}.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+name: A character vector containing file names.
+    
+ext: The extension of the files.
+    
+Returned value: none.
+    }
+
+\item{\code{setMarker(cache.id, subfolder, name)}}{:
+
+Sets a marker.
+    
+cache.id: The cache ID to use.
+    
+subfolder: A subfolder to use ("longterm" or "shortterm").
+    
+name: A character vector containing marker names.
+    
+Returned value: none.
+    }
 }}
 
 \examples{

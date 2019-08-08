@@ -6,25 +6,14 @@
 #' A class for handling file caching.
 #'
 #' This class manages a cache system for saving downloaded files and request
-#' results. It is designed for internal use, but you can still access some of
+#' results.
+#'
+#' It is designed for internal use, but you can still access some of
 #' the read-only methods if you wish.
 #'
-#' @param content       A \code{character vector} containing contents to save.
-#' @param cache.id      An ID to use in the cache.
-#' @param ext           The extension of the file, without the dot: 'html',
-#'                      'xml', etc.
-#' @param extract.name  Instead of returning the file paths, returns the list of
-#'                      names used to construct the file name:
-#'                      [cache_folder]/[subfolder]/[connid]-[name].[ext].
-#' @param name          The name of the file or the marker. Vector of
-#'                      characters. Length can be greater than one.
-#' @param output.vector Force output to be a \code{vector} instead of a
-#'                      \code{list}. Where the list contains a \code{NULL}, the
-#'                      \code{vector} will contain a \code{NA} value.
-#' @param subfolder     The subfolder inside the cache system. Supported values
-#'                      are: 'shortterm' and 'longterm'. The 'shortterm' folder
-#'                      contains individual entry files. The 'longterm' folder
-#'                      contains zip files of whole databases.
+#' Inside the cache folder, two subfolders are created: "shortterm" and
+#' "longterm". The "shortterm" folder contains individual entry files. The
+#' "longterm" folder contains zip files of whole databases.
 #'
 #' @seealso \code{\link{Biodb}}.
 #'
@@ -61,7 +50,7 @@ BiodbCache <- methods::setRefClass("BiodbCache",
 ################################################################################
 
 getDir=function() {
-    ":\n\nGet the absolute path to the cache directory.
+    ":\n\nGets the absolute path to the cache directory.
     \nReturned value: The absolute path of the cache directory.
     "
 
@@ -109,7 +98,7 @@ fileExist=function(cache.id, subfolder, name, ext) {
     \ncache.id: The cache ID to use.
     \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
     \nname: A character vector containing file names.
-    \next: The extension of the files.
+    \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
     \nReturned value: A logical vector, the same size as \\code{name}, with
     \\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
     otherwise.
@@ -124,9 +113,16 @@ fileExist=function(cache.id, subfolder, name, ext) {
 ################################################################################
 
 markerExist=function(cache.id, subfolder, name) {
-    ":\n\nTest if markers exist in the cache. Markers are used, for instance, by
+    ":\n\nTests if markers exist in the cache. Markers are used, for instance, by
     biodb to remember that a downloaded zip file from a database has been
-    extracted correctly."
+    extracted correctly.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \nname: A character vector containing marker names.
+    \nReturned value: A logical vector, the same size as \\code{name}, with
+    \\code{TRUE} value if the marker file exists in the cache, or \\code{FALSE}
+    otherwise.
+    "
 
     b <- .self$fileExist(cache.id=cache.id, subfolder=subfolder, name=name,
                          ext='marker')
@@ -138,7 +134,12 @@ markerExist=function(cache.id, subfolder, name) {
 ################################################################################
 
 setMarker=function(cache.id, subfolder, name) {
-    ":\n\nSet a marker."
+    ":\n\nSets a marker.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \nname: A character vector containing marker names.
+    \nReturned value: none.
+    "
 
     marker.path <- .self$getFilePath(cache.id=cache.id, subfolder=subfolder,
                                      name=name, ext='marker')
@@ -150,7 +151,14 @@ setMarker=function(cache.id, subfolder, name) {
 ################################################################################
 
 getFilePath=function(cache.id, subfolder, name, ext) {
-    ":\n\nGet path of file in cache system."
+    ":\n\nGets path of file in cache system.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \nname: A character vector containing file names.
+    \next: The extension of the files.
+    \nReturned value: A character vector, the same size as \\code{names},
+    containing the paths to the files.
+    "
 
     # Replace unwanted characters
     name <- gsub('[^A-Za-z0-9._-]', '_', name)
@@ -169,7 +177,19 @@ getFilePath=function(cache.id, subfolder, name, ext) {
 ################################################################################
 
 loadFileContent=function(cache.id, subfolder, name, ext, output.vector=FALSE) {
-    ":\n\nLoad content of files from the cache."
+    ":\n\nLoads content of files from the cache.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \nname: A character vector containing file names.
+    \next: The extension of the files.
+    \noutput.vector: If set to \\code{TRUE}, force output to be a \\code{vector}
+    instead of a \\code{list}. Where the list contains a \\code{NULL}, the
+    \\code{vector} will contain an \\code{NA} value.
+    \nReturned value: A list (or a vector if \\code{output.vector} is set to
+    \\code{TRUE}), the same size as \\code{name}, containing the contents of the
+    files. If some file does not exist, a \\code{NULL} value is inserted inside
+    the list.
+    "
 
     if ( ! .self$isReadable())
         .self$error("Attempt to read from non-readable cache \"",
@@ -231,7 +251,15 @@ loadFileContent=function(cache.id, subfolder, name, ext, output.vector=FALSE) {
 ################################################################################
 
 saveContentToFile=function(content, cache.id, subfolder, name, ext) {
-    ":\n\nSave content to files into the cache."
+    ":\n\nSaves content to files into the cache.
+    \ncontent: A list or a character vector containing the contents of the
+    files. It must have the same length as \\code{name}.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \nname: A character vector containing file names.
+    \next: The extension of the files.
+    \nReturned value: none.
+    "
 
     if ( ! .self$isWritable())
         .self$error('Attempt to write into non-writable cache. "',
@@ -265,7 +293,10 @@ saveContentToFile=function(content, cache.id, subfolder, name, ext) {
 ################################################################################
 
 getSubFolderPath=function(subfolder) {
-    ":\n\nGet the absolute path of a subfolder inside the cache system."
+    ":\n\nGets the absolute path of a subfolder inside the cache system.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \nReturned value: The absolute path to the subfolder.
+    "
 
     folder.path <- .self$.getSubfolderPath(subfolder)
 
@@ -280,6 +311,11 @@ getSubFolderPath=function(subfolder) {
 ################################################################################
 
 eraseFolder=function(subfolder=NA_character_) {
+    ":\n\nErases the cache.
+    \nsubfolder: The subfolder to erase (\"longterm\" or \"shortterm\"). If
+    unset, the whole cache will be erased.
+    \nReturned value: none.
+    "
 
     # Erase whole cache
     cfg <- .self$getBiodb()$getConfig()
@@ -299,7 +335,13 @@ eraseFolder=function(subfolder=NA_character_) {
 ################################################################################
 
 deleteFile=function(cache.id, subfolder, name, ext) {
-    ":\n\nDelete one file inside the cache system."
+    ":\n\nDeletes a list of files inside a subfolder of the cache system.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \nname: A character vector containing file names.
+    \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
+    \nReturned value: none.
+    "
 
     if ( ! .self$isWritable())
         .self$error('Attempt to write into non-writable cache. "',
@@ -316,7 +358,13 @@ deleteFile=function(cache.id, subfolder, name, ext) {
 ################################################################################
 
 deleteFiles=function(cache.id, subfolder, ext=NA_character_) {
-    ":\n\nDelete files inside the cache system."
+    ":\n\nDeletes all files inside a subfolder of the cache system.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
+    Only files having this extension will be deleted.
+    \nReturned value: none.
+    "
 
     if ( ! .self$isWritable())
         .self$error('Attempt to write into non-writable cache. "',
@@ -333,7 +381,16 @@ deleteFiles=function(cache.id, subfolder, ext=NA_character_) {
 ################################################################################
 
 listFiles=function(cache.id, subfolder, ext=NA_character_, extract.name=FALSE) {
-    ":\n\nList files present in the cache system."
+    ":\n\nLists files present in the cache system.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
+    \nextract.name: If set to \\code{TRUE}, instead of returning the file paths,
+    returns the list of names used to construct the file name:
+    [cache_folder]/[subfolder]/[connid]-[name].[ext].
+    \nReturned value: The files of found files, or the names of the files if
+    \\code{extract.name} is set to \\code{TRUE}.
+    "
 
     # Pattern
     pattern <- paste('^', cache.id, '-.*', sep='')
@@ -362,6 +419,8 @@ listFiles=function(cache.id, subfolder, ext=NA_character_, extract.name=FALSE) {
 ################################################################################
 
 show=function() {
+    ":\n\nDisplays information about this object."
+
     cat("Biodb cache system instance.\n")
     cat("  The cache is ", (if (.self$isReadable()) "" else "not "),
         "readable.\n", sep='')
@@ -398,6 +457,9 @@ show=function() {
 ################################################################################
 
 enabled=function() {
+    ":\n\nDEPRECATED method. Use now
+    \\code{BiodbConfig::isEnabled('cache.system')}.
+    "
 
     .self$.deprecatedMethod("BiodbConfig::isEnabled('cache.system')")
 
@@ -408,9 +470,12 @@ enabled=function() {
 ################################################################################
 
 enable=function() {
+    ":\n\nDEPRECATED method. Use now
+    \\code{BiodbConfig::enable('cache.system')}.
+    "
 
     .self$.deprecatedMethod("BiodbConfig::enable('cache.system')")
-    
+
     .self$getBiodb()$getConfig()$enable('cache.system')
 },
 
@@ -418,9 +483,12 @@ enable=function() {
 ################################################################################
 
 disable=function() {
+    ":\n\nDEPRECATED method. Use now
+    \\code{BiodbConfig::disable('cache.system')}.
+    "
 
     .self$.deprecatedMethod("BiodbConfig::disable('cache.system')")
-    
+
     .self$getBiodb()$getConfig()$disable('cache.system')
 }
 
