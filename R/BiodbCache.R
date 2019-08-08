@@ -57,18 +57,13 @@ BiodbCache <- methods::setRefClass("BiodbCache",
 # Public methods {{{2
 ################################################################################
 
-# Initialize {{{3
-################################################################################
-
-initialize=function(...) {
-    callSuper(...)
-},
-
 # Get directory {{{3
 ################################################################################
 
 getDir=function() {
-    "Get the absolute path to the cache directory."
+    ":\n\nGet the absolute path to the cache directory.
+    \nReturned value: The absolute path of the cache directory.
+    "
 
     cachedir <- .self$getBiodb()$getConfig()$get('cache.directory')
 
@@ -83,7 +78,10 @@ getDir=function() {
 ################################################################################
 
 isReadable=function() {
-    "Returns TRUE if the cache system is readable."
+    ":\n\nChecks if the cache system is readable.
+    \nReturned value: \\code{TRUE} if the cache system is readable,
+    \\code{FALSE} otherwise.
+    "
 
     cfg <- .self$getBiodb()$getConfig()
     return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir()))
@@ -93,7 +91,10 @@ isReadable=function() {
 ################################################################################
 
 isWritable=function() {
-    "Returns TRUE if the cache system is writable."
+    ":\n\nChecks if the cache system is writable.
+    \nReturned value: \\code{TRUE} if the cache system is writable,
+    \\code{FALSE} otherwise.
+    "
 
     cfg <- .self$getBiodb()$getConfig()
     return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir())
@@ -104,7 +105,15 @@ isWritable=function() {
 ################################################################################
 
 fileExist=function(cache.id, subfolder, name, ext) {
-    "Test if files exist in the cache."
+    ":\n\nTests if files exist in the cache.
+    \ncache.id: The cache ID to use.
+    \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
+    \nname: A character vector containing file names.
+    \next: The extension of the files.
+    \nReturned value: A logical vector, the same size as \\code{name}, with
+    \\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
+    otherwise.
+    "
 
     exists <- file.exists(.self$getFilePath(cache.id, subfolder, name, ext))
 
@@ -115,7 +124,7 @@ fileExist=function(cache.id, subfolder, name, ext) {
 ################################################################################
 
 markerExist=function(cache.id, subfolder, name) {
-    "Test if markers exist in the cache. Markers are used, for instance, by
+    ":\n\nTest if markers exist in the cache. Markers are used, for instance, by
     biodb to remember that a downloaded zip file from a database has been
     extracted correctly."
 
@@ -129,7 +138,7 @@ markerExist=function(cache.id, subfolder, name) {
 ################################################################################
 
 setMarker=function(cache.id, subfolder, name) {
-    "Set a marker."
+    ":\n\nSet a marker."
 
     marker.path <- .self$getFilePath(cache.id=cache.id, subfolder=subfolder,
                                      name=name, ext='marker')
@@ -141,7 +150,7 @@ setMarker=function(cache.id, subfolder, name) {
 ################################################################################
 
 getFilePath=function(cache.id, subfolder, name, ext) {
-    "Get path of file in cache system."
+    ":\n\nGet path of file in cache system."
 
     # Replace unwanted characters
     name <- gsub('[^A-Za-z0-9._-]', '_', name)
@@ -160,7 +169,7 @@ getFilePath=function(cache.id, subfolder, name, ext) {
 ################################################################################
 
 loadFileContent=function(cache.id, subfolder, name, ext, output.vector=FALSE) {
-    "Load content of files from the cache."
+    ":\n\nLoad content of files from the cache."
 
     if ( ! .self$isReadable())
         .self$error("Attempt to read from non-readable cache \"",
@@ -222,7 +231,7 @@ loadFileContent=function(cache.id, subfolder, name, ext, output.vector=FALSE) {
 ################################################################################
 
 saveContentToFile=function(content, cache.id, subfolder, name, ext) {
-    "Save content to files into the cache."
+    ":\n\nSave content to files into the cache."
 
     if ( ! .self$isWritable())
         .self$error('Attempt to write into non-writable cache. "',
@@ -256,7 +265,7 @@ saveContentToFile=function(content, cache.id, subfolder, name, ext) {
 ################################################################################
 
 getSubFolderPath=function(subfolder) {
-    "Get the absolute path of a subfolder inside the cache system."
+    ":\n\nGet the absolute path of a subfolder inside the cache system."
 
     folder.path <- .self$.getSubfolderPath(subfolder)
 
@@ -290,7 +299,7 @@ eraseFolder=function(subfolder=NA_character_) {
 ################################################################################
 
 deleteFile=function(cache.id, subfolder, name, ext) {
-    "Delete one file inside the cache system."
+    ":\n\nDelete one file inside the cache system."
 
     if ( ! .self$isWritable())
         .self$error('Attempt to write into non-writable cache. "',
@@ -307,7 +316,7 @@ deleteFile=function(cache.id, subfolder, name, ext) {
 ################################################################################
 
 deleteFiles=function(cache.id, subfolder, ext=NA_character_) {
-    "Delete files inside the cache system."
+    ":\n\nDelete files inside the cache system."
 
     if ( ! .self$isWritable())
         .self$error('Attempt to write into non-writable cache. "',
@@ -324,7 +333,7 @@ deleteFiles=function(cache.id, subfolder, ext=NA_character_) {
 ################################################################################
 
 listFiles=function(cache.id, subfolder, ext=NA_character_, extract.name=FALSE) {
-    "List files present in the cache system."
+    ":\n\nList files present in the cache system."
 
     # Pattern
     pattern <- paste('^', cache.id, '-.*', sep='')
