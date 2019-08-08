@@ -5,52 +5,28 @@
 \alias{Biodb-class}
 \alias{Biodb}
 \title{The central class of the biodb package.}
-\arguments{
-\item{compute}{If set to \code{TRUE} and an entry has not the field
-defined, then try to compute the field values.}
-
-\item{entries}{A list of \code{BiodbEntry} objects.}
-
-\item{field}{The name of a field.}
-
-\item{files}{A list of file paths.}
-
-\item{flatten}{If set to \code{TRUE} and the field has a cardinality
-greater than one, then values are collapsed and output is
-a vector of class character.}
-
-\item{null.to.na}{If \code{TRUE}, each \code{NULL} entry is converted into a
-line of \code{NA} values inside the data frame.}
-
-\item{observers}{Either a \code{BiodbObserver} class instance or a list of
-\code{BiodbObserver} class instances.}
-
-\item{only.atomic}{Set to \code{TRUE} if you want only the fields of atomic
-type (\code{integer}, \code{numeric}, \code{logical} and
-\code{character}) inside the data frame.}
-}
 \description{
 In order to use the biodb package, you need first to create an instance of
 this class. See section Fields for a list of the constructor's parameters.
 }
-\section{Fields}{
-
-\describe{
-\item{\code{logger}}{Set to \code{FALSE} if you want to disable the default
-logger.}
-
-\item{\code{observers}}{Either a \code{BiodbObserver} class instance or a list of
-\code{BiodbObserver} class instances.}
-}}
-
 \section{Methods}{
 
 \describe{
-\item{\code{addObservers(observers)}}{Add new observers. Observers will be called each time an event occurs.
-This is the way used in biodb to get feedback about what is going inside
-biodb code.}
+\item{\code{addObservers(observers)}}{:
 
-\item{\code{collapseRows(x, sep = "|", cols = 1L)}}{Collapse rows of a data frame, by looking for duplicated values in the
+Adds new observers. Observers will be called each time an event occurs.
+    This is the way used in biodb to get feedback about what is going inside
+    biodb code.
+    
+observers: Either a BiodbObserver instance or a list of BiodbObserver
+    instances.
+    
+Returned value: none.
+    }
+
+\item{\code{collapseRows(x, sep = "|", cols = 1L)}}{:
+
+Collapses rows of a data frame, by looking for duplicated values in the
     reference columns (parameter `cols`). The values contained in the reference
     columns are supposed to be ordered inside the data frame, in the sens that
     all duplicated values are supposed to directly follow the original values.
@@ -65,44 +41,203 @@ sep: The separator to use when concatenating values in collapsed rows.
     
 Returned value: A data frame, with rows collapsed.}
 
-\item{\code{computeFields(entries)}}{Compute missing fields in entries.}
+\item{\code{computeFields(entries)}}{:
 
-\item{\code{copyDb(conn.from, conn.to, limit = NULL)}}{Copy all entries of a database into another database. The connector of the
-destination database must be editable.}
+Computes missing fields in entries, for those fields that are comptable.
+    
+entries: A list of Biodb entries.
+    
+Returned value: none.
+    }
 
-\item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{Extract the value of a field from a list of entries. Returns either a
-vector or a list depending on the type of the field.}
+\item{\code{convertEntryIdFieldToDbClass(entry.id.field)}}{:
+
+Gets the database class name corresponding to an entry ID field.
+    
+entry.id.field: The name of an ID field. It must end with '.id'.
+    }
+
+\item{\code{copyDb(conn.from, conn.to, limit = NULL)}}{:
+
+Copies all entries of a database into another database. The connector of the
+    destination database must be editable.
+    
+conn.from: The connector of the source datababase to copy.
+    
+conn.to: The connector of the destination database.
+    
+limit: The number of entries of the source database to copy. If set to
+    
+Returned value: none.
+    NULL, copy the whole database.
+    }
+
+\item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{:
+
+Extracts the value of a field from a list of entries. Returns either a
+    vector or a list depending on the type of the field.
+    
+entries: A list of Biodb entries.
+    
+field: The name of a field.
+    
+flatten: If set to TRUE and the field has a cardinality greater than
+    one, then values be converted into a vector of class character in which each
+    entry values are collapsed.
+    
+compute: If set to TRUE, computable fields will be output.
+    
+Returned value: A vector if the field is atomic or flatten is set to TRUE,
+    otherwise a list.
+    }
 
 \item{\code{entriesToDataframe(entries, only.atomic = TRUE, null.to.na = TRUE,
   compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE,
-  flatten = TRUE, only.card.one = FALSE)}}{Convert a list of entries (\code{BiodbEntry} objects) into a data frame.}
+  flatten = TRUE, only.card.one = FALSE)}}{:
 
-\item{\code{entriesToJson(entries, compute = TRUE)}}{Convert a list of BiodbEntry objects into JSON. Returns a vector of
-characters.}
+Converts a list of entries (\code{BiodbEntry} objects) into a data
+    frame.
+    
+entries: A list of Biodb entries.
+    
+only.atomic: If set to TRUE, output only atomic fields, i.e.: the fields
+    whose value type is one of integer, numeric, logical or character.
+    
+null.to.na: If set to TRUE, each NULL entry in the list is converted into
+    a row of NA values.
+    
+compute: If set to TRUE, computable fields will be output.
+    
+fields: A character vector of field names to output. The data frame output
+    will be restricted to this list of fields.
+    
+drop: If set to TRUE and the resulting data frame has only one column,
+    a vector will be output instead of data frame.
+    
+sort.cols: Sort columns in alphabetical order.
+    
+flatten: If set to TRUE, then each field with a cardinality greater than
+    one, will be converted into a vector of class character whose values are
+    collapsed.
+    
+only.card.one: Output only fields whose cardinality is one.
+    
+Returned value: A data frame containing the entries. Columns are named
+    according to field names.
+    }
 
-\item{\code{getCache()}}{Returns the single instance of the \code{BiodbCache} class.}
+\item{\code{entriesToJson(entries, compute = TRUE)}}{:
 
-\item{\code{getConfig()}}{Returns the single instance of the \code{BiodbConfig} class.}
+Converts a list of BiodbEntry objects into JSON. Returns a vector of
+    characters.
+    
+entries: A list of Biodb entries.
+    
+compute: If set to TRUE, computable fields will added to JSON too.
+    
+Returned value: A list of JSON strings, the same length as entries list.
+    }
 
-\item{\code{getDbsInfo()}}{Returns the single instance of the \code{BiodbDbsInfo} class.}
+\item{\code{fieldIsAtomic(field)}}{:
 
-\item{\code{getEntryFields()}}{Returns the single instance of the \code{BiodbEntryFields} class.}
+DEPRECATED method to test if a field is an atomic field. The new
+    method is BiodbEntryField::isVector().}
 
-\item{\code{getFactory()}}{Returns the single instance of the \code{BiodbFactory} class.}
+\item{\code{getCache()}}{:
 
-\item{\code{getObservers()}}{Get the list of registered observers.}
+Returns the single instance of the \code{BiodbCache} class.
+    
+Returned value: The instance of the BiodbCache class attached to this
+    Biodb instance.
+    }
 
-\item{\code{getRequestScheduler()}}{Returns the single instance of the \code{BiodbRequestScheduler} class.}
+\item{\code{getConfig()}}{:
 
-\item{\code{loadDefinitions(file)}}{Load databases and entry fields definitions from YAML file.}
+Returns the single instance of the \code{BiodbConfig} class.
+    
+Returned value: The instance of the BiodbConfig class attached to this
+    Biodb instance.
+    }
 
-\item{\code{saveEntriesAsJson(entries, files, compute = TRUE)}}{Save a list of entries in JSON format.}
+\item{\code{getDbsInfo()}}{:
 
-\item{\code{terminate()}}{Close \code{Biodb} instance.}
+Returns the single instance of the \code{BiodbDbsInfo} class.
+    
+Returned value: The instance of the BiodbDbsInfo class attached to this
+    Biodb instance.
+    }
+
+\item{\code{getEntryFields()}}{:
+
+Returns the single instance of the \code{BiodbEntryFields} class.
+    
+Returned value: The instance of the BiodbEntryFields class attached to this
+    Biodb instance.
+    }
+
+\item{\code{getFactory()}}{:
+
+Returns the single instance of the \code{BiodbFactory} class.
+    
+Returned value: The instance of the BiodbFactory class attached to this
+    Biodb instance.
+    }
+
+\item{\code{getFieldClass(field)}}{:
+
+DEPRECATED method to get the class of a field. The new method is
+    Biodb::getEntryFields()$get(field)$getClass().}
+
+\item{\code{getObservers()}}{:
+
+Gets the list of registered observers.
+    
+Returned value: The list or registered observers.
+    }
+
+\item{\code{getRequestScheduler()}}{:
+
+Returns the single instance of the \code{BiodbRequestScheduler} class.
+    
+Returned value: The instance of the BiodbRequestScheduler class attached to this
+    Biodb instance.
+    }
+
+\item{\code{loadDefinitions(file)}}{:
+
+Loads databases and entry fields definitions from YAML file.
+    
+file: The path to a YAML file containing definitions for Biodb (databases,
+    fields or configuration keys).
+    
+Returned value: none.
+    }
+
+\item{\code{saveEntriesAsJson(entries, files, compute = TRUE)}}{:
+
+Saves a list of entries in JSON format. Each entry will be saved in a
+    separate file.
+    
+entries: A list of Biodb entries.
+    
+files: A list of file paths, the same length as entries list.
+    
+compute: If set to TRUE, computable fields will be saved too.
+    
+Returned value: none.
+    }
+
+\item{\code{terminate()}}{:
+
+Closes \code{Biodb} instance. Call this method when you are done with your
+    Biodb instance.
+    
+Returned value: none.
+    }
 }}
 
 \examples{
-# Create an instance with default settings:
+# Create an instance:
 mybiodb <- biodb::Biodb()
 
 # Get the factory instance

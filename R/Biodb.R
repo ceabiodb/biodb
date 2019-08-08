@@ -8,24 +8,13 @@
 #' In order to use the biodb package, you need first to create an instance of
 #' this class. See section Fields for a list of the constructor's parameters.
 #'
-#' @field logger    Set to \code{FALSE} if you want to disable the default
-#'                  logger.
-#' @field observers Either a \code{BiodbObserver} class instance or a list of
-#'                  \code{BiodbObserver} class instances.
-#'
-#' @param compute     If set to \code{TRUE} and an entry has not the field
-#'                    defined, then try to compute the field values.
-#' @param entries     A list of \code{BiodbEntry} objects.
-#' @param field       The name of a field.
-#' @param files       A list of file paths.
-#'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbCache}},
 #' \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
 #' \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}},
 #' \code{\link{BiodbDbsInfo}}.
 #'
 #' @examples
-#' # Create an instance with default settings:
+#' # Create an instance:
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Get the factory instance
@@ -58,9 +47,7 @@ methods=list(
 # Initialize {{{3
 ################################################################################
 
-initialize=function(...) {
-
-    callSuper(...)
+initialize=function() {
 
     # Set default observers
     .self$.observers <- list(BiodbWarningReporter$new(),
@@ -92,7 +79,10 @@ initialize=function(...) {
 ################################################################################
 
 terminate=function() {
-    "Close \\code{Biodb} instance."
+    ":\n\nCloses \\code{Biodb} instance. Call this method when you are done with your
+    Biodb instance.
+    \nReturned value: none.
+    "
 
     .self$info('Closing Biodb instance...')
 
@@ -108,7 +98,11 @@ terminate=function() {
 ################################################################################
 
 loadDefinitions=function(file) {
-    'Load databases and entry fields definitions from YAML file.'
+    ":\n\nLoads databases and entry fields definitions from YAML file.
+    \nfile: The path to a YAML file containing definitions for Biodb (databases,
+    fields or configuration keys).
+    \nReturned value: none.
+    "
 
     .self$debug('Load definitions from file "', file, '".')
 
@@ -132,7 +126,10 @@ loadDefinitions=function(file) {
 ################################################################################
 
 getConfig=function() {
-    "Returns the single instance of the \\code{BiodbConfig} class."
+    ":\n\nReturns the single instance of the \\code{BiodbConfig} class.
+    \nReturned value: The instance of the BiodbConfig class attached to this
+    Biodb instance.
+    "
 
     return(.self$.config)
 },
@@ -141,7 +138,10 @@ getConfig=function() {
 ################################################################################
 
 getCache=function() {
-    "Returns the single instance of the \\code{BiodbCache} class."
+    ":\n\nReturns the single instance of the \\code{BiodbCache} class.
+    \nReturned value: The instance of the BiodbCache class attached to this
+    Biodb instance.
+    "
 
     return(.self$.cache)
 },
@@ -150,7 +150,10 @@ getCache=function() {
 ################################################################################
 
 getDbsInfo=function() {
-    "Returns the single instance of the \\code{BiodbDbsInfo} class."
+    ":\n\nReturns the single instance of the \\code{BiodbDbsInfo} class.
+    \nReturned value: The instance of the BiodbDbsInfo class attached to this
+    Biodb instance.
+    "
 
     return(.self$.dbsinfo)
 },
@@ -159,7 +162,10 @@ getDbsInfo=function() {
 ################################################################################
 
 getEntryFields=function() {
-    "Returns the single instance of the \\code{BiodbEntryFields} class."
+    ":\n\nReturns the single instance of the \\code{BiodbEntryFields} class.
+    \nReturned value: The instance of the BiodbEntryFields class attached to this
+    Biodb instance.
+    "
 
     return(.self$.entry.fields)
 },
@@ -168,7 +174,10 @@ getEntryFields=function() {
 ################################################################################
 
 getFactory=function() {
-    "Returns the single instance of the \\code{BiodbFactory} class."
+    ":\n\nReturns the single instance of the \\code{BiodbFactory} class.
+    \nReturned value: The instance of the BiodbFactory class attached to this
+    Biodb instance.
+    "
 
     return(.self$.factory)
 },
@@ -177,7 +186,10 @@ getFactory=function() {
 ################################################################################
 
 getRequestScheduler=function() {
-    "Returns the single instance of the \\code{BiodbRequestScheduler} class."
+    ":\n\nReturns the single instance of the \\code{BiodbRequestScheduler} class.
+    \nReturned value: The instance of the BiodbRequestScheduler class attached to this
+    Biodb instance.
+    "
 
     return(.self$.request.scheduler)
 },
@@ -186,7 +198,7 @@ getRequestScheduler=function() {
 ################################################################################
 
 addObservers=function(observers) {
-    "Add new observers. Observers will be called each time an event occurs.
+    ":\n\nAdds new observers. Observers will be called each time an event occurs.
     This is the way used in biodb to get feedback about what is going inside
     biodb code.
     \nobservers: Either a BiodbObserver instance or a list of BiodbObserver
@@ -216,7 +228,7 @@ addObservers=function(observers) {
 ################################################################################
 
 getObservers=function() {
-    "Get the list of registered observers.
+    ":\n\nGets the list of registered observers.
     \nReturned value: The list or registered observers.
     "
 
@@ -227,7 +239,7 @@ getObservers=function() {
 ################################################################################
 
 getBiodb=function() {
-    "Returns the biodb instance, which is itself in the case of the Biodb class.
+    ":\n\nReturns the biodb instance, which is itself in the case of the Biodb class.
     \nReturned value: This instance.
     "
 
@@ -238,7 +250,7 @@ getBiodb=function() {
 ################################################################################
 
 convertEntryIdFieldToDbClass=function(entry.id.field) {
-    "Get the database class name corresponding to an entry ID field.
+    ":\n\nGets the database class name corresponding to an entry ID field.
     \nentry.id.field: The name of an ID field. It must end with '.id'.
     "
 
@@ -256,7 +268,7 @@ convertEntryIdFieldToDbClass=function(entry.id.field) {
 ################################################################################
 
 entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
-    "Extract the value of a field from a list of entries. Returns either a
+    ":\n\nExtracts the value of a field from a list of entries. Returns either a
     vector or a list depending on the type of the field.
     \nentries: A list of Biodb entries.
     \nfield: The name of a field.
@@ -306,7 +318,8 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
                             fields=NULL, drop=FALSE,
                             sort.cols=FALSE, flatten=TRUE,
                             only.card.one=FALSE) {
-    "Convert a list of entries (\\code{BiodbEntry} objects) into a data frame.
+    ":\n\nConverts a list of entries (\\code{BiodbEntry} objects) into a data
+    frame.
     \nentries: A list of Biodb entries.
     \nonly.atomic: If set to TRUE, output only atomic fields, i.e.: the fields
     whose value type is one of integer, numeric, logical or character.
@@ -392,7 +405,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 ################################################################################
 
 entriesToJson=function(entries, compute=TRUE) {
-    "Convert a list of BiodbEntry objects into JSON. Returns a vector of
+    ":\n\nConverts a list of BiodbEntry objects into JSON. Returns a vector of
     characters.
     \nentries: A list of Biodb entries.
     \ncompute: If set to TRUE, computable fields will added to JSON too.
@@ -409,7 +422,7 @@ entriesToJson=function(entries, compute=TRUE) {
 ################################################################################
 
 collapseRows=function(x, sep='|', cols=1L) {
-    "Collapse rows of a data frame, by looking for duplicated values in the
+    ":\n\nCollapses rows of a data frame, by looking for duplicated values in the
     reference columns (parameter `cols`). The values contained in the reference
     columns are supposed to be ordered inside the data frame, in the sens that
     all duplicated values are supposed to directly follow the original values.
@@ -471,7 +484,7 @@ collapseRows=function(x, sep='|', cols=1L) {
 ################################################################################
 
 computeFields=function(entries) {
-    "Compute missing fields in entries, for those fields that are comptable.
+    ":\n\nComputes missing fields in entries, for those fields that are comptable.
     \nentries: A list of Biodb entries.
     \nReturned value: none.
     "
@@ -485,7 +498,7 @@ computeFields=function(entries) {
 ################################################################################
 
 saveEntriesAsJson=function(entries, files, compute=TRUE) {
-    "Save a list of entries in JSON format. Each entry will be saved in a
+    ":\n\nSaves a list of entries in JSON format. Each entry will be saved in a
     separate file.
     \nentries: A list of Biodb entries.
     \nfiles: A list of file paths, the same length as entries list.
@@ -506,7 +519,7 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
 ################################################################################
 
 copyDb=function(conn.from, conn.to, limit=NULL) {
-    "Copy all entries of a database into another database. The connector of the
+    ":\n\nCopies all entries of a database into another database. The connector of the
     destination database must be editable.
     \nconn.from: The connector of the source datababase to copy.
     \nconn.to: The connector of the destination database.
@@ -542,7 +555,7 @@ copyDb=function(conn.from, conn.to, limit=NULL) {
 ################################################################################
 
 show=function() {
-    'Print object information.'
+    'Prints object information.'
 
     v <- as.character(packageVersion('biodb'))
     cat("Biodb instance, version ", v, ".\n", sep='')
@@ -597,6 +610,8 @@ show=function() {
 ################################################################################
 
 fieldIsAtomic=function(field) {
+    ":\n\nDEPRECATED method to test if a field is an atomic field. The new
+    method is BiodbEntryField::isVector()."
 
     .self$.deprecatedMethod('BiodbEntryField::isVector()')
 
@@ -607,6 +622,8 @@ fieldIsAtomic=function(field) {
 ################################################################################
 
 getFieldClass=function(field) {
+    ":\n\nDEPRECATED method to get the class of a field. The new method is
+    Biodb::getEntryFields()$get(field)$getClass()."
 
     .self$.deprecatedMethod('Biodb::getEntryFields()$get(field)$getClass()')
 

@@ -14,13 +14,12 @@ fields=list(.message.enabled="logical"),
 ################################################################################
 
 methods=list(
-               
+
 # Initialize {{{3
 ################################################################################
 
-initialize=function(...) {
+initialize=function() {
 
-    callSuper(...)
     .self$.abstractClass('BiodbObject')
 
     .self$.message.enabled <- TRUE
