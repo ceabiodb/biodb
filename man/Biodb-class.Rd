@@ -11,6 +11,8 @@ In order to use the biodb package, you need first to create an instance of
 this class.
 }
 \details{
+The constructor takes no argument.
+
 Once the instance is created, some other important classes
 (\code{BiodbFactory}, \code{BiodbCache}, \code{BiodbConfig}, ...) are
 instantiated (just once) and their instances are later accessible through

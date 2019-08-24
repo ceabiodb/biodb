@@ -79,6 +79,10 @@ show=function() {
 ################################################################################
 
 newObserver=function(obs) {
+    ":\n\nCalled by Biodb when a new observer is registered.
+    \nobs: The observer newly registered by the Biodb instance.
+    \nReturned valued: none.
+    "
 },
 
 # Config key value update {{{3

@@ -7,27 +7,41 @@
 \title{A class for representing a circle.}
 \description{
 This class represents a rectangle, used for graphical
-representation. It is used inside by
+representation. It is used by
 KeggPathwayConn::extractPathwayMapShapes() method.
 }
-\section{Fields}{
+\details{
+Arguments to the constructor are:
 
-\describe{
-\item{\code{x}}{X coordinate of center.}
+x: X coordinate of center.
 
-\item{\code{y}}{Y coordinate of center.}
+y: Y coordinate of center.
 
-\item{\code{r}}{Radius.}
-}}
-
+r: Radius.
+}
 \section{Methods}{
 
 \describe{
-\item{\code{getRadius()}}{Return the radius.}
+\item{\code{getRadius()}}{:
 
-\item{\code{getX()}}{Return the X coordinate.}
+Get the radius.
+    
+Returned value: The radius.
+    }
 
-\item{\code{getY()}}{Return the Y coordinate.}
+\item{\code{getX()}}{:
+
+Get the X coordinate.
+    
+Returned value: The X coordinate.
+    }
+
+\item{\code{getY()}}{:
+
+Get the Y coordinate.
+    
+Returned value: The Y coordinate.
+    }
 }}
 
 \examples{

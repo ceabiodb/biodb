@@ -44,15 +44,11 @@
 #' @exportClass BiodbConfig
 BiodbConfig <- methods::setRefClass("BiodbConfig",
     contains=c('BiodbChildObject', 'BiodbObserver'),
-
-# Fields {{{2
-################################################################################
-                                    
-fields=list(
-    .values="list",
-    .env="ANY",
-    .keys="list"
-),
+    fields=list(
+        .values="list",
+        .env="ANY",
+        .keys="list"
+    ),
 
 # Public methods {{{2
 ################################################################################
@@ -69,26 +65,18 @@ initialize=function(...) {
     .self$.env <- Sys.getenv()
     .self$.keys <- list()
     .self$.values <- list()
-    
+
     # Register as observer
     .self$getBiodb()$addObservers(.self)
-},
-
-# New observer {{{3
-################################################################################
-
-newObserver=function(obs) {
-    
-    # Loop on all keys
-    for(key in names(.self$.values))
-        .self$notify('cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
 },
 
 # Get keys {{{3
 ################################################################################
 
 getKeys=function() {
-    "Get the list of available keys."
+    ":\n\nGet the list of available keys.
+    \nReturned value: A character vector containing the config key names.
+    "
 
     return(names(.self$.keys))
 },
@@ -97,7 +85,10 @@ getKeys=function() {
 ################################################################################
 
 getDescription=function(key) {
-    "Get the description of a key."
+    ":\n\nGet the description of a key.
+    \nkey: The name of a configuration key.
+    \nReturned value: The description of the key as a character value.
+    "
 
     description <- ''
 
@@ -114,7 +105,10 @@ getDescription=function(key) {
 ################################################################################
 
 getDefaultValue=function(key) {
-    "Get the default value of a key."
+    ":\n\nGet the default value of a key.
+    \nkey: The name of a configuration key.
+    \nReturned value: The default value for that key.
+    "
 
     default <- NULL
 
@@ -131,7 +125,10 @@ getDefaultValue=function(key) {
 ################################################################################
 
 hasKey=function(key) {
-    "Test if a key exists."
+    ":\n\nTest if a key exists.
+    \nkey: The name of a configuration key.
+    \nReturned value: TRUE if a key with this name exists, FALSE otherwise.
+    "
 
     return(.self$.checkKey(key, fail=FALSE))
 },
@@ -140,11 +137,12 @@ hasKey=function(key) {
 ################################################################################
 
 isDefined=function(key, fail=TRUE) {
-    "Test if a key is defined."
+    ":\n\nTest if a key is defined (i.e.: if a value exists for this key).
+    "
 
     if (.self$.checkKey(key, fail=fail))
         return(key %in% names(.self$.values))
-    
+
     return(FALSE)
 },
 
@@ -277,6 +275,19 @@ getAssocEnvVar=function(key) {
                      collapse='_')
 
     return(env.var)
+},
+
+# BiodbObserver methods {{{2
+################################################################################
+
+# New observer {{{3
+################################################################################
+
+newObserver=function(obs) {
+
+    # Loop on all keys
+    for(key in names(.self$.values))
+        .self$notify('cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
 },
 
 # Private methods {{{2

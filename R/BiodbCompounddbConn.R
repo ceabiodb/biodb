@@ -5,7 +5,7 @@
 
 #' An interface for all compound databases.
 #'
-#' This interface must be inherited by all compound databases. It declares
+#' This interface is inherited by all compound databases. It declares
 #' method headers specific to compound databases.
 #'
 #' @seealso \code{\link{BiodbConn}}.
