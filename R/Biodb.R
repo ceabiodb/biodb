@@ -57,6 +57,8 @@ methods=list(
 
 initialize=function() {
 
+    callSuper() # Call BiodbObject constructor.
+
     # Set default observers
     .self$.observers <- list(BiodbWarningReporter$new(),
                              BiodbErrorReporter$new(),
@@ -214,8 +216,11 @@ addObservers=function(observers) {
     \nReturned value: None.
     "
 
+    # Make sure that input is a list
+    if ( ! is.list(observers))
+        observers <- list(observers)
+
     # Check types of observers
-    if ( ! is.list(observers)) observers <- list(observers)
     is.obs <- vapply(observers, function(o) methods::is(o, "BiodbObserver"),
                      FUN.VALUE=TRUE)
     if (any( ! is.obs))

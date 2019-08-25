@@ -16,40 +16,94 @@ from YAML files. The default definition file is located inside the package
 in "inst/definitions.yml" and is loaded at Biodb startup. However you can
 define your own files and loaded them using the \code{Biodb::()} method.
 }
-\section{Fields}{
+\details{
+Arguments to the contructor are:
 
-\describe{
-\item{\code{db.class}}{The class of the database (\code{"massbank",
-"hmdb.metabolies", ...}).}
+other: Another object inheriting from \code{BiodbBaseConn}, and
+       from which property values will be copied.
 
-\item{\code{properties}}{Some properties to set at initialization.}
+db.class: The class of the database (\code{"massbank", "hmdb.metabolies",
+          ...}).
 
-\item{\code{other}}{Another object inheriting from \code{BiodbBaseConn}, and
-from which property values will be copied.}
-}}
-
+properties: Some properties to set at initialization.
+}
 \section{Methods}{
 
 \describe{
 \item{\code{getBaseUrl()}}{Returns the base URL.}
 
-\item{\code{getConnClass()}}{Returns the associated connector OOP class.}
+\item{\code{getConnClass()}}{:
 
-\item{\code{getConnClassName()}}{Returns the name of the associated connector OOP class.}
+Gets the associated connector OOP class.
+    
+Returned value: Returns the connector OOP class.
+    }
 
-\item{\code{getEntryClass()}}{Returns the associated entry class.}
+\item{\code{getConnClassName()}}{:
 
-\item{\code{getEntryClassName()}}{Returns the name of the associated entry class.}
+Gets the name of the associated connector OOP class.
+    
+Returned value: Returns the connector OOP class name.
+    }
+
+\item{\code{getDbClass()}}{:
+
+Gets the Biodb name of the database associated with this connector.
+    
+Returned value: A character value containing the Biodb database name.
+    }
+
+\item{\code{getEntryClass()}}{:
+
+Gets the associated entry class.
+    
+Returned value: Returns the associated entry class.
+    }
+
+\item{\code{getEntryClassName()}}{:
+
+Gets the name of the associated entry class.
+    
+Returned value: Returns the name of the associated entry class.
+    }
 
 \item{\code{getEntryContentType()}}{Returns the entry content type.}
 
-\item{\code{getEntryFileExt()}}{Returns the entry file extension.}
+\item{\code{getEntryFileExt()}}{:
 
-\item{\code{getEntryIdField()}}{Return the name of the corresponding database ID field in entries.}
+Returns the entry file extension used by this connector.
+    
+Returned value: A character value containing the file extension.
+    }
+
+\item{\code{getEntryIdField()}}{:
+
+Gets the name of the corresponding database ID field in entries.
+    
+Returned value: Returns the name of the database ID field.
+    }
 
 \item{\code{getName()}}{Returns the full database name.}
 
-\item{\code{getPropValSlot(name, slot)}}{Return the value of the slot "slot" of the property "name".}
+\item{\code{getPropertyValue(name)}}{:
+
+Gets a property value.
+    
+name: The name of the property.
+    
+Returned value: The value of the property.
+    }
+
+\item{\code{getPropValSlot(name, slot)}}{:
+
+Retrieve the value of a slot of a property.
+    
+name: The name of a property.
+    
+slot: The slot name inside the property.
+    
+Returned value: The value of the slot `slot` of the property `name`.
+    }
 
 \item{\code{getSchedulerNParam()}}{Returns the N parameter for the scheduler.}
 
@@ -65,12 +119,51 @@ from which property values will be copied.}
 
 \item{\code{getXmlNs()}}{Returns the XML namespace.}
 
-\item{\code{hasProp(name)}}{Returns true if the property "name" exists.}
+\item{\code{hasProp(name)}}{:
 
-\item{\code{hasPropSlot(name, slot)}}{Returns true if the property "name" exists and has the slot "slot"
-defined.}
+Tests if this connector has a property.
+    
+name: The name of the property to check.
+    
+Returned value: Returns true if the property `name` exists.
+    }
+
+\item{\code{hasPropSlot(name, slot)}}{:
+
+Tests if a slot property has a specific slot.
+    
+name: The name of a property.
+    
+slot: The slot name to check.
+    
+Returned value: Returns true if the property `name` exists and has the slot `slot`
+    defined.}
 
 \item{\code{setBaseUrl(url)}}{Sets the base URL.}
+
+\item{\code{setPropertyValue(name, value)}}{:
+
+Sets the value of a property.
+    
+name: The name of the property.
+    
+value: The new value to set the property to.
+    
+Returned value: None.
+    }
+
+\item{\code{setPropValSlot(name, slot, value)}}{:
+
+Set the value of the slot of a property.
+    
+name: The name of the property.
+    
+slot: The name of the property's slot.
+    
+value: The new value to set the property's slot to.
+    
+Returned value: None.
+    }
 
 \item{\code{setSchedulerNParam(n)}}{Sets the N parameter for the scheduler.}
 
@@ -82,7 +175,15 @@ defined.}
 
 \item{\code{setWsUrl(ws.url)}}{Sets the web sevices URL.}
 
-\item{\code{updatePropertiesDefinition(def)}}{Update the definition of properties.}
+\item{\code{updatePropertiesDefinition(def)}}{:
+
+Update the definition of properties.
+    
+def: A named list of property definitions. The names of the list must be
+    the property names.
+    
+Returned value: None.
+    }
 }}
 
 \examples{

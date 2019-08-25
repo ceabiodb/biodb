@@ -31,20 +31,16 @@
 #' @exportClass BiodbDbsInfo
 BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo",
     contains="BiodbChildObject",
-    
-# Fields {{{2
-################################################################################
-
-fields=list(
-    .dbs="list"
-),
+    fields=list(
+        .dbs="list"
+    ),
 
 # Public methods {{{2
 ################################################################################
 
 methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
 initialize=function(...) {

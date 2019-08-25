@@ -15,11 +15,15 @@
 #' in "inst/definitions.yml" and is loaded at Biodb startup. However you can
 #' define your own files and loaded them using the \code{Biodb::()} method.
 #'
-#' @field db.class      The class of the database (\code{"massbank",
-#'                      "hmdb.metabolies", ...}).
-#' @field properties    Some properties to set at initialization.
-#' @field other         Another object inheriting from \code{BiodbBaseConn}, and
-#'                      from which property values will be copied.
+#' Arguments to the contructor are:
+#'
+#' other: Another object inheriting from \code{BiodbBaseConn}, and
+#'        from which property values will be copied.
+#'
+#' db.class: The class of the database (\code{"massbank", "hmdb.metabolies",
+#'           ...}).
+#'
+#' properties: Some properties to set at initialization.
 #'
 #' @seealso \code{\link{BiodbDbsInfo}}, \code{\link{BiodbConn}}.
 #'
@@ -98,6 +102,10 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 ################################################################################
 
 show=function() {
+    ":\n\nPrints the values of the properties of this connector.
+    \nReturned value: None.
+    "
+    
     msg <- paste0("Biodb ", .self$getPropertyValue('name'),
                   " connector instance")
     if (.self$hasPropSlot('urls', 'base.url'))
@@ -111,7 +119,10 @@ show=function() {
 ################################################################################
 
 hasProp=function(name) {
-    'Returns true if the property "name" exists.'
+    ":\n\nTests if this connector has a property.
+    \nname: The name of the property to check.
+    \nReturned value: Returns true if the property `name` exists.
+    "
 
     return (name %in% names(.self$.prop))
 },
@@ -120,8 +131,11 @@ hasProp=function(name) {
 ################################################################################
 
 hasPropSlot=function(name, slot) {
-    'Returns true if the property "name" exists and has the slot "slot"
-    defined.'
+    ":\n\nTests if a slot property has a specific slot.
+    \nname: The name of a property.
+    \nslot: The slot name to check.
+    \nReturned value: Returns true if the property `name` exists and has the slot `slot`
+    defined."
 
     return (.self$hasProp(name) && slot %in% names(.self$.prop[[name]]))
 },
@@ -130,7 +144,11 @@ hasPropSlot=function(name, slot) {
 ################################################################################
 
 getPropValSlot=function(name, slot) {
-    'Return the value of the slot "slot" of the property "name".'
+    ":\n\nRetrieve the value of a slot of a property.
+    \nname: The name of a property.
+    \nslot: The slot name inside the property.
+    \nReturned value: The value of the slot `slot` of the property `name`.
+    "
 
     value <- .self$getPropertyValue(name)
     .self$.checkProperty(name=name, slot=slot)
@@ -149,7 +167,11 @@ getPropValSlot=function(name, slot) {
 ################################################################################
 
 updatePropertiesDefinition=function(def) {
-    'Update the definition of properties.'
+    ":\n\nUpdate the definition of properties.
+    \ndef: A named list of property definitions. The names of the list must be
+    the property names.
+    \nReturned value: None.
+    "
 
     # Loop on properties
     for (prop in names(def)) {
@@ -170,15 +192,19 @@ updatePropertiesDefinition=function(def) {
 ################################################################################
 
 defineParsingExpressions=function() {
-    'Reimplement this method in your connector class to define parsing
-    expressions dynamically.'
+    ":\n\nReimplement this method in your connector class to define parsing
+    expressions dynamically.
+    \nReturned value: None.
+    "
 },
 
 # Get entry file extension {{{3
 ################################################################################
 
 getEntryFileExt=function() {
-    "Returns the entry file extension."
+    ":\n\nReturns the entry file extension used by this connector.
+    \nReturned value: A character value containing the file extension.
+    "
 
     if (.self$getPropertyValue('entry.content.type') == 'list')
         ext <- 'RData'
@@ -192,6 +218,10 @@ getEntryFileExt=function() {
 ################################################################################
 
 getDbClass=function() {
+    ":\n\nGets the Biodb name of the database associated with this connector.
+    \nReturned value: A character value containing the Biodb database name.
+    "
+
     return(.self$.db.class)
 },
 
@@ -199,7 +229,9 @@ getDbClass=function() {
 ################################################################################
 
 getConnClassName=function() {
-    "Returns the name of the associated connector OOP class."
+    ":\n\nGets the name of the associated connector OOP class.
+    \nReturned value: Returns the connector OOP class name.
+    "
 
     # Get connection class name
     s <- .self$.getClassNamePrefix()
@@ -208,11 +240,25 @@ getConnClassName=function() {
     return(conn.class.name)
 },
 
+# Get connector class {{{3
+################################################################################
+
+getConnClass=function() {
+    ":\n\nGets the associated connector OOP class.
+    \nReturned value: Returns the connector OOP class.
+    "
+
+    return(get(.self$getConnClassName()))
+},
+
+
 # Get entry class name {{{3
 ################################################################################
 
 getEntryClassName=function() {
-    "Returns the name of the associated entry class."
+    ":\n\nGets the name of the associated entry class.
+    \nReturned value: Returns the name of the associated entry class.
+    "
 
     # Get entry class name
     s <- .self$.getClassNamePrefix()
@@ -221,50 +267,13 @@ getEntryClassName=function() {
     return(entry.class.name)
 },
 
-# Get connector class {{{3
-################################################################################
-
-getConnClass=function() {
-    "Returns the associated connector OOP class."
-
-    return(get(.self$getConnClassName()))
-},
-
 # Get entry class {{{3
 ################################################################################
 
 getEntryClass=function() {
-    "Returns the associated entry class."
-
-    return(get(.self$getEntryClassName()))
-},
-
-# Get entry class name {{{3
-################################################################################
-
-getEntryClassName=function() {
-    "Returns the name of the associated entry class."
-
-    # Get entry class name
-    s <- .self$.db.class
-    indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class,
-                                   perl=TRUE)[[1]])
-    indices <- indices + 1  # We are interested in the letter after the dot.
-    indices <- c(1, indices) # Add first letter.
-    for (i in indices)
-        s <- paste0(substring(s, 1, i - 1), toupper(substring(s, i, i)),
-                   substring(s, i + 1))
-    s <- gsub('.', '', s, fixed=TRUE) # Remove dots
-    entry.class.name <- paste(s, 'Entry', sep='')
-
-    return(entry.class.name)
-},
-
-# Get entry class {{{3
-################################################################################
-
-getEntryClass=function() {
-    "Returns the associated entry class."
+    ":\n\nGets the associated entry class.
+    \nReturned value: Returns the associated entry class.
+    "
 
     return(get(.self$getEntryClassName()))
 },
@@ -273,8 +282,10 @@ getEntryClass=function() {
 ################################################################################
 
 getEntryIdField=function() {
-    "Return the name of the corresponding database ID field in entries."
-    
+    ":\n\nGets the name of the corresponding database ID field in entries.
+    \nReturned value: Returns the name of the database ID field.
+    "
+
     return(paste(.self$.db.class, 'id', sep='.'))
 },
 
@@ -282,6 +293,10 @@ getEntryIdField=function() {
 ################################################################################
 
 getPropertyValue=function(name) {
+    ":\n\nGets a property value.
+    \nname: The name of the property.
+    \nReturned value: The value of the property.
+    "
 
     .self$.checkProperty(name)
     pdef <- .self$.prop.def[[name]]
@@ -305,6 +320,11 @@ getPropertyValue=function(name) {
 ################################################################################
 
 setPropertyValue=function(name, value) {
+    ":\n\nSets the value of a property.
+    \nname: The name of the property.
+    \nvalue: The new value to set the property to.
+    \nReturned value: None.
+    "
 
     # Check value
     value <- .self$.chkPropVal(name, value)
@@ -331,12 +351,18 @@ setPropertyValue=function(name, value) {
 ################################################################################
 
 setPropValSlot=function(name, slot, value) {
+    ":\n\nSet the value of the slot of a property.
+    \nname: The name of the property.
+    \nslot: The name of the property's slot.
+    \nvalue: The new value to set the property's slot to.
+    \nReturned value: None.
+    "
 
     .self$.checkProperty(name=name, slot=slot)
 
     # Get current value
     curval <- .self$getPropertyValue(name)
-    
+
     # Add/set new value
     curval[[slot]] <- value
 
