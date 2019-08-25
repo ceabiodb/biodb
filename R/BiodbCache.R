@@ -138,7 +138,7 @@ setMarker=function(cache.id, subfolder, name) {
     \ncache.id: The cache ID to use.
     \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
     \nname: A character vector containing marker names.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     marker.path <- .self$getFilePath(cache.id=cache.id, subfolder=subfolder,
@@ -258,7 +258,7 @@ saveContentToFile=function(content, cache.id, subfolder, name, ext) {
     \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
     \nname: A character vector containing file names.
     \next: The extension of the files.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     if ( ! .self$isWritable())
@@ -314,7 +314,7 @@ eraseFolder=function(subfolder=NA_character_) {
     ":\n\nErases the cache.
     \nsubfolder: The subfolder to erase (\"longterm\" or \"shortterm\"). If
     unset, the whole cache will be erased.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     # Erase whole cache
@@ -340,7 +340,7 @@ deleteFile=function(cache.id, subfolder, name, ext) {
     \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
     \nname: A character vector containing file names.
     \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     if ( ! .self$isWritable())
@@ -363,7 +363,7 @@ deleteFiles=function(cache.id, subfolder, ext=NA_character_) {
     \nsubfolder: A subfolder to use (\"longterm\" or \"shortterm\").
     \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
     Only files having this extension will be deleted.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     if ( ! .self$isWritable())

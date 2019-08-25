@@ -19,15 +19,11 @@
 #' each concrete class for more information. The database direct web services
 #' methods will be named "ws.*".
 #'
-#' @field id            The identifier of the connector.
-#' @field cache.id      The identifier used in the disk cache.
+#' The constructor has the following arguments:
 #'
-#' @param count         If set to \code{TRUE} and no straightforward way exists
-#'                      to get number of entries, count the output of
-#'                      \code{getEntryIds()}.
-#' @param entry.id      The identifiers (e.g.: accession numbers) as a
-#'                      \code{character vector} of the database entries.
-#' @param max.results   The maximum of elements to return from the method.
+#' id: The identifier of the connector.
+#'
+#' cache.id: The identifier used in the disk cache.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
 #'          \code{\link{BiodbMassdbConn}}.
@@ -82,7 +78,9 @@ initialize=function(id=NA_character_, cache.id=NA_character_, ...) {
 ################################################################################
 
 getId=function() {
-    "Get the identifier of this connector."
+    ":\n\nGet the identifier of this connector.
+    \nReturned value: The identifier of this connector.
+    "
 
     return(.self$.id)
 },
@@ -91,8 +89,17 @@ getId=function() {
 ################################################################################
 
 getEntry=function(id, drop=TRUE) {
-    "Return the entry corresponding to this ID. You can pass a vector of IDs,
-    and you will get a list of entries."
+    ":\n\nReturn the entry corresponding to this ID. You can pass a vector of IDs,
+    and you will get a list of entries.
+    \nid: A character vector containing entry identifiers.
+    \ndrop: If set to TRUE and only one entry is requrested, then the returned
+    value will be a single BiodbEntry object, otherwise it will be a list of 
+    BiodbEntry objects.
+    \nReturned value: A list of BiodbEntry objects, the same size of the vector
+    of IDs. The list will contain NULL values for invalid IDs. If drop is set to
+    TRUE and only one etrny was requested then a single BiodbEntry is returned
+    instead of a list.
+    "
 
     return(.self$getBiodb()$getFactory()$getEntry(.self$getId(), id=id,
                                                   drop=drop))
@@ -102,13 +109,17 @@ getEntry=function(id, drop=TRUE) {
 ################################################################################
 
 getCacheFile=function(entry.id) {
-    "Get the path to the persistent cache file."
+    ":\n\nGet the path to the persistent cache file.
+    \nentry.id: The identifiers (e.g.: accession numbers) as a character vector
+    of the database entries.
+    \nReturned value: A character vector, the same length as the vector of IDs,
+    containing the paths to the cache files corresponding to the requested entry
+    IDs.
+    "
 
     c <- .self$getBiodb()$getCache()
     fp <- c$getFilePath(.self$getCacheId(), 'shortterm', entry.id,
                         .self$getEntryFileExt())
-    if ( ! file.exists(fp))
-        fp <- NULL
 
     return(fp)
 },
@@ -117,7 +128,12 @@ getCacheFile=function(entry.id) {
 ################################################################################
 
 getEntryContent=function(id) {
-    "Get the contents of database entries from IDs (accession numbers)."
+    ":\n\nGet the contents of database entries from IDs (accession numbers).
+    \nid: A character vector of entry IDs.
+    \nReturned values: A character vector containing the contents of the
+    requested IDs. If no content is available for an entry ID, then NA will be
+    used.
+    "
 
     content <- list()
     cch <- .self$getBiodb()$getCache()
@@ -220,7 +236,14 @@ getEntryContent=function(id) {
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
-    "Get the content of an entry from the database."
+    ":\n\nGet the contents of entries directly from the database. A direct request or 
+    an access to the database will be made in order to retrieve the contents. No
+    access to the biodb cache system will be made.
+    \nentry.id: A character vector with the IDs of entries to retrieve.
+    \nReturned value: A character vector, the same size of entry.id, with
+    contents of the requested entries. An NA value will be set for the content
+    of each entry for which the retrieval failed.
+    "
 
     .self$.abstractMethod()
 },
@@ -229,10 +252,14 @@ getEntryContentFromDb=function(entry.id) {
 ################################################################################
 
 getEntryIds=function(max.results=NA_integer_, ...) {
-    "Get entry identifiers from the database. More arguments can be given,
+    ":\n\nGet entry identifiers from the database. More arguments can be given,
     depending on implementation in specific databases. For mass databases, the
     ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be
-    set."
+    set.
+    \nmax.results: The maximum of elements to return from the method.
+    \n...: First arguments to be passed to private .doGetEntryIds() method.
+    \nReturned value: A character vector containing entry IDs from the database.
+    "
 
     ids <- character()
 
@@ -261,7 +288,11 @@ getEntryIds=function(max.results=NA_integer_, ...) {
 ################################################################################
 
 getNbEntries=function(count=FALSE) {
-    "Get the number of entries contained in this database."
+    ":\n\nGet the number of entries contained in this database.
+    \ncount: If set to TRUE and no straightforward way exists to get number of
+    entries, count the output of getEntryIds().
+    \nReturned value: The number of entries in the database, as an integer.
+    "
 
     n <- NA_integer_
 
@@ -278,9 +309,11 @@ getNbEntries=function(count=FALSE) {
 ################################################################################
 
 isEditable=function() {
-    "Returns TRUE if the database is editable (i.e.: the connector class
-    implements the interface BiodbEditable). If this connector is editable, then
-    you can call allowEditing() to enable editing."
+    ":\n\nTests if this connector is able to edit the database (i.e.: the
+    connector class implements the interface BiodbEditable). If this connector
+    is editable, then you can call allowEditing() to enable editing.
+    \nReturned value: Returns TRUE if the database is editable.
+    "
 
     return(methods::is(.self, 'BiodbEditable'))
 },
@@ -289,9 +322,11 @@ isEditable=function() {
 ################################################################################
 
 isWritable=function() {
-    "Returns TRUE if the database is writable (i.e.: the connector class
-    implements the interface BiodbWritable). If this connector is writable, then
-    you can call allowWriting() to enable writing."
+    ":\n\nTests if this connector is able to write into the database (i.e.: the
+    connector class implements the interface BiodbWritable). If this connector
+    is writable, then you can call allowWriting() to enable writing.
+    \nReturned value: Returns TRUE if the database is writable.
+    "
 
     return(methods::is(.self, 'BiodbWritable'))
 },
@@ -300,12 +335,12 @@ isWritable=function() {
 ################################################################################
 
 isSearchableByField=function(field) {
-    "Returns TRUE if the database is searchable using the specified field, FALSE
-    otherwise.
-    This method is particularly useful when using methods searchByName() and
-    searchCompound().
-    \nfield: The name of the field."
-    
+    ":\n\nTests if a field can be used to search entries when using methods
+    searchByName() and searchCompound().
+    \nfield: The name of the field.
+    \nReturned value: Returns TRUE if the database is searchable using the specified field, FALSE otherwise.
+    "
+
     v <- FALSE
 
     ef <- .self$getBiodb()$getEntryFields()
@@ -315,7 +350,7 @@ isSearchableByField=function(field) {
             v <- TRUE
             break;
         }
-    
+
     return(v)
 },
 
@@ -323,18 +358,21 @@ isSearchableByField=function(field) {
 ################################################################################
 
 searchByName=function(name, max.results=NA_integer_) {
-    'Searches the database for entries whose name matches the specified name.
-    Returns a character vector of entry IDs.
+    ":\n\nSearches the database for entries whose name matches the specified
+    name.  Returns a character vector of entry IDs.
     \nname: The name to look for.
-    \nmax.results: If set, the number of returned IDs is limited to the this
-    number.'
-    
+    \nmax.results: If set, the number of returned IDs is limited to this
+    number.
+    \nReturned value: A character vector of entry IDs whose name matches the
+    requested name.
+    "
+
     if (.self$isCompounddb())
         return(.self$searchCompound(name=name, max.results=max.results))
     else if (.self$isSearchableByField('name'))
         .self$error('This database is declared to be searchable by name, but',
                     ' no implementation has been defined.')
-    
+
     return(NULL)
 },
 
@@ -342,8 +380,10 @@ searchByName=function(name, max.results=NA_integer_) {
 ################################################################################
 
 isDownloadable=function() {
-    "Returns TRUE if the database is downloadable (i.e.: the connector class
-    implements the interface BiodbDownloadable)."
+    ":\n\nTests if the connector can download the database (i.e.: the connector
+    class implements the interface BiodbDownloadable).
+    \nReturned value: Returns TRUE if the database is downloadable.
+    "
 
     return(methods::is(.self, 'BiodbDownloadable'))
 },
@@ -352,8 +392,9 @@ isDownloadable=function() {
 ################################################################################
 
 isRemotedb=function() {
-    "Returns TRUE if the database is a remote database (i.e.: the connector
-    class inherits from BiodbRemotedbConn class)."
+    ":\n\nTests of the connector is connected to a remote database (i.e.: the
+    connector class inherits from BiodbRemotedbConn class).
+    \nReturned value: Returns TRUE if the database is a remote database."
 
     return(methods::is(.self, 'BiodbRemotedbConn'))
 },
@@ -362,8 +403,10 @@ isRemotedb=function() {
 ################################################################################
 
 isCompounddb=function() {
-    "Returns TRUE if the database is a compound database (i.e.: the connector
-    class inherits from BiodbCompounddbConn class)."
+    ":\n\nTests if the connector's database is a compound database (i.e.: the
+    connector class inherits from BiodbCompounddbConn class).
+    \nReturned value: Returns TRUE if the database is a compound database.
+    "
 
     return(methods::is(.self, 'BiodbCompounddbConn'))
 },
@@ -372,8 +415,10 @@ isCompounddb=function() {
 ################################################################################
 
 isMassdb=function() {
-    "Returns TRUE if the database is a mass database (i.e.: the connector
-    class inherits from BiodbMassdbConn class)."
+    ":\n\nTests if the connector's database is a mass spectra database (i.e.:
+    the connector class inherits from BiodbMassdbConn class).
+    \nReturned value: Returns TRUE if the database is a mass database.
+    "
 
     return(methods::is(.self, 'BiodbMassdbConn'))
 },
@@ -382,7 +427,9 @@ isMassdb=function() {
 ################################################################################
 
 checkDb=function() {
-    "Check that the database is correct by trying to load all entries."
+    ":\n\nChecks that the database is correct by trying to retrieve all its
+    entries.
+    \nReturned values: None."
 
     # Get IDs
     ids <- .self$getEntryIds()
@@ -395,7 +442,9 @@ checkDb=function() {
 ################################################################################
 
 getAllCacheEntries=function() {
-    "Get all entries from the memory cache."
+    ":\n\nGet all entries stored in the memory cache.
+    \nReturned value: A list of BiodbEntry instances.
+    "
 
     # Remove NULL entries
     entries <- .self$.entries[ ! vapply(.self$.entries, is.null,
@@ -411,7 +460,9 @@ getAllCacheEntries=function() {
 ################################################################################
 
 deleteAllCacheEntries=function() {
-    "Delete all entries from the memory cache."
+    ":\n\nDelete all entries from the memory cache.
+    \nReturned value: None.
+    "
 
     .self$.entries <- list()
 },
@@ -420,7 +471,9 @@ deleteAllCacheEntries=function() {
 ################################################################################
 
 getCacheId=function() {
-    "Returns the ID used by this connector in the disk cache."
+    ":\n\nGets the ID used by this connector in the disk cache.
+    \nReturned value: The cache ID of this connector.
+    "
 
     id <- NULL
 
@@ -440,10 +493,19 @@ getCacheId=function() {
 ################################################################################
 
 makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
-    'Test for each entry of this database in id parameter if it makes reference
-    to the entry oid from database db. If any is set to TRUE, will return a
-    single logical value: TRUE if any entry contains a reference to oid, FALSE
-    otherwise.'
+    ":\n\nTests if some entry of this database makes reference to another entry
+    of another database.
+    \nid: A character vector of entry IDs from the connector's database.
+    \ndb: Another database connector.
+    \noid: A entry ID from database db.
+    \nany: If set to TRUE, returns a single logical value: TRUE if any entry
+    contains a reference to oid, FALSE otherwise.
+    \nrecurse: If set to TRUE, the algorithm will follow all references to
+    entries from other databases, to see if it can establish an indirect link
+    to `oid`.
+    \nReturned value: A logical vector, the same size as `id`, with TRUE for
+    each entry making reference to `oid`, and FALSE otherwise.
+    "
 
     # Returns TRUE if any entry in id makes reference to oid
     if (any) {

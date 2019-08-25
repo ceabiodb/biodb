@@ -22,7 +22,15 @@ the representation `repr`.}
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
-\item{\code{getNbEntries(count = FALSE)}}{Get the number of entries contained in this database.}
+\item{\code{getNbEntries(count = FALSE)}}{:
+
+Get the number of entries contained in this database.
+    
+count: If set to TRUE and no straightforward way exists to get number of
+    entries, count the output of getEntryIds().
+    
+Returned value: The number of entries in the database, as an integer.
+    }
 
 \item{\code{wsChemicalIdentifierResolver(structid, repr, xml = FALSE,
   retfmt = c("plain", "parsed", "request", "ids"))}}{Calls Chemical Identifier Resolver web service. `structid` is the submitted

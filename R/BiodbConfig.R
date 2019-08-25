@@ -24,7 +24,7 @@
 #'
 #' # Get a configuration value:
 #' value <- config$get('cache.directory')
-#' 
+#'
 #' # Set a configuration value:
 #' config$set('cache.directory', '~/my.biodb.cache')
 #'
@@ -138,6 +138,10 @@ hasKey=function(key) {
 
 isDefined=function(key, fail=TRUE) {
     ":\n\nTest if a key is defined (i.e.: if a value exists for this key).
+    \nkey: The name of a configuration key.
+    \nfail: If set to TRUE and the configuration key does not exist, then an
+    error will be raised.
+    \nReturned value: TRUE if the key has a value, FALSE otherwise.
     "
 
     if (.self$.checkKey(key, fail=fail))
@@ -150,7 +154,12 @@ isDefined=function(key, fail=TRUE) {
 ################################################################################
 
 isEnabled=function(key) {
-    "Test if a boolean key is set to TRUE."
+    ":\n\nTest if a boolean key is set to TRUE. This method will raise an error
+    if the key is not a boolean key.
+    \nkey: The name of a configuration key.
+    \nReturned value: TRUE if the boolean key has a value set to TRUE, FALSE
+    otherwise.
+    "
 
     .self$.checkKey(key, type='logical')
 
@@ -167,7 +176,10 @@ isEnabled=function(key) {
 ################################################################################
 
 get=function(key) {
-    "Get the value of a key."
+    ":\n\nGet the value of a key.
+    \nkey: The name of a configuration key.
+    \nReturned value: The value associated with the key.
+    "
 
     .self$.checkKey(key)
 
@@ -184,16 +196,20 @@ get=function(key) {
 ################################################################################
 
 set=function(key, value) {
-    "Set the value of a key."
+    ":\n\nSet the value of a key.
+    \nkey: The name of a configuration key.
+    \nvalue: A value to associate with the key.
+    \nReturned value: None.
+    "
 
     .self$.checkKey(key)
-                                
+
     v <- as.vector(value, mode=.self$.getType(key))
     .self$.values[[key]] <- v
     displayed.value <- if (is.character(value)) paste0('"', value, '"')
                        else value
     .self$debug('info', "Set key ", key, ' to ', displayed.value, '.')
-    
+
     # Notify observers
     .self$notify('cfgKVUpdate', list(k=key, v=v))
 },
@@ -202,7 +218,10 @@ set=function(key, value) {
 ################################################################################
 
 enable=function(key) {
-    "Set a boolean key to TRUE."
+    ":\n\nSet a boolean key to TRUE.
+    \nkey: The name of a configuration key.
+    \nReturned value: None.
+    "
 
     .self$.checkKey(key, type='logical')
 
@@ -214,7 +233,10 @@ enable=function(key) {
 ################################################################################
 
 disable=function(key) {
-    "Set a boolean key to FALSE."
+    ":\n\nSet a boolean key to FALSE.
+    \nkey: The name of a configuration key.
+    \nReturned value: None.
+    "
 
     .self$.checkKey(key, type='logical')
 
@@ -226,7 +248,9 @@ disable=function(key) {
 ################################################################################
 
 show=function() {
-    "Print containt of this object in a human readable format."
+    ":\n\nPrint list of configuration keys and their values.
+    \nReturned value: None.
+    "
 
     cat("Biodb configuration instance.\n")
 
@@ -244,6 +268,10 @@ show=function() {
 ################################################################################
 
 listKeys=function() {
+    ":\n\nGet the full list of keys as a data frame.
+    \nReturned value: A data frame containing four columns: Key, Type, Default
+    value and Description.
+    "
 
     # Fields to extract
     field2title <- c(type="Type", default="Default value",
@@ -265,7 +293,11 @@ listKeys=function() {
 ################################################################################
 
 getAssocEnvVar=function(key) {
-    "Returns the environment variable associated with this configuration key."
+    ":\n\nReturns the environment variable associated with this configuration
+    key.
+    \nkey: The name of a configuration key.
+    \nReturned value: None.
+    "
 
     # Check key
     .self$.checkKey(key)

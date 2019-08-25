@@ -32,7 +32,7 @@ name: A character vector containing file names.
     
 ext: The extension of the files, without the dot ("html", "xml", etc).
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{deleteFiles(cache.id, subfolder, ext = NA_character_)}}{:
@@ -46,7 +46,7 @@ subfolder: A subfolder to use ("longterm" or "shortterm").
 ext: The extension of the files, without the dot ("html", "xml", etc).
     Only files having this extension will be deleted.
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{disable()}}{:
@@ -74,7 +74,7 @@ Erases the cache.
 subfolder: The subfolder to erase ("longterm" or "shortterm"). If
     unset, the whole cache will be erased.
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{fileExist(cache.id, subfolder, name, ext)}}{:
@@ -214,7 +214,7 @@ name: A character vector containing file names.
     
 ext: The extension of the files.
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{setMarker(cache.id, subfolder, name)}}{:
@@ -227,7 +227,7 @@ subfolder: A subfolder to use ("longterm" or "shortterm").
     
 name: A character vector containing marker names.
     
-Returned value: none.
+Returned value: None.
     }
 }}
 

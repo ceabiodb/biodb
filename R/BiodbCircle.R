@@ -100,7 +100,7 @@ getRadius=function() {
 
 draw=function() {
     ":\n\nDraw the circle on the current image.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     symbols(x=.self$.x, y=.self$.y,

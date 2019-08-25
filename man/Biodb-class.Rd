@@ -30,7 +30,7 @@ Adds new observers. Observers will be called each time an event occurs.
 observers: Either a \code{BiodbObserver} instance or a list of
     \code{BiodbObserver} instances.
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{collapseRows(x, sep = "|", cols = 1L)}}{:
@@ -57,7 +57,7 @@ Computes missing fields in entries, for those fields that are
     
 entries: A list of \code{BiodbEntry} instances.
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{convertEntryIdFieldToDbClass(entry.id.field)}}{:
@@ -79,7 +79,7 @@ conn.to: The connector of the destination database.
 limit: The number of entries of the source database to copy. If set to
     \code{NULL}, copy the whole database.
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{:
@@ -220,7 +220,7 @@ Loads databases and entry fields definitions from YAML file.
 file: The path to a YAML file containing definitions for \code{Biodb}
     (databases, fields or configuration keys).
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{saveEntriesAsJson(entries, files, compute = TRUE)}}{:
@@ -234,7 +234,7 @@ files: A list of file paths, the same length as entries list.
     
 compute: If set to \code{TRUE}, computable fields will be saved too.
     
-Returned value: none.
+Returned value: None.
     }
 
 \item{\code{terminate()}}{:
@@ -242,7 +242,7 @@ Returned value: none.
 Closes \code{Biodb} instance. Call this method when you are done with
     your \code{Biodb} instance.
     
-Returned value: none.
+Returned value: None.
     }
 }}
 

@@ -89,7 +89,7 @@ initialize=function() {
 terminate=function() {
     ":\n\nCloses \\code{Biodb} instance. Call this method when you are done with
     your \\code{Biodb} instance.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     .self$info('Closing Biodb instance...')
@@ -109,7 +109,7 @@ loadDefinitions=function(file) {
     ":\n\nLoads databases and entry fields definitions from YAML file.
     \nfile: The path to a YAML file containing definitions for \\code{Biodb}
     (databases, fields or configuration keys).
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     .self$debug('Load definitions from file "', file, '".')
@@ -211,7 +211,7 @@ addObservers=function(observers) {
     biodb code.
     \nobservers: Either a \\code{BiodbObserver} instance or a list of
     \\code{BiodbObserver} instances.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     # Check types of observers
@@ -496,7 +496,7 @@ computeFields=function(entries) {
     ":\n\nComputes missing fields in entries, for those fields that are
     comptable.
     \nentries: A list of \\code{BiodbEntry} instances.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     # Loop on all entries
@@ -513,7 +513,7 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
     \nentries: A list of \\code{BiodbEntry} instances.
     \nfiles: A list of file paths, the same length as entries list.
     \ncompute: If set to \\code{TRUE}, computable fields will be saved too.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     .self$.assertEqualLength(entries, files)
@@ -535,7 +535,7 @@ copyDb=function(conn.from, conn.to, limit=NULL) {
     \nconn.to: The connector of the destination database.
     \nlimit: The number of entries of the source database to copy. If set to
     \\code{NULL}, copy the whole database.
-    \nReturned value: none.
+    \nReturned value: None.
     "
 
     # Get all entry IDs of "from" database

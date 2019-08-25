@@ -17,27 +17,118 @@ of class \code{Biodb}.
 \item{\code{define(def)}}{Define config properties from a structured object, normally loaded from a
 YAML file.}
 
-\item{\code{disable(key)}}{Set a boolean key to FALSE.}
+\item{\code{disable(key)}}{:
 
-\item{\code{enable(key)}}{Set a boolean key to TRUE.}
+Set a boolean key to FALSE.
+    
+key: The name of a configuration key.
+    
+Returned value: None.
+    }
 
-\item{\code{get(key)}}{Get the value of a key.}
+\item{\code{enable(key)}}{:
 
-\item{\code{getAssocEnvVar(key)}}{Returns the environment variable associated with this configuration key.}
+Set a boolean key to TRUE.
+    
+key: The name of a configuration key.
+    
+Returned value: None.
+    }
 
-\item{\code{getDefaultValue(key)}}{Get the default value of a key.}
+\item{\code{get(key)}}{:
 
-\item{\code{getDescription(key)}}{Get the description of a key.}
+Get the value of a key.
+    
+key: The name of a configuration key.
+    
+Returned value: The value associated with the key.
+    }
 
-\item{\code{getKeys()}}{Get the list of available keys.}
+\item{\code{getAssocEnvVar(key)}}{:
 
-\item{\code{hasKey(key)}}{Test if a key exists.}
+Returns the environment variable associated with this configuration
+    key.
+    
+key: The name of a configuration key.
+    
+Returned value: None.
+    }
 
-\item{\code{isDefined(key, fail = TRUE)}}{Test if a key is defined.}
+\item{\code{getDefaultValue(key)}}{:
 
-\item{\code{isEnabled(key)}}{Test if a boolean key is set to TRUE.}
+Get the default value of a key.
+    
+key: The name of a configuration key.
+    
+Returned value: The default value for that key.
+    }
 
-\item{\code{set(key, value)}}{Set the value of a key.}
+\item{\code{getDescription(key)}}{:
+
+Get the description of a key.
+    
+key: The name of a configuration key.
+    
+Returned value: The description of the key as a character value.
+    }
+
+\item{\code{getKeys()}}{:
+
+Get the list of available keys.
+    
+Returned value: A character vector containing the config key names.
+    }
+
+\item{\code{hasKey(key)}}{:
+
+Test if a key exists.
+    
+key: The name of a configuration key.
+    
+Returned value: TRUE if a key with this name exists, FALSE otherwise.
+    }
+
+\item{\code{isDefined(key, fail = TRUE)}}{:
+
+Test if a key is defined (i.e.: if a value exists for this key).
+    
+key: The name of a configuration key.
+    
+fail: If set to TRUE and the configuration key does not exist, then an
+    error will be raised.
+    
+Returned value: TRUE if the key has a value, FALSE otherwise.
+    }
+
+\item{\code{isEnabled(key)}}{:
+
+Test if a boolean key is set to TRUE. This method will raise an error
+    if the key is not a boolean key.
+    
+key: The name of a configuration key.
+    
+Returned value: TRUE if the boolean key has a value set to TRUE, FALSE
+    otherwise.
+    }
+
+\item{\code{listKeys()}}{:
+
+Get the full list of keys as a data frame.
+    
+Returned value: A data frame containing four columns: Key, Type, Default
+    value and Description.
+    }
+
+\item{\code{set(key, value)}}{:
+
+Set the value of a key.
+    
+key: The name of a configuration key.
+    
+value: A value to associate with the key.
+    
+Returned value: None.
+    }
 }}
 
 \examples{

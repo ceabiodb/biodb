@@ -16,6 +16,17 @@ filter on specific entries using the ids parameter. The returned value is a
 data.frame with two columns : one for the ID 'id' and another one for the
 title 'title'.}
 
-\item{\code{getEntryContentFromDb(entry.id)}}{Get the content of an entry from the database.}
+\item{\code{getEntryContentFromDb(entry.id)}}{:
+
+Get the contents of entries directly from the database. A direct request or 
+    an access to the database will be made in order to retrieve the contents. No
+    access to the biodb cache system will be made.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A character vector, the same size of entry.id, with
+    contents of the requested entries. An NA value will be set for the content
+    of each entry for which the retrieval failed.
+    }
 }}
 
