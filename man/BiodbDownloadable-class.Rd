@@ -14,13 +14,35 @@ implemented by the database class.
 \section{Methods}{
 
 \describe{
-\item{\code{download()}}{Download the database containt locally.}
+\item{\code{download()}}{:
 
-\item{\code{getDownloadPath()}}{Get the path where the downloaded containt is written.}
+Downloads the database content locally.
+    
+Returned value: None.
+    }
 
-\item{\code{isDownloaded()}}{Returns TRUE if the database containt has already been downloaded.}
+\item{\code{getDownloadPath()}}{:
 
-\item{\code{isExtracted()}}{Returns TRUE of the downloaded database containt has been extracted.}
+Gets the path where the downloaded content is written.
+    
+Returned value: The path where the downloaded database is written.
+    }
+
+\item{\code{isDownloaded()}}{:
+
+Tests if the database has been downloaded.
+    
+Returned value: TRUE if the database content has already been downloaded.
+    }
+
+\item{\code{isExtracted()}}{:
+
+Tests if the downloaded database has been extracted (in case the
+    database needs extraction).
+    
+Returned value: TRUE if the downloaded database content has been
+    extracted, FALSE otherwise.
+    }
 }}
 
 \examples{

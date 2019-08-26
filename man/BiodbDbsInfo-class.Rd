@@ -5,9 +5,6 @@
 \alias{BiodbDbsInfo-class}
 \alias{BiodbDbsInfo}
 \title{A class for describing the available databases.}
-\arguments{
-\item{db.id}{A database ID, as a character string.}
-}
 \description{
 The unique instance of this class is handle by the \code{\link{Biodb}} class
 and accessed through the \code{getDbsInfo()} method.
@@ -15,21 +12,60 @@ and accessed through the \code{getDbsInfo()} method.
 \section{Methods}{
 
 \describe{
-\item{\code{checkIsDefined(db.id)}}{Throws an error if the specified id does not correspond to a defined
-database.}
+\item{\code{checkIsDefined(db.id)}}{:
 
-\item{\code{define(def)}}{Define databases from a structured object, normally loaded from a YAML
-file.}
+Checks if a database is defined. Throws an error if the specified id
+    does not correspond to a defined database.
+    
+db.id: A database ID, as a character string.
+    
+Returned value: None.
+    }
 
-\item{\code{get(db.id)}}{Returns the BiodbDbInfo instance corresponding to the specified database
-ID.}
+\item{\code{define(def)}}{:
 
-\item{\code{getAll()}}{Returns a list of all BiodbDbInfo instances.}
+Define databases from a structured object, normally loaded from a YAML
+    file.
+    
+def: A named list of database definitions. The names of the list will be 
+    the IDs of the databases.
+    
+Returned value: None.
+    }
 
-\item{\code{getIds()}}{Returns a character vector containing all the IDs of the defined
-databases.}
+\item{\code{get(db.id)}}{:
 
-\item{\code{isDefined(db.id)}}{Returns TRUE if the specified id corresponds to a defined database.}
+Gets information on a database.
+    
+db.id: A database ID, as a character string.
+    
+Returned value: The BiodbDbInfo instance corresponding to the specified
+    database ID.
+    }
+
+\item{\code{getAll()}}{:
+
+Gets informations on all databases.
+    
+Returned value: A list of all BiodbDbInfo instances.}
+
+\item{\code{getIds()}}{:
+
+Gets the database IDs.
+    
+Returned value: A character vector containing all the IDs of the defined
+    databases.
+    }
+
+\item{\code{isDefined(db.id)}}{:
+
+Tests if a database is defined.
+    
+db.id: A database ID, as a character string.
+    
+Returned value: TRUE if the specified id corresponds to a defined
+    database, FALSE otherwise.
+    }
 }}
 
 \examples{

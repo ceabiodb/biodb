@@ -16,27 +16,6 @@
 #' need to know this hierarchy; the knowledge of this class and its methods is
 #' sufficient.
 #'
-#' @param compute       If set to \code{TRUE} and a field is not defined, try to
-#' compute it using internal defined computing rules. If set to \code{FALSE},
-#' let the field undefined.
-#' @param content       A character string containing definition for an entry
-#' and obtained from a database. The format can be: CSV, HTML, JSON, XML, or
-#' just text.
-#' @param field         The nane of a field.
-#' @param fields        Set to character vector of field names in order to
-#' restrict execution to this set of fields.
-#' @param flatten       If set to \code{TRUE} and a field's value is a vector of
-#' more than one element, then export the field's value as a single string
-#' composed of the field's value concatenated and separated by the character
-#' defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the
-#' field contains only one value, changes nothing.
-#' @param last          If set to \code{TRUE} and a field's value is a vector of
-#' more than one element, then export only the last value. If set to
-#' \code{FALSE}, changes nothing.
-#' @param only.atomic   If set to \code{TRUE}, only export field's values that
-#' are atomic (i.e.: of type vector and length one).
-#' @param value         A field's value.
-#'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbConn}},
 #' \code{\link{BiodbEntryFields}}.
 #'
@@ -102,7 +81,10 @@ initialize=function(...) {
 ################################################################################
 
 parentIsAConnector=function() {
-    "Return TRUE if this entry belongs to a connector."
+    ":\n\nTests if the parent of this entry is a connector instance.
+    \nReturned value: TRUE if this entry belongs to a connector, FALSE
+    otherwise.
+    "
 
     return(is(.self$getParent(), "BiodbConn"))
 },
@@ -111,7 +93,13 @@ parentIsAConnector=function() {
 ################################################################################
 
 clone=function(db.class=NULL) {
-    "Clone this entry."
+    ":\n\nClones this entry.
+    \ndb.class: The database class (the Biodb database ID) of the clone. By
+    setting this parameter, you can specify a different database for the clone,
+    so you may clone a Massbank entry into a MassCsvFile entry if you wish. By
+    default the class of the clone will be the same as the original entry.
+    \nReturned value: The clone, as a new BiodbEntry instance.
+    "
 
     # Create new entry
     cl <- if (is.null(db.class)) .self$getDbClass() else db.class
@@ -127,7 +115,9 @@ clone=function(db.class=NULL) {
 ################################################################################
 
 getId=function() {
-    "Returns the entry ID, which is the value if the \"accession\" field."
+    ":\n\nGets the entry ID.
+    \nReturned value: the entry ID, which is the value if the `accession` field.
+    "
 
     return(.self$getFieldValue('accession'))
 },
@@ -136,7 +126,9 @@ getId=function() {
 ################################################################################
 
 isNew=function() {
-    "Return TRUE if this entry was newly created."
+    ":\n\nTests if this entry is new.
+    \nReturned value: TRUE if this entry was newly created, FALSE otherwise.
+    "
 
     return(.self$.new)
 },
@@ -145,7 +137,9 @@ isNew=function() {
 ################################################################################
 
 getDbClass=function() {
-    "Returns name of the database class associated with this entry."
+    ":\n\nGets the ID of the database associated with this entry.
+    \nReturned value: The name of the database class associated with this entry.
+    "
 
     # Get class name
     s <- class(.self)
@@ -174,9 +168,13 @@ getDbClass=function() {
 ################################################################################
 
 setFieldValue=function(field, value) {
-    "Set the value of a field. If the field is not already set for this entry,
-    then the field will be created. See BiodbEntryFields for a list of possible
-    fields in biodb."
+    ":\n\nSets the value of a field. If the field is not already set for this
+    entry, then the field will be created. See BiodbEntryFields for a list of
+    possible fields in biodb.
+    \nfield: The name of a field.
+    \nvalue: The value to set.
+    \nReturned value: None.
+    "
 
     field.def <- .self$getBiodb()$getEntryFields()$get(field)
     field <- field.def$getName()
@@ -231,9 +229,13 @@ setFieldValue=function(field, value) {
 ################################################################################
 
 appendFieldValue=function(field, value) {
-    "Append a value to an existing field. If the field is not defined for this
-    entry, then the field will be created and set to this value. Only fields
-    with a cardinality greater than one can accept multiple values."
+    ":\n\nAppends a value to an existing field. If the field is not defined for
+    this entry, then the field will be created and set to this value. Only
+    fields with a cardinality greater than one can accept multiple values.
+    \nfield: The name of a field.
+    \nvalue: The value to append.
+    \nReturned value: None.
+    "
 
     if (.self$hasField(field))
         .self$setFieldValue(field, c(.self$getFieldValue(field), value))
@@ -245,7 +247,10 @@ appendFieldValue=function(field, value) {
 ################################################################################
 
 getFieldNames=function() {
-    "Get a list of all fields defined for this entry."
+    ":\n\nGets a list of all fields defined for this entry.
+    \nReturned value: A character vector containing all field names defined in
+    this entry.
+    "
 
     return(sort(names(.self$.fields)))
 },
@@ -254,7 +259,11 @@ getFieldNames=function() {
 ################################################################################
 
 hasField=function(field) {
-    "Returns TRUE if the specified field is defined in this entry."
+    ":\n\nTests if a field is defined in this entry.
+    \nfield: The name of a field.
+    \nReturned value: TRUE if the specified field is defined in this entry,
+    FALSE otherwise.
+    "
 
     # Get field definition
     field.def <- .self$getBiodb()$getEntryFields()$get(field)
@@ -267,7 +276,10 @@ hasField=function(field) {
 ################################################################################
 
 removeField=function(field) {
-    "Remove the specified field from this entry."
+    ":\n\nRemoves the specified field from this entry.
+    \nfield: The name of a field.
+    \nReturned value: None.
+    "
 
     if (.self$hasField(field))
         .self$.fields <- .self$.fields[names(.self$.fields) != tolower(field)]
@@ -277,7 +289,20 @@ removeField=function(field) {
 ################################################################################
 
 getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE) {
-    "Get the value of the specified field."
+    ":\n\nGets the value of the specified field.
+    \nfield: The name of a field.
+    \ncompute: If set to TRUE and a field is not defined, try to compute it
+    using internal defined computing rules. If set to FALSE, let the field
+    undefined.
+    \nflatten: If set to TRUE and a field's value is a vector of more than one
+    element, then export the field's value as a single string composed of the
+    field's value concatenated and separated by the character defined in the
+    'multival.field.sep' config key. If set to FALSE or the field contains only
+    one value, changes nothing.
+    \nlast: If set to TRUE and a field's value is a vector of more than one
+    element, then export only the last value. If set to FALSE, changes nothing.
+    \nReturned value: The value of the field.
+    "
 
     val <- NULL
     field <- tolower(field)
@@ -322,7 +347,23 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE) {
 
 getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
                               flatten=TRUE, only.card.one=FALSE) {
-    "Convert this entry into a data frame."
+    ":\n\nConverts this entry into a data frame.
+    \nonly.atomic: If set to TRUE, only export field's values that are atomic
+    (i.e.: of type vector and length one).
+    \ncompute: If set to TRUE and a field is not defined, try to compute it
+    using internal defined computing rules. If set to FALSE, let the field
+    undefined.
+    \nfields: Set to character vector of field names in order to restrict
+    execution to this set of fields.
+    \nflatten: If set to TRUE and a field's value is a vector of more than one
+    element, then export the field's value as a single string composed of the
+    field's value concatenated and separated by the character defined in the
+    'multival.field.sep' config key. If set to FALSE or the field contains only
+    one value, changes nothing.
+    \nonly.card.one: If set to TRUE, only fields with a cardinality of one will
+    be extracted.
+    \nReturned value: A data frame containg the values of the fields.
+    "
 
     df <- data.frame(stringsAsFactors=FALSE)
     if ( ! is.null(fields))
@@ -369,7 +410,12 @@ getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
 ################################################################################
 
 getFieldsAsJson=function(compute=TRUE) {
-    "Convert entry into a JSON string."
+    ":\n\nConverts this entry into a JSON string.
+    \ncompute: If set to TRUE and a field is not defined, try to compute it
+    using internal defined computing rules. If set to FALSE, let the field
+    undefined.
+    \nReturned value: A JSON object from jsonlite package.
+    "
 
     # Compute fields
     if (compute)
@@ -382,8 +428,14 @@ getFieldsAsJson=function(compute=TRUE) {
 ################################################################################
 
 parseContent=function(content) {
-    "Parse content string and set values accordingly for this entry's fields.
-    This method is called automatically and should be run directly by users."
+    ":\n\nParses content string and set values accordingly for this entry's
+    fields.  This method is called automatically and should be run directly by
+    users.
+    \ncontent: A character string containing definition for an entry and
+    obtained from a database. The format can be: CSV, HTML, JSON, XML, or just
+    text.
+    \nReturned value: None.
+    "
 
     # No connector?
     if ( ! .self$parentIsAConnector())
@@ -427,6 +479,12 @@ parseContent=function(content) {
 ################################################################################
 
 computeFields=function(fields=NULL) {
+    ":\n\nComputes fields. Look at all missing fields, and try to compute them
+    using references to other databases, if a rule exists.
+    \nfields: A list of fields to review for computing. By default all fields
+    will be reviewed.
+    \nReturned value: None.
+    "
 
     success <- FALSE
     ef <- .self$getBiodb()$getEntryFields()
@@ -485,7 +543,9 @@ computeFields=function(fields=NULL) {
 ################################################################################
 
 show=function() {
-    "Display short information about an instance."
+    ":\n\nDisplays short information about this instance.
+    \nReturned value: None.
+    "
 
     db <- .self$getParent()$getName()
     id <- .self$getFieldValue('accession', compute=FALSE)
@@ -497,7 +557,10 @@ show=function() {
 ################################################################################
 
 getName=function() {
-    "Get a short text describing the entry instance."
+    ":\n\nGets a short text describing this entry instance.
+    \nReturned value: A character value concatenating the connector name with
+    the entry accession.
+    "
 
     name <- paste(.self$getParent()$getName(), .self$getFieldValue('accession'))
 
@@ -508,8 +571,15 @@ getName=function() {
 ################################################################################
 
 makesRefToEntry=function(db, oid, recurse=FALSE) {
-    'Returns TRUE if this entry makes reference to the entry oid from database
-    db.'
+    ":\n\nTests if this entry makes reference to another entry.
+    \ndb: Another database connector.
+    \noid: A entry ID from database db.
+    \nrecurse: If set to TRUE, the algorithm will follow all references to
+    entries from other databases, to see if it can establish an indirect link
+    to `oid`.
+    \nReturned value: TRUE if this entry makes reference to the entry oid from database
+    db, FALSE otherwise.
+    "
     
     makes_ref <- FALSE
     field <- paste(db, 'id', sep='.')

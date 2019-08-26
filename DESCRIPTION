@@ -1,7 +1,8 @@
 Package: biodb
 Title: Biodb, a Library for Connecting to Chemical and Biological Databases
 Version: 0.99.0
-Authors@R: person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre"))
+Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre")),
+             person("Alexis", "Delabrière", email = "delabriere@imsb.biol.ethz.ch", role = "ctb"))
 Description: The biodb library provides a way to connect to several chemical and
     biological databases, and retrieve entries easily.
 biocViews: Software, Infrastructure, DataImport

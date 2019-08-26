@@ -5,9 +5,6 @@
 \alias{BiodbEditable-class}
 \alias{BiodbEditable}
 \title{An interface to model an editable database.}
-\arguments{
-\item{entry}{An entry instance.}
-}
 \description{
 A database class that implements this interface allows the addition of new
 entries, the removal of entries and the modification of entries. If you want
@@ -18,17 +15,47 @@ on the connector.
 \section{Methods}{
 
 \describe{
-\item{\code{addNewEntry(entry)}}{Add a new entry to the database. The passed entry must have been previously
-created from scratch using BiodbFactory::createNewEntry() or cloned from an
-existing entry using BiodbEntry::clone().}
+\item{\code{addNewEntry(entry)}}{:
 
-\item{\code{allowEditing()}}{Allow editing for this database.}
+Adds a new entry to the database. The passed entry must have been
+    previously created from scratch using BiodbFactory::createNewEntry() or
+    cloned from an existing entry using BiodbEntry::clone().
+    
+entry: The new entry to add. It must be a valid BiodbEntry object.
+    
+Returned value: None.
+    }
 
-\item{\code{disallowEditing()}}{Disallow editing for this database.}
+\item{\code{allowEditing()}}{:
 
-\item{\code{editingIsAllowed()}}{Returns TRUE if editing is allowed for this database.}
+Allows editing for this database.
+    
+Returned value: None.
+    }
 
-\item{\code{setEditingAllowed(allow)}}{Allow or disallow editing for this database.}
+\item{\code{disallowEditing()}}{:
+
+Disallows editing for this database.
+    
+Returned value: None.
+    }
+
+\item{\code{editingIsAllowed()}}{:
+
+Tests if editing is allowed.
+    
+Returned value: TRUE if editing is allowed for this database, FALSE
+    otherwise.
+    }
+
+\item{\code{setEditingAllowed(allow)}}{:
+
+Allow or disallow editing for this database.
+    
+allow: A logical value.
+    
+Returned value: None.
+    }
 }}
 
 \examples{

@@ -10,16 +10,36 @@
 #' constructor is not meant to be used, but for development purposes the
 #' constructor's parameters are nevertheless described in the Fields section.
 #'
-#' @field name              The name of the field.
-#' @field alias             A character vector containing zero or more aliases
-#' for the field.
-#' @field class             The class of the field. One of: 'character',
-#' 'integer', 'double', 'logical', 'object', 'data.frame'.
-#' @field card              The cardinality of the field: either '1' or '*'.
-#' @field allow.duplicates  If set to \code{TRUE}, the field allows duplicated
-#' values.
-#' @field description       The description of the field.
-#' @field allowed.values    The values authorized for the field.
+#' The constructor accepts the following arguments:
+#'
+#' name: The name of the field.
+#'
+#' alias: A character vector containing zero or more aliases for the field.
+#'
+#' type: A type describing the field. One of: "mass", "name" or "id". Optional.
+#'
+#' group: The group of the field. For now only one group exists: "peak".
+#' Optional.
+#'
+#' class: The class of the field. One of: "character", "integer", "double",
+#' "logical", "object", "data.frame".
+#'
+#' card: The cardinality of the field: either "1" or "*".
+#'
+#' forbids.duplicates: If set to TRUE, the field forbids duplicated values.
+#'
+#' description: A description of the field.
+#'
+#' allowed.values: The values authorized for the field.
+#'
+#' lower.case: Set to TRUE if you want all values set to the field to be forced
+#' to lower case.
+#'
+#' case.insensitive: Set to TRUE of you want the field to ignore case when
+#' checking a value.
+#'
+#' computable.from: The Biodb ID of a database, from which this field can be
+#' computed.
 #'
 #' @seealso \code{\link{BiodbEntryFields}}.
 #'
@@ -155,7 +175,9 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 ################################################################################
 
 getName=function() {
-    " Get field's name."
+    ":\n\nGets the name.
+    \nReturned value: The name of this field.
+    "
 
     return(.self$.name)
 },
@@ -164,7 +186,9 @@ getName=function() {
 ################################################################################
 
 getType=function() {
-    " Get field's type."
+    ":\n\nGets field's type.
+    \nReturned value: The type of this field.
+    "
 
     return(.self$.type)
 },
@@ -173,7 +197,9 @@ getType=function() {
 ################################################################################
 
 getGroup=function() {
-    " Get field's group."
+    ":\n\nGet field's group.
+    \nReturned value: The group of this field.
+    "
 
     return(.self$.group)
 },
@@ -182,7 +208,9 @@ getGroup=function() {
 ################################################################################
 
 getDescription=function() {
-    " Get field's description."
+    ":\n\nGet field's description.
+    \nReturned value: The description of this field.
+    "
 
     return(.self$.description)
 },
@@ -191,7 +219,9 @@ getDescription=function() {
 ################################################################################
 
 hasAliases=function() {
-    " Returns TRUE if this entry field defines aliases."
+    ":\n\nTests if this field has aliases.
+    \nReturned value: TRUE if this entry field defines aliases, FALSE otherwise.
+    "
 
     return( ! any(is.na(.self$.alias)))
 },
@@ -200,7 +230,9 @@ hasAliases=function() {
 ################################################################################
 
 getAliases=function() {
-    " Returns the list of aliases if some are defined, otherwise returns NULL."
+    ":\n\nGet aliases.
+    \nReturned value: The list of aliases if some are defined, otherwise returns
+    NULL."
 
     aliases <- NULL
 
@@ -214,7 +246,9 @@ getAliases=function() {
 ################################################################################
 
 getAllNames=function() {
-    " Returns the list of all names (main name and aliases)."
+    ":\n\nGets all names.
+    \nReturned value: The list of all names (main name and aliases).
+    "
 
     aliases <- .self$getAliases()
     names <- .self$getName()
@@ -228,7 +262,9 @@ getAllNames=function() {
 ################################################################################
 
 getComputableFrom=function() {
-    " Returns the list of databases where to find this field's value."
+    ":\n\nGet the ID of the database from which this field can be computed.
+    \nReturned value: The list of databases where to find this field's value.
+    "
 
     return(.self$.computable.from)
 },
@@ -237,6 +273,10 @@ getComputableFrom=function() {
 ################################################################################
 
 correctValue=function(value) {
+    ":\n\nCorrects a value so it is compatible with this field.
+    \nvalue: A value.
+    \nReturned value: The corrected value.
+    "
 
     if (.self$isVector() && ! is.null(value) && ! (length(value) == 1
                                                    && is.na(value))) {
@@ -269,6 +309,12 @@ correctValue=function(value) {
 ################################################################################
 
 isEnumerate=function() {
+    ":\n\nTests if this field is an enumerate type (i.e.: it defines allowed
+    values).
+    \nReturned value: TRUE if this field defines some allowed values, FALSE
+    otherwise.
+    "
+    
     return( ! is.null(.self$.allowed.values))
 },
 
@@ -276,6 +322,11 @@ isEnumerate=function() {
 ################################################################################
 
 getAllowedValues=function(value=NULL) {
+    ":\n\nGets allowed values.
+    \nvalue: If this parameter is set to particular allowed values, then the
+    method returns a list of synonyms for this value (if any).
+    \nReturned value: A character vector containing all allowed values.
+    "
 
     values <- NULL
     if ( ! is.null(.self$.allowed.values)) {
@@ -317,6 +368,13 @@ getAllowedValues=function(value=NULL) {
 ################################################################################
 
 addAllowedValue=function(key, value) {
+    ":\n\nAdds an allowed value, as a synonym to already an existing value. Note
+    that not all enumerate fields accept synonyms.
+    \nkey: The key associated with the value (i.e.: the key is the main name of
+    an allowed value).
+    \nvalue: The new value to add.
+    \nReturned value: None.
+    "
 
     key <- tolower(key)
     if (.self$.lower.case)
@@ -350,6 +408,10 @@ addAllowedValue=function(key, value) {
 ################################################################################
 
 checkValue=function(value) {
+    ":\n\nChecks if a value is correct. Fails if `value` is incorrect.
+    \nvalue: The value to check.
+    \nReturned value: None.
+    "
 
     if (.self$.lower.case)
         value <- tolower(value)
@@ -367,7 +429,10 @@ checkValue=function(value) {
 ################################################################################
 
 hasCardOne=function() {
-    " Returns \\code{TRUE} if the cardinality of this field is one."
+    ":\n\nTests if this field has a cardinality of one.
+    \nReturned value: TRUE if the cardinality of this field is one, FALSE
+    otherwise.
+    "
 
     return(.self$.cardinality == 'one')
 },

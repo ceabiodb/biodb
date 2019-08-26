@@ -11,8 +11,6 @@
 #' (see interface \code{BiodbWritable}), you must call the method \code{write}
 #' on the connector.
 #'
-#' @param entry An entry instance.
-#'
 #' @seealso \code{\link{BiodbWritable}}.
 #'
 #' @examples
@@ -68,7 +66,10 @@ initialize=function(...) {
 ################################################################################
 
 editingIsAllowed=function() {
-    "Returns TRUE if editing is allowed for this database."
+    ":\n\nTests if editing is allowed.
+    \nReturned value: TRUE if editing is allowed for this database, FALSE
+    otherwise.
+    "
     
     .self$.initEditable()
 
@@ -79,7 +80,9 @@ editingIsAllowed=function() {
 ################################################################################
 
 allowEditing=function() {
-    "Allow editing for this database."
+    ":\n\nAllows editing for this database.
+    \nReturned value: None.
+    "
 
     .self$setEditingAllowed(TRUE)
 },
@@ -88,7 +91,9 @@ allowEditing=function() {
 ################################################################################
 
 disallowEditing=function() {
-    "Disallow editing for this database."
+    ":\n\nDisallows editing for this database.
+    \nReturned value: None.
+    "
     
     .self$setEditingAllowed(FALSE)
 },
@@ -97,7 +102,10 @@ disallowEditing=function() {
 ################################################################################
 
 setEditingAllowed=function(allow) {
-    "Allow or disallow editing for this database."
+    ":\n\nAllow or disallow editing for this database.
+    \nallow: A logical value.
+    \nReturned value: None.
+    "
     
     .self$.assertIs(allow, 'logical')
     .self$.editing.allowed <- allow
@@ -107,9 +115,12 @@ setEditingAllowed=function(allow) {
 ################################################################################
 
 addNewEntry=function(entry) {
-    "Add a new entry to the database. The passed entry must have been previously
-    created from scratch using BiodbFactory::createNewEntry() or cloned from an
-    existing entry using BiodbEntry::clone()."
+    ":\n\nAdds a new entry to the database. The passed entry must have been
+    previously created from scratch using BiodbFactory::createNewEntry() or
+    cloned from an existing entry using BiodbEntry::clone().
+    \nentry: The new entry to add. It must be a valid BiodbEntry object.
+    \nReturned value: None.
+    "
 
     .self$.checkEditingIsAllowed()
 

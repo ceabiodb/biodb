@@ -5,35 +5,6 @@
 \alias{BiodbEntry-class}
 \alias{BiodbEntry}
 \title{The mother abstract class of all database entry classes.}
-\arguments{
-\item{compute}{If set to \code{TRUE} and a field is not defined, try to
-compute it using internal defined computing rules. If set to \code{FALSE},
-let the field undefined.}
-
-\item{content}{A character string containing definition for an entry
-and obtained from a database. The format can be: CSV, HTML, JSON, XML, or
-just text.}
-
-\item{field}{The nane of a field.}
-
-\item{fields}{Set to character vector of field names in order to
-restrict execution to this set of fields.}
-
-\item{flatten}{If set to \code{TRUE} and a field's value is a vector of
-more than one element, then export the field's value as a single string
-composed of the field's value concatenated and separated by the character
-defined in the 'multival.field.sep' config key. If set to \code{FALSE} or the
-field contains only one value, changes nothing.}
-
-\item{last}{If set to \code{TRUE} and a field's value is a vector of
-more than one element, then export only the last value. If set to
-\code{FALSE}, changes nothing.}
-
-\item{only.atomic}{If set to \code{TRUE}, only export field's values that
-are atomic (i.e.: of type vector and length one).}
-
-\item{value}{A field's value.}
-}
 \description{
 An entry is an element of a database, identifiable by its accession number.
 Each contains a list of fields defined by a name and a value. The details of
@@ -49,44 +20,207 @@ sufficient.
 \section{Methods}{
 
 \describe{
-\item{\code{appendFieldValue(field, value)}}{Append a value to an existing field. If the field is not defined for this
-entry, then the field will be created and set to this value. Only fields
-with a cardinality greater than one can accept multiple values.}
+\item{\code{appendFieldValue(field, value)}}{:
 
-\item{\code{clone(db.class = NULL)}}{Clone this entry.}
+Appends a value to an existing field. If the field is not defined for
+    this entry, then the field will be created and set to this value. Only
+    fields with a cardinality greater than one can accept multiple values.
+    
+field: The name of a field.
+    
+value: The value to append.
+    
+Returned value: None.
+    }
 
-\item{\code{getDbClass()}}{Returns name of the database class associated with this entry.}
+\item{\code{clone(db.class = NULL)}}{:
 
-\item{\code{getFieldNames()}}{Get a list of all fields defined for this entry.}
+Clones this entry.
+    
+db.class: The database class (the Biodb database ID) of the clone. By
+    setting this parameter, you can specify a different database for the clone,
+    so you may clone a Massbank entry into a MassCsvFile entry if you wish. By
+    default the class of the clone will be the same as the original entry.
+    
+Returned value: The clone, as a new BiodbEntry instance.
+    }
+
+\item{\code{computeFields(fields = NULL)}}{:
+
+Computes fields. Look at all missing fields, and try to compute them
+    using references to other databases, if a rule exists.
+    
+fields: A list of fields to review for computing. By default all fields
+    will be reviewed.
+    
+Returned value: None.
+    }
+
+\item{\code{getDbClass()}}{:
+
+Gets the ID of the database associated with this entry.
+    
+Returned value: The name of the database class associated with this entry.
+    }
+
+\item{\code{getFieldNames()}}{:
+
+Gets a list of all fields defined for this entry.
+    
+Returned value: A character vector containing all field names defined in
+    this entry.
+    }
 
 \item{\code{getFieldsAsDataFrame(only.atomic = TRUE, compute = TRUE, fields = NULL,
-  flatten = TRUE, only.card.one = FALSE)}}{Convert this entry into a data frame.}
+  flatten = TRUE, only.card.one = FALSE)}}{:
 
-\item{\code{getFieldsAsJson(compute = TRUE)}}{Convert entry into a JSON string.}
+Converts this entry into a data frame.
+    
+only.atomic: If set to TRUE, only export field's values that are atomic
+    (i.e.: of type vector and length one).
+    
+compute: If set to TRUE and a field is not defined, try to compute it
+    using internal defined computing rules. If set to FALSE, let the field
+    undefined.
+    
+fields: Set to character vector of field names in order to restrict
+    execution to this set of fields.
+    
+flatten: If set to TRUE and a field's value is a vector of more than one
+    element, then export the field's value as a single string composed of the
+    field's value concatenated and separated by the character defined in the
+    'multival.field.sep' config key. If set to FALSE or the field contains only
+    one value, changes nothing.
+    
+only.card.one: If set to TRUE, only fields with a cardinality of one will
+    be extracted.
+    
+Returned value: A data frame containg the values of the fields.
+    }
 
-\item{\code{getFieldValue(field, compute = TRUE, flatten = FALSE, last = FALSE)}}{Get the value of the specified field.}
+\item{\code{getFieldsAsJson(compute = TRUE)}}{:
 
-\item{\code{getId()}}{Returns the entry ID, which is the value if the "accession" field.}
+Converts this entry into a JSON string.
+    
+compute: If set to TRUE and a field is not defined, try to compute it
+    using internal defined computing rules. If set to FALSE, let the field
+    undefined.
+    
+Returned value: A JSON object from jsonlite package.
+    }
 
-\item{\code{getName()}}{Get a short text describing the entry instance.}
+\item{\code{getFieldValue(field, compute = TRUE, flatten = FALSE, last = FALSE)}}{:
 
-\item{\code{hasField(field)}}{Returns TRUE if the specified field is defined in this entry.}
+Gets the value of the specified field.
+    
+field: The name of a field.
+    
+compute: If set to TRUE and a field is not defined, try to compute it
+    using internal defined computing rules. If set to FALSE, let the field
+    undefined.
+    
+flatten: If set to TRUE and a field's value is a vector of more than one
+    element, then export the field's value as a single string composed of the
+    field's value concatenated and separated by the character defined in the
+    'multival.field.sep' config key. If set to FALSE or the field contains only
+    one value, changes nothing.
+    
+last: If set to TRUE and a field's value is a vector of more than one
+    element, then export only the last value. If set to FALSE, changes nothing.
+    
+Returned value: The value of the field.
+    }
 
-\item{\code{isNew()}}{Return TRUE if this entry was newly created.}
+\item{\code{getId()}}{:
 
-\item{\code{makesRefToEntry(db, oid, recurse = FALSE)}}{Returns TRUE if this entry makes reference to the entry oid from database
-db.}
+Gets the entry ID.
+    
+Returned value: the entry ID, which is the value if the `accession` field.
+    }
 
-\item{\code{parentIsAConnector()}}{Return TRUE if this entry belongs to a connector.}
+\item{\code{getName()}}{:
 
-\item{\code{parseContent(content)}}{Parse content string and set values accordingly for this entry's fields.
-This method is called automatically and should be run directly by users.}
+Gets a short text describing this entry instance.
+    
+Returned value: A character value concatenating the connector name with
+    the entry accession.
+    }
 
-\item{\code{removeField(field)}}{Remove the specified field from this entry.}
+\item{\code{hasField(field)}}{:
 
-\item{\code{setFieldValue(field, value)}}{Set the value of a field. If the field is not already set for this entry,
-then the field will be created. See BiodbEntryFields for a list of possible
-fields in biodb.}
+Tests if a field is defined in this entry.
+    
+field: The name of a field.
+    
+Returned value: TRUE if the specified field is defined in this entry,
+    FALSE otherwise.
+    }
+
+\item{\code{isNew()}}{:
+
+Tests if this entry is new.
+    
+Returned value: TRUE if this entry was newly created, FALSE otherwise.
+    }
+
+\item{\code{makesRefToEntry(db, oid, recurse = FALSE)}}{:
+
+Tests if this entry makes reference to another entry.
+    
+db: Another database connector.
+    
+oid: A entry ID from database db.
+    
+recurse: If set to TRUE, the algorithm will follow all references to
+    entries from other databases, to see if it can establish an indirect link
+    to `oid`.
+    
+Returned value: TRUE if this entry makes reference to the entry oid from database
+    db, FALSE otherwise.
+    }
+
+\item{\code{parentIsAConnector()}}{:
+
+Tests if the parent of this entry is a connector instance.
+    
+Returned value: TRUE if this entry belongs to a connector, FALSE
+    otherwise.
+    }
+
+\item{\code{parseContent(content)}}{:
+
+Parses content string and set values accordingly for this entry's
+    fields.  This method is called automatically and should be run directly by
+    users.
+    
+content: A character string containing definition for an entry and
+    obtained from a database. The format can be: CSV, HTML, JSON, XML, or just
+    text.
+    
+Returned value: None.
+    }
+
+\item{\code{removeField(field)}}{:
+
+Removes the specified field from this entry.
+    
+field: The name of a field.
+    
+Returned value: None.
+    }
+
+\item{\code{setFieldValue(field, value)}}{:
+
+Sets the value of a field. If the field is not already set for this
+    entry, then the field will be created. See BiodbEntryFields for a list of
+    possible fields in biodb.
+    
+field: The name of a field.
+    
+value: The value to set.
+    
+Returned value: None.
+    }
 }}
 
 \examples{
