@@ -441,7 +441,10 @@ hasCardOne=function() {
 ################################################################################
 
 hasCardMany=function() {
-    " Returns \\code{TRUE} if the cardinality of this field is many."
+    ":\n\nTests if this field has a cardinality greater than one.
+    \nReturned value: TRUE if the cardinality of this field is many, FALSE
+    otherwise.
+    "
 
     return(.self$.cardinality == 'many')
 },
@@ -450,7 +453,10 @@ hasCardMany=function() {
 ################################################################################
 
 forbidsDuplicates=function() {
-    " Returns \\code{TRUE} if this field forbids duplicated values."
+    ":\n\nTests if this field forbids duplicates.
+    \nReturned value: TRUE if this field forbids duplicated values, FALSE
+    otherwise.
+    "
 
     return(.self$.forbids.duplicates)
 },
@@ -459,7 +465,9 @@ forbidsDuplicates=function() {
 ################################################################################
 
 isCaseInsensitive=function() {
-    " Returns \\code{TRUE} if this field is case insensitive."
+    ":\n\nTests if this field is case sensitive.
+    \nReturned value: TRUE if this field is case insensitive, FALSE otherwise.
+    "
 
     return(.self$.case.insensitive)
 },
@@ -468,7 +476,9 @@ isCaseInsensitive=function() {
 ################################################################################
 
 getClass=function() {
-    " Returns the type (i.e.: class) of this field."
+    ":\n\nGets the class of this field's value.
+    \nReturned value: The type (i.e.: class) of this field.
+    "
 
     return(.self$.class)
 },
@@ -477,7 +487,9 @@ getClass=function() {
 ################################################################################
 
 isObject=function() {
-    " Returns \\code{TRUE} if field's type is a class."
+    ":\n\nTests if this field's type is a class.
+    \nReturned value: TRUE if field's type is a class, FALSE otherwise.
+    "
 
     return(.self$.class == 'object')
 },
@@ -486,7 +498,8 @@ isObject=function() {
 ################################################################################
 
 isDataFrame=function() {
-    " Returns \\code{TRUE} if field's type is data frame."
+    ":\n\nTests if this field's type is `data.frame`.
+    \nReturned value: TRUE if field's type is data frame, FALSE otherwise."
 
     return(.self$.class == 'data.frame')
 },
@@ -495,8 +508,11 @@ isDataFrame=function() {
 ################################################################################
 
 isVector=function() {
-    "Returns \\code{TRUE} if the field's type is vector (i.e.: character,
-    integer, double or logical)."
+    ":\n\nTests if this field's type is a basic vector type.
+    \nReturned value: TRUE if the field's type is vector (i.e.: character,
+    integer, double or logical), FALSE otherwise.
+    "
+
     return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
 },
 
@@ -504,6 +520,10 @@ isVector=function() {
 ################################################################################
 
 show=function() {
+    ":\n\nPrint informations about this entry.
+    \nReturned value: None.
+    "
+
     cat("Entry field \"", .self$.name, "\".\n", sep='')
 },
 

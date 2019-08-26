@@ -60,7 +60,7 @@ BiodbFactory <- methods::setRefClass("BiodbFactory",
 # Public methods {{{2
 ################################################################################
 
-methods=list(                                     
+methods=list(
 
 # Initialize {{{3
 ################################################################################

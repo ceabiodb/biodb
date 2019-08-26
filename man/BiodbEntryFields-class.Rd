@@ -5,9 +5,6 @@
 \alias{BiodbEntryFields-class}
 \alias{BiodbEntryFields}
 \title{A class for handling description of all entry fields.}
-\arguments{
-\item{database}{The name of a database.}
-}
 \description{
 The unique instance of this class is handle by the \code{\link{Biodb}} class
 and accessed through the \code{getEntryFields()} method.
@@ -15,36 +12,84 @@ and accessed through the \code{getEntryFields()} method.
 \section{Methods}{
 
 \describe{
-\item{\code{checkIsDefined(name)}}{Throws an error if any name does not correspond to a defined field.
-    
-name: A character vector of names or aliases to test.}
+\item{\code{checkIsDefined(name)}}{:
 
-\item{\code{get(name)}}{Returns the BiodbEntryField instance associated with name.}
-
-\item{\code{getDatabaseIdField(database)}}{Returns the name of the field handling identifiers (i.e.: accession
-numbers) for this database.}
-
-\item{\code{getFieldNames(type = NULL)}}{Returns the main names of all fields.
-    
-type: If set, returns only the field names corresponding to this type.}
-
-\item{\code{getRealName(name)}}{If name is an alias, returns the main name of the field. If name is not
-found neither in aliases nor in real names, an error is thrown.}
-
-\item{\code{isAlias(name)}}{Returns TRUE if name is an alias of a field.
+Tests if names are valid defined fields. Throws an error if any name
+    does not correspond to a defined field.
     
 name: A character vector of names or aliases to test.
     
-Returned value: A logical vector.}
+Returned value: None.
+    }
 
-\item{\code{isDefined(name)}}{Returns TRUE if name corresponds to a defined field.
+\item{\code{define(def)}}{:
+
+Defines fields.
+    
+def: A named list of field definitions. The names of the list are the
+    main names of the fields.
+    
+Returned value: None.
+    }
+
+\item{\code{get(name)}}{:
+
+Gets a BiodbEntryField instance.
+    
+name: A character vector of names or aliases.
+    
+Returned value: The BiodbEntryField instance associated with `name`.
+    }
+
+\item{\code{getDatabaseIdField(database)}}{:
+
+Gets a database ID field.
+    
+database: The name (i.e.: Biodb ID) of a database.
+    
+Returned value: The name of the field handling identifiers (i.e.:
+    accession numbers) for this database.
+    }
+
+\item{\code{getFieldNames(type = NULL)}}{:
+
+Gets the main names of all fields.
+    
+type: If set, returns only the field names corresponding to this type.
+    
+Returned value: A character vector containing all field names.
+    }
+
+\item{\code{getRealName(name)}}{:
+
+Gets the real names (main names) of fields. If some name is not
+    found neither in aliases nor in real names, an error is thrown.
+    
+name: A character vector of names or aliases.
+    
+Returned value: A character vector, the same length as `name`, with the
+    real field name for each name given (i.e.: each alias is replaced with the
+    real name).
+    }
+
+\item{\code{isAlias(name)}}{:
+
+Tests if names are aliases.
     
 name: A character vector of names or aliases to test.
     
-Returned value: A logical vector.}
+Returned value: A logical vector, the same length as `name`, with TRUE
+    for name values that are an alias of a field, and FALSE otherwise.}
 
-\item{\code{loadFieldsFile(file)}}{Load entry fields information file, and defines the new fields.
-The parameter file must point to a valid YAML file.}
+\item{\code{isDefined(name)}}{:
+
+Tests if names are defined fields.
+    
+name: A character vector of names or aliases to test.
+    
+Returned value: A logical vector, the same length as `name`, with TRUE
+    for name values that corresponds to a defined field.
+    }
 }}
 
 \examples{
