@@ -44,7 +44,7 @@
 BiodbRemotedbConn <- methods::setRefClass("BiodbRemotedbConn",
     contains="BiodbConn",
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(

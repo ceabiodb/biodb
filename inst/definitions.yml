@@ -910,6 +910,9 @@ fields:
     description: Location of the amino acids sequence.
   ec:
     description: Enzyme Commission number. See https://en.wikipedia.org/wiki/Enzyme_Commission_number.
+    case.insensitive: true
+    forbids.duplicates: true
+    card: many
   gene.symbol:
     alias:
     - gene.symbols
