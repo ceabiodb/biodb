@@ -589,7 +589,7 @@ databases:
         attr: id
         path: //uniprot:dbReference[@type='EC']
       gene.symbols: //uniprot:gene/uniprot:name
-      kegg.compound.id:
+      kegg.genes.id:
         attr: id
         path: //uniprot:dbReference[@type='KEGG']
       molecular.mass:
@@ -599,8 +599,8 @@ databases:
       ncbi.gene.id:
         attr: id
         path: //uniprot:dbReference[@type='GeneID']
-      nt.seq: //uniprot:entry/uniprot:sequence
-      nt.seq.length:
+      aa.seq: //uniprot:entry/uniprot:sequence
+      aa.seq.length:
         attr: length
         path: //uniprot:entry/uniprot:sequence
     searchable.fields:
@@ -874,7 +874,7 @@ fields:
     
 # Other fields {{{2
 ################################################################################
-    
+
   aa.seq:
     alias: sequence
     computable.from: ncbi.ccds
