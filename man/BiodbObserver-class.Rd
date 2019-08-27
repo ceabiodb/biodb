@@ -5,21 +5,101 @@
 \alias{BiodbObserver-class}
 \alias{BiodbObserver}
 \title{The mother abstract class of all observer classes.}
-\arguments{
-\item{type}{The type of a message. It must be one of: 'info', 'debug',
-'caution', 'warning', 'error'.}
-
-\item{msg}{The text message to send.}
-
-\item{class}{The class of the object that called this message method.}
-
-\item{method}{The method of that called this message method.}
-}
 \description{
 This abstract class defines all the methods that can be used to send messages
 to the observers. You can define new observer classes by inherting from this
 class.
 }
+\section{Methods}{
+
+\describe{
+\item{\code{cfgKVUpdate(k, v)}}{:
+
+This method is called by BiodbConfig when the value of one of its keys
+    is modified.
+    
+k: The configuration key name.
+    
+v: The new value of the configuration key.
+    
+Returned value: None.
+    }
+
+\item{\code{checkMessageType(type)}}{:
+
+Checks a message type. An error will be raised if the type is unknown.
+    
+type: A message type. It must be one of: 'info', 'debug', 'caution',
+    'warning', 'error'.
+    
+Returned value: None.
+    }
+
+\item{\code{getLevel(type)}}{:
+
+Gets the level associated with a message type. This is the maximum
+    level a message must have in order to be processed.
+    
+type: The type of message. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    
+Returned value: The level, as an integer.
+    }
+
+\item{\code{msg(type = "info", msg, class = NA_character_, method = NA_character_,
+  lvl = 1)}}{:
+
+Sends a message to this observer. The message will be accepted and
+    handled only if the level is lower or equal to the current level for the
+    message type. You can check current level for a type by calling getLevel()
+    and set the level with setLevel().
+    
+type: The message type. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    
+msg: The text message to send.
+    
+class: The class of the object that called this message method.
+    
+method: The method that called this message method.
+    
+lvl: The level of the message.
+    
+Returned value: None.
+    }
+
+\item{\code{progress(type = "info", msg, index, first, total = NA_integer_, lvl = 1)}}{:
+
+Sends a progress message to this observer.
+    
+type: The message type. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    
+msg: The text message to send.
+    
+index: The index in the progression, as an integer or numeric number.
+    
+total: The total to achieve in the progression, as an integer or numeric
+    number. Optional.
+    
+lvl: The level of the message.
+    
+Returned value: None.
+    }
+
+\item{\code{setLevel(type, lvl)}}{:
+
+Sets the level for a type. This is the maximum level a message must
+    have in order to be processed.
+    
+type: The type of message. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    
+lvl: The level, as an integer.
+    
+Returned value: None.
+    }
+}}
 
 \examples{
 # Define a new observer class

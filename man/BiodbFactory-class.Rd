@@ -5,30 +5,6 @@
 \alias{BiodbFactory-class}
 \alias{BiodbFactory}
 \title{A class for constructing biodb objects.}
-\arguments{
-\item{content}{The content (as character vector) of one or more database
-entries.}
-
-\item{db.class}{The type of a database. The list of types can be obtained
-from the class \code{\link{BiodbDbsInfo}}.}
-
-\item{conn.id}{The identifier of a database connector.}
-
-\item{drop}{If set to \code{TRUE} and the list of entries contains only
-one element, then returns this element instead of the list. If set to
-\code{FALSE}, then returns always a list.}
-
-\item{id}{A character vector containing database entry IDs (accession
-numbers).}
-
-\item{token}{A security access token for the database. Some database
-require such a token for all or some of their webservices. Usually you obtain
-the token through your account on the database website.}
-
-\item{url}{An URL to the database for which to create a connection.
-Each database connector is configured with a default URL, but some allow you
-to change it.}
-}
 \description{
 This class is responsible for the creation of database connectors and
 database entries. You must go through the single instance of this class to
@@ -39,28 +15,126 @@ instance of this class, call the \code{getFactory()} method of class
 \section{Methods}{
 
 \describe{
-\item{\code{connExists(conn.id)}}{Returns TRUE if a connector with this ID exists.}
+\item{\code{connExists(conn.id)}}{:
+
+Tests if a connector exists.
+    
+conn.id: A connector ID.
+    
+Returned value: TRUE if a connector with this ID exists, FALSE otherwise.
+    }
 
 \item{\code{createConn(db.class, url = NULL, token = NA_character_,
-  fail.if.exists = TRUE, conn.id = NULL, cache.id = NULL)}}{Create a connection to a database.}
+  fail.if.exists = TRUE, conn.id = NULL, cache.id = NULL)}}{:
 
-\item{\code{createNewEntry(db.class)}}{Create a new entry from scratch. This entry is not stored in cache.}
+Creates a connector to a database.
+    
+db.class: The type of a database. The list of types can be obtained from
+    the class BiodbDbsInfo.
+    
+url: An URL to the database for which to create a connection.  Each
+    database connector is configured with a default URL, but some allow you to
+    change it.
+    
+token: A security access token for the database. Some database require
+    such a token for all or some of their webservices. Usually you obtain the
+    token through your account on the database website.
+    
+fail.if.exists: If set to TRUE, the method will fail if a connector for
+    the requested database already exists.
+    
+conn.id: If set, this identifier will be used for the new connector. An
+    error will be raised in case another connector already exists with this
+    identifier.
+    
+cache.id: If set, this ID will be used as the cache ID for the new
+    connector. An error will be raised in case another connector already exists
+    with this cache identifier.
+    
+Returned value: An instance of the requested connector class.
+    }
 
-\item{\code{deleteAllCacheEntries(conn.id)}}{Delete all entries of a connector from the cache.}
+\item{\code{createNewEntry(db.class)}}{:
 
-\item{\code{deleteAllConnectors()}}{Delete all connectors.}
+Creates a new entry from scratch. This entry is not stored in cache.
+    
+db.class: A database ID.
+    
+Returned value: A new BiodbEntry object.
+    }
 
-\item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{Delete existing connectors.}
+\item{\code{deleteAllCacheEntries(conn.id)}}{:
 
-\item{\code{getAllCacheEntries(conn.id)}}{Get all entries of a connector from the cache.}
+For a connector, deletes all entries stored in the cache.
+    
+conn.id: A connector ID.
+    
+Returned values: None.
+    }
 
-\item{\code{getAllConnectors()}}{Returns a list of all created connectors.}
+\item{\code{deleteAllConnectors()}}{:
 
-\item{\code{getConn(conn.id)}}{Get the instance of connector database corresponding to the submitted ID or
-database class.}
+Deletes all connectors.
+    
+Returned value: None.
+    }
 
-\item{\code{getEntry(conn.id, id, drop = TRUE)}}{Create database entry objects from IDs (accession numbers), for the
-specified connector.}
+\item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{:
+
+Deletes existing connectors.
+    
+conn.id: A connector ID. If set only this connector will be deleted.
+    
+db.class: The type of a database. If set all connectors of this database
+    type will be deleted.
+    
+Returned value: None.
+    }
+
+\item{\code{getAllCacheEntries(conn.id)}}{:
+
+For a connector, gets all entries stored in the cache.
+    
+conn.id: A connector ID.
+    
+Returned values: A list of BiodbEntry objects.
+    }
+
+\item{\code{getAllConnectors()}}{:
+
+Gets all connectors.
+    
+Returned value: A list of all created connectors.
+    }
+
+\item{\code{getConn(conn.id)}}{:
+
+Gets a connector instance, creating it if necessary and possible.
+    
+conn.id: An existing connector ID or a database class (Biodb database ID).
+    In case a database ID is submitted, and no connector for this database ID
+    already exists, a new connector for this database ID is created.
+    
+Returned value: The connector instance corresponding to the connector ID
+    or to the database ID submitted.
+    }
+
+\item{\code{getEntry(conn.id, id, drop = TRUE)}}{:
+
+Retrieves database entry objects from IDs (accession numbers), for the
+    specified connector.
+    
+conn.id: An existing connector ID.
+    
+id: A character vector containing database entry IDs (accession numbers).
+    
+drop: If set to TRUE and the list of entries contains only one element,
+    then returns this element instead of the list. If set to FALSE, then returns
+    always a list.
+    
+Returned value: A list of BiodbEntry objects, the same length as `id`. A
+    NULL value is put into the list for each invalid ID of `id`.
+    }
 }}
 
 \examples{

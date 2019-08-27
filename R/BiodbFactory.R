@@ -11,23 +11,6 @@
 #' instance of this class, call the \code{getFactory()} method of class
 #' \code{Biodb}.
 #'
-#' @param content   The content (as character vector) of one or more database
-#' entries.
-#' @param db.class  The type of a database. The list of types can be obtained
-#' from the class \code{\link{BiodbDbsInfo}}.
-#' @param conn.id   The identifier of a database connector.
-#' @param drop      If set to \code{TRUE} and the list of entries contains only
-#' one element, then returns this element instead of the list. If set to
-#' \code{FALSE}, then returns always a list.
-#' @param id        A character vector containing database entry IDs (accession
-#' numbers).
-#' @param token     A security access token for the database. Some database
-#' require such a token for all or some of their webservices. Usually you obtain
-#' the token through your account on the database website.
-#' @param url       An URL to the database for which to create a connection.
-#' Each database connector is configured with a default URL, but some allow you
-#' to change it.
-#'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}},
 #' \code{\link{BiodbEntry}}.
 #'
@@ -77,7 +60,25 @@ initialize=function(...) {
 
 createConn=function(db.class, url=NULL, token=NA_character_,
                     fail.if.exists=TRUE, conn.id=NULL, cache.id=NULL) {
-    "Create a connection to a database."
+    ":\n\nCreates a connector to a database.
+    \ndb.class: The type of a database. The list of types can be obtained from
+    the class BiodbDbsInfo.
+    \nurl: An URL to the database for which to create a connection.  Each
+    database connector is configured with a default URL, but some allow you to
+    change it.
+    \ntoken: A security access token for the database. Some database require
+    such a token for all or some of their webservices. Usually you obtain the
+    token through your account on the database website.
+    \nfail.if.exists: If set to TRUE, the method will fail if a connector for
+    the requested database already exists.
+    \nconn.id: If set, this identifier will be used for the new connector. An
+    error will be raised in case another connector already exists with this
+    identifier.
+    \ncache.id: If set, this ID will be used as the cache ID for the new
+    connector. An error will be raised in case another connector already exists
+    with this cache identifier.
+    \nReturned value: An instance of the requested connector class.
+    "
 
     # Get database info
     db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
@@ -124,7 +125,10 @@ createConn=function(db.class, url=NULL, token=NA_character_,
 ################################################################################
 
 connExists=function(conn.id) {
-    "Returns TRUE if a connector with this ID exists."
+    ":\n\nTests if a connector exists.
+    \nconn.id: A connector ID.
+    \nReturned value: TRUE if a connector with this ID exists, FALSE otherwise.
+    "
 
     return(conn.id %in% names(.self$.conn))
 },
@@ -133,7 +137,12 @@ connExists=function(conn.id) {
 ################################################################################
 
 deleteConn=function(conn.id=NULL, db.class=NULL) {
-    "Delete existing connectors."
+    ":\n\nDeletes existing connectors.
+    \nconn.id: A connector ID. If set only this connector will be deleted.
+    \ndb.class: The type of a database. If set all connectors of this database
+    type will be deleted.
+    \nReturned value: None.
+    "
 
     # Remove one connector
     if ( ! is.null(conn.id)) {
@@ -171,7 +180,9 @@ deleteConn=function(conn.id=NULL, db.class=NULL) {
 ################################################################################
 
 getAllConnectors=function() {
-    "Returns a list of all created connectors."
+    ":\n\nGets all connectors.
+    \nReturned value: A list of all created connectors.
+    "
 
     return(.self$.conn)
 },
@@ -180,7 +191,9 @@ getAllConnectors=function() {
 ################################################################################
 
 deleteAllConnectors=function() {
-    "Delete all connectors."
+    ":\n\nDeletes all connectors.
+    \nReturned value: None.
+    "
 
     # Get all connectors
     connectors <- .self$.conn
@@ -194,8 +207,13 @@ deleteAllConnectors=function() {
 ################################################################################
 
 getConn=function(conn.id) {
-    "Get the instance of connector database corresponding to the submitted ID or
-    database class."
+    ":\n\nGets a connector instance, creating it if necessary and possible.
+    \nconn.id: An existing connector ID or a database class (Biodb database ID).
+    In case a database ID is submitted, and no connector for this database ID
+    already exists, a new connector for this database ID is created.
+    \nReturned value: The connector instance corresponding to the connector ID
+    or to the database ID submitted.
+    "
 
     .self$.assertNotNull(conn.id)
     .self$.assertIs(conn.id, 'character')
@@ -230,8 +248,16 @@ getConn=function(conn.id) {
 ################################################################################
 
 getEntry=function(conn.id, id, drop=TRUE) {
-    "Create database entry objects from IDs (accession numbers), for the
-    specified connector."
+    ":\n\nRetrieves database entry objects from IDs (accession numbers), for the
+    specified connector.
+    \nconn.id: An existing connector ID.
+    \nid: A character vector containing database entry IDs (accession numbers).
+    \ndrop: If set to TRUE and the list of entries contains only one element,
+    then returns this element instead of the list. If set to FALSE, then returns
+    always a list.
+    \nReturned value: A list of BiodbEntry objects, the same length as `id`. A
+    NULL value is put into the list for each invalid ID of `id`.
+    "
 
     id <- as.character(id)
 
@@ -258,7 +284,10 @@ getEntry=function(conn.id, id, drop=TRUE) {
 ################################################################################
 
 createNewEntry=function(db.class) {
-    "Create a new entry from scratch. This entry is not stored in cache."
+    ":\n\nCreates a new entry from scratch. This entry is not stored in cache.
+    \ndb.class: A database ID.
+    \nReturned value: A new BiodbEntry object.
+    "
 
     # Get database info
     db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
@@ -276,7 +305,10 @@ createNewEntry=function(db.class) {
 ################################################################################
 
 getAllCacheEntries=function(conn.id) {
-    "Get all entries of a connector from the cache."
+    ":\n\nFor a connector, gets all entries stored in the cache.
+    \nconn.id: A connector ID.
+    \nReturned values: A list of BiodbEntry objects.
+    "
 
     .self$.assertNotNull(conn.id)
 
@@ -290,7 +322,10 @@ getAllCacheEntries=function(conn.id) {
 ################################################################################
 
 deleteAllCacheEntries=function(conn.id) {
-    "Delete all entries of a connector from the cache."
+    ":\n\nFor a connector, deletes all entries stored in the cache.
+    \nconn.id: A connector ID.
+    \nReturned values: None.
+    "
 
     .self$.assertNotNull(conn.id)
 
@@ -304,6 +339,10 @@ deleteAllCacheEntries=function(conn.id) {
 ################################################################################
 
 show=function() {
+    ":\n\nPrints information about this instance.
+    \nReturned values: None.
+    "
+
     cat("Biodb factory instance.\n")
 },
 

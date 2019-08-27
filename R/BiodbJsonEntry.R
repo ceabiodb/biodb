@@ -1,10 +1,9 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-#' @include BiodbEntry.R
-
 # Class declaration {{{1
 ################################################################################
 
+#' @include BiodbEntry.R
 BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry", contains='BiodbEntry')
 
 # Initialize {{{1

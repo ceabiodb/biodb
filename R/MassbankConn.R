@@ -12,7 +12,7 @@ MassbankConn <- methods::setRefClass("MassbankConn",
         .prefix2dns='list'
     ),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
@@ -25,92 +25,6 @@ initialize=function(...) {
     callSuper(...)
 
     .self$.prefix2dns <- list()
-},
-
-# Do get mz values {{{3
-################################################################################
-
-.doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-
-    mz <- numeric(0)
-
-    if ( ! is.null(ms.mode) && ! is.na(ms.mode))
-        .self$message('debug', paste("ms.mode", ms.mode, sep='='))
-    if ( ! is.null(max.results) && ! is.na(max.results))
-        .self$message('debug', paste("max.results", max.results, sep='='))
-    if ( ! is.null(precursor) && ! is.na(precursor))
-        .self$message('debug', paste("precursor", precursor, sep='='))
-    if ( ! is.null(ms.level) && ! is.na(ms.level))
-        .self$message('debug', paste("ms.level", ms.level, sep='='))
-
-    # Download
-    .self$download()
-
-    # Get list of spectra
-    spectra.ids <- .self$getEntryIds()
-    .self$message('debug', paste(length(spectra.ids), "spectra to process."))
-
-    # Loop in all spectra
-    i <- 0
-    for (id in spectra.ids) {
-
-        i <- i + 1
-        .self$progressMsg("Processing entry", index=i,
-                          total=length(spectra.ids), first=(i==1))
-
-        # Get entry
-        entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
-
-        # Filter on mode
-        if ( ! is.null(ms.mode) && ! is.na(ms.mode)
-            && entry$getFieldValue('msmode') != ms.mode) {
-            .self$debug("Reject entry ", id, " because MS mode is ",
-                        entry$getFieldValue('msmode'))
-            next
-        }
-
-        # Filter on ms.level
-        if ( ! is.null(ms.level) && ! is.na(ms.level) && ms.level > 0
-            && entry$getFieldValue('ms.level') != ms.level) {
-            .self$debug("Reject entry ", id, " because MS level is ",
-                        entry$getFieldValue('ms.level'))
-            next
-        }
-
-        # Take mz values
-        new.mz <- NULL
-        peaks <- entry$getFieldValue('peaks')
-        if ( ! is.null(peaks) && nrow(peaks) > 0
-            && 'peak.mz' %in% colnames(peaks)) {
-            new.mz <- peaks$peak.mz
-            if (precursor && entry$hasField('msprecmz')) {
-                prec.mz <- entry$getFieldValue('msprecmz', last=TRUE)
-                new.mz <- if (prec.mz %in% new.mz) prec.mz else NULL
-            }
-        }
-
-        # Add new M/Z values
-        if ( ! is.null(new.mz)) {
-            new.mz <- new.mz[ ! new.mz %in% mz]
-            if (length(new.mz) > 0) {
-                .self$debug("Add ", length(new.mz), " new M/Z values.")
-                mz <- c(mz, new.mz)
-            }
-        }
-
-        .self$message('debug', paste(length(mz), "M/Z values have been found."))
-
-        # Stop if max reached
-        if ( ! is.null(max.results) && ! is.na(max.results)
-            && length(mz) >= max.results)
-            break
-    }
-
-    # Cut
-    if ( ! is.na(max.results) && length(mz) > max.results)
-        mz <- mz[seq_len(max.results)]
-
-    return(mz)
 },
 
 # Requires download {{{3
@@ -233,6 +147,92 @@ getEntryPageUrl=function(id) {
 
 # Private methods {{{2
 ################################################################################
+
+# Do get mz values {{{3
+################################################################################
+
+.doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
+
+    mz <- numeric(0)
+
+    if ( ! is.null(ms.mode) && ! is.na(ms.mode))
+        .self$message('debug', paste("ms.mode", ms.mode, sep='='))
+    if ( ! is.null(max.results) && ! is.na(max.results))
+        .self$message('debug', paste("max.results", max.results, sep='='))
+    if ( ! is.null(precursor) && ! is.na(precursor))
+        .self$message('debug', paste("precursor", precursor, sep='='))
+    if ( ! is.null(ms.level) && ! is.na(ms.level))
+        .self$message('debug', paste("ms.level", ms.level, sep='='))
+
+    # Download
+    .self$download()
+
+    # Get list of spectra
+    spectra.ids <- .self$getEntryIds()
+    .self$message('debug', paste(length(spectra.ids), "spectra to process."))
+
+    # Loop in all spectra
+    i <- 0
+    for (id in spectra.ids) {
+
+        i <- i + 1
+        .self$progressMsg("Processing entry", index=i,
+                          total=length(spectra.ids), first=(i==1))
+
+        # Get entry
+        entry <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id)
+
+        # Filter on mode
+        if ( ! is.null(ms.mode) && ! is.na(ms.mode)
+            && entry$getFieldValue('msmode') != ms.mode) {
+            .self$debug("Reject entry ", id, " because MS mode is ",
+                        entry$getFieldValue('msmode'))
+            next
+        }
+
+        # Filter on ms.level
+        if ( ! is.null(ms.level) && ! is.na(ms.level) && ms.level > 0
+            && entry$getFieldValue('ms.level') != ms.level) {
+            .self$debug("Reject entry ", id, " because MS level is ",
+                        entry$getFieldValue('ms.level'))
+            next
+        }
+
+        # Take mz values
+        new.mz <- NULL
+        peaks <- entry$getFieldValue('peaks')
+        if ( ! is.null(peaks) && nrow(peaks) > 0
+            && 'peak.mz' %in% colnames(peaks)) {
+            new.mz <- peaks$peak.mz
+            if (precursor && entry$hasField('msprecmz')) {
+                prec.mz <- entry$getFieldValue('msprecmz', last=TRUE)
+                new.mz <- if (prec.mz %in% new.mz) prec.mz else NULL
+            }
+        }
+
+        # Add new M/Z values
+        if ( ! is.null(new.mz)) {
+            new.mz <- new.mz[ ! new.mz %in% mz]
+            if (length(new.mz) > 0) {
+                .self$debug("Add ", length(new.mz), " new M/Z values.")
+                mz <- c(mz, new.mz)
+            }
+        }
+
+        .self$message('debug', paste(length(mz), "M/Z values have been found."))
+
+        # Stop if max reached
+        if ( ! is.null(max.results) && ! is.na(max.results)
+            && length(mz) >= max.results)
+            break
+    }
+
+    # Cut
+    if ( ! is.na(max.results) && length(mz) > max.results)
+        mz <- mz[seq_len(max.results)]
+
+    return(mz)
+},
 
 # Do download {{{3
 ################################################################################

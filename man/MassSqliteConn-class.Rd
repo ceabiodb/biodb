@@ -11,10 +11,16 @@ Class for handling a Mass spectrometry database in SQLite format.
 \section{Methods}{
 
 \describe{
-\item{\code{getChromCol(ids = NULL)}}{Get a list of chromatographic columns contained in this database. You can
-filter on specific entries using the ids parameter. The returned value is a
-data.frame with two columns : one for the ID 'id' and another one for the
-title 'title'.}
+\item{\code{getChromCol(ids = NULL)}}{:
+
+Gets a list of chromatographic columns contained in this database.
+    
+ids: A character vector of entry identifiers (i.e.: accession numbers).
+    Used to restrict the set of entries on which to run the algorithm.
+    
+Returned value : A data.frame with two columns, one for the ID 'id' and
+    another one for the title 'title'.
+    }
 
 \item{\code{getEntryContentFromDb(entry.id)}}{:
 
