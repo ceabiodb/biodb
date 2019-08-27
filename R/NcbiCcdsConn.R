@@ -31,12 +31,6 @@ getEntryPageUrl=function(id) {
     return(vapply(id, fct, FUN.VALUE=''))
 },
 
-# Get entry image url {{{3
-################################################################################
-
-getEntryImageUrl=function(id) {
-    return(rep(NA_character_, length(id)))
-},
 
 # Private methods {{{2
 ################################################################################

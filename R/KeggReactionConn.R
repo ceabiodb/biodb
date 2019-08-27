@@ -30,11 +30,5 @@ initialize=function(...) {
     callSuper(db.name='reaction', db.abbrev='rn', ...)
 },
 
-# Get entry image url {{{3
-################################################################################
-
-getEntryImageUrl=function(id) {
-    return(rep(NA_character_, length(id)))
-}
 
 ))

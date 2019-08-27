@@ -30,11 +30,5 @@ initialize=function(...) {
     callSuper(db.name='module', db.abbrev='md', ...)
 },
 
-# Get entry image url {{{1
-################################################################################
-
-getEntryImageUrl=function(id) {
-    return(rep(NA_character_, length(id)))
-}
 
 ))

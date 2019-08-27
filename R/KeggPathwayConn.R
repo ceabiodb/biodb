@@ -51,12 +51,6 @@ initialize=function(...) {
     callSuper(db.name='pathway', db.abbrev='path', ...)
 },
 
-# Get entry image url {{{3
-################################################################################
-
-getEntryImageUrl=function(id) {
-    return(rep(NA_character_, length(id)))
-},
 
 # Get reactions {{{3
 ################################################################################

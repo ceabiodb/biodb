@@ -124,10 +124,14 @@ getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
 ################################################################################
 
 getEntryImageUrl=function(entry.id) {
-    "Get the URL to a picture of the entry (e.g.: a picture of the molecule in
-    case of a compound entry)."
+    ":\n\nGets the URL to a picture of the entry (e.g.: a picture of the
+    molecule in case of a compound entry).
+    \nentry.id: A character vector containing entry IDs.
+    \nReturned value: A character vector, the same length as `entry.id`,
+    containing for each entry ID either a URL or NA if no URL exists.
+    "
 
-    .self$.abstractMethod()
+    return(rep(NA_character_, length(entry.id)))
 },
 
 # Get entry page url {{{3
