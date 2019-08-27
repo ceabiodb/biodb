@@ -27,7 +27,7 @@ methods=list(
 ################################################################################
 
 initialize=function(...) {
-    callSuper(db.name='genes', ...)
+    callSuper(db.name='orthology', db.abbrev='ko', ...)
 }
 
 ))

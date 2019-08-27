@@ -29,8 +29,16 @@ the constructor parameters, for eventual developers.
 
 \item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{Get the URL to use in order to get the contents of the specified entries.}
 
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
-case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{:
+
+Gets the URL to a picture of the entry (e.g.: a picture of the
+    molecule in case of a compound entry).
+    
+entry.id: A character vector containing entry IDs.
+    
+Returned value: A character vector, the same length as `entry.id`,
+    containing for each entry ID either a URL or NA if no URL exists.
+    }
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 }}

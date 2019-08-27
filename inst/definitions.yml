@@ -291,6 +291,22 @@ databases:
       entry.page.url: https://www.genome.jp/dbget-bin
       ws.url: http://rest.kegg.jp/
 
+# KEGG Orthology {{{2
+################################################################################
+
+  kegg.orthology:
+    entry.content.type: txt
+    name: KEGG Orthology
+    parsing.expr:
+      accession: ^ENTRY\s+(\S+)\s+KO
+    scheduler.n: 3
+    searchable.fields:
+        - name
+    urls:
+      base.url: https://www.kegg.jp/
+      entry.page.url: https://www.genome.jp/dbget-bin
+      ws.url: http://rest.kegg.jp/
+
 # KEGG Pathway {{{2
 ################################################################################
   kegg.pathway:
@@ -618,9 +634,17 @@ databases:
 ################################################################################
 
 fields:
+
+# General fields {{{2
+################################################################################
+    
+  accession:
+    description: The accession number of the entry.
+
   description:
     alias: protdesc
     description: The decription of the entry.
+
   name:
     alias:
     - fullnames
@@ -631,14 +655,8 @@ fields:
     forbids.duplicates: true
     type: name
 
-# General fields {{{2
-################################################################################
-
 # Database IDs {{{2
 ################################################################################
-    
-  accession:
-    description: The accession number of the entry.
     
   cas.id:
     alias: casid
@@ -699,6 +717,13 @@ fields:
 
   kegg.module.id:
     description: KEGG Module ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.orthology.id:
+    description: KEGG Orthology ID
     case.insensitive: true
     forbids.duplicates: true
     type: id

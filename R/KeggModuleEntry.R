@@ -1,13 +1,11 @@
 # vi: fdm=marker ts=4 et cc=80 
 
-
 # KeggModuleEntry {{{1
 ################################################################################
 
 #' @include KeggEntry.R
-KeggModuleEntry <- methods::setRefClass(
-    "KeggModuleEntry",
-    contains='KeggEntry')
+KeggModuleEntry <- methods::setRefClass("KeggModuleEntry",
+    contains='KeggEntry',
 
 # Public methods {{{2
 ################################################################################
@@ -47,7 +45,7 @@ initialize=function(...) {
 # Parse fields step 2 {{{3
 ################################################################################
 
-KeggModuleEntry$methods( .parseFieldsStep2=function(parsed.content) {
+.parseFieldsStep2=function(parsed.content) {
 
     # Name
     .self$.parseMultilinesField(field='name', tag='NAME',

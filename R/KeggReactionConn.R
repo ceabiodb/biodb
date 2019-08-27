@@ -28,7 +28,6 @@ methods=list(
 
 initialize=function(...) {
     callSuper(db.name='reaction', db.abbrev='rn', ...)
-},
-
+}
 
 ))
