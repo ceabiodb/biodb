@@ -585,6 +585,9 @@ databases:
     name: UniProt
     parsing.expr:
       accession: //uniprot:accession[1]
+      ec:
+        attr: id
+        path: //uniprot:dbReference[@type='EC']
       expasy.enzyme.id:
         attr: id
         path: //uniprot:dbReference[@type='EC']
@@ -615,6 +618,21 @@ databases:
 ################################################################################
 
 fields:
+  description:
+    alias: protdesc
+    description: The decription of the entry.
+  name:
+    alias:
+    - fullnames
+    - synonyms
+    card: many
+    case.insensitive: true
+    description: The name of the entry.
+    forbids.duplicates: true
+    type: name
+
+# General fields {{{2
+################################################################################
 
 # Database IDs {{{2
 ################################################################################
@@ -871,8 +889,8 @@ fields:
     class: double
     description: Peak relative intensity, in percentage (from 0 to 100).
     group: peak
-    
-# Other fields {{{2
+
+# Proteins and genes {{{2
 ################################################################################
 
   aa.seq:
@@ -890,6 +908,31 @@ fields:
     - seq.location
     - location
     description: Location of the amino acids sequence.
+  ec:
+    description: Enzyme Commission number. See https://en.wikipedia.org/wiki/Enzyme_Commission_number.
+  gene.symbol:
+    alias:
+    - gene.symbols
+    - symbol
+    - genesymbols
+    card: many
+    case.insensitive: true
+    description: A list of gene symbols.
+    forbids.duplicates: true
+  nt.seq:
+    description: Nucleotids sequence.
+  nt.seq.length:
+    class: integer
+    description: Length of the nucleotids sequence.
+  organism:
+    description: The biological organism to which this entry belongs.
+  pathway.class:
+    card: many
+    description: Pathway class.
+
+# Other fields {{{2
+################################################################################
+
   catalytic.activity:
     card: many
     description: Catalytic activity.
@@ -964,22 +1007,10 @@ fields:
     - superclass
     - super.class
     description: Compound super class.
-  description:
-    alias: protdesc
-    description: The decription of the entry.
   equation:
     description: Chemical equation
   formula:
     description: Empirical molecular formula.
-  gene.symbol:
-    alias:
-    - gene.symbols
-    - symbol
-    - genesymbols
-    card: many
-    case.insensitive: true
-    description: A list of gene symbols.
-    forbids.duplicates: true
   inchi:
     computable.from: chebi
     description: International Chemical Identifier (InChI).
@@ -1017,15 +1048,6 @@ fields:
     description: MS precursor M/Z value.
   mstype:
     description: Mass spectrometry type.
-  name:
-    alias:
-    - fullnames
-    - synonyms
-    card: many
-    case.insensitive: true
-    description: The name of the entry.
-    forbids.duplicates: true
-    type: name
   nb.compounds:
     alias: nbcompounds
     class: integer
@@ -1034,16 +1056,6 @@ fields:
     alias: nbpeaks
     class: integer
     description: Number of MS peaks.
-  nt.seq:
-    description: Nucleotids sequence.
-  nt.seq.length:
-    class: integer
-    description: Length of the nucleotids sequence.
-  organism:
-    description: The biological organism to which this entry belongs.
-  pathway.class:
-    card: many
-    description: Pathway class.
   products:
     card: many
     description: Products of an enzymatic chemical reaction.
