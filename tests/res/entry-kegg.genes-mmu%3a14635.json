@@ -5,6 +5,7 @@
 	"organism": "Mus musculus (mouse)",
 	"kegg.organism.code": "mmu",
 	"kegg.module.id": ["M00554", "M00632"],
+	"kegg.orthology.id": "K00849",
 	"kegg.pathway.id": ["mmu00052", "mmu00520", "mmu01100"],
 	"ncbi.gene.id": "14635",
 	"uniprot.id": ["Q9R0N0", "Q9CXZ9"],

@@ -44,12 +44,7 @@ initialize=function(...) {
     # Other KEGG IDs
     .self$.parseModuleIds(parsed.content)
     .self$.parsePathwayIds(parsed.content=parsed.content)
-
-    # Parse Uniprot IDs
-    if (.self$hasField('uniprot.id')) {
-        ids <- strsplit(.self$getFieldValue('uniprot.id'), ' +', perl=TRUE)[[1]]
-        .self$setFieldValue('uniprot.id', ids)
-    }
+    .self$.parseOrthologyIds(parsed.content=parsed.content)
 
     # AA SEQ
     lines <- .self$.getTagLines(tag='AASEQ', parsed.content=parsed.content)

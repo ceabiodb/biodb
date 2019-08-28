@@ -74,7 +74,7 @@ initialize=function(...) {
         .self$setFieldValue(field, value)
 },
 
-# Parse names {{{2
+# Parse names {{{3
 ################################################################################
 
 .parseNames=function(parsed.content, strip.chars=' ;',
@@ -83,6 +83,18 @@ initialize=function(...) {
     .self$.parseMultilinesField(field='name', tag='NAME',
                                 parsed.content=parsed.content,
                                 strip.chars=strip.chars, split.char=split.char)
+},
+
+# Parse orthology IDs {{{3
+################################################################################
+
+.parseOrthologyIds=function(parsed.content) {
+    ids <- .self$.getTagLines(tag='ORTHOLOGY',
+                              parsed.content=parsed.content)
+    if (length(ids) > 0) {
+        ids <- sub('^\\s*(K[0-9]+)\\s+.*$', '\\1', ids)
+        .self$setFieldValue('kegg.orthology.id', ids)
+    }
 },
 
 # Parse module IDs {{{3
@@ -161,6 +173,12 @@ initialize=function(...) {
         # Set fields
         for (i in seq_along(lnks[[1]]))
             .self$setFieldValue(lnks[i, 'dbid'], lnks[i, 'id'])
+
+        # Split Uniprot IDs
+        if (.self$hasField('uniprot.id')) {
+            ids <- strsplit(.self$getFieldValue('uniprot.id'), ' +', perl=TRUE)[[1]]
+            .self$setFieldValue('uniprot.id', ids)
+        }
     }
 },
 
