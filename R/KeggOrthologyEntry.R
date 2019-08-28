@@ -35,6 +35,9 @@ initialize=function(...) {
 
     # Modules
     .self$.parseModuleIds(parsed.content)
+
+    # Genes
+    .self$.parseGenesIds(parsed.content)
 }
 
 ))
