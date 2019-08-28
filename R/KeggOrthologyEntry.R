@@ -23,6 +23,18 @@ initialize=function(...) {
 ################################################################################
 
 .parseFieldsStep2=function(parsed.content) {
+
+    # Name
+    .self$.parseNames(parsed.content, strip.chars=' ', split.char=',')
+
+    # Parse DB links
+    .self$.parseDbLinks(parsed.content)
+
+    # Pathway
+    .self$.parsePathwayIds(parsed.content)
+
+    # Modules
+    .self$.parseModuleIds(parsed.content)
 }
 
 ))

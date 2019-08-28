@@ -222,13 +222,9 @@ databases:
     name: KEGG Compound
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Compound
-      cas.id: ^[DBLINKS ]+ CAS:\s+(\S+)$
-      chebi.id: ^[DBLINKS ]+ ChEBI:\s+(\S+)$
       exact.mass: ^EXACT_MASS\s+(\S+)$
       formula: ^FORMULA\s+(\S+)$
-      lipidmaps.structure.id: ^[DBLINKS ]+ LIPIDMAPS:\s+(\S+)$
       molecular.weight: ^MOL_WEIGHT\s+(\S+)$
-      ncbi.pubchem.comp.id: ^[DBLINKS ]+ PubChem:\s+(\S+)$
     scheduler.n: 3
     searchable.fields:
         - name
@@ -246,8 +242,6 @@ databases:
     name: KEGG Enzyme
     parsing.expr:
       accession: ^ENTRY\s+EC (\S+)\s+Enzyme
-      cas.id: ^[DBLINKS ]+ CAS:\s+(\S+)$
-      expasy.enzyme.id: ^[DBLINKS ]+ ExPASy - ENZYME nomenclature database:\s+(\S+)$
     scheduler.n: 3
     searchable.fields:
         - name
@@ -265,9 +259,7 @@ databases:
       accession: ^ENTRY\s+(\S+)\s+.*
       description: ^DEFINITION\s+(.*)$
       kegg.organism.code: ^ORGANISM\s+(\S+)\s+.*$
-      ncbi.gene.id: ^[DBLINKS ]+ NCBI-GeneID:\s+(\S+)$
       organism: ^ORGANISM\s+\S+\s+(.*)$
-      uniprot.id: ^[DBLINKS ]+ UniProt:\s+(\S+.*)$
     scheduler.n: 3
     searchable.fields:
         - name
@@ -299,6 +291,7 @@ databases:
     name: KEGG Orthology
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+KO
+      description: ^DEFINITION\s+(\S+)\s*$
     scheduler.n: 3
     searchable.fields:
         - name

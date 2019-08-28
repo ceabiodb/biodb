@@ -74,6 +74,17 @@ initialize=function(...) {
         .self$setFieldValue(field, value)
 },
 
+# Parse names {{{2
+################################################################################
+
+.parseNames=function(parsed.content, strip.chars=' ;',
+                     split.char=NA_character_) {
+
+    .self$.parseMultilinesField(field='name', tag='NAME',
+                                parsed.content=parsed.content,
+                                strip.chars=strip.chars, split.char=split.char)
+},
+
 # Parse module IDs {{{3
 ################################################################################
 
@@ -107,6 +118,49 @@ initialize=function(...) {
     if (length(compound.ids) > 0) {
         compound.ids <- sub('^\\s*(C[0-9]+)\\s+.*$', '\\1', compound.ids)
         .self$setFieldValue('kegg.compound.id', compound.ids)
+    }
+},
+
+# Parse DB links {{{3
+################################################################################
+
+.parseDbLinks=function(parsed.content) {
+
+    abbrev_to_db <- c(
+        RN='kegg.reaction.id',
+        'NCBI-GeneID'='ncbi.gene.id',
+        'UniProt'='uniprot.id',
+        'CAS'='cas.id',
+        'ExPASy - ENZYME nomenclature database'='expasy.enzyme.id',
+        'ChEBI'='chebi.id',
+        'LIPIDMAPS'='lipidmaps.structure.id',
+        'PubChem'='ncbi.pubchem.comp.id'
+    )
+
+    # Extract DB links
+    dblinks <- .self$.getTagLines(tag='DBLINKS', parsed.content=parsed.content)
+
+    if (length(dblinks) > 0) {
+
+        # Extract 
+        lnks <- stringr::str_match(dblinks, '^([A-Za-z -]+): +(.+)$')
+        lnks <- data.frame(db=lnks[, 2], id=lnks[, 3], stringsAsFactors=FALSE)
+
+        # Translate db abbrev to biodb db ID
+        fct <- function(x) {
+            if (x %in% names(abbrev_to_db))
+                abbrev_to_db[[x]]
+            else
+                NA_character_
+        }
+        lnks$dbid <- vapply(lnks$db, fct, FUN.VALUE='')
+
+        # Remove unknown databases
+        lnks <- lnks[ ! is.na(lnks$dbid), ]
+
+        # Set fields
+        for (i in seq_along(lnks[[1]]))
+            .self$setFieldValue(lnks[i, 'dbid'], lnks[i, 'id'])
     }
 },
 

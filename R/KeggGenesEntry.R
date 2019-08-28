@@ -29,9 +29,10 @@ initialize=function(...) {
 .parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseMultilinesField(field='name', tag='NAME',
-                                parsed.content=parsed.content,
-                                strip.chars=' ;', split.char=',')
+    .self$.parseNames(parsed.content, strip.chars=' ;', split.char=',')
+
+    # Parse DB links
+    .self$.parseDbLinks(parsed.content)
 
     # Adjust accession with organism code
     if (.self$hasField('kegg.organism.code')) {

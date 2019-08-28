@@ -1,3 +1,7 @@
 {
-	"accession": "K12668"
+	"accession": "K12668",
+	"name": ["OST2", "DAD1"],
+	"kegg.module.id": "M00072",
+	"kegg.pathway.id": ["ko00510", "ko00513", "ko01100", "ko04141"],
+	"kegg.reaction.id": "R05976"
 }
