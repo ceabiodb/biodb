@@ -7,8 +7,11 @@
 #'
 #' This abstract class represents a shape, used for graphical representation.
 #'
-#' @field label A text label to associate with the shape.
-#' @field color A color, as a character string.
+#' Arguments to the constructor are:
+#'
+#' label: A text label to associate with the shape.
+#'
+#' color: A color, as a character string.
 #'
 #' @seealso \code{\link{BiodbRect}}, \code{\link{BiodbCircle}}.
 #'
@@ -73,7 +76,11 @@ getRgbColor=function(alpha=255) {
 ################################################################################
 
 draw=function() {
-    'Draw the shape on the current image.'
+    ":\n\nDraw the shape on the current image.
+    \nReturned value: None.
+    "
+
+    invisible()
 }
 
 ))

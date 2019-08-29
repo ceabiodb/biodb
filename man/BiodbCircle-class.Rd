@@ -22,6 +22,13 @@ r: Radius.
 \section{Methods}{
 
 \describe{
+\item{\code{draw()}}{:
+
+Draw the shape on the current image.
+    
+Returned value: None.
+    }
+
 \item{\code{getRadius()}}{:
 
 Get the radius.

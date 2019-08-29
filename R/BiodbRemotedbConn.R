@@ -11,13 +11,6 @@
 #' constructor. Nevertheless we provide in the Fields section information about
 #' the constructor parameters, for eventual developers.
 #'
-#' @param concatenate   If set to \code{TRUE}, then try to build as few URLs as
-#' possible, sending requests with several identifiers at once.
-#' @param entry.id      The identifiers (e.g.: accession numbers) as a
-#' \code{character vector} of the database entries.
-#' @param max.length    The maximum length of the URLs to return, in number of
-#' characters.
-#'
 #' @seealso \code{\link{BiodbConn}}, \code{\link{BiodbRequestScheduler}}.
 #'
 #' @examples
@@ -65,7 +58,8 @@ initialize=function(...) {
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
-    # Default implementation
+    # Overrides super class' method.
+
     return(.self$.doGetEntryContentOneByOne(entry.id))
 },
 
@@ -73,10 +67,15 @@ getEntryContentFromDb=function(entry.id) {
 ################################################################################
 
 getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
-    "Get the URL to use in order to get the contents of the specified entries."
-
-    # Copy code from get.entry.url
-    # 
+    ":\n\nGets the URL to use in order to get the contents of the specified
+    entries.
+    \nentry.id: A character vector with the IDs of entries to retrieve.
+    \nconcatenate: If set to TRUE, then try to build as few URLs as
+possible, sending requests with several identifiers at once.
+    \nmax.length: The maximum length of the URLs to return, in number of
+ characters.
+    \nReturned value: A list of BiodbUrl objects.
+    "
 
     urls <- character(0)
 
@@ -138,7 +137,10 @@ getEntryImageUrl=function(entry.id) {
 ################################################################################
 
 getEntryPageUrl=function(entry.id) {
-    "Get the URL to the page of the entry on the database web site."
+    ":\n\nGets the URL to the page of the entry on the database web site.
+    \nentry.id: A character vector with the IDs of entries to retrieve.
+    \nReturned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    "
 
     .self$.abstractMethod()
 },

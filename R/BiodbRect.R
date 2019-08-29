@@ -8,10 +8,15 @@
 #' This class represents a rectangle, used for graphical
 #' representation.
 #'
-#' @field left   Coordinate of left border.
-#' @field right  Coordinate of right border.
-#' @field top    Coordinate of top border.
-#' @field bottom Coordinate of bottom border.
+#' Arguments to the constructor are:
+#'
+#' left: Coordinate of left border.
+#'
+#' right: Coordinate of right border.
+#'
+#' top: Coordinate of top border.
+#'
+#' bottom: Coordinate of bottom border.
 #'
 #' @seealso \code{\link{BiodbShape}}, \code{\link{BiodbCircle}}.
 #'
@@ -55,8 +60,8 @@ initialize=function(left, top, bottom, right, ...) {
 ################################################################################
 
 draw=function() {
-    'Draw the shape on the current image.'
-    
+    # Overrides super class' method.
+
     rect(.self$.left, .self$.bottom, .self$.right, .self$.top,
          col=.self$getRgbColor(alpha=127), border=NA)
 }

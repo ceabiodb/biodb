@@ -41,7 +41,14 @@ Returned value: A character vector, the same length as `entry.id`,
     containing for each entry ID either a URL or NA if no URL exists.
     }
 
-\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    }
 
 \item{\code{getSearchCategories()}}{Returns the list of allowed search categories for the getLiteEntity web
 service.}

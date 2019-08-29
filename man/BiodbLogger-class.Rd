@@ -69,6 +69,14 @@ lvl: The level of the message.
     
 Returned value: None.
     }
+
+\item{\code{terminate()}}{:
+
+Terminates the instance. This method will be called
+    automatically by the Biodb instance when you call Biodb::terminate().
+    
+Returned value: None.
+    }
 }}
 
 \examples{

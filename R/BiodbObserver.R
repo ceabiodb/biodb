@@ -56,10 +56,12 @@ initialize=function() {
 ################################################################################
 
 terminate=function() {
-    ":\n\nTerminates the logger instance. This method will be called
+    ":\n\nTerminates the instance. This method will be called
     automatically by the Biodb instance when you call Biodb::terminate().
     \nReturned value: None.
     "
+
+    invisible()
 },
 
 # Show {{{3

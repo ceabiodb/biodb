@@ -20,7 +20,14 @@ the representation `repr`.}
 
 \item{\code{convCasToInchikey(cas)}}{Convert a list of CAS IDs into a list of InChI keys.}
 
-\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    }
 
 \item{\code{getNbEntries(count = FALSE)}}{:
 

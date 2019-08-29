@@ -15,7 +15,14 @@ all KEGG connectors.
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    }
 
 \item{\code{searchByName(name, max.results = NA_integer_)}}{:
 

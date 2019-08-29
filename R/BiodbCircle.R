@@ -99,9 +99,7 @@ getRadius=function() {
 ################################################################################
 
 draw=function() {
-    ":\n\nDraw the circle on the current image.
-    \nReturned value: None.
-    "
+    # Overrides super class' method.
 
     symbols(x=.self$.x, y=.self$.y,
             circles=.self$.r,

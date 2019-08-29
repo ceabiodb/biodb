@@ -9,18 +9,27 @@
 This class represents a rectangle, used for graphical
 representation.
 }
-\section{Fields}{
+\details{
+Arguments to the constructor are:
+
+left: Coordinate of left border.
+
+right: Coordinate of right border.
+
+top: Coordinate of top border.
+
+bottom: Coordinate of bottom border.
+}
+\section{Methods}{
 
 \describe{
-\item{\code{left}}{Coordinate of left border.}
+\item{\code{draw()}}{:
 
-\item{\code{right}}{Coordinate of right border.}
-
-\item{\code{top}}{Coordinate of top border.}
-
-\item{\code{bottom}}{Coordinate of bottom border.}
+Draw the shape on the current image.
+    
+Returned value: None.
+    }
 }}
-
 
 \examples{
 # Create a rectangle instance

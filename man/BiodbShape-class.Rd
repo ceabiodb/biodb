@@ -8,17 +8,23 @@
 \description{
 This abstract class represents a shape, used for graphical representation.
 }
-\section{Fields}{
+\details{
+Arguments to the constructor are:
 
-\describe{
-\item{\code{label}}{A text label to associate with the shape.}
+label: A text label to associate with the shape.
 
-\item{\code{color}}{A color, as a character string.}
-}}
-
+color: A color, as a character string.
+}
 \section{Methods}{
 
 \describe{
+\item{\code{draw()}}{:
+
+Draw the shape on the current image.
+    
+Returned value: None.
+    }
+
 \item{\code{getColor()}}{Return the color associated with this shape.}
 
 \item{\code{getLabel()}}{Return the label associated with this shape.}

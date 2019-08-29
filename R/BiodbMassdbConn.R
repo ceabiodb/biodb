@@ -237,7 +237,7 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
     each M/Z value.
     \nReturned value: A character vector of spectra IDs.
     "
-    
+
     # Check arguments
     check.param <- .self$.checkSearchMsParam(mz.min=mz.min, mz.max=mz.max,
         mz=mz, mz.shift=mz.shift, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, rt=rt,
@@ -419,7 +419,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
                         paste((if (length(ids) <= 10) ids
                                else ids[seq_len(10)]), collapse=', '), '.')
         }
-        
+
         # Filter on RT value
         if  (check.param$use.rt.match) {
             rt <- input.df[i, input.df.colnames[['rt']]]
@@ -455,7 +455,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic=FALSE,
                                                   compute=compute)
         .self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
-        
+
         # Select lines with right M/Z values
         mz <- input.df[i, input.df.colnames[['mz']]]
         mz.range <- .self$.convertMzTolToRange(mz=mz, mz.shift=mz.shift,

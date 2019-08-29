@@ -92,10 +92,7 @@ initialize=function(file=NULL, mode='w', close.file=TRUE, ...) {
 ################################################################################
 
 terminate=function() {
-    ":\n\nTerminates the logger instance. This method will be called
-    automatically by the Biodb instance when you call Biodb::terminate().
-    \nReturned value: None.
-    "
+    # Overrides super class' method.
 
     if (.self$.close.file && ! is.null(.self$.file)
         && ! methods::is(.self$.file, 'terminal'))
@@ -107,7 +104,7 @@ terminate=function() {
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_, lvl=1)
 {
-    ":\n\nOverriding of superclass' method. See BiodbObserver."
+    # Overrides super class' method.
 
     .self$checkMessageType(type)
     setlvl <- .self$getLevel(type)
@@ -133,11 +130,11 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_, lvl=1)
     }
 },
 
-# Info progress {{{3
+# Progress {{{3
 ################################################################################
 
 progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1) {
-    ":\n\nOverriding of superclass' method. See BiodbObserver."
+    # Overrides super class' method.
     
     t <- Sys.time()
     msgid <- msg
