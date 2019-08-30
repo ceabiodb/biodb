@@ -202,7 +202,7 @@ show=function() {
         length(.self$.conn), " connector(s): ", conlst, ".\n", sep='')
     cat('  Parameters are T=', .self$getT(), ' and N=', .self$getN(), ".\n",
         sep='')
-}
+},
 
 # Private methods {{{2
 ################################################################################
@@ -297,6 +297,6 @@ show=function() {
 
     # Set frequency
     .self$setFrequency(n=n, t=t)
-},
+}
 
 ))

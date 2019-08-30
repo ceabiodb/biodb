@@ -19,7 +19,7 @@
 ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn",
     contains="BiodbRemotedbConn",
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
@@ -75,7 +75,7 @@ wsEnzymeByComment=function(comment, retfmt=c('plain', 'request', 'parsed',
     return(results)
 },
 
-# Get entry page url {{{3
+# Get entry page URL {{{3
 ################################################################################
 
 getEntryPageUrl=function(id) {
@@ -101,7 +101,6 @@ getEntryPageUrl=function(id) {
 
     return(urls)
 },
-
 
 # Private methods {{{2
 ################################################################################
