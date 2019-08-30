@@ -245,7 +245,7 @@ getPathwayIdsPerCompound=function(id, org) {
 
     fac <- .self$getBiodb()$getFactory()
     kegg.enz.conn <- fac$getConn('kegg.enzyme')
-    
+
     # Loop on all compound ids
     i <- 0
     for (comp.id in id) {

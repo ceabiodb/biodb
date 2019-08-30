@@ -8,7 +8,17 @@
 #' This class represents a Request object that can be used with the Request
 #' Scheduler.
 #'
-#' @param url           A \code{BiodbUrl} object.
+#' The constructor takes the following arguments:
+#'
+#' url: A \code{BiodbUrl} object.
+#'
+#' method: HTTP method. Either "get" or "post".
+#'
+#' header: The header.
+#'
+#' body: The body.
+#'
+#' encoding: The encoding to use.
 #'
 #' @seealso \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbUrl}}.
 #'
@@ -65,6 +75,10 @@ initialize=function(url, method=c('get', 'post'), header=character(),
 ################################################################################
 
 getUrl=function() {
+    ":\n\nGets the URL.
+    \nReturned value: The URL as a BiodbUrl object.
+    "
+
     return(.self$.url)
 },
 
@@ -72,6 +86,10 @@ getUrl=function() {
 ################################################################################
 
 getMethod=function() {
+    ":\n\nGets the method.
+    \nReturned value: The method as a character value.
+    "
+
     return(.self$.method)
 },
 
@@ -79,6 +97,10 @@ getMethod=function() {
 ################################################################################
 
 getEncoding=function() {
+    ":\n\nGets the encoding. 
+    \nReturned value: The encoding.
+    "
+
     return(.self$.encoding)
 },
 
@@ -86,6 +108,11 @@ getEncoding=function() {
 ################################################################################
 
 getCurlOptions=function(useragent) {
+    ":\n\nGets the options object to pass to cURL library.
+    \nuseragent: The user agent as a character value.
+    \nReturned value: An RCurl options object.
+    "
+
 
     opts <- list()
     if (length(.self$.header) > 0)
@@ -103,6 +130,10 @@ getCurlOptions=function(useragent) {
 ################################################################################
 
 getUniqueKey=function() {
+    ":\n\nGets a unique key to identify this request. The key is an MD5 computed
+    from the string representation of this request.
+    \nReturned value: A unique key as an MD5 sum.
+    "
 
     key <- digest::digest(.self$toString(), algo='md5')
 
@@ -113,6 +144,10 @@ getUniqueKey=function() {
 ################################################################################
 
 getHeaderAsSingleString=function() {
+    ":\n\nGets the HTTP header as a string, concatenating all its information
+    into a single string.
+    \nReturned value: The header as a single character value.
+    "
 
     s <- ''
 
@@ -129,6 +164,10 @@ getHeaderAsSingleString=function() {
 ################################################################################
 
 getBody=function() {
+    ":\n\nGets the body.
+    \nReturned values: The body as a character value.
+    "
+    
     return(.self$.body)
 },
 
@@ -136,6 +175,10 @@ getBody=function() {
 ################################################################################
 
 show=function() {
+    ":\n\nDisplays information about this instance.
+    \nReturned value: None.
+    "
+    
     cat("Biodb request object on ", .self$.url$toString(), "\n", sep='')
 },
 
@@ -143,6 +186,9 @@ show=function() {
 ################################################################################
 
 toString=function() {
+    ":\n\nGets a string representation of this instance.
+    \nReturned value: A single string giving a representation of this instance.
+    "
 
     request <- list(url=.self$.url$toString(), header=.self$.header,
                     body=.self$.body)

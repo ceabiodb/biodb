@@ -5,11 +5,18 @@
 
 #' Scheduler rule class.
 #'
-#' This class represents a rule for the request scheduler. 
+#' This class represents a rule for the request scheduler.
 #'
-#' @field n The number of connections allowed for each t seconds.
-#' @field t The number of seconds during which n connections are allowed.
-#' 
+#' The constructor takes the following arguments:
+#'
+#' host: The web host for which this rules is applicable.
+#'
+#' n: The number of connections allowed during a period of t seconds.
+#'
+#' t: The number of seconds during which n connections are allowed.
+#'
+#' conn: The connector instance that is concerned by this rule.
+#'
 #' @seealso \code{\link{BiodbRequestScheduler}}.
 #'
 #' @import methods
@@ -53,6 +60,10 @@ initialize=function(host, n, t, conn, ...) {
 ################################################################################
 
 getHost=function() {
+    ":\n\nGets host.
+    \nReturned value: Returns the host.
+    "
+    
     return(.self$.host)
 },
 
@@ -60,6 +71,11 @@ getHost=function() {
 ################################################################################
 
 getN=function() {
+    ":\n\nGets N value. The number of connections allowed during a period of
+    T seconds.
+    \nReturned value: Returns N as an integer.
+    "
+    
     return(.self$.n)
 },
 
@@ -67,6 +83,11 @@ getN=function() {
 ################################################################################
 
 getT=function() {
+    ":\n\nGets T value. The number of seconds during which N connections
+    are allowed.
+    \nReturned value: Returns T as a numeric.
+    "
+    
     return(.self$.t)
 },
 
@@ -74,6 +95,14 @@ getT=function() {
 ################################################################################
 
 setFrequency=function(n, t) {
+    ":\n\nSets both N and T.
+    \nn: The number of connections allowed during a period of t seconds,
+    as an integer.
+    \nt: The number of seconds during which n connections are allowed, as a
+    numeric value.
+    \nReturned value: None.
+    "
+    
     .self$.assertIs(n, 'integer')
     .self$.assertIs(t, c('integer', 'numeric'))
     .self$.assertPositive(n)
