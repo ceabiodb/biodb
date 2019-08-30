@@ -3,12 +3,20 @@
 # BiodbTxtEntry {{{1
 ################################################################################
 
+#' Entry class for content in text format.
+#'
+#' This is an abstract class for handling database entries whose content is in
+#' text format.
+#'
 #' @include BiodbEntry.R
+#' @export BiodbTxtEntry
+#' @exportClass BiodbTxtEntry
 BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry",
     contains='BiodbEntry',
 
 # Public methods {{{2
 ################################################################################
+
 methods=list(
 
 # Initialize {{{3
@@ -19,6 +27,9 @@ initialize=function(...) {
     callSuper(...)
     .self$.abstractClass('BiodbTxtEntry')
 },
+
+# Private methods {{{2
+################################################################################
 
 # Do parse content {{{3
 ################################################################################

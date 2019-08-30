@@ -46,8 +46,10 @@ initialize=function(label=NA_character_,
 ################################################################################
 
 getLabel=function() {
-    'Return the label associated with this shape.'
-    
+    ":\n\nGets the label associated with this shape.
+    \nReturned value: The label.
+    "
+
     return(.self$.label)
 },
 
@@ -55,8 +57,10 @@ getLabel=function() {
 ################################################################################
 
 getColor=function() {
-    'Return the color associated with this shape.'
-    
+    ":\n\nGets the color associated with this shape.
+    \nReturned value: The color name as a string.
+    "
+
     return(.self$.color)
 },
 
@@ -64,11 +68,15 @@ getColor=function() {
 ################################################################################
 
 getRgbColor=function(alpha=255) {
-    'Return the RGB color associated with this shape.'
-    
+    ":\n\nGets the RGB color associated with this shape.
+    \nalpha: The value to use for the alpha channel when building the RGB color
+    object.
+    \nReturned value: The color as an RGB color object.
+    "
+
     c <- col2rgb(.self$.color)
     c <- rgb(c[1,], c[2,], c[3,], alpha, maxColorValue=255)
-    
+
     return(c)
 },
 

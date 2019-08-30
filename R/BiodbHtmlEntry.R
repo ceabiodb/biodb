@@ -3,9 +3,14 @@
 # BiodbHtmlEntry {{{1
 ################################################################################
 
-#' Abstract mother class for HTML entries.
+#' Entry class for content in HTML format.
+#'
+#' This is an abstract class for handling database entries whose content is in
+#' HTML format.
 #'
 #' @include BiodbXmlEntry.R
+#' @export BiodbHtmlEntry
+#' @exportClass BiodbHtmlEntry
 BiodbHtmlEntry <- methods::setRefClass("BiodbHtmlEntry",
     contains="BiodbXmlEntry",
 
@@ -23,7 +28,7 @@ initialize=function(...) {
     .self$.abstractClass('BiodbHtmlEntry')
 },
 
-# Public methods {{{2
+# Private methods {{{2
 ################################################################################
 
 # Do parse content {{{3

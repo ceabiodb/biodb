@@ -102,7 +102,7 @@ setFrequency=function(n, t) {
     numeric value.
     \nReturned value: None.
     "
-    
+
     .self$.assertIs(n, 'integer')
     .self$.assertIs(t, c('integer', 'numeric'))
     .self$.assertPositive(n)
@@ -126,6 +126,10 @@ setFrequency=function(n, t) {
 ################################################################################
 
 getConnectors=function() {
+    ":\n\nGets connectors associaated with this rule.
+    \nReturned value: A list of BiodbConn objects.
+    "
+
     return(.self$.conn)
 },
 
@@ -133,6 +137,11 @@ getConnectors=function() {
 ################################################################################
 
 addConnector=function(conn) {
+    ":\n\nAssociate a connector with this rule.
+    \nconn: A BiodbConn object.
+    \nReturned value: None.
+    "
+
     .self$.assertInheritsFrom(conn, 'BiodbConn')
 
     # Connector already listed?
@@ -147,7 +156,7 @@ addConnector=function(conn) {
         .self$.conn <- c(.self$.conn, conn)
 
         # Update frequency
-        .self$recomputeFrequency()
+        .self$.recomputeFrequency()
     }
 },
 
@@ -155,6 +164,11 @@ addConnector=function(conn) {
 ################################################################################
 
 removeConnector=function(conn) {
+    ":\n\nDisassociate a connector from this rule.
+    \nconn: A BiodbConn instance.
+    \nReturned value: None.
+    "
+
     .self$.assertInheritsFrom(conn, 'BiodbConn')
 
     # Connector already listed?
@@ -173,33 +187,43 @@ removeConnector=function(conn) {
     }
 },
 
-# Recompute frequency {{{3
+# Show {{{3
 ################################################################################
 
-recomputeFrequency=function() {
+show=function() {
+    ":\n\nDisplays information about this instance.
+    \nReturned value: None.
+    "
 
-    t <- NULL
-    n <- NULL
+    cat("Biodb scheduler rule instance.\n")
+    conlst <- paste(vapply(.self$.conn, function(x) x$getId(), FUN.VALUE=''),
+                    collapse=', ')
+    cat('  Handle request waiting time for host "', .self$.host, '" for ',
+        length(.self$.conn), " connector(s): ", conlst, ".\n", sep='')
+    cat('  Parameters are T=', .self$getT(), ' and N=', .self$getN(), ".\n",
+        sep='')
+}
 
-    # Loop on all connectors
-    for (conn in .self$.conn) {
-        t.conn <- conn$getPropertyValue('scheduler.t')
-        n.conn <- conn$getPropertyValue('scheduler.n')
-        if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
-                           || t.conn / n.conn > t / n)) {
-            t <- t.conn
-            n <- n.conn
-        }
-    }
+# Private methods {{{2
+################################################################################
 
-    # Set frequency
-    .self$setFrequency(n=n, t=t)
+# Store current time {{{3
+################################################################################
+
+.storeCurrentTime=function(cur.time=NULL) {
+
+    if (is.null(cur.time))
+        cur.time <-Sys.time()
+
+    .self$.n.index <- as.integer(if (.self$.n.index == .self$.n) 1
+                                 else .self$.n.index + 1)
+    .self$.last.time[[.self$.n.index]] <- cur.time
 },
 
 # Compute sleep time {{{3
 ################################################################################
 
-computeSleepTime=function(cur.time=NULL) {
+.computeSleepTime=function(cur.time=NULL) {
 
     sleep.time <- 0
 
@@ -234,26 +258,13 @@ computeSleepTime=function(cur.time=NULL) {
     return(sleep.time)
 },
 
-# Store current time {{{3
-################################################################################
-
-storeCurrentTime=function(cur.time=NULL) {
-
-    if (is.null(cur.time))
-        cur.time <-Sys.time()
-
-    .self$.n.index <- as.integer(if (.self$.n.index == .self$.n) 1
-                                 else .self$.n.index + 1)
-    .self$.last.time[[.self$.n.index]] <- cur.time
-},
-
 # Wait as needed {{{3
 ################################################################################
 
 .waitAsNeeded=function() {
 
     # Compute sleep time
-    sleep.time <- .self$computeSleepTime()
+    sleep.time <- .self$.computeSleepTime()
 
     # Sleep if needed
     if (sleep.time > 0) {
@@ -262,19 +273,30 @@ storeCurrentTime=function(cur.time=NULL) {
     }
 
     # Store current time
-    .self$storeCurrentTime()
+    .self$.storeCurrentTime()
 },
-# Show {{{3
+
+# Recompute frequency {{{3
 ################################################################################
 
-show=function() {
-    cat("Biodb scheduler rule instance.\n")
-    conlst <- paste(vapply(.self$.conn, function(x) x$getId(), FUN.VALUE=''),
-                    collapse=', ')
-    cat('  Handle request waiting time for host "', .self$.host, '" for ',
-        length(.self$.conn), " connector(s): ", conlst, ".\n", sep='')
-    cat('  Parameters are T=', .self$getT(), ' and N=', .self$getN(), ".\n",
-        sep='')
-}
+.recomputeFrequency=function() {
+
+    t <- NULL
+    n <- NULL
+
+    # Loop on all connectors
+    for (conn in .self$.conn) {
+        t.conn <- conn$getPropertyValue('scheduler.t')
+        n.conn <- conn$getPropertyValue('scheduler.n')
+        if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
+                           || t.conn / n.conn > t / n)) {
+            t <- t.conn
+            n <- n.conn
+        }
+    }
+
+    # Set frequency
+    .self$setFrequency(n=n, t=t)
+},
 
 ))

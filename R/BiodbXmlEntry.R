@@ -3,7 +3,14 @@
 # BiodbXmlEntry {{{1
 ################################################################################
 
+#' Entry class for content in XML format.
+#'
+#' This is an abstract class for handling database entries whose content is in
+#' XML format.
+#'
 #' @include BiodbEntry.R
+#' @export BiodbXmlEntry
+#' @exportClass BiodbXmlEntry
 BiodbXmlEntry <- methods::setRefClass("BiodbXmlEntry",
     contains="BiodbEntry",
 

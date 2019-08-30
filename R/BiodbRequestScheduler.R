@@ -222,10 +222,9 @@ connSchedulerFrequencyUpdated=function(conn) {
     # Update frequency
     else {
         for (rule in .self$.connid2rules[[conn$getId()]])
-            rule$recomputeFrequency()
+            rule$.recomputeFrequency()
     }
 },
-
 
 # Check offline mode {{{3
 ################################################################################
