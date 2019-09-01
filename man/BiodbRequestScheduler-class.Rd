@@ -5,21 +5,6 @@
 \alias{BiodbRequestScheduler-class}
 \alias{BiodbRequestScheduler}
 \title{Class for handling requests.}
-\arguments{
-\item{url}{The URL to access, as a character string.}
-
-\item{soap.request}{The XML SOAP request to send, as a character string.}
-
-\item{soap.action}{The SOAP action to contact, as a character string.}
-
-\item{params}{The list of parameters to use with the URL.}
-
-\item{method}{The method to use: either 'get' or 'post'.}
-
-\item{opts}{The CURL options to use.}
-
-\item{dest.file}{A path to a destination file.}
-}
 \description{
 This class handles GET and POST requests, as well as file downloading. Each
 remote database connection instance (instance of concrete class inheriting
@@ -32,18 +17,54 @@ See section Fields for a list of the constructor's parameters.
 \section{Methods}{
 
 \describe{
-\item{\code{downloadFile(url, dest.file)}}{Download the content of a URL and save it into the specified destination
-file.}
+\item{\code{downloadFile(url, dest.file)}}{:
+
+Downloads the content of a URL and save it into the specified
+    destination file.
+    
+url: The URL to access, as a BiodbUrl object.
+    
+dest.file: A path to a destination file.
+    
+Returned value: None.
+    }
 
 \item{\code{getUrl(url, params = list(), method = c("get", "post"),
   header = character(), body = character(), encoding = integer())}}{Send a URL request, either with GET or POST method, and return result.}
 
 \item{\code{getUrlString(url, params = list())}}{Build a URL string, using a base URL and parameters to be passed.}
 
-\item{\code{sendRequest(request, cache.read = TRUE)}}{Send a request, and return content result.}
+\item{\code{sendRequest(request, cache.read = TRUE)}}{:
+
+Sends a request, and returns content result.
+    
+request: A BiodbRequest instance.
+    
+cache.read: If set to TRUE, the cache system will be used. In case the
+    same request has already been already run and its results saved into the
+    cache, then the request is not run again, the targeted server not contacted,
+    and the results are directly loaded from the cache system.
+    
+Returned value: The results returned by the contacted server, as a single
+    string value.
+    }
 
 \item{\code{sendSoapRequest(url, soap.request, soap.action = NA_character_,
-  encoding = integer())}}{Send a SOAP request to a URL. Returns the string result.}
+  encoding = integer())}}{:
+
+Sends a SOAP request to a URL. Returns the string result.
+    
+url: The URL to access, as a character string.
+    
+soap.request: The XML SOAP request to send, as a character string. 
+    
+soap.action: The SOAP action to contact, as a character string.
+    
+encoding: The encoding to use.
+    
+Returned value: The results returned by the contacted server, as a single
+    string value.
+    }
 }}
 
 \examples{

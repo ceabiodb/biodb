@@ -12,23 +12,44 @@ web services.
 \section{Methods}{
 
 \describe{
-\item{\code{convCasToChebi(cas, simplify = TRUE)}}{Convert a list of CAS IDs into a list of ChEBI IDs. Several ChEBI IDs may
-be returned for a single CAS ID. If `simplify` is set to `TRUE`, and only
-one ChEBI ID has been found for each CAS ID, then a character vector is
-returned. Otherwise a list of character vectors is returned.}
+\item{\code{convCasToChebi(cas, simplify = TRUE)}}{:
 
-\item{\code{convIdsToChebiIds(ids, search.category, simplify = TRUE)}}{Convert a list of IDs into a list of ChEBI IDs. Several ChEBI IDs may
-be returned for a single ID. If `simplify` is set to `TRUE`, and only
-one ChEBI ID has been found for each ID, then a character vector is
-returned. Otherwise a list of character vectors is returned. The
-`search.category` parameter is the same used for `wsGetLiteEntity()`.}
+Converts a list of CAS IDs into a list of ChEBI IDs.
+    Several ChEBI IDs may be returned for a single InChI or InChI KEY.
+    
+simplify: If set to TRUE and only one ChEBI ID has been found for each ID,
+    then a character vector is returned. Otherwise a list of character vectors
+    is returned.
+    
+Returned value: Depending on the value of simplify.
+    }
 
-\item{\code{convInchiToChebi(inchi, simplify = TRUE)}}{Convert a list of InChI or InChI KEYs into a list of ChEBI IDs. Several
-ChEBI IDs may
-be returned for a single InChI or InChI KEY. If `simplify` is set to `TRUE`,
-and only
-one ChEBI ID has been found for each InChI, then a character vector is
-returned. Otherwise a list of character vectors is returned.}
+\item{\code{convIdsToChebiIds(ids, search.category, simplify = TRUE)}}{:
+
+Converts a list of IDs (InChI, InChI Keys, CAS, ...) into a list of
+    ChEBI IDs. Several ChEBI IDs may be returned for a single ID.
+    
+simplify: If set to TRUE and only one ChEBI ID has been found for each ID,
+    then a character vector is returned. Otherwise a list of character vectors
+    is returned.
+    
+search.category: The search category. Call `getSearchCategories()`
+    to get a full list of search categories.
+    
+Returned value: Depending on the value of simplify.
+    }
+
+\item{\code{convInchiToChebi(inchi, simplify = TRUE)}}{:
+
+Converts a list of InChI or InChI KEYs into a list of ChEBI IDs.
+    Several ChEBI IDs may be returned for a single InChI or InChI KEY.
+    
+simplify: If set to TRUE and only one ChEBI ID has been found for each ID,
+    then a character vector is returned. Otherwise a list of character vectors
+    is returned.
+    
+Returned value: Depending on the value of simplify.
+    }
 
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
@@ -50,15 +71,39 @@ entry.id: A character vector with the IDs of entries to retrieve.
 Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
     }
 
-\item{\code{getSearchCategories()}}{Returns the list of allowed search categories for the getLiteEntity web
-service.}
+\item{\code{getSearchCategories()}}{:
 
-\item{\code{getStarsCategories()}}{Returns the list of allowed stars categories for the getLiteEntity web
-service.}
+Gets the list of allowed search categories for the getLiteEntity web
+    service.
+    
+Returned value: Returns all the possible search categories as a character
+    vector.
+    }
 
-\item{\code{getWsdl()}}{Get the WSDL as a an XML object.}
+\item{\code{getStarsCategories()}}{:
 
-\item{\code{getWsdlEnumeration(name)}}{Extract a list of enumerations from the WSDL.}
+Gets the list of allowed stars categories for the getLiteEntity web
+    service.
+    
+Returned value: Returns all the possible stars categories as a character
+    vector.
+    }
+
+\item{\code{getWsdl()}}{:
+
+Gets the WSDL as an XML object.
+    
+Returned value: The ChEBI WSDL as an XML object.
+    }
+
+\item{\code{getWsdlEnumeration(name)}}{:
+
+Extracts a list of values from an enumeration in the WSDL.
+    
+name: The name of the enumeration for which to retrieve the values.
+    
+Returned value: A character vector listing the enumerated values.
+    }
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
   mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. At least one of name or mass
@@ -80,15 +125,42 @@ max.results: The maximum number of matches to return.
 Returned value: A character vector of entry IDs.}
 
 \item{\code{wsGetLiteEntity(search = NULL, search.category = "ALL", max.results = 10,
-  stars = "ALL", retfmt = c("plain", "parsed", "request", "ids"))}}{Calls getLiteEntity web service and returns the XML result.
-Be careful when search by mass
-(search.category="MASS" or "MONOISOTOPIC MASS"), since the searched is made
- in text mode, thus the number must be exactly written as it stored in
- database eventually padded with 0 in order to have exactly 5 digits after
- the decimal. An easy solution is to use wildcards to search a mass:
- "410;.718*".
-See http://www.ebi.ac.uk/chebi/webServices.do.}
+  stars = "ALL", retfmt = c("plain", "parsed", "request", "ids"))}}{:
 
-\item{\code{wsWsdl(retfmt = c("plain", "parsed", "request"))}}{Returns the complete WSDL from the the web server.}
+Calls getLiteEntity web service and returns the XML result.
+    Be careful when searching by mass
+    (search.category='MASS' or 'MONOISOTOPIC MASS'), since the search is made
+     in text mode, thus the number must be exactly written as it is stored in
+     database, eventually padded with 0 in order to have exactly 5 digits after
+     the decimal. An easy solution is to use wildcards to search a mass:
+     '410;.718*'.
+    See http://www.ebi.ac.uk/chebi/webServices.do for more details.
+    
+search: The text or pattern to search.
+    
+search.category: The search category. Call `getSearchCategories()`
+    to get a full list of search categories.
+    
+max.results: The maximum of results to return.
+    
+stars: How many starts the returned entities should have. Call
+    `getStarsCategories() to get a full list of starts categories.`
+    
+retfmt: The return format to use. 'plain' will return the results as given by the server, in a string. 'parsed' will return an XML object. 'request' will return a BiodbRequest object representing the request as would have been sent. 'ids' will return a list of matched entity IDs.
+    
+Returned value: Depending on `retfmt` value.
+    }
+
+\item{\code{wsWsdl(retfmt = c("plain", "parsed", "request"))}}{:
+
+Retrieves the complete WSDL from the web server.
+    
+retfmt: The return format to use. 'plain' will return the value as it is
+    returned by the server. 'parsed' will return an XML object. 'request' will
+    return a BiodbRequest object representing the request that would have been
+    sent. 
+    
+Returned value: Depending on `retfmt` value.
+    }
 }}
 

@@ -3,7 +3,11 @@
 # KeggPathwayEntry {{{1
 ################################################################################
 
+#' KEGG Pathway entry class.
+#'
 #' @include KeggEntry.R
+#' @export KeggPathwayEntry
+#' @exportClass KeggPathwayEntry
 KeggPathwayEntry <- methods::setRefClass("KeggPathwayEntry",
     contains='KeggEntry',
 
@@ -18,7 +22,7 @@ methods=list(
 initialize=function(...) {
     callSuper(...)
 },
-        
+
 # Private methods {{{2
 ################################################################################
 

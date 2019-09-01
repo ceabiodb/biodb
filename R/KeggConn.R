@@ -8,7 +8,13 @@
 #' This is the mother class of all KEGG connectors. It defines code common to
 #' all KEGG connectors.
 #'
-#' @param query The query to send to the database web service.
+#' The constructor accepts the following arguments:
+#'
+#' db.name: The database name as defined in
+#' http://www.kegg.jp/kegg/docs/keggapi.html.
+#'
+#' db.abbrev: The database abbreviated name, as defined in
+#' http://www.kegg.jp/kegg/docs/keggapi.html.
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}}
 #'
@@ -57,34 +63,11 @@ initialize=function(db.name=NA_character_, db.abbrev=NA_character_, ...) {
     .self$.db.abbrev <- db.abbrev
 },
 
-# Complete entry id {{{3
-################################################################################
-
-.completeEntryId=function(id) {
-
-    if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
-        id <- paste(.self$.db.abbrev, id, sep=':')
-
-    return(id)
-},
-
-# Get entry content request {{{3
-################################################################################
-
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    
-    fct <- function(x) {
-        u <- c(.self$getPropValSlot('urls', 'ws.url'), 'get', x)
-        BiodbUrl(url=u)$toString()
-    }
-    
-    return(vapply(id, fct, FUN.VALUE=''))
-},
-
 # Get entry page url {{{3
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
     
     u <- c(.self$getPropValSlot('urls', 'entry.page.url'), 'www_bget')
     p <- .self$.completeEntryId(id)
@@ -97,8 +80,14 @@ getEntryPageUrl=function(id) {
 ################################################################################
 
 wsList=function(retfmt=c('plain', 'request', 'ids')) {
-    "Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for
-    details."
+    ":\n\nGets the full list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for
+    details.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw result from the server, as a character value. 'request' will return
+    the request as it would have been sent, as a BiodbRequest object. 'ids' will
+    return a character vector containing entry IDs.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -129,8 +118,16 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
 ################################################################################
 
 wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
-    details."
+    ":\n\nSearches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
+    details.
+    \nquery: The query to send to the database web service.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw result from the server, as a character value. 'request' will return
+    the request as it would have been sent, as a BiodbRequest object. 'parsed'
+    will return a data frame. 'ids' will return a character vector containing
+    the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -165,6 +162,7 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 ################################################################################
 
 searchByName=function(name, max.results=NA_integer_) {
+    # Overrides super class' method.
 
     ids <- NULL
 
@@ -184,6 +182,30 @@ searchByName=function(name, max.results=NA_integer_) {
 
 # Private methods {{{2
 ################################################################################
+
+# Complete entry id {{{3
+################################################################################
+
+.completeEntryId=function(id) {
+
+    if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
+        id <- paste(.self$.db.abbrev, id, sep=':')
+
+    return(id)
+},
+
+# Get entry content request {{{3
+################################################################################
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'ws.url'), 'get', x)
+        BiodbUrl(url=u)$toString()
+    }
+    
+    return(vapply(id, fct, FUN.VALUE=''))
+},
 
 # Get entry ids {{{3
 ################################################################################

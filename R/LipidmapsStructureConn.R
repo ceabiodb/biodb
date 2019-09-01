@@ -3,8 +3,19 @@
 # LipidmapsStructureConn {{{1
 ################################################################################
 
+#' Lipidmaps Structure connector class.
+#'
+#' This is a concrete connector class. It must never be instantiated directly,
+#' but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+#' Only specific methods are described here. See super classes for the
+#' description of inherited methods.
+#'
+#' @seealso \code{\link{BiodbFactory}}.
+#'
 #' @include BiodbCompounddbConn.R
 #' @include BiodbRemotedbConn.R
+#' @export LipidmapsStructureConn
+#' @exportClass LipidmapsStructureConn
 LipidmapsStructureConn <- methods::setRefClass("LipidmapsStructureConn",
     contains=c("BiodbRemotedbConn", "BiodbCompounddbConn"),
 
@@ -17,12 +28,12 @@ methods=list(
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     u <- .self$getPropValSlot('urls', 'base.url')
     fct <- function(x) BiodbUrl(url=u, params=list(LMID=x))$toString()
     return(vapply(id, fct, FUN.VALUE=''))
 },
-
-
 
 # Web service LMSDSearch {{{3
 ################################################################################
@@ -34,8 +45,34 @@ wsLmsdSearch=function(mode=NULL, output.mode=NULL, output.type=NULL,
                       exact.mass=NA_real_, exact.mass.offset=NA_real_,
                       core.class=NULL, main.class=NULL, sub.class=NULL,
                       retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Calls LMSDSearch web service. See
-    http://www.lipidmaps.org/data/structure/programmaticaccess.html."
+    ":\n\nCalls LMSDSearch web service. See
+    http://www.lipidmaps.org/data/structure/programmaticaccess.html for details.
+    \nmode: The search mode: 'ProcessStrSearch', 'ProcessTextSearch' or
+    'ProcessTextOntologySearch'.
+    \noutput.mode: If set to 'File', will output a in format `output.type`,
+    otherwise will output HTML.
+    \noutput.type: The output format: 'TSV', 'CSV' or 'SDF'.
+    \noutput.delimiter: The delimiter for TSV or CSV formats: 'Tab', 'Comma',
+    'Semicolon'.
+    \noutput.quote: If quotes are to be used: 'Yes' or 'No'.
+    \noutput.column.header: If header must be output: 'Yes' or 'No'.
+    \nlmid: a Lipidmaps ID.
+    \nname: The name to search for.
+    \nformula: The chemical formula to search for.
+    \nsearch.type: The search type: 'SubStructure' or 'ExactMatch'.
+    \nsmiles.string: A SMILES to search for.
+    \nexact.mass: The mass to search for.
+    \nexact.mass.offset: The tolerance on the mass search.
+    \ncore.class: An integer number from 1 to 8.
+    \nmain.class: An integer number. See Lipidmaps documentation.
+    \nsub.class: An integer number. See Lipidmaps documentation.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'request' will return
+    the request that would have been sent, as a BiodbRequest object. 'parsed'
+    will return data frame. 'ids' will return a character vector containing the
+    IDs of the matching entries.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -145,8 +182,22 @@ wsLmsdSearch=function(mode=NULL, output.mode=NULL, output.type=NULL,
 wsLmsdRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL,
                       output.quote=NULL, output.column.header=NULL,
                       retfmt=c('plain', 'request', 'parsed')) {
-    "Calls LMSDRecord web service. See
-    http://www.lipidmaps.org/data/structure/programmaticaccess.html."
+    ":\n\nCalls LMSDRecord web service. See
+    http://www.lipidmaps.org/data/structure/programmaticaccess.html.
+    \nlmid: A character vector containing the IDs of the wanted entries.
+    \noutput.mode: If set to 'File', will output a in format `output.type`,
+    otherwise will output HTML.
+    \noutput.type: The output format: 'TSV', 'CSV' or 'SDF'.
+    \noutput.delimiter: The delimiter for TSV or CSV formats: 'Tab', 'Comma',
+    'Semicolon'.
+    \noutput.quote: If quotes are to be used: 'Yes' or 'No'.
+    \noutput.column.header: If header must be output: 'Yes' or 'No'.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'request' will return
+    the request that would have been sent, as a BiodbRequest object. 'parsed'
+    will return data frame.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -220,7 +271,8 @@ wsLmsdRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL,
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                         mass.tol.unit='plain', max.results=NA_integer_) {
-        
+    # Overrides super class' method.
+
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
     exact.mass <- NULL

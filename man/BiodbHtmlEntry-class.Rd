@@ -4,8 +4,9 @@
 \name{BiodbHtmlEntry-class}
 \alias{BiodbHtmlEntry-class}
 \alias{BiodbHtmlEntry}
-\title{Abstract mother class for HTML entries.}
+\title{Entry class for content in HTML format.}
 \description{
-Abstract mother class for HTML entries.
+This is an abstract class for handling database entries whose content is in
+HTML format.
 }
 

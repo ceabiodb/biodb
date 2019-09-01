@@ -3,7 +3,11 @@
 # KeggGenesEntry {{{1
 ################################################################################
 
+#' KEGG Genes entry class.
+#'
 #' @include KeggEntry.R
+#' @export KeggGenesEntry
+#' @exportClass KeggGenesEntry
 KeggGenesEntry <- methods::setRefClass("KeggGenesEntry",
     contains='KeggEntry',
 

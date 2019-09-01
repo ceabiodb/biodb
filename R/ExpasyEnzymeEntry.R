@@ -3,7 +3,11 @@
 # ExpasyEnzymeEntry {{{1
 ################################################################################
 
+#' Expasy Enzyme entry class.
+#'
 #' @include BiodbTxtEntry.R
+#' @export ExpasyEnzymeEntry
+#' @exportClass ExpasyEnzymeEntry
 ExpasyEnzymeEntry <- methods::setRefClass("ExpasyEnzymeEntry",
     contains='BiodbTxtEntry',
 

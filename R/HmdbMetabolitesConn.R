@@ -3,6 +3,13 @@
 # HmdbMetabolitesConn {{{1
 ################################################################################
 
+#' The connector class for the HMDB MetabolitesA database.
+#'
+#' This is a concrete connector class. It must never be instantiated directly,
+#' but instead be instantiated through the factory \code{\link{BiodbFactory}}.
+#' Only specific methods are described here. See super classes for the
+#' description of inherited methods.
+#'
 #' @include BiodbRemotedbConn.R
 #' @include BiodbCompounddbConn.R
 #' @include BiodbDownloadable.R
@@ -21,6 +28,7 @@ methods=list(
 ################################################################################
 
 getNbEntries=function(count=FALSE) {
+    # Overrides super class' method.
 
     n <- NA_integer_
 
@@ -35,6 +43,7 @@ getNbEntries=function(count=FALSE) {
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
     
     fct <- function(x) {
         u <- c(.self$getPropValSlot('urls', 'base.url'), 'metabolites', x)
@@ -48,6 +57,7 @@ getEntryPageUrl=function(id) {
 ################################################################################
 
 getEntryImageUrl=function(id) {
+    # Overrides super class' method.
 
     fct <- function(x) {
         u <- c(.self$getPropValSlot('urls', 'base.url'), 'structures', x,

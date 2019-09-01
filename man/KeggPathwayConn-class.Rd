@@ -5,13 +5,6 @@
 \alias{KeggPathwayConn-class}
 \alias{KeggPathwayConn}
 \title{The connector class to KEGG Pathway database.}
-\arguments{
-\item{id}{A character vector of entry IDs.}
-
-\item{drop}{\code{TRUE} if you want to get a single element outside of
-a list, or \code{FALSE} if you want to keep the element
-inside a list even if it is single.}
-}
 \description{
 This is a concrete connector class. It must never be instantiated directly,
 but instead be instantiated through the factory \code{\link{BiodbFactory}}.
@@ -21,20 +14,93 @@ description of inherited methods.
 \section{Methods}{
 
 \describe{
-\item{\code{buildPathwayGraph(id, directed = FALSE, drop = TRUE)}}{Build a pathway graph using KEGG database. Returns a named list whose
-names are the pathway IDs, and values are lists containing two data frames
-named vertices and edges.}
+\item{\code{buildPathwayGraph(id, directed = FALSE, drop = TRUE)}}{:
 
-\item{\code{convertToOrgPathways(id, org)}}{Take a list of pathways IDs and convert them to the specified organism,
-filtering out the ones that do not exist in KEGG.}
+Builds a pathway graph in the form of two tables of
+    vertices and edges, using KEGG database.
+    
+id: A character vector of KEGG pathway entry IDs.
+    
+directed: If set to TRUE, use available direction information
+    to create directed edges, duplicating if necessary the vertices.
+    
+drop: If set to TRUE and the output list contains only one
+    element, then the returned value is a single list of two data
+    frames.
+    
+Returned value: A named list whose
+    names are the pathway IDs, and values are lists containing two data frames
+    named vertices and edges.
+    }
 
-\item{\code{getPathwayIgraph(id, directed = FALSE, drop = TRUE)}}{Build a pathway graph using KEGG database. Returns an \code{igraph}
-object, or NULL if the igraph library is not available.}
+\item{\code{convertToOrgPathways(id, org)}}{:
 
-\item{\code{getReactions(id, drop = TRUE)}}{Retrieve all reactions part of a KEGG pathway. Connect to KEGG databases,
-and walk through all pathways submitted, and their modules, to find all
-reactions they are composed of. Returns a list of KEGG reaction objects or
-a single KEGG reaction objects, depending on the drop parameter.}
+Takes a list of pathways IDs and converts them to the
+    specified organism, filtering out the ones that do not exist in
+    KEGG.
+    
+id: A character vector of entry IDs.
+    
+org: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    
+Returned value: A character vector, the same length as `id`,
+    containing the converted IDs.
+    }
+
+\item{\code{extractPathwayMapShapes(id, color2ids)}}{:
+
+Extracts shapes from a pathway map image.
+    
+id: A KEGG pathway ID.
+    
+color2ids: A named list defining colors for entry IDs that are present on the graph. The names of the list are standard color names. The values are character vector of entry IDs.
+    
+Returned value: A list of BiodbShape objects.
+    }
+
+\item{\code{getDecoratedGraphPicture(id, color2ids)}}{:
+
+Create a pathway graph picture, with some of its elements colorized.
+    
+id: A KEGG pathway ID.
+    
+color2ids: A named list defining colors for entry IDs that are present on the graph. The names of the list are standard color names. The values are character vector of entry IDs.
+    
+Returned value: an image object or NULL if the package magick is not available.
+    }
+
+\item{\code{getPathwayIgraph(id, directed = FALSE, drop = TRUE)}}{:
+
+Builds a pathway graph, as an igraph object, using KEGG database.
+    
+id: A character vector of KEGG pathway entry IDs.
+    
+directed: If set to TRUE, use available direction information
+    to create directed edges, duplicating if necessary the vertices.
+    
+drop: If set to TRUE and the output list contains only one
+    element, then the returned value is a single igraph object.
+    
+Returned value: A list of igraph objects, or an empty list if
+    the igraph library is not available.
+    }
+
+\item{\code{getReactions(id, drop = TRUE)}}{:
+
+Retrieves all reactions part of a KEGG pathway. Connects to
+    KEGG databases, and walk through all pathways submitted, and
+    their modules, to find all reactions they are composed of.
+    
+id: A character vector of entry IDs.
+    
+drop: If set to TRUE, returns a single KEGG reaction object
+    instead of a list, if the list contains only one element.
+    
+Returned value: A list of KEGG reaction objects.
+    }
 }}
 
 \examples{

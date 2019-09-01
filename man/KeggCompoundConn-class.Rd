@@ -5,20 +5,6 @@
 \alias{KeggCompoundConn-class}
 \alias{KeggCompoundConn}
 \title{The connector class to KEGG Compound database.}
-\arguments{
-\item{mass}{Single mass.}
-
-\item{mass.min}{Minimal mass.}
-
-\item{mass.max}{Maximal mass.}
-
-\item{id}{A character vector of entry IDs.}
-
-\item{org}{The organism in which to search for pathways, as a KEGG
-organism code (3-4 letters code, like "hsa", "mmu", ...).
-See https://www.genome.jp/kegg/catalog/org_list.html for a
-complete list of KEGG organism codes.}
-}
 \description{
 This is a concrete connector class. It must never be instantiated directly,
 but instead be instantiated through the factory \code{\link{BiodbFactory}}.
@@ -39,15 +25,36 @@ Returned value: A character vector, the same length as `entry.id`,
     containing for each entry ID either a URL or NA if no URL exists.
     }
 
-\item{\code{getPathwayIds(id, org)}}{Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG
-organism code, this method retrieves KEGG pathways of this organism in which
-the compounds are involved. It returns a vector of KEGG pathway IDs.}
+\item{\code{getPathwayIds(id, org)}}{:
 
-\item{\code{getPathwayIdsPerCompound(id, org)}}{Get organism pathways for each compound. Given a vector of KEGG Compound
-IDs and a KEGG organism code, this method retrieves for each compound the
-KEGG pathways of the organism in which the compound is involved. It returns
-a named list of KEGG pathway ID vectors, where the names of the list are the
-compound IDs.}
+Gets organism pathways.  This method retrieves KEGG pathways of the
+    specified organism in which the compounds are involved.
+    
+id: A character vector of KEGG Compound IDs.
+    
+org: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    
+Returned value: A vector of KEGG pathway IDs.
+    }
+
+\item{\code{getPathwayIdsPerCompound(id, org)}}{:
+
+Gets organism pathways for each compound. This method retrieves for
+    each compound the KEGG pathways of the organism in which the compound is
+    involved.
+    
+id: A character vector of KEGG Compound IDs.
+    
+org: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    
+Returned value: A named list of KEGG pathway ID vectors, where the names
+    of the list are the compound IDs.}
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
   mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. At least one of name or mass
@@ -69,12 +76,42 @@ max.results: The maximum number of matches to return.
 Returned value: A character vector of entry IDs.}
 
 \item{\code{wsFindExactMass(mass = NA_real_, mass.min = NA_real_, mass.max = NA_real_,
-  retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html
-for details.}
+  retfmt = c("plain", "request", "parsed", "ids"))}}{:
+
+Searches for entries by mass.
+    You must either provide a single mass through `mass` parameter or provide a
+    range through `mass.min` and `mass.max`.
+    See http://www.kegg.jp/kegg/docs/keggapi.html for details.
+    
+mass: Single mass.
+    
+mass.min: Minimal mass.
+    
+mass.max: Maximal mass.
+    
+retfmt: Set the format to use for the returned value. 'plain' will return the raw results from the server, as a character value. 'request' will return the request as it would have been sent, as a BiodbRequest object. 'parsed' will return a data frame. 'ids' will return a character vector containing the IDs of the matching entries.
+    
+Returned value: Depending on `retfmt`.
+    }
 
 \item{\code{wsFindMolecularWeight(mass = NA_real_, mass.min = NA_real_,
-  mass.max = NA_real_, retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries by molecular mass. See
-http://www.kegg.jp/kegg/docs/keggapi.html for details.}
+  mass.max = NA_real_, retfmt = c("plain", "request", "parsed", "ids"))}}{:
+
+Searches for entries by molecular mass.
+    You must either provide a single mass through `mass` parameter or provide a
+    range through `mass.min` and `mass.max`.
+    See http://www.kegg.jp/kegg/docs/keggapi.html for details.
+    
+mass: Single mass.
+    
+mass.min: Minimal mass.
+    
+mass.max: Maximal mass.
+    
+retfmt: Set the format to use for the returned value. 'plain' will return the raw results from the server, as a character value. 'request' will return the request as it would have been sent, as a BiodbRequest object. 'parsed' will return a data frame. 'ids' will return a character vector containing the IDs of the matching entries.
+    
+Returned value: Depending on `retfmt`.
+    }
 }}
 
 \examples{

@@ -25,11 +25,29 @@ Draw the shape on the current image.
 Returned value: None.
     }
 
-\item{\code{getColor()}}{Return the color associated with this shape.}
+\item{\code{getColor()}}{:
 
-\item{\code{getLabel()}}{Return the label associated with this shape.}
+Gets the color associated with this shape.
+    
+Returned value: The color name as a string.
+    }
 
-\item{\code{getRgbColor(alpha = 255)}}{Return the RGB color associated with this shape.}
+\item{\code{getLabel()}}{:
+
+Gets the label associated with this shape.
+    
+Returned value: The label.
+    }
+
+\item{\code{getRgbColor(alpha = 255)}}{:
+
+Gets the RGB color associated with this shape.
+    
+alpha: The value to use for the alpha channel when building the RGB color
+    object.
+    
+Returned value: The color as an RGB color object.
+    }
 }}
 
 \examples{

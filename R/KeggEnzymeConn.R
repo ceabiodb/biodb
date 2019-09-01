@@ -43,14 +43,19 @@ initialize=function(...) {
     callSuper(db.name='enzyme', db.abbrev='ec', ...)
 },
 
-
 # Get pathway IDs {{{3
 ################################################################################
 
 getPathwayIds=function(id, org) {
-    "Get organism pathways. Given a vector of KEGG Enzyme IDs and a KEGG
-    organism code, this method retrieves KEGG pathways of this organism in which
-    the enzymes are involved. It returns a vector of KEGG pathway IDs."
+    ":\n\nGets organism pathways.  This method retrieves KEGG pathways of the
+    specified organism in which the enzymes are involved.
+    \nid: A character vector of KEGG Compound IDs.
+    \norg: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    \nReturned value: A vector of KEGG pathway IDs.
+    "
 
     pathways <- character()
     fact <- .self$getBiodb()$getFactory()
